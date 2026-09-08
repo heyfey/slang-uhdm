@@ -1,0 +1,4 @@
+# r10uvm219 — the PATCHED head log for SeqDriver / testflags.
+# uhdm-cmp <row's own golden> <patched slang.uhdm>  ->  rc=0, ZERO output lines,
+# ZERO '^LHS:' heads.  The file below the header is the tool's output verbatim:
+# it is EMPTY because the row is CMP_EQUAL.

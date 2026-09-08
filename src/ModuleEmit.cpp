@@ -1403,9 +1403,20 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // MINTED at the first reference when the module declares none. They land
     // after every declaration and before the module's own unbindable names
     // (a $dumpvars scope argument), which are minted during process emission.
+    const size_t hoistBegin219 = nets->size();
     bindHoistedClassPropRefs(body, m, prefix, nets);
     if (!nets->empty() && !m->Nets())
         m->Nets(nets);
+    // § hoistedThisRidesTheForwardedBlock219 — RECORD the half-open span of
+    // the FORWARDED block, [begin, end), for § thisImplicitNetBoth38 to insert
+    // into.  It is recorded HERE, at the call site, and unconditionally:
+    // `bindHoistedClassPropRefs` returns early when the pool is empty or the
+    // module materialises no package, and a module with no forwarded block at
+    // all still needs the boundary — "before the module's OWN unbindable
+    // names", which are the very next things pushed (mintUnitEnumNets, then
+    // the process emitter's `$dumpvars` scope mint).  Nothing is minted and
+    // nothing is re-ordered here; this is a bookmark.
+    hoistedBlock219[m] = {hoistBegin219, nets->size()};
     // ...and the `$unit` enum constants declared in ANOTHER file, which
     // Surelog cannot resolve either (mintUnitEnumNets).
     mintUnitEnumNets(body, m, prefix, info.nets, /*defView=*/true);

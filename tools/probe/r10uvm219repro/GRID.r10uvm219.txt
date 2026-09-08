@@ -1,0 +1,519 @@
+ARM g219_a_order parse rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=2830 cmplines_pat=2830 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_a_order parse -- CELLS=6 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_a_order parse -- CELLS=8 AGREE=6 POSDIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CENSUS-PAT  g219_a_order parse -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_a_order parse ARITY|def|module_inst:work@ga_order:|nets|5|vec
+ARITYG g219_a_order parse ARITY|def|module_inst:work@ga_order:|vars|0|NULLVEC
+ARITYG g219_a_order parse ARITY|pkg|package:pa0:pa0|nets|0|NULLVEC
+ARITYG g219_a_order parse ARITY|pkg|package:pa0:pa0|vars|1|vec
+ARITYG g219_a_order parse ARITY|elab|module_inst:work@ga_order:work@ga_order|nets|0|NULLVEC
+ARITYG g219_a_order parse ARITY|elab|module_inst:work@ga_order:work@ga_order|vars|2|vec
+ARITYP g219_a_order parse ARITY|def|module_inst:work@ga_order:|nets|5|vec
+ARITYP g219_a_order parse ARITY|def|module_inst:work@ga_order:|vars|0|NULLVEC
+ARITYP g219_a_order parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_a_order parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_a_order parse ARITY|pkg|package:pa0:pa0|nets|0|NULLVEC
+ARITYP g219_a_order parse ARITY|pkg|package:pa0:pa0|vars|1|vec
+ARITYP g219_a_order parse ARITY|elab|module_inst:work@ga_order:work@ga_order|nets|0|NULLVEC
+ARITYP g219_a_order parse ARITY|elab|module_inst:work@ga_order:work@ga_order|vars|2|vec
+ARITYQ g219_a_order parse ARITY|def|module_inst:work@ga_order:|nets|5|vec
+ARITYQ g219_a_order parse ARITY|def|module_inst:work@ga_order:|vars|0|NULLVEC
+ARITYQ g219_a_order parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_a_order parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_a_order parse ARITY|pkg|package:pa0:pa0|nets|0|NULLVEC
+ARITYQ g219_a_order parse ARITY|pkg|package:pa0:pa0|vars|1|vec
+ARITYQ g219_a_order parse ARITY|elab|module_inst:work@ga_order:work@ga_order|nets|0|NULLVEC
+ARITYQ g219_a_order parse ARITY|elab|module_inst:work@ga_order:work@ga_order|vars|2|vec
+CELLP g219_a_order parse POSDIFF|def|module_inst:work@ga_order:|nets|3|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|ga_order|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_a_order parse POSDIFF|def|module_inst:work@ga_order:|nets|4|G=logic_net|ga_order|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_a_order parse MISORDERED-ONLY|def|module_inst:work@ga_order:|nets|len=5
+CELLP g219_a_order parse CELL|def|module_inst:work@ga_order:|nets|G=5|O=5|AGREE=3|POSDIFF=2|BAG-G=0|BAG-O=0
+CELLP g219_a_order parse -- CELLS=8 AGREE=6 POSDIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CELLQ g219_a_order parse -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_a_order elab rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=3470 cmplines_pat=3470 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_a_order elab -- CELLS=6 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_a_order elab -- CELLS=8 AGREE=6 POSDIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CENSUS-PAT  g219_a_order elab -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_a_order elab ARITY|def|module_inst:work@ga_order:|nets|5|vec
+ARITYG g219_a_order elab ARITY|def|module_inst:work@ga_order:|vars|0|NULLVEC
+ARITYG g219_a_order elab ARITY|pkg|package:pa0:pa0|nets|0|NULLVEC
+ARITYG g219_a_order elab ARITY|pkg|package:pa0:pa0|vars|1|vec
+ARITYG g219_a_order elab ARITY|elab|module_inst:work@ga_order:work@ga_order|nets|0|NULLVEC
+ARITYG g219_a_order elab ARITY|elab|module_inst:work@ga_order:work@ga_order|vars|2|vec
+ARITYP g219_a_order elab ARITY|def|module_inst:work@ga_order:|nets|5|vec
+ARITYP g219_a_order elab ARITY|def|module_inst:work@ga_order:|vars|0|NULLVEC
+ARITYP g219_a_order elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_a_order elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_a_order elab ARITY|pkg|package:pa0:pa0|nets|0|NULLVEC
+ARITYP g219_a_order elab ARITY|pkg|package:pa0:pa0|vars|1|vec
+ARITYP g219_a_order elab ARITY|elab|module_inst:work@ga_order:work@ga_order|nets|0|NULLVEC
+ARITYP g219_a_order elab ARITY|elab|module_inst:work@ga_order:work@ga_order|vars|2|vec
+ARITYQ g219_a_order elab ARITY|def|module_inst:work@ga_order:|nets|5|vec
+ARITYQ g219_a_order elab ARITY|def|module_inst:work@ga_order:|vars|0|NULLVEC
+ARITYQ g219_a_order elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_a_order elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_a_order elab ARITY|pkg|package:pa0:pa0|nets|0|NULLVEC
+ARITYQ g219_a_order elab ARITY|pkg|package:pa0:pa0|vars|1|vec
+ARITYQ g219_a_order elab ARITY|elab|module_inst:work@ga_order:work@ga_order|nets|0|NULLVEC
+ARITYQ g219_a_order elab ARITY|elab|module_inst:work@ga_order:work@ga_order|vars|2|vec
+CELLP g219_a_order elab POSDIFF|def|module_inst:work@ga_order:|nets|3|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|ga_order|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_a_order elab POSDIFF|def|module_inst:work@ga_order:|nets|4|G=logic_net|ga_order|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_a_order elab MISORDERED-ONLY|def|module_inst:work@ga_order:|nets|len=5
+CELLP g219_a_order elab CELL|def|module_inst:work@ga_order:|nets|G=5|O=5|AGREE=3|POSDIFF=2|BAG-G=0|BAG-O=0
+CELLP g219_a_order elab -- CELLS=8 AGREE=6 POSDIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CELLQ g219_a_order elab -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_b_interleave parse rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=3230 cmplines_pat=3230 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_b_interleave parse -- CELLS=6 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_b_interleave parse -- CELLS=8 AGREE=4 POSDIFF=3 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CENSUS-PAT  g219_b_interleave parse -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_b_interleave parse ARITY|def|module_inst:work@gb_interleave:|nets|6|vec
+ARITYG g219_b_interleave parse ARITY|def|module_inst:work@gb_interleave:|vars|0|NULLVEC
+ARITYG g219_b_interleave parse ARITY|pkg|package:pb0:pb0|nets|0|NULLVEC
+ARITYG g219_b_interleave parse ARITY|pkg|package:pb0:pb0|vars|0|NULLVEC
+ARITYG g219_b_interleave parse ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|nets|0|NULLVEC
+ARITYG g219_b_interleave parse ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|vars|1|vec
+ARITYP g219_b_interleave parse ARITY|def|module_inst:work@gb_interleave:|nets|6|vec
+ARITYP g219_b_interleave parse ARITY|def|module_inst:work@gb_interleave:|vars|0|NULLVEC
+ARITYP g219_b_interleave parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_b_interleave parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_b_interleave parse ARITY|pkg|package:pb0:pb0|nets|0|NULLVEC
+ARITYP g219_b_interleave parse ARITY|pkg|package:pb0:pb0|vars|0|NULLVEC
+ARITYP g219_b_interleave parse ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|nets|0|NULLVEC
+ARITYP g219_b_interleave parse ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|vars|1|vec
+ARITYQ g219_b_interleave parse ARITY|def|module_inst:work@gb_interleave:|nets|6|vec
+ARITYQ g219_b_interleave parse ARITY|def|module_inst:work@gb_interleave:|vars|0|NULLVEC
+ARITYQ g219_b_interleave parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_b_interleave parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_b_interleave parse ARITY|pkg|package:pb0:pb0|nets|0|NULLVEC
+ARITYQ g219_b_interleave parse ARITY|pkg|package:pb0:pb0|vars|0|NULLVEC
+ARITYQ g219_b_interleave parse ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|nets|0|NULLVEC
+ARITYQ g219_b_interleave parse ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|vars|1|vec
+CELLP g219_b_interleave parse POSDIFF|def|module_inst:work@gb_interleave:|nets|3|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|pb_c|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_b_interleave parse POSDIFF|def|module_inst:work@gb_interleave:|nets|4|G=logic_net|pb_c|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gb_interleave|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_b_interleave parse POSDIFF|def|module_inst:work@gb_interleave:|nets|5|G=logic_net|gb_interleave|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_b_interleave parse MISORDERED-ONLY|def|module_inst:work@gb_interleave:|nets|len=6
+CELLP g219_b_interleave parse CELL|def|module_inst:work@gb_interleave:|nets|G=6|O=6|AGREE=3|POSDIFF=3|BAG-G=0|BAG-O=0
+CELLP g219_b_interleave parse -- CELLS=8 AGREE=4 POSDIFF=3 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CELLQ g219_b_interleave parse -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_b_interleave elab rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=4142 cmplines_pat=4142 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_b_interleave elab -- CELLS=6 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_b_interleave elab -- CELLS=8 AGREE=4 POSDIFF=3 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CENSUS-PAT  g219_b_interleave elab -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_b_interleave elab ARITY|def|module_inst:work@gb_interleave:|nets|6|vec
+ARITYG g219_b_interleave elab ARITY|def|module_inst:work@gb_interleave:|vars|0|NULLVEC
+ARITYG g219_b_interleave elab ARITY|pkg|package:pb0:pb0|nets|0|NULLVEC
+ARITYG g219_b_interleave elab ARITY|pkg|package:pb0:pb0|vars|0|NULLVEC
+ARITYG g219_b_interleave elab ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|nets|0|NULLVEC
+ARITYG g219_b_interleave elab ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|vars|1|vec
+ARITYP g219_b_interleave elab ARITY|def|module_inst:work@gb_interleave:|nets|6|vec
+ARITYP g219_b_interleave elab ARITY|def|module_inst:work@gb_interleave:|vars|0|NULLVEC
+ARITYP g219_b_interleave elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_b_interleave elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_b_interleave elab ARITY|pkg|package:pb0:pb0|nets|0|NULLVEC
+ARITYP g219_b_interleave elab ARITY|pkg|package:pb0:pb0|vars|0|NULLVEC
+ARITYP g219_b_interleave elab ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|nets|0|NULLVEC
+ARITYP g219_b_interleave elab ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|vars|1|vec
+ARITYQ g219_b_interleave elab ARITY|def|module_inst:work@gb_interleave:|nets|6|vec
+ARITYQ g219_b_interleave elab ARITY|def|module_inst:work@gb_interleave:|vars|0|NULLVEC
+ARITYQ g219_b_interleave elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_b_interleave elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_b_interleave elab ARITY|pkg|package:pb0:pb0|nets|0|NULLVEC
+ARITYQ g219_b_interleave elab ARITY|pkg|package:pb0:pb0|vars|0|NULLVEC
+ARITYQ g219_b_interleave elab ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|nets|0|NULLVEC
+ARITYQ g219_b_interleave elab ARITY|elab|module_inst:work@gb_interleave:work@gb_interleave|vars|1|vec
+CELLP g219_b_interleave elab POSDIFF|def|module_inst:work@gb_interleave:|nets|3|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|pb_c|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_b_interleave elab POSDIFF|def|module_inst:work@gb_interleave:|nets|4|G=logic_net|pb_c|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gb_interleave|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_b_interleave elab POSDIFF|def|module_inst:work@gb_interleave:|nets|5|G=logic_net|gb_interleave|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_b_interleave elab MISORDERED-ONLY|def|module_inst:work@gb_interleave:|nets|len=6
+CELLP g219_b_interleave elab CELL|def|module_inst:work@gb_interleave:|nets|G=6|O=6|AGREE=3|POSDIFF=3|BAG-G=0|BAG-O=0
+CELLP g219_b_interleave elab -- CELLS=8 AGREE=4 POSDIFF=3 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CELLQ g219_b_interleave elab -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_c_thisfirst parse rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=2662 cmplines_pat=2662 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_c_thisfirst parse -- CELLS=6 AGREE=6 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_c_thisfirst parse -- CELLS=8 AGREE=2 POSDIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CENSUS-PAT  g219_c_thisfirst parse -- CELLS=8 AGREE=6 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_c_thisfirst parse ARITY|def|module_inst:work@gc_thisfirst:|nets|5|vec
+ARITYG g219_c_thisfirst parse ARITY|def|module_inst:work@gc_thisfirst:|vars|0|NULLVEC
+ARITYG g219_c_thisfirst parse ARITY|pkg|package:pc0:pc0|nets|0|NULLVEC
+ARITYG g219_c_thisfirst parse ARITY|pkg|package:pc0:pc0|vars|0|NULLVEC
+ARITYG g219_c_thisfirst parse ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|nets|0|NULLVEC
+ARITYG g219_c_thisfirst parse ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|vars|1|vec
+ARITYP g219_c_thisfirst parse ARITY|def|module_inst:work@gc_thisfirst:|nets|5|vec
+ARITYP g219_c_thisfirst parse ARITY|def|module_inst:work@gc_thisfirst:|vars|0|NULLVEC
+ARITYP g219_c_thisfirst parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_c_thisfirst parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_c_thisfirst parse ARITY|pkg|package:pc0:pc0|nets|0|NULLVEC
+ARITYP g219_c_thisfirst parse ARITY|pkg|package:pc0:pc0|vars|0|NULLVEC
+ARITYP g219_c_thisfirst parse ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|nets|0|NULLVEC
+ARITYP g219_c_thisfirst parse ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|vars|1|vec
+ARITYQ g219_c_thisfirst parse ARITY|def|module_inst:work@gc_thisfirst:|nets|5|vec
+ARITYQ g219_c_thisfirst parse ARITY|def|module_inst:work@gc_thisfirst:|vars|0|NULLVEC
+ARITYQ g219_c_thisfirst parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_c_thisfirst parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_c_thisfirst parse ARITY|pkg|package:pc0:pc0|nets|0|NULLVEC
+ARITYQ g219_c_thisfirst parse ARITY|pkg|package:pc0:pc0|vars|0|NULLVEC
+ARITYQ g219_c_thisfirst parse ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|nets|0|NULLVEC
+ARITYQ g219_c_thisfirst parse ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|vars|1|vec
+CELLP g219_c_thisfirst parse POSDIFF|def|module_inst:work@gc_thisfirst:|nets|1|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|pc_a|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_c_thisfirst parse POSDIFF|def|module_inst:work@gc_thisfirst:|nets|2|G=logic_net|pc_a|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|pc_b|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_c_thisfirst parse POSDIFF|def|module_inst:work@gc_thisfirst:|nets|3|G=logic_net|pc_b|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gc_thisfirst|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_c_thisfirst parse POSDIFF|def|module_inst:work@gc_thisfirst:|nets|4|G=logic_net|gc_thisfirst|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_c_thisfirst parse MISORDERED-ONLY|def|module_inst:work@gc_thisfirst:|nets|len=5
+CELLP g219_c_thisfirst parse CELL|def|module_inst:work@gc_thisfirst:|nets|G=5|O=5|AGREE=1|POSDIFF=4|BAG-G=0|BAG-O=0
+CELLP g219_c_thisfirst parse -- CELLS=8 AGREE=2 POSDIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CELLQ g219_c_thisfirst parse -- CELLS=8 AGREE=6 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_c_thisfirst elab rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=3222 cmplines_pat=3222 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_c_thisfirst elab -- CELLS=6 AGREE=6 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_c_thisfirst elab -- CELLS=8 AGREE=2 POSDIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CENSUS-PAT  g219_c_thisfirst elab -- CELLS=8 AGREE=6 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_c_thisfirst elab ARITY|def|module_inst:work@gc_thisfirst:|nets|5|vec
+ARITYG g219_c_thisfirst elab ARITY|def|module_inst:work@gc_thisfirst:|vars|0|NULLVEC
+ARITYG g219_c_thisfirst elab ARITY|pkg|package:pc0:pc0|nets|0|NULLVEC
+ARITYG g219_c_thisfirst elab ARITY|pkg|package:pc0:pc0|vars|0|NULLVEC
+ARITYG g219_c_thisfirst elab ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|nets|0|NULLVEC
+ARITYG g219_c_thisfirst elab ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|vars|1|vec
+ARITYP g219_c_thisfirst elab ARITY|def|module_inst:work@gc_thisfirst:|nets|5|vec
+ARITYP g219_c_thisfirst elab ARITY|def|module_inst:work@gc_thisfirst:|vars|0|NULLVEC
+ARITYP g219_c_thisfirst elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_c_thisfirst elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_c_thisfirst elab ARITY|pkg|package:pc0:pc0|nets|0|NULLVEC
+ARITYP g219_c_thisfirst elab ARITY|pkg|package:pc0:pc0|vars|0|NULLVEC
+ARITYP g219_c_thisfirst elab ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|nets|0|NULLVEC
+ARITYP g219_c_thisfirst elab ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|vars|1|vec
+ARITYQ g219_c_thisfirst elab ARITY|def|module_inst:work@gc_thisfirst:|nets|5|vec
+ARITYQ g219_c_thisfirst elab ARITY|def|module_inst:work@gc_thisfirst:|vars|0|NULLVEC
+ARITYQ g219_c_thisfirst elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_c_thisfirst elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_c_thisfirst elab ARITY|pkg|package:pc0:pc0|nets|0|NULLVEC
+ARITYQ g219_c_thisfirst elab ARITY|pkg|package:pc0:pc0|vars|0|NULLVEC
+ARITYQ g219_c_thisfirst elab ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|nets|0|NULLVEC
+ARITYQ g219_c_thisfirst elab ARITY|elab|module_inst:work@gc_thisfirst:work@gc_thisfirst|vars|1|vec
+CELLP g219_c_thisfirst elab POSDIFF|def|module_inst:work@gc_thisfirst:|nets|1|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|pc_a|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_c_thisfirst elab POSDIFF|def|module_inst:work@gc_thisfirst:|nets|2|G=logic_net|pc_a|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|pc_b|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_c_thisfirst elab POSDIFF|def|module_inst:work@gc_thisfirst:|nets|3|G=logic_net|pc_b|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gc_thisfirst|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_c_thisfirst elab POSDIFF|def|module_inst:work@gc_thisfirst:|nets|4|G=logic_net|gc_thisfirst|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_c_thisfirst elab MISORDERED-ONLY|def|module_inst:work@gc_thisfirst:|nets|len=5
+CELLP g219_c_thisfirst elab CELL|def|module_inst:work@gc_thisfirst:|nets|G=5|O=5|AGREE=1|POSDIFF=4|BAG-G=0|BAG-O=0
+CELLP g219_c_thisfirst elab -- CELLS=8 AGREE=2 POSDIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CELLQ g219_c_thisfirst elab -- CELLS=8 AGREE=6 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_d_ownmulti parse rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=2470 cmplines_pat=2470 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_d_ownmulti parse -- CELLS=10 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_d_ownmulti parse -- CELLS=12 AGREE=5 POSDIFF=3 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CENSUS-PAT  g219_d_ownmulti parse -- CELLS=12 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_d_ownmulti parse ARITY|def|module_inst:work@gd_child:|nets|1|vec
+ARITYG g219_d_ownmulti parse ARITY|def|module_inst:work@gd_child:|vars|0|NULLVEC
+ARITYG g219_d_ownmulti parse ARITY|def|module_inst:work@gd_ownmulti:|nets|5|vec
+ARITYG g219_d_ownmulti parse ARITY|def|module_inst:work@gd_ownmulti:|vars|0|NULLVEC
+ARITYG g219_d_ownmulti parse ARITY|pkg|package:pd0:pd0|nets|0|NULLVEC
+ARITYG g219_d_ownmulti parse ARITY|pkg|package:pd0:pd0|vars|0|NULLVEC
+ARITYG g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|nets|0|NULLVEC
+ARITYG g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|vars|1|vec
+ARITYG g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_child:u_child|nets|0|NULLVEC
+ARITYG g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_child:u_child|vars|1|vec
+ARITYP g219_d_ownmulti parse ARITY|def|module_inst:work@gd_child:|nets|1|vec
+ARITYP g219_d_ownmulti parse ARITY|def|module_inst:work@gd_child:|vars|0|NULLVEC
+ARITYP g219_d_ownmulti parse ARITY|def|module_inst:work@gd_ownmulti:|nets|5|vec
+ARITYP g219_d_ownmulti parse ARITY|def|module_inst:work@gd_ownmulti:|vars|0|NULLVEC
+ARITYP g219_d_ownmulti parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_d_ownmulti parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_d_ownmulti parse ARITY|pkg|package:pd0:pd0|nets|0|NULLVEC
+ARITYP g219_d_ownmulti parse ARITY|pkg|package:pd0:pd0|vars|0|NULLVEC
+ARITYP g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|nets|0|NULLVEC
+ARITYP g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|vars|1|vec
+ARITYP g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_child:u_child|nets|0|NULLVEC
+ARITYP g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_child:u_child|vars|1|vec
+ARITYQ g219_d_ownmulti parse ARITY|def|module_inst:work@gd_child:|nets|1|vec
+ARITYQ g219_d_ownmulti parse ARITY|def|module_inst:work@gd_child:|vars|0|NULLVEC
+ARITYQ g219_d_ownmulti parse ARITY|def|module_inst:work@gd_ownmulti:|nets|5|vec
+ARITYQ g219_d_ownmulti parse ARITY|def|module_inst:work@gd_ownmulti:|vars|0|NULLVEC
+ARITYQ g219_d_ownmulti parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_d_ownmulti parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_d_ownmulti parse ARITY|pkg|package:pd0:pd0|nets|0|NULLVEC
+ARITYQ g219_d_ownmulti parse ARITY|pkg|package:pd0:pd0|vars|0|NULLVEC
+ARITYQ g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|nets|0|NULLVEC
+ARITYQ g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|vars|1|vec
+ARITYQ g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_child:u_child|nets|0|NULLVEC
+ARITYQ g219_d_ownmulti parse ARITY|elab|module_inst:work@gd_child:u_child|vars|1|vec
+CELLP g219_d_ownmulti parse POSDIFF|def|module_inst:work@gd_ownmulti:|nets|2|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gd_ownmulti|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_d_ownmulti parse POSDIFF|def|module_inst:work@gd_ownmulti:|nets|3|G=logic_net|gd_ownmulti|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|u_child|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_d_ownmulti parse POSDIFF|def|module_inst:work@gd_ownmulti:|nets|4|G=logic_net|u_child|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_d_ownmulti parse MISORDERED-ONLY|def|module_inst:work@gd_ownmulti:|nets|len=5
+CELLP g219_d_ownmulti parse CELL|def|module_inst:work@gd_ownmulti:|nets|G=5|O=5|AGREE=2|POSDIFF=3|BAG-G=0|BAG-O=0
+CELLP g219_d_ownmulti parse -- CELLS=12 AGREE=5 POSDIFF=3 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CELLQ g219_d_ownmulti parse -- CELLS=12 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_d_ownmulti elab rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=2878 cmplines_pat=2878 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_d_ownmulti elab -- CELLS=10 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_d_ownmulti elab -- CELLS=12 AGREE=5 POSDIFF=3 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CENSUS-PAT  g219_d_ownmulti elab -- CELLS=12 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_d_ownmulti elab ARITY|def|module_inst:work@gd_child:|nets|1|vec
+ARITYG g219_d_ownmulti elab ARITY|def|module_inst:work@gd_child:|vars|0|NULLVEC
+ARITYG g219_d_ownmulti elab ARITY|def|module_inst:work@gd_ownmulti:|nets|5|vec
+ARITYG g219_d_ownmulti elab ARITY|def|module_inst:work@gd_ownmulti:|vars|0|NULLVEC
+ARITYG g219_d_ownmulti elab ARITY|pkg|package:pd0:pd0|nets|0|NULLVEC
+ARITYG g219_d_ownmulti elab ARITY|pkg|package:pd0:pd0|vars|0|NULLVEC
+ARITYG g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|nets|0|NULLVEC
+ARITYG g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|vars|1|vec
+ARITYG g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_child:u_child|nets|0|NULLVEC
+ARITYG g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_child:u_child|vars|1|vec
+ARITYP g219_d_ownmulti elab ARITY|def|module_inst:work@gd_child:|nets|1|vec
+ARITYP g219_d_ownmulti elab ARITY|def|module_inst:work@gd_child:|vars|0|NULLVEC
+ARITYP g219_d_ownmulti elab ARITY|def|module_inst:work@gd_ownmulti:|nets|5|vec
+ARITYP g219_d_ownmulti elab ARITY|def|module_inst:work@gd_ownmulti:|vars|0|NULLVEC
+ARITYP g219_d_ownmulti elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_d_ownmulti elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_d_ownmulti elab ARITY|pkg|package:pd0:pd0|nets|0|NULLVEC
+ARITYP g219_d_ownmulti elab ARITY|pkg|package:pd0:pd0|vars|0|NULLVEC
+ARITYP g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|nets|0|NULLVEC
+ARITYP g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|vars|1|vec
+ARITYP g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_child:u_child|nets|0|NULLVEC
+ARITYP g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_child:u_child|vars|1|vec
+ARITYQ g219_d_ownmulti elab ARITY|def|module_inst:work@gd_child:|nets|1|vec
+ARITYQ g219_d_ownmulti elab ARITY|def|module_inst:work@gd_child:|vars|0|NULLVEC
+ARITYQ g219_d_ownmulti elab ARITY|def|module_inst:work@gd_ownmulti:|nets|5|vec
+ARITYQ g219_d_ownmulti elab ARITY|def|module_inst:work@gd_ownmulti:|vars|0|NULLVEC
+ARITYQ g219_d_ownmulti elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_d_ownmulti elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_d_ownmulti elab ARITY|pkg|package:pd0:pd0|nets|0|NULLVEC
+ARITYQ g219_d_ownmulti elab ARITY|pkg|package:pd0:pd0|vars|0|NULLVEC
+ARITYQ g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|nets|0|NULLVEC
+ARITYQ g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_ownmulti:work@gd_ownmulti|vars|1|vec
+ARITYQ g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_child:u_child|nets|0|NULLVEC
+ARITYQ g219_d_ownmulti elab ARITY|elab|module_inst:work@gd_child:u_child|vars|1|vec
+CELLP g219_d_ownmulti elab POSDIFF|def|module_inst:work@gd_ownmulti:|nets|2|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gd_ownmulti|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_d_ownmulti elab POSDIFF|def|module_inst:work@gd_ownmulti:|nets|3|G=logic_net|gd_ownmulti|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|u_child|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_d_ownmulti elab POSDIFF|def|module_inst:work@gd_ownmulti:|nets|4|G=logic_net|u_child|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_d_ownmulti elab MISORDERED-ONLY|def|module_inst:work@gd_ownmulti:|nets|len=5
+CELLP g219_d_ownmulti elab CELL|def|module_inst:work@gd_ownmulti:|nets|G=5|O=5|AGREE=2|POSDIFF=3|BAG-G=0|BAG-O=0
+CELLP g219_d_ownmulti elab -- CELLS=12 AGREE=5 POSDIFF=3 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=1
+CELLQ g219_d_ownmulti elab -- CELLS=12 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_e_nothis parse rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=2182 cmplines_pat=2182 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_e_nothis parse -- CELLS=6 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_e_nothis parse -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PAT  g219_e_nothis parse -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_e_nothis parse ARITY|def|module_inst:work@ge_nothis:|nets|4|vec
+ARITYG g219_e_nothis parse ARITY|def|module_inst:work@ge_nothis:|vars|0|NULLVEC
+ARITYG g219_e_nothis parse ARITY|pkg|package:pe0:pe0|nets|0|NULLVEC
+ARITYG g219_e_nothis parse ARITY|pkg|package:pe0:pe0|vars|1|vec
+ARITYG g219_e_nothis parse ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|nets|0|NULLVEC
+ARITYG g219_e_nothis parse ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|vars|2|vec
+ARITYP g219_e_nothis parse ARITY|def|module_inst:work@ge_nothis:|nets|4|vec
+ARITYP g219_e_nothis parse ARITY|def|module_inst:work@ge_nothis:|vars|0|NULLVEC
+ARITYP g219_e_nothis parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_e_nothis parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_e_nothis parse ARITY|pkg|package:pe0:pe0|nets|0|NULLVEC
+ARITYP g219_e_nothis parse ARITY|pkg|package:pe0:pe0|vars|1|vec
+ARITYP g219_e_nothis parse ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|nets|0|NULLVEC
+ARITYP g219_e_nothis parse ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|vars|2|vec
+ARITYQ g219_e_nothis parse ARITY|def|module_inst:work@ge_nothis:|nets|4|vec
+ARITYQ g219_e_nothis parse ARITY|def|module_inst:work@ge_nothis:|vars|0|NULLVEC
+ARITYQ g219_e_nothis parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_e_nothis parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_e_nothis parse ARITY|pkg|package:pe0:pe0|nets|0|NULLVEC
+ARITYQ g219_e_nothis parse ARITY|pkg|package:pe0:pe0|vars|1|vec
+ARITYQ g219_e_nothis parse ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|nets|0|NULLVEC
+ARITYQ g219_e_nothis parse ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|vars|2|vec
+CELLP g219_e_nothis parse -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CELLQ g219_e_nothis parse -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_e_nothis elab rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=2490 cmplines_pat=2490 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_e_nothis elab -- CELLS=6 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_e_nothis elab -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PAT  g219_e_nothis elab -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_e_nothis elab ARITY|def|module_inst:work@ge_nothis:|nets|4|vec
+ARITYG g219_e_nothis elab ARITY|def|module_inst:work@ge_nothis:|vars|0|NULLVEC
+ARITYG g219_e_nothis elab ARITY|pkg|package:pe0:pe0|nets|0|NULLVEC
+ARITYG g219_e_nothis elab ARITY|pkg|package:pe0:pe0|vars|1|vec
+ARITYG g219_e_nothis elab ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|nets|0|NULLVEC
+ARITYG g219_e_nothis elab ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|vars|2|vec
+ARITYP g219_e_nothis elab ARITY|def|module_inst:work@ge_nothis:|nets|4|vec
+ARITYP g219_e_nothis elab ARITY|def|module_inst:work@ge_nothis:|vars|0|NULLVEC
+ARITYP g219_e_nothis elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_e_nothis elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_e_nothis elab ARITY|pkg|package:pe0:pe0|nets|0|NULLVEC
+ARITYP g219_e_nothis elab ARITY|pkg|package:pe0:pe0|vars|1|vec
+ARITYP g219_e_nothis elab ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|nets|0|NULLVEC
+ARITYP g219_e_nothis elab ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|vars|2|vec
+ARITYQ g219_e_nothis elab ARITY|def|module_inst:work@ge_nothis:|nets|4|vec
+ARITYQ g219_e_nothis elab ARITY|def|module_inst:work@ge_nothis:|vars|0|NULLVEC
+ARITYQ g219_e_nothis elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_e_nothis elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_e_nothis elab ARITY|pkg|package:pe0:pe0|nets|0|NULLVEC
+ARITYQ g219_e_nothis elab ARITY|pkg|package:pe0:pe0|vars|1|vec
+ARITYQ g219_e_nothis elab ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|nets|0|NULLVEC
+ARITYQ g219_e_nothis elab ARITY|elab|module_inst:work@ge_nothis:work@ge_nothis|vars|2|vec
+CELLP g219_e_nothis elab -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CELLQ g219_e_nothis elab -- CELLS=8 AGREE=7 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_f_muststay parse rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=3142 cmplines_pat=3142 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_f_muststay parse -- CELLS=6 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_f_muststay parse -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PAT  g219_f_muststay parse -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_f_muststay parse ARITY|def|module_inst:work@gf_noimport:|nets|2|vec
+ARITYG g219_f_muststay parse ARITY|def|module_inst:work@gf_noimport:|vars|0|NULLVEC
+ARITYG g219_f_muststay parse ARITY|pkg|package:pf0:pf0|nets|0|NULLVEC
+ARITYG g219_f_muststay parse ARITY|pkg|package:pf0:pf0|vars|5|vec
+ARITYG g219_f_muststay parse ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|nets|0|NULLVEC
+ARITYG g219_f_muststay parse ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|vars|1|vec
+ARITYP g219_f_muststay parse ARITY|def|module_inst:work@gf_noimport:|nets|2|vec
+ARITYP g219_f_muststay parse ARITY|def|module_inst:work@gf_noimport:|vars|0|NULLVEC
+ARITYP g219_f_muststay parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_f_muststay parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_f_muststay parse ARITY|pkg|package:pf0:pf0|nets|0|NULLVEC
+ARITYP g219_f_muststay parse ARITY|pkg|package:pf0:pf0|vars|5|vec
+ARITYP g219_f_muststay parse ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|nets|0|NULLVEC
+ARITYP g219_f_muststay parse ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|vars|1|vec
+ARITYQ g219_f_muststay parse ARITY|def|module_inst:work@gf_noimport:|nets|2|vec
+ARITYQ g219_f_muststay parse ARITY|def|module_inst:work@gf_noimport:|vars|0|NULLVEC
+ARITYQ g219_f_muststay parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_f_muststay parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_f_muststay parse ARITY|pkg|package:pf0:pf0|nets|0|NULLVEC
+ARITYQ g219_f_muststay parse ARITY|pkg|package:pf0:pf0|vars|5|vec
+ARITYQ g219_f_muststay parse ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|nets|0|NULLVEC
+ARITYQ g219_f_muststay parse ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|vars|1|vec
+CELLP g219_f_muststay parse -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CELLQ g219_f_muststay parse -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_f_muststay elab rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=3230 cmplines_pat=3230 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_f_muststay elab -- CELLS=6 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_f_muststay elab -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PAT  g219_f_muststay elab -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARITYG g219_f_muststay elab ARITY|def|module_inst:work@gf_noimport:|nets|2|vec
+ARITYG g219_f_muststay elab ARITY|def|module_inst:work@gf_noimport:|vars|0|NULLVEC
+ARITYG g219_f_muststay elab ARITY|pkg|package:pf0:pf0|nets|0|NULLVEC
+ARITYG g219_f_muststay elab ARITY|pkg|package:pf0:pf0|vars|5|vec
+ARITYG g219_f_muststay elab ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|nets|0|NULLVEC
+ARITYG g219_f_muststay elab ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|vars|1|vec
+ARITYP g219_f_muststay elab ARITY|def|module_inst:work@gf_noimport:|nets|2|vec
+ARITYP g219_f_muststay elab ARITY|def|module_inst:work@gf_noimport:|vars|0|NULLVEC
+ARITYP g219_f_muststay elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_f_muststay elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_f_muststay elab ARITY|pkg|package:pf0:pf0|nets|0|NULLVEC
+ARITYP g219_f_muststay elab ARITY|pkg|package:pf0:pf0|vars|5|vec
+ARITYP g219_f_muststay elab ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|nets|0|NULLVEC
+ARITYP g219_f_muststay elab ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|vars|1|vec
+ARITYQ g219_f_muststay elab ARITY|def|module_inst:work@gf_noimport:|nets|2|vec
+ARITYQ g219_f_muststay elab ARITY|def|module_inst:work@gf_noimport:|vars|0|NULLVEC
+ARITYQ g219_f_muststay elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_f_muststay elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_f_muststay elab ARITY|pkg|package:pf0:pf0|nets|0|NULLVEC
+ARITYQ g219_f_muststay elab ARITY|pkg|package:pf0:pf0|vars|5|vec
+ARITYQ g219_f_muststay elab ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|nets|0|NULLVEC
+ARITYQ g219_f_muststay elab ARITY|elab|module_inst:work@gf_noimport:work@gf_noimport|vars|1|vec
+CELLP g219_f_muststay elab -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CELLQ g219_f_muststay elab -- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+ARM g219_g_transitive parse rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=3874 cmplines_pat=3874 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_g_transitive parse -- CELLS=12 AGREE=17 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_g_transitive parse -- CELLS=14 AGREE=14 POSDIFF=2 ONLY-GOLDEN=1 ONLY-OURS=1 BAG-ONLY-GOLDEN=1 BAG-ONLY-OURS=1 MISORDERED-CELLS=0
+CENSUS-PAT  g219_g_transitive parse -- CELLS=14 AGREE=13 POSDIFF=3 ONLY-GOLDEN=1 ONLY-OURS=1 BAG-ONLY-GOLDEN=1 BAG-ONLY-OURS=1 MISORDERED-CELLS=0
+ARITYG g219_g_transitive parse ARITY|def|module_inst:work@gg_deep:|nets|6|vec
+ARITYG g219_g_transitive parse ARITY|def|module_inst:work@gg_deep:|vars|0|NULLVEC
+ARITYG g219_g_transitive parse ARITY|def|module_inst:work@gg_near:|nets|3|vec
+ARITYG g219_g_transitive parse ARITY|def|module_inst:work@gg_near:|vars|0|NULLVEC
+ARITYG g219_g_transitive parse ARITY|pkg|package:pg0:pg0|nets|0|NULLVEC
+ARITYG g219_g_transitive parse ARITY|pkg|package:pg0:pg0|vars|1|vec
+ARITYG g219_g_transitive parse ARITY|pkg|package:pg1:pg1|nets|0|NULLVEC
+ARITYG g219_g_transitive parse ARITY|pkg|package:pg1:pg1|vars|2|vec
+ARITYG g219_g_transitive parse ARITY|elab|module_inst:work@gg_deep:work@gg_deep|nets|0|NULLVEC
+ARITYG g219_g_transitive parse ARITY|elab|module_inst:work@gg_deep:work@gg_deep|vars|3|vec
+ARITYG g219_g_transitive parse ARITY|elab|module_inst:work@gg_near:work@gg_near|nets|0|NULLVEC
+ARITYG g219_g_transitive parse ARITY|elab|module_inst:work@gg_near:work@gg_near|vars|2|vec
+ARITYP g219_g_transitive parse ARITY|def|module_inst:work@gg_deep:|nets|5|vec
+ARITYP g219_g_transitive parse ARITY|def|module_inst:work@gg_deep:|vars|0|NULLVEC
+ARITYP g219_g_transitive parse ARITY|def|module_inst:work@gg_near:|nets|4|vec
+ARITYP g219_g_transitive parse ARITY|def|module_inst:work@gg_near:|vars|0|NULLVEC
+ARITYP g219_g_transitive parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_g_transitive parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_g_transitive parse ARITY|pkg|package:pg0:pg0|nets|0|NULLVEC
+ARITYP g219_g_transitive parse ARITY|pkg|package:pg0:pg0|vars|1|vec
+ARITYP g219_g_transitive parse ARITY|pkg|package:pg1:pg1|nets|0|NULLVEC
+ARITYP g219_g_transitive parse ARITY|pkg|package:pg1:pg1|vars|2|vec
+ARITYP g219_g_transitive parse ARITY|elab|module_inst:work@gg_deep:work@gg_deep|nets|0|NULLVEC
+ARITYP g219_g_transitive parse ARITY|elab|module_inst:work@gg_deep:work@gg_deep|vars|3|vec
+ARITYP g219_g_transitive parse ARITY|elab|module_inst:work@gg_near:work@gg_near|nets|0|NULLVEC
+ARITYP g219_g_transitive parse ARITY|elab|module_inst:work@gg_near:work@gg_near|vars|2|vec
+ARITYQ g219_g_transitive parse ARITY|def|module_inst:work@gg_deep:|nets|5|vec
+ARITYQ g219_g_transitive parse ARITY|def|module_inst:work@gg_deep:|vars|0|NULLVEC
+ARITYQ g219_g_transitive parse ARITY|def|module_inst:work@gg_near:|nets|4|vec
+ARITYQ g219_g_transitive parse ARITY|def|module_inst:work@gg_near:|vars|0|NULLVEC
+ARITYQ g219_g_transitive parse ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_g_transitive parse ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_g_transitive parse ARITY|pkg|package:pg0:pg0|nets|0|NULLVEC
+ARITYQ g219_g_transitive parse ARITY|pkg|package:pg0:pg0|vars|1|vec
+ARITYQ g219_g_transitive parse ARITY|pkg|package:pg1:pg1|nets|0|NULLVEC
+ARITYQ g219_g_transitive parse ARITY|pkg|package:pg1:pg1|vars|2|vec
+ARITYQ g219_g_transitive parse ARITY|elab|module_inst:work@gg_deep:work@gg_deep|nets|0|NULLVEC
+ARITYQ g219_g_transitive parse ARITY|elab|module_inst:work@gg_deep:work@gg_deep|vars|3|vec
+ARITYQ g219_g_transitive parse ARITY|elab|module_inst:work@gg_near:work@gg_near|nets|0|NULLVEC
+ARITYQ g219_g_transitive parse ARITY|elab|module_inst:work@gg_near:work@gg_near|vars|2|vec
+CELLP g219_g_transitive parse POSDIFF|def|module_inst:work@gg_deep:|nets|3|G=logic_net|g0_prop|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gg_deep|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_g_transitive parse ONLY-GOLDEN|def|module_inst:work@gg_deep:|nets|5|logic_net|gg_deep|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_g_transitive parse CELL|def|module_inst:work@gg_deep:|nets|G=6|O=5|AGREE=4|POSDIFF=1|BAG-G=1|BAG-O=0
+CELLP g219_g_transitive parse POSDIFF|def|module_inst:work@gg_near:|nets|2|G=logic_net|gg_near|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|g0_prop|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_g_transitive parse ONLY-OURS|def|module_inst:work@gg_near:|nets|3|logic_net|gg_near|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_g_transitive parse CELL|def|module_inst:work@gg_near:|nets|G=3|O=4|AGREE=2|POSDIFF=1|BAG-G=0|BAG-O=1
+CELLP g219_g_transitive parse -- CELLS=14 AGREE=14 POSDIFF=2 ONLY-GOLDEN=1 ONLY-OURS=1 BAG-ONLY-GOLDEN=1 BAG-ONLY-OURS=1 MISORDERED-CELLS=0
+CELLQ g219_g_transitive parse POSDIFF|def|module_inst:work@gg_deep:|nets|3|G=logic_net|g0_prop|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive parse POSDIFF|def|module_inst:work@gg_deep:|nets|4|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gg_deep|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive parse ONLY-GOLDEN|def|module_inst:work@gg_deep:|nets|5|logic_net|gg_deep|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive parse CELL|def|module_inst:work@gg_deep:|nets|G=6|O=5|AGREE=3|POSDIFF=2|BAG-G=1|BAG-O=0
+CELLQ g219_g_transitive parse POSDIFF|def|module_inst:work@gg_near:|nets|2|G=logic_net|gg_near|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|g0_prop|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive parse ONLY-OURS|def|module_inst:work@gg_near:|nets|3|logic_net|gg_near|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive parse CELL|def|module_inst:work@gg_near:|nets|G=3|O=4|AGREE=2|POSDIFF=1|BAG-G=0|BAG-O=1
+CELLQ g219_g_transitive parse -- CELLS=14 AGREE=13 POSDIFF=3 ONLY-GOLDEN=1 ONLY-OURS=1 BAG-ONLY-GOLDEN=1 BAG-ONLY-OURS=1 MISORDERED-CELLS=0
+ARM g219_g_transitive elab rc_surelog=0 rc_pris=0 rc_pat=0 rc_cmp_pris=255 rc_cmp_pat=255 cmplines_pris=4568 cmplines_pat=4568 heads_pris=1 heads_pat=1 (VERDICT NOT THE SCORER)
+CALIB g219_g_transitive elab -- CELLS=12 AGREE=17 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0
+CENSUS-PRIS g219_g_transitive elab -- CELLS=14 AGREE=14 POSDIFF=2 ONLY-GOLDEN=1 ONLY-OURS=1 BAG-ONLY-GOLDEN=1 BAG-ONLY-OURS=1 MISORDERED-CELLS=0
+CENSUS-PAT  g219_g_transitive elab -- CELLS=14 AGREE=13 POSDIFF=3 ONLY-GOLDEN=1 ONLY-OURS=1 BAG-ONLY-GOLDEN=1 BAG-ONLY-OURS=1 MISORDERED-CELLS=0
+ARITYG g219_g_transitive elab ARITY|def|module_inst:work@gg_deep:|nets|6|vec
+ARITYG g219_g_transitive elab ARITY|def|module_inst:work@gg_deep:|vars|0|NULLVEC
+ARITYG g219_g_transitive elab ARITY|def|module_inst:work@gg_near:|nets|3|vec
+ARITYG g219_g_transitive elab ARITY|def|module_inst:work@gg_near:|vars|0|NULLVEC
+ARITYG g219_g_transitive elab ARITY|pkg|package:pg0:pg0|nets|0|NULLVEC
+ARITYG g219_g_transitive elab ARITY|pkg|package:pg0:pg0|vars|1|vec
+ARITYG g219_g_transitive elab ARITY|pkg|package:pg1:pg1|nets|0|NULLVEC
+ARITYG g219_g_transitive elab ARITY|pkg|package:pg1:pg1|vars|2|vec
+ARITYG g219_g_transitive elab ARITY|elab|module_inst:work@gg_deep:work@gg_deep|nets|0|NULLVEC
+ARITYG g219_g_transitive elab ARITY|elab|module_inst:work@gg_deep:work@gg_deep|vars|3|vec
+ARITYG g219_g_transitive elab ARITY|elab|module_inst:work@gg_near:work@gg_near|nets|0|NULLVEC
+ARITYG g219_g_transitive elab ARITY|elab|module_inst:work@gg_near:work@gg_near|vars|2|vec
+ARITYP g219_g_transitive elab ARITY|def|module_inst:work@gg_deep:|nets|5|vec
+ARITYP g219_g_transitive elab ARITY|def|module_inst:work@gg_deep:|vars|0|NULLVEC
+ARITYP g219_g_transitive elab ARITY|def|module_inst:work@gg_near:|nets|4|vec
+ARITYP g219_g_transitive elab ARITY|def|module_inst:work@gg_near:|vars|0|NULLVEC
+ARITYP g219_g_transitive elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYP g219_g_transitive elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYP g219_g_transitive elab ARITY|pkg|package:pg0:pg0|nets|0|NULLVEC
+ARITYP g219_g_transitive elab ARITY|pkg|package:pg0:pg0|vars|1|vec
+ARITYP g219_g_transitive elab ARITY|pkg|package:pg1:pg1|nets|0|NULLVEC
+ARITYP g219_g_transitive elab ARITY|pkg|package:pg1:pg1|vars|2|vec
+ARITYP g219_g_transitive elab ARITY|elab|module_inst:work@gg_deep:work@gg_deep|nets|0|NULLVEC
+ARITYP g219_g_transitive elab ARITY|elab|module_inst:work@gg_deep:work@gg_deep|vars|3|vec
+ARITYP g219_g_transitive elab ARITY|elab|module_inst:work@gg_near:work@gg_near|nets|0|NULLVEC
+ARITYP g219_g_transitive elab ARITY|elab|module_inst:work@gg_near:work@gg_near|vars|2|vec
+ARITYQ g219_g_transitive elab ARITY|def|module_inst:work@gg_deep:|nets|5|vec
+ARITYQ g219_g_transitive elab ARITY|def|module_inst:work@gg_deep:|vars|0|NULLVEC
+ARITYQ g219_g_transitive elab ARITY|def|module_inst:work@gg_near:|nets|4|vec
+ARITYQ g219_g_transitive elab ARITY|def|module_inst:work@gg_near:|vars|0|NULLVEC
+ARITYQ g219_g_transitive elab ARITY|pkg|package:builtin:builtin|nets|0|NULLVEC
+ARITYQ g219_g_transitive elab ARITY|pkg|package:builtin:builtin|vars|0|NULLVEC
+ARITYQ g219_g_transitive elab ARITY|pkg|package:pg0:pg0|nets|0|NULLVEC
+ARITYQ g219_g_transitive elab ARITY|pkg|package:pg0:pg0|vars|1|vec
+ARITYQ g219_g_transitive elab ARITY|pkg|package:pg1:pg1|nets|0|NULLVEC
+ARITYQ g219_g_transitive elab ARITY|pkg|package:pg1:pg1|vars|2|vec
+ARITYQ g219_g_transitive elab ARITY|elab|module_inst:work@gg_deep:work@gg_deep|nets|0|NULLVEC
+ARITYQ g219_g_transitive elab ARITY|elab|module_inst:work@gg_deep:work@gg_deep|vars|3|vec
+ARITYQ g219_g_transitive elab ARITY|elab|module_inst:work@gg_near:work@gg_near|nets|0|NULLVEC
+ARITYQ g219_g_transitive elab ARITY|elab|module_inst:work@gg_near:work@gg_near|vars|2|vec
+CELLP g219_g_transitive elab POSDIFF|def|module_inst:work@gg_deep:|nets|3|G=logic_net|g0_prop|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gg_deep|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_g_transitive elab ONLY-GOLDEN|def|module_inst:work@gg_deep:|nets|5|logic_net|gg_deep|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_g_transitive elab CELL|def|module_inst:work@gg_deep:|nets|G=6|O=5|AGREE=4|POSDIFF=1|BAG-G=1|BAG-O=0
+CELLP g219_g_transitive elab POSDIFF|def|module_inst:work@gg_near:|nets|2|G=logic_net|gg_near|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|g0_prop|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_g_transitive elab ONLY-OURS|def|module_inst:work@gg_near:|nets|3|logic_net|gg_near|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLP g219_g_transitive elab CELL|def|module_inst:work@gg_near:|nets|G=3|O=4|AGREE=2|POSDIFF=1|BAG-G=0|BAG-O=1
+CELLP g219_g_transitive elab -- CELLS=14 AGREE=14 POSDIFF=2 ONLY-GOLDEN=1 ONLY-OURS=1 BAG-ONLY-GOLDEN=1 BAG-ONLY-OURS=1 MISORDERED-CELLS=0
+CELLQ g219_g_transitive elab POSDIFF|def|module_inst:work@gg_deep:|nets|3|G=logic_net|g0_prop|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive elab POSDIFF|def|module_inst:work@gg_deep:|nets|4|G=logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|gg_deep|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive elab ONLY-GOLDEN|def|module_inst:work@gg_deep:|nets|5|logic_net|gg_deep|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive elab CELL|def|module_inst:work@gg_deep:|nets|G=6|O=5|AGREE=3|POSDIFF=2|BAG-G=1|BAG-O=0
+CELLQ g219_g_transitive elab POSDIFF|def|module_inst:work@gg_near:|nets|2|G=logic_net|gg_near|nt=1|rnt=0|impl=0|sgn=0|ts=-|O=logic_net|g0_prop|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive elab ONLY-OURS|def|module_inst:work@gg_near:|nets|3|logic_net|gg_near|nt=1|rnt=0|impl=0|sgn=0|ts=-
+CELLQ g219_g_transitive elab CELL|def|module_inst:work@gg_near:|nets|G=3|O=4|AGREE=2|POSDIFF=1|BAG-G=0|BAG-O=1
+CELLQ g219_g_transitive elab -- CELLS=14 AGREE=13 POSDIFF=3 ONLY-GOLDEN=1 ONLY-OURS=1 BAG-ONLY-GOLDEN=1 BAG-ONLY-OURS=1 MISORDERED-CELLS=0
+-- ARM-VIEWS SCORED: 14   NO-DATABASE: 0   CALIB non-null: 0

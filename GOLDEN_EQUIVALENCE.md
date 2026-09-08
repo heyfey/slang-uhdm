@@ -283,7 +283,7 @@ error handler. It cannot change the database.
 
 ### 3.3 Measured baseline — GENERATED, do not hand-edit numbers
 
-> Regenerated 2026-09-08 (the uvm212 landing: Scoreboard/default converted — the sixth row-mode conversion). For the live state and how to carry
+> Regenerated 2026-09-08 (the uvm219 landing: SeqDriver converted in both modes — the fourth whole-test close). For the live state and how to carry
 > the campaign on, read **RESUME.md** and run `scripts/resume_survey.sh`.
 
 The authoritative numbers come from the committed per-test CSVs via
@@ -294,8 +294,8 @@ exists.
 
 | Corpus | Mode | Total | Status breakdown | Comparable | Equal |
 |---|---|---|---|---|---|
-| Surelog suite | default | 794 | CMP_EQUAL=475 SLANG_REJECT=283 SURELOG_FAIL=25 CMP_NOTEQUAL=6 DEFERRED=5 | 481 | 475 (98.8%) |
-| Surelog suite | testflags | 794 | CMP_EQUAL=469 SLANG_REJECT=284 SURELOG_FAIL=23 CMP_NOTEQUAL=6 DEFERRED=5 NO_DATABASE=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 475 | 469 (98.7%) |
+| Surelog suite | default | 794 | CMP_EQUAL=476 SLANG_REJECT=283 SURELOG_FAIL=25 DEFERRED=5 CMP_NOTEQUAL=5 | 481 | 476 (99.0%) |
+| Surelog suite | testflags | 794 | CMP_EQUAL=470 SLANG_REJECT=284 SURELOG_FAIL=23 DEFERRED=5 CMP_NOTEQUAL=5 NO_DATABASE=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 475 | 470 (98.9%) |
 | uhdm2rtlil | default | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 | uhdm2rtlil | testflags | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 

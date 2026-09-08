@@ -1,0 +1,14 @@
+r10uvm219 — the wide boundary gate's MOVED-ARM list (bound219.sh).
+Five of the eight are THIS PASS'S OWN grid arms — the POSITIVE CONTROL that
+proves the gate can see.  The other three are attributed in
+FALSEMOVERS.r10uvm219.txt.  g219_e_nothis and g219_f_muststay are correctly
+ABSENT from this list.
+
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm219repro/grid219/g219_a_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm219repro/grid219/g219_b_interleave.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm219repro/grid219/g219_c_thisfirst.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm219repro/grid219/g219_d_ownmulti.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm219repro/grid219/g219_g_transitive.sv	def=MOVED	elab=MOVED	rc=0/0,0/0

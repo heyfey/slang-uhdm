@@ -1,0 +1,8 @@
+r10uvm219 — THE A-PRIORI MOVER PREDICTION over the UHDM2RTLIL corpus.
+Same tool, same rule, same upper-bound argument.
+
+rows scanned = 1358, NODB = 0
+CLEAN (cannot move)   = 1358
+CANDIDATES            = 0
+
+PREDICTED MOVER SET: EMPTY.

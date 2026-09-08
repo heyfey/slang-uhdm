@@ -5822,6 +5822,13 @@ private:
     void bindHoistedClassPropRefs(const slang::ast::InstanceBodySymbol& body,
                                   UHDM::instance* m, const std::string& prefix,
                                   UHDM::VectorOfnet* nets);
+    /// § hoistedThisRidesTheForwardedBlock219 — the half-open `Nets()` span
+    /// [begin, end) that `bindHoistedClassPropRefs` just minted for this
+    /// module, recorded at its call site so § thisImplicitNetBoth38 can place
+    /// the `this` wire INSIDE the forwarded block instead of after the whole
+    /// listing.  `end` is also the boundary "the module's OWN unbindable names
+    /// start here", which is the half the judge can see.
+    std::map<const UHDM::instance*, std::pair<size_t, size_t>> hoistedBlock219;
     /// A `$unit` enum CONSTANT referenced from a file other than the one that
     /// declared the enum is unresolvable to Surelog: mint the implicit module
     /// wire it falls back to, one per name, in source order of first use.

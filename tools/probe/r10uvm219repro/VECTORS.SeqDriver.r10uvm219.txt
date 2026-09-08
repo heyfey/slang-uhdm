@@ -1,0 +1,37 @@
+r10uvm219 — VECTORS.  The head object's two position tables, measured on this
+pass's OWN frozen binaries and the row's OWN golden.  LHS is ALWAYS golden.
+
+=== SeqDriver / default — module_inst work@top_tb, DEF view, Nets(), tail
+--- GOLDEN (224)
+NET|def|module_inst:work@top_tb:|218|logic_net|begin_event|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:487:3-487:14
+NET|def|module_inst:work@top_tb:|219|logic_net|end_event|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:488:3-488:12
+NET|def|module_inst:work@top_tb:|220|logic_net|g_sequencer_id|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:497:20-497:34
+NET|def|module_inst:work@top_tb:|221|logic_net|m_auto_predict|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:686:4-686:18
+NET|def|module_inst:work@top_tb:|222|logic_net|m_check_on_read|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:687:4-687:19
+NET|def|module_inst:work@top_tb:|223|logic_net|top_tb|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:234:24-234:30
+--- PRISTINE (224)
+NET|def|module_inst:work@top_tb:|218|logic_net|read_in_progress|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:712:4-712:20
+NET|def|module_inst:work@top_tb:|219|logic_net|fname|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:972:11-972:16
+NET|def|module_inst:work@top_tb:|220|logic_net|lineno|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:972:26-972:32
+NET|def|module_inst:work@top_tb:|221|logic_net|p|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:263:3-263:4
+NET|def|module_inst:work@top_tb:|222|logic_net|top_tb|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:234:24-234:30
+NET|def|module_inst:work@top_tb:|223|logic_net|this|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:152:45-152:49
+--- PATCHED (224)
+NET|def|module_inst:work@top_tb:|218|logic_net|write_in_progress|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:576:4-576:21
+NET|def|module_inst:work@top_tb:|219|logic_net|read_in_progress|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:712:4-712:20
+NET|def|module_inst:work@top_tb:|220|logic_net|fname|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:972:11-972:16
+NET|def|module_inst:work@top_tb:|221|logic_net|lineno|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:972:26-972:32
+NET|def|module_inst:work@top_tb:|222|logic_net|p|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:263:3-263:4
+NET|def|module_inst:work@top_tb:|223|logic_net|top_tb|nt=1|rnt=0|impl=0|sgn=0|ts=-|@:234:24-234:30
+
+=== where the wire named `this` sits in each (index within the 224-net vector)
+golden  : index 70  span @:902:36-902:40
+pristine: index 223  span @:152:45-152:49
+patched : index 66  span @:152:45-152:49
+
+The interior index differs because the two implicit blocks are the SAME
+MULTISET IN A DIFFERENT ORDER (r10uvm217 § 3) and the anchor spans differ:
+golden's first qualifying `this` reference is at 902:36, ours at 152:45.
+Only the LAST position is judge-visible -- `logic_net::Compare` short-circuits
+on `context->m_visited` for the 157 wires the class walk already reached --
+and that position is now golden's `top_tb`.

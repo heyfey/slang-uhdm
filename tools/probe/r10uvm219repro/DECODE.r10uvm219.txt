@@ -1,0 +1,231 @@
+r10uvm219 — DECODE.  MEASUREMENT-ONLY evidence file.  LHS is ALWAYS golden.
+
+==============================================================================
+1. THE JUDGE'S FIELD TABLE FOR THE HEAD OBJECT
+==============================================================================
+
+--- ~/.local/include/uhdm/BaseClass.h : the VECTOR overload of SafeCompare
+      context->m_failedRhs = rhs;
+      return -1;
+    }
+    return 0;
+  }
+
+  template <typename T>
+  static int32_t SafeCompare(const BaseClass* lhs_obj,
+                             const std::vector<T*>* lhs,
+                             const BaseClass* rhs_obj,
+                             const std::vector<T*>* rhs,
+                             CompareContext* context) {
+    if ((lhs != nullptr) && (rhs != nullptr)) {
+      int32_t r = 0;
+      if ((r = static_cast<int32_t>(lhs->size() - rhs->size())) != 0) {
+        context->m_failedLhs = lhs_obj;
+        context->m_failedRhs = rhs_obj;
+        return 1;
+      }
+      for (size_t i = 0, n = lhs->size(); i < n; ++i) {
+        if ((r = SafeCompare(lhs->at(i), rhs->at(i), context)) != 0) return r;
+      }
+    } else if ((lhs != nullptr) && !lhs->empty() && (rhs == nullptr)) {
+      context->m_failedLhs = lhs_obj;
+      return 1;
+    } else if ((lhs == nullptr) && (rhs != nullptr) && !rhs->empty()) {
+      context->m_failedRhs = rhs_obj;
+      return -1;
+    }
+    return 0;
+  }
+
+ protected:
+  Serializer* serializer_ = nullptr;
+  ClientData* clientData_ = nullptr;
+
+
+--- UHDM/build/generated/src/logic_net.cpp : logic_net::Compare
+int32_t logic_net::Compare(const BaseClass *other, CompareContext* context) const {
+  int32_t r = 0;
+  if (!context->m_visited.insert(this).second) return r;
+  if ((r = basetype_t::Compare(other, context)) != 0) return r;
+
+  const thistype_t *const lhs = this;
+  const thistype_t *const rhs = (const thistype_t *)other;
+
+  if ((r = SafeCompare(lhs->Left_expr(), rhs->Left_expr(), context)) != 0) return r;
+  if ((r = SafeCompare(lhs->Right_expr(), rhs->Right_expr(), context)) != 0) return r;
+  if ((r = SafeCompare(lhs, lhs->Ranges(), rhs, rhs->Ranges(), context)) != 0) return r;
+  return r;
+}
+
+}  // namespace UHDM
+
+--- UHDM/build/generated/src/nets.cpp : nets::Compare (the scalar face)
+int32_t nets::Compare(const BaseClass *other, CompareContext* context) const {
+  int32_t r = 0;
+  if ((r = basetype_t::Compare(other, context)) != 0) return r;
+
+  const thistype_t *const lhs = this;
+  const thistype_t *const rhs = (const thistype_t *)other;
+
+  if ((r = (lhs->VpiArrayMember() == rhs->VpiArrayMember()) ? 0 : (lhs->VpiArrayMember() ? 1 : -1)) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+  }
+  if ((r = (lhs->VpiConstantSelect() == rhs->VpiConstantSelect()) ? 0 : (lhs->VpiConstantSelect() ? 1 : -1)) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+  }
+  if ((r = (lhs->VpiExpanded() == rhs->VpiExpanded()) ? 0 : (lhs->VpiExpanded() ? 1 : -1)) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+  }
+  if ((r = (lhs->VpiImplicitDecl() == rhs->VpiImplicitDecl()) ? 0 : (lhs->VpiImplicitDecl() ? 1 : -1)) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+  }
+  if ((r = lhs->VpiName().compare(rhs->VpiName())) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+  }
+  if ((r = (lhs->VpiNetDeclAssign() == rhs->VpiNetDeclAssign()) ? 0 : (lhs->VpiNetDeclAssign() ? 1 : -1)) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+
+--- UHDM/build/generated/src/module_inst.cpp : where Nets() is walked
+
+--- UHDM/build/generated/src/design.cpp : AllClasses before AllModules
+171:  if (auto vec = AllPackages()) {
+173:    clone->AllPackages(clone_vec);
+185:  if (auto vec = AllClasses()) {
+187:    clone->AllClasses(clone_vec);
+213:  if (auto vec = AllModules()) {
+215:    clone->AllModules(clone_vec);
+296:  if ((r = SafeCompare(lhs, lhs->AllPackages(), rhs, rhs->AllPackages(), context)) != 0) return r;
+298:  if ((r = SafeCompare(lhs, lhs->AllClasses(), rhs, rhs->AllClasses(), context)) != 0) return r;
+
+==============================================================================
+2. SURELOG: WHERE THE ORDER COMES FROM
+==============================================================================
+
+--- src/DesignCompile/CompileHelper.cpp:183-198 — importPackage splices the
+    imported package's WHOLE late-binding list into the importing scope's
+    auto& netSet = def->getSignals();
+    for (auto& net : netSet) {
+      if (!object_name.empty()) {
+        if (net->getName() != object_name) continue;
+      }
+      scope->getSignals().push_back(net);
+    }
+    // Incomplete bindings
+    for (auto& var : def->getLateBinding()) {
+      scope->needLateBinding(var);
+    }
+    for (auto& var : def->getLateTypedefBinding()) {
+      scope->needLateTypedefBinding(var);
+    }
+
+    // Type parameters
+    auto& paramSet = def->getParameterMap();
+    for (auto& param : paramSet) {
+
+--- include/Surelog/Design/DesignComponent.h:189-194 — the pool is a VECTOR
+  void needLateBinding(UHDM::ref_obj* obj) {
+    if (m_lateBinding) m_needLateBinding.push_back(obj);
+  }
+  const std::vector<UHDM::ref_obj*>& getLateBinding() const {
+    return m_needLateBinding;
+  }
+
+
+--- src/DesignCompile/CompileModule.cpp:565-583 — the FUNCTION collect pass
+    runs every file-local paPackage_import_item FIRST
+    if (!id) return false;
+
+    if (collectType == CollectType::FUNCTION) {
+      // Package imports
+      std::vector<FileCNodeId> pack_imports;
+      // - Local file imports
+      for (auto import : fC->getObjects(VObjectType::paPackage_import_item)) {
+        pack_imports.push_back(import);
+      }
+
+      for (auto pack_import : pack_imports) {
+        const FileContent* pack_fC = pack_import.fC;
+        NodeId pack_id = pack_import.nodeId;
+        m_helper.importPackage(m_module, m_design, pack_fC, pack_id,
+                               m_compileDesign);
+      }
+    }
+    NodeId ParameterPortListId;
+
+--- src/DesignCompile/CompileModule.cpp:1085-1090 — and the item-walk arm
+      switch (type) {
+        case VObjectType::paPackage_import_item: {
+          if (collectType != CollectType::FUNCTION) break;
+          m_helper.importPackage(m_module, m_design, fC, id, m_compileDesign);
+          m_helper.compileImportDeclaration(m_module, fC, id, m_compileDesign);
+          break;
+        }
+
+--- src/DesignCompile/UhdmWriter.cpp:3294-3297 — lateBinding walks that ONE
+    vector IN ORDER and skips a ref that is already bound
+void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+    if (ref->Actual_group()) continue;
+    std::string_view name = ref->VpiName();
+    name = StringUtils::trim(name);
+    if (name.find("::") != std::string::npos) {
+
+--- src/DesignCompile/UhdmWriter.cpp:3963-4006 — the implicit-wire mint, a
+    push_back into the instance's own Nets vector
+    if (!ref->Actual_group()) {
+      if (mod) {
+        if (auto elem = mod->getDesignElement()) {
+          if (elem->m_defaultNetType == VObjectType::slNoType) {
+            Location loc(fileSystem->toPathId(
+                             ref->VpiFile(),
+                             m_compileDesign->getCompiler()->getSymbolTable()),
+                         ref->VpiLineNo(), ref->VpiColumnNo(),
+                         m_compileDesign->getCompiler()
+                             ->getSymbolTable()
+                             ->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_ILLEGAL_IMPLICIT_NET, loc);
+            m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+            m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
+                m_compileDesign->getCompiler()
+                    ->getCommandLineParser()
+                    ->muteStdout());
+          } else {
+            if (m && (m->UhdmType() == uhdmmodule_inst ||
+                      m->UhdmType() == uhdminterface_inst ||
+                      m->UhdmType() == uhdmprogram)) {
+              instance* inst = (instance*)m;
+              logic_net* net = s.MakeLogic_net();
+              net->VpiName(name);
+              net->VpiParent(m);
+              net->VpiLineNo(ref->VpiLineNo());
+              net->VpiColumnNo(ref->VpiColumnNo());
+              net->VpiEndLineNo(ref->VpiEndLineNo());
+              net->VpiEndColumnNo(ref->VpiEndColumnNo());
+              net->VpiNetType(
+                  UhdmWriter::getVpiNetType(elem->m_defaultNetType));
+              net->VpiLineNo(ref->VpiLineNo());
+              net->VpiEndLineNo(ref->VpiEndLineNo());
+              net->VpiColumnNo(ref->VpiColumnNo());
+              net->VpiEndColumnNo(ref->VpiEndColumnNo());
+              ref->Actual_group(net);
+              VectorOfnet* nets = inst->Nets();
+              if (nets == nullptr) {
+                inst->Nets(s.MakeNetVec());
+                nets = inst->Nets();
+              }
+              nets->push_back(net);
+            }
+          }

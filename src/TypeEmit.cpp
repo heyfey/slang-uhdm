@@ -9672,9 +9672,12 @@ void UhdmExporter::retNameNoBind56(UHDM::design* d) {
 // ZERO on the corpus; the debug counters are what found it, which is the same
 // lesson pass 37 recorded about kind:name censuses.
 //
-// There is exactly ONE such net per design (golden SeqDriver: `logic_net#75
+// There is exactly ONE such net per design (golden SeqDriver: `logic_net
 // work@top_tb.this`, vpiNetType=1, no typespec, 177 binders), so it is minted
 // lazily at the first reference that qualifies and shared by all of them.
+//
+// § hoistedThisRidesTheForwardedBlock219 fixes WHERE it lands in the listing;
+// the law and its Surelog decode are at the insertion point below.
 void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
     if (!d)
         return;
@@ -9795,7 +9798,68 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
         nets38 = s.MakeNetVec();
         home38->Nets(nets38);
     }
-    nets38->push_back(inet38);
+    // § hoistedThisRidesTheForwardedBlock219 — WHERE the wire lands.
+    //
+    // This pass runs DESIGN-FINAL (its predicate is which listings hold the
+    // routine), but the wire it mints is NOT a design-final object: it is one
+    // of the module's FORWARDED late-binding mints, and Surelog emits those in
+    // one stream, ahead of every name the module's OWN body could not resolve.
+    //
+    // `CompileHelper::importPackage` (Surelog src/DesignCompile/
+    // CompileHelper.cpp:192) splices the imported package's WHOLE
+    // `getLateBinding()` list into the importing module's own, and
+    // `CompileModule::collectObjects_` runs every `paPackage_import_item`
+    // (CompileModule.cpp:579/603 and :1066/1087) during the FUNCTION collect
+    // pass — i.e. before the module's own item bodies are compiled and their
+    // unresolvable references reach `component->needLateBinding`
+    // (CompileExpression.cpp:1836…).  `UhdmWriter::lateBinding`
+    // (UhdmWriter.cpp:3294) then walks that ONE vector in order and pushes a
+    // fresh `logic_net` per name it cannot resolve (:3982-4004).  So golden's
+    // implicit block is
+    //     [ every forwarded package ref, in the forwarded stream's order ]
+    //     [ the module's own refs — the `$dumpvars(0, top)` scope name ]
+    // and a bare `this` inside a hoisted class-method body is a FORWARDED ref:
+    // it can never sit after the module's own.
+    //
+    // Appending it to the end of the listing put it after them.  Measured on a
+    // real Surelog golden (grid arm `a_order`, and identically on SeqDriver):
+    //     golden  [ p0_own, clk, c0_prop@10:5, this@11:20, ma@22:24 ]
+    //     ours    [ p0_own, clk, c0_prop@10:5, ma@22:24, this@11:20 ]
+    // and SeqDriver's 224-net vector ends `… , top_tb@234:24, this@152:45`
+    // where golden ends `… , m_check_on_read, top_tb@234:24`.
+    //
+    // The insertion point is the forwarded block `bindHoistedClassPropRefs`
+    // recorded, and WITHIN it the wire sorts by its anchor's span — the same
+    // order the forwarded stream itself carries, measured on grid arm
+    // `b_interleave` where golden reads `pa@11:13, pb@14:13, this@14:37,
+    // pc@17:13, ma@24:24`.  With no record (this module minted no forwarded
+    // block) the behaviour is the old append, which is what a module with no
+    // hoisting import wants anyway.
+    size_t at38 = nets38->size();
+    {
+        auto it219 = hoistedBlock219.find(home38);
+        if (it219 != hoistedBlock219.end()) {
+            size_t b219 = it219->second.first;
+            size_t e219 = it219->second.second;
+            if (e219 > nets38->size())
+                e219 = nets38->size();
+            if (b219 > e219)
+                b219 = e219;
+            at38 = e219;
+            auto key219 = [](const UHDM::BaseClass* x) {
+                return std::make_tuple(std::string(x->VpiFile()),
+                                       (uint32_t)x->VpiLineNo(),
+                                       (uint16_t)x->VpiColumnNo());
+            };
+            const auto akey219 = key219(anchor38);
+            for (size_t i219 = b219; i219 < e219; i219++)
+                if (akey219 < key219((*nets38)[i219])) {
+                    at38 = i219;
+                    break;
+                }
+        }
+    }
+    nets38->insert(nets38->begin() + (long)at38, inet38);
     for (auto* r : hits38)
         r->Actual_group(inet38);
 }

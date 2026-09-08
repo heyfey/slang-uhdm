@@ -1,0 +1,62 @@
+r10uvm219 — THE FALSE MOVERS OF THE WIDE BOUNDARY GATE.
+
+The wide boundary compiles every committed probe arm with both frozen binaries
+and reports every arm whose DATABASE BYTES moved.  Three arms moved that this
+pass's law cannot reach.  All three are the STATIC-ADDRESS FALSE MOVER recorded
+at r10uvm208: a `constant` whose value is an UNINITIALISED POINTER, printed as
+a UINT, which shifts when the binary's text grows.
+
+THE FOUR TELLS, scored on each arm:
+
+  T1  the ONLY differing dump lines are `|vpiDecompile` / `|UINT` of `constant`
+      objects — no object of any other kind, no vector, no name, no span;
+  T2  every differing value pair shifts by EXACTLY 4096 — one page;
+  T3  the position-keyed listing census (ct219net) is BYTE-IDENTICAL between
+      the two binaries' databases;
+  T4  the arm holds no object the law can reach: ZERO nets named `this` in
+      either database, and the source's only occurrence of the token (where
+      there is one) is inside a comment.
+
+And the fifth, decisive one: `armscore219.sh` rebuilt a REAL Surelog golden for
+each arm in both views and scored it — the PRISTINE and the PATCHED cell counts
+are IDENTICAL, cell for cell (below).
+
+=== r10buvm22repro/g22.sv   (rc 4/4 on BOTH binaries — a compile-failure arm)
+T1/T2 field names and deltas among the differing dump lines:
+          1 o.uhdm
+          1 q.uhdm
+          6 |UINT
+          6 |vpiDecompile
+    delta x      6 4096
+    the constants belong to `typedef C22 ka_cls_t[string];` (g22.sv:70/72) —
+    an associative-array typedef bound this arm never evaluates.
+T3: listing census identical: YES
+T4: nets named `this`: 0 / 0 ; source occurrences of the token: 0
+
+=== r10uvm*repro/l154_noenum.sv   (rc 0/0 on both binaries)
+T1/T2:
+          1 o.uhdm
+          1 q.uhdm
+          4 |UINT
+          4 |vpiDecompile
+    delta x      4 4096
+T3: listing census identical: YES
+T4: nets named `this` in the two databases: 0 / 0
+
+=== r10uvm*repro/g185_e_kinds.sv   (rc 0/0 on both binaries)
+T1/T2:
+          1 o.uhdm
+          1 q.uhdm
+          6 |UINT
+          6 |vpiDecompile
+    delta x      6 4096
+T3: listing census identical: YES
+T4: nets named `this` in the two databases: 0 / 0
+
+=== T5 — RE-SCORED AGAINST A REAL SURELOG GOLDEN (ARMSCORE.r10uvm219.txt)
+ARM r10buvm22repro/g22.sv parse rc=0/4/4 CALIB[-- CELLS=6 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PRISTINE[-- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PATCHED[-- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0]
+ARM r10buvm22repro/g22.sv elab rc=0/4/4 CALIB[-- CELLS=6 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PRISTINE[-- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PATCHED[-- CELLS=8 AGREE=8 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0]
+ARM r10uvm154repro/l154_noenum.sv parse rc=0/0/0 CALIB[-- CELLS=6 AGREE=0 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PRISTINE[-- CELLS=8 AGREE=0 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PATCHED[-- CELLS=8 AGREE=0 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0]
+ARM r10uvm154repro/l154_noenum.sv elab rc=0/0/0 CALIB[-- CELLS=6 AGREE=0 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PRISTINE[-- CELLS=8 AGREE=0 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PATCHED[-- CELLS=8 AGREE=0 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0]
+ARM r10uvm185repro/grid185/g185_e_kinds.sv parse rc=0/0/0 CALIB[-- CELLS=6 AGREE=2 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PRISTINE[-- CELLS=8 AGREE=2 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PATCHED[-- CELLS=8 AGREE=2 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0]
+ARM r10uvm185repro/grid185/g185_e_kinds.sv elab rc=0/0/0 CALIB[-- CELLS=6 AGREE=2 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PRISTINE[-- CELLS=8 AGREE=2 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0] PATCHED[-- CELLS=8 AGREE=2 POSDIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 BAG-ONLY-GOLDEN=0 BAG-ONLY-OURS=0 MISORDERED-CELLS=0]

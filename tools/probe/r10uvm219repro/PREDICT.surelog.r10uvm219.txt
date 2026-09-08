@@ -1,0 +1,18 @@
+r10uvm219 — THE A-PRIORI MOVER PREDICTION over the SURELOG corpus.
+Written from OUR OWN PRISTINE databases alone (no golden, no patched binary),
+BEFORE the patched sweep ran.  pred219 is an UPPER BOUND by construction: a
+database with no § thisImplicitNetBoth38 wire cannot move under a law that only
+re-positions that wire.
+
+rows scanned = 956 database(s), NODB = 0
+CLEAN (cannot move)   = 952
+CANDIDATES            = 4
+
+the candidate rows, verbatim:
+THIS default/SimpleUVM-1dc93a62/slang.uhdm work@top idx=224 size=225 after=0 afterNames=
+THIS default/SeqDriver-32af76aa/slang.uhdm work@top_tb idx=223 size=224 after=0 afterNames=
+THIS testflags/SeqDriver-32af76aa/slang.uhdm work@top_tb idx=223 size=224 after=0 afterNames=
+THIS testflags/SimpleUVM-1dc93a62/slang.uhdm work@top idx=224 size=225 after=0 afterNames=
+
+PREDICTED MOVER SET (named before the sweep): SeqDriver default + testflags,
+SimpleUVM default + testflags, and nothing else.

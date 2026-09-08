@@ -1,0 +1,42 @@
+SUBSEQ-PRIS g219_a_order.elab -- CELLS=3 SUB-OK=2 ORDER-WRONG=1 IDENTICAL=2
+SUBSEQ-PAT  g219_a_order.elab -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+WRONGP g219_a_order.elab ORDER-WRONG|def|module_inst:work@ga_order:|nets|G=a0_own,ga_clk,a0_prop,this,ga_order|O=a0_own,ga_clk,a0_prop,ga_order,this
+SUBSEQ-PRIS g219_a_order.parse -- CELLS=3 SUB-OK=2 ORDER-WRONG=1 IDENTICAL=2
+SUBSEQ-PAT  g219_a_order.parse -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+WRONGP g219_a_order.parse ORDER-WRONG|def|module_inst:work@ga_order:|nets|G=a0_own,ga_clk,a0_prop,this,ga_order|O=a0_own,ga_clk,a0_prop,ga_order,this
+SUBSEQ-PRIS g219_b_interleave.elab -- CELLS=2 SUB-OK=1 ORDER-WRONG=1 IDENTICAL=1
+SUBSEQ-PAT  g219_b_interleave.elab -- CELLS=2 SUB-OK=2 ORDER-WRONG=0 IDENTICAL=2
+WRONGP g219_b_interleave.elab ORDER-WRONG|def|module_inst:work@gb_interleave:|nets|G=gb_clk,pb_a,pb_b,this,pb_c,gb_interleave|O=gb_clk,pb_a,pb_b,pb_c,gb_interleave,this
+SUBSEQ-PRIS g219_b_interleave.parse -- CELLS=2 SUB-OK=1 ORDER-WRONG=1 IDENTICAL=1
+SUBSEQ-PAT  g219_b_interleave.parse -- CELLS=2 SUB-OK=2 ORDER-WRONG=0 IDENTICAL=2
+WRONGP g219_b_interleave.parse ORDER-WRONG|def|module_inst:work@gb_interleave:|nets|G=gb_clk,pb_a,pb_b,this,pb_c,gb_interleave|O=gb_clk,pb_a,pb_b,pb_c,gb_interleave,this
+SUBSEQ-PRIS g219_c_thisfirst.elab -- CELLS=2 SUB-OK=1 ORDER-WRONG=1 IDENTICAL=1
+SUBSEQ-PAT  g219_c_thisfirst.elab -- CELLS=2 SUB-OK=2 ORDER-WRONG=0 IDENTICAL=2
+WRONGP g219_c_thisfirst.elab ORDER-WRONG|def|module_inst:work@gc_thisfirst:|nets|G=gc_clk,this,pc_a,pc_b,gc_thisfirst|O=gc_clk,pc_a,pc_b,gc_thisfirst,this
+SUBSEQ-PRIS g219_c_thisfirst.parse -- CELLS=2 SUB-OK=1 ORDER-WRONG=1 IDENTICAL=1
+SUBSEQ-PAT  g219_c_thisfirst.parse -- CELLS=2 SUB-OK=2 ORDER-WRONG=0 IDENTICAL=2
+WRONGP g219_c_thisfirst.parse ORDER-WRONG|def|module_inst:work@gc_thisfirst:|nets|G=gc_clk,this,pc_a,pc_b,gc_thisfirst|O=gc_clk,pc_a,pc_b,gc_thisfirst,this
+SUBSEQ-PRIS g219_d_ownmulti.elab -- CELLS=4 SUB-OK=3 ORDER-WRONG=1 IDENTICAL=3
+SUBSEQ-PAT  g219_d_ownmulti.elab -- CELLS=4 SUB-OK=4 ORDER-WRONG=0 IDENTICAL=4
+WRONGP g219_d_ownmulti.elab ORDER-WRONG|def|module_inst:work@gd_ownmulti:|nets|G=gd_clk,pd_a,this,gd_ownmulti,u_child|O=gd_clk,pd_a,gd_ownmulti,u_child,this
+SUBSEQ-PRIS g219_d_ownmulti.parse -- CELLS=4 SUB-OK=3 ORDER-WRONG=1 IDENTICAL=3
+SUBSEQ-PAT  g219_d_ownmulti.parse -- CELLS=4 SUB-OK=4 ORDER-WRONG=0 IDENTICAL=4
+WRONGP g219_d_ownmulti.parse ORDER-WRONG|def|module_inst:work@gd_ownmulti:|nets|G=gd_clk,pd_a,this,gd_ownmulti,u_child|O=gd_clk,pd_a,gd_ownmulti,u_child,this
+SUBSEQ-PRIS g219_e_nothis.elab -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+SUBSEQ-PAT  g219_e_nothis.elab -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+SUBSEQ-PRIS g219_e_nothis.parse -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+SUBSEQ-PAT  g219_e_nothis.parse -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+SUBSEQ-PRIS g219_f_muststay.elab -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+SUBSEQ-PAT  g219_f_muststay.elab -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+SUBSEQ-PRIS g219_f_muststay.parse -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+SUBSEQ-PAT  g219_f_muststay.parse -- CELLS=3 SUB-OK=3 ORDER-WRONG=0 IDENTICAL=3
+SUBSEQ-PRIS g219_g_transitive.elab -- CELLS=6 SUB-OK=4 ORDER-WRONG=2 IDENTICAL=4
+SUBSEQ-PAT  g219_g_transitive.elab -- CELLS=6 SUB-OK=5 ORDER-WRONG=1 IDENTICAL=4
+WRONGP g219_g_transitive.elab ORDER-WRONG|def|module_inst:work@gg_deep:|nets|G=g0_own,g1_own,gg_clk,g0_prop,this,gg_deep|O=g0_own,g1_own,gg_clk,gg_deep,this
+WRONGP g219_g_transitive.elab ORDER-WRONG|def|module_inst:work@gg_near:|nets|G=g0_own,gn_clk,gg_near|O=g0_own,gn_clk,g0_prop,gg_near
+WRONGQ g219_g_transitive.elab ORDER-WRONG|def|module_inst:work@gg_near:|nets|G=g0_own,gn_clk,gg_near|O=g0_own,gn_clk,g0_prop,gg_near
+SUBSEQ-PRIS g219_g_transitive.parse -- CELLS=6 SUB-OK=4 ORDER-WRONG=2 IDENTICAL=4
+SUBSEQ-PAT  g219_g_transitive.parse -- CELLS=6 SUB-OK=5 ORDER-WRONG=1 IDENTICAL=4
+WRONGP g219_g_transitive.parse ORDER-WRONG|def|module_inst:work@gg_deep:|nets|G=g0_own,g1_own,gg_clk,g0_prop,this,gg_deep|O=g0_own,g1_own,gg_clk,gg_deep,this
+WRONGP g219_g_transitive.parse ORDER-WRONG|def|module_inst:work@gg_near:|nets|G=g0_own,gn_clk,gg_near|O=g0_own,gn_clk,g0_prop,gg_near
+WRONGQ g219_g_transitive.parse ORDER-WRONG|def|module_inst:work@gg_near:|nets|G=g0_own,gn_clk,gg_near|O=g0_own,gn_clk,g0_prop,gg_near

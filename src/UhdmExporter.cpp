@@ -8181,14 +8181,19 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § thisImplicitNetBoth38 — DEAD LAST: its predicate is which package
     // views list the routine, so every listing rewrite above (the two import
     // passes included) has to have run.  It only ever fills a null
-    // Actual_group on a reference named `this` and appends one net.
+    // Actual_group on a reference named `this` and places one net in the top
+    // module's DEF-view listing (§ hoistedThisRidesTheForwardedBlock219: it
+    // goes INSIDE the forwarded block `bindHoistedClassPropRefs` recorded, not
+    // at the end of the vector, because the wire is a forwarded late-binding
+    // mint and Surelog emits every one of those ahead of the module's own).
     thisImplicitNetBoth38(d);
     // § unsizedBasedParamRhsSize106 — AFTER the pinned tail, and it cannot
     // disturb it: it writes only VpiSize and the vpiTypespec REFERENCE of
     // param_assign Rhs CONSTANTS, and none of the four tail passes above reads
     // either (§ 54 writes class_typespec spans, § 24 / § 23 / § 45 rewrite
     // package and class LISTINGS, § 38 fills a null Actual_group on refs named
-    // `this` and appends one net).  Running last is what makes the width and
+    // `this` and places one net inside the top module's forwarded block).
+    // Running last is what makes the width and
     // typespec final: the many per-view paths that re-size a copied constant
     // have all run by now.
     drainUnsizedBasedRhs106();

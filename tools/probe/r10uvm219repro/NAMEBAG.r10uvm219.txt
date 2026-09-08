@@ -1,0 +1,11 @@
+r10uvm219 — THE ONE-SIDED NAME GATE.  A name golden does not carry must not appear.
+
+== over the GOLDEN GRID (grid219.sh scratch, 14 arm-views)
+arm-views with a golden census: 14
+NAME-ONLY one-sided-OURS total:  pristine=2  patched=2
+-- ARM-VIEWS THAT GAINED A NAME: 0
+
+== over the BOUNDARY MOVERS re-scored against real goldens (armscore219.sh scratch, 16 arm-views)
+arm-views with a golden census: 16
+NAME-ONLY one-sided-OURS total:  pristine=2  patched=2
+-- ARM-VIEWS THAT GAINED A NAME: 0
