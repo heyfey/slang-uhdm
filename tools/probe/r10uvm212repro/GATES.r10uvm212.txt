@@ -1,0 +1,178 @@
+r10uvm212 — GATE TRANSCRIPT.  BASE 59767284.
+pristine binary md5 049fa251053375ef129df1158bd07521 (byte-identical to the main tree's build/slang-uhdm at 59767284)
+patched  binary md5 97b4a36beefdc33cafe8d0f127ccf7b4
+Both frozen chmod 555 BEFORE any sweep.  Every cmds.txt was audited BY BINARY PATH:
+  pristine sweeps: slang:   /tmp/r10uvm212_pris.bin
+  patched  sweeps: slang:   /tmp/r10uvm212_fix.bin
+GOLDEN_DEFER unset.  results/*.csv READ ONLY, NOT EDITED, nothing promoted.
+
+== (1) BUILD
+  both binaries built -j 2 in this pass's own worktree; md5s above.
+
+== (2) GOLDEN TESTS (SLANG_UHDM exported explicitly per binary)
+  patched:  PASS=23 FAIL=0
+  /bin/false negative control: PASS=0 FAIL=23
+
+== (3) uhdm2rtlil corpus, patched
+  testflags: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+  default  : 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+  ct8rows results/gate_uhdm2rtlil.csv  vs patched testflags : 0 differing ROWS
+  ct8rows own-pristine testflags       vs patched testflags : 0 differing ROWS
+  ct8rows own-pristine default         vs patched default   : 0 differing ROWS
+  byteverify SELFCHECK=1 (patched vs own pristine): PATH_SETS_IDENTICAL (1358), MOVERS 0 / 1358, selfcheck 1357/1358 flagged
+
+== (4) surelog corpus, --mode both, patched
+  default  : 475 CMP_EQUAL / 6 CMP_NOTEQUAL / 5 DEFERRED / 283 SLANG_REJECT / 25 SURELOG_FAIL
+  testflags: 469 CMP_EQUAL / 6 CMP_NOTEQUAL / 5 DEFERRED / 3 NO_DATABASE / 1 NO_UHDM / 284 SLANG_REJECT / 23 SURELOG_FAIL / 1 TIMEOUT / 2 UNTRANSLATABLE
+
+  *** ONE ROW CONVERTS.  READ IT, DO NOT SUMMARISE IT. ***
+  ct8rows own-pristine vs patched: 1 differing ROW out of 1588
+    < Scoreboard,default,CMP_NOTEQUAL,decompile:,,
+    > Scoreboard,default,CMP_EQUAL,,,differ
+  results/golden_surelog.csv was NOT edited by this pass; the master promotes that row.
+
+  ct8rows results/golden_surelog.csv vs patched: 3 differing ROWS — the conversion above PLUS
+    < Earlgrey_0_1,default,CMP_EQUAL,,,differ     > Earlgrey_0_1,default,CMP_EQUAL,,,
+    < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ   > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  Those two are a HARNESS ARTIFACT, not a database change, and it is PROVEN three ways:
+    * the STATUS column is CMP_EQUAL on both sides — the judge's verdict never moved;
+    * Earlgrey_0_1's slang.uhdm is BYTE-IDENTICAL patched vs pristine
+      (default 8c2ba25c4d7f, testflags 92bf7b7facdc — the same 12-hex prefixes r10uvm209 recorded),
+      and byteverify reports it as a non-mover;
+    * the blank is verify_golden.py's dump_verdict returning '' on TIMEOUT: a single
+      uhdm-dump of that database runs LONGER THAN THE 180 s BUDGET on this machine while
+      two other passes are sweeping (measured: >300 s per side).  MY OWN PRISTINE sweep
+      has the same blank in default, so the blank predates the patch.
+
+  byteverify SELFCHECK=1 (patched vs own pristine): PATH_SETS_IDENTICAL (956)
+    MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=260eeb724b86 pristine=c2acc1ab76a5
+    MOVERS: 1 / 956    selfcheck 955/956 flagged
+    -> the ONE mover is the ONE object pred212.py named BEFORE the patched binary existed.
+
+== (5) THE COIN, ATTRIBUTED ORDER-BLIND
+  Scoreboard/default is the ~50/50 coin row.  Attribution is by path-normalised SORTED
+  whole-dump diff of the two databases (never by face order):
+    pristine dump 1100449 lines, patched 1100422 lines
+    order-blind diff: 82 lines, EVERY one of them the removed listing —
+      |vpiParameter: / |vpiParamAssign: / type_parameter work@my_scoreboard::type_id::T
+      and its ref_typespec / param_assign with its vpiLhs+vpiRhs / class_typespec (my_scoreboard)
+      / |vpiClassDefn: / |vpiName:my_scoreboard — plus indentation-only re-prints of the
+      SHARED uvm_pkg::uvm_component_registry::T subtree, now reached at a shallower depth.
+    ZERO svunit_pkg vpiTaskFunc lines in the diff: the coin did not flip between the two runs,
+    and even if it had, the sorted diff is blind to it.
+
+== (6) HEADS (rowheads.sh on the patched sweep; SKIP-NOFILE on Scoreboard/tf + Rggen/tf is expected)
+  TEST           MODE      CMPLINES  HEADS NOTE
+  SeqDriver      default         50      1 cmp rc=255
+  SeqDriver      testflags       50      1 cmp rc=255
+  SimpleUVM      default          0      0 cmp rc=0
+  SimpleUVM      testflags        0      0 cmp rc=0
+  Scoreboard     default          0      0 cmp rc=0
+  Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+  MiniAmiq       default        112      1 cmp rc=255
+  MiniAmiq       testflags      112      1 cmp rc=255
+  BuildUVMPkg    default          0      0 cmp rc=0
+  BuildUVMPkg    testflags        0      0 cmp rc=0
+  Earlgrey_0_1   default          0      0 cmp rc=0
+  Earlgrey_0_1   testflags        0      0 cmp rc=0
+  Rggen          default          0      0 cmp rc=0
+  Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+  -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+  PRISTINE, same instrument, same workdir shape: Scoreboard/default was 95 cmp lines / 1 head.
+  SeqDriver 50/1 and MiniAmiq 112/1 are the sister passes' heads (uvm210, uvm211) and are UNCHANGED.
+
+== (7) CANARIES
+  canaries.sh surelog : ok=49 changed=3 absent=0 unknown-names=7
+    CHANGED Scoreboard   default  CMP_NOTEQUAL/ -> CMP_EQUAL/differ   <- THE CONVERSION
+    CHANGED Earlgrey_0_1 default  CMP_EQUAL/differ -> CMP_EQUAL/      <- the dump-timeout artifact above
+    CHANGED Earlgrey_0_1 testflags CMP_EQUAL/differ -> CMP_EQUAL/     <- the dump-timeout artifact above
+  canaries.sh uhdm2rtlil: ok=8 changed=0 absent=0
+  ctcan2 surelog   : ok=58 changed=0 absent=0  PASS
+  ctcan2 uhdm2rtlil: ok=1  changed=0 absent=0  PASS
+  canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+
+== (8) PROTECTED DATABASES (12-hex md5 prefix, patched vs own pristine)
+  InterfaceModPort     default   patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  InterfaceModPort     testflags patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  BlackParrotComplex   default   patched=e3e354129d5a pristine=e3e354129d5a SAME
+  BlackParrotComplex   testflags patched=73a10e8217e5 pristine=73a10e8217e5 SAME
+  YosysOldOr           default   patched=d68e0796d62c pristine=d68e0796d62c SAME
+  YosysOldOr           testflags patched=d68e0796d62c pristine=d68e0796d62c SAME
+  SVSwitch             default   patched=4842211c4030 pristine=4842211c4030 SAME
+  SVSwitch             testflags patched=4842211c4030 pristine=4842211c4030 SAME
+  YosysVerx            default   patched=6ccda350c24a pristine=6ccda350c24a SAME
+  YosysVerx            testflags patched=6ccda350c24a pristine=6ccda350c24a SAME
+  YosysBigSimReed      default   patched=1275131a6918 pristine=1275131a6918 SAME
+  YosysBigSimReed      testflags patched=158ed16c2931 pristine=158ed16c2931 SAME
+  YosysOldOpen         default   patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  YosysOldOpen         testflags patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  ApbSlave             default   patched=1c5d153894cf pristine=1c5d153894cf SAME
+  ApbSlave             testflags patched=1c5d153894cf pristine=1c5d153894cf SAME
+  ClassExtends         default   patched=e9e8df985eaa pristine=e9e8df985eaa SAME
+  ClassExtends         testflags patched=340f6d208265 pristine=340f6d208265 SAME
+  Earlgrey_0_1         default   patched=8c2ba25c4d7f pristine=8c2ba25c4d7f SAME
+  Earlgrey_0_1         testflags patched=92bf7b7facdc pristine=92bf7b7facdc SAME
+-- compared=20 NOFILE=0 MOVED=0
+
+== (9) THE SIX CMP_EQUAL ROW-MODES — BOTH COLUMNS SCORED EXPLICITLY
+  BuildUVMPkg    default  
+    pristine: BuildUVMPkg,default,CMP_EQUAL,,,differ
+    patched : BuildUVMPkg,default,CMP_EQUAL,,,differ
+  BuildUVMPkg    testflags
+    pristine: BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+    patched : BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+  Earlgrey_0_1   default  
+    pristine: Earlgrey_0_1,default,CMP_EQUAL,,,
+    patched : Earlgrey_0_1,default,CMP_EQUAL,,,
+  Earlgrey_0_1   testflags
+    pristine: Earlgrey_0_1,testflags,CMP_EQUAL,,,
+    patched : Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  SimpleUVM      default  
+    pristine: SimpleUVM,default,CMP_EQUAL,,,differ
+    patched : SimpleUVM,default,CMP_EQUAL,,,differ
+  SimpleUVM      testflags
+    pristine: SimpleUVM,testflags,CMP_EQUAL,,,differ
+    patched : SimpleUVM,testflags,CMP_EQUAL,,,differ
+  (Earlgrey_0_1's dump column is blank in BOTH of this pass's own sweeps — the timeout above.
+   The STATUS column, which is the judge's verdict, is CMP_EQUAL in all twelve cells.)
+
+== (10) BOUNDARY GATE (bound212.sh over 665 arms from r10uvm163/v163, 202, 205, 207, 208,
+        82-91, buvm3-15, sd8-12, sd1 and this pass's own grid; BOTH views, def and elab)
+  LISTED=665 PROCESSED=665 PRODUCED_DBS=650 MOVED_ARMS=1 RC_DIFFS=0
+  MOVERS:
+    r10uvm212grid/c9_pkgsuppressedbase_and_cuclone/design.sv  def=MOVED elab=MOVED rc=0/0,0/0
+  That single mover is THIS PASS'S OWN POSITIVE CONTROL, and it moves TOWARD golden in BOTH views:
+    def  view: uhdm-cmp 95 lines / 1 head  ->  0 lines / 0 heads (rc 0)
+    elab view: uhdm-cmp 117 lines / 1 head ->  0 lines / 0 heads (rc 0)
+  Every committed arm of every named boundary pass is BYTE-IDENTICAL in both views.
+
+== (11) THE LAW, SCORED — MOVED-WRONG 0 / AWAY 0
+  ct212alias over the nine comparable UVM row-modes:
+    golden clone/base listing mismatches: 0 before, 0 after (golden is immutable; measured both times)
+    ours:                                 1 before, 0 after
+  pred212.py corpus-wide screen AFTER the patch: surelog 956 databases -> 0, uhdm2rtlil 1358 -> 0.
+  Golden grid, 18 arms (listing-bearing class_typespec counts):
+    c10_pkgsuppressedbase_only                 golden=0    ours_pristine=0    ours_patched=0   
+    c1_cuclass_foreignpkg                      golden=1    ours_pristine=1    ours_patched=1   
+    c2_cuclass_foreignpkg_macro                golden=1    ours_pristine=1    ours_patched=1   
+    c3_cuclass_foreignpkg_explicit             golden=1    ours_pristine=1    ours_patched=1   
+    c4_cuclass_cutarget                        golden=1    ours_pristine=1    ours_patched=1   
+    c5_pkgclass_foreignpkg                     golden=1    ours_pristine=1    ours_patched=1   
+    c6_cuclass_foreignpkg_twotd                golden=2    ours_pristine=2    ours_patched=2   
+    c7_cuclass_foreignpkg_and_pkgclass         golden=2    ours_pristine=2    ours_patched=2   
+    c8_cuclass_foreignpkg_extends_foreign      golden=1    ours_pristine=1    ours_patched=1   
+    c9_pkgsuppressedbase_and_cuclone           golden=0    ours_pristine=1    ours_patched=0   
+    g1_unit_comp                               golden=0    ours_pristine=1    ours_patched=0   
+    g2_pkg_comp                                golden=9    ours_pristine=9    ours_patched=9   
+    g3_unit_obj                                golden=0    ours_pristine=1    ours_patched=0   
+    g4_pkg_obj                                 golden=50   ours_pristine=50   ours_patched=50  
+    g5_unit_comp_fields                        golden=0    ours_pristine=1    ours_patched=0   
+    g6_pkg_comp_fields                         golden=9    ours_pristine=9    ours_patched=9   
+    g7_unit_and_pkg                            golden=10   ours_pristine=10   ours_patched=10  
+    g8_pkg_param_comp                          golden=9    ours_pristine=9    ours_patched=9   
+  Four cells moved, all TOWARD golden (1 -> 0 where golden is 0): c9, g1, g3, g5.
+  Fourteen cells did not move and match golden exactly.  NO cell lost a listing golden has.
+  The four g* arms that moved are CENSUS arms, not cmp arms: a minimal UVM design is not a
+  converged row, so their uhdm-cmp head is an unrelated earlier object in both binaries
+  (g1 661830 -> 661766 lines, g3 663724 -> 663660, g5 664910 -> 664846: exactly the 64-line
+  decompile of the removed listing, and nothing else).

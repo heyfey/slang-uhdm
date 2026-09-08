@@ -1,0 +1,84 @@
+Scoreboard/default — the COIN row, attributed ORDER-BLIND (sorted, path-normalised whole dumps)
+pristine dump 1100449 lines; patched 1100422 lines; order-blind diff = 82 lines:
+74156d74155
+<               \_class_defn: (uvm_pkg::uvm_component_registry), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_registry.svh, line:51:1, endln:173:9
+74177a74177
+>       \_class_defn: (uvm_pkg::uvm_component_registry), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_registry.svh, line:51:1, endln:173:9
+85178d85177
+<   \_class_defn: (work@my_scoreboard), file:/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/design.sv, line:7:1, endln:24:9
+90919,90920d90917
+<               \_class_typespec: (my_scoreboard), line:468:35, endln:468:57
+< \_class_typespec: (my_scoreboard), line:468:35, endln:468:57
+91387,91388d91383
+<             \_class_typespec: (type_id), line:483:12, endln:483:34
+<             \_class_typespec: (type_id), line:483:12, endln:483:34
+91994c91989
+<                 \_class_typespec: (uvm_component), line:51:39, endln:51:52
+---
+>         \_class_typespec: (uvm_component), line:51:39, endln:51:52
+307554d307548
+<           \_param_assign: 
+356200c356194
+<               \_ref_typespec: (uvm_pkg::uvm_component_registry::T)
+---
+>       \_ref_typespec: (uvm_pkg::uvm_component_registry::T)
+372069d372062
+<             \_ref_typespec: (work@my_scoreboard::type_id::T)
+412668,412669c412661
+<                 \_type_parameter: (uvm_pkg::uvm_component_registry::T), line:51:37, endln:51:38
+<             \_type_parameter: (uvm_pkg::uvm_component_registry::T), line:51:37, endln:51:38
+---
+>         \_type_parameter: (uvm_pkg::uvm_component_registry::T), line:51:37, endln:51:38
+413263,413266d413254
+<               \_type_parameter: (work@my_scoreboard::type_id::T)
+<             \_type_parameter: (work@my_scoreboard::type_id::T)
+<           \_type_parameter: (work@my_scoreboard::type_id::T)
+<   \_type_parameter: (work@my_scoreboard::type_id::T)
+454499,454500d454486
+<                 |vpiActual:
+<               |vpiActual:
+478081a478068
+>         |vpiActual:
+520271d520257
+<   |vpiClassDefn:
+598189,598190c598175,598176
+<                 |vpiFullName:uvm_pkg::uvm_component_registry::T
+<               |vpiFullName:uvm_pkg::uvm_component_registry::T
+---
+>         |vpiFullName:uvm_pkg::uvm_component_registry::T
+>       |vpiFullName:uvm_pkg::uvm_component_registry::T
+665987,665988d665972
+<               |vpiFullName:work@my_scoreboard::type_id::T
+<             |vpiFullName:work@my_scoreboard::type_id::T
+692701d692684
+<             |vpiLhs:
+744292d744274
+<   |vpiName:my_scoreboard
+771545,771546d771526
+<               |vpiName:T
+<             |vpiName:T
+771646a771627
+>       |vpiName:T
+831965d831945
+<           |vpiParamAssign:
+832210d832189
+<           |vpiParameter:
+911997,911998d911975
+<                 |vpiParent:
+<               |vpiParent:
+930696,930698d930672
+<               |vpiParent:
+<             |vpiParent:
+<             |vpiParent:
+981095a981070,981071
+>         |vpiParent:
+>       |vpiParent:
+994309d994284
+<   |vpiParent:
+1007374d1007348
+<             |vpiRhs:
+1077175,1077176d1077148
+<               |vpiTypespec:
+<             |vpiTypespec:
+1082676a1082649
+>       |vpiTypespec:

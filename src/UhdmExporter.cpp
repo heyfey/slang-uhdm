@@ -3563,8 +3563,53 @@ bool UhdmExporter::emitClassTdSpecParams1(
 void UhdmExporter::copyClassTdSpecParams1(UHDM::class_typespec* dst,
                                           UHDM::class_typespec* base,
                                           bool overwrite1) {
-    if (!dst || !base || dst == base || !base->Parameters())
+    if (!dst || !base || dst == base)
         return;
+    // NOTE § classTdCloneTakesTheBasesEmptyListing212 — **AN ABSENT LISTING IS
+    // A LISTING.**  `clone_tree` of a base that carries NO
+    // `Parameters`/`Param_assigns` produces a clone that carries none either;
+    // there is no arm in
+    // `ElaborationStep::bindTypedefs_` (ElaborationStep.cpp:193-200) that lets
+    // a clone keep a specialization the base does not have.  § 112 made the
+    // clone half TOTAL for a base that HAS a listing and stopped one step
+    // short: a base with a NULL `Parameters` still returned here and left the
+    // clone wearing whatever `emitClassTdSpecParams1` had already given it
+    // from its own `#(...)` text (that call deliberately runs BEFORE the group
+    // arms).  This is the OTHER half of the same law.
+    //
+    // WITNESS — the Scoreboard/default cmp HEAD at 59767284, and the ONLY
+    // object in either corpus this changes (956 + 1358 pristine databases
+    // screened by `pred212.py` BEFORE the patch existed):
+    //   golden: class_typespec `type_id` in `work@my_scoreboard`,
+    //           Parameters = NULL VECTOR, Param_assigns = NULL VECTOR
+    //   ours  : the same object with `Parameters` = [type_parameter T -> class
+    //           my_scoreboard] and one `param_assign`
+    // and the judge stops on it through BaseClass.h's VECTOR SafeCompare
+    // (`BaseClass.h:220-222`), which on lhs==nullptr / non-empty rhs records
+    // the OWNER as `m_failedRhs` and leaves `m_failedLhs` unset — the head
+    // reads `LHS: <null>` with the whole class_typespec on the right, which is
+    // a VECTOR verdict wearing a singular verdict's face.
+    //
+    // GOLDEN GRID (`grid/`, arms c1..c8 + g1..g8, and the nine UVM row-modes):
+    // `ct212alias` reports **ZERO** clone/base listing mismatches in EVERY
+    // golden database measured — Scoreboard, SeqDriver, MiniAmiq, SimpleUVM,
+    // BuildUVMPkg — while ours had exactly one.  The rule is not about the
+    // declaring library: cells c1/c2/c3/c8 (a COMPILATION-UNIT class whose
+    // class-scope typedef targets a FOREIGN PACKAGE generic — the diagonal
+    // r10sd1's b-grid never measured) all keep their listing in golden, and so
+    // do ours.  What decides is only whether the object is a CLONE and what
+    // its BASE carries.
+    //
+    // SCOPE: `overwrite1` only, i.e. the § 54 no-anchor drain.  The pass-50
+    // package-anchor call site passes the default `false` and is untouched, so
+    // its UNMEASURED-CELL note stands exactly as it was.
+    if (!base->Parameters()) {
+        if (overwrite1 && dst->Parameters()) {
+            dst->Parameters(nullptr);
+            dst->Param_assigns(nullptr);
+        }
+        return;
+    }
     // NOTE § classTdCloneSpecOverridesOwnArgs112 — THE CLONE HALF IS TOTAL.
     // Surelog's `ElaborationStep::bindTypedefs_` gives a group's later typedefs
     // `clone_tree` of the BASE's typespec (ElaborationStep.cpp:194-201): the

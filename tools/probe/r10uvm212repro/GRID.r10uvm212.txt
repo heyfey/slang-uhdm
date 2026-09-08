@@ -1,0 +1,119 @@
+grid212.sh — THE GOLDEN GRID, 18 arms.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== pristine run
+SURELOG   = /home/heyfey/git-repos/Surelog/build/bin/surelog
+SLANG     = /tmp/r10uvm212_pris.bin  md5=049fa251053375ef129df1158bd07521
+OUT       = /tmp/r10uvm212_grid_pris
+LISTED=18
+ARM c10_pkgsuppressedbase_only surelog rc=0   db=yes  rows=7    | slang rc=0   db=yes rows=7   
+ARM c1_cuclass_foreignpkg  surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c2_cuclass_foreignpkg_macro surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c3_cuclass_foreignpkg_explicit surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c4_cuclass_cutarget    surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c5_pkgclass_foreignpkg surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c6_cuclass_foreignpkg_twotd surelog rc=0   db=yes  rows=12   | slang rc=0   db=yes rows=11  
+ARM c7_cuclass_foreignpkg_and_pkgclass surelog rc=0   db=yes  rows=12   | slang rc=0   db=yes rows=11  
+ARM c8_cuclass_foreignpkg_extends_foreign surelog rc=0   db=yes  rows=9    | slang rc=0   db=yes rows=9   
+ARM c9_pkgsuppressedbase_and_cuclone surelog rc=0   db=yes  rows=9    | slang rc=0   db=yes rows=10  
+ARM g1_unit_comp           surelog rc=4   db=yes  rows=926  | slang rc=0   db=yes rows=918 
+ARM g2_pkg_comp            surelog rc=4   db=yes  rows=1027 | slang rc=0   db=yes rows=911 
+ARM g3_unit_obj            surelog rc=4   db=yes  rows=927  | slang rc=0   db=yes rows=919 
+ARM g4_pkg_obj             surelog rc=4   db=yes  rows=1027 | slang rc=0   db=yes rows=911 
+ARM g5_unit_comp_fields    surelog rc=4   db=yes  rows=927  | slang rc=0   db=yes rows=919 
+ARM g6_pkg_comp_fields     surelog rc=4   db=yes  rows=1027 | slang rc=0   db=yes rows=911 
+ARM g7_unit_and_pkg        surelog rc=4   db=yes  rows=1014 | slang rc=0   db=yes rows=921 
+ARM g8_pkg_param_comp      surelog rc=4   db=yes  rows=1027 | slang rc=0   db=yes rows=911 
+PROCESSED=18 LISTED=18 FILTER='_'
+GRID OK
+
+== patched run
+SURELOG   = /home/heyfey/git-repos/Surelog/build/bin/surelog
+SLANG     = /tmp/r10uvm212_fix.bin  md5=97b4a36beefdc33cafe8d0f127ccf7b4
+OUT       = /tmp/r10uvm212_grid_fix
+LISTED=18
+ARM c10_pkgsuppressedbase_only surelog rc=0   db=yes  rows=7    | slang rc=0   db=yes rows=7   
+ARM c1_cuclass_foreignpkg  surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c2_cuclass_foreignpkg_macro surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c3_cuclass_foreignpkg_explicit surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c4_cuclass_cutarget    surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c5_pkgclass_foreignpkg surelog rc=0   db=yes  rows=8    | slang rc=0   db=yes rows=8   
+ARM c6_cuclass_foreignpkg_twotd surelog rc=0   db=yes  rows=12   | slang rc=0   db=yes rows=11  
+ARM c7_cuclass_foreignpkg_and_pkgclass surelog rc=0   db=yes  rows=12   | slang rc=0   db=yes rows=11  
+ARM c8_cuclass_foreignpkg_extends_foreign surelog rc=0   db=yes  rows=9    | slang rc=0   db=yes rows=9   
+ARM c9_pkgsuppressedbase_and_cuclone surelog rc=0   db=yes  rows=9    | slang rc=0   db=yes rows=10  
+ARM g1_unit_comp           surelog rc=4   db=yes  rows=926  | slang rc=0   db=yes rows=918 
+ARM g2_pkg_comp            surelog rc=4   db=yes  rows=1027 | slang rc=0   db=yes rows=911 
+ARM g3_unit_obj            surelog rc=4   db=yes  rows=927  | slang rc=0   db=yes rows=919 
+ARM g4_pkg_obj             surelog rc=4   db=yes  rows=1027 | slang rc=0   db=yes rows=911 
+ARM g5_unit_comp_fields    surelog rc=4   db=yes  rows=927  | slang rc=0   db=yes rows=919 
+ARM g6_pkg_comp_fields     surelog rc=4   db=yes  rows=1027 | slang rc=0   db=yes rows=911 
+ARM g7_unit_and_pkg        surelog rc=4   db=yes  rows=1014 | slang rc=0   db=yes rows=921 
+ARM g8_pkg_param_comp      surelog rc=4   db=yes  rows=1027 | slang rc=0   db=yes rows=911 
+PROCESSED=18 LISTED=18 FILTER='_'
+GRID OK
+
+== listing-bearing class_typespec counts per arm
+    c10_pkgsuppressedbase_only                 golden=0    ours_pristine=0    ours_patched=0   
+    c1_cuclass_foreignpkg                      golden=1    ours_pristine=1    ours_patched=1   
+    c2_cuclass_foreignpkg_macro                golden=1    ours_pristine=1    ours_patched=1   
+    c3_cuclass_foreignpkg_explicit             golden=1    ours_pristine=1    ours_patched=1   
+    c4_cuclass_cutarget                        golden=1    ours_pristine=1    ours_patched=1   
+    c5_pkgclass_foreignpkg                     golden=1    ours_pristine=1    ours_patched=1   
+    c6_cuclass_foreignpkg_twotd                golden=2    ours_pristine=2    ours_patched=2   
+    c7_cuclass_foreignpkg_and_pkgclass         golden=2    ours_pristine=2    ours_patched=2   
+    c8_cuclass_foreignpkg_extends_foreign      golden=1    ours_pristine=1    ours_patched=1   
+    c9_pkgsuppressedbase_and_cuclone           golden=0    ours_pristine=1    ours_patched=0   
+    g1_unit_comp                               golden=0    ours_pristine=1    ours_patched=0   
+    g2_pkg_comp                                golden=9    ours_pristine=9    ours_patched=9   
+    g3_unit_obj                                golden=0    ours_pristine=1    ours_patched=0   
+    g4_pkg_obj                                 golden=50   ours_pristine=50   ours_patched=50  
+    g5_unit_comp_fields                        golden=0    ours_pristine=1    ours_patched=0   
+    g6_pkg_comp_fields                         golden=9    ours_pristine=9    ours_patched=9   
+    g7_unit_and_pkg                            golden=10   ours_pristine=10   ours_patched=10  
+    g8_pkg_param_comp                          golden=9    ours_pristine=9    ours_patched=9   
+
+== the decisive cell c9_pkgsuppressedbase_and_cuclone, tidb rows
+-- GOLDEN:
+x1    NAME=tidb                     PAR=class_defn:work@ub                             DEFN=regb                                     AL=0 IN=1 P=NUL   PA=NUL  
+x1    NAME=tidb                     PAR=class_defn:work@ub                             DEFN=regb                                     AL=1 IN=0 P=NUL   PA=NUL  
+-- OURS pristine:
+x1    NAME=tidb                     PAR=class_defn:rcb                                 DEFN=regb                                     AL=0 IN=1 P=NUL   PA=NUL  
+x1    NAME=tidb                     PAR=class_defn:work@ub                             DEFN=regb                                     AL=1 IN=0 P=n1    PA=n1   
+-- OURS patched:
+x1    NAME=tidb                     PAR=class_defn:rcb                                 DEFN=regb                                     AL=0 IN=1 P=NUL   PA=NUL  
+x1    NAME=tidb                     PAR=class_defn:work@ub                             DEFN=regb                                     AL=1 IN=0 P=NUL   PA=NUL  
+
+== c9 official uhdm-cmp, def view:  pristine 95 lines / 1 head -> patched 0 / 0 (rc 0)
+== c9 official uhdm-cmp, elab view: pristine 117 lines / 1 head -> patched 0 / 0 (rc 0)
+
+== c9 pristine head, verbatim:
+LHS: <null>
+RHS:
+decompile:
+class_typespec: (tidb), id:115, line:15:13, endln:15:17
+|vpiParent:
+\_class_defn: (work@ub), id:114, file:/tmp/wt_r10uvm212/tools/probe/r10uvm212repro/grid/c9_pkgsuppressedbase_and_cuclone/design.sv, line:19:1, endln:21:9
+|vpiName:tidb
+|vpiTypedefAlias:
+\_ref_typespec: (work@ub::tidb), id:139
+  |vpiParent:
+  \_class_typespec: (tidb), id:115, line:15:13, endln:15:17
+  |vpiFullName:work@ub::tidb
+  |vpiActual:
+  \_class_typespec: (tidb), id:6, line:15:13, endln:15:17
+|vpiParameter:
+\_type_parameter: (work@ub::tidb::T), id:116
+  |vpiParent:
+  \_class_typespec: (tidb), id:115, line:15:13, endln:15:17
+  |vpiName:T
+  |vpiFullName:work@ub::tidb::T
+
+== g1_unit_comp (a compilation-unit uvm_component_utils class), type_id rows
+-- GOLDEN:
+x1    NAME=type_id                  PAR=class_defn:work@g1c                            DEFN=uvm_component_registry                   AL=0 IN=1 P=NUL   PA=NUL  
+x1    NAME=type_id                  PAR=class_defn:work@g1c                            DEFN=uvm_component_registry                   AL=1 IN=0 P=NUL   PA=NUL  
+x1    NAME=type_id                  PAR=class_defn:work@g1c                            DEFN=uvm_object_registry                      AL=0 IN=1 P=NUL   PA=NUL  
+-- OURS pristine:
+x1    NAME=type_id                  PAR=class_defn:work@g1c                            DEFN=uvm_component_registry                   AL=1 IN=0 P=n1    PA=n1   
+-- OURS patched:
+x1    NAME=type_id                  PAR=class_defn:work@g1c                            DEFN=uvm_component_registry                   AL=1 IN=0 P=NUL   PA=NUL  

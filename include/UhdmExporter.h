@@ -7394,6 +7394,13 @@ private:
     // non-empty destination left SeqDriver's `adpcm_sequencer` / `adpcm_test`
     // / `adpcm_tx_seq` `type_id` typedefs binding T to THEIR OWN class where
     // golden binds the BASE's (`adpcm_driver` / `adpcm_seq_item`).
+    // § classTdCloneTakesTheBasesEmptyListing212 — and the clone half is total
+    // in the OTHER direction too: when the BASE carries NO listing the clone
+    // must carry none either.  `overwrite1` therefore CLEARS a destination's
+    // `Parameters`/`Param_assigns` back to NULL VECTORS (not empty ones —
+    // `BaseClass.h:220` fires on NULL-vs-non-empty, so the two are different
+    // answers).  Exactly one object in either corpus is affected:
+    // Scoreboard/default's `work@my_scoreboard::type_id`, the cmp head.
     void copyClassTdSpecParams1(UHDM::class_typespec* dst,
                                 UHDM::class_typespec* base,
                                 bool overwrite1 = false);

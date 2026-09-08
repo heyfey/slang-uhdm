@@ -1,0 +1,2 @@
+PREDICTED-MOVER Scoreboard               default    x1    MISMATCH CLONE type_id              in class_defn:work@my_scoreboard              P/PA=n1/n1       || BASE type_id              in class_defn:uvm_algorithmic_comparator      P/PA=NUL/NUL
+SCANNED=956 PREDICTED-MOVER-OBJECTS=1

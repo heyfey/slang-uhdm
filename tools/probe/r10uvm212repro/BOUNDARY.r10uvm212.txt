@@ -1,0 +1,5 @@
+bound212.sh over 665 arms, PRIS=049f… PATCHED=97b4…
+LISTED=665 PROCESSED=665 PRODUCED_DBS=650 MOVED_ARMS=1 RC_DIFFS=0
+
+MOVERS:
+r10uvm212grid/c9_pkgsuppressedbase_and_cuclone/design.sv	def=MOVED	elab=MOVED	rc=0/0,0/0

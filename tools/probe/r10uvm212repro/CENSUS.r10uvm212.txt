@@ -1,0 +1,25 @@
+ct212cen — the type_id family, both sides, nine comparable UVM row-modes (PRISTINE binary).
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  NUL = a NULL vector pointer, n<k> = size k.
+
+ROW-MODE                     G_with  G_without     O_with  O_without
+Scoreboard.default                0         56          1         55
+SeqDriver.default                58          0         58          0
+SeqDriver.testflags              58          0         58          0
+MiniAmiq.default                 65          0         65          0
+MiniAmiq.testflags               65          0         65          0
+SimpleUVM.default                 0         55          0         55
+SimpleUVM.testflags               0         55          0         55
+BuildUVMPkg.default               0         89          0         89
+BuildUVMPkg.testflags             0         89          0         89
+
+EVERY class_typespec (not only the registry family), Scoreboard/default:
+-- GOLDEN listing-bearing objects:
+x1    NAME=uvm_analysis_imp         PAR=class_var:m_imp                                DEFN=uvm_analysis_imp                         AL=0 IN=0 P=n2    PA=n2   
+x2    NAME=uvm_analysis_port        PAR=<none>                                         DEFN=uvm_analysis_port                        AL=0 IN=0 P=n1    PA=n1   
+-- OURS (pristine) listing-bearing objects:
+x1    NAME=type_id                  PAR=class_defn:work@my_scoreboard                  DEFN=uvm_component_registry                   AL=1 IN=0 P=n1    PA=n1   
+x1    NAME=uvm_analysis_imp         PAR=class_var:m_imp                                DEFN=uvm_analysis_imp                         AL=0 IN=0 P=n2    PA=n2   
+x2    NAME=uvm_analysis_port        PAR=<none>                                         DEFN=uvm_analysis_port                        AL=0 IN=0 P=n1    PA=n1   
+
+(The Scoreboard census above was taken on databases produced by a binary with the SAME md5
+ as this pass's pristine one, 049fa251053375ef129df1158bd07521.)

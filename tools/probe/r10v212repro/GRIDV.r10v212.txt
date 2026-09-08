@@ -1,0 +1,19 @@
+SURELOG = /home/heyfey/git-repos/Surelog/build/bin/surelog
+PRIS    = /tmp/v212_bin/pris_049f.bin  md5=049fa251053375ef129df1158bd07521
+PATCHED = /tmp/v212_bin/patched_97b4.bin  md5=97b4a36beefdc33cafe8d0f127ccf7b4
+LISTED=12
+ARM                      SLRC      DEF pris         DEF patched      ELAB pris        ELAB patched    
+v10_deepchain            0/0       95/1,rc255       0/0,rc0          117/1,rc255      0/0,rc0         
+v11_moduleclass          0/0       182/1,rc255      118/1,rc255      204/1,rc255      118/1,rc255     
+v12_virtualbase          0/0       95/1,rc255       0/0,rc0          117/1,rc255      0/0,rc0         
+v1_ordersplit            0/0       0/0,rc0          0/0,rc0          0/0,rc0          0/0,rc0         
+v2_namedargs_base        0/0       95/1,rc255       0/0,rc0          117/1,rc255      0/0,rc0         
+v3_threemember           0/0       95/1,rc255       0/0,rc0          117/1,rc255      0/0,rc0         
+v4_scopedname_base       0/0       0/0,rc0          0/0,rc0          0/0,rc0          0/0,rc0         
+v5_paramarg_base         0/0       95/1,rc255       386/1,rc255      117/1,rc255      117/1,rc255     
+v6_nestedouter_base      0/0       305/1,rc255      305/1,rc255      305/1,rc255      305/1,rc255     
+v7_macro_clone           0/0       95/1,rc255       0/0,rc0          117/1,rc255      0/0,rc0         
+v8_bothforeign_twopkg    0/0       0/0,rc0          0/0,rc0          0/0,rc0          0/0,rc0         
+v9_cu_base_pkg_clone     0/0       0/0,rc0          0/0,rc0          0/0,rc0          0/0,rc0         
+PROCESSED=12 LISTED=12
+GRIDV2 OK
