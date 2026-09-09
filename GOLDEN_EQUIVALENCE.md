@@ -294,10 +294,10 @@ exists.
 
 | Corpus | Mode | Total | Status breakdown | Comparable | Equal |
 |---|---|---|---|---|---|
-| Surelog suite | default | 794 | CMP_EQUAL=477 SLANG_REJECT=283 SURELOG_FAIL=25 DEFERRED=5 CMP_NOTEQUAL=4 | 481 | 477 (99.2%) |
-| Surelog suite | testflags | 794 | CMP_EQUAL=471 SLANG_REJECT=284 SURELOG_FAIL=23 DEFERRED=5 CMP_NOTEQUAL=4 NO_DATABASE=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 475 | 471 (99.2%) |
-| uhdm2rtlil | default | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
-| uhdm2rtlil | testflags | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
+| Surelog suite | default | 798 | CMP_EQUAL=455 SLANG_REJECT=285 CMP_NOTEQUAL=28 SURELOG_FAIL=25 DEFERRED=5 | 483 | 455 (94.2%) |
+| Surelog suite | testflags | 798 | CMP_EQUAL=451 SLANG_REJECT=286 CMP_NOTEQUAL=26 SURELOG_FAIL=23 DEFERRED=5 NO_DATABASE=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 477 | 451 (94.5%) |
+| uhdm2rtlil | default | 871 | CMP_EQUAL=719 CMP_NOTEQUAL=85 SLANG_REJECT=67 | 804 | 719 (89.4%) |
+| uhdm2rtlil | testflags | 871 | CMP_EQUAL=719 CMP_NOTEQUAL=85 SLANG_REJECT=67 | 804 | 719 (89.4%) |
 
 Denominator accounting (every excluded test is one of): `SLANG_REJECT`
 (out of scope, §2.5), `DEFERRED` (5 memory giants, §2.5b), `UNTRANSLATABLE`
