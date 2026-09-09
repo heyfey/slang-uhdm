@@ -1,0 +1,37 @@
+r10v224 — R-A: THE ASSOCIATIVE REPRIEVE OVER-FIRES ON A CLASS-TYPED INDEX
+
+arm vgrid224/v2_clsidx, empty-parens interface if224v2, all nine declarations
+share the type p224v2::tv2_t (typedef logic [1:0]).  GOLDEN:
+
+== interface_inst work@if224v2 (work@if224v2)
+  NET       v2_clsidx224     kind=logic_net    ts=-
+  NET       v2_pkidx224      kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_lgidx224      kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_byidx224      kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_shidx224      kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_intgidx224    kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_str224        kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_bare224       kind=logic_net    ts=-
+  NET       v2_plain224      kind=logic_net    ts=-
+
+OURS (fixed binary 3ad9d8ded7c3ee0e406d779170eb73a8 — and the patched and
+pristine binaries agree on this cell):
+
+== interface_inst work@if224v2 (work@if224v2)
+  NET       v2_clsidx224     kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_pkidx224      kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_lgidx224      kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_byidx224      kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_shidx224      kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_intgidx224    kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_str224        kind=logic_net    ts=logic_typespec (p224v2::tv2_t)
+  NET       v2_bare224       kind=logic_net    ts=-
+  NET       v2_plain224      kind=logic_net    ts=-
+
+READ: golden DROPS the typespec for [Cv2_224] (a class handle is a legal
+associative index) and KEEPS it for [bit[7:0]], [logic[3:0]], [byte],
+[shortint], [integer], [string].  assocBuiltinIndexDim224 reprieves any index
+whose type is not a TypeAlias, and a ClassType is not a TypeAlias, so the
+class form is reprieved where golden drops it.  PRISTINE kept it too (no gate
+at all), so this is STILL-WRONG, not a regression — but the predicate is one
+index kind wider than golden.  Land it with R0.

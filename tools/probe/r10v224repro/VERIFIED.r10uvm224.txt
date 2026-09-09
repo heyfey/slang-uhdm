@@ -1,0 +1,185 @@
+r10v224 — THE GATE BATTERY AS THE ADVERSARIAL VERIFIER RAN IT
+=============================================================
+BASE COMMIT e492c4e0.  Two fresh worktrees at e492c4e0: /tmp/wt_v224pris
+(pristine) and /tmp/wt_v224 (the implementer's patch, then this verifier's
+three-line fix on top).  SLANG_UHDM exported EXPLICITLY per binary; EVERY
+cmds.txt audited BY BINARY PATH; every arm's rc recorded.
+
+(1) BUILD — three binaries, -j 2 only, md5 taken separately
+    pristine  3a8d774326e1c5523f420e7d50fc41cc   (e492c4e0 untouched; identical
+                                                  to the main tree's binary)
+    patched   17b6dd3053db12a075388c3a51b5efed   (= the implementer's md5)
+    fixed     3ad9d8ded7c3ee0e406d779170eb73a8   (this verifier's, +3 lines)
+    sizes 22628000 / 22628184 / 22632176 — patched-pristine = +184 bytes,
+    the page crossing that explains the static-address false movers.
+    Build logs: 0 lines matching ' error ', 1 'Built target slang_uhdm' each.
+    Binaries frozen chmod 555 at /tmp/v224_{pris,pat,fix}.bin before any sweep.
+    DELIVERABLE CHECK: the verified patch applied to a FOURTH, FRESH worktree
+    at e492c4e0 (git apply, rc 0, no fuzz) and built there from scratch
+    reproduces 3ad9d8ded7c3ee0e406d779170eb73a8 EXACTLY.
+
+(2) GOLDENS  (tests/check_goldens.sh, SLANG_UHDM exported per binary)
+    pristine  PASS 23  FAIL  0
+    patched   PASS 23  FAIL  0
+    fixed     PASS 23  FAIL  0
+    /bin/false PASS 0  FAIL 23        (negative control)
+
+(3) uhdm2rtlil, BOTH modes, --jobs 2, own workdirs
+    pristine  tf 679/50/2   default 679/50/2
+    patched   tf 679/50/2   default 679/50/2
+    fixed     tf 679/50/2   default 679/50/2
+    ct8rows, WHOLE-ROW (status AND dump column), 731 rows:
+      results/gate_uhdm2rtlil.csv vs patched tf        0 differing ROWS  PASS
+      results/gate_uhdm2rtlil.csv vs pristine tf       0 differing ROWS  PASS
+      results/gate_uhdm2rtlil.csv vs fixed tf          0 differing ROWS  PASS
+      pristine control vs patched, tf and default      0 differing ROWS  PASS
+      pristine control vs fixed, default               0 differing ROWS  PASS
+    cmds.txt audit: 1462 files per workdir; 1458 name the pinned binary
+      (/tmp/v224_pris.bin, /tmp/v224_pat.bin, /tmp/v224_fix.bin respectively);
+      the other 4 carry NO slang line at all — they are the two SURELOG_FAIL
+      tests x two modes, where slang is never run.  No file names any other
+      binary.  Golden side: 1460 'golden cache hit', 0 misses.
+
+(4) surelog, --mode both, --jobs 2, 1588 row-modes, own workdirs
+    pristine  default 476 CMP_EQUAL / 5 CMP_NOTEQUAL / 5 DEFERRED
+                      / 283 SLANG_REJECT / 25 SURELOG_FAIL
+              testflags 470 CMP_EQUAL / 5 CMP_NOTEQUAL / 5 DEFERRED
+                      / 284 SLANG_REJECT / 23 SURELOG_FAIL / 3 NO_DATABASE
+                      / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    patched   IDENTICAL histogram, row for row
+    fixed     IDENTICAL histogram, row for row
+    ct8rows WHOLE-ROW vs results/golden_surelog.csv:
+      patched   2 differing ROWS — Earlgrey_0_1 default and testflags, DUMP
+                COLUMN ONLY ('differ' -> blank); STATUS CMP_EQUAL in both
+      pristine  1 differing ROW  — Earlgrey_0_1 testflags, same artifact
+      fixed     0 differing ROWS
+      => the Earlgrey dump column is a per-run COIN (the recorded timeout
+         artifact), not movement.  PROVED by byte identity, below.
+    EXPLICIT per-row STATUS check against both committed baselines,
+    name+mode keyed:  surelog status regressions []   u2r status regressions []
+    NO CONVERSION CLAIMED.  results/*.csv NOT edited (git status clean of them).
+    cmds.txt audit: 1573 files; 1523 name the pinned binary, the rest are rows
+      where slang is never run.  3 golden cache MISSES in each sweep
+      (Google/testflags, CoresSweRVMP/default, CoresSweRV/default); both
+      sweeps produced identical statuses for all three, so the concurrent
+      cache fill did not tear.
+
+(5) BYTE VERIFY, SELFCHECK=1, PATH_SETS_IDENTICAL in every run
+    uhdm2rtlil  patched vs pristine   MOVERS 0 / 1358
+                fixed   vs pristine   MOVERS 0 / 1358
+                fixed   vs patched    MOVERS 0 / 1358
+    surelog     patched vs pristine   MOVERS 3 /  956
+                fixed   vs pristine   MOVERS 3 /  956   (the SAME three, same
+                                                         hashes)
+                fixed   vs patched    MOVERS 0 /  956   <-- the fix is
+                                                            corpus-neutral
+    THE THREE MOVERS, attributed:
+      ./default/MiniAmiq-544c7f61/slang.uhdm    abca5ecc1c14 <- 934c80ba2466
+      ./testflags/MiniAmiq-544c7f61/slang.uhdm  abca5ecc1c14 <- 934c80ba2466
+        33 raw dump lines, 33 order-blind, IDENTICAL in both modes, and every
+        one is the law's: three ref_typespec blocks on
+        work@svaunit_vpi_interface.{sva_info,cover_info,property_info}, their
+        three now-unreferenced class_typespec
+        (svaunit_concurrent_assertion_info) tail objects at 87:4 / 90:4 / 93:4,
+        and the three class_defn back-references.  All removals.  Nothing else.
+      ./default/Scoreboard-59431470/slang.uhdm  89c1b4e51d8e <- 61ee9cb4f6c1
+        92 raw dump lines, **0 ORDER-BLIND** — the recorded svunit_pkg
+        vpiTaskFunc list-ORDER coin at exactly its recorded size.
+    Earlgrey_0_1 is NOT a mover: default 8c2ba25c4d7f and testflags
+      92bf7b7facdc on pristine, patched AND fixed.  Byte-identical.
+
+(6) THE u2r ZERO, PROVEN STRUCTURALLY AND INDEPENDENTLY  (README §4)
+    48 interface declarations in the uhdm2rtlil corpus; ZERO have an
+    empty-parens or a genuine non-ANSI port list (every one is ANSI, or
+    NO-PARENS with a #(parameter …) list); every net in them is builtin.
+    ZERO associative-array declarations anywhere in the corpus.
+    The law and its reprieve are structurally unreachable — and byteverify
+    then measured 0/1358.
+
+(7) THE HEAD  (rowheads.sh on this verifier's own workdirs)
+    PRISTINE  MiniAmiq default 17 lines / 1 head, testflags 17 / 1
+              LHS: <null>  RHS: ref_typespec
+                   (work@svaunit_vpi_interface.sva_info)
+    PATCHED   MiniAmiq default 713053 / 1, testflags 713053 / 1
+    FIXED     MiniAmiq default 713053 / 1, testflags 713053 / 1
+              LHS: interface_inst work@svaunit_vpi_interface  RHS: <null>
+              — the VECTOR-overload signature; the head OBJECT changed, so the
+              line count is the new head's decompile size, not distance.
+    THE NINE CONVERTED ROW-MODES + Rggen/default, BOTH COLUMNS, ALL THREE
+    BINARIES: 0 cmp lines / 0 heads / cmp rc=0.
+      SeqDriver default, SeqDriver testflags, SimpleUVM default,
+      SimpleUVM testflags, Scoreboard default, BuildUVMPkg default,
+      BuildUVMPkg testflags, Earlgrey_0_1 default, Earlgrey_0_1 testflags,
+      Rggen default.   (Scoreboard/testflags and Rggen/testflags SKIP-NOFILE,
+      as recorded.)  measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0.
+
+(8) CANARIES
+    canaries.sh surelog    patched ok=50 changed=2 absent=0   (Earlgrey coin)
+                           pristine ok=51 changed=1 absent=0   (Earlgrey coin)
+                           fixed   ok=52 changed=0 absent=0
+      Every 'changed' row is Earlgrey_0_1 CMP_EQUAL/differ -> CMP_EQUAL/ .
+      No canary STATUS moved in any run, on any binary.
+    canaries.sh uhdm2rtlil patched ok=8 changed=0;  fixed ok=8 changed=0
+    ctcan2 EXPECT_UNKNOWN=1 surelog     PASS (patched and fixed)
+    ctcan2 EXPECT_UNKNOWN=6 uhdm2rtlil  PASS (patched and fixed)
+    canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+    PROTECTED DATABASES, both modes, pristine vs patched AND pristine vs fixed:
+      InterfaceModPort   59a365f3ce2c  SAME   (measured FIRST — README §4)
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+      YosysOldOr         d68e0796d62c  SAME
+      SVSwitch           4842211c4030  = THE PIN
+      YosysVerx          6ccda350c24a  = THE PIN
+
+(9) THE GRIDS
+    The implementer's 15 arms, rc 0 on both sides of every arm, both runs:
+      CELLS WRONG  pristine 142 -> patched 79 -> fixed 79   (reproduced exactly)
+    This verifier's 12 adversarial arms, rc 0 on both sides of every arm:
+      CELLS WRONG  pristine  86 -> patched 39 -> fixed 39
+      no arm worse on any binary
+    THE FIELD THE CELL SCORER CANNOT SEE (innernt224.py, 27 arms):
+      PRIS -> PAT   fields same=16 fixed=17 still-wrong=169 AWAY=4
+      PRIS -> FIX   fields same=20 fixed=17 still-wrong=169 AWAY=0
+      the 4 AWAY fields are the struct-element inner nets' vpiNetType.
+
+(10) THE WIDE BOUNDARY  (bound224.sh, whole probe tree, subdirs included,
+     fd-3 file list, children </dev/null, every rc recorded)
+     pristine vs patched: LISTED 5604 PROCESSED 5604 RC_DIFFS 0
+                          MOVED_ARMS 58 = 29 sources x 2 views
+       19 of those sources are the implementer's exact set; the other 10 are
+       this verifier's own vgrid224 arms.  Of the 19:
+         11  the pass's own grid224 arms
+          3  THE STATIC-ADDRESS FALSE MOVERS, re-proved not asserted:
+             r10buvm22repro/g22.sv, r10uvm154repro/l154_noenum.sv,
+             r10uvm185repro/grid185/g185_e_kinds.sv — the OFFICIAL uhdm-cmp
+             output is BYTE-IDENTICAL between the binaries in BOTH views on
+             all three; the whole dump diff is 14/10/14 lines whose ONLY
+             non-address content is the dump's own filename header; the value
+             is |UINT:22769401 -> 22773497 (and its |vpiDecompile: twin),
+             delta 4096 = exactly one page for a binary that grew 184 bytes.
+          4  MOVED TOWARD GOLDEN, re-scored against a fresh Surelog with the
+             official judge (bscore224.sh), every number reproduced:
+               g167_c_homes.sv         6612->6598 def, 7004->6990 elab
+               grid220/a6_kinds/dut.sv 4368->4354 def, 4384->4370 elab
+               v190_2_scopes.sv        7454->7440 def, 7648->7634 elab
+               v143_l_unit.sv          4021->4035 def, 10896->10910 elab
+                 LONGER and TOWARD — the module road's new associative face
+          1  AN ERROR-RECOVERY ARM, named as one: r10uvm58repro/w1_modscope.sv,
+             Surelog exits 4 (bscore224 prints "SURELOG rc=4 — ERROR-RECOVERY
+             ARM, no golden").
+       NO must-stay family moved: the 223 arms and the v223 verifier arms, 222
+       and its paren-receiver arms, 221, 220's foreach-header arms and fences,
+       218, 216 and its index fence, uvm82-91, buvm3-15, sd8-12 (subdirectories
+       included) are all UNMOVED.
+     patched vs fixed:   LISTED 5606 PROCESSED 5606 RC_DIFFS 0 MOVED_ARMS 4
+       = 2 sources x 2 views, and BOTH are this verifier's own arms:
+       vgrid224/v6_structarr and vgrid224/v12_innernt — the two that carry a
+       struct-typedef fixed unpacked array in a stripped def-view interface.
+       Attribution is exact: the ENTIRE dump diff of each moved arm, in each
+       view, is two removed `|vpiNetType:36` lines and the dump's own filename
+       header.  Nothing else in the probe tree moves.
+       — see BOUNDARY.pat_vs_fix.r10v224.txt.
+
+(11) FENCE
+     The four slang-fenced tests were never dispatched by this verifier.
+     Fence check over both patches: 0 / 0 / 0 / 0 hits.
+     canaudit reports FENCE-BREACH=0.

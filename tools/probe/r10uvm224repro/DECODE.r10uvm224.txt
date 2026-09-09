@@ -1,0 +1,139 @@
+§ ifaceDefNetTypespecIsTheModuleRule224 — THE DECODED MODEL
+===========================================================
+
+0. THE HEAD (re-measured on this pass's own pristine build, md5 3a8d774326e1)
+---------------------------------------------------------------------------
+MiniAmiq, BOTH row-modes, 17 cmp lines, ONE `^LHS:`, the two logs byte-
+identical:
+
+    LHS: <null>
+    RHS: ref_typespec (work@svaunit_vpi_interface.sva_info)
+         |vpiParent \_logic_net (…sva_info) 87:38-87:46
+         |vpiActual \_class_typespec (svaunit_concurrent_assertion_info) 87:4-87:37
+
+`svaunit_vpi_interface.sv:87` is `svaunit_concurrent_assertion_info sva_info[];`
+inside `interface svaunit_vpi_interface();` — an EMPTY-PARENS header.
+
+
+1. THE HEAD AND `Array_nets()` ARE **TWO LAWS**, NOT ONE
+--------------------------------------------------------
+The question the pass was set.  Three cells of grid arm a2_kindgrid /
+a9_kinds settle it, because all four combinations of (typespec right/wrong) x
+(array_net present/absent) occur:
+
+  interface if224b();  import p224b::*;      -- EMPTY-PARENS header
+     Cb224   w_cls224;            no dimension  golden ts=NONE  no array_net
+     Cb224   w_clsdyn224 [];      dynamic       golden ts=NONE  golden HAS an array_net
+     tc224_t e_tipk224 [1:0];     FIXED         golden ts=NONE  golden HAS an array_net
+     int     e_intdyn224 [];      dynamic       golden ts=int   golden HAS an array_net
+
+  * `w_cls224` has NO unpacked dimension at all and still loses its typespec —
+    the head fires with no array involvement whatever.
+  * `e_intdyn224` is a dynamic array whose typespec golden KEEPS — the
+    Array_nets vector fires with the typespec already correct.
+  * `e_tipk224` is the crossed cell: golden gives it an array_net AND no
+    typespec, and the PRISTINE build got the array_net right (fixed-size
+    unpacked is the one kind we already vectored) while getting the typespec
+    wrong.
+
+So the head is a NET-TYPESPEC law and `Array_nets()` is a VECTORING law, and
+they are independent in both directions.  THIS PASS LANDS THE TYPESPEC LAW.
+The vectoring law is R0 for the successor (see RESIDUES).
+
+
+2. THE LAW
+----------
+A DEFINITION-view net omits its typespec when the component's header is
+NON-ANSI — a genuine non-ANSI port list, or EMPTY PARENS — and the net's
+declared type is written as a BARE TYPE NAME with no initializer.  This is not
+a new rule: it is the rule the MODULE definition writer has modelled since
+r10svs10 (`namedTypeNet`, src/ModuleEmit.cpp).  Our INTERFACE definition writer
+had no such gate and typed every net unconditionally.  The pass gives both
+writers ONE predicate.
+
+MEASURED, golden, arm a3_headerform — the header form is the gate and it reads
+the same under both holders:
+
+    header form                     module def      interface def
+    interface/module x();  (empty)  bare -> NONE    bare -> NONE
+    …(pa);   (non-ANSI list)        (a3 na)         bare -> NONE
+    …(input logic clk);   (ANSI)    bare -> ts      bare -> ts
+    …;        (no parens at all)    —               bare -> ts
+
+MEASURED, arm a2_kindgrid / a4_predicates — WHAT counts as a bare name, in an
+empty-parens interface (module column identical on every cell):
+
+    Cb224   w_cls224;          class, wildcard-imported bare name   NONE
+    CTop224 u_cls224;          class from $unit, bare name          NONE
+    sp224_t / su224_t          typedef'd packed / unpacked struct   NONE
+    en224_t                    typedef'd enum                       NONE
+    ti224_t                    typedef of `int`                     NONE
+    loc224_t                   typedef declared IN the interface    NONE
+    var d_bare224;             no written type at all               NONE
+    p224b::Cb224 q_cls224;     PACKAGE-QUALIFIED class name         class_typespec
+    p224d::td224_t             package-qualified typedef            int_typespec
+    td224_t d_init224 = 0;     bare name WITH an initializer        int_typespec
+    int / logic [3:0] / real / string / wire   builtin, inline      their typespec
+
+MEASURED, arm a6_hoisted — THE FENCE.  The imported-package data that
+§ wildcardImportCopiesPkgVarsToDefNets223 hoists into a def-view net list KEEPS
+its typespec on both roads, class handles and typedefs included, because the
+DECLARATION lives in the package and not in the non-ANSI-header component.
+This pass does not touch `emitImportedPkgVarNets`, and arm a6 is exact on the
+pristine and the patched binary alike.
+
+
+3. THE ONE EXCEPTION — AN ASSOCIATIVE DIMENSION WITH A BUILT-IN INDEX
+---------------------------------------------------------------------
+Transplanting the module rule verbatim moved TWO interface cells AWAY from
+golden, which is how the exception was found (grid arm a9_kinds, patched run 1).
+Arms a13_assoc / a14_assocnest / a15_associndex characterise it — on BOTH
+roads, and the module road is WRONG about it today:
+
+    tq224_t x [string] / [int] / [logic] / [bit] / [*]        golden KEEPS ts
+    tq224_t x [string][2] / [2][string] / [string][]          golden KEEPS ts
+    tq224_t x [tq224_t] / [<local typedef>] / [pkg::t]        golden DROPS ts
+    tq224_t x / x [] / x [$] / x [2] / x [1:0]                golden DROPS ts
+    var     x [string]                                        golden DROPS ts
+
+a13_assoc puts the five dimension forms in a different order and the answer does
+not move, so it is the DIMENSION and not the compile order.  The exception is
+confined to the bare-name clause it was measured against: it does NOT reprieve
+`var d;`, an explicit port's net, or a `type` parameter argument (a14's
+`var v_varas224 [string]` is golden's own control, and golden drops it).
+
+The pristine MODULE road drops the typespec on `t x [string]` where golden keeps
+it (arm a13/a14, `work@m224r`/`work@m224s`), so the shared predicate carries the
+exception and the module road is corrected with the interface road.  No corpus
+row exercised that cell: the a-priori predictor reports ZERO `PRED224 MOD`
+cells over both corpora (PREDICT.stage.*.txt).
+
+
+4. THE PRODUCER
+---------------
+`UhdmWriter::writeNets` (Surelog src/DesignCompile/UhdmWriter.cpp:812) is the
+only thing that types a definition-level net, and `writeModule` (:1458),
+`writeInterface` (:1680) and `writeProgram` (:1818) all call it with the same
+arguments — the component's `mod->getSignals()` and the holder object.  The
+typespec arm is :866-880:
+
+    } else if (dest_net->Typespec() == nullptr) {
+        if (orig_net->getTypeSpecId()) {
+          if (typespec* ts = m_helper.compileTypespec(
+                  mod, fC, orig_net->getTypeSpecId(), …)) {   // <- may be null
+            ref_typespec* rt = s.MakeRef_typespec(); … dest_net->Typespec(rt);
+
+`compileDataDeclaration` (CompileHelper.cpp:2261-2410) hands every body
+declaration its typespec id — the `intVec_TypeReg` node, a bare `slStringConst`
+for a named type — so what varies is whether `compileTypespec` RESOLVES that
+name in `mod`.  This pass measured WHEN it resolves (§2, §3) and did not trace
+the resolution asymmetry to a line; that is recorded as measured, not decoded.
+
+REFUTED, and loudly: "one producer, therefore one rule for every holder" is
+FALSE for the PROGRAM.  Arm a7_program compiles `program prg224_ep();` — empty
+parens, the very form that strips under a module and an interface — and golden
+KEEPS the typespec on `th224_t pe_td224`, `Ch224 pe_cls224` and
+`th224_t pe_dyn224`.  Our module/program writer strips all three.  That is a
+PRE-EXISTING, three-cell, UNTOUCHED gap (arm a7 scores DIFF=3 on the pristine
+and the patched binary alike) and it is R2 below.  The interface = module claim
+stands on its own measurement, not on the shared-producer argument.

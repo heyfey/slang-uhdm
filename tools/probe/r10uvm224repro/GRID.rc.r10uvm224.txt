@@ -1,0 +1,17 @@
+grid224: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid224: slang  =/tmp/r10uvm224_pat.bin  md5=17b6dd3053db
+ARM a10_modport  surelog_rc=0 golden_lines=493   slang_rc=0 ours_lines=1003
+ARM a11_ansiports  surelog_rc=0 golden_lines=688   slang_rc=0 ours_lines=1117
+ARM a12_pkgholder  surelog_rc=0 golden_lines=673   slang_rc=0 ours_lines=1163
+ARM a13_assoc  surelog_rc=0 golden_lines=643   slang_rc=0 ours_lines=981
+ARM a14_assocnest  surelog_rc=0 golden_lines=1230   slang_rc=0 ours_lines=1345
+ARM a15_associndex  surelog_rc=0 golden_lines=778   slang_rc=0 ours_lines=961
+ARM a1_own_cls  surelog_rc=0 golden_lines=294   slang_rc=0 ours_lines=735
+ARM a2_kindgrid  surelog_rc=0 golden_lines=1178   slang_rc=0 ours_lines=1303
+ARM a3_headerform  surelog_rc=0 golden_lines=1342   slang_rc=0 ours_lines=1614
+ARM a4_predicates  surelog_rc=0 golden_lines=608   slang_rc=0 ours_lines=1092
+ARM a5_typeparam_explicit  surelog_rc=0 golden_lines=386   slang_rc=0 ours_lines=916
+ARM a6_hoisted  surelog_rc=0 golden_lines=1055   slang_rc=0 ours_lines=1425
+ARM a7_program  surelog_rc=0 golden_lines=329   slang_rc=0 ours_lines=763
+ARM a8_instantiated  surelog_rc=0 golden_lines=515   slang_rc=0 ours_lines=946
+ARM a9_kinds  surelog_rc=0 golden_lines=1576   slang_rc=0 ours_lines=1474

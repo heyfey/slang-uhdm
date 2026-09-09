@@ -1,0 +1,5 @@
+MOVED ./r10v224repro/vgrid224/v12_innernt/dut.sv def a=813dda935c2a b=7d0e617fa707 rc=0
+MOVED ./r10v224repro/vgrid224/v12_innernt/dut.sv elab a=8ad62eaeff1a b=493b7346add1 rc=0
+MOVED ./r10v224repro/vgrid224/v6_structarr/dut.sv def a=c4ce0ce2514c b=fba151b6179c rc=0
+MOVED ./r10v224repro/vgrid224/v6_structarr/dut.sv elab a=cb0cf40c0c82 b=3438e3a5e3ee rc=0
+-- LISTED=5606 PROCESSED=5606 MOVED_ARMS=4 RC_DIFFS=0

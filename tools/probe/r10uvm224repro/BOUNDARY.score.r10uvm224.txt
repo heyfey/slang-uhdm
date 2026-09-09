@@ -1,0 +1,16 @@
+ARM                                            VIEW  PRIS_LINES  HEADS PAT_LINES  HEADS  VERDICT
+r10buvm22repro/g22.sv                          def       17506      1     17506      1  UNCHANGED rc=255/255
+r10buvm22repro/g22.sv                          elab      21736      1     21736      1  UNCHANGED rc=255/255
+r10uvm154repro/l154_noenum.sv                  def        1632      1      1632      1  UNCHANGED rc=255/255
+r10uvm154repro/l154_noenum.sv                  elab       1634      1      1634      1  UNCHANGED rc=255/255
+r10uvm167repro/g167_c_homes.sv                 def        6612      1      6598      1  TOWARD-GOLDEN rc=255/255
+r10uvm167repro/g167_c_homes.sv                 elab       7004      1      6990      1  TOWARD-GOLDEN rc=255/255
+r10uvm185repro/grid185/g185_e_kinds.sv         def        9970      1      9970      1  UNCHANGED rc=255/255
+r10uvm185repro/grid185/g185_e_kinds.sv         elab      10014      1     10014      1  UNCHANGED rc=255/255
+r10uvm220repro/grid220/a6_kinds/dut.sv         def        4368      1      4354      1  TOWARD-GOLDEN rc=255/255
+r10uvm220repro/grid220/a6_kinds/dut.sv         elab       4384      1      4370      1  TOWARD-GOLDEN rc=255/255
+r10uvm58repro/w1_modscope.sv                   -             -      -         -      -  SURELOG rc=4 — ERROR-RECOVERY ARM, no golden
+r10v143repro/v143_l_unit.sv                    def        4021      1      4035      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+r10v143repro/v143_l_unit.sv                    elab      10896      1     10910      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+r10v190repro/arms/v190_2_scopes.sv             def        7454      1      7440      1  TOWARD-GOLDEN rc=255/255
+r10v190repro/arms/v190_2_scopes.sv             elab       7648      1      7634      1  TOWARD-GOLDEN rc=255/255

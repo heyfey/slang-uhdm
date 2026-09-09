@@ -1,0 +1,32 @@
+r10v224 — THE ADVERSARIAL GRID, SCORED THREE WAYS (netcen224.py cells)
+  golden-side surelog: $HOME/git-repos/Surelog/build/bin/surelog (the one scripts/verify_golden.py names)
+  pristine 3a8d774326e1c5523f420e7d50fc41cc   patched 17b6dd3053db12a075388c3a51b5efed   fixed 3ad9d8ded7c3ee0e406d779170eb73a8
+
+  ARM               PRIS   PAT   FIX
+  v10_nonansi          7     2     2
+  v11_multiinst        8     4     4
+  v12_innernt          8     0     0
+  v1_tdhide            7     2     2
+  v2_clsidx           11     9     9
+  v3_tdstr             8     4     4
+  v4_chain             7     4     4
+  v5_explport          4     2     2
+  v6_structarr         6     0     0
+  v7_inst              9     4     4
+  v8_modport           6     4     4
+  v9_pkgprog           5     4     4
+  TOTAL               86    39    39
+
+  Every rc recorded on both sides, all zero:
+ARM v10_nonansi  surelog_rc=0 golden_lines=540   slang_rc=0 ours_lines=1054
+ARM v11_multiinst  surelog_rc=0 golden_lines=1058   slang_rc=0 ours_lines=1420
+ARM v12_innernt  surelog_rc=0 golden_lines=673   slang_rc=0 ours_lines=1307
+ARM v1_tdhide  surelog_rc=0 golden_lines=599   slang_rc=0 ours_lines=1059
+ARM v2_clsidx  surelog_rc=0 golden_lines=812   slang_rc=0 ours_lines=1103
+ARM v3_tdstr  surelog_rc=0 golden_lines=376   slang_rc=0 ours_lines=890
+ARM v4_chain  surelog_rc=0 golden_lines=1069   slang_rc=0 ours_lines=1211
+ARM v5_explport  surelog_rc=0 golden_lines=529   slang_rc=0 ours_lines=954
+ARM v6_structarr  surelog_rc=0 golden_lines=570   slang_rc=0 ours_lines=1170
+ARM v7_inst  surelog_rc=0 golden_lines=632   slang_rc=0 ours_lines=1061
+ARM v8_modport  surelog_rc=0 golden_lines=481   slang_rc=0 ours_lines=864
+ARM v9_pkgprog  surelog_rc=0 golden_lines=702   slang_rc=0 ours_lines=1089

@@ -1,0 +1,37 @@
+1777561,1777567d1777560
+<     |vpiTypespec:
+<     \_ref_typespec: (work@svaunit_vpi_interface.sva_info)
+<       |vpiParent:
+<       \_logic_net: (work@svaunit_vpi_interface.sva_info), line:87:38, endln:87:46
+<       |vpiFullName:work@svaunit_vpi_interface.sva_info
+<       |vpiActual:
+<       \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+1777574,1777580d1777566
+<     |vpiTypespec:
+<     \_ref_typespec: (work@svaunit_vpi_interface.cover_info)
+<       |vpiParent:
+<       \_logic_net: (work@svaunit_vpi_interface.cover_info), line:90:38, endln:90:48
+<       |vpiFullName:work@svaunit_vpi_interface.cover_info
+<       |vpiActual:
+<       \_class_typespec: (svaunit_concurrent_assertion_info), line:90:4, endln:90:37
+1777587,1777593d1777572
+<     |vpiTypespec:
+<     \_ref_typespec: (work@svaunit_vpi_interface.property_info)
+<       |vpiParent:
+<       \_logic_net: (work@svaunit_vpi_interface.property_info), line:93:38, endln:93:51
+<       |vpiFullName:work@svaunit_vpi_interface.property_info
+<       |vpiActual:
+<       \_class_typespec: (svaunit_concurrent_assertion_info), line:93:4, endln:93:37
+1884507,1884518d1884485
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:90:4, endln:90:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:93:4, endln:93:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9

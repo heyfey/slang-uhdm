@@ -1,0 +1,9 @@
+HIT _tmp_r10uvm224_wdpred_sl_default_MiniAmiq-544c7f61_slang.uhdm cells=3
+  _tmp_r10uvm224_wdpred_sl_default_MiniAmiq-544c7f61_slang.uhdm   CELL IFACE work@svaunit_vpi_interface.sva_info
+  _tmp_r10uvm224_wdpred_sl_default_MiniAmiq-544c7f61_slang.uhdm   CELL IFACE work@svaunit_vpi_interface.cover_info
+  _tmp_r10uvm224_wdpred_sl_default_MiniAmiq-544c7f61_slang.uhdm   CELL IFACE work@svaunit_vpi_interface.property_info
+HIT _tmp_r10uvm224_wdpred_sl_testflags_MiniAmiq-544c7f61_slang.uhdm cells=3
+  _tmp_r10uvm224_wdpred_sl_testflags_MiniAmiq-544c7f61_slang.uhdm   CELL IFACE work@svaunit_vpi_interface.sva_info
+  _tmp_r10uvm224_wdpred_sl_testflags_MiniAmiq-544c7f61_slang.uhdm   CELL IFACE work@svaunit_vpi_interface.cover_info
+  _tmp_r10uvm224_wdpred_sl_testflags_MiniAmiq-544c7f61_slang.uhdm   CELL IFACE work@svaunit_vpi_interface.property_info
+-- HIT-ROWS=2  CELLS=6

@@ -1,0 +1,174 @@
+ARM a10_modport  KEPT=9 TO-GOLDEN=1 AWAY=0 STILL-WRONG=0
+  TO-GOLDEN   ('interface_inst', 'work@if224m (work@if224m)', 'NET', 'm_td224')  was=('logic_net', 'logic_typespec (p224m::tm224_t)', '') now=('logic_net', '-', '')
+1 0 0
+ARM a11_ansiports  KEPT=11 TO-GOLDEN=0 AWAY=0 STILL-WRONG=6
+  STILL-WRONG ('interface_inst', 'work@if224n (work@if224n)', 'ARRAYNET', 'n_dyn224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224n::tn224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224n (work@top224n.u_n224)', 'VAR', 'n_dyn224')  golden=('array_var', 'array_typespec', '') ours=None
+  STILL-WRONG ('module_inst', 'work@top224n (work@top224n)', 'NET', 'c224')  golden=None ours=('logic_net', 'logic_typespec', '')
+  STILL-WRONG ('module_inst', 'work@top224n (work@top224n)', 'NET', 'o224')  golden=None ours=('logic_net', 'logic_typespec', '')
+  STILL-WRONG ('module_inst', 'work@top224n (work@top224n)', 'VAR', 'c224')  golden=('logic_var', 'logic_typespec', '') ours=None
+  STILL-WRONG ('module_inst', 'work@top224n (work@top224n)', 'VAR', 'o224')  golden=('logic_var', 'logic_typespec', '') ours=None
+0 0 6
+ARM a12_pkgholder  KEPT=8 TO-GOLDEN=0 AWAY=0 STILL-WRONG=2
+  STILL-WRONG ('package', 'p224o (p224o::)', 'NET', 'o_dyn224')  golden=('logic_net', 'logic_typespec (p224o::to224_t)', '') ours=None
+  STILL-WRONG ('package', 'p224o (p224o::)', 'VAR', 'o_dyn224')  golden=None ours=('array_var', 'array_typespec', '')
+0 0 2
+ARM a13_assoc  KEPT=4 TO-GOLDEN=8 AWAY=0 STILL-WRONG=4
+  STILL-WRONG ('interface_inst', 'work@if224r (work@if224r)', 'ARRAYNET', 's_ass224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224r::tr224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224r (work@if224r)', 'ARRAYNET', 's_dyn2224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224r (work@if224r)', 'ARRAYNET', 's_dyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224r (work@if224r)', 'ARRAYNET', 's_fix224')  was=('array_net', '-', 'inner_ts=logic_typespec (p224r::tr224_t)') now=('array_net', '-', 'inner_ts=-')
+  STILL-WRONG ('interface_inst', 'work@if224r (work@if224r)', 'ARRAYNET', 's_que224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224r (work@if224r)', 'NET', 's_dyn2224')  was=('logic_net', 'logic_typespec (p224r::tr224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224r (work@if224r)', 'NET', 's_dyn224')  was=('logic_net', 'logic_typespec (p224r::tr224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224r (work@if224r)', 'NET', 's_fix224')  was=('logic_net', 'logic_typespec (p224r::tr224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224r (work@if224r)', 'NET', 's_plain2224')  was=('logic_net', 'logic_typespec (p224r::tr224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224r (work@if224r)', 'NET', 's_plain224')  was=('logic_net', 'logic_typespec (p224r::tr224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224r (work@if224r)', 'NET', 's_que224')  was=('logic_net', 'logic_typespec (p224r::tr224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('module_inst', 'work@m224r (work@m224r)', 'NET', 'u_ass224')  was=('logic_net', '-', '') now=('logic_net', 'logic_typespec (p224r::tr224_t)', '')
+8 0 4
+ARM a14_assocnest  KEPT=9 TO-GOLDEN=5 AWAY=0 STILL-WRONG=7
+  STILL-WRONG ('interface_inst', 'work@if224s (work@if224s)', 'ARRAYNET', 'v_as2224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224s (work@if224s)', 'ARRAYNET', 'v_as_dyn224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224s::ts224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224s (work@if224s)', 'ARRAYNET', 'v_as_fix224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224s::ts224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224s (work@if224s)', 'ARRAYNET', 'v_cas224')  golden=('array_net', '-', 'inner_ts=class_typespec (Cs224)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224s (work@if224s)', 'ARRAYNET', 'v_ias224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224s (work@if224s)', 'ARRAYNET', 'v_las224')  golden=('array_net', '-', 'inner_ts=logic_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224s (work@if224s)', 'ARRAYNET', 'v_varas224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224s (work@if224s)', 'NET', 'v_as2224')  was=('logic_net', 'logic_typespec (p224s::ts224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224s (work@if224s)', 'NET', 'v_varas224')  was=('logic_net', 'logic_typespec', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('module_inst', 'work@m224s (work@m224s)', 'NET', 'w_as_fix224')  was=('logic_net', '-', '') now=('logic_net', 'logic_typespec (p224s::ts224_t)', '')
+  TO-GOLDEN   ('module_inst', 'work@m224s (work@m224s)', 'NET', 'w_cas224')  was=('logic_net', '-', '') now=('logic_net', 'class_typespec (Cs224)', '')
+  TO-GOLDEN   ('module_inst', 'work@m224s (work@m224s)', 'NET', 'w_fix_as224')  was=('logic_net', '-', '') now=('logic_net', 'logic_typespec (p224s::ts224_t)', '')
+5 0 7
+ARM a15_associndex  KEPT=5 TO-GOLDEN=4 AWAY=0 STILL-WRONG=9
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_bare224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_bit224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224t::tt224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_int224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224t::tt224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_local224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_logic224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224t::tt224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_scint224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_scoped224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_str224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224t::tt224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224t (work@if224t)', 'ARRAYNET', 'x_wild224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224t::tt224_t)') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224t (work@if224t)', 'NET', 'x_bare224')  was=('logic_net', 'logic_typespec (p224t::tt224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224t (work@if224t)', 'NET', 'x_local224')  was=('logic_net', 'logic_typespec (p224t::tt224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224t (work@if224t)', 'NET', 'x_scint224')  was=('logic_net', 'logic_typespec (p224t::tt224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224t (work@if224t)', 'NET', 'x_scoped224')  was=('logic_net', 'logic_typespec (p224t::tt224_t)', '') now=('logic_net', '-', '')
+4 0 9
+ARM a1_own_cls  KEPT=4 TO-GOLDEN=4 AWAY=0 STILL-WRONG=2
+  STILL-WRONG ('interface_inst', 'work@if224a (work@if224a)', 'ARRAYNET', 'own_clsdyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224a (work@if224a)', 'ARRAYNET', 'own_clsfix224')  was=('array_net', '-', 'inner_ts=class_typespec (C224)') now=('array_net', '-', 'inner_ts=-')
+  STILL-WRONG ('interface_inst', 'work@if224a (work@if224a)', 'ARRAYNET', 'own_dyn224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224a (work@if224a)', 'NET', 'own_cls224')  was=('logic_net', 'class_typespec (C224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224a (work@if224a)', 'NET', 'own_clsdyn224')  was=('logic_net', 'class_typespec (C224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224a (work@if224a)', 'NET', 'own_clsfix224')  was=('logic_net', 'class_typespec (C224)', '') now=('logic_net', '-', '')
+4 0 2
+ARM a2_kindgrid  KEPT=15 TO-GOLDEN=8 AWAY=0 STILL-WRONG=14
+  STILL-WRONG ('interface_inst', 'work@if224b (work@if224b)', 'ARRAYNET', 'aq224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@if224b)', 'ARRAYNET', 'as224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@if224b)', 'ARRAYNET', 'pkdyn224')  golden=('array_net', '-', 'inner_ts=logic_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@if224b)', 'ARRAYNET', 'tidyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@if224b)', 'ARRAYNET', 'w_clsdyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224b (work@if224b)', 'NET', 'en224')  was=('logic_net', 'enum_typespec (p224b::en224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224b (work@if224b)', 'NET', 'sp224')  was=('logic_net', 'struct_typespec (p224b::sp224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224b (work@if224b)', 'NET', 'su224')  was=('logic_net', 'struct_typespec (p224b::su224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224b (work@if224b)', 'NET', 'ti224')  was=('logic_net', 'int_typespec (p224b::ti224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224b (work@if224b)', 'NET', 'tidyn224')  was=('logic_net', 'int_typespec (p224b::ti224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224b (work@if224b)', 'NET', 'u_cls224')  was=('logic_net', 'class_typespec (CTop224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224b (work@if224b)', 'NET', 'w_cls224')  was=('logic_net', 'class_typespec (Cb224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224b (work@if224b)', 'NET', 'w_clsdyn224')  was=('logic_net', 'class_typespec (Cb224)', '') now=('logic_net', '-', '')
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'NET', 'sp224')  golden=None ours=('struct_net', 'struct_typespec (p224b::sp224_t)', '')
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'NET', 'su224')  golden=None ours=('struct_net', 'struct_typespec (p224b::su224_t)', '')
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'VAR', 'aq224')  golden=('array_var', 'array_typespec', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'VAR', 'as224')  golden=('array_var', 'array_typespec', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'VAR', 'pkdyn224')  golden=('array_var', 'array_typespec', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'VAR', 'sp224')  golden=('struct_var', 'struct_typespec (p224b::sp224_t)', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'VAR', 'su224')  golden=('struct_var', 'struct_typespec (p224b::su224_t)', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'VAR', 'tidyn224')  golden=('array_var', 'array_typespec', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224b (work@top224b.u_if)', 'VAR', 'w_clsdyn224')  golden=('array_var', 'array_typespec', '') ours=None
+8 0 14
+ARM a3_headerform  KEPT=28 TO-GOLDEN=10 AWAY=0 STILL-WRONG=7
+  STILL-WRONG ('interface_inst', 'work@if224_an (work@if224_an)', 'ARRAYNET', 'a_tidyn224')  golden=('array_net', '-', 'inner_ts=int_typespec (p224c::tc224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224_an (work@top224c.u_an)', 'VAR', 'a_tidyn224')  golden=('array_var', 'array_typespec', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224_ep (work@if224_ep)', 'ARRAYNET', 'e_clsdyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224_ep (work@if224_ep)', 'ARRAYNET', 'e_intdyn224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224_ep (work@if224_ep)', 'ARRAYNET', 'e_tidyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224_ep (work@if224_ep)', 'ARRAYNET', 'e_tipk224')  was=('array_net', '-', 'inner_ts=int_typespec (p224c::tc224_t)') now=('array_net', '-', 'inner_ts=-')
+  TO-GOLDEN   ('interface_inst', 'work@if224_ep (work@if224_ep)', 'NET', 'e_cls224')  was=('logic_net', 'class_typespec (Cc224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224_ep (work@if224_ep)', 'NET', 'e_clsdyn224')  was=('logic_net', 'class_typespec (Cc224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224_ep (work@if224_ep)', 'NET', 'e_sp224')  was=('logic_net', 'struct_typespec (p224c::sc224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224_ep (work@if224_ep)', 'NET', 'e_ti224')  was=('logic_net', 'int_typespec (p224c::tc224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224_ep (work@if224_ep)', 'NET', 'e_tidyn224')  was=('logic_net', 'int_typespec (p224c::tc224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224_ep (work@if224_ep)', 'NET', 'e_tipk224')  was=('logic_net', 'int_typespec (p224c::tc224_t)', '') now=('logic_net', '-', '')
+  STILL-WRONG ('interface_inst', 'work@if224_na (work@if224_na)', 'ARRAYNET', 'b_tidyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224_na (work@if224_na)', 'NET', 'b_cls224')  was=('logic_net', 'class_typespec (Cc224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224_na (work@if224_na)', 'NET', 'b_ti224')  was=('logic_net', 'int_typespec (p224c::tc224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224_na (work@if224_na)', 'NET', 'b_tidyn224')  was=('logic_net', 'int_typespec (p224c::tc224_t)', '') now=('logic_net', '-', '')
+  STILL-WRONG ('interface_inst', 'work@if224_np (work@if224_np)', 'ARRAYNET', 'n_tidyn224')  golden=('array_net', '-', 'inner_ts=int_typespec (p224c::tc224_t)') ours=None
+10 0 7
+ARM a4_predicates  KEPT=16 TO-GOLDEN=5 AWAY=0 STILL-WRONG=1
+  STILL-WRONG ('interface_inst', 'work@if224d (work@if224d)', 'ARRAYNET', 'd_locdyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224d (work@if224d)', 'NET', 'd_bare224')  was=('logic_net', 'logic_typespec', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224d (work@if224d)', 'NET', 'd_cls224')  was=('logic_net', 'class_typespec (Cd224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224d (work@if224d)', 'NET', 'd_loc224')  was=('logic_net', 'logic_typespec (loc224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224d (work@if224d)', 'NET', 'd_locdyn224')  was=('logic_net', 'logic_typespec (loc224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224d (work@if224d)', 'NET', 'd_noinit224')  was=('logic_net', 'int_typespec (p224d::td224_t)', '') now=('logic_net', '-', '')
+5 0 1
+ARM a5_typeparam_explicit  KEPT=3 TO-GOLDEN=2 AWAY=0 STILL-WRONG=2
+  STILL-WRONG ('interface_inst', 'work@if224e (work@if224e)', 'NET', 'f_tp224')  golden=('logic_net', '-', '') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224f (work@if224f)', 'NET', 'g_int224')  was=('logic_net', 'logic_typespec', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224f (work@if224f)', 'NET', 'g_loc224')  was=('logic_net', 'logic_typespec (locf224_t)', '') now=('logic_net', '-', '')
+  STILL-WRONG ('module_inst', 'work@if224e (work@if224e)', 'NET', 'f_tp224')  golden=None ours=('logic_net', '-', '')
+2 0 2
+ARM a6_hoisted  KEPT=16 TO-GOLDEN=0 AWAY=0 STILL-WRONG=4
+  STILL-WRONG ('interface_inst', 'work@if224g (work@if224g)', 'ARRAYNET', 'gv_intdyn224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224g (work@if224g)', 'ARRAYNET', 'gv_tddyn224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224g::tg224_t)') ours=None
+  STILL-WRONG ('package', 'p224g (p224g::)', 'NET', 'gv_tddyn224')  golden=('logic_net', 'logic_typespec (p224g::tg224_t)', '') ours=None
+  STILL-WRONG ('package', 'p224g (p224g::)', 'VAR', 'gv_tddyn224')  golden=None ours=('array_var', 'array_typespec', '')
+0 0 4
+ARM a7_program  KEPT=4 TO-GOLDEN=0 AWAY=0 STILL-WRONG=3
+  STILL-WRONG ('program', 'work@prg224_ep (work@prg224_ep)', 'NET', 'pe_cls224')  golden=('logic_net', 'class_typespec (Ch224)', '') ours=('logic_net', '-', '')
+  STILL-WRONG ('program', 'work@prg224_ep (work@prg224_ep)', 'NET', 'pe_dyn224')  golden=('logic_net', 'logic_typespec (p224h::th224_t)', '') ours=('logic_net', '-', '')
+  STILL-WRONG ('program', 'work@prg224_ep (work@prg224_ep)', 'NET', 'pe_td224')  golden=('logic_net', 'logic_typespec (p224h::th224_t)', '') ours=('logic_net', '-', '')
+0 0 3
+ARM a8_instantiated  KEPT=6 TO-GOLDEN=7 AWAY=0 STILL-WRONG=2
+  STILL-WRONG ('interface_inst', 'work@if224i (work@if224i)', 'ARRAYNET', 'ii_dyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224i (work@if224i)', 'ARRAYNET', 'ii_fix224')  was=('array_net', '-', 'inner_ts=logic_typespec (p224i::ti224_t)') now=('array_net', '-', 'inner_ts=-')
+  TO-GOLDEN   ('interface_inst', 'work@if224i (work@if224i)', 'NET', 'ii_cls224')  was=('logic_net', 'class_typespec (Ci224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224i (work@if224i)', 'NET', 'ii_dyn224')  was=('logic_net', 'logic_typespec (p224i::ti224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224i (work@if224i)', 'NET', 'ii_fix224')  was=('logic_net', 'logic_typespec (p224i::ti224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224i (work@if224i)', 'NET', 'ii_td224')  was=('logic_net', 'logic_typespec (p224i::ti224_t)', '') now=('logic_net', '-', '')
+  STILL-WRONG ('interface_inst', 'work@if224i (work@top224i.u_i224)', 'VAR', 'ii_dyn224')  golden=('array_var', 'array_typespec', '') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224j (work@if224j)', 'NET', 'ij_cls224')  was=('logic_net', 'class_typespec (Ci224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224j (work@if224j)', 'NET', 'ij_td224')  was=('logic_net', 'logic_typespec (p224i::ti224_t)', '') now=('logic_net', '-', '')
+7 0 2
+ARM a9_kinds  KEPT=19 TO-GOLDEN=9 AWAY=0 STILL-WRONG=16
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_ass224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224k::tk224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_cass224')  golden=('array_net', '-', 'inner_ts=class_typespec (Ck224)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_cdyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_cfix224')  was=('array_net', '-', 'inner_ts=class_typespec (Ck224)') now=('array_net', '-', 'inner_ts=-')
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_cque224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_dyn224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_fix224')  was=('array_net', '-', 'inner_ts=logic_typespec (p224k::tk224_t)') now=('array_net', '-', 'inner_ts=-')
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_iass224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_idyn224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_ique224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_ldyn224')  golden=('array_net', '-', 'inner_ts=logic_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224k (work@if224k)', 'ARRAYNET', 'k_que224')  golden=('array_net', '-', 'inner_ts=-') ours=None
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'NET', 'k_cdyn224')  was=('logic_net', 'class_typespec (Ck224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'NET', 'k_cfix224')  was=('logic_net', 'class_typespec (Ck224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'NET', 'k_cque224')  was=('logic_net', 'class_typespec (Ck224)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'NET', 'k_dyn224')  was=('logic_net', 'logic_typespec (p224k::tk224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'NET', 'k_fix224')  was=('logic_net', 'logic_typespec (p224k::tk224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'NET', 'k_pk224')  was=('logic_net', 'logic_typespec (p224k::tk224_t)', '') now=('logic_net', '-', '')
+  TO-GOLDEN   ('interface_inst', 'work@if224k (work@if224k)', 'NET', 'k_que224')  was=('logic_net', 'logic_typespec (p224k::tk224_t)', '') now=('logic_net', '-', '')
+  STILL-WRONG ('interface_inst', 'work@if224l (work@if224l)', 'ARRAYNET', 'l_cdyn224')  golden=('array_net', '-', 'inner_ts=class_typespec (Ck224)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224l (work@if224l)', 'ARRAYNET', 'l_dyn224')  golden=('array_net', '-', 'inner_ts=logic_typespec (p224k::tk224_t)') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224l (work@if224l)', 'ARRAYNET', 'l_idyn224')  golden=('array_net', '-', 'inner_ts=int_typespec') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224l (work@top224k.u_l224)', 'VAR', 'l_cdyn224')  golden=('array_var', 'array_typespec', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224l (work@top224k.u_l224)', 'VAR', 'l_dyn224')  golden=('array_var', 'array_typespec', '') ours=None
+  STILL-WRONG ('interface_inst', 'work@if224l (work@top224k.u_l224)', 'VAR', 'l_idyn224')  golden=('array_var', 'array_typespec', '') ours=None
+9 0 16
+-- ARMS=15  TO-GOLDEN=63  AWAY=0  STILL-WRONG=79
+PASS: no cell moved away from golden

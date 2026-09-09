@@ -1,0 +1,73 @@
+§ ifaceDefNetTypespecIsTheModuleRule224 — THE PREDICTOR BINARY
+==============================================================
+
+The pass's hardest gate asks for the mover set PREDICTED BY NAME, a priori,
+before the patched sweep, and for the uhdm2rtlil ZERO to be PROVEN rather than
+argued.
+
+The prediction was computed by a THIRD binary whose OBSERVABLE BEHAVIOUR IS
+PRISTINE.  It is the patched tree with BOTH call sites wrapped as below; with
+`SLANG224_PRED=1` in the environment each site REPORTS the cell the law would
+move and then takes the PRISTINE answer, so the databases it writes are
+byte-identical to the pristine build's — asserted per row by
+`tools/probe/r10oth4repro/byteverify.sh` over the whole predictor workdir
+against the pristine workdir (see GATES.r10uvm224.txt).
+
+A FIRST PREDICTOR WAS WRONG AND SAID SO LOUDLY.  Its reconstruction of the
+pristine module gate was `omitMod224 || assocBuiltinIndexDim224(sym)`, which
+also strips a BUILT-IN-typed associative array (`int assoc [string]`) that the
+pristine gate keeps, because `namedTypeNet` was false there.  It moved three
+databases (`DynArrayKind` both modes — `module top;`, no parens, a row the law
+cannot reach — and the Scoreboard coin) and byteverify convicted it: MOVERS
+3/956.  The predictor was rebuilt to compute the pristine answer from the
+predicate itself with the reprieve switched off, and then read MOVERS 0/956.
+A predictor that is not byte-pristine predicts nothing.
+
+Two sites, because the law has two faces:
+  * IFACE — the interface definition writer, which never declined before;
+  * MOD   — the module/program definition writer, whose pre-existing gate this
+            pass gives the ASSOCIATIVE reprieve.
+
+    predictor binary md5 f3861772b02a6d8cf177ba2f68224ddb
+    pristine  binary md5 3a8d774326e1c5523f420e7d50fc41cc
+    patched   binary md5 17b6dd3053db12a075388c3a51b5efed
+
+THE INSTRUMENTATION (src/ModuleEmit.cpp).  IT IS NOT PART OF THE LANDED PATCH —
+it was reverted before the patched binary was built, and the landed binary's
+md5 was REPRODUCED from the reverted tree (build 3 and build 4 agree).
+
+  -- module/program site, in place of the landed
+     `if (!it.port && !implicitNet && !defNetOmitsTypespec224(...)) {` --
+
+    bool omitMod224 = defNetOmitsTypespec224(
+        body, *it.sym, typeParamArgTypes, explicitPortSyms,
+        vlogUnresolvedLogicNet(*it.sym));
+    if (getenv("SLANG224_PRED")) {
+        bool pris224 = defNetOmitsTypespec224(
+            body, *it.sym, typeParamArgTypes, explicitPortSyms,
+            vlogUnresolvedLogicNet(*it.sym), /*assocReprieve224=*/false);
+        if (pris224 != omitMod224 && !it.port && !implicitNet)
+            fprintf(stderr, "PRED224 MOD %s.%s\n", prefix.c_str(), name.c_str());
+        omitMod224 = pris224;
+    }
+    if (!it.port && !implicitNet && !omitMod224) {
+
+  (the predicate takes a temporary defaulted `bool assocReprieve224 = true`
+   parameter for the duration, used at its one `namedTypeNet` test.)
+
+  -- interface site, immediately after the landed `bool omitTs224 = ...;` --
+
+    if (getenv("SLANG224_PRED")) {
+        if (omitTs224 && !it.port && !implicitNet)
+            fprintf(stderr, "PRED224 IFACE %s.%s\n", prefix.c_str(), name.c_str());
+        omitTs224 = false;
+    }
+
+HOW THE REPORT WAS ATTRIBUTED TO A ROW-MODE: `predwrap224.sh` stands in for
+$SLANG_UHDM during a verify_golden sweep, execs the predictor and keeps that
+row's stderr in its own file keyed on the -o database path the harness chose.
+It never swallows the child's exit status (a shim returning 0 would hide the
+rc=139 segfaults verify_golden records as SLANG_REJECT).  `predcollect224.sh`
+turns the log directory into the HIT/CELL listing.
+
+THE RESULT: PREDICT.stage.surelog.txt / PREDICT.stage.uhdm2rtlil.txt.
