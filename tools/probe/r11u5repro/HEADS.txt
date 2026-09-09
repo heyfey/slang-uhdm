@@ -1,0 +1,18 @@
+# r11u5 HEADS — the 14 ibex u2r rows, pristine ec81cb73 (md5 2f28c372da15bec082e100bd0dfdea51)
+# LHS is golden(Surelog v1.87). one head per row (grep -c '^LHS:').
+
+TEST                     CMPLINES  HEAD
+ibex_csr                 36        constant: , id:104, line:33:10, endln:33:26
+ibex_load_store_unit     36        constant: , id:1191, line:33:10, endln:33:29
+ibex_counter             64        constant: , id:309, line:61:27, endln:61:31
+ibex_fetch_fifo          36        constant: , id:556, line:33:10, endln:33:36
+ibex_alu                 46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_branch_predict      46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_compressed_decoder  46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_decoder             46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_icache              46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_multdiv_fast        46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_multdiv_slow        46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_pmp                 46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_wb_stage            46        ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_tracer              34        ref_obj: (PMP_ADDR_MSB), id:8082, line:772:20, endln:772:32

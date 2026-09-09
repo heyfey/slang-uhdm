@@ -13930,6 +13930,42 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         c52->VpiDecompile(e52.dec);
                     }
                 }
+                // § elabStrLitParamDeclWidth — a parameter whose DECLARED type
+                // is INTEGRAL and whose initializer is a STRING LITERAL keeps
+                // its STRING encoding but is SIZED AT THE DECLARED TYPE'S
+                // WIDTH in the ELABORATED listing; the DEF listing keeps the
+                // literal's own character width.  Surelog's elaborator runs
+                // the same adjustSize walk over a scalar param's value that it
+                // already runs over a struct-pattern member setter (the
+                // `default: "inv"` arm above re-sizes a vpiStringConst to the
+                // MEMBER width and never folds it to the numeric value of its
+                // characters) — this is that walk on the un-nested case.
+                // Measured on `localparam int UseDsp = "no"` (ibex_counter
+                // rtl/ibex_counter.sv:61): golden DEF 16 / ELAB 32, ours 16 in
+                // both.  A wider literal TRUNCATES to the declared width
+                // (`int Long = "abcdef"` -> 32, not 48) and a narrower one
+                // WIDENS (`byte B = "z"` -> 8); a `string`-typed or UNTYPED
+                // param is untouched in either view.
+                //
+                // The rule is keyed on an EXPLICITLY WRITTEN type
+                // (`typedParam`), never on slang's INFERRED one.  An
+                // IMPLICITLY-typed `parameter SRAMInitFile = ""` (ParamFile,
+                // ParamFileNoTop, ParamFileOverr) is typed by slang at the
+                // 8-bit width its empty string literal canonicalizes to, while
+                // golden emits that constant with NO vpiSize at all; keying on
+                // the inferred type set size 8 there and demoted three
+                // CMP_EQUAL surelog rows (measured, then fixed).
+                if (topView && typedParam && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    ((UHDM::constant*)rhs)->VpiConstType() == vpiStringConst &&
+                    stripImplicitConv(*init).kind ==
+                        ExpressionKind::StringLiteral) {
+                    const Type& dt52 = ps.getType().getCanonicalType();
+                    if (dt52.isIntegral() && !dt52.isString() &&
+                        dt52.getBitWidth() > 0)
+                        ((UHDM::constant*)rhs)
+                            ->VpiSize((int32_t)dt52.getBitWidth());
+                }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;
                 // § nestedParamActualTs6 VIEW GUARD.  paramRhsObj is keyed by
