@@ -1,0 +1,59 @@
+r11u1 GATES — all measured against the frozen binaries
+  pristine  /tmp/r11u1_bin/pristine  md5 2ac8447d58a0fb9e4d9ef6da9292b053
+  patched   /tmp/r11u1_bin/law4      md5 3f6d690887219fc3b2aa46da8c4f30f6
+(the pristine worktree build is BYTE-IDENTICAL to the main tree at df23d880;
+ the final comment-only source pass rebuilt to the SAME patched md5, so every
+ number below is a measurement of the exact source in this patch.)
+
+(1) BUILD          rc=0, 0 `error:`, 0 NEW warnings (8 pre-existing -Wnarrowing
+                   in ModuleEmit.cpp, all also present in the pristine build).
+
+(2) GOLDENS        SLANG_UHDM=<patched>  PASS=23 FAIL=0
+                   SLANG_UHDM=/bin/false PASS=0  FAIL=23   (negative control)
+                   SLANG_UHDM=<pristine> PASS=23 FAIL=0
+
+(3) uhdm2rtlil     both sweeps ran the FROZEN binary (cmds.txt audited by PATH:
+                   `slang:   /tmp/r11u1_bin/law4`).
+    PRISTINE re-measure vs the committed baselines: ct8rows PASS, every row
+      byte-identical (results/gate_uhdm2rtlil.csv and the default half of
+      results/golden_uhdm2rtlil.csv).
+    PATCHED vs committed baseline — 14 rows moved per mode, ALL
+      CMP_NOTEQUAL -> CMP_EQUAL, every one named by the law:
+        testflags  719/85/67  ->  733/71/67   (EQUAL/NOTEQUAL/SLANG_REJECT)
+        default    719/85/67  ->  733/71/67
+      dump column: `match` 527 (tf) / 523 (def) UNCHANGED — no match->differ
+      demotion; the 14 empty cells became `differ` because the rows now compare.
+
+(4) surelog        both modes, 1596 rows.
+    PRISTINE re-measure vs results/golden_surelog.csv: status histograms
+      IDENTICAL (455/28 default, 451/26 testflags).  The only two differing
+      cells are LowMemLib/LowMemPkg SURELOG_FAIL detail strings, which embed
+      the workdir path (`/tmp/m187base/...` vs `/tmp/r11u1_pris/...`).
+    PATCHED vs committed baseline — 4 tests x 2 modes moved, ALL
+      CMP_NOTEQUAL -> CMP_EQUAL:
+        default    455/28 -> 459/24
+        testflags  451/26 -> 455/22
+      dump `match` 225 (def) / 166 (tf) UNCHANGED.
+
+(5) BYTEVERIFY     SELFCHECK=1, patched vs the pass's OWN pristine workdirs.
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1608)  MOVERS 36/1608
+                SELFCHECK 1607/1608 flagged
+                movers == the a-priori prediction EXACTLY (0 unpredicted,
+                0 missed) — see PREDICT.uhdm2rtlil.txt and MOVERS.r11u1.txt.
+    surelog     PATH_SETS_IDENTICAL (960)   MOVERS 22/960
+                SELFCHECK 959/960 flagged
+                17 == the prediction; the other 5 are the campaign's known
+                per-invocation COIN, proven pristine-vs-pristine — see
+                MOVERS.r11u1.txt.
+
+(6) CANARIES       uhdm2rtlil  canaries.sh ok=8  changed=0
+                                ctcan2.sh   PASS (EXPECT_UNKNOWN=6)
+                   surelog      canaries.sh ok=52 changed=0
+                                ctcan2.sh   PASS (EXPECT_UNKNOWN=1), ok=58
+                   canaudit.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+    PROTECTED DATABASES (patched vs pristine md5, both modes):
+      InterfaceModPort    59a365f3ce2c / 59a365f3ce2c   SAME
+      BlackParrotComplex  e3e354129d5a (def) 73a10e8217e5 (tf)  SAME
+      YosysOldOr          d68e0796d62c  SAME
+      SVSwitch            4842211c4030  == the HARD BYTE PIN
+      YosysVerx           6ccda350c24a  == the HARD BYTE PIN

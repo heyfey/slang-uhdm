@@ -1,0 +1,67 @@
+r11u1 MOVER ATTRIBUTION — every byte mover named, none unexplained
+
+PREDICTION (a priori, from PRISTINE databases only — predict.py):
+  uhdm2rtlil   36 databases  (18 tests x 2 modes)
+  surelog      17 databases  (8 tests x 2 modes, minus Rggen/testflags whose
+                              row is SURELOG_FAIL so no database exists)
+  POSITIVE CONTROL   grid2 built by the PRISTINE binary reads True; the same
+                     source built by the PATCHED binary reads False.  The
+                     predictor flips exactly when the law lands.
+  NEGATIVE CONTROLS  iface_modport, iface_passthrough — CMP_EQUAL rows that DO
+                     contain interfaces — both read False, and neither moved.
+
+MEASURED (byteverify.sh SELFCHECK=1):
+  uhdm2rtlil   36 / 1608.  `diff <(movers) <(prediction)` is EMPTY:
+               0 unpredicted, 0 missed.  NO CMP_EQUAL row's database moved.
+  surelog      22 / 960.  17 are the prediction.  The remaining 5 are:
+
+    MiniAmiq/default, MiniAmiq/testflags, SeqDriver/default,
+    SeqDriver/testflags, Scoreboard/default
+
+  — all five are the campaign's KNOWN per-invocation nondeterminism
+  (RESUME.md sec 9, "Nondeterminism": macro-buffer SourceLocation ordering
+  under slang's parallel parse).  PROVEN, not asserted:
+
+    Scoreboard/default  ORDER-BLIND (sorted, path-normalised) whole-dump diff
+                        = 0 lines.  Pure ordering flip.
+
+    MiniAmiq            ORDER-BLIND diff = 4 lines: ONE `__LINE__`-class
+                        constant inside a UVM `uvm_report_error` expansion
+                        (`|UINT:1143` / `|vpiDecompile:1143` vs 814).
+                        FOUR consecutive PRISTINE runs of the same command
+                        give FOUR DIFFERENT md5s and sizes —
+                          a38bd0cb9784 18852699
+                          2c3f15530cb0 18852667
+                          52466656fd85 18852673
+                          174177afd1b4 18852803
+                        — and four PATCHED runs likewise (18852669 / 18852804
+                        / 18852667 / 18852804), all of them reading 4x1143 and
+                        0x814.  The 814 appears only in one sweep invocation.
+
+    SeqDriver           ORDER-BLIND diff = 4 lines of the same shape
+                        (default: 1330 vs 0; testflags: 525 vs 1413).
+                        PRISTINE-vs-PRISTINE control: three runs of the same
+                        command give md5 bc8c05dc1f72 / 68cc3d64d0ec /
+                        c8e7dbfc8984 and an ORDER-BLIND diff of exactly 4
+                        lines between runs (`|UINT:528` vs `|UINT:725`).
+                        The coin is in the PRISTINE binary; the law is not in
+                        the picture.
+
+  None of the five changed its CSV status (all stay CMP_NOTEQUAL, and none
+  appears in the ct8rows moved-row list for either mode).
+
+TO-GOLDEN / AWAY-GOLDEN, over the 53 predicted movers:
+  36 rows (30 tests-x-modes on the two corpora, see POPULATION.r11u1.txt)
+     CONVERT to CMP_EQUAL.
+  The rest moved TOWARD golden and are named there; NONE moved AWAY:
+    * every one of them lost the law's own head
+      (`interface_inst::Parameters`, golden `<null>` / ours a vector);
+    * their new head is a DIFFERENT object in every case but
+      iface_zero_width_field, whose head was already a `ref_typespec` residue
+      and whose interface_inst param census is now IDENTICAL to golden;
+    * Rggen/default is the only row whose cmp LINE COUNT rose (531 -> 801) and
+      its head OBJECT changed, which is the new head's decompile size:
+      `work@rggen.u_block_0.u_adapter.register_if[0]` went from
+      (par=5, pa=0) — wrong on BOTH fields — to (par=0, pa=0), right on par,
+      against golden's (par=0, pa=5).  One of two mismatched fields fixed,
+      none broken.  Residue R3.

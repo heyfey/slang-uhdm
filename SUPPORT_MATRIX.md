@@ -25,10 +25,10 @@ the build inside the pinned Surelog tree — the one
 
 | Corpus | Mode | Rows | Equal | Not-equal |
 |---|---|---|---|---|
-| Surelog suite | default | 798 | 455 | 28 |
-| Surelog suite | testflags | 798 | 451 | 26 |
-| uhdm2rtlil | default | 871 | 719 | 85 |
-| uhdm2rtlil | testflags | 871 | 719 | 85 |
+| Surelog suite | default | 798 | 459 | 24 |
+| Surelog suite | testflags | 798 | 455 | 22 |
+| uhdm2rtlil | default | 871 | 733 | 71 |
+| uhdm2rtlil | testflags | 871 | 733 | 71 |
 
 For comparison, pilot 0.1 measured 477/4 + 471/4 and 679/0 ×2 on its own
 pins. The regression sets cluster in interface-parameter, struct-parameter,

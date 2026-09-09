@@ -29995,67 +29995,26 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
             dup->Ports(dports);
     }
 
-    // The dup carries its OWN default-valued parameter objects (fresh ts
-    // refs, drained with the others) and SHARES the home view's
-    // param_assign objects.
-    if (home && home->Parameters()) {
-        auto* dparams = s.MakeAnyVec();
-        for (auto* hp0 : *home->Parameters()) {
-            auto* hp = (UHDM::parameter*)hp0;
-            const ParameterSymbol* psym = nullptr;
-            for (auto& mb2 : inst.body.members())
-                if (mb2.kind == SymbolKind::Parameter && mb2.name == hp->VpiName())
-                    psym = &mb2.as<ParameterSymbol>();
-            auto* p2 = s.MakeParameter();
-            p2->VpiName(hp->VpiName());
-            p2->VpiFullName(hp->VpiFullName());
-            p2->VpiParent(dup);
-            p2->VpiValue(std::string(hp->VpiValue()));
-            p2->VpiLineNo(hp->VpiLineNo());
-            p2->VpiColumnNo(hp->VpiColumnNo());
-            p2->VpiEndLineNo(hp->VpiEndLineNo());
-            p2->VpiEndColumnNo(hp->VpiEndColumnNo());
-            if (hp->VpiLocalParam())
-                p2->VpiLocalParam(true);
-            // The col-0 tail-dup parameter carries the home view's vpiSigned
-            // (a signed `parameter int DLY`) — Surelog keeps it on the dup too.
-            if (hp->VpiSigned())
-                p2->VpiSigned(true);
-            // A WILDCARD-IMPORTED package parameter reaches the interface
-            // through `import pkg::*`, so it has no ParameterSymbol in the
-            // iface body — but the col-0 dup still carries its vpiImported tag
-            // and its typespec, both copied from the home view (Surelog).
-            if (!hp->VpiImported().empty())
-                p2->VpiImported(std::string(hp->VpiImported()));
-            if (hp->Typespec()) {
-                auto* prt2 = s.MakeRef_typespec();
-                prt2->VpiFullName(std::string(hp->Typespec()->VpiFullName()));
-                prt2->VpiParent(p2);
-                p2->Typespec(prt2);
-                if (psym) {
-                    bool typedP = false;
-                    if (auto d0 = psym->getDeclaredType())
-                        if (auto t0 = d0->getTypeSyntax())
-                            typedP = t0->kind != syntax::SyntaxKind::ImplicitType;
-                    pendingParamTs.push_back({psym, p2, prt2, nullptr, typedP});
-                } else {
-                    // No symbol to re-resolve from: SHARE the home view's
-                    // resolved typespec once the deferred passes have filled it.
-                    netTsAlias.push_back({prt2, hp->Typespec()});
-                }
-            }
-            dparams->push_back(p2);
-        }
-        if (!dparams->empty())
-            dup->Parameters(dparams);
-        if (home->Param_assigns()) {
-            auto* dpas = s.MakeParam_assignVec();
-            for (auto* pa0 : *home->Param_assigns())
-                dpas->push_back(pa0);
-            dup->Param_assigns(dpas);
-        }
+    // § ifacePortViewParamAssignsOnly (r11u1) — THE COL-0 TAIL DUP OBEYS THE
+    // SAME v1.87 SHAPE AS A PORT VIEW: NO `Parameters`, and the home view's
+    // `Param_assigns` OBJECTS SHARED (uhdm-dump prints them shallow because the
+    // home view was visited first).
+    //
+    // Before v1.87 the dup carried its own default-valued parameter objects.
+    // Those came from Surelog's writeElabParameters, which
+    // UhdmWriter.cpp:4411's `if (interf->Param_assigns()) continue;` (commit
+    // e2f01837ce) no longer reaches now that elab_interface_ hands every
+    // interface_inst its param_assigns (commit 38aa041c48).  Measured on the
+    // grid's tail dup (`work@top.u_df`, tools/probe/r11u1repro/grid2) and on
+    // four corpus tests whose dup is JUDGE-REACHABLE — iface_param_port_width,
+    // iface_ff_genvar_partsel, iface_wholestruct_param and simple_interface all
+    // read `par=0 pa=1` on golden against our `par=1 pa=1`.
+    if (home && home->Param_assigns()) {
+        auto* dpas = s.MakeParam_assignVec();
+        for (auto* pa0 : *home->Param_assigns())
+            dpas->push_back(pa0);
+        dup->Param_assigns(dpas);
     }
-
     auto* mports = s.MakeModportVec();
     for (auto* mpPtr : sortedModports(body)) {
         auto& mp = *mpPtr;
@@ -30440,6 +30399,14 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // Interface-ARRAY element views are excluded (they drop even the
     // aggregate op75 assigns — iface_array_elem_cfg_param), and a GENERIC
     // port carries no modport of its own, so neither reaches this flag.
+    //
+    // r11u1 / SURELOG v1.87: the PRESENCE half of this matrix is gone — every
+    // cell keeps its param_assigns now (§ ifacePortViewParamAssignsOnly below).
+    // The VALUE half stands unchanged and is what `namedModportPortView9` still
+    // feeds: it is the ONE port-view cell that folds at the connected
+    // instance's values AND keeps its `vpiOverriden` stamps (golden grid
+    // work@top.a0.q).  `posModportPortView9` fed only the deleted drop-all arm
+    // and is left computed but unread.
     bool namedModportPortView9 = false;
     bool posModportPortView9 = false;
     if (portView && inst.arrayPath.empty())
@@ -30465,9 +30432,20 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             ifaceHasGen9 = true;
             break;
         }
-    // § ifacePortViewActualScopeGate16 — AN INTERFACE PORT VIEW WHOSE
-    //   CONNECTION ACTUAL IS NOT DECLARED IN THE INSTANTIATING SCOPE CARRIES
-    //   NO param_assigns AT ALL.
+    // § ifacePortViewActualScopeGate16 — SUPERSEDED BY
+    //   § ifacePortViewParamAssignsOnly (r11u1) UNDER SURELOG v1.87: THE MISS
+    //   THIS PREDICATE NAMES NO LONGER EMPTIES THE VECTOR.  What it decodes is
+    //   still true of the CLONE path (`propagateIfaceParams_` copies the
+    //   connected instance's param_assigns only when `getInterfaceInstance_`
+    //   hits), but v1.87's `elab_interface_` now falls back to elaborating the
+    //   copy's OWN parameters on the miss, so the port view ends up with a FULL
+    //   param_assign vector at the DECLARATION DEFAULTS instead of none.  The
+    //   predicate is left computed (its `Scope::find` also drives slang's lazy
+    //   elaboration on this path) and is no longer read; the r11u1 block below
+    //   keeps the vector unconditionally.  The v1.86 reading follows.
+    //
+    // AN INTERFACE PORT VIEW WHOSE CONNECTION ACTUAL IS NOT DECLARED IN THE
+    //   INSTANTIATING SCOPE CARRIES NO param_assigns AT ALL.
     //
     // Surelog does not compute a port copy's parameter values; it CLONES them
     // off the interface instance the port connects to, and it finds that
@@ -30581,166 +30559,65 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // element port views listed 5 param_assigns against golden's 0 (census
     // tools/probe/r10rggen5mp.cpp — `par=5 pa=0` on every golden row).  The
     // element's values live inline on its parameters either way.
-    if (portView && actualOutOfScope16) {
-        // § ifacePortViewActualScopeGate16 (above) — the actual is invisible
-        // from the instantiating scope, so Surelog propagated nothing.
-        iface->Param_assigns(nullptr);
-    }
-    else if (portView && !inst.arrayPath.empty()) {
-        iface->Param_assigns(nullptr);
-    }
-    else if (portView && !multiParamIface && connModport.empty()) {
-        // A PLAIN whole-interface port view (`module child (bus_if sub)`)
-        // carries NO param_assign vector at all — not even the aggregate
-        // (op75) ones a MODPORT-qualified view keeps, and not the derived
-        // localparam ones either. It lists the parameters TWICE instead (see
-        // below), which is where its values live.
-        // GenIfIfaceParamStructField / GenForIfaceLocalparamNestedGen.
-        iface->Param_assigns(nullptr);
-    }
-    else if (portView && !multiParamIface &&
-             (ifaceHasGen9 || namedModportPortView9)) {
-        // keep-all: no filtering.
-    }
-    else if (portView && !multiParamIface && !ifaceHasGen9 &&
-             posModportPortView9) {
-        // drop-all: the POSITIONAL half of the r10ie matrix keeps nothing —
-        // not the derived localparams (`localparam int BYT = DW/8`), not the
-        // aggregate op75 assigns. Same source with `.bus(bus)` keeps all three.
-        iface->Param_assigns(nullptr);
-    }
-    else if (portView && !multiParamIface) {
-        if (auto* pas0 = iface->Param_assigns()) {
-            auto* keep = s.MakeParam_assignVec();
-            for (auto* pa0 : *pas0) {
-                if (!pa0->Rhs())
-                    continue;
-                // Aggregate (op75) param_assigns are kept (their struct value
-                // cannot inline on the parameter) — but an interface-ARRAY
-                // ELEMENT view (.s(arr[0])) drops even those, leaving a
-                // value-less parameter stub (iface_array_elem_cfg_param).
-                // A scalar constant-Rhs
-                // param_assign is dropped UNLESS its Lhs is a LOCALPARAM derived
-                // inside the interface (e.g. BYT=CFG.BUS.DAT/8, OFF=$clog2(BYT)):
-                // Surelog keeps those in the modport port-view too. A plain
-                // scalar PARAMETER still folds inline and drops its param_assign.
-                bool keepIt =
-                    pa0->Rhs()->UhdmType() == UHDM::uhdmoperation &&
-                    inst.arrayPath.empty();
-                if (!keepIt &&
-                    pa0->Rhs()->UhdmType() == UHDM::uhdmconstant) {
-                    auto* lp0 = (UHDM::parameter*)pa0->Lhs();
-                    if (lp0 && lp0->VpiLocalParam())
-                        keepIt = true;
-                    // An EXPLICITLY-OVERRIDDEN scalar param (e.g.
-                    // bus_if #(.DLY(1))) keeps its constant-Rhs param_assign
-                    // on a MODPORT-qualified port view of a SCALAR (non-array)
-                    // interface instance — Surelog folds the value inline on
-                    // the parameter AND retains the vpiOverriden param_assign
-                    // (iface_unpacked_struct_array). A PLAIN port view
-                    // (iface_param_width_per_inst) and an interface-ARRAY
-                    // element view (interface_array) still drop it.
-                    else if (pa0->VpiOverriden() && !connModport.empty() &&
-                             inst.arrayPath.empty()) {
-                        // ...and ONLY when the override is a NO-OP (value
-                        // equals the declaration default — DLY(1) w/ default
-                        // 1). A value-changing override still drops
-                        // (iface_param_port_width DATA_WIDTH(8) vs 16).
-                        keepIt = false;
-                        if (pa0->Lhs()) {
-                            for (auto& mb9 : body.members()) {
-                                if (mb9.kind != SymbolKind::Parameter ||
-                                    mb9.name !=
-                                        std::string_view(
-                                            pa0->Lhs()->VpiName()))
-                                    continue;
-                                auto& ps9 = mb9.as<ParameterSymbol>();
-                                if (!ps9.getType()
-                                         .getCanonicalType()
-                                         .isIntegral() ||
-                                    ps9.getType()
-                                            .getCanonicalType()
-                                            .isStruct()) {
-                                    break;
-                                }
-                                if (auto* ds9 = paramDefaultSyn(ps9)) {
-                                    ASTContext dctx9(body,
-                                                     LookupLocation::max);
-                                    auto& de9 =
-                                        Expression::bind(*ds9, dctx9);
-                                    auto dv9 = dctx9.tryEval(de9);
-                                    auto& cv9 = ps9.getValue();
-                                    if (dv9 && dv9.isInteger() &&
-                                        cv9.isInteger() &&
-                                        dv9.integer() == cv9.integer())
-                                        keepIt = true;
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (keepIt)
-                    keep->push_back(pa0);
-            }
-            iface->Param_assigns(keep->empty() ? nullptr : keep);
-        }
-    }
-    // A PLAIN (non-modport) PORT VIEW additionally lists each parameter TWICE
-    // at its DEFAULT value. A MODPORT-qualified port view (myif.man b) keeps a
-    // single param.
-    // § ifaceIfaceTypedPort — a view nested INSIDE an interface lists each
-    // parameter ONCE (measured: work@dut.tnoc.types carries one
-    // PACKET_CONFIG, while the module port view work@top.u_m.p carries two
-    // PA objects for the same interface).
-    if (portView && connModport.empty() && !nestedIfaceView &&
-        iface->Parameters()) {
-        auto* plist = iface->Parameters();
-        size_t n0 = plist->size();
-        for (size_t i = 0; i < n0; i++) {
-            auto* p0 = (UHDM::parameter*)(*plist)[i];
-            const ParameterSymbol* psym = nullptr;
-            for (auto& mb2 : body.members())
-                if (mb2.kind == SymbolKind::Parameter && mb2.name == p0->VpiName())
-                    psym = &mb2.as<ParameterSymbol>();
-            auto* p2 = s.MakeParameter();
-            p2->VpiName(p0->VpiName());
-            p2->VpiFullName(p0->VpiFullName());
-            p2->VpiParent(iface);
-            p2->VpiValue(std::string(p0->VpiValue()));
-            p2->VpiLineNo(p0->VpiLineNo());
-            p2->VpiColumnNo(p0->VpiColumnNo());
-            p2->VpiEndLineNo(p0->VpiEndLineNo());
-            p2->VpiEndColumnNo(p0->VpiEndColumnNo());
-            if (p0->VpiLocalParam())
-                p2->VpiLocalParam(true);
-            // The port-view duplicate keeps the home parameter's vpiSigned
-            // (a signed `parameter int BYT`) — Surelog copies it, like the
-            // col-0 tail dup does (iface_ff_genvar_partsel).
-            if (p0->VpiSigned())
-                p2->VpiSigned(true);
-            // A WILDCARD-IMPORTED package parameter has no ParameterSymbol in
-            // the iface body; the port-view duplicate still carries its
-            // vpiImported tag and shares the home view's typespec (Surelog).
-            if (!p0->VpiImported().empty())
-                p2->VpiImported(std::string(p0->VpiImported()));
-            if (p0->Typespec()) {
-                auto* prt2 = s.MakeRef_typespec();
-                prt2->VpiFullName(std::string(p0->Typespec()->VpiFullName()));
-                prt2->VpiParent(p2);
-                p2->Typespec(prt2);
-                if (psym) {
-                    bool typedP = false;
-                    if (auto d0 = psym->getDeclaredType())
-                        if (auto t0 = d0->getTypeSyntax())
-                            typedP = t0->kind != syntax::SyntaxKind::ImplicitType;
-                    pendingParamTs.push_back({psym, p2, prt2, nullptr, typedP});
-                } else {
-                    netTsAlias.push_back({prt2, p0->Typespec()});
-                }
-            }
-            plist->push_back(p2);
-        }
+    // § ifacePortViewParamAssignsOnly (r11u1) — SURELOG v1.87 CHANGED THE
+    //   INTERFACE PORT-VIEW PARAMETER SHAPE: A PORT VIEW CARRIES ITS FULL
+    //   `Param_assigns` VECTOR AND *NO* `Parameters` VECTOR AT ALL.
+    //
+    // Producer change, decoded from the v1.86->v1.87 Surelog diff.
+    // NetlistElaboration::elab_interface_ (Surelog
+    // src/DesignCompile/NetlistElaboration.cpp:1913-1934, commit 38aa041c48
+    // "Resolve interface parameters/localparams reached through a modport
+    // port") now ends EVERY interface_inst build with
+    //     if (netl->param_assigns() == nullptr) {
+    //       elab_parameters_(interf_instance, true);
+    //       elab_parameters_(interf_instance, false);
+    //     }
+    //     if (auto pas = netl->param_assigns())
+    //       if (sm->Param_assigns() == nullptr) sm->Param_assigns(pas);
+    // so an interface-port copy that used to reach UhdmWriter with NO
+    // param_assigns — the v1.86 shape the filtering arms this block replaces
+    // were calibrated against — now always has them, elaborated from the copy's
+    // own ModuleInstance.  Its companion commit e2f01837ce
+    // (getInterfaceInstance_ base-name match + propagateIfaceParams_) fills the
+    // values from the CONNECTED instance when the actual resolves, and the
+    // `if (interf->Param_assigns()) continue;` guard it added at
+    // UhdmWriter.cpp:4411 makes writeElabParameters on a port copy — the only
+    // thing that ever put a `Parameters` vector on one — unreachable.
+    // Net effect on the golden: par=0, pa=ALL on every port view.
+    //
+    // GOLDEN GRID (tools/probe/r11u1repro/grid1..grid3, real Surelog v1.87;
+    // `interface tif #(int W = 16, p::cfg_t CFG = ...); localparam int BYT =
+    // CFG.BUS.DAT/8;` instantiated `tif #(.W(32), .CFG(OVR)) u_ov()`):
+    //
+    //   view              kind    port form    connection        par  pa   W
+    //   work@tif          def     -            -                   3   3  16
+    //   work@top.u_ov     home    -            -                   3   3  32
+    //   work@top.a0.q     port    tif.mp       .q(u_ov.mp)         0   3  32
+    //   work@top.a1.q     port    tif.mp       (u_ov.mp)  pos      0   3  16
+    //   work@top.a2.q     port    tif          .q(u_ov)            0   3  16
+    //   work@top.a3.q     port    tif          (u_ov)     pos      0   3  16
+    //   work@top.a4.q     port    tif.mp       .q(arr[0].mp)       0   3  16
+    //   work@top.a5.q     port    tif.mp       .q(u_df.mp) no-ovr  0   3  16
+    //   work@top.g.a6.q   port    tif.mp       .q(u_ov.mp) in gen  0   3  16
+    //   work@top.fl.ty    port    nested ifc   .ty(ty)             0   2  def
+    //   work@top.u1.gi    port    generic      .gi(ty)             0   2  def
+    //
+    // Every arm's Surelog rc is 0 (grid1/grid2/grid3 logs: `[ERROR] : 0`).
+    // The VALUE law is UNCHANGED — the r10ie matrix quoted above still decides
+    // whether a view folds at the connected instance's values or at the
+    // declaration defaults, and `ifaceDefaultScope` below still applies it.
+    // Only the PRESENCE law moved: every `Param_assigns(nullptr)` drop this
+    // function used to apply to a port view is now wrong, and so is every
+    // `Parameters` entry on one (including the DOUBLE listing a plain port view
+    // used to carry).  A HOME view (portView == nullptr) is untouched.
+    if (portView) {
+        // Keep the whole param_assign vector exactly as emitParameters built
+        // it, and drop the parameter objects from the listing.  The objects
+        // themselves stay reachable as each param_assign's Lhs.
+        if (auto* pas7 = iface->Param_assigns())
+            if (pas7->empty())
+                iface->Param_assigns(nullptr);
+        iface->Parameters(nullptr);
     }
     // The col-0 tail duplicate's arena slot precedes the variables'
     // typespecs (Surelog creation order); its content fills in at the end.
@@ -30840,6 +30717,69 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                      (!multiParamIface && !textMultiIface9 && !aggOvPortView &&
                       !ifaceHasGen9 && !namedModportPortView9))) {
         ifaceDefaultScope = ifacePortViewFoldScope(def, portView);
+        // § ifacePortViewParamAssignsOnly (r11u1) — A PORT VIEW THAT FOLDS AT
+        // THE DEFAULT SCOPE CARRIES NO `vpiOverriden` STAMP ON ITS
+        // param_assigns.  The view IS the default parameterization, so nothing
+        // on it is overridden; Surelog builds those assigns with
+        // elab_parameters_ on a FRESH ModuleInstance of the interface
+        // definition (NetlistElaboration.cpp:1926) and never propagates an
+        // override onto it.
+        //
+        // GOLDEN GRID (tools/probe/r11u1repro/grid1, vpiOverriden count per
+        // interface_inst — the same file the par/pa grid above was read from):
+        //
+        //   work@tif       0   def view
+        //   work@top.u_ov  2   home view, #(.W(32), .CFG(OVR))
+        //   work@top.u_df  0   home view, no override
+        //   work@top.arr[] 1   home view of each array element, #(.W(8))
+        //   work@top.a0.q  2   port view, NAMED MODPORT  <- keeps the stamp
+        //   work@top.a1.q  0   port view, positional modport
+        //   work@top.a2.q  0   port view, named plain
+        //   work@top.a3.q  0   port view, positional plain
+        //   work@top.a4.q  0   port view, array element
+        //   work@top.a5.q  0   port view, no override to inherit
+        //   work@top.g.a6.q 0  port view, named modport inside a gen block
+        //
+        // a0.q is the ONE port-view cell that takes the connected instance's
+        // values, and it is the ONE that keeps the stamp — the same switch
+        // `ifaceDefaultScope` is keyed on, so the clear rides on it exactly.
+        // Before this pass every port view we emitted stamped the connected
+        // instance's overrides (grid1: a1/a2/a3/g.a6 read 2, a4 read 1).
+        if (auto* pas5 = iface->Param_assigns())
+            for (auto* pa5 : *pas5)
+                pa5->VpiOverriden(false);
+        // ...and its scalar param_assign Rhs FOLDS AT THE DECLARATION DEFAULT,
+        // for the same reason: Surelog elaborates the fresh copy's parameters
+        // from the interface definition, never from the connected instance.
+        // The Lhs `parameter` object on a port view is already built from the
+        // DEF view (emitParameters' `di` argument), so it ALREADY carries the
+        // declaration-default value inline — restamping the constant from it is
+        // the whole rule and needs no re-evaluation.
+        //   iface_param_width_per_inst  `my_iface #(.W(22)) bus(); sub u_sub(.bus(bus))`
+        //       golden work@top.u_sub.bus  W  <- 3   (default), ours 22
+        //   iface_param_port_width      `bus_if #(.DATA_WIDTH(8)) bus(); bus_master m0(bus, din)`
+        //       golden work@top.m0.bus  DATA_WIDTH <- 16 (default), ours 8
+        // A view that folds at the CONNECTED instance (the named-modport cell,
+        // ifaceDefaultScope unset) never reaches this code and keeps its
+        // override, matching golden's work@top.a0.q (W <- 32).
+        if (auto* pas6 = iface->Param_assigns())
+            for (auto* pa6 : *pas6) {
+                auto* lhs6 = (const UHDM::parameter*)pa6->Lhs();
+                auto* rhs6 = pa6->Rhs();
+                if (!lhs6 || !rhs6 || rhs6->UhdmType() != UHDM::uhdmconstant)
+                    continue;
+                std::string lv6(lhs6->VpiValue());
+                // Only the plain integer forms; a sized/based literal's
+                // decompile is not its value string's tail.
+                if (lv6.compare(0, 5, "UINT:") != 0 &&
+                    lv6.compare(0, 4, "INT:") != 0)
+                    continue;
+                auto* c6 = (UHDM::constant*)rhs6;
+                if (std::string(c6->VpiValue()) == lv6)
+                    continue;
+                c6->VpiValue(lv6);
+                c6->VpiDecompile(lv6.substr(lv6.find(':') + 1));
+            }
     }
     // Pre-create each port's typespec BEFORE the variable typespecs so their
     // arena ids precede the elab var typespecs — matching Surelog's

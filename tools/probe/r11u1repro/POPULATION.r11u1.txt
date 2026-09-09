@@ -1,0 +1,102 @@
+r11u1 POPULATION — what converted, what is left, ranked
+
+THE CLUSTER AT THE BASE (df23d880), re-measured on this pass's own pristine
+build and byte-identical to the committed CSVs:
+
+  uhdm2rtlil  18 tests NE in BOTH modes = 36 rows
+    iface_array_elem_cfg_param iface_cfg_mem iface_cfg_param_def_pass
+    iface_ff_genvar_partsel iface_nested_param_field iface_param_2level
+    iface_param_port_width iface_param_width_per_inst iface_scalar_localparam
+    iface_struct_field_param_width iface_struct_field_partsel
+    iface_unpacked_struct_array iface_wholestruct_param iface_zero_width_field
+    interface_array interface_array_fanout jeras_tcb_gpio simple_interface
+  surelog      7 tests NE in BOTH modes = 14 rows
+    GenForIfaceLocalparamBound GenForIfaceLocalparamNestedGen
+    GenIfIfaceParamStructField InterfaceElab InterfaceParamOverrideProp
+    InterfaceUnpackedStructArrayDim InterfType
+
+SHARED HEAD: 24 of those 25 tests had the IDENTICAL cmp head — a PORT-VIEW
+`interface_inst` whose `Parameters` vector is `<null>` in the v1.87 golden and
+non-null in ours:
+    LHS: <null>
+    RHS:
+    decompile:
+    interface_inst: work@tif (work@<mod>.<inst>.<port>), line:N:0
+(the exception is iface_zero_width_field, whose head is an unrelated
+`ref_typespec` residue).
+
+CONVERTED BY THIS PASS — 36 rows, 18 tests, said LOUDLY.  Every one of these
+rows is CMP_NOTEQUAL in results/*.csv at df23d880 and is CMP_EQUAL after:
+
+  results/golden_uhdm2rtlil.csv + results/gate_uhdm2rtlil.csv (14 tests x 2):
+    iface_cfg_mem,{default,testflags},CMP_NOTEQUAL,decompile:,,   -> CMP_EQUAL,,,differ
+    iface_cfg_param_def_pass,...      CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_ff_genvar_partsel,...       CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_nested_param_field,...      CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_param_port_width,...        CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_param_width_per_inst,...    CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_scalar_localparam,...       CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_struct_field_param_width,...CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_struct_field_partsel,...    CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_unpacked_struct_array,...   CMP_NOTEQUAL                -> CMP_EQUAL
+    iface_wholestruct_param,...       CMP_NOTEQUAL                -> CMP_EQUAL
+    interface_array,...               CMP_NOTEQUAL                -> CMP_EQUAL
+    jeras_tcb_gpio,...                CMP_NOTEQUAL                -> CMP_EQUAL
+    simple_interface,...              CMP_NOTEQUAL                -> CMP_EQUAL
+  results/golden_surelog.csv (4 tests x 2):
+    InterfType,{default,testflags},CMP_NOTEQUAL,decompile:,,      -> CMP_EQUAL,,,differ
+    InterfaceElab,...                 CMP_NOTEQUAL                -> CMP_EQUAL
+    InterfaceParamOverrideProp,...    CMP_NOTEQUAL                -> CMP_EQUAL
+    InterfaceUnpackedStructArrayDim,..CMP_NOTEQUAL                -> CMP_EQUAL
+
+  SCOREBOARD (both mode columns scored explicitly):
+    uhdm2rtlil default    719 / 85 / 67   ->  733 / 71 / 67
+    uhdm2rtlil testflags  719 / 85 / 67   ->  733 / 71 / 67
+    surelog    default    455 / 28        ->  459 / 24
+    surelog    testflags  451 / 26        ->  455 / 22
+
+RESIDUES, RANKED BY POPULATION.  All are VALUE laws inside the shape this pass
+fixed; the PRESENCE law is closed corpus-wide.
+
+  R0 (the R0 line for the next pass)
+    R1 — A PORT VIEW OF A MULTI-PARAMETERIZED (or TEXT-multi, or gen-bearing,
+    or aggregate-overridden) INTERFACE DEF STILL FOLDS ITS param_assign Rhs AT
+    THE CONNECTED INSTANCE.  `ifaceDefaultScope` declines those cells, so the
+    r11u1 default-restamp never reaches them, and a DERIVED LOCALPARAM's Rhs is
+    not restamped at all (the restamp copies the Lhs parameter's inline value,
+    and a localparam's parameter object already carries the instance value).
+    Golden folds every non-named-modport port view at the DECLARATION DEFAULT.
+      grid1 witness: work@top.a1.q / a2.q / a3.q / g.a6.q read W<-32 BYT<-8
+      against golden's W<-16 BYT<-4; grid3 witness: work@top.fl.ty and
+      work@top.u1.gi read PB<-18 against golden's PB<-10.
+      Population: 5 rows-pairs — GenForIfaceLocalparamNestedGen (x2),
+      GenIfIfaceParamStructField (x2), iface_array_elem_cfg_param (x2, the
+      aggregate op75 inner constant 16 vs golden 8), iface_param_2level (x2),
+      GenForIfaceLocalparamBound (x2, whose head is now a `ref_typespec` on a
+      constant).  10 rows.
+      The likely shape of the fix: run `emitParameters` for a default-folding
+      port view against `*ifaceDefaultScope` (an InstanceBodySymbol) instead of
+      `body`, which folds aggregates and derived localparams uniformly and
+      makes the restamp and the vpiOverriden clear unnecessary.  It was NOT
+      taken this pass because emitParameters registers per-symbol state
+      (elabParamConst, pendingParamTs) that the default body SHARES with the
+      def view.
+
+  R2 — AN INTERFACE-ARRAY-ELEMENT PORT VIEW (`inst.arrayPath` non-empty) still
+    lists NO param_assigns; golden v1.87 lists the full vector at the element's
+    own values.  Witness: Rggen/default
+    `work@rggen.u_block_0.u_adapter.register_if[0]` par=0 pa=0 vs golden
+    par=0 pa=5 (ADDRESS_WIDTH 16, BUS_WIDTH 32, VALUE_WIDTH 32,
+    RGGEN_ACCESS_DATA_BIT 0, RGGEN_ACCESS_NON_POSTED_BIT 1).
+    Population: Rggen/default (1 row), and it is the head there.
+
+  R3 — A MISSING interface_inst under an interface-ARRAY port view.  Golden has
+    `work@dut.f.m[0]` and `work@dut.f.m[1]` (par=0 pa=1, W<-8) and we emit
+    neither; golden also has `work@top.u0.ty` (grid3, the types_if nested
+    inside a flit_if PORT VIEW) and we emit nothing for it.
+    Population: interface_array_fanout (x2 rows) — it is the head there.
+
+  R4 — iface_zero_width_field: head unchanged by this pass
+    (`ref_typespec` -> `struct_typespec (p::bus_t)`, golden `<null>` on our
+    side); its interface_inst param census is now IDENTICAL to golden, so this
+    is an unrelated zero-width-struct-field residue.  Population: 2 rows.

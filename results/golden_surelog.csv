@@ -741,22 +741,22 @@ Interconnect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Interconn
 Interconnect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Interconnect/dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
 InterfaceBinding,default,CMP_EQUAL,,,match
 InterfaceBinding,testflags,CMP_EQUAL,,,match
-InterfaceElab,default,CMP_NOTEQUAL,decompile:,,
-InterfaceElab,testflags,CMP_NOTEQUAL,decompile:,,
+InterfaceElab,default,CMP_EQUAL,,,differ
+InterfaceElab,testflags,CMP_EQUAL,,,differ
 InterfaceFuncCall,default,CMP_EQUAL,,,match
 InterfaceFuncCall,testflags,CMP_EQUAL,,,match
 InterfaceModExp,default,CMP_EQUAL,,,match
 InterfaceModExp,testflags,CMP_EQUAL,,,match
 InterfaceModPort,default,CMP_EQUAL,,,differ
 InterfaceModPort,testflags,CMP_EQUAL,,,differ
-InterfaceParamOverrideProp,default,CMP_NOTEQUAL,decompile:,,
-InterfaceParamOverrideProp,testflags,CMP_NOTEQUAL,decompile:,,
+InterfaceParamOverrideProp,default,CMP_EQUAL,,,differ
+InterfaceParamOverrideProp,testflags,CMP_EQUAL,,,differ
 InterfaceProcess,default,CMP_EQUAL,,,match
 InterfaceProcess,testflags,CMP_EQUAL,,,match
 InterfaceStructMemberPort,default,CMP_EQUAL,,,differ
 InterfaceStructMemberPort,testflags,CMP_EQUAL,,,differ
-InterfaceUnpackedStructArrayDim,default,CMP_NOTEQUAL,decompile:,,
-InterfaceUnpackedStructArrayDim,testflags,CMP_NOTEQUAL,decompile:,,
+InterfaceUnpackedStructArrayDim,default,CMP_EQUAL,,,differ
+InterfaceUnpackedStructArrayDim,testflags,CMP_EQUAL,,,differ
 InterfAlways,default,CMP_EQUAL,,,match
 InterfAlways,testflags,CMP_EQUAL,,,match
 InterfArrayBind,default,CMP_EQUAL,,,differ
@@ -769,8 +769,8 @@ InterfImport,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfImp
 InterfImport,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfImport/dut.sv:9:13: error: use of undeclared identifier 'tnoc_packet_config',,
 InterfInst,default,CMP_EQUAL,,,differ
 InterfInst,testflags,CMP_EQUAL,,,differ
-InterfType,default,CMP_NOTEQUAL,decompile:,,
-InterfType,testflags,CMP_NOTEQUAL,decompile:,,
+InterfType,default,CMP_EQUAL,,,differ
+InterfType,testflags,CMP_EQUAL,,,differ
 InterfTypeBad,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfTypeBad/dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
 InterfTypeBad,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfTypeBad/dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
 InterpElab1,default,CMP_EQUAL,,,differ

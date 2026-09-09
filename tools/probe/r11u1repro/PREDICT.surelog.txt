@@ -1,0 +1,18 @@
+PREDICT-MOVER GenForIfaceLocalparamBound default
+PREDICT-MOVER GenForIfaceLocalparamBound testflags
+PREDICT-MOVER GenForIfaceLocalparamNestedGen default
+PREDICT-MOVER GenForIfaceLocalparamNestedGen testflags
+PREDICT-MOVER GenIfIfaceParamStructField default
+PREDICT-MOVER GenIfIfaceParamStructField testflags
+PREDICT-MOVER InterfType default
+PREDICT-MOVER InterfType testflags
+PREDICT-MOVER InterfaceElab default
+PREDICT-MOVER InterfaceElab testflags
+PREDICT-MOVER InterfaceParamOverrideProp default
+PREDICT-MOVER InterfaceParamOverrideProp testflags
+PREDICT-MOVER InterfaceUnpackedStructArrayDim default
+PREDICT-MOVER InterfaceUnpackedStructArrayDim testflags
+PREDICT-MOVER OneNetRange default
+PREDICT-MOVER OneNetRange testflags
+PREDICT-MOVER Rggen default
+-- scanned=960 predicted=17 fail=0

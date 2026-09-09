@@ -338,9 +338,9 @@ iface_array_port,testflags,CMP_EQUAL,,,differ
 iface_array_struct,testflags,CMP_EQUAL,,,differ
 iface_array_struct_field,testflags,CMP_EQUAL,,,differ
 iface_array_struct_whole,testflags,CMP_EQUAL,,,differ
-iface_cfg_mem,testflags,CMP_NOTEQUAL,decompile:,,
-iface_cfg_param_def_pass,testflags,CMP_NOTEQUAL,decompile:,,
-iface_ff_genvar_partsel,testflags,CMP_NOTEQUAL,decompile:,,
+iface_cfg_mem,testflags,CMP_EQUAL,,,differ
+iface_cfg_param_def_pass,testflags,CMP_EQUAL,,,differ
+iface_ff_genvar_partsel,testflags,CMP_EQUAL,,,differ
 iface_field_assign,testflags,CMP_EQUAL,,,differ
 iface_field_assign_nocol,testflags,CMP_EQUAL,,,differ
 iface_field_partsel,testflags,CMP_EQUAL,,,differ
@@ -355,25 +355,25 @@ iface_modport,testflags,CMP_EQUAL,,,differ
 iface_modport_conn,testflags,CMP_EQUAL,,,differ
 iface_modport_out,testflags,CMP_EQUAL,,,differ
 iface_modport_passthrough,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_modport_passthrough/dut.sv:28:26: error: cannot connect modport 'my_iface.drv' to port requirin,,
-iface_nested_param_field,testflags,CMP_NOTEQUAL,decompile:,,
+iface_nested_param_field,testflags,CMP_EQUAL,,,differ
 iface_param_2level,testflags,CMP_NOTEQUAL,decompile:,,
-iface_param_port_width,testflags,CMP_NOTEQUAL,decompile:,,
+iface_param_port_width,testflags,CMP_EQUAL,,,differ
 iface_param_set_value,testflags,CMP_EQUAL,,,match
-iface_param_width_per_inst,testflags,CMP_NOTEQUAL,decompile:,,
+iface_param_width_per_inst,testflags,CMP_EQUAL,,,differ
 iface_passthrough,testflags,CMP_EQUAL,,,match
 iface_pkg_enum_item,testflags,CMP_EQUAL,,,match
 iface_port_localparam,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_port_localparam/dut.sv:28:22: error: top-level module 'iface_port_localparam' has unconnected i,,
 iface_samename_port,testflags,CMP_EQUAL,,,differ
-iface_scalar_localparam,testflags,CMP_NOTEQUAL,decompile:,,
+iface_scalar_localparam,testflags,CMP_EQUAL,,,differ
 iface_sig_in_child_port,testflags,CMP_EQUAL,,,differ
 iface_struct_field,testflags,CMP_EQUAL,,,differ
 iface_struct_field_bitselect,testflags,CMP_EQUAL,,,differ
-iface_struct_field_param_width,testflags,CMP_NOTEQUAL,decompile:,,
-iface_struct_field_partsel,testflags,CMP_NOTEQUAL,decompile:,,
+iface_struct_field_param_width,testflags,CMP_EQUAL,,,differ
+iface_struct_field_partsel,testflags,CMP_EQUAL,,,differ
 iface_struct_field_slice_read,testflags,CMP_EQUAL,,,match
 iface_unpacked_signal,testflags,CMP_EQUAL,,,differ
-iface_unpacked_struct_array,testflags,CMP_NOTEQUAL,decompile:,,
-iface_wholestruct_param,testflags,CMP_NOTEQUAL,decompile:,,
+iface_unpacked_struct_array,testflags,CMP_EQUAL,,,differ
+iface_wholestruct_param,testflags,CMP_EQUAL,,,differ
 iface_zero_width_field,testflags,CMP_NOTEQUAL,decompile:,,
 ImportedDoubleCastedParameter,testflags,CMP_EQUAL,,,differ
 ImportedEnumCast,testflags,CMP_EQUAL,,,differ
@@ -396,7 +396,7 @@ initval,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/initval/du
 int_port_signed,testflags,CMP_EQUAL,,,match
 int_types,testflags,CMP_EQUAL,,,differ
 int_types_blk1,testflags,CMP_EQUAL,,,differ
-interface_array,testflags,CMP_NOTEQUAL,decompile:,,
+interface_array,testflags,CMP_EQUAL,,,differ
 interface_array_fanout,testflags,CMP_NOTEQUAL,decompile:,,
 InterfaceAlways,testflags,CMP_EQUAL,,,match
 InterfaceAsPort,testflags,CMP_EQUAL,,,differ
@@ -410,7 +410,7 @@ InterfaceWithPort,testflags,CMP_EQUAL,,,match
 issue326_packed_mem,testflags,CMP_EQUAL,,,match
 jeras_gpr,testflags,CMP_EQUAL,,,match
 jeras_reverse,testflags,CMP_EQUAL,,,match
-jeras_tcb_gpio,testflags,CMP_NOTEQUAL,decompile:,,
+jeras_tcb_gpio,testflags,CMP_EQUAL,,,differ
 jeras_union,testflags,CMP_EQUAL,,,differ
 LargeModuleParameter,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/LargeModuleParameter/dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,match
@@ -694,7 +694,7 @@ simple_function,testflags,CMP_EQUAL,,,match
 simple_generate,testflags,CMP_EQUAL,,,match
 simple_hierarchy,testflags,CMP_EQUAL,,,differ
 simple_instance_array,testflags,CMP_EQUAL,,,match
-simple_interface,testflags,CMP_NOTEQUAL,decompile:,,
+simple_interface,testflags,CMP_EQUAL,,,differ
 simple_memory,testflags,CMP_EQUAL,,,match
 simple_memory_noreset,testflags,CMP_EQUAL,,,match
 simple_nested_struct_nopack,testflags,CMP_EQUAL,,,match
