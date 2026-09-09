@@ -509,17 +509,219 @@ static bool isNonAnsiHeader(const InstanceBodySymbol& body) {
 //   `t x`, `t x []`, `t x [$]`, `t x [2]`, `t x [1:0]`                    STRIP
 // — i.e. ANY level of the chain suffices, and a NAMED index type (bare,
 // local or package-qualified alike) is not one.
-static bool assocBuiltinIndexDim224(const Symbol& sym) {
+// § ifaceDefArrayNetIsAnyUnpackedDim225, R-A — WHAT COUNTS AS A BUILT-IN
+// ASSOCIATIVE INDEX.
+//
+// r10uvm224 wrote the reprieve as "the index type is not a `TypeAlias`", which
+// is one predicate WIDER than golden: a CLASS HANDLE is a legal associative
+// index and is not a TypeAlias, so `tv x [C];` kept its typespec where golden
+// DROPS it (r10v224's arm `v2_clsidx`, R-A; the pristine build kept it too, so
+// it was STILL-WRONG rather than a regression).  Re-measured here on real
+// Surelog goldens over fourteen index forms in an interface and three in a
+// module (`grid225/a7_associdx`, `a11_clsidx`):
+//
+//   KEEP  [string] [int] [logic] [bit] [byte] [shortint] [integer]
+//         [bit[7:0]] [logic[3:0]] [*]
+//   DROP  [<local typedef>] [<typedef of string>] [pkg::<typedef>]
+//         [<class handle>] [<derived class handle>] [pkg::<class>]
+//         [<enum typedef>] [<packed-struct typedef>]
+//
+// so the rule is POSITIVE — a written BUILT-IN keyword or the `[*]` wildcard —
+// and every NAMED index type drops, class handles included.
+// § ifaceDefArrayNetIsAnyUnpackedDim225 — THE A-PRIORI TRACE.  `R10E225_DBG=1`
+// makes the emitter name, on STDERR, every cell this pass's law touches:
+// each array_net it mints (holder, name, kind, ranges, inner net type), each
+// one the WRITTEN-DIMENSION gate declines that the pristine gate would have
+// minted, and each R-A verdict that differs from r10uvm224's.  It writes
+// NOTHING to the database, so a traced run's database is byte-identical to an
+// untraced one — that is what makes the trace a PREDICTION of the mover set
+// and not a second measurement of it.
+static const bool dbg225 = [] {
+    const char* v = getenv("R10E225_DBG");
+    return v && *v && *v != '0';
+}();
+
+// § ifaceDefArrayNetIsAnyUnpackedDim225 — HOW MANY WRITTEN UNPACKED
+// DIMENSIONS does this declaration have?  Surelog's gate is
+// `orig_net->getUnpackedDimension()` — the BRACKET the declaration writes for
+// itself — so a typedef that HIDES an unpacked dimension gets no array_net
+// (arm `a14_tdhide`), and this must be answered BEFORE anything is minted: the
+// serializer writes every object it hands out, so an array_net built and then
+// discarded is an ORPHAN that changes the database bytes on every interface in
+// the corpus while remaining invisible to the judge (measured: 130/1358
+// uhdm2rtlil databases moved with no dump difference at all).  The walk is the
+// same one `buildUnpackedRanges` runs.
+static int32_t writtenUnpackedDims225(const Symbol& sym) {
+    auto dt = sym.getDeclaredType();
+    if (!dt)
+        return 0;
+    auto* dsyn = sym.getSyntax();
+    if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator)
+        return 0;
+    const Type* t = &dt->getType();
+    int32_t n = 0;
+    for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions) {
+        (void)dim;
+        const Type& c = t->getCanonicalType();
+        if (c.kind == SymbolKind::FixedSizeUnpackedArrayType)
+            t = &c.as<FixedSizeUnpackedArrayType>().elementType;
+        else if (c.kind == SymbolKind::DynamicArrayType)
+            t = &c.as<DynamicArrayType>().elementType;
+        else if (c.kind == SymbolKind::QueueType)
+            t = &c.as<QueueType>().elementType;
+        else if (c.kind == SymbolKind::AssociativeArrayType)
+            t = &c.as<AssociativeArrayType>().elementType;
+        else
+            break;
+        n++;
+    }
+    return n;
+}
+
+static bool assocIdxIsBuiltin225(const Type* idx) {
+    if (!idx)
+        return true;                       // the `[*]` wildcard
+    if (idx->kind == SymbolKind::TypeAlias)
+        return false;                      // every NAMED index
+    switch (idx->getCanonicalType().kind) {
+        case SymbolKind::PredefinedIntegerType:  // int, byte, shortint, integer
+        case SymbolKind::ScalarType:             // logic, bit, reg
+        case SymbolKind::StringType:             // string
+        case SymbolKind::PackedArrayType:        // bit[7:0], logic[3:0]
+            return true;
+        default:
+            return false;                  // a class handle, an enum, a struct
+    }
+}
+
+// § ifaceDefArrayNetIsAnyUnpackedDim225, R-A′ (r10v225) — THE WRITTEN INDEX
+// BRACKET, and the one index form r10uvm225's grid did not spell.
+//
+// Surelog's `compileRanges` reads the bracket TEXT.  A plain (possibly scoped)
+// NAME it compiles as an EXPRESSION: the array_net range takes the SIZE model
+// and the base net LOSES its definition-view typespec.  Anything else — a
+// built-in keyword, `[*]`, or a CLASS SPECIALIZATION written `C#(...)` — it
+// compiles as a TYPE: the associative MARKER with an index typespec, and the
+// base net KEEPS its typespec.
+//
+// MEASURED on real Surelog goldens, one interface, nine declarations, rc 0 on
+// both binaries (`r10v225repro/vgrid225/v11_clsspec`; the same cell again in
+// `v8_scopedidx`):
+//
+//   [Cd225]  [Cp225]  [<typedef of Cp225#(3)>]  [<local typedef>]
+//   [pkg::<typedef>]  [Cp225#(2)::idx_t]  [<type parameter>]   base ts DROPPED
+//   [Cp225#(2)] [Cp225#(4)] [Cp225#()] [Ce225#(2)]
+//   [p225p::Cq225#(5)]                                          base ts KEPT
+//
+// `assocIdxIsBuiltin225` answers `false` for every `ClassType`, so those five
+// `#(...)` cells lost a typespec the PRISTINE build got right — six AWAY moves
+// on legal SV across the two arms.  The discriminator is SYNTACTIC (`Cp225`
+// and `Cp225#()` resolve to the SAME specialization type and golden answers
+// them differently), so it is read off the declarator's own dimension list.
+static const slang::syntax::ExpressionSyntax* assocIdxSel225(
+    const slang::syntax::VariableDimensionSyntax& d) {
+    if (!d.specifier)
+        return nullptr;
+    auto* rd =
+        d.specifier->as_if<slang::syntax::RangeDimensionSpecifierSyntax>();
+    if (!rd || rd->selector->kind != slang::syntax::SyntaxKind::BitSelect)
+        return nullptr;
+    return rd->selector->as<slang::syntax::BitSelectSyntax>().expr.get();
+}
+
+// Is the WRITTEN index bracket a plain (possibly scoped) NAME?  A trailing
+// `#(...)` — a `ClassName` — is not one, at the end of a `::` chain either.
+static bool assocIdxWrittenPlainName225(
+    const slang::syntax::ExpressionSyntax* sx) {
+    if (!sx)
+        return false;                      // `[*]`, or a written TYPE
+    const slang::syntax::SyntaxNode* n = sx;
+    for (int guard = 0; guard < 32 &&
+                        n->kind == slang::syntax::SyntaxKind::ScopedName;
+         guard++)
+        n = n->as<slang::syntax::ScopedNameSyntax>().right;
+    return n->kind == slang::syntax::SyntaxKind::IdentifierName;
+}
+
+// § ifaceDefArrayNetIsAnyUnpackedDim225, R-B — is this declaration's WRITTEN
+// element type a VECTOR TYPEDEF, i.e. the one spelling whose def-view net
+// golden stamps `vpiNetType 36` when the interface is instantiated?  A
+// `TypeAlias` whose target is a packed vector or a scalar.  Walks the unpacked
+// chain first, so `tv225_t x [string][2]` is asked about `tv225_t`.
+//
+// THE TYPEDEF'S HOME IS NOT PART OF THE GATE, and that was MEASURED, not
+// assumed.  `netTypeFor`'s def-view arm on the MODULE road excludes a
+// PACKAGE-scoped alias, and transcribing that exclusion here moved TEN cells
+// AWAY from golden on the wide boundary — every one of them an INSTANTIATED
+// interface declaring `<pkg typedef> x [dim];` through a wildcard import
+// (r10uvm224's `grid224/a8_instantiated`, `a9_kinds`; r10v224's
+// `vgrid224/v7_inst`, `v11_multiinst`, `v12_innernt`).  `v12_innernt` states
+// the whole rule on one golden in one file: `tvc_t x [1:0]` with `tvc_t` from
+// package `p224vc` reads `36` in the INSTANTIATED interface and NOTHING in the
+// UNINSTANTIATED one.  The discriminator is instantiation and only
+// instantiation.
+static bool vectorTypedefElem225(const Symbol& sym) {
     auto dt = sym.getDeclaredType();
     if (!dt)
         return false;
     const Type* t = &dt->getType();
+    for (int guard = 0; guard < 32; guard++) {
+        const Type& c = t->getCanonicalType();
+        if (c.kind == SymbolKind::FixedSizeUnpackedArrayType)
+            t = &c.as<FixedSizeUnpackedArrayType>().elementType;
+        else if (c.kind == SymbolKind::DynamicArrayType)
+            t = &c.as<DynamicArrayType>().elementType;
+        else if (c.kind == SymbolKind::QueueType)
+            t = &c.as<QueueType>().elementType;
+        else if (c.kind == SymbolKind::AssociativeArrayType)
+            t = &c.as<AssociativeArrayType>().elementType;
+        else
+            break;
+    }
+    if (t->kind != SymbolKind::TypeAlias)
+        return false;
+    auto& ta = t->as<TypeAliasType>();
+    auto ck = ta.targetType.getType().getCanonicalType().kind;
+    return ck == SymbolKind::PackedArrayType || ck == SymbolKind::ScalarType;
+}
+
+static bool assocBuiltinIndexDim224(const Symbol& sym) {
+    auto dt = sym.getDeclaredType();
+    if (!dt)
+        return false;
+    // § …225, R-A′ — the WRITTEN dimension list, so the bracket TEXT can be
+    // read for the level this walk is on.  The written dims are always the
+    // OUTER ones (a typedef can only hide inner levels), so level `i` of this
+    // walk is `dimensions[i]` while `i` is in range and unwritten after that.
+    const slang::syntax::DeclaratorSyntax* dcl225 = nullptr;
+    if (auto* dsyn225 = sym.getSyntax();
+        dsyn225 && dsyn225->kind == slang::syntax::SyntaxKind::Declarator)
+        dcl225 = &dsyn225->as<slang::syntax::DeclaratorSyntax>();
+    size_t lvl225 = 0;
+    const Type* t = &dt->getType();
     while (t) {
+        const slang::syntax::ExpressionSyntax* sx225 = nullptr;
+        if (dcl225 && lvl225 < dcl225->dimensions.size())
+            sx225 = assocIdxSel225(*dcl225->dimensions[lvl225]);
+        lvl225++;
         const Type& c = t->getCanonicalType();
         if (c.kind == SymbolKind::AssociativeArrayType) {
             auto& aa = c.as<AssociativeArrayType>();
-            if (!aa.indexType ||
-                aa.indexType->kind != SymbolKind::TypeAlias)
+            const bool nw225 = assocIdxIsBuiltin225(aa.indexType) ||
+                               (sx225 && !assocIdxWrittenPlainName225(sx225));
+            if (dbg225) {
+                // r10uvm224's verdict, for the trace only.
+                const bool old224 = !aa.indexType ||
+                                    aa.indexType->kind != SymbolKind::TypeAlias;
+                if (nw225 != old224)
+                    fprintf(stderr, "R10E225 RA-FLIP %s idx=%s 224=%d 225=%d\n",
+                            std::string(sym.name).c_str(),
+                            aa.indexType
+                                ? std::string(aa.indexType->name).c_str()
+                                : "<wildcard>",
+                            (int)old224, (int)nw225);
+            }
+            if (nw225)
                 return true;
             t = &aa.elementType;
         }
@@ -775,6 +977,327 @@ bool UhdmExporter::isLibraryCell(const DefinitionSymbol& def) {
 // calls `lateBinding` (the trilogy's fact; `writeModule` calls it twice,
 // :1572 and :1622).
 //
+// § ifaceDefArrayNetIsAnyUnpackedDim225 — AN INTERFACE DEFINITION'S
+// `Array_nets()` CARRIES ONE array_net PER WRITTEN UNPACKED DIMENSION, OF
+// EVERY KIND.
+//
+// THE PRODUCER, quoted.  `UhdmWriter::writeNets` (Surelog
+// src/DesignCompile/UhdmWriter.cpp:903-943) runs, for a DEFINITION-view net
+// (`instance == nullptr`) whose parent is an `interface_inst`:
+//
+//     if (const NodeId unpackedDim = orig_net->getUnpackedDimension()) {
+//       int32_t unpackedSize = 0;
+//       if (std::vector<range*>* ranges = m_helper.compileRanges(
+//               mod, fC, unpackedDim, …, unpackedSize, false)) {
+//         array_net* anet = s.MakeArray_net();
+//         anet->VpiName(orig_net->getName());
+//         anet->Ranges(ranges);  anet->VpiSize(unpackedSize);
+//         fC->populateCoreMembers(orig_net->getNodeId(),
+//                                 orig_net->getNodeId(), anet);
+//         logic_net* elem = s.MakeLogic_net();
+//         elem->VpiName(orig_net->getName());
+//         elem->VpiNetType(dest_net->VpiNetType());
+//         if (dest_net->Typespec()) { …copy the ACTUAL typespec… }
+//         anet->Nets({elem});  iface->Array_nets()->push_back(anet);
+//
+// so the gate is the WRITTEN UNPACKED DIMENSION and nothing else — not the
+// array KIND, not the element type, not the header form, not whether the
+// interface is instantiated.  We minted one only for a canonical
+// `FixedSizeUnpackedArrayType`, dropping every DYNAMIC, QUEUE and ASSOCIATIVE
+// container, and minted a RANGE-LESS one for a typedef that HIDES the
+// dimension, which golden does not list at all.
+//
+// MEASURED on real Surelog goldens, 14 arms, every rc zero on both sides
+// (`grid225/`).  golden's answer, cell for cell:
+//
+//   HOLDER    interface DEF view  one per written unpacked dim   (a1, a6)
+//             MODULE               NONE, any kind, any header    (a3)
+//             PROGRAM              NONE                          (a4)
+//             interface ELAB view  only a PACKED-STRUCT element  (a10; R2)
+//   KIND      [1:0] [N] [] [$] [$:N] [string] [int] [*] [<name>] — ALL
+//   HOLDERS   the interface's OWN nets AND the wildcard-imported package
+//             data § wildcardImportCopiesPkgVarsToDefNets223 hoists, once per
+//             import copy, in Nets() order                       (a5)
+//   HEADER    empty parens / ANSI / non-ANSI / no parens — all the same (a6)
+//   SHAPE     vpiSize 1 ALWAYS (even `[2:5]`, `[4]`, `[1:0][2][3]`);
+//             the declarator NAME's span; one vpiRange per WRITTEN level
+//   HIDDEN    a typedef'd dimension with no bracket of its own: NO array_net
+//                                                                (a14)
+//
+// THE RANGE PER KIND, measured (a1, a8, a13, a7):
+//
+//   [a:b]      left UINT:a/64/9 at its token, right UINT:b/64/9 at its token,
+//              range at the whole dim              — the fixed builder's own
+//   [N]        left UINT:0/64/9 LOC-LESS, right an `N - 1` operation (opType
+//              11) at the size expression          — the fixed builder's own
+//   []         range at the whole `[]`; BOTH bounds on the opening bracket:
+//              UINT:0/64/9 and STRING:unsized/0/6
+//   [$]        range at the `$` ALONE; left UINT:0/64/9 LOC-LESS; right
+//              STRING:$/1/10 at the `$`
+//   [$:N]      written like a fixed range: range at the whole dim, left
+//              STRING:$/1/10 at the `$`, right UINT:N/64/9 at its token
+//   [<kw>]     range at the whole dim; left UINT:0/64/9 LOC-LESS; right
+//              STRING:associative/0/6 LOC-LESS carrying a vpiTypespec ref
+//              (fullname = the ARRAY_NET's) onto the index typespec, spanned
+//              at the index token — string/int/logic/bit/byte/short_int/
+//              integer, and bit_typespec / logic_typespec for `[bit[7:0]]` /
+//              `[logic[3:0]]`
+//   [*]        the same marker with NO index typespec
+//   [<name>]   NOT an associative marker at all: Surelog's `compileRanges`
+//              compiles a NAME bracket as an EXPRESSION, so the dimension is
+//              the SIZE model — range at the index NAME, left UINT:0/64/9
+//              LOC-LESS, right an opType-11 operation over a bare `ref_obj`
+//              (name = the written index, fullname = <array_net>.<index>) and
+//              an unparented INT:1/64/7 — for a local typedef, a
+//              package-qualified type AND a CLASS handle alike
+//
+// R-B (r10v224) — THE INNER ELEMENT NET'S `vpiNetType`.  The producer copies
+// the BASE net's (`elem->VpiNetType(dest_net->VpiNetType())`, :923), and
+// `nets::Compare` reads that field (UHDM generated/src/nets.cpp:277).  Golden's
+// def-view base net answers 36 for an inline `logic [3:0]` in every case, and
+// for a VECTOR-TYPEDEF-named net only when the interface IS INSTANTIATED
+// (`grid225` a1/a6/a8 uninstantiated → none; a2/a10/a12/a13 instantiated →
+// 36; the same discriminator r10v224's `v12_innernt` measured on one arm).
+// The pristine build stamped a bare 36 on every inner net, and r10v224's fix
+// carved out only the struct-element form.  This law answers the whole field.
+//
+// R1 (a residue this pass does NOT take): golden gives the BASE net that same
+// 36, and ours does not — a wider law over every def-view interface net, with
+// its own grid.  The inner net is scored, and right, on its own.
+UHDM::array_net* UhdmExporter::makeIfaceDefArrayNet225(
+    const Symbol& sym, UHDM::instance* iface, const std::string& afull,
+    int32_t innerNetType, UHDM::net*& innerOut) {
+    innerOut = nullptr;
+    // THE GATE IS THE WRITTEN DIMENSION, and it is answered FIRST: nothing may
+    // be minted for a declaration that gets no array_net (see
+    // `writtenUnpackedDims225` for the orphan this ordering exists to stop).
+    if (writtenUnpackedDims225(sym) == 0) {
+        if (dbg225) {
+            auto dtp0 = sym.getDeclaredType();
+            auto k0 = dtp0 ? dtp0->getType().getCanonicalType().kind
+                           : SymbolKind::Unknown;
+            if (k0 == SymbolKind::FixedSizeUnpackedArrayType ||
+                k0 == SymbolKind::DynamicArrayType ||
+                k0 == SymbolKind::QueueType ||
+                k0 == SymbolKind::AssociativeArrayType)
+                fprintf(stderr, "R10E225 REMOVE %s kind=%s\n", afull.c_str(),
+                        std::string(toString(k0)).c_str());
+        }
+        return nullptr;
+    }
+    // The declarator's written dimensions, so each range is spanned at the
+    // `[...]` it came from and the KEYWORD/NAME split can be read off the
+    // selector's syntax kind — the same test `makeAssocArrayVar` makes, and
+    // the same one Surelog's `compileRanges` makes when it decides whether the
+    // bracket text is a TYPE or an EXPRESSION.
+    auto selOf225 = [&](const syntax::VariableDimensionSyntax& d)
+        -> const syntax::ExpressionSyntax* {
+        if (!d.specifier)
+            return nullptr;
+        auto* rd = d.specifier->as_if<syntax::RangeDimensionSpecifierSyntax>();
+        if (!rd || rd->selector->kind != syntax::SyntaxKind::BitSelect)
+            return nullptr;
+        return rd->selector->as<syntax::BitSelectSyntax>().expr.get();
+    };
+    NonFixedDimHook225 hook225 =
+        [&](const syntax::VariableDimensionSyntax& dim, const Type& canon,
+            UHDM::BaseClass* parent, const Type*& next) -> UHDM::range* {
+        auto ds = dim.sourceRange();
+        auto* r = s.MakeRange();
+        r->VpiParent(parent);
+        auto mkc = [&](const char* dec, const std::string& val, int32_t sz,
+                       int32_t ct) {
+            auto* c = s.MakeConstant();
+            c->VpiParent(r);
+            c->VpiDecompile(dec);
+            c->VpiSize(sz);
+            c->VpiValue(val);
+            c->VpiConstType(ct);
+            return c;
+        };
+        if (canon.kind == SymbolKind::DynamicArrayType) {
+            setLoc(r, ds);
+            auto* lc = mkc("0", "UINT:0", 64, vpiUIntConst);
+            setLoc(lc, SourceRange(ds.start(), ds.start() + 1));
+            r->Left_expr(lc);
+            auto* rc = mkc("unsized", "STRING:unsized", 0, vpiStringConst);
+            setLoc(rc, SourceRange(ds.start(), ds.start() + 1));
+            r->Right_expr(rc);
+            next = &canon.as<DynamicArrayType>().elementType;
+            return r;
+        }
+        if (canon.kind == SymbolKind::QueueType) {
+            auto& q = canon.as<QueueType>();
+            const syntax::ExpressionSyntax* boundSyn = nullptr;
+            if (auto* qd =
+                    dim.specifier
+                        ? dim.specifier
+                              ->as_if<syntax::QueueDimensionSpecifierSyntax>()
+                        : nullptr)
+                if (qd->maxSizeClause)
+                    boundSyn = qd->maxSizeClause->expr;
+            if (q.maxBound && boundSyn) {
+                // `[$:N]` — written like a fixed range.
+                setLoc(r, ds);
+                auto* lc = mkc("$", "STRING:$", 1, vpiUnboundedConst);
+                setLoc(lc, SourceRange(ds.start() + 1, ds.start() + 2));
+                r->Left_expr(lc);
+                std::string digits = std::to_string(q.maxBound);
+                auto* rc = mkc(digits.c_str(), "UINT:" + digits, 64,
+                               vpiUIntConst);
+                setLoc(rc, boundSyn->sourceRange());
+                r->Right_expr(rc);
+            }
+            else {
+                // `[$]` — the range is the `$` token alone and the left bound
+                // is LOC-LESS.
+                setLoc(r, SourceRange(ds.start() + 1, ds.end() - 1));
+                auto* lc = mkc("0", "UINT:0", 64, vpiUIntConst);
+                r->Left_expr(lc);
+                auto* rc = mkc("$", "STRING:$", 1, vpiUnboundedConst);
+                setLoc(rc, SourceRange(ds.start() + 1, ds.end() - 1));
+                r->Right_expr(rc);
+            }
+            next = &canon.as<QueueType>().elementType;
+            return r;
+        }
+        if (canon.kind == SymbolKind::AssociativeArrayType) {
+            auto& aa = canon.as<AssociativeArrayType>();
+            auto* sx = selOf225(dim);
+            // § …225, R-A′ (r10v225) — the SAME syntactic predicate the
+            // base-net reprieve reads: a trailing `#(...)` is a written TYPE,
+            // so `[p::Cq#(5)]` takes the associative MARKER and not the size
+            // model (golden, `vgrid225/v11_clsspec`).
+            const bool namedIdx = assocIdxWrittenPlainName225(sx);
+            if (namedIdx) {
+                // The SIZE model: `<name> - 1`, over a bare `ref_obj` named
+                // <array_net fullname>.<index name>.
+                setLoc(r, sx->sourceRange());
+                auto* lc = mkc("0", "UINT:0", 64, vpiUIntConst);
+                r->Left_expr(lc);
+                auto* op = s.MakeOperation();
+                op->VpiParent(r);
+                op->VpiOpType(vpiSubOp);
+                setLoc(op, sx->sourceRange());
+                auto* ops = s.MakeAnyVec();
+                std::string in225 = sx->toString();
+                while (!in225.empty() &&
+                       std::isspace((unsigned char)in225.front()))
+                    in225.erase(in225.begin());
+                while (!in225.empty() &&
+                       std::isspace((unsigned char)in225.back()))
+                    in225.pop_back();
+                auto* ro = s.MakeRef_obj();
+                ro->VpiName(in225);
+                ro->VpiFullName(afull + "." + in225);
+                ro->VpiParent(op);
+                setLoc(ro, sx->sourceRange());
+                ops->push_back(ro);
+                auto* one = s.MakeConstant();
+                one->VpiSize(64);
+                one->VpiValue("INT:1");
+                one->VpiConstType(vpiIntConst);
+                ops->push_back(one);
+                op->Operands(ops);
+                r->Right_expr(op);
+            }
+            else {
+                // The associative MARKER, both bounds loc-less.
+                setLoc(r, ds);
+                auto* lc = mkc("0", "UINT:0", 64, vpiUIntConst);
+                r->Left_expr(lc);
+                auto* rc = mkc("associative", "STRING:associative", 0,
+                               vpiStringConst);
+                if (aa.indexType) {
+                    UHDM::typespec* its = nullptr;
+                    // A TWO-STATE integral index is a `bit_typespec`, not the
+                    // `logic_typespec` the shared `assocIndexTs` factory hands
+                    // back for every non-predefined integral: golden reads
+                    // `bit_typespec` for `[bit]` AND for `[bit[7:0]]`, and
+                    // `logic_typespec` for `[logic]` and `[logic[3:0]]`
+                    // (grid225 `a7_associdx` x_bit225/x_pkbit225 vs
+                    // x_logic225/x_pklog225, and `a1_ifkinds` k_aspk225).
+                    // Neither object carries a range or a sign, so the whole
+                    // difference is the KIND.  Corrected HERE and not in the
+                    // factory: `assocIndexTs` also serves class properties,
+                    // package and module variables and the elaborated
+                    // listings, none of which this pass measured — that wider
+                    // correction is R-G.
+                    const Type& ic225 = aa.indexType->getCanonicalType();
+                    if (aa.indexType->kind != SymbolKind::TypeAlias &&
+                        ic225.kind != SymbolKind::PredefinedIntegerType &&
+                        ic225.isIntegral() && !ic225.isFourState())
+                        its = s.MakeBit_typespec();
+                    else
+                        its = assocIndexTs(*aa.indexType, sym);
+                    if (its) {
+                        // § sharedAliasNoStamp41 — never re-span an object
+                        // every user of a typedef points at.
+                        if (sx && !isSharedAliasTs(*aa.indexType, its) &&
+                            !isTdVecClone42(its))
+                            setLoc(its, sx->sourceRange());
+                        auto* irt = s.MakeRef_typespec();
+                        irt->VpiParent(rc);
+                        irt->VpiFullName(afull);
+                        irt->Actual_typespec(its);
+                        rc->Typespec(irt);
+                    }
+                }
+                r->Right_expr(rc);
+            }
+            next = &aa.elementType;
+            return r;
+        }
+        return nullptr;
+    };
+    auto* an = s.MakeArray_net();
+    an->VpiName(sym.name);
+    an->VpiFullName(afull);
+    an->VpiParent(iface);
+    setLoc(an, nameSpan(sym.location, sym.name));
+    an->VpiSize(1);
+    // Def-view array_net keeps PARAM-based dim bounds symbolic
+    // (ref_obj <arraynet>.<param>), so pass the array_net fullname.
+    auto* rngs = buildUnpackedRanges(sym, an, afull, &hook225);
+    // THE GATE IS THE WRITTEN DIMENSION.  No written unpacked bracket, no
+    // array_net — a typedef that hides one is listed by golden as a plain net
+    // and nothing else (arm a14_tdhide).
+    // `writtenUnpackedDims225` already proved this cannot be empty; the guard
+    // stays so a future hook that declines a level can never leave a
+    // range-less array_net behind.
+    if (!rngs || rngs->empty()) {
+        if (dbg225)
+            fprintf(stderr, "R10E225 NORANGE %s\n", afull.c_str());
+        return nullptr;
+    }
+    an->Ranges(rngs);
+    auto* in9 = s.MakeLogic_net();
+    in9->VpiName(sym.name);
+    in9->VpiFullName(afull + "." + std::string(sym.name));
+    in9->VpiParent(an);
+    if (innerNetType)
+        in9->VpiNetType(innerNetType);
+    auto* inv = s.MakeNetVec();
+    inv->push_back(in9);
+    an->Nets(inv);
+    innerOut = in9;
+    if (dbg225) {
+        auto dtp = sym.getDeclaredType();
+        auto k225 = dtp ? dtp->getType().getCanonicalType().kind
+                        : SymbolKind::Unknown;
+        fprintf(stderr,
+                "R10E225 MINT %s kind=%s nranges=%zu innernt=%d pris=%d\n",
+                afull.c_str(),
+                dtp ? std::string(
+                          toString(dtp->getType().getCanonicalType().kind))
+                          .c_str()
+                    : "?",
+                rngs->size(), (int)innerNetType,
+                (int)(k225 == SymbolKind::FixedSizeUnpackedArrayType));
+    }
+    return an;
+}
+
 // This is `emitModuleDef`'s own hoist loop, moved out verbatim so the
 // interface definition writer can run it too.  It stays the module road's
 // only producer — the extraction changes no module byte.
@@ -28885,6 +29408,51 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     // BINDING does not: `writeInterface` never calls `lateBinding`.
     emitImportedPkgVarNets(body, iface, prefix, info, nets, /*bindRefs=*/false);
     UHDM::VectorOfarray_net* ifaceArrayNets9 = nullptr;
+    // § ifaceDefArrayNetIsAnyUnpackedDim225, R-B — does ANY instance
+    // elaborate this interface?  The same predicate
+    // § uninstIfaceBodyBindsInMethodWindow218 reads, and the discriminator
+    // golden's def-view `vpiNetType` answers to for a vector-typedef-named
+    // net (36 when instantiated, none when not; grid225 a2/a10/a12/a13 vs
+    // a1/a6/a8).
+    const bool ifaceInstantiated225 = defAllInstCount[&def] > 0;
+    // § ifaceDefArrayNetIsAnyUnpackedDim225 — THE HOISTED IMPORT COPIES GET
+    // ONE TOO, AND THEY COME FIRST.  `writeNets` asks nothing about where the
+    // Signal came from, and `CompileHelper::importPackage` copies the
+    // imported package's whole signal vector into the importing component
+    // (§ wildcardImportCopiesPkgVarsToDefNets223), so an imported
+    // `uvm_seed_map tbl [string];` is an ordinary def-view net with a written
+    // unpacked dimension and lists an array_net exactly like a local one —
+    // once per import copy, ahead of the interface's own declarations
+    // (grid225 `a5_imported`, three copies of the same six names).  TWO of
+    // MiniAmiq's golden five are this cell.  The inner element net copies the
+    // HOISTED base net verbatim: the hoisted road has its own net-type rule
+    // (`emitImportedPkgVarNets`) and this law does not touch it.
+    {
+        auto hv225 = collectImportedPkgVars(body, *sm);
+        for (size_t i225 = 0; i225 < hv225.size() && i225 < nets->size();
+             i225++) {
+            auto* hn225 = (*nets)[i225];
+            std::string hname225(hv225[i225]->name);
+            UHDM::net* hin225 = nullptr;
+            auto* han225 = makeIfaceDefArrayNet225(
+                *hv225[i225], iface, prefix + "." + hname225,
+                hn225->VpiNetType(), hin225);
+            if (!han225)
+                continue;
+            if (auto* hrt225 = hn225->Typespec())
+                if (auto* hact225 = hrt225->Actual_typespec()) {
+                    auto* hirt225 = s.MakeRef_typespec();
+                    hirt225->VpiParent(hin225);
+                    hirt225->VpiFullName(prefix + "." + hname225 + "." +
+                                         hname225);
+                    hirt225->Actual_typespec(hact225);
+                    hin225->Typespec(hirt225);
+                }
+            if (!ifaceArrayNets9)
+                ifaceArrayNets9 = s.MakeArray_netVec();
+            ifaceArrayNets9->push_back(han225);
+        }
+    }
     // An unpacked-array-of-STRUCT signal: its base/inner nets carry the shared
     // struct ELEMENT typespec (the array dim lives on the array_net), just like
     // a plain struct net — Surelog. Returns nullptr for non-struct elements.
@@ -28957,79 +29525,76 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         // Record the def net so def-view port LowConns can bind to it.
         info.nets[it.sym] = n;
         nets->push_back(n);
-        // An UNPACKED-array iface signal ALSO lists an array_net (size 1,
-        // dim range, LOC-LESS doubled inner net) — Surelog.
-        if (it.sym->getDeclaredType() &&
-            it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
-                SymbolKind::FixedSizeUnpackedArrayType) {
-            auto* an9 = s.MakeArray_net();
-            an9->VpiName(name);
-            an9->VpiFullName(prefix + "." + name);
-            an9->VpiParent(iface);
-            setLoc(an9, nameSpan(it.sym->location, it.sym->name));
-            an9->VpiSize(1);
-            // Def-view array_net keeps PARAM-based dim bounds symbolic
-            // (ref_obj <arraynet>.<param>), so pass the array_net fullname.
-            if (auto* rngs9 = buildUnpackedRanges(*it.sym, an9, prefix + "." + name))
-                an9->Ranges(rngs9);
-            auto* in9 = s.MakeLogic_net();
-            in9->VpiName(name);
-            in9->VpiFullName(prefix + "." + name + "." + name);
-            in9->VpiParent(an9);
-            // § ifaceDefNetTypespecIsTheModuleRule224 — Surelog COPIES the
-            // base net's typespec onto the fresh inner element net, and only
-            // when the base has one: `if (dest_net->Typespec()) { … }`
-            // (UhdmWriter.cpp:923-930).  A base net the def-view gate left
-            // bare therefore leaves its element bare too.
-            // r10v224 FIX — and the logic-net STAMP is not part of that copy.
-            // The `36` belongs to the SCALAR-element form only: a STRUCT-element
-            // array_net's inner net carries NO `vpiNetType` in golden, which is
-            // exactly what the pristine build emitted down its `structElemTs`
-            // branch.  Stamping it here made a judge-VISIBLE field
-            // (`nets::Compare` reads `VpiNetType`, generated/src/nets.cpp:277)
-            // move AWAY from golden on every struct-typedef fixed unpacked
-            // array in a stripped def-view interface.  Measured on golden in
-            // r10v224repro/vgrid224/v6_structarr and v12_innernt, instantiated
-            // and uninstantiated alike.
-            if (omitTs224) {
-                if (!structElemTs(*it.sym))
-                    in9->VpiNetType(36);
+        // § ifaceDefArrayNetIsAnyUnpackedDim225 — an iface signal with ANY
+        // WRITTEN unpacked dimension ALSO lists an array_net (size 1, one
+        // range per written level, LOC-LESS doubled inner net) — Surelog,
+        // UhdmWriter.cpp:903-943.  The gate used to be a canonical
+        // `FixedSizeUnpackedArrayType`, which dropped every dynamic, queue
+        // and associative container and minted a RANGE-LESS one for a
+        // dimension a typedef hides.
+        {
+            // R-B — the inner element net's `vpiNetType` is the BASE net's
+            // (`elem->VpiNetType(dest_net->VpiNetType())`, :923), plus the one
+            // cell our base net does not yet answer: golden gives a
+            // VECTOR-TYPEDEF-named def-view net 36 when the interface IS
+            // INSTANTIATED and nothing when it is not (grid225 a1/a6/a8 vs
+            // a2/a10/a12/a13).  That base-net half is R1, not this pass.
+            // r10v225 FIX — the bump is NOT conditional on our base net being
+            // bare.  A real NET declared with a vector typedef
+            // (`wire tvk_t x [1:0];`) carries the NET KEYWORD on our base net
+            // (`netTypeFor` answers 1/2/3/4 for wire/wand/wor/tri), and
+            // golden's INSTANTIATED def-view answer for that declaration is
+            // 36 — the typedef's written keyword — for every one of the four
+            // keywords alike, while its UNINSTANTIATED answer is the net
+            // keyword itself.  Guarding the bump on `!innerNt225` therefore
+            // moved four cells the PRISTINE build had right (its blanket 36)
+            // to the net keyword.  Measured on real Surelog goldens,
+            // `r10v225repro/vgrid225/v12_netvectd`, one file, two interfaces,
+            // twelve declarations, rc 0 on every binary:
+            //
+            //   declaration          UNINSTANTIATED   INSTANTIATED
+            //   wire  <logic tdef>          1              36
+            //   wand  <logic tdef>          2              36
+            //   wor   <logic tdef>          3              36
+            //   tri   <logic tdef>          4              36
+            //   wire  <reg tdef>            1              48   (R-V3)
+            //   wire  logic [3:0]           1               1
+            //
+            // The `reg`-spelled 48 and the `bit`/chained-alias NONE are R-V3,
+            // a keyword split this fix does not take: both read 36 on the
+            // pristine build too, so they are STILL-WRONG, not regressions.
+            int32_t innerNt225 = n->VpiNetType();
+            if (ifaceInstantiated225 && vectorTypedefElem225(*it.sym))
+                innerNt225 = 36;
+            UHDM::net* in9 = nullptr;
+            if (auto* an9 = makeIfaceDefArrayNet225(
+                    *it.sym, iface, prefix + "." + name, innerNt225, in9)) {
+                // § ifaceDefNetTypespecIsTheModuleRule224 — Surelog COPIES the
+                // base net's typespec onto the fresh inner element net, and
+                // only when the base has one: `if (dest_net->Typespec()) { … }`
+                // (UhdmWriter.cpp:925-930).  A base net the def-view gate left
+                // bare therefore leaves its element bare too.
+                if (!omitTs224) {
+                    auto* irt9 = s.MakeRef_typespec();
+                    irt9->VpiFullName(prefix + "." + name + "." + name);
+                    irt9->VpiParent(in9);
+                    in9->Typespec(irt9);
+                    // Struct-element array: inner net shares the struct
+                    // element ts.  Scalar-element arrays defer to the write
+                    // phase, sharing the base net's ONE logic_typespec object
+                    // (Surelog's per-declaration TypespecCache) when it has
+                    // one.
+                    if (auto* sts = structElemTs(*it.sym))
+                        irt9->Actual_typespec(sts);
+                    else if (baseRt9)
+                        netTsAlias.push_back({irt9, baseRt9});
+                    else
+                        pendingNetTs.push_back({it.sym, irt9, &info});
+                }
+                if (!ifaceArrayNets9)
+                    ifaceArrayNets9 = s.MakeArray_netVec();
+                ifaceArrayNets9->push_back(an9);
             }
-            else {
-            auto* irt9 = s.MakeRef_typespec();
-            irt9->VpiFullName(prefix + "." + name + "." + name);
-            irt9->VpiParent(in9);
-            in9->Typespec(irt9);
-            // Struct-element array: inner net shares the struct element ts;
-            // an EXPLICITLY pkg-qualified struct element is a wire
-            // (iface_arr_struct_whole_field), an imported bare name carries
-            // NO vpiNetType. Scalar-element arrays keep the logic-net form
-            // (netType 36, deferred logic typespec).
-            if (auto* sts = structElemTs(*it.sym)) {
-                irt9->Actual_typespec(sts);
-                if (it.sym->kind == SymbolKind::Variable &&
-                    isPkgStructType(*it.sym, /*descendUnpacked=*/true) &&
-                    isExplicitPkgQualified(*it.sym) &&
-                    !hasStructFieldMember(*it.sym))
-                    in9->VpiNetType(vpiWire);
-            }
-            else if (baseRt9) {
-                // Base net and array_net inner net share ONE logic_typespec
-                // object (Surelog's per-declaration TypespecCache).
-                in9->VpiNetType(36);
-                netTsAlias.push_back({irt9, baseRt9});
-            }
-            else {
-                in9->VpiNetType(36);
-                pendingNetTs.push_back({it.sym, irt9, &info});
-            }
-            }
-            auto* inv9 = s.MakeNetVec();
-            inv9->push_back(in9);
-            an9->Nets(inv9);
-            if (!ifaceArrayNets9)
-                ifaceArrayNets9 = s.MakeArray_netVec();
-            ifaceArrayNets9->push_back(an9);
         }
     }
     // § ifaceIfaceTypedPort — an INTERFACE whose own port list names another

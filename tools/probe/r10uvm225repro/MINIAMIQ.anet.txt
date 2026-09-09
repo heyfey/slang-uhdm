@@ -1,0 +1,20 @@
+# r10uvm225 — MiniAmiq's five array_nets, golden vs patched, field for field.
+# The census is anetcen225.py's: vector-POSITIONAL keys, every judge-visible
+# field including the INNER element net's vpiNetType.
+
+== GOLDEN (the harness's own cached Surelog database for the row)
+CELL work@svaunit_vpi_interface[0]=work@svaunit_vpi_interface.uvm_random_seed_table_lookup | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=n | R: constant d=associative v=STRING:associative sz=- ct=6 ts=string_typespec loc=n] ninner=1 I0[logic_net nt=- ts=class_typespec(uvm_seed_map)]
+CELL work@svaunit_vpi_interface[1]=work@svaunit_vpi_interface.uvm_random_seed_table_lookup | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=n | R: constant d=associative v=STRING:associative sz=- ct=6 ts=string_typespec loc=n] ninner=1 I0[logic_net nt=- ts=class_typespec(uvm_seed_map)]
+CELL work@svaunit_vpi_interface[2]=work@svaunit_vpi_interface.sva_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]
+CELL work@svaunit_vpi_interface[3]=work@svaunit_vpi_interface.cover_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]
+CELL work@svaunit_vpi_interface[4]=work@svaunit_vpi_interface.property_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]
+
+== OURS (patched, slang-uhdm md5 89b3b263e0ff)
+CELL work@svaunit_vpi_interface[0]=work@svaunit_vpi_interface.uvm_random_seed_table_lookup | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=n | R: constant d=associative v=STRING:associative sz=- ct=6 ts=string_typespec loc=n] ninner=1 I0[logic_net nt=- ts=class_typespec(uvm_seed_map)]
+CELL work@svaunit_vpi_interface[1]=work@svaunit_vpi_interface.uvm_random_seed_table_lookup | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=n | R: constant d=associative v=STRING:associative sz=- ct=6 ts=string_typespec loc=n] ninner=1 I0[logic_net nt=- ts=class_typespec(uvm_seed_map)]
+CELL work@svaunit_vpi_interface[2]=work@svaunit_vpi_interface.sva_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]
+CELL work@svaunit_vpi_interface[3]=work@svaunit_vpi_interface.cover_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]
+CELL work@svaunit_vpi_interface[4]=work@svaunit_vpi_interface.property_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]
+
+== diff
+(empty — IDENTICAL, and the shipped Compare agrees: see HEADFIELD)

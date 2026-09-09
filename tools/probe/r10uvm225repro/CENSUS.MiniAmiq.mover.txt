@@ -1,0 +1,26 @@
+# r10uvm225 — THE MiniAmiq MOVER, ATTRIBUTED.
+# uhdm-dump of the row's database, workdir path normalised, pristine vs
+# patched.  The mover set is the TWO MiniAmiq row-modes and nothing else
+# (byteverify 2/956), and the a-priori trace named exactly those two rows
+# and those five cells before the patched sweep ran.
+
+raw diff lines   : 190
+order-blind diff : 190
+REMOVED lines    : 0   (ADD-ONLY: the law creates objects, removes none)
+
+added object prints, by kind (each object is printed once per reference):
+     15 _array_net:
+      2 _class_typespec:
+     12 _constant:
+      5 _interface_inst:
+      7 _logic_net:
+     15 _range:
+      4 _ref_typespec:
+      4 _string_typespec:
+
+the five array_nets, in Array_nets() vector order — IDENTICAL to golden:
+CELL work@svaunit_vpi_interface[0]=work@svaunit_vpi_interface.uvm_random_seed_table_lookup | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=n | R: constant d=associative v=STRING:associative sz=- ct=6 ts=string_typespec loc=n] ninner=1 I0[logic_net nt=- ts=class_typespec(uvm_seed_map)]
+CELL work@svaunit_vpi_interface[1]=work@svaunit_vpi_interface.uvm_random_seed_table_lookup | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=n | R: constant d=associative v=STRING:associative sz=- ct=6 ts=string_typespec loc=n] ninner=1 I0[logic_net nt=- ts=class_typespec(uvm_seed_map)]
+CELL work@svaunit_vpi_interface[2]=work@svaunit_vpi_interface.sva_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]
+CELL work@svaunit_vpi_interface[3]=work@svaunit_vpi_interface.cover_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]
+CELL work@svaunit_vpi_interface[4]=work@svaunit_vpi_interface.property_info | size=1 nt=- ts=none nranges=1 R0[L: constant d=0 v=UINT:0 sz=64 ct=9 ts=none loc=y | R: constant d=unsized v=STRING:unsized sz=- ct=6 ts=none loc=y] ninner=1 I0[logic_net nt=- ts=none]

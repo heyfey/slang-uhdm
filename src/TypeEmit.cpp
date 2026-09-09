@@ -17673,7 +17673,8 @@ slang::SourceRange UhdmExporter::dimFoldSpan79(
 
 UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
     const Symbol& sym, UHDM::BaseClass* parent,
-    const std::string& defDimRefPrefix) {
+    const std::string& defDimRefPrefix,
+    const NonFixedDimHook225* nonFixed225) {
     auto declared = sym.getDeclaredType();
     if (!declared)
         return nullptr;
@@ -17683,8 +17684,23 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
     if (dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
         auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
         for (auto dim : dd.dimensions) {
-            if (dt->getCanonicalType().kind != SymbolKind::FixedSizeUnpackedArrayType)
+            if (dt->getCanonicalType().kind != SymbolKind::FixedSizeUnpackedArrayType) {
+                // § ifaceDefArrayNetIsAnyUnpackedDim225 — a dynamic, queue or
+                // associative level.  Without a hook this builder stops here,
+                // exactly as it always has.
+                if (!nonFixed225)
+                    break;
+                const Type* next225 = nullptr;
+                if (auto* nfr225 = (*nonFixed225)(*dim, dt->getCanonicalType(),
+                                                  parent, next225)) {
+                    ranges->push_back(nfr225);
+                    if (!next225)
+                        break;
+                    dt = next225;
+                    continue;
+                }
                 break;
+            }
             auto& ua = dt->getCanonicalType().as<FixedSizeUnpackedArrayType>();
             auto* r = s.MakeRange();
             r->VpiParent(parent);

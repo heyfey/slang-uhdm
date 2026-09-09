@@ -1,0 +1,154 @@
+r10v225 — ADVERSARIAL VERIFICATION OF r10uvm225 — THE GATE BATTERY
+==================================================================
+Base commit b4e6f61d.  Three binaries built -j 2 in this verifier's OWN
+worktrees (/tmp/wt_v225pris pristine, /tmp/wt_v225 patched then fixed) and
+FROZEN (chmod 555) at immutable paths before any sweep; SLANG_UHDM exported
+explicitly per binary; EVERY cmds.txt audited by BINARY PATH.
+
+  pristine  md5 3ad9d8ded7c3ee0e406d779170eb73a8   (= the implementer's)
+  patched   md5 89b3b263e0ffe2bae5edc9631ea3c999   (= the implementer's)
+  fixed     md5 52ad6bb9c32d5f34198b6c24a3de339d   (this verifier's, ships)
+
+(1) GOLDENS
+  pristine   PASS=23 FAIL=0
+  patched    PASS=23 FAIL=0
+  fixed      PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false (negative control)   PASS=0 FAIL=23
+
+(2) uhdm2rtlil — 731 tests x 2 modes
+  pristine tf/def   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  patched  tf/def   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  fixed    tf/def   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  ct8rows fixed vs results/gate_uhdm2rtlil.csv (tf)   PASS (0 differing rows)
+  ct8rows fixed vs MY pristine control (tf)           PASS
+  ct8rows fixed vs MY pristine control (default)      PASS
+  byteverify fixed vs pristine
+    databases: patched=1358 pristine=1358
+    PATH_SETS_IDENTICAL (1358 paths)
+    MOVERS: 0 / 1358
+    SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  cmds.txt audit: 1458 name /tmp/v225_bin/fix2.bin, 0 name any other binary;
+    the 4 without a slang line are the two SURELOG_FAIL tests x 2 modes.
+  A-PRIORI PREDICTION (R10E225_DBG=1, fixed binary, each row's own recorded
+  command line, output re-pointed into scratch):
+    -- LISTED=1462 PROCESSED=1462 HIT_ROWS=0
+    (0 MINT, 0 REMOVE, 0 RA-FLIP anywhere in the corpus)
+
+(3) surelog — 794 tests x 2 modes, 1588 row-modes
+  pristine  default  CMP_EQUAL 476 ... CMP_NOTEQUAL 5
+            testflags CMP_EQUAL 470 ... CMP_NOTEQUAL 5
+  patched   identical status histogram
+  fixed     identical status histogram
+  ct8rows fixed vs results/golden_surelog.csv        PASS (whole row, dump
+                                                     column included)
+  ct8rows fixed vs MY pristine control               PASS
+  0 differing STATUS rows over 1588, against the committed baseline and
+    against this verifier's own pristine control.
+  byteverify fixed vs pristine
+    databases: patched=956 pristine=956
+    PATH_SETS_IDENTICAL (956 paths)
+    MOVER ./default/MiniAmiq-544c7f61/slang.uhdm   26745aecc25e / abca5ecc1c14
+    MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm 26745aecc25e / abca5ecc1c14
+    MOVERS: 2 / 956
+    SELFCHECK: 955 / 956 flagged
+    Both hashes are IDENTICAL to the implementer's patched build.
+  byteverify PATCHED vs pristine (this verifier's own run) read 3/956 — the
+    same two rows plus default/Scoreboard, THE COIN: raw diff 94 lines,
+    ORDER-BLIND 2, and those 2 are the dump's own workdir header
+    (`slP/... : Restored design Pre-Elab:` vs `slQ/...`).  Order-blind the
+    Scoreboard databases are identical.
+  MiniAmiq dump delta: adds=190 removes=0, both modes; every added line is an
+    array_net subtree.
+  cmds.txt audit: 1523 name /tmp/v225_bin/fix2.bin, 3 name the canonical
+    golden-side surelog, 0 name any other slang binary.
+  A-PRIORI PREDICTION (R10E225_DBG=1, fixed binary):
+    -- LISTED=1573 PROCESSED=1573 HIT_ROWS=2
+       default/MiniAmiq 5 lines, testflags/MiniAmiq 5 lines, all
+       "MINT ... pris=0"; 0 REMOVE and 0 RA-FLIP in EITHER corpus.
+    The zero RA-FLIP is the independent proof that this verifier's R-A' change
+    flips no corpus cell: the predicted mover set == the measured mover set.
+
+(4) NO CONVERSION IS CLAIMED and results/*.csv were NOT edited or read for
+    anything but comparison.  MiniAmiq stays CMP_NOTEQUAL in both modes.
+
+(5) ROWHEADS (fixed binary)
+  SeqDriver default/testflags        0 / 0   cmp rc=0
+  SimpleUVM default/testflags        0 / 0   cmp rc=0
+  Scoreboard default                 0 / 0   cmp rc=0
+  Scoreboard testflags               SKIP-NOFILE (expected)
+  MiniAmiq default/testflags    713053 / 1   cmp rc=255
+  BuildUVMPkg default/testflags      0 / 0   cmp rc=0
+  Earlgrey_0_1 default/testflags     0 / 0   cmp rc=0
+  Rggen default                      0 / 0   cmp rc=0
+  Rggen testflags                    SKIP-NOFILE (expected)
+  -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+  MiniAmiq cmp-log md5 ed1744b6068752ce56635f304fedb9fd on the PRISTINE, the
+  PATCHED and the FIXED binary, both modes — the line count cannot see this
+  rung, which is why the field probe exists.
+
+(6) THE HEAD, BY NAME (ct225field, the implementer's own probe, built and run
+    here on databases this verifier produced)
+  PRISTINE   Nets 71/71 agrees | Array_nets golden=5 ours=null  <-- DISAGREES
+             FIRST-DISAGREEING-FIELD Array_nets
+  FIXED      Nets 71/71 | Array_nets 5/5 | Variables..Interface_arrays agree |
+             Process golden=1 ours=null  <-- DISAGREES
+             FIRST-DISAGREEING-FIELD Process        (both modes)
+  MiniAmiq's five array_nets: the anetcen225 census of the FIXED database is
+  byte-identical to the census of the golden database (5 cells, diff empty).
+
+(7) CANARIES AND PROTECTED DATABASES (fixed binary)
+  canaries surelog     ok=52 changed=0 absent=0
+  canaries uhdm2rtlil  ok=8  changed=0 absent=0
+  ctcan2 surelog       PASS
+  ctcan2 uhdm2rtlil    PASS
+  canaudit             audited=29  UNCOVERED=0  FENCE-BREACH=0  PASS
+  InterfaceModPort    default/testflags  59a365f3ce2c  (byte-identical)
+  BlackParrotComplex  default e3e354129d5a / testflags 73a10e8217e5 (identical)
+  YosysOldOr          default/testflags  d68e0796d62c  (byte-identical)
+  SVSwitch            4842211c4030   (the pinned hash)
+  YosysVerx           6ccda350c24a   (the pinned hash)
+
+(8) THE GOLDEN GRIDS — three-way, golden x pristine x fixed
+  IMPLEMENTER GRID grid225/ (13 arms, LISTED 13 PROCESSED 13, every rc 0)
+    ANET   TO-GOLDEN=114  AWAY=0  STILL-WRONG=15  SAME-RIGHT=11   (= theirs)
+    NET    TO-GOLDEN=4    AWAY=0  STILL-WRONG=44  SAME-RIGHT=136
+    FIELD  TO-GOLDEN=82   AWAY=0
+  VERIFIER GRID vgrid225/ (10 arms, LISTED 10 PROCESSED 10, every rc 0)
+    ANET   TO-GOLDEN=71   AWAY=0  STILL-WRONG=26  SAME-RIGHT=8
+    NET    TO-GOLDEN=0    AWAY=0  STILL-WRONG=36  SAME-RIGHT=86
+    FIELD  TO-GOLDEN=94   AWAY=0
+  ISOLATION ARM v11_clsspec (the class-specialization index)
+    ANET 8/0/1/0   NET 2/0/0/7   FIELD 2/0
+  ISOLATION ARM v12_netvectd (the net + vector typedef inner net type)
+    ANET 2/0/16/0  NET 0/0/16/2  FIELD 9/0
+  PATCHED -> FIXED, per field: IMPL 0 moved, VG 4, v11 19, v12 4; AWAY 0
+    everywhere.  The fix disturbs NOTHING on the implementer's own arms.
+
+(9) THE WIDE BOUNDARY (pristine vs fixed, whole probe tree, both views)
+  -- LISTED=5629 PROCESSED=5629 MOVED_ARMS=190 RC_DIFFS=0
+     5629 = 5619 + this verifier's 10 new sources
+     190  = 170 + 10 x 2 views  ->  the implementer's 170 exactly
+     0 RCDIFF, 0 ONESIDE
+  RE-SCORED against a FRESH Surelog per moved source, THREE AXES
+  (86 sources scored, 9 whose own Surelog compile fails = error recovery,
+   not golden — the implementer's same 9):
+    implementer tree (76 sources)
+      ANET   TO-GOLDEN=538  AWAY=0  STILL-WRONG=66   SAME-RIGHT=246  (= theirs)
+      NET    TO-GOLDEN=10   AWAY=0  STILL-WRONG=254  SAME-RIGHT=1544
+      FIELD  TO-GOLDEN=372  AWAY=0  STILL-WRONG=158  SAME-RIGHT=10332
+    this verifier's 10 sources
+      ANET   TO-GOLDEN=142  AWAY=0  STILL-WRONG=52   SAME-RIGHT=16
+      NET    TO-GOLDEN=0    AWAY=0  STILL-WRONG=72   SAME-RIGHT=172
+      FIELD  TO-GOLDEN=188  AWAY=0  STILL-WRONG=86   SAME-RIGHT=1926
+    FIELD-AWAY lines printed anywhere in the tree: 0
+
+(10) FENCE CHECK on the shipped patch
+  The documented awk-over-the-patch check was run for all FOUR slang-fenced
+  test names (canaudit.sh's own fence list excluded, as the check specifies):
+  every one reads 0.  The names are deliberately NOT written out here —
+  canaudit.sh reads a probe artifact that spells them individually as a
+  FENCE-BREACH, and this file is a probe artifact.  canaudit.sh itself carries
+  the list and reports UNCOVERED=0 FENCE-BREACH=0 (see (7)).
+  Surface: src/ModuleEmit.cpp, src/TypeEmit.cpp, include/UhdmExporter.h,
+  tools/probe/r10uvm225repro/, tools/probe/r10v225repro/.  results/*.csv NOT
+  touched.  Applies clean on a FRESH b4e6f61d worktree.

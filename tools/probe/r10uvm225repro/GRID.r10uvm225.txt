@@ -1,0 +1,67 @@
+== PRISTINE (slang-uhdm md5 3ad9d8ded7c3)
+ARM a10_structelem  golden=20  MISSING=18 EXTRA=4 DIFF=0 SAME=2
+ARM a11_clsidx  golden=7  MISSING=7 EXTRA=0 DIFF=0 SAME=0
+ARM a12_modport  golden=4  MISSING=4 EXTRA=1 DIFF=0 SAME=0
+ARM a13_ranges  golden=9  MISSING=4 EXTRA=0 DIFF=0 SAME=5
+ARM a14_tdhide  golden=2  MISSING=2 EXTRA=4 DIFF=0 SAME=0
+ARM a1_ifkinds  golden=18  MISSING=14 EXTRA=0 DIFF=3 SAME=1
+ARM a2_ifinst  golden=9  MISSING=8 EXTRA=1 DIFF=1 SAME=0
+ARM a3_module  golden=0  MISSING=0 EXTRA=0 DIFF=0 SAME=0
+ARM a4_program  golden=0  MISSING=0 EXTRA=0 DIFF=0 SAME=0
+ARM a5_imported  golden=25  MISSING=25 EXTRA=0 DIFF=0 SAME=0
+ARM a6_headerforms  golden=16  MISSING=16 EXTRA=4 DIFF=0 SAME=0
+ARM a7_associdx  golden=14  MISSING=14 EXTRA=0 DIFF=0 SAME=0
+ARM a8_multidim  golden=13  MISSING=11 EXTRA=3 DIFF=2 SAME=0
+TOTAL  MISSING=123 EXTRA=17 DIFF=6 SAME=8
+
+== PATCHED (slang-uhdm md5 89b3b263e0ff)
+ARM a10_structelem  golden=20  MISSING=4 EXTRA=1 DIFF=1 SAME=15
+ARM a11_clsidx  golden=7  MISSING=0 EXTRA=0 DIFF=0 SAME=7
+ARM a12_modport  golden=4  MISSING=0 EXTRA=0 DIFF=0 SAME=4
+ARM a13_ranges  golden=9  MISSING=0 EXTRA=0 DIFF=0 SAME=9
+ARM a14_tdhide  golden=2  MISSING=0 EXTRA=0 DIFF=0 SAME=2
+ARM a1_ifkinds  golden=18  MISSING=0 EXTRA=0 DIFF=0 SAME=18
+ARM a2_ifinst  golden=9  MISSING=0 EXTRA=0 DIFF=0 SAME=9
+ARM a3_module  golden=0  MISSING=0 EXTRA=0 DIFF=0 SAME=0
+ARM a4_program  golden=0  MISSING=0 EXTRA=0 DIFF=0 SAME=0
+ARM a5_imported  golden=25  MISSING=17 EXTRA=13 DIFF=3 SAME=5
+ARM a6_headerforms  golden=16  MISSING=0 EXTRA=0 DIFF=0 SAME=16
+ARM a7_associdx  golden=14  MISSING=0 EXTRA=0 DIFF=0 SAME=14
+ARM a8_multidim  golden=13  MISSING=0 EXTRA=0 DIFF=0 SAME=13
+TOTAL  MISSING=21 EXTRA=14 DIFF=4 SAME=112
+
+== ARM RCs, patched run (surelog AND slang, every arm)
+grid225: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid225: slang  =/tmp/r10uvm225_pat.bin  md5=89b3b263e0ff
+ARM a10_structelem  surelog_rc=0 golden_lines=1769   slang_rc=0 ours_lines=1861
+ARM a11_clsidx  surelog_rc=0 golden_lines=982   slang_rc=0 ours_lines=1467
+ARM a12_modport  surelog_rc=0 golden_lines=888   slang_rc=0 ours_lines=1230
+ARM a13_ranges  surelog_rc=0 golden_lines=1452   slang_rc=0 ours_lines=1742
+ARM a14_tdhide  surelog_rc=0 golden_lines=289   slang_rc=0 ours_lines=741
+ARM a1_ifkinds  surelog_rc=0 golden_lines=1304   slang_rc=0 ours_lines=1813
+ARM a2_ifinst  surelog_rc=0 golden_lines=1070   slang_rc=0 ours_lines=1253
+ARM a3_module  surelog_rc=0 golden_lines=1004   slang_rc=0 ours_lines=1521
+ARM a4_program  surelog_rc=0 golden_lines=211   slang_rc=0 ours_lines=672
+ARM a5_imported  surelog_rc=0 golden_lines=4191   slang_rc=0 ours_lines=3448
+ARM a6_headerforms  surelog_rc=0 golden_lines=1167   slang_rc=0 ours_lines=1677
+ARM a7_associdx  surelog_rc=0 golden_lines=1549   slang_rc=0 ours_lines=2003
+ARM a8_multidim  surelog_rc=0 golden_lines=1226   slang_rc=0 ours_lines=1736
+grid225: LISTED 13 PROCESSED 13
+
+== ARM RCs, pristine run
+grid225: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid225: slang  =/tmp/r10uvm225_pris.bin  md5=3ad9d8ded7c3
+ARM a10_structelem  surelog_rc=0 golden_lines=1769   slang_rc=0 ours_lines=1465
+ARM a11_clsidx  surelog_rc=0 golden_lines=982   slang_rc=0 ours_lines=1288
+ARM a12_modport  surelog_rc=0 golden_lines=888   slang_rc=0 ours_lines=1103
+ARM a13_ranges  surelog_rc=0 golden_lines=1452   slang_rc=0 ours_lines=1593
+ARM a14_tdhide  surelog_rc=0 golden_lines=289   slang_rc=0 ours_lines=771
+ARM a1_ifkinds  surelog_rc=0 golden_lines=1304   slang_rc=0 ours_lines=1249
+ARM a2_ifinst  surelog_rc=0 golden_lines=1070   slang_rc=0 ours_lines=973
+ARM a3_module  surelog_rc=0 golden_lines=1004   slang_rc=0 ours_lines=1521
+ARM a4_program  surelog_rc=0 golden_lines=211   slang_rc=0 ours_lines=672
+ARM a5_imported  surelog_rc=0 golden_lines=4191   slang_rc=0 ours_lines=2574
+ARM a6_headerforms  surelog_rc=0 golden_lines=1167   slang_rc=0 ours_lines=1191
+ARM a7_associdx  surelog_rc=0 golden_lines=1549   slang_rc=0 ours_lines=1418
+ARM a8_multidim  surelog_rc=0 golden_lines=1226   slang_rc=0 ours_lines=1142
+grid225: LISTED 13 PROCESSED 13

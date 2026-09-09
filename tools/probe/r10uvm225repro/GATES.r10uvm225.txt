@@ -1,0 +1,123 @@
+r10uvm225 — § ifaceDefArrayNetIsAnyUnpackedDim225 — THE GATE BATTERY
+====================================================================
+Base commit b4e6f61d.  Both binaries built -j 2 in this pass's own worktree
+and FROZEN (chmod 555) at immutable paths before any sweep; every cmds.txt was
+audited by BINARY PATH.
+
+  pristine  /tmp/r10uvm225_pris.bin   md5 3ad9d8ded7c3ee0e406d779170eb73a8
+  patched   /tmp/r10uvm225_pat.bin    md5 89b3b263e0ffe2bae5edc9631ea3c999
+
+(1) GOLDENS
+  SLANG_UHDM=<patched> tests/check_goldens.sh : PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false (negative control)   : PASS=0 FAIL=23
+
+(2) uhdm2rtlil — 731 tests x 2 modes
+  tf          CMP_EQUAL: 679  SLANG_REJECT: 50  SURELOG_FAIL: 2
+  def         CMP_EQUAL: 679  SLANG_REJECT: 50  SURELOG_FAIL: 2
+  ct8rows vs results/gate_uhdm2rtlil.csv (testflags): PASS: every row byte-identical to the committed baseline
+  ct8rows vs MY pristine control (testflags)        : PASS: every row byte-identical to the committed baseline
+  ct8rows vs MY pristine control (default)          : PASS: every row byte-identical to the committed baseline
+  byteverify patched vs pristine:
+    databases: patched=1358 pristine=1358
+    PATH_SETS_IDENTICAL (1358 paths)
+    MOVERS: 0 / 1358
+    SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+(3) surelog — 794 tests x 2 modes
+  [default] 794 tests
+    CMP_EQUAL: 476
+    SLANG_REJECT: 283
+    SURELOG_FAIL: 25
+    DEFERRED: 5
+    CMP_NOTEQUAL: 5
+  
+  [testflags] 794 tests
+    CMP_EQUAL: 470
+    SLANG_REJECT: 284
+    SURELOG_FAIL: 23
+    DEFERRED: 5
+    CMP_NOTEQUAL: 5
+    NO_DATABASE: 3
+    UNTRANSLATABLE: 2
+    TIMEOUT: 1
+  ct8rows vs results/golden_surelog.csv:
+    ---- per-mode DUMP-column histogram (baseline -> fresh)
+      default  base:     318      250 differ     226 match 
+      default  fresh:     318      250 differ     226 match 
+      testflags  base:     324      304 differ     166 match 
+      testflags  fresh:     324      304 differ     166 match 
+    PASS: every row byte-identical to the committed baseline
+  STATUS-ONLY over 1588 rows (the column the gate is about):
+    rows compared: 1588
+    STATUS differing, committed baseline vs patched: 0
+    STATUS differing, MY pristine control vs patched: 0
+  byteverify patched vs pristine:
+    databases: patched=956 pristine=956
+    PATH_SETS_IDENTICAL (956 paths)
+    MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=26745aecc25e pristine=abca5ecc1c14
+    MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=26745aecc25e pristine=abca5ecc1c14
+    MOVERS: 2 / 956
+    SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+(4) NO CONVERSION IS CLAIMED and results/*.csv were NOT edited.
+    MiniAmiq stays CMP_NOTEQUAL in both modes: the ladder did not bottom
+    out, it moved one rung (Array_nets -> Process; see HEADFIELD).
+    The nine converted row-modes and Rggen/default are at judge rc ZERO
+    on both columns — rowheads, below.
+
+(5) ROWHEADS (patched)
+  TEST           MODE      CMPLINES  HEADS NOTE
+  SeqDriver      default          0      0 cmp rc=0
+  SeqDriver      testflags        0      0 cmp rc=0
+  SimpleUVM      default          0      0 cmp rc=0
+  SimpleUVM      testflags        0      0 cmp rc=0
+  Scoreboard     default          0      0 cmp rc=0
+  Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+  MiniAmiq       default     713053      1 cmp rc=255
+  MiniAmiq       testflags   713053      1 cmp rc=255
+  BuildUVMPkg    default          0      0 cmp rc=0
+  BuildUVMPkg    testflags        0      0 cmp rc=0
+  Earlgrey_0_1   default          0      0 cmp rc=0
+  Earlgrey_0_1   testflags        0      0 cmp rc=0
+  Rggen          default          0      0 cmp rc=0
+  Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+  -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+(6) CANARIES
+  surelog     : ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  uhdm2rtlil  : ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  ctcan2 sl   : PASS: every supplementary canary row is byte-identical to the baseline.
+  ctcan2 u2r  : PASS: every supplementary canary row is byte-identical to the baseline.
+  canaudit    : PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+(7) THE FIVE PROTECTED DATABASES, BY NAME (pristine md5 / patched md5)
+  Earlgrey_0_1           default   8c2ba25c4d7f  8c2ba25c4d7f
+  Earlgrey_0_1           testflags 92bf7b7facdc  92bf7b7facdc
+  InterfaceModPort       default   59a365f3ce2c  59a365f3ce2c
+  InterfaceModPort       testflags 59a365f3ce2c  59a365f3ce2c
+  BlackParrotComplex     default   e3e354129d5a  e3e354129d5a
+  BlackParrotComplex     testflags 73a10e8217e5  73a10e8217e5
+  YosysOldOr             default   d68e0796d62c  d68e0796d62c
+  YosysOldOr             testflags d68e0796d62c  d68e0796d62c
+  SVSwitch               default   4842211c4030  4842211c4030
+  SVSwitch               testflags 4842211c4030  4842211c4030
+  YosysVerx              default   6ccda350c24a  6ccda350c24a
+  YosysVerx              testflags 6ccda350c24a  6ccda350c24a
+  (SVSwitch pinned 4842211c4030, YosysVerx pinned 6ccda350c24a)
+
+(8) THE A-PRIORI PREDICTION, made BEFORE the patched sweep was scored
+  uhdm2rtlil -- LISTED=1462 PROCESSED=1462 HIT_ROWS=0
+  surelog    -- LISTED=1573 PROCESSED=1573 HIT_ROWS=2
+    ROW default/MiniAmiq-544c7f61 rc=0 lines=5
+    ROW testflags/MiniAmiq-544c7f61 rc=0 lines=5
+  The predicted mover set and the measured mover set are the SAME SET.
+
+(9) THE WIDE BOUNDARY
+  -- LISTED=5619 PROCESSED=5619 MOVED_ARMS=170 RC_DIFFS=0
+  -- MOVED_ARMS=85  TO-GOLDEN=538  AWAY=0  STILL-WRONG=66  SAME-RIGHT=246
+  arms whose SURELOG compile fails (error recovery, not golden): 9
+
+(10) THE GOLDEN GRID
+  TOTAL  TO-GOLDEN=114  AWAY=0  STILL-WRONG=15  SAME-RIGHT=11
+  TOTAL  MISSING=123 EXTRA=17 DIFF=6 SAME=8
+  TOTAL  MISSING=21 EXTRA=14 DIFF=4 SAME=112

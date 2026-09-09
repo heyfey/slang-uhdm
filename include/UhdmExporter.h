@@ -2137,13 +2137,45 @@ private:
     // from the declarator dimension syntax), each parented at `parent`.
     // `defDimRefPrefix` (def-view port array_typespec only): a PARAM-sized
     // dim ([N]) keeps a bare ref_obj <prefix>.N instead of folding.
+    /// § ifaceDefArrayNetIsAnyUnpackedDim225 — ONE `array_net` for ONE
+    /// definition-view interface net with a WRITTEN unpacked dimension, of
+    /// ANY kind.  Returns null when the declaration has no written unpacked
+    /// dimension at all (a typedef that HIDES one gets no array_net: golden,
+    /// arm `a14_tdhide`).  The array_net carries `vpiSize 1`, the declarator
+    /// NAME's span, one `vpiRange` per written unpacked level and one
+    /// LOC-LESS inner element `logic_net` named `<n>` / `<holder>.<n>.<n>`
+    /// whose `vpiNetType` is @a innerNetType; the CALLER wires the inner
+    /// net's typespec, which Surelog copies from the base net and only when
+    /// the base net has one (`if (dest_net->Typespec())`,
+    /// UhdmWriter.cpp:925-930).
+    UHDM::array_net* makeIfaceDefArrayNet225(const slang::ast::Symbol& sym,
+                                             UHDM::instance* iface,
+                                             const std::string& afull,
+                                             int32_t innerNetType,
+                                             UHDM::net*& innerOut);
     // § elabVarRangeMisevalSubst — does this dimension bound read a parameter
     // whose own elab Rhs Surelog left unfolded here?  See TypeEmit.
     bool misevalDimBound(const slang::syntax::SyntaxNode* n);
     bool misevalRangeDim(const slang::syntax::RangeSelectSyntax* rss);
-    UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
-                                             UHDM::BaseClass* parent,
-                                             const std::string& defDimRefPrefix = {});
+    // § ifaceDefArrayNetIsAnyUnpackedDim225 — the hook the DEF-VIEW interface
+    // array_net's range builder installs for a dimension that is NOT
+    // fixed-size.  `buildUnpackedRanges` answers only `FixedSizeUnpackedArray`
+    // levels and BREAKS at the first dynamic/queue/associative one; with a
+    // hook it instead asks the hook for that level's `range`, and when the
+    // hook answers it stores the level's ELEMENT type through `next` and
+    // carries on, so a MIXED chain (`[1:0][string]`, `[string][1:0]`,
+    // `[][2]`…) keeps one range per written dimension in written order.  The
+    // whole measured fixed-dimension law (param folds, size-style `[N]`
+    // operations, package-parameter substitution) stays in ONE place.
+    using NonFixedDimHook225 =
+        std::function<UHDM::range*(const slang::syntax::VariableDimensionSyntax&,
+                                   const slang::ast::Type& canon,
+                                   UHDM::BaseClass* parent,
+                                   const slang::ast::Type*& next)>;
+    UHDM::VectorOfrange* buildUnpackedRanges(
+        const slang::ast::Symbol& sym, UHDM::BaseClass* parent,
+        const std::string& defDimRefPrefix = {},
+        const NonFixedDimHook225* nonFixed225 = nullptr);
     // Would Surelog's DEFINITION compile fold `$bits(<arg>)` to a constant?
     // `CompileHelper::compileBits` folds only when `getTypespec()` finds a
     // typespec for the argument AND `ExprEval::isFullySpecified()` accepts it

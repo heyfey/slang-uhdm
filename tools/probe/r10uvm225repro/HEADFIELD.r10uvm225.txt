@@ -1,0 +1,69 @@
+# r10uvm225 — THE HEAD-FIELD PROBE (ct225field).  MEASUREMENT-ONLY;
+# uhdm-cmp remains the sole acceptance judge.
+#
+# The cmp log is BYTE-IDENTICAL before and after (md5 ed1744b60687, 713053
+# lines, one head, both modes): the head is the VECTOR overload's
+# 'LHS: <owner> / RHS: <null>' signature, which prints the same two lines
+# whichever of the owner's vectors failed.  This probe names the field.
+
+===== PRISTINE  (slang-uhdm md5 3ad9d8ded7c3)
+# ct225field MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN /home/heyfey/.cache/slang-uhdm-goldens/373e21b8854542ba4b76/golden.uhdm
+# OURS   /tmp/r10uvm225_wd/slP/default/MiniAmiq-544c7f61/slang.uhdm
+# OBJECT work@svaunit_vpi_interface
+Nets                   golden=71    ours=71    agrees
+Array_nets             golden=5     ours=null  <-- DISAGREES
+Variables              golden=null  ours=null  (not reached)
+Array_vars             golden=null  ours=null  (not reached)
+Named_events           golden=null  ours=null  (not reached)
+Parameters             golden=90    ours=90    (not reached)
+Param_assigns          golden=90    ours=90    (not reached)
+Typespecs              golden=128   ours=128   (not reached)
+Interface_tf_decls     golden=null  ours=null  (not reached)
+Modports               golden=null  ours=null  (not reached)
+Global_clocking        golden=null  ours=null  (not reached)
+Default_clocking       golden=null  ours=null  (not reached)
+Expr_dist              golden=null  ours=null  (not reached)
+Instance_array         golden=null  ours=null  (not reached)
+Mod_paths              golden=null  ours=null  (not reached)
+Cont_assigns           golden=null  ours=null  (not reached)
+Clocking_blocks        golden=null  ours=null  (not reached)
+Interfaces             golden=null  ours=null  (not reached)
+Interface_arrays       golden=null  ours=null  (not reached)
+Process                golden=1     ours=null  (not reached)
+Ports                  golden=null  ours=null  (not reached)
+Gen_scope_arrays       golden=null  ours=null  (not reached)
+Elab_tasks             golden=null  ours=null  (not reached)
+Gen_stmts              golden=null  ours=null  (not reached)
+FIRST-DISAGREEING-FIELD Array_nets r=1
+
+===== PATCHED   (slang-uhdm md5 89b3b263e0ff)
+# ct225field MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN /home/heyfey/.cache/slang-uhdm-goldens/373e21b8854542ba4b76/golden.uhdm
+# OURS   /tmp/r10uvm225_wd/slQ/default/MiniAmiq-544c7f61/slang.uhdm
+# OBJECT work@svaunit_vpi_interface
+Nets                   golden=71    ours=71    agrees
+Array_nets             golden=5     ours=5     agrees
+Variables              golden=null  ours=null  agrees
+Array_vars             golden=null  ours=null  agrees
+Named_events           golden=null  ours=null  agrees
+Parameters             golden=90    ours=90    agrees
+Param_assigns          golden=90    ours=90    agrees
+Typespecs              golden=128   ours=128   agrees
+Interface_tf_decls     golden=null  ours=null  agrees
+Modports               golden=null  ours=null  agrees
+Global_clocking        golden=null  ours=null  agrees
+Default_clocking       golden=null  ours=null  agrees
+Expr_dist              golden=null  ours=null  agrees
+Instance_array         golden=null  ours=null  agrees
+Mod_paths              golden=null  ours=null  agrees
+Cont_assigns           golden=null  ours=null  agrees
+Clocking_blocks        golden=null  ours=null  agrees
+Interfaces             golden=null  ours=null  agrees
+Interface_arrays       golden=null  ours=null  agrees
+Process                golden=1     ours=null  <-- DISAGREES
+Ports                  golden=null  ours=null  (not reached)
+Gen_scope_arrays       golden=null  ours=null  (not reached)
+Elab_tasks             golden=null  ours=null  (not reached)
+Gen_stmts              golden=null  ours=null  (not reached)
+FIRST-DISAGREEING-FIELD Process r=1
