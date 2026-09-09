@@ -665,7 +665,13 @@ bool UhdmExporter::blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const 
 //       golden-bare while its statement-position twin w26 59:17 binds.
 bool UhdmExporter::uninstIfaceWindowBind218(
     const slang::ast::Symbol& sym) const {
-    if (!uninstIfaceSubBody218 || !currentSubSym)
+    // § ifaceDefListsItsOwnProcesses226 — the ONE widened term.  The window is
+    // open in an uninstantiated interface's PROCESS body too, where there is no
+    // subroutine at all; every other clause below is unchanged, and the
+    // `Subroutine` declaration-scope arm simply never answers for a process
+    // body.  See `uninstIfaceProcBody226` in UhdmExporter.h for a15_window's
+    // twenty-eight measured cells.
+    if (!uninstIfaceSubBody218 || !(currentSubSym || uninstIfaceProcBody226))
         return false;
     if (!(classArgBindDepth12 > 0 || condBindDepth5 > 0))
         return false;
@@ -17927,7 +17933,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // ELAB gen-instance refs to an ACTIVE for-loop iterator
                     // bind its int_var (hier_path `for (int r=...)`); the
                     // def view leaves them unbound.
-                    if (!defGenProcessEmit && !ref->Actual_group() &&
+                    // § ifaceDefListsItsOwnProcesses226, R-A — AND SO DOES AN
+                    // UNINSTANTIATED INTERFACE'S BODY, on BOTH of its roads.
+                    // This clause is the one binder in the whole
+                    // `suppressRefActual` arm that answers without asking the
+                    // window, so it fired for a `for` header's own iterator
+                    // where golden leaves every reference to it bare — the FOR
+                    // condition is not a binding window (a15 w07) and neither
+                    // is the increment or the body.  MEASURED on real Surelog
+                    // goldens, grid226 `a16_forvar`: one uninstantiated
+                    // interface writing the identical `for (int k226 = 0;
+                    // k226 < n; k226++)` in a FUNCTION, a TASK, an `initial`
+                    // and an `always_comb` — golden leaves the iterator bare in
+                    // the condition, the increment and the body in all four,
+                    // and the PRISTINE binary binds all three references in the
+                    // two SUBROUTINE columns (§ uninstIfaceBodyBindsInMethod-
+                    // Window218's road, shipped since r10uvm218).  So this is
+                    // a REPAIR of a pre-existing over-bind on a road this pass
+                    // newly reaches, not a fence around the new road: the term
+                    // is the HOLDER flag, and it moves the subroutine column to
+                    // golden with it.  Inert everywhere else —
+                    // `uninstIfaceSubBody218` is false outside that holder.
+                    // R-A's own prediction line: named whenever the HOLDER term
+                    // is what declines a binding the pristine build made.
+                    if (uninstIfaceSubBody218 && !defGenProcessEmit &&
+                        !ref->Actual_group() &&
+                        activeForVars.count(&nv.symbol))
+                        if (const char* dbg226 = getenv("R10E226_DBG"))
+                            if (dbg226[0] == '1' &&
+                                netMap.count(&nv.symbol))
+                                fprintf(stderr, "RAFOR226 name=%s proc=%d\n",
+                                        std::string(nv.symbol.name).c_str(),
+                                        (int)uninstIfaceProcBody226);
+                    if (!defGenProcessEmit && !uninstIfaceSubBody218 &&
+                        !ref->Actual_group() &&
                         activeForVars.count(&nv.symbol)) {
                         if (auto lit9 = netMap.find(&nv.symbol);
                             lit9 != netMap.end())

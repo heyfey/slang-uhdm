@@ -1,0 +1,55 @@
+# r10v226 — VERIFIER EVIDENCE for r10uvm226 (§ ifaceDefListsItsOwnProcesses226)
+
+BASE d51916f9.  Binaries built in FRESH worktrees by the verifier:
+  pristine  52ad6bb9c32d5f34198b6c24a3de339d  (byte-identical to the main tree's build/slang-uhdm at d51916f9)
+  patched   437d06b01c501a1154f27f095a74a578
+
+== GATES (verifier's own sweeps, SLANG_UHDM exported per binary) ==
+goldens  patched 23 PASS / 0 FAIL ; pristine 23 PASS / 0 FAIL ; SLANG_UHDM=/bin/false 0 PASS / 23 FAIL
+u2r      679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL — both modes, BOTH binaries
+surelog  default 476/5, testflags 470/5 — identical on both binaries
+ct8rows  pris-vs-pat PASS on sl, u2r/tf, u2r/def; baseline-vs-pat PASS on u2r
+         baseline-vs-pat on sl: 2 rows differ, DUMP COLUMN ONLY, STATUS unchanged:
+           Earlgrey_0_1,default,CMP_EQUAL,,,differ  ->  Earlgrey_0_1,default,CMP_EQUAL,,,
+           Earlgrey_0_1,testflags,CMP_EQUAL,,,differ -> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+         PROVED an artifact, not a change: the Earlgrey databases are byte-identical
+         pristine-vs-patched (default 8c2ba25c4d7f, testflags 92bf7b7facdc) and the
+         verifier's OWN pristine sweep produces the same blank column.
+byteverify u2r  MOVERS 0 / 1358  (SELFCHECK 1357/1358)
+byteverify sl   MOVERS 2 /  956  (SELFCHECK  955/956) = the two predicted MiniAmiq rows, nothing else
+canaries sl vs verifier's own pristine: ok=52 changed=0 ; vs committed baseline ok=50 changed=2 (the two Earlgrey dump-column rows)
+canaries u2r ok=8 changed=0 ; ctcan2 PASS x2 ; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DBs pristine-vs-patched ALL SAME: InterfaceModPort 59a365f3ce2c, BlackParrotComplex, YosysOldOr, SVSwitch 4842211c4030, YosysVerx 6ccda350c24a
+
+== THE HEAD (verifier's own databases, verifier-built ct226field/ct226inner) ==
+pristine  MiniAmiq  713053 lines / 1 head  both modes ; Process golden=1 ours=null  DISAGREES
+patched   MiniAmiq 1392014 lines / 1 head  both modes ; Process golden=1 ours=1     DISAGREES
+  ELEMENT[0] golden_type=2178 ours_type=2178 r=1
+    failedLhs(golden) type=2060 name=cs uvm_globals.svh:136:21..136:23 ; failedRhs(ours) <null>
+every other measured row-mode 0 lines / 0 heads at cmp rc=0 on BOTH binaries
+
+== OVER-MINT CENSUS (R10E226_DBG=1, proved write-free; POSITIVE CONTROL asserted) ==
+uhdm2rtlil  LISTED 1462 PROCESSED 1462 HIT_ROWS 0   (positive control MINT226=6)
+surelog     LISTED 1573 PROCESSED 1573 HIT_ROWS 2   (positive control MINT226=6)
+   default/MiniAmiq   MINT226=1 RAFOR226=0  iface=work@svaunit_vpi_interface kind=Initial
+   testflags/MiniAmiq MINT226=1 RAFOR226=0  (same)
+the u2r zero is NOT vacuous: the u2r corpus declares 9 interfaces holding a procedural
+block (InterfaceInitial, InterfaceAlways, iface_gen_delay, iface_gen_delay_struct,
+iface_unpacked_struct_array, add_sub_bind_if, three tcb_if) — every one INSTANTIATED,
+so the !ifaceInstantiated225 holder gate declines on all of them and all stay byte-identical.
+
+== VERIFIER GRID (18 arms authored here, three-way vs REAL Surelog goldens) ==
+process census (verifier's own, independent of the pass's proccen226.py):
+   TO-GOLDEN 50   AWAY 0   STILL-WRONG 10   SAME-RIGHT 79
+full-dump directional score, parent-qualified (depth 3):
+   verifier arms   TOWARD 2296  AWAY 48  — every AWAY key ABSENT from both golden and pristine
+   GENUINE REGRESSIONS (pristine == golden, patched != golden) = 0
+
+== WIDE BOUNDARY (every committed probe arm in the main tree) ==
+LISTED 5629  PROCESSED 5629  MOVED 22  RCDIFF 0   (FENCED paths: 0 present to exclude)
+all 22 movers re-compiled against a fresh Surelog and scored three-way:
+   process census   TO-GOLDEN 33  AWAY 0  STILL-WRONG 25  SAME-RIGHT 143
+   directional      TOWARD 909    AWAY 26 — all 26 keys ABSENT from both golden and pristine
+   GENUINE REGRESSIONS = 0
+per family: 216 listed 6 moved 0 | 218 5/1 | 220 6/1 | 221 5/2 | 222 6/0 | 223 14/2 |
+            224 15/0 | 225 13/0 | v221 10/3 | v223 20/2 | v224 12/0 | v225 10/0

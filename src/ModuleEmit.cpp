@@ -29622,10 +29622,161 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         iface->Array_nets(ifaceArrayNets9);
 
     // Def-view cont-assigns and ports (LowConn only) reuse the shared helpers.
-    // Processes are emitted once in the ELAB view and shared here (Surelog
-    // folds a single process object into both interface_inst views).
+    // An INSTANTIATED interface's processes are emitted once in the ELAB view
+    // and shared here (Surelog folds a single process object into both
+    // interface_inst views); an UNINSTANTIATED one's are emitted below.
     emitContAssigns(body, iface, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
                     nullptr);
+
+    // ── § ifaceDefListsItsOwnProcesses226 ────────────────────────────────
+    // AN INTERFACE DEFINITION LISTS ITS OWN PROCEDURAL BLOCKS AS `Process()`,
+    // WHETHER OR NOT ANYTHING ELABORATES IT — AND IN THE VIEW NOTHING
+    // ELABORATES, EVERY REFERENCE IN THOSE BODIES IS BARE.
+    //
+    // THE PRODUCER.  `UhdmWriter::writeInterface` — the ONLY writer for an
+    // interface DEFINITION — copies the component's process vector verbatim
+    // and asks nothing else (Surelog `src/DesignCompile/UhdmWriter.cpp`
+    // :1737-1742):
+    //
+    //     // Processes
+    //     if (mod->getProcesses()) {
+    //       m->Process(mod->getProcesses());
+    //       for (auto ps : *m->Process()) ps->VpiParent(m);
+    //     }
+    //
+    // which is the SAME three lines `writeModule` runs at :1481-1487 and
+    // `writeProgram` at :1863-1869.  The vector it copies is filled by
+    // `CompileModule::collectInterfaceObjects_` (CompileModule.cpp:1026-1527)
+    // at three arms — `paAlways_construct` :1160-1170, `paInitial_construct`
+    // :1358-1368 and `paFinal_construct` :1371-1381 — each of which compiles
+    // the block and pushes it onto `m_module->getProcesses()`.  Those arms run
+    // in the DEFINITION compile, before any elaboration, so INSTANTIATION IS
+    // NOT A GATE: the definition's list exists whether or not a
+    // `ModuleInstance` ever names it.  The ELABORATED writer then hands the
+    // SAME vector to the same field (`NetlistElaboration.cpp:661`
+    // `netlist->process_stmts(component->getProcesses())`, read back at
+    // UhdmWriter.cpp:4262), which is why the def view and every elab view of an
+    // instantiated interface point at ONE object.
+    //
+    // WHAT THE BODY HOLDS.  `writeInterface` contains NO `lateBinding` call at
+    // all (r10uvm218's decode of :1626-1794, still true at this commit), so an
+    // interface nothing elaborates never gets the pass that fills in a
+    // reference's `vpiActual` — and a PROCESS body, unlike a subroutine body,
+    // has no class-method window to re-open, because the compile-time
+    // `CompileHelper::bindVariable` road (CompileStmt.cpp:3089,
+    // `if (scope == nullptr) return nullptr;`) needs a subroutine scope.
+    // MEASURED on real Surelog goldens over grid226's uninstantiated arms:
+    // NOT ONE `vpiActual` anywhere in any of these bodies — not on an
+    // interface member variable, a member net, a localparam, a parameter, a
+    // wildcard-imported package variable, a named-block automatic local, an
+    // unnamed-block local, a call argument, an if/case condition or a system
+    // call argument (a7's `if226_b`, 2 processes, ~40 references).  So this
+    // emission raises `suppressRefActual`, exactly as the subroutine road
+    // above does — and it raises `uninstIfaceSubBody218` with it, because two
+    // laws already riding that flag are stated over the HOLDER and not over
+    // subroutines, and golden answers both inside a process body too
+    // (grid226 `a13_enumassert`):
+    //   § uninstIfaceForeachHdrUnresolved220 — the `foreach` header keeps
+    //     Surelog's placeholder, array reference and loop variable alike
+    //     (`ref_var` over an `unsupported_typespec` NAMED AS WRITTEN),
+    //     because `lateTypedefBinding` is never run for this holder either;
+    //   § uninstIfaceEnumConstNoActual221 — an enum-constant reference is
+    //     BARE in every context, because `bindVariable` walks only
+    //     `Variables()` and `Io_decls()` and can never return an enum_const.
+    // The window predicate `uninstIfaceWindowBind218` is inert here on its own
+    // terms: it returns false unless `currentSubSym` is set, and a process
+    // body is not a subroutine body.
+    //
+    // THE HOLDER FENCE, and its FIRST FACE.  The module road already runs this
+    // emission (the `procs` loop at :2252-2355 of this file) and a program's
+    // def view runs it too; `a3_holders` puts the identical six blocks under an
+    // uninstantiated module, an instantiated module, a program and a checker
+    // and NONE of those cells moves here.
+    //
+    // AN EXPLICIT `generate ... endgenerate` REGION'S PROCESS IS THE
+    // DEFINITION'S, ONCE, AND THE INSTANCE COUNT IS NOT A GATE — the OPPOSITE
+    // of the module road's rule, and `a14_genregcount` is the arm that says so.
+    // Six holders, each writing ONE own process and a region holding TWO, at
+    // zero / one / two instances, read off REAL Surelog goldens:
+    //
+    //     interface   0 inst -> 3    1 inst -> 3    2 inst -> 3
+    //     module      0 inst -> 1    1 inst -> 1    2 inst -> 1
+    //
+    // The module's region processes reach NO vector at all, and the
+    // interface's reach the definition's exactly once however many instances
+    // exist.  The module road's `regionPbs x defAllInstCount` model
+    // (:2338-2347) — one fresh copy per instance — produces neither column,
+    // which is why it is NOT transcribed here; it reads 3 / 3 / 5 against
+    // golden's 1 / 1 / 1 on this arm, on the pristine binary and this one
+    // alike, and repairing THAT is R1, not this law.  Our elaborated interface
+    // road already lists the region's processes once (a14's `if226_r1` /
+    // `if226_r2` are exact on both binaries), so this loop matches it: every
+    // ProceduralBlock member, in member order, with no region test at all.
+    //
+    // A CONCURRENT ASSERTION written as an interface item is not a process:
+    // `writeInterface` lists it under `Assertions()` from
+    // `mod->getAssertions()` (:1729-1735), a vector this def view does not fill
+    // at all — so it is SKIPPED here without minting anything (a `Make…` call
+    // is a WRITE, r10uvm225's orphan lesson), and the gap it leaves is R2.
+    if (!ifaceInstantiated225) {
+        auto* procs226 = s.MakeProcess_stmtVec();
+        bool savedSRA226 = suppressRefActual;
+        bool savedUIS226 = uninstIfaceSubBody218;
+        bool savedUIP226 = uninstIfaceProcBody226;
+        bool savedIPE226 = inProcessEmit;
+        auto* savedRC226 = refCollector;
+        auto* savedINM226 = implicitNetModule;
+        auto savedINP226 = implicitNetPrefix;
+        auto* savedDSIS226 = defStmtImportScope9;
+        suppressRefActual = true;
+        uninstIfaceSubBody218 = true;
+        uninstIfaceProcBody226 = true;
+        inProcessEmit = true;
+        refCollector = &info.processRefs;
+        // Process bodies resolve names against the interface scope, exactly as
+        // a module's do (the module road's own comment at :2255-2258).
+        implicitNetModule = iface;
+        implicitNetPrefix = prefix;
+        // § shadowedImportParamFold — def-listing processes take the same fold
+        // the def-listing cont_assigns above take.
+        defStmtImportScope9 = &body;
+        for (auto& member : body.members()) {
+            if (member.kind != SymbolKind::ProceduralBlock)
+                continue;
+            auto& pb226 = member.as<ProceduralBlockSymbol>();
+            // The concurrent-assertion fence, answered from SYNTAX so nothing
+            // is minted for a block this law does not own (it is the same test
+            // `emitAssertion` opens with).
+            if (auto* psyn226 = pb226.getSyntax();
+                psyn226 &&
+                psyn226->kind == syntax::SyntaxKind::ConcurrentAssertionMember)
+                continue;
+            if (auto* p226 = emitProcess(pb226, iface, prefix, info.nets)) {
+                procs226->push_back(p226);
+                info.processes.push_back(p226);
+                // The A-PRIORI PREDICTION instrument.  `R10E226_DBG=1` names on
+                // STDERR every cell this law mints; it writes NOTHING to the
+                // database (proved by hand: the same source compiled with and
+                // without the variable gives byte-identical `.uhdm` files).
+                if (const char* dbg226 = getenv("R10E226_DBG"))
+                    if (dbg226[0] == '1')
+                        fprintf(stderr, "MINT226 iface=%s kind=%s\n",
+                                prefix.c_str(),
+                                std::string(toString(pb226.procedureKind))
+                                    .c_str());
+            }
+        }
+        defStmtImportScope9 = savedDSIS226;
+        implicitNetPrefix = savedINP226;
+        implicitNetModule = savedINM226;
+        refCollector = savedRC226;
+        inProcessEmit = savedIPE226;
+        uninstIfaceProcBody226 = savedUIP226;
+        uninstIfaceSubBody218 = savedUIS226;
+        suppressRefActual = savedSRA226;
+        if (!procs226->empty())
+            instSetProcess(iface, procs226);
+    }
 
     // Modports: name + one io_decl (direction + name) per modport port.
     auto* mports = s.MakeModportVec();

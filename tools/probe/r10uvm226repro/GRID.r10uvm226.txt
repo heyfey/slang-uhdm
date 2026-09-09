@@ -1,0 +1,43 @@
+# r10uvm226 — THE GOLDEN GRID, 16 arms, both binaries, every rc recorded
+
+## grid226.sh with the PRISTINE binary (52ad6bb9c32d)
+grid226: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid226: slang  =/tmp/r10uvm226_bin/pris.bin  md5=52ad6bb9c32d
+ARM a10_genregion  surelog_rc=0 golden_lines=431   slang_rc=0 ours_lines=992
+ARM a11_nested  surelog_rc=0 golden_lines=563   slang_rc=0 ours_lines=880
+ARM a12_pkgimport  surelog_rc=0 golden_lines=870   slang_rc=0 ours_lines=1327
+ARM a13_enumassert  surelog_rc=0 golden_lines=1072   slang_rc=0 ours_lines=1283
+ARM a14_genregcount  surelog_rc=0 golden_lines=1237   slang_rc=0 ours_lines=1895
+ARM a15_window  surelog_rc=0 golden_lines=3260   slang_rc=0 ours_lines=2641
+ARM a16_forvar  surelog_rc=0 golden_lines=519   slang_rc=0 ours_lines=864
+ARM a1_ifkinds  surelog_rc=0 golden_lines=357   slang_rc=0 ours_lines=656
+ARM a2_instantiated  surelog_rc=0 golden_lines=472   slang_rc=0 ours_lines=982
+ARM a3_holders  surelog_rc=0 golden_lines=702   slang_rc=0 ours_lines=1214
+ARM a4_genscope  surelog_rc=0 golden_lines=480   slang_rc=0 ours_lines=939
+ARM a5_modport  surelog_rc=0 golden_lines=548   slang_rc=0 ours_lines=989
+ARM a6_headerforms  surelog_rc=0 golden_lines=424   slang_rc=0 ours_lines=726
+ARM a7_body  surelog_rc=0 golden_lines=2176   slang_rc=0 ours_lines=2245
+ARM a8_order  surelog_rc=0 golden_lines=390   slang_rc=0 ours_lines=741
+ARM a9_multiinst  surelog_rc=0 golden_lines=332   slang_rc=0 ours_lines=998
+grid226: LISTED 16 PROCESSED 16
+
+## grid226.sh with the PATCHED binary (437d06b01c50)
+grid226: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid226: slang  =/tmp/r10uvm226_bin/patched.bin  md5=437d06b01c50
+ARM a10_genregion  surelog_rc=0 golden_lines=431   slang_rc=0 ours_lines=1046
+ARM a11_nested  surelog_rc=0 golden_lines=563   slang_rc=0 ours_lines=1069
+ARM a12_pkgimport  surelog_rc=0 golden_lines=870   slang_rc=0 ours_lines=1354
+ARM a13_enumassert  surelog_rc=0 golden_lines=1072   slang_rc=0 ours_lines=1567
+ARM a14_genregcount  surelog_rc=0 golden_lines=1237   slang_rc=0 ours_lines=1976
+ARM a15_window  surelog_rc=0 golden_lines=3260   slang_rc=0 ours_lines=3805
+ARM a16_forvar  surelog_rc=0 golden_lines=519   slang_rc=0 ours_lines=1029
+ARM a1_ifkinds  surelog_rc=0 golden_lines=357   slang_rc=0 ours_lines=867
+ARM a2_instantiated  surelog_rc=0 golden_lines=472   slang_rc=0 ours_lines=982
+ARM a3_holders  surelog_rc=0 golden_lines=702   slang_rc=0 ours_lines=1214
+ARM a4_genscope  surelog_rc=0 golden_lines=480   slang_rc=0 ours_lines=966
+ARM a5_modport  surelog_rc=0 golden_lines=548   slang_rc=0 ours_lines=1058
+ARM a6_headerforms  surelog_rc=0 golden_lines=424   slang_rc=0 ours_lines=918
+ARM a7_body  surelog_rc=0 golden_lines=2176   slang_rc=0 ours_lines=2659
+ARM a8_order  surelog_rc=0 golden_lines=390   slang_rc=0 ours_lines=906
+ARM a9_multiinst  surelog_rc=0 golden_lines=332   slang_rc=0 ours_lines=998
+grid226: LISTED 16 PROCESSED 16

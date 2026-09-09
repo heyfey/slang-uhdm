@@ -3220,6 +3220,42 @@ private:
     // shared `enum_const` in `enumConstMap` is only READ at that site — never
     // re-parented — so declining orphans nothing and moves nothing.
     bool uninstIfaceSubBody218 = false;
+    // § ifaceDefListsItsOwnProcesses226 — TRUE while an UNINSTANTIATED
+    // interface's PROCEDURAL BLOCK is emitted into that interface's DEFINITION
+    // view (ModuleEmit.cpp's `!ifaceInstantiated225` loop in
+    // `emitInterfaceDef`).  It rides beside `uninstIfaceSubBody218`, never
+    // alone: the same holder-level facts hold — `writeInterface` runs no
+    // `lateBinding` and no `lateTypedefBinding` — so § 220's `foreach`
+    // placeholder and § 221's bare enum constant answer in a process body
+    // exactly as they do in a subroutine body, and both read the 218 flag.
+    //
+    // What this SECOND flag exists for is the ONE term that must widen:
+    // `uninstIfaceWindowBind218` opens with `!currentSubSym`, and a process
+    // body is not a subroutine body — yet golden opens the SAME class-method
+    // binding window there.  MEASURED on real Surelog goldens, grid226
+    // `a15_window`, twenty-eight labelled cells in one uninstantiated
+    // interface (`if226_w`), each one a single reference:
+    //
+    //   BIND   an UNNAMED-block local read at the depth its block was entered:
+    //          an IF condition (w03), a CASE condition (w04), a CASE ITEM
+    //          expression (w05), an IMMEDIATE-ASSERT condition (w11), a user
+    //          TASK call's argument in STATEMENT position (w09), and the same
+    //          IF-condition cell one control level down when the DECLARATION is
+    //          down there too (w20).  `always`, `always_comb` alike (w28).
+    //   BARE   assignment LHS and RHS (w01/w02); a WHILE condition (w06) and a
+    //          FOR condition (w07); a user FUNCTION call's argument in
+    //          EXPRESSION position (w08); a SYSTEM call's argument (w10); a
+    //          CAST operand (w12); the interface's own member VARIABLE, member
+    //          NET, LOCALPARAM and PARAMETER in every one of those positions
+    //          (w13-w18); a local read one control level BELOW its declaration
+    //          (w22/w23); and a NAMED-block local in EVERY position, condition
+    //          columns included (w24-w27).
+    //
+    // That is § refVarLocalWindowBinds5's window and § classInBodyBareCallArg-
+    // StmtOnly53's statement-position restriction, cell for cell, with the
+    // subroutine dropped — so the predicate widens by exactly one disjunct and
+    // nothing else moves.  The two flags are never raised independently.
+    bool uninstIfaceProcBody226 = false;
     // § pkgTdCloneRefNoBind18.  True while a PER-DECLARATION CLONE of a
     // package typedef is built (a formal's / return's / body local's named
     // twin).  Surelog re-mints the typedef's own range expression into the

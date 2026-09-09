@@ -1,0 +1,6 @@
+NOCMD testflags/rp32_r5p_degu_soc_top-4a27cef5
+NOCMD testflags/rp32_soc_vfriendly-6a26280a
+-- LISTED=731 PROCESSED=731 HIT_ROWS=0
+NOCMD default/rp32_r5p_degu_soc_top-4a27cef5
+NOCMD default/rp32_soc_vfriendly-6a26280a
+-- LISTED=731 PROCESSED=731 HIT_ROWS=0

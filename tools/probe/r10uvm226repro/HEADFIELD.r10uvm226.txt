@@ -1,0 +1,71 @@
+# r10uvm226 — THE HEAD FIELD, before and after
+
+## PRISTINE (52ad6bb9c32d), default
+# ct226field MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN /home/heyfey/.cache/slang-uhdm-goldens/373e21b8854542ba4b76/golden.uhdm
+# OURS   /tmp/r10uvm226_wd_pris/sl/default/MiniAmiq-544c7f61/slang.uhdm
+# OBJECT work@svaunit_vpi_interface
+Nets                   golden=71    ours=71    agrees
+Array_nets             golden=5     ours=5     agrees
+Variables              golden=null  ours=null  agrees
+Array_vars             golden=null  ours=null  agrees
+Named_events           golden=null  ours=null  agrees
+Parameters             golden=90    ours=90    agrees
+Param_assigns          golden=90    ours=90    agrees
+Typespecs              golden=128   ours=128   agrees
+Interface_tf_decls     golden=null  ours=null  agrees
+Modports               golden=null  ours=null  agrees
+Global_clocking        golden=null  ours=null  agrees
+Default_clocking       golden=null  ours=null  agrees
+Expr_dist              golden=null  ours=null  agrees
+Instance_array         golden=null  ours=null  agrees
+Mod_paths              golden=null  ours=null  agrees
+Cont_assigns           golden=null  ours=null  agrees
+Clocking_blocks        golden=null  ours=null  agrees
+Interfaces             golden=null  ours=null  agrees
+Interface_arrays       golden=null  ours=null  agrees
+Process                golden=1     ours=null  <-- DISAGREES
+Ports                  golden=null  ours=null  (not reached)
+Gen_scope_arrays       golden=null  ours=null  (not reached)
+Elab_tasks             golden=null  ours=null  (not reached)
+Gen_stmts              golden=null  ours=null  (not reached)
+FIRST-DISAGREEING-FIELD Process r=1
+
+## PATCHED (437d06b01c50), default
+# ct226field MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN /home/heyfey/.cache/slang-uhdm-goldens/373e21b8854542ba4b76/golden.uhdm
+# OURS   /tmp/r10uvm226_wd_pat/sl/default/MiniAmiq-544c7f61/slang.uhdm
+# OBJECT work@svaunit_vpi_interface
+Nets                   golden=71    ours=71    agrees
+Array_nets             golden=5     ours=5     agrees
+Variables              golden=null  ours=null  agrees
+Array_vars             golden=null  ours=null  agrees
+Named_events           golden=null  ours=null  agrees
+Parameters             golden=90    ours=90    agrees
+Param_assigns          golden=90    ours=90    agrees
+Typespecs              golden=128   ours=128   agrees
+Interface_tf_decls     golden=null  ours=null  agrees
+Modports               golden=null  ours=null  agrees
+Global_clocking        golden=null  ours=null  agrees
+Default_clocking       golden=null  ours=null  agrees
+Expr_dist              golden=null  ours=null  agrees
+Instance_array         golden=null  ours=null  agrees
+Mod_paths              golden=null  ours=null  agrees
+Cont_assigns           golden=null  ours=null  agrees
+Clocking_blocks        golden=null  ours=null  agrees
+Interfaces             golden=null  ours=null  agrees
+Interface_arrays       golden=null  ours=null  agrees
+Process                golden=1     ours=1     <-- DISAGREES
+Ports                  golden=null  ours=null  (not reached)
+Gen_scope_arrays       golden=null  ours=null  (not reached)
+Elab_tasks             golden=null  ours=null  (not reached)
+Gen_stmts              golden=null  ours=null  (not reached)
+FIRST-DISAGREEING-FIELD Process r=1
+# ct226inner MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN /home/heyfey/.cache/slang-uhdm-goldens/373e21b8854542ba4b76/golden.uhdm
+# OURS   /tmp/r10uvm226_wd_pat/sl/default/MiniAmiq-544c7f61/slang.uhdm
+# OBJECT work@svaunit_vpi_interface
+Process golden=1 ours=1
+ELEMENT[0] golden_type=2178 ours_type=2178 r=1 <-- DISAGREES
+  failedLhs(golden) type=2060 name=cs file=/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_globals.svh line=136:21..136:23
+  failedRhs(ours)   <null>

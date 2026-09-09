@@ -1,0 +1,213 @@
+# r10uvm226 — GATES.  pristine 52ad6bb9c32d5f34198b6c24a3de339d, patched 437d06b01c501a1154f27f095a74a578
+# both built -j 2 in this pass's own worktree at d51916f9 and frozen chmod 555 before any sweep
+
+## (1) BINARIES
+52ad6bb9c32d5f34198b6c24a3de339d  /tmp/r10uvm226_bin/pris.bin
+437d06b01c501a1154f27f095a74a578  /tmp/r10uvm226_bin/patched.bin
+main-tree build/slang-uhdm at d51916f9:
+52ad6bb9c32d5f34198b6c24a3de339d  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+
+## (2) GOLDEN DUMP TESTS (SLANG_UHDM exported explicitly per binary)
+pristine  PASS=23 FAIL=0
+patched   PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23
+
+## (3)+(4) SWEEP HISTOGRAMS
+-- uhdm2rtlil testflags (patched)
+[testflags] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+-- uhdm2rtlil default  (patched)
+[default] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+-- surelog (patched)
+[default] 794 tests
+  CMP_EQUAL: 476
+  SLANG_REJECT: 283
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 470
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  CMP_NOTEQUAL: 5
+  NO_DATABASE: 3
+
+## u2r cmds.txt binary audit
+-- /tmp/r10uvm226_wd_pat/u2r
+/tmp/r10uvm226_bin/patched.bin
+-- /tmp/r10uvm226_wd_pat/u2rdef
+/tmp/r10uvm226_bin/patched.bin
+-- /tmp/r10uvm226_wd_pat/sl
+/tmp/r10uvm226_bin/patched.bin
+
+## ct8rows: u2r testflags vs committed baseline
+PASS: every row byte-identical to the committed baseline
+## ct8rows: u2r testflags vs own pristine control
+PASS: every row byte-identical to the committed baseline
+## ct8rows: u2r testflags vs rotated control
+PASS: every row byte-identical to the committed baseline
+## ct8rows: u2r default vs own pristine control
+PASS: every row byte-identical to the committed baseline
+## ct8rows: u2r default vs rotated control
+PASS: every row byte-identical to the committed baseline
+## ct8rows: surelog vs committed baseline
+ATTENTION: rows moved -- read them above, do not summarise them
+## ct8rows: surelog vs own pristine control
+ATTENTION: rows moved -- read them above, do not summarise them
+## ct8rows: surelog vs rotated control
+ATTENTION: rows moved -- read them above, do not summarise them
+
+## surelog whole-row diff, in full (the ONLY differing rows)
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     476 CMP_EQUAL       5 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     476 CMP_EQUAL       5 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     470 CMP_EQUAL       5 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     470 CMP_EQUAL       5 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     318      250 differ     226 match 
+  default  fresh:     319      249 differ     226 match 
+  testflags  base:     324      304 differ     166 match 
+  testflags  fresh:     325      303 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+## (5) BYTE MOVERS
+-- u2r testflags vs own pristine
+databases: patched=679 pristine=679
+PATH_SETS_IDENTICAL (679 paths)
+MOVERS: 0 / 679
+SELFCHECK (every file vs one fixed file): 678 / 679 flagged
+-- u2r default  vs own pristine
+databases: patched=679 pristine=679
+PATH_SETS_IDENTICAL (679 paths)
+MOVERS: 0 / 679
+SELFCHECK (every file vs one fixed file): 678 / 679 flagged
+-- u2r testflags vs rotated control /tmp/ctl_wd_u2r_d51916f9
+databases: patched=679 pristine=679
+PATH_SETS_IDENTICAL (679 paths)
+MOVERS: 0 / 679
+SELFCHECK (every file vs one fixed file): 678 / 679 flagged
+-- surelog vs own pristine
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=e0c21b4656d7 pristine=26745aecc25e
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=e0c21b4656d7 pristine=26745aecc25e
+MOVERS: 2 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+-- surelog vs rotated control /tmp/ctl_wd_sl_d51916f9
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=e0c21b4656d7 pristine=26745aecc25e
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=61ee9cb4f6c1 pristine=89c1b4e51d8e
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=e0c21b4656d7 pristine=26745aecc25e
+MOVERS: 3 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+## THE SCOREBOARD MOVER AGAINST THE ROTATED CONTROL IS THE COIN (RESUME §9)
+   order-blind (path-normalised, sorted) dump diff lines:
+     rotated-control vs patched : 0
+     this pass's pristine vs patched : 0
+   and this pass's OWN pristine binary produced the SAME hash as the patched one
+     rotated control 89c1b4e51d8e   this pass pristine 61ee9cb4f6c1   patched 61ee9cb4f6c1
+   so the flip belongs to the control's run, not to the patch.
+
+## THE TWO EARLGREY ROWS: DUMP COLUMN ONLY, DATABASES BYTE-IDENTICAL
+   verify_golden.py's dump_verdict returns '' on a uhdm-dump TIMEOUT (scripts/verify_golden.py:521-537).
+   STATUS histograms are cell-for-cell identical (476/5 default, 470/5 testflags).
+   default pris=8c2ba25c4d7f pat=8c2ba25c4d7f BYTE-IDENTICAL
+   testflags pris=92bf7b7facdc pat=92bf7b7facdc BYTE-IDENTICAL
+
+## THE NINE CONVERTED ROW-MODES + Rggen/default — BOTH COLUMNS, PATCHED
+BuildUVMPkg,default,CMP_EQUAL,,,differ
+BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+Earlgrey_0_1,default,CMP_EQUAL,,,
+Earlgrey_0_1,testflags,CMP_EQUAL,,,
+MiniAmiq,default,CMP_NOTEQUAL,decompile:,,
+MiniAmiq,testflags,CMP_NOTEQUAL,decompile:,,
+Rggen,default,CMP_EQUAL,,,differ
+Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
+Scoreboard,default,CMP_EQUAL,,,differ
+Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
+SeqDriver,default,CMP_EQUAL,,,differ
+SeqDriver,testflags,CMP_EQUAL,,,differ
+SimpleUVM,default,CMP_EQUAL,,,differ
+SimpleUVM,testflags,CMP_EQUAL,,,differ
+   rowheads.sh judge rc on the patched sweep:
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default    1392014      1 cmp rc=255
+MiniAmiq       testflags  1392014      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+## CANARIES
+## canaries (surelog)
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+## canaries (u2r)
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+## ctcan2 surelog
+PASS: every supplementary canary row is byte-identical to the baseline.
+## ctcan2 u2r
+PASS: every supplementary canary row is byte-identical to the baseline.
+## canaudit
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+   the 2 changed canaries are the two Earlgrey DUMP-COLUMN cells above (status unchanged).
+
+## PROTECTED DATABASES (pristine vs patched, this pass's own sweeps)
+   InterfaceModPort     default    pris=59a365f3ce2c pat=59a365f3ce2c SAME
+   InterfaceModPort     testflags  pris=59a365f3ce2c pat=59a365f3ce2c SAME
+   BlackParrotComplex   default    pris=e3e354129d5a pat=e3e354129d5a SAME
+   BlackParrotComplex   testflags  pris=73a10e8217e5 pat=73a10e8217e5 SAME
+   YosysOldOr           default    pris=d68e0796d62c pat=d68e0796d62c SAME
+   YosysOldOr           testflags  pris=d68e0796d62c pat=d68e0796d62c SAME
+   SVSwitch             default    pris=4842211c4030 pat=4842211c4030 SAME
+   SVSwitch             testflags  pris=4842211c4030 pat=4842211c4030 SAME
+   YosysVerx            default    pris=6ccda350c24a pat=6ccda350c24a SAME
+   YosysVerx            testflags  pris=6ccda350c24a pat=6ccda350c24a SAME
+
+## WIDE BOUNDARY
+-- LISTED=5645 PROCESSED=5645 MOVED_ARMS=65 RC_DIFFS=0
+-- MOVED_ARMS=35  ERROR_RECOVERY_ARMS=3
+-- CELL  TO-GOLDEN=148  AWAY=0  STILL-WRONG=133  SAME-RIGHT=239
+-- FIELD TO-GOLDEN=2106  AWAY=38  STILL-WRONG=2073  SAME-RIGHT=2488
+FIELD AWAY total          = 38
+  ...in a cell ABSENT from the pristine listing (a new cell, ordinals past golden's end) = 38
+  ...in a cell PRESENT on both binaries (a genuine field regression)                     = 0
+
+## GOLDEN GRID, THREE-WAY
+ARMDELTA  CELL  TO-GOLDEN 52  AWAY 0  STILL-WRONG 43  SAME-RIGHT 111
+ARMDELTA  FIELD TO-GOLDEN 1069  AWAY 0  STILL-WRONG 594  SAME-RIGHT 904
+
+## THE EARLGREY DUMP COLUMN, RE-RUN BY HAND WITHOUT THE HARNESS TIMEOUT
+   dump_verdict's own logic (uhdm-dump both databases, drop the first banner
+   line, compare) re-run on the PATCHED sweep's pair with a 3000 s timeout:
+     default   uhdm-dump rc 0 / 0  ->  differ
+     testflags uhdm-dump rc 0 / 0  ->  differ
+   which is EXACTLY the committed baseline's value for both rows.  The blank in
+   the CSV is the harness's uhdm-dump TIMEOUT and nothing else; the row's true
+   verdict is unchanged, and the databases are byte-identical to this pass's
+   pristine sweep.
