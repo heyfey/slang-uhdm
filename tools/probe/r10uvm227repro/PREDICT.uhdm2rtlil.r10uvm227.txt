@@ -1,0 +1,30 @@
+# r10uvm227 — A-PRIORI MOVER PREDICTION over the uhdm2rtlil corpus.
+# Produced by predict227.sh + ct227pred from the PRISTINE databases ONLY,
+# BEFORE the patched sweep was run.  MEASUREMENT ONLY.
+#
+# The full per-database listing is NOT committed: it names every row-mode of
+# the corpus, and four of those names are the slang-fenced tests this
+# campaign must not spell outside a driver's own FENCE list.  What is
+# committed is the verdict line and every CANDIDATE row, which is what the
+# gate needs: the actual byte movers must be a SUBSET of these.
+#
+# databases scanned: 1358
+# CANDIDATE row-modes: 16
+# rows reading NO (cannot move): 1342
+
+default/for_break-d57130ce CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=lru8_get_replace_way_id
+default/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor-49daee09 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=2 names=the_function_name
+default/ImportedFunctionCallInModuleAndSubmodule-f43ec0a2 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=2 names=get_5
+default/ImportedFunctionUsesAnotherFunction-534730f9 CANDIDATE clonedFreeFns=2 barePkgCallsInHolders=1 names=func_1
+default/rp32_r5p_alu-c9c477ec CANDIDATE clonedFreeFns=8 barePkgCallsInHolders=1 names=dec32
+default/rp32_r5p_wbu-ad685a2e CANDIDATE clonedFreeFns=8 barePkgCallsInHolders=1 names=dec32
+default/rsp_gen_minimal-d4e049b1 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=extract_d2h_rsp_intg
+default/simple_package-bb959c27 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=increment_data
+testflags/for_break-d57130ce CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=lru8_get_replace_way_id
+testflags/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor-49daee09 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=2 names=the_function_name
+testflags/ImportedFunctionCallInModuleAndSubmodule-f43ec0a2 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=2 names=get_5
+testflags/ImportedFunctionUsesAnotherFunction-534730f9 CANDIDATE clonedFreeFns=2 barePkgCallsInHolders=1 names=func_1
+testflags/rp32_r5p_alu-c9c477ec CANDIDATE clonedFreeFns=8 barePkgCallsInHolders=1 names=dec32
+testflags/rp32_r5p_wbu-ad685a2e CANDIDATE clonedFreeFns=8 barePkgCallsInHolders=1 names=dec32
+testflags/rsp_gen_minimal-d4e049b1 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=extract_d2h_rsp_intg
+testflags/simple_package-bb959c27 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=increment_data

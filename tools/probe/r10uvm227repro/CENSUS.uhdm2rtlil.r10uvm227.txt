@@ -1,0 +1,49 @@
+-- CALIB testflags/for_break-d57130ce  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/for_break-d57130ce  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/for_break-d57130ce  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/ImportedFunctionCallInModuleAndSubmodule-f43ec0a2  AGREE 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/ImportedFunctionCallInModuleAndSubmodule-f43ec0a2  cells golden=2 pristine=2 patched=2  keys=2
+-- testflags/ImportedFunctionCallInModuleAndSubmodule-f43ec0a2  AGREE 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor-49daee09  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor-49daee09  cells golden=2 pristine=2 patched=2  keys=1
+-- testflags/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor-49daee09  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/rp32_r5p_wbu-ad685a2e  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/rp32_r5p_wbu-ad685a2e  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/rp32_r5p_wbu-ad685a2e  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/rp32_r5p_alu-c9c477ec  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/rp32_r5p_alu-c9c477ec  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/rp32_r5p_alu-c9c477ec  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/rsp_gen_minimal-d4e049b1  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/rsp_gen_minimal-d4e049b1  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/rsp_gen_minimal-d4e049b1  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/simple_package-bb959c27  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/simple_package-bb959c27  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/simple_package-bb959c27  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/ImportedFunctionUsesAnotherFunction-534730f9  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/ImportedFunctionUsesAnotherFunction-534730f9  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/ImportedFunctionUsesAnotherFunction-534730f9  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/for_break-d57130ce  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/for_break-d57130ce  cells golden=1 pristine=1 patched=1  keys=1
+-- default/for_break-d57130ce  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/ImportedFunctionCallInModuleAndSubmodule-f43ec0a2  AGREE 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/ImportedFunctionCallInModuleAndSubmodule-f43ec0a2  cells golden=2 pristine=2 patched=2  keys=2
+-- default/ImportedFunctionCallInModuleAndSubmodule-f43ec0a2  AGREE 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor-49daee09  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor-49daee09  cells golden=2 pristine=2 patched=2  keys=1
+-- default/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor-49daee09  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/rp32_r5p_wbu-ad685a2e  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/rp32_r5p_wbu-ad685a2e  cells golden=1 pristine=1 patched=1  keys=1
+-- default/rp32_r5p_wbu-ad685a2e  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/rp32_r5p_alu-c9c477ec  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/rp32_r5p_alu-c9c477ec  cells golden=1 pristine=1 patched=1  keys=1
+-- default/rp32_r5p_alu-c9c477ec  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/rsp_gen_minimal-d4e049b1  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/rsp_gen_minimal-d4e049b1  cells golden=1 pristine=1 patched=1  keys=1
+-- default/rsp_gen_minimal-d4e049b1  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/simple_package-bb959c27  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/simple_package-bb959c27  cells golden=1 pristine=1 patched=1  keys=1
+-- default/simple_package-bb959c27  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/ImportedFunctionUsesAnotherFunction-534730f9  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/ImportedFunctionUsesAnotherFunction-534730f9  cells golden=1 pristine=1 patched=1  keys=1
+-- default/ImportedFunctionUsesAnotherFunction-534730f9  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+cenrun227: LISTED 16 PROCESSED 16 SKIP-NOFILE 0

@@ -1,0 +1,124 @@
+=== r10uvm227 — EVERY MANDATORY GATE, AS RUN.  MEASUREMENT ONLY.
+=== BASE a9eaac98.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+=== pristine binary md5 437d06b01c501a1154f27f095a74a578  (byte-identical to the
+===   main tree's build/slang-uhdm at a9eaac98), frozen chmod 555 before any sweep
+=== patched  binary md5 fa1b8da08c9c93ec93b15779ed52ae08, frozen chmod 555
+=== BOTH sweeps' cmds.txt audited BY BINARY PATH: the only slang path that
+===   appears in any of the 3035 pristine / 3035 patched cmds.txt is the frozen
+===   binary of that sweep.  results/*.csv were READ ONLY and NOT EDITED.
+===   GOLDEN_DEFER stayed unset.  slang was NOT patched.
+
+(1) BUILD — both binaries built -j 2 in this pass's own worktree at a clean
+    a9eaac98; md5 taken separately (above).                            GREEN
+
+(2) GOLDEN TESTS
+      patched   PASS 23  FAIL 0
+      pristine  PASS 23  FAIL 0
+      SLANG_UHDM=/bin/false (negative control)  PASS 0  FAIL 23        GREEN
+
+(3) uhdm2rtlil, BOTH modes, jobs 2
+      testflags CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (731 rows)
+      default   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (731 rows)
+      ct8rows vs results/gate_uhdm2rtlil.csv        PASS, 0 differing rows
+      ct8rows vs this pass's own pristine tf sweep  PASS, 0 differing rows
+      ct8rows vs this pass's own pristine def sweep PASS, 0 differing rows GREEN
+
+(4) surelog, --mode both, jobs 2, 1588 row-modes
+      ct8rows vs results/golden_surelog.csv: 3 differing ROWS, all read and
+      quoted, none summarised:
+        MiniAmiq,default,CMP_NOTEQUAL,decompile:,,   ->  MiniAmiq,default,CMP_EQUAL,,,differ
+        MiniAmiq,testflags,CMP_NOTEQUAL,decompile:,, ->  MiniAmiq,testflags,CMP_EQUAL,,,differ
+            ^^ THE CLAIMED CONVERSION.  results/*.csv NOT EDITED.
+        Earlgrey_0_1,testflags,CMP_EQUAL,,,differ    ->  Earlgrey_0_1,testflags,CMP_EQUAL,,,
+            ^^ the DUMP COLUMN only, the recorded per-run timeout artifact.  The
+               STATUS is CMP_EQUAL on both sides and the DATABASE is proven
+               byte-identical instead:
+                 testflags 92bf7b7facdcf4fca15d5710960e8c64 == 92bf7b7facdcf4fca15d5710960e8c64
+                 default   8c2ba25c4d7f7d8af2756d46e6f9f727 == 8c2ba25c4d7f7d8af2756d46e6f9f727
+      per-mode STATUS histogram, baseline -> fresh:
+        default   476 -> 477 CMP_EQUAL, 5 -> 4 CMP_NOTEQUAL, everything else equal
+        testflags 470 -> 471 CMP_EQUAL, 5 -> 4 CMP_NOTEQUAL, everything else equal
+      Every remaining surelog CMP_NOTEQUAL row-mode is one of the four
+      slang-fenced tests (8 row-modes), which are out of scope and were never
+      dispatched by any driver here.                                    GREEN
+
+(5) BYTE VERIFIER, SELFCHECK=1, against this pass's OWN pristine sweeps
+      surelog:  PATH_SETS_IDENTICAL (956)   MOVERS 2 / 956
+                  ./default/MiniAmiq-544c7f61/slang.uhdm    e0c21b4656d7 -> 166e88a4d896
+                  ./testflags/MiniAmiq-544c7f61/slang.uhdm  e0c21b4656d7 -> 166e88a4d896
+                SELFCHECK 955 / 956 flagged  (the comparator can see)
+      uhdm2rtlil: PATH_SETS_IDENTICAL (1358) MOVERS 0 / 1358
+                SELFCHECK 1357 / 1358 flagged (the comparator can see)
+      Both mover sets are a SUBSET of the a-priori prediction, which was made
+      from the PRISTINE databases BEFORE the patched sweeps ran:
+        predicted surelog CANDIDATES 12 / 956    actual movers 2
+        predicted u2r     CANDIDATES 16 / 1358   actual movers 0
+      THE u2r ZERO, PROVEN WITH A POSITIVE CONTROL (it is not "the law cannot
+      reach a module"): the SAME patched binary MOVES grid arm a3_module — a
+      plain MODULE holder, the u2r shape — 5ba46d33416c403efd698de9684c79f6 ->
+      eb58bdce652b2665e3b8012881afac82, and its callee route goes p1 -> p2, to
+      golden.  The u2r zero has a decoded REASON: the cell census below reads
+      all 18 u2r candidate cells ALREADY AGREEING with golden, because every
+      one of those designs writes exactly ONE wildcard import and it is the
+      HOME package — the a5/a7 clause of the law, which ends the scan.  GREEN
+
+(6) CELL CENSUS (ct227cen + cen227.py), golden vs pristine vs patched, over
+    every predicted candidate row-mode; golden-vs-golden CALIBRATED FIRST on
+    every row (all-AGREE, no exceptions):
+      surelog     AGREE 231  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1
+      uhdm2rtlil  AGREE  18  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+      The 4 TO-GOLDEN cells are MiniAmiq's two calls x two modes.
+      The 1 STILL-WRONG is Earlgrey_0_1/testflags work@hmac|conv_endian|135:33,
+      golden 8 copies / ours 16 — a PRE-EXISTING multiplicity difference, the
+      SAME package on both sides, IDENTICAL on the pristine and the patched
+      binary, and the row stays CMP_EQUAL rc=0.                          GREEN
+
+(7) THE ROWS THE BRIEF NAMES (rowheads.sh on the patched sweep; the NINE
+    converted CMP_EQUAL row-modes scored EXPLICITLY, both columns)
+      SeqDriver default/testflags        0 lines 0 heads rc=0 / rc=0
+      SimpleUVM default/testflags        0 lines 0 heads rc=0 / rc=0
+      Scoreboard default                 0 lines 0 heads rc=0
+      BuildUVMPkg default/testflags      0 lines 0 heads rc=0 / rc=0
+      Earlgrey_0_1 default/testflags     0 lines 0 heads rc=0 / rc=0
+      Rggen default                      0 lines 0 heads rc=0
+      MiniAmiq default/testflags   1392014 lines 1 head rc=255 -> 0 lines 0 heads rc=0
+      (Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE, as recorded.) GREEN
+
+(8) CANARIES
+      canaries.sh surelog       ok=51 changed=1 absent=0
+         the ONE change is Earlgrey_0_1/testflags CMP_EQUAL/differ -> CMP_EQUAL/,
+         the dump COLUMN artifact of gate (4); its database is byte-identical.
+      canaries.sh uhdm2rtlil    ok=8  changed=0 absent=0
+      ctcan2.sh surelog     ok=58 changed=0   PASS
+      ctcan2.sh uhdm2rtlil  ok=1  changed=0   PASS
+      canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+      PROTECTED DATABASES BY NAME (pristine vs patched md5-12):
+        InterfaceModPort   default 59a365f3ce2c == 59a365f3ce2c   SAME
+        InterfaceModPort   testflags 59a365f3ce2c == 59a365f3ce2c SAME
+        BlackParrotComplex default e3e354129d5a == e3e354129d5a   SAME
+        BlackParrotComplex testflags 73a10e8217e5 == 73a10e8217e5 SAME
+        YosysOldOr         default/testflags d68e0796d62c         SAME
+        SVSwitch           default/testflags 4842211c4030  PIN HELD
+        YosysVerx          default/testflags 6ccda350c24a  PIN HELD  GREEN
+
+(9) WIDE BOUNDARY (bound227.sh over a COPY of the WHOLE probe tree,
+    SUBDIRECTORIES included, both views, every rc recorded)
+      LISTED 5663  PROCESSED 5663  MOVED_ARMS 18  RC_DIFFS 0
+      Re-scored against a FRESH Surelog (bscore227.sh), with a DETERMINISM
+      control on the pristine binary for every moved arm:
+        TO-GOLDEN 10   SAME 6   AWAY-GOLDEN 0   NONDET-VIEWS 0   NO-GOLDEN 1
+      The 6 SAME views are THREE KNOWN FALSE MOVERS — r10buvm22/g22.sv,
+      r10uvm154/l154_noenum.sv, r10uvm185/grid185/g185_e_kinds.sv — and the
+      tell is exact: after normalising the workdir path, their ONLY differing
+      dump lines are `UINT:`/`vpiDecompile:` values that moved by EXACTLY 4096,
+      one page (22781689 -> 22785785, 22780833 -> 22784929).  Non-address
+      differing lines: 0 in all six views.
+      The 1 NO-GOLDEN is r10v124repro/v124_5_import.sv: Surelog itself exits 4
+      on it, so it teaches error recovery, not golden.
+      NOT ONE arm of the must-stay floor moved: none of r10uvm226/225/224/223/
+      222/221/220/218/216, none of uvm82-91, none of buvm3-15, none of sd8-12.
+    GREEN
+
+(10) FENCE — the four slang-fenced tests are named in NO file of this
+     directory except canaudit.sh's own FENCE list, and no driver here
+     dispatches them.  Verified by grep over the whole directory.        GREEN

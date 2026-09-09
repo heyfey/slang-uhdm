@@ -1,0 +1,47 @@
+-- CALIB testflags/MiniAmiq-544c7f61  AGREE 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/MiniAmiq-544c7f61  cells golden=2 pristine=2 patched=2  keys=2
+TO-GOLDEN work@svaunit_vpi_interface|uvm_report_enabled|114:10
+    golden={'svaunit_pkg @133:1-140:12': 1} pristine={'uvm_pkg @133:1-140:12': 1} patched={'svaunit_pkg @133:1-140:12': 1}
+TO-GOLDEN work@svaunit_vpi_interface|uvm_report_info|115:8
+    golden={'svaunit_pkg @173:1-186:12': 1} pristine={'uvm_pkg @173:1-186:12': 1} patched={'svaunit_pkg @173:1-186:12': 1}
+-- testflags/MiniAmiq-544c7f61  AGREE 0  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/SeqDriver-32af76aa  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/SeqDriver-32af76aa  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/SeqDriver-32af76aa  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/FuncCase-806ca8e7  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/FuncCase-806ca8e7  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/FuncCase-806ca8e7  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/Earlgrey_0_1-71da2fd7  AGREE 112  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/Earlgrey_0_1-71da2fd7  cells golden=165 pristine=173 patched=173  keys=112
+STILL-WRONG work@hmac|conv_endian|135:33
+    golden={'hmac_pkg @50:3-53:28': 8} ours={'hmac_pkg @50:3-53:28': 16}
+-- testflags/Earlgrey_0_1-71da2fd7  AGREE 111  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1
+-- CALIB testflags/SimpleUVM-1dc93a62  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/SimpleUVM-1dc93a62  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/SimpleUVM-1dc93a62  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB testflags/FuncStruct-7ca1c621  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== testflags/FuncStruct-7ca1c621  cells golden=1 pristine=1 patched=1  keys=1
+-- testflags/FuncStruct-7ca1c621  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/MiniAmiq-544c7f61  AGREE 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/MiniAmiq-544c7f61  cells golden=2 pristine=2 patched=2  keys=2
+TO-GOLDEN work@svaunit_vpi_interface|uvm_report_enabled|114:10
+    golden={'svaunit_pkg @133:1-140:12': 1} pristine={'uvm_pkg @133:1-140:12': 1} patched={'svaunit_pkg @133:1-140:12': 1}
+TO-GOLDEN work@svaunit_vpi_interface|uvm_report_info|115:8
+    golden={'svaunit_pkg @173:1-186:12': 1} pristine={'uvm_pkg @173:1-186:12': 1} patched={'svaunit_pkg @173:1-186:12': 1}
+-- default/MiniAmiq-544c7f61  AGREE 0  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/SeqDriver-32af76aa  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/SeqDriver-32af76aa  cells golden=1 pristine=1 patched=1  keys=1
+-- default/SeqDriver-32af76aa  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/FuncCase-806ca8e7  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/FuncCase-806ca8e7  cells golden=1 pristine=1 patched=1  keys=1
+-- default/FuncCase-806ca8e7  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/Earlgrey_0_1-71da2fd7  AGREE 112  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/Earlgrey_0_1-71da2fd7  cells golden=165 pristine=165 patched=165  keys=112
+-- default/Earlgrey_0_1-71da2fd7  AGREE 112  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/SimpleUVM-1dc93a62  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/SimpleUVM-1dc93a62  cells golden=1 pristine=1 patched=1  keys=1
+-- default/SimpleUVM-1dc93a62  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- CALIB default/FuncStruct-7ca1c621  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+== default/FuncStruct-7ca1c621  cells golden=1 pristine=1 patched=1  keys=1
+-- default/FuncStruct-7ca1c621  AGREE 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+cenrun227: LISTED 12 PROCESSED 12 SKIP-NOFILE 0

@@ -1410,6 +1410,17 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
 
     DefInfo& info = defMap[&def];
     currentScope = &body;
+    // § importedFreeCallTakesFirstListingImport227 — the holder body whose
+    // WRITTEN IMPORT ORDER decides which copy of a package free function a
+    // bare call in this content binds.  Saved and restored (unlike
+    // `currentScope`), so a nested emission cannot leave a stale scope behind
+    // and a null slot always means "no redirect".
+    struct CallImportScopeGuard227 {
+        const slang::ast::Scope*& slot;
+        const slang::ast::Scope* prev;
+        ~CallImportScopeGuard227() { slot = prev; }
+    } callImportGuard227{callImportScope227, callImportScope227};
+    callImportScope227 = &body;
     // Def-view marker: some typespec bounds fold only in the elaborated view.
     struct DefEmitGuard {
         bool& f;
@@ -7547,6 +7558,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         ~CastSiteScopeGuard57() { slot = prev; }
     } castSiteGuard57{castSiteScope57, castSiteScope57};
     castSiteScope57 = &body;
+    // § importedFreeCallTakesFirstListingImport227 — the same grounding for
+    // the ELABORATED content, which `currentScope` never reaches (earl57's
+    // measurement above): the import list a bare call must be read against is
+    // THIS instance's body, not the last definition compiled.
+    struct CallImportScopeGuard227 {
+        const slang::ast::Scope*& slot;
+        const slang::ast::Scope* prev;
+        ~CallImportScopeGuard227() { slot = prev; }
+    } callImportGuard227{callImportScope227, callImportScope227};
+    callImportScope227 = &body;
     // Pending-typespec ranges owned by this top's tree (recorded before the
     // def fill, which already queues def-local net typespecs).
     size_t paramLo = pendingParamTs.size();
@@ -29275,6 +29296,17 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     auto* iface = ifaceDefMap[&def];
     DefInfo& info = defMap[&def];
     currentScope = &body;
+    // § importedFreeCallTakesFirstListingImport227 — the DEFINITION view of an
+    // interface is where MiniAmiq's head lives: § ifaceDefListsItsOwnProcesses226
+    // makes this function emit the interface's own `initial`, and the bare
+    // `uvm_report_enabled` call inside it must be read against THIS body's
+    // import list (`import svaunit_pkg::*;` before `import uvm_pkg::*;`).
+    struct CallImportScopeGuard227 {
+        const slang::ast::Scope*& slot;
+        const slang::ast::Scope* prev;
+        ~CallImportScopeGuard227() { slot = prev; }
+    } callImportGuard227{callImportScope227, callImportScope227};
+    callImportScope227 = &body;
     iface->VpiDefName(prefix);
     iface->VpiFullName(prefix);
     iface->VpiParent(d);
@@ -30192,6 +30224,15 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     std::string prefix = path;
     std::string defPrefix = "work@" + std::string(def.name);
     currentScope = &body;
+    // § importedFreeCallTakesFirstListingImport227 — the ELABORATED interface
+    // road, grid arm a2 (instantiation is not a gate: golden routes the
+    // instantiated interface's call to the same importer's copy as a1's).
+    struct CallImportScopeGuard227 {
+        const slang::ast::Scope*& slot;
+        const slang::ast::Scope* prev;
+        ~CallImportScopeGuard227() { slot = prev; }
+    } callImportGuard227{callImportScope227, callImportScope227};
+    callImportScope227 = &body;
     auto* iface = s.MakeInterface_inst();
     iface->VpiDefName(defPrefix);
     iface->VpiName(inst.name);

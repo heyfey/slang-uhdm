@@ -1,0 +1,26 @@
+# r10uvm227 — A-PRIORI MOVER PREDICTION over the surelog corpus.
+# Produced by predict227.sh + ct227pred from the PRISTINE databases ONLY,
+# BEFORE the patched sweep was run.  MEASUREMENT ONLY.
+#
+# The full per-database listing is NOT committed: it names every row-mode of
+# the corpus, and four of those names are the slang-fenced tests this
+# campaign must not spell outside a driver's own FENCE list.  What is
+# committed is the verdict line and every CANDIDATE row, which is what the
+# gate needs: the actual byte movers must be a SUBSET of these.
+#
+# databases scanned: 956
+# CANDIDATE row-modes: 12
+# rows reading NO (cannot move): 944
+
+default/Earlgrey_0_1-71da2fd7 CANDIDATE clonedFreeFns=53 barePkgCallsInHolders=165 names=aes_circ_byte_shift,aes_div2,aes_mul2,aes_mul4,aes_mul_gf2p2,aes_mul_gf2p4,aes_mvm,aes_scale_omega2_gf2p2,aes_square_gf2p2,aes_square_scale_gf2p4_gf2p2,aes_transpose,calc_w,compress,conv_endian
+default/FuncCase-806ca8e7 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=num_operands
+default/FuncStruct-7ca1c621 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=compress
+default/MiniAmiq-544c7f61 CANDIDATE clonedFreeFns=894 barePkgCallsInHolders=2 names=uvm_report_enabled,uvm_report_info
+default/SeqDriver-32af76aa CANDIDATE clonedFreeFns=894 barePkgCallsInHolders=1 names=run_test
+default/SimpleUVM-1dc93a62 CANDIDATE clonedFreeFns=58 barePkgCallsInHolders=1 names=run_test
+testflags/Earlgrey_0_1-71da2fd7 CANDIDATE clonedFreeFns=53 barePkgCallsInHolders=173 names=aes_circ_byte_shift,aes_div2,aes_mul2,aes_mul4,aes_mul_gf2p2,aes_mul_gf2p4,aes_mvm,aes_scale_omega2_gf2p2,aes_square_gf2p2,aes_square_scale_gf2p4_gf2p2,aes_transpose,calc_w,compress,conv_endian
+testflags/FuncCase-806ca8e7 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=num_operands
+testflags/FuncStruct-7ca1c621 CANDIDATE clonedFreeFns=1 barePkgCallsInHolders=1 names=compress
+testflags/MiniAmiq-544c7f61 CANDIDATE clonedFreeFns=894 barePkgCallsInHolders=2 names=uvm_report_enabled,uvm_report_info
+testflags/SeqDriver-32af76aa CANDIDATE clonedFreeFns=894 barePkgCallsInHolders=1 names=run_test
+testflags/SimpleUVM-1dc93a62 CANDIDATE clonedFreeFns=58 barePkgCallsInHolders=1 names=run_test

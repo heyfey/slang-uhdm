@@ -1,0 +1,64 @@
+=== GRID227 ROUTE TABLE — golden vs pristine vs patched (LHS is always golden)
+-- a1_iface_uninst
+   golden : p2 
+   prist. : p1 
+   patched: p2 
+-- a2_iface_inst
+   golden : p2 
+   prist. : p1 
+   patched: p2 
+-- a3_module
+   golden : p2 
+   prist. : p1 
+   patched: p2 
+-- a5_order_p1first
+   golden : p1 
+   prist. : p1 
+   patched: p1 
+-- a7_only_p1
+   golden : p1 
+   prist. : p1 
+   patched: p1 
+-- a10_ctxs
+   golden : p2 p2 p2 p2 
+   prist. : p1 p1 p1 p1 
+   patched: p2 p2 p2 p2 
+-- a4_pkg_holder
+   golden : p3 
+   prist. : p3 p3 
+   patched: p3 p3 
+-- a12_p2_own_body
+   golden : p2b 
+   prist. : p2b p2b 
+   patched: p2b p2b 
+-- a9_class_holder
+   golden : p2 
+   prist. : p3 
+   patched: p3 
+-- a6_only_p2
+   golden : p2 
+   prist. : 
+   patched: 
+-- a8_qual_p2
+   golden : p2 
+   prist. : 
+   patched: 
+-- a11_three_hops
+   golden : p3 
+   prist. : 
+   patched: 
+
+ARM                    PRIS_LINES  HEADS  PAT_LINES  HEADS  VERDICT
+a10_ctxs                     4040      1       4036      1  TO-GOLDEN (rc 255->255)
+a11_three_hops                  -      -          -      -  SKIP-RC(no database)
+a12_p2_own_body              4426      1       4426      1  SAME (rc 255->255)
+a1_iface_uninst              3490      1       3486      1  TO-GOLDEN (rc 255->255)
+a2_iface_inst                3508      1       3508      1  SAME (rc 255->255)
+a3_module                    3450      1       3442      1  TO-GOLDEN (rc 255->255)
+a4_pkg_holder                4782      1       4782      1  SAME (rc 255->255)
+a5_order_p1first             3486      1       3486      1  SAME (rc 255->255)
+a6_only_p2                      -      -          -      -  SKIP-RC(no database)
+a7_only_p1                   3426      1       3426      1  SAME (rc 255->255)
+a8_qual_p2                      -      -          -      -  SKIP-RC(no database)
+a9_class_holder              4590      1       4590      1  SAME (rc 255->255)
+-- ARMS 12  TO-GOLDEN 3  SAME 6  AWAY-GOLDEN 0  SKIP-RC 3

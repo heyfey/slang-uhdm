@@ -1,0 +1,6 @@
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=166e88a4d896 pristine=e0c21b4656d7
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=166e88a4d896 pristine=e0c21b4656d7
+MOVERS: 2 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged

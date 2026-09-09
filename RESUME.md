@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm226 landing — MiniAmiq 1392014 on the free-function binding head, the last workable row) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
 equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
@@ -183,7 +183,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 | CMP_EQUAL ×2 (CONVERTED at uvm219 — the WHOLE TEST CLOSED) | CLOSED — § hoistedThisRidesTheForwardedBlock219: the implicit this wire is a FORWARDED late-binding mint and lands span-sorted inside the forwarded block, never after the module's own wires (the import splices the package's late-binding list during the item pass); the SeqDriver ladder ran the clone-import chain, the view crossings, the interface family and the order law; R0 recorded: the implicit block is still golden's multiset in a different order, masked by the visited-set short circuit — the family's next face should the mask ever lift |
-| MiniAmiq×2 | 1392014 (ONE head both modes — a NEW family: the ladder has LEFT the interface holder) | a package free function's body binding: golden binds a reference to the function's class-variable local (uvm_coreservice_t cs, a local of uvm_pkg::uvm_report_enabled at uvm_globals.svh:133-140, reached through the uvm_info macro's func_call->vpiFunction) where ours is bare; found by ct226inner (r10uvm226repro) running the shipped Compare on the process element pair — open (uvm226 landed: field Process filled golden-1-ours-1, § ifaceDefListsItsOwnProcesses226 — the interface writer copies the definition's process list verbatim, instantiation is not a gate; all six process kinds hash-equal to golden; the for-iterator binder gated on the window, repairing the pristine subroutine road too; verifier CLEAN ACCEPT, no fix needed; R-S recorded: an uninstantiated interface WITH A PORT LIST segfaults both binaries — bounds the family's window, no corpus row reaches it) |
+| MiniAmiq×2 | CONVERTED — CMP_EQUAL both modes at judge rc 0 (uvm227, the campaign's 9th+10th row-mode conversions, SIXTH whole-test close, THE LAST WORKABLE ROW) | § importedFreeCallTakesFirstListingImport227 — a bare call to a package free subroutine binds the FIRST wildcard-imported package's copy in written import order when that package's listing carries the name; one lookup at the call arm, link-only; verifier CLEAN ACCEPT, twenty-three adversarial arms, conversion reproduced deterministically. THE ADDRESSABLE CORPUS IS AT ZERO: every remaining surelog not-equal row-mode belongs to the four slang-fenced tests (8 row-modes); u2r is 100% equal both modes. New-face residues at zero corpus cells: bare TASK calls, unit/generate import scopes, ::-argument decline, the program holder, the class-in-package holder |
 | SimpleUVM×2 | CMP_EQUAL ×2 (CONVERTED at uvm209 — the WHOLE TEST CLOSED) | CLOSED — § hoistedLocalKeepsItsLifetime209: the automatic flag follows the source declaration's lifetime (Surelog's package collector does not stop at a class CONSTRUCTOR declaration — the hoist's mechanism; golden's module copy is the package listing value for value); the SimpleUVM ladder ran the depth artifact, the materialized-parameter family, the implicit-nets family, the design listing and the lifetime bit |
 | BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
 | Scoreboard/default | CMP_EQUAL (CONVERTED at uvm212 — the comparable half of the test CLOSED; testflags is a slang reject outside the comparable set) | CLOSED — § classTdCloneTakesTheBasesEmptyListing212: a clone class typedef takes the base's EMPTY specialization listing (the vector verdict wore a singular face; library and macros decide nothing — clone-hood and the base's listing are the only variables; golden has zero clone-vs-base mismatches everywhere, ours had exactly one corpus-wide) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 132 verifier fix-before-landing re-cuts (312 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 132 verifier fix-before-landing re-cuts (313 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

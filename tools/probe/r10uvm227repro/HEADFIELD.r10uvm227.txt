@@ -1,0 +1,30 @@
+=== r10uvm227 HEAD FIELD / INNER readings, MiniAmiq work@svaunit_vpi_interface
+--- PRISTINE (437d06b01c501a1154f27f095a74a578)
+Process                golden=1     ours=1     <-- DISAGREES
+Ports                  golden=null  ours=null  (not reached)
+Gen_scope_arrays       golden=null  ours=null  (not reached)
+Elab_tasks             golden=null  ours=null  (not reached)
+Gen_stmts              golden=null  ours=null  (not reached)
+FIRST-DISAGREEING-FIELD Process r=1
+Process golden=1 ours=1
+ELEMENT[0] golden_type=2178 ours_type=2178 r=1 <-- DISAGREES
+  failedLhs(golden) type=2060 name=cs file=/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_globals.svh line=136:21..136:23
+  failedRhs(ours)   <null>
+--- PATCHED (fa1b8da08c9c93ec93b15779ed52ae08)
+Process                golden=1     ours=1     agrees
+Ports                  golden=null  ours=null  agrees
+Gen_scope_arrays       golden=null  ours=null  agrees
+Elab_tasks             golden=null  ours=null  agrees
+Gen_stmts              golden=null  ours=null  agrees
+FIRST-DISAGREEING-FIELD <none> r=0
+# OURS   /tmp/r10uvm227_wdpat/sl/default/MiniAmiq-544c7f61/slang.uhdm
+# OBJECT work@svaunit_vpi_interface
+Process golden=1 ours=1
+ELEMENT[0] golden_type=2178 ours_type=2178 r=0 agrees
+--- ct227own design::Compare, patched
+# ct227own MEASUREMENT-ONLY — uhdm-cmp remains the sole judge
+# GOLDEN /home/heyfey/.cache/slang-uhdm-goldens/373e21b8854542ba4b76/golden.uhdm
+# OURS   /tmp/r10uvm227_wdpat/sl/default/MiniAmiq-544c7f61/slang.uhdm
+design::Compare r=0
+HEAD LHS(golden) = <null>
+HEAD RHS(ours)   = <null>

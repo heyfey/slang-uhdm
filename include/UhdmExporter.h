@@ -5519,6 +5519,30 @@ private:
     // cast that resolves today can move; `emitInstance` sets it to the instance
     // body and the gen-scope cont-assign arm narrows it to the gen block.
     const slang::ast::Scope* castSiteScope57 = nullptr;
+    // § importedFreeCallTakesFirstListingImport227 (r10uvm227) — THE SCOPE
+    // WHOSE IMPORT LIST DECIDES WHICH COPY OF A PACKAGE FREE FUNCTION A BARE
+    // CALL BINDS.  Surelog's `CompileHelper::getTaskFunc`
+    // (Surelog/src/DesignCompile/CompileExpression.cpp:349-405) resolves a
+    // bare call name by walking the current component and its parents, then
+    // the component's file contents, then `getFuncFromPackage` (`:327-347`),
+    // which scans `component->getAccessPackages()` IN WRITTEN ORDER and takes
+    // the FIRST package whose own `getTask_funcs()` listing carries the name.
+    // Because a wildcard import COPIES the whole transitive subroutine listing
+    // into the importing package (§ collectPkgTfListing), that first package
+    // is often an IMPORTER, not the home: the callee is the IMPORTER'S COPY.
+    // Set — with save/restore, unlike `currentScope`, which `emitInstance`
+    // leaves STALE — only where the emitter really has the holder body in
+    // hand, so a null slot means "no redirect" and the pristine binding
+    // stands.  NEVER read during package emission: a call written in a
+    // package's OWN body binds that package's own copy, which is
+    // § collectPkgTfListing's already-landed law (grid arms a4, a12).
+    const slang::ast::Scope* callImportScope227 = nullptr;
+    // The clone that law names for one bare call, or null when the home
+    // object stands.  LHS is always golden: measured in grid227's a1/a2/a3/a10
+    // (imports p2 then p1 -> p2's copy), a5 (p1 then p2 -> p1's own), a7
+    // (p1 only -> p1's own).
+    UHDM::function* firstImportListingClone227(
+        const slang::ast::SubroutineSymbol& sub);
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
     // An ELAB unpacked-array param's own array_typespec clone is built after

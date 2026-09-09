@@ -1,0 +1,18 @@
+ARM ./r10buvm22repro/g22.sv                    def   DET    cmp 17506/1 -> 17506/1 (rc 255->255)  orderblind 2441 -> 2441  SAME
+ARM ./r10buvm22repro/g22.sv                    elab  DET    cmp 21736/1 -> 21736/1 (rc 255->255)  orderblind 5627 -> 5627  SAME
+ARM ./r10uvm127repro/g127_c_import.sv          def   DET    cmp 7762/1 -> 7746/1 (rc 255->255)  orderblind 682 -> 670  TO-GOLDEN
+ARM ./r10uvm127repro/g127_c_import.sv          elab  DET    cmp 9710/1 -> 9078/1 (rc 255->255)  orderblind 2297 -> 2131  TO-GOLDEN
+ARM ./r10uvm154repro/l154_noenum.sv            def   DET    cmp 1632/1 -> 1632/1 (rc 255->255)  orderblind 591 -> 591  SAME
+ARM ./r10uvm154repro/l154_noenum.sv            elab  DET    cmp 1634/1 -> 1634/1 (rc 255->255)  orderblind 835 -> 835  SAME
+ARM ./r10uvm185repro/grid185/g185_e_kinds.sv   def   DET    cmp 9970/1 -> 9970/1 (rc 255->255)  orderblind 1486 -> 1486  SAME
+ARM ./r10uvm185repro/grid185/g185_e_kinds.sv   elab  DET    cmp 10014/1 -> 10014/1 (rc 255->255)  orderblind 2807 -> 2807  SAME
+ARM ./r10uvm204repro/grid204/g204_b_ctx.sv     def   DET    cmp 11446/1 -> 11438/1 (rc 255->255)  orderblind 658 -> 652  TO-GOLDEN
+ARM ./r10uvm204repro/grid204/g204_b_ctx.sv     elab  DET    cmp 15776/1 -> 15150/1 (rc 255->255)  orderblind 4149 -> 3993  TO-GOLDEN
+ARM ./r10uvm31repro/t41a/dut.sv                def   DET    cmp 6838/1 -> 6830/1 (rc 255->255)  orderblind 1152 -> 1146  TO-GOLDEN
+ARM ./r10uvm31repro/t41a/dut.sv                elab  DET    cmp 8102/1 -> 8014/1 (rc 255->255)  orderblind 1904 -> 1858  TO-GOLDEN
+ARM ./r10uvm31repro/t41b/dut.sv                def   DET    cmp 29392/1 -> 29360/1 (rc 255->255)  orderblind 4210 -> 4186  TO-GOLDEN
+ARM ./r10uvm31repro/t41b/dut.sv                elab  DET    cmp 32404/1 -> 32052/1 (rc 255->255)  orderblind 5775 -> 5623  TO-GOLDEN
+ARM ./r10v124repro/v124_5_import.sv  DET  SURELOG rc=4  NO GOLDEN — error recovery, not golden
+ARM ./r10v186repro/v186_d_listing.sv           def   DET    cmp 22932/1 -> 22924/1 (rc 255->255)  orderblind 2565 -> 2559  TO-GOLDEN
+ARM ./r10v186repro/v186_d_listing.sv           elab  DET    cmp 29808/1 -> 28494/1 (rc 255->255)  orderblind 7215 -> 6823  TO-GOLDEN
+-- MOVED ARM-FILES 9  TO-GOLDEN 10  SAME 6  AWAY-GOLDEN 0  NONDET-VIEWS 0  NO-GOLDEN 1

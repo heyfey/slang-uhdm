@@ -853,8 +853,8 @@ MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,match
 MBadder,testflags,CMP_EQUAL,,,match
-MiniAmiq,default,CMP_NOTEQUAL,decompile:,,
-MiniAmiq,testflags,CMP_NOTEQUAL,decompile:,,
+MiniAmiq,default,CMP_EQUAL,,,differ
+MiniAmiq,testflags,CMP_EQUAL,,,differ
 MinTypMax,default,CMP_EQUAL,,,match
 MinTypMax,testflags,CMP_EQUAL,,,match
 ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,

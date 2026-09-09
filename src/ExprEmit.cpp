@@ -12169,6 +12169,72 @@ static const Symbol* pkgFreeSubForName72(const Symbol* callerSub,
     return nullptr;
 }
 
+// § importedFreeCallTakesFirstListingImport227 (r10uvm227) — A BARE CALL TO A
+// PACKAGE FREE FUNCTION BINDS THE COPY HELD BY THE FIRST WILDCARD-IMPORTED
+// PACKAGE, IN WRITTEN IMPORT ORDER, WHOSE LISTING CARRIES THE NAME.
+//
+// PRODUCER.  `CompileHelper::getTaskFunc`
+// (Surelog/src/DesignCompile/CompileExpression.cpp:349-405) resolves an
+// UNQUALIFIED call name in this order: (1) the current component and its
+// parent scopes, linear-scanning `comp->getTask_funcs()`; (2) the component's
+// own file contents; (3) `getFuncFromPackage` (`:327-347`), which walks
+// `component->getAccessPackages()` IN ORDER and returns the FIRST package
+// whose own `getTask_funcs()` listing holds the name, recursing into that
+// package's own access packages only when it does not.  A wildcard import
+// COPIES the whole transitive subroutine listing into the importing package
+// (§ collectPkgTfListing — our own landed law, and Surelog's), so step (3)
+// stops at an IMPORTER whenever the importer is written first, and the callee
+// is the IMPORTER'S COPY rather than the home package's object.
+//
+// THE GOLDEN GRID (tools/probe/r10uvm227repro/grid227, every arm's rc checked;
+// LHS is always golden):
+//   a1 uninstantiated interface, `import p2::*; import p1::*;`  -> p2's copy
+//   a2 the SAME interface INSTANTIATED                          -> p2's copy
+//   a3 a MODULE holder, same import order                       -> p2's copy
+//   a10 initial / always_comb / cont-assign / function body      -> p2's copy
+//   a5 the SAME interface with the ORDER REVERSED               -> p1's own
+//   a7 `import p1::*;` alone (the control)                      -> p1's own
+//   a4, a12 a call in a PACKAGE's OWN body                      -> that
+//        package's own copy (§ collectPkgTfListing's landed law — NOT this
+//        one; the `callImportScope227` slot is never set during package
+//        emission, so those arms cannot move).
+// Instantiation is not a gate (a2 == a1) and the CONTEXT is not a gate (a10's
+// four contexts all agree), so the only variable is the written import order.
+//
+// THE HOME PACKAGE'S OWN IMPORT ENDS THE SCAN: if the home is itself wildcard-
+// imported before any importer that lists the name, Surelog's scan finds the
+// name in the home's own listing first and the shared home object stands
+// (arm a5).  That clause is what keeps this from becoming "always prefer a
+// clone", which a5 refutes outright.
+UHDM::function* UhdmExporter::firstImportListingClone227(
+    const SubroutineSymbol& sub) {
+    // Never during package emission: a package body's own call is
+    // § collectPkgTfListing's, and the slot is not set there anyway.
+    if (!callImportScope227 || curPkgEmitSym)
+        return nullptr;
+    auto* homeScope = sub.getParentScope();
+    if (!homeScope || homeScope->asSymbol().kind != SymbolKind::Package)
+        return nullptr;
+    const Symbol* homeSym = &homeScope->asSymbol();
+    for (auto& m227 : callImportScope227->members()) {
+        if (m227.kind != SymbolKind::WildcardImport)
+            continue;
+        const PackageSymbol* wp227 =
+            m227.as<WildcardImportSymbol>().getPackage();
+        if (!wp227)
+            continue;
+        // The HOME listed first: the shared object is the answer (a5, a7).
+        if (static_cast<const Symbol*>(wp227) == homeSym)
+            return nullptr;
+        auto it227 = importCopyFunc.find({static_cast<const Symbol*>(wp227), &sub});
+        if (it227 != importCopyFunc.end() && it227->second)
+            return it227->second;
+        // This importer does not list the name — keep scanning, exactly as
+        // `getFuncFromPackage` does.
+    }
+    return nullptr;
+}
+
 // § builtinRecvIndexedStepIsBitSelect74 — the helper that recovers the index
 // EXPRESSION of each dotted step of a BUILT-IN METHOD call's RECEIVER path.
 //
@@ -23466,6 +23532,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // also what decides whether a def-view gen-block call binds.
                 bool qualPkgCall18 = false;
                 UHDM::function* boundClone = nullptr;
+                // § importedFreeCallTakesFirstListingImport227 — the LINK ONLY.
+                // Unlike `boundClone` (the WRITTEN-qualifier law) this changes
+                // no name, no anchor and no `qualPkgCall18`: golden's bare call
+                // keeps its bare `vpiName` and its whole-expression span
+                // (MiniAmiq `func_call(uvm_report_enabled)@114:10-114:57`, grid
+                // a1 `func_call(f)@25:9`) and only `vpiFunction` moves.
+                UHDM::function* listClone227 = nullptr;
                 if (auto ps2 = sub.getParentScope();
                     ps2 && ps2->asSymbol().kind == SymbolKind::Package) {
                     std::string pkgName(ps2->asSymbol().name);
@@ -23485,6 +23558,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (cit != importCopyFunc.end())
                             boundClone = cit->second;
                     }
+                    // The BARE spelling only — a written qualifier is the
+                    // other law's, and Surelog's own resolver takes the
+                    // `::` branch before it ever reaches the import scan.
+                    if (!qpkg && isFunc && wqual.empty())
+                        listClone227 = firstImportListingClone227(sub);
                     if (raw.rfind(pkgName + "::", 0) == 0) {
                         fc->VpiName(pkgName + "::" + std::string(sub.name));
                         setLoc(fc, nameSpan(expr.sourceRange.start(), pkgName));
@@ -23500,13 +23578,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // package function in its own Task_funcs; a call from
                         // a GEN-SCOPE conn also registers at the enclosing
                         // instance body.
+                        // § importedFreeCallTakesFirstListingImport227 — the
+                        // holder LISTS the object its call RESOLVES TO, not
+                        // the home object: golden's a1/a3 holder Task_funcs
+                        // hold EXACTLY ONE entry, and it is the same copy the
+                        // call binds (pristine listed two, the copy the import
+                        // group already materialized plus this home push).
+                        UHDM::task_func* reg227 =
+                            listClone227 ? (UHDM::task_func*)listClone227 : siTf;
                         auto& v2 = importedTfCalls[currentScope];
                         bool have9 = false;
                         for (auto& pr9 : v2)
-                            if (pr9.first == siTf)
+                            if (pr9.first == reg227)
                                 have9 = true;
                         if (!have9)
-                            v2.push_back({siTf, expr.sourceRange});
+                            v2.push_back({reg227, expr.sourceRange});
                     }
                 }
                 // NOT DONE, measured and rejected: naming a static class call
@@ -23534,7 +23620,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // § defGenQualPkgCallBinds18)
                 }
                 else if (isFunc) {
-                    auto* f4 = boundClone ? boundClone : (UHDM::function*)siTf;
+                    // § importedFreeCallTakesFirstListingImport227 sits BELOW
+                    // the written-qualifier law (`boundClone`) and ABOVE the
+                    // home object: a qualified call keeps the qualifier's
+                    // clone, a bare call takes the first listing import's, and
+                    // everything else is unchanged.
+                    auto* f4 = boundClone
+                                   ? boundClone
+                                   : (listClone227 ? listClone227
+                                                   : (UHDM::function*)siTf);
                     // § externProtoInBodyCallBinds12 — CALL SITE 2 of 2, the
                     // REDIRECT.  A class-PROPERTY initializer is drained after
                     // emitTaskFuncs (`lateInit29`), so by then `subMap` DOES
