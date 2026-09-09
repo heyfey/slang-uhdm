@@ -1,0 +1,16 @@
+work@top.i_by_by                           work@top.i_by_by.P                             dec=8'b11001100                          size=8    BIN:11001100                           ct=3
+work@top.i_in_by                           work@top.i_in_by.P                             dec=8'b11001100                          size=8    BIN:11001100                           ct=3
+work@top.i_in_is                           work@top.i_in_is.P                             dec=32'b11111111111111111111111111111101 size=32   BIN:11111111111111111111111111111101   ct=3
+work@top.i_in_iu                           work@top.i_in_iu.P                             dec=32'b00000000000000000000000000000010 size=32   BIN:00000000000000000000000000000010   ct=3
+work@top.i_iu_by                           work@top.i_iu_by.P                             dec=8'b11001100                          size=8    BIN:11001100                           ct=3
+work@top.i_iu_e2                           work@top.i_iu_e2.P                             dec=2'b01                                size=2    BIN:01                                 ct=3
+work@top.i_iu_is                           work@top.i_iu_is.P                             dec=32'b11111111111111111111111111111101 size=32   BIN:11111111111111111111111111111101   ct=3
+work@top.i_iu_iu                           work@top.i_iu_iu.P                             dec=32'b00000000000000000000000000000010 size=32   BIN:00000000000000000000000000000010   ct=3
+work@top.i_iu_sh                           work@top.i_iu_sh.P                             dec=16'b0000000011111111                 size=16   BIN:0000000011111111                   ct=3
+work@top.i_iu_v4                           work@top.i_iu_v4.P                             dec=4'b1010                              size=4    BIN:1010                               ct=3
+work@top.i_l4_iu                           work@top.i_l4_iu.P                             dec=4'b00000000000000000000000000000010  size=4    BIN:00000000000000000000000000000010   ct=3
+work@top.j_by_by                           work@top.j_by_by.P                             dec=-52                                  size=8    UINT:0                                 ct=9
+work@top.j_iu_is                           work@top.j_iu_is.P                             dec=4294967293                           size=32   UINT:4294967293                        ct=9
+work@top.j_iu_iu                           work@top.j_iu_iu.P                             dec=2                                    size=32   UINT:2                                 ct=9
+work@top.j_iu_v4                           work@top.j_iu_v4.P                             dec=10                                   size=32   UINT:10                                ct=9
+work@top.j_l4_v4                           work@top.j_l4_v4.P                             dec=10                                   size=4    UINT:10                                ct=9

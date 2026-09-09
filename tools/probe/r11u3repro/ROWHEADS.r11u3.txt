@@ -1,0 +1,16 @@
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         50      1 cmp rc=255
+SimpleUVM      testflags       50      1 cmp rc=255
+Scoreboard     default         50      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+MiniAmiq       default         50      1 cmp rc=255
+MiniAmiq       testflags       50      1 cmp rc=255
+BuildUVMPkg    default         50      1 cmp rc=255
+BuildUVMPkg    testflags       50      1 cmp rc=255
+Earlgrey_0_1   default         32      1 cmp rc=255
+Earlgrey_0_1   testflags       32      1 cmp rc=255
+Rggen          default        801      1 cmp rc=255
+Rggen          testflags        -      - SKIP-NOFILE(g=none)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0

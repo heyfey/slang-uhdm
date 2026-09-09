@@ -6197,6 +6197,49 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     return false;
             }
         };
+        // § structParamMemberOvBinary — the arm is OPT-IN (memSelArm8) so the
+        // ONLY caller that sees it is the instantiation-override site below;
+        // `memSelHit8` records that it actually fired, so that caller can tell
+        // a member-select origin from every other encoding ovEnc8 accepts.
+        bool memSelArm8 = false;
+        bool memSelHit8 = false;
+        // THE BASE-SHAPE FENCE.  The member slice exists only when the base
+        // struct value reaches `ExprEval::hierarchicalSelector` AS A CONSTANT.
+        // A struct value computed by a CONSTANT FUNCTION arrives as a
+        // `struct_var` and is turned into one by `reduceExpr(struct_var)` — the
+        // v1.87 assembler — which gives up the moment ANY member is wider than
+        // 64 bits or has no width (`if (tmpInvalid || mw == 0 || mw > 64)
+        // return false`, recursing into struct-valued members).  When it gives
+        // up the base stays a `struct_var`, the selector's OTHER arm answers,
+        // and the override takes the MEMBER'S OWN value in the member's own
+        // encoding — which is the arm we already had.
+        // THE CORPUS PROVES BOTH SIDES: FuncStructVal's `cva6_cfg_t` carries
+        // `logic [15:0][63:0] PMPCfgRstVal` (1024 bits), golden's
+        // `work@top.CVA6Cfg` elab Rhs IS a `struct_var`, and its
+        // `.INPUT_WIDTH(CVA6Cfg.INSTR_PER_FETCH)` override is golden `INT:2`
+        // size 32 — a row that is CMP_EQUAL today and must stay that way;
+        // grid g3's `F = mk3()` is the same function-computed shape with every
+        // member inside 64 bits and golden slices it (`32'b…10`, `4'b1010`).
+        std::function<bool(const Type&, int)> asmOk8 =
+            [&](const Type& st8, int d8) -> bool {
+            if (d8 > 8)
+                return false;
+            auto& ct8 = st8.getCanonicalType();
+            if (ct8.kind != SymbolKind::PackedStructType)
+                return false;
+            for (auto& f8 : ct8.as<PackedStructType>()
+                                .membersOfType<FieldSymbol>()) {
+                const Type& ft8 = f8.getType();
+                const auto w8 = ft8.getBitWidth();
+                if (w8 == 0 || w8 > 64)
+                    return false;
+                if (ft8.getCanonicalType().kind ==
+                        SymbolKind::PackedStructType &&
+                    !asmOk8(ft8, d8 + 1))
+                    return false;
+            }
+            return true;
+        };
         std::function<bool(const Expression&, int, SrlgOvEnc&)> ovEnc8 =
             [&](const Expression& e8, int d8,
                 SrlgOvEnc& o8) -> bool {
@@ -6205,6 +6248,46 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             auto& x8 = stripImplicitConv(e8);
             if (x8.kind == ExpressionKind::IntegerLiteral)
                 return srlgLitEnc(rawTextLit(x8), o8);
+            // § structParamMemberOvBinary — A BARE MEMBER SELECT OF A
+            // STRUCT-TYPED PARAMETER ENTERS THE OVERRIDE PIPELINE AS THE
+            // MEMBER'S OWN BIT SLICE: `BIN:<bits>` / vpiBinaryConst at the
+            // MEMBER's declared width, MSB-first in declaration order.  See
+            // the law and its golden grid at the override site below.
+            if (memSelArm8 && x8.kind == ExpressionKind::MemberAccess) {
+                if (!x8.type || !x8.type->isIntegral() ||
+                    x8.type->getBitWidth() == 0 ||
+                    x8.type->getBitWidth() > 64)
+                    return false;
+                auto& mb8 = stripImplicitConv(
+                    x8.as<MemberAccessExpression>().value());
+                if (mb8.kind != ExpressionKind::NamedValue)
+                    return false;
+                auto& msy8 = mb8.as<NamedValueExpression>().symbol;
+                if (msy8.kind != SymbolKind::Parameter ||
+                    msy8.getType().getCanonicalType().kind !=
+                        SymbolKind::PackedStructType ||
+                    !asmOk8(msy8.getType(), 0))
+                    return false;
+                ASTContext mctx8(comp.getRoot(), LookupLocation::max);
+                ConstantValue mcv8 = mctx8.tryEval(x8);
+                if (!mcv8 || !mcv8.isInteger() ||
+                    mcv8.integer().hasUnknown())
+                    return false;
+                const slang::SVInt& mi8 = mcv8.integer();
+                const int32_t mw8 = (int32_t)x8.type->getBitWidth();
+                std::string bits8;
+                for (int32_t k8 = mw8 - 1; k8 >= 0; k8--)
+                    bits8 += (k8 < (int32_t)mi8.getBitWidth() &&
+                              mi8[k8] == slang::logic_t(1))
+                                 ? '1'
+                                 : '0';
+                o8.ct = vpiBinaryConst;
+                o8.dg = bits8;
+                o8.size = mw8;
+                srlgOvRender(o8);
+                memSelHit8 = true;
+                return true;
+            }
             // A DEGENERATE unbased-unsized fill ('0) enters the
             // pipeline as an UNSIZED BINARY 0 — adjustSize's
             // orig_size == -1 tail then pads it to each hop's target
@@ -7384,6 +7467,94 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         c->VpiConstType(e8.ct);
                         c->VpiSize(e8.size);
                         c->VpiDecompile(e8.dec);
+                        srcBaseOv8 = true;
+                    }
+                }
+                // § structParamMemberOvBinary — AN OVERRIDE ACTUAL THAT IS A
+                // BARE MEMBER SELECT OF A STRUCT-TYPED PARAMETER ENTERS THE
+                // OVERRIDE PIPELINE AS THE MEMBER'S OWN BIT SLICE: a
+                // vpiBinaryConst of the MEMBER's declared width carrying the
+                // member's bits, MSB-first in declaration order — never the
+                // decimal UINT fold at the formal's width.
+                //
+                // The producer change (Surelog v1.86 -> v1.87, decoded from
+                // the bump's own diff):
+                //  * UHDM `ExprEval::hierarchicalSelector` learned member-NAME
+                //    selection into a packed constant (chipsalliance/UHDM#1141
+                //    `7817d9f`): it slices the member's bits out of the base
+                //    constant and mints `BIN:<bits>` / `vpiBinaryConst` at the
+                //    member's width, with the MEMBER's typespec on it.
+                //  * Surelog `ExprBuilder::evalExpr` now refuses a DOTTED
+                //    member path outright (`abce474af`, new
+                //    `isDottedMemberTail()` + the paHierarchical_identifier
+                //    guard): the legacy 64-bit Value engine used to answer
+                //    such a path with the WHOLE packed struct value, and that
+                //    answer is what used to reach the override site as a plain
+                //    unsigned integer.  With the guard the value is left
+                //    INVALID for the UHDM-level evaluator, so the BIN slice
+                //    above is the only value the override ever sees.
+                // Everything after that mint is the PRE-EXISTING pipeline:
+                // `CompileHelper::adjustSize` against the FORMAL's typespec,
+                // which `srlgAdjustSize` already models (it is what truncates
+                // a member wider than the formal to a BARE-digit decompile,
+                // and what turns a negative-MSB slice under a signed `int`
+                // formal into `INT:-<n>` at the formal's width).  So the law
+                // is ONE new encoder feeding the existing adjust model.
+                //
+                // GRID g2 (`tools/probe/r11u3repro/g2`, real Surelog v1.87,
+                // [ERROR] : 0) — one struct, five members, eight formals; each
+                // cell is golden's elaborated param_assign Rhs:
+                //   formal        member          golden
+                //   int           enum logic[1:0] BIN 2'b01                sz 2
+                //   int           enum int        BIN 32'b..0101           sz 32
+                //   int           logic [3:0]     INT -6                   sz 32
+                //   int           logic [7:0]     INT -52                  sz 32
+                //   int           logic           INT -1                   sz 32
+                //   logic [3:0]   logic [3:0]     BIN 4'b1010              sz 4
+                //   logic [3:0]   enum logic[1:0] BIN 2'b01                sz 2
+                //   logic [1:0]   logic [3:0]     BIN 10 (BARE decompile)  sz 2
+                //   logic [1:0]   enum logic[1:0] BIN 2'b01                sz 2
+                //   enum logic[1:0] enum logic[1:0] BIN 2'b01              sz 2
+                //   enum int      enum int        BIN 32'b..0101           sz 32
+                //   untyped       logic [3:0]     BIN 4'b1010              sz 4
+                //   untyped       enum int        BIN 32'b..0101           sz 32
+                //   bit           logic           BIN 1'b1                 sz 1
+                //   logic [31:0]  enum int        BIN 32'b..0101           sz 32
+                //   logic [31:0]  logic [7:0]     BIN 8'b11001100          sz 8
+                // NEGATIVE CONTROL in the same grid: `.P(C.m_v4 + 0)` — a
+                // member select inside an OPERATION — stays UINT:10 size 32 on
+                // BOTH sides.  The member select must be the WHOLE actual.
+                // Note the two facts that rule out a "widen to the formal"
+                // reading: the member is never padded UP to the formal's width
+                // (int <- 2-bit enum stays size 2; logic[31:0] <- 8-bit member
+                // stays size 8), and it is truncated DOWN only through the
+                // logic arm of adjustSize, which is exactly srlgAdjustSize.
+                //
+                // The gate is deliberately the BARE member select of a
+                // PARAMETER of PACKED-STRUCT type at an OVERRIDE site: an
+                // element select, a member of a member, an operation around
+                // it, and a non-overridden declaration default all keep the
+                // arms they already have.
+                // THE DRIVER.  `memSelArm8` opens the member-select encoder for
+                // THIS call only; `memSelHit8` says it was the origin, so a
+                // chain that ovEnc8 would have encoded anyway is left to the
+                // arm above (this one runs with NO `tw8 > 0` gate, because an
+                // ENUM or UNTYPED formal classifies as width 0 and is exactly
+                // where a re-passed member select lands).  `srlgAdjustSize` is
+                // a no-op at width 0, which is the golden answer there.
+                if (!srcBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
+                    !enumCstOv8 && !strRefOv8 && overridden && boundInit) {
+                    SrlgOvEnc e7;
+                    memSelArm8 = true;
+                    memSelHit8 = false;
+                    const bool ok7 = ovEnc8(*boundInit, 0, e7);
+                    memSelArm8 = false;
+                    if (ok7 && memSelHit8) {
+                        srlgAdjustSize(e7, tk8, tsg8, tw8);
+                        c->VpiValue(srlgOvValue(e7));
+                        c->VpiConstType(e7.ct);
+                        c->VpiSize(e7.size);
+                        c->VpiDecompile(e7.dec);
                         srcBaseOv8 = true;
                     }
                 }

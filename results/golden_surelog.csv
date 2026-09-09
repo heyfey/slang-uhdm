@@ -263,10 +263,10 @@ ComplexExprSize,default,CMP_EQUAL,,,differ
 ComplexExprSize,testflags,CMP_EQUAL,,,differ
 ComplexHierPath,default,CMP_EQUAL,,,differ
 ComplexHierPath,testflags,CMP_EQUAL,,,differ
-ComplexParamOverload,default,CMP_NOTEQUAL,decompile:,,
-ComplexParamOverload,testflags,CMP_NOTEQUAL,decompile:,,
-ComplexParamOverload2,default,CMP_NOTEQUAL,decompile:,,
-ComplexParamOverload2,testflags,CMP_NOTEQUAL,decompile:,,
+ComplexParamOverload,default,CMP_EQUAL,,,differ
+ComplexParamOverload,testflags,CMP_EQUAL,,,differ
+ComplexParamOverload2,default,CMP_EQUAL,,,match
+ComplexParamOverload2,testflags,CMP_EQUAL,,,differ
 ComplexVarSelect,default,CMP_EQUAL,,,match
 ComplexVarSelect,testflags,CMP_EQUAL,,,match
 ConcatOrder,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConcatOrder/dut.sv:16:6: error: identifier 'bp_default_cfg_p' used before its declaration,,
@@ -627,8 +627,8 @@ HierPathBind,default,CMP_EQUAL,,,match
 HierPathBind,testflags,CMP_EQUAL,,,differ
 HierPathCont,default,CMP_EQUAL,,,match
 HierPathCont,testflags,CMP_EQUAL,,,differ
-HierPathEval,default,CMP_NOTEQUAL,decompile:,,
-HierPathEval,testflags,CMP_NOTEQUAL,decompile:,,
+HierPathEval,default,CMP_EQUAL,,,differ
+HierPathEval,testflags,CMP_EQUAL,,,differ
 HierPathInterfBlock,default,CMP_EQUAL,,,match
 HierPathInterfBlock,testflags,CMP_EQUAL,,,differ
 HierPathLhs,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathLhs/dut.sv:3:12: error: use of undeclared identifier 'hw2reg',,
@@ -1301,8 +1301,8 @@ StructStructHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/S
 StructStructHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructTypedef,default,CMP_EQUAL,,,differ
 StructTypedef,testflags,CMP_EQUAL,,,differ
-StructUnsizedVal,default,CMP_NOTEQUAL,decompile:,,
-StructUnsizedVal,testflags,CMP_NOTEQUAL,decompile:,,
+StructUnsizedVal,default,CMP_EQUAL,,,differ
+StructUnsizedVal,testflags,CMP_EQUAL,,,differ
 StructVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVar,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVarImp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,

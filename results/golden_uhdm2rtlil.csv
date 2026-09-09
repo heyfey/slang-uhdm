@@ -572,10 +572,10 @@ ParameterInitializationWithNegation,default,CMP_EQUAL,,,match
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,default,CMP_EQUAL,,,differ
 ParameterInitializedByPartSelectOfParameters,default,CMP_EQUAL,,,match
 ParameterInitializedByPartSelectOfParametersAssignedToVar,default,CMP_EQUAL,,,differ
-ParameterInitializedInSubModuleOfTopOf5LevelHierarchy,default,CMP_NOTEQUAL,decompile:,,
-ParameterInitializedInTopOf5LevelHierarchy,default,CMP_NOTEQUAL,decompile:,,
-ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle,default,CMP_NOTEQUAL,decompile:,,
-ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle,default,CMP_NOTEQUAL,decompile:,,
+ParameterInitializedInSubModuleOfTopOf5LevelHierarchy,default,CMP_EQUAL,,,match
+ParameterInitializedInTopOf5LevelHierarchy,default,CMP_EQUAL,,,match
+ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle,default,CMP_EQUAL,,,match
+ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle,default,CMP_EQUAL,,,match
 ParameterOfParametrizedType,default,CMP_EQUAL,,,differ
 ParameterOfParametrizedTypeInSubmodule,default,CMP_EQUAL,,,differ
 ParameterOfSizeOfParametrizedPort,default,CMP_EQUAL,,,match
@@ -583,9 +583,9 @@ ParameterOfSizeOfParametrizedPortInSubmodule,default,CMP_EQUAL,,,differ
 ParameterOfSizeOfPort,default,CMP_EQUAL,,,match
 ParameterPackedArray,default,CMP_EQUAL,,,differ
 ParameterPackedArraySurelogSubstitution,default,CMP_EQUAL,,,differ
-ParameterPassedTo3TimesNestedSubmodule,default,CMP_NOTEQUAL,decompile:,,
-ParameterPassedToSubmoduleInGenscopeOfSubmodule,default,CMP_NOTEQUAL,decompile:,,
-ParameterPassedToSubmoduleOfSubmodule,default,CMP_NOTEQUAL,decompile:,,
+ParameterPassedTo3TimesNestedSubmodule,default,CMP_EQUAL,,,differ
+ParameterPassedToSubmoduleInGenscopeOfSubmodule,default,CMP_EQUAL,,,differ
+ParameterPassedToSubmoduleOfSubmodule,default,CMP_EQUAL,,,differ
 ParameterRangeUsingDot,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ParameterRangeUsingDot/dut.sv:41:47: error: assignment pattern for 'part_info_t$[2]' requires 2 eleme,,
 ParameterSizeOfInstance,default,CMP_EQUAL,,,match
 ParameterUnpackedArray,default,CMP_EQUAL,,,match
@@ -761,7 +761,7 @@ StructParameter,default,CMP_EQUAL,,,match
 StructParameterInGenScope,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/StructParameterInGenScope/dut.sv:30:67: error: use of undeclared identifier 'PageW',,
 StructParameterInitializedWithPatternAndReferenced,default,CMP_EQUAL,,,differ
 subbytes,default,CMP_EQUAL,,,match
-SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,default,CMP_NOTEQUAL,decompile:,,
+SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,default,CMP_EQUAL,,,differ
 SumOfParameters,default,CMP_EQUAL,,,differ
 SumOfParametersInNestedForLoops,default,CMP_EQUAL,,,differ
 sva_basic00,default,CMP_EQUAL,,,match
@@ -1443,10 +1443,10 @@ ParameterInitializationWithNegation,testflags,CMP_EQUAL,,,match
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,testflags,CMP_EQUAL,,,differ
 ParameterInitializedByPartSelectOfParameters,testflags,CMP_EQUAL,,,match
 ParameterInitializedByPartSelectOfParametersAssignedToVar,testflags,CMP_EQUAL,,,differ
-ParameterInitializedInSubModuleOfTopOf5LevelHierarchy,testflags,CMP_NOTEQUAL,decompile:,,
-ParameterInitializedInTopOf5LevelHierarchy,testflags,CMP_NOTEQUAL,decompile:,,
-ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle,testflags,CMP_NOTEQUAL,decompile:,,
-ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle,testflags,CMP_NOTEQUAL,decompile:,,
+ParameterInitializedInSubModuleOfTopOf5LevelHierarchy,testflags,CMP_EQUAL,,,match
+ParameterInitializedInTopOf5LevelHierarchy,testflags,CMP_EQUAL,,,match
+ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle,testflags,CMP_EQUAL,,,match
+ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle,testflags,CMP_EQUAL,,,match
 ParameterOfParametrizedType,testflags,CMP_EQUAL,,,differ
 ParameterOfParametrizedTypeInSubmodule,testflags,CMP_EQUAL,,,differ
 ParameterOfSizeOfParametrizedPort,testflags,CMP_EQUAL,,,match
@@ -1454,9 +1454,9 @@ ParameterOfSizeOfParametrizedPortInSubmodule,testflags,CMP_EQUAL,,,differ
 ParameterOfSizeOfPort,testflags,CMP_EQUAL,,,match
 ParameterPackedArray,testflags,CMP_EQUAL,,,differ
 ParameterPackedArraySurelogSubstitution,testflags,CMP_EQUAL,,,differ
-ParameterPassedTo3TimesNestedSubmodule,testflags,CMP_NOTEQUAL,decompile:,,
-ParameterPassedToSubmoduleInGenscopeOfSubmodule,testflags,CMP_NOTEQUAL,decompile:,,
-ParameterPassedToSubmoduleOfSubmodule,testflags,CMP_NOTEQUAL,decompile:,,
+ParameterPassedTo3TimesNestedSubmodule,testflags,CMP_EQUAL,,,differ
+ParameterPassedToSubmoduleInGenscopeOfSubmodule,testflags,CMP_EQUAL,,,differ
+ParameterPassedToSubmoduleOfSubmodule,testflags,CMP_EQUAL,,,differ
 ParameterRangeUsingDot,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ParameterRangeUsingDot/dut.sv:41:47: error: assignment pattern for 'part_info_t$[2]' requires 2 eleme,,
 ParameterSizeOfInstance,testflags,CMP_EQUAL,,,match
 ParameterUnpackedArray,testflags,CMP_EQUAL,,,match
@@ -1632,7 +1632,7 @@ StructParameter,testflags,CMP_EQUAL,,,match
 StructParameterInGenScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/StructParameterInGenScope/dut.sv:30:67: error: use of undeclared identifier 'PageW',,
 StructParameterInitializedWithPatternAndReferenced,testflags,CMP_EQUAL,,,differ
 subbytes,testflags,CMP_EQUAL,,,match
-SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,testflags,CMP_NOTEQUAL,decompile:,,
+SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,testflags,CMP_EQUAL,,,differ
 SumOfParameters,testflags,CMP_EQUAL,,,differ
 SumOfParametersInNestedForLoops,testflags,CMP_EQUAL,,,differ
 sva_basic00,testflags,CMP_EQUAL,,,match

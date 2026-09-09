@@ -25,16 +25,16 @@ the build inside the pinned Surelog tree — the one
 
 | Corpus | Mode | Rows | Equal | Not-equal |
 |---|---|---|---|---|
-| Surelog suite | default | 798 | 459 | 24 |
-| Surelog suite | testflags | 798 | 455 | 22 |
-| uhdm2rtlil | default | 871 | 733 | 71 |
-| uhdm2rtlil | testflags | 871 | 733 | 71 |
+| Surelog suite | default | 798 | 463 | 20 |
+| Surelog suite | testflags | 798 | 459 | 18 |
+| uhdm2rtlil | default | 871 | 741 | 63 |
+| uhdm2rtlil | testflags | 871 | 741 | 63 |
 
 For comparison, pilot 0.1 measured 477/4 + 471/4 and 679/0 ×2 on its own
 pins. The regression sets cluster in interface-parameter, struct-parameter,
 and hierarchy-parameter families (plus the new ibex_* and latch_* tests in
-uhdm2rtlil v0.68). The four slang-fenced tests remain not-equal in both
-modes. Baselines: `results/golden_surelog.csv`,
+uhdm2rtlil v0.68). Three of the four slang-fenced tests remain not-equal in both
+modes (one converted untargeted under the new pins). Baselines: `results/golden_surelog.csv`,
 `results/gate_uhdm2rtlil.csv` (testflags gate),
 `results/golden_uhdm2rtlil.csv` (both modes);
 `GOLDEN_EQUIVALENCE.md` §3.3 carries the generated table.
