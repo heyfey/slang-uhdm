@@ -1,0 +1,47 @@
+r11v4 VERIFIER — ADVERSARIAL ARMS, REAL SURELOG v1.87 GOLDENS
+pristine md5 2f28c372da15bec082e100bd0dfdea51   (= the mandated ec81cb73 hash)
+patched  md5 d04166c8a76696277865fd07469e022e   (= /tmp/r11u4.patch as submitted)
+fixed    md5 0b790313456c47969f76b67be91221f7   (= /tmp/r11u4.verified.patch)
+
+---- ARM RUN LOG (every rc recorded) ----
+v1/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=31503 oursbytes=28898
+v1/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=31503 oursbytes=30204
+v1/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=31503 oursbytes=28886
+v2/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29737 oursbytes=37356
+v2/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29737 oursbytes=37332
+v2/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29737 oursbytes=37332
+v3/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29971 oursbytes=34425
+v3/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29971 oursbytes=35732
+v3/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29971 oursbytes=34344
+v4/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=27662 oursbytes=28374
+v4/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=27662 oursbytes=28343
+v4/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=27662 oursbytes=28343
+v5/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=0 LHSheads=0 goldenbytes=7503 oursbytes=7627
+v5/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=7503 oursbytes=7819
+v5/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=0 LHSheads=0 goldenbytes=7503 oursbytes=7627
+v6/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=0 LHSheads=0 goldenbytes=6330 oursbytes=6409
+v6/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=6330 oursbytes=6668
+v6/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=0 LHSheads=0 goldenbytes=6330 oursbytes=6409
+v7/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=23566 oursbytes=27663
+v7/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=23566 oursbytes=27551
+v7/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=23566 oursbytes=27551
+v8/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=35131 oursbytes=37709
+v8/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=35131 oursbytes=39528
+v8/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=35131 oursbytes=39528
+v9/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29135 oursbytes=31380
+v9/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29135 oursbytes=31416
+v9/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=29135 oursbytes=31416
+g1/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=22634 oursbytes=26745
+g1/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=22634 oursbytes=26679
+g1/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=22634 oursbytes=26679
+g2/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=43251 oursbytes=40770
+g2/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=43251 oursbytes=42375
+g2/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=43251 oursbytes=40725
+g3/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=18627 oursbytes=18589
+g3/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=18627 oursbytes=18583
+g3/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=18627 oursbytes=18583
+
+---- v10 ----
+v10/pris  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=28581 oursbytes=31799
+v10/pat  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=28581 oursbytes=32952
+v10/fix  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 goldenbytes=28581 oursbytes=31762

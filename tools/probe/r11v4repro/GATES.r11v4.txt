@@ -1,0 +1,87 @@
+r11v4 — VERIFIER GATES, ALL MEASURED IN THIS PASS
+=================================================
+base ec81cb73.  Worktrees /tmp/wt_v11u4 (patch), /tmp/wt_v11u4fix (patch+fix),
+/tmp/wt_v11u4pris (pristine).  Binaries frozen chmod 555 before any sweep.
+
+(1) BUILDS
+    pristine  2f28c372da15bec082e100bd0dfdea51   <- the mandated ec81cb73 hash
+    patched   d04166c8a76696277865fd07469e022e   <- /tmp/r11u4.patch as submitted
+    fixed     0b790313456c47969f76b67be91221f7   <- /tmp/r11u4.verified.patch
+    all three configure+build rc 0, 0 errors, -j 2.
+
+(2) GOLDENS
+    fixed     23 PASS / 0 FAIL
+    pristine  23 PASS / 0 FAIL
+    SLANG_UHDM=/bin/false   0 PASS / 23 FAIL      (negative control)
+
+(3) cmds.txt AUDIT BY BINARY PATH
+    u2r_pris 1742 -> /tmp/v11u4_bin/pristine.bin
+    u2r_pat  1742 -> /tmp/v11u4_bin/patched.bin
+    u2r_fix  1742 -> /tmp/v11u4_bin/fixed.bin
+    sl_pris  1531 -> /tmp/v11u4_bin/pristine.bin
+    (likewise sl_pat -> patched.bin, sl_fix -> fixed.bin)
+
+(4) PRISTINE SWEEPS REPRODUCE THE COMMITTED BASELINES
+    u2r  741 CMP_EQUAL / 63 CMP_NOTEQUAL / 67 SLANG_REJECT in BOTH modes;
+         ct8rows vs results/golden_uhdm2rtlil.csv  PASS, every row byte-identical.
+    sl   463/20 default and 459/18 testflags; ct8rows vs results/golden_surelog.csv
+         differs ONLY in the two LowMem* SURELOG_FAIL detail strings, which embed
+         the workdir path.  Status and dump histograms identical.
+
+(5) CANDIDATE SWEEPS  (fixed binary; the patched binary's CSVs are IDENTICAL
+    after normalising the workdir path -- DIFFCOUNT 0)
+    u2r  742/62/67 in BOTH modes.   dump match 527 -> 527 (default), 531 -> 531 (testflags)
+    sl   465/18 default, 461/16 testflags.  dump match 226 -> 226, 166 -> 166
+    ROWS THAT CONVERT, both modes each:
+      GenForIfaceLocalparamBound,default,CMP_NOTEQUAL,decompile:,,   -> CMP_EQUAL,,,differ
+      GenForIfaceLocalparamBound,testflags,CMP_NOTEQUAL,decompile:,, -> CMP_EQUAL,,,differ
+      OneNetRange,default,CMP_NOTEQUAL,decompile:,,                  -> CMP_EQUAL,,,differ
+      OneNetRange,testflags,CMP_NOTEQUAL,decompile:,,                -> CMP_EQUAL,,,differ
+      iface_array_elem_cfg_param,default,CMP_NOTEQUAL,decompile:,,   -> CMP_EQUAL,,,differ
+      iface_array_elem_cfg_param,testflags,CMP_NOTEQUAL,decompile:,, -> CMP_EQUAL,,,differ
+    NOTHING ELSE MOVED A ROW.
+
+(6) BYTEVERIFY  (SELFCHECK=1, fixed vs this pass's own pristine workdirs)
+    u2r      2 / 1608 movers   SELFCHECK 1607/1608
+             both = iface_array_elem_cfg_param (default, testflags)
+    surelog 12 /  960 movers   SELFCHECK 959/960
+             8 law: GenForIfaceLocalparamBound, GenForIfaceLocalparamNestedGen,
+                    GenIfIfaceParamStructField, OneNetRange -- both modes each
+             4 coin: MiniAmiq x2, SeqDriver x2  -- see COIN.proof.txt
+    EVERY mover was CMP_NOTEQUAL at the committed baseline.
+    NOT ONE CMP_EQUAL DATABASE MOVED A BYTE.
+    A-priori superset (vpredict.py, sources only, no patched artefact read):
+    106 of 798 surelog tests, 71 of 825 u2r test dirs; every mover inside it;
+    692 surelog and 754 u2r tests asserted immovable a priori and none moved.
+
+(7) THE TWO LAW MOVERS THAT DO NOT CONVERT MOVE TOWARD GOLDEN
+    official uhdm-cmp stderr line count against the real golden:
+      GenForIfaceLocalparamNestedGen  92 (pris) -> 54 (patched) -> 9 (FIXED)
+      GenIfIfaceParamStructField      92 (pris) -> 54 (patched) -> 9 (FIXED)
+    one head each throughout; census LOST=0 for both binaries.
+
+(8) CANARIES
+    canaries.sh  sl  ok=52 changed=0 absent=0
+    canaries.sh  u2r ok=8  changed=0 absent=0
+    ctcan2.sh    sl  PASS (ok=58 changed=0)   u2r PASS (ok=1 changed=0)
+    canaudit.sh      audited=29  UNCOVERED=0  FENCE-BREACH=0
+    HARD BYTE PINS, both modes, pristine == fixed:
+      SVSwitch            4842211c4030   (pin)
+      YosysVerx           6ccda350c24a   (pin)
+      InterfaceModPort    59a365f3ce2c   (pin)
+      BlackParrotComplex  e3e354129d5a default / 73a10e8217e5 testflags
+      YosysOldOr          d68e0796d62c
+    rowheads: one head per row on 12 measured rows; Rggen/default 801,
+    Earlgrey_0_1 32 both modes; SKIP-NOFILE on Scoreboard/tf and Rggen/tf.
+
+(9) FENCE (r11u1 § ifacePortViewParamAssignsOnly, 18 converted tests)
+    all 14 u2r members CMP_EQUAL in both modes under the fixed binary, and
+    none of them moved a byte.
+
+(10) PATCH SURFACE
+    1 production file (src/ModuleEmit.cpp) + tools/probe/r11u4repro/ +
+    tools/probe/r11v4repro/.  results/*.csv untouched (0 hits).
+    fence scan over the four slang-fenced names (the FENCED= list, not spelled
+    here): 0 hits each in the patch, canaudit.sh excluded.
+    Applies clean on a fresh ec81cb73 (git apply, rc 0, 0 conflict markers);
+    the applied src/ModuleEmit.cpp is byte-identical to the gated worktree's.

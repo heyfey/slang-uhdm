@@ -1,0 +1,16 @@
+PREDICT-MOVER GenForIfaceLocalparamBound default faces=C
+PREDICT-MOVER GenForIfaceLocalparamBound testflags faces=C
+PREDICT-MOVER GenForIfaceLocalparamNestedGen default faces=ABC
+PREDICT-MOVER GenForIfaceLocalparamNestedGen testflags faces=ABC
+PREDICT-MOVER GenIfIfaceParamStructField default faces=AB
+PREDICT-MOVER GenIfIfaceParamStructField testflags faces=AB
+PREDICT-MOVER InterfaceElab default faces=AC
+PREDICT-MOVER InterfaceElab testflags faces=AC
+PREDICT-MOVER InterfaceParamOverrideProp default faces=AB
+PREDICT-MOVER InterfaceParamOverrideProp testflags faces=AB
+PREDICT-MOVER InterfaceUnpackedStructArrayDim default faces=A
+PREDICT-MOVER InterfaceUnpackedStructArrayDim testflags faces=A
+PREDICT-MOVER OneNetRange default faces=A
+PREDICT-MOVER OneNetRange testflags faces=A
+PREDICT-MOVER Rggen default faces=AC
+PREDDONE_SL

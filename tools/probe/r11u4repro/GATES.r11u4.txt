@@ -1,0 +1,110 @@
+r11u4 — § ifacePortViewPaFoldsDeclDefault — GATES, all measured in this pass's
+own worktree (/tmp/wt_r11u4 at ec81cb73) with both binaries frozen chmod 555.
+
+(1) BINARIES
+    pristine  md5 2f28c372da15bec082e100bd0dfdea51  <- byte-identical to the
+              main tree at the base commit, the mandated hash
+    patched   md5 d04166c8a76696277865fd07469e022e
+    build rc 0, 0 errors on both; the pristine full build shows the same 20
+    narrowing warnings the base is known for.
+
+(2) GOLDENS
+    patched  23 PASS / 0 FAIL
+    pristine 23 PASS / 0 FAIL
+    SLANG_UHDM=/bin/false  0 PASS / 23 FAIL   (negative control)
+
+(3) uhdm2rtlil, BOTH MODES (--mode both, --jobs 2, own --out/--workdir)
+    pristine 741 equal / 63 not-equal / 67 reject in both modes
+             ct8rows vs results/golden_uhdm2rtlil.csv: 0 differing ROWS
+    patched  742 / 62 / 67 in both modes
+             ct8rows: exactly 2 differing ROWS, both the SAME test converting:
+               iface_array_elem_cfg_param,default   CMP_NOTEQUAL -> CMP_EQUAL
+               iface_array_elem_cfg_param,testflags CMP_NOTEQUAL -> CMP_EQUAL
+             ct8rows vs results/gate_uhdm2rtlil.csv (testflags): 1 row, the same
+             dump column: match 527 / 531 UNCHANGED in both modes
+    cmds.txt audit: 1742 / 1742 name /tmp/r11u4_bin/patched.bin
+
+(4) Surelog suite, BOTH MODES
+    pristine default 463/20, testflags 459/18  <- the mandated baseline
+             ct8rows: only the two LowMem* SURELOG_FAIL detail cells that embed
+             the workdir path; status unchanged, every histogram identical
+    patched  default 465/18, testflags 461/16
+             ct8rows: 6 differing ROWS = the two LowMem* path cells plus
+               GenForIfaceLocalparamBound,default   CMP_NOTEQUAL -> CMP_EQUAL
+               GenForIfaceLocalparamBound,testflags CMP_NOTEQUAL -> CMP_EQUAL
+               OneNetRange,default                  CMP_NOTEQUAL -> CMP_EQUAL
+               OneNetRange,testflags                CMP_NOTEQUAL -> CMP_EQUAL
+             dump column: match 226 / 166 UNCHANGED in both modes
+    cmds.txt audit: 1531 / 1531 slang lines name /tmp/r11u4_bin/patched.bin
+                    (50 further cmds.txt are golden-side failures with no slang
+                     line, identical on both sides)
+
+(5) BYTEVERIFY (SELFCHECK=1, patched vs this pass's own pristine workdirs)
+    uhdm2rtlil  2 / 1608 movers, selfcheck 1607/1608
+        ./default/iface_array_elem_cfg_param   ./testflags/iface_array_elem_cfg_param
+      -> BOTH predicted BY NAME (PREDICT.uhdm2rtlil.txt, faces=B), both
+         CMP_NOTEQUAL at the baseline, both CONVERT.  NOT ONE CMP_EQUAL
+         DATABASE MOVED A BYTE.
+    surelog    14 / 960 movers, selfcheck 959/960
+        8 law-named, all predicted, all CMP_NOTEQUAL at the baseline:
+          GenForIfaceLocalparamBound      default+testflags  (CONVERTS)
+          OneNetRange                     default+testflags  (CONVERTS)
+          GenForIfaceLocalparamNestedGen  default+testflags  (moves toward golden)
+          GenIfIfaceParamStructField      default+testflags  (moves toward golden)
+        6 UVM-family coins, attributed ORDER-BLIND (OBLIND.coin.txt):
+          Scoreboard/default        0 lines            <- pure object-order flip
+          MiniAmiq/default          4 lines  UINT:1516 vs UINT:850  + decompile
+          MiniAmiq/testflags        4 lines  UINT:0    vs UINT:1091 + decompile
+          SeqDriver/default         4 lines  UINT:673  vs UINT:0    + decompile
+          SeqDriver/testflags       4 lines  UINT:0    vs UINT:839  + decompile
+          SimpleUVM/default         4 lines  UINT:635  vs UINT:1506 + decompile
+        identical database sizes on every one; the signature is a single
+        line-number-class constant in a UVM report-macro expansion.  The law
+        writes only vpiOverriden, a param_assign Rhs pointer and a constant's
+        Typespec, and touches no such object.
+    THE COIN IS PROVED, NOT ASSERTED, on the PRISTINE binary alone:
+        SeqDriver  3 consecutive pristine runs -> 68cc3d64d0ec, 74d42a85a10e,
+                   ec41ad8a5166.  Run 1's hash is EXACTLY the hash byteverify
+                   attributed to the PATCHED binary.
+        MiniAmiq   3 consecutive pristine runs -> 26f2ced81671, d893f3998327,
+                   71d13dfb8bc3, plus the sweep's e9183812b66f and a fourth
+                   standalone e5941d6ea882: five distinct PRISTINE hashes.
+
+(6) CANARIES AND PINS
+    surelog     canaries ok=52 changed=0; ctcan2 ok=58 changed=0 PASS
+    uhdm2rtlil  canaries ok=8  changed=0; ctcan2 ok=1  changed=0 PASS
+    canaudit    audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+    HARD BYTE PINS, both modes, exact:
+        SVSwitch   4842211c4030      YosysVerx  6ccda350c24a
+    STATUS PINS, byte-identical to pristine in both modes:
+        InterfaceModPort 59a365f3ce2c   YosysOldOr d68e0796d62c
+        BlackParrotComplex e3e354129d5a (default) / 73a10e8217e5 (testflags)
+    rowheads: ONE head per row on SeqDriver, SimpleUVM, Scoreboard, MiniAmiq,
+        BuildUVMPkg, Earlgrey_0_1, Rggen (Rggen/default 801 cmp lines,
+        Earlgrey 32, unchanged); the two SKIP-NOFILE cells are the documented
+        Scoreboard/testflags and Rggen/testflags.
+
+(7) THE r11u1 FENCE — its 18 converted tests are all still CMP_EQUAL in BOTH
+    modes under the patched binary: InterfType, InterfaceElab,
+    InterfaceParamOverrideProp, InterfaceUnpackedStructArrayDim, iface_cfg_mem,
+    iface_cfg_param_def_pass, iface_nested_param_field, iface_scalar_localparam,
+    iface_struct_field_param_width, iface_struct_field_partsel,
+    iface_unpacked_struct_array, iface_wholestruct_param, jeras_tcb_gpio,
+    simple_interface, interface_array (+ the rest of the u2r iface_* family).
+    Nine of them were in the predictor's SUPERSET and did NOT move: every one
+    is a NAMED-MODPORT port view, which the law exempts.
+
+(8) MOVED-WRONG / AWAY SCORING (pagree.sh, the param_assign GRID scorer)
+    uhdm2rtlil  28 rows scored, TOTAL-LOST = 0
+    surelog     19 rows scored, TOTAL-LOST = 0  (Rggen/default 1616 -> 1616)
+    POSITIVE CONTROL, arguments swapped, names the exact cell:
+        iface_array_elem_cfg_param/default   agree 4 -> 3  LOST 1
+          work@top.u.s CFG ovr=0 HAS-TS operation@13:45-13:54 ... UINT:8
+    GRID ARMS (real Surelog v1.87, `[ERROR] : 0` and slang rc 0 on BOTH
+    binaries for all three):
+        g1  golden rows 48   agree 24 -> 27   LOST 0   swapped-LOST 3
+        g2  golden rows 42   agree 16 -> 21   LOST 0   swapped-LOST 5
+        g3  golden rows 10   agree  7 ->  7   LOST 0   swapped-LOST 0
+    (the arm scorer reads SPANS, which no generated Compare reads, so it is
+     STRICTER than the judge: GenForIfaceLocalparamBound scores 7 -> 7 and
+     still CONVERTS, because golden narrows the folded constant's span.)

@@ -1,0 +1,15 @@
+== g1
+[  ERROR] : 0
+  slang pristine rc: 0 stderr lines
+  slang patched  rc: 0 stderr lines
+  golden rows=48 agree_pris=24 agree_pat=27
+== g2
+[  ERROR] : 0
+  slang pristine rc: 0 stderr lines
+  slang patched  rc: 0 stderr lines
+  golden rows=42 agree_pris=16 agree_pat=21
+== g3
+[  ERROR] : 0
+  slang pristine rc: 0 stderr lines
+  slang patched  rc: 0 stderr lines
+  golden rows=10 agree_pris=7 agree_pat=7

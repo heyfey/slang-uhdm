@@ -1,0 +1,90 @@
+---- SCORES: PRISTINE -> PATCHED (the submitted /tmp/r11u4.patch) ----
+v1         golden_rows=26   agree_pris=15   agree_pat=15   WON=0   LOST=0
+v2         golden_rows=53   agree_pris=7    agree_pat=7    WON=0   LOST=0
+v3         golden_rows=48   agree_pris=28   agree_pat=30   WON=4   LOST=2
+    LOST work@top.a3.q|CFG|ovr=0|operation <vpiTypespec> .ref_typespec .<vpiActual> ..struct_typespec ..|vpiName:r::bus_t ..|vpiName:DAT ..<vpiTypespec> ...ref_typespec ...<vpiActual> ....int_typespec |vpiOpType:75 <vpiOperand> .constant .|vpiDecompile:32 .|vpiSize:32 .|UINT:32 .|vpiConstType:9
+    LOST work@top.a4.q|CFG|ovr=0|operation <vpiTypespec> .ref_typespec .<vpiActual> ..struct_typespec ..|vpiName:r::bus_t ..|vpiName:DAT ..<vpiTypespec> ...ref_typespec ...<vpiActual> ....int_typespec |vpiOpType:75 <vpiOperand> .constant .|vpiDecompile:32 .|vpiSize:32 .|UINT:32 .|vpiConstType:9
+v4         golden_rows=28   agree_pris=20   agree_pat=26   WON=6   LOST=0
+v5         golden_rows=4    agree_pris=4    agree_pat=3    WON=0   LOST=1
+    LOST work@top.a0.q|CFG|ovr=0|operation <vpiTypespec> .ref_typespec .<vpiActual> ..struct_typespec ..|vpiName:r::bus_t ..|vpiName:DAT ..<vpiTypespec> ...ref_typespec ...<vpiActual> ....int_typespec |vpiOpType:75 <vpiOperand> .constant .|vpiDecompile:32 .|vpiSize:32 .|UINT:32 .|vpiConstType:9
+v6         golden_rows=4    agree_pris=4    agree_pat=3    WON=0   LOST=1
+    LOST work@top.a0.q|CFG|ovr=0|operation <vpiTypespec> .ref_typespec .<vpiActual> ..struct_typespec ..|vpiName:bus_t ..|vpiName:DAT ..<vpiTypespec> ...ref_typespec ...<vpiActual> ....int_typespec |vpiOpType:75 <vpiOperand> .constant .|vpiDecompile:32 .|vpiSize:32 .|UINT:32 .|vpiConstType:9
+v7         golden_rows=63   agree_pris=44   agree_pat=49   WON=5   LOST=0
+v8         golden_rows=36   agree_pris=14   agree_pat=14   WON=0   LOST=0
+v9         golden_rows=36   agree_pris=20   agree_pat=20   WON=0   LOST=0
+g1         golden_rows=60   agree_pris=36   agree_pat=41   WON=5   LOST=0
+g2         golden_rows=45   agree_pris=19   agree_pat=20   WON=1   LOST=0
+g3         golden_rows=13   agree_pris=10   agree_pat=10   WON=0   LOST=0
+
+---- SCORES: PRISTINE -> FIXED (/tmp/r11u4.verified.patch) ----
+v1         golden_rows=26   agree_pris=15   agree_pat=15   WON=0   LOST=0
+v2         golden_rows=53   agree_pris=7    agree_pat=7    WON=0   LOST=0
+v3         golden_rows=48   agree_pris=28   agree_pat=32   WON=4   LOST=0
+v4         golden_rows=28   agree_pris=20   agree_pat=26   WON=6   LOST=0
+v5         golden_rows=4    agree_pris=4    agree_pat=4    WON=0   LOST=0
+v6         golden_rows=4    agree_pris=4    agree_pat=4    WON=0   LOST=0
+v7         golden_rows=63   agree_pris=44   agree_pat=49   WON=5   LOST=0
+v8         golden_rows=36   agree_pris=14   agree_pat=14   WON=0   LOST=0
+v9         golden_rows=36   agree_pris=20   agree_pat=20   WON=0   LOST=0
+g1         golden_rows=60   agree_pris=36   agree_pat=41   WON=5   LOST=0
+g2         golden_rows=45   agree_pris=19   agree_pat=20   WON=1   LOST=0
+g3         golden_rows=13   agree_pris=10   agree_pat=10   WON=0   LOST=0
+
+---- POSITIVE CONTROL: arguments SWAPPED (fixed as base, pristine as candidate)
+     every arm the law GAINS on must now report LOST>0, naming the cell ----
+v3         golden_rows=48   agree_pris=32   agree_pat=28   WON=0   LOST=4
+    LOST work@top.a3.q|BYT|ovr=0|constant |vpiDecompile:6 |vpiSize:32 |INT:6 |vpiConstType:7
+    LOST work@top.a3.q|NI|ovr=0|constant |vpiDecompile:-3 |vpiSize:32 |INT:-3 |vpiConstType:7
+    LOST work@top.a4.q|BYT|ovr=0|constant |vpiDecompile:6 |vpiSize:32 |INT:6 |vpiConstType:7
+    LOST work@top.a4.q|NI|ovr=0|constant |vpiDecompile:-3 |vpiSize:32 |INT:-3 |vpiConstType:7
+v4         golden_rows=28   agree_pris=26   agree_pat=20   WON=0   LOST=6
+    LOST work@top.gl[0].mg.conn|width|ovr=0|constant |vpiDecompile:16 |vpiSize:32 |UINT:16 <vpiTypespec> .ref_typespec .<vpiActual> ..int_typespec ..|vpiSigned:1 |vpiConstType:9
+    LOST work@top.gl[1].mg.conn|width|ovr=0|constant |vpiDecompile:16 |vpiSize:32 |UINT:16 <vpiTypespec> .ref_typespec .<vpiActual> ..int_typespec ..|vpiSigned:1 |vpiConstType:9
+    LOST work@top.m1.conn|lim|ovr=0|constant |vpiDecompile:15 |vpiSize:32 |INT:15 |vpiConstType:7
+    LOST work@top.m1.conn|width|ovr=0|constant |vpiDecompile:16 |vpiSize:32 |UINT:16 <vpiTypespec> .ref_typespec .<vpiActual> ..int_typespec ..|vpiSigned:1 |vpiConstType:9
+    LOST work@top.m2.conn|lim|ovr=0|constant |vpiDecompile:15 |vpiSize:32 |INT:15 |vpiConstType:7
+    LOST work@top.m2.conn|width|ovr=0|constant |vpiDecompile:16 |vpiSize:32 |UINT:16 <vpiTypespec> .ref_typespec .<vpiActual> ..int_typespec ..|vpiSigned:1 |vpiConstType:9
+v7         golden_rows=63   agree_pris=49   agree_pat=44   WON=0   LOST=5
+    LOST work@top.a3.q|M1|ovr=0|constant |vpiDecompile:165 |vpiSize:8 |UINT:165 |vpiConstType:9
+    LOST work@top.a3.q|M2|ovr=0|constant |vpiDecompile:3 |vpiSize:32 |UINT:3 |vpiConstType:9
+    LOST work@top.a3.q|M3|ovr=0|constant |vpiDecompile:12 |vpiSize:32 |INT:12 |vpiConstType:7
+    LOST work@top.a3.q|M4|ovr=0|constant |vpiDecompile:6 |vpiSize:32 |UINT:6 |vpiConstType:9
+    LOST work@top.a3.q|M6|ovr=0|constant |vpiDecompile:7 |vpiSize:16 |INT:7 |vpiConstType:7
+g1         golden_rows=60   agree_pris=41   agree_pat=36   WON=0   LOST=5
+    LOST work@top.a0.q|ST|ovr=0|constant |vpiDecompile:def |vpiSize:24 |STRING:def <vpiTypespec> .ref_typespec .<vpiActual> ..string_typespec |vpiConstType:6
+    LOST work@top.a1.q|ST|ovr=0|constant |vpiDecompile:def |vpiSize:24 |STRING:def <vpiTypespec> .ref_typespec .<vpiActual> ..string_typespec |vpiConstType:6
+    LOST work@top.a3.q|ST|ovr=0|constant |vpiDecompile:def |vpiSize:24 |STRING:def <vpiTypespec> .ref_typespec .<vpiActual> ..string_typespec |vpiConstType:6
+    LOST work@top.a4.q|BYT|ovr=0|constant |vpiDecompile:6 |vpiSize:32 |INT:6 |vpiConstType:7
+    LOST work@top.a4.q|NI|ovr=0|constant |vpiDecompile:-3 |vpiSize:32 |INT:-3 |vpiConstType:7
+g2         golden_rows=45   agree_pris=20   agree_pat=19   WON=0   LOST=1
+    LOST work@top.a4.q|BYT|ovr=0|constant |vpiDecompile:4 |vpiSize:32 |INT:4 |vpiConstType:7
+
+---- v10 (added after the first score table) ----
+v10        golden_rows=36   agree_pris=23   agree_pat=23   WON=0   LOST=0
+v10        golden_rows=36   agree_pris=23   agree_pat=23   WON=0   LOST=0
+
+---- WIDE BOUNDARY: 27 committed arms of r11u1/r11u3/r11v1/r11vu3, 11 move ----
+r11u1repro_grid1 golden_rows=39   agree_pris=23   agree_pat=27   WON=4   LOST=0
+r11u1repro_grid2 golden_rows=24   agree_pris=16   agree_pat=19   WON=3   LOST=0
+r11u1repro_grid3 golden_rows=12   agree_pris=7    agree_pat=7    WON=0   LOST=0
+r11v1repro_vA golden_rows=14   agree_pris=11   agree_pat=11   WON=0   LOST=0
+r11v1repro_vC golden_rows=25   agree_pris=19   agree_pat=19   WON=0   LOST=0
+r11v1repro_vD golden_rows=10   agree_pris=9    agree_pat=9    WON=0   LOST=0
+r11v1repro_vF golden_rows=22   agree_pris=13   agree_pat=13   WON=0   LOST=0
+r11v1repro_vJ golden_rows=18   agree_pris=13   agree_pat=13   WON=0   LOST=0
+r11v1repro_vK golden_rows=14   agree_pris=10   agree_pat=10   WON=0   LOST=0
+r11v1repro_vL golden_rows=8    agree_pris=5    agree_pat=5    WON=0   LOST=0
+r11v1repro_vM golden_rows=13   agree_pris=6    agree_pat=6    WON=0   LOST=0
+
+     official uhdm-cmp line count, pristine -> fixed, head unchanged on all:
+     r11u1repro_grid1         18 -> 18
+     r11u1repro_grid2          9 -> 9
+     r11u1repro_grid3         23 -> 16
+     r11v1repro_vA            23 -> 16
+     r11v1repro_vC            32 -> 32
+     r11v1repro_vD            23 -> 16
+     r11v1repro_vF            19 -> 19
+     r11v1repro_vJ            23 -> 16
+     r11v1repro_vK            19 -> 19
+     r11v1repro_vL            18 -> 18
+     r11v1repro_vM            68 -> 68

@@ -1,0 +1,39 @@
+r11v4 — SeqDriver / MiniAmiq ARE THE COIN, PROVED HERE, NOT ASSERTED
+====================================================================
+byteverify (surelog, fixed vs pristine, 960 databases) reports 12 movers:
+8 law movers (GenForIfaceLocalparamBound, GenForIfaceLocalparamNestedGen,
+GenIfIfaceParamStructField, OneNetRange -- each in both modes) and
+4 coin movers (MiniAmiq x2, SeqDriver x2).
+
+1. THE SAME BINARY GIVES BOTH HASHES.  The FIXED binary run serially three
+   times on SeqDriver produces 68cc3d64d0ec3d23859e540465ff5e2b -- which is
+   EXACTLY the hash byteverify attributed to the PRISTINE side:
+
+     sf1/sf2/sf3 (FIXED, serial)     68cc3d64d0ec3d23859e540465ff5e2b
+     byteverify "pristine="          68cc3d64d0ec
+
+2. PRISTINE IS NONDETERMINISTIC UNDER THE SWEEP'S OWN CONCURRENCY.  Two
+   pristine runs launched CONCURRENTLY (the sweep uses --jobs 2):
+
+     sd5  718984aa3e88c67d3e8e7d6f5b69b703
+     sd6  68cc3d64d0ec3d23859e540465ff5e2b
+
+   Four pristine runs launched SERIALLY on an idle machine all agree
+   (sd1..sd4 = 68cc3d64d0ec...), so the flip is load-dependent, exactly as
+   the family is documented.
+
+3. ORDER-BLIND ATTRIBUTION: 4 lines on each of the four coin databases --
+   ONE UINT constant and its vpiDecompile, nothing else:
+
+     MiniAmiq/default    UINT:1212  <-> UINT:1246
+     MiniAmiq/testflags  4 lines, same class
+     SeqDriver/default   UINT:0     <-> UINT:583
+     SeqDriver/testflags UINT:0     <-> UINT:1529
+
+   The cell is uvm_pkg's `types_t` array_typespec range bound
+   (uvm-1.2/src ... line 642:23), a package typespec -- not an
+   interface_inst, not a param_assign, unreachable from this law.
+
+4. THE JUDGE SEES NOTHING.  The official uhdm-cmp stderr is BYTE-IDENTICAL
+   between the pristine and the fixed sweep database for both tests
+   (25 lines each), and rowheads reads one head per row on both.

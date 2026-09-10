@@ -331,7 +331,7 @@ ibex_wb_stage,testflags,CMP_NOTEQUAL,decompile:,,
 iface_arr_struct_field_partsel,testflags,CMP_EQUAL,,,differ
 iface_arr_struct_whole_field,testflags,CMP_EQUAL,,,differ
 iface_array_count,testflags,CMP_EQUAL,,,differ
-iface_array_elem_cfg_param,testflags,CMP_NOTEQUAL,decompile:,,
+iface_array_elem_cfg_param,testflags,CMP_EQUAL,,,differ
 iface_array_internal_assign,testflags,CMP_EQUAL,,,differ
 iface_array_modport_drive,testflags,CMP_EQUAL,,,differ
 iface_array_port,testflags,CMP_EQUAL,,,differ

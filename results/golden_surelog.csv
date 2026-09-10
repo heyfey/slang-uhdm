@@ -577,8 +577,8 @@ GenFor,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4
 GenFor,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
-GenForIfaceLocalparamBound,default,CMP_NOTEQUAL,decompile:,,
-GenForIfaceLocalparamBound,testflags,CMP_NOTEQUAL,decompile:,,
+GenForIfaceLocalparamBound,default,CMP_EQUAL,,,differ
+GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,differ
 GenForIfaceLocalparamNestedGen,default,CMP_NOTEQUAL,decompile:,,
 GenForIfaceLocalparamNestedGen,testflags,CMP_NOTEQUAL,decompile:,,
 GenForStructParamBound,default,CMP_EQUAL,,,differ
@@ -933,8 +933,8 @@ OneNetModPortGeneric,default,CMP_EQUAL,,,differ
 OneNetModPortGeneric,testflags,CMP_EQUAL,,,differ
 OneNetNonAnsi,default,CMP_EQUAL,,,match
 OneNetNonAnsi,testflags,CMP_EQUAL,,,match
-OneNetRange,default,CMP_NOTEQUAL,decompile:,,
-OneNetRange,testflags,CMP_NOTEQUAL,decompile:,,
+OneNetRange,default,CMP_EQUAL,,,differ
+OneNetRange,testflags,CMP_EQUAL,,,differ
 Opentitan,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Opentitan,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 OpTypespec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/OpTypespec/dut.sv:2:16: error: use of undeclared identifier 'Width',,

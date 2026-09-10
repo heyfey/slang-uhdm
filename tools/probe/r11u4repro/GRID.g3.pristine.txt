@@ -1,0 +1,10 @@
+work@gif                           W      ovr=0   HAS-TS  constant@5:35-5:36           |vpiDecompile:4 |vpiSize:64 |UINT:4
+work@tif                           W      ovr=0   HAS-TS  constant@11:35-11:36         |vpiDecompile:4 |vpiSize:64 |UINT:4
+work@top.c0.q                      W      ovr=1   HAS-TS  constant@5:35-5:36           |vpiDecompile:9 |vpiSize:32 |UINT:9
+work@top.c1.q                      W      ovr=1   HAS-TS  constant@5:35-5:36           |vpiDecompile:9 |vpiSize:32 |UINT:9
+work@top.c2.q                      W      ovr=1   HAS-TS  constant@11:35-11:36         |vpiDecompile:9 |vpiSize:32 |UINT:9
+work@top.c3.q                      W      ovr=1   HAS-TS  constant@11:35-11:36         |vpiDecompile:9 |vpiSize:32 |UINT:9
+work@top.c4.q                      W      ovr=1   HAS-TS  constant@11:35-11:36         |vpiDecompile:9 |vpiSize:32 |UINT:9
+work@top.u_g                       W      ovr=1   HAS-TS  constant@5:35-5:36           |vpiDecompile:9 |vpiSize:32 |UINT:9
+work@top.u_t1                      W      ovr=1   HAS-TS  constant@11:35-11:36         |vpiDecompile:9 |vpiSize:32 |UINT:9
+work@top.u_t2                      W      ovr=1   HAS-TS  constant@11:35-11:36         |vpiDecompile:9 |vpiSize:32 |UINT:9
