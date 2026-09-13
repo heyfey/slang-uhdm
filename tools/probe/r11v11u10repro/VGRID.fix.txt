@@ -1,0 +1,1629 @@
+=== v10_2e_override surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=18 heads=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2 sz=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+=== v11_16e5m surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=1621 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=16
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=16
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=16
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=16
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=16 ts=array_typespec
+  GOLD      operation      op=75 n=5 sz=6
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=16 ts=array_typespec
+  GOLD      operation      op=75 n=5 sz=6
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  GOLD      operation      op=75 n=5
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=16
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=16
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=16
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=16
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=16 ts=array_typespec
+  OURS      operation      op=75 n=5 sz=6
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=16 ts=array_typespec
+  OURS      operation      op=75 n=5 sz=6
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+  OURS      operation      op=75 n=5
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(lock)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(mode)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(exec)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(write)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(read)
+=== v1_2e_refobj surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=60 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=2
+  OURS      ref_obj        n=0 nm=A
+  OURS      ref_obj        n=0 nm=B
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=2
+  OURS      ref_obj        n=0 nm=A
+  OURS      ref_obj        n=0 nm=B
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+=== v13_2e_twoinst surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=107 heads=1
+  (shape listing elided; this arm is UNCHANGED by the law in every listing --
+   see armcen10v.py's table in README.md section 4)
+=== v15_2e_modnoport surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=63 heads=1
+  (shape listing elided; this arm is UNCHANGED by the law in every listing --
+   see armcen10v.py's table in README.md section 4)
+=== v16_ov_sub surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=18 heads=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2 sz=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+=== v17_ov_refobj surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=47 heads=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      ref_obj        n=0 nm=A
+  GOLD      ref_obj        n=0 nm=A
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2 sz=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        constant       n=0 sz=1 ct=3 val=BIN:1
+  GOLD        constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2 ts=struct_typespec ts_nm=(p::s_t)
+  GOLD        constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        constant       n=0 sz=1 ct=3 val=BIN:1
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+=== v18_ov_1e surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=8 heads=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:1
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+=== v19_noov_default surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=63 heads=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+=== v20_noov_sub surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=68 heads=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+grid10.sh: line 15: 3482913 Segmentation fault      $SL -parse -nobuiltin -nocache -sv dut.sv > sl.log 2>&1
+=== v2_2e_default surelog_rc=139 ours_rc=3 cmp_rc=0 cmplines=0 heads=0
+  (shape listing elided; this arm is UNCHANGED by the law in every listing --
+   see armcen10v.py's table in README.md section 4)
+=== v3_2d_2x2 surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=150 heads=1
+  (shape listing elided; this arm is UNCHANGED by the law in every listing --
+   see armcen10v.py's table in README.md section 4)
+=== v4_2e_repl surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=8 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=76 n=2
+  GOLD      constant       n=0 sz=64 ct=9 val=UINT:2
+  GOLD      operation      op=33 n=1
+  GOLD        operation      op=75 n=2
+  GOLD == topPackages :: P
+  GOLD    operation      op=76 n=2
+  GOLD      constant       n=0 sz=64 ct=9 val=UINT:2
+  GOLD      operation      op=33 n=1
+  GOLD        operation      op=75 n=2
+  GOLD == allModules :: P
+  GOLD    operation      op=76 n=2
+  GOLD      constant       n=0 sz=64 ct=9 val=UINT:2
+  GOLD      operation      op=33 n=1
+  GOLD        operation      op=75 n=2
+  GOLD == allModules :: P
+  GOLD    operation      op=76 n=2
+  GOLD      constant       n=0 sz=64 ct=9 val=UINT:2
+  GOLD      operation      op=33 n=1
+  GOLD        operation      op=75 n=2
+  GOLD == topModules :: P
+  GOLD    operation      op=76 n=2 ts=array_typespec
+  GOLD      constant       n=0 sz=64 ct=9 val=UINT:2
+  GOLD      operation      op=33 n=1
+  GOLD        operation      op=75 n=2
+  GOLD == topModules :: P
+  GOLD    operation      op=76 n=2 ts=array_typespec
+  GOLD      constant       n=0 sz=64 ct=9 val=UINT:2
+  GOLD      operation      op=33 n=1
+  GOLD        operation      op=75 n=2
+  OURS == allPackages :: P
+  OURS    operation      op=76 n=2
+  OURS      constant       n=0 sz=64 ct=9 val=UINT:2
+  OURS      operation      op=33 n=1
+  OURS        operation      op=75 n=2
+  OURS == topPackages :: P
+  OURS    operation      op=76 n=2
+  OURS      constant       n=0 sz=64 ct=9 val=UINT:2
+  OURS      operation      op=33 n=1
+  OURS        operation      op=75 n=2
+  OURS == allModules :: P
+  OURS    operation      op=76 n=2
+  OURS      constant       n=0 sz=64 ct=9 val=UINT:2
+  OURS      operation      op=33 n=1
+  OURS        operation      op=75 n=2
+  OURS == allModules :: P
+  OURS    operation      op=76 n=2
+  OURS      constant       n=0 sz=64 ct=9 val=UINT:2
+  OURS      operation      op=33 n=1
+  OURS        operation      op=75 n=2
+  OURS == topModules :: P
+  OURS    operation      op=76 n=2
+  OURS      constant       n=0 sz=64 ct=9 val=UINT:2
+  OURS      operation      op=33 n=1
+  OURS        operation      op=75 n=2
+  OURS == topModules :: P
+  OURS    operation      op=76 n=2
+  OURS      constant       n=0 sz=64 ct=9 val=UINT:2
+  OURS      operation      op=33 n=1
+  OURS        operation      op=75 n=2
+=== v5_modparam_2e surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=46 heads=1
+  (shape listing elided; this arm is UNCHANGED by the law in every listing --
+   see armcen10v.py's table in README.md section 4)
+=== v6_2e_idxtag surelog_rc=4 ours_rc=0 cmp_rc=255 cmplines=205 heads=1
+  (shape listing elided; this arm is UNCHANGED by the law in every listing --
+   see armcen10v.py's table in README.md section 4)
+=== v7_1e_definner surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=14 heads=1
+  (shape listing elided; this arm is UNCHANGED by the law in every listing --
+   see armcen10v.py's table in README.md section 4)
+=== v8_2e_sub surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=139 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+=== v9_2e_localparam surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=63 heads=1
+  (shape listing elided; this arm is UNCHANGED by the law in every listing --
+   see armcen10v.py's table in README.md section 4)

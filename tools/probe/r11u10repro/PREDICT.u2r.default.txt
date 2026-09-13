@@ -1,0 +1,25 @@
+PREDICT-MOVE ('default', 'ibex_alu', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_branch_predict', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_compressed_decoder', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_decoder', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_icache', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_multdiv_fast', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_multdiv_slow', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_pmp', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_tracer', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'ibex_wb_stage', 'PmpCfgRst', 16, [80])
+PREDICT-MOVE ('default', 'param_struct_field_bitsel', 'TBL', 4, [8])
+PREDICT-MOVE ('default', 'param_unpacked_struct_array', 'TBL', 4, [12])
+rows=12
+ROW ibex_alu
+ROW ibex_branch_predict
+ROW ibex_compressed_decoder
+ROW ibex_decoder
+ROW ibex_icache
+ROW ibex_multdiv_fast
+ROW ibex_multdiv_slow
+ROW ibex_pmp
+ROW ibex_tracer
+ROW ibex_wb_stage
+ROW param_struct_field_bitsel
+ROW param_unpacked_struct_array

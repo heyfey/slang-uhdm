@@ -1,0 +1,12 @@
+ibex_alu                       rc=255 heads=1 cmplines=15 HEAD=decompile:
+ibex_branch_predict            rc=0 heads=0 cmplines=0 HEAD=
+ibex_compressed_decoder        rc=0 heads=0 cmplines=0 HEAD=
+ibex_decoder                   rc=0 heads=0 cmplines=0 HEAD=
+ibex_multdiv_fast              rc=255 heads=1 cmplines=15 HEAD=decompile:
+ibex_multdiv_slow              rc=0 heads=0 cmplines=0 HEAD=
+ibex_wb_stage                  rc=255 heads=1 cmplines=15 HEAD=decompile:
+ibex_icache                    rc=255 heads=1 cmplines=32 HEAD=constant: , id:10003, line:17:44, endln:17:55
+ibex_pmp                       rc=255 heads=1 cmplines=18 HEAD=constant: , id:12543, line:34:10, endln:34:22
+ibex_tracer                    rc=255 heads=1 cmplines=18 HEAD=ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:16236, line:305:87, endln:305:96
+param_struct_field_bitsel      rc=0 heads=0 cmplines=0 HEAD=
+param_unpacked_struct_array    rc=0 heads=0 cmplines=0 HEAD=

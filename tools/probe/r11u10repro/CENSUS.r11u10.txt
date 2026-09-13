@@ -1,0 +1,30 @@
+#### testflags
+row                             AGREE_P  AGREE_Q   AWAY  TOGOLD  WRONG_Q   MISS_Q
+ibex_alu                          64941    66497     96    1652      618     4873
+ibex_branch_predict               41115    42753     15    1653      601     2287
+ibex_compressed_decoder           50797    52360     90    1653      741     4882
+ibex_decoder                      58847    60410     90    1653      714     6555
+ibex_icache                       92885    94453     90    1658     1069     6519
+ibex_multdiv_fast                 50190    51753     90    1653      845     4861
+ibex_multdiv_slow                 47449    49089     13    1653      654     2052
+ibex_pmp                          73352    74915     90    1653      780     5022
+ibex_tracer                      163458   164839    102    1483     3284    16525
+ibex_wb_stage                     41039    42600     90    1651      630     4757
+param_struct_field_bitsel          2383     2546      8     171       42      607
+param_unpacked_struct_array        2803     3040     14     251       60      711
+TOTAL AWAY-GOLDEN=788  TO-GOLDEN=16784
+#### default
+row                             AGREE_P  AGREE_Q   AWAY  TOGOLD  WRONG_Q   MISS_Q
+ibex_alu                          65451    67007     96    1652      618     4873
+ibex_branch_predict               41625    43263     15    1653      601     2287
+ibex_compressed_decoder           51307    52870     90    1653      741     4882
+ibex_decoder                      59357    60920     90    1653      714     6555
+ibex_icache                       93395    94963     90    1658     1069     6519
+ibex_multdiv_fast                 50700    52263     90    1653      845     4861
+ibex_multdiv_slow                 47959    49599     13    1653      654     2052
+ibex_pmp                          73862    75425     90    1653      780     5022
+ibex_tracer                      163968   165349    102    1483     3284    16525
+ibex_wb_stage                     41549    43110     90    1651      630     4757
+param_struct_field_bitsel          2893     3056      8     171       42      607
+param_unpacked_struct_array        3313     3550     14     251       60      711
+TOTAL AWAY-GOLDEN=788  TO-GOLDEN=16784

@@ -1,0 +1,2618 @@
+=== h1_1e1m surelog_rc=0 ours_rc=0 cmp_rc=0 cmplines=0 heads=0
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+=== h2_1e3m surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=18 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=3 ts=array_typespec
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=3 ts=array_typespec
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=3 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=3 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+=== h3_4e1m surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=117 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=1 sz=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=1 sz=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=1 sz=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=1 sz=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+=== h4_4e3m surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=269 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=3 sz=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=3 sz=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=3 sz=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=3 sz=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+=== h5_2e1m surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=69 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=1 sz=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=1 sz=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=1 sz=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=1 sz=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+=== h6_1e2m surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=18 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+=== h7_1e1menum surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=18 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      ref_obj        n=0 nm=M_OFF
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      ref_obj        n=0 nm=M_OFF
+=== h8_4e3menum surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=269 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=3 sz=4
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=3 sz=4
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:00
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=3 sz=4
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=3 sz=4
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:00
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+=== h9_1e1m_port surelog_rc=0 ours_rc=0 cmp_rc=0 cmplines=0 heads=0
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      constant       n=0 sz=1 ct=3 val=BIN:0
+=== hA_4e3m_port surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=269 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=3 sz=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=3 sz=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=3 sz=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=3 sz=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+=== hB_1e1msub surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=60 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      operation      op=75 n=1 ts=struct_typespec ts_nm=(p::sub_t)
+  GOLD        constant       n=0 sz=1 ct=3 val=BIN:1
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      operation      op=75 n=1 ts=struct_typespec ts_nm=(p::sub_t)
+  GOLD        constant       n=0 sz=1 ct=3 val=BIN:1
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      operation      op=75 n=1 sz=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      operation      op=75 n=1 sz=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+=== hC_4e1msub surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=181 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=1 sz=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=1 sz=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          operation      op=75 n=1
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=1 sz=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=1 sz=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          operation      op=75 n=1
+=== hD_1e1mvec surelog_rc=0 ours_rc=0 cmp_rc=0 cmplines=0 heads=0
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=1
+  GOLD      operation      op=75 n=1
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=1 ts=array_typespec
+  GOLD      constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS == allModules :: P
+  OURS    operation      op=75 n=1
+  OURS      operation      op=75 n=1
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS == topModules :: P
+  OURS    operation      op=75 n=1 ts=array_typespec
+  OURS      constant       n=0 sz=2 ct=3 val=BIN:01
+=== hE_4e2mvec surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=193 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=4
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=4 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=2 ct=3 val=BIN:01
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=4
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=4 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=2 ct=3 val=BIN:01
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+=== hF_2e3m surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=145 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=2
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=3 sz=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=2 ts=array_typespec
+  GOLD      operation      op=75 n=3 sz=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=3
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=2
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=3 sz=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=2 ts=array_typespec
+  OURS      operation      op=75 n=3 sz=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=3
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m2)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+=== hG_3e2m surelog_rc=0 ours_rc=0 cmp_rc=255 cmplines=150 heads=1
+  GOLD == allPackages :: P
+  GOLD    operation      op=75 n=3
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topPackages :: P
+  GOLD    operation      op=75 n=3
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=3
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == allModules :: P
+  GOLD    operation      op=75 n=3
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=3 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD == topModules :: P
+  GOLD    operation      op=75 n=3 ts=array_typespec
+  GOLD      operation      op=75 n=2 sz=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD      operation      op=75 n=2
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  GOLD        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  GOLD          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allPackages :: P
+  OURS    operation      op=75 n=3
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topPackages :: P
+  OURS    operation      op=75 n=3
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=3
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == allModules :: P
+  OURS    operation      op=75 n=3
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=3 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS == topModules :: P
+  OURS    operation      op=75 n=3 ts=array_typespec
+  OURS      operation      op=75 n=2 sz=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS      operation      op=75 n=2
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m0)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0
+  OURS        tagged_pattern n=1 ts=string_typespec ts_nm=(m1)
+  OURS          constant       n=0 sz=1 ct=3 val=BIN:0

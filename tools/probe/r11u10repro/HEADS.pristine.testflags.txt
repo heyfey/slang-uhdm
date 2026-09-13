@@ -1,0 +1,12 @@
+ibex_alu                       rc=255 heads=1 cmplines=2267 HEAD=operation: , id:14979, line:750:52, endln:767:4
+ibex_branch_predict            rc=255 heads=1 cmplines=2267 HEAD=operation: , id:11709, line:750:52, endln:767:4
+ibex_compressed_decoder        rc=255 heads=1 cmplines=2267 HEAD=operation: , id:13951, line:750:52, endln:767:4
+ibex_decoder                   rc=255 heads=1 cmplines=2267 HEAD=operation: , id:14538, line:750:52, endln:767:4
+ibex_multdiv_fast              rc=255 heads=1 cmplines=2267 HEAD=operation: , id:12962, line:750:52, endln:767:4
+ibex_multdiv_slow              rc=255 heads=1 cmplines=2267 HEAD=operation: , id:12355, line:750:52, endln:767:4
+ibex_wb_stage                  rc=255 heads=1 cmplines=2267 HEAD=operation: , id:12095, line:750:52, endln:767:4
+ibex_icache                    rc=255 heads=1 cmplines=32 HEAD=constant: , id:10003, line:17:44, endln:17:55
+ibex_pmp                       rc=255 heads=1 cmplines=18 HEAD=constant: , id:12543, line:34:10, endln:34:22
+ibex_tracer                    rc=255 heads=1 cmplines=18 HEAD=ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:16236, line:305:87, endln:305:96
+param_struct_field_bitsel      rc=255 heads=1 cmplines=263 HEAD=operation: , id:694, line:16:30, endln:21:4
+param_unpacked_struct_array    rc=255 heads=1 cmplines=371 HEAD=operation: , id:855, line:15:30, endln:20:4

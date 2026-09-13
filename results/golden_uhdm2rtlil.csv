@@ -301,14 +301,14 @@ hier_path,default,CMP_EQUAL,,,differ
 hier_undriven_port,default,CMP_EQUAL,,,match
 hierdefparam,default,CMP_EQUAL,,,differ
 ibex_alu,default,CMP_NOTEQUAL,decompile:,,
-ibex_branch_predict,default,CMP_NOTEQUAL,decompile:,,
-ibex_compressed_decoder,default,CMP_NOTEQUAL,decompile:,,
+ibex_branch_predict,default,CMP_EQUAL,,,differ
+ibex_compressed_decoder,default,CMP_EQUAL,,,differ
 ibex_controller,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_controller.sv:178:78: error: use of undeclared identifier 'u_ibex_core',,
 ibex_core,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,default,CMP_EQUAL,,,differ
 ibex_cs_registers,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
 ibex_csr,default,CMP_EQUAL,,,differ
-ibex_decoder,default,CMP_NOTEQUAL,decompile:,,
+ibex_decoder,default,CMP_EQUAL,,,differ
 ibex_dummy_instr,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
 ibex_fetch_fifo,default,CMP_EQUAL,,,differ
@@ -318,7 +318,7 @@ ibex_if_stage,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/r
 ibex_load_store_unit,default,CMP_EQUAL,,,differ
 ibex_lockstep,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,default,CMP_NOTEQUAL,decompile:,,
-ibex_multdiv_slow,default,CMP_NOTEQUAL,decompile:,,
+ibex_multdiv_slow,default,CMP_EQUAL,,,differ
 ibex_pmp,default,CMP_NOTEQUAL,decompile:,,
 ibex_prefetch_buffer,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,default,CMP_EQUAL,,,differ
@@ -557,10 +557,10 @@ param_name_collision_typeparam,default,CMP_NOTEQUAL,decompile:,,
 param_nested_struct_field_width,default,CMP_NOTEQUAL,decompile:,,
 param_no_default,default,CMP_EQUAL,,,differ
 param_packed_array_subst,default,CMP_EQUAL,,,differ
-param_struct_field_bitsel,default,CMP_NOTEQUAL,decompile:,,
+param_struct_field_bitsel,default,CMP_EQUAL,,,differ
 param_test,default,CMP_EQUAL,,,match
 param_type_logic_width,default,CMP_NOTEQUAL,decompile:,,
-param_unpacked_struct_array,default,CMP_NOTEQUAL,decompile:,,
+param_unpacked_struct_array,default,CMP_EQUAL,,,differ
 param_x_default,default,CMP_EQUAL,,,match
 ParameterColonReference,default,CMP_EQUAL,,,match
 ParameterConditionalAssignment,default,CMP_EQUAL,,,match
@@ -1172,14 +1172,14 @@ hier_path,testflags,CMP_EQUAL,,,differ
 hier_undriven_port,testflags,CMP_EQUAL,,,match
 hierdefparam,testflags,CMP_EQUAL,,,differ
 ibex_alu,testflags,CMP_NOTEQUAL,decompile:,,
-ibex_branch_predict,testflags,CMP_NOTEQUAL,decompile:,,
-ibex_compressed_decoder,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_branch_predict,testflags,CMP_EQUAL,,,differ
+ibex_compressed_decoder,testflags,CMP_EQUAL,,,differ
 ibex_controller,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_controller.sv:178:78: error: use of undeclared identifier 'u_ibex_core',,
 ibex_core,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,testflags,CMP_EQUAL,,,differ
 ibex_cs_registers,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
 ibex_csr,testflags,CMP_EQUAL,,,differ
-ibex_decoder,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_decoder,testflags,CMP_EQUAL,,,differ
 ibex_dummy_instr,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
 ibex_fetch_fifo,testflags,CMP_EQUAL,,,differ
@@ -1189,7 +1189,7 @@ ibex_if_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex
 ibex_load_store_unit,testflags,CMP_EQUAL,,,differ
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,testflags,CMP_NOTEQUAL,decompile:,,
-ibex_multdiv_slow,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_multdiv_slow,testflags,CMP_EQUAL,,,differ
 ibex_pmp,testflags,CMP_NOTEQUAL,decompile:,,
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
 ibex_register_file_ff,testflags,CMP_EQUAL,,,differ
@@ -1428,10 +1428,10 @@ param_name_collision_typeparam,testflags,CMP_NOTEQUAL,decompile:,,
 param_nested_struct_field_width,testflags,CMP_NOTEQUAL,decompile:,,
 param_no_default,testflags,CMP_EQUAL,,,differ
 param_packed_array_subst,testflags,CMP_EQUAL,,,differ
-param_struct_field_bitsel,testflags,CMP_NOTEQUAL,decompile:,,
+param_struct_field_bitsel,testflags,CMP_EQUAL,,,differ
 param_test,testflags,CMP_EQUAL,,,match
 param_type_logic_width,testflags,CMP_NOTEQUAL,decompile:,,
-param_unpacked_struct_array,testflags,CMP_NOTEQUAL,decompile:,,
+param_unpacked_struct_array,testflags,CMP_EQUAL,,,differ
 param_x_default,testflags,CMP_EQUAL,,,match
 ParameterColonReference,testflags,CMP_EQUAL,,,match
 ParameterConditionalAssignment,testflags,CMP_EQUAL,,,match

@@ -14306,6 +14306,101 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ((UHDM::constant*)rhs)
                             ->VpiSize((int32_t)dt52.getBitWidth());
                 }
+                // § unpackedStructArrPatElabTs (r11u10) — the ELABORATED copy
+                // of an unpacked-array-of-packed-struct parameter carries a
+                // `ref_typespec` to the parameter's own `array_typespec` even
+                // when nothing about the pattern was folded.
+                //
+                // Surelog stamps it OUTSIDE the fold.  `DesignElaboration::
+                // elaborateInstance_` (Surelog v1.87 `src/DesignCompile/
+                // DesignElaboration.cpp:2606-2637) runs, for every elaborated
+                // parameter whose Rhs came back an `operation`:
+                //
+                //     if (ts->UhdmType() != uhdmunsupported_typespec) {
+                //       if (op->Typespec() == nullptr) {
+                //         ref_typespec* tsRef = s.MakeRef_typespec();
+                //         tsRef->VpiParent(op);  op->Typespec(tsRef);
+                //       }
+                //       op->Typespec()->Actual_typespec(ts);
+                //     }
+                //
+                // — unconditionally, after the `expandPatternAssignment` call
+                // that MAY have flattened the tree and equally may have
+                // returned it untouched.  Before § unpackedStructArrPatOne-
+                // ElemFold we only ever reached this object through
+                // `foldUnpackedStructArrayPattern`, which minted the ref
+                // itself; with the fold correctly declined for a >=2-element
+                // array the ref went missing and `uhdm-cmp`'s SINGULAR
+                // overload named it `RHS: <null>` — 8 cmp lines, the head on
+                // all seven ibex rows and on the two `param_*` rows the
+                // element-count law had just uncovered.
+                //
+                // Gates, each with a grid cell: the ELABORATED module listing
+                // only (`allModules` carries NO ts on either side — golden
+                // stamps in `elaborateInstance_`, which the definition listing
+                // never runs); the parameter's own `array_typespec` as Actual;
+                // the instance prefix as VpiFullName, spelled exactly as the
+                // fold spelled it (trailing `::` stripped); and never over an
+                // operation that already carries a ref, so every arm that
+                // reached this object through the fold keeps the fold's own.
+                // Arms hB/hC — a one-element and a four-element array whose
+                // struct member is itself a struct, where the fold BAILS for
+                // its own reasons — carried this same `RHS: <null>` head at
+                // PRISTINE and are fixed by this half alone.
+                //
+                // `!overridden` (r11v11u10, the verifier's gate).  The stamp
+                // above is `DesignElaboration::elaborateInstance_`'s, and that
+                // road runs only for a parameter the instance did NOT
+                // override.  An OVERRIDDEN instance parameter's elaborated Rhs
+                // is built by `NetlistElaboration::elabModule_`
+                // (Surelog v1.87 `src/DesignCompile/NetlistElaboration.cpp:
+                // 262-419`), which clones the `param_assign`, substitutes the
+                // override actual and — at :413 — copies ONLY the flattened
+                // OPERAND VECTOR back into the existing operation.  It never
+                // touches `Typespec()`, so golden's overridden elaborated
+                // operation carries NO `ref_typespec` at all.  Measured on
+                // three purpose-built arms, every one `--nobuiltin`,
+                // `surelog_rc=0 ours_rc=0`, in `tools/probe/r11v11u10repro`:
+                //   v19_noov_default  2 elems, NOT overridden  golden HAS ts
+                //   v20_noov_sub      2 elems, sub-struct, not overridden  HAS
+                //   v10_2e_override   2 elems, overridden      golden has NONE
+                //   v16_ov_sub        2 elems, sub-struct, overridden  NONE
+                //   v17_ov_refobj     2 elems, ref_obj elems, overridden NONE
+                //   v18_ov_1e         1 elem,  overridden      golden has NONE
+                // Without this gate v16 and v17 — where the fold BAILS for its
+                // own reasons, so PRISTINE minted no ref either and PRISTINE
+                // WAS RIGHT — gained a `ref_typespec` golden does not have:
+                // `uhdm-cmp` read `LHS: <null>` with our ref as RHS, a NEW head
+                // ahead of the arm's pre-existing one.  With it, v10 also
+                // improves past pristine: the fold no longer runs at N>=2 and
+                // nothing else stamps, which is exactly golden's shape.
+                if (topView && !inPackage && !overridden && rhs && init &&
+                    hasParamArrTs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation &&
+                    !((UHDM::operation*)rhs)->Typespec() &&
+                    stripImplicitConv(*init).kind ==
+                        ExpressionKind::SimpleAssignmentPattern) {
+                    const Type* lf10 = &ps.getType().getCanonicalType();
+                    bool isArr10 =
+                        lf10->kind == SymbolKind::FixedSizeUnpackedArrayType;
+                    while (lf10->getCanonicalType().kind ==
+                           SymbolKind::FixedSizeUnpackedArrayType)
+                        lf10 = &lf10->getCanonicalType()
+                                    .as<FixedSizeUnpackedArrayType>()
+                                    .elementType;
+                    if (isArr10 && lf10->getCanonicalType().kind ==
+                                       SymbolKind::PackedStructType) {
+                        std::string pfx10 = prefix;
+                        if (pfx10.size() >= 2 &&
+                            pfx10.compare(pfx10.size() - 2, 2, "::") == 0)
+                            pfx10.resize(pfx10.size() - 2);
+                        auto* rt10 = s.MakeRef_typespec();
+                        rt10->VpiParent(rhs);
+                        rt10->VpiFullName(pfx10);
+                        rt10->Actual_typespec(paramArrTs());
+                        ((UHDM::operation*)rhs)->Typespec(rt10);
+                    }
+                }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;
                 // § nestedParamActualTs6 VIEW GUARD.  paramRhsObj is keyed by
@@ -16344,6 +16439,56 @@ UHDM::operation* UhdmExporter::foldUnpackedStructArrayPattern(
         return nullptr;
     auto& sinitA = stripImplicitConv(init);
     if (sinitA.kind != ExpressionKind::SimpleAssignmentPattern)
+        return nullptr;
+    // § unpackedStructArrPatOneElemFold (r11u10) — THE WHOLE FOLD IS A
+    // ONE-ELEMENT RULE.  This function models Surelog's elaborated copy of a
+    // `'{'{…},…}` unpacked-array-of-packed-struct parameter, and that copy is
+    // produced by UHDM's own `ExprEval::flattenPatternAssignments`
+    // (UHDM v1.87 `templates/ExprEval.cpp:751`), reached from
+    // `CompileHelper::expandPatternAssignment`
+    // (Surelog `src/DesignCompile/CompileHelper.cpp:5233`) on BOTH roads that
+    // build an elaborated copy — the parameter's own elab `param_assign`
+    // (`DesignElaboration.cpp:2601`) and the instance CONNECTION
+    // (`NetlistElaboration.cpp:281`).  Transcribed from that function:
+    //
+    //   ExprEval.cpp:808   if (orig->size() == 1) { … op = opi; orig = … }
+    //   ExprEval.cpp:862   } else if (oper->UhdmType() == uhdmoperation) {
+    //   ExprEval.cpp:863       return result;
+    //
+    // The descent into the nested element pattern at :808 is guarded by the
+    // OUTER operand vector holding EXACTLY ONE operand.  With two or more
+    // elements the descent never happens, operand[0] is the first element's
+    // own `vpiAssignmentPatternOp`, and the walk falls straight into the
+    // `uhdmoperation` arm at :862 and returns `result` — which is the
+    // UNMODIFIED definition tree.  So an N>=2 array's elaborated copy is the
+    // definition copy verbatim, tagged_patterns and all; only the one-element
+    // array is absorbed (`recursiveFlattening`, ExprEval.cpp:942, then strips
+    // the tags into the flat member list this function builds).
+    //
+    // Measured on the r11u10 grid (16 arms, every one `--nobuiltin`, every rc
+    // recorded), which varies ONLY the element count and the member list:
+    //   h1 1 elem x 1 scalar member   golden topModules  n=1  [constant]
+    //   h6 1 elem x 2                                    n=2  [const,const]
+    //   h2 1 elem x 3                                    n=3  [3 constants]
+    //   h7 1 elem x 1 ENUM member                        n=1  [constant]
+    //   hD 1 elem x 1 VECTOR member                      n=1  [constant]
+    //   h5 2 elem x 1                                    n=2  [op75 x2]  <- def tree
+    //   hG 3 elem x 2                                    n=3  [op75 x3]  <- def tree
+    //   h3 4 elem x 1                                    n=4  [op75 x4]  <- def tree
+    //   h4 4 elem x 3                                    n=4  [op75 x4]  <- def tree
+    //   hF 2 elem x 3 / hE 4 elem x 2 / h8 4 elem x 3+enum / hA 4 elem x 3
+    //   passed through a PORT: all def tree.
+    // The element count is the WHOLE distinguisher: member count, member kind
+    // (scalar / enum / vector / sub-struct) and whether the parameter is
+    // port-passed move nothing.
+    //
+    // The two witnesses that BUILT this function stay folded — they are the
+    // one-element shape: uhdm2rtlil `StructArrayParameterInitializedByPattern-
+    // PassedAsPort` and its `Nested…` twin both declare
+    // `data_region_attr_t HwDataAttr[1]`.  Corpus this fixes: ibex_pkg.sv:750
+    // `parameter pmp_cfg_t PmpCfgRst[PMP_MAX_REGIONS] = '{…}` — 16 elements of
+    // a 5-member struct, where we emitted 80 flat operands against golden's 16.
+    if (sinitA.as<SimpleAssignmentPatternExpression>().elements().size() != 1)
         return nullptr;
     // struct_typespec lookup for a (possibly typedef'd) type.
     auto lookupStructTs = [&](const Type& t) -> UHDM::typespec* {

@@ -1,0 +1,160 @@
+=== r11u10 GATES — all five, both corpora, both modes ===
+
+--- (1) BINARIES ---
+0978a9156e9c598936519e7a86ff505d  /tmp/r11u10_pris.bin
+734455b3bb05aec1571d65f3579c6fc7  /tmp/r11u10_law2.bin
+pristine == the main tree at 056796c3 (0978a9156e9c598936519e7a86ff505d)
+both built -j 2; both frozen chmod 555 before any sweep
+
+--- cmds.txt binary-PATH audit (not the name 'slang-uhdm') ---
+u2r law:
+   1742 /tmp/r11u10_law2.bin
+u2r pristine:
+   1742 /tmp/r11u10_pris.bin
+surelog law:
+   1531 /tmp/r11u10_law2.bin
+surelog pristine:
+   1531 /tmp/r11u10_pris.bin
+
+--- (2) GOLDENS ---
+SLANG_UHDM=law  PASS=23 FAIL=0
+SLANG_UHDM=/bin/false  PASS=0 FAIL=23   (negative control)
+
+--- (3) uhdm2rtlil, BOTH MODES ---
+vs results/gate_uhdm2rtlil.csv (testflags):
+< ibex_branch_predict,testflags,CMP_NOTEQUAL,decompile:,,
+< ibex_compressed_decoder,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_branch_predict,testflags,CMP_EQUAL,,,differ
+> ibex_compressed_decoder,testflags,CMP_EQUAL,,,differ
+< ibex_decoder,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_decoder,testflags,CMP_EQUAL,,,differ
+< ibex_multdiv_slow,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_multdiv_slow,testflags,CMP_EQUAL,,,differ
+< param_struct_field_bitsel,testflags,CMP_NOTEQUAL,decompile:,,
+> param_struct_field_bitsel,testflags,CMP_EQUAL,,,differ
+< param_unpacked_struct_array,testflags,CMP_NOTEQUAL,decompile:,,
+> param_unpacked_struct_array,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     746 CMP_EQUAL      58 CMP_NOTEQUAL      67 SLANG_REJECT 
+  testflags  fresh:     752 CMP_EQUAL      52 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:     125      215 differ     531 match 
+  testflags  fresh:     119      221 differ     531 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+vs MY OWN pristine sweep (default):
+< ibex_branch_predict,default,CMP_NOTEQUAL,decompile:,,
+< ibex_compressed_decoder,default,CMP_NOTEQUAL,decompile:,,
+> ibex_branch_predict,default,CMP_EQUAL,,,differ
+> ibex_compressed_decoder,default,CMP_EQUAL,,,differ
+< ibex_decoder,default,CMP_NOTEQUAL,decompile:,,
+> ibex_decoder,default,CMP_EQUAL,,,differ
+< ibex_multdiv_slow,default,CMP_NOTEQUAL,decompile:,,
+> ibex_multdiv_slow,default,CMP_EQUAL,,,differ
+< param_struct_field_bitsel,default,CMP_NOTEQUAL,decompile:,,
+> param_struct_field_bitsel,default,CMP_EQUAL,,,differ
+< param_unpacked_struct_array,default,CMP_NOTEQUAL,decompile:,,
+> param_unpacked_struct_array,default,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     746 CMP_EQUAL      58 CMP_NOTEQUAL      67 SLANG_REJECT 
+  default  fresh:     752 CMP_EQUAL      52 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     125      219 differ     527 match 
+  default  fresh:     119      225 differ     527 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+THE SIX CONVERSIONS, confirmed independently at uhdm-cmp rc 0:
+  ibex_branch_predict/testflags rc=0
+  ibex_branch_predict/default rc=0
+  ibex_compressed_decoder/testflags rc=0
+  ibex_compressed_decoder/default rc=0
+  ibex_decoder/testflags rc=0
+  ibex_decoder/default rc=0
+  ibex_multdiv_slow/testflags rc=0
+  ibex_multdiv_slow/default rc=0
+  param_struct_field_bitsel/testflags rc=0
+  param_struct_field_bitsel/default rc=0
+  param_unpacked_struct_array/testflags rc=0
+  param_unpacked_struct_array/default rc=0
+
+--- (4) SURELOG SUITE, BOTH MODES ---
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u10_wd_pris/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u10_wd_law2/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u10_wd_pris/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u10_wd_law2/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+  default  base:     467 CMP_EQUAL      16 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     467 CMP_EQUAL      16 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     463 CMP_EQUAL      14 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     463 CMP_EQUAL      14 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  default  base:     331      241 differ     226 match 
+  default  fresh:     331      241 differ     226 match 
+  testflags  base:     335      297 differ     166 match 
+  testflags  fresh:     335      297 differ     166 match 
+  (the only two 'differing' rows are SURELOG_FAIL detail strings that EMBED THE WORKDIR PATH;
+   status and dump column identical — not a row move)
+
+--- (5) BYTEVERIFY, SELFCHECK=1, vs MY OWN pristine workdirs ---
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_alu-24a1d731/slang.uhdm  patched=4f5abf7a8894 pristine=176ce0405146
+MOVER ./default/ibex_branch_predict-1b398fcd/slang.uhdm  patched=4f704f2079f4 pristine=b6a0996d1a88
+MOVER ./default/ibex_compressed_decoder-795c91d7/slang.uhdm  patched=3ba9ef611e26 pristine=88655956f687
+MOVER ./default/ibex_decoder-c39f5426/slang.uhdm  patched=12d1f3bc4a18 pristine=65709a2a30c1
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=569593586d73 pristine=13ab7f939ae3
+MOVER ./default/ibex_multdiv_fast-ed04630b/slang.uhdm  patched=5fc1e4cf7026 pristine=da3041ca8229
+MOVER ./default/ibex_multdiv_slow-d86a3bae/slang.uhdm  patched=b55bad34b7ab pristine=af8fb166f0f0
+MOVER ./default/ibex_pmp-65816114/slang.uhdm  patched=32be08753b94 pristine=56c95c48e788
+MOVER ./default/ibex_tracer-573593b3/slang.uhdm  patched=9584569a4309 pristine=dad654bcb1d0
+MOVER ./default/ibex_wb_stage-918c1ea2/slang.uhdm  patched=1637f18812b0 pristine=bd7f5c87a5cf
+MOVER ./default/param_struct_field_bitsel-db41e3d3/slang.uhdm  patched=12acc625408d pristine=c35304168644
+MOVER ./default/param_unpacked_struct_array-16c781fe/slang.uhdm  patched=7d61599df2a1 pristine=bc133b0e9370
+MOVER ./testflags/ibex_alu-24a1d731/slang.uhdm  patched=48b2c9337ab4 pristine=2aa3eeace265
+MOVER ./testflags/ibex_branch_predict-1b398fcd/slang.uhdm  patched=807be261baac pristine=69d16f089a97
+MOVER ./testflags/ibex_compressed_decoder-795c91d7/slang.uhdm  patched=1db8fc1c51d7 pristine=2ab3061ad4fd
+MOVER ./testflags/ibex_decoder-c39f5426/slang.uhdm  patched=c925abb4490d pristine=f4e8ca4b3f1d
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=420ab4b77a67 pristine=8861deff398c
+MOVER ./testflags/ibex_multdiv_fast-ed04630b/slang.uhdm  patched=087c8b122dc5 pristine=02e6a5a55caf
+MOVER ./testflags/ibex_multdiv_slow-d86a3bae/slang.uhdm  patched=80c051bde8ec pristine=4d50a34cfae9
+MOVER ./testflags/ibex_pmp-65816114/slang.uhdm  patched=0b108a66922c pristine=990210a223a6
+MOVER ./testflags/ibex_tracer-573593b3/slang.uhdm  patched=c5c34454f724 pristine=a79f5d1008d3
+MOVER ./testflags/ibex_wb_stage-918c1ea2/slang.uhdm  patched=f900a0e69a11 pristine=31d9ebef6a8c
+MOVER ./testflags/param_struct_field_bitsel-db41e3d3/slang.uhdm  patched=c6a9c773fb62 pristine=2b64247b283b
+MOVER ./testflags/param_unpacked_struct_array-16c781fe/slang.uhdm  patched=653b57d0548e pristine=7cbd4272fdaa
+MOVERS: 24 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=a58de540893f pristine=02d207f4a68d
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=61ee9cb4f6c1 pristine=89c1b4e51d8e
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=b85397eda69f pristine=68cc3d64d0ec
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=5891ca70efc6 pristine=6434d08e1e9a
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=94fe86c2b494 pristine=b72b078dbdcc
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+  u2r: 24/1608 = the 12 PREDICTED rows x 2 modes, zero unpredicted.
+  surelog: 5/960 = MiniAmiq, Scoreboard, SeqDriver — the PROVEN UVM COIN family.
+    order-blind attribution: 0-or-4-line deltas, every line a line-number-class
+    UINT/vpiDecompile pair (Scoreboard/default = 0 lines, a pure order flip).
+    POSITIVE CONTROL: the PRISTINE binary alone, four runs, identical arguments,
+    on MiniAmiq/testflags -> 09fed3c15a4d a93226b69ed1 bf5dfe67e1bf 2de51ee676d7,
+    four distinct hashes, all differing from the sweep's own 6434d08e1e9a.
+    Surelog corpus PREDICTED MOVERS = 0 rows in BOTH modes (PREDICT.surelog.*).
+
+--- (6) CANARIES ---
+u2r:     canaries ok=8 changed=0 | ctcan2 ok=1 changed=0 PASS
+surelog: canaries ok=52 changed=0 | ctcan2 ok=58 changed=0 PASS
+canaudit: audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+
+protected databases, law vs pristine md5:
+  SVSwitch/testflags SAME 4842211c4030
+  SVSwitch/default SAME 4842211c4030
+  YosysVerx/testflags SAME 6ccda350c24a
+  YosysVerx/default SAME 6ccda350c24a
+  InterfaceModPort/testflags SAME 59a365f3ce2c
+  InterfaceModPort/default SAME 59a365f3ce2c
+  BlackParrotComplex/testflags SAME 73a10e8217e5
+  BlackParrotComplex/default SAME e3e354129d5a
+  YosysOldOr/testflags SAME d68e0796d62c
+  YosysOldOr/default SAME d68e0796d62c

@@ -1,0 +1,218 @@
+r11v11u10 — GATES (verifier), base 056796c3
+=== binaries (built by the verifier, -j 2, md5 separately, frozen chmod 555) ===
+0978a9156e9c598936519e7a86ff505d  /tmp/v11u10_pris.bin
+734455b3bb05aec1571d65f3579c6fc7  /tmp/v11u10_law.bin
+5d0f1ed4ea9005b86f909ba4bec450e1  /tmp/v11u10_fix.bin
+
+=== gate 2: golden dump tests ===
+law  : PASS=23 FAIL=0
+fix  : PASS=23 FAIL=0
+/bin/false negative control: PASS=0 FAIL=23
+
+=== gate 3: uhdm2rtlil, both modes ===
+-- pristine tf/def histograms
+[testflags] 871 tests
+  CMP_EQUAL: 746
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 58
+[default] 871 tests
+  CMP_EQUAL: 746
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 58
+-- law tf/def histograms
+[testflags] 871 tests
+  CMP_EQUAL: 752
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 52
+[default] 871 tests
+  CMP_EQUAL: 752
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 52
+-- fix tf/def histograms
+[testflags] 871 tests
+  CMP_EQUAL: 752
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 52
+[default] 871 tests
+  CMP_EQUAL: 752
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 52
+-- pristine vs committed baseline (both mode columns)
+PASS: every row byte-identical to the committed baseline
+-- fix vs committed baseline: the 12 row-moves
+---- WHOLE-ROW diff (status AND dump column): 12 differing ROWS (24 diff row-sides)
+< ibex_branch_predict,default,CMP_NOTEQUAL,decompile:,,
+< ibex_branch_predict,testflags,CMP_NOTEQUAL,decompile:,,
+< ibex_compressed_decoder,default,CMP_NOTEQUAL,decompile:,,
+< ibex_compressed_decoder,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_branch_predict,default,CMP_EQUAL,,,differ
+> ibex_branch_predict,testflags,CMP_EQUAL,,,differ
+> ibex_compressed_decoder,default,CMP_EQUAL,,,differ
+> ibex_compressed_decoder,testflags,CMP_EQUAL,,,differ
+< ibex_decoder,default,CMP_NOTEQUAL,decompile:,,
+< ibex_decoder,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_decoder,default,CMP_EQUAL,,,differ
+> ibex_decoder,testflags,CMP_EQUAL,,,differ
+< ibex_multdiv_slow,default,CMP_NOTEQUAL,decompile:,,
+< ibex_multdiv_slow,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_multdiv_slow,default,CMP_EQUAL,,,differ
+> ibex_multdiv_slow,testflags,CMP_EQUAL,,,differ
+< param_struct_field_bitsel,default,CMP_NOTEQUAL,decompile:,,
+< param_struct_field_bitsel,testflags,CMP_NOTEQUAL,decompile:,,
+> param_struct_field_bitsel,default,CMP_EQUAL,,,differ
+> param_struct_field_bitsel,testflags,CMP_EQUAL,,,differ
+< param_unpacked_struct_array,default,CMP_NOTEQUAL,decompile:,,
+< param_unpacked_struct_array,testflags,CMP_NOTEQUAL,decompile:,,
+> param_unpacked_struct_array,default,CMP_EQUAL,,,differ
+> param_unpacked_struct_array,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+-- law CSV vs fix CSV (both modes, whole row)
+IDENTICAL
+
+=== gate 5: byteverify SELFCHECK=1 (u2r) ===
+-- law vs pristine
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 24 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+-- fix vs pristine
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 24 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+-- the 24 movers (fix vs pristine)
+   ./default/ibex_alu-24a1d731
+   ./default/ibex_branch_predict-1b398fcd
+   ./default/ibex_compressed_decoder-795c91d7
+   ./default/ibex_decoder-c39f5426
+   ./default/ibex_icache-e3714209
+   ./default/ibex_multdiv_fast-ed04630b
+   ./default/ibex_multdiv_slow-d86a3bae
+   ./default/ibex_pmp-65816114
+   ./default/ibex_tracer-573593b3
+   ./default/ibex_wb_stage-918c1ea2
+   ./default/param_struct_field_bitsel-db41e3d3
+   ./default/param_unpacked_struct_array-16c781fe
+   ./testflags/ibex_alu-24a1d731
+   ./testflags/ibex_branch_predict-1b398fcd
+   ./testflags/ibex_compressed_decoder-795c91d7
+   ./testflags/ibex_decoder-c39f5426
+   ./testflags/ibex_icache-e3714209
+   ./testflags/ibex_multdiv_fast-ed04630b
+   ./testflags/ibex_multdiv_slow-d86a3bae
+   ./testflags/ibex_pmp-65816114
+   ./testflags/ibex_tracer-573593b3
+   ./testflags/ibex_wb_stage-918c1ea2
+   ./testflags/param_struct_field_bitsel-db41e3d3
+   ./testflags/param_unpacked_struct_array-16c781fe
+-- fix vs law: MOVERS 0 / 1608 (the !overridden gate changes no corpus byte)
+
+=== gate 4: surelog corpus, both modes ===
+-- pristine
+798 tests in surelog; modes=default,testflags
+[default] 798 tests
+  CMP_EQUAL: 467
+  CMP_NOTEQUAL: 16
+[testflags] 798 tests
+  CMP_EQUAL: 463
+  CMP_NOTEQUAL: 14
+-- law
+798 tests in surelog; modes=default,testflags
+[default] 798 tests
+  CMP_EQUAL: 467
+  CMP_NOTEQUAL: 16
+[testflags] 798 tests
+  CMP_EQUAL: 463
+  CMP_NOTEQUAL: 14
+-- law vs committed results/golden_surelog.csv: the only two rows that move
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u10_wd_law/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u10_wd_law/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+   (both are SURELOG_FAIL rows whose DETAIL STRING embeds the workdir path;
+    same status, same dump column, not a row move)
+
+=== gate 5b: byteverify SELFCHECK=1 (surelog), law vs pristine ===
+PATH_SETS_IDENTICAL (960 paths)
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=20b65f5d029a pristine=eed5726b527f
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=89c1b4e51d8e pristine=61ee9cb4f6c1
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=68cc3d64d0ec pristine=f2151d6d6d55
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=846d07f14f84 pristine=cbec4d608b72
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=71cb64ac16ee pristine=bc362ad0c8ee
+-- ORDER-BLIND attribution (sorted, path-normalised uhdm-dump), the mover rule:
+   default/MiniAmiq    4 lines: UINT:699 <-> UINT:960     + the vpiDecompile pair
+   default/SeqDriver   4 lines: UINT:0   <-> UINT:644     + the vpiDecompile pair
+   default/SimpleUVM   4 lines: UINT:753 <-> UINT:0       + the vpiDecompile pair
+   testflags/MiniAmiq  4 lines: UINT:548 <-> UINT:760     + the vpiDecompile pair
+   default/Scoreboard  0 lines  (a pure order flip)
+   every changed line is a line-number-class UINT:/vpiDecompile: pair -> the
+   proven UVM coin family (MiniAmiq, SeqDriver, SimpleUVM, Scoreboard).
+-- POSITIVE CONTROL: the PRISTINE binary alone, four runs, identical arguments,
+   MiniAmiq/testflags -> four DISTINCT md5s:
+     0e920d17fed4
+     410b8ecbe6ff
+     9e18fa540e48
+     107d72be23ef
+   none of them equal to the pristine sweep's own bc362ad0c8ee nor the law
+   sweep's 71cb64ac16ee.  The row is nondeterministic per invocation BEFORE
+   any law is applied.
+
+=== canaries and pins ===
+u2r  canaries.sh ok=8  changed=0 ; ctcan2.sh ok=1  changed=0 PASS
+sl   canaries.sh ok=52 changed=0 ; ctcan2.sh ok=58 changed=0 PASS
+canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+-- named database md5s, pristine vs law, both modes:
+   SVSwitch/default/pris 4842211c4030
+   SVSwitch/default/law 4842211c4030
+   SVSwitch/testflags/pris 4842211c4030
+   SVSwitch/testflags/law 4842211c4030
+   YosysVerx/default/pris 6ccda350c24a
+   YosysVerx/default/law 6ccda350c24a
+   YosysVerx/testflags/pris 6ccda350c24a
+   YosysVerx/testflags/law 6ccda350c24a
+   InterfaceModPort/default/pris 59a365f3ce2c
+   InterfaceModPort/default/law 59a365f3ce2c
+   InterfaceModPort/testflags/pris 59a365f3ce2c
+   InterfaceModPort/testflags/law 59a365f3ce2c
+   BlackParrotComplex/default/pris e3e354129d5a
+   BlackParrotComplex/default/law e3e354129d5a
+   BlackParrotComplex/testflags/pris 73a10e8217e5
+   BlackParrotComplex/testflags/law 73a10e8217e5
+   YosysOldOr/default/pris d68e0796d62c
+   YosysOldOr/default/law d68e0796d62c
+   YosysOldOr/testflags/pris d68e0796d62c
+   YosysOldOr/testflags/law d68e0796d62c
+
+=== the FIXED binary, full battery ===
+goldens 23 PASS / 0 FAIL ; /bin/false 0 PASS / 23 FAIL
+u2r   752 CMP_EQUAL / 52 CMP_NOTEQUAL / 67 SLANG_REJECT, BOTH modes;
+      the fix CSV is byte-identical to the law CSV, and
+      byteverify fix-vs-law over the whole u2r corpus: MOVERS 0 / 1608.
+sl    default 467/16, testflags 463/14 -- unchanged; CSV identical to the
+      law's (path-normalised); byteverify fix-vs-law MOVERS 4/960 and
+      fix-vs-pristine MOVERS 6/960, EVERY ONE the UVM coin family, each
+      attributed order-blind at 4 sorted-dump lines that are a
+      line-number-class UINT:/vpiDecompile: pair.
+canaries u2r ok=8 changed=0 / sl ok=52 changed=0 ; ctcan2 u2r ok=1, sl ok=58
+byte pins under the FIX, both modes: SVSwitch 4842211c4030,
+  YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5, YosysOldOr d68e0796d62c
+
+=== REBASED ONTO THE SISTER LANDING d23a8d3f (v1.87 pass 8) ===
+The verified patch passes git apply --check on a FRESH d23a8d3f worktree,
+0 conflict markers.  A binary built there (md5 b895cb0435893c2af6edf08661fccc54)
+sweeps u2r BOTH modes:
+    [testflags] 871 tests
+      CMP_EQUAL: 754
+      SLANG_REJECT: 67
+      CMP_NOTEQUAL: 50
+    [default] 871 tests
+      CMP_EQUAL: 754
+      SLANG_REJECT: 67
+      CMP_NOTEQUAL: 50
+and the whole-row gate against the committed d23a8d3f baseline reads
+748 -> 754 CMP_EQUAL / 56 -> 50 CMP_NOTEQUAL in BOTH modes, moving EXACTLY
+the same twelve row-sides -- the six named tests, every one NOTEQUAL->EQUAL.
+The sister's own mover list and this pass's are disjoint (README section 8).
