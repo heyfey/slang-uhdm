@@ -1,0 +1,49 @@
+arm                                        g_rc o_rc | PRIS cmp_rc heads lines  refdiff | LAW cmp_rc heads lines  refdiff  verdict
+c01_lhsmod_op_genlocal                        0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c02_lhsloc_op_genlocal                        0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c03_lhsmod_bare_genlocal                      0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c04_lhsmod_op_mixed                           0    0 |         255     1    15      2/7 |          0     0     0      0/7  CONVERTS
+c05_lhsmod_op_procdriven_local                0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c06_lhsloc_op_procdriven_local                0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c07_lhsmod_sysfunc_genlocal                   0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c08_multdiv_shape                             0    0 |         255     1    15     4/14 |          0     0     0     0/14  CONVERTS
+c09_lhsmodnet_op_genlocal                     0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c10_genfor_lhsmod_op_genlocal                 0    0 |           0     0     0     0/11 |          0     0     0     0/11  same
+c11_lhsmod_op_twolocals                       0    0 |         255     1    15      2/9 |          0     0     0      0/9  CONVERTS
+c12_lhsmod_concat_genlocal                    0    0 |         255     1    15      2/7 |          0     0     0      0/7  CONVERTS
+c13_nested_lhsmod_op_genlocal                 0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c14_lhsmod_op_localonly_readbare              0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c15_lhsmod_op_bitsel_genlocal                 0    0 |           0     0     0      0/5 |          0     0     0      0/5  same
+c16_lhsmod_cond_genlocal                      0    0 |         255     1    15      2/8 |          0     0     0      0/8  CONVERTS
+c17_lhsmod_repl_genlocal                      0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c18_lhsmod_cast_genlocal                      0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c19_lhsmodarrayvar_pattern_genlocal           0    0 |         255     1    15      2/7 |          0     0     0      0/7  CONVERTS
+c20_lhsmodarraynet_pattern_genlocal           0    0 |         255     1    51      1/7 |          0     0     0      0/7  CONVERTS
+c21_lhsmod_partsel_op_genlocal                0    0 |           0     0     0      0/4 |          0     0     0      0/4  same
+c22_lhsmodnamesake_op_genlocal                0    0 |         255     1    15      2/6 |          0     0     0      1/6  CONVERTS
+c23_multdiv_nosigned                          0    0 |         255     1    15     4/14 |          0     0     0     0/14  CONVERTS
+c24_multdiv_onesigned                         0    0 |         255     1    15     2/12 |          0     0     0     0/12  CONVERTS
+c25_unsignedlhs_signedop                      0    0 |         255     1    15     4/14 |          0     0     0     0/14  CONVERTS
+c26_child_multdiv_modlhs                      0    0 |         255     1    15     4/25 |          0     0     0     0/25  CONVERTS
+c27_child_multdiv_genlocallhs                 0    0 |           0     0     0     0/27 |          0     0     0     0/27  same
+d01_genif_lhs_modarraynet_pattern             0    0 |         255     1    51      1/5 |        255     1    29      0/5  CONVERTS
+d02_modlevel_lhs_modarraynet_pattern          0    0 |         255     1    29      1/5 |        255     1    29      1/5  same
+d03_genif_lhs_modarrayvar_pattern             0    0 |         255     1    16      0/3 |        255     1    16      0/3  same
+d04_genif_lhs_genlocalarray_ref               0    0 |           0     0     0      0/5 |          0     0     0      0/5  same
+d05_genif_lhs_modpackedarray_pattern          0    0 |         255     1    29      0/3 |        255     1    29      0/3  same
+d06_genif_lhs_modarraynet_ref                 0    0 |         255     1    51      1/5 |          0     0     0      0/5  CONVERTS
+d07_modlevel_lhs_modarrayvar_pattern          0    0 |         255     1    29      0/3 |        255     1    29      0/3  same
+d08_genfor_lhs_modarraynet_pattern            0    0 |         255     1    51      1/3 |          0     0     0      0/3  CONVERTS
+d09_genif_lhs_modarraynet_elemsel             0    0 |           0     0     0      0/3 |          0     0     0      0/3  same
+# arms=36 refcen-CONVERT=21 refcen-REGRESS=0
+
+# e-arms — the SECOND ibex_alu family (R0), measured, NOT touched by this pass.
+# A MODULE-LEVEL cont_assign whose Rhs is a conditional on a constant parameter
+# comparison: golden folds it ONLY when the selected branch is a SIZED
+# constant; an UNSIZED '0 leaves the whole conditional symbolic and we fold it.
+arm                                        g_rc o_rc  PRIS cmp_rc lines  LAW cmp_rc lines  verdict
+e01_tern_1bit_sized0   (? 1'b0)               0    0            0     0           0     0  equal, both fold
+e03_tern_32bit_sized0  (? 32'd0)              0    0            0     0           0     0  equal, both fold
+e05_tern_32bit_unsized0_truesimple            0    0            0     0           0     0  equal, both keep
+e02_tern_32bit_unsized0 (? '0)                0    0          255    16         255    16  WRONG at pristine, UNCHANGED
+e04_tern_1bit_unsized0  (? '0)                0    0          255    16         255    16  WRONG at pristine, UNCHANGED

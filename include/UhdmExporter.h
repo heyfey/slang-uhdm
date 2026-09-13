@@ -5658,6 +5658,27 @@ private:
     int selIdxScopeDepth = 0;
     // True while emitting an elaborated gen-scope cont_assign RHS.
     bool inGenScopeCaRhs = false;
+    /// § genCaBoundLhsOperationRhsUnbindsRhs17 (r11u17) — true, inside
+    /// `inGenScopeCaRhs`, when THIS assignment's Lhs is a bare reference
+    /// `CompileHelper::bindVariable` FINDS (a module-body `Variables()` /
+    /// `Nets()` name — an unpacked-array NET is in `Array_nets()` and is NOT
+    /// found) AND its Rhs is an OPERATION.  That is the one shape in which
+    /// `UhdmWriter::writeCont_assign` (Surelog v1.87
+    /// `src/DesignCompile/UhdmWriter.cpp:2120-2166`) clones the assign and
+    /// REPLACES its Rhs with `reduceExpr`'s rebuilt tree, whose references
+    /// carry no `vpiActual` — so every Rhs reference is bare, the block's own
+    /// gen-locals included.
+    ///
+    /// It is read in ExprEmit.cpp by § genCaSysCallArgBinds22, whose re-bind
+    /// must stand down here.  That law's own witnesses (`qf22.sv`, arm c27)
+    /// all have a GEN-LOCAL Lhs, which `bindVariable` never finds, so the two
+    /// populations are disjoint; its implementation simply had no Lhs test
+    /// because before this law the only suppression it ever saw was
+    /// `childGen`'s.  Arm c26 is the cell that convicts the wider reach: a
+    /// CHILD instance, a module-level Lhs, `$signed({sa,oa}) * $signed({sb,ob})`
+    /// — golden leaves all four operands bare and the pristine binary bound
+    /// them.
+    bool caBoundLhsOpRhs17 = false;
     // § genLpBitSelIdxOneHopFold67 — true for the WHOLE of an ELAB gen-scope
     // cont_assign's expression emission (Lhs and Rhs alike), where
     // `inGenScopeCaRhs` covers only the Rhs.  It is the fence on

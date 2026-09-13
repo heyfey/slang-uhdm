@@ -17465,7 +17465,119 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             hasBindableRef = true;
                         v.visitDefault(nvp);
                     }));
-                bool suppress = streamRhs || childGen || !hasBindableRef;
+                // ==== § genCaBoundLhsOperationRhsUnbindsRhs17 (r11u17) ======
+                // A GENERATE-SCOPE cont_assign WHOSE Lhs `bindVariable` FINDS
+                // AND WHOSE Rhs IS AN OPERATION LEAVES EVERY Rhs REFERENCE
+                // WITHOUT AN ACTUAL — THE BLOCK'S OWN GEN-LOCALS INCLUDED.
+                //
+                // DECODE.  `UhdmWriter::writeCont_assign` (Surelog v1.87
+                // `src/DesignCompile/UhdmWriter.cpp:2120-2166`) never touches
+                // an Rhs reference directly, which is
+                // § genCaDrivenOpenerIsGenLocalOnly's fact and why the opener
+                // above reads the DEFINITION compile's bindings.  But it does
+                // reach them INDIRECTLY:
+                //
+                //     if (lhs->UhdmType() == uhdmref_obj) {
+                //       any* var = m_helper.bindVariable(mod, m, lhs->VpiName(), …);
+                //       if (var) {
+                //         if (rhs->UhdmType() == uhdmoperation) {
+                //           …clone_tree(assign)…
+                //           any* rhstmp = m_helper.reduceExpr((expr*)rhs, …);
+                //           if ((invalidValue == false) && rhstmp)
+                //             assign->Rhs((expr*)rhstmp);
+                //           ref_obj* ref = (ref_obj*)lhs; ref->Actual_group(var);
+                //
+                // `reduceExpr` hands back a REBUILT operand tree whose
+                // `ref_obj`s carry no `vpiActual`, and that tree REPLACES the
+                // Rhs.  So the definition compile's gen-local bindings survive
+                // only when this arm is NOT taken, and it needs BOTH keys:
+                // a bindable Lhs (`bindVariable` searches the module_inst's
+                // `Variables()`/`Nets()` — `genCaLhsGenLocal113` is the
+                // committed model of exactly that walk, FALSE meaning "found")
+                // and an OPERATION Rhs.
+                //
+                // MEASURED on the golden Surelog database, one arm per row,
+                // every arm `golden_rc=0 ours_rc=0`, verdicts read off
+                // `refcen.py` (grid c01-c22):
+                //   c01 module VAR Lhs, `src | 32'd1`     -> gen-local UNBOUND
+                //   c09 module NET Lhs, same Rhs          -> gen-local UNBOUND
+                //   c04 module VAR Lhs, gen-local AND a module name in one Rhs
+                //                                         -> BOTH UNBOUND
+                //   c05 the gen-local driven by a PROCESS  -> UNBOUND
+                //   c11 two gen-locals in one Rhs          -> BOTH UNBOUND
+                //   c12 concat, c14 unary, c16 ternary, c17 replication,
+                //   c18 an explicit cast, c19 a pattern over a module array
+                //   VAR Lhs                                -> UNBOUND
+                //   c08 the multdiv shape ($signed concats, product)
+                //                                         -> all four UNBOUND
+                //   c22 the Lhs is a gen-local with a MODULE NAMESAKE — the
+                //       name binds, so the Rhs unbinds too  -> UNBOUND
+                //   c02/c06 the Lhs is a gen-local with NO namesake
+                //                                         -> golden BINDS
+                //   c03 module Lhs, BARE-ref Rhs           -> golden BINDS
+                //   c07 module Lhs, `$unsigned(src)` Rhs   -> golden BINDS
+                //   c10 for-generate with an ELEMENT-SELECT Lhs
+                //                                         -> golden BINDS
+                //   c21 a PART-SELECT Lhs                  -> golden BINDS
+                //   c20 module array-NET Lhs (never found) -> golden BINDS
+                // Corpus: the `ibex_multdiv_fast` head — `assign
+                // mac_res_signed = $signed({sign_a, mult_op_a}) * …` at
+                // ibex_multdiv_fast.sv:277 inside `gen_mult_fast`, whose Lhs
+                // is the module-level `logic signed [34:0] mac_res_signed`
+                // (:51) and whose five Rhs references include the block's OWN
+                // `mult_op_a`/`mult_op_b` (:265/:266); and `assign
+                // sva_mul_fsm_idle = mult_state_q == ALBL;` at :380.
+                bool lhsBoundOpRhs17 = false;
+                {
+                    auto& lb17 = stripImplicitConv(ae.left());
+                    if (lb17.kind == ExpressionKind::NamedValue &&
+                        !genCaLhsGenLocal113) {
+                        auto& lbs17 = lb17.as<NamedValueExpression>().symbol;
+                        // The one Lhs shape `bindVariable` cannot find: an
+                        // unpacked-array NET is in `Array_nets()`
+                        // (§ genCaLhsArrayNetNeverBinds17).  Arm c20 is the
+                        // cell — its Lhs is an array net, so nothing binds,
+                        // nothing is cloned, and its gen-local Rhs reference
+                        // KEEPS the definition compile's actual.  The kind is
+                        // read off the EMITTED object, because `output logic
+                        // [31:0] arr[2]` is a slang VARIABLE and it is the
+                        // net/var split Surelog makes from the drivers that
+                        // decides the vector.
+                        auto mitL17 = netMap.find(&lbs17);
+                        bool arrNet17 = mitL17 != netMap.end() &&
+                                        mitL17->second &&
+                                        mitL17->second->UhdmType() ==
+                                            UHDM::uhdmarray_net;
+                        // `rhs->UhdmType() == uhdmoperation` on OUR side: the
+                        // expression kinds this emitter turns into a UHDM
+                        // `operation`, implicit conversions stripped.  An
+                        // EXPLICIT cast is an operation too (vpiCastOp, arm
+                        // c18); a `sys_func_call` (c07), a bare reference
+                        // (c03) and a select are not.
+                        auto& rb17 = stripImplicitConv(ae.right());
+                        bool op17 = false;
+                        switch (rb17.kind) {
+                            case ExpressionKind::BinaryOp:
+                            case ExpressionKind::UnaryOp:
+                            case ExpressionKind::ConditionalOp:
+                            case ExpressionKind::Concatenation:
+                            case ExpressionKind::Replication:
+                            case ExpressionKind::Inside:
+                            case ExpressionKind::Streaming:
+                            case ExpressionKind::SimpleAssignmentPattern:
+                            case ExpressionKind::StructuredAssignmentPattern:
+                            case ExpressionKind::ReplicatedAssignmentPattern:
+                            case ExpressionKind::Conversion:
+                                op17 = true;
+                                break;
+                            default:
+                                break;
+                        }
+                        lhsBoundOpRhs17 = !arrNet17 && op17;
+                    }
+                }
+                bool suppress = streamRhs || childGen || !hasBindableRef ||
+                                lhsBoundOpRhs17;
                 // INTERFACE gen scopes bind their CA refs to gen-local VARS
                 // (Surelog) — net-mapped targets stay under the module rules.
                 // (The childGen prefix-dot test always trips for an iface
@@ -17524,6 +17636,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                        parentFull == prefix &&
                                        genBlkIsLoopBody(blk);
                 inGenScopeCaRhs = true;
+                caBoundLhsOpRhs17 = lhsBoundOpRhs17;
                 // § castSizeElabScopeBind57 — the gen block declares its OWN
                 // localparams (prim_fifo_sync's PTRV_W / v3's GLIT, GDEP), and
                 // the instance body cannot see them; narrow the re-bind scope
@@ -17955,6 +18068,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
                 }
                 inGenScopeCaRhs = false;
+                caBoundLhsOpRhs17 = false;
                 castSiteScope57 = savedCastSiteScope57;
                 genNestedScopeEmit24 = false;
                 genCaLhsSelect22 = false;
@@ -18583,6 +18697,69 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             if (!lhsSuppress && castRhsOwnLocal118)
                 lhsSuppress = true;
+            // ======== § genCaLhsArrayNetNeverBinds17 (r11u17) ==============
+            // A GENERATE-SCOPE cont_assign whose Lhs names a MODULE-BODY
+            // UNPACKED-ARRAY NET carries NO actual at all.
+            //
+            // DECODE.  `UhdmWriter::writeCont_assign` (Surelog v1.87
+            // `src/DesignCompile/UhdmWriter.cpp:2120-2166`) is the only writer
+            // that binds a cont_assign Lhs, and it binds through
+            // `CompileHelper::bindVariable` (`src/DesignCompile/
+            // CompileStmt.cpp:3095-3155`).  That overload's `uhdmmodule_inst`
+            // case searches `Variables()` and then `Nets()` AND NOTHING ELSE
+            // — an UNPACKED-ARRAY net lives in `Array_nets()` (attached at
+            // UhdmWriter.cpp:4144/4291) and is never reached, so `var` comes
+            // back null, the `if (var)` body never runs, and the Lhs ref keeps
+            // the definition compile's empty `Actual_group`.  A `logic`
+            // unpacked array VARIABLE is an `array_var` and IS in
+            // `Variables()`, so it binds — the split is NET vs VAR, not
+            // "array".
+            //
+            // MEASURED on the golden Surelog database, one arm per row, every
+            // arm `golden_rc=0 ours_rc=0`, verdicts read off `refcen.py`
+            // (grid d01-d09, c19, c20):
+            //   d01 gen-if, module array NET Lhs, pattern Rhs -> golden <none>
+            //   d06 the same with a whole-ref Rhs             -> golden <none>
+            //   d08 the same in a for-generate                -> golden <none>
+            //   c20 the same with a pattern over a gen-local  -> golden <none>
+            //       ...and that arm's Rhs `src` STAYS BOUND, because the
+            //       unfound Lhs also means no clone (see
+            //       § genCaBoundLhsOperationRhsUnbindsRhs17 below).
+            //   d03/d07 module unpacked-array VAR Lhs         -> golden BINDS
+            //   d04 gen-LOCAL unpacked-array var Lhs          -> golden BINDS
+            //   d05 module PACKED-array net Lhs               -> golden BINDS
+            //   d09 an ELEMENT-SELECT Lhs on the array net    -> no ref_obj
+            // Corpus: the `ibex_alu` head — `assign imd_val_d_o = '{default:
+            // '0};` in `g_no_alu_rvb` (ibex_alu.sv:1311) over the module port
+            // `output logic [31:0] imd_val_d_o[2]` at :24, whose SCALAR
+            // siblings in the same block (`bitcnt_result` … `imd_val_we_o`)
+            // all bind in golden.
+            if (!lhsSuppress) {
+                auto& la17 = stripImplicitConv(ae.left());
+                if (la17.kind == ExpressionKind::NamedValue) {
+                    auto& ls17 = la17.as<NamedValueExpression>().symbol;
+                    auto* ps17 = ls17.getParentScope();
+                    // THE TEST IS THE EMITTED OBJECT'S KIND, NOT THE SLANG
+                    // SYMBOL'S.  `output logic [31:0] arr[2]` is a slang
+                    // VARIABLE, and it is the NET/VAR split Surelog performs
+                    // from the drivers — not slang's declaration kind — that
+                    // decides which vector the declaration lands in.  `netMap`
+                    // already holds that decision: an `array_net` here is one
+                    // `Array_nets()` will hold and `bindVariable` will miss,
+                    // while an `array_var` is in `Variables()` and binds
+                    // (arms d03/d07/d04).
+                    auto mit17 = netMap.find(&ls17);
+                    if (ps17 &&
+                        ps17->asSymbol().kind == SymbolKind::InstanceBody &&
+                        ps17->asSymbol()
+                                .as<InstanceBodySymbol>()
+                                .getDefinition()
+                                .definitionKind == DefinitionKind::Module &&
+                        mit17 != netMap.end() && mit17->second &&
+                        mit17->second->UhdmType() == UHDM::uhdmarray_net)
+                        lhsSuppress = true;
+                }
+            }
             if (lhsSuppress)
                 suppressRefActual = true;
             bool blkInLoop2 = false;

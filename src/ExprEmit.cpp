@@ -17901,7 +17901,60 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // (qe22 `assign r1 = $signed(v1)`), and that half is
                     // § genCaOpDeepBindGenLocal20's walk descending through the
                     // call — see the deep20 extension in ModuleEmit.
+                    // § genCaBoundLhsOperationRhsUnbindsRhs17 (r11u17) — AND
+                    // THE Lhs CONJUNCT THIS LAW ALWAYS HAD AND NEVER TESTED.
+                    // Every witness above (qf22's `mult1_res` / `pv_res`, arm
+                    // c27) assigns a GEN-LOCAL Lhs, which `bindVariable` never
+                    // finds, so `writeCont_assign` never clones and the
+                    // definition compile's bindings survive into the argument.
+                    // When the Lhs IS found and the Rhs IS an operation, the
+                    // clone's `reduceExpr` rebuilds the WHOLE Rhs and every
+                    // reference in it comes back bare — the `$signed` argument
+                    // included.  MEASURED: arm c26 (a CHILD instance, module
+                    // Lhs, `$signed({sa,oa}) * $signed({sb,ob})`) is golden-bare
+                    // and pristine-bound, and arms c08/c24/c25 are the
+                    // top-module twins; arm c27 holds this law's own
+                    // population unchanged.  Corpus: ibex_multdiv_fast.sv:277.
+                    // ==== § sysCallCastArgKeepsBind17v (r11v17, VERIFIER) ===
+                    // THE Lhs CONJUNCT ABOVE DOES NOT REACH A CAST OPERAND.
+                    // MEASURED, five arms, every arm `golden_rc=0 ours_rc=0`,
+                    // verdicts off `refcen.py` over the judge-reachable elab
+                    // section, with a BOUND module Lhs and an OPERATION Rhs in
+                    // a generate scope:
+                    //   w02 `$signed(W'(m_var)) ^ 8'd1`, child instance
+                    //                                   -> golden BINDS m_var
+                    //   w05 the same at TOP module       -> golden BINDS
+                    //   w06 `idf(W'(m)) ^ W'($signed(m)) ^ $signed(W'(m))`
+                    //       (r10v94repro/v2_kind94.sv:40 reduced)
+                    //                                   -> golden BINDS the
+                    //       one under `$signed(cast)` and leaves the other two
+                    //       bare
+                    //   w08 `$signed(W'(m_var) + 8'd2)`  -> golden BINDS
+                    //   w09 `$signed({1'b0, W'(m_var)})` -> golden BINDS
+                    // against the arms where the argument carries NO cast:
+                    //   w03 `$signed({sg, m_var})`       -> golden bare
+                    //   w07 `$signed(m_var + 8'd2)`      -> golden bare
+                    //   w04 `$signed(m_var)` (bare arg)  -> golden bare
+                    // So `reduceExpr`'s rebuild drops the actuals it walks
+                    // through but NOT a cast's operand — the same fact the
+                    // gen-scope PROCESS window already carries thirty lines
+                    // below ("a ref that is the OPERAND of a size-cast op
+                    // (op 67) binds even for module-level signals, Surelog
+                    // re-elaborates the cast").  The KEY is the ref's
+                    // IMMEDIATE parent, not the argument's own kind: w08 and
+                    // w09 nest the cast one level down inside the argument and
+                    // golden still binds.
+                    // Without this fence the Lhs conjunct is pristine-right ->
+                    // patched-wrong on `tools/probe/r10v94repro/v2_kind94.sv`
+                    // (a LANDED pass's own verifier arm, 2 -> 3 differing ref
+                    // keys of 50).  It can only RE-ENABLE a bind the binary at
+                    // the base already made, so it cannot reach a cell outside
+                    // § genCaBoundLhsOperationRhsUnbindsRhs17's new population.
+                    bool castArg17v =
+                        parent && parent->UhdmType() == UHDM::uhdmoperation &&
+                        ((UHDM::operation*)parent)->VpiOpType() == vpiCastOp;
                     if (!defGenProcessEmit && inGenScopeCaRhs &&
+                        (!caBoundLhsOpRhs17 || castArg17v) &&
                         sysCallArgDepth22 > 0 && !ref->Actual_group() &&
                         parent && parent->UhdmType() != UHDM::uhdmsys_func_call)
                         if (auto sit22 = netMap.find(&nv.symbol);

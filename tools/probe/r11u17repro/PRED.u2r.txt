@@ -1,0 +1,60 @@
+0	1	WORKDIR/default/ParameterInitializedByPartSelectOfParametersAssignedToVar-51fe6cf9/slang.uhdm
+		LAW2 lhs=work@top.gen_pack_mode.o ref=work@top.gen_pack_mode.max_value actual=logic_var
+0	1020	WORKDIR/default/gen_test5-c31fbabd/slang.uhdm
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[1].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[1].genblk1.step actual=bit_select
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[1].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[1].genblk1.i actual=bit_select
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[1].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[1].genblk1.PREV actual=bit_select
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[1].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[1].genblk1.steps[PREV].outer[LAST_START + j].val.j actual=ref_obj
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[2].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[2].genblk1.step actual=bit_select
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[2].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[2].genblk1.i actual=bit_select
+0	2	WORKDIR/default/gen_test8-3e21bec8/slang.uhdm
+		LAW2 lhs=work@gen_test8.A.x ref=B actual=ref_obj
+		LAW2 lhs=work@gen_test8.A.x ref=C actual=ref_obj
+0	1	WORKDIR/default/genscope_module_ctx_reset-c0210797/slang.uhdm
+		LAW2 lhs=work@genscope_module_ctx_reset.gen_use.p_o ref=work@genscope_module_ctx_reset.gen_use.in_i actual=logic_net
+1	0	WORKDIR/default/ibex_alu-24a1d731/slang.uhdm
+		LAW1 lhs=work@ibex_alu.g_no_alu_rvb.imd_val_d_o actual=array_net
+0	7	WORKDIR/default/ibex_multdiv_fast-ed04630b/slang.uhdm
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.sign_a actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.mult_op_a actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.sign_b actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.mult_op_b actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.accum actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.sva_mul_fsm_idle ref=work@ibex_multdiv_fast.gen_mult_fast.mult_state_q actual=enum_var
+0	16	WORKDIR/default/ibex_pmp-65816114/slang.uhdm
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[0].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[0].region_start_addr.region_start_addr.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[0].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[0].pmp_req_addr_i.pmp_req_addr_i.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[1].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[1].region_start_addr.region_start_addr.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[1].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[1].pmp_req_addr_i.pmp_req_addr_i.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[2].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[2].region_start_addr.region_start_addr.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[2].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[2].pmp_req_addr_i.pmp_req_addr_i.PMP_ADDR_LSB actual=enum_const
+0	1	WORKDIR/testflags/ParameterInitializedByPartSelectOfParametersAssignedToVar-51fe6cf9/slang.uhdm
+		LAW2 lhs=work@top.gen_pack_mode.o ref=work@top.gen_pack_mode.max_value actual=logic_var
+0	1020	WORKDIR/testflags/gen_test5-c31fbabd/slang.uhdm
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[1].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[1].genblk1.step actual=bit_select
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[1].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[1].genblk1.i actual=bit_select
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[1].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[1].genblk1.PREV actual=bit_select
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[1].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[1].genblk1.steps[PREV].outer[LAST_START + j].val.j actual=ref_obj
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[2].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[2].genblk1.step actual=bit_select
+		LAW2 lhs=work@gen_test5.steps[4].outer[0].inner[2].genblk1.temp ref=work@gen_test5.steps[4].outer[0].inner[2].genblk1.i actual=bit_select
+0	2	WORKDIR/testflags/gen_test8-3e21bec8/slang.uhdm
+		LAW2 lhs=work@gen_test8.A.x ref=B actual=ref_obj
+		LAW2 lhs=work@gen_test8.A.x ref=C actual=ref_obj
+0	1	WORKDIR/testflags/genscope_module_ctx_reset-c0210797/slang.uhdm
+		LAW2 lhs=work@genscope_module_ctx_reset.gen_use.p_o ref=work@genscope_module_ctx_reset.gen_use.in_i actual=logic_net
+1	0	WORKDIR/testflags/ibex_alu-24a1d731/slang.uhdm
+		LAW1 lhs=work@ibex_alu.g_no_alu_rvb.imd_val_d_o actual=array_net
+0	7	WORKDIR/testflags/ibex_multdiv_fast-ed04630b/slang.uhdm
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.sign_a actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.mult_op_a actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.sign_b actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.mult_op_b actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.mac_res_signed ref=work@ibex_multdiv_fast.gen_mult_fast.accum actual=logic_var
+		LAW2 lhs=work@ibex_multdiv_fast.gen_mult_fast.sva_mul_fsm_idle ref=work@ibex_multdiv_fast.gen_mult_fast.mult_state_q actual=enum_var
+0	16	WORKDIR/testflags/ibex_pmp-65816114/slang.uhdm
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[0].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[0].region_start_addr.region_start_addr.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[0].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[0].pmp_req_addr_i.pmp_req_addr_i.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[1].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[1].region_start_addr.region_start_addr.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[1].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[1].pmp_req_addr_i.pmp_req_addr_i.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[2].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[2].region_start_addr.region_start_addr.PMP_ADDR_LSB actual=enum_const
+		LAW2 lhs=work@ibex_pmp.g_access_check[0].g_regions[2].unused_sigs ref=work@ibex_pmp.g_access_check[0].g_regions[2].pmp_req_addr_i.pmp_req_addr_i.PMP_ADDR_LSB actual=enum_const

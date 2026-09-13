@@ -1,0 +1,233 @@
+===== 1. BINARIES
+5bbb42c0fbc7e2c76e95e6f70464d0ae  /tmp/r11u17_bin/pris.bin
+34374b757fe4a886cfd472ab3a0d403b  /tmp/r11u17_bin/law.bin
+the OPS-stated main-tree md5 at the base 76c8a58b: 5bbb42c0fbc7e2c76e95e6f70464d0ae
+  -> the pristine binary REPRODUCES it exactly.  (The main tree's own
+     build/slang-uhdm is NOT a valid comparand any more: the master
+     rebuilt it while integrating the next pass.  Its md5 now:)
+1aa37395635eecfceae336d552538b37  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+
+===== 1b. cmds.txt BINARY AUDIT (every arm, by PATH)
+-- /tmp/r11u17_wd/pris_sl
+   1531 /tmp/r11u17_bin/pris.bin
+-- /tmp/r11u17_wd/law_sl
+   1531 /tmp/r11u17_bin/law.bin
+-- /tmp/r11u17_wd/pris_u2r
+   1742 /tmp/r11u17_bin/pris.bin
+-- /tmp/r11u17_wd/law_u2r
+   1742 /tmp/r11u17_bin/law.bin
+
+===== 2. GOLDEN TESTS
+law:      PASS=23 FAIL=0
+/bin/false: PASS=0 FAIL=23
+
+===== 3. uhdm2rtlil, BOTH MODES
+pris/tf: EQUAL=759 NOTEQUAL=45 REJECT=67
+law/tf: EQUAL=761 NOTEQUAL=43 REJECT=67
+pris/def: EQUAL=759 NOTEQUAL=45 REJECT=67
+law/def: EQUAL=761 NOTEQUAL=43 REJECT=67
+-- ct8rows law/testflags vs the COMMITTED baseline results/gate_uhdm2rtlil.csv
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< genscope_module_ctx_reset,testflags,CMP_NOTEQUAL,decompile:,,
+> genscope_module_ctx_reset,testflags,CMP_EQUAL,,,differ
+< ibex_multdiv_fast,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_multdiv_fast,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     759 CMP_EQUAL      45 CMP_NOTEQUAL      67 SLANG_REJECT 
+  testflags  fresh:     761 CMP_EQUAL      43 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:     112      228 differ     531 match 
+  testflags  fresh:     110      230 differ     531 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+-- ct8rows law/default vs the COMMITTED baseline results/golden_uhdm2rtlil.csv (default half)
+base default rows: 871
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< genscope_module_ctx_reset,default,CMP_NOTEQUAL,decompile:,,
+> genscope_module_ctx_reset,default,CMP_EQUAL,,,differ
+< ibex_multdiv_fast,default,CMP_NOTEQUAL,decompile:,,
+> ibex_multdiv_fast,default,CMP_EQUAL,,,differ
+< struct_param_func_arg,default,CMP_EQUAL,,,differ
+> struct_param_func_arg,default,CMP_NOTEQUAL,decompile:,,
+< struct_param_func_loop,default,CMP_EQUAL,,,differ
+> struct_param_func_loop,default,CMP_NOTEQUAL,decompile:,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     761 CMP_EQUAL      43 CMP_NOTEQUAL      67 SLANG_REJECT 
+  default  fresh:     761 CMP_EQUAL      43 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     110      234 differ     527 match 
+  default  fresh:     110      234 differ     527 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+-- ct8rows PRISTINE/testflags vs the committed baseline (the control: my own pristine reproduces the base)
+  testflags  base:     759 CMP_EQUAL      45 CMP_NOTEQUAL      67 SLANG_REJECT 
+  testflags  fresh:     759 CMP_EQUAL      45 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:     112      228 differ     531 match 
+  testflags  fresh:     112      228 differ     531 match 
+PASS: every row byte-identical to the committed baseline
+
+===== 4. surelog, --mode both
+pris default : EQUAL=468 NOTEQUAL=15
+pris testflags: EQUAL=464 NOTEQUAL=13
+law default : EQUAL=468 NOTEQUAL=15
+law testflags: EQUAL=464 NOTEQUAL=13
+-- ct8rows law vs the COMMITTED baseline results/golden_surelog.csv
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u17_wd/law_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u17_wd/law_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     468 CMP_EQUAL      15 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     468 CMP_EQUAL      15 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     464 CMP_EQUAL      13 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     464 CMP_EQUAL      13 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     330      242 differ     226 match 
+  default  fresh:     330      242 differ     226 match 
+  testflags  base:     334      298 differ     166 match 
+  testflags  fresh:     334      298 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+-- ct8rows law vs MY OWN PRISTINE sweep (the real boundary: same harness, same goldens)
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u17_wd/pris_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u17_wd/law_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u17_wd/pris_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u17_wd/law_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     468 CMP_EQUAL      15 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     468 CMP_EQUAL      15 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     464 CMP_EQUAL      13 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     464 CMP_EQUAL      13 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     330      242 differ     226 match 
+  default  fresh:     330      242 differ     226 match 
+  testflags  base:     334      298 differ     166 match 
+  testflags  fresh:     334      298 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+===== 5. BYTEVERIFY (SELFCHECK=1) against my own pristine workdirs
+-- u2r
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/genscope_module_ctx_reset-c0210797/slang.uhdm  patched=5d0867676f9b pristine=f90ece12a5bc
+MOVER ./default/ibex_alu-24a1d731/slang.uhdm  patched=6f524be38012 pristine=0bf167f246e2
+MOVER ./default/ibex_multdiv_fast-ed04630b/slang.uhdm  patched=007e1bfa125f pristine=415b4a7b14fb
+MOVER ./testflags/genscope_module_ctx_reset-c0210797/slang.uhdm  patched=1fd7f32f0360 pristine=bbd09d5a5c3c
+MOVER ./testflags/ibex_alu-24a1d731/slang.uhdm  patched=d5e0a3b416e9 pristine=7b170b792be1
+MOVER ./testflags/ibex_multdiv_fast-ed04630b/slang.uhdm  patched=690b00b65d59 pristine=3633baa867b5
+MOVERS: 6 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+-- surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=5f31b3906053 pristine=06b3ea000a97
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=a88f6317eb8e pristine=70efeedcdac5
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=cbec4d608b72 pristine=5e8b6aae9936
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=e9183812b66f pristine=295475fda029
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=b72b078dbdcc pristine=4deb2da42e5b
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+===== 6. CANARIES
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+===== 7. PROTECTED DATABASES BY NAME (md5, law vs pristine)
+InterfaceModPort/default law=59a365f3ce2c pristine=59a365f3ce2c SAME
+InterfaceModPort/testflags law=59a365f3ce2c pristine=59a365f3ce2c SAME
+BlackParrotComplex/default law=e3e354129d5a pristine=e3e354129d5a SAME
+BlackParrotComplex/testflags law=73a10e8217e5 pristine=73a10e8217e5 SAME
+YosysOldOr/default law=d68e0796d62c pristine=d68e0796d62c SAME
+YosysOldOr/testflags law=d68e0796d62c pristine=d68e0796d62c SAME
+SVSwitch/default law=4842211c4030 pristine=4842211c4030 SAME
+SVSwitch/testflags law=4842211c4030 pristine=4842211c4030 SAME
+YosysVerx/default law=6ccda350c24a pristine=6ccda350c24a SAME
+YosysVerx/testflags law=6ccda350c24a pristine=6ccda350c24a SAME
+
+===== 8. BOUNDARY over the landed passes' arms
+home_heyfey_git-repos_slang-uhdm_tools_probe_r10earl_repro_qd22.sv pris_rc=0 law_rc=0 norm_delta=2
+PROCESSED=48 LISTED=48 MOVED=1
+
+===== 9. GRID (41 arms, both tags)
+arm                                        g_rc o_rc | PRIS cmp_rc heads lines  refdiff | LAW cmp_rc heads lines  refdiff  verdict
+c01_lhsmod_op_genlocal                        0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c02_lhsloc_op_genlocal                        0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c03_lhsmod_bare_genlocal                      0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c04_lhsmod_op_mixed                           0    0 |         255     1    15      2/7 |          0     0     0      0/7  CONVERTS
+c05_lhsmod_op_procdriven_local                0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c06_lhsloc_op_procdriven_local                0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c07_lhsmod_sysfunc_genlocal                   0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c08_multdiv_shape                             0    0 |         255     1    15     4/14 |          0     0     0     0/14  CONVERTS
+c09_lhsmodnet_op_genlocal                     0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c10_genfor_lhsmod_op_genlocal                 0    0 |           0     0     0     0/11 |          0     0     0     0/11  same
+c11_lhsmod_op_twolocals                       0    0 |         255     1    15      2/9 |          0     0     0      0/9  CONVERTS
+c12_lhsmod_concat_genlocal                    0    0 |         255     1    15      2/7 |          0     0     0      0/7  CONVERTS
+c13_nested_lhsmod_op_genlocal                 0    0 |           0     0     0      0/6 |          0     0     0      0/6  same
+c14_lhsmod_op_localonly_readbare              0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c15_lhsmod_op_bitsel_genlocal                 0    0 |           0     0     0      0/5 |          0     0     0      0/5  same
+c16_lhsmod_cond_genlocal                      0    0 |         255     1    15      2/8 |          0     0     0      0/8  CONVERTS
+c17_lhsmod_repl_genlocal                      0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c18_lhsmod_cast_genlocal                      0    0 |         255     1    15      1/6 |          0     0     0      0/6  CONVERTS
+c19_lhsmodarrayvar_pattern_genlocal           0    0 |         255     1    15      2/7 |          0     0     0      0/7  CONVERTS
+c20_lhsmodarraynet_pattern_genlocal           0    0 |         255     1    51      1/7 |          0     0     0      0/7  CONVERTS
+c21_lhsmod_partsel_op_genlocal                0    0 |           0     0     0      0/4 |          0     0     0      0/4  same
+c22_lhsmodnamesake_op_genlocal                0    0 |         255     1    15      2/6 |          0     0     0      1/6  CONVERTS
+c23_multdiv_nosigned                          0    0 |         255     1    15     4/14 |          0     0     0     0/14  CONVERTS
+c24_multdiv_onesigned                         0    0 |         255     1    15     2/12 |          0     0     0     0/12  CONVERTS
+c25_unsignedlhs_signedop                      0    0 |         255     1    15     4/14 |          0     0     0     0/14  CONVERTS
+c26_child_multdiv_modlhs                      0    0 |         255     1    15     4/25 |          0     0     0     0/25  CONVERTS
+c27_child_multdiv_genlocallhs                 0    0 |           0     0     0     0/27 |          0     0     0     0/27  same
+d01_genif_lhs_modarraynet_pattern             0    0 |         255     1    51      1/5 |        255     1    29      0/5  CONVERTS
+d02_modlevel_lhs_modarraynet_pattern          0    0 |         255     1    29      1/5 |        255     1    29      1/5  same
+d03_genif_lhs_modarrayvar_pattern             0    0 |         255     1    16      0/3 |        255     1    16      0/3  same
+d04_genif_lhs_genlocalarray_ref               0    0 |           0     0     0      0/5 |          0     0     0      0/5  same
+d05_genif_lhs_modpackedarray_pattern          0    0 |         255     1    29      0/3 |        255     1    29      0/3  same
+d06_genif_lhs_modarraynet_ref                 0    0 |         255     1    51      1/5 |          0     0     0      0/5  CONVERTS
+d07_modlevel_lhs_modarrayvar_pattern          0    0 |         255     1    29      0/3 |        255     1    29      0/3  same
+d08_genfor_lhs_modarraynet_pattern            0    0 |         255     1    51      1/3 |          0     0     0      0/3  CONVERTS
+d09_genif_lhs_modarraynet_elemsel             0    0 |           0     0     0      0/3 |          0     0     0      0/3  same
+# arms=36 refcen-CONVERT=21 refcen-REGRESS=0
+
+# e-arms — the SECOND ibex_alu family (R0), measured, NOT touched by this pass.
+# A MODULE-LEVEL cont_assign whose Rhs is a conditional on a constant parameter
+# comparison: golden folds it ONLY when the selected branch is a SIZED
+# constant; an UNSIZED '0 leaves the whole conditional symbolic and we fold it.
+arm                                        g_rc o_rc  PRIS cmp_rc lines  LAW cmp_rc lines  verdict
+e01_tern_1bit_sized0   (? 1'b0)               0    0            0     0           0     0  equal, both fold
+e03_tern_32bit_sized0  (? 32'd0)              0    0            0     0           0     0  equal, both fold
+e05_tern_32bit_unsized0_truesimple            0    0            0     0           0     0  equal, both keep
+e02_tern_32bit_unsized0 (? '0)                0    0          255    16         255    16  WRONG at pristine, UNCHANGED
+e04_tern_1bit_unsized0  (? '0)                0    0          255    16         255    16  WRONG at pristine, UNCHANGED
+
+===== 10. THE COIN, PROVED FROM MY OWN PRISTINE BINARY ALONE
+Four runs of /tmp/r11u17_bin/pris.bin on MiniAmiq's OWN command line, rc 0 each:
+  run1 md5=9483ec5da550   run2 md5=839eecbf6096
+  run3 md5=7dadb6060f53   run4 md5=ab93f603d8d0
+Four DIFFERENT databases from ONE binary.  Every pristine-vs-pristine
+order-blind (sorted, path- and id-normalised) delta is the SAME 4-line shape --
+one constant's UINT + vpiDecompile drawing a different value per run
+(1110 / 870 / ...).  run1^run2 = run1^run3 = run2^run4 = run3^run4 = 4 lines.
+The pristine-vs-law delta on MiniAmiq is that identical 4-line shape, and so is
+every other surelog mover (SeqDriver x2, SimpleUVM).  pred17.py run on those
+five PRISTINE databases flags ZERO cells in each, so neither law can reach them.
+
+===== 11. ROWHEADS, law vs pristine (identical)
+  measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0 on BOTH binaries; every row's
+  cmp line count and head count identical (SeqDriver/SimpleUVM/Scoreboard/
+  MiniAmiq/BuildUVMPkg 50, Earlgrey_0_1 32, Rggen 801).
+
+===== 12. THE TWO CONVERTED ROWS, uhdm-cmp run directly on the golden the
+        sweep itself used
+  ibex_multdiv_fast        default + testflags   rc 255 (1 head) -> rc 0
+  genscope_module_ctx_reset default + testflags   rc 255 (1 head) -> rc 0

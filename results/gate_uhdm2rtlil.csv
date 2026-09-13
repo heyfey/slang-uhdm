@@ -282,7 +282,7 @@ generate_test,testflags,CMP_EQUAL,,,differ
 GenIfInside,testflags,CMP_EQUAL,,,match
 genscope_async_ff_signal,testflags,CMP_EQUAL,,,match
 genscope_cells,testflags,CMP_EQUAL,,,differ
-genscope_module_ctx_reset,testflags,CMP_NOTEQUAL,decompile:,,
+genscope_module_ctx_reset,testflags,CMP_EQUAL,,,differ
 genscope_outer_reg_inner_ff,testflags,CMP_NOTEQUAL,decompile:,,
 genscope_struct_member,testflags,CMP_NOTEQUAL,decompile:,,
 GenScopeFunction,testflags,CMP_EQUAL,,,match
@@ -317,7 +317,7 @@ ibex_id_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex
 ibex_if_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
 ibex_load_store_unit,testflags,CMP_EQUAL,,,differ
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
-ibex_multdiv_fast,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_multdiv_fast,testflags,CMP_EQUAL,,,differ
 ibex_multdiv_slow,testflags,CMP_EQUAL,,,differ
 ibex_pmp,testflags,CMP_NOTEQUAL,decompile:,,
 ibex_prefetch_buffer,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_prefetch_buffer.sv:88:3: error: unknown module 'ibex_fetch_fifo',,
