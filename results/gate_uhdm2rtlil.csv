@@ -738,7 +738,7 @@ struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/t
 struct_param_dim,testflags,CMP_NOTEQUAL,decompile:,,
 struct_param_field_shift,testflags,CMP_NOTEQUAL,decompile:,,
 struct_param_func_arg,testflags,CMP_NOTEQUAL,decompile:,,
-struct_param_func_config,testflags,CMP_NOTEQUAL,decompile:,,
+struct_param_func_config,testflags,CMP_EQUAL,,,differ
 struct_param_func_loop,testflags,CMP_NOTEQUAL,decompile:,,
 struct_param_pattern_packing,testflags,CMP_NOTEQUAL,decompile:,,
 struct_param_repl_count,testflags,CMP_EQUAL,,,differ

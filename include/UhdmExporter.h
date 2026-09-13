@@ -2005,6 +2005,47 @@ private:
         int32_t ct = 0;
     };
     std::vector<SrlgMemSelAsmOv> memSelAsmOv;
+    // § asmEncFollowsRef (r11u13) — EVERY SITE THAT READS AN ASSEMBLED
+    // PARAMETER WHOLE FOLLOWS ITS ENCODING.
+    // Once § pkgStructFuncAssembleBin / § modStructFuncAssembleBin have reduced
+    // a function-built struct parameter to ONE packed BIN constant, Surelog
+    // answers every WHOLE read of that parameter out of that constant's own
+    // Value — it never re-folds the initializer and never re-encodes the
+    // integer.  Two sites inherit it and neither did:
+    //   R1 a module parameter DEFAULTED to it (`parameter cfg_t Cfg = p::C`):
+    //      the param_assign Rhs is the assembled constant in BOTH module
+    //      views, and we re-emitted the base's unfolded `func_call`.
+    //   R2 an override actual that is a BARE REFERENCE to it
+    //      (`child #(.Cfg(Cfg))`, `holder #(.H(p::C))`): the actual is that
+    //      same BIN, and we folded the value to HEX at the struct width
+    //      (the § elabOvRefIntConst inheritance, one encoding out).
+    // Both are DEFERRED exactly as § memSelAsmBaseOv is: the producer's bail
+    // rule is only final in the drain, so the site RECORDS and the drain reads
+    // the answer off the base's own elaborated Rhs (a `vpiBinaryConst` when it
+    // assembled, a `struct_var` when it bailed).  A bail writes NOTHING.
+    struct SrlgAsmRefPa {
+        UHDM::param_assign* pa = nullptr;
+        UHDM::parameter* up = nullptr;
+        const slang::ast::ParameterSymbol* base = nullptr;
+        std::string tsName;
+        int32_t width = 0;   // the READER's packed width — the record gate
+                             // only; the bits and the SIZE the drain writes
+                             // are the BASE constant's own
+        bool elabView = false;   // `<w>'b` prefix; the def view stays bare
+    };
+    std::vector<SrlgAsmRefPa> asmRefPa;
+    struct SrlgAsmRefOv {
+        UHDM::constant* c = nullptr;
+        const slang::ast::ParameterSymbol* base = nullptr;
+    };
+    std::vector<SrlgAsmRefOv> asmRefOv;
+    // The family predicate: `e` is a BARE reference to a packed-struct
+    // parameter that is (possibly through a chain of bare references) built by
+    // a member-by-member const function.  Returns the FAMILY parameter itself
+    // — the one whose elaborated Rhs the drain reads the assemble/bail answer
+    // off — or null.
+    const slang::ast::ParameterSymbol* asmRefFamilyBase(
+        const slang::ast::Expression& e);
     // The DEF-view (uhdmallModules) parameter objects of such a parameter.
     // Their typespec must be re-pointed at the STAMPED struct copy: golden's
     // def module listing resolved the typedef after elaboration too, so it

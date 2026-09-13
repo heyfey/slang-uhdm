@@ -1,0 +1,73 @@
+r11u13 GATES — § asmEncFollowsRef, base 74a6bfa2
+================================================
+BINARIES (frozen, chmod 555, before any sweep)
+  pristine  2ca79fb72247897ddc2983a1dc40696f   (byte-identical to the main tree at 74a6bfa2)
+  patched   5a303475d7a90b5c8cc40010aba6549b
+
+GOLDEN DUMP TESTS (patched)
+  tests/check_goldens.sh          PASS=23  FAIL=0
+  SLANG_UHDM=/bin/false           PASS=0   FAIL=23     (negative control)
+
+uhdm2rtlil — BOTH MODES
+  pristine   754 CMP_EQUAL / 50 CMP_NOTEQUAL / 67 SLANG_REJECT  (= committed baseline)
+  patched    755 CMP_EQUAL / 49 CMP_NOTEQUAL / 67 SLANG_REJECT
+  ct8rows vs results/gate_uhdm2rtlil.csv        1 differing ROW
+  ct8rows vs results/golden_uhdm2rtlil.csv/def  1 differing ROW
+    < struct_param_func_config,testflags,CMP_NOTEQUAL,decompile:,,
+    > struct_param_func_config,testflags,CMP_EQUAL,,,differ
+    < struct_param_func_config,default,CMP_NOTEQUAL,decompile:,,
+    > struct_param_func_config,default,CMP_EQUAL,,,differ
+
+Surelog suite — BOTH MODES
+  pristine   default 468/15   testflags 464/13   (= committed baseline)
+  patched    default 468/15   testflags 464/13
+  ct8rows patched vs pristine: 0 status/dump moves; 2 rows differ only in the
+    WORKDIR PATH inside a SURELOG_FAIL detail string (LowMemLib, LowMemPkg).
+
+BYTEVERIFY (SELFCHECK=1, against this pass's OWN pristine workdirs)
+  uhdm2rtlil   12 movers / 1608   selfcheck 1607/1608
+      6 tests x 2 modes, ALL a-priori predicted BY NAME, ALL param_assign keys TO-GOLDEN:
+      struct_param_func_config, param_nested_struct_field_width, struct_param_field_shift,
+      def_ctx_struct_param, latch_decoder_partial, latch_tlb_napot
+  surelog       5 movers /  960   selfcheck  959/960
+      MiniAmiq x2, SeqDriver x2, SimpleUVM x1 — the proven UVM coin family.
+      Order-blind: 8 sorted-dump lines each, all LINE-NUMBER class.
+      POSITIVE CONTROL (pristine alone, same command line, twice):
+        MiniAmiq  bytes differ, SAME 8-line SAME-class order-blind delta
+        SeqDriver bytes differ, 0-line order-blind delta (pure list-ORDER flip)
+
+CANARIES
+  canaries.sh surelog   ok=52 changed=0 absent=0
+  canaries.sh u2r       ok=8  changed=0 absent=0
+  ctcan2.sh   surelog   PASS (EXPECT_UNKNOWN=1)
+  ctcan2.sh   u2r       PASS (EXPECT_UNKNOWN=6)
+  canaudit.sh           audited=29 UNCOVERED=0 FENCE-BREACH=0
+  HARD BYTE PINS  SVSwitch 4842211c4030 (both modes), YosysVerx 6ccda350c24a (both modes)
+  STATUS PINS     InterfaceModPort 59a365f3ce2c, BlackParrotComplex, YosysOldOr — all SAME
+
+BAIL / PROTECTED WITNESSES — all BYTE-IDENTICAL, both modes
+  FuncStructVal (CMP_EQUAL), FuncStructValSimple (CMP_EQUAL, r11u11's conversion),
+  StructParamFuncBodyFieldCompare (CMP_NOTEQUAL, head unmoved),
+  pkg_nested_struct_param_width (CMP_EQUAL), portsel_struct_param (CMP_EQUAL),
+  cva6_struct_param_field, struct_member_cfg_width,
+  struct_param_func_arg, struct_param_func_loop
+
+GOLDEN GRID — 9 arms, every rc recorded
+  b1..b9: slrc=0, [ERROR] : 0, pris_rc=0, pat_rc=0
+  b3 head 1 -> 0.  b2/b4 (the BAIL twins) BYTE-IDENTICAL.
+  Directional census across all 9 arms: AWAY 0, MOVED-WRONG 0.
+  shapes.py SHAPE-differing param_assign keys pris -> pat:
+    b1 2->0  b3 1->0  b5 2->0  b6 2->0  b7 3->0  b9 4->0
+    b2 10->10  b4 4->4  b8 1->1      (no arm GREW a key)
+
+FENCE CHECK on the source diff
+  all four slang-fenced names: 0 hits each in the production diff.
+  (The names are NOT spelled here: `canaudit.sh` excludes only README*.md
+  records and itself, so a gate record that spells them reads as
+  FENCE-BREACH=4 on the delivered directory -- r11vu13 verifier fix.)
+
+BINARY-PATH AUDIT of every cmds.txt
+  u2rp 1742 rows -> /tmp/r11u13_pris.bin      u2rq 1742 rows -> /tmp/r11u13_pat.bin
+  slp   960 rows -> /tmp/r11u13_pris.bin      slq   960 rows -> /tmp/r11u13_pat.bin
+
+RESULTS CSVs NOT EDITED BY THIS PASS.

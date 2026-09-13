@@ -1945,6 +1945,35 @@ bool UhdmExporter::memLeftIntRead(const Expression& init) {
     return e && *e == SrlgMemLeftEnc::Int;
 }
 
+// § asmEncFollowsRef (r11u13).  Walk a chain of BARE parameter references down
+// to the member-by-member-const-function-built parameter that owns the packed
+// BIN constant, or give up.  Only bare references count: an operation, a member
+// select, a cast or a pattern around the read is a DIFFERENT site with its own
+// law (a member select is § memSelAsmBaseOv's, an operation folds UINT).
+const ParameterSymbol* UhdmExporter::asmRefFamilyBase(const Expression& e) {
+    const Expression* x = &stripImplicitConv(e);
+    for (int d9 = 0; d9 < 8; d9++) {
+        const Symbol* sy9 = nullptr;
+        if (x->kind == ExpressionKind::NamedValue)
+            sy9 = &x->as<NamedValueExpression>().symbol;
+        else if (x->kind == ExpressionKind::HierarchicalValue)
+            sy9 = &x->as<HierarchicalValueExpression>().symbol;
+        if (!sy9 || sy9->kind != SymbolKind::Parameter)
+            return nullptr;
+        auto& ps9 = sy9->as<ParameterSymbol>();
+        if (ps9.getType().getCanonicalType().kind !=
+            SymbolKind::PackedStructType)
+            return nullptr;
+        auto* in9 = ps9.getInitializer();
+        if (!in9)
+            return nullptr;
+        if (memLeftInitCall(*in9))
+            return &ps9;
+        x = &stripImplicitConv(*in9);
+    }
+    return nullptr;
+}
+
 // Surelog's DESIGN elaboration runs long before the EvalFunc leftovers exist,
 // so a generate condition reading an override that resolves through one never
 // folds and the instance is emitted with NO gen_scope_array at all — golden's
@@ -2341,6 +2370,98 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     // actual carry the member's bit slice; a bail touches nothing and the
     // EvalFunc member leftover's own encoding — which the override site already
     // wrote — stands (FuncStructVal, byte-identical).
+    // § asmEncFollowsRef (r11u13) — R1, THE DEFAULT THAT READS AN ASSEMBLED
+    // PARAMETER WHOLE.  Runs after both assemble arms for the same reason the
+    // member-select drain does: the base's ELABORATED param_assign Rhs IS the
+    // producer's answer — a `vpiBinaryConst` when `reduceExpr(struct_var)`
+    // assembled and a `struct_var` when it bailed.  Where it assembled, golden
+    // carries that constant at the reading parameter too, in BOTH module views
+    // (bare decompile in `uhdmallModules`, `<w>'b`-prefixed in
+    // `uhdmtopModules` — `CompileHelper::adjustSize` renders the elaborated
+    // copy); where it bailed, the unfolded `func_call` we already emitted is
+    // golden's own answer and nothing here fires.
+    auto asmRefBaseConst = [&](const slang::ast::ParameterSymbol* b9)
+        -> UHDM::constant* {
+        auto it9 = elabParamPa.find(b9);
+        if (it9 == elabParamPa.end() || !it9->second)
+            return nullptr;
+        auto* r9 = it9->second->Rhs();
+        if (!r9 || r9->UhdmType() != UHDM::uhdmconstant ||
+            ((UHDM::constant*)r9)->VpiConstType() != vpiBinaryConst)
+            return nullptr;
+        return (UHDM::constant*)r9;
+    };
+    for (auto& ar : asmRefPa) {
+        if (!ar.pa || !ar.base || ar.width <= 0)
+            continue;
+        // THE BASE'S OWN VALUE, VERBATIM — never the reading parameter's.
+        // Surelog answers the whole read out of the assembled constant's
+        // Value and does NOT re-coerce it to the reading parameter's type:
+        // where the reader is declared at a NARROWER (or wider) packed type
+        // than the base, golden still carries the base's bits at the BASE's
+        // size, at the parameter and at the param_assign, in both views
+        // (verifier grid v3 `localparam ucfg_t Cut = p::C`, v10's
+        // narrower-typed HOP `M`/`D` — golden 66 bits, the reading type's
+        // truncation AWAY-GOLDEN on value AND size).  R2 already sources the
+        // base constant this way; R1 re-derived the value from
+        // `ps.getValue()` at `slPackedWidth(reader)` and only coincided when
+        // the two types had the same width.
+        auto* bc9 = asmRefBaseConst(ar.base);
+        if (!bc9)
+            continue;
+        std::string bv9(bc9->VpiValue());
+        if (bv9.compare(0, 4, "BIN:") != 0 || bc9->VpiSize() <= 0)
+            continue;
+        std::string bb9 = bv9.substr(4);
+        auto* rc = s.MakeConstant();
+        rc->VpiValue(bv9);
+        rc->VpiDecompile(ar.elabView
+                             ? std::to_string(bc9->VpiSize()) + "'b" + bb9
+                             : bb9);
+        rc->VpiSize(bc9->VpiSize());
+        rc->VpiConstType(vpiBinaryConst);
+        rc->VpiParent(ar.pa);
+        if (auto* old = ar.pa->Rhs()) {
+            rc->VpiFile(old->VpiFile());
+            rc->VpiLineNo(old->VpiLineNo());
+            rc->VpiColumnNo(old->VpiColumnNo());
+            rc->VpiEndLineNo(old->VpiEndLineNo());
+            rc->VpiEndColumnNo(old->VpiEndColumnNo());
+        }
+        auto* rrt = s.MakeRef_typespec();
+        rrt->VpiFullName(ar.tsName);
+        rrt->VpiParent(rc);
+        rc->Typespec(rrt);
+        if (ar.up && ar.up->Typespec() && ar.up->Typespec()->Actual_typespec())
+            rrt->Actual_typespec(ar.up->Typespec()->Actual_typespec());
+        ar.pa->Rhs(rc);
+        if (ar.up)
+            ar.up->VpiValue(bv9);
+    }
+    // § asmEncFollowsRef (r11u13) — R2, THE OVERRIDE ACTUAL THAT IS A BARE
+    // REFERENCE.  The § elabOvRefIntConst inheritance with the assembled
+    // encoding in it: Surelog stamps the referenced parameter's Value verbatim
+    // and re-renders the decompile against the formal, so the actual is the
+    // base's own BIN at the base's own size with the `<w>'b` prefix an
+    // instance-parameter override always carries.  Four fields — exactly the
+    // four `constant::Compare` reads — over a constant the override pipeline
+    // already minted; on a bail not one of them is written.  Runs after R1 so a
+    // default that itself reads the family is already the assembled constant.
+    for (auto& ao : asmRefOv) {
+        if (!ao.c || !ao.base)
+            continue;
+        auto* bc = asmRefBaseConst(ao.base);
+        if (!bc)
+            continue;
+        std::string bv(bc->VpiValue());
+        if (bv.compare(0, 4, "BIN:") != 0 || bc->VpiSize() <= 0)
+            continue;
+        std::string bb = bv.substr(4);
+        ao.c->VpiValue(bv);
+        ao.c->VpiConstType(vpiBinaryConst);
+        ao.c->VpiSize(bc->VpiSize());
+        ao.c->VpiDecompile(std::to_string(bc->VpiSize()) + "'b" + bb);
+    }
     for (auto& mo : memSelAsmOv) {
         if (!mo.c || !mo.base)
             continue;
@@ -7911,6 +8032,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
+                // § asmEncFollowsRef (r11u13) — R2.  THE OVERRIDE ACTUAL THAT
+                // IS A BARE REFERENCE TO A PARAMETER OF THE FAMILY.  The same
+                // inheritance § elabOvRefIntConst already models for an
+                // INT-valued localparam, with the ASSEMBLED encoding in it:
+                // golden's `child #(.Cfg(Cfg))` is the base's own `66'b…` BIN
+                // ct 3 (struct_param_func_config) and `holder #(.H(p::C))` the
+                // 1088-bit BIN ct 3 (grid a1), where the wide-typed-param arm
+                // below folds HEX ct 5.  RECORD ONLY, for the same reason R1
+                // does: on a bail the encoding the value chain writes is
+                // golden's answer and this touches nothing.
+                if (overridden && boundInit && typedParam) {
+                    auto& ov5 = stripImplicitConv(*boundInit);
+                    if ((ov5.kind == ExpressionKind::NamedValue ||
+                         ov5.kind == ExpressionKind::HierarchicalValue) &&
+                        ps.getType().getCanonicalType().kind ==
+                            SymbolKind::PackedStructType)
+                        if (auto* ab5 = asmRefFamilyBase(ov5))
+                            asmRefOv.push_back({c, ab5});
+                }
                 // § unpackedElemOvEnc — an override actual that INDEXES an
                 // UNPACKED-ARRAY parameter (`.INITIAL_VALUE(INITIAL_VALUE[j])`
                 // against `localparam bit [1:0] INITIAL_VALUE[4] = '{2'h0,
@@ -8513,6 +8653,71 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // copy — recorded here, re-pointed by the drain.
             if (!topView && !inPackage && memLeftInitCall(*init))
                 memLeftDefParams.emplace_back(up, &ps);
+            // § asmEncFollowsRef (r11u13) — R1.  A module parameter whose
+            // DEFAULT is a bare reference to a function-built struct parameter
+            // (`parameter cfg_t Cfg = p::C`) does not re-run the builder:
+            // Surelog reads the base's own elaborated Value, which by then is
+            // the assembled packed BIN.  Golden carries that constant in BOTH
+            // module views — `uhdmallModules` with the assembler's bare bits,
+            // `uhdmtopModules` with the `<w>'b` prefix adjustSize renders —
+            // where we re-emitted the base's unfolded `func_call` in both
+            // (struct_param_func_config `work@struct_param_func_config.Cfg`,
+            // golden BIN size 66 ct 3 against our `func_call(build)`; grid
+            // a1/a7/a8 `work@top.D`).  RECORD ONLY: the assemble/bail is
+            // decided in the drain, and on a bail the `func_call` standing here
+            // is golden's own answer, so nothing is minted and the database
+            // stays byte-identical.
+            if (!inPackage && !isImported && !overridden && typedParam &&
+                ps.getType().getCanonicalType().kind ==
+                    SymbolKind::PackedStructType) {
+                if (auto* ab9 = asmRefFamilyBase(*init)) {
+                    // THE DEF LISTING RESOLVES ONLY ACROSS A SCOPE BOUNDARY.
+                    // `uhdmallModules` is written before instance elaboration,
+                    // so a reference to a SIBLING parameter of the same module
+                    // is still symbolic there — golden keeps a bare `ref_obj`
+                    // (grid b3 `work@top.D = C`, b7 `work@top.E = D`, both
+                    // measured AWAY-GOLDEN on the ungated form).  A PACKAGE
+                    // localparam is already elaborated when the def listing is
+                    // written, and golden carries the assembled constant
+                    // (grid b1/b5/b6/b9 `work@top.D = p::C`, and the corpus
+                    // rows struct_param_func_config / struct_param_field_shift
+                    // / param_nested_struct_field_width).  The ELABORATED view
+                    // resolves both and is not gated.  The test is on the
+                    // IMMEDIATE referent, never on the chain's far end: grid
+                    // `b7` chains `E = D = p::C`, and golden's def listing
+                    // resolves `D` (a package read) while leaving `E` (a
+                    // sibling read) a `ref_obj` — measured AWAY-GOLDEN on the
+                    // form that tested the far end.
+                    const Symbol* ai9 = nullptr;
+                    {
+                        auto& ix9 = stripImplicitConv(*init);
+                        if (ix9.kind == ExpressionKind::NamedValue)
+                            ai9 = &ix9.as<NamedValueExpression>().symbol;
+                        else if (ix9.kind == ExpressionKind::HierarchicalValue)
+                            ai9 = &ix9.as<HierarchicalValueExpression>().symbol;
+                    }
+                    bool apk9 = ai9 && ai9->getParentScope() &&
+                                ai9->getParentScope()->asSymbol().kind ==
+                                    SymbolKind::Package;
+                    int32_t aw9 = (int32_t)slPackedWidth(ps.getType());
+                    auto av9 = ps.getValue();
+                    if (aw9 > 0 && av9.isInteger() &&
+                        !av9.integer().hasUnknown() &&
+                        (apk9 || !defViewOrig9)) {
+                        // The reader's OWN value is only the gate (it must
+                        // fold to a defined integer); the BITS the drain
+                        // writes are the BASE constant's, because Surelog
+                        // does not re-coerce the assembled Value to the
+                        // reading parameter's type.
+                        std::string atp9 = prefix;
+                        if (atp9.size() >= 2 &&
+                            atp9.compare(atp9.size() - 2, 2, "::") == 0)
+                            atp9.resize(atp9.size() - 2);
+                        asmRefPa.push_back({pa, up, ab9, atp9, aw9,
+                                            !defViewOrig9});
+                    }
+                }
+            }
             // § pkgStructFuncAssembleBin (r11u9) — THE PACKAGE HOLDER.  The
             // same member-by-member const function initialising a PACKAGE
             // localparam leaks the very same leftovers onto the struct
@@ -8660,7 +8865,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 size_t stIdx9 = memLeftStamps.size() - 1;
                                 auto* c9 = s.MakeConstant();
                                 c9->VpiValue("BIN:" + bits9);
-                                c9->VpiDecompile(bits9);
+                                // § asmEncFollowsRef (r11u13) — R3, THE
+                                // MATERIALIZED IMPORT COPY'S OWN VIEW SPLIT.
+                                // The assembler's bare bits are the PACKAGE
+                                // listing's answer and the DEF module
+                                // listing's; the ELABORATED module listing
+                                // runs `CompileHelper::adjustSize` over the
+                                // copy and renders the `<w>'b` prefix
+                                // (struct_param_func_config golden:
+                                // `uhdmallModules work@child.C` bare,
+                                // `uhdmtopModules work@…u_c.C` `66'b…`).
+                                // Keyed on `defViewOrig9`, never on `topView`
+                                // — the import-copy law FORCES topView true
+                                // for the DEF module listing too.
+                                c9->VpiDecompile(
+                                    (!inPackage && !defViewOrig9)
+                                        ? std::to_string(pw9) + "'b" + bits9
+                                        : bits9);
                                 c9->VpiSize(pw9);
                                 c9->VpiConstType(vpiBinaryConst);
                                 c9->VpiParent(pa);
@@ -8678,7 +8899,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 // this one WHOLE (`build(UCFG)`) stamps its
                                 // member with this very object, the way golden
                                 // does (pkg_nested_struct_param_width).
-                                elabParamConst[&ps] = c9;
+                                // FIRST WRITER WINS.  The same parameter is
+                                // materialized once per importing scope, and
+                                // golden's `whole read` leftover is the
+                                // PACKAGE's own object — the one whose
+                                // decompile stays bare.  While every copy
+                                // carried identical fields the last writer was
+                                // indistinguishable; § asmEncFollowsRef's R3
+                                // view split makes the copies differ, and
+                                // taking the elaborated import copy stamped
+                                // `34'b…` where golden stamps the package's
+                                // bare bits (struct_param_func_config's
+                                // `p::cfg_t.u` leftover, measured).
+                                elabParamConst.emplace(&ps, c9);
                                 memLeftAsmParams.emplace_back(up, &ps);
                                 if (wantTs) {
                                     auto* rt9 = s.MakeRef_typespec();
