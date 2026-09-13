@@ -1,0 +1,35 @@
+r11u7 WIDE BOUNDARY — every committed interface probe arm, both binaries.
+Produced by `wide7.sh <pristine> <patched> <armroot>` with ARMRUN pointed at
+this directory's own armrun.sh.
+
+ARMS_LISTED=47  ARMS_PROCESSED=47  ARMS_WITH_TWO_DATABASES=47  MOVED=4
+
+MOVED r11u1repro_grid1
+MOVED r11u1repro_grid2
+MOVED r11u4repro_g2
+MOVED r11v4repro_v1
+
+Each mover re-scored by pacen7.py against its OWN real Surelog v1.87 golden:
+
+  arm                 golden rows  agree pris  agree pat  LOST  GAIN
+  r11u1repro_grid1        36           24         25       0     1
+  r11u1repro_grid2        21           16         19       0     3
+  r11u4repro_g2           42           17         22       0     5
+  r11v4repro_v1           20            9         12       0     3
+
+The official uhdm-cmp rc, its `^LHS:` head count and its line count are
+UNCHANGED on all four (255 / 1 / 18, 255 / 1 / 9, 255 / 1 / 9, 255 / 1 / 9).
+The other 43 arms are BYTE-IDENTICAL between the two binaries.
+
+SCORER POSITIVE CONTROL (arguments swapped — every gaining arm must LOSE, and
+NAME the cell):
+  r11u1repro_grid1  LOST 1   work@top.a4.q CFG
+  r11u1repro_grid2  LOST 3   work@top.a1.q / a2.q / a3.q CFG
+  r11u4repro_g2     LOST 5   work@top.a0.q / a2.b0.q / a2.r / a4.q / g.a5.q CFG
+  r11v4repro_v1     LOST 3   work@top.c0.q / c2.q / c3.q CFG
+
+GATE POSITIVE CONTROL — the first run of this gate resolved armrun.sh through
+the MAIN tree, where tools/probe/r11u7repro does not exist until the pass
+lands.  All 47 arms built NOTHING and the driver printed MOVED=0: a green gate
+over an empty set.  wide7.sh now asserts ARMS_WITH_TWO_DATABASES and names
+every arm that produced no database.

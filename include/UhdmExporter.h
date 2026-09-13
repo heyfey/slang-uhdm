@@ -5552,6 +5552,17 @@ private:
     UHDM::function* firstImportListingClone227(
         const slang::ast::SubroutineSymbol& sub);
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
+    // § ifacePortViewAggregateFlattens (r11u7) — a port view's aggregate
+    // param_assign, queued in emitInterfaceInstance and flattened only after
+    // the deferred param-typespec drain has bound the struct typespec the
+    // flatten reads (at emission time `Lhs()->Typespec()->Actual_typespec()`
+    // is still NULL).  `defRhs` is the DEF view's own Rhs — the oracle.
+    struct IfacePaFlatten7 {
+        UHDM::param_assign* pa;
+        const UHDM::any* defRhs;
+    };
+    std::vector<IfacePaFlatten7> ifacePaFlatten7;
+    void applyIfacePaFlatten7();
     std::vector<PendingParamTs> pendingParamTs;
     // An ELAB unpacked-array param's own array_typespec clone is built after
     // the instance's net/port typespecs (Surelog arena order); each entry

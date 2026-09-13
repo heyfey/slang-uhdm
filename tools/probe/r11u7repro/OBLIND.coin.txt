@@ -1,0 +1,46 @@
+== MiniAmiq/default  order-blind delta = 4 lines  (sizes 1893050 / 1893050)
+     <       |UINT:553
+     >       |UINT:759
+     <       |vpiDecompile:553
+     >       |vpiDecompile:759
+== SeqDriver/default  order-blind delta = 4 lines  (sizes 1818739 / 1818739)
+     <       |UINT:0
+     >       |UINT:724
+     <       |vpiDecompile:0
+     >       |vpiDecompile:724
+== SimpleUVM/default  order-blind delta = 4 lines  (sizes 1112999 / 1112999)
+     <       |UINT:0
+     >       |UINT:682
+     <       |vpiDecompile:0
+     >       |vpiDecompile:682
+== Scoreboard/default  order-blind delta = 0 lines  (sizes 1100421 / 1100421)
+== MiniAmiq/testflags  order-blind delta = 4 lines  (sizes 1893050 / 1893050)
+     >       |UINT:0
+     <       |UINT:1004
+     >       |vpiDecompile:0
+     <       |vpiDecompile:1004
+== SeqDriver/testflags  order-blind delta = 4 lines  (sizes 1818799 / 1818799)
+     >       |UINT:0
+     <       |UINT:618
+     >       |vpiDecompile:0
+     <       |vpiDecompile:618
+== SimpleUVM/testflags  order-blind delta = 0 lines  (sizes 1113059 / 1113059)
+
+---- attribution of the surelog byteverify movers (9 of 960) ----
+
+Four are the LAW, and each is inside the a-priori source prediction that was
+computed before any patched database existed:
+  GenForIfaceLocalparamNestedGen  default + testflags
+  GenIfIfaceParamStructField      default + testflags
+Their order-blind delta is 41 lines each, and every line is the law: the
+INSTANTIATION-site operation (29:12 / 26:12) replaced by the DECLARATION's
+(14:45 / 8:45), the stray `ref_typespec (work@top.c.sub)` gone, and the
+member's ref_typespec now anonymous, exactly as golden has it.
+
+Five are the PROVEN UVM COIN family, and the table above is their attribution:
+MiniAmiq/default, SeqDriver/default, SimpleUVM/default, MiniAmiq/testflags,
+SeqDriver/testflags — each a 4-line order-blind delta in the line-number class
+(`UINT:<n>` + its `vpiDecompile:<n>`), with the two dumps EXACTLY the same
+size.  Scoreboard/default did not move at all (0 lines).  All four names are
+OUTSIDE the a-priori prediction — they carry no nested `'{` inside an
+interface-bearing design, so this law provably cannot reach them.

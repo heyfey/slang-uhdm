@@ -6746,6 +6746,13 @@ UHDM::design* UhdmExporter::exportDesign() {
             dst->Actual_typespec(src->Actual_typespec());
     netTsAlias.clear();
 
+    // § ifacePortViewAggregateFlattens (r11u7) — the port-view aggregate
+    // param_assigns queued by emitInterfaceInstance flatten HERE, once the
+    // drain above has bound the struct typespec the flatten reads.  See the
+    // block comment on applyIfacePaFlatten7 (ModuleEmit.cpp) for the producer
+    // and the golden grid.
+    applyIfacePaFlatten7();
+
     // § ifaceDupSharesHomePorts — the col-0 tail dup SHARES the home view's
     // fully-connected port objects (see makeIfaceRefDup for the measurement
     // and for why the dump made them look bare). Replayed here because the

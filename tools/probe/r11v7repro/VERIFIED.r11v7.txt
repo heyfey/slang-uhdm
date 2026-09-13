@@ -1,0 +1,143 @@
+r11v7 — THE ADVERSARIAL VERIFICATION OF r11u7 (§ ifacePortViewAggregateFlattens)
+
+VERDICT: ACCEPT WITH FIX.  Every headline number in r11u7repro/ reproduced on
+binaries built here.  Three unmodelled faces were found on legal SystemVerilog
+(two of them MOVED-WRONG against a real v1.87 golden our pristine emitter
+already matched); all three are closed by a conservative gate in
+src/ModuleEmit.cpp, and the production surface is unchanged otherwise.
+
+BINARIES (built here with `cmake --build build -j 2`, frozen chmod 555 before
+any sweep, and audited BY PATH in every cmds.txt of every sweep)
+  pristine  0cd3567badf786731e77120ee53a2fdc  — the mandated hash, REPRODUCED
+  r11u7     29e2548414ff96e2b1de997e9b25b3c0  — the implementer's hash, REPRODUCED
+  verified  d1b436e3861c871eb244888aa689ee78  — r11u7 + this verifier's fix
+  cmds.txt audit: pris_sl 1531/1531 rows name pris.bin, pat_sl 1531/1531 name
+  pat.bin, pris_u2r 1742/1742 name pris.bin, fix_u2r 1742/1742 name fix.bin.
+  (The 50 surelog rows with no binary line are the ones where slang is never
+  invoked — SURELOG_FAIL and friends.)
+
+GOLDEN GATE      pristine 23 PASS / 0 FAIL, r11u7 23/0, verified 23/0;
+                 SLANG_UHDM=/bin/false  0 PASS / 23 FAIL (negative control).
+
+THE FOUR ROWS CONVERT (official judge, my own sweeps)
+  pristine   465 CMP_EQUAL / 18 CMP_NOTEQUAL  default      — the mandated baseline,
+             461 CMP_EQUAL / 16 CMP_NOTEQUAL  testflags      reproduced EXACTLY
+  r11u7      467 / 16  default,  463 / 14  testflags
+      < GenForIfaceLocalparamNestedGen,default,CMP_NOTEQUAL,decompile:,,
+      > GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ
+      < GenForIfaceLocalparamNestedGen,testflags,CMP_NOTEQUAL,decompile:,,
+      > GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ
+      < GenIfIfaceParamStructField,default,CMP_NOTEQUAL,decompile:,,
+      > GenIfIfaceParamStructField,default,CMP_EQUAL,,,differ
+      < GenIfIfaceParamStructField,testflags,CMP_NOTEQUAL,decompile:,,
+      > GenIfIfaceParamStructField,testflags,CMP_EQUAL,,,differ
+  Hand-run with the official uhdm-cmp against the cached v1.87 goldens:
+  pristine cmp rc 255 / 1 head on both tests; r11u7 AND the verified binary
+  both cmp rc 0 / 0 heads.  The verified binary's database is BYTE-IDENTICAL to
+  r11u7's on both converting tests.
+  Determinism: three runs per binary per test give ONE hash each.
+
+ct8rows, surelog, vs results/golden_surelog.csv
+  pristine: 2 differing rows, both LowMemLib/LowMemPkg testflags SURELOG_FAIL
+            details that embed the RUN'S OWN workdir path.
+  r11u7   : those two plus exactly the four conversions above, and nothing else.
+
+ct8rows, uhdm2rtlil, both modes
+  pristine and verified: 743 CMP_EQUAL / 61 CMP_NOTEQUAL / 67 SLANG_REJECT in
+  BOTH modes; PASS (every row byte-identical) against results/gate_uhdm2rtlil.csv
+  and against the default-mode subset of results/golden_uhdm2rtlil.csv.
+
+BYTEVERIFY (the CANONICAL r10oth4repro/byteverify.sh, with its own selfcheck)
+  u2r     verified vs pristine: PATH_SETS_IDENTICAL (1608), MOVERS 0/1608,
+          selfcheck 1607/1608 flagged — the comparator can see.
+  surelog r11u7 vs pristine: PATH_SETS_IDENTICAL (960), MOVERS 8/960,
+          selfcheck 959/960 flagged.  Attribution, all eight:
+            4 = the law, all four PREDICTED a priori by predict7.py
+                (GenForIfaceLocalparamNestedGen + GenIfIfaceParamStructField,
+                both modes), order-blind delta 41 lines each;
+            4 = the sanctioned UVM coin — MiniAmiq/default (4 lines),
+                SeqDriver/default (4), MiniAmiq/testflags (4),
+                Scoreboard/default (0) — every delta in the line-number class
+                (UINT:<n> + its vpiDecompile:<n>) with IDENTICAL dump sizes.
+          (The implementer's run flipped a different subset of the same coin
+          family: same signature, different names — that is the coin.)
+
+CANARIES      surelog canaries.sh ok=52 changed=0 absent=0
+              u2r     canaries.sh ok=8  changed=0 absent=0
+              ctcan2 PASS on both corpora (EXPECT_UNKNOWN=1 / 6)
+              canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0
+                                                   FENCE-BREACH=0
+PROTECTED DATABASES, md5 pristine vs r11u7, BOTH modes
+  SVSwitch 4842211c4030 = 4842211c4030   (hard byte pin)
+  YosysVerx 6ccda350c24a = 6ccda350c24a  (hard byte pin)
+  InterfaceModPort 59a365f3ce2c = 59a365f3ce2c
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5 SAME both sides
+  YosysOldOr d68e0796d62c = d68e0796d62c
+
+ROWHEADS      the seven big named rows, both binaries: measured=12,
+              SKIP-NOFILE=2 (Scoreboard/testflags, Rggen/testflags),
+              UNKNOWN-NAME=0, and the two tables are IDENTICAL line for line.
+
+THE FENCE (r11u1's 18 + r11u4's 3 converted tests)
+  surelog members InterfType, InterfaceElab, InterfaceParamOverrideProp,
+  InterfaceUnpackedStructArrayDim, GenForIfaceLocalparamBound, OneNetRange:
+  CMP_EQUAL in BOTH modes under the patched binary.
+  u2r members iface_array_elem_cfg_param, interface_array, jeras_tcb_gpio,
+  simple_interface and the whole iface_* family: CMP_EQUAL in both modes and
+  not one byte moved.
+  pagree.sh (the r11u4 param-assign GRID scorer, run beside every census):
+    surelog fence + the two conversions, both modes: scored=16 TOTAL-LOST=0.
+    u2r fence, both modes:                           scored=30 TOTAL-LOST=0.
+    POSITIVE CONTROL (arguments swapped on the two conversions): scored=4
+    TOTAL-LOST=4, naming the cell —
+      LOST work@top.c.sub CFG ovr=0 no-ts operation@14:45-14:48 ... UINT:32
+
+r11v4's TEN ADVERSARIAL ARMS, rebuilt against their own real goldens
+  v1: LOST 0 GAIN 3 (top.c0.q / c2.q / c3.q now exactly golden), swapped
+      control LOST 3.
+  v2, v3, v4, v7, v8, v9, v10: databases BYTE-IDENTICAL on all three binaries.
+  v5 and v6 — the cells r11v4 caught r11u4 breaking — stay cmp_rc=0 /
+  LHSheads=0 (EQUAL) on pristine, on r11u7 and on the verified binary.
+
+WIDE BOUNDARY (47 committed interface arms, pristine vs the VERIFIED binary)
+  ARMS_LISTED=47 ARMS_PROCESSED=47 ARMS_WITH_TWO_DATABASES=47 MOVED=4
+  every one of the 94 arm runs: surelog_rc=0, `[  ERROR] : 0`, slang_rc=0.
+  Re-scored against each arm's own golden:
+    r11u1repro/grid1  agree 24 -> 25  LOST 0 GAIN 1   (swapped control LOST 1)
+    r11u1repro/grid2  agree 16 -> 19  LOST 0 GAIN 3   (LOST 3)
+    r11u4repro/g2     agree 17 -> 22  LOST 0 GAIN 5   (LOST 5)
+    r11v4repro/v1     agree  9 -> 12  LOST 0 GAIN 3   (LOST 3)
+  The official cmp line count and ^LHS: head are UNCHANGED on all four; the
+  other 43 arms are byte-identical.
+  NOTE: wide7.sh shipped with `RUN=${ARMRUN:-/tmp/wt_r11u7/...}` — a hard-coded
+  foreign worktree that exists for nobody else, i.e. the same empty-gate trap
+  its own README §7 documents, one default away.  Both paths now resolve
+  BESIDE THE SCRIPT (ARMRUN=/ARMROOT= still override).
+
+THE THREE BREAKS AND THE FIX — see README.md §1-2.  x8 (a `default:` key before
+a named one) put ONE object in TWO operand slots and gave a member the wrong
+value; x4 (an unsized `'1`/`'0` member) replaced two constants that matched
+golden with raw sz=-1 literals; x1's MSK showed the new arm stealing face (C)'s
+else-if.  After the fix the verified binary is byte-identical to r11u7 on
+x1/x5/x6/x7 and to PRISTINE on x2/x4/x8 — it declines exactly the unmodelled
+faces.
+
+x3 is NON-COMPARABLE and says so: slang accepts unqualified TYPE keys and
+Surelog v1.87 rejects them (surelog_rc=3, NO golden — the arm's cmp_rc=0 is a
+comparison against a missing file and means nothing).  Both binaries emit
+identical bytes there, so the type-key half of r11u7's residue R6 is
+unreachable through the harness.
+
+THE VERIFIED BINARY, SWEPT IN FULL (d1b436e3861c871eb244888aa689ee78)
+  surelog  467 CMP_EQUAL / 16 CMP_NOTEQUAL default, 463 / 14 testflags — the
+           SAME numbers as r11u7, with all four conversions intact and their
+           databases BYTE-IDENTICAL to r11u7's on both converting tests.
+  ct8rows vs results/golden_surelog.csv: the four conversions plus the two
+           workdir-path SURELOG_FAIL rows, and nothing else.
+  ct8rows fix vs r11u7 CSV: only those two workdir-path rows.
+  byteverify (canonical) fix vs pristine: MOVERS 8/960 — the same four law
+           movers (identical hashes to r11u7's) plus four coin-family draws.
+  u2r      743 / 61 / 67 both modes, MOVERS 0/1608.
+  goldens 23/0; canaries ok=52 changed=0; ctcan2 PASS; the five protected
+  databases byte-identical in both modes; rowheads IDENTICAL to pristine.
+  pagree over the surelog fence + the two conversions: scored=16 TOTAL-LOST=0.

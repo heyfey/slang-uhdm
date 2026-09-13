@@ -1,0 +1,20 @@
+surelog: 19 of 798 tests can move a priori
+Ariane
+Ariane2024
+ArianeElab
+ArianeElab2
+AzadiRTL
+Earlgrey
+GenForIfaceLocalparamNestedGen
+GenForStructParamBound
+GenIfIfaceParamStructField
+Google
+Ibex
+IncompTitan
+InterfaceParamOverrideProp
+Opentitan
+Rggen
+Tnoc
+Verilator
+Zachjs
+rp32

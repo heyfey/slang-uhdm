@@ -1,0 +1,46 @@
+
+=== h1 ===
+golden rows 12
+  w_pris/ours.dump                         agree 5
+  w_pat/ours.dump                          agree 9
+  GAIN work@top.a0.p              A        golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  GAIN work@top.b0.p              B        golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q::bus_t)](const(UINT:7,sz=64,ct=9,ts=-)))
+  GAIN work@top.c0.p              C        golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q::cfg_t)](op75[ts=struct_typespec(q::bus_t)](const(UINT:8,sz=64,ct=9,ts=-))))
+  GAIN work@top.d0.p              D        golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  LOST 0  GAIN 4
+=== h2 ===
+golden rows 6
+  w_pris/ours.dump                         agree 2
+  w_pat/ours.dump                          agree 3
+  GAIN work@top.s0.p              S        golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q2::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)),const(UINT:5,sz=64,ct=9,ts=-))
+  LOST 0  GAIN 1
+=== h3 ===
+golden rows 6
+  w_pris/ours.dump                         agree 3
+  w_pat/ours.dump                          agree 4
+  GAIN work@top.o0.p              O        golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q3::two_t)](const(UINT:1,sz=64,ct=9,ts=-),const(UINT:2,sz=64,ct=9,ts=-)),const(UINT:9,sz=64,ct=9,ts=-))
+  LOST 0  GAIN 1
+=== h4 ===
+golden rows 39
+  w_pris/ours.dump                         agree 17
+  w_pat/ours.dump                          agree 24
+  GAIN work@top.a0.q              CFG      golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q4::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  GAIN work@top.a1.q              CFG      golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q4::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  GAIN work@top.a3.q              CFG      golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q4::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  GAIN work@top.a4.q              CFG      golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q4::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  GAIN work@top.a5.b0.q           CFG      golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q4::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  GAIN work@top.a5.r              CFG      golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q4::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  GAIN work@top.g.a6.q            CFG      golden=ovr=0 op75[ts=-](op75[ts=struct_typespec(q4::bus_t)](const(UINT:32,sz=64,ct=9,ts=-)))
+  LOST 0  GAIN 7
+=== h5 ===
+golden rows 0
+  w_pris/ours.dump                         agree 0
+  w_pat/ours.dump                          agree 0
+  LOST 0  GAIN 0
+
+--- SCORER POSITIVE CONTROL (arguments swapped: every gaining arm must LOSE)
+h1   LOST 4  GAIN 0
+h2   LOST 1  GAIN 0
+h3   LOST 1  GAIN 0
+h4   LOST 7  GAIN 0
+h5   LOST 0  GAIN 0

@@ -1,0 +1,49 @@
+=== x1 (plain, golden vs pristine vs r11u7 vs verified)
+golden rows 15
+  w_pris_plain/ours.dump                   agree 10
+  w_pat_plain/ours.dump                    agree 10
+  LOST 0  GAIN 0
+  -- verified vs pristine
+  LOST 0  GAIN 0
+=== x2 (plain, golden vs pristine vs r11u7 vs verified)
+golden rows 6
+  w_pris_plain/ours.dump                   agree 3
+  w_pat_plain/ours.dump                    agree 3
+  LOST 0  GAIN 0
+  -- verified vs pristine
+  LOST 0  GAIN 0
+=== x4 (plain, golden vs pristine vs r11u7 vs verified)
+golden rows 6
+  w_pris_plain/ours.dump                   agree 2
+  w_pat_plain/ours.dump                    agree 2
+  LOST 0  GAIN 0
+  -- verified vs pristine
+  LOST 0  GAIN 0
+=== x5 (plain, golden vs pristine vs r11u7 vs verified)
+golden rows 6
+  w_pris_plain/ours.dump                   agree 3
+  w_pat_plain/ours.dump                    agree 3
+  LOST 0  GAIN 0
+  -- verified vs pristine
+  LOST 0  GAIN 0
+=== x6 (plain, golden vs pristine vs r11u7 vs verified)
+golden rows 6
+  w_pris_plain/ours.dump                   agree 3
+  w_pat_plain/ours.dump                    agree 3
+  LOST 0  GAIN 0
+  -- verified vs pristine
+  LOST 0  GAIN 0
+=== x7 (plain, golden vs pristine vs r11u7 vs verified)
+golden rows 14
+  w_pris_plain/ours.dump                   agree 5
+  w_pat_plain/ours.dump                    agree 5
+  LOST 0  GAIN 0
+  -- verified vs pristine
+  LOST 0  GAIN 0
+=== x8 (plain, golden vs pristine vs r11u7 vs verified)
+golden rows 6
+  w_pris_plain/ours.dump                   agree 3
+  w_pat_plain/ours.dump                    agree 3
+  LOST 0  GAIN 0
+  -- verified vs pristine
+  LOST 0  GAIN 0

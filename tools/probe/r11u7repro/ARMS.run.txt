@@ -1,0 +1,10 @@
+h1/pris/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=40 goldenbytes=30906 oursbytes=25635
+h1/pat/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=40 goldenbytes=30906 oursbytes=27585
+h2/pris/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=40 goldenbytes=19249 oursbytes=16900
+h2/pat/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=40 goldenbytes=19249 oursbytes=17650
+h3/pris/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=56 goldenbytes=20558 oursbytes=16789
+h3/pat/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=56 goldenbytes=20558 oursbytes=17553
+h4/pris/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=9 goldenbytes=37939 oursbytes=35324
+h4/pat/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=9 goldenbytes=37939 oursbytes=37710
+h5/pris/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=9 goldenbytes=10959 oursbytes=8507
+h5/pat/plain  surelog_rc=0 ERROR0=1 slang_rc=0 cmp_rc=255 LHSheads=1 cmplines=9 goldenbytes=10959 oursbytes=8507

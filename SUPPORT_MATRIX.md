@@ -25,8 +25,8 @@ the build inside the pinned Surelog tree — the one
 
 | Corpus | Mode | Rows | Equal | Not-equal |
 |---|---|---|---|---|
-| Surelog suite | default | 798 | 465 | 18 |
-| Surelog suite | testflags | 798 | 461 | 16 |
+| Surelog suite | default | 798 | 467 | 16 |
+| Surelog suite | testflags | 798 | 463 | 14 |
 | uhdm2rtlil | default | 871 | 743 | 61 |
 | uhdm2rtlil | testflags | 871 | 743 | 61 |
 

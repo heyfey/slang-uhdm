@@ -579,16 +579,16 @@ GenForDec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/du
 GenForDec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForIfaceLocalparamBound,default,CMP_EQUAL,,,differ
 GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,differ
-GenForIfaceLocalparamNestedGen,default,CMP_NOTEQUAL,decompile:,,
-GenForIfaceLocalparamNestedGen,testflags,CMP_NOTEQUAL,decompile:,,
+GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ
+GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ
 GenForStructParamBound,default,CMP_EQUAL,,,differ
 GenForStructParamBound,testflags,CMP_EQUAL,,,differ
 GenIf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIf,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIfElse,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfElse/dut.sv:4:16: error: use of undeclared identifier 'b',,
 GenIfElse,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfElse/dut.sv:4:16: error: use of undeclared identifier 'b',,
-GenIfIfaceParamStructField,default,CMP_NOTEQUAL,decompile:,,
-GenIfIfaceParamStructField,testflags,CMP_NOTEQUAL,decompile:,,
+GenIfIfaceParamStructField,default,CMP_EQUAL,,,differ
+GenIfIfaceParamStructField,testflags,CMP_EQUAL,,,differ
 GenIfNamed,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfNamed/dut.sv:4:8: error: use of undeclared identifier 'i',,
 GenIfNamed,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfNamed/dut.sv:4:8: error: use of undeclared identifier 'i',,
 GenModHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenModHierPath/dut.sv:17:5: error: too few arguments for '$readmemh'; expected 2 but 1 were provided,,

@@ -30168,6 +30168,261 @@ const Scope* UhdmExporter::ifacePortViewFoldScope(const DefinitionSymbol& def,
     return &it0->second->body;
 }
 
+// § ifacePortViewAggregateFlattens (r11u7) — THE DEFERRED APPLIER.
+//
+// Runs after exportDesign's param-typespec drain, over the port-view
+// param_assigns `emitInterfaceInstance` queued.  It replays exactly what
+// `ExprEval::flattenPatternAssignments` (UHDM v1.87 templates/ExprEval.cpp
+// :751-947) does to the DEF view's tree and what
+// `NetlistElaboration::elab_parameters_` (Surelog v1.87
+// src/DesignCompile/NetlistElaboration.cpp:411-416) then keeps of it:
+//
+//     if (expr* tmp = eval.flattenPatternAssignments(s, tps, rhs))
+//         ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+//
+// — ONLY the operand list moves, so the object in the port view stays the
+// DECLARATION's operation: its span, its op type and its (absent) typespec.
+//
+// GOLDEN GRID, real Surelog v1.87, every arm rc 0 / `[  ERROR] : 0`
+// (tools/probe/r11u7repro/h1..h5, read by `pashape.py`, which keeps only
+// Compare-visible fields — kind, vpiOpType, vpiSize, the value line and the
+// typespec's NAME; no span, id, fullname or parent, because no generated
+// `Compare` reads one):
+//
+//   arm/view                shape of the param_assign Rhs
+//   h1 work@ia    DEF   op75[ts=-](tagged[BUS](op75[ts=-](tagged[DAT](const sz=64))))
+//   h1 top.ua     HOME  op75[ts=cfg_t](op75[ts=bus_t](const sz=64))
+//   h1 top.a0.p   PORT  op75[ts=-]    (op75[ts=bus_t](const sz=64))   <-- the law
+//   h1 top.c0.p   PORT  op75[ts=-](op75[ts=cfg_t](op75[ts=bus_t](const sz=64)))
+//   h4 a1/a3/a4/a5.r/a5.b0.q/g.a6.q   the same PORT shape, every port form
+//   h4 a2.q       PORT  op75[ts=-](op75[ts=bus_t](const UINT:64))  ovr=1
+//                       — the named-modport cell keeps the CONNECTED VALUE
+//                         but wears the same SHAPE
+//
+// So the shape is a property of the PORT view, uniform across plain/named/
+// positional/modport/array-element/re-passed/generate-borne connections, and
+// the def view is its oracle.  Three levels of nesting recurse (h1 c0.p).
+//
+// THE NESTED MEMBER'S TYPESPEC.  `flattenPatternAssignments` recurses on a
+// member whose Pattern is another op75 (line 923-925) and that recursion
+// returns a FRESH clone carrying `Typespec = fieldTypes[index]` (line 940-941)
+// — the member's own typespec, which is why `top.a0.p`'s inner op reads
+// `ts=bus_t` while the outer reads `ts=-`.  The recursion has EARLY RETURNS
+// (an operand that is a constant or an operation, an unmatched field, a
+// non-struct typespec): when it takes one, the member value is left exactly as
+// it was and NO typespec is stamped.  Measured — h3's `iip`, whose inner
+// pattern is written POSITIONALLY (`'{T: '{3, 4}, S: 9}`):
+//
+//   h3 top.i0.p  PORT  op75[ts=-](op75/sz64[ts=-](const,const),const sz=64)
+//
+// no `ts` on the inner op, and a `vpiSize` on it instead.  That is why the
+// stamp here is conditional on the recursion actually having run.
+//
+// THE GATE, and what it deliberately leaves alone.  Surelog reaches the
+// object-keeping form only through `expandPatternAssignment`'s POSITIONAL arm
+// (CompileHelper.cpp:5397-5441), which per operand does
+// `get_uvalue(invalidValue, ...)`, then `adjustOpSize(...)` — which RESIZES
+// the operand in place — and only then `if (invalidValue) return result;`.
+// An operand that is an aggregate makes `get_uvalue` invalid, so:
+//   * NO member aggregate  -> nothing goes invalid, the tail `result = rhs`
+//     (5497) returns the FLATTENED CLONE, which carries the parameter's struct
+//     typespec, and every constant has been resized to its member width.  That
+//     is r11v4's v5/v6 shape and our pristine emitter already produces it —
+//     the r11v4 guard above declines there and this pass keeps that.
+//   * SOME member aggregate -> the declaration's own object survives, and the
+//     resize walk has already touched every member BEFORE the first aggregate
+//     one.  Measured on h2, whose `fs_t` is `{int unsigned SCA; bus_t BUS}`:
+//
+//       h2 top.f0.p  PORT  op75[ts=-](const(UINT:5,sz=32),op75[ts=bus_t](const sz=64))
+//       h2 top.s0.p  PORT  op75[ts=-](op75[ts=bus_t](const sz=64),const(UINT:5,sz=64))
+//
+//     `f0`'s leading scalar is resized 64 -> 32, `s0`'s trailing one is not.
+//
+// This pass ships ONLY the sub-case where that resize walk is a NO-OP: the
+// FIRST DECLARED member's value is itself an assignment pattern that flattens.
+// Then `get_uvalue` is invalid on the very first operand, nothing is resized,
+// and the flattened operand list is the whole change.  Both corpus witnesses
+// are that shape (`p::cfg_t` = `{p::bus_t BUS}`).  The leading-scalar-resize
+// half is measured above, is reachable by no corpus row in either suite, and
+// is left to a later pass as residue R1 — it needs a member bit-width
+// evaluator this file does not have.
+void UhdmExporter::applyIfacePaFlatten7() {
+    auto structOf7 = [](const UHDM::typespec* t7)
+        -> const UHDM::struct_typespec* {
+        return (t7 && t7->UhdmType() == UHDM::uhdmstruct_typespec)
+                   ? (const UHDM::struct_typespec*)t7
+                   : nullptr;
+    };
+    auto memberTs7 = [&](const UHDM::typespec_member* m7)
+        -> const UHDM::typespec* {
+        if (!m7)
+            return nullptr;
+        if (auto* rt7 = m7->Typespec())
+            return rt7->Actual_typespec();
+        return nullptr;
+    };
+    // The value a `'{...}` operand list gives a DECLARED member: the
+    // `tagged_pattern` whose key `string_typespec` NAMES it, and nothing else
+    // (ExprEval.cpp:824-871 fills `tmp[]` by name first).
+    //
+    // r11v7 (the verifier's minimal fix) — THERE IS NO POSITIONAL FALLBACK.
+    // `ExprEval` matches a key that names no field by TYPESPEC KIND
+    // (ExprEval.cpp:845-852), clones the `default:` operand for every member
+    // left unmatched (876-884), and BAILS outright when a member matches
+    // nothing (886-894).  A positional fallback models none of those three:
+    // measured on arm x8 (`'{default: 0, BUS: '{DAT: 32}}`, legal SV, real
+    // v1.87 golden), member `SCA` was handed operand 1 — the BUS aggregate —
+    // so one object appeared TWICE in the same operand list (uhdm-dump prints
+    // the second as `<elided:operation>`), where golden holds
+    // `const(UINT:0,sz=32)` and our PRISTINE emitter held `const(UINT:0)`.
+    // Name-only matching makes `wouldFlatten7` DECLINE that shape instead.
+    auto memberValue7 = [](const UHDM::operation* op7,
+                           std::string_view mn7) -> UHDM::any* {
+        auto* ops7 = op7->Operands();
+        if (!ops7 || mn7.empty())
+            return nullptr;
+        const UHDM::any* pick7 = nullptr;
+        for (auto* o7 : *ops7) {
+            if (o7->UhdmType() != UHDM::uhdmtagged_pattern)
+                continue;
+            auto* tp7 = (const UHDM::tagged_pattern*)o7;
+            std::string_view key7;
+            if (auto* krt7 = tp7->Typespec())
+                if (auto* ka7 = krt7->Actual_typespec())
+                    key7 = ka7->VpiName();
+            if (key7 == mn7) {
+                pick7 = o7;
+                break;
+            }
+        }
+        if (pick7 && pick7->UhdmType() == UHDM::uhdmtagged_pattern)
+            return (UHDM::any*)((const UHDM::tagged_pattern*)pick7)->Pattern();
+        return (UHDM::any*)pick7;
+    };
+    // r11v7 — an UNSIZED literal member (`'1`, `'0`: a constant whose VpiSize
+    // is -1) is RESIZED to the member's width by `ExprEval`, which also
+    // rewrites its value and its `vpiConstType`
+    // (ExprEval.cpp:887-906).  This applier cannot: it has no member
+    // bit-width evaluator.  Measured on arm x4
+    // (`'{BUS: '{DAT: 32}, M: '1, Z: '0}`): golden holds
+    // `const(UINT:255,sz=8)` and `const(UINT:0,sz=4)`, our PRISTINE emitter
+    // held exactly those two, and copying the declaration's tree replaced
+    // them with `const(BIN:1,sz=-1)` / `const(BIN:0,sz=-1)` — three
+    // Compare-visible fields moved AWAY on each.  So the whole cell is
+    // declined when the def tree holds one anywhere.
+    std::function<bool(const UHDM::any*)> hasUnsizedConst7 =
+        [&](const UHDM::any* e7) -> bool {
+            if (!e7)
+                return false;
+            if (e7->UhdmType() == UHDM::uhdmconstant)
+                return ((const UHDM::constant*)e7)->VpiSize() < 0;
+            if (e7->UhdmType() == UHDM::uhdmtagged_pattern)
+                return hasUnsizedConst7(
+                    ((const UHDM::tagged_pattern*)e7)->Pattern());
+            if (e7->UhdmType() == UHDM::uhdmoperation)
+                if (auto* ops7 = ((const UHDM::operation*)e7)->Operands())
+                    for (auto* o7 : *ops7)
+                        if (hasUnsizedConst7(o7))
+                            return true;
+            return false;
+        };
+    // True when `flattenPatternAssignments` would run to its end on this
+    // (operation, struct typespec) pair — every operand a `tagged_pattern`
+    // and every declared member matched.  Read-only.
+    std::function<bool(const UHDM::operation*, const UHDM::struct_typespec*)>
+        wouldFlatten7 = [&](const UHDM::operation* op7,
+                            const UHDM::struct_typespec* sts7) -> bool {
+        if (!op7 || op7->VpiOpType() != vpiAssignmentPatternOp)
+            return false;
+        if (!sts7 || !sts7->Members() || sts7->Members()->empty())
+            return false;
+        auto* ops7 = op7->Operands();
+        if (!ops7 || ops7->empty())
+            return false;
+        for (auto* o7 : *ops7)
+            if (o7->UhdmType() != UHDM::uhdmtagged_pattern)
+                return false; // ExprEval.cpp:859-864 bails on these
+        // r11v7 — ONE NAMED KEY PER DECLARED MEMBER, no more and no fewer.
+        // Every other operand shape ExprEval treats specially (`default:`, a
+        // key matched by typespec KIND, a key that matches nothing) and this
+        // applier does not model, so it declines them.
+        if (ops7->size() != sts7->Members()->size())
+            return false;
+        for (size_t k7 = 0; k7 < sts7->Members()->size(); ++k7)
+            if (!memberValue7(op7, (*sts7->Members())[k7]->VpiName()))
+                return false; // an unmatched field bails too (ExprEval:890)
+        return true;
+    };
+    // The flatten itself, on a CLONE: declared-member order, `tagged_pattern`
+    // wrappers dropped for their Pattern, every nested pattern that itself
+    // flattens stamped with its member's typespec.
+    std::function<bool(UHDM::operation*, const UHDM::struct_typespec*)>
+        flatten7 = [&](UHDM::operation* op7,
+                       const UHDM::struct_typespec* sts7) -> bool {
+        if (!wouldFlatten7(op7, sts7))
+            return false;
+        auto* mems7 = sts7->Members();
+        auto* out7 = s.MakeAnyVec();
+        for (size_t k7 = 0; k7 < mems7->size(); ++k7) {
+            auto* mem7 = (*mems7)[k7];
+            auto* v7 = memberValue7(op7, mem7->VpiName());
+            const UHDM::typespec* mts7 = memberTs7(mem7);
+            if (v7->UhdmType() == UHDM::uhdmoperation &&
+                ((UHDM::operation*)v7)->VpiOpType() == vpiAssignmentPatternOp) {
+                auto* iop7 = (UHDM::operation*)v7;
+                if (flatten7(iop7, structOf7(mts7))) {
+                    auto* irt7 = s.MakeRef_typespec();
+                    irt7->Actual_typespec((UHDM::typespec*)mts7);
+                    iop7->Typespec(irt7);
+                }
+            }
+            v7->VpiParent(op7);
+            out7->push_back(v7);
+        }
+        op7->Operands(out7);
+        return true;
+    };
+    for (auto& e7 : ifacePaFlatten7) {
+        auto* pa7 = e7.pa;
+        if (!pa7 || !pa7->Lhs() || !e7.defRhs)
+            continue;
+        auto* lhs7 = (const UHDM::parameter*)pa7->Lhs();
+        const UHDM::struct_typespec* sts7 = nullptr;
+        if (auto* lrt7 = lhs7->Typespec())
+            sts7 = structOf7(lrt7->Actual_typespec());
+        if (!sts7 || !sts7->Members() || sts7->Members()->empty())
+            continue;
+        auto* dop7 = (const UHDM::operation*)e7.defRhs;
+        if (!wouldFlatten7(dop7, sts7))
+            continue;
+        // r11v7 — an unsized literal ANYWHERE in the tree: declined (see
+        // `hasUnsizedConst7`, arm x4).
+        if (hasUnsizedConst7(e7.defRhs))
+            continue;
+        // THE GATE: the first DECLARED member's value is an aggregate that
+        // itself flattens, so Surelog's resize walk is a no-op.
+        auto* m07 = (*sts7->Members())[0];
+        auto* v07 = memberValue7(dop7, m07->VpiName());
+        if (!v07 || v07->UhdmType() != UHDM::uhdmoperation ||
+            ((UHDM::operation*)v07)->VpiOpType() != vpiAssignmentPatternOp ||
+            !wouldFlatten7((UHDM::operation*)v07, structOf7(memberTs7(m07))))
+            continue;
+        // CLONE, never share: golden gives each view its own object and a
+        // shared subtree reads judge-equal while uhdm-dump ELIDES it as a
+        // repeat, hiding the cell from every reader that walks the dump
+        // (r11u4's own scorer scored a converted test as unchanged that way).
+        UHDM::ElaboratorContext ctx7(&s, false, /*muteErrors=*/true);
+        auto* cp7 = UHDM::clone_tree(e7.defRhs, &ctx7);
+        if (!cp7 || cp7->UhdmType() != UHDM::uhdmoperation)
+            continue;
+        if (!flatten7((UHDM::operation*)cp7, sts7))
+            continue;
+        cp7->VpiParent(pa7);
+        pa7->Rhs((UHDM::expr*)cp7);
+    }
+    ifacePaFlatten7.clear();
+}
+
 UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
                                                           const std::string& path,
                                                           UHDM::instance* parentM,
@@ -30951,6 +31206,107 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         cp4->VpiParent(pa4);
                         pa4->Rhs(cp4);
                     }
+                }
+                // § ifacePortViewAggregateFlattens (r11u7) — FACE (B2): AN
+                //   AGGREGATE DEFAULT WHOSE *FIRST DECLARED MEMBER* IS ITSELF
+                //   AN AGGREGATE KEEPS THE DECLARATION'S OWN OPERATION OBJECT
+                //   — SPAN, OP TYPE AND (ABSENT) TYPESPEC — AND ONLY ITS
+                //   OPERAND LIST IS REPLACED BY THE FLATTENED MEMBER VALUES,
+                //   EACH NESTED PATTERN CARRYING ITS MEMBER'S TYPESPEC.
+                //
+                // PRODUCER, decoded (Surelog v1.87
+                // `NetlistElaboration::elab_parameters_`,
+                // src/DesignCompile/NetlistElaboration.cpp:262-419):
+                //
+                //   pclone = clone_tree(mod_assign);  rhs = pclone->Rhs();
+                //   if (substituteAssignedValue(rhs))                  // 264
+                //       rhs = expandPatternAssignment(ts, rhs, ...);   // 265
+                //   ...
+                //   if (expr* tmp = eval.flattenPatternAssignments(s, tps, rhs))
+                //       ((operation*)rhs)->Operands(                   // 413
+                //           ((operation*)tmp)->Operands());
+                //
+                // `ExprEval::flattenPatternAssignments`
+                // (UHDM v1.87 templates/ExprEval.cpp:751-947) reorders the
+                // `tagged_pattern` operands into DECLARED MEMBER order, calls
+                // itself on any member whose Pattern is another op75 — that
+                // recursion returns a FRESH clone carrying
+                // `Typespec = fieldTypes[index]`, the member's own typespec
+                // (line 940-941) — and then `recursiveFlattening`
+                // (ExprEval.cpp:653-746) drops each remaining `tagged_pattern`
+                // wrapper in favour of its `Pattern`.  It returns `opres`, a
+                // clone of the whole operation that DOES carry the parameter's
+                // struct typespec.
+                //
+                // WHICH OBJECT SURVIVES IS THE SPLIT.  `expandPatternAssignment`
+                // (CompileHelper.cpp:5207-5501) starts `result = rhs`, then
+                // re-flattens; because the flattened operand list no longer
+                // holds any `tagged_pattern`, it takes the POSITIONAL arm
+                // (5397-5441) and, per operand, `get_uvalue(invalidValue, ...)`
+                // then `if (invalidValue) return result;`.
+                //   * every member a scalar -> no operand goes invalid, each
+                //     constant is RESIZED in place by `adjustOpSize` to its
+                //     member width, and the tail `result = rhs` (5497) hands
+                //     back the FLATTENED clone — which carries the struct
+                //     typespec.  This is the shape r11v4's v5/v6 arms measured
+                //     (`op75 + struct ts -> constant size 32`) and the shape
+                //     our pristine emitter ALREADY produces, which is why the
+                //     r11v4 guard above declines there.
+                //   * the FIRST declared member is itself an aggregate -> the
+                //     very first `get_uvalue` is invalid, nothing is resized,
+                //     and `result` is the ORIGINAL `rhs` — the declaration's
+                //     own operation, with NO typespec.  Line 413 then swaps
+                //     only its OPERANDS for the flattened list.
+                //
+                // GOLDEN, real Surelog v1.87, rc 0 / `[ERROR] : 0`
+                // (GenForIfaceLocalparamNestedGen, `p::cfg_t` = `{p::bus_t BUS}`,
+                // `p::bus_t` = `{int unsigned DAT}`, default `p::CFG_DEF`):
+                //
+                //   work@bus_if       op75@14:45 no-ts -> tagged_pattern[BUS]
+                //                       -> op75@12:37 -> tagged_pattern[DAT]
+                //                          -> constant UINT:32 size 64
+                //   work@top.c.sub    op75@14:45 no-ts -> op75@12:37 ts=p::bus_t
+                //                       -> constant UINT:32 size 64   <-- golden
+                //
+                // Our pristine port view built the INSTANTIATION's argument
+                // instead — `op75@29:12 ts=p::cfg_t -> op75@12:37 vpiSize:32
+                // ts=p::bus_t -> constant` — and its head was that stray outer
+                // `ref_typespec` (`LHS: <null>` against our
+                // `ref_typespec (work@top.c.sub) -> struct_typespec (p::cfg_t)`).
+                //
+                // r11u4's residue R2 read this cell as a DEF-VIEW defect ("our
+                // def view emits tagged_pattern where golden emits the member
+                // operation").  MEASURED HERE ON ITS OWN GOLDEN, THAT IS
+                // REFUTED: golden's def view keeps the full nested
+                // `tagged_pattern` tree and our def view already reproduces it
+                // span for span.  The whole residual difference lives on the
+                // PORT view, and the def view is its ORACLE — flattening a
+                // clone of it is exactly `flattenPatternAssignments`.
+                //
+                // DEFERRED, not applied here: the flatten needs the
+                // parameter's STRUCT TYPESPEC, and at this point in the walk
+                // `lhs4->Typespec()->Actual_typespec()` is still NULL — every
+                // param typespec ref on a port view is bound later, in
+                // exportDesign's deferred drain (`pendingParamTs`).  Measured
+                // with a trace build on GenForIfaceLocalparamNestedGen:
+                // `lhsRt=1 lhsAct=-1` (a ref with no actual) and the same for
+                // our own Rhs operation's ref.  So the cell is QUEUED and
+                // `applyIfacePaFlatten7()` runs it after that drain.
+                // r11v7 (the verifier's minimal fix) — `pa4->Rhs()` MUST NOT
+                // BE A CONSTANT HERE.  This arm sits between face (B) and
+                // face (C) in one if/else chain, so an aggregate-patterned
+                // DEF default whose port-view Rhs our emitter folded to a
+                // CONSTANT used to reach face (C) and have its typespec ref
+                // stripped; queueing it stole that branch, and the applier
+                // then declines the cell (its Lhs typespec is not a struct —
+                // a packed vector's `'{default: 1'b1}` is the measured shape,
+                // verifier arm x1's `MSK`), so the strip would simply never
+                // run.  Face (C) keeps every constant Rhs; this arm takes
+                // only the operation ones the law is decoded for.
+                else if (((const UHDM::operation*)defRhs4)->VpiOpType() ==
+                             vpiAssignmentPatternOp &&
+                         pa4->Rhs()->UhdmType() != UHDM::uhdmconstant) {
+                    ifacePaFlatten7.push_back({pa4, defRhs4});
                 }
                 else if (pa4->Rhs()->UhdmType() == UHDM::uhdmconstant) {
                     // (C) the reduced operation default: no typespec ref.
