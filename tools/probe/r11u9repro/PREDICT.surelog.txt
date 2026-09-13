@@ -1,0 +1,5 @@
+FuncStructVal	mod build_config_pkg::build_config
+FuncStructValSimple	mod build_config_pkg::build_config_func
+StructParamFuncBodyFieldCompare	mod cfg_pkg::build_config
+StructParamPatternInitCast	mod cfg_pkg::build_config
+Verilator	mod config_pkg::static_config

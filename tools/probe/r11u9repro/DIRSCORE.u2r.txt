@@ -1,0 +1,24 @@
+def_ctx_struct_param testflags pristine=577 patched=537 TO-GOLDEN
+latch_decoder_partial testflags pristine=319 patched=277 TO-GOLDEN
+latch_tlb_napot testflags pristine=325 patched=283 TO-GOLDEN
+param_nested_struct_field_width testflags pristine=1119 patched=1077 TO-GOLDEN
+pkg_nested_struct_param_width testflags pristine=81 patched=33 TO-GOLDEN
+portsel_struct_param testflags pristine=156 patched=125 TO-GOLDEN
+struct_member_cfg_width testflags pristine=229 patched=199 TO-GOLDEN
+struct_param_field_shift testflags pristine=252 patched=248 TO-GOLDEN
+struct_param_func_arg testflags pristine=260 patched=247 TO-GOLDEN
+struct_param_func_config testflags pristine=3694 patched=3484 TO-GOLDEN
+struct_param_func_loop testflags pristine=474 patched=461 TO-GOLDEN
+TOTALS TO-GOLDEN=11 AWAY-GOLDEN=0 NEUTRAL=0
+def_ctx_struct_param default pristine=577 patched=537 TO-GOLDEN
+latch_decoder_partial default pristine=319 patched=277 TO-GOLDEN
+latch_tlb_napot default pristine=325 patched=283 TO-GOLDEN
+param_nested_struct_field_width default pristine=1119 patched=1077 TO-GOLDEN
+pkg_nested_struct_param_width default pristine=81 patched=33 TO-GOLDEN
+portsel_struct_param default pristine=156 patched=125 TO-GOLDEN
+struct_member_cfg_width default pristine=229 patched=199 TO-GOLDEN
+struct_param_field_shift default pristine=252 patched=248 TO-GOLDEN
+struct_param_func_arg default pristine=260 patched=247 TO-GOLDEN
+struct_param_func_config default pristine=3694 patched=3484 TO-GOLDEN
+struct_param_func_loop default pristine=474 patched=461 TO-GOLDEN
+TOTALS TO-GOLDEN=11 AWAY-GOLDEN=0 NEUTRAL=0

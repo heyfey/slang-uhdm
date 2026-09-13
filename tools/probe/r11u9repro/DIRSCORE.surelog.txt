@@ -1,0 +1,18 @@
+FuncStructValSimple default pristine=294 patched=281 TO-GOLDEN
+StructParamPatternInitCast default pristine=716 patched=711 TO-GOLDEN
+FuncStructVal default pristine=6439 patched=6439 NEUTRAL
+StructParamFuncBodyFieldCompare default pristine=689 patched=689 NEUTRAL
+MiniAmiq default pristine=484728 patched=484728 NEUTRAL
+SeqDriver default pristine=486660 patched=486666 AWAY-GOLDEN
+Scoreboard default pristine=120154 patched=120154 NEUTRAL
+TOTALS TO-GOLDEN=2 AWAY-GOLDEN=1 NEUTRAL=4
+FuncStructValSimple testflags pristine=298 patched=285 TO-GOLDEN
+StructParamPatternInitCast testflags pristine=716 patched=711 TO-GOLDEN
+FuncStructVal testflags pristine=6545 patched=6545 NEUTRAL
+StructParamFuncBodyFieldCompare testflags pristine=689 patched=689 NEUTRAL
+MiniAmiq testflags pristine=484728 patched=484728 NEUTRAL
+SeqDriver testflags pristine=486690 patched=486684 TO-GOLDEN
+Scoreboard testflags pristine=1128209 patched=1128209 NEUTRAL
+TOTALS TO-GOLDEN=3 AWAY-GOLDEN=0 NEUTRAL=4
+
+[exited with code 0]

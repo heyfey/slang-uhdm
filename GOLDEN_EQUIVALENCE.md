@@ -296,8 +296,8 @@ exists.
 |---|---|---|---|---|---|
 | Surelog suite | default | 798 | CMP_EQUAL=467 SLANG_REJECT=285 SURELOG_FAIL=25 CMP_NOTEQUAL=16 DEFERRED=5 | 483 | 467 (96.7%) |
 | Surelog suite | testflags | 798 | CMP_EQUAL=463 SLANG_REJECT=286 SURELOG_FAIL=23 CMP_NOTEQUAL=14 DEFERRED=5 NO_DATABASE=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 477 | 463 (97.1%) |
-| uhdm2rtlil | default | 871 | CMP_EQUAL=746 SLANG_REJECT=67 CMP_NOTEQUAL=58 | 804 | 746 (92.8%) |
-| uhdm2rtlil | testflags | 871 | CMP_EQUAL=746 SLANG_REJECT=67 CMP_NOTEQUAL=58 | 804 | 746 (92.8%) |
+| uhdm2rtlil | default | 871 | CMP_EQUAL=748 SLANG_REJECT=67 CMP_NOTEQUAL=56 | 804 | 748 (93.0%) |
+| uhdm2rtlil | testflags | 871 | CMP_EQUAL=748 SLANG_REJECT=67 CMP_NOTEQUAL=56 | 804 | 748 (93.0%) |
 
 Denominator accounting (every excluded test is one of): `SLANG_REJECT`
 (out of scope, §2.5), `DEFERRED` (5 memory giants, §2.5b), `UNTRANSLATABLE`

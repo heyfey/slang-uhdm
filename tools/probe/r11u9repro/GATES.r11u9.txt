@@ -1,0 +1,71 @@
+r11u9 GATE LOG — base 1b26ea91, branch matrix-1.87
+==================================================
+BINARIES (frozen, chmod 555, every cmds.txt audited by PATH)
+  pristine  6f95f155f2cdeb7cf24b3f8aa473246f   (byte-identical to the main tree at 1b26ea91)
+  patched   1da12c5a1845bb5222aaa743d4bb2619
+
+(1) BUILD      both built -j 2, md5 separately.                            GREEN
+(2) GOLDENS    SLANG_UHDM=patched  tests/check_goldens.sh  PASS=23 FAIL=0  GREEN
+               SLANG_UHDM=/bin/false                        FAIL=23        GREEN (negative control)
+(3) u2r BOTH MODES (own --out/--workdir, SLANG_UHDM exported)
+      pristine  743 CMP_EQUAL / 61 CMP_NOTEQUAL / 67 SLANG_REJECT  (both modes)
+                = the committed baseline, row-for-row (diff empty both modes)
+      patched   745 CMP_EQUAL / 59 CMP_NOTEQUAL / 67 SLANG_REJECT  (both modes)
+      ct8rows vs results/gate_uhdm2rtlil.csv  -> 2 differing ROWS, both LAW-NAMED:
+        pkg_nested_struct_param_width,testflags,CMP_NOTEQUAL,decompile: -> CMP_EQUAL
+        portsel_struct_param,testflags,CMP_NOTEQUAL,decompile:          -> CMP_EQUAL
+      ct8rows vs results/golden_uhdm2rtlil.csv (default) -> the same two rows.
+(4) surelog --mode both
+      pristine  467/16 (default)  463/14 (testflags)   = the committed baseline
+      patched   467/16 (default)  463/14 (testflags)   NO STATUS MOVES
+      ct8rows -> the only "differing rows" are LowMemLib/LowMemPkg SURELOG_FAIL
+      detail strings, which embed the WORKDIR PATH; the pristine sweep shows the
+      same two against the same baseline.
+(5) byteverify SELFCHECK=1 vs this pass's OWN pristine workdirs
+      u2r      MOVERS 22 / 1608  PATH_SETS_IDENTICAL  SELFCHECK 1607/1608
+      surelog  MOVERS  9 /  960  PATH_SETS_IDENTICAL  SELFCHECK  959/960
+    EVERY MOVER PREDICTED BY NAME A PRIORI (predict.py, sources only, run before
+    the patched sweep):
+      u2r law movers (11 tests x 2 modes): def_ctx_struct_param,
+        latch_decoder_partial, latch_tlb_napot, param_nested_struct_field_width,
+        pkg_nested_struct_param_width, portsel_struct_param,
+        struct_member_cfg_width, struct_param_field_shift,
+        struct_param_func_arg, struct_param_func_config, struct_param_func_loop
+      surelog law movers (2 tests x 2 modes): FuncStructValSimple,
+        StructParamPatternInitCast
+      surelog NON-law movers: MiniAmiq x2, SeqDriver x2, Scoreboard/default —
+        the proven UVM coin family.  POSITIVE CONTROL, the PRISTINE binary alone:
+          MiniAmiq/default   5 runs -> 5 DISTINCT md5s
+            ed5727a3d015..., 5310d9b840ed..., d492512c7fe1..., 7c052adb9130...,
+            9cc6f59775c5...   (the sweeps' 22161807fc75 / 2bc87e411422 are two more)
+          SeqDriver/default  3 runs -> 68cc3d64d0ec, e4d2ebbcb6d2, c4c2abc75ce1
+          Scoreboard/default 3 runs -> 61ee9cb4f6c1, 89c1b4e51d8e, 89c1b4e51d8e
+            — LITERALLY the two hashes byteverify reported as patched/pristine.
+        And the order-blind distance itself coin-flips: three PRISTINE SeqDriver
+        runs score 486660 / 486666 / 486666, which is the whole "AWAY-GOLDEN by 6"
+        that row reads.  Attributed ORDER-BLIND, as the law requires.
+    THE BAIL WITNESSES ARE BYTE-IDENTICAL on both binaries, both modes:
+      FuncStructVal (CMP_EQUAL, must stay)  and  StructParamFuncBodyFieldCompare.
+(6) DIRECTION  dirscore.sh, order-blind path-normalised uhdm-dump distance:
+      u2r      22/22 TO-GOLDEN, 0 AWAY-GOLDEN, 0 NEUTRAL  (both modes)
+      surelog  4/4 law movers TO-GOLDEN; the 4 bail/coin rows NEUTRAL except the
+               SeqDriver coin above.
+    MOVED-WRONG 0 / AWAY 0.
+(7) SHAPE LISTER beside the census (the r11v7 lesson), shapecmp.sh:
+      0 rows GREW, 4 IMPROVED per mode.
+(8) CANARIES
+      canaries.sh  u2r     ok=8  changed=0 absent=0
+      canaries.sh  surelog ok=52 changed=0 absent=0
+      ctcan2.sh    u2r (EXPECT_UNKNOWN=6)     PASS
+      ctcan2.sh    surelog (EXPECT_UNKNOWN=1) PASS
+      canaudit.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0
+      rowheads.sh  BYTE-IDENTICAL pristine vs patched, all seven families
+                   (measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0)
+      protected databases, md5 patched vs pristine, both modes:
+        SVSwitch            4842211c4030  SAME (the brief's HARD byte pin)
+        YosysVerx           6ccda350c24a  SAME (the brief's HARD byte pin)
+        InterfaceModPort    59a365f3ce2c  SAME (the brief's status pin)
+        BlackParrotComplex  e3e354129d5a / 73a10e8217e5  SAME
+        YosysOldOr          d68e0796d62c  SAME
+(9) FENCED TESTS never dispatched, never named; GOLDEN_DEFER unset; no results/*.csv
+    edited; no Make call outside this worktree's own build.

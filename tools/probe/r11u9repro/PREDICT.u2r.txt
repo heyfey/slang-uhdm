@@ -1,0 +1,12 @@
+cva6_equiv	pkg hpdcache_equiv_pkg::hpdcacheSetConfig
+def_ctx_struct_param	pkg dcs_cfg_pkg::build_config
+latch_decoder_partial	pkg ldp_cfg_pkg::build_config
+latch_tlb_napot	pkg ltn_cfg_pkg::build_config
+param_nested_struct_field_width	pkg pk::build,pkg pk::mku
+pkg_nested_struct_param_width	pkg pk::build,pkg pk::mku
+portsel_struct_param	mod cfg_pkg::build_config,pkg cfg_pkg::build_config
+struct_member_cfg_width	mod cfg_pkg::build_config,pkg cfg_pkg::build_config
+struct_param_field_shift	pkg cfg_pkg::build_config
+struct_param_func_arg	mod p::build
+struct_param_func_config	pkg p::build,pkg p::setcfg
+struct_param_func_loop	mod p::build

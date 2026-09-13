@@ -1,0 +1,24 @@
+def_ctx_struct_param testflags shape_diff pristine=1 patched=1 same
+latch_decoder_partial testflags shape_diff pristine=1 patched=1 same
+latch_tlb_napot testflags shape_diff pristine=1 patched=1 same
+param_nested_struct_field_width testflags shape_diff pristine=6 patched=6 same
+pkg_nested_struct_param_width testflags shape_diff pristine=0 patched=0 same
+portsel_struct_param testflags shape_diff pristine=1 patched=0 IMPROVED
+struct_member_cfg_width testflags shape_diff pristine=0 patched=0 same
+struct_param_field_shift testflags shape_diff pristine=2 patched=2 same
+struct_param_func_arg testflags shape_diff pristine=1 patched=0 IMPROVED
+struct_param_func_config testflags shape_diff pristine=10 patched=3 IMPROVED
+struct_param_func_loop testflags shape_diff pristine=1 patched=0 IMPROVED
+SHAPE-GREW ROWS: 0
+def_ctx_struct_param default shape_diff pristine=1 patched=1 same
+latch_decoder_partial default shape_diff pristine=1 patched=1 same
+latch_tlb_napot default shape_diff pristine=1 patched=1 same
+param_nested_struct_field_width default shape_diff pristine=6 patched=6 same
+pkg_nested_struct_param_width default shape_diff pristine=0 patched=0 same
+portsel_struct_param default shape_diff pristine=1 patched=0 IMPROVED
+struct_member_cfg_width default shape_diff pristine=0 patched=0 same
+struct_param_field_shift default shape_diff pristine=2 patched=2 same
+struct_param_func_arg default shape_diff pristine=1 patched=0 IMPROVED
+struct_param_func_config default shape_diff pristine=10 patched=3 IMPROVED
+struct_param_func_loop default shape_diff pristine=1 patched=0 IMPROVED
+SHAPE-GREW ROWS: 0

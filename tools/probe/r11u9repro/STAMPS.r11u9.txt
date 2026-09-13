@@ -1,0 +1,78 @@
+######## def_ctx_struct_param
+-- gold
+## def_ctx_struct_param/gold.dump
+   uhdmallPackages    L    78 dcs_cfg_pkg::cfg_t                 members=  3 stamped=  0
+   uhdmallPackages    L    88 dcs_cfg_pkg::cfg_t                 members=  1 stamped=  0
+-- ours
+## def_ctx_struct_param/ours.dump
+   uhdmallPackages    L    78 dcs_cfg_pkg::cfg_t                 members=  3 stamped=  0
+   uhdmallPackages    L    88 dcs_cfg_pkg::cfg_t                 members=  1 stamped=  0
+-- pt
+## def_ctx_struct_param/pt.dump
+   uhdmallPackages    L    78 dcs_cfg_pkg::cfg_t                 members=  3 stamped=  0
+   uhdmallPackages    L    88 dcs_cfg_pkg::cfg_t                 members=  1 stamped=  0
+######## pkg_nested_struct_param_width
+-- gold
+## pkg_nested_struct_param_width/gold.dump
+   uhdmallPackages    L    73 pk::cfg_t                          members=  2 stamped=  0
+   uhdmallPackages    L    83 pk::cfg_t                          members=  1 stamped=  0
+-- ours
+## pkg_nested_struct_param_width/ours.dump
+   uhdmallPackages    L    73 pk::cfg_t                          members=  2 stamped=  0
+   uhdmallPackages    L    83 pk::cfg_t                          members=  1 stamped=  0
+-- pt
+## pkg_nested_struct_param_width/pt.dump
+   uhdmallPackages    L    73 pk::cfg_t                          members=  2 stamped=  0
+   uhdmallPackages    L    83 pk::cfg_t                          members=  1 stamped=  0
+######## portsel_struct_param
+-- gold
+## portsel_struct_param/gold.dump
+   uhdmallPackages    L    74 cfg_pkg::cfg_t                     members=  2 stamped=  0
+   uhdmallPackages    L    84 cfg_pkg::cfg_t                     members=  1 stamped=  0
+-- ours
+## portsel_struct_param/ours.dump
+   uhdmallPackages    L    74 cfg_pkg::cfg_t                     members=  2 stamped=  0
+   uhdmallPackages    L    84 cfg_pkg::cfg_t                     members=  1 stamped=  0
+-- pt
+## portsel_struct_param/pt.dump
+   uhdmallPackages    L    74 cfg_pkg::cfg_t                     members=  2 stamped=  0
+   uhdmallPackages    L    84 cfg_pkg::cfg_t                     members=  1 stamped=  0
+######## struct_param_func_config
+-- gold
+## struct_param_func_config/gold.dump
+   uhdmallPackages    L    73 p::cfg_t                           members=  2 stamped=  0
+   uhdmallPackages    L    83 p::cfg_t                           members=  1 stamped=  0
+-- ours
+## struct_param_func_config/ours.dump
+   uhdmallPackages    L    73 p::cfg_t                           members=  2 stamped=  0
+   uhdmallPackages    L    83 p::cfg_t                           members=  1 stamped=  0
+-- pt
+## struct_param_func_config/pt.dump
+   uhdmallPackages    L    73 p::cfg_t                           members=  2 stamped=  0
+   uhdmallPackages    L    83 p::cfg_t                           members=  1 stamped=  0
+######## fsvs
+-- gold
+## fsvs/gold.dump
+   uhdmallPackages    L    47 config_pkg::cva6_cfg_t             members=  3 stamped=  0
+   uhdmallPackages    L    57 config_pkg::cva6_cfg_t             members=  1 stamped=  0
+-- ours
+## fsvs/ours.dump
+   uhdmallPackages    L    47 config_pkg::cva6_cfg_t             members=  3 stamped=  0
+   uhdmallPackages    L    57 config_pkg::cva6_cfg_t             members=  1 stamped=  0
+-- pt
+## fsvs/pt.dump
+   uhdmallPackages    L    47 config_pkg::cva6_cfg_t             members=  3 stamped=  0
+   uhdmallPackages    L    57 config_pkg::cva6_cfg_t             members=  1 stamped=  0
+######## fsv
+-- gold
+## fsv/gold.dump
+   uhdmallPackages    L  3108 config_pkg::cva6_cfg_t             members= 97 stamped=  0
+   uhdmallPackages    L  3118 config_pkg::cva6_cfg_t             members=  1 stamped=  0
+-- ours
+## fsv/ours.dump
+   uhdmallPackages    L  3104 config_pkg::cva6_cfg_t             members= 97 stamped=  0
+   uhdmallPackages    L  3114 config_pkg::cva6_cfg_t             members=  1 stamped=  0
+-- pt
+## fsv/pt.dump
+   uhdmallPackages    L  3104 config_pkg::cva6_cfg_t             members= 97 stamped=  0
+   uhdmallPackages    L  3114 config_pkg::cva6_cfg_t             members=  1 stamped=  0

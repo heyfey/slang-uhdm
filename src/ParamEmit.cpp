@@ -1760,6 +1760,25 @@ UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
         }
         if (ml.enc != SrlgMemLeftEnc::Pat) {
             ml.enc = memLeftComputedEnc(a.right(), 0);
+            // § pkgStructFuncAssembleBin — recorded for every member, READ
+            // ONLY by the package-holder arm at the stamp site.  `ml.enc` is
+            // deliberately left exactly as the module-holder path computes it.
+            if (rhs.kind == ExpressionKind::IntegerLiteral ||
+                rhs.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                ml.litRhs = &a.right();
+            if (rhs.kind == ExpressionKind::NamedValue) {
+                auto& wsym = rhs.as<NamedValueExpression>().symbol;
+                int awi = 0;
+                for (auto* fa : sub.getArguments()) {
+                    if (fa == &wsym) {
+                        ml.argWhole = awi;
+                        break;
+                    }
+                    awi++;
+                }
+                if (ml.argWhole < 0 && wsym.kind == SymbolKind::Parameter)
+                    ml.paramRead = &wsym;
+            }
             // A wide (>64b) CONCAT keeps the caller's own BIN re-encoding.
             if (rhs.kind == ExpressionKind::Concatenation &&
                 ma.type->getBitWidth() > 64)
@@ -2066,6 +2085,42 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
             if (bit != bodyAsgRhsObj.end() && bit->second)
                 st.values[i] = (UHDM::expr*)bit->second;
         }
+        // § pkgStructFuncAssembleBin — the PACKAGE holder's two extra
+        // resolutions.  Both are OBJECT REUSE, exactly as golden's are, and
+        // both are confined to a package-held stamp so no module-held leftover
+        // (FuncStructVal, FuncStructValSimple) can see them.
+        //  * a LITERAL body RHS reduces to ITSELF, so the leftover is the
+        //    emitted body object: `c.RVC = 1'b1` leaves BIN:1 size 1 decompile
+        //    `1'b1` (golden def_ctx_struct_param), `c.XLEN = 32'd64` leaves
+        //    DEC:64 size 32 decompile `32'd64` (golden struct_member_cfg_width)
+        //    — the value slice gives UINT/64 for both.
+        //  * a WHOLE formal read (`c.u = uu`) reduces to the CALLER argument's
+        //    own elaborated Rhs constant, which for a struct argument is that
+        //    parameter's assembled BIN (golden param_nested_struct_field_width
+        //    stamps cfg_t.u with UCFG's 64-bit BIN, not a decimal slice).
+        if (!st.pkgHolder)
+            continue;
+        for (size_t i = 0; i < st.values.size(); i++) {
+            if (i < st.litRhs.size() && st.litRhs[i]) {
+                auto lit = bodyAsgRhsObj.find(st.litRhs[i]);
+                if (lit != bodyAsgRhsObj.end() && lit->second) {
+                    st.values[i] = (UHDM::expr*)lit->second;
+                    continue;
+                }
+            }
+            if (i < st.argWholeParam.size() && st.argWholeParam[i]) {
+                auto ait = elabParamConst.find(st.argWholeParam[i]);
+                if (ait != elabParamConst.end() && ait->second) {
+                    st.values[i] = (UHDM::expr*)ait->second;
+                    continue;
+                }
+            }
+            if (i < st.paramRead.size() && st.paramRead[i]) {
+                auto pit = elabParamConst.find(st.paramRead[i]);
+                if (pit != elabParamConst.end() && pit->second)
+                    st.values[i] = (UHDM::expr*)pit->second;
+            }
+        }
     }
     std::set<const UHDM::struct_typespec*> done;
     auto stamp = [&](UHDM::typespec* ts) {
@@ -2120,6 +2175,148 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     if (auto* tm = d->TopModules())
         for (auto* m : *tm)
             walk(m);
+    // § pkgStructFuncAssembleBin — and the struct typespec copy of every
+    // parameter this law assembled, wherever that copy lives.  A module that
+    // WILDCARD-IMPORTS the package materializes its own copy of the package
+    // localparam (`work@child.C` out of `import p::*`), and golden stamps that
+    // copy's typespec exactly as it stamps the package's own; the walks above
+    // never reach it.  Only copies this law produced are visited, so a def-view
+    // copy golden leaves CLEAN stays clean.
+    for (auto& [ap, asym] : memLeftAsmParams) {
+        (void)asym;
+        if (ap && ap->Typespec())
+            stamp(ap->Typespec()->Actual_typespec());
+    }
+    // § pkgStructFuncAssembleBinBail (r11v11u9) — THE SAME BAIL RULE ON THE
+    // PACKAGE ARM.  `reduceExpr(struct_var)` gives up the moment one member
+    // has no value it can reduce to a constant, and the Rhs then STAYS the
+    // struct_var — in the elaborated PACKAGE listing and in every module that
+    // imports the localparam, exactly as it does for a module-held parameter.
+    // The package arm cannot defer its mint (a later parameter in the same
+    // scope shares the constant through `elabParamConst`), so the struct_var
+    // goes back HERE, where the member values are final.  Measured witness:
+    // FuncStructVal's design with its holder moved to a package localparam
+    // (r11v11u9repro/b1) — golden struct_var in uhdmtopPackages AND
+    // uhdmtopModules, which the eager arm replaced with an assembled BIN while
+    // the PRISTINE binary already matched golden in uhdmtopModules.
+    for (auto& pk : memLeftPkgAsm) {
+        if (!pk.pa || !pk.c || pk.pa->Rhs() != pk.c ||
+            pk.stampIdx >= memLeftStamps.size())
+            continue;
+        const SrlgMemLeftStamp& own = memLeftStamps[pk.stampIdx];
+        if (own.values.empty())
+            continue;
+        // A member value that is NOT a constant still assembles when it is one
+        // of the shapes `assemble()` itself folds (ExprEval.cpp ~4900): a
+        // pattern/concat of constants, a replication, or a CAST already folded
+        // to one constant.  A comparison/logical operation is NOT on that list,
+        // and that is where the producer gives up.  Measured both ways:
+        // r11v11u9repro/b2 (StructParamFuncBodyFieldCompare's design with a
+        // PACKAGE holder) leaves golden's `Flag` leftover the body's
+        // vpiLogAndOp and golden keeps the struct_var; r11v11u9repro/g17
+        // leaves `Wide` a vpiCastOp leftover and golden assembles the 1032-bit
+        // constant.  A null value is FuncStructVal's face: no leftover at all.
+        auto asmOk = [](const UHDM::expr* v) {
+            if (!v)
+                return false;
+            if (v->UhdmType() == UHDM::uhdmconstant)
+                return true;
+            if (v->UhdmType() != UHDM::uhdmoperation)
+                return false;
+            auto* op = (const UHDM::operation*)v;
+            if (!op->Operands() || op->Operands()->empty())
+                return false;
+            int32_t ot = op->VpiOpType();
+            size_t n = op->Operands()->size();
+            if (n == 1 && (ot == vpiMultiAssignmentPatternOp ||
+                           ot == vpiAssignmentPatternOp || ot == vpiCastOp))
+                return true;
+            if (n == 2 && (ot == vpiMultiAssignmentPatternOp ||
+                           ot == vpiMultiConcatOp))
+                return true;
+            return ot == vpiAssignmentPatternOp || ot == vpiConcatOp;
+        };
+        bool full = true;
+        for (auto* v : own.values)
+            if (!asmOk(v)) {
+                full = false;
+                break;
+            }
+        if (full)
+            continue;
+        auto* sv = s.MakeStruct_var();
+        sv->VpiFile(pk.c->VpiFile());
+        sv->VpiLineNo(pk.c->VpiLineNo());
+        sv->VpiColumnNo(pk.c->VpiColumnNo());
+        sv->VpiEndLineNo(pk.c->VpiEndLineNo());
+        sv->VpiEndColumnNo(pk.c->VpiEndColumnNo());
+        auto* svrt = s.MakeRef_typespec();
+        svrt->VpiParent(sv);
+        sv->Typespec(svrt);
+        if (pk.up && pk.up->Typespec() && pk.up->Typespec()->Actual_typespec())
+            svrt->Actual_typespec(pk.up->Typespec()->Actual_typespec());
+        pk.pa->Rhs(sv);
+        if (pk.up)
+            pk.up->VpiValue(pk.priorValue);
+    }
+    // § modStructFuncAssembleBin — THE ASSEMBLER'S OWN BAIL RULE, evaluated
+    // where golden evaluates it.  `reduceExpr(struct_var)` walks the struct's
+    // typespec members and gives up the moment one has neither an Actual_value
+    // nor a Default_value it can reduce; when it gives up the Rhs STAYS the
+    // struct_var.  FuncStructVal is that witness and is CMP_EQUAL today: one of
+    // its 97 members (an untyped-enum pattern element) never folds, so golden's
+    // `work@top.CVA6Cfg` elab Rhs is a struct_var.  FuncStructValSimple's three
+    // members all carry values and golden assembles the 1088-bit constant.  So:
+    // swap in the assembled constant only when every member of THIS parameter's
+    // stamp survived the resolutions above.
+    for (auto& ma : memLeftModAsm) {
+        if (!ma.pa || !ma.sv || ma.pa->Rhs() != ma.sv || ma.width <= 0)
+            continue;
+        const SrlgMemLeftStamp* own = nullptr;
+        for (auto& st : memLeftStamps)
+            if (st.owner == ma.sym && !st.pkgHolder) {
+                own = &st;
+                break;
+            }
+        if (!own || own->values.empty())
+            continue;
+        // ...and every member value must be a CONSTANT.  `assemble()` calls
+        // `reduceExpr` on each member value and bails unless the answer is a
+        // constant (or a pattern/concat/replication of constants); an
+        // UNREDUCIBLE computed member leaves the function body's own
+        // assignment OPERATION behind (§ r10fsv3 S2) and the assembler gives
+        // up.  StructParamFuncBodyFieldCompare is that witness: `r.Flag =
+        // (c.NrRules > 0) && (c.Length > 0)` reads a 1024-bit formal member
+        // whose caller pattern element is an unreduced sized cast, so golden's
+        // `work@StructParamFuncBodyFieldCompare.Cfg` elab Rhs is a struct_var
+        // — measured AWAY-GOLDEN on the non-constant form of this rule.
+        bool full = true;
+        for (auto* v : own->values)
+            if (!v || v->UhdmType() != UHDM::uhdmconstant) {
+                full = false;
+                break;
+            }
+        if (!full)
+            continue;
+        auto* mc = s.MakeConstant();
+        mc->VpiValue("BIN:" + ma.bits);
+        mc->VpiDecompile(std::to_string(ma.width) + "'b" + ma.bits);
+        mc->VpiSize(ma.width);
+        mc->VpiConstType(vpiBinaryConst);
+        mc->VpiParent(ma.pa);
+        mc->VpiFile(ma.sv->VpiFile());
+        mc->VpiLineNo(ma.sv->VpiLineNo());
+        mc->VpiColumnNo(ma.sv->VpiColumnNo());
+        mc->VpiEndLineNo(ma.sv->VpiEndLineNo());
+        mc->VpiEndColumnNo(ma.sv->VpiEndColumnNo());
+        auto* mrt = s.MakeRef_typespec();
+        mrt->VpiFullName(ma.tsName);
+        mrt->VpiParent(mc);
+        mc->Typespec(mrt);
+        if (ma.up && ma.up->Typespec() && ma.up->Typespec()->Actual_typespec())
+            mrt->Actual_typespec(ma.up->Typespec()->Actual_typespec());
+        ma.pa->Rhs(mc);
+    }
     // The DEF module listing's copy of the parameter resolves the SAME struct
     // typespec object the elaborated views do — golden's uhdmallModules
     // work@top.CVA6Cfg points at the stamped function-return copy, not at the
@@ -8108,7 +8305,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // copy — recorded here, re-pointed by the drain.
             if (!topView && !inPackage && memLeftInitCall(*init))
                 memLeftDefParams.emplace_back(up, &ps);
-            if (topView && !inPackage) {
+            // § pkgStructFuncAssembleBin (r11u9) — THE PACKAGE HOLDER.  The
+            // same member-by-member const function initialising a PACKAGE
+            // localparam leaks the very same leftovers onto the struct
+            // typespec (UHDM `ExprEval::setValueInInstance` does not care who
+            // holds the parameter), and v1.87's `reduceExpr(struct_var)`
+            // assembler then reads those leftovers back and REDUCES the
+            // param_assign Rhs to one packed BIN constant at the struct's
+            // packed width — decompile BARE (no `<w>'b` prefix), vpiConstType
+            // vpiBinaryConst, carrying a ts ref to the struct typespec.
+            // Golden's split, measured on all five u2r witnesses
+            // (def_ctx_struct_param, latch_decoder_partial,
+            // param_nested_struct_field_width, pkg_nested_struct_param_width,
+            // struct_member_cfg_width): the ELABORATED package listing and
+            // every elaborated module copy of the typedef are stamped and the
+            // Rhs is the assembled constant; the DEF package listing keeps the
+            // unfolded func_call and a CLEAN typespec.  We emitted the
+            // pkgElabComputed decimal fold (UINT:130 size 32 against golden's
+            // BIN size 34) and stamped nothing at all.
+            if (topView) {
                 if (auto* mlSub = memLeftInitCall(*init)) {
                     auto& mst = ps.getType().getCanonicalType();
                     auto* leftovers = srlgEvalFuncMemberLeftovers(*mlSub);
@@ -8167,9 +8382,112 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 if (auto* rp9 = memLeftCallPatArg(*init, ai9))
                                     rd9.emplace_back(rp9, mn9);
                             st9.reads.push_back(std::move(rd9));
+                            // § pkgStructFuncAssembleBin — parallel, read only
+                            // by the package-holder arm below.
+                            st9.litRhs.push_back((*leftovers)[li9].litRhs);
+                            st9.argWholeParam.push_back(
+                                (*leftovers)[li9].argWhole >= 0
+                                    ? memLeftCallPatArg(
+                                          *init, (*leftovers)[li9].argWhole)
+                                    : nullptr);
+                            st9.paramRead.push_back(
+                                (*leftovers)[li9].paramRead);
                             li9++;
                         }
-                        if (ok9 && !st9.names.empty()) {
+                        if (ok9 && !st9.names.empty() &&
+                            (inPackage || isImported)) {
+                            // THE PACKAGE HOLDER.  Assemble the packed BIN
+                            // constant and stamp the leftovers; the module
+                            // holder below is untouched.
+                            // A member written from a WHOLE read of another
+                            // PARAMETER takes THAT parameter's own constant —
+                            // its width and its sign, not the 64-bit value
+                            // slice: `c.VLEN = CVA6ConfigXlen` with
+                            // `localparam int unsigned CVA6ConfigXlen = 64`
+                            // leaves UINT:64 size 32 (portsel_struct_param
+                            // golden), where the slice leaves size 64.  The
+                            // parameter's own elaborated object is preferred
+                            // in the drain; this is the re-encode for the
+                            // parameters that never registered one.
+                            for (size_t pi9 = 0;
+                                 pi9 < st9.names.size() &&
+                                 pi9 < leftovers->size();
+                                 pi9++) {
+                                auto* pr9 = (*leftovers)[pi9].paramRead;
+                                if (!pr9 || pr9->kind != SymbolKind::Parameter)
+                                    continue;
+                                auto& prs9 = pr9->as<ParameterSymbol>();
+                                auto& prt9 = prs9.getType();
+                                auto prv9 = prs9.getValue();
+                                if (!prt9.isIntegral() ||
+                                    prt9.getBitWidth() == 0 ||
+                                    !prv9.isInteger() ||
+                                    prv9.integer().hasUnknown())
+                                    continue;
+                                std::string pd9 = prv9.integer().toString(
+                                    LiteralBase::Decimal, false);
+                                auto* pc9 = s.MakeConstant();
+                                pc9->VpiDecompile(pd9);
+                                pc9->VpiSize((int32_t)prt9.getBitWidth());
+                                pc9->VpiValue(
+                                    (prt9.isSigned() ? "INT:" : "UINT:") + pd9);
+                                pc9->VpiConstType(prt9.isSigned()
+                                                      ? vpiIntConst
+                                                      : vpiUIntConst);
+                                st9.values[pi9] = pc9;
+                            }
+                            int32_t pw9 = (int32_t)slPackedWidth(ps.getType());
+                            if (pw9 > 0) {
+                                std::string bits9;
+                                bits9.reserve((size_t)pw9);
+                                for (int32_t k9 = pw9 - 1; k9 >= 0; k9--)
+                                    bits9 +=
+                                        (k9 < (int32_t)whole.getBitWidth() &&
+                                         whole[k9] == slang::logic_t(1))
+                                            ? '1'
+                                            : '0';
+                                st9.owner = &ps;
+                                st9.pkgHolder = true;
+                                memLeftStamps.push_back(st9);
+                                size_t stIdx9 = memLeftStamps.size() - 1;
+                                auto* c9 = s.MakeConstant();
+                                c9->VpiValue("BIN:" + bits9);
+                                c9->VpiDecompile(bits9);
+                                c9->VpiSize(pw9);
+                                c9->VpiConstType(vpiBinaryConst);
+                                c9->VpiParent(pa);
+                                setLoc(c9, init->sourceRange);
+                                // § pkgStructFuncAssembleBinBail — the drain
+                                // puts the struct_var back when the producer's
+                                // own bail rule fires on THIS view's stamp.
+                                memLeftPkgAsm.push_back(
+                                    {pa, c9, up, stIdx9,
+                                     std::string(up->VpiValue())});
+                                up->VpiValue("BIN:" + bits9);
+                                // ...and register it as THIS parameter's
+                                // elaborated constant, so a SECOND package
+                                // localparam built by a function that takes
+                                // this one WHOLE (`build(UCFG)`) stamps its
+                                // member with this very object, the way golden
+                                // does (pkg_nested_struct_param_width).
+                                elabParamConst[&ps] = c9;
+                                memLeftAsmParams.emplace_back(up, &ps);
+                                if (wantTs) {
+                                    auto* rt9 = s.MakeRef_typespec();
+                                    std::string tsp9 = prefix;
+                                    if (tsp9.size() >= 2 &&
+                                        tsp9.compare(tsp9.size() - 2, 2,
+                                                     "::") == 0)
+                                        tsp9.resize(tsp9.size() - 2);
+                                    rt9->VpiFullName(tsp9);
+                                    rt9->VpiParent(c9);
+                                    c9->Typespec(rt9);
+                                    rhsRt = rt9;
+                                }
+                                rhs = c9;
+                            }
+                        }
+                        else if (ok9 && !st9.names.empty()) {
                             st9.owner = &ps;
                             memLeftStamps.push_back(st9);
                             auto* sv9 = s.MakeStruct_var();
@@ -8179,6 +8497,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             sv9->Typespec(svrt9);
                             memLeftStructVars.emplace_back(sv9, up);
                             rhs = sv9;
+                            // § modStructFuncAssembleBin — the candidate the
+                            // drain may put in this struct_var's place.  The
+                            // MODULE view's decompile carries the `<w>'b`
+                            // prefix (CompileHelper::adjustSize renders the
+                            // assembled constant against the formal), where the
+                            // package view keeps the assembler's bare bits.
+                            int32_t mw9 = (int32_t)slPackedWidth(ps.getType());
+                            if (mw9 > 0) {
+                                std::string mb9;
+                                mb9.reserve((size_t)mw9);
+                                for (int32_t k9 = mw9 - 1; k9 >= 0; k9--)
+                                    mb9 += (k9 < (int32_t)whole.getBitWidth() &&
+                                            whole[k9] == slang::logic_t(1))
+                                               ? '1'
+                                               : '0';
+                                std::string mtp9 = prefix;
+                                if (mtp9.size() >= 2 &&
+                                    mtp9.compare(mtp9.size() - 2, 2, "::") == 0)
+                                    mtp9.resize(mtp9.size() - 2);
+                                memLeftModAsm.push_back(
+                                    {pa, sv9, up, &ps, mb9, mtp9, mw9});
+                            }
                         }
                     }
                 }

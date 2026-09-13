@@ -1,0 +1,1093 @@
+######## def_ctx_struct_param
+-- gold
+   uhdmallPackages  dcs_cfg_pkg::CfgEmpty              operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  dcs_cfg_pkg::CfgDefault            func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  dcs_cfg_pkg::CfgEmpty              operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  dcs_cfg_pkg::CfgDefault            constant     dec=0000000000000000000000000010000010   sz=34    BIN:0000000000000..00000000010000010     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@dcs_leaf.Cfg                  operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@dcs_mid.Cfg                   operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@def_ctx_struct_param.u_mid.Cfg constant     dec=34'b0000000000000..00000000010000010 sz=34    BIN:0000000000000..00000000010000010     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@def_ctx_struct_param.u_mid.u_leaf.Cfg constant     dec=34'b0000000000000..00000000010000010 sz=34    BIN:0000000000000..00000000010000010     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- ours
+   uhdmallPackages  dcs_cfg_pkg::CfgEmpty              operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  dcs_cfg_pkg::CfgDefault            func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  dcs_cfg_pkg::CfgEmpty              constant     dec=0                                    sz=34    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  dcs_cfg_pkg::CfgDefault            constant     dec=130                                  sz=32    UINT:130                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@dcs_leaf.Cfg                  operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@dcs_mid.Cfg                   operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@def_ctx_struct_param.u_mid.Cfg constant     dec=130                                  sz=34    UINT:130                                 ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@def_ctx_struct_param.u_mid.u_leaf.Cfg constant     dec=130                                  sz=34    UINT:130                                 ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- pt
+   uhdmallPackages  dcs_cfg_pkg::CfgEmpty              operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  dcs_cfg_pkg::CfgDefault            func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  dcs_cfg_pkg::CfgEmpty              constant     dec=0                                    sz=34    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  dcs_cfg_pkg::CfgDefault            constant     dec=0000000000000000000000000010000010   sz=34    BIN:0000000000000..00000000010000010     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@dcs_leaf.Cfg                  operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@dcs_mid.Cfg                   operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@def_ctx_struct_param.u_mid.Cfg constant     dec=130                                  sz=34    UINT:130                                 ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@def_ctx_struct_param.u_mid.u_leaf.Cfg constant     dec=130                                  sz=34    UINT:130                                 ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+######## pkg_nested_struct_param_width
+-- gold
+   uhdmallPackages  pk::UCFG                           func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  pk::CFG                            func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  pk::UCFG                           constant     dec=00000000000000000..00000000000100000 sz=64    BIN:0000000000000..00000000000100000     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  pk::CFG                            constant     dec=00000000000000000..00000000001000000 sz=96    BIN:0000000000000..00000000001000000     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+-- ours
+   uhdmallPackages  pk::UCFG                           func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  pk::CFG                            func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  pk::UCFG                           constant     dec=12884901920                          sz=32    UINT:12884901920                         ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  pk::CFG                            constant     dec=55340232358567608384                 sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+-- pt
+   uhdmallPackages  pk::UCFG                           func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  pk::CFG                            func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  pk::UCFG                           constant     dec=00000000000000000..00000000000100000 sz=64    BIN:0000000000000..00000000000100000     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  pk::CFG                            constant     dec=00000000000000000..00000000001000000 sz=96    BIN:0000000000000..00000000001000000     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+######## portsel_struct_param
+-- gold
+   uhdmallPackages  cfg_pkg::CVA6ConfigXlen            constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cfg_pkg::CFG                       func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::CVA6ConfigXlen            constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::CFG                       constant     dec=00000000000000000..00000000001000000 sz=64    BIN:0000000000000..00000000001000000     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@portsel_struct_param.CFG      func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@portsel_struct_param.CFG      constant     dec=64'b0000000000000..00000000001000000 sz=64    BIN:0000000000000..00000000001000000     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- ours
+   uhdmallPackages  cfg_pkg::CVA6ConfigXlen            constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cfg_pkg::CFG                       func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::CVA6ConfigXlen            constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::CFG                       constant     dec=274877907008                         sz=32    UINT:274877907008                        ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@portsel_struct_param.CFG      func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@portsel_struct_param.CFG      struct_var   dec=                                     sz=                                               ct=
+-- pt
+   uhdmallPackages  cfg_pkg::CVA6ConfigXlen            constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cfg_pkg::CFG                       func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::CVA6ConfigXlen            constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::CFG                       constant     dec=00000000000000000..00000000001000000 sz=64    BIN:0000000000000..00000000001000000     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@portsel_struct_param.CFG      func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@portsel_struct_param.CFG      constant     dec=64'b0000000000000..00000000001000000 sz=64    BIN:0000000000000..00000000001000000     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+######## struct_param_func_config
+-- gold
+   uhdmallPackages  p::U                               func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  p::C                               func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  p::U                               constant     dec=0000000000000000000000000000011110   sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  p::C                               constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.U                       constant     dec=0000000000000000000000000000011110   sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.C                       constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.Cfg                     constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.U    constant     dec=0000000000000000000000000000011110   sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.C    constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.Cfg  constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.Cfg  constant     dec=66'b0000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.U    constant     dec=34'b0000000000000..00000000000011110 sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.C    constant     dec=66'b0000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.Cfg constant     dec=66'b0000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.U constant     dec=34'b0000000000000..00000000000011110 sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.C constant     dec=66'b0000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- ours
+   uhdmallPackages  p::U                               func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  p::C                               func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  p::U                               constant     dec=30                                   sz=32    UINT:30                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  p::C                               constant     dec=128849018894                         sz=32    UINT:128849018894                        ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.U                       struct_var   dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.C                       struct_var   dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.Cfg                     constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.U    struct_var   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.C    struct_var   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.Cfg  func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.Cfg  func_call    dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.U    struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.C    struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.Cfg constant     dec=66'h1e0000000e                       sz=66    HEX:1e0000000e                           ct=5
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.U struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.C struct_var   dec=                                     sz=                                               ct=
+-- pt
+   uhdmallPackages  p::U                               func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  p::C                               func_call    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  p::U                               constant     dec=0000000000000000000000000000011110   sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  p::C                               constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.U                       constant     dec=0000000000000000000000000000011110   sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.C                       constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@child.Cfg                     constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.U    constant     dec=0000000000000000000000000000011110   sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.C    constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@struct_param_func_config.Cfg  func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.Cfg  func_call    dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.U    constant     dec=0000000000000000000000000000011110   sz=34    BIN:0000000000000..00000000000011110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.C    constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.Cfg constant     dec=66'h1e0000000e                       sz=66    HEX:1e0000000e                           ct=5
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.U constant     dec=                                     sz=                                               ct=
+   uhdmtopModules   work@struct_param_func_config.u_c.C constant     dec=00000000000000000..00000000000001110 sz=66    BIN:0000000000000..00000000000001110     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+######## fsvs
+-- gold
+   uhdmallPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=1088  BIN:0                                    ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.INPUT_WIDTH          constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@top.CVA6Cfg                   func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.CVA6Cfg                   constant     dec=1088'b00000000000..00000000000000000 sz=1088  BIN:0000000000000..00000000000000000     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.INPUT_WIDTH            constant     dec=32'b0000000000000..00000000000000010 sz=32    BIN:0000000000000..00000000000000010     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- ours
+   uhdmallPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=1088  BIN:0                                    ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.INPUT_WIDTH          constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@top.CVA6Cfg                   func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.CVA6Cfg                   struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.INPUT_WIDTH            constant     dec=2                                    sz=32    INT:2                                    ct=7
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- pt
+   uhdmallPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=1088  BIN:0                                    ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.INPUT_WIDTH          constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@top.CVA6Cfg                   func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.CVA6Cfg                   constant     dec=1088'b00000000000..00000000000000000 sz=1088  BIN:0000000000000..00000000000000000     ct=3
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.INPUT_WIDTH            constant     dec=2                                    sz=32    INT:2                                    ct=7
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+######## fsv
+-- gold
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigXlen    constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFpuEn   constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF16En   constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF16AltEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF8En    constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFVecEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCvxifEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZcbExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZcmpExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBExtEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigVExtEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZiCondExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiIdWidth constant     dec=4                                    sz=64    UINT:4                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiAddrWidth constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiDataWidth constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFetchUserEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFetchUserWidth ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataUserEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataUserWidth ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheByteSize constant     dec=16384                                sz=64    UINT:16384                               ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheSetAssoc constant     dec=4                                    sz=64    UINT:4                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheLineWidth constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheByteSize constant     dec=32768                                sz=64    UINT:32768                               ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheSetAssoc constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheLineWidth constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheIdWidth constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigMemTidWidth constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigWtDcacheWbufDepth constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrCommitPorts constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrScoreboardEntries constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrLoadBufEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFPGAEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrLoadPipeRegs constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrStorePipeRegs constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigInstrTlbEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataTlbEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigRASDepth constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBTBEntries constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBHTEntries constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigTvalEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrPMPEntries constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigPerfCounterEn constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheType ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigMmuPresent constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigRvfiTrace constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::ILEN                   constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::NRET                   constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::NrMaxRules             constant     dec=16                                   sz=64    UINT:16                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigXlen    constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFpuEn   constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF16En   constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF16AltEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF8En    constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFVecEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCvxifEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZcbExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZcmpExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBExtEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigVExtEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZiCondExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiIdWidth constant     dec=4                                    sz=32    UINT:4                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiAddrWidth constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiDataWidth constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFetchUserEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFetchUserWidth constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataUserEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataUserWidth constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheByteSize constant     dec=16384                                sz=32    UINT:16384                               ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheSetAssoc constant     dec=4                                    sz=32    UINT:4                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheLineWidth constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheByteSize constant     dec=32768                                sz=32    UINT:32768                               ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheSetAssoc constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheLineWidth constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheIdWidth constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigMemTidWidth constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigWtDcacheWbufDepth constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrCommitPorts constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrScoreboardEntries constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrLoadBufEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFPGAEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrLoadPipeRegs constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrStorePipeRegs constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigInstrTlbEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataTlbEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigRASDepth constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBTBEntries constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBHTEntries constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigTvalEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrPMPEntries constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigPerfCounterEn constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheType ref_obj      dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigMmuPresent constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigRvfiTrace constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::ILEN                   constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::NRET                   constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::NrMaxRules             constant     dec=16                                   sz=32    UINT:16                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=10099 BIN:0                                    ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.INPUT_WIDTH          constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.PopcountWidth        operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.PaddedWidth          operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@top.CVA6Cfg                   func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.CVA6Cfg                   struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.INPUT_WIDTH            constant     dec=2                                    sz=32    INT:2                                    ct=7
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.PopcountWidth          constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.PaddedWidth            constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- ours
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigXlen    constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFpuEn   constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF16En   constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF16AltEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF8En    constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFVecEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCvxifEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZcbExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZcmpExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBExtEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigVExtEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZiCondExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiIdWidth constant     dec=4                                    sz=64    UINT:4                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiAddrWidth constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiDataWidth constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFetchUserEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFetchUserWidth ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataUserEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataUserWidth ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheByteSize constant     dec=16384                                sz=64    UINT:16384                               ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheSetAssoc constant     dec=4                                    sz=64    UINT:4                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheLineWidth constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheByteSize constant     dec=32768                                sz=64    UINT:32768                               ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheSetAssoc constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheLineWidth constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheIdWidth constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigMemTidWidth constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigWtDcacheWbufDepth constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrCommitPorts constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrScoreboardEntries constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrLoadBufEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFPGAEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrLoadPipeRegs constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrStorePipeRegs constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigInstrTlbEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataTlbEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigRASDepth constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBTBEntries constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBHTEntries constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigTvalEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrPMPEntries constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigPerfCounterEn constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheType ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigMmuPresent constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigRvfiTrace constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::ILEN                   constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::NRET                   constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::NrMaxRules             constant     dec=16                                   sz=64    UINT:16                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigXlen    constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFpuEn   constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF16En   constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF16AltEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF8En    constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFVecEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCvxifEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZcbExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZcmpExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBExtEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigVExtEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZiCondExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiIdWidth constant     dec=4                                    sz=32    UINT:4                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiAddrWidth constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiDataWidth constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFetchUserEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFetchUserWidth constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataUserEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataUserWidth constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheByteSize constant     dec=16384                                sz=32    UINT:16384                               ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheSetAssoc constant     dec=4                                    sz=32    UINT:4                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheLineWidth constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheByteSize constant     dec=32768                                sz=32    UINT:32768                               ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheSetAssoc constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheLineWidth constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheIdWidth constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigMemTidWidth constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigWtDcacheWbufDepth constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrCommitPorts constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrScoreboardEntries constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrLoadBufEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFPGAEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrLoadPipeRegs constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrStorePipeRegs constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigInstrTlbEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataTlbEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigRASDepth constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBTBEntries constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBHTEntries constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigTvalEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrPMPEntries constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigPerfCounterEn constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheType ref_obj      dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigMmuPresent constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigRvfiTrace constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::ILEN                   constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::NRET                   constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::NrMaxRules             constant     dec=16                                   sz=32    UINT:16                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=10099 BIN:0                                    ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.INPUT_WIDTH          constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.PopcountWidth        operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.PaddedWidth          operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@top.CVA6Cfg                   func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.CVA6Cfg                   struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.INPUT_WIDTH            constant     dec=2                                    sz=32    INT:2                                    ct=7
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.PopcountWidth          constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.PaddedWidth            constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- pt
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigXlen    constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFpuEn   constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF16En   constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF16AltEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigF8En    constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFVecEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCvxifEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZcbExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZcmpExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAExtEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBExtEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigVExtEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigZiCondExtEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiIdWidth constant     dec=4                                    sz=64    UINT:4                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiAddrWidth constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigAxiDataWidth constant     dec=64                                   sz=64    UINT:64                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFetchUserEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFetchUserWidth ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataUserEn constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataUserWidth ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheByteSize constant     dec=16384                                sz=64    UINT:16384                               ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheSetAssoc constant     dec=4                                    sz=64    UINT:4                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigIcacheLineWidth constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheByteSize constant     dec=32768                                sz=64    UINT:32768                               ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheSetAssoc constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheLineWidth constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheIdWidth constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigMemTidWidth constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigWtDcacheWbufDepth constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrCommitPorts constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrScoreboardEntries constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrLoadBufEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigFPGAEn  constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrLoadPipeRegs constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrStorePipeRegs constant     dec=0                                    sz=64    UINT:0                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigInstrTlbEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDataTlbEntries constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigRASDepth constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBTBEntries constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigBHTEntries constant     dec=128                                  sz=64    UINT:128                                 ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigTvalEn  constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigNrPMPEntries constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigPerfCounterEn constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigDcacheType ref_obj      dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigMmuPresent constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::CVA6ConfigRvfiTrace constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::ILEN                   constant     dec=32                                   sz=64    UINT:32                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::NRET                   constant     dec=1                                    sz=64    UINT:1                                   ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::NrMaxRules             constant     dec=16                                   sz=64    UINT:16                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=-1    BIN:0                                    ct=3
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigXlen    constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFpuEn   constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF16En   constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF16AltEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigF8En    constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFVecEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCvxifEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigCExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZcbExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZcmpExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAExtEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBExtEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigVExtEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigZiCondExtEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiIdWidth constant     dec=4                                    sz=32    UINT:4                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiAddrWidth constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigAxiDataWidth constant     dec=64                                   sz=32    UINT:64                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFetchUserEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFetchUserWidth constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataUserEn constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataUserWidth constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheByteSize constant     dec=16384                                sz=32    UINT:16384                               ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheSetAssoc constant     dec=4                                    sz=32    UINT:4                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigIcacheLineWidth constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheByteSize constant     dec=32768                                sz=32    UINT:32768                               ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheSetAssoc constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheLineWidth constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheIdWidth constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigMemTidWidth constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigWtDcacheWbufDepth constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrCommitPorts constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrScoreboardEntries constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrLoadBufEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigFPGAEn  constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrLoadPipeRegs constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrStorePipeRegs constant     dec=0                                    sz=32    UINT:0                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigInstrTlbEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDataTlbEntries constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigRASDepth constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBTBEntries constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigBHTEntries constant     dec=128                                  sz=32    UINT:128                                 ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigTvalEn  constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigNrPMPEntries constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigPerfCounterEn constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigDcacheType ref_obj      dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigMmuPresent constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::CVA6ConfigRvfiTrace constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cva6_config_pkg::cva6_cfg          operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::ILEN                   constant     dec=32                                   sz=32    UINT:32                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::NRET                   constant     dec=1                                    sz=32    UINT:1                                   ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::NrMaxRules             constant     dec=16                                   sz=32    UINT:16                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  config_pkg::cva6_cfg_empty         constant     dec='0                                   sz=10099 BIN:0                                    ct=3
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.INPUT_WIDTH          constant     dec=2                                    sz=64    UINT:2                                   ct=9
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.PopcountWidth        operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@popcount.PaddedWidth          operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@top.CVA6Cfg                   func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.CVA6Cfg                   struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.INPUT_WIDTH            constant     dec=2                                    sz=32    INT:2                                    ct=7
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.PopcountWidth          constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@top.u1.PaddedWidth            constant     dec=2                                    sz=32    UINT:2                                   ct=9
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+######## spfbfc
+-- gold
+   uhdmallPackages  cfg_pkg::NrMaxRules                constant     dec=16                                   sz=64    UINT:16                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cfg_pkg::Base                      operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::NrMaxRules                constant     dec=16                                   sz=32    UINT:16                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::Base                      operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@StructParamFuncBodyFieldCompare.Cfg func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@StructParamFuncBodyFieldCompare.INT operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@StructParamFuncBodyFieldCompare.Cfg struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@StructParamFuncBodyFieldCompare.INT operation    dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- ours
+   uhdmallPackages  cfg_pkg::NrMaxRules                constant     dec=16                                   sz=64    UINT:16                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cfg_pkg::Base                      operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::NrMaxRules                constant     dec=16                                   sz=32    UINT:16                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::Base                      operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@StructParamFuncBodyFieldCompare.Cfg func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@StructParamFuncBodyFieldCompare.INT operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@StructParamFuncBodyFieldCompare.Cfg struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@StructParamFuncBodyFieldCompare.INT operation    dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=
+-- pt
+   uhdmallPackages  cfg_pkg::NrMaxRules                constant     dec=16                                   sz=64    UINT:16                                  ct=9
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallPackages  cfg_pkg::Base                      operation    dec=                                     sz=                                               ct=
+   uhdmallPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::NrMaxRules                constant     dec=16                                   sz=32    UINT:16                                  ct=9
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmtopPackages  cfg_pkg::Base                      operation    dec=                                     sz=                                               ct=
+   uhdmtopPackages                                                  dec=                                     sz=                                               ct=
+   uhdmallModules   work@StructParamFuncBodyFieldCompare.Cfg func_call    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmallModules   work@StructParamFuncBodyFieldCompare.INT operation    dec=                                     sz=                                               ct=
+   uhdmallModules                                                   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@StructParamFuncBodyFieldCompare.Cfg struct_var   dec=                                     sz=                                               ct=
+   uhdmtopModules   work@StructParamFuncBodyFieldCompare.INT operation    dec=                                     sz=                                               ct=
+   uhdmtopModules                                                   dec=                                     sz=                                               ct=

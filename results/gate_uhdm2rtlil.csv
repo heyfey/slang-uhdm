@@ -614,12 +614,12 @@ PatternStruct,testflags,CMP_EQUAL,,,differ
 PatternType,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/PatternType/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 pico_count_cycle,testflags,CMP_EQUAL,,,match
 pkg_localparam_partsel,testflags,CMP_EQUAL,,,differ
-pkg_nested_struct_param_width,testflags,CMP_NOTEQUAL,decompile:,,
+pkg_nested_struct_param_width,testflags,CMP_EQUAL,,,differ
 PkgParamAsFunctionArg,testflags,CMP_EQUAL,,,match
 port_chained_type_param,testflags,CMP_NOTEQUAL,decompile:,,
 port_int_types,testflags,CMP_EQUAL,,,match
 port_sign_extend,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
-portsel_struct_param,testflags,CMP_NOTEQUAL,decompile:,,
+portsel_struct_param,testflags,CMP_EQUAL,,,differ
 power_state,testflags,CMP_EQUAL,,,match
 prefix,testflags,CMP_EQUAL,,,match
 print_trg_mixed_edges,testflags,CMP_EQUAL,,,match

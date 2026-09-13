@@ -1846,6 +1846,24 @@ private:
         // becomes the emitted RHS object itself.
         const slang::ast::Expression* rhsExpr = nullptr;
         std::vector<std::pair<int, std::string>> reads;
+        // § pkgStructFuncAssembleBin (r11u9).  Recorded for EVERY member, and
+        // read ONLY by the PACKAGE-holder arm — the module-holder arm above is
+        // byte-for-byte what it was.  `litRhs` is the body assignment's RHS
+        // when that RHS is a LITERAL (ExprEval's reduce hands the literal's own
+        // constant straight back, so the leftover IS the emitted body object —
+        // `1'b1` leaves BIN:1 size 1 decompile `1'b1`, `32'd64` leaves DEC:64
+        // size 32 decompile `32'd64`, where the value-slicing encodings give
+        // UINT/64 for both).  `argWhole` is the formal's index when the RHS is
+        // a WHOLE read of a formal (`c.u = uu`): the leftover is the caller
+        // argument parameter's own elaborated Rhs constant.
+        const slang::ast::Expression* litRhs = nullptr;
+        int argWhole = -1;
+        // ...and a WHOLE read of another PARAMETER (`c.VLEN = CfgXlen`, a
+        // package localparam): ExprEval hands that parameter's own elaborated
+        // constant back, so the leftover carries ITS size and encoding
+        // (portsel_struct_param golden: UINT:64 size 32, the `int unsigned`
+        // localparam's own constant, where the value slice gives size 64).
+        const slang::ast::Symbol* paramRead = nullptr;
     };
     // The encoding a COMPUTED (non-formal-member-read) leftover takes, from
     // the shape of the assignment's RHS (§ r10fsv2 L3).
@@ -1888,7 +1906,75 @@ private:
         // that actually received it (filled by the drain).
         const slang::ast::ParameterSymbol* owner = nullptr;
         UHDM::struct_typespec* stamped = nullptr;
+        // § pkgStructFuncAssembleBin (r11u9).  True only for a PACKAGE-held
+        // localparam; the drain resolves `litRhs` / `argWholeParam` for those
+        // and leaves every module-held stamp on the path it already had.
+        bool pkgHolder = false;
+        std::vector<const slang::ast::Expression*> litRhs;
+        std::vector<const slang::ast::ParameterSymbol*> argWholeParam;
+        std::vector<const slang::ast::Symbol*> paramRead;
     };
+    // § pkgStructFuncAssembleBin — every parameter OBJECT whose Rhs this pass
+    // assembled, with its symbol.  The drain stamps each one's own struct
+    // typespec copy: a module that WILDCARD-IMPORTS the package carries its
+    // own materialized copy of the localparam, and golden stamps that copy's
+    // typespec too (struct_param_func_config `work@child.C`), while the walk
+    // over TopPackages/TopModules parameters never reaches it.  Stamping only
+    // the copies this law actually produced keeps every other def-view copy —
+    // which golden leaves CLEAN — untouched.
+    std::vector<std::pair<UHDM::parameter*, const slang::ast::ParameterSymbol*>>
+        memLeftAsmParams;
+    // § pkgStructFuncAssembleBinBail (r11v11u9, the verifier's fix) — the
+    // PACKAGE arm's half of the producer's OWN bail rule.
+    // `reduceExpr(struct_var)` assembles a function-built struct only while
+    // EVERY member value reduces to a CONSTANT; when one does not, golden's
+    // Rhs STAYS the struct_var — and it stays one in the elaborated PACKAGE
+    // listing and in every module that imports the localparam, exactly as it
+    // does for a module-held parameter.  Measured: FuncStructVal's own design
+    // with its holder moved from `module top`'s parameter to a package
+    // localparam (`tools/probe/r11v11u9repro/b1`) leaves golden a struct_var
+    // in uhdmtopPackages AND uhdmtopModules, which the PRISTINE binary already
+    // matched in uhdmtopModules and the eager package arm replaced with an
+    // assembled BIN.
+    // The package arm mints its constant EAGERLY — a later parameter in the
+    // same scope shares it through `elabParamConst` (`localparam cfg_t L =
+    // CfgDefault`), so the mint cannot move to the drain the way
+    // § modStructFuncAssembleBin's does — so the bail is applied in the DRAIN,
+    // where the member values are final, by putting the struct_var back.
+    // `stampIdx` pins THIS view's stamp: the package view and every importing
+    // module view push their own stamp for the same ParameterSymbol.
+    struct SrlgMemLeftPkgAsm {
+        UHDM::param_assign* pa = nullptr;
+        UHDM::constant* c = nullptr;      // the eager constant; also the span
+        UHDM::parameter* up = nullptr;
+        size_t stampIdx = 0;
+        std::string priorValue;
+    };
+    std::vector<SrlgMemLeftPkgAsm> memLeftPkgAsm;
+    // § modStructFuncAssembleBin — the MODULE holder's candidate.  The
+    // v1.87 assembler reduces a function-built struct_var to one packed BIN
+    // constant only while EVERY member carries a value it can reduce; when one
+    // member has none the base stays a struct_var (FuncStructVal: 96 leftovers
+    // on a 97-member struct, because an untyped-enum pattern element never
+    // folds).  That test is the bail witness and is CMP_EQUAL today, so the
+    // swap is decided in the DRAIN, where the member values are final: the
+    // constant built here replaces the struct_var Rhs only when no member
+    // resolved to a null.  Module view, so the decompile carries the `<w>'b`
+    // prefix CompileHelper::adjustSize renders (the package view is bare).
+    // The constant is MINTED IN THE DRAIN, never here: a bail must leave the
+    // database byte-identical, and a minted-then-discarded object is still
+    // serialized (FuncStructVal moved bytes on the eager form while staying
+    // CMP_EQUAL).  Only the ingredients are carried.
+    struct SrlgMemLeftModAsm {
+        UHDM::param_assign* pa = nullptr;
+        UHDM::struct_var* sv = nullptr;   // the Rhs it may replace; also the span
+        UHDM::parameter* up = nullptr;
+        const slang::ast::ParameterSymbol* sym = nullptr;
+        std::string bits;
+        std::string tsName;
+        int32_t width = 0;
+    };
+    std::vector<SrlgMemLeftModAsm> memLeftModAsm;
     std::vector<SrlgMemLeftStamp> memLeftStamps;
     // The DEF-view (uhdmallModules) parameter objects of such a parameter.
     // Their typespec must be re-pointed at the STAMPED struct copy: golden's
