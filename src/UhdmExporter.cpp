@@ -7089,6 +7089,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     // materialized (the struct ts a parameter points at is filled by the
     // deferred drain above) and only on the ELABORATED views.
     stampEvalFuncLeftovers(d);
+    // § caAsmMemberSliceFold (r11u16) — the elaborated continuous assignment
+    // that reads ONE MEMBER of an assembled function-built struct parameter.
+    // Immediately after the stamp, because that is where both assemble arms
+    // have applied the producer's own bail rule and the base's elaborated
+    // param_assign Rhs finally SAYS whether it assembled.
+    drainCaAsmMemberSlice();
     // § impCopyCastFold — the folded size-cast constant names the SAME
     // declared-type typespec its parameter does; that link is only final now.
     for (auto& [rt9, up9] : castFoldTsFix9)

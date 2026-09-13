@@ -2632,6 +2632,216 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     }
 }
 
+// § caAsmMemberSliceFold (r11u16) — THE DRAIN.  Runs from `UhdmExporter.cpp`
+// straight after `stampEvalFuncLeftovers`, which is where both assemble arms
+// (§ modStructFuncAssembleBin, § pkgStructFuncAssembleBinBail) have applied the
+// producer's own bail rule — so "did this base assemble" is READ OFF THE ANSWER
+// ITSELF: the base's elaborated `param_assign` Rhs is the packed BIN constant
+// when `reduceExpr(struct_var)` assembled and a `struct_var` when it did not.
+// Where it bailed, nothing is written and nothing is minted.
+//
+// The full decode of the producer, the encoding and the size rule is at the
+// record struct in `UhdmExporter.h`; what matters here is that the BITS are
+// taken from the base constant's own `VpiValue`, never re-derived: whatever the
+// assembler produced is what every member read of it sees.
+void UhdmExporter::drainCaAsmMemberSlice() {
+    for (auto& cm : caMemSel) {
+        if (!cm.m || !cm.ca || !cm.base || cm.mw <= 0 || cm.off < 0)
+            continue;
+        auto pit = elabParamPa.find(cm.base);
+        if (pit == elabParamPa.end() || !pit->second)
+            continue;
+        auto* brhs = pit->second->Rhs();
+        if (!brhs || brhs->UhdmType() != UHDM::uhdmconstant)
+            continue;
+        auto* bc = (UHDM::constant*)brhs;
+        if (bc->VpiConstType() != vpiBinaryConst)
+            continue;
+        std::string bv(bc->VpiValue());
+        if (bv.compare(0, 4, "BIN:") != 0)
+            continue;
+        std::string bits = bv.substr(4);
+        // The offset is an index into the ASSEMBLY, so the constant must be
+        // the assembly: a base whose elaborated Rhs is a constant of some
+        // other width (or some other encoding) is a DIFFERENT answer and this
+        // law declines it rather than slicing it.  Measured witness, grid
+        // `d14` `kid_ovr`: an OVERRIDDEN function-built struct parameter is
+        // golden the assembled BIN and ours a `96'h…` HEX fold — a residue of
+        // the assemble arm, and one this law must not build on.
+        if (cm.total <= 0 || (int32_t)bits.size() != cm.total)
+            continue;
+        if ((size_t)(cm.off + cm.mw) > bits.size())
+            continue;
+        std::string mbits = bits.substr((size_t)cm.off, (size_t)cm.mw);
+        // "Only a FULLY-DEFINED slice is a usable value" — the producer's own
+        // words at the mint (ExprEval.cpp ~2390); a parameter stamped with a
+        // partially-evaluated struct must NOT satisfy the member select.
+        for (char ch : mbits)
+            if (ch != '0' && ch != '1') {
+                mbits.clear();
+                break;
+            }
+        if (mbits.empty())
+            continue;
+        // THE MEMBER'S OWN TYPESPEC, off the struct typespec this parameter
+        // actually points at — the same object golden's `mts_found` is.  Its
+        // KIND is also what `adjustSize` switches on, so it is read before the
+        // size rule below and a member typespec we cannot see declines the fold
+        // (golden's constant always carries one).
+        UHDM::typespec* memTs = nullptr;
+        if (auto* lp = pit->second->Lhs();
+            lp && lp->UhdmType() == UHDM::uhdmparameter)
+            if (auto* prt = ((UHDM::parameter*)lp)->Typespec())
+                if (auto* pts = prt->Actual_typespec();
+                    pts && pts->UhdmType() == UHDM::uhdmstruct_typespec)
+                    if (auto* mems = ((UHDM::struct_typespec*)pts)->Members())
+                        for (auto* mem : *mems)
+                            if (mem->VpiName() == cm.member) {
+                                if (auto* mrt = mem->Typespec())
+                                    memTs = mrt->Actual_typespec();
+                                break;
+                            }
+        if (!memTs)
+            continue;
+        auto mk = memTs->UhdmType();
+        int32_t size = cm.mw;
+        // `adjustSize`, branch by branch (CompileHelper.cpp:4065-4218).
+        if (mk == UHDM::uhdmint_typespec) {
+            // A SIGNED int member takes the `constantIsSigned` branch, which
+            // re-renders the value as INT / vpiIntConst and WRITES
+            // VpiSigned(false) onto the shared member typespec when the Lhs is
+            // unsigned.  Measured on grid `d7`; deliberately NOT modelled here
+            // (ranked residue) — a mutation of a shared typespec is its own
+            // law, and the corpus rows this pass converts read `int unsigned`.
+            if (((UHDM::int_typespec*)memTs)->VpiSigned())
+                continue;
+            if (cm.lhsBits > 0 && cm.lhsBits < size)
+                size = cm.lhsBits;
+        }
+        else if (mk == UHDM::uhdmlogic_typespec) {
+            if (cm.lhsBits > 0 && size > cm.lhsBits) {
+                mbits = mbits.substr(mbits.size() - (size_t)cm.lhsBits);
+                size = cm.lhsBits;
+            }
+        }
+        // every other member typespec kind: adjustSize matches no branch and
+        // the member's own width and digits stand.
+        //
+        // NOTHING IS MINTED UNTIL THE WRITE IS CERTAIN.  A minted-then-
+        // discarded object is still serialized (the r11u9 lesson), so the
+        // shared-slot replacement resolves its slot and its Lhs shape FIRST.
+        UHDM::VectorOfcont_assign* cas = nullptr;
+        size_t slot = 0;
+        if (cm.shared) {
+            // `Cont_assigns()` lives on the concrete instance kinds, not on
+            // `instance` itself.
+            if (cm.m->UhdmType() == UHDM::uhdmmodule_inst)
+                cas = ((UHDM::module_inst*)cm.m)->Cont_assigns();
+            else if (cm.m->UhdmType() == UHDM::uhdminterface_inst)
+                cas = ((UHDM::interface_inst*)cm.m)->Cont_assigns();
+            if (!cas)
+                continue;
+            slot = cas->size();
+            for (size_t k = 0; k < cas->size(); k++)
+                if ((*cas)[k] == cm.ca) {
+                    slot = k;
+                    break;
+                }
+            if (slot == cas->size())
+                continue;
+            // Only a plain reference target is cloned; a select or concat Lhs
+            // is a shape this law declines rather than guesses at.
+            auto* dl0 = cm.ca->Lhs();
+            if (!dl0 || dl0->UhdmType() != UHDM::uhdmref_obj)
+                continue;
+        }
+        auto* fc = s.MakeConstant();
+        fc->VpiValue("BIN:" + mbits);
+        fc->VpiDecompile(mbits);
+        fc->VpiSize(size);
+        fc->VpiConstType(vpiBinaryConst);
+        auto* frt = s.MakeRef_typespec();
+        frt->VpiParent(fc);
+        frt->Actual_typespec(memTs);
+        fc->Typespec(frt);
+        if (!cm.shared) {
+            // The elaborated view already owns this cont_assign (a net-decl
+            // assign, a re-emitted fold, an interface copy): only its Rhs
+            // changes.
+            fc->VpiParent(cm.ca);
+            cm.ca->Rhs(fc);
+            continue;
+        }
+        // The elaborated view was SHARING the definition listing's object, and
+        // the definition listing must keep the symbolic `hier_path`.  Golden
+        // clones the cont_assign at exactly this point
+        // (`UhdmWriter::writeCont_assign`'s `cloned == false` guard), so the
+        // shared slot is replaced by a fresh one carrying a fresh Lhs.
+        auto* nca = s.MakeCont_assign();
+        nca->VpiParent(cm.m);
+        nca->VpiFile(std::string(cm.ca->VpiFile()));
+        nca->VpiLineNo(cm.ca->VpiLineNo());
+        nca->VpiColumnNo(cm.ca->VpiColumnNo());
+        nca->VpiEndLineNo(cm.ca->VpiEndLineNo());
+        nca->VpiEndColumnNo(cm.ca->VpiEndColumnNo());
+        nca->VpiNetDeclAssign(cm.ca->VpiNetDeclAssign());
+        // EVERY FIELD `cont_assign::Compare` READS RIDES THE CLONE, not just
+        // the ones the two corpus rows happen to carry.  `cont_assign::Compare`
+        // reads VpiNetDeclAssign, VpiStrength0, VpiStrength1, Delay, Rhs, Lhs
+        // and Cont_assign_bits IN THAT ORDER, so a clone that drops the drive
+        // strengths or the delay turns a field pristine had RIGHT into a wrong
+        // one — golden KEEPS both on the elaborated cont_assign whose Rhs it
+        // folds.  Measured witnesses, verifier grid `tools/probe/r11v16repro`:
+        // `v1c` `assign (supply0, supply1) o_str = CFG.n;` (golden
+        // vpiStrength0:11 vpiStrength1:10 beside the folded BIN) and `v1d`
+        // `assign #3 o_dly = CFG.n;` (golden vpiDelay -> UINT:3).  The delay
+        // expression OBJECT is carried over rather than re-minted: nothing is
+        // minted on a path that might not write, and Compare never reads a
+        // parent.
+        nca->VpiStrength0(cm.ca->VpiStrength0());
+        nca->VpiStrength1(cm.ca->VpiStrength1());
+        if (auto* dly16 = cm.ca->Delay())
+            nca->Delay(dly16);
+        if (auto* bits16 = cm.ca->Cont_assign_bits())
+            nca->Cont_assign_bits(bits16);
+        fc->VpiParent(nca);
+        nca->Rhs(fc);
+        if (auto* dl = cm.ca->Lhs();
+            dl && dl->UhdmType() == UHDM::uhdmref_obj) {
+            auto* dro = (UHDM::ref_obj*)dl;
+            auto* ro = s.MakeRef_obj();
+            ro->VpiName(std::string(dro->VpiName()));
+            ro->VpiFullName(cm.lhsPrefix.empty()
+                                ? std::string(dro->VpiFullName())
+                                : cm.lhsPrefix + "." +
+                                      std::string(dro->VpiName()));
+            ro->VpiParent(nca);
+            ro->VpiFile(std::string(dro->VpiFile()));
+            ro->VpiLineNo(dro->VpiLineNo());
+            ro->VpiColumnNo(dro->VpiColumnNo());
+            ro->VpiEndLineNo(dro->VpiEndLineNo());
+            ro->VpiEndColumnNo(dro->VpiEndColumnNo());
+            ro->Actual_group(dro->Actual_group());
+            // The same rule as the cont_assign above: `ref_obj::Compare` reads
+            // VpiName, VpiDefName, VpiGeneric, Actual_group and
+            // VpiStructMember, and through `expr::Compare` also VpiDecompile,
+            // VpiSize and Typespec.  Pristine carried every one of them (it
+            // shared the definition object outright), so the clone carries
+            // them too rather than silently defaulting four of them to
+            // false/0/empty.
+            ro->VpiDefName(std::string(dro->VpiDefName()));
+            ro->VpiGeneric(dro->VpiGeneric());
+            ro->VpiStructMember(dro->VpiStructMember());
+            ro->VpiDecompile(std::string(dro->VpiDecompile()));
+            ro->VpiSize(dro->VpiSize());
+            if (auto* lts16 = dro->Typespec())
+                ro->Typespec(lts16);
+            nca->Lhs(ro);
+        }
+        (*cas)[slot] = nca;
+    }
+}
+
 // Surelog INLINES a foldable const function's body, so the folded constant is
 // encoded by the same rules a plain expression fold uses — driven by the RETURN
 // assignment's expression kind: a CONCAT body ({..}) folds full-width BIN, a

@@ -2062,6 +2062,85 @@ private:
         const slang::ast::ParameterSymbol* base = nullptr;
     };
     std::vector<SrlgAsmRefOv> asmRefOv;
+    // § caAsmMemberSliceFold (r11u16) — A CONTINUOUS ASSIGNMENT WHOSE RHS IS A
+    // MEMBER SELECT OF AN ASSEMBLED FUNCTION-BUILT STRUCT PARAMETER FOLDS, IN
+    // THE ELABORATED VIEW ONLY, TO THAT MEMBER'S BIT SLICE.
+    //
+    // `UhdmWriter::writeCont_assign`'s `simplified == false` tail
+    // (Surelog `src/DesignCompile/UhdmWriter.cpp` ~2243) runs
+    // `CompileHelper::reduceExpr` over the WHOLE Rhs of every ELABORATED
+    // cont_assign.  A `hier_path` Rhs enters `ExprEval::decodeHierPath`
+    // (UHDM `templates/ExprEval.cpp` ~2228), which answers the base name out
+    // of the instance's own `param_assign` Rhs and then walks the selectors in
+    // `hierarchicalSelector`.  Its FIRST arm (~2331) is the one that fires
+    // here: the base is a CONSTANT carrying a `struct_typespec`, so the member
+    // is sliced straight out of the packed bits —
+    //     VpiValue("BIN:" + mbits), VpiDecompile(mbits)  <- BARE, no `<w>'b`
+    //     VpiSize(mbits.size()), VpiConstType(vpiBinaryConst)
+    //     Typespec -> ref_typespec -> THE MEMBER'S OWN typespec
+    // and the constant carries NO location (the arm never calls
+    // populateCoreMembers).  FIRST DECLARED MEMBER OCCUPIES THE MSBs.
+    //
+    // The DEFINITION listing does not fold: `uhdmallModules` is written before
+    // instance elaboration, so golden keeps the symbolic `hier_path` there —
+    // measured on every arm of this pass's grid, and on both corpus rows.
+    //
+    // THE SIZE IS THE ONLY THING THE READING CONTEXT CONTRIBUTES.
+    // `CompileHelper::adjustSize` (CompileHelper.cpp:4065) then runs with the
+    // Lhs typespec `bindVariable` finds, computes `size = Bits(that)` and
+    // immediately REPLACES its `ts` with the constant's own — the member's —
+    // typespec, so only `VpiSize` (and, for a logic member, a truncation) ever
+    // sees the Lhs width.  Measured cell by cell on grid `d11`:
+    //   * member typespec is an int_typespec  -> VpiSize = min(member width,
+    //     Lhs width); the VALUE AND DECOMPILE ARE NOT TRUNCATED (`o_int8`:
+    //     32 binary digits at VpiSize 8);
+    //   * member typespec is a logic_typespec and the member is WIDER than the
+    //     Lhs -> value AND decompile truncated to the LOW Lhs-width digits,
+    //     VpiSize = Lhs width (`o_log8`);
+    //   * any other member typespec kind (byte, bit, enum, packed array) ->
+    //     nothing at all changes (`o_byte32`: VpiSize 8 under a 32-bit Lhs).
+    // The Lhs width exists only when `CompileHelper::bindVariable` binds — a
+    // plain module-body net/variable reference — which is exactly the predicate
+    // `caLhsAdjustBind106` already decodes for r10earl106.  A part-select,
+    // concat or gen-local target does not bind and the member width stands
+    // (`o_ps`, `{o_ca,o_cb}`, `gw8`).
+    //
+    // DEFERRED, exactly as § memSelAsmBaseOv and § asmEncFollowsRef are: the
+    // producer's assembler bail is only final in the drain, so the cont_assign
+    // site RECORDS and `drainCaAsmMemberSlice` reads the answer off the base's
+    // own elaborated `param_assign` Rhs — a `vpiBinaryConst` when
+    // `reduceExpr(struct_var)` assembled, a `struct_var` when it bailed — and
+    // SLICES THE BITS OUT OF THAT CONSTANT, never out of a re-evaluation.  A
+    // bail writes nothing and mints nothing, so the database stays
+    // byte-identical (the r11u9 lesson).
+    //
+    // THE NESTED-STRUCT FENCE.  Grid `d13` measures the one place our own
+    // assemble/bail answer is not yet golden's: a struct with a PACKED-STRUCT
+    // member written by a NAMED assignment pattern (`r.u = '{w:9, t:8'hA5}`)
+    // makes the producer's `assemble()` give up — its tagged_pattern operands
+    // do not reduce to constants — and golden's elaborated Rhs stays a
+    // `struct_var`, while we assemble it anyway.  Folding off OUR constant
+    // there would put a cell that is merely wrong today onto a DIFFERENT wrong
+    // answer, so a struct with any packed-struct member is declined outright.
+    // Ranked residue, not a law.
+    struct SrlgCaMemSel {
+        UHDM::instance* m = nullptr;       // the ELABORATED instance
+        UHDM::cont_assign* ca = nullptr;   // its Cont_assigns() slot today
+        bool shared = false;               // ...and whether that IS the def
+                                           // object, which must not be edited
+        const slang::ast::ParameterSymbol* base = nullptr;
+        std::string member;
+        int32_t off = 0;                   // MSB-first offset of the member
+        int32_t mw = 0;                    // the member's declared width
+        int32_t total = 0;                 // the struct's packed width — the
+                                           // base constant must be EXACTLY
+                                           // this wide or its digits are not
+                                           // the assembly this offset indexes
+        int32_t lhsBits = 0;               // 0 when bindVariable does not bind
+        std::string lhsPrefix;             // for the cloned Lhs fullname
+    };
+    std::vector<SrlgCaMemSel> caMemSel;
+    void drainCaAsmMemberSlice();
     // The family predicate: `e` is a BARE reference to a packed-struct
     // parameter that is (possibly through a chain of bare references) built by
     // a member-by-member const function.  Returns the FAMILY parameter itself

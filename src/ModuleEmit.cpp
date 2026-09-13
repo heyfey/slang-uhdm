@@ -23511,6 +23511,90 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // § caAsmMemberSliceFold (r11u16) — A BARE MEMBER SELECT OF AN
+        // ASSEMBLED FUNCTION-BUILT STRUCT PARAMETER.  The elaborated view folds
+        // it to the member's own bit slice; the definition listing keeps the
+        // symbolic hier_path.  RECORDED here and resolved in
+        // `drainCaAsmMemberSlice`, because the producer's assembler bail is
+        // only final once both assemble arms have run — see the full decode at
+        // the record struct in UhdmExporter.h.
+        //
+        // The whole Rhs must BE the member select: an operation, a part-select
+        // or a bit-select AROUND it is a different reduce arm with its own
+        // encoding (grid `d1`: `CFG.n + 1` folds UINT:4, `{CFG.n,CFG.n}` a
+        // decompile-less concat BIN, `CFG.base[12]` a `1'b1` bit-select BIN),
+        // and a member OF a member needs the intermediate mint this law does
+        // not make.
+        const ParameterSymbol* caMemSelBase = nullptr;
+        std::string caMemSelName;
+        int32_t caMemSelOff = 0, caMemSelW = 0, caMemSelLhsW = 0;
+        int32_t caMemSelTot = 0;
+        if (topView) {
+            auto& rc16 = stripImplicitConv(ae.right());
+            if (rc16.kind == ExpressionKind::MemberAccess) {
+                auto& ma16 = rc16.as<MemberAccessExpression>();
+                auto* bp16 = asmRefFamilyBase(ma16.value());
+                if (bp16 && ma16.member.kind == SymbolKind::Field) {
+                    auto& bct16 = bp16->getType().getCanonicalType();
+                    // THE NESTED-STRUCT FENCE (grid `d13`): our assemble/bail
+                    // answer and golden's part company on a packed-struct
+                    // member written by a NAMED pattern, so no struct-bearing
+                    // struct is folded off our own constant at all.
+                    //
+                    // THE FENCE IS KEYED ON THE MEMBER TYPE WHERE THE PRODUCER
+                    // IS KEYED ON THE BUILDER'S PATTERN, so it is incomplete
+                    // BY CONSTRUCTION — a `inner_t [1:0] arr` member written
+                    // by a NESTED assignment pattern reaches the same
+                    // `assemble()` bail and slips through (verifier grid
+                    // `tools/probe/r11v16repro` `v3`: golden `UINT:5` through
+                    // the leftover arm, ours the `BIN` slice).  It is NOT
+                    // tightened by type: the SAME member written with a plain
+                    // constant (`v13`) is one golden DOES assemble and fold,
+                    // and a packed array of struct-bearing UNIONS (`v12`)
+                    // likewise — a type-keyed widening would decline two
+                    // measured GOLDEN-AGREED folds to close a cell that is
+                    // wrong either way.  Ranked residue; see the verifier's
+                    // report.
+                    bool ok16 = bct16.kind == SymbolKind::PackedStructType;
+                    int32_t tot16 = 0;
+                    if (ok16)
+                        for (auto& f16 :
+                             bct16.as<PackedStructType>()
+                                 .membersOfType<FieldSymbol>()) {
+                            auto& ft16 = f16.getType();
+                            auto fw16 = (int32_t)ft16.getBitWidth();
+                            if (fw16 <= 0 ||
+                                ft16.getCanonicalType().kind ==
+                                    SymbolKind::PackedStructType) {
+                                ok16 = false;
+                                break;
+                            }
+                            tot16 += fw16;
+                        }
+                    if (ok16) {
+                        auto& fld16 = ma16.member.as<FieldSymbol>();
+                        auto mw16 = (int32_t)fld16.getType().getBitWidth();
+                        // FIRST DECLARED MEMBER OCCUPIES THE MSBs, so the
+                        // offset into the assembled digit string counts DOWN
+                        // from the top; slang's `bitOffset` counts up from the
+                        // LSB.
+                        int32_t off16 =
+                            tot16 - ((int32_t)fld16.bitOffset + mw16);
+                        if (mw16 > 0 && off16 >= 0 && tot16 > 0) {
+                            caMemSelBase = bp16;
+                            caMemSelName = std::string(fld16.name);
+                            caMemSelOff = off16;
+                            caMemSelW = mw16;
+                            caMemSelTot = tot16;
+                            std::string bn16;
+                            int32_t bw16 = 0;
+                            if (caLhsAdjustBind106(ae.left(), bw16, bn16))
+                                caMemSelLhsW = bw16;
+                        }
+                    }
+                }
+            }
+        }
         // A CHILD-instance PART-SELECT-of-parameter RHS folds fresh in the
         // elab view (loc-less BIN) — it must not share the def CA.
         bool paramPartSelRhs = false;
@@ -24456,6 +24540,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             liveCalledSubs.insert(*sp9);
             }
             cas->push_back(defInfo->contAssigns[myIdx]);
+            // § caAsmMemberSliceFold (r11u16) — the SHARED slot.  The
+            // definition listing's object is what both views carry today; if
+            // the base turns out to have assembled, the drain replaces THIS
+            // slot with a fresh cont_assign so the def listing keeps its
+            // symbolic hier_path.
+            if (caMemSelBase)
+                caMemSel.push_back({m, defInfo->contAssigns[myIdx], true,
+                                    caMemSelBase, caMemSelName, caMemSelOff,
+                                    caMemSelW, caMemSelTot, caMemSelLhsW,
+                                    prefix});
             continue;
         }
         // A CONCAT-LHS const-call CA keeps the DEF form (func_call Rhs,
@@ -26892,6 +26986,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         cas->push_back(ca);
         if (defInfo)
             defInfo->contAssigns.push_back(ca);
+        // § caAsmMemberSliceFold (r11u16) — the ELAB-OWNED slot: this
+        // cont_assign belongs to the elaborated view alone, so the drain only
+        // has to swap its Rhs.
+        if (caMemSelBase && topView)
+            caMemSel.push_back({m, ca, false, caMemSelBase, caMemSelName,
+                                caMemSelOff, caMemSelW, caMemSelTot,
+                                caMemSelLhsW, prefix});
     }
     // An INPUT port DEFAULT (input [3:0] delta = 10) synthesizes an elab
     // net-decl-assign cont_assign: fresh Lhs net (own ts) + the folded
