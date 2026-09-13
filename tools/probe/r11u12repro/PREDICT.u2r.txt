@@ -1,0 +1,9 @@
+## /home/heyfey/git-repos/uhdm2rtlil/test
+  PREDICT ClogOfParamOfInstanceInitializedByStructMember part_info_t:struct   NEG=-
+  PREDICT OutputSizeWithParameterOfInstanceInitializedByStructMember part_info_t:struct   NEG=-
+  PREDICT cva6_equiv                                 cva6_cfg_t:struct   NEG=XLEN:size-or-param,fp_format_e:enum,int_format_e:enum,opgroup_e:enum,unsigned:size-or-param
+  PREDICT def_ctx_struct_param                       cfg_t:struct   NEG=-
+  PREDICT latch_decoder_partial                      cfg_t:struct   NEG=-
+  PREDICT latch_tlb_napot                            cfg_t:struct   NEG=-
+  PREDICT rp32                                       csr_hpmevent_t:vector,r5p_hpmevent_t:struct   NEG=MXLEN:size-or-param
+POSITIVE CONTROL: PASS

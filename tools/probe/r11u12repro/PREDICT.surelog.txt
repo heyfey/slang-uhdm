@@ -1,0 +1,13 @@
+## /home/heyfey/git-repos/Surelog/tests
+  PREDICT BlackParrotMuteErrors                      part_info_t:struct   NEG=-
+  PREDICT ClogParam                                  part_info_t:struct   NEG=-
+  PREDICT MultiConcat                                lc_tx_t:vector   NEG=-
+  PREDICT ParamArray                                 part_info_t:struct   NEG=-
+  PREDICT ParamArraySelect                           part_info_t:struct   NEG=OtpByteAddrWidth:size-or-param
+## /home/heyfey/git-repos/Surelog/third_party/tests
+  PREDICT Earlgrey_Verilator_01_05_21                part_info_t:struct   NEG=LcKeymgrDivWidth:size-or-param,LfsrDw:size-or-param,OtpByteAddrWidth:size-or-param,PTRV_W:size-or-param,dm_csr_e:enum,int
+  PREDICT Earlgrey_nexysvideo                        part_info_t:struct   NEG=LcKeymgrDivWidth:size-or-param,LfsrDw:size-or-param,NumIOs:size-or-param,OtpByteAddrWidth:size-or-param,PTRV_W:size-or-param,dm_csr_e:enum,int
+  PREDICT IncompTitan                                part_info_t:struct   NEG=LcKeymgrDivWidth:size-or-param,LfsrDw:size-or-param,NumIOs:size-or-param,OtpByteAddrWidth:size-or-param,PTRV_W:size-or-param,dm_csr_e:enum,int
+  PREDICT NyuziProcessor                             register_idx_t:vector   NEG=-
+  PREDICT Rp32                                       r5p_hpmevent_t:struct   NEG=MXLEN:size-or-param,csr_mhpmevent_t:size-or-param
+POSITIVE CONTROL: FAIL missing {'latch_decoder_partial', 'latch_tlb_napot', 'def_ctx_struct_param'}

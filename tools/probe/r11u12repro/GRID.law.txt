@@ -1,0 +1,17 @@
+g1 golden_rc=0 ours_rc=4  heads=0 cmplines=0
+g2 golden_rc=0 ours_rc=4  heads=0 cmplines=0
+g3 golden_rc=0 ours_rc=4  heads=0 cmplines=0
+g4 golden_rc=0 ours_rc=4  heads=1 cmplines=8
+g5 golden_rc=0 ours_rc=4  heads=1 cmplines=29
+g6 golden_rc=0 ours_rc=0  heads=0 cmplines=0
+g7 golden_rc=0 ours_rc=0  heads=0 cmplines=0
+g8 golden_rc=0 ours_rc=4  heads=0 cmplines=0
+g9 golden_rc=0 ours_rc=4  heads=0 cmplines=0
+g10 golden_rc=0 ours_rc=4  heads=1 cmplines=38
+g11 golden_rc=0 ours_rc=0  heads=0 cmplines=0
+g12 golden_rc=0 ours_rc=0  heads=0 cmplines=0
+g13 golden_rc=0 ours_rc=4  heads=1 cmplines=58
+g14 golden_rc=0 ours_rc=0  heads=1 cmplines=31
+g15 golden_rc=0 ours_rc=4  heads=1 cmplines=37
+g16 golden_rc=0 ours_rc=4  heads=1 cmplines=37
+g17 golden_rc=0 ours_rc=4  heads=0 cmplines=0

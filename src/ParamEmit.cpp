@@ -4398,6 +4398,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // typespec then carries vpiInstance = the package). Measured on
         // ParamCast: def package keeps the op byte-for-byte; elab package
         // and BOTH materialized module views carry UINT:3 / size 32.
+        // § castElabFoldTargetKinds (r11u12) — and only for the FIVE keyword
+        // targets the producer's cast arm actually reduces.  `byte'(x)`,
+        // `time'(x)` and `logic'(x)` are NOT among them: golden leaves their
+        // vpiCastOp standing in the elaborated package listing too (grid arm
+        // g14, one localparam per keyword in one package).
         bool pkgTypeCastFold9 =
             (inPackage ? topView : isImported) && defaultInit && [&] {
                 const Expression* c9 = &stripImplicitConv(*defaultInit);
@@ -4407,7 +4412,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                        c9->syntax->kind == syntax::SyntaxKind::CastExpression &&
                        isTypeSyntaxKind(
                            c9->syntax->as<syntax::CastExpressionSyntax>()
-                               .left->kind);
+                               .left->kind) &&
+                       castElabFoldsTarget(
+                           c9->syntax->as<syntax::CastExpressionSyntax>()
+                               .left->kind,
+                           c9->type);
             }();
         // An ELAB-pkg param with a COMPUTED init (Y+1, g(4)) still carries
         // its evaluated value and an int ts (Surelog folds package elabs).
@@ -4533,16 +4542,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                   // has 0.  A TYPE cast (`int'(x)`) is
                                   // excluded: that shape already folds through
                                   // its own path.
-                                  if (auto* isyn9 =
-                                          stripImplicitConv(*defaultInit)
-                                              .syntax;
-                                      isyn9 &&
-                                      isyn9->kind ==
+                                  // § castElabFoldTargetKinds (r11u12): this
+                                  // arm's `!isTypeSyntaxKind` test names every
+                                  // NON-KEYWORD cast target, which is the size
+                                  // cast `(W)'(v)` AND every NAMED-TYPE cast
+                                  // `s_t'(v)`.  The producer folds only six
+                                  // target typespec kinds; a named STRUCT
+                                  // (`cfg_t'(0)`), union, vector or packed
+                                  // array target keeps its vpiCastOp tree in
+                                  // the ELABORATED listing exactly as in the
+                                  // def one.  See EmitHelpers.h for the
+                                  // decode and the g1-g17 grid.
+                                  if (auto& d9c =
+                                          stripImplicitConv(*defaultInit);
+                                      d9c.syntax &&
+                                      d9c.syntax->kind ==
                                           syntax::SyntaxKind::CastExpression &&
                                       !isTypeSyntaxKind(
-                                          isyn9->as<syntax::CastExpressionSyntax>()
+                                          d9c.syntax
+                                              ->as<syntax::CastExpressionSyntax>()
                                               .left->kind))
-                                      return true;
+                                      return castElabFoldsTarget(
+                                          d9c.syntax
+                                              ->as<syntax::CastExpressionSyntax>()
+                                              .left->kind,
+                                          d9c.type);
                                   return false;
                               };
             // ...and a MODULE-materialized import copy takes the SAME elab
@@ -8145,6 +8169,58 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiConstType(vpiIntConst);
                     c->VpiSize((int32_t)iv.getBitWidth());
                 }
+                // § elabOvRefAsmBinConst (r11u12) — THE SAME INHERITANCE FOR AN
+                // ASSEMBLED PACKED-STRUCT CONSTANT.  An override actual that is
+                // a bare reference to a struct-typed parameter whose ELABORATED
+                // Rhs is the assembled packed BIN constant (the § r11u9
+                // `pkgStructFuncAssembleBin` / `modStructFuncAssembleBin`
+                // family) copies THAT constant's encoding — value, width and
+                // `vpiBinaryConst` — and renders the `<w>'b` prefix
+                // `CompileHelper::adjustSize` gives a constant re-rendered
+                // against a formal, exactly as golden's own elaborated module
+                // listing does for a module-held assembled parameter.  Without
+                // it the actual fell to the plain typed-override arm below and
+                // came out `UINT:<decimal>` at the struct width (golden
+                // `34'b…0010000010` ct 3 vs ours `UINT:130` ct 9).
+                // The gate is the FORMAL being a packed STRUCT and the source
+                // constant being BINARY, so only this family is reached; it
+                // chains, so a parameter re-passed down (`#(.Cfg(Cfg))`)
+                // inherits the same object's encoding at every level.
+                // Witnesses: def_ctx_struct_param (two levels),
+                // latch_decoder_partial, latch_tlb_napot.
+                else if (boundInit &&
+                         ps.getType().getCanonicalType().kind ==
+                             SymbolKind::PackedStructType &&
+                         [&] {
+                             auto& bo2 = stripImplicitConv(*boundInit);
+                             if (bo2.kind != ExpressionKind::NamedValue)
+                                 return false;
+                             auto& sy2 = bo2.as<NamedValueExpression>().symbol;
+                             if (sy2.kind != SymbolKind::Parameter)
+                                 return false;
+                             auto it2 = elabParamPa.find(&sy2);
+                             if (it2 == elabParamPa.end() || !it2->second)
+                                 return false;
+                             auto* r2 = it2->second->Rhs();
+                             if (!(r2 && r2->UhdmType() == UHDM::uhdmconstant &&
+                                   ((UHDM::constant*)r2)->VpiConstType() ==
+                                       vpiBinaryConst))
+                                 return false;
+                             ovRefSrcConst9 = (UHDM::constant*)r2;
+                             return true;
+                         }()) {
+                    std::string_view av2 = ovRefSrcConst9->VpiValue();
+                    auto cp2 = av2.find(':');
+                    std::string bits2(cp2 == std::string_view::npos
+                                          ? av2
+                                          : av2.substr(cp2 + 1));
+                    c->VpiValue("BIN:" + bits2);
+                    c->VpiConstType(vpiBinaryConst);
+                    c->VpiSize(ovRefSrcConst9->VpiSize());
+                    c->VpiDecompile(
+                        std::to_string(ovRefSrcConst9->VpiSize()) + "'b" +
+                        bits2);
+                }
                 // § elabOvRefIntConst — the SAME inheritance law one step out:
                 // an override actual that is a BARE REFERENCE to a parameter of
                 // the enclosing instance resolves through THAT parameter's
@@ -9692,6 +9768,38 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                  return false;
                              return !flatStructPat9.count(
                                  &base.as<NamedValueExpression>().symbol);
+                         }()) &&
+                         // § castElabFoldTargetKinds (r11u12) — AN EXPLICIT
+                         // CAST WHOSE TARGET TYPESPEC IS NOT ONE OF THE SIX
+                         // INTEGRAL KINDS NEVER FOLDS, IN ANY VIEW.
+                         // `tryFoldConst`'s own `foldTypeCasts` guard below
+                         // refuses only KEYWORD casts (`isTypeSyntaxKind`), so
+                         // a NAMED-type cast — `cfg_t'(0)` — walked straight
+                         // into the fold and came out a constant at the struct
+                         // width where golden keeps the whole vpiCastOp tree.
+                         // The producer is UHDM ExprEval `reduceExpr`'s
+                         // vpiCastOp arm: its if/else chain mints a constant
+                         // for int / longint / shortint / integer / bit / enum
+                         // target typespecs and for nothing else, leaving
+                         // `result` the original operation.  See
+                         // EmitHelpers.h `castElabFoldsTarget` and the g1-g17
+                         // golden grid (struct, union, vector typedef and
+                         // packed-array typedef targets all keep the op;
+                         // an enum typedef, `int'`, a size cast and
+                         // shortint/longint/integer/bit all fold).
+                         !([&] {
+                             auto& cc9 = stripImplicitConv(*init);
+                             if (cc9.kind != ExpressionKind::Conversion ||
+                                 cc9.as<ConversionExpression>().isImplicit() ||
+                                 !cc9.syntax ||
+                                 cc9.syntax->kind !=
+                                     syntax::SyntaxKind::CastExpression)
+                                 return false;
+                             return !castElabFoldsTarget(
+                                 cc9.syntax
+                                     ->as<syntax::CastExpressionSyntax>()
+                                     .left->kind,
+                                 cc9.type);
                          }()) &&
                          !containsUserCall(*init) &&
                          (rhs = [&]() -> UHDM::any* {
@@ -14647,16 +14755,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // the importing module's copy, so a CONCATENATION operand does
                 // not fold.  Gating on the operand's syntax keeps that row
                 // untouched (it regressed on the ungated form).
+                // § castElabFoldTargetKinds (r11u12) — the matrix above is all
+                // SIZE casts, whose target typespec is the integer_typespec
+                // the producer's cast arm DOES reduce.  A NAMED-TYPE cast with
+                // a literal operand (`cfg_t'(0)`) wears the same syntax and
+                // reached the same fold; golden keeps its vpiCastOp tree in
+                // the import copy's BOTH module views exactly as in the
+                // package's own (grid arms g2 / g3 / g17 — a wildcard import,
+                // an explicit one, and an import re-read by a module
+                // localparam).
                 bool castLit9 = false;
                 if (init && init->syntax &&
                     init->syntax->kind == syntax::SyntaxKind::CastExpression) {
                     auto rk9 = init->syntax->as<syntax::CastExpressionSyntax>()
                                    .right->expression->kind;
                     castLit9 =
-                        rk9 == syntax::SyntaxKind::IntegerVectorExpression ||
-                        rk9 == syntax::SyntaxKind::IntegerLiteralExpression ||
-                        rk9 ==
-                            syntax::SyntaxKind::UnbasedUnsizedLiteralExpression;
+                        (rk9 == syntax::SyntaxKind::IntegerVectorExpression ||
+                         rk9 == syntax::SyntaxKind::IntegerLiteralExpression ||
+                         rk9 ==
+                             syntax::SyntaxKind::UnbasedUnsizedLiteralExpression) &&
+                        castElabFoldsTarget(
+                            init->syntax->as<syntax::CastExpressionSyntax>()
+                                .left->kind,
+                            init->type);
                 }
                 if (isImported && !inPackage && typedParam && castLit9) {
                     auto cv9 = ps.getValue();

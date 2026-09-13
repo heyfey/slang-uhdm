@@ -1,0 +1,126 @@
+#### g1
+## /tmp/r11u12_grid/g1/gold.law4.dump
+## /tmp/r11u12_grid/g1/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=0                                    sz=33    UINT:0                                   ct=9
+## /tmp/r11u12_grid/g1/ours.law4.dump
+#### g2
+## /tmp/r11u12_grid/g2/gold.law4.dump
+## /tmp/r11u12_grid/g2/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=0                                    sz=33    UINT:0                                   ct=9
+   uhdmallModules   work@top.C                         constant     dec=0                                    sz=33    UINT:0                                   ct=9
+   uhdmtopModules   work@top.C                         constant     dec=0                                    sz=33    UINT:0                                   ct=9
+## /tmp/r11u12_grid/g2/ours.law4.dump
+#### g3
+## /tmp/r11u12_grid/g3/gold.law4.dump
+## /tmp/r11u12_grid/g3/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=0                                    sz=33    UINT:0                                   ct=9
+   uhdmallModules   work@top.C                         constant     dec=0                                    sz=33    UINT:0                                   ct=9
+   uhdmtopModules   work@top.C                         constant     dec=0                                    sz=33    UINT:0                                   ct=9
+## /tmp/r11u12_grid/g3/ours.law4.dump
+#### g4
+## /tmp/r11u12_grid/g4/gold.law4.dump
+   uhdmallPackages  p::X                               constant     dec=35                                   sz=64    UINT:35                                  ct=9
+   uhdmtopPackages  p::X                               constant     dec=35                                   sz=32    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g4/ours.pris.dump
+   uhdmallPackages  p::X                               constant     dec=35                                   sz=64    UINT:35                                  ct=9
+   uhdmtopPackages  p::X                               constant     dec=35                                   sz=32    UINT:35                                  ct=9
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=33    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g4/ours.law4.dump
+   uhdmallPackages  p::X                               constant     dec=35                                   sz=64    UINT:35                                  ct=9
+   uhdmtopPackages  p::X                               constant     dec=35                                   sz=32    UINT:35                                  ct=9
+#### g5
+## /tmp/r11u12_grid/g5/gold.law4.dump
+## /tmp/r11u12_grid/g5/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=33    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g5/ours.law4.dump
+#### g6
+## /tmp/r11u12_grid/g6/gold.law4.dump
+## /tmp/r11u12_grid/g6/ours.pris.dump
+## /tmp/r11u12_grid/g6/ours.law4.dump
+#### g7
+## /tmp/r11u12_grid/g7/gold.law4.dump
+## /tmp/r11u12_grid/g7/ours.pris.dump
+## /tmp/r11u12_grid/g7/ours.law4.dump
+#### g8
+## /tmp/r11u12_grid/g8/gold.law4.dump
+## /tmp/r11u12_grid/g8/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=0                                    sz=33    UINT:0                                   ct=9
+## /tmp/r11u12_grid/g8/ours.law4.dump
+#### g9
+## /tmp/r11u12_grid/g9/gold.law4.dump
+   uhdmtopPackages  p::C                               constant     dec=1                                    sz=2     UINT:1                                   ct=9
+## /tmp/r11u12_grid/g9/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=1                                    sz=2     UINT:1                                   ct=9
+## /tmp/r11u12_grid/g9/ours.law4.dump
+   uhdmtopPackages  p::C                               constant     dec=1                                    sz=2     UINT:1                                   ct=9
+#### g10
+## /tmp/r11u12_grid/g10/gold.law4.dump
+## /tmp/r11u12_grid/g10/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=5                                    sz=8     UINT:5                                   ct=9
+## /tmp/r11u12_grid/g10/ours.law4.dump
+#### g11
+## /tmp/r11u12_grid/g11/gold.law4.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=32    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g11/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=32    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g11/ours.law4.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=32    UINT:35                                  ct=9
+#### g12
+## /tmp/r11u12_grid/g12/gold.law4.dump
+   uhdmallPackages  p::W                               constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmtopPackages  p::W                               constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=8     UINT:35                                  ct=9
+## /tmp/r11u12_grid/g12/ours.pris.dump
+   uhdmallPackages  p::W                               constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmtopPackages  p::W                               constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=8     UINT:35                                  ct=9
+## /tmp/r11u12_grid/g12/ours.law4.dump
+   uhdmallPackages  p::W                               constant     dec=8                                    sz=64    UINT:8                                   ct=9
+   uhdmtopPackages  p::W                               constant     dec=8                                    sz=32    UINT:8                                   ct=9
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=8     UINT:35                                  ct=9
+#### g13
+## /tmp/r11u12_grid/g13/gold.law4.dump
+## /tmp/r11u12_grid/g13/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=32    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g13/ours.law4.dump
+#### g14
+## /tmp/r11u12_grid/g14/gold.law4.dump
+   uhdmtopPackages  p::S                               constant     dec=7                                    sz=16    UINT:7                                   ct=9
+   uhdmtopPackages  p::LL                              constant     dec=9                                    sz=64    UINT:9                                   ct=9
+   uhdmtopPackages  p::IG                              constant     dec=11                                   sz=32    UINT:11                                  ct=9
+   uhdmtopPackages  p::BB                              constant     dec=                                     sz=1     BIN:1                                    ct=3
+## /tmp/r11u12_grid/g14/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=8     UINT:35                                  ct=9
+   uhdmtopPackages  p::T                               constant     dec=3                                    sz=64    UINT:3                                   ct=9
+   uhdmtopPackages  p::L                               constant     dec=1                                    sz=1     UINT:1                                   ct=9
+   uhdmtopPackages  p::S                               constant     dec=7                                    sz=16    UINT:7                                   ct=9
+   uhdmtopPackages  p::LL                              constant     dec=9                                    sz=64    UINT:9                                   ct=9
+   uhdmtopPackages  p::IG                              constant     dec=11                                   sz=32    UINT:11                                  ct=9
+   uhdmtopPackages  p::BB                              constant     dec=1                                    sz=1     UINT:1                                   ct=9
+## /tmp/r11u12_grid/g14/ours.law4.dump
+   uhdmtopPackages  p::S                               constant     dec=7                                    sz=16    UINT:7                                   ct=9
+   uhdmtopPackages  p::LL                              constant     dec=9                                    sz=64    UINT:9                                   ct=9
+   uhdmtopPackages  p::IG                              constant     dec=11                                   sz=32    UINT:11                                  ct=9
+   uhdmtopPackages  p::BB                              constant     dec=1                                    sz=1     UINT:1                                   ct=9
+#### g15
+## /tmp/r11u12_grid/g15/gold.law4.dump
+## /tmp/r11u12_grid/g15/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=33    UINT:35                                  ct=9
+   uhdmtopPackages  p::D                               constant     dec=35                                   sz=33    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g15/ours.law4.dump
+   uhdmtopPackages  p::D                               constant     dec=35                                   sz=33    UINT:35                                  ct=9
+#### g16
+## /tmp/r11u12_grid/g16/gold.law4.dump
+## /tmp/r11u12_grid/g16/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=33    UINT:35                                  ct=9
+   uhdmtopModules   work@top.u.K                       constant     dec=35                                   sz=33    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g16/ours.law4.dump
+   uhdmtopModules   work@top.u.K                       constant     dec=35                                   sz=33    UINT:35                                  ct=9
+#### g17
+## /tmp/r11u12_grid/g17/gold.law4.dump
+## /tmp/r11u12_grid/g17/ours.pris.dump
+   uhdmtopPackages  p::C                               constant     dec=35                                   sz=33    UINT:35                                  ct=9
+   uhdmallModules   work@top.C                         constant     dec=35                                   sz=33    UINT:35                                  ct=9
+   uhdmallModules   work@top.L                         constant     dec=35                                   sz=33    UINT:35                                  ct=9
+   uhdmtopModules   work@top.C                         constant     dec=35                                   sz=33    UINT:35                                  ct=9
+## /tmp/r11u12_grid/g17/ours.law4.dump

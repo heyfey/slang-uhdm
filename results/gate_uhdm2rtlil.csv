@@ -165,7 +165,7 @@ cs_registers,testflags,CMP_EQUAL,,,differ
 custom_map_incomp,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/custom_map_incomp/dut.sv:2:9: error: unknown module 'ALU',,
 cva6_struct_param_field,testflags,CMP_NOTEQUAL,decompile:,,
 DeclarationInFor,testflags,CMP_EQUAL,,,match
-def_ctx_struct_param,testflags,CMP_NOTEQUAL,decompile:,,
+def_ctx_struct_param,testflags,CMP_EQUAL,,,differ
 defvalue,testflags,CMP_EQUAL,,,differ
 dff_different_styles,testflags,CMP_EQUAL,,,differ
 dff_styles,testflags,CMP_EQUAL,,,match
@@ -417,7 +417,7 @@ latch_002,testflags,CMP_EQUAL,,,match
 latch_axi_adapter,testflags,CMP_EQUAL,,,match
 latch_case_arm_mask,testflags,CMP_EQUAL,,,match
 latch_csr_armlocal,testflags,CMP_EQUAL,,,match
-latch_decoder_partial,testflags,CMP_NOTEQUAL,decompile:,,
+latch_decoder_partial,testflags,CMP_EQUAL,,,differ
 latch_fifo_dynfield,testflags,CMP_EQUAL,,,differ
 latch_nested_ex_field,testflags,CMP_EQUAL,,,differ
 latch_packed_dyn_write,testflags,CMP_EQUAL,,,differ

@@ -27,8 +27,8 @@ the build inside the pinned Surelog tree — the one
 |---|---|---|---|---|
 | Surelog suite | default | 798 | 468 | 15 |
 | Surelog suite | testflags | 798 | 464 | 13 |
-| uhdm2rtlil | default | 871 | 754 | 50 |
-| uhdm2rtlil | testflags | 871 | 754 | 50 |
+| uhdm2rtlil | default | 871 | 756 | 48 |
+| uhdm2rtlil | testflags | 871 | 756 | 48 |
 
 For comparison, pilot 0.1 measured 477/4 + 471/4 and 679/0 ×2 on its own
 pins. The regression sets cluster in interface-parameter, struct-parameter,

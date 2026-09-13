@@ -1,0 +1,62 @@
+r11u12 — GATE RECORD (base 735de740, pins per SUPPORT_MATRIX.md)
+
+BINARIES (frozen, chmod 555, every cmds.txt audited by PATH)
+  pristine  b895cb0435893c2af6edf08661fccc54   (byte-identical to the main tree at 735de740)
+  law       0fae8ee5712893f86d8042143d37ae7c
+
+GOLDEN UNIT TESTS (law binary)      23 PASS / 0 FAIL ; SLANG_UHDM=/bin/false -> 23 FAIL
+CMDS AUDIT                          u2r 1742/1742 name /tmp/r11u12_bin/pristine ; 1742/1742 name .../law4
+
+uhdm2rtlil (871 rows, both modes)
+  pristine  754 CMP_EQUAL / 50 CMP_NOTEQUAL / 67 SLANG_REJECT  (= the committed baseline; ct8rows PASS)
+  law       756 CMP_EQUAL / 48 CMP_NOTEQUAL / 67 SLANG_REJECT
+  ct8rows vs results/gate_uhdm2rtlil.csv      2 rows differ, both law-named
+  ct8rows vs results/golden_uhdm2rtlil.csv    4 rows differ (the same 2 x 2 modes)
+
+Surelog suite (798 rows, both modes)
+  pristine  467/16 (default)  463/14 (testflags)
+  law       467/16 (default)  463/14 (testflags)
+  ct8rows vs results/golden_surelog.csv: 2 rows differ on BOTH binaries — the
+  LowMemLib / LowMemPkg SURELOG_FAIL detail strings that embed the workdir path.
+
+BYTEVERIFY (SELFCHECK=1)
+  u2r      MOVERS 6 / 1608   selfcheck 1607/1608
+           def_ctx_struct_param, latch_decoder_partial, latch_tlb_napot x 2 modes
+  surelog  MOVERS 4 / 960    selfcheck 959/960
+           MiniAmiq x2, SeqDriver x2 — the proven UVM coin family (see COIN below)
+
+DIRECTION / SHAPE (u2r movers, both modes)
+  dirscore  6/6 TO-GOLDEN, 0 AWAY-GOLDEN, 0 NEUTRAL
+  shapecmp  0 rows GREW; 6/6 IMPROVED (shape_diff 1 -> 0)
+
+COIN POSITIVE CONTROL (PRISTINE binary alone)
+  MiniAmiq, six arm re-runs of the row's own command line:
+    35517aa05e55 e4c7d5e24a34 8adf9b852338 40bdf9b9a17f 3f5de787b17e 9b983755a6e4
+    — six distinct hashes, none equal to either sweep's.
+  SeqDriver/testflags, two --filter sweeps with the sweep's own --jobs 2:
+    78230402dbd2  62873af73194  (the full pristine sweep gave d375463d28f1)
+  SIGNATURE, order-blind, path-normalised, sorted dumps:
+    pristine-vs-pristine SeqDriver/testflags  = 4 lines, UINT:556 vs UINT:589 + the
+    matching vpiDecompile — the line-number class.
+    law-vs-pristine, all four coin rows        = 4 lines each, the SAME class
+    (MiniAmiq/default UINT:0 vs UINT:895, SeqDriver/default UINT:0 vs UINT:1220,
+     MiniAmiq/testflags UINT:796 vs UINT:0, SeqDriver/testflags UINT:1422 vs UINT:0).
+
+CANARIES
+  canaries.sh   u2r ok=8 changed=0 ; surelog ok=52 changed=0
+  ctcan2.sh     u2r PASS (EXPECT_UNKNOWN=6) ; surelog PASS (EXPECT_UNKNOWN=1)
+  canaudit.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+  BYTE PINS, law vs pristine, both modes:
+    SVSwitch 4842211c4030 SAME      YosysVerx 6ccda350c24a SAME
+    InterfaceModPort 59a365f3ce2c SAME
+    BlackParrotComplex e3e354129d5a / 73a10e8217e5 SAME   YosysOldOr d68e0796d62c SAME
+  rowheads.sh (SeqDriver SimpleUVM Scoreboard MiniAmiq BuildUVMPkg Earlgrey_0_1 Rggen)
+    identical on both binaries: 12 measured, 2 SKIP-NOFILE (Scoreboard/tf, Rggen/tf).
+
+THE STRUCT-ASSEMBLER FAMILY IS UNTOUCHED (byte-identical, both modes)
+  bail witnesses      FuncStructVal, StructParamFuncBodyFieldCompare
+  r11u9 movers        FuncStructValSimple, StructParamPatternInitCast
+  r11u9 conversions   pkg_nested_struct_param_width, portsel_struct_param
+  r11u10 conversions  ibex_branch_predict, ibex_compressed_decoder, ibex_decoder,
+                      ibex_multdiv_slow, param_struct_field_bitsel,
+                      param_unpacked_struct_array

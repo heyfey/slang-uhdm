@@ -1353,6 +1353,89 @@ inline bool isTypeSyntaxKind(syntax::SyntaxKind k) {
     }
 }
 
+// § castElabFoldTargetKinds (r11u12) — A CAST FOLDS IN THE ELABORATED LISTING
+// ONLY WHEN ITS TARGET TYPESPEC IS ONE OF SIX INTEGRAL KINDS.
+//
+// The producer is `UHDM/templates/ExprEval.cpp`, `reduceExpr`'s `vpiCastOp`
+// arm (~4185).  It reads `op->Typespec()->Actual_typespec()` and mints a
+// constant for EXACTLY these kinds:
+//
+//   uhdmint_typespec        -> UINT, size 64      (`int'`)
+//   uhdmlong_int_typespec   -> UINT, size 64      (`longint'`)
+//   uhdmbit_typespec        -> BIN, size 1        (`bit'`)
+//   uhdmshort_int_typespec  -> UINT, size 16      (`shortint'`)
+//   uhdminteger_typespec    -> the sized cast     (`integer'` AND `N'(...)`)
+//   uhdmenum_typespec       -> UINT, size 64      (an enum type name)
+//
+// Every other target falls out of the if/else chain with `result` still the
+// ORIGINAL OPERATION, so the elaborated listing keeps the vpiCastOp tree.  A
+// packed STRUCT above all — `localparam cfg_t C = cfg_t'(0)` keeps its cast
+// in `uhdmtopPackages` exactly as it does in `uhdmallPackages`.
+//
+// Measured arm by arm on purpose-built golden (tools/probe/r11u12repro,
+// `gen.sh` g1–g17, every arm's rc recorded).  Golden mints NO elaborated
+// constant for a named STRUCT (g1–g5, g15–g17), a named packed UNION (g8), a
+// named vector typedef (g10), a named packed-array typedef (g13), nor for the
+// KEYWORD casts `byte'` / `time'` / `logic'` (g14) — and DOES mint one for a
+// named ENUM typedef (g9), for `int'` (g11), for a size cast `(W)'(v)` (g12)
+// and for `shortint'` / `longint'` / `integer'` / `bit'` (g14).
+//
+// THE SIZE-CAST ESCAPE.  `W'(v)` and `s_t'(v)` are the same CastExpression
+// syntax with an IdentifierName on the left, and their slang TYPES can be
+// identical too (`(W)'(35)` with W=8 and `v_t'(5)` with `typedef logic [7:0]
+// v_t` are both a packed 8-bit vector — g12 folds, g10 does not).  The
+// discriminator is `Type::isAlias()`: a NAMED type cast's conversion type is
+// the TypeAliasType itself, a size cast's is an anonymous vector.
+//
+// `t` is the conversion's own type (`ConversionExpression::type`); `k` the
+// syntax kind written left of the `'`.
+inline bool castElabFoldsTarget(syntax::SyntaxKind k, const Type* t) {
+    switch (k) {
+        // A KEYWORD target: the typespec kind is a pure function of the
+        // keyword (§ castTargetKeywordTypespecKind96 below), so read it
+        // straight off the keyword.
+        case syntax::SyntaxKind::IntType:
+        case syntax::SyntaxKind::LongIntType:
+        case syntax::SyntaxKind::ShortIntType:
+        case syntax::SyntaxKind::IntegerType:
+        case syntax::SyntaxKind::BitType:
+        case syntax::SyntaxKind::EnumType:
+            return true;
+        case syntax::SyntaxKind::LogicType:
+        case syntax::SyntaxKind::RegType:
+        case syntax::SyntaxKind::ByteType:
+        case syntax::SyntaxKind::TimeType:
+        case syntax::SyntaxKind::ShortRealType:
+        case syntax::SyntaxKind::RealType:
+        case syntax::SyntaxKind::RealTimeType:
+        case syntax::SyntaxKind::StructType:
+        case syntax::SyntaxKind::UnionType:
+            return false;
+        default:
+            break;
+    }
+    // Not a keyword: either a NAMED type (an alias) or a size expression.
+    if (!t || !t->isAlias())
+        return true;  // the size-cast road -> integer_typespec -> folds
+    auto& ct = t->getCanonicalType();
+    if (ct.isEnum())
+        return true;
+    if (ct.kind == SymbolKind::PredefinedIntegerType) {
+        switch (ct.as<PredefinedIntegerType>().integerKind) {
+            case PredefinedIntegerType::Int:
+            case PredefinedIntegerType::Integer:
+            case PredefinedIntegerType::LongInt:
+            case PredefinedIntegerType::ShortInt:
+                return true;
+            default:
+                return false;  // byte / time
+        }
+    }
+    if (ct.kind == SymbolKind::ScalarType)
+        return ct.as<ScalarType>().scalarKind == ScalarType::Bit;
+    return false;  // struct / union / vector / packed array / real / string
+}
+
 // § castTargetKeywordTypespecKind96 (r10uvm96) — AN EXPLICIT CAST'S TARGET
 // TYPESPEC KIND IS A PURE FUNCTION OF THE KEYWORD WRITTEN LEFT OF THE `'`.
 //
