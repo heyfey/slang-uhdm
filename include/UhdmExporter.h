@@ -853,6 +853,14 @@ private:
     // there and this flag is the only signal; the direct package-emission path
     // uses curPkgEmitSym/pkgEmitTopView instead (see pkgParamOwnDefView).
     bool paramTsOwnPkgDefView = false;
+    // § pkgParamDefTsQueryArgRef — WHICH package that own-DEF listing belongs
+    // to.  `paramTsOwnPkgDefView` says "this clone is a package parameter's
+    // own DEF-listing copy"; this names the package, so a query-call argument
+    // inside the clone's range bound can ask the SAME same-package /
+    // other-package question the direct package-emission path asks with
+    // `curPkgEmitSym` (TypeEmit, § sysCallArgPkgParamSubst).  Null outside the
+    // drain.
+    const slang::ast::Symbol* paramTsOwnPkgDefSym = nullptr;
     // True while emitting a NON-TOP elaborated child-instance body: a packed
     // range bound that reaches an interface param through a modport/interface
     // port FOLDS to its concrete per-instance width here (Surelog), whereas the

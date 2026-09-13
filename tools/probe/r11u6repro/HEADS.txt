@@ -1,0 +1,40 @@
+# r11u6 HEADS — the ibex u2r family, testflags, my own builds.
+# pristine md5 75b2098c608dd7ebd50199dd1c27ccbb (byte-identical to the main tree at 7ae0ce08)
+# law      md5 0c071d12283ce9955fe9c0d53db9363e
+# LHS is ALWAYS golden (Surelog v1.87).  grep -c '^LHS:' = 1 on every row.
+
+== PRISTINE ==
+ibex_alu                   cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_branch_predict        cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_compressed_decoder    cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_decoder               cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_icache                cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_multdiv_fast          cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_multdiv_slow          cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_pmp                   cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_wb_stage              cmplines=46    heads=1   ref_obj: (ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth), id:6771, line:721:40, endln:721:49
+ibex_tracer                cmplines=34    heads=1   ref_obj: (PMP_ADDR_MSB), id:8082, line:772:20, endln:772:32
+ibex_csr                   cmplines=36    heads=1   constant: , id:104, line:33:10, endln:33:26
+ibex_fetch_fifo            cmplines=36    heads=1   constant: , id:556, line:33:10, endln:33:36
+ibex_load_store_unit       cmplines=36    heads=1   constant: , id:1191, line:33:10, endln:33:29
+ibex_counter               cmplines=0     heads=0   
+ibex_register_file_ff      cmplines=0     heads=0   
+ibex_register_file_fpga    cmplines=0     heads=0   
+
+== LAW ==
+ibex_alu                   cmplines=4534  heads=1   operation: , id:14979, line:750:52, endln:767:4
+ibex_branch_predict        cmplines=36    heads=1   constant: , id:10158, line:33:10, endln:33:31
+ibex_compressed_decoder    cmplines=36    heads=1   constant: , id:12332, line:33:10, endln:33:31
+ibex_decoder               cmplines=36    heads=1   constant: , id:12840, line:33:10, endln:33:32
+ibex_icache                cmplines=64    heads=1   constant: , id:10003, line:17:44, endln:17:55
+ibex_multdiv_fast          cmplines=36    heads=1   constant: , id:10065, line:33:10, endln:33:22
+ibex_multdiv_slow          cmplines=36    heads=1   constant: , id:10743, line:33:10, endln:33:33
+ibex_pmp                   cmplines=36    heads=1   constant: , id:12543, line:34:10, endln:34:22
+ibex_wb_stage              cmplines=36    heads=1   constant: , id:10469, line:33:10, endln:33:36
+ibex_tracer                cmplines=36    heads=1   ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:16236, line:305:87, endln:305:96
+ibex_csr                   cmplines=36    heads=1   constant: , id:104, line:33:10, endln:33:26
+ibex_fetch_fifo            cmplines=36    heads=1   constant: , id:556, line:33:10, endln:33:36
+ibex_load_store_unit       cmplines=36    heads=1   constant: , id:1191, line:33:10, endln:33:29
+ibex_counter               cmplines=0     heads=0   
+ibex_register_file_ff      cmplines=0     heads=0   
+ibex_register_file_fpga    cmplines=0     heads=0   

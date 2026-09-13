@@ -1462,6 +1462,7 @@ UhdmExporter::SharedTd9 UhdmExporter::sharedTypedefTsRef9(
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
+
     // § virtualIfaceTsIsInterfaceTs6 — a WRITTEN `virtual <iface>[.<modport>]`
     // type is an `interface_typespec` NAMED after the interface and spanned
     // over `<iface>[.<modport>]` — i.e. the `virtual` (and the optional
@@ -3814,10 +3815,35 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             declSymbol.getParentScope() &&
                             declSymbol.getParentScope()->asSymbol().kind ==
                                 SymbolKind::Package) {
+                            // § pkgParamDefTsDrainOwnView — the DEFERRED
+                            // DEF-listing drain is the own-package DEF view
+                            // too.  `curPkgEmitSym` is already restored to
+                            // null there (drainDefParamTs runs after every
+                            // package is emitted), so an UNPACKED-ARRAY
+                            // package parameter -- whose declared PACKED range
+                            // hangs off the array typespec's ELEMENT and is
+                            // built through that drain -- read `ownPkgDefView`
+                            // as false and FOLDED a bound the def listing
+                            // keeps symbolic.  Its scalar sibling
+                            // (`parameter logic [MSB:0] One`) is emitted
+                            // directly and was always right, which is why the
+                            // shape hid: witness g4 (`parameter logic
+                            // [PMP_ADDR_MSB:0] AddrRst[PMP_MAX_REGIONS]`),
+                            // golden allPkg `[constant]->[ref_obj]` vs ours
+                            // `[constant]->[constant]`, and the elaborated
+                            // listings folded on BOTH sides.  Head:
+                            // ibex_pkg.sv:772:20 `ref_obj (PMP_ADDR_MSB)`.
+                            // `paramTsOwnPkgDefSym` is the drain's stand-in
+                            // for `curPkgEmitSym`, the same one
+                            // § pkgParamDefTsQueryArgRef reads, so the direct
+                            // and deferred paths ask ONE question.
                             ownPkgDefView =
-                                !pkgEmitTopView &&
-                                curPkgEmitSym ==
-                                    &declSymbol.getParentScope()->asSymbol();
+                                (!pkgEmitTopView &&
+                                 curPkgEmitSym ==
+                                     &declSymbol.getParentScope()->asSymbol()) ||
+                                (paramTsOwnPkgDefView && paramTsOwnPkgDefSym &&
+                                 paramTsOwnPkgDefSym ==
+                                     &declSymbol.getParentScope()->asSymbol());
                             ASTContext pctx(*pkgBindScope, LookupLocation::max);
                             auto& pbe = Expression::bind(*bsyn, pctx);
                             if (!pbe.bad())
@@ -15549,9 +15575,48 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // parameter).  Corpus: sha2.sv:36 `logic
                         // [$clog2(NumRound)-1:0]` with hmac_pkg::NumRound
                         // wildcard-imported.
+                        // § pkgParamDefTsQueryArgRef — ...and the DEFERRED
+                        // DEF-listing drain is NOT the module half.  A package
+                        // parameter's own-DEF-listing typespec clone
+                        // (`drainDefParamTs`) is built with `curPkgEmitSym`
+                        // already restored to null, so a query-call argument
+                        // inside its range bound fell through the
+                        // package-listing arm above and took this MODULE
+                        // substitution instead — folding a read golden keeps
+                        // as a bare `ref_obj`.  That view reduces NOTHING
+                        // (§ pkgParamOwnDefRange), and Surelog resolves the
+                        // argument there exactly as it does in the direct
+                        // package emission: a SAME-package name stays a read.
+                        // `paramTsOwnPkgDefSym` is the drain's stand-in for
+                        // `curPkgEmitSym`, so the two paths ask one question.
+                        // Head: g1 `$clog2(LfsrWidth)` at 5:40, golden
+                        // `ref_obj (…lfsr_perm_t::LfsrWidth)` vs ours
+                        // `constant UINT:32` — the nine ibex cluster-A rows'
+                        // shared head at ibex_pkg.sv:721:40.  A CROSS-package
+                        // argument is untouched: the package-listing arm
+                        // substitutes it too, so this only spares the
+                        // same-package read.
                         const Scope* msc9 =
                             defNetTsScope ? defNetTsScope : currentScope;
-                        if (an9 && !curPkgEmitSym && msc9 &&
+                        bool ownPkgDefArg9 = false;
+                        if (an9 && paramTsOwnPkgDefView && paramTsOwnPkgDefSym &&
+                            msc9 && syntax::ExpressionSyntax::isKind(an9->kind)) {
+                            ASTContext octx9(*msc9, LookupLocation::max);
+                            auto& ob9 = Expression::bind(
+                                an9->as<syntax::ExpressionSyntax>(), octx9);
+                            if (!ob9.bad() &&
+                                stripImplicitConv(ob9).kind ==
+                                    ExpressionKind::NamedValue) {
+                                auto& osy9 = stripImplicitConv(ob9)
+                                                 .as<NamedValueExpression>()
+                                                 .symbol;
+                                if (auto* oh9 = osy9.getParentScope();
+                                    osy9.kind == SymbolKind::Parameter && oh9 &&
+                                    &oh9->asSymbol() == paramTsOwnPkgDefSym)
+                                    ownPkgDefArg9 = true;
+                            }
+                        }
+                        if (an9 && !curPkgEmitSym && !ownPkgDefArg9 && msc9 &&
                             syntax::ExpressionSyntax::isKind(an9->kind)) {
                             ASTContext mctx9(*msc9, LookupLocation::max);
                             auto& mb9 = Expression::bind(

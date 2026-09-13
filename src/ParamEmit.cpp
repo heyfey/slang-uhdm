@@ -15823,8 +15823,118 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
                             setLoc(c9, es9->sourceRange());
                         return c9;
                     };
-                    rng9->Left_expr(mkc9(cr9.left, ls9));
-                    rng9->Right_expr(mkc9(cr9.right, rs9));
+                    // § pkgParamUnpackedElemDefRange — the ELEMENT half of
+                    // § pkgParamOwnDefRange.  An UNPACKED-ARRAY package
+                    // parameter (`parameter logic [PMP_ADDR_MSB:0]
+                    // AddrRst[N]`) hangs its declared PACKED range off this
+                    // element typespec, and this builder folded it in EVERY
+                    // view.  The law is the one the SCALAR sibling
+                    // (`parameter logic [PMP_ADDR_MSB:0] AddrOne`) already
+                    // obeys through § pkgParamTsRef: the parameter's own
+                    // home-package DEF listing keeps the symbolic read (a
+                    // `ref_obj` chained to the referenced parameter's own def
+                    // Rhs), the elaborated package listing and both module
+                    // listings carry the reduced constant.  Witness g4:
+                    // golden allPkg `[constant]->[ref_obj]`, every other
+                    // listing `[constant]->[constant]`; ours folded all four.
+                    // Head: ibex_pkg.sv:772:20 `ref_obj (PMP_ADDR_MSB)` —
+                    // ibex_tracer's own head, and the head all nine cluster-A
+                    // rows fall onto once the $clog2 and fold laws clear the
+                    // one in front of it.
+                    // GATED three ways: the parameter must be PACKAGE-homed,
+                    // this clone must be its own DEF-listing copy, and the
+                    // bound must actually READ a parameter — a literal bound
+                    // ([31:0]) folds to the same constant either way and is
+                    // left on the mkc9 path so its encoding cannot move.
+                    const Scope* pHome9 = ps.getParentScope();
+                    bool ownPkgDefElem9 =
+                        pHome9 &&
+                        pHome9->asSymbol().kind == SymbolKind::Package &&
+                        pkgParamOwnDefView(ps);
+                    auto paramRead9 =
+                        [&](const syntax::ExpressionSyntax* es9) {
+                            if (!ownPkgDefElem9 || !es9)
+                                return false;
+                            ASTContext bc9(*pHome9, LookupLocation::max);
+                            auto& be9 = Expression::bind(*es9, bc9);
+                            if (be9.bad())
+                                return false;
+                            bool hit9 = false;
+                            be9.visit(makeVisitor(
+                                [&](auto& v9, const NamedValueExpression& nv9) {
+                                    if (nv9.symbol.kind == SymbolKind::Parameter)
+                                        hit9 = true;
+                                    v9.visitDefault(nv9);
+                                }));
+                            return hit9;
+                        };
+                    // § pkgParamUnpackedElemFoldConst — the REDUCED half of
+                    // the same law.  Where the element bound DOES fold (every
+                    // listing but the parameter's own package DEF one), golden
+                    // does not re-render the number at 64 bits: it substitutes
+                    // the referenced package parameter's OWN value constant,
+                    // re-sized to that parameter's declared width and carrying
+                    // a ref_typespec onto its typespec — exactly the
+                    // substitution `crossPkgBoundFoldConst9` already performs
+                    // for a qualified bound leaf and for a query-call
+                    // argument.  g4/ibex: golden `UINT:33` at vpiSize 32 with
+                    // `ref_typespec -> int_typespec` (PMP_ADDR_MSB's own
+                    // `int unsigned` type), ours a bare `UINT:33` at 64.
+                    // GATED to a BARE-NAME bound: only there is the range
+                    // bound's value the parameter's value, so only there may
+                    // its constant be copied.  `[P-1:0]` computes a different
+                    // number and stays on the mkc9 path.
+                    auto foldSubst9 =
+                        [&](const syntax::ExpressionSyntax* es9)
+                        -> UHDM::constant* {
+                        if (!es9 || !pHome9 ||
+                            pHome9->asSymbol().kind != SymbolKind::Package)
+                            return nullptr;
+                        if (es9->kind != syntax::SyntaxKind::IdentifierName &&
+                            es9->kind != syntax::SyntaxKind::ScopedName)
+                            return nullptr;
+                        ASTContext fc9(*pHome9, LookupLocation::max);
+                        auto& fe9 = Expression::bind(*es9, fc9);
+                        if (fe9.bad() ||
+                            stripImplicitConv(fe9).kind !=
+                                ExpressionKind::NamedValue)
+                            return nullptr;
+                        auto& fs9 = stripImplicitConv(fe9)
+                                        .as<NamedValueExpression>()
+                                        .symbol;
+                        auto* fh9 = fs9.getParentScope();
+                        if (fs9.kind != SymbolKind::Parameter || !fh9 ||
+                            fh9->asSymbol().kind != SymbolKind::Package)
+                            return nullptr;
+                        auto* c9 = crossPkgBoundFoldConst9(
+                            fs9.as<ParameterSymbol>(), rng9);
+                        if (c9)
+                            setLoc(c9, es9->sourceRange());
+                        return c9;
+                    };
+                    auto mkb9 = [&](int64_t v9,
+                                    const syntax::ExpressionSyntax* es9)
+                        -> UHDM::expr* {
+                        if (!paramRead9(es9)) {
+                            if (auto* fc9 = foldSubst9(es9))
+                                return fc9;
+                            return mkc9(v9, es9);
+                        }
+                        // The same emitter, scope and span rule the scalar
+                        // arm uses (TypeEmit § pkgParamTsRef): bound in the
+                        // parameter's HOME package so the read chains to that
+                        // parameter's own def Rhs.
+                        bool savedBCN9 = boundCallNameSpan;
+                        const Scope* savedTfS9 = tfTypeScope;
+                        boundCallNameSpan = true;
+                        tfTypeScope = pHome9;
+                        auto* e9 = (UHDM::expr*)emitSyntaxExpr(*es9, rng9);
+                        tfTypeScope = savedTfS9;
+                        boundCallNameSpan = savedBCN9;
+                        return e9 ? e9 : (UHDM::expr*)mkc9(v9, es9);
+                    };
+                    rng9->Left_expr(mkb9(cr9.left, ls9));
+                    rng9->Right_expr(mkb9(cr9.right, rs9));
                     auto* rv9 = s.MakeRangeVec();
                     rv9->push_back(rng9);
                     if (ltsL)
@@ -18197,7 +18307,29 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                 // fall back to it BY NAME when the per-instance symbol misses
                 // (ParameterOfParametrizedTypeInSubmodule u_sub_5/u_sub_10 Y).
                 UHDM::typespec* sharedTd = nullptr;
-                if (auto tit = typedefTs.find(&taSym); tit != typedefTs.end())
+                // § pkgParamVecTdCloneAliasView — and WHICH typedef listing
+                // object the clone aliases follows the very same view law as
+                // its fold state: golden's own-DEF clone aliases the DEF
+                // listing's typedef, every other copy aliases the ELABORATED
+                // one.  The scalar (bit/int/byte) arm above already prefers
+                // `pkgTopTypedefTs` outside the def view; the vector arm took
+                // `typedefTs` unconditionally, so the elaborated package
+                // listing's clone aliased the DEF typedef -- and since
+                // `typespec::Compare` walks `Typedef_alias`, that object's
+                // still-symbolic bound became the head the moment the fold
+                // law above cleared the one in front of it (g1: golden
+                // `constant INT:31` at 4:18, ours the `LfsrWidth-1`
+                // operation).
+                if (!pkgParamOwnDefView(ps))
+                    if (auto tTt = pkgTopTypedefTs.find((const void*)&taSym);
+                        tTt != pkgTopTypedefTs.end())
+                        sharedTd = tTt->second;
+                if (sharedTd && sharedTd->UhdmType() != UHDM::uhdmlogic_typespec)
+                    sharedTd = nullptr;
+                if (sharedTd) {
+                    // already resolved to this view's listing object
+                }
+                else if (auto tit = typedefTs.find(&taSym); tit != typedefTs.end())
                     sharedTd = tit->second;
                 else if (auto* psc = ps.getParentScope();
                          psc &&
@@ -18222,9 +18354,24 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                     bypassTypedefShare = true;
                     // Keep the typedef clone's parametrized range SYMBOLIC
                     // ([X-1:0], not folded to [19:0]) — Surelog keeps the X-1
-                    // operation on the alias clone in both views.
+                    // operation on the alias clone in the MODULE views.
+                    // § pkgParamVecTdCloneViewFold — but a PACKAGE parameter's
+                    // clone obeys § pkgParamOwnDefRange like every other
+                    // builder of that parameter's declared range: the symbolic
+                    // operation survives ONLY in the parameter's own home
+                    // package DEF listing, and the elaborated package listing
+                    // plus both module listings carry the reduced constant.
+                    // This was the one builder still hardcoding `true`; the
+                    // scalar (bit/int/byte) clone above already reads
+                    // `pkgParamOwnDefView`, and so does the inline (non
+                    // typedef) range arm.  Measured on g1 (`typedef logic
+                    // [LfsrWidth-1:0][$clog2(LfsrWidth)-1:0] lfsr_perm_t;`
+                    // + `parameter lfsr_perm_t PermDflt`): golden's four
+                    // per-parameter clones are (allPkg symbolic, topPkg
+                    // constant, allMod constant, topMod constant) and ours
+                    // were symbolic in all four.
                     bool savedTf2 = tfContext;
-                    tfContext = true;
+                    tfContext = pkgParamOwnDefView(ps);
                     auto* cl = makeTypespec(taSym, tgtSyn);
                     tfContext = savedTf2;
                     bypassTypedefShare = false;
@@ -18261,7 +18408,11 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                         tdHome9 = &hs9->asSymbol();
                     if (tdHome9 && pkgDefMap.count(tdHome9)) {
                         bypassTypedefShare = true;
-                        tfContext = true;
+                        // § pkgParamVecTdCloneViewFold — the SECOND (bare)
+                        // clone of a materialized wildcard-import copy is a
+                        // copy of the same declared range and follows the same
+                        // view law.
+                        tfContext = pkgParamOwnDefView(ps);
                         auto* clB = makeTypespec(taSym, tgtSyn);
                         tfContext = savedTf2;
                         bypassTypedefShare = false;
@@ -20103,6 +20254,15 @@ void UhdmExporter::drainDefParamTs() {
             // NON-elab package listing that is not an import copy IS the
             // parameter's own home-package DEF listing.
             paramTsOwnPkgDefView = pd.inPackage && !paramTsElabPkgView;
+            // § pkgParamDefTsQueryArgRef — and WHICH package it is, so a
+            // query-call argument inside the clone's bound can tell a
+            // same-package read from a cross-package one the way the direct
+            // package-emission path does with curPkgEmitSym.
+            paramTsOwnPkgDefSym = nullptr;
+            if (paramTsOwnPkgDefView)
+                if (auto* hsQ0 = pd.ps->getParentScope();
+                    hsQ0 && hsQ0->asSymbol().kind == SymbolKind::Package)
+                    paramTsOwnPkgDefSym = &hsQ0->asSymbol();
             if (!currentScope)
                 currentScope = pd.ps->getParentScope();
             // A DEF-view aggregate CLONE is shaped like the elab one: member
@@ -20128,6 +20288,7 @@ void UhdmExporter::drainDefParamTs() {
             defViewParamTs = false;
             paramTsElabPkgView = false;
             paramTsOwnPkgDefView = false;
+            paramTsOwnPkgDefSym = nullptr;
             currentScope = savedCS;
             syntaxRefPrefix = savedPfx2;
         }

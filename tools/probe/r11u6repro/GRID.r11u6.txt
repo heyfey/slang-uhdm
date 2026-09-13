@@ -1,0 +1,290 @@
+=================== gA   surelog_rc=0 pristine_rc=0 law_rc=0
+   // gA — THE HEAD.  A package vector typedef whose second dim bound is
+   // $clog2(<same-package parameter>), and a package parameter typed by it.
+   package p;
+   pris  cmplines=46     heads=1   head=ref_obj: (p::PermDflt::perm_t::LfsrWidth), id:136, line:5:40, endln:5:49
+   law   cmplines=36     heads=1   head=constant: , id:304
+   ---- per-listing fold/edge census (golden | pristine | law)
+   ## /tmp/r11u6_gridwd/gA/slpp_all/surelog.uhdm
+     allPkg   p.LfsrWidth  ts#1 alias#-1 inst#2  []
+     allPkg   p.PermDflt  ts#4 alias#3 inst#2  [operation,operation/clog2arg=ref_obj]
+     topPkg   p.LfsrWidth  ts#5 alias#-1 inst#6  []
+     topPkg   p.PermDflt  ts#8 alias#7 inst#6  [constant,constant]
+     allMod   work@top.LfsrWidth  ts#9 alias#-1 inst#6  []
+     allMod   work@top.PermDflt  ts#11 alias#10 inst#6  [constant,constant]
+     topMod   work@top.LfsrWidth  ts#12 alias#-1 inst#6  []
+     topMod   work@top.PermDflt  ts#14 alias#13 inst#6  [constant,constant]
+   
+   ## /tmp/r11u6_gridwd/gA/pris.uhdm
+     allPkg   p.LfsrWidth  ts#1 alias#-1 inst#2  []
+     allPkg   p.PermDflt  ts#4 alias#3 inst#2  [operation,operation/clog2arg=constant]
+     topPkg   p.LfsrWidth  ts#5 alias#-1 inst#6  []
+     topPkg   p.PermDflt  ts#7 alias#3 inst#6  [operation,operation/clog2arg=constant]
+     allMod   work@top.LfsrWidth  ts#8 alias#-1 inst#6  []
+     allMod   work@top.PermDflt  ts#10 alias#9 inst#6  [operation,operation/clog2arg=constant]
+     topMod   work@top.LfsrWidth  ts#11 alias#-1 inst#6  []
+     topMod   work@top.PermDflt  ts#13 alias#12 inst#6  [operation,operation/clog2arg=constant]
+   
+   ## /tmp/r11u6_gridwd/gA/law.uhdm
+     allPkg   p.LfsrWidth  ts#1 alias#-1 inst#2  []
+     allPkg   p.PermDflt  ts#4 alias#3 inst#2  [operation,operation/clog2arg=ref_obj]
+     topPkg   p.LfsrWidth  ts#5 alias#-1 inst#6  []
+     topPkg   p.PermDflt  ts#8 alias#7 inst#6  [constant,constant]
+     allMod   work@top.LfsrWidth  ts#9 alias#-1 inst#6  []
+     allMod   work@top.PermDflt  ts#11 alias#10 inst#6  [constant,constant]
+     topMod   work@top.LfsrWidth  ts#12 alias#-1 inst#6  []
+     topMod   work@top.PermDflt  ts#14 alias#13 inst#6  [constant,constant]
+   
+=================== gB   surelog_rc=0 pristine_rc=0 law_rc=0
+   // gB — NEGATIVE CONTROL for § pkgParamDefTsQueryArgRef: the $clog2 argument
+   // names a parameter in ANOTHER package, which Surelog SUBSTITUTES even in the
+   // def listing.  The law must not spare this one.
+   pris  cmplines=33     heads=1   head=decompile:
+   law   cmplines=33     heads=1   head=decompile:
+   ---- per-listing fold/edge census (golden | pristine | law)
+   ## /tmp/r11u6_gridwd/gB/slpp_all/surelog.uhdm
+     allPkg   q.QW  ts#1 alias#-1 inst#2  []
+     allPkg   p.QW  ts#3 alias#-1 inst#4  []
+     allPkg   p.PermDflt  ts#6 alias#5 inst#7  [operation,operation/clog2arg=constant]
+     topPkg   q.QW  ts#8 alias#-1 inst#4  []
+     topPkg   p.QW  ts#9 alias#-1 inst#4  []
+     topPkg   p.PermDflt  ts#11 alias#10 inst#12  [constant,constant]
+     allMod   work@top.PermDflt  ts#14 alias#13 inst#12  [constant,constant]
+     allMod   work@top.QW  ts#15 alias#-1 inst#4  []
+     topMod   work@top.PermDflt  ts#17 alias#16 inst#12  [constant,constant]
+     topMod   work@top.QW  ts#18 alias#-1 inst#4  []
+   
+   ## /tmp/r11u6_gridwd/gB/pris.uhdm
+     allPkg   q.QW  ts#1 alias#-1 inst#2  []
+     allPkg   p.QW  ts#3 alias#-1 inst#4  []
+     allPkg   p.PermDflt  ts#6 alias#5 inst#7  [operation,operation/clog2arg=constant]
+     topPkg   q.QW  ts#8 alias#-1 inst#4  []
+     topPkg   p.QW  ts#9 alias#-1 inst#4  []
+     topPkg   p.PermDflt  ts#10 alias#5 inst#11  [operation,operation/clog2arg=constant]
+     allMod   work@top.PermDflt  ts#13 alias#12 inst#11  [operation,operation/clog2arg=constant]
+     allMod   work@top.QW  ts#14 alias#-1 inst#4  []
+     topMod   work@top.PermDflt  ts#16 alias#15 inst#11  [operation,operation/clog2arg=constant]
+     topMod   work@top.QW  ts#17 alias#-1 inst#4  []
+   
+   ## /tmp/r11u6_gridwd/gB/law.uhdm
+     allPkg   q.QW  ts#1 alias#-1 inst#2  []
+     allPkg   p.QW  ts#3 alias#-1 inst#4  []
+     allPkg   p.PermDflt  ts#6 alias#5 inst#7  [operation,operation/clog2arg=constant]
+     topPkg   q.QW  ts#8 alias#-1 inst#4  []
+     topPkg   p.QW  ts#9 alias#-1 inst#4  []
+     topPkg   p.PermDflt  ts#11 alias#10 inst#12  [constant,constant]
+     allMod   work@top.PermDflt  ts#14 alias#13 inst#12  [constant,constant]
+     allMod   work@top.QW  ts#15 alias#-1 inst#4  []
+     topMod   work@top.PermDflt  ts#17 alias#16 inst#12  [constant,constant]
+     topMod   work@top.QW  ts#18 alias#-1 inst#4  []
+   
+=================== gC   surelog_rc=0 pristine_rc=0 law_rc=0
+   // gC — ARITHMETIC-of-ref, no query call: the FOLD half alone.
+   package p;
+     parameter int W = 20;
+   pris  cmplines=62     heads=1   head=constant: , id:31, line:4:18, endln:4:19
+   law   cmplines=17     heads=1   head=ref_typespec: (work@top), id:172
+   ---- per-listing fold/edge census (golden | pristine | law)
+   ## /tmp/r11u6_gridwd/gC/slpp_all/surelog.uhdm
+     allPkg   p.W  ts#1 alias#-1 inst#2  []
+     allPkg   p.V  ts#4 alias#3 inst#2  [operation]
+     topPkg   p.W  ts#5 alias#-1 inst#6  []
+     topPkg   p.V  ts#8 alias#7 inst#6  [constant]
+     allMod   work@top.V  ts#10 alias#9 inst#6  [constant]
+     allMod   work@top.W  ts#11 alias#-1 inst#6  []
+     topMod   work@top.V  ts#13 alias#12 inst#6  [constant]
+     topMod   work@top.W  ts#14 alias#-1 inst#6  []
+   
+   ## /tmp/r11u6_gridwd/gC/pris.uhdm
+     allPkg   p.W  ts#1 alias#-1 inst#2  []
+     allPkg   p.V  ts#4 alias#3 inst#2  [operation]
+     topPkg   p.W  ts#5 alias#-1 inst#6  []
+     topPkg   p.V  ts#7 alias#3 inst#6  [operation]
+     allMod   work@top.V  ts#9 alias#8 inst#6  [operation]
+     allMod   work@top.W  ts#10 alias#-1 inst#6  []
+     topMod   work@top.V  ts#12 alias#11 inst#6  [operation]
+     topMod   work@top.W  ts#13 alias#-1 inst#6  []
+   
+   ## /tmp/r11u6_gridwd/gC/law.uhdm
+     allPkg   p.W  ts#1 alias#-1 inst#2  []
+     allPkg   p.V  ts#4 alias#3 inst#2  [operation]
+     topPkg   p.W  ts#5 alias#-1 inst#6  []
+     topPkg   p.V  ts#8 alias#7 inst#6  [constant]
+     allMod   work@top.V  ts#10 alias#9 inst#6  [constant]
+     allMod   work@top.W  ts#11 alias#-1 inst#6  []
+     topMod   work@top.V  ts#13 alias#12 inst#6  [constant]
+     topMod   work@top.W  ts#14 alias#-1 inst#6  []
+   
+=================== gD   surelog_rc=0 pristine_rc=0 law_rc=0
+   // gD — NEGATIVE CONTROL, MODULE holder: the view law is package-only, so a
+   // module-homed typedef + module parameter must be untouched.
+   module top;
+   pris  cmplines=42     heads=1   head=sys_func_call: ($clog2), id:25, line:5:25, endln:5:34
+   law   cmplines=42     heads=1   head=sys_func_call: ($clog2), id:25, line:5:25, endln:5:34
+   ---- per-listing fold/edge census (golden | pristine | law)
+   ## /tmp/r11u6_gridwd/gD/slpp_all/surelog.uhdm
+     allMod   work@top.W  ts#1 alias#-1 inst#-1  []
+     allMod   work@top.V  ts#3 alias#2 inst#-1  [operation,operation/clog2arg=ref_obj]
+     topMod   work@top.W  ts#4 alias#-1 inst#-1  []
+     topMod   work@top.V  ts#6 alias#5 inst#-1  [operation,operation/clog2arg=ref_obj]
+   
+   ## /tmp/r11u6_gridwd/gD/pris.uhdm
+     allMod   work@top.W  ts#1 alias#-1 inst#-1  []
+     allMod   work@top.V  ts#3 alias#2 inst#-1  [operation,operation/clog2arg=ref_obj]
+     topMod   work@top.W  ts#4 alias#-1 inst#-1  []
+     topMod   work@top.V  ts#5 alias#2 inst#-1  [operation,operation/clog2arg=ref_obj]
+   
+   ## /tmp/r11u6_gridwd/gD/law.uhdm
+     allMod   work@top.W  ts#1 alias#-1 inst#-1  []
+     allMod   work@top.V  ts#3 alias#2 inst#-1  [operation,operation/clog2arg=ref_obj]
+     topMod   work@top.W  ts#4 alias#-1 inst#-1  []
+     topMod   work@top.V  ts#5 alias#2 inst#-1  [operation,operation/clog2arg=ref_obj]
+   
+=================== gE   surelog_rc=0 pristine_rc=0 law_rc=0
+   // gE — CLASS B: a LITERAL-bound package vector typedef.  Its bound can never
+   // unfold, so only the Typedef_alias half can reach it.
+   package p;
+   pris  cmplines=17     heads=1   head=ref_typespec: (work@top), id:110
+   law   cmplines=17     heads=1   head=ref_typespec: (work@top), id:110
+   ---- per-listing fold/edge census (golden | pristine | law)
+   ## /tmp/r11u6_gridwd/gE/slpp_all/surelog.uhdm
+     allPkg   p.PC  ts#2 alias#1 inst#3  [constant]
+     topPkg   p.PC  ts#5 alias#4 inst#6  [constant]
+     allMod   work@top.PC  ts#8 alias#7 inst#6  [constant]
+     topMod   work@top.PC  ts#10 alias#9 inst#6  [constant]
+   
+   ## /tmp/r11u6_gridwd/gE/pris.uhdm
+     allPkg   p.PC  ts#2 alias#1 inst#3  [constant]
+     topPkg   p.PC  ts#4 alias#1 inst#5  [constant]
+     allMod   work@top.PC  ts#7 alias#6 inst#5  [constant]
+     topMod   work@top.PC  ts#9 alias#8 inst#5  [constant]
+   
+   ## /tmp/r11u6_gridwd/gE/law.uhdm
+     allPkg   p.PC  ts#2 alias#1 inst#3  [constant]
+     topPkg   p.PC  ts#5 alias#4 inst#6  [constant]
+     allMod   work@top.PC  ts#8 alias#7 inst#6  [constant]
+     topMod   work@top.PC  ts#10 alias#9 inst#6  [constant]
+   
+=================== gF   surelog_rc=0 pristine_rc=0 law_rc=0
+   // gF — R2: an UNPACKED-ARRAY package parameter whose PACKED bound reads a
+   // same-package parameter, plus its SCALAR sibling (the control that was
+   // already right before this pass).
+   pris  cmplines=34     heads=1   head=ref_obj: (MSB), id:140, line:7:20, endln:7:23
+   law   cmplines=50     heads=1   head=constant: , id:89, line:8:20, endln:8:23
+   ---- per-listing fold/edge census (golden | pristine | law)
+   ## /tmp/r11u6_gridwd/gF/slpp_all/surelog.uhdm
+     allPkg   p.MSB  ts#1 alias#-1 inst#2  []
+     allPkg   p.N  ts#3 alias#-1 inst#2  []
+     allPkg   p.AddrRst  ts#4 alias#-1 inst#-1  [constant]->[ref_obj]
+     allPkg   p.AddrOne  ts#5 alias#-1 inst#2  [ref_obj]
+     topPkg   p.MSB  ts#6 alias#-1 inst#7  []
+     topPkg   p.N  ts#8 alias#-1 inst#7  []
+     topPkg   p.AddrRst  ts#9 alias#-1 inst#-1  [constant]->[constant]
+     topPkg   p.AddrOne  ts#10 alias#-1 inst#7  [constant]
+     allMod   work@top.AddrOne  ts#11 alias#-1 inst#7  [constant]
+     allMod   work@top.AddrRst  ts#12 alias#-1 inst#-1  [constant]->[constant]
+     allMod   work@top.MSB  ts#13 alias#-1 inst#7  []
+     allMod   work@top.N  ts#14 alias#-1 inst#7  []
+     topMod   work@top.AddrOne  ts#15 alias#-1 inst#7  [constant]
+     topMod   work@top.AddrRst  ts#16 alias#-1 inst#-1  [constant]->[constant]
+     topMod   work@top.MSB  ts#17 alias#-1 inst#7  []
+     topMod   work@top.N  ts#18 alias#-1 inst#7  []
+   
+   ## /tmp/r11u6_gridwd/gF/pris.uhdm
+     allPkg   p.MSB  ts#1 alias#-1 inst#2  []
+     allPkg   p.N  ts#3 alias#-1 inst#2  []
+     allPkg   p.AddrRst  ts#4 alias#-1 inst#-1  [constant]->[constant]
+     allPkg   p.AddrOne  ts#5 alias#-1 inst#2  [ref_obj]
+     topPkg   p.MSB  ts#6 alias#-1 inst#7  []
+     topPkg   p.N  ts#8 alias#-1 inst#7  []
+     topPkg   p.AddrRst  ts#9 alias#-1 inst#-1  [constant]->[constant]
+     topPkg   p.AddrOne  ts#10 alias#-1 inst#7  [constant]
+     allMod   work@top.AddrOne  ts#11 alias#-1 inst#7  [constant]
+     allMod   work@top.AddrRst  ts#12 alias#-1 inst#-1  [constant]->[constant]
+     allMod   work@top.MSB  ts#13 alias#-1 inst#7  []
+     allMod   work@top.N  ts#14 alias#-1 inst#7  []
+     topMod   work@top.AddrOne  ts#15 alias#-1 inst#7  [constant]
+     topMod   work@top.AddrRst  ts#16 alias#-1 inst#-1  [constant]->[constant]
+     topMod   work@top.MSB  ts#17 alias#-1 inst#7  []
+     topMod   work@top.N  ts#18 alias#-1 inst#7  []
+   
+   ## /tmp/r11u6_gridwd/gF/law.uhdm
+     allPkg   p.MSB  ts#1 alias#-1 inst#2  []
+     allPkg   p.N  ts#3 alias#-1 inst#2  []
+     allPkg   p.AddrRst  ts#4 alias#-1 inst#-1  [constant]->[ref_obj]
+     allPkg   p.AddrOne  ts#5 alias#-1 inst#2  [ref_obj]
+     topPkg   p.MSB  ts#6 alias#-1 inst#7  []
+     topPkg   p.N  ts#8 alias#-1 inst#7  []
+     topPkg   p.AddrRst  ts#9 alias#-1 inst#-1  [constant]->[constant]
+     topPkg   p.AddrOne  ts#10 alias#-1 inst#7  [constant]
+     allMod   work@top.AddrOne  ts#11 alias#-1 inst#7  [constant]
+     allMod   work@top.AddrRst  ts#12 alias#-1 inst#-1  [constant]->[constant]
+     allMod   work@top.MSB  ts#13 alias#-1 inst#7  []
+     allMod   work@top.N  ts#14 alias#-1 inst#7  []
+     topMod   work@top.AddrOne  ts#15 alias#-1 inst#7  [constant]
+     topMod   work@top.AddrRst  ts#16 alias#-1 inst#-1  [constant]->[constant]
+     topMod   work@top.MSB  ts#17 alias#-1 inst#7  []
+     topMod   work@top.N  ts#18 alias#-1 inst#7  []
+   
+=================== gG   surelog_rc=0 pristine_rc=0 law_rc=0
+   // gG — a $bits(TYPE) query argument in the same position (the query-call
+   // family's other member): a TYPE name binds to no NamedValue, so neither the
+   // substitution nor the sparing rule may touch it.
+   pris  cmplines=68     heads=1   head=constant: , id:22, line:6:18, endln:6:31
+   law   cmplines=17     heads=1   head=ref_typespec: (work@top), id:151
+   ---- per-listing fold/edge census (golden | pristine | law)
+   ## /tmp/r11u6_gridwd/gG/slpp_all/surelog.uhdm
+     allPkg   p.V  ts#2 alias#1 inst#3  [operation]
+     topPkg   p.V  ts#5 alias#4 inst#6  [constant]
+     allMod   work@top.V  ts#8 alias#7 inst#6  [constant]
+     topMod   work@top.V  ts#10 alias#9 inst#6  [constant]
+   
+   ## /tmp/r11u6_gridwd/gG/pris.uhdm
+     allPkg   p.V  ts#2 alias#1 inst#3  [operation]
+     topPkg   p.V  ts#4 alias#1 inst#5  [operation]
+     allMod   work@top.V  ts#7 alias#6 inst#5  [operation]
+     topMod   work@top.V  ts#9 alias#8 inst#5  [operation]
+   
+   ## /tmp/r11u6_gridwd/gG/law.uhdm
+     allPkg   p.V  ts#2 alias#1 inst#3  [operation]
+     topPkg   p.V  ts#5 alias#4 inst#6  [constant]
+     allMod   work@top.V  ts#8 alias#7 inst#6  [constant]
+     topMod   work@top.V  ts#10 alias#9 inst#6  [constant]
+   
+=================== gH   surelog_rc=0 pristine_rc=0 law_rc=0
+   // gH — the query argument is an OPERATOR tree ($clog2(W+1)), not a name:
+   // § sysCallArgOperatorTree owns it and neither view rule applies.
+   package p;
+   pris  cmplines=98     heads=1   head=constant: , id:39, line:5:18, endln:5:29
+   law   cmplines=17     heads=1   head=ref_typespec: (work@top), id:199
+   ---- per-listing fold/edge census (golden | pristine | law)
+   ## /tmp/r11u6_gridwd/gH/slpp_all/surelog.uhdm
+     allPkg   p.W  ts#1 alias#-1 inst#2  []
+     allPkg   p.V  ts#4 alias#3 inst#2  [operation/clog2arg=operation]
+     topPkg   p.W  ts#5 alias#-1 inst#6  []
+     topPkg   p.V  ts#8 alias#7 inst#6  [constant]
+     allMod   work@top.V  ts#10 alias#9 inst#6  [constant]
+     allMod   work@top.W  ts#11 alias#-1 inst#6  []
+     topMod   work@top.V  ts#13 alias#12 inst#6  [constant]
+     topMod   work@top.W  ts#14 alias#-1 inst#6  []
+   
+   ## /tmp/r11u6_gridwd/gH/pris.uhdm
+     allPkg   p.W  ts#1 alias#-1 inst#2  []
+     allPkg   p.V  ts#4 alias#3 inst#2  [operation/clog2arg=operation]
+     topPkg   p.W  ts#5 alias#-1 inst#6  []
+     topPkg   p.V  ts#7 alias#3 inst#6  [operation/clog2arg=operation]
+     allMod   work@top.V  ts#9 alias#8 inst#6  [operation/clog2arg=operation]
+     allMod   work@top.W  ts#10 alias#-1 inst#6  []
+     topMod   work@top.V  ts#12 alias#11 inst#6  [operation/clog2arg=operation]
+     topMod   work@top.W  ts#13 alias#-1 inst#6  []
+   
+   ## /tmp/r11u6_gridwd/gH/law.uhdm
+     allPkg   p.W  ts#1 alias#-1 inst#2  []
+     allPkg   p.V  ts#4 alias#3 inst#2  [operation/clog2arg=operation]
+     topPkg   p.W  ts#5 alias#-1 inst#6  []
+     topPkg   p.V  ts#8 alias#7 inst#6  [constant]
+     allMod   work@top.V  ts#10 alias#9 inst#6  [constant]
+     allMod   work@top.W  ts#11 alias#-1 inst#6  []
+     topMod   work@top.V  ts#13 alias#12 inst#6  [constant]
+     topMod   work@top.W  ts#14 alias#-1 inst#6  []
+   

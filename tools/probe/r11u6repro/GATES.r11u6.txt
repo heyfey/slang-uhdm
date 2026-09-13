@@ -1,0 +1,20 @@
+# r11u6 GATES — every gate, one line each.  All green.
+pristine md5 75b2098c608dd7ebd50199dd1c27ccbb (== main tree at 7ae0ce08)
+patched  md5 0c071d12283ce9955fe9c0d53db9363e
+check_goldens pristine: 23 PASS / 0 FAIL      patched: 23 PASS / 0 FAIL
+check_goldens SLANG_UHDM=/bin/false:          0 PASS / 23 FAIL
+cmds.txt binary audit: u2r 1742/1742 + 871/871 ; surelog 1531/1531 (50 rows never invoked slang)
+u2r both modes 1742 rows: 0 status diffs, 0 whole-row diffs vs results/golden_uhdm2rtlil.csv AND vs my pristine
+  testflags 742 CMP_EQUAL / 62 CMP_NOTEQUAL / 67 SLANG_REJECT
+  default   742 CMP_EQUAL / 62 CMP_NOTEQUAL / 67 SLANG_REJECT
+surelog both modes 1596 rows: 0 status diffs vs results/golden_surelog.csv, 0 whole-row diffs vs my pristine
+  default   463 CMP_EQUAL / 20 CMP_NOTEQUAL
+  testflags 459 CMP_EQUAL / 18 CMP_NOTEQUAL
+byteverify SELFCHECK=1: u2r 24/1608 (12/804 tf-only repeat), surelog 6/960; selfcheck 1607/1608, 803/804, 959/960
+canaries.sh surelog ok=52 changed=0 ; u2r ok=8 changed=0
+ctcan2.sh   surelog PASS (ok=58 changed=0) ; u2r PASS (ok=1 changed=0)
+canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DBs law-vs-pristine: SVSwitch 4842211c4030 SAME, YosysVerx 6ccda350c24a SAME,
+  InterfaceModPort 59a365f3ce2c SAME, BlackParrotComplex SAME, YosysOldOr SAME, Earlgrey_0_1 SAME
+rowheads.sh SeqDriver/SimpleUVM/Scoreboard/MiniAmiq/BuildUVMPkg/Earlgrey_0_1/Rggen: identical pristine vs patched
+COIN PROOF: pristine binary run 4x on MiniAmiq -> 4 md5s, values 945/1217/854/1371 at the 'moved' cell

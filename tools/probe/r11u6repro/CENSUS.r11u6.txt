@@ -1,0 +1,47 @@
+== uhdm2rtlil, one workdir carrying default/ + testflags/ ==
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/2DParameterOfInstance-83b1235a/slang.uhdm  patched=34be56ec199c pristine=2001564d9948
+MOVER ./default/ibex_alu-24a1d731/slang.uhdm  patched=176ce0405146 pristine=e2479f657d93
+MOVER ./default/ibex_branch_predict-1b398fcd/slang.uhdm  patched=dc5dffb42d4a pristine=604254964965
+MOVER ./default/ibex_compressed_decoder-795c91d7/slang.uhdm  patched=98b447f84383 pristine=909246d4b2ea
+MOVER ./default/ibex_decoder-c39f5426/slang.uhdm  patched=1768d90c1b3c pristine=e4b13d926f82
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=8f118daaaf53 pristine=7e2cc25ff4ec
+MOVER ./default/ibex_multdiv_fast-ed04630b/slang.uhdm  patched=663a99bfb66e pristine=bdce11ad9d2d
+MOVER ./default/ibex_multdiv_slow-d86a3bae/slang.uhdm  patched=32c0f3d4275c pristine=110f0a2458e4
+MOVER ./default/ibex_pmp-65816114/slang.uhdm  patched=56c95c48e788 pristine=41ad040a68cf
+MOVER ./default/ibex_tracer-573593b3/slang.uhdm  patched=dad654bcb1d0 pristine=e53cc5f4dfbb
+MOVER ./default/ibex_wb_stage-918c1ea2/slang.uhdm  patched=9713b86d3184 pristine=ba3bc9e156e4
+MOVER ./default/typedef_package-a0d4ff47/slang.uhdm  patched=fb5eb0352198 pristine=c8b3d808c4fa
+MOVER ./testflags/2DParameterOfInstance-83b1235a/slang.uhdm  patched=0ea4869eafa0 pristine=5bec340e7969
+MOVER ./testflags/ibex_alu-24a1d731/slang.uhdm  patched=2aa3eeace265 pristine=0849f13e0fd3
+MOVER ./testflags/ibex_branch_predict-1b398fcd/slang.uhdm  patched=1ab5f0302cfb pristine=dca73da04959
+MOVER ./testflags/ibex_compressed_decoder-795c91d7/slang.uhdm  patched=b5507ac7457b pristine=fcd6c4e2b909
+MOVER ./testflags/ibex_decoder-c39f5426/slang.uhdm  patched=3f34a31c9e61 pristine=c1ad9c4e854b
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=655ee655ba6c pristine=22fae4cc1637
+MOVER ./testflags/ibex_multdiv_fast-ed04630b/slang.uhdm  patched=5035dbe41dd9 pristine=51618d342353
+MOVER ./testflags/ibex_multdiv_slow-d86a3bae/slang.uhdm  patched=fcd9ed9c4390 pristine=d8cae17e7d40
+MOVER ./testflags/ibex_pmp-65816114/slang.uhdm  patched=990210a223a6 pristine=5a3bc5a551f2
+MOVER ./testflags/ibex_tracer-573593b3/slang.uhdm  patched=a79f5d1008d3 pristine=f3866d4936a1
+MOVER ./testflags/ibex_wb_stage-918c1ea2/slang.uhdm  patched=a2419272e1aa pristine=8ffb22620f1a
+MOVER ./testflags/typedef_package-a0d4ff47/slang.uhdm  patched=6c32765e4789 pristine=8997b124245f
+MOVERS: 24 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+== uhdm2rtlil, testflags-only workdir (independent repeat) ==
+databases: patched=804 pristine=804
+PATH_SETS_IDENTICAL (804 paths)
+MOVERS: 12 / 804
+SELFCHECK (every file vs one fixed file): 803 / 804 flagged
+
+== surelog, both modes ==
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=a4ae6d6c13f7 pristine=b8ab628e29f9
+MOVER ./default/ParamOverload2-b2367807/slang.uhdm  patched=99d5fc273b17 pristine=6f73bbb7c087
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=68cc3d64d0ec pristine=73ad7b032dd3
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=e20af3e560da pristine=32ddd86d0751
+MOVER ./testflags/ParamOverload2-b2367807/slang.uhdm  patched=90efbbc66fd6 pristine=e5f739042c42
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=15d6cd38f869 pristine=b4ea597f1c01
+MOVERS: 6 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
