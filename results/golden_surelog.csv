@@ -541,8 +541,8 @@ FuncStruct,default,CMP_EQUAL,,,differ
 FuncStruct,testflags,CMP_EQUAL,,,differ
 FuncStructVal,default,CMP_EQUAL,,,differ
 FuncStructVal,testflags,CMP_EQUAL,,,differ
-FuncStructValSimple,default,CMP_NOTEQUAL,decompile:,,
-FuncStructValSimple,testflags,CMP_NOTEQUAL,decompile:,,
+FuncStructValSimple,default,CMP_EQUAL,,,differ
+FuncStructValSimple,testflags,CMP_EQUAL,,,differ
 FuncWidthScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
 FuncWidthScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
 FuncWidthScopeOverride,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScopeOverride/dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed i,,

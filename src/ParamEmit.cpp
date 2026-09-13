@@ -2333,6 +2333,29 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                 break;
             }
     }
+    // § memSelAsmBaseOv (r11u11) — THE MEMBER SELECT OF AN ASSEMBLED BASE.
+    // Runs LAST, after both assemble arms have applied the producer's own bail
+    // rule, so "did this base assemble" is read off the answer itself: the
+    // base's ELABORATED param_assign Rhs is the packed BIN constant when it
+    // did and a `struct_var` when it did not.  Only then does the override
+    // actual carry the member's bit slice; a bail touches nothing and the
+    // EvalFunc member leftover's own encoding — which the override site already
+    // wrote — stands (FuncStructVal, byte-identical).
+    for (auto& mo : memSelAsmOv) {
+        if (!mo.c || !mo.base)
+            continue;
+        auto it = elabParamPa.find(mo.base);
+        if (it == elabParamPa.end() || !it->second)
+            continue;
+        auto* r = it->second->Rhs();
+        if (!r || r->UhdmType() != UHDM::uhdmconstant ||
+            ((UHDM::constant*)r)->VpiConstType() != vpiBinaryConst)
+            continue;
+        mo.c->VpiValue(mo.value);
+        mo.c->VpiConstType(mo.ct);
+        mo.c->VpiSize(mo.size);
+        mo.c->VpiDecompile(mo.dec);
+    }
 }
 
 // Surelog INLINES a foldable const function's body, so the folded constant is
@@ -6465,6 +6488,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         SymbolKind::PackedStructType ||
                     !asmOk8(msy8.getType(), 0))
                     return false;
+                // § memSelAsmBaseOv (r11u11) — when `asmOk8` DECLINES a base it
+                // is not the end of the question: its ">64-bit member" fence was
+                // read off `hierarchicalSelector`'s member-slice arm, and the
+                // v1.87 ASSEMBLER (`reduceExpr`'s uhdmstruct_var arm) has no
+                // width test at all.  The deferred arm at the override site
+                // below picks up exactly the bases this one turns away and asks
+                // the assembler's own bail rule instead.
                 ASTContext mctx8(comp.getRoot(), LookupLocation::max);
                 ConstantValue mcv8 = mctx8.tryEval(x8);
                 if (!mcv8 || !mcv8.isInteger() ||
@@ -7753,6 +7783,108 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         c->VpiSize(e7.size);
                         c->VpiDecompile(e7.dec);
                         srcBaseOv8 = true;
+                    }
+                }
+                // § memSelAsmBaseOv (r11u11) — THE MEMBER SELECT OF A
+                // FUNCTION-BUILT BASE, DEFERRED TO THE DRAIN.
+                //
+                // The producer, decoded from UHDM v1.87 itself: a struct value
+                // computed by a member-by-member const function arrives at
+                // `ExprEval::reduceExpr` as a `struct_var`, and the
+                // `uhdmstruct_var` arm (templates/ExprEval.cpp ~4835) either
+                // ASSEMBLES it into one packed BIN constant or BAILS and hands
+                // the `struct_var` straight back.  `hierarchicalSelector`'s
+                // member-NAME arm can only slice a CONSTANT base, so:
+                //   base ASSEMBLED -> the selector slices, and the override
+                //                     actual is `BIN:<member bits>` at the
+                //                     MEMBER's width (§ structParamMemberOvBinary);
+                //   base BAILED    -> there is nothing to slice, Surelog answers
+                //                     the read out of the EvalFunc member
+                //                     leftover stamped on the typespec_member,
+                //                     and the override actual inherits THAT
+                //                     constant's encoding (the `memLeftIntRead`
+                //                     carve-out below, which is why it is
+                //                     RE-KEYED here and not deleted).
+                //
+                // THE CORPUS CARRIES BOTH SIDES ON ONE OVERRIDE SPELLING —
+                // measured golden, Surelog v1.87, `-parse -nobuiltin`:
+                //   FuncStructValSimple  `work@top.CVA6Cfg` elab Rhs = the
+                //     assembled 1088-bit BIN; `.INPUT_WIDTH(CVA6Cfg.INSTR_PER_FETCH)`
+                //     = BIN 32'b…010 vpiSize 32 ct 3.
+                //   FuncStructVal        `work@top.CVA6Cfg` elab Rhs = a
+                //     `struct_var` (one member of 97 never folds);
+                //     `.INPUT_WIDTH(CVA6Cfg.INSTR_PER_FETCH)` = INT:2 size 32 ct 7.
+                // Same formal (`int unsigned INPUT_WIDTH`), same member
+                // (`int unsigned INSTR_PER_FETCH`), same leftover encoding (a
+                // ternary body -> Int), same 1024-bit sibling member.  The base's
+                // assemble/bail is the WHOLE distinguisher.
+                //
+                // The bail is only final in the DRAIN — that is where BOTH
+                // assemble arms apply it — so this records the slice and
+                // § memSelAsmBaseOv's drain writes it over the four fields
+                // `constant::Compare` reads, and ONLY when the base's own
+                // elaborated Rhs really became the assembled constant.  A bail
+                // writes nothing at all: no object is minted, no field is
+                // touched, and the row stays byte-identical to the pristine
+                // database (the r11u9 lesson — a minted-then-discarded constant
+                // is still serialized).
+                //
+                // THE ARM RUNS ONLY WHERE THE IMMEDIATE ONE ABOVE DECLINED
+                // (`!srcBaseOv8`), which is the whole reason it can be added
+                // without touching a single byte of the rows that arm already
+                // owns: a base `asmOk8` accepts keeps the immediate answer,
+                // written ONCE.  Writing the same four fields twice is not free
+                // — the discarded strings stay in the serializer's table and
+                // move the database's bytes while `uhdm-dump` and `uhdm-cmp`
+                // read identical (measured on grid a3, whose every cell agreed
+                // on both binaries while the file md5 differed).
+                if (!srcBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
+                    !enumCstOv8 && !strRefOv8 && overridden && boundInit) {
+                    auto& ms6 = stripImplicitConv(*boundInit);
+                    if (ms6.kind == ExpressionKind::MemberAccess && ms6.type &&
+                        ms6.type->isIntegral() &&
+                        ms6.type->getBitWidth() > 0 &&
+                        ms6.type->getBitWidth() <= 64) {
+                        auto& mb6 = stripImplicitConv(
+                            ms6.as<MemberAccessExpression>().value());
+                        const ParameterSymbol* bp6 = nullptr;
+                        if (mb6.kind == ExpressionKind::NamedValue) {
+                            auto& bs6 = mb6.as<NamedValueExpression>().symbol;
+                            if (bs6.kind == SymbolKind::Parameter &&
+                                bs6.getType().getCanonicalType().kind ==
+                                    SymbolKind::PackedStructType) {
+                                auto& bps6 = bs6.as<ParameterSymbol>();
+                                if (auto* bi6 = bps6.getInitializer())
+                                    if (memLeftInitCall(*bi6))
+                                        bp6 = &bps6;
+                            }
+                        }
+                        if (bp6) {
+                            ASTContext mc6(comp.getRoot(), LookupLocation::max);
+                            ConstantValue mv6 = mc6.tryEval(ms6);
+                            if (mv6 && mv6.isInteger() &&
+                                !mv6.integer().hasUnknown()) {
+                                const slang::SVInt& mi6 = mv6.integer();
+                                const int32_t mw6 =
+                                    (int32_t)ms6.type->getBitWidth();
+                                SrlgOvEnc e6;
+                                std::string bt6;
+                                bt6.reserve((size_t)mw6);
+                                for (int32_t k6 = mw6 - 1; k6 >= 0; k6--)
+                                    bt6 += (k6 < (int32_t)mi6.getBitWidth() &&
+                                            mi6[k6] == slang::logic_t(1))
+                                               ? '1'
+                                               : '0';
+                                e6.ct = vpiBinaryConst;
+                                e6.dg = bt6;
+                                e6.size = mw6;
+                                srlgOvRender(e6);
+                                srlgAdjustSize(e6, tk8, tsg8, tw8);
+                                memSelAsmOv.push_back({c, bp6,
+                                                       srlgOvValue(e6), e6.dec,
+                                                       e6.size, e6.ct});
+                            }
+                        }
                     }
                 }
                 // § unpackedElemOvEnc — an override actual that INDEXES an

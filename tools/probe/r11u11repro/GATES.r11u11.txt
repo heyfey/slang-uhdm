@@ -1,0 +1,95 @@
+r11u11 — GATES, all on the SHIPPED binary (md5 726e0ee4e3de05daae8b105ec49398bf)
+base d23a8d3f, pristine md5 edc8f111bc7156286db12d04e8cc00aa (byte-identical to
+the main tree at the base).
+
+(1) BUILD
+    pristine  edc8f111bc7156286db12d04e8cc00aa   <- the mandated d23a8d3f md5
+    patched   726e0ee4e3de05daae8b105ec49398bf
+    0 compiler errors, -j 2, md5 taken separately.
+
+(2) GOLDENS
+    patched   23 PASS / 0 FAIL
+    negative  SLANG_UHDM=/bin/false -> 23 FAIL
+    pristine  23 PASS / 0 FAIL
+
+(3) uhdm2rtlil, BOTH modes
+    pristine  748 equal / 56 not-equal / 67 reject, both modes
+    patched   748 equal / 56 not-equal / 67 reject, both modes
+    ct8rows vs results/gate_uhdm2rtlil.csv      PASS (byte-identical)
+    ct8rows vs results/golden_uhdm2rtlil.csv (default slice)  PASS
+    ct8rows patched vs OWN pristine sweep, both modes         PASS
+    byteverify SELFCHECK=1 patched vs pristine: MOVERS 0 / 1608
+                                               selfcheck 1607 / 1608 flagged
+
+(4) Surelog suite, --mode both
+    pristine  467 / 16 (default)   463 / 14 (testflags)   <- the mandated base
+    patched   468 / 15 (default)   464 / 13 (testflags)
+    ct8rows vs results/golden_surelog.csv: 4 differing row-sides --
+      < FuncStructValSimple,default,CMP_NOTEQUAL,decompile:,,
+      > FuncStructValSimple,default,CMP_EQUAL,,,differ
+      < FuncStructValSimple,testflags,CMP_NOTEQUAL,decompile:,,
+      > FuncStructValSimple,testflags,CMP_EQUAL,,,differ
+    ...plus LowMemLib/testflags and LowMemPkg/testflags, whose SURELOG_FAIL
+    detail string embeds the workdir path.  POSITIVE CONTROL: the PRISTINE
+    sweep shows those same two rows differing from the committed baseline in
+    exactly the same way, so they are the path, not the binary.
+
+(5) BYTEVERIFY, Surelog, SELFCHECK=1 patched vs pristine: MOVERS 6 / 960
+    (selfcheck 959 / 960 flagged)
+      FuncStructValSimple default   3c8e795fa6c8 -> 3122d7657ba5   THE LAW
+      FuncStructValSimple testflags a23ee48eda1e -> df3864f86de0   THE LAW
+      MiniAmiq  default / testflags                                COIN
+      SeqDriver default / testflags                                COIN
+    Every mover was PREDICTED BY NAME before the patched sweep ran:
+    predict.py names FuncStructVal + FuncStructValSimple on this corpus and
+    NOTHING on uhdm2rtlil.
+    ORDER-BLIND attribution (sorted, path-normalised uhdm-dump):
+      FuncStructValSimple  6 lines, both modes, ONE constant's three fields:
+        INT:2 -> BIN:00000000000000000000000000000010
+        vpiConstType:7 -> 3
+        vpiDecompile:2 -> 32'b00000000000000000000000000000010
+        ...which is golden's cell exactly.  TO-GOLDEN.
+      MiniAmiq / SeqDriver  4 lines each, ALL of the line-number class
+        (UINT:<n> + the matching vpiDecompile:<n>).  COIN POSITIVE CONTROL on
+        the PRISTINE BINARY ALONE: MiniAmiq two runs 51efddc32228 /
+        535ed1275403; SeqDriver three runs 7ca2acd4480c / 19c0436724a3 /
+        68cc3d64d0ec, and run1-vs-run3 differ by the SAME 4 line-number-class
+        lines.
+    DIRECTIONAL CENSUS (order-blind dump distance to each row's own golden):
+      FuncStructValSimple default 281 -> 275, testflags 285 -> 279  TO-GOLDEN
+      FuncStructVal, StructParamFuncBodyFieldCompare                NEUTRAL
+      MiniAmiq / SeqDriver  +-4..6, the coin (see the control above)
+      MOVED-WRONG 0, AWAY-GOLDEN 0 outside the coin family.
+    SHAPE LISTER beside the census: SHAPE-GREW ROWS 0 in both modes; 0 arms
+    GREW across all 12 grid arms.
+
+(6) BINARY-PATH AUDIT (every cmds.txt, by PATH)
+    pristine  sl 1531/1581 name /tmp/r11u11_pris.bin (50 rows never ran slang)
+              u2r 1742/1742 name /tmp/r11u11_pris.bin
+    patched   sl 1531 name /tmp/r11u11_pat2.bin
+              u2r 1742 name /tmp/r11u11_pat2.bin
+    No cmds.txt anywhere names the main-tree binary.
+
+(7) CANARIES
+    canaries.sh  surelog ok=52 changed=0 absent=0
+                 u2r     ok=8  changed=0 absent=0
+    ctcan2.sh    EXPECT_UNKNOWN=1 surelog PASS; EXPECT_UNKNOWN=6 u2r PASS
+    canaudit.sh  PASS
+    BYTE PINS, patched vs pristine:
+      SVSwitch          4842211c4030 / 4842211c4030   (the hard pin)
+      YosysVerx         6ccda350c24a / 6ccda350c24a   (the hard pin)
+      InterfaceModPort  59a365f3ce2c / 59a365f3ce2c
+      BlackParrotComplex default e3e354129d5a, testflags 73a10e8217e5  SAME
+      YosysOldOr        d68e0796d62c / d68e0796d62c   SAME
+
+(8) HEADS on the targets (official uhdm-cmp, LHS always golden)
+      FuncStructValSimple  1 head / 32 cmp lines  ->  0 / 0   CONVERTS
+      FuncStructVal        0 / 0  ->  0 / 0   and BYTE-IDENTICAL
+      StructParamFuncBodyFieldCompare 1 / 36 -> 1 / 36, BYTE-IDENTICAL
+
+(9) GRID, 12 arms, every rc recorded: slrc=0 and [ERROR] : 0 on all 12,
+    pris_rc=0 and pat_rc=0 on all 12.  Byte movers: a1 a5 a7 a8 a11 a12 (the
+    law's own arms, each TO-GOLDEN cell by cell); a2 a3 a4 a6 a9 a10
+    BYTE-IDENTICAL.
+
+results/*.csv ARE NOT EDITED BY THIS PASS.

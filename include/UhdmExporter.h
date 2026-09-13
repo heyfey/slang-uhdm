@@ -1976,6 +1976,35 @@ private:
     };
     std::vector<SrlgMemLeftModAsm> memLeftModAsm;
     std::vector<SrlgMemLeftStamp> memLeftStamps;
+    // § memSelAsmBaseOv (r11u11) — THE MEMBER SELECT OF AN ASSEMBLED BASE.
+    // `.INPUT_WIDTH(CVA6Cfg.INSTR_PER_FETCH)` renders the MEMBER'S BIT SLICE
+    // (§ structParamMemberOvBinary) only while the base struct value reaches
+    // `ExprEval::hierarchicalSelector` AS A CONSTANT.  For a FUNCTION-BUILT
+    // base that is decided by the v1.87 assembler's own bail rule
+    // (§ modStructFuncAssembleBin / § pkgStructFuncAssembleBinBail), and the
+    // corpus carries BOTH sides of it on ONE override spelling:
+    //   FuncStructValSimple  base ASSEMBLES  -> golden BIN 32'b…010 ct 3
+    //   FuncStructVal        base BAILS      -> golden INT:2 ct 7 (the EvalFunc
+    //                                           member leftover's own encoding)
+    // Same formal (`int unsigned INPUT_WIDTH`), same member (`int unsigned
+    // INSTR_PER_FETCH`), same leftover encoding (a ternary -> Int).  The ONLY
+    // distinguisher is whether the base assembled — so the leftover-encoding
+    // carve-out (`memLeftIntRead`) is NOT deleted, it is the BAIL answer and it
+    // stands wherever the base did not assemble.
+    // The bail is only final in the DRAIN (that is where both assemble arms
+    // apply it), so the override site RECORDS the slice it would render and the
+    // drain writes it in — over the four fields `constant::Compare` reads — only
+    // when THIS base's elaborated Rhs really became the assembled constant.  A
+    // bail therefore writes NOTHING and leaves the database byte-identical.
+    struct SrlgMemSelAsmOv {
+        UHDM::constant* c = nullptr;
+        const slang::ast::ParameterSymbol* base = nullptr;
+        std::string value;
+        std::string dec;
+        int32_t size = 0;
+        int32_t ct = 0;
+    };
+    std::vector<SrlgMemSelAsmOv> memSelAsmOv;
     // The DEF-view (uhdmallModules) parameter objects of such a parameter.
     // Their typespec must be re-pointed at the STAMPED struct copy: golden's
     // def module listing resolved the typedef after elaboration too, so it
