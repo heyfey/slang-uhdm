@@ -1864,6 +1864,17 @@ private:
         // (portsel_struct_param golden: UINT:64 size 32, the `int unsigned`
         // localparam's own constant, where the value slice gives size 64).
         const slang::ast::Symbol* paramRead = nullptr;
+        // § modEvalFuncLeftoverEnc (r11u14).  A CONCAT or a REPLICATION body
+        // RHS is not re-encoded either: `ExprEval::reduceExpr` MINTS a fresh
+        // constant for it (UHDM v1.87 `templates/ExprEval.cpp`, vpiConcatOp
+        // ~3993 and vpiMultiConcatOp ~3908) and THAT object is what
+        // `setValueInInstance` stamps.  The two shapes differ: a plain concat
+        // carries NO decompile and NO typespec and is sized at the SUM OF THE
+        // OPERAND SIZES, a replication carries both and is sized n × the
+        // element's width.  The expression is the key into `bodyAsgRhsObj`;
+        // the drain runs the producer's own reducer over our own emitted
+        // operation, so the BAIL is modelled where the producer takes it.
+        const slang::ast::Expression* catRhs = nullptr;
     };
     // The encoding a COMPUTED (non-formal-member-read) leftover takes, from
     // the shape of the assignment's RHS (§ r10fsv2 L3).
@@ -1906,13 +1917,25 @@ private:
         // that actually received it (filled by the drain).
         const slang::ast::ParameterSymbol* owner = nullptr;
         UHDM::struct_typespec* stamped = nullptr;
-        // § pkgStructFuncAssembleBin (r11u9).  True only for a PACKAGE-held
-        // localparam; the drain resolves `litRhs` / `argWholeParam` for those
-        // and leaves every module-held stamp on the path it already had.
+        // § pkgStructFuncAssembleBin (r11u9).  True for a PACKAGE-held
+        // localparam; it still selects the ASSEMBLE arm at the param site.
+        // § modEvalFuncLeftoverEnc (r11u14) took the LEFTOVER resolutions out
+        // from behind it: `ExprEval::setValueInInstance` stamps
+        // `reduceExpr(<body RHS>)` and never sees who holds the parameter, so
+        // `litRhs` / `argWholeParam` / `paramRead` / `catRhs` resolve for a
+        // MODULE-held stamp exactly as they do for a package-held one (golden
+        // grid c1≡c2, c3≡c4, c5≡c6, c7≡c8 — every cell identical across the
+        // two holders).
         bool pkgHolder = false;
         std::vector<const slang::ast::Expression*> litRhs;
         std::vector<const slang::ast::ParameterSymbol*> argWholeParam;
         std::vector<const slang::ast::Symbol*> paramRead;
+        // § modEvalFuncLeftoverEnc (r11u14) — the concat/replication body RHS
+        // and the member's own folded bits (MSB first, at the MEMBER's width).
+        // The producer's reducer sizes its constant from the OPERANDS, so the
+        // leftover's bits are the LOW `csize` of these.
+        std::vector<const slang::ast::Expression*> catRhs;
+        std::vector<std::string> memBits;
     };
     // § pkgStructFuncAssembleBin — every parameter OBJECT whose Rhs this pass
     // assembled, with its symbol.  The drain stamps each one's own struct
@@ -2067,6 +2090,13 @@ private:
     // objects, keyed by the slang expression, recorded while the ELABORATED
     // package view is emitted (that is the copy golden's leftover points at).
     std::map<const slang::ast::Expression*, UHDM::any*> bodyAsgRhsObj;
+    // § modEvalFuncLeftoverEnc (r11u14) — THE PRODUCER'S OWN REDUCER, run over
+    // one of those emitted body objects.  Returns the constant UHDM v1.87's
+    // `ExprEval::reduceExpr` would mint for a vpiConcatOp / vpiMultiConcatOp
+    // operation, and NULL exactly where the producer bails (a non-constant
+    // operand, an INT/UINT operand at size 64 in a multi-operand concat, or a
+    // result wider than the member it is assigned to).
+    UHDM::constant* memLeftReduceCat(UHDM::any* obj, const std::string& memBits);
     // The elab param_assign Rhs struct_vars minted for such a parameter, with
     // the parameter object whose typespec their own ts ref must copy (the
     // param's typespec is patched later, in the deferred drain).
