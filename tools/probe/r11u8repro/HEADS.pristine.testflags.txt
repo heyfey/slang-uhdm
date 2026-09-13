@@ -1,0 +1,61 @@
+anon_struct_packed_dim         rc=255 heads=1 cmplines=32 HEAD=packed_array_typespec: , id:837, line:35:3, endln:35:16
+arb_idx_cast                   rc=255 heads=1 cmplines=28 HEAD=operation: , id:22, line:8:47, endln:8:57
+bits_of_type_param             rc=255 heads=1 cmplines=29 HEAD=type_parameter: (work@dut.data_t), id:45, line:18:26, endln:18:32
+cfg_func_width_loop            rc=255 heads=1 cmplines=41 HEAD=operation: , id:93, line:21:37, endln:21:44
+const_cast_signext             rc=255 heads=1 cmplines=8 HEAD=ref_typespec: (imm_t), id:42
+cva6_struct_param_field        rc=255 heads=1 cmplines=29 HEAD=type_parameter: (work@cva6_struct_param_field.it_t), id:113, line:25:19, endln:25:23
+def_ctx_struct_param           rc=255 heads=1 cmplines=7 HEAD=constant: , id:55, line:28:14, endln:28:16
+dyn_field_select               rc=255 heads=1 cmplines=80 HEAD=hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:47, line:27:20, endln:27:51
+genscope_module_ctx_reset      rc=255 heads=1 cmplines=15 HEAD=decompile:
+gen_scope_numports             rc=255 heads=1 cmplines=28 HEAD=operation: , id:58, line:5:36, endln:5:47
+genscope_outer_reg_inner_ff    rc=255 heads=1 cmplines=15 HEAD=decompile:
+genscope_struct_member         rc=255 heads=1 cmplines=18 HEAD=constant: , id:99, line:7:19, endln:7:27
+genvar_pow_index               rc=255 heads=1 cmplines=37 HEAD=operation: , id:21, line:12:26, endln:12:54
+ibex_alu                       rc=255 heads=1 cmplines=2267 HEAD=operation: , id:14979, line:750:52, endln:767:4
+ibex_branch_predict            rc=255 heads=1 cmplines=18 HEAD=constant: , id:10158, line:33:10, endln:33:31
+ibex_compressed_decoder        rc=255 heads=1 cmplines=18 HEAD=constant: , id:12332, line:33:10, endln:33:31
+ibex_csr                       rc=255 heads=1 cmplines=18 HEAD=constant: , id:104, line:33:10, endln:33:26
+ibex_decoder                   rc=255 heads=1 cmplines=18 HEAD=constant: , id:12840, line:33:10, endln:33:32
+ibex_fetch_fifo                rc=255 heads=1 cmplines=18 HEAD=constant: , id:556, line:33:10, endln:33:36
+ibex_icache                    rc=255 heads=1 cmplines=32 HEAD=constant: , id:10003, line:17:44, endln:17:55
+ibex_load_store_unit           rc=255 heads=1 cmplines=18 HEAD=constant: , id:1191, line:33:10, endln:33:29
+ibex_multdiv_fast              rc=255 heads=1 cmplines=18 HEAD=constant: , id:10065, line:33:10, endln:33:22
+ibex_multdiv_slow              rc=255 heads=1 cmplines=18 HEAD=constant: , id:10743, line:33:10, endln:33:33
+ibex_pmp                       rc=255 heads=1 cmplines=18 HEAD=constant: , id:12543, line:34:10, endln:34:22
+ibex_tracer                    rc=255 heads=1 cmplines=18 HEAD=ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:16236, line:305:87, endln:305:96
+ibex_wb_stage                  rc=255 heads=1 cmplines=18 HEAD=constant: , id:10469, line:33:10, endln:33:36
+iface_param_2level             rc=255 heads=1 cmplines=63 HEAD=constant: , id:486, line:16:10, endln:16:17
+iface_zero_width_field         rc=255 heads=1 cmplines=5 HEAD=ref_typespec: , id:90
+interface_array_fanout         rc=255 heads=1 cmplines=175 HEAD=interface_inst: work@myif (work@dut.f.m[0]), id:467, file:/home/heyfey/git-repos/uhdm2rtlil/test/interface_array_fanout/dut.sv, line:38:0
+latch_decoder_partial          rc=255 heads=1 cmplines=7 HEAD=constant: , id:55, line:17:16, endln:17:18
+latch_packed_enum_loop         rc=255 heads=1 cmplines=29 HEAD=logic_net: (work@latch_packed_enum_loop.cf_type), id:156, line:20:14, endln:20:21
+latch_perf_counters            rc=255 heads=1 cmplines=18 HEAD=constant: , id:237, line:20:26, endln:20:27
+latch_tlb_napot                rc=255 heads=1 cmplines=7 HEAD=constant: , id:55, line:17:19, endln:17:21
+mem_packed_2d_byte_write       rc=255 heads=1 cmplines=28 HEAD=operation: , id:38, line:19:18, endln:19:25
+packed_array_reset_loop        rc=255 heads=1 cmplines=28 HEAD=operation: , id:16, line:9:44, endln:9:47
+packed_array_struct            rc=255 heads=1 cmplines=29 HEAD=type_parameter: (work@packed_array_struct.my_t), id:1, line:10:21, endln:10:25
+packed_array_struct_port_sel   rc=255 heads=1 cmplines=8 HEAD=ref_typespec: (work@tb.d.arr_i), id:96
+packed_struct_array_fifo       rc=255 heads=1 cmplines=3223 HEAD=module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:375, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_struct_array_fifo/dut.sv, line:6:1, endln:77:10
+param_name_collision_typeparam rc=255 heads=1 cmplines=28 HEAD=operation: , id:16, line:11:34, endln:11:45
+param_nested_struct_field_width rc=255 heads=1 cmplines=7 HEAD=constant: , id:27, line:18:19, endln:18:20
+param_struct_field_bitsel      rc=255 heads=1 cmplines=263 HEAD=operation: , id:694, line:16:30, endln:21:4
+param_type_logic_width         rc=255 heads=1 cmplines=195 HEAD=module_inst: work@shift_reg (work@shift_reg), id:200, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+param_unpacked_struct_array    rc=255 heads=1 cmplines=371 HEAD=operation: , id:855, line:15:30, endln:20:4
+pkg_nested_struct_param_width  rc=255 heads=1 cmplines=7 HEAD=constant: , id:27, line:4:65, endln:4:66
+port_chained_type_param        rc=255 heads=1 cmplines=60 HEAD=struct_typespec: , id:2, line:2:32, endln:2:38
+portsel_struct_param           rc=255 heads=1 cmplines=14 HEAD=constant: , id:191
+stamped_gen_param              rc=255 heads=1 cmplines=69 HEAD=logic_typespec: (q2::row_t), id:39
+struct_member_cfg_width        rc=255 heads=1 cmplines=7 HEAD=constant: , id:27, line:8:23, endln:8:29
+struct_member_expr_index       rc=255 heads=1 cmplines=76 HEAD=hier_path: (value.mantissa[23 - 1]), id:143, line:36:26, endln:36:55
+struct_param_dim               rc=255 heads=1 cmplines=32 HEAD=constant: , id:143, line:16:13, endln:16:15
+struct_param_field_shift       rc=255 heads=1 cmplines=16 HEAD=constant: , id:72, line:20:46, endln:20:48
+struct_param_func_arg          rc=255 heads=1 cmplines=14 HEAD=constant: , id:30, line:6:14, endln:6:22
+struct_param_func_config       rc=255 heads=1 cmplines=14 HEAD=constant: , id:35, line:28:15, endln:28:19
+struct_param_func_loop         rc=255 heads=1 cmplines=19 HEAD=constant: , id:255
+struct_param_pattern_packing   rc=255 heads=1 cmplines=26 HEAD=constant: , id:709, line:18:34, endln:18:35
+tern_fill_literal              rc=255 heads=1 cmplines=14 HEAD=constant: , id:208, line:26:43, endln:26:45
+typed_named_pattern            rc=255 heads=1 cmplines=8 HEAD=ref_typespec: (work@typed_named_pattern), id:103
+type_param_override_elem_sel   rc=255 heads=1 cmplines=29 HEAD=type_parameter: (work@child.rt_t), id:12, line:17:21, endln:17:25
+type_param_packed_dim          rc=255 heads=1 cmplines=29 HEAD=type_parameter: (work@dut.rt_t), id:18, line:5:21, endln:5:25
+type_param_unpacked_port       rc=255 heads=1 cmplines=104 HEAD=array_typespec: , id:247, line:42:12, endln:42:32
+unpacked_elem_partsel_comb     rc=255 heads=1 cmplines=45 HEAD=var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:50, line:20:24, endln:20:56

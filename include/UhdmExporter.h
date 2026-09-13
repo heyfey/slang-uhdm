@@ -2366,6 +2366,71 @@ private:
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
                                 UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
+    /// § macroQuoteContLeak11 -- the whitespace slang's preprocessor leaks
+    /// into a `` `" `` stringification that is reached across a macro-body
+    /// LINE CONTINUATION.
+    ///
+    /// GOLDEN (measured, grid `tools/probe/r11u8repro/g*/`): Surelog's
+    /// stringification is the macro body's own source characters between the
+    /// `` `" `` markers, with formals replaced by the TRIMMED actual argument
+    /// text and nested macro references expanded.  A line continuation before
+    /// the stringification contributes NOTHING: `` `"__x`" `` renders `N9`
+    /// whether the call sits on the first body line or after nine spaces and a
+    /// backslash.  Whitespace WRITTEN between the markers is kept exactly --
+    /// `` `define LIT `"  hello  `" `` renders `  hello  `.
+    ///
+    /// OURS (slang, `source/parsing/Preprocessor_macros.cpp:727-737` +
+    /// `source/parsing/Lexer.cpp:122-129`): a `LineContinuation` TOKEN in a
+    /// macro body is rewritten by `MacroExpansion::append` into an
+    /// `EmptyMacroArgument` whose trivia is [the whitespace BEFORE the
+    /// backslash] + [an EndOfLine for the rest].  `MacroOpEvaluator::append`
+    /// parks that trivia in `emptyArgTrivia` and prepends it to the next token
+    /// it appends -- but the opening `` `" `` is routed to `handleStringifyOp`
+    /// WITHOUT going through `append`, so the parked trivia sails past the
+    /// marker and lands on the first token INSIDE the stringification.
+    /// `Lexer::stringify`'s `addTrivia` then emits every Whitespace trivium of
+    /// each body token, so exactly the pre-backslash whitespace of the last
+    /// continuation before the call is prefixed to the value.  The
+    /// continuation LINE's own indent does not leak: it is the `` `" ``
+    /// marker's trivia, and the marker is `startToken`, whose trivia
+    /// `Lexer::stringify` never adds.  Patching slang is out of scope, so the
+    /// exporter gates on provenance instead.
+    ///
+    /// THE GATE.  The synthesized literal is stamped with the OPENING marker's
+    /// location (`Lexer::stringify`'s `startToken.location()`), so
+    /// `getFullyOriginalLoc` lands on the `` `" `` in the macro body; the
+    /// whitespace that body writes before its first element that cannot vanish
+    /// is the amount the value is ENTITLED to keep.  Only the excess is
+    /// trimmed, so the leak goes and intentional spacing stays --
+    /// `` `"  [__x]  `" `` reached across a one-space continuation renders
+    /// `  [NL]  `, not `[NL]  `.  A literal whose original location is not a
+    /// `` `" `` marker, and a `` `""" `` triple quote (which keeps end-of-line
+    /// trivia as well), are left alone.
+    ///
+    /// THE BOUND CROSSES AN EMPTY FORMAL (r11v11u8).  An EMPTY ACTUAL ARGUMENT
+    /// parks its trivia in the very same `emptyArgTrivia` a line continuation
+    /// does, so the whitespace written after a formal joins the leading run
+    /// when that formal expands to nothing -- and Surelog's body-text
+    /// substitution produces the identical string, with no continuation in
+    /// sight.  Measured: `` `define AB(__a,__b) `"  __a  __b`" `` invoked as
+    /// `` `AB(,yy) `` is `    yy` in golden and in ours, and
+    /// `` `define AB3(__a,__b) `"__a  __b`" `` invoked as `` `AB3(,yy) `` is
+    /// `  yy` on both sides -- a bound that stopped at the marker trims BOTH
+    /// rows, which were EQUAL on the pristine binary.  The walk therefore
+    /// reads the enclosing define's FORMAL LIST out of the source buffer and
+    /// crosses those names only: a nested macro reference does not vanish
+    /// (Surelog renders an empty one as `@@EMPTY_MACRO@@`) and neither does a
+    /// plain word (crossing `hello` in `` `"  hello  `" `` would lose a real
+    /// conversion).  If the enclosing `define cannot be located, the law
+    /// abstains instead of guessing a bound.
+    ///
+    /// Returns the trimmed contents, or `std::nullopt` to leave `inner`
+    /// byte-identical.  The trim shortens the value, so `vpiSize` and the
+    /// synthesized end column (`inner.size() + 2`) follow it with no separate
+    /// rule -- which is what puts the ibex `ASSERT_ERROR` constants back on
+    /// golden's span as well as golden's text.
+    std::optional<std::string> macroQuoteContLeak(
+        const slang::ast::Expression& expr, const std::string& inner);
     /// § macroPasteDotText104 -- Surelog's preprocessor turns the single
     /// character between two token-paste operators into a `.` inside a
     /// stringification.

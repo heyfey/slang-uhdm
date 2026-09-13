@@ -1,0 +1,14 @@
+# r11u8 — u2r ibex heads, LAW binary (md5 ed82305a891da199c68f521ea94f752b), testflags
+ibex_alu                       rc=255 heads=1 cmplines=2267 HEAD=operation: , id:14979, line:750:52, endln:767:4
+ibex_branch_predict            rc=255 heads=1 cmplines=2267 HEAD=operation: , id:11709, line:750:52, endln:767:4
+ibex_compressed_decoder        rc=255 heads=1 cmplines=2267 HEAD=operation: , id:13951, line:750:52, endln:767:4
+ibex_csr                       rc=0 heads=0 cmplines=0 HEAD=
+ibex_decoder                   rc=255 heads=1 cmplines=2267 HEAD=operation: , id:14538, line:750:52, endln:767:4
+ibex_fetch_fifo                rc=0 heads=0 cmplines=0 HEAD=
+ibex_icache                    rc=255 heads=1 cmplines=32 HEAD=constant: , id:10003, line:17:44, endln:17:55
+ibex_load_store_unit           rc=0 heads=0 cmplines=0 HEAD=
+ibex_multdiv_fast              rc=255 heads=1 cmplines=2267 HEAD=operation: , id:12962, line:750:52, endln:767:4
+ibex_multdiv_slow              rc=255 heads=1 cmplines=2267 HEAD=operation: , id:12355, line:750:52, endln:767:4
+ibex_pmp                       rc=255 heads=1 cmplines=18 HEAD=constant: , id:12543, line:34:10, endln:34:22
+ibex_tracer                    rc=255 heads=1 cmplines=18 HEAD=ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:16236, line:305:87, endln:305:96
+ibex_wb_stage                  rc=255 heads=1 cmplines=2267 HEAD=operation: , id:12095, line:750:52, endln:767:4

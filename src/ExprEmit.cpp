@@ -11726,6 +11726,139 @@ int UhdmExporter::streamSliceTypeBits(const std::string& tok) {
 }
 
 // § hierSelPkgParamFold — rawText with those substitutions spliced in.
+// § macroQuoteContLeak11 -- see the declaration in UhdmExporter.h for the
+// decoded producer on both sides.  The gate here is PROVENANCE, not shape:
+// the literal's fully-original location must be an opening `" marker written
+// in a macro body, and the amount trimmed is bounded by the whitespace that
+// body writes before its first element that cannot vanish.  Whitespace the
+// source put INSIDE the stringification is therefore never touched --
+// `define LIT `"  hello  `" keeps both of its spaces whether or not a
+// continuation leaked in front of them, and `define AB(__a,__b) `"  __a  __b`"
+// invoked `AB(,yy) keeps all four of its spaces (r11v11u8).
+std::optional<std::string> UhdmExporter::macroQuoteContLeak(
+    const Expression& expr, const std::string& inner) {
+    size_t ourLead = 0;
+    while (ourLead < inner.size() &&
+           (inner[ourLead] == ' ' || inner[ourLead] == '\t'))
+        ourLead++;
+    if (ourLead == 0)
+        return std::nullopt;
+
+    auto loc = expr.sourceRange.start();
+    if (loc == SourceLocation::NoLocation || !sm->isMacroLoc(loc))
+        return std::nullopt;
+    auto oloc = sm->getFullyOriginalLoc(loc);
+    if (oloc == SourceLocation::NoLocation || sm->isMacroLoc(oloc))
+        return std::nullopt;
+    auto text = sm->getSourceText(oloc.buffer());
+    size_t o0 = oloc.offset();
+    // `Lexer::stringify` stamps the synthesized literal with the OPENING
+    // marker's location, so the original text at it is the marker itself.
+    // Anything else is not a stringification and is left alone.
+    if (o0 + 2 > text.size() || text.compare(o0, 2, "`\"") != 0)
+        return std::nullopt;
+    // `""" (MacroTripleQuote) also keeps END-OF-LINE trivia and is a different
+    // rule; it is fenced out rather than guessed at.
+    if (o0 + 3 <= text.size() && text[o0 + 2] == '"')
+        return std::nullopt;
+
+    // THE BOUND IS NOT JUST THE WHITESPACE RIGHT AFTER THE MARKER (r11v11u8).
+    // A body element that expands to NOTHING contributes no characters on
+    // EITHER side, so the whitespace the body writes AFTER it joins the value's
+    // leading run in both producers -- slang because
+    // `Preprocessor_macros.cpp:236-246` parks an `EmptyMacroArgument`'s trivia
+    // in `emptyArgTrivia` and prepends it to the next token exactly the way it
+    // parks a line continuation's, Surelog because its body-text substitution
+    // leaves the two whitespace runs adjacent.  Measured, with no continuation
+    // anywhere: `` `define AB(__a,__b) `"  __a  __b`" `` invoked `` `AB(,yy) ``
+    // is `    yy` in golden AND in ours (a marker-only bound trims two of the
+    // four spaces and breaks a row that was EQUAL), and
+    // `` `define AB3(__a,__b) `"__a  __b`" `` invoked `` `AB3(,yy) `` is
+    // `  yy` on both sides (a marker-only bound trims BOTH).
+    //
+    // Exactly ONE kind of element vanishes that way: a FORMAL of the enclosing
+    // `define whose actual is empty.  A nested macro reference does NOT --
+    // Surelog renders an empty one as the literal text `@@EMPTY_MACRO@@`, so a
+    // value reached across one can never match golden anyway (measured), and
+    // crossing it would leave a leak half-trimmed.  A plain word never
+    // vanishes either, and crossing it costs a real conversion (golden
+    // `` `define LIT `"  hello  `" `` reached across a one-space leak needs the
+    // bound to stop at `hello`, not to run on to the closing marker).  So the
+    // walk reads the enclosing define's FORMAL LIST out of the same source
+    // buffer and crosses those names and nothing else; if the define cannot be
+    // located (a command-line `-D`, a pasted marker) the law ABSTAINS rather
+    // than guess a bound.
+    auto isWordCh11 = [](char c) {
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+               (c >= '0' && c <= '9') || c == '_' || c == '$';
+    };
+    // The enclosing `define: the last one before the marker that starts its
+    // own line (a macro body's continuation lines cannot start with `define
+    // at column 0 without ending the definition).
+    size_t dpos = std::string_view::npos;
+    for (size_t p = text.rfind("`define", o0); p != std::string_view::npos;) {
+        size_t ls = text.rfind('\n', p);
+        ls = (ls == std::string_view::npos) ? 0 : ls + 1;
+        bool atLineStart = true;
+        for (size_t k = ls; k < p; k++) {
+            if (text[k] != ' ' && text[k] != '\t') {
+                atLineStart = false;
+                break;
+            }
+        }
+        if (atLineStart) {
+            dpos = p;
+            break;
+        }
+        if (p == 0)
+            break;
+        p = text.rfind("`define", p - 1);
+    }
+    if (dpos == std::string_view::npos)
+        return std::nullopt;
+    std::set<std::string> formals11;
+    {
+        size_t p = dpos + 7;
+        while (p < text.size() && (text[p] == ' ' || text[p] == '\t'))
+            p++;
+        while (p < text.size() && isWordCh11(text[p]))
+            p++;  // the macro's own name
+        if (p < text.size() && text[p] == '(') {
+            p++;
+            // Every word inside the parentheses; a default value's identifiers
+            // are collected too, which only ADDS names the walk may cross and
+            // never removes one.
+            for (; p < text.size() && text[p] != ')' && text[p] != '\n'; p++) {
+                if (!isWordCh11(text[p]))
+                    continue;
+                size_t s = p;
+                while (p < text.size() && isWordCh11(text[p]))
+                    p++;
+                formals11.insert(std::string(text.substr(s, p - s)));
+                p--;
+            }
+        }
+    }
+    size_t q = o0 + 2, srcLead = 0;
+    while (q < text.size()) {
+        if (text[q] == ' ' || text[q] == '\t') {
+            q++;
+            srcLead++;
+            continue;
+        }
+        if (!isWordCh11(text[q]))
+            break;  // the closing marker, a nested macro, punctuation, a `\`
+        size_t s = q;
+        while (q < text.size() && isWordCh11(text[q]))
+            q++;
+        if (!formals11.count(std::string(text.substr(s, q - s))))
+            break;  // a word that always renders: the run ends here
+    }
+    if (ourLead <= srcLead)
+        return std::nullopt;
+    return inner.substr(ourLead - srcLead);
+}
+
 // § macroPasteDotText104 -- see the declaration in UhdmExporter.h for the
 // Surelog producer (`SV3_1aPpTreeShapeListener::enterString`, the `"``.``"`
 // regex whose `.` is an unescaped wildcard) and the measured separator matrix.
@@ -19455,6 +19588,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (inner.size() >= 2 && inner.front() == '"' &&
                     inner.back() == '"')
                     inner = inner.substr(1, inner.size() - 2);
+                // § macroQuoteContLeak11 — drop the whitespace slang's
+                // preprocessor leaks into a stringification across a line
+                // continuation.  Runs FIRST: the leak is not part of the
+                // stringified text at all, so every later rule (the paste
+                // collapse below, the size, the end column) reads the text
+                // Surelog's regex would have seen.
+                if (auto leak11 = macroQuoteContLeak(expr, inner))
+                    inner = *leak11;
                 // § macroPasteDotText104 — Surelog collapses `` X `` to a `.`
                 // before it expands the macros inside a stringification.
                 if (auto dot104 = surelogPasteDotString(expr, inner))

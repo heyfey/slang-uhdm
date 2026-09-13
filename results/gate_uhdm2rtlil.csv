@@ -307,15 +307,15 @@ ibex_controller,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ib
 ibex_core,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_core.sv:429:3: error: unknown module 'ibex_if_stage',,
 ibex_counter,testflags,CMP_EQUAL,,,differ
 ibex_cs_registers,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_cs_registers.sv:907:3: error: unknown module 'ibex_csr',,
-ibex_csr,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_csr,testflags,CMP_EQUAL,,,differ
 ibex_decoder,testflags,CMP_NOTEQUAL,decompile:,,
 ibex_dummy_instr,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_dummy_instr.sv:76:3: error: unknown module 'prim_lfsr',,
 ibex_ex_block,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_ex_block.sv:116:3: error: unknown module 'ibex_alu',,
-ibex_fetch_fifo,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_fetch_fifo,testflags,CMP_EQUAL,,,differ
 ibex_icache,testflags,CMP_NOTEQUAL,decompile:,,
 ibex_id_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_id_stage.sv:437:3: error: unknown module 'ibex_decoder',,
 ibex_if_stage,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_if_stage.sv:325:5: error: unknown module 'ibex_prefetch_buffer',,
-ibex_load_store_unit,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_load_store_unit,testflags,CMP_EQUAL,,,differ
 ibex_lockstep,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_lockstep.sv:128:45: error: unknown class or package 'prim_util_pkg',,
 ibex_multdiv_fast,testflags,CMP_NOTEQUAL,decompile:,,
 ibex_multdiv_slow,testflags,CMP_NOTEQUAL,decompile:,,

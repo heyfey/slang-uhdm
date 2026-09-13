@@ -1,0 +1,14 @@
+# r11u8 — u2r ibex heads, PRISTINE (0076cdd9, md5 d9f02d33ac97b1570209e2e4b1862ab7), default mode
+ibex_alu                       rc=255 heads=1 cmplines=2267 HEAD=operation: , id:15063, line:750:52, endln:767:4
+ibex_branch_predict            rc=255 heads=1 cmplines=18 HEAD=constant: , id:10158, line:33:10, endln:33:31
+ibex_compressed_decoder        rc=255 heads=1 cmplines=18 HEAD=constant: , id:12332, line:33:10, endln:33:31
+ibex_csr                       rc=255 heads=1 cmplines=18 HEAD=constant: , id:104, line:33:10, endln:33:26
+ibex_decoder                   rc=255 heads=1 cmplines=18 HEAD=constant: , id:12840, line:33:10, endln:33:32
+ibex_fetch_fifo                rc=255 heads=1 cmplines=18 HEAD=constant: , id:556, line:33:10, endln:33:36
+ibex_icache                    rc=255 heads=1 cmplines=32 HEAD=constant: , id:10003, line:17:44, endln:17:55
+ibex_load_store_unit           rc=255 heads=1 cmplines=18 HEAD=constant: , id:1191, line:33:10, endln:33:29
+ibex_multdiv_fast              rc=255 heads=1 cmplines=18 HEAD=constant: , id:10065, line:33:10, endln:33:22
+ibex_multdiv_slow              rc=255 heads=1 cmplines=18 HEAD=constant: , id:10743, line:33:10, endln:33:33
+ibex_pmp                       rc=255 heads=1 cmplines=18 HEAD=constant: , id:12627, line:34:10, endln:34:22
+ibex_tracer                    rc=255 heads=1 cmplines=18 HEAD=ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:16236, line:305:87, endln:305:96
+ibex_wb_stage                  rc=255 heads=1 cmplines=18 HEAD=constant: , id:10469, line:33:10, endln:33:36

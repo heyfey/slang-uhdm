@@ -1,0 +1,68 @@
+# r11u8 A-PRIORI MOVER PREDICTION — from PRISTINE databases, before the patched sweep.
+# leadscan8.sh lists every database holding a string constant whose value begins with
+# whitespace; the law can only SHORTEN such a value, so a database absent here cannot move.
+
+## uhdm2rtlil (1608 pristine databases) — flagged:
+6 default/asgn_expr_sv-2ef97cbc
+1 default/ibex_branch_predict-1b398fcd
+8 default/ibex_compressed_decoder-795c91d7
+1 default/ibex_csr-cac7c190
+1 default/ibex_decoder-c39f5426
+2 default/ibex_fetch_fifo-e8fe208a
+5 default/ibex_icache-e3714209
+7 default/ibex_load_store_unit-9ce13cfd
+5 default/ibex_multdiv_fast-ed04630b
+1 default/ibex_multdiv_slow-d86a3bae
+20 default/ibex_tracer-573593b3
+1 default/ibex_wb_stage-918c1ea2
+1 default/StringWithBackslash-ca744ff5
+6 testflags/asgn_expr_sv-2ef97cbc
+1 testflags/ibex_branch_predict-1b398fcd
+8 testflags/ibex_compressed_decoder-795c91d7
+1 testflags/ibex_csr-cac7c190
+1 testflags/ibex_decoder-c39f5426
+2 testflags/ibex_fetch_fifo-e8fe208a
+5 testflags/ibex_icache-e3714209
+7 testflags/ibex_load_store_unit-9ce13cfd
+5 testflags/ibex_multdiv_fast-ed04630b
+1 testflags/ibex_multdiv_slow-d86a3bae
+20 testflags/ibex_tracer-573593b3
+1 testflags/ibex_wb_stage-918c1ea2
+1 testflags/StringWithBackslash-ca744ff5
+
+## surelog (960 pristine databases) — flagged:
+1011 default/BuildUVMPkg-bf853d43
+1850 default/MiniAmiq-544c7f61
+1 default/OneDivider-8e1a5ce3
+1 default/OneFF-7e64e992
+1 default/OneNetInterf-5705eab9
+1 default/OneNetModPort-6ef54f5f
+1 default/OneNetModPortGeneric-96eefa34
+1 default/OneNetNonAnsi-e3a836c0
+1 default/OneNetRange-cf1f634a
+1067 default/Scoreboard-59431470
+8 default/Scr1SvTests-b87ba20c
+1807 default/SeqDriver-32af76aa
+2 default/SimpleConstraint-7fb819e9
+1069 default/SimpleUVM-1dc93a62
+41 default/SVSwitch-db796243
+1 default/Udp-7d7e036b
+2 default/YosysBigSimAes-d8df883b
+5 default/YosysBigSimReed-16924cf3
+1011 testflags/BuildUVMPkg-bf853d43
+1850 testflags/MiniAmiq-544c7f61
+1 testflags/OneDivider-8e1a5ce3
+1 testflags/OneFF-7e64e992
+1 testflags/OneNetInterf-5705eab9
+1 testflags/OneNetModPort-6ef54f5f
+1 testflags/OneNetModPortGeneric-96eefa34
+1 testflags/OneNetNonAnsi-e3a836c0
+1 testflags/OneNetRange-cf1f634a
+8 testflags/Scr1SvTests-b87ba20c
+1807 testflags/SeqDriver-32af76aa
+2 testflags/SimpleConstraint-7fb819e9
+1069 testflags/SimpleUVM-1dc93a62
+41 testflags/SVSwitch-db796243
+1 testflags/Udp-7d7e036b
+2 testflags/YosysBigSimAes-d8df883b
+5 testflags/YosysBigSimReed-16924cf3
