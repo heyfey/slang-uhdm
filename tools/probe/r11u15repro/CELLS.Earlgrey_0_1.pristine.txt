@@ -1,0 +1,2001 @@
+     52:38 MAX_REQS
+     G=None
+     O=['<none>']
+     61:48 N
+     G=None
+     O=['<none>']
+     44:15 a_address
+     G=['<none>']
+     O=['<none>', '<none>']
+     40:15 a_opcode
+     G=['<none>']
+     O=['<none>', '<none>']
+    157:17 a_ready
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     38:17 a_ready
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     65:12 aes_sbox_canright_pkg::aes_mul_gf2p4::theta
+     G=['\\_logic_var: (aes_sbox_canright_pkg::aes_mul_gf2p4::theta), line:58:17, endln:58:22', '\\_logic_var: (aes_sbox_canright_pkg::aes_mul_gf2p4::theta), line:58:17, endln:58:22']
+     O=['\\_part_select: theta (aes_sbox_canright_pkg::aes_mul_gf2p4::theta), line:63:5, endln:63:15', '\\_part_select: theta (aes_sbox_canright_pkg::aes_mul_gf2p4::theta), line:63:5, endln:63:15']
+     77:12 aes_sbox_canright_pkg::aes_square_scale_gf2p4_gf2p2::delta
+     G=['\\_logic_var: (aes_sbox_canright_pkg::aes_square_scale_gf2p4_gf2p2::delta), line:71:17, endln:71:22', '\\_logic_var: (aes_sbox_canright_pkg::aes_square_scale_gf2p4_gf2p2::delta), line:71:17, endln:71:22']
+     O=['\\_part_select: delta (aes_sbox_canright_pkg::aes_square_scale_gf2p4_gf2p2::delta), line:75:5, endln:75:15', '\\_part_select: delta (aes_sbox_canright_pkg::aes_square_scale_gf2p4_gf2p2::delta), line:75:5, endln:75:15']
+     14:20 alert_handler_reg_pkg::AsyncOn.NAlerts
+     G=None
+     O=['\\_constant: , line:10:27, endln:10:28']
+     14:20 alert_handler_reg_pkg::AsyncOn::NAlerts
+     G=['\\_constant: , line:10:27, endln:10:28']
+     O=None
+     15:19 alert_pkg::AsyncOn.NAlerts
+     G=None
+     O=['\\_ref_obj: (alert_pkg::alert_handler_reg_pkg::NAlerts), line:9:44, endln:9:74']
+     15:19 alert_pkg::AsyncOn::NAlerts
+     G=['\\_ref_obj: (alert_pkg::alert_handler_reg_pkg::NAlerts), line:9:44, endln:9:74']
+     O=None
+    169:25 av_full
+     G=['<none>']
+     O=['<none>', '<none>']
+    315:33 base
+     G=['<none>', '<none>']
+     O=None
+     75:40 base
+     G=['<none>']
+     O=None
+     76:56 base
+     G=['<none>']
+     O=None
+    220:24 buffer
+     G=['<none>']
+     O=['<none>', '<none>']
+    198:17 cc0
+     G=['<none>']
+     O=['<none>', '<none>']
+    147:17 cfg
+     G=['<none>']
+     O=['<none>', '<none>']
+    148:17 cfg
+     G=['<none>']
+     O=['<none>', '<none>']
+    149:17 cfg
+     G=['<none>']
+     O=['<none>', '<none>']
+    150:17 cfg
+     G=['<none>']
+     O=['<none>', '<none>']
+    299:22 class_accum_cnt
+     G=['<none>']
+     O=['<none>', '<none>']
+    300:22 class_esc_cnt
+     G=['<none>']
+     O=['<none>', '<none>']
+    301:22 class_esc_state
+     G=['<none>']
+     O=['<none>', '<none>']
+    124:19 classa_clren
+     G=['<none>', '<none>']
+     O=['<none>']
+    123:19 classb_clren
+     G=['<none>', '<none>']
+     O=['<none>']
+    122:19 classc_clren
+     G=['<none>', '<none>']
+     O=['<none>']
+    121:19 classd_clren
+     G=['<none>', '<none>']
+     O=['<none>']
+   1074:12 cpuctrl_rdata
+     G=None
+     O=['<none>']
+   1074:26 cpuctrl_rdata
+     G=['<none>']
+     O=None
+   1082:12 cpuctrl_rdata
+     G=None
+     O=['<none>']
+   1082:26 cpuctrl_rdata
+     G=['<none>', '<none>']
+     O=['<none>']
+   1108:12 cpuctrl_rdata
+     G=None
+     O=['<none>']
+   1108:26 cpuctrl_rdata
+     G=['<none>']
+     O=None
+   1109:12 cpuctrl_rdata
+     G=None
+     O=['<none>']
+   1109:26 cpuctrl_rdata
+     G=['<none>']
+     O=None
+   1122:12 cpuctrl_rdata
+     G=None
+     O=['<none>']
+   1122:26 cpuctrl_rdata
+     G=['<none>', '<none>']
+     O=['<none>']
+   1123:12 cpuctrl_rdata
+     G=None
+     O=['<none>']
+   1123:26 cpuctrl_rdata
+     G=['<none>', '<none>']
+     O=['<none>']
+   1147:12 cpuctrl_rdata
+     G=None
+     O=['<none>']
+   1147:26 cpuctrl_rdata
+     G=['<none>']
+     O=None
+   1155:12 cpuctrl_rdata
+     G=None
+     O=['<none>']
+   1155:26 cpuctrl_rdata
+     G=['<none>', '<none>']
+     O=['<none>']
+    291:12 crashdump_o
+     G=None
+     O=['<none>']
+    291:24 crashdump_o
+     G=['<none>', '<none>']
+     O=['<none>']
+    296:12 crashdump_o
+     G=None
+     O=['<none>']
+    296:24 crashdump_o
+     G=['<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    299:22 crashdump_o
+     G=['<none>']
+     O=['<none>', '<none>']
+    300:22 crashdump_o
+     G=['<none>']
+     O=['<none>', '<none>']
+    301:22 crashdump_o
+     G=['<none>']
+     O=['<none>', '<none>']
+    445:17 ctrl
+     G=['<none>']
+     O=['<none>', '<none>']
+    446:17 ctrl
+     G=['<none>']
+     O=['<none>', '<none>']
+    449:17 ctrl
+     G=['<none>']
+     O=['<none>', '<none>']
+    100:31 d
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    105:31 d
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    105:34 d
+     G=['<none>', '<none>']
+     O=['<none>']
+    109:42 d
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    113:38 d
+     G=['<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    121:32 d
+     G=['<none>', '<none>']
+     O=['<none>']
+    122:32 d
+     G=['<none>', '<none>']
+     O=['<none>']
+    123:32 d
+     G=['<none>', '<none>']
+     O=['<none>']
+    124:32 d
+     G=['<none>', '<none>']
+     O=['<none>']
+    124:42 d
+     G=['<none>']
+     O=None
+    133:28 d
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    135:29 d
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    147:29 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    148:28 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    149:33 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    150:33 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    169:33 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    170:34 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    198:21 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    210:25 d
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    217:27 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    218:30 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    219:29 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    220:31 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    330:34 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    332:34 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    445:27 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    446:30 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    449:32 d
+     G=['<none>']
+     O=['<none>', '<none>']
+     61:32 d
+     G=['<none>']
+     O=['<none>', '<none>']
+     62:32 d
+     G=['<none>']
+     O=['<none>', '<none>']
+     73:32 d
+     G=['<none>']
+     O=['<none>', '<none>']
+    171:17 d_data
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    173:17 d_error
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    166:17 d_opcode
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     45:17 d_opcode
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    167:17 d_param
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    170:17 d_sink
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    168:17 d_size
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    169:17 d_source
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    172:17 d_user
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    165:17 d_valid
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     39:17 d_valid
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+   1074:26 data_ind_timing
+     G=['<none>']
+     O=None
+   1082:26 data_ind_timing
+     G=['<none>', '<none>']
+     O=['<none>']
+    160:12 data_mux
+     G=['\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[1].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[2].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[3].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[4].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[5].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[6].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[7].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[8].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[9].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[10].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[11].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[12].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[13].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[14].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[15].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[16].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[17].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[18].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[19].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[20].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[21].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[22].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[23].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[24].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[25].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[26].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[27].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[28].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[29].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[30].data_mux), line:157:39, endln:157:47', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[31].data_mux), line:157:39, endln:157:47']
+     O=None
+    174:12 data_mux
+     G=['\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[0].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[1].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[2].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[3].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[4].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[5].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[6].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[7].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[8].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[9].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[10].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[11].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[12].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[13].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[14].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[15].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[16].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[17].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[18].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[19].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[20].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[21].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[22].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[23].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[24].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[25].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[26].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[27].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[28].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[29].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[30].data_mux), line:171:44, endln:171:52', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[31].data_mux), line:171:44, endln:171:52']
+     O=None
+    106:34 de
+     G=['<none>', '<none>']
+     O=['<none>']
+    114:38 de
+     G=['<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    209:25 de
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     59:32 de
+     G=['<none>']
+     O=['<none>', '<none>']
+     60:32 de
+     G=['<none>']
+     O=['<none>', '<none>']
+     72:32 de
+     G=['<none>']
+     O=['<none>', '<none>']
+    150:21 digest_swap
+     G=['<none>']
+     O=['<none>', '<none>']
+     84:18 dmi_req
+     G=['<none>']
+     O=['<none>', '<none>']
+    362:20 dmi_req_i
+     G=['<none>']
+     O=None
+    362:30 dmi_req_i
+     G=None
+     O=['<none>']
+    417:23 dmi_req_i
+     G=['<none>']
+     O=None
+    417:33 dmi_req_i
+     G=None
+     O=['<none>']
+    179:21 dmi_resp_o
+     G=['<none>', '<none>']
+     O=['<none>']
+   1108:26 dummy_instr_en
+     G=['<none>']
+     O=None
+   1122:26 dummy_instr_en
+     G=['<none>', '<none>']
+     O=['<none>']
+   1109:26 dummy_instr_mask
+     G=['<none>']
+     O=None
+   1123:26 dummy_instr_mask
+     G=['<none>', '<none>']
+     O=['<none>']
+    317:33 en
+     G=['<none>', '<none>']
+     O=None
+     80:35 en
+     G=['<none>']
+     O=None
+     81:37 en
+     G=['<none>']
+     O=None
+     82:41 en
+     G=['<none>']
+     O=None
+    149:21 endian_swap
+     G=['<none>']
+     O=['<none>', '<none>']
+    217:24 ep
+     G=['<none>']
+     O=['<none>', '<none>']
+    320:33 erase_en
+     G=['<none>']
+     O=None
+     82:65 erase_en
+     G=['<none>']
+     O=None
+     84:32 fifo_rdata
+     G=['<none>']
+     O=None
+     84:33 fifo_rdata
+     G=None
+     O=['<none>']
+     85:32 fifo_rdata
+     G=['<none>']
+     O=None
+     85:33 fifo_rdata
+     G=None
+     O=['<none>']
+     86:32 fifo_rdata
+     G=['<none>']
+     O=None
+     86:33 fifo_rdata
+     G=None
+     O=['<none>']
+    147:21 hmac_en
+     G=['<none>']
+     O=['<none>', '<none>']
+     11:21 hmac_pkg::AlertAsyncOn.NumAlerts
+     G=None
+     O=['\\_constant: , line:10:30, endln:10:31']
+     11:21 hmac_pkg::AlertAsyncOn::NumAlerts
+     G=['\\_constant: , line:10:30, endln:10:31']
+     O=None
+    100:12 hw2reg
+     G=None
+     O=['<none>']
+    100:19 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    105:12 hw2reg
+     G=None
+     O=['<none>', '<none>']
+    105:19 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    106:12 hw2reg
+     G=None
+     O=['<none>']
+    106:19 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>']
+    109:14 hw2reg
+     G=None
+     O=['<none>']
+    109:21 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    113:12 hw2reg
+     G=None
+     O=['<none>']
+    113:19 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    114:12 hw2reg
+     G=None
+     O=['<none>']
+    114:19 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    121:19 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>']
+    122:19 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>']
+    123:19 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>']
+    124:14 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>', '<none>', '<none>']
+    124:19 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>']
+    124:21 hw2reg
+     G=['<none>']
+     O=None
+    133:12 hw2reg
+     G=None
+     O=['<none>']
+    133:19 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    135:12 hw2reg
+     G=None
+     O=['<none>']
+    135:19 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    147:17 hw2reg
+     G=['<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    148:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    149:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    150:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    169:17 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>', '<none>', '<none>']
+    170:17 hw2reg
+     G=['<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    198:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    209:12 hw2reg
+     G=None
+     O=['<none>']
+    209:19 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    210:12 hw2reg
+     G=None
+     O=['<none>']
+    210:19 hw2reg
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    217:17 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>', '<none>', '<none>']
+    218:17 hw2reg
+     G=['<none>', '<none>']
+     O=['<none>', '<none>', '<none>']
+    219:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    220:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    330:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    332:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    445:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    446:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+    449:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+     59:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+     60:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+     61:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+     62:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+     72:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+     73:17 hw2reg
+     G=['<none>']
+     O=['<none>', '<none>']
+   1147:26 icache_enable
+     G=['<none>']
+     O=None
+   1155:26 icache_enable
+     G=['<none>', '<none>']
+     O=['<none>']
+    446:22 key_len
+     G=['<none>']
+     O=['<none>', '<none>']
+     43:12 lfsr_data_t.cnt.TIMEOUT_CNT_W
+     G=None
+     O=['<none>']
+     42:12 lfsr_data_t.op_a.OP_W
+     G=None
+     O=['<none>']
+     41:12 lfsr_data_t.op_b.OP_W
+     G=None
+     O=['<none>']
+    160:41 mio_in_i
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=None
+    445:22 mode
+     G=['<none>']
+     O=['<none>', '<none>']
+    332:17 msg_length_lower
+     G=['<none>']
+     O=['<none>', '<none>']
+    330:17 msg_length_upper
+     G=['<none>']
+     O=['<none>', '<none>']
+    175:12 oe_mux
+     G=['\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[0].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[1].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[2].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[3].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[4].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[5].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[6].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[7].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[8].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[9].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[10].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[11].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[12].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[13].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[14].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[15].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[16].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[17].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[18].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[19].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[20].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[21].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[22].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[23].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[24].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[25].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[26].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[27].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[28].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[29].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[30].oe_mux), line:171:54, endln:171:60', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[31].oe_mux), line:171:54, endln:171:60']
+     O=None
+     84:18 op
+     G=['<none>']
+     O=['<none>', '<none>']
+    449:22 operation
+     G=['<none>']
+     O=['<none>', '<none>']
+    174:42 periph_to_mio_i
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=None
+    175:40 periph_to_mio_oe_i
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=None
+     81:61 prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::DataWidth
+     G=['<none>']
+     O=None
+     97:66 prim_cipher_pkg::prince_mult_prime_32bit::PRINCE_SHIFT_ROWS_CONST0
+     G=['\\_constant: , line:61:53, endln:61:61', '\\_constant: , line:61:53, endln:61:61']
+     O=None
+     97:67 prim_cipher_pkg::prince_mult_prime_32bit::PRINCE_SHIFT_ROWS_CONST0
+     G=None
+     O=['\\_constant: , line:61:53, endln:61:61', '\\_constant: , line:61:53, endln:61:61']
+     98:66 prim_cipher_pkg::prince_mult_prime_32bit::PRINCE_SHIFT_ROWS_CONST1
+     G=['\\_constant: , line:62:53, endln:62:61', '\\_constant: , line:62:53, endln:62:61']
+     O=None
+     98:67 prim_cipher_pkg::prince_mult_prime_32bit::PRINCE_SHIFT_ROWS_CONST1
+     G=None
+     O=['\\_constant: , line:62:53, endln:62:61', '\\_constant: , line:62:53, endln:62:61']
+     99:66 prim_cipher_pkg::prince_mult_prime_32bit::PRINCE_SHIFT_ROWS_CONST2
+     G=['\\_constant: , line:63:53, endln:63:61', '\\_constant: , line:63:53, endln:63:61']
+     O=None
+     99:67 prim_cipher_pkg::prince_mult_prime_32bit::PRINCE_SHIFT_ROWS_CONST2
+     G=None
+     O=['\\_constant: , line:63:53, endln:63:61', '\\_constant: , line:63:53, endln:63:61']
+    113:66 prim_cipher_pkg::prince_mult_prime_64bit::PRINCE_SHIFT_ROWS_CONST0
+     G=['\\_constant: , line:61:53, endln:61:61', '\\_constant: , line:61:53, endln:61:61']
+     O=None
+    113:67 prim_cipher_pkg::prince_mult_prime_64bit::PRINCE_SHIFT_ROWS_CONST0
+     G=None
+     O=['\\_constant: , line:61:53, endln:61:61', '\\_constant: , line:61:53, endln:61:61']
+    114:66 prim_cipher_pkg::prince_mult_prime_64bit::PRINCE_SHIFT_ROWS_CONST1
+     G=['\\_constant: , line:62:53, endln:62:61', '\\_constant: , line:62:53, endln:62:61']
+     O=None
+    114:67 prim_cipher_pkg::prince_mult_prime_64bit::PRINCE_SHIFT_ROWS_CONST1
+     G=None
+     O=['\\_constant: , line:62:53, endln:62:61', '\\_constant: , line:62:53, endln:62:61']
+    115:66 prim_cipher_pkg::prince_mult_prime_64bit::PRINCE_SHIFT_ROWS_CONST2
+     G=['\\_constant: , line:63:53, endln:63:61', '\\_constant: , line:63:53, endln:63:61']
+     O=None
+    115:67 prim_cipher_pkg::prince_mult_prime_64bit::PRINCE_SHIFT_ROWS_CONST2
+     G=None
+     O=['\\_constant: , line:63:53, endln:63:61', '\\_constant: , line:63:53, endln:63:61']
+     73:45 prim_cipher_pkg::prince_shiftrows_32bit::state_in::k
+     G=['\\_int_var: (prim_cipher_pkg::prince_shiftrows_32bit::k), line:71:14, endln:71:15', '\\_int_var: (prim_cipher_pkg::prince_shiftrows_32bit::k), line:71:14, endln:71:15']
+     O=None
+     73:46 prim_cipher_pkg::prince_shiftrows_32bit::state_in::k
+     G=None
+     O=['\\_int_var: (prim_cipher_pkg::prince_shiftrows_32bit::k), line:71:14, endln:71:15', '\\_int_var: (prim_cipher_pkg::prince_shiftrows_32bit::k), line:71:14, endln:71:15']
+     83:45 prim_cipher_pkg::prince_shiftrows_64bit::state_in::k
+     G=['\\_int_var: (prim_cipher_pkg::prince_shiftrows_64bit::k), line:82:14, endln:82:15', '\\_int_var: (prim_cipher_pkg::prince_shiftrows_64bit::k), line:82:14, endln:82:15']
+     O=None
+     83:46 prim_cipher_pkg::prince_shiftrows_64bit::state_in::k
+     G=None
+     O=['\\_int_var: (prim_cipher_pkg::prince_shiftrows_64bit::k), line:82:14, endln:82:15', '\\_int_var: (prim_cipher_pkg::prince_shiftrows_64bit::k), line:82:14, endln:82:15']
+    331:44 prim_cipher_pkg::sbox4_32bit::sbox4::state_in::k
+     G=['\\_int_var: (prim_cipher_pkg::sbox4_32bit::k), line:330:14, endln:330:15', '\\_int_var: (prim_cipher_pkg::sbox4_32bit::k), line:330:14, endln:330:15']
+     O=None
+    331:45 prim_cipher_pkg::sbox4_32bit::sbox4::state_in::k
+     G=None
+     O=['\\_int_var: (prim_cipher_pkg::sbox4_32bit::k), line:330:14, endln:330:15', '\\_int_var: (prim_cipher_pkg::sbox4_32bit::k), line:330:14, endln:330:15']
+    340:44 prim_cipher_pkg::sbox4_64bit::sbox4::state_in::k
+     G=['\\_int_var: (prim_cipher_pkg::sbox4_64bit::k), line:339:14, endln:339:15', '\\_int_var: (prim_cipher_pkg::sbox4_64bit::k), line:339:14, endln:339:15']
+     O=None
+    340:45 prim_cipher_pkg::sbox4_64bit::sbox4::state_in::k
+     G=None
+     O=['\\_int_var: (prim_cipher_pkg::sbox4_64bit::k), line:339:14, endln:339:15', '\\_int_var: (prim_cipher_pkg::sbox4_64bit::k), line:339:14, endln:339:15']
+    319:33 prog_en
+     G=['<none>']
+     O=None
+     81:61 prog_en
+     G=['<none>']
+     O=None
+    318:33 rd_en
+     G=['<none>']
+     O=None
+     80:59 rd_en
+     G=['<none>']
+     O=None
+    160:12 reg2hw_wrap
+     G=None
+     O=['<none>']
+    160:24 reg2hw_wrap
+     G=['<none>', '<none>']
+     O=['<none>']
+    161:12 reg2hw_wrap
+     G=None
+     O=['<none>']
+    161:24 reg2hw_wrap
+     G=['<none>', '<none>']
+     O=['<none>']
+    166:12 reg2hw_wrap
+     G=None
+     O=['<none>']
+    166:24 reg2hw_wrap
+     G=['<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    167:12 reg2hw_wrap
+     G=None
+     O=['<none>']
+    167:24 reg2hw_wrap
+     G=['<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>']
+    315:33 region_cfgs[8].base
+     G=None
+     O=['<none>', '<none>']
+    317:33 region_cfgs[8].en
+     G=None
+     O=['<none>', '<none>']
+    320:33 region_cfgs[8].erase_en
+     G=None
+     O=['<none>', '<none>']
+    320:42 region_cfgs[8].erase_en.q
+     G=['<none>']
+     O=['<none>', '<none>']
+    319:33 region_cfgs[8].prog_en
+     G=None
+     O=['<none>', '<none>']
+    319:41 region_cfgs[8].prog_en.q
+     G=['<none>']
+     O=['<none>', '<none>']
+    318:33 region_cfgs[8].rd_en
+     G=None
+     O=['<none>', '<none>']
+    318:39 region_cfgs[8].rd_en.q
+     G=['<none>']
+     O=['<none>', '<none>']
+    316:33 region_cfgs[8].size
+     G=None
+     O=['<none>', '<none>']
+     75:40 region_cfgs_i[i].base
+     G=None
+     O=['<none>']
+     76:56 region_cfgs_i[i].base
+     G=None
+     O=['<none>']
+     80:35 region_cfgs_i[i].en
+     G=None
+     O=['<none>']
+     81:37 region_cfgs_i[i].en
+     G=None
+     O=['<none>']
+     82:41 region_cfgs_i[i].en
+     G=None
+     O=['<none>']
+     82:65 region_cfgs_i[i].erase_en
+     G=None
+     O=['<none>']
+     81:61 region_cfgs_i[i].prog_en
+     G=None
+     O=['<none>']
+     80:59 region_cfgs_i[i].rd_en
+     G=None
+     O=['<none>']
+     75:66 region_cfgs_i[i].size
+     G=None
+     O=['<none>']
+    124:27 req
+     G=None
+     O=['<none>']
+     46:12 req_t.addr.SramAw
+     G=None
+     O=['<none>']
+     47:12 req_t.wdata.SramDw
+     G=None
+     O=['<none>']
+    179:21 resp
+     G=['<none>', '<none>']
+     O=['<none>']
+    182:12 rsp_fifo_wdata
+     G=None
+     O=['<none>']
+    182:27 rsp_fifo_wdata
+     G=['<none>']
+     O=None
+    184:12 rsp_fifo_wdata
+     G=None
+     O=['<none>']
+    184:27 rsp_fifo_wdata
+     G=['<none>', '<none>', '<none>']
+     O=['<none>', '<none>']
+    170:25 rx_empty
+     G=['<none>']
+     O=['<none>', '<none>']
+    217:17 rxfifo
+     G=['<none>']
+     O=['<none>', '<none>']
+    218:17 rxfifo
+     G=['<none>']
+     O=['<none>', '<none>']
+    219:17 rxfifo
+     G=['<none>']
+     O=['<none>', '<none>']
+    220:17 rxfifo
+     G=['<none>']
+     O=['<none>', '<none>']
+    218:24 setup
+     G=['<none>']
+     O=['<none>', '<none>']
+    148:21 sha_en
+     G=['<none>']
+     O=['<none>', '<none>']
+    219:24 size
+     G=['<none>']
+     O=['<none>', '<none>']
+    316:33 size
+     G=['<none>', '<none>']
+     O=None
+     75:66 size
+     G=['<none>']
+     O=None
+    176:12 sleep_mux
+     G=['\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[0].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[1].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[2].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[3].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[4].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[5].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[6].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[7].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[8].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[9].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[10].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[11].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[12].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[13].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[14].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[15].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[16].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[17].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[18].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[19].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[20].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[21].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[22].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[23].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[24].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[25].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[26].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[27].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[28].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[29].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[30].sleep_mux), line:171:62, endln:171:71', '\\_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[31].sleep_mux), line:171:62, endln:171:71']
+     O=None
+     60:17 timer_v_lower0
+     G=['<none>']
+     O=['<none>', '<none>']
+     62:17 timer_v_lower0
+     G=['<none>']
+     O=['<none>', '<none>']
+     59:17 timer_v_upper0
+     G=['<none>']
+     O=['<none>', '<none>']
+     61:17 timer_v_upper0
+     G=['<none>']
+     O=['<none>', '<none>']
+     38:17 tl_h_o
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     39:17 tl_h_o
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     45:17 tl_h_o
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     40:15 tl_o
+     G=['<none>']
+     O=['<none>', '<none>']
+     44:15 tl_o
+     G=['<none>']
+     O=['<none>', '<none>']
+    157:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    165:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    166:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    167:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    168:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    169:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    170:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    171:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    172:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    173:17 tl_t_i
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    208:20 tl_u_o[N].a_address
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    210:20 tl_u_o[N].a_data
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    209:20 tl_u_o[N].a_mask
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    204:20 tl_u_o[N].a_opcode
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    205:20 tl_u_o[N].a_param
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    206:20 tl_u_o[N].a_size
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    207:20 tl_u_o[N].a_source
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    211:20 tl_u_o[N].a_user
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    201:20 tl_u_o[N].a_valid
+     G=['<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    137:22 tl_u_o[i].a_address
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    139:22 tl_u_o[i].a_data
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    138:22 tl_u_o[i].a_mask
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    133:22 tl_u_o[i].a_opcode
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    134:22 tl_u_o[i].a_param
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    135:22 tl_u_o[i].a_size
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    136:22 tl_u_o[i].a_source
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    140:22 tl_u_o[i].a_user
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    130:22 tl_u_o[i].a_valid
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+    178:22 tl_u_o[i].d_ready
+     G=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     O=['<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>', '<none>']
+     53:14 tlul_pkg::tlul_pkg::tl_d2h_t::d_data::top_pkg::TL_DW
+     G=['\\_parameter: (top_pkg::TL_DW), line:9:16, endln:9:21']
+     O=None
+     52:13 tlul_pkg::tlul_pkg::tl_d2h_t::d_sink::top_pkg::TL_DIW
+     G=['\\_parameter: (top_pkg::TL_DIW), line:11:16, endln:11:22']
+     O=None
+     50:13 tlul_pkg::tlul_pkg::tl_d2h_t::d_size::top_pkg::TL_SZW
+     G=['\\_parameter: (top_pkg::TL_SZW), line:14:16, endln:14:22']
+     O=None
+     51:13 tlul_pkg::tlul_pkg::tl_d2h_t::d_source::top_pkg::TL_AIW
+     G=['\\_parameter: (top_pkg::TL_AIW), line:10:16, endln:10:22']
+     O=None
+     54:13 tlul_pkg::tlul_pkg::tl_d2h_t::d_user::top_pkg::TL_DUW
+     G=['\\_parameter: (top_pkg::TL_DUW), line:12:16, endln:12:22']
+     O=None
+     38:14 tlul_pkg::tlul_pkg::tl_h2d_t::a_address::top_pkg::TL_AW
+     G=['\\_parameter: (top_pkg::TL_AW), line:8:16, endln:8:21']
+     O=None
+     40:14 tlul_pkg::tlul_pkg::tl_h2d_t::a_data::top_pkg::TL_DW
+     G=['\\_parameter: (top_pkg::TL_DW), line:9:16, endln:9:21']
+     O=None
+     39:13 tlul_pkg::tlul_pkg::tl_h2d_t::a_mask::top_pkg::TL_DBW
+     G=['\\_parameter: (top_pkg::TL_DBW), line:13:16, endln:13:22']
+     O=None
+     36:13 tlul_pkg::tlul_pkg::tl_h2d_t::a_size::top_pkg::TL_SZW
+     G=['\\_parameter: (top_pkg::TL_SZW), line:14:16, endln:14:22']
+     O=None
+     37:13 tlul_pkg::tlul_pkg::tl_h2d_t::a_source::top_pkg::TL_AIW
+     G=['\\_parameter: (top_pkg::TL_AIW), line:10:16, endln:10:22']
+     O=None
+     37:13 top_pkg::TL_AIW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_AIW), line:10:16, endln:10:22']
+     51:13 top_pkg::TL_AIW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_AIW), line:10:16, endln:10:22']
+     38:14 top_pkg::TL_AW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_AW), line:8:16, endln:8:21']
+     39:13 top_pkg::TL_DBW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_DBW), line:13:16, endln:13:22']
+     52:13 top_pkg::TL_DIW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_DIW), line:11:16, endln:11:22']
+     54:13 top_pkg::TL_DUW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_DUW), line:12:16, endln:12:22']
+     40:14 top_pkg::TL_DW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_DW), line:9:16, endln:9:21']
+     53:14 top_pkg::TL_DW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_DW), line:9:16, endln:9:21']
+     36:13 top_pkg::TL_SZW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_SZW), line:14:16, endln:14:22']
+     50:13 top_pkg::TL_SZW
+     G=None
+     O=['\\_parameter: (top_pkg::TL_SZW), line:14:16, endln:14:22']
+    169:17 usbstat
+     G=['<none>']
+     O=['<none>', '<none>']
+    170:17 usbstat
+     G=['<none>']
+     O=['<none>', '<none>']
+    182:27 word_sel
+     G=['<none>']
+     O=None
+    184:27 word_sel
+     G=['<none>', '<none>', '<none>']
+     O=['<none>', '<none>']
+    218:20 work@aes_key_expand.drive_regular.regular
+     G=['\\_part_select: regular (work@aes_key_expand.drive_regular.regular), line:202:9, endln:202:21']
+     O=['\\_logic_net: (work@aes_key_expand.regular), line:41:21, endln:41:28']
+    276:22 work@aes_key_expand.drive_regular.regular
+     G=['\\_part_select: regular (work@aes_key_expand.drive_regular.regular), line:227:9, endln:227:21']
+     O=['\\_logic_net: (work@aes_key_expand.regular), line:41:21, endln:41:28']
+    280:11 work@aes_key_expand.drive_regular.regular
+     G=['\\_part_select: regular (work@aes_key_expand.drive_regular.regular), line:227:9, endln:227:21']
+     O=['\\_logic_net: (work@aes_key_expand.regular), line:41:21, endln:41:28']
+     34:12 work@aes_sbox_canright.aes_inverse_gf2p4.delta
+     G=['\\_logic_var: (work@aes_sbox_canright.aes_inverse_gf2p4.delta), line:26:17, endln:26:22']
+     O=['\\_part_select: delta (work@aes_sbox_canright.aes_inverse_gf2p4.delta), line:32:5, endln:32:15']
+     48:12 work@aes_sbox_canright.aes_inverse_gf2p8.delta
+     G=['\\_logic_var: (work@aes_sbox_canright.aes_inverse_gf2p8.delta), line:40:17, endln:40:22']
+     O=['\\_part_select: delta (work@aes_sbox_canright.aes_inverse_gf2p8.delta), line:46:5, endln:46:15']
+    152:51 work@alert_handler.gen_classes.i_accu.accu_cnt_o.hw2reg_wrap.class_accum_cnt[k].k
+     G=['<none>']
+     O=None
+    152:51 work@alert_handler.gen_classes.i_accu.accu_cnt_o.k
+     G=None
+     O=['<none>']
+    148:44 work@alert_handler.gen_classes.i_accu.class_en_i.k
+     G=None
+     O=['<none>']
+    148:44 work@alert_handler.gen_classes.i_accu.class_en_i.reg2hw_wrap.class_en[k].k
+     G=['<none>']
+     O=None
+    150:46 work@alert_handler.gen_classes.i_accu.class_trig_i.hw2reg_wrap.class_trig[k].k
+     G=['<none>']
+     O=None
+    150:46 work@alert_handler.gen_classes.i_accu.class_trig_i.k
+     G=None
+     O=['<none>']
+    149:45 work@alert_handler.gen_classes.i_accu.clr_i.k
+     G=None
+     O=['<none>']
+    149:45 work@alert_handler.gen_classes.i_accu.clr_i.reg2hw_wrap.class_clr[k].k
+     G=['<none>']
+     O=None
+    151:54 work@alert_handler.gen_classes.i_accu.thresh_i.k
+     G=None
+     O=['<none>']
+    151:54 work@alert_handler.gen_classes.i_accu.thresh_i.reg2hw_wrap.class_accum_thresh[k].k
+     G=['<none>']
+     O=None
+    161:49 work@alert_handler.gen_classes.i_esc_timer.clr_i.k
+     G=None
+     O=['<none>']
+    161:49 work@alert_handler.gen_classes.i_esc_timer.clr_i.reg2hw_wrap.class_clr[k].k
+     G=['<none>']
+     O=None
+    159:48 work@alert_handler.gen_classes.i_esc_timer.en_i.k
+     G=None
+     O=['<none>']
+    159:48 work@alert_handler.gen_classes.i_esc_timer.en_i.reg2hw_wrap.class_en[k].k
+     G=['<none>']
+     O=None
+    170:53 work@alert_handler.gen_classes.i_esc_timer.esc_cnt_o.hw2reg_wrap.class_esc_cnt[k].k
+     G=['<none>']
+     O=None
+    170:53 work@alert_handler.gen_classes.i_esc_timer.esc_cnt_o.k
+     G=None
+     O=['<none>']
+    166:52 work@alert_handler.gen_classes.i_esc_timer.esc_en_i.k
+     G=None
+     O=['<none>']
+    166:52 work@alert_handler.gen_classes.i_esc_timer.esc_en_i.reg2hw_wrap.class_esc_en[k].k
+     G=['<none>']
+     O=None
+    167:53 work@alert_handler.gen_classes.i_esc_timer.esc_map_i.k
+     G=None
+     O=['<none>']
+    167:53 work@alert_handler.gen_classes.i_esc_timer.esc_map_i.reg2hw_wrap.class_esc_map[k].k
+     G=['<none>']
+     O=None
+    171:55 work@alert_handler.gen_classes.i_esc_timer.esc_state_o.hw2reg_wrap.class_esc_state[k].k
+     G=['<none>']
+     O=None
+    171:55 work@alert_handler.gen_classes.i_esc_timer.esc_state_o.k
+     G=None
+     O=['<none>']
+    169:54 work@alert_handler.gen_classes.i_esc_timer.esc_trig_o.hw2reg_wrap.class_esc_trig[k].k
+     G=['<none>']
+     O=None
+    169:54 work@alert_handler.gen_classes.i_esc_timer.esc_trig_o.k
+     G=None
+     O=['<none>']
+    168:55 work@alert_handler.gen_classes.i_esc_timer.phase_cyc_i.k
+     G=None
+     O=['<none>']
+    168:55 work@alert_handler.gen_classes.i_esc_timer.phase_cyc_i.reg2hw_wrap.class_phase_cyc[k].k
+     G=['<none>']
+     O=None
+    165:57 work@alert_handler.gen_classes.i_esc_timer.timeout_cyc_i.k
+     G=None
+     O=['<none>']
+    165:57 work@alert_handler.gen_classes.i_esc_timer.timeout_cyc_i.reg2hw_wrap.class_timeout_cyc[k].k
+     G=['<none>']
+     O=None
+    105:34 work@alert_handler_reg_wrap.gen_alert_cause.d
+     G=None
+     O=['<none>']
+    106:34 work@alert_handler_reg_wrap.gen_alert_cause.de
+     G=None
+     O=['<none>']
+    105:31 work@alert_handler_reg_wrap.gen_alert_cause.hw2reg.alert_cause[k].d.k
+     G=['<none>']
+     O=None
+    106:31 work@alert_handler_reg_wrap.gen_alert_cause.hw2reg.alert_cause[k].de.k
+     G=['<none>']
+     O=None
+    107:63 work@alert_handler_reg_wrap.gen_alert_cause.hw2reg_wrap.alert_cause[k].k
+     G=['<none>']
+     O=None
+    105:31 work@alert_handler_reg_wrap.gen_alert_cause.k
+     G=None
+     O=['<none>']
+    106:31 work@alert_handler_reg_wrap.gen_alert_cause.k
+     G=None
+     O=['<none>']
+    107:63 work@alert_handler_reg_wrap.gen_alert_cause.k
+     G=None
+     O=['<none>']
+    291:36 work@alert_handler_reg_wrap.gen_alert_cause_dump.crashdump_o.alert_cause[k].k
+     G=['<none>']
+     O=None
+    291:36 work@alert_handler_reg_wrap.gen_alert_cause_dump.k
+     G=None
+     O=['<none>']
+    160:33 work@alert_handler_reg_wrap.gen_alert_en_class.k
+     G=None
+     O=['<none>']
+    161:36 work@alert_handler_reg_wrap.gen_alert_en_class.k
+     G=None
+     O=['<none>']
+    161:36 work@alert_handler_reg_wrap.gen_alert_en_class.reg2hw_wrap.alert_class[k].k
+     G=['<none>']
+     O=None
+    160:33 work@alert_handler_reg_wrap.gen_alert_en_class.reg2hw_wrap.alert_en[k].k
+     G=['<none>']
+     O=None
+    113:38 work@alert_handler_reg_wrap.gen_loc_alert_cause.d
+     G=None
+     O=['<none>']
+    114:38 work@alert_handler_reg_wrap.gen_loc_alert_cause.de
+     G=None
+     O=['<none>']
+    113:35 work@alert_handler_reg_wrap.gen_loc_alert_cause.hw2reg.loc_alert_cause[k].d.k
+     G=['<none>']
+     O=None
+    114:35 work@alert_handler_reg_wrap.gen_loc_alert_cause.hw2reg.loc_alert_cause[k].de.k
+     G=['<none>']
+     O=None
+    115:71 work@alert_handler_reg_wrap.gen_loc_alert_cause.hw2reg_wrap.loc_alert_cause[k].k
+     G=['<none>']
+     O=None
+    113:35 work@alert_handler_reg_wrap.gen_loc_alert_cause.k
+     G=None
+     O=['<none>']
+    114:35 work@alert_handler_reg_wrap.gen_loc_alert_cause.k
+     G=None
+     O=['<none>']
+    115:71 work@alert_handler_reg_wrap.gen_loc_alert_cause.k
+     G=None
+     O=['<none>']
+    296:40 work@alert_handler_reg_wrap.gen_loc_alert_cause_dump.crashdump_o.loc_alert_cause[k].k
+     G=['<none>']
+     O=None
+    296:40 work@alert_handler_reg_wrap.gen_loc_alert_cause_dump.k
+     G=None
+     O=['<none>']
+    166:37 work@alert_handler_reg_wrap.gen_loc_alert_en_class.k
+     G=None
+     O=['<none>']
+    167:40 work@alert_handler_reg_wrap.gen_loc_alert_en_class.k
+     G=None
+     O=['<none>']
+    167:40 work@alert_handler_reg_wrap.gen_loc_alert_en_class.reg2hw_wrap.loc_alert_class[k].k
+     G=['<none>']
+     O=None
+    166:37 work@alert_handler_reg_wrap.gen_loc_alert_en_class.reg2hw_wrap.loc_alert_en[k].k
+     G=['<none>']
+     O=None
+    293:57 work@dm_csrs.csr_read_write.abstractauto_q.autoexecdata[autoexecdata_idx].autoexecdata_idx
+     G=['\\_logic_net: (work@dm_csrs.autoexecdata_idx), line:211:15, endln:211:31']
+     O=None
+    365:57 work@dm_csrs.csr_read_write.abstractauto_q.autoexecdata[autoexecdata_idx].autoexecdata_idx
+     G=['\\_logic_net: (work@dm_csrs.autoexecdata_idx), line:211:15, endln:211:31']
+     O=None
+    293:57 work@dm_csrs.csr_read_write.autoexecdata_idx
+     G=None
+     O=['\\_logic_net: (work@dm_csrs.autoexecdata_idx), line:211:15, endln:211:31']
+    365:57 work@dm_csrs.csr_read_write.autoexecdata_idx
+     G=None
+     O=['\\_logic_net: (work@dm_csrs.autoexecdata_idx), line:211:15, endln:211:31']
+    633:17 work@dm_csrs.haltsum.clk_i
+     G=None
+     O=['\\_logic_net: (work@dm_csrs.clk_i), line:23:45, endln:23:50']
+    471:75 work@dm_mem.HaltAddress.DbgAddressBits
+     G=None
+     O=['<none>']
+    471:75 work@dm_mem.dm::HaltAddress.DbgAddressBits
+     G=['<none>']
+     O=None
+    166:51 work@dm_sba.dm_sba_access_size.clk_i
+     G=None
+     O=['\\_logic_net: (work@dm_sba.clk_i), line:21:34, endln:21:39']
+    453:42 work@flash_ctrl.DataBitWidth
+     G=None
+     O=['<none>']
+    453:42 work@flash_ctrl.reg2hw.addr.q[DataBitWidth - 1:0].q.DataBitWidth
+     G=['<none>']
+     O=None
+    277:36 work@flash_ctrl.u_flash_erase_ctrl.op_addr_i.DataBitWidth
+     G=None
+     O=['<none>']
+    277:36 work@flash_ctrl.u_flash_erase_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth
+     G=['<none>']
+     O=None
+    171:36 work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.DataBitWidth
+     G=None
+     O=['<none>']
+    171:36 work@flash_ctrl.u_flash_prog_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth
+     G=['<none>']
+     O=None
+    249:36 work@flash_ctrl.u_flash_rd_ctrl.op_addr_i.DataBitWidth
+     G=None
+     O=['<none>']
+    249:36 work@flash_ctrl.u_flash_rd_ctrl.op_addr_i.reg2hw.addr.q[DataBitWidth+:17].DataBitWidth
+     G=['<none>']
+     O=None
+     91:24 work@flash_ctrl_reg_top.AW
+     G=None
+     O=['<none>']
+     91:56 work@flash_ctrl_reg_top.AW
+     G=None
+     O=['<none>']
+     94:24 work@flash_ctrl_reg_top.AW
+     G=None
+     O=['<none>']
+     94:56 work@flash_ctrl_reg_top.AW
+     G=None
+     O=['<none>']
+     91:24 work@flash_ctrl_reg_top.tl_i.a_address[AW - 1:0].a_address.AW
+     G=['<none>']
+     O=None
+     91:56 work@flash_ctrl_reg_top.tl_i.a_address[AW - 1:0].a_address.AW
+     G=['<none>']
+     O=None
+     94:24 work@flash_ctrl_reg_top.tl_i.a_address[AW - 1:0].a_address.AW
+     G=['<none>']
+     O=None
+     94:56 work@flash_ctrl_reg_top.tl_i.a_address[AW - 1:0].a_address.AW
+     G=['<none>']
+     O=None
+    127:73 work@flash_phy.gen_flash_banks.i_core.host_req_i.bank
+     G=['<none>']
+     O=None
+    127:73 work@flash_phy.gen_flash_banks.i_core.host_req_i.host_rsp_avail.bank
+     G=None
+     O=['<none>']
+    124:27 work@flash_phy.gen_flash_banks.i_core.req_i.req
+     G=['<none>']
+     O=None
+    224:22 work@flash_phy_core.i_flash.PhyBkErase
+     G=['\\_enum_const: (PhyBkErase), line:74:5, endln:74:24']
+     O=None
+    223:22 work@flash_phy_core.i_flash.PhyPgErase
+     G=['\\_enum_const: (PhyPgErase), line:73:5, endln:73:24']
+     O=None
+    222:18 work@flash_phy_core.i_flash.PhyProg
+     G=['\\_enum_const: (PhyProg), line:72:5, endln:72:24']
+     O=None
+    224:22 work@flash_phy_core.i_flash.bk_erase_i.PhyBkErase
+     G=None
+     O=['\\_enum_const: (PhyBkErase), line:74:5, endln:74:24']
+    223:22 work@flash_phy_core.i_flash.pg_erase_i.PhyPgErase
+     G=None
+     O=['\\_enum_const: (PhyPgErase), line:73:5, endln:73:24']
+    222:18 work@flash_phy_core.i_flash.prog_i.PhyProg
+     G=None
+     O=['\\_enum_const: (PhyProg), line:72:5, endln:72:24']
+    166:22 work@flash_phy_core.i_rd.PhyBkErase
+     G=['\\_enum_const: (PhyBkErase), line:74:5, endln:74:24']
+     O=None
+    165:22 work@flash_phy_core.i_rd.PhyPgErase
+     G=['\\_enum_const: (PhyPgErase), line:73:5, endln:73:24']
+     O=None
+    164:18 work@flash_phy_core.i_rd.PhyProg
+     G=['\\_enum_const: (PhyProg), line:72:5, endln:72:24']
+     O=None
+    163:17 work@flash_phy_core.i_rd.PhyRead
+     G=['\\_enum_const: (PhyRead), line:71:5, endln:71:24']
+     O=None
+    166:22 work@flash_phy_core.i_rd.bk_erase_i.PhyBkErase
+     G=None
+     O=['\\_enum_const: (PhyBkErase), line:74:5, endln:74:24']
+    165:22 work@flash_phy_core.i_rd.pg_erase_i.PhyPgErase
+     G=None
+     O=['\\_enum_const: (PhyPgErase), line:73:5, endln:73:24']
+    164:18 work@flash_phy_core.i_rd.prog_i.PhyProg
+     G=None
+     O=['\\_enum_const: (PhyProg), line:72:5, endln:72:24']
+    163:17 work@flash_phy_core.i_rd.req_i.PhyRead
+     G=None
+     O=['\\_enum_const: (PhyRead), line:71:5, endln:71:24']
+    252:70 work@flash_phy_rd.gen_buf_rsp_match.i
+     G=None
+     O=['<none>']
+    252:70 work@flash_phy_rd.gen_buf_rsp_match.rsp_fifo_rdata.buf_sel[i].i
+     G=['<none>']
+     O=None
+    140:30 work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.alloc.i
+     G=None
+     O=['<none>']
+    140:30 work@flash_phy_rd.gen_bufs.i_rd_buf.alloc_i.i
+     G=['<none>']
+     O=None
+    182:27 work@flash_phy_rd.gen_single_word_sel.word_sel
+     G=None
+     O=['<none>']
+    184:27 work@flash_phy_rd.gen_word_sel.word_sel
+     G=None
+     O=['<none>']
+     40:47 work@gpio.gen_filter.filter.enable_i.i
+     G=None
+     O=['<none>']
+     40:47 work@gpio.gen_filter.filter.enable_i.reg2hw.ctrl_en_input_filter.q[i].i
+     G=['<none>']
+     O=None
+    133:28 work@hmac.gen_key_digest.d
+     G=None
+     O=['<none>']
+    135:29 work@hmac.gen_key_digest.d
+     G=None
+     O=['<none>']
+    135:26 work@hmac.gen_key_digest.hw2reg.digest[i].d.i
+     G=['<none>']
+     O=None
+    135:26 work@hmac.gen_key_digest.i
+     G=None
+     O=['<none>']
+    125:26 work@hmac.i
+     G=None
+     O=['\\_int_var: (work@hmac.i), line:124:16, endln:124:17']
+    126:48 work@hmac.i
+     G=None
+     O=['\\_int_var: (work@hmac.i), line:124:16, endln:124:17']
+    126:48 work@hmac.reg2hw.key[7 - i].q.i
+     G=['\\_int_var: (work@hmac.i), line:124:16, endln:124:17']
+     O=None
+    125:26 work@hmac.reg2hw.key[7 - i].qe.i
+     G=['\\_int_var: (work@hmac.i), line:124:16, endln:124:17']
+     O=None
+    126:36 work@hmac_core.BlockSizeBits
+     G=None
+     O=['<none>']
+    105:46 work@hmac_core.HashWordBits
+     G=None
+     O=['<none>']
+    126:36 work@hmac_core.txcount.BlockSizeBits
+     G=['<none>']
+     O=None
+    105:46 work@hmac_core.txcount.HashWordBits
+     G=['<none>']
+     O=None
+     89:24 work@hmac_reg_top.AW
+     G=None
+     O=['<none>']
+     89:24 work@hmac_reg_top.tl_i.a_address[AW - 1:0].a_address.AW
+     G=['<none>']
+     O=None
+   1074:26 work@ibex_cs_registers.gen_dit.data_ind_timing
+     G=None
+     O=['<none>']
+   1108:26 work@ibex_cs_registers.gen_dummy.dummy_instr_en
+     G=None
+     O=['<none>']
+   1109:26 work@ibex_cs_registers.gen_dummy.dummy_instr_mask
+     G=None
+     O=['<none>']
+   1147:26 work@ibex_cs_registers.gen_icache_enable.icache_enable
+     G=None
+     O=['<none>']
+   1082:26 work@ibex_cs_registers.gen_no_dit.data_ind_timing
+     G=None
+     O=['<none>']
+   1122:26 work@ibex_cs_registers.gen_no_dummy.dummy_instr_en
+     G=None
+     O=['<none>']
+   1123:26 work@ibex_cs_registers.gen_no_dummy.dummy_instr_mask
+     G=None
+     O=['<none>']
+   1155:26 work@ibex_cs_registers.gen_no_icache.icache_enable
+     G=None
+     O=['<none>']
+     43:12 work@ibex_dummy_instr.lfsr_data_t.cnt.TIMEOUT_CNT_W
+     G=['<none>']
+     O=None
+     42:12 work@ibex_dummy_instr.lfsr_data_t.op_a.OP_W
+     G=['<none>']
+     O=None
+     41:12 work@ibex_dummy_instr.lfsr_data_t.op_b.OP_W
+     G=['<none>']
+     O=None
+    834:64 work@ibex_icache.BUS_W
+     G=None
+     O=['<none>']
+    837:46 work@ibex_icache.BUS_W
+     G=None
+     O=['<none>']
+    853:35 work@ibex_icache.BUS_W
+     G=None
+     O=['<none>']
+    232:45 work@ibex_icache.INDEX_HI
+     G=None
+     O=['<none>']
+    236:45 work@ibex_icache.INDEX_HI
+     G=None
+     O=['<none>']
+    202:58 work@ibex_icache.LINE_W
+     G=None
+     O=['<none>']
+    232:54 work@ibex_icache.LINE_W
+     G=None
+     O=['<none>']
+    236:54 work@ibex_icache.LINE_W
+     G=None
+     O=['<none>']
+    236:45 work@ibex_icache.fill_ram_req_addr.INDEX_HI
+     G=['<none>']
+     O=None
+    236:54 work@ibex_icache.fill_ram_req_addr.LINE_W
+     G=['<none>']
+     O=None
+    323:48 work@ibex_icache.gen_rams.data_bank.req_i.data_banks_ic0.way
+     G=None
+     O=['<none>']
+    323:48 work@ibex_icache.gen_rams.data_bank.req_i.way
+     G=['<none>']
+     O=None
+    309:46 work@ibex_icache.gen_rams.tag_bank.req_i.tag_banks_ic0.way
+     G=None
+     O=['<none>']
+    309:46 work@ibex_icache.gen_rams.tag_bank.req_i.way
+     G=['<none>']
+     O=None
+    837:46 work@ibex_icache.instr_addr.BUS_W
+     G=['<none>']
+     O=None
+    834:64 work@ibex_icache.lookup_addr_ic0.BUS_W
+     G=['<none>']
+     O=None
+    232:45 work@ibex_icache.lookup_addr_ic0.INDEX_HI
+     G=['<none>']
+     O=None
+    202:58 work@ibex_icache.lookup_addr_ic0.LINE_W
+     G=['<none>']
+     O=None
+    232:54 work@ibex_icache.lookup_addr_ic0.LINE_W
+     G=['<none>']
+     O=None
+    853:35 work@ibex_icache.output_addr_q.BUS_W
+     G=['<none>']
+     O=None
+    100:31 work@padctrl.gen_dio_attr.d
+     G=None
+     O=['<none>']
+    100:28 work@padctrl.gen_dio_attr.hw2reg.dio_pads[k].d.k
+     G=['<none>']
+     O=None
+    100:28 work@padctrl.gen_dio_attr.k
+     G=None
+     O=['<none>']
+    105:31 work@padctrl.gen_mio_attr.d
+     G=None
+     O=['<none>']
+    105:28 work@padctrl.gen_mio_attr.hw2reg.mio_pads[k].d.k
+     G=['<none>']
+     O=None
+    105:28 work@padctrl.gen_mio_attr.k
+     G=None
+     O=['<none>']
+    109:42 work@pinmux.gen_dio_sleep.gen_warl_connect.d
+     G=None
+     O=['<none>']
+    109:39 work@pinmux.gen_dio_sleep.gen_warl_connect.hw2reg.dio_out_sleep_val[k].d.k
+     G=['<none>']
+     O=None
+    109:39 work@pinmux.gen_dio_sleep.gen_warl_connect.k
+     G=None
+     O=['<none>']
+    124:42 work@pinmux.gen_dio_sleep.gen_warl_tie0.d
+     G=None
+     O=['<none>']
+    124:39 work@pinmux.gen_dio_sleep.gen_warl_tie0.hw2reg.dio_out_sleep_val[k].d.k
+     G=['<none>']
+     O=None
+    124:39 work@pinmux.gen_dio_sleep.gen_warl_tie0.k
+     G=None
+     O=['<none>']
+    229:65 work@pinmux.gen_wkup_detect.dio_data_mux.k
+     G=None
+     O=['<none>']
+    229:65 work@pinmux.gen_wkup_detect.dio_data_mux.reg2hw.wkup_detector_padsel[k].k
+     G=['<none>']
+     O=None
+    230:65 work@pinmux.gen_wkup_detect.mio_data_mux.k
+     G=None
+     O=['<none>']
+    230:65 work@pinmux.gen_wkup_detect.mio_data_mux.reg2hw.wkup_detector_padsel[k].k
+     G=['<none>']
+     O=None
+     61:48 work@prim_arbiter_tree.gen_normal_case.N
+     G=['<none>']
+     O=None
+     47:27 work@prim_generic_ram_1p.mem.DataBitsPerMask
+     G=None
+     O=['<none>']
+     47:25 work@prim_generic_ram_1p.mem.i
+     G=None
+     O=['\\_int_var: (work@prim_generic_ram_1p.i), line:45:18, endln:45:19']
+     47:27 work@prim_generic_ram_1p.mem.mem.DataBitsPerMask
+     G=['<none>']
+     O=None
+     47:25 work@prim_generic_ram_1p.mem.mem.i
+     G=['\\_int_var: (work@prim_generic_ram_1p.i), line:45:18, endln:45:19']
+     O=None
+     59:29 work@prim_generic_ram_2p.mem.DataBitsPerMask
+     G=None
+     O=['<none>']
+     74:29 work@prim_generic_ram_2p.mem.DataBitsPerMask
+     G=None
+     O=['<none>']
+     59:27 work@prim_generic_ram_2p.mem.i
+     G=None
+     O=['\\_int_var: (work@prim_generic_ram_2p.i), line:57:18, endln:57:19']
+     74:27 work@prim_generic_ram_2p.mem.i
+     G=None
+     O=['\\_int_var: (work@prim_generic_ram_2p.i), line:72:18, endln:72:19']
+     59:29 work@prim_generic_ram_2p.mem.mem.DataBitsPerMask
+     G=['<none>']
+     O=None
+     74:29 work@prim_generic_ram_2p.mem.mem.DataBitsPerMask
+     G=['<none>']
+     O=None
+     59:27 work@prim_generic_ram_2p.mem.mem.i
+     G=['\\_int_var: (work@prim_generic_ram_2p.i), line:57:18, endln:57:19']
+     O=None
+     74:27 work@prim_generic_ram_2p.mem.mem.i
+     G=['\\_int_var: (work@prim_generic_ram_2p.i), line:72:18, endln:72:19']
+     O=None
+    183:51 work@prim_packer.flush_ready
+     G=['\\_logic_net: (work@prim_packer.flush_ready), line:46:9, endln:46:20']
+     O=None
+    183:52 work@prim_packer.flush_ready
+     G=None
+     O=['\\_logic_net: (work@prim_packer.flush_ready), line:46:9, endln:46:20']
+    183:66 work@prim_packer.pos
+     G=['\\_logic_net: (work@prim_packer.pos), line:40:27, endln:40:30']
+     O=None
+    183:67 work@prim_packer.pos
+     G=None
+     O=['\\_logic_net: (work@prim_packer.pos), line:40:27, endln:40:30']
+     69:27 work@prim_present.gen_round.gen_dec.gen_d32.data_state.k
+     G=['<none>']
+     O=None
+     69:27 work@prim_present.gen_round.gen_dec.gen_d32.k
+     G=None
+     O=['<none>']
+     63:27 work@prim_present.gen_round.gen_dec.gen_d64.data_state.k
+     G=['<none>']
+     O=None
+     63:27 work@prim_present.gen_round.gen_dec.gen_d64.k
+     G=None
+     O=['<none>']
+     75:26 work@prim_present.gen_round.gen_dec.gen_k128.k
+     G=None
+     O=['<none>']
+     75:26 work@prim_present.gen_round.gen_dec.gen_k128.round_key.k
+     G=['<none>']
+     O=None
+     85:26 work@prim_present.gen_round.gen_dec.gen_k64.k
+     G=None
+     O=['<none>']
+     85:26 work@prim_present.gen_round.gen_dec.gen_k64.round_key.k
+     G=['<none>']
+     O=None
+     80:26 work@prim_present.gen_round.gen_dec.gen_k80.k
+     G=None
+     O=['<none>']
+     80:26 work@prim_present.gen_round.gen_dec.gen_k80.round_key.k
+     G=['<none>']
+     O=None
+    102:27 work@prim_present.gen_round.gen_enc.gen_d32.data_state.k
+     G=['<none>']
+     O=None
+    102:27 work@prim_present.gen_round.gen_enc.gen_d32.k
+     G=None
+     O=['<none>']
+     96:27 work@prim_present.gen_round.gen_enc.gen_d64.data_state.k
+     G=['<none>']
+     O=None
+     96:27 work@prim_present.gen_round.gen_enc.gen_d64.k
+     G=None
+     O=['<none>']
+    108:26 work@prim_present.gen_round.gen_enc.gen_k128.k
+     G=None
+     O=['<none>']
+    108:26 work@prim_present.gen_round.gen_enc.gen_k128.round_key.k
+     G=['<none>']
+     O=None
+    114:26 work@prim_present.gen_round.gen_enc.gen_k64.k
+     G=None
+     O=['<none>']
+    114:26 work@prim_present.gen_round.gen_enc.gen_k64.round_key.k
+     G=['<none>']
+     O=None
+    111:26 work@prim_present.gen_round.gen_enc.gen_k80.k
+     G=None
+     O=['<none>']
+    111:26 work@prim_present.gen_round.gen_enc.gen_k80.round_key.k
+     G=['<none>']
+     O=None
+     53:38 work@prim_prince.p_key_expansion.DataWidth
+     G=None
+     O=['<none>']
+     59:55 work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST.DataWidth
+     G=None
+     O=['<none>']
+     53:38 work@prim_prince.p_key_expansion.key_i.DataWidth
+     G=['<none>']
+     O=None
+     59:55 work@prim_prince.p_key_expansion.prim_cipher_pkg::PRINCE_ALPHA_CONST.DataWidth
+     G=['<none>']
+     O=None
+     81:61 work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST.DataWidth
+     G=None
+     O=['<none>']
+    210:25 work@rv_plic.gen_ip.d
+     G=None
+     O=['<none>']
+    209:25 work@rv_plic.gen_ip.de
+     G=None
+     O=['<none>']
+    210:22 work@rv_plic.gen_ip.hw2reg.ip[s].d.s
+     G=['<none>']
+     O=None
+    209:22 work@rv_plic.gen_ip.hw2reg.ip[s].de.s
+     G=['<none>']
+     O=None
+    209:22 work@rv_plic.gen_ip.s
+     G=None
+     O=['<none>']
+    210:22 work@rv_plic.gen_ip.s
+     G=None
+     O=['<none>']
+     83:18 work@sha2_pad.shaf_rdata
+     G=['\\_logic_net: (work@sha2_pad.shaf_rdata), line:24:25, endln:24:35']
+     O=None
+     83:19 work@sha2_pad.shaf_rdata
+     G=None
+     O=['\\_logic_net: (work@sha2_pad.shaf_rdata), line:24:25, endln:24:35']
+     84:18 work@sha2_pad.shaf_rdata
+     G=['\\_logic_net: (work@sha2_pad.shaf_rdata), line:24:25, endln:24:35']
+     O=None
+     84:19 work@sha2_pad.shaf_rdata
+     G=None
+     O=['\\_logic_net: (work@sha2_pad.shaf_rdata), line:24:25, endln:24:35']
+     85:18 work@sha2_pad.shaf_rdata
+     G=['\\_logic_net: (work@sha2_pad.shaf_rdata), line:24:25, endln:24:35']
+     O=None
+     85:19 work@sha2_pad.shaf_rdata
+     G=None
+     O=['\\_logic_net: (work@sha2_pad.shaf_rdata), line:24:25, endln:24:35']
+     86:18 work@sha2_pad.shaf_rdata
+     G=['\\_logic_net: (work@sha2_pad.shaf_rdata), line:24:25, endln:24:35']
+     O=None
+     86:19 work@sha2_pad.shaf_rdata
+     G=None
+     O=['\\_logic_net: (work@sha2_pad.shaf_rdata), line:24:25, endln:24:35']
+    164:48 work@spi_device.PtrW
+     G=None
+     O=['<none>']
+    168:48 work@spi_device.PtrW
+     G=None
+     O=['<none>']
+    243:65 work@spi_device.PtrW
+     G=None
+     O=['<none>']
+    244:65 work@spi_device.PtrW
+     G=None
+     O=['<none>']
+    159:51 work@spi_device.SDW
+     G=None
+     O=['<none>']
+    160:52 work@spi_device.SDW
+     G=None
+     O=['<none>']
+    161:51 work@spi_device.SDW
+     G=None
+     O=['<none>']
+    162:52 work@spi_device.SDW
+     G=None
+     O=['<none>']
+    159:56 work@spi_device.SramAw
+     G=None
+     O=['<none>']
+    160:57 work@spi_device.SramAw
+     G=None
+     O=['<none>']
+    161:56 work@spi_device.SramAw
+     G=None
+     O=['<none>']
+    162:57 work@spi_device.SramAw
+     G=None
+     O=['<none>']
+    243:65 work@spi_device.reg2hw.fifo_level.rxlvl.q[PtrW - 1:0].q.PtrW
+     G=['<none>']
+     O=None
+    244:65 work@spi_device.reg2hw.fifo_level.txlvl.q[PtrW - 1:0].q.PtrW
+     G=['<none>']
+     O=None
+    159:51 work@spi_device.reg2hw.rxf_addr.base.q[SDW+:SramAw].SDW
+     G=['<none>']
+     O=None
+    159:56 work@spi_device.reg2hw.rxf_addr.base.q[SDW+:SramAw].SramAw
+     G=['<none>']
+     O=None
+    160:52 work@spi_device.reg2hw.rxf_addr.limit.q[SDW+:SramAw].SDW
+     G=['<none>']
+     O=None
+    160:57 work@spi_device.reg2hw.rxf_addr.limit.q[SDW+:SramAw].SramAw
+     G=['<none>']
+     O=None
+    164:48 work@spi_device.reg2hw.rxf_ptr.rptr.q[PtrW - 1:0].q.PtrW
+     G=['<none>']
+     O=None
+    161:51 work@spi_device.reg2hw.txf_addr.base.q[SDW+:SramAw].SDW
+     G=['<none>']
+     O=None
+    161:56 work@spi_device.reg2hw.txf_addr.base.q[SDW+:SramAw].SramAw
+     G=['<none>']
+     O=None
+    162:52 work@spi_device.reg2hw.txf_addr.limit.q[SDW+:SramAw].SDW
+     G=['<none>']
+     O=None
+    162:57 work@spi_device.reg2hw.txf_addr.limit.q[SDW+:SramAw].SramAw
+     G=['<none>']
+     O=None
+    168:48 work@spi_device.reg2hw.txf_ptr.wptr.q[PtrW - 1:0].q.PtrW
+     G=['<none>']
+     O=None
+    427:35 work@spi_device.u_rxf_ctrl.FwModeRxFifo
+     G=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+     O=None
+    428:35 work@spi_device.u_rxf_ctrl.FwModeRxFifo
+     G=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+     O=None
+    429:35 work@spi_device.u_rxf_ctrl.FwModeRxFifo
+     G=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+     O=None
+    430:35 work@spi_device.u_rxf_ctrl.FwModeRxFifo
+     G=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+     O=None
+    431:35 work@spi_device.u_rxf_ctrl.FwModeRxFifo
+     G=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+     O=None
+    432:35 work@spi_device.u_rxf_ctrl.FwModeRxFifo
+     G=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+     O=None
+    433:35 work@spi_device.u_rxf_ctrl.FwModeRxFifo
+     G=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+     O=None
+    434:35 work@spi_device.u_rxf_ctrl.FwModeRxFifo
+     G=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+     O=None
+    429:35 work@spi_device.u_rxf_ctrl.sram_addr.FwModeRxFifo
+     G=None
+     O=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+    434:35 work@spi_device.u_rxf_ctrl.sram_error.FwModeRxFifo
+     G=None
+     O=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+    431:35 work@spi_device.u_rxf_ctrl.sram_gnt.FwModeRxFifo
+     G=None
+     O=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+    433:35 work@spi_device.u_rxf_ctrl.sram_rdata.FwModeRxFifo
+     G=None
+     O=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+    427:35 work@spi_device.u_rxf_ctrl.sram_req.FwModeRxFifo
+     G=None
+     O=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+    432:35 work@spi_device.u_rxf_ctrl.sram_rvalid.FwModeRxFifo
+     G=None
+     O=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+    430:35 work@spi_device.u_rxf_ctrl.sram_wdata.FwModeRxFifo
+     G=None
+     O=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+    428:35 work@spi_device.u_rxf_ctrl.sram_write.FwModeRxFifo
+     G=None
+     O=['\\_enum_const: (FwModeRxFifo), line:123:5, endln:123:21']
+    458:35 work@spi_device.u_txf_ctrl.FwModeTxFifo
+     G=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     O=None
+    459:35 work@spi_device.u_txf_ctrl.FwModeTxFifo
+     G=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     O=None
+    460:35 work@spi_device.u_txf_ctrl.FwModeTxFifo
+     G=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     O=None
+    461:35 work@spi_device.u_txf_ctrl.FwModeTxFifo
+     G=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     O=None
+    462:35 work@spi_device.u_txf_ctrl.FwModeTxFifo
+     G=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     O=None
+    463:35 work@spi_device.u_txf_ctrl.FwModeTxFifo
+     G=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     O=None
+    464:35 work@spi_device.u_txf_ctrl.FwModeTxFifo
+     G=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     O=None
+    465:35 work@spi_device.u_txf_ctrl.FwModeTxFifo
+     G=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     O=None
+    460:35 work@spi_device.u_txf_ctrl.sram_addr.FwModeTxFifo
+     G=None
+     O=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+    465:35 work@spi_device.u_txf_ctrl.sram_error.FwModeTxFifo
+     G=None
+     O=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+    462:35 work@spi_device.u_txf_ctrl.sram_gnt.FwModeTxFifo
+     G=None
+     O=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+    464:35 work@spi_device.u_txf_ctrl.sram_rdata.FwModeTxFifo
+     G=None
+     O=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+    458:35 work@spi_device.u_txf_ctrl.sram_req.FwModeTxFifo
+     G=None
+     O=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+    463:35 work@spi_device.u_txf_ctrl.sram_rvalid.FwModeTxFifo
+     G=None
+     O=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+    461:35 work@spi_device.u_txf_ctrl.sram_wdata.FwModeTxFifo
+     G=None
+     O=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+    459:35 work@spi_device.u_txf_ctrl.sram_write.FwModeTxFifo
+     G=None
+     O=['\\_enum_const: (FwModeTxFifo), line:124:5, endln:124:21']
+     89:24 work@spi_device_reg_top.AW
+     G=None
+     O=['<none>']
+     89:24 work@spi_device_reg_top.tl_i.a_address[AW - 1:0].a_address.AW
+     G=['<none>']
+     O=None
+    102:23 work@spi_fwm_rxf_ctrl.SDW
+     G=None
+     O=['<none>']
+    102:43 work@spi_fwm_rxf_ctrl.SDW
+     G=None
+     O=['<none>']
+    138:49 work@spi_fwm_rxf_ctrl.SDW
+     G=None
+     O=['<none>']
+     86:68 work@spi_fwm_rxf_ctrl.SDW
+     G=None
+     O=['<none>']
+     98:25 work@spi_fwm_rxf_ctrl.SDW
+     G=None
+     O=['<none>']
+     86:68 work@spi_fwm_rxf_ctrl.ptr_cmp.SDW
+     G=['<none>']
+     O=None
+    102:23 work@spi_fwm_rxf_ctrl.wptr.SDW
+     G=['<none>']
+     O=None
+    102:43 work@spi_fwm_rxf_ctrl.wptr.SDW
+     G=['<none>']
+     O=None
+    138:49 work@spi_fwm_rxf_ctrl.wptr.SDW
+     G=['<none>']
+     O=None
+     98:25 work@spi_fwm_rxf_ctrl.wptr.SDW
+     G=['<none>']
+     O=None
+    181:25 work@spi_fwm_txf_ctrl.SDW
+     G=None
+     O=['<none>']
+    182:23 work@spi_fwm_txf_ctrl.SDW
+     G=None
+     O=['<none>']
+    182:43 work@spi_fwm_txf_ctrl.SDW
+     G=None
+     O=['<none>']
+    186:23 work@spi_fwm_txf_ctrl.SDW
+     G=None
+     O=['<none>']
+    207:38 work@spi_fwm_txf_ctrl.SDW
+     G=None
+     O=['<none>']
+    207:58 work@spi_fwm_txf_ctrl.SDW
+     G=None
+     O=['<none>']
+    212:49 work@spi_fwm_txf_ctrl.SDW
+     G=None
+     O=['<none>']
+    181:25 work@spi_fwm_txf_ctrl.rptr.SDW
+     G=['<none>']
+     O=None
+    182:23 work@spi_fwm_txf_ctrl.rptr.SDW
+     G=['<none>']
+     O=None
+    182:43 work@spi_fwm_txf_ctrl.rptr.SDW
+     G=['<none>']
+     O=None
+    186:23 work@spi_fwm_txf_ctrl.rptr.SDW
+     G=['<none>']
+     O=None
+    207:58 work@spi_fwm_txf_ctrl.rptr.SDW
+     G=['<none>']
+     O=None
+    212:49 work@spi_fwm_txf_ctrl.rptr.SDW
+     G=['<none>']
+     O=None
+    207:38 work@spi_fwm_txf_ctrl.wptr_q.SDW
+     G=['<none>']
+     O=None
+     42:44 work@sram2tlul.SRAM_DWB
+     G=['<none>', '<none>']
+     O=['<none>']
+     93:27 work@tlul_adapter_host.WordSize
+     G=None
+     O=['<none>']
+     93:27 work@tlul_adapter_host.addr_i.WordSize
+     G=['<none>']
+     O=None
+     52:38 work@tlul_adapter_host.g_multiple_reqs.MAX_REQS
+     G=['<none>']
+     O=None
+     60:36 work@tlul_adapter_reg.RegAw
+     G=None
+     O=['<none>']
+     60:36 work@tlul_adapter_reg.tl_i.a_address[RegAw - 1:2].a_address.RegAw
+     G=['<none>']
+     O=None
+    153:53 work@tlul_adapter_sram.DataBitWidth
+     G=None
+     O=['<none>']
+    153:67 work@tlul_adapter_sram.SramAw
+     G=None
+     O=['<none>']
+    161:57 work@tlul_adapter_sram.i
+     G=None
+     O=['\\_int_var: (work@tlul_adapter_sram.i), line:160:14, endln:160:15']
+    163:38 work@tlul_adapter_sram.i
+     G=None
+     O=['\\_int_var: (work@tlul_adapter_sram.i), line:160:14, endln:160:15']
+    163:66 work@tlul_adapter_sram.i
+     G=None
+     O=['\\_int_var: (work@tlul_adapter_sram.i), line:160:14, endln:160:15']
+    153:53 work@tlul_adapter_sram.tl_i.a_address[DataBitWidth+:SramAw].DataBitWidth
+     G=['<none>']
+     O=None
+    153:67 work@tlul_adapter_sram.tl_i.a_address[DataBitWidth+:SramAw].SramAw
+     G=['<none>']
+     O=None
+    163:66 work@tlul_adapter_sram.tl_i.a_data[8 * i+:8].a_data.i
+     G=['\\_int_var: (work@tlul_adapter_sram.i), line:160:14, endln:160:15']
+     O=None
+    161:57 work@tlul_adapter_sram.tl_i.a_mask[i].i
+     G=['\\_int_var: (work@tlul_adapter_sram.i), line:160:14, endln:160:15']
+     O=None
+    163:38 work@tlul_adapter_sram.tl_i.a_mask[i].i
+     G=['\\_int_var: (work@tlul_adapter_sram.i), line:160:14, endln:160:15']
+     O=None
+     45:38 work@tlul_err.SubAW
+     G=None
+     O=['<none>']
+     69:43 work@tlul_err.SubAW
+     G=None
+     O=['<none>']
+     45:38 work@tlul_err.tl_i.a_address[SubAW - 1:0].a_address.SubAW
+     G=['<none>']
+     O=None
+     69:43 work@tlul_err.tl_i.a_address[SubAW - 1:0].a_address.SubAW
+     G=['<none>']
+     O=None
+    215:25 work@tlul_socket_1n.err_resp.N
+     G=['<none>']
+     O=None
+    216:25 work@tlul_socket_1n.err_resp.N
+     G=['<none>']
+     O=None
+    215:25 work@tlul_socket_1n.err_resp.tl_h_i.N
+     G=None
+     O=['<none>']
+    216:25 work@tlul_socket_1n.err_resp.tl_h_o.N
+     G=None
+     O=['<none>']
+    137:22 work@tlul_socket_1n.gen_u_o.a_address
+     G=None
+     O=['<none>']
+    139:22 work@tlul_socket_1n.gen_u_o.a_data
+     G=None
+     O=['<none>']
+    138:22 work@tlul_socket_1n.gen_u_o.a_mask
+     G=None
+DIFFERING REF KEYS: 13785 of 135523

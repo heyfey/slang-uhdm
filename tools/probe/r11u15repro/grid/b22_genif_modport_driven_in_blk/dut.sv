@@ -1,0 +1,7 @@
+module top(input logic [31:0] a, output logic [31:0] o);
+  if (1) begin : gb
+    logic [31:0] loc;
+    assign o   = a;
+    assign loc = o;
+  end
+endmodule

@@ -1,0 +1,7 @@
+      57:9 work@ltn_leaf.translation.patched_pte
+     G=['\\_part_select: patched_pte (work@ltn_leaf.translation.patched_pte), line:58:9, endln:58:25']
+     O=['\\_logic_net: (work@ltn_leaf.patched_pte), line:40:16, endln:40:27']
+     59:28 work@ltn_leaf.translation.patched_pte
+     G=['\\_part_select: patched_pte (work@ltn_leaf.translation.patched_pte), line:58:9, endln:58:25']
+     O=['\\_logic_net: (work@ltn_leaf.patched_pte), line:40:16, endln:40:27']
+DIFFERING REF KEYS: 2 of 72

@@ -1,0 +1,31 @@
+    235:17 work@keysched.W_var
+     G=['\\_part_select: W_var (work@keysched.W_var), line:230:3, endln:230:16']
+     O=['\\_logic_net: (work@keysched.W_var), line:159:18, endln:159:23']
+    206:14 work@keysched.col_t
+     G=['\\_part_select: col_t (work@keysched.col_t), line:205:2, endln:205:12']
+     O=['\\_logic_net: (work@keysched.col_t), line:160:12, endln:160:17']
+    214:14 work@keysched.col_t
+     G=['\\_part_select: col_t (work@keysched.col_t), line:213:2, endln:213:14']
+     O=['\\_logic_net: (work@keysched.col_t), line:160:12, endln:160:17']
+    222:14 work@keysched.col_t
+     G=['\\_part_select: col_t (work@keysched.col_t), line:221:2, endln:221:14']
+     O=['\\_logic_net: (work@keysched.col_t), line:160:12, endln:160:17']
+    229:14 work@keysched.col_t
+     G=['\\_part_select: col_t (work@keysched.col_t), line:228:3, endln:228:14']
+     O=['\\_logic_net: (work@keysched.col_t), line:160:12, endln:160:17']
+    230:17 work@keysched.col_t
+     G=['\\_part_select: col_t (work@keysched.col_t), line:228:3, endln:228:14']
+     O=['\\_logic_net: (work@keysched.col_t), line:160:12, endln:160:17']
+    149:21 work@mixcolum.data_reg_var
+     G=['\\_part_select: data_reg_var (work@mixcolum.data_reg_var), line:148:4, endln:148:24']
+     O=['\\_logic_net: (work@mixcolum.data_reg_var), line:122:13, endln:122:25']
+    160:21 work@mixcolum.data_reg_var
+     G=['\\_part_select: data_reg_var (work@mixcolum.data_reg_var), line:159:3, endln:159:22']
+     O=['\\_logic_net: (work@mixcolum.data_reg_var), line:122:13, endln:122:25']
+    168:21 work@mixcolum.data_reg_var
+     G=['\\_part_select: data_reg_var (work@mixcolum.data_reg_var), line:167:3, endln:167:22']
+     O=['\\_logic_net: (work@mixcolum.data_reg_var), line:122:13, endln:122:25']
+    176:18 work@mixcolum.data_reg_var
+     G=['\\_part_select: data_reg_var (work@mixcolum.data_reg_var), line:175:4, endln:175:22']
+     O=['\\_logic_net: (work@mixcolum.data_reg_var), line:122:13, endln:122:25']
+DIFFERING REF KEYS: 10 of 887

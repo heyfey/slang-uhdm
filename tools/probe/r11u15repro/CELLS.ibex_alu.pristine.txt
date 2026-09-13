@@ -1,0 +1,76 @@
+    734:18 ibex_pkg::IbexMuBiOff.IbexMuBiWidth
+     G=None
+     O=['<none>']
+    734:18 ibex_pkg::IbexMuBiOff::ibex_mubi_t::IbexMuBiWidth
+     G=['<none>']
+     O=None
+    734:18 ibex_pkg::IbexMuBiOn.IbexMuBiWidth
+     G=None
+     O=['<none>']
+    734:18 ibex_pkg::IbexMuBiOn::ibex_mubi_t::IbexMuBiWidth
+     G=['<none>']
+     O=None
+    726:20 ibex_pkg::RndCnstIbexKeyDefault.SCRAMBLE_KEY_W
+     G=None
+     O=['\\_constant: , line:401:45, endln:401:48']
+    726:20 ibex_pkg::RndCnstIbexKeyDefault::SCRAMBLE_KEY_W
+     G=['\\_constant: , line:401:45, endln:401:48']
+     O=None
+    728:20 ibex_pkg::RndCnstIbexNonceDefault.SCRAMBLE_NONCE_W
+     G=None
+     O=['\\_constant: , line:402:45, endln:402:47']
+    728:20 ibex_pkg::RndCnstIbexNonceDefault::SCRAMBLE_NONCE_W
+     G=['\\_constant: , line:402:45, endln:402:47']
+     O=None
+    721:18 ibex_pkg::RndCnstLfsrPermDefault.LfsrWidth
+     G=None
+     O=['<none>']
+    721:18 ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth
+     G=['<none>']
+     O=None
+    720:18 ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth
+     G=None
+     O=['<none>']
+    720:18 ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth
+     G=['<none>']
+     O=None
+    269:22 work@ibex_alu.RV32B
+     G=['<none>', '<none>']
+     O=['<none>']
+    274:23 work@ibex_alu.RV32B
+     G=['<none>', '<none>']
+     O=['<none>']
+    269:31 work@ibex_alu.RV32BNone
+     G=['\\_enum_const: (RV32BNone), line:49:5, endln:49:24', '\\_enum_const: (RV32BNone), line:49:5, endln:49:24']
+     O=['\\_enum_const: (RV32BNone), line:49:5, endln:49:24']
+    274:32 work@ibex_alu.RV32BNone
+     G=['\\_enum_const: (RV32BNone), line:49:5, endln:49:24', '\\_enum_const: (RV32BNone), line:49:5, endln:49:24']
+     O=['\\_enum_const: (RV32BNone), line:49:5, endln:49:24']
+    269:63 work@ibex_alu.bfp_len
+     G=['\\_logic_net: (work@ibex_alu.bfp_len), line:259:16, endln:259:23', '\\_logic_net: (work@ibex_alu.bfp_len), line:259:16, endln:259:23']
+     O=['\\_logic_net: (work@ibex_alu.bfp_len), line:259:16, endln:259:23']
+    275:55 work@ibex_alu.bfp_mask
+     G=['\\_logic_net: (work@ibex_alu.bfp_mask), line:261:16, endln:261:24', '\\_logic_net: (work@ibex_alu.bfp_mask), line:261:16, endln:261:24']
+     O=['\\_logic_net: (work@ibex_alu.bfp_mask), line:261:16, endln:261:24']
+    275:68 work@ibex_alu.bfp_off
+     G=['\\_logic_net: (work@ibex_alu.bfp_off), line:260:16, endln:260:23', '\\_logic_net: (work@ibex_alu.bfp_off), line:260:16, endln:260:23']
+     O=['\\_logic_net: (work@ibex_alu.bfp_off), line:260:16, endln:260:23']
+   1294:41 work@ibex_alu.g_no_alu_rvb.butterfly_result
+     G=['<none>', '<none>']
+     O=['<none>', '\\_logic_var: (work@ibex_alu.butterfly_result), line:407:16, endln:407:32']
+   1311:12 work@ibex_alu.g_no_alu_rvb.imd_val_d_o
+     G=['<none>', '<none>']
+     O=['<none>', '\\_array_net: (work@ibex_alu.imd_val_d_o), line:24:29, endln:24:40']
+   1296:41 work@ibex_alu.g_no_alu_rvb.invbutterfly_result
+     G=['<none>', '<none>']
+     O=['<none>', '\\_logic_var: (work@ibex_alu.invbutterfly_result), line:408:16, endln:408:35']
+    275:24 work@ibex_alu.operand_a_i
+     G=['\\_logic_net: (work@ibex_alu.operand_a_i), line:13:29, endln:13:40', '\\_logic_net: (work@ibex_alu.operand_a_i), line:13:29, endln:13:40']
+     O=['\\_logic_net: (work@ibex_alu.operand_a_i), line:13:29, endln:13:40']
+    275:41 work@ibex_alu.operand_b_i
+     G=['\\_logic_net: (work@ibex_alu.operand_b_i), line:14:29, endln:14:40', '\\_logic_net: (work@ibex_alu.operand_b_i), line:14:29, endln:14:40']
+     O=['\\_logic_net: (work@ibex_alu.operand_b_i), line:14:29, endln:14:40']
+     275:9 work@ibex_alu.shift_result
+     G=['\\_logic_net: (work@ibex_alu.shift_result), line:254:23, endln:254:35', '\\_logic_net: (work@ibex_alu.shift_result), line:254:23, endln:254:35']
+     O=['\\_logic_net: (work@ibex_alu.shift_result), line:254:23, endln:254:35']
+DIFFERING REF KEYS: 25 of 1066

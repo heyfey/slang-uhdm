@@ -327,7 +327,7 @@ ibex_register_file_latch,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtli
 ibex_top,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,
 ibex_top_tracing,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top_tracing.sv:47:10: error: unknown class or package 'prim_ram_1p_pkg',,
 ibex_tracer,testflags,CMP_NOTEQUAL,decompile:,,
-ibex_wb_stage,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_wb_stage,testflags,CMP_EQUAL,,,differ
 iface_arr_struct_field_partsel,testflags,CMP_EQUAL,,,differ
 iface_arr_struct_whole_field,testflags,CMP_EQUAL,,,differ
 iface_array_count,testflags,CMP_EQUAL,,,differ
@@ -423,7 +423,7 @@ latch_nested_ex_field,testflags,CMP_EQUAL,,,differ
 latch_packed_dyn_write,testflags,CMP_EQUAL,,,differ
 latch_packed_enum_loop,testflags,CMP_NOTEQUAL,decompile:,,
 latch_perf_counters,testflags,CMP_NOTEQUAL,decompile:,,
-latch_tlb_napot,testflags,CMP_NOTEQUAL,decompile:,,
+latch_tlb_napot,testflags,CMP_EQUAL,,,differ
 latchn,testflags,CMP_EQUAL,,,match
 latchp,testflags,CMP_EQUAL,,,match
 latchsr,testflags,CMP_EQUAL,,,match

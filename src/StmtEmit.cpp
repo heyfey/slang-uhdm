@@ -373,14 +373,63 @@ void UhdmExporter::endSelTrack() {
         // bound (cell s4 `a4[1:0]`, cell s6 `v1[3:0]`, which
         // multiple_blocking_gate pins), and a `$` bound can only exist on a
         // QUEUE part-select.
-        if (selWholeWrittenVars.count(wr.sym) &&
-            sel->UhdmType() == UHDM::uhdmpart_select &&
-            ((UHDM::part_select*)sel)->Left_range() &&
-            ((UHDM::part_select*)sel)->Left_range()->UhdmType() ==
-                UHDM::uhdmconstant &&
-            ((const UHDM::constant*)((UHDM::part_select*)sel)->Left_range())
-                    ->VpiConstType() != vpiUnboundedConst)
-            continue;
+        //
+        // § wholeWriteIsNotTheDiscriminatorForANET (r11u15) — AND IT DOES NOT
+        // APPLY WHEN THE REFERENCE BINDS A NET, BECAUSE THE SCOPE ALREADY SAYS
+        // IT.  `multiple_blocking_gate`'s 32 selects are
+        // CASE-ITEM statements: `noteSelectObj` registers only in a scope whose
+        // innermost entry `isBlock`, so a select under a bare `case`/`if` arm
+        // "registers nowhere" (that function's own comment) and the outer
+        // block's whole refs never see it.  The whole-write test was reading
+        // that row's answer off the wrong axis, and on every arm that actually
+        // TESTS it golden re-points.
+        // MEASURED against the golden Surelog database, one arm per row, every
+        // arm rc 0 on BOTH sides, read off the DUMPS and not off `uhdm-cmp`
+        // (a01's sibling a17 is MASKED — the judge reaches the module's Nets
+        // first and short-circuits, so an arm agreeing at rc 0 is not an arm
+        // testing this):
+        //   a01 `p = a; p[3:0] = b[3:0]; o = p;`  same block -> golden REPOINTS
+        //       BOTH refs (the one BEFORE the select included) to the
+        //       part_select; ours kept the net.
+        //   a05 no later read, a11 the target is an output PORT, a12 two
+        //       selects (both refs take the FIRST), a14 the whole write reads
+        //       itself, a15/a16 non-ANSI `reg` in an `always @(posedge)`,
+        //       a17 the whole write AFTER the select, a18 two whole writes,
+        //       a19 the name also read at module level, a20 the whole write in
+        //       a NESTED block -> golden REPOINTS in every one.
+        //   a13 the select in a CASE ITEM  -> golden keeps the NET (and so do
+        //       we: it registers nowhere).  This is multiple_blocking_gate.
+        //   a21 the select in a nested `begin`, the whole refs OUTSIDE it ->
+        //       golden keeps the NET (the scope chain never reaches it).
+        //   a04 a BIT select and a22 an INDEXED part-select -> golden REPOINTS,
+        //       as they already did.
+        // So no arm survives the old carve-out and two arms pin the SCOPE rule
+        // that replaces it.  Corpus: latch_tlb_napot's head —
+        // `patched_pte = pte_i; patched_pte[3:0] = flush_vaddr_i[3:0];` in the
+        // `translation` always_comb (dut.sv:57-59), where the reference's
+        // actual is `logic_net work@ltn_leaf.patched_pte`.
+        //
+        // THE FENCE IS `V-FIX vbuvm5`'s OWN CELL, kept verbatim: the carve-out
+        // still fires for a reference whose actual is NOT a net — a `ref_var`
+        // subroutine local (arm v2, `bs = 8'h00;` next to `bs[3:0] = 4'hf;`,
+        // cells s01/s05) is golden `ref_var` and pristine-right, and re-pointing
+        // it at the part_select is a measured pristine-right -> patched-wrong.
+        // Every arm of this pass's a-grid binds a module-level NET, so the two
+        // populations do not overlap and the narrowing is exact.
+        {
+            const UHDM::any* cur0 = wr.ref->Actual_group();
+            const bool curIsNet =
+                cur0 != nullptr &&
+                any_cast<const UHDM::nets*>(cur0) != nullptr;
+            if (!curIsNet && selWholeWrittenVars.count(wr.sym) &&
+                sel->UhdmType() == UHDM::uhdmpart_select &&
+                ((UHDM::part_select*)sel)->Left_range() &&
+                ((UHDM::part_select*)sel)->Left_range()->UhdmType() ==
+                    UHDM::uhdmconstant &&
+                ((const UHDM::constant*)((UHDM::part_select*)sel)->Left_range())
+                        ->VpiConstType() != vpiUnboundedConst)
+                continue;
+        }
         wr.ref->Actual_group(sel);
         // A function-return-name ref is ALSO queued in pendingFuncRet, whose
         // drain would overwrite this with a freshly minted return variable.

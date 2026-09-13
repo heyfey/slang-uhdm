@@ -17423,7 +17423,45 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         // driven in a DIFFERENT gen block of the same module
                         // stays unbound (r5p_gpr t_rs: driven in gen_default,
                         // read in gen_wb_default — Surelog leaves it unbound).
-                        else if (blkWrites.count(&nvp.symbol))
+                        // § genCaDrivenOpenerIsGenLocalOnly (r11u15) — AND THE
+                        // DRIVEN SIGNAL MUST BE A GENERATE-SCOPE DECLARATION.
+                        // The opener above was calibrated on r5p_gpr, whose
+                        // witness is `gpr` — a local of `gen_default`, written
+                        // by the block's own always_ff and read by the block's
+                        // own `assign t_rs1 = gpr[a_rs1];`.  A MODULE-BODY
+                        // signal that merely happens to be DRIVEN inside the
+                        // block is NOT a witness: golden never binds a
+                        // module-level name from a gen-scope cont_assign Rhs.
+                        // MEASURED on the golden Surelog database, one arm per
+                        // row, every arm rc 0 on both sides (grid b01-b22):
+                        //   b01 module VAR driven by this block's own assign,
+                        //       read bare on a later Rhs      -> golden UNBOUND
+                        //   b20 same, read inside an operation-> golden UNBOUND
+                        //   b19 same, driven by a PROCESS in the block
+                        //                                      -> golden UNBOUND
+                        //   b18 module NET driven in the block -> golden UNBOUND
+                        //   b22 module PORT driven in the block-> golden UNBOUND
+                        //   b21 same in a for-generate body    -> golden UNBOUND
+                        //   b15/b16 the same module name read ALONGSIDE a
+                        //       gen-local in one Rhs           -> golden binds
+                        //       the gen-local, UNBINDS the module name
+                        //   b04/b14 a SAME-scope gen-local     -> golden BINDS
+                        //   b17 an ANCESTOR gen-local on the Rhs -> UNBOUND on
+                        //       both sides already (bindGenLocal9's Rhs leg
+                        //       allows no ancestor), so this gate cannot
+                        //       reach it.
+                        // Corpus: the ibex_alu / ibex_multdiv_fast /
+                        // ibex_wb_stage head — `assign unused_butterfly_result
+                        // = butterfly_result;` in `g_no_alu_rvb`, whose block
+                        // also carries `assign butterfly_result = '0;` over the
+                        // MODULE-level `logic [31:0] butterfly_result`
+                        // (ibex_alu.sv:407).
+                        else if (blkWrites.count(&nvp.symbol) &&
+                                 nvp.symbol.getParentScope() &&
+                                 (nvp.symbol.getParentScope()->asSymbol().kind ==
+                                      SymbolKind::GenerateBlock ||
+                                  nvp.symbol.getParentScope()->asSymbol().kind ==
+                                      SymbolKind::GenerateBlockArray))
                             hasBindableRef = true;
                         v.visitDefault(nvp);
                     }));

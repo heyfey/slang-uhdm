@@ -1,0 +1,109 @@
+r11u15 GATES — base 401ed722, worktree /tmp/wt_r11u15
+=====================================================
+Frozen binaries (chmod 555 copies, taken BEFORE any sweep):
+  pristine  aa22f942076295f56fd20551df1ee939   (= main tree at 401ed722)
+  law A     07607b76a0902db6deda906a1d5c0b26   (ModuleEmit only, intermediate)
+  law A+B   71f3672cb6c14f8eefa74b9958b77210   (the deliverable)
+Every sweep exported SLANG_UHDM explicitly and every cmds.txt was audited by
+binary PATH: `slang: /tmp/r11u15_bin/<tag>.bin ...`.
+
+(1) BUILD + md5  ---------------------------------------------------- GREEN
+    cmake --build build -j 2, rc=0, md5sum run separately.
+    Pristine md5 is byte-identical to the main tree's build/slang-uhdm.
+
+(2) GOLDEN UNIT TESTS  ---------------------------------------------- GREEN
+    SLANG_UHDM=<law A+B>   tests/check_goldens.sh   PASS=23  FAIL=0
+    SLANG_UHDM=/bin/false  tests/check_goldens.sh   PASS=0   FAIL=23   (neg ctl)
+
+(3) uhdm2rtlil, BOTH MODES  ----------------------------------------- GREEN
+    pristine   testflags 757 CMP_EQUAL /  47 CMP_NOTEQUAL / 67 SLANG_REJECT
+               default   757            /  47              / 67
+    law A+B    testflags 759            /  45              / 67
+               default   759            /  45              / 67
+    ct8rows.sh results/gate_uhdm2rtlil.csv  <law testflags>:
+      2 differing ROWS, both law-named, both quoted:
+        < ibex_wb_stage,testflags,CMP_NOTEQUAL,decompile:,,
+        > ibex_wb_stage,testflags,CMP_EQUAL,,,differ
+        < latch_tlb_napot,testflags,CMP_NOTEQUAL,decompile:,,
+        > latch_tlb_napot,testflags,CMP_EQUAL,,,differ
+      (the same two rows in default; results/*.csv NOT edited)
+    canaries.sh   ok=8  changed=0  absent=0
+    EXPECT_UNKNOWN=6 ctcan2.sh  PASS: every supplementary canary row byte-identical
+
+(4) surelog suite, --mode both  ------------------------------------- GREEN
+    pristine   default 468 CMP_EQUAL / 15 CMP_NOTEQUAL
+               testflags 464          / 13
+    law A+B    default 468            / 15
+               testflags 464          / 13
+    STATUS DIFF pristine vs law: EMPTY (identical row for row, both modes).
+    ct8rows.sh results/golden_surelog.csv <law sl>: 2 differing ROWS, and both
+      are the WORKDIR PATH inside a SURELOG_FAIL log message
+      (LowMemLib/testflags, LowMemPkg/testflags) — the PRISTINE sweep produces
+      the identical 2 rows against the same baseline, so it is a workdir
+      artefact, not a status move.
+    canaries.sh   ok=52 changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2.sh  PASS
+    rowheads.sh  (SeqDriver SimpleUVM Scoreboard MiniAmiq BuildUVMPkg
+                  Earlgrey_0_1 Rggen): measured=12 SKIP-NOFILE=2
+                  UNKNOWN-NAME=0, and the table is IDENTICAL on the pristine
+                  and the law binaries (one head each, same cmplines).
+
+(5) byteverify SELFCHECK=1 vs MY OWN pristine workdirs  ------------- GREEN
+    u2r:      PATH_SETS_IDENTICAL (1608)   MOVERS 8 / 1608
+              SELFCHECK 1607 / 1608 flagged (the gate can see)
+              default/{ibex_alu, ibex_multdiv_fast, ibex_wb_stage,
+                       latch_tlb_napot} and the same four in testflags.
+              Every one is in BOTH a-priori predicted sets (PREDICT.u2r.txt,
+              PREDICT2.u2r.txt), which were computed from PRISTINE databases
+              only.  Cell-level attribution (refcen.py), AWAY 0 / MOVED-WRONG 0:
+                ibex_wb_stage      213:50 perf_instr_ret_wb_o   bound -> <none>
+                                   213:72 instr_is_compressed_id_i bound -> <none>
+                ibex_alu          1294:41 butterfly_result      bound -> <none>
+                                  1296:41 invbutterfly_result   bound -> <none>
+                ibex_multdiv_fast  279:39 mac_res_signed        bound -> <none>
+                latch_tlb_napot      57:9 patched_pte (Lhs)  net -> part_select
+                                    59:28 patched_pte (Rhs)  net -> part_select
+    surelog:  PATH_SETS_IDENTICAL (960)    MOVERS 9 / 960
+              SELFCHECK 959 / 960 flagged
+              default/{MiniAmiq, Scoreboard, SeqDriver} + testflags/{MiniAmiq,
+                SeqDriver}                      -> THE PROVEN UVM COIN FAMILY
+              default+testflags/Earlgrey_0_1    -> LAW B, 3 cells
+              default+testflags/YosysOldSystem  -> LAW B, 10 cells
+
+    COIN POSITIVE CONTROL (the pristine binary alone, four runs on MiniAmiq's
+    own command line): four DIFFERENT database md5s; the order-blind delta
+    between any pair is the same 4-line shape — one constant in
+    `array_typespec types_t`'s range, drawing 0 / 565 / 885 / 961 over the four
+    runs.  The pristine-vs-law delta on MiniAmiq is that identical 4-line
+    shape.  Scoreboard/default is order-blind IDENTICAL (0 lines).
+
+    LAW-B SURELOG MOVERS, attributed cell by cell (refcen.py, golden vs ours):
+      YosysOldSystem   10 differing ref keys pristine -> 0 under the law
+                       (keysched W_var/col_t/K_var, mixcolum data_i_var: our
+                        logic_net -> golden's part_select)
+      Earlgrey_0_1     13785 -> 13782; the set diff removes exactly three keys
+                       (aes_key_expand.drive_regular.regular at 218:20, 276:22,
+                        280:11) and ADDS NONE.
+    Both are named a priori by predict2.py on their own PRISTINE databases.
+
+(6) PROTECTED DATABASES BY NAME (md5, pristine vs law A+B)  --------- GREEN
+    SVSwitch/default            4842211c4030  SAME  (hard byte pin)
+    SVSwitch/testflags          4842211c4030  SAME  (hard byte pin)
+    YosysVerx/default           6ccda350c24a  SAME  (hard byte pin)
+    YosysVerx/testflags         6ccda350c24a  SAME  (hard byte pin)
+    InterfaceModPort/default    59a365f3ce2c  SAME
+    InterfaceModPort/testflags  59a365f3ce2c  SAME
+    BlackParrotComplex/default  e3e354129d5a  SAME
+    BlackParrotComplex/testflags 73a10e8217e5 SAME
+    YosysOldOr/default          d68e0796d62c  SAME
+    YosysOldOr/testflags        d68e0796d62c  SAME
+
+(7) canaudit.sh canaries.sh ctcan2.sh  ------------------------------ GREEN
+    audited=29  UNCOVERED=0  FENCE-BREACH=0
+    PASS: every brief-protected name and family is carried by a script that
+    RUNS here.  No fenced test is dispatched by any driver in this directory.
+
+(8) GRID  ----------------------------------------------------------- GREEN
+    44 arms, every arm golden_rc=0 AND ours_rc=0 in every tag.
+    19 arms convert pristine -> law, 0 arms regress.
+    Residues that stay not-equal on both binaries: a10, b15, b16, b21 (README §8).
