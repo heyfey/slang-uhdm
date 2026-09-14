@@ -1,0 +1,5 @@
+default/genscope_outer_reg_inner_ff-e6115fca/slang.uhdm LAW=1
+default/ibex_compressed_decoder-795c91d7/slang.uhdm LAW=1
+testflags/genscope_outer_reg_inner_ff-e6115fca/slang.uhdm LAW=1
+testflags/ibex_compressed_decoder-795c91d7/slang.uhdm LAW=1
+SCANNED=1608 FLAGGED=4

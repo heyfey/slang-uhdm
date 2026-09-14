@@ -7,7 +7,10 @@
 #include "UhdmExporter.h"
 
 #include <algorithm>
+#include <cmath>
+#include <cstdint>
 #include <deque>
+#include <optional>
 #include <functional>
 
 #include "EmitHelpers.h"
@@ -14250,6 +14253,480 @@ static bool caPatNestedOperand19(const Expression& pat) {
     return false;
 }
 
+// ---------------------------------------------------------------------------
+// § genCaTernaryFoldGenScope22 (r11u22) — THE GENERATE-SCOPE HOME OF THE
+// CONT-ASSIGN TERNARY FOLD.  r11u19's R0, and the helpers below are the
+// PRODUCER'S OWN THREE FENCES transcribed one function at a time.
+//
+// THE PRODUCER.  `UhdmWriter::writeCont_assign` (Surelog v1.87
+// `src/DesignCompile/UhdmWriter.cpp:2090`) walks `netlist->cont_assigns()` for
+// EVERY instance — a generate scope is an instance like any other — and its
+// FIRST arm (`:2121`) is the one that can write a NON-constant back:
+//     if (lhs->UhdmType() == uhdmref_obj) {
+//       any* var = m_helper.bindVariable(mod, m, lhs->VpiName(), …);
+//       if (var) { if (rhs->UhdmType() == uhdmoperation) { …clone…
+//           any* rhstmp = m_helper.reduceExpr((expr*)rhs, invalidValue, …);
+//           …tps = the BOUND VAR's Actual_typespec…
+//           if ((invalidValue == false) && rhstmp) {
+//             if (rhstmp->UhdmType() == uhdmconstant)
+//               rhstmp = m_helper.adjustSize(tps, …, (constant*)rhstmp, true);
+//             assign->Rhs((expr*)rhstmp); } } } }
+// so a gen-scope cell folds EXACTLY as a module-body cell does, and the ONE
+// thing that differs between the two homes is WHICH DECLARATION
+// `bindVariable` finds.  `CompileHelper::bindVariable`'s scope-walking
+// overload (`CompileStmt.cpp:3095`) switches on `function` / `task` / `begin`
+// / `module_inst` and NOTHING ELSE, so from a `gen_scope` it falls through to
+// the enclosing `module_inst` and finds MODULE-BODY nets, variables and ports
+// — never a gen-LOCAL declaration, never a declaration in an ENCLOSING gen
+// scope, and never anything at all from an INTERFACE body.  That predicate is
+// already decoded as `caLhsAdjustBind106` (r10earl106, verifier-amended in
+// r10v106) and is REUSED here rather than re-derived; it also hands back
+// `Bits(tps)`, the width `adjustSize` sizes with.
+//
+// `bindVariable` returning NULL does NOT mean "no fold": the function's
+// trailing `if (simplified == false)` arm (`:2247`) reduces the Rhs for ANY
+// Lhs shape and installs the result when it is a CONSTANT, with `tps` null so
+// `adjustSize` returns at once.  Measured, golden, one arm per shape —
+// `c01` (gen-local Lhs, `'0` arm) keeps the literal at `VpiSize` **-1**,
+// `c02` (gen-local Lhs, `32'd5` arm) is `INT:5` at **64**, and `c05`/`c06`/
+// `c07`/`c15`/`a07` (bit-select, concat, member, outer-gen-scope and
+// INTERFACE gen-scope Lhs) are all the unsized literal.  THAT HALF IS NOT
+// IMPLEMENTED HERE (README § R1): this law owns the BOUND half only, and
+// `caLhsAdjustBind106` is the fence that separates them.
+//
+// THE OPERAND GATE — and it is inherited from GOLDEN, not from our own wider
+// module-scope behaviour.  `ExprEval::reduceExpr` computes `constantOperands`
+// over ALL THREE operands of the conditional, THE UNTAKEN ARM INCLUDED
+// (`UHDM/templates/ExprEval.cpp:3121-3145`), and abandons the ENTIRE reduce
+// unless every one is a `constant`, an `operation`, a `sys_func_call`, a
+// `func_call`, a `bit_select`, a `hier_path`, a `var_select`, an `enum_var`,
+// or a `ref_obj` WHOSE NAME HAS A VALUE.  `part_select` and
+// `indexed_part_select` are NOT on that list.  § elabCaTernaryFoldIntConst22
+// has no such gate at module scope and folds `f11` anyway (r11u19 § R2); the
+// PRISTINE gen-scope emitter has no fold at all and therefore AGREES with
+// golden on every gated-out cell — `b12`, `d12`, `d17`, `d19`, `e08`, `f03`'s
+// two surviving cells — so a gate-less copy of the module-scope law would
+// REGRESS them.  `kindOf22` below is § elabCaTernaryArmInstall92's
+// `kindOf92`, copied deliberately (the campaign defers helper extraction
+// until 0 NE) so that r10earl92's landed measurements cannot move.
+// ---------------------------------------------------------------------------
+// `R11U22_OFF=1` restores the pristine behaviour at run time IN THE SHIPPED
+// BINARY, so 100 % of a mover's byte delta can be attributed to this law and
+// nothing else; `R11U22_CELLDBG=1` names EVERY gen-scope cont_assign whose
+// Rhs is a ternary — the cells the law LEAVES ALONE included, because a trace
+// keyed on the shape you intend to change is blind to the rows you would
+// change by accident (earl66's lesson).  Both write to stderr, both off
+// unless the variable is set.
+static bool off22() {
+    static const bool v = getenv("R11U22_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg22() {
+    static const bool v = [] {
+        const char* e = getenv("R11U22_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+enum class GTKind22 { Constant, RefObj, Operation, Call, Select, HierPath,
+                      Refused };
+
+static GTKind22 genTernKindOf22(const Expression& e0, ASTContext& ctx) {
+    auto& e22 = stripImplicitConv(e0);
+    switch (e22.kind) {
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        case ExpressionKind::StringLiteral:
+        case ExpressionKind::RealLiteral:
+        case ExpressionKind::TimeLiteral:
+        case ExpressionKind::NullLiteral:
+            return GTKind22::Constant;
+        case ExpressionKind::UnaryOp:
+        case ExpressionKind::BinaryOp:
+        case ExpressionKind::ConditionalOp:
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+        case ExpressionKind::Conversion:
+        case ExpressionKind::SimpleAssignmentPattern:
+        case ExpressionKind::StructuredAssignmentPattern:
+        case ExpressionKind::ReplicatedAssignmentPattern:
+        case ExpressionKind::Streaming:
+        case ExpressionKind::Inside:
+            return GTKind22::Operation;
+        case ExpressionKind::Call:
+            return GTKind22::Call;
+        case ExpressionKind::ElementSelect: {
+            // r10v92's walk: an ElementSelect CHAIN bottoming out on a MEMBER
+            // or a HIERARCHICAL reference is minted as a `hier_path`, whose
+            // reduce hands back `decodeHierPath(…, VALUE)` == nullptr and
+            // whose `&& rhstmp` then keeps the whole ternary.
+            const Expression* eb22 =
+                &stripImplicitConv(e22.as<ElementSelectExpression>().value());
+            for (int g22 = 0;
+                 g22 < 32 && eb22->kind == ExpressionKind::ElementSelect; ++g22)
+                eb22 = &stripImplicitConv(
+                    eb22->as<ElementSelectExpression>().value());
+            if (eb22->kind == ExpressionKind::MemberAccess ||
+                eb22->kind == ExpressionKind::HierarchicalValue)
+                return GTKind22::HierPath;
+            return GTKind22::Select;
+        }
+        case ExpressionKind::RangeSelect: {
+            const Expression* b22 =
+                &stripImplicitConv(e22.as<RangeSelectExpression>().value());
+            bool wrapped22 = false;
+            for (int g22 = 0; g22 < 32; ++g22) {
+                if (b22->kind == ExpressionKind::ElementSelect) {
+                    wrapped22 = true;
+                    b22 = &stripImplicitConv(
+                        b22->as<ElementSelectExpression>().value());
+                    continue;
+                }
+                break;
+            }
+            if (b22->kind == ExpressionKind::MemberAccess ||
+                b22->kind == ExpressionKind::HierarchicalValue)
+                return GTKind22::HierPath;
+            // A bare RangeSelect is a `part_select`, which `constantOperands`
+            // does NOT whitelist; with element selects above it ExprEmit wraps
+            // the whole thing in a `var_select`, which IS whitelisted.
+            return wrapped22 ? GTKind22::Select : GTKind22::Refused;
+        }
+        case ExpressionKind::MemberAccess:
+        case ExpressionKind::HierarchicalValue:
+            return GTKind22::HierPath;
+        case ExpressionKind::NamedValue: {
+            auto k22 = e22.as<NamedValueExpression>().symbol.kind;
+            if (k22 != SymbolKind::Parameter && k22 != SymbolKind::EnumValue &&
+                k22 != SymbolKind::Specparam && k22 != SymbolKind::Genvar)
+                return GTKind22::Refused;   // a signal has no value
+            return ctx.tryEval(e22) ? GTKind22::RefObj : GTKind22::Refused;
+        }
+        default:
+            return GTKind22::Refused;
+    }
+}
+
+// § genCaTernaryFoldGenScope22 — THE SYSTEM-FUNCTION FENCE (the vrgg9 list,
+// measured against real Surelog by r10vrgg9): `ExprEval` implements a CLOSED
+// set, and a reduce that needs one it does not implement hands the
+// `sys_func_call` back untouched.  Arm `d01` is the witness — golden INSTALLS
+// `$countones(32'hff)` where slang's own `tryEval` would happily fold it to 8
+// — and arm `d06` is the same fact on the CONDITION, where golden keeps the
+// whole ternary.
+static bool genTernSysEvalable22(const Expression& e0) {
+    bool ok22 = true;
+    stripImplicitConv(e0).visit(makeVisitor(
+        [&](auto& v22, const CallExpression& ce22) {
+            if (ce22.isSystemCall()) {
+                auto n22 = ce22.getSubroutineName();
+                if (n22 != "$clog2" && n22 != "$bits" && n22 != "$size" &&
+                    n22 != "$high" && n22 != "$low" && n22 != "$left" &&
+                    n22 != "$right")
+                    ok22 = false;
+            }
+            v22.visitDefault(ce22);
+        }));
+    return ok22;
+}
+
+// § genCaTernaryFoldGenScope22 — THE OPERATOR FENCE, and it is the producer's
+// `switch` read case by case.  `ExprEval::reduceExpr`'s operation switch
+// (`UHDM/templates/ExprEval.cpp:3146-4880`) has a `case` for exactly these
+// vpi op types:
+//     vpiArithRShiftOp vpiRShiftOp vpiLeOp vpiLtOp vpiGeOp vpiGtOp vpiNeqOp
+//     vpiEqOp vpiPostIncOp vpiPostDecOp vpiPreDecOp vpiPreIncOp
+//     vpiArithLShiftOp vpiLShiftOp vpiAddOp vpiPlusOp vpiBitOrOp vpiBitAndOp
+//     vpiLogOrOp vpiLogAndOp vpiMinusOp vpiSubOp vpiMultOp vpiBitNegOp
+//     vpiNotOp vpiInsideOp vpiUnaryAndOp vpiUnaryNandOp vpiUnaryOrOp
+//     vpiUnaryNorOp vpiUnaryXorOp vpiUnaryXNorOp vpiModOp vpiPowerOp vpiDivOp
+//     vpiConditionOp vpiMultiConcatOp vpiConcatOp vpiCastOp
+//     vpiMultiAssignmentPatternOp vpiAssignmentPatternOp
+// and DEFAULTS — returning THE OPERATION OBJECT UNTOUCHED — for every other
+// one.  The absentees that a real design can write are the BINARY XOR family
+// and the case/wildcard/implication comparisons, plus the streaming
+// operators, and each is measured on golden as an arm that INSTALLS rather
+// than folds:
+//     e01 `32'd2 ^ 32'd3`     (op 30)  golden INSTALLS the operation
+//     e02 `32'd2 === 32'd3`   (op 16)  golden INSTALLS
+//     e11 `32'd2 ==? 32'd3`   (op 69)  golden INSTALLS
+//     e12 `32'd2 -> 32'd3`    (op 50)  golden INSTALLS
+//     e03 `{<<8{16'habcd}}`   (op 72)  golden INSTALLS
+//     e04 the xor NESTED under a handled `+` (op 24) — golden INSTALLS the
+//         WHOLE add, because `reduceExpr` reduces the operand first,
+//         `get_value` on the returned operation invalidates and the outer
+//         arm `break`s
+// against e06 `inside` (op 95) -> `INT:1` and e10 `**` (op 43) -> `INT:8`,
+// which ARE in the switch and DO fold.  slang's own `tryEval` folds all of
+// them, so WITHOUT this fence the law would mint a constant where golden
+// installs an operation — six MOVED-WRONG cells.  The walk is over the whole
+// subtree because a single unhandled node anywhere poisons the reduce.
+static bool genTernOpsEvalable22(const Expression& e0) {
+    bool ok22 = true;
+    stripImplicitConv(e0).visit(makeVisitor(
+        [&](auto& v22, const BinaryExpression& be22) {
+            switch (be22.op) {
+                case BinaryOperator::BinaryXor:
+                case BinaryOperator::BinaryXnor:
+                case BinaryOperator::CaseEquality:
+                case BinaryOperator::CaseInequality:
+                case BinaryOperator::WildcardEquality:
+                case BinaryOperator::WildcardInequality:
+                case BinaryOperator::LogicalImplication:
+                case BinaryOperator::LogicalEquivalence:
+                    ok22 = false;
+                    break;
+                default:
+                    break;
+            }
+            v22.visitDefault(be22);
+        },
+        [&](auto& v22, const StreamingConcatenationExpression& se22) {
+            ok22 = false;
+            v22.visitDefault(se22);
+        }));
+    return ok22;
+}
+
+
+// § genCaTernaryFoldGenScope22 — THE VALUE MODEL, and it is `ExprEval`'s own
+// int64 arithmetic, not slang's context-typed evaluation.  The two DISAGREE,
+// measured on golden one arm per row, and every disagreement would be a
+// MOVED-WRONG cell:
+//     g01 `32'd2 - 32'd3`     golden `INT:-1`      slang 4294967295
+//     g02 `-K`  (K = 1)       golden `INT:-1`      slang 4294967295
+//     d13 `-32'sd1`           golden `INT:-1`      slang 4294967295
+//     g03 `-32'sd5 / 32'sd2`  golden `INT:-2`      slang 2147483645
+//     g04 `32'shFFFFFFFF`     golden `INT:4294967295`  slang -1
+// `ExprEval::reduceExpr` reads every LEAF through `get_value`, which parses
+// the constant's own VALUE STRING — so a LITERAL is its written bit pattern
+// read UNSIGNED (`HEX:ffffffff` -> 4294967295, g04) while a PARAMETER or an
+// ENUM member is whatever Surelog wrote for the declaration (`INT:-1` -> -1,
+// g07 `parameter int K = -1` and g08 `EN = -3`, both golden `INT:-<n>`) —
+// and then combines them with plain C++ `int64_t` operators:
+//     vpiSubOp  `int64 val0 - val1`, INT:<val>       (ExprEval.cpp:3560)
+//     vpiMultOp `int64 val0 * val1`, INT:<val>       (:3600)
+//     vpiDivOp  `int64 num / divisor`, divisor != 0  (:4020)
+//     vpiModOp  `int64 val0 % val1`, val1 != 0       (:3930)
+//     vpiPowerOp `(int64)std::pow(val0, val1)`       (:3975)
+//     vpiMinusOp `-val0`, INT:<val>                  (:3540)
+//     vpiAddOp   val0 + val1 (the signed/unsigned split at :3400 chooses the
+//                VALUE STRING's prefix, never the 64 bits it carries)
+//     vpiBitAndOp / vpiBitOrOp / vpiLogAndOp / vpiLogOrOp / vpiNotOp
+//                `((uint64_t)val0) OP ((uint64_t)val1)`
+//     vpiLShiftOp / vpiArithLShiftOp `((uint64_t)val0) << ((uint64_t)val1)`
+//     vpiRShiftOp / vpiArithRShiftOp `((uint64_t)val0) >> ((uint64_t)val1)`
+//                (BOTH shift-right forms are the SAME logical shift)
+//     the comparisons through `reduceCompOp` (:2860), which reads both sides
+//                with `get_uvalue` into `int64_t` and compares them SIGNED
+// so this function is that machine, transcribed, and it ANSWERS NOTHING
+// (`std::nullopt`) for every operator it has not transcribed — a `vpiCastOp`
+// arm (d16), a `vpiBitNegOp` arm (whose mask comes from the operand's
+// TYPESPEC, ExprEval.cpp:3660), the unary reductions, and every non-operator
+// shape.  A `nullopt` where golden WOULD have folded makes the law DECLINE
+// the cell entirely rather than install a differently-wrong object; that is
+// the README's residue list, not a silent approximation.
+//
+// `vpiConcatOp` / `vpiMultiConcatOp` / `vpiInsideOp` ARE answered, because
+// they are BIT-STRING operations whose result `get_value` reads back
+// unchanged: golden builds the concatenated binary string and parses it, and
+// slang's own value is the identical pattern — d09 `{16'd1,16'd2}` ->
+// `INT:65538` on both, d10 `{4{8'h0f}}` -> `INT:252645135`, e06
+// `32'd2 inside {32'd1,32'd2}` -> `INT:1`.
+static std::optional<int64_t> genTernRawBits22(const slang::SVInt& iv22) {
+    if (iv22.hasUnknown() || iv22.getBitWidth() == 0 ||
+        iv22.getBitWidth() > 64)
+        return std::nullopt;
+    slang::SVInt u22 = iv22;
+    u22.setSigned(false);
+    if (auto uv22 = u22.as<uint64_t>())
+        return (int64_t)*uv22;
+    return std::nullopt;
+}
+
+static std::optional<int64_t> genTernDeclVal22(const slang::SVInt& iv22) {
+    if (iv22.hasUnknown() || iv22.getBitWidth() == 0 ||
+        iv22.getBitWidth() > 64)
+        return std::nullopt;
+    if (iv22.isSigned()) {
+        if (auto sv22 = iv22.as<int64_t>())
+            return *sv22;
+        return std::nullopt;
+    }
+    return genTernRawBits22(iv22);
+}
+
+static std::optional<int64_t> genTernInt64Eval22(const Expression& e0,
+                                                 ASTContext& ctx, int depth) {
+    if (depth > 24)
+        return std::nullopt;
+    auto& e22 = stripImplicitConv(e0);
+    auto leaf22 = [&](bool decl22) -> std::optional<int64_t> {
+        ConstantValue cv22 = ctx.tryEval(e22);
+        if (!cv22 || !cv22.isInteger())
+            return std::nullopt;
+        return decl22 ? genTernDeclVal22(cv22.integer())
+                      : genTernRawBits22(cv22.integer());
+    };
+    switch (e22.kind) {
+        case ExpressionKind::IntegerLiteral:
+            return leaf22(false);
+        case ExpressionKind::NamedValue: {
+            auto k22 = e22.as<NamedValueExpression>().symbol.kind;
+            if (k22 != SymbolKind::Parameter && k22 != SymbolKind::EnumValue &&
+                k22 != SymbolKind::Specparam && k22 != SymbolKind::Genvar)
+                return std::nullopt;
+            return leaf22(true);
+        }
+        case ExpressionKind::Call:
+            return leaf22(true);
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+        case ExpressionKind::Inside:
+            return leaf22(false);
+        case ExpressionKind::UnaryOp: {
+            auto& u22 = e22.as<UnaryExpression>();
+            auto v22 = genTernInt64Eval22(u22.operand(), ctx, depth + 1);
+            if (!v22)
+                return std::nullopt;
+            switch (u22.op) {
+                case UnaryOperator::Plus:
+                    return *v22;
+                case UnaryOperator::Minus:
+                    return (int64_t)(0ULL - (uint64_t)*v22);
+                case UnaryOperator::LogicalNot:
+                    return !((uint64_t)*v22) ? (int64_t)1 : (int64_t)0;
+                default:
+                    return std::nullopt;
+            }
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b22 = e22.as<BinaryExpression>();
+            auto l22 = genTernInt64Eval22(b22.left(), ctx, depth + 1);
+            if (!l22)
+                return std::nullopt;
+            auto r22 = genTernInt64Eval22(b22.right(), ctx, depth + 1);
+            if (!r22)
+                return std::nullopt;
+            uint64_t ul22 = (uint64_t)*l22, ur22 = (uint64_t)*r22;
+            switch (b22.op) {
+                case BinaryOperator::Add:
+                    return (int64_t)(ul22 + ur22);
+                case BinaryOperator::Subtract:
+                    return (int64_t)(ul22 - ur22);
+                case BinaryOperator::Multiply:
+                    return (int64_t)(ul22 * ur22);
+                case BinaryOperator::Divide:
+                    if (*r22 == 0 ||
+                        (*l22 == INT64_MIN && *r22 == (int64_t)-1))
+                        return std::nullopt;
+                    return *l22 / *r22;
+                case BinaryOperator::Mod:
+                    if (*r22 == 0 ||
+                        (*l22 == INT64_MIN && *r22 == (int64_t)-1))
+                        return std::nullopt;
+                    return *l22 % *r22;
+                case BinaryOperator::Power:
+                    return (int64_t)std::pow((double)*l22, (double)*r22);
+                case BinaryOperator::BinaryAnd:
+                    return (int64_t)(ul22 & ur22);
+                case BinaryOperator::BinaryOr:
+                    return (int64_t)(ul22 | ur22);
+                case BinaryOperator::LogicalAnd:
+                    return (ul22 && ur22) ? (int64_t)1 : (int64_t)0;
+                case BinaryOperator::LogicalOr:
+                    return (ul22 || ur22) ? (int64_t)1 : (int64_t)0;
+                case BinaryOperator::Equality:
+                    return *l22 == *r22 ? (int64_t)1 : (int64_t)0;
+                case BinaryOperator::Inequality:
+                    return *l22 != *r22 ? (int64_t)1 : (int64_t)0;
+                case BinaryOperator::GreaterThan:
+                    return *l22 > *r22 ? (int64_t)1 : (int64_t)0;
+                case BinaryOperator::GreaterThanEqual:
+                    return *l22 >= *r22 ? (int64_t)1 : (int64_t)0;
+                case BinaryOperator::LessThan:
+                    return *l22 < *r22 ? (int64_t)1 : (int64_t)0;
+                case BinaryOperator::LessThanEqual:
+                    return *l22 <= *r22 ? (int64_t)1 : (int64_t)0;
+                case BinaryOperator::LogicalShiftLeft:
+                case BinaryOperator::ArithmeticShiftLeft:
+                    if (*r22 < 0 || *r22 > 63)
+                        return std::nullopt;
+                    return (int64_t)(ul22 << ur22);
+                case BinaryOperator::LogicalShiftRight:
+                case BinaryOperator::ArithmeticShiftRight:
+                    if (*r22 < 0 || *r22 > 63)
+                        return std::nullopt;
+                    return (int64_t)(ul22 >> ur22);
+                default:
+                    return std::nullopt;
+            }
+        }
+        default:
+            return std::nullopt;
+    }
+}
+
+// § genCaTernaryFoldGenScope22 — `get_value()` on the reduced CONDITION: an
+// int64 read, poisoned above 64 bits and on any x/z bit, and preceded by the
+// two fences above (arm `d06` is a `$countones` condition and `e07` an xor
+// condition — golden keeps the whole ternary on both).
+static std::optional<bool> genTernCondTrue22(const Expression& e0,
+                                             ASTContext& ctx) {
+    auto& e22 = stripImplicitConv(e0);
+    if (!genTernSysEvalable22(e22) || !genTernOpsEvalable22(e22))
+        return std::nullopt;
+    if (e22.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+        auto lv22 =
+            e22.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+        if (lv22 == slang::logic_t(0)) return false;
+        if (lv22 == slang::logic_t(1)) return true;
+        // (the r11v22 amendment below cannot reach an unbased-unsized cond)
+        return std::nullopt;
+    }
+    // r11v22 (the adversarial verifier) — THE CONDITION IS READ WITH THE SAME
+    // MACHINE AS THE ARM, and it was not.  `reduceExpr`'s `vpiConditionOp` arm
+    // (`UHDM/templates/ExprEval.cpp:3863`) reduces operand 0 THROUGH
+    // `reduceExpr` and reads it with `get_value` — so the CONDITION goes
+    // through `ExprEval`'s int64 arithmetic exactly as the ARM does, and
+    // `genTernInt64Eval22` above is that machine transcribed.  Reading the
+    // condition with slang's CONTEXT-TYPED `tryEval` instead makes the two
+    // halves of one law disagree with each other, and the disagreement is
+    // WHICH ARM GETS INSTALLED.  Measured against the real v1.87 golden, one
+    // gen-scope arm per row (`tools/probe/r11v22repro/adv/`):
+    //   v01  `((32'd2 - 32'd3) < 32'd0) ? 32'd7 : '0`   golden `INT:7`,
+    //        law-before `'0` BIN:0 sized 32 — THE OTHER ARM.  `ExprEval`
+    //        subtracts into an int64 (-1) and `reduceCompOp`
+    //        (`ExprEval.cpp:2860`) compares SIGNED, so golden is TRUE; slang
+    //        keeps the subtraction UNSIGNED 32-bit (4294967295) and says
+    //        FALSE.  The same fact the README's own value-model table records
+    //        for the ARM (`g01` golden `INT:-1` against slang 4294967295),
+    //        left un-transcribed on the condition.
+    //   v02  `(K < 32'd0) ? 32'd7 : '0`, `parameter int K = -1`  golden
+    //        `INT:7`, law-before `'0` — `get_value` reads the DECLARATION's
+    //        `INT:-1`, while SV self-determination makes slang's comparison
+    //        unsigned.
+    // So: ask the transcribed machine first and believe it; fall back to
+    // `tryEval` ONLY for the shapes it has not transcribed — a `bit_select`,
+    // a `hier_path` / member access, a string compare, a unary reduction, a
+    // `vpiBitNegOp`, a `vpiCastOp` — every one of which is MEASURED to agree
+    // on both machines (`v03` a packed-struct member, `v33` `~32'd0`, `v35`
+    // `|4'b0010`, `v36` a string compare, `v05`/`v25` selects, `v34` a cast).
+    // It can only NARROW the disagreement, never widen the fold: every leaf
+    // inside `genTernInt64Eval22` is still read through `ctx.tryEval`, so a
+    // condition slang cannot value still declines.
+    if (auto ivm22 = genTernInt64Eval22(e22, ctx, 0))
+        return *ivm22 != 0;
+    ConstantValue cv22 = ctx.tryEval(e22);
+    if (!cv22 || !cv22.isInteger())
+        return std::nullopt;
+    auto iv22 = cv22.integer();
+    if (iv22.hasUnknown() || iv22.getBitWidth() > 64)
+        return std::nullopt;
+    return iv22.as<uint64_t>().value_or(0) != 0;
+}
+
 // § genCaCastFoldAdjustSize106 (r10earl106) — THE CONSUMER HALF, run from
 // `uhdm_main.cpp` AFTER `UHDM::UhdmAdjuster`.  See the full decode at the
 // record site in `emitGenScopes` below.  Three properties are load-bearing:
@@ -16853,6 +17330,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (isLiteralExpr(ae.right()))
                 forceConstParent = true;
             UHDM::any* rhs = nullptr;
+            // § genCaTernaryFoldGenScope22 (r11u22) — the SELECTED ARM to
+            // install in place of the whole ternary, the fill literal among
+            // them, and `Bits(tps)` for the fill re-encoding.
+            const Expression* genTernArm22 = nullptr;
+            const Expression* genTernFill22 = nullptr;
+            int32_t genTernW22 = 0;
             // A gen CA reading a BLOCK localparam SHARES the param_assign's
             // fold constant (its parent becomes this cont_assign).
             if (auto& rcp0 = stripImplicitConv(ae.right());
@@ -17202,6 +17685,208 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             rhs = c19;
                         }
                     }
+            }
+            // § genCaTernaryFoldGenScope22 (r11u22) — THE GENERATE-SCOPE HOME
+            // OF THE CONT-ASSIGN TERNARY FOLD.  r11u19's R0 (`f07`, 73 cmp
+            // lines), and the full producer decode is at `genTernKindOf22`
+            // above.  In one line: `UhdmWriter::writeCont_assign` runs for
+            // EVERY instance, so a constant-conditioned ternary on a
+            // BOUND whole-name Lhs loses the ternary inside a generate block
+            // exactly as it does at module scope — golden's Rhs is the
+            // reduce's answer, sized by `adjustSize` at `Bits(tps)`.
+            //
+            // THE THREE OUTCOMES, and they are `ExprEval::reduceExpr`'s
+            // `vpiConditionOp` arm (`ExprEval.cpp:3863-3903`) read straight
+            // down, one grid arm per line:
+            //   * the selected arm is an UNBASED-UNSIZED FILL (`VpiSize`
+            //     -1) — handed BACK UNCHANGED by the `the_val_is_fill` test
+            //     and then re-encoded by `adjustSize`'s `orig_size == -1`
+            //     tail, which is § caTernFillArmKeepsEncoding19 verbatim:
+            //     `'0` keeps `BIN:0` / decompile `'0` / constType 3 SIZED at
+            //     the Lhs width (a01/b04/b05/b06/b24), `'1` becomes
+            //     `UINT:<mask>` constType 9 at that width (b01 32 ->
+            //     4294967295, b22 1 -> 1) or `BIN:<size ones>` constType 3
+            //     above 64 (b23), and `'x`/`'z` are UNTOUCHED at `VpiSize`
+            //     -1 because `get_value` cannot parse `BIN:X` (b02/b03);
+            //   * the arm REDUCES to a value `get_value` can read — one
+            //     FRESH `INT:<val>` constant, LOCATION-LESS and PARENT-LESS,
+            //     sized by `adjustSize` at `Bits(tps)` (b07 `32'd0` -> 0/32,
+            //     b16 a param -> 9/32, b17 `$clog2(33)` -> 6/32, b21 an enum
+            //     -> 1/32, d02 a constant FUNCTION -> 4/32, d04 `2+3` -> 5,
+            //     d09 a concat -> 65538, d10 a replication -> 252645135,
+            //     d13 `-32'sd1` -> -1, d16 `int'(7)` -> 7, e06 `inside` ->
+            //     1, e10 `**` -> 8).  `get_value` returns an int64, so a
+            //     64-bit all-ones arm prints SIGNED: d20 `64'hffff…ffff` is
+            //     golden's `INT:-1` at size 64, not the unsigned spelling;
+            //   * anything else — `result = the_val`, THE ARM OBJECT ITSELF,
+            //     emitted here through the very same `emitExpr` the ternary
+            //     would have used (b09/b11/b19/e01/e02/e03/e04/e09/e11/e12
+            //     operations, b13/d25 selects, d01 a `sys_func_call`, b15 an
+            //     inner ternary, b20 a >64-bit literal, d03 `4'bxx`, d07 a
+            //     real).
+            //
+            // AND FOUR SHAPES THE LAW DECLINES, each because golden's answer
+            // is one this emitter does not mint:
+            //   * a BARE hier_path arm — `reduceExpr` hands back
+            //     `decodeHierPath(…, VALUE)` == nullptr and writeCont's
+            //     `&& rhstmp` refuses the write-back, so golden KEEPS the
+            //     ternary (b14).  A hier_path INSIDE an operation arm folds
+            //     (e09), exactly as the one-level-deep operand gate says;
+            //   * a SELECT arm that VALUES — golden's own `bit_select`
+            //     decode disagrees with slang's: arm `f01`
+            //     (`PA[1]`, `PA = 32'h0003_0004`) is golden `INT:0` where
+            //     `tryEval` says 3.  A select that does NOT value installs
+            //     (b13/d25), which is the shape the corpus carries;
+            //   * a STRING arm — `get_value` reads the bytes as an integer
+            //     (`"AB"` -> golden `INT:16706`, d08) and this emitter mints
+            //     the string constant instead;
+            //   * an arm that reduces to MORE THAN 64 BITS without being a
+            //     literal — golden installs Surelog's own wide `BIN:`
+            //     constant, a different mint.  A >64-bit LITERAL arm is
+            //     installed, because that object IS the literal (b20).
+            // Each is recorded as a measured residue, not implemented.
+            if (!rhs && !genTernArm22 && !off22()) {
+                auto& rt22 = stripImplicitConv(ae.right());
+                int32_t w22 = 0;
+                std::string ln22;
+                if (rt22.kind == ExpressionKind::ConditionalOp &&
+                    caLhsAdjustBind106(ae.left(), w22, ln22) && w22 > 0) {
+                    ASTContext tctx22(comp.getRoot(), LookupLocation::max);
+                    const Expression* sel22 = &rt22;
+                    bool sawTern22 = false;
+                    for (int g22 = 0;
+                         g22 < 32 &&
+                         sel22->kind == ExpressionKind::ConditionalOp;
+                         ++g22) {
+                        auto& co22 = sel22->as<ConditionalExpression>();
+                        if (co22.conditions.size() != 1 ||
+                            co22.conditions[0].pattern)
+                            break;
+                        // THE OPERAND GATE, over all three operands including
+                        // the arm golden does NOT select.
+                        if (genTernKindOf22(*co22.conditions[0].expr, tctx22) ==
+                                GTKind22::Refused ||
+                            genTernKindOf22(co22.left(), tctx22) ==
+                                GTKind22::Refused ||
+                            genTernKindOf22(co22.right(), tctx22) ==
+                                GTKind22::Refused)
+                            break;
+                        auto pv22 =
+                            genTernCondTrue22(*co22.conditions[0].expr, tctx22);
+                        if (!pv22)
+                            break;
+                        sawTern22 = true;
+                        sel22 = &stripImplicitConv(*pv22 ? co22.left()
+                                                         : co22.right());
+                    }
+                    if (sawTern22) {
+                        GTKind22 ak22 = genTernKindOf22(*sel22, tctx22);
+                        bool lit22 =
+                            sel22->kind == ExpressionKind::IntegerLiteral ||
+                            sel22->kind == ExpressionKind::RealLiteral ||
+                            sel22->kind == ExpressionKind::TimeLiteral;
+                        if (sel22->kind ==
+                            ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                            genTernArm22 = sel22;
+                            genTernFill22 = sel22;
+                            genTernW22 = w22;
+                        }
+                        else if (ak22 == GTKind22::HierPath ||
+                                 ak22 == GTKind22::Refused ||
+                                 sel22->kind ==
+                                     ExpressionKind::StringLiteral) {
+                            // declines above
+                        }
+                        else if (ak22 == GTKind22::Select) {
+                            // A `bit_select` / `var_select` arm that does NOT
+                            // value is handed back untouched and INSTALLED
+                            // (b13 `a[0]`, d25 `mem[1]`).  One that DOES value
+                            // is golden's own select decode, which disagrees
+                            // with slang's — arm `f01` (`PA[1]` of
+                            // `PA = 32'h0003_0004`) is golden `INT:0` where
+                            // `tryEval` says 3 — so the cell is DECLINED.
+                            if (!tctx22.tryEval(*sel22))
+                                genTernArm22 = sel22;
+                        }
+                        else {
+                            // `red22` is the producer's two fences: a
+                            // `sys_func_call` it does not implement and an
+                            // operator its switch has no `case` for both make
+                            // `reduceExpr` hand the ARM BACK, which is an
+                            // INSTALL and never a fold.
+                            bool red22 = genTernSysEvalable22(*sel22) &&
+                                         genTernOpsEvalable22(*sel22);
+                            std::optional<int64_t> v22;
+                            ConstantValue cv22;
+                            if (red22) {
+                                v22 = genTernInt64Eval22(*sel22, tctx22, 0);
+                                cv22 = tctx22.tryEval(*sel22);
+                            }
+                            if (v22) {
+                                // ONE fresh `INT:<val>` constant, LOCATION-
+                                // LESS and PARENT-LESS — `reduceExpr` mints it
+                                // with nothing but a value, a decompile, a
+                                // size and `vpiIntConst`, and `adjustSize`'s
+                                // final `else { c->VpiSize(size); }` arm then
+                                // sizes it at `Bits(tps)`.
+                                std::string dg22 = std::to_string(*v22);
+                                auto* c22 = s.MakeConstant();
+                                c22->VpiDecompile(dg22);
+                                c22->VpiSize(w22);
+                                c22->VpiValue("INT:" + dg22);
+                                c22->VpiConstType(vpiIntConst);
+                                rhs = c22;
+                            }
+                            else if (lit22) {
+                                // A LITERAL arm `get_value` cannot read is
+                                // installed AS ITSELF, because that object IS
+                                // the literal: `4'bxx` (d03), a >64-bit
+                                // constant (b20) and a real (d07) are golden's
+                                // own `result = the_val`.
+                                genTernArm22 = sel22;
+                            }
+                            else if (cv22 && cv22.isInteger() &&
+                                     !cv22.integer().hasUnknown()) {
+                                // GOLDEN FOLDS HERE AND THIS EMITTER CANNOT
+                                // SAY TO WHAT — a `vpiCastOp` arm (d16), a
+                                // `vpiBitNegOp` arm, a SELECT golden's own
+                                // decode values differently (f01: golden
+                                // `INT:0` where slang says 3), or a fold wider
+                                // than 64 bits.  DECLINE the cell: keeping the
+                                // ternary is the pristine answer and leaves
+                                // the cell exactly as wrong as it was, where
+                                // installing would move it WRONGLY.
+                            }
+                            else if (ak22 == GTKind22::Operation ||
+                                     ak22 == GTKind22::Call) {
+                                genTernArm22 = sel22;
+                            }
+                        }
+                    }
+                }
+            }
+            // THE CELL TRACE: every gen-scope cont_assign whose Rhs is a
+            // ternary reaches this site, and it prints the answer for ALL of
+            // them, the ones the law DECLINES included — a trace keyed on the
+            // shape you intend to change is blind to the rows you would change
+            // by accident (earl66's lesson).  It sits OUTSIDE the A/B switch
+            // (which is in the entry guard above, so the OFF binary makes no
+            // serializer object at all) and names the same cells on both.
+            if (cellDbg22() &&
+                stripImplicitConv(ae.right()).kind ==
+                    ExpressionKind::ConditionalOp) {
+                int32_t wd22 = 0;
+                std::string lnd22;
+                bool bd22 = caLhsAdjustBind106(ae.left(), wd22, lnd22);
+                auto sr22 = ae.sourceRange;
+                auto& sm22 = *comp.getSourceManager();
+                fprintf(stderr,
+                        "R11U22CELL file=%s line=%u scope=%s bind=%d w=%d "
+                        "fold=%d arm=%d fill=%d\n",
+                        std::string(sm22.getFileName(sr22.start())).c_str(),
+                        sm22.getLineNumber(sr22.start()), fullName.c_str(),
+                        (int)bd22, (int)wd22, rhs ? 1 : 0,
+                        genTernArm22 ? 1 : 0, genTernFill22 ? 1 : 0);
             }
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
@@ -18036,7 +18721,64 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     patFlat9 = false;
                 if (patFlat9)
                     reemitting = true;
-                rhs = emitExpr(ae.right(), ca, fullName, netMap);
+                // § genCaTernaryFoldGenScope22 (r11u22) — the ELABORATED
+                // Rhs is the SELECTED ARM, emitted through the very same
+                // machinery (the gen-scope ref-suppression flags, the param
+                // fold pools, the def-view net map) so that the installed
+                // object is byte-for-byte the one this cont_assign would have
+                // carried INSIDE the ternary.
+                rhs = emitExpr(genTernArm22 ? *genTernArm22 : ae.right(), ca,
+                               fullName, netMap);
+                // § caTernFillArmKeepsEncoding19 (r11u19), in its gen-scope
+                // home — `CompileHelper::adjustSize`'s `orig_size == -1` tail
+                // (`CompileHelper.cpp:4219-4241`), transcribed:
+                //     if (orig_size == -1) {            // '1, '0
+                //       uint64_t uval = (uint64_t)val;
+                //       if (uval == 1) {                 // '1 ONLY
+                //         …clone…
+                //         if (size <= 64) { UINT:getMask(size), the same
+                //                           decimal decompile, vpiUIntConst; }
+                //         else            { BIN:<size ones>, same decompile,
+                //                           vpiBinaryConst; }
+                //       }
+                //       c->VpiSize(size);                // '0 AND '1 alike
+                //     }
+                // with the WHOLE body under `if (!invalidValue)`, where
+                // `invalidValue` is `ExprEval::get_value`'s — which cannot
+                // parse `BIN:X` / `BIN:Z`, so `'x` and `'z` keep `VpiSize`
+                // -1 (b02/b03).  `size` is `Bits(tps)`, i.e. the BOUND
+                // declaration's width, which is what `caLhsAdjustBind106`
+                // hands back.
+                if (genTernFill22 && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant && genTernW22 > 0) {
+                    auto* fc22 = (UHDM::constant*)rhs;
+                    std::string fv22(fc22->VpiValue());
+                    bool unknown22 = fv22.find('X') != std::string::npos ||
+                                     fv22.find('Z') != std::string::npos ||
+                                     fv22.find('x') != std::string::npos ||
+                                     fv22.find('z') != std::string::npos;
+                    if (!unknown22) {
+                        if (fv22 == "BIN:1") {
+                            if (genTernW22 <= 64) {
+                                uint64_t mask22 =
+                                    genTernW22 == 64
+                                        ? ~0ULL
+                                        : ((1ULL << genTernW22) - 1ULL);
+                                std::string d22 = std::to_string(mask22);
+                                fc22->VpiValue("UINT:" + d22);
+                                fc22->VpiDecompile(d22);
+                                fc22->VpiConstType(vpiUIntConst);
+                            }
+                            else {
+                                std::string d22((size_t)genTernW22, '1');
+                                fc22->VpiValue("BIN:" + d22);
+                                fc22->VpiDecompile(d22);
+                                fc22->VpiConstType(vpiBinaryConst);
+                            }
+                        }
+                        fc22->VpiSize(genTernW22);
+                    }
+                }
                 reemitting = savedReP9;
                 if (patStruct9 && rhs &&
                     rhs->UhdmType() == UHDM::uhdmoperation)

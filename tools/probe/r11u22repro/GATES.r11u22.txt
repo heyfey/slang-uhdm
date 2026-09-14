@@ -1,0 +1,133 @@
+r11u22 GATES — every number below was produced in this pass's own worktree
+(/tmp/wt_r11u22, base 40b5e0f3) with the two FROZEN binaries.  results/*.csv
+were NOT edited.
+
+§1 BINARIES (built -j 2, md5 taken separately)
+    pristine  d9ceb85d37a97fa6c77d1cc50da3c65a   <- BYTE-IDENTICAL to the
+                                                    OPS-stated main-tree md5
+                                                    at 40b5e0f3
+    law       c80243213f2fdff761bf8188c7148aa7
+
+§2 GOLDENS
+    law       PASS=23 FAIL=0
+    pristine  PASS=23 FAIL=0
+    SLANG_UHDM=/bin/false   PASS=0 FAIL=23      (negative control)
+
+§3 CMDS.TXT AUDIT BY BINARY PATH (not by the string "slang-uhdm", which also
+   matches slang-uhdm-goldens/)
+    pristine u2r  1742 cmds.txt, 1742 name /tmp/r11u22_bin/pris.bin,
+                  0 name any .../slang-uhdm/build/slang-uhdm
+    pristine sl   1581 cmds.txt, 1531 name /tmp/r11u22_bin/pris.bin,
+                  0 name any .../slang-uhdm/build/slang-uhdm
+                  (the 50 without a slang line are the SURELOG_FAIL /
+                   NO_DATABASE rows, which never reach our binary)
+    law      u2r  1742 cmds.txt, 1742 name /tmp/r11u22_bin/law.bin, 0 main-tree
+    law      sl   1581 cmds.txt, 1531 name /tmp/r11u22_bin/law.bin, 0 main-tree
+
+§4 uhdm2rtlil, BOTH MODES, law vs the COMMITTED baselines
+    testflags vs results/gate_uhdm2rtlil.csv
+        WHOLE-ROW diff: 0 differing ROWS
+        766 CMP_EQUAL / 38 CMP_NOTEQUAL / 67 SLANG_REJECT  (base: identical)
+        dump column 105 blank / 234 differ / 532 match      (base: identical)
+        PASS: every row byte-identical to the committed baseline
+    default vs the default half of results/golden_uhdm2rtlil.csv
+        WHOLE-ROW diff: 0 differing ROWS
+        766 CMP_EQUAL / 38 CMP_NOTEQUAL / 67 SLANG_REJECT  (base: identical)
+        PASS: every row byte-identical to the committed baseline
+    (my own PRISTINE sweeps read the same two PASS lines, so the control and
+     the committed baseline agree before the law is consulted.)
+
+§5 surelog suite, --mode both, law vs MY OWN PRISTINE sweep
+    STATUS histogram, both modes, IDENTICAL:
+        default    469 CMP_EQUAL  14 CMP_NOTEQUAL   5 DEFERRED
+                   285 SLANG_REJECT  25 SURELOG_FAIL
+        testflags  465 CMP_EQUAL  12 CMP_NOTEQUAL   5 DEFERRED
+                     3 NO_DATABASE  1 NO_UHDM  286 SLANG_REJECT
+                    23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+    THREE differing ROWS, quoted in full, none of them a status move:
+      < Earlgrey_0_1,default,CMP_EQUAL,,,differ
+      > Earlgrey_0_1,default,CMP_EQUAL,,,
+      < LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u22_wdp/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+      > LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u22_wdl/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+      < LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u22_wdp/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+      > LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u22_wdl/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+    The two LowMem rows carry the WORKDIR PATH in the SURELOG_FAIL detail
+    string; the Earlgrey row is the harness's `dump` column going blank, which
+    `verify_golden.py:616-632` writes when the slang-side `uhdm-dump` run
+    TIMES OUT on that 4.73-million-line database.  Its STATUS is CMP_EQUAL on
+    both binaries in both modes, and §7 proves the two Earlgrey databases are
+    BYTE-IDENTICAL.  The same blank appeared on the TESTFLAGS row of my own
+    PRISTINE sweep against the committed baseline — a per-run resource draw,
+    not a content change.
+
+§6 BYTE VERIFIER (SELFCHECK=1, law workdir vs MY OWN pristine workdir)
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1608 paths)
+                MOVERS: 0 / 1608
+                SELFCHECK: 1607 / 1608 flagged
+    surelog     PATH_SETS_IDENTICAL (960 paths)
+                MOVERS: 4 / 960 — default+testflags MiniAmiq, SeqDriver
+                SELFCHECK: 959 / 960 flagged
+    All four movers are the PROVEN UVM COIN and are convicted TWICE, never by
+    a count (README §5).
+
+§7 PROTECTED DATABASES (md5 first 12, pristine vs law, both modes)
+    SVSwitch            4842211c4030 / 4842211c4030   SAME  (OPS HARD pin)
+    YosysVerx           6ccda350c24a / 6ccda350c24a   SAME  (OPS HARD pin)
+    InterfaceModPort    59a365f3ce2c / 59a365f3ce2c   SAME  (OPS pin)
+    BlackParrotComplex  e3e354129d5a / e3e354129d5a   SAME  (default)
+                        73a10e8217e5 / 73a10e8217e5   SAME  (testflags)
+    YosysOldOr          d68e0796d62c / d68e0796d62c   SAME  (both modes)
+    Earlgrey_0_1        8bdf25272e08 / 8bdf25272e08   SAME  (default)
+                        59d0ee6d10c3 / 59d0ee6d10c3   SAME  (testflags)
+
+§8 CANARY BATTERY
+    canaries.sh  sl.csv  vs results/golden_surelog.csv     ok=50 changed=2
+                 the two CHANGED rows are Earlgrey_0_1 default+testflags,
+                 CMP_EQUAL/differ -> CMP_EQUAL/<blank>: the §5 dump-timeout
+                 artefact, with byte-identical databases (§7)
+    canaries.sh  u2r_tf.csv vs results/gate_uhdm2rtlil.csv ok=8  changed=0
+    ctcan2.sh    EXPECT_UNKNOWN=1 surelog                  PASS
+    ctcan2.sh    EXPECT_UNKNOWN=6 uhdm2rtlil               PASS
+    canaudit.sh  canaries.sh ctcan2.sh                     PASS
+
+§9 ROWHEADS (official uhdm-cmp on the named rows; cmp lines + ^LHS: count)
+    IDENTICAL on the pristine and the law workdir, row for row:
+      SeqDriver/SimpleUVM/Scoreboard/MiniAmiq/BuildUVMPkg  50 lines, 1 head
+      Earlgrey_0_1  default 0 lines 0 heads rc=0
+      Earlgrey_0_1  testflags 0 lines 0 heads rc=0
+      Rggen         default 801 lines 1 head
+    SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected.
+
+§10 A/B GATE
+    a01 (the head's arm), one command line, three binaries:
+      pristine                   e58ab64599a35922762f50f58417c8f4
+      law                        a77be76e792d24c05afee3bd1ce81a86
+      law with R11U22_OFF=1      e58ab64599a35922762f50f58417c8f4
+    OFF == PRISTINE byte for byte.  The switch sits in the law's ENTRY GUARD,
+    so the OFF binary makes no serializer object at all (a Make call is a
+    write).
+
+§11 BOUNDARY — BND.r11u22.txt
+    PROCESSED=1336 LISTED=1336 MOVED=72, every moved file pris_rc=0 law_rc=0.
+    68 of the 72 are this pass's own grid arms; the four COMMITTED movers are
+    scored against the REAL v1.87 golden in README §6.
+    AWAY-GOLDEN 0 / MOVED-WRONG 0.
+
+§12 GRID — 101 arms, GRID.r11u22.txt / VERDICTS.r11u22.txt
+    golden_rc=0 on all 101.  ours_rc=0 on 100 of 101 on BOTH binaries;
+    c11_implicitnet_lhs is ours_rc=3 on both (slang REFUSES an implicit net
+    inside a generate block), so it teaches ERROR RECOVERY and carries no
+    verdict.
+    56 CONVERT, 9 IMPROVE, 3 MOVED-EQUALCOUNT (the vpiParent artefact),
+    32 UNCHANGED, 0 REGRESS.
+
+§13 THE PATCH ITSELF
+    /tmp/r11u22.patch = `git diff` against 40b5e0f3; surface = src/ModuleEmit.cpp
+    + tools/probe/r11u22repro/ ONLY (no results/*.csv, no stray files).
+    Fence check (the four slang-fenced names, spelled only in canaudit.sh's own
+    FENCED= list — this file must NOT spell them, or canaudit.sh reports
+    FENCE-BREACH=4 and exits 6; found by r11v22, the adversarial verifier):
+    0 / 0 / 0 / 0 files.
+    Applied to a FRESH 40b5e0f3 worktree it lands clean (0 conflict markers) and
+    rebuilds the binary to md5 c80243213f2fdff761bf8188c7148aa7 — the same law
+    binary every measurement above was taken with.

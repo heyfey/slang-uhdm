@@ -1,0 +1,5 @@
+default/Earlgrey_0_1-71da2fd7/slang.uhdm LAW=1085
+default/Scr1SvTests-b87ba20c/slang.uhdm LAW=4
+testflags/Earlgrey_0_1-71da2fd7/slang.uhdm LAW=1406
+testflags/Scr1SvTests-b87ba20c/slang.uhdm LAW=4
+SCANNED=960 FLAGGED=4
