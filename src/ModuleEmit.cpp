@@ -14157,6 +14157,99 @@ static bool caLhsAdjustBind106(const Expression& lhsExpr, int32_t& w,
     return true;
 }
 
+// ---------------------------------------------------------------------------
+// § genCaPackedPatternFold19 (r11u19) — THE TARGET-KIND HALF OF THE
+// ASSIGNMENT-PATTERN FOLD.  `UhdmWriter::writeCont_assign` (Surelog v1.87
+// `src/DesignCompile/UhdmWriter.cpp:2178-2207`) hands the Lhs typespec to
+// `CompileHelper::expandPatternAssignment` (`CompileHelper.cpp:5207-5500`)
+// for EVERY `vpiAssignmentPatternOp` Rhs, and that function mints a constant
+// in EXACTLY ONE of its three arms:
+//
+//     tps == uhdmlogic_typespec        -> ONE `constant`, `VpiSize(Bits(tps))`,
+//                                         `UINT:<value>`, decompile
+//                                         `<size>'d<value>`, NO VpiConstType
+//     tps == uhdmstruct_typespec       -> `result = rhs`  (NO FOLD)
+//     tps == uhdmpacked_array_typespec -> a `packed_array_var`, and ONLY when
+//                                         the element typespec is an ENUM
+//     anything else (array_typespec,
+//     bit/int/byte/enum typespec)      -> `result = rhs`  (NO FOLD)
+//
+// So the fold is a LOGIC-TYPESPEC law, not a "packed" one, and this predicate
+// answers which slang types Surelog's ElaborationStep gives a
+// `logic_typespec`: peel the packed dimensions and require the base to be a
+// 4-state scalar.  Measured on golden over the arm grid, gen scope and module
+// body alike:
+//     logic [1:0]          FOLD (p01/p02 2'd0)     bit [1:0]     NO (q06/t07)
+//     logic [1:0][3:0]     FOLD (q01/t05 8'd0)     int / byte    NO (q07/q10/t08)
+//     logic signed [3:0]   FOLD (s12/t25 4'd0)     enum          NO (q08/t09)
+//     typedef logic [3:0]  FOLD (q09/t11 4'd0)     packed struct NO (q02/t06)
+//                                                  s_t [1:0]     NO (q11/t27)
+//                                                  unpacked      NO (q03/q05/t26)
+static bool caPatLogicTarget19(const slang::ast::Type* t) {
+    if (!t)
+        return false;
+    const Type* ct = &t->getCanonicalType();
+    while (ct->kind == SymbolKind::PackedArrayType)
+        ct = &ct->as<PackedArrayType>().elementType.getCanonicalType();
+    if (ct->kind != SymbolKind::ScalarType)
+        return false;
+    auto sk = ct->as<ScalarType>().scalarKind;
+    return sk == ScalarType::Logic || sk == ScalarType::Reg;
+}
+
+// § genCaPackedPatternFold19 — THE NESTED-PATTERN FENCE, and it is measured,
+// not assumed.  `expandPatternAssignment`'s UNTAGGED arm reduces every operand
+// and calls `ExprEval::get_uvalue` on the result; a nested `'{...}` reduces to
+// an `operation`, `invalidValue` goes true and the function `return result`s
+// the tree UNFOLDED.  Arm `t24` (`assign we = '{'{default:'0},'{default:'1}}`
+// over `logic [1:0][3:0]` in a gen scope) is golden's witness: the operands
+// stay two `vpiOpType:75` operations.  Its module-body twin `s06` is the
+// PRISTINE binary folding that same shape to `8'd15` — a residue this pass
+// must not carry into the gen scope.
+static bool caPatNestedOperand19(const Expression& pat) {
+    auto isPat19 = [](const Expression& x) {
+        return x.kind == ExpressionKind::SimpleAssignmentPattern ||
+               x.kind == ExpressionKind::StructuredAssignmentPattern ||
+               x.kind == ExpressionKind::ReplicatedAssignmentPattern;
+    };
+    std::span<const Expression* const> els19;
+    if (pat.kind == ExpressionKind::SimpleAssignmentPattern)
+        els19 = pat.as<SimpleAssignmentPatternExpression>().elements();
+    else if (pat.kind == ExpressionKind::StructuredAssignmentPattern)
+        els19 = pat.as<StructuredAssignmentPatternExpression>().elements();
+    for (auto* el : els19)
+        if (el && isPat19(stripImplicitConv(*el)))
+            return true;
+    // The AST may already have flattened a nested pattern into plain element
+    // values, so the WRITTEN form is consulted too: an item of the written
+    // pattern that is itself an `'{...}` is the operand `reduceExpr` chokes on.
+    if (pat.syntax &&
+        pat.syntax->kind == syntax::SyntaxKind::AssignmentPatternExpression) {
+        const syntax::SyntaxNode& ps19 =
+            *pat.syntax->as<syntax::AssignmentPatternExpressionSyntax>()
+                 .pattern;
+        for (size_t i19 = 0; i19 < ps19.getChildCount(); i19++)
+            if (auto* ch19 = ps19.childNode(i19)) {
+                if (ch19->kind ==
+                    syntax::SyntaxKind::AssignmentPatternExpression)
+                    return true;
+                for (size_t j19 = 0; j19 < ch19->getChildCount(); j19++)
+                    if (auto* g19 = ch19->childNode(j19)) {
+                        if (g19->kind ==
+                            syntax::SyntaxKind::AssignmentPatternExpression)
+                            return true;
+                        for (size_t k19 = 0; k19 < g19->getChildCount(); k19++)
+                            if (auto* h19 = g19->childNode(k19))
+                                if (h19->kind ==
+                                    syntax::SyntaxKind::
+                                        AssignmentPatternExpression)
+                                    return true;
+                    }
+            }
+    }
+    return false;
+}
+
 // § genCaCastFoldAdjustSize106 (r10earl106) — THE CONSUMER HALF, run from
 // `uhdm_main.cpp` AFTER `UHDM::UhdmAdjuster`.  See the full decode at the
 // record site in `emitGenScopes` below.  Three properties are load-bearing:
@@ -17034,6 +17127,80 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             c78->VpiParent(ca);
                         }
                         rhs = fc78;
+                    }
+            }
+            // § genCaPackedPatternFold19 (r11u19) — AN ASSIGNMENT PATTERN
+            // ASSIGNED TO A MODULE-BODY `logic` TARGET FOLDS TO ONE CONSTANT
+            // IN THE ELABORATED GEN SCOPE, exactly as the module body already
+            // does.  The two homes run the SAME Surelog code and this pass is
+            // the gen-scope half of it.
+            //
+            // DECODED, not guessed.  `UhdmWriter::writeCont_assign`
+            // (UhdmWriter.cpp:2090) walks `netlist->cont_assigns()` for EVERY
+            // instance — a gen scope is an instance like any other — and its
+            // `if (tps)` arm (`:2178`) runs
+            // `ExprEval::flattenPatternAssignments`, then, for a
+            // `vpiAssignmentPatternOp` Rhs, `substituteAssignedValue` and
+            // `CompileHelper::expandPatternAssignment`.  That last function
+            // mints a `constant` ONLY for a `uhdmlogic_typespec` target
+            // (`caPatLogicTarget19` above carries the measured type table),
+            // sized at `Bits(tps)`, valued `UINT:<v>`, decompiled
+            // `<size>'d<v>`, WITH NO `VpiConstType`, and located at the
+            // pattern's own span.  Golden's `ibex_alu.sv:1312` cell —
+            // `assign imd_val_we_o = '{default: '0};` inside `g_no_alu_rvb`
+            // over the module's `output logic [1:0]` — is `constant 2'd0`,
+            // and that head is 29 cmp lines in BOTH modes.
+            //
+            // `tps` IS `bindVariable`'s ANSWER, and that is the whole scope
+            // fence.  `CompileHelper::bindVariable` (CompileStmt.cpp:3095)
+            // switches on function / task / begin / module_inst ONLY, so from
+            // a `gen_scope` it falls through to the enclosing `module_inst`
+            // and finds MODULE-BODY nets/variables and ports — never a
+            // gen-LOCAL declaration (arm `t02`: golden keeps the pattern), and
+            // never anything at all from an INTERFACE body (arms `r12`/`t04`:
+            // golden keeps it there too, at module scope and in a gen scope
+            // alike).  `caLhsAdjustBind106` (r10earl106) already decodes
+            // exactly that predicate — plain NamedValue net/var, parent scope
+            // an `InstanceBodySymbol`, `DefinitionKind::Module`, a declaration
+            // that carries a typespec — and hands back the DECLARATION's
+            // width, which is the width `Bits(tps)` computes.  It is reused
+            // here rather than re-derived.
+            //
+            // WHAT GOLDEN REFUSES, measured arm by arm and left alone:
+            //   * a REPLICATED pattern `'{4{1'b1}}` — `vpiMultiAssignmentPatternOp`
+            //     (op 76), which `expandPatternAssignment`'s `opType` test
+            //     never matches (arm `t23`, golden keeps op 76);
+            //   * a NESTED pattern operand (`caPatNestedOperand19`, arm `t24`);
+            //   * a SELECT or CONCAT Lhs — `writeCont_assign` only fills `tps`
+            //     from a whole-name Lhs, so a part-select (`t19`/`r08`), a
+            //     bit-select (`r07`) and a concat (`r09`) all keep the pattern,
+            //     and `caLhsAdjustBind106`'s NamedValue test is that fence;
+            //   * the DEFINITION listing, which never folds on either side —
+            //     this site is the ELABORATED gen-scope emitter and the def
+            //     rows go through `emitBlock`.
+            if (!rhs) {
+                auto& rp19 = stripImplicitConv(ae.right());
+                int32_t w19 = 0;
+                std::string ln19;
+                if ((rp19.kind == ExpressionKind::SimpleAssignmentPattern ||
+                     rp19.kind == ExpressionKind::StructuredAssignmentPattern) &&
+                    caPatLogicTarget19(ae.left().type) &&
+                    caLhsAdjustBind106(ae.left(), w19, ln19) && w19 > 0 &&
+                    !caPatNestedOperand19(rp19))
+                    if (auto* fc19 = tryFoldConst(ae.right())) {
+                        if (fc19->UhdmType() == UHDM::uhdmconstant) {
+                            auto* c19 = (UHDM::constant*)fc19;
+                            std::string v19(c19->VpiValue());
+                            auto p19 = v19.find(':');
+                            std::string dg19 =
+                                p19 != std::string::npos ? v19.substr(p19 + 1)
+                                                         : v19;
+                            c19->VpiDecompile(std::to_string(w19) + "'d" + dg19);
+                            c19->VpiSize(w19);
+                            c19->VpiConstType(0);
+                            setLoc(c19, rp19.sourceRange);
+                            rhs = c19;
+                        }
                     }
             }
             // Constant gen-scope calls fold to the source literal, sized at
@@ -26160,6 +26327,31 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 sawTernary = true;
                 sel = &stripImplicitConv(pv.isTrue() ? co.left() : co.right());
             }
+            // § caTernFillArmKeepsEncoding19 (r11u19) — THE FILL FENCE, and it
+            // is IN THE PRODUCER'S OWN SOURCE.  UHDM v1.87's
+            // `ExprEval::reduceExpr`, `vpiConditionOp` arm
+            // (`templates/ExprEval.cpp:3878-3903`), tests the SELECTED arm
+            // before it collapses it:
+            //     bool the_val_is_fill = false;
+            //     if (the_val && the_val->UhdmType() == uhdmconstant)
+            //       the_val_is_fill = (((constant*)the_val)->VpiSize() == -1);
+            //     if (localInvalidValue == false && !the_val_is_fill) {
+            //       … result = <INT:val, size 64> … }
+            //     else result = the_val;
+            // An UNBASED-UNSIZED literal (`'0` `'1` `'x` `'z`, VpiSize -1) is
+            // therefore handed BACK UNCHANGED and never becomes `INT:<val>`.
+            // This block owns the `INT:val` outcome alone, so it ABSTAINS
+            // here; the fill arm is installed below, under
+            // § elabCaTernaryArmInstall92's OPERAND GATE, which is the same
+            // `constantOperands` walk (ExprEval.cpp:3121-3145) golden runs
+            // over EVERY operand of the ternary — including the arm it does
+            // not select.  Arms `e02`/`e04`/`f04`/`f05` are golden folding the
+            // fill; `f11` (a `part_select` in the arm golden does NOT take) is
+            // golden REFUSING to reduce at all, and only the operand gate
+            // tells them apart.
+            if (sawTernary &&
+                sel->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                sawTernary = false;
             if (sawTernary && sel->kind != ExpressionKind::ConditionalOp) {
                 ASTContext sctx(comp.getRoot(), LookupLocation::max);
                 ConstantValue scv = sctx.tryEval(*sel);
@@ -26298,6 +26490,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // never reach `emitContAssigns`, whose only three callers pass an
         // `InstanceBodySymbol`, so the fence is structural.
         const Expression* ternArm92 = nullptr;
+        // § caTernFillArmKeepsEncoding19 — the selected arm when it is an
+        // UNBASED-UNSIZED fill literal.  It rides § elabCaTernaryArmInstall92's
+        // installation (so the operand gate and the emission machinery are
+        // shared byte for byte) and is then re-encoded by `adjustSize`'s
+        // `orig_size == -1` tail below.
+        const Expression* ternFill19 = nullptr;
         if (!rhs && topView && plainLhs && !structParamSetter) {
             ASTContext tctx92(comp.getRoot(), LookupLocation::max);
             // `ExprEval`'s CLOSED set of system functions (the vrgg9 list,
@@ -26476,6 +26674,18 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 if (ak92 == OK92::Operation || ak92 == OK92::Call ||
                     ak92 == OK92::Select)
                     ternArm92 = sel92;
+                // § caTernFillArmKeepsEncoding19 — the fill arm installs too,
+                // and `kindOf92` never names it because the INT fold above
+                // used to swallow every value-able arm.
+                if (sel92->kind ==
+                    ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    ternArm92 = sel92;
+                    ternFill19 = sel92;
+                    // The GENERAL fold must stand down too: with the INT fold
+                    // abstaining, `tryFoldConst` would otherwise value the
+                    // whole ternary and re-encode the fill as `UINT:<v>`.
+                    skipGeneralFold = true;
+                }
             }
             // THE CELL TRACE.  Every cont_assign whose RHS is a ternary and
             // whose Lhs is a whole signal REACHES this site; the trace prints
@@ -26495,7 +26705,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         (int)ak92, ternArm92 ? 1 : 0);
             }
             if (off92())
+            {
                 ternArm92 = nullptr;   // A/B gate: reproduce the base binary
+                ternFill19 = nullptr;
+            }
         }
         // A STRUCTURED (index/default-tagged) pattern RHS onto a PREDEFINED
         // INTEGER LHS keeps a FRESH tagged tree in the elab view
@@ -26943,6 +27156,64 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // would have carried inside the ternary.
             rhs = emitExpr(ternArm92 ? *ternArm92 : ae.right(), ca, prefix,
                            rhsMap);
+            // § caTernFillArmKeepsEncoding19 (r11u19) — `adjustSize`'s
+            // `orig_size == -1` TAIL, transcribed.  `UhdmWriter::writeCont_assign`
+            // (UhdmWriter.cpp:2153-2157) runs
+            //     if (rhstmp->UhdmType() == uhdmconstant)
+            //       rhstmp = m_helper.adjustSize(tps, …, (constant*)rhstmp, true);
+            // over whatever the conditional reduce handed back, and
+            // `CompileHelper::adjustSize` (CompileHelper.cpp) ends with
+            //     if (orig_size == -1) {            // '1, '0
+            //       uint64_t uval = (uint64_t)val;
+            //       if (uval == 1) {                 // '1 ONLY
+            //         …clone…
+            //         if (size <= 64) { UINT:getMask(size), decompile the same
+            //                           decimal, vpiUIntConst; }
+            //         else            { BIN:<size ones>, same decompile,
+            //                           vpiBinaryConst; }
+            //       }
+            //       c->VpiSize(size);                // '0 AND '1 alike
+            //     }
+            // and that WHOLE body sits under `if (!invalidValue)`, where
+            // `invalidValue` is `ExprEval::get_value`'s — which cannot parse
+            // `BIN:X` / `BIN:Z`.  So, measured on golden arm by arm:
+            //     `'0`      -> the literal UNTOUCHED but sized at the Lhs
+            //                  width (`BIN:0`, `vpiDecompile:'0`, constType 3)
+            //                  — e02 32'd/e04 1-bit/f04 4-bit/f05 true-arm;
+            //     `'1`      -> `UINT:<mask>` with the DECIMAL decompile and
+            //                  constType 9 at the Lhs width — f01 (32 ->
+            //                  4294967295) and f12 (1 -> 1);
+            //     `'x`/`'z` -> UNTOUCHED ENTIRELY, `VpiSize` still -1 — f02.
+            if (ternFill19 && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                ae.left().type) {
+                auto* fc19 = (UHDM::constant*)rhs;
+                std::string fv19(fc19->VpiValue());
+                int32_t fw19 = (int32_t)ae.left().type->getBitWidth();
+                bool unknown19 = fv19.find('X') != std::string::npos ||
+                                 fv19.find('Z') != std::string::npos ||
+                                 fv19.find('x') != std::string::npos ||
+                                 fv19.find('z') != std::string::npos;
+                if (!unknown19 && fw19 > 0) {
+                    bool ones19 = fv19 == "BIN:1";
+                    if (ones19) {
+                        if (fw19 <= 64) {
+                            uint64_t mask19 =
+                                fw19 == 64 ? ~0ULL : ((1ULL << fw19) - 1ULL);
+                            std::string d19 = std::to_string(mask19);
+                            fc19->VpiValue("UINT:" + d19);
+                            fc19->VpiDecompile(d19);
+                            fc19->VpiConstType(vpiUIntConst);
+                        }
+                        else {
+                            std::string d19((size_t)fw19, '1');
+                            fc19->VpiValue("BIN:" + d19);
+                            fc19->VpiDecompile(d19);
+                            fc19->VpiConstType(vpiBinaryConst);
+                        }
+                    }
+                    fc19->VpiSize(fw19);
+                }
+            }
             patFlatTs = nullptr;
             patFlatAdjust = false;
             caCondPatTs99 = nullptr;

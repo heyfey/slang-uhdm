@@ -1,0 +1,19 @@
+default/genscope_outer_reg_inner_ff-e6115fca/slang.uhdm LAW1=0 LAW2=2
+default/gen_struct_access-e748482d/slang.uhdm LAW1=1 LAW2=0
+default/ibex_alu-24a1d731/slang.uhdm LAW1=2 LAW2=2
+default/ibex_icache-e3714209/slang.uhdm LAW1=0 LAW2=6
+default/ibex_register_file_fpga-a447eb67/slang.uhdm LAW1=0 LAW2=6
+default/iface_member_port-b1bd20be/slang.uhdm LAW1=0 LAW2=2
+default/pkg_localparam_partsel-cc42148c/slang.uhdm LAW1=0 LAW2=2
+default/realexpr-d12dcd02/slang.uhdm LAW1=0 LAW2=3
+default/tern_fill_literal-00b8a09e/slang.uhdm LAW1=0 LAW2=7
+testflags/genscope_outer_reg_inner_ff-e6115fca/slang.uhdm LAW1=0 LAW2=2
+testflags/gen_struct_access-e748482d/slang.uhdm LAW1=1 LAW2=0
+testflags/ibex_alu-24a1d731/slang.uhdm LAW1=2 LAW2=2
+testflags/ibex_icache-e3714209/slang.uhdm LAW1=0 LAW2=6
+testflags/ibex_register_file_fpga-a447eb67/slang.uhdm LAW1=0 LAW2=6
+testflags/iface_member_port-b1bd20be/slang.uhdm LAW1=0 LAW2=2
+testflags/pkg_localparam_partsel-cc42148c/slang.uhdm LAW1=0 LAW2=2
+testflags/realexpr-d12dcd02/slang.uhdm LAW1=0 LAW2=3
+testflags/tern_fill_literal-00b8a09e/slang.uhdm LAW1=0 LAW2=7
+SCANNED=1608 FLAGGED=18

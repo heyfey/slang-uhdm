@@ -300,7 +300,7 @@ hello-uvm,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/hello-uv
 hier_path,testflags,CMP_EQUAL,,,differ
 hier_undriven_port,testflags,CMP_EQUAL,,,match
 hierdefparam,testflags,CMP_EQUAL,,,differ
-ibex_alu,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_alu,testflags,CMP_EQUAL,,,differ
 ibex_branch_predict,testflags,CMP_EQUAL,,,differ
 ibex_compressed_decoder,testflags,CMP_EQUAL,,,differ
 ibex_controller,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_controller.sv:178:78: error: use of undeclared identifier 'u_ibex_core',,
@@ -787,7 +787,7 @@ TaskExportDPI,testflags,CMP_EQUAL,,,match
 TaskImportDPI,testflags,CMP_EQUAL,,,match
 TaskOutputArgument,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/TaskOutputArgument/dut.sv:9:24: error: cannot assign to a net within a procedural context,,
 TaskReturn,testflags,CMP_EQUAL,,,match
-tern_fill_literal,testflags,CMP_NOTEQUAL,decompile:,,
+tern_fill_literal,testflags,CMP_EQUAL,,,match
 ternary_not_cond,testflags,CMP_EQUAL,,,match
 top_module_type_param,testflags,CMP_EQUAL,,,differ
 type_param_override_elem_sel,testflags,CMP_NOTEQUAL,decompile:,,

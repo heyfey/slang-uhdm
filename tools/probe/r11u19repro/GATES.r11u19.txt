@@ -1,0 +1,120 @@
+r11u19 — GATES TRANSCRIPT.  Base commit aa69cb57, worktree /tmp/wt_r11u19.
+Both binaries built `cmake --build build -j 2`, md5s taken separately, frozen
+`chmod 555` at immutable paths BEFORE any sweep.
+The judge is the official uhdm-cmp through scripts/verify_golden.py.
+results/*.csv ARE NOT EDITED BY THIS PASS.
+
+1. BINARIES
+   pristine  0691f7273455a3628c2de8fcc773ef90   = the OPS-stated main-tree md5
+                                                  at aa69cb57, reproduced by my
+                                                  own build from source
+   law       6166b657e186a803fef6a93289357d8f
+
+2. GOLDEN DUMP TESTS  (tests/check_goldens.sh, SLANG_UHDM exported per binary)
+   pristine        23 PASS / 0 FAIL
+   law             23 PASS / 0 FAIL
+   SLANG_UHDM=/bin/false   0 PASS / 23 FAIL      (negative control)
+
+3. cmds.txt AUDITED BY BINARY PATH — one and only one binary per workdir,
+   no main-tree leak:
+   pris_u2r  1742 cmds   slang: /tmp/r11u19_bin/pris.bin
+   law_u2r   1742 cmds   slang: /tmp/r11u19_bin/law.bin
+   pris_sl   1581 cmds   slang: /tmp/r11u19_bin/pris.bin
+   law_sl    1581 cmds   slang: /tmp/r11u19_bin/law.bin
+
+4. uhdm2rtlil, BOTH MODES  (--jobs 2, my own --out/--workdir)
+   pristine  763 CMP_EQUAL / 41 CMP_NOTEQUAL / 67 SLANG_REJECT   both modes
+   law       765 CMP_EQUAL / 39 CMP_NOTEQUAL / 67 SLANG_REJECT   both modes
+   ct8rows.sh law vs the COMMITTED baselines names exactly two rows per mode:
+     < ibex_alu,default,CMP_NOTEQUAL,decompile:,,
+     > ibex_alu,default,CMP_EQUAL,,,differ
+     < ibex_alu,testflags,CMP_NOTEQUAL,decompile:,,
+     > ibex_alu,testflags,CMP_EQUAL,,,differ
+     < tern_fill_literal,default,CMP_NOTEQUAL,decompile:,,
+     > tern_fill_literal,default,CMP_EQUAL,,,match
+     < tern_fill_literal,testflags,CMP_NOTEQUAL,decompile:,,
+     > tern_fill_literal,testflags,CMP_EQUAL,,,match
+   ct8rows.sh MY OWN PRISTINE sweep vs the same baselines, both modes:
+     PASS: every row byte-identical to the committed baseline
+
+5. surelog suite, --mode both
+   pristine  468/15 default, 464/13 testflags
+   law       469/14 default, 465/12 testflags
+   ct8rows.sh law vs results/golden_surelog.csv names:
+     < Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
+     > Earlgrey_0_1,default,CMP_EQUAL,,,differ
+     < Earlgrey_0_1,testflags,CMP_NOTEQUAL,decompile:,,
+     > Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+   plus LowMemLib/testflags and LowMemPkg/testflags, which differ ONLY in the
+   WORKDIR PATH inside a SURELOG_FAIL log message; MY PRISTINE sweep produces
+   the identical two against the same baseline, so they are a workdir artefact.
+
+6. byteverify.sh SELFCHECK=1 vs MY OWN PRISTINE WORKDIRS
+   u2r      4 movers / 1608   PATH_SETS_IDENTICAL   self-check 1607/1608
+            default+testflags x {ibex_alu, tern_fill_literal}
+   surelog  5 movers / 960    PATH_SETS_IDENTICAL   self-check  959/960
+            default+testflags/Earlgrey_0_1  (the law)
+            default+testflags/MiniAmiq, testflags/SeqDriver  (the UVM coin)
+   AWAY-GOLDEN 0 / MOVED-WRONG 0 — every mover attributed in README.md §8.
+
+7. A-PRIORI PREDICTION (pred19.py, PRISTINE databases only)
+   u2r: 18 databases flagged of 1608 scanned (9 rows x 2 modes); the 4 measured
+   movers are among them.  POSITIVE CONTROL on the grid: fires on all 19 real
+   movers, silent on 18 of 24 known non-movers.
+   The five surelog movers, scanned on their PRISTINE databases:
+     MiniAmiq/default    LAW1 0  LAW2 0
+     MiniAmiq/testflags  LAW1 0  LAW2 0
+     SeqDriver/testflags LAW1 0  LAW2 0     <- neither law reaches the coin
+     Earlgrey_0_1/default   LAW1 29 LAW2 240
+     Earlgrey_0_1/testflags LAW1 29 LAW2 240
+
+8. THE UVM COIN, convicted twice and never by a count
+   * pred19 flags ZERO cells in all three pristine coin databases (above);
+   * the PRISTINE binary ALONE, run FOUR times on MiniAmiq's own command line,
+     produced THREE different databases (499e7aae5c40 x2, cb925c79cb3f,
+     2a072665ab13), and every pristine-vs-pristine order-blind delta is the
+     SAME 4-line shape — one constant's UINT + vpiDecompile drawing a
+     different value per run (0, 1114, 1133).  The pristine-vs-law delta on
+     each of the five is that identical 4-line shape (976->1477 MiniAmiq/def,
+     0->1277 MiniAmiq/tf, 0->1446 SeqDriver/tf).
+   Pinned by NAME and CLASS; the COUNT is a per-run draw and is not pinned.
+
+9. CANARIES
+   canaries.sh surelog  law: ok=50 changed=2 absent=0   (the 2 are the LAW rows
+                             Earlgrey_0_1 default+testflags, quoted in §5)
+   canaries.sh surelog  MY PRISTINE: ok=52 changed=0 absent=0
+   canaries.sh u2r      law: ok=8 changed=0;  pristine: ok=8 changed=0
+   ctcan2.sh  PASS on both corpora
+   canaudit.sh audited=29  UNCOVERED=0  FENCE-BREACH=0
+   rowheads.sh identical on both binaries except Earlgrey_0_1, whose head goes
+     32 cmplines / 1 head -> cmp rc 0 / 0 heads in BOTH modes.
+     measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0 on both binaries.
+   PROTECTED DATABASES byte-SAME on both binaries in BOTH modes:
+     SVSwitch            4842211c40304b44fbb046201ec0287e   (HARD byte pin)
+     YosysVerx           6ccda350c24a83cebc9ca4a7b6e505cf   (HARD byte pin)
+     InterfaceModPort    59a365f3ce2c8d0b336a78811e70d816
+     BlackParrotComplex  e3e354129d5a7ef226b3dd8c6f359a28 / 73a10e8217e52843f9789c2bff877dca
+     YosysOldOr          d68e0796d62c1e30a2a545011449bd84
+
+10. THE ARM GRID — 92 arms, GRID.r11u19.txt
+    Every arm golden_rc=0.  90 arms ours_rc=0 on BOTH binaries; p03 and q13 are
+    ours_rc=3 (SLANG_REJECT) on BOTH binaries — they teach ERROR RECOVERY, not
+    golden, and carry no verdict.
+    19 arms CONVERT to uhdm-cmp rc 0, 1 arm improves (t14 29 -> 15 cmplines on
+    a NEW head), 0 arms regress.
+
+11. THE BOUNDARY — bnd19.sh over 901 committed .sv files
+    PROCESSED=901 LISTED=901 MOVED=8, every moved file pris_rc=0 law_rc=0.
+    POSITIVE CONTROL: MOVED=1 / norm_delta=29 on a known mover and 0 on a known
+    non-mover — the gate can see.
+    Each mover scored against the REAL v1.87 golden (bndattr19.sh):
+      r10earl92repro/g3_arm92.sv          cmp 14 -> 8 lines, CA shapes 13 -> 12/20
+      r10earl92repro/g5_home92.sv         cmp 23 -> 23, FOUR cells re-encoded to
+                                          golden's exact '0 / BIN:0 / constType 3
+                                          (only vpiParent still differs, and no
+                                          generated Compare reads VpiParent)
+      r10rgg9repro/cells/l_plainnet/dut.sv  cmp 16 -> rc 0 EQUAL
+      r10v92repro/v4_arm.sv                 cmp 14 -> rc 0 EQUAL
+      r11u17repro/grid/d01, d05             cmp 29 -> rc 0 EQUAL   (R0's own arms)
+      r11u17repro/grid/e02, e04             cmp 16 -> rc 0 EQUAL   (R1's own arms)
+    AWAY-GOLDEN 0 / MOVED-WRONG 0.

@@ -1,0 +1,430 @@
+===== e01_tern_1bit_sized0  (golden_rc=0 ours_rc=0 )
+  [SAME]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o1)
+        G=['constant {|vpiDecompile:0 |vpiSize:1 |INT:0 |vpiConstType:7}']
+  [SAME]     7:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=['constant']
+DIFFERING CA SHAPES: 0 of 2
+===== e02_tern_32bit_unsized0  (golden_rc=0 ours_rc=0 )
+  [DIFF]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=["constant {  op=operation |vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== e03_tern_32bit_sized0  (golden_rc=0 ours_rc=0 )
+  [SAME]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=['constant {|vpiDecompile:0 |vpiSize:32 |INT:0 |vpiConstType:7}']
+DIFFERING CA SHAPES: 0 of 1
+===== e04_tern_1bit_unsized0  (golden_rc=0 ours_rc=0 )
+  [DIFF]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o1)
+        G=["constant {  op=operation |vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== e05_tern_32bit_unsized0_truesimple  (golden_rc=0 ours_rc=0 )
+  [SAME]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=["operation {  op=cont_assign |vpiOpType:32   op=operation |vpiOpType:15   op=ref_obj   op=constant |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== f01_tern_32bit_fill1  (golden_rc=0 ours_rc=0 )
+  [SAME]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=['constant {|vpiDecompile:4294967295 |vpiSize:32 |UINT:4294967295 |vpiConstType:9}']
+DIFFERING CA SHAPES: 0 of 1
+===== f02_tern_32bit_fillx  (golden_rc=0 ours_rc=0 )
+  [DIFF]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=["constant {  op=operation |vpiDecompile:'X |vpiSize:-1 |BIN:X |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:'X |vpiSize:-1 |BIN:X |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== f03_tern_4bit_fillz  (golden_rc=0 ours_rc=0 )
+  [SAME]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=["operation {  op=cont_assign |vpiOpType:32   op=operation |vpiOpType:15   op=part_select |vpiDecompile:3 |vpiSize:64 |UINT:3 |vpiConstType:9 |vpiDecompile:0 |vpiSize:64 |UINT:0 |vpiConstType:9   op=constant |vpiDecompile:'Z |vpiSize:-1 |BIN:Z |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== f04_tern_4bit_fill0  (golden_rc=0 ours_rc=0 )
+  [DIFF]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=["constant {  op=operation |vpiDecompile:'0 |vpiSize:4 |BIN:0 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:'0 |vpiSize:4 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== f05_tern_truearm_fill0  (golden_rc=0 ours_rc=0 )
+  [DIFF]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=["constant {  op=operation |vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== f06_tern_partsel_lhs_fill0  (golden_rc=0 ours_rc=0 )
+  [DIFF]     6:10 \_module_inst: work@top (work@top) \_part_select: o2 (work@top.o2)
+        G=['constant']
+        O=['constant {  op=cont_assign |vpiDecompile:0 |vpiSize:64 |INT:0 |vpiConstType:7}']
+DIFFERING CA SHAPES: 1 of 1
+===== f07_genif_tern_fill0  (golden_rc=0 ours_rc=0 )
+  [DIFF]     7:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.o2)
+        G=["constant {  op=operation |vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:32   op=operation |vpiOpType:15 |vpiDecompile:0 |vpiSize:32 |INT:0 |vpiConstType:7   op=operation |vpiOpType:4 |vpiOpType:22 |vpiDecompile:32'hffffffff |vpiSize:32 |HEX:ffffffff |vpiConstType:5   op=constant |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== f08_tern_nested_fill0  (golden_rc=0 ours_rc=0 )
+  [SAME]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=["operation {  op=cont_assign |vpiOpType:32   op=operation |vpiOpType:15   op=ref_obj   op=operation |vpiOpType:32 |vpiOpType:14 |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3 |vpiOpType:4 |vpiOpType:22 |vpiDecompile:32'hffffffff |vpiSize:32 |HEX:ffffffff |vpiConstType:5}"]
+DIFFERING CA SHAPES: 0 of 1
+===== f09_proc_tern_fill0  (golden_rc=0 ours_rc=0 )
+DIFFERING CA SHAPES: 0 of 0
+===== f10_netdecl_tern_fill0  (golden_rc=0 ours_rc=0 )
+  [SAME]     7:10 ? ?
+        G=['?']
+  [SAME]     6:15 \_module_inst: work@top (work@top) \_logic_net: (work@top.w)
+        G=["operation {  op=cont_assign |vpiOpType:32   op=operation |vpiOpType:15 |vpiDecompile:0 |vpiSize:32 |INT:0 |vpiConstType:7   op=operation |vpiOpType:4 |vpiOpType:22 |vpiDecompile:32'hffffffff |vpiSize:32 |HEX:ffffffff |vpiConstType:5   op=constant |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 2
+===== f11_tern_signed_fill0  (golden_rc=0 ours_rc=0 )
+  [DIFF]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o2)
+        G=["operation {  op=cont_assign |vpiOpType:32   op=operation |vpiOpType:15   op=part_select |vpiDecompile:7 |vpiSize:64 |UINT:7 |vpiConstType:9 |vpiDecompile:0 |vpiSize:64 |UINT:0 |vpiConstType:9   op=constant |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+        O=['constant {|vpiDecompile:0 |vpiSize:8 |UINT:0 |vpiConstType:9}']
+DIFFERING CA SHAPES: 1 of 1
+===== f12_tern_1bit_fill1  (golden_rc=0 ours_rc=0 )
+  [SAME]     6:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o1)
+        G=['constant {|vpiDecompile:1 |vpiSize:1 |UINT:1 |vpiConstType:9}']
+DIFFERING CA SHAPES: 0 of 1
+===== p01_genif_packedvec_defzero  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== p02_mod_packedvec_defzero  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== p03_mod_scalar_defzero  (golden_rc=0 ours_rc=3 )
+  NODB
+===== p04_mod_packedvec_defone  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:2'd3 |vpiSize:2 |UINT:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== p05_mod_packedvec_defint1  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:8'd255 |vpiSize:8 |UINT:255}"]
+DIFFERING CA SHAPES: 0 of 1
+===== p06_mod_packedvec_defint0  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:8'd0 |vpiSize:8 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== p07_mod_packedvec_positional  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:2'd1 |vpiSize:2 |UINT:1}"]
+DIFFERING CA SHAPES: 0 of 1
+===== p08_mod_packedvec_defparam  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:8'd255 |vpiSize:8 |UINT:255}"]
+DIFFERING CA SHAPES: 0 of 1
+===== p09_mod_packedvec_defx  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:'X |vpiSize:1 |BIN:X |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== p10_mod_packedvec_defnonconst  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+        O=['operation {  op=cont_assign |vpiOpType:75   op=bit_select |vpiSize:1 |vpiDecompile:0 |vpiSize:64 |UINT:0 |vpiConstType:9}']
+DIFFERING CA SHAPES: 1 of 1
+===== q01_mod_packed2d_defzero  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:8'd0 |vpiSize:8 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== q02_mod_packedstruct_defzero  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=['operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:0 |vpiSize:2 |UINT:0 |vpiConstType:9   op=constant |vpiDecompile:0 |vpiSize:1 |UINT:0 |vpiConstType:9}']
+DIFFERING CA SHAPES: 0 of 1
+===== q03_mod_unpackedarr_net_defzero  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.arr)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== q04_genif_unpackedarr_net_defzero  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.arr)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== q05_mod_unpackedarr_var_defzero  (golden_rc=0 ours_rc=0 )
+  [SAME]     4:10 ? ?
+        G=['?']
+  [DIFF]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.arr)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 2
+===== q06_mod_bitvec_defzero  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 1 of 1
+===== q07_mod_intvar_defzero  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== q08_mod_enumvar_defzero  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 1 of 1
+===== q09_mod_typedefvec_defzero  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:4'd0 |vpiSize:4 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== q10_mod_bytevar_defzero  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:8 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== q11_mod_packedstructarr_defzero  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:6'd0 |vpiSize:6 |UINT:0}"]
+DIFFERING CA SHAPES: 1 of 1
+===== q12_mod_unpackedstructarr_defzero  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we2)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== q13_mod_packedenumarr_defzero  (golden_rc=0 ours_rc=3 )
+  NODB
+===== r01_mod_netdeclassign_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:10 ? ?
+        G=['?']
+  [DIFF]     2:14 \_module_inst: work@top (work@top) \_logic_net: (work@top.w)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 2
+===== r02_mod_procedural_packedvec  (golden_rc=0 ours_rc=0 )
+DIFFERING CA SHAPES: 0 of 0
+===== r03_mod_vardeclinit_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:10 ? ?
+        G=['?']
+DIFFERING CA SHAPES: 0 of 1
+===== r04_param_default_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.o)
+        G=['constant']
+DIFFERING CA SHAPES: 0 of 1
+===== r05_portconn_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 ? ?
+        G=['?']
+DIFFERING CA SHAPES: 0 of 1
+===== r06_genif_packedvec_two  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.arr)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+  [SAME]     4:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 2
+===== r07_genfor_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb[0]) \_bit_select: (work@top.gb[0].we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+  [SAME]     3:12 \_gen_scope: (work@top.gb[1]) \_bit_select: (work@top.gb[1].we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 2
+===== r08_partsel_lhs_packedvec  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 ? ?
+        G=None
+        O=['?']
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_part_select: we (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+        O=None
+DIFFERING CA SHAPES: 2 of 2
+===== r09_concat_lhs_packedvec  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 ? ?
+        G=None
+        O=['?']
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_operation: 
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+        O=None
+DIFFERING CA SHAPES: 2 of 2
+===== r10_genif_else_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     5:12 \_gen_scope: (work@top.gb2) \_ref_obj: (work@top.gb2.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== r11_child_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@ch (work@top.u) \_ref_obj: (work@top.u.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== r12_interface_genif_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     9:10 ? ?
+        G=['?']
+  [SAME]     4:12 \_gen_scope: (work@top.i.gb) \_ref_obj: (work@top.i.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 2
+===== s01_mod_packedstruct_named  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:2'b10 |vpiSize:2 |BIN:10 |vpiConstType:3   op=constant |vpiDecompile:1'b1 |vpiSize:1 |BIN:1 |vpiConstType:3}"]
+        O=['operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:2 |vpiSize:2 |UINT:2 |vpiConstType:9   op=constant |vpiDecompile:1 |vpiSize:1 |UINT:1 |vpiConstType:9}']
+DIFFERING CA SHAPES: 1 of 1
+===== s02_mod_packedstruct_positional  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:2'b10 |vpiSize:2 |BIN:10 |vpiConstType:3   op=constant |vpiDecompile:1'b1 |vpiSize:1 |BIN:1 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:3'd5 |vpiSize:3 |UINT:5}"]
+DIFFERING CA SHAPES: 1 of 1
+===== s03_mod_packedvec_replicated  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:76   op=constant |vpiDecompile:4 |vpiSize:64 |UINT:4 |vpiConstType:9   op=operation |vpiOpType:33 |vpiDecompile:1'b1 |vpiSize:1 |BIN:1 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== s04_mod_packedstruct_defplusnamed  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:0 |vpiSize:2 |UINT:0 |vpiConstType:9   op=constant |vpiDecompile:1'b1 |vpiSize:1 |BIN:1 |vpiConstType:3}"]
+        O=['operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:0 |vpiSize:2 |UINT:0 |vpiConstType:9   op=constant |vpiDecompile:1 |vpiSize:1 |UINT:1 |vpiConstType:9}']
+DIFFERING CA SHAPES: 1 of 1
+===== s05_mod_packedvec_indexed  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:4'd1 |vpiSize:4 |UINT:1}"]
+DIFFERING CA SHAPES: 0 of 1
+===== s06_mod_packed2d_nested  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=operation |vpiSize:2 |vpiOpType:75 |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3   op=operation |vpiOpType:75 |vpiDecompile:'1 |vpiSize:-1 |BIN:1 |vpiConstType:3}"]
+        O=["constant {|vpiDecompile:8'd15 |vpiSize:8 |UINT:15}"]
+DIFFERING CA SHAPES: 1 of 1
+===== s07_mod_packedvec_cond_pattern  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["operation {  op=cont_assign |vpiOpType:32   op=bit_select |vpiDecompile:0 |vpiSize:64 |UINT:0 |vpiConstType:9   op=constant |vpiDecompile:2'd0 |vpiSize:2 |UINT:0   op=constant |vpiDecompile:2'd3 |vpiSize:2 |UINT:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:32   op=bit_select |vpiDecompile:0 |vpiSize:64 |UINT:0 |vpiConstType:9   op=operation |vpiOpType:75 |vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3   op=operation |vpiOpType:75 |vpiDecompile:'1 |vpiSize:1 |BIN:1 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== s08_mod_packedvec_defzero_wide  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:32'd0 |vpiSize:32 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== s09_mod_packedvec_defone_wide  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:32'd4294967295 |vpiSize:32 |UINT:4294967295}"]
+DIFFERING CA SHAPES: 0 of 1
+===== s10_mod_packedvec_defz  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:'Z |vpiSize:1 |BIN:Z |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== s11_mod_packedvec_deflocalparam  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:8'd255 |vpiSize:8 |UINT:255}"]
+DIFFERING CA SHAPES: 0 of 1
+===== s12_mod_signedvec_defzero  (golden_rc=0 ours_rc=0 )
+  [SAME]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:4'd0 |vpiSize:4 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t01_mod_packedvec_deftwo  (golden_rc=0 ours_rc=0 )
+  [DIFF]     2:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=["constant {|vpiDecompile:8'd255 |vpiSize:8 |UINT:255}"]
+        O=["constant {|vpiDecompile:8'd0 |vpiSize:8 |UINT:0}"]
+DIFFERING CA SHAPES: 1 of 1
+===== t02_genif_genlocal_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     5:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.o)
+        G=['ref_obj {  op=cont_assign   op=logic_var}']
+  [SAME]     4:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 2
+===== t03_genif_genlocal_namesake_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     6:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.o)
+        G=['ref_obj {  op=cont_assign   op=logic_var}']
+  [DIFF]     5:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:4'd0 |vpiSize:4 |UINT:0}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+  [SAME]     8:10 \_module_inst: work@top (work@top) \_ref_obj: (work@top.we)
+        G=['constant']
+DIFFERING CA SHAPES: 1 of 3
+===== t04_iface_mod_packedvec  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:10 ? ?
+        G=None
+        O=['?']
+  [SAME]     7:10 ? ?
+        G=['?']
+  [DIFF]     3:10 \_interface_inst: work@ifc (work@top.i) \_ref_obj: (work@top.i.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+        O=None
+DIFFERING CA SHAPES: 2 of 3
+===== t05_genif_packed2d  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:8'd0 |vpiSize:8 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t06_genif_packedstruct  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=['operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:0 |vpiSize:2 |UINT:0 |vpiConstType:9   op=constant |vpiDecompile:0 |vpiSize:1 |UINT:0 |vpiConstType:9}']
+        O=["operation {  op=cont_assign |vpiOpType:75   op=constant |vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== t07_genif_bitvec  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:1 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== t08_genif_intvar  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== t09_genif_enumvar  (golden_rc=0 ours_rc=0 )
+  [DIFF]     4:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:32 |BIN:0 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== t10_genfor_modpackedvec_whole  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb[0]) \_ref_obj: (work@top.gb[0].we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t11_genif_typedefvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     4:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:4'd0 |vpiSize:4 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t12_genif_positional  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:2'd1 |vpiSize:2 |UINT:1}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t13_genif_defx  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'X |vpiSize:-1 |BIN:X |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== t14_nested_genif_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     4:14 \_gen_scope: (work@top.gb.gc) \_ref_obj: (work@top.gb.gc.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t15_child_genif_packedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.u.gb) \_ref_obj: (work@top.u.gb.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t16_genif_defnonconst  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+        O=['operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:0 |vpiSize:64 |UINT:0 |vpiConstType:9}']
+DIFFERING CA SHAPES: 1 of 1
+===== t17_genif_cond_pattern  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:32   op=bit_select |vpiDecompile:0 |vpiSize:64 |UINT:0 |vpiConstType:9   op=constant |vpiDecompile:2'd0 |vpiSize:2 |UINT:0   op=constant |vpiDecompile:2'd3 |vpiSize:2 |UINT:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:32   op=bit_select |vpiDecompile:0 |vpiSize:64 |UINT:0 |vpiConstType:9   op=operation |vpiOpType:75 |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3   op=operation |vpiOpType:75 |vpiDecompile:'1 |vpiSize:-1 |BIN:1 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== t18_genif_netdeclassign  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:16 \_gen_scope: (work@top.gb) \_logic_net: (work@top.gb.w)
+        G=["constant {|vpiDecompile:2'd0 |vpiSize:2 |UINT:0}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+  [SAME]     4:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.o)
+        G=['ref_obj {  op=cont_assign}']
+DIFFERING CA SHAPES: 1 of 2
+===== t19_genif_partsel_lhs  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_part_select: we (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t20_genif_defparam  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:8'd255 |vpiSize:8 |UINT:255}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t21_genif_indexed  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:4'd1 |vpiSize:4 |UINT:1}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t22_genif_defone  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:2'd3 |vpiSize:2 |UINT:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t23_genif_replicated  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:76   op=constant |vpiDecompile:4 |vpiSize:64 |UINT:4 |vpiConstType:9   op=operation |vpiOpType:33 |vpiDecompile:1'b1 |vpiSize:1 |BIN:1 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t24_genif_nested_pattern  (golden_rc=0 ours_rc=0 )
+  [DIFF]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=operation |vpiSize:2 |vpiOpType:75 |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3   op=operation |vpiOpType:75 |vpiDecompile:'1 |vpiSize:-1 |BIN:1 |vpiConstType:3}"]
+        O=["operation {  op=cont_assign |vpiOpType:75   op=operation |vpiOpType:75 |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3   op=operation |vpiOpType:75 |vpiDecompile:'1 |vpiSize:-1 |BIN:1 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 1 of 1
+===== t25_genif_signedvec  (golden_rc=0 ours_rc=0 )
+  [SAME]     3:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["constant {|vpiDecompile:4'd0 |vpiSize:4 |UINT:0}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t26_genif_unpackedstructarr  (golden_rc=0 ours_rc=0 )
+  [SAME]     4:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we2)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t27_genif_packedstructarr  (golden_rc=0 ours_rc=0 )
+  [SAME]     4:12 \_gen_scope: (work@top.gb) \_ref_obj: (work@top.gb.we)
+        G=["operation {  op=cont_assign |vpiOpType:75   op=tagged_pattern |vpiDecompile:'0 |vpiSize:-1 |BIN:0 |vpiConstType:3}"]
+DIFFERING CA SHAPES: 0 of 1
+===== t28_genif_scalar_procedural  (golden_rc=0 ours_rc=0 )
+DIFFERING CA SHAPES: 0 of 0
