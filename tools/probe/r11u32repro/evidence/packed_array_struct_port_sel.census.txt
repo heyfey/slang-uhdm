@@ -1,0 +1,33 @@
+== packed_array_struct_port_sel
+-- SHAPE LISTER (section kind: golden / ours), kinds present on either side
+   DEF   bit_select                       2 /     2
+   DEF   design                           3 /     3
+   DEF   logic_net                       16 /    16
+   DEF   port                            20 /    20
+   DEF   ref_obj                          8 /     8
+   DEF   ref_typespec                     9 /     9
+   DEF   struct_typespec                  3 /     3
+   DEF   type_parameter                   2 /     2
+   DEF   typespec_member                  4 /     4
+   ELAB  bit_select                       2 /     2
+   ELAB  design                           1 /     1
+   ELAB  logic_net                       11 /    11
+   ELAB  logic_var                        3 /     3
+   ELAB  packed_array_var                 9 /     8   <-- differs
+   ELAB  port                            16 /    16
+   ELAB  ref_obj                          8 /     8
+   ELAB  ref_typespec                    12 /    11   <-- differs
+   ELAB  struct_typespec                  5 /     4   <-- differs
+   ELAB  struct_var                       4 /     4
+   ELAB  type_parameter                   2 /     2
+-- KIND DISAGREEMENTS on (section, vpiFullName)
+   ELAB  my_t
+        G: {'struct_typespec': 5}
+        O: {'struct_typespec': 4}
+   ELAB  work@tb.d.arr_i
+        G: {'packed_array_var': 5, 'ref_obj': 1, 'ref_typespec': 3, 'struct_var': 2}
+        O: {'packed_array_var': 4, 'ref_obj': 1, 'ref_typespec': 1}
+   ELAB  work@tb.d.arr_i.arr_i
+        G: {}
+        O: {'ref_typespec': 1, 'struct_var': 2}
+-- DISAGREEMENTS: 3

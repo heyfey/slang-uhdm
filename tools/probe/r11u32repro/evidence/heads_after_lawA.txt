@@ -1,0 +1,36 @@
+== r11u32 — the heads AFTER the two K2 laws (A only, binary 9b4608d9d79dd4e02330dbc2e8cdced7)
+   latch_packed_enum_loop reads 0 heads: it CONVERTED on law A alone.
+   the other three K2 rows' heads MOVED to the elab packed_array_var (law B),
+   arb_idx_cast's head moved OFF this family entirely (a $unsigned(genvar)
+   operand-vector gap — the K3 face the r11v29 verifier split out).
+
+LHS:
+decompile:
+operation: , id:35, line:18:26, endln:18:54
+|vpiParent:
+\_gen_for: , id:27
+|vpiOpType:20
+|vpiOperand:
+\_sys_func_call: ($unsigned), id:34, line:18:26, endln:18:42
+  |vpiParent:
+  \_operation: , id:35, line:18:26, endln:18:54
+  |vpiArgument:
+  \_ref_obj: (work@dut.level), id:33, line:18:36, endln:18:41
+    |vpiParent:
+    \_sys_func_call: ($unsigned), id:34, line:18:26, endln:18:42
+    |vpiName:level
+    |vpiFullName:work@dut.level
+    |vpiActual:
+    \_int_var: (work@dut.level), id:30, line:18:15, endln:18:20
+  |vpiName:$unsigned
+|vpiOperand:
+\_ref_obj: (work@dut.NumLevels), id:36, line:18:45, endln:18:54
+  |vpiParent:
+  \_operation: , id:35, line:18:26, endln:18:54
+  |vpiName:NumLevels
+  |vpiFullName:work@dut.NumLevels
+
+decompile:
+operation: , id:35, line:18:26, endln:18:54
+|vpiParent:
+\_gen_for: , id:27

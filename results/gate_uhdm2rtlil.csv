@@ -264,7 +264,7 @@ FunctionReturnEnum,testflags,CMP_EQUAL,,,match
 FunctionWireAssignmentOnDeclaration,testflags,CMP_EQUAL,,,match
 FunctionWithoutReturn,testflags,CMP_EQUAL,,,match
 FunctionWithOverriddenParameter,testflags,CMP_EQUAL,,,match
-gen_scope_numports,testflags,CMP_NOTEQUAL,decompile:,,
+gen_scope_numports,testflags,CMP_EQUAL,,,differ
 gen_scope_typaram,testflags,CMP_EQUAL,,,differ
 gen_struct_access,testflags,CMP_EQUAL,,,match
 gen_test1,testflags,CMP_EQUAL,,,differ
@@ -421,7 +421,7 @@ latch_decoder_partial,testflags,CMP_EQUAL,,,differ
 latch_fifo_dynfield,testflags,CMP_EQUAL,,,differ
 latch_nested_ex_field,testflags,CMP_EQUAL,,,differ
 latch_packed_dyn_write,testflags,CMP_EQUAL,,,differ
-latch_packed_enum_loop,testflags,CMP_NOTEQUAL,decompile:,,
+latch_packed_enum_loop,testflags,CMP_EQUAL,,,match
 latch_perf_counters,testflags,CMP_NOTEQUAL,decompile:,,
 latch_tlb_napot,testflags,CMP_EQUAL,,,differ
 latchn,testflags,CMP_EQUAL,,,match
@@ -542,7 +542,7 @@ OutputSizeWithParameterOfInstanceInitializedByStructMember,testflags,CMP_EQUAL,,
 package_task_func,testflags,CMP_EQUAL,,,differ
 PackageCast,testflags,CMP_EQUAL,,,differ
 packed_array_elem_select,testflags,CMP_EQUAL,,,match
-packed_array_reset_loop,testflags,CMP_NOTEQUAL,decompile:,,
+packed_array_reset_loop,testflags,CMP_EQUAL,,,differ
 packed_array_struct,testflags,CMP_NOTEQUAL,decompile:,,
 packed_array_struct_port_sel,testflags,CMP_NOTEQUAL,decompile:,,
 packed_struct_array_fifo,testflags,CMP_NOTEQUAL,decompile:,,
@@ -553,7 +553,7 @@ PackedArray,testflags,CMP_EQUAL,,,differ
 param_array_wildcard,testflags,CMP_EQUAL,,,differ
 param_fill_default_paramod,testflags,CMP_EQUAL,,,differ
 param_int_types,testflags,CMP_EQUAL,,,differ
-param_name_collision_typeparam,testflags,CMP_NOTEQUAL,decompile:,,
+param_name_collision_typeparam,testflags,CMP_EQUAL,,,differ
 param_nested_struct_field_width,testflags,CMP_EQUAL,,,differ
 param_no_default,testflags,CMP_EQUAL,,,differ
 param_packed_array_subst,testflags,CMP_EQUAL,,,differ

@@ -20495,6 +20495,152 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
     return pav;
 }
 
+// § namedTypePackedDimElabVar32 — THE ELAB HALF of the named-type declaration.
+//
+// A declaration whose written data type is a TYPE PARAMETER carrying packed
+// dimensions (`data_t [NumPorts-1:0] wdata_i`) elaborates in Surelog as a
+// `packed_array_var` — the written dims as vpiRange, one bare element var, and
+// a vpiTypespec ref to the ONE typespec object the type parameter resolved to
+// — and it does so at a PORT exactly as it does in the body.  We had it as a
+// flat `logic_net` (port) / `logic_var` (body).
+//
+// GOLDEN GRID (44 arms, name kind x dims{none,packed,unpacked} x position{body
+// net,input,output}, calibrated golden-vs-golden to 0): the three cells this
+// factory owns are x_tp_pk_net / x_tp_pk_in / x_tp_pk_out.  The neighbours say
+// where it must NOT fire:
+//   * NO dims (`T x`)  -> logic_var/enum_var/struct_net, never an array var;
+//   * UNPACKED dims    -> array_var (emitArrayVar's road, reached earlier);
+//   * an ENUM-bound or STRUCT-bound type parameter already elaborates through
+//     its own road and matches golden, so the gate is the LOGIC-VECTOR leaf.
+// The dimension-less cell is the one `portTypeParam` (EmitHelpers.h) already
+// serves by SHARING `typeParamElabTs`; this factory shares the same object, so
+// the two views of the same declaration cannot drift apart.
+UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
+    const Symbol& sym, const std::string& name, const std::string& fullName,
+    UHDM::instance* m) {
+    auto declared = sym.getDeclaredType();
+    if (!declared)
+        return nullptr;
+    // The written type must be a NAME (`T [1:0] x`), not an anonymous vector.
+    auto* tsyn32 = declared->getTypeSyntax();
+    if (!tsyn32 || tsyn32->kind != syntax::SyntaxKind::NamedType)
+        return nullptr;
+    auto& dt = declared->getType();
+    if (dt.kind != SymbolKind::PackedArrayType)
+        return nullptr;
+    std::vector<ConstantRange> arrRanges;
+    const Type* t2 = &dt;
+    while (t2->kind == SymbolKind::PackedArrayType) {
+        arrRanges.push_back(t2->as<PackedArrayType>().range);
+        t2 = &t2->as<PackedArrayType>().elementType;
+    }
+    if (t2->kind != SymbolKind::TypeAlias)
+        return nullptr;
+    // A type parameter is a TypeAliasType whose syntax is a `TypeAssignment`,
+    // never a `TypedefDeclaration` (typeParamOfAlias, EmitHelpers.h).
+    auto* syn32 = t2->getSyntax();
+    if (!syn32 || syn32->kind != syntax::SyntaxKind::TypeAssignment)
+        return nullptr;
+    // LOGIC-VECTOR leaf only: an enum- or struct-bound type parameter reaches
+    // its own factory above and already matches golden (grid x_tpe_pk_*,
+    // x_tps_pk_*), so firing here would MOVE AN AGREEING CELL.
+    auto& leafCt = t2->getCanonicalType();
+    if (leafCt.kind != SymbolKind::PackedArrayType &&
+        leafCt.kind != SymbolKind::ScalarType)
+        return nullptr;
+    // § typeParamArrayVarIsFourState32v (r11v32, ADVERSARIAL FIX) — and the
+    // leaf must be FOUR-STATE.  A type parameter bound to a 2-state vector or
+    // scalar (`parameter type T = bit [7:0]`, `= bit`, or a 4-state DEFAULT
+    // overridden at the instance with a 2-state type) carries NO packed array
+    // object in golden at all: the declaration elaborates as a flat `bit_var`,
+    // exactly as the pristine emitter already produced it.  Firing here moved
+    // three purpose-built goldens from CMP_EQUAL to CMP_NOTEQUAL
+    // (`f01_tp2state_pk`, `g03_tp_bitscalar_pk`, `g05_tp_ovr_2state`, each one
+    // module + one instance, official `uhdm-cmp`) and six arms of the
+    // verifier's grid (`y_tpb_pk_{net,in,out}`, `y_tpb_pk2_{net,in,out}`:
+    // golden `bit_var`, patched `packed_array_var`).  The corpus carries no
+    // 2-state type parameter, so no sweep row could see it.  The four-state
+    // test is asked of the RESOLVED canonical leaf, not of the parameter's
+    // written default, because the override is what golden reads.
+    if (!leafCt.isFourState())
+        return nullptr;
+    auto* tpsym = typeParamOfAlias(t2->as<TypeAliasType>());
+    if (!tpsym)
+        return nullptr;
+    auto tit32 = typeParamElabTs.find(tpsym);
+    if (tit32 == typeParamElabTs.end() || !tit32->second)
+        return nullptr;
+    auto* pav = s.MakePacked_array_var();
+    pav->VpiName(name);
+    pav->VpiFullName(fullName);
+    pav->VpiParent(m);
+    setLoc(pav, nameSpan(sym.location, sym.name));
+    pav->VpiVisibility(1);
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiFullName(fullName);
+    rt->VpiParent(pav);
+    rt->Actual_typespec(tit32->second);
+    pav->Typespec(rt);
+    // Dim spans scanned between the type-syntax start and the declarator, and
+    // the bounds FOLDED with reduceExpr's value type and anchor — the same
+    // reading emitVectorTypedefArrayVar makes of the same written text.  The
+    // two bodies are deliberately NOT shared: they are separate gate-verified
+    // copies until the corpus converges (§ no premature extraction).
+    std::vector<DimSpan> spans;
+    {
+        SourceLocation tStart = sym.location;
+        if (auto ts32 = declared->getTypeSyntax())
+            tStart = ts32->sourceRange().start();
+        if (tStart < sym.location)
+            spans = scanDimSpans(
+                std::string(rawText(SourceRange(tStart, sym.location))), tStart);
+    }
+    auto* rvec = s.MakeRangeVec();
+    auto dsynB = namedTypeDimBounds(declared->getTypeSyntax());
+    for (size_t i = 0; i < arrRanges.size(); i++) {
+        auto* r = s.MakeRange();
+        r->VpiParent(pav);
+        const DimSpan* ds = i < spans.size() ? &spans[i] : nullptr;
+        if (ds)
+            setLoc(r, ds->range);
+        auto mkB = [&](int64_t v, const SourceRange* loc,
+                       const syntax::ExpressionSyntax* bs) -> UHDM::expr* {
+            auto* c = s.MakeConstant();
+            std::string digits = std::to_string(v);
+            c->VpiDecompile(digits);
+            c->VpiSize(64);
+            bool intEnc = srlgRedIntSyn(bs);
+            c->VpiValue((intEnc ? "INT:" : "UINT:") + digits);
+            c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);
+            c->VpiParent(r);
+            if (loc)
+                setLoc(c, *loc);
+            if (bs && syntax::BinaryExpressionSyntax::isKind(bs->kind)) {
+                const syntax::ExpressionSyntax* lf = bs;
+                while (syntax::BinaryExpressionSyntax::isKind(lf->kind))
+                    lf = lf->as<syntax::BinaryExpressionSyntax>().left;
+                setLoc(c, lf->getFirstToken().range());
+            }
+            return c;
+        };
+        const syntax::ExpressionSyntax* bl =
+            i < dsynB.size() ? dsynB[i].first : nullptr;
+        const syntax::ExpressionSyntax* br =
+            i < dsynB.size() ? dsynB[i].second : nullptr;
+        r->Left_expr(mkB(arrRanges[i].left, ds ? &ds->left : nullptr, bl));
+        r->Right_expr(mkB(arrRanges[i].right, ds ? &ds->right : nullptr, br));
+        rvec->push_back(r);
+    }
+    pav->Ranges(rvec);
+    auto* ev = s.MakeLogic_var();
+    ev->VpiParent(pav);
+    ev->VpiFullName(fullName);
+    auto* elems = s.MakeAnyVec();
+    elems->push_back(ev);
+    pav->Elements(elems);
+    return pav;
+}
+
 UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym,
                                                                const std::string& name,
                                                                const std::string& fullName,

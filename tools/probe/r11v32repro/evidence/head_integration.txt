@@ -1,0 +1,30 @@
+== HEAD INTEGRATION: the verified patch built and swept ON c731550c (pass 30)
+
+The implementer flagged that pass 30 lands on the same type-param typespec face
+and that law B reads typeParamElabTs, which ParamEmit populates.  Measured:
+
+  apply on c731550c            rc 0, 0 conflict markers
+  build                        rc 0  (eb63e166e8f297649e0cf6371e4f2be4)
+  check_goldens                23 PASS / 0 FAIL
+  uhdm2rtlil both modes        768/36 -> 772/32, whole-row diff = the SAME four rows
+  uhdm2rtlil byte movers       12 / 1608, SELFCHECK 1607/1608 --- and every mover's
+                               md5 is IDENTICAL to the b44b24b1 run on both sides,
+                               so the two passes do not interact on this corpus
+  surelog both modes           474/9 default, 469/8 testflags -- unmoved; the only
+                               row-diff is the two workdir-path SURELOG_FAIL strings
+  surelog byte movers          5 / 960, all UVM coin (MiniAmiq/SeqDriver/SimpleUVM)
+  protected databases          all twelve SAME, byte pins exact
+  canaries                     ok=51 changed=1 (the Earlgrey dump-column draw, which
+                               reads the SAME on the HEAD PRISTINE sweep) / ok=8 changed=0
+  ctcan2                       PASS both corpora
+  44-design face battery       0 regressions, all 18 conversions kept
+
+u2r mover md5s: r11u32-as-submitted at b44b24b1  vs  the VERIFIED patch at
+c731550c.  Identical on every mover -- which says two things at once: the fix
+moves no corpus database, and pass 30 does not interact with this patch.
+  arb_idx_cast-dbf8cde6                base=7a854e0a965b head=7a854e0a965b SAME
+  gen_scope_numports-95ae2e26          base=9db75155df8d head=9db75155df8d SAME
+  latch_packed_enum_loop-93fc88b2      base=75b9365930b7 head=75b9365930b7 SAME
+  packed_array_reset_loop-8034bf68     base=5eb3c0aebabb head=5eb3c0aebabb SAME
+  param_name_collision_typeparam-719b50af base=fdcd41a9218b head=fdcd41a9218b SAME
+  struct_member_cfg_width-e3b35de8     base=d3df38b8bdc0 head=d3df38b8bdc0 SAME

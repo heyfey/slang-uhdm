@@ -1,0 +1,46 @@
+== ROWS: every row that moved, quoted, both corpora both modes
+
+-- uhdm2rtlil, pristine (0fc7b2ec) -> verified (c66b1f2c), testflags:
+< gen_scope_numports,testflags,CMP_NOTEQUAL,decompile:,,
+> gen_scope_numports,testflags,CMP_EQUAL,,,differ
+< latch_packed_enum_loop,testflags,CMP_NOTEQUAL,decompile:,,
+> latch_packed_enum_loop,testflags,CMP_EQUAL,,,match
+< packed_array_reset_loop,testflags,CMP_NOTEQUAL,decompile:,,
+> packed_array_reset_loop,testflags,CMP_EQUAL,,,differ
+< param_name_collision_typeparam,testflags,CMP_NOTEQUAL,decompile:,,
+> param_name_collision_typeparam,testflags,CMP_EQUAL,,,differ
+
+-- uhdm2rtlil, default:
+< gen_scope_numports,default,CMP_NOTEQUAL,decompile:,,
+> gen_scope_numports,default,CMP_EQUAL,,,differ
+< latch_packed_enum_loop,default,CMP_NOTEQUAL,decompile:,,
+> latch_packed_enum_loop,default,CMP_EQUAL,,,match
+< packed_array_reset_loop,default,CMP_NOTEQUAL,decompile:,,
+> packed_array_reset_loop,default,CMP_EQUAL,,,differ
+< param_name_collision_typeparam,default,CMP_NOTEQUAL,decompile:,,
+> param_name_collision_typeparam,default,CMP_EQUAL,,,differ
+
+-- surelog, pristine -> r11u32 (both modes, one CSV): only the two SURELOG_FAIL
+   detail strings that embed the workdir path:
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u32_wdp/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u32_wdq/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u32_wdp/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u32_wdq/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+
+-- HEAD INTEGRATION, c731550c pristine (723cb6db) -> c731550c+verified (eb63e166):
+< gen_scope_numports,testflags,CMP_NOTEQUAL,decompile:,,
+> gen_scope_numports,testflags,CMP_EQUAL,,,differ
+< latch_packed_enum_loop,testflags,CMP_NOTEQUAL,decompile:,,
+> latch_packed_enum_loop,testflags,CMP_EQUAL,,,match
+< packed_array_reset_loop,testflags,CMP_NOTEQUAL,decompile:,,
+> packed_array_reset_loop,testflags,CMP_EQUAL,,,differ
+< param_name_collision_typeparam,testflags,CMP_NOTEQUAL,decompile:,,
+> param_name_collision_typeparam,testflags,CMP_EQUAL,,,differ
+< gen_scope_numports,default,CMP_NOTEQUAL,decompile:,,
+> gen_scope_numports,default,CMP_EQUAL,,,differ
+< latch_packed_enum_loop,default,CMP_NOTEQUAL,decompile:,,
+> latch_packed_enum_loop,default,CMP_EQUAL,,,match
+< packed_array_reset_loop,default,CMP_NOTEQUAL,decompile:,,
+> packed_array_reset_loop,default,CMP_EQUAL,,,differ
+< param_name_collision_typeparam,default,CMP_NOTEQUAL,decompile:,,
+> param_name_collision_typeparam,default,CMP_EQUAL,,,differ

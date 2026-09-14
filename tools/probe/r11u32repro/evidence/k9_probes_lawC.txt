@@ -1,0 +1,20 @@
+== r11u32 — K9 probes AFTER law C (binary 5de09f4c516a1d7a01a6471153420dac)
+
+-- k9.sv
+SIGNAL                 | DEF golden                 | DEF ours                   | VERDICT
+n_ansi_passed          | logic_net ts=YES           | logic_net ts=YES           | 
+n_ansi_plain           | logic_net ts=YES           | logic_net ts=YES           | 
+n_nonansi_passed       | logic_net ts=no            | logic_net ts=no            | 
+n_nonansi_plain        | logic_net ts=no            | logic_net ts=no            | 
+-- signals: 4   DIFF: 0
+
+-- k9b.sv
+SIGNAL                 | DEF golden                 | DEF ours                   | VERDICT
+b_enum                 | logic_net ts=YES           | logic_net ts=YES           | 
+b_init                 | logic_net ts=YES           | logic_net ts=YES           | 
+b_nonansi              | logic_net ts=no            | logic_net ts=no            | 
+b_pkg_scoped           | logic_net ts=YES           | logic_net ts=YES           | 
+b_pkg_unqual           | logic_net ts=YES           | logic_net ts=YES           | 
+b_struct               | logic_net ts=YES           | logic_net ts=YES           | 
+b_vector               | logic_net ts=YES           | logic_net ts=YES           | 
+-- signals: 7   DIFF: 0

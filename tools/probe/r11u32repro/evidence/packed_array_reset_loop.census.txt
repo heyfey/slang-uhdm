@@ -1,0 +1,36 @@
+== packed_array_reset_loop
+-- SHAPE LISTER (section kind: golden / ours), kinds present on either side
+   DEF   begin                           14 /    14
+   DEF   bit_select                       6 /     6
+   DEF   design                           1 /     1
+   DEF   for_stmt                        10 /    10
+   DEF   int_var                         11 /    11
+   DEF   logic_net                       18 /    18
+   DEF   parameter                        6 /     6
+   DEF   port                            15 /    15
+   DEF   ref_obj                         21 /    21
+   DEF   ref_typespec                    13 /    13
+   DEF   type_parameter                   2 /     2
+   ELAB  design                           1 /     1
+   ELAB  logic_net                        9 /    15   <-- differs
+   ELAB  logic_var                        3 /     2   <-- differs
+   ELAB  packed_array_var                14 /     0   <-- differs
+   ELAB  parameter                        6 /     6
+   ELAB  port                            15 /    15
+   ELAB  ref_obj                          5 /     5
+   ELAB  ref_typespec                    15 /    16   <-- differs
+   ELAB  type_parameter                   1 /     2   <-- differs
+-- KIND DISAGREEMENTS on (section, vpiFullName)
+   ELAB  work@packed_array_reset_loop.addr_t
+        G: {'type_parameter': 1}
+        O: {'ref_typespec': 1, 'type_parameter': 2}
+   ELAB  work@packed_array_reset_loop.d_i
+        G: {'logic_var': 1, 'packed_array_var': 5, 'ref_obj': 1, 'ref_typespec': 2}
+        O: {'logic_net': 3, 'ref_obj': 1, 'ref_typespec': 2}
+   ELAB  work@packed_array_reset_loop.q
+        G: {'logic_var': 1, 'packed_array_var': 4, 'ref_typespec': 1}
+        O: {'logic_var': 2, 'ref_typespec': 1}
+   ELAB  work@packed_array_reset_loop.q_o
+        G: {'logic_var': 1, 'packed_array_var': 5, 'ref_obj': 1, 'ref_typespec': 2}
+        O: {'logic_net': 3, 'ref_obj': 1, 'ref_typespec': 2}
+-- DISAGREEMENTS: 4

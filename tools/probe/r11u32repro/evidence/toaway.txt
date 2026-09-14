@@ -1,0 +1,22 @@
+== r11u32 — TO-GOLDEN / AWAY-GOLDEN / STILL-WRONG per mover, ORDER-BLIND
+   NOLOC = the JUDGED view: no generated Compare reads VpiFile/line/col.
+   CALIBRATION golden-vs-golden-vs-golden:
+CALIB                              TO-GOLDEN     0   AWAY-GOLDEN     0   STILL-WRONG     0   (pristine dev     0 -> patched dev     0)
+
+arb_idx_cast/testflags             TO-GOLDEN    28   AWAY-GOLDEN     0   STILL-WRONG   148   (pristine dev   176 -> patched dev   148)
+gen_scope_numports/testflags       TO-GOLDEN   280   AWAY-GOLDEN     4   STILL-WRONG    54   (pristine dev   334 -> patched dev    58)
+latch_packed_enum_loop/testflags   TO-GOLDEN     1   AWAY-GOLDEN     0   STILL-WRONG     2   (pristine dev     3 -> patched dev     2)
+packed_array_reset_loop/testflags  TO-GOLDEN   100   AWAY-GOLDEN     0   STILL-WRONG    13   (pristine dev   113 -> patched dev    13)
+param_name_collision_typeparam/testflags TO-GOLDEN    34   AWAY-GOLDEN     0   STILL-WRONG    15   (pristine dev    49 -> patched dev    15)
+struct_member_cfg_width/testflags  TO-GOLDEN     7   AWAY-GOLDEN     0   STILL-WRONG    19   (pristine dev    26 -> patched dev    19)
+arb_idx_cast/default               TO-GOLDEN    28   AWAY-GOLDEN     0   STILL-WRONG   148   (pristine dev   176 -> patched dev   148)
+gen_scope_numports/default         TO-GOLDEN   280   AWAY-GOLDEN     4   STILL-WRONG    54   (pristine dev   334 -> patched dev    58)
+latch_packed_enum_loop/default     TO-GOLDEN     1   AWAY-GOLDEN     0   STILL-WRONG     2   (pristine dev     3 -> patched dev     2)
+packed_array_reset_loop/default    TO-GOLDEN   100   AWAY-GOLDEN     0   STILL-WRONG    13   (pristine dev   113 -> patched dev    13)
+param_name_collision_typeparam/default TO-GOLDEN    34   AWAY-GOLDEN     0   STILL-WRONG    15   (pristine dev    49 -> patched dev    15)
+struct_member_cfg_width/default    TO-GOLDEN     7   AWAY-GOLDEN     0   STILL-WRONG    19   (pristine dev    26 -> patched dev    19)
+
+   The ONLY nonzero AWAY figure is gen_scope_numports' 4, and its whole
+   contribution is the COUNT of the literal string '|vpiParent:' at one
+   indentation level — no generated Compare reads VpiParent, and the
+   OFFICIAL judge reads that row CMP_EQUAL in both modes.

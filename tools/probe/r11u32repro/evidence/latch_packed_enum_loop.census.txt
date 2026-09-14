@@ -1,0 +1,23 @@
+== latch_packed_enum_loop
+-- SHAPE LISTER (section kind: golden / ours), kinds present on either side
+   DEF   begin                            6 /     6
+   DEF   bit_select                      12 /    12
+   DEF   design                           1 /     1
+   DEF   enum_const                       9 /     9
+   DEF   enum_typespec                    7 /     7
+   DEF   for_stmt                        10 /    10
+   DEF   int_var                         14 /    14
+   DEF   logic_net                       10 /    10
+   DEF   port                             9 /     9
+   DEF   ref_obj                         19 /    19
+   DEF   ref_typespec                     7 /     7
+   ELAB  design                           1 /     1
+   ELAB  enum_typespec                    2 /     2
+   ELAB  enum_var                         2 /     2
+   ELAB  logic_net                        9 /     9
+   ELAB  packed_array_var                 3 /     3
+   ELAB  port                             9 /     9
+   ELAB  ref_obj                          3 /     3
+   ELAB  ref_typespec                     7 /     7
+-- KIND DISAGREEMENTS on (section, vpiFullName)
+-- DISAGREEMENTS: 0

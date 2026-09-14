@@ -1,0 +1,15 @@
+g01_tp_int_pk slrc=4 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+g02_tp_integer_pk slrc=4 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+g03_tp_bitscalar_pk slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=NOTEQUAL  <<<< REGRESSION
+g04_tp_signed_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+g05_tp_ovr_2state slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=NOTEQUAL  <<<< REGRESSION
+g06_pkgvec_unqual_pk slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+g07_tp_nonansi_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+g08_tp_pk_out_port slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+g09_tp_pk_inout_port slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+g10_tp_pk_two_dims slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+g11_localenum_nodim slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+g12_tp_nodim_body slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+g13_enum2state_pk slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+g14_tp_pk_multi_inst slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+g15_tp_pk_genfor_inst slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT

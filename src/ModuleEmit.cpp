@@ -802,8 +802,26 @@ static bool defNetOmitsTypespec224(
     if (namedTypeNet && !assocBuiltinIndexDim224(sym))
         return true;
     // A local net typed by a typedef used as a child instance's `type`
-    // parameter argument stays a bare logic_net in the def view.
-    if (sym.getDeclaredType() &&
+    // parameter argument stays a bare logic_net in the def view — but ONLY
+    // under a NON-ANSI header, the same gate `namedTypeNet` above carries.
+    //
+    // § typeParamArgNetNeedsNonAnsi32 — MEASURED REFUTATION of the ungated
+    // form this clause was landed with (an old block, no grid attached to it).
+    // Purpose-built goldens, one source each, calibrated golden-vs-golden to 0:
+    //   k9.sv   2x2, header{ANSI,non-ANSI} x typedef{passed as a `type`
+    //           argument, not passed}: golden KEEPS the def-view typespec in
+    //           BOTH ANSI cells and strips it in BOTH non-ANSI cells — the
+    //           `type`-argument axis moves NOTHING.
+    //   k9b.sv  the ANSI cell widened over the typedef's own kind and the
+    //           declaration's shape: struct, logic vector, enum, package
+    //           typedef named unqualified, the same one named SCOPED, and a
+    //           `var t_t x = '0;` with an initializer — golden keeps the
+    //           typespec in all six, with the non-ANSI arm beside them as the
+    //           control that still strips.
+    // The ungated clause stripped all six ANSI cells; it is what left
+    // `struct_member_cfg_width`'s `fu_data_t fu_data_i;` (K9) with no
+    // `vpiTypespec` where golden carries `ref_typespec -> struct_typespec`.
+    if (sym.getDeclaredType() && isNonAnsiHeader(body) &&
         typeParamArgTypes.count(&sym.getDeclaredType()->getType()))
         return true;
     // A symbol an EXPLICIT port names is still a PORT net for typespec
@@ -8290,6 +8308,23 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             sigOrder.emplace_back(it.sym, av);
             vars->push_back(av);
             continue;
+        }
+        // § namedTypePackedDimElabVar32 — a packed-dim TYPE-PARAMETER
+        // declaration (`data_t [NumPorts-1:0] wdata_i`) is a packed_array_var
+        // in EVERY position: the port position is not a distinguisher.  This
+        // sits ahead of the port/body split below because that split is
+        // exactly what used to hide it — a body declaration fell through to
+        // `emitVectorTypedefArrayVar`, which only knows real typedefs, and a
+        // port never tried any array-var factory at all.  The factory itself
+        // carries the golden grid and the gates.
+        if (!implicitNet && !realVar) {
+            if (auto* tpav32 =
+                    emitTypeParamArrayVar(*it.sym, name, fullName, m)) {
+                topNets[it.sym] = tpav32;
+                sigOrder.emplace_back(it.sym, tpav32);
+                vars->push_back(tpav32);
+                continue;
+            }
         }
         // Packed-array-of-struct: the elaborated view is a packed_array_var
         // (ranges + struct_var element), not a flat logic_var. A PORT stays a

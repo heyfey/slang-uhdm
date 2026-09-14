@@ -1,0 +1,129 @@
+== r11u32 — the K2 head, PRISTINE, quoted (arb_idx_cast/default; the other four are the same face)
+
+LHS:
+decompile:
+logic_net: (work@dut.index_nodes), id:771, line:15:28, endln:15:39
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:741, file:/home/heyfey/git-repos/uhdm2rtlil/test/arb_idx_cast/dut.sv, line:4:1, endln:38:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.index_nodes), id:779
+  |vpiParent:
+  \_logic_net: (work@dut.index_nodes), id:771, line:15:28, endln:15:39
+  |vpiFullName:work@dut.index_nodes
+  |vpiActual:
+  \_logic_typespec: , id:25, line:8:40, endln:15:27
+|vpiName:index_nodes
+|vpiFullName:work@dut.index_nodes
+
+decompile:
+logic_net: (work@dut.index_nodes), id:771, line:15:28, endln:15:39
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:741, file:/home/heyfey/git-repos/uhdm2rtlil/test/arb_idx_cast/dut.sv, line:4:1, endln:38:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.index_nodes), id:779
+  |vpiParent:
+  \_logic_net: (work@dut.index_nodes), id:771, line:15:28, endln:15:39
+  |vpiFullName:work@dut.index_nodes
+  |vpiActual:
+  \_logic_typespec: , id:25, line:8:40, endln:15:27
+|vpiName:index_nodes
+|vpiFullName:work@dut.index_nodes
+RHS:
+decompile:
+logic_net: (work@dut.index_nodes), id:40, line:15:28, endln:15:39
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:9, file:/home/heyfey/git-repos/uhdm2rtlil/test/arb_idx_cast/dut.sv, line:4:1, endln:38:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.index_nodes), id:41
+  |vpiParent:
+  \_logic_net: (work@dut.index_nodes), id:40, line:15:28, endln:15:39
+  |vpiFullName:work@dut.index_nodes
+  |vpiActual:
+  \_logic_typespec: , id:456, line:15:3, endln:15:27
+|vpiName:index_nodes
+|vpiFullName:work@dut.index_nodes
+|vpiNetType:36
+
+decompile:
+logic_net: (work@dut.index_nodes), id:40, line:15:28, endln:15:39
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:9, file:/home/heyfey/git-repos/uhdm2rtlil/test/arb_idx_cast/dut.sv, line:4:1, endln:38:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.index_nodes), id:41
+  |vpiParent:
+  \_logic_net: (work@dut.index_nodes), id:40, line:15:28, endln:15:39
+  |vpiFullName:work@dut.index_nodes
+  |vpiActual:
+  \_logic_typespec: , id:456, line:15:3, endln:15:27
+|vpiName:index_nodes
+|vpiFullName:work@dut.index_nodes
+|vpiNetType:36
+
+== gen_scope_numports/default (the port cell)
+LHS:
+decompile:
+logic_net: (work@tc_sram.wdata_i), id:907, line:9:34, endln:9:41
+|vpiParent:
+\_module_inst: work@tc_sram (work@tc_sram), id:872, file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_scope_numports/dut.sv, line:2:1, endln:13:10
+|vpiName:wdata_i
+|vpiFullName:work@tc_sram.wdata_i
+
+decompile:
+logic_net: (work@tc_sram.wdata_i), id:907, line:9:34, endln:9:41
+|vpiParent:
+\_module_inst: work@tc_sram (work@tc_sram), id:872, file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_scope_numports/dut.sv, line:2:1, endln:13:10
+|vpiName:wdata_i
+|vpiFullName:work@tc_sram.wdata_i
+RHS:
+decompile:
+logic_net: (work@tc_sram.wdata_i), id:112, line:9:34, endln:9:41
+|vpiParent:
+\_module_inst: work@tc_sram (work@tc_sram), id:11, file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_scope_numports/dut.sv, line:2:1, endln:13:10
+|vpiName:wdata_i
+|vpiFullName:work@tc_sram.wdata_i
+|vpiNetType:36
+
+decompile:
+logic_net: (work@tc_sram.wdata_i), id:112, line:9:34, endln:9:41
+|vpiParent:
+\_module_inst: work@tc_sram (work@tc_sram), id:11, file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_scope_numports/dut.sv, line:2:1, endln:13:10
+|vpiName:wdata_i
+|vpiFullName:work@tc_sram.wdata_i
+|vpiNetType:36
+
+== the K9 heads (RHS: <null> on golden's ref_typespec)
+LHS:
+decompile:
+ref_typespec: (work@struct_member_cfg_width.fu_data_i), id:505
+|vpiParent:
+\_logic_net: (work@struct_member_cfg_width.fu_data_i), id:504, line:30:15, endln:30:24
+|vpiFullName:work@struct_member_cfg_width.fu_data_i
+|vpiActual:
+\_struct_typespec: (fu_data_t), id:152, line:25:13, endln:29:6
+
+decompile:
+ref_typespec: (work@struct_member_cfg_width.fu_data_i), id:505
+|vpiParent:
+\_logic_net: (work@struct_member_cfg_width.fu_data_i), id:504, line:30:15, endln:30:24
+|vpiFullName:work@struct_member_cfg_width.fu_data_i
+|vpiActual:
+\_struct_typespec: (fu_data_t), id:152, line:25:13, endln:29:6
+RHS: <null>
+
+LHS:
+decompile:
+ref_typespec: (work@tb.d.arr_i), id:180
+|vpiParent:
+\_packed_array_var: (work@tb.d.arr_i), id:179, line:5:20, endln:5:25
+|vpiFullName:work@tb.d.arr_i
+|vpiActual:
+\_struct_typespec: (my_t), id:145, line:11:13, endln:11:62
+
+decompile:
+ref_typespec: (work@tb.d.arr_i), id:180
+|vpiParent:
+\_packed_array_var: (work@tb.d.arr_i), id:179, line:5:20, endln:5:25
+|vpiFullName:work@tb.d.arr_i
+|vpiActual:
+\_struct_typespec: (my_t), id:145, line:11:13, endln:11:62
+RHS: <null>

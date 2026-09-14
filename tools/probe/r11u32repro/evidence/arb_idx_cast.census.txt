@@ -1,0 +1,87 @@
+== arb_idx_cast
+-- SHAPE LISTER (section kind: golden / ours), kinds present on either side
+   DEF   bit_select                       2 /     2
+   DEF   design                           1 /     1
+   DEF   int_var                          4 /     3   <-- differs
+   DEF   logic_net                       13 /    13
+   DEF   named_begin                      1 /     1
+   DEF   parameter                        9 /     9
+   DEF   port                            12 /    12
+   DEF   ref_obj                          8 /     7   <-- differs
+   DEF   ref_typespec                    14 /    14
+   DEF   sys_func_call                    2 /     0   <-- differs
+   DEF   type_parameter                   2 /     2
+   ELAB  bit_select                      42 /    34   <-- differs
+   ELAB  design                           1 /     1
+   ELAB  gen_scope                       43 /    43
+   ELAB  gen_scope_array                 16 /    16
+   ELAB  logic_net                        9 /     9
+   ELAB  logic_var                       17 /    18   <-- differs
+   ELAB  packed_array_var                 4 /     0   <-- differs
+   ELAB  parameter                       37 /    37
+   ELAB  port                            12 /    12
+   ELAB  ref_obj                         28 /    32   <-- differs
+   ELAB  ref_typespec                    52 /    49   <-- differs
+   ELAB  sys_func_call                    4 /     4
+   ELAB  type_parameter                   1 /     2   <-- differs
+   ELAB  unsupported_typespec             2 /     0   <-- differs
+   ELAB  var_select                       6 /     6
+-- KIND DISAGREEMENTS on (section, vpiFullName)
+   DEF   $unsigned
+        G: {'sys_func_call': 2}
+        O: {}
+   DEF   work@dut.level
+        G: {'int_var': 4, 'ref_obj': 2, 'ref_typespec': 1}
+        O: {'int_var': 3, 'ref_obj': 1, 'ref_typespec': 1}
+   ELAB  idx_t
+        G: {'unsupported_typespec': 2}
+        O: {}
+   ELAB  sel
+        G: {'ref_obj': 2}
+        O: {}
+   ELAB  work@dut.gen_levels[0].gen_level[0]
+        G: {'gen_scope': 8, 'gen_scope_array': 2, 'ref_typespec': 2}
+        O: {'gen_scope': 8, 'gen_scope_array': 2, 'ref_typespec': 6}
+   ELAB  work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes
+        G: {'bit_select': 2, 'ref_typespec': 3, 'var_select': 6}
+        O: {'bit_select': 1, 'var_select': 6}
+   ELAB  work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes.Idx1
+        G: {}
+        O: {'ref_obj': 2}
+   ELAB  work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes
+        G: {'bit_select': 10, 'ref_typespec': 5}
+        O: {'bit_select': 7}
+   ELAB  work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes.Idx1
+        G: {}
+        O: {'ref_obj': 2}
+   ELAB  work@dut.gen_levels[1].gen_level[0]
+        G: {'gen_scope': 8, 'gen_scope_array': 2, 'ref_typespec': 2}
+        O: {'gen_scope': 8, 'gen_scope_array': 2, 'ref_typespec': 4}
+   ELAB  work@dut.gen_levels[1].gen_level[0].gen_first_level.index_nodes
+        G: {'bit_select': 2, 'ref_typespec': 1}
+        O: {'bit_select': 1}
+   ELAB  work@dut.gen_levels[1].gen_level[0].gen_first_level.req_nodes
+        G: {'bit_select': 2, 'ref_typespec': 1}
+        O: {'bit_select': 1}
+   ELAB  work@dut.gen_levels[1].gen_level[0].gen_first_level.sel
+        G: {'ref_obj': 1}
+        O: {'ref_obj': 2}
+   ELAB  work@dut.gen_levels[1].gen_level[1]
+        G: {'gen_scope': 8, 'gen_scope_array': 2, 'ref_typespec': 2}
+        O: {'gen_scope': 8, 'gen_scope_array': 2, 'ref_typespec': 4}
+   ELAB  work@dut.gen_levels[1].gen_level[1].gen_first_level.index_nodes
+        G: {'bit_select': 2, 'ref_typespec': 1}
+        O: {'bit_select': 1}
+   ELAB  work@dut.gen_levels[1].gen_level[1].gen_first_level.req_nodes
+        G: {'bit_select': 2, 'ref_typespec': 1}
+        O: {'bit_select': 1}
+   ELAB  work@dut.gen_levels[1].gen_level[1].gen_first_level.sel
+        G: {'ref_obj': 1}
+        O: {'ref_obj': 2}
+   ELAB  work@dut.idx_t
+        G: {'type_parameter': 1}
+        O: {'ref_typespec': 1, 'type_parameter': 2}
+   ELAB  work@dut.index_nodes
+        G: {'logic_var': 1, 'packed_array_var': 4, 'ref_typespec': 1}
+        O: {'logic_var': 2, 'ref_typespec': 1}
+-- DISAGREEMENTS: 19

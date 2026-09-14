@@ -1,0 +1,18 @@
+== r11u32 heads, PRISTINE (b44b24b1) — one head per run, grep -c '^LHS:'
+
+TEST           MODE      CMPLINES  HEADS NOTE
+arb_idx_cast   default         58      1 cmp rc=255
+arb_idx_cast   testflags       58      1 cmp rc=255
+gen_scope_numports default         30      1 cmp rc=255
+gen_scope_numports testflags       30      1 cmp rc=255
+latch_packed_enum_loop default         58      1 cmp rc=255
+latch_packed_enum_loop testflags       58      1 cmp rc=255
+packed_array_reset_loop default         30      1 cmp rc=255
+packed_array_reset_loop testflags       30      1 cmp rc=255
+param_name_collision_typeparam default         30      1 cmp rc=255
+param_name_collision_typeparam testflags       30      1 cmp rc=255
+struct_member_cfg_width default         17      1 cmp rc=255
+struct_member_cfg_width testflags       17      1 cmp rc=255
+packed_array_struct_port_sel default         17      1 cmp rc=255
+packed_array_struct_port_sel testflags       17      1 cmp rc=255
+-- measured=14  SKIP-NOFILE=0  UNKNOWN-NAME=0

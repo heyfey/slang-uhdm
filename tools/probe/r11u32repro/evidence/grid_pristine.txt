@@ -1,0 +1,51 @@
+== r11u32 — THE GOLDEN GRID, 44 arms, pristine binary (b44b24b1)
+   name kind x dims{none,packed,unpacked} x position{body net,input,output}
+   CALIBRATION golden-vs-golden:
+-- arms: 44   DEF-DIFF: 0   ELAB-DIFF: 0
+
+ARM                    | DEF golden             | DEF ours               | ELAB golden        | ELAB ours          | VERDICT
+x_pkl_nod_in           | logic_net nt=36        | logic_net nt=36        | logic_net          | logic_net          |  
+x_pkl_nod_net          | logic_net nt=36        | logic_net nt=36        | logic_var          | logic_var          |  
+x_pkl_nod_out          | logic_net nt=36        | logic_net nt=36        | logic_net          | logic_net          |  
+x_pkl_pk_in            | logic_net nt=36        | logic_net nt=36        | logic_net          | logic_net          |  
+x_pkl_pk_net           | logic_net nt=36        | logic_net nt=36        | packed_array_var   | packed_array_var   |  
+x_pkl_pk_out           | logic_net nt=36        | logic_net nt=36        | logic_net          | logic_net          |  
+x_pkl_unp_net          | logic_net nt=36        | logic_net nt=-         | array_var          | array_var          | DEF-DIFF 
+x_pklq_nod_in          | logic_net nt=-         | logic_net nt=-         | logic_var          | logic_var          |  
+x_pklq_nod_net         | logic_net nt=-         | logic_net nt=-         | logic_var          | logic_var          |  
+x_pklq_nod_out         | logic_net nt=-         | logic_net nt=-         | logic_var          | logic_var          |  
+x_pklq_pk_in           | logic_net nt=-         | logic_net nt=-         | packed_array_var   | logic_net          |  ELAB-DIFF
+x_pklq_pk_net          | logic_net nt=-         | logic_net nt=-         | packed_array_var   | packed_array_var   |  
+x_pklq_pk_out          | logic_net nt=-         | logic_net nt=-         | packed_array_var   | logic_net          |  ELAB-DIFF
+x_pklq_unp_net         | logic_net nt=-         | logic_net nt=-         | array_var          | array_var          |  
+x_tde_nod_net          | logic_net nt=-         | logic_net nt=-         | enum_var           | enum_var           |  
+x_tde_pk_net           | logic_net nt=-         | logic_net nt=36        | packed_array_var   | packed_array_var   | DEF-DIFF 
+x_tde_unp_net          | logic_net nt=-         | logic_net nt=-         | array_var          | array_var          |  
+x_tdl_nod_net          | logic_net nt=36        | logic_net nt=36        | logic_var          | logic_var          |  
+x_tdl_pk_net           | logic_net nt=36        | logic_net nt=36        | packed_array_var   | packed_array_var   |  
+x_tdl_unp_net          | logic_net nt=36        | logic_net nt=-         | array_var          | array_var          | DEF-DIFF 
+x_tds_nod_net          | logic_net nt=-         | logic_net nt=-         | struct_net         | struct_net         |  
+x_tds_pk_net           | logic_net nt=-         | logic_net nt=-         | packed_array_var   | packed_array_var   |  
+x_tds_unp_net          | logic_net nt=-         | logic_net nt=-         | array_net          | array_net          |  
+x_tp_nod_in            | logic_net nt=-         | logic_net nt=-         | logic_var          | logic_var          |  
+x_tp_nod_net           | logic_net nt=-         | logic_net nt=-         | logic_var          | logic_var          |  
+x_tp_nod_out           | logic_net nt=-         | logic_net nt=-         | logic_var          | logic_var          |  
+x_tp_pk_in             | logic_net nt=-         | logic_net nt=36        | packed_array_var   | logic_net          | DEF-DIFF ELAB-DIFF
+x_tp_pk_net            | logic_net nt=-         | logic_net nt=36        | packed_array_var   | logic_var          | DEF-DIFF ELAB-DIFF
+x_tp_pk_out            | logic_net nt=-         | logic_net nt=36        | packed_array_var   | logic_net          | DEF-DIFF ELAB-DIFF
+x_tp_unp_net           | logic_net nt=-         | logic_net nt=-         | array_var          | array_var          |  
+x_tpe_nod_in           | logic_net nt=-         | logic_net nt=-         | enum_var           | enum_var           |  
+x_tpe_nod_net          | logic_net nt=-         | logic_net nt=-         | enum_var           | enum_var           |  
+x_tpe_nod_out          | logic_net nt=-         | logic_net nt=-         | enum_var           | enum_var           |  
+x_tpe_pk_in            | logic_net nt=-         | logic_net nt=36        | packed_array_var   | packed_array_var   | DEF-DIFF 
+x_tpe_pk_net           | logic_net nt=-         | logic_net nt=36        | packed_array_var   | packed_array_var   | DEF-DIFF 
+x_tpe_pk_out           | logic_net nt=-         | logic_net nt=36        | packed_array_var   | packed_array_var   | DEF-DIFF 
+x_tpe_unp_net          | logic_net nt=-         | logic_net nt=-         | array_var          | array_var          |  
+x_tps_nod_in           | logic_net nt=-         | logic_net nt=-         | struct_net         | struct_net         |  
+x_tps_nod_net          | logic_net nt=-         | logic_net nt=-         | struct_net         | struct_var         |  ELAB-DIFF
+x_tps_nod_out          | logic_net nt=-         | logic_net nt=-         | struct_net         | struct_net         |  
+x_tps_pk_in            | logic_net nt=-         | logic_net nt=-         | packed_array_net   | packed_array_var   |  ELAB-DIFF
+x_tps_pk_net           | logic_net nt=-         | logic_net nt=-         | packed_array_net   | packed_array_var   |  ELAB-DIFF
+x_tps_pk_out           | logic_net nt=-         | logic_net nt=-         | packed_array_net   | packed_array_var   |  ELAB-DIFF
+x_tps_unp_net          | logic_net nt=-         | logic_net nt=-         | array_net          | array_net          |  
+-- arms: 44   DEF-DIFF: 9   ELAB-DIFF: 9

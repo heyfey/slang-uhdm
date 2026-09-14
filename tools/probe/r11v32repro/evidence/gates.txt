@@ -1,0 +1,15 @@
+== r11v32 GATES, all measured on this verifier's OWN builds at b44b24b1
+
+binaries:
+0fc7b2ec16a79f41b5bc73ef10275de1  /tmp/v11u32_pris.bin
+5de09f4c516a1d7a01a6471153420dac  /tmp/v11u32_pat.bin
+c66b1f2c7d7b79c99b6be48177af002e  /tmp/v11u32_fix.bin
+723cb6db14308de6a257e5c3bfd45f8f  /tmp/v11u32_headpris.bin
+eb63e166e8f297649e0cf6371e4f2be4  /tmp/v11u32_head.bin
+
+check_goldens (pristine / implementer-patched / verified / patched-on-HEAD):
+  /tmp/v11u32_gold_pris.txt PASS=23 FAIL=0
+  /tmp/v11u32_gold_pat.txt PASS=23 FAIL=0
+  /tmp/v11u32_gold_fix.txt (verified) PASS=23 FAIL=0
+  /tmp/v11u32_gold_head.txt PASS=23 FAIL=0
+  negative control SLANG_UHDM=/bin/false PASS=0 FAIL=23

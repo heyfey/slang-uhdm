@@ -1,0 +1,34 @@
+== param_name_collision_typeparam
+-- SHAPE LISTER (section kind: golden / ours), kinds present on either side
+   DEF   bit_select                       2 /     2
+   DEF   design                           4 /     4
+   DEF   int_var                          4 /     4
+   DEF   logic_net                       34 /    34
+   DEF   named_begin                      2 /     2
+   DEF   parameter                       12 /    12
+   DEF   port                            54 /    54
+   DEF   ref_obj                         25 /    25
+   DEF   ref_typespec                    23 /    23
+   DEF   type_parameter                   2 /     2
+   ELAB  design                           1 /     1
+   ELAB  gen_scope                        3 /     3
+   ELAB  gen_scope_array                  2 /     2
+   ELAB  logic_net                       40 /    43   <-- differs
+   ELAB  logic_var                        6 /     5   <-- differs
+   ELAB  packed_array_var                 5 /     0   <-- differs
+   ELAB  parameter                       14 /    14
+   ELAB  port                            45 /    45
+   ELAB  ref_obj                         22 /    22
+   ELAB  ref_typespec                    34 /    35   <-- differs
+   ELAB  type_parameter                   1 /     2   <-- differs
+-- KIND DISAGREEMENTS on (section, vpiFullName)
+   ELAB  work@inner.data_t
+        G: {'type_parameter': 1}
+        O: {}
+   ELAB  work@param_name_collision_typeparam.i.m.gen_cut[0].u.d_i
+        G: {'logic_var': 1, 'packed_array_var': 5, 'ref_obj': 1, 'ref_typespec': 2}
+        O: {'logic_net': 3, 'ref_obj': 1, 'ref_typespec': 2}
+   ELAB  work@param_name_collision_typeparam.i.m.gen_cut[0].u.data_t
+        G: {}
+        O: {'ref_typespec': 1, 'type_parameter': 2}
+-- DISAGREEMENTS: 3

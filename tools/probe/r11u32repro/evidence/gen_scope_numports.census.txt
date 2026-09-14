@@ -1,0 +1,66 @@
+== gen_scope_numports
+-- SHAPE LISTER (section kind: golden / ours), kinds present on either side
+   DEF   design                           4 /     4
+   DEF   int_var                          4 /     4
+   DEF   logic_net                       38 /    38
+   DEF   named_begin                      2 /     2
+   DEF   parameter                       18 /    18
+   DEF   port                            52 /    52
+   DEF   ref_obj                         25 /    25
+   DEF   ref_typespec                    31 /    31
+   DEF   type_parameter                   4 /     4
+   ELAB  design                           1 /     1
+   ELAB  gen_scope                        6 /     6
+   ELAB  gen_scope_array                  4 /     4
+   ELAB  logic_net                       44 /    72   <-- differs
+   ELAB  logic_var                       20 /    12   <-- differs
+   ELAB  packed_array_var                44 /     0   <-- differs
+   ELAB  parameter                       37 /    37
+   ELAB  port                            80 /    80
+   ELAB  ref_obj                         36 /    36
+   ELAB  ref_typespec                    68 /    72   <-- differs
+   ELAB  type_parameter                   4 /     8   <-- differs
+-- KIND DISAGREEMENTS on (section, vpiFullName)
+   ELAB  work@tb.t.gen_cut[0].i_tc_sram_wrapper.data_t
+        G: {}
+        O: {'ref_typespec': 1, 'type_parameter': 2}
+   ELAB  work@tb.t.gen_cut[0].i_tc_sram_wrapper.i_tc_sram.data_t
+        G: {}
+        O: {'ref_typespec': 1, 'type_parameter': 2}
+   ELAB  work@tb.t.gen_cut[0].i_tc_sram_wrapper.i_tc_sram.rdata_o
+        G: {'logic_var': 1, 'packed_array_var': 5, 'ref_obj': 1, 'ref_typespec': 2}
+        O: {'logic_net': 3, 'ref_obj': 1, 'ref_typespec': 2}
+   ELAB  work@tb.t.gen_cut[0].i_tc_sram_wrapper.i_tc_sram.wdata_i
+        G: {'logic_var': 1, 'packed_array_var': 5, 'ref_obj': 1, 'ref_typespec': 2}
+        O: {'logic_net': 3, 'ref_obj': 1, 'ref_typespec': 2}
+   ELAB  work@tb.t.gen_cut[0].i_tc_sram_wrapper.rdata_o
+        G: {'logic_var': 1, 'packed_array_var': 6, 'ref_obj': 2, 'ref_typespec': 2}
+        O: {'logic_net': 4, 'ref_obj': 2, 'ref_typespec': 2}
+   ELAB  work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i
+        G: {'logic_var': 1, 'packed_array_var': 6, 'ref_obj': 2, 'ref_typespec': 2}
+        O: {'logic_net': 4, 'ref_obj': 2, 'ref_typespec': 2}
+   ELAB  work@tb.t.gen_cut[1].i_tc_sram_wrapper.data_t
+        G: {}
+        O: {'ref_typespec': 1, 'type_parameter': 2}
+   ELAB  work@tb.t.gen_cut[1].i_tc_sram_wrapper.i_tc_sram.data_t
+        G: {}
+        O: {'ref_typespec': 1, 'type_parameter': 2}
+   ELAB  work@tb.t.gen_cut[1].i_tc_sram_wrapper.i_tc_sram.rdata_o
+        G: {'logic_var': 1, 'packed_array_var': 5, 'ref_obj': 1, 'ref_typespec': 2}
+        O: {'logic_net': 3, 'ref_obj': 1, 'ref_typespec': 2}
+   ELAB  work@tb.t.gen_cut[1].i_tc_sram_wrapper.i_tc_sram.wdata_i
+        G: {'logic_var': 1, 'packed_array_var': 5, 'ref_obj': 1, 'ref_typespec': 2}
+        O: {'logic_net': 3, 'ref_obj': 1, 'ref_typespec': 2}
+   ELAB  work@tb.t.gen_cut[1].i_tc_sram_wrapper.rdata_o
+        G: {'logic_var': 1, 'packed_array_var': 6, 'ref_obj': 2, 'ref_typespec': 2}
+        O: {'logic_net': 4, 'ref_obj': 2, 'ref_typespec': 2}
+   ELAB  work@tb.t.gen_cut[1].i_tc_sram_wrapper.wdata_i
+        G: {'logic_var': 1, 'packed_array_var': 6, 'ref_obj': 2, 'ref_typespec': 2}
+        O: {'logic_net': 4, 'ref_obj': 2, 'ref_typespec': 2}
+   ELAB  work@tc_sram.data_t
+        G: {'type_parameter': 2}
+        O: {}
+   ELAB  work@tc_sram_wrapper.data_t
+        G: {'type_parameter': 2}
+        O: {}
+-- DISAGREEMENTS: 14

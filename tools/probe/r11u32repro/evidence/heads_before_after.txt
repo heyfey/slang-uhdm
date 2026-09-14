@@ -1,0 +1,43 @@
+== r11u32 — the HEADS before and after (one head per run, grep -c '^LHS:')
+
+-- PRISTINE (b44b24b1):
+TEST           MODE      CMPLINES  HEADS NOTE
+arb_idx_cast   default         58      1 cmp rc=255
+arb_idx_cast   testflags       58      1 cmp rc=255
+gen_scope_numports default         30      1 cmp rc=255
+gen_scope_numports testflags       30      1 cmp rc=255
+latch_packed_enum_loop default         58      1 cmp rc=255
+latch_packed_enum_loop testflags       58      1 cmp rc=255
+packed_array_reset_loop default         30      1 cmp rc=255
+packed_array_reset_loop testflags       30      1 cmp rc=255
+param_name_collision_typeparam default         30      1 cmp rc=255
+param_name_collision_typeparam testflags       30      1 cmp rc=255
+struct_member_cfg_width default         17      1 cmp rc=255
+struct_member_cfg_width testflags       17      1 cmp rc=255
+packed_array_struct_port_sel default         17      1 cmp rc=255
+packed_array_struct_port_sel testflags       17      1 cmp rc=255
+-- measured=14  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+-- PATCHED (laws A+B+C):
+TEST           MODE      CMPLINES  HEADS NOTE
+arb_idx_cast   default         74      1 cmp rc=255
+arb_idx_cast   testflags       74      1 cmp rc=255
+gen_scope_numports default          0      0 cmp rc=0
+gen_scope_numports testflags        0      0 cmp rc=0
+latch_packed_enum_loop default          0      0 cmp rc=0
+latch_packed_enum_loop testflags        0      0 cmp rc=0
+packed_array_reset_loop default          0      0 cmp rc=0
+packed_array_reset_loop testflags        0      0 cmp rc=0
+param_name_collision_typeparam default          0      0 cmp rc=0
+param_name_collision_typeparam testflags        0      0 cmp rc=0
+struct_member_cfg_width default         64      1 cmp rc=255
+struct_member_cfg_width testflags       64      1 cmp rc=255
+packed_array_struct_port_sel default         17      1 cmp rc=255
+packed_array_struct_port_sel testflags       17      1 cmp rc=255
+-- measured=14  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+   latch_packed_enum_loop / gen_scope_numports / packed_array_reset_loop /
+   param_name_collision_typeparam read 0 heads: CONVERTED, both modes.
+   arb_idx_cast 58 -> 74 lines and struct_member_cfg_width 17 -> 64: the head
+   OBJECT changed in both (a line count going UP is the NEW head's decompile
+   size), and each new head is named in README §7.

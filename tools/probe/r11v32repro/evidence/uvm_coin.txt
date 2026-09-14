@@ -1,0 +1,21 @@
+== SURELOG MOVERS: the UVM coin, proved by a POSITIVE CONTROL
+
+byteverify (patched vs pristine, this verifier's own sweeps): MOVERS 6 / 960,
+SELFCHECK 959/960 flagged.  Every row's STATUS is unchanged (CMP_EQUAL).
+
+order-blind (path-normalised, sorted) uhdm-dump diff per mover:
+  default/MiniAmiq       4 lines   UINT:619  <-> UINT:914   (+ the vpiDecompile pair)
+  default/Scoreboard     0 lines   (pure vpiTaskFunc ORDER flip)
+  default/SeqDriver      4 lines   UINT:0    <-> UINT:1147
+  default/SimpleUVM      4 lines   UINT:0    <-> UINT:979
+  testflags/MiniAmiq     4 lines   UINT:879  <-> UINT:945
+  testflags/SeqDriver    4 lines   UINT:0    <-> UINT:561
+i.e. all six sit on the documented 0-or-4-line line-number class.
+
+POSITIVE CONTROL — the PRISTINE binary run TWICE on MiniAmiq/default with the
+sweep's own argv produced two more databases, both different from each other
+and from both sweep databases (FOUR distinct hashes for one binary+input):
+4d9de2523a13930852de4b2a21939a2a  /tmp/v11u32_coin/c1.uhdm
+eaa44720eb346b184c7f3a2da799c2b5  /tmp/v11u32_coin/c2.uhdm
+cfbf522c008c98ec3ab963845f314196  /tmp/v11u32_wdp/sl/default/MiniAmiq-544c7f61/slang.uhdm
+b927b4ffe8d8b7b10081bcba23a357c1  /tmp/v11u32_wdq/sl/default/MiniAmiq-544c7f61/slang.uhdm

@@ -2595,6 +2595,14 @@ private:
     UHDM::packed_array_var* emitVectorTypedefArrayVar(
         const slang::ast::Symbol& sym, const std::string& name,
         const std::string& fullName, UHDM::instance* m);
+    // § namedTypePackedDimElabVar32 — packed array over a TYPE PARAMETER
+    // (`data_t [N-1:0] d_i`): the elaborated view is a packed_array_var with
+    // the written dims as Ranges, a bare element var, and a ts ref to the ONE
+    // typespec object the type parameter resolved to (`typeParamElabTs`) —
+    // at a PORT exactly as in the body.  Golden grid arms x_tp_pk_{net,in,out}.
+    UHDM::packed_array_var* emitTypeParamArrayVar(
+        const slang::ast::Symbol& sym, const std::string& name,
+        const std::string& fullName, UHDM::instance* m);
     UHDM::packed_array_var* emitPackedStructArrayVar(const slang::ast::Symbol& sym,
                                                      const std::string& name,
                                                      const std::string& fullName,

@@ -1,0 +1,38 @@
+== r11u32 — the surelog byte movers are the UVM COIN, not the patch
+
+-- byteverify, surelog corpus, patched(A+B+C) vs this pass's own pristine:
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=59ba34ffa668 pristine=a4e13836af8b
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=e70775324004 pristine=1621aec6c9f3
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=f5fb2af03d68 pristine=a208adfd5528
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=49d8efe2729b pristine=1d73e0711f77
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=25ca3c54c3ed pristine=21f9b5c1fa82
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+-- ORDER-BLIND attribution (sorted dumps, workdir path and ids normalised):
+   MiniAmiq/default    4 lines   |UINT:1057 -> |UINT:625  (+ its vpiDecompile twin)
+   MiniAmiq/testflags  4 lines   |UINT:1059 -> |UINT:913
+   SeqDriver/default   4 lines   |UINT:693  -> |UINT:957
+   SimpleUVM/default   4 lines   |UINT:1298 -> |UINT:0
+     -> the documented 0-or-4-line LINE-NUMBER class.
+   Scoreboard/default  0 lines   -> the documented PURE ORDER flip
+     (svunit_pkg vpiTaskFunc list order): byte-different, dump-identical
+     once sorted.
+
+-- the A+B run of the same gate found the same class on four of the five
+   (Scoreboard did not draw that time — it is a ~50/50 coin per invocation).
+
+-- POSITIVE CONTROL: the PRISTINE binary run TWICE over MiniAmiq, SeqDriver
+   and SimpleUVM (default) produces three DIFFERENT databases:
+     MiniAmiq   146fb478893c8639374c87a87671f66a  vs  ca1e53243f87ad2b9623f3afb8451c1d
+     SeqDriver  2fb39f8b41308bbe2c70c7f320bc35e1  vs  f4f7b1c5f83e9144ce9d70304a583a52
+     SimpleUVM  49d8efe2729ba510babe4f6063ba1ab0  vs  91a09f68bd4b5c4d484371620fd8c476
+   order-blind: MiniAmiq 4 lines (1341 -> 681), SeqDriver 4 (0 -> 1162),
+   SimpleUVM 4 (0 -> 1123) — the same class, from ONE binary.
+   (SimpleUVM's first control run landed on 49d8efe2729b, the very md5
+    byteverify reports as the 'patched' side.)
+
+   All five rows are CMP_EQUAL before and after, as the MOVER RULE requires,
+   and the whole-row diff over all 1596 surelog rows shows NO status change.

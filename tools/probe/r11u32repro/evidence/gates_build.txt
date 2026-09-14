@@ -1,0 +1,27 @@
+== r11u32 — GATE 1/2: builds and the golden dump tests
+
+-- PRISTINE build in this pass's worktree, vs the main tree at b44b24b1:
+   0fc7b2ec16a79f41b5bc73ef10275de1   /tmp/wt_r11u32/build/slang-uhdm (pristine)
+   0fc7b2ec16a79f41b5bc73ef10275de1   the main tree's build/slang-uhdm at the base
+   -> byte-identical, as the gate requires.
+-- PATCHED builds:
+   9b4608d9d79dd4e02330dbc2e8cdced7   law A only
+   6aba134e8011c422dd40b8927b7affe3   laws A+B
+   5de09f4c516a1d7a01a6471153420dac   laws A+B+C  (the deliverable)
+
+-- tests/check_goldens.sh with SLANG_UHDM exported to the PATCHED binary:
+   PASS=23  FAIL=0
+-- negative control, SLANG_UHDM=/bin/false:
+   PASS=0   FAIL=23
+
+-- binary-path audit of every cmds.txt in every workdir this pass made
+   (verify_golden.py SILENTLY defaults SLANG_UHDM to the main-tree binary):
+   r11u32_wdp: main-tree-binary invocations = 0
+   r11u32_wdq: main-tree-binary invocations = 0
+   r11u32_wdr: main-tree-binary invocations = 0
+   r11u32_pris7: main-tree-binary invocations = 0
+   r11u32_A7: main-tree-binary invocations = 0
+   r11u32_AB7: main-tree-binary invocations = 0
+   r11u32_ABC7: main-tree-binary invocations = 0
+   (the surelog workdirs hold ~50 cmds.txt with no slang: line at all — those
+    are the SURELOG_FAIL / NO_DATABASE rows, where no slang run happens)

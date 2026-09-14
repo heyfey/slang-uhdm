@@ -1,0 +1,22 @@
+== r11u32 — K9 probes: the distinguisher is the HEADER, not the type argument
+
+-- k9.sv  header{ANSI,non-ANSI} x typedef{passed as a type argument, not passed}
+-- signals: 4   DIFF: 0
+SIGNAL                 | DEF golden                 | DEF ours                   | VERDICT
+n_ansi_passed          | logic_net ts=YES           | logic_net ts=no            | DIFF
+n_ansi_plain           | logic_net ts=YES           | logic_net ts=YES           | 
+n_nonansi_passed       | logic_net ts=no            | logic_net ts=no            | 
+n_nonansi_plain        | logic_net ts=no            | logic_net ts=no            | 
+-- signals: 4   DIFF: 1
+
+-- k9b.sv  the ANSI cell widened over the typedef kind and the declaration shape
+-- signals: 7   DIFF: 0
+SIGNAL                 | DEF golden                 | DEF ours                   | VERDICT
+b_enum                 | logic_net ts=YES           | logic_net ts=no            | DIFF
+b_init                 | logic_net ts=YES           | logic_net ts=no            | DIFF
+b_nonansi              | logic_net ts=no            | logic_net ts=no            | 
+b_pkg_scoped           | logic_net ts=YES           | logic_net ts=no            | DIFF
+b_pkg_unqual           | logic_net ts=YES           | logic_net ts=no            | DIFF
+b_struct               | logic_net ts=YES           | logic_net ts=no            | DIFF
+b_vector               | logic_net ts=YES           | logic_net ts=no            | DIFF
+-- signals: 7   DIFF: 6

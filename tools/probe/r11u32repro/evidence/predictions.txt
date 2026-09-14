@@ -1,0 +1,74 @@
+== r11u32 — A-PRIORI MOVER PREDICTION, made from the SOURCES before any patched sweep
+
+-- laws A+B, uhdm2rtlil (predict.py): a design can move iff a source declares
+   `parameter type N` or `typedef enum ... N;` AND spells `N [ ... ] <id>`.
+AssignmentToConcatenation	cstate_e
+BitSelectOfParameterPassedToSubmodule	pad_type_e
+BitSelectOfParameterPassedToSubmoduleInGenFor	pad_type_e
+BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	pad_type_e
+EnumMultirange	dec_lc_state_e
+ReturnEnumArray	sp2v_e
+arb_idx_cast	idx_t
+cva6_equiv	AuxType,DATA_T,DataType,T,TagType,addr_t,be_t,btb_prediction_t,cache_line_t,cf_t,cl_be_t,classmask_e,data_t,dcache_req_i_t,dcache_req_o_t,dtype,exception_t,fetch_entry_t,fifo_data_t,fp_format_e,fu_data_t,fu_op,hpdcache_data_be_t,hpdcache_data_word_t,hpdcache_dir_entry_t,hpdcache_mem_id_t,hpdcache_mem_req_t,hpdcache_mem_req_w_t,hpdcache_nline_t,hpdcache_req_addr_t,hpdcache_req_data_t,hpdcache_req_offset_t,hpdcache_req_t,hpdcache_rsp_t,hpdcache_set_t,hpdcache_tag_t,idx_inp_t,idx_t,int_format_e,l_be_t,l_data_t,lsu_ctrl_t,operation_e,payload_t,ras_t,req_t,resp_t,roundmode_e,rs3_len_t,rsp_t,rtab_entry_t,rtab_ptr_t,rule_t,scoreboard_entry_t,sel_oup_t,unit_type_t,wbuf_be_t,wbuf_data_t,wbuf_state_e,wbuffer_t,writeback_t
+gen_scope_numports	data_t
+ibex	mubi12_t,mubi16_t,mubi20_t,mubi24_t,mubi28_t,mubi32_t,mubi4_t,mubi8_t
+latch_packed_enum_loop	cf_t
+packed_array_reset_loop	addr_t
+packed_array_struct_port_sel	T
+packed_struct_array_fifo	dtype
+param_name_collision_typeparam	data_t
+typedef_packed_enum_array	u
+-- PREDICTED CANDIDATES: 16
+
+   POSITIVE CONTROL: the five K2 rows are all on the list; struct_member_cfg_width
+   is NOT (its declaration carries no dimension) and it did not move under A+B.
+
+-- laws A+B, surelog (predict_sl.py), fenced names dropped from the OUTPUT:
+Ariane	AuxType,DATA_T,DataType,T,TagType,addr_t,aw_t,cf_t,classmask_e,data_t,dtype,fp_format_e ...
+Ariane2024	AuxType,DATA_T,DataType,TagType,addr_t,be_t,btb_prediction_t,cache_line_t,cf_t,cl_be_t,classmask_e,data_t ...
+ArianeElab	unit_type_t
+ArianeElab2	unit_type_t
+AzadiRTL	AuxType,DataType,TagType,classmask_e,fp_format_e,idx_t,int_format_e,operation_e,roundmode_e,unit_type_t
+CoresSweRV	state_t
+CoresSweRVMP	state_t
+Earlgrey	cstate_e
+GenScopeHierPath	pad_type_e
+HierPathOverride	pad_type_e
+HierPathPackedVar	req_t
+IncompFunc	sp2v_e
+IncompTitan	cstate_e,otp_err_e
+IndexedSelectHex	pad_type_e
+LhsOp	cstate_e
+MultiConcatValueSize	pad_type_e
+Opentitan	cstate_e
+PackedArrayEnum	dec_lc_state_e
+PackedArrayHighConn	foo
+PackedArrayTypespec	unit_type_t
+PackedEnum	cstate_e
+PackedEnumVar	sp2v_e
+ParamElabMulti	pad_type_e
+Tnoc	DATA_TYPE
+UnpackedTypespec	unit_type_t
+-- TESTS: 798   PREDICTED CANDIDATES: 25
+
+-- law C, uhdm2rtlil (predictC.py):
+TypeParameterAsPortTypeWithEnum	enum_bar_e,enum_foo_e
+TypeParameterAsPortTypeWithEnumOfParametrizedWidth	state_e
+TypeParameterAsPortTypeWithLogic	foo_type,state_e
+cva6_equiv	ar_chan_t,arb_gnt_t,aw_chan_t,b_chan_t,bypass_req_t,bypass_rsp_t,cbuf_id_t,forwarding_t,hpdcache_access_be_t,hpdcache_access_data_t ...
+struct_member_cfg_width	fu_data_t
+-- PREDICTED CANDIDATES (law C): 5
+
+   POSITIVE CONTROL: struct_member_cfg_width is on the list.
+
+-- law C, surelog (predictC.py --sl):
+Ariane	addr_t,aw_t,axi_meta_t,data_t,dcache_req_t,dcache_rtrn_t,exists_t,icache_req_t ...
+Ariane2024	bypass_req_t,bypass_rsp_t,hpdcache_mem_id_t,output_t,rs3_len_t,x_issue_t
+AzadiRTL	output_t
+Earlgrey	alert_esc_agent_cfg,alert_esc_seq_item,i2c_agent_cfg,i2c_item,i2c_sequencer,jtag_item,jtag_sequencer,tl_seq_item ...
+Opentitan	alert_esc_agent_cfg,alert_esc_seq_item,i2c_agent_cfg,i2c_item,i2c_sequencer,jtag_item,jtag_sequencer,tl_seq_item ...
+Tnoc	fifo_data,tnoc_bfm_flit,tnoc_flit,tvip_axi_id
+Verilator	test_t
+-- TESTS: 798   PREDICTED CANDIDATES (law C): 7
+   EVERY one of these is a NON-COMPARABLE row at the base
+   (SURELOG_FAIL / SLANG_REJECT / NO_DATABASE), so law C can move no surelog row.

@@ -1,0 +1,35 @@
+== r11u32 — CANARIES and the PROTECTED DATABASES (patched = laws A+B+C)
+
+-- surelog corpus vs the committed baseline:
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+PASS: every supplementary canary row is byte-identical to the baseline.
+   THE ONE 'changed' ROW IS THE DOCUMENTED DRAW, NOT A MOVE: Earlgrey_0_1's
+   STATUS is CMP_EQUAL before and after; only its DUMP COLUMN blanked, which
+   is the uhdm-dump timeout draw the ops rules name explicitly.  The pin is
+   the DATABASE byte-compare, and it holds exactly (see below).
+
+-- uhdm2rtlil corpus vs the committed baseline:
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+
+-- the protected DATABASES by name, patched vs this pass's own pristine:
+   Earlgrey_0_1         default   SAME  pris=8bdf25272e08 patched=8bdf25272e08
+   SVSwitch             default   SAME  pris=4842211c4030 patched=4842211c4030
+   YosysVerx            default   SAME  pris=6ccda350c24a patched=6ccda350c24a
+   InterfaceModPort     default   SAME  pris=59a365f3ce2c patched=59a365f3ce2c
+   BlackParrotComplex   default   SAME  pris=e3e354129d5a patched=e3e354129d5a
+   YosysOldOr           default   SAME  pris=d68e0796d62c patched=d68e0796d62c
+   Earlgrey_0_1         testflags SAME  pris=59d0ee6d10c3 patched=59d0ee6d10c3
+   SVSwitch             testflags SAME  pris=4842211c4030 patched=4842211c4030
+   YosysVerx            testflags SAME  pris=6ccda350c24a patched=6ccda350c24a
+   InterfaceModPort     testflags SAME  pris=59a365f3ce2c patched=59a365f3ce2c
+   BlackParrotComplex   testflags SAME  pris=73a10e8217e5 patched=73a10e8217e5
+   YosysOldOr           testflags SAME  pris=d68e0796d62c patched=d68e0796d62c
+   SVSwitch 4842211c4030 and YosysVerx 6ccda350c24a are the HARD byte pins;
+   Earlgrey_0_1 carries its own db pins (testflags 59d0ee6d10c3, default
+   8bdf25272e08) and InterfaceModPort's 59a365f3ce2c backs the STATUS pin.
+
+-- canaudit, run from this pass's own directory:
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.

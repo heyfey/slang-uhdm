@@ -1,0 +1,44 @@
+== struct_member_cfg_width
+-- SHAPE LISTER (section kind: golden / ours), kinds present on either side
+   DEF   design                           4 /     4
+   DEF   func_call                        1 /     1
+   DEF   function                         1 /     1
+   DEF   hier_path                        3 /     3
+   DEF   logic_net                       27 /    26   <-- differs
+   DEF   parameter                        3 /     3
+   DEF   port                            30 /    30
+   DEF   ref_obj                         17 /    17
+   DEF   ref_typespec                    17 /    16   <-- differs
+   DEF   string_typespec                  3 /     3
+   DEF   struct_typespec                  6 /     5   <-- differs
+   DEF   type_parameter                   2 /     2
+   DEF   typespec_member                  6 /     6
+   ELAB  design                           1 /     1
+   ELAB  hier_path                        4 /     3   <-- differs
+   ELAB  logic_net                       18 /    18
+   ELAB  logic_var                        6 /     6
+   ELAB  parameter                        3 /     3
+   ELAB  port                            24 /    24
+   ELAB  ref_obj                         15 /    15
+   ELAB  ref_typespec                    19 /    18   <-- differs
+   ELAB  struct_net                       4 /     4
+   ELAB  struct_typespec                  7 /     6   <-- differs
+   ELAB  struct_var                       4 /     4
+   ELAB  type_parameter                   2 /     2
+-- KIND DISAGREEMENTS on (section, vpiFullName)
+   DEF   fu_data_t
+        G: {'struct_typespec': 5}
+        O: {'struct_typespec': 4}
+   DEF   work@struct_member_cfg_width.fu_data_i
+        G: {'logic_net': 4, 'ref_obj': 1, 'ref_typespec': 1}
+        O: {'logic_net': 3, 'ref_obj': 1}
+   ELAB  fu_data_i.operand_a
+        G: {'hier_path': 4}
+        O: {'hier_path': 3}
+   ELAB  fu_data_t
+        G: {'struct_typespec': 5}
+        O: {'struct_typespec': 4}
+   ELAB  work@tb.t.m.c.a_i.fu_data_i.operand_a
+        G: {'ref_typespec': 1}
+        O: {}
+-- DISAGREEMENTS: 5

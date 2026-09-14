@@ -1,0 +1,60 @@
+== THE REGRESSION THE VERIFIER FOUND, AND THE MINIMAL WITNESS
+
+Design (legal SV, `w1_regression_witness.sv` beside this file; one module, one
+instance, no dimension-less cell, nothing else):
+
+    module w1_child #(parameter type T = bit [7:0]) (output logic sink);
+      T [1:0] d;
+      assign sink = |{d};
+    endmodule
+    module w1_top; logic sink; w1_child i0 (.sink(sink)); endmodule
+
+Producers, rc recorded:
+    surelog -parse -nobuiltin -nocache -sv -d uhdm w1.sv          rc 0
+    <binary> w1.sv --single-unit --nobuiltin -o <out>.uhdm        rc 0 (both)
+
+OFFICIAL JUDGE, ~/git-repos/UHDM/build/bin/uhdm-cmp:
+
+    golden vs PRISTINE (0fc7b2ec16a79f41b5bc73ef10275de1)   rc 0     CMP_EQUAL
+    golden vs r11u32   (5de09f4c516a1d7a01a6471153420dac)   rc 255   CMP_NOTEQUAL
+
+    head:
+      LHS:
+      decompile:
+      bit_var: (work@w1_top.i0.d), id:31, line:5:11, endln:5:12
+      |vpiParent:
+      \_module_inst: work@w1_child (work@w1_top.i0), ...
+
+    golden's elaborated object is a `bit_var`; r11u32 emits a
+    `packed_array_var`.
+
+Two more independent witnesses of the same root cause (same runner, same judge):
+
+    g03_tp_bitscalar_pk   parameter type T = bit;              PRIS EQUAL -> PAT NOTEQUAL
+    g05_tp_ovr_2state     4-state DEFAULT, 2-state OVERRIDE    PRIS EQUAL -> PAT NOTEQUAL
+                          (`parameter type T = logic [7:0]`, instantiated
+                           `#(.T(p::b_t))` with `typedef bit [7:0] b_t`)
+
+and six arms of this verifier's 179-arm grid: y_tpb_pk_{net,in,out},
+y_tpb_pk2_{net,in,out} — golden `bit_var`, r11u32 `packed_array_var`, pristine
+`bit_var`.  g05 is the one that fixes the GATE: the four-state test must be
+asked of the RESOLVED canonical leaf, not of the parameter's written default.
+
+ROOT CAUSE: `emitTypeParamArrayVar` (src/TypeEmit.cpp) gates on
+`leafCt.kind == PackedArrayType || ScalarType` only.  `bit [7:0]` is a
+PackedArrayType and `bit` a ScalarType, so the factory fires and builds a
+packed_array_var with a `logic_var` element where golden carries a flat
+`bit_var`.  Neither corpus has a 2-state type parameter, so no sweep row could
+see it, and r11u32's own grid has no 2-state type-parameter arm.
+
+FIX (§ typeParamArrayVarIsFourState32v, in the verified patch): one predicate,
+`if (!leafCt.isFourState()) return nullptr;`, immediately after the existing
+kind test.  It is a strict narrowing:
+
+  * face battery re-run with the fixed binary: 0 regressions over 44 designs,
+    all 18 conversions kept (evidence/faces_verified.txt, faces2_verified.txt);
+  * grid re-read with the fixed binary: AWAY 0 (from 6), 88 arms fixed
+    (evidence/grid_verified.txt);
+  * uhdm2rtlil byte compare, fixed vs r11u32-as-submitted: MOVERS 0 / 1608 in
+    both modes — the fix moves NO corpus database at all, so every uhdm2rtlil
+    and surelog measurement made on the submitted patch carries over verbatim.

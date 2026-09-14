@@ -954,6 +954,42 @@ inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
                                  .elementType;
                 if (leaf0->getCanonicalType().isStruct())
                     return 0;
+                // § namedTypeLeafNoNetType32 — the DEF-view net type is
+                // decided by WHAT THE WRITTEN NAME IS, never by the packed
+                // dimensions hung on it.  Golden grid (44 arms, name kind x
+                // dims{none,packed,unpacked} x position{body net, input,
+                // output}, calibrated golden-vs-golden to 0):
+                //   * a TYPE PARAMETER prints NO net type in every cell —
+                //     `T x`, `T [1:0] x`, `T x [1:0]`, body or port, whatever
+                //     the parameter is bound to (logic vector, enum, struct);
+                //   * a typedef whose LEAF is an ENUM prints none in every
+                //     cell, exactly as a struct leaf already does above;
+                //   * only an UNQUALIFIED logic-vector typedef prints 36.
+                // The five K2 rows all sit on the dimensioned cells because a
+                // packed dim makes slang parse the name as an
+                // IdentifierSelectName, which `portTypeParam` (the
+                // dimension-less guard at the top of this function) cannot
+                // see — the SAME parse split § unqualDimNet9 below records.
+                // In `arb_idx_cast` the distinguisher is proved inside one
+                // design: `idx_t idx_o` (no dim) already agrees, while
+                // `idx_t [2**NumLevels-2:0] index_nodes` did not.
+                {
+                    const Type* la32 = &t;
+                    while (la32->kind == SymbolKind::PackedArrayType)
+                        la32 = &la32->as<PackedArrayType>().elementType;
+                    if (la32->kind == SymbolKind::TypeAlias) {
+                        // A type parameter is a TypeAliasType whose syntax is
+                        // a `TypeAssignment` — never a `TypedefDeclaration`
+                        // (see typeParamOfAlias above).
+                        if (auto* syn32 = la32->getSyntax();
+                            syn32 &&
+                            syn32->kind == syntax::SyntaxKind::TypeAssignment)
+                            return 0;
+                        if (la32->getCanonicalType().kind ==
+                            SymbolKind::EnumType)
+                            return 0;
+                    }
+                }
                 if ((ct.kind == SymbolKind::PackedArrayType ||
                      ct.kind == SymbolKind::ScalarType) &&
                     ct.isFourState()) {

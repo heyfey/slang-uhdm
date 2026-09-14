@@ -1,0 +1,29 @@
+f01_tp2state_pk slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+f02_tp4state_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f03_tpenum_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f04_tpstruct_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f05_tp_pk_init slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f06_tp_pk_genblk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f07_tp_pk_iface slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f08_tp_pk_in_ovr slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f09_typedef_of_typeparam_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f10_localenum_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f11_pkgenum_unqual_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f12_pkgenum_scoped_pk slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+f13_regtypedef_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f14_tp_of_tp_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f15_tp_pk_and_unp slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f16_tp_pk_toplevel slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f21_tpscalar_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f22_tp_ovr_enum_pk slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f23_vectortypedef_pk slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+f24_structtypedef_pk slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+f30_k9_ansi_typearg slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f31_k9_nonansi_typearg slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+f32_k9_ansi_typearg_struct slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f33_k9_ansi_typearg_unpdim slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=NOTEQUAL
+f34_k9_iface_typearg slrc=0 prisrc=3 patrc=3  PRIS=REJECT PAT=REJECT
+f35_k9_ansi_empty_typearg slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
+f36_k9_ansi_typearg_init slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f37_k9_ansi_typearg_enum slrc=0 prisrc=0 patrc=0  PRIS=NOTEQUAL PAT=EQUAL  ++++ CONVERT
+f38_k9_ansi_typearg_pkdim slrc=0 prisrc=0 patrc=0  PRIS=EQUAL PAT=EQUAL
