@@ -1677,6 +1677,56 @@ SrlgMemLeftEnc UhdmExporter::memLeftComputedEnc(const Expression& e0,
     }
 }
 
+// § pkgStructFuncAssembleNested24 (r11u24) — golden's assembly of a builder
+// that wrote below the first level.  The producer assembles from the STAMPED
+// MEMBER VALUES (`ExprEval::reduceExpr`'s `uhdmstruct_var` arm, UHDM v1.87
+// `templates/ExprEval.cpp` ~4846): each first-level member's leftover is
+// `toBinary`'d and then left-padded with zeros / truncated to the member's own
+// packed width, first declared member at the MSBs.  A member won by a write
+// below the first level carries THAT WRITE's RHS, so its value is the folded
+// struct's bits at the WRITE TARGET's range — which is why `c.u.a = 3;
+// c.u.b = 32;` leaves `u` = 32 and the assembled struct reads a = 0, and why
+// `c.u.b = 32; c.u.a = 3;` leaves `u` = 3 (grid `n1` / `n2`).
+bool UhdmExporter::memLeftNestedAsmBits(const Type& st,
+                                        const slang::SVInt& whole,
+                                        const std::vector<SrlgMemLeft>& lo,
+                                        int32_t total, std::string& out) {
+    auto& ct = st.getCanonicalType();
+    if (total <= 0 || ct.kind != SymbolKind::PackedStructType)
+        return false;
+    std::string bits;
+    bits.reserve((size_t)total);
+    size_t li = 0;
+    for (auto& f : ct.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+        if (li >= lo.size())
+            return false;
+        auto& ml = lo[li++];
+        uint64_t fw = f.getType().getBitWidth();
+        if (fw == 0)
+            return false;
+        uint64_t w = ml.selWidth ? ml.selWidth : fw;
+        uint64_t off = ml.selWidth ? ml.selOff : f.bitOffset;
+        if (w == 0 || off + w > whole.getBitWidth())
+            return false;
+        std::string v;
+        v.reserve((size_t)w);
+        for (int64_t k = (int64_t)w - 1; k >= 0; k--)
+            v += (whole[(int32_t)(off + (uint64_t)k)] == slang::logic_t(1))
+                     ? '1'
+                     : '0';
+        if (v.size() > (size_t)fw)
+            v = v.substr(v.size() - (size_t)fw);
+        else
+            while (v.size() < (size_t)fw)
+                v.insert(v.begin(), '0');
+        bits += v;
+    }
+    if (li != lo.size() || (int32_t)bits.size() != total)
+        return false;
+    out = bits;
+    return true;
+}
+
 const std::vector<UhdmExporter::SrlgMemLeft>*
 UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
     if (auto it = memLeftCache.find(&sub); it != memLeftCache.end())
@@ -1710,10 +1760,25 @@ UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
             &local->as<VariableSymbol>().getType().getCanonicalType() != &rt)
             return fail();
     }
-    // Every top-level statement must be a `<local>.<member> = <expr>` write
-    // (declaration of the local and the return are already accounted for).
-    // Anything else — a loop, a nested call, a whole-struct assignment — is
-    // outside the modelled subset.
+    // Every top-level statement must be a `<local>.<member>[.<member>…] =
+    // <expr>` write (declaration of the local and the return are already
+    // accounted for).  Anything else — a loop, a nested call, a whole-struct
+    // assignment, an INDEXED write — is outside the modelled subset.
+    //
+    // § pkgStructFuncAssembleNested24 (r11u24) — A WRITE BELOW THE FIRST LEVEL
+    // STAMPS THE FIRST-LEVEL MEMBER, WHOLE.  `ExprEval::setValueInInstance`
+    // (UHDM v1.87 `templates/ExprEval.cpp` ~5665) resolves a hier_path LHS with
+    // `decodeHierPath(..., ReturnType::MEMBER)`, and `hierarchicalSelector`'s
+    // struct_var arm answers `return member;` at the FIRST matching level
+    // WITHOUT walking the remaining selectors (~2425, the MEMBER arm, beside a
+    // VALUE arm that DOES recurse).  So `c.u.a = 3` stamps the RHS constant on
+    // the first-level member `u` — not on `a`, and not merged into `u` — and
+    // the LAST write to a first-level member is the one that stands.  Measured
+    // on the golden grid: `n1` (`c.u.a = 3; c.u.b = 32`) leaves `u` = 32, so
+    // the assembled struct reads a = 0 and b = 32 where slang's own evaluation
+    // of the local has a = 3; `n2` swaps the two writes and leaves `u` = 3
+    // (the MSB-side field's value in the whole member); `n6`'s three-level
+    // `c.u.v.a` / `c.u.v.b` / `c.u.w` leaves `u` = 7.
     bool bad = false;
     std::map<std::string, SrlgMemLeft> enc;
     sub.getBody().visit(makeVisitor([&](auto& v, const AssignmentExpression& a) {
@@ -1725,17 +1790,62 @@ UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
             v.visitDefault(a);
             return;
         }
-        auto& ma = lhs.as<MemberAccessExpression>();
-        auto& base = stripImplicitConv(ma.value());
-        if (base.kind != ExpressionKind::NamedValue ||
-            &base.as<NamedValueExpression>().symbol != local) {
-            bad = true;
-            v.visitDefault(a);
-            return;
+        // The written selector chain, ROOT FIRST.  Only dotted member access
+        // is modelled: an INDEXED write (`c.arr[0] = …`) reaches the same
+        // producer arm but its bit range needs the packed-array layout rule,
+        // which is its own law — grid `n9`'s `d_t` is the measured decline and
+        // a decline leaves the database byte-identical.
+        std::vector<const MemberAccessExpression*> chain21;
+        {
+            const Expression* cur = &lhs;
+            while (cur->kind == ExpressionKind::MemberAccess) {
+                chain21.push_back(&cur->as<MemberAccessExpression>());
+                cur = &stripImplicitConv(
+                    cur->as<MemberAccessExpression>().value());
+            }
+            if (chain21.empty() || cur->kind != ExpressionKind::NamedValue ||
+                &cur->as<NamedValueExpression>().symbol != local) {
+                bad = true;
+                v.visitDefault(a);
+                return;
+            }
+        }
+        std::reverse(chain21.begin(), chain21.end());
+        auto& ma = *chain21.back();          // the WRITE TARGET
+        // Its bit range inside the struct: every level's `bitOffset` is
+        // relative to its own containing struct, so the offsets simply add
+        // (a packed UNION member's is 0, which is why `n9`'s `c.n.x = 9`
+        // stamps the whole of `n`).
+        uint64_t selOff24 = 0, selWidth24 = 0;
+        {
+            bool okSel24 = true;
+            for (auto* mae24 : chain21) {
+                if (mae24->member.kind != SymbolKind::Field) {
+                    okSel24 = false;
+                    break;
+                }
+                auto& fs24 = mae24->member.as<FieldSymbol>();
+                selOff24 += fs24.bitOffset;
+                selWidth24 = fs24.getType().getBitWidth();
+            }
+            if (!okSel24 || selWidth24 == 0) {
+                bad = true;
+                v.visitDefault(a);
+                return;
+            }
         }
         auto& rhs = stripImplicitConv(a.right());
         SrlgMemLeft ml;
         ml.enc = SrlgMemLeftEnc::Uint;
+        // § pkgStructFuncAssembleNested24 — the write target's own range,
+        // recorded ONLY for a write that went below the first level.  A
+        // first-level write leaves both at 0 and every reader keeps using the
+        // FIELD's own offset and width, byte for byte as before.
+        if (chain21.size() > 1) {
+            ml.nestedWrite = true;
+            ml.selOff = selOff24;
+            ml.selWidth = selWidth24;
+        }
         // § r10fsv2 L1.  `d.M = <formal>.<N>` hands back the ELABORATED
         // pattern's OWN element object for N — record the formal and the
         // source member and resolve it in the stamp drain.  The value-slicing
@@ -1820,7 +1930,11 @@ UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
                 v2.visitDefault(m2);
             }));
         }
-        enc[std::string(ma.member.name)] = ml;
+        // § pkgStructFuncAssembleNested24 — keyed on the FIRST-LEVEL member,
+        // and LAST WRITE WINS: that is the producer's own answer, because
+        // `hierarchicalSelector`'s MEMBER arm stops at the first level and
+        // `typespec_member::Actual_value` is a single slot.
+        enc[std::string(chain21.front()->member.name)] = ml;
         v.visitDefault(a);
     }));
     if (bad || enc.empty())
@@ -1869,15 +1983,22 @@ const ParameterSymbol* UhdmExporter::memLeftCallPatArg(const Expression& init,
     return &sy.as<ParameterSymbol>();
 }
 
+// § pkgStructFuncAssembleNested24 — `selOff`/`selWidth` override the field's
+// own range when the write that WON this member went below the first level:
+// the leftover golden stamps is the RHS's constant, whose value is the folded
+// struct's bits at the WRITE TARGET's range.  Both zero means "the field's
+// own", which is what every first-level write passes.
 static UHDM::constant* makeMemLeftConst(UHDM::Serializer& s,
                                         const FieldSymbol& fld,
                                         const slang::SVInt& whole,
-                                        SrlgMemLeftEnc enc) {
-    uint64_t w = fld.getType().getBitWidth();
-    if (w == 0 || fld.bitOffset + w > whole.getBitWidth())
+                                        SrlgMemLeftEnc enc,
+                                        uint64_t selOff = 0,
+                                        uint64_t selWidth = 0) {
+    uint64_t w = selWidth ? selWidth : fld.getType().getBitWidth();
+    uint64_t off = selWidth ? selOff : fld.bitOffset;
+    if (w == 0 || off + w > whole.getBitWidth())
         return nullptr;
-    slang::SVInt slice = whole.slice((int32_t)(fld.bitOffset + w - 1),
-                                     (int32_t)fld.bitOffset);
+    slang::SVInt slice = whole.slice((int32_t)(off + w - 1), (int32_t)off);
     if (slice.hasUnknown())
         return nullptr;
     // A `Pat` member whose caller pattern element could NOT be resolved falls
@@ -9590,8 +9711,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ok9 = false;
                                 break;
                             }
-                            auto* c9 = makeMemLeftConst(s, f9, whole,
-                                                        (*leftovers)[li9].enc);
+                            // § pkgStructFuncAssembleNested24 — the fallback
+                            // re-encoding reads the WINNING WRITE's own range,
+                            // which for a first-level write is the field's own
+                            // and leaves the flat family byte-identical.
+                            auto* c9 = makeMemLeftConst(
+                                s, f9, whole, (*leftovers)[li9].enc,
+                                (*leftovers)[li9].selOff,
+                                (*leftovers)[li9].selWidth);
                             if (!c9) {
                                 ok9 = false;
                                 break;
@@ -9649,15 +9776,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // these; the string is built only for a member
                             // that actually carries one of the two shapes.
                             st9.catRhs.push_back((*leftovers)[li9].catRhs);
+                            // § pkgStructFuncAssembleNested24 — at the WINNING
+                            // WRITE's range (the field's own for a first-level
+                            // write): the leftover the producer stamps is the
+                            // reduced RHS, and for `c.t.a = {16'h0, 16'h3}` its
+                            // bits are `a`'s, not `t`'s (grid `n7`).
                             std::string cb9;
                             if ((*leftovers)[li9].catRhs) {
-                                uint64_t fw9 = f9.getType().getBitWidth();
+                                uint64_t fw9 = (*leftovers)[li9].selWidth
+                                                   ? (*leftovers)[li9].selWidth
+                                                   : f9.getType().getBitWidth();
+                                uint64_t fo9 = (*leftovers)[li9].selWidth
+                                                   ? (*leftovers)[li9].selOff
+                                                   : f9.bitOffset;
                                 if (fw9 > 0 &&
-                                    f9.bitOffset + fw9 <= whole.getBitWidth()) {
+                                    fo9 + fw9 <= whole.getBitWidth()) {
                                     cb9.reserve((size_t)fw9);
                                     for (int64_t k9 = (int64_t)fw9 - 1; k9 >= 0;
                                          k9--)
-                                        cb9 += (whole[(int32_t)(f9.bitOffset +
+                                        cb9 += (whole[(int32_t)(fo9 +
                                                                 (uint64_t)k9)] ==
                                                 slang::logic_t(1))
                                                    ? '1'
@@ -9713,15 +9850,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 st9.values[pi9] = pc9;
                             }
                             int32_t pw9 = (int32_t)slPackedWidth(ps.getType());
+                            // § pkgStructFuncAssembleNested24 — a builder that
+                            // wrote below the first level assembles from the
+                            // WINNING WRITES, not from slang's own value of the
+                            // local; a shape the rule cannot render assembles
+                            // NOTHING (and the database stays byte-identical).
+                            std::string bits9;
+                            bool nested9 = false;
+                            for (auto& mlq9 : *leftovers)
+                                if (mlq9.nestedWrite)
+                                    nested9 = true;
+                            if (pw9 > 0 && nested9 &&
+                                !memLeftNestedAsmBits(ps.getType(), whole,
+                                                      *leftovers, pw9, bits9))
+                                pw9 = 0;
                             if (pw9 > 0) {
-                                std::string bits9;
-                                bits9.reserve((size_t)pw9);
-                                for (int32_t k9 = pw9 - 1; k9 >= 0; k9--)
-                                    bits9 +=
-                                        (k9 < (int32_t)whole.getBitWidth() &&
-                                         whole[k9] == slang::logic_t(1))
-                                            ? '1'
-                                            : '0';
+                                if (!nested9) {
+                                    bits9.reserve((size_t)pw9);
+                                    for (int32_t k9 = pw9 - 1; k9 >= 0; k9--)
+                                        bits9 +=
+                                            (k9 < (int32_t)whole.getBitWidth() &&
+                                             whole[k9] == slang::logic_t(1))
+                                                ? '1'
+                                                : '0';
+                                }
                                 st9.owner = &ps;
                                 st9.pkgHolder = true;
                                 // § memLeftFormalReadTs18 — the objects THIS
@@ -9818,14 +9970,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // assembled constant against the formal), where the
                             // package view keeps the assembler's bare bits.
                             int32_t mw9 = (int32_t)slPackedWidth(ps.getType());
+                            // § pkgStructFuncAssembleNested24 — the MODULE
+                            // holder assembles the same way (grid `n4`: golden
+                            // `work@dut.L` is the same 96-bit answer as the
+                            // package-held `pk::C` of `n1`).
+                            std::string mb9;
+                            bool mnested9 = false;
+                            for (auto& mlq9 : *leftovers)
+                                if (mlq9.nestedWrite)
+                                    mnested9 = true;
+                            if (mw9 > 0 && mnested9 &&
+                                !memLeftNestedAsmBits(ps.getType(), whole,
+                                                      *leftovers, mw9, mb9))
+                                mw9 = 0;
                             if (mw9 > 0) {
-                                std::string mb9;
-                                mb9.reserve((size_t)mw9);
-                                for (int32_t k9 = mw9 - 1; k9 >= 0; k9--)
-                                    mb9 += (k9 < (int32_t)whole.getBitWidth() &&
-                                            whole[k9] == slang::logic_t(1))
-                                               ? '1'
-                                               : '0';
+                                if (!mnested9) {
+                                    mb9.reserve((size_t)mw9);
+                                    for (int32_t k9 = mw9 - 1; k9 >= 0; k9--)
+                                        mb9 += (k9 <
+                                                    (int32_t)whole.getBitWidth() &&
+                                                whole[k9] == slang::logic_t(1))
+                                                   ? '1'
+                                                   : '0';
+                                }
                                 std::string mtp9 = prefix;
                                 if (mtp9.size() >= 2 &&
                                     mtp9.compare(mtp9.size() - 2, 2, "::") == 0)

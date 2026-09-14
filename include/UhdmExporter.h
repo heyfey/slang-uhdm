@@ -57,6 +57,7 @@ namespace slang {
 class SourceManager;
 class SourceRange;
 class SourceLocation;
+class SVInt;
 } // namespace slang
 
 #include "slang/text/SourceLocation.h"
@@ -1875,11 +1876,44 @@ private:
         // the drain runs the producer's own reducer over our own emitted
         // operation, so the BAIL is modelled where the producer takes it.
         const slang::ast::Expression* catRhs = nullptr;
+        // § pkgStructFuncAssembleNested24 (r11u24) — THE WINNING WRITE'S OWN
+        // TARGET RANGE, recorded ONLY when the write went BELOW the first
+        // level (`c.u.a = 3`).  UHDM's `ExprEval::setValueInInstance` resolves
+        // the LHS hier_path with `decodeHierPath(..., ReturnType::MEMBER)` and
+        // `hierarchicalSelector`'s struct_var arm returns the FIRST matching
+        // member and stops (`templates/ExprEval.cpp` ~2425 — the MEMBER arm,
+        // beside a VALUE arm that DOES walk on), so the RHS lands on the
+        // first-level member WHOLE and the LAST write to that member stands.
+        // The leftover's VALUE is therefore the RHS's own — which is the bits
+        // of the folded struct at THIS range, not at the member's — and the
+        // assembled constant is those per-member values re-rendered at each
+        // member's width, not slang's own evaluation of the local.
+        // `selWidth == 0` means "first-level write": every reader then uses
+        // the FieldSymbol's own offset and width and the flat family is byte
+        // for byte what it was.
+        uint64_t selOff = 0;
+        uint64_t selWidth = 0;
+        bool nestedWrite = false;
     };
     // The encoding a COMPUTED (non-formal-member-read) leftover takes, from
     // the shape of the assignment's RHS (§ r10fsv2 L3).
     SrlgMemLeftEnc memLeftComputedEnc(const slang::ast::Expression& e,
                                       int depth);
+    // § pkgStructFuncAssembleNested24 (r11u24) — THE ASSEMBLED BITS OF A
+    // NESTED-WRITE BUILDER.  v1.87's assembler (`ExprEval::reduceExpr`'s
+    // `uhdmstruct_var` arm, `templates/ExprEval.cpp` ~4846) renders each
+    // FIRST-LEVEL member's stamped value at that member's own packed width —
+    // `toBinary` of the leftover, left-padded with zeros or truncated to the
+    // low bits — and concatenates them, first declared member at the MSBs.
+    // When every write was first-level that is slang's own value of the local,
+    // bit for bit, and this is never called; when a write went BELOW the first
+    // level the two differ (grid `n1`: golden a = 0 where slang has a = 3),
+    // and THIS is golden's answer.  False means "not modelled" and the caller
+    // must assemble nothing at all.
+    bool memLeftNestedAsmBits(const slang::ast::Type& st,
+                              const slang::SVInt& whole,
+                              const std::vector<SrlgMemLeft>& lo,
+                              int32_t total, std::string& out);
     // Non-empty when `sub` is a member-by-member struct builder, one entry per
     // WRITTEN member in declaration order. Cached per subroutine.
     const std::vector<SrlgMemLeft>* srlgEvalFuncMemberLeftovers(
