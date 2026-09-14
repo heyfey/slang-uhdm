@@ -1,0 +1,47 @@
+LHS:
+decompile:
+logic_typespec: (vec_t), id:46, line:9:11, endln:9:25
+|vpiParent:
+\_type_parameter: (work@dut.PD), id:44, line:10:19, endln:10:21
+|vpiName:vec_t
+|vpiTypedefAlias:
+\_ref_typespec: (work@dut.PD.vec_t), id:52
+  |vpiParent:
+  \_logic_typespec: (vec_t), id:46, line:9:11, endln:9:25
+  |vpiFullName:work@dut.PD.vec_t
+  |vpiActual:
+  \_logic_typespec: (vec_t), id:43, line:9:11, endln:9:25
+|vpiRange:
+\_range: , id:47, line:9:17, endln:9:25
+  |vpiParent:
+  \_logic_typespec: (vec_t), id:46, line:9:11, endln:9:25
+  |vpiLeftRange:
+  \_operation: , id:48, line:9:18, endln:9:22
+    |vpiParent:
+    \_range: , id:47, line:9:17, endln:9:25
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@dut.PD.vec_t.WA), id:49, line:9:18, endln:9:20
+      |vpiParent:
+      \_operation: , id:48, line:9:18, endln:9:22
+      |vpiName:WA
+      |vpiFullName:work@dut.PD.vec_t.WA
+    |vpiOperand:
+    \_constant: , id:50, line:9:21, endln:9:22
+      |vpiParent:
+      \_operation: , id:48, line:9:18, endln:9:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:51, line:9:23, endln:9:24
+    |vpiParent:
+    \_range: , id:47, line:9:17, endln:9:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+logic_typespec: , id:36, line:10:24, endln:10:29

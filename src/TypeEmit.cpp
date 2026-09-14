@@ -3525,6 +3525,34 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 dims.push_back(pat.range);
                 t = &pat.elementType.getCanonicalType();
             }
+            // § typeParamDefaultBoundNoReduce20 — a TYPE PARAMETER's own
+            // typespec is compiled from its DECLARATION DEFAULT with
+            // `Reduce::No` and a NULL instance
+            // (`CompileHelper::compileParameterDeclaration`,
+            // Surelog `src/DesignCompile/CompileHelper.cpp`:3475 for
+            // `paList_of_type_assignments` and :3509 for `paTYPE`), so no
+            // packed-range bound of it is ever folded: a literal compiles to a
+            // constant, a bare name to a `ref_obj`, anything else to the
+            // written operation / sys-call tree.  One object is built at
+            // definition-compile time and BOTH listings — and every signal
+            // declared with the type parameter's name — reference it, so the
+            // elaborated view keeps the symbolic bound too (grid t3 `u0.p`
+            // points at the DEF `work@leaf.PT` typespec although `LW` is
+            // overridden there).
+            //
+            // An OVERRIDE is the other half and does NOT take this rule: the
+            // override's data type is compiled during ELABORATION and folds
+            // (grid t3 `u2` `.PT(logic [W-1:0])` -> `INT:4` in golden and in
+            // ours, already agreeing).  `isOverridden()` is the gate.
+            bool tpDefaultBound20 = false;
+            const Scope* tpHomeScope20 = nullptr;
+            if (declSymbol.kind == SymbolKind::TypeParameter) {
+                auto& tps20 = declSymbol.as<TypeParameterSymbol>();
+                if (!tps20.isOverridden()) {
+                    tpDefaultBound20 = true;
+                    tpHomeScope20 = declSymbol.getParentScope();
+                }
+            }
             if (dims.size() == dimSyns->size()) {
                 auto* ranges = s.MakeRangeVec();
                 for (size_t i = 0; i < dims.size(); i++) {
@@ -3547,6 +3575,16 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                          int64_t value) -> UHDM::expr* {
                         if (!bsyn || bsyn->kind == syntax::SyntaxKind::IntegerLiteralExpression)
                             return makeBoundConst(bsyn, value, r);
+                        // § typeParamDefaultBoundNoReduce20 — the `Reduce::No`
+                        // compile (see the gate above).  This runs BEFORE every
+                        // fold arm below because none of them applies: the
+                        // producer never reduces at all.
+                        if (tpDefaultBound20) {
+                            if (auto* e20 =
+                                    typeParamDefaultBound20(bsyn, r,
+                                                            tpHomeScope20))
+                                return e20;
+                        }
                         // § crossPkgRangeBoundFold (see the helpers above).
                         // Only a MODULE-side parameter's own typespec takes
                         // the substitution: a package's own bound is reduced
@@ -5768,6 +5806,125 @@ bool UhdmExporter::boundNamesSymCallParam12(const syntax::SyntaxNode* bsyn,
     return found;
 }
 
+// § typeParamDefaultBoundNoReduce20 — the UNREDUCED packed-range bound of a
+// type parameter's DECLARATION DEFAULT.
+//
+// PRODUCER.  `CompileHelper::compileParameterDeclaration`
+// (Surelog `src/DesignCompile/CompileHelper.cpp`) builds a `type_parameter`'s
+// typespec with `compileTypespec(component, fC, ntype, compileDesign,
+// Reduce::No, p, nullptr, false)` — :3475 for the ANSI
+// `paList_of_type_assignments` arm and :3509 for the `paTYPE` (body /
+// non-ANSI / package / class) arm.  `Reduce::No` AND a null instance: no
+// bound of that type is ever folded, and the one object built at
+// definition-compile time is what BOTH listings reference.
+//
+// The golden grid (Surelog v1.87, `tools/probe/r11u20repro`):
+//   t1  module ANSI port list, `parameter`/`localparam` type -> `op11[ref(W),
+//       UINT:1]` for both keywords
+//   t2  the bound KINDS: `[7:0]` constants; `[W:0]` a bare `ref(W)`;
+//       `[W-1:0]` op11; `[W+1:2]` op24 with a LITERAL right bound;
+//       `[$clog2(W)-1:0]` op11 over a WHOLE-CALL-spanned sys_func_call;
+//       `[(W*2)-1:0]` op11[op25[...]] with the parens dropped;
+//       `[W-1:0][3:0]` symbolic dim 0 and literal dim 1 — per dim, per bound
+//   t3  OVERRIDE: an override's data type IS reduced (`u2` `.PT(logic
+//       [W-1:0])` -> INT:4) and the elaborated instance of a NON-overridden
+//       one points at the DEFINITION object (`u0.p` -> `work@leaf.PT`'s
+//       symbolic typespec although `LW` is overridden in `u0`)
+//   t4  a PACKAGE-homed type param keeps the bare ref AND chains it to the
+//       package parameter's def constant; a MODULE-side read of a package
+//       parameter — qualified (`QT`), bare under a wildcard import (`BT`),
+//       or a whole bare bound (`CT`) — is SUBSTITUTED by that package's own
+//       value constant at its declared width (§ crossPkgRangeBoundFold)
+//   t5  the corpus shape; t6 interface + non-ANSI + module BODY; t7 class and
+//       gen-scope re-pass; t8 `bit`/signed/`int`; t9 two declarators on one
+//       keyword, `$bits` of another type parameter, and a typedef-named
+//       default.
+UHDM::expr* UhdmExporter::typeParamDefaultBound20(
+    const syntax::ExpressionSyntax* bsyn, UHDM::BaseClass* parent,
+    const slang::ast::Scope* homeScope) {
+    if (!bsyn)
+        return nullptr;
+    // A PACKAGE-homed type parameter's bound ref keeps Surelog's value-ref
+    // chain to the referenced package parameter's own def constant (t4
+    // `pk::PPT::PW` carries `vpiActual constant 5:23`); a module / interface /
+    // class one stays UNBOUND (t1 `work@dut.PT.W`, t3 `work@leaf.PT.LW`,
+    // t5 `work@dut.sel_t.NLOG`, t9's `$bits` argument — no `vpiActual` on any
+    // of them).  The sys-call keeps its WHOLE-CALL span, so boundCallNameSpan
+    // stays off (t2 `$clog2(W)` 9:34-9:43, t9 `$bits(PA)` 7:33-7:42).
+    const bool pkgHome20 =
+        homeScope && homeScope->asSymbol().kind == SymbolKind::Package;
+    const slang::ast::Scope* savedTf20 = tfTypeScope;
+    bool setTf20 = false;
+    if (pkgHome20 && !tfTypeScope) {
+        tfTypeScope = homeScope;
+        setTf20 = true;
+    }
+    auto* e20 = emitSyntaxExpr(*bsyn, parent);
+    if (setTf20)
+        tfTypeScope = savedTf20;
+    if (!e20)
+        return nullptr;
+    if (!pkgHome20) {
+        // § crossPkgRangeBoundFold reaches the type-parameter default too.
+        // Inside an operation the LEAVES are swapped; a bound that is nothing
+        // but the read never becomes an operation, so swap it whole (t4 `CT`
+        // `logic [pk::PW:0]` -> `UINT:6 sz 32 ct 9`, not a `ref_obj`).
+        crossPkgFoldBoundLeaves9(e20, homeScope);
+        if (e20->UhdmType() == UHDM::uhdmref_obj) {
+            auto* ro20 = (UHDM::ref_obj*)e20;
+            std::string rn20(ro20->VpiName());
+            const ParameterSymbol* ps20 = crossPkgBoundParam9(rn20);
+            if (!ps20 && homeScope && !rn20.empty() &&
+                rn20.find("::") == std::string::npos)
+                if (auto* bs20 = Lookup::unqualified(*homeScope, rn20);
+                    bs20 && bs20->kind == SymbolKind::Parameter &&
+                    bs20->getParentScope() &&
+                    bs20->getParentScope()->asSymbol().kind ==
+                        SymbolKind::Package)
+                    ps20 = &bs20->as<ParameterSymbol>();
+            if (ps20)
+                if (auto* c20 = crossPkgBoundFoldConst9(*ps20, parent)) {
+                    c20->VpiFile(ro20->VpiFile());
+                    c20->VpiLineNo(ro20->VpiLineNo());
+                    c20->VpiColumnNo(ro20->VpiColumnNo());
+                    c20->VpiEndLineNo(ro20->VpiLineNo());
+                    auto sep20 = rn20.find("::");
+                    c20->VpiEndColumnNo(
+                        ro20->VpiColumnNo() +
+                        (uint16_t)(sep20 == std::string::npos
+                                       ? rn20.size()
+                                       : sep20 + 2));
+                    return c20;
+                }
+        }
+        // Every surviving leaf stays UNBOUND, whatever emitSyntaxExpr
+        // resolved: golden's module-side bound refs carry no `vpiActual`.
+        std::function<void(UHDM::any*)> unbind20 = [&](UHDM::any* n20) {
+            if (!n20)
+                return;
+            switch (n20->UhdmType()) {
+                case UHDM::uhdmref_obj:
+                    ((UHDM::ref_obj*)n20)->Actual_group(nullptr);
+                    break;
+                case UHDM::uhdmoperation:
+                    if (auto* ov20 = ((UHDM::operation*)n20)->Operands())
+                        for (auto* o20 : *ov20)
+                            unbind20(o20);
+                    break;
+                case UHDM::uhdmsys_func_call:
+                    if (auto* av20 = ((UHDM::sys_func_call*)n20)->Tf_call_args())
+                        for (auto* a20 : *av20)
+                            unbind20(a20);
+                    break;
+                default:
+                    break;
+            }
+        };
+        unbind20(e20);
+    }
+    return (UHDM::expr*)e20;
+}
+
 UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int64_t value,
                                              UHDM::BaseClass* parent) {
     auto* c = s.MakeConstant();
@@ -5887,8 +6044,21 @@ UHDM::typespec* UhdmExporter::makeTypeParamDefaultTs(
                         rsyn = sel.right;
                     }
                 }
-                r->Left_expr(makeBoundConst(lsyn, dims[i].left, r));
-                r->Right_expr(makeBoundConst(rsyn, dims[i].right, r));
+                // § typeParamDefaultBoundNoReduce20 — this IS the declaration
+                // default, so the bound is never folded: only a written
+                // INTEGER LITERAL comes out a constant (t2 `A0` `logic [7:0]`
+                // and the literal right bound of `A3` `[W+1:2]`), every other
+                // written bound keeps its compiled tree.
+                auto tpBound20 = [&](const syntax::ExpressionSyntax* bsyn,
+                                     int64_t v) -> UHDM::expr* {
+                    if (bsyn && bsyn->kind !=
+                                    syntax::SyntaxKind::IntegerLiteralExpression)
+                        if (auto* e20 = typeParamDefaultBound20(bsyn, r, &body))
+                            return e20;
+                    return makeBoundConst(bsyn, v, r);
+                };
+                r->Left_expr(tpBound20(lsyn, dims[i].left));
+                r->Right_expr(tpBound20(rsyn, dims[i].right));
                 ranges->push_back(r);
             }
             if (ts->UhdmType() == UHDM::uhdmbit_typespec)

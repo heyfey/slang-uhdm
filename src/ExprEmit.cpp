@@ -23767,11 +23767,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(fc, nameSpan(expr.sourceRange.start(), wqual));
                         qualPkgCall18 = true;
                     }
-                    else if (currentScope && siTf) {
+                    else if (currentScope && siTf &&
+                             importResolvesHere20(*currentScope, sub)) {
                         // Import-resolved call: the module lists the shared
                         // package function in its own Task_funcs; a call from
                         // a GEN-SCOPE conn also registers at the enclosing
                         // instance body.
+                        // § pkgBodyCallNeverListsOnHolder20 — and "import-
+                        // resolved" has to be CHECKED, not assumed from the
+                        // bare spelling.  A package function called BARE from
+                        // the PACKAGE'S OWN body is re-emitted while
+                        // `currentScope` is a MODULE (the borrowed package
+                        // initializer the assembled-struct family reduces for
+                        // the module's elab `param_assign` Rhs), and this push
+                        // then hung the package function on a module that
+                        // neither imports it nor calls it.  Surelog lists a
+                        // package subroutine on an instance only for an IMPORT
+                        // (grid b4 wildcard, b5 explicit — both 1/1 in BOTH
+                        // views, golden and ours) and never for a call written
+                        // somewhere else: grid b1 (the corpus
+                        // `struct_param_field_shift` shape) and b8 (the same
+                        // read one instance down) are golden 0 / pristine 1,
+                        // while b2 (no reference at all), b3 (the same call
+                        // written QUALIFIED inside the package), b6 (a
+                        // qualified call written in the module), b7 (a literal
+                        // package localparam) and b9 (a NON-struct
+                        // function-built one) are 0/0 on both sides.  The gate
+                        // is the one Surelog's own resolver applies: the bare
+                        // name must actually resolve to this subroutine FROM
+                        // the listing scope.
                         // § importedFreeCallTakesFirstListingImport227 — the
                         // holder LISTS the object its call RESOLVES TO, not
                         // the home object: golden's a1/a3 holder Task_funcs

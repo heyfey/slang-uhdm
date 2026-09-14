@@ -1,0 +1,29 @@
+LHS:
+decompile:
+operation: , id:345, line:20:42, endln:20:48
+|vpiParent:
+\_range: , id:343, line:20:41, endln:20:51
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@dut.sel_t.NLOG), id:344, line:20:42, endln:20:46
+  |vpiParent:
+  \_operation: , id:345, line:20:42, endln:20:48
+  |vpiName:NLOG
+  |vpiFullName:work@dut.sel_t.NLOG
+|vpiOperand:
+\_constant: , id:346, line:20:47, endln:20:48
+  |vpiParent:
+  \_operation: , id:345, line:20:42, endln:20:48
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:171, line:20:42, endln:20:48
+|vpiParent:
+\_range: , id:170, line:20:41, endln:20:51
+|vpiDecompile:NLOG-1
+|vpiSize:64
+|UINT:3
+|vpiConstType:9

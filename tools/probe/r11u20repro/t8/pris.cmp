@@ -1,0 +1,29 @@
+decompile:
+operation: , id:10, line:5:37, endln:5:40
+|vpiParent:
+\_range: , id:8, line:5:36, endln:5:43
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@dut.B1.W), id:9, line:5:37, endln:5:38
+  |vpiParent:
+  \_operation: , id:10, line:5:37, endln:5:40
+  |vpiName:W
+  |vpiFullName:work@dut.B1.W
+|vpiOperand:
+\_constant: , id:11, line:5:39, endln:5:40
+  |vpiParent:
+  \_operation: , id:10, line:5:37, endln:5:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+constant: , id:13, line:5:37, endln:5:40
+|vpiParent:
+\_range: , id:12, line:5:36, endln:5:43
+|vpiDecompile:W-1
+|vpiSize:64
+|UINT:5
+|vpiConstType:9
+

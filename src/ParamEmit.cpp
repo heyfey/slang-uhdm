@@ -16807,6 +16807,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         std::string savedPfx = syntaxRefPrefix;
         const Scope* savedCS = currentScope;
         syntaxRefPrefix = joinPath(prefix, tps.name);
+        // § typeParamDefaultBoundNoReduce20 — a package-parameter leaf of the
+        // default's range bound is substituted by that package's own value
+        // constant, and the ts ref that constant carries is named after the
+        // TYPE PARAMETER being declared (grid t4 `QT`/`CT`:
+        // `ref_typespec (work@dut.QT)` -> `pk`'s `int_typespec`).
+        std::string savedPTO20 = paramTsOwnerFull9;
+        paramTsOwnerFull9 = joinPath(prefix, tps.name);
         if (!currentScope)
             currentScope = tps.getParentScope();
         UHDM::typespec* its = nullptr;
@@ -16865,6 +16872,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     typeParamElabTs[&tps] = e9->second;
                     currentScope = savedCS;
                     syntaxRefPrefix = savedPfx;
+                    paramTsOwnerFull9 = savedPTO20;
                     spliceTypeParam9(tp, member0);
                     continue;
                 }
@@ -16908,6 +16916,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             its = makeTypespec(tps);
         currentScope = savedCS;
         syntaxRefPrefix = savedPfx;
+        paramTsOwnerFull9 = savedPTO20;
         if (its)
             rt->Actual_typespec(its);
         tp->Typespec(rt);

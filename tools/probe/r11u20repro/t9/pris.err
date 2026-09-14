@@ -1,0 +1,29 @@
+LHS:
+decompile:
+operation: , id:10, line:6:33, endln:6:37
+|vpiParent:
+\_range: , id:8, line:6:32, endln:6:40
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@dut.PA.WA), id:9, line:6:33, endln:6:35
+  |vpiParent:
+  \_operation: , id:10, line:6:33, endln:6:37
+  |vpiName:WA
+  |vpiFullName:work@dut.PA.WA
+|vpiOperand:
+\_constant: , id:11, line:6:36, endln:6:37
+  |vpiParent:
+  \_operation: , id:10, line:6:33, endln:6:37
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:13, line:6:33, endln:6:37
+|vpiParent:
+\_range: , id:12, line:6:32, endln:6:40
+|vpiDecompile:WA-1
+|vpiSize:64
+|UINT:8
+|vpiConstType:9

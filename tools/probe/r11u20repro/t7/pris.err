@@ -1,0 +1,37 @@
+LHS:
+decompile:
+logic_typespec: , id:54, line:7:55, endln:7:69
+|vpiParent:
+\_logic_var: (work@cls::c), id:149, line:8:6, endln:8:7
+|vpiRange:
+\_range: , id:49, line:7:61, endln:7:69
+  |vpiParent:
+  \_logic_typespec: , id:54, line:7:55, endln:7:69
+  |vpiLeftRange:
+  \_operation: , id:51, line:7:62, endln:7:66
+    |vpiParent:
+    \_range: , id:49, line:7:61, endln:7:69
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@cls::c::CW), id:50, line:7:62, endln:7:64
+      |vpiParent:
+      \_operation: , id:51, line:7:62, endln:7:66
+      |vpiName:CW
+      |vpiFullName:work@cls::c::CW
+    |vpiOperand:
+    \_constant: , id:52, line:7:65, endln:7:66
+      |vpiParent:
+      \_operation: , id:51, line:7:62, endln:7:66
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:53, line:7:67, endln:7:68
+    |vpiParent:
+    \_range: , id:49, line:7:61, endln:7:69
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS: <null>

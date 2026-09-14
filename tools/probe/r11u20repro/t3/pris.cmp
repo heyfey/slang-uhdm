@@ -1,0 +1,29 @@
+decompile:
+operation: , id:37, line:7:33, endln:7:37
+|vpiParent:
+\_range: , id:35, line:7:32, endln:7:40
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@leaf.PT.LW), id:36, line:7:33, endln:7:35
+  |vpiParent:
+  \_operation: , id:37, line:7:33, endln:7:37
+  |vpiName:LW
+  |vpiFullName:work@leaf.PT.LW
+|vpiOperand:
+\_constant: , id:38, line:7:36, endln:7:37
+  |vpiParent:
+  \_operation: , id:37, line:7:33, endln:7:37
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+constant: , id:20, line:7:33, endln:7:37
+|vpiParent:
+\_range: , id:19, line:7:32, endln:7:40
+|vpiDecompile:LW-1
+|vpiSize:64
+|UINT:4
+|vpiConstType:9
+

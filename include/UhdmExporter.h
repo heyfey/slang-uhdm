@@ -2336,6 +2336,12 @@ private:
         const slang::syntax::SyntaxNode* memberTypeSyn);
     UHDM::constant* makeBoundConst(const slang::syntax::SyntaxNode* syn, int64_t value,
                                    UHDM::BaseClass* parent);
+    /// § typeParamDefaultBoundNoReduce20 — the UNREDUCED packed-range bound of
+    /// a type parameter's DECLARATION DEFAULT (`Reduce::No` in Surelog's
+    /// `compileParameterDeclaration`).  Null when the bound cannot be built.
+    UHDM::expr* typeParamDefaultBound20(
+        const slang::syntax::ExpressionSyntax* bsyn, UHDM::BaseClass* parent,
+        const slang::ast::Scope* homeScope);
     /// Unfolded range-bound expression built from syntax (function/typedef
     /// typespecs keep "SIZE-1" as an operation tree with name-only refs).
     UHDM::any* emitSyntaxExpr(const slang::syntax::SyntaxNode& syn, UHDM::BaseClass* parent);

@@ -1,0 +1,73 @@
+LHS:
+decompile:
+package: pk (pk::), id:32, file:/tmp/wt_r11u20/tools/probe/r11u20repro/t4/dut.sv, line:4:1, endln:8:11
+|vpiParent:
+\_design: (work@dut), id:149
+|vpiName:pk
+|vpiFullName:pk::
+|vpiParameter:
+\_parameter: (pk::PW), id:34, line:5:18, endln:5:20
+  |vpiParent:
+  \_package: pk (pk::), id:32, file:/tmp/wt_r11u20/tools/probe/r11u20repro/t4/dut.sv, line:4:1, endln:8:11
+  |UINT:6
+  |vpiTypespec:
+  \_ref_typespec: (pk::PW), id:38
+    |vpiParent:
+    \_parameter: (pk::PW), id:34, line:5:18, endln:5:20
+    |vpiFullName:pk::PW
+    |vpiActual:
+    \_int_typespec: , id:33, line:5:14, endln:5:17
+  |vpiSigned:1
+  |vpiLocalParam:1
+  |vpiName:PW
+  |vpiFullName:pk::PW
+|vpiParameter:
+\_type_parameter: (pk::PPT), id:47, line:6:19, endln:6:22
+  |vpiParent:
+  \_package: pk (pk::), id:32, file:/tmp/wt_r11u20/tools/probe/r11u20repro/t4/dut.sv, line:4:1, endln:8:11
+  |vpiName:PPT
+  |vpiFullName:pk::PPT
+  |vpiTypespec:
+  \_ref_typespec: (pk::PPT), id:54
+    |vpiParent:
+    \_type_parameter: (pk::PPT), id:47, line:6:19, endln:6:22
+    |vpiFullName:pk::PPT
+    |vpiActual:
+    \_logic_typespec: , id:53, line:6:25, endln:6:39
+|vpiParameter:
+\_type_parameter: (pk::PLT), id:55, line:7:19, endln:7:22
+  |vpiParent:
+  \_package: pk (pk::), id:32, file:/tmp/wt_r11u20/tools/probe/r11u20repro/t4/dut.sv, line:4:1, endln:8:11
+  |vpiName:PLT
+  |vpiLocalParam:1
+  |vpiFullName:pk::PLT
+  |vpiTypespec:
+  \_ref_typespec: (pk::PLT), id:62
+    |vpiParent:
+    \_type_parameter: (pk::PLT), id:55, line:7:19, endln:7:22
+    |vpiFullName:pk::PLT
+    |vpiActual:
+    \_logic_typespec: , id:61, line:7:25, endln:7:39
+|vpiParamAssign:
+\_param_assign: , id:39, line:5:18, endln:5:24
+  |vpiParent:
+  \_package: pk (pk::), id:32, file:/tmp/wt_r11u20/tools/probe/r11u20repro/t4/dut.sv, line:4:1, endln:8:11
+  |vpiRhs:
+  \_constant: , id:45, line:5:23, endln:5:24
+    |vpiParent:
+    \_param_assign: , id:39, line:5:18, endln:5:24
+    |vpiDecompile:6
+    |vpiSize:64
+    |UINT:6
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:46
+      |vpiParent:
+      \_constant: , id:45, line:5:23, endln:5:24
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:33, line:5:14, endln:5:17
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::PW), id:34, line:5:18, endln:5:20
+|vpiDefName:pk
+RHS: <null>

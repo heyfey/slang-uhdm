@@ -1,0 +1,16 @@
+decompile:
+ref_obj: (work@dut.A1.W), id:15, line:6:34, endln:6:35
+|vpiParent:
+\_range: , id:14, line:6:33, endln:6:38
+|vpiName:W
+|vpiFullName:work@dut.A1.W
+
+decompile:
+constant: , id:19, line:6:34, endln:6:35
+|vpiParent:
+\_range: , id:18, line:6:33, endln:6:38
+|vpiDecompile:W
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+

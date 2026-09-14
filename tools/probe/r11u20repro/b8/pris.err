@@ -1,0 +1,9 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (cfg_pkg::build_config::xlen), id:96
+|vpiParent:
+\_ref_obj: (cfg_pkg::build_config::xlen), id:95, line:8:45, endln:8:49
+|vpiFullName:cfg_pkg::build_config::xlen
+|vpiActual:
+\_int_typespec: , id:22, line:6:38, endln:6:41

@@ -1,0 +1,29 @@
+decompile:
+operation: , id:14, line:2:66, endln:2:70
+|vpiParent:
+\_range: , id:12, line:2:65, endln:2:73
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@ifc.IT.IW), id:13, line:2:66, endln:2:68
+  |vpiParent:
+  \_operation: , id:14, line:2:66, endln:2:70
+  |vpiName:IW
+  |vpiFullName:work@ifc.IT.IW
+|vpiOperand:
+\_constant: , id:15, line:2:69, endln:2:70
+  |vpiParent:
+  \_operation: , id:14, line:2:66, endln:2:70
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+constant: , id:34, line:2:66, endln:2:70
+|vpiParent:
+\_range: , id:33, line:2:65, endln:2:73
+|vpiDecompile:IW-1
+|vpiSize:64
+|UINT:3
+|vpiConstType:9
+

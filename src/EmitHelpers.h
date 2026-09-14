@@ -583,6 +583,35 @@ inline const TypeParameterSymbol* portTypeParam(const Symbol& internal) {
     return nullptr;
 }
 
+// § pkgBodyCallNeverListsOnHolder20 — does the BARE name of this package
+// subroutine actually resolve to a package subroutine of that name FROM this
+// scope?  That is the question Surelog's own resolver answers before a module
+// lists a package function in its `vpiTaskFunc`, and the one the bare-spelling
+// test alone cannot: a package function called BARE inside its OWN package
+// body is re-emitted while `currentScope` is some module (the borrowed
+// initializer the assembled-struct family reduces for that module's elab
+// `param_assign` Rhs), and the spelling is bare there too.  An IMPORT — the
+// module's own, a parent scope's, or the compilation unit's — makes the name
+// resolve; nothing else does.  The resolved object need not be the SAME object
+// (an importing package contributes its own clone, § importedFreeCall...227),
+// so the test is name + package-homed subroutine, not pointer identity.
+inline bool importResolvesHere20(const Scope& scope, const SubroutineSymbol& sub) {
+    auto* home = sub.getParentScope();
+    if (!home || home->asSymbol().kind != SymbolKind::Package)
+        return false;
+    const Symbol* found = Lookup::unqualified(scope, sub.name);
+    if (!found)
+        return false;
+    if (found->kind == SymbolKind::ExplicitImport)
+        found = found->as<ExplicitImportSymbol>().importedSymbol();
+    else if (found->kind == SymbolKind::TransparentMember)
+        found = &found->as<TransparentMemberSymbol>().wrapped;
+    if (!found || found->kind != SymbolKind::Subroutine || found->name != sub.name)
+        return false;
+    auto* fh = found->getParentScope();
+    return fh && fh->asSymbol().kind == SymbolKind::Package;
+}
+
 // The `parameter type T` a TypeAliasType IS, or null for a real typedef.
 // slang models every type parameter as a same-named TypeAliasType in the
 // parameter's own scope (TypeParameterSymbol's ctor), whose syntax node is the

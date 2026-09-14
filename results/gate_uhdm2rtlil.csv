@@ -736,7 +736,7 @@ struct_member_expr_index,testflags,CMP_NOTEQUAL,decompile:,,
 struct_member_trailing_index,testflags,CMP_EQUAL,,,differ
 struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
 struct_param_dim,testflags,CMP_NOTEQUAL,decompile:,,
-struct_param_field_shift,testflags,CMP_NOTEQUAL,decompile:,,
+struct_param_field_shift,testflags,CMP_EQUAL,,,differ
 struct_param_func_arg,testflags,CMP_EQUAL,,,differ
 struct_param_func_config,testflags,CMP_EQUAL,,,differ
 struct_param_func_loop,testflags,CMP_EQUAL,,,differ
