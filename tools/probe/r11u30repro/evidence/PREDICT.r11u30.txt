@@ -1,0 +1,17 @@
+== r11u30 — the A-PRIORI mover prediction, from OUR PRISTINE databases ONLY
+== (pred30.cpp + predict30.sh; never golden, never the patched binary)
+
+-- uhdm2rtlil, both modes (pristine workdir):
+PREDICTED 0 / 1608 databases (6 carry an expression-inside at all)
+
+-- surelog suite, both modes (pristine workdir):
+PRED default/BuildUVMPkg-bf853d43 movable=3 exprinside=22 inside=22
+PRED default/MiniAmiq-544c7f61 movable=5 exprinside=58 inside=58
+PRED default/Scoreboard-59431470 movable=3 exprinside=47 inside=47
+PRED default/SeqDriver-32af76aa movable=5 exprinside=51 inside=51
+PRED default/SimpleUVM-1dc93a62 movable=3 exprinside=47 inside=47
+PRED testflags/BuildUVMPkg-bf853d43 movable=3 exprinside=22 inside=22
+PRED testflags/MiniAmiq-544c7f61 movable=5 exprinside=58 inside=58
+PRED testflags/SeqDriver-32af76aa movable=5 exprinside=51 inside=51
+PRED testflags/SimpleUVM-1dc93a62 movable=3 exprinside=47 inside=47
+PREDICTED 9 / 960 databases (13 carry an expression-inside at all)

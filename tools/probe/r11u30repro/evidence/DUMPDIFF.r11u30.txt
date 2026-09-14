@@ -1,0 +1,363 @@
+== r11u30 — WHOLE-DUMP FIDELITY DIFF (ids + workdir path normalised away)
+== golden vs pristine, then golden vs patched, for the arms that decide the law.
+== vpiParent and spans ARE included: this is the instrument the judge does not have.
+
+g99_a1_ifcond_def            golden-vs-pris DIFFLINES 100
+    -          \_operation: , line:7:20, endln:7:25
+    +          \_constant: , line:7:21, endln:7:22
+    -            |vpiOpType:37
+    -            |vpiOperand:
+    -            \_constant: , line:7:21, endln:7:22
+    -              |vpiDecompile:1
+    -              |vpiSize:64
+    -              |UINT:1
+    -              |vpiConstType:9
+    -            |vpiOperand:
+    -            \_constant: , line:7:23, endln:7:24
+    -              |vpiDecompile:3
+    -              |vpiSize:64
+    -              |UINT:3
+    -              |vpiConstType:9
+    +            |vpiDecompile:1
+    +            |vpiSize:64
+    +            |UINT:1
+    +            |vpiConstType:9
+    -          \_operation: , line:11:20, endln:11:21
+    +          \_constant: , line:11:20, endln:11:21
+    -            |vpiOpType:37
+    -            |vpiOperand:
+    -            \_constant: , line:11:20, endln:11:21
+    -              |vpiDecompile:4
+    -              |vpiSize:64
+    -              |UINT:4
+    -              |vpiConstType:9
+    -          |vpiOperand:
+    -          \_operation: , line:11:23, endln:11:28
+    -            |vpiParent:
+    -            \_operation: , line:11:9, endln:11:33
+    -            |vpiOpType:37
+    -            |vpiOperand:
+    -            \_constant: , line:11:24, endln:11:25
+    -              |vpiDecompile:6
+    -              |vpiSize:64
+    -              |UINT:6
+    -              |vpiConstType:9
+    -            |vpiOperand:
+g99_a1_ifcond_def            golden-vs-pat  DIFFLINES 4
+    +            |vpiParent:
+    +            \_operation: , line:23:9, endln:23:22
+    +            |vpiParent:
+    +            \_operation: , line:31:9, endln:31:30
+
+g99_a1_ifcond_elab           golden-vs-pris DIFFLINES 164
+    -          \_operation: , line:7:20, endln:7:25
+    +          \_constant: , line:7:21, endln:7:22
+    -            |vpiOpType:37
+    -            |vpiOperand:
+    -            \_constant: , line:7:21, endln:7:22
+    -              |vpiDecompile:1
+    -              |vpiSize:64
+    -              |UINT:1
+    -              |vpiConstType:9
+    -            |vpiOperand:
+    -            \_constant: , line:7:23, endln:7:24
+    -              |vpiDecompile:3
+    -              |vpiSize:64
+    -              |UINT:3
+    -              |vpiConstType:9
+    +            |vpiDecompile:1
+    +            |vpiSize:64
+    +            |UINT:1
+    +            |vpiConstType:9
+    -          \_operation: , line:11:20, endln:11:21
+    +          \_constant: , line:11:20, endln:11:21
+    -            |vpiOpType:37
+    -            |vpiOperand:
+    -            \_constant: , line:11:20, endln:11:21
+    -              |vpiDecompile:4
+    -              |vpiSize:64
+    -              |UINT:4
+    -              |vpiConstType:9
+    -          |vpiOperand:
+    -          \_operation: , line:11:23, endln:11:28
+    -            |vpiParent:
+    -            \_operation: , line:11:9, endln:11:33
+    -            |vpiOpType:37
+    -            |vpiOperand:
+    -            \_constant: , line:11:24, endln:11:25
+    -              |vpiDecompile:6
+    -              |vpiSize:64
+    -              |UINT:6
+    -              |vpiConstType:9
+    -            |vpiOperand:
+g99_a1_ifcond_elab           golden-vs-pat  DIFFLINES 4
+    +            |vpiParent:
+    +            \_operation: , line:23:9, endln:23:22
+    +            |vpiParent:
+    +            \_operation: , line:31:9, endln:31:30
+
+g30_b2_shapes_def            golden-vs-pris DIFFLINES 367
+    -        \_operation: , line:14:56, endln:14:61
+    +        \_constant: , line:14:57, endln:14:58
+    -          |vpiOpType:37
+    -          |vpiOperand:
+    -          \_constant: , line:14:57, endln:14:58
+    -            |vpiDecompile:1
+    -            |vpiSize:64
+    -            |UINT:1
+    -            |vpiConstType:9
+    -          |vpiOperand:
+    -          \_constant: , line:14:59, endln:14:60
+    -            |vpiDecompile:$
+    -            |vpiSize:1
+    -            |STRING:$
+    -            |vpiConstType:10
+    +          |vpiDecompile:1
+    +          |vpiSize:64
+    +          |UINT:1
+    +          |vpiConstType:9
+    -        \_operation: , line:15:56, endln:15:61
+    +        \_constant: , line:15:57, endln:15:58
+    -          |vpiOpType:37
+    -          |vpiOperand:
+    -          \_constant: , line:15:57, endln:15:58
+    -            |vpiDecompile:$
+    -            |vpiSize:1
+    -            |STRING:$
+    -            |vpiConstType:10
+    -          |vpiOperand:
+    -          \_constant: , line:15:59, endln:15:60
+    -            |vpiDecompile:9
+    -            |vpiSize:64
+    -            |UINT:9
+    -            |vpiConstType:9
+    +          |vpiDecompile:$
+    +          |vpiSize:1
+    +          |STRING:$
+    +          |vpiConstType:10
+    -        \_operation: , line:16:56, endln:16:57
+    +        \_constant: , line:16:56, endln:16:57
+g30_b2_shapes_def            golden-vs-pat  DIFFLINES 4
+    +          |vpiParent:
+    +          \_operation: , line:21:48, endln:21:70
+    +          |vpiParent:
+    +          \_operation: , line:21:48, endln:21:70
+
+g99_a9_fence_def             golden-vs-pris DIFFLINES 87
+    +          |vpiParent:
+    +          \_operation: , line:12:45, endln:12:58
+    +          |vpiParent:
+    +          \_operation: , line:13:45, endln:13:64
+    +          |vpiParent:
+    +          \_operation: , line:13:45, endln:13:64
+    +          |vpiParent:
+    +          \_operation: , line:13:45, endln:13:64
+    -          \_param_assign: , line:5:18, endln:5:24
+    +          \_operation: , line:14:45, endln:14:67
+    -          \_ref_typespec: (work@xi99)
+    +          \_ref_typespec: (work@xi99.c3)
+    -            |vpiFullName:work@xi99
+    +            |vpiFullName:work@xi99.c3
+    +          |vpiParent:
+    +          \_operation: , line:15:45, endln:15:67
+    +          |vpiParent:
+    +          \_operation: , line:18:48, endln:18:76
+    +          |vpiParent:
+    +          \_operation: , line:18:48, endln:18:76
+    +          |vpiParent:
+    +          \_operation: , line:18:48, endln:18:76
+    +          |vpiParent:
+    +          \_operation: , line:19:34, endln:19:50
+    +          |vpiParent:
+    +          \_operation: , line:19:34, endln:19:50
+    +            |vpiParent:
+    +            \_operation: , line:20:21, endln:20:40
+    +        |vpiParent:
+    +        \_operation: , line:11:17, endln:11:48
+    +        |vpiParent:
+    +        \_operation: , line:11:17, endln:11:48
+    +        |vpiParent:
+    +        \_operation: , line:11:17, endln:11:48
+    -    |vpiParent:
+    -    \_module_inst: work@xi99 (work@xi99), file:F, line:7:1, endln:21:10
+    -    |vpiRhs:
+    -    \_operation: , line:11:17, endln:11:48
+    -      |vpiParent:
+    -      \_cont_assign: , line:11:10, endln:11:48
+g99_a9_fence_def             golden-vs-pat  DIFFLINES 87
+    +          |vpiParent:
+    +          \_operation: , line:12:45, endln:12:58
+    +          |vpiParent:
+    +          \_operation: , line:13:45, endln:13:64
+    +          |vpiParent:
+    +          \_operation: , line:13:45, endln:13:64
+    +          |vpiParent:
+    +          \_operation: , line:13:45, endln:13:64
+    -          \_param_assign: , line:5:18, endln:5:24
+    +          \_operation: , line:14:45, endln:14:67
+    -          \_ref_typespec: (work@xi99)
+    +          \_ref_typespec: (work@xi99.c3)
+    -            |vpiFullName:work@xi99
+    +            |vpiFullName:work@xi99.c3
+    +          |vpiParent:
+    +          \_operation: , line:15:45, endln:15:67
+    +          |vpiParent:
+    +          \_operation: , line:18:48, endln:18:76
+    +          |vpiParent:
+    +          \_operation: , line:18:48, endln:18:76
+    +          |vpiParent:
+    +          \_operation: , line:18:48, endln:18:76
+    +          |vpiParent:
+    +          \_operation: , line:19:34, endln:19:50
+    +          |vpiParent:
+    +          \_operation: , line:19:34, endln:19:50
+    +            |vpiParent:
+    +            \_operation: , line:20:21, endln:20:40
+    +        |vpiParent:
+    +        \_operation: , line:11:17, endln:11:48
+    +        |vpiParent:
+    +        \_operation: , line:11:17, endln:11:48
+    +        |vpiParent:
+    +        \_operation: , line:11:17, endln:11:48
+    -    |vpiParent:
+    -    \_module_inst: work@xi99 (work@xi99), file:F, line:7:1, endln:21:10
+    -    |vpiRhs:
+    -    \_operation: , line:11:17, endln:11:48
+    -      |vpiParent:
+    -      \_cont_assign: , line:11:10, endln:11:48
+
+g99_a4_caseins_def           golden-vs-pris DIFFLINES 0
+g99_a4_caseins_def           golden-vs-pat  DIFFLINES 0
+
+g99_a7_shapes_def            golden-vs-pris DIFFLINES 164
+    -        \_operation: , line:13:23, endln:13:30
+    +        \_constant: , line:13:24, endln:13:26
+    -          |vpiOpType:37
+    -          |vpiOperand:
+    -          \_constant: , line:13:24, endln:13:26
+    +          |vpiDecompile:1
+    +          |vpiSize:32
+    +          |UINT:1
+    +          |vpiTypespec:
+    +          \_ref_typespec: (work@iota99.h1)
+    -            \_param_assign: , line:3:18, endln:3:24
+    -            |vpiDecompile:1
+    -            |vpiSize:32
+    -            |UINT:1
+    -            |vpiTypespec:
+    -            \_ref_typespec: (work@iota99)
+    -              |vpiParent:
+    -              \_constant: , line:13:24, endln:13:26
+    -              |vpiFullName:work@iota99
+    -              |vpiActual:
+    -              \_int_typespec: , line:3:14, endln:3:17
+    -            |vpiConstType:9
+    -          |vpiOperand:
+    -          \_constant: , line:13:27, endln:13:29
+    -            |vpiParent:
+    -            \_param_assign: , line:4:18, endln:4:24
+    -            |vpiDecompile:4
+    -            |vpiSize:32
+    -            |UINT:4
+    -            |vpiTypespec:
+    -            \_ref_typespec: (work@iota99)
+    -              |vpiParent:
+    -              \_constant: , line:13:27, endln:13:29
+    -              |vpiFullName:work@iota99
+    -              |vpiActual:
+    -              \_int_typespec: , line:4:14, endln:4:17
+    -            |vpiConstType:9
+    +            \_constant: , line:13:24, endln:13:26
+    +            |vpiFullName:work@iota99.h1
+    +            |vpiActual:
+g99_a7_shapes_def            golden-vs-pat  DIFFLINES 58
+    -            \_param_assign: , line:3:18, endln:3:24
+    +            \_operation: , line:13:23, endln:13:30
+    -            \_ref_typespec: (work@iota99)
+    +            \_ref_typespec: (work@iota99.h1)
+    -              |vpiFullName:work@iota99
+    +              |vpiFullName:work@iota99.h1
+    -            \_param_assign: , line:4:18, endln:4:24
+    +            \_operation: , line:13:23, endln:13:30
+    -            \_ref_typespec: (work@iota99)
+    +            \_ref_typespec: (work@iota99.h1)
+    -              |vpiFullName:work@iota99
+    +              |vpiFullName:work@iota99.h1
+    +          |vpiParent:
+    +          \_operation: , line:16:12, endln:16:38
+    +          |vpiParent:
+    +          \_operation: , line:22:12, endln:22:36
+    +          |vpiParent:
+    +          \_operation: , line:28:12, endln:28:34
+    +          |vpiParent:
+    +          \_operation: , line:28:12, endln:28:34
+    +\_int_typespec: , line:3:14, endln:3:17
+    +  |vpiParent:
+    +  \_ref_typespec: (work@iota99)
+    +  |vpiInstance:
+    +  \_package: theta99_pkg (theta99_pkg::), file:F, line:2:1, endln:5:11
+    +  |vpiSigned:1
+    +\_int_typespec: , line:3:14, endln:3:17
+    +  |vpiParent:
+    +  \_ref_typespec: (work@iota99.PA)
+    +  |vpiInstance:
+    +  \_package: theta99_pkg (theta99_pkg::), file:F, line:2:1, endln:5:11
+    +  |vpiSigned:1
+    -\_int_typespec: , line:3:14, endln:3:17
+    +\_int_typespec: , line:4:14, endln:4:17
+    -\_int_typespec: , line:3:14, endln:3:17
+    -  |vpiParent:
+    -  \_ref_typespec: (work@iota99.PA)
+    -  |vpiInstance:
+    -  \_package: theta99_pkg (theta99_pkg::), file:F, line:2:1, endln:5:11
+    -  |vpiSigned:1
+
+g99_a10_other_def            golden-vs-pris DIFFLINES 44
+    -        \_operation: , line:28:30, endln:28:35
+    +        \_constant: , line:28:31, endln:28:32
+    -          |vpiOpType:37
+    -          |vpiOperand:
+    -          \_constant: , line:28:31, endln:28:32
+    -            |vpiDecompile:1
+    -            |vpiSize:64
+    -            |UINT:1
+    -            |vpiConstType:9
+    -          |vpiOperand:
+    -          \_constant: , line:28:33, endln:28:34
+    -            |vpiDecompile:4
+    -            |vpiSize:64
+    -            |UINT:4
+    -            |vpiConstType:9
+    +          |vpiDecompile:1
+    +          |vpiSize:64
+    +          |UINT:1
+    +          |vpiConstType:9
+    -          \_operation: , line:31:25, endln:31:30
+    +          \_constant: , line:31:26, endln:31:27
+    -            |vpiOpType:37
+    -            |vpiOperand:
+    -            \_constant: , line:31:26, endln:31:27
+    -              |vpiDecompile:2
+    -              |vpiSize:64
+    -              |UINT:2
+    -              |vpiConstType:9
+    -            |vpiOperand:
+    -            \_constant: , line:31:28, endln:31:29
+    -              |vpiDecompile:6
+    -              |vpiSize:64
+    -              |UINT:6
+    -              |vpiConstType:9
+    +            |vpiDecompile:2
+    +            |vpiSize:64
+    +            |UINT:2
+    +            |vpiConstType:9
+    -      \_unsupported_typespec: (cg99), line:13:3, endln:13:22
+    +      \_unsupported_typespec: (cg99), line:13:3, endln:13:23
+g99_a10_other_def            golden-vs-pat  DIFFLINES 6
+    -      \_unsupported_typespec: (cg99), line:13:3, endln:13:22
+    +      \_unsupported_typespec: (cg99), line:13:3, endln:13:23
+    -  \_logic_var: (work@omega99.inst99), line:13:8, endln:13:22
+    +  \_logic_var: (work@omega99.inst99), line:13:8, endln:13:14
+    -\_unsupported_typespec: (cg99), line:13:3, endln:13:22
+    +\_unsupported_typespec: (cg99), line:13:3, endln:13:23
+

@@ -1,0 +1,83 @@
+== r11u30 — GATES, all mandatory, run in order.  LHS is ALWAYS golden.
+
+(1) BUILD + md5
+    pristine  62547ac98ebcfdeb522171dc946d50ad  == main tree at 4110f3de (asserted)
+    patched   0fc7b2ec16a79f41b5bc73ef10275de1
+    both frozen chmod 555 BEFORE any sweep; every cmds.txt audited by binary PATH
+    cmds.txt binary audit, by PATH (never the string "slang-uhdm", which also
+    matches the golden CACHE directory):
+      u2r     patched sweep : 1742 lines, all /tmp/r11u30_pat.bin, no other binary
+      surelog patched sweep : 1531 lines, all /tmp/r11u30_pat.bin, no other binary
+      surelog pristine sweep: 1531 lines, all /tmp/r11u30_pris.bin, no other binary
+
+(2) GOLDENS  PASS=23 FAIL=0   negative control SLANG_UHDM=/bin/false  PASS=0 FAIL=23
+
+(3) uhdm2rtlil, both modes
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+    768 CMP_EQUAL / 36 CMP_NOTEQUAL / 67 SLANG_REJECT, both modes, unchanged
+
+(5) BYTEVERIFY  SELFCHECK=1, patched vs MY OWN pristine workdirs
+    uhdm2rtlil : PATH_SETS_IDENTICAL (1608)  MOVERS 0 / 1608   SELFCHECK 1607/1608 flagged
+    surelog    : PATH_SETS_IDENTICAL (960)   MOVERS 9 /  960   SELFCHECK  959/ 960 flagged
+      MOVER ./default/BuildUVMPkg-bf853d43     patched=429a14a60924 pristine=6ea853f400f9
+      MOVER ./default/MiniAmiq-544c7f61        patched=27419f6011b4 pristine=e9183812b66f
+      MOVER ./default/Scoreboard-59431470      patched=1621aec6c9f3 pristine=61ee9cb4f6c1
+      MOVER ./default/SeqDriver-32af76aa       patched=0fac6c1ff5ba pristine=711c68a2910e
+      MOVER ./default/SimpleUVM-1dc93a62       patched=49d8efe2729b pristine=cbec4d608b72
+      MOVER ./testflags/BuildUVMPkg-bf853d43   patched=429a14a60924 pristine=6ea853f400f9
+      MOVER ./testflags/MiniAmiq-544c7f61      patched=27419f6011b4 pristine=e9183812b66f
+      MOVER ./testflags/SeqDriver-32af76aa     patched=2b726e3e0f19 pristine=f510448ceb2c
+      MOVER ./testflags/SimpleUVM-1dc93a62     patched=5069002c5b65 pristine=4e2da8724664
+    -- the mover set is EXACTLY the set PREDICTED BY NAME before the patched sweep
+       (evidence/PREDICT.r11u30.txt), 9 of 9, with no unpredicted mover.
+
+    ATTRIBUTION, ORDER-BLIND (attrib30.sh: workdir-normalised, SORTED dumps) --
+    four of these tests are the proven UVM coin family, so no line count is trusted:
+      default/BuildUVMPkg    17 lines   law cells 17   coin 0
+      default/MiniAmiq       17 lines   law cells 17   coin 0
+      default/Scoreboard     17 lines   law cells 17   coin 0
+      default/SeqDriver      21 lines   law cells 17   coin 4  (UINT 643 <-> 841 + decompiles)
+      default/SimpleUVM      17 lines   law cells 17   coin 0
+      testflags/BuildUVMPkg  17 lines   law cells 17   coin 0
+      testflags/MiniAmiq     17 lines   law cells 17   coin 0
+      testflags/SeqDriver    21 lines   law cells 17   coin 4  (UINT 639 <-> 633 + decompiles)
+      testflags/SimpleUVM    17 lines   law cells 17   coin 0
+    The 17 law lines are, every time, the SAME cells: the new operation(vpiListOp)
+    node, its two ref_obj operands (UVM_PHASE_STARTED + the UVM_PHASE_CLEANUP that
+    the pristine truncation DROPPED), their vpiParent/vpiName/vpiFullName rows and
+    the vpiOpType:37 row -- all at uvm_domain.svh:199 (single-unit line 35470 in
+    BuildUVMPkg).  The coin lines are the documented order-blind LINE-NUMBER class.
+    MOVED-WRONG 0 / AWAY-GOLDEN 0.
+
+(4) surelog suite, BOTH modes: 12 differing rows, every one read, none summarised:
+      9 = THE CLAIMED CONVERSIONS (quoted in README §7)
+      2 = LowMemLib/LowMemPkg testflags SURELOG_FAIL, whose CSV note field embeds
+          the WORKDIR PATH (/tmp/m187base/... -> /tmp/r11u30_wd/...); the status is
+          identical.  Not a change.
+      1 = Earlgrey_0_1/testflags CMP_EQUAL/differ -> CMP_EQUAL/<blank>: the
+          documented uhdm-dump timeout draw in the DUMP column.  The pin is the
+          DATABASE and it is byte-identical: 59d0ee6d10c3 both binaries.
+
+    PROTECTED DATABASES, patched vs pristine, by md5 (12/12 SAME):
+      SVSwitch          4842211c4030 == 4842211c4030   (HARD byte pin, both modes)
+      YosysVerx         6ccda350c24a == 6ccda350c24a   (HARD byte pin, both modes)
+      InterfaceModPort  59a365f3ce2c == 59a365f3ce2c
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5   SAME both modes
+      YosysOldOr        d68e0796d62c == d68e0796d62c
+      Earlgrey_0_1      8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)  SAME
+
+    canaries.sh  surelog : ok=44 changed=8 absent=0  -- the 8 are 7 of the 9 claimed
+                 conversions plus Earlgrey_0_1/testflags's dump-column draw above.
+    canaries.sh  u2r     : ok=8  changed=0 absent=0
+    ctcan2.sh    surelog : ok=58 changed=0 absent=0   PASS
+    ctcan2.sh    u2r     : ok=1  changed=0 absent=0   PASS
+    canaudit.sh          : audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+
+(6) THE CONVERSION, judged by uhdm-cmp rc alone, and TWICE for the coin rows:
+    run 1 (the full patched sweep)      : all 9 rows cmp rc=0, 0 lines, 0 heads
+    run 2 (an INDEPENDENT filtered sweep, its own workdir, its own databases):
+                                          all 9 rows cmp rc=0, 0 lines, 0 heads
+    surelog scoreboard  default   469/14 -> 474/9     (+5 CMP_EQUAL)
+                        testflags 465/12 -> 469/8     (+4 CMP_EQUAL)
+    uhdm2rtlil          both modes 768/36/67 UNCHANGED

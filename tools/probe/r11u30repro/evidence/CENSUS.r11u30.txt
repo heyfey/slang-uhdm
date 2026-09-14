@@ -1,0 +1,29 @@
+== r11u30 — THE CORPUS CENSUS (cen30.sh), keyed on what the judge reads:
+== one row per operation with vpiOpType 95 (vpiInsideOp) or 37 (vpiListOp) in the
+== uhdm-dump tree (= the REACHABLE tree).  LHS/G is ALWAYS golden.
+
+-- CALIBRATION FIRST, golden vs golden: the two MODE goldens of one test are
+-- different cache entries; the key must not manufacture a cell.
+   SeqDriver: golden(default) rows=52  golden(testflags) rows=52  differing lines=0
+   MiniAmiq: golden(default) rows=59  golden(testflags) rows=59  differing lines=0
+
+-- THE NINE PREDICTED MOVERS, three ways (golden / pristine / patched):
+default/BuildUVMPkg                [MULTISET] cells   13  ALREADY-OK   11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+default/BuildUVMPkg                [SET     ] cells   13  ALREADY-OK   11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+default/MiniAmiq                   [MULTISET] cells   56  ALREADY-OK   53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+default/MiniAmiq                   [SET     ] cells   56  ALREADY-OK   53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+default/Scoreboard                 [MULTISET] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+default/Scoreboard                 [SET     ] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+default/SeqDriver                  [MULTISET] cells   49  ALREADY-OK   46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+default/SeqDriver                  [SET     ] cells   49  ALREADY-OK   46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+default/SimpleUVM                  [MULTISET] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+default/SimpleUVM                  [SET     ] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+testflags/BuildUVMPkg              [MULTISET] cells   13  ALREADY-OK   11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+testflags/BuildUVMPkg              [SET     ] cells   13  ALREADY-OK   11  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+testflags/MiniAmiq                 [MULTISET] cells   56  ALREADY-OK   53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+testflags/MiniAmiq                 [SET     ] cells   56  ALREADY-OK   53  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+testflags/Scoreboard NOFILE /tmp/r11u30_wd/pris/sl/testflags/Scoreboard-59431470/slang.uhdm
+testflags/SeqDriver                [MULTISET] cells   49  ALREADY-OK   46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+testflags/SeqDriver                [SET     ] cells   49  ALREADY-OK   46  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   1
+testflags/SimpleUVM                [MULTISET] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0
+testflags/SimpleUVM                [SET     ] cells   47  ALREADY-OK   45  TO-GOLDEN   2  AWAY-GOLDEN   0  STILL   0

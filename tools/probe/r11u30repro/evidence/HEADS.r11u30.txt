@@ -1,0 +1,49 @@
+== r11u30 — THE NINE TARGET ROWS, before and after, official uhdm-cmp only.
+== rowheads.sh counts heads as grep -c '^LHS:' (cmp prints 'decompile:' twice per side).
+
+-- PRISTINE (my own build at 4110f3de, md5 62547ac9...):
+TEST           MODE      CMPLINES  HEADS NOTE
+BuildUVMPkg    default         50      1 cmp rc=255
+BuildUVMPkg    testflags       50      1 cmp rc=255
+MiniAmiq       default         50      1 cmp rc=255
+MiniAmiq       testflags       50      1 cmp rc=255
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         50      1 cmp rc=255
+SimpleUVM      testflags       50      1 cmp rc=255
+Scoreboard     default         50      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+-- measured=9  SKIP-NOFILE=1  UNKNOWN-NAME=0
+
+   all nine cmp outputs are THE SAME TEXT with ids and line numbers blinded:
+   md5 f54de5e82fdaf630e4a1628e437ee95d  (sed 's/id:[0-9]*/id:#/;s/line:[0-9]*/line:#/;s/endln:[0-9]*/endln:#/')
+   The head itself is evidence/head_pris_default_MiniAmiq.cmp.
+
+-- PATCHED (md5 0fc7b2ec...), run 1, the full sweep:
+TEST           MODE      CMPLINES  HEADS NOTE
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+MiniAmiq       default          0      0 cmp rc=0
+MiniAmiq       testflags        0      0 cmp rc=0
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+-- measured=9  SKIP-NOFILE=1  UNKNOWN-NAME=0
+
+-- PATCHED, run 2, an INDEPENDENT filtered sweep with its own workdir and its own
+   databases (the coin-family double-run the ops rules require):
+TEST           MODE      CMPLINES  HEADS NOTE
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+MiniAmiq       default          0      0 cmp rc=0
+MiniAmiq       testflags        0      0 cmp rc=0
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+-- measured=9  SKIP-NOFILE=1  UNKNOWN-NAME=0

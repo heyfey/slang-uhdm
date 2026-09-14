@@ -318,52 +318,56 @@ static UHDM::constant* namedSlotFiller4(UHDM::Serializer& s) {
     return c4;
 }
 
-// § insideSetFirstRangeTruncates99 — the gate for the `inside` set truncation.
-// Returns the ONE expression Surelog's `paINSIDE` arm actually compiles when
-// the open-range list forced the Open_range_list parse (some member is a
-// `[a:b]` range), or nullptr when the pristine full flatten is what golden
-// produces (no range member) or when the shape is the UNMODELLED splice (the
-// first bound is not a primary, so Surelog's `Child()` walk descends INTO it).
+// § insideOpenRangeMemberIsOneListOp30 — the gate for the `inside` set shape.
+// TRUE when the written set forced the `Open_range_list` parse, i.e. when SOME
+// member is a `[a:b]` value range; FALSE when every member is a plain value and
+// `{...}` parses as a (false) Concatenation instead.
 //
-//   {[A:B]}          -> A          {4, [6:8], 11} -> 4
-//   {[LO:HI]}        -> LO         {q[0], [2:3]}  -> q[0]
-//   {[a+1:b]}        -> nullptr (UNMODELLED: golden splices a, `+`, 1)
-//   {1, 2}  {x}      -> nullptr (no range member: golden flattens, as we do)
-static const slang::ast::Expression* insideTrunc99(
-    const slang::ast::InsideExpression& ie99) {
-    auto rl99 = ie99.rangeList();
-    if (rl99.empty())
-        return nullptr;
-    bool anyRange99 = false;
-    for (auto* m99 : rl99)
-        if (m99->kind == ExpressionKind::ValueRange) {
-            anyRange99 = true;
-            break;
-        }
-    if (!anyRange99)
-        return nullptr;
-    const slang::ast::Expression* first99 = rl99[0];
-    if (first99->kind == ExpressionKind::ValueRange)
-        first99 = &first99->as<slang::ast::ValueRangeExpression>().left();
-    // Surelog reaches the operand as `fC->Child(<that Expression node>)`: a
-    // PRIMARY has exactly one child and compiles whole, anything else has the
-    // operator token plus its own operands and gets spliced instead.
-    switch (first99->kind) {
-        case ExpressionKind::Invalid:
-        case ExpressionKind::UnaryOp:
-        case ExpressionKind::BinaryOp:
-        case ExpressionKind::ConditionalOp:
-        case ExpressionKind::Inside:
-        case ExpressionKind::Assignment:
-        case ExpressionKind::Dist:
-        case ExpressionKind::MinTypMax:
-        case ExpressionKind::TaggedUnion:
-        case ExpressionKind::ValueRange:
-            return nullptr;
+//   {[A:B]}   {4, [6:8], 11}   {q[0], [2:3]}   {[a+1:b]}   {[1:$]}   -> true
+//   {1, 2}    {x}              {nn+mm, 3}      {"aa","bb"}           -> false
+//
+// The two parses reach ONE Surelog arm
+// (`CompileHelper::compileExpression`, `paINSIDE`,
+// `src/DesignCompile/CompileExpression.cpp:2340`) and it now branches on the
+// node kind it finds: an `Open_range_list` has EVERY member compiled as its own
+// `Value_range` expression (each one a `vpiListOp`), a Concatenation is
+// flattened bare.  Replaces § `insideSetFirstRangeTruncates99`, which modelled
+// the v1.86 `Child(Child(rval))` navigation bug that Surelog v1.87 fixed.
+static bool insideOpenRange30(const slang::ast::InsideExpression& ie30) {
+    for (auto* m30 : ie30.rangeList())
+        if (m30->kind == ExpressionKind::ValueRange)
+            return true;
+    return false;
+}
+
+// § insideOpenRangeMemberIsOneListOp30, the PARENT half.  A bound (or a plain
+// member) that IS a literal is compiled by Surelog's constant path, which never
+// back-links, so golden's `vpiListOp` operand carries NO `vpiParent`; anything
+// deeper keeps the ordinary policy -- a COMPOUND member's own operands are
+// parented to their operation, literals included.  Measured on golden:
+// `{[1:3]}` leaves `1` and `3` unparented while `{[pv+1:pv+4]}` and
+// `{n30+1, [2:3]}` parent the `1` to the `+` operation
+// (tools/probe/r11u30repro arms a1 k1/k8, b2 md).  `vpiParent` is read by no
+// generated `Compare`, so this half is dump-fidelity, not judge-visible.
+static bool insideMemberIsLiteral30(const slang::ast::Expression& e30) {
+    // slang wraps the `$` of `[1:$]` (and a width-adjusted literal) in an
+    // implicit Conversion our emitters see through; the LITERAL underneath is
+    // what Surelog compiled, so read through it here too.
+    if (e30.kind == ExpressionKind::Conversion)
+        return insideMemberIsLiteral30(
+            e30.as<slang::ast::ConversionExpression>().operand());
+    switch (e30.kind) {
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::RealLiteral:
+        case ExpressionKind::TimeLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        case ExpressionKind::NullLiteral:
+        case ExpressionKind::StringLiteral:
+        case ExpressionKind::UnboundedLiteral:
+            return true;
         default:
-            break;
+            return false;
     }
-    return first99;
 }
 
 // § emptyArgSlotIntZero24 (emit half, the placeholder object).  The object a
@@ -33176,37 +33180,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // a inside {A, B, ...}: an operation (vpiInsideOp) whose operands
             // are the LHS followed by the flattened set members.
             //
-            // § insideSetFirstRangeTruncates99 — THE SET IS TRUNCATED TO ITS
-            // FIRST MEMBER'S FIRST PRIMARY THE MOMENT ANY MEMBER IS A `[a:b]`
-            // RANGE.  Surelog's `CompileHelper::compileExpression`
-            // (src/DesignCompile/CompileExpression.cpp:2339) has ONE arm for
-            // `paINSIDE`, written for the parse it names in its own comment --
-            // Expression -> Primary -> Concatenation -- and it reaches the set
-            // members as `fC->Child(fC->Child(rval))` then walks that node's
-            // SIBLINGS.  Two different parses reach it
-            // (`SV3_1aParser.g4:3525`, `expression INSIDE OPEN_CURLY
-            // open_range_list CLOSE_CURLY`):
+            // § insideOpenRangeMemberIsOneListOp30 — THE MOMENT ANY MEMBER IS A
+            // `[a:b]` RANGE, EVERY MEMBER OF THE SET IS ONE `vpiListOp`
+            // OPERATION -- two operands for a range, ONE for a plain value.
+            // Surelog's `CompileHelper::compileExpression`
+            // (`src/DesignCompile/CompileExpression.cpp:2340`, `paINSIDE`) sees
+            // the two parses of `expression INSIDE OPEN_CURLY open_range_list
+            // CLOSE_CURLY` (`SV3_1aParser.g4:3525`) and branches on the node it
+            // finds after the `INSIDE` token:
             //
-            //   * NO member is a range -> `{...}` parses as a Concatenation, so
-            //     `Child(Child(rval))` IS that Concatenation and the walk
-            //     yields EVERY member, each compiled whole.  Our pristine
-            //     flatten already matches; nothing here changes.
+            //   * NO member is a range -> `{...}` parses as a (false)
+            //     Concatenation; the arm walks `Child(Child(rval))`'s siblings
+            //     and pushes EVERY member compiled whole and BARE.  Our
+            //     pristine flatten already matches; nothing here changes.
+            //     THIS IS THE FENCE.
             //   * SOME member is a range -> `{...}` parses as an
-            //     `Open_range_list` of `Value_range`s, so `Child(Child(rval))`
-            //     is the FIRST Value_range's FIRST Expression and the walk
-            //     yields only THAT expression's children.  When that first
-            //     expression is a PRIMARY it has exactly one child, so the
-            //     inside operation ends up with exactly TWO operands: the LHS
-            //     and the first member's first bound.  Every later member, and
-            //     the range's upper bound, are DROPPED.
+            //     `Open_range_list`, and `:2350` walks its `Value_range`
+            //     children calling `compileExpression` on each.  The
+            //     `paValue_range` arm (`:1631`) mints ONE
+            //     `operation(vpiListOp)` per member, spanning the Value_range
+            //     node, with the low bound and -- only when the written member
+            //     has a second Expression sibling -- the high bound as its
+            //     operands.  A PLAIN member of such a set is therefore a
+            //     ONE-operand `vpiListOp` spanning just that expression.
             //
-            // It is a Surelog bug; golden is the spec, bugs included.  A first
-            // bound that is NOT a primary (`[a+1:b]`) makes Surelog splice that
-            // expression's own sub-nodes -- and an `unsupported_expr` for the
-            // operator token -- into the operand list; that shape is NOT
-            // modelled here, and such a set keeps the pristine emission (a
-            // no-op, never a wrong operand list).  Measured on golden in
-            // tools/probe/r10uvm99repro (arms a1/a2/a5/a6/a7/a8, both views).
+            // v1.87 replaces § `insideSetFirstRangeTruncates99` (r10uvm99),
+            // which modelled the v1.86 `Child(Child(rval))` navigation that
+            // landed INSIDE the first `Value_range` and compiled only its low
+            // bound.  The Surelog fix names the symptom in its own comment
+            // (`:2340-2348`): "`rm inside {[3'b000:3'b010]}` lost the range
+            // entirely".  Its corollary, also measured: a compound bound
+            // (`[a+1:b]`) is now compiled whole, so the v1.86 splice residue
+            // (r10uvm99 R1) is GONE and no member shape is left unmodelled.
+            //
+            // The wrap is the one a CASE-INSIDE item already builds
+            // (`src/StmtEmit.cpp:4864`) -- both shapes come from the same
+            // Surelog `paValue_range` arm -- with the parent half written per
+            // BOUND KIND here (§ above) instead of case-inside's blanket
+            // suppression, because an expression set reaches compound members
+            // that no case-inside arm has ever measured.  Measured on golden in
+            // tools/probe/r11u30repro (arms a1..a10 + b1..b3, both views).
             auto& ie = expr.as<InsideExpression>();
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiInsideOp);
@@ -33215,15 +33228,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* operands = s.MakeAnyVec();
             if (auto* l = emitExpr(ie.left(), op, prefix, netMap))
                 operands->push_back(l);
-            const slang::ast::Expression* trunc99 = insideTrunc99(ie);
-            if (trunc99) {
-                if (auto* e = emitExpr(*trunc99, op, prefix, netMap))
-                    operands->push_back(e);
-            }
-            else {
-                for (auto* rle : ie.rangeList())
+            const bool openRange30 = insideOpenRange30(ie);
+            for (auto* rle : ie.rangeList()) {
+                if (!openRange30) {
                     if (auto* e = emitExpr(*rle, op, prefix, netMap))
                         operands->push_back(e);
+                    continue;
+                }
+                if (rle->kind == ExpressionKind::ValueRange) {
+                    // The `ValueRange` arm below mints the member's own
+                    // two-bound list-op (and suppresses each LITERAL bound's
+                    // parent itself).
+                    if (auto* e = emitExpr(*rle, op, prefix, netMap))
+                        operands->push_back(e);
+                }
+                else {
+                    auto* ol30 = s.MakeOperation();
+                    ol30->VpiOpType(vpiListOp);
+                    ol30->VpiParent(op);
+                    setLoc(ol30, rle->sourceRange);
+                    auto* one30 = s.MakeAnyVec();
+                    bool scp30 = suppressConstParent;
+                    if (insideMemberIsLiteral30(*rle))
+                        suppressConstParent = true;
+                    auto* e30 = emitExpr(*rle, ol30, prefix, netMap);
+                    suppressConstParent = scp30;
+                    if (e30)
+                        one30->push_back(e30);
+                    ol30->Operands(one30);
+                    operands->push_back(ol30);
+                }
             }
             op->Operands(operands);
             return op;
@@ -33237,16 +33271,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             ol->VpiParent(parent);
             setLoc(ol, expr.sourceRange);
             auto* bounds = s.MakeAnyVec();
-            bool fcp2 = forceConstParent;
+            bool fcp2 = forceConstParent, scp2 = suppressConstParent;
             // Case-inside members leave their bounds unparented (caller sets
-            // suppressConstParent); a standalone `inside {[a:b]}` forces them.
-            if (!suppressConstParent)
-                forceConstParent = true;
-            if (auto* l = emitExpr(vr.left(), ol, prefix, netMap))
+            // suppressConstParent).  Everywhere else it is the BOUND'S OWN KIND
+            // that decides (§ insideOpenRangeMemberIsOneListOp30, the parent
+            // half): a LITERAL bound is compiled by Surelog's constant path and
+            // gets no back-link, while a compound bound keeps the ordinary
+            // policy for its own operands.
+            auto bound30 = [&](const slang::ast::Expression& b30) {
+                if (!scp2) {
+                    suppressConstParent = insideMemberIsLiteral30(b30);
+                    forceConstParent = !suppressConstParent;
+                }
+                auto* r30 = emitExpr(b30, ol, prefix, netMap);
+                suppressConstParent = scp2;
+                forceConstParent = fcp2;
+                return r30;
+            };
+            if (auto* l = bound30(vr.left()))
                 bounds->push_back(l);
-            if (auto* r = emitExpr(vr.right(), ol, prefix, netMap))
+            if (auto* r = bound30(vr.right()))
                 bounds->push_back(r);
-            forceConstParent = fcp2;
             ol->Operands(bounds);
             return ol;
         }

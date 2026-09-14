@@ -175,6 +175,17 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign refresh (2026-09-14, HEAD = the pass-29 landing).** The
+> matrix-1.87 branch (Surelog v1.87 + UHDM v1.87 + slang 7d61e0ad1 +
+> uhdm2rtlil v0.68) has landed 29 passes since the df23d880 rebaseline:
+> surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
+> are the three slang-fenced tests), uhdm2rtlil 768 equal / 36 not-equal /
+> 67 reject in both modes (of 871). The full per-row triage of every
+> remaining not-equal row lives at `tools/probe/r11u29repro/TRIAGE.md`
+> (12 clusters + 12 singletons, ranked; K1 closed by pass 29). The v1.86
+> table below is HISTORY.
+
+
 Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
 equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
 19 surelog NE row-modes = 8 slang-fenced (out of scope) + 11 addressable

@@ -1,0 +1,50 @@
+LHS:
+decompile:
+operation: , id:274268, line:199:63, endln:199:100
+|vpiParent:
+\_operation: , id:274267, line:199:38, endln:199:101
+|vpiOpType:37
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:274269, line:199:64, endln:199:81
+  |vpiParent:
+  \_operation: , id:274268, line:199:63, endln:199:100
+  |vpiName:UVM_PHASE_STARTED
+  |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:274270, line:199:82, endln:199:99
+  |vpiParent:
+  \_operation: , id:274268, line:199:63, endln:199:100
+  |vpiName:UVM_PHASE_CLEANUP
+  |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+
+decompile:
+operation: , id:274268, line:199:63, endln:199:100
+|vpiParent:
+\_operation: , id:274267, line:199:38, endln:199:101
+|vpiOpType:37
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:274269, line:199:64, endln:199:81
+  |vpiParent:
+  \_operation: , id:274268, line:199:63, endln:199:100
+  |vpiName:UVM_PHASE_STARTED
+  |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:274270, line:199:82, endln:199:99
+  |vpiParent:
+  \_operation: , id:274268, line:199:63, endln:199:100
+  |vpiName:UVM_PHASE_CLEANUP
+  |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+RHS:
+decompile:
+ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:25900, line:199:64, endln:199:81
+|vpiParent:
+\_operation: , id:25896, line:199:38, endln:199:101
+|vpiName:UVM_PHASE_STARTED
+|vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+
+decompile:
+ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:25900, line:199:64, endln:199:81
+|vpiParent:
+\_operation: , id:25896, line:199:38, endln:199:101
+|vpiName:UVM_PHASE_STARTED
+|vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED

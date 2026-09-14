@@ -167,8 +167,8 @@ BlockingAssignRewrite,default,CMP_EQUAL,,,match
 BlockingAssignRewrite,testflags,CMP_EQUAL,,,match
 BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
 BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
-BuildUVMPkg,default,CMP_NOTEQUAL,decompile:,,
-BuildUVMPkg,testflags,CMP_NOTEQUAL,decompile:,,
+BuildUVMPkg,default,CMP_EQUAL,,,differ
+BuildUVMPkg,testflags,CMP_EQUAL,,,differ
 BuiltInMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 BuiltInMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,differ
@@ -855,8 +855,8 @@ MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,match
 MBadder,testflags,CMP_EQUAL,,,match
-MiniAmiq,default,CMP_NOTEQUAL,decompile:,,
-MiniAmiq,testflags,CMP_NOTEQUAL,decompile:,,
+MiniAmiq,default,CMP_EQUAL,,,differ
+MiniAmiq,testflags,CMP_EQUAL,,,differ
 MinTypMax,default,CMP_EQUAL,,,match
 MinTypMax,testflags,CMP_EQUAL,,,match
 ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
@@ -1199,7 +1199,7 @@ Rsd,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Rsd,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 ScalarParam,default,CMP_EQUAL,,,match
 ScalarParam,testflags,CMP_EQUAL,,,match
-Scoreboard,default,CMP_NOTEQUAL,decompile:,,
+Scoreboard,default,CMP_EQUAL,,,differ
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
@@ -1211,8 +1211,8 @@ Selects,default,CMP_EQUAL,,,match
 Selects,testflags,CMP_EQUAL,,,match
 SelectSelect,default,CMP_EQUAL,,,match
 SelectSelect,testflags,CMP_EQUAL,,,match
-SeqDriver,default,CMP_NOTEQUAL,decompile:,,
-SeqDriver,testflags,CMP_NOTEQUAL,decompile:,,
+SeqDriver,default,CMP_EQUAL,,,differ
+SeqDriver,testflags,CMP_EQUAL,,,differ
 SequenceInst,default,CMP_NOTEQUAL,decompile:,,
 SequenceInst,testflags,CMP_NOTEQUAL,decompile:,,
 SeqUseNonTemp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
@@ -1255,8 +1255,8 @@ SimpleParserTestCache,default,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleParserTestCache,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleTask,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
 SimpleTask,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
-SimpleUVM,default,CMP_NOTEQUAL,decompile:,,
-SimpleUVM,testflags,CMP_NOTEQUAL,decompile:,,
+SimpleUVM,default,CMP_EQUAL,,,differ
+SimpleUVM,testflags,CMP_EQUAL,,,differ
 SimpleVMM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimpleVMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimplifyHierPath,default,CMP_EQUAL,,,match

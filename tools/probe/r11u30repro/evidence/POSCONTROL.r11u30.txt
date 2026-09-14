@@ -1,0 +1,35 @@
+== r11u30 — THE POSITIVE CONTROLS for the two census/prediction ZEROES
+== (MEASUREMENT ONLY.  LHS is always golden.)
+
+1. "uhdm2rtlil: 0 of 1608 databases can move" is NOT vacuous.
+   Six pristine u2r databases DO carry an expression-`inside` operation and the
+   same predictor reads them as immovable, because every one of their sets is
+   RANGE-FREE (the fence):
+
+   default/GenIfInside-dc202132 movable=0 exprinside=1
+   default/ibex_load_store_unit-9ce13cfd movable=0 exprinside=10
+   default/OneInside-c2cdd871 movable=0 exprinside=2
+   testflags/GenIfInside-dc202132 movable=0 exprinside=1
+   testflags/ibex_load_store_unit-9ce13cfd movable=0 exprinside=10
+   testflags/OneInside-c2cdd871 movable=0 exprinside=2
+
+   and their written sets, read off the corpus sources:
+     test/OneInside/dut.sv:9              a inside {OP_1, OP_2, OP_3}
+     test/GenIfInside/dut.sv:21           GetWhat inside {Get0, GetDefault}
+     test/ibex/rtl/ibex_load_store_unit.sv:571,574,599,601,603,614
+                                          ls_fsm_cs inside {WAIT_RVALID_MIS, ...}
+   -- every member a plain value, so Surelog parses `{...}` as a Concatenation
+   and flattens it, which is what our pristine emitter already did.
+
+2. The SAME predictor says YES where the law fires: 9 surelog databases
+   (movable=3..5 each) and, on the grid arms, PRED 4/8 on a1 and 10/12 on b2.
+
+3. The strongest in-corpus fence witness is a CANARY.  Earlgrey_0_1 carries
+   14 (default) / 25 (testflags) expression-`inside` operations -- 54 / 105
+   `inside` operations in all -- and is predicted immovable; it is a
+   CMP_EQUAL-must-stay-equal row with a database BYTE pin.
+   SVSwitch, the hard byte pin, writes `inside` TWICE, and one of the two IS a
+   range: `constraint payload_size_c { data.size inside { [1 : 250]};}`
+   (`third_party/tests/SVSwitch/Packet.sv:28`).  Golden emits NO operation for a
+   constraint body at all (grid arm a3: golden op95=0 op37=0), and neither do
+   we, so the pin is safe BY THE MEASURED SHAPE, not by luck.
