@@ -1,0 +1,29 @@
+LHS:
+decompile:
+type_parameter: (work@leaf.LT), id:7, line:6:21, endln:6:23
+|vpiParent:
+\_module_inst: work@leaf (work@leaf), id:78, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t3/dut.sv, line:4:1, endln:10:10
+|vpiName:LT
+|vpiLocalParam:1
+|vpiFullName:work@leaf.LT
+|vpiTypespec:
+\_ref_typespec: (work@leaf.LT), id:12
+  |vpiParent:
+  \_type_parameter: (work@leaf.LT), id:7, line:6:21, endln:6:23
+  |vpiFullName:work@leaf.LT
+  |vpiActual:
+  \_logic_typespec: , id:11, line:6:26, endln:6:37
+RHS:
+decompile:
+type_parameter: (work@leaf.LT), id:8, line:6:21, endln:6:23
+|vpiParent:
+\_module_inst: work@leaf (work@leaf), id:3, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t3/dut.sv, line:4:1, endln:10:10
+|vpiName:LT
+|vpiFullName:work@leaf.LT
+|vpiTypespec:
+\_ref_typespec: (work@leaf.LT), id:9
+  |vpiParent:
+  \_type_parameter: (work@leaf.LT), id:8, line:6:21, endln:6:23
+  |vpiFullName:work@leaf.LT
+  |vpiActual:
+  \_logic_typespec: , id:10, line:6:26, endln:6:37

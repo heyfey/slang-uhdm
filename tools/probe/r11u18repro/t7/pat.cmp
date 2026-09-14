@@ -1,0 +1,113 @@
+decompile:
+class_typespec: (cls), id:35, line:8:3, endln:8:6
+|vpiParent:
+\_class_var: (work@user::h), id:44, line:8:22, endln:8:23
+|vpiName:cls
+|vpiParameter:
+\_type_parameter: (work@user::h::cls::CT), id:41, line:3:28, endln:3:30
+  |vpiParent:
+  \_class_typespec: (cls), id:35, line:8:3, endln:8:6
+  |vpiName:CT
+  |vpiFullName:work@user::h::cls::CT
+  |vpiTypespec:
+  \_ref_typespec: (work@user::h::cls::CT), id:42
+    |vpiParent:
+    \_type_parameter: (work@user::h::cls::CT), id:41, line:3:28, endln:3:30
+    |vpiFullName:work@user::h::cls::CT
+    |vpiActual:
+    \_logic_typespec: , id:40, line:8:9, endln:8:20
+|vpiParamAssign:
+\_param_assign: , id:43, line:3:28, endln:3:30
+  |vpiParent:
+  \_class_typespec: (cls), id:35, line:8:3, endln:8:6
+  |vpiRhs:
+  \_type_parameter: (work@user::h::cls::CT), id:41, line:3:28, endln:3:30
+  |vpiLhs:
+  \_type_parameter: (work@cls::CT), id:6, line:3:28, endln:3:30
+    |vpiParent:
+    \_class_defn: (work@cls), id:1, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t7/dut.sv, line:3:1, endln:6:9
+    |vpiName:CT
+    |vpiFullName:work@cls::CT
+    |vpiTypespec:
+    \_ref_typespec: (work@cls::CT), id:8
+      |vpiParent:
+      \_type_parameter: (work@cls::CT), id:6, line:3:28, endln:3:30
+      |vpiFullName:work@cls::CT
+      |vpiActual:
+      \_int_typespec: , id:7, line:3:33, endln:3:36
+|vpiClassDefn:
+\_class_defn: (work@cls), id:1, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t7/dut.sv, line:3:1, endln:6:9
+
+decompile:
+class_typespec: (cls), id:47, line:8:3, endln:8:21
+|vpiParent:
+\_class_var: (work@user::h), id:25, line:8:22, endln:8:23
+|vpiName:cls
+|vpiParameter:
+\_type_parameter: (cls.CT), id:48, line:3:28, endln:3:30
+  |vpiParent:
+  \_class_typespec: (cls), id:47, line:8:3, endln:8:21
+  |vpiName:CT
+  |vpiFullName:cls.CT
+  |vpiTypespec:
+  \_ref_typespec: (cls.CT), id:49
+    |vpiParent:
+    \_type_parameter: (cls.CT), id:48, line:3:28, endln:3:30
+    |vpiFullName:cls.CT
+    |vpiActual:
+    \_logic_typespec: , id:50, line:8:9, endln:8:20
+|vpiParameter:
+\_type_parameter: (cls.CLT), id:55, line:3:54, endln:3:57
+  |vpiParent:
+  \_class_typespec: (cls), id:47, line:8:3, endln:8:21
+  |vpiName:CLT
+  |vpiFullName:cls.CLT
+  |vpiTypespec:
+  \_ref_typespec: (cls.CLT), id:56
+    |vpiParent:
+    \_type_parameter: (cls.CLT), id:55, line:3:54, endln:3:57
+    |vpiFullName:cls.CLT
+    |vpiActual:
+    \_byte_typespec: , id:57, line:3:60, endln:3:64
+|vpiParamAssign:
+\_param_assign: , id:54, line:3:28, endln:3:30
+  |vpiParent:
+  \_class_typespec: (cls), id:47, line:8:3, endln:8:21
+  |vpiRhs:
+  \_type_parameter: (cls.CT), id:48, line:3:28, endln:3:30
+  |vpiLhs:
+  \_type_parameter: (work@cls::CT), id:12, line:3:28, endln:3:30
+    |vpiParent:
+    \_class_defn: (work@cls), id:7, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t7/dut.sv, line:3:1, endln:6:9
+    |vpiName:CT
+    |vpiFullName:work@cls::CT
+    |vpiTypespec:
+    \_ref_typespec: (work@cls::CT), id:13
+      |vpiParent:
+      \_type_parameter: (work@cls::CT), id:12, line:3:28, endln:3:30
+      |vpiFullName:work@cls::CT
+      |vpiActual:
+      \_int_typespec: , id:14, line:9:9, endln:9:12
+|vpiParamAssign:
+\_param_assign: , id:58, line:3:54, endln:3:57
+  |vpiParent:
+  \_class_typespec: (cls), id:47, line:8:3, endln:8:21
+  |vpiRhs:
+  \_type_parameter: (cls.CLT), id:55, line:3:54, endln:3:57
+  |vpiLhs:
+  \_type_parameter: (work@cls::CLT), id:15, line:3:54, endln:3:57
+    |vpiParent:
+    \_class_defn: (work@cls), id:7, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t7/dut.sv, line:3:1, endln:6:9
+    |vpiName:CLT
+    |vpiLocalParam:1
+    |vpiFullName:work@cls::CLT
+    |vpiTypespec:
+    \_ref_typespec: (work@cls::CLT), id:16
+      |vpiParent:
+      \_type_parameter: (work@cls::CLT), id:15, line:3:54, endln:3:57
+      |vpiFullName:work@cls::CLT
+      |vpiActual:
+      \_byte_typespec: , id:17, line:3:60, endln:3:64
+|vpiClassDefn:
+\_class_defn: (work@cls), id:7, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t7/dut.sv, line:3:1, endln:6:9
+

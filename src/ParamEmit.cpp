@@ -2303,6 +2303,54 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                         st.values[i] = cc9;
             }
         }
+        // § memLeftFormalReadTs18 (r11u18) — THE FORMAL'S TYPESPEC ON A
+        // WHOLE-FORMAL-READ LEFTOVER.  `c.M = <formal>` reduces to the
+        // CALLER's actual, and golden's leftover carries a ref_typespec to
+        // THE FORMAL's own typespec — measured on every cell of the b-grid:
+        //   b4 `cfg.XLEN = xlen`, actual `64`      -> `int unsigned xlen`'s int
+        //   b5 `c.b = xb`, actual `8'hAB`          -> `logic [7:0] xb`'s logic
+        //   b6 `c.a = xa` / `c.b = xb`             -> `bit` / `byte`
+        //   b7 actual a PARAMETER (`PL`, logic[7:0])-> the FORMAL's int, not
+        //                                             the parameter's own
+        //   b8 actual an EXPRESSION / a nested CALL -> still the formal's int
+        //   b3 NAMED, REORDERED actuals             -> each member's OWN formal
+        //   b9 the MODULE-holder twin of b5         -> identical cells
+        // and ABSENT for a member that is not a whole formal read (b4's
+        // `XLEN_ALIGN_BYTES = $clog2(...)` leftover is bare).
+        //
+        // The Actual is the formal typespec the SUBROUTINE emission already
+        // built (`subMap[...].argTs`), never a fresh mint, so the object count
+        // does not move and the two views share one typespec exactly as golden
+        // does.  The stamp lands ONLY on `minted` — the constant this stamp
+        // itself built: every other candidate in `values` is an object SHARED
+        // with the parameter or the body statement it was resolved from, and
+        // golden re-stamps a CLONE there (grid b7), so writing through the
+        // share would corrupt the original.  Those cells keep the encoding and
+        // the typespec they already agree with golden on
+        // (param_nested_struct_field_width `pk::cfg_t.u`).
+        if (st.fnSym) {
+            auto sit = subMap.find(st.fnSym);
+            if (sit != subMap.end()) {
+                auto& ats = sit->second.argTs;
+                for (size_t i = 0;
+                     i < st.formalIdx.size() && i < st.values.size() &&
+                     i < st.minted.size();
+                     i++) {
+                    int fi = st.formalIdx[i];
+                    if (fi < 0 || (size_t)fi >= ats.size() || !ats[fi].first)
+                        continue;
+                    auto* v = st.values[i];
+                    if (!v || v != st.minted[i] || v->Typespec())
+                        continue;
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiParent(v);
+                    if (!st.tsPrefix.empty())
+                        rt->VpiFullName(st.tsPrefix);
+                    rt->Actual_typespec(ats[fi].first);
+                    v->Typespec(rt);
+                }
+            }
+        }
     }
     std::set<const UHDM::struct_typespec*> done;
     auto stamp = [&](UHDM::typespec* ts) {
@@ -9109,6 +9157,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         !ps.getValue().integer().hasUnknown()) {
                         auto& whole = ps.getValue().integer();
                         SrlgMemLeftStamp st9;
+                        // § memLeftFormalReadTs18 — the builder subroutine and
+                        // the ref's VpiFullName, captured here because the
+                        // drain runs design-final.  `mlSub` is the call this
+                        // stamp came from; the prefix is the holder's, with the
+                        // package's trailing `::` stripped (the existing
+                        // `wantTs` idiom below), and EMPTY outside a package.
+                        st9.fnSym = mlSub;
+                        if (inPackage || isImported) {
+                            st9.tsPrefix = prefix;
+                            if (st9.tsPrefix.size() >= 2 &&
+                                st9.tsPrefix.compare(st9.tsPrefix.size() - 2, 2,
+                                                     "::") == 0)
+                                st9.tsPrefix.resize(st9.tsPrefix.size() - 2);
+                        }
                         bool ok9 = true;
                         size_t li9 = 0;
                         for (auto& f9 :
@@ -9192,6 +9254,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                             }
                             st9.memBits.push_back(std::move(cb9));
+                            // § memLeftFormalReadTs18 — the formal's index for
+                            // a member written from a WHOLE FORMAL READ.
+                            st9.formalIdx.push_back((*leftovers)[li9].argWhole);
                             li9++;
                         }
                         if (ok9 && !st9.names.empty() &&
@@ -9248,6 +9313,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             : '0';
                                 st9.owner = &ps;
                                 st9.pkgHolder = true;
+                                // § memLeftFormalReadTs18 — the objects THIS
+                                // stamp minted, snapshotted before the drain's
+                                // reuse resolutions can replace any of them.
+                                st9.minted = st9.values;
                                 memLeftStamps.push_back(st9);
                                 size_t stIdx9 = memLeftStamps.size() - 1;
                                 auto* c9 = s.MakeConstant();
@@ -9317,6 +9386,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                         else if (ok9 && !st9.names.empty()) {
                             st9.owner = &ps;
+                            // § memLeftFormalReadTs18 — the MODULE holder's
+                            // leftovers take the same stamp (golden grid
+                            // b5 ≡ b9, every cell identical across the two
+                            // holders: `setValueInInstance` never sees who
+                            // holds the parameter).
+                            st9.minted = st9.values;
                             memLeftStamps.push_back(st9);
                             auto* sv9 = s.MakeStruct_var();
                             setLoc(sv9, init->sourceRange);
@@ -16708,6 +16783,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         tp->VpiName(tps.name);
         tp->VpiFullName(joinPath(prefix, tps.name));
         tp->VpiParent(m);
+        // § typeParamLocalKeyword18 — a TYPE parameter's vpiLocalParam follows
+        // the WRITTEN keyword, exactly as a value parameter's does
+        // (CompileHelper::compileParameterDeclaration's `localParam` argument
+        // is `paLocal_parameter_declaration` vs `paParameter_declaration`,
+        // Surelog `src/DesignCompile/CompileModule.cpp` 719-770, and the flag
+        // is written at `CompileHelper.cpp:3486` / `:3628` for the two type
+        // arms).  The golden grid holds it in EVERY scope and both views:
+        // module ANSI port list and module BODY (t1), package (t2), instance
+        // override copies (t3), interface and NON-ANSI header (t4), class defn
+        // (t6), wildcard-imported package copies (t8), and a keyword-OMITTED
+        // continuation declarator inherits the previous keyword (t9 `LB`).
+        // slang's own `isLocalParam()` is the LRM-derived flag and disagrees:
+        // a module-BODY `parameter type` under an ANSI header is local to slang
+        // and NOT local to Surelog (t1 `PT2`).
+        if (typeParamLocalKeyword18(tps))
+            tp->VpiLocalParam(true);
         if (!topView)
             setLoc(tp, SourceRange(tps.location, tps.location + tps.name.size()));
         auto* rt = s.MakeRef_typespec();

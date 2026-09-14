@@ -1,0 +1,9 @@
+LHS:
+decompile:
+ref_typespec: (pk), id:139
+|vpiParent:
+\_constant: , id:125, line:10:29, endln:10:31
+|vpiFullName:pk
+|vpiActual:
+\_int_typespec: , id:38, line:7:31, endln:7:34
+RHS: <null>

@@ -1,0 +1,29 @@
+LHS:
+decompile:
+type_parameter: (work@dut.sel_t), id:105, line:11:26, endln:11:31
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:179, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t5/dut.sv, line:8:1, endln:15:10
+|vpiName:sel_t
+|vpiLocalParam:1
+|vpiFullName:work@dut.sel_t
+|vpiTypespec:
+\_ref_typespec: (work@dut.sel_t), id:112
+  |vpiParent:
+  \_type_parameter: (work@dut.sel_t), id:105, line:11:26, endln:11:31
+  |vpiFullName:work@dut.sel_t
+  |vpiActual:
+  \_logic_typespec: , id:111, line:11:34, endln:11:47
+RHS:
+decompile:
+type_parameter: (work@dut.sel_t), id:61, line:11:26, endln:11:31
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:48, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t5/dut.sv, line:8:1, endln:15:10
+|vpiName:sel_t
+|vpiFullName:work@dut.sel_t
+|vpiTypespec:
+\_ref_typespec: (work@dut.sel_t), id:62
+  |vpiParent:
+  \_type_parameter: (work@dut.sel_t), id:61, line:11:26, endln:11:31
+  |vpiFullName:work@dut.sel_t
+  |vpiActual:
+  \_logic_typespec: , id:63, line:11:34, endln:11:47

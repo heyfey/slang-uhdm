@@ -1,0 +1,9 @@
+LHS:
+decompile:
+ref_typespec: (cfg_pkg), id:74
+|vpiParent:
+\_constant: , id:72, line:14:46, endln:14:48
+|vpiFullName:cfg_pkg
+|vpiActual:
+\_int_typespec: , id:13, line:8:41, endln:8:44
+RHS: <null>

@@ -1,0 +1,14 @@
+LHS: <null>
+RHS:
+decompile:
+constant: , id:230, line:21:30, endln:21:80
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: , id:248
+  |vpiParent:
+  \_constant: , id:230, line:21:30, endln:21:80
+  |vpiActual:
+  \_int_typespec: , id:36, line:13:31, endln:13:34
+|vpiConstType:9

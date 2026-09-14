@@ -1,0 +1,109 @@
+LHS:
+decompile:
+package: pk (pk::), id:41, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t8/dut.sv, line:3:1, endln:8:11
+|vpiParent:
+\_design: (work@dut), id:218
+|vpiName:pk
+|vpiFullName:pk::
+|vpiParameter:
+\_type_parameter: (pk::PT), id:42, line:4:19, endln:4:21
+  |vpiParent:
+  \_package: pk (pk::), id:41, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t8/dut.sv, line:3:1, endln:8:11
+  |vpiName:PT
+  |vpiFullName:pk::PT
+  |vpiTypespec:
+  \_ref_typespec: (pk::PT), id:47
+    |vpiParent:
+    \_type_parameter: (pk::PT), id:42, line:4:19, endln:4:21
+    |vpiFullName:pk::PT
+    |vpiActual:
+    \_logic_typespec: , id:46, line:4:24, endln:4:35
+|vpiParameter:
+\_type_parameter: (pk::LT), id:48, line:5:19, endln:5:21
+  |vpiParent:
+  \_package: pk (pk::), id:41, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t8/dut.sv, line:3:1, endln:8:11
+  |vpiName:LT
+  |vpiLocalParam:1
+  |vpiFullName:pk::LT
+  |vpiTypespec:
+  \_ref_typespec: (pk::LT), id:53
+    |vpiParent:
+    \_type_parameter: (pk::LT), id:48, line:5:19, endln:5:21
+    |vpiFullName:pk::LT
+    |vpiActual:
+    \_logic_typespec: , id:52, line:5:24, endln:5:35
+|vpiParameter:
+\_parameter: (pk::PV), id:55, line:6:19, endln:6:21
+  |vpiParent:
+  \_package: pk (pk::), id:41, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t8/dut.sv, line:3:1, endln:8:11
+  |UINT:1
+  |vpiTypespec:
+  \_ref_typespec: (pk::PV), id:59
+    |vpiParent:
+    \_parameter: (pk::PV), id:55, line:6:19, endln:6:21
+    |vpiFullName:pk::PV
+    |vpiActual:
+    \_int_typespec: , id:54, line:6:14, endln:6:17
+  |vpiSigned:1
+  |vpiName:PV
+  |vpiFullName:pk::PV
+|vpiParameter:
+\_parameter: (pk::LV), id:69, line:7:19, endln:7:21
+  |vpiParent:
+  \_package: pk (pk::), id:41, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t8/dut.sv, line:3:1, endln:8:11
+  |UINT:2
+  |vpiTypespec:
+  \_ref_typespec: (pk::LV), id:72
+    |vpiParent:
+    \_parameter: (pk::LV), id:69, line:7:19, endln:7:21
+    |vpiFullName:pk::LV
+    |vpiActual:
+    \_int_typespec: , id:68, line:7:14, endln:7:17
+  |vpiSigned:1
+  |vpiLocalParam:1
+  |vpiName:LV
+  |vpiFullName:pk::LV
+|vpiParamAssign:
+\_param_assign: , id:60, line:6:19, endln:6:25
+  |vpiParent:
+  \_package: pk (pk::), id:41, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t8/dut.sv, line:3:1, endln:8:11
+  |vpiRhs:
+  \_constant: , id:66, line:6:24, endln:6:25
+    |vpiParent:
+    \_param_assign: , id:60, line:6:19, endln:6:25
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:67
+      |vpiParent:
+      \_constant: , id:66, line:6:24, endln:6:25
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:54, line:6:14, endln:6:17
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::PV), id:55, line:6:19, endln:6:21
+|vpiParamAssign:
+\_param_assign: , id:73, line:7:19, endln:7:25
+  |vpiParent:
+  \_package: pk (pk::), id:41, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t8/dut.sv, line:3:1, endln:8:11
+  |vpiRhs:
+  \_constant: , id:79, line:7:24, endln:7:25
+    |vpiParent:
+    \_param_assign: , id:73, line:7:19, endln:7:25
+    |vpiDecompile:2
+    |vpiSize:64
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:80
+      |vpiParent:
+      \_constant: , id:79, line:7:24, endln:7:25
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:68, line:7:14, endln:7:17
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::LV), id:69, line:7:19, endln:7:21
+|vpiDefName:pk
+RHS: <null>

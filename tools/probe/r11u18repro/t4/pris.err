@@ -1,0 +1,29 @@
+LHS:
+decompile:
+type_parameter: (work@ifc.ILT), id:8, line:2:58, endln:2:61
+|vpiParent:
+\_interface_inst: work@ifc (work@ifc), id:52, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t4/dut.sv, line:2:1, endln:4:13
+|vpiName:ILT
+|vpiLocalParam:1
+|vpiFullName:work@ifc.ILT
+|vpiTypespec:
+\_ref_typespec: (work@ifc.ILT), id:10
+  |vpiParent:
+  \_type_parameter: (work@ifc.ILT), id:8, line:2:58, endln:2:61
+  |vpiFullName:work@ifc.ILT
+  |vpiActual:
+  \_byte_typespec: , id:9, line:2:64, endln:2:68
+RHS:
+decompile:
+type_parameter: (work@ifc.ILT), id:15, line:2:58, endln:2:61
+|vpiParent:
+\_interface_inst: work@ifc (work@ifc), id:3, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t4/dut.sv, line:2:1, endln:4:13
+|vpiName:ILT
+|vpiFullName:work@ifc.ILT
+|vpiTypespec:
+\_ref_typespec: (work@ifc.ILT), id:16
+  |vpiParent:
+  \_type_parameter: (work@ifc.ILT), id:15, line:2:58, endln:2:61
+  |vpiFullName:work@ifc.ILT
+  |vpiActual:
+  \_byte_typespec: , id:17, line:2:64, endln:2:68

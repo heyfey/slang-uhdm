@@ -1,0 +1,28 @@
+decompile:
+constant: , id:101, line:10:41, endln:10:46
+|vpiParent:
+\_func_call: (pk::mk), id:98, line:10:30, endln:10:34
+|vpiDecompile:8'hAB
+|vpiSize:8
+|HEX:AB
+|vpiTypespec:
+\_ref_typespec: , id:106
+  |vpiParent:
+  \_constant: , id:101, line:10:41, endln:10:46
+  |vpiActual:
+  \_logic_typespec: , id:23, line:5:48, endln:5:53
+|vpiConstType:5
+
+decompile:
+constant: , id:107, line:10:30, endln:10:47
+|vpiDecompile:171
+|vpiSize:64
+|UINT:171
+|vpiTypespec:
+\_ref_typespec: , id:121
+  |vpiParent:
+  \_constant: , id:107, line:10:30, endln:10:47
+  |vpiActual:
+  \_logic_typespec: , id:21, line:5:48, endln:5:53
+|vpiConstType:9
+

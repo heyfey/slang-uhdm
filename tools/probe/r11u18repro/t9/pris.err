@@ -1,0 +1,29 @@
+LHS:
+decompile:
+type_parameter: (work@dut.LA), id:1, line:4:21, endln:4:23
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:64, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t9/dut.sv, line:3:1, endln:12:10
+|vpiName:LA
+|vpiLocalParam:1
+|vpiFullName:work@dut.LA
+|vpiTypespec:
+\_ref_typespec: (work@dut.LA), id:3
+  |vpiParent:
+  \_type_parameter: (work@dut.LA), id:1, line:4:21, endln:4:23
+  |vpiFullName:work@dut.LA
+  |vpiActual:
+  \_int_typespec: , id:2, line:4:26, endln:4:29
+RHS:
+decompile:
+type_parameter: (work@dut.LA), id:3, line:4:21, endln:4:23
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:2, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t9/dut.sv, line:3:1, endln:12:10
+|vpiName:LA
+|vpiFullName:work@dut.LA
+|vpiTypespec:
+\_ref_typespec: (work@dut.LA), id:4
+  |vpiParent:
+  \_type_parameter: (work@dut.LA), id:3, line:4:21, endln:4:23
+  |vpiFullName:work@dut.LA
+  |vpiActual:
+  \_int_typespec: , id:5, line:4:26, endln:4:29

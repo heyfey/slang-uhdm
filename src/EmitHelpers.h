@@ -46,6 +46,47 @@ using namespace slang::ast;
 inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
 // ---------------------------------------------------------------------------
+// § typeParamLocalKeyword18 — the WRITTEN keyword of a TYPE parameter.
+//
+// Surelog stamps `vpiLocalParam` on a `type_parameter` from the DECLARATION
+// NODE it compiled, never from the LRM-derived local flag: the caller passes
+// `localParam = true` only for a `paLocal_parameter_declaration`
+// (`src/DesignCompile/CompileModule.cpp` 719-770, and the same split in
+// CompilePackage / CompileClass / CompileInterface) and the two type arms of
+// `CompileHelper::compileParameterDeclaration` write the flag from that
+// argument alone (`src/DesignCompile/CompileHelper.cpp:3486` and `:3628`).
+// The value-parameter arm of `UhdmExporter::emitParameters` already models
+// exactly this rule; this is its type-parameter twin.
+//
+// slang's `ParameterSymbolBase::isLocalParam()` is the LRM answer and is NOT
+// the same predicate: a module-BODY `parameter type T = int` under an ANSI
+// header is local to the LRM (and to slang) and is NOT local to Surelog.
+//
+// A declarator that OMITS the keyword inherits the previous one; slang models
+// such a continuation as another declarator of the SAME declaration node, so
+// the parent walk finds the written keyword for it too.  When no declaration
+// node carries a valid keyword token (a form this walk does not reach), the
+// LRM flag stands rather than a guess.
+// ---------------------------------------------------------------------------
+inline bool typeParamLocalKeyword18(const TypeParameterSymbol& tps) {
+    for (auto q = tps.getSyntax(); q; q = q->parent) {
+        if (q->kind == syntax::SyntaxKind::TypeParameterDeclaration) {
+            auto kw = q->as<syntax::TypeParameterDeclarationSyntax>().keyword;
+            if (kw.valueText().empty())
+                break;
+            return kw.valueText() == "localparam";
+        }
+        if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
+            auto kw = q->as<syntax::ParameterDeclarationSyntax>().keyword;
+            if (kw.valueText().empty())
+                break;
+            return kw.valueText() == "localparam";
+        }
+    }
+    return tps.isLocalParam();
+}
+
+// ---------------------------------------------------------------------------
 // Surelog's `CompileHelper::adjustSize` (CompileHelper.cpp:3949), the
 // vpiBinaryConst arm, ported verbatim.
 //

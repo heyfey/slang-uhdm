@@ -1,0 +1,29 @@
+decompile:
+type_parameter: (work@cls::CLT), id:33, line:2:54, endln:2:57
+|vpiParent:
+\_class_defn: (work@cls), id:1, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t6/dut.sv, line:2:1, endln:5:9
+|vpiName:CLT
+|vpiLocalParam:1
+|vpiFullName:work@cls::CLT
+|vpiTypespec:
+\_ref_typespec: (work@cls::CLT), id:35
+  |vpiParent:
+  \_type_parameter: (work@cls::CLT), id:33, line:2:54, endln:2:57
+  |vpiFullName:work@cls::CLT
+  |vpiActual:
+  \_byte_typespec: , id:34, line:2:60, endln:2:64
+
+decompile:
+type_parameter: (work@cls::CLT), id:46, line:2:54, endln:2:57
+|vpiParent:
+\_class_defn: (work@cls), id:38, file:/tmp/wt_r11u18/tools/probe/r11u18repro/t6/dut.sv, line:2:1, endln:5:9
+|vpiName:CLT
+|vpiFullName:work@cls::CLT
+|vpiTypespec:
+\_ref_typespec: (work@cls::CLT), id:47
+  |vpiParent:
+  \_type_parameter: (work@cls::CLT), id:46, line:2:54, endln:2:57
+  |vpiFullName:work@cls::CLT
+  |vpiActual:
+  \_byte_typespec: , id:48, line:2:60, endln:2:64
+

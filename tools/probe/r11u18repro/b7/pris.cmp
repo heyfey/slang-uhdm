@@ -1,0 +1,23 @@
+decompile:
+constant: , id:114, line:10:29, endln:10:31
+|vpiParent:
+\_param_assign: , id:16, line:5:27, endln:5:33
+|vpiDecompile:7
+|vpiSize:32
+|UINT:7
+|vpiTypespec:
+\_ref_typespec: (pk), id:115
+  |vpiParent:
+  \_constant: , id:114, line:10:29, endln:10:31
+  |vpiFullName:pk
+  |vpiActual:
+  \_int_typespec: , id:46, line:7:31, endln:7:34
+|vpiConstType:9
+
+decompile:
+constant: , id:74, line:10:26, endln:10:36
+|vpiDecompile:7
+|vpiSize:64
+|UINT:7
+|vpiConstType:9
+

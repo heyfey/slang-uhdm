@@ -1,0 +1,8 @@
+LHS: <null>
+RHS:
+decompile:
+constant: , id:230, line:21:30, endln:21:80
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiConstType:9

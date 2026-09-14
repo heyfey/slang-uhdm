@@ -2657,6 +2657,16 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
             tp->VpiName(tps.name);
             tp->VpiFullName(fullName + "::" + std::string(tps.name));
             tp->VpiParent(cd);
+            // § typeParamLocalKeyword18 — the class_defn's own listing follows
+            // the written keyword like every other scope's (grid t6/t7:
+            // `class cls #(parameter type CT, localparam type CLT)` is
+            // `work@cls::CT` local=0 beside `work@cls::CLT` local=1).  The
+            // class_typespec SPECIALIZATION listings are deliberately NOT
+            // touched: golden lists only the OVERRIDABLE formal there
+            // (`work@user::h::cls::CT`, local=0, which we already match) and
+            // never the localparam one, so there is no cell to move.
+            if (typeParamLocalKeyword18(tps))
+                tp->VpiLocalParam(true);
             setLoc(tp, nameSpan(tps.location, tps.name));
             auto* rt = s.MakeRef_typespec();
             rt->VpiParent(tp);

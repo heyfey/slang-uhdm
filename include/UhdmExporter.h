@@ -1936,6 +1936,26 @@ private:
         // leftover's bits are the LOW `csize` of these.
         std::vector<const slang::ast::Expression*> catRhs;
         std::vector<std::string> memBits;
+        // § memLeftFormalReadTs18 (r11u18) — THE FORMAL'S TYPESPEC ON A
+        // WHOLE-FORMAL-READ LEFTOVER.  `ExprEval::setValueInInstance` hands
+        // back the CALLER's actual for `c.M = <formal>`, and that object
+        // carries a `ref_typespec` whose Actual is THE FORMAL's own typespec —
+        // the formal's, never the actual's: golden grid b7 stamps the `int`
+        // of `int unsigned xb` on a leftover whose value and encoding came
+        // from a `logic [7:0]` localparam.  `fnSym` is the builder subroutine
+        // (the key into subMap, whose argTs holds the emitted formal
+        // typespecs), `formalIdx` the formal's index per member, `minted` the
+        // object this stamp itself built — the ts is attached ONLY to that
+        // object, never to one a reuse resolution put in its place, because
+        // those are SHARED with the parameter/body object they came from.
+        // `tsPrefix` is the ref's VpiFullName: the holding PACKAGE's name for
+        // a call written at package scope (b3/b4/b5/b6/b7/b8), and NOTHING for
+        // one written at module scope (b9) — dump-only either way, since
+        // `ref_typespec::Compare` reads VpiName/VpiDefName/Actual_typespec.
+        const slang::ast::SubroutineSymbol* fnSym = nullptr;
+        std::string tsPrefix;
+        std::vector<int> formalIdx;
+        std::vector<UHDM::expr*> minted;
     };
     // § pkgStructFuncAssembleBin — every parameter OBJECT whose Rhs this pass
     // assembled, with its symbol.  The drain stamps each one's own struct
