@@ -14754,6 +14754,26 @@ static bool cellDbg25() {
     return v;
 }
 
+// `R11U27_OFF=1` restores the pristine behaviour in the SHIPPED binary: the
+// switch sits in the ENTRY GUARD of every § caNonTernFoldEnc27 site, so the
+// OFF binary consults no encoding machine and installs nothing.  It is
+// INDEPENDENT of `R11U22_OFF`, `R11U23_OFF` and `R11U25_OFF`.
+static bool off27() {
+    static const bool v = getenv("R11U27_OFF") != nullptr;
+    return v;
+}
+// r11u27's cell trace: EVERY cont_assign whose Rhs is a NON-ternary
+// expression reaching a fold site — the ones the law DECLINES included,
+// because a trace keyed on the shape you intend to change is blind to the
+// rows you would change by accident (earl66's lesson).
+static bool cellDbg27() {
+    static const bool v = [] {
+        const char* e = getenv("R11U27_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
 enum class GTKind22 { Constant, RefObj, Operation, Call, Select, HierPath,
                       Refused };
 
@@ -15090,6 +15110,360 @@ static std::optional<int64_t> genTernInt64Eval22(const Expression& e0,
         }
         default:
             return std::nullopt;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// § caNonTernFoldEnc27 (r11u27) — THE NON-TERNARY FOLD'S THREE ENCODINGS.
+// r11u25's R0, and it is `ExprEval::reduceExpr`'s own `VpiConstType` /
+// `VpiSize` read case by case, beside the VALUE `genTernInt64Eval22` already
+// computes.  Nothing here changes WHICH cells fold; it changes what the
+// installed constant is SPELLED as.
+//
+// The producer runs the SAME `reduceExpr` on a non-ternary Rhs that
+// § genCaTernaryFoldGenScope22 decoded on a ternary one
+// (`UhdmWriter::writeCont_assign`, Surelog v1.87 `UhdmWriter.cpp:2243-2277`),
+// and the object it installs has THREE encodings, chosen by the ARM the
+// switch takes — never by the Lhs, never by the target width.  Measured on
+// golden, own-scope gen-local `logic [31:0] lv` (the UNBOUND half, where
+// `adjustSize(ts == nullptr)` is a NO-OP and golden's object IS the raw mint):
+//
+//     arm                    Rhs                     golden
+//     u01/Uw01/Uw08/Uw64/Uw128  `32'd2 + 32'd3`      INT:5   ct 7  size 32
+//     u05/Uw*_unsized           `2 + 3`              UINT:5  ct 9  size 64
+//     u04/Uw*_concat            `{16'd1, 16'd2}`     BIN:<32> ct 3 size 32
+//
+// and the width ladder is the proof that `adjustSize` never runs there: the
+// SAME three objects come back on a 1-, 8-, 32-, 64- and 128-bit target.
+//
+// THE ENCODING KEY IS THE LEAF'S WRITTEN BASE, not its value, not its type.
+// `CompileHelper::compileExpression` (`CompileExpression.cpp:495-563`) writes
+// a BASED literal as `DEC:`(ct 1) / `HEX:`(5) / `BIN:`(3) / `OCT:`(4) at the
+// written size (-1 when the size is omitted), and an UNBASED one as
+// `UINT:`(9) at 64 — `INT:`(7) only when the text carries a leading `-`.
+// `reduceExpr`'s `vpiAddOp` arm (`ExprEval.cpp:3260-3300`) then asks whether
+// EITHER reduced operand is a constant of ct `vpiIntConst` / `vpiStringConst`
+// / `vpiRealConst` / `vpiDecConst`; if so it takes the SIGNED branch and mints
+// `INT:` at `max(size0, size1)`, otherwise the UNSIGNED branch and `UINT:` at
+// the same size.  Every other arithmetic arm is unconditional.  The grid
+// (150 + 95 arms) reads the whole table off golden:
+//
+//   Add/Plus (2 operands)  INT if an operand ct is 7/6/2/1 else UINT,
+//                          size = max(size0, size1)
+//                          Ua11 `32'h2+32'h3` UINT:5/32 ; Ua13 `32'sd2+32'sd3`
+//                          INT:5/32 ; X17 `32'h2+32'd3` INT:5/32 ; X21 octal
+//                          UINT:10/32 ; X22 `'h5+32'd1` INT:6/32 (an unsized
+//                          based literal is size -1, so the max is the other
+//                          operand's) ; Ua30 8-bit INT:5/8 ; Ua38 128-bit
+//                          INT:5/128 ; Ua29 `(2+3)+32'd4` INT:9/64
+//   Sub / Mult / Div / Mod / Power     INT: at **64**, whatever the operands
+//                          X13 `32'h7-32'h3` INT:4/64 ; X14 hex mult INT:6/64
+//                          X15 binary sub INT:4/64 ; X09 `**` INT:8/64
+//   BitAnd / BitOr / LogAnd / LogOr / the four shifts / `!`
+//                          UINT: at 64   (Ua05 Ua06 Ua21 X05 Ua18 Ua19 X10 Ua22)
+//   unary `-`              INT: at the OPERAND's size (X12 `-5` 64, X24
+//                          `-32'd3` 32) — `ExprEval.cpp:3410`
+//   unary `~`              UINT: at the OPERAND's size (Ua23 `~32'd0` 32)
+//   the six comparisons    BIN: at **1** — `reduceCompOp`'s single mint
+//                          (`ExprEval.cpp:1743`), Ua20 X02 X03 X04
+//   concat / replication   BIN: at the natural total width (Ua25 Ua26 W05)
+//
+// AND THE DECLINES, each a measured arm where golden INSTALLS the operation
+// instead of folding:
+//   * the BINARY XOR family and the case/wildcard/implication comparisons —
+//     `reduceExpr`'s switch has no `case` (Ua07 `^` op 30, X01 `~^` op 31);
+//     § genTernOpsEvalable22 is that fence and is reused unchanged;
+//   * UNARY PLUS — `case vpiPlusOp` shares the BINARY add arm and its
+//     `operands.size() == 2` guard, so a one-operand `+x` falls through and
+//     the operation comes back (X11, golden op 2 on both halves);
+//   * a BIN / HEX / OCT leaf WIDER THAN 64 BITS — `get_value` and
+//     `get_uvalue` both set `invalidValue` outright above 64
+//     (`ExprEval.cpp:1673/1750`), which poisons the whole reduce and makes
+//     `writeCont_assign`'s `invalidValue == false` refuse the write: W02
+//     `128'h2 + 128'h3` is golden's OPERATION where W01 `128'd2 + 128'd3`
+//     (a `DEC:` leaf, which has no such guard) is golden's `INT:5` at 128;
+//   * a STRING leaf, a REAL leaf, a user FUNCTION call, a select, a
+//     hier_path, a cast, the unary reductions — not transcribed, so the law
+//     answers nothing and the cell keeps whatever the pristine paths gave it.
+//
+// The two halves of the install are `adjustSize`'s two answers:
+//   * UNBOUND (`tps == nullptr`, an own-scope generate-local Lhs) —
+//     `CompileHelper.cpp:4073` returns `c` untouched, so golden's object IS
+//     this mint;
+//   * BOUND — ct 7 falls to `adjustSize`'s final `else { c->VpiSize(size); }`
+//     (`CompileHelper.cpp:4243`), which re-sizes at `Bits(tps)` and leaves the
+//     VALUE alone: `Mw01_constop` is golden `INT:5` in ONE BIT.
+//
+// `caLeafEnc27` is the leaf half, read off the literal's own source text
+// because the written base is the only thing that decides it.
+// § caNonTernFoldEnc27 — THE MINT FENCE, and it cost an AWAY-GOLDEN cell to
+// find (`r10uvm154repro/g154_d_inst.sv`, caught by the 2976-file boundary and
+// INVISIBLE to the cont-assign cell lister, whose slot reads blank on that
+// object — RESUME §9's "slot-keyed censuses are blind below the slot").
+//
+// `ExprEval::reduceExpr` MINTS a fresh constant only on its OPERATION arms.
+// A bare LEAF Rhs — a literal, a parameter, an enum member, a system call
+// result already folded — is handed back as THE STORED OBJECT, which golden
+// then only re-sizes.  `assign o = pk_d154::D_ALL;` with
+// `enum bit [31:0] { D_ALL = -1 }` is golden's `INT:-1`, the DECLARATION's own
+// constant, where an encoding minted from the leaf's written base and the
+// int64 machine's raw bits would say `INT:4294967295`.  The measured control
+// was already on the grid and already EQUAL on both binaries: `u08`/`m08`
+// (`assign x = K`), `Ua33`/`Ma33` (`(32'd5)`), `Ua34`/`Ma34` (`5`) and
+// `u07`/`m07` (`32'd5`) are byte-identical to golden on the PRISTINE binary,
+// so the fence costs no arm and removes the whole class.
+static bool caFoldMintShape27(const Expression& e0) {
+    switch (stripImplicitConv(e0).kind) {
+        case ExpressionKind::BinaryOp:
+        case ExpressionKind::UnaryOp:
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool UhdmExporter::caLeafEnc27(const Expression& e0, int32_t& ct,
+                               int32_t& size) {
+    auto& e27 = stripImplicitConv(e0);
+    if (e27.kind != ExpressionKind::IntegerLiteral)
+        return false;
+    std::string tx27 = rawText(e27.sourceRange);
+    std::string cl27;
+    for (char c27 : tx27) {
+        if (c27 == '_' || c27 == ' ' || c27 == '\t' || c27 == '\n' ||
+            c27 == '\r')
+            continue;
+        cl27 += c27;
+    }
+    if (cl27.empty())
+        return false;
+    auto q27 = cl27.find('\'');
+    if (q27 == std::string::npos) {
+        // An UNBASED literal: `UINT:` at 64 (`CompileExpression.cpp:556-562`).
+        // A leading `-` would give `INT:`, but slang parses that as a unary
+        // minus over the magnitude, which the operator table below owns.
+        for (char c27 : cl27)
+            if (c27 < '0' || c27 > '9')
+                return false;
+        ct = vpiUIntConst;
+        size = 64;
+        return true;
+    }
+    std::string szt27 = cl27.substr(0, q27);
+    if (szt27.empty())
+        size = -1;
+    else {
+        for (char c27 : szt27)
+            if (c27 < '0' || c27 > '9')
+                return false;
+        errno = 0;
+        long sv27 = strtol(szt27.c_str(), nullptr, 10);
+        if (errno != 0 || sv27 <= 0 || sv27 > 65536)
+            return false;
+        size = (int32_t)sv27;
+    }
+    size_t b27 = q27 + 1;
+    if (b27 < cl27.size() && (cl27[b27] == 's' || cl27[b27] == 'S'))
+        ++b27;
+    if (b27 >= cl27.size())
+        return false;
+    switch (cl27[b27]) {
+        case 'd':
+        case 'D':
+            ct = vpiDecConst;
+            return true;
+        case 'h':
+        case 'H':
+            ct = vpiHexConst;
+            return true;
+        case 'b':
+        case 'B':
+            ct = vpiBinaryConst;
+            return true;
+        case 'o':
+        case 'O':
+            ct = vpiOctConst;
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool UhdmExporter::caFoldEnc27(const Expression& e0, int depth, int32_t& ct,
+                               int32_t& size) {
+    if (depth > 24)
+        return false;
+    auto& e27 = stripImplicitConv(e0);
+    // A BIN / HEX / OCT leaf wider than 64 bits poisons the reduce outright
+    // (W02); a `DEC:` one does not (W01).  The check rides with every leaf.
+    auto leafOk27 = [](int32_t c27, int32_t s27) {
+        if (c27 == vpiBinaryConst || c27 == vpiHexConst || c27 == vpiOctConst)
+            return s27 <= 64;
+        return true;
+    };
+    switch (e27.kind) {
+        case ExpressionKind::IntegerLiteral: {
+            if (!caLeafEnc27(e27, ct, size))
+                return false;
+            return leafOk27(ct, size);
+        }
+        case ExpressionKind::NamedValue: {
+            // A PARAMETER / localparam operand contributes the constType of
+            // ITS OWN INITIALIZER LITERAL, unchanged by the declared type, and
+            // the SIZE of its declared type.  Measured `P + P` one arm per
+            // declaration: `int P = 9` and `localparam P = 9` are UINT (the
+            // unbased mint), `int P = -3` is INT, `P = 32'hA` and
+            // `P = 4'b1010` are UNSIGNED (HEX / BIN are not in the signed
+            // set), and `P = 32'd9` / `logic [7:0] P = 8'd9` are the two that
+            // flip the add to INT because their initializer is `DEC:`.
+            // Anything whose initializer is not one plain literal (or one
+            // negated literal) is DECLINED.
+            auto& sym27 = e27.as<NamedValueExpression>().symbol;
+            const Expression* init27 = nullptr;
+            if (sym27.kind == SymbolKind::Parameter) {
+                auto& pv27 = sym27.as<ParameterSymbol>();
+                init27 = pv27.getInitializer();
+            }
+            else if (sym27.kind == SymbolKind::EnumValue) {
+                init27 = sym27.as<EnumValueSymbol>().getInitializer();
+            }
+            else
+                return false;
+            if (!init27)
+                return false;
+            auto& iv27 = stripImplicitConv(*init27);
+            const Expression* lit27 = &iv27;
+            bool neg27 = false;
+            if (iv27.kind == ExpressionKind::UnaryOp &&
+                iv27.as<UnaryExpression>().op == UnaryOperator::Minus) {
+                lit27 = &stripImplicitConv(iv27.as<UnaryExpression>().operand());
+                neg27 = true;
+            }
+            int32_t lct27 = 0, lsz27 = 0;
+            if (!caLeafEnc27(*lit27, lct27, lsz27))
+                return false;
+            if (neg27) {
+                // `-9` is written into the declaration's own value string with
+                // its sign, which is `INT:` (`CompileExpression.cpp:557`).
+                if (lct27 != vpiUIntConst)
+                    return false;
+                lct27 = vpiIntConst;
+            }
+            auto& t27 = sym27.as<ValueSymbol>().getType();
+            if (!t27.isIntegral())
+                return false;
+            auto bw27 = (int32_t)t27.getBitWidth();
+            if (bw27 <= 0 || bw27 > 65536)
+                return false;
+            ct = lct27;
+            size = bw27;
+            return leafOk27(ct, size);
+        }
+        case ExpressionKind::Call: {
+            // Only a SYSTEM call, and only one the producer's own evaluator
+            // implements (§ genTernSysEvalable22, the vrgg9 list): its mint is
+            // `UINT:` at 64 — Ua35 `$bits(a) + 1` UINT:33/64, Ua36
+            // `$clog2(33) + 32'd1` INT:7/64 (the `32'd1` flips the add).
+            auto& cx27 = e27.as<CallExpression>();
+            if (!cx27.isSystemCall())
+                return false;
+            if (!genTernSysEvalable22(e27))
+                return false;
+            ct = vpiUIntConst;
+            size = 64;
+            return true;
+        }
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication: {
+            // The bit-string arms: `BIN:` at the natural total width.
+            if (!e27.type || !e27.type->isIntegral())
+                return false;
+            auto bw27 = (int32_t)e27.type->getBitWidth();
+            if (bw27 <= 0 || bw27 > 65536)
+                return false;
+            ct = vpiBinaryConst;
+            size = bw27;
+            return true;
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& u27 = e27.as<UnaryExpression>();
+            int32_t oct27 = 0, osz27 = 0;
+            if (!caFoldEnc27(u27.operand(), depth + 1, oct27, osz27))
+                return false;
+            switch (u27.op) {
+                case UnaryOperator::Minus:
+                    ct = vpiIntConst;
+                    size = osz27;
+                    return true;
+                case UnaryOperator::BitwiseNot:
+                    ct = vpiUIntConst;
+                    size = osz27;
+                    return true;
+                case UnaryOperator::LogicalNot:
+                    ct = vpiUIntConst;
+                    size = 64;
+                    return true;
+                default:
+                    // Unary PLUS falls through the producer's two-operand
+                    // guard and comes back as the OPERATION (X11); the
+                    // reductions are not transcribed.
+                    return false;
+            }
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b27 = e27.as<BinaryExpression>();
+            int32_t lct27 = 0, lsz27 = 0, rct27 = 0, rsz27 = 0;
+            if (!caFoldEnc27(b27.left(), depth + 1, lct27, lsz27))
+                return false;
+            if (!caFoldEnc27(b27.right(), depth + 1, rct27, rsz27))
+                return false;
+            auto signedLeaf27 = [](int32_t c27) {
+                return c27 == vpiIntConst || c27 == vpiStringConst ||
+                       c27 == vpiRealConst || c27 == vpiDecConst;
+            };
+            switch (b27.op) {
+                case BinaryOperator::Add:
+                    ct = (signedLeaf27(lct27) || signedLeaf27(rct27))
+                             ? vpiIntConst
+                             : vpiUIntConst;
+                    size = lsz27 > rsz27 ? lsz27 : rsz27;
+                    return true;
+                case BinaryOperator::Subtract:
+                case BinaryOperator::Multiply:
+                case BinaryOperator::Divide:
+                case BinaryOperator::Mod:
+                case BinaryOperator::Power:
+                    ct = vpiIntConst;
+                    size = 64;
+                    return true;
+                case BinaryOperator::BinaryAnd:
+                case BinaryOperator::BinaryOr:
+                case BinaryOperator::LogicalAnd:
+                case BinaryOperator::LogicalOr:
+                case BinaryOperator::LogicalShiftLeft:
+                case BinaryOperator::LogicalShiftRight:
+                case BinaryOperator::ArithmeticShiftLeft:
+                case BinaryOperator::ArithmeticShiftRight:
+                    ct = vpiUIntConst;
+                    size = 64;
+                    return true;
+                case BinaryOperator::Equality:
+                case BinaryOperator::Inequality:
+                case BinaryOperator::GreaterThan:
+                case BinaryOperator::GreaterThanEqual:
+                case BinaryOperator::LessThan:
+                case BinaryOperator::LessThanEqual:
+                    ct = vpiBinaryConst;
+                    size = 1;
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        default:
+            return false;
     }
 }
 
@@ -19388,6 +19762,136 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             }
                         }
                         fc22->VpiSize(genTernW22);
+                    }
+                }
+                // THE GEN-SCOPE CELL TRACE: every elaborated generate-scope
+                // cont_assign whose Rhs is a NON-ternary OPERATION reaches
+                // this site and is named here, the DECLINED ones included —
+                // `bvf` is r11u25's bind fence (1 = the producer FINDS the
+                // target, so this law stands down), `enc`/`ct`/`sz` the
+                // encoding machine's answer and `val` whether the int64
+                // machine could value it.  It sits OUTSIDE the A/B switch, so
+                // both binaries name the same cells.
+                if (cellDbg27() && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation) {
+                    auto& rg27 = stripImplicitConv(ae.right());
+                    int32_t gc27 = 0, gs27 = 0;
+                    bool gb27 = caLhsBindVariableFinds25(ae.left());
+                    bool ge27 = rg27.kind != ExpressionKind::ConditionalOp &&
+                                caFoldMintShape27(rg27) &&
+                                genTernOpsEvalable22(rg27) &&
+                                genTernSysEvalable22(rg27) &&
+                                genTernConcatSafe23(rg27) &&
+                                caFoldEnc27(rg27, 0, gc27, gs27);
+                    ASTContext gctx27(comp.getRoot(), LookupLocation::max);
+                    bool gv27 =
+                        ge27 && genTernInt64Eval22(rg27, gctx27, 0).has_value();
+                    auto sg27 = ae.sourceRange;
+                    auto& smg27 = *comp.getSourceManager();
+                    fprintf(stderr,
+                            "R11U27GEN file=%s line=%u bvf=%d enc=%d ct=%d "
+                            "sz=%d val=%d\n",
+                            std::string(smg27.getFileName(sg27.start())).c_str(),
+                            smg27.getLineNumber(sg27.start()), (int)gb27,
+                            (int)ge27, gc27, gs27, (int)gv27);
+                }
+                // § caNonTernFoldEnc27 (r11u27) — THE UNBOUND HALF of the
+                // non-ternary fold, and it is the SAME producer arm
+                // (`UhdmWriter.cpp:2243-2277`) read with `tps == nullptr`:
+                // `CompileHelper::adjustSize` returns the constant UNTOUCHED
+                // (`CompileHelper.cpp:4073`), so golden's installed object IS
+                // `reduceExpr`'s RAW MINT — value, encoding and size alike,
+                // and the Lhs width never enters.  The width ladder is the
+                // proof: `Uw01`/`Uw08`/`Uw64`/`Uw128` all carry golden's
+                // `INT:5` at **32** on 1-, 8-, 64- and 128-bit targets, and
+                // their `_unsized` twins all carry `UINT:5` at **64**.
+                //
+                // Everything is REUSED from the ternary halves, because
+                // `reduceExpr` is the same call: the operator-switch fence
+                // (`genTernOpsEvalable22`), the system-function fence
+                // (`genTernSysEvalable22`), the concat fence
+                // (`genTernConcatSafe23`) and the int64 value machine
+                // (`genTernInt64Eval22`).  What r11u27 adds is the ENCODING
+                // (`caFoldEnc27`), and a cell whose encoding cannot be proved
+                // is DECLINED — the operation stays exactly as pristine left
+                // it, never a differently-wrong constant.
+                //
+                // The fence is r11u25's own `caLhsBindVariableFinds25`
+                // INVERTED: only a target `bindVariable` CANNOT find reaches
+                // the null-typespec arm.  That is why this half is
+                // corpus-invisible — every one of the 1106 generate-scope
+                // cont_assign cells r11u25 traced in `Earlgrey_0_1` and
+                // `Rggen` assigns to a MODULE-BODY signal, which binds.
+                // The ternary Rhs is NOT this law's (§ genCaUnboundTernFold23
+                // owns it), so the two are disjoint by construction.
+                if (!off27() && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation && !genTernArm22 &&
+                    !genTernArm23) {
+                    auto& rt27 = stripImplicitConv(ae.right());
+                    int32_t ct27 = 0, sz27 = 0;
+                    if (rt27.kind != ExpressionKind::ConditionalOp &&
+                        caFoldMintShape27(rt27) &&
+                        !caLhsBindVariableFinds25(ae.left()) &&
+                        genTernOpsEvalable22(rt27) &&
+                        genTernSysEvalable22(rt27) &&
+                        genTernConcatSafe23(rt27) &&
+                        caFoldEnc27(rt27, 0, ct27, sz27) && sz27 > 0) {
+                        ASTContext uctx27(comp.getRoot(),
+                                          LookupLocation::max);
+                        auto v27 = genTernInt64Eval22(rt27, uctx27, 0);
+                        if (v27) {
+                            UHDM::constant* nc27 = nullptr;
+                            if (ct27 == vpiIntConst) {
+                                std::string d27 = std::to_string(*v27);
+                                nc27 = s.MakeConstant();
+                                nc27->VpiValue("INT:" + d27);
+                                nc27->VpiDecompile(d27);
+                                nc27->VpiConstType(vpiIntConst);
+                            }
+                            else if (ct27 == vpiUIntConst) {
+                                std::string d27 =
+                                    std::to_string((uint64_t)*v27);
+                                nc27 = s.MakeConstant();
+                                nc27->VpiValue("UINT:" + d27);
+                                nc27->VpiDecompile(d27);
+                                nc27->VpiConstType(vpiUIntConst);
+                            }
+                            else if (ct27 == vpiBinaryConst && sz27 == 1) {
+                                // `reduceCompOp`'s single mint
+                                // (`ExprEval.cpp:1743`): `BIN:<0|1>` at one
+                                // bit, the same decimal decompile.
+                                std::string d27 = std::to_string(*v27 ? 1 : 0);
+                                nc27 = s.MakeConstant();
+                                nc27->VpiValue("BIN:" + d27);
+                                nc27->VpiDecompile(d27);
+                                nc27->VpiConstType(vpiBinaryConst);
+                            }
+                            else if (ct27 == vpiBinaryConst && sz27 > 1 &&
+                                     sz27 <= 65536) {
+                                // The concat / replication arms build the
+                                // result as a BIT STRING at the natural total
+                                // width and hand it back unsized-by-anything.
+                                ConstantValue bv27 = uctx27.tryEval(rt27);
+                                if (bv27 && bv27.isInteger() &&
+                                    !bv27.integer().hasUnknown() &&
+                                    (int32_t)bv27.integer().getBitWidth() ==
+                                        sz27) {
+                                    auto iv27 = bv27.integer();
+                                    std::string bits27;
+                                    for (int32_t i27 = sz27 - 1; i27 >= 0;
+                                         --i27)
+                                        bits27 +=
+                                            iv27[i27].value ? '1' : '0';
+                                    nc27 = s.MakeConstant();
+                                    nc27->VpiValue("BIN:" + bits27);
+                                    nc27->VpiConstType(vpiBinaryConst);
+                                }
+                            }
+                            if (nc27) {
+                                nc27->VpiSize(sz27);
+                                rhs = nc27;
+                            }
+                        }
                     }
                 }
                 reemitting = savedReP9;
@@ -28810,6 +29314,97 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (auto* dr9 = defInfo->contAssigns[myIdx]->Rhs();
                 dr9 && dr9->UhdmType() == UHDM::uhdmconstant)
                 rhs = dr9;
+        // § caNonTernFoldEnc27 (r11u27) — THE BOUND HALF of the non-ternary
+        // fold: r11u25's R0/R4/R5, and it re-encodes ONLY the cells this
+        // emitter ALREADY folds.  The decode is at `caFoldEnc27` above; the
+        // install here is `CompileHelper::adjustSize`'s two relevant arms.
+        //
+        // LAW A — `INT:` where we mint `UINT:`.  `reduceExpr`'s signed arms
+        // hand `adjustSize` a `vpiIntConst`, which matches NO branch of that
+        // function and falls to its final `else { c->VpiSize(size); }`
+        // (`CompileHelper.cpp:4243`): the VALUE is left alone and only the
+        // size becomes `Bits(tps)`.  `Mw01_constop` is the proof — golden
+        // writes `INT:5` into a ONE-BIT target, where this emitter's
+        // `tryFoldConst` (which evaluates the ASSIGNMENT, in slang's
+        // context-typed arithmetic) gives `UINT:1`.  So the law installs the
+        // producer's value AND its encoding, never a re-prefixing of ours.
+        // It is fenced to `ct == vpiIntConst` on purpose: `UINT:` and `BIN:`
+        // are the two encodings this emitter ALREADY reproduces on every
+        // measured arm (Ma05/Ma06/Ma11/Ma12/Ma16/Ma18-Ma20/Ma25/Ma26/Mw*),
+        // so touching them could only move a cell that is already right.
+        //
+        // LAW B — a module-scope `'1` on a target WIDER THAN 64 BITS.
+        // `adjustSize`'s `orig_size == -1` tail (`CompileHelper.cpp:4225`)
+        // splits on the width: `size <= 64` mints `UINT:<mask>` (which we
+        // already match — W08 at 64 bits) and above it mints
+        // `BIN:<size ones>` ct 3 (m14/W09/W10/W13/W14, where the pristine
+        // binary writes `UINT:0` with a decimal decompile because the mask
+        // overflows 64 bits).  This is § caTernFillArmKeepsEncoding19's own
+        // over-64 branch, already committed at the gen-scope ternary site,
+        // reaching the plain module-scope mint.
+        if (topView && !off27() && rhs &&
+            rhs->UhdmType() == UHDM::uhdmconstant) {
+            auto& rt27 = stripImplicitConv(ae.right());
+            int32_t w27 = 0;
+            std::string ln27;
+            bool bnd27 = caLhsAdjustBind106(ae.left(), w27, ln27) && w27 > 0;
+            auto* c27 = (UHDM::constant*)rhs;
+            if (bnd27 && rt27.kind != ExpressionKind::ConditionalOp) {
+                int32_t ct27 = 0, sz27 = 0;
+                ASTContext ectx27(comp.getRoot(), LookupLocation::max);
+                if (rt27.kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                    w27 > 64) {
+                    auto lv27 =
+                        rt27.as<UnbasedUnsizedIntegerLiteral>()
+                            .getLiteralValue();
+                    if (!lv27.isUnknown() && lv27.value) {
+                        std::string d27((size_t)w27, '1');
+                        c27->VpiValue("BIN:" + d27);
+                        c27->VpiDecompile(d27);
+                        c27->VpiConstType(vpiBinaryConst);
+                        c27->VpiSize(w27);
+                    }
+                }
+                else if (caFoldMintShape27(rt27) &&
+                         genTernOpsEvalable22(rt27) &&
+                         caFoldEnc27(rt27, 0, ct27, sz27) &&
+                         ct27 == vpiIntConst) {
+                    if (auto v27 = genTernInt64Eval22(rt27, ectx27, 0)) {
+                        std::string dg27 = std::to_string(*v27);
+                        c27->VpiValue("INT:" + dg27);
+                        c27->VpiDecompile(dg27);
+                        c27->VpiConstType(vpiIntConst);
+                        c27->VpiSize(w27);
+                    }
+                }
+            }
+        }
+        // THE CELL TRACE: every cont_assign reaching this install with a
+        // constant Rhs is named here, the DECLINED ones included, and the
+        // predicate is computed OUTSIDE the A/B switch so both binaries print
+        // the same rows.
+        if (cellDbg27() && rhs && rhs->UhdmType() == UHDM::uhdmconstant) {
+            auto& rd27 = stripImplicitConv(ae.right());
+            int32_t wd27 = 0;
+            std::string lnd27;
+            bool bd27 = caLhsAdjustBind106(ae.left(), wd27, lnd27);
+            int32_t cd27 = 0, sd27 = 0;
+            ASTContext dctx27(comp.getRoot(), LookupLocation::max);
+            bool ok27 = rd27.kind != ExpressionKind::ConditionalOp &&
+                        caFoldMintShape27(rd27) &&
+                        genTernOpsEvalable22(rd27) &&
+                        caFoldEnc27(rd27, 0, cd27, sd27);
+            auto sr27 = ae.sourceRange;
+            auto& sm27 = *comp.getSourceManager();
+            fprintf(stderr,
+                    "R11U27CELL view=%d file=%s line=%u bnd=%d w=%d enc=%d "
+                    "ct=%d size=%d\n",
+                    (int)topView,
+                    std::string(sm27.getFileName(sr27.start())).c_str(),
+                    sm27.getLineNumber(sr27.start()), (int)bd27, wd27,
+                    (int)ok27, cd27, sd27);
+        }
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
         // A $signed/$unsigned sys_func_call carries a result typespec (= the

@@ -1,0 +1,735 @@
+Ma01_sized_sub
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 INT:4 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+Ma02_sized_mul
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 INT:6 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 UINT:6 vpiConstType:9
+Ma03_sized_div
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:3 vpiSize:32 INT:3 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:3 vpiSize:32 INT:3 vpiConstType:7
+Ma04_sized_mod
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 INT:1 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 INT:1 vpiConstType:7
+Ma05_sized_and
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:2 vpiSize:32 UINT:2 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:2 vpiSize:32 UINT:2 vpiConstType:9
+Ma06_sized_or
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:7 vpiSize:32 UINT:7 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:7 vpiSize:32 UINT:7 vpiConstType:9
+Ma07_sized_xor
+   G  ref_obj mv @5:10 ACT=logic_var RHS=operation vpiOpType:30
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma08_unsized_sub
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 INT:4 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+Ma09_mixed_add
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma10_mixed_add_rev
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma11_hex_add
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma12_bin_add
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma13_signed_add
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma14_sized_neg
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:-1 vpiSize:32 INT:-1 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4294967295 vpiSize:32 UINT:4294967295 vpiConstType:9
+Ma15_unsized_neg
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:-1 vpiSize:32 INT:-1 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4294967295 vpiSize:32 UINT:4294967295 vpiConstType:9
+Ma16_param_param
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+Ma17_param_sized
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+Ma18_lshift_sized
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+Ma19_rshift
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+Ma20_cmp
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 BIN:1 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 BIN:1 vpiConstType:3
+Ma21_logand
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 UINT:1 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 BIN:1 vpiConstType:3
+Ma22_unary_not
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 UINT:1 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 UINT:1 vpiConstType:9
+Ma23_unary_bitneg
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4294967295 vpiSize:32 UINT:4294967295 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:4294967295 vpiSize:32 UINT:4294967295 vpiConstType:9
+Ma24_concat_unsized
+   G  ref_obj mv @5:10 ACT=logic_var RHS=operation vpiOpType:33
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:00000000000000000000000000000010 vpiSize:32 BIN:00000000000000000000000000000010 vpiConstType:3
+Ma25_concat3
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiSize:32 BIN:00000001000000100000000000000011 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiSize:32 BIN:00000001000000100000000000000011 vpiConstType:3
+Ma26_repl
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:00001111000011110000111100001111 vpiSize:32 BIN:00001111000011110000111100001111 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:00001111000011110000111100001111 vpiSize:32 BIN:00001111000011110000111100001111 vpiConstType:3
+Ma27_concat_param
+   G  ref_obj mv @5:10 ACT=logic_var RHS=operation vpiOpType:33
+   O  ref_obj mv @5:10 ACT=logic_var RHS=operation vpiOpType:33
+Ma28_nested_add
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 INT:6 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 UINT:6 vpiConstType:9
+Ma29_nested_mix
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:9 vpiSize:32 INT:9 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:9 vpiSize:32 UINT:9 vpiConstType:9
+Ma30_narrow_add
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma31_wide_add
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma32_add_zero
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:32 INT:0 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:32 UINT:0 vpiConstType:9
+Ma33_paren_literal
+   G  ref_obj mv @5:10 ACT=logic_net RHS=constant 
+   O  ref_obj mv @5:10 ACT=logic_net RHS=constant 
+Ma34_unsized_literal
+   G  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma35_bits_plus
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:33 vpiSize:32 UINT:33 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:33 vpiSize:32 UINT:33 vpiConstType:9
+Ma36_clog2_plus
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:7 vpiSize:32 INT:7 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:7 vpiSize:32 UINT:7 vpiConstType:9
+Ma37_sized_add_1bit
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 UINT:1 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 UINT:1 vpiConstType:9
+Ma38_wide128
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+Ma39_cast
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:7 vpiSize:32 UINT:7 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=operation vpiOpType:67
+Mw01_concat
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:1 BIN:0 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:1 BIN:0 vpiConstType:3
+Mw01_constop
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:1 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 UINT:1 vpiConstType:9
+Mw01_unsized
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 UINT:1 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 UINT:1 vpiConstType:9
+Mw08_concat
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:00000010 vpiSize:8 BIN:00000010 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:00000010 vpiSize:8 BIN:00000010 vpiConstType:3
+Mw08_constop
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:8 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:8 UINT:5 vpiConstType:9
+Mw08_unsized
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:8 UINT:5 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:8 UINT:5 vpiConstType:9
+Mw64_concat
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+Mw64_constop
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+Mw64_unsized
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+Mw128_concat
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+Mw128_constop
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:128 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:128 UINT:5 vpiConstType:9
+Mw128_unsized
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:128 UINT:5 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:128 UINT:5 vpiConstType:9
+Pp01_int9_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+Pp01_int9_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+Pp01_int9_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp02_int_neg_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:-2 vpiSize:32 INT:-2 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:4294967294 vpiSize:32 UINT:4294967294 vpiConstType:9
+Pp02_int_neg_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:-6 vpiSize:32 INT:-6 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:4294967290 vpiSize:32 UINT:4294967290 vpiConstType:9
+Pp02_int_neg_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:-2 vpiSize:32 INT:-2 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp03_untyped9_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+Pp03_untyped9_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+Pp03_untyped9_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp04_hex_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:11 vpiSize:32 INT:11 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:11 vpiSize:32 UINT:11 vpiConstType:9
+Pp04_hex_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:20 vpiSize:32 UINT:20 vpiConstType:9
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:20 vpiSize:32 UINT:20 vpiConstType:9
+Pp04_hex_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:11 vpiSize:32 INT:11 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp05_sized_d_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+Pp05_sized_d_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 INT:18 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+Pp05_sized_d_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp06_bin_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:11 vpiSize:32 INT:11 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:11 vpiSize:32 UINT:11 vpiConstType:9
+Pp06_bin_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:20 vpiSize:32 UINT:20 vpiConstType:9
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:20 vpiSize:32 UINT:20 vpiConstType:9
+Pp06_bin_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:11 vpiSize:32 INT:11 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp07_logic_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+Pp07_logic_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 INT:18 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+Pp07_logic_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp08_lp_int_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+Pp08_lp_int_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+Pp08_lp_int_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp09_lp_plain_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+Pp09_lp_plain_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+Pp09_lp_plain_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Pp10_byte_M
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+Pp10_byte_Mp
+   G  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+   O  ref_obj mv @4:10 ACT=logic_var RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+Pp10_byte_U
+   G  ref_obj lv @5:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj lv @5:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua01_sized_sub
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:4 vpiSize:64 INT:4 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:11
+Ua02_sized_mul
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:6 vpiSize:64 INT:6 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:25
+Ua03_sized_div
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:3 vpiSize:64 INT:3 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:12
+Ua04_sized_mod
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:1 vpiSize:64 INT:1 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:13
+Ua05_sized_and
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:2 vpiSize:64 UINT:2 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:28
+Ua06_sized_or
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:7 vpiSize:64 UINT:7 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:29
+Ua07_sized_xor
+   G  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:30
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:30
+Ua08_unsized_sub
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:4 vpiSize:64 INT:4 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:11
+Ua09_mixed_add
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua10_mixed_add_rev
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua11_hex_add
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua12_bin_add
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua13_signed_add
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua14_sized_neg
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:-1 vpiSize:64 INT:-1 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:11
+Ua15_unsized_neg
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:-1 vpiSize:64 INT:-1 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:11
+Ua16_param_param
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:18 vpiSize:32 UINT:18 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua17_param_sized
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 INT:10 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua18_lshift_sized
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:4 vpiSize:64 UINT:4 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:22
+Ua19_rshift
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:4 vpiSize:64 UINT:4 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:23
+Ua20_cmp
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:1 vpiSize:1 BIN:1 vpiConstType:3
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:20
+Ua21_logand
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:1 vpiSize:64 UINT:1 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:26
+Ua22_unary_not
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:1 vpiSize:64 UINT:1 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:3
+Ua23_unary_bitneg
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:4294967295 vpiSize:32 UINT:4294967295 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:4
+Ua24_concat_unsized
+   G  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+Ua25_concat3
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiSize:32 BIN:00000001000000100000000000000011 vpiConstType:3
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+Ua26_repl
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:00001111000011110000111100001111 vpiSize:32 BIN:00001111000011110000111100001111 vpiConstType:3
+   O  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:00001111000011110000111100001111 vpiSize:32 BIN:00001111000011110000111100001111 vpiConstType:3
+Ua27_concat_param
+   G  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+Ua28_nested_add
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:6 vpiSize:32 INT:6 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua29_nested_mix
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:9 vpiSize:64 INT:9 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua30_narrow_add
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:8 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua31_wide_add
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua32_add_zero
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:0 vpiSize:32 INT:0 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua33_paren_literal
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:32'd5 vpiSize:32 vpiConstType:1
+   O  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:32'd5 vpiSize:32 vpiConstType:1
+Ua34_unsized_literal
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+Ua35_bits_plus
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:33 vpiSize:64 UINT:33 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua36_clog2_plus
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:7 vpiSize:64 INT:7 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua37_sized_add_1bit
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:1 vpiSize:1 UINT:1 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua38_wide128
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:128 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Ua39_cast
+   G  ref_obj lv @6:12 ACT=no RHS=operation vpiOpType:67
+   O  ref_obj lv @6:12 ACT=no RHS=operation vpiOpType:67
+Uw01_concat
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+Uw01_constop
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Uw01_unsized
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Uw08_concat
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+Uw08_constop
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Uw08_unsized
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Uw64_concat
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+Uw64_constop
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Uw64_unsized
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Uw128_concat
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+Uw128_constop
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+Uw128_unsized
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+V01_child_mod_add
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+V02_child_gen_add
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+V03_two_insts
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+W01_add128_to128
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:128 INT:5 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:128 UINT:5 vpiConstType:9
+W02_add128_hex
+   G  ref_obj mv @3:10 ACT=logic_var RHS=operation vpiOpType:24
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:128 UINT:5 vpiConstType:9
+W03_bigliteral
+   G  ref_obj mv @3:10 ACT=logic_net RHS=constant 
+   O  ref_obj mv @3:10 ACT=logic_net RHS=constant 
+W04_add_overflow64
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:64 INT:0 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:64 UINT:0 vpiConstType:9
+W05_concat72
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiSize:72 BIN:111111110000000000000000000000000000000000000000000000000000000000000011 vpiConstType:3
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiSize:72 BIN:111111110000000000000000000000000000000000000000000000000000000000000011 vpiConstType:3
+W06_u_add128
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:128 INT:5 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+W07_u_bigliteral
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:128'hFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF vpiSize:128 HEX:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF vpiConstType:5
+   O  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:128'hFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF vpiSize:128 HEX:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF vpiConstType:5
+W08_modfill1_64
+   G  ref_obj mv @3:10 ACT=logic_net RHS=constant vpiDecompile:18446744073709551615 vpiSize:64 UINT:18446744073709551615 vpiConstType:9
+   O  ref_obj mv @3:10 ACT=logic_net RHS=constant vpiDecompile:18446744073709551615 vpiSize:64 UINT:18446744073709551615 vpiConstType:9
+W09_modfill1_65
+   G  ref_obj mv @3:10 ACT=logic_net RHS=constant vpiDecompile:11111111111111111111111111111111111111111111111111111111111111111 vpiSize:65 BIN:11111111111111111111111111111111111111111111111111111111111111111 vpiConstType:3
+   O  ref_obj mv @3:10 ACT=logic_net RHS=constant vpiDecompile:36893488147419103231 vpiSize:65 UINT:0 vpiConstType:9
+W10_modfill1_72
+   G  ref_obj mv @3:10 ACT=logic_net RHS=constant vpiDecompile:111111111111111111111111111111111111111111111111111111111111111111111111 vpiSize:72 BIN:111111111111111111111111111111111111111111111111111111111111111111111111 vpiConstType:3
+   O  ref_obj mv @3:10 ACT=logic_net RHS=constant vpiDecompile:4722366482869645213695 vpiSize:72 UINT:0 vpiConstType:9
+W11_modfill0_128
+   G  ref_obj mv @3:10 ACT=logic_net RHS=constant 
+   O  ref_obj mv @3:10 ACT=logic_net RHS=constant 
+W12_modfillx_128
+   G  ref_obj mv @3:10 ACT=logic_net RHS=constant 
+   O  ref_obj mv @3:10 ACT=logic_net RHS=constant 
+W13_net_fill1_128
+   G  ref_obj mw @3:10 ACT=logic_net RHS=constant vpiDecompile:11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 vpiSize:128 BIN:11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 vpiConstType:3
+   O  ref_obj mw @3:10 ACT=logic_net RHS=constant vpiDecompile:340282366920938463463374607431768211455 vpiSize:128 UINT:0 vpiConstType:9
+W14_port_fill1_128
+   G  ref_obj o @2:10 ACT=logic_net RHS=constant vpiDecompile:11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 vpiSize:128 BIN:11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 vpiConstType:3
+   O  ref_obj o @2:10 ACT=logic_net RHS=constant vpiDecompile:340282366920938463463374607431768211455 vpiSize:128 UINT:0 vpiConstType:9
+X01_xnor_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=operation vpiOpType:31
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:4294967290 vpiSize:32 UINT:4294967290 vpiConstType:9
+X01_xnor_U
+   G  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:31
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:31
+X02_eq_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:1 BIN:0 vpiConstType:3
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:1 BIN:0 vpiConstType:3
+X02_eq_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:0 vpiSize:1 BIN:0 vpiConstType:3
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:14
+X03_neq_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 BIN:1 vpiConstType:3
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 BIN:1 vpiConstType:3
+X03_neq_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:1 vpiSize:1 BIN:1 vpiConstType:3
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:15
+X04_ge_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:1 BIN:0 vpiConstType:3
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:1 BIN:0 vpiConstType:3
+X04_ge_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:0 vpiSize:1 BIN:0 vpiConstType:3
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:19
+X05_logor_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 UINT:1 vpiConstType:9
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:1 BIN:1 vpiConstType:3
+X05_logor_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:1 vpiSize:64 UINT:1 vpiConstType:9
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:27
+X06_redand_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:32 UINT:0 vpiConstType:9
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:32 UINT:0 vpiConstType:9
+X06_redand_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:0 vpiSize:64 UINT:0 vpiConstType:9
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:5
+X07_redor_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:32 UINT:0 vpiConstType:9
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:0 vpiSize:32 UINT:0 vpiConstType:9
+X07_redor_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:0 vpiSize:64 UINT:0 vpiConstType:9
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:7
+X08_redxor_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 UINT:1 vpiConstType:9
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:1 vpiSize:32 UINT:1 vpiConstType:9
+X08_redxor_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:1 vpiSize:64 UINT:1 vpiConstType:9
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:9
+X09_pow_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:8 vpiSize:32 INT:8 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:8 vpiSize:32 UINT:8 vpiConstType:9
+X09_pow_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:8 vpiSize:64 INT:8 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:43
+X10_arith_rsh_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+X10_arith_rsh_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:4 vpiSize:64 UINT:4 vpiConstType:9
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:42
+X11_unary_plus_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=operation vpiOpType:2
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+X11_unary_plus_U
+   G  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:2
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:2
+X12_unary_minus_unsized_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:-5 vpiSize:32 INT:-5 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:-5 vpiSize:32 INT:-5 vpiConstType:7
+X12_unary_minus_unsized_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:-5 vpiSize:64 INT:-5 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:1
+X13_hex_sub_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 INT:4 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+X13_hex_sub_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:4 vpiSize:64 INT:4 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:11
+X14_hex_mul_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 INT:6 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 UINT:6 vpiConstType:9
+X14_hex_mul_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:6 vpiSize:64 INT:6 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:25
+X15_bin_sub_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 INT:4 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:4 vpiSize:32 UINT:4 vpiConstType:9
+X15_bin_sub_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:4 vpiSize:64 INT:4 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:11
+X16_dec_and_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:2 vpiSize:32 UINT:2 vpiConstType:9
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:2 vpiSize:32 UINT:2 vpiConstType:9
+X16_dec_and_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:2 vpiSize:64 UINT:2 vpiConstType:9
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:28
+X17_add_hexdec_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+X17_add_hexdec_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+X18_sub_then_add_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+X18_sub_then_add_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+X19_add_then_sub_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:9 vpiSize:32 INT:9 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:9 vpiSize:32 UINT:9 vpiConstType:9
+X19_add_then_sub_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:9 vpiSize:64 INT:9 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:11
+X20_mul_then_add_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:22 vpiSize:32 INT:22 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:22 vpiSize:32 UINT:22 vpiConstType:9
+X20_mul_then_add_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:22 vpiSize:64 INT:22 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+X21_oct_add_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+X21_oct_add_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+X22_unsized_hex_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 INT:6 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 UINT:6 vpiConstType:9
+X22_unsized_hex_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:6 vpiSize:32 INT:6 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+X23_str_M
+   G  ref_obj mv @3:10 ACT=logic_net RHS=constant 
+   O  ref_obj mv @3:10 ACT=logic_net RHS=constant vpiDecompile:16706 vpiSize:32 UINT:16706 vpiConstType:9
+X23_str_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:"AB" vpiSize:16 STRING:AB vpiConstType:6
+   O  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:"AB" vpiSize:32 STRING:AB vpiConstType:6
+X24_add_neg_lit_M
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:-1 vpiSize:32 INT:-1 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:4294967295 vpiSize:32 UINT:4294967295 vpiConstType:9
+X24_add_neg_lit_U
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:-1 vpiSize:32 INT:-1 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+m01_constop
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+m02_clog2
+   G  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:6 vpiSize:32 UINT:6 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:6 vpiSize:32 UINT:6 vpiConstType:9
+m03_param_plus
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:10 vpiSize:32 UINT:10 vpiConstType:9
+m04_concat_sized
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+m05_unsized_add
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+m06_negate
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:-1 vpiSize:32 INT:-1 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:-1 vpiSize:32 INT:-1 vpiConstType:7
+m07_sized_literal
+   G  ref_obj mv @5:10 ACT=logic_net RHS=constant 
+   O  ref_obj mv @5:10 ACT=logic_net RHS=constant 
+m08_paramref
+   G  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:9 vpiSize:32 UINT:9 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:9 vpiSize:32 UINT:9 vpiConstType:9
+m09_bits
+   G  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:32 vpiSize:32 UINT:32 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:32 vpiSize:32 UINT:32 vpiConstType:9
+m10_shift
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:8 vpiSize:32 UINT:8 vpiConstType:9
+   O  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:8 vpiSize:32 UINT:8 vpiConstType:9
+m14_wide_fill1
+   G  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 vpiSize:128 BIN:11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 vpiConstType:3
+   O  ref_obj mv @5:10 ACT=logic_net RHS=constant vpiDecompile:340282366920938463463374607431768211455 vpiSize:128 UINT:0 vpiConstType:9
+s01_genfor
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+s02_nested
+   G  ref_obj lv @7:14 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @7:14 ACT=logic_var RHS=operation vpiOpType:24
+s03_gencase
+   G  ref_obj lv @7:14 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @7:14 ACT=logic_var RHS=operation vpiOpType:24
+s04_unnamed
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+s05_child
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+s06_child_mod
+   G  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @3:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+s07_iface_gen
+   G  ref_obj lv @4:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @4:12 ACT=logic_var RHS=operation vpiOpType:24
+s08_iface_mod
+   G  ref_obj mv @3:10 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj o2 @9:10 ACT=logic_net RHS=constant 
+s09_modnet_from_gen
+   G  ref_obj mw @7:12 ACT=logic_net RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mw @7:12 ACT=logic_net RHS=operation vpiOpType:24
+s10_port_from_gen
+   G  ref_obj o2 @5:12 ACT=logic_net RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj o2 @5:12 ACT=logic_net RHS=operation vpiOpType:24
+s11_namesake
+   G  ref_obj lv @8:12 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:4 INT:5 vpiConstType:7
+   O  ref_obj lv @8:12 ACT=logic_var RHS=operation vpiOpType:24
+s12_modnet
+   G  ref_obj mw @5:10 ACT=logic_net RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mw @5:10 ACT=logic_net RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+s13_port
+   G  ref_obj o2 @4:10 ACT=logic_net RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj o2 @4:10 ACT=logic_net RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+s14_bitsel_lhs
+   G  bit_select lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  bit_select lv @6:12 ACT=no RHS=operation vpiOpType:24
+s15_partsel_lhs
+   G  part_select @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  part_select @6:12 ACT=no RHS=operation vpiOpType:24
+s16_barevar
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+s17_delayed
+   G  ref_obj lv @6:15 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:15 ACT=logic_var RHS=operation vpiOpType:24
+s18_enum
+   G  ref_obj lv @7:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @7:12 ACT=logic_var RHS=operation vpiOpType:24
+s19_enum_mod
+   G  ref_obj mv @6:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @6:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+s20_localparam
+   G  ref_obj mv @6:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @6:10 ACT=logic_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+s21_signed_lhs
+   G  ref_obj mv @5:10 ACT=logic_var RHS=constant vpiDecompile:-1 vpiSize:32 INT:-1 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=logic_var RHS=operation vpiOpType:11
+s22_signed_lhs_gen
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:-1 vpiSize:64 INT:-1 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:11
+s23_int_lhs
+   G  ref_obj mv @5:10 ACT=int_var RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj mv @5:10 ACT=int_var RHS=constant vpiDecompile:5 vpiSize:32 UINT:5 vpiConstType:9
+s24_int_lhs_gen
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=int_var RHS=operation vpiOpType:24
+s25_twocells
+   G  ref_obj lv @7:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @7:12 ACT=logic_var RHS=operation vpiOpType:24
+u01_constop
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+u02_clog2
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:6 vpiSize:64 UINT:6 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=sys_func_call $clog2 vpiName:$clog2
+u03_param_plus
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:10 vpiSize:64 UINT:10 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+u04_concat_sized
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiSize:32 BIN:00000000000000010000000000000010 vpiConstType:3
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:33
+u05_unsized_add
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:64 UINT:5 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:24
+u06_negate
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:-1 vpiSize:32 INT:-1 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:1
+u07_sized_literal
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:32'd5 vpiSize:32 vpiConstType:1
+   O  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:32'd5 vpiSize:32 vpiConstType:1
+u08_paramref
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:9 vpiSize:32 UINT:9 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:9 vpiSize:32 UINT:9 vpiConstType:9
+u09_bits
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:32 vpiSize:64 UINT:32 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:32 vpiSize:64 UINT:32 vpiConstType:9
+u10_shift
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:8 vpiSize:64 UINT:8 vpiConstType:9
+   O  ref_obj lv @6:12 ACT=logic_var RHS=operation vpiOpType:22
+u12_net_constop
+   G  ref_obj lv @6:12 ACT=no RHS=constant vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+   O  ref_obj lv @6:12 ACT=no RHS=operation vpiOpType:24
+u13_ancestor_constop
+   G  ref_obj o2 @9:12 ACT=logic_net RHS=ref_obj ov vpiName:ov
+   O  ref_obj o2 @9:12 ACT=logic_net RHS=ref_obj ov vpiName:ov

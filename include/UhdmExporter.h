@@ -2861,6 +2861,20 @@ private:
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
                                 UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
+    /// § caNonTernFoldEnc27 (r11u27) -- the ENCODING channel of
+    /// `ExprEval::reduceExpr`'s non-ternary cont-assign fold: the
+    /// `vpiConstType` and the `VpiSize` of the constant the producer MINTS,
+    /// beside the value `genTernInt64Eval22` already computes.  Returns false
+    /// -- DECLINE -- for every shape whose encoding this emitter cannot
+    /// prove.  See the definition (ModuleEmit.cpp) for the decoded table and
+    /// the grid arm behind every row.
+    bool caFoldEnc27(const slang::ast::Expression& e0, int depth, int32_t& ct,
+                     int32_t& size);
+    /// § caNonTernFoldEnc27 -- the LEAF encoding: one `constant`'s
+    /// `vpiConstType` / `VpiSize` as `CompileExpression.cpp:495-563` writes
+    /// it, read off the literal's WRITTEN BASE.
+    bool caLeafEnc27(const slang::ast::Expression& e0, int32_t& ct,
+                     int32_t& size);
     /// § macroQuoteContLeak11 -- the whitespace slang's preprocessor leaks
     /// into a `` `" `` stringification that is reached across a macro-body
     /// LINE CONTINUATION.

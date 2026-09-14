@@ -1,0 +1,72 @@
+r11u27 GATE TRANSCRIPT — base 9b9fbf2e, worktree /tmp/wt_r11u27
+pristine md5 58e64809ae74496d897279f045173b01   law md5 1aa44227d521692d9125726594f5bfa1
+(the pristine md5 is the OPS-stated main-tree md5 at 9b9fbf2e, reproduced from source)
+
+1. GOLDENS
+   pristine 23 PASS / 0 FAIL      law 23 PASS / 0 FAIL      SLANG_UHDM=/bin/false 0 PASS / 23 FAIL
+
+2. uhdm2rtlil, BOTH MODES (law)
+   testflags CMP_EQUAL 768  CMP_NOTEQUAL 36  SLANG_REJECT 67
+   default   CMP_EQUAL 768  CMP_NOTEQUAL 36  SLANG_REJECT 67
+   ct8rows vs results/gate_uhdm2rtlil.csv        PASS: every row byte-identical
+   ct8rows vs my own pristine testflags sweep    PASS: every row byte-identical
+   ct8rows vs my own pristine default   sweep    PASS: every row byte-identical
+   byteverify SELFCHECK=1                        MOVERS 0 / 1608, SELFCHECK 1607/1608
+
+3. Surelog suite, --mode both (law)
+   default   CMP_EQUAL 469  CMP_NOTEQUAL 14
+   testflags CMP_EQUAL 465  CMP_NOTEQUAL 12
+   ct8rows vs results/golden_surelog.csv: 4 differing ROWS, all four quoted --
+     Earlgrey_0_1 default   CMP_EQUAL/differ -> CMP_EQUAL/      (DUMP COLUMN, uhdm-dump timeout draw)
+     Earlgrey_0_1 testflags CMP_EQUAL/differ -> CMP_EQUAL/      (same; STATUS unchanged, DB byte-identical)
+     LowMemLib    testflags SURELOG_FAIL detail string embeds the WORKDIR PATH (not a judge verdict)
+     LowMemPkg    testflags SURELOG_FAIL detail string embeds the WORKDIR PATH (not a judge verdict)
+   ct8rows vs my own pristine sweep: 3 differing ROWS (Earlgrey_0_1 default dump column + the two LowMem paths)
+   byteverify SELFCHECK=1  MOVERS 3 / 960, SELFCHECK 959/960:
+     ./default/MiniAmiq-544c7f61    order-blind delta 4   (UINT:<n> + vpiDecompile:<n>)
+     ./testflags/MiniAmiq-544c7f61  order-blind delta 4
+     ./testflags/SeqDriver-32af76aa order-blind delta 4
+   SECOND CONVICTION (coin27.sh, the PRISTINE binary run again vs its own first run):
+     default/MiniAmiq   delta 4    testflags/MiniAmiq delta 4
+     default/SeqDriver  delta 4    testflags/SeqDriver delta 4
+   -- the proven UVM coin class; the COUNT is a per-run draw (the pre-fence binary drew 4, this one 3).
+
+4. cmds.txt AUDIT BY BINARY PATH
+   /tmp/r11u27_wdl3/sl   files=1581  law=1531  MAIN-TREE=0  no-slang-line=50
+   /tmp/r11u27_wdl3/u2r  files=1742  law=1742  MAIN-TREE=0  no-slang-line=0
+
+5. CANARIES
+   sl vs committed baseline   ok=50 changed=2  (both the Earlgrey_0_1 dump column of gate 3)
+   sl vs my own pristine      ok=51 changed=1  (Earlgrey_0_1 default dump column)
+   u2r                        ok=8  changed=0
+   ctcan2 surelog  PASS       ctcan2 u2r  PASS       canaudit PASS
+   rowheads  BYTE-IDENTICAL to the same script over my own pristine workdir;
+             Earlgrey_0_1 0 heads / cmp rc 0 in BOTH modes
+
+6. PROTECTED DATABASES (law vs pristine, md5 prefix)
+   SVSwitch           4842211c4030 / 4842211c4030  BOTH MODES  (OPS byte pin)
+   YosysVerx          6ccda350c24a / 6ccda350c24a  BOTH MODES  (OPS byte pin)
+   InterfaceModPort   59a365f3ce2c  SAME both modes
+   BlackParrotComplex e3e354129d5a (default) / 73a10e8217e5 (testflags)  SAME
+   YosysOldOr         d68e0796d62c  SAME both modes
+   Earlgrey_0_1       8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)  SAME
+   Rggen              d66b516b88c8  SAME
+   Scr1SvTests        c71d6e17de6f / c5bdbceb5ab7  SAME
+
+7. GRID   245 arms, every arm golden_rc=0 AND ours_rc=0 on BOTH binaries
+   by uhdm-cmp rc: CONVERT 143  REGRESS 0  WORSE 0  UNCHANGED 102
+   by CA cell:     CONVERT 147  REGRESS 0  MOVED-STILL-DIFF 0  EQUAL-BOTH 71  DIFF-UNCHANGED 27
+
+8. BOUNDARY  2976 files, PROCESSED == LISTED, 0 rc mismatches, 157 movers
+   148 of them this pass's own grid arms (the gate's own positive control)
+   9 COMMITTED movers of earlier passes, scored cell by cell vs the REAL golden:
+     TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG-CHANGED 1
+   by the official uhdm-cmp: f07_genlocal_rhs_constop 31 cmplines -> rc 0 (CONVERT)
+                             qb23.sv 31 -> 18 (IMPROVE); the other 7 unchanged; none worse
+
+9. A/B SWITCH  R11U27_OFF=1 reproduces the pristine bytes on 13 / 13 arms
+
+10. CENSUS POSITIVE CONTROL  fires on 147/147 arms that move, 0 misses; silent on 35 of 243
+11. TRACE POSITIVE CONTROL   m01 ct=7 (moves) / Ma05 ct=9 (does not) / u01 bvf=0 ct=7 val=1 /
+                             Ua05 ct=9 / s25_twocells names three fences on three cells /
+                             u08 (a bare param Rhs) prints NOTHING

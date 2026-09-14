@@ -1,0 +1,10 @@
+r10earl112repro/g2_carrier112.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=15  law_rc=0 cmp_rc=255 cmplines=15
+r10earl40repro/a1_sel40.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=39  law_rc=0 cmp_rc=255 cmplines=39
+r10earl47repro/a1_earl47.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=42  law_rc=0 cmp_rc=255 cmplines=42
+r10earl64repro/gA_earl64.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=18  law_rc=0 cmp_rc=255 cmplines=18
+r10earl_repro/qa25.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=31  law_rc=0 cmp_rc=255 cmplines=31
+r10earl_repro/qb23.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=31  law_rc=0 cmp_rc=255 cmplines=18
+r10v64repro/v1_srcs64.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=32  law_rc=0 cmp_rc=255 cmplines=32
+arms/va6_typedefparam87.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=32  law_rc=0 cmp_rc=255 cmplines=32
+f07_genlocal_rhs_constop/dut.sv  golden_rc=0  pris_rc=0 cmp_rc=255 cmplines=31  law_rc=0 cmp_rc=0 cmplines=0
+ATTRDONE

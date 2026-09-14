@@ -1,0 +1,7 @@
+default/Earlgrey_0_1 cells=185 bnd=47 enc=2 ct7=0 | gen=5182 bvf0=1026 genenc=1 genval=0
+default/Rggen cells=230 bnd=92 enc=0 ct7=0 | gen=117 bvf0=13 genenc=1 genval=0
+default/Scr1SvTests cells=73 bnd=73 enc=0 ct7=0 | gen=4 bvf0=0 genenc=0 genval=0
+default/WireType cells=40 bnd=40 enc=0 ct7=0 | gen=0 bvf0=0 genenc=0 genval=0
+testflags/net_types cells=40 bnd=40 enc=0 ct7=0
+testflags/param_no_default cells=16 bnd=16 enc=0 ct7=0
+testflags/ibex_alu cells=6 bnd=6 enc=0 ct7=0

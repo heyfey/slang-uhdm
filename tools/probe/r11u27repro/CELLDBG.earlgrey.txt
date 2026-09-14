@@ -1,0 +1,3 @@
+default/Earlgrey_0_1 cells=185 bnd=47 enc=120 ct7=0 | gen=5182 bvf0=1026 genenc=1 genval=0
+testflags/Earlgrey_0_1 cells=185 bnd=47 enc=120 ct7=0 | gen=5182 bvf0=1026 genenc=1 genval=0
+DONE
