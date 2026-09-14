@@ -1,0 +1,10 @@
+gold/
+*.uhdm
+*.dump
+*.cmp
+*.err
+*.log
+*.n
+added
+removed
+g.dump

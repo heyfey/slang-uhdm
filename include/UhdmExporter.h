@@ -1920,6 +1920,50 @@ private:
         const slang::ast::SubroutineSymbol& sub);
     std::map<const slang::ast::SubroutineSymbol*, std::vector<SrlgMemLeft>>
         memLeftCache;
+    // § patParamEvalFuncRead26 (r11u26) — THE THIRD TRIGGER OF THE ELABORATED
+    // PATTERN FLATTEN.  `ExprEval::getValue` (UHDM v1.87
+    // `templates/ExprEval.cpp:337-347`) answers a by-name lookup with the
+    // parameter's OWN `param_assign` Rhs object and, when that object is an
+    // operation carrying a typespec, runs `flattenPatternAssignments` over it
+    // IN PLACE — the tagged_pattern wrappers are gone from the parameter's own
+    // elaborated listing afterwards.  Evaluating a const function's body
+    // during elaboration reaches that lookup for every whole read of a
+    // parameter, which is a trigger beside the two already modelled
+    // (`hasScopedPkgRef`, `hasMemberSelectOf`, TypeEmit).
+    //   Measured, three arms that differ only in who reads the parameter:
+    //   `m10` NOBODY reads `pk::UU` -> golden AND we keep the tagged tree;
+    //   `m11` a plain `localparam AA = UU.a` reads it -> golden AND we flatten
+    //         (the member-select rule);
+    //   `m1`  only `c.u = UU` inside the builder reads it -> GOLDEN FLATTENS
+    //         AND WE DID NOT.  `m14` is the negative control: the same body in
+    //         a function NOTHING calls from a parameter, never evaluated, and
+    //         golden keeps the tags.
+    // True when some parameter declared in `body` is initialized by a builder
+    // this pass's recognizer accepts whose body reads `sym` WHOLE.
+    bool evalFuncWholeReads26(const slang::ast::Scope& body,
+                              const slang::ast::Symbol& sym);
+    // § patParamPatElem26v (r11v26) — true when this resolved assignment
+    // pattern has an ELEMENT that is itself an assignment pattern, literally
+    // or through a parameter whose own value is one.  Surelog leaves such an
+    // elaborated operation UNTYPED and `getValue`'s flatten is gated on
+    // `op->Typespec()`, so the new trigger must refuse it; see the definition
+    // in ParamEmit.cpp for the thirteen measured golden rows.
+    bool patParamPatElem26v(const slang::ast::Expression& pat);
+    std::map<const slang::ast::Scope*, std::set<const slang::ast::Symbol*>>
+        evalFuncWholeRead26;
+    // § patParamLeftoverShare26 (r11u26) — the leftover of a whole read of a
+    // parameter whose elaborated Rhs is an OPERATION.  `setValueInInstance`
+    // stamps `reduceExpr(<body RHS>)`, and for a `ref_obj` RHS that is
+    // `getValue`'s answer — the parameter's own elaborated Rhs — reduced.  An
+    // assignment-pattern operation does not reduce to a constant, so golden's
+    // `typespec_member::Actual_value` is an operation with that parameter's
+    // flattened element list.  Golden CLONES it (the grid's id census: the
+    // leftover is a DISTINCT object from the parameter's Rhs, with the same
+    // payload and the same `vpiParent` — `m12` gold `pk.UU` rhs#9 vs
+    // `pk::c_t.u` val#17, both parented at the `UU` param_assign #13), so this
+    // clones too; `VpiParent` is not read by any generated `Compare`, but the
+    // aliasing hazard of a share is real and golden's own ids say clone.
+    UHDM::operation* memLeftPatParamClone26(const UHDM::any* src);
     // The call whose result initializes a parameter, when that call reaches
     // srlgEvalFuncMemberLeftovers. Returns the subroutine or null.
     const slang::ast::SubroutineSymbol* memLeftInitCall(
@@ -1964,6 +2008,16 @@ private:
         std::vector<const slang::ast::Expression*> litRhs;
         std::vector<const slang::ast::ParameterSymbol*> argWholeParam;
         std::vector<const slang::ast::Symbol*> paramRead;
+        // § patParamLeftoverShare26 (r11u26) — index-parallel to `values`:
+        // this member's leftover is the assignment-pattern OPERATION THIS LAW
+        // installed (a clone of the read parameter's elaborated Rhs).  Read
+        // only by § modStructFuncAssembleBin's bail, which otherwise demands a
+        // constant for every member: the producer's `assemble()` folds a
+        // pattern operation (golden grid `m4`, the MODULE holder, assembles
+        // the same 96-bit BIN as the package-held `m1`), and widening that
+        // bail to every operation `asmOk` accepts would move rows this pass
+        // never measured.  Filled by the drain.
+        std::vector<bool> patOpVal;
         // § modEvalFuncLeftoverEnc (r11u14) — the concat/replication body RHS
         // and the member's own folded bits (MSB first, at the MEMBER's width).
         // The producer's reducer sizes its constant from the OPERANDS, so the

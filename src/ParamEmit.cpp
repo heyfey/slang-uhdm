@@ -1727,6 +1727,195 @@ bool UhdmExporter::memLeftNestedAsmBits(const Type& st,
     return true;
 }
 
+// § patParamLeftoverShare26 (r11u26) — CLONE the read parameter's elaborated
+// assignment-pattern Rhs, one level of operands deep.
+//
+// THE PRODUCER, read from source (UHDM v1.87 `templates/ExprEval.cpp`):
+//   :5319  setValueInInstance  -> `rhsexp = reduceExpr(rhsexp, …)`
+//   :4806  reduceExpr's `uhdmref_obj` arm -> `getValue(name, inst, …)`
+//   :306   getValue            -> `result = (any *)p->Rhs()`   (the OBJECT)
+//   :337   …and if that Rhs is an operation WITH a typespec, it is FLATTENED
+//          IN PLACE (`flattenPatternAssignments`, then
+//          `((operation*)result)->Operands(((operation*)res)->Operands())`)
+//   :372   …then `reduceExpr(result, …)`, which hands an assignment-pattern
+//          operation back UNREDUCED — as a clone
+//   :5671  `((typespec_member *)object)->Actual_value(rhsexp)`
+//
+// So the member's leftover is an operation carrying the parameter's flattened
+// element list.  Measured by the id census (`idcen26.cpp`) on grid `m12`:
+// golden's `pk.UU` Rhs is object #9 and `pk::c_t.u`'s Actual_value is object
+// #17 — DISTINCT objects with identical payloads, both carrying `vpiParent` =
+// the `UU` `param_assign` #13.  Golden clones and keeps the source's parent,
+// so this does the same.  No generated `Compare` reads `VpiParent`, but
+// `expr::Compare` reads `VpiDecompile`/`VpiSize`/`Typespec` and
+// `operation::Compare` reads `VpiOpType`/`VpiReordered`/`VpiFlattened`/
+// `VpiOpStrong`/`Operands`, so every one of those is copied.
+UHDM::operation* UhdmExporter::memLeftPatParamClone26(const UHDM::any* src) {
+    if (!src || src->UhdmType() != UHDM::uhdmoperation)
+        return nullptr;
+    auto* so = (const UHDM::operation*)src;
+    // ONLY an assignment pattern.  Every other unreduced Rhs shape (a
+    // comparison, a cast, a hier_path) is a different leftover rule and none
+    // of them is measured here.
+    if (so->VpiOpType() != vpiAssignmentPatternOp)
+        return nullptr;
+    auto* ops = so->Operands();
+    if (!ops || ops->empty())
+        return nullptr;
+    // A FLATTENED pattern only: every operand must be a plain constant.  An
+    // operand that is still a `tagged_pattern` means the parameter's own
+    // elaborated listing never ran the flatten, and golden's leftover then
+    // carries the flattened list this object does not have — decline rather
+    // than emit a shape nothing measured.
+    for (auto* o : *ops)
+        if (!o || o->UhdmType() != UHDM::uhdmconstant)
+            return nullptr;
+    auto* op = s.MakeOperation();
+    op->VpiOpType(so->VpiOpType());
+    op->VpiReordered(so->VpiReordered());
+    op->VpiFlattened(so->VpiFlattened());
+    op->VpiOpStrong(so->VpiOpStrong());
+    op->VpiDecompile(so->VpiDecompile());
+    op->VpiSize(so->VpiSize());
+    op->VpiFile(so->VpiFile());
+    op->VpiLineNo(so->VpiLineNo());
+    op->VpiColumnNo(so->VpiColumnNo());
+    op->VpiEndLineNo(so->VpiEndLineNo());
+    op->VpiEndColumnNo(so->VpiEndColumnNo());
+    // golden's clone keeps the SOURCE's parent (the `UU` param_assign)
+    op->VpiParent((UHDM::any*)so->VpiParent());
+    if (auto* srt = so->Typespec()) {
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiParent(op);
+        rt->VpiName(srt->VpiName());
+        rt->VpiFullName(srt->VpiFullName());
+        rt->Actual_typespec((UHDM::typespec*)srt->Actual_typespec());
+        op->Typespec(rt);
+    }
+    auto* nops = s.MakeAnyVec();
+    for (auto* o : *ops) {
+        auto* sc = (const UHDM::constant*)o;
+        auto* c = s.MakeConstant();
+        c->VpiValue(sc->VpiValue());
+        c->VpiDecompile(sc->VpiDecompile());
+        c->VpiSize(sc->VpiSize());
+        c->VpiConstType(sc->VpiConstType());
+        c->VpiFile(sc->VpiFile());
+        c->VpiLineNo(sc->VpiLineNo());
+        c->VpiColumnNo(sc->VpiColumnNo());
+        c->VpiEndLineNo(sc->VpiEndLineNo());
+        c->VpiEndColumnNo(sc->VpiEndColumnNo());
+        c->VpiParent(op);
+        if (auto* crt = sc->Typespec()) {
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(c);
+            rt->VpiName(crt->VpiName());
+            rt->VpiFullName(crt->VpiFullName());
+            rt->Actual_typespec((UHDM::typespec*)crt->Actual_typespec());
+            c->Typespec(rt);
+        }
+        nops->push_back(c);
+    }
+    op->Operands(nops);
+    return op;
+}
+
+// § patParamPatElem26v (r11v26, the VERIFIER's gate) — A PATTERN ELEMENT THAT
+// IS ITSELF A PATTERN LEAVES THE PRODUCER'S OPERATION UNTYPED, AND THE FLATTEN
+// IS GATED ON THE TYPESPEC.
+//
+// `ExprEval::getValue` (UHDM v1.87 `templates/ExprEval.cpp:337-347`) runs
+// `flattenPatternAssignments` only inside
+// `if (const ref_typespec *rt = op->Typespec())`.  Surelog types the
+// elaborated pattern operation exactly when every element reduces to a
+// CONSTANT; an element that is ITSELF an assignment pattern does not, whether
+// it is written literally or reached through a parameter whose own value is a
+// pattern.  Measured on real v1.87 goldens, one arm per row, `PA topPkg pk.UU`
+// read by the same builder in every one:
+//
+//   golden FLATTENS (op carries `ts(pk::in_t)`, operands constants)
+//     `'{a: 11, b: 22}`                         literal elements   (m1)
+//     `'{a: 64'd11, b: 64'd22}` at 128 bits     literal elements   (m13)
+//     `'{a: E1, b: E2}` enum constants                             (m15)
+//     `'{default: 0, a: 11}`                    default setter     (v12)
+//     `'{a: {2{16'd1}}, b: 22}`                 replication OPER   (v13)
+//     `'{a: 32'd1, b: 3}` with `a` a packed UNION                  (v15)
+//     `'{a: UA, b: 3}`  `UA` a union param whose value is 32'd1    (v17)
+//     `'{a: 64'd5, b: 3}` with `a` a nested STRUCT member          (v16)
+//     `'{a: 64'd5, b: 3}` with `a` a PACKED ARRAY member           (v18)
+//
+//   golden REFUSES (op has NO typespec, operands stay tagged_pattern)
+//     `'{a: '{x: 1, y: 2}, b: 3}`  nested pattern literal          (v4)
+//     `'{p: 5, q: '{x: 1, y: 2}}`  ...in the LAST element          (v11)
+//     `'{a: '{32'd1, 32'd2}, b: 3}` packed-array member, pattern   (v14)
+//     `'{a: NA, b: 3}`  `NA` a parameter whose OWN value is a
+//                       pattern — the ELEMENT, not the member type (v10)
+//
+// v16/v18 against v4/v14 settle it: the distinguisher is the ELEMENT, not the
+// member's type; v17 against v10 settles that a reference is fine unless what
+// it names is itself a pattern.  Without this gate the new flatten trigger
+// moved `pk.UU` AWAY from golden on v4/v10/v11/v14 — cells the PRISTINE binary
+// had exactly right.
+bool UhdmExporter::patParamPatElem26v(const Expression& pat) {
+    std::span<const Expression* const> els;
+    if (pat.kind == ExpressionKind::StructuredAssignmentPattern)
+        els = pat.as<StructuredAssignmentPatternExpression>().elements();
+    else if (pat.kind == ExpressionKind::SimpleAssignmentPattern)
+        els = pat.as<SimpleAssignmentPatternExpression>().elements();
+    else
+        return false;
+    for (auto* el : els) {
+        if (!el)
+            continue;
+        const Expression* e = &stripImplicitConv(*el);
+        for (int d = 0; d < 8; d++) {
+            if (e->kind == ExpressionKind::StructuredAssignmentPattern ||
+                e->kind == ExpressionKind::SimpleAssignmentPattern ||
+                e->kind == ExpressionKind::ReplicatedAssignmentPattern)
+                return true;
+            auto* bp = bareParamRef(*e);
+            if (!bp)
+                break;
+            auto* bi = bp->getInitializer();
+            if (!bi)
+                break;
+            e = &stripImplicitConv(*bi);
+        }
+    }
+    return false;
+}
+
+// § patParamEvalFuncRead26 (r11u26) — see the declaration in UhdmExporter.h
+// for the producer and the three-arm measurement.  Scoped to ONE scope's own
+// parameters, which is where the producer's own instance walk lands: the
+// builder is evaluated while elaborating a parameter of this scope, and
+// `getValue` looks the read-up name in that instance and its parents.  A
+// cross-scope read is written `pkg::NAME` and the landed SCOPED-REFERENCE rule
+// already answers it (grid `m7`, CMP-clean on the pristine binary for the
+// flatten half).
+bool UhdmExporter::evalFuncWholeReads26(const Scope& body, const Symbol& sym) {
+    auto it = evalFuncWholeRead26.find(&body);
+    if (it == evalFuncWholeRead26.end()) {
+        std::set<const Symbol*> found;
+        for (auto& m0 : body.members()) {
+            if (m0.kind != SymbolKind::Parameter)
+                continue;
+            auto* init0 = m0.as<ParameterSymbol>().getInitializer();
+            if (!init0)
+                continue;
+            auto* sub0 = memLeftInitCall(*init0);
+            if (!sub0)
+                continue;
+            if (auto* lo0 = srlgEvalFuncMemberLeftovers(*sub0))
+                for (auto& ml0 : *lo0)
+                    if (ml0.paramRead)
+                        found.insert(ml0.paramRead);
+        }
+        it = evalFuncWholeRead26.emplace(&body, std::move(found)).first;
+    }
+    return it->second.count(&sym) > 0;
+}
+
 const std::vector<UhdmExporter::SrlgMemLeft>*
 UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
     if (auto it = memLeftCache.find(&sub); it != memLeftCache.end())
@@ -2388,6 +2577,7 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
         // size 64 either way) nothing moves; where it did not — `= 64'h1000`
         // is HEX ct 5 and the slice UINT:4096 ct 9 — this is the difference
         // (struct_param_func_arg's head).
+
         for (size_t i = 0; i < st.values.size(); i++) {
             if (i < st.litRhs.size() && st.litRhs[i]) {
                 auto lit = bodyAsgRhsObj.find(st.litRhs[i]);
@@ -2409,6 +2599,27 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                     st.values[i] = (UHDM::expr*)pit->second;
                     continue;
                 }
+                // § patParamLeftoverShare26 (r11u26) — AND THE READ PARAMETER
+                // NEED NOT HAVE FOLDED TO A CONSTANT.  `elabParamConst` only
+                // ever registers constants, so a parameter whose elaborated
+                // Rhs stayed an assignment-pattern OPERATION
+                // (`localparam in_t UU = '{a: 11, b: 22}`) missed this arm
+                // entirely and the value-slice fallback minted a UINT of the
+                // parameter's width.  `getValue` hands back the Rhs OBJECT
+                // whatever its kind, so the leftover is that operation —
+                // cloned, exactly as golden's ids show golden cloning it.
+                // `elabParamRhsObj6` is the elaborated (topView, physical)
+                // Rhs of every parameter, which is the copy golden's leftover
+                // is taken from.
+                auto rit = elabParamRhsObj6.find(st.paramRead[i]);
+                if (rit != elabParamRhsObj6.end() && rit->second)
+                    if (auto* pc26 = memLeftPatParamClone26(rit->second)) {
+                        st.values[i] = pc26;
+                        if (st.patOpVal.size() < st.values.size())
+                            st.patOpVal.resize(st.values.size(), false);
+                        st.patOpVal[i] = true;
+                        continue;
+                    }
             }
             // § modEvalFuncLeftoverEnc (r11u14) — the CONCAT / REPLICATION
             // leftover.  Run the producer's own reducer over the operation we
@@ -2641,12 +2852,28 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
         // whose caller pattern element is an unreduced sized cast, so golden's
         // `work@StructParamFuncBodyFieldCompare.Cfg` elab Rhs is a struct_var
         // — measured AWAY-GOLDEN on the non-constant form of this rule.
+        // § patParamLeftoverShare26 (r11u26) — ...with the ONE exception this
+        // law measures.  `assemble()` (ExprEval.cpp ~4900) reduces each member
+        // value, and an ASSIGNMENT PATTERN of constants reduces; the package
+        // arm's own `asmOk` above already encodes that.  Golden grid `m4` is
+        // the MODULE-holder witness: `work@dut.L`'s `u` leftover is the
+        // pattern operation and golden still assembles the 96-bit BIN, the
+        // same answer the package-held `m1` gives.  Only the operations THIS
+        // law installed are let through — widening the bail to everything
+        // `asmOk` accepts would move corpus rows this pass never measured, and
+        // the two witnesses that BUILT this bail keep it: a `vpiLogAndOp`
+        // leftover (StructParamFuncBodyFieldCompare) and a null one
+        // (FuncStructVal) are neither a constant nor law-installed.
         bool full = true;
-        for (auto* v : own->values)
-            if (!v || v->UhdmType() != UHDM::uhdmconstant) {
+        for (size_t vi = 0; vi < own->values.size(); vi++) {
+            auto* v = own->values[vi];
+            bool patOk26 = vi < own->patOpVal.size() && own->patOpVal[vi] && v &&
+                           v->UhdmType() == UHDM::uhdmoperation;
+            if (!v || (v->UhdmType() != UHDM::uhdmconstant && !patOk26)) {
                 full = false;
                 break;
             }
+        }
         if (!full)
             continue;
         auto* mc = s.MakeConstant();
@@ -12408,6 +12635,66 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (structPat && inPackage && structWidePkg &&
                         !structHasSymbolicMemberDim(pctS) &&
                         hasMemberSelectOf(ps.name)) {
+                        structWidePkg = false;
+                        structNoScopedRefPkg = false;
+                    }
+                    // § patParamEvalFuncRead26 (r11u26) — THE THIRD TRIGGER,
+                    // and it ranks exactly where the member-select rule does.
+                    // `ExprEval::getValue` (UHDM v1.87
+                    // `templates/ExprEval.cpp:337-347`) flattens the
+                    // parameter's own elaborated pattern Rhs IN PLACE on any
+                    // by-name lookup, and evaluating a const-function builder
+                    // during elaboration is such a lookup for every parameter
+                    // the body reads WHOLE (`c.u = UU`).
+                    //   Grid, three arms differing only in the reader:
+                    //   `m10` no reader          -> tagged, golden and ours;
+                    //   `m11` `localparam AA = UU.a` -> flat, golden and ours
+                    //         (the member-select rule);
+                    //   `m1`  only the builder's `c.u = UU` -> GOLDEN FLAT,
+                    //         ours tagged.  That is this rule.
+                    //   `m14` the same body in a function NO parameter calls
+                    //         -> never evaluated, golden keeps the tags, and
+                    //         the predicate answers false because it asks the
+                    //         recognizer through `memLeftInitCall`.
+                    // The SYMBOLIC-DIM rule still wins for the same reason it
+                    // wins over the member select: Surelog leaves that pattern
+                    // op untyped and `getValue`'s flatten is gated on the
+                    // op having a typespec.
+                    //   ...and so does a SIMPLE (positional) pattern, for the
+                    // SAME reason and measured the same way.  `getValue`'s
+                    // flatten runs only `if (const ref_typespec *rt =
+                    // op->Typespec())`, and Surelog leaves a `'{33, 44}`
+                    // elaborated op UNTYPED — grid `m3`'s `pk::SPAT`, where
+                    // golden and our PRISTINE binary agree object for object
+                    // (flat constant operands, NO typespec) and running the
+                    // flat walk over it MINTED a typespec golden does not
+                    // have.  That was measured as an AWAY-GOLDEN move on the
+                    // first build of this law and is the reason for this line.
+                    // The gate reads `k0` — the RESOLVED pattern kind, which
+                    // for a CHAINED parameter (`localparam in_t CHN = PAT;`)
+                    // is the referenced parameter's own pattern — so `m3`'s
+                    // `CHN` still flattens and still carries its leftover,
+                    // exactly as golden does, while `SPAT` does not.
+                    // § patParamPatElem26v (r11v26) — ...and it refuses a
+                    // pattern with a PATTERN-VALUED ELEMENT for the producer's
+                    // own reason, the same reason `SPAT` is refused: Surelog
+                    // leaves that operation UNTYPED and `getValue`'s flatten
+                    // reads `op->Typespec()`.  Measured golden rows in the
+                    // definition of `patParamPatElem26v`; without it `pk.UU`
+                    // moved AWAY from golden on a nested-pattern element (v4,
+                    // v11), a packed-array member's pattern element (v14) and
+                    // an element naming a pattern-valued parameter (v10),
+                    // every one of which the PRISTINE binary had right.
+                    const Expression* pe0 =
+                        structOvPat ? structOvPat
+                        : structRefPat9 ? structRefPat9
+                                        : &stripImplicitConv(*init);
+                    if (structPat && inPackage && structWidePkg &&
+                        !structHasSymbolicMemberDim(pctS) &&
+                        k0 == ExpressionKind::StructuredAssignmentPattern &&
+                        pe0 && !patParamPatElem26v(*pe0) &&
+                        ps.getParentScope() &&
+                        evalFuncWholeReads26(*ps.getParentScope(), ps)) {
                         structWidePkg = false;
                         structNoScopedRefPkg = false;
                     }
