@@ -1,0 +1,147 @@
+r11u23 GATES — the transcript.  Base 5346c1e9, worktree /tmp/wt_r11u23.
+Judge: the official uhdm-cmp through scripts/verify_golden.py.
+results/*.csv ARE NOT EDITED BY THIS PASS (git status on results/ is clean).
+
+=== 1. BINARIES, built -j 2, md5s taken separately ===
+pristine  /tmp/r11u23_bin/pristine  b46b0f3e573c5b435bb827c097e47091
+          == the OPS-stated main-tree md5 at 5346c1e9.  BYTE-IDENTICAL.
+law       /tmp/r11u23_bin/law       63a492555c0733b54ecd0214e801becb
+Both frozen chmod 555 BEFORE any sweep.
+
+=== 2. GOLDENS ===
+SLANG_UHDM=/tmp/r11u23_bin/law        PASS=23 FAIL=0
+SLANG_UHDM=/tmp/r11u23_bin/pristine   PASS=23 FAIL=0
+SLANG_UHDM=/bin/false                 PASS=0  FAIL=23    (negative control)
+
+=== 3. uhdm2rtlil, BOTH MODES (--jobs 2, own --out/--workdir, SLANG_UHDM exported) ===
+law      testflags  768 CMP_EQUAL / 36 CMP_NOTEQUAL / 67 SLANG_REJECT
+law      default    768 CMP_EQUAL / 36 CMP_NOTEQUAL / 67 SLANG_REJECT
+pristine both modes 767 / 37 / 67, and byte-identical to results/gate_uhdm2rtlil.csv
+                    and to the default half of results/golden_uhdm2rtlil.csv
+ct8rows.sh results/gate_uhdm2rtlil.csv <law tf>:  1 differing ROW, quoted:
+    < genscope_outer_reg_inner_ff,testflags,CMP_NOTEQUAL,decompile:,,
+    > genscope_outer_reg_inner_ff,testflags,CMP_EQUAL,,,differ
+ct8rows.sh <committed default half> <law def>:    the same one row, default.
+THE ROW CONVERTS.  Measured directly against the real v1.87 golden built for it:
+    pristine  cmp_rc=255  heads=1  cmplines=15
+    law       cmp_rc=0    heads=0  cmplines=0
+
+=== 4. surelog suite, --mode both ===
+law       469 CMP_EQUAL / 14 CMP_NOTEQUAL  default
+          465 CMP_EQUAL / 12 CMP_NOTEQUAL  testflags
+pristine  the same four numbers.
+law vs MY OWN pristine sweep: 2 differing rows, BOTH the workdir PATH STRING
+  inside a SURELOG_FAIL detail (LowMemLib, LowMemPkg).  No status moves.
+law vs the COMMITTED baseline: those two plus
+  Earlgrey_0_1,testflags,CMP_EQUAL,,,differ -> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  — the DUMP column only (verify_golden.py:625-632 swallows a uhdm-dump
+  TimeoutExpired and leaves dump=''), present identically on MY PRISTINE sweep.
+  STATUS is CMP_EQUAL on both binaries in both modes.
+
+=== 5. BYTE VERIFICATION, SELFCHECK=1, vs MY OWN pristine workdirs ===
+u2r      PATH_SETS_IDENTICAL (1608 paths)   MOVERS 2 / 1608   selfcheck 1607/1608
+         ./default/genscope_outer_reg_inner_ff-e6115fca/slang.uhdm
+         ./testflags/genscope_outer_reg_inner_ff-e6115fca/slang.uhdm
+         — both PREDICTED BY NAME a priori (PRED.u2r.txt) and both the conversion.
+surelog  PATH_SETS_IDENTICAL (960 paths)    MOVERS 5 / 960    selfcheck 959/960
+         default/MiniAmiq  default/Scoreboard  default/SeqDriver
+         testflags/MiniAmiq  testflags/SeqDriver
+         — all five the PROVEN UVM COIN, convicted TWICE and never by a count:
+         (a) pred23 flags 0 cells in all five; R11U22_CELLDBG=1 on MiniAmiq's own
+             command line prints 0 gen-scope ternary cells;
+         (b) the PRISTINE binary ALONE produced three different databases in
+             three runs of that command line (b3e215ded8ae / cdd84dbbb1bf /
+             4e9716e5080f) and the pristine-vs-pristine order-blind delta is the
+             SAME 4-line class (one constant's UINT + its vpiDecompile) as the
+             law-vs-pristine one.  default/Scoreboard is order-blind delta 0 —
+             a pure list-ORDER flip.
+
+=== 6. A-PRIORI MOVER PREDICTION, from PRISTINE databases only ===
+positive control on the 112 grid arms: fires on all 43 real movers, 0 misses;
+  silent on 47 of 112.
+u2r      1608 scanned, 4 flagged rows (2 tests x 2 modes):
+         genscope_outer_reg_inner_ff  LAW=1 ACT=1 UNS=1  -> MOVES (converts)
+         ibex_compressed_decoder      LAW=1 ACT=1 UNS=0  -> predicted NON-MOVER,
+                                                            confirmed non-mover
+surelog  960 scanned, 4 flagged rows (2 tests x 2 modes):
+         Earlgrey_0_1  1085 (default) / 1406 (testflags) cells
+         Scr1SvTests   4 cells
+         BOTH measured NON-MOVERS, cell by cell (§7).
+
+=== 7. Earlgrey_0_1 AND Scr1SvTests, COUNTED NOT ARGUED ===
+R11U22_CELLDBG=1 on Earlgrey's own command line, 1314 gen-scope ternary cells:
+    1041  bind=1 ... ub=0 uarm=0 ufill=0 unb=0
+     248  bind=0 ... ub=0 uarm=0 ufill=0 unb=0
+      25  bind=0 ... ub=1 uarm=0 ufill=0 unb=0      <- the law's gate matches 25
+                                                        and takes NO ACTION on any
+Scr1SvTests: all 4 cells bind=1 ub=0; database c71d6e17de6f on BOTH binaries.
+
+=== 8. PROTECTED DATABASES (law vs pristine, md5, both modes) ===
+  SVSwitch            4842211c4030 / 4842211c4030   SAME   (OPS HARD BYTE PIN, hit)
+  YosysVerx           6ccda350c24a / 6ccda350c24a   SAME   (OPS HARD BYTE PIN, hit)
+  InterfaceModPort    59a365f3ce2c                  SAME
+  BlackParrotComplex  e3e354129d5a / 73a10e8217e5   SAME
+  YosysOldOr          d68e0796d62c                  SAME
+  Earlgrey_0_1        8bdf25272e08 / 59d0ee6d10c3   SAME   (MUST STAY EQUAL: it does)
+
+=== 9. CANARIES / ctcan2 / canaudit / rowheads ===
+canaries surelog vs MY OWN pristine sweep      ok=52 changed=0
+canaries surelog vs the committed baseline     ok=51 changed=1
+    Earlgrey_0_1 testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/   (dump column, §4)
+canaries u2r     vs results/gate_uhdm2rtlil.csv ok=8  changed=0
+EXPECT_UNKNOWN=1 ctcan2 surelog                 ok=58 changed=0  PASS
+EXPECT_UNKNOWN=6 ctcan2 u2r                     ok=1  changed=0  PASS
+canaudit.sh canaries.sh ctcan2.sh (run FROM this directory)
+    audited=29  UNCOVERED=0  FENCE-BREACH=0   exit 0
+rowheads.sh on the law sweep: Earlgrey_0_1 cmp rc=0, 0 heads, BOTH modes;
+    SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags (expected).
+
+=== 10. cmds.txt AUDIT BY BINARY PATH ===
+/tmp/r11u23_wd_law/sl   cmds=1581  naming the MAIN-TREE binary = 0
+                                   naming /tmp/r11u23_bin/law  = 1531
+                                   carrying no slang line      = 50
+/tmp/r11u23_wd_law/u2r  cmds=1742  naming the MAIN-TREE binary = 0
+                                   naming /tmp/r11u23_bin/law  = 1742
+Total audited 3323, ZERO naming the main-tree binary.
+
+=== 11. THE GOLDEN GRID, 112 arms ===
+every arm golden_rc=0 AND ours_rc=0 on BOTH binaries.
+by uhdm-cmp rc:    39 CONVERT  1 IMPROVE  72 UNCHANGED  0 REGRESS  0 WORSE
+by CA-shape census: 43 CONVERT  0 REGRESS  0 MOVED-STILL-DIFF
+(the shape census is the arbiter; an arm agreeing at rc 0 is not an arm
+ testing the law.)
+
+=== 12. THE BOUNDARY, 1548 files ===
+PROCESSED=1548 LISTED=1548 MOVED=47      (43 of the 47 are this pass's grid arms)
+rc histogram identical on both binaries: 1518 rc=0, 15 rc=3, 15 rc=4;
+  ZERO files whose rc differs between the binaries.
+POSITIVE CONTROL: r11u22repro/grid/c01_genlocal_fill0 (the UNBOUND arm)
+  norm_delta=73, while its module-scope twin a02_mod_fill0 = 0,
+  a01_genif_fill0 (the BOUND head) = 0, b01_fill1_32 = 0,
+  b12_untaken_partsel = 0, d17_untaken_baresig = 0,
+  this pass's b02_genlocal_rhs_op = 0, c14_xor_arm = 0,
+  f12_modulenet_tern_fold = 0.
+The FOUR COMMITTED movers, scored against the REAL v1.87 golden and then
+cell by cell with the shape lister:
+  r11u22repro/grid/c01_genlocal_fill0/dut.sv   cmp 77 -> rc 0 EQUAL
+  r11u22repro/grid/c02_genlocal_sized/dut.sv   cmp 77 -> rc 0 EQUAL
+  r10earl99repro/g3_home99.sv                  cmp 29 -> 29, CA cells 1 -> 0 differing
+  r10vearl99repro/v99_home.sv                  cmp 339 -> 339, CA cells 2 -> 1 differing
+  DIFF->SAME 2, SAME->DIFF 0.   AWAY-GOLDEN 0 / MOVED-WRONG 0.
+
+=== 13. A/B SWITCH ===
+R11U23_OFF=1 on the SHIPPED law binary reproduces the PRISTINE bytes exactly:
+  a01_genlocal_fill0  a11_u2r_witness  c02_fill1  e01_signal_cond
+  h02_bare_inside_arm  d09_two_instances     — md5 equal on all six, rc 0 on all.
+
+=== 14. FENCE CHECK ===
+No driver, list or arm in this directory dispatches any of the four
+slang-fenced tests; canaudit.sh asserts it mechanically and reports
+FENCE-BREACH=0 (see §9).  BND.list.txt is built from committed tools/probe
+sources only and names no corpus test.
+
+=== 15. PATCH ===
+/tmp/r11u23.patch = git diff vs 5346c1e9.  Surface:
+  src/ModuleEmit.cpp  +  tools/probe/r11u23repro/  ONLY.
+Applies clean on a FRESH 5346c1e9 worktree (0 conflict markers) and rebuilds
+from that fresh worktree to 63a492555c0733b54ecd0214e801becb — the same md5.

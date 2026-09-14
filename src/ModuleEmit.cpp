@@ -14161,6 +14161,310 @@ static bool caLhsAdjustBind106(const Expression& lhsExpr, int32_t& w,
 }
 
 // ---------------------------------------------------------------------------
+// § genCaUnboundTernFold23 (r11u23) — THE UNBOUND HALF of the cont-assign
+// ternary fold, and the LHS-BINDING face that travels with it.  r11u22's R0.
+//
+// `UhdmWriter::writeCont_assign` (Surelog v1.87
+// `src/DesignCompile/UhdmWriter.cpp:2090`) has TWO arms, and
+// `CompileHelper::bindVariable` (`CompileStmt.cpp:3094`) is the fence between
+// them.  That overload switches on `uhdmfunction` / `uhdmtask` / `uhdmbegin` /
+// `uhdmmodule_inst` and tail-recurses on `scope->VpiParent()` for everything
+// else, so from a `gen_scope` it finds the enclosing module_inst's `Nets()`
+// and `Variables()` BY NAME — never a gen-LOCAL declaration.
+//
+//     if (lhs->UhdmType() == uhdmref_obj) {
+//       any* var = bindVariable(mod, m, lhs->VpiName(), …);
+//       if (var) {  …the BOUND arm r11u22 landed…
+//                   ref_obj* ref = (ref_obj*)lhs;
+//                   ref->Actual_group(var);        // :2165 — INSIDE `if (var)`
+//                   cloned = true; } }
+//     …
+//     if (simplified == false) {                   // :2243 — THE UNBOUND ARM
+//       any* res = reduceExpr((expr*)rhs, invalidValue, …);
+//       if (invalidValue == false)
+//         if (res && (res->UhdmType() == uhdmconstant)) {   // A CONSTANT ONLY
+//           if (cloned == false) {
+//             assign = clone_tree(assign);   lhs = assign->Lhs();
+//             cloned = true;
+//             res = adjustSize(tps, …, (constant*)res, true);
+//             res->VpiParent(assign); }
+//           assign->Rhs((constant*)res); } }
+//     if (simplified == false && cloned == false) {          // :2283
+//       DetectUnsizedConstant detector;  …listen over the whole Rhs…
+//       if (detector.unsizedDetected()) {                    // ANY VpiSize -1
+//         assign = clone_tree(assign); assign->VpiParent(m); cloned = true; } }
+//
+// THREE facts follow, and every one is measured on the grid, never argued:
+//
+//  1. `tps` is NULL on this arm.  It is only ever filled from the Lhs ref's own
+//     `Typespec()` or from the BOUND var's, and reaching :2243 with an
+//     operation Rhs REQUIRES `tps == nullptr` (a non-null `tps` sends the
+//     ternary through the `if (tps)` flatten arm at :2178, which sets
+//     `simplified`).  `CompileHelper::adjustSize` returns `c` UNTOUCHED on
+//     `ts == nullptr` (`CompileHelper.cpp:4218`), so NOTHING is re-encoded and
+//     NOTHING is re-sized — which is the whole difference from the bound half:
+//       * a FILL arm keeps `VpiSize` **-1** and its own encoding:
+//         `'0` -> `BIN:0` decompile `'0` ct 3 (a01/c01), `'1` -> **`BIN:1`
+//         decompile `'1` ct 3** (c02 — NOT the bound half's `UINT:<mask>`),
+//         `'x`/`'z` -> `BIN:X`/`BIN:Z` (c03/c04);
+//       * a VALUE-ABLE arm is `reduceExpr`'s own fresh constant at
+//         **`VpiSize(64)`** (`ExprEval.cpp:3893`), `INT:<v>` ct 7, and the
+//         Lhs width never enters: c05 `32'd5`->5/64, c07 a param->9/64,
+//         c08 `$clog2(33)`->6/64, c09 an enum->1/64, c10 `2+3`->5/64,
+//         c11 a concat->65538/64, c12 `2-3`->-1/64, c13 `64'hff..ff`->-1/64,
+//         c26 a replication->252645135/64, c28 `**`->8/64, c29 a constant
+//         function->4/64, c30 `$bits`->32/64, e06/e07->5/64;
+//       * `result = the_val` installs the ARM OBJECT — but ONLY when it is a
+//         CONSTANT, because of fact 2.  c19 a 72-bit literal (HEX, size 72),
+//         c20 `32'bx` (BIN:x, size 32) and c21 a real (REAL:1.5, size 64) are
+//         golden's three.
+//
+//  2. `res->UhdmType() == uhdmconstant` is a HARD fence the bound arm does not
+//     have.  An arm `reduceExpr` hands BACK unreduced — an operation whose
+//     operator its switch has no `case` for, a `sys_func_call` it does not
+//     implement, a select, an inner ternary, a bare signal, a hier_path — is
+//     NOT a constant, so NOTHING is written back and golden KEEPS THE WHOLE
+//     TERNARY: c14 `^`, c15 `===`, c16 `$countones`, c17 `a[0]`, c18 an inner
+//     ternary, c23 a bare signal, c24 a hier_path, c27 `inside`, e01/e04/e05.
+//     The bound half INSTALLS every one of those (r11u22 § outcome 3); THIS
+//     half must DECLINE them, and the two homes are correct to disagree.
+//
+//  3. THE CLONE IS WHAT DROPS THE LHS BINDING.  `ref->Actual_group(var)` is
+//     the only place `writeCont_assign` binds, and it is inside `if (var)`.
+//     For an UNBOUND Lhs the ref is bound later, by `UhdmWriter::lateBinding`
+//     (`UhdmWriter.cpp:3299`) walking `mod->getLateBinding()` — a list of the
+//     ORIGINAL refs.  Both clone sites above mint a FRESH `cont_assign` whose
+//     Lhs ref is NOT in that list, so a cloned cell's Lhs keeps NO
+//     `vpiActual` at all.  Measured, own-scope gen-local Lhs, gen scope:
+//         NO clone   -> `vpiActual` PRESENT  b01 b02 b04 b05 b06 b13 b14 b18
+//                                            b19 b20 c14 c16 c17 c18 c23 c24
+//                                            c27 e05 f18 f20 f21 f22
+//         CLONED     -> `vpiActual` ABSENT   b03 f01 f02 f06 f07 f08 f10 f13
+//                                            f17 f19 + every folding c/d/e arm
+//                                            + a11 e01 e02 e04 (no fold, but
+//                                              an unsized `'0` in the Rhs)
+//     and the ANCESTOR case is the exception that proves it is the LIST and
+//     not the clone alone: a06 and f14 are cloned and STILL bound, because an
+//     ancestor-gen-scope name is already resolved before `writeCont_assign`
+//     runs and `clone_tree` copies the pointer.  So this predicate is
+//     OWN-SCOPE ONLY.
+//
+// `caLhsUnboundOwnLocal23` is that fence.  It is deliberately NARROWER than
+// "not `caLhsAdjustBind106`": that predicate is also false for shapes the
+// producer BINDS (a `time` Lhs, an implicit net, a bare `var d;`, a namesake
+// — r11u22 R3's `a09`/`a10`), and treating those as unbound would move them to
+// a differently-wrong object.
+static bool caLhsUnboundOwnLocal23(const Expression& lhsExpr, const Scope& blk,
+                                   std::string& lhsName) {
+    auto& l = stripImplicitConv(lhsExpr);
+    if (l.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& sym = l.as<NamedValueExpression>().symbol;
+    lhsName = std::string(sym.name);
+    if (lhsName.empty())
+        return false;
+    // A gen-local NET never carries a `vpiActual` on either side and its fold
+    // is a separate face (b08/f09); only a VARIABLE is this law's target.
+    if (sym.kind != SymbolKind::Variable)
+        return false;
+    // OWN SCOPE ONLY — an ancestor gen scope's local stays bound (a06/f14).
+    if (sym.getParentScope() != static_cast<const Scope*>(&blk))
+        return false;
+    // `bindVariable` searches BY NAME: a MODULE-BODY namesake BINDS, and the
+    // cell is then the BOUND half at the NAMESAKE's width (a09: golden folds
+    // the 32-bit gen-local's `'0` at the 4-bit module `lv`'s size).  r11u22
+    // declines that cell as its R3 and so does this pass — decline, never
+    // install a differently-wrong object.
+    // r11v23 (the verifier's fix): ANY module-body namesake, not just a
+    // Net/Variable one.  MEASURED on verifier arm `v24_namesake_modparam` —
+    // a gen-local `logic [31:0] lv` shadowing a module `localparam lv = 7`:
+    // golden's cell KEEPS THE WHOLE TERNARY (its Lhs is not even a ref_obj
+    // there — the elaborated writer resolved `lv` to the parameter's
+    // `UINT:7`), while the Net/Variable-only fence read the cell as unbound
+    // and installed `'0` — pristine AGREED with golden on that Rhs and the
+    // law moved it AWAY.  Declining on any namesake is a pure narrowing and
+    // costs no committed conversion (a09/b12 are Variable/Net namesakes and
+    // were already declined).
+    for (const Scope* w = &blk; w; ) {
+        auto& ws = w->asSymbol();
+        if (ws.kind == SymbolKind::InstanceBody) {
+            if (w->find(lhsName))
+                return false;
+            break;
+        }
+        if (ws.kind != SymbolKind::GenerateBlock &&
+            ws.kind != SymbolKind::GenerateBlockArray &&
+            ws.kind != SymbolKind::StatementBlock)
+            break;
+        w = ws.getParentScope();
+    }
+    return true;
+}
+
+// § genCaUnboundTernLhsNoActual23 (r11u23) — `DetectUnsizedConstant`
+// (`UhdmWriter.cpp:2078`) transcribed: it listens over the WHOLE Rhs tree and
+// fires on ANY `constant` with `VpiSize() == -1`, which in slang's AST is an
+// `UnbasedUnsizedIntegerLiteral` anywhere inside the expression.  That is the
+// SECOND clone trigger, and it is the one that reaches the corpus: the u2r row
+// `genscope_outer_reg_inner_ff` (`dut.sv:26`) folds NOTHING — its condition is
+// `gnt_i && |req_i`, a signal — yet its Rhs carries a `'0`, so golden clones
+// the assign and the Lhs ref loses its binding.  Arm `a11` is that row.
+static bool genTernHasUnsized23(const Expression& e0) {
+    bool found = false;
+    e0.visit(makeVisitor(
+        [&](auto& v, const UnbasedUnsizedIntegerLiteral& u) {
+            found = true;
+            v.visitDefault(u);
+        }));
+    return found;
+}
+
+// § genCaUnboundTernConcatFence23 (r11u23) — THE CONCAT FENCE, and it cost a
+// MOVED-WRONG cell to find (`c27`/`h02`, caught by the grid before any gate).
+//
+// `ExprEval::reduceExpr`'s `vpiConcatOp` arm (`ExprEval.cpp:4079-4110`) builds
+// the result as a BIT STRING and, for an `INT:`/`UINT:` operand, does
+//
+//     if (operands.size() == 1 || (size != 64)) { …append the bits… }
+//     else { c1 = nullptr; }                      // THE WHOLE CONCAT DIES
+//
+// while EVERY arithmetic / bitwise / comparison / reduction / `inside` arm of
+// `reduceExpr` mints its answer at `VpiSize(64)` (36 `VpiSize(64)` sites).  A
+// nested CONCAT operand is skipped by the `operType != vpiConcatOp` guard and
+// therefore reaches the `else { c1 = nullptr; break; }` tail as a
+// non-constant, and a SELECT operand is either not whitelisted by
+// `constantOperands` at all (`part_select`, `h01`) or simply does not value
+// (`c17`).  In every one of those cases `result` is the OPERATION, `get_value`
+// on it invalidates, and golden KEEPS THE WHOLE TERNARY.
+//
+// What DOES fold is the operand Surelog already reduced at COMPILE time, so
+// the UHDM tree holds a plain sized constant: `h03` `{16'd0, 16'd1 + 16'd2}`
+// -> `INT:3`, `h09` `{16'd0, 16'($clog2(33))}` -> 6, `h10` a cast enum -> 1,
+// `h08` `{K, K}` -> 38654705673, `c11` `{16'd1, 16'd2}` -> 65538.  This
+// emitter cannot see which sub-expressions Surelog folded before writing, so
+// the fence is deliberately CONSERVATIVE: a concat or replication operand must
+// be a LITERAL, a fill, or a parameter/enum/genvar reference (through casts).
+// `h03` and `h09` are therefore MISSES, declined and left exactly as wrong as
+// pristine left them — never installed differently-wrong.  Measured:
+//     FOLD  c06 c11 c26 h04 h08 h10          DECLINE  c15 c17 c27 h01 h02
+//                                                     h03 h05 h06 h09
+// The walk is RECURSIVE because the poison propagates: `32'd1 + {16'd0, <an
+// inside>}` breaks its own add exactly as the bare concat breaks itself.
+// r11v23 (the adversarial verifier's fix) — THE FENCE WAS READING THE WRONG
+// THING.  The decode above is right about the producer and the transcription
+// below it was wrong: `reduceExpr`'s `vpiConcatOp` arm tests the operand's
+// **UHDM `VpiSize()`**, and the fence tested the operand's slang AST *kind*.
+// The two part company exactly where Surelog's written width is not slang's:
+//
+//   operand as written        slang width   Surelog VpiSize   concat outcome
+//   `16'd1` (sized literal)        16              16         appends (folds)
+//   `32'd5` (sized literal)        32              32         appends (folds)
+//   `1`/`5` (UNSIZED decimal)      32          **64**         KILLS the concat
+//   `'d1`   (unsized, based)       32          its MIN width  appends, other bits
+//   an ENUM VALUE (`E1`)      the enum's      **64**          KILLS the concat
+//   a GENVAR (`i`)                 32          **64**         KILLS the concat
+//   `int K` / a sized param       its own      its own        appends (folds)
+//
+// MEASURED, verifier grid `/tmp/v11u23_grid2`, real v1.87 goldens, each arm
+// `assign lv = 1'b1 ? <arm> : 32'd0;` on an own-scope gen-local `lv`:
+//   w01 `{1, 2}`       golden KEEPS the ternary   law folded `INT:4294967298`
+//   w02 `{16'd1, 5}`   golden KEEPS the ternary   law folded
+//   w08 `{E1, E1}`     golden KEEPS the ternary   law folded
+//   w09 `{i, i}`       golden KEEPS the ternary   law folded
+// — four arms CMP_EQUAL on the pristine binary and CMP_NOTEQUAL under the
+// law, i.e. four pristine-right -> patched-wrong cells on legal SV.  Two more
+// are away-golden installs on already-unequal arms:
+//   w04 `{'d1, 'd2}`   golden `INT:6` (1 bit + 2 bits)   law `INT:4294967298`
+//   w13 `{2{3}}`       golden `BIN:<128 bits>` size 128  law `INT:12884901891`
+// w13 is the SECOND half of the same defect: the `operands.size() == 1`
+// exemption is real for `{32'd5}` (h04) and for a replication of an OPERATION
+// (h06 `{4{8'd1 + 8'd2}}`, which folds), but a replication of a leaf the
+// producer writes at 64 replicates at 64 — 128 bits, not slang's 64.
+//
+// So the fence now asks the only question the producer asks: WHAT WIDTH WILL
+// THE PRODUCER WRITE FOR THIS OPERAND, and is it 64?  It can answer that only
+// for an explicitly sized literal and for a parameter/specparam reference —
+// everything whose written width slang does not reproduce is DECLINED.  Every
+// change here is a NARROWING: a declined arm keeps the whole ternary, which is
+// exactly what the pristine binary emits, so it can lose a fold and can never
+// install a differently-wrong object.  The committed grid's concat
+// conversions survive it unchanged: c11 `{16'd1,16'd2}`, c26 `{4{8'h0f}}`,
+// h04 `{32'd5}`, h06 `{4{8'd1+8'd2}}`, h08 `{K,K}` (`int K`), h10
+// `{16'd0, 16'(PBal)}` — h10 through the CAST arm, because an explicit cast
+// carries its own width into the producer and a BARE enum ref does not.
+static bool genTernConcatSafe23(const Expression& e0) {
+    // The producer's poison: an operand the writer emits at `VpiSize` 64 (and
+    // a zero-width operand, whose written width this emitter cannot model).
+    auto width64_23 = [](const Expression& x) {
+        auto w = x.type ? x.type->getBitWidth() : 0;
+        return w == 0 || w == 64;
+    };
+    auto leafOk23 = [&](const Expression& x0) {
+        const Expression* x = &stripImplicitConv(x0);
+        // An EXPLICIT cast is an operand with a width of its OWN in the
+        // producer too (h10 `16'(PBal)` folds where the bare `PBal` cannot),
+        // so it is judged on that width and not on what it wraps.
+        if (x->kind == ExpressionKind::Conversion)
+            return !width64_23(*x);
+        switch (x->kind) {
+            case ExpressionKind::IntegerLiteral:
+                // An unsized literal's written width is NOT slang's: a plain
+                // decimal is 64 (w01/w02) and a based one is its minimum
+                // (w04).  Only an explicitly sized literal is transcribable.
+                if (x->as<IntegerLiteral>().isDeclaredUnsized)
+                    return false;
+                return !width64_23(*x);
+            case ExpressionKind::NamedValue: {
+                auto& sy = x->as<NamedValueExpression>().symbol;
+                // An ENUM VALUE (w08) is written at 64.
+                if (sy.kind != SymbolKind::Parameter &&
+                    sy.kind != SymbolKind::Specparam)
+                    return false;
+                // A GENVAR is written at 64 too (w09) — and slang elaborates
+                // a generate loop's index into a ParameterSymbol, so the
+                // parameter arm has to read the genvar flag or it lets the
+                // poisoned operand straight through.
+                if (sy.kind == SymbolKind::Parameter &&
+                    sy.as<ParameterSymbol>().isFromGenvar())
+                    return false;
+                return !width64_23(*x);
+            }
+            default:
+                return false;
+        }
+    };
+    // The single-operand exemption holds for a NON-leaf operand (h06's add),
+    // but a LEAF the producer writes at 64 poisons that concat too (w13).
+    auto soleOk23 = [&](const Expression& x0) {
+        const Expression* x = &stripImplicitConv(x0);
+        if (x->kind == ExpressionKind::IntegerLiteral ||
+            x->kind == ExpressionKind::NamedValue ||
+            x->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+            return leafOk23(x0);
+        return true;
+    };
+    bool ok = true;
+    // ONE flat walk over the whole selected arm: the poison propagates
+    // upwards, so every Concatenation ANYWHERE inside it must pass.
+    e0.visit(makeVisitor([&](auto& v, const ConcatenationExpression& cc) {
+        auto ops = cc.operands();
+        if (ops.size() > 1) {
+            for (auto* o : ops)
+                if (!leafOk23(*o)) {
+                    ok = false;
+                    break;
+                }
+        }
+        else if (ops.size() == 1) {
+            if (!soleOk23(*ops[0]))
+                ok = false;
+        }
+        v.visitDefault(cc);
+    }));
+    return ok;
+}
+
+// ---------------------------------------------------------------------------
 // § genCaPackedPatternFold19 (r11u19) — THE TARGET-KIND HALF OF THE
 // ASSIGNMENT-PATTERN FOLD.  `UhdmWriter::writeCont_assign` (Surelog v1.87
 // `src/DesignCompile/UhdmWriter.cpp:2178-2207`) hands the Lhs typespec to
@@ -14326,6 +14630,15 @@ static bool cellDbg22() {
         const char* e = getenv("R11U22_CELLDBG");
         return e && *e && *e != '0';
     }();
+    return v;
+}
+// r11u23's own A/B switch, in the UNBOUND law's ENTRY GUARD: `R11U23_OFF=1`
+// makes the shipped binary take no unbound-half decision at all — it mints no
+// serializer object, sets no flag and reaches no binding site — so it
+// reproduces the 5346c1e9 bytes exactly.  It is INDEPENDENT of `R11U22_OFF`,
+// which still switches the BOUND half this pass builds beside.
+static bool off23() {
+    static const bool v = getenv("R11U23_OFF") != nullptr;
     return v;
 }
 
@@ -17336,6 +17649,13 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             const Expression* genTernArm22 = nullptr;
             const Expression* genTernFill22 = nullptr;
             int32_t genTernW22 = 0;
+            // § genCaUnboundTernFold23 (r11u23) — the UNBOUND twin of the
+            // three above.  There is no width here at all: `adjustSize`
+            // returns at once on a null typespec, so a fill arm keeps
+            // `VpiSize` -1 and its RAW encoding and a value-able arm is
+            // `reduceExpr`'s own constant at 64.
+            const Expression* genTernArm23 = nullptr;
+            bool genTernFillRaw23 = false;
             // A gen CA reading a BLOCK localparam SHARES the param_assign's
             // fold constant (its parent becomes this cont_assign).
             if (auto& rcp0 = stripImplicitConv(ae.right());
@@ -17865,6 +18185,147 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
                 }
             }
+            // § genCaUnboundTernFold23 / § genCaUnboundTernLhsNoActual23
+            // (r11u23) — THE UNBOUND HALF, and it is the SAME producer arm
+            // read past `if (var)`.  The full decode is at
+            // `caLhsUnboundOwnLocal23` above.  Everything the bound half
+            // computes is REUSED verbatim — the one-level-deep operand gate
+            // over all three operands (`genTernKindOf22`), the condition read
+            // through the transcribed `ExprEval` machine
+            // (`genTernCondTrue22`), the system-function fence
+            // (`genTernSysEvalable22`), the operator-switch fence
+            // (`genTernOpsEvalable22`) and the int64 value machine
+            // (`genTernInt64Eval22`) — because `reduceExpr` is the SAME call
+            // on both arms.  Only the INSTALL differs, and it differs in the
+            // three ways `adjustSize(tps == nullptr)` and the
+            // `res->UhdmType() == uhdmconstant` fence dictate:
+            //   * a FILL arm keeps `VpiSize` -1 and its RAW encoding — the
+            //     exact INVERSE of § caTernFillArmKeepsEncoding19, and `'1`
+            //     is where the two homes visibly part (`c02` golden `BIN:1`
+            //     decompile `'1` ct 3 at -1, against the bound half's
+            //     `UINT:4294967295` ct 9 at 32);
+            //   * a VALUE-ABLE arm is `INT:<v>` at **64**, never the Lhs
+            //     width;
+            //   * an arm `reduceExpr` hands back UNREDUCED is DECLINED, not
+            //     installed, because it is not a `constant` (c14/c16/c17/
+            //     c18/c23/c24/c27 — golden keeps the whole ternary there and
+            //     so does this emitter).
+            // FACE A rides with it: when the producer writes a constant back
+            // it CLONES, and the clone's Lhs ref is not in
+            // `mod->getLateBinding()`, so the `vpiActual` goes.  The fold
+            // path gets that for free — § genCaConstRhsLhsNoBind25 below
+            // already reads `rhs->UhdmType() == uhdmconstant` on an own-scope
+            // gen-local Lhs, which is this same fact one pass earlier.  What
+            // it does NOT cover is the cell that clones WITHOUT folding, on
+            // `DetectUnsizedConstant` alone — and that is the corpus witness
+            // (`a11`, u2r `genscope_outer_reg_inner_ff`), so
+            // `genTernUnsizedNoBind23` carries it to the binding sites.
+            bool genTernUnsizedNoBind23 = false;
+            if (!genTernArm22 && !off22() && !off23()) {
+                auto& rt23 = stripImplicitConv(ae.right());
+                std::string ln23;
+                if (rt23.kind == ExpressionKind::ConditionalOp &&
+                    caLhsUnboundOwnLocal23(ae.left(), blk, ln23)) {
+                    // THE CLONE-WITHOUT-FOLD half, which needs no evaluation
+                    // at all: any unsized literal anywhere in the Rhs makes
+                    // the producer clone, and a cloned Lhs is never late-bound.
+                    genTernUnsizedNoBind23 = genTernHasUnsized23(ae.right());
+                    if (!rhs) {
+                        ASTContext tctx23(comp.getRoot(), LookupLocation::max);
+                        const Expression* sel23 = &rt23;
+                        bool sawTern23 = false;
+                        for (int g23 = 0;
+                             g23 < 32 &&
+                             sel23->kind == ExpressionKind::ConditionalOp;
+                             ++g23) {
+                            auto& co23 = sel23->as<ConditionalExpression>();
+                            if (co23.conditions.size() != 1 ||
+                                co23.conditions[0].pattern)
+                                break;
+                            if (genTernKindOf22(*co23.conditions[0].expr,
+                                                tctx23) == GTKind22::Refused ||
+                                genTernKindOf22(co23.left(), tctx23) ==
+                                    GTKind22::Refused ||
+                                genTernKindOf22(co23.right(), tctx23) ==
+                                    GTKind22::Refused)
+                                break;
+                            auto pv23 = genTernCondTrue22(
+                                *co23.conditions[0].expr, tctx23);
+                            if (!pv23)
+                                break;
+                            sawTern23 = true;
+                            sel23 = &stripImplicitConv(*pv23 ? co23.left()
+                                                             : co23.right());
+                        }
+                        if (sawTern23) {
+                            GTKind22 ak23 = genTernKindOf22(*sel23, tctx23);
+                            if (sel23->kind == ExpressionKind::
+                                                   UnbasedUnsizedIntegerLiteral) {
+                                // `result = the_val`, the fill literal ITSELF,
+                                // and `adjustSize` returns at once.
+                                genTernArm23 = sel23;
+                                genTernFillRaw23 = true;
+                            }
+                            else if (ak23 == GTKind22::HierPath ||
+                                     ak23 == GTKind22::Refused ||
+                                     ak23 == GTKind22::Select ||
+                                     sel23->kind ==
+                                         ExpressionKind::StringLiteral) {
+                                // A hier_path reduces to nullptr, a bare
+                                // signal never passes the operand gate, and a
+                                // SELECT is golden's own decode (r11u22 R5) —
+                                // and a STRING arm is golden's `get_value`
+                                // reading the BYTES (`"AB"` -> `INT:16706`,
+                                // c22), a mint this emitter does not have
+                                // (r11u22 R4).  All DECLINED.
+                            }
+                            else {
+                                bool red23 = genTernSysEvalable22(*sel23) &&
+                                             genTernOpsEvalable22(*sel23) &&
+                                             genTernConcatSafe23(*sel23);
+                                std::optional<int64_t> v23;
+                                ConstantValue cv23;
+                                if (red23) {
+                                    v23 = genTernInt64Eval22(*sel23, tctx23, 0);
+                                    cv23 = tctx23.tryEval(*sel23);
+                                }
+                                if (v23) {
+                                    // `ExprEval.cpp:3888-3895` verbatim: one
+                                    // fresh constant, `INT:<v>`, the decimal
+                                    // decompile, `vpiIntConst`, and
+                                    // **`VpiSize(64)`** — `adjustSize` cannot
+                                    // re-size it with a null typespec.
+                                    std::string dg23 = std::to_string(*v23);
+                                    auto* c23 = s.MakeConstant();
+                                    c23->VpiDecompile(dg23);
+                                    c23->VpiSize(64);
+                                    c23->VpiValue("INT:" + dg23);
+                                    c23->VpiConstType(vpiIntConst);
+                                    rhs = c23;
+                                }
+                                else if (sel23->kind ==
+                                             ExpressionKind::IntegerLiteral ||
+                                         sel23->kind ==
+                                             ExpressionKind::RealLiteral ||
+                                         sel23->kind ==
+                                             ExpressionKind::TimeLiteral) {
+                                    // A LITERAL `get_value` cannot read is
+                                    // `result = the_val` AND a constant, so
+                                    // the fence passes and the object IS the
+                                    // literal: c19 a 72-bit `HEX:`, c20
+                                    // `32'bx`, c21 a real.
+                                    genTernArm23 = sel23;
+                                }
+                                else {
+                                    // Everything else `reduceExpr` hands back
+                                    // is NOT a constant and the producer
+                                    // writes NOTHING: the ternary stays.
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             // THE CELL TRACE: every gen-scope cont_assign whose Rhs is a
             // ternary reaches this site, and it prints the answer for ALL of
             // them, the ones the law DECLINES included — a trace keyed on the
@@ -17880,13 +18341,23 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 bool bd22 = caLhsAdjustBind106(ae.left(), wd22, lnd22);
                 auto sr22 = ae.sourceRange;
                 auto& sm22 = *comp.getSourceManager();
+                // r11u23 adds the UNBOUND half's three answers to the same
+                // line — `ub` (the own-scope gen-local fence), `uarm`/`ufill`
+                // (the unbound install) and `unb` (the no-fold clone) — so one
+                // trace still names EVERY gen-scope ternary cell, the declined
+                // ones included, on both binaries.
+                std::string ln23d;
+                bool ub23 = caLhsUnboundOwnLocal23(ae.left(), blk, ln23d);
                 fprintf(stderr,
                         "R11U22CELL file=%s line=%u scope=%s bind=%d w=%d "
-                        "fold=%d arm=%d fill=%d\n",
+                        "fold=%d arm=%d fill=%d ub=%d uarm=%d ufill=%d "
+                        "unb=%d\n",
                         std::string(sm22.getFileName(sr22.start())).c_str(),
                         sm22.getLineNumber(sr22.start()), fullName.c_str(),
                         (int)bd22, (int)wd22, rhs ? 1 : 0,
-                        genTernArm22 ? 1 : 0, genTernFill22 ? 1 : 0);
+                        genTernArm22 ? 1 : 0, genTernFill22 ? 1 : 0, (int)ub23,
+                        genTernArm23 ? 1 : 0, (int)genTernFillRaw23,
+                        (int)genTernUnsizedNoBind23);
             }
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
@@ -18727,8 +19198,36 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // fold pools, the def-view net map) so that the installed
                 // object is byte-for-byte the one this cont_assign would have
                 // carried INSIDE the ternary.
-                rhs = emitExpr(genTernArm22 ? *genTernArm22 : ae.right(), ca,
-                               fullName, netMap);
+                rhs = emitExpr(genTernArm22   ? *genTernArm22
+                               : genTernArm23 ? *genTernArm23
+                                              : ae.right(),
+                               ca, fullName, netMap);
+                // § genCaUnboundTernFold23 (r11u23) — the UNBOUND install,
+                // and it is `adjustSize(ts == nullptr)` returning `c`
+                // UNTOUCHED (`CompileHelper.cpp:4218`).  Measured on the
+                // grid's `g01`-`g04` arms, which read our raw mint beside
+                // Surelog's with no ternary in the way:
+                //     fill  golden (unbound)             ours, raw
+                //     '0    BIN:0  '0   ct 3  size -1    BIN:0  '0  ct 3  size 32
+                //     '1    BIN:1  '1   ct 3  size -1    UINT:4294967295 ct 9 size 32
+                //     'x    BIN:X  'X   ct 3  size -1    IDENTICAL
+                //     'z    BIN:Z  'Z   ct 3  size -1    IDENTICAL
+                // so `'0` needs only the size restored and `'1` needs its
+                // whole encoding back — this is § caTernFillArmKeepsEncoding19
+                // run BACKWARDS, and the `'x`/`'z` rows are the control that
+                // the two mints already agree where golden does nothing.
+                if (genTernFillRaw23 && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant) {
+                    auto* fc23 = (UHDM::constant*)rhs;
+                    std::string fv23(fc23->VpiValue());
+                    if (fv23.rfind("UINT:", 0) == 0 ||
+                        fv23.rfind("INT:", 0) == 0) {
+                        fc23->VpiValue("BIN:1");
+                        fc23->VpiDecompile("'1");
+                        fc23->VpiConstType(vpiBinaryConst);
+                    }
+                    fc23->VpiSize(-1);
+                }
                 // § caTernFillArmKeepsEncoding19 (r11u19), in its gen-scope
                 // home — `CompileHelper::adjustSize`'s `orig_size == -1` tail
                 // (`CompileHelper.cpp:4219-4241`), transcribed:
@@ -19481,6 +19980,24 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             if (!lhsSuppress && constRhsOwnLocal25)
                 lhsSuppress = true;
+            // § genCaUnboundTernLhsNoActual23 (r11u23) — the SECOND clone
+            // trigger, which § genCaConstRhsLhsNoBind25 above cannot see
+            // because it reads only the INSTALLED Rhs.  `DetectUnsizedConstant`
+            // (`UhdmWriter.cpp:2283-2293`) clones the assign whenever ANY
+            // constant in the Rhs tree has `VpiSize() == -1`, fold or no fold,
+            // and the clone's Lhs ref is not in `mod->getLateBinding()` — so
+            // the `vpiActual` goes even though the ternary SURVIVES.  That is
+            // the u2r row `genscope_outer_reg_inner_ff` exactly (`dut.sv:26`,
+            // condition `gnt_i && |req_i`: nothing folds, a `'0` sits in the
+            // untaken inner arm), reproduced as grid arm `a11`; also `e01`
+            // (signal condition), `e02` (the g=0 instance) and `e04`.  It is
+            // deliberately gated to a TERNARY Rhs on an own-scope gen-local
+            // Lhs: the same fact on a bare `assign lv = a | '0;` (`f02`), a
+            // concat (`f10`), an `'x` (`f13`) and a pattern (`f19`) is
+            // MEASURED and left standing as R2, because those are not this
+            // family and carry their own corpus exposure.
+            if (!lhsSuppress && genTernUnsizedNoBind23)
+                lhsSuppress = true;
             // § genCaCastRhsOwnLocalLhsNoBind118 (r10earl118) — the CAST
             // sibling of § genCaConstRhsLhsNoBind25, and the Earlgrey_0_1
             // DEFAULT head.  Surelog's `UhdmWriter::writeCont_assign`
@@ -19833,8 +20350,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // § genCaCastRhsOwnLocalLhsNoBind118 — the SECOND writer of the
                 // same pointer for the CAST leg (see the flag's own note at
                 // the lhsSuppress site).
+                // § genCaUnboundTernLhsNoActual23 — the SECOND writer of the
+                // same pointer (see the flag's own note at the lhsSuppress
+                // site).  TWO WRITERS: silencing only one leaves the pointer
+                // in place, which is the trap § genCaLiteralRhsLhsNoBind22
+                // already recorded here.
                 if (!isLiteralExpr(stripImplicitConv(ae.right())) &&
-                    !constRhsOwnLocal25 && !castRhsOwnLocal118)
+                    !constRhsOwnLocal25 && !castRhsOwnLocal118 &&
+                    !genTernUnsizedNoBind23)
                     bindGenLocal9((UHDM::any*)ca->Lhs(), ae.left(), true);
                 bindGenLocal9((UHDM::any*)ca->Rhs(), ae.right(), false);
             }

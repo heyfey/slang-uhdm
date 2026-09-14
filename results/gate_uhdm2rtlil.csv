@@ -283,7 +283,7 @@ GenIfInside,testflags,CMP_EQUAL,,,match
 genscope_async_ff_signal,testflags,CMP_EQUAL,,,match
 genscope_cells,testflags,CMP_EQUAL,,,differ
 genscope_module_ctx_reset,testflags,CMP_EQUAL,,,differ
-genscope_outer_reg_inner_ff,testflags,CMP_NOTEQUAL,decompile:,,
+genscope_outer_reg_inner_ff,testflags,CMP_EQUAL,,,differ
 genscope_struct_member,testflags,CMP_NOTEQUAL,decompile:,,
 GenScopeFunction,testflags,CMP_EQUAL,,,match
 genvar_async_reset_array,testflags,CMP_EQUAL,,,match

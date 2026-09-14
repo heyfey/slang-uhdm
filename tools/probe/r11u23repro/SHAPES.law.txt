@@ -1,0 +1,749 @@
+### a01_genlocal_fill0
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### a02_genlocal_sized
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### a03_bitsel_lhs
+-- golden
+  bit_select   o2         @7:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  bit_select   o2         @7:12     ACT=no           RHS=operation   vpiOpType:32
+### a04_concat_lhs
+-- golden
+  operation               @7:13     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  operation               @7:13     ACT=no           RHS=operation   vpiOpType:32
+### a05_member_lhs
+-- golden
+  hier_path    m          @10:12    ACT=ref_obj      RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  hier_path    m          @10:12    ACT=ref_obj      RHS=operation   vpiOpType:32
+### a06_outer_genscope_decl
+-- golden
+  ref_obj      o2         @8:12     ACT=logic_net    RHS=ref_obj    ov vpiName:ov
+  ref_obj      ov         @10:14    ACT=logic_var    RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      o2         @8:12     ACT=logic_net    RHS=ref_obj    ov vpiName:ov
+  ref_obj      ov         @10:14    ACT=logic_var    RHS=operation   vpiOpType:32
+### a07_iface_genif_fill0
+-- golden
+  ref_obj      o2         @7:12     ACT=logic_var    RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      o2         @7:12     ACT=logic_var    RHS=operation   vpiOpType:32
+### a08_iface_mod_fill0
+-- golden
+  ref_obj      o2         @6:10     ACT=no           RHS=constant    
+-- law
+### a09_genlocal_namesake
+-- golden
+  ref_obj      lv         @10:12    ACT=logic_var    RHS=constant    vpiDecompile:'0 vpiSize:4 BIN:0 vpiConstType:3
+  ref_obj      o2         @7:10     ACT=logic_net    RHS=operation   vpiOpType:33
+-- law
+  ref_obj      lv         @10:12    ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @7:10     ACT=logic_net    RHS=operation   vpiOpType:33
+### a10_bare_var_lhs
+-- golden
+  ref_obj      bv         @9:12     ACT=logic_var    RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @7:10     ACT=logic_net    RHS=operation   vpiOpType:33
+-- law
+  ref_obj      bv         @9:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @7:10     ACT=logic_net    RHS=operation   vpiOpType:33
+### a11_u2r_witness
+-- golden
+  ref_obj      rr_o       @20:12    ACT=logic_net    RHS=ref_obj    rr_q vpiName:rr_q
+  ref_obj      rr_d       @12:14    ACT=no           RHS=operation   vpiOpType:32
+-- law
+  ref_obj      rr_o       @20:12    ACT=logic_net    RHS=ref_obj    rr_q vpiName:rr_q
+  ref_obj      rr_d       @12:14    ACT=no           RHS=operation   vpiOpType:32
+### b01_genlocal_rhs_wholeref
+-- golden
+  ref_obj      lv         @5:12     ACT=logic_var    RHS=ref_obj    a vpiName:a
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @5:12     ACT=logic_var    RHS=ref_obj    a vpiName:a
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### b02_genlocal_rhs_op
+-- golden
+  ref_obj      lv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:28
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:28
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### b03_genlocal_rhs_literal
+-- golden
+  ref_obj      lv         @5:12     ACT=no           RHS=constant    vpiDecompile:32'd7 vpiSize:32 vpiConstType:1
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @5:12     ACT=no           RHS=constant    vpiDecompile:32'd7 vpiSize:32 vpiConstType:1
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### b04_genlocal_rhs_bitsel
+-- golden
+  ref_obj      lv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:33
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:33
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### b05_genlocal_rhs_hierpath
+-- golden
+  ref_obj      lv         @9:12     ACT=logic_var    RHS=hier_path  iv vpiName:u1.iv
+  ref_obj      o2         @10:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @9:12     ACT=logic_var    RHS=hier_path  iv vpiName:u1.iv
+  ref_obj      o2         @10:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### b06_genlocal_rhs_tern
+-- golden
+  ref_obj      lv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### b07_ancestor_genlocal_lhs
+-- golden
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    ov vpiName:ov
+  ref_obj      ov         @7:14     ACT=logic_var    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    ov vpiName:ov
+  ref_obj      ov         @7:14     ACT=logic_var    RHS=operation   vpiOpType:28
+### b08_genlocal_net_lhs
+-- golden
+  ref_obj      lw         @5:12     ACT=no           RHS=operation   vpiOpType:28
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lw vpiName:lw
+-- law
+  ref_obj      lw         @5:12     ACT=no           RHS=operation   vpiOpType:28
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    lw vpiName:lw
+### b09_modulenet_lhs
+-- golden
+  ref_obj      mw         @6:12     ACT=logic_net    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      mw         @6:12     ACT=logic_net    RHS=operation   vpiOpType:28
+### b10_modulevar_lhs
+-- golden
+  ref_obj      mv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      mv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:28
+### b11_port_lhs
+-- golden
+  ref_obj      o2         @4:12     ACT=logic_net    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      o2         @4:12     ACT=logic_net    RHS=operation   vpiOpType:28
+### b12_genlocal_namesake_bind
+-- golden
+  ref_obj      nv         @7:12     ACT=logic_var    RHS=operation   vpiOpType:28
+  ref_obj      o2         @8:12     ACT=logic_net    RHS=ref_obj    nv vpiName:nv
+-- law
+  ref_obj      nv         @7:12     ACT=logic_var    RHS=operation   vpiOpType:28
+  ref_obj      o2         @8:12     ACT=logic_net    RHS=ref_obj    nv vpiName:nv
+### b13_genfor_genlocal
+-- golden
+  ref_obj      fv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:28
+  ref_obj      fv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      fv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:28
+  ref_obj      fv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:28
+### b14_unnamed_genblk_genlocal
+-- golden
+  ref_obj      uv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      uv         @5:12     ACT=logic_var    RHS=operation   vpiOpType:28
+### b15_iface_genscope_actual
+-- golden
+  ref_obj      o2         @7:12     ACT=logic_var    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      o2         @7:12     ACT=logic_var    RHS=operation   vpiOpType:28
+### b16_iface_modscope_actual
+-- golden
+-- law
+### b17_genlocal_rhs_constcall
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:7 vpiSize:32 UINT:7 vpiConstType:9
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### b18_nested3_genlocal
+-- golden
+  ref_obj      nv         @7:16     ACT=logic_var    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      nv         @7:16     ACT=logic_var    RHS=operation   vpiOpType:28
+### b19_genlocal_rhs_genlocal
+-- golden
+  ref_obj      mv2        @6:12     ACT=logic_var    RHS=ref_obj    a vpiName:a
+  ref_obj      lv         @7:12     ACT=logic_var    RHS=ref_obj    mv2 vpiName:mv2
+  ref_obj      o2         @8:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      mv2        @6:12     ACT=logic_var    RHS=ref_obj    a vpiName:a
+  ref_obj      lv         @7:12     ACT=logic_var    RHS=ref_obj    mv2 vpiName:mv2
+  ref_obj      o2         @8:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### b20_gencase_genlocal
+-- golden
+  ref_obj      cv         @6:14     ACT=logic_var    RHS=operation   vpiOpType:28
+-- law
+  ref_obj      cv         @6:14     ACT=logic_var    RHS=operation   vpiOpType:28
+### c01_fill0
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c02_fill1
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'1 vpiSize:-1 BIN:1 vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'1 vpiSize:-1 BIN:1 vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c03_fillx
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'X vpiSize:-1 BIN:X vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'X vpiSize:-1 BIN:X vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c04_fillz
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'Z vpiSize:-1 BIN:Z vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'Z vpiSize:-1 BIN:Z vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c05_sized32
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c06_sized1
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:0 vpiSize:64 INT:0 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:0 vpiSize:64 INT:0 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c07_paramref
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:9 vpiSize:64 INT:9 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:9 vpiSize:64 INT:9 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c08_clog2
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:6 vpiSize:64 INT:6 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:6 vpiSize:64 INT:6 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c09_enumref
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:1 vpiSize:64 INT:1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:1 vpiSize:64 INT:1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c10_constop
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c11_concat
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:65538 vpiSize:64 INT:65538 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:65538 vpiSize:64 INT:65538 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c12_negative
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:-1 vpiSize:64 INT:-1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:-1 vpiSize:64 INT:-1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c13_64bit_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:-1 vpiSize:64 INT:-1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:-1 vpiSize:64 INT:-1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c14_xor_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c15_caseeq_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c16_countones_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c17_bitsel_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c18_inner_tern_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c19_wide_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:72'h10000000000000000 vpiSize:72 HEX:10000000000000000 vpiConstType:5
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:72'h10000000000000000 vpiSize:72 HEX:10000000000000000 vpiConstType:5
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c20_xconst_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:32'bx vpiSize:32 BIN:x vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:32'bx vpiSize:32 BIN:x vpiConstType:3
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c21_real_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:1.5 vpiSize:64 REAL:1.500000 vpiConstType:2
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:1.5 vpiSize:64 REAL:1.500000 vpiConstType:2
+### c22_string_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:16706 vpiSize:64 INT:16706 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c23_baresig_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c24_hierpath_arm
+-- golden
+  ref_obj      lv         @13:12    ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @14:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @13:12    ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @14:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c25_cast_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:7 vpiSize:64 INT:7 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c26_repl_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:252645135 vpiSize:64 INT:252645135 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:252645135 vpiSize:64 INT:252645135 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c27_inside_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c28_power_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:8 vpiSize:64 INT:8 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:8 vpiSize:64 INT:8 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c29_userfunc_arm
+-- golden
+  ref_obj      lv         @9:12     ACT=no           RHS=constant    vpiDecompile:4 vpiSize:64 INT:4 vpiConstType:7
+  ref_obj      o2         @10:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @9:12     ACT=no           RHS=constant    vpiDecompile:4 vpiSize:64 INT:4 vpiConstType:7
+  ref_obj      o2         @10:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### c30_bits_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:32 vpiSize:64 INT:32 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:32 vpiSize:64 INT:32 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### d01_genif_else
+-- golden
+  ref_obj      lv         @10:12    ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @11:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @10:12    ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @11:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### d02_genfor
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+### d03_nested3
+-- golden
+  ref_obj      lv         @10:16    ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      lv         @10:16    ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+### d04_gencase
+-- golden
+  ref_obj      lv         @9:14     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      lv         @9:14     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+### d05_genif_in_genfor
+-- golden
+  ref_obj      lv         @9:14     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lv         @9:14     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      lv         @9:14     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lv         @9:14     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+### d06_child_instance
+-- golden
+  ref_obj      lv         @7:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @12:10    ACT=logic_net    RHS=constant    
+-- law
+  ref_obj      lv         @7:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @12:10    ACT=logic_net    RHS=constant    
+### d07_unnamed_genblk
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+### d09_two_instances
+-- golden
+  ref_obj      lv         @7:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lv         @7:12     ACT=no           RHS=operation   vpiOpType:32
+  ref_obj      o2         @13:10    ACT=logic_net    RHS=constant    
+-- law
+  ref_obj      lv         @7:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lv         @7:12     ACT=no           RHS=operation   vpiOpType:32
+  ref_obj      o2         @13:10    ACT=logic_net    RHS=constant    
+### d10_comma_list
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lw         @9:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lw         @9:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+### d11_unpacked_elem_lhs
+-- golden
+  bit_select   arr        @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  bit_select   arr        @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  bit_select   arr        @8:12     ACT=no           RHS=operation   vpiOpType:32
+  bit_select   arr        @8:12     ACT=no           RHS=operation   vpiOpType:32
+### d12_partsel_lhs
+-- golden
+  part_select             @7:12     ACT=no           RHS=operation   vpiOpType:32
+  part_select             @9:10     ACT=no           RHS=constant    
+-- law
+  part_select             @7:12     ACT=no           RHS=operation   vpiOpType:32
+  part_select             @9:10     ACT=no           RHS=constant    
+### e01_signal_cond
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### e02_genvar_cond
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=operation   vpiOpType:32
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=operation   vpiOpType:32
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+### e03_genlocalparam_cond
+-- golden
+  ref_obj      lv         @9:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @10:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @9:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @10:12    ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### e04_untaken_baresig
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### e05_untaken_bare_partsel
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=operation   vpiOpType:33
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=operation   vpiOpType:33
+### e06_untaken_idxpartsel_in_op
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### e07_fill_cond
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f01_genlocal_rhs_bare_fill
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:32 BIN:0 vpiConstType:3
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f02_genlocal_rhs_unsized_in_op
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=operation   vpiOpType:29
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:29
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f06_genlocal_rhs_paramref
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:9 vpiSize:32 UINT:9 vpiConstType:9
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:9 vpiSize:32 UINT:9 vpiConstType:9
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f07_genlocal_rhs_constop
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:32 INT:5 vpiConstType:7
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:24
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f08_genlocal_rhs_clog2
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:6 vpiSize:64 UINT:6 vpiConstType:9
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=sys_func_call $clog2 vpiName:$clog2
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f09_genlocal_net_rhs_fill
+-- golden
+  ref_obj      lw         @6:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lw vpiName:lw
+-- law
+  ref_obj      lw         @6:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:32 BIN:0 vpiConstType:3
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lw vpiName:lw
+### f10_genlocal_rhs_fill_in_concat
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=operation   vpiOpType:33
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=part_select  vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:33
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=part_select  vpiName:lv
+### f11_modulenet_rhs_fill
+-- golden
+  ref_obj      mw         @7:12     ACT=logic_net    RHS=constant    vpiDecompile:'0 vpiSize:32 BIN:0 vpiConstType:3
+-- law
+  ref_obj      mw         @7:12     ACT=logic_net    RHS=constant    vpiDecompile:'0 vpiSize:32 BIN:0 vpiConstType:3
+### f12_modulenet_tern_fold
+-- golden
+  ref_obj      mw         @7:12     ACT=logic_net    RHS=operation   vpiOpType:32
+-- law
+  ref_obj      mw         @7:12     ACT=logic_net    RHS=operation   vpiOpType:32
+### f13_genlocal_rhs_unknown_fill
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=operation   vpiOpType:30
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:30
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f14_ancestor_genlocal_rhs_fill
+-- golden
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    ov vpiName:ov
+  ref_obj      ov         @8:14     ACT=logic_var    RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+-- law
+  ref_obj      o2         @6:12     ACT=logic_net    RHS=ref_obj    ov vpiName:ov
+  ref_obj      ov         @8:14     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:32 BIN:0 vpiConstType:3
+### f17_genlocal_rhs_string
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:"AB" vpiSize:16 STRING:AB vpiConstType:6
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:"AB" vpiSize:32 STRING:AB vpiConstType:6
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f18_genlocal_rhs_partsel
+-- golden
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:33
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:33
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f19_genlocal_rhs_pattern
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=operation   vpiOpType:75
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:75
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f20_genlocal_rhs_bare_partsel
+-- golden
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=part_select  vpiName:a
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=operation   vpiOpType:33
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=part_select  vpiName:a
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=operation   vpiOpType:33
+### f21_genlocal_rhs_sysfunc_unlisted
+-- golden
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=sys_func_call $countones vpiName:$countones
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=sys_func_call $countones vpiName:$countones
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f22_genlocal_rhs_xor
+-- golden
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:30
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @6:12     ACT=logic_var    RHS=operation   vpiOpType:30
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### f23_genlocal_delayed_fill
+-- golden
+  ref_obj      lw         @6:15     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lw vpiName:lw
+-- law
+  ref_obj      lw         @6:15     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:32 BIN:0 vpiConstType:3
+  ref_obj      o2         @7:12     ACT=logic_net    RHS=ref_obj    lw vpiName:lw
+### f24_genlocal_two_cells_one_folds
+-- golden
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      lw         @7:12     ACT=logic_var    RHS=operation   vpiOpType:28
+  ref_obj      o2         @8:12     ACT=logic_net    RHS=operation   vpiOpType:30
+-- law
+  ref_obj      lv         @6:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:32 BIN:0 vpiConstType:3
+  ref_obj      lw         @7:12     ACT=logic_var    RHS=operation   vpiOpType:28
+  ref_obj      o2         @8:12     ACT=logic_net    RHS=operation   vpiOpType:30
+### g01_barefill_0
+-- golden
+  ref_obj      lv         @4:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:-1 BIN:0 vpiConstType:3
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @4:12     ACT=no           RHS=constant    vpiDecompile:'0 vpiSize:32 BIN:0 vpiConstType:3
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### g02_barefill_1
+-- golden
+  ref_obj      lv         @4:12     ACT=no           RHS=constant    vpiDecompile:'1 vpiSize:-1 BIN:1 vpiConstType:3
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @4:12     ACT=no           RHS=constant    vpiDecompile:4294967295 vpiSize:32 UINT:4294967295 vpiConstType:9
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### g03_barefill_x
+-- golden
+  ref_obj      lv         @4:12     ACT=no           RHS=constant    vpiDecompile:'X vpiSize:-1 BIN:X vpiConstType:3
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @4:12     ACT=no           RHS=constant    vpiDecompile:'X vpiSize:-1 BIN:X vpiConstType:3
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### g04_barefill_z
+-- golden
+  ref_obj      lv         @4:12     ACT=no           RHS=constant    vpiDecompile:'Z vpiSize:-1 BIN:Z vpiConstType:3
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @4:12     ACT=no           RHS=constant    vpiDecompile:'Z vpiSize:-1 BIN:Z vpiConstType:3
+  ref_obj      o2         @5:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h01_concat_param_operand
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h02_bare_inside_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h03_concat_op_operand
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:3 vpiSize:64 INT:3 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h04_concat_single_operand
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:5 vpiSize:64 INT:5 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h05_nested_concat
+-- golden
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h06_multiconcat_op_operand
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:50529027 vpiSize:64 INT:50529027 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:50529027 vpiSize:64 INT:50529027 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h07_pure_inside_arm
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:1 vpiSize:64 INT:1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:1 vpiSize:64 INT:1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h08_concat_paramref_whole
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:38654705673 vpiSize:64 INT:38654705673 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:38654705673 vpiSize:64 INT:38654705673 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h09_concat_clog2_operand
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:6 vpiSize:64 INT:6 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=logic_var    RHS=operation   vpiOpType:32
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+### h10_concat_enum_operand
+-- golden
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:1 vpiSize:64 INT:1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv
+-- law
+  ref_obj      lv         @8:12     ACT=no           RHS=constant    vpiDecompile:1 vpiSize:64 INT:1 vpiConstType:7
+  ref_obj      o2         @9:12     ACT=logic_net    RHS=ref_obj    lv vpiName:lv

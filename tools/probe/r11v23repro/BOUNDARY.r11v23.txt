@@ -1,0 +1,68 @@
+# r11v23 wide boundary gate — every tools/probe source, pristine vs VERIFIED law.
+# ROOT=tools/probe  A=pristine b46b0f3e  B=verified 3c4bad5e
+# file list on fd 3, every child </dev/null, PROCESSED == LISTED asserted.
+
+MOVED r10buvm22repro/g22.sv a=e1ae6a016137 b=36dd7150b69c
+MOVED r10earl99repro/g3_home99.sv a=f153fb413c9d b=f29d07c84f69
+MOVED r10uvm154repro/l154_noenum.sv a=c4b39fb21fc0 b=983508565aeb
+MOVED r10uvm185repro/grid185/g185_e_kinds.sv a=195af90ce85c b=5a64fb413ef9
+MOVED r10vearl99repro/v99_home.sv a=4987a2be9d84 b=c8e4b750fe47
+MOVED r11u22repro/grid/c01_genlocal_fill0/dut.sv a=69da909393a4 b=13ac31197624
+MOVED r11u22repro/grid/c02_genlocal_sized/dut.sv a=c3e26f8abf69 b=33c115b7cd43
+MOVED r11u23repro/grid/a01_genlocal_fill0/dut.sv a=74b28c3af923 b=0c7a70e60009
+MOVED r11u23repro/grid/a02_genlocal_sized/dut.sv a=8e7fbe93e5af b=f0963a1b9069
+MOVED r11u23repro/grid/a11_u2r_witness/dut.sv a=83ace08b1c7c b=403b60ba2bd3
+MOVED r11u23repro/grid/c01_fill0/dut.sv a=94ae9e6cbb91 b=bf0699212085
+MOVED r11u23repro/grid/c02_fill1/dut.sv a=ac16bba96db7 b=dd9afdf1dc58
+MOVED r11u23repro/grid/c03_fillx/dut.sv a=ff01675f0ba5 b=bd66310cdeab
+MOVED r11u23repro/grid/c04_fillz/dut.sv a=ed1ecb4408f5 b=d056068ba8cb
+MOVED r11u23repro/grid/c05_sized32/dut.sv a=906af0d8a120 b=4b07fac49569
+MOVED r11u23repro/grid/c06_sized1/dut.sv a=f46be5f0cf5a b=bcad689c1216
+MOVED r11u23repro/grid/c07_paramref/dut.sv a=80a739d9ff29 b=9ebfde151abb
+MOVED r11u23repro/grid/c08_clog2/dut.sv a=3812e7786057 b=0558768a557b
+MOVED r11u23repro/grid/c09_enumref/dut.sv a=4c87cee965ac b=03550bf6f078
+MOVED r11u23repro/grid/c10_constop/dut.sv a=6535cfd73d53 b=4739f0e345fb
+MOVED r11u23repro/grid/c11_concat/dut.sv a=31590cea1011 b=72f6c5b128c5
+MOVED r11u23repro/grid/c12_negative/dut.sv a=5ee4a91ddc68 b=55bdc06ce43e
+MOVED r11u23repro/grid/c13_64bit_arm/dut.sv a=44b4d83a6218 b=fc2e76dea5a3
+MOVED r11u23repro/grid/c19_wide_arm/dut.sv a=68ee02912531 b=9b35d0815aa4
+MOVED r11u23repro/grid/c20_xconst_arm/dut.sv a=3bd60f4b558e b=d2be39d3c16b
+MOVED r11u23repro/grid/c21_real_arm/dut.sv a=78a6e8e40143 b=ecfc01286daf
+MOVED r11u23repro/grid/c26_repl_arm/dut.sv a=150a318d3840 b=755b2b5b0c17
+MOVED r11u23repro/grid/c28_power_arm/dut.sv a=b181fb9b0c2f b=0fcb01f47cb7
+MOVED r11u23repro/grid/c29_userfunc_arm/dut.sv a=e3b082f16ff8 b=21368b147b28
+MOVED r11u23repro/grid/c30_bits_arm/dut.sv a=c6520eb8274f b=b2a08860d3bf
+MOVED r11u23repro/grid/d01_genif_else/dut.sv a=39aa0d223f84 b=109205a0d55f
+MOVED r11u23repro/grid/d02_genfor/dut.sv a=68a98ddb51af b=b295404c510e
+MOVED r11u23repro/grid/d03_nested3/dut.sv a=a56b0c14fa7f b=416a3d7c1b07
+MOVED r11u23repro/grid/d04_gencase/dut.sv a=fd06de433a83 b=11ac3d258bcd
+MOVED r11u23repro/grid/d05_genif_in_genfor/dut.sv a=83b374998e13 b=421c440229b3
+MOVED r11u23repro/grid/d06_child_instance/dut.sv a=756512889612 b=d6be17087e69
+MOVED r11u23repro/grid/d07_unnamed_genblk/dut.sv a=4b2b1ac0214c b=57a27deb8aff
+MOVED r11u23repro/grid/d09_two_instances/dut.sv a=ece683dcb1c6 b=101ad4f756e1
+MOVED r11u23repro/grid/d10_comma_list/dut.sv a=9e17e56565e2 b=7d89fb0ad2f9
+MOVED r11u23repro/grid/e01_signal_cond/dut.sv a=c229479b4432 b=fc87efcd7f03
+MOVED r11u23repro/grid/e02_genvar_cond/dut.sv a=a64ced08e32e b=1c9992b4adc9
+MOVED r11u23repro/grid/e03_genlocalparam_cond/dut.sv a=b3dadc300753 b=4729f7c428ce
+MOVED r11u23repro/grid/e04_untaken_baresig/dut.sv a=8d1682496c92 b=17179b8d5cfa
+MOVED r11u23repro/grid/e06_untaken_idxpartsel_in_op/dut.sv a=50edf625dfcc b=075669c13f61
+MOVED r11u23repro/grid/e07_fill_cond/dut.sv a=4d974cb2fdfc b=d2a018457e7f
+MOVED r11u23repro/grid/h04_concat_single_operand/dut.sv a=754ce2b260d9 b=b1132719d7d1
+MOVED r11u23repro/grid/h06_multiconcat_op_operand/dut.sv a=19ec640c8c9d b=28ba1a7dc3a5
+MOVED r11u23repro/grid/h07_pure_inside_arm/dut.sv a=e4f57514bc8b b=a374cbc11df3
+MOVED r11u23repro/grid/h08_concat_paramref_whole/dut.sv a=3bddd755a683 b=a42325daac32
+MOVED r11u23repro/grid/h09_concat_clog2_operand/dut.sv a=452d3e07da19 b=59faa8815fc9
+MOVED r11u23repro/grid/h10_concat_enum_operand/dut.sv a=106538bb5f6c b=5cdef792b011
+PROCESSED=6520 LISTED=6520 MOVED=51 RCDIFF=0
+
+ATTRIBUTION (every mover named):
+  44  r11u23repro/grid/*          the law's OWN arms - the gate's built-in positive control
+   2  r11u22repro/grid/c01,c02    the BOUND half's R0 arms: 77 cmp lines -> rc 0 CMP_EQUAL
+   2  g3_home99, v99_home         TOWARD golden: 229->227 and 283->281 differing dump lines,
+                                 exactly the two lines of a vpiActual golden also lacks
+   2  l154_noenum, g185_e_kinds   BINARY-LAYOUT class, PROVEN: a pristine+16KB-pad binary
+                                 (behaviourally identical) moves the SAME constant
+                                 22941273 -> 22957657 and leaves g3_home99 byte-identical
+   1  r10buvm22repro/g22.sv       ours_rc=4 on BOTH binaries - a compile-failure arm
+
+AWAY-GOLDEN 0 / MOVED-WRONG 0.
