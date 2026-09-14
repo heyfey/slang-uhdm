@@ -7105,6 +7105,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     // have applied the producer's own bail rule and the base's elaborated
     // param_assign Rhs finally SAYS whether it assembled.
     drainCaAsmMemberSlice();
+    // § paAsmMemberSliceFold21 (r11u21) — the ELABORATED param_assign that
+    // reads a MEMBER of that same assembled parameter, and every parameter
+    // whose value depends on such a read.  Immediately after, and for the
+    // identical reason: this is where the base's elaborated `param_assign` Rhs
+    // finally SAYS whether it assembled.
+    drainPaAsmMemberSlice();
     // § impCopyCastFold — the folded size-cast constant names the SAME
     // declared-type typespec its parameter does; that link is only final now.
     for (auto& [rt9, up9] : castFoldTsFix9)

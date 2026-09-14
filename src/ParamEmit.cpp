@@ -2890,6 +2890,199 @@ void UhdmExporter::drainCaAsmMemberSlice() {
     }
 }
 
+// § paAsmMemberSliceFold21 (r11u21) — the base's assemble/bail answer, read off
+// its own elaborated `param_assign` Rhs.  The offset this law carries is an
+// index into the ASSEMBLY, so the constant must BE the assembly: a base whose
+// elaborated Rhs is a constant of some other width (or some other encoding, or
+// still a `func_call` / `struct_var` because the assembler gave up) is a
+// DIFFERENT answer and this law declines it rather than slicing it.
+bool UhdmExporter::paAsmBaseBits(const ParameterSymbol* base, int32_t total,
+                                 std::string& bits) {
+    if (!base || total <= 0)
+        return false;
+    auto pit = elabParamPa.find(base);
+    if (pit == elabParamPa.end() || !pit->second)
+        return false;
+    auto* brhs = pit->second->Rhs();
+    if (!brhs || brhs->UhdmType() != UHDM::uhdmconstant)
+        return false;
+    auto* bc = (UHDM::constant*)brhs;
+    if (bc->VpiConstType() != vpiBinaryConst)
+        return false;
+    std::string bv(bc->VpiValue());
+    if (bv.compare(0, 4, "BIN:") != 0)
+        return false;
+    bits = bv.substr(4);
+    return (int32_t)bits.size() == total;
+}
+
+void UhdmExporter::drainPaAsmMemberSlice() {
+    // ARM ONE — the bare member read folds to the member's bit slice.
+    for (auto& pm : paMemSel) {
+        if (!pm.pa || !pm.base || pm.mw <= 0 || pm.off < 0 || pm.path.empty())
+            continue;
+        std::string bits;
+        if (!paAsmBaseBits(pm.base, pm.total, bits))
+            continue;
+        if ((size_t)(pm.off + pm.mw) > bits.size())
+            continue;
+        std::string mbits = bits.substr((size_t)pm.off, (size_t)pm.mw);
+        // "Only a FULLY-DEFINED slice is a usable value" — the producer's own
+        // words at the mint (ExprEval.cpp ~2390).
+        bool def21 = true;
+        for (char ch : mbits)
+            if (ch != '0' && ch != '1') {
+                def21 = false;
+                break;
+            }
+        if (!def21)
+            continue;
+        // THE MEMBER'S OWN TYPESPEC, walked down the recorded name path off
+        // the struct typespec THIS parameter actually points at — the same
+        // object golden's `mts_found` is.  Its KIND is what `adjustSize`
+        // switches on, so it is read before the size rule and a member
+        // typespec we cannot see declines the fold (golden's constant always
+        // carries one).
+        UHDM::typespec* memTs = nullptr;
+        {
+            auto pit = elabParamPa.find(pm.base);
+            UHDM::typespec* cur = nullptr;
+            if (pit != elabParamPa.end() && pit->second)
+                if (auto* lp = pit->second->Lhs();
+                    lp && lp->UhdmType() == UHDM::uhdmparameter)
+                    if (auto* prt = ((UHDM::parameter*)lp)->Typespec())
+                        cur = prt->Actual_typespec();
+            for (auto& nm : pm.path) {
+                if (!cur || cur->UhdmType() != UHDM::uhdmstruct_typespec) {
+                    cur = nullptr;
+                    break;
+                }
+                auto* mems = ((UHDM::struct_typespec*)cur)->Members();
+                UHDM::typespec* nxt = nullptr;
+                if (mems)
+                    for (auto* mem : *mems)
+                        if (mem->VpiName() == nm) {
+                            if (auto* mrt = mem->Typespec())
+                                nxt = mrt->Actual_typespec();
+                            break;
+                        }
+                cur = nxt;
+            }
+            memTs = cur;
+        }
+        if (!memTs)
+            continue;
+        auto mk = memTs->UhdmType();
+        int32_t size = pm.mw;
+        bool intForm = false;
+        std::string digits;
+        // `CompileHelper::adjustSize`, branch by branch (CompileHelper.cpp:
+        // 4065-4218).  With NO Lhs typespec it returns at its first line and
+        // nothing below runs.
+        if (pm.lhsBits > 0) {
+            if (mk == UHDM::uhdmint_typespec) {
+                bool memSigned = ((UHDM::int_typespec*)memTs)->VpiSigned();
+                // The `!signedLhs` arm WRITES `VpiSigned(false)` onto the
+                // SHARED member typespec (:4130), and `int_typespec::Compare`
+                // reads VpiSigned.  Mutating a shared typespec is its own law;
+                // declined here with grid `t10` `UU` as the measured witness.
+                if (memSigned && !pm.lhsSigned)
+                    continue;
+                if (memSigned && !mbits.empty() && mbits[0] == '1') {
+                    // 2's complement, the `signedLhs` arm.
+                    std::string tc = mbits;
+                    for (auto& ch : tc)
+                        ch = (ch == '1') ? '0' : '1';
+                    for (size_t i = tc.size(); i-- > 0;) {
+                        if (tc[i] == '0') {
+                            tc[i] = '1';
+                            break;
+                        }
+                        tc[i] = '0';
+                    }
+                    if (tc.size() > 63)
+                        continue;
+                    long long v = 0;
+                    for (char ch : tc)
+                        v = (v << 1) | (ch == '1' ? 1 : 0);
+                    digits = std::to_string(-v);
+                    intForm = true;
+                }
+                size = (pm.mw < pm.lhsBits) ? pm.mw : pm.lhsBits;
+            }
+            else if (mk == UHDM::uhdmlogic_typespec) {
+                if (pm.mw > pm.lhsBits) {
+                    mbits = mbits.substr(mbits.size() - (size_t)pm.lhsBits);
+                    size = pm.lhsBits;
+                }
+            }
+            // every other member typespec kind: `adjustSize` matches no branch
+            // and the member's own width and digits stand.
+        }
+        // The Rhs object.  A NESTED read already folded to a constant (the
+        // generic elab fold reaches it), a ONE-LEVEL read is still the
+        // symbolic `hier_path` the fold gate keeps: mutate the first, replace
+        // the second.  Nothing is minted until the write is certain.
+        auto* old = pm.pa->Rhs();
+        UHDM::constant* c = nullptr;
+        if (old && old->UhdmType() == UHDM::uhdmconstant)
+            c = (UHDM::constant*)old;
+        else {
+            c = s.MakeConstant();
+            pm.pa->Rhs(c);
+        }
+        if (intForm) {
+            c->VpiValue("INT:" + digits);
+            c->VpiDecompile(digits);
+            c->VpiConstType(vpiIntConst);
+        }
+        else {
+            c->VpiValue("BIN:" + mbits);
+            c->VpiDecompile(mbits);
+            c->VpiConstType(vpiBinaryConst);
+        }
+        c->VpiSize(size);
+        // The ref is NAMELESS and its Actual is the MEMBER's own object; the
+        // constant carries the span of the BASE NAME alone and NO parent
+        // (both measured on every positive arm of the grid).
+        // A FRESH ref, never the one standing there: the generic fold's own
+        // ref is still in `pendingParamTs`, and `patchParamTypespecs` rebinds
+        // its Actual long after this drain (measured: grid `t1` `M2` came out
+        // pointing at the LOCALPARAM's `int_typespec` when the existing ref
+        // was reused).  The orphaned ref keeps that late binding to itself.
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiParent(c);
+        rt->Actual_typespec(memTs);
+        c->Typespec(rt);
+        setLoc(c, pm.baseRange);
+        c->VpiParent(nullptr);
+    }
+    // ARM TWO — every other parameter whose value depends on such a read
+    // carries NO Rhs typespec at all.
+    for (auto& [pa, base] : paMemTaint) {
+        if (!pa || !base)
+            continue;
+        std::string bits;
+        if (!paAsmBaseBits(base, -1, bits)) {
+            // The width check is the slice's, not this arm's: here the only
+            // question is whether the base really assembled.
+            auto pit = elabParamPa.find(base);
+            if (pit == elabParamPa.end() || !pit->second)
+                continue;
+            auto* brhs = pit->second->Rhs();
+            if (!brhs || brhs->UhdmType() != UHDM::uhdmconstant ||
+                ((UHDM::constant*)brhs)->VpiConstType() != vpiBinaryConst)
+                continue;
+        }
+        auto* r = pa->Rhs();
+        if (!r || r->UhdmType() != UHDM::uhdmconstant)
+            continue;
+        auto* c = (UHDM::constant*)r;
+        if (c->Typespec())
+            c->Typespec(nullptr);
+    }
+}
+
 // Surelog INLINES a foldable const function's body, so the folded constant is
 // encoded by the same rules a plain expression fold uses — driven by the RETURN
 // assignment's expression kind: a CONCAT body ({..}) folds full-width BIN, a
@@ -5782,6 +5975,224 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         auto* pa = s.MakeParam_assign();
         if (topView)
             elabParamPa[&member] = pa;
+        // § paAsmMemberSliceFold21 (r11u21) — THE RECORD.  See the model in
+        // `include/UhdmExporter.h`.  Everything here is SYNTACTIC (the shape
+        // of the written initializer and the slang types it names); whether
+        // the base really assembled is the drain's question, and a bail writes
+        // nothing at all.
+        if (topView && !inPackage && !overridden) {
+            const Scope* hsc21 = ps.getParentScope();
+            bool genHolder21 =
+                hsc21 && (hsc21->asSymbol().kind == SymbolKind::GenerateBlock ||
+                          hsc21->asSymbol().kind ==
+                              SymbolKind::GenerateBlockArray);
+            const Expression* in21 = ps.getInitializer();
+            if (!genHolder21 && in21 && pa) {
+                // The root of a member-access chain, and whether it is a bare
+                // (unqualified) reference to a family struct parameter.
+                auto rootOf21 =
+                    [&](const Expression& e0) -> const ParameterSymbol* {
+                    const Expression* b = &stripImplicitConv(e0);
+                    while (b->kind == ExpressionKind::MemberAccess)
+                        b = &stripImplicitConv(
+                            b->as<MemberAccessExpression>().value());
+                    if (b->kind != ExpressionKind::NamedValue)
+                        return nullptr;
+                    // A QUALIFIED read (`pk::C.b`) is a different road
+                    // (grid `t4` `MB`).
+                    if (b->syntax &&
+                        b->syntax->kind == syntax::SyntaxKind::ScopedName)
+                        return nullptr;
+                    auto& sy = b->as<NamedValueExpression>().symbol;
+                    if (sy.kind != SymbolKind::Parameter)
+                        return nullptr;
+                    if (!asmRefFamilyBase(*b))
+                        return nullptr;
+                    return &sy.as<ParameterSymbol>();
+                };
+                // A QUALIFIED read (`pk::C.b`) is a DIFFERENT road: golden
+                // answers it out of `CompileHelper::getValue`'s `name contains
+                // "::"` branch (CompileExpression.cpp:871-900) and renders the
+                // `<w>'b`-prefixed decompile `adjustSize` gives a constant
+                // re-rendered against a formal, where the bare read keeps the
+                // selector's own bare digits.  Grid `t4`: `MA` (`C.a`, through
+                // a wildcard import) is bare at the BASE NAME's span with no
+                // parent; `MB` (`pk::C.b`) carries `32'b…`, a NAMED ref and a
+                // parent at the WHOLE read's span.  Every other cell of `MB`
+                // is the same, so the ungated form left it MOVED-WRONG on the
+                // decompile alone — measured, then fenced.
+                // slang spells BOTH `a.b` and `a::b` as a `ScopedName`; only
+                // the SEPARATOR TOKEN tells them apart, and only `::` is the
+                // qualified road.
+                auto writtenScoped21 = [&](const Expression& e0) {
+                    const syntax::SyntaxNode* n = e0.syntax;
+                    while (n) {
+                        if (n->kind ==
+                            syntax::SyntaxKind::MemberAccessExpression) {
+                            n = n->as<syntax::MemberAccessExpressionSyntax>()
+                                    .left;
+                            continue;
+                        }
+                        if (n->kind == syntax::SyntaxKind::ScopedName) {
+                            auto& sn21 = n->as<syntax::ScopedNameSyntax>();
+                            if (sn21.separator.kind ==
+                                slang::parsing::TokenKind::DoubleColon)
+                                return true;
+                            n = sn21.left;
+                            continue;
+                        }
+                        break;
+                    }
+                    return false;
+                };
+                auto& se21 = stripImplicitConv(*in21);
+                const ParameterSymbol* armABase21 = nullptr;
+                SrlgPaMemSel rec21;
+                if (se21.kind == ExpressionKind::MemberAccess &&
+                    !writtenScoped21(se21))
+                    armABase21 = rootOf21(se21);
+                if (armABase21) {
+                    // The member path, outermost struct first, and the
+                    // MSB-first offset it indexes (first declared member at
+                    // the MSBs, so the widths of the members BEFORE the target
+                    // simply add, level after level).
+                    std::vector<std::string> path21;
+                    for (const Expression* cur = &se21;
+                         cur->kind == ExpressionKind::MemberAccess;
+                         cur = &stripImplicitConv(
+                             cur->as<MemberAccessExpression>().value()))
+                        path21.insert(
+                            path21.begin(),
+                            std::string(
+                                cur->as<MemberAccessExpression>().member.name));
+                    const Type* ct21 =
+                        &armABase21->getType().getCanonicalType();
+                    int32_t total21 = (int32_t)ct21->getBitWidth();
+                    int32_t off21 = 0, mw21 = 0;
+                    bool ok21 = total21 > 0 && !path21.empty();
+                    for (auto& nm21 : path21) {
+                        if (!ok21)
+                            break;
+                        if (ct21->kind != SymbolKind::PackedStructType) {
+                            ok21 = false;
+                            break;
+                        }
+                        int32_t acc21 = 0;
+                        bool hit21 = false;
+                        for (auto& f21 : ct21->as<PackedStructType>()
+                                             .membersOfType<FieldSymbol>()) {
+                            int32_t fw21 = (int32_t)f21.getType().getBitWidth();
+                            if (fw21 <= 0) {
+                                ok21 = false;
+                                break;
+                            }
+                            if (f21.name == nm21) {
+                                hit21 = true;
+                                mw21 = fw21;
+                                off21 += acc21;
+                                ct21 = &f21.getType().getCanonicalType();
+                                break;
+                            }
+                            acc21 += fw21;
+                        }
+                        if (!hit21)
+                            ok21 = false;
+                    }
+                    if (ok21 && mw21 > 0 && off21 + mw21 <= total21) {
+                        rec21.pa = pa;
+                        rec21.base = armABase21;
+                        rec21.path = path21;
+                        rec21.off = off21;
+                        rec21.mw = mw21;
+                        rec21.total = total21;
+                        // The Lhs width `adjustSize` re-renders against: the
+                        // parameter's OWN declared typespec, and NOTHING when
+                        // it has none (an untyped localparam, grid `t10`
+                        // `UNT`).
+                        if (typedParam) {
+                            auto& lt21 = ps.getType().getCanonicalType();
+                            if (lt21.isIntegral() && lt21.getBitWidth() > 0) {
+                                rec21.lhsBits = (int32_t)lt21.getBitWidth();
+                                rec21.lhsSigned = lt21.isSigned();
+                            }
+                        }
+                        const Expression* br21 = &se21;
+                        while (br21->kind == ExpressionKind::MemberAccess)
+                            br21 = &stripImplicitConv(
+                                br21->as<MemberAccessExpression>().value());
+                        rec21.baseRange = br21->sourceRange;
+                        paMemSel.push_back(rec21);
+                        paMemTaintRoot[&ps] = armABase21;
+                    }
+                }
+                else {
+                    // ARM TWO — the transitive taint.  A BARE reference to a
+                    // parameter this law folded is NOT it: golden inherits
+                    // that constant's encoding AND gives the ref a NAME
+                    // (grid `t11` `Z`, the § asmEncFollowsRef shape).
+                    bool bareRef21 =
+                        se21.kind == ExpressionKind::NamedValue ||
+                        se21.kind == ExpressionKind::HierarchicalValue;
+                    const ParameterSymbol* root21 = nullptr;
+                    // § paAsmMemberSliceFold21v — A MEMBER READ THAT SITS
+                    // INSIDE A CALL'S ARGUMENTS IS NOT A TAINT SOURCE.
+                    // Measured, golden cell by golden cell (verifier grid
+                    // `v11`/`v12`/`v13`): golden KEEPS the parameter's own
+                    // Rhs typespec for `$clog2(CFG.u.dataWidth)`,
+                    // `$bits(CFG.u)`, `twice(CFG.u.dataWidth)`,
+                    // `$clog2(CFG.u.dataWidth) + 1`,
+                    // `$clog2(CFG.u.dataWidth + 1)`,
+                    // `twice(CFG.u.dataWidth + 1)`, `{twice(CFG.u.dataWidth)}`,
+                    // `twice($clog2(CFG.u.dataWidth))`,
+                    // `$clog2($clog2(CFG.u.dataWidth))` and
+                    // `twice(CFG.u.a + CFG.u.b)` — every one of which the
+                    // ungated form STRIPPED, taking a cell that was already
+                    // byte-equal to golden AWAY from it.  Golden strips only
+                    // where the read reaches the value through the plain
+                    // reducer: an operation, a select, a concat, a ternary
+                    // condition (`(CFG.derived > 0) ? twice(...) : 1` strips,
+                    // on the BARE `CFG.derived` in its condition), or a
+                    // reference to a parameter this law already folded or
+                    // tainted (`$clog2(A)`, `twice(A)`, `A + 1`) — which is
+                    // why the NamedValue arm below stays UNGATED.
+                    // NOT TAKEN, and a measured residue: golden ALSO strips
+                    // when a USER `func_call` is itself an argument of another
+                    // call (`twice(twice(m))`, `$clog2(twice(m))`), where a
+                    // SYSTEM call in that position keeps
+                    // (`twice($clog2(m))`).  Declining there leaves the
+                    // pristine answer standing — wrong as it already was,
+                    // never newly wrong.
+                    int callDepth21 = 0;
+                    if (!bareRef21) {
+                        in21->visit(slang::ast::makeVisitor(
+                            [&](auto& v21, const CallExpression& x21) {
+                                callDepth21++;
+                                v21.visitDefault(x21);
+                                callDepth21--;
+                            },
+                            [&](auto& v21, const MemberAccessExpression& x21) {
+                                if (!root21 && callDepth21 == 0)
+                                    root21 = rootOf21(x21);
+                                v21.visitDefault(x21);
+                            },
+                            [&](auto& v21, const NamedValueExpression& x21) {
+                                if (!root21 &&
+                                    x21.symbol.kind == SymbolKind::Parameter) {
+                                    auto it21 = paMemTaintRoot.find(
+                                        &x21.symbol.as<ParameterSymbol>());
+                                    if (it21 != paMemTaintRoot.end())
+                                        root21 = it21->second;
+                                }
+                                v21.visitDefault(x21);
+                            }));
+                    }
+                    if (root21) {
+                        paMemTaint.push_back({pa, root21});
+                        paMemTaintRoot[&ps] = root21;
+                    }
+                }
+            }
+        }
         pa->VpiParent(m);
         if (auto syn = ps.getSyntax())
             setLoc(pa, syn->sourceRange());

@@ -2161,6 +2161,101 @@ private:
     };
     std::vector<SrlgCaMemSel> caMemSel;
     void drainCaAsmMemberSlice();
+    // § paAsmMemberSliceFold21 (r11u21) — AN ELABORATED `param_assign` WHOSE
+    // INITIALIZER READS A MEMBER OF AN ASSEMBLED FUNCTION-BUILT STRUCT
+    // PARAMETER FOLDS TO THAT MEMBER'S BIT SLICE, AND EVERY OTHER PARAMETER
+    // THAT READS ONE LOSES ITS Rhs TYPESPEC.
+    //
+    // THE PRODUCER.  `NetlistElaboration::elab_parameters_`
+    // (Surelog v1.87 `src/DesignCompile/NetlistElaboration.cpp:513-575`) mints
+    // the elaborated Rhs constant out of the instance's own VALUE for the
+    // parameter, and that Value is what `ExprEval::decodeHierPath` ->
+    // `hierarchicalSelector` (UHDM v1.87 `templates/ExprEval.cpp:2228-2402`)
+    // returned: the base is a CONSTANT carrying a `struct_typespec`, so the
+    // member is sliced straight out of the packed bits —
+    //     VpiValue("BIN:" + mbits), VpiDecompile(mbits)   <- BARE, no `<w>'b`
+    //     VpiSize(mbits.size()), VpiConstType(vpiBinaryConst)
+    //     Typespec -> a NAMELESS ref_typespec -> THE MEMBER'S OWN typespec
+    // FIRST DECLARED MEMBER OCCUPIES THE MSBs; a nested read recurses, so the
+    // offsets simply add.  `CompileHelper::adjustSize`
+    // (`src/DesignCompile/CompileHelper.cpp:4065-4218`) then re-renders it
+    // against the **Lhs parameter's** typespec and at :4130 REPLACES its `ts`
+    // with the constant's own — the member's — so only `VpiSize` (and, for a
+    // logic member, a truncation) ever sees the Lhs width.  Measured cell by
+    // cell on grid `t5`/`t10`:
+    //   * int_typespec member  -> VpiSize = min(member width, Lhs width), the
+    //     digits are NOT truncated (`V_IU`: 32 digits under a 64-bit Lhs);
+    //     a SIGNED member with its MSB set turns INT / vpiIntConst (`SS`);
+    //   * logic_typespec member WIDER than the Lhs -> value AND decompile
+    //     truncated to the LOW Lhs-width digits (`W_L40`, `V_L40`, `N_L40`);
+    //     narrower -> untouched (`W_L8` stays size 8 under a 32-bit Lhs);
+    //   * byte / bit / enum / struct member -> nothing changes at all
+    //     (`W_BY` 8, `W_B1` 1, `W_EN` 2, `SUB` 64);
+    //   * an UNTYPED Lhs has no typespec, `adjustSize` returns at its first
+    //     line and the member's own width stands (`UNT`).
+    //
+    // THE SECOND ARM.  The same road answers every OTHER parameter whose value
+    // depends on such a read — `CFG.a + 1`, `$clog2(NOUT)`, a select of a
+    // member — and that answer carries **NO `ref_typespec` at all**, where an
+    // untainted sibling in the same module carries the parameter's own
+    // (grid `t1`: `C1`/`C2`/`C3` keep `(work@dut)` -> the Lhs `int_typespec`,
+    // `T1`/`T2` carry none).  The dependence is TRANSITIVE (`t11` `Y`, `W`).
+    //
+    // THE FENCES, each with a measured golden cell:
+    //   * the DEFINITION listing does not fold and does not strip — golden
+    //     keeps the symbolic `hier_path` / `operation` there (every arm);
+    //   * the ELABORATED **PACKAGE** listing does not either (`t4` `pk::PA`
+    //     stays a `hier_path`, `pk::PB` an `operation`);
+    //   * a GENERATE-SCOPE localparam takes a different road — golden's cell
+    //     is the `<w>'b`-prefixed re-render with a NAMED ref and a parent
+    //     (`t10` `g.GA`);
+    //   * a QUALIFIED read (`pk::C.b`) is a different road too (`t4` `MB`);
+    //   * a BARE reference to a parameter this law folded inherits that
+    //     constant's encoding AND a NAMED ref (`t11` `Z`) — the
+    //     § asmEncFollowsRef shape, not this one;
+    //   * a SIGNED int member read into an UNSIGNED Lhs makes `adjustSize`
+    //     write `VpiSigned(false)` onto the SHARED member typespec
+    //     (`t10` `UU`), and `int_typespec::Compare` reads `VpiSigned` — a
+    //     mutation of a shared typespec is its own law, declined here exactly
+    //     as § caAsmMemberSliceFold declines it;
+    //   * an OVERRIDDEN parameter keeps the arms it already has (`t7` `u1.M`).
+    //
+    // DEFERRED, exactly as § memSelAsmBaseOv / § asmEncFollowsRef /
+    // § caAsmMemberSliceFold are: the producer's assembler bail is only final
+    // in the drain, so the site RECORDS and `drainPaAsmMemberSlice` reads the
+    // answer off the base's own elaborated `param_assign` Rhs — a
+    // `vpiBinaryConst` of EXACTLY the struct's packed width when
+    // `reduceExpr(struct_var)` assembled, anything else when it bailed — and
+    // SLICES THE BITS OUT OF THAT CONSTANT.  A bail writes nothing and mints
+    // nothing (grid `t9`, whose package fold is a pre-existing residue, is the
+    // bail witness: byte-identical pristine and patched).
+    struct SrlgPaMemSel {
+        UHDM::param_assign* pa = nullptr;
+        const slang::ast::ParameterSymbol* base = nullptr;
+        std::vector<std::string> path;   // member names, outermost first
+        int32_t off = 0;                 // MSB-first offset into the assembly
+        int32_t mw = 0;                  // the leaf member's declared width
+        int32_t total = 0;               // the base struct's packed width
+        int32_t lhsBits = 0;             // 0 = no Lhs typespec (no adjustSize)
+        bool lhsSigned = false;
+        slang::SourceRange baseRange{};  // the BASE NAME's own span
+    };
+    std::vector<SrlgPaMemSel> paMemSel;
+    // The second arm's record: the assign, and the family parameter whose
+    // assemble/bail answer decides whether the strip happens at all.
+    std::vector<std::pair<UHDM::param_assign*,
+                          const slang::ast::ParameterSymbol*>>
+        paMemTaint;
+    // Parameters this law folds or strips, with the family base that tainted
+    // them — the transitive closure, filled in emit order.
+    std::map<const slang::ast::ParameterSymbol*,
+             const slang::ast::ParameterSymbol*>
+        paMemTaintRoot;
+    void drainPaAsmMemberSlice();
+    // True when `base`'s elaborated `param_assign` Rhs really is the assembled
+    // packed constant of `total` bits; hands back its digits.
+    bool paAsmBaseBits(const slang::ast::ParameterSymbol* base, int32_t total,
+                       std::string& bits);
     // The family predicate: `e` is a BARE reference to a packed-struct
     // parameter that is (possibly through a chain of bare references) built by
     // a member-by-member const function.  Returns the FAMILY parameter itself

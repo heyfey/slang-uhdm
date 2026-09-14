@@ -554,7 +554,7 @@ param_array_wildcard,default,CMP_EQUAL,,,differ
 param_fill_default_paramod,default,CMP_EQUAL,,,differ
 param_int_types,default,CMP_EQUAL,,,differ
 param_name_collision_typeparam,default,CMP_NOTEQUAL,decompile:,,
-param_nested_struct_field_width,default,CMP_NOTEQUAL,decompile:,,
+param_nested_struct_field_width,default,CMP_EQUAL,,,differ
 param_no_default,default,CMP_EQUAL,,,differ
 param_packed_array_subst,default,CMP_EQUAL,,,differ
 param_struct_field_bitsel,default,CMP_EQUAL,,,differ
@@ -1425,7 +1425,7 @@ param_array_wildcard,testflags,CMP_EQUAL,,,differ
 param_fill_default_paramod,testflags,CMP_EQUAL,,,differ
 param_int_types,testflags,CMP_EQUAL,,,differ
 param_name_collision_typeparam,testflags,CMP_NOTEQUAL,decompile:,,
-param_nested_struct_field_width,testflags,CMP_NOTEQUAL,decompile:,,
+param_nested_struct_field_width,testflags,CMP_EQUAL,,,differ
 param_no_default,testflags,CMP_EQUAL,,,differ
 param_packed_array_subst,testflags,CMP_EQUAL,,,differ
 param_struct_field_bitsel,testflags,CMP_EQUAL,,,differ
