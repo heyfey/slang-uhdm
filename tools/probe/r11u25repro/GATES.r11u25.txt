@@ -1,0 +1,143 @@
+r11u25 GATES — the transcript.  Base 822420d0, worktree /tmp/wt_r11u25.
+Judge: the official uhdm-cmp through scripts/verify_golden.py.
+results/*.csv ARE NOT EDITED BY THIS PASS (git status on results/ is clean).
+
+=== 1. BINARIES, built -j 2, md5s taken separately ===
+pristine  /tmp/r11u25_bin/pristine  66dc9cdb3437a4d220daef493a145fdd
+          == the OPS-stated main-tree md5 at 822420d0.  BYTE-IDENTICAL.
+law       /tmp/r11u25_bin/law       58e64809ae74496d897279f045173b01
+Both frozen chmod 555 BEFORE any sweep.
+
+=== 2. GOLDENS ===
+SLANG_UHDM=/tmp/r11u25_bin/law        PASS=23 FAIL=0
+SLANG_UHDM=/tmp/r11u25_bin/pristine   PASS=23 FAIL=0
+SLANG_UHDM=/bin/false                 PASS=0  FAIL=23    (negative control)
+
+=== 3. uhdm2rtlil, BOTH MODES (--jobs 2, own --out/--workdir, SLANG_UHDM exported) ===
+law       testflags  768 CMP_EQUAL / 36 CMP_NOTEQUAL / 67 SLANG_REJECT
+law       default    768 CMP_EQUAL / 36 CMP_NOTEQUAL / 67 SLANG_REJECT
+pristine  both modes 768 / 36 / 67, and the testflags CSV byte-identical to
+                     results/gate_uhdm2rtlil.csv
+ct8rows.sh results/gate_uhdm2rtlil.csv <law tf>   PASS: every row byte-identical
+ct8rows.sh <own pristine tf>           <law tf>   PASS: every row byte-identical
+ct8rows.sh <own pristine def>          <law def>  PASS: every row byte-identical
+SELFCHECK=1 byteverify.sh <law u2r> <own pristine u2r>
+    databases: patched=1608 pristine=1608
+    PATH_SETS_IDENTICAL (1608 paths)
+    MOVERS: 0 / 1608
+    SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+=== 4. surelog suite, --mode both ===
+law       469 CMP_EQUAL / 14 CMP_NOTEQUAL  default
+law       465 CMP_EQUAL / 12 CMP_NOTEQUAL  testflags
+pristine  the same, and equal to results/golden_surelog.csv row for row apart
+          from the two SURELOG_FAIL detail strings that embed the WORKDIR PATH
+          (LowMemLib, LowMemPkg — not judge verdicts).
+ct8rows.sh results/golden_surelog.csv <law>: 3 differing ROWS, all three quoted:
+    the same two workdir-path SURELOG_FAIL strings, plus
+    < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+    > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+    — the DUMP COLUMN blank on a uhdm-dump timeout draw (OPS names this
+    explicitly: the DATABASE byte-compare is the pin, not the column).  The
+    STATUS stays CMP_EQUAL and the database is byte-identical (§7).
+SELFCHECK=1 byteverify.sh <law sl> <own pristine sl>
+    databases: patched=960 pristine=960
+    PATH_SETS_IDENTICAL (960 paths)
+    MOVERS: 5 / 960   —  default/MiniAmiq  default/SeqDriver  default/SimpleUVM
+                         testflags/MiniAmiq  testflags/SeqDriver
+    SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+    ALL FIVE ARE THE PROVEN UVM COIN, CONVICTED TWICE:
+      (a) order-blind (path-normalised, id-stripped, sorted) delta is exactly
+          4 lines on each — one `UINT:<line>` and its `vpiDecompile:<line>`
+          — the line-number class.  This law writes only VpiSize and a
+          vpiActual pointer and mints no UINT line-number constant anywhere.
+      (b) the PRISTINE binary run a SECOND time reproduces the same class on
+          all three default databases:
+            MiniAmiq   run1 e048115d5cfe  run2 e9183812b66f  delta 4
+            SeqDriver  run1 b6460b7c6f06  run2 ea0be72c66f9  delta 4
+            SimpleUVM  run1 cd356dc7fd1e  run2 cbec4d608b72  delta 4
+          and SimpleUVM's second PRISTINE run lands on the exact hash the LAW
+          binary produced (cbec4d608b72).  A per-run draw, not a mover.
+      (c) NONE of the five is flagged by the census (pred25 F1F/F1O/F2 all 0
+          for them), so no cell in them can move under either law.
+
+=== 5. cmds.txt AUDITED BY BINARY PATH ===
+law surelog workdir : 1581 cmds.txt, 1531 name /tmp/r11u25_bin/law,
+                      0 name the main-tree binary, 50 carry no slang line at
+                      all (rows the golden side never produced a database for)
+law u2r workdir     : 1742 cmds.txt, 1742 name /tmp/r11u25_bin/law, 0 main-tree
+
+=== 6. CANARIES ===
+canaries.sh <law sl.csv> <own pristine sl.csv>        ok=51 changed=1 absent=0
+canaries.sh <law sl.csv> results/golden_surelog.csv   ok=51 changed=1 absent=0
+   the ONE changed row, quoted:
+     Earlgrey_0_1  testflags  CHANGED  CMP_EQUAL/differ -> CMP_EQUAL/
+   the dump COLUMN only; the status is CMP_EQUAL on both and the database is
+   byte-identical (§7).
+canaries.sh <law u2r_tf.csv> results/gate_uhdm2rtlil.csv  ok=8 changed=0
+EXPECT_UNKNOWN=1 ctcan2.sh results/golden_surelog.csv <law sl.csv>
+   ok=58 changed=0  PASS
+EXPECT_UNKNOWN=6 ctcan2.sh results/gate_uhdm2rtlil.csv <law u2r_tf.csv>
+   ok=1 changed=0   PASS
+canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+rowheads.sh <law sl>  : measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0, every row
+   IDENTICAL to the same script over my own pristine workdir, Earlgrey_0_1 at
+   0 heads / cmp rc=0 in BOTH modes.
+
+=== 7. THE SEVEN PROTECTED DATABASES, law vs pristine, md5 ===
+default   Earlgrey_0_1        SAME  8bdf25272e08   (OPS status pin, EQUAL)
+testflags Earlgrey_0_1        SAME  59d0ee6d10c3
+default   SVSwitch            SAME  4842211c4030   (OPS HARD byte pin, hit)
+testflags SVSwitch            SAME  4842211c4030   (OPS HARD byte pin, hit)
+default   YosysVerx           SAME  6ccda350c24a   (OPS HARD byte pin, hit)
+testflags YosysVerx           SAME  6ccda350c24a   (OPS HARD byte pin, hit)
+default   InterfaceModPort    SAME  59a365f3ce2c   (OPS pin, hit)
+testflags InterfaceModPort    SAME  59a365f3ce2c   (OPS pin, hit)
+default   BlackParrotComplex  SAME  e3e354129d5a
+testflags BlackParrotComplex  SAME  73a10e8217e5
+default   YosysOldOr          SAME  d68e0796d62c
+testflags YosysOldOr          SAME  d68e0796d62c
+
+=== 8. THE BOUNDARY — 2731 files, PROCESSED == LISTED ===
+bnd25.sh /tmp/r11u25_scr/BND.list.txt
+   PROCESSED=2731 LISTED=2731 MOVED=54
+   The list is every COMMITTED .sv/.v under tools/probe that contains an
+   `assign` (2655), plus r11u23's own committed BND.list.txt, plus this pass's
+   76 grid arms.  NOT ONE file's rc differs between the two binaries.
+   27 of the 54 movers are this pass's own grid arms.
+   The other 27 are COMMITTED arms of earlier passes, and EVERY ONE is scored
+   against the REAL v1.87 golden (bndattr25.sh, BNDATTR.txt) and then cell by
+   cell with the SHAPE LISTER (bndcells25.sh, BNDCELLS.txt):
+       TO-GOLDEN = 26      AWAY-GOLDEN = 0      MOVED-WRONG = 0
+   11 of them CONVERT to uhdm-cmp rc 0 (r10earl57/a1_earl57, r11u19 grid t02,
+   and r11u23's own f01 f02 f09 f10 f13 f19 f24 g01 g02 — the very arms
+   r11u23's R1 recorded as standing wrong); 2 IMPROVE (r10earl113/s2_opkind113
+   15 -> 8 cmp lines, r11u23 grid f14 18 -> 15); 20 land on golden's cells
+   EXACTLY (law_diff=0), among them r10vearl104/w5_cross104 (36 differing
+   cell-fields -> 0) and r10earl113/s2_opkind113 (20 -> 2).
+   The ONE arm scored SAME is r11u23 grid f14 (an ancestor gen-local): its Rhs
+   constant moves 32 -> -1, golden's exact object, and its remaining field is
+   the ancestor vpiActual golden keeps and PRISTINE had already dropped
+   (r11u23's R2, inherited not incurred) — the two fields share one lister
+   line, which is why the line count does not fall.
+   POSITIVE CONTROL: the gate can see and does not cry wolf.  r11u23's
+   c01_genlocal_fill0 / c02_genlocal_sized (the landed TERNARY law's own
+   converted arms), a01_genif_fill0, b01_fill1_32, f12_modulenet_tern_fold and
+   every m* module-scope arm of this pass read norm_delta=0, while
+   g01_barefill_0 reads 2 and g02_barefill_1 reads 8.
+
+=== 9. THE A/B SWITCH ===
+R11U25_OFF=1 on the SHIPPED law binary reproduces the PRISTINE bytes exactly
+on p01, p02, p16, p28, q01, q04, q16 and p23 — 8 / 8, 0 mismatches.
+
+=== 10. THE PATCH ===
+/tmp/r11u25.patch = git diff vs 822420d0.  Applies clean on a FRESH 822420d0
+and rebuilds from that fresh worktree to the same law md5
+58e64809ae74496d897279f045173b01.  Surface: src/ModuleEmit.cpp +
+tools/probe/r11u25repro/ ONLY.
+
+=== 11. THE SCOREBOARD MOVE THIS LANDING IMPLIES ===
+NONE.  uhdm2rtlil stays 768 / 36 / 67 in both modes and the Surelog suite
+stays 469/14 and 465/12.  results/*.csv, GOLDEN_EQUIVALENCE.md §3.3 and
+SUPPORT_MATRIX.md's baseline table are all still correct as committed and are
+NOT edited by this landing.

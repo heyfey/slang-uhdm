@@ -14301,6 +14301,96 @@ static bool caLhsUnboundOwnLocal23(const Expression& lhsExpr, const Scope& blk,
     return true;
 }
 
+// § caUnbasedRhsUnboundKeepsRaw25 (r11u25) — THE FILL-SIZE FACE OF THE SAME
+// CLONE, WITH NO TERNARY IN THE WAY.  r11u23's R1, measured and landed.
+//
+// § genCaUnbasedSizing (below, in `emitGenScopes`) sizes an unbased-unsized
+// gen-scope cont_assign Rhs at the Lhs width and re-encodes `'1` to the
+// all-ones `UINT:<mask>`.  That is `CompileHelper::adjustSize`'s
+// `orig_size == -1` tail — and `writeCont_assign` only ever CALLS `adjustSize`
+// with a non-null `tps`, which it fills from the Lhs ref's own `Typespec()` or
+// from the variable `CompileHelper::bindVariable` found.  When the bind FAILS
+// there is no adjust at all: `adjustSize` returns `c` UNTOUCHED on
+// `ts == nullptr` (`CompileHelper.cpp:4218`), the producer clones on
+// `DetectUnsizedConstant` alone, and golden keeps the RAW mint at `VpiSize`
+// **-1**.  The landed law had no bind fence, so every own-scope gen-local
+// target was sized where golden leaves it raw.
+//
+// MEASURED, golden against this pass's own pristine build, one arm per row,
+// `assign <lhs> = '0;` (or `'1`) with no ternary anywhere:
+//
+//   arm  Lhs                                golden           ours (pristine)
+//   p01  own-scope gen-local `logic [31:0]`  BIN:0 '0  ct3 -1  BIN:0 '0 ct3  32
+//   p02  the same, `'1`                      BIN:1 '1  ct3 -1  UINT:4294967295 ct9 32
+//   p03  the same, `'x`                      BIN:X 'X  ct3 -1  IDENTICAL
+//   p04  the same, `'z`                      BIN:Z 'Z  ct3 -1  IDENTICAL
+//   p05  own-scope gen-local NET             -1               32
+//   p06  an ANCESTOR gen scope's local       -1               32
+//   p16  an INTERFACE's gen scope            -1               32
+//   p18  a bare `var bv;`                    -1                1
+//   p24  an `int` gen-local                  -1               32
+//   p25/p26/p27/p28  `'1` at 64 / 8 / 1 / 128 bits  BIN:1 '1 ct3 -1 (the WIDTH
+//        NEVER ENTERS — `adjustSize` is a no-op, not a re-size)
+//   p19/p20/p21/p22/p23/p30  gen-for / nested x3 / gen-case / unnamed genblk /
+//        a CHILD instance's gen scope / a delayed assign   all -1
+//
+// and the THREE shapes `bindVariable` DOES find, which golden sizes and this
+// emitter ALREADY matches — the fence exists for them:
+//
+//   p07  a MODULE NET reached from a gen scope   BIN:0 size 32   SAME
+//   p08  a MODULE VAR reached from a gen scope   BIN:0 size 32   SAME
+//   p09  a module PORT reached from a gen scope  BIN:0 size 32   SAME
+//   p10  a gen-local with a 4-bit MODULE NAMESAKE — golden sizes at the
+//        NAMESAKE's width (`BIN:0` size **4**, and BINDS the Lhs), which this
+//        emitter does not reproduce; DECLINED, exactly as wrong as pristine
+//        left it, never moved to a third object (r11u22 R3 verbatim).
+//
+// MODULE SCOPE IS NOT THIS LAW, and was measured before it was written: arms
+// `m01`-`m06` and `m13` (`'0`/`'1`/`'x`/`'z` on a module var, a module net, a
+// port, and `'1` at 8 bits) are CMP_EQUAL on the pristine binary — golden
+// binds there and sizes, and so do we.  A NON-`ref_obj` Lhs is not this law
+// either: `p11` a bit-select, `p12` a concat, `p13` a member, `p14` a
+// part-select and `p15` an unpacked element are golden `-1` AND pristine `-1`
+// already (the select clause § genCaUnbasedSizing's own note records).
+//
+// So the fence is exactly `bindVariable`'s question.  TRUE means "the producer
+// WOULD find this target, so the adjust happens and the sizing stands".
+static bool caLhsBindVariableFinds25(const Expression& lhsExpr) {
+    auto& l = stripImplicitConv(lhsExpr);
+    if (l.kind != ExpressionKind::NamedValue)
+        return true;
+    auto& sym = l.as<NamedValueExpression>().symbol;
+    if (sym.name.empty())
+        return true;
+    auto* ps = sym.getParentScope();
+    if (!ps)
+        return true;
+    auto pk = ps->asSymbol().kind;
+    if (pk != SymbolKind::GenerateBlock && pk != SymbolKind::GenerateBlockArray)
+        return true;
+    // `bindVariable` (`CompileStmt.cpp:3094`) searches each enclosing scope's
+    // `Nets()`/`Variables()` BY NAME and recurses PAST `module_inst` into
+    // `scope->VpiParent()` while knowing NOTHING about `gen_scope`, so a
+    // generate-local whose NAME is ALSO declared in an enclosing module body —
+    // or in an ANCESTOR INSTANCE's body — IS found (`p10`).  This is
+    // § genCaCastRhsOwnLocalLhsNoBind118's namesake walk, whose r10earl118
+    // verifier widened it to climb into the parent instance: a walk that
+    // stopped at this module's own body scored AWAY 4.
+    const Scope* w = ps;
+    for (int h = 0; w && h < 64; ++h) {
+        auto& ws = w->asSymbol();
+        if (ws.kind == SymbolKind::InstanceBody) {
+            if (auto* ns = w->find(std::string(sym.name)); ns && ns != &sym)
+                return true;
+            auto* pi = ws.as<InstanceBodySymbol>().parentInstance;
+            w = pi ? pi->getParentScope() : nullptr;
+            continue;
+        }
+        w = ws.getParentScope();
+    }
+    return false;
+}
+
 // § genCaUnboundTernLhsNoActual23 (r11u23) — `DetectUnsizedConstant`
 // (`UhdmWriter.cpp:2078`) transcribed: it listens over the WHOLE Rhs tree and
 // fires on ANY `constant` with `VpiSize() == -1`, which in slang's AST is an
@@ -14639,6 +14729,28 @@ static bool cellDbg22() {
 // which still switches the BOUND half this pass builds beside.
 static bool off23() {
     static const bool v = getenv("R11U23_OFF") != nullptr;
+    return v;
+}
+// r11u25's own A/B switch, in the ENTRY GUARD of BOTH non-ternary faces:
+// `R11U25_OFF=1` makes the shipped binary take neither decision — no fence is
+// consulted at § caUnbasedRhsUnboundKeepsRaw25 and no flag is set for
+// § caUnsizedRhsOwnLocalNoBind25 — so it reproduces the 822420d0 bytes
+// exactly.  It is INDEPENDENT of `R11U22_OFF` and `R11U23_OFF`, which switch
+// the ternary halves this pass builds beside.
+static bool off25() {
+    static const bool v = getenv("R11U25_OFF") != nullptr;
+    return v;
+}
+// r11u25's cell trace: EVERY elaborated gen-scope cont_assign whose Rhs is a
+// NON-ternary expression carrying an unsized constant, or whose Rhs is a bare
+// unsized fill — the ones the two laws DECLINE included, because a trace keyed
+// on the shape you intend to change is blind to the rows you would change by
+// accident (earl66's lesson).
+static bool cellDbg25() {
+    static const bool v = [] {
+        const char* e = getenv("R11U25_CELLDBG");
+        return e && *e && *e != '0';
+    }();
     return v;
 }
 
@@ -19535,9 +19647,23 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // literal stays unsized in every view — the discriminator is
                 // in the same repro (`o_gen_sel[0] = '0` keeps -1) and in
                 // Rggen itself (:232 `assign trigger[0] = '0;` vs :218).
+                // § caUnbasedRhsUnboundKeepsRaw25 (r11u25) — AND NEITHER DOES
+                // A TARGET `CompileHelper::bindVariable` CANNOT FIND.  The
+                // sizing IS `adjustSize`, and `writeCont_assign` only calls
+                // `adjustSize` with the typespec of the variable the bind
+                // returned; with `ts == nullptr` it returns the constant
+                // UNTOUCHED, so golden keeps `VpiSize` -1 and the raw `BIN:1`
+                // encoding on every own-scope / ancestor gen-local, gen-local
+                // net, bare `var`, and interface gen-scope target.  The full
+                // arm table and the three bound shapes that keep the sizing
+                // are at `caLhsBindVariableFinds25`.  Rggen's own witness
+                // stays bound and stays sized: `rggen_bit_field:218`'s
+                // `sw_write_done` is a MODULE-BODY signal assigned from a gen
+                // scope (`p07`/`p08`), which the fence answers TRUE for.
                 if (rl9.kind ==
                         ExpressionKind::UnbasedUnsizedIntegerLiteral &&
                     ll9.kind == ExpressionKind::NamedValue &&
+                    (off25() || caLhsBindVariableFinds25(ae.left())) &&
                     ((UHDM::constant*)rhs)->VpiSize() == -1 && ll9.type &&
                     ll9.type->getCanonicalType().isIntegral()) {
                     logic_t ub9 =
@@ -19998,6 +20124,89 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // family and carry their own corpus exposure.
             if (!lhsSuppress && genTernUnsizedNoBind23)
                 lhsSuppress = true;
+            // § caUnsizedRhsOwnLocalNoBind25 (r11u25) — R2 CLOSED: the SAME
+            // `DetectUnsizedConstant` clone on a NON-TERNARY Rhs.  The
+            // producer's detector (`UhdmWriter.cpp:2283-2293`) listens over the
+            // WHOLE Rhs tree and knows nothing about the Rhs's shape; the
+            // ternary gate above was a corpus-exposure fence, not a producer
+            // fact.  MEASURED, golden against this pass's pristine build, one
+            // arm per row, own-scope gen-local `logic [31:0] lv` in a gen-if:
+            //
+            //   arm  Rhs                        golden      ours (pristine)
+            //   q01  `a | '0`                   ACT absent  ACT logic_var
+            //   q02  `{a, '0}`                  ACT absent  ACT logic_var
+            //   q03  `a ^ 'x`                   ACT absent  ACT logic_var
+            //   q04  `'{default: '0}`           ACT absent  ACT logic_var
+            //   q05  `a + '1`                   ACT absent  ACT logic_var
+            //   q08  `{28'd0, a[3:0] | '0}`     ACT absent  ACT logic_var
+            //   q09  `{'0, a}`                  ACT absent  ACT logic_var
+            //   q16  `(a & b) | (a ^ '0)`       ACT absent  ACT logic_var
+            //
+            // and the Rhs OBJECT is byte-identical on the two sides in every
+            // one of them (the same `vpiOpType`), so the binding is the ONLY
+            // face: eight arms go CMP_NOTEQUAL -> CMP_EQUAL.
+            //
+            // THE CONTROLS, each measured on golden BEFORE the law was
+            // written, and every one of them ALREADY EQUAL on pristine:
+            //   q13  `a | 32'd0`   — no unsized constant: golden BINDS.  This
+            //        is the control that convicts the DETECTOR and not the
+            //        operation.
+            //   q14  a whole ref, q15 `$signed(a)*$signed(b)` — golden BINDS.
+            //   q10  a gen-local NET target — golden has no actual and neither
+            //        do we; `caLhsUnboundOwnLocal23` refuses a Net anyway.
+            //   q11  an ANCESTOR gen scope's local — golden BINDS (the clone
+            //        copies a pointer already resolved), and the fence is
+            //        OWN-SCOPE ONLY.
+            //   q12  a MODULE NET reached from the gen scope — golden BINDS.
+            //   q17  a gen-local with a MODULE-BODY NAMESAKE — golden BINDS
+            //        (`bindVariable` finds the namesake), and r11v23's
+            //        namesake clause in `caLhsUnboundOwnLocal23` declines it.
+            //   q18  a BIT-SELECT target — not a `NamedValue`, declined.
+            //   q19  `(a > b) ? a : (b | '0)` — a ternary Rhs, so
+            //        § genCaUnboundTernLhsNoActual23 already owns it; the
+            //        `ConditionalOp` test below keeps the two laws disjoint
+            //        and this arm is EQUAL on both binaries.
+            //
+            // DECLINED, and recorded as R1/R2 rather than guessed at: `q07`
+            // `~'0` and `q20` `{2{'0}}`, where golden FOLDS the Rhs to a
+            // constant (`UINT:<64 ones>` at -1, and `BIN:00` at **-2**) that
+            // this emitter does not mint — the binding face alone would leave
+            // the cell on a different object.  Dropping the actual there is
+            // still TOWARD golden (golden's cell is cloned and carries none),
+            // so they are not fenced out; they simply do not convert.
+            bool caUnsizedNoBind25 = false;
+            if (!off25() && !genTernUnsizedNoBind23) {
+                std::string ln25;
+                if (stripImplicitConv(ae.right()).kind !=
+                        ExpressionKind::ConditionalOp &&
+                    caLhsUnboundOwnLocal23(ae.left(), blk, ln25) &&
+                    genTernHasUnsized23(ae.right()))
+                    caUnsizedNoBind25 = true;
+            }
+            if (!lhsSuppress && caUnsizedNoBind25)
+                lhsSuppress = true;
+            // THE CELL TRACE, outside the A/B switch so it names the same
+            // cells on both binaries: every elaborated gen-scope cont_assign
+            // whose Rhs carries an unsized constant or IS one, the DECLINED
+            // ones included.
+            if (cellDbg25()) {
+                auto sr25 = ae.sourceRange;
+                auto& sm25 = *comp.getSourceManager();
+                std::string ln25t;
+                bool ub25 = caLhsUnboundOwnLocal23(ae.left(), blk, ln25t);
+                bool bv25 = caLhsBindVariableFinds25(ae.left());
+                bool un25 = genTernHasUnsized23(ae.right());
+                if (un25)
+                    fprintf(stderr,
+                            "R11U25CELL file=%s line=%u scope=%s uns=%d ub=%d "
+                            "bvfind=%d tern=%d nobind=%d\n",
+                            std::string(sm25.getFileName(sr25.start())).c_str(),
+                            sm25.getLineNumber(sr25.start()), fullName.c_str(),
+                            (int)un25, (int)ub25, (int)bv25,
+                            (int)(stripImplicitConv(ae.right()).kind ==
+                                  ExpressionKind::ConditionalOp),
+                            (int)caUnsizedNoBind25);
+            }
             // § genCaCastRhsOwnLocalLhsNoBind118 (r10earl118) — the CAST
             // sibling of § genCaConstRhsLhsNoBind25, and the Earlgrey_0_1
             // DEFAULT head.  Surelog's `UhdmWriter::writeCont_assign`
@@ -20355,9 +20564,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // site).  TWO WRITERS: silencing only one leaves the pointer
                 // in place, which is the trap § genCaLiteralRhsLhsNoBind22
                 // already recorded here.
+                // § caUnsizedRhsOwnLocalNoBind25 — the SECOND writer of the
+                // same pointer for the NON-ternary leg (see the flag's own
+                // note at the lhsSuppress site).  TWO WRITERS, one more time.
                 if (!isLiteralExpr(stripImplicitConv(ae.right())) &&
                     !constRhsOwnLocal25 && !castRhsOwnLocal118 &&
-                    !genTernUnsizedNoBind23)
+                    !genTernUnsizedNoBind23 && !caUnsizedNoBind25)
                     bindGenLocal9((UHDM::any*)ca->Lhs(), ae.left(), true);
                 bindGenLocal9((UHDM::any*)ca->Rhs(), ae.right(), false);
             }
