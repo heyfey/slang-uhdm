@@ -1,0 +1,25 @@
+== r11u31 COIN ATTRIBUTION — the three surelog-corpus byte movers
+== MiniAmiq/default, MiniAmiq/testflags, SeqDriver/testflags are the PROVEN UVM
+== COIN family.  Attributed ONLY order-blind (sorted whole dumps), and by CLASS,
+== never by count.
+
+-- order-blind delta, patched vs pristine (header line aside, 4 lines each):
+   MiniAmiq/default    UINT:891  <-> UINT:1222   + the matching vpiDecompile
+   MiniAmiq/testflags  UINT:666  <-> UINT:1223   + the matching vpiDecompile
+   SeqDriver/testflags UINT:827  <-> UINT:720    + the matching vpiDecompile
+
+-- POSITIVE CONTROL: the PRISTINE binary alone, six runs of MiniAmiq/default,
+   six DIFFERENT databases (no patch involved at all):
+     run 1  8191904ddb0d
+     run 2  e53714f651cb
+     run 3  3bb512e0d517
+     run 4  2b0d93dbb942
+     run 5  12b1e86a733a
+     run 6  56504f0b48d9
+
+   and pristine-vs-pristine reads the SAME 4-line class:
+     run1 vs run2: UINT:884 <-> UINT:1486  + vpiDecompile
+     run1 vs run3: UINT:884 <-> UINT:0     + vpiDecompile
+
+   So the class, not the count, is the signature, and it is present WITHOUT
+   the patch.  This pass touches no macro-buffer location and no UVM construct.

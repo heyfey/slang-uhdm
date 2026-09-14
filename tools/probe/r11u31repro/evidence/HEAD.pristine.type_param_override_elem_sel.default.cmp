@@ -1,0 +1,94 @@
+LHS:
+decompile:
+packed_array_typespec: , id:213, line:17:31, endln:17:47
+|vpiParent:
+\_type_parameter: (work@child.rt_t), id:12, line:17:21, endln:17:25
+|vpiRange:
+\_range: , id:21
+  |vpiParent:
+  \_packed_array_typespec: , id:19, line:17:31, endln:17:47
+  |vpiLeftRange:
+  \_operation: , id:23, line:17:37, endln:17:44
+    |vpiParent:
+    \_range: , id:21
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@child.rt_t.DEPTH), id:22, line:17:37, endln:17:42
+      |vpiParent:
+      \_operation: , id:23, line:17:37, endln:17:44
+      |vpiName:DEPTH
+      |vpiFullName:work@child.rt_t.DEPTH
+    |vpiOperand:
+    \_constant: , id:24, line:17:43, endln:17:44
+      |vpiParent:
+      \_operation: , id:23, line:17:37, endln:17:44
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:25, line:17:45, endln:17:46
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiElemTypespec:
+\_ref_typespec: (work@child.rt_t.id_t), id:214
+  |vpiParent:
+  \_packed_array_typespec: , id:213, line:17:31, endln:17:47
+  |vpiName:id_t
+  |vpiFullName:work@child.rt_t.id_t
+  |vpiActual:
+  \_logic_typespec: , id:209, line:32:17, endln:32:28
+
+decompile:
+packed_array_typespec: , id:213, line:17:31, endln:17:47
+|vpiParent:
+\_type_parameter: (work@child.rt_t), id:12, line:17:21, endln:17:25
+|vpiRange:
+\_range: , id:21
+  |vpiParent:
+  \_packed_array_typespec: , id:19, line:17:31, endln:17:47
+  |vpiLeftRange:
+  \_operation: , id:23, line:17:37, endln:17:44
+    |vpiParent:
+    \_range: , id:21
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@child.rt_t.DEPTH), id:22, line:17:37, endln:17:42
+      |vpiParent:
+      \_operation: , id:23, line:17:37, endln:17:44
+      |vpiName:DEPTH
+      |vpiFullName:work@child.rt_t.DEPTH
+    |vpiOperand:
+    \_constant: , id:24, line:17:43, endln:17:44
+      |vpiParent:
+      \_operation: , id:23, line:17:37, endln:17:44
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:25, line:17:45, endln:17:46
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiElemTypespec:
+\_ref_typespec: (work@child.rt_t.id_t), id:214
+  |vpiParent:
+  \_packed_array_typespec: , id:213, line:17:31, endln:17:47
+  |vpiName:id_t
+  |vpiFullName:work@child.rt_t.id_t
+  |vpiActual:
+  \_logic_typespec: , id:209, line:32:17, endln:32:28
+RHS:
+decompile:
+logic_typespec: , id:23, line:17:31, endln:17:47
+|vpiParent:
+\_type_parameter: (work@child.rt_t), id:21, line:17:21, endln:17:25
+
+decompile:
+logic_typespec: , id:23, line:17:31, endln:17:47
+|vpiParent:
+\_type_parameter: (work@child.rt_t), id:21, line:17:21, endln:17:25

@@ -1,0 +1,44 @@
+== r11u31 GOLDEN GRID  —  the type parameter's written default type
+== Surelog v1.87 (-parse -nobuiltin -nocache) vs ours (--single-unit --nobuiltin).
+== EVERY arm records BOTH rcs.  cmplines/heads come from the official uhdm-cmp.
+== g7 is an arm our front end REJECTS (ourrc=3, a module-header forward
+==    reference to a body typedef) — it teaches error recovery, not golden.
+
+-- arms
+   g1  parameter type T = logic [3:0]            keyword + dim   (CONTROL: equal)
+   g2  typedef logic[1:0] e_t; T = e_t [3:0]     named  + 1 dim
+   g3  T = e_t [3:0][1:0]                        named  + 2 dims
+   g4  parameter type E = logic[1:0]; T = E[3:0] named element = TYPE PARAM
+   g5  T = struct packed {...} [3:0]             anonymous struct + dim
+   g6  T = e_t                                   named, NO dim   (CONTROL)
+   g7  body typedef named in the module header   (our front end rejects it)
+   g8  typedef e_t [3:0] arr_t;                  the TYPEDEF site (CONTROL)
+   g9  T = pk::e_t [3:0]                         PACKAGE-QUALIFIED element
+   g10 e_t [3:0] v;                              a VARIABLE decl  (CONTROL)
+   g12 child #(.T(w_t [1:0])) over T = e_t[3:0]  an OVERRIDDEN type param
+
+-- PRISTINE  4110f3de  (md5 62547ac98ebcfdeb522171dc946d50ad)
+g10                              slrc=0    ourrc=0    golddump=328    ourdump=328    cmplines=36     heads=1
+g12                              slrc=0    ourrc=0    golddump=446    ourdump=427    cmplines=68     heads=1
+g1                               slrc=0    ourrc=0    golddump=150    ourdump=184    cmplines=0      heads=0
+g2                               slrc=0    ourrc=0    golddump=314    ourdump=226    cmplines=68     heads=1
+g3                               slrc=0    ourrc=0    golddump=314    ourdump=171    cmplines=68     heads=1
+g4                               slrc=0    ourrc=0    golddump=293    ourdump=214    cmplines=68     heads=1
+g5                               slrc=0    ourrc=0    golddump=218    ourdump=144    cmplines=68     heads=1
+g6                               slrc=0    ourrc=0    golddump=192    ourdump=189    cmplines=17     heads=1
+g7                               slrc=0    ourrc=3    golddump=289    ourdump=-      cmplines=-      heads=-
+g8                               slrc=0    ourrc=0    golddump=320    ourdump=320    cmplines=36     heads=1
+g9                               slrc=0    ourrc=0    golddump=195    ourdump=239    cmplines=36     heads=1
+
+-- PATCHED   4110f3de + this pass
+g10                              slrc=0    ourrc=0    golddump=328    ourdump=328    cmplines=36     heads=1
+g12                              slrc=0    ourrc=0    golddump=446    ourdump=455    cmplines=17     heads=1
+g1                               slrc=0    ourrc=0    golddump=150    ourdump=184    cmplines=0      heads=0
+g2                               slrc=0    ourrc=0    golddump=314    ourdump=226    cmplines=335    heads=1
+g3                               slrc=0    ourrc=0    golddump=314    ourdump=226    cmplines=335    heads=1
+g4                               slrc=0    ourrc=0    golddump=293    ourdump=269    cmplines=60     heads=1
+g5                               slrc=0    ourrc=0    golddump=218    ourdump=144    cmplines=68     heads=1
+g6                               slrc=0    ourrc=0    golddump=192    ourdump=189    cmplines=17     heads=1
+g7                               slrc=0    ourrc=3    golddump=289    ourdump=-      cmplines=-      heads=-
+g8                               slrc=0    ourrc=0    golddump=320    ourdump=320    cmplines=36     heads=1
+g9                               slrc=0    ourrc=0    golddump=195    ourdump=239    cmplines=36     heads=1

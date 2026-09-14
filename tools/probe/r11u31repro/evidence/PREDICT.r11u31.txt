@@ -1,0 +1,32 @@
+== r11u31 MOVER PREDICTION — made from the SOURCES of both corpora BEFORE the
+== patched sweep, with scan_typeparamdim.pl (comment-stripped, whitespace- and
+== newline-tolerant; the twelve built-in type keywords are EXCLUDED because a
+== written keyword with dims is grid arm g1 and g1 is EQUAL).
+
+-- uhdm2rtlil
+./type_param_override_elem_sel/dut.sv: id_t[
+./type_param_packed_dim/dut.sv: resp_id_t[
+./cva6_equiv/wrappers/wrapper_hpdcache_mem_resp_demux.sv: resp_id_t[
+-- hits=3
+./cva6_equiv/rtl/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_resp_demux.sv: resp_id_t[
+-- hits=1
+
+-- Surelog suite
+tests/ClassScope/dut.sv: PARAM_T[
+-- hits=1
+
+-- POSITIVE CONTROL: the scanner finds the two designs whose heads were
+   measured by hand (type_param_packed_dim, type_param_override_elem_sel),
+   so a zero elsewhere is a reading, not a blind spot.
+
+-- RULED OUT, each by name:
+   cva6_equiv   — not a discovered corpus ROW (no dut.sv / project.f at its
+                  top; it is a wrapper tree driven by its own script), so it
+                  appears in NO results CSV and can move nothing.
+   ClassScope   — SLANG_REJECT in BOTH modes at the base
+                  (dut.sv:64:5 'packed dimensions require a full range
+                  specification'), so it builds no database to move.
+
+-- PREDICTED MOVER SET (4 databases, 2 rows x 2 modes):
+   type_param_packed_dim        default, testflags
+   type_param_override_elem_sel default, testflags

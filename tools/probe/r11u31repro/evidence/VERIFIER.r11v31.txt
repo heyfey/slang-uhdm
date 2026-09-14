@@ -1,0 +1,169 @@
+== r11v31 — ADVERSARIAL VERIFICATION of r11u31 (§ typeParamNamedElemPackedDim31)
+== Independent worktrees /tmp/wt_v11u31 (patched) and /tmp/wt_v11u31pris at
+== 4110f3de, both CONFIGURED AND BUILT FROM SOURCE (-j 2), binaries frozen
+== chmod 555 before any sweep, every cmds.txt audited by BINARY PATH.
+== VERDICT: ACCEPT.  Every headline number reproduces bit-for-bit.  One claim in
+== the pass README was corrected (g2/g3), two residues added (R1a, R1b).
+
+-- BINARIES
+   pristine (built from 4110f3de)  md5 62547ac98ebcfdeb522171dc946d50ad  = THE PIN
+   patched  (4110f3de + r11u31)    md5 a0506e542d56e2f45d275927d70e9509
+   /tmp/r11u31.patch applies cleanly to a FRESH 4110f3de worktree (3 production
+   files + tools/probe/r11u31repro/), and `git diff 4110f3de` in that worktree
+   is BYTE-IDENTICAL to the submitted patch (2205 lines, 0 differing lines).
+   results/*.csv: 0 hunks.  Fenced names in the production diff: 0.
+   Patched binary determinism: 3 runs on type_param_packed_dim → one md5
+   (d0e3dcccccba…), equal to the sweep's own database.
+
+-- GATES (all reproduced independently)
+   goldens          patched 23 PASS / 0 FAIL;  SLANG_UHDM=/bin/false 0 PASS / 23 FAIL
+   uhdm2rtlil       patched 768 CMP_EQUAL / 36 CMP_NOTEQUAL / 67 SLANG_REJECT in
+                    BOTH modes = the committed baseline; pristine identical.
+                    Row-set join (name,mode) over status+detail+blocked_by+dump:
+                      vs results/golden_uhdm2rtlil.csv   0 differing rows
+                      vs results/gate_uhdm2rtlil.csv     0 differing rows
+                      vs my own pristine sweep           0 differing rows
+                    cmds.txt binary audit 1742/1742 pristine, 1742/1742 patched.
+   surelog          patched 469/14 default + 465/12 testflags = the baseline.
+                    vs my pristine: exactly 2 rows, LowMemLib/testflags and
+                    LowMemPkg/testflags, both SURELOG_FAIL, differing ONLY in the
+                    workdir path inside Surelog's own log line (the dump-paths-
+                    embed-workdir trap).  vs the committed baseline those two plus
+                    Earlgrey_0_1/testflags dump column `differ` → empty — AND MY
+                    PRISTINE SWEEP READS IT THE SAME WAY (machine artifact, not the
+                    patch); status CMP_EQUAL holds and the database md5 is the pin.
+                    cmds.txt binary audit: 1531/1531 each side; the 50 cmds.txt
+                    without a match carry NO `slang:` line at all (slang never ran).
+   byteverify u2r   SELFCHECK=1: MOVERS 4 / 1608, comparator control 1607/1608.
+                    The four are exactly the PREDICTED names:
+                      default/type_param_override_elem_sel, default/type_param_packed_dim,
+                      testflags/type_param_override_elem_sel, testflags/type_param_packed_dim
+   byteverify sl    SELFCHECK=1: MOVERS 6 / 960, control 959/960 — MiniAmiq(2),
+                    SeqDriver(2), SimpleUVM, Scoreboard: the four PINNED UVM coin
+                    names and nothing else.
+   canaries         u2r ok=8 changed=0; surelog ok=51 changed=1 and the canary
+                    report is CHARACTER-IDENTICAL between my pristine and patched
+                    sweeps (the one CHANGED row is Earlgrey's dump column).
+                    ctcan2 PASS both corpora.  canaudit audited=29 UNCOVERED=0
+                    FENCE-BREACH=0 PASS.
+   byte pins        SVSwitch 4842211c4030 (both modes), YosysVerx 6ccda350c24a
+                    (both modes), InterfaceModPort 59a365f3ce2c, Earlgrey_0_1
+                    default 8bdf25272e08 / testflags 59d0ee6d10c3,
+                    BlackParrotComplex and YosysOldOr byte-identical
+                    pristine-vs-patched in both modes.  ALL MATCH THE OPS PINS.
+
+-- INDEPENDENT MOVER PREDICTION (my own scanner, different implementation)
+   `parameter|localparam type <name> = <elem>[` over uhdm2rtlil/test,
+   Surelog/tests, Surelog/third_party/tests and the UVM trees, comments stripped:
+   319 raw hits, 314 of them a WRITTEN KEYWORD element (arm g1, which is EQUAL),
+   5 non-keyword hits and they are exactly the pass's list —
+     type_param_packed_dim, type_param_override_elem_sel  (the two witnesses)
+     cva6_equiv (2 files)   — absent from every results CSV, not a discovered row
+     ClassScope             — SLANG_REJECT both modes at the base
+   Positive control: the scanner finds both hand-measured designs.
+   PREDICTED 4 databases, MEASURED 4.  No unpredicted mover in either corpus.
+
+-- COIN ATTRIBUTION, order-blind (sorted, path-normalised whole dumps)
+   default/MiniAmiq    4 lines   UINT:659 <-> UINT:904   + the matching vpiDecompile
+   default/SeqDriver   4 lines   UINT:1100 <-> UINT:685  + vpiDecompile
+   default/SimpleUVM   4 lines   UINT:720 <-> UINT:0     + vpiDecompile
+   default/Scoreboard  0 lines   (pure ORDER flip)
+   testflags/MiniAmiq  4 lines   UINT:661 <-> UINT:0     + vpiDecompile
+   testflags/SeqDriver 4 lines   UINT:1289 <-> UINT:0    + vpiDecompile
+   Zero law lines in any of the six.
+   POSITIVE CONTROL — the PRISTINE binary alone, four runs of MiniAmiq/default:
+     e958bbc9e4c2 / 60c64bf74b12 / 3ca44027ea0d / 44b2c1a10c38 (four databases),
+     run1-vs-run2, run1-vs-run3, run1-vs-run4, run2-vs-run3 each 4 lines of the
+     SAME UINT+vpiDecompile class.  The class is the signature; the count is a
+     per-run draw.
+
+-- HEADS, re-measured on my own builds (official uhdm-cmp, LHS always golden)
+   type_param_packed_dim         default/testflags  94 → 47 cmp lines, 1 head
+   type_param_override_elem_sel  default/testflags  94 → 47 cmp lines, 1 head
+   anon_struct_packed_dim        default/testflags  64 → 64  (untouched)
+   type_param_unpacked_port      default/testflags  208 → 208 (untouched)
+   The pristine head is golden `packed_array_typespec … vpiRange(operation
+   DEPTH-1) … vpiElemTypespec -> ref_typespec(resp_id_t)` against our bare
+   `logic_typespec 5:31..5:52`; the patched head is golden's ELEMENT
+   `logic_typespec 2:31..2:42` carrying `range [1:0]` against `RHS: <null>` —
+   our element's `Ranges` vector is null.  That is the pass's own R0.
+
+-- CENSUS, two instruments, both corpora rows, both modes
+   the pass's own togold_depthblind.sh on MY workdirs:
+     type_param_packed_dim         TO-GOLDEN 73  REGRESSED 0  AWAY 12   (both modes)
+     type_param_override_elem_sel  TO-GOLDEN 75  REGRESSED 0  AWAY 10   (both modes)
+     anon_struct_packed_dim / type_param_unpacked_port   0 / 0 / 0      (controls)
+   my own DEPTH-KEYED census (leading whitespace KEPT — a stricter key) plus the
+   symmetric multiset distance:
+     type_param_packed_dim         TO 67  REG 0  AWAY 18   distance 197 → 141  CLOSER
+     type_param_override_elem_sel  TO 59  REG 0  AWAY 26   distance 208 → 168  CLOSER
+     anon_struct_packed_dim        0/0/0  distance 860 → 860 SAME
+     type_param_unpacked_port      0/0/0  distance 231 → 231 SAME
+   REGRESSED is 0 under both keys, in both modes.  Every AWAY line is one extra
+   COPY of an object golden also has (we clone where Surelog shares one range
+   across its three wrappers); no generated Compare reads VpiParent and none
+   counts objects, so it is judge-invisible.
+
+-- THE PASS'S OWN GRID, re-run with my own binaries: REPRODUCES EXACTLY
+   (g1 0/0 equal both sides · g2 68→335 · g3 68→335 · g4 68→60 · g5 68→68 ·
+    g6 17→17 · g7 ourrc=3 both sides · g8 36→36 · g9 36→36 · g10 36→36 ·
+    g12 68→17), every arm's rc recorded on both sides.
+
+-- MY OWN ADVERSARIAL GRID — 20 arms × real v1.87 goldens, every rc recorded
+   (dim positions × packed/unpacked × element kinds × reference sites × views;
+    sources and per-arm dumps under /tmp/v11u31_grid during the run)
+   v01 keyword+dim (CONTROL)                  equal → equal              0 → 0 cmp lines
+   v02 typedef elem                           68 → 335   head DEEPENS (R1a)
+   v03 packed-STRUCT typedef elem             68 → 415   TO 30 / REG 0 / AWAY 10
+   v04 ENUM typedef elem                      68 → 407   TO 30 / REG 0 / AWAY 10
+   v05 override `.T(e_t [1:0])` over a DIMLESS default   17 → 17   UNCHANGED, golden
+       builds NO wrapper either (elaboration has no detector) — the g12 gate holds
+   v06 two instances, u0 default + u1 overridden with the SAME text
+       golden: u0 wrapper, u1 BARE.  ours after: u0 wrapper, u1 bare — matches
+   v07 INTERFACE header type param            68 → 491   wrapper built (def+elab)
+   v08 PACKAGE `parameter type` + dim         64 → 64    golden 8 wrappers, ours 0 (R1b)
+   v09 dim bound `N-1`, N a value param       94 → 479   bound stays SYMBOLIC = golden
+   v10 same, N OVERRIDDEN at the instance     94 → 699   golden keeps `N-1` symbolic in
+       the ELAB wrapper too and so do we — pass 20's law is not disturbed
+   v11 dim bound `pk::W-1` (package param)    112 → 509  bound matches golden
+   v12 `e_t [3]`   (non-range selector)       ourrc=3 — slang REJECTS it; golden builds
+       0 wrappers, so the gap between our gate (any selector) and Surelog's (a
+       `paConstant_range` only) is UNREACHABLE on legal SV
+   v13 `e_t [3 +: 2]` (indexed part select)   ourrc=3 — same, unreachable
+   v14 elem imported by WILDCARD from a package  68 → 108  wrapper built
+   v15 wrapper REFERENCED from a var + a bit-select  68 → 615
+   v16 CLASS type param + dim                 64 → 64    golden 5 wrappers, ours 0 (R1b)
+   v17 module BODY `parameter type` + dim     116 → 116  golden 10 wrappers, ours 0 (R1b)
+   v18 elem typedef declared in the BODY, named in the header   ourrc=3 both sides
+   v19 chained override `.T(TM)` where TM carries the dim   76 → 36  BIG improvement
+   v20 elem is an earlier TYPE PARAMETER      17 → 17 cmp lines, distance 266 → 215
+   Order-blind whole-dump distance to golden: 11 arms CLOSER, 7 SAME, 2 FARTHER
+   (v09 138→145, v10 144→147) — and both FARTHER readings are entirely the
+   clone-vs-share duplicate-print class, which no Compare reads.
+   NO ARM GOES FROM EQUAL TO NOT-EQUAL.  The only arm equal at the baseline (v01 /
+   g1, the written keyword) is still equal.
+
+-- THE LANDED TYPE-PARAM LAWS' WITNESSES: BYTE-IDENTICAL
+   tools/probe/r11u18repro/b1..b9 and r11u20repro/b1..b9 re-run against real
+   v1.87 goldens with both binaries: all 18 arms produce BYTE-IDENTICAL databases
+   pristine vs patched, and my pristine reproduces each committed `pat.err`
+   (id-blind) exactly.  § typeParamLocalKeyword18 and
+   § typeParamDefaultBoundNoReduce20 are untouched.
+
+-- THE ONE CORRECTION (why the README's g2/g3 line changed)
+   `LHS: <null>` + `RHS:` the whole design is NOT a 335-line distance: it is the
+   SINGULAR SafeCompare (BaseClass.h:194-196) reporting a value on our side where
+   golden has none, and the value happens to be the design because the field is
+   `typespec::Instance()` (typespec.cpp Compare reads Typedef_alias then Instance).
+   Object identity, measured with a UHDM API probe:
+     golden  design::Typespecs[0] = logic_typespec id 9  name 'e_t'  Instance=design
+             wrapper elem actual  = logic_typespec id 47 name 'e_t'  Instance=NULL
+     ours    design::Typespecs[0] = logic_typespec id 2  name 'e_t'  Instance=design
+             wrapper elem actual  = logic_typespec id 2  (THE SAME OBJECT)
+   Surelog mints the element (CompileHelper.cpp:3554) whenever the name is not an
+   earlier type parameter; it borrows only in the type-parameter case (:3544),
+   which is the only case the corpus exercises.  Recorded as R1a.
+   Surelog citation drift in the pass README, cosmetic: the paTYPE arm opens at
+   :3498 (not :3510), `elemRef->VpiName` is :3571 (not :3569),
+   `populateCoreMembers(Data_type, Data_type, pats)` is :3582 (not :3581); every
+   other cited line is exact and every quoted comment is verbatim.

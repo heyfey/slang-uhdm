@@ -1,0 +1,64 @@
+LHS:
+decompile:
+packed_array_typespec: , id:922, line:35:3, endln:35:16
+|vpiRange:
+\_range: , id:917, line:38:5, endln:38:10
+  |vpiParent:
+  \_packed_array_typespec: , id:922, line:35:3, endln:35:16
+  |vpiLeftRange:
+  \_constant: , id:918, line:38:6, endln:38:7
+    |vpiParent:
+    \_range: , id:917, line:38:5, endln:38:10
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:919, line:38:8, endln:38:9
+    |vpiParent:
+    \_range: , id:917, line:38:5, endln:38:10
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiElemTypespec:
+\_ref_typespec: , id:921
+  |vpiParent:
+  \_packed_array_typespec: , id:922, line:35:3, endln:35:16
+  |vpiActual:
+  \_struct_typespec: , id:920, line:35:3, endln:35:9
+
+decompile:
+packed_array_typespec: , id:922, line:35:3, endln:35:16
+|vpiRange:
+\_range: , id:917, line:38:5, endln:38:10
+  |vpiParent:
+  \_packed_array_typespec: , id:922, line:35:3, endln:35:16
+  |vpiLeftRange:
+  \_constant: , id:918, line:38:6, endln:38:7
+    |vpiParent:
+    \_range: , id:917, line:38:5, endln:38:10
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:919, line:38:8, endln:38:9
+    |vpiParent:
+    \_range: , id:917, line:38:5, endln:38:10
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiElemTypespec:
+\_ref_typespec: , id:921
+  |vpiParent:
+  \_packed_array_typespec: , id:922, line:35:3, endln:35:16
+  |vpiActual:
+  \_struct_typespec: , id:920, line:35:3, endln:35:9
+RHS:
+decompile:
+logic_typespec: , id:753, line:35:3, endln:38:10
+
+decompile:
+logic_typespec: , id:753, line:35:3, endln:38:10

@@ -1,0 +1,79 @@
+== r11u31 GATES  (patched binary = base 4110f3de + this pass)
+
+1. BUILD
+   pristine rebuilt at 4110f3de in this pass's own worktree:
+     md5 62547ac98ebcfdeb522171dc946d50ad  — BYTE-IDENTICAL to the main tree's
+     build/slang-uhdm at the base (both hashed separately).
+   patched: 0 compile errors at -j 2.
+   both binaries frozen chmod 555 at immutable /tmp paths BEFORE any sweep.
+   cmds.txt BINARY-PATH audit (not the string 'slang-uhdm'):
+     uhdm2rtlil patched 1742/1742 ; uhdm2rtlil pristine 1742/1742
+     surelog    patched 1531/1531 ; surelog    pristine 1531/1531
+     focused four-test sweeps 8/8
+
+2. GOLDEN REGRESSION
+   tests/check_goldens.sh, patched : PASS=23  FAIL=0
+   negative control SLANG_UHDM=/bin/false: PASS=0  FAIL=23
+
+3. uhdm2rtlil, BOTH MODES
+   patched  default 768 CMP_EQUAL / 36 CMP_NOTEQUAL / 67 SLANG_REJECT
+   patched  testflags 768 / 36 / 67      == the committed baseline
+   ct8rows vs results/gate_uhdm2rtlil.csv        PASS (no row moved)
+   ct8rows vs results/golden_uhdm2rtlil.csv      PASS (no row moved)
+   ct8rows vs this pass's own pristine sweep     PASS (no row moved)
+
+4. SURELOG SUITE, BOTH MODES
+   patched  default   469 CMP_EQUAL / 14 CMP_NOTEQUAL
+   patched  testflags 465 CMP_EQUAL / 12 CMP_NOTEQUAL   == the committed baseline
+   ct8rows vs this pass's own pristine sweep: 2 differing rows, BOTH
+     LowMemLib/testflags and LowMemPkg/testflags, BOTH SURELOG_FAIL, and the
+     ONLY difference is the WORKDIR PATH inside Surelog's own log message
+     in the detail column (the 'dump paths embed workdir' trap).  Status and
+     dump columns identical.  NOT a mover.
+   ct8rows vs results/golden_surelog.csv: those two plus Earlgrey_0_1/testflags
+     CMP_EQUAL/differ -> CMP_EQUAL/<empty dump column>.  THE PRISTINE SWEEP
+     READS THE SAME, so it is this machine's uhdm-dump timeout on a very large
+     database, not the patch; the STATUS pin (CMP_EQUAL) holds and the database
+     is byte-identical to pristine (see 6).
+
+5. BYTE VERIFIER  (SELFCHECK=1, patched vs this pass's own pristine workdirs)
+   uhdm2rtlil: MOVERS 4 / 1608 ; comparator negative control 1607/1608 flagged
+     ./default/type_param_packed_dim         PREDICTED
+     ./default/type_param_override_elem_sel  PREDICTED
+     ./testflags/type_param_packed_dim       PREDICTED
+     ./testflags/type_param_override_elem_sel PREDICTED
+   surelog   : MOVERS 6 / 960  ; comparator negative control 959/960 flagged
+     MiniAmiq/default, Scoreboard/default, SeqDriver/default, SimpleUVM/default,
+     MiniAmiq/testflags, SeqDriver/testflags — ALL FOUR pinned UVM COIN names.
+     Attributed ORDER-BLIND (evidence/COIN.r11u31.txt):
+       Scoreboard/default  0 lines  (a pure ORDER flip)
+       the other five      4 lines each, all of them one UINT:<N> and its
+                           matching vpiDecompile:<N> — the line-number CLASS.
+     ZERO law lines in any of the six.  The pristine binary ALONE produces six
+     different MiniAmiq databases in six runs, with the same 4-line class.
+     The COUNT is a per-run draw: an earlier build of this same patch drew 3.
+
+6. CANARIES
+   HARD BYTE PINS, patched vs pristine, both modes:
+     SVSwitch   4842211c4030 / 4842211c4030   (the OPS pin)
+     YosysVerx  6ccda350c24a / 6ccda350c24a   (the OPS pin)
+   STATUS PINS / protected databases, patched == pristine byte for byte:
+     InterfaceModPort   59a365f3ce2c  (the OPS pin)
+     BlackParrotComplex e3e354129d5a def / 73a10e8217e5 tf
+     YosysOldOr         d68e0796d62c
+     Earlgrey_0_1       8bdf25272e08 def / 59d0ee6d10c3 tf   (the OPS pins)
+   canaries.sh surelog : ok=51 changed=1 absent=0 — the one 'changed' is
+     Earlgrey_0_1/testflags's empty dump column, which the PRISTINE sweep
+     reads identically (changed=1 there too).  Status pin CMP_EQUAL holds.
+   canaries.sh u2r     : ok=8  changed=0 absent=0
+   ctcan2.sh surelog (EXPECT_UNKNOWN=1): PASS
+   ctcan2.sh u2r     (EXPECT_UNKNOWN=6): PASS
+   canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+
+7. FENCE
+   the four slang-fenced names appear 0 times in the production diff and 0
+   times in this repro directory outside canaudit.sh's own list.
+   results/*.csv: 0 files touched by the patch.
+   patch surface: include/UhdmExporter.h, src/ParamEmit.cpp, src/TypeEmit.cpp,
+                  tools/probe/r11u31repro/ — nothing else.
+   git apply --check on a FRESH 4110f3de worktree: clean.

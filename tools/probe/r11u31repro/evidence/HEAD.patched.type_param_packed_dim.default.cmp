@@ -1,0 +1,47 @@
+LHS:
+decompile:
+logic_typespec: , id:159, line:2:31, endln:2:42
+|vpiRange:
+\_range: , id:160, line:2:37, endln:2:42
+  |vpiParent:
+  \_logic_typespec: , id:159, line:2:31, endln:2:42
+  |vpiLeftRange:
+  \_constant: , id:161, line:2:38, endln:2:39
+    |vpiParent:
+    \_range: , id:160, line:2:37, endln:2:42
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:162, line:2:40, endln:2:41
+    |vpiParent:
+    \_range: , id:160, line:2:37, endln:2:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: , id:159, line:2:31, endln:2:42
+|vpiRange:
+\_range: , id:160, line:2:37, endln:2:42
+  |vpiParent:
+  \_logic_typespec: , id:159, line:2:31, endln:2:42
+  |vpiLeftRange:
+  \_constant: , id:161, line:2:38, endln:2:39
+    |vpiParent:
+    \_range: , id:160, line:2:37, endln:2:42
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:162, line:2:40, endln:2:41
+    |vpiParent:
+    \_range: , id:160, line:2:37, endln:2:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS: <null>

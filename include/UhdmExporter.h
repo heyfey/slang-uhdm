@@ -2533,6 +2533,17 @@ private:
     /// carry an override), independent of any instance parameterization.
     UHDM::typespec* makeTypeParamDefaultTs(const slang::syntax::DataTypeSyntax& defSyn,
                                            const slang::ast::Scope& body);
+    /// § typeParamNamedElemPackedDim31 — the `packed_array_typespec` a
+    /// `parameter type T = <name> [l:r]` declaration means: ONE range from the
+    /// FIRST written dimension and an `Elem_typespec` ref NAMED after the
+    /// written element, whose actual is that element's own typespec (an
+    /// earlier type parameter of the same list first, else the typedef's
+    /// shared object).  Null for every other shape — a written KEYWORD with
+    /// dims keeps its `logic_typespec` ranges.  `elabView` picks which of the
+    /// two element maps the name resolves through.
+    UHDM::packed_array_typespec* namedElemPackedDimTs31(
+        const slang::syntax::DataTypeSyntax& defSyn, const slang::ast::Type& dt,
+        const slang::ast::Scope& body, bool elabView);
     /// The element typespec of an aggregate member with an ANONYMOUS element
     /// type (`logic [31:0] pair [2]`); null for kinds not modelled.
     UHDM::typespec* anonAggregateElemTs(

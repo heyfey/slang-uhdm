@@ -1,0 +1,208 @@
+LHS:
+decompile:
+array_typespec: , id:332, line:42:12, endln:42:32
+|vpiParent:
+\_port: (in_i), id:326, line:42:19, endln:42:23
+|vpiArrayType:1
+|vpiRange:
+\_range: , id:327, line:42:25, endln:42:32
+  |vpiParent:
+  \_array_typespec: , id:332, line:42:12, endln:42:32
+  |vpiLeftRange:
+  \_operation: , id:329, line:42:26, endln:42:29
+    |vpiParent:
+    \_range: , id:327, line:42:25, endln:42:32
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@dut.in_i.N), id:328, line:42:26, endln:42:27
+      |vpiParent:
+      \_operation: , id:329, line:42:26, endln:42:29
+      |vpiName:N
+      |vpiFullName:work@dut.in_i.N
+    |vpiOperand:
+    \_constant: , id:330, line:42:28, endln:42:29
+      |vpiParent:
+      \_operation: , id:329, line:42:26, endln:42:29
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:331, line:42:30, endln:42:31
+    |vpiParent:
+    \_range: , id:327, line:42:25, endln:42:32
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiElemTypespec:
+\_ref_typespec: (work@dut.in_i), id:334
+  |vpiParent:
+  \_array_typespec: , id:332, line:42:12, endln:42:32
+  |vpiFullName:work@dut.in_i
+  |vpiActual:
+  \_struct_typespec: (pk::resp_t), id:2, line:17:11, endln:21:4
+
+decompile:
+array_typespec: , id:332, line:42:12, endln:42:32
+|vpiParent:
+\_port: (in_i), id:326, line:42:19, endln:42:23
+|vpiArrayType:1
+|vpiRange:
+\_range: , id:327, line:42:25, endln:42:32
+  |vpiParent:
+  \_array_typespec: , id:332, line:42:12, endln:42:32
+  |vpiLeftRange:
+  \_operation: , id:329, line:42:26, endln:42:29
+    |vpiParent:
+    \_range: , id:327, line:42:25, endln:42:32
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@dut.in_i.N), id:328, line:42:26, endln:42:27
+      |vpiParent:
+      \_operation: , id:329, line:42:26, endln:42:29
+      |vpiName:N
+      |vpiFullName:work@dut.in_i.N
+    |vpiOperand:
+    \_constant: , id:330, line:42:28, endln:42:29
+      |vpiParent:
+      \_operation: , id:329, line:42:26, endln:42:29
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:331, line:42:30, endln:42:31
+    |vpiParent:
+    \_range: , id:327, line:42:25, endln:42:32
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiElemTypespec:
+\_ref_typespec: (work@dut.in_i), id:334
+  |vpiParent:
+  \_array_typespec: , id:332, line:42:12, endln:42:32
+  |vpiFullName:work@dut.in_i
+  |vpiActual:
+  \_struct_typespec: (pk::resp_t), id:2, line:17:11, endln:21:4
+RHS:
+decompile:
+struct_typespec: (pk::resp_t), id:20, line:17:11, endln:21:4
+|vpiParent:
+\_package: pk (pk::), id:19, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv, line:16:1, endln:22:11
+|vpiName:pk::resp_t
+|vpiInstance:
+\_package: pk (pk::), id:19, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv, line:16:1, endln:22:11
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (data), id:21, line:18:18, endln:18:22
+  |vpiParent:
+  \_struct_typespec: (pk::resp_t), id:20, line:17:11, endln:21:4
+  |vpiName:data
+  |vpiTypespec:
+  \_ref_typespec: (pk::pk::resp_t::data), id:26
+    |vpiParent:
+    \_typespec_member: (data), id:21, line:18:18, endln:18:22
+    |vpiFullName:pk::pk::resp_t::data
+    |vpiActual:
+    \_logic_typespec: , id:5, line:18:5, endln:18:17
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  |vpiRefLineNo:18
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:18
+  |vpiRefEndColumnNo:17
+|vpiTypespecMember:
+\_typespec_member: (id), id:27, line:19:18, endln:19:20
+  |vpiParent:
+  \_struct_typespec: (pk::resp_t), id:20, line:17:11, endln:21:4
+  |vpiName:id
+  |vpiTypespec:
+  \_ref_typespec: (pk::pk::resp_t::id), id:32
+    |vpiParent:
+    \_typespec_member: (id), id:27, line:19:18, endln:19:20
+    |vpiFullName:pk::pk::resp_t::id
+    |vpiActual:
+    \_logic_typespec: , id:11, line:19:5, endln:19:16
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  |vpiRefLineNo:19
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:19
+  |vpiRefEndColumnNo:16
+|vpiTypespecMember:
+\_typespec_member: (err), id:33, line:20:18, endln:20:21
+  |vpiParent:
+  \_struct_typespec: (pk::resp_t), id:20, line:17:11, endln:21:4
+  |vpiName:err
+  |vpiTypespec:
+  \_ref_typespec: (pk::pk::resp_t::err), id:35
+    |vpiParent:
+    \_typespec_member: (err), id:33, line:20:18, endln:20:21
+    |vpiFullName:pk::pk::resp_t::err
+    |vpiActual:
+    \_logic_typespec: , id:17, line:20:5, endln:20:10
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  |vpiRefLineNo:20
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:20
+  |vpiRefEndColumnNo:10
+
+decompile:
+struct_typespec: (pk::resp_t), id:20, line:17:11, endln:21:4
+|vpiParent:
+\_package: pk (pk::), id:19, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv, line:16:1, endln:22:11
+|vpiName:pk::resp_t
+|vpiInstance:
+\_package: pk (pk::), id:19, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv, line:16:1, endln:22:11
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (data), id:21, line:18:18, endln:18:22
+  |vpiParent:
+  \_struct_typespec: (pk::resp_t), id:20, line:17:11, endln:21:4
+  |vpiName:data
+  |vpiTypespec:
+  \_ref_typespec: (pk::pk::resp_t::data), id:26
+    |vpiParent:
+    \_typespec_member: (data), id:21, line:18:18, endln:18:22
+    |vpiFullName:pk::pk::resp_t::data
+    |vpiActual:
+    \_logic_typespec: , id:5, line:18:5, endln:18:17
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  |vpiRefLineNo:18
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:18
+  |vpiRefEndColumnNo:17
+|vpiTypespecMember:
+\_typespec_member: (id), id:27, line:19:18, endln:19:20
+  |vpiParent:
+  \_struct_typespec: (pk::resp_t), id:20, line:17:11, endln:21:4
+  |vpiName:id
+  |vpiTypespec:
+  \_ref_typespec: (pk::pk::resp_t::id), id:32
+    |vpiParent:
+    \_typespec_member: (id), id:27, line:19:18, endln:19:20
+    |vpiFullName:pk::pk::resp_t::id
+    |vpiActual:
+    \_logic_typespec: , id:11, line:19:5, endln:19:16
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  |vpiRefLineNo:19
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:19
+  |vpiRefEndColumnNo:16
+|vpiTypespecMember:
+\_typespec_member: (err), id:33, line:20:18, endln:20:21
+  |vpiParent:
+  \_struct_typespec: (pk::resp_t), id:20, line:17:11, endln:21:4
+  |vpiName:err
+  |vpiTypespec:
+  \_ref_typespec: (pk::pk::resp_t::err), id:35
+    |vpiParent:
+    \_typespec_member: (err), id:33, line:20:18, endln:20:21
+    |vpiFullName:pk::pk::resp_t::err
+    |vpiActual:
+    \_logic_typespec: , id:17, line:20:5, endln:20:10
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  |vpiRefLineNo:20
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:20
+  |vpiRefEndColumnNo:10

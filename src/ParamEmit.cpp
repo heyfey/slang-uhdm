@@ -18048,10 +18048,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // can lose its declarator syntax, so read the default straight from the
         // module's parameter-port-list syntax.
         const syntax::DataTypeSyntax* defTypeSyn = nullptr;
-        if (!topView) {
+        // § typeParamNamedElemPackedDim31 — the SAME written syntax is what
+        // the ELABORATED half needs too: Surelog's `elabTypeParameter_` keeps
+        // the `packed_array_typespec` shape and only re-resolves the element
+        // against this instance's binding (the `elemRef->VpiName(elemName)`
+        // stamp at Surelog `src/DesignCompile/CompileHelper.cpp:3569` exists
+        // for exactly that).  Read into its own variable so the elab chain
+        // below is untouched for every other shape.
+        const syntax::DataTypeSyntax* dimSyn31 = nullptr;
+        {
             const syntax::SyntaxNode* msyn =
                 tps.getParentScope() ? tps.getParentScope()->asSymbol().getSyntax()
                                      : nullptr;
+            const syntax::DataTypeSyntax* wsyn31 = nullptr;
             if (auto* mds = msyn ? msyn->as_if<syntax::ModuleDeclarationSyntax>()
                                  : nullptr) {
                 if (auto* ppl = mds->header->parameters)
@@ -18060,10 +18069,34 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 syntax::TypeParameterDeclarationSyntax>())
                             for (auto* d : tpd->declarators)
                                 if (d->name.valueText() == tps.name && d->assignment)
-                                    defTypeSyn = d->assignment->type;
+                                    wsyn31 = d->assignment->type;
             }
+            if (topView) {
+                // ...but ONLY when this instance did NOT override the
+                // parameter.  Surelog builds the wrapper in
+                // `compileParameterDeclaration` alone; an OVERRIDE replaces
+                // the actual through the elaboration path, which has no
+                // packed-dim detector, so the override's own dimension is
+                // DROPPED — measured on grid arm g12 (`child #(.T(w_t
+                // [1:0]))` over a `parameter type T = e_t [3:0]`): golden's
+                // elab actual is the bare `logic_typespec (w_t)`, no wrapper
+                // and no range.  The test is that the parameter's BOUND type
+                // syntax still IS the declaration default.
+                if (wsyn31 && tps.targetType.getTypeSyntax() == wsyn31)
+                    dimSyn31 = wsyn31;
+            }
+            else
+                defTypeSyn = wsyn31;
         }
-        if (defTypeSyn) {
+        UHDM::packed_array_typespec* elabPat31 =
+            dimSyn31 ? namedElemPackedDimTs31(*dimSyn31,
+                                              tps.targetType.getType(), body, true)
+                     : nullptr;
+        if (elabPat31) {
+            its = elabPat31;
+            its->VpiParent(tp);
+        }
+        else if (defTypeSyn) {
             its = makeTypeParamDefaultTs(*defTypeSyn, body);
             // Surelog parents the def-view default typespec at the type param
             // (it is shared with the port typedefs via ref_typespec).

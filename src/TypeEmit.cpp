@@ -5942,6 +5942,84 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
     return c;
 }
 
+UHDM::packed_array_typespec* UhdmExporter::namedElemPackedDimTs31(
+    const syntax::DataTypeSyntax& defSyn, const Type& dt, const Scope& body,
+    bool elabView) {
+    if (defSyn.kind != syntax::SyntaxKind::NamedType ||
+        dt.kind != SymbolKind::PackedArrayType)
+        return nullptr;
+    const syntax::NameSyntax* nm31 = defSyn.as<syntax::NamedTypeSyntax>().name;
+    if (!nm31 || nm31->kind != syntax::SyntaxKind::IdentifierSelectName)
+        return nullptr;
+    auto& isn31 = nm31->as<syntax::IdentifierSelectNameSyntax>();
+    auto bounds31 = namedTypeDimBounds(&defSyn);
+    if (bounds31.empty())
+        return nullptr;
+    std::string elemName31(isn31.identifier.valueText());
+    if (elemName31.empty())
+        return nullptr;
+    // THE ELEMENT OBJECT, BY NAME, IN SURELOG'S OWN ORDER: an earlier TYPE
+    // PARAMETER of the same list first (CompileHelper.cpp:3545 walks
+    // `*parameters` for a `type_parameter` of that name and takes its
+    // `Actual_typespec`), and only then the bare name's own object — which for
+    // a typedef is the ONE typespec that typedef already built.
+    UHDM::typespec* elemTs31 = nullptr;
+    if (elabView) {
+        // The elab element is this instance's BOUND type, so the name is
+        // resolved against the type parameters of THIS body.
+        for (auto& mb31 : body.members()) {
+            if (mb31.kind != SymbolKind::TypeParameter || mb31.name != elemName31)
+                continue;
+            if (auto it31 = typeParamElabTs.find(&mb31);
+                it31 != typeParamElabTs.end())
+                elemTs31 = it31->second;
+            break;
+        }
+    }
+    else if (body.asSymbol().kind == SymbolKind::InstanceBody) {
+        const void* defKey31 =
+            (const void*)&body.asSymbol().as<InstanceBodySymbol>().getDefinition();
+        if (auto it31 = typeParamDefaultTs.find({defKey31, elemName31});
+            it31 != typeParamDefaultTs.end())
+            elemTs31 = it31->second;
+    }
+    // Not a type parameter of this list: the bare name's own object — the ONE
+    // typespec the named TYPEDEF already built.
+    if (!elemTs31) {
+        const Symbol* esym31 = Lookup::unqualified(body, elemName31);
+        if (esym31 && esym31->kind == SymbolKind::TypeAlias)
+            if (auto it31 = typedefTs.find(esym31); it31 != typedefTs.end())
+                elemTs31 = it31->second;
+    }
+    // No element object means NO WRAPPER: a shape this law was not measured on
+    // keeps the typespec it has always had.
+    if (!elemTs31)
+        return nullptr;
+    auto* pat31 = s.MakePacked_array_typespec();
+    setLoc(pat31, defSyn.sourceRange());
+    auto* rng31 = s.MakeRange();
+    rng31->VpiParent(pat31);
+    ConstantRange cr31 = dt.as<PackedArrayType>().range;
+    auto tpBound31 = [&](const syntax::ExpressionSyntax* bsyn31,
+                         int64_t v31) -> UHDM::expr* {
+        if (bsyn31 && bsyn31->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+            if (auto* e31 = typeParamDefaultBound20(bsyn31, rng31, &body))
+                return e31;
+        return makeBoundConst(bsyn31, v31, rng31);
+    };
+    rng31->Left_expr(tpBound31(bounds31[0].first, cr31.left));
+    rng31->Right_expr(tpBound31(bounds31[0].second, cr31.right));
+    auto* rvec31 = s.MakeRangeVec();
+    rvec31->push_back(rng31);
+    pat31->Ranges(rvec31);
+    auto* ert31 = s.MakeRef_typespec();
+    ert31->VpiParent(pat31);
+    ert31->VpiName(elemName31);
+    ert31->Actual_typespec(elemTs31);
+    pat31->Elem_typespec(ert31);
+    return pat31;
+}
+
 UHDM::typespec* UhdmExporter::makeTypeParamDefaultTs(
     const syntax::DataTypeSyntax& defSyn, const Scope& body) {
     ASTContext actx(body, LookupLocation::max);
@@ -5963,6 +6041,46 @@ UHDM::typespec* UhdmExporter::makeTypeParamDefaultTs(
                 &sym->as<TypeAliasType>().getCanonicalType() == &ct)
                 return tsp;
     }
+    // § typeParamNamedElemPackedDim31 — A WRITTEN PACKED DIMENSION ON A NAMED
+    // ELEMENT IS AN ARRAY TYPESPEC OVER THAT ELEMENT, NOT A DIMENSION ON THE
+    // ELEMENT'S OWN TYPESPEC.
+    //
+    // `parameter type rt_t = resp_id_t [DEPTH-1:0]` does not reach Surelog's
+    // `compileTypespec` as a data type at all: the grammar parses the default
+    // as an EXPRESSION (a `Constant_primary` naming the type plus a
+    // `Constant_select` holding the range), so
+    // `CompileHelper::compileParameterDeclaration`'s `paTYPE` arm detects the
+    // shape itself and builds the array (Surelog
+    // `src/DesignCompile/CompileHelper.cpp:3510-3586`):
+    //
+    //   packed_array_typespec                       <- span of the whole
+    //   |vpiRange -> range (UNLOCATED)                 written type
+    //   |  |vpiLeftRange / vpiRightRange            <- Reduce::No
+    //   |vpiElemTypespec -> ref_typespec (elemName) -> the element's OWN ts
+    //
+    // Four facts the code above is written from, each measured on a purpose-
+    // built golden grid (tools/probe/r11u31repro, arms g1-g6):
+    //   * only a NAMED element takes the wrapper.  A written keyword with dims
+    //     (`parameter type T = logic [3:0]`, g1) stays a `logic_typespec`
+    //     carrying its own ranges — that is the arm below and it is EQUAL.
+    //   * exactly ONE range is built, from the FIRST written dimension, and
+    //     every further dimension is DROPPED: `e_t [3:0][1:0]` (g3) produces
+    //     the same database as `e_t [3:0]` (g2), byte for byte.  Surelog reads
+    //     one `paConstant_part_select_range` and stops (CompileHelper.cpp:3528).
+    //   * the element typespec is looked up by NAME — an earlier TYPE
+    //     PARAMETER of the same list first (`elemTs` from `prev`'s
+    //     `Actual_typespec`, CompileHelper.cpp:3545, g4), else the bare name's
+    //     own object, i.e. the typedef's shared typespec (g2).  It is NOT
+    //     re-parented ("the element typespec still belongs to its own
+    //     declaration", CompileHelper.cpp:3583).
+    //   * the ref carries `VpiName(elemName)` and nothing else; the dump
+    //     synthesises `work@dut.rt_t.resp_id_t` from the parent chain.
+    //
+    // The bounds stay SYMBOLIC — this IS the declaration default, so
+    // § typeParamDefaultBoundNoReduce20 (pass 20) governs them and the same
+    // `tpBound20` rule the keyword arm below uses applies here unchanged.
+    if (auto* pat31 = namedElemPackedDimTs31(defSyn, dt, body, false))
+        return pat31;
     // Surelog's CompileType mints the DEFAULT type's own typespec CLASS —
     // `int`/`byte`/`integer`/`shortint`/`longint`/`bit`/`real`/`string` each
     // get theirs, only `logic`/`reg` (and packed vectors of them) land on

@@ -1,0 +1,64 @@
+== r11u31 TO-GOLDEN / AWAY-GOLDEN census over the mover set (patched = v4)
+== multiset of normalised uhdm-dump lines, three ways (golden, pristine, patched)
+
+-- LINE-KEYED (indentation kept)
+type_param_packed_dim            default   TO-GOLDEN   67  REGRESSED    0  AWAY-GOLDEN   18
+type_param_packed_dim            testflags TO-GOLDEN   67  REGRESSED    0  AWAY-GOLDEN   18
+type_param_override_elem_sel     default   TO-GOLDEN   59  REGRESSED    0  AWAY-GOLDEN   26
+type_param_override_elem_sel     testflags TO-GOLDEN   59  REGRESSED    0  AWAY-GOLDEN   26
+
+-- POSITIVE CONTROL A: rows nothing touched must read all zero
+anon_struct_packed_dim           default   TO-GOLDEN    0  REGRESSED    0  AWAY-GOLDEN    0
+type_param_unpacked_port         default   TO-GOLDEN    0  REGRESSED    0  AWAY-GOLDEN    0
+
+-- POSITIVE CONTROL B: swap the arms; the same rows must read REGRESSED
+type_param_packed_dim            default   TO-GOLDEN    0  REGRESSED   67  AWAY-GOLDEN    7
+type_param_override_elem_sel     default   TO-GOLDEN    0  REGRESSED   59  AWAY-GOLDEN    7
+
+-- DEPTH-BLIND (leading whitespace stripped), with every AWAY line named
+type_param_packed_dim            default   DEPTH-BLIND  TO-GOLDEN   73  REGRESSED    0  AWAY-GOLDEN   12
+      away   3 : \_operation: , line:5:42, endln:5:49
+      away   1 : |vpiOpType:11
+      away   1 : |vpiName:DEPTH
+      away   1 : |vpiFullName:work@dut.rt_t.DEPTH
+      away   1 : |vpiActual:
+      away   1 : \_ref_obj: (work@dut.rt_t.DEPTH), line:5:42, endln:5:47
+      away   1 : \_range: 
+      away   1 : \_logic_typespec: , line:3:32, endln:3:36
+      away   1 : \_constant: , line:5:50, endln:5:51
+      away   1 : \_constant: , line:5:48, endln:5:49
+type_param_packed_dim            testflags DEPTH-BLIND  TO-GOLDEN   73  REGRESSED    0  AWAY-GOLDEN   12
+      away   3 : \_operation: , line:5:42, endln:5:49
+      away   1 : |vpiOpType:11
+      away   1 : |vpiName:DEPTH
+      away   1 : |vpiFullName:work@dut.rt_t.DEPTH
+      away   1 : |vpiActual:
+      away   1 : \_ref_obj: (work@dut.rt_t.DEPTH), line:5:42, endln:5:47
+      away   1 : \_range: 
+      away   1 : \_logic_typespec: , line:3:32, endln:3:36
+      away   1 : \_constant: , line:5:50, endln:5:51
+      away   1 : \_constant: , line:5:48, endln:5:49
+type_param_override_elem_sel     default   DEPTH-BLIND  TO-GOLDEN   75  REGRESSED    0  AWAY-GOLDEN   10
+      away   3 : \_operation: , line:17:37, endln:17:44
+      away   1 : |vpiOpType:11
+      away   1 : |vpiName:DEPTH
+      away   1 : |vpiFullName:work@dut.u.rt_t.DEPTH
+      away   1 : \_ref_obj: (work@dut.u.rt_t.DEPTH), line:17:37, endln:17:42
+      away   1 : \_range: 
+      away   1 : \_constant: , line:17:45, endln:17:46
+      away   1 : \_constant: , line:17:43, endln:17:44
+type_param_override_elem_sel     testflags DEPTH-BLIND  TO-GOLDEN   75  REGRESSED    0  AWAY-GOLDEN   10
+      away   3 : \_operation: , line:17:37, endln:17:44
+      away   1 : |vpiOpType:11
+      away   1 : |vpiName:DEPTH
+      away   1 : |vpiFullName:work@dut.u.rt_t.DEPTH
+      away   1 : \_ref_obj: (work@dut.u.rt_t.DEPTH), line:17:37, endln:17:42
+      away   1 : \_range: 
+      away   1 : \_constant: , line:17:45, endln:17:46
+      away   1 : \_constant: , line:17:43, endln:17:44
+
+-- ORDER-BLIND WHOLE-DUMP DISTANCE TO GOLDEN (fulldiff.sh)
+   type_param_packed_dim/default  pristine -- difflines=199  ->  patched -- difflines=143
+   type_param_packed_dim/testflags  pristine -- difflines=199  ->  patched -- difflines=143
+   type_param_override_elem_sel/default  pristine -- difflines=210  ->  patched -- difflines=170
+   type_param_override_elem_sel/testflags  pristine -- difflines=210  ->  patched -- difflines=170
