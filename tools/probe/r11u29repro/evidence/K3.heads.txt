@@ -1,0 +1,194 @@
+==== CLUSTER K3 — 5 rows
+
+---- u2r/bits_of_type_param   FACE: param_assign Rhs: golden KEEPS sys_func_call $bits(req_t), ours folds to UINT 97 at 64
+    LHS:
+    decompile:
+    sys_func_call: ($bits), id:#, line:#, endln:#
+    |vpiParent:
+    \_param_assign: , id:#, line:#, endln:#
+    |vpiArgument:
+    \_ref_obj: (work@dut.req_t), id:#, line:#, endln:#
+      |vpiParent:
+      \_sys_func_call: ($bits), id:#, line:#, endln:#
+      |vpiName:req_t
+      |vpiFullName:work@dut.req_t
+    |vpiName:$bits
+    
+    decompile:
+    sys_func_call: ($bits), id:#, line:#, endln:#
+    |vpiParent:
+    \_param_assign: , id:#, line:#, endln:#
+    |vpiArgument:
+    \_ref_obj: (work@dut.req_t), id:#, line:#, endln:#
+      |vpiParent:
+      \_sys_func_call: ($bits), id:#, line:#, endln:#
+      |vpiName:req_t
+      |vpiFullName:work@dut.req_t
+    |vpiName:$bits
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_param_assign: , id:#, line:#, endln:#
+    |vpiDecompile:97
+    |vpiSize:64
+    |UINT:97
+    |vpiTypespec:
+    \_ref_typespec: (work@dut), id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_int_typespec: , id:#, line:#, endln:#
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+
+---- u2r/genvar_pow_index   FACE: gen_for condition operand: golden KEEPS sys_func_call $unsigned(level), ours hands the next ref_obj
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_gen_for: , id:#
+    |vpiOpType:20
+    |vpiOperand:
+    \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiArgument:
+      \_ref_obj: (work@genvar_pow_index.level), id:#, line:#, endln:#
+        |vpiParent:
+        \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+        |vpiName:level
+        |vpiFullName:work@genvar_pow_index.level
+        |vpiActual:
+        \_int_var: (work@genvar_pow_index.level), id:#, line:#, endln:#
+      |vpiName:$unsigned
+    |vpiOperand:
+    \_ref_obj: (work@genvar_pow_index.NumLevels), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:NumLevels
+      |vpiFullName:work@genvar_pow_index.NumLevels
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_gen_for: , id:#
+    |vpiOpType:20
+    |vpiOperand:
+    \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiArgument:
+      \_ref_obj: (work@genvar_pow_index.level), id:#, line:#, endln:#
+        |vpiParent:
+        \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+        |vpiName:level
+        |vpiFullName:work@genvar_pow_index.level
+        |vpiActual:
+        \_int_var: (work@genvar_pow_index.level), id:#, line:#, endln:#
+      |vpiName:$unsigned
+
+---- u2r/ibex_tracer   FACE: operand of an operation: golden KEEPS ref_obj ibex_tracer_pkg::OPCODE_C0, ours folds to BIN 2'b00
+    LHS:
+    decompile:
+    ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiName:OPCODE_C0
+    |vpiFullName:ibex_tracer_pkg::OPCODE_C0
+    |vpiActual:
+    \_constant: , id:#, line:#, endln:#
+    
+    decompile:
+    ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiName:OPCODE_C0
+    |vpiFullName:ibex_tracer_pkg::OPCODE_C0
+    |vpiActual:
+    \_constant: , id:#, line:#, endln:#
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:2'b00
+    |vpiSize:2
+    |BIN:00
+    |vpiConstType:3
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:2'b00
+    |vpiSize:2
+    |BIN:00
+    |vpiConstType:3
+
+---- u2r/struct_param_pattern_packing   FACE: cont_assign Rhs: golden FOLDS hier_path CFG.n to UINT 3 at 32, ours KEEPS the hier_path
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiDecompile:3
+    |vpiSize:32
+    |UINT:3
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiDecompile:3
+    |vpiSize:32
+    |UINT:3
+    |vpiConstType:9
+    RHS:
+    decompile:
+    hier_path: (CFG.n), id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiActual:
+    \_ref_obj: (CFG), id:#, line:#, endln:#
+      |vpiParent:
+      \_hier_path: (CFG.n), id:#, line:#, endln:#
+      |vpiName:CFG
+    |vpiActual:
+    \_ref_obj: (work@dut.n), id:#, line:#, endln:#
+      |vpiParent:
+      \_hier_path: (CFG.n), id:#, line:#, endln:#
+      |vpiName:n
+      |vpiFullName:work@dut.n
+    |vpiName:CFG.n
+    
+    decompile:
+    hier_path: (CFG.n), id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiActual:
+    \_ref_obj: (CFG), id:#, line:#, endln:#
+      |vpiParent:
+      \_hier_path: (CFG.n), id:#, line:#, endln:#
+
+---- surelog/StructParamPatternInitCast   FACE: MIRROR head (LHS <null>): golden has NOTHING where we emit constant 32'd64 DEC ct1
+    LHS: <null>
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiDecompile:32'd64
+    |vpiSize:32
+    |DEC:64
+    |vpiConstType:1
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiDecompile:32'd64
+    |vpiSize:32
+    |DEC:64
+    |vpiConstType:1

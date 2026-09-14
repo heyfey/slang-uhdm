@@ -1,0 +1,185 @@
+==== CLUSTER K5 — 4 rows
+
+---- u2r/cva6_struct_param_field   FACE: range bound: golden KEEPS operation(hier_path Cfg.XLEN - 1), ours folds to INT 63 at 64
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiOpType:11
+    |vpiOperand:
+    \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiActual:
+      \_ref_obj: (Cfg), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+        |vpiName:Cfg
+      |vpiActual:
+      \_ref_obj: (XLEN), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+        |vpiName:XLEN
+      |vpiName:Cfg.XLEN
+    |vpiOperand:
+    \_constant: , id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiOpType:11
+    |vpiOperand:
+    \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiActual:
+      \_ref_obj: (Cfg), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+        |vpiName:Cfg
+
+---- surelog/StructParamFieldRange   FACE: range bound: golden KEEPS operation(hier_path Cfg.XLEN - 1), ours folds to INT 63 at 64 — the SAME face as cva6_struct_param_field
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiOpType:11
+    |vpiOperand:
+    \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiActual:
+      \_ref_obj: (Cfg), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+        |vpiName:Cfg
+      |vpiActual:
+      \_ref_obj: (XLEN), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+        |vpiName:XLEN
+      |vpiName:Cfg.XLEN
+    |vpiOperand:
+    \_constant: , id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiOpType:11
+    |vpiOperand:
+    \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiActual:
+      \_ref_obj: (Cfg), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+        |vpiName:Cfg
+
+---- u2r/mem_packed_2d_byte_write   FACE: range bound: golden KEEPS operation(ref_obj NDATA - 1), ours folds to UINT 1 at 64 with decompile "NDATA-1"
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (NDATA), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:NDATA
+    |vpiOperand:
+    \_constant: , id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (NDATA), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:NDATA
+    |vpiOperand:
+    \_constant: , id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:NDATA-1
+
+---- u2r/iface_param_2level   FACE: range bound: golden FOLDS to INT 31 at 64, ours KEEPS operation(hier_path s.CFG.BUS.DAT - 1)
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:31
+    |vpiSize:64
+    |INT:31
+    |vpiConstType:7
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:31
+    |vpiSize:64
+    |INT:31
+    |vpiConstType:7
+    RHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiOpType:11
+    |vpiOperand:
+    \_hier_path: (s.CFG.BUS.DAT), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiTypespec:
+      \_ref_typespec: (work@iface_param_2level.u.u_inner.reg_data.s.CFG.BUS.DAT), id:#
+        |vpiParent:
+        \_hier_path: (s.CFG.BUS.DAT), id:#, line:#, endln:#
+        |vpiFullName:work@iface_param_2level.u.u_inner.reg_data.s.CFG.BUS.DAT
+        |vpiActual:
+        \_int_typespec: , id:#, line:#, endln:#
+      |vpiActual:
+      \_ref_obj: (s), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (s.CFG.BUS.DAT), id:#, line:#, endln:#
+        |vpiName:s
+      |vpiActual:
+      \_ref_obj: (CFG), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (s.CFG.BUS.DAT), id:#, line:#, endln:#

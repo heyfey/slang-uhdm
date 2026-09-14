@@ -1,0 +1,131 @@
+==== CLUSTER K8 — 3 rows
+
+---- u2r/ibex_icache   FACE: param_assign constant 22 at 32: golden INT ct7, ours UINT ct9
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_param_assign: , id:#, line:#, endln:#
+    |vpiDecompile:22
+    |vpiSize:32
+    |INT:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ibex_icache), id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiFullName:work@ibex_icache
+      |vpiActual:
+      \_int_typespec: , id:#, line:#, endln:#
+    |vpiConstType:7
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_param_assign: , id:#, line:#, endln:#
+    |vpiDecompile:22
+    |vpiSize:32
+    |INT:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ibex_icache), id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiFullName:work@ibex_icache
+      |vpiActual:
+      \_int_typespec: , id:#, line:#, endln:#
+    |vpiConstType:7
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_param_assign: , id:#, line:#, endln:#
+    |vpiDecompile:22
+    |vpiSize:32
+    |UINT:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ibex_icache), id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+
+---- u2r/packed_array_struct   FACE: cont_assign fill '0 to a packed-array-of-struct: golden BIN size -1 (raw), ours sized to 168
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiDecompile:'0
+    |vpiSize:-1
+    |BIN:0
+    |vpiConstType:3
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiDecompile:'0
+    |vpiSize:-1
+    |BIN:0
+    |vpiConstType:3
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiDecompile:'0
+    |vpiSize:168
+    |BIN:0
+    |vpiConstType:3
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiDecompile:'0
+    |vpiSize:168
+    |BIN:0
+    |vpiConstType:3
+
+---- u2r/struct_param_dim   FACE: constant 4: golden BIN at 32 with a logic_typespec ref, ours UINT 32'h4 with a struct_typespec ref
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:00000000000000000000000000000100
+    |vpiSize:32
+    |BIN:00000000000000000000000000000100
+    |vpiTypespec:
+    \_ref_typespec: (work@top.inst.mem), id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiFullName:work@top.inst.mem
+      |vpiActual:
+      \_logic_typespec: , id:#, line:#, endln:#
+    |vpiConstType:3
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:00000000000000000000000000000100
+    |vpiSize:32
+    |BIN:00000000000000000000000000000100
+    |vpiTypespec:
+    \_ref_typespec: (work@top.inst.mem), id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiFullName:work@top.inst.mem
+      |vpiActual:
+      \_logic_typespec: , id:#, line:#, endln:#
+    |vpiConstType:3
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:32'h4
+    |vpiSize:32
+    |UINT:4
+    |vpiTypespec:
+    \_ref_typespec: (work@top.inst.mem), id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#

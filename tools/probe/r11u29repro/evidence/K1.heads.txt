@@ -1,0 +1,231 @@
+==== CLUSTER K1 — 5 rows
+
+---- surelog/BuildUVMPkg   FACE: `inside {[A:B]}`: golden wraps the value range in an inner operation vpiListOp(37) as ONE operand; ours hands the outer op-95 the left bound's ref_obj
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    RHS:
+    decompile:
+    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiName:UVM_PHASE_STARTED
+    |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    
+
+---- surelog/MiniAmiq   FACE: same head object, same uvm_domain.svh:194 `get_state() inside {[UVM_PHASE_STARTED:UVM_PHASE_CLEANUP]}`
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    RHS:
+    decompile:
+    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiName:UVM_PHASE_STARTED
+    |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    
+
+---- surelog/SeqDriver   FACE: same head object
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    RHS:
+    decompile:
+    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiName:UVM_PHASE_STARTED
+    |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    
+
+---- surelog/SimpleUVM   FACE: same head object
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    RHS:
+    decompile:
+    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiName:UVM_PHASE_STARTED
+    |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    
+
+---- surelog/Scoreboard   FACE: same head object (default only)
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:37
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_STARTED
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:UVM_PHASE_CLEANUP
+      |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP
+    RHS:
+    decompile:
+    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiName:UVM_PHASE_STARTED
+    |vpiFullName:uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED
+    

@@ -1,0 +1,39 @@
+== this pass's OWN surelog sweep at d24291a2 (pristine binary, --jobs 2, both modes)
+-- status counts per mode:
+   default/CMP_EQUAL 469
+   default/CMP_NOTEQUAL 14
+   default/DEFERRED 5
+   default/SLANG_REJECT 285
+   default/SURELOG_FAIL 25
+   testflags/CMP_EQUAL 465
+   testflags/CMP_NOTEQUAL 12
+   testflags/DEFERRED 5
+   testflags/NO_DATABASE 3
+   testflags/NO_UHDM 1
+   testflags/SLANG_REJECT 286
+   testflags/SURELOG_FAIL 23
+   testflags/TIMEOUT 1
+   testflags/UNTRANSLATABLE 2
+-- the CMP_NOTEQUAL row set vs results/golden_surelog.csv:
+   IDENTICAL row-for-row (26 rows, incl. the 6 fenced rows this survey excludes)
+-- the 20 rows this survey triages (fenced excluded):
+   BuildUVMPkg,default
+   BuildUVMPkg,testflags
+   LargeValue2Struct,default
+   LargeValue2Struct,testflags
+   MiniAmiq,default
+   MiniAmiq,testflags
+   Rggen,default
+   Scoreboard,default
+   SeqDriver,default
+   SeqDriver,testflags
+   SequenceInst,default
+   SequenceInst,testflags
+   SimpleUVM,default
+   SimpleUVM,testflags
+   StructParamFieldRange,default
+   StructParamFieldRange,testflags
+   StructParamFuncBodyFieldCompare,default
+   StructParamFuncBodyFieldCompare,testflags
+   StructParamPatternInitCast,default
+   StructParamPatternInitCast,testflags

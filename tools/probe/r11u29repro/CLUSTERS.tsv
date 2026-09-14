@@ -1,0 +1,58 @@
+# r11u29repro/CLUSTERS.tsv — the triage's cluster assignment (CROSS-CORPUS).
+# corpus	row	cluster	one-line FACE (LHS is ALWAYS golden; ids/locations blinded)
+#
+# Every row below is CMP_NOTEQUAL at d24291a2 in BOTH modes, except the two
+# marked (default only) — their testflags row is not a not-equal row.
+# CORRECTED by r11v29: seven rows marked [r11v29 was Kn] were SPLIT out of the
+# cluster named there because their head does not carry that cluster's claimed
+# FACE; K11 dissolved into its two members.  See ../r11v29repro/evidence/splits.txt.
+# EVERY row's default and testflags heads are ID-BLIND IDENTICAL
+# (survey_*/mode_identity.txt: 0 MODE-SPLIT), so one face serves both modes.
+# The three slang-fenced not-equal tests are EXCLUDED and appear nowhere here.
+u2r	arb_idx_cast	K2	logic_net `idx_t [2**NumLevels-2:0] index_nodes`: golden leaves vpiNetType UNSET, ours stamps 36
+u2r	gen_scope_numports	K2	logic_net `data_t [NumPorts-1:0] wdata_i` (x4 nets): golden leaves vpiNetType UNSET, ours stamps 36
+u2r	latch_packed_enum_loop	K2	logic_net `cf_t [1:0] cf_type` (enum typedef elem): golden leaves vpiNetType UNSET, ours stamps 36
+u2r	packed_array_reset_loop	K2	logic_net `addr_t [N-1:0] d_i` (x3 nets): golden leaves vpiNetType UNSET, ours stamps 36
+u2r	param_name_collision_typeparam	K2	logic_net `data_t [NumPorts-1:0] d_i`: golden leaves vpiNetType UNSET, ours stamps 36
+surelog	BuildUVMPkg	K1	`inside {[A:B]}`: golden wraps the value range in an inner operation vpiListOp(37) as ONE operand; ours hands the outer op-95 the left bound's ref_obj
+surelog	MiniAmiq	K1	same head object, same uvm_domain.svh:194 `get_state() inside {[UVM_PHASE_STARTED:UVM_PHASE_CLEANUP]}`
+surelog	SeqDriver	K1	same head object
+surelog	SimpleUVM	K1	same head object
+surelog	Scoreboard	K1	same head object (default only)
+u2r	bits_of_type_param	K3	param_assign Rhs: golden KEEPS sys_func_call $bits(req_t), ours folds to UINT 97 at 64
+u2r	genvar_pow_index	S	[r11v29 was K3] gen_for condition operation (opType 20): golden TWO operands (sys_func_call $unsigned(level), ref_obj NumLevels), ours ONE — an operand-VECTOR gap, nothing folded on either side
+u2r	ibex_tracer	K3	operand of an operation: golden KEEPS ref_obj ibex_tracer_pkg::OPCODE_C0, ours folds to BIN 2'b00
+u2r	struct_param_pattern_packing	K3	cont_assign Rhs: golden FOLDS hier_path CFG.n to UINT 3 at 32, ours KEEPS the hier_path
+surelog	StructParamPatternInitCast	S	[r11v29 was K3] MIRROR head (LHS <null>): our constant 32'd64 DEC ct1 has NO vpiParent — an ORPHAN over-emission, not a fold decision
+u2r	anon_struct_packed_dim	K4	typespec: golden packed_array_typespec(range + elem ref -> struct), ours a flat logic_typespec
+u2r	port_chained_type_param	S	[r11v29 was K4] chained type-param override: golden type_parameter actual is a struct_typespec (3 typespec_members), ours a logic_typespec; golden head carries NO vpiRange
+u2r	type_param_override_elem_sel	K4	type_parameter actual: golden packed_array_typespec(range + elem ref), ours the bare logic_typespec
+u2r	type_param_packed_dim	K4	type_parameter actual: golden packed_array_typespec(range + elem ref), ours the bare logic_typespec
+u2r	type_param_unpacked_port	K4	port typespec: golden array_typespec(range + elem), ours the bare struct_typespec pk::resp_t
+u2r	cva6_struct_param_field	K5	range bound: golden KEEPS operation(hier_path Cfg.XLEN - 1), ours folds to INT 63 at 64
+surelog	StructParamFieldRange	K5	range bound: golden KEEPS operation(hier_path Cfg.XLEN - 1), ours folds to INT 63 at 64 — the SAME face as cva6_struct_param_field
+u2r	mem_packed_2d_byte_write	K5	range bound: golden KEEPS operation(ref_obj NDATA - 1), ours folds to UINT 1 at 64 with decompile "NDATA-1"
+u2r	iface_param_2level	K5	range bound: golden FOLDS to INT 31 at 64, ours KEEPS operation(hier_path s.CFG.BUS.DAT - 1)
+u2r	genscope_struct_member	K6	folded constant under a range: golden UINT 15 ct9 at size 32, ours size 64
+u2r	ibex_pmp	K6	folded constant under a range: golden UINT 33 ct9 at size 32, ours size 64
+u2r	latch_perf_counters	K6	folded constant under a range: golden UINT 4 ct9 at 32, ours INT 4 ct7 at 64
+surelog	StructParamFuncBodyFieldCompare	S	[r11v29 was K6] golden constant 64 under an operation at size 32; ours under a kept sys_func_call ($unsigned) at 64 — two differences stacked, context NOT shared with the range-bound size rows
+u2r	cfg_func_width_loop	K7	assignment-pattern operation (opType 75): ours stamps vpiSize 1, golden leaves it unset
+u2r	iface_zero_width_field	K7	assignment-pattern operation (opType 75): golden carries a NAMELESS vpiTypespec ref to the struct, ours none
+u2r	typed_named_pattern	K7	assignment-pattern operation (opType 75): golden carries vpiTypespec -> ref_typespec -> struct_typespec, ours none
+u2r	ibex_icache	K8	param_assign constant 22 at 32: golden INT ct7, ours UINT ct9
+u2r	packed_array_struct	S	[r11v29 was K8] cont_assign fill '0: both sides BIN ct3, golden vpiSize -1 (RAW), ours 168 — a SIZE face, not an encoding-at-equal-size face
+u2r	struct_param_dim	K8	constant 4: golden BIN at 32 with a logic_typespec ref, ours UINT 32'h4 with a struct_typespec ref
+u2r	packed_array_struct_port_sel	K9	elaborated packed_array_var `T [1:0] arr_i`: golden links vpiTypespec -> ref_typespec -> struct_typespec, ours emits NO typespec
+u2r	struct_member_cfg_width	K9	logic_net `fu_data_t fu_data_i`: golden links vpiTypespec -> ref_typespec -> struct_typespec, ours emits NO typespec
+u2r	interface_array_fanout	K10	interface ARRAY element: golden has interface_inst work@dut.f.m[0] with its variables, ours <null>
+surelog	Rggen	K10	interface ARRAY element: golden has interface_inst ...u_adapter.register_if[0] with its variables, ours <null> (default only)
+u2r	dyn_field_select	S	[r11v29 was K11] hier_path Path_elems SHAPE: same VpiName both sides; golden nests bit_select(tbl[row_i]) + vpiIndex, ours one composite ref_obj named "tbl[row_i][col_i]"
+u2r	struct_member_expr_index	S	[r11v29 was K11] hier_path VpiName TEXT: element kinds agree; golden "value.mantissa[23 - 1]" (folded) vs ours "value.mantissa[p::MAN_BITS - 1]"
+u2r	packed_struct_array_fifo	K12	module_inst net list: golden's DEF carries an extra logic_net `d_t` (netType 1) named after the typedef, ours has none
+u2r	param_type_logic_width	K12	module_inst net list: golden's shift_reg DEF carries an extra logic_net `b` (netType 1), ours has none
+u2r	const_cast_signext	S	logic_typespec(imm_t) alias: golden links a ref_typespec to the base logic_typespec, ours none
+surelog	LargeValue2Struct	S	logic_typespec NAME: golden `sram_key_t`, ours `pack::sram_key_t` (a NAMING head — see the naming-is-context-dependent dead end)
+surelog	SequenceInst	S	property_spec expression: golden builds operation(51) over operation(54) over the leaves, ours hands the bare ref_obj work@m.p_triggers.rst
+u2r	stamped_gen_param	S	typespec identity under a gen-stamped type param: golden logic_typespec(q2::row_t) + packed_array wrapper, ours an unnamed logic_typespec under a typespec_member
+u2r	unpacked_elem_partsel_comb	S	cont_assign Rhs: golden has a var_select (unpacked elem + part-select), ours <null>

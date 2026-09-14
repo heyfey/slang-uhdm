@@ -1,0 +1,15 @@
+## gen_scope_numports calib=-- rows golden=77 ours=77 disagree=0
+   DISAGREE golden=False    ours=True       2 logic_net  work@tc_sram.rdata_o
+   DISAGREE golden=False    ours=True       2 logic_net  work@tc_sram.wdata_i
+   DISAGREE golden=False    ours=True       2 logic_net  work@tc_sram_wrapper.rdata_o
+   DISAGREE golden=False    ours=True       2 logic_net  work@tc_sram_wrapper.wdata_i
+## packed_array_reset_loop calib=-- rows golden=16 ours=16 disagree=0
+   DISAGREE golden=False    ours=True       2 logic_net  work@packed_array_reset_loop.d_i
+   DISAGREE golden=False    ours=True       2 logic_net  work@packed_array_reset_loop.q
+   DISAGREE golden=False    ours=True       2 logic_net  work@packed_array_reset_loop.q_o
+## param_name_collision_typeparam calib=-- rows golden=60 ours=60 disagree=0
+   DISAGREE golden=False    ours=True       2 logic_net  work@inner.d_i
+## latch_packed_enum_loop calib=-- rows golden=8 ours=8 disagree=0
+   DISAGREE golden=False    ours=True       2 logic_net  work@latch_packed_enum_loop.cf_type
+## arb_idx_cast calib=-- rows golden=12 ours=12 disagree=0
+   DISAGREE golden=False    ours=True       2 logic_net  work@dut.index_nodes

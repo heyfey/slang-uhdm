@@ -1,0 +1,153 @@
+==== CLUSTER K6 — 4 rows
+
+---- u2r/genscope_struct_member   FACE: folded constant under a range: golden UINT 15 ct9 at size 32, ours size 64
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:15
+    |vpiSize:32
+    |UINT:15
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:15
+    |vpiSize:32
+    |UINT:15
+    |vpiConstType:9
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:15
+    |vpiSize:64
+    |UINT:15
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:15
+    |vpiSize:64
+    |UINT:15
+    |vpiConstType:9
+
+---- u2r/ibex_pmp   FACE: folded constant under a range: golden UINT 33 ct9 at size 32, ours size 64
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:33
+    |vpiSize:32
+    |UINT:33
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:33
+    |vpiSize:32
+    |UINT:33
+    |vpiConstType:9
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:33
+    |vpiSize:64
+    |UINT:33
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:33
+    |vpiSize:64
+    |UINT:33
+    |vpiConstType:9
+
+---- u2r/latch_perf_counters   FACE: folded constant under a range: golden UINT 4 ct9 at 32, ours INT 4 ct7 at 64
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:4
+    |vpiSize:32
+    |UINT:4
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:4
+    |vpiSize:32
+    |UINT:4
+    |vpiConstType:9
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:4
+    |vpiSize:64
+    |INT:4
+    |vpiConstType:7
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_range: , id:#, line:#, endln:#
+    |vpiDecompile:4
+    |vpiSize:64
+    |INT:4
+    |vpiConstType:7
+
+---- surelog/StructParamFuncBodyFieldCompare   FACE: folded constant 64 in a const-function operand: golden UINT at 32 (the $unsigned wrapper already gone), ours UINT at 64 inside the kept sys_func_call
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:64
+    |vpiSize:32
+    |UINT:64
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:64
+    |vpiSize:32
+    |UINT:64
+    |vpiConstType:9
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_sys_func_call: ($unsigned), id:#
+    |vpiDecompile:64
+    |vpiSize:64
+    |UINT:64
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_sys_func_call: ($unsigned), id:#
+    |vpiDecompile:64
+    |vpiSize:64
+    |UINT:64
+    |vpiConstType:9

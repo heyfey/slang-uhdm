@@ -1,0 +1,24 @@
+== K1 SHARED-HEAD CLAIM, re-checked id-blind (this verifier's own databases)
+-- ids + source locations blinded (md5, first 12 hex):
+   BuildUVMPkg    0c1a52351c31
+   MiniAmiq       0c1a52351c31
+   SeqDriver      0c1a52351c31
+   SimpleUVM      0c1a52351c31
+   Scoreboard     0c1a52351c31
+   r11u29 quoted 0c1a52351c31 -> CONFIRMED, all five identical.
+-- ids ONLY blinded (locations left in):
+   BuildUVMPkg    82d7710c8b67
+   MiniAmiq       75555f9dd8f9
+   SeqDriver      75555f9dd8f9
+   SimpleUVM      75555f9dd8f9
+   Scoreboard     75555f9dd8f9
+   four identical (MiniAmiq/SeqDriver/SimpleUVM/Scoreboard), BuildUVMPkg differs
+   only in the line number -> CONFIRMED as r11u29 stated.
+
+== the construct, CORRECTED
+r11u29 cites uvm_domain.svh:194.  The measured head sits at line 199:
+   MiniAmiq head line:199:63
+   uvm-1.2/src/base/uvm_domain.svh:199 =
+          phases = phases.find(item) with (item.get_state() inside {[UVM_PHASE_STARTED:UVM_PHASE_CLEANUP]}); 
+   1800.2-2017-1.0/src/base/uvm_domain.svh:194 = the same statement in the OTHER UVM copy.
+   The construct is right; the line number belongs to the copy the rows do not use.

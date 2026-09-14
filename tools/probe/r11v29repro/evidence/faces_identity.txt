@@ -1,0 +1,18 @@
+== FACE IDENTITY: this verifier's heads vs r11u29's recorded heads
+Independent build + independent sweeps + independent head extraction, then the
+SURVEYOR'S OWN facediff.py run over MY cmp files and diffed against their committed faces.
+
+u2r     faces.key.txt  diff lines: 0
+u2r     faces.full.txt diff lines: 0
+surelog faces.key.txt  diff lines: 0
+surelog faces.full.txt diff lines: 0
+
+rowheads (cmp-line counts + head counts) vs r11u29's:
+  u2r     diff lines: 0
+  surelog diff lines: 0
+
+=> all 92 triaged rows REPRODUCE BYTE-FOR-BYTE at the face level.
+
+== MODE IDENTITY, re-measured (default vs testflags head, ids blinded)
+  u2r     IDBLIND-SAME 38 (36 not-equal tests + 2 controls), MODE-SPLIT 0
+  surelog IDBLIND-SAME 11, ONE-MODE-ONLY 2 (Rggen, Scoreboard), MODE-SPLIT 0

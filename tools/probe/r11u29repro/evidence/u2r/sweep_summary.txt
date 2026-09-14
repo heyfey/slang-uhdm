@@ -1,0 +1,48 @@
+== this pass's OWN uhdm2rtlil sweeps at d24291a2 (pristine binary, --jobs 2, both modes)
+-- default status counts:
+   CMP_EQUAL 768
+   CMP_NOTEQUAL 36
+   SLANG_REJECT 67
+-- testflags status counts:
+   CMP_EQUAL 768
+   CMP_NOTEQUAL 36
+   SLANG_REJECT 67
+-- the CMP_NOTEQUAL row set vs results/golden_uhdm2rtlil.csv:
+   IDENTICAL row-for-row (72 rows)
+-- the 36 tests this survey triages (both modes each):
+   anon_struct_packed_dim
+   arb_idx_cast
+   bits_of_type_param
+   cfg_func_width_loop
+   const_cast_signext
+   cva6_struct_param_field
+   dyn_field_select
+   gen_scope_numports
+   genscope_struct_member
+   genvar_pow_index
+   ibex_icache
+   ibex_pmp
+   ibex_tracer
+   iface_param_2level
+   iface_zero_width_field
+   interface_array_fanout
+   latch_packed_enum_loop
+   latch_perf_counters
+   mem_packed_2d_byte_write
+   packed_array_reset_loop
+   packed_array_struct
+   packed_array_struct_port_sel
+   packed_struct_array_fifo
+   param_name_collision_typeparam
+   param_type_logic_width
+   port_chained_type_param
+   stamped_gen_param
+   struct_member_cfg_width
+   struct_member_expr_index
+   struct_param_dim
+   struct_param_pattern_packing
+   typed_named_pattern
+   type_param_override_elem_sel
+   type_param_packed_dim
+   type_param_unpacked_port
+   unpacked_elem_partsel_comb

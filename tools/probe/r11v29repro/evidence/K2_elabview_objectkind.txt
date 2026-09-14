@@ -1,0 +1,32 @@
+== K2, WHAT THE 29 EXTRA ROWS ARE: an ELAB-VIEW OBJECT-KIND difference
+
+The extra rows are not a depth-key artifact.  For the SAME declaration, Surelog's
+ELABORATED view carries a packed_array_var (of logic_var/enum_var elements) where
+we carry a logic_net.  Quoted from the two dumps, gen_scope_numports,
+declaration  data_t [NumPorts-1:0] wdata_i :
+
+   GOLDEN:
+             \_packed_array_var: (work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i), line:23:34, endln:23:41
+   OURS  :
+             \_logic_net: (work@tb.t.gen_cut[0].i_tc_sram_wrapper.wdata_i), line:23:34, endln:23:41
+
+and param_name_collision_typeparam, declaration  data_t [NumPorts-1:0] d_i :
+   GOLDEN:
+               \_packed_array_var: (work@param_name_collision_typeparam.i.m.gen_cut[0].u.d_i), line:14:32, endln:14:35
+   OURS  :
+               \_logic_net: (work@param_name_collision_typeparam.i.m.gen_cut[0].u.d_i), line:14:32, endln:14:35
+
+Object kinds carried for the head declaration, per design (depth-blind):
+   gen_scope_numports             wdata_i/rdata_o  G has packed_array_var, WE DO NOT
+   param_name_collision_typeparam d_i              G has packed_array_var, WE DO NOT
+   packed_array_reset_loop        d_i,q,q_o        G has packed_array_var+logic_var, WE DO NOT
+   arb_idx_cast                   index_nodes      G has packed_array_var, WE DO NOT
+   latch_packed_enum_loop         cf_type          kinds AGREE (both packed_array_var+enum_var)
+
+=> in FOUR of the five K2 designs the producer law has a SECOND half the head hides.
+   The emitter's own comment already states it, for the dimension-less case:
+   src/EmitHelpers.h:563  // A signal whose declared type is written as a bare identifier that resolves
+   src/EmitHelpers.h:563  // to a `parameter type T` — Surelog models these ports specially (def-view net
+   src/EmitHelpers.h:563  // with no net type + type-param default typespec; elab-view logic_var).
+   i.e. 'def-view net with no net type + type-param default typespec; ELAB-VIEW LOGIC_VAR'.
+   r11u29's suspected law names only the def-view vpiNetType half.

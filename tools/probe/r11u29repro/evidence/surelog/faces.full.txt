@@ -1,0 +1,778 @@
+######## 1364_2005.default   FACE=EQUAL
+######## 1364_2005.testflags   FACE=EQUAL
+######## AllBinding.default   FACE=EQUAL
+######## AllBinding.testflags   FACE=EQUAL
+######## BuildUVMPkg.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## BuildUVMPkg.testflags   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## LargeValue2Struct.default   FACE=logic_typespec G[<logic_typespec>+vpiParent+<ref_typespec>+vpiName+<logic_typespec>] O[<logic_typespec>+vpiName+<logic_typespec>]
+  GOLDEN-ONLY  logic_typespec: (sram_key_t), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:#
+  GOLDEN-ONLY  |vpiName:sram_key_t
+  GOLDEN-ONLY  \_logic_typespec: (sram_key_t), id:#, line:#, endln:#
+  OURS-ONLY    logic_typespec: (pack::sram_key_t), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:pack::sram_key_t
+  OURS-ONLY    \_logic_typespec: (pack::sram_key_t), id:#, line:#, endln:#
+######## LargeValue2Struct.testflags   FACE=logic_typespec G[<logic_typespec>+vpiParent+<ref_typespec>+vpiName+<logic_typespec>] O[<logic_typespec>+vpiName+<logic_typespec>]
+  GOLDEN-ONLY  logic_typespec: (sram_key_t), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:#
+  GOLDEN-ONLY  |vpiName:sram_key_t
+  GOLDEN-ONLY  \_logic_typespec: (sram_key_t), id:#, line:#, endln:#
+  OURS-ONLY    logic_typespec: (pack::sram_key_t), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:pack::sram_key_t
+  OURS-ONLY    \_logic_typespec: (pack::sram_key_t), id:#, line:#, endln:#
+######## MiniAmiq.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## MiniAmiq.testflags   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## Rggen.default   FACE=OURS-NULL:interface_inst
+  GOLDEN-ONLY  interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_module_inst: work@rggen_apb_adapter (work@rggen.u_block_0.u_adapter), id:#, file:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:register_if[0]
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:valid
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_enum_typespec: (rggen_rtl_pkg::rggen_access), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:access
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:address
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].write_data), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].write_data), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].write_data), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:write_data
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].strobe), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].strobe), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].strobe), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:strobe
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].ready), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].ready), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].ready), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:ready
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].status), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].status), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].status), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_enum_typespec: (rggen_rtl_pkg::rggen_status), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:status
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].read_data), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].read_data), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].read_data), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:read_data
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].active), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].active), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].active), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:active
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiVariables:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].value), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].value), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].value), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:value
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiVisibility:1
+  GOLDEN-ONLY  |vpiParamAssign:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiRhs:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:16
+  GOLDEN-ONLY  |vpiSize:32
+  GOLDEN-ONLY  |UINT:16
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiLhs:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.ADDRESS_WIDTH), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen_register_if), id:#, file:#, line:#, endln:#
+  GOLDEN-ONLY  |UINT:16
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen_register_if.ADDRESS_WIDTH), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.ADDRESS_WIDTH), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiSigned:1
+  GOLDEN-ONLY  |vpiName:ADDRESS_WIDTH
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiParamAssign:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiRhs:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:32
+  GOLDEN-ONLY  |vpiSize:32
+  GOLDEN-ONLY  |UINT:32
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiLhs:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.BUS_WIDTH), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen_register_if), id:#, file:#, line:#, endln:#
+  GOLDEN-ONLY  |UINT:32
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen_register_if.BUS_WIDTH), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.BUS_WIDTH), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiSigned:1
+  GOLDEN-ONLY  |vpiName:BUS_WIDTH
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiParamAssign:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiRhs:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:32
+  GOLDEN-ONLY  |vpiSize:32
+  GOLDEN-ONLY  |UINT:32
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiLhs:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.VALUE_WIDTH), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen_register_if), id:#, file:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen_register_if.VALUE_WIDTH), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.VALUE_WIDTH), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiSigned:1
+  GOLDEN-ONLY  |vpiName:VALUE_WIDTH
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiParamAssign:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiRhs:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:0
+  GOLDEN-ONLY  |vpiSize:32
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiLhs:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.RGGEN_ACCESS_DATA_BIT), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen_register_if.RGGEN_ACCESS_DATA_BIT), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.RGGEN_ACCESS_DATA_BIT), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiSigned:1
+  GOLDEN-ONLY  |vpiLocalParam:1
+  GOLDEN-ONLY  |vpiName:RGGEN_ACCESS_DATA_BIT
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiImported:rggen_rtl_pkg
+  GOLDEN-ONLY  |vpiParamAssign:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiRhs:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:32
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiLhs:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.RGGEN_ACCESS_NON_POSTED_BIT), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_param_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@rggen_register_if.RGGEN_ACCESS_NON_POSTED_BIT), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_parameter: (work@rggen_register_if.RGGEN_ACCESS_NON_POSTED_BIT), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiSigned:1
+  GOLDEN-ONLY  |vpiLocalParam:1
+  GOLDEN-ONLY  |vpiName:RGGEN_ACCESS_NON_POSTED_BIT
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiImported:rggen_rtl_pkg
+  GOLDEN-ONLY  |vpiDefName:work@rggen_register_if
+  GOLDEN-ONLY  |vpiModport:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  GOLDEN-ONLY  |vpiName:host
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (valid), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:2
+  GOLDEN-ONLY  |vpiName:valid
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (access), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:2
+  GOLDEN-ONLY  |vpiName:access
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (address), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:2
+  GOLDEN-ONLY  |vpiName:address
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (write_data), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:2
+  GOLDEN-ONLY  |vpiName:write_data
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].write_data), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (strobe), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:2
+  GOLDEN-ONLY  |vpiName:strobe
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].strobe), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (ready), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:1
+  GOLDEN-ONLY  |vpiName:ready
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].ready), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (status), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:1
+  GOLDEN-ONLY  |vpiName:status
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].status), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (read_data), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:1
+  GOLDEN-ONLY  |vpiName:read_data
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].read_data), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiIODecl:
+  GOLDEN-ONLY  \_io_decl: (active), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_modport: (host), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDirection:1
+  GOLDEN-ONLY  |vpiName:active
+  GOLDEN-ONLY  |vpiExpr:
+  GOLDEN-ONLY  \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].active), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiInterface:
+  GOLDEN-ONLY  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:#, line:#
+  OURS-ONLY    <null>
+######## Scoreboard.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## SeqDriver.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## SeqDriver.testflags   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## SequenceInst.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<operation>+vpiParent+<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>+vpiOperand+<constant>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiOperand+<operation>+vpiParent+<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>+vpiOperand+<constant>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>] O[<ref_obj>+vpiName+vpiFullName+vpiActual+<logic_net>]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:51
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:54
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.start_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:start_event
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.start_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:0
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:61
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.end_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:end_event
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.end_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.form), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:form
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.form), id:#, line:#, endln:#
+  OURS-ONLY    ref_obj: (work@m.p_triggers.rst), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:rst
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_logic_net: (work@m.rst), id:#, line:#, endln:#
+######## SequenceInst.testflags   FACE=operation G[<operation>+vpiOpType+vpiOperand+<operation>+vpiParent+<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>+vpiOperand+<constant>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiOperand+<operation>+vpiParent+<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>+vpiOperand+<constant>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>] O[<ref_obj>+vpiName+vpiFullName+vpiActual+<logic_net>]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:51
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:54
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.start_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:start_event
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.start_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:0
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:61
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.end_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:end_event
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.end_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.form), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:form
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.form), id:#, line:#, endln:#
+  OURS-ONLY    ref_obj: (work@m.p_triggers.rst), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:rst
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_logic_net: (work@m.rst), id:#, line:#, endln:#
+######## SimpleUVM.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## SimpleUVM.testflags   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName] O[<ref_obj>+vpiName+vpiFullName]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:37
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_STARTED
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_CLEANUP), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:UVM_PHASE_CLEANUP
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    ref_obj: (uvm_pkg::uvm_domain::jump::UVM_PHASE_STARTED), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:UVM_PHASE_STARTED
+  OURS-ONLY    |vpiFullName:#
+######## StructParamFieldRange.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<hier_path>+vpiParent+<operation>+vpiActual+<ref_obj>+vpiParent+<hier_path>+vpiName+vpiActual+<ref_obj>+vpiParent+<hier_path>+vpiName+vpiName+vpiOperand+<constant>+vpiParent+<operation>+vpiDecompile+vpiSize+UINT+vpiConstType] O[<constant>+vpiDecompile+vpiSize+INT+vpiConstType]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:11
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_ref_obj: (Cfg), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:Cfg
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_ref_obj: (XLEN), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:XLEN
+  GOLDEN-ONLY  |vpiName:Cfg.XLEN
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  OURS-ONLY    constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:63
+  OURS-ONLY    |vpiSize:64
+  OURS-ONLY    |INT:63
+  OURS-ONLY    |vpiConstType:7
+######## StructParamFieldRange.testflags   FACE=operation G[<operation>+vpiOpType+vpiOperand+<hier_path>+vpiParent+<operation>+vpiActual+<ref_obj>+vpiParent+<hier_path>+vpiName+vpiActual+<ref_obj>+vpiParent+<hier_path>+vpiName+vpiName+vpiOperand+<constant>+vpiParent+<operation>+vpiDecompile+vpiSize+UINT+vpiConstType] O[<constant>+vpiDecompile+vpiSize+INT+vpiConstType]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:11
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_ref_obj: (Cfg), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:Cfg
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_ref_obj: (XLEN), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_hier_path: (Cfg.XLEN), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:XLEN
+  GOLDEN-ONLY  |vpiName:Cfg.XLEN
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  OURS-ONLY    constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:63
+  OURS-ONLY    |vpiSize:64
+  OURS-ONLY    |INT:63
+  OURS-ONLY    |vpiConstType:7
+######## StructParamFuncBodyFieldCompare.default   FACE=constant G[<operation>+vpiSize] O[<sys_func_call>+vpiSize]
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiSize:32
+  OURS-ONLY    \_sys_func_call: ($unsigned), id:#
+  OURS-ONLY    |vpiSize:64
+######## StructParamFuncBodyFieldCompare.testflags   FACE=constant G[<operation>+vpiSize] O[<sys_func_call>+vpiSize]
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiSize:32
+  OURS-ONLY    \_sys_func_call: ($unsigned), id:#
+  OURS-ONLY    |vpiSize:64
+######## StructParamPatternInitCast.default   FACE=GOLDEN-NULL:constant
+  GOLDEN-ONLY  <null>
+  OURS-ONLY    constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:32'd64
+  OURS-ONLY    |vpiSize:32
+  OURS-ONLY    |DEC:64
+  OURS-ONLY    |vpiConstType:1
+######## StructParamPatternInitCast.testflags   FACE=GOLDEN-NULL:constant
+  GOLDEN-ONLY  <null>
+  OURS-ONLY    constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:32'd64
+  OURS-ONLY    |vpiSize:32
+  OURS-ONLY    |DEC:64
+  OURS-ONLY    |vpiConstType:1

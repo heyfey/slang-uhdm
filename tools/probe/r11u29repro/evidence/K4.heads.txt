@@ -1,0 +1,231 @@
+==== CLUSTER K4 — 5 rows
+
+---- u2r/anon_struct_packed_dim   FACE: typespec: golden packed_array_typespec(range + elem ref -> struct), ours a flat logic_typespec
+    LHS:
+    decompile:
+    packed_array_typespec: , id:#, line:#, endln:#
+    |vpiRange:
+    \_range: , id:#, line:#, endln:#
+      |vpiParent:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+      |vpiLeftRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_ref_typespec: , id:#
+      |vpiParent:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+      |vpiActual:
+      \_struct_typespec: , id:#, line:#, endln:#
+    
+    decompile:
+    packed_array_typespec: , id:#, line:#, endln:#
+    |vpiRange:
+    \_range: , id:#, line:#, endln:#
+      |vpiParent:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+      |vpiLeftRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+
+---- u2r/port_chained_type_param   FACE: type_parameter actual: golden struct_typespec with 3 typespec_members, ours a logic_typespec
+    LHS:
+    decompile:
+    struct_typespec: , id:#, line:#, endln:#
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (a), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: , id:#, line:#, endln:#
+      |vpiName:a
+      |vpiTypespec:
+      \_ref_typespec: (a), id:#
+        |vpiParent:
+        \_typespec_member: (a), id:#, line:#, endln:#
+        |vpiFullName:a
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+      |vpiRefLineNo:2
+      |vpiRefColumnNo:48
+      |vpiRefEndLineNo:2
+      |vpiRefEndColumnNo:60
+    |vpiTypespecMember:
+    \_typespec_member: (b), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: , id:#, line:#, endln:#
+      |vpiName:b
+      |vpiTypespec:
+      \_ref_typespec: (b), id:#
+        |vpiParent:
+        \_typespec_member: (b), id:#, line:#, endln:#
+        |vpiFullName:b
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+      |vpiRefLineNo:2
+      |vpiRefColumnNo:64
+      |vpiRefEndLineNo:2
+      |vpiRefEndColumnNo:76
+    |vpiTypespecMember:
+    \_typespec_member: (c), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: , id:#, line:#, endln:#
+      |vpiName:c
+      |vpiTypespec:
+
+---- u2r/type_param_override_elem_sel   FACE: type_parameter actual: golden packed_array_typespec(range + elem ref), ours the bare logic_typespec
+    LHS:
+    decompile:
+    packed_array_typespec: , id:#, line:#, endln:#
+    |vpiParent:
+    \_type_parameter: (work@child.rt_t), id:#, line:#, endln:#
+    |vpiRange:
+    \_range: , id:#
+      |vpiParent:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+      |vpiLeftRange:
+      \_operation: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@child.rt_t.DEPTH), id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiName:DEPTH
+          |vpiFullName:work@child.rt_t.DEPTH
+        |vpiOperand:
+        \_constant: , id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_ref_typespec: (work@child.rt_t.id_t), id:#
+      |vpiParent:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+      |vpiName:id_t
+      |vpiFullName:work@child.rt_t.id_t
+      |vpiActual:
+      \_logic_typespec: , id:#, line:#, endln:#
+    
+    decompile:
+
+---- u2r/type_param_packed_dim   FACE: type_parameter actual: golden packed_array_typespec(range + elem ref), ours the bare logic_typespec
+    LHS:
+    decompile:
+    packed_array_typespec: , id:#, line:#, endln:#
+    |vpiParent:
+    \_type_parameter: (work@dut.rt_t), id:#, line:#, endln:#
+    |vpiRange:
+    \_range: , id:#
+      |vpiParent:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+      |vpiLeftRange:
+      \_operation: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@dut.rt_t.DEPTH), id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiName:DEPTH
+          |vpiFullName:work@dut.rt_t.DEPTH
+        |vpiOperand:
+        \_constant: , id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.rt_t.resp_id_t), id:#
+      |vpiParent:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+      |vpiName:resp_id_t
+      |vpiFullName:work@dut.rt_t.resp_id_t
+      |vpiActual:
+      \_logic_typespec: , id:#, line:#, endln:#
+    
+    decompile:
+
+---- u2r/type_param_unpacked_port   FACE: port typespec: golden array_typespec(range + elem), ours the bare struct_typespec pk::resp_t
+    LHS:
+    decompile:
+    array_typespec: , id:#, line:#, endln:#
+    |vpiParent:
+    \_port: (in_i), id:#, line:#, endln:#
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , id:#, line:#, endln:#
+      |vpiParent:
+      \_array_typespec: , id:#, line:#, endln:#
+      |vpiLeftRange:
+      \_operation: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@dut.in_i.N), id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiName:N
+          |vpiFullName:work@dut.in_i.N
+        |vpiOperand:
+        \_constant: , id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.in_i), id:#
+      |vpiParent:
+      \_array_typespec: , id:#, line:#, endln:#
+      |vpiFullName:work@dut.in_i
+      |vpiActual:
+      \_struct_typespec: (pk::resp_t), id:#, line:#, endln:#

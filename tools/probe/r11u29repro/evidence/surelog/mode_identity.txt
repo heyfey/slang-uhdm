@@ -1,0 +1,13 @@
+1364_2005 IDBLIND-SAME
+AllBinding IDBLIND-SAME
+BuildUVMPkg IDBLIND-SAME
+LargeValue2Struct IDBLIND-SAME
+MiniAmiq IDBLIND-SAME
+Rggen ONE-MODE-ONLY
+Scoreboard ONE-MODE-ONLY
+SeqDriver IDBLIND-SAME
+SequenceInst IDBLIND-SAME
+SimpleUVM IDBLIND-SAME
+StructParamFieldRange IDBLIND-SAME
+StructParamFuncBodyFieldCompare IDBLIND-SAME
+StructParamPatternInitCast IDBLIND-SAME

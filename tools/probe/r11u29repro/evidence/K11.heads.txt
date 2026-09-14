@@ -1,0 +1,93 @@
+==== CLUSTER K11 — 2 rows
+
+---- u2r/dyn_field_select   FACE: hier_path Path_elems SHAPE: golden nests bit_select(tbl[row_i]) + vpiIndex, ours one ref_obj named "tbl[row_i][col_i]"
+    LHS:
+    decompile:
+    hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiActual:
+    \_bit_select: (tbl[row_i]), id:#, line:#, endln:#
+      |vpiParent:
+      \_hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:#, line:#, endln:#
+      |vpiName:tbl
+      |vpiFullName:tbl[row_i]
+      |vpiIndex:
+      \_ref_obj: (work@dut.row_i), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:#, line:#, endln:#
+        |vpiName:row_i
+        |vpiFullName:work@dut.row_i
+        |vpiActual:
+        \_logic_net: (work@dut.row_i), id:#, line:#, endln:#
+    |vpiActual:
+    \_bit_select: (tbl[row_i][col_i]), id:#, line:#, endln:#
+      |vpiParent:
+      \_hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:#, line:#, endln:#
+      |vpiFullName:tbl[row_i][col_i]
+      |vpiIndex:
+      \_ref_obj: (work@dut.col_i), id:#, line:#, endln:#
+        |vpiParent:
+        \_hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:#, line:#, endln:#
+        |vpiName:col_i
+        |vpiFullName:work@dut.col_i
+        |vpiActual:
+        \_logic_net: (work@dut.col_i), id:#, line:#, endln:#
+    |vpiActual:
+    \_var_select: (work@dut.tbl[row_i][col_i].sat[sel_i][1].sat), id:#, line:#, endln:#
+      |vpiParent:
+      \_hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:#, line:#, endln:#
+      |vpiName:sat
+      |vpiFullName:work@dut.tbl[row_i][col_i].sat[sel_i][1].sat
+      |vpiIndex:
+      \_ref_obj: (work@dut.tbl[row_i][col_i].sat[sel_i][1].sat.sel_i), id:#, line:#, endln:#
+        |vpiParent:
+        \_var_select: (work@dut.tbl[row_i][col_i].sat[sel_i][1].sat), id:#, line:#, endln:#
+        |vpiName:sel_i
+        |vpiFullName:work@dut.tbl[row_i][col_i].sat[sel_i][1].sat.sel_i
+
+---- u2r/struct_member_expr_index   FACE: hier_path VpiName TEXT: golden "value.mantissa[23 - 1]" (folded), ours "value.mantissa[p::MAN_BITS - 1]" (symbolic)
+    LHS:
+    decompile:
+    hier_path: (value.mantissa[23 - 1]), id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiActual:
+    \_ref_obj: (value), id:#, line:#, endln:#
+      |vpiParent:
+      \_hier_path: (value.mantissa[23 - 1]), id:#, line:#, endln:#
+      |vpiName:value
+    |vpiActual:
+    \_bit_select: (work@dut.value.mantissa[23 - 1].mantissa), id:#, line:#, endln:#
+      |vpiParent:
+      \_hier_path: (value.mantissa[23 - 1]), id:#, line:#, endln:#
+      |vpiName:mantissa
+      |vpiFullName:work@dut.value.mantissa[23 - 1].mantissa
+      |vpiIndex:
+      \_operation: , id:#, line:#, endln:#
+        |vpiParent:
+        \_bit_select: (work@dut.value.mantissa[23 - 1].mantissa), id:#, line:#, endln:#
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiDecompile:23
+          |vpiSize:32
+          |UINT:23
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+    |vpiName:value.mantissa[23 - 1]
+    
+    decompile:
+    hier_path: (value.mantissa[23 - 1]), id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiActual:

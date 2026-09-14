@@ -1,0 +1,32 @@
+== COIN-FAMILY DOUBLE RUN (three independent database builds)
+build A = r11u29's own sweep; build B = this verifier's full surelog sweep;
+build C = this verifier's second, --filter sweep into its own workdir.
+
+A vs B: the id-blind heads are byte-identical (evidence/faces_identity.txt: the
+        surelog faces.full.txt diff is 0 lines over all 20 rows).
+B vs C: re-measured here, ids blinded:
+   MiniAmiq/default STABLE-HEAD
+   MiniAmiq/testflags STABLE-HEAD
+   SeqDriver/default STABLE-HEAD
+   SeqDriver/testflags STABLE-HEAD
+   SimpleUVM/default STABLE-HEAD
+   SimpleUVM/testflags STABLE-HEAD
+   Scoreboard/default STABLE-HEAD
+   Scoreboard/testflags -- not a not-equal row in this mode
+   BuildUVMPkg/default STABLE-HEAD
+   BuildUVMPkg/testflags STABLE-HEAD
+
+=> every coin-family row reports the SAME head across three independent builds.
+
+== LONG-HEAD RE-READ (a partially written dump reads like a result)
+cmp-line counts for the longest heads, this verifier's run vs r11u29's:
+   packed_struct_array_fifo   mine 6446   r11u29 6446
+   param_type_logic_width     mine 390   r11u29 390
+   interface_array_fanout     mine 351   r11u29 351
+   dyn_field_select           mine 160   r11u29 160
+   Rggen                      mine 801   r11u29 801
+   ibex_icache                mine 64   r11u29 64
+   ibex_pmp                   mine 36   r11u29 36
+   ibex_tracer                mine 36   r11u29 36
+   (the three ibex_* corpus argv carry no -nobuiltin, so neither side used it;
+    verified by reading each row's own cmds.txt.)

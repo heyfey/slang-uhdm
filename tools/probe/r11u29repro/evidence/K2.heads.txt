@@ -1,0 +1,189 @@
+==== CLUSTER K2 — 5 rows
+
+---- u2r/arb_idx_cast   FACE: logic_net `idx_t [2**NumLevels-2:0] index_nodes`: golden leaves vpiNetType UNSET, ours stamps 36
+    LHS:
+    decompile:
+    logic_net: (work@dut.index_nodes), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), id:#, file:, line:#, endln:#
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.index_nodes), id:#
+      |vpiParent:
+      \_logic_net: (work@dut.index_nodes), id:#, line:#, endln:#
+      |vpiFullName:work@dut.index_nodes
+      |vpiActual:
+      \_logic_typespec: , id:#, line:#, endln:#
+    |vpiName:index_nodes
+    |vpiFullName:work@dut.index_nodes
+    
+    decompile:
+    logic_net: (work@dut.index_nodes), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), id:#, file:, line:#, endln:#
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.index_nodes), id:#
+      |vpiParent:
+      \_logic_net: (work@dut.index_nodes), id:#, line:#, endln:#
+      |vpiFullName:work@dut.index_nodes
+      |vpiActual:
+      \_logic_typespec: , id:#, line:#, endln:#
+    |vpiName:index_nodes
+    |vpiFullName:work@dut.index_nodes
+    RHS:
+    decompile:
+    logic_net: (work@dut.index_nodes), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), id:#, file:, line:#, endln:#
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.index_nodes), id:#
+      |vpiParent:
+      \_logic_net: (work@dut.index_nodes), id:#, line:#, endln:#
+      |vpiFullName:work@dut.index_nodes
+      |vpiActual:
+      \_logic_typespec: , id:#, line:#, endln:#
+    |vpiName:index_nodes
+    |vpiFullName:work@dut.index_nodes
+    |vpiNetType:36
+    
+
+---- u2r/gen_scope_numports   FACE: logic_net `data_t [NumPorts-1:0] wdata_i` (x4 nets): golden leaves vpiNetType UNSET, ours stamps 36
+    LHS:
+    decompile:
+    logic_net: (work@tc_sram.wdata_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@tc_sram (work@tc_sram), id:#, file:, line:#, endln:#
+    |vpiName:wdata_i
+    |vpiFullName:work@tc_sram.wdata_i
+    
+    decompile:
+    logic_net: (work@tc_sram.wdata_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@tc_sram (work@tc_sram), id:#, file:, line:#, endln:#
+    |vpiName:wdata_i
+    |vpiFullName:work@tc_sram.wdata_i
+    RHS:
+    decompile:
+    logic_net: (work@tc_sram.wdata_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@tc_sram (work@tc_sram), id:#, file:, line:#, endln:#
+    |vpiName:wdata_i
+    |vpiFullName:work@tc_sram.wdata_i
+    |vpiNetType:36
+    
+    decompile:
+    logic_net: (work@tc_sram.wdata_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@tc_sram (work@tc_sram), id:#, file:, line:#, endln:#
+    |vpiName:wdata_i
+    |vpiFullName:work@tc_sram.wdata_i
+    |vpiNetType:36
+
+---- u2r/latch_packed_enum_loop   FACE: logic_net `cf_t [1:0] cf_type` (enum typedef elem): golden leaves vpiNetType UNSET, ours stamps 36
+    LHS:
+    decompile:
+    logic_net: (work@latch_packed_enum_loop.cf_type), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@latch_packed_enum_loop (work@latch_packed_enum_loop), id:#, file:, line:#, endln:#
+    |vpiTypespec:
+    \_ref_typespec: (work@latch_packed_enum_loop.cf_type), id:#
+      |vpiParent:
+      \_logic_net: (work@latch_packed_enum_loop.cf_type), id:#, line:#, endln:#
+      |vpiFullName:work@latch_packed_enum_loop.cf_type
+      |vpiActual:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+    |vpiName:cf_type
+    |vpiFullName:work@latch_packed_enum_loop.cf_type
+    
+    decompile:
+    logic_net: (work@latch_packed_enum_loop.cf_type), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@latch_packed_enum_loop (work@latch_packed_enum_loop), id:#, file:, line:#, endln:#
+    |vpiTypespec:
+    \_ref_typespec: (work@latch_packed_enum_loop.cf_type), id:#
+      |vpiParent:
+      \_logic_net: (work@latch_packed_enum_loop.cf_type), id:#, line:#, endln:#
+      |vpiFullName:work@latch_packed_enum_loop.cf_type
+      |vpiActual:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+    |vpiName:cf_type
+    |vpiFullName:work@latch_packed_enum_loop.cf_type
+    RHS:
+    decompile:
+    logic_net: (work@latch_packed_enum_loop.cf_type), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@latch_packed_enum_loop (work@latch_packed_enum_loop), id:#, file:, line:#, endln:#
+    |vpiTypespec:
+    \_ref_typespec: (work@latch_packed_enum_loop.cf_type), id:#
+      |vpiParent:
+      \_logic_net: (work@latch_packed_enum_loop.cf_type), id:#, line:#, endln:#
+      |vpiFullName:work@latch_packed_enum_loop.cf_type
+      |vpiActual:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+    |vpiName:cf_type
+    |vpiFullName:work@latch_packed_enum_loop.cf_type
+    |vpiNetType:36
+    
+
+---- u2r/packed_array_reset_loop   FACE: logic_net `addr_t [N-1:0] d_i` (x3 nets): golden leaves vpiNetType UNSET, ours stamps 36
+    LHS:
+    decompile:
+    logic_net: (work@packed_array_reset_loop.d_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@packed_array_reset_loop (work@packed_array_reset_loop), id:#, file:, line:#, endln:#
+    |vpiName:d_i
+    |vpiFullName:work@packed_array_reset_loop.d_i
+    
+    decompile:
+    logic_net: (work@packed_array_reset_loop.d_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@packed_array_reset_loop (work@packed_array_reset_loop), id:#, file:, line:#, endln:#
+    |vpiName:d_i
+    |vpiFullName:work@packed_array_reset_loop.d_i
+    RHS:
+    decompile:
+    logic_net: (work@packed_array_reset_loop.d_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@packed_array_reset_loop (work@packed_array_reset_loop), id:#, file:, line:#, endln:#
+    |vpiName:d_i
+    |vpiFullName:work@packed_array_reset_loop.d_i
+    |vpiNetType:36
+    
+    decompile:
+    logic_net: (work@packed_array_reset_loop.d_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@packed_array_reset_loop (work@packed_array_reset_loop), id:#, file:, line:#, endln:#
+    |vpiName:d_i
+    |vpiFullName:work@packed_array_reset_loop.d_i
+    |vpiNetType:36
+
+---- u2r/param_name_collision_typeparam   FACE: logic_net `data_t [NumPorts-1:0] d_i`: golden leaves vpiNetType UNSET, ours stamps 36
+    LHS:
+    decompile:
+    logic_net: (work@inner.d_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@inner (work@inner), id:#, file:, line:#, endln:#
+    |vpiName:d_i
+    |vpiFullName:work@inner.d_i
+    
+    decompile:
+    logic_net: (work@inner.d_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@inner (work@inner), id:#, file:, line:#, endln:#
+    |vpiName:d_i
+    |vpiFullName:work@inner.d_i
+    RHS:
+    decompile:
+    logic_net: (work@inner.d_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@inner (work@inner), id:#, file:, line:#, endln:#
+    |vpiName:d_i
+    |vpiFullName:work@inner.d_i
+    |vpiNetType:36
+    
+    decompile:
+    logic_net: (work@inner.d_i), id:#, line:#, endln:#
+    |vpiParent:
+    \_module_inst: work@inner (work@inner), id:#, file:, line:#, endln:#
+    |vpiName:d_i
+    |vpiFullName:work@inner.d_i
+    |vpiNetType:36

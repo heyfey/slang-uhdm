@@ -1,0 +1,79 @@
+==== CLUSTER K7 — 3 rows
+
+---- u2r/cfg_func_width_loop   FACE: assignment-pattern operation (opType 75): ours stamps vpiSize 1, golden leaves it unset
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:75
+    |vpiOperand:
+    \_constant: , id:#, line:#, endln:#
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:#, line:#, endln:#
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiOpType:75
+    |vpiOperand:
+    \_constant: , id:#, line:#, endln:#
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:#, line:#, endln:#
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    RHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiSize:1
+    |vpiOpType:75
+    |vpiOperand:
+
+---- u2r/iface_zero_width_field   FACE: assignment-pattern operation (opType 75): golden carries a NAMELESS vpiTypespec ref to the struct, ours none
+    LHS:
+    decompile:
+    ref_typespec: , id:#
+    |vpiActual:
+    \_struct_typespec: (p::bus_t), id:#, line:#, endln:#
+    
+    decompile:
+    ref_typespec: , id:#
+    |vpiActual:
+    \_struct_typespec: (p::bus_t), id:#, line:#, endln:#
+    RHS: <null>
+
+---- u2r/typed_named_pattern   FACE: assignment-pattern operation (opType 75): golden carries vpiTypespec -> ref_typespec -> struct_typespec, ours none
+    LHS:
+    decompile:
+    ref_typespec: (work@typed_named_pattern), id:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiFullName:work@typed_named_pattern
+    |vpiActual:
+    \_struct_typespec: (q::op32_i_t), id:#, line:#, endln:#
+    
+    decompile:
+    ref_typespec: (work@typed_named_pattern), id:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiFullName:work@typed_named_pattern
+    |vpiActual:
+    \_struct_typespec: (q::op32_i_t), id:#, line:#, endln:#
+    RHS: <null>

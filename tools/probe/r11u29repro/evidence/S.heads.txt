@@ -1,0 +1,204 @@
+==== CLUSTER S — 5 rows
+
+---- u2r/const_cast_signext   FACE: logic_typespec(imm_t) alias: golden links a ref_typespec to the base logic_typespec, ours none
+    LHS:
+    decompile:
+    ref_typespec: (imm_t), id:#
+    |vpiParent:
+    \_logic_typespec: (imm_t), id:#, line:#, endln:#
+    |vpiFullName:imm_t
+    |vpiActual:
+    \_logic_typespec: (imm_t), id:#, line:#, endln:#
+    
+    decompile:
+    ref_typespec: (imm_t), id:#
+    |vpiParent:
+    \_logic_typespec: (imm_t), id:#, line:#, endln:#
+    |vpiFullName:imm_t
+    |vpiActual:
+    \_logic_typespec: (imm_t), id:#, line:#, endln:#
+    RHS: <null>
+
+---- surelog/LargeValue2Struct   FACE: logic_typespec NAME: golden `sram_key_t`, ours `pack::sram_key_t` (a NAMING head — see the naming-is-context-dependent dead end)
+    LHS:
+    decompile:
+    logic_typespec: (sram_key_t), id:#, line:#, endln:#
+    |vpiParent:
+    \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:#
+    |vpiName:sram_key_t
+    |vpiInstance:
+    \_package: pack (pack::), id:#, file:, line:#, endln:#
+    |vpiRange:
+    \_range: , id:#, line:#, endln:#
+      |vpiParent:
+      \_logic_typespec: (sram_key_t), id:#, line:#, endln:#
+      |vpiLeftRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiDecompile:127
+        |vpiSize:64
+        |INT:127
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    
+    decompile:
+    logic_typespec: (sram_key_t), id:#, line:#, endln:#
+    |vpiParent:
+    \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:#
+    |vpiName:sram_key_t
+    |vpiInstance:
+    \_package: pack (pack::), id:#, file:, line:#, endln:#
+    |vpiRange:
+    \_range: , id:#, line:#, endln:#
+      |vpiParent:
+      \_logic_typespec: (sram_key_t), id:#, line:#, endln:#
+      |vpiLeftRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+
+---- surelog/SequenceInst   FACE: property_spec expression: golden builds operation(51) over operation(54) over the leaves, ours hands the bare ref_obj work@m.p_triggers.rst
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_property_spec: , id:#, line:#, endln:#
+    |vpiOpType:51
+    |vpiOperand:
+    \_operation: , id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiOpType:54
+      |vpiOperand:
+      \_ref_obj: (work@m.p_triggers.start_event), id:#, line:#, endln:#
+        |vpiParent:
+        \_operation: , id:#, line:#, endln:#
+        |vpiName:start_event
+        |vpiFullName:work@m.p_triggers.start_event
+        |vpiActual:
+        \_logic_net: (work@m.start_event), id:#, line:#, endln:#
+      |vpiOperand:
+      \_constant: , id:#, line:#, endln:#
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiOperand:
+      \_operation: , id:#, line:#, endln:#
+        |vpiParent:
+        \_operation: , id:#, line:#, endln:#
+        |vpiOpType:61
+        |vpiOperand:
+        \_ref_obj: (work@m.p_triggers.end_event), id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiName:end_event
+          |vpiFullName:work@m.p_triggers.end_event
+          |vpiActual:
+          \_logic_net: (work@m.end_event), id:#, line:#, endln:#
+        |vpiOperand:
+        \_constant: , id:#, line:#, endln:#
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+
+---- u2r/stamped_gen_param   FACE: typespec identity under a gen-stamped type param: golden logic_typespec(q2::row_t) + packed_array wrapper, ours an unnamed logic_typespec under a typespec_member
+    LHS:
+    decompile:
+    logic_typespec: (q2::row_t), id:#
+    |vpiParent:
+    \_package: q2 (q2::), id:#, file:, line:#, endln:#
+    |vpiName:q2::row_t
+    |vpiInstance:
+    \_package: q2 (q2::), id:#, file:, line:#, endln:#
+    |vpiElemTypespec:
+    \_ref_typespec: (q2::q2::row_t), id:#
+      |vpiParent:
+      \_logic_typespec: (q2::row_t), id:#
+      |vpiFullName:q2::q2::row_t
+      |vpiActual:
+      \_logic_typespec: , id:#, line:#, endln:#
+    |vpiRange:
+    \_range: , id:#, line:#, endln:#
+      |vpiParent:
+      \_packed_array_typespec: , id:#, line:#, endln:#
+      |vpiLeftRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_range: , id:#, line:#, endln:#
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    
+    decompile:
+    logic_typespec: (q2::row_t), id:#
+    |vpiParent:
+    \_package: q2 (q2::), id:#, file:, line:#, endln:#
+    |vpiName:q2::row_t
+    |vpiInstance:
+    \_package: q2 (q2::), id:#, file:, line:#, endln:#
+    |vpiElemTypespec:
+
+---- u2r/unpacked_elem_partsel_comb   FACE: cont_assign Rhs: golden has a var_select (unpacked elem + part-select), ours <null>
+    LHS:
+    decompile:
+    var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:#, endln:#
+    |vpiParent:
+    \_cont_assign: , id:#, line:#, endln:#
+    |vpiName:cl_rdata
+    |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata
+    |vpiIndex:
+    \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i), id:#, line:#, endln:#
+      |vpiParent:
+      \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:#, endln:#
+      |vpiName:i
+      |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i
+    |vpiIndex:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:#, endln:#
+      |vpiParent:
+      \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:#, endln:#
+      |vpiName:cl_rdata
+      |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata
+      |vpiDefName:cl_rdata
+      |vpiConstantSelect:1
+      |vpiIndexedPartSelectType:1
+      |vpiBaseExpr:
+      \_operation: , id:#, line:#, endln:#
+        |vpiParent:
+        \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:#, endln:#
+        |vpiOpType:33
+        |vpiOperand:
+        \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i), id:#, line:#, endln:#
+          |vpiParent:
+          \_operation: , id:#, line:#, endln:#
+          |vpiName:off_i
+          |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i
+        |vpiOperand:
+        \_constant: , id:#, line:#, endln:#
+          |vpiDecompile:3'b0
+          |vpiSize:3
+          |BIN:0
+          |vpiConstType:3
+      |vpiWidthExpr:
+      \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW), id:#, line:#, endln:#
+        |vpiParent:
+        \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:#, endln:#
+        |vpiName:FW

@@ -1,0 +1,43 @@
+== INDEPENDENT SWEEPS at d24291a2 (own binary, own workdirs, --jobs 2)
+-- uhdm2rtlil, per mode:
+   default/CMP_EQUAL 768
+   default/CMP_NOTEQUAL 36
+   default/SLANG_REJECT 67
+   testflags/CMP_EQUAL 768
+   testflags/CMP_NOTEQUAL 36
+   testflags/SLANG_REJECT 67
+-- surelog, per mode:
+   default/CMP_EQUAL 469
+   default/CMP_NOTEQUAL 14
+   default/DEFERRED 5
+   default/SLANG_REJECT 285
+   default/SURELOG_FAIL 25
+   testflags/CMP_EQUAL 465
+   testflags/CMP_NOTEQUAL 12
+   testflags/DEFERRED 5
+   testflags/NO_DATABASE 3
+   testflags/NO_UHDM 1
+   testflags/SLANG_REJECT 286
+   testflags/SURELOG_FAIL 23
+   testflags/TIMEOUT 1
+   testflags/UNTRANSLATABLE 2
+
+-- row-for-row agreement with the READ-ONLY baselines (status per name x mode):
+   uhdm2rtlil  rows 1742  differing-status rows 0  CMP_NOTEQUAL set identical: True (72 rows)
+   surelog     rows 1596  differing-status rows 0  CMP_NOTEQUAL set identical: True (26 rows)
+
+-- POSITIVE CONTROL for the head extractor (known-EQUAL rows must read 0 cmp lines / 0 heads):
+   u2r     1DUnpackedArray default          0      0 cmp rc=0
+   u2r     1DUnpackedArray testflags        0      0 cmp rc=0
+   u2r     2DeclarationsInFor default          0      0 cmp rc=0
+   u2r     2DeclarationsInFor testflags        0      0 cmp rc=0
+   surelog 1364_2005      default          0      0 cmp rc=0
+   surelog 1364_2005      testflags        0      0 cmp rc=0
+   surelog AllBinding     default          0      0 cmp rc=0
+   surelog AllBinding     testflags        0      0 cmp rc=0
+
+-- head counts: every triaged row reads EXACTLY ONE head (grep -c '^LHS:')
+   u2r     rows with 1 head: 72  (72 expected)
+   surelog rows with 1 head: 20  (20 expected)
+   SKIP-NOFILE rows: u2r 0, surelog 2   (tail lines: "-- measured=76 SKIP-NOFILE=0" / "-- measured=24 SKIP-NOFILE=2")
+   (the two surelog SKIPs are Rggen/testflags and Scoreboard/testflags, neither a not-equal row)

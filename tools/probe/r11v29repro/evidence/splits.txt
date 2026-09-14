@@ -1,0 +1,179 @@
+== THE SPLITS: rows whose head does NOT carry the cluster's CLAIMED face
+Each quote is the official uhdm-cmp head, ids + source locations blinded.
+
+---------------- SPLIT 1: port_chained_type_param OUT OF K4
+K4's claimed face: 'golden packed_array_typespec/array_typespec (range + vpiElemTypespec),
+ours the bare element typespec' - a LOST DIMENSION.
+The four that DO carry it (golden side, first lines):
+   type_param_packed_dim          packed_array_typespec: , id:#, line:#, endln:#
+                                    golden carries a range: 2
+   type_param_override_elem_sel   packed_array_typespec: , id:#, line:#, endln:#
+                                    golden carries a range: 2
+   anon_struct_packed_dim         packed_array_typespec: , id:#, line:#, endln:#
+                                    golden carries a range: 2
+   type_param_unpacked_port       array_typespec: , id:#, line:#, endln:#
+                                    golden carries a range: 2
+port_chained_type_param does NOT - golden's head has NO range at all:
+   GOLDEN:
+   LHS:
+   decompile:
+   struct_typespec: , id:#, line:#, endln:#
+   |vpiPacked:1
+   vpiRange lines in golden's head: 0
+   OURS  :
+   RHS:
+   decompile:
+   logic_typespec: , id:#, line:#, endln:#
+   |vpiParent:
+   \_type_parameter: (work@dut.noc_req_t), id:#, line:#, endln:#
+   FACE: a CHAINED type-parameter override resolves to golden's struct_typespec (3
+   typespec_members) where we emit a logic_typespec.  No dimension is involved.
+
+---------------- SPLIT 2: genvar_pow_index OUT OF K3
+K3's claimed face: 'the fold DECISION' - golden keeps a symbolic leaf where we fold,
+or folds where we keep.  genvar_pow_index folds NOTHING on either side; our OPERAND
+VECTOR is short by one (golden 2 operands, ours 1):
+   GOLDEN:
+   LHS:
+   decompile:
+   operation: , id:#, line:#, endln:#
+   |vpiParent:
+   \_gen_for: , id:#
+   |vpiOpType:20
+   |vpiOperand:
+   \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+   OURS  :
+   RHS:
+   decompile:
+   operation: , id:#, line:#, endln:#
+   |vpiParent:
+   \_gen_for: , id:#
+   |vpiOpType:20
+   |vpiOperand:
+   \_ref_obj: (work@genvar_pow_index.NumLevels), id:#, line:#, endln:#
+     |vpiParent:
+     \_operation: , id:#, line:#, endln:#
+     |vpiName:NumLevels
+     |vpiFullName:work@genvar_pow_index.NumLevels
+   golden vpiOperand lines: 4   ours vpiOperand lines: 2
+   (uhdm-cmp prints each side's decompile TWICE, so that is 2 operands vs 1.)
+   FACE: the gen_for condition's LEFT operand - $unsigned(genvar) - is ABSENT from ours.
+
+---------------- SPLIT 3: StructParamPatternInitCast OUT OF K3
+Its head is the MIRROR null: golden has nothing, and our constant has NO vpiParent.
+   LHS: <null>
+   RHS:
+   decompile:
+   constant: , id:#, line:#, endln:#
+   |vpiDecompile:32'd64
+   |vpiSize:32
+   |DEC:64
+   |vpiConstType:1
+   
+   decompile:
+   constant: , id:#, line:#, endln:#
+   |vpiDecompile:32'd64
+   |vpiSize:32
+   |DEC:64
+   |vpiConstType:1
+   FACE: an ORPHAN over-minted constant, not a fold decision.
+
+---------------- SPLIT 4: StructParamFuncBodyFieldCompare OUT OF K6
+K6's claimed face: 'same value, SAME CONTEXT, vpiSize differs (golden 32, ours 64)'.
+The three that carry it sit under a \_range: parent on BOTH sides:
+   genscope_struct_member   golden parent \_range:     ours parent \_range:
+   ibex_pmp                 golden parent \_range:     ours parent \_range:
+   latch_perf_counters      golden parent \_range:     ours parent \_range:
+   StructParamFuncBodyFieldCompare golden parent \_operation: ours parent \_sys_func_call:
+   -> its context is NOT the same on the two sides: golden has already dropped the
+   $unsigned wrapper, we keep it.  Clearing the 32/64 size alone leaves that wrapper
+   mismatch behind, so this row is a fold-DECISION row wearing a size face.
+   GOLDEN:
+   LHS:
+   decompile:
+   constant: , id:#, line:#, endln:#
+   |vpiParent:
+   \_operation: , id:#, line:#, endln:#
+   |vpiDecompile:64
+   |vpiSize:32
+   |UINT:64
+   |vpiConstType:9
+   OURS  :
+   RHS:
+   decompile:
+   constant: , id:#, line:#, endln:#
+   |vpiParent:
+   \_sys_func_call: ($unsigned), id:#
+   |vpiDecompile:64
+   |vpiSize:64
+   |UINT:64
+   |vpiConstType:9
+
+---------------- SPLIT 5: packed_array_struct OUT OF K8
+K8's claimed face: 'a folded constant's ENCODING AT EQUAL SIZE'.
+packed_array_struct's two sides agree on the encoding (BIN, ct 3) and differ ONLY in
+vpiSize - and not 32-vs-64 but UNSIZED(-1) vs SIZED(168):
+   GOLDEN:
+   LHS:
+   decompile:
+   constant: , id:#, line:#, endln:#
+   |vpiParent:
+   \_cont_assign: , id:#, line:#, endln:#
+   |vpiDecompile:'0
+   |vpiSize:-1
+   |BIN:0
+   |vpiConstType:3
+   OURS  :
+   RHS:
+   decompile:
+   constant: , id:#, line:#, endln:#
+   |vpiParent:
+   \_cont_assign: , id:#, line:#, endln:#
+   |vpiDecompile:'0
+   |vpiSize:168
+   |BIN:0
+   |vpiConstType:3
+   The other two K8 rows DO share 'same size, different const type':
+   ibex_icache      size 32 both sides, golden INT ct7 / ours UINT ct9
+   struct_param_dim size 32 both sides, golden BIN ct3 / ours UINT ct9
+
+---------------- SPLIT 6: K11 is not one face, it is two
+dyn_field_select  - the two hier_paths carry the SAME VpiName; the disagreement is in
+                    Path_elems (golden bit_select+vpiIndex, ours one composite ref_obj):
+   GOLDEN:
+   LHS:
+   decompile:
+   hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:#, line:#, endln:#
+   |vpiParent:
+   \_cont_assign: , id:#, line:#, endln:#
+   |vpiActual:
+   \_bit_select: (tbl[row_i]), id:#, line:#, endln:#
+   OURS  :
+   RHS:
+   decompile:
+   hier_path: (tbl[row_i][col_i].sat[sel_i][1]), id:#, line:#, endln:#
+   |vpiParent:
+   \_cont_assign: , id:#, line:#, endln:#
+   |vpiActual:
+   \_ref_obj: (tbl[row_i][col_i]), id:#, line:#, endln:#
+struct_member_expr_index - the path element KINDS agree (hier_path over bit_select on
+                    both sides); what differs is the NAME TEXT on the hier_path and on the
+                    bit_select - golden folded the index, we left it symbolic:
+   GOLDEN:
+   LHS:
+   decompile:
+   hier_path: (value.mantissa[23 - 1]), id:#, line:#, endln:#
+   |vpiParent:
+   \_cont_assign: , id:#, line:#, endln:#
+   |vpiActual:
+   \_ref_obj: (value), id:#, line:#, endln:#
+   OURS  :
+   RHS:
+   decompile:
+   hier_path: (value.mantissa[p::MAN_BITS - 1]), id:#, line:#, endln:#
+   |vpiParent:
+   \_cont_assign: , id:#, line:#, endln:#
+   |vpiActual:
+   \_ref_obj: (value), id:#, line:#, endln:#
+   Two different judged fields (Path_elems vs VpiName), two different producer
+   decisions.  Sharing the object KIND hier_path is not sharing a FACE.

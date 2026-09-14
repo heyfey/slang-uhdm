@@ -1,0 +1,39 @@
+==== CLUSTER K9 — 2 rows
+
+---- u2r/packed_array_struct_port_sel   FACE: elaborated packed_array_var `T [1:0] arr_i`: golden links vpiTypespec -> ref_typespec -> struct_typespec, ours emits NO typespec
+    LHS:
+    decompile:
+    ref_typespec: (work@tb.d.arr_i), id:#
+    |vpiParent:
+    \_packed_array_var: (work@tb.d.arr_i), id:#, line:#, endln:#
+    |vpiFullName:work@tb.d.arr_i
+    |vpiActual:
+    \_struct_typespec: (my_t), id:#, line:#, endln:#
+    
+    decompile:
+    ref_typespec: (work@tb.d.arr_i), id:#
+    |vpiParent:
+    \_packed_array_var: (work@tb.d.arr_i), id:#, line:#, endln:#
+    |vpiFullName:work@tb.d.arr_i
+    |vpiActual:
+    \_struct_typespec: (my_t), id:#, line:#, endln:#
+    RHS: <null>
+
+---- u2r/struct_member_cfg_width   FACE: logic_net `fu_data_t fu_data_i`: golden links vpiTypespec -> ref_typespec -> struct_typespec, ours emits NO typespec
+    LHS:
+    decompile:
+    ref_typespec: (work@struct_member_cfg_width.fu_data_i), id:#
+    |vpiParent:
+    \_logic_net: (work@struct_member_cfg_width.fu_data_i), id:#, line:#, endln:#
+    |vpiFullName:work@struct_member_cfg_width.fu_data_i
+    |vpiActual:
+    \_struct_typespec: (fu_data_t), id:#, line:#, endln:#
+    
+    decompile:
+    ref_typespec: (work@struct_member_cfg_width.fu_data_i), id:#
+    |vpiParent:
+    \_logic_net: (work@struct_member_cfg_width.fu_data_i), id:#, line:#, endln:#
+    |vpiFullName:work@struct_member_cfg_width.fu_data_i
+    |vpiActual:
+    \_struct_typespec: (fu_data_t), id:#, line:#, endln:#
+    RHS: <null>

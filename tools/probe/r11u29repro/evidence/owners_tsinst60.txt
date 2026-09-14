@@ -1,0 +1,29 @@
+== owners.sh / r10earl60repro tsinst60 on three RHS:<null> heads
+   calibration (golden vs ITSELF) is clean on every row: 'NO HEAD (databases compare equal)'.
+   Every row then reports POOL-EMPTY: tsinst60's candidate pool is typespec::Instance
+   edges only, and these heads hang on a Typespec edge, so the tool cannot name the
+   owner here.  The owners quoted in TRIAGE.md come from golden's own vpiParent of
+   the head, confirmed in the golden dump.  Recorded so the next pass does not
+   re-discover the limit.
+
+---- const_cast_signext.owner.txt
+golden objs=376 ours objs=374
+HEAD r=1
+  LHS: ref_typespec()@:0:0-0:0#42
+  RHS: <null>
+POOL typespecs with Instance()==head-LHS: 0
+POOL-EMPTY
+---- struct_member_cfg_width.owner.txt
+golden objs=445 ours objs=433
+HEAD r=1
+  LHS: ref_typespec()@:0:0-0:0#505
+  RHS: <null>
+POOL typespecs with Instance()==head-LHS: 0
+POOL-EMPTY
+---- typed_named_pattern.owner.txt
+golden objs=463 ours objs=467
+HEAD r=1
+  LHS: ref_typespec()@:0:0-0:0#103
+  RHS: <null>
+POOL typespecs with Instance()==head-LHS: 0
+POOL-EMPTY

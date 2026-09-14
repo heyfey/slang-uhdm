@@ -1,0 +1,14 @@
+== re-read stability: the official uhdm-cmp run TWICE on the same pair, and both
+   compared against the survey's own recorded head.  A partially written dump
+   reads like a result (RESUME.md 9), so every long head is re-read before it is
+   attributed.
+packed_struct_array_fifo STABLE (6446 cmp lines)
+param_type_logic_width STABLE (390 cmp lines)
+interface_array_fanout STABLE (351 cmp lines)
+ibex_icache STABLE (64 cmp lines)
+ibex_pmp STABLE (36 cmp lines)
+ibex_tracer STABLE (36 cmp lines)
+dyn_field_select STABLE (160 cmp lines)
+
+Rggen (801 cmp lines, the longest surelog head) re-read:
+Rggen STABLE (801 cmp lines)

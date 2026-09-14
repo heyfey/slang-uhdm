@@ -1,0 +1,34 @@
+== K2 CENSUS, RE-RUN UNFILTERED  (r11u29's own nettype_census.py, my own dumps)
+
+r11u29 TRIAGE.md claims: "A depth-keyed census over the five designs, calibrated
+golden-vs-golden to 0 disagreements first, isolates the whole footprint - 10 nets,
+and nothing else in any of the five databases".
+
+The committed evidence file lists exactly those 10 DISAGREE lines and DROPS each
+golden-vs-ours summary line.  Re-run unfiltered, the same script on the same five
+designs reports:
+
+   gen_scope_numports               calib(golden vs itself): -- rows golden=77 ours=77 disagree=0
+                                    golden vs ours         : -- rows golden=77 ours=103 disagree=30
+                                    of which golden=False/ours=True (the claimed face): 4
+
+   packed_array_reset_loop          calib(golden vs itself): -- rows golden=16 ours=16 disagree=0
+                                    golden vs ours         : -- rows golden=16 ours=16 disagree=3
+                                    of which golden=False/ours=True (the claimed face): 3
+
+   param_name_collision_typeparam   calib(golden vs itself): -- rows golden=60 ours=60 disagree=0
+                                    golden vs ours         : -- rows golden=60 ours=63 disagree=4
+                                    of which golden=False/ours=True (the claimed face): 1
+
+   latch_packed_enum_loop           calib(golden vs itself): -- rows golden=8 ours=8 disagree=0
+                                    golden vs ours         : -- rows golden=8 ours=8 disagree=1
+                                    of which golden=False/ours=True (the claimed face): 1
+
+   arb_idx_cast                     calib(golden vs itself): -- rows golden=12 ours=12 disagree=0
+                                    golden vs ours         : -- rows golden=12 ours=12 disagree=1
+                                    of which golden=False/ours=True (the claimed face): 1
+
+   TOTAL disagreements 39, of which 10 are the claimed vpiNetType face.
+   The calibration IS clean (0 on all five) - that part of the claim holds.
+   The FOOTPRINT BOUND does not: 29 further rows disagree, and in
+   gen_scope_numports our dump carries 103 net rows against golden's 77.

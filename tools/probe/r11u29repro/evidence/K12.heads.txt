@@ -1,0 +1,93 @@
+==== CLUSTER K12 — 2 rows
+
+---- u2r/packed_struct_array_fifo   FACE: module_inst net list: golden's DEF carries an extra logic_net `d_t` (netType 1) named after the typedef, ours has none
+    LHS:
+    decompile:
+    module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:#, file:, line:#, endln:#
+    |vpiParent:
+    \_design: (work@packed_struct_array_fifo), id:#
+    |vpiFullName:work@packed_struct_array_fifo
+    |vpiParameter:
+    \_parameter: (work@packed_struct_array_fifo.DEPTH), id:#, line:#, endln:#
+      |vpiParent:
+      \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:#, file:, line:#, endln:#
+      |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@packed_struct_array_fifo.DEPTH), id:#
+        |vpiParent:
+        \_parameter: (work@packed_struct_array_fifo.DEPTH), id:#, line:#, endln:#
+        |vpiFullName:work@packed_struct_array_fifo.DEPTH
+        |vpiActual:
+        \_int_typespec: , id:#, line:#, endln:#
+      |vpiName:DEPTH
+      |vpiFullName:work@packed_struct_array_fifo.DEPTH
+    |vpiParameter:
+    \_type_parameter: (work@packed_struct_array_fifo.dtype), id:#, line:#, endln:#
+      |vpiParent:
+      \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:#, file:, line:#, endln:#
+      |vpiName:dtype
+      |vpiFullName:work@packed_struct_array_fifo.dtype
+      |vpiTypespec:
+      \_ref_typespec: (work@packed_struct_array_fifo.dtype), id:#
+        |vpiParent:
+        \_type_parameter: (work@packed_struct_array_fifo.dtype), id:#, line:#, endln:#
+        |vpiFullName:work@packed_struct_array_fifo.dtype
+        |vpiActual:
+        \_struct_typespec: (d_t), id:#, line:#, endln:#
+    |vpiParameter:
+    \_parameter: (work@packed_struct_array_fifo.ADDR_DEPTH), id:#, line:#, endln:#
+      |vpiParent:
+      \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:#, file:, line:#, endln:#
+      |vpiTypespec:
+      \_ref_typespec: (work@packed_struct_array_fifo.ADDR_DEPTH), id:#
+        |vpiParent:
+        \_parameter: (work@packed_struct_array_fifo.ADDR_DEPTH), id:#, line:#, endln:#
+        |vpiFullName:work@packed_struct_array_fifo.ADDR_DEPTH
+        |vpiActual:
+        \_int_typespec: , id:#, line:#, endln:#
+
+---- u2r/param_type_logic_width   FACE: module_inst net list: golden's shift_reg DEF carries an extra logic_net `b` (netType 1), ours has none
+    LHS:
+    decompile:
+    module_inst: work@shift_reg (work@shift_reg), id:#, file:, line:#, endln:#
+    |vpiParent:
+    \_design: (work@tb), id:#
+    |vpiFullName:work@shift_reg
+    |vpiParameter:
+    \_type_parameter: (work@shift_reg.dtype), id:#, line:#, endln:#
+      |vpiParent:
+      \_module_inst: work@shift_reg (work@shift_reg), id:#, file:, line:#, endln:#
+      |vpiName:dtype
+      |vpiFullName:work@shift_reg.dtype
+      |vpiTypespec:
+      \_ref_typespec: (work@shift_reg.dtype), id:#
+        |vpiParent:
+        \_type_parameter: (work@shift_reg.dtype), id:#, line:#, endln:#
+        |vpiFullName:work@shift_reg.dtype
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+    |vpiDefName:work@shift_reg
+    |vpiNet:
+    \_logic_net: (work@shift_reg.d_i), id:#, line:#, endln:#
+      |vpiParent:
+      \_module_inst: work@shift_reg (work@shift_reg), id:#, file:, line:#, endln:#
+      |vpiName:d_i
+      |vpiFullName:work@shift_reg.d_i
+    |vpiNet:
+    \_logic_net: (work@shift_reg.d_o), id:#, line:#, endln:#
+      |vpiParent:
+      \_module_inst: work@shift_reg (work@shift_reg), id:#, file:, line:#, endln:#
+      |vpiName:d_o
+      |vpiFullName:work@shift_reg.d_o
+    |vpiNet:
+    \_logic_net: (work@shift_reg.b), id:#, line:#, endln:#
+      |vpiParent:
+      \_module_inst: work@shift_reg (work@shift_reg), id:#, file:, line:#, endln:#
+      |vpiName:b
+      |vpiFullName:work@shift_reg.b
+      |vpiNetType:1
+    |vpiPort:
+    \_port: (d_i), id:#, line:#, endln:#
+      |vpiParent:
+      \_module_inst: work@shift_reg (work@shift_reg), id:#, file:, line:#, endln:#
+      |vpiName:d_i

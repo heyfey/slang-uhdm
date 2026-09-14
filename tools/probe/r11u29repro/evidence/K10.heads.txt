@@ -1,0 +1,93 @@
+==== CLUSTER K10 — 2 rows
+
+---- u2r/interface_array_fanout   FACE: interface ARRAY element: golden has interface_inst work@dut.f.m[0] with its variables, ours <null>
+    LHS:
+    decompile:
+    interface_inst: work@myif (work@dut.f.m[0]), id:#, file:, line:#
+    |vpiParent:
+    \_module_inst: work@fanout (work@dut.f), id:#, file:, line:#, endln:#
+    |vpiName:m[0]
+    |vpiFullName:work@dut.f.m[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.f.m[0].vld), id:#, line:#, endln:#
+      |vpiParent:
+      \_interface_inst: work@myif (work@dut.f.m[0]), id:#, file:, line:#
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.f.m[0].vld), id:#
+        |vpiParent:
+        \_logic_var: (work@dut.f.m[0].vld), id:#, line:#, endln:#
+        |vpiFullName:work@dut.f.m[0].vld
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiName:vld
+      |vpiFullName:work@dut.f.m[0].vld
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.f.m[0].dat), id:#, line:#, endln:#
+      |vpiParent:
+      \_interface_inst: work@myif (work@dut.f.m[0]), id:#, file:, line:#
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.f.m[0].dat), id:#
+        |vpiParent:
+        \_logic_var: (work@dut.f.m[0].dat), id:#, line:#, endln:#
+        |vpiFullName:work@dut.f.m[0].dat
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiName:dat
+      |vpiFullName:work@dut.f.m[0].dat
+      |vpiVisibility:1
+    |vpiParamAssign:
+    \_param_assign: , id:#, line:#, endln:#
+      |vpiParent:
+      \_interface_inst: work@myif (work@dut.f.m[0]), id:#, file:, line:#
+      |vpiRhs:
+      \_constant: , id:#, line:#, endln:#
+        |vpiParent:
+        \_param_assign: , id:#, line:#, endln:#
+        |vpiDecompile:8
+
+---- surelog/Rggen   FACE: interface ARRAY element: golden has interface_inst ...u_adapter.register_if[0] with its variables, ours <null> (default only)
+    LHS:
+    decompile:
+    interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:, line:#
+    |vpiParent:
+    \_module_inst: work@rggen_apb_adapter (work@rggen.u_block_0.u_adapter), id:#, file:, line:#, endln:#
+    |vpiName:register_if[0]
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+    |vpiVariables:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:#, line:#, endln:#
+      |vpiParent:
+      \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:, line:#
+      |vpiTypespec:
+      \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:#
+        |vpiParent:
+        \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:#, line:#, endln:#
+        |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].valid
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiName:valid
+      |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].valid
+      |vpiVisibility:1
+    |vpiVariables:
+    \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:#, line:#, endln:#
+      |vpiParent:
+      \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:, line:#
+      |vpiTypespec:
+      \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:#
+        |vpiParent:
+        \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:#, line:#, endln:#
+        |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].access
+        |vpiActual:
+        \_enum_typespec: (rggen_rtl_pkg::rggen_access), id:#, line:#, endln:#
+      |vpiName:access
+      |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].access
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:#, line:#, endln:#
+      |vpiParent:
+      \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:#, file:, line:#
+      |vpiTypespec:
+      \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:#
+        |vpiParent:
+        \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:#, line:#, endln:#
+        |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].address

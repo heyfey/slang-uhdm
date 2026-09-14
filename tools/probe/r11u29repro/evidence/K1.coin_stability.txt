@@ -1,0 +1,10 @@
+== coin-family double-run head stability (two INDEPENDENT database builds of the same rows)
+   run1 = the full survey sweep workdir; run2 = a second --filter sweep with its own workdir.
+MiniAmiq/default STABLE-HEAD (id-blind identical across the two builds)
+MiniAmiq/testflags STABLE-HEAD (id-blind identical across the two builds)
+SeqDriver/default STABLE-HEAD (id-blind identical across the two builds)
+SeqDriver/testflags STABLE-HEAD (id-blind identical across the two builds)
+SimpleUVM/default STABLE-HEAD (id-blind identical across the two builds)
+SimpleUVM/testflags STABLE-HEAD (id-blind identical across the two builds)
+Scoreboard/default STABLE-HEAD (id-blind identical across the two builds)
+Scoreboard/testflags not a not-equal row in this mode

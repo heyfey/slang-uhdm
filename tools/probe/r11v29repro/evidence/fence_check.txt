@@ -1,0 +1,27 @@
+== FENCE CHECK (names never spelled here; only counted)
+The fence list was rebuilt independently from a committed driver's own FENCED= line
+(tools/probe/r10sd4repro/canaudit.sh:37) - 4 names.
+
+surelog CMP_NOTEQUAL rows at the baseline        : 26
+rows surviving the exclusion (this survey's rows) : 20
+rows excluded                                     : 6  (3 tests x 2 modes)
+every excluded NAME is an EXACT member of the fence list (exact string equality,
+so a longer test name containing a fenced name cannot be over-excluded): True
+fenced tests that are NOT not-equal at this base   : 1
+
+-- r11u29's patch, scanned for each fenced name (hit counts only):
+   fenced[1] hits in /tmp/r11u29.patch: 0
+   fenced[2] hits in /tmp/r11u29.patch: 0
+   fenced[3] hits in /tmp/r11u29.patch: 0
+   fenced[4] hits in /tmp/r11u29.patch: 0
+-- the CORRECTED probe tree (r11u29repro + r11v29repro), same scan:
+   fenced[1] hits: 0
+   fenced[2] hits: 0
+   fenced[3] hits: 0
+   fenced[4] hits: 0
+
+-- no fenced test was dispatched: this verifier's sweeps are WHOLE-CORPUS harness
+   runs (the harness enumerates the corpus itself); the only NAMED dispatch was
+   rowheads.sh over the 20 surviving surelog rows + 36 u2r tests + 4 controls,
+   and the second --filter sweep over the five coin/UVM names.
+-- the raw sweep CSVs are NOT committed (a whole-corpus CSV spells the fenced names).

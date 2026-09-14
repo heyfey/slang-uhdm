@@ -1,0 +1,13 @@
+== r11v29 (adversarial verifier of r11u29) — INDEPENDENT PRISTINE BUILD
+worktree /tmp/wt_v11u29 at d24291a2, configured and built from scratch (-j 2),
+NOT copied from the main tree.  cmake: Release, gcc-toolset-14 c++,
+slang_DIR=~/.local/lib64/cmake/slang  UHDM_DIR=~/.local/lib64/cmake/UHDM
+
+built binary md5 : 62547ac98ebcfdeb522171dc946d50ad
+PIN              : 62547ac98ebcfdeb522171dc946d50ad
+main tree binary : 62547ac98ebcfdeb522171dc946d50ad
+=> the pin is REPRODUCIBLE from source; r11u29's copy-instead-of-build shortcut
+   is therefore sound (this verifier did the build it skipped).
+
+frozen for every sweep: /tmp/v11u29_sc/pris.bin (chmod 555), exported as SLANG_UHDM.
+cmds.txt audit, uhdm2rtlil workdir: 1742 files, 0 NOT naming the frozen binary.
