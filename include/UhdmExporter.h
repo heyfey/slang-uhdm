@@ -1964,6 +1964,27 @@ private:
     // clones too; `VpiParent` is not read by any generated `Compare`, but the
     // aliasing hazard of a share is real and golden's own ids say clone.
     UHDM::operation* memLeftPatParamClone26(const UHDM::any* src);
+    // § patOpMemberAsmSplit28 (r11u28) — the producer's `assemble()` renders an
+    // OPERATION-valued member as its operands at `mw / n` bits each (first
+    // operand at the MSBs) and BAILS THE WHOLE STRUCT when `mw % n`
+    // (ExprEval.cpp :4953-4956, and :5008 hands the `struct_var` back).
+    // `memLeftPatOpSrc28` asks, AT THE PARAM SITE, whether a member's read
+    // parameter is the one § patParamLeftoverShare26 will later leave an
+    // operation on; `memLeftPatOpAsmSplit28` rewrites the assembled bit string
+    // and returns FALSE for the bail.
+    const UHDM::operation* memLeftPatOpSrc28(const slang::ast::Symbol* rd);
+    bool memLeftPatOpAsmSplit28(const slang::ast::Type& st,
+                                const std::vector<SrlgMemLeft>& lo,
+                                std::string& bits);
+    // § patOpMemberSelSplit28 (r11u28) — the split bits of every parameter this
+    // law assembled, and the member read that slices them (golden's
+    // `hierarchicalSelector` takes the member out of the ASSEMBLED value, so a
+    // reader sees the same `mw / n` rendering).
+    std::map<const slang::ast::Symbol*, std::string> patOpAsmBits28;
+    const std::string* memLeftAsmSplitBits28(
+        const slang::ast::Expression& base);
+    bool memLeftPatOpSelValue28(const slang::ast::ParameterSymbol& ps,
+                                slang::SVInt& out);
     // The call whose result initializes a parameter, when that call reaches
     // srlgEvalFuncMemberLeftovers. Returns the subroutine or null.
     const slang::ast::SubroutineSymbol* memLeftInitCall(

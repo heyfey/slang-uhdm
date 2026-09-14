@@ -1820,6 +1820,290 @@ UHDM::operation* UhdmExporter::memLeftPatParamClone26(const UHDM::any* src) {
     return op;
 }
 
+// § patOpMemberAsmSplit28 (r11u28) — THE ASSEMBLY OVER AN OPERATION-VALUED
+// MEMBER RENDERS EACH OPERAND AT THE MEMBER WIDTH DIVIDED BY THE OPERAND
+// COUNT, AND BAILS OUTRIGHT WHEN THE WIDTH DOES NOT DIVIDE.
+//
+// THE PRODUCER, read from source (UHDM v1.87 `templates/ExprEval.cpp`, inside
+// `reduceExpr`'s `uhdmstruct_var` arm's `assemble()` lambda):
+//
+//   :4894  expr *rme = reduceExpr((any *)mv, …)        // the member's leftover
+//   :4898  if (… rme is a constant) b = toBinary(rme)  // the constant road
+//   …else the leftover is an OPERATION and:
+//   :4953      size_t n = op->Operands()->size();
+//   :4954      if (mw % n) { return false; }           // THE DIVISIBILITY BAIL
+//   :4956      uint64_t ew = mw / n;
+//   :4957-69   for each operand: reduce, toBinary, TRUNCATE to the low `ew`
+//              bits or LEFT-PAD with zeros to `ew`, append — FIRST OPERAND AT
+//              THE MSBs
+//   :4996  if (assemble(stps, bits) && !bits.empty()) { mint the BIN constant }
+//   :5008  return (expr *)result;                      // …else THE STRUCT_VAR
+//
+// `mw` is the MEMBER's own packed width, never the operand's natural one, and
+// `return false` inside the lambda aborts the WHOLE struct: one member that
+// does not divide leaves the parameter's elaborated Rhs a `struct_var` even
+// though every other member assembles.  Our assemblers build each member's
+// bits from slang's own folded value at the member's range, which coincides
+// with golden's answer exactly when `mw / n` IS the natural element width —
+// which is why r11u26's `m1`/`m4`/`m6`/`m7`/`m12`/`m13`/`m15` assemble
+// golden-exact and `m8` does not.
+//
+// MEASURED, one arm per face (this pass's grid, Surelog v1.87 goldens):
+//   a1  `un` 96 bits, 2 operands  -> 11 at 48 then 22 at 48      (r11u26 `m8`)
+//   a2  the same through the MODULE holder                       (identical)
+//   a4  `u` 120 bits, 3 operands  -> 1, 2, 3 each at 40 bits
+//   a5  the operand KIND is free: 8-bit ENUM elements zero-extend to 48
+//   a6  `u` 32 bits, 2 operands   -> each operand TRUNCATED to 16 bits
+//   a7  `u` 128 bits, 2 operands  -> each operand zero-extended to 64
+//   a3/a18/a19  `u` 95 bits, 2 operands -> golden's Rhs is a `struct_var`
+//
+// THE OPERAND RENDER is the producer's `toBinary`: the constant's own bits at
+// its own `VpiSize`, then truncated from the LSB end / left-padded to `ew`.
+static std::string memLeftConstBits28(const UHDM::constant* c) {
+    if (!c)
+        return std::string();
+    const int32_t sz = c->VpiSize();
+    if (sz <= 0)
+        return std::string();
+    std::string_view sv = c->VpiValue();
+    auto colon = sv.find(':');
+    if (colon == std::string_view::npos)
+        return std::string();
+    std::string_view body = sv.substr(colon + 1);
+    if (body.empty())
+        return std::string();
+    auto padTo = [&](std::string b) -> std::string {
+        if ((int32_t)b.size() < sz)
+            b.insert(b.begin(), (size_t)(sz - (int32_t)b.size()), '0');
+        return b;
+    };
+    switch (c->VpiConstType()) {
+        case vpiBinaryConst: {
+            for (char ch : body)
+                if (ch != '0' && ch != '1')
+                    return std::string();
+            return padTo(std::string(body));
+        }
+        case vpiHexConst:
+        case vpiOctConst: {
+            const int per = c->VpiConstType() == vpiHexConst ? 4 : 3;
+            std::string b;
+            for (char ch : body) {
+                int v;
+                if (ch >= '0' && ch <= '9')
+                    v = ch - '0';
+                else if (ch >= 'a' && ch <= 'f')
+                    v = ch - 'a' + 10;
+                else if (ch >= 'A' && ch <= 'F')
+                    v = ch - 'A' + 10;
+                else
+                    return std::string();
+                if (v >= (1 << per))
+                    return std::string();
+                for (int k = per - 1; k >= 0; k--)
+                    b += ((v >> k) & 1) ? '1' : '0';
+            }
+            return padTo(b);
+        }
+        case vpiDecConst:
+        case vpiIntConst:
+        case vpiUIntConst: {
+            // A NEGATIVE decimal is declined: the producer parses it through
+            // `NumUtils::parseIntLenient` into a uint64 and nothing in this
+            // pass's grid carries the shape, so a decline (which leaves the
+            // pre-existing bits untouched) is the honest answer.
+            if (body[0] == '-')
+                return std::string();
+            uint64_t v = 0;
+            auto [p, e] = std::from_chars(body.data(),
+                                          body.data() + body.size(), v);
+            if (e != std::errc() || p != body.data() + body.size())
+                return std::string();
+            std::string b((size_t)sz, '0');
+            for (int32_t k = 0; k < sz && k < 64; k++)
+                if ((v >> k) & 1ull)
+                    b[(size_t)(sz - 1 - k)] = '1';
+            return b;
+        }
+        default:
+            return std::string();
+    }
+}
+
+// The read parameter whose leftover § patParamLeftoverShare26 will install as
+// an OPERATION — the same acceptance test `memLeftPatParamClone26` applies,
+// asked at the PARAM SITE (the clone itself is minted in the design-final
+// drain, far too late for the assembler that has to render it).  A parameter
+// the landed constant arm answers (`elabParamConst`) is NOT this face.
+const UHDM::operation* UhdmExporter::memLeftPatOpSrc28(
+    const slang::ast::Symbol* rd) {
+    if (!rd || rd->kind != SymbolKind::Parameter)
+        return nullptr;
+    if (elabParamConst.count(rd))
+        return nullptr;
+    auto it = elabParamRhsObj6.find(rd);
+    if (it == elabParamRhsObj6.end() || !it->second)
+        return nullptr;
+    if (it->second->UhdmType() != UHDM::uhdmoperation)
+        return nullptr;
+    auto* op = (const UHDM::operation*)it->second;
+    if (op->VpiOpType() != vpiAssignmentPatternOp)
+        return nullptr;
+    auto* ops = op->Operands();
+    if (!ops || ops->empty())
+        return nullptr;
+    for (auto* o : *ops)
+        if (!o || o->UhdmType() != UHDM::uhdmconstant)
+            return nullptr;
+    return op;
+}
+
+// Rewrite the assembled bit string in place, member by member.  `bits` is
+// MSB-first over the struct's packed width, first declared member at the MSBs
+// — the layout both assemble roads already produce.  Returns FALSE when the
+// producer's `mw % n` test fails: that is the WHOLE-STRUCT bail, and the
+// caller must leave a `struct_var` behind rather than any constant.
+bool UhdmExporter::memLeftPatOpAsmSplit28(const Type& st,
+                                          const std::vector<SrlgMemLeft>& lo,
+                                          std::string& bits) {
+    auto& ct = st.getCanonicalType();
+    if (ct.kind != SymbolKind::PackedStructType || bits.empty())
+        return true;
+    // SHAPE FENCE first, so a struct this rule does not model can never take
+    // the bail branch: the fields must tile `bits` exactly and match `lo`.
+    size_t nf = 0, tot = 0;
+    for (auto& f : ct.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+        uint64_t fw = f.getType().getBitWidth();
+        if (fw == 0)
+            return true;
+        tot += (size_t)fw;
+        nf++;
+    }
+    if (nf != lo.size() || tot != bits.size())
+        return true;
+    std::string out;
+    out.reserve(bits.size());
+    size_t i = 0, pos = 0;
+    bool any = false;
+    for (auto& f : ct.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+        const size_t fw = (size_t)f.getType().getBitWidth();
+        std::string cur = bits.substr(pos, fw);
+        if (auto* op = memLeftPatOpSrc28(lo[i].paramRead)) {
+            const size_t n = op->Operands()->size();
+            if (fw % n)
+                return false;                   // THE DIVISIBILITY BAIL
+            const size_t ew = fw / n;
+            std::string b;
+            bool ok = true;
+            for (auto* o : *op->Operands()) {
+                std::string eb = memLeftConstBits28((const UHDM::constant*)o);
+                if (eb.empty()) {
+                    ok = false;
+                    break;
+                }
+                if (eb.size() > ew)
+                    eb = eb.substr(eb.size() - ew);
+                else
+                    while (eb.size() < ew)
+                        eb.insert(eb.begin(), '0');
+                b += eb;
+            }
+            if (ok && b.size() == fw) {
+                cur = b;
+                any = true;
+            }
+        }
+        out += cur;
+        pos += fw;
+        i++;
+    }
+    if (any)
+        bits = out;
+    return true;
+}
+
+// § patOpMemberSelSplit28 (r11u28) — AND A MEMBER READ OF SUCH A PARAMETER
+// SLICES THE SPLIT BITS.  The producer's `hierarchicalSelector` takes the
+// member out of the value `reduceExpr` assembled, so every reader of an
+// operation-valued member sees the `mw / n` rendering too and not the
+// language's own packed value: grid `a1`'s `localparam mid_t S2 = Q.un` is
+// golden `11` at 48 bits then `22` at 48 bits, `a6`'s `S1 = P.u` the two
+// 16-bit truncations, `a7`'s the two 64-bit extensions — one cell per arm,
+// and all three IDENTICAL on the two binaries before this law.
+//
+// The base is followed through parameter references (`kid`'s port parameter
+// whose default or override actual is the holder) exactly as the landed
+// § asmEncFollowsRef family follows one.
+const std::string* UhdmExporter::memLeftAsmSplitBits28(
+    const slang::ast::Expression& base) {
+    const Expression* b = &stripImplicitConv(base);
+    for (int h = 0; h < 8; h++) {
+        if (b->kind != ExpressionKind::NamedValue)
+            return nullptr;
+        auto& sy = b->as<NamedValueExpression>().symbol;
+        if (sy.kind != SymbolKind::Parameter)
+            return nullptr;
+        auto it = patOpAsmBits28.find(&sy);
+        if (it != patOpAsmBits28.end())
+            return &it->second;
+        auto* in = sy.as<ParameterSymbol>().getInitializer();
+        if (!in)
+            return nullptr;
+        b = &stripImplicitConv(*in);
+    }
+    return nullptr;
+}
+
+bool UhdmExporter::memLeftPatOpSelValue28(const slang::ast::ParameterSymbol& ps,
+                                          slang::SVInt& out) {
+    if (patOpAsmBits28.empty())
+        return false;
+    auto* init = ps.getInitializer();
+    if (!init)
+        return false;
+    const Expression* e = &stripImplicitConv(*init);
+    std::vector<const MemberAccessExpression*> chain;
+    for (int h = 0; h < 8 && e->kind == ExpressionKind::MemberAccess; h++) {
+        chain.push_back(&e->as<MemberAccessExpression>());
+        e = &stripImplicitConv(e->as<MemberAccessExpression>().value());
+    }
+    if (chain.empty())
+        return false;
+    const std::string* bits = memLeftAsmSplitBits28(*e);
+    if (!bits || bits->empty())
+        return false;
+    // The offset of the selected member inside the base struct, and its width.
+    uint64_t off = 0;
+    for (auto it = chain.rbegin(); it != chain.rend(); ++it) {
+        auto& mem = (*it)->member;
+        if (mem.kind != SymbolKind::Field)
+            return false;
+        off += mem.as<FieldSymbol>().bitOffset;
+    }
+    auto* sel = chain.front();
+    if (!sel->type || !sel->type->isIntegral())
+        return false;
+    const uint64_t mw = sel->type->getBitWidth();
+    if (mw == 0 || off + mw > bits->size())
+        return false;
+    std::string mb = bits->substr(bits->size() - off - mw, (size_t)mw);
+    const uint64_t bw = ps.getType().getBitWidth();
+    if (bw == 0 || bw > (uint64_t)UINT32_MAX)
+        return false;
+    if (mb.size() > bw)
+        mb = mb.substr(mb.size() - (size_t)bw);
+    else
+        while (mb.size() < bw)
+            mb.insert(mb.begin(), '0');
+    std::vector<slang::logic_t> digits;
+    digits.reserve(mb.size());
+    for (char ch : mb)
+        digits.push_back(ch == '1' ? slang::logic_t(1) : slang::logic_t(0));
+    out = slang::SVInt::fromDigits((slang::bitwidth_t)bw,
+                                   LiteralBase::Binary, false, false, digits);
+    return true;
+}
+
 // § patParamPatElem26v (r11v26, the VERIFIER's gate) — A PATTERN ELEMENT THAT
 // IS ITSELF A PATTERN LEAVES THE PRODUCER'S OPERATION UNTYPED, AND THE FLATTEN
 // IS GATED ON THE TYPESPEC.
@@ -2618,6 +2902,28 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                         if (st.patOpVal.size() < st.values.size())
                             st.patOpVal.resize(st.values.size(), false);
                         st.patOpVal[i] = true;
+                        continue;
+                    }
+                // § catParamLeftoverReduce28 (r11u28) — ...AND A CONCAT-VALUED
+                // PARAMETER READ WHOLE REDUCES.  `getValue` hands back the
+                // parameter's elaborated Rhs OBJECT whatever its kind
+                // (ExprEval.cpp :307); where an assignment pattern survives
+                // `reduceExpr` unreduced, a CONCATENATION does not — the
+                // vpiConcatOp arm (~3993) mints `BIN:<operand bits>` sized at
+                // the SUM OF THE OPERAND SIZES, with NO decompile and NO
+                // typespec, and THAT object is what `setValueInInstance`
+                // stamps.  This is the landed § modEvalFuncLeftoverEnc concat
+                // rule with a PARAMETER as the source instead of a body
+                // expression, so it runs the SAME reducer
+                // (`memLeftReduceCat`) over the same member bits.  Measured:
+                // r11u26 `m16`/`m9` (this pass's a10/a11) and a8 — golden
+                // `pk::k_t.c` = BIN size 64 where ours is the UINT value
+                // slice, byte-identical on the two binaries at the base.
+                if (rit != elabParamRhsObj6.end() && rit->second &&
+                    i < st.memBits.size())
+                    if (auto* cc28 =
+                            memLeftReduceCat(rit->second, st.memBits[i])) {
+                        st.values[i] = cc28;
                         continue;
                     }
             }
@@ -8664,7 +8970,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 continue;
             }
             if (cvo.isInteger()) {
-                auto& iv = cvo.integer();
+                // § patOpMemberSelSplit28 (r11u28) — A MEMBER READ OF A
+                // PARAMETER THIS LAW ASSEMBLED TAKES THE SPLIT BITS.  The
+                // producer's member select runs over the value `reduceExpr`
+                // assembled (`hierarchicalSelector`'s constant arm), so a
+                // reader of an operation-valued member sees the `mw / n`
+                // rendering and NOT the language's own packed value.  The
+                // whole encoding pipeline below is untouched: only the VALUE
+                // it renders is corrected, and only for a parameter whose base
+                // is in `patOpAsmBits28` — which no source acquires unless
+                // § patOpMemberAsmSplit28 actually changed that base's bits.
+                slang::SVInt ivSplit28;
+                const bool haveSplit28 =
+                    memLeftPatOpSelValue28(ps, ivSplit28);
+                const slang::SVInt& iv =
+                    haveSplit28 ? ivSplit28 : cvo.integer();
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
                 auto* c = s.MakeConstant();
                 // An untyped param whose DECLARED default is a string literal
@@ -10009,7 +10329,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // reduced RHS, and for `c.t.a = {16'h0, 16'h3}` its
                             // bits are `a`'s, not `t`'s (grid `n7`).
                             std::string cb9;
-                            if ((*leftovers)[li9].catRhs) {
+                            // § catParamLeftoverReduce28 (r11u28) — ...and for
+                            // a member written from a WHOLE READ OF A
+                            // PARAMETER too: when that parameter's own
+                            // elaborated Rhs is a CONCATENATION, the producer
+                            // reduces it exactly as it reduces a body concat,
+                            // and the drain needs these same bits to render
+                            // the BIN.  The string is stamp-local bookkeeping;
+                            // nothing reaches the database from it unless the
+                            // drain's reducer accepts the shape.
+                            if ((*leftovers)[li9].catRhs ||
+                                (*leftovers)[li9].paramRead) {
                                 uint64_t fw9 = (*leftovers)[li9].selWidth
                                                    ? (*leftovers)[li9].selWidth
                                                    : f9.getType().getBitWidth();
@@ -10100,6 +10430,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                              whole[k9] == slang::logic_t(1))
                                                 ? '1'
                                                 : '0';
+                                }
+                                // § patOpMemberAsmSplit28 — an OPERATION-valued
+                                // member is rendered `mw / n`, not sliced out
+                                // of the language's own packed value.  Applied
+                                // HERE, at the param site, so the constant the
+                                // readers and the override actuals inherit
+                                // (`elabParamConst`, § elabOvRefAsmBinConst)
+                                // carries it too.
+                                {
+                                    std::string pre28 = bits9;
+                                    if (memLeftPatOpAsmSplit28(ps.getType(),
+                                                               *leftovers,
+                                                               bits9) &&
+                                        bits9 != pre28)
+                                        patOpAsmBits28[&ps] = bits9;
+                                    else if (bits9.size() != pre28.size())
+                                        bits9 = pre28;
                                 }
                                 st9.owner = &ps;
                                 st9.pkgHolder = true;
@@ -10219,6 +10566,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                                 whole[k9] == slang::logic_t(1))
                                                    ? '1'
                                                    : '0';
+                                }
+                                // § patOpMemberAsmSplit28 — the MODULE road's
+                                // own `mw / n` rendering (grid a2 ≡ a1 cell for
+                                // cell: the producer is holder-blind).
+                                {
+                                    std::string pre28 = mb9;
+                                    if (memLeftPatOpAsmSplit28(ps.getType(),
+                                                               *leftovers,
+                                                               mb9) &&
+                                        mb9 != pre28)
+                                        patOpAsmBits28[&ps] = mb9;
+                                    else if (mb9.size() != pre28.size())
+                                        mb9 = pre28;
                                 }
                                 std::string mtp9 = prefix;
                                 if (mtp9.size() >= 2 &&
