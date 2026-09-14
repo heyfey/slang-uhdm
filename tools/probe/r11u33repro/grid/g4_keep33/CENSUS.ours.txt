@@ -1,0 +1,39 @@
+uhdmtopModules array_var(work@g4_keep33.c_arr)/module_instwork@g4_keep33 (work@g4_keep33) 49:15      L const INT:63@64 ct7                49:16      x1
+uhdmtopModules array_var(work@g4_keep33.c_arr)/module_instwork@g4_keep33 (work@g4_keep33) 49:15      R const UINT:1@64 ct9                49:24      x1
+uhdmtopModules logic_typespec                                       17:9       L const INT:63@64 ct7                17:10      x2
+uhdmtopModules logic_typespec                                       17:9       L op11(hier_path,constant)           17:10      x1
+uhdmtopModules logic_typespec                                       17:9       R const UINT:0@64 ct9                17:18      x3
+uhdmtopModules logic_typespec                                       27:59      L const UINT:31@64 ct9               27:60      x3
+uhdmtopModules logic_typespec                                       27:59      R const UINT:0@64 ct9                27:63      x3
+uhdmtopModules logic_typespec                                       32:47      L op11(hier_path,constant)           32:48      x6
+uhdmtopModules logic_typespec                                       32:47      L op11(ref_obj,constant)             32:48      x1
+uhdmtopModules logic_typespec                                       32:47      R const UINT:0@64 ct9                32:53      x7
+uhdmtopModules logic_typespec                                       33:9       L op11(hier_path,constant)           33:10      x3
+uhdmtopModules logic_typespec                                       33:9       L op11(ref_obj,constant)             33:10      x1
+uhdmtopModules logic_typespec                                       33:9       R const UINT:0@64 ct9                33:15      x4
+uhdmtopModules logic_typespec                                       42:18      L const INT:63@64 ct7                42:19      x2
+uhdmtopModules logic_typespec                                       42:18      L op11(hier_path,constant)           42:19      x1
+uhdmtopModules logic_typespec                                       42:18      R const UINT:0@64 ct9                42:27      x3
+uhdmtopModules logic_typespec                                       43:18      L const INT:15@64 ct7                43:19      x2
+uhdmtopModules logic_typespec                                       43:18      L op11(ref_obj,constant)             43:19      x1
+uhdmtopModules logic_typespec                                       43:18      R const UINT:0@64 ct9                43:24      x3
+uhdmtopModules logic_typespec                                       44:18      L const INT:63@64 ct7                44:19      x2
+uhdmtopModules logic_typespec                                       44:18      L op11(hier_path,constant)           44:19      x1
+uhdmtopModules logic_typespec                                       44:18      R const UINT:0@64 ct9                44:27      x3
+uhdmtopModules logic_typespec                                       47:9       L const INT:63@64 ct7                47:10      x1
+uhdmtopModules logic_typespec                                       47:9       L op11(hier_path,constant)           47:10      x1
+uhdmtopModules logic_typespec                                       47:9       R const UINT:0@64 ct9                47:18      x2
+uhdmtopModules logic_typespec                                       48:9       L const INT:15@64 ct7                48:10      x1
+uhdmtopModules logic_typespec                                       48:9       L op11(ref_obj,constant)             48:10      x1
+uhdmtopModules logic_typespec                                       48:9       R const UINT:0@64 ct9                48:15      x2
+uhdmtopModules logic_typespec                                       59:11      L const INT:63@64 ct7                59:12      x2
+uhdmtopModules logic_typespec                                       59:11      R const UINT:0@64 ct9                59:20      x2
+uhdmtopModules logic_typespec                                       60:11      L const INT:15@64 ct7                60:12      x2
+uhdmtopModules logic_typespec                                       60:11      R const UINT:0@64 ct9                60:17      x2
+uhdmtopModules logic_typespec(t_cfg)                                52:17      L const INT:63@64 ct7                -          x1
+uhdmtopModules logic_typespec(t_cfg)                                52:17      L op11(hier_path,constant)           52:18      x1
+uhdmtopModules logic_typespec(t_cfg)                                52:17      R const UINT:0@64 ct9                52:26      x2
+uhdmtopModules logic_typespec(t_pn)                                 53:17      L const INT:15@64 ct7                -          x1
+uhdmtopModules logic_typespec(t_pn)                                 53:17      L op11(ref_obj,constant)             53:18      x1
+uhdmtopModules logic_typespec(t_pn)                                 53:17      R const UINT:0@64 ct9                53:23      x2
+-- ranges=39 rows=78

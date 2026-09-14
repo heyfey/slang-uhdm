@@ -1,0 +1,11 @@
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/InterfaceUnpackedStructArrayDim-70b7f8f3/slang.uhdm  patched=fe0f8502b7ad pristine=b18d9eef38dd
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=aee0bc609d17 pristine=01d022dacb72
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=e70775324004 pristine=1621aec6c9f3
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=982c927a89f3 pristine=49d8efe2729b
+MOVER ./testflags/InterfaceUnpackedStructArrayDim-70b7f8f3/slang.uhdm  patched=cfde8b98249c pristine=8ef1688cda72
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=ed8da27408a3 pristine=2f41136994a7
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=b94edc4b59f4 pristine=05df6c25a21b
+MOVERS: 7 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged

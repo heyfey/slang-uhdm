@@ -1,0 +1,19 @@
+DIFF         32:47      L logic_typespec
+    gold: const INT:15@64 ct7 x2 | const INT:63@64 ct7 x4 | op11(ref_obj,constant) x1
+    ours: op11(hier_path,constant) x6 | op11(ref_obj,constant) x1
+DIFF         33:9       L logic_typespec
+    gold: const INT:15@64 ct7 x1 | const INT:63@64 ct7 x2 | op11(ref_obj,constant) x1
+    ours: op11(hier_path,constant) x3 | op11(ref_obj,constant) x1
+DIFF         59:11      L logic_typespec
+    gold: op11(hier_path,constant) x1
+    ours: const INT:63@64 ct7 x2
+DIFF         59:11      R logic_typespec
+    gold: const UINT:0@64 ct9 x1
+    ours: const UINT:0@64 ct9 x2
+DIFF         60:11      L logic_typespec
+    gold: op11(ref_obj,constant) x1
+    ours: const INT:15@64 ct7 x2
+DIFF         60:11      R logic_typespec
+    gold: const UINT:0@64 ct9 x1
+    ours: const UINT:0@64 ct9 x2
+-- SAME=21 DIFF=6 OURS-MISSING=0 GOLD-MISSING=0

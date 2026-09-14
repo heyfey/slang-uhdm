@@ -3357,6 +3357,25 @@ private:
     /// — a NAME, whose reduced size is the parameter's own stored one — is
     /// REFUSED unless the other operand is provably 64.
     int32_t dimRedSz79(const slang::syntax::ExpressionSyntax& e, int depth);
+    /// § rangeBoundReduceEnc33 (r11u33) — `dimRedSz79` WITH THE NAME ARM that
+    /// law left open, so the ADD arm can answer without needing the other
+    /// operand to be 64.  A name's reduced size is the parameter's STORED
+    /// `Value` size, which is § rangeBoundStoredWidth82's
+    /// `ovActualStoredWidth82` exactly (the declared width when the parameter
+    /// is not overridden, the override actual's own width hop by hop when it
+    /// is, and an abstention for a bare-decimal or expression actual).  Still
+    /// -1 to abstain, and an abstaining operand still abstains the whole
+    /// expression.
+    int32_t dimRedSzP33(const slang::syntax::ExpressionSyntax& e,
+                        const slang::ast::Scope* scope, int depth);
+    /// § rangeBoundReduceEnc33 — the whole encoding of ONE reduced range
+    /// bound: `ct` (vpiIntConst / vpiUIntConst only) and `size`.  Returns
+    /// false to ABSTAIN, which always means "leave the caller's own answer
+    /// alone".  A bound that is nothing but a LITERAL is refused: Surelog
+    /// never reduces it and it keeps its written encoding.
+    bool boundReduceEnc33(const slang::syntax::ExpressionSyntax& e,
+                          const slang::ast::Scope* scope, int64_t value,
+                          int32_t& ct, int32_t& size);
     /// § dimExprBoundFold79 — the span the folded bound takes: the LEFT
     /// operand of a binary (parens stripped at the top only), the OPERATOR
     /// TOKEN of a unary, the whole expression otherwise.

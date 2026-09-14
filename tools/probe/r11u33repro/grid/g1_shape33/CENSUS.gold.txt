@@ -1,0 +1,101 @@
+uhdmtopModules array_var(work@g1_shape33.q_add_bb)/module_instwork@g1_shape33 (work@g1_shape33) 29:46      L const UINT:18@8 ct9                29:47      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_bb)/module_instwork@g1_shape33 (work@g1_shape33) 29:46      R const UINT:1@64 ct9                29:53      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_ln)/module_instwork@g1_shape33 (work@g1_shape33) 27:46      L const UINT:6@64 ct9                27:47      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_ln)/module_instwork@g1_shape33 (work@g1_shape33) 27:46      R const UINT:1@64 ct9                27:52      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_nl)/module_instwork@g1_shape33 (work@g1_shape33) 26:46      L const UINT:6@64 ct9                26:47      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_nl)/module_instwork@g1_shape33 (work@g1_shape33) 26:46      R const UINT:1@64 ct9                26:52      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_nn)/module_instwork@g1_shape33 (work@g1_shape33) 25:46      L const UINT:8@32 ct9                25:47      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_nn)/module_instwork@g1_shape33 (work@g1_shape33) 25:46      R const UINT:1@64 ct9                25:53      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_nsz)/module_instwork@g1_shape33 (work@g1_shape33) 28:48      L const INT:7@32 ct7                 28:49      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_nsz)/module_instwork@g1_shape33 (work@g1_shape33) 28:48      R const UINT:1@64 ct9                28:57      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_us)/module_instwork@g1_shape33 (work@g1_shape33) 30:46      L const UINT:11@32 ct9               30:47      x1
+uhdmtopModules array_var(work@g1_shape33.q_add_us)/module_instwork@g1_shape33 (work@g1_shape33) 30:46      R const UINT:1@64 ct9                30:53      x1
+uhdmtopModules array_var(work@g1_shape33.q_clog)/module_instwork@g1_shape33 (work@g1_shape33) 41:45      L const UINT:3@64 ct9                41:46      x1
+uhdmtopModules array_var(work@g1_shape33.q_clog)/module_instwork@g1_shape33 (work@g1_shape33) 41:45      R const UINT:1@64 ct9                41:57      x1
+uhdmtopModules array_var(work@g1_shape33.q_div)/module_instwork@g1_shape33 (work@g1_shape33) 35:39      L const INT:5@64 ct7                 35:40      x1
+uhdmtopModules array_var(work@g1_shape33.q_div)/module_instwork@g1_shape33 (work@g1_shape33) 35:39      R const UINT:1@64 ct9                35:45      x1
+uhdmtopModules array_var(work@g1_shape33.q_lit)/module_instwork@g1_shape33 (work@g1_shape33) 39:44      L const UINT:7@64 ct9                39:45      x1
+uhdmtopModules array_var(work@g1_shape33.q_lit)/module_instwork@g1_shape33 (work@g1_shape33) 39:44      R const UINT:1@64 ct9                39:47      x1
+uhdmtopModules array_var(work@g1_shape33.q_lu)/module_instwork@g1_shape33 (work@g1_shape33) 46:35      L const UINT:8@32 ct9                46:36      x1
+uhdmtopModules array_var(work@g1_shape33.q_lu)/module_instwork@g1_shape33 (work@g1_shape33) 46:35      R const UINT:1@64 ct9                46:39      x1
+uhdmtopModules array_var(work@g1_shape33.q_lx)/module_instwork@g1_shape33 (work@g1_shape33) 47:35      L const UINT:8@32 ct9                47:36      x1
+uhdmtopModules array_var(work@g1_shape33.q_lx)/module_instwork@g1_shape33 (work@g1_shape33) 47:35      R const UINT:1@64 ct9                47:39      x1
+uhdmtopModules array_var(work@g1_shape33.q_mul)/module_instwork@g1_shape33 (work@g1_shape33) 34:39      L const INT:10@64 ct7                34:40      x1
+uhdmtopModules array_var(work@g1_shape33.q_mul)/module_instwork@g1_shape33 (work@g1_shape33) 34:39      R const UINT:1@64 ct9                34:45      x1
+uhdmtopModules array_var(work@g1_shape33.q_nb)/module_instwork@g1_shape33 (work@g1_shape33) 21:35      L const UINT:9@8 ct9                 21:36      x1
+uhdmtopModules array_var(work@g1_shape33.q_nb)/module_instwork@g1_shape33 (work@g1_shape33) 21:35      R const UINT:1@64 ct9                21:39      x1
+uhdmtopModules array_var(work@g1_shape33.q_nl)/module_instwork@g1_shape33 (work@g1_shape33) 22:35      L const UINT:11@8 ct9                22:36      x1
+uhdmtopModules array_var(work@g1_shape33.q_nl)/module_instwork@g1_shape33 (work@g1_shape33) 22:35      R const UINT:1@64 ct9                22:39      x1
+uhdmtopModules array_var(work@g1_shape33.q_ns)/module_instwork@g1_shape33 (work@g1_shape33) 19:35      L const UINT:6@32 ct9                19:36      x1
+uhdmtopModules array_var(work@g1_shape33.q_ns)/module_instwork@g1_shape33 (work@g1_shape33) 19:35      R const UINT:1@64 ct9                19:39      x1
+uhdmtopModules array_var(work@g1_shape33.q_nu)/module_instwork@g1_shape33 (work@g1_shape33) 18:35      L const UINT:5@32 ct9                18:36      x1
+uhdmtopModules array_var(work@g1_shape33.q_nu)/module_instwork@g1_shape33 (work@g1_shape33) 18:35      R const UINT:1@64 ct9                18:39      x1
+uhdmtopModules array_var(work@g1_shape33.q_nx)/module_instwork@g1_shape33 (work@g1_shape33) 20:35      L const UINT:7@32 ct9                20:36      x1
+uhdmtopModules array_var(work@g1_shape33.q_nx)/module_instwork@g1_shape33 (work@g1_shape33) 20:35      R const UINT:1@64 ct9                20:39      x1
+uhdmtopModules array_var(work@g1_shape33.q_shl)/module_instwork@g1_shape33 (work@g1_shape33) 36:39      L const UINT:10@64 ct9               36:40      x1
+uhdmtopModules array_var(work@g1_shape33.q_shl)/module_instwork@g1_shape33 (work@g1_shape33) 36:39      R const UINT:1@64 ct9                36:46      x1
+uhdmtopModules array_var(work@g1_shape33.q_slit)/module_instwork@g1_shape33 (work@g1_shape33) 40:45      L const DEC:7@8 ct1                  40:46      x1
+uhdmtopModules array_var(work@g1_shape33.q_slit)/module_instwork@g1_shape33 (work@g1_shape33) 40:45      R const UINT:1@64 ct9                40:51      x1
+uhdmtopModules array_var(work@g1_shape33.q_sub)/module_instwork@g1_shape33 (work@g1_shape33) 33:39      L const INT:4@64 ct7                 33:40      x1
+uhdmtopModules array_var(work@g1_shape33.q_sub)/module_instwork@g1_shape33 (work@g1_shape33) 33:39      R const UINT:1@64 ct9                33:45      x1
+uhdmtopModules logic_typespec                                       12:21      L const UINT:7@64 ct9                12:22      x2
+uhdmtopModules logic_typespec                                       12:21      R const UINT:0@64 ct9                12:24      x2
+uhdmtopModules logic_typespec                                       18:9       L const UINT:5@32 ct9                18:10      x1
+uhdmtopModules logic_typespec                                       18:9       L ref_obj (NU)                       18:10      x1
+uhdmtopModules logic_typespec                                       18:9       R const UINT:0@64 ct9                18:13      x2
+uhdmtopModules logic_typespec                                       19:9       L const UINT:6@32 ct9                19:10      x1
+uhdmtopModules logic_typespec                                       19:9       L ref_obj (NS)                       19:10      x1
+uhdmtopModules logic_typespec                                       19:9       R const UINT:0@64 ct9                19:13      x2
+uhdmtopModules logic_typespec                                       20:9       L const UINT:7@32 ct9                20:10      x1
+uhdmtopModules logic_typespec                                       20:9       L ref_obj (NX)                       20:10      x1
+uhdmtopModules logic_typespec                                       20:9       R const UINT:0@64 ct9                20:13      x2
+uhdmtopModules logic_typespec                                       21:9       L const UINT:9@8 ct9                 21:10      x1
+uhdmtopModules logic_typespec                                       21:9       L ref_obj (NB)                       21:10      x1
+uhdmtopModules logic_typespec                                       21:9       R const UINT:0@64 ct9                21:13      x2
+uhdmtopModules logic_typespec                                       22:9       L const UINT:11@8 ct9                22:10      x1
+uhdmtopModules logic_typespec                                       22:9       L ref_obj (NL)                       22:10      x1
+uhdmtopModules logic_typespec                                       22:9       R const UINT:0@64 ct9                22:13      x2
+uhdmtopModules logic_typespec                                       25:9       L const UINT:8@32 ct9                25:10      x1
+uhdmtopModules logic_typespec                                       25:9       L op24(ref_obj,ref_obj)              25:10      x1
+uhdmtopModules logic_typespec                                       25:9       R const UINT:0@64 ct9                25:16      x2
+uhdmtopModules logic_typespec                                       26:9       L const UINT:6@64 ct9                26:10      x1
+uhdmtopModules logic_typespec                                       26:9       L op24(ref_obj,constant)             26:10      x1
+uhdmtopModules logic_typespec                                       26:9       R const UINT:0@64 ct9                26:15      x2
+uhdmtopModules logic_typespec                                       27:9       L const UINT:6@64 ct9                27:10      x1
+uhdmtopModules logic_typespec                                       27:9       L op24(constant,ref_obj)             27:10      x1
+uhdmtopModules logic_typespec                                       27:9       R const UINT:0@64 ct9                27:15      x2
+uhdmtopModules logic_typespec                                       28:9       L const INT:7@32 ct7                 28:10      x1
+uhdmtopModules logic_typespec                                       28:9       L op24(ref_obj,constant)             28:10      x1
+uhdmtopModules logic_typespec                                       28:9       R const UINT:0@64 ct9                28:18      x2
+uhdmtopModules logic_typespec                                       29:9       L const UINT:18@8 ct9                29:10      x1
+uhdmtopModules logic_typespec                                       29:9       L op24(ref_obj,ref_obj)              29:10      x1
+uhdmtopModules logic_typespec                                       29:9       R const UINT:0@64 ct9                29:16      x2
+uhdmtopModules logic_typespec                                       30:9       L const UINT:11@32 ct9               30:10      x1
+uhdmtopModules logic_typespec                                       30:9       L op24(ref_obj,ref_obj)              30:10      x1
+uhdmtopModules logic_typespec                                       30:9       R const UINT:0@64 ct9                30:16      x2
+uhdmtopModules logic_typespec                                       33:9       L const INT:4@64 ct7                 33:10      x1
+uhdmtopModules logic_typespec                                       33:9       L op11(ref_obj,constant)             33:10      x1
+uhdmtopModules logic_typespec                                       33:9       R const UINT:0@64 ct9                33:15      x2
+uhdmtopModules logic_typespec                                       34:9       L const INT:10@64 ct7                34:10      x1
+uhdmtopModules logic_typespec                                       34:9       L op25(ref_obj,constant)             34:10      x1
+uhdmtopModules logic_typespec                                       34:9       R const UINT:0@64 ct9                34:15      x2
+uhdmtopModules logic_typespec                                       35:9       L const INT:5@64 ct7                 35:10      x1
+uhdmtopModules logic_typespec                                       35:9       L op12(ref_obj,constant)             35:10      x1
+uhdmtopModules logic_typespec                                       35:9       R const UINT:0@64 ct9                35:15      x2
+uhdmtopModules logic_typespec                                       36:9       L const UINT:10@64 ct9               36:10      x1
+uhdmtopModules logic_typespec                                       36:9       L op22(ref_obj,constant)             36:10      x1
+uhdmtopModules logic_typespec                                       36:9       R const UINT:0@64 ct9                36:16      x2
+uhdmtopModules logic_typespec                                       39:9       L const UINT:7@64 ct9                39:10      x2
+uhdmtopModules logic_typespec                                       39:9       R const UINT:0@64 ct9                39:12      x2
+uhdmtopModules logic_typespec                                       40:9       L const DEC:7@8 ct1                  40:10      x2
+uhdmtopModules logic_typespec                                       40:9       R const UINT:0@64 ct9                40:15      x2
+uhdmtopModules logic_typespec                                       41:9       L const UINT:3@64 ct9                41:10      x1
+uhdmtopModules logic_typespec                                       41:9       L sys_func_call                      41:10      x1
+uhdmtopModules logic_typespec                                       41:9       R const UINT:0@64 ct9                41:21      x2
+uhdmtopModules logic_typespec                                       46:9       L const UINT:8@32 ct9                46:10      x1
+uhdmtopModules logic_typespec                                       46:9       L ref_obj (LU)                       46:10      x1
+uhdmtopModules logic_typespec                                       46:9       R const UINT:0@64 ct9                46:13      x2
+uhdmtopModules logic_typespec                                       47:9       L const UINT:8@32 ct9                47:10      x1
+uhdmtopModules logic_typespec                                       47:9       L ref_obj (LX)                       47:10      x1
+uhdmtopModules logic_typespec                                       47:9       R const UINT:0@64 ct9                47:13      x2
+-- ranges=62 rows=124

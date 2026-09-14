@@ -1,0 +1,18 @@
+[INF:CM0023] Creating log file "/tmp/wt_r11u33/tools/probe/r11u33repro/grid/g1_shape33/slpp_all/surelog.log".
+[NTE:PP0128] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g1_shape33/dut.sv:1:32: Non ASCII character detected, replaced by space.
+[WRN:PA0205] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g1_shape33/dut.sv:7:1: No timescale set for "g1_shape33".
+[INF:CP0300] Compilation...
+[INF:CP0303] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g1_shape33/dut.sv:7:1: Compile module "work@g1_shape33".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g1_shape33/dut.sv:7:1: Top level module "work@g1_shape33".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 1.
+[NTE:EL0511] Nb leaf instances: 1.
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g1_shape33/slpp_all/surelog.uhdm ...
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 6

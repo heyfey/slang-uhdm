@@ -1,0 +1,24 @@
+[INF:CM0023] Creating log file "/tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/slpp_all/surelog.log".
+[NTE:PP0128] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:1:31: Non ASCII character detected, replaced by space.
+[WRN:PA0205] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:8:1: No timescale set for "g3pk33".
+[WRN:PA0205] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:17:1: No timescale set for "g3if33".
+[WRN:PA0205] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:25:1: No timescale set for "g3leaf33".
+[WRN:PA0205] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:39:1: No timescale set for "g3_hold33".
+[INF:CP0300] Compilation...
+[INF:CP0301] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:8:1: Compile package "g3pk33".
+[INF:CP0303] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:39:1: Compile module "work@g3_hold33".
+[INF:CP0304] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:17:1: Compile interface "work@g3if33".
+[INF:CP0303] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:25:1: Compile module "work@g3leaf33".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/dut.sv:39:1: Top level module "work@g3_hold33".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 2.
+[NTE:EL0510] Nb instances: 6.
+[NTE:EL0511] Nb leaf instances: 5.
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: /tmp/wt_r11u33/tools/probe/r11u33repro/grid/g3_hold33/slpp_all/surelog.uhdm ...
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 4
+[   NOTE] : 6

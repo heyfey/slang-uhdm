@@ -284,7 +284,7 @@ genscope_async_ff_signal,default,CMP_EQUAL,,,match
 genscope_cells,default,CMP_EQUAL,,,differ
 genscope_module_ctx_reset,default,CMP_EQUAL,,,differ
 genscope_outer_reg_inner_ff,default,CMP_EQUAL,,,differ
-genscope_struct_member,default,CMP_NOTEQUAL,decompile:,,
+genscope_struct_member,default,CMP_EQUAL,,,match
 GenScopeFunction,default,CMP_EQUAL,,,match
 genvar_async_reset_array,default,CMP_EQUAL,,,match
 genvar_iface_struct,default,CMP_EQUAL,,,differ
@@ -422,7 +422,7 @@ latch_fifo_dynfield,default,CMP_EQUAL,,,differ
 latch_nested_ex_field,default,CMP_EQUAL,,,differ
 latch_packed_dyn_write,default,CMP_EQUAL,,,differ
 latch_packed_enum_loop,default,CMP_EQUAL,,,match
-latch_perf_counters,default,CMP_NOTEQUAL,decompile:,,
+latch_perf_counters,default,CMP_EQUAL,,,match
 latch_tlb_napot,default,CMP_EQUAL,,,differ
 latchn,default,CMP_EQUAL,,,match
 latchp,default,CMP_EQUAL,,,match
@@ -1155,7 +1155,7 @@ genscope_async_ff_signal,testflags,CMP_EQUAL,,,match
 genscope_cells,testflags,CMP_EQUAL,,,differ
 genscope_module_ctx_reset,testflags,CMP_EQUAL,,,differ
 genscope_outer_reg_inner_ff,testflags,CMP_EQUAL,,,differ
-genscope_struct_member,testflags,CMP_NOTEQUAL,decompile:,,
+genscope_struct_member,testflags,CMP_EQUAL,,,match
 GenScopeFunction,testflags,CMP_EQUAL,,,match
 genvar_async_reset_array,testflags,CMP_EQUAL,,,match
 genvar_iface_struct,testflags,CMP_EQUAL,,,differ
@@ -1293,7 +1293,7 @@ latch_fifo_dynfield,testflags,CMP_EQUAL,,,differ
 latch_nested_ex_field,testflags,CMP_EQUAL,,,differ
 latch_packed_dyn_write,testflags,CMP_EQUAL,,,differ
 latch_packed_enum_loop,testflags,CMP_EQUAL,,,match
-latch_perf_counters,testflags,CMP_NOTEQUAL,decompile:,,
+latch_perf_counters,testflags,CMP_EQUAL,,,match
 latch_tlb_napot,testflags,CMP_EQUAL,,,differ
 latchn,testflags,CMP_EQUAL,,,match
 latchp,testflags,CMP_EQUAL,,,match

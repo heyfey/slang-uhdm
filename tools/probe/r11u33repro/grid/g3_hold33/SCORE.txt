@@ -1,0 +1,33 @@
+TO-GOLDEN    (work@g3_hold33.u_byt)/module_instwork@g3_hold33 ( array_var(work@g3_hold33.u_byt.a_nu)/module_instwork@g3leaf33
+    gold ork@g3_hold33) 35:14      L const UINT:10@8 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    pris ork@g3_hold33) 35:14      L const INT:10@64 ct7 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    law  ork@g3_hold33) 35:14      L const UINT:10@8 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+TO-GOLDEN    (work@g3_hold33.u_def)/module_instwork@g3_hold33 ( array_var(work@g3_hold33.u_def.a_nu)/module_instwork@g3leaf33
+    gold ork@g3_hold33) 35:14      L const UINT:5@32 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    pris ork@g3_hold33) 35:14      L const INT:5@64 ct7 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    law  ork@g3_hold33) 35:14      L const UINT:5@32 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+TO-GOLDEN    (work@g3_hold33.u_exp)/module_instwork@g3_hold33 ( array_var(work@g3_hold33.u_exp.a_nu)/module_instwork@g3leaf33
+    gold ork@g3_hold33) 35:14      L const UINT:13@64 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    pris ork@g3_hold33) 35:14      L const INT:13@64 ct7 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    law  ork@g3_hold33) 35:14      L const UINT:13@64 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+TO-GOLDEN    (work@g3_hold33.u_lit)/module_instwork@g3_hold33 ( array_var(work@g3_hold33.u_lit.a_nu)/module_instwork@g3leaf33
+    gold ork@g3_hold33) 35:14      L const UINT:9@64 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    pris ork@g3_hold33) 35:14      L const INT:9@64 ct7 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    law  ork@g3_hold33) 35:14      L const UINT:9@64 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+TO-GOLDEN    (work@g3_hold33.u_nam)/module_instwork@g3_hold33 ( array_var(work@g3_hold33.u_nam.a_nu)/module_instwork@g3leaf33
+    gold ork@g3_hold33) 35:14      L const UINT:12@32 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    pris ork@g3_hold33) 35:14      L const INT:12@64 ct7 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+    law  ork@g3_hold33) 35:14      L const UINT:12@32 ct9 x1 | ork@g3_hold33) 35:14      R const UINT:1@64 ct9 x1
+MOVED-WRONG  12:9       L logic_typespec
+    gold const UINT:6@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+    pris const UINT:6@64 ct9 x2
+    law  const UINT:6@32 ct9 x2
+TO-GOLDEN    19:9       L logic_typespec
+    gold const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+    pris const UINT:8@64 ct9 x1 | op24(ref_obj,ref_obj) x1
+    law  const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+TO-GOLDEN    33:9       L logic_typespec
+    gold const UINT:13@32 ct9 x1 | const UINT:13@64 ct9 x1 | const UINT:15@32 ct9 x1 | const UINT:16@64 ct9 x1 | const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+    pris const UINT:13@64 ct9 x2 | const UINT:15@64 ct9 x1 | const UINT:16@64 ct9 x1 | const UINT:8@64 ct9 x1 | op24(ref_obj,ref_obj) x1
+    law  const UINT:13@32 ct9 x1 | const UINT:13@64 ct9 x1 | const UINT:15@32 ct9 x1 | const UINT:16@64 ct9 x1 | const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+-- TO-GOLDEN=7 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-WRONG=3 UNMOVED=16 OURS-MISSING=2 GOLD-MISSING=0

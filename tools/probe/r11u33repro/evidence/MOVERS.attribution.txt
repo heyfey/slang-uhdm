@@ -1,0 +1,21 @@
+######## ibex_pmp  (moved bytes, did NOT convert)
+TO-GOLDEN    35:9       R logic_typespec
+    gold const UINT:2@32 ct9 x1 | op24(ref_obj,constant) x1
+    pris const UINT:2@64 ct9 x1 | op24(ref_obj,constant) x1
+    law  const UINT:2@32 ct9 x1 | op24(ref_obj,constant) x1
+-- TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=36 UNMOVED=115 OURS-MISSING=2 GOLD-MISSING=0
+
+######## iface_unpacked_struct_array  (moved bytes, did NOT convert)
+TO-GOLDEN    17:13      R array_net(dly)
+    gold const UINT:1@64 ct9 x1
+    pris const INT:1@64 ct7 x1
+    law  const UINT:1@64 ct9 x1
+-- TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=0 UNMOVED=19 OURS-MISSING=0 GOLD-MISSING=0
+
+######## ibex_icache  (moved bytes, did NOT convert)
+TO-GOLDEN    114:9      R logic_typespec
+    gold const INT:11@64 ct7 x1 | op24(constant,constant) x1
+    pris const UINT:11@64 ct9 x1 | op24(constant,constant) x1
+    law  const INT:11@64 ct7 x1 | op24(constant,constant) x1
+-- TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=38 UNMOVED=288 OURS-MISSING=2 GOLD-MISSING=0
+

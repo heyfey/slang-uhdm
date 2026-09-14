@@ -1,0 +1,37 @@
+MOVED-WRONG  78:17      L array_typespec
+    gold ref_obj (NU) x1
+    pris const INT:5@64 ct7 x1
+    law  const UINT:5@32 ct9 x1
+TO-GOLDEN    (work@g2_site33) 2 array_var(work@g2_site33.a_add)/module_instwork@g2_site33
+    gold :15      L const UINT:8@32 ct9 x1 | :15      R const UINT:1@64 ct9 x1
+    pris :15      L const INT:8@64 ct7 x1 | :15      R const UINT:1@64 ct9 x1
+    law  :15      L const UINT:8@32 ct9 x1 | :15      R const UINT:1@64 ct9 x1
+TO-GOLDEN    (work@g2_site33) 2 array_var(work@g2_site33.a_nu)/module_instwork@g2_site33
+    gold :15      L const UINT:5@32 ct9 x1 | :15      R const UINT:1@64 ct9 x1
+    pris :15      L const INT:5@64 ct7 x1 | :15      R const UINT:1@64 ct9 x1
+    law  :15      L const UINT:5@32 ct9 x1 | :15      R const UINT:1@64 ct9 x1
+TO-GOLDEN    (work@g2_site33) 6 array_var(work@g2_site33.b_bare)/module_instwork@g2_site33
+    gold :16      L const UINT:4@32 ct9 x1 | :16      R const UINT:1@64 ct9 x1
+    pris :16      L const INT:4@64 ct7 x1 | :16      R const UINT:1@64 ct9 x1
+    law  :16      L const UINT:4@32 ct9 x1 | :16      R const UINT:1@64 ct9 x1
+TO-GOLDEN    (work@g2_site33) 6 array_var(work@g2_site33.b_qual)/module_instwork@g2_site33
+    gold :16      L const UINT:4@32 ct9 x1 | :16      R const UINT:1@64 ct9 x1
+    pris :16      L const INT:4@64 ct7 x1 | :16      R const UINT:1@64 ct9 x1
+    law  :16      L const UINT:4@32 ct9 x1 | :16      R const UINT:1@64 ct9 x1
+TO-GOLDEN    18:18      L logic_typespec
+    gold const UINT:8@32 ct9 x2 | op24(ref_obj,ref_obj) x1
+    pris const UINT:8@64 ct9 x2 | op24(ref_obj,ref_obj) x1
+    law  const UINT:8@32 ct9 x2 | op24(ref_obj,ref_obj) x1
+TO-GOLDEN    24:9       L logic_typespec
+    gold const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+    pris const UINT:8@64 ct9 x1 | op24(ref_obj,ref_obj) x1
+    law  const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+TO-GOLDEN    39:8       L logic_typespec
+    gold const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+    pris const UINT:8@64 ct9 x1 | op24(ref_obj,ref_obj) x1
+    law  const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+TO-GOLDEN    44:17      L logic_typespec(t_add)
+    gold const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+    pris const UINT:8@64 ct9 x1 | op24(ref_obj,ref_obj) x1
+    law  const UINT:8@32 ct9 x1 | op24(ref_obj,ref_obj) x1
+-- TO-GOLDEN=8 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-WRONG=3 UNMOVED=44 OURS-MISSING=0 GOLD-MISSING=0

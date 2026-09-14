@@ -1,0 +1,77 @@
+---- surelog/StructParamFieldRange  PRISTINE head (LHS golden)
+LHS:
+decompile:
+operation: , id:119, line:24:12, endln:24:22
+|vpiParent:
+\_range: , id:115, line:24:11, endln:24:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:116, line:24:12, endln:24:20
+  |vpiParent:
+  \_operation: , id:119, line:24:12, endln:24:22
+  |vpiActual:
+  \_ref_obj: (Cfg), id:117, line:24:16, endln:24:20
+    |vpiParent:
+    \_hier_path: (Cfg.XLEN), id:116, line:24:12, endln:24:20
+    |vpiName:Cfg
+  |vpiActual:
+  \_ref_obj: (XLEN), id:118, line:24:16, endln:24:20
+    |vpiParent:
+    \_hier_path: (Cfg.XLEN), id:116, line:24:12, endln:24:20
+    |vpiName:XLEN
+  |vpiName:Cfg.XLEN
+|vpiOperand:
+\_constant: , id:120, line:24:21, endln:24:22
+  |vpiParent:
+  \_operation: , id:119, line:24:12, endln:24:22
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:119, line:24:12, endln:24:22
+|vpiParent:
+\_range: , id:115, line:24:11, endln:24:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:116, line:24:12, endln:24:20
+  |vpiParent:
+  \_operation: , id:119, line:24:12, endln:24:22
+  |vpiActual:
+  \_ref_obj: (Cfg), id:117, line:24:16, endln:24:20
+    |vpiParent:
+    \_hier_path: (Cfg.XLEN), id:116, line:24:12, endln:24:20
+    |vpiName:Cfg
+  |vpiActual:
+  \_ref_obj: (XLEN), id:118, line:24:16, endln:24:20
+    |vpiParent:
+    \_hier_path: (Cfg.XLEN), id:116, line:24:12, endln:24:20
+    |vpiName:XLEN
+  |vpiName:Cfg.XLEN
+|vpiOperand:
+\_constant: , id:120, line:24:21, endln:24:22
+  |vpiParent:
+  \_operation: , id:119, line:24:12, endln:24:22
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:93, line:24:12, endln:24:20
+|vpiParent:
+\_range: , id:92, line:24:11, endln:24:25
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+
+decompile:
+constant: , id:93, line:24:12, endln:24:20
+|vpiParent:
+\_range: , id:92, line:24:11, endln:24:25
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7

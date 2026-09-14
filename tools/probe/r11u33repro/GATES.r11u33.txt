@@ -1,0 +1,83 @@
+# r11u33 GATES (final binary)
+
+## 1. build
+pristine worktree build md5 = 723cb6db14308de6a257e5c3bfd45f8f (byte-identical to the main tree at c731550c)
+law binary md5 = e53063ad4ee3a64d56807df7fd7bae80
+
+## 2. goldens
+PASS=23 FAIL=0 ; SLANG_UHDM=/bin/false -> FAIL=23 (negative control)
+
+## 3. uhdm2rtlil, BOTH modes (own pristine control + the committed gate)
+                              CMP_EQUAL  CMP_NOTEQUAL  SLANG_REJECT
+  base (own pristine, = committed):  768        36           67   (each mode)
+  law:                               770        34           67   (each mode)
+  ct8rows vs results/gate_uhdm2rtlil.csv (testflags): 2 differing ROWS, both quoted:
+    < genscope_struct_member,testflags,CMP_NOTEQUAL,decompile:,,
+    > genscope_struct_member,testflags,CMP_EQUAL,,,match
+    < latch_perf_counters,testflags,CMP_NOTEQUAL,decompile:,,
+    > latch_perf_counters,testflags,CMP_EQUAL,,,match
+  ct8rows vs own pristine, testflags AND default: the same two rows, nothing else.
+  DUMP column: 236 differ -> 236 differ, 532 match -> 534 match (tf);
+               240 differ -> 240 differ, 528 match -> 530 match (default).
+
+## 4. surelog, --mode both (own pristine control + the committed baseline)
+                              CMP_EQUAL  CMP_NOTEQUAL
+  base (own pristine, = committed):  474 / 469      9 / 8
+  law:                               474 / 469      9 / 8
+  ct8rows vs own pristine: 2 differing ROWS, BOTH of them the SURELOG_FAIL rows
+  whose message embeds the WORKDIR PATH (LowMemLib, LowMemPkg) -- a path
+  artefact of comparing two workdirs, not a status change.  Every per-mode
+  STATUS histogram and every per-mode DUMP-column histogram is IDENTICAL.
+
+## 5. byteverify, SELFCHECK=1, vs the pass's OWN pristine workdirs
+  u2r: PATH_SETS_IDENTICAL (1608)  MOVERS 10/1608  SELFCHECK 1607/1608 flagged
+  sl : PATH_SETS_IDENTICAL (960)   MOVERS  7/960   SELFCHECK  959/960 flagged
+  Every mover was named A PRIORI by pred33.py from the PRISTINE databases
+  (evidence/PRED.u2r.txt, evidence/PRED.sl.txt): 0 unpredicted movers.
+
+  u2r movers (5 tests x 2 modes), each attributed by the three-way cell score:
+    genscope_struct_member     CONVERTS (head 1 -> 0, cmp rc 0)
+    latch_perf_counters        CONVERTS (head 1 -> 0, cmp rc 0)
+    ibex_pmp                   1 cell TO-GOLDEN, 0 AWAY  (35:9 R, ADD size 64->32)
+    ibex_icache                1 cell TO-GOLDEN, 0 AWAY  (114:9 R, ADD of two based
+                               constants: golden INT ct7, pristine UINT ct9)
+    iface_unpacked_struct_array 1 cell TO-GOLDEN, 0 AWAY (17:13 R array_net bound
+                               INT ct7 -> UINT ct9) -- a CMP_EQUAL row whose bytes
+                               moved, which is the class byteverify exists to see
+
+  sl movers:
+    InterfaceUnpackedStructArrayDim (both modes)  1 cell TO-GOLDEN, 0 AWAY
+                               (12:13 R array_net bound INT ct7 -> UINT ct9)
+    MiniAmiq/default, MiniAmiq/testflags, Scoreboard/default, SimpleUVM/default,
+    SeqDriver/testflags -- THE UVM COIN, not this law.  Order-blind
+    (path-normalised, sorted) dump diff: Scoreboard 0 lines; the other four 4
+    lines each, all of them ONE constant under the `array_typespec (types_t)` of
+    uvm_misc.svh:642 `typedef TYPE types_t[$]`, whose bound our emitter reads
+    from uninitialised memory.  POSITIVE CONTROL: the PRISTINE binary alone,
+    run four times on MiniAmiq, gave that cell 1213 / 1530 / 760 / 1452 (three
+    distinct database md5s in three back-to-back runs), so the cell varies per
+    INVOCATION on either binary and in both directions (this run: 957->1035,
+    1213->1103, 0->1444, 0->842).  All five rows are CMP_EQUAL on both binaries.
+
+## 6. canaries
+  canaries.sh  sl : ok=51 changed=1 absent=0      u2r: ok=8 changed=0 absent=0
+  ctcan2.sh    sl : ok=58 changed=0 (PASS)        u2r: PASS
+  canaudit.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0 (PASS)
+
+  THE ONE "changed" ROW, read in full: Earlgrey_0_1/testflags
+  CMP_EQUAL/differ -> CMP_EQUAL/<blank>.  The STATUS is unchanged; only the DUMP
+  column moved, and it moved because the PASS'S OWN PRISTINE run drew a
+  uhdm-dump timeout (blank) where the law run did not -- the committed baseline
+  carries the blank too.  The pin is the DATABASE byte-compare, and it holds
+  EXACTLY:
+    Earlgrey_0_1   default   8bdf25272e08 -> 8bdf25272e08
+    Earlgrey_0_1   testflags 59d0ee6d10c3 -> 59d0ee6d10c3
+  and so does every other protected database:
+    SVSwitch 4842211c4030 (both modes), YosysVerx 6ccda350c24a (both),
+    InterfaceModPort 59a365f3ce2c (both), BlackParrotComplex e3e354129d5a /
+    73a10e8217e5, YosysOldOr d68e0796d62c (both) -- all UNCHANGED.
+
+## 7. the grid
+  TO-GOLDEN 33   AWAY-GOLDEN 0   MOVED-WRONG 2   STILL-WRONG 16   UNMOVED 121
+  (the two MOVED-WRONG are encoding corrections inside cells whose SHAPE is a
+  named residue; nothing that agreed with golden stopped agreeing)
