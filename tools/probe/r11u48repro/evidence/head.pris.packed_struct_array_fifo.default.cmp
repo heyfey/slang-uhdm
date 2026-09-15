@@ -1,0 +1,9 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (work@packed_struct_array_fifo.status_cnt_n), id:428
+|vpiParent:
+\_constant: , id:427, line:23:10, endln:23:20
+|vpiFullName:work@packed_struct_array_fifo.status_cnt_n
+|vpiActual:
+\_int_typespec: , id:429

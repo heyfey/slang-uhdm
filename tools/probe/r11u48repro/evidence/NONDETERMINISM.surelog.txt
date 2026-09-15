@@ -1,0 +1,16 @@
+The four surelog arms whose NEUTRAL (R11U48_OFF=1) database is not byte-equal
+to the pristine sweep's are the documented pristine-nondeterministic UVM rows.
+Proved by running the PRISTINE binary alone, three further times per arm, and
+comparing with the sweep's own database (md5 prefixes):
+
+  MiniAmiq  default    707b43747923 27419f6011b4 a9c180d920c4 73428910cab6  DISTINCT 4
+  MiniAmiq  testflags  eaac3006a8e9 a99d2fb9d97f 4e0f981a180b d3adf64ba936  DISTINCT 4
+  SeqDriver default    a563e71b711c ce5dfd7d6feb 2fb39f8b4130 a4587bb15289  DISTINCT 4
+  SeqDriver testflags  05df6c25a21b 7dd56f3a03ff 05df6c25a21b b3804c8548e2  DISTINCT 3
+
+Four runs of ONE binary, four (three) different databases: the DIFFER is the
+row, not the law.  BlackBoxInst/testflags read DIFFER in the FIRST prediction
+run and does NOT here: that was the predictor splitting the quoted
+`--bb_inst 'work@top.nyuzi.core_gen[0]'` on whitespace and keeping the quotes.
+predict48.py now uses shlex, and BlackBoxInst reads byte-identical three runs
+running (779398631efa0269afeaf8da4cd6e60c, pristine and neutral alike).

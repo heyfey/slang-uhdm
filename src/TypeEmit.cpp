@@ -49,6 +49,43 @@ static bool typeWidthUsesParam(const Symbol& sym) {
 // `namedTypeDimBounds` / `srlgRedIntSyn` live in EmitHelpers.h — ParamEmit's
 // packed-array param typespec builder needs the same two rules.
 
+// § foldedBoundTsIsTheSignednessCapture48 — the PACKED dimension builder at
+// ~5469 asks the same signedness question the UNPACKED one asks at ~19272, so
+// it reads the SAME transcription of `CompileHelper::valueRange` rather than a
+// second copy (RESUME §9: no premature extraction, but no second encoder
+// either).  Defined with the rest of § dimBoundLeafValueSignedTs89 below.
+//
+// r11v48 VERIFIER FIX — `ovrAnsweredByCaller`.  `paramValueSigned89`'s first
+// line refuses a non-local parameter whose DEFINITION-level `isOverridden()`
+// flag is set, and that flag is NOT per-instance: for a definition one of whose
+// instances is overridden it reads true for the DEFAULT instance's bound too
+// (the bound's bind resolves the other body's parameter — the exact trap
+// § boundOverriddenParamWidth24 records at ~5453, "we24's first uhdm-cmp
+// failure").  The PACKED call site below already stands inside `!ovrHere24()`,
+// the PER-INSTANCE test, so it passes `true` here and asks only the signedness
+// question.  Without it `module s #(parameter int P = 4); logic [P:0] x;`
+// instantiated once `#(.P(8))` and once at its DEFAULT was pristine-RIGHT ->
+// patched-WRONG: golden carries `ref_typespec -> int_typespec` on the DEFAULT
+// instance's 3:10 bound and we dropped it (verifier grid `vb4.sv`, head
+// `LHS: ref_typespec (work@vb4.u2.x) / RHS: <null>`).  The flag is deliberately
+// NOT propagated into the recursion: a REFERENCED overridden parameter still
+// lends no sign (§ rangeBoundStoredWidth82 / earl85, `g2_chain89.sv`).
+static bool paramValueSigned89(const ParameterSymbol& p, int depth,
+                               bool ovrAnsweredByCaller = false);
+
+// R11U48_OFF=1 restores the pre-pass answer exactly (the A/B neutral binary,
+// byte-identical to pristine); R11U48_DBG=1 names, on stderr, every cell whose
+// answer this pass CHANGES — so the mover set is PREDICTED BY NAME from the
+// pristine corpus before the patched sweep ever runs.
+static const bool r11u48Off = [] {
+    const char* v = getenv("R11U48_OFF");
+    return v && *v && *v != '0';
+}();
+static const bool r11u48Dbg = [] {
+    const char* v = getenv("R11U48_DBG");
+    return v && *v && *v != '0';
+}();
+
 
 
 // A module/interface-local STRUCT typedef whose signal is an INITIALIZED
@@ -5472,14 +5509,76 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     (int32_t)boundParam->getType().getBitWidth());
                                 c->VpiConstType(vpiUIntConst);
                                 c->VpiValue("UINT:" + digits);
-                                auto* rt0 = s.MakeRef_typespec();
-                                rt0->VpiFullName(boundOwnerFullName);
-                                rt0->VpiParent(c);
-                                auto* its0 = s.MakeInt_typespec();
-                                if (boundParam->getType().isSigned())
-                                    its0->VpiSigned(true);
-                                rt0->Actual_typespec(its0);
-                                c->Typespec(rt0);
+                                // § foldedBoundTsIsTheSignednessCapture48
+                                // (r11u48) — THE ts REF EXISTS ONLY WHEN THE
+                                // FOLDED VALUE IS SIGNED.  The producer is
+                                // `CompileHelper::compileExpression`'s
+                                // identifier arm (Surelog
+                                // `CompileExpression.cpp:3032-3045`): a name
+                                // that folds to a constant gets
+                                // `c->VpiValue/Decompile/ConstType/Size` from
+                                // the stored `Value` and then
+                                //     if (sval->isSigned()) { int_typespec *ts
+                                //       = MakeInt_typespec(); ts->VpiSigned(
+                                //       true); ... c->Typespec(rt); }
+                                // — the `if` IS the presence split, and the
+                                // sign it reads is `CompileHelper::valueRange`'s
+                                // three-kind switch (`CompileHelper.cpp:
+                                // 5540-5568`: logic_typespec, bit_typespec,
+                                // int_typespec, `isSigned = tps->VpiSigned()`),
+                                // which `paramValueSigned89` already
+                                // transcribes for the UNPACKED builder.  This
+                                // PACKED builder minted the ref
+                                // unconditionally and only let the SIGN decide
+                                // `VpiSigned`, so every `int unsigned` /
+                                // `byte` / `integer` / `shortint` / `longint`
+                                // bound carried a ref golden does not have —
+                                // an `int_typespec` that is present and
+                                // UNSIGNED, a combination golden never writes
+                                // here.
+                                // THE GRID (tools/probe/r11u48repro/grid,
+                                // h1-h8, one `logic [P:0] x` per module, LHS =
+                                // Surelog): `int P = $clog2(DEPTH)` TS,
+                                // `int P = 4` TS, `int P = (D>1)?$clog2(D):1`
+                                // TS; the same three spelled `int unsigned`
+                                // BARE, and the ternary's `$clog2` arm
+                                // (h6, DEPTH=4) BARE too — the fold, the
+                                // initializer shape and the chosen ternary arm
+                                // are all silent, the SIGNING TOKEN alone
+                                // decides.  h9-h14 carry the widened kinds.
+                                // Corpus: packed_struct_array_fifo's
+                                // `localparam int unsigned ADDR_DEPTH` sizing
+                                // `logic [ADDR_DEPTH:0] status_cnt_n`.
+                                // r11v48 — `true`: this branch already stands
+                                // inside `!ovrHere24()`, the PER-INSTANCE
+                                // override test, so the definition-level
+                                // `isOverridden()` refusal inside must not fire
+                                // (verifier grid `vb4.sv`).
+                                const bool sgn48 =
+                                    paramValueSigned89(*boundParam, 0, true);
+                                const bool old48 =
+                                    boundParam->getType().isSigned();
+                                // A CELL CHANGES when the ref disappears
+                                // (!sgn48) or when it stays and its VpiSigned
+                                // flips on (sgn48 && !old48) — i.e. whenever
+                                // the two answers are not BOTH yes.
+                                if (r11u48Dbg && !(sgn48 && old48))
+                                    fprintf(stderr,
+                                            "R11U48B owner=%s par=%s old=%d "
+                                            "new=%d\n",
+                                            boundOwnerFullName.c_str(),
+                                            std::string(boundParam->name).c_str(),
+                                            (int)old48, (int)sgn48);
+                                if (r11u48Off || sgn48) {
+                                    auto* rt0 = s.MakeRef_typespec();
+                                    rt0->VpiFullName(boundOwnerFullName);
+                                    rt0->VpiParent(c);
+                                    auto* its0 = s.MakeInt_typespec();
+                                    if (r11u48Off ? old48 : true)
+                                        its0->VpiSigned(true);
+                                    rt0->Actual_typespec(its0);
+                                    c->Typespec(rt0);
+                                }
                             }
                             // An ELAB var-dim bound folding a MODULE-param ref
                             // that did NOT take the typed+var-scoped ts-ref path
@@ -17893,10 +17992,14 @@ static bool inPackage89(const Symbol& sy) {
 // package member QUALIFIED, anything else BARE — which is the same
 // package/qualification split § dimFoldTsQualifiedOrSignedModPar26 measured
 // one level up.
-static bool paramValueSigned89(const ParameterSymbol& p, int depth) {
+static bool paramValueSigned89(const ParameterSymbol& p, int depth,
+                               bool ovrAnsweredByCaller) {
     if (depth > 16)
         return false;
-    if (!p.isLocalParam() && p.isOverridden())
+    // r11v48 — see the forward declaration: `isOverridden()` is a DEFINITION
+    // flag, so a caller that has already asked the PER-INSTANCE question
+    // (`!ovrHere24()` / `!ovrHere26`) must not be overruled by it.
+    if (!ovrAnsweredByCaller && !p.isLocalParam() && p.isOverridden())
         return false;
     if (!paramHasTypespec89(p))
         return false;

@@ -1,0 +1,9 @@
+LHS:
+decompile:
+ref_typespec: (work@vb4.u2.x), id:180
+|vpiParent:
+\_constant: , id:178, line:3:10, endln:3:11
+|vpiFullName:work@vb4.u2.x
+|vpiActual:
+\_int_typespec: , id:179
+RHS: <null>

@@ -1,0 +1,9 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (g6p::maxw::i), id:89
+|vpiParent:
+\_ref_obj: (g6p::maxw::i), id:88, line:8:13, endln:8:14
+|vpiFullName:g6p::maxw::i
+|vpiActual:
+\_int_typespec: , id:9, line:4:37, endln:4:40

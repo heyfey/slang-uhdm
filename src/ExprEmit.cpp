@@ -25171,7 +25171,117 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 shadowSkip8v = true;
                             }
                         }
-                        if (isFunc && !inProcessEmit && !inGenScopeProc &&
+                        // § callArgSubroutineLocalOffRetExprNoTs48 (r11u48)
+                        // — A CALL ARGUMENT THAT IS A BARE REFERENCE TO A
+                        // SUBROUTINE-BODY LOCAL VARIABLE CARRIES NO
+                        // FORMAL-TYPESPEC STAMP **OUTSIDE THE RETURN-EXPRESSION
+                        // WINDOW**.
+                        //
+                        // THE PRODUCER.  The stamp is `ExprEval::EvalFunc`'s
+                        // (`~/git-repos/UHDM/templates/ExprEval.cpp:6170-6182`):
+                        //     expr *ioexp = (expr *)args->at(index);
+                        //     if (expr *exparg = reduceExpr(ioexp, ...)) {
+                        //       if (exparg->Typespec() == nullptr) { ...mint... }
+                        //       exparg->Typespec()->Actual_typespec(tps);
+                        //     }
+                        // — it lands on the object `reduceExpr` RETURNS, never
+                        // on the argument in the tree.  `reduceExpr`'s
+                        // `ref_obj` arm (`:4806-4830`) first asks
+                        // `getValue(name, inst, pexpr)`; when the reference
+                        // HAS a value in the scope being evaluated the call is
+                        // replaced by a fresh constant and the stamp dies on
+                        // that temporary, and only a reference with NO value
+                        // keeps the same object and shows the stamp.
+                        //
+                        // THE GOLDEN GRID, 16 arms (tools/probe/r11u48repro/
+                        // grid, LHS = Surelog; every arm's `actual=` kind read
+                        // off the database by `fcarg48`).
+                        //   STAMPED  g1/g8   `mul2(mul2(x))` — the enclosing
+                        //                    function's own FORMAL (io_decl)
+                        //   STAMPED  g10     `w(v)` — a MODULE-level variable
+                        //                    (Surelog's logic_net)
+                        //   STAMPED  g13/g14/g16 — a BODY LOCAL in the
+                        //                    RETURN TOP EXPRESSION of a package
+                        //                    function nothing evaluates
+                        //                    (uvm-1.2 `uvm_is_match`'s
+                        //                    `return (uvm_re_match(s,str)==0)`
+                        //                    is this cell, and MiniAmiq's
+                        //                    golden stamps it: the census
+                        //                    reads `ts=string_typespec
+                        //                    actual=string_var`)
+                        //   BARE     g2/g6/g7/g9/g15/g17/g21 — a body local in
+                        //                    a for/while LOOP body
+                        //   BARE     g18     — a body local under an `if`
+                        //   BARE     g3/g4/g11/g20 — a body local in a function
+                        //                    that IS constant-evaluated
+                        //   BARE     g22     — the MODULE-function twin of g16
+                        //                    (and we already emit nothing
+                        //                    there, so the package-only window
+                        //                    below reaches no cell golden
+                        //                    stamps)
+                        // The split is the RETURN-EXPRESSION WINDOW and
+                        // nothing else: not the variable's type (g13 string /
+                        // g14 int both stamped), not the declaration form
+                        // (g14 assigned / g16 initialised both stamped), not
+                        // the loop (g18 has none and is bare).  That window is
+                        // already named here — § pkgRetTopCallArgFormalTs8's
+                        // `pkgRetTopExpr8` (StmtEmit.cpp ~5779): Surelog
+                        // compiles the elaborated package with Reduce::Yes and
+                        // `compileStmt`'s paRETURN arm is the only arm that
+                        // threads that reduce down, so it is the only place a
+                        // never-evaluated body local reaches `EvalFunc` with no
+                        // value of its own.
+                        //
+                        // AN EARLIER, WIDER SPELLING OF THIS GUARD IS REFUTED
+                        // AND RECORDED AS REFUTED: "a `*_var` actual is never
+                        // stamped" reads true over the 1742 uhdm2rtlil goldens
+                        // (28 var-bound call arguments, 28 bare, 0 typed) and
+                        // is FALSE on the Surelog corpus, where MiniAmiq,
+                        // SeqDriver, SimpleUVM, BuildUVMPkg and Scoreboard all
+                        // carry the stamped `uvm_is_match` cell.  The a-priori
+                        // prediction (tools/probe/r11u48repro/predict48.py)
+                        // named those five rows before any patched sweep ran.
+                        //
+                        // Corpus: cfg_func_width_loop's `fwidth(i)` inside
+                        // `for (int unsigned i = 0; ...)` in `q::maxw` — a body
+                        // local, and NOT in the return expression.
+                        // R11U48_OFF=1 restores the pre-pass answer exactly
+                        // (the A/B neutral binary); R11U48_DBG=1 names every
+                        // argument this guard removes, so the mover set is
+                        // PREDICTED BY NAME off the pristine corpus.
+                        static const bool r11u48OffE = [] {
+                            const char* v = getenv("R11U48_OFF");
+                            return v && *v && *v != '0';
+                        }();
+                        static const bool r11u48DbgE = [] {
+                            const char* v = getenv("R11U48_DBG");
+                            return v && *v && *v != '0';
+                        }();
+                        bool subLocalRefArg48 = false;
+                        {
+                            const Expression& bl48 = stripImplicitConv(*arg);
+                            if (bl48.kind == ExpressionKind::NamedValue &&
+                                bl48.as<NamedValueExpression>().symbol.kind ==
+                                    SymbolKind::Variable) {
+                                for (auto sc48 = bl48.as<NamedValueExpression>()
+                                                     .symbol.getParentScope();
+                                     sc48;
+                                     sc48 = sc48->asSymbol().getParentScope()) {
+                                    auto k48 = sc48->asSymbol().kind;
+                                    if (k48 == SymbolKind::Subroutine) {
+                                        subLocalRefArg48 = true;
+                                        break;
+                                    }
+                                    if (k48 != SymbolKind::StatementBlock)
+                                        break;
+                                }
+                            }
+                        }
+                        const bool subLocalGate48 =
+                            r11u48OffE ? false
+                                       : (subLocalRefArg48 && !pkgRetTopExpr8);
+                        const bool stampCond48 =
+                            isFunc && !inProcessEmit && !inGenScopeProc &&
                             !defGenProcessEmit &&
                             !caCondReduceStop && (argCtxOk || pkgRetArgTs8) &&
                             !shadowSkip8v && !pkgScopedRef &&
@@ -25210,7 +25320,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             !defOnlyDefEmit &&
                             !(unbasedArg && contAssignView == 1) &&
                             (refArg || otherArg) &&
-                            (argIdx < si.argTs.size() || elabParamArgFold)) {
+                            (argIdx < si.argTs.size() || elabParamArgFold);
+                        // The trace fires ONLY where the stamp would actually
+                        // have been written, so the predicted mover set is
+                        // exact rather than an upper bound.
+                        if (r11u48DbgE && stampCond48 && subLocalRefArg48 &&
+                            !pkgRetTopExpr8 &&
+                            a->UhdmType() == UHDM::uhdmref_obj)
+                            fprintf(stderr, "R11U48A arg=%s call=%s\n",
+                                    std::string(((UHDM::ref_obj*)a)->VpiName())
+                                        .c_str(),
+                                    prefix.c_str());
+                        if (stampCond48 && !subLocalGate48) {
                             auto* r = (UHDM::expr*)a;
                             auto* rt = s.MakeRef_typespec();
                             // Constant args (param-init context) name the

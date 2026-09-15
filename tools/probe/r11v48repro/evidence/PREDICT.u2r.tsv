@@ -1,0 +1,8 @@
+# r11v48 PREDICT (uhdm2rtlil): R11U48_OFF=1 byte-neutrality + R11U48_DBG=1 cell naming
+# arms=1742  NOREF=134  SAME=1608
+# rows below = every NOTSAME arm and every arm with a changed cell. NOREF/NOCMD = the arm has no pristine database / no slang line (SLANG_REJECT, SURELOG_FAIL, cache-only); they are counted in the header and not listed.
+# status	cells	arm
+SAME	1	packed_struct_array_fifo-96e8c758
+SAME	2	cfg_func_width_loop-e717ba60
+SAME	1	packed_struct_array_fifo-96e8c758
+SAME	2	cfg_func_width_loop-e717ba60

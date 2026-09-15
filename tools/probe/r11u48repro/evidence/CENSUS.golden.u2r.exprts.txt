@@ -1,0 +1,594 @@
+182848	constant under=range ts=NONE
+83847	ref_typespec under=typespec_member ts=NONE
+79298	ref_typespec under=parameter ts=NONE
+59550	ref_typespec under=constant ts=NONE
+51034	ref_obj under=hier_path ts=NONE
+49810	constant under=operation ts=NONE
+49285	constant under=param_assign ts=ref_typespec act=int_typespec
+48390	constant under=<null> ts=NONE
+45409	parameter under=module_inst ts=ref_typespec act=int_typespec
+43953	ref_obj under=operation ts=NONE
+43084	ref_obj under=range ts=NONE
+33255	ref_obj under=port ts=NONE
+32151	ref_typespec under=logic_net ts=NONE
+32101	ref_typespec under=tagged_pattern ts=NONE
+26221	logic_net under=module_inst ts=ref_typespec act=logic_typespec
+26042	operation under=operation ts=NONE
+25944	parameter under=module_inst ts=NONE
+25846	constant under=param_assign ts=NONE
+23523	ref_typespec under=port ts=NONE
+21700	ref_obj under=assignment ts=NONE
+14786	ref_typespec under=logic_typespec ts=NONE
+14570	constant under=tagged_pattern ts=NONE
+14377	ref_obj under=cont_assign ts=NONE
+12358	parameter under=gen_scope ts=ref_typespec act=int_typespec
+12014	operation under=range ts=NONE
+11906	constant under=bit_select ts=NONE
+11462	hier_path under=assignment ts=NONE
+10976	logic_net under=module_inst ts=NONE
+9623	ref_typespec under=logic_var ts=NONE
+9498	operation under=assignment ts=NONE
+8730	bit_select under=operation ts=NONE
+8674	ref_obj under=bit_select ts=NONE
+8004	bit_select under=hier_path ts=NONE
+7312	ref_typespec under=enum_typespec ts=NONE
+6551	operation under=cont_assign ts=NONE
+6270	bit_select under=assignment ts=NONE
+6123	ref_typespec under=io_decl ts=NONE
+5988	hier_path under=operation ts=NONE
+5907	ref_typespec under=operation ts=NONE
+5162	constant under=case_item ts=NONE
+5157	operation under=param_assign ts=NONE
+4884	bit_select under=cont_assign ts=NONE
+4878	ref_obj under=begin ts=NONE
+4672	ref_typespec under=int_var ts=NONE
+4024	parameter under=package ts=ref_typespec act=int_typespec
+3834	logic_var under=module_inst ts=ref_typespec act=logic_typespec
+3766	logic_net under=gen_scope ts=ref_typespec act=logic_typespec
+3614	int_var under=function ts=ref_typespec act=int_typespec
+3522	hier_path under=cont_assign ts=NONE
+3328	ref_obj under=var_select ts=NONE
+3084	constant under=param_assign ts=ref_typespec act=logic_typespec
+3054	parameter under=module_inst ts=ref_typespec act=logic_typespec
+2982	operation under=immediate_assert ts=NONE
+2621	ref_typespec under=class_var ts=NONE
+2613	class_var under=function ts=ref_typespec act=class_typespec
+2524	parameter under=param_assign ts=ref_typespec act=struct_typespec
+2424	part_select under=operation ts=NONE
+2418	parameter under=param_assign ts=ref_typespec act=int_typespec
+2262	operation under=part_select ts=NONE
+2155	parameter under=module_inst ts=ref_typespec act=struct_typespec
+2072	constant under=func_call ts=ref_typespec act=logic_typespec
+2049	operation under=param_assign ts=ref_typespec act=struct_typespec
+2000	parameter under=package ts=ref_typespec act=logic_typespec
+1974	constant under=operation ts=ref_typespec act=int_typespec
+1914	ref_typespec under=<null> ts=NONE
+1884	constant under=cont_assign ts=NONE
+1752	operation under=hier_path ts=NONE
+1746	ref_obj under=sys_func_call ts=NONE
+1634	sys_func_call under=operation ts=NONE
+1564	parameter under=package ts=ref_typespec act=struct_typespec
+1520	operation under=event_control ts=NONE
+1482	constant under=sys_func_call ts=NONE
+1479	logic_var under=interface_inst ts=ref_typespec act=logic_typespec
+1386	operation under=begin ts=NONE
+1255	ref_obj under=func_call ts=NONE
+1216	constant under=part_select ts=NONE
+1191	ref_typespec under=enum_var ts=NONE
+1169	ref_typespec under=struct_var ts=NONE
+1137	ref_typespec under=struct_net ts=NONE
+1118	var_select under=operation ts=NONE
+1096	func_call under=param_assign ts=NONE
+1088	logic_var under=assignment ts=ref_typespec act=logic_typespec
+1022	parameter under=param_assign ts=ref_typespec act=logic_typespec
+1012	bit_select under=port ts=NONE
+1000	operation under=bit_select ts=NONE
+992	constant under=param_assign ts=ref_typespec act=bit_typespec
+991	parameter under=module_inst ts=ref_typespec act=bit_typespec
+986	ref_typespec under=array_typespec ts=NONE
+986	part_select under=var_select ts=NONE
+942	operation under=operation ts=ref_typespec act=struct_typespec
+880	constant under=var_select ts=NONE
+879	logic_var under=function ts=NONE
+873	enum_var under=function ts=ref_typespec act=enum_typespec
+862	var_select under=cont_assign ts=NONE
+856	part_select under=hier_path ts=NONE
+846	part_select under=assignment ts=NONE
+828	func_call under=assignment ts=NONE
+776	logic_var under=function ts=ref_typespec act=logic_typespec
+712	ref_typespec under=array_var ts=NONE
+664	logic_var under=array_var ts=ref_typespec act=logic_typespec
+620	operation under=for_stmt ts=NONE
+602	operation under=func_call ts=ref_typespec act=struct_typespec
+600	logic_var under=gen_scope ts=ref_typespec act=logic_typespec
+596	operation under=operation ts=ref_typespec act=integer_typespec
+572	constant under=func_call ts=NONE
+570	ref_obj under=case_item ts=NONE
+562	logic_var under=begin ts=ref_typespec act=logic_typespec
+548	struct_var under=begin ts=ref_typespec act=struct_typespec
+528	operation under=sys_func_call ts=NONE
+524	logic_var under=ref_obj ts=ref_typespec act=logic_typespec
+520	parameter under=param_assign ts=NONE
+520	operation under=property_spec ts=NONE
+514	operation under=param_assign ts=ref_typespec act=logic_typespec
+508	operation under=operation ts=ref_typespec act=logic_typespec
+470	var_select under=assignment ts=NONE
+462	operation under=tagged_pattern ts=ref_typespec act=struct_typespec
+460	logic_net under=interface_inst ts=ref_typespec act=logic_typespec
+458	int_var under=module_inst ts=ref_typespec act=int_typespec
+448	ref_obj under=part_select ts=NONE
+424	func_call under=operation ts=NONE
+420	int_var under=assignment ts=ref_typespec act=int_typespec
+406	constant under=assignment ts=NONE
+400	ref_typespec under=integer_var ts=NONE
+398	constant under=param_assign ts=ref_typespec act=struct_typespec
+386	logic_net under=io_decl ts=ref_typespec act=logic_typespec
+386	func_call under=case_item ts=NONE
+382	ref_typespec under=union_var ts=NONE
+382	hier_path under=sys_func_call ts=NONE
+368	hier_path under=port ts=NONE
+360	struct_var under=function ts=ref_typespec act=struct_typespec
+352	operation under=port ts=NONE
+352	hier_path under=begin ts=NONE
+344	ref_obj under=always ts=NONE
+344	operation under=operation ts=ref_typespec act=int_typespec
+340	func_call under=bit_select ts=NONE
+335	array_var under=module_inst ts=ref_typespec act=array_typespec
+334	operation under=case_item ts=NONE
+332	struct_net under=io_decl ts=ref_typespec act=struct_typespec
+324	union_var under=ref_obj ts=ref_typespec act=union_typespec
+324	sys_func_call under=begin ts=NONE
+322	sys_func_call under=param_assign ts=NONE
+322	constant under=typespec_member ts=NONE
+312	part_select under=cont_assign ts=NONE
+308	ref_obj under=gate ts=NONE
+308	parameter under=module_inst ts=ref_typespec act=array_typespec
+304	logic_net under=module_inst ts=ref_typespec act=struct_typespec
+298	operation under=assignment ts=ref_typespec act=logic_typespec
+298	constant under=range ts=ref_typespec act=int_typespec
+292	ref_obj under=function ts=NONE
+292	ref_obj under=event_control ts=NONE
+286	ref_obj under=return_stmt ts=NONE
+282	struct_net under=module_inst ts=ref_typespec act=struct_typespec
+282	parameter under=interface_inst ts=ref_typespec act=int_typespec
+282	enum_var under=module_inst ts=ref_typespec act=enum_typespec
+280	parameter under=interface_inst ts=ref_typespec act=struct_typespec
+278	ref_obj under=property_inst ts=NONE
+278	ref_obj under=if_else ts=NONE
+276	operation under=gen_for ts=NONE
+266	sys_func_call under=sys_func_call ts=NONE
+266	operation under=indexed_part_select ts=NONE
+258	constant under=bit_select ts=ref_typespec act=int_typespec
+255	struct_net under=array_net ts=ref_typespec act=struct_typespec
+250	func_call under=cont_assign ts=NONE
+246	logic_net under=cont_assign ts=ref_typespec act=logic_typespec
+240	ref_typespec under=packed_array_typespec ts=NONE
+230	bit_select under=begin ts=NONE
+218	array_net under=module_inst ts=NONE
+216	ref_obj under=param_assign ts=NONE
+208	operation under=gen_if_else ts=NONE
+206	ref_obj under=gen_if_else ts=NONE
+206	operation under=func_call ts=NONE
+197	array_var under=interface_inst ts=ref_typespec act=array_typespec
+192	operation under=operation ts=ref_typespec act=byte_typespec
+191	ref_typespec under=ref_obj ts=NONE
+188	parameter under=package ts=ref_typespec act=array_typespec
+188	logic_net under=array_net ts=ref_typespec act=logic_typespec
+186	operation under=gen_if ts=NONE
+184	parameter under=module_inst ts=ref_typespec act=enum_typespec
+174	ref_obj under=named_begin ts=NONE
+170	struct_net under=interface_inst ts=ref_typespec act=struct_typespec
+170	integer_var under=module_inst ts=ref_typespec act=integer_typespec
+168	logic_net under=module_inst ts=ref_typespec act=enum_typespec
+166	sys_func_call under=assignment ts=NONE
+162	operation under=assignment ts=ref_typespec act=int_typespec
+158	operation under=if_else ts=NONE
+157	ref_obj under=func_call ts=ref_typespec act=logic_typespec
+155	struct_var under=module_inst ts=ref_typespec act=struct_typespec
+147	array_net under=<null> ts=NONE
+140	operation under=param_assign ts=ref_typespec act=array_typespec
+138	ref_obj under=gen_for ts=NONE
+130	sys_func_call under=immediate_assert ts=NONE
+130	ref_typespec under=bit_var ts=NONE
+128	hier_path under=tagged_pattern ts=NONE
+126	constant under=param_assign ts=ref_typespec act=enum_typespec
+124	constant under=port ts=NONE
+123	parameter under=module_inst ts=ref_typespec act=string_typespec
+122	operation under=cont_assign ts=ref_typespec act=integer_typespec
+122	operation under=assignment ts=ref_typespec act=integer_typespec
+122	indexed_part_select under=assignment ts=NONE
+120	constant under=task_call ts=NONE
+120	constant under=gen_if ts=NONE
+119	constant under=param_assign ts=ref_typespec act=string_typespec
+116	bit_select under=if_else ts=NONE
+112	parameter under=param_assign ts=ref_typespec act=array_typespec
+112	operation under=return_stmt ts=ref_typespec act=logic_typespec
+112	constant under=tagged_pattern ts=ref_typespec act=struct_typespec
+110	operation under=cont_assign ts=ref_typespec act=int_typespec
+108	logic_net under=interface_inst ts=NONE
+104	ref_typespec under=type_parameter ts=NONE
+104	array_var under=gen_scope ts=ref_typespec act=array_typespec
+98	indexed_part_select under=hier_path ts=NONE
+98	constant under=cont_assign ts=ref_typespec act=int_typespec
+96	logic_net under=module_inst ts=ref_typespec act=integer_typespec
+96	constant under=logic_var ts=NONE
+96	constant under=if_stmt ts=NONE
+92	ref_obj under=indexed_part_select ts=NONE
+88	logic_net under=interface_inst ts=ref_typespec act=struct_typespec
+86	ref_typespec under=hier_path ts=NONE
+86	ref_obj under=logic_var ts=NONE
+86	int_var under=ref_obj ts=ref_typespec act=int_typespec
+86	array_net under=interface_inst ts=NONE
+84	var_select under=port ts=NONE
+84	ref_var under=assignment ts=NONE
+84	hier_path under=func_call ts=NONE
+78	integer_var under=function ts=ref_typespec act=integer_typespec
+76	part_select under=func_call ts=NONE
+76	logic_var under=named_begin ts=ref_typespec act=logic_typespec
+76	bit_var under=ref_obj ts=ref_typespec act=bit_typespec
+74	constant under=case_item ts=ref_typespec act=int_typespec
+72	hier_path under=port ts=ref_typespec act=struct_typespec
+72	func_call under=logic_var ts=NONE
+70	sys_task_call under=gen_scope ts=NONE
+70	logic_net under=module_inst ts=ref_typespec act=packed_array_typespec
+68	ref_typespec under=module_array ts=NONE
+68	part_select under=begin ts=NONE
+68	operation under=tagged_pattern ts=NONE
+68	array_var under=assignment ts=ref_typespec act=array_typespec
+66	ref_typespec under=byte_var ts=NONE
+64	ref_typespec under=bit_select ts=NONE
+64	operation under=operation ts=ref_typespec act=unsupported_typespec
+64	operation under=begin ts=ref_typespec act=enum_typespec
+62	integer_var under=ref_obj ts=ref_typespec act=integer_typespec
+62	constant under=cont_assign ts=ref_typespec act=logic_typespec
+60	task_call under=begin ts=NONE
+60	indexed_part_select under=var_select ts=NONE
+56	packed_array_var under=module_inst ts=NONE
+56	operation under=return_stmt ts=NONE
+56	constant under=operation ts=ref_typespec act=struct_typespec
+54	var_select under=hier_path ts=NONE
+54	hier_path under=event_control ts=NONE
+52	ref_typespec under=string_var ts=NONE
+52	ref_typespec under=packed_array_var ts=NONE
+52	operation under=named_begin ts=NONE
+52	constant under=case_stmt ts=NONE
+50	parameter under=gen_scope ts=ref_typespec act=logic_typespec
+48	struct_var under=packed_array_var ts=ref_typespec act=struct_typespec
+48	indexed_part_select under=port ts=NONE
+48	constant under=<null> ts=ref_typespec act=struct_typespec
+44	ref_typespec under=sys_func_call ts=NONE
+44	operation under=var_select ts=NONE
+44	operation under=operation ts=ref_typespec act=enum_typespec
+44	func_call under=begin ts=NONE
+42	struct_net under=gen_scope ts=ref_typespec act=struct_typespec
+42	operation under=logic_var ts=NONE
+42	logic_net under=module_inst ts=ref_typespec act=int_typespec
+42	hier_path under=param_assign ts=NONE
+42	hier_path under=always ts=NONE
+40	hier_path under=case_stmt ts=NONE
+40	byte_var under=module_inst ts=ref_typespec act=byte_typespec
+40	bit_select under=func_call ts=ref_typespec act=enum_typespec
+38	operation under=sys_func_call ts=ref_typespec act=integer_typespec
+38	operation under=<null> ts=NONE
+38	operation under=assignment ts=ref_typespec act=enum_typespec
+38	int_var under=begin ts=ref_typespec act=int_typespec
+38	constant under=param_assign ts=ref_typespec act=integer_typespec
+38	bit_select under=sys_func_call ts=NONE
+36	union_var under=function ts=ref_typespec act=union_typespec
+36	sys_func_call under=cont_assign ts=ref_typespec act=logic_typespec
+36	constant under=tagged_pattern ts=ref_typespec act=logic_typespec
+34	part_select under=sys_func_call ts=NONE
+34	logic_var under=packed_array_var ts=NONE
+34	integer_var under=gen_scope ts=ref_typespec act=integer_typespec
+34	constant under=var_select ts=ref_typespec act=int_typespec
+32	ref_typespec under=short_int_var ts=NONE
+32	ref_obj under=method_func_call ts=NONE
+32	ref_obj under=case_stmt ts=NONE
+32	ref_obj under=assign_stmt ts=NONE
+32	part_select under=port ts=NONE
+32	hier_path under=if_else ts=NONE
+32	constant under=param_assign ts=ref_typespec act=byte_typespec
+30	operation under=param_assign ts=ref_typespec act=int_typespec
+30	operation under=integer_var ts=NONE
+30	operation under=cont_assign ts=ref_typespec act=struct_typespec
+30	operation under=always ts=ref_typespec act=enum_typespec
+30	constant under=typespec_member ts=ref_typespec act=struct_typespec
+30	constant under=operation ts=ref_typespec act=logic_typespec
+30	constant under=assign_stmt ts=NONE
+28	struct_var under=ref_obj ts=ref_typespec act=struct_typespec
+28	ref_typespec under=long_int_var ts=NONE
+28	packed_array_var under=module_inst ts=ref_typespec act=logic_typespec
+28	logic_net under=port ts=ref_typespec act=logic_typespec
+28	func_call under=return_stmt ts=NONE
+28	constant under=param_assign ts=ref_typespec act=<null>
+26	var_select under=begin ts=NONE
+26	sys_func_call under=if_stmt ts=NONE
+26	parameter under=module_inst ts=ref_typespec act=integer_typespec
+26	integer_var under=assignment ts=ref_typespec act=integer_typespec
+26	indexed_part_select under=cont_assign ts=NONE
+26	hier_path under=gen_if_else ts=NONE
+26	constant under=logic_var ts=ref_typespec act=logic_typespec
+24	sys_func_call under=initial ts=NONE
+24	ref_typespec under=interface_array ts=NONE
+24	ref_obj under=task_call ts=NONE
+24	part_select under=bit_select ts=NONE
+24	parameter under=param_assign ts=ref_typespec act=bit_typespec
+24	parameter under=module_inst ts=ref_typespec act=byte_typespec
+24	int_var under=interface_inst ts=ref_typespec act=int_typespec
+24	hier_path under=range ts=NONE
+24	hier_path under=indexed_part_select ts=NONE
+24	hier_path under=case_item ts=NONE
+24	constant under=<null> ts=ref_typespec act=int_typespec
+22	union_var under=module_inst ts=ref_typespec act=union_typespec
+22	sys_func_call under=return_stmt ts=NONE
+22	parameter under=module_inst ts=ref_typespec act=real_typespec
+22	operation under=param_assign ts=ref_typespec act=integer_typespec
+22	constant under=param_assign ts=ref_typespec act=real_typespec
+22	constant under=int_var ts=NONE
+20	sys_func_call under=case_item ts=NONE
+20	ref_typespec under=bit_typespec ts=NONE
+20	parameter under=package ts=ref_typespec act=union_typespec
+20	parameter under=gen_scope ts=ref_typespec act=struct_typespec
+20	method_func_call under=hier_path ts=NONE
+20	logic_var under=module_inst ts=NONE
+20	logic_net under=module_inst ts=ref_typespec act=union_typespec
+20	indexed_part_select under=operation ts=NONE
+18	string_var under=module_inst ts=ref_typespec act=string_typespec
+18	ref_obj under=<null> ts=NONE
+18	operation under=int_var ts=NONE
+18	operation under=function ts=NONE
+18	operation under=cont_assign ts=ref_typespec act=unsupported_typespec
+18	integer_var under=named_begin ts=ref_typespec act=integer_typespec
+18	hier_path under=hier_path ts=NONE
+18	hier_path under=bit_select ts=NONE
+18	constant under=<null> ts=ref_typespec act=logic_typespec
+18	constant under=indexed_part_select ts=NONE
+18	bit_var under=function ts=ref_typespec act=bit_typespec
+16	var_select under=sys_func_call ts=NONE
+16	var_select under=func_call ts=ref_typespec act=logic_typespec
+16	struct_var under=assignment ts=ref_typespec act=struct_typespec
+16	string_var under=function ts=ref_typespec act=string_typespec
+16	string_var under=begin ts=ref_typespec act=string_typespec
+16	ref_typespec under=var_select ts=NONE
+16	ref_obj under=int_typespec ts=NONE
+16	operation under=port ts=ref_typespec act=integer_typespec
+16	operation under=case_stmt ts=ref_typespec act=enum_typespec
+16	logic_net under=array_net ts=ref_typespec act=struct_typespec
+16	hier_path under=var_select ts=NONE
+16	constant under=method_func_call ts=NONE
+16	constant under=cont_assign ts=ref_typespec act=byte_typespec
+16	bit_select under=func_call ts=ref_typespec act=struct_typespec
+15	func_call under=func_call ts=NONE
+14	sys_func_call under=cont_assign ts=NONE
+14	int_var under=array_var ts=ref_typespec act=int_typespec
+14	func_call under=sys_func_call ts=NONE
+14	enum_var under=packed_array_var ts=ref_typespec act=enum_typespec
+14	constant under=part_select ts=ref_typespec act=int_typespec
+14	constant under=param_assign ts=ref_typespec act=short_int_typespec
+14	constant under=param_assign ts=ref_typespec act=long_int_typespec
+14	constant under=integer_var ts=NONE
+14	bit_var under=assignment ts=ref_typespec act=bit_typespec
+12	struct_net under=packed_array_net ts=ref_typespec act=struct_typespec
+12	struct_net under=operation ts=ref_typespec act=struct_typespec
+12	struct_net under=cont_assign ts=ref_typespec act=struct_typespec
+12	ref_obj under=integer_var ts=NONE
+12	parameter under=param_assign ts=ref_typespec act=short_int_typespec
+12	parameter under=param_assign ts=ref_typespec act=long_int_typespec
+12	parameter under=param_assign ts=ref_typespec act=integer_typespec
+12	parameter under=param_assign ts=ref_typespec act=byte_typespec
+12	parameter under=gen_scope ts=ref_typespec act=bit_typespec
+12	packed_array_var under=module_inst ts=ref_typespec act=packed_array_typespec
+12	packed_array_net under=module_inst ts=NONE
+12	operation under=tagged_pattern ts=ref_typespec act=logic_typespec
+12	operation under=port ts=ref_typespec act=int_typespec
+12	operation under=bit_var ts=NONE
+12	logic_var under=operation ts=ref_typespec act=logic_typespec
+12	integer_var under=begin ts=ref_typespec act=integer_typespec
+12	func_call under=always ts=NONE
+12	enum_var under=gen_scope ts=ref_typespec act=enum_typespec
+12	constant under=logic_var ts=ref_typespec act=bit_typespec
+12	constant under=case_stmt ts=ref_typespec act=int_typespec
+12	bit_var under=gen_scope ts=ref_typespec act=bit_typespec
+12	bit_select under=return_stmt ts=NONE
+12	bit_select under=gate ts=NONE
+11	ref_typespec under=func_call ts=NONE
+10	sys_func_call under=property_spec ts=NONE
+10	struct_var under=array_var ts=ref_typespec act=struct_typespec
+10	ref_obj under=func_call ts=ref_typespec act=integer_typespec
+10	operation under=integer_typespec ts=NONE
+10	logic_net under=module_inst ts=ref_typespec act=string_typespec
+10	hier_path under=part_select ts=NONE
+10	constant under=<null> ts=ref_typespec act=array_typespec
+10	constant under=func_call ts=ref_typespec act=integer_typespec
+8	unsupported_expr under=operation ts=NONE
+8	struct_net under=module_inst ts=ref_typespec act=union_typespec
+8	short_int_var under=module_inst ts=ref_typespec act=short_int_typespec
+8	ref_obj under=gen_case ts=NONE
+8	ref_obj under=func_call ts=ref_typespec act=union_typespec
+8	ref_obj under=enum_var ts=NONE
+8	parameter under=module_inst ts=ref_typespec act=union_typespec
+8	operation under=struct_var ts=NONE
+8	operation under=short_int_var ts=NONE
+8	operation under=long_int_var ts=NONE
+8	operation under=cont_assign ts=ref_typespec act=enum_typespec
+8	operation under=case_item ts=ref_typespec act=enum_typespec
+8	operation under=byte_var ts=NONE
+8	operation under=always ts=NONE
+8	logic_net under=<null> ts=ref_typespec act=logic_typespec
+8	logic_net under=interface_inst ts=ref_typespec act=int_typespec
+8	hier_path under=named_begin ts=NONE
+8	func_call under=port ts=NONE
+8	enum_var under=array_var ts=ref_typespec act=enum_typespec
+8	constant under=logic_var ts=ref_typespec act=integer_typespec
+8	constant under=immediate_assert ts=NONE
+8	constant under=cont_assign ts=ref_typespec act=string_typespec
+8	class_var under=module_inst ts=ref_typespec act=class_typespec
+8	bit_select under=func_call ts=ref_typespec act=logic_typespec
+8	bit_select under=func_call ts=NONE
+8	bit_select under=event_control ts=NONE
+8	bit_select under=bit_select ts=NONE
+8	array_net under=gen_scope ts=NONE
+6	var_select under=return_stmt ts=NONE
+6	sys_func_call under=cont_assign ts=ref_typespec act=int_typespec
+6	struct_net under=module_inst ts=ref_typespec act=packed_array_typespec
+6	struct_net under=io_decl ts=ref_typespec act=union_typespec
+6	short_int_var under=ref_obj ts=ref_typespec act=short_int_typespec
+6	short_int_var under=gen_scope ts=ref_typespec act=short_int_typespec
+6	short_int_var under=function ts=ref_typespec act=short_int_typespec
+6	short_int_var under=assignment ts=ref_typespec act=short_int_typespec
+6	ref_typespec under=struct_typespec ts=NONE
+6	ref_typespec under=part_select ts=NONE
+6	ref_obj under=immediate_assert ts=NONE
+6	ref_obj under=gen_if ts=NONE
+6	ref_obj under=func_call ts=ref_typespec act=int_typespec
+6	ref_obj under=func_call ts=ref_typespec act=enum_typespec
+6	parameter under=gen_scope ts=ref_typespec act=short_int_typespec
+6	parameter under=gen_scope ts=ref_typespec act=long_int_typespec
+6	parameter under=gen_scope ts=ref_typespec act=integer_typespec
+6	parameter under=gen_scope ts=ref_typespec act=byte_typespec
+6	operation under=while_stmt ts=NONE
+6	operation under=task_call ts=NONE
+6	operation under=if_stmt ts=NONE
+6	operation under=func_call ts=ref_typespec act=integer_typespec
+6	operation under=assignment ts=ref_typespec act=unsupported_typespec
+6	operation under=always ts=ref_typespec act=unsupported_typespec
+6	method_func_call under=initial ts=NONE
+6	method_func_call under=begin ts=NONE
+6	long_int_var under=ref_obj ts=ref_typespec act=long_int_typespec
+6	long_int_var under=gen_scope ts=ref_typespec act=long_int_typespec
+6	long_int_var under=function ts=ref_typespec act=long_int_typespec
+6	long_int_var under=assignment ts=ref_typespec act=long_int_typespec
+6	logic_net under=module_inst ts=ref_typespec act=array_typespec
+6	int_var under=gen_scope ts=ref_typespec act=int_typespec
+6	hier_path under=param_assign ts=ref_typespec act=int_typespec
+6	hier_path under=operation ts=ref_typespec act=int_typespec
+6	hier_path under=gen_case ts=NONE
+6	hier_path under=function ts=NONE
+6	func_call under=func_call ts=ref_typespec act=logic_typespec
+6	constant under=tagged_pattern ts=ref_typespec act=int_typespec
+6	constant under=port ts=ref_typespec act=int_typespec
+6	constant under=logic_var ts=ref_typespec act=short_int_typespec
+6	constant under=logic_var ts=ref_typespec act=long_int_typespec
+6	constant under=logic_var ts=ref_typespec act=int_typespec
+6	constant under=logic_var ts=ref_typespec act=byte_typespec
+6	constant under=gen_if_else ts=NONE
+6	constant under=cont_assign ts=ref_typespec act=enum_typespec
+6	byte_var under=ref_obj ts=ref_typespec act=byte_typespec
+6	byte_var under=gen_scope ts=ref_typespec act=byte_typespec
+6	byte_var under=function ts=ref_typespec act=byte_typespec
+6	byte_var under=assignment ts=ref_typespec act=byte_typespec
+6	bit_select under=var_select ts=NONE
+6	bit_select under=always ts=NONE
+6	array_var under=function ts=ref_typespec act=array_typespec
+4	unsupported_expr under=begin ts=NONE
+4	task_call under=initial ts=NONE
+4	sys_task_call under=module_inst ts=NONE
+4	ref_typespec under=extends ts=NONE
+4	ref_typespec under=chandle_var ts=NONE
+4	ref_obj under=tagged_pattern ts=NONE
+4	ref_obj under=property_spec ts=NONE
+4	ref_obj under=if_stmt ts=NONE
+4	part_select under=param_assign ts=NONE
+4	part_select under=func_call ts=ref_typespec act=union_typespec
+4	part_select under=case_item ts=NONE
+4	parameter under=param_assign ts=ref_typespec act=union_typespec
+4	parameter under=package ts=ref_typespec act=packed_array_typespec
+4	parameter under=package ts=ref_typespec act=bit_typespec
+4	parameter under=package ts=NONE
+4	parameter under=module_inst ts=ref_typespec act=short_int_typespec
+4	parameter under=module_inst ts=ref_typespec act=long_int_typespec
+4	packed_array_var under=function ts=ref_typespec act=logic_typespec
+4	operation under=struct_var ts=ref_typespec act=struct_typespec
+4	operation under=port ts=ref_typespec act=array_typespec
+4	operation under=operation ts=ref_typespec act=void_typespec
+4	operation under=operation ts=ref_typespec act=packed_array_typespec
+4	operation under=immediate_cover ts=NONE
+4	operation under=enum_var ts=NONE
+4	operation under=cont_assign ts=ref_typespec act=union_typespec
+4	operation under=cont_assign ts=ref_typespec act=logic_typespec
+4	operation under=assignment ts=ref_typespec act=struct_typespec
+4	method_func_call under=assignment ts=NONE
+4	long_int_var under=module_inst ts=ref_typespec act=long_int_typespec
+4	logic_var under=task ts=ref_typespec act=logic_typespec
+4	logic_var under=port ts=ref_typespec act=logic_typespec
+4	logic_net under=module_inst ts=ref_typespec act=unsupported_typespec
+4	logic_net under=module_inst ts=ref_typespec act=class_typespec
+4	logic_net under=gen_scope ts=NONE
+4	int_var under=ref_obj ts=ref_typespec act=logic_typespec
+4	int_var under=function ts=ref_typespec act=logic_typespec
+4	int_var under=class_defn ts=ref_typespec act=int_typespec
+4	indexed_part_select under=param_assign ts=NONE
+4	func_call under=property_spec ts=NONE
+4	func_call under=integer_var ts=NONE
+4	constant under=typespec_member ts=ref_typespec act=int_typespec
+4	constant under=string_var ts=NONE
+4	constant under=func_call ts=ref_typespec act=int_typespec
+4	constant under=enum_var ts=NONE
+4	bit_var under=array_var ts=ref_typespec act=bit_typespec
+4	bit_select under=for_stmt ts=NONE
+4	bit_select under=case_item ts=NONE
+3	func_call under=func_call ts=ref_typespec act=array_typespec
+2	var_select under=var_select ts=NONE
+2	var_select under=bit_select ts=NONE
+2	sys_func_call under=func_call ts=ref_typespec act=integer_typespec
+2	sys_func_call under=func_call ts=NONE
+2	sys_func_call under=delay_control ts=NONE
+2	sys_func_call under=assert_stmt ts=NONE
+2	sys_func_call under=always ts=NONE
+2	struct_var under=named_begin ts=ref_typespec act=struct_typespec
+2	struct_var under=module_inst ts=ref_typespec act=packed_array_typespec
+2	string_var under=assignment ts=ref_typespec act=string_typespec
+2	short_real_var under=module_inst ts=NONE
+2	ref_typespec under=real_var ts=NONE
+2	ref_typespec under=int_typespec ts=NONE
+2	ref_typespec under=indexed_part_select ts=NONE
+2	ref_obj under=repeat ts=NONE
+2	ref_obj under=int_var ts=NONE
+2	ref_obj under=func_call ts=ref_typespec act=unsupported_typespec
+2	ref_obj under=func_call ts=ref_typespec act=struct_typespec
+2	real_var under=assignment ts=ref_typespec act=real_typespec
+2	part_select under=return_stmt ts=NONE
+2	part_select under=func_call ts=ref_typespec act=logic_typespec
+2	part_select under=always ts=NONE
+2	parameter under=param_assign ts=ref_typespec act=unsupported_typespec
+2	parameter under=gen_scope ts=NONE
+2	parameter under=design ts=ref_typespec act=int_typespec
+2	packed_array_var under=module_inst ts=ref_typespec act=struct_typespec
+2	packed_array_var under=function ts=ref_typespec act=packed_array_typespec
+2	packed_array_var under=begin ts=ref_typespec act=packed_array_typespec
+2	packed_array_var under=begin ts=ref_typespec act=logic_typespec
+2	operation under=tagged_pattern ts=ref_typespec act=integer_typespec
+2	operation under=return_stmt ts=ref_typespec act=int_typespec
+2	operation under=port ts=ref_typespec act=unsupported_typespec
+2	operation under=port ts=ref_typespec act=struct_typespec
+2	operation under=func_call ts=ref_typespec act=int_typespec
+2	operation under=bit_select ts=ref_typespec act=int_typespec
+2	method_func_call under=function ts=NONE
+2	logic_net under=module_inst ts=ref_typespec act=time_typespec
+2	logic_net under=module_inst ts=ref_typespec act=short_real_typespec
+2	logic_net under=module_inst ts=ref_typespec act=short_int_typespec
+2	logic_net under=module_inst ts=ref_typespec act=long_int_typespec
+2	logic_net under=module_inst ts=ref_typespec act=byte_typespec
+2	logic_net under=module_inst ts=ref_typespec act=bit_typespec
+2	indexed_part_select under=func_call ts=ref_typespec act=logic_typespec
+2	indexed_part_select under=func_call ts=NONE
+2	hier_path under=operation ts=ref_typespec act=struct_typespec
+2	hier_path under=immediate_assert ts=NONE
+2	hier_path under=assign_stmt ts=NONE
+2	func_call under=initial ts=NONE
+2	func_call under=func_call ts=ref_typespec act=int_typespec
+2	enum_var under=begin ts=ref_typespec act=enum_typespec
+2	constant under=struct_var ts=NONE
+2	constant under=operation ts=ref_typespec act=integer_typespec
+2	constant under=operation ts=ref_typespec act=bit_typespec
+2	constant under=cont_assign ts=ref_typespec act=integer_typespec
+2	constant under=cont_assign ts=ref_typespec act=bit_typespec
+2	chandle_var under=function ts=ref_typespec act=chandle_typespec
+2	chandle_var under=assignment ts=ref_typespec act=chandle_typespec
+2	byte_var under=begin ts=ref_typespec act=byte_typespec
+2	bit_var under=module_inst ts=ref_typespec act=bit_typespec
+2	bit_var under=interface_inst ts=ref_typespec act=bit_typespec
+2	bit_var under=class_defn ts=ref_typespec act=bit_typespec
+2	bit_select under=parameter ts=NONE
+2	bit_select under=param_assign ts=NONE
+2	array_var under=begin ts=ref_typespec act=array_typespec

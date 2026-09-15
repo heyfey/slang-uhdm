@@ -1,0 +1,9 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (work@h2.x), id:143
+|vpiParent:
+\_constant: , id:142, line:5:10, endln:5:11
+|vpiFullName:work@h2.x
+|vpiActual:
+\_int_typespec: , id:144

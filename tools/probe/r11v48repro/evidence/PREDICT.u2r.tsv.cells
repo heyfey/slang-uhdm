@@ -1,0 +1,6 @@
+packed_struct_array_fifo-96e8c758	R11U48B owner=work@packed_struct_array_fifo.status_cnt_n par=ADDR_DEPTH old=0 new=0
+cfg_func_width_loop-e717ba60	R11U48A arg=i call=q::maxw
+cfg_func_width_loop-e717ba60	R11U48A arg=i call=q::maxw
+packed_struct_array_fifo-96e8c758	R11U48B owner=work@packed_struct_array_fifo.status_cnt_n par=ADDR_DEPTH old=0 new=0
+cfg_func_width_loop-e717ba60	R11U48A arg=i call=q::maxw
+cfg_func_width_loop-e717ba60	R11U48A arg=i call=q::maxw

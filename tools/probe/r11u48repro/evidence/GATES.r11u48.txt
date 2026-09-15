@@ -1,0 +1,66 @@
+r11u48 — GATES, all on this pass's OWN workdirs and OWN frozen binaries.
+
+BINARIES (chmod 555 before any sweep; every cmds.txt audited by PATH)
+  pristine  /tmp/<pass>_pris.bin  md5 bb429bfd6362775094b3e74909d02667
+            == the main tree's build/slang-uhdm at 2e089d24, byte for byte
+  patched   md5 9e5b571b5cf790228df692102343ce9f — the NARROWED guard, the
+            one landed here.  (An earlier build, md5
+            649ecd90a8f1bb1e4a28204c1f6f1b37, carried the WIDER arm-A guard
+            that the prediction refuted; it was never swept past the
+            prediction step.)  Both sweeps' cmds.txt name exactly ONE binary.
+
+(1) BUILD              both, -j 2, md5 separately.  Pristine byte-identical to
+                       the main tree.  0 errors.
+(2) GOLDEN UNIT TESTS  PASS 23 / FAIL 0; SLANG_UHDM=/bin/false -> FAIL 23
+                       (negative control).
+(3) uhdm2rtlil         testflags 783 CMP_EQUAL / 21 CMP_NOTEQUAL / 67 SLANG_REJECT
+                       default   783 / 21 / 67        (pristine: 782 / 22 / 67)
+   row-join vs results/gate_uhdm2rtlil.csv  : 1 differing ROW, quoted below
+   row-join vs results/golden_uhdm2rtlil.csv (default rows): 1 differing ROW
+     < packed_struct_array_fifo,testflags,CMP_NOTEQUAL,decompile:,,
+     > packed_struct_array_fifo,testflags,CMP_EQUAL,,,differ
+     < packed_struct_array_fifo,default,CMP_NOTEQUAL,decompile:,,
+     > packed_struct_array_fifo,default,CMP_EQUAL,,,differ
+(4) surelog --mode both  474 CMP_EQUAL / 9 CMP_NOTEQUAL  (default)
+                         469 CMP_EQUAL / 8 CMP_NOTEQUAL  (testflags)  — UNMOVED
+   row-join vs results/golden_surelog.csv : 2 differing ROWS, both the
+   SURELOG_FAIL detail string of LowMemLib/LowMemPkg, which embeds the
+   WORKDIR PATH; the status-only join (name,mode,status) is 0 differing lines.
+(5) BYTEVERIFY  SELFCHECK=1, against this pass's own pristine workdirs
+   uhdm2rtlil  MOVERS 4 / 1608, SELFCHECK 1607/1608 flagged
+        ./default/cfg_func_width_loop       70ada25c9f82 -> 48ec18daaf70
+        ./default/packed_struct_array_fifo  f2442bc09a36 -> 25e5d3a63e38
+        ./testflags/cfg_func_width_loop     fd465b9919e4 -> 287f5f83e381
+        ./testflags/packed_struct_array_fifo fe505b2eaa71 -> 811c64b32a41
+      ALL FOUR PREDICTED BY NAME before the sweep (evidence/PREDICT.u2r.tsv).
+   surelog     MOVERS 4 / 960, SELFCHECK 959/960 flagged
+        MiniAmiq/default, MiniAmiq/testflags, SeqDriver/default, SeqDriver/testflags
+      PREDICTED MOVERS ON THIS CORPUS: ZERO.  These four are the documented
+      pristine nondeterminism, attributed ORDER-BLIND: the patched-vs-pristine
+      sorted-dump diff is 4 lines, one |UINT: and one |vpiDecompile: pair, on
+      each of the four — and the POSITIVE CONTROL, two runs of the PRISTINE
+      binary alone on MiniAmiq/default and SeqDriver/testflags, produces
+      exactly the same 4-line class.  Status unchanged (CMP_EQUAL), heads 0.
+   ATTRIBUTION of the four real movers, order-blind against each row's golden:
+        cfg_func_width_loop       136 -> 122 diff lines  (-14, pure removal)
+        packed_struct_array_fifo  218 -> 210 diff lines  (-8,  pure removal)
+      every removed line OURS-ONLY.  TO-GOLDEN 22 / AWAY-GOLDEN 0 / STILL-WRONG 0.
+(6) CANARIES
+   canaries.sh surelog     ok=52 changed=0 absent=0
+   canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+   ctcan2 surelog          ok=58 changed=0  PASS
+   ctcan2 uhdm2rtlil       ok=1  changed=0  PASS
+   canaudit                audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+   PROTECTED DATABASES, md5 pristine vs patched, ALL SAME:
+     SVSwitch        4842211c4030  both modes   (HARD byte pin)
+     YosysVerx       6ccda350c24a  both modes   (HARD byte pin)
+     InterfaceModPort 59a365f3ce2c both modes
+     BlackParrotComplex e3e354129d5a / 73a10e8217e5
+     YosysOldOr      d68e0796d62c  both modes
+     Earlgrey_0_1    8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)
+   rowheads on the PATCHED surelog workdir: SeqDriver, SimpleUVM, Scoreboard,
+   MiniAmiq, BuildUVMPkg and Earlgrey_0_1 all 0 heads in both modes;
+   Rggen/default 1 head, 64 cmp lines — identical to pristine.
+(7) FENCE  the four slang-fenced names appear in 0 patch hunks.
+(8) results/*.csv UNTOUCHED (git diff --name-only names src/ExprEmit.cpp,
+    src/TypeEmit.cpp and tools/probe/r11u48repro/ only).

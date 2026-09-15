@@ -1,0 +1,74 @@
+LHS:
+decompile:
+logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1443
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1445, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+  |vpiLeftRange:
+  \_constant: , id:1446, line:16:18, endln:16:19
+    |vpiParent:
+    \_range: , id:1445, line:16:17, endln:16:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:1447, line:16:20, endln:16:22
+    |vpiParent:
+    \_range: , id:1445, line:16:17, endln:16:25
+    |vpiDecompile:2
+    |vpiSize:64
+    |INT:2
+    |vpiConstType:7
+RHS:
+decompile:
+logic_typespec: (mask_t), id:462, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:388
+|vpiName:mask_t
+|vpiTypedefAlias:
+\_ref_typespec: (work@cfg_func_width_loop.u.M.mask_t), id:468
+  |vpiParent:
+  \_logic_typespec: (mask_t), id:462, line:16:11, endln:16:25
+  |vpiFullName:work@cfg_func_width_loop.u.M.mask_t
+  |vpiActual:
+  \_logic_typespec: (q::mask_t), id:124, line:16:11, endln:16:25
+|vpiInstance:
+\_package: q (q::), id:104, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:463, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (mask_t), id:462, line:16:11, endln:16:25
+  |vpiLeftRange:
+  \_constant: , id:464, line:16:18, endln:16:19
+    |vpiParent:
+    \_range: , id:463, line:16:17, endln:16:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_operation: , id:465, line:16:20, endln:16:24
+    |vpiParent:
+    \_range: , id:463, line:16:17, endln:16:25
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@cfg_func_width_loop.u.M.NF), id:466, line:16:20, endln:16:22
+      |vpiParent:
+      \_operation: , id:465, line:16:20, endln:16:24
+      |vpiName:NF
+      |vpiFullName:work@cfg_func_width_loop.u.M.NF
+    |vpiOperand:
+    \_constant: , id:467, line:16:23, endln:16:24
+      |vpiParent:
+      \_operation: , id:465, line:16:20, endln:16:24
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9

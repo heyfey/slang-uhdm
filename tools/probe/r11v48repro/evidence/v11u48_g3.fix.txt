@@ -1,0 +1,88 @@
+LISTED 6
+== vd1 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vd1)<design(work@vd1) @8:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vd1)<design(work@vd1) @9:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @9:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vd1)<design(work@vd1) @8:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vd1)<design(work@vd1) @9:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @9:9
+-- CMP rc=255 lines=18 heads=1
+== vd2 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=7 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vd2)<design(work@vd2) @5:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=7 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vd2)<design(work@vd2) @6:9
+   RB owner=logic_typespec L=operation/ts=NONE/dec=/size=0 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @5:9
+   RB owner=logic_typespec L=operation/ts=NONE/dec=/size=0 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=7 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vd2)<design(work@vd2) @5:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=7 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vd2)<design(work@vd2) @6:9
+   RB owner=logic_typespec L=operation/ts=NONE/dec=/size=0 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @5:9
+   RB owner=logic_typespec L=operation/ts=NONE/dec=/size=0 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:9
+-- CMP rc=0 lines=0 heads=0
+== vd3 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xc)<module_inst(work@vd3)<design(work@vd3) @8:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xe)<module_inst(work@vd3)<design(work@vd3) @9:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=C R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=E R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @9:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xc)<module_inst(work@vd3)<design(work@vd3) @8:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xe)<module_inst(work@vd3)<design(work@vd3) @9:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=C R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=E R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @9:9
+-- CMP rc=255 lines=9 heads=1
+== vd4 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xe)<module_inst(work@vd4)<design(work@vd4) @6:9
+   RB owner=logic_typespec L=operation/ts=int_typespec/dec=/size=0 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xi)<module_inst(work@vd4)<design(work@vd4) @7:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PE R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PI R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xe)<module_inst(work@vd4)<design(work@vd4) @6:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xi)<module_inst(work@vd4)<design(work@vd4) @7:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PE R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PI R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:9
+-- CMP rc=255 lines=37 heads=1
+== vd5 surelog_rc=0 slang_rc=3 gdb=yes odb=NO
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=VDPS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @11:13
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @4:18
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_net(p_in)<module_inst(work@vd5)<design(work@vd5) @4:18
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(body)<module_inst(work@vd5)<design(work@vd5) @8:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(gv)<gen_scope<gen_scope_array(gb)<module_inst(work@vd5)<design(work@vd5) @11:13
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=VDPS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @4:18
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=VDPS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+== vd6 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(vd6p::ts_t)<package(vd6p)<design(work@vd6) @5:17
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(vd6p::tu_t)<package(vd6p)<design(work@vd6) @6:17
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(vd6p::ts_t)<package(vd6p)<design(work@vd6) @5:17
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(vd6p::tu_t)<package(vd6p)<design(work@vd6) @6:17
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(ts_t) @5:17
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(tu_t) @6:17
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(vd6p::ts_t)<package(vd6p)<design(work@vd6) @5:17
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(vd6p::tu_t)<package(vd6p)<design(work@vd6) @6:17
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(vd6p::ts_t)<package(vd6p)<design(work@vd6) @5:17
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(vd6p::tu_t)<package(vd6p)<design(work@vd6) @6:17
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(ts_t) @5:17
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(tu_t) @6:17
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(ts_t) @5:17
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec(tu_t) @6:17
+-- CMP rc=255 lines=25 heads=1
+PROCESSED 6

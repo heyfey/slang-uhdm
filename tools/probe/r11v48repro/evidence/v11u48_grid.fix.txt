@@ -1,0 +1,356 @@
+LISTED 27
+== va10 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=<null> chain=func_call(w)<return_stmt<begin<function(f)<interface_inst<design(work@va10) @6:14
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=<null> chain=func_call(w)<return_stmt<begin<function(f)<interface_inst<design(work@va10) @6:14
+-- OURS RB
+-- CMP rc=0 lines=0 heads=0
+== va11 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=ex callee=g2re actual=io_decl chain=func_call(g2re)<assignment<begin<while_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @10:16
+   FC ts=string_typespec arg=ref_obj name=s callee=rem actual=string_var chain=func_call(rem)<operation<return_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @13:17
+   FC ts=string_typespec arg=ref_obj name=str callee=rem actual=io_decl chain=func_call(rem)<operation<return_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @13:20
+   FC ts=NONE arg=ref_obj name=ex callee=g2re actual=io_decl chain=func_call(g2re)<assignment<begin<while_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @10:16
+   FC ts=NONE arg=ref_obj name=s callee=rem actual=string_var chain=func_call(rem)<operation<return_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @13:17
+   FC ts=NONE arg=ref_obj name=str callee=rem actual=io_decl chain=func_call(rem)<operation<return_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @13:20
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=ex callee=g2re actual=io_decl chain=func_call(g2re)<assignment<begin<while_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @10:16
+   FC ts=NONE arg=ref_obj name=s callee=rem actual=string_var chain=func_call(rem)<operation<return_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @13:17
+   FC ts=NONE arg=ref_obj name=str callee=rem actual=io_decl chain=func_call(rem)<operation<return_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @13:20
+   FC ts=NONE arg=ref_obj name=ex callee=g2re actual=io_decl chain=func_call(g2re)<assignment<begin<while_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @10:16
+   FC ts=string_typespec arg=ref_obj name=s callee=rem actual=string_var chain=func_call(rem)<operation<return_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @13:17
+   FC ts=string_typespec arg=ref_obj name=str callee=rem actual=io_decl chain=func_call(rem)<operation<return_stmt<begin<function(ismatch)<package(va11p)<design(work@va11) @13:20
+-- OURS RB
+-- CMP rc=0 lines=0 heads=0
+== va12 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=struct_typespec arg=ref_obj name=s callee=ws actual=struct_var chain=func_call(ws)<operation<return_stmt<begin<function(f)<package(va12p)<design(work@va12) @11:15
+   FC ts=NONE arg=ref_obj name=s callee=ws actual=struct_var chain=func_call(ws)<operation<return_stmt<begin<function(f)<package(va12p)<design(work@va12) @11:15
+   FC ts=NONE arg=ref_obj name=arr callee=wa actual=logic_var chain=func_call(wa)<operation<return_stmt<begin<function(f)<package(va12p)<design(work@va12) @11:23
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<typespec_member(a)<struct_typespec(va12p::st_t)<package(va12p)<design(work@va12) @4:33
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:44
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:49
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @9:11
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<typespec_member(a)<struct_typespec(va12p::st_t)<package(va12p)<design(work@va12) @4:33
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:44
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:49
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @9:11
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=s callee=ws actual=struct_var chain=func_call(ws)<operation<return_stmt<begin<function(f)<package(va12p)<design(work@va12) @11:15
+   FC ts=NONE arg=ref_obj name=arr callee=wa actual=logic_var chain=func_call(wa)<operation<return_stmt<begin<function(f)<package(va12p)<design(work@va12) @11:23
+   FC ts=struct_typespec arg=ref_obj name=s callee=ws actual=struct_var chain=func_call(ws)<operation<return_stmt<begin<function(f)<package(va12p)<design(work@va12) @11:15
+   FC ts=logic_typespec arg=ref_obj name=arr callee=wa actual=logic_var chain=func_call(wa)<operation<return_stmt<begin<function(f)<package(va12p)<design(work@va12) @11:23
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<typespec_member(a)<struct_typespec(va12p::st_t)<package(va12p)<design(work@va12) @4:33
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:44
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:49
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @9:11
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<typespec_member(a)<struct_typespec(va12p::st_t)<package(va12p)<design(work@va12) @4:33
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:44
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:49
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @9:11
+-- CMP rc=255 lines=39 heads=1
+== va13 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=k callee=wr actual=int_var chain=func_call(wr)<operation<return_stmt<begin<function(f)<package(va13p)<design(work@va13) @8:15
+   FC ts=NONE arg=ref_obj name=m callee=wo actual=int_var chain=func_call(wo)<operation<return_stmt<begin<function(f)<package(va13p)<design(work@va13) @8:23
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=k callee=wr actual=int_var chain=func_call(wr)<operation<return_stmt<begin<function(f)<package(va13p)<design(work@va13) @8:15
+   FC ts=NONE arg=ref_obj name=m callee=wo actual=int_var chain=func_call(wo)<operation<return_stmt<begin<function(f)<package(va13p)<design(work@va13) @8:23
+   FC ts=int_typespec arg=ref_obj name=k callee=wr actual=int_var chain=func_call(wr)<operation<return_stmt<begin<function(f)<package(va13p)<design(work@va13) @8:15
+   FC ts=int_typespec arg=ref_obj name=m callee=wo actual=int_var chain=func_call(wo)<operation<return_stmt<begin<function(f)<package(va13p)<design(work@va13) @8:23
+-- OURS RB
+-- CMP rc=255 lines=14 heads=1
+== va1 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=i callee=w actual=int_var chain=func_call(w)<operation<assignment<for_stmt<begin<function(f)<package(va1p)<design(work@va1) @8:52
+   FC ts=NONE arg=ref_obj name=i callee=w actual=int_var chain=func_call(w)<operation<assignment<for_stmt<begin<function(f)<package(va1p)<design(work@va1) @8:52
+   FC ts=NONE arg=ref_obj name=s callee=g actual=int_var chain=func_call(g)<operation<return_stmt<begin<function(f)<package(va1p)<design(work@va1) @9:14
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=i callee=w actual=int_var chain=func_call(w)<operation<assignment<for_stmt<begin<function(f)<package(va1p)<design(work@va1) @8:52
+   FC ts=NONE arg=ref_obj name=s callee=g actual=int_var chain=func_call(g)<operation<return_stmt<begin<function(f)<package(va1p)<design(work@va1) @9:14
+   FC ts=NONE arg=ref_obj name=i callee=w actual=int_var chain=func_call(w)<operation<assignment<for_stmt<begin<function(f)<package(va1p)<design(work@va1) @8:52
+   FC ts=int_typespec arg=ref_obj name=s callee=g actual=int_var chain=func_call(g)<operation<return_stmt<begin<function(f)<package(va1p)<design(work@va1) @9:14
+-- OURS RB
+-- CMP rc=255 lines=14 heads=1
+== va2 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<begin<function(f)<package(va2p)<design(work@va2) @8:11
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<begin<function(f)<package(va2p)<design(work@va2) @8:11
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<begin<function(f)<package(va2p)<design(work@va2) @8:11
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<begin<function(f)<package(va2p)<design(work@va2) @8:11
+-- OURS RB
+-- CMP rc=0 lines=0 heads=0
+== va3 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=<null> chain=func_call(w)<operation<return_stmt<begin<function(f)<class_defn(C)<package(va3p)<design(work@va3) @7:16
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=<null> chain=func_call(w)<operation<return_stmt<begin<function(f)<class_defn(C)<package(va3p)<design(work@va3) @7:16
+-- OURS RB
+-- CMP rc=255 lines=197 heads=1
+== va4 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<begin<task(t)<package(va4p)<design(work@va4) @7:11
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<begin<task(t)<package(va4p)<design(work@va4) @7:11
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<begin<task(t)<package(va4p)<design(work@va4) @7:11
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<begin<task(t)<package(va4p)<design(work@va4) @7:11
+-- OURS RB
+-- CMP rc=0 lines=0 heads=0
+== va5 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=n callee=w actual=io_decl chain=func_call(w)<operation<return_stmt<function(f)<package(va5p)<design(work@va5) @6:14
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=n callee=w actual=io_decl chain=func_call(w)<operation<return_stmt<function(f)<package(va5p)<design(work@va5) @6:14
+   FC ts=int_typespec arg=ref_obj name=n callee=w actual=io_decl chain=func_call(w)<operation<return_stmt<function(f)<package(va5p)<design(work@va5) @6:14
+-- OURS RB
+-- CMP rc=255 lines=14 heads=1
+== va6 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=v callee=w actual=logic_net chain=func_call(w)<assignment<always<module_inst<design(work@va6) @6:21
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=v callee=w actual=logic_net chain=func_call(w)<assignment<always<module_inst<design(work@va6) @6:21
+-- OURS RB
+-- CMP rc=0 lines=0 heads=0
+== va7 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=sk callee=w actual=int_var chain=func_call(w)<operation<return_stmt<begin<function(f)<package(va7p)<design(work@va7) @8:14
+   FC ts=NONE arg=ref_obj name=ak callee=w actual=int_var chain=func_call(w)<operation<return_stmt<begin<function(f)<package(va7p)<design(work@va7) @8:22
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=sk callee=w actual=int_var chain=func_call(w)<operation<return_stmt<begin<function(f)<package(va7p)<design(work@va7) @8:14
+   FC ts=NONE arg=ref_obj name=ak callee=w actual=int_var chain=func_call(w)<operation<return_stmt<begin<function(f)<package(va7p)<design(work@va7) @8:22
+   FC ts=int_typespec arg=ref_obj name=sk callee=w actual=int_var chain=func_call(w)<operation<return_stmt<begin<function(f)<package(va7p)<design(work@va7) @8:14
+   FC ts=int_typespec arg=ref_obj name=ak callee=w actual=int_var chain=func_call(w)<operation<return_stmt<begin<function(f)<package(va7p)<design(work@va7) @8:22
+-- OURS RB
+-- CMP rc=255 lines=14 heads=1
+== va8 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<named_begin(nb)<begin<function(f)<package(va8p)<design(work@va8) @9:15
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<named_begin(nb)<begin<function(f)<package(va8p)<design(work@va8) @9:15
+   FC ts=NONE arg=ref_obj name=acc callee=w actual=int_var chain=func_call(w)<return_stmt<begin<function(f)<package(va8p)<design(work@va8) @11:14
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<named_begin(nb)<begin<function(f)<package(va8p)<design(work@va8) @9:15
+   FC ts=NONE arg=ref_obj name=acc callee=w actual=int_var chain=func_call(w)<return_stmt<begin<function(f)<package(va8p)<design(work@va8) @11:14
+   FC ts=NONE arg=ref_obj name=k callee=w actual=int_var chain=func_call(w)<assignment<named_begin(nb)<begin<function(f)<package(va8p)<design(work@va8) @9:15
+   FC ts=int_typespec arg=ref_obj name=acc callee=w actual=int_var chain=func_call(w)<return_stmt<begin<function(f)<package(va8p)<design(work@va8) @11:14
+-- OURS RB
+-- CMP rc=0 lines=0 heads=0
+== va9 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=NONE arg=func_call name=g callee=w actual=- chain=func_call(w)<return_stmt<begin<function(f)<package(va9p)<design(work@va9) @8:14
+   FC ts=NONE arg=ref_obj name=k callee=g actual=int_var chain=func_call(g)<func_call(w)<return_stmt<begin<function(f)<package(va9p)<design(work@va9) @8:16
+-- GOLD RB
+-- OURS FC
+   FC ts=NONE arg=func_call name=g callee=w actual=- chain=func_call(w)<return_stmt<begin<function(f)<package(va9p)<design(work@va9) @8:14
+   FC ts=NONE arg=func_call name=g callee=w actual=- chain=func_call(w)<return_stmt<begin<function(f)<package(va9p)<design(work@va9) @8:14
+   FC ts=NONE arg=ref_obj name=k callee=g actual=int_var chain=func_call(g)<func_call(w)<return_stmt<begin<function(f)<package(va9p)<design(work@va9) @8:16
+   FC ts=int_typespec arg=ref_obj name=k callee=g actual=int_var chain=func_call(g)<func_call(w)<return_stmt<begin<function(f)<package(va9p)<design(work@va9) @8:16
+-- OURS RB
+-- CMP rc=255 lines=8 heads=1
+== vb10 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<typespec_member(a)<struct_typespec(t_t)<module_inst<design(work@vb10) @5:33
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<typespec_member(b)<struct_typespec(t_t)<module_inst<design(work@vb10) @5:49
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<typespec_member(a)<struct_typespec(t_t)<module_inst<design(work@vb10) @5:33
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<typespec_member(b)<struct_typespec(t_t)<module_inst<design(work@vb10) @5:49
+-- CMP rc=0 lines=0 heads=0
+== vb11 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vb11)<design(work@vb11) @7:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vb11)<design(work@vb11) @8:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=vb11p::PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=vb11p::PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vb11)<design(work@vb11) @7:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vb11)<design(work@vb11) @8:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=vb11p::PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=vb11p::PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+-- CMP rc=255 lines=25 heads=1
+== vb12 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vb12)<design(work@vb12) @7:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vb12)<design(work@vb12) @8:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vb12)<design(work@vb12) @7:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vb12)<design(work@vb12) @8:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @8:9
+-- CMP rc=255 lines=20 heads=1
+== vb13 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(ys)<gen_scope<gen_scope_array(gb[0])<module_inst(work@vb13)<design(work@vb13) @14:13
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(yu)<gen_scope<gen_scope_array(gb[0])<module_inst(work@vb13)<design(work@vb13) @15:13
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(ys)<gen_scope<gen_scope_array(gb[1])<module_inst(work@vb13)<design(work@vb13) @14:13
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(yu)<gen_scope<gen_scope_array(gb[1])<module_inst(work@vb13)<design(work@vb13) @15:13
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @5:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @14:13
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @15:13
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @14:13
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @15:13
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @5:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:9
+-- CMP rc=255 lines=19 heads=1
+== vb14 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=3/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(m)<module_inst(work@vb14)<design(work@vb14) @5:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(m)<module_inst(work@vb14)<design(work@vb14) @5:15
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(n)<module_inst(work@vb14)<design(work@vb14) @6:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=3/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(n)<module_inst(work@vb14)<design(work@vb14) @6:15
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @5:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @5:15
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:15
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=3/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(m)<module_inst(work@vb14)<design(work@vb14) @5:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(m)<module_inst(work@vb14)<design(work@vb14) @5:15
+   RB owner=logic_typespec L=constant/ts=NONE/dec=3/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(n)<module_inst(work@vb14)<design(work@vb14) @6:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=3/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(n)<module_inst(work@vb14)<design(work@vb14) @6:15
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @5:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @5:15
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:15
+-- CMP rc=0 lines=0 heads=0
+== vb1 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(work@vb1)<design(work@vb1) @4:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @4:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(work@vb1)<design(work@vb1) @4:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @4:9
+-- CMP rc=0 lines=0 heads=0
+== vb2 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(work@vb2)<design(work@vb2) @3:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @3:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(work@vb2)<design(work@vb2) @3:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @3:9
+-- CMP rc=0 lines=0 heads=0
+== vb3 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=8/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(u)<module_inst(work@vb3)<design(work@vb3) @3:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @3:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=8/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(u)<module_inst(work@vb3)<design(work@vb3) @3:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @3:9
+-- CMP rc=0 lines=0 heads=0
+== vb4 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=8/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(u1)<module_inst(work@vb4)<design(work@vb4) @3:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(u2)<module_inst(work@vb4)<design(work@vb4) @3:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @3:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=8/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(u1)<module_inst(work@vb4)<design(work@vb4) @3:9
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(u2)<module_inst(work@vb4)<design(work@vb4) @3:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @3:9
+-- CMP rc=0 lines=0 heads=0
+== vb5 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(work@vb5)<design(work@vb5) @4:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @4:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(work@vb5)<design(work@vb5) @4:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @4:9
+-- CMP rc=255 lines=8 heads=1
+== vb6 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=bit_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=bit_typespec<parameter(P)<module_inst<design(work@vb6) @3:25
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=8/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(work@vb6)<design(work@vb6) @4:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @4:9
+   RB owner=bit_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=bit_typespec<ref_typespec<parameter(P)<module_inst(work@vb6)<design(work@vb6) @3:25
+-- OURS FC
+-- OURS RB
+   RB owner=bit_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=bit_typespec<parameter(P)<module_inst<design(work@vb6) @3:25
+   RB owner=logic_typespec L=constant/ts=int_typespec/dec=4/size=8/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x)<module_inst(work@vb6)<design(work@vb6) @4:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @4:9
+   RB owner=bit_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=bit_typespec<ref_typespec<parameter(P)<module_inst(work@vb6)<design(work@vb6) @3:25
+-- CMP rc=0 lines=0 heads=0
+== vb7 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=8/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x1)<module_inst(work@vb7)<design(work@vb7) @7:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=16/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x2)<module_inst(work@vb7)<design(work@vb7) @7:26
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x3)<module_inst(work@vb7)<design(work@vb7) @7:43
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x4)<module_inst(work@vb7)<design(work@vb7) @7:60
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P1 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P2 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:26
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P3 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:43
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P4 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:60
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=8/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x1)<module_inst(work@vb7)<design(work@vb7) @7:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=16/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x2)<module_inst(work@vb7)<design(work@vb7) @7:26
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=64/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x3)<module_inst(work@vb7)<design(work@vb7) @7:43
+   RB owner=logic_typespec L=constant/ts=NONE/dec=4/size=32/ct=9 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec<logic_var(x4)<module_inst(work@vb7)<design(work@vb7) @7:60
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P1 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:9
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P2 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:26
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P3 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:43
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=P4 R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:60
+-- CMP rc=0 lines=0 heads=0
+== vb8 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+-- GOLD RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=constant/ts=int_typespec/dec=2/size=32/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vb8)<design(work@vb8) @5:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=constant/ts=NONE/dec=2/size=32/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vb8)<design(work@vb8) @6:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=ref_obj/ts=NONE/dec=/size=0/nm=PS chain=logic_typespec @5:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=ref_obj/ts=NONE/dec=/size=0/nm=PU chain=logic_typespec @6:9
+-- OURS FC
+-- OURS RB
+   RB owner=logic_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=constant/ts=int_typespec/dec=2/size=32/ct=9 chain=logic_typespec<logic_var(xs)<module_inst(work@vb8)<design(work@vb8) @5:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=constant/ts=NONE/dec=2/size=32/ct=9 chain=logic_typespec<logic_var(xu)<module_inst(work@vb8)<design(work@vb8) @6:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=ref_obj/ts=NONE/dec=/size=0/nm=PS chain=logic_typespec @5:9
+   RB owner=logic_typespec L=constant/ts=NONE/dec=7/size=64/ct=9 R=ref_obj/ts=NONE/dec=/size=0/nm=PU chain=logic_typespec @6:9
+-- CMP rc=0 lines=0 heads=0
+== vb9 surelog_rc=0 slang_rc=0 gdb=yes odb=yes
+-- GOLD FC
+   FC ts=logic_typespec arg=ref_obj name=c callee=f actual=logic_net chain=func_call(f)<cont_assign<module_inst<design(work@vb9) @11:16
+-- GOLD RB
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:11
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:11
+-- OURS FC
+   FC ts=logic_typespec arg=ref_obj name=c callee=f actual=logic_net chain=func_call(f)<cont_assign<module_inst<design(work@vb9) @11:16
+-- OURS RB
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PS R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @6:11
+   RB owner=logic_typespec L=ref_obj/ts=NONE/dec=/size=0/nm=PU R=constant/ts=NONE/dec=0/size=64/ct=9 chain=logic_typespec @7:11
+-- CMP rc=255 lines=14 heads=1
+PROCESSED 27
