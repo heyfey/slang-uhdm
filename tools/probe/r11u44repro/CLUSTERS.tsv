@@ -1,0 +1,49 @@
+# r11u44repro/CLUSTERS.tsv — the SECOND full triage's cluster assignment (CROSS-CORPUS).
+# base beb0c148 (matrix-1.87); every row below is CMP_NOTEQUAL there.
+#
+# VERIFIER-CORRECTED (r11v44): port_chained_type_param moved C1 -> S; C1 is 2 tests / 4 rows,
+# singletons are 12 tests / 23 rows.  Totals unchanged: 29 tests / 57 rows.
+#
+# Each TEST is assigned to exactly ONE cluster — the cluster of its uhdm-cmp HEAD.
+# A test whose BEHIND-THE-HEAD residue also carries another cluster's face is
+# listed again in the `also` column; those rows are NOT double counted.
+#
+# Every test is not-equal in BOTH modes except Rggen (default only; its testflags
+# row is SURELOG_FAIL, so it is not a comparable row).  Every two-mode test's two
+# heads are ID-BLIND IDENTICAL (evidence/mode_identity.txt, MODE-SPLIT rows: 0),
+# so one face serves both modes.
+#
+# NETDIST = the order-blind whole-dump distance MINUS the instrument's calibrated
+# floor of 2 (evidence/dumpdist_calibration.txt: four CMP_EQUAL rows read exactly 2).
+# NETDIST 0 would mean the two dumps are line-for-line the same multiset.
+#
+# corpus	test	rows	cluster	also	moved-since-r11u29	NETDIST	one-line FACE (LHS is ALWAYS golden)
+uhdm2rtlil	type_param_packed_dim	2	C1	-	MOVED	141	chained `parameter type B = A`: golden's actual IS A's own logic_typespec (range [1:0]); ours a fresh unranged one minted at the name -> null Ranges
+uhdm2rtlil	type_param_override_elem_sel	2	C1	-	MOVED	168	override actual `#(.id_t(logic [1:0]))`: same object, same span, golden carries the range, ours a null Ranges
+uhdm2rtlil	port_chained_type_param	2	S	C3-construct	SAME	52	SPLIT OUT OF C1 BY THE VERIFIER (r11v44): the head is `parameter type noc_req_t = struct packed {...}` at dut.sv:2 -- golden a struct_typespec 2:32..2:38 (vpiPacked, 3 typespec_members), ours a bare logic_typespec 2:32..2:90 parented to type_parameter(work@dut.noc_req_t). An object-KIND mismatch, NOT C1's null-Ranges face (face keys: C1 = OURS-NULL:logic_typespec, this = struct_typespec/logic_typespec). C3's construct one declaration-form over.
+uhdm2rtlil	bits_of_type_param	2	C2	-	SAME	101	golden KEEPS `sys_func_call $bits(req_t)` as the param_assign Rhs; we fold to UINT:97 at 64
+uhdm2rtlil	ibex_tracer	2	C2	-	SAME	19807	golden KEEPS `ref_obj ibex_tracer_pkg::OPCODE_C0` as an operand; we fold to BIN 2'b00 at 2
+uhdm2rtlil	mem_packed_2d_byte_write	2	C2	-	SAME	153	golden KEEPS `op11(ref_obj NDATA, constant 1)` at a body typedef's range bound; we fold to a constant whose decompile reads "NDATA-1" with UINT:1 at 64
+uhdm2rtlil	struct_param_pattern_packing	2	C2	-	SAME	320	the OPPOSITE direction: golden FOLDS `hier_path CFG.n` to UINT:3 at 32 (keeping the pattern literal's own location); we KEEP the hier_path
+surelog	StructParamFuncBodyFieldCompare	2	C2	C3	SAME	721	golden DROPS the `unsigned'()` wrapper and sizes the constant at 32; ours sits under a `sys_func_call ($unsigned)` at 64
+uhdm2rtlil	cva6_struct_param_field	2	C3	-	MOVED	497	`localparam type it_t = struct packed {...}`: golden's struct_typespec is UNNAMED with no vpiInstance; ours is named it_t, carries vpiInstance -> module_inst, and its member ref_typespecs gain an `it_t` segment
+surelog	StructParamFieldRange	2	C3	-	MOVED	497	the same head as cva6_struct_param_field, in the other corpus (identical blinded text, md5 7fa7f25fbcdf)
+uhdm2rtlil	cfg_func_width_loop	2	C4	-	MOVED	134	OURS-ONLY `ref_typespec (q::maxw::i) -> int_typespec` minted on a function-body `ref_obj`; golden leaves it untyped
+uhdm2rtlil	packed_struct_array_fifo	2	C4	-	MOVED	216	OURS-ONLY `ref_typespec (…status_cnt_n) -> int_typespec` minted on a FOLDED RANGE-BOUND constant; golden leaves it untyped
+uhdm2rtlil	iface_zero_width_field	2	C5	-	SAME	1115	golden's `vpiOpType:75` pattern (Rhs of `localparam bus_t B = '{...}`, UNPACKED struct) carries `vpiTypespec -> ref_typespec -> struct_typespec p::bus_t`; we carry none
+uhdm2rtlil	typed_named_pattern	2	C5	-	SAME	675	golden's `vpiOpType:67` CAST over a `vpiOpType:33` concat (Rhs of `localparam op32_i_t NOP_CAST = op32_i_t'{...}`) carries the cast target's ref_typespec; we carry none
+uhdm2rtlil	arb_idx_cast	2	C6	-	MOVED	512	def-view `gen_for` condition: golden's op20 has TWO operands, the first `sys_func_call $unsigned(ref_obj level)` bound to an int_var; ours has ONE
+uhdm2rtlil	genvar_pow_index	2	C6	-	SAME	13	the SAME head (identical blinded text, md5 7ccad305d821) — and this row's WHOLE dump residue is that one operand
+uhdm2rtlil	ibex_icache	2	C7	-	SAME-face/MOVED-site	7584	a substituted operation leaf: golden `INT:22` ct7, ours `UINT:22` ct9, both at size 32
+uhdm2rtlil	struct_member_cfg_width	2	C7	-	MOVED	190	a struct-typed parameter's folded value: golden 64-bit `BIN` ct3, ours `UINT:274877906947` ct9
+uhdm2rtlil	anon_struct_packed_dim	2	S	-	SAME	860	`struct packed {...} [1:0] content_q`: golden a packed_array_typespec (range [1:0] + vpiElemTypespec -> struct_typespec); ours a bare logic_typespec
+uhdm2rtlil	type_param_unpacked_port	2	S	-	SAME	231	`input resp_t in_i [N-1:0]`: golden an array_typespec on the port (range op11(N,1) + elem ref); ours the bare struct_typespec pk::resp_t
+uhdm2rtlil	stamped_gen_param	2	S	-	SAME	1378	golden `logic_typespec (q2::row_t)` named, reached through a ref_typespec, plus a packed_array_typespec UINT:2; ours an unnamed logic_typespec reached through a typespec_member, UINT:1
+uhdm2rtlil	const_cast_signext	2	S	-	SAME	179	`typedef logic signed [31:0] imm_t`: golden's logic_typespec carries a Typedef_alias ref_typespec back to the base logic_typespec; we emit no alias (typespec::Compare walks Typedef_alias first)
+uhdm2rtlil	unpacked_elem_partsel_comb	2	S	-	SAME	60	`assign cl_sel[i] = cl_rdata[i][{off_i,3'b0} +: FW]`: golden a var_select carrying an indexed_part_select as the cont_assign Rhs; we emit no var_select there
+uhdm2rtlil	packed_array_struct	2	S	-	SAME	205	`assign arr = '0` onto a packed array of structs: both sides BIN ct3, golden keeps vpiSize:-1 (raw, unsized), we size it to 168
+uhdm2rtlil	ibex_pmp	2	S	-	SAME	5800	a packed range bound whose leaf is a wildcard-imported package parameter: same value, golden vpiSize:32, ours 64
+surelog	LargeValue2Struct	2	S	-	SAME	388	a NAMING head: golden's logic_typespec is `sram_key_t` under a ref_typespec parent, ours `pack::sram_key_t` with no parent. Surelog naming is context-dependent — a uniform pkg:: change is a recorded dead end
+surelog	SequenceInst	2	S	-	SAME	76	`property_spec` expression: golden the op51 (|=>) over op54/op61 tree; ours hands the bare `ref_obj rst` (the disable-iff leaf) where the property expression belongs
+surelog	Rggen	1	S	-	MOVED	76532	the interface-ARRAY element's PORT view: `rggen_register_if #(8,32,64) register_if[25]`, golden's u_adapter.register_if[0] keeps VALUE_WIDTH = the interface's OWN DEFAULT (UINT:32), ours the instantiation's actual (UINT:64)
+surelog	StructParamPatternInitCast	2	S	C3	SAME	743	the mirror null: `LHS: <null>` and our `constant 32'd64 DEC ct1` has NO vpiParent — an ORPHAN we mint that golden does not have

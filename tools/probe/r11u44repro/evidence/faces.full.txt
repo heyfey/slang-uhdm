@@ -1,0 +1,529 @@
+######## LargeValue2Struct.default   FACE=logic_typespec G[<logic_typespec>+vpiParent+<ref_typespec>+vpiName+<logic_typespec>] O[<logic_typespec>+vpiName+<logic_typespec>]
+  GOLDEN-ONLY  logic_typespec: (sram_key_t), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:#
+  GOLDEN-ONLY  |vpiName:sram_key_t
+  GOLDEN-ONLY  \_logic_typespec: (sram_key_t), id:#, line:#, endln:#
+  OURS-ONLY    logic_typespec: (pack::sram_key_t), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:pack::sram_key_t
+  OURS-ONLY    \_logic_typespec: (pack::sram_key_t), id:#, line:#, endln:#
+######## Rggen.default   FACE=constant G[vpiDecompile+UINT] O[vpiDecompile+UINT]
+  GOLDEN-ONLY  |vpiDecompile:32
+  GOLDEN-ONLY  |UINT:32
+  OURS-ONLY    |vpiDecompile:64
+  OURS-ONLY    |UINT:64
+######## SequenceInst.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<operation>+vpiParent+<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>+vpiOperand+<constant>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiOperand+<operation>+vpiParent+<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>+vpiOperand+<constant>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiActual+<logic_net>] O[<ref_obj>+vpiName+vpiFullName+vpiActual+<logic_net>]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:51
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:54
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.start_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:start_event
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.start_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:0
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:61
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.end_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:end_event
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.end_event), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@m.p_triggers.form), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:form
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_net: (work@m.form), id:#, line:#, endln:#
+  OURS-ONLY    ref_obj: (work@m.p_triggers.rst), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:rst
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_logic_net: (work@m.rst), id:#, line:#, endln:#
+######## StructParamFieldRange.default   FACE=struct_typespec G[<struct_typespec>+<struct_typespec>+<ref_typespec>+<struct_typespec>+<ref_typespec>] O[<struct_typespec>+vpiName+vpiInstance+<module_inst>+<struct_typespec>+<ref_typespec>+<struct_typespec>+<ref_typespec>]
+  GOLDEN-ONLY  struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_ref_typespec: (work@StructParamFieldRange.I.x), id:#
+  GOLDEN-ONLY  \_struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_ref_typespec: (work@StructParamFieldRange.I.y), id:#
+  OURS-ONLY    struct_typespec: (it_t), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:it_t
+  OURS-ONLY    |vpiInstance:
+  OURS-ONLY    \_module_inst: work@StructParamFieldRange (work@StructParamFieldRange), id:#, file:#, line:#, endln:#
+  OURS-ONLY    \_struct_typespec: (it_t), id:#, line:#, endln:#
+  OURS-ONLY    \_ref_typespec: (work@StructParamFieldRange.I.it_t.x), id:#
+  OURS-ONLY    \_struct_typespec: (it_t), id:#, line:#, endln:#
+  OURS-ONLY    \_ref_typespec: (work@StructParamFieldRange.I.it_t.y), id:#
+######## StructParamFuncBodyFieldCompare.default   FACE=constant G[<operation>+vpiSize] O[<sys_func_call>+vpiSize]
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiSize:32
+  OURS-ONLY    \_sys_func_call: ($unsigned), id:#
+  OURS-ONLY    |vpiSize:64
+######## StructParamPatternInitCast.default   FACE=GOLDEN-NULL:constant
+  GOLDEN-ONLY  <null>
+  OURS-ONLY    constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:32'd64
+  OURS-ONLY    |vpiSize:32
+  OURS-ONLY    |DEC:64
+  OURS-ONLY    |vpiConstType:1
+######## anon_struct_packed_dim.default   FACE=packed_array_typespec G[<packed_array_typespec>+vpiRange+<range>+vpiParent+<packed_array_typespec>+vpiLeftRange+<constant>+vpiParent+<range>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiRightRange+<constant>+vpiParent+<range>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiElemTypespec+<ref_typespec>+vpiParent+<packed_array_typespec>+vpiActual+<struct_typespec>] O[<logic_typespec>]
+  GOLDEN-ONLY  packed_array_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiRange:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_packed_array_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiLeftRange:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiRightRange:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:0
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiElemTypespec:
+  GOLDEN-ONLY  \_ref_typespec: , id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_packed_array_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_struct_typespec: , id:#, line:#, endln:#
+  OURS-ONLY    logic_typespec: , id:#, line:#, endln:#
+######## arb_idx_cast.default   FACE=operation G[<sys_func_call>+vpiArgument+<ref_obj>+vpiParent+<sys_func_call>+vpiName+vpiFullName+vpiActual+<int_var>+vpiName] O[-]
+  GOLDEN-ONLY  \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiArgument:
+  GOLDEN-ONLY  \_ref_obj: (work@dut.level), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:level
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_var: (work@dut.level), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:$unsigned
+######## bits_of_type_param.default   FACE=sys_func_call G[<sys_func_call>+vpiArgument+<ref_obj>+<sys_func_call>+vpiName+vpiName] O[<constant>+vpiDecompile+vpiSize+UINT+vpiTypespec+<ref_typespec>+<constant>+vpiActual+<int_typespec>+vpiConstType]
+  GOLDEN-ONLY  sys_func_call: ($bits), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiArgument:
+  GOLDEN-ONLY  \_ref_obj: (work@dut.req_t), id:#, line:#, endln:#
+  GOLDEN-ONLY  \_sys_func_call: ($bits), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:req_t
+  GOLDEN-ONLY  |vpiName:$bits
+  OURS-ONLY    constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:97
+  OURS-ONLY    |vpiSize:64
+  OURS-ONLY    |UINT:97
+  OURS-ONLY    |vpiTypespec:
+  OURS-ONLY    \_ref_typespec: (work@dut), id:#
+  OURS-ONLY    \_constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_int_typespec: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiConstType:9
+######## cfg_func_width_loop.default   FACE=GOLDEN-NULL:ref_typespec
+  GOLDEN-ONLY  <null>
+  OURS-ONLY    ref_typespec: (q::maxw::i), id:#
+  OURS-ONLY    |vpiParent:
+  OURS-ONLY    \_ref_obj: (q::maxw::i), id:#, line:#, endln:#
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_int_typespec: , id:#, line:#, endln:#
+######## const_cast_signext.default   FACE=OURS-NULL:ref_typespec
+  GOLDEN-ONLY  ref_typespec: (imm_t), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_typespec: (imm_t), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: (imm_t), id:#, line:#, endln:#
+  OURS-ONLY    <null>
+######## cva6_struct_param_field.default   FACE=struct_typespec G[<struct_typespec>+<struct_typespec>+<ref_typespec>+<struct_typespec>+<ref_typespec>] O[<struct_typespec>+vpiName+vpiInstance+<module_inst>+<struct_typespec>+<ref_typespec>+<struct_typespec>+<ref_typespec>]
+  GOLDEN-ONLY  struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_ref_typespec: (work@cva6_struct_param_field.I.x), id:#
+  GOLDEN-ONLY  \_struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_ref_typespec: (work@cva6_struct_param_field.I.y), id:#
+  OURS-ONLY    struct_typespec: (it_t), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:it_t
+  OURS-ONLY    |vpiInstance:
+  OURS-ONLY    \_module_inst: work@cva6_struct_param_field (work@cva6_struct_param_field), id:#, file:#, line:#, endln:#
+  OURS-ONLY    \_struct_typespec: (it_t), id:#, line:#, endln:#
+  OURS-ONLY    \_ref_typespec: (work@cva6_struct_param_field.I.it_t.x), id:#
+  OURS-ONLY    \_struct_typespec: (it_t), id:#, line:#, endln:#
+  OURS-ONLY    \_ref_typespec: (work@cva6_struct_param_field.I.it_t.y), id:#
+######## genvar_pow_index.default   FACE=operation G[<sys_func_call>+vpiArgument+<ref_obj>+vpiParent+<sys_func_call>+vpiName+vpiFullName+vpiActual+<int_var>+vpiName] O[-]
+  GOLDEN-ONLY  \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiArgument:
+  GOLDEN-ONLY  \_ref_obj: (work@genvar_pow_index.level), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:level
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_int_var: (work@genvar_pow_index.level), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:$unsigned
+######## ibex_icache.default   FACE=constant G[INT+vpiConstType] O[UINT+vpiConstType]
+  GOLDEN-ONLY  |INT:22
+  GOLDEN-ONLY  |vpiConstType:7
+  OURS-ONLY    |UINT:22
+  OURS-ONLY    |vpiConstType:9
+######## ibex_pmp.default   FACE=constant G[vpiSize] O[vpiSize]
+  GOLDEN-ONLY  |vpiSize:32
+  OURS-ONLY    |vpiSize:64
+######## ibex_tracer.default   FACE=ref_obj G[<ref_obj>+vpiName+vpiFullName+vpiActual+<constant>] O[<constant>+vpiDecompile+vpiSize+BIN+vpiConstType]
+  GOLDEN-ONLY  ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:OPCODE_C0
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  OURS-ONLY    constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:2'b00
+  OURS-ONLY    |vpiSize:2
+  OURS-ONLY    |BIN:00
+  OURS-ONLY    |vpiConstType:3
+######## iface_zero_width_field.default   FACE=OURS-NULL:ref_typespec
+  GOLDEN-ONLY  ref_typespec: , id:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_struct_typespec: (p::bus_t), id:#, line:#, endln:#
+  OURS-ONLY    <null>
+######## mem_packed_2d_byte_write.default   FACE=operation G[<operation>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiOperand+<constant>+vpiParent+<operation>+vpiDecompile+vpiSize+UINT+vpiConstType] O[<constant>+vpiDecompile+vpiSize+UINT+vpiConstType]
+  GOLDEN-ONLY  operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:11
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (NDATA), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:NDATA
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  OURS-ONLY    constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:NDATA-1
+  OURS-ONLY    |vpiSize:64
+  OURS-ONLY    |UINT:1
+  OURS-ONLY    |vpiConstType:9
+######## packed_array_struct.default   FACE=constant G[vpiSize] O[vpiSize]
+  GOLDEN-ONLY  |vpiSize:-1
+  OURS-ONLY    |vpiSize:168
+######## packed_struct_array_fifo.default   FACE=GOLDEN-NULL:ref_typespec
+  GOLDEN-ONLY  <null>
+  OURS-ONLY    ref_typespec: (work@packed_struct_array_fifo.status_cnt_n), id:#
+  OURS-ONLY    |vpiParent:
+  OURS-ONLY    \_constant: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_int_typespec: , id:#
+######## port_chained_type_param.default   FACE=struct_typespec G[<struct_typespec>+vpiPacked+vpiTypespecMember+<typespec_member>+vpiParent+<struct_typespec>+vpiName+vpiTypespec+<ref_typespec>+vpiParent+<typespec_member>+vpiFullName+vpiActual+<logic_typespec>+vpiRefFile+vpiRefLineNo+vpiRefColumnNo+vpiRefEndLineNo+vpiRefEndColumnNo+vpiTypespecMember+<typespec_member>+vpiParent+<struct_typespec>+vpiName+vpiTypespec+<ref_typespec>+vpiParent+<typespec_member>+vpiFullName+vpiActual+<logic_typespec>+vpiRefFile+vpiRefLineNo+vpiRefColumnNo+vpiRefEndLineNo+vpiRefEndColumnNo+vpiTypespecMember+<typespec_member>+vpiParent+<struct_typespec>+vpiName+vpiTypespec+<ref_typespec>+vpiParent+<typespec_member>+vpiFullName+vpiActual+<logic_typespec>+vpiRefFile+vpiRefLineNo+vpiRefColumnNo+vpiRefEndLineNo+vpiRefEndColumnNo] O[<logic_typespec>+vpiParent+<type_parameter>]
+  GOLDEN-ONLY  struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiPacked:1
+  GOLDEN-ONLY  |vpiTypespecMember:
+  GOLDEN-ONLY  \_typespec_member: (a), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:a
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (a), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_typespec_member: (a), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  GOLDEN-ONLY  |vpiRefLineNo:2
+  GOLDEN-ONLY  |vpiRefColumnNo:48
+  GOLDEN-ONLY  |vpiRefEndLineNo:2
+  GOLDEN-ONLY  |vpiRefEndColumnNo:60
+  GOLDEN-ONLY  |vpiTypespecMember:
+  GOLDEN-ONLY  \_typespec_member: (b), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:b
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (b), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_typespec_member: (b), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  GOLDEN-ONLY  |vpiRefLineNo:2
+  GOLDEN-ONLY  |vpiRefColumnNo:64
+  GOLDEN-ONLY  |vpiRefEndLineNo:2
+  GOLDEN-ONLY  |vpiRefEndColumnNo:76
+  GOLDEN-ONLY  |vpiTypespecMember:
+  GOLDEN-ONLY  \_typespec_member: (c), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_struct_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:c
+  GOLDEN-ONLY  |vpiTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (c), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_typespec_member: (c), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  GOLDEN-ONLY  |vpiRefLineNo:2
+  GOLDEN-ONLY  |vpiRefColumnNo:80
+  GOLDEN-ONLY  |vpiRefEndLineNo:2
+  GOLDEN-ONLY  |vpiRefEndColumnNo:85
+  OURS-ONLY    logic_typespec: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiParent:
+  OURS-ONLY    \_type_parameter: (work@dut.noc_req_t), id:#, line:#, endln:#
+######## stamped_gen_param.default   FACE=logic_typespec G[<logic_typespec>+vpiName+<ref_typespec>+<logic_typespec>+<packed_array_typespec>+vpiDecompile+UINT] O[<logic_typespec>+<typespec_member>+<ref_typespec>+<logic_typespec>+vpiDecompile+UINT]
+  GOLDEN-ONLY  logic_typespec: (q2::row_t), id:#
+  GOLDEN-ONLY  |vpiName:q2::row_t
+  GOLDEN-ONLY  \_ref_typespec: (q2::q2::row_t), id:#
+  GOLDEN-ONLY  \_logic_typespec: (q2::row_t), id:#
+  GOLDEN-ONLY  \_packed_array_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:2
+  GOLDEN-ONLY  |UINT:2
+  OURS-ONLY    logic_typespec: , id:#, line:#, endln:#
+  OURS-ONLY    \_typespec_member: (UnitTypes), id:#, line:#, endln:#
+  OURS-ONLY    \_ref_typespec: (q2::q2::impl_t::UnitTypes), id:#
+  OURS-ONLY    \_logic_typespec: (row_t), id:#, line:#, endln:#
+  OURS-ONLY    |vpiDecompile:1
+  OURS-ONLY    |UINT:1
+######## struct_member_cfg_width.default   FACE=constant G[vpiDecompile+BIN+vpiConstType] O[vpiDecompile+UINT+vpiConstType]
+  GOLDEN-ONLY  |vpiDecompile:64'b0000000000000000000000000100000000000000000000000000000000000011
+  GOLDEN-ONLY  |BIN:0000000000000000000000000100000000000000000000000000000000000011
+  GOLDEN-ONLY  |vpiConstType:3
+  OURS-ONLY    |vpiDecompile:274877906947
+  OURS-ONLY    |UINT:274877906947
+  OURS-ONLY    |vpiConstType:9
+######## struct_param_pattern_packing.default   FACE=constant G[<constant>+vpiDecompile+vpiSize+UINT+vpiConstType] O[<hier_path>+vpiActual+<ref_obj>+vpiParent+<hier_path>+vpiName+vpiActual+<ref_obj>+vpiParent+<hier_path>+vpiName+vpiFullName+vpiName]
+  GOLDEN-ONLY  constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:3
+  GOLDEN-ONLY  |vpiSize:32
+  GOLDEN-ONLY  |UINT:3
+  GOLDEN-ONLY  |vpiConstType:9
+  OURS-ONLY    hier_path: (CFG.n), id:#, line:#, endln:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_ref_obj: (CFG), id:#, line:#, endln:#
+  OURS-ONLY    |vpiParent:
+  OURS-ONLY    \_hier_path: (CFG.n), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:CFG
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_ref_obj: (work@dut.n), id:#, line:#, endln:#
+  OURS-ONLY    |vpiParent:
+  OURS-ONLY    \_hier_path: (CFG.n), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:n
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiName:CFG.n
+######## type_param_override_elem_sel.default   FACE=OURS-NULL:logic_typespec
+  GOLDEN-ONLY  logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiRange:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiLeftRange:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiRightRange:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:0
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiConstType:9
+  OURS-ONLY    <null>
+######## type_param_packed_dim.default   FACE=OURS-NULL:logic_typespec
+  GOLDEN-ONLY  logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiRange:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_logic_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiLeftRange:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiRightRange:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:0
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiConstType:9
+  OURS-ONLY    <null>
+######## type_param_unpacked_port.default   FACE=array_typespec G[<array_typespec>+<port>+vpiArrayType+vpiRange+<range>+<array_typespec>+vpiLeftRange+<operation>+<range>+vpiOpType+vpiOperand+<ref_obj>+vpiParent+<operation>+vpiName+vpiFullName+vpiOperand+<constant>+vpiParent+<operation>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiRightRange+<constant>+<range>+vpiDecompile+vpiSize+UINT+vpiConstType+vpiElemTypespec+<ref_typespec>+<array_typespec>+vpiFullName+vpiActual] O[<struct_typespec>+<package>+vpiName+vpiInstance+<package>+vpiPacked+vpiTypespecMember+<typespec_member>+vpiName+vpiTypespec+<ref_typespec>+<typespec_member>+vpiFullName+vpiActual+<logic_typespec>+vpiRefFile+vpiRefLineNo+vpiRefColumnNo+vpiRefEndLineNo+vpiRefEndColumnNo+vpiTypespecMember+<typespec_member>+vpiName+vpiTypespec+<ref_typespec>+<typespec_member>+vpiFullName+vpiActual+<logic_typespec>+vpiRefFile+vpiRefLineNo+vpiRefColumnNo+vpiRefEndLineNo+vpiRefEndColumnNo+vpiTypespecMember+<typespec_member>+vpiName+vpiTypespec+<ref_typespec>+<typespec_member>+vpiFullName+vpiActual+<logic_typespec>+vpiRefFile+vpiRefLineNo+vpiRefColumnNo+vpiRefEndLineNo+vpiRefEndColumnNo]
+  GOLDEN-ONLY  array_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_port: (in_i), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiArrayType:1
+  GOLDEN-ONLY  |vpiRange:
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_array_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiLeftRange:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:11
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@dut.in_i.N), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:N
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:1
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:1
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiRightRange:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  \_range: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:0
+  GOLDEN-ONLY  |vpiSize:64
+  GOLDEN-ONLY  |UINT:0
+  GOLDEN-ONLY  |vpiConstType:9
+  GOLDEN-ONLY  |vpiElemTypespec:
+  GOLDEN-ONLY  \_ref_typespec: (work@dut.in_i), id:#
+  GOLDEN-ONLY  \_array_typespec: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  OURS-ONLY    struct_typespec: (pk::resp_t), id:#, line:#, endln:#
+  OURS-ONLY    \_package: pk (pk::), id:#, file:#, line:#, endln:#
+  OURS-ONLY    |vpiName:pk::resp_t
+  OURS-ONLY    |vpiInstance:
+  OURS-ONLY    \_package: pk (pk::), id:#, file:#, line:#, endln:#
+  OURS-ONLY    |vpiPacked:1
+  OURS-ONLY    |vpiTypespecMember:
+  OURS-ONLY    \_typespec_member: (data), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:data
+  OURS-ONLY    |vpiTypespec:
+  OURS-ONLY    \_ref_typespec: (pk::pk::resp_t::data), id:#
+  OURS-ONLY    \_typespec_member: (data), id:#, line:#, endln:#
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_logic_typespec: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  OURS-ONLY    |vpiRefLineNo:18
+  OURS-ONLY    |vpiRefColumnNo:5
+  OURS-ONLY    |vpiRefEndLineNo:18
+  OURS-ONLY    |vpiRefEndColumnNo:17
+  OURS-ONLY    |vpiTypespecMember:
+  OURS-ONLY    \_typespec_member: (id), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:id
+  OURS-ONLY    |vpiTypespec:
+  OURS-ONLY    \_ref_typespec: (pk::pk::resp_t::id), id:#
+  OURS-ONLY    \_typespec_member: (id), id:#, line:#, endln:#
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_logic_typespec: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  OURS-ONLY    |vpiRefLineNo:19
+  OURS-ONLY    |vpiRefColumnNo:5
+  OURS-ONLY    |vpiRefEndLineNo:19
+  OURS-ONLY    |vpiRefEndColumnNo:16
+  OURS-ONLY    |vpiTypespecMember:
+  OURS-ONLY    \_typespec_member: (err), id:#, line:#, endln:#
+  OURS-ONLY    |vpiName:err
+  OURS-ONLY    |vpiTypespec:
+  OURS-ONLY    \_ref_typespec: (pk::pk::resp_t::err), id:#
+  OURS-ONLY    \_typespec_member: (err), id:#, line:#, endln:#
+  OURS-ONLY    |vpiFullName:#
+  OURS-ONLY    |vpiActual:
+  OURS-ONLY    \_logic_typespec: , id:#, line:#, endln:#
+  OURS-ONLY    |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_unpacked_port/dut.sv
+  OURS-ONLY    |vpiRefLineNo:20
+  OURS-ONLY    |vpiRefColumnNo:5
+  OURS-ONLY    |vpiRefEndLineNo:20
+  OURS-ONLY    |vpiRefEndColumnNo:10
+######## typed_named_pattern.default   FACE=OURS-NULL:ref_typespec
+  GOLDEN-ONLY  ref_typespec: (work@typed_named_pattern), id:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiActual:
+  GOLDEN-ONLY  \_struct_typespec: (q::op32_i_t), id:#, line:#, endln:#
+  OURS-ONLY    <null>
+######## unpacked_elem_partsel_comb.default   FACE=OURS-NULL:var_select
+  GOLDEN-ONLY  var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_cont_assign: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:cl_rdata
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiIndex:
+  GOLDEN-ONLY  \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:i
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiIndex:
+  GOLDEN-ONLY  \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:cl_rdata
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiDefName:cl_rdata
+  GOLDEN-ONLY  |vpiConstantSelect:1
+  GOLDEN-ONLY  |vpiIndexedPartSelectType:1
+  GOLDEN-ONLY  |vpiBaseExpr:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiOpType:33
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_operation: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:off_i
+  GOLDEN-ONLY  |vpiFullName:#
+  GOLDEN-ONLY  |vpiOperand:
+  GOLDEN-ONLY  \_constant: , id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiDecompile:3'b0
+  GOLDEN-ONLY  |vpiSize:3
+  GOLDEN-ONLY  |BIN:0
+  GOLDEN-ONLY  |vpiConstType:3
+  GOLDEN-ONLY  |vpiWidthExpr:
+  GOLDEN-ONLY  \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiParent:
+  GOLDEN-ONLY  \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:#, endln:#
+  GOLDEN-ONLY  |vpiName:FW
+  GOLDEN-ONLY  |vpiFullName:#
+  OURS-ONLY    <null>

@@ -1,0 +1,12 @@
+TEST           MODE      CMPLINES  HEADS NOTE
+1DUnpackedArray default          0      0 cmp rc=0
+1DUnpackedArray testflags        0      0 cmp rc=0
+2DeclarationsInFor default          0      0 cmp rc=0
+2DeclarationsInFor testflags        0      0 cmp rc=0
+-- measured=4  SKIP-NOFILE=0  UNKNOWN-NAME=0
+TEST           MODE      CMPLINES  HEADS NOTE
+1364_2005      default          0      0 cmp rc=0
+1364_2005      testflags        0      0 cmp rc=0
+AllBinding     default          0      0 cmp rc=0
+AllBinding     testflags        0      0 cmp rc=0
+-- measured=4  SKIP-NOFILE=0  UNKNOWN-NAME=0

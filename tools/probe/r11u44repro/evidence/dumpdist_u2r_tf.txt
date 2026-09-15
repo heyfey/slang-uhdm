@@ -1,0 +1,24 @@
+TEST                             MODE      GOLD_ONLY OURS_ONLY  DISTANCE NOTE
+anon_struct_packed_dim           testflags       742       120       862 golden=4818 ours=4196
+arb_idx_cast                     testflags       419        95       514 golden=2684 ours=2360
+bits_of_type_param               testflags        20        83       103 golden=888 ours=951
+cfg_func_width_loop              testflags        15       121       136 golden=2404 ours=2510
+const_cast_signext               testflags        99        82       181 golden=1823 ours=1806
+cva6_struct_param_field          testflags       173       326       499 golden=1442 ours=1595
+genvar_pow_index                 testflags        14         1        15 golden=2148 ours=2135
+ibex_icache                      testflags      6518      1068      7586 golden=100971 ours=95521
+ibex_pmp                         testflags      5022       780      5802 golden=79936 ours=75694
+ibex_tracer                      testflags     16525      3284     19809 golden=181363 ours=168122
+iface_zero_width_field           testflags       745       372      1117 golden=5030 ours=4657
+mem_packed_2d_byte_write         testflags       120        35       155 golden=1935 ours=1850
+packed_array_struct              testflags        47       160       207 golden=668 ours=781
+packed_struct_array_fifo         testflags        20       198       218 golden=2637 ours=2815
+port_chained_type_param          testflags        13        41        54 golden=362 ours=390
+stamped_gen_param                testflags      1099       281      1380 golden=3351 ours=2533
+struct_member_cfg_width          testflags       152        40       192 golden=2297 ours=2185
+struct_param_pattern_packing     testflags       303        19       322 golden=2694 ours=2410
+typed_named_pattern              testflags       534       143       677 golden=2544 ours=2153
+type_param_override_elem_sel     testflags       100        70       170 golden=1010 ours=980
+type_param_packed_dim            testflags        80        63       143 golden=600 ours=583
+type_param_unpacked_port         testflags       203        30       233 golden=1444 ours=1271
+unpacked_elem_partsel_comb       testflags        53         9        62 golden=1977 ours=1933

@@ -1,0 +1,74 @@
+LHS:
+decompile:
+operation: , id:#, line:18:26, endln:18:54
+|vpiParent:
+\_gen_for: , id:#
+|vpiOpType:20
+|vpiOperand:
+\_sys_func_call: ($unsigned), id:#, line:18:26, endln:18:42
+  |vpiParent:
+  \_operation: , id:#, line:18:26, endln:18:54
+  |vpiArgument:
+  \_ref_obj: (work@dut.level), id:#, line:18:36, endln:18:41
+    |vpiParent:
+    \_sys_func_call: ($unsigned), id:#, line:18:26, endln:18:42
+    |vpiName:level
+    |vpiFullName:work@dut.level
+    |vpiActual:
+    \_int_var: (work@dut.level), id:#, line:18:15, endln:18:20
+  |vpiName:$unsigned
+|vpiOperand:
+\_ref_obj: (work@dut.NumLevels), id:#, line:18:45, endln:18:54
+  |vpiParent:
+  \_operation: , id:#, line:18:26, endln:18:54
+  |vpiName:NumLevels
+  |vpiFullName:work@dut.NumLevels
+
+decompile:
+operation: , id:#, line:18:26, endln:18:54
+|vpiParent:
+\_gen_for: , id:#
+|vpiOpType:20
+|vpiOperand:
+\_sys_func_call: ($unsigned), id:#, line:18:26, endln:18:42
+  |vpiParent:
+  \_operation: , id:#, line:18:26, endln:18:54
+  |vpiArgument:
+  \_ref_obj: (work@dut.level), id:#, line:18:36, endln:18:41
+    |vpiParent:
+    \_sys_func_call: ($unsigned), id:#, line:18:26, endln:18:42
+    |vpiName:level
+    |vpiFullName:work@dut.level
+    |vpiActual:
+    \_int_var: (work@dut.level), id:#, line:18:15, endln:18:20
+  |vpiName:$unsigned
+|vpiOperand:
+\_ref_obj: (work@dut.NumLevels), id:#, line:18:45, endln:18:54
+  |vpiParent:
+  \_operation: , id:#, line:18:26, endln:18:54
+  |vpiName:NumLevels
+  |vpiFullName:work@dut.NumLevels
+RHS:
+decompile:
+operation: , id:#, line:18:26, endln:18:54
+|vpiParent:
+\_gen_for: , id:#
+|vpiOpType:20
+|vpiOperand:
+\_ref_obj: (work@dut.NumLevels), id:#, line:18:45, endln:18:54
+  |vpiParent:
+  \_operation: , id:#, line:18:26, endln:18:54
+  |vpiName:NumLevels
+  |vpiFullName:work@dut.NumLevels
+
+decompile:
+operation: , id:#, line:18:26, endln:18:54
+|vpiParent:
+\_gen_for: , id:#
+|vpiOpType:20
+|vpiOperand:
+\_ref_obj: (work@dut.NumLevels), id:#, line:18:45, endln:18:54
+  |vpiParent:
+  \_operation: , id:#, line:18:26, endln:18:54
+  |vpiName:NumLevels
+  |vpiFullName:work@dut.NumLevels

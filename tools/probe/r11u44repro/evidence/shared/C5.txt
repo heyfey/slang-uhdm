@@ -1,0 +1,36 @@
+---- iface_zero_width_field.default.cmp   md5=3f56ad05fa8d   lines=10
+    LHS:
+    decompile:
+    ref_typespec: , id:#
+    |vpiActual:
+    \_struct_typespec: (p::bus_t), id:#, line:#, endln:#
+    
+    decompile:
+    ref_typespec: , id:#
+    |vpiActual:
+    \_struct_typespec: (p::bus_t), id:#, line:#, endln:#
+    RHS: <null>
+---- typed_named_pattern.default.cmp   md5=ed887e7bbf58   lines=16
+    DIFFERS from iface_zero_width_field.default.cmp:
+    3c3,6
+    < ref_typespec: , id:#
+    ---
+    > ref_typespec: (work@typed_named_pattern), id:#
+    > |vpiParent:
+    > \_operation: , id:#, line:#, endln:#
+    > |vpiFullName:work@typed_named_pattern
+    5c8
+    < \_struct_typespec: (p::bus_t), id:#, line:#, endln:#
+    ---
+    > \_struct_typespec: (q::op32_i_t), id:#, line:#, endln:#
+    8c11,14
+    < ref_typespec: , id:#
+    ---
+    > ref_typespec: (work@typed_named_pattern), id:#
+    > |vpiParent:
+    > \_operation: , id:#, line:#, endln:#
+    > |vpiFullName:work@typed_named_pattern
+    10c16
+    < \_struct_typespec: (p::bus_t), id:#, line:#, endln:#
+    ---
+    > \_struct_typespec: (q::op32_i_t), id:#, line:#, endln:#

@@ -1,0 +1,122 @@
+LHS:
+decompile:
+operation: , id:#, line:9:28, endln:9:69
+|vpiParent:
+\_property_spec: , id:#, line:9:5, endln:9:69
+|vpiOpType:51
+|vpiOperand:
+\_operation: , id:#, line:9:29, endln:9:59
+  |vpiParent:
+  \_operation: , id:#, line:9:28, endln:9:69
+  |vpiOpType:54
+  |vpiOperand:
+  \_ref_obj: (work@m.p_triggers.start_event), id:#, line:9:29, endln:9:40
+    |vpiParent:
+    \_operation: , id:#, line:9:29, endln:9:59
+    |vpiName:start_event
+    |vpiFullName:work@m.p_triggers.start_event
+    |vpiActual:
+    \_logic_net: (work@m.start_event), id:#, line:9:29, endln:9:40
+  |vpiOperand:
+  \_constant: , id:#, line:9:41, endln:9:44
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:#, line:9:45, endln:9:59
+    |vpiParent:
+    \_operation: , id:#, line:9:29, endln:9:59
+    |vpiOpType:61
+    |vpiOperand:
+    \_ref_obj: (work@m.p_triggers.end_event), id:#, line:9:45, endln:9:54
+      |vpiParent:
+      \_operation: , id:#, line:9:29, endln:9:59
+      |vpiName:end_event
+      |vpiFullName:work@m.p_triggers.end_event
+      |vpiActual:
+      \_logic_net: (work@m.end_event), id:#, line:9:45, endln:9:54
+    |vpiOperand:
+    \_constant: , id:#, line:9:57, endln:9:58
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+|vpiOperand:
+\_ref_obj: (work@m.p_triggers.form), id:#, line:9:65, endln:9:69
+  |vpiParent:
+  \_operation: , id:#, line:9:28, endln:9:69
+  |vpiName:form
+  |vpiFullName:work@m.p_triggers.form
+  |vpiActual:
+  \_logic_net: (work@m.form), id:#, line:9:65, endln:9:69
+
+decompile:
+operation: , id:#, line:9:28, endln:9:69
+|vpiParent:
+\_property_spec: , id:#, line:9:5, endln:9:69
+|vpiOpType:51
+|vpiOperand:
+\_operation: , id:#, line:9:29, endln:9:59
+  |vpiParent:
+  \_operation: , id:#, line:9:28, endln:9:69
+  |vpiOpType:54
+  |vpiOperand:
+  \_ref_obj: (work@m.p_triggers.start_event), id:#, line:9:29, endln:9:40
+    |vpiParent:
+    \_operation: , id:#, line:9:29, endln:9:59
+    |vpiName:start_event
+    |vpiFullName:work@m.p_triggers.start_event
+    |vpiActual:
+    \_logic_net: (work@m.start_event), id:#, line:9:29, endln:9:40
+  |vpiOperand:
+  \_constant: , id:#, line:9:41, endln:9:44
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:#, line:9:45, endln:9:59
+    |vpiParent:
+    \_operation: , id:#, line:9:29, endln:9:59
+    |vpiOpType:61
+    |vpiOperand:
+    \_ref_obj: (work@m.p_triggers.end_event), id:#, line:9:45, endln:9:54
+      |vpiParent:
+      \_operation: , id:#, line:9:29, endln:9:59
+      |vpiName:end_event
+      |vpiFullName:work@m.p_triggers.end_event
+      |vpiActual:
+      \_logic_net: (work@m.end_event), id:#, line:9:45, endln:9:54
+    |vpiOperand:
+    \_constant: , id:#, line:9:57, endln:9:58
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+|vpiOperand:
+\_ref_obj: (work@m.p_triggers.form), id:#, line:9:65, endln:9:69
+  |vpiParent:
+  \_operation: , id:#, line:9:28, endln:9:69
+  |vpiName:form
+  |vpiFullName:work@m.p_triggers.form
+  |vpiActual:
+  \_logic_net: (work@m.form), id:#, line:9:65, endln:9:69
+RHS:
+decompile:
+ref_obj: (work@m.p_triggers.rst), id:#, line:9:23, endln:9:26
+|vpiParent:
+\_property_spec: , id:#, line:9:5, endln:9:69
+|vpiName:rst
+|vpiFullName:work@m.p_triggers.rst
+|vpiActual:
+\_logic_net: (work@m.rst), id:#, line:3:9, endln:3:12
+
+decompile:
+ref_obj: (work@m.p_triggers.rst), id:#, line:9:23, endln:9:26
+|vpiParent:
+\_property_spec: , id:#, line:9:5, endln:9:69
+|vpiName:rst
+|vpiFullName:work@m.p_triggers.rst
+|vpiActual:
+\_logic_net: (work@m.rst), id:#, line:3:9, endln:3:12

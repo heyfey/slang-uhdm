@@ -1,0 +1,91 @@
+LHS:
+decompile:
+var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:20:24, endln:20:56
+|vpiParent:
+\_cont_assign: , id:#, line:20:12, endln:20:56
+|vpiName:cl_rdata
+|vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata
+|vpiIndex:
+\_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i), id:#, line:20:33, endln:20:34
+  |vpiParent:
+  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:20:24, endln:20:56
+  |vpiName:i
+  |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i
+|vpiIndex:
+\_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:20:36, endln:20:55
+  |vpiParent:
+  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:20:24, endln:20:56
+  |vpiName:cl_rdata
+  |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata
+  |vpiDefName:cl_rdata
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_operation: , id:#, line:20:36, endln:20:49
+    |vpiParent:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:20:36, endln:20:55
+    |vpiOpType:33
+    |vpiOperand:
+    \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i), id:#, line:20:37, endln:20:42
+      |vpiParent:
+      \_operation: , id:#, line:20:36, endln:20:49
+      |vpiName:off_i
+      |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i
+    |vpiOperand:
+    \_constant: , id:#, line:20:44, endln:20:48
+      |vpiDecompile:3'b0
+      |vpiSize:3
+      |BIN:0
+      |vpiConstType:3
+  |vpiWidthExpr:
+  \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW), id:#, line:20:53, endln:20:55
+    |vpiParent:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:20:36, endln:20:55
+    |vpiName:FW
+    |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW
+
+decompile:
+var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:20:24, endln:20:56
+|vpiParent:
+\_cont_assign: , id:#, line:20:12, endln:20:56
+|vpiName:cl_rdata
+|vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata
+|vpiIndex:
+\_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i), id:#, line:20:33, endln:20:34
+  |vpiParent:
+  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:20:24, endln:20:56
+  |vpiName:i
+  |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i
+|vpiIndex:
+\_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:20:36, endln:20:55
+  |vpiParent:
+  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:#, line:20:24, endln:20:56
+  |vpiName:cl_rdata
+  |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata
+  |vpiDefName:cl_rdata
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_operation: , id:#, line:20:36, endln:20:49
+    |vpiParent:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:20:36, endln:20:55
+    |vpiOpType:33
+    |vpiOperand:
+    \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i), id:#, line:20:37, endln:20:42
+      |vpiParent:
+      \_operation: , id:#, line:20:36, endln:20:49
+      |vpiName:off_i
+      |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i
+    |vpiOperand:
+    \_constant: , id:#, line:20:44, endln:20:48
+      |vpiDecompile:3'b0
+      |vpiSize:3
+      |BIN:0
+      |vpiConstType:3
+  |vpiWidthExpr:
+  \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW), id:#, line:20:53, endln:20:55
+    |vpiParent:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:#, line:20:36, endln:20:55
+    |vpiName:FW
+    |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW
+RHS: <null>

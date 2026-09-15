@@ -1,0 +1,36 @@
+LHS:
+decompile:
+constant: , id:#, line:30:23, endln:30:25
+|vpiParent:
+\_operation: , id:#, line:29:32, endln:32:37
+|vpiDecompile:64
+|vpiSize:32
+|UINT:64
+|vpiConstType:9
+
+decompile:
+constant: , id:#, line:30:23, endln:30:25
+|vpiParent:
+\_operation: , id:#, line:29:32, endln:32:37
+|vpiDecompile:64
+|vpiSize:32
+|UINT:64
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:#, line:30:23, endln:30:25
+|vpiParent:
+\_sys_func_call: ($unsigned), id:#
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiConstType:9
+
+decompile:
+constant: , id:#, line:30:23, endln:30:25
+|vpiParent:
+\_sys_func_call: ($unsigned), id:#
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiConstType:9

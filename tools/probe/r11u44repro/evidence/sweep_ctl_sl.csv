@@ -1,0 +1,5 @@
+name,mode,status,detail,blocked_by,dump
+1364_2005,default,CMP_EQUAL,,,match
+1364_2005,testflags,CMP_EQUAL,,,match
+AllBinding,default,CMP_EQUAL,,,match
+AllBinding,testflags,CMP_EQUAL,,,match

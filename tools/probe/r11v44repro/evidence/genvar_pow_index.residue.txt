@@ -1,0 +1,15 @@
+G golden.uhdm: Restored design Pre-Elab: 
+G           \_int_var: (work@genvar_pow_index.level), line:12:15, endln:12:20
+G         \_operation: , line:12:26, endln:12:54
+G         \_ref_obj: (work@genvar_pow_index.level), line:12:36, endln:12:41
+G           \_sys_func_call: ($unsigned), line:12:26, endln:12:42
+G       \_sys_func_call: ($unsigned), line:12:26, endln:12:42
+G           |vpiActual:
+G         |vpiArgument:
+G           |vpiFullName:work@genvar_pow_index.level
+G         |vpiName:$unsigned
+G           |vpiName:level
+G       |vpiOperand:
+G           |vpiParent:
+G         |vpiParent:
+O wd_u2rgenvar_pow_index-c7bf081b//slang.uhdm: Restored design Pre-Elab: 

@@ -1,0 +1,24 @@
+TEST                             MODE      GOLD_ONLY OURS_ONLY  DISTANCE NOTE
+anon_struct_packed_dim           default         742       120       862 golden=5328 ours=4706
+arb_idx_cast                     default         419        95       514 golden=3194 ours=2870
+bits_of_type_param               default          20        83       103 golden=1398 ours=1461
+cfg_func_width_loop              default          15       121       136 golden=2914 ours=3020
+const_cast_signext               default          99        82       181 golden=2333 ours=2316
+cva6_struct_param_field          default         173       326       499 golden=1952 ours=2105
+genvar_pow_index                 default          14         1        15 golden=2658 ours=2645
+ibex_icache                      default        6518      1068      7586 golden=101481 ours=96031
+ibex_pmp                         default        5022       780      5802 golden=80446 ours=76204
+ibex_tracer                      default       16525      3284     19809 golden=181873 ours=168632
+iface_zero_width_field           default         745       372      1117 golden=5540 ours=5167
+mem_packed_2d_byte_write         default         120        35       155 golden=2445 ours=2360
+packed_array_struct              default          47       160       207 golden=1178 ours=1291
+packed_struct_array_fifo         default          20       198       218 golden=3147 ours=3325
+port_chained_type_param          default          13        41        54 golden=872 ours=900
+stamped_gen_param                default        1099       281      1380 golden=3861 ours=3043
+struct_member_cfg_width          default         152        40       192 golden=2807 ours=2695
+struct_param_pattern_packing     default         303        19       322 golden=3204 ours=2920
+typed_named_pattern              default         534       143       677 golden=3054 ours=2663
+type_param_override_elem_sel     default         100        70       170 golden=1520 ours=1490
+type_param_packed_dim            default          80        63       143 golden=1110 ours=1093
+type_param_unpacked_port         default         203        30       233 golden=1954 ours=1781
+unpacked_elem_partsel_comb       default          53         9        62 golden=2487 ours=2443

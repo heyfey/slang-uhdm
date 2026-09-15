@@ -1,0 +1,90 @@
+== anon_struct_packed_dim   side=LHS  line:35:3
+   HEAD  : packed_array_typespec: , id:922, line:35:3, endln:35:16
+   PARENT: <none>
+   SRC[dut.sv:35]:   struct packed {
+== arb_idx_cast   side=LHS  line:18:26
+   HEAD  : operation: , id:35, line:18:26, endln:18:54
+   PARENT: \_gen_for: , id:27
+   SRC[dut.sv:18]:   for (genvar level = 0; unsigned'(level) < NumLevels; level++) begin : gen_levels
+   SRC[arb_idx_cast_from_uhdm_synth.v:18]:   wire [1:0] idx_o;
+== bits_of_type_param   side=LHS  line:17:39
+   HEAD  : sys_func_call: ($bits), id:43, line:17:39, endln:17:51
+   PARENT: \_param_assign: , id:42, line:17:26, endln:17:51
+   SRC[dut.sv:17]:     parameter  int       DATA_WIDTH = $bits(req_t),          // -> was 1
+== cfg_func_width_loop   side=RHS  
+   HEAD  : ref_typespec: (q::maxw::i), id:195
+   PARENT: \_ref_obj: (q::maxw::i), id:194, line:31:20, endln:31:21
+== const_cast_signext   side=LHS  
+   HEAD  : ref_typespec: (imm_t), id:42
+   PARENT: \_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+== cva6_struct_param_field   side=LHS  line:25:26
+   HEAD  : struct_typespec: , id:566, line:25:26, endln:25:32
+   PARENT: \_ref_typespec: (work@cva6_struct_param_field.I), id:565
+   SRC[dut.sv:25]:   localparam type it_t = struct packed {
+== genvar_pow_index   side=LHS  line:12:26
+   HEAD  : operation: , id:21, line:12:26, endln:12:54
+   PARENT: \_gen_for: , id:13
+   SRC[dut.sv:12]:   for (genvar level = 0; unsigned'(level) < NumLevels; level++) begin : g_lvl
+   SRC[genvar_pow_index_from_uhdm_synth.v:12]:   wire [7:0] out_o;
+   SRC[genvar_pow_index_from_verilog_synth.v:12]:   wire [7:0] out_o;
+== ibex_icache   side=LHS  line:87:10
+   HEAD  : constant: , id:21926, line:87:10, endln:87:21
+   PARENT: \_operation: , id:21929, line:87:10, endln:87:23
+   SRC[ibex_icache_from_uhdm_synth.v:87]:   input [127:0] ic_data_rdata_i;
+== ibex_pmp   side=LHS  line:34:10
+   HEAD  : constant: , id:12627, line:34:10, endln:34:22
+   PARENT: \_range: , id:12626, line:34:9, endln:34:25
+   SRC[ibex_pmp_from_uhdm_synth.v:34]:   wire _03_;
+== ibex_tracer   side=LHS  line:305:87
+   HEAD  : ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:16236, line:305:87, endln:305:96
+   PARENT: \_operation: , id:16235, line:305:86, endln:305:97
+== iface_zero_width_field   side=LHS  
+   HEAD  : ref_typespec: , id:90
+   PARENT: <none>
+== mem_packed_2d_byte_write   side=LHS  line:19:18
+   HEAD  : operation: , id:38, line:19:18, endln:19:25
+   PARENT: \_range: , id:36, line:19:17, endln:19:28
+   SRC[dut.sv:19]:   typedef logic [NDATA-1:0][DATA_SIZE-1:0] mem_t [DEPTH];
+== packed_array_struct   side=LHS  line:20:25
+   HEAD  : constant: , id:27, line:20:25, endln:20:27
+   PARENT: \_cont_assign: , id:190, line:20:12, endln:20:27
+   SRC[dut.sv:20]:     assign arr        = '0;
+== packed_struct_array_fifo   side=RHS  
+   HEAD  : ref_typespec: (work@packed_struct_array_fifo.status_cnt_n), id:428
+   PARENT: \_constant: , id:427, line:23:10, endln:23:20
+== port_chained_type_param   side=LHS  line:2:32
+   HEAD  : struct_typespec: , id:2, line:2:32, endln:2:38
+   PARENT: <none>
+   SRC[dut.sv:2]:     parameter type noc_req_t = struct packed { logic [31:0] a; logic [15:0] b; logic c; },
+== stamped_gen_param   side=LHS  
+   HEAD  : logic_typespec: (q2::row_t), id:39
+   PARENT: \_package: q2 (q2::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+== struct_member_cfg_width   side=LHS  line:21:65
+   HEAD  : constant: , id:320, line:21:65, endln:21:88
+   PARENT: \_param_assign: , id:319, line:21:59, endln:21:88
+   SRC[dut.sv:21]: module struct_member_cfg_width #(parameter cfg_pkg::cfg_t CFG = cfg_pkg::build_config()) (
+== struct_param_pattern_packing   side=LHS  line:18:34
+   HEAD  : constant: , id:794, line:18:34, endln:18:35
+   PARENT: \_cont_assign: , id:789, line:40:10, endln:40:24
+   SRC[dut.sv:18]:   localparam cfg_t   LIT  = '{n: 3, base: 64'h1000};
+   SRC[struct_param_pattern_packing_from_uhdm_synth.v:18]:   wire [63:0] o_base;
+== typed_named_pattern   side=LHS  
+   HEAD  : ref_typespec: (work@typed_named_pattern), id:103
+   PARENT: \_operation: , id:102, line:22:35, endln:22:132
+== type_param_override_elem_sel   side=LHS  line:32:17
+   HEAD  : logic_typespec: , id:209, line:32:17, endln:32:28
+   PARENT: <none>
+   SRC[dut.sv:32]:   child #(.id_t(logic [1:0])) u (   // OVERRIDE: element becomes 2 bits
+== type_param_packed_dim   side=LHS  line:2:31
+   HEAD  : logic_typespec: , id:159, line:2:31, endln:2:42
+   PARENT: <none>
+   SRC[dut.sv:2]:     parameter type id_t     = logic [1:0],
+== type_param_unpacked_port   side=LHS  line:42:12
+   HEAD  : array_typespec: , id:332, line:42:12, endln:42:32
+   PARENT: \_port: (in_i), id:326, line:42:19, endln:42:23
+   SRC[dut.sv:42]:     input  resp_t in_i  [N-1:0],   // 2*36 = 72
+== unpacked_elem_partsel_comb   side=LHS  line:20:24
+   HEAD  : var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:50, line:20:24, endln:20:56
+   PARENT: \_cont_assign: , id:49, line:20:12, endln:20:56
+   SRC[dut.sv:20]:     assign cl_sel[i] = cl_rdata[i][{off_i, 3'b0} +: FW];
+   SRC[unpacked_elem_partsel_comb_from_uhdm_synth.v:20]:   wire _1_;

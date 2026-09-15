@@ -1,0 +1,60 @@
+LHS:
+decompile:
+constant: , id:#, line:87:10, endln:87:21
+|vpiParent:
+\_operation: , id:#, line:87:10, endln:87:23
+|vpiDecompile:22
+|vpiSize:32
+|INT:22
+|vpiTypespec:
+\_ref_typespec: , id:#
+  |vpiParent:
+  \_constant: , id:#, line:87:10, endln:87:21
+  |vpiActual:
+  \_int_typespec: , id:#, line:396:13, endln:396:25
+|vpiConstType:7
+
+decompile:
+constant: , id:#, line:87:10, endln:87:21
+|vpiParent:
+\_operation: , id:#, line:87:10, endln:87:23
+|vpiDecompile:22
+|vpiSize:32
+|INT:22
+|vpiTypespec:
+\_ref_typespec: , id:#
+  |vpiParent:
+  \_constant: , id:#, line:87:10, endln:87:21
+  |vpiActual:
+  \_int_typespec: , id:#, line:396:13, endln:396:25
+|vpiConstType:7
+RHS:
+decompile:
+constant: , id:#, line:87:10, endln:87:21
+|vpiParent:
+\_operation: , id:#, line:87:10, endln:87:23
+|vpiDecompile:22
+|vpiSize:32
+|UINT:22
+|vpiTypespec:
+\_ref_typespec: , id:#
+  |vpiParent:
+  \_constant: , id:#, line:87:10, endln:87:21
+  |vpiActual:
+  \_int_typespec: , id:#, line:396:13, endln:396:25
+|vpiConstType:9
+
+decompile:
+constant: , id:#, line:87:10, endln:87:21
+|vpiParent:
+\_operation: , id:#, line:87:10, endln:87:23
+|vpiDecompile:22
+|vpiSize:32
+|UINT:22
+|vpiTypespec:
+\_ref_typespec: , id:#
+  |vpiParent:
+  \_constant: , id:#, line:87:10, endln:87:21
+  |vpiActual:
+  \_int_typespec: , id:#, line:396:13, endln:396:25
+|vpiConstType:9

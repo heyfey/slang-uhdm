@@ -1,0 +1,38 @@
+# r11u44 — has each row's HEAD MOVED since the first triage (r11u29, base d24291a2)?
+# LEFT  = the committed first-triage face key:
+#         tools/probe/r11u29repro/evidence/{u2r,surelog}/faces.key.txt
+# RIGHT = this pass's face key (evidence/faces.key.txt), same reader (facediff.py --key).
+# A face key is SITE-BLIND: ibex_icache reads SAME here and still moved SITE — the
+# cmp LINE COUNT column below is the second reading, and r11u38repro/README.md R0
+# names the new site.
+
+TEST                               FACE    T1LINES T2LINES NOTE
+anon_struct_packed_dim             SAME    64      64      
+arb_idx_cast                       MOVED   58      74      LINES-CHANGED
+bits_of_type_param                 SAME    56      56      
+cfg_func_width_loop                MOVED   82      17      LINES-CHANGED
+const_cast_signext                 SAME    17      17      
+cva6_struct_param_field            MOVED   76      166     LINES-CHANGED
+genvar_pow_index                   SAME    74      74      
+ibex_icache                        SAME    64      60      LINES-CHANGED
+ibex_pmp                           SAME    36      36      
+ibex_tracer                        SAME    36      36      
+iface_zero_width_field             SAME    11      11      
+LargeValue2Struct                  SAME    108     108     
+mem_packed_2d_byte_write           SAME    56      56      
+packed_array_struct                SAME    36      36      
+packed_struct_array_fifo           MOVED   6446    17      LINES-CHANGED
+port_chained_type_param            SAME    120     120     
+Rggen                              MOVED   801     64      LINES-CHANGED
+SequenceInst                       SAME    122     122     
+stamped_gen_param                  SAME    138     138     
+struct_member_cfg_width            MOVED   17      64      LINES-CHANGED
+StructParamFieldRange              MOVED   76      166     LINES-CHANGED
+StructParamFuncBodyFieldCompare    SAME    36      36      
+StructParamPatternInitCast         SAME    15      15      
+struct_param_pattern_packing       SAME    52      52      
+typed_named_pattern                SAME    17      17      
+type_param_override_elem_sel       MOVED   94      47      LINES-CHANGED
+type_param_packed_dim              MOVED   94      47      LINES-CHANGED
+type_param_unpacked_port           SAME    208     208     
+unpacked_elem_partsel_comb         SAME    91      91      

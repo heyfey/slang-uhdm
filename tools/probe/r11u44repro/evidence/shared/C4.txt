@@ -1,0 +1,48 @@
+---- cfg_func_width_loop.default.cmp   md5=9e1d7bcab399   lines=16
+    LHS: <null>
+    RHS:
+    decompile:
+    ref_typespec: (q::maxw::i), id:#
+    |vpiParent:
+    \_ref_obj: (q::maxw::i), id:#, line:#, endln:#
+    |vpiFullName:q::maxw::i
+    |vpiActual:
+    \_int_typespec: , id:#, line:#, endln:#
+    
+    decompile:
+    ref_typespec: (q::maxw::i), id:#
+    |vpiParent:
+    \_ref_obj: (q::maxw::i), id:#, line:#, endln:#
+    |vpiFullName:q::maxw::i
+    |vpiActual:
+    \_int_typespec: , id:#, line:#, endln:#
+---- packed_struct_array_fifo.default.cmp   md5=c09894c5ca5c   lines=16
+    DIFFERS from cfg_func_width_loop.default.cmp:
+    4c4
+    < ref_typespec: (q::maxw::i), id:#
+    ---
+    > ref_typespec: (work@packed_struct_array_fifo.status_cnt_n), id:#
+    6,7c6,7
+    < \_ref_obj: (q::maxw::i), id:#, line:#, endln:#
+    < |vpiFullName:q::maxw::i
+    ---
+    > \_constant: , id:#, line:#, endln:#
+    > |vpiFullName:work@packed_struct_array_fifo.status_cnt_n
+    9c9
+    < \_int_typespec: , id:#, line:#, endln:#
+    ---
+    > \_int_typespec: , id:#
+    12c12
+    < ref_typespec: (q::maxw::i), id:#
+    ---
+    > ref_typespec: (work@packed_struct_array_fifo.status_cnt_n), id:#
+    14,15c14,15
+    < \_ref_obj: (q::maxw::i), id:#, line:#, endln:#
+    < |vpiFullName:q::maxw::i
+    ---
+    > \_constant: , id:#, line:#, endln:#
+    > |vpiFullName:work@packed_struct_array_fifo.status_cnt_n
+    17c17
+    < \_int_typespec: , id:#, line:#, endln:#
+    ---
+    > \_int_typespec: , id:#

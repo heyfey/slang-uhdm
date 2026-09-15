@@ -1,0 +1,138 @@
+LHS:
+decompile:
+logic_typespec: (q2::row_t), id:#
+|vpiParent:
+\_package: q2 (q2::), id:#, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiName:q2::row_t
+|vpiInstance:
+\_package: q2 (q2::), id:#, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiElemTypespec:
+\_ref_typespec: (q2::q2::row_t), id:#
+  |vpiParent:
+  \_logic_typespec: (q2::row_t), id:#
+  |vpiFullName:q2::q2::row_t
+  |vpiActual:
+  \_logic_typespec: , id:#, line:11:11, endln:11:21
+|vpiRange:
+\_range: , id:#, line:11:16, endln:11:21
+  |vpiParent:
+  \_packed_array_typespec: , id:#, line:11:11, endln:11:21
+  |vpiLeftRange:
+  \_constant: , id:#, line:11:17, endln:11:18
+    |vpiParent:
+    \_range: , id:#, line:11:16, endln:11:21
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:#, line:11:19, endln:11:20
+    |vpiParent:
+    \_range: , id:#, line:11:16, endln:11:21
+    |vpiDecompile:2
+    |vpiSize:64
+    |UINT:2
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (q2::row_t), id:#
+|vpiParent:
+\_package: q2 (q2::), id:#, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiName:q2::row_t
+|vpiInstance:
+\_package: q2 (q2::), id:#, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiElemTypespec:
+\_ref_typespec: (q2::q2::row_t), id:#
+  |vpiParent:
+  \_logic_typespec: (q2::row_t), id:#
+  |vpiFullName:q2::q2::row_t
+  |vpiActual:
+  \_logic_typespec: , id:#, line:11:11, endln:11:21
+|vpiRange:
+\_range: , id:#, line:11:16, endln:11:21
+  |vpiParent:
+  \_packed_array_typespec: , id:#, line:11:11, endln:11:21
+  |vpiLeftRange:
+  \_constant: , id:#, line:11:17, endln:11:18
+    |vpiParent:
+    \_range: , id:#, line:11:16, endln:11:21
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:#, line:11:19, endln:11:20
+    |vpiParent:
+    \_range: , id:#, line:11:16, endln:11:21
+    |vpiDecompile:2
+    |vpiSize:64
+    |UINT:2
+    |vpiConstType:9
+RHS:
+decompile:
+logic_typespec: , id:#, line:14:5, endln:14:16
+|vpiParent:
+\_typespec_member: (UnitTypes), id:#, line:14:18, endln:14:27
+|vpiInstance:
+\_package: q2 (q2::), id:#, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiElemTypespec:
+\_ref_typespec: (q2::q2::impl_t::UnitTypes), id:#
+  |vpiParent:
+  \_logic_typespec: , id:#, line:14:5, endln:14:16
+  |vpiFullName:q2::q2::impl_t::UnitTypes
+  |vpiActual:
+  \_logic_typespec: (row_t), id:#, line:11:11, endln:11:21
+|vpiRange:
+\_range: , id:#, line:14:11, endln:14:16
+  |vpiParent:
+  \_logic_typespec: , id:#, line:14:5, endln:14:16
+  |vpiLeftRange:
+  \_constant: , id:#, line:14:12, endln:14:13
+    |vpiParent:
+    \_range: , id:#, line:14:11, endln:14:16
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:#, line:14:14, endln:14:15
+    |vpiParent:
+    \_range: , id:#, line:14:11, endln:14:16
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+
+decompile:
+logic_typespec: , id:#, line:14:5, endln:14:16
+|vpiParent:
+\_typespec_member: (UnitTypes), id:#, line:14:18, endln:14:27
+|vpiInstance:
+\_package: q2 (q2::), id:#, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiElemTypespec:
+\_ref_typespec: (q2::q2::impl_t::UnitTypes), id:#
+  |vpiParent:
+  \_logic_typespec: , id:#, line:14:5, endln:14:16
+  |vpiFullName:q2::q2::impl_t::UnitTypes
+  |vpiActual:
+  \_logic_typespec: (row_t), id:#, line:11:11, endln:11:21
+|vpiRange:
+\_range: , id:#, line:14:11, endln:14:16
+  |vpiParent:
+  \_logic_typespec: , id:#, line:14:5, endln:14:16
+  |vpiLeftRange:
+  \_constant: , id:#, line:14:12, endln:14:13
+    |vpiParent:
+    \_range: , id:#, line:14:11, endln:14:16
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:#, line:14:14, endln:14:15
+    |vpiParent:
+    \_range: , id:#, line:14:11, endln:14:16
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9

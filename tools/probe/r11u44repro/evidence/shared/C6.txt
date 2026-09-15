@@ -1,0 +1,77 @@
+---- arb_idx_cast.default.cmp   md5=7ccad305d821   lines=72
+    LHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_gen_for: , id:#
+    |vpiOpType:20
+    |vpiOperand:
+    \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiArgument:
+      \_ref_obj: (work@<DESIGN>.level), id:#, line:#, endln:#
+        |vpiParent:
+        \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+        |vpiName:level
+        |vpiFullName:work@<DESIGN>.level
+        |vpiActual:
+        \_int_var: (work@<DESIGN>.level), id:#, line:#, endln:#
+      |vpiName:$unsigned
+    |vpiOperand:
+    \_ref_obj: (work@<DESIGN>.NumLevels), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:NumLevels
+      |vpiFullName:work@<DESIGN>.NumLevels
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_gen_for: , id:#
+    |vpiOpType:20
+    |vpiOperand:
+    \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiArgument:
+      \_ref_obj: (work@<DESIGN>.level), id:#, line:#, endln:#
+        |vpiParent:
+        \_sys_func_call: ($unsigned), id:#, line:#, endln:#
+        |vpiName:level
+        |vpiFullName:work@<DESIGN>.level
+        |vpiActual:
+        \_int_var: (work@<DESIGN>.level), id:#, line:#, endln:#
+      |vpiName:$unsigned
+    |vpiOperand:
+    \_ref_obj: (work@<DESIGN>.NumLevels), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:NumLevels
+      |vpiFullName:work@<DESIGN>.NumLevels
+    RHS:
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_gen_for: , id:#
+    |vpiOpType:20
+    |vpiOperand:
+    \_ref_obj: (work@<DESIGN>.NumLevels), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:NumLevels
+      |vpiFullName:work@<DESIGN>.NumLevels
+    
+    decompile:
+    operation: , id:#, line:#, endln:#
+    |vpiParent:
+    \_gen_for: , id:#
+    |vpiOpType:20
+    |vpiOperand:
+    \_ref_obj: (work@<DESIGN>.NumLevels), id:#, line:#, endln:#
+      |vpiParent:
+      \_operation: , id:#, line:#, endln:#
+      |vpiName:NumLevels
+      |vpiFullName:work@<DESIGN>.NumLevels
+---- genvar_pow_index.default.cmp   md5=7ccad305d821   lines=72
+    IDENTICAL to arb_idx_cast.default.cmp (blinded)

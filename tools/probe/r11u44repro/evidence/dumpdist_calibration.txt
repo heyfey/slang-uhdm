@@ -1,0 +1,8 @@
+# r11u44 — distance instrument CALIBRATION (a census is read golden-vs-golden first)
+# four known-CMP_EQUAL rows through dumpdist.sh: the floor is 2 lines, and those
+# two lines are uhdm-dump's own header naming its input FILE (one per side).
+TEST                             MODE      GOLD_ONLY OURS_ONLY  DISTANCE NOTE
+1DUnpackedArray                  default           1         1         2 golden=1005 ours=1005
+2DeclarationsInFor               default           1         1         2 golden=848 ours=848
+1364_2005                        default           1         1         2 golden=872 ours=872
+AllBinding                       default           1         1         2 golden=676 ours=676

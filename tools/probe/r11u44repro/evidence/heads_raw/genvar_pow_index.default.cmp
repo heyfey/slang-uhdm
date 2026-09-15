@@ -1,0 +1,74 @@
+LHS:
+decompile:
+operation: , id:#, line:12:26, endln:12:54
+|vpiParent:
+\_gen_for: , id:#
+|vpiOpType:20
+|vpiOperand:
+\_sys_func_call: ($unsigned), id:#, line:12:26, endln:12:42
+  |vpiParent:
+  \_operation: , id:#, line:12:26, endln:12:54
+  |vpiArgument:
+  \_ref_obj: (work@genvar_pow_index.level), id:#, line:12:36, endln:12:41
+    |vpiParent:
+    \_sys_func_call: ($unsigned), id:#, line:12:26, endln:12:42
+    |vpiName:level
+    |vpiFullName:work@genvar_pow_index.level
+    |vpiActual:
+    \_int_var: (work@genvar_pow_index.level), id:#, line:12:15, endln:12:20
+  |vpiName:$unsigned
+|vpiOperand:
+\_ref_obj: (work@genvar_pow_index.NumLevels), id:#, line:12:45, endln:12:54
+  |vpiParent:
+  \_operation: , id:#, line:12:26, endln:12:54
+  |vpiName:NumLevels
+  |vpiFullName:work@genvar_pow_index.NumLevels
+
+decompile:
+operation: , id:#, line:12:26, endln:12:54
+|vpiParent:
+\_gen_for: , id:#
+|vpiOpType:20
+|vpiOperand:
+\_sys_func_call: ($unsigned), id:#, line:12:26, endln:12:42
+  |vpiParent:
+  \_operation: , id:#, line:12:26, endln:12:54
+  |vpiArgument:
+  \_ref_obj: (work@genvar_pow_index.level), id:#, line:12:36, endln:12:41
+    |vpiParent:
+    \_sys_func_call: ($unsigned), id:#, line:12:26, endln:12:42
+    |vpiName:level
+    |vpiFullName:work@genvar_pow_index.level
+    |vpiActual:
+    \_int_var: (work@genvar_pow_index.level), id:#, line:12:15, endln:12:20
+  |vpiName:$unsigned
+|vpiOperand:
+\_ref_obj: (work@genvar_pow_index.NumLevels), id:#, line:12:45, endln:12:54
+  |vpiParent:
+  \_operation: , id:#, line:12:26, endln:12:54
+  |vpiName:NumLevels
+  |vpiFullName:work@genvar_pow_index.NumLevels
+RHS:
+decompile:
+operation: , id:#, line:12:26, endln:12:54
+|vpiParent:
+\_gen_for: , id:#
+|vpiOpType:20
+|vpiOperand:
+\_ref_obj: (work@genvar_pow_index.NumLevels), id:#, line:12:45, endln:12:54
+  |vpiParent:
+  \_operation: , id:#, line:12:26, endln:12:54
+  |vpiName:NumLevels
+  |vpiFullName:work@genvar_pow_index.NumLevels
+
+decompile:
+operation: , id:#, line:12:26, endln:12:54
+|vpiParent:
+\_gen_for: , id:#
+|vpiOpType:20
+|vpiOperand:
+\_ref_obj: (work@genvar_pow_index.NumLevels), id:#, line:12:45, endln:12:54
+  |vpiParent:
+  \_operation: , id:#, line:12:26, endln:12:54
+  |vpiName:NumLevels
+  |vpiFullName:work@genvar_pow_index.NumLevels

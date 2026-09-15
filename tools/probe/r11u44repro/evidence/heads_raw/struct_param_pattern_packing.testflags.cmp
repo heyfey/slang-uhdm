@@ -1,0 +1,52 @@
+LHS:
+decompile:
+constant: , id:#, line:18:34, endln:18:35
+|vpiParent:
+\_cont_assign: , id:#, line:40:10, endln:40:24
+|vpiDecompile:3
+|vpiSize:32
+|UINT:3
+|vpiConstType:9
+
+decompile:
+constant: , id:#, line:18:34, endln:18:35
+|vpiParent:
+\_cont_assign: , id:#, line:40:10, endln:40:24
+|vpiDecompile:3
+|vpiSize:32
+|UINT:3
+|vpiConstType:9
+RHS:
+decompile:
+hier_path: (CFG.n), id:#, line:40:19, endln:40:24
+|vpiParent:
+\_cont_assign: , id:#, line:40:10, endln:40:24
+|vpiActual:
+\_ref_obj: (CFG), id:#, line:40:19, endln:40:22
+  |vpiParent:
+  \_hier_path: (CFG.n), id:#, line:40:19, endln:40:24
+  |vpiName:CFG
+|vpiActual:
+\_ref_obj: (work@dut.n), id:#, line:40:23, endln:40:24
+  |vpiParent:
+  \_hier_path: (CFG.n), id:#, line:40:19, endln:40:24
+  |vpiName:n
+  |vpiFullName:work@dut.n
+|vpiName:CFG.n
+
+decompile:
+hier_path: (CFG.n), id:#, line:40:19, endln:40:24
+|vpiParent:
+\_cont_assign: , id:#, line:40:10, endln:40:24
+|vpiActual:
+\_ref_obj: (CFG), id:#, line:40:19, endln:40:22
+  |vpiParent:
+  \_hier_path: (CFG.n), id:#, line:40:19, endln:40:24
+  |vpiName:CFG
+|vpiActual:
+\_ref_obj: (work@dut.n), id:#, line:40:23, endln:40:24
+  |vpiParent:
+  \_hier_path: (CFG.n), id:#, line:40:19, endln:40:24
+  |vpiName:n
+  |vpiFullName:work@dut.n
+|vpiName:CFG.n

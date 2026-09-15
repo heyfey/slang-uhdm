@@ -1,0 +1,120 @@
+LHS:
+decompile:
+struct_typespec: , id:2, line:2:32, endln:2:38
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (a), id:7, line:2:61, endln:2:62
+  |vpiParent:
+  \_struct_typespec: , id:2, line:2:32, endln:2:38
+  |vpiName:a
+  |vpiTypespec:
+  \_ref_typespec: (a), id:8
+    |vpiParent:
+    \_typespec_member: (a), id:7, line:2:61, endln:2:62
+    |vpiFullName:a
+    |vpiActual:
+    \_logic_typespec: , id:6, line:2:48, endln:2:60
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  |vpiRefLineNo:2
+  |vpiRefColumnNo:48
+  |vpiRefEndLineNo:2
+  |vpiRefEndColumnNo:60
+|vpiTypespecMember:
+\_typespec_member: (b), id:13, line:2:77, endln:2:78
+  |vpiParent:
+  \_struct_typespec: , id:2, line:2:32, endln:2:38
+  |vpiName:b
+  |vpiTypespec:
+  \_ref_typespec: (b), id:14
+    |vpiParent:
+    \_typespec_member: (b), id:13, line:2:77, endln:2:78
+    |vpiFullName:b
+    |vpiActual:
+    \_logic_typespec: , id:12, line:2:64, endln:2:76
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  |vpiRefLineNo:2
+  |vpiRefColumnNo:64
+  |vpiRefEndLineNo:2
+  |vpiRefEndColumnNo:76
+|vpiTypespecMember:
+\_typespec_member: (c), id:16, line:2:86, endln:2:87
+  |vpiParent:
+  \_struct_typespec: , id:2, line:2:32, endln:2:38
+  |vpiName:c
+  |vpiTypespec:
+  \_ref_typespec: (c), id:17
+    |vpiParent:
+    \_typespec_member: (c), id:16, line:2:86, endln:2:87
+    |vpiFullName:c
+    |vpiActual:
+    \_logic_typespec: , id:15, line:2:80, endln:2:85
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  |vpiRefLineNo:2
+  |vpiRefColumnNo:80
+  |vpiRefEndLineNo:2
+  |vpiRefEndColumnNo:85
+
+decompile:
+struct_typespec: , id:2, line:2:32, endln:2:38
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (a), id:7, line:2:61, endln:2:62
+  |vpiParent:
+  \_struct_typespec: , id:2, line:2:32, endln:2:38
+  |vpiName:a
+  |vpiTypespec:
+  \_ref_typespec: (a), id:8
+    |vpiParent:
+    \_typespec_member: (a), id:7, line:2:61, endln:2:62
+    |vpiFullName:a
+    |vpiActual:
+    \_logic_typespec: , id:6, line:2:48, endln:2:60
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  |vpiRefLineNo:2
+  |vpiRefColumnNo:48
+  |vpiRefEndLineNo:2
+  |vpiRefEndColumnNo:60
+|vpiTypespecMember:
+\_typespec_member: (b), id:13, line:2:77, endln:2:78
+  |vpiParent:
+  \_struct_typespec: , id:2, line:2:32, endln:2:38
+  |vpiName:b
+  |vpiTypespec:
+  \_ref_typespec: (b), id:14
+    |vpiParent:
+    \_typespec_member: (b), id:13, line:2:77, endln:2:78
+    |vpiFullName:b
+    |vpiActual:
+    \_logic_typespec: , id:12, line:2:64, endln:2:76
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  |vpiRefLineNo:2
+  |vpiRefColumnNo:64
+  |vpiRefEndLineNo:2
+  |vpiRefEndColumnNo:76
+|vpiTypespecMember:
+\_typespec_member: (c), id:16, line:2:86, endln:2:87
+  |vpiParent:
+  \_struct_typespec: , id:2, line:2:32, endln:2:38
+  |vpiName:c
+  |vpiTypespec:
+  \_ref_typespec: (c), id:17
+    |vpiParent:
+    \_typespec_member: (c), id:16, line:2:86, endln:2:87
+    |vpiFullName:c
+    |vpiActual:
+    \_logic_typespec: , id:15, line:2:80, endln:2:85
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/port_chained_type_param/dut.sv
+  |vpiRefLineNo:2
+  |vpiRefColumnNo:80
+  |vpiRefEndLineNo:2
+  |vpiRefEndColumnNo:85
+RHS:
+decompile:
+logic_typespec: , id:12, line:2:32, endln:2:90
+|vpiParent:
+\_type_parameter: (work@dut.noc_req_t), id:10, line:2:20, endln:2:29
+
+decompile:
+logic_typespec: , id:12, line:2:32, endln:2:90
+|vpiParent:
+\_type_parameter: (work@dut.noc_req_t), id:10, line:2:20, endln:2:29

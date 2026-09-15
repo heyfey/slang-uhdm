@@ -1,0 +1,56 @@
+LHS:
+decompile:
+sys_func_call: ($bits), id:#, line:17:39, endln:17:51
+|vpiParent:
+\_param_assign: , id:#, line:17:26, endln:17:51
+|vpiArgument:
+\_ref_obj: (work@dut.req_t), id:#, line:17:45, endln:17:50
+  |vpiParent:
+  \_sys_func_call: ($bits), id:#, line:17:39, endln:17:51
+  |vpiName:req_t
+  |vpiFullName:work@dut.req_t
+|vpiName:$bits
+
+decompile:
+sys_func_call: ($bits), id:#, line:17:39, endln:17:51
+|vpiParent:
+\_param_assign: , id:#, line:17:26, endln:17:51
+|vpiArgument:
+\_ref_obj: (work@dut.req_t), id:#, line:17:45, endln:17:50
+  |vpiParent:
+  \_sys_func_call: ($bits), id:#, line:17:39, endln:17:51
+  |vpiName:req_t
+  |vpiFullName:work@dut.req_t
+|vpiName:$bits
+RHS:
+decompile:
+constant: , id:#, line:17:39, endln:17:51
+|vpiParent:
+\_param_assign: , id:#, line:17:26, endln:17:51
+|vpiDecompile:97
+|vpiSize:64
+|UINT:97
+|vpiTypespec:
+\_ref_typespec: (work@dut), id:#
+  |vpiParent:
+  \_constant: , id:#, line:17:39, endln:17:51
+  |vpiFullName:work@dut
+  |vpiActual:
+  \_int_typespec: , id:#, line:17:16, endln:17:19
+|vpiConstType:9
+
+decompile:
+constant: , id:#, line:17:39, endln:17:51
+|vpiParent:
+\_param_assign: , id:#, line:17:26, endln:17:51
+|vpiDecompile:97
+|vpiSize:64
+|UINT:97
+|vpiTypespec:
+\_ref_typespec: (work@dut), id:#
+  |vpiParent:
+  \_constant: , id:#, line:17:39, endln:17:51
+  |vpiFullName:work@dut
+  |vpiActual:
+  \_int_typespec: , id:#, line:17:16, endln:17:19
+|vpiConstType:9

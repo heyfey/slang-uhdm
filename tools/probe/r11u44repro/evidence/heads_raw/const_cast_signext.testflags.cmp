@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (imm_t), id:#
+|vpiParent:
+\_logic_typespec: (imm_t), id:#, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:#, line:14:11, endln:14:30
+
+decompile:
+ref_typespec: (imm_t), id:#
+|vpiParent:
+\_logic_typespec: (imm_t), id:#, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:#, line:14:11, endln:14:30
+RHS: <null>

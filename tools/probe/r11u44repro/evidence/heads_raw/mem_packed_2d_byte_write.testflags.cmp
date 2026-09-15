@@ -1,0 +1,56 @@
+LHS:
+decompile:
+operation: , id:#, line:19:18, endln:19:25
+|vpiParent:
+\_range: , id:#, line:19:17, endln:19:28
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (NDATA), id:#, line:19:18, endln:19:23
+  |vpiParent:
+  \_operation: , id:#, line:19:18, endln:19:25
+  |vpiName:NDATA
+|vpiOperand:
+\_constant: , id:#, line:19:24, endln:19:25
+  |vpiParent:
+  \_operation: , id:#, line:19:18, endln:19:25
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:#, line:19:18, endln:19:25
+|vpiParent:
+\_range: , id:#, line:19:17, endln:19:28
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (NDATA), id:#, line:19:18, endln:19:23
+  |vpiParent:
+  \_operation: , id:#, line:19:18, endln:19:25
+  |vpiName:NDATA
+|vpiOperand:
+\_constant: , id:#, line:19:24, endln:19:25
+  |vpiParent:
+  \_operation: , id:#, line:19:18, endln:19:25
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:#, line:19:18, endln:19:25
+|vpiParent:
+\_range: , id:#, line:19:17, endln:19:28
+|vpiDecompile:NDATA-1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9
+
+decompile:
+constant: , id:#, line:19:18, endln:19:25
+|vpiParent:
+\_range: , id:#, line:19:17, endln:19:28
+|vpiDecompile:NDATA-1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9

@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:#, line:21:65, endln:21:88
+|vpiParent:
+\_param_assign: , id:#, line:21:59, endln:21:88
+|vpiDecompile:64'b0000000000000000000000000100000000000000000000000000000000000011
+|vpiSize:64
+|BIN:0000000000000000000000000100000000000000000000000000000000000011
+|vpiTypespec:
+\_ref_typespec: (work@tb.t), id:#
+  |vpiParent:
+  \_constant: , id:#, line:21:65, endln:21:88
+  |vpiFullName:work@tb.t
+  |vpiActual:
+  \_struct_typespec: (cfg_pkg::cfg_t), id:#, line:6:11, endln:6:65
+|vpiConstType:3
+
+decompile:
+constant: , id:#, line:21:65, endln:21:88
+|vpiParent:
+\_param_assign: , id:#, line:21:59, endln:21:88
+|vpiDecompile:64'b0000000000000000000000000100000000000000000000000000000000000011
+|vpiSize:64
+|BIN:0000000000000000000000000100000000000000000000000000000000000011
+|vpiTypespec:
+\_ref_typespec: (work@tb.t), id:#
+  |vpiParent:
+  \_constant: , id:#, line:21:65, endln:21:88
+  |vpiFullName:work@tb.t
+  |vpiActual:
+  \_struct_typespec: (cfg_pkg::cfg_t), id:#, line:6:11, endln:6:65
+|vpiConstType:3
+RHS:
+decompile:
+constant: , id:#, line:21:65, endln:21:88
+|vpiParent:
+\_param_assign: , id:#, line:21:59, endln:21:88
+|vpiDecompile:274877906947
+|vpiSize:64
+|UINT:274877906947
+|vpiTypespec:
+\_ref_typespec: (work@tb.t), id:#
+  |vpiParent:
+  \_constant: , id:#, line:21:65, endln:21:88
+  |vpiFullName:work@tb.t
+  |vpiActual:
+  \_struct_typespec: (cfg_pkg::cfg_t), id:#, line:6:11, endln:6:65
+|vpiConstType:9
+
+decompile:
+constant: , id:#, line:21:65, endln:21:88
+|vpiParent:
+\_param_assign: , id:#, line:21:59, endln:21:88
+|vpiDecompile:274877906947
+|vpiSize:64
+|UINT:274877906947
+|vpiTypespec:
+\_ref_typespec: (work@tb.t), id:#
+  |vpiParent:
+  \_constant: , id:#, line:21:65, endln:21:88
+  |vpiFullName:work@tb.t
+  |vpiActual:
+  \_struct_typespec: (cfg_pkg::cfg_t), id:#, line:6:11, endln:6:65
+|vpiConstType:9

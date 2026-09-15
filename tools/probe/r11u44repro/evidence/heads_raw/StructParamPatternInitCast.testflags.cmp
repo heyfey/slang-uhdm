@@ -1,0 +1,15 @@
+LHS: <null>
+RHS:
+decompile:
+constant: , id:#, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+
+decompile:
+constant: , id:#, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1

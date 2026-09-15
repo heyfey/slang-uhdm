@@ -1,0 +1,169 @@
+---- cva6_struct_param_field.default.cmp   md5=7fa7f25fbcdf   lines=164
+    LHS:
+    decompile:
+    struct_typespec: , id:#, line:#, endln:#
+    |vpiParent:
+    \_ref_typespec: (work@<DESIGN>.I), id:#
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (x), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: , id:#, line:#, endln:#
+      |vpiName:x
+      |vpiTypespec:
+      \_ref_typespec: (work@<DESIGN>.I.x), id:#
+        |vpiParent:
+        \_typespec_member: (x), id:#, line:#, endln:#
+        |vpiFullName:work@<DESIGN>.I.x
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:#
+      |vpiRefLineNo:#
+      |vpiRefColumnNo:#
+      |vpiRefEndLineNo:#
+      |vpiRefEndColumnNo:#
+    |vpiTypespecMember:
+    \_typespec_member: (y), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: , id:#, line:#, endln:#
+      |vpiName:y
+      |vpiTypespec:
+      \_ref_typespec: (work@<DESIGN>.I.y), id:#
+        |vpiParent:
+        \_typespec_member: (y), id:#, line:#, endln:#
+        |vpiFullName:work@<DESIGN>.I.y
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:#
+      |vpiRefLineNo:#
+      |vpiRefColumnNo:#
+      |vpiRefEndLineNo:#
+      |vpiRefEndColumnNo:#
+    
+    decompile:
+    struct_typespec: , id:#, line:#, endln:#
+    |vpiParent:
+    \_ref_typespec: (work@<DESIGN>.I), id:#
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (x), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: , id:#, line:#, endln:#
+      |vpiName:x
+      |vpiTypespec:
+      \_ref_typespec: (work@<DESIGN>.I.x), id:#
+        |vpiParent:
+        \_typespec_member: (x), id:#, line:#, endln:#
+        |vpiFullName:work@<DESIGN>.I.x
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:#
+      |vpiRefLineNo:#
+      |vpiRefColumnNo:#
+      |vpiRefEndLineNo:#
+      |vpiRefEndColumnNo:#
+    |vpiTypespecMember:
+    \_typespec_member: (y), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: , id:#, line:#, endln:#
+      |vpiName:y
+      |vpiTypespec:
+      \_ref_typespec: (work@<DESIGN>.I.y), id:#
+        |vpiParent:
+        \_typespec_member: (y), id:#, line:#, endln:#
+        |vpiFullName:work@<DESIGN>.I.y
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:#
+      |vpiRefLineNo:#
+      |vpiRefColumnNo:#
+      |vpiRefEndLineNo:#
+      |vpiRefEndColumnNo:#
+    RHS:
+    decompile:
+    struct_typespec: (it_t), id:#, line:#, endln:#
+    |vpiParent:
+    \_ref_typespec: (work@<DESIGN>.I), id:#
+    |vpiName:it_t
+    |vpiInstance:
+    \_module_inst: work@<DESIGN> (work@<DESIGN>), id:#, file:, line:#, endln:#
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (x), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: (it_t), id:#, line:#, endln:#
+      |vpiName:x
+      |vpiTypespec:
+      \_ref_typespec: (work@<DESIGN>.I.it_t.x), id:#
+        |vpiParent:
+        \_typespec_member: (x), id:#, line:#, endln:#
+        |vpiFullName:work@<DESIGN>.I.it_t.x
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:#
+      |vpiRefLineNo:#
+      |vpiRefColumnNo:#
+      |vpiRefEndLineNo:#
+      |vpiRefEndColumnNo:#
+    |vpiTypespecMember:
+    \_typespec_member: (y), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: (it_t), id:#, line:#, endln:#
+      |vpiName:y
+      |vpiTypespec:
+      \_ref_typespec: (work@<DESIGN>.I.it_t.y), id:#
+        |vpiParent:
+        \_typespec_member: (y), id:#, line:#, endln:#
+        |vpiFullName:work@<DESIGN>.I.it_t.y
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:#
+      |vpiRefLineNo:#
+      |vpiRefColumnNo:#
+      |vpiRefEndLineNo:#
+      |vpiRefEndColumnNo:#
+    
+    decompile:
+    struct_typespec: (it_t), id:#, line:#, endln:#
+    |vpiParent:
+    \_ref_typespec: (work@<DESIGN>.I), id:#
+    |vpiName:it_t
+    |vpiInstance:
+    \_module_inst: work@<DESIGN> (work@<DESIGN>), id:#, file:, line:#, endln:#
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (x), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: (it_t), id:#, line:#, endln:#
+      |vpiName:x
+      |vpiTypespec:
+      \_ref_typespec: (work@<DESIGN>.I.it_t.x), id:#
+        |vpiParent:
+        \_typespec_member: (x), id:#, line:#, endln:#
+        |vpiFullName:work@<DESIGN>.I.it_t.x
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:#
+      |vpiRefLineNo:#
+      |vpiRefColumnNo:#
+      |vpiRefEndLineNo:#
+      |vpiRefEndColumnNo:#
+    |vpiTypespecMember:
+    \_typespec_member: (y), id:#, line:#, endln:#
+      |vpiParent:
+      \_struct_typespec: (it_t), id:#, line:#, endln:#
+      |vpiName:y
+      |vpiTypespec:
+      \_ref_typespec: (work@<DESIGN>.I.it_t.y), id:#
+        |vpiParent:
+        \_typespec_member: (y), id:#, line:#, endln:#
+        |vpiFullName:work@<DESIGN>.I.it_t.y
+        |vpiActual:
+        \_logic_typespec: , id:#, line:#, endln:#
+      |vpiRefFile:#
+      |vpiRefLineNo:#
+      |vpiRefColumnNo:#
+      |vpiRefEndLineNo:#
+      |vpiRefEndColumnNo:#
+---- StructParamFieldRange.default.cmp   md5=7fa7f25fbcdf   lines=164
+    IDENTICAL to cva6_struct_param_field.default.cmp (blinded)

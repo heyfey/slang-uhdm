@@ -1,0 +1,11 @@
+LHS:
+decompile:
+ref_typespec: , id:#
+|vpiActual:
+\_struct_typespec: (p::bus_t), id:#, line:7:11, endln:7:75
+
+decompile:
+ref_typespec: , id:#
+|vpiActual:
+\_struct_typespec: (p::bus_t), id:#, line:7:11, endln:7:75
+RHS: <null>

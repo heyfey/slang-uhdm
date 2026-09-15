@@ -1,0 +1,7 @@
+TEST                             MODE      GOLD_ONLY OURS_ONLY  DISTANCE NOTE
+LargeValue2Struct                default         366        24       390 golden=2645 ours=2303
+Rggen                            default       40459     36075     76534 golden=1587228 ours=1582844
+SequenceInst                     default          71         7        78 golden=1584 ours=1520
+StructParamFieldRange            default         173       326       499 golden=1952 ours=2105
+StructParamFuncBodyFieldCompare  default         362       361       723 golden=3061 ours=3060
+StructParamPatternInitCast       default         307       438       745 golden=2217 ours=2348

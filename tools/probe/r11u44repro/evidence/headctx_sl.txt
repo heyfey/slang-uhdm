@@ -1,0 +1,18 @@
+== LargeValue2Struct   side=LHS  line:4:11
+   HEAD  : logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+   PARENT: \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:444
+== Rggen   side=LHS  line:4:33
+   HEAD  : constant: , id:18367, line:4:33, endln:4:42
+   PARENT: \_param_assign: , id:18366, line:4:17, endln:4:42
+== SequenceInst   side=LHS  line:9:28
+   HEAD  : operation: , id:24, line:9:28, endln:9:69
+   PARENT: \_property_spec: , id:16, line:9:5, endln:9:69
+== StructParamFieldRange   side=LHS  line:23:26
+   HEAD  : struct_typespec: , id:566, line:23:26, endln:23:32
+   PARENT: \_ref_typespec: (work@StructParamFieldRange.I), id:565
+== StructParamFuncBodyFieldCompare   side=LHS  line:30:23
+   HEAD  : constant: , id:143, line:30:23, endln:30:25
+   PARENT: \_operation: , id:665, line:29:32, endln:32:37
+== StructParamPatternInitCast   side=RHS  line:21:40
+   HEAD  : constant: , id:42, line:21:40, endln:21:46
+   PARENT: <none>

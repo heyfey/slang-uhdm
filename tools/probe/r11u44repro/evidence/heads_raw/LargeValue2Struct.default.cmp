@@ -1,0 +1,108 @@
+LHS:
+decompile:
+logic_typespec: (sram_key_t), id:#, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:#
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:#, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:#, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:#, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:#, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:#, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:#, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:#, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (sram_key_t), id:#, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:#
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:#, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:#, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:#, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:#, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:#, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:#, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:#, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+logic_typespec: (pack::sram_key_t), id:#, line:4:11, endln:4:35
+|vpiName:pack::sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:#, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:#, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (pack::sram_key_t), id:#, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:#, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:#, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:#, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:#, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (pack::sram_key_t), id:#, line:4:11, endln:4:35
+|vpiName:pack::sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:#, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:#, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (pack::sram_key_t), id:#, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:#, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:#, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:#, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:#, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

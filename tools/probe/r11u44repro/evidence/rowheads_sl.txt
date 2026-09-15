@@ -1,0 +1,14 @@
+TEST           MODE      CMPLINES  HEADS NOTE
+LargeValue2Struct default        108      1 cmp rc=255
+LargeValue2Struct testflags      108      1 cmp rc=255
+Rggen          default         64      1 cmp rc=255
+Rggen          testflags        -      - SKIP-NOFILE(g=none)
+SequenceInst   default        122      1 cmp rc=255
+SequenceInst   testflags      122      1 cmp rc=255
+StructParamFieldRange default        166      1 cmp rc=255
+StructParamFieldRange testflags      166      1 cmp rc=255
+StructParamFuncBodyFieldCompare default         36      1 cmp rc=255
+StructParamFuncBodyFieldCompare testflags       36      1 cmp rc=255
+StructParamPatternInitCast default         15      1 cmp rc=255
+StructParamPatternInitCast testflags       15      1 cmp rc=255
+-- measured=11  SKIP-NOFILE=1  UNKNOWN-NAME=0

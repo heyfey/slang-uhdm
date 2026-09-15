@@ -1,0 +1,36 @@
+LHS:
+decompile:
+ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:#, line:305:87, endln:305:96
+|vpiParent:
+\_operation: , id:#, line:305:86, endln:305:97
+|vpiName:OPCODE_C0
+|vpiFullName:ibex_tracer_pkg::OPCODE_C0
+|vpiActual:
+\_constant: , id:#, line:9:37, endln:9:42
+
+decompile:
+ref_obj: (ibex_tracer_pkg::OPCODE_C0), id:#, line:305:87, endln:305:96
+|vpiParent:
+\_operation: , id:#, line:305:86, endln:305:97
+|vpiName:OPCODE_C0
+|vpiFullName:ibex_tracer_pkg::OPCODE_C0
+|vpiActual:
+\_constant: , id:#, line:9:37, endln:9:42
+RHS:
+decompile:
+constant: , id:#, line:305:87, endln:305:96
+|vpiParent:
+\_operation: , id:#, line:305:86, endln:305:97
+|vpiDecompile:2'b00
+|vpiSize:2
+|BIN:00
+|vpiConstType:3
+
+decompile:
+constant: , id:#, line:305:87, endln:305:96
+|vpiParent:
+\_operation: , id:#, line:305:86, endln:305:97
+|vpiDecompile:2'b00
+|vpiSize:2
+|BIN:00
+|vpiConstType:3

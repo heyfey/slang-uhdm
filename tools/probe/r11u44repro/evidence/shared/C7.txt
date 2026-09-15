@@ -1,0 +1,147 @@
+---- ibex_icache.default.cmp   md5=db252567e46b   lines=58
+    LHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:22
+    |vpiSize:32
+    |INT:22
+    |vpiTypespec:
+    \_ref_typespec: , id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiActual:
+      \_int_typespec: , id:#, line:#, endln:#
+    |vpiConstType:7
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:22
+    |vpiSize:32
+    |INT:22
+    |vpiTypespec:
+    \_ref_typespec: , id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiActual:
+      \_int_typespec: , id:#, line:#, endln:#
+    |vpiConstType:7
+    RHS:
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:22
+    |vpiSize:32
+    |UINT:22
+    |vpiTypespec:
+    \_ref_typespec: , id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiActual:
+      \_int_typespec: , id:#, line:#, endln:#
+    |vpiConstType:9
+    
+    decompile:
+    constant: , id:#, line:#, endln:#
+    |vpiParent:
+    \_operation: , id:#, line:#, endln:#
+    |vpiDecompile:22
+    |vpiSize:32
+    |UINT:22
+    |vpiTypespec:
+    \_ref_typespec: , id:#
+      |vpiParent:
+      \_constant: , id:#, line:#, endln:#
+      |vpiActual:
+      \_int_typespec: , id:#, line:#, endln:#
+    |vpiConstType:9
+---- struct_member_cfg_width.default.cmp   md5=b2919a06c2f6   lines=62
+    DIFFERS from ibex_icache.default.cmp:
+    5,8c5,8
+    < \_operation: , id:#, line:#, endln:#
+    < |vpiDecompile:22
+    < |vpiSize:32
+    < |INT:22
+    ---
+    > \_param_assign: , id:#, line:#, endln:#
+    > |vpiDecompile:64'b0000000000000000000000000100000000000000000000000000000000000011
+    > |vpiSize:64
+    > |BIN:0000000000000000000000000100000000000000000000000000000000000011
+    10c10
+    < \_ref_typespec: , id:#
+    ---
+    > \_ref_typespec: (work@tb.t), id:#
+    12a13
+    >   |vpiFullName:work@tb.t
+    14,15c15,16
+    <   \_int_typespec: , id:#, line:#, endln:#
+    < |vpiConstType:7
+    ---
+    >   \_struct_typespec: (cfg_pkg::cfg_t), id:#, line:#, endln:#
+    > |vpiConstType:3
+    20,23c21,24
+    < \_operation: , id:#, line:#, endln:#
+    < |vpiDecompile:22
+    < |vpiSize:32
+    < |INT:22
+    ---
+    > \_param_assign: , id:#, line:#, endln:#
+    > |vpiDecompile:64'b0000000000000000000000000100000000000000000000000000000000000011
+    > |vpiSize:64
+    > |BIN:0000000000000000000000000100000000000000000000000000000000000011
+    25c26
+    < \_ref_typespec: , id:#
+    ---
+    > \_ref_typespec: (work@tb.t), id:#
+    27a29
+    >   |vpiFullName:work@tb.t
+    29,30c31,32
+    <   \_int_typespec: , id:#, line:#, endln:#
+    < |vpiConstType:7
+    ---
+    >   \_struct_typespec: (cfg_pkg::cfg_t), id:#, line:#, endln:#
+    > |vpiConstType:3
+    35,38c37,40
+    < \_operation: , id:#, line:#, endln:#
+    < |vpiDecompile:22
+    < |vpiSize:32
+    < |UINT:22
+    ---
+    > \_param_assign: , id:#, line:#, endln:#
+    > |vpiDecompile:274877906947
+    > |vpiSize:64
+    > |UINT:274877906947
+    40c42
+    < \_ref_typespec: , id:#
+    ---
+    > \_ref_typespec: (work@tb.t), id:#
+    42a45
+    >   |vpiFullName:work@tb.t
+    44c47
+    <   \_int_typespec: , id:#, line:#, endln:#
+    ---
+    >   \_struct_typespec: (cfg_pkg::cfg_t), id:#, line:#, endln:#
+    50,53c53,56
+    < \_operation: , id:#, line:#, endln:#
+    < |vpiDecompile:22
+    < |vpiSize:32
+    < |UINT:22
+    ---
+    > \_param_assign: , id:#, line:#, endln:#
+    > |vpiDecompile:274877906947
+    > |vpiSize:64
+    > |UINT:274877906947
+    55c58
+    < \_ref_typespec: , id:#
+    ---
+    > \_ref_typespec: (work@tb.t), id:#
+    57a61
+    >   |vpiFullName:work@tb.t
+    59c63
+    <   \_int_typespec: , id:#, line:#, endln:#
+    ---
+    >   \_struct_typespec: (cfg_pkg::cfg_t), id:#, line:#, endln:#

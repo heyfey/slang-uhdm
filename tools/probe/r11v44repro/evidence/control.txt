@@ -1,0 +1,33 @@
+=== v11u44 positive controls (verifier's OWN control rows, different from the surveyor's) ===
+-- HEADS: every known-CMP_EQUAL row must read 0 cmp lines / 0 heads / rc=0
+iface_gen_delay,default,CMP_EQUAL,,,match
+iface_gen_delay,testflags,CMP_EQUAL,,,match
+struct_member_expr_index,default,CMP_EQUAL,,,differ
+struct_member_expr_index,testflags,CMP_EQUAL,,,differ
+Chandle,default,CMP_EQUAL,,,match
+Chandle,testflags,CMP_EQUAL,,,match
+PackStructVar,default,CMP_EQUAL,,,differ
+PackStructVar,testflags,CMP_EQUAL,,,differ
+
+TEST           MODE      CMPLINES  HEADS NOTE
+struct_member_expr_index default          0      0 cmp rc=0
+struct_member_expr_index testflags        0      0 cmp rc=0
+iface_gen_delay default          0      0 cmp rc=0
+iface_gen_delay testflags        0      0 cmp rc=0
+-- measured=4  SKIP-NOFILE=0  UNKNOWN-NAME=0
+TEST           MODE      CMPLINES  HEADS NOTE
+Chandle        default          0      0 cmp rc=0
+Chandle        testflags        0      0 cmp rc=0
+PackStructVar  default          0      0 cmp rc=0
+PackStructVar  testflags        0      0 cmp rc=0
+-- measured=4  SKIP-NOFILE=0  UNKNOWN-NAME=0
+
+-- DISTANCE calibration: the floor of 2 holds only over dump=match rows.
+   iface_gen_delay (dump=match) 2 ; Chandle (dump=match) 2
+   struct_member_expr_index (CMP_EQUAL, dump=differ) 26 ; PackStructVar (CMP_EQUAL, dump=differ) 17
+TEST                             MODE      GOLD_ONLY OURS_ONLY  DISTANCE NOTE
+struct_member_expr_index         default          11        15        26 golden=2333 ours=2337
+iface_gen_delay                  default           1         1         2 golden=1708 ours=1708
+TEST                             MODE      GOLD_ONLY OURS_ONLY  DISTANCE NOTE
+Chandle                          default           1         1         2 golden=549 ours=549
+PackStructVar                    default          11         6        17 golden=2454 ours=2449
