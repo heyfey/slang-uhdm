@@ -1,0 +1,22 @@
+r11u41 — the four surelog byte movers are the documented UVM coin, proved on the PRISTINE binary alone.
+
+byteverify (patched vs pristine, both this pass's own sweeps): MOVERS 4 / 960
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=b99770377fa0 pristine=c5e91772b217
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=c462e6b0b982 pristine=d9aa62dd9e1a
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=a831c2e70f65
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=80807696eeae pristine=aa65296ce7e5
+
+ORDER-BLIND attribution (dumps sorted, ids and /tmp paths normalised): 4 real lines each,
+two constants whose folded value is a LINE NUMBER — the documented 0-or-4-line class:
+  default/MiniAmiq   UINT/vpiDecompile 713 <-> 1125
+  default/SeqDriver  UINT/vpiDecompile 1075 <-> 1044
+  default/SimpleUVM  UINT/vpiDecompile 0 <-> 602
+  testflags/MiniAmiq UINT/vpiDecompile 963 <-> 1468
+
+THE PROOF THAT IT IS THE PRODUCER AND NOT THE PATCH — the PRISTINE binary run
+TWICE over the same three rows, same workdir shape, serially:
+  MiniAmiq   run1 e40d3fb5bda9   run2 27419f6011b4   DIFFER
+  SeqDriver  run1 42f3a4407201   run2 2fb39f8b4130   DIFFER
+  SimpleUVM  run1 d4f8cd018f2d   run2 d4f8cd018f2d   SAME (the pristine SWEEP's a831c2e70f65 was the odd draw)
+Four distinct MiniAmiq hashes have now been seen from ONE binary. Every one of
+these rows is CMP_EQUAL before and after, in both runs and both sweeps.

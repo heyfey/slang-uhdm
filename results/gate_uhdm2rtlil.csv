@@ -544,7 +544,7 @@ PackageCast,testflags,CMP_EQUAL,,,differ
 packed_array_elem_select,testflags,CMP_EQUAL,,,match
 packed_array_reset_loop,testflags,CMP_EQUAL,,,differ
 packed_array_struct,testflags,CMP_NOTEQUAL,decompile:,,
-packed_array_struct_port_sel,testflags,CMP_NOTEQUAL,decompile:,,
+packed_array_struct_port_sel,testflags,CMP_EQUAL,,,differ
 packed_struct_array_fifo,testflags,CMP_NOTEQUAL,decompile:,,
 packed_struct_array_net_elem,testflags,CMP_EQUAL,,,differ
 packed_struct_array_shift,testflags,CMP_EQUAL,,,differ

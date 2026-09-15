@@ -8691,6 +8691,31 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 continue;
             }
         }
+        // § tpDefaultStructIsNet41 (the PACKED half) — a declaration whose
+        // written type is a type parameter DEFAULTED to a loose-net packed
+        // struct, carrying written packed dims, elaborates as a
+        // `packed_array_net` of `struct_net`s in EVERY position: golden grid
+        // `x_tps_pk_{net,in,out}` and `x_tpsn_pk_{net,in,out}`.  This sits
+        // ahead of the port/body split below for the same reason law B32 does
+        // — that split is what used to hide it: a port went to the
+        // `paScoped88` routes (which refuse an unqualified name outright) and
+        // a body declaration to `emitPackedStructArrayVar`.
+        //
+        // The net type is left UNSET, not `vpiWire`: Surelog stamps
+        // `getVpiNetType(sig->getType())` and a type-parameter Signal's type is
+        // the bare identifier, which maps to nothing — grid `x_tps_pk_*` reads
+        // no `vpiNetType` where the `pkg::`-scoped neighbour `x_pksq_pk_*`
+        // reads 1.  `nets::Compare` reads VpiNetType, so this is judged.
+        if (!implicitNet && !realVar && tpDefaultStructIsNet41(*it.sym, &def)) {
+            if (auto* pan41 =
+                    emitPackedStructArrayNet(*it.sym, name, fullName, m)) {
+                pan41->VpiNetType(0);
+                topNets[it.sym] = pan41;
+                sigOrder.emplace_back(it.sym, pan41);
+                nets->push_back(pan41);
+                continue;
+            }
+        }
         // Packed-array-of-struct: the elaborated view is a packed_array_var
         // (ranges + struct_var element), not a flat logic_var. A PORT stays a
         // net (packed_array_net, doubled element fullname).
@@ -9687,7 +9712,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // the override resolves to (TypeParamOverride's `resp_t err_resp`
             // overridden with a package struct: def view logic_net, elab view
             // struct_var).
-            bool typeParamTyped = portTypeParam(*it.sym) != nullptr;
+            // § tpDefaultStructIsNet41 (the DIMENSION-LESS half) — MEASURED
+            // NARROWING of the clause above.  "A `parameter type T`-typed
+            // signal has NO entry in the typedef table, so `tps` comes back
+            // null and the struct arm never runs" is true only while the
+            // parameter's DEFAULT is not itself a struct: `compileTypespec` of
+            // the written name resolves the parameter's declared default, and
+            // when that default IS a packed struct the `uhdmstruct_typespec`
+            // arm runs its LOOSE member scan and re-asserts `isNet`.  Golden
+            // grid `x_tps_nod_net` / `x_tpsn_nod_net` are `struct_net`; the
+            // clause's own witness (TypeParamOverride's `resp_t err_resp`,
+            // defaulted to a NON-struct and overridden with a package struct)
+            // is `x_tpso_nod_net` and stays a `struct_var`.
+            bool typeParamTyped = portTypeParam(*it.sym) != nullptr &&
+                                  !tpDefaultStructIsNet41(*it.sym, &def);
             // The member scan is NOT port-conditional in Surelog —
             // elab_signal_ runs the same `ttmp == uhdmstruct_typespec` arm on
             // a port signal (HierPathPackedStruct's `input foo_t a`, whose one
@@ -12755,6 +12793,19 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 if (tit != typeParamDefaultTs.end())
                     pts = tit->second;
             }
+            // § tpDimPortTsIsDefault41 — the SAME rule at the DIMENSIONED
+            // spelling (`T [1:0] p`), which `portTypeParam` cannot see.  See
+            // the law at emitPackedStructArrayVar (TypeEmit.cpp); the
+            // predicate and its gate are tpAggregateLeafAlias41 in
+            // EmitHelpers.h.
+            if (!pts)
+                if (auto* tpd41 = tpAggregateLeafAlias41(*internal)) {
+                    auto td41 = typeParamDefaultTs.find(
+                        {(const void*)&inst.getDefinition(),
+                         std::string(tpd41->name)});
+                    if (td41 != typeParamDefaultTs.end())
+                        pts = td41->second;
+                }
             // An unpacked-array-of-packed-STRUCT port's vpiTypedef binds the
             // ELEMENT typedef's SHARED struct typespec (Surelog), not a
             // synthesized element logic typespec.
@@ -23438,6 +23489,17 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                     defPts = tit->second;
                 }
             }
+            // § tpDimPortTsIsDefault41 — the dimensioned spelling of the same
+            // rule (EmitHelpers.h: tpAggregateLeafAlias41).
+            else if (auto* tpd41 = tpAggregateLeafAlias41(*internal)) {
+                auto td41 = typeParamDefaultTs.find(
+                    {(const void*)&tp.inst->getDefinition(),
+                     std::string(tpd41->name)});
+                if (td41 != typeParamDefaultTs.end()) {
+                    topActual = td41->second;
+                    defPts = td41->second;
+                }
+            }
         }
         // A vector-typedef-typed port's vpiTypedef is a self-alias clone in
         // BOTH views, but Surelog makes them DISTINCT: the DEF-view clone is
@@ -24683,6 +24745,16 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                     if (tit != typeParamDefaultTs.end())
                         ts = tit->second;
                 }
+                // § tpDimPortTsIsDefault41 — the dimensioned spelling of the
+                // same rule (EmitHelpers.h: tpAggregateLeafAlias41).
+                if (!ts)
+                    if (auto* tpd41 = tpAggregateLeafAlias41(*internal)) {
+                        auto td41 = typeParamDefaultTs.find(
+                            {(const void*)&body.getDefinition(),
+                             std::string(tpd41->name)});
+                        if (td41 != typeParamDefaultTs.end())
+                            ts = td41->second;
+                    }
                 // A vector-typedef-typed port's vpiTypedef gets its OWN
                 // self-alias clone (Typedef_alias -> shared base), like the
                 // net's typespec, instead of the bare shared base (Surelog).

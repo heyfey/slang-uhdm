@@ -1,0 +1,60 @@
+r11u41 — GATES, every number from this pass's OWN builds and OWN sweeps.
+
+BINARIES
+  pristine  a8d4ed16bcaf3a906cf2a9dc7c95dddb  (byte-identical to the main tree at 6a223336)
+  patched   964f049966e8d9eb627db60b4e5982c1
+
+GOLDEN DUMP TESTS (patched):  23 PASS / 0 FAIL
+NEGATIVE CONTROL SLANG_UHDM=/bin/false:  0 PASS / 23 FAIL
+
+uhdm2rtlil, BOTH MODES
+  pristine  778 CMP_EQUAL / 26 CMP_NOTEQUAL / 67 SLANG_REJECT   (= the committed 6a223336 baseline)
+  patched   779 CMP_EQUAL / 25 CMP_NOTEQUAL / 67 SLANG_REJECT
+  whole-row diff (status AND dump column) vs the COMMITTED baseline and vs this pass's
+  own pristine: EXACTLY ONE differing row per mode, quoted:
+    < packed_array_struct_port_sel,testflags,CMP_NOTEQUAL,decompile:,,
+    > packed_array_struct_port_sel,testflags,CMP_EQUAL,,,differ
+    < packed_array_struct_port_sel,default,CMP_NOTEQUAL,decompile:,,
+    > packed_array_struct_port_sel,default,CMP_EQUAL,,,differ
+  byteverify patched vs pristine: MOVERS 4 / 1608 — packed_array_struct_port_sel and
+  packed_struct_array_fifo, each in both modes, BOTH PREDICTED BY NAME before the
+  patched sweep ran (evidence/predictions.txt); SELFCHECK 1607/1608 flagged.
+  TO-GOLDEN / AWAY-GOLDEN / STILL-WRONG, order-blind, location-blind, calibrated
+  golden-vs-golden-vs-golden to 0/0/0:  AWAY-GOLDEN 0 on all four.
+  canaries ok=8 changed=0; ctcan2 (EXPECT_UNKNOWN=6) PASS.
+
+surelog, BOTH MODES
+  pristine  474 CMP_EQUAL / 9 CMP_NOTEQUAL default;  469 / 8 testflags
+  patched   474 CMP_EQUAL / 9 CMP_NOTEQUAL default;  469 / 8 testflags
+  whole-row diff patched vs pristine: 3 rows, none of them comparable —
+    two SURELOG_FAIL detail strings that embed the sweep's own workdir path
+    (LowMemLib, LowMemPkg, testflags), and YosysOpenSparc/default flipping
+    SLANG_REJECT <-> SURELOG_FAIL.  That last one is a GOLDEN-PRODUCER flap from
+    running two surelog sweeps concurrently: re-measured SERIALLY with the PATCHED
+    binary it reads SLANG_REJECT with the committed baseline's own detail string.
+  byteverify patched vs pristine: MOVERS 4 / 960, all four the documented UVM coin,
+  attributed order-blind and reproduced from the PRISTINE binary alone
+  (evidence/uvm_coin.txt); SELFCHECK 959/960 flagged.
+  canaries vs the committed baseline ok=50 changed=2 — both the Earlgrey_0_1
+  DUMP-COLUMN blank (CMP_EQUAL/differ -> CMP_EQUAL/), the documented uhdm-dump
+  timeout draw, status unchanged; vs this pass's own pristine sweep ok=52 changed=0.
+  ctcan2 (EXPECT_UNKNOWN=1) PASS.
+  rowheads on the patched workdir: SeqDriver / SimpleUVM / Scoreboard / MiniAmiq /
+  BuildUVMPkg / Earlgrey_0_1 all 0 heads in both modes; Rggen/default 1 head
+  (unchanged family); SKIP-NOFILE on Scoreboard/tf and Rggen/tf as expected.
+
+PROTECTED DATABASES, patched vs pristine, by name (md5 first 12):
+  SVSwitch            4842211c4030  both modes   (HARD PIN, exact)
+  YosysVerx           6ccda350c24a  both modes   (HARD PIN, exact)
+  InterfaceModPort    59a365f3ce2c  both modes   (exact)
+  BlackParrotComplex  e3e354129d5a / 73a10e8217e5   SAME
+  YosysOldOr          d68e0796d62c  both modes   SAME
+  Earlgrey_0_1        default 8bdf25272e08, testflags 59d0ee6d10c3   (both PINS, exact)
+
+canaudit (run from the pass dir over canaries.sh + ctcan2.sh):
+  audited=29  UNCOVERED=0  FENCE-BREACH=0
+
+GRIDS (structured reader, calibration golden-vs-golden in every row):
+  r11u41 52 arms  calib 0/0/0   pristine DEF 14 ELAB 18 PORT 10 -> patched DEF 14 ELAB 1 PORT 0
+  r11u32 44 arms  calib 0/0/0   pristine DEF  7 ELAB  9 PORT  4 -> patched DEF  7 ELAB 2 PORT 0
+  no arm moved away in either grid.

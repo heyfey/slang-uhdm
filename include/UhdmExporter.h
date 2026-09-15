@@ -2705,6 +2705,14 @@ private:
     UHDM::packed_array_var* emitTypeParamArrayVar(
         const slang::ast::Symbol& sym, const std::string& name,
         const std::string& fullName, UHDM::instance* m);
+    // § tpDefaultStructIsNet41 — is this declaration's written TYPE PARAMETER
+    // defaulted to a packed struct that passes Surelog's LOOSE member scan?
+    // That is the ONE thing that can turn `isNet` back on for a
+    // type-parameter-typed signal, so it is the whole net-vs-var question for
+    // this family.  `defKey` is the DEFINITION the declaration lives in (the
+    // key `typeParamDefaultTs` is built with).
+    bool tpDefaultStructIsNet41(const slang::ast::Symbol& sym,
+                                const void* defKey);
     UHDM::packed_array_var* emitPackedStructArrayVar(const slang::ast::Symbol& sym,
                                                      const std::string& name,
                                                      const std::string& fullName,

@@ -1,0 +1,8 @@
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/packed_array_struct_port_sel-c235ae3c/slang.uhdm  patched=f9a29c6a044d pristine=a807c293688b
+MOVER ./default/packed_struct_array_fifo-96e8c758/slang.uhdm  patched=f2442bc09a36 pristine=300e3dbddb67
+MOVER ./testflags/packed_array_struct_port_sel-c235ae3c/slang.uhdm  patched=789fc15192d1 pristine=fdfc1966d5b4
+MOVER ./testflags/packed_struct_array_fifo-96e8c758/slang.uhdm  patched=fe505b2eaa71 pristine=8e284c9f0ef4
+MOVERS: 4 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

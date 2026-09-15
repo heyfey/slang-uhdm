@@ -1,0 +1,5 @@
+default/packed_array_struct_port_sel-c235ae3c TO-GOLDEN    22   AWAY-GOLDEN     0   STILL-WRONG     2   (pristine dev    24 -> patched dev     2)
+default/packed_struct_array_fifo-96e8c758 TO-GOLDEN    26   AWAY-GOLDEN     0   STILL-WRONG    25   (pristine dev    51 -> patched dev    25)
+testflags/packed_array_struct_port_sel-c235ae3c TO-GOLDEN    22   AWAY-GOLDEN     0   STILL-WRONG     2   (pristine dev    24 -> patched dev     2)
+testflags/packed_struct_array_fifo-96e8c758 TO-GOLDEN    26   AWAY-GOLDEN     0   STILL-WRONG    25   (pristine dev    51 -> patched dev    25)
+CALIB                              TO-GOLDEN     0   AWAY-GOLDEN     0   STILL-WRONG     0   (pristine dev     0 -> patched dev     0)

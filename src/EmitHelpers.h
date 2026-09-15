@@ -655,6 +655,95 @@ inline const TypeParameterSymbol* typeParamOfAlias(const TypeAliasType& ta) {
     return nullptr;
 }
 
+// § tpAnyLeaf41 — the TYPE PARAMETER a declaration's written type resolves to,
+// at EVERY dimension shape: no dims (`T x`), packed dims (`T [1:0] x`, which
+// `portTypeParam` cannot see) and unpacked dims (`T x [1:0]`).  Leaf kind is
+// not filtered here; the net test that consumes this asks its question of the
+// parameter's DEFAULT typespec instead.
+inline const TypeParameterSymbol* tpAnyLeaf41(const Symbol& sym) {
+    auto* dt = sym.getDeclaredType();
+    if (!dt)
+        return nullptr;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return nullptr;
+    const Type* leaf = &dt->getType();
+    for (int guard = 0; guard < 32; guard++) {
+        if (leaf->kind == SymbolKind::PackedArrayType)
+            leaf = &leaf->as<PackedArrayType>().elementType;
+        else if (leaf->kind == SymbolKind::FixedSizeUnpackedArrayType)
+            leaf = &leaf->as<FixedSizeUnpackedArrayType>().elementType;
+        else
+            break;
+    }
+    if (leaf->kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto* syn = leaf->getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypeAssignment)
+        return nullptr;
+    return typeParamOfAlias(leaf->as<TypeAliasType>());
+}
+
+// § tpAggregateLeafAlias41 — THE SHARED PREDICATE of the struct-bound
+// type-parameter family.  A declaration written `T [1:0] x` (packed dims hung
+// on a type-parameter NAME) whose parameter resolves to an AGGREGATE — a
+// packed struct or an enum.
+//
+// WHY A SECOND PREDICATE AND NOT A WIDER `portTypeParam`.  `portTypeParam`
+// (above) answers "is the written type a type parameter" only for the
+// DIMENSION-LESS spelling: slang hangs a named type's packed dims off the NAME,
+// so `T [1:0] x` parses as an `IdentifierSelectName` and the
+// `IdentifierName`-only test cannot see it — the same parse split
+// § unqualDimNet9 and § namedTypeLeafNoNetType32 already record.  Widening
+// that function would change nine call sites at once; this one is asked only
+// where the golden grid measured a difference.
+//
+// WHY THE AGGREGATE GATE.  Golden's rule is "the written type's typespec is
+// the type parameter's DEFAULT object" at EVERY binding, but a LOGIC-VECTOR
+// binding already agrees at the judged level: r11u41's grid cells
+// `x_tp_pk_in` / `x_tp_pk_out` (a `logic [7:0]` type parameter with a packed
+// dim at a port) read `logic_typespec` on both sides today — our copy is a
+// fresh object at the port's own span where golden's is the default's, and
+// `typespec::Compare` reads neither span nor identity.  Firing there would
+// re-point four ALREADY-CONVERTED corpus rows' port typespecs (gen_scope_
+// numports, packed_array_reset_loop, param_name_collision_typeparam, and
+// arb_idx_cast's port) for no judged gain.  The aggregate leaves are the ones
+// that differ: an ENUM or STRUCT binding makes us build a
+// `packed_array_typespec` where golden keeps the bare default.
+//
+// The leaf is read from the RESOLVED (overridden) type, because that is what
+// separates the two: `packed_array_struct_port_sel`'s `T` defaults to `logic`
+// and is overridden to a struct, and golden's port typespec there is still the
+// DEFAULT `logic_typespec` — the aggregate resolution is the SYMPTOM that we
+// built the wrong object, not the source of golden's.
+inline const TypeParameterSymbol* tpAggregateLeafAlias41(const Symbol& sym) {
+    auto* dt = sym.getDeclaredType();
+    if (!dt)
+        return nullptr;
+    // The written type must be a NAME carrying packed dims: with NO dims the
+    // dimension-less `portTypeParam` path already serves the same cell, and
+    // sharing this one on top of it would change nothing.
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return nullptr;
+    auto& t = dt->getType();
+    if (t.kind != SymbolKind::PackedArrayType)
+        return nullptr;
+    const Type* leaf = &t;
+    while (leaf->kind == SymbolKind::PackedArrayType)
+        leaf = &leaf->as<PackedArrayType>().elementType;
+    if (leaf->kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto* syn = leaf->getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypeAssignment)
+        return nullptr;
+    auto& lc = leaf->getCanonicalType();
+    if (lc.kind != SymbolKind::PackedStructType &&
+        lc.kind != SymbolKind::EnumType)
+        return nullptr;
+    return typeParamOfAlias(leaf->as<TypeAliasType>());
+}
+
 // § typeParamRetIsRefVar58 — THE PREDICATE.  A declaration whose written type
 // is a TYPE PARAMETER is a bare `ref_var` in golden, WHATEVER the parameter is
 // bound to, with the ONE exception of a CLASS binding (then `class_var`).  See

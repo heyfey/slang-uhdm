@@ -1,0 +1,57 @@
+r11u41 — A-PRIORI BYTE-MOVER PREDICTION, made from the SOURCES and the law
+gates BEFORE either patched sweep ran.
+
+THE GATES (all three laws key on the same syntactic fact — the written data
+type is the NAME of a `parameter type` formal):
+
+  A/B/C  tpAggregateLeafAlias41: the name carries PACKED dims AND the
+         RESOLVED leaf is a packed struct or an enum.
+  D      tpDefaultStructIsNet41: the parameter's DECLARED DEFAULT typespec is
+         a packed struct passing the LOOSE member scan.  The dimension-less
+         half additionally requires a NON-PORT body declaration (the clause it
+         narrows is already `!it.port`-gated); the packed half needs written
+         packed dims (emitPackedStructArrayNet returns null without them).
+
+THE SCAN (predict41.py over both corpus roots; the surelog listing is
+fence-filtered and is a COUNT-and-name listing of non-fenced tests only):
+  * uhdm2rtlil: 21 test directories carry a type-parameter-typed declaration
+    (evidence/predict_u2r_summary.txt, details in evidence/pred_u2r.txt);
+  * surelog: 13 non-fenced test directories (evidence/predict_surelog.txt);
+    ZERO fenced tests are touched by any gate.
+
+APPLYING THE GATES, BY NAME:
+
+uhdm2rtlil — PREDICTED TO MOVE (2):
+  packed_array_struct_port_sel   `input T [1:0] arr_i`, T defaulted `logic`,
+                                 overridden to a packed struct  -> A, B, C
+  packed_struct_array_fifo       `dtype [FifoDepth-1:0] mem_n, mem_q;`,
+                                 dtype defaulted to the all-logic struct d_t
+                                 -> D (packed half); the ports are `nod` and
+                                 are not reached
+uhdm2rtlil — PREDICTED NOT TO MOVE, and why:
+  arb_idx_cast, gen_scope_numports, packed_array_reset_loop,
+  param_name_collision_typeparam   packed dims, but the parameter resolves to
+                                 a LOGIC VECTOR: gate A refuses, and the
+                                 default is not a struct so D refuses.  (The
+                                 last three are r11u32 CONVERSIONS and must
+                                 stay byte-equal at the judged level.)
+  TypeParameterAsPortTypeWith{Logic,LogicAnonymous,Enum,EnumOfParametrizedWidth,Struct},
+  gen_scope_typaram, ibex, param_type_logic_width, top_module_type_param,
+  type_param_override_elem_sel, struct_member_cfg_width, port_chained_type_param,
+  type_param_unpacked_port, type_param_packed_dim
+                                 dimension-less PORTS (A needs packed dims; D's
+                                 nod half is body-declarations-only), or a
+                                 non-struct default, or a localparam type whose
+                                 own alias is the leaf.
+  cva6_equiv                     carries the shape but is not a comparable row
+                                 (no entry in results/gate_uhdm2rtlil.csv).
+
+surelog — PREDICTED TO MOVE: NONE.
+  PackageTypeParam (CMP_EQUAL) has the struct DEFAULT but only `nod` PORTS,
+  which neither half reaches; TypeParam / TypeParamOverride (both CMP_EQUAL)
+  bind logic vectors; every other scanned test is SLANG_REJECT or NO_DATABASE
+  in both modes and has no database to move.  Any surelog byte mover must
+  therefore be the documented UVM coin.
+
+POSITIVE CONTROL: byteverify.sh with SELFCHECK=1 (it flags essentially every
+row), so a zero reading is a measurement and not a blind instrument.

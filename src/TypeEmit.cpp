@@ -21321,6 +21321,57 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
     return pav;
 }
 
+// § tpDefaultStructIsNet41 — THE STRUCT-BOUND TYPE PARAMETER'S NET KIND.
+//
+// DECODED PRODUCER (Surelog v1.87, the pinned tree).  `NetlistElaboration::
+// elabSignal` opens with `isNet = true` and then clears it for a
+// type-parameter-typed signal: its `Signal` carries a bound DataType and no
+// net keyword, and `ElaborationStep::bindPortType_`'s type-parameter arms
+// (ElaborationStep.cpp:1505-1560) only ever call `setDataType` — never the
+// `setType(paNetType_Wire)` that `bindStructInPackage` (:1252) uses for a
+// `pkg::T` spelling.  Exactly ONE thing can turn it back on: the typespec
+// dispatch at NetlistElaboration.cpp:2139-2152, whose `uhdmstruct_typespec`
+// arm re-asserts `isNet = true` and then runs the LOOSE member scan — every
+// member's typespec a `logic_typespec` OR a `struct_typespec` (a nested struct
+// PASSES here, unlike the strict scan § pkgScopedPaStructStrictNetVar88 uses).
+// The typespec it scans is `compileTypespec` of the signal's TYPE-SPEC node,
+// which for a type parameter is the parameter's DECLARED DEFAULT — the
+// instance override is applied later, by `makeVar_`/`elabTypeParameter_`, and
+// only supplies the object the signal points at.  Hence: THE DEFAULT DECIDES
+// THE KIND, THE OVERRIDE DECIDES THE TYPESPEC.  With the kind settled, the
+// written packed dimensions (a separate `compileRanges` on the Signal, never
+// part of that typespec) wrap the `struct_net` in a `packed_array_net`
+// (:2429-2444).
+//
+// GOLDEN GRID (r11u41, 52 arms, calibrated golden-vs-golden to 0):
+//   * `x_tps_*`  default = an all-logic packed struct  -> struct_net /
+//     packed_array_net / array_net, at a body net and at an input and an
+//     output alike — POSITION IS NOT A DISTINGUISHER;
+//   * `x_tpsn_*` default = a struct with a NESTED STRUCT member -> NET too,
+//     which is what proves the scan is the LOOSE one;
+//   * `x_tpsb_*` (a `bit` member) and `x_tpse_*` (an ENUM member) -> VAR;
+//   * `x_tpso_*` default `logic`, OVERRIDDEN to the all-logic struct -> VAR,
+//     which is what proves the DEFAULT and not the resolved type is read
+//     (and it is the corpus row `packed_array_struct_port_sel`'s own shape).
+// The DEFAULT typespec object is the one `typeParamDefaultTs` already holds —
+// built by the def pass from the parameter's written default — so the scan is
+// asked of the very object Surelog scans.
+bool UhdmExporter::tpDefaultStructIsNet41(const Symbol& sym,
+                                          const void* defKey) {
+    auto* tp41 = tpAnyLeaf41(sym);
+    if (!tp41)
+        return false;
+    auto it41 = typeParamDefaultTs.find({defKey, std::string(tp41->name)});
+    if (it41 == typeParamDefaultTs.end() || !it41->second)
+        return false;
+    // `structTsIsNetLike` answers "does the member scan DEMOTE", so it says
+    // true for every non-struct typespec: the struct test has to be asked
+    // first, exactly as Surelog's `ttmp == uhdmstruct_typespec` arm does.
+    if (it41->second->UhdmType() != UHDM::uhdmstruct_typespec)
+        return false;
+    return structTsIsNetLike(it41->second);
+}
+
 UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym,
                                                                const std::string& name,
                                                                const std::string& fullName,
@@ -21573,6 +21624,57 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
             aliasOfAlias = de->as<TypeAliasType>().targetType.getType().kind ==
                            SymbolKind::TypeAlias;
     }
+    // § tpDimAggVarSharesTs41 — A TYPE-PARAMETER LEAF IS NOT AN ALIAS OF AN
+    // ALIAS, AND ITS CONTAINER CARRIES THE TYPESPEC.
+    //
+    // DECODED PRODUCER.  A declaration whose written data type is a type
+    // parameter reaches Surelog's variable factory through `makeVar_`'s
+    // PARAMETER arm (ElaborationStep.cpp:1942-1957): it resolves the parameter
+    // with `elabTypeParameter_` and hands the RESOLVED typespec to
+    // `getSimpleVarFromTypespec` (CompileType.cpp:200-246).  That builder
+    // stamps the struct/enum typespec on the inner `struct_var`, wraps it in a
+    // `packed_array_var` carrying the written dims, and then — at its TAIL,
+    // where `var` already names the ARRAY — stamps the SAME typespec on the
+    // CONTAINER too (`var->Typespec()->Actual_typespec(spec)`, CompileType.cpp
+    // :238-245).  Back in `makeVar_` only the container is named
+    // (`var->VpiName(signame)`), so the element keeps NO vpiName and the
+    // container's fullname.  A real typedef takes a different arm and gets
+    // neither.
+    //
+    // GOLDEN GRID (r11u41, 52 arms, name kind x dims x position, calibrated
+    // golden-vs-golden 0 DEF-DIFF / 0 ELAB-DIFF / 0 PORT-DIFF): every VAR cell
+    // of a type-parameter leaf — `x_tpso_pk_{net,in,out}` (default `logic`,
+    // overridden to a struct), `x_tpsb_pk_*` (a `bit` member),
+    // `x_tpse_pk_*` (an enum member) and r11u32's `x_tpe_pk_*` (an
+    // enum-bound parameter) — reads `packed_array_var ts=<agg> |
+    // el=<agg>_var nm=n ts=<agg>`, while ours read `ts=- | el=… nm=y`.  The
+    // corpus witness is `packed_array_struct_port_sel` (u2r x2): its ONE cmp
+    // head is exactly this missing container `ref_typespec`.
+    //
+    // THE GATE IS THE TYPE-PARAMETER LEAF, and it must be: the neighbouring
+    // cells `x_pks_pk_*` / `x_tds_pk_*` (a package or module-local struct
+    // typedef at the same dims and position) carry NO container typespec in
+    // golden and already agree.
+    //
+    // WHICH TYPESPEC OBJECT.  `elabTypeParameter_` hands the builder the
+    // parameter's ELABORATED typespec — the bare-named clone the elaborated
+    // `type_parameter` itself carries (parented at the parameter, no
+    // vpiInstance), NOT the declaring module's typedef object (parented at the
+    // module, vpiInstance set).  `typespec::Compare` reads `Instance()`
+    // (UHDM v1.87 generated typespec.cpp:94), so the two are NOT
+    // interchangeable: pointing the refs at the module typedef left
+    // `packed_array_struct_port_sel` one head short of equal, an
+    // `Instance` present on our side and null on golden's.  The map
+    // `typeParamElabTs` holds that object; the def view has no entry and keeps
+    // the typedef object, which is what golden's def view carries there.
+    const TypeParameterSymbol* tpSym41 = tpAggregateLeafAlias41(sym);
+    const bool tpLeaf41 = tpSym41 != nullptr;
+    if (tpLeaf41) {
+        aliasOfAlias = false;
+        if (auto it41 = typeParamElabTs.find(tpSym41);
+            it41 != typeParamElabTs.end() && it41->second)
+            elemTs = it41->second;
+    }
     std::string elemFull = aliasOfAlias ? fullName + "." + name : fullName;
     UHDM::variables* sv = lc.kind == SymbolKind::EnumType
                               ? (UHDM::variables*)s.MakeEnum_var()
@@ -21586,6 +21688,15 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     srt->VpiFullName(elemFull);
     srt->Actual_typespec(elemTs);
     sv->Typespec(srt);
+    // § tpDimAggVarSharesTs41 (the container half): the builder's tail stamps
+    // the element's typespec on the packed_array_var as well.
+    if (tpLeaf41) {
+        auto* crt41 = s.MakeRef_typespec();
+        crt41->VpiParent(pav);
+        crt41->VpiFullName(fullName);
+        crt41->Actual_typespec(elemTs);
+        pav->Typespec(crt41);
+    }
     auto* elems = s.MakeAnyVec();
     elems->push_back(sv);
     pav->Elements(elems);
