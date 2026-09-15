@@ -1,0 +1,98 @@
+r11v43 — the VERIFIER's own golden grid, every arm's rc from the pinned v1.87
+Surelog ($HOME/git-repos/Surelog/build/bin/surelog -parse -nobuiltin -nocache -sv).
+88 arms across four generators, DISJOINT from the implementer's 84.
+
+  mkvgrid.py  (v01-v45)  target shapes x fill kinds x write sites x views
+  mkvgrid2.py (w01-w20)  the type-parameter DEFAULT face + context faces
+  mkvgrid3.py (x01-x13)  the type-parameter face at its DEFAULT, enum/union
+  mkvgrid4.py (y01-y10)  the ALIAS-HOP boundary
+
+v01 rc=0 ERR=0 FTL=0 db=YES
+v02 rc=0 ERR=0 FTL=0 db=YES
+v03 rc=0 ERR=0 FTL=0 db=YES
+v04 rc=0 ERR=0 FTL=0 db=YES
+v05 rc=0 ERR=0 FTL=0 db=YES
+v06 rc=0 ERR=0 FTL=0 db=YES
+v07 rc=0 ERR=0 FTL=0 db=YES
+v08 rc=0 ERR=0 FTL=0 db=YES
+v09 rc=0 ERR=0 FTL=0 db=YES
+v10 rc=0 ERR=0 FTL=0 db=YES
+v11 rc=0 ERR=0 FTL=0 db=YES
+v12 rc=0 ERR=0 FTL=0 db=YES
+v13 rc=0 ERR=0 FTL=0 db=YES
+v14 rc=0 ERR=0 FTL=0 db=YES
+v15 rc=0 ERR=0 FTL=0 db=YES
+v16 rc=0 ERR=0 FTL=0 db=YES
+v17 rc=0 ERR=0 FTL=0 db=YES
+v18 rc=0 ERR=0 FTL=0 db=YES
+v19 rc=0 ERR=0 FTL=0 db=YES
+v20 rc=0 ERR=0 FTL=0 db=YES
+v21 rc=0 ERR=0 FTL=0 db=YES
+v22 rc=0 ERR=0 FTL=0 db=YES
+v23 rc=0 ERR=0 FTL=0 db=YES
+v24 rc=0 ERR=0 FTL=0 db=YES
+v25 rc=0 ERR=0 FTL=0 db=YES
+v26 rc=0 ERR=0 FTL=0 db=YES
+v27 rc=0 ERR=0 FTL=0 db=YES
+v28 rc=0 ERR=0 FTL=0 db=YES
+v29 rc=0 ERR=0 FTL=0 db=YES
+v30 rc=0 ERR=0 FTL=0 db=YES
+v31 rc=0 ERR=0 FTL=0 db=YES
+v32 rc=0 ERR=0 FTL=0 db=YES
+v33 rc=0 ERR=0 FTL=0 db=YES
+v34 rc=0 ERR=0 FTL=0 db=YES
+v35 rc=0 ERR=0 FTL=0 db=YES
+v36 rc=0 ERR=0 FTL=0 db=YES
+v37 rc=0 ERR=0 FTL=0 db=YES
+v38 rc=0 ERR=0 FTL=0 db=YES
+v39 rc=0 ERR=0 FTL=0 db=YES
+v40 rc=0 ERR=0 FTL=0 db=YES
+v41 rc=0 ERR=0 FTL=0 db=YES
+v42 rc=0 ERR=0 FTL=0 db=YES
+v43 rc=0 ERR=0 FTL=0 db=YES
+v44 rc=0 ERR=0 FTL=0 db=YES
+v45 rc=0 ERR=0 FTL=0 db=YES
+w01 rc=0 ERR=0 FTL=0 db=YES
+w02 rc=0 ERR=0 FTL=0 db=YES
+w03 rc=0 ERR=0 FTL=0 db=YES
+w04 rc=0 ERR=0 FTL=0 db=YES
+w05 rc=0 ERR=0 FTL=0 db=YES
+w06 rc=0 ERR=0 FTL=0 db=YES
+w07 rc=0 ERR=0 FTL=0 db=YES
+w08 rc=0 ERR=0 FTL=0 db=YES
+w09 rc=0 ERR=0 FTL=0 db=YES
+w10 rc=0 ERR=0 FTL=0 db=YES
+w11 rc=0 ERR=0 FTL=0 db=YES
+w12 rc=0 ERR=0 FTL=0 db=YES
+w13 rc=0 ERR=0 FTL=0 db=YES
+w14 rc=0 ERR=0 FTL=0 db=YES
+w15 rc=0 ERR=0 FTL=0 db=YES
+w16 rc=0 ERR=0 FTL=0 db=YES
+w17 rc=0 ERR=0 FTL=0 db=YES
+w18 rc=0 ERR=0 FTL=0 db=YES
+w19 rc=0 ERR=0 FTL=0 db=YES
+w20 rc=0 ERR=0 FTL=0 db=YES
+x01 rc=0 ERR=0 FTL=0 db=YES
+x02 rc=0 ERR=0 FTL=0 db=YES
+x03 rc=0 ERR=0 FTL=0 db=YES
+x04 rc=0 ERR=0 FTL=0 db=YES
+x05 rc=0 ERR=0 FTL=0 db=YES
+x06 rc=0 ERR=0 FTL=0 db=YES
+x07 rc=0 ERR=0 FTL=0 db=YES
+x08 rc=0 ERR=0 FTL=0 db=YES
+x09 rc=0 ERR=0 FTL=0 db=YES
+x10 rc=0 ERR=0 FTL=0 db=YES
+x11 rc=0 ERR=0 FTL=0 db=YES
+x12 rc=0 ERR=0 FTL=0 db=YES
+x13 rc=0 ERR=0 FTL=0 db=YES
+y01 rc=0 ERR=0 FTL=0 db=YES
+y02 rc=0 ERR=0 FTL=0 db=YES
+y03 rc=0 ERR=0 FTL=0 db=YES
+y04 rc=0 ERR=0 FTL=0 db=YES
+y05 rc=0 ERR=0 FTL=0 db=YES
+y06 rc=0 ERR=0 FTL=0 db=YES
+y07 rc=0 ERR=0 FTL=0 db=YES
+y08 rc=0 ERR=0 FTL=0 db=YES
+y09 rc=0 ERR=0 FTL=0 db=YES
+y10 rc=0 ERR=0 FTL=0 db=YES
+TOTAL: 88 arms, rc=0 ERR=0 FTL=0 db=YES on 88

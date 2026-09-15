@@ -1,0 +1,13 @@
+i01 rc=0 ERR=0 FTL=0 db=YES
+i02 rc=0 ERR=0 FTL=0 db=YES
+i03 rc=0 ERR=0 FTL=0 db=YES
+i04 rc=0 ERR=0 FTL=0 db=YES
+i05 rc=0 ERR=0 FTL=0 db=YES
+i06 rc=0 ERR=0 FTL=0 db=YES
+i07 rc=0 ERR=0 FTL=0 db=YES
+i08 rc=0 ERR=0 FTL=0 db=YES
+i09 rc=0 ERR=0 FTL=0 db=YES
+i10 rc=0 ERR=0 FTL=0 db=YES
+i11 rc=0 ERR=0 FTL=0 db=YES
+i12 rc=0 ERR=0 FTL=0 db=YES
+i13 rc=0 ERR=0 FTL=0 db=YES

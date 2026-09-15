@@ -1,0 +1,107 @@
+r11u43 — GATES.  Base f98e6e2c.  Every gate run from /tmp/wt_r11u43 with the
+binary named EXPLICITLY; every cmds.txt audited by binary PATH.
+
+(1) BUILD BOTH, md5s
+    pristine  /tmp/r11u43_bin/pris.bin  0442c5b6d15987b61261f7b3d67a0741
+              == main tree build/slang-uhdm at f98e6e2c  0442c5b6d15987b61261f7b3d67a0741
+              == the OPS-stated md5                        PASS (byte-identical)
+    law       /tmp/r11u43_bin/law.bin   642b03fbd3cf6e2bd518a4168022ebb9
+    both chmod 555 BEFORE any sweep.
+
+(1b) NEUTRAL BINARY (R11U43_OFF=1) vs PRISTINE, arm by arm
+    grid   84 arms over four grids: same=43+17+13+11 = 84, diff=0     PASS
+    -> the binary difference IS this law and nothing else.
+
+(2) GOLDEN UNIT TESTS
+    SLANG_UHDM=/tmp/r11u43_bin/law.bin  tests/check_goldens.sh
+        PASS=23  FAIL=0                                              PASS
+    SLANG_UHDM=/bin/false               (negative control)
+        FAIL=23  PASS=0                                              PASS
+
+(3) uhdm2rtlil, BOTH MODES (own workdirs, SLANG_UHDM exported per binary)
+    testflags  law 780 CMP_EQUAL / 24 CMP_NOTEQUAL / 67 SLANG_REJECT
+    default    law 780 CMP_EQUAL / 24 CMP_NOTEQUAL / 67 SLANG_REJECT
+    ct8rows results/gate_uhdm2rtlil.csv  vs law testflags   PASS (every row byte-identical)
+    ct8rows own-pristine testflags       vs law testflags   PASS
+    ct8rows own-pristine default         vs law default     PASS
+    committed golden_uhdm2rtlil.csv default rows vs law     diff lines 0   PASS
+    NO row moved in either mode; NO law-named row needed quoting.
+
+(4) Surelog suite, --mode both
+    law   default   474 CMP_EQUAL /  9 CMP_NOTEQUAL  (baseline 474/9)
+          testflags 469 CMP_EQUAL /  8 CMP_NOTEQUAL  (baseline 469/8)
+    ct8rows results/golden_surelog.csv vs law:
+        2 differing rows, BOTH pure WORKDIR-PATH text inside a SURELOG_FAIL
+        detail string (LowMemLib/testflags, LowMemPkg/testflags); status and
+        dump histograms identical in both modes.                     PASS
+    ct8rows own-pristine vs law: the same two path rows, plus
+        Earlgrey_0_1/testflags CMP_EQUAL on BOTH sides with the DUMP COLUMN
+        blank on my pristine draw and "differ" on the law draw — the OPS
+        uhdm-dump timeout draw; the DATABASE byte-compare is the pin and it
+        HELD (below).                                                PASS
+
+(5) byteverify SELFCHECK=1, law vs THIS PASS'S OWN pristine workdirs
+    uhdm2rtlil  patched=1608 pristine=1608  PATH_SETS_IDENTICAL
+        MOVER ./default/packed_array_struct-a5048efa/slang.uhdm
+        MOVER ./testflags/packed_array_struct-a5048efa/slang.uhdm
+        MOVERS: 2 / 1608
+        SELFCHECK: 1607 / 1608 flagged   (the scan can see)
+        BOTH movers PREDICTED BY NAME a priori (PRED.u2r.txt), from the
+        PRISTINE emission, before the law binary ran the corpus.
+        Attribution is by CELL, not by absence: the path-normalised whole-dump
+        diff of the moved database is TWO LINES,
+            135c135  < |vpiSize:168   ---   > |vpiSize:-1
+    Surelog     patched=960 pristine=960  PATH_SETS_IDENTICAL
+        MOVERS: 6 / 960 — MiniAmiq(def,tf), Scoreboard(def), SeqDriver(def,tf),
+        SimpleUVM(def).  Census PREDICTED 0 (PRED.sl.txt).  Every one is the
+        KNOWN pristine UVM coin, attributed ORDER-BLIND (sorted dumps):
+            Scoreboard/default            0 lines            (the pure coin)
+            the other five                4 lines each, all of the SAME class:
+                  |UINT:<n>  /  |vpiDecompile:<n>      (a line-number constant)
+        NOT ONE of those 24 lines is a vpiSize.  POSITIVE CONTROL: two runs of
+        the SAME PRISTINE binary on MiniAmiq/default give different md5s
+        (6011a0f92935 vs ee85bcf7dbfd) and the SAME 4-line class.
+        => 0 movers attributable to the law on the Surelog suite.
+        SELFCHECK: 959 / 960 flagged.
+
+(5b) CENSUS POSITIVE CONTROL (ctl43.sh, the same neutral binary + trace)
+        CONTROL hit  claim1_lines=2      (a source that MUST claim)
+        CONTROL miss claim1_lines=0      (a source that MUST NOT)
+     => the Surelog census zero is a TRUE zero, not a blind scan.
+
+(6) CANARIES — the current generation (r10uvm221repro), copied here
+        canaries.sh e1f84a84bf5d3823d07ee81d7e6d0ef8
+        ctcan2.sh   3d3f9a2aa4856b598ff39e9432b4875c
+        canaudit.sh b2289875bb3d0ce0d29badc0b53194ac
+    canaries law sl.csv   vs results/golden_surelog.csv      ok=52 changed=0 absent=0
+    canaries law u2r_tf   vs results/gate_uhdm2rtlil.csv     ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2 surelog                          PASS
+    EXPECT_UNKNOWN=6 ctcan2 uhdm2rtlil                       PASS
+    canaudit canaries.sh ctcan2.sh    audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+
+    PROTECTED DATABASES BY md5 (law vs own pristine, both modes):
+        SVSwitch            4842211c4030 / 4842211c4030   SAME  (the HARD byte pin)
+        YosysVerx           6ccda350c24a / 6ccda350c24a   SAME  (the HARD byte pin)
+        InterfaceModPort    59a365f3ce2c / 59a365f3ce2c   SAME
+        BlackParrotComplex  e3e354129d5a / 73a10e8217e5   SAME (def / tf)
+        YosysOldOr          d68e0796d62c                  SAME
+        Earlgrey_0_1        default 8bdf25272e08, testflags 59d0ee6d10c3  SAME
+                            — the exact OPS pins, and CMP_EQUAL both modes.
+
+(7) rowheads.sh on the law sweep (DEPTH, not distance)
+        SeqDriver/SimpleUVM/Scoreboard/MiniAmiq/BuildUVMPkg  0 heads, cmp rc=0
+        Earlgrey_0_1 default+testflags                       0 heads, cmp rc=0
+        Rggen default 1 head (CMP_NOTEQUAL in the committed baseline too —
+              the row is byte-identical across baseline/pristine/law)
+        SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected.
+
+(8) FENCE — the four slang-fenced names appear in the patch ONLY inside
+    canaudit.sh (the auditor itself):
+        awk '/^diff --git/{f=$4} /<name>/{print f}' | grep -v canaudit | wc -l  ->  0
+    No fenced test was ever dispatched.
+
+(9) SURFACE — git diff f98e6e2c touches
+        src/ModuleEmit.cpp   (+225 / -2)
+        tools/probe/r11u43repro/*   (new)
+    and NOTHING else.  results/*.csv UNTOUCHED.  GOLDEN_DEFER unset.
+    No git stash was taken by this pass.

@@ -1,0 +1,499 @@
+LHS: <null>
+RHS:
+decompile:
+module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+|vpiParent:
+\_design: (work@packed_array_struct), id:1
+|vpiName:work@packed_array_struct
+|vpiVariables:
+\_struct_var: (work@packed_array_struct.scalar_sig), id:94, line:16:17, endln:16:27
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.scalar_sig), id:93
+    |vpiParent:
+    \_struct_var: (work@packed_array_struct.scalar_sig), id:94, line:16:17, endln:16:27
+    |vpiFullName:work@packed_array_struct.scalar_sig
+    |vpiActual:
+    \_struct_typespec: , id:65, line:10:28, endln:10:41
+  |vpiName:scalar_sig
+  |vpiFullName:work@packed_array_struct.scalar_sig
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (work@packed_array_struct.arr), id:97, line:17:17, endln:17:20
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.arr), id:96
+    |vpiParent:
+    \_struct_var: (work@packed_array_struct.arr), id:97, line:17:17, endln:17:20
+    |vpiFullName:work@packed_array_struct.arr
+    |vpiActual:
+    \_logic_typespec: , id:95, line:17:5, endln:17:15
+  |vpiName:arr
+  |vpiFullName:work@packed_array_struct.arr
+  |vpiVisibility:1
+|vpiParameter:
+\_type_parameter: (work@packed_array_struct.my_t), id:63
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiName:my_t
+  |vpiLocalParam:1
+  |vpiFullName:work@packed_array_struct.my_t
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.my_t), id:64
+    |vpiParent:
+    \_type_parameter: (work@packed_array_struct.my_t), id:63
+    |vpiFullName:work@packed_array_struct.my_t
+    |vpiActual:
+    \_struct_typespec: , id:65, line:10:28, endln:10:41
+|vpiDefName:work@packed_array_struct
+|vpiTop:1
+|vpiNet:
+\_logic_net: (work@packed_array_struct.clk), id:86, line:7:18, endln:7:21
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.clk), id:85
+    |vpiParent:
+    \_logic_net: (work@packed_array_struct.clk), id:86, line:7:18, endln:7:21
+    |vpiFullName:work@packed_array_struct.clk
+    |vpiActual:
+    \_logic_typespec: , id:84, line:7:12, endln:7:17
+  |vpiName:clk
+  |vpiFullName:work@packed_array_struct.clk
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@packed_array_struct.sum), id:92, line:8:25, endln:8:28
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.sum), id:91
+    |vpiParent:
+    \_logic_net: (work@packed_array_struct.sum), id:92, line:8:25, endln:8:28
+    |vpiFullName:work@packed_array_struct.sum
+    |vpiActual:
+    \_logic_typespec: , id:87, line:8:12, endln:8:24
+  |vpiName:sum
+  |vpiFullName:work@packed_array_struct.sum
+  |vpiNetType:36
+|vpiTopModule:1
+|vpiPort:
+\_port: (clk), id:117, line:7:18, endln:7:21
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiName:clk
+  |vpiDirection:1
+  |vpiLowConn:
+  \_ref_obj: (work@packed_array_struct.clk), id:118, line:7:18, endln:7:21
+    |vpiParent:
+    \_port: (clk), id:117, line:7:18, endln:7:21
+    |vpiName:clk
+    |vpiFullName:work@packed_array_struct.clk
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.clk), id:86, line:7:18, endln:7:21
+  |vpiTypedef:
+  \_ref_typespec: (work@packed_array_struct.clk), id:120
+    |vpiParent:
+    \_port: (clk), id:117, line:7:18, endln:7:21
+    |vpiFullName:work@packed_array_struct.clk
+    |vpiActual:
+    \_logic_typespec: , id:53, line:7:12, endln:7:17
+|vpiPort:
+\_port: (sum), id:121, line:8:25, endln:8:28
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiName:sum
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@packed_array_struct.sum), id:122, line:8:25, endln:8:28
+    |vpiParent:
+    \_port: (sum), id:121, line:8:25, endln:8:28
+    |vpiName:sum
+    |vpiFullName:work@packed_array_struct.sum
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.sum), id:92, line:8:25, endln:8:28
+  |vpiTypedef:
+  \_ref_typespec: (work@packed_array_struct.sum), id:127
+    |vpiParent:
+    \_port: (sum), id:121, line:8:25, endln:8:28
+    |vpiFullName:work@packed_array_struct.sum
+    |vpiActual:
+    \_logic_typespec: , id:57, line:8:12, endln:8:24
+|vpiContAssign:
+\_cont_assign: , id:98, line:19:12, endln:19:27
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiRhs:
+  \_constant: , id:31, line:19:25, endln:19:27
+    |vpiParent:
+    \_cont_assign: , id:30, line:19:12, endln:19:27
+    |vpiDecompile:'0
+    |vpiSize:56
+    |BIN:0
+    |vpiConstType:3
+  |vpiLhs:
+  \_ref_obj: (work@packed_array_struct.scalar_sig), id:99, line:19:12, endln:19:22
+    |vpiParent:
+    \_cont_assign: , id:98, line:19:12, endln:19:27
+    |vpiName:scalar_sig
+    |vpiFullName:work@packed_array_struct.scalar_sig
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.scalar_sig), id:26, line:16:17, endln:16:27
+|vpiContAssign:
+\_cont_assign: , id:100, line:20:12, endln:20:27
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiRhs:
+  \_constant: , id:34, line:20:25, endln:20:27
+    |vpiParent:
+    \_cont_assign: , id:33, line:20:12, endln:20:27
+    |vpiDecompile:'0
+    |vpiSize:-1
+    |BIN:0
+    |vpiConstType:3
+  |vpiLhs:
+  \_ref_obj: (work@packed_array_struct.arr), id:101, line:20:12, endln:20:15
+    |vpiParent:
+    \_cont_assign: , id:100, line:20:12, endln:20:27
+    |vpiName:arr
+    |vpiFullName:work@packed_array_struct.arr
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.arr), id:28, line:17:17, endln:17:20
+|vpiContAssign:
+\_cont_assign: , id:102, line:21:12, endln:21:52
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiRhs:
+  \_operation: , id:103, line:21:18, endln:21:52
+    |vpiParent:
+    \_cont_assign: , id:102, line:21:12, endln:21:52
+    |vpiOpType:24
+    |vpiOperand:
+    \_operation: , id:104, line:21:18, endln:21:41
+      |vpiParent:
+      \_operation: , id:103, line:21:18, endln:21:52
+      |vpiOpType:24
+      |vpiOperand:
+      \_hier_path: (scalar_sig.a), id:105, line:21:18, endln:21:30
+        |vpiParent:
+        \_operation: , id:104, line:21:18, endln:21:41
+        |vpiActual:
+        \_ref_obj: (scalar_sig), id:106, line:21:18, endln:21:28
+          |vpiParent:
+          \_hier_path: (scalar_sig.a), id:105, line:21:18, endln:21:30
+          |vpiName:scalar_sig
+        |vpiActual:
+        \_ref_obj: (work@packed_array_struct.a), id:107, line:21:29, endln:21:30
+          |vpiParent:
+          \_hier_path: (scalar_sig.a), id:105, line:21:18, endln:21:30
+          |vpiName:a
+          |vpiFullName:work@packed_array_struct.a
+        |vpiName:scalar_sig.a
+      |vpiOperand:
+      \_hier_path: (arr[0].a), id:108, line:21:33, endln:21:41
+        |vpiParent:
+        \_operation: , id:104, line:21:18, endln:21:41
+        |vpiActual:
+        \_bit_select: (arr[0]), id:109, line:21:33, endln:21:36
+          |vpiParent:
+          \_hier_path: (arr[0].a), id:108, line:21:33, endln:21:41
+          |vpiName:arr
+          |vpiFullName:arr[0]
+          |vpiIndex:
+          \_constant: , id:110, line:21:37, endln:21:38
+            |vpiParent:
+            \_bit_select: (arr[0]), id:109, line:21:33, endln:21:36
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiActual:
+        \_ref_obj: (work@packed_array_struct.a), id:111, line:21:40, endln:21:41
+          |vpiParent:
+          \_hier_path: (arr[0].a), id:108, line:21:33, endln:21:41
+          |vpiName:a
+          |vpiFullName:work@packed_array_struct.a
+        |vpiName:arr[0].a
+    |vpiOperand:
+    \_hier_path: (arr[2].b), id:112, line:21:44, endln:21:52
+      |vpiParent:
+      \_operation: , id:103, line:21:18, endln:21:52
+      |vpiActual:
+      \_bit_select: (arr[2]), id:113, line:21:44, endln:21:47
+        |vpiParent:
+        \_hier_path: (arr[2].b), id:112, line:21:44, endln:21:52
+        |vpiName:arr
+        |vpiFullName:arr[2]
+        |vpiIndex:
+        \_constant: , id:114, line:21:48, endln:21:49
+          |vpiParent:
+          \_bit_select: (arr[2]), id:113, line:21:44, endln:21:47
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+      |vpiActual:
+      \_ref_obj: (work@packed_array_struct.b), id:115, line:21:51, endln:21:52
+        |vpiParent:
+        \_hier_path: (arr[2].b), id:112, line:21:44, endln:21:52
+        |vpiName:b
+        |vpiFullName:work@packed_array_struct.b
+      |vpiName:arr[2].b
+  |vpiLhs:
+  \_ref_obj: (work@packed_array_struct.sum), id:116, line:21:12, endln:21:15
+    |vpiParent:
+    \_cont_assign: , id:102, line:21:12, endln:21:52
+    |vpiName:sum
+    |vpiFullName:work@packed_array_struct.sum
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.sum), id:92, line:8:25, endln:8:28
+
+decompile:
+module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+|vpiParent:
+\_design: (work@packed_array_struct), id:1
+|vpiName:work@packed_array_struct
+|vpiVariables:
+\_struct_var: (work@packed_array_struct.scalar_sig), id:94, line:16:17, endln:16:27
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.scalar_sig), id:93
+    |vpiParent:
+    \_struct_var: (work@packed_array_struct.scalar_sig), id:94, line:16:17, endln:16:27
+    |vpiFullName:work@packed_array_struct.scalar_sig
+    |vpiActual:
+    \_struct_typespec: , id:65, line:10:28, endln:10:41
+  |vpiName:scalar_sig
+  |vpiFullName:work@packed_array_struct.scalar_sig
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (work@packed_array_struct.arr), id:97, line:17:17, endln:17:20
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.arr), id:96
+    |vpiParent:
+    \_struct_var: (work@packed_array_struct.arr), id:97, line:17:17, endln:17:20
+    |vpiFullName:work@packed_array_struct.arr
+    |vpiActual:
+    \_logic_typespec: , id:95, line:17:5, endln:17:15
+  |vpiName:arr
+  |vpiFullName:work@packed_array_struct.arr
+  |vpiVisibility:1
+|vpiParameter:
+\_type_parameter: (work@packed_array_struct.my_t), id:63
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiName:my_t
+  |vpiLocalParam:1
+  |vpiFullName:work@packed_array_struct.my_t
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.my_t), id:64
+    |vpiParent:
+    \_type_parameter: (work@packed_array_struct.my_t), id:63
+    |vpiFullName:work@packed_array_struct.my_t
+    |vpiActual:
+    \_struct_typespec: , id:65, line:10:28, endln:10:41
+|vpiDefName:work@packed_array_struct
+|vpiTop:1
+|vpiNet:
+\_logic_net: (work@packed_array_struct.clk), id:86, line:7:18, endln:7:21
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.clk), id:85
+    |vpiParent:
+    \_logic_net: (work@packed_array_struct.clk), id:86, line:7:18, endln:7:21
+    |vpiFullName:work@packed_array_struct.clk
+    |vpiActual:
+    \_logic_typespec: , id:84, line:7:12, endln:7:17
+  |vpiName:clk
+  |vpiFullName:work@packed_array_struct.clk
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@packed_array_struct.sum), id:92, line:8:25, endln:8:28
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.sum), id:91
+    |vpiParent:
+    \_logic_net: (work@packed_array_struct.sum), id:92, line:8:25, endln:8:28
+    |vpiFullName:work@packed_array_struct.sum
+    |vpiActual:
+    \_logic_typespec: , id:87, line:8:12, endln:8:24
+  |vpiName:sum
+  |vpiFullName:work@packed_array_struct.sum
+  |vpiNetType:36
+|vpiTopModule:1
+|vpiPort:
+\_port: (clk), id:117, line:7:18, endln:7:21
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiName:clk
+  |vpiDirection:1
+  |vpiLowConn:
+  \_ref_obj: (work@packed_array_struct.clk), id:118, line:7:18, endln:7:21
+    |vpiParent:
+    \_port: (clk), id:117, line:7:18, endln:7:21
+    |vpiName:clk
+    |vpiFullName:work@packed_array_struct.clk
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.clk), id:86, line:7:18, endln:7:21
+  |vpiTypedef:
+  \_ref_typespec: (work@packed_array_struct.clk), id:120
+    |vpiParent:
+    \_port: (clk), id:117, line:7:18, endln:7:21
+    |vpiFullName:work@packed_array_struct.clk
+    |vpiActual:
+    \_logic_typespec: , id:53, line:7:12, endln:7:17
+|vpiPort:
+\_port: (sum), id:121, line:8:25, endln:8:28
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiName:sum
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@packed_array_struct.sum), id:122, line:8:25, endln:8:28
+    |vpiParent:
+    \_port: (sum), id:121, line:8:25, endln:8:28
+    |vpiName:sum
+    |vpiFullName:work@packed_array_struct.sum
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.sum), id:92, line:8:25, endln:8:28
+  |vpiTypedef:
+  \_ref_typespec: (work@packed_array_struct.sum), id:127
+    |vpiParent:
+    \_port: (sum), id:121, line:8:25, endln:8:28
+    |vpiFullName:work@packed_array_struct.sum
+    |vpiActual:
+    \_logic_typespec: , id:57, line:8:12, endln:8:24
+|vpiContAssign:
+\_cont_assign: , id:98, line:19:12, endln:19:27
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiRhs:
+  \_constant: , id:31, line:19:25, endln:19:27
+    |vpiParent:
+    \_cont_assign: , id:30, line:19:12, endln:19:27
+    |vpiDecompile:'0
+    |vpiSize:56
+    |BIN:0
+    |vpiConstType:3
+  |vpiLhs:
+  \_ref_obj: (work@packed_array_struct.scalar_sig), id:99, line:19:12, endln:19:22
+    |vpiParent:
+    \_cont_assign: , id:98, line:19:12, endln:19:27
+    |vpiName:scalar_sig
+    |vpiFullName:work@packed_array_struct.scalar_sig
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.scalar_sig), id:26, line:16:17, endln:16:27
+|vpiContAssign:
+\_cont_assign: , id:100, line:20:12, endln:20:27
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiRhs:
+  \_constant: , id:34, line:20:25, endln:20:27
+    |vpiParent:
+    \_cont_assign: , id:33, line:20:12, endln:20:27
+    |vpiDecompile:'0
+    |vpiSize:-1
+    |BIN:0
+    |vpiConstType:3
+  |vpiLhs:
+  \_ref_obj: (work@packed_array_struct.arr), id:101, line:20:12, endln:20:15
+    |vpiParent:
+    \_cont_assign: , id:100, line:20:12, endln:20:27
+    |vpiName:arr
+    |vpiFullName:work@packed_array_struct.arr
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.arr), id:28, line:17:17, endln:17:20
+|vpiContAssign:
+\_cont_assign: , id:102, line:21:12, endln:21:52
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiRhs:
+  \_operation: , id:103, line:21:18, endln:21:52
+    |vpiParent:
+    \_cont_assign: , id:102, line:21:12, endln:21:52
+    |vpiOpType:24
+    |vpiOperand:
+    \_operation: , id:104, line:21:18, endln:21:41
+      |vpiParent:
+      \_operation: , id:103, line:21:18, endln:21:52
+      |vpiOpType:24
+      |vpiOperand:
+      \_hier_path: (scalar_sig.a), id:105, line:21:18, endln:21:30
+        |vpiParent:
+        \_operation: , id:104, line:21:18, endln:21:41
+        |vpiActual:
+        \_ref_obj: (scalar_sig), id:106, line:21:18, endln:21:28
+          |vpiParent:
+          \_hier_path: (scalar_sig.a), id:105, line:21:18, endln:21:30
+          |vpiName:scalar_sig
+        |vpiActual:
+        \_ref_obj: (work@packed_array_struct.a), id:107, line:21:29, endln:21:30
+          |vpiParent:
+          \_hier_path: (scalar_sig.a), id:105, line:21:18, endln:21:30
+          |vpiName:a
+          |vpiFullName:work@packed_array_struct.a
+        |vpiName:scalar_sig.a
+      |vpiOperand:
+      \_hier_path: (arr[0].a), id:108, line:21:33, endln:21:41
+        |vpiParent:
+        \_operation: , id:104, line:21:18, endln:21:41
+        |vpiActual:
+        \_bit_select: (arr[0]), id:109, line:21:33, endln:21:36
+          |vpiParent:
+          \_hier_path: (arr[0].a), id:108, line:21:33, endln:21:41
+          |vpiName:arr
+          |vpiFullName:arr[0]
+          |vpiIndex:
+          \_constant: , id:110, line:21:37, endln:21:38
+            |vpiParent:
+            \_bit_select: (arr[0]), id:109, line:21:33, endln:21:36
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiActual:
+        \_ref_obj: (work@packed_array_struct.a), id:111, line:21:40, endln:21:41
+          |vpiParent:
+          \_hier_path: (arr[0].a), id:108, line:21:33, endln:21:41
+          |vpiName:a
+          |vpiFullName:work@packed_array_struct.a
+        |vpiName:arr[0].a
+    |vpiOperand:
+    \_hier_path: (arr[2].b), id:112, line:21:44, endln:21:52
+      |vpiParent:
+      \_operation: , id:103, line:21:18, endln:21:52
+      |vpiActual:
+      \_bit_select: (arr[2]), id:113, line:21:44, endln:21:47
+        |vpiParent:
+        \_hier_path: (arr[2].b), id:112, line:21:44, endln:21:52
+        |vpiName:arr
+        |vpiFullName:arr[2]
+        |vpiIndex:
+        \_constant: , id:114, line:21:48, endln:21:49
+          |vpiParent:
+          \_bit_select: (arr[2]), id:113, line:21:44, endln:21:47
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+      |vpiActual:
+      \_ref_obj: (work@packed_array_struct.b), id:115, line:21:51, endln:21:52
+        |vpiParent:
+        \_hier_path: (arr[2].b), id:112, line:21:44, endln:21:52
+        |vpiName:b
+        |vpiFullName:work@packed_array_struct.b
+      |vpiName:arr[2].b
+  |vpiLhs:
+  \_ref_obj: (work@packed_array_struct.sum), id:116, line:21:12, endln:21:15
+    |vpiParent:
+    \_cont_assign: , id:102, line:21:12, endln:21:52
+    |vpiName:sum
+    |vpiFullName:work@packed_array_struct.sum
+    |vpiActual:
+    \_logic_net: (work@packed_array_struct.sum), id:92, line:8:25, endln:8:28

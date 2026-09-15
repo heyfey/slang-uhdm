@@ -1,0 +1,11 @@
+j01 rc=0 ERR=0 FTL=0 db=YES
+j02 rc=0 ERR=0 FTL=0 db=YES
+j03 rc=0 ERR=0 FTL=0 db=YES
+j04 rc=0 ERR=0 FTL=0 db=YES
+j05 rc=0 ERR=0 FTL=0 db=YES
+j06 rc=0 ERR=0 FTL=0 db=YES
+j07 rc=0 ERR=0 FTL=0 db=YES
+j08 rc=0 ERR=0 FTL=0 db=YES
+j09 rc=0 ERR=0 FTL=0 db=YES
+j10 rc=0 ERR=0 FTL=0 db=YES
+j11 rc=0 ERR=0 FTL=0 db=YES

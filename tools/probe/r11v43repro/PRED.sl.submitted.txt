@@ -1,0 +1,6 @@
+binary /tmp/v11u43_bin/law.bin
+workroot /tmp/v11u43_wd_pris/sl
+corpusroot /home/heyfey/git-repos/Surelog
+rows with a slang cmd: 1531  (no slang line: 51)  (cwd unresolved: 80)
+CELL trace lines seen (POSITIVE CONTROL): 36
+PREDICTED MOVER TESTS: 0

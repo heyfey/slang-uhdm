@@ -1,0 +1,7 @@
+binary   /tmp/r11u43_bin/law.bin
+workroot /tmp/r11u43_wd_pris/u2r
+rows with a cmds.txt: 1742   (no slang line: 0)
+CELL trace lines seen: 48  (the census POSITIVE CONTROL: a zero here would mean the scan is blind)
+PREDICTED packed_array_struct default cells=3 claims=2 sites=def0,elab1w
+PREDICTED packed_array_struct testflags cells=3 claims=2 sites=def0,elab1w
+PREDICTED MOVER TESTS: 2

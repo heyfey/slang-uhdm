@@ -1,0 +1,5 @@
+binary   /tmp/r11u43_bin/law.bin
+workroot /tmp/r11u43_wd_pris/sl
+rows with a cmds.txt: 1531   (no slang line: 51)
+CELL trace lines seen: 12  (the census POSITIVE CONTROL: a zero here would mean the scan is blind)
+PREDICTED MOVER TESTS: 0

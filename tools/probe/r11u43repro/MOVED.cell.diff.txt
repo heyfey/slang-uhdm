@@ -1,0 +1,12 @@
+r11u43 — the ONLY corpus cell this pass moves, attributed by a path-normalised
+whole-dump diff of the moved database (uhdm2rtlil packed_array_struct,
+testflags; default is identical):
+
+  diff  <pristine dump>  <law dump>
+  135c135
+  <       |vpiSize:168
+  ---
+  >       |vpiSize:-1
+
+TWO LINES.  One cell.  The law's cell.  Nothing else in the database changes —
+not the declaration objects, not the parents, not a span.

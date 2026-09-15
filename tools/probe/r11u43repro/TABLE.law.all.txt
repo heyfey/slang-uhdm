@@ -1,0 +1,87 @@
+arm   GOLDEN                             OURS(pristine)                     verdict
+g01   56/BIN:0/ct3                       56/BIN:0/ct3                       EQ
+g02   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g03   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g04   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g05   -1/BIN:1/ct3                       -1/BIN:1/ct3 | 168/BIN:1111…1111/ct3 DIFF
+g06   -1/BIN:X/ct3                       -1/BIN:X/ct3                       EQ
+g07   -1/BIN:Z/ct3                       -1/BIN:Z/ct3                       EQ
+g08   56/BIN:0/ct3                       56/BIN:0/ct3                       EQ
+g09   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g10   -1/BIN:1/ct3                       -1/BIN:1/ct3 | 168/BIN:1111…1111/ct3 DIFF
+g11   8/BIN:0/ct3                        8/BIN:0/ct3                        EQ
+g12   8/BIN:0/ct3                        24/BIN:0/ct3                       DIFF
+g13   8/BIN:0/ct3                        24/BIN:0/ct3                       DIFF
+g14   56/BIN:0/ct3                       56/BIN:0/ct3                       EQ
+g15   24/BIN:0/ct3                       24/BIN:0/ct3                       EQ
+g16   -1/BIN:1/ct3 | 24/UINT:16777215/ct9 -1/BIN:1/ct3 | 24/UINT:16777215/ct9 EQ
+g17   56/BIN:0/ct3                       56/BIN:0/ct3                       EQ
+g18   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+g19   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+g20   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g21   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g22   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g23   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g24   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g25   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g27   24/BIN:0/ct3                       24/BIN:0/ct3                       EQ
+g28   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g29   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g30   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g31   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g32   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g33   8/BIN:0/ct3                        NODB                               SLANG_REJECT
+g34   24/BIN:0/ct3                       24/BIN:0/ct3                       EQ
+g35   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g36   168/BIN:0/ct3                      168/BIN:0/ct3                      EQ
+g37   24/BIN:0/ct3                       24/BIN:0/ct3                       EQ
+g38   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g39   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g40   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+g41   112/?/ct1                          112/?/ct1                          EQ
+g42   64/UINT:0/ct9                      64/UINT:0/ct9 | 112/UINT:0/ct9     DIFF
+g43   NOCONST                            -                                  DIFF
+arm   GOLDEN                             OURS(pristine)                     verdict
+h01   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+h02   168/BIN:0/ct3                      168/BIN:0/ct3                      EQ
+h03   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+h04   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+h05   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+h06   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+h07   24/BIN:0/ct3                       24/BIN:0/ct3                       EQ
+h08   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+h09   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+h10   8/BIN:0/ct3                        24/BIN:0/ct3                       DIFF
+h11   -1/BIN:1/ct3                       -1/BIN:1/ct3 | 168/BIN:1111…1111/ct3 DIFF
+h12   -1/BIN:0/ct3 | 168/BIN:0/ct3       -1/BIN:0/ct3 | 168/BIN:0/ct3       EQ
+h13   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+h14   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+h15   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+h16   168/BIN:0/ct3                      168/BIN:0/ct3                      EQ
+h17   168/BIN:0000…0000/ct3              168/BIN:0000…0000/ct3              EQ
+arm   GOLDEN                             OURS(pristine)                     verdict
+i01   168/BIN:0/ct3                      168/BIN:0/ct3                      EQ
+i02   -1/BIN:1/ct3                       -1/BIN:1/ct3 | 8/UINT:255/ct9      DIFF
+i03   24/BIN:0/ct3                       24/BIN:0/ct3                       EQ
+i04   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+i05   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+i06   -1/BIN:0/ct3 | 8/BIN:0/ct3         -1/BIN:0/ct3 | 8/BIN:0/ct3         EQ
+i07   -1/BIN:0/ct3 | 168/BIN:0/ct3       -1/BIN:0/ct3 | 168/BIN:0/ct3       EQ
+i08   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+i09   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+i10   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+i11   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+i12   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+i13   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+arm   GOLDEN                             OURS(pristine)                     verdict
+j01   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+j02   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+j03   56/BIN:0/ct3                       168/BIN:0/ct3                      DIFF
+j04   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+j05   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+j06   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+j07   56/BIN:0/ct3                       56/BIN:0/ct3                       EQ
+j08   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+j09   -1/BIN:0/ct3                       -1/BIN:0/ct3                       EQ
+j10   1/BIN:0/ct3                        168/BIN:0/ct3                      DIFF
+j11   56/BIN:0/ct3 | -1/BIN:0/ct3        56/BIN:0/ct3 | -1/BIN:0/ct3        EQ

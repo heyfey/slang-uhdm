@@ -15247,6 +15247,224 @@ static bool cellDbg25() {
     return v;
 }
 
+// ===========================================================================
+// § caUnbasedFillPackedAggregateKeepsRaw43 (r11u43) — THE UNSIZED FILL AT A
+// TARGET THE RAW-SHAPE LAW DOES NOT REACH.
+//
+// § caUnbasedRhsUnboundKeepsRaw25 (above) landed the GEN-SCOPE half of this:
+// the fill keeps `VpiSize` -1 whenever `CompileHelper::bindVariable` cannot
+// find the Lhs, because `writeCont_assign` then calls `adjustSize` with a null
+// typespec and `adjustSize` returns the constant UNTOUCHED on `ts == nullptr`
+// (`CompileHelper.cpp:4073`).  MODULE SCOPE was measured there and declared
+// not-this-law: the bind succeeds and golden sizes exactly as we do.
+//
+// It does — for every target whose declaration Surelog can type.  The residue
+// is the OTHER null: the bind SUCCEEDS, and the variable it returns has no
+// USABLE typespec, so `tps` is still null and `adjustSize` is still a no-op.
+//
+// THE PRODUCER, read out of Surelog:
+//   `UhdmWriter::writeCont_assign` (UhdmWriter.cpp:2100) seeds
+//   `tps = lhs->Typespec()->Actual_typespec()`, then for a `ref_obj` Lhs
+//   overwrites it from the bound declaration:
+//       if (expr* exp = any_cast<expr*>(var))
+//         if (const ref_typespec* rt = exp->Typespec())
+//           if (const typespec* temp = rt->Actual_typespec()) tps = temp;
+//   and the non-simplified tail calls
+//       res = m_helper.adjustSize(tps, mod, …, (constant*)res, true);
+//   (UhdmWriter.cpp:2272).  `adjustSize` opens with
+//       if (ts == nullptr) return result;
+//   so a null `tps` is the whole story: `VpiSize` stays -1, the `BIN` encoding
+//   and the `'0` decompile stay raw.
+//
+// WHICH DECLARATIONS ARRIVE WITH NO TYPESPEC.  Measured, one arm per row, 60
+// arms of legal SV against the pinned v1.87 Surelog (`tools/probe/r11u43repro`
+// carries the generator and the two scored tables).  The split is EXACT and it
+// is a DECLARATION SHAPE, never a width:
+//
+//   golden KEEPS THE FILL RAW (`VpiSize` -1)  — the packed dimension is
+//   WRITTEN ON THE DECLARATION over a NAMED struct / union / enum:
+//     g02 `my_t [2:0] s1;`   (my_t a struct TYPE PARAMETER)          -1
+//     g03 `my_t [0:0] s2;`   g04 `my_t [1:0][2:0] s3;`               -1
+//     g05/g06/g07 the same target with `'1` / `'x` / `'z`            -1
+//     g09 `st_t [2:0] t1;`   (a module TYPEDEF struct)               -1
+//     g31 `e_t  [2:0] z0;`   (an ENUM)      g32 `un_t [2:0] z1;`     -1
+//     g35 `sa_t [1:0] z4;`   (a struct whose member is an array)     -1
+//     g38 `st_t [1:0]` (112) g39 `st_t [7:0]` (448) g40 4-bit x2 (8) -1
+//     g28/h08 `output pk::st_t [2:0] po;`  h09 `output var …`        -1
+//     h03 the same beside an unrelated decl  h13 driving a submodule -1
+//     h15 the same inside an INTERFACE                               -1
+//   THE WIDTH NEVER ENTERS: g40's target is EIGHT bits and g39's is 448, and
+//   golden writes -1 for both.
+//
+//   golden SIZES, and this emitter already matches — the fence exists for
+//   these:
+//     g01 `my_t s0;`  g08 `st_t t0;`  g17 an ANONYMOUS inline packed struct
+//         — a struct with NO written dimension                        56
+//     g34 `sa_t z3;`  — the array is INSIDE the struct                 24
+//     g36 `typedef st_t [2:0] arr_t; arr_t z5;` — the array is INSIDE
+//         THE TYPEDEF, so the declaration writes a plain name         168
+//     g37 `typedef logic [2:0][7:0] pa_t; pa_t z6;`                    24
+//     g14/g15/g27 anonymous packed logic, module net, ANSI port     56/24/24
+//     g41 `112'd0`  g42 a bare `0`  h16 `168'b0`  h17 a replication — the
+//         CONTROLS that convict the FILL rather than the target
+//
+//   and the two shapes golden sizes at the ELEMENT's width, which this
+//   emitter sizes at the whole declaration's — MEASURED, DECLINED, R0:
+//     g12/g13 `b_t [2:0] u1;` (b_t a LOGIC typedef)   golden 8, ours 24
+//     g18/g19/h01/h04/h05/h06/h10 — the same aggregate target with the
+//         `var` or a NET keyword WRITTEN in a module body: golden drops the
+//         dimension in its own declaration too and sizes at the element
+//         (56 / 8), where we size at 168 / 24.  h02 (`var st_t [2:0]`) is
+//         golden's own counter-example at 168, so the keyword face is not one
+//         rule; it is left EXACTLY as pristine leaves it.
+//
+// So the gate is a DECLARATION question with three clauses, all three
+// measured: a packed dimension written on the declaration, over a NAMED
+// aggregate element, at a write site that is a plain data declaration or an
+// ANSI port.
+static bool off43() {
+    static const bool v = getenv("R11U43_OFF") != nullptr;
+    return v;
+}
+// r11u43's cell trace: EVERY module-scope cont_assign whose Rhs is an
+// unbased-unsized fill, the DECLINED ones included, because a trace keyed on
+// the shape you intend to change is blind to the rows you would change by
+// accident (earl66's lesson).
+static bool cellDbg43() {
+    static const bool v = [] {
+        const char* e = getenv("R11U43_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+// An OVERRIDDEN type parameter anywhere in the element's alias chain.  Golden
+// types such a declaration from the BINDING and sizes at the ELEMENT's width
+// (j03/i10: `#(.T(pk::st_t))` with `T [2:0] x` -> 56; j10, a localparam alias
+// of an overridden `T`, -> 1), where a type parameter left at its DEFAULT
+// (j01/j09) and a plain localparam type (g02/j02/j04) keep the raw fill.
+// Measured, DECLINED, never moved to a third object.
+static bool aliasOverriddenTypeParam43(const Type& t0) {
+    const Type* t = &t0;
+    for (int h = 0; t && h < 32; ++h) {
+        if (t->kind != SymbolKind::TypeAlias)
+            return false;
+        auto& ta = t->as<TypeAliasType>();
+        if (auto* tp = typeParamOfAlias(ta))
+            if (tp->isOverridden())
+                return true;
+        t = &ta.targetType.getType();
+    }
+    return false;
+}
+
+// § caUnbasedFillPackedAggregateKeepsRaw43's ENUM/UNION SPLIT (r11v43, the
+// verifier's fix).  ANY type parameter in the element's alias chain, overridden
+// or not.  An ENUM or a PACKED UNION element that reaches the declaration
+// THROUGH one is NOT this law's shape: golden types the declaration and sizes
+// at the ELEMENT's width — 8 on every measured arm — where the same enum or
+// union named by a PLAIN typedef answers -1.  MEASURED, seven arms, all of them
+// cells golden never writes and the pristine binary never wrote:
+//   `#(parameter type T = pk::e_t)`  `T [2:0] x; assign x = '0;`   golden 8
+//   `#(parameter type T = pk::un_t)`                               golden 8
+//   `localparam type T = pk::e_t;`   / `= pk::un_t;`               golden 8
+//   `#(parameter type T = enum logic [7:0] {..})` (anonymous)      golden 8
+//   a localparam type aliasing a DEFAULTED enum type parameter     golden 8
+//   the enum type parameter at an ANSI PORT                        golden 8
+// against `typedef enum … e_t; e_t [2:0] z;` (g31) and the union g32, both -1.
+// A STRUCT element is NOT split this way — it keeps the raw fill through
+// exactly these aliases (g02's `localparam type`, j01/j09's defaulted port type
+// parameter, and the corpus row itself) — so the split is asked ONLY of the
+// enum and union arms, and the struct face is left bit-for-bit as it was.
+//
+// THE COST, stated: two arms that golden answers -1 for are declined with it —
+// a type parameter whose target is a MODULE-LOCAL typedef of the enum, and a
+// plain typedef OF such a type parameter.  Golden contradicts itself across
+// that hop (the same `localparam type T` answers 8 for a package typedef and
+// -1 for a module-local one), so it is not one rule; declining the whole
+// enum/union-through-a-type-parameter shape writes no cell golden does not
+// hold, and a LOST CONVERSION is a residue while a WRONG CELL is a defect.
+static bool aliasAnyTypeParam43(const Type& t0) {
+    const Type* t = &t0;
+    for (int h = 0; t && h < 32; ++h) {
+        if (t->kind != SymbolKind::TypeAlias)
+            return false;
+        auto& ta = t->as<TypeAliasType>();
+        if (typeParamOfAlias(ta))
+            return true;
+        t = &ta.targetType.getType();
+    }
+    return false;
+}
+
+// The declaration is a PORT declaration — ANSI (`output pk::st_t [2:0] po`,
+// g28/h08/h09/i09) or non-ANSI (`output pk::st_t [2:0] po;` in the body,
+// i08/j05/j06).  Golden keeps the raw fill at a port whatever keyword it
+// spells, unlike a module-body declaration.
+static bool portDeclaredSym43(const Symbol& sym) {
+    for (auto p = sym.getSyntax(); p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort ||
+            p->kind == syntax::SyntaxKind::ExplicitAnsiPort ||
+            p->kind == syntax::SyntaxKind::PortDeclaration)
+            return true;
+        if (p->kind == syntax::SyntaxKind::ModuleDeclaration)
+            break;
+    }
+    return false;
+}
+
+static bool caFillPackedAggregateKeepsRaw43(const Expression& lhsExpr) {
+    auto& l = stripImplicitConv(lhsExpr);
+    if (l.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& sym = l.as<NamedValueExpression>().symbol;
+    const DeclaredType* dt = sym.getDeclaredType();
+    const Type* t = dt ? &dt->getType() : (const Type*)l.type;
+    if (!t)
+        return false;
+    // (1) The packed dimension must be WRITTEN ON THE DECLARATION.  A typedef
+    // that IS the array (`typedef st_t [2:0] arr_t; arr_t z;`, g36) names the
+    // type, Surelog types the declaration, and the fill sizes at 168.
+    int lv43 = 0;
+    while (t->name.empty() &&
+           t->getCanonicalType().kind == SymbolKind::PackedArrayType &&
+           lv43 < 16) {
+        t = &t->getCanonicalType().as<PackedArrayType>().elementType;
+        ++lv43;
+    }
+    if (lv43 == 0 || t->name.empty())
+        return false;
+    // (2) The ELEMENT must be a NAMED aggregate — a struct, a union or an
+    // enum.  A named LOGIC typedef (g12/g13) is golden's element-width face,
+    // not this one, and an anonymous element is not a name at all.
+    auto ek43 = t->getCanonicalType().kind;
+    if (ek43 != SymbolKind::PackedStructType &&
+        ek43 != SymbolKind::PackedUnionType && ek43 != SymbolKind::EnumType)
+        return false;
+    // (2b) An ENUM or a PACKED UNION element must be named by a PLAIN typedef.
+    // Reached through a TYPE PARAMETER — `parameter type T = pk::e_t`, a
+    // `localparam type`, or a chain of those — golden sizes at the ELEMENT's
+    // width instead (8 on every measured arm), where the plain typedef g31/g32
+    // answers -1.  A STRUCT element is not split this way; see the § above.
+    if (ek43 != SymbolKind::PackedStructType && aliasAnyTypeParam43(*t))
+        return false;
+    // (3) The element's alias chain must not reach an OVERRIDDEN type
+    // parameter: golden types that declaration from the binding (j03/i10/j10).
+    if (aliasOverriddenTypeParam43(*t))
+        return false;
+    // (4) THE WRITE SITE.  A PORT declaration keeps the raw fill whatever
+    // keyword it spells — ANSI (g28/h08 bare, h09 `var`, i09 `inout`) and
+    // non-ANSI (i08 bare, j05 `var`, j06 `wire`) alike; in a module BODY only
+    // a PLAIN data declaration does — `var` (g18/h02/h05) or a net keyword
+    // (g19/h01/h04/h06/h10/i12) there and golden takes its element-width face
+    // instead.
+    if (portDeclaredSym43(sym))
+        return true;
+    if (sym.kind != SymbolKind::Variable)
+        return false;
+    return !hasVarKeywordDecl(sym);
+}
+
 // `R11U27_OFF=1` restores the pristine behaviour in the SHIPPED binary: the
 // switch sits in the ENTRY GUARD of every § caNonTernFoldEnc27 site, so the
 // OFF binary consults no encoding machine and installs nothing.  It is
@@ -27640,6 +27858,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // all-ones UINT.
                 if (cv && cv.isInteger() && cv.integer() == 0)
                     cv = nullptr;
+                // § caUnbasedFillPackedAggregateKeepsRaw43 — the `'1` mask at
+                // a target of 64 bits OR LESS (arm i02, `s4_t [1:0] x` at 8).
+                // Golden's `adjustSize` never runs on this declaration, so no
+                // mask is minted and the elab Rhs stays the raw `BIN:1` the
+                // def view emitted.
+                // § caUnbasedFillPackedAggregateKeepsRaw43's `'1` RESIDUE (R0),
+                // traced but NOT acted on.  Golden keeps `BIN:1` at -1 in BOTH
+                // views for a `'1` at this target (arms g05/g10/h11/i02), and
+                // our DEF view already agrees; the ELAB view's sized object is
+                // minted by a site this pass did not find — declining HERE and
+                // at the `w27 > 64` re-encode below was built and MEASURED AS
+                // A NO-OP on all four arms, so neither decline ships.  The
+                // trace stays: it is what will name the producer next time.
+                if (cellDbg43() && cv)
+                    fprintf(stderr, "R11U43CELL site=elab1 w=%d claim=%d\n",
+                            (int)ae.right().type->getBitWidth(),
+                            (int)caFillPackedAggregateKeepsRaw43(ae.left()));
                 if (cv && cv.isInteger() && !cv.integer().hasUnknown()) {
                     auto* c = s.MakeConstant();
                     std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
@@ -29769,12 +30004,35 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // A def-view '0 RHS (alone among unbased-unsized) on a WHOLE-NET
             // LHS sizes at the LHS width; the elab view then shares this
             // constant. Select/dotted LHS keeps -1.
+            // § caUnbasedFillPackedAggregateKeepsRaw43 (r11u43) — AND NEITHER
+            // DOES A DECLARATION SURELOG CANNOT TYPE.  This is the site that
+            // OWNS the `packed_array_struct` head: `assign arr = '0;` onto
+            // `my_t [2:0] arr;`, where golden's `adjustSize` runs with a null
+            // typespec and keeps `VpiSize` -1 and we wrote 168.  The gate is
+            // the declaration shape; the full arm table is at the § above.
             if (!topView && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
                 stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue &&
                 stripImplicitConv(ae.right()).kind ==
                     ExpressionKind::UnbasedUnsizedIntegerLiteral &&
-                rawText(stripImplicitConv(ae.right()).sourceRange) == "'0")
-                ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+                rawText(stripImplicitConv(ae.right()).sourceRange) == "'0") {
+                // THE CLAIM is computed OUTSIDE the A/B switch so the OFF
+                // binary prints the same rows as the law binary (r11u38's
+                // NEUTRAL-binary discipline): the trace NAMES the movers from
+                // the PRISTINE emission before the patched one is ever run.
+                bool claim43 = caFillPackedAggregateKeepsRaw43(ae.left());
+                bool raw43 = !off43() && claim43;
+                if (cellDbg43())
+                    fprintf(stderr,
+                            "R11U43CELL site=def0 lhs=%s w=%d claim=%d\n",
+                            std::string(stripImplicitConv(ae.left())
+                                            .as<NamedValueExpression>()
+                                            .symbol.name)
+                                .c_str(),
+                            (int)ae.left().type->getBitWidth(), (int)claim43);
+                if (!raw43)
+                    ((UHDM::constant*)rhs)
+                        ->VpiSize((int32_t)ae.left().type->getBitWidth());
+            }
             // An unsized BASED literal ('h42) keeps -1 on a dotted/select
             // LHS; only a whole-net LHS gets the bare-CA size-0 form.
             if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
@@ -29872,6 +30130,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     auto lv27 =
                         rt27.as<UnbasedUnsizedIntegerLiteral>()
                             .getLiteralValue();
+                    // § caUnbasedFillPackedAggregateKeepsRaw43's `'1` residue
+                    // (R0) — TRACED, NOT ACTED ON.  See the note at the
+                    // `site=elab1` trace above: declining here left every one
+                    // of the four `'1` arms byte-for-byte where pristine put
+                    // them, so the sized elab object comes from a third site.
+                    if (cellDbg43())
+                        fprintf(stderr,
+                                "R11U43CELL site=elab1w w=%d claim=%d\n",
+                                (int)w27,
+                                (int)caFillPackedAggregateKeepsRaw43(
+                                    ae.left()));
                     if (!lv27.isUnknown() && lv27.value) {
                         std::string d27((size_t)w27, '1');
                         c27->VpiValue("BIN:" + d27);

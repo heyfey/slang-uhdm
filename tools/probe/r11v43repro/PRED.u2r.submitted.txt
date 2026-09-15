@@ -1,0 +1,8 @@
+binary /tmp/v11u43_bin/law.bin
+workroot /tmp/v11u43_wd_pris/u2r
+corpusroot /home/heyfey/git-repos/uhdm2rtlil/test
+rows with a slang cmd: 1742  (no slang line: 0)  (cwd unresolved: 66)
+CELL trace lines seen (POSITIVE CONTROL): 46
+PREDICTED packed_array_struct default cells=3 claims=2 sites=def0,elab1w
+PREDICTED packed_array_struct testflags cells=3 claims=2 sites=def0,elab1w
+PREDICTED MOVER TESTS: 2
