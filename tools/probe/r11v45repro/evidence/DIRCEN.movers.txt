@@ -1,0 +1,8 @@
+##### type_param_packed_dim
+differing facts: pristine=2 patched=0
+  pris=+1 pat=+0  AllModules work@dut.resp_id_t -> kind=logic_typespec ranges=-1 tsname=
+  pris=-1 pat=+0  AllModules work@dut.resp_id_t -> kind=logic_typespec ranges=1 tsname=
+##### port_chained_type_param
+differing facts: pristine=4 patched=4
+##### type_param_unpacked_port
+differing facts: pristine=0 patched=0

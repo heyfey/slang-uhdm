@@ -18073,6 +18073,135 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         }
         params->insert(pos9, tp9);
     };
+    // § typeParamChainBorrow45 — A TYPE PARAMETER WHOSE DECLARATION DEFAULT
+    // NAMES AN EARLIER TYPE PARAMETER OF THE SAME LIST POINTS AT THAT
+    // PARAMETER'S OWN TYPESPEC OBJECT; IT DOES NOT MINT ONE, AND IT DOES NOT
+    // RE-PARENT WHAT IT BORROWS.
+    //
+    // `parameter type id_t = logic [1:0], parameter type resp_id_t = id_t`:
+    // golden's actual for BOTH parameters is ONE object, `id_t`'s own
+    // `logic_typespec 2:31..2:42` carrying `range [1:0]`.  Proved by POINTER
+    // IDENTITY inside golden's own database, not by dump text (uhdm-dump elides
+    // a repeated subtree, so a share and a copy print the same) —
+    // tools/probe/r11u45repro/tpid45.cpp and tslist45.cpp on
+    // `type_param_packed_dim`'s golden:
+    //
+    //   RT #136 full=work@dut.id_t              -> ts#82
+    //   RT #137 full=work@dut.resp_id_t         -> ts#82     <- THE SHARE
+    //   RT #139 full=work@dut.rt_t.resp_id_t    -> ts#82     <- and its reach
+    //   TS #82 logic_typespec loc=2:31..2:42 ranges=1 parent=type_parameter(id_t)
+    //
+    // PRODUCER.  `CompileHelper::compileParameterDeclaration`'s `paTYPE` arm
+    // (Surelog `src/DesignCompile/CompileHelper.cpp`) runs three steps in
+    // order: `compileTypespec(..., Reduce::No, ...)` on the written default
+    // (:3508), the written-packed-dimension detector that
+    // § typeParamNamedElemPackedDim31 already models (:3520-3586), and then,
+    // ONLY IF BOTH PRODUCED NOTHING, the chain resolve at :3589-3612 —
+    //
+    //   // `parameter type A = B` where B is ANOTHER type parameter of the
+    //   // same list.  compileTypespec is called with no instance here, so
+    //   // its paExpression case cannot bindTypespec(B) and returns null ...
+    //   // B is already in `parameters` if it was declared earlier, so
+    //   // resolve the chain directly against that list.
+    //   for (UHDM::any* prev : *parameters) { ... borrowed_tps =
+    //           ((type_parameter*)prev)->Typespec()->Actual_typespec(); }
+    //
+    // and writes it at :3621-3624 with the no-re-parent rule spelled out:
+    //
+    //   // A borrowed typespec still BELONGS to the parameter it was declared
+    //   // on — point at it without re-parenting, or the original loses its
+    //   // owner and the chain breaks in the other direction.
+    //   p->Typespec()->Actual_typespec(tps ? tps : borrowed_tps);
+    //   if (tps) tps->VpiParent(p);            <- only the MINTED one
+    //
+    // THE GATE IS THAT `compileTypespec` RETURNED NULL, and it returns null on
+    // exactly one shape: a BARE NAME that denotes a TYPE PARAMETER (with no
+    // instance there is nothing to bind it to).  A typedef, a package-qualified
+    // type, an enum, a struct, a keyword — every one of those compiles, so none
+    // of them borrows.  slang models a `parameter type T` as a same-named
+    // TypeAliasType whose syntax node is the `TypeAssignment` declarator
+    // (never a `TypedefDeclaration`), which is precisely what `typeParamOfAlias`
+    // discriminates, so the mirror gate below is: the default's syntax is a
+    // plain `NamedType`, the type it resolves to is a TypeAlias, that alias IS
+    // a type parameter, and that parameter is a member of THIS body and has
+    // ALREADY been emitted in this loop (Surelog's `*parameters` likewise holds
+    // only the earlier ones — a forward reference borrows nothing).
+    //
+    // DEF VIEW ONLY.  The elaborated half is built by Surelog's
+    // `elabTypeParameter_`, not by this arm, and our elab branch already lands
+    // on one shared object per chain (measured: golden and ours both intern the
+    // elab `id_t`/`resp_id_t` actual to a single ranged `logic_typespec`).
+    //
+    // MEASURED ON A 15-ARM GOLDEN GRID (tools/probe/r11u45repro, g1-g15):
+    // golden borrows at chain depth 1 AND 2 (g2's third link reaches the FIRST
+    // object, not the middle one), for a `logic` element with dims (g1), a
+    // typedef-sourced element (g3), an anonymous struct (g4) and enum (g5), the
+    // `int` and `real` keywords (g12), a signed element (g15), two independent
+    // chains in one list (g14, so the record is per-NAME), a child module's own
+    // declaration under an instantiation override (g10) and an interface
+    // parameter list (g13); it does NOT borrow when a dimension is WRITTEN on
+    // the chained name (g11 keeps § typeParamNamedElemPackedDim31's wrapper) or
+    // when the default names a typedef (g7).  A FORWARD reference (g6) is
+    // rejected by slang itself (rc 3), so it is an error-recovery arm.
+    // BOUNDARY (residue R0): golden borrows for a chain declared in a PACKAGE
+    // (g8) or among module BODY localparams (g9) and this code does not, because
+    // `defTypeSyn` below is read only from `ModuleDeclarationSyntax::header
+    // ->parameters` — the same reach § typeParamNamedElemPackedDim31's R1b
+    // already records.  Neither shape occurs in either corpus.
+    std::map<std::string_view, UHDM::typespec*> chainTs45;
+    // § typeParamChainBorrowShadow45v (VERIFIER r11v45) — THE BORROW'S GATE IS
+    // THAT NO TYPEDEF OF THAT NAME IS VISIBLE.
+    //
+    // The law above reads Surelog's gate as "`compileTypespec` returned null,
+    // and it returns null on exactly one shape: a bare name denoting a type
+    // parameter".  MEASURED ON REAL v1.87 GOLDENS, that is incomplete:
+    // `compileTypespec` binds a bare name to a TYPEDEF whenever one is visible,
+    // and a type parameter that SHADOWS a typedef of the same name therefore
+    // never reaches the chain arm.  Four golden arms, all legal SV
+    // (tools/probe/r11v45repro/v3.sv, v17.sv, v19.sv, v20.sv):
+    //
+    //   v17  `typedef logic [1:0] a_t;` + `parameter type a_t = logic [1:0],
+    //        parameter type b_t = a_t`  -> golden's `b_t` actual is the
+    //        TYPEDEF's own named clone `logic_typespec (a_t) 6:9..6:20`, NOT
+    //        `a_t`'s parameter object at 8:26.
+    //   v20  the same with the typedef written AFTER the module ($unit is
+    //        whole-file), same golden answer.
+    //   v19  the shadowing typedef arrives by WILDCARD PACKAGE IMPORT
+    //        (`module dut import pk::*;`) — golden still takes the typedef.
+    //   v3   the shadowing typedef has a DIFFERENT width ([7:0] over [1:0]) —
+    //        golden still takes the typedef, so the choice is by NAME, not by
+    //        structure.
+    //
+    // Without this gate the borrow fires on all four and MOVES US AWAY from
+    // golden on two of them (v17 and v20 read 17 cmp lines before and 116
+    // after; v19's object goes from golden's own package typedef object to the
+    // parameter's).  With it, those shapes fall through to
+    // `makeTypeParamDefaultTs` and keep exactly the databases they had.
+    //
+    // The visible-typedef test is asked of the typedefs this emission has
+    // already built, restricted to the scopes a bare name can reach from a
+    // module header — the compilation unit, a package, the root.  A typedef
+    // local to some OTHER module cannot shadow anything here and is not
+    // counted; a package typedef that is NOT imported here is counted, which
+    // only ever REFUSES a borrow (falling back to the pre-existing path), so
+    // the imprecision cannot move a database away from golden.
+    auto chainNameShadowed45v = [&](std::string_view nm45v,
+                                    const Scope& body45v) {
+        for (auto& [sym45v, ts45v] : typedefTs) {
+            if (!sym45v || sym45v->name != nm45v)
+                continue;
+            if (sym45v->kind != SymbolKind::TypeAlias)
+                continue;
+            const Scope* sc45v = sym45v->getParentScope();
+            if (!sc45v || sc45v == &body45v)
+                continue;
+            auto k45v = sc45v->asSymbol().kind;
+            if (k45v == SymbolKind::CompilationUnit ||
+                k45v == SymbolKind::Package || k45v == SymbolKind::Root)
+                return true;
+        }
+        return false;
+    };
     for (auto& member0 : body.members()) {
         if (member0.kind != SymbolKind::TypeParameter)
             continue;
@@ -18170,11 +18299,42 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             its->VpiParent(tp);
         }
         else if (defTypeSyn) {
-            its = makeTypeParamDefaultTs(*defTypeSyn, body);
-            // Surelog parents the def-view default typespec at the type param
-            // (it is shared with the port typedefs via ref_typespec).
-            if (its)
-                its->VpiParent(tp);
+            // § typeParamChainBorrow45 (law above) — the borrow comes FIRST,
+            // because Surelog reaches its chain arm only when nothing else
+            // produced a typespec, and for this shape nothing else does.
+            UHDM::typespec* borrow45 = nullptr;
+            if (defTypeSyn->kind == syntax::SyntaxKind::NamedType) {
+                const syntax::NameSyntax* nm45 =
+                    defTypeSyn->as<syntax::NamedTypeSyntax>().name;
+                if (nm45 && nm45->kind == syntax::SyntaxKind::IdentifierName) {
+                    std::string_view en45 =
+                        nm45->as<syntax::IdentifierNameSyntax>()
+                            .identifier.valueText();
+                    if (auto c45 = chainTs45.find(en45);
+                        c45 != chainTs45.end() && c45->second) {
+                        ASTContext ac45(body, LookupLocation::max);
+                        const Type& dt45 = comp.getType(*defTypeSyn, ac45);
+                        if (dt45.kind == SymbolKind::TypeAlias)
+                            if (auto* sp45 =
+                                    typeParamOfAlias(dt45.as<TypeAliasType>()))
+                                if (sp45->getParentScope() == &body &&
+                                    !chainNameShadowed45v(en45, body))
+                                    borrow45 = c45->second;
+                    }
+                }
+            }
+            if (borrow45) {
+                // POINTED AT, NOT RE-PARENTED (CompileHelper.cpp:3621-3624):
+                // the object still belongs to the parameter it was declared on.
+                its = borrow45;
+            }
+            else {
+                its = makeTypeParamDefaultTs(*defTypeSyn, body);
+                // Surelog parents the def-view default typespec at the type
+                // param (it is shared with the port typedefs via ref_typespec).
+                if (its)
+                    its->VpiParent(tp);
+            }
         }
         else if (topView &&
                  tps.targetType.getType().kind == SymbolKind::TypeAlias) {
@@ -18263,6 +18423,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     .as<InstanceBodySymbol>()
                                     .getDefinition(),
                                 std::string(tps.name)}] = its;
+        // § typeParamChainBorrow45 — this list's own record of what each type
+        // parameter's DEF actual object is, so a later declarator that names
+        // this one borrows THE OBJECT.  Surelog's `*parameters` vector is the
+        // same record, and it too holds only the parameters already built.
+        if (!topView && its)
+            chainTs45[tps.name] = its;
         spliceTypeParam9(tp, member0);
     }
     // MATERIALIZED imported params: the Parameters vec and the Param_assigns

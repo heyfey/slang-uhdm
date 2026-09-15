@@ -1,0 +1,27 @@
+# SURELOG BYTE MOVERS, attributed with a NULL SWEEP POSITIVE CONTROL
+# (the SAME pristine binary run twice: /tmp/v11u45_wd_pris vs /tmp/v11u45_wd_null)
+
+byteverify FIXED vs PRISTINE : 6 movers / 960   SELFCHECK 959/960
+byteverify NULL  vs PRISTINE : 5 movers / 960   SELFCHECK 959/960
+
+row                  order-blind(sorted dump, workdir normalised)
+                     fixed-vs-pris   null-vs-pris
+MiniAmiq/default            4               4    one UINT/vpiDecompile line-number pair (1410 -> 526)
+Scoreboard/default          0               0    PURE ORDER - the documented svunit_pkg vpiTaskFunc coin
+SeqDriver/default           4               4    one UINT/vpiDecompile pair (703 -> 0)
+SimpleUVM/default           4               4    same class
+MiniAmiq/testflags          4               4    same class
+SeqDriver/testflags         4               4    same class
+
+EVERY mover's order-blind delta is IDENTICAL to the null control's, so none of
+them is this pass.  Row status unchanged everywhere: MiniAmiq, Scoreboard/default,
+SeqDriver, SimpleUVM, BuildUVMPkg and Earlgrey_0_1 all stay CMP_EQUAL in the modes
+they were equal in (Scoreboard/testflags stays its baseline SLANG_REJECT).
+
+PROTECTED DATABASES, md5 pristine vs fixed, both modes:
+  SVSwitch           4842211c4030 / 4842211c4030   HARD PIN HELD
+  YosysVerx          6ccda350c24a / 6ccda350c24a   HARD PIN HELD
+  InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   SAME
+  BlackParrotComplex e3e354129d5a (def) 73a10e8217e5 (tf)  SAME
+  YosysOldOr         d68e0796d62c / d68e0796d62c   SAME
+  Earlgrey_0_1       8bdf25272e08 (def) 59d0ee6d10c3 (tf)  SAME, CMP_EQUAL both modes

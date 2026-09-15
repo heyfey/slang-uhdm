@@ -1,0 +1,61 @@
+=== identity census: golden vs pristine vs patched, the three corpus movers (default mode)
+##### type_param_packed_dim
+-- GOLDEN
+TP AllModules work@dut.id_t  ts#1 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP AllModules work@dut.resp_id_t  ts#1 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP AllModules work@dut.rt_t  ts#2 kind=packed_array_typespec loc=5:31..5:52 ranges=1 tpname=
+TP TopModules work@dut.id_t  ts#1 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP TopModules work@dut.resp_id_t  ts#1 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP TopModules work@dut.rt_t  ts#2 kind=packed_array_typespec loc=5:31..5:52 ranges=1 tpname=
+-- PRISTINE
+TP AllModules work@dut.id_t  ts#1 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP AllModules work@dut.resp_id_t  ts#2 kind=logic_typespec loc=3:32..3:36 ranges=-1 tpname=
+TP AllModules work@dut.rt_t  ts#3 kind=packed_array_typespec loc=5:31..5:52 ranges=1 tpname=
+TP TopModules work@dut.id_t  ts#4 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP TopModules work@dut.resp_id_t  ts#4 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP TopModules work@dut.rt_t  ts#5 kind=packed_array_typespec loc=5:31..5:52 ranges=1 tpname=
+-- PATCHED
+TP AllModules work@dut.id_t  ts#1 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP AllModules work@dut.resp_id_t  ts#1 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP AllModules work@dut.rt_t  ts#2 kind=packed_array_typespec loc=5:31..5:52 ranges=1 tpname=
+TP TopModules work@dut.id_t  ts#3 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP TopModules work@dut.resp_id_t  ts#3 kind=logic_typespec loc=2:31..2:42 ranges=1 tpname=
+TP TopModules work@dut.rt_t  ts#4 kind=packed_array_typespec loc=5:31..5:52 ranges=1 tpname=
+##### port_chained_type_param
+-- GOLDEN
+TP AllModules work@dut.noc_req_t  ts#1 kind=struct_typespec loc=2:32..2:38 ranges=-2 tpname=
+TP AllModules work@dut.req_t  ts#1 kind=struct_typespec loc=2:32..2:38 ranges=-2 tpname=
+TP TopModules work@dut.noc_req_t  ts#1 kind=struct_typespec loc=2:32..2:38 ranges=-2 tpname=
+TP TopModules work@dut.req_t  ts#1 kind=struct_typespec loc=2:32..2:38 ranges=-2 tpname=
+-- PRISTINE
+TP AllModules work@dut.noc_req_t  ts#1 kind=logic_typespec loc=2:32..2:90 ranges=-1 tpname=
+TP AllModules work@dut.req_t  ts#2 kind=logic_typespec loc=3:32..3:41 ranges=-1 tpname=
+TP TopModules work@dut.noc_req_t  ts#3 kind=struct_typespec loc=2:32..2:45 ranges=-2 tpname=
+TP TopModules work@dut.req_t  ts#3 kind=struct_typespec loc=2:32..2:45 ranges=-2 tpname=
+-- PATCHED
+TP AllModules work@dut.noc_req_t  ts#1 kind=logic_typespec loc=2:32..2:90 ranges=-1 tpname=
+TP AllModules work@dut.req_t  ts#1 kind=logic_typespec loc=2:32..2:90 ranges=-1 tpname=
+TP TopModules work@dut.noc_req_t  ts#2 kind=struct_typespec loc=2:32..2:45 ranges=-2 tpname=
+TP TopModules work@dut.req_t  ts#2 kind=struct_typespec loc=2:32..2:45 ranges=-2 tpname=
+##### type_param_unpacked_port
+-- GOLDEN
+TP AllModules work@child.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP AllModules work@dut.base_resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP AllModules work@dut.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.base_resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.u_child.resp_t  ts#2 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+-- PRISTINE
+TP AllModules work@child.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP AllModules work@dut.base_resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP AllModules work@dut.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.base_resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.u_child.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+-- PATCHED
+TP AllModules work@child.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP AllModules work@dut.base_resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP AllModules work@dut.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.base_resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t
+TP TopModules work@dut.u_child.resp_t  ts#1 kind=struct_typespec loc=17:11..21:4 ranges=-2 tpname=pk::resp_t

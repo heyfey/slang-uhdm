@@ -1,0 +1,36 @@
+===== type_param_packed_dim default
+BEFORE differing-facts=11  AFTER differing-facts=5  TO-GOLDEN=7  AWAY-GOLDEN=1
+  [-2 -> +0] RT work@dut.id_i  -> logic_typespec 2:31..2:42 ranges=1 tsname=
+  [+2 -> +0] RT work@dut.id_i  -> logic_typespec 3:32..3:36 ranges=-1 tsname=
+  [+0 -> +1] RT work@dut.resp_id_t  -> logic_typespec 2:31..2:42 ranges=1 tsname=
+  [+1 -> +0] RT work@dut.resp_id_t  -> logic_typespec 3:32..3:36 ranges=-1 tsname=
+  [-3 -> -2] RT work@dut.rt_t.resp_id_t resp_id_t -> logic_typespec 2:31..2:42 ranges=1 tsname=
+  [+1 -> +0] RT work@dut.rt_t.resp_id_t resp_id_t -> logic_typespec 3:32..3:36 ranges=-1 tsname=
+===== port_chained_type_param default
+BEFORE differing-facts=18  AFTER differing-facts=18  TO-GOLDEN=5  AWAY-GOLDEN=5
+  [+0 -> +2] RT work@dut.in_i  -> logic_typespec 2:32..2:90 ranges=-1 tsname=
+  [+2 -> +0] RT work@dut.in_i  -> logic_typespec 3:32..3:41 ranges=-1 tsname=
+  [+0 -> +2] RT work@dut.out_o  -> logic_typespec 2:32..2:90 ranges=-1 tsname=
+  [+2 -> +0] RT work@dut.out_o  -> logic_typespec 3:32..3:41 ranges=-1 tsname=
+  [+0 -> +1] RT work@dut.req_t  -> logic_typespec 2:32..2:90 ranges=-1 tsname=
+  [+1 -> +0] RT work@dut.req_t  -> logic_typespec 3:32..3:41 ranges=-1 tsname=
+===== type_param_unpacked_port default
+BEFORE differing-facts=17  AFTER differing-facts=17  TO-GOLDEN=0  AWAY-GOLDEN=0
+===== type_param_packed_dim testflags
+BEFORE differing-facts=11  AFTER differing-facts=5  TO-GOLDEN=7  AWAY-GOLDEN=1
+  [-2 -> +0] RT work@dut.id_i  -> logic_typespec 2:31..2:42 ranges=1 tsname=
+  [+2 -> +0] RT work@dut.id_i  -> logic_typespec 3:32..3:36 ranges=-1 tsname=
+  [+0 -> +1] RT work@dut.resp_id_t  -> logic_typespec 2:31..2:42 ranges=1 tsname=
+  [+1 -> +0] RT work@dut.resp_id_t  -> logic_typespec 3:32..3:36 ranges=-1 tsname=
+  [-3 -> -2] RT work@dut.rt_t.resp_id_t resp_id_t -> logic_typespec 2:31..2:42 ranges=1 tsname=
+  [+1 -> +0] RT work@dut.rt_t.resp_id_t resp_id_t -> logic_typespec 3:32..3:36 ranges=-1 tsname=
+===== port_chained_type_param testflags
+BEFORE differing-facts=18  AFTER differing-facts=18  TO-GOLDEN=5  AWAY-GOLDEN=5
+  [+0 -> +2] RT work@dut.in_i  -> logic_typespec 2:32..2:90 ranges=-1 tsname=
+  [+2 -> +0] RT work@dut.in_i  -> logic_typespec 3:32..3:41 ranges=-1 tsname=
+  [+0 -> +2] RT work@dut.out_o  -> logic_typespec 2:32..2:90 ranges=-1 tsname=
+  [+2 -> +0] RT work@dut.out_o  -> logic_typespec 3:32..3:41 ranges=-1 tsname=
+  [+0 -> +1] RT work@dut.req_t  -> logic_typespec 2:32..2:90 ranges=-1 tsname=
+  [+1 -> +0] RT work@dut.req_t  -> logic_typespec 3:32..3:41 ranges=-1 tsname=
+===== type_param_unpacked_port testflags
+BEFORE differing-facts=17  AFTER differing-facts=17  TO-GOLDEN=0  AWAY-GOLDEN=0

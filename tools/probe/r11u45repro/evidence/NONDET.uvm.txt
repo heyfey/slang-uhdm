@@ -1,0 +1,30 @@
+# The three SURELOG byte movers are the UVM family's PRISTINE NONDETERMINISM,
+# not this pass.  Proof: a NULL SWEEP — the SAME pristine binary run a second
+# time — moves the same databases, including one (SeqDriver/testflags) on which
+# pristine and patched AGREED.  Four runs, four distinct hashes on
+# MiniAmiq/default, exactly the "up to four pristine hashes seen" reading in
+# RESUME.md §9.
+
+MiniAmiq       default   null=b8a9547a1f15 pris=3e767a80b544 pat=e3a4f5345fb4 fin=27419f6011b4  null-vs-pris:MOVED
+MiniAmiq       testflags null=f94cb2fb0853 pris=b6d65f1f8989 pat=0b515cfb7002 fin=cc690ece4061  null-vs-pris:MOVED
+SeqDriver      default   null=c462e6b0b982 pris=b4e7cdeba8e2 pat=5188ce538db1 fin=b4c0d3fb29d8  null-vs-pris:MOVED
+SeqDriver      testflags null=7e0b92951aaa pris=05df6c25a21b pat=05df6c25a21b                    null-vs-pris:MOVED
+Scoreboard     default   null=1621aec6c9f3 pris=1621aec6c9f3 pat=1621aec6c9f3                    null-vs-pris:SAME
+SimpleUVM      default   null=d4f8cd018f2d pris=d4f8cd018f2d pat=d4f8cd018f2d                    null-vs-pris:SAME
+BuildUVMPkg    default   null=429a14a60924 pris=429a14a60924 pat=429a14a60924                    null-vs-pris:SAME
+
+# ORDER-BLIND ATTRIBUTION (sorted whole dumps, workdir path normalised away).
+# Every move is the SAME class: ONE `UINT:<n>` + `vpiDecompile:<n>` pair whose
+# value is a LINE NUMBER, i.e. the macro-buffer SourceLocation ordering flip
+# under slang's parallel parse.  8 diff lines = 4 removed + 4 added.
+
+== patched vs pristine
+MiniAmiq  default    ORDER-BLIND-DIFF=8   UINT/vpiDecompile 661 -> 1009
+MiniAmiq  testflags  ORDER-BLIND-DIFF=8   UINT/vpiDecompile 1093 -> 1267
+SeqDriver default    ORDER-BLIND-DIFF=8   UINT/vpiDecompile 694 -> 878
+
+== NULL SWEEP, same pristine binary, two runs (the positive control)
+SeqDriver testflags  ORDER-BLIND-DIFF=8   UINT/vpiDecompile 643 -> 0
+
+# Row STATUS is unchanged everywhere: every UVM-family row stays CMP_EQUAL
+# (Scoreboard/testflags stays its baseline SLANG_REJECT).

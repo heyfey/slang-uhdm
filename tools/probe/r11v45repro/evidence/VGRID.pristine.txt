@@ -1,0 +1,16 @@
+v10                              slrc=0    ourrc=3    golddump=560    ourdump=-      cmplines=-      heads=-
+v11                              slrc=0    ourrc=0    golddump=376    ourdump=382    cmplines=76     heads=1
+v12                              slrc=0    ourrc=0    golddump=737    ourdump=830    cmplines=0      heads=0
+v1                               slrc=0    ourrc=0    golddump=580    ourdump=581    cmplines=0      heads=0
+v2                               slrc=0    ourrc=0    golddump=362    ourdump=407    cmplines=0      heads=0
+v3                               slrc=0    ourrc=0    golddump=307    ourdump=324    cmplines=76     heads=1
+v4                               slrc=0    ourrc=0    golddump=461    ourdump=352    cmplines=569    heads=1
+v5                               slrc=0    ourrc=0    golddump=248    ourdump=356    cmplines=141    heads=1
+v6                               slrc=0    ourrc=0    golddump=795    ourdump=786    cmplines=0      heads=0
+v7                               slrc=0    ourrc=0    golddump=834    ourdump=859    cmplines=0      heads=0
+v8                               slrc=0    ourrc=0    golddump=509    ourdump=489    cmplines=47     heads=1
+v9                               slrc=0    ourrc=0    golddump=427    ourdump=516    cmplines=0      heads=0
+v10                              slrc=0    ourrc=0    golddump=326    ourdump=351    cmplines=36     heads=1
+v13                              slrc=0    ourrc=0    golddump=558    ourdump=569    cmplines=289    heads=1
+v15                              slrc=0    ourrc=0    golddump=279    ourdump=355    cmplines=0      heads=0
+v16                              slrc=0    ourrc=0    golddump=627    ourdump=723    cmplines=0      heads=0

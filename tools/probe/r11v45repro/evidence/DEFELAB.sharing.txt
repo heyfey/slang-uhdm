@@ -1,0 +1,27 @@
+# GOLDEN'S DEF/ELAB TYPE-PARAMETER SHARING RULE, decoded by pointer identity
+# (r11v45, vid45v.cpp; this is the mechanism R1 needs and it is NOT this pass's law)
+#
+# AN INSTANCE'S type_parameter IS THE DEFINITION'S OBJECT unless THAT parameter
+# was OVERRIDDEN at the instantiation, in which case golden builds a fresh one.
+# Six independent arms, every pointer interned inside ONE database:
+
+arm  parameter                       AllModules(def)  TopModules(inst)  overridden?
+v7   child.b_t / dut.u1.b_t          tp#5             tp#5   SHARED     no
+v7   child.b_t / dut.u2.b_t          tp#5             tp#5   SHARED     no
+v7   child.a_t / dut.u1.a_t          tp#3             tp#8   FRESH      YES
+g10  child.b_t / dut.u.b_t           tp#5             tp#5   SHARED     no
+g10  child.a_t / dut.u.a_t           tp#3             tp#8   FRESH      YES
+v13  child.use_t / dut.u.use_t       tp#5             tp#5   SHARED     no
+v13  child.base_t / dut.u.base_t     tp#3             tp#8   FRESH      YES
+v6   leaf.y_t / dut.u.u.y_t          tp#5             tp#5   SHARED     no
+v6   leaf.x_t / dut.u.u.x_t          tp#3             tp#14  FRESH      YES
+v1   child.a_t,b_t / dut.u.a_t,b_t   tp#3,tp#5        tp#8,tp#11 FRESH   YES (both)
+CORPUS type_param_override_elem_sel:
+     child.rt_t / dut.u.rt_t         tp#6             tp#6   SHARED     no (a localparam)
+     child.id_t / dut.u.id_t         tp#3             tp#12  FRESH      YES
+
+OURS builds TWO objects in every one of these cases (g1 pristine and fixed:
+AllModules tp#3 vs TopModules tp#8/tp#9).  That is why golden's DEFINITION
+listing of type_param_override_elem_sel shows the INSTANCE's re-resolved
+element and ours shows the declaration's: the head is a SHARING difference,
+not a chain-borrow one.

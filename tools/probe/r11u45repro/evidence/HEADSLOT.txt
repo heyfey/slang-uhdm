@@ -1,0 +1,46 @@
+=== the head SLOT, named from the database (pristine)
+##### type_param_packed_dim
+Compare r=1
+failedLhs: #86 logic_typespec () loc=2:31..2:42
+failedRhs: <unset>
+  parent[1]: <null>
+  ownerRef: #161 ref_typespec (resp_id_t) loc=0:0..0:0 full=work@dut.rt_t.resp_id_t
+            refParent: #104 packed_array_typespec () loc=5:31..5:52
+            refGrandparent: #181 type_parameter (rt_t) loc=5:21..5:25
+##### type_param_override_elem_sel
+Compare r=1
+failedLhs: #112 logic_typespec () loc=32:17..32:28
+failedRhs: <unset>
+  parent[1]: <null>
+  ownerRef: #221 ref_typespec (id_t) loc=0:0..0:0 full=work@child.rt_t.id_t
+            refParent: #132 packed_array_typespec () loc=17:31..17:47
+            refGrandparent: #244 type_parameter (rt_t) loc=17:21..17:25
+##### port_chained_type_param
+Compare r=-3
+failedLhs: #126 struct_typespec () loc=2:32..2:38
+failedRhs: #141 logic_typespec () loc=2:32..2:90
+  parent[1]: <null>
+  ownerRef: #100 ref_typespec () loc=0:0..0:0 full=work@dut.noc_req_t
+            refParent: #136 type_parameter (noc_req_t) loc=2:20..2:29
+            refGrandparent: #77 module_inst () loc=1:1..10:10
+  ownerRef: #101 ref_typespec () loc=0:0..0:0 full=work@dut.req_t
+            refParent: #137 type_parameter (req_t) loc=3:20..3:25
+            refGrandparent: #77 module_inst () loc=1:1..10:10
+  ownerRef: #116 ref_typespec () loc=0:0..0:0 full=work@dut.in_i
+            refParent: #82 port (in_i) loc=6:18..6:22
+            refGrandparent: #78 module_inst (work@dut) loc=1:1..10:10
+  ownerRef: #117 ref_typespec () loc=0:0..0:0 full=work@dut.out_o
+            refParent: #83 port (out_o) loc=7:18..7:23
+            refGrandparent: #78 module_inst (work@dut) loc=1:1..10:10
+  ownerRef: #119 ref_typespec () loc=0:0..0:0 full=work@dut.in_i
+            refParent: #124 struct_net (in_i) loc=6:18..6:22
+            refGrandparent: #78 module_inst (work@dut) loc=1:1..10:10
+  ownerRef: #120 ref_typespec () loc=0:0..0:0 full=work@dut.out_o
+            refParent: #125 struct_net (out_o) loc=7:18..7:23
+            refGrandparent: #78 module_inst (work@dut) loc=1:1..10:10
+  ownerRef: #122 ref_typespec () loc=0:0..0:0 full=work@dut.in_i
+            refParent: #85 port (in_i) loc=6:18..6:22
+            refGrandparent: #77 module_inst () loc=1:1..10:10
+  ownerRef: #123 ref_typespec () loc=0:0..0:0 full=work@dut.out_o
+            refParent: #86 port (out_o) loc=7:18..7:23
+            refGrandparent: #77 module_inst () loc=1:1..10:10

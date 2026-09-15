@@ -1,0 +1,42 @@
+LHS:
+decompile:
+sys_func_call: ($bits), id:16, line:4:37, endln:4:53
+|vpiParent:
+\_operation: , id:15, line:4:32, endln:4:53
+|vpiArgument:
+\_ref_obj: (work@dut.resp_id_t), id:17, line:4:43, endln:4:52
+  |vpiParent:
+  \_sys_func_call: ($bits), id:16, line:4:37, endln:4:53
+  |vpiName:resp_id_t
+  |vpiFullName:work@dut.resp_id_t
+|vpiName:$bits
+
+decompile:
+sys_func_call: ($bits), id:16, line:4:37, endln:4:53
+|vpiParent:
+\_operation: , id:15, line:4:32, endln:4:53
+|vpiArgument:
+\_ref_obj: (work@dut.resp_id_t), id:17, line:4:43, endln:4:52
+  |vpiParent:
+  \_sys_func_call: ($bits), id:16, line:4:37, endln:4:53
+  |vpiName:resp_id_t
+  |vpiFullName:work@dut.resp_id_t
+|vpiName:$bits
+RHS:
+decompile:
+constant: , id:15, line:4:37, endln:4:53
+|vpiParent:
+\_operation: , id:13, line:4:32, endln:4:53
+|vpiDecompile:2
+|vpiSize:64
+|UINT:2
+|vpiConstType:9
+
+decompile:
+constant: , id:15, line:4:37, endln:4:53
+|vpiParent:
+\_operation: , id:13, line:4:32, endln:4:53
+|vpiDecompile:2
+|vpiSize:64
+|UINT:2
+|vpiConstType:9

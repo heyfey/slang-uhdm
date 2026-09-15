@@ -1,0 +1,15 @@
+g10                              slrc=0    ourrc=0    golddump=526    ourdump=540    cmplines=0      heads=0
+g11                              slrc=0    ourrc=0    golddump=378    ourdump=354    cmplines=60     heads=1
+g12                              slrc=0    ourrc=0    golddump=323    ourdump=385    cmplines=0      heads=0
+g13                              slrc=0    ourrc=0    golddump=248    ourdump=297    cmplines=0      heads=0
+g14                              slrc=0    ourrc=0    golddump=442    ourdump=505    cmplines=17     heads=1
+g15                              slrc=0    ourrc=0    golddump=250    ourdump=300    cmplines=0      heads=0
+g1                               slrc=0    ourrc=0    golddump=249    ourdump=297    cmplines=0      heads=0
+g2                               slrc=0    ourrc=0    golddump=264    ourdump=326    cmplines=0      heads=0
+g3                               slrc=0    ourrc=0    golddump=291    ourdump=306    cmplines=17     heads=1
+g4                               slrc=0    ourrc=0    golddump=299    ourdump=325    cmplines=90     heads=1
+g5                               slrc=0    ourrc=0    golddump=281    ourdump=309    cmplines=82     heads=1
+g6                               slrc=0    ourrc=3    golddump=246    ourdump=-      cmplines=-      heads=-
+g7                               slrc=0    ourrc=0    golddump=276    ourdump=280    cmplines=17     heads=1
+g8                               slrc=0    ourrc=0    golddump=310    ourdump=311    cmplines=69     heads=1
+g9                               slrc=0    ourrc=0    golddump=364    ourdump=411    cmplines=0      heads=0

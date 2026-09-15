@@ -1,0 +1,4 @@
+== 136-arm wide boundary, pristine vs FIXED (135 earlier-pass arms + 1 positive control)
+PROCESSED=136 LISTED=136 MOVERS=1 (ZZPOSCTL__dut.sv = type_param_packed_dim/dut.sv, the deliberate control)
+
+arms from: r11u17 r11u18 r11u20 r11u21 r11u26 r11u29 r11u30 r11u31 r11u34 r11u40 r11u41 r11u42 r11u43

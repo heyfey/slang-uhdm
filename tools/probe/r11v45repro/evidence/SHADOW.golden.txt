@@ -1,0 +1,24 @@
+===== v3
+-- GOLDEN
+TP AllModules   work@dut.a_t tp#3 rt#2 ts#1 kind=logic_typespec loc=6:26..6:37 ranges=1 tsname=
+TP AllModules   work@dut.b_t tp#6 rt#5 ts#4 kind=logic_typespec loc=4:9..4:20 ranges=1 tsname=a_t
+TP TopModules   work@dut.a_t tp#3 rt#2 ts#1 kind=logic_typespec loc=6:26..6:37 ranges=1 tsname=
+TP TopModules   work@dut.b_t tp#6 rt#5 ts#4 kind=logic_typespec loc=4:9..4:20 ranges=1 tsname=a_t
+===== v17
+-- GOLDEN
+TP AllModules   work@dut.a_t tp#3 rt#2 ts#1 kind=logic_typespec loc=8:26..8:37 ranges=1 tsname=
+TP AllModules   work@dut.b_t tp#6 rt#5 ts#4 kind=logic_typespec loc=6:9..6:20 ranges=1 tsname=a_t
+TP TopModules   work@dut.a_t tp#3 rt#2 ts#1 kind=logic_typespec loc=8:26..8:37 ranges=1 tsname=
+TP TopModules   work@dut.b_t tp#6 rt#5 ts#4 kind=logic_typespec loc=6:9..6:20 ranges=1 tsname=a_t
+===== v19
+-- GOLDEN
+TP AllModules   work@dut.a_t tp#3 rt#2 ts#1 kind=logic_typespec loc=9:26..9:37 ranges=1 tsname=
+TP AllModules   work@dut.b_t tp#6 rt#5 ts#4 kind=logic_typespec loc=4:11..4:22 ranges=1 tsname=a_t
+TP TopModules   work@dut.a_t tp#3 rt#2 ts#1 kind=logic_typespec loc=9:26..9:37 ranges=1 tsname=
+TP TopModules   work@dut.b_t tp#6 rt#5 ts#4 kind=logic_typespec loc=4:11..4:22 ranges=1 tsname=a_t
+===== v20
+-- GOLDEN
+TP AllModules   work@dut.a_t tp#3 rt#2 ts#1 kind=logic_typespec loc=4:26..4:37 ranges=1 tsname=
+TP AllModules   work@dut.b_t tp#6 rt#5 ts#4 kind=logic_typespec loc=9:9..9:20 ranges=1 tsname=a_t
+TP TopModules   work@dut.a_t tp#3 rt#2 ts#1 kind=logic_typespec loc=4:26..4:37 ranges=1 tsname=
+TP TopModules   work@dut.b_t tp#6 rt#5 ts#4 kind=logic_typespec loc=9:9..9:20 ranges=1 tsname=a_t

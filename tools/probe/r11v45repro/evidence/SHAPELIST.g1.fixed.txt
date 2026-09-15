@@ -1,0 +1,6 @@
+TP AllModules   work@dut.id_t tp#3 rt#2 ts#1 kind=logic_typespec loc=3:32..3:43 ranges=1 tsname=
+TP AllModules   work@dut.resp_id_t tp#5 rt#4 ts#1 kind=logic_typespec loc=3:32..3:43 ranges=1 tsname=
+TP TopModules   work@dut.id_t tp#8 rt#7 ts#6 kind=logic_typespec loc=3:32..3:43 ranges=1 tsname=
+TP TopModules   work@dut.resp_id_t tp#10 rt#9 ts#6 kind=logic_typespec loc=3:32..3:43 ranges=1 tsname=
+TS ts#1 kind=logic_typespec loc=3:32..3:43 ranges=1 name= parent=type_parameter(id_t)
+TS ts#6 kind=logic_typespec loc=3:32..3:43 ranges=1 name= parent=logic_var(i)

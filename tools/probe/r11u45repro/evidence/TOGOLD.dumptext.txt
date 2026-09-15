@@ -1,0 +1,72 @@
+port_chained_type_param        default   before=54    after=53    TO-GOLDEN=7    AWAY-GOLDEN=6
+  -- lines that STOPPED differing (TO-GOLDEN):
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     > \_logic_typespec: , line:3:32, endln:3:41
+     >   |vpiParent:
+  -- lines that STARTED differing (AWAY-GOLDEN):
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     <   \_type_parameter: (work@dut.req_t), line:3:20, endln:3:25
+type_param_packed_dim          default   before=143   after=140   TO-GOLDEN=7    AWAY-GOLDEN=4
+  -- lines that STOPPED differing (TO-GOLDEN):
+     <       \_logic_typespec: , line:2:31, endln:2:42
+     <     \_logic_typespec: , line:2:31, endln:2:42
+     >       \_logic_typespec: , line:3:32, endln:3:36
+     >       \_logic_typespec: , line:3:32, endln:3:36
+     >       \_logic_typespec: , line:3:32, endln:3:36
+     >     \_logic_typespec: , line:3:32, endln:3:36
+     > \_logic_typespec: , line:3:32, endln:3:36
+  -- lines that STARTED differing (AWAY-GOLDEN):
+     >       \_logic_typespec: , line:2:31, endln:2:42
+     >       \_logic_typespec: , line:2:31, endln:2:42
+     <   \_type_parameter: (work@dut.resp_id_t), line:3:20, endln:3:29
+     <   |vpiParent:
+type_param_unpacked_port       default   before=233   after=233   TO-GOLDEN=1    AWAY-GOLDEN=1
+  -- lines that STOPPED differing (TO-GOLDEN):
+     >     \_type_parameter: (work@dut.resp_t), line:38:20, endln:38:26
+  -- lines that STARTED differing (AWAY-GOLDEN):
+     >     \_type_parameter: (work@dut.base_resp_t), line:37:20, endln:37:31
+== rows=3  TO-GOLDEN=15  AWAY-GOLDEN=11
+port_chained_type_param        testflags before=54    after=53    TO-GOLDEN=7    AWAY-GOLDEN=6
+  -- lines that STOPPED differing (TO-GOLDEN):
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     >       \_logic_typespec: , line:3:32, endln:3:41
+     > \_logic_typespec: , line:3:32, endln:3:41
+     >   |vpiParent:
+  -- lines that STARTED differing (AWAY-GOLDEN):
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     >       \_logic_typespec: , line:2:32, endln:2:90
+     <   \_type_parameter: (work@dut.req_t), line:3:20, endln:3:25
+type_param_packed_dim          testflags before=143   after=140   TO-GOLDEN=7    AWAY-GOLDEN=4
+  -- lines that STOPPED differing (TO-GOLDEN):
+     <       \_logic_typespec: , line:2:31, endln:2:42
+     <     \_logic_typespec: , line:2:31, endln:2:42
+     >       \_logic_typespec: , line:3:32, endln:3:36
+     >       \_logic_typespec: , line:3:32, endln:3:36
+     >       \_logic_typespec: , line:3:32, endln:3:36
+     >     \_logic_typespec: , line:3:32, endln:3:36
+     > \_logic_typespec: , line:3:32, endln:3:36
+  -- lines that STARTED differing (AWAY-GOLDEN):
+     >       \_logic_typespec: , line:2:31, endln:2:42
+     >       \_logic_typespec: , line:2:31, endln:2:42
+     <   \_type_parameter: (work@dut.resp_id_t), line:3:20, endln:3:29
+     <   |vpiParent:
+type_param_unpacked_port       testflags before=233   after=233   TO-GOLDEN=1    AWAY-GOLDEN=1
+  -- lines that STOPPED differing (TO-GOLDEN):
+     >     \_type_parameter: (work@dut.resp_t), line:38:20, endln:38:26
+  -- lines that STARTED differing (AWAY-GOLDEN):
+     >     \_type_parameter: (work@dut.base_resp_t), line:37:20, endln:37:31
+== rows=3  TO-GOLDEN=15  AWAY-GOLDEN=11
