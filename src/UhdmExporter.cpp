@@ -8353,6 +8353,15 @@ UHDM::design* UhdmExporter::exportDesign() {
     // drain, § 26's and § 172's call links, and the ref pools above): the law
     // copies what the receiver ENDED UP with, so it must read a settled edge.
     drainCloneMfcArgRecv184();
+    // § paNameCopiesSrcConst38 (r11u38) — a `param_assign` Rhs folded from a
+    // bare NAME of a package parameter takes that parameter's OWN constant.
+    // DEAD LAST, and for a measured reason: the source's folded constant is
+    // installed by passes later than the `emitParameters` call that built it,
+    // so this law can only read a SETTLED Rhs on both sides.  It writes only
+    // into constants both sides already have; it mints nothing and re-parents
+    // nothing.  ParamEmit.cpp carries the law, the Surelog decode, the golden
+    // grid and the four abstentions.
+    drainPaNameCopySrc38();
     return d;
 }
 

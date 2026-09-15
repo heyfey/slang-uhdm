@@ -1,0 +1,8 @@
+r11v38 — POSITIVE CONTROL for the surelog UVM byte movers.
+The SAME frozen pristine binary, three consecutive runs, one row (MiniAmiq's
+command line taken from the sweep's own cmds.txt):
+325b9bf1d377aa532580d6f6d242d9aa  /tmp/v11u38_coin/p1.uhdm
+32b8ba26c3f6d04f647df0178e340f4f  /tmp/v11u38_coin/p2.uhdm
+031e82fe93d3a5f9dfb5a75a25a632c2  /tmp/v11u38_coin/p3.uhdm
+THREE DIFFERENT DATABASES FROM ONE BINARY — the UVM family's byte movers are
+a per-invocation coin, not a law.

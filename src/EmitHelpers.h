@@ -46,6 +46,29 @@ using namespace slang::ast;
 inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
 // ---------------------------------------------------------------------------
+// r11u38's two instrument switches, shared by both of the pass's laws
+// (§ dimMemberSelBinFold38 in TypeEmit.cpp, § paNameCopiesSrcConst38 in
+// ParamEmit.cpp).  Both are INERT when unset, so the shipped binary behaves
+// exactly as the laws describe.
+//
+//   R11U38_CELLDBG=1  print one line per cell either law CLAIMS, to stderr.
+//   R11U38_OFF=1      compute and trace the claim and WRITE NOTHING — the
+//                     NEUTRAL binary that (a) must be byte-identical to
+//                     pristine over both corpora, which proves the binary
+//                     difference is these two laws and nothing else, and
+//                     (b) NAMES the movers from the PRISTINE emission before
+//                     the patched one is ever run.
+// ---------------------------------------------------------------------------
+inline const bool cellDbg38 = [] {
+    const char* v = getenv("R11U38_CELLDBG");
+    return v && *v && *v != '0';
+}();
+inline const bool lawOff38 = [] {
+    const char* v = getenv("R11U38_OFF");
+    return v && *v && *v != '0';
+}();
+
+// ---------------------------------------------------------------------------
 // § typeParamLocalKeyword18 — the WRITTEN keyword of a TYPE parameter.
 //
 // Surelog stamps `vpiLocalParam` on a `type_parameter` from the DECLARATION

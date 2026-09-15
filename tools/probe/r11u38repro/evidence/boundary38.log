@@ -1,0 +1,15 @@
+-- LISTED=7058 PROCESSED=7058 compile-failed=414
+-- claimed cells: 43
+-- arms with a claimed cell:
+     /tmp/wt_r11u38/tools/probe/r10earl52repro/a3_earl52.sv
+     /tmp/wt_r11u38/tools/probe/r10earl52repro/v1_earl52.sv
+     /tmp/wt_r11u38/tools/probe/r10earl60repro/vfa_v60.sv
+     /tmp/wt_r11u38/tools/probe/r10earl60repro/vfe_v60.sv
+     /tmp/wt_r11u38/tools/probe/r10earl60repro/vff_v60.sv
+     /tmp/wt_r11u38/tools/probe/r10earl_repro/wa.sv
+     /tmp/wt_r11u38/tools/probe/r10v187repro/arms187/v187_i_signedonly.sv
+     /tmp/wt_r11u38/tools/probe/r11u38repro/grid/g1_memsel38.sv
+     /tmp/wt_r11u38/tools/probe/r11u38repro/grid/g2_paenc38.sv
+     /tmp/wt_r11u38/tools/probe/r11u38repro/grid/g3_home38.sv
+-- POSITIVE CONTROL (this pass's own grid arms claim cells): 29 (must be >=1)
+BOUNDARY DRIVER: OK

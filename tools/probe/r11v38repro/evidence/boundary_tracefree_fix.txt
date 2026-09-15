@@ -1,0 +1,15 @@
+-- LISTED=7058 PROCESSED=7058
+-- DIFF=13 NODB=211 SAME=6834
+DIFF /tmp/wt_v11u38/tools/probe/r10buvm22repro/g22.sv prc=4 lrc=4
+DIFF /tmp/wt_v11u38/tools/probe/r10earl52repro/a3_earl52.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r10earl52repro/v1_earl52.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r10earl60repro/vfa_v60.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r10earl60repro/vfe_v60.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r10earl60repro/vff_v60.sv prc=4 lrc=4
+DIFF /tmp/wt_v11u38/tools/probe/r10earl_repro/wa.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r10uvm154repro/l154_noenum.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r10uvm185repro/grid185/g185_e_kinds.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r10v187repro/arms187/v187_i_signedonly.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r11u38repro/grid/g1_memsel38.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r11u38repro/grid/g2_paenc38.sv prc=0 lrc=0
+DIFF /tmp/wt_v11u38/tools/probe/r11u38repro/grid/g3_home38.sv prc=0 lrc=0

@@ -1,0 +1,64 @@
+LHS:
+decompile:
+constant: , id:143, line:16:13, endln:16:15
+|vpiParent:
+\_operation: , id:145, line:16:13, endln:16:17
+|vpiDecompile:00000000000000000000000000000100
+|vpiSize:32
+|BIN:00000000000000000000000000000100
+|vpiTypespec:
+\_ref_typespec: (work@top.inst.mem), id:144
+  |vpiParent:
+  \_constant: , id:143, line:16:13, endln:16:15
+  |vpiFullName:work@top.inst.mem
+  |vpiActual:
+  \_logic_typespec: , id:139, line:5:25, endln:5:37
+|vpiConstType:3
+
+decompile:
+constant: , id:143, line:16:13, endln:16:15
+|vpiParent:
+\_operation: , id:145, line:16:13, endln:16:17
+|vpiDecompile:00000000000000000000000000000100
+|vpiSize:32
+|BIN:00000000000000000000000000000100
+|vpiTypespec:
+\_ref_typespec: (work@top.inst.mem), id:144
+  |vpiParent:
+  \_constant: , id:143, line:16:13, endln:16:15
+  |vpiFullName:work@top.inst.mem
+  |vpiActual:
+  \_logic_typespec: , id:139, line:5:25, endln:5:37
+|vpiConstType:3
+RHS:
+decompile:
+constant: , id:133, line:8:34, endln:8:39
+|vpiParent:
+\_operation: , id:132, line:16:13, endln:16:17
+|vpiDecompile:32'h4
+|vpiSize:32
+|UINT:4
+|vpiTypespec:
+\_ref_typespec: (work@top.inst.mem), id:134
+  |vpiParent:
+  \_constant: , id:133, line:8:34, endln:8:39
+  |vpiFullName:work@top.inst.mem
+  |vpiActual:
+  \_struct_typespec: (test_struct_t), id:135, line:5:9, endln:5:42
+|vpiConstType:9
+
+decompile:
+constant: , id:133, line:8:34, endln:8:39
+|vpiParent:
+\_operation: , id:132, line:16:13, endln:16:17
+|vpiDecompile:32'h4
+|vpiSize:32
+|UINT:4
+|vpiTypespec:
+\_ref_typespec: (work@top.inst.mem), id:134
+  |vpiParent:
+  \_constant: , id:133, line:8:34, endln:8:39
+  |vpiFullName:work@top.inst.mem
+  |vpiActual:
+  \_struct_typespec: (test_struct_t), id:135, line:5:9, endln:5:42
+|vpiConstType:9

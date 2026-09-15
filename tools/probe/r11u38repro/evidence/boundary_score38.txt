@@ -1,0 +1,578 @@
+======== a3_earl52
+== TO-GOLDEN    1
+   uhdmallModules work@a3_earl52.U_pkg
+      G ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      P ['constant UINT:1 ct9 sz32 dec=1']
+      L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+== AWAY-GOLDEN  0
+== MOVED-WRONG  0
+== STILL-WRONG  3
+   uhdmtopModules work@a3_earl52.U_pkg
+      G ["constant BIN:1 ct3 sz32 dec=32'b1"]
+      P ['constant INT:-1 ct7 sz32 dec=-1']
+      L ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.g.G_dir
+      G ['constant INT:-1 ct7 sz32 dec=-1']
+      P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+   uhdmtopModules work@a3_earl52.g.G_tern
+      G ['constant INT:-1 ct7 sz32 dec=-1']
+      P ['constant UINT:1 ct9 sz32 dec=1']
+      L ['constant UINT:1 ct9 sz32 dec=1']
+== ONE-SIDED    2
+   uhdmtopModules G_dir      
+      G ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      P None
+      L None
+   uhdmtopModules G_tern     
+      G ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      P None
+      L None
+== UNMOVED      42
+   uhdmallModules work@a3_earl52.B_tern ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.C ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmallModules work@a3_earl52.CI ['constant UINT:0 ct9 sz64 dec=0']
+   uhdmallModules work@a3_earl52.C_compare ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.C_intparam ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.C_literal ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.C_localpar ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.C_modparam ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.C_notC ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.LC ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmallModules work@a3_earl52.N_nest ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.N_nest2 ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.PB_tern ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.T_then ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.V_bhop ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.V_hop ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.V_tern ['operation None ctNone szNone dec=None']
+   uhdmallModules work@a3_earl52.g.G_dir ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallModules work@a3_earl52.g.G_tern ['operation None ctNone szNone dec=None']
+   uhdmallPackages a3p_earl52::PKGC ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmallPackages a3p_earl52::P_dir ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallPackages a3p_earl52::P_tern ['operation None ctNone szNone dec=None']
+   uhdmtopModules work@a3_earl52.B_tern ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@a3_earl52.C ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmtopModules work@a3_earl52.CI ['constant UINT:0 ct9 sz32 dec=0']
+   uhdmtopModules work@a3_earl52.C_compare ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.C_intparam ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.C_literal ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.C_localpar ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.C_modparam ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.C_notC ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.LC ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmtopModules work@a3_earl52.N_nest ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.N_nest2 ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.PB_tern ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.T_then ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.V_bhop ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.V_hop ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@a3_earl52.V_tern ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopPackages a3p_earl52::PKGC ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmtopPackages a3p_earl52::P_dir ["constant BIN:1 ct3 sz32 dec=1'b1"]
+   uhdmtopPackages a3p_earl52::P_tern ["constant BIN:1 ct3 sz32 dec=1'b1"]
+SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=3 ONE-SIDED=2 UNMOVED=42
+======== v1_earl52
+== TO-GOLDEN    5
+   uhdmallModules work@v1_earl52.I_tern
+      G ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      P ['constant UINT:1 ct9 sz32 dec=1']
+      L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+   uhdmallModules work@v1_earl52.L_tern
+      G ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      P ['constant UINT:1 ct9 sz32 dec=1']
+      L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+   uhdmallModules work@v1_earl52.R_hop
+      G ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      P ['constant UINT:1 ct9 sz32 dec=1']
+      L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+   uhdmallModules work@v1_earl52.R_tb
+      G ["constant BIN:1 ct3 sz1 dec=1'b1"]
+      P ['constant UINT:1 ct9 sz1 dec=1']
+      L ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallModules work@v1_earl52.R_tern
+      G ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      P ['constant UINT:1 ct9 sz32 dec=1']
+      L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+== AWAY-GOLDEN  0
+== MOVED-WRONG  0
+== STILL-WRONG  8
+   uhdmallModules work@v1_earl52.S_tb
+      G ["constant BIN:1 ct3 sz1 dec=1'b1"]
+      P ['constant UINT:1 ct9 sz1 dec=1']
+      L ['constant UINT:1 ct9 sz1 dec=1']
+   uhdmallModules work@v1_earl52.S_tern
+      G ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      P ['constant UINT:1 ct9 sz32 dec=1']
+      L ['constant UINT:1 ct9 sz32 dec=1']
+   uhdmtopModules work@v1_earl52.I_lit1
+      G ['constant INT:-1 ct7 sz32 dec=-1']
+      P ["constant BIN:1 ct3 sz1 dec=1'b1"]
+      L ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@v1_earl52.L_tern
+      G ["constant BIN:1 ct3 sz8 dec=8'b1"]
+      P ['constant INT:-1 ct7 sz32 dec=-1']
+      L ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@v1_earl52.R_hop
+      G ["constant BIN:1 ct3 sz32 dec=32'b1"]
+      P ["constant BIN:1 ct3 sz1 dec=1'b1"]
+      L ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@v1_earl52.R_lit8
+      G ["constant HEX:ab ct5 sz32 dec=32'hab"]
+      P ["constant HEX:ab ct5 sz8 dec=8'hab"]
+      L ["constant HEX:ab ct5 sz8 dec=8'hab"]
+   uhdmtopModules work@v1_earl52.R_tern
+      G ["constant BIN:1 ct3 sz32 dec=32'b1"]
+      P ['constant INT:-1 ct7 sz32 dec=-1']
+      L ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@v1_earl52.S_hop
+      G ["constant BIN:1 ct3 sz32 dec=32'b1"]
+      P ["constant BIN:1 ct3 sz1 dec=1'b1"]
+      L ["constant BIN:1 ct3 sz1 dec=1'b1"]
+== ONE-SIDED    0
+== UNMOVED      45
+   uhdmallModules work@v1_earl52.I_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallModules work@v1_earl52.L_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallModules work@v1_earl52.L_lit8 ["constant HEX:ab ct5 sz8 dec=8'hab"]
+   uhdmallModules work@v1_earl52.M_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallModules work@v1_earl52.M_rlit ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@v1_earl52.M_rter ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@v1_earl52.M_tern ['operation None ctNone szNone dec=None']
+   uhdmallModules work@v1_earl52.PC ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmallModules work@v1_earl52.R_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallModules work@v1_earl52.R_lit8 ["constant HEX:ab ct5 sz8 dec=8'hab"]
+   uhdmallModules work@v1_earl52.R_op ['constant UINT:1 ct9 sz32 dec=1']
+   uhdmallModules work@v1_earl52.S_hop ["constant BIN:1 ct3 sz32 dec=1'b1"]
+   uhdmallModules work@v1_earl52.S_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallModules work@v1_earl52.S_lit8 ["constant HEX:ab ct5 sz8 dec=8'hab"]
+   uhdmallModules work@v1_earl52.S_op ['constant UINT:1 ct9 sz32 dec=1']
+   uhdmallPackages v1p_earl52::PC ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmallPackages v1p_earl52::S_hop ['ref_obj None ctNone szNone dec=None']
+   uhdmallPackages v1p_earl52::S_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallPackages v1p_earl52::S_lit8 ["constant HEX:ab ct5 sz8 dec=8'hab"]
+   uhdmallPackages v1p_earl52::S_op ['operation None ctNone szNone dec=None']
+   uhdmallPackages v1p_earl52::S_tb ['operation None ctNone szNone dec=None']
+   uhdmallPackages v1p_earl52::S_tern ['operation None ctNone szNone dec=None']
+   uhdmtopModules work@v1_earl52.I_tern ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@v1_earl52.L_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@v1_earl52.L_lit8 ["constant HEX:ab ct5 sz8 dec=8'hab"]
+   uhdmtopModules work@v1_earl52.M_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@v1_earl52.M_rlit ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@v1_earl52.M_rter ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@v1_earl52.M_tern ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopModules work@v1_earl52.PC ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmtopModules work@v1_earl52.R_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@v1_earl52.R_op ['constant UINT:1 ct9 sz32 dec=1']
+   uhdmtopModules work@v1_earl52.R_tb ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@v1_earl52.S_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@v1_earl52.S_lit8 ["constant HEX:ab ct5 sz8 dec=8'hab"]
+   uhdmtopModules work@v1_earl52.S_op ['constant UINT:1 ct9 sz32 dec=1']
+   uhdmtopModules work@v1_earl52.S_tb ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@v1_earl52.S_tern ['constant INT:-1 ct7 sz32 dec=-1']
+   uhdmtopPackages v1p_earl52::PC ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmtopPackages v1p_earl52::S_hop ["constant BIN:1 ct3 sz32 dec=1'b1"]
+   uhdmtopPackages v1p_earl52::S_lit1 ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopPackages v1p_earl52::S_lit8 ["constant HEX:ab ct5 sz8 dec=8'hab"]
+   uhdmtopPackages v1p_earl52::S_op ['constant UINT:1 ct9 sz32 dec=1']
+   uhdmtopPackages v1p_earl52::S_tb ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopPackages v1p_earl52::S_tern ["constant BIN:1 ct3 sz32 dec=1'b1"]
+SCORE TO-GOLDEN=5 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=8 ONE-SIDED=0 UNMOVED=45
+======== vfa_v60
+== TO-GOLDEN    2
+   uhdmallModules work@s_a.a_si
+      G ['constant INT:-5 ct7 sz32 dec=-5']
+      P ['constant UINT:0 ct9 sz32 dec=-5']
+      L ['constant INT:-5 ct7 sz32 dec=-5']
+   uhdmallModules work@s_a.a_us
+      G ['constant INT:-3 ct7 sz8 dec=-3']
+      P ['constant UINT:0 ct9 sz8 dec=-3']
+      L ['constant INT:-3 ct7 sz8 dec=-3']
+== AWAY-GOLDEN  0
+== MOVED-WRONG  0
+== STILL-WRONG  8
+   uhdmallModules work@s_a.a_re
+      G ['constant REAL:1.500000 ct2 sz32 dec=1.5']
+      P ['ref_obj None ctNone szNone dec=None']
+      L ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@s_a.a_st
+      G ['constant STRING:abc ct6 sz24 dec="abc"']
+      P ['ref_obj None ctNone szNone dec=None']
+      L ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@s_a.a_tm
+      G ['constant UINT:10000000 ct9 sz64 dec=None']
+      P ['constant UINT:10 ct9 sz64 dec=10']
+      L ['constant UINT:10 ct9 sz64 dec=10']
+   uhdmtopModules work@a1.u_a.a_by
+      G ["constant HEX:7 ct5 sz8 dec=8'h7"]
+      P ["constant HEX:7 ct5 sz8 dec=8'sh7"]
+      L ["constant HEX:7 ct5 sz8 dec=8'sh7"]
+   uhdmtopModules work@a1.u_a.a_re
+      G ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+      P ['ref_obj None ctNone szNone dec=None']
+      L ['ref_obj None ctNone szNone dec=None']
+   uhdmtopModules work@a1.u_a.a_tm
+      G ['constant UINT:10000000 ct9 sz64 dec=10000000']
+      P ['constant UINT:10 ct9 sz64 dec=10']
+      L ['constant UINT:10 ct9 sz64 dec=10']
+   uhdmtopPackages tp::RE    
+      G ['constant REAL:1.500000 ct2 sz32 dec=1.5']
+      P ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+      L ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+   uhdmtopPackages tp::US    
+      G ['constant INT:-3 ct7 sz8 dec=-3']
+      P ['constant INT:-3 ct7 sz64 dec=-3']
+      L ['constant INT:-3 ct7 sz64 dec=-3']
+== ONE-SIDED    0
+== UNMOVED      64
+   uhdmallModules work@s_a.a_bt ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallModules work@s_a.a_by ["constant HEX:7 ct5 sz8 dec=8'sh7"]
+   uhdmallModules work@s_a.a_ev ['constant INT:1 ct7 sz2 dec=1']
+   uhdmallModules work@s_a.a_ig ['constant UINT:14 ct9 sz32 dec=14']
+   uhdmallModules work@s_a.a_lg ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmallModules work@s_a.a_lo ["constant DEC:13 ct1 sz64 dec=64'd13"]
+   uhdmallModules work@s_a.a_md ["constant HEX:34 ct5 sz8 dec=8'h34"]
+   uhdmallModules work@s_a.a_sh ['constant UINT:12 ct9 sz16 dec=12']
+   uhdmallModules work@s_a.a_sv ["constant HEX:12 ct5 sz8 dec=8'h12"]
+   uhdmallModules work@s_a.a_tv ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+   uhdmallModules work@s_a.a_tv2 ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+   uhdmallModules work@s_a.a_ua ['constant UINT:8 ct9 sz32 dec=8']
+   uhdmallModules work@s_a.a_ub ["constant HEX:380 ct5 sz12 dec=12'h380"]
+   uhdmallModules work@s_a.a_ui ['constant UINT:5 ct9 sz32 dec=5']
+   uhdmallPackages tp::BT     ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmallPackages tp::BY     ["constant HEX:7 ct5 sz8 dec=8'sh7"]
+   uhdmallPackages tp::EV     ['ref_obj None ctNone szNone dec=None']
+   uhdmallPackages tp::IG     ['constant UINT:14 ct9 sz64 dec=14']
+   uhdmallPackages tp::LG     ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmallPackages tp::LO     ["constant DEC:13 ct1 sz64 dec=64'd13"]
+   uhdmallPackages tp::MD     ["constant HEX:34 ct5 sz8 dec=8'h34"]
+   uhdmallPackages tp::RE     ['constant REAL:1.500000 ct2 sz64 dec=1.5']
+   uhdmallPackages tp::SH     ['constant UINT:12 ct9 sz64 dec=12']
+   uhdmallPackages tp::SI     ['operation None ctNone szNone dec=None']
+   uhdmallPackages tp::ST     ['constant STRING:abc ct6 sz24 dec="abc"']
+   uhdmallPackages tp::SV     ["constant HEX:12 ct5 sz8 dec=8'h12"]
+   uhdmallPackages tp::TM     ['constant UINT:10000000 ct9 sz64 dec=None']
+   uhdmallPackages tp::TV     ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+   uhdmallPackages tp::UA     ['constant UINT:8 ct9 sz64 dec=8']
+   uhdmallPackages tp::UB     ["constant HEX:380 ct5 sz12 dec=12'h380"]
+   uhdmallPackages tp::UI     ['constant UINT:5 ct9 sz64 dec=5']
+   uhdmallPackages tp::US     ['operation None ctNone szNone dec=None']
+   uhdmtopModules work@a1.u_a.a_bt ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@a1.u_a.a_ev ['constant INT:1 ct7 sz2 dec=1']
+   uhdmtopModules work@a1.u_a.a_ig ['constant UINT:14 ct9 sz32 dec=14']
+   uhdmtopModules work@a1.u_a.a_lg ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmtopModules work@a1.u_a.a_lo ['constant INT:13 ct7 sz64 dec=13']
+   uhdmtopModules work@a1.u_a.a_md ["constant HEX:34 ct5 sz8 dec=8'h34"]
+   uhdmtopModules work@a1.u_a.a_sh ['constant UINT:12 ct9 sz16 dec=12']
+   uhdmtopModules work@a1.u_a.a_si ['constant INT:-5 ct7 sz32 dec=-5']
+   uhdmtopModules work@a1.u_a.a_st ['constant STRING:abc ct6 sz24 dec=abc']
+   uhdmtopModules work@a1.u_a.a_sv ["constant HEX:12 ct5 sz8 dec=8'h12"]
+   uhdmtopModules work@a1.u_a.a_tv ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+   uhdmtopModules work@a1.u_a.a_tv2 ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+   uhdmtopModules work@a1.u_a.a_ua ['constant UINT:8 ct9 sz32 dec=8']
+   uhdmtopModules work@a1.u_a.a_ub ["constant HEX:380 ct5 sz12 dec=12'h380"]
+   uhdmtopModules work@a1.u_a.a_ui ['constant UINT:5 ct9 sz32 dec=5']
+   uhdmtopModules work@a1.u_a.a_us ['constant INT:-3 ct7 sz8 dec=-3']
+   uhdmtopPackages tp::BT     ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopPackages tp::BY     ["constant HEX:7 ct5 sz8 dec=8'sh7"]
+   uhdmtopPackages tp::EV     ['constant INT:1 ct7 sz2 dec=1']
+   uhdmtopPackages tp::IG     ['constant UINT:14 ct9 sz32 dec=14']
+   uhdmtopPackages tp::LG     ["constant BIN:0 ct3 sz1 dec=1'b0"]
+   uhdmtopPackages tp::LO     ["constant DEC:13 ct1 sz64 dec=64'd13"]
+   uhdmtopPackages tp::MD     ["constant HEX:34 ct5 sz8 dec=8'h34"]
+   uhdmtopPackages tp::SH     ['constant UINT:12 ct9 sz16 dec=12']
+   uhdmtopPackages tp::SI     ['constant INT:-5 ct7 sz32 dec=-5']
+   uhdmtopPackages tp::ST     ['constant STRING:abc ct6 sz24 dec="abc"']
+   uhdmtopPackages tp::SV     ["constant HEX:12 ct5 sz8 dec=8'h12"]
+   uhdmtopPackages tp::TM     ['constant UINT:10000000 ct9 sz64 dec=None']
+   uhdmtopPackages tp::TV     ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+   uhdmtopPackages tp::UA     ['constant UINT:8 ct9 sz32 dec=8']
+   uhdmtopPackages tp::UB     ["constant HEX:380 ct5 sz12 dec=12'h380"]
+   uhdmtopPackages tp::UI     ['constant UINT:5 ct9 sz32 dec=5']
+SCORE TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=8 ONE-SIDED=0 UNMOVED=64
+======== vfe_v60
+== TO-GOLDEN    1
+   uhdmallModules work@s_take2.t_un
+      G ['constant INT:-4 ct7 sz32 dec=-4']
+      P ['constant UINT:0 ct9 sz32 dec=-4']
+      L ['constant INT:-4 ct7 sz32 dec=-4']
+== AWAY-GOLDEN  0
+== MOVED-WRONG  1
+   uhdmallModules work@s_take2.t_cmp
+      G ['constant BIN:1 ct3 sz1 dec=1']
+      P ['constant UINT:1 ct9 sz1 dec=1']
+      L ["constant BIN:1 ct3 sz1 dec=1'b1"]
+== STILL-WRONG  17
+   uhdmallModules work@s_take2.t_arr
+      G ['operation None ctNone szNone dec=None']
+      P ['ref_obj None ctNone szNone dec=None']
+      L ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@s_take2.t_bits
+      G ['constant UINT:1 ct9 sz32 dec=1']
+      P ['constant UINT:8 ct9 sz32 dec=8']
+      L ['constant UINT:8 ct9 sz32 dec=8']
+   uhdmallModules work@s_take2.t_call
+      G ['constant UINT:3 ct9 sz32 dec=3']
+      P ['constant INT:3 ct7 sz32 dec=3']
+      L ['constant INT:3 ct7 sz32 dec=3']
+   uhdmallModules work@s_take2.t_cast
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:4 ct9 sz32 dec=4']
+      L ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmallModules work@s_take2.t_cat
+      G ['operation None ctNone szNone dec=None']
+      P ['ref_obj None ctNone szNone dec=None']
+      L ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@s_take2.t_catop
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmtopModules work@a1.u0.t_arr
+      G ['operation None ctNone szNone dec=None']
+      P ['ref_obj None ctNone szNone dec=None']
+      L ['ref_obj None ctNone szNone dec=None']
+   uhdmtopModules work@a1.u0.t_bits
+      G ['constant UINT:1 ct9 sz32 dec=1']
+      P ['constant UINT:8 ct9 sz32 dec=8']
+      L ['constant UINT:8 ct9 sz32 dec=8']
+   uhdmtopModules work@a1.u0.t_call
+      G ['constant UINT:3 ct9 sz32 dec=3']
+      P ['constant INT:3 ct7 sz32 dec=3']
+      L ['constant INT:3 ct7 sz32 dec=3']
+   uhdmtopModules work@a1.u0.t_cast
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:4 ct9 sz32 dec=4']
+      L ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopModules work@a1.u0.t_cat
+      G ["constant BIN:1001 ct3 sz4 dec=4'b1001"]
+      P ['constant UINT:9 ct9 sz4 dec=9']
+      L ['constant UINT:9 ct9 sz4 dec=9']
+   uhdmtopModules work@a1.u0.t_catop
+      G ['constant INT:10 ct7 sz4 dec=10']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmtopPackages sp::I_bits
+      G ['constant UINT:1 ct9 sz32 dec=1']
+      P ['constant UINT:8 ct9 sz32 dec=8']
+      L ['constant UINT:8 ct9 sz32 dec=8']
+   uhdmtopPackages sp::I_call
+      G ['constant UINT:3 ct9 sz32 dec=3']
+      P ['constant INT:3 ct7 sz32 dec=3']
+      L ['constant INT:3 ct7 sz32 dec=3']
+   uhdmtopPackages sp::I_cast
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:4 ct9 sz32 dec=4']
+      L ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopPackages sp::I_catop
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmtopPackages sp::I_cmp 
+      G ['constant BIN:1 ct3 sz1 dec=1']
+      P ["constant BIN:1 ct3 sz1 dec=1'b1"]
+      L ["constant BIN:1 ct3 sz1 dec=1'b1"]
+== ONE-SIDED    0
+== UNMOVED      21
+   uhdmallModules work@s_take2.t_lit ['constant UINT:9 ct9 sz32 dec=9']
+   uhdmallModules work@s_take2.t_szcast ['constant UINT:3 ct9 sz8 dec=3']
+   uhdmallPackages sp::I_arr  ['operation None ctNone szNone dec=None']
+   uhdmallPackages sp::I_bits ['sys_func_call None ctNone szNone dec=None']
+   uhdmallPackages sp::I_call ['func_call None ctNone szNone dec=None']
+   uhdmallPackages sp::I_cast ['operation None ctNone szNone dec=None']
+   uhdmallPackages sp::I_cat  ['operation None ctNone szNone dec=None']
+   uhdmallPackages sp::I_catop ['operation None ctNone szNone dec=None']
+   uhdmallPackages sp::I_cmp  ['operation None ctNone szNone dec=None']
+   uhdmallPackages sp::I_lit  ['constant UINT:9 ct9 sz64 dec=9']
+   uhdmallPackages sp::I_szcast ['operation None ctNone szNone dec=None']
+   uhdmallPackages sp::I_un   ['operation None ctNone szNone dec=None']
+   uhdmtopModules work@a1.u0.t_cmp ["constant BIN:1 ct3 sz1 dec=1'b1"]
+   uhdmtopModules work@a1.u0.t_lit ['constant UINT:9 ct9 sz32 dec=9']
+   uhdmtopModules work@a1.u0.t_szcast ['constant UINT:3 ct9 sz8 dec=3']
+   uhdmtopModules work@a1.u0.t_un ['constant INT:-4 ct7 sz32 dec=-4']
+   uhdmtopPackages sp::I_arr  ['operation None ctNone szNone dec=None']
+   uhdmtopPackages sp::I_cat  ['operation None ctNone szNone dec=None']
+   uhdmtopPackages sp::I_lit  ['constant UINT:9 ct9 sz32 dec=9']
+   uhdmtopPackages sp::I_szcast ['constant UINT:3 ct9 sz8 dec=3']
+   uhdmtopPackages sp::I_un   ['constant INT:-4 ct7 sz32 dec=-4']
+SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-WRONG=17 ONE-SIDED=0 UNMOVED=21
+======== vff_v60
+== TO-GOLDEN    1
+   uhdmallModules work@s_np.u_unm
+      G ['constant INT:-4 ct7 sz32 dec=-4']
+      P ['constant UINT:0 ct9 sz32 dec=-4']
+      L ['constant INT:-4 ct7 sz32 dec=-4']
+== AWAY-GOLDEN  0
+== MOVED-WRONG  1
+   uhdmallModules work@s_np.u_catsel
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:1 ct9 sz2 dec=1']
+      L ["constant BIN:01 ct3 sz2 dec=2'b01"]
+== STILL-WRONG  18
+   uhdmallModules work@s_np.u_cast
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:4 ct9 sz32 dec=4']
+      L ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmallModules work@s_np.u_cat
+      G ['operation None ctNone szNone dec=None']
+      P ['ref_obj None ctNone szNone dec=None']
+      L ['ref_obj None ctNone szNone dec=None']
+   uhdmallModules work@s_np.u_catop
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmallModules work@s_np.u_optcat
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmallModules work@s_np.u_replop
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:15 ct9 sz4 dec=15']
+      L ['constant UINT:15 ct9 sz4 dec=15']
+   uhdmallModules work@s_np.u_terncat
+      G ['constant BIN:1001 ct3 sz4 dec=None']
+      P ['constant UINT:9 ct9 sz4 dec=9']
+      L ['constant UINT:9 ct9 sz4 dec=9']
+   uhdmallPackages np::N_catsel
+      G ['operation None ctNone szNone dec=None']
+      P ['<none> None ctNone szNone dec=None']
+      L ['<none> None ctNone szNone dec=None']
+   uhdmtopModules work@a1.u0.u_cast
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:4 ct9 sz32 dec=4']
+      L ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopModules work@a1.u0.u_cat
+      G ["constant BIN:1001 ct3 sz4 dec=4'b1001"]
+      P ['constant UINT:9 ct9 sz4 dec=9']
+      L ['constant UINT:9 ct9 sz4 dec=9']
+   uhdmtopModules work@a1.u0.u_catop
+      G ['constant INT:10 ct7 sz4 dec=10']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmtopModules work@a1.u0.u_optcat
+      G ['constant INT:10 ct7 sz4 dec=10']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmtopModules work@a1.u0.u_terncat
+      G ["constant BIN:1001 ct3 sz4 dec=4'b1001"]
+      P ['constant UINT:9 ct9 sz4 dec=9']
+      L ['constant UINT:9 ct9 sz4 dec=9']
+   uhdmtopPackages np::N_cast
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:4 ct9 sz32 dec=4']
+      L ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopPackages np::N_catop
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmtopPackages np::N_catsel
+      G ['operation None ctNone szNone dec=None']
+      P ["constant BIN:01 ct3 sz2 dec=2'b01"]
+      L ["constant BIN:01 ct3 sz2 dec=2'b01"]
+   uhdmtopPackages np::N_optcat
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:10 ct9 sz4 dec=10']
+      L ['constant UINT:10 ct9 sz4 dec=10']
+   uhdmtopPackages np::N_replop
+      G ['operation None ctNone szNone dec=None']
+      P ['constant UINT:15 ct9 sz4 dec=15']
+      L ['constant UINT:15 ct9 sz4 dec=15']
+   uhdmtopPackages np::N_terncat
+      G ['constant BIN:1001 ct3 sz4 dec=None']
+      P ['constant UINT:9 ct9 sz4 dec=9']
+      L ['constant UINT:9 ct9 sz4 dec=9']
+== ONE-SIDED    0
+== UNMOVED      32
+   uhdmallModules work@s_np.u_castop ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmallModules work@s_np.u_castr ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmallModules work@s_np.u_catbits ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmallModules work@s_np.u_plain ['constant UINT:7 ct9 sz32 dec=7']
+   uhdmallModules work@s_np.u_szcast ['constant UINT:3 ct9 sz8 dec=3']
+   uhdmallPackages np::N_cast ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_castop ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_castr ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_cat  ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_catbits ['sys_func_call None ctNone szNone dec=None']
+   uhdmallPackages np::N_catop ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_optcat ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_plain ['constant UINT:7 ct9 sz64 dec=7']
+   uhdmallPackages np::N_replop ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_szcast ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_terncat ['operation None ctNone szNone dec=None']
+   uhdmallPackages np::N_unm  ['operation None ctNone szNone dec=None']
+   uhdmtopModules work@a1.u0.u_castop ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopModules work@a1.u0.u_castr ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopModules work@a1.u0.u_catbits ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopModules work@a1.u0.u_catsel ["constant BIN:01 ct3 sz2 dec=2'b01"]
+   uhdmtopModules work@a1.u0.u_plain ['constant UINT:7 ct9 sz32 dec=7']
+   uhdmtopModules work@a1.u0.u_replop ['constant UINT:15 ct9 sz4 dec=15']
+   uhdmtopModules work@a1.u0.u_szcast ['constant UINT:3 ct9 sz8 dec=3']
+   uhdmtopModules work@a1.u0.u_unm ['constant INT:-4 ct7 sz32 dec=-4']
+   uhdmtopPackages np::N_castop ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopPackages np::N_castr ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopPackages np::N_cat  ['operation None ctNone szNone dec=None']
+   uhdmtopPackages np::N_catbits ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopPackages np::N_plain ['constant UINT:7 ct9 sz32 dec=7']
+   uhdmtopPackages np::N_szcast ['constant UINT:3 ct9 sz8 dec=3']
+   uhdmtopPackages np::N_unm  ['constant INT:-4 ct7 sz32 dec=-4']
+SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-WRONG=18 ONE-SIDED=0 UNMOVED=32
+======== wa
+== TO-GOLDEN    1
+   uhdmallModules work@wamod.F
+      G ['constant INT:0 ct7 sz32 dec=0']
+      P ['constant UINT:0 ct9 sz32 dec=0']
+      L ['constant INT:0 ct7 sz32 dec=0']
+== AWAY-GOLDEN  0
+== MOVED-WRONG  0
+== STILL-WRONG  0
+== ONE-SIDED    0
+== UNMOVED      35
+   uhdmallModules work@wamod.A ['constant INT:0 ct7 sz32 dec=0']
+   uhdmallModules work@wamod.B ['constant INT:4 ct7 sz32 dec=4']
+   uhdmallModules work@wamod.C ['constant UINT:20 ct9 sz32 dec=20']
+   uhdmallModules work@wamod.D ['constant INT:0 ct7 sz32 dec=0']
+   uhdmallModules work@wamod.E ['constant UINT:20 ct9 sz32 dec=20']
+   uhdmallModules work@wamod.WB2 ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmallModules work@wamod.WD2 ['constant UINT:16 ct9 sz32 dec=16']
+   uhdmallPackages wap::WBW   ['constant UINT:4 ct9 sz64 dec=4']
+   uhdmallPackages wap::WDW   ['constant UINT:16 ct9 sz64 dec=16']
+   uhdmallPackages waq::A     ['operation None ctNone szNone dec=None']
+   uhdmallPackages waq::B     ['operation None ctNone szNone dec=None']
+   uhdmallPackages waq::C     ['operation None ctNone szNone dec=None']
+   uhdmallPackages waq::D     ['operation None ctNone szNone dec=None']
+   uhdmallPackages waq::E     ['operation None ctNone szNone dec=None']
+   uhdmallPackages waq::F     ['ref_obj None ctNone szNone dec=None']
+   uhdmallPackages waq::WB2   ['constant UINT:4 ct9 sz64 dec=4']
+   uhdmallPackages waq::WD2   ['constant UINT:16 ct9 sz64 dec=16']
+   uhdmtopModules work@wamod.A ['constant INT:0 ct7 sz32 dec=0']
+   uhdmtopModules work@wamod.B ['constant INT:4 ct7 sz32 dec=4']
+   uhdmtopModules work@wamod.C ['constant UINT:20 ct9 sz32 dec=20']
+   uhdmtopModules work@wamod.D ['constant INT:0 ct7 sz32 dec=0']
+   uhdmtopModules work@wamod.E ['constant UINT:20 ct9 sz32 dec=20']
+   uhdmtopModules work@wamod.F ['constant INT:0 ct7 sz32 dec=0']
+   uhdmtopModules work@wamod.WB2 ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopModules work@wamod.WD2 ['constant UINT:16 ct9 sz32 dec=16']
+   uhdmtopPackages wap::WBW   ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopPackages wap::WDW   ['constant UINT:16 ct9 sz32 dec=16']
+   uhdmtopPackages waq::A     ['constant INT:0 ct7 sz32 dec=0']
+   uhdmtopPackages waq::B     ['constant INT:4 ct7 sz32 dec=4']
+   uhdmtopPackages waq::C     ['constant UINT:20 ct9 sz32 dec=20']
+   uhdmtopPackages waq::D     ['constant INT:0 ct7 sz32 dec=0']
+   uhdmtopPackages waq::E     ['constant UINT:20 ct9 sz32 dec=20']
+   uhdmtopPackages waq::F     ['constant INT:0 ct7 sz32 dec=0']
+   uhdmtopPackages waq::WB2   ['constant UINT:4 ct9 sz32 dec=4']
+   uhdmtopPackages waq::WD2   ['constant UINT:16 ct9 sz32 dec=16']
+SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=0 ONE-SIDED=0 UNMOVED=35
+======== v187_i_signedonly
+== TO-GOLDEN    1
+   uhdmallModules work@mi187.MI
+      G ['constant INT:-3 ct7 sz32 dec=-3']
+      P ['constant UINT:0 ct9 sz32 dec=-3']
+      L ['constant INT:-3 ct7 sz32 dec=-3']
+== AWAY-GOLDEN  0
+== MOVED-WRONG  0
+== STILL-WRONG  0
+== ONE-SIDED    0
+== UNMOVED      3
+   uhdmallPackages pi187::I_P ['operation None ctNone szNone dec=None']
+   uhdmtopModules work@mi187.MI ['constant INT:-3 ct7 sz32 dec=-3']
+   uhdmtopPackages pi187::I_P ['constant INT:-3 ct7 sz32 dec=-3']
+SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=0 ONE-SIDED=0 UNMOVED=3

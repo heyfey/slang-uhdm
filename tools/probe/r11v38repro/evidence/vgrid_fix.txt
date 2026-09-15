@@ -1,0 +1,490 @@
+outdir:    /tmp/v11u38_vgrid
+pristine:  /tmp/v11u38_pris.bin  (fad856692f9431ebe8e264a4ed99f3bf)
+candidate: /tmp/v11u38_fix.bin  (ff892b60f90271e398bb5b7adadf31c1)
+v1_memsel    golden_rc=0   pristine_rc=0   candidate_rc=0   FATAL=0 ERROR=0
+   -- census dim
+      == TO-GOLDEN    22
+         array_net work@v1_top.u_def.memw
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000100 ct3 sz32 dec=00000000000000000000000000000100 ts=logic_typespec @22:15 | None ctNone szNone dec=None ts=None @22:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:4 ct9 sz32 dec=32'h9 ts=struct_typespec @42:14 | None ctNone szNone dec=None ts=None @42:14 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000100 ct3 sz32 dec=00000000000000000000000000000100 ts=logic_typespec @22:15 | None ctNone szNone dec=None ts=None @22:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_net work@v1_top.u_ovr.memw
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000001001 ct3 sz32 dec=00000000000000000000000000001001 ts=logic_typespec @22:15 | None ctNone szNone dec=None ts=None @22:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz32 dec=32'h9 ts=struct_typespec @42:14 | None ctNone szNone dec=None ts=None @42:14 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000001001 ct3 sz32 dec=00000000000000000000000000001001 ts=logic_typespec @22:15 | None ctNone szNone dec=None ts=None @22:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.lmem
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000111 ct3 sz32 dec=00000000000000000000000000000111 ts=logic_typespec @46:15 | None ctNone szNone dec=None ts=None @46:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:7 ct9 sz32 dec=32'h7 ts=struct_typespec @45:25 | None ctNone szNone dec=None ts=None @45:25 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000111 ct3 sz32 dec=00000000000000000000000000000111 ts=logic_typespec @46:15 | None ctNone szNone dec=None ts=None @46:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.mem1
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000100 ct3 sz32 dec=00000000000000000000000000000100 ts=logic_typespec @21:15 | None ctNone szNone dec=None ts=None @21:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:4 ct9 sz32 dec=32'h9 ts=struct_typespec @42:14 | None ctNone szNone dec=None ts=None @42:14 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000100 ct3 sz32 dec=00000000000000000000000000000100 ts=logic_typespec @21:15 | None ctNone szNone dec=None ts=None @21:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.meme
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0110 ct3 sz4 dec=0110 ts=enum_typespec @28:15 | None ctNone szNone dec=None ts=None @28:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:6 ct9 sz4 dec=8'h6A ts=struct_typespec @19:35 | None ctNone szNone dec=None ts=None @19:35 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0110 ct3 sz4 dec=0110 ts=enum_typespec @28:15 | None ctNone szNone dec=None ts=None @28:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.memf
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:1010 ct3 sz4 dec=1010 ts=logic_typespec @27:15 | None ctNone szNone dec=None ts=None @27:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:10 ct9 sz4 dec=8'h6A ts=struct_typespec @19:35 | None ctNone szNone dec=None ts=None @19:35 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:1010 ct3 sz4 dec=1010 ts=logic_typespec @27:15 | None ctNone szNone dec=None ts=None @27:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.memm
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00111100 ct3 sz8 dec=00111100 ts=logic_typespec @26:15 | None ctNone szNone dec=None ts=None @26:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:60 ct9 sz8 dec=16'h5A3C ts=struct_typespec @18:38 | None ctNone szNone dec=None ts=None @18:38 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00111100 ct3 sz8 dec=00111100 ts=logic_typespec @26:15 | None ctNone szNone dec=None ts=None @26:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.memmd
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000100 ct3 sz32 dec=00000000000000000000000000000100 ts=logic_typespec @31:15 | None ctNone szNone dec=None ts=None @31:15 | INT:1 ct7 sz64 dec=None ts=None @- | UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0101 ct3 sz4 dec=0101 ts=logic_typespec @31:21 | None ctNone szNone dec=None ts=None @31:21 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:4 ct9 sz32 dec=32'h9 ts=struct_typespec @42:14 | None ctNone szNone dec=None ts=None @42:14 | INT:1 ct7 sz64 dec=None ts=None @- | UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:5 ct9 sz4 dec=12'h0A3 ts=struct_typespec @42:26 | None ctNone szNone dec=None ts=None @42:26 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000100 ct3 sz32 dec=00000000000000000000000000000100 ts=logic_typespec @31:15 | None ctNone szNone dec=None ts=None @31:15 | INT:1 ct7 sz64 dec=None ts=None @- | UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0101 ct3 sz4 dec=0101 ts=logic_typespec @31:21 | None ctNone szNone dec=None ts=None @31:21 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.memn
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0101 ct3 sz4 dec=0101 ts=logic_typespec @25:15 | None ctNone szNone dec=None ts=None @25:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ['UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:5 ct9 sz4 dec=5 ts=int_typespec @25:15 | None ctNone szNone dec=None ts=None @25:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0101 ct3 sz4 dec=0101 ts=logic_typespec @25:15 | None ctNone szNone dec=None ts=None @25:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.mems
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001111 ct3 sz8 dec=00001111 ts=logic_typespec @24:15 | None ctNone szNone dec=None ts=None @24:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:15 ct9 sz8 dec=12'h0A3 ts=struct_typespec @42:26 | None ctNone szNone dec=None ts=None @42:26 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001111 ct3 sz8 dec=00001111 ts=logic_typespec @24:15 | None ctNone szNone dec=None ts=None @24:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.memu
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0101 ct3 sz4 dec=0101 ts=logic_typespec @23:15 | None ctNone szNone dec=None ts=None @23:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:5 ct9 sz4 dec=12'h0A3 ts=struct_typespec @42:26 | None ctNone szNone dec=None ts=None @42:26 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0101 ct3 sz4 dec=0101 ts=logic_typespec @23:15 | None ctNone szNone dec=None ts=None @23:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.memv
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001001 ct3 sz8 dec=00001001 ts=logic_typespec @29:15 | None ctNone szNone dec=None ts=None @29:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz8 dec=16'h0709 ts=struct_typespec @20:35 | None ctNone szNone dec=None ts=None @20:35 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001001 ct3 sz8 dec=00001001 ts=logic_typespec @29:15 | None ctNone szNone dec=None ts=None @29:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_if.imem
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000110 ct3 sz32 dec=00000000000000000000000000000110 ts=logic_typespec @37:15 | None ctNone szNone dec=None ts=None @37:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:6 ct9 sz32 dec=32'h6 ts=struct_typespec @36:40 | None ctNone szNone dec=None ts=None @36:40 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000110 ct3 sz32 dec=00000000000000000000000000000110 ts=logic_typespec @37:15 | None ctNone szNone dec=None ts=None @37:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.mem1
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000001001 ct3 sz32 dec=00000000000000000000000000001001 ts=logic_typespec @21:15 | None ctNone szNone dec=None ts=None @21:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz32 dec=32'h9 ts=struct_typespec @42:14 | None ctNone szNone dec=None ts=None @42:14 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000001001 ct3 sz32 dec=00000000000000000000000000001001 ts=logic_typespec @21:15 | None ctNone szNone dec=None ts=None @21:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.meme
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0110 ct3 sz4 dec=0110 ts=enum_typespec @28:15 | None ctNone szNone dec=None ts=None @28:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:6 ct9 sz4 dec=8'h6A ts=struct_typespec @19:35 | None ctNone szNone dec=None ts=None @19:35 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0110 ct3 sz4 dec=0110 ts=enum_typespec @28:15 | None ctNone szNone dec=None ts=None @28:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.memf
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:1010 ct3 sz4 dec=1010 ts=logic_typespec @27:15 | None ctNone szNone dec=None ts=None @27:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:10 ct9 sz4 dec=8'h6A ts=struct_typespec @19:35 | None ctNone szNone dec=None ts=None @19:35 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:1010 ct3 sz4 dec=1010 ts=logic_typespec @27:15 | None ctNone szNone dec=None ts=None @27:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.memm
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00111100 ct3 sz8 dec=00111100 ts=logic_typespec @26:15 | None ctNone szNone dec=None ts=None @26:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:60 ct9 sz8 dec=16'h5A3C ts=struct_typespec @18:38 | None ctNone szNone dec=None ts=None @18:38 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00111100 ct3 sz8 dec=00111100 ts=logic_typespec @26:15 | None ctNone szNone dec=None ts=None @26:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.memmd
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000001001 ct3 sz32 dec=00000000000000000000000000001001 ts=logic_typespec @31:15 | None ctNone szNone dec=None ts=None @31:15 | INT:1 ct7 sz64 dec=None ts=None @- | UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0011 ct3 sz4 dec=0011 ts=logic_typespec @31:21 | None ctNone szNone dec=None ts=None @31:21 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz32 dec=32'h9 ts=struct_typespec @42:14 | None ctNone szNone dec=None ts=None @42:14 | INT:1 ct7 sz64 dec=None ts=None @- | UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:3 ct9 sz4 dec=12'h0A3 ts=struct_typespec @42:26 | None ctNone szNone dec=None ts=None @42:26 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000001001 ct3 sz32 dec=00000000000000000000000000001001 ts=logic_typespec @31:15 | None ctNone szNone dec=None ts=None @31:15 | INT:1 ct7 sz64 dec=None ts=None @- | UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0011 ct3 sz4 dec=0011 ts=logic_typespec @31:21 | None ctNone szNone dec=None ts=None @31:21 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.memn
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0101 ct3 sz4 dec=0101 ts=logic_typespec @25:15 | None ctNone szNone dec=None ts=None @25:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ['UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:5 ct9 sz4 dec=5 ts=int_typespec @25:15 | None ctNone szNone dec=None ts=None @25:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0101 ct3 sz4 dec=0101 ts=logic_typespec @25:15 | None ctNone szNone dec=None ts=None @25:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.mems
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001010 ct3 sz8 dec=00001010 ts=logic_typespec @24:15 | None ctNone szNone dec=None ts=None @24:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:10 ct9 sz8 dec=12'h0A3 ts=struct_typespec @42:26 | None ctNone szNone dec=None ts=None @42:26 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001010 ct3 sz8 dec=00001010 ts=logic_typespec @24:15 | None ctNone szNone dec=None ts=None @24:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.memu
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0011 ct3 sz4 dec=0011 ts=logic_typespec @23:15 | None ctNone szNone dec=None ts=None @23:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:3 ct9 sz4 dec=12'h0A3 ts=struct_typespec @42:26 | None ctNone szNone dec=None ts=None @42:26 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0011 ct3 sz4 dec=0011 ts=logic_typespec @23:15 | None ctNone szNone dec=None ts=None @23:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.memv
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001001 ct3 sz8 dec=00001001 ts=logic_typespec @29:15 | None ctNone szNone dec=None ts=None @29:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz8 dec=16'h0709 ts=struct_typespec @20:35 | None ctNone szNone dec=None ts=None @20:35 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001001 ct3 sz8 dec=00001001 ts=logic_typespec @29:15 | None ctNone szNone dec=None ts=None @29:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+      == AWAY-GOLDEN  0
+      == MOVED-WRONG  3
+         array_net work@v1_if.imem 
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:6 ct9 sz32 dec=32'h6 ts=struct_typespec @36:40 | None ctNone szNone dec=None ts=None @36:40 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000110 ct3 sz32 dec=00000000000000000000000000000110 ts=logic_typespec @37:15 | None ctNone szNone dec=None ts=None @37:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_def.memq
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ['UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz16 dec=9 ts=struct_typespec @- | None ctNone szNone dec=None ts=None @- | INT:1 ct7 sz64 dec=None ts=None @-']
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0000000000001001 ct3 sz16 dec=0000000000001001 ts=logic_typespec @30:15 | None ctNone szNone dec=None ts=None @30:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.memq
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ['UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz16 dec=9 ts=struct_typespec @- | None ctNone szNone dec=None ts=None @- | INT:1 ct7 sz64 dec=None ts=None @-']
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:0000000000001001 ct3 sz16 dec=0000000000001001 ts=logic_typespec @30:15 | None ctNone szNone dec=None ts=None @30:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+      == STILL-WRONG  1
+         array_var work@v1_top.gb[0].gmem
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000000000000000000000000000111 ct3 sz32 dec=00000000000000000000000000000111 ts=logic_typespec @50:19 | None ctNone szNone dec=None ts=None @50:19 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ['UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:7 ct9 sz32 dec=7 ts=int_typespec @50:19 | None ctNone szNone dec=None ts=None @50:19 | INT:1 ct7 sz64 dec=None ts=None @-']
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:7 ct9 sz32 dec=7 ts=int_typespec @50:19 | None ctNone szNone dec=None ts=None @50:19 | INT:1 ct7 sz64 dec=None ts=None @-']
+      == ONE-SIDED    0
+      == UNMOVED      4
+         array_var work@v1_top.u_def.memr ['INT:4 ct7 sz64 dec=4 ts=None @32:15 | UINT:0 ct9 sz64 dec=0 ts=None @32:22']
+         array_var work@v1_top.u_def.memx ['UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:6 ct9 sz64 dec=6 ts=None @33:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v1_top.u_ovr.memr ['INT:2 ct7 sz64 dec=2 ts=None @32:15 | UINT:0 ct9 sz64 dec=0 ts=None @32:22']
+         array_var work@v1_top.u_ovr.memx ['UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:4 ct9 sz64 dec=4 ts=None @33:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+      SCORE TO-GOLDEN=22 AWAY-GOLDEN=0 MOVED-WRONG=3 STILL-WRONG=1 ONE-SIDED=0 UNMOVED=4
+v2_paenc     golden_rc=0   pristine_rc=0   candidate_rc=0   FATAL=0 ERROR=0
+   -- census pa
+      == TO-GOLDEN    11
+         uhdmallModules work@v2_m.L_CMP
+            G ['constant BIN:1 ct3 sz1 dec=1']
+            P ['constant UINT:1 ct9 sz1 dec=1']
+            L ['constant BIN:1 ct3 sz1 dec=1']
+         uhdmallModules work@v2_m.L_SUB
+            G ['constant INT:22 ct7 sz32 dec=22']
+            P ['constant UINT:22 ct9 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+         uhdmallModules work@v2_m.P_CMP
+            G ['constant BIN:1 ct3 sz1 dec=1']
+            P ['constant UINT:1 ct9 sz1 dec=1']
+            L ['constant BIN:1 ct3 sz1 dec=1']
+         uhdmallModules work@v2_m.P_HOP
+            G ['constant INT:22 ct7 sz32 dec=22']
+            P ['constant UINT:22 ct9 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+         uhdmallModules work@v2_m.P_MUL
+            G ['constant INT:64 ct7 sz32 dec=64']
+            P ['constant UINT:64 ct9 sz32 dec=64']
+            L ['constant INT:64 ct7 sz32 dec=64']
+         uhdmallModules work@v2_m.P_NEGT
+            G ['constant INT:-5 ct7 sz32 dec=-5']
+            P ['constant UINT:0 ct9 sz32 dec=-5']
+            L ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmallModules work@v2_m.P_PLAIN
+            G ['constant INT:22 ct7 sz32 dec=22']
+            P ['constant UINT:22 ct9 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+         uhdmallModules work@v2_m.P_QUAL
+            G ['constant INT:22 ct7 sz32 dec=22']
+            P ['constant UINT:22 ct9 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+         uhdmallModules work@v2_m.P_TRUNC
+            G ['constant INT:22 ct7 sz32 dec=22']
+            P ['constant UINT:22 ct9 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+         uhdmallModules work@v2_top.T_SUB
+            G ['constant INT:22 ct7 sz32 dec=22']
+            P ['constant UINT:22 ct9 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopPackages work@v2_if.I_SUB
+            G ['constant INT:22 ct7 sz32 dec=22']
+            P ['constant UINT:22 ct9 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+      == AWAY-GOLDEN  0
+      == MOVED-WRONG  0
+      == STILL-WRONG  12
+         uhdmallModules work@v2_m.CMPV
+            G ['constant BIN:1 ct3 sz1 dec=1']
+            P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+            L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+         uhdmtopModules work@v2_top.u0.CMPV
+            G ["constant BIN:1 ct3 sz1 dec=1'b1"]
+            P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+            L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+         uhdmtopModules work@v2_top.u0.L_CMP
+            G ["constant BIN:1 ct3 sz1 dec=1'b1"]
+            P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+            L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+         uhdmtopModules work@v2_top.u0.P_TRUNC
+            G ['constant INT:22 ct7 sz4 dec=22']
+            P ['constant INT:22 ct7 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u0.P_TRUNC2
+            G ["constant HEX:A5 ct5 sz2 dec=2'hA5"]
+            P ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+            L ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopModules work@v2_top.u1.CMPV
+            G ["constant BIN:1 ct3 sz1 dec=1'b1"]
+            P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+            L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+         uhdmtopModules work@v2_top.u1.L_CMP
+            G ["constant BIN:1 ct3 sz1 dec=1'b1"]
+            P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+            L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+         uhdmtopModules work@v2_top.u1.P_TRUNC
+            G ['constant INT:22 ct7 sz4 dec=22']
+            P ['constant INT:22 ct7 sz32 dec=22']
+            L ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u1.P_TRUNC2
+            G ["constant HEX:A5 ct5 sz2 dec=2'hA5"]
+            P ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+            L ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopModules work@v2_top.u_if.CMPV
+            G ["constant BIN:1 ct3 sz1 dec=1'b1"]
+            P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+            L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+         uhdmtopPackages ip2::CMPV 
+            G ['constant BIN:1 ct3 sz1 dec=1']
+            P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+            L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+         uhdmtopPackages work@v2_if.CMPV
+            G ['constant BIN:1 ct3 sz1 dec=1']
+            P ["constant BIN:1 ct3 sz32 dec=1'b1"]
+            L ["constant BIN:1 ct3 sz32 dec=1'b1"]
+      == ONE-SIDED    0
+      == UNMOVED      96
+         uhdmallModules work@v2_m.A32 ['constant UINT:32 ct9 sz32 dec=32']
+         uhdmallModules work@v2_m.ADDU ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmallModules work@v2_m.DVEC ["constant DEC:12 ct1 sz6 dec=6'd12"]
+         uhdmallModules work@v2_m.HOP ['constant INT:22 ct7 sz32 dec=22']
+         uhdmallModules work@v2_m.LVEC ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmallModules work@v2_m.L_LOC ['ref_obj None ctNone szNone dec=None']
+         uhdmallModules work@v2_m.MUL ['constant INT:64 ct7 sz32 dec=64']
+         uhdmallModules work@v2_m.NEG ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmallModules work@v2_m.OVEC ["constant OCT:17 ct4 sz9 dec=9'o17"]
+         uhdmallModules work@v2_m.P_ADDU ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmallModules work@v2_m.P_DEC ["constant DEC:12 ct1 sz6 dec=6'd12"]
+         uhdmallModules work@v2_m.P_HEX ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmallModules work@v2_m.P_OCT ["constant OCT:17 ct4 sz9 dec=9'o17"]
+         uhdmallModules work@v2_m.P_TRUNC2 ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmallModules work@v2_m.SUB ['constant INT:22 ct7 sz32 dec=22']
+         uhdmallPackages ip2::A32   ['constant UINT:32 ct9 sz64 dec=32']
+         uhdmallPackages ip2::ADDU  ['operation None ctNone szNone dec=None']
+         uhdmallPackages ip2::CMPV  ['operation None ctNone szNone dec=None']
+         uhdmallPackages ip2::DVEC  ["constant DEC:12 ct1 sz6 dec=6'd12"]
+         uhdmallPackages ip2::HOP   ['ref_obj None ctNone szNone dec=None']
+         uhdmallPackages ip2::LVEC  ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmallPackages ip2::MUL   ['operation None ctNone szNone dec=None']
+         uhdmallPackages ip2::NEG   ['operation None ctNone szNone dec=None']
+         uhdmallPackages ip2::OVEC  ["constant OCT:17 ct4 sz9 dec=9'o17"]
+         uhdmallPackages ip2::SUB   ['operation None ctNone szNone dec=None']
+         uhdmtopModules work@v2_top.T_SUB ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u0.A32 ['constant UINT:32 ct9 sz32 dec=32']
+         uhdmtopModules work@v2_top.u0.ADDU ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmtopModules work@v2_top.u0.DVEC ['constant INT:12 ct7 sz6 dec=12']
+         uhdmtopModules work@v2_top.u0.HOP ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u0.LVEC ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopModules work@v2_top.u0.L_LOC ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u0.L_SUB ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u0.MUL ['constant INT:64 ct7 sz32 dec=64']
+         uhdmtopModules work@v2_top.u0.NEG ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmtopModules work@v2_top.u0.OVEC ['constant UINT:15 ct9 sz9 dec=15']
+         uhdmtopModules work@v2_top.u0.P_ADDU ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmtopModules work@v2_top.u0.P_CMP ["constant BIN:1 ct3 sz1 dec=1'b1"]
+         uhdmtopModules work@v2_top.u0.P_DEC ['constant INT:12 ct7 sz6 dec=12']
+         uhdmtopModules work@v2_top.u0.P_HEX ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopModules work@v2_top.u0.P_HOP ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u0.P_MUL ['constant INT:64 ct7 sz32 dec=64']
+         uhdmtopModules work@v2_top.u0.P_NEGT ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmtopModules work@v2_top.u0.P_OCT ['constant UINT:15 ct9 sz9 dec=15']
+         uhdmtopModules work@v2_top.u0.P_PLAIN ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u0.P_QUAL ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u0.SUB ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u1.A32 ['constant UINT:32 ct9 sz32 dec=32']
+         uhdmtopModules work@v2_top.u1.ADDU ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmtopModules work@v2_top.u1.DVEC ['constant INT:12 ct7 sz6 dec=12']
+         uhdmtopModules work@v2_top.u1.HOP ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u1.LVEC ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopModules work@v2_top.u1.L_LOC ['constant UINT:7 ct9 sz32 dec=7']
+         uhdmtopModules work@v2_top.u1.L_SUB ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u1.MUL ['constant INT:64 ct7 sz32 dec=64']
+         uhdmtopModules work@v2_top.u1.NEG ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmtopModules work@v2_top.u1.OVEC ['constant UINT:15 ct9 sz9 dec=15']
+         uhdmtopModules work@v2_top.u1.P_ADDU ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmtopModules work@v2_top.u1.P_CMP ["constant BIN:1 ct3 sz1 dec=1'b1"]
+         uhdmtopModules work@v2_top.u1.P_DEC ['constant INT:12 ct7 sz6 dec=12']
+         uhdmtopModules work@v2_top.u1.P_HEX ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopModules work@v2_top.u1.P_HOP ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u1.P_MUL ['constant INT:64 ct7 sz32 dec=64']
+         uhdmtopModules work@v2_top.u1.P_NEGT ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmtopModules work@v2_top.u1.P_OCT ['constant UINT:15 ct9 sz9 dec=15']
+         uhdmtopModules work@v2_top.u1.P_PLAIN ['constant UINT:7 ct9 sz32 dec=7']
+         uhdmtopModules work@v2_top.u1.P_QUAL ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u1.SUB ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u_if.A32 ['constant UINT:32 ct9 sz32 dec=32']
+         uhdmtopModules work@v2_top.u_if.ADDU ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmtopModules work@v2_top.u_if.DVEC ['constant INT:12 ct7 sz6 dec=12']
+         uhdmtopModules work@v2_top.u_if.HOP ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u_if.I_SUB ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopModules work@v2_top.u_if.LVEC ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopModules work@v2_top.u_if.MUL ['constant INT:64 ct7 sz32 dec=64']
+         uhdmtopModules work@v2_top.u_if.NEG ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmtopModules work@v2_top.u_if.OVEC ['constant UINT:15 ct9 sz9 dec=15']
+         uhdmtopModules work@v2_top.u_if.SUB ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopPackages ip2::A32   ['constant UINT:32 ct9 sz32 dec=32']
+         uhdmtopPackages ip2::ADDU  ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmtopPackages ip2::DVEC  ["constant DEC:12 ct1 sz6 dec=6'd12"]
+         uhdmtopPackages ip2::HOP   ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopPackages ip2::LVEC  ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopPackages ip2::MUL   ['constant INT:64 ct7 sz32 dec=64']
+         uhdmtopPackages ip2::NEG   ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmtopPackages ip2::OVEC  ["constant OCT:17 ct4 sz9 dec=9'o17"]
+         uhdmtopPackages ip2::SUB   ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopPackages work@v2_if.A32 ['constant UINT:32 ct9 sz32 dec=32']
+         uhdmtopPackages work@v2_if.ADDU ['constant UINT:40 ct9 sz32 dec=40']
+         uhdmtopPackages work@v2_if.DVEC ["constant DEC:12 ct1 sz6 dec=6'd12"]
+         uhdmtopPackages work@v2_if.HOP ['constant INT:22 ct7 sz32 dec=22']
+         uhdmtopPackages work@v2_if.LVEC ["constant HEX:A5 ct5 sz8 dec=8'hA5"]
+         uhdmtopPackages work@v2_if.MUL ['constant INT:64 ct7 sz32 dec=64']
+         uhdmtopPackages work@v2_if.NEG ['constant INT:-5 ct7 sz32 dec=-5']
+         uhdmtopPackages work@v2_if.OVEC ["constant OCT:17 ct4 sz9 dec=9'o17"]
+         uhdmtopPackages work@v2_if.SUB ['constant INT:22 ct7 sz32 dec=22']
+      SCORE TO-GOLDEN=11 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=12 ONE-SIDED=0 UNMOVED=96
+v3_pa2       golden_rc=0   pristine_rc=0   candidate_rc=0   FATAL=0 ERROR=0
+   -- census pa
+      == TO-GOLDEN    2
+         uhdmallModules work@v3_m.P_SIG
+            G ['constant INT:-3 ct7 sz32 dec=-3']
+            P ['constant UINT:0 ct9 sz32 dec=-3']
+            L ['constant INT:-3 ct7 sz32 dec=-3']
+         uhdmallModules work@v3_m.P_SUBW
+            G ['constant INT:12 ct7 sz32 dec=12']
+            P ['constant UINT:12 ct9 sz32 dec=12']
+            L ['constant INT:12 ct7 sz32 dec=12']
+      == AWAY-GOLDEN  0
+      == MOVED-WRONG  0
+      == STILL-WRONG  15
+         uhdmallModules work@v3_gen.RP
+            G ['constant REAL:1.500000 ct2 sz32 dec=1.5']
+            P ['constant REAL:1.500000 ct2 sz64 dec=1.5']
+            L ['constant REAL:1.500000 ct2 sz64 dec=1.5']
+         uhdmallModules work@v3_gen.SIGP
+            G ['constant INT:-3 ct7 sz32 dec=-3']
+            P ['operation None ctNone szNone dec=None']
+            L ['operation None ctNone szNone dec=None']
+         uhdmallModules work@v3_m.P_REAL
+            G ['constant REAL:1.500000 ct2 sz32 dec=1.5']
+            P ['ref_obj None ctNone szNone dec=None']
+            L ['ref_obj None ctNone szNone dec=None']
+         uhdmallModules work@v3_m.P_STR
+            G ['constant STRING:abc ct6 sz24 dec="abc"']
+            P ['ref_obj None ctNone szNone dec=None']
+            L ['ref_obj None ctNone szNone dec=None']
+         uhdmallModules work@v3_m.P_X
+            G ["constant BIN:x1 ct3 sz4 dec=4'bx1"]
+            P ['ref_obj None ctNone szNone dec=None']
+            L ['ref_obj None ctNone szNone dec=None']
+         uhdmallModules work@v3_m.RP
+            G ['constant REAL:1.500000 ct2 sz32 dec=1.5']
+            P ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+            L ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+         uhdmallModules work@v3_m.SIGP
+            G ['constant INT:-3 ct7 sz32 dec=-3']
+            P ['constant INT:-3 ct7 sz64 dec=-3']
+            L ['constant INT:-3 ct7 sz64 dec=-3']
+         uhdmtopModules work@v3_top.u0.P_ENUM
+            G ['constant INT:2 ct7 sz32 dec=2']
+            P ['constant INT:2 ct7 sz2 dec=2']
+            L ['constant INT:2 ct7 sz2 dec=2']
+         uhdmtopModules work@v3_top.u0.P_REAL
+            G ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+            P ['ref_obj None ctNone szNone dec=None']
+            L ['ref_obj None ctNone szNone dec=None']
+         uhdmtopModules work@v3_top.u0.P_SIG
+            G ['constant INT:-3 ct7 sz32 dec=-3']
+            P ['constant INT:-3 ct7 sz64 dec=-3']
+            L ['constant INT:-3 ct7 sz64 dec=-3']
+         uhdmtopModules work@v3_top.u0.P_X
+            G ["constant BIN:x1 ct3 sz4 dec=4'bx1"]
+            P ['ref_obj None ctNone szNone dec=None']
+            L ['ref_obj None ctNone szNone dec=None']
+         uhdmtopModules work@v3_top.u0.SIGP
+            G ['constant INT:-3 ct7 sz32 dec=-3']
+            P ['constant INT:-3 ct7 sz64 dec=-3']
+            L ['constant INT:-3 ct7 sz64 dec=-3']
+         uhdmtopModules work@v3_top.ug.SIGP
+            G ['constant INT:-3 ct7 sz32 dec=-3']
+            P ['constant INT:-3 ct7 sz64 dec=-3']
+            L ['constant INT:-3 ct7 sz64 dec=-3']
+         uhdmtopPackages pa3::RP   
+            G ['constant REAL:1.500000 ct2 sz32 dec=1.5']
+            P ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+            L ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+         uhdmtopPackages pa3::SIGP 
+            G ['constant INT:-3 ct7 sz32 dec=-3']
+            P ['constant INT:-3 ct7 sz64 dec=-3']
+            L ['constant INT:-3 ct7 sz64 dec=-3']
+      == ONE-SIDED    2
+         uhdmtopModules CL         
+            G ['constant INT:12 ct7 sz32 dec=12']
+            P None
+            L None
+         uhdmtopModules GL         
+            G ['constant INT:12 ct7 sz32 dec=12', 'constant INT:12 ct7 sz32 dec=12']
+            P None
+            L None
+      == UNMOVED      47
+         uhdmallModules work@v3_gen.EP ['constant INT:2 ct7 sz2 dec=2']
+         uhdmallModules work@v3_gen.SP ['constant STRING:abc ct6 sz24 dec="abc"']
+         uhdmallModules work@v3_gen.SUBW ['constant INT:12 ct7 sz32 dec=12']
+         uhdmallModules work@v3_gen.TIMEP ['constant UINT:4 ct9 sz32 dec=4']
+         uhdmallModules work@v3_gen.W ['constant UINT:16 ct9 sz32 dec=16']
+         uhdmallModules work@v3_gen.XVAL ["constant BIN:x1 ct3 sz4 dec=4'bx1"]
+         uhdmallModules work@v3_gen.cond.CL ['ref_obj None ctNone szNone dec=None']
+         uhdmallModules work@v3_m.EP ['constant INT:2 ct7 sz2 dec=2']
+         uhdmallModules work@v3_m.P_ENUM ['constant INT:2 ct7 sz2 dec=2']
+         uhdmallModules work@v3_m.SP ['constant STRING:abc ct6 sz24 dec="abc"']
+         uhdmallModules work@v3_m.SUBW ['constant INT:12 ct7 sz32 dec=12']
+         uhdmallModules work@v3_m.TIMEP ['constant UINT:4 ct9 sz32 dec=4']
+         uhdmallModules work@v3_m.W ['constant UINT:16 ct9 sz32 dec=16']
+         uhdmallModules work@v3_m.XVAL ["constant BIN:x1 ct3 sz4 dec=4'bx1"]
+         uhdmallPackages pa3::EP    ['ref_obj None ctNone szNone dec=None']
+         uhdmallPackages pa3::RP    ['constant REAL:1.500000 ct2 sz64 dec=1.5']
+         uhdmallPackages pa3::SIGP  ['operation None ctNone szNone dec=None']
+         uhdmallPackages pa3::SP    ['constant STRING:abc ct6 sz24 dec="abc"']
+         uhdmallPackages pa3::SUBW  ['operation None ctNone szNone dec=None']
+         uhdmallPackages pa3::TIMEP ['constant UINT:4 ct9 sz64 dec=4']
+         uhdmallPackages pa3::W     ['constant UINT:16 ct9 sz64 dec=16']
+         uhdmallPackages pa3::XVAL  ["constant BIN:x1 ct3 sz4 dec=4'bx1"]
+         uhdmtopModules work@v3_top.u0.EP ['constant INT:2 ct7 sz2 dec=2']
+         uhdmtopModules work@v3_top.u0.P_STR ['constant STRING:abc ct6 sz24 dec=abc']
+         uhdmtopModules work@v3_top.u0.P_SUBW ['constant INT:12 ct7 sz32 dec=12']
+         uhdmtopModules work@v3_top.u0.RP ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+         uhdmtopModules work@v3_top.u0.SP ['constant STRING:abc ct6 sz24 dec=abc']
+         uhdmtopModules work@v3_top.u0.SUBW ['constant INT:12 ct7 sz32 dec=12']
+         uhdmtopModules work@v3_top.u0.TIMEP ['constant UINT:4 ct9 sz32 dec=4']
+         uhdmtopModules work@v3_top.u0.W ['constant UINT:16 ct9 sz32 dec=16']
+         uhdmtopModules work@v3_top.u0.XVAL ["constant BIN:x1 ct3 sz4 dec=4'bx1"]
+         uhdmtopModules work@v3_top.ug.EP ['constant INT:2 ct7 sz2 dec=2']
+         uhdmtopModules work@v3_top.ug.RP ['constant REAL:1.500000 ct2 sz64 dec=1.500000']
+         uhdmtopModules work@v3_top.ug.SP ['constant STRING:abc ct6 sz24 dec=abc']
+         uhdmtopModules work@v3_top.ug.SUBW ['constant INT:12 ct7 sz32 dec=12']
+         uhdmtopModules work@v3_top.ug.TIMEP ['constant UINT:4 ct9 sz32 dec=4']
+         uhdmtopModules work@v3_top.ug.W ['constant UINT:16 ct9 sz32 dec=16']
+         uhdmtopModules work@v3_top.ug.XVAL ["constant BIN:x1 ct3 sz4 dec=4'bx1"]
+         uhdmtopModules work@v3_top.ug.cond.CL ['constant INT:12 ct7 sz32 dec=12']
+         uhdmtopModules work@v3_top.ug.g[0].GL ['constant INT:12 ct7 sz32 dec=12']
+         uhdmtopModules work@v3_top.ug.g[1].GL ['constant INT:12 ct7 sz32 dec=12']
+         uhdmtopPackages pa3::EP    ['constant INT:2 ct7 sz2 dec=2']
+         uhdmtopPackages pa3::SP    ['constant STRING:abc ct6 sz24 dec="abc"']
+         uhdmtopPackages pa3::SUBW  ['constant INT:12 ct7 sz32 dec=12']
+         uhdmtopPackages pa3::TIMEP ['constant UINT:4 ct9 sz32 dec=4']
+         uhdmtopPackages pa3::W     ['constant UINT:16 ct9 sz32 dec=16']
+         uhdmtopPackages pa3::XVAL  ["constant BIN:x1 ct3 sz4 dec=4'bx1"]
+      SCORE TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=15 ONE-SIDED=2 UNMOVED=47
+v4_memsel2   golden_rc=0   pristine_rc=0   candidate_rc=0   FATAL=0 ERROR=0
+   -- census dim
+      == TO-GOLDEN    4
+         array_var work@v4_top.u_c.lmem
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000110 ct3 sz8 dec=00000110 ts=logic_typespec @12:15 | None ctNone szNone dec=None ts=None @12:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:6 ct9 sz8 dec=16'h0604 ts=struct_typespec @11:24 | None ctNone szNone dec=None ts=None @11:24 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000110 ct3 sz8 dec=00000110 ts=logic_typespec @12:15 | None ctNone szNone dec=None ts=None @12:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v4_top.u_c.lmemy
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000100 ct3 sz8 dec=00000100 ts=logic_typespec @13:16 | None ctNone szNone dec=None ts=None @13:16 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:4 ct9 sz8 dec=16'h0604 ts=struct_typespec @11:24 | None ctNone szNone dec=None ts=None @11:24 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000100 ct3 sz8 dec=00000100 ts=logic_typespec @13:16 | None ctNone szNone dec=None ts=None @13:16 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v4_top.u_d.pmem
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000011 ct3 sz8 dec=00000011 ts=logic_typespec @22:15 | None ctNone szNone dec=None ts=None @22:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:3 ct9 sz8 dec=16'h0302 ts=struct_typespec @18:23 | None ctNone szNone dec=None ts=None @18:23 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000011 ct3 sz8 dec=00000011 ts=logic_typespec @22:15 | None ctNone szNone dec=None ts=None @22:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+         array_var work@v4_top.u_e.pmem
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000011 ct3 sz8 dec=00000011 ts=logic_typespec @22:15 | None ctNone szNone dec=None ts=None @22:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:3 ct9 sz8 dec=16'h0302 ts=struct_typespec @18:23 | None ctNone szNone dec=None ts=None @18:23 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000011 ct3 sz8 dec=00000011 ts=logic_typespec @22:15 | None ctNone szNone dec=None ts=None @22:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+      == AWAY-GOLDEN  0
+      == MOVED-WRONG  0
+      == STILL-WRONG  2
+         array_var work@v4_top.u_a.tmem
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00000101 ct3 sz8 dec=00000101 ts=logic_typespec @6:15 | None ctNone szNone dec=None ts=None @6:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:5 ct9 sz8 dec=16'h0503 ts=int_typespec @6:15 | None ctNone szNone dec=None ts=None @6:15 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:5 ct9 sz8 dec=16'h0503 ts=int_typespec @6:15 | None ctNone szNone dec=None ts=None @6:15 | INT:1 ct7 sz64 dec=None ts=None @-"]
+         array_var work@v4_top.u_b.tmem
+            G ['UINT:0 ct9 sz64 dec=0 ts=None @- | BIN:00001001 ct3 sz8 dec=00001001 ts=logic_typespec @6:15 | None ctNone szNone dec=None ts=None @6:15 | INT:1 ct7 sz64 dec=None ts=None @-']
+            P ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz8 dec=16'h0503 ts=int_typespec @6:15 | None ctNone szNone dec=None ts=None @6:15 | INT:1 ct7 sz64 dec=None ts=None @-"]
+            L ["UINT:0 ct9 sz64 dec=0 ts=None @- | UINT:9 ct9 sz8 dec=16'h0503 ts=int_typespec @6:15 | None ctNone szNone dec=None ts=None @6:15 | INT:1 ct7 sz64 dec=None ts=None @-"]
+      == ONE-SIDED    0
+      == UNMOVED      0
+      SCORE TO-GOLDEN=4 AWAY-GOLDEN=0 MOVED-WRONG=0 STILL-WRONG=2 ONE-SIDED=0 UNMOVED=0
+--- NEGATIVE CONTROL: an arm that reaches nothing
+zz           golden_rc=1   pristine_rc=2   candidate_rc=2   FATAL=0 ERROR=0
+   !! ARM COMPILED NOTHING
+
+-- arms=5 compiled-nothing=1 (must be exactly 1: zz)
+-- POSITIVE CONTROL golden BIN member fold present: 3 (>=1)
+-- POSITIVE CONTROL golden ct-7 param_assign present: 57 (>=1)
+GRID CONTROLS: PASS

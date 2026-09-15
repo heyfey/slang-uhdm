@@ -3401,6 +3401,17 @@ private:
     bool boundReduceEnc33(const slang::syntax::ExpressionSyntax& e,
                           const slang::ast::Scope* scope, int64_t value,
                           int32_t& ct, int32_t& size);
+    /// § dimMemberSelBinFold38 — the member slice a size-form unpacked
+    /// dimension written `[<struct param>.<member>]` folds to: the member's
+    /// own bits (MSB-first, nesting simply adds the offsets), its width, THE
+    /// MEMBER'S OWN typespec object out of the shared typedef typespec, and
+    /// the BASE NAME expression whose token the producer re-spans the fold on.
+    /// Returns false to ABSTAIN, which always leaves the caller's own answer
+    /// untouched; a partial answer is never written.
+    bool memberSelBinFold38(const slang::ast::Expression& e,
+                            std::string& bits, int32_t& width,
+                            UHDM::typespec*& memTs,
+                            const slang::ast::Expression*& baseExpr);
     /// § dimExprBoundFold79 — the span the folded bound takes: the LEFT
     /// operand of a binary (parens stripped at the top only), the OPERATOR
     /// TOKEN of a unary, the whole expression otherwise.
@@ -10040,6 +10051,30 @@ private:
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
         pendingEnumIdxRefs;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
+    // § paNameCopiesSrcConst38 (r11u38) — every PACKAGE parameter whose
+    // DEFINITION-listing `param_assign` Rhs came out a constant, keyed by its
+    // symbol.  Published at the end of each package DEF-view `emitParameters`
+    // call and read by the same drain in every later listing: this is the
+    // definition-time `Value` Surelog substitutes for a bare name, and it is
+    // deliberately WIDER than `pkgParamConst`, which only records the
+    // literal-initializer arm.
+    // § paNameCopiesSrcConst38 (r11u38) — the ELABORATED package listing's
+    // `param_assign` per parameter symbol.  THE ELABORATED one: golden's
+    // `uhdmallPackages` is written before elaboration and keeps a reducible
+    // default as an `operation`, while `uhdmtopPackages` carries the reduced
+    // constant every reader of the name is handed.  The OBJECT is stored, not
+    // its Rhs: a package parameter's folded constant is installed by passes
+    // that run AFTER `emitParameters` returns, so only a design-level drain
+    // reading through this handle sees the settled Value.
+    std::map<const slang::ast::Symbol*, UHDM::param_assign*> pkgValuePa38;
+    // ...and one entry per parameter of ANY listing whose written default is a
+    // bare NAME of another parameter: {the param_assign, the named source
+    // symbol, the target's full name for the trace, and whether this is the
+    // DEFINITION listing — the only one the law claims}.
+    std::vector<std::tuple<UHDM::param_assign*, const slang::ast::Symbol*,
+                           std::string, bool>>
+        paNameSrc38;
+    void drainPaNameCopySrc38();
     // Pkg param OBJECTS (def view) — bound by qualified member-access base
     // refs (pkg::P.member).
     std::map<const slang::ast::Symbol*, UHDM::parameter*> pkgParamObj;

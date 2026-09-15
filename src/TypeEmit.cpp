@@ -18300,6 +18300,157 @@ bool UhdmExporter::boundReduceEnc33(const slang::syntax::ExpressionSyntax& e0,
     return true;
 }
 
+// ---------------------------------------------------------------------------
+// § dimMemberSelBinFold38 (r11u38) — A SIZE-FORM UNPACKED DIMENSION WRITTEN AS
+// A MEMBER SELECT OF A STRUCT-TYPED PARAMETER IS `hierarchicalSelector`'S OWN
+// MINT: A FRESH `BIN:` BIT STRING OF THE MEMBER'S BITS, DECOMPILED BARE, SIZED
+// AT THE MEMBER, CARRYING A REF ONTO **THE MEMBER'S OWN TYPESPEC**.
+//
+// DECODED FROM UHDM v1.87.  `CompileHelper::compileRanges`
+// (Surelog `src/DesignCompile/CompileExpression.cpp:4038-4155`) rewrites `[E]`
+// into `[0 : E-1]` and compiles `E` with `Reduce::Yes`.  A member select goes
+// through `ExprEval::decodeHierPath` -> `ExprEval::hierarchicalSelector`
+// (`UHDM/templates/ExprEval.cpp:2329-2403`), whose **FIRST** arm is the one
+// that fires: the base resolves to the parameter's own `param_assign` Rhs
+// CONSTANT carrying a `struct_typespec`, so the member is sliced straight out
+// of the packed bits and a NEW constant is minted —
+//     c->VpiValue("BIN:" + mbits);   c->VpiDecompile(mbits);   // BARE
+//     c->VpiSize(mbits.size());      c->VpiConstType(vpiBinaryConst);
+//     ref_typespec -> THE MEMBER'S OWN typespec
+// — recursing on the next level, so a NESTED read simply adds the offsets.
+// FIRST DECLARED MEMBER OCCUPIES THE MSBs.  The arm mints no location; the
+// `compileExpression` tail then re-spans the result on the expression node's
+// FIRST CHILD (§ dimExprBoundFold79's span rule), which is the BASE NAME's own
+// token.
+//
+// THE ARM WE USED TO MODEL IS THE OTHER ONE.  `hierarchicalSelector`'s LATER
+// `constant *cons` arm (`:2690`) MUTATES the base constant in place to
+// `UINT:<value>` at the member width and leaves the STRUCT typespec on it.
+// That is exactly the pristine shape (`32'h4` decompile, `UINT:4`, ct 9, a
+// per-use `struct_typespec` clone) — a correct model of the OLD code path and
+// dead at this pin, because the new first arm preempts it.
+//
+// MEASURED ON GOLDEN (`grid/g1_memsel38.sv`, one cell per member shape, both a
+// VAR and a NET holder):
+//   [p1.t]   logic [31:0], only member  BIN:…00100 ct 3 size 32  logic_typespec
+//   [p3.a]   logic  [7:0], FIRST (MSBs) BIN:00001010      size  8  logic_typespec
+//   [p3.b]   logic [15:0], MIDDLE       BIN:0000001100000000 size 16
+//   [p3.c]   logic  [7:0], LAST         BIN:00000101      size  8
+//   [pi.i]   int                        BIN:…00110        size 32  int_typespec
+//   [py.y]   byte, FIRST                BIN:00000111      size  8  byte_typespec
+//   [py.z]   logic [23:0]               BIN:…0001000      size 24
+//   [pb.p]   bit [11:0], FIRST          BIN:000000001001  size 12  bit_typespec
+//   [pb.q]   bit  [3:0]                 BIN:1010          size  4  bit_typespec
+//   [po.n.u] NESTED logic [31:0]        BIN:…01011        size 32  logic_typespec
+//   [po.m]   logic  [7:0] after a struct member  BIN:00001100  size 8
+// and the two arms that are NOT this law, measured and left exactly as the
+// pristine binary emits them (both already agree with golden):
+//   [p3.b-1:0]  a RANGE-form bound — the whole `p3.b - 1` reduces through the
+//               operator table instead (golden `INT:767` ct 7 at 64), which is
+//               § rangeBoundReduceEnc33's population, not this one;
+//   [p3.a + 1]  a member select INSIDE an expression — the ADD arm owns the
+//               result (golden `UINT:11` ct 9 at 64).
+// Both are DISJOINT BY CONSTRUCTION here: this law claims a `sizeSyn` whose
+// bound expression IS a `MemberAccess` and nothing else.
+//
+// CORPUS: `struct_param_dim` `logic mem[pt.t]` with
+// `parameter test_struct_t pt = 32'h4` — the `uhdm-cmp` head of both rows.
+//
+// ABSTENTIONS, each of which leaves the pristine arm untouched: a base whose
+// declared type is not a NAMED packed-struct typedef (no shared typespec to
+// point at); a parameter with no fully-defined integral Value; a member whose
+// width we cannot prove; and a member typespec our own struct build did not
+// produce.  A partial answer is never written — the whole fold is all four
+// fields plus the typespec or nothing.
+bool UhdmExporter::memberSelBinFold38(const slang::ast::Expression& e0,
+                                      std::string& bits, int32_t& width,
+                                      UHDM::typespec*& memTs,
+                                      const slang::ast::Expression*& baseExpr) {
+    auto& top38 = stripImplicitConv(e0);
+    if (top38.kind != ExpressionKind::MemberAccess)
+        return false;
+    // chain[0] = the OUTERMOST select; the base is what the innermost reads.
+    std::vector<const MemberAccessExpression*> chain38;
+    const Expression* cur38 = &top38;
+    for (int h38 = 0;
+         h38 < 8 && cur38->kind == ExpressionKind::MemberAccess; h38++) {
+        chain38.push_back(&cur38->as<MemberAccessExpression>());
+        cur38 = &stripImplicitConv(cur38->as<MemberAccessExpression>().value());
+    }
+    if (chain38.empty() || cur38->kind != ExpressionKind::NamedValue)
+        return false;
+    auto& bsym38 = cur38->as<NamedValueExpression>().symbol;
+    if (bsym38.kind != SymbolKind::Parameter)
+        return false;
+    auto& bp38 = bsym38.as<ParameterSymbol>();
+    auto dt38 = bp38.getDeclaredType();
+    if (!dt38 || dt38->getType().kind != SymbolKind::TypeAlias)
+        return false;
+    auto& alias38 = dt38->getType().as<TypeAliasType>();
+    auto& canon38 = alias38.getCanonicalType();
+    if (canon38.kind != SymbolKind::PackedStructType)
+        return false;
+    auto tot38 = (int64_t)canon38.getBitWidth();
+    if (tot38 <= 0 || tot38 > 65536)
+        return false;
+    auto& val38 = bp38.getValue();
+    if (!val38 || !val38.isInteger() || val38.integer().hasUnknown())
+        return false;
+    // The LSB-based offsets of every level simply add; slang counts UP from
+    // the LSB and the producer's digit string counts DOWN from the MSB.
+    int64_t lsb38 = 0;
+    for (auto* lnk38 : chain38) {
+        if (lnk38->member.kind != SymbolKind::Field)
+            return false;
+        lsb38 += (int64_t)lnk38->member.as<FieldSymbol>().bitOffset;
+    }
+    if (!chain38.front()->type || !chain38.front()->type->isIntegral())
+        return false;
+    auto mw38 = (int64_t)chain38.front()->type->getBitWidth();
+    if (mw38 <= 0 || lsb38 < 0 || lsb38 + mw38 > tot38)
+        return false;
+    std::string all38 = val38.integer().toString(LiteralBase::Binary, false);
+    if ((int64_t)all38.size() > tot38)
+        all38 = all38.substr(all38.size() - (size_t)tot38);
+    while ((int64_t)all38.size() < tot38)
+        all38.insert(all38.begin(), '0');
+    int64_t msb38 = tot38 - (lsb38 + mw38);
+    std::string mb38 = all38.substr((size_t)msb38, (size_t)mw38);
+    for (char c38 : mb38)
+        if (c38 != '0' && c38 != '1')
+            return false;
+    // The MEMBER's own typespec object, walked out of the SHARED typedef
+    // typespec our own struct build already emitted — never a per-use clone.
+    auto ti38 = typedefTs.find((const Symbol*)&alias38);
+    if (ti38 == typedefTs.end() || !ti38->second ||
+        ti38->second->UhdmType() != UHDM::uhdmstruct_typespec)
+        return false;
+    UHDM::typespec* walk38 = ti38->second;
+    for (auto it38 = chain38.rbegin(); it38 != chain38.rend(); ++it38) {
+        if (!walk38 || walk38->UhdmType() != UHDM::uhdmstruct_typespec)
+            return false;
+        auto* sts38 = (UHDM::struct_typespec*)walk38;
+        auto* mems38 = sts38->Members();
+        if (!mems38)
+            return false;
+        UHDM::typespec* nxt38 = nullptr;
+        for (auto* mm38 : *mems38)
+            if (mm38->VpiName() == (*it38)->member.name) {
+                if (auto* mrt38 = mm38->Typespec())
+                    nxt38 = mrt38->Actual_typespec();
+                break;
+            }
+        if (!nxt38)
+            return false;
+        walk38 = nxt38;
+    }
+    bits = mb38;
+    width = (int32_t)mw38;
+    memTs = walk38;
+    baseExpr = cur38;
+    return true;
+}
+
 bool UhdmExporter::dimExprShape79(const slang::syntax::ExpressionSyntax& e0) {
     namespace sx = slang::syntax;
     using SK = sx::SyntaxKind;
@@ -19272,6 +19423,86 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         rt0 = s.MakeRef_typespec();
                         rt0->VpiFullName(ownFull26);
                         rt0->VpiParent(sc);
+                    }
+                    // § dimMemberSelBinFold38 (r11u38) — the member slice, in
+                    // full: `hierarchicalSelector`'s FIRST arm mints a fresh
+                    // `BIN:` constant of the member's own bits with the
+                    // MEMBER's typespec, and the `compileExpression` tail
+                    // re-spans it on the expression's FIRST CHILD — the base
+                    // name's token.  The decode, the golden grid and the three
+                    // abstentions are at `memberSelBinFold38`.  When it
+                    // abstains the pristine arm below stands unchanged.
+                    if (std::string mbits38; !be0.bad() && rt0) {
+                        int32_t mw38 = 0;
+                        UHDM::typespec* mts38 = nullptr;
+                        const Expression* mbase38 = nullptr;
+                        // § dimMemberSelInstValue38v (r11v38, the verifier's
+                        // fix) — THE DIGITS ARE THE INSTANCE'S, NEVER THE
+                        // BIND'S.  `be0` is bound in `currentScope`, which is
+                        // STALE throughout `emitInstance`; § dimExprBoundFold79's
+                        // own comment above already records that this bind
+                        // FAILS on a gen-scope local and on EVERY INSTANCE
+                        // AFTER THE FIRST.  Measured on two instances of one
+                        // module, the first overridden `#(.P1(32'h9))` and the
+                        // second at its default `32'h4`: the fold read `1001`
+                        // on BOTH, so every twin carried the FIRST instance's
+                        // member value where golden carries its own (golden
+                        // `u_def.mem1` BIN:…0100 against the law's BIN:…1001 —
+                        // five such cells on one arm, and the pristine arm
+                        // below had the value RIGHT).  The digits therefore
+                        // come from `ua.range.width()`, the per-instance
+                        // elaborated dimension this builder already uses for
+                        // `digits`; the bind lends only the SHAPE — the
+                        // member's width and its typespec.  A width that does
+                        // not fit the member is not this fold, and the arm
+                        // abstains whole rather than write a partial answer.
+                        auto instBits38 = [&](std::string& b38) {
+                            uint64_t v38 = (uint64_t)ua.range.width();
+                            std::string n38((size_t)mw38, '0');
+                            for (int32_t i38 = mw38 - 1; i38 >= 0; --i38) {
+                                n38[(size_t)i38] = (v38 & 1) ? '1' : '0';
+                                v38 >>= 1;
+                            }
+                            if (v38 != 0)
+                                return false;
+                            b38 = n38;
+                            return true;
+                        };
+                        if (memberSelBinFold38(be0, mbits38, mw38, mts38,
+                                               mbase38) &&
+                            mts38 && mbase38 && instBits38(mbits38) &&
+                            [&] {
+                                if (cellDbg38)
+                                    fprintf(stderr,
+                                            "R11U38 DIM %s @%u:%u w=%d "
+                                            "bits=%s\n",
+                                            std::string(sym.name).c_str(),
+                                            (unsigned)sm->getLineNumber(
+                                                sizeSyn->sourceRange().start()),
+                                            (unsigned)sm->getColumnNumber(
+                                                sizeSyn->sourceRange().start()),
+                                            (int)mw38, mbits38.c_str());
+                                return !lawOff38;
+                            }()) {
+                            sc->VpiValue("BIN:" + mbits38);
+                            sc->VpiDecompile(mbits38);
+                            sc->VpiSize(mw38);
+                            sc->VpiConstType(vpiBinaryConst);
+                            rt0->Actual_typespec(mts38);
+                            sc->Typespec(rt0);
+                            setLoc(sc, mbase38->sourceRange);
+                            ops->push_back(sc);
+                            auto* one38 = s.MakeConstant();
+                            one38->VpiSize(64);
+                            one38->VpiValue("INT:1");
+                            one38->VpiConstType(vpiIntConst);
+                            ops->push_back(one38);
+                            op->Operands(ops);
+                            r->Right_expr(op);
+                            ranges->push_back(r);
+                            dt = &ua.elementType;
+                            continue;
+                        }
                     }
                     // A STRUCT-PARAM MEMBER dim (mem[pt.t]) anchors the fold
                     // at the param's DEFAULT literal (its raw decompile) and

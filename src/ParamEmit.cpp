@@ -5374,6 +5374,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     std::set<const UHDM::any*> portPa9;
     // ELAB param_assigns of -P command-line overrides, restamped at the end.
     std::vector<std::pair<UHDM::param_assign*, std::string>> cliRestamp;
+    // § paNameCopiesSrcConst38 (r11u38) — one entry per parameter of THIS
+    // listing whose written default is a bare NAME of another parameter:
+    // {the param_assign, the named source symbol, the target's full name for
+    // the trace}.  Drained at the end of this call, never across calls.
     // Tag every param_assign pushed while emitting a PARAMETER-PORT-LIST
     // param (the pushes happen at several sites, so mark by loop iteration).
     size_t paMark9 = 0;
@@ -6629,6 +6633,37 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         auto* pa = s.MakeParam_assign();
         if (topView)
             elabParamPa[&member] = pa;
+        // § paNameCopiesSrcConst38 (r11u38) — THE RECORD.  Everything here is
+        // SYNTACTIC (the written initializer is a BARE NAME of a parameter);
+        // whether that name has a definition-time constant to copy, and what
+        // this listing finally put on the Rhs, are the DRAIN's questions.  The
+        // record is taken at the ONE point every parameter passes through,
+        // because a dozen arms below may each mint the Rhs.
+        // § paNameCopiesSrcConst38 (r11u38) — THE SOURCE RECORD.  The
+        // definition-time `Value` a bare name substitutes lives in the
+        // package's **ELABORATED** listing, not its definition one:
+        // `uhdmallPackages` is written before elaboration and keeps
+        // `SUB = A32 - 8 - 3 + 1` as an `operation` (golden, measured — the
+        // `vpiOpType:24` tree at `g2_paenc38.sv:4`), while `uhdmtopPackages`
+        // carries the reduced `INT:22` constant that every reader of the name
+        // gets.  The OBJECT is recorded, never its Rhs: later passes install a
+        // package parameter's folded constant after this call returns, so only
+        // the design-level drain reading through this handle sees a settled
+        // Value.
+        if (inPackage && topView)
+            pkgValuePa38[&member] = pa;
+        if (!overridden) {
+            if (auto* in38 = ps.getInitializer()) {
+                auto& nm38 = stripImplicitConv(*in38);
+                if (nm38.kind == ExpressionKind::NamedValue &&
+                    nm38.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter)
+                    paNameSrc38.push_back(
+                        {pa, &nm38.as<NamedValueExpression>().symbol,
+                         std::string(prefix) + "." + std::string(member.name),
+                         !topView});
+            }
+        }
         // § paAsmMemberSliceFold21 (r11u21) — THE RECORD.  See the model in
         // `include/UhdmExporter.h`.  Everything here is SYNTACTIC (the shape
         // of the written initializer and the slang types it names); whether
@@ -18354,6 +18389,173 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         m->Parameters(params);
     if (!passigns->empty())
         m->Param_assigns(passigns);
+}
+
+// § paNameCopiesSrcConst38's DRAIN — run DEAD LAST in `exportDesign`, after
+// every pass that can still install a `param_assign` Rhs.  It must be: a
+// package parameter's folded constant is put in place by LATER passes than
+// `emitParameters`, so a version of this law that read the source Rhs at the
+// end of the emitting call saw an unreduced `ref_obj`/`operation` on exactly
+// the parameters it is about and moved NOTHING (measured, not assumed).
+void UhdmExporter::drainPaNameCopySrc38() {
+    // -----------------------------------------------------------------------
+    // § paNameCopiesSrcConst38 (r11u38) — A `param_assign` Rhs FOLDED FROM A
+    // BARE NAME OF A PARAMETER **IS THAT PARAMETER'S OWN CONSTANT, COPIED**:
+    // the value tag, the `vpiConstType` and the decompile come from the
+    // SOURCE, never from a re-derivation off the target's declared type.
+    //
+    // DECODED FROM SURELOG.  A name written as a parameter's default reduces
+    // through `CompileHelper::getValue`
+    // (`src/DesignCompile/CompileExpression.cpp:966-981`), which mints the
+    // operand from the DEFINITION's stored `Value`:
+    //     c->VpiValue(sval->uhdmValue());
+    //     c->VpiDecompile(sval->decompiledValue());
+    //     c->VpiConstType(sval->vpiValType());
+    //     c->VpiSize(sval->getSize());
+    // — the SAME four-field stamp § dimBoundInheritsParamEnc74 decoded at an
+    // unpacked-dimension bound, at the `param_assign` site this time.  That
+    // stored `Value` is `ExprEval::reduceExpr`'s answer over the SOURCE's own
+    // initializer (§ caFoldEnc27's operator table: Sub/Mult/Div/Mod/Power
+    // `INT:`, an Add with a signed operand `INT:`, the shifts / `$clog2` / a
+    // plain decimal `UINT:`, a comparison `BIN:`), and
+    // `CompileHelper::adjustSize` (`CompileHelper.cpp:3949-4218`) has NO arm
+    // that re-types a `vpiIntConst` — only the `vpiUIntConst` arm masks and
+    // the `vpiBinaryConst` arm re-renders — so the encoding survives the hop
+    // intact and the TARGET's declared type contributes nothing to it.
+    //
+    // MEASURED ON GOLDEN (`grid/g2_paenc38.sv` + `grid/g3_home38.sv`, every
+    // arm `surelog_rc=0 ours_rc=0`, `[FATAL]:0 [ERROR]:0`; one cell per
+    // declared target type x source encoding x holder, definition AND
+    // elaborated view, an overridden instance beside a default one):
+    //   int unsigned P = SUB   (= A32-8-3+1)   golden INT:22  ct 7
+    //   int / untyped / bit [7:0] / logic [15:0] P = SUB
+    //                                          golden INT:22  ct 7
+    //   P = MUL  (= A32*2)                     golden INT:64  ct 7
+    //   P = CMPV (= (A32>8))                   golden BIN:1   ct 3
+    //   P = NEG  (= 0-5)                       golden INT:-5  ct 7
+    //   P = ADDU (= A32+8) / CLG / LIT         golden UINT:   ct 9
+    //   P = LVEC (= 8'hA5)                     golden HEX:A5  ct 5
+    //   P = EP   (a package ENUM parameter)    golden INT:2   ct 7 size 2
+    //   the same rows behind a QUALIFIED `ip::SUB`, behind a HOP
+    //   (`HOP = SUB` then `P = HOP`), across TWO packages (`pb::R1 = pa::S1`,
+    //   then `P = pb::R1`), and in an INTERFACE — every one identical.
+    // The declared target type is NOT an axis on any row, and the SIZE is the
+    // source's as well (`bit [7:0] P_BSUB = SUB` is golden size 32 in the
+    // definition listing and 8 in the elaborated one, which our emitter
+    // already tracks) — so this law copies the DECOMPILE only when the two
+    // sizes already agree, and a Value can never split from its rendering.
+    //
+    // CORPUS: `ibex_icache.sv:17 parameter int unsigned TagSizeECC =
+    // IC_TAG_SIZE`, with `ibex_pkg::IC_TAG_SIZE = ADDR_W - IC_INDEX_W -
+    // IC_LINE_W + 1` — golden `INT:22` ct 7, ours `UINT:22` ct 9: the
+    // `uhdm-cmp` head of both `ibex_icache` rows.
+    //
+    // THE ABSTENTIONS, each measured on the grid and each leaving the listing
+    // exactly as the pristine binary wrote it:
+    //   * the Rhs is NOT a constant.  A module-LOCAL name keeps a `ref_obj` on
+    //     both sides (`L_LOC = P_SUB`, `L_LOCL = L_SUB`), and so does a source
+    //     whose own Rhs is an operation (`CAT = {8'd1,8'd2}`); this law never
+    //     turns a `ref_obj` into a constant and never folds what golden keeps.
+    //   * the parameter is OVERRIDDEN — the written default is then not what
+    //     golden folded (the record above is gated on it).
+    //   * the source has no DEFINITION-view constant of its own
+    //     (`pkgValuePa38`), which is exactly the population Surelog can
+    //     substitute when it reads the name.
+    //   * the source constant's const type is not an INTEGRAL one, or is the
+    //     SAME `vpiUIntConst` we already wrote, or OUR OWN cell is not the
+    //     generic unsigned fold — the gate at the copy itself, with the five
+    //     committed arms that measured each half.  `M3 = STR` (a package
+    //     STRING parameter, golden `STRING:abc` ct 6 where we write
+    //     `UINT:6382179` ct 9) and `M4 = RP` (a REAL one, where our own Rhs is
+    //     a `ref_obj` and never reaches this drain) are measured, named
+    //     residues — not claimed, because a string/real hop is a different
+    //     Value rendering and the UVM family is full of them.
+    //   * `VpiSize` is never written, and the decompile only travels when the
+    //     two sizes already agree — a Value can then never split from a
+    //     rendering built at another width.
+    //
+    // R11U38_CELLDBG=1 traces every cell this law CLAIMS; R11U38_OFF=1
+    // computes and traces it and writes NOTHING (the neutral binary that makes
+    // the mover prediction).
+    for (auto& [pa38, src38, who38, defView38] : paNameSrc38) {
+        // THE DEFINITION LISTING ONLY.  The two views have two producers: this
+        // law is `CompileHelper::getValue`'s definition-time substitution,
+        // while an ELABORATED listing's Rhs is
+        // `NetlistElaboration::elab_parameters_` stamping the INSTANCE's own
+        // Value — which our emitter already writes exactly (every elaborated
+        // cell of `g2_paenc38` agrees with golden at pristine).  Letting the
+        // copy reach the elaborated listing took TWO cells AWAY from golden
+        // (`work@top.u0.P_NEG`, `work@top.u1.P_NEG`: golden `INT:-5`, pristine
+        // `INT:-5`, copied `INT:4294967291` off our own package-elab residue),
+        // which is exactly the boundary this gate is for.
+        if (!defView38)
+            continue;
+        auto* rhs38 = pa38->Rhs();
+        if (!rhs38 || rhs38->UhdmType() != UHDM::uhdmconstant)
+            continue;
+        auto si38 = pkgValuePa38.find(src38);
+        if (si38 == pkgValuePa38.end() || !si38->second)
+            continue;
+        auto* srhs38 = si38->second->Rhs();
+        if (!srhs38 || srhs38->UhdmType() != UHDM::uhdmconstant ||
+            srhs38 == rhs38)
+            continue;
+        auto* sc38 = (UHDM::constant*)srhs38;
+        auto* rc38 = (UHDM::constant*)rhs38;
+        int32_t sct38 = sc38->VpiConstType();
+        // THE UNTYPED-FOLD GATE, and it is the whole boundary.  This law is
+        // claimed at exactly ONE shape: a cell we wrote with the GENERIC
+        // unsigned fold (`vpiUIntConst`) under a source whose own stored Value
+        // is something else.  Both halves are load-bearing, and the WIDE
+        // BOUNDARY over every committed probe arm in the tree is what measured
+        // them (`boundary38.sh`, 7058 arms, the NEUTRAL binary):
+        //   * a cell we did NOT write as `UINT:` is already carrying an arm's
+        //     deliberate answer — `r10rgg1repro/v5_vrgg1.sv work@dut_v5.L3`
+        //     (`BIN:10` ct 3, golden's) and
+        //     `r10v201repro/grid_v201/v201_a_refforms.sv work@m201va.R_RNG`
+        //     (`DEC:12` ct 1, golden's) were the two AWAY-GOLDEN cells a law
+        //     without this half produced;
+        //   * a source that is ALSO `UINT:` changes no encoding, only DIGITS,
+        //     and three committed arms measured that as wrong
+        //     (`r10earl93repro/g6_pkg93.sv work@g6.i_64`,
+        //     `r10v93repro/v1_ctx93.sv work@v1_top.L_imp`,
+        //     `r10v93repro/v5_more93.sv work@v5_top.v5_b`) — a same-tag copy
+        //     is a SIZE/TRUNCATION question, which is a different law.
+        if (rc38->VpiConstType() != vpiUIntConst)
+            continue;
+        if (sct38 != vpiIntConst && sct38 != vpiBinaryConst &&
+            sct38 != vpiHexConst && sct38 != vpiOctConst &&
+            sct38 != vpiDecConst)
+            continue;
+        std::string nv38(sc38->VpiValue());
+        if (std::string(rc38->VpiValue()) == nv38)
+            continue;
+        if (cellDbg38)
+            fprintf(stderr,
+                    "R11U38 PA %s src=%s old=%s/ct%d/sz%d new=%s/ct%d\n",
+                    who38.c_str(), std::string(src38->name).c_str(),
+                    std::string(rc38->VpiValue()).c_str(),
+                    (int)rc38->VpiConstType(), (int)rc38->VpiSize(),
+                    nv38.c_str(), (int)sct38);
+        if (lawOff38)
+            continue;
+        // THE VALUE, THE CONST TYPE AND — ONLY AT EQUAL SIZE — THE
+        // DECOMPILE.  `Value::decompiledValue()` is the SAME Value's own
+        // rendering, so it travels with the tag; the equal-size guard is what
+        // keeps a Value from ever splitting from a rendering built at another
+        // width.  `VpiSize` itself is NEVER written: the arms that already
+        // compute it measure right on every cell of the grid and of the wide
+        // boundary, and re-sizing is a different law.  The six committed cells
+        // that measure the decompile half are `r10earl52repro/v1_earl52.sv`
+        // (`R_tb`, `R_tern`, `L_tern`, `I_tern`, `R_hop`) and
+        // `r10earl52repro/a3_earl52.sv` (`U_pkg`), where golden's
+        // definition-view constant is `BIN:1` decompiled `1'b1` and the
+        // pristine one `UINT:1` decompiled `1`.
+        rc38->VpiValue(nv38);
+        rc38->VpiConstType(sct38);
+        if (rc38->VpiSize() == sc38->VpiSize())
+            rc38->VpiDecompile(std::string(sc38->VpiDecompile()));
+    }
 }
 
 UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
