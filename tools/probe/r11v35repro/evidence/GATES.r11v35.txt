@@ -1,0 +1,155 @@
+# r11v35 — the VERIFIER's own gate log (every number re-measured, not carried)
+base=2c3df162  patch=/tmp/r11u35.patch md5=a9f2eafa22b2eb49f567e8d69c122587
+
+## binaries (built by the verifier, frozen chmod 555)
+ed6dc5a7d3788f7470cb60667334e6e1  /tmp/v11u35_bin/pris.bin
+ea7475c5b8d85df95c35d88f457ad930  /tmp/v11u35_bin/law.bin
+# main-tree build/slang-uhdm measured ed6dc5a7d3788f7470cb60667334e6e1 at the
+# START of this verification (== the verifier's own pristine build, == the OPS
+# pin).  It read 7fc7015f753eef411797072e44509114 at the END: the master is
+# mid-integration of the NEXT pass in the main tree (staged src edits, binary
+# rebuilt 21:53).  That is a main-tree event, not a property of this patch --
+# the gate is the PIN value, and the verifier's own pristine build carries it.
+
+## goldens
+pristine PASS=23 FAIL=0
+law      PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23
+
+## sweeps (own workdirs, SLANG_UHDM exported per binary, every cmds.txt audited)
+u2r cmds.txt: pris=1742 all naming pris.bin; law=1742 all naming law.bin; main-tree binary occurrences=0
+sl  cmds.txt: pris=1581; law=1581; main-tree binary occurrences=0
+[testflags] 871 tests
+  CMP_EQUAL: 774
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 30
+[default] 871 tests
+  CMP_EQUAL: 774
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 30
+[default] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+[testflags] 798 tests
+  CMP_EQUAL: 469
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 8
+  DEFERRED: 5
+
+## whole-row CSV judge (ct8rows), every comparison
+-- u2r testflags: committed gate vs LAW
+PASS: every row byte-identical to the committed baseline
+-- u2r testflags: verifier PRISTINE vs LAW
+PASS: every row byte-identical to the committed baseline
+-- u2r default:   verifier PRISTINE vs LAW
+PASS: every row byte-identical to the committed baseline
+-- u2r raw CSV diff pris vs law: 0 tf / 0 def differing lines
+-- surelog raw CSV diff pris vs law: 4 differing lines (the two LowMem* WORKDIR-PATH strings only):
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u35_wd/pris_sl/testflags/LowMemLib-
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u35_wd/law_sl/testflags/LowMemLib-f
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u35_wd/pris_sl/testflags/LowMemPkg-
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u35_wd/law_sl/testflags/LowMemPkg-e
+
+## byte verifier (SELFCHECK=1)
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/cva6_struct_param_field-80aba5af/slang.uhdm  patched=142c0eaf415a pristine=218a7665b0cb
+MOVER ./testflags/cva6_struct_param_field-80aba5af/slang.uhdm  patched=e07d0347b4b0 pristine=f70c4a35a0fc
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=6d34d89ca0f8 pristine=27419f6011b4
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=4617b541bcdb pristine=2fb39f8b4130
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=096d40abcb44 pristine=49d8efe2729b
+MOVER ./default/StructParamFieldRange-25c71671/slang.uhdm  patched=6b6e85d2b74e pristine=fb8ebca1c3c2
+MOVER ./default/StructParamFuncBodyFieldCompare-dc918b36/slang.uhdm  patched=6c0f755134c5 pristine=80dab0d503e9
+MOVER ./default/StructParamPatternInitCast-5f8c57d4/slang.uhdm  patched=f279c3f1d189 pristine=1d321feefdbb
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=df80b09eef8c pristine=589321c859f3
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=0a26a82dcc02
+MOVER ./testflags/StructParamFieldRange-25c71671/slang.uhdm  patched=6b6e85d2b74e pristine=fb8ebca1c3c2
+MOVER ./testflags/StructParamFuncBodyFieldCompare-dc918b36/slang.uhdm  patched=6c0f755134c5 pristine=80dab0d503e9
+MOVER ./testflags/StructParamPatternInitCast-5f8c57d4/slang.uhdm  patched=f279c3f1d189 pristine=1d321feefdbb
+MOVERS: 11 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+## mover attribution (the 5 non-law surelog movers)
+STRUCTURAL: neither the UVM tests nor the UVM library carries this law's syntax --
+  grep -rlE '(parameter|localparam)[[:space:]]+type[[:space:]]+NAME[[:space:]]*=[[:space:]]*(struct|union)'
+  over Surelog/third_party/tests = Ariane2024 ONLY; over Surelog/third_party/UVM = 0 files.
+POSITIVE CONTROL (the PRISTINE binary alone, re-run from the test's own cwd with the recorded argv):
+MiniAmiq  [default]  sweep=27419f6011b4 rerun=3dc283f07bcc  COIN
+MiniAmiq  [testflags] sweep=589321c859f3 rerun=5fca35f8dc64  COIN
+SeqDriver [testflags] sweep=0a26a82dcc02 rerun=d8320bc88ea9  COIN
+Scoreboard[default]  sweep=e70775324004 rerun=1621aec6c9f3  COIN
+SeqDriver [default]  sweep=2fb39f8b4130 rerun=2fb39f8b4130  (a coin can land twice)
+SimpleUVM [default]  sweep=49d8efe2729b rerun=49d8efe2729b  (a coin can land twice)
+ORDER-BLIND, PATH-NORMALISED dump diff, law vs pristine -- all four are the SAME 4-line class
+(one UINT:<n> / vpiDecompile:<n> pair; r11u33 R7's uninitialised read on uvm_misc.svh's queue bound):
+SeqDriver [default]   order-blind=4 in-order=4   |UINT:0 -> |UINT:1087
+SimpleUVM [default]   order-blind=4 in-order=4   |UINT:0 -> |UINT:578
+MiniAmiq  [default]   order-blind=4 in-order=4   |UINT:0 -> |UINT:586
+SeqDriver [testflags] order-blind=4 in-order=4   |UINT:1169 -> |UINT:0   (the flip runs BOTH ways)
+
+## the law's six surelog movers + two u2r movers: 100% of the a-priori set with a database
+StructParamFieldRange/default pristine-vs-law: 310 changed dump lines, source lines 24 and 25 ONLY,
+0 changed lines outside a bound expression (boundscope35.sh).
+
+## canaries / protected databases
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+  ^ the SAME two rows read CHANGED on the verifier's OWN PRISTINE sweep:
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+## protected database bytes (verifier PRISTINE vs LAW, and vs the OPS pins)
+SVSwitch [default] pris=4842211c4030 law=4842211c4030 SAME
+SVSwitch [testflags] pris=4842211c4030 law=4842211c4030 SAME
+YosysVerx [default] pris=6ccda350c24a law=6ccda350c24a SAME
+YosysVerx [testflags] pris=6ccda350c24a law=6ccda350c24a SAME
+InterfaceModPort [default] pris=59a365f3ce2c law=59a365f3ce2c SAME
+InterfaceModPort [testflags] pris=59a365f3ce2c law=59a365f3ce2c SAME
+BlackParrotComplex [default] pris=e3e354129d5a law=e3e354129d5a SAME
+BlackParrotComplex [testflags] pris=73a10e8217e5 law=73a10e8217e5 SAME
+YosysOldOr [default] pris=d68e0796d62c law=d68e0796d62c SAME
+YosysOldOr [testflags] pris=d68e0796d62c law=d68e0796d62c SAME
+Earlgrey_0_1 [default] pris=8bdf25272e08 law=8bdf25272e08 SAME
+Earlgrey_0_1 [testflags] pris=59d0ee6d10c3 law=59d0ee6d10c3 SAME
+  pins: SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+        Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3 -- ALL MATCHED
+
+## the landed range-bound laws' witnesses (u2r)
+genscope_struct_member [default] BYTE_SAME  CMP_EQUAL,match
+genscope_struct_member [testflags] BYTE_SAME  CMP_EQUAL,match
+latch_perf_counters [default] BYTE_SAME  CMP_EQUAL,match
+latch_perf_counters [testflags] BYTE_SAME  CMP_EQUAL,match
+ibex_icache [default] BYTE_SAME  CMP_NOTEQUAL,
+ibex_icache [testflags] BYTE_SAME  CMP_NOTEQUAL,
+ibex_pmp [default] BYTE_SAME  CMP_NOTEQUAL,
+ibex_pmp [testflags] BYTE_SAME  CMP_NOTEQUAL,
+iface_unpacked_struct_array [default] BYTE_SAME  CMP_EQUAL,differ
+iface_unpacked_struct_array [testflags] BYTE_SAME  CMP_EQUAL,differ
+
+## rowheads (law surelog workdir): 0 heads on every UVM row and on Earlgrey_0_1
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+MiniAmiq       default          0      0 cmp rc=0
+MiniAmiq       testflags        0      0 cmp rc=0
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+-- measured=11  SKIP-NOFILE=1  UNKNOWN-NAME=0

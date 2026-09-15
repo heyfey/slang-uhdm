@@ -1,0 +1,16 @@
+# r11u35 — the a-priori mover set, named BEFORE the law binary was measured.
+# positive control:
+g1_site35      predicted=False expected=False OK
+g2_tpdef35     predicted=True  expected=True  OK
+g3_shape35     predicted=True  expected=True  OK
+g4_view35      predicted=True  expected=True  OK
+SELFTEST PASS
+
+# uhdm2rtlil:
+PREDICT cva6_equiv                               extras_bht.svh:2[CVA6Cfg.VLEN-1:0] extras_btb.svh:2[CVA6Cfg.VLEN-1:0] extras_btb.svh:6[CVA6Cfg.VLEN-1:0]
+PREDICT cva6_struct_param_field                  dut.sv:25[Cfg.XLEN-1:0]
+# surelog:
+PREDICT StructParamFieldRange                    dut.sv:23[Cfg.XLEN-1:0]
+PREDICT StructParamFuncBodyFieldCompare          dut.sv:42[Cfg.XLEN-1:0]
+PREDICT StructParamPatternInitCast               dut.sv:30[Cfg.XLEN-1:0]
+PREDICT Ariane2024                               acc_dispatcher_d72dec54841873c52713fafef567d9ccd7a7a618.sv:21[CVA6Cfg.XLEN-1:0] acc_dispatcher_d72dec54841873c52713fafef567d9ccd7a7a618.sv:39[CVA6Cfg.XLEN-1:0] cva6_896bbc9de65d3fccda60b666ce12c66c1281ea4e.sv:36[CVA6Cfg.VLEN-1:0]

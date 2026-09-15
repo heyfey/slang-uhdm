@@ -1,0 +1,32 @@
+pool|(w6_t)                                    logic_typespec(w6_t)                           16:17     L op11(constant,constant)            16:18     x1
+pool|(w6_t)                                    logic_typespec(w6_t)                           16:17     R const UINT:0@64 ct9                16:30     x1
+pool|-                                         logic_typespec                                 11:11     L op11(ref_obj,constant)             11:12     x1
+pool|-                                         logic_typespec                                 11:11     R const UINT:0@64 ct9                11:16     x1
+pool|-                                         logic_typespec                                 18:10     L op11(ref_obj,constant)             18:11     x1
+pool|-                                         logic_typespec                                 18:10     R const UINT:0@64 ct9                18:15     x1
+pool|-                                         logic_typespec                                 19:11     L op11(ref_obj,constant)             19:12     x1
+pool|-                                         logic_typespec                                 19:11     R const UINT:0@64 ct9                19:16     x1
+pool|-                                         packed_array_typespec                          12:5      L op11(ref_obj,constant)             12:6      x1
+pool|-                                         packed_array_typespec                          12:5      R const UINT:0@64 ct9                12:10     x1
+uhdmallModules|work@v6_dims35                  logic_typespec(w6_t)/module_instwork@v6_dims35 16:17     L op11(constant,constant)            16:18     x1
+uhdmallModules|work@v6_dims35                  logic_typespec(w6_t)/module_instwork@v6_dims35 16:17     R const UINT:0@64 ct9                16:30     x1
+uhdmallPackages|p6v35                          <no-range-bound>                               -         - -                                  -         x0
+uhdmtopPackages|p6v35                          <no-range-bound>                               -         - -                                  -         x0
+uhdmtopModules|work@v6_dims35                  <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+-- ranges=6 rows=12 sections=25 empty=19

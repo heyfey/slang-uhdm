@@ -1,0 +1,33 @@
+# r11v35 — v3_shape35: the ONE head that MOVED, and why it is UNMASKED, not created.
+
+## pristine head (21:11, the law's own cell)
+LHS:
+decompile:
+operation: , id:163, line:21:12, endln:21:15
+|vpiParent:
+\_range: , id:161, line:21:11, endln:21:18
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@v3_shape35.sv.s_minus.W), id:162, line:21:12, endln:21:13
+
+## law head (16:15, the $unit named typedef's own bound)
+LHS:
+decompile:
+operation: , id:11, line:16:16, endln:16:27
+|vpiParent:
+\_range: , id:9, line:16:15, endln:16:30
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (named_vec35_t.shp35::QW), id:10, line:16:16, endln:16:25
+
+## the same cell at the BASE, from the census: ours was ALREADY unequal there
+CENSUS.ours:pool|(named_vec35_t)                           logic_typespec(named_vec35_t)                  16:15     L const INT:10@64 ct7                16:16     x4
+CENSUS.ours:vpiTypedef|(named_vec35_t)                     logic_typespec(named_vec35_t)                  16:15     L const INT:10@64 ct7                16:16     x1
+CENSUS.law:pool|(named_vec35_t)                           logic_typespec(named_vec35_t)                  16:15     L op11(constant,constant)            16:16     x2
+CENSUS.law:pool|(named_vec35_t)                           logic_typespec(named_vec35_t)                  16:15     L op11(ref_obj,constant)             16:16     x2
+CENSUS.law:vpiTypedef|(named_vec35_t)                     logic_typespec(named_vec35_t)                  16:15     L const INT:10@64 ct7                16:16     x1
+CENSUS.gold:pool|(named_vec35_t)                           logic_typespec(named_vec35_t)                  16:15     L op11(ref_obj,constant)             16:16     x2
+CENSUS.gold:vpiTypedef|(named_vec35_t)                     logic_typespec(named_vec35_t)                  16:15     L op11(ref_obj,constant)             16:16     x1
+
+## blast radius: every changed dump line is inside a bound expression
+changed-lines=838 outside-bound-expression=0

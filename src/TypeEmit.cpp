@@ -11926,6 +11926,20 @@ UHDM::array_typespec* UhdmExporter::memberWrittenQueueTs149(
     return ats149;
 }
 
+// § typeParamAnonAggMemberNoReduce35 — the syntax test, asked identically by
+// the struct builder and the union builder so the two can never drift: is this
+// aggregate the DECLARATION DEFAULT of a `parameter type` / `localparam type`?
+// A named typedef named as the default (`localparam type nm_t = named_s_t`)
+// answers NO — its scope's syntax is the TYPEDEF's, not the parameter's, and
+// the named-typedef rule owns it (grid g2_tpdef35 52:33, equal before and
+// after).
+bool UhdmExporter::isTypeParamAnonAggDefault35(const Scope& aggScope) const {
+    for (auto sn = aggScope.asSymbol().getSyntax(); sn; sn = sn->parent)
+        if (sn->kind == syntax::SyntaxKind::TypeParameterDeclaration)
+            return true;
+    return false;
+}
+
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -11976,8 +11990,55 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         }
         if (!inPkg)
             structPkgScope = nullptr;
+        // § typeParamAnonAggMemberNoReduce35 — an ANONYMOUS AGGREGATE written
+        // as a TYPE PARAMETER's DECLARATION DEFAULT keeps its MEMBER dimension
+        // bounds symbolic, in EVERY holder and EVERY view.  This is
+        // § typeParamDefaultBoundNoReduce20's rule reaching one level deeper:
+        // that law owns the type parameter's own packed dims
+        // (`parameter type T = logic [W-1:0]`), this one the dims of the
+        // members of `parameter type T = struct packed { logic [W-1:0] a; }`.
+        //
+        // PRODUCER.  `CompileHelper::compileParameterDeclaration` builds a
+        // `type_parameter`'s typespec with `compileTypespec(..., Reduce::No, p,
+        // nullptr, false)` — Surelog `src/DesignCompile/CompileHelper.cpp:3476`
+        // (the ANSI `paList_of_type_assignments` arm) and `:3510` (the `paTYPE`
+        // body / non-ANSI / package / class arm), both HARD-CODED `Reduce::No`
+        // with a NULL instance.  `compileTypespec`'s struct/union arm passes
+        // that same `reduce` straight down to the member ranges
+        // (`CompileType.cpp:315` and `:1295` call `compileRanges(component, fC,
+        // Packed_dimension, compileDesign, reduce, ...)`), and
+        // `CompileHelper::compileRanges` reduces a bound ONLY under
+        // `Reduce::Yes` (`CompileExpression.cpp:3963`, the test at `:4032`).
+        // So no member bound of a type parameter's default is ever folded, and
+        // because the call site's `Reduce::No` is hard-coded rather than
+        // inherited, the rule does NOT care which holder the declaration sits
+        // in — grid `g2_tpdef35` measures it identical in a MODULE, an
+        // INTERFACE and a PACKAGE, where the NAMED-typedef rule above is
+        // holder-dependent (a package typedef folds).
+        //
+        // Grid g2_tpdef35, one cell per written member dim, golden vs ours at
+        // the base — every one of these is golden `op11`/`ref_obj` and ours a
+        // fold: 15:50 a PACKAGE type parameter, 19:51 an INTERFACE one, 27:60
+        // an ANSI one, 31:11 + 32:11 the CORPUS shape (a hier-path member read
+        // `Cfg.XLEN-1`), 35:48 a plain param-ref operation, 37:50 a BARE NAME
+        // (golden a `ref_obj`, not an operation), 42:27 + 43:11 a NESTED
+        // anonymous struct, 46:48 + 46:66 an anonymous UNION, 50:49 a packed
+        // 2-D member.  The two cells that must NOT move are on the same arm
+        // and stay still: 39:49, a LITERAL member dim (`logic [7:0]`, golden
+        // `UINT:7@64 ct9` on both sides — a literal is not a reduction), and
+        // 55:32, `localparam type kw_t = logic [NU-1:0]`, which is
+        // § 20's own arm and already equal.
+        //
+        // An OVERRIDE does not exempt the default: `g2_tpdef35`'s `u_ov`
+        // overrides `ANSI_T` and golden still keeps 27:60 symbolic, because
+        // the object this rule governs is the DECLARATION's, built once at
+        // definition-compile time.  That is why there is no `isOverridden()`
+        // gate here, unlike § 20's packed-dim arm where the OVERRIDE's own
+        // written type is a different object compiled during elaboration.
+        const bool tpAnonAggDefault35 = isTypeParamAnonAggDefault35(structScope);
         structMemberSymBound = (namedTypedef && !inPkg && !inUnit) ||
-                               (namedTypedef && inPkg && pkgDefListingSymBound);
+                               (namedTypedef && inPkg && pkgDefListingSymBound) ||
+                               (!namedTypedef && tpAnonAggDefault35);
     }
     auto* members = s.MakeTypespec_memberVec();
     for (auto& fm : structScope.members()) {
@@ -12723,6 +12784,21 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
     auto* uts = s.MakeUnion_typespec();
     if (packed)
         uts->VpiPacked(true);
+    // § typeParamAnonAggMemberNoReduce35 — a UNION written as a type
+    // parameter's declaration default takes the same `Reduce::No` as a struct:
+    // `compileTypespec`'s `paStruct_union` arm is ONE arm for both keywords,
+    // and it hands the caller's `reduce` to every member range.  Grid
+    // g2_tpdef35 `uni_t` (46:48 and 46:66), golden `op11(ref_obj,constant)` on
+    // both members.  This builder never set the flag at all, so it inherited
+    // whatever the caller left — hence the explicit save/restore.
+    bool savedSymBound35 = structMemberSymBound;
+    if (isTypeParamAnonAggDefault35(unionScope))
+        structMemberSymBound = true;
+    struct SymBoundRestore35 {
+        UhdmExporter& e;
+        bool v;
+        ~SymBoundRestore35() { e.structMemberSymBound = v; }
+    } sbr35{*this, savedSymBound35};
     auto* members = s.MakeTypespec_memberVec();
     for (auto& fm : unionScope.members()) {
         if (fm.kind != SymbolKind::Field)

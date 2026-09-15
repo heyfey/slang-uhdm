@@ -2544,6 +2544,31 @@ private:
     UHDM::packed_array_typespec* namedElemPackedDimTs31(
         const slang::syntax::DataTypeSyntax& defSyn, const slang::ast::Type& dt,
         const slang::ast::Scope& body, bool elabView);
+    /// § typeParamAnonAggMemberNoReduce35 — an ANONYMOUS AGGREGATE written as
+    /// a TYPE PARAMETER's DECLARATION DEFAULT (`localparam type it_t = struct
+    /// packed { logic [Cfg.XLEN-1:0] x; }`) keeps its MEMBER dimension bounds
+    /// SYMBOLIC, in every holder and every view.  This is
+    /// § typeParamDefaultBoundNoReduce20 one level deeper: that law owns the
+    /// type parameter's own packed dims, this one the dims of the members of
+    /// its aggregate default.
+    ///
+    /// PRODUCER.  `CompileHelper::compileParameterDeclaration` compiles a
+    /// `type_parameter`'s typespec with a HARD-CODED `Reduce::No` and a null
+    /// instance (Surelog `src/DesignCompile/CompileHelper.cpp:3476` for the
+    /// ANSI `paList_of_type_assignments` arm, `:3510` for the `paTYPE` body /
+    /// non-ANSI / package / class arm); `compileTypespec`'s ONE
+    /// `paStruct_union` arm hands that same `reduce` to every member range
+    /// (`CompileType.cpp:315`, `:1295`), and `CompileHelper::compileRanges`
+    /// reduces a bound only under `Reduce::Yes`
+    /// (`CompileExpression.cpp:3963`, the test at `:4032`).  The `Reduce::No`
+    /// being hard-coded at the call site — not inherited from the holder's
+    /// compile pass — is why the rule is HOLDER-INDEPENDENT, unlike the named
+    /// struct typedef's (which folds in a package).
+    ///
+    /// True when `aggScope`'s syntax sits inside a `TypeParameterDeclaration`.
+    /// A named typedef NAMED as the default answers false: its scope's syntax
+    /// is the typedef's.
+    bool isTypeParamAnonAggDefault35(const slang::ast::Scope& aggScope) const;
     /// The element typespec of an aggregate member with an ANONYMOUS element
     /// type (`logic [31:0] pair [2]`); null for kinds not modelled.
     UHDM::typespec* anonAggregateElemTs(

@@ -1,0 +1,113 @@
+pool|(b_2d_t)                                  logic_typespec(b_2d_t)                         31:17     L const INT:4@64 ct7                 -         x1
+pool|(b_2d_t)                                  logic_typespec(b_2d_t)                         31:17     L const INT:8@64 ct7                 -         x1
+pool|(b_2d_t)                                  logic_typespec(b_2d_t)                         31:17     R const UINT:0@64 ct9                31:23     x2
+pool|(b_2d_t)                                  logic_typespec(b_2d_t)                         31:25     L const UINT:1@64 ct9                31:26     x2
+pool|(b_2d_t)                                  logic_typespec(b_2d_t)                         31:25     R const UINT:0@64 ct9                31:28     x2
+pool|(b_bare_t)                                logic_typespec(b_bare_t)                       29:17     L const ?@- ct-                      26:46     x2
+pool|(b_bare_t)                                logic_typespec(b_bare_t)                       29:17     R const UINT:0@64 ct9                29:21     x2
+pool|(b_bit_t)                                 bit_typespec(b_bit_t)                          36:15     L const INT:4@64 ct7                 -         x1
+pool|(b_bit_t)                                 bit_typespec(b_bit_t)                          36:15     L const INT:8@64 ct7                 -         x1
+pool|(b_bit_t)                                 bit_typespec(b_bit_t)                          36:15     R const UINT:0@64 ct9                36:21     x2
+pool|(b_lit_t)                                 logic_typespec(b_lit_t)                        30:17     L const UINT:7@64 ct9                30:18     x2
+pool|(b_lit_t)                                 logic_typespec(b_lit_t)                        30:17     R const UINT:0@64 ct9                30:20     x2
+pool|(b_mem_t)                                 array_typespec(b_mem_t)                        32:42     L const UINT:0@64 ct9                -         x2
+pool|(b_mem_t)                                 array_typespec(b_mem_t)                        32:42     R const INT:1@64 ct7                 -         x2
+pool|(b_op_t)                                  logic_typespec(b_op_t)                         28:17     L const INT:4@64 ct7                 -         x1
+pool|(b_op_t)                                  logic_typespec(b_op_t)                         28:17     L const INT:8@64 ct7                 -         x1
+pool|(b_op_t)                                  logic_typespec(b_op_t)                         28:17     R const UINT:0@64 ct9                28:23     x2
+pool|(b_sgn_t)                                 logic_typespec(b_sgn_t)                        35:24     L const INT:4@64 ct7                 -         x1
+pool|(b_sgn_t)                                 logic_typespec(b_sgn_t)                        35:24     L const INT:8@64 ct7                 -         x1
+pool|(b_sgn_t)                                 logic_typespec(b_sgn_t)                        35:24     R const UINT:0@64 ct9                35:30     x2
+pool|(b_umem_t)                                array_typespec(b_umem_t)                       33:43     L const UINT:0@64 ct9                -         x2
+pool|(b_umem_t)                                array_typespec(b_umem_t)                       33:43     R const INT:4@64 ct7                 -         x1
+pool|(b_umem_t)                                array_typespec(b_umem_t)                       33:43     R const INT:8@64 ct7                 -         x1
+pool|(g_vec_t)                                 logic_typespec(g_vec_t)                        57:19     L const INT:4@64 ct7                 -         x1
+pool|(g_vec_t)                                 logic_typespec(g_vec_t)                        57:19     L const INT:8@64 ct7                 -         x1
+pool|(g_vec_t)                                 logic_typespec(g_vec_t)                        57:19     R const UINT:0@64 ct9                57:25     x2
+pool|(if_vec_t)                                logic_typespec(if_vec_t)                       20:17     L const INT:5@64 ct7                 -         x1
+pool|(if_vec_t)                                logic_typespec(if_vec_t)                       20:17     R const UINT:0@64 ct9                20:23     x1
+pool|(pk_bare_t)                               logic_typespec(pk_bare_t)                      10:17     L const UINT:5@32 ct9                10:18     x2
+pool|(pk_bare_t)                               logic_typespec(pk_bare_t)                      10:17     R const UINT:0@64 ct9                10:21     x2
+pool|(pk_mem_t)                                array_typespec(pk_mem_t)                       12:41     L const UINT:0@64 ct9                -         x2
+pool|(pk_mem_t)                                array_typespec(pk_mem_t)                       12:41     R const INT:1@64 ct7                 -         x2
+pool|(pk_vec_t)                                logic_typespec(pk_vec_t)                       9:17      L const INT:4@64 ct7                 9:18      x2
+pool|(pk_vec_t)                                logic_typespec(pk_vec_t)                       9:17      R const UINT:0@64 ct9                9:23      x2
+pool|(u_vec_t)                                 logic_typespec(u_vec_t)                        17:15     L const INT:6@64 ct7                 17:16     x2
+pool|(u_vec_t)                                 logic_typespec(u_vec_t)                        17:15     R const UINT:0@64 ct9                17:21     x2
+pool|-                                         logic_typespec                                 11:33     L const INT:4@64 ct7                 11:34     x1
+pool|-                                         logic_typespec                                 11:33     L op11(ref_obj,constant)             11:34     x1
+pool|-                                         logic_typespec                                 11:33     R const UINT:0@64 ct9                11:39     x2
+pool|-                                         logic_typespec                                 12:17     L const INT:4@64 ct7                 12:18     x3
+pool|-                                         logic_typespec                                 12:17     L op11(ref_obj,constant)             12:18     x1
+pool|-                                         logic_typespec                                 12:17     R const UINT:0@64 ct9                12:23     x4
+pool|-                                         logic_typespec                                 12:25     L const UINT:1@64 ct9                12:26     x4
+pool|-                                         logic_typespec                                 12:25     R const UINT:0@64 ct9                12:28     x4
+pool|-                                         logic_typespec                                 21:33     L op11(ref_obj,constant)             21:34     x1
+pool|-                                         logic_typespec                                 21:33     R const UINT:0@64 ct9                21:39     x1
+pool|-                                         logic_typespec                                 32:17     L op11(ref_obj,constant)             32:18     x3
+pool|-                                         logic_typespec                                 32:17     R const UINT:0@64 ct9                32:23     x3
+pool|-                                         logic_typespec                                 33:17     L op11(ref_obj,constant)             33:18     x3
+pool|-                                         logic_typespec                                 33:17     R const UINT:0@64 ct9                33:23     x3
+pool|-                                         logic_typespec                                 34:33     L op11(ref_obj,constant)             34:34     x1
+pool|-                                         logic_typespec                                 34:33     R const UINT:0@64 ct9                34:39     x1
+uhdmallInterfaces|work@g1if35                  logic_typespec(if_vec_t)/interface_instwork@g1if35 20:17     L op11(ref_obj,constant)             20:18     x1
+uhdmallInterfaces|work@g1if35                  logic_typespec(if_vec_t)/interface_instwork@g1if35 20:17     R const UINT:0@64 ct9                20:23     x1
+uhdmallModules|work@g1sub35                    array_typespec(b_mem_t)/module_instwork@g1sub35 32:42     L const UINT:0@64 ct9                -         x1
+uhdmallModules|work@g1sub35                    array_typespec(b_mem_t)/module_instwork@g1sub35 32:42     R op11(constant,constant)            32:42     x1
+uhdmallModules|work@g1sub35                    array_typespec(b_umem_t)/module_instwork@g1sub35 33:43     L const UINT:0@64 ct9                -         x1
+uhdmallModules|work@g1sub35                    array_typespec(b_umem_t)/module_instwork@g1sub35 33:43     R op11(ref_obj,constant)             33:43     x1
+uhdmallModules|work@g1sub35                    bit_typespec(b_bit_t)/module_instwork@g1sub35  36:15     L op11(ref_obj,constant)             36:16     x1
+uhdmallModules|work@g1sub35                    bit_typespec(b_bit_t)/module_instwork@g1sub35  36:15     R const UINT:0@64 ct9                36:21     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_2d_t)/module_instwork@g1sub35 31:17     L op11(ref_obj,constant)             31:18     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_2d_t)/module_instwork@g1sub35 31:17     R const UINT:0@64 ct9                31:23     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_2d_t)/module_instwork@g1sub35 31:25     L const UINT:1@64 ct9                31:26     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_2d_t)/module_instwork@g1sub35 31:25     R const UINT:0@64 ct9                31:28     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_bare_t)/module_instwork@g1sub35 29:17     L ref_obj NU                         29:18     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_bare_t)/module_instwork@g1sub35 29:17     R const UINT:0@64 ct9                29:21     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_lit_t)/module_instwork@g1sub35 30:17     L const UINT:7@64 ct9                30:18     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_lit_t)/module_instwork@g1sub35 30:17     R const UINT:0@64 ct9                30:20     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_op_t)/module_instwork@g1sub35 28:17     L op11(ref_obj,constant)             28:18     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_op_t)/module_instwork@g1sub35 28:17     R const UINT:0@64 ct9                28:23     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_sgn_t)/module_instwork@g1sub35 35:24     L op11(ref_obj,constant)             35:25     x1
+uhdmallModules|work@g1sub35                    logic_typespec(b_sgn_t)/module_instwork@g1sub35 35:24     R const UINT:0@64 ct9                35:30     x1
+uhdmallModules|work@g1sub35                    logic_typespec(f_vec_t)/begin(work@g1sub35.f35)/function(work@g1sub35.f35)/module_instwork@g1sub35 63:19     L op11(ref_obj,constant)             63:20     x1
+uhdmallModules|work@g1sub35                    logic_typespec(f_vec_t)/begin(work@g1sub35.f35)/function(work@g1sub35.f35)/module_instwork@g1sub35 63:19     R const UINT:0@64 ct9                63:25     x1
+uhdmallPackages|g1pk35                         array_typespec(g1pk35::pk_mem_t)/packageg1pk35 12:41     L const UINT:0@64 ct9                -         x1
+uhdmallPackages|g1pk35                         array_typespec(g1pk35::pk_mem_t)/packageg1pk35 12:41     R op11(constant,constant)            12:41     x1
+uhdmallPackages|g1pk35                         logic_typespec(g1pk35::pk_bare_t)/packageg1pk35 10:17     L ref_obj PU                         10:18     x1
+uhdmallPackages|g1pk35                         logic_typespec(g1pk35::pk_bare_t)/packageg1pk35 10:17     R const UINT:0@64 ct9                10:21     x1
+uhdmallPackages|g1pk35                         logic_typespec(g1pk35::pk_vec_t)/packageg1pk35 9:17      L op11(ref_obj,constant)             9:18      x1
+uhdmallPackages|g1pk35                         logic_typespec(g1pk35::pk_vec_t)/packageg1pk35 9:17      R const UINT:0@64 ct9                9:23      x1
+uhdmtopModules|work@g1_site35                  logic_typespec(g_vec_t)/gen_scope(work@g1_site35.u_def.g_blk)/gen_scope_array(work@g1_site35.u_def.g_blk)/module_instwork@g1sub35 57:19     L op11(ref_obj,constant)             57:20     x1
+uhdmtopModules|work@g1_site35                  logic_typespec(g_vec_t)/gen_scope(work@g1_site35.u_def.g_blk)/gen_scope_array(work@g1_site35.u_def.g_blk)/module_instwork@g1sub35 57:19     R const UINT:0@64 ct9                57:25     x1
+uhdmtopModules|work@g1_site35                  logic_typespec(g_vec_t)/gen_scope(work@g1_site35.u_ov.g_blk)/gen_scope_array(work@g1_site35.u_ov.g_blk)/module_instwork@g1sub35 57:19     L op11(ref_obj,constant)             57:20     x1
+uhdmtopModules|work@g1_site35                  logic_typespec(g_vec_t)/gen_scope(work@g1_site35.u_ov.g_blk)/gen_scope_array(work@g1_site35.u_ov.g_blk)/module_instwork@g1sub35 57:19     R const UINT:0@64 ct9                57:25     x1
+uhdmtopPackages|g1pk35                         array_typespec(g1pk35::pk_mem_t)/packageg1pk35 12:41     L const UINT:0@64 ct9                -         x1
+uhdmtopPackages|g1pk35                         array_typespec(g1pk35::pk_mem_t)/packageg1pk35 12:41     R op11(constant,constant)            12:41     x1
+uhdmtopPackages|g1pk35                         logic_typespec(g1pk35::pk_bare_t)/packageg1pk35 10:17     L const UINT:5@32 ct9                10:18     x1
+uhdmtopPackages|g1pk35                         logic_typespec(g1pk35::pk_bare_t)/packageg1pk35 10:17     R const UINT:0@64 ct9                10:21     x1
+uhdmtopPackages|g1pk35                         logic_typespec(g1pk35::pk_vec_t)/packageg1pk35 9:17      L const INT:4@64 ct7                 9:18      x1
+uhdmtopPackages|g1pk35                         logic_typespec(g1pk35::pk_vec_t)/packageg1pk35 9:17      R const UINT:0@64 ct9                9:23      x1
+vpiTypedef|(u_vec_t)                           logic_typespec(u_vec_t)                        17:15     L const INT:6@64 ct7                 17:16     x1
+vpiTypedef|(u_vec_t)                           logic_typespec(u_vec_t)                        17:15     R const UINT:0@64 ct9                17:21     x1
+uhdmallModules|work@g1_site35                  <no-range-bound>                               -         - -                                  -         x0
+vpiParameter|(GU)                              <no-range-bound>                               -         - -                                  -         x0
+vpiParamAssign|-                               <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(f_vec_t)                                 <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+-- ranges=67 rows=134 sections=67 empty=20

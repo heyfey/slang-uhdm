@@ -1,0 +1,211 @@
+# r11u35 — GATES.  Base 2c3df162.  Judge: uhdm-cmp v1.87.
+
+## binaries
+pristine  /tmp/r11u35_bin/pris.bin  md5 ed6dc5a7d3788f7470cb60667334e6e1
+          == the MAIN TREE build/slang-uhdm at 2c3df162 (md5 ed6dc5a7d3788f7470cb60667334e6e1)
+law       /tmp/r11u35_bin/law.bin   md5 ea7475c5b8d85df95c35d88f457ad930
+
+## (1) goldens
+PASS=23 FAIL=0   (23/0)
+negative control SLANG_UHDM=/bin/false: FAIL=23 PASS=0   (23/0)
+
+## (2) pristine sweeps == the committed baseline
+[testflags] 871 tests
+  CMP_EQUAL: 774
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 30
+[default] 871 tests
+  CMP_EQUAL: 774
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 30
+[default] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+
+[testflags] 798 tests
+  CMP_EQUAL: 469
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 8
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+
+## (3) law sweeps
+[testflags] 871 tests
+  CMP_EQUAL: 774
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 30
+[default] 871 tests
+  CMP_EQUAL: 774
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 30
+[default] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+
+[testflags] 798 tests
+  CMP_EQUAL: 469
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 8
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+
+## (4) row gates (ct8rows)
+--- u2r testflags vs the COMMITTED results/gate_uhdm2rtlil.csv
+  testflags  fresh:      97      239 differ     535 match 
+PASS: every row byte-identical to the committed baseline
+--- u2r testflags vs the pass's OWN pristine
+  testflags  fresh:      97      239 differ     535 match 
+PASS: every row byte-identical to the committed baseline
+--- u2r default vs the pass's OWN pristine
+  default  fresh:      97      243 differ     531 match 
+PASS: every row byte-identical to the committed baseline
+--- surelog both modes vs the pass's OWN pristine (the three moved rows, quoted in full)
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u35_wd/p_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u35_wd/l_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u35_wd/p_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u35_wd/l_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     324      248 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+## (4a) the three moved surelog rows, RESOLVED
+LowMemLib/testflags, LowMemPkg/testflags -- the SURELOG_FAIL detail string embeds the WORKDIR PATH
+  (/tmp/r11u35_wd/p_sl vs /tmp/r11u35_wd/l_sl).  Not a row move; the two sweeps used two workdirs.
+Earlgrey_0_1/testflags CMP_EQUAL/differ -> CMP_EQUAL/<empty>: the HARNESS's 180 s uhdm-dump
+  TIMEOUT (verify_golden.py --timeout default 180; scripts/verify_golden.py:626-635 records ''
+  on TimeoutExpired).  The DATABASE is byte-identical on both sides and equals the OPS pin:
+    Earlgrey_0_1/default law=8bdf25272e08 pris=8bdf25272e08
+    Earlgrey_0_1/testflags law=59d0ee6d10c3 pris=59d0ee6d10c3
+  Measured by hand on the LAW database: uhdm-dump wall=309 s, 6730762 lines, rc=0;
+  sha256(body) f2ca2ea83f9ab926... vs golden.dumphash 63e80341107c10e7... => VERDICT differ,
+  i.e. exactly the committed row Earlgrey_0_1,testflags,CMP_EQUAL,,,differ.  STATUS never moved.
+
+## (5) byteverify, SELFCHECK on, law vs the pass's OWN pristine workdirs
+--- uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/cva6_struct_param_field-80aba5af/slang.uhdm  patched=142c0eaf415a pristine=218a7665b0cb
+MOVER ./testflags/cva6_struct_param_field-80aba5af/slang.uhdm  patched=e07d0347b4b0 pristine=f70c4a35a0fc
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+--- surelog
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=5e0f4b570880
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=93b44c1f2358 pristine=3a1a70294bfb
+MOVER ./default/StructParamFieldRange-25c71671/slang.uhdm  patched=6b6e85d2b74e pristine=fb8ebca1c3c2
+MOVER ./default/StructParamFuncBodyFieldCompare-dc918b36/slang.uhdm  patched=6c0f755134c5 pristine=80dab0d503e9
+MOVER ./default/StructParamPatternInitCast-5f8c57d4/slang.uhdm  patched=f279c3f1d189 pristine=1d321feefdbb
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=451889ad5f7c pristine=8d38ce5fd921
+MOVER ./testflags/StructParamFieldRange-25c71671/slang.uhdm  patched=6b6e85d2b74e pristine=fb8ebca1c3c2
+MOVER ./testflags/StructParamFuncBodyFieldCompare-dc918b36/slang.uhdm  patched=6c0f755134c5 pristine=80dab0d503e9
+MOVER ./testflags/StructParamPatternInitCast-5f8c57d4/slang.uhdm  patched=f279c3f1d189 pristine=1d321feefdbb
+MOVERS: 10 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+## (6) EVERY MOVER, NAMED A PRIORI AND ATTRIBUTED
+a-priori prediction (evidence/PREDICTION.txt, positive control PASS):
+  u2r     cva6_struct_param_field, cva6_equiv
+  surelog StructParamFieldRange, StructParamFuncBodyFieldCompare, StructParamPatternInitCast, Ariane2024
+  cva6_equiv carries NO comparable row in either baseline and NO database in the harness;
+  Ariane2024 is SLANG_REJECT/default and NO_DATABASE/testflags -- neither can move a byte.
+  -> 6 predicted rows with databases; 6 of the 12 movers are exactly those, both modes each.
+
+the 6 LAW movers, attributed order-blind (every differing line at the member-dim source line):
+StructParamFieldRange [default] order-blind-difflines=310 in-order-difflines=310
+StructParamFuncBodyFieldCompare [default] order-blind-difflines=310 in-order-difflines=310
+StructParamPatternInitCast [default] order-blind-difflines=310 in-order-difflines=310
+cva6_struct_param_field [default] order-blind-difflines=310 in-order-difflines=310
+  StructParamFieldRange/default: the diff touches SOURCE LINES 24 and 25 ONLY -- the two member
+  declarations of `localparam type it_t` -- removing 10x INT:63 and adding 10x the
+  op11(hier_path Cfg.XLEN, UINT:1) tree.  Nothing else in the database changed.
+
+the 4 UVM movers are r11u33 R7's PER-INVOCATION coin, NOT this law:
+MiniAmiq [default] order-blind-difflines=4 in-order-difflines=4
+MiniAmiq [testflags] order-blind-difflines=4 in-order-difflines=4
+Scoreboard [default] order-blind-difflines=0 in-order-difflines=92
+SimpleUVM [default] order-blind-difflines=4 in-order-difflines=4
+POSITIVE CONTROL -- the PRISTINE binary alone, run TWICE, moves the same databases the same way:
+MiniAmiq [default] order-blind-difflines=4 in-order-difflines=4
+MiniAmiq [testflags] order-blind-difflines=4 in-order-difflines=4
+SimpleUVM [default] order-blind-difflines=4 in-order-difflines=4
+  (the 4-line class is the UINT:<n>/vpiDecompile:<n> pair on the uvm_misc.svh queue typedef's
+   array_typespec bound; Scoreboard/default is the svunit_pkg vpiTaskFunc ORDER coin, 0 lines
+   order-blind and 92 in order.  Statuses unchanged: rowheads = 0 heads on every UVM row.)
+
+## (7) canaries / pins
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+  (the ONE canaries.sh CHANGED row is Earlgrey_0_1/testflags's dump column -- the 180 s
+   uhdm-dump timeout resolved in (4a); its STATUS and its DATABASE BYTES did not move.)
+
+## (8) protected databases, law vs the pass's own pristine
+  SVSwitch/default law=4842211c4030 pris=4842211c4030 SAME
+  SVSwitch/testflags law=4842211c4030 pris=4842211c4030 SAME
+  YosysVerx/default law=6ccda350c24a pris=6ccda350c24a SAME
+  YosysVerx/testflags law=6ccda350c24a pris=6ccda350c24a SAME
+  InterfaceModPort/default law=59a365f3ce2c pris=59a365f3ce2c SAME
+  InterfaceModPort/testflags law=59a365f3ce2c pris=59a365f3ce2c SAME
+  BlackParrotComplex/default law=e3e354129d5a pris=e3e354129d5a SAME
+  BlackParrotComplex/testflags law=73a10e8217e5 pris=73a10e8217e5 SAME
+  YosysOldOr/default law=d68e0796d62c pris=d68e0796d62c SAME
+  YosysOldOr/testflags law=d68e0796d62c pris=d68e0796d62c SAME
+  Earlgrey_0_1/default law=8bdf25272e08 pris=8bdf25272e08 SAME
+  Earlgrey_0_1/testflags law=59d0ee6d10c3 pris=59d0ee6d10c3 SAME
+  pins: SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+        Earlgrey_0_1 8bdf25272e08 / 59d0ee6d10c3 -- all matched.
+
+## (9) the LANDED LAWS this pass shares the road with -- their witnesses STAY
+genscope_struct_member,testflags,CMP_EQUAL,,,match
+genscope_struct_member,default,CMP_EQUAL,,,match
+latch_perf_counters,default,CMP_EQUAL,,,match
+latch_perf_counters,testflags,CMP_EQUAL,,,match
+ibex_icache,default,CMP_NOTEQUAL,decompile:,,
+ibex_icache,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_pmp,default,CMP_NOTEQUAL,decompile:,,
+ibex_pmp,testflags,CMP_NOTEQUAL,decompile:,,
+iface_unpacked_struct_array,default,CMP_EQUAL,,,differ
+iface_unpacked_struct_array,testflags,CMP_EQUAL,,,differ
+InterfaceUnpackedStructArrayDim,default,CMP_EQUAL,,,differ
+InterfaceUnpackedStructArrayDim,testflags,CMP_EQUAL,,,differ
+  (databases byte-UNCHANGED for every one -- they are not in the 12-mover set.)
+
+## (10) results/*.csv
+  UNTOUCHED (no output above).
+
+## (11) the head on the witness, BEFORE and AFTER (it ADVANCES; the row stays CMP_NOTEQUAL)
+before: operation(hier_path Cfg.XLEN, UINT:1) vs constant INT:63 @64 ct7   -- the FOLD
+after : struct_typespec golden UNNAMED 23:26..23:32 vs ours (it_t) 23:26..26:4 with vpiInstance
+        -- R1, a NAME/INSTANCE/SPAN on the anonymous default, a different object entirely.

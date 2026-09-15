@@ -1,0 +1,97 @@
+pool|-                                         logic_typespec                                 20:11     L op11(ref_obj,constant)             20:12     x1
+pool|-                                         logic_typespec                                 20:11     R const UINT:0@64 ct9                20:17     x1
+pool|-                                         logic_typespec                                 21:11     L ref_obj NU                         21:12     x1
+pool|-                                         logic_typespec                                 21:11     R const UINT:0@64 ct9                21:15     x1
+pool|-                                         logic_typespec                                 22:11     L const UINT:7@64 ct9                22:12     x1
+pool|-                                         logic_typespec                                 22:11     R const UINT:0@64 ct9                22:14     x1
+pool|-                                         logic_typespec                                 23:11     L const DEC:7@8 ct1                  23:12     x1
+pool|-                                         logic_typespec                                 23:11     R const UINT:0@64 ct9                23:17     x1
+pool|-                                         logic_typespec                                 24:11     L op24(ref_obj,constant)             24:12     x1
+pool|-                                         logic_typespec                                 24:11     R const UINT:0@64 ct9                24:17     x1
+pool|-                                         logic_typespec                                 25:11     L op24(constant,ref_obj)             25:12     x1
+pool|-                                         logic_typespec                                 25:11     R const UINT:0@64 ct9                25:17     x1
+pool|-                                         logic_typespec                                 26:11     L op24(ref_obj,constant)             26:12     x1
+pool|-                                         logic_typespec                                 26:11     R const UINT:0@64 ct9                26:20     x1
+pool|-                                         logic_typespec                                 27:11     L op11(operation,constant)           27:12     x1
+pool|-                                         logic_typespec                                 27:11     R const UINT:0@64 ct9                27:19     x1
+pool|-                                         logic_typespec                                 28:11     L op11(operation,constant)           28:12     x1
+pool|-                                         logic_typespec                                 28:11     R const UINT:0@64 ct9                28:21     x1
+pool|-                                         logic_typespec                                 29:11     L op12(ref_obj,constant)             29:12     x1
+pool|-                                         logic_typespec                                 29:11     R const UINT:0@64 ct9                29:17     x1
+pool|-                                         logic_typespec                                 30:11     L op22(ref_obj,constant)             30:12     x1
+pool|-                                         logic_typespec                                 30:11     R const UINT:0@64 ct9                30:18     x1
+pool|-                                         logic_typespec                                 31:11     L op11(sys_func_call,constant)       31:12     x1
+pool|-                                         logic_typespec                                 31:11     R const UINT:0@64 ct9                31:25     x1
+pool|-                                         logic_typespec                                 32:11     L op11(ref_obj,constant)             32:12     x1
+pool|-                                         logic_typespec                                 32:11     R const UINT:0@64 ct9                32:17     x1
+pool|-                                         logic_typespec                                 33:11     L op11(ref_obj,constant)             33:12     x1
+pool|-                                         logic_typespec                                 33:11     R const UINT:0@64 ct9                33:17     x1
+pool|-                                         logic_typespec                                 34:11     L op11(ref_obj,constant)             34:12     x1
+pool|-                                         logic_typespec                                 34:11     R const UINT:0@64 ct9                34:17     x1
+pool|-                                         logic_typespec                                 35:11     L op11(ref_obj,constant)             35:12     x1
+pool|-                                         logic_typespec                                 35:11     R const UINT:0@64 ct9                35:17     x1
+pool|-                                         logic_typespec                                 36:11     L op11(hier_path,constant)           36:12     x1
+pool|-                                         logic_typespec                                 36:11     R const UINT:0@64 ct9                36:20     x1
+pool|-                                         logic_typespec                                 37:11     L hier_path Cfg.D                    37:12     x1
+pool|-                                         logic_typespec                                 37:11     R const UINT:0@64 ct9                37:18     x1
+pool|-                                         logic_typespec                                 38:11     L op11(constant,constant)            38:12     x1
+pool|-                                         logic_typespec                                 38:11     R const UINT:0@64 ct9                38:25     x1
+pool|-                                         logic_typespec                                 39:11     L op11(ref_obj,constant)             39:12     x1
+pool|-                                         logic_typespec                                 39:11     R const UINT:0@64 ct9                39:17     x1
+pool|-                                         logic_typespec                                 39:19     L const UINT:1@64 ct9                39:20     x1
+pool|-                                         logic_typespec                                 39:19     R const UINT:0@64 ct9                39:22     x1
+pool|-                                         logic_typespec                                 40:18     L op11(ref_obj,constant)             40:19     x1
+pool|-                                         logic_typespec                                 40:18     R const UINT:0@64 ct9                40:24     x1
+pool|-                                         logic_typespec                                 45:47     L op11(ref_obj,constant)             45:48     x1
+pool|-                                         logic_typespec                                 45:47     R const UINT:0@64 ct9                45:53     x1
+pool|-                                         logic_typespec                                 46:47     L op24(ref_obj,constant)             46:48     x1
+pool|-                                         logic_typespec                                 46:47     R const UINT:0@64 ct9                46:53     x1
+uhdmallPackages|g3pk35                         <no-range-bound>                               -         - -                                  -         x0
+uhdmtopPackages|g3pk35                         <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@g3_shape35                 <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@g3sub35                    <no-range-bound>                               -         - -                                  -         x0
+uhdmtopModules|work@g3_shape35                 <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(W)                                       <no-range-bound>                               -         - -                                  -         x0
+pool|(D)                                       <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(W)                                       <no-range-bound>                               -         - -                                  -         x0
+pool|(D)                                       <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(W)                                       <no-range-bound>                               -         - -                                  -         x0
+pool|(D)                                       <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(g3pk35::cfg_t)                           <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(g3pk35::cfg_t)                           <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(g3pk35::cfg_t)                           <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(g3pk35::cfg_t)                           <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+-- ranges=24 rows=48 sections=71 empty=48

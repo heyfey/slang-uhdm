@@ -1,0 +1,32 @@
+pool|-                                         logic_typespec                                 16:11     L const INT:7@64 ct7                 -         x1
+pool|-                                         logic_typespec                                 16:11     L op11(ref_obj,constant)             16:12     x2
+pool|-                                         logic_typespec                                 16:11     R const UINT:0@64 ct9                16:16     x3
+pool|-                                         logic_typespec                                 17:11     L const INT:47@64 ct7                -         x1
+pool|-                                         logic_typespec                                 17:11     L op11(hier_path,constant)           17:12     x2
+pool|-                                         logic_typespec                                 17:11     R const UINT:0@64 ct9                17:30     x3
+pool|-                                         logic_typespec                                 23:11     L op11(ref_obj,constant)             23:12     x1
+pool|-                                         logic_typespec                                 23:11     R const UINT:0@64 ct9                23:16     x1
+uhdmallPackages|c5v35                          <no-range-bound>                               -         - -                                  -         x0
+uhdmtopPackages|c5v35                          <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@v5_patonly35               <no-range-bound>                               -         - -                                  -         x0
+uhdmtopModules|work@v5_patonly35               <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(XLEN)                                    <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(pa)                                      <no-range-bound>                               -         - -                                  -         x0
+pool|(pb)                                      <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+-- ranges=7 rows=14 sections=30 empty=23

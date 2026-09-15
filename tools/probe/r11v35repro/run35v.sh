@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# r11v35 (VERIFIER) — the two-sided runner for the verifier's OWN arms.
+# Identical in method to r11u35repro/run35.sh (golden + one binary per arm,
+# BOTH rcs recorded, heads and cmp-line counts printed) but defaulted to this
+# directory's `grid/`, so neither pass's driver can be pointed at the other's
+# scratch by accident.
+#
+#   usage: run35v.sh <binary> <tag> [arms...]
+set -u
+BIN=${1:?binary}; TAG=${2:?tag}; shift 2
+GRID=${GRID:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/grid}
+ARMS=${*:-$(ls -d $GRID/* | xargs -n1 basename | sort -V)}
+SL=${SL:-/home/heyfey/git-repos/Surelog/build/bin/surelog}
+DUMP=${DUMP:-/home/heyfey/git-repos/UHDM/build/bin/uhdm-dump}
+CMP=${CMP:-/home/heyfey/git-repos/UHDM/build/bin/uhdm-cmp}
+for a in $ARMS; do
+  d=$GRID/$a
+  ( cd $d && rm -rf slpp_all && $SL -parse -nobuiltin -nocache -sv dut.sv > sl.$TAG.log 2>&1; echo "golden_rc=$?" > rc.$TAG.txt )
+  ( cd $d && $BIN dut.sv --single-unit --nobuiltin -o ours.$TAG.uhdm > ours.$TAG.log 2>&1; echo "ours_rc=$?" >> rc.$TAG.txt )
+  [ -f $d/slpp_all/surelog.uhdm ] && $DUMP $d/slpp_all/surelog.uhdm > $d/gold.$TAG.dump 2>&1
+  [ -f $d/ours.$TAG.uhdm ] && $DUMP $d/ours.$TAG.uhdm > $d/ours.$TAG.dump 2>&1
+  h=0; cl=0; rc=NA
+  if [ -f $d/slpp_all/surelog.uhdm ] && [ -f $d/ours.$TAG.uhdm ]; then
+    $CMP $d/slpp_all/surelog.uhdm $d/ours.$TAG.uhdm > $d/cmp.$TAG.out 2> $d/cmp.$TAG.err; rc=$?
+    h=$(grep -c '^LHS:' $d/cmp.$TAG.err; true); cl=$(wc -l < $d/cmp.$TAG.out)
+  fi
+  echo "$a $(tr '\n' ' ' < $d/rc.$TAG.txt) cmp_rc=$rc heads=$h cmplines=$cl"
+done
