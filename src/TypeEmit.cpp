@@ -245,6 +245,85 @@ static const bool r10e82Off = [] {
     return v && *v && *v != '0';
 }();
 
+// § ovHopBareActualElabFold40, the definition-side value's own bound.  TRUE
+// when a parameter's written default is made of LITERALS alone — the
+// assignment-pattern KEYS are names of struct members, not reads, and slang's
+// own default-expression visitor skips them for exactly that reason
+// (`ParameterSymbols.cpp` `handle(const AssignmentPatternItemSyntax&)`).  A
+// default that READS another parameter is not enough for the producer: in
+// `interface i #(parameter int BASE, parameter cfg_t CFG = '{BUS: '{DAT:
+// BASE}});` the definition-side value of `CFG` is still unavailable and golden
+// keeps the child's bound unfolded (`r11v40repro/grid/v9_defchain40`).  The
+// test is purely syntactic: it forces no binding and mints nothing.
+static bool defaultIsLiteralOnly40(const syntax::SyntaxNode& sn) {
+    if (sn.kind == syntax::SyntaxKind::IdentifierName ||
+        sn.kind == syntax::SyntaxKind::ScopedName ||
+        sn.kind == syntax::SyntaxKind::IdentifierSelectName)
+        return false;
+    for (size_t i = 0; i < sn.getChildCount(); i++) {
+        auto* cn = sn.childNode(i);
+        if (!cn)
+            continue;
+        if (sn.kind == syntax::SyntaxKind::AssignmentPatternItem &&
+            cn == (const syntax::SyntaxNode*)
+                      &*sn.as<syntax::AssignmentPatternItemSyntax>().key)
+            continue;   // the member KEY, not a read
+        if (!defaultIsLiteralOnly40(*cn))
+            return false;
+    }
+    return true;
+}
+
+// § ovHopBareActualElabFold40 — see the law at the declaration in
+// UhdmExporter.h.  TRUE means "the reducer had a value here, so FOLD".  The
+// two call sites are the only two arms that keep an override actual symbolic
+// across an interface-port hop, and both see only the BARE member-access
+// chain; that shape is NOT always folded by the producer, so the three tests
+// below are what separates the folds from the keeps, each one measured on a
+// golden database in tools/probe/r11v40repro/grid.
+bool UhdmExporter::ovHopBareActualFolds40(const ParameterSymbol& p,
+                                          const Symbol& hopBase) const {
+    // (a) THE FORMAL'S OWN TYPE.  slang stores a PACKED AGGREGATE as an SVInt,
+    //     so `getValue().isInteger()` answers TRUE for a packed-STRUCT formal
+    //     too — and there the producer KEEPS: golden's elaborated
+    //     `param_assign` Rhs for `#(.B(s.CFG.BUS))` is the written
+    //     `hier_path (s.CFG.BUS)` and the `[B.DAT-1:0]` bound stays
+    //     `op11(hier_path, constant)`
+    //     (tools/probe/r11v40repro/grid/v7_structonly40, golden_rc=0 ours_rc=0,
+    //     Surelog FATAL 0 / ERROR 0).  Only a value the reducer prints as a
+    //     SCALAR folds — a predefined integer, a scalar, or a packed array of
+    //     scalars, which is exactly `isSimpleBitVector()`; `v8_bitvec40`
+    //     measures a `logic [7:0]` formal beside an `int unsigned` one and
+    //     golden folds both.
+    if (!p.getType().isSimpleBitVector())
+        return false;
+    // (b) THE DEFINITION-SIDE VALUE.  `CompileHelper::getValue` resolves the
+    //     hop against the interface DEFINITION — that is why an OVERRIDDEN
+    //     interface still folds the definition's own default (§3 `u_c`/`u_h`/
+    //     `u_i`) — so a parameter declared WITHOUT a default has no value on
+    //     that road at all: `reduceExpr` reports `invalidValue`
+    //     (CompileExpression.cpp:4032) and golden KEEPS the written operation.
+    //     Measured on `v1_nodef40` / `v6_nodefpkg40`: golden and our pristine
+    //     both carry `op11(hier_path, constant)` at the child's port dims and
+    //     body variable; folding there moves three agreeing cells away from
+    //     golden.  `defaultValSyntax` is the DECLARATOR the parameter was
+    //     built from (ParameterBuilder.cpp:244), and an override replaces the
+    //     symbol's initializer without touching it, so its `initializer` is
+    //     the DEFINITION's own default and nothing else.
+    if (hopBase.kind != SymbolKind::Parameter)
+        return false;
+    auto* dvs = hopBase.as<ParameterSymbol>().defaultValSyntax;
+    if (!dvs || dvs->kind != syntax::SyntaxKind::Declarator)
+        return false;
+    auto* dinit = dvs->as<syntax::DeclaratorSyntax>().initializer;
+    if (!dinit || !defaultIsLiteralOnly40(*dinit->expr))
+        return false;
+    // Asked LAST: `getValue()` forces the parameter's evaluation, so the two
+    // syntactic tests above short-circuit before any binding is forced.
+    auto& cv = p.getValue();
+    return cv.isInteger() && !cv.integer().hasUnknown();
+}
+
 // § rangeBoundStoredWidth82 — see the law at the declaration in
 // UhdmExporter.h.  ABSTAIN (nullopt) always means "leave the caller's own
 // answer alone".
@@ -4325,7 +4404,29 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                     // work@top.u1 `data_i`
                                                     // [INPUT_WIDTH-1:0] ->
                                                     // INT:1).
-                                                    !memLeftReadEnc(*pin))
+                                                    !memLeftReadEnc(*pin) &&
+                                                    // § ovHopBareActualElabFold40.
+                                                    // The netlist elaboration
+                                                    // road compiles an
+                                                    // ELABORATED signal's
+                                                    // dimensions with
+                                                    // Reduce::Yes against the
+                                                    // child instance
+                                                    // (NetlistElaboration.cpp
+                                                    // :3049 -> :2196/:2201),
+                                                    // so a bare member read
+                                                    // that HAS a value folds
+                                                    // here exactly as a module
+                                                    // parameter does.  Only an
+                                                    // actual the reducer
+                                                    // cannot evaluate keeps
+                                                    // the written expression.
+                                                    !ovHopBareActualFolds40(
+                                                        nv.symbol.as<
+                                                            ParameterSymbol>(),
+                                                        b0->as<
+                                                            HierarchicalValueExpression>()
+                                                            .symbol))
                                                     ovHierParam =
                                                         &nv.symbol
                                                              .as<ParameterSymbol>();

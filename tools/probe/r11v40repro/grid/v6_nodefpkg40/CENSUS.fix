@@ -1,0 +1,47 @@
+pool|-                                         logic_typespec                                 19:9      L const UINT:31@64 ct9               19:10     x3
+pool|-                                         logic_typespec                                 19:9      R const UINT:0@64 ct9                19:13     x3
+pool|-                                         logic_typespec                                 25:34     L const UINT:31@64 ct9               25:35     x3
+pool|-                                         logic_typespec                                 25:34     R const UINT:0@64 ct9                25:38     x3
+pool|-                                         logic_typespec                                 26:34     L const UINT:31@64 ct9               26:35     x3
+pool|-                                         logic_typespec                                 26:34     R const UINT:0@64 ct9                26:38     x3
+pool|-                                         logic_typespec                                 27:9      L op11(hier_path,constant)           27:10     x1
+pool|-                                         logic_typespec                                 27:9      L op11(ref_obj,constant)             27:10     x1
+pool|-                                         logic_typespec                                 27:9      R const UINT:0@64 ct9                27:14     x2
+pool|-                                         logic_typespec                                 33:32     L const UINT:31@64 ct9               33:33     x3
+pool|-                                         logic_typespec                                 33:32     R const UINT:0@64 ct9                33:36     x3
+pool|-                                         logic_typespec                                 33:57     L const UINT:31@64 ct9               33:58     x3
+pool|-                                         logic_typespec                                 33:57     R const UINT:0@64 ct9                33:61     x3
+pool|-                                         logic_typespec                                 37:52     L const UINT:31@64 ct9               37:53     x3
+pool|-                                         logic_typespec                                 37:52     R const UINT:0@64 ct9                37:56     x3
+pool|-                                         logic_typespec                                 37:77     L const UINT:31@64 ct9               37:78     x3
+pool|-                                         logic_typespec                                 37:77     R const UINT:0@64 ct9                37:81     x3
+uhdmallPackages|pv40f                          <no-range-bound>                               -         - -                                  -         x0
+uhdmtopPackages|pv40f                          <no-range-bound>                               -         - -                                  -         x0
+uhdmallInterfaces|work@ndif6_40                <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@ndinner6_40                <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@ndwrap6_40                 <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@v6_nodefpkg40              <no-range-bound>                               -         - -                                  -         x0
+uhdmtopModules|work@v6_nodefpkg40              <no-range-bound>                               -         - -                                  -         x0
+pool|(DAT)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(BUS)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(ndif6_40)                                <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(ndif6_40)                                <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(pv40f::cfg_t)                            <no-range-bound>                               -         - -                                  -         x0
+pool|(pv40f::cfg_t)                            <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+-- ranges=23 rows=46 sections=52 empty=29

@@ -1,0 +1,63 @@
+decompile:
+constant: , id:408, line:18:10, endln:18:11
+|vpiParent:
+\_range: , id:404, line:18:9, endln:18:16
+|vpiDecompile:31
+|vpiSize:64
+|INT:31
+|vpiConstType:7
+
+decompile:
+operation: , id:218, line:18:10, endln:18:13
+|vpiParent:
+\_range: , id:217, line:18:9, endln:18:16
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (s.CFG.BUS.DAT), id:219, line:18:10, endln:18:11
+  |vpiParent:
+  \_operation: , id:218, line:18:10, endln:18:13
+  |vpiTypespec:
+  \_ref_typespec: (work@g3_shape40.u_h.u_hop.a_minus1.s.CFG.BUS.DAT), id:224
+    |vpiParent:
+    \_hier_path: (s.CFG.BUS.DAT), id:219, line:18:10, endln:18:11
+    |vpiFullName:work@g3_shape40.u_h.u_hop.a_minus1.s.CFG.BUS.DAT
+    |vpiActual:
+    \_int_typespec: , id:225, line:17:25, endln:17:37
+  |vpiActual:
+  \_ref_obj: (s), id:220, line:38:13, endln:38:14
+    |vpiParent:
+    \_hier_path: (s.CFG.BUS.DAT), id:219, line:18:10, endln:18:11
+    |vpiName:s
+  |vpiActual:
+  \_ref_obj: (CFG), id:221, line:38:15, endln:38:18
+    |vpiParent:
+    \_hier_path: (s.CFG.BUS.DAT), id:219, line:18:10, endln:18:11
+    |vpiName:CFG
+  |vpiActual:
+  \_ref_obj: (BUS), id:222, line:38:19, endln:38:22
+    |vpiParent:
+    \_hier_path: (s.CFG.BUS.DAT), id:219, line:18:10, endln:18:11
+    |vpiName:BUS
+  |vpiActual:
+  \_ref_obj: (work@g3_shape40.u_h.u_hop.a_minus1.DAT), id:223, line:38:23, endln:38:26
+    |vpiParent:
+    \_hier_path: (s.CFG.BUS.DAT), id:219, line:18:10, endln:18:11
+    |vpiName:DAT
+    |vpiFullName:work@g3_shape40.u_h.u_hop.a_minus1.DAT
+  |vpiExpr:
+  \_ref_obj: (work@g3_shape40.u_h.s), id:176, line:47:28, endln:47:29
+    |vpiParent:
+    \_port: (s), id:175, line:37:44, endln:37:45
+    |vpiFullName:work@g3_shape40.u_h.s
+    |vpiActual:
+    \_modport: (sub), id:196, line:14:11, endln:14:14
+  |vpiName:s.CFG.BUS.DAT
+|vpiOperand:
+\_constant: , id:226, line:18:12, endln:18:13
+  |vpiParent:
+  \_operation: , id:218, line:18:10, endln:18:13
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+

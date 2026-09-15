@@ -1,0 +1,38 @@
+LHS:
+decompile:
+operation: , id:450, line:24:10, endln:24:17
+|vpiParent:
+\_range: , id:446, line:24:9, endln:24:20
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (B.DAT), id:447, line:24:10, endln:24:15
+  |vpiParent:
+  \_operation: , id:450, line:24:10, endln:24:17
+  |vpiActual:
+  \_ref_obj: (B), id:448, line:24:12, endln:24:15
+    |vpiParent:
+    \_hier_path: (B.DAT), id:447, line:24:10, endln:24:15
+    |vpiName:B
+  |vpiActual:
+  \_ref_obj: (DAT), id:449, line:24:12, endln:24:15
+    |vpiParent:
+    \_hier_path: (B.DAT), id:447, line:24:10, endln:24:15
+    |vpiName:DAT
+  |vpiName:B.DAT
+|vpiOperand:
+\_constant: , id:451, line:24:16, endln:24:17
+  |vpiParent:
+  \_operation: , id:450, line:24:10, endln:24:17
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:251, line:24:10, endln:24:15
+|vpiParent:
+\_range: , id:250, line:24:9, endln:24:20
+|vpiDecompile:24
+|vpiSize:64
+|INT:24
+|vpiConstType:7

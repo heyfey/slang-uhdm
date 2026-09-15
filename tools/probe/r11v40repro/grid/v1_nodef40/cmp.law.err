@@ -1,0 +1,39 @@
+LHS:
+decompile:
+operation: , id:115, line:42:17, endln:42:35
+|vpiParent:
+\_param_assign: , id:105, line:22:42, endln:22:45
+|vpiOpType:75
+|vpiOperand:
+\_operation: , id:141, line:42:24, endln:42:34
+  |vpiParent:
+  \_operation: , id:147, line:42:17, endln:42:35
+  |vpiTypespec:
+  \_ref_typespec: , id:146
+    |vpiActual:
+    \_struct_typespec: (pv40::bus_t), id:111, line:18:11, endln:18:46
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , id:123, line:42:31, endln:42:33
+    |vpiParent:
+    \_operation: , id:141, line:42:24, endln:42:34
+    |vpiDecompile:21
+    |vpiSize:64
+    |UINT:21
+    |vpiConstType:9
+RHS:
+decompile:
+constant: , id:107
+|vpiParent:
+\_param_assign: , id:106, line:22:42, endln:22:45
+|vpiDecompile:21
+|vpiSize:32
+|UINT:21
+|vpiTypespec:
+\_ref_typespec: (work@v1_nodef40.s), id:108
+  |vpiParent:
+  \_constant: , id:107
+  |vpiFullName:work@v1_nodef40.s
+  |vpiActual:
+  \_struct_typespec: (pv40::cfg_t), id:309, line:19:11, endln:19:39
+|vpiConstType:9

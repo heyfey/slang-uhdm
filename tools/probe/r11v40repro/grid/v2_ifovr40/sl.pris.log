@@ -1,0 +1,28 @@
+[INF:CM0023] Creating log file "/tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/slpp_all/surelog.log".
+[NTE:PP0128] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:1:23: Non ASCII character detected, replaced by space.
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:17:1: No timescale set for "pv40b".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:22:1: No timescale set for "tifv40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:27:1: No timescale set for "vinner40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:36:1: No timescale set for "vwrap_a40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:41:1: No timescale set for "vwrap_b40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:46:1: No timescale set for "v2_ifovr40".
+[INF:CP0300] Compilation...
+[INF:CP0301] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:17:1: Compile package "pv40b".
+[INF:CP0304] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:22:1: Compile interface "work@tifv40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:46:1: Compile module "work@v2_ifovr40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:27:1: Compile module "work@vinner40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:36:1: Compile module "work@vwrap_a40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:41:1: Compile module "work@vwrap_b40".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/dut.sv:46:1: Top level module "work@v2_ifovr40".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 3.
+[NTE:EL0510] Nb instances: 5.
+[NTE:EL0511] Nb leaf instances: 2.
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v2_ifovr40/slpp_all/surelog.uhdm ...
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 6
+[   NOTE] : 6

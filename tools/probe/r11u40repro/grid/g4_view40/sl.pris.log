@@ -1,0 +1,39 @@
+[INF:CM0023] Creating log file "/tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/slpp_all/surelog.log".
+[NTE:PP0128] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:55:8: Non ASCII character detected, replaced by space.
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:7:1: No timescale set for "p40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:12:1: No timescale set for "tif40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:17:1: No timescale set for "vw40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:22:1: No timescale set for "holder40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:28:1: No timescale set for "w_def40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:33:1: No timescale set for "w_hop40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:38:1: No timescale set for "w_hopx40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:49:1: No timescale set for "w_gen40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:56:1: No timescale set for "w_twin40".
+[WRN:PA0205] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:61:1: No timescale set for "g4_view40".
+[INF:CP0300] Compilation...
+[INF:CP0301] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:7:1: Compile package "p40".
+[INF:CP0303] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:61:1: Compile module "work@g4_view40".
+[INF:CP0303] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:22:1: Compile module "work@holder40".
+[INF:CP0304] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:12:1: Compile interface "work@tif40".
+[INF:CP0303] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:17:1: Compile module "work@vw40".
+[INF:CP0303] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:28:1: Compile module "work@w_def40".
+[INF:CP0303] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:49:1: Compile module "work@w_gen40".
+[INF:CP0303] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:33:1: Compile module "work@w_hop40".
+[INF:CP0303] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:38:1: Compile module "work@w_hopx40".
+[INF:CP0303] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:56:1: Compile module "work@w_twin40".
+[INF:EL0526] Design Elaboration...
+[INF:CP0335] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:50:37: Compile generate block "work@g4_view40.u_e.gl[0]".
+[NTE:EL0503] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:22:1: Top level module "work@holder40".
+[NTE:EL0503] /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/dut.sv:61:1: Top level module "work@g4_view40".
+[NTE:EL0504] Multiple top level modules in design.
+[NTE:EL0508] Nb Top level modules: 2.
+[NTE:EL0509] Max instance depth: 4.
+[NTE:EL0510] Nb instances: 13.
+[NTE:EL0511] Nb leaf instances: 7.
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: /tmp/wt_r11u40/tools/probe/r11u40repro/grid/g4_view40/slpp_all/surelog.uhdm ...
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 10
+[   NOTE] : 8

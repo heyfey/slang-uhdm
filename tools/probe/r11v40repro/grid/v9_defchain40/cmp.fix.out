@@ -1,0 +1,16 @@
+decompile:
+constant: , id:181, line:12:63, endln:12:67
+|vpiParent:
+\_operation: , id:206, line:12:56, endln:12:68
+|vpiDecompile:23
+|vpiSize:64
+|UINT:23
+|vpiConstType:9
+
+decompile:
+ref_obj: (work@v9_defchain40.s.BASE), id:133, line:12:63, endln:12:67
+|vpiParent:
+\_operation: , id:131, line:12:56, endln:12:68
+|vpiName:BASE
+|vpiFullName:work@v9_defchain40.s.BASE
+

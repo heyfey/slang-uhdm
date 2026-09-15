@@ -1,0 +1,39 @@
+decompile:
+operation: , id:151, line:47:17, endln:47:35
+|vpiParent:
+\_param_assign: , id:132, line:22:43, endln:22:67
+|vpiOpType:75
+|vpiOperand:
+\_operation: , id:177, line:47:24, endln:47:34
+  |vpiParent:
+  \_operation: , id:183, line:47:17, endln:47:35
+  |vpiTypespec:
+  \_ref_typespec: , id:182
+    |vpiActual:
+    \_struct_typespec: (pv40b::bus_t), id:147, line:18:11, endln:18:46
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , id:159, line:47:31, endln:47:33
+    |vpiParent:
+    \_operation: , id:177, line:47:24, endln:47:34
+    |vpiDecompile:26
+    |vpiSize:64
+    |UINT:26
+    |vpiConstType:9
+
+decompile:
+constant: , id:132, line:22:49, endln:22:67
+|vpiParent:
+\_param_assign: , id:131, line:22:43, endln:22:67
+|vpiDecompile:26
+|vpiSize:32
+|UINT:26
+|vpiTypespec:
+\_ref_typespec: (work@v2_ifovr40.s_ovr), id:133
+  |vpiParent:
+  \_constant: , id:132, line:22:49, endln:22:67
+  |vpiFullName:work@v2_ifovr40.s_ovr
+  |vpiActual:
+  \_struct_typespec: (pv40b::cfg_t), id:519, line:19:11, endln:19:39
+|vpiConstType:9
+

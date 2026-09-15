@@ -1,0 +1,29 @@
+decompile:
+operation: , id:949, line:29:18, endln:29:21
+|vpiParent:
+\_range: , id:948, line:29:17, endln:29:24
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (tdef_t.W), id:950, line:29:18, endln:29:19
+  |vpiParent:
+  \_operation: , id:949, line:29:18, endln:29:21
+  |vpiName:W
+  |vpiFullName:tdef_t.W
+|vpiOperand:
+\_constant: , id:951, line:29:20, endln:29:21
+  |vpiParent:
+  \_operation: , id:949, line:29:18, endln:29:21
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+constant: , id:619, line:29:18, endln:29:19
+|vpiParent:
+\_range: , id:618, line:29:17, endln:29:24
+|vpiDecompile:31
+|vpiSize:64
+|INT:31
+|vpiConstType:7
+

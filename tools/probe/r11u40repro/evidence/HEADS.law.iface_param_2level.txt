@@ -1,0 +1,4 @@
+=== default heads=0 cmplines=0
+slang:   /tmp/r11u40_law.bin
+=== testflags heads=0 cmplines=0
+slang:   /tmp/r11u40_law.bin

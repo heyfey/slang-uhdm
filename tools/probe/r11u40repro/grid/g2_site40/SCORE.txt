@@ -1,0 +1,11 @@
+### g2_site40  (gold x pristine x law)
+MOVED-WRONG  pool|(tdef_t) 29:17 L  gold ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)'] | ['const INT:31@64 ct7', 'op11(hier_path,constant)'] -> ['const INT:31@64 ct7']
+TO-GOLDEN    pool|- 24:44 L  ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+TO-GOLDEN    pool|- 25:9 L  ['const INT:19@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+TO-GOLDEN    pool|- 26:9 L  ['const INT:19@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+[SET] TO-GOLDEN=3 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-WRONG=4 UNMOVED=47
+MOVED-WRONG  pool|(tdef_t) 29:17 L  gold ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)'] | ['const INT:31@64 ct7', 'op11(hier_path,constant)'] -> ['const INT:31@64 ct7']
+TO-GOLDEN    pool|- 24:44 L  ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+TO-GOLDEN    pool|- 25:9 L  ['const INT:19@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+TO-GOLDEN    pool|- 26:9 L  ['const INT:19@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+[MULTISET] TO-GOLDEN=3 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-WRONG=5 UNMOVED=46

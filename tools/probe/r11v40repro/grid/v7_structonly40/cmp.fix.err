@@ -1,0 +1,52 @@
+LHS:
+decompile:
+hier_path: (B.DAT), id:447, line:24:10, endln:24:15
+|vpiParent:
+\_operation: , id:450, line:24:10, endln:24:17
+|vpiActual:
+\_ref_obj: (B), id:448, line:24:12, endln:24:15
+  |vpiParent:
+  \_hier_path: (B.DAT), id:447, line:24:10, endln:24:15
+  |vpiName:B
+|vpiActual:
+\_ref_obj: (DAT), id:449, line:24:12, endln:24:15
+  |vpiParent:
+  \_hier_path: (B.DAT), id:447, line:24:10, endln:24:15
+  |vpiName:DAT
+|vpiName:B.DAT
+RHS:
+decompile:
+hier_path: (s.CFG.BUS), id:254, line:24:10, endln:24:15
+|vpiParent:
+\_operation: , id:253, line:24:10, endln:24:17
+|vpiTypespec:
+\_ref_typespec: (work@v7_structonly40.u_s.u_inner.reg_data.s.CFG.BUS), id:258
+  |vpiParent:
+  \_hier_path: (s.CFG.BUS), id:254, line:24:10, endln:24:15
+  |vpiFullName:work@v7_structonly40.u_s.u_inner.reg_data.s.CFG.BUS
+  |vpiActual:
+  \_int_typespec: , id:259, line:20:29, endln:20:41
+|vpiActual:
+\_ref_obj: (s), id:255, line:31:17, endln:31:18
+  |vpiParent:
+  \_hier_path: (s.CFG.BUS), id:254, line:24:10, endln:24:15
+  |vpiName:s
+|vpiActual:
+\_ref_obj: (CFG), id:256, line:31:19, endln:31:22
+  |vpiParent:
+  \_hier_path: (s.CFG.BUS), id:254, line:24:10, endln:24:15
+  |vpiName:CFG
+|vpiActual:
+\_ref_obj: (work@v7_structonly40.u_s.u_inner.reg_data.BUS), id:257, line:31:23, endln:31:26
+  |vpiParent:
+  \_hier_path: (s.CFG.BUS), id:254, line:24:10, endln:24:15
+  |vpiName:BUS
+  |vpiFullName:work@v7_structonly40.u_s.u_inner.reg_data.BUS
+|vpiExpr:
+\_ref_obj: (work@v7_structonly40.u_s.s), id:186, line:36:28, endln:36:29
+  |vpiParent:
+  \_port: (s), id:185, line:29:44, endln:29:45
+  |vpiFullName:work@v7_structonly40.u_s.s
+  |vpiActual:
+  \_modport: (sub), id:206, line:17:11, endln:17:14
+|vpiName:s.CFG.BUS

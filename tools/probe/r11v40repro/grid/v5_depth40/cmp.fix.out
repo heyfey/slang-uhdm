@@ -1,0 +1,32 @@
+decompile:
+constant: , id:1047, line:25:46, endln:25:47
+|vpiParent:
+\_param_assign: , id:1046, line:25:42, endln:25:47
+|vpiDecompile:11
+|vpiSize:32
+|UINT:11
+|vpiTypespec:
+\_ref_typespec: (work@v5_depth40.u_d1.u_inner), id:1048
+  |vpiParent:
+  \_constant: , id:1047, line:25:46, endln:25:47
+  |vpiFullName:work@v5_depth40.u_d1.u_inner
+  |vpiActual:
+  \_int_typespec: , id:79, line:25:29, endln:25:41
+|vpiConstType:9
+
+decompile:
+constant: , id:381, line:25:46, endln:25:47
+|vpiParent:
+\_param_assign: , id:380, line:25:42, endln:25:47
+|vpiDecompile:32'b00000000000000000000000000001011
+|vpiSize:32
+|BIN:00000000000000000000000000001011
+|vpiTypespec:
+\_ref_typespec: (work@v5_depth40.u_d1.u_inner), id:382
+  |vpiParent:
+  \_constant: , id:381, line:25:46, endln:25:47
+  |vpiFullName:work@v5_depth40.u_d1.u_inner
+  |vpiActual:
+  \_int_typespec: , id:62, line:25:29, endln:25:41
+|vpiConstType:3
+

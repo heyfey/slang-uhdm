@@ -1646,6 +1646,83 @@ private:
     std::optional<int32_t> ovActualStoredWidth82(
         const slang::ast::ParameterSymbol& p, int depth);
 
+    /// § ovHopBareActualElabFold40 — AN OVERRIDE ACTUAL THAT CROSSES AN
+    /// INTERFACE-PORT HOP IS REDUCED AT ELABORATION LIKE ANY OTHER: THE
+    /// CHILD'S ELABORATED `param_assign` Rhs IS THE CONSTANT AND EVERY
+    /// ELABORATED RANGE BOUND READING THE PARAMETER FOLDS THROUGH IT.  ONLY
+    /// AN ACTUAL THE REDUCER CANNOT EVALUATE KEEPS THE WRITTEN EXPRESSION.
+    ///
+    /// The producer is the netlist-elaboration road, not the definition
+    /// compile:  `NetlistElaboration::elab_ports_nets_` calls
+    /// `elabSignal(..., Reduce::Yes)`
+    /// (`~/git-repos/Surelog/src/DesignCompile/NetlistElaboration.cpp:3049`),
+    /// which compiles the signal's packed and unpacked dimensions with that
+    /// `Reduce::Yes` AND the elaborated `child` instance as the value scope
+    /// (`:2196`, `:2201`), and `CompileHelper::compileRanges`
+    /// (`CompileExpression.cpp:3963`) reduces at `:4032`.  A NAME leaf
+    /// resolves through `CompileHelper::getValue`'s instance arm
+    /// (`CompileExpression.cpp:980`) to the instance's STORED `Value`, and
+    /// that stored value is what the elaborated `param_assign`'s Rhs prints:
+    /// the two objects always agree.  The hop does NOT enter the decision —
+    /// the grid measures a modport port, a plain interface port, a re-passed
+    /// modport port, an interface-ARRAY element, a module parameter, a
+    /// struct-parameter member and a package parameter, and golden folds the
+    /// child's bound on every one of them.
+    ///
+    /// The DEFINITION view keeps `op11(ref_obj W, constant 1)` on every arm —
+    /// that copy is built by the definition compile and this law leaves it
+    /// alone; so is a `type` parameter's default
+    /// (§ typeParamAnonAggMemberNoReduce35 / § typeParamDefaultBoundNoReduce20,
+    /// whose witnesses must NOT fold) and so is the ENCODING of an already
+    /// folded bound (§ rangeBoundReduceEnc33).
+    ///
+    /// The one shape golden KEEPS is an actual the reducer FAILS on: written
+    /// as an EXPRESSION over the hop (`#(.W(s.CFG.BUS.DAT + 4))`), golden's
+    /// elaborated `param_assign` Rhs is the written `op24(hier_path, 4)` and
+    /// the bound is `op11(op24(hier_path, 4), 1)`.  Neither of the two arms
+    /// this predicate gates can see that shape — both require the initializer
+    /// to be a BARE member-access chain.
+    ///
+    /// TWO MORE SHAPES THE REDUCER FAILS ON, and they ARE reachable here; both
+    /// are measured on real v1.87 goldens in `tools/probe/r11v40repro/grid`
+    /// (`golden_rc=0 ours_rc=0`, Surelog FATAL 0 / ERROR 0), and in both the
+    /// pristine emitter already AGREED with golden:
+    ///
+    ///  * A PACKED-AGGREGATE FORMAL.  slang keeps a packed struct's value as
+    ///    an `SVInt`, so "the value is an integer" is TRUE for
+    ///    `#(.B(s.CFG.BUS))` — but golden's elaborated `param_assign` Rhs is
+    ///    the written `hier_path (s.CFG.BUS)` and the `[B.DAT-1:0]` bound stays
+    ///    `op11(hier_path, constant)` (`v7_structonly40`, `v4_structformal40`).
+    ///    Only a formal whose type is a SIMPLE BIT VECTOR folds; `v8_bitvec40`
+    ///    measures `logic [7:0]` beside `int unsigned` and golden folds both.
+    ///
+    ///  * A HOP PARAMETER WITH NO DEFAULT.  `CompileHelper::getValue` resolves
+    ///    the hop against the interface DEFINITION (which is why an overridden
+    ///    interface still folds the DEFINITION's default), so
+    ///    `interface i #(parameter cfg_t CFG);` — override-only, ordinary legal
+    ///    SV — has no value on that road: `reduceExpr` reports `invalidValue`
+    ///    and golden keeps `op11(hier_path, constant)` on the child's port dims
+    ///    and body variable (`v1_nodef40`, `v6_nodefpkg40`).
+    ///
+    /// The DEFINITION-SIDE test has a bound of its own: a default that READS
+    /// another parameter is not a definition-side VALUE either — with
+    /// `#(parameter int BASE, parameter cfg_t CFG = '{BUS: '{DAT: BASE}})` the
+    /// producer still cannot evaluate `CFG` on that road and keeps
+    /// (`v9_defchain40`) — so the default must be made of LITERALS alone
+    /// (`defaultIsLiteralOnly40`, which skips assignment-pattern KEYS the way
+    /// slang's own default-expression visitor does).  That is deliberately
+    /// CONSERVATIVE: a default the producer could still evaluate (a package
+    /// parameter, say) is left symbolic, which is the pristine answer and
+    /// never moves a cell away from golden.
+    ///
+    /// So the predicate answers TRUE (fold) only when the formal's type is a
+    /// simple bit vector, the parameter reached through the hop was DECLARED
+    /// with a literal-only default, and the formal's own value is a known
+    /// integer — asked in that order so the syntactic tests short-circuit
+    /// before `getValue()` forces any evaluation.
+    bool ovHopBareActualFolds40(const slang::ast::ParameterSymbol& p,
+                                const slang::ast::Symbol& hopBase) const;
+
     /// § rangeBoundStoredWidth82 — THE DECLARATION-SIDE COPY.  A packed
     /// dimension is emitted TWICE: once on the typespec (where
     /// § patDefBoundPkgParamSubst already substitutes a package parameter at

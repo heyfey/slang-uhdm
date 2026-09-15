@@ -1,0 +1,9 @@
+g1_hop40     ours S1=4   S2=5   expect (4, 5)    ok
+g1_hop40     gold S1=0   S2=0   expect (0, 0)    ok
+g2_site40    ours S1=2   S2=4   expect (2, 4)    ok
+g2_site40    gold S1=0   S2=0   expect (0, 0)    ok
+g3_shape40   ours S1=1   S2=9   expect (1, 9)    ok
+g3_shape40   gold S1=0   S2=0   expect (0, 0)    ok
+g4_view40    ours S1=4   S2=0   expect (4, 0)    ok
+g4_view40    gold S1=0   S2=0   expect (0, 0)    ok
+SELFTEST PASS

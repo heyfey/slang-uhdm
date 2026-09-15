@@ -1,0 +1,7 @@
+r11u40 — BYTE VERIFIER, u2r (law vs the pass's own pristine)
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/iface_param_2level-b0253a04/slang.uhdm  patched=cbd4bed53287 pristine=e8c39dd0ca89
+MOVER ./testflags/iface_param_2level-b0253a04/slang.uhdm  patched=bc2c93aa6086 pristine=75cd2d5b694d
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

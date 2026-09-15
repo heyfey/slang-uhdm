@@ -1,0 +1,45 @@
+r11v40 — THE HEAD, RE-MEASURED at e305f3d7 on the verifier's OWN pristine binary
+(md5 ffc677a78847fe65baac4b65f0a930c0 == the main tree's build at the base), own workdir,
+cmds.txt audited: slang: /tmp/v11u40_pris.bin.  ONE head per row (grep -c '^LHS:' = 1), both modes.
+
+LHS:
+decompile:
+constant: , id:570, line:16:10, endln:16:17
+|vpiParent:
+\_range: , id:566, line:16:9, endln:16:22
+|vpiDecompile:31
+|vpiSize:64
+|INT:31
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:336, line:16:10, endln:16:19
+|vpiParent:
+\_range: , id:335, line:16:9, endln:16:22
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (s.CFG.BUS.DAT), id:337, line:16:10, endln:16:17
+  |vpiParent:
+  \_operation: , id:336, line:16:10, endln:16:19
+  |vpiTypespec:
+  \_ref_typespec: (work@iface_param_2level.u.u_inner.reg_data.s.CFG.BUS.DAT), id:342
+    |vpiParent:
+    \_hier_path: (s.CFG.BUS.DAT), id:337, line:16:10, endln:16:17
+    |vpiFullName:work@iface_param_2level.u.u_inner.reg_data.s.CFG.BUS.DAT
+    |vpiActual:
+    \_int_typespec: , id:343, line:14:26, endln:14:38
+  |vpiActual:
+  \_ref_obj: (s), id:338, line:22:20, endln:22:21
+    |vpiParent:
+    \_hier_path: (s.CFG.BUS.DAT), id:337, line:16:10, endln:16:17
+    |vpiName:s
+  |vpiActual:
+  \_ref_obj: (CFG), id:339, line:22:22, endln:22:25
+    |vpiParent:
+
+WHOLE-DUMP DISTANCE (banner stripped), golden 2851 lines:
+  pristine : 949 differing / 543 order-blind   heads=1
+  r11u40   : 745 differing / 255 order-blind   heads=0   -> CMP_EQUAL, dump column 'differ'
+  FIXED    : 745 differing / 255 order-blind   heads=0   (byte-identical databases to r11u40)
+
+IT IS NOT THE ROW'S LAST CELL — confirmed.

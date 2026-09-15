@@ -1,0 +1,26 @@
+[INF:CM0023] Creating log file "/tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/slpp_all/surelog.log".
+[NTE:PP0128] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:5:53: Non ASCII character detected, replaced by space.
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:10:1: No timescale set for "pv40d".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:15:1: No timescale set for "sif40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:20:1: No timescale set for "sinner40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:29:1: No timescale set for "swrap40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:34:1: No timescale set for "v7_structonly40".
+[INF:CP0300] Compilation...
+[INF:CP0301] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:10:1: Compile package "pv40d".
+[INF:CP0304] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:15:1: Compile interface "work@sif40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:20:1: Compile module "work@sinner40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:29:1: Compile module "work@swrap40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:34:1: Compile module "work@v7_structonly40".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv:34:1: Top level module "work@v7_structonly40".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 3.
+[NTE:EL0510] Nb instances: 3.
+[NTE:EL0511] Nb leaf instances: 1.
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/slpp_all/surelog.uhdm ...
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 5
+[   NOTE] : 6

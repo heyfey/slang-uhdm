@@ -1,0 +1,34 @@
+[INF:CM0023] Creating log file "/tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/slpp_all/surelog.log".
+[NTE:PP0128] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:1:24: Non ASCII character detected, replaced by space.
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:5:1: No timescale set for "pv40g".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:10:1: No timescale set for "bif40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:15:1: No timescale set for "vinner40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:22:1: No timescale set for "einner40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:29:1: No timescale set for "iinner40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:36:1: No timescale set for "vwrap40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:39:1: No timescale set for "ewrap40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:42:1: No timescale set for "iwrap40".
+[WRN:PA0205] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:46:1: No timescale set for "v8_bitvec40".
+[INF:CP0300] Compilation...
+[INF:CP0301] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:5:1: Compile package "pv40g".
+[INF:CP0304] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:10:1: Compile interface "work@bif40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:22:1: Compile module "work@einner40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:39:1: Compile module "work@ewrap40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:29:1: Compile module "work@iinner40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:42:1: Compile module "work@iwrap40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:46:1: Compile module "work@v8_bitvec40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:15:1: Compile module "work@vinner40".
+[INF:CP0303] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:36:1: Compile module "work@vwrap40".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/dut.sv:46:1: Top level module "work@v8_bitvec40".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 3.
+[NTE:EL0510] Nb instances: 7.
+[NTE:EL0511] Nb leaf instances: 3.
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: /tmp/wt_v11u40/tools/probe/r11v40repro/grid/v8_bitvec40/slpp_all/surelog.uhdm ...
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 9
+[   NOTE] : 6

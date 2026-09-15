@@ -1,0 +1,27 @@
+### LAW vs PRISTINE, order-blind, per row
+--- MiniAmiq [default]
+<       |UINT:0
+>       |UINT:636
+<       |vpiDecompile:0
+>       |vpiDecompile:636
+--- MiniAmiq [testflags]
+<       |UINT:0
+>       |UINT:1344
+<       |vpiDecompile:0
+>       |vpiDecompile:1344
+--- SeqDriver [default]
+<       |UINT:1084
+>       |UINT:1171
+<       |vpiDecompile:1084
+>       |vpiDecompile:1171
+--- SeqDriver [testflags]
+<       |UINT:1128
+>       |UINT:1258
+<       |vpiDecompile:1128
+>       |vpiDecompile:1258
+--- Scoreboard [default]
+--- SimpleUVM [default]
+>       |UINT:0
+<       |UINT:824
+>       |vpiDecompile:0
+<       |vpiDecompile:824

@@ -1,0 +1,101 @@
+pool|-                                         logic_typespec                                 13:9      L const INT:27@64 ct7                13:10     x2
+pool|-                                         logic_typespec                                 13:9      L const INT:31@64 ct7                13:10     x4
+pool|-                                         logic_typespec                                 13:9      L op11(hier_path,constant)           13:10     x1
+pool|-                                         logic_typespec                                 13:9      R const UINT:0@64 ct9                13:24     x7
+pool|-                                         logic_typespec                                 18:9      L const INT:27@64 ct7                18:10     x1
+pool|-                                         logic_typespec                                 18:9      L const INT:31@64 ct7                18:10     x3
+pool|-                                         logic_typespec                                 18:9      L const INT:35@64 ct7                18:10     x1
+pool|-                                         logic_typespec                                 18:9      L const INT:7@64 ct7                 18:10     x1
+pool|-                                         logic_typespec                                 18:9      L op11(ref_obj,constant)             18:10     x1
+pool|-                                         logic_typespec                                 18:9      R const UINT:0@64 ct9                18:14     x7
+uhdmallPackages|p40                            <no-range-bound>                               -         - -                                  -         x0
+uhdmtopPackages|p40                            <no-range-bound>                               -         - -                                  -         x0
+uhdmallInterfaces|work@tif40                   <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@g4_view40                  <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@holder40                   <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@vw40                       <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@w_def40                    <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@w_gen40                    <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@w_hop40                    <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@w_hopx40                   <no-range-bound>                               -         - -                                  -         x0
+uhdmallModules|work@w_twin40                   <no-range-bound>                               -         - -                                  -         x0
+uhdmtopModules|work@holder40                   <no-range-bound>                               -         - -                                  -         x0
+uhdmtopModules|work@g4_view40                  <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(DAT)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(BUS)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(tif40)                                   <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(tif40)                                   <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(tif40)                                   <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(tif40)                                   <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(tif40)                                   <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(tif40)                                   <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(tif40)                                   <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(sub)                                     <no-range-bound>                               -         - -                                  -         x0
+pool|(tif40)                                   <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|(p40::cfg_t)                              <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+pool|-                                         <no-range-bound>                               -         - -                                  -         x0
+-- ranges=14 rows=28 sections=104 empty=90

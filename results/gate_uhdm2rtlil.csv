@@ -356,7 +356,7 @@ iface_modport_conn,testflags,CMP_EQUAL,,,differ
 iface_modport_out,testflags,CMP_EQUAL,,,differ
 iface_modport_passthrough,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/iface_modport_passthrough/dut.sv:28:26: error: cannot connect modport 'my_iface.drv' to port requirin,,
 iface_nested_param_field,testflags,CMP_EQUAL,,,differ
-iface_param_2level,testflags,CMP_NOTEQUAL,decompile:,,
+iface_param_2level,testflags,CMP_EQUAL,,,differ
 iface_param_port_width,testflags,CMP_EQUAL,,,differ
 iface_param_set_value,testflags,CMP_EQUAL,,,match
 iface_param_width_per_inst,testflags,CMP_EQUAL,,,differ

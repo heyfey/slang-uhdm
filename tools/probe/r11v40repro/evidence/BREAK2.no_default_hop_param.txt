@@ -1,0 +1,44 @@
+r11v40 — BREAK 2: A HOP PARAMETER WITH NO DEFAULT (v1_nodef40 / v6_nodefpkg40).
+golden_rc=0 ours_rc=0 on all three binaries; Surelog FATAL 0 / ERROR 0.
+
+### v1_nodef40 census, the three child cells (29:32 + 30:32 port dims, 31:9 body variable)
+--CENSUS.gold
+pool|-                                         logic_typespec                                 29:32     L op11(hier_path,constant)           29:33     x2
+pool|-                                         logic_typespec                                 29:32     L op11(ref_obj,constant)             29:33     x1
+pool|-                                         logic_typespec                                 30:32     L op11(hier_path,constant)           30:33     x2
+pool|-                                         logic_typespec                                 30:32     L op11(ref_obj,constant)             30:33     x1
+pool|-                                         logic_typespec                                 31:9      L op11(hier_path,constant)           31:10     x1
+pool|-                                         logic_typespec                                 31:9      L op11(ref_obj,constant)             31:10     x1
+--CENSUS.pris
+pool|-                                         logic_typespec                                 29:32     L op11(hier_path,constant)           29:33     x2
+pool|-                                         logic_typespec                                 29:32     L op11(ref_obj,constant)             29:33     x1
+pool|-                                         logic_typespec                                 30:32     L op11(hier_path,constant)           30:33     x2
+pool|-                                         logic_typespec                                 30:32     L op11(ref_obj,constant)             30:33     x1
+pool|-                                         logic_typespec                                 31:9      L op11(hier_path,constant)           31:10     x1
+pool|-                                         logic_typespec                                 31:9      L op11(ref_obj,constant)             31:10     x1
+--CENSUS.law
+pool|-                                         logic_typespec                                 29:32     L const INT:20@64 ct7                29:33     x2
+pool|-                                         logic_typespec                                 29:32     L op11(ref_obj,constant)             29:33     x1
+pool|-                                         logic_typespec                                 30:32     L const INT:20@64 ct7                30:33     x2
+pool|-                                         logic_typespec                                 30:32     L op11(ref_obj,constant)             30:33     x1
+pool|-                                         logic_typespec                                 31:9      L const INT:20@64 ct7                31:10     x1
+pool|-                                         logic_typespec                                 31:9      L op11(ref_obj,constant)             31:10     x1
+--CENSUS.fix
+pool|-                                         logic_typespec                                 29:32     L op11(hier_path,constant)           29:33     x2
+pool|-                                         logic_typespec                                 29:32     L op11(ref_obj,constant)             29:33     x1
+pool|-                                         logic_typespec                                 30:32     L op11(hier_path,constant)           30:33     x2
+pool|-                                         logic_typespec                                 30:32     L op11(ref_obj,constant)             30:33     x1
+pool|-                                         logic_typespec                                 31:9      L op11(hier_path,constant)           31:10     x1
+pool|-                                         logic_typespec                                 31:9      L op11(ref_obj,constant)             31:10     x1
+
+### the INTERFACE's OWN bound (23:9) — folds on every binary; only the read THROUGH THE PORT differs
+--CENSUS.gold  pool|- logic_typespec 23:9 L const INT:20@64 ct7 23:10 x2|pool|- logic_typespec 23:9 L op11(hier_path,constant) 23:10 x1|
+--CENSUS.pris  pool|- logic_typespec 23:9 L const INT:20@64 ct7 23:10 x2|pool|- logic_typespec 23:9 L op11(hier_path,constant) 23:10 x1|
+--CENSUS.law  pool|- logic_typespec 23:9 L const INT:20@64 ct7 23:10 x2|pool|- logic_typespec 23:9 L op11(hier_path,constant) 23:10 x1|
+--CENSUS.fix  pool|- logic_typespec 23:9 L const INT:20@64 ct7 23:10 x2|pool|- logic_typespec 23:9 L op11(hier_path,constant) 23:10 x1|
+
+### v6_nodefpkg40 (the same break, actual written as a package parameter): cell 27:9
+--CENSUS.gold  pool|- logic_typespec 27:9 L op11(hier_path,constant) 27:10 x1|pool|- logic_typespec 27:9 L op11(ref_obj,constant) 27:10 x1|
+--CENSUS.pris  pool|- logic_typespec 27:9 L op11(hier_path,constant) 27:10 x1|pool|- logic_typespec 27:9 L op11(ref_obj,constant) 27:10 x1|
+--CENSUS.law  pool|- logic_typespec 27:9 L const INT:20@64 ct7 27:10 x1|pool|- logic_typespec 27:9 L op11(ref_obj,constant) 27:10 x1|
+--CENSUS.fix  pool|- logic_typespec 27:9 L op11(hier_path,constant) 27:10 x1|pool|- logic_typespec 27:9 L op11(ref_obj,constant) 27:10 x1|

@@ -1,0 +1,5 @@
+decompile:
+ref_typespec: , id:414
+|vpiActual:
+\_struct_typespec: (pv40g::cfg_t), id:2, line:6:11, endln:6:79
+

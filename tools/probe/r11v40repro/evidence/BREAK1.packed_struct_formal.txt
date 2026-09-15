@@ -1,0 +1,60 @@
+r11v40 — BREAK 1: A PACKED-STRUCT FORMAL (v7_structonly40).  golden_rc=0 ours_rc=0, Surelog FATAL 0 / ERROR 0.
+
+### GOLDEN — the elaborated param_assign for the struct formal B (#(.B(s.CFG.BUS)))
+      \_param_assign: , line:20:42, endln:20:55
+        |vpiParent:
+        \_module_inst: work@sinner40 (work@v7_structonly40.u_s.u_inner), file:/tmp/wt_v11u40/tools/probe/r11v40repro/grid/v7_structonly40/dut.sv, line:31:3, endln:31:71
+        |vpiOverriden:1
+        |vpiRhs:
+        \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+          |vpiParent:
+          \_param_assign: , line:20:42, endln:20:55
+          |vpiActual:
+          \_ref_obj: (s), line:31:17, endln:31:18
+            |vpiParent:
+            \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+            |vpiName:s
+          |vpiActual:
+          \_ref_obj: (CFG), line:31:19, endln:31:22
+            |vpiParent:
+            \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+            |vpiName:CFG
+          |vpiActual:
+          \_ref_obj: (work@v7_structonly40.u_s.u_inner.BUS), line:31:23, endln:31:26
+            |vpiParent:
+            \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+            |vpiName:BUS
+            |vpiFullName:work@v7_structonly40.u_s.u_inner.BUS
+          |vpiExpr:
+          \_ref_obj: (work@v7_structonly40.u_s.s), line:36:28, endln:36:29
+          |vpiName:s.CFG.BUS
+
+### OURS, PRISTINE — the same hier_path
+1287:        \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+1293:            \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+1298:            \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+
+### OURS, r11u40 — a constant
+161:              |vpiDecompile:25
+966:            |vpiDecompile:25
+1215:              |vpiDecompile:25
+
+### OURS, FIXED — the hier_path again
+1287:        \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+1293:            \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+1298:            \_hier_path: (s.CFG.BUS), line:31:17, endln:31:26
+
+### the [B.DAT-1:0] bound, census rows at 24:9
+--CENSUS.gold
+pool|-                                         logic_typespec                                 24:9      L op11(hier_path,constant)           24:10     x2
+pool|-                                         logic_typespec                                 24:9      R const UINT:0@64 ct9                24:18     x2
+--CENSUS.pris
+pool|-                                         logic_typespec                                 24:9      L op11(hier_path,constant)           24:10     x2
+pool|-                                         logic_typespec                                 24:9      R const UINT:0@64 ct9                24:18     x2
+--CENSUS.law
+pool|-                                         logic_typespec                                 24:9      L const INT:24@64 ct7                24:10     x1
+pool|-                                         logic_typespec                                 24:9      L op11(hier_path,constant)           24:10     x1
+pool|-                                         logic_typespec                                 24:9      R const UINT:0@64 ct9                24:18     x2
+--CENSUS.fix
+pool|-                                         logic_typespec                                 24:9      L op11(hier_path,constant)           24:10     x2
+pool|-                                         logic_typespec                                 24:9      R const UINT:0@64 ct9                24:18     x2

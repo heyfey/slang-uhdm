@@ -8765,10 +8765,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             // An override ACTUAL that reads a parameter through a HIERARCHICAL
             // member path (#(.SYS_DAT(s.CFG.BUS.DAT))) keeps the SYMBOLIC
-            // hier_path Rhs at the override-site span: Surelog's reduce never
-            // crosses the interface-member hop (iface_param_2level). vpiExpr
-            // aliases the ENCLOSING instance's interface-port LowConn ref.
+            // hier_path Rhs at the override-site span ONLY when the reducer
+            // cannot evaluate it.
+            //
+            // § ovHopBareActualElabFold40.  When it CAN — the bare member
+            // chain, which is the only shape this arm sees — the elaborated
+            // `param_assign` Rhs is golden's own constant at the FORMAL's
+            // default-initialiser span (`iface_param_2level` 14:49..14:50,
+            // `UINT:32 @32 ct9`), minted by the ordinary override path below,
+            // and the child's elaborated range bounds fold through it.  The
+            // interface hop is not the distinguisher: the grid measures a
+            // modport port, a plain interface port, a re-passed modport port
+            // and an interface-array element beside a module parameter, and
+            // golden's elaborated Rhs is a constant on every one.
             const Expression* ovHierInit = nullptr;
+            const Symbol* ovHierBase = nullptr;   // the HOP's own parameter
             if (boundInit) {
                 auto& bi7 = stripImplicitConv(*boundInit);
                 const Expression* b7 = &bi7;
@@ -8778,9 +8789,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (b7 != &bi7 &&
                     b7->kind == ExpressionKind::HierarchicalValue &&
                     b7->as<HierarchicalValueExpression>().symbol.kind ==
-                        SymbolKind::Parameter)
+                        SymbolKind::Parameter) {
                     ovHierInit = &bi7;
+                    ovHierBase =
+                        &b7->as<HierarchicalValueExpression>().symbol;
+                }
             }
+            // § ovHopBareActualElabFold40, asked ONLY after the shape test has
+            // already selected this arm: `getValue()` forces the parameter's
+            // evaluation, and asking it of every parameter that has an
+            // initialiser is exactly the kind of blanket binding RESUME.md §9
+            // records as a Heisenbug.  Here it is asked of the handful the arm
+            // would otherwise keep symbolic.
+            if (ovHierInit && ovHierBase &&
+                ovHopBareActualFolds40(ps, *ovHierBase))
+                ovHierInit = nullptr;
             if (ovHierInit) {
                 auto* he = (UHDM::expr*)emitExpr(*ovHierInit, pa, prefix, netMap);
                 if (he && he->UhdmType() == UHDM::uhdmhier_path) {

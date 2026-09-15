@@ -1,0 +1,4 @@
+g1_hop40 golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=5
+g2_site40 golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=29
+g3_shape40 golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=63
+g4_view40 golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=39

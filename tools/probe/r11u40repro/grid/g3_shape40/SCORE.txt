@@ -1,0 +1,21 @@
+### g3_shape40  (gold x pristine x law)
+TO-GOLDEN    pool|- 18:9 L  ['const INT:19@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+MOVED-WRONG  pool|- 19:9 L  gold ['const UINT:20@32 ct9', 'const UINT:32@64 ct9', 'ref_obj W'] | ['const UINT:20@64 ct9', 'hier_path s.CFG.BUS.DAT', 'ref_obj W'] -> ['const UINT:20@64 ct9', 'const UINT:32@64 ct9', 'ref_obj W']
+TO-GOLDEN    pool|- 20:9 L  ['const UINT:21@64 ct9', 'op24(hier_path,constant)', 'op24(ref_obj,constant)'] -> ['const UINT:21@64 ct9', 'const UINT:33@64 ct9', 'op24(ref_obj,constant)']
+TO-GOLDEN    pool|- 21:9 L  ['const INT:39@64 ct7', 'op11(hier_path,constant)', 'op11(operation,constant)'] -> ['const INT:39@64 ct7', 'const INT:63@64 ct7', 'op11(operation,constant)']
+TO-GOLDEN    pool|- 22:9 L  ['const INT:39@64 ct7', 'op11(hier_path,constant)', 'op11(operation,constant)'] -> ['const INT:39@64 ct7', 'const INT:63@64 ct7', 'op11(operation,constant)']
+TO-GOLDEN    pool|- 23:9 L  ['const INT:9@64 ct7', 'op11(hier_path,constant)', 'op11(operation,constant)'] -> ['const INT:15@64 ct7', 'const INT:9@64 ct7', 'op11(operation,constant)']
+TO-GOLDEN    pool|- 24:9 L  ['const INT:9@64 ct7', 'op11(hier_path,constant)', 'op11(operation,constant)'] -> ['const INT:15@64 ct7', 'const INT:9@64 ct7', 'op11(operation,constant)']
+TO-GOLDEN    pool|- 25:9 L  ['const INT:4@64 ct7', 'op11(hier_path,constant)', 'op11(sys_func_call,constant)'] -> ['const INT:4@64 ct7', 'op11(sys_func_call,constant)']
+TO-GOLDEN    pool|- 27:9 L  ['const INT:19@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+[SET] TO-GOLDEN=8 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-WRONG=3 UNMOVED=36
+TO-GOLDEN    pool|- 18:9 L  ['const INT:19@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+MOVED-WRONG  pool|- 19:9 L  gold ['const UINT:20@32 ct9', 'const UINT:32@64 ct9', 'ref_obj W'] | ['const UINT:20@64 ct9', 'hier_path s.CFG.BUS.DAT', 'ref_obj W'] -> ['const UINT:20@64 ct9', 'const UINT:32@64 ct9', 'ref_obj W']
+TO-GOLDEN    pool|- 20:9 L  ['const UINT:21@64 ct9', 'op24(hier_path,constant)', 'op24(ref_obj,constant)'] -> ['const UINT:21@64 ct9', 'const UINT:33@64 ct9', 'op24(ref_obj,constant)']
+TO-GOLDEN    pool|- 21:9 L  ['const INT:39@64 ct7', 'op11(hier_path,constant)', 'op11(operation,constant)'] -> ['const INT:39@64 ct7', 'const INT:63@64 ct7', 'op11(operation,constant)']
+TO-GOLDEN    pool|- 22:9 L  ['const INT:39@64 ct7', 'op11(hier_path,constant)', 'op11(operation,constant)'] -> ['const INT:39@64 ct7', 'const INT:63@64 ct7', 'op11(operation,constant)']
+TO-GOLDEN    pool|- 23:9 L  ['const INT:9@64 ct7', 'op11(hier_path,constant)', 'op11(operation,constant)'] -> ['const INT:15@64 ct7', 'const INT:9@64 ct7', 'op11(operation,constant)']
+TO-GOLDEN    pool|- 24:9 L  ['const INT:9@64 ct7', 'op11(hier_path,constant)', 'op11(operation,constant)'] -> ['const INT:15@64 ct7', 'const INT:9@64 ct7', 'op11(operation,constant)']
+TO-GOLDEN    pool|- 25:9 L  ['const INT:4@64 ct7', 'op11(hier_path,constant)', 'op11(sys_func_call,constant)'] -> ['const INT:4@64 ct7', 'op11(sys_func_call,constant)']
+TO-GOLDEN    pool|- 27:9 L  ['const INT:19@64 ct7', 'op11(hier_path,constant)', 'op11(ref_obj,constant)'] -> ['const INT:19@64 ct7', 'const INT:31@64 ct7', 'op11(ref_obj,constant)']
+[MULTISET] TO-GOLDEN=8 AWAY-GOLDEN=0 MOVED-WRONG=1 STILL-WRONG=3 UNMOVED=36

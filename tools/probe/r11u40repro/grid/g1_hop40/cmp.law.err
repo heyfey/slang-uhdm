@@ -1,0 +1,6 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: , id:98
+|vpiActual:
+\_struct_typespec: (p40::cfg_t), id:7, line:13:11, endln:13:39

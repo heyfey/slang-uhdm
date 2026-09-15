@@ -1,0 +1,8 @@
+decompile:
+ref_typespec: (pv40f), id:27
+|vpiParent:
+\_operation: , id:26, line:15:28, endln:15:46
+|vpiFullName:pv40f
+|vpiActual:
+\_struct_typespec: (pv40f::cfg_t), id:35, line:14:11, endln:14:39
+

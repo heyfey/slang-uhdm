@@ -1,0 +1,58 @@
+LHS:
+decompile:
+constant: , id:1090, line:29:10, endln:29:11
+|vpiParent:
+\_range: , id:1086, line:29:9, endln:29:16
+|vpiDecompile:10
+|vpiSize:64
+|INT:10
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:402, line:29:10, endln:29:13
+|vpiParent:
+\_range: , id:401, line:29:9, endln:29:16
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (s.CFG.D1), id:403, line:29:10, endln:29:11
+  |vpiParent:
+  \_operation: , id:402, line:29:10, endln:29:13
+  |vpiTypespec:
+  \_ref_typespec: (work@v5_depth40.u_d1.u_inner.reg_data.s.CFG.D1), id:407
+    |vpiParent:
+    \_hier_path: (s.CFG.D1), id:403, line:29:10, endln:29:11
+    |vpiFullName:work@v5_depth40.u_d1.u_inner.reg_data.s.CFG.D1
+    |vpiActual:
+    \_int_typespec: , id:408, line:25:29, endln:25:41
+  |vpiActual:
+  \_ref_obj: (s), id:404, line:35:17, endln:35:18
+    |vpiParent:
+    \_hier_path: (s.CFG.D1), id:403, line:29:10, endln:29:11
+    |vpiName:s
+  |vpiActual:
+  \_ref_obj: (CFG), id:405, line:35:19, endln:35:22
+    |vpiParent:
+    \_hier_path: (s.CFG.D1), id:403, line:29:10, endln:29:11
+    |vpiName:CFG
+  |vpiActual:
+  \_ref_obj: (work@v5_depth40.u_d1.u_inner.reg_data.D1), id:406, line:35:23, endln:35:25
+    |vpiParent:
+    \_hier_path: (s.CFG.D1), id:403, line:29:10, endln:29:11
+    |vpiName:D1
+    |vpiFullName:work@v5_depth40.u_d1.u_inner.reg_data.D1
+  |vpiExpr:
+  \_ref_obj: (work@v5_depth40.u_d1.s), id:328, line:57:28, endln:57:29
+    |vpiParent:
+    \_port: (s), id:327, line:34:43, endln:34:44
+    |vpiFullName:work@v5_depth40.u_d1.s
+    |vpiActual:
+    \_modport: (sub), id:355, line:22:11, endln:22:14
+  |vpiName:s.CFG.D1
+|vpiOperand:
+\_constant: , id:409, line:29:12, endln:29:13
+  |vpiParent:
+  \_operation: , id:402, line:29:10, endln:29:13
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9

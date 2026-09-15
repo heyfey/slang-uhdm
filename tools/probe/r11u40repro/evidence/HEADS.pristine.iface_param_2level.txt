@@ -1,0 +1,36 @@
+=== iface_param_2level-b0253a04 [default] heads=1
+LHS:
+decompile:
+constant: , id:570, line:16:10, endln:16:17
+|vpiParent:
+\_range: , id:566, line:16:9, endln:16:22
+|vpiDecompile:31
+|vpiSize:64
+|INT:31
+|vpiConstType:7
+
+decompile:
+constant: , id:570, line:16:10, endln:16:17
+|vpiParent:
+\_range: , id:566, line:16:9, endln:16:22
+|vpiDecompile:31
+|vpiSize:64
+|INT:31
+=== iface_param_2level-b0253a04 [testflags] heads=1
+LHS:
+decompile:
+constant: , id:486, line:16:10, endln:16:17
+|vpiParent:
+\_range: , id:482, line:16:9, endln:16:22
+|vpiDecompile:31
+|vpiSize:64
+|INT:31
+|vpiConstType:7
+
+decompile:
+constant: , id:486, line:16:10, endln:16:17
+|vpiParent:
+\_range: , id:482, line:16:9, endln:16:22
+|vpiDecompile:31
+|vpiSize:64
+|INT:31

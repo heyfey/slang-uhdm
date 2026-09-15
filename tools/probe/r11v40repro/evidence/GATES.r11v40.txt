@@ -1,0 +1,88 @@
+r11v40 — GATES.  Base e305f3d7.  Verifier's OWN worktrees, OWN binaries, OWN workdirs.
+
+[1] BUILDS (cmake -j 2, md5 separately)
+  pristine  ffc677a78847fe65baac4b65f0a930c0   == the main tree's build/slang-uhdm at e305f3d7 == the brief's md5
+  r11u40    c6b54054bd2c8080d3056fe468082b1b   == the md5 the implementer reported (reproduced bit-for-bit)
+  FIXED     7469e456623909691e8546385838094b
+
+[2] GOLDENS
+  r11u40 PASS=23 FAIL=0 ; FIXED PASS=23 FAIL=0 ; SLANG_UHDM=/bin/false PASS=0 FAIL=23 (negative control)
+
+[3] BINARY AUDIT — every cmds.txt by binary PATH
+  u2r_p : slang:   /tmp/v11u40_pris.bin 
+  u2r_l : slang:   /tmp/v11u40_law.bin 
+  u2r_f : slang:   /tmp/v11u40_fix.bin 
+  sl_p : slang:   /tmp/v11u40_pris.bin 
+  sl_l : slang:   /tmp/v11u40_law.bin 
+  sl_f : slang:   /tmp/v11u40_fix.bin 
+
+[4] u2r BOTH MODES — ct8rows vs the BASE-committed baselines (/tmp/wt_v11u40pris/results at e305f3d7)
+  pristine  777/27/67 in EACH mode — PASS: every row byte-identical to the committed baseline
+  r11u40    778/26/67 in EACH mode — exactly ONE row moves, both directions quoted:
+      < iface_param_2level,default,CMP_NOTEQUAL,decompile:,,
+      > iface_param_2level,default,CMP_EQUAL,,,differ
+      < iface_param_2level,testflags,CMP_NOTEQUAL,decompile:,,
+      > iface_param_2level,testflags,CMP_EQUAL,,,differ
+  FIXED     778/26/67 in EACH mode — the SAME one row, the SAME direction
+
+[5] surelog BOTH MODES
+  pristine  474/9 + 469/8 of 798   (== the committed results/golden_surelog.csv histogram)
+  r11u40    474/9 + 469/8 of 798   — no status moves; the only row-diffs are the two LowMem
+                                     SURELOG_FAIL detail strings (they carry the WORKDIR PATH)
+                                     and Earlgrey_0_1's dump COLUMN (the uhdm-dump timeout coin)
+
+[6] BYTEVERIFY
+  u2r  r11u40 vs own pristine : 2 / 1608  (iface_param_2level x2)   SELFCHECK 1607/1608
+  u2r  FIXED  vs own pristine : 2 / 1608  (the SAME two paths, the SAME md5s)
+  u2r  FIXED  vs r11u40       : 0 / 1608  — the fix is byte-neutral on the whole corpus
+  sl   r11u40 vs own pristine : 4 / 960   — MiniAmiq x2, Scoreboard/default, SeqDriver/default
+
+[7] POSITIVE CONTROL for the surelog movers (the UVM per-invocation coin)
+  The PRISTINE binary alone, run THREE times on MiniAmiq's own command line:
+      run 1 cb533d93d9ca   run 2 5a8553037de1   run 3 6456187d0ce5     (three different md5s)
+  ORDER-BLIND dump distance, sorted, workdir normalised:
+      pris1 vs pris2 = 6    pris1 vs pris3 = 6    pris2 vs pris3 = 6
+      pris1 vs law1  = 6    pris2 vs law1  = 6    pris3 vs law2  = 6
+  The class is identical in every pair: one `|UINT:<n>` + its `|vpiDecompile:<n>`
+  (r11u33 R7's per-invocation uninitialised queue-typedef bound).  A law-vs-pristine
+  pair is INDISTINGUISHABLE from a pristine-vs-pristine pair: the movers are the coin.
+
+[8] CANARIES / PROTECTED DATABASES (law vs own pristine, surelog corpus)
+  SVSwitch 4842211c4030 (both modes)      YosysVerx 6ccda350c24a (both modes)
+  InterfaceModPort 59a365f3ce2c           BlackParrotComplex e3e354129d5a / 73a10e8217e5
+  YosysOldOr d68e0796d62c                 Earlgrey_0_1 8bdf25272e08 / 59d0ee6d10c3
+  ALL SAME, and all equal to the OPS pins.
+  canaries.sh sl: ok=51 changed=1 — Earlgrey_0_1/testflags dump column 'differ' -> ''.
+    The verifier's OWN PRISTINE sweep reads that column BLANK IN BOTH MODES (ok=50 changed=2),
+    so the blank is the uhdm-dump 180 s timeout draw, not the binary; the DATABASE is pinned.
+  canaries.sh u2r: ok=8 changed=0.  ctcan2 sl: ok=58 changed=0 PASS.  ctcan2 u2r: ok=1 PASS.
+  canaudit: audited=29 UNCOVERED=0 FENCE-BREACH=0.
+  rowheads (law workdir): 0 cmp lines / 0 heads on SeqDriver, SimpleUVM, Scoreboard/default,
+    MiniAmiq, BuildUVMPkg and Earlgrey_0_1, both modes (Scoreboard/testflags SKIP-NOFILE).
+
+[9] LANDED-LAW WITNESSES (u2r, all three binaries, both modes)
+  genscope_struct_member  CMP_EQUAL,,,match     latch_perf_counters  CMP_EQUAL,,,match
+  The § 35 / § 20 def-side witnesses do NOT fold on any binary.
+
+[10] results/*.csv  UNTOUCHED (the patch's surface is production + tools/probe only).
+
+[11] THE SHIPPED BINARY (the verified patch's own source, built from the final tree)
+  md5 e9b3989bb9b6a5af1cf538906580f02e  (a comment-only header edit after the first fixed
+  build reproduced the SAME md5, so every measurement below is the shipped source's)
+  goldens 23 PASS / 0 FAIL
+  u2r  both modes 778/26/67 — ONE row moves, the conversion, both directions quoted in [4]
+  u2r  byteverify vs own pristine : 2 / 1608 (the witness x2, the SAME md5s as r11u40)
+  u2r  byteverify vs r11u40       : 0 / 1608
+  sl   both modes 474/9 + 469/8 — NO status moves; the only row diffs vs the verifier's own
+       pristine sweep are the two LowMem SURELOG_FAIL strings that carry the WORKDIR PATH
+  sl   byteverify vs own pristine : 4 / 960 — MiniAmiq x2, SeqDriver x2, the UVM coin ([7])
+  canaries sl ok=50 changed=2 (Earlgrey's dump COLUMN only, blank in the verifier's own
+       PRISTINE sweep too); ctcan2 sl ok=58 changed=0 PASS; canaries u2r ok=8 changed=0
+  protected databases vs own pristine: ALL SAME, all equal to the OPS pins
+  rowheads: 0 cmp lines / 0 heads on SeqDriver, SimpleUVM, Scoreboard/default, MiniAmiq,
+       BuildUVMPkg, Earlgrey_0_1 — both modes (Scoreboard/testflags SKIP-NOFILE)
+  GRID, the pass's own four arms, scored against the verifier's own pristine:
+       g1 TO-GOLDEN 0 / AWAY 0 / MOVED-WRONG 3   g2 3 / 0 / 1
+       g3 8 / 0 / 1                              g4 0 / 0 / 0     (== r11u40's own numbers)
+  GRID, the verifier's nine arms: AWAY-GOLDEN 0 on every arm, SET and MULTISET
+       (r11u40 scored AWAY-GOLDEN 6 over four of them)
