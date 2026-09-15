@@ -1,0 +1,8 @@
+== canaries sl fix vs my pristine ==
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+== canaries sl fix vs COMMITTED (Earlgrey dump-timeout) ==
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+== canaries u2r ==
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25

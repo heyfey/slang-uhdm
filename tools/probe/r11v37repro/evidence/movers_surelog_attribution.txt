@@ -1,0 +1,42 @@
+== byteverify surelog law vs pristine (5 movers, all UVM) ==
+MiniAmiq/default pristine-alone 3 runs: c6b80691bba0 db386e94a31e 7207abd0e3c0 ; pristine sweep 12820cbd0f4a ; law 27419f6011b4
+(the pristine binary alone reaches 4 distinct hashes on this row -> nondeterminism, not the law)
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=12820cbd0f4a
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=62c1b7cd8e52
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=1d73e0711f77 pristine=49d8efe2729b
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=34b2ca85b9f4 pristine=fef8b99b7504
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=5df00e9fc6f5 pristine=8fc10408acbb
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=12820cbd0f4a
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=0ef84d8d5c28 pristine=62c1b7cd8e52
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=e6caabab07d9 pristine=fef8b99b7504
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=8fc10408acbb
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+=== order-blind attribution, law+gates vs pristine (all UVM) ===
+-- default/MiniAmiq-544c7f61
+>       |UINT:0
+<       |UINT:1382
+>       |vpiDecompile:0
+<       |vpiDecompile:1382
+-- default/SeqDriver-32af76aa
+<       |UINT:790
+>       |UINT:835
+<       |vpiDecompile:790
+>       |vpiDecompile:835
+-- testflags/MiniAmiq-544c7f61
+<       |UINT:1404
+>       |UINT:958
+<       |vpiDecompile:1404
+>       |vpiDecompile:958
+-- testflags/SeqDriver-32af76aa
+>       |UINT:0
+<       |UINT:515
+>       |vpiDecompile:0
+<       |vpiDecompile:515

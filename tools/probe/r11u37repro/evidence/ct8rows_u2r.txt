@@ -1,0 +1,37 @@
+== u2r testflags: committed gate baseline -> law ==
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< param_type_logic_width,testflags,CMP_NOTEQUAL,decompile:,,
+> param_type_logic_width,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     774 CMP_EQUAL      30 CMP_NOTEQUAL      67 SLANG_REJECT 
+  testflags  fresh:     775 CMP_EQUAL      29 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:      97      239 differ     535 match 
+  testflags  fresh:      96      240 differ     535 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+== u2r default: committed baseline (default subset) -> law ==
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< param_type_logic_width,default,CMP_NOTEQUAL,decompile:,,
+> param_type_logic_width,default,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     774 CMP_EQUAL      30 CMP_NOTEQUAL      67 SLANG_REJECT 
+  default  fresh:     775 CMP_EQUAL      29 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:      97      243 differ     531 match 
+  default  fresh:      96      244 differ     531 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+== u2r testflags: committed gate baseline -> MY PRISTINE (control) ==
+  testflags  base:      97      239 differ     535 match 
+  testflags  fresh:      97      239 differ     535 match 
+PASS: every row byte-identical to the committed baseline
+
+== u2r default: committed baseline -> MY PRISTINE (control) ==
+  default  base:      97      243 differ     531 match 
+  default  fresh:      97      243 differ     531 match 
+PASS: every row byte-identical to the committed baseline

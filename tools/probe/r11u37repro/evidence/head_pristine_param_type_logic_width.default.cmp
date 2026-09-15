@@ -1,0 +1,390 @@
+LHS:
+decompile:
+module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+|vpiParent:
+\_design: (work@tb), id:252
+|vpiFullName:work@shift_reg
+|vpiParameter:
+\_type_parameter: (work@shift_reg.dtype), id:14, line:4:35, endln:4:40
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:dtype
+  |vpiFullName:work@shift_reg.dtype
+  |vpiTypespec:
+  \_ref_typespec: (work@shift_reg.dtype), id:16
+    |vpiParent:
+    \_type_parameter: (work@shift_reg.dtype), id:14, line:4:35, endln:4:40
+    |vpiFullName:work@shift_reg.dtype
+    |vpiActual:
+    \_logic_typespec: , id:15, line:4:43, endln:4:48
+|vpiDefName:work@shift_reg
+|vpiNet:
+\_logic_net: (work@shift_reg.d_i), id:290, line:5:18, endln:5:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_i
+  |vpiFullName:work@shift_reg.d_i
+|vpiNet:
+\_logic_net: (work@shift_reg.d_o), id:292, line:6:18, endln:6:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_o
+  |vpiFullName:work@shift_reg.d_o
+|vpiNet:
+\_logic_net: (work@shift_reg.b), id:294, line:17:48, endln:17:49
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:b
+  |vpiFullName:work@shift_reg.b
+  |vpiNetType:1
+|vpiPort:
+\_port: (d_i), id:286, line:5:18, endln:5:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_i
+  |vpiDirection:1
+  |vpiLowConn:
+  \_ref_obj: (work@shift_reg.d_i.d_i), id:291, line:5:18, endln:5:21
+    |vpiParent:
+    \_port: (d_i), id:286, line:5:18, endln:5:21
+    |vpiName:d_i
+    |vpiFullName:work@shift_reg.d_i.d_i
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_i), id:290, line:5:18, endln:5:21
+  |vpiTypedef:
+  \_ref_typespec: (work@shift_reg.d_i), id:287
+    |vpiParent:
+    \_port: (d_i), id:286, line:5:18, endln:5:21
+    |vpiFullName:work@shift_reg.d_i
+    |vpiActual:
+    \_logic_typespec: , id:15, line:4:43, endln:4:48
+|vpiPort:
+\_port: (d_o), id:288, line:6:18, endln:6:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@shift_reg.d_o.d_o), id:293, line:6:18, endln:6:21
+    |vpiParent:
+    \_port: (d_o), id:288, line:6:18, endln:6:21
+    |vpiName:d_o
+    |vpiFullName:work@shift_reg.d_o.d_o
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_o), id:292, line:6:18, endln:6:21
+  |vpiTypedef:
+  \_ref_typespec: (work@shift_reg.d_o), id:289
+    |vpiParent:
+    \_port: (d_o), id:288, line:6:18, endln:6:21
+    |vpiFullName:work@shift_reg.d_o
+    |vpiActual:
+    \_logic_typespec: , id:15, line:4:43, endln:4:48
+|vpiContAssign:
+\_cont_assign: , id:18, line:8:12, endln:8:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiRhs:
+  \_ref_obj: (work@shift_reg.d_i), id:19, line:8:18, endln:8:21
+    |vpiParent:
+    \_cont_assign: , id:18, line:8:12, endln:8:21
+    |vpiName:d_i
+    |vpiFullName:work@shift_reg.d_i
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_i), id:290, line:5:18, endln:5:21
+  |vpiLhs:
+  \_ref_obj: (work@shift_reg.d_o), id:17, line:8:12, endln:8:15
+    |vpiParent:
+    \_cont_assign: , id:18, line:8:12, endln:8:21
+    |vpiName:d_o
+    |vpiFullName:work@shift_reg.d_o
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_o), id:292, line:6:18, endln:6:21
+
+decompile:
+module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+|vpiParent:
+\_design: (work@tb), id:252
+|vpiFullName:work@shift_reg
+|vpiParameter:
+\_type_parameter: (work@shift_reg.dtype), id:14, line:4:35, endln:4:40
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:dtype
+  |vpiFullName:work@shift_reg.dtype
+  |vpiTypespec:
+  \_ref_typespec: (work@shift_reg.dtype), id:16
+    |vpiParent:
+    \_type_parameter: (work@shift_reg.dtype), id:14, line:4:35, endln:4:40
+    |vpiFullName:work@shift_reg.dtype
+    |vpiActual:
+    \_logic_typespec: , id:15, line:4:43, endln:4:48
+|vpiDefName:work@shift_reg
+|vpiNet:
+\_logic_net: (work@shift_reg.d_i), id:290, line:5:18, endln:5:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_i
+  |vpiFullName:work@shift_reg.d_i
+|vpiNet:
+\_logic_net: (work@shift_reg.d_o), id:292, line:6:18, endln:6:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_o
+  |vpiFullName:work@shift_reg.d_o
+|vpiNet:
+\_logic_net: (work@shift_reg.b), id:294, line:17:48, endln:17:49
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:b
+  |vpiFullName:work@shift_reg.b
+  |vpiNetType:1
+|vpiPort:
+\_port: (d_i), id:286, line:5:18, endln:5:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_i
+  |vpiDirection:1
+  |vpiLowConn:
+  \_ref_obj: (work@shift_reg.d_i.d_i), id:291, line:5:18, endln:5:21
+    |vpiParent:
+    \_port: (d_i), id:286, line:5:18, endln:5:21
+    |vpiName:d_i
+    |vpiFullName:work@shift_reg.d_i.d_i
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_i), id:290, line:5:18, endln:5:21
+  |vpiTypedef:
+  \_ref_typespec: (work@shift_reg.d_i), id:287
+    |vpiParent:
+    \_port: (d_i), id:286, line:5:18, endln:5:21
+    |vpiFullName:work@shift_reg.d_i
+    |vpiActual:
+    \_logic_typespec: , id:15, line:4:43, endln:4:48
+|vpiPort:
+\_port: (d_o), id:288, line:6:18, endln:6:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@shift_reg.d_o.d_o), id:293, line:6:18, endln:6:21
+    |vpiParent:
+    \_port: (d_o), id:288, line:6:18, endln:6:21
+    |vpiName:d_o
+    |vpiFullName:work@shift_reg.d_o.d_o
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_o), id:292, line:6:18, endln:6:21
+  |vpiTypedef:
+  \_ref_typespec: (work@shift_reg.d_o), id:289
+    |vpiParent:
+    \_port: (d_o), id:288, line:6:18, endln:6:21
+    |vpiFullName:work@shift_reg.d_o
+    |vpiActual:
+    \_logic_typespec: , id:15, line:4:43, endln:4:48
+|vpiContAssign:
+\_cont_assign: , id:18, line:8:12, endln:8:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:285, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiRhs:
+  \_ref_obj: (work@shift_reg.d_i), id:19, line:8:18, endln:8:21
+    |vpiParent:
+    \_cont_assign: , id:18, line:8:12, endln:8:21
+    |vpiName:d_i
+    |vpiFullName:work@shift_reg.d_i
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_i), id:290, line:5:18, endln:5:21
+  |vpiLhs:
+  \_ref_obj: (work@shift_reg.d_o), id:17, line:8:12, endln:8:15
+    |vpiParent:
+    \_cont_assign: , id:18, line:8:12, endln:8:21
+    |vpiName:d_o
+    |vpiFullName:work@shift_reg.d_o
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_o), id:292, line:6:18, endln:6:21
+RHS:
+decompile:
+module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+|vpiParent:
+\_design: (work@tb), id:1
+|vpiFullName:work@shift_reg
+|vpiParameter:
+\_type_parameter: (work@shift_reg.dtype), id:18, line:4:35, endln:4:40
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:dtype
+  |vpiFullName:work@shift_reg.dtype
+  |vpiTypespec:
+  \_ref_typespec: (work@shift_reg.dtype), id:19
+    |vpiParent:
+    \_type_parameter: (work@shift_reg.dtype), id:18, line:4:35, endln:4:40
+    |vpiFullName:work@shift_reg.dtype
+    |vpiActual:
+    \_logic_typespec: , id:20, line:4:43, endln:4:48
+|vpiDefName:work@shift_reg
+|vpiNet:
+\_logic_net: (work@shift_reg.d_i), id:24, line:5:18, endln:5:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_i
+  |vpiFullName:work@shift_reg.d_i
+|vpiNet:
+\_logic_net: (work@shift_reg.d_o), id:25, line:6:18, endln:6:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_o
+  |vpiFullName:work@shift_reg.d_o
+|vpiPort:
+\_port: (d_i), id:182, line:5:18, endln:5:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_i
+  |vpiDirection:1
+  |vpiLowConn:
+  \_ref_obj: (work@shift_reg.d_i.d_i), id:183, line:5:18, endln:5:21
+    |vpiParent:
+    \_port: (d_i), id:182, line:5:18, endln:5:21
+    |vpiName:d_i
+    |vpiFullName:work@shift_reg.d_i.d_i
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_i), id:24, line:5:18, endln:5:21
+  |vpiTypedef:
+  \_ref_typespec: (work@shift_reg.d_i), id:184
+    |vpiParent:
+    \_port: (d_i), id:182, line:5:18, endln:5:21
+    |vpiFullName:work@shift_reg.d_i
+    |vpiActual:
+    \_logic_typespec: , id:20, line:4:43, endln:4:48
+|vpiPort:
+\_port: (d_o), id:185, line:6:18, endln:6:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@shift_reg.d_o.d_o), id:186, line:6:18, endln:6:21
+    |vpiParent:
+    \_port: (d_o), id:185, line:6:18, endln:6:21
+    |vpiName:d_o
+    |vpiFullName:work@shift_reg.d_o.d_o
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_o), id:25, line:6:18, endln:6:21
+  |vpiTypedef:
+  \_ref_typespec: (work@shift_reg.d_o), id:187
+    |vpiParent:
+    \_port: (d_o), id:185, line:6:18, endln:6:21
+    |vpiFullName:work@shift_reg.d_o
+    |vpiActual:
+    \_logic_typespec: , id:20, line:4:43, endln:4:48
+|vpiContAssign:
+\_cont_assign: , id:26, line:8:12, endln:8:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiRhs:
+  \_ref_obj: (work@shift_reg.d_i), id:27, line:8:18, endln:8:21
+    |vpiParent:
+    \_cont_assign: , id:26, line:8:12, endln:8:21
+    |vpiName:d_i
+    |vpiFullName:work@shift_reg.d_i
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_i), id:24, line:5:18, endln:5:21
+  |vpiLhs:
+  \_ref_obj: (work@shift_reg.d_o), id:28, line:8:12, endln:8:15
+    |vpiParent:
+    \_cont_assign: , id:26, line:8:12, endln:8:21
+    |vpiName:d_o
+    |vpiFullName:work@shift_reg.d_o
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_o), id:25, line:6:18, endln:6:21
+
+decompile:
+module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+|vpiParent:
+\_design: (work@tb), id:1
+|vpiFullName:work@shift_reg
+|vpiParameter:
+\_type_parameter: (work@shift_reg.dtype), id:18, line:4:35, endln:4:40
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:dtype
+  |vpiFullName:work@shift_reg.dtype
+  |vpiTypespec:
+  \_ref_typespec: (work@shift_reg.dtype), id:19
+    |vpiParent:
+    \_type_parameter: (work@shift_reg.dtype), id:18, line:4:35, endln:4:40
+    |vpiFullName:work@shift_reg.dtype
+    |vpiActual:
+    \_logic_typespec: , id:20, line:4:43, endln:4:48
+|vpiDefName:work@shift_reg
+|vpiNet:
+\_logic_net: (work@shift_reg.d_i), id:24, line:5:18, endln:5:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_i
+  |vpiFullName:work@shift_reg.d_i
+|vpiNet:
+\_logic_net: (work@shift_reg.d_o), id:25, line:6:18, endln:6:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_o
+  |vpiFullName:work@shift_reg.d_o
+|vpiPort:
+\_port: (d_i), id:182, line:5:18, endln:5:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_i
+  |vpiDirection:1
+  |vpiLowConn:
+  \_ref_obj: (work@shift_reg.d_i.d_i), id:183, line:5:18, endln:5:21
+    |vpiParent:
+    \_port: (d_i), id:182, line:5:18, endln:5:21
+    |vpiName:d_i
+    |vpiFullName:work@shift_reg.d_i.d_i
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_i), id:24, line:5:18, endln:5:21
+  |vpiTypedef:
+  \_ref_typespec: (work@shift_reg.d_i), id:184
+    |vpiParent:
+    \_port: (d_i), id:182, line:5:18, endln:5:21
+    |vpiFullName:work@shift_reg.d_i
+    |vpiActual:
+    \_logic_typespec: , id:20, line:4:43, endln:4:48
+|vpiPort:
+\_port: (d_o), id:185, line:6:18, endln:6:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiName:d_o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@shift_reg.d_o.d_o), id:186, line:6:18, endln:6:21
+    |vpiParent:
+    \_port: (d_o), id:185, line:6:18, endln:6:21
+    |vpiName:d_o
+    |vpiFullName:work@shift_reg.d_o.d_o
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_o), id:25, line:6:18, endln:6:21
+  |vpiTypedef:
+  \_ref_typespec: (work@shift_reg.d_o), id:187
+    |vpiParent:
+    \_port: (d_o), id:185, line:6:18, endln:6:21
+    |vpiFullName:work@shift_reg.d_o
+    |vpiActual:
+    \_logic_typespec: , id:20, line:4:43, endln:4:48
+|vpiContAssign:
+\_cont_assign: , id:26, line:8:12, endln:8:21
+  |vpiParent:
+  \_module_inst: work@shift_reg (work@shift_reg), id:10, file:/home/heyfey/git-repos/uhdm2rtlil/test/param_type_logic_width/dut.sv, line:4:1, endln:9:10
+  |vpiRhs:
+  \_ref_obj: (work@shift_reg.d_i), id:27, line:8:18, endln:8:21
+    |vpiParent:
+    \_cont_assign: , id:26, line:8:12, endln:8:21
+    |vpiName:d_i
+    |vpiFullName:work@shift_reg.d_i
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_i), id:24, line:5:18, endln:5:21
+  |vpiLhs:
+  \_ref_obj: (work@shift_reg.d_o), id:28, line:8:12, endln:8:15
+    |vpiParent:
+    \_cont_assign: , id:26, line:8:12, endln:8:21
+    |vpiName:d_o
+    |vpiFullName:work@shift_reg.d_o
+    |vpiActual:
+    \_logic_net: (work@shift_reg.d_o), id:25, line:6:18, endln:6:21

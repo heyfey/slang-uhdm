@@ -1,0 +1,80 @@
+LHS:
+decompile:
+module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:563, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_struct_array_fifo/dut.sv, line:6:1, endln:77:10
+|vpiParent:
+\_design: (work@packed_struct_array_fifo), id:458
+|vpiName:work@packed_struct_array_fifo
+|vpiVariables:
+\_logic_var: (work@packed_struct_array_fifo.read_pointer_n), id:385, line:22:26, endln:22:40
+  |vpiParent:
+  \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:563, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_struct_array_fifo/dut.sv, line:6:1, endln:77:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_struct_array_fifo.read_pointer_n), id:386
+    |vpiParent:
+    \_logic_var: (work@packed_struct_array_fifo.read_pointer_n), id:385, line:22:26, endln:22:40
+    |vpiFullName:work@packed_struct_array_fifo.read_pointer_n
+    |vpiActual:
+    \_logic_typespec: , id:378, line:22:3, endln:22:25
+  |vpiName:read_pointer_n
+  |vpiFullName:work@packed_struct_array_fifo.read_pointer_n
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@packed_struct_array_fifo.read_pointer_q), id:393, line:22:42, endln:22:56
+  |vpiParent:
+  \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:563, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_struct_array_fifo/dut.sv, line:6:1, endln:77:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_struct_array_fifo.read_pointer_q), id:394
+    |vpiParent:
+    \_logic_var: (work@packed_struct_array_fifo.read_pointer_q), id:393, line:22:42, endln:22:56
+    |vpiFullName:work@packed_struct_array_fifo.read_pointer_q
+    |vpiActual:
+    \_logic_typespec: , id:378, line:22:3, endln:22:25
+  |vpiName:read_pointer_q
+  |vpiFullName:work@packed_struct_array_fifo.read_pointer_q
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@packed_struct_array_fifo.write_pointer_n), id:401, line:22:58, endln:22:73
+  |vpiParent:
+  \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:563, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_struct_array_fifo/dut.sv, line:6:1, endln:77:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_struct_array_fifo.write_pointer_n), id:402
+    |vpiParent:
+    \_logic_var: (work@packed_struct_array_fifo.write_pointer_n), id:401, line:22:58, endln:22:73
+    |vpiFullName:work@packed_struct_array_fifo.write_pointer_n
+    |vpiActual:
+    \_logic_typespec: , id:378, line:22:3, endln:22:25
+  |vpiName:write_pointer_n
+  |vpiFullName:work@packed_struct_array_fifo.write_pointer_n
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@packed_struct_array_fifo.write_pointer_q), id:409, line:22:75, endln:22:90
+  |vpiParent:
+  \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:563, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_struct_array_fifo/dut.sv, line:6:1, endln:77:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_struct_array_fifo.write_pointer_q), id:410
+    |vpiParent:
+    \_logic_var: (work@packed_struct_array_fifo.write_pointer_q), id:409, line:22:75, endln:22:90
+    |vpiFullName:work@packed_struct_array_fifo.write_pointer_q
+    |vpiActual:
+    \_logic_typespec: , id:378, line:22:3, endln:22:25
+  |vpiName:write_pointer_q
+  |vpiFullName:work@packed_struct_array_fifo.write_pointer_q
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@packed_struct_array_fifo.status_cnt_n), id:418, line:23:24, endln:23:36
+  |vpiParent:
+  \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:563, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_struct_array_fifo/dut.sv, line:6:1, endln:77:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_struct_array_fifo.status_cnt_n), id:419
+    |vpiParent:
+    \_logic_var: (work@packed_struct_array_fifo.status_cnt_n), id:418, line:23:24, endln:23:36
+    |vpiFullName:work@packed_struct_array_fifo.status_cnt_n
+    |vpiActual:
+    \_logic_typespec: , id:414, line:23:3, endln:23:23
+  |vpiName:status_cnt_n
+  |vpiFullName:work@packed_struct_array_fifo.status_cnt_n
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@packed_struct_array_fifo.status_cnt_q), id:423, line:23:38, endln:23:50
+  |vpiParent:
+  \_module_inst: work@packed_struct_array_fifo (work@packed_struct_array_fifo), id:563, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_struct_array_fifo/dut.sv, line:6:1, endln:77:10

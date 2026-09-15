@@ -6734,6 +6734,22 @@ UHDM::design* UhdmExporter::exportDesign() {
             tfContext = savedTf;
         }
     }
+    // § typeParamNameMintsDefNet37 — LAST in the definition write, exactly
+    // where `UhdmWriter::writeModule` calls `lateBinding`: the names a `type`
+    // parameter's expression carried and Surelog could not resolve become bare
+    // `logic_net`s at the END of the definition's net vector.  The index is
+    // built design-wide first, because a name written in a PARENT's
+    // instantiation mints in the CHILD's definition.
+    collectTypeParamLateBindNets37(defs);
+    for (auto& [name, inst] : defs) {
+        if (useInterfacePath(*inst) || isProgramDef(*inst))
+            continue;
+        if (blackboxedDef("work@" + name))
+            continue;
+        mintTypeParamLateBindNets37(inst->getDefinition(),
+                                    defMap[&inst->getDefinition()].mod,
+                                    "work@" + name);
+    }
     // Re-point deferred def-view bare-package-typedef aggregate param refs at
     // the ELAB clone Surelog shares between both views (all elab param clones
     // now exist — they are minted in the emitTopPorts write phase above).

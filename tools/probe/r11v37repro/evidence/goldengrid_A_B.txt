@@ -1,0 +1,40 @@
+grid outdir: /tmp/v11u37_grid/out
+surelog:     /home/heyfey/git-repos/Surelog/build/bin/surelog
+VERSION: 1.87
+BUILT  : Sep  9 2026
+pc     rc=0   holders=4   nets: (work@c_pc.b), line:5:41 (work@c_pc.d_i), line:1:58 (work@c_pc.d_o), line:1:76 (work@m_pc.a), line:4:55 (work@m_pc.b), line:4:78 (work@m_pc.o), line:4:101 (work@tb_pc.o), line:7:28 (work@tb_pc.t.a), line:4:55 (work@tb_pc.t.b), line:4:78 (work@tb_pc.t.o), line:4:101 
+--- A. KEY-2 shapes the implementer did not test ---
+a1     rc=0   holders=4   nets: (work@c_a1.d_i), line:1:58 (work@c_a1.d_o), line:1:76 (work@m_a1.a), line:4:32 (work@m_a1.b), line:4:53 (work@m_a1.o), line:4:76 (work@tb_a1.o), line:7:28 (work@tb_a1.t.a), line:4:32 (work@tb_a1.t.b), line:4:53 (work@tb_a1.t.o), line:4:76 
+a2     rc=0   holders=4   nets: (work@c_a2.a), line:7:32 (work@c_a2.b), line:7:43 (work@c_a2.d_i), line:1:58 (work@c_a2.d_o), line:1:76 (work@m_a2.a), line:4:32 (work@m_a2.b), line:4:53 (work@m_a2.o), line:4:76 (work@tb_a2.o), line:10:28 (work@tb_a2.t.a), line:4:32 (work@tb_a2.t.b), line:4:53 (work@tb_a2.t.o), line:4:76 
+a3     rc=0   holders=5   nets: (work@c_a3.b), line:5:41 (work@c_a3.d_i), line:1:58 (work@c_a3.d), line:8:41 (work@c_a3.d_o), line:1:76 (work@p1_a3.a), line:4:33 (work@p1_a3.b), line:4:54 (work@p1_a3.o), line:4:77 (work@p2_a3.c), line:7:33 (work@p2_a3.d), line:7:54 (work@p2_a3.o), line:7:77 (work@tb_a3.o), line:10:28 (work@tb_a3.t1.a), line:4:33 (work@tb_a3.t1.b), line:4:54 (work@tb_a3.t1.o), line:4:77 (work@tb_a3.t2.c), line:7:33 (work@tb_a3.t2.d), line:7:54 (work@tb_a3.t2.o), line:7:77 
+a4     rc=0   holders=4   nets: (work@c_a4.b), line:5:41 (work@c_a4.c), line:6:41 (work@c_a4.d_i), line:1:58 (work@c_a4.d_o), line:1:76 (work@m_a4.a), line:4:32 (work@m_a4.b), line:4:53 (work@m_a4.c), line:4:74 (work@m_a4.o), line:4:97 (work@tb_a4.o), line:8:28 (work@tb_a4.t.a), line:4:32 (work@tb_a4.t.b), line:4:53 (work@tb_a4.t.c), line:4:74 (work@tb_a4.t.o), line:4:97 
+a5     rc=0   holders=4   nets: (work@c_a5.b), line:5:41 (work@c_a5.d_i), line:1:58 (work@c_a5.d_o), line:1:76 (work@m_a5.a), line:4:32 (work@m_a5.b), line:4:53 (work@m_a5.o), line:4:69 (work@tb_a5.o), line:7:21 (work@tb_a5.t.a), line:4:32 (work@tb_a5.t.b), line:4:53 (work@tb_a5.t.o), line:4:69 
+a6     rc=0   holders=4   nets: (work@c_a6.d_i), line:2:58 (work@c_a6.d_o), line:2:76 (work@m_a6.a), line:5:32 (work@m_a6.b), line:5:53 (work@m_a6.o), line:5:76 (work@tb_a6.o), line:8:28 (work@tb_a6.t.a), line:5:32 (work@tb_a6.t.b), line:5:53 (work@tb_a6.t.o), line:5:76 
+a7     rc=0   holders=4   nets: (work@c_a7.a), line:5:46 (work@c_a7.b), line:5:57 (work@c_a7.d_i), line:1:58 (work@c_a7.d_o), line:1:76 (work@m_a7.a), line:4:32 (work@m_a7.b), line:4:53 (work@m_a7.o), line:4:76 (work@tb_a7.o), line:7:28 (work@tb_a7.t.a), line:4:32 (work@tb_a7.t.b), line:4:53 (work@tb_a7.t.o), line:4:76 
+a8     rc=0   holders=4   nets: (work@c_a8.b), line:6:43 (work@c_a8.d_i), line:1:58 (work@c_a8.d_o), line:1:76 (work@m_a8.a), line:4:32 (work@m_a8.b), line:4:53 (work@m_a8.o), line:4:76 (work@tb_a8.o), line:8:28 (work@tb_a8.t.a), line:4:32 (work@tb_a8.t.b), line:4:53 (work@tb_a8.t.o), line:4:76 
+a9     rc=4   holders=6   nets: (work@c_a9.d_i), line:2:58 (work@c_a9.d_o), line:2:76 (work@if_a9.sig), line:1:30 (work@m_a9.a), line:5:43 (work@m_a9.ifp), line:5:20 (work@m_a9.o), line:5:66 (work@tb_a9.ii), line:8:55 (work@tb_a9.o), line:8:28 (work@tb_a9.t.a), line:5:43 (work@tb_a9.t.o), line:5:66 
+a10    rc=0   holders=4   nets: (work@c_a10.d_i), line:2:59 (work@c_a10.d_o), line:2:77 (work@m_a10.a), line:5:33 (work@m_a10.o), line:5:56 (work@m_a10.sv), line:6:7 (work@tb_a10.o), line:9:29 (work@tb_a10.t.a), line:5:33 (work@tb_a10.t.o), line:5:56 
+a11    rc=0   holders=4   nets: (work@c_a11.d_i), line:1:59 (work@c_a11.d_o), line:1:77 (work@c_a11.vv), line:6:42 (work@m_a11.a), line:4:33 (work@m_a11.o), line:4:56 (work@m_a11.vv), line:5:15 (work@tb_a11.o), line:8:29 (work@tb_a11.t.a), line:4:33 (work@tb_a11.t.o), line:4:56 
+a12    rc=0   holders=4   nets: (work@c_a12.a), line:7:33 (work@c_a12.d_i), line:1:59 (work@c_a12.d_o), line:1:77 (work@m_a12.a), line:4:33 (work@m_a12.o), line:4:56 (work@tb_a12.o), line:10:29 (work@tb_a12.t.a), line:4:33 (work@tb_a12.t.o), line:4:56 
+a13    rc=0   holders=4   nets: (work@c_a13.b), line:6:42 (work@c_a13.d_i), line:1:59 (work@c_a13.d_o), line:1:77 (work@c_a13.n1), line:2:9 (work@c_a13.n2), line:2:19 (work@m_a13.a), line:5:33 (work@m_a13.b), line:5:54 (work@m_a13.o), line:5:77 (work@tb_a13.o), line:8:29 (work@tb_a13.t.a), line:5:33 (work@tb_a13.t.b), line:5:54 (work@tb_a13.t.o), line:5:77 
+--- B. KEY-1 shapes the implementer did not test ---
+b1     rc=0   holders=4   nets: (work@c_b1.i), line:2:57 (work@c_b1.k_b1), line:2:38 (work@c_b1.o), line:2:73 (work@tb_b1.i), line:5:21 (work@tb_b1.o), line:5:23 (work@tb_b1.t.i), line:2:57 (work@tb_b1.t.o), line:2:73 
+b2     rc=0   holders=3   nets: (work@c_b2.d_i), line:2:57 (work@c_b2.d_o), line:2:75 (work@c_b2.e_b2), line:2:38 (work@tb_b2.x), line:5:20 (work@tb_b2.y), line:5:22 
+b3     rc=0   holders=3   nets: (work@c_b3.d_i), line:4:16 (work@c_b3.d_o), line:4:34 (work@tb_b3.x), line:7:27 (work@tb_b3.y), line:7:29 
+b4     rc=0   holders=3   nets: (work@c_b4.d_i), line:2:20 (work@c_b4.d_o), line:2:42 (work@tb_b4.x), line:5:21 (work@tb_b4.y), line:5:23 
+b5     rc=0   holders=3   nets: (work@c_b5.d_i), line:2:73 (work@c_b5.d_o), line:2:91 (work@c_b5.d_t), line:2:56 (work@tb_b5.t.d_t), line:2:56 (work@tb_b5.x), line:5:19 (work@tb_b5.y), line:5:21 (work@tb_b5.z), line:5:30 
+b6     rc=0   holders=3   nets: (work@c_b6.d_i), line:2:56 (work@c_b6.d_o), line:2:74 (work@c_b6.d_t), line:2:38 (work@tb_b6.x), line:6:19 (work@tb_b6.y), line:6:21 
+b7     rc=0   holders=3   nets: (work@c_b7.d_i), line:2:56 (work@c_b7.d_o), line:2:74 (work@tb_b7.x), line:6:19 (work@tb_b7.y), line:6:21 
+b8     rc=0   holders=3   nets: (work@c_b8.i), line:2:26 (work@c_b8.o), line:2:42 (work@tb_b8.i), line:9:21 (work@tb_b8.o), line:9:23 (work@tb_b8.t.i), line:2:26 (work@tb_b8.t.o), line:2:42 
+b9     rc=0   holders=4   nets: (work@c1_b9.d_i), line:2:57 (work@c1_b9.d_o), line:2:75 (work@c1_b9.d_t), line:2:39 (work@c2_b9.d_i), line:5:57 (work@c2_b9.d_o), line:5:75 (work@c2_b9.d_t), line:5:39 (work@tb_b9.x), line:8:19 (work@tb_b9.y), line:8:21 
+b10    rc=0   holders=3   nets: (work@c_b10.d_i), line:1:57 (work@c_b10.d_o), line:1:75 (work@c_b10.d_t), line:1:39 (work@tb_b10.x), line:5:20 (work@tb_b10.y), line:5:22 
+b11    rc=0   holders=3   nets: (work@c_b11.d_i), line:2:57 (work@c_b11.d_o), line:2:75 (work@tb_b11.x), line:6:36 (work@tb_b11.y), line:6:38 
+b12    rc=0   holders=3   nets: (work@c_b12.d_i), line:2:73 (work@c_b12.d_o), line:2:91 (work@tb_b12.x), line:5:36 (work@tb_b12.y), line:5:38 
+b13    rc=0   holders=3   nets: (work@c_b13.d_i), line:3:57 (work@c_b13.d_o), line:3:75 (work@c_b13.d_t), line:3:39 (work@c_b13.w), line:4:15 (work@tb_b13.x), line:8:20 (work@tb_b13.y), line:8:22 
+b14    rc=0   holders=3   nets: (work@c_b14.d_i), line:3:57 (work@c_b14.d_o), line:3:75 (work@c_b14.d_t), line:3:39 (work@tb_b14.o_t), line:6:40 (work@tb_b14.x), line:6:20 (work@tb_b14.y), line:6:22 
+--- NEGATIVE CONTROL ---
+nc     rc=1   holders=0   nets: !! ARM COMPILED NOTHING
+
+-- arms=29  compiled-nothing=1 (must be exactly 1: the nc control)
+-- POSITIVE CONTROL (arm pc mints work@c_pc.b): 2; must be >=1
+VGRID CONTROLS: PASS

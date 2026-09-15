@@ -1,0 +1,30 @@
+== e1 (own default + parent's name)
+  \_logic_net: (work@c_e1.d_i), line:2:56
+  \_logic_net: (work@c_e1.d_o), line:2:74
+  \_logic_net: (work@c_e1.d_t), line:2:38
+  \_logic_net: (work@c_e1.b), line:6:41
+-- ours:
+  \_logic_net: (work@c_e1.d_i), line:2:56
+  \_logic_net: (work@c_e1.d_o), line:2:74
+  \_logic_net: (work@c_e1.d_t), line:2:38
+  \_logic_net: (work@c_e1.b), line:6:41
+== e2 (two parents, reverse name order)
+  \_logic_net: (work@c_e2.d_i), line:1:58
+  \_logic_net: (work@c_e2.d_o), line:1:76
+  \_logic_net: (work@c_e2.zb), line:5:42
+  \_logic_net: (work@c_e2.ab), line:8:42
+-- ours:
+  \_logic_net: (work@c_e2.d_i), line:1:58
+  \_logic_net: (work@c_e2.d_o), line:1:76
+  \_logic_net: (work@c_e2.ab), line:8:42
+  \_logic_net: (work@c_e2.zb), line:5:42
+== e3 (parent declared FIRST)
+  \_logic_net: (work@c_e3.d_i), line:5:56
+  \_logic_net: (work@c_e3.d_o), line:5:74
+  \_logic_net: (work@c_e3.d_t), line:5:38
+  \_logic_net: (work@c_e3.b), line:3:41
+-- ours:
+  \_logic_net: (work@c_e3.d_i), line:5:56
+  \_logic_net: (work@c_e3.d_o), line:5:74
+  \_logic_net: (work@c_e3.d_t), line:5:38
+  \_logic_net: (work@c_e3.b), line:3:41

@@ -6756,6 +6756,23 @@ private:
     /// Those wires, per module DEFINITION — the elab views share them.
     std::map<const void*, std::map<const slang::ast::Symbol*, UHDM::logic_net*>>
         unitEnumNetsByDef;
+    /// § typeParamNameMintsDefNet37 — ONE name that Surelog's
+    /// `UhdmWriter::lateBinding` could not resolve while writing a module
+    /// DEFINITION, and the span of the reference it falls back on.
+    struct LateBindNet37 {
+        std::string name;
+        slang::SourceRange range;
+    };
+    /// Those names per module DEFINITION, collected ONCE before the write
+    /// phase: a name written inside a PARENT's instantiation lands on the
+    /// CHILD's late-binding list, so the index is design-wide, not per def.
+    std::map<const slang::ast::DefinitionSymbol*, std::vector<LateBindNet37>>
+        lateBindNets37;
+    void collectTypeParamLateBindNets37(
+        const std::map<std::string, const slang::ast::InstanceSymbol*>& defs);
+    void mintTypeParamLateBindNets37(const slang::ast::DefinitionSymbol& def,
+                                     UHDM::instance* m,
+                                     const std::string& prefix);
     // Straight-line constant reduction of user calls / simple exprs.
     struct CallFold {
         const slang::ast::Expression* lit = nullptr;

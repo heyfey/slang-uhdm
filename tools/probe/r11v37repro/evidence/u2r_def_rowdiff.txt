@@ -1,0 +1,4 @@
+562c562
+< param_type_logic_width,default,CMP_NOTEQUAL
+---
+> param_type_logic_width,default,CMP_EQUAL

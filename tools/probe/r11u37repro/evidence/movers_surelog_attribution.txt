@@ -1,0 +1,49 @@
+r11u37 — attribution of the SIX surelog byte movers (the UVM family)
+
+1. ORDER-BLIND diff of each mover (sorted, path-normalised uhdm-dump):
+MiniAmiq-544c7f61/default                            raw=4      order-blind=4
+Scoreboard-59431470/default                          raw=92     order-blind=0
+SeqDriver-32af76aa/default                           raw=4      order-blind=4
+SimpleUVM-1dc93a62/default                           raw=4      order-blind=4
+MiniAmiq-544c7f61/testflags                          raw=4      order-blind=4
+SeqDriver-32af76aa/testflags                         raw=4      order-blind=4
+
+   Scoreboard/default order-blind=0  => the documented svunit_pkg vpiTaskFunc ORDER coin.
+   The other five are the documented 4-LINE LINE-NUMBER class; quoted:
+   --- default/MiniAmiq-544c7f61 ---
+   723225a723226
+   >       |UINT:0
+   733756d733756
+   <       |UINT:821
+   973852a973853
+   >       |vpiDecompile:0
+   984354d984354
+   <       |vpiDecompile:821
+   --- default/SeqDriver-32af76aa ---
+   694126d694125
+   <       |UINT:0
+   701066a701066
+   >       |UINT:1416
+   938726d938725
+   <       |vpiDecompile:0
+   945737a945737
+   >       |vpiDecompile:1416
+
+2. POSITIVE CONTROL — the PRISTINE binary ALONE reaches several hashes on these rows
+   (same binary /tmp/r11u37_pris.bin, md5 c8d72796d4550874084656de68f7b845, repeated runs):
+   MiniAmiq/default    pristine-vs-pristine: bytes DIFFER, order-blind 4 lines
+   SimpleUVM/default   pristine hashes over 3 runs: 49d8efe2729b, d2020322faf8  (two distinct)
+   SeqDriver/default   pristine hashes: 1f32d0f0fa1a (full sweep), 2fb39f8b4130 (runs 3/4/5)
+                       -- 2fb39f8b4130 IS the law run's hash, produced by the PRISTINE binary
+   SeqDriver/testflags pristine hashes: 4fff340ef3bc (full sweep), 05df6c25a21b x2
+   MiniAmiq/testflags  pristine hashes: 0c23b97c3562, 27419f6011b4, adb0458fb6ad (three distinct)
+
+3. STRUCTURAL PROOF — neither law key occurs anywhere in the UVM trees:
+   KEY1 sites under /home/heyfey/git-repos/Surelog/third_party/UVM : 0
+   KEY2 sites under /home/heyfey/git-repos/Surelog/third_party/UVM : 0
+   POSITIVE CONTROL for those two greps (the u2r witnesses):
+   packed_struct_array_fifo/dut.sv KEY1 hits: 1
+   param_type_logic_width/dut.sv   KEY2 hits: 2
+
+4. STATUS: the surelog status-only diff between my pristine and law sweeps is EMPTY (0 rows).
+   Every UVM row reads 0 cmp lines / 0 heads in BOTH sweeps (rowheads, evidence/canaries.txt).

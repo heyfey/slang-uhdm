@@ -1,0 +1,17 @@
+grid outdir: /tmp/v11u37_grid/out
+surelog:     /home/heyfey/git-repos/Surelog/build/bin/surelog
+VERSION: 1.87
+BUILT  : Sep  9 2026
+--- C. bounding the two over-mint faces ---
+c1     rc=0   holders=3   nets: (work@c_c1.d_t), line:3:25 (work@c_c1.i), line:2:26 (work@c_c1.o), line:2:42 (work@c_c1.w), line:4:7 (work@tb_c1.i), line:7:21 (work@tb_c1.o), line:7:23 (work@tb_c1.t.i), line:2:26 (work@tb_c1.t.o), line:2:42 
+c2     rc=0   holders=3   nets: (work@c_c2.i), line:2:26 (work@c_c2.o), line:2:42 (work@tb_c2.i), line:9:21 (work@tb_c2.o), line:9:23 (work@tb_c2.t.i), line:2:26 (work@tb_c2.t.o), line:2:42 
+c3     rc=0   holders=3   nets: (work@c_c3.i), line:2:26 (work@c_c3.o), line:2:42 (work@tb_c3.i), line:10:21 (work@tb_c3.o), line:10:23 (work@tb_c3.t.i), line:2:26 (work@tb_c3.t.o), line:2:42 
+c4     rc=0   holders=4   nets: (work@outer_c4.i), line:2:30 (work@outer_c4.o), line:2:46 (work@outer_c4.x), line:6:7 (work@outer_c4.y), line:6:10 (work@tb_c4.i), line:10:21 (work@tb_c4.o), line:10:23 (work@tb_c4.t.i), line:2:30 (work@tb_c4.t.o), line:2:46 
+c5     rc=0   holders=4   nets: (work@c_c5.a), line:7:32 (work@c_c5.d_i), line:1:58 (work@c_c5.d_o), line:1:76 (work@c_c5.gb), line:7:43 (work@m_c5.a), line:4:32 (work@m_c5.o), line:4:55 (work@tb_c5.o), line:10:28 (work@tb_c5.t.a), line:4:32 (work@tb_c5.t.o), line:4:55 
+c6     rc=0   holders=4   nets: (work@c_c6.d_i), line:1:79 (work@c_c6.d_o), line:1:97 (work@m_c6.a), line:4:32 (work@m_c6.b), line:4:53 (work@m_c6.o), line:4:76 (work@tb_c6.o), line:7:28 (work@tb_c6.t.a), line:4:32 (work@tb_c6.t.b), line:4:53 (work@tb_c6.t.o), line:4:76 
+c7     rc=0   holders=4   nets: (work@c_c7.d_i), line:1:58 (work@c_c7.d_o), line:1:76 (work@m_c7.a), line:5:32 (work@m_c7.b), line:5:53 (work@m_c7.o), line:5:76 (work@tb_c7.o), line:8:28 (work@tb_c7.t.a), line:5:32 (work@tb_c7.t.b), line:5:53 (work@tb_c7.t.o), line:5:76 
+c8     rc=0   holders=4   nets: (work@c_c8.d_i), line:1:58 (work@c_c8.d_o), line:1:76 (work@m_c8.a), line:4:32 (work@m_c8.o), line:4:55 (work@tb_c8.o), line:7:28 (work@tb_c8.t.a), line:4:32 (work@tb_c8.t.o), line:4:55 
+c9     rc=0   holders=4   nets: (work@c_c9.d_i), line:5:56 (work@c_c9.d_o), line:5:74 (work@c_c9.d_t), line:5:38 (work@c_c9.q), line:6:15 (work@c_c9.r), line:6:18 (work@k_c9.x), line:2:57 (work@k_c9.y), line:2:81 (work@tb_c9.t.u.x), line:2:57 (work@tb_c9.t.u.y), line:2:81 (work@tb_c9.x), line:10:19 (work@tb_c9.y), line:10:21 
+--- NEGATIVE CONTROL (2) ---
+nc2    rc=1   holders=0   nets: !! ARM COMPILED NOTHING
+-- arms=10  compiled-nothing=1

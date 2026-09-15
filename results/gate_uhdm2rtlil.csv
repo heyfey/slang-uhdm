@@ -559,7 +559,7 @@ param_no_default,testflags,CMP_EQUAL,,,differ
 param_packed_array_subst,testflags,CMP_EQUAL,,,differ
 param_struct_field_bitsel,testflags,CMP_EQUAL,,,differ
 param_test,testflags,CMP_EQUAL,,,match
-param_type_logic_width,testflags,CMP_NOTEQUAL,decompile:,,
+param_type_logic_width,testflags,CMP_EQUAL,,,differ
 param_unpacked_struct_array,testflags,CMP_EQUAL,,,differ
 param_x_default,testflags,CMP_EQUAL,,,match
 ParameterColonReference,testflags,CMP_EQUAL,,,match

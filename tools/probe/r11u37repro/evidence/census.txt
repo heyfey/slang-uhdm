@@ -1,0 +1,98 @@
+=== KEY 1: `(local)parameter type X = <bare NAME>` (a non-builtin, unqualified default) ===
+-- uhdm2rtlil --
+packed_struct_array_fifo/dut.sv:8:    parameter type dtype = d_t,
+cva6_equiv/wrappers/wrapper_hpdcache_mem_resp_demux.sv:316:  parameter type resp_t = hpdcache_mem_resp_r_t,
+cva6_equiv/wrappers/wrapper_hpdcache_mem_resp_demux.sv:317:  parameter type resp_id_t = hpdcache_mem_id_t,
+cva6_equiv/wrappers/wrapper_hpdcache_miss_handler.sv:321:  parameter type hpdcache_refill_data_t = hpdcache_access_data_t,
+type_param_packed_dim/dut.sv:3:    parameter type resp_id_t = id_t,                   // chained
+type_param_unpacked_port/dut.sv:38:    parameter type resp_t      = base_resp_t,   // chained, as in CVA6
+-- surelog --
+tests/ClassTypeParamAlias/dut.sv:6:  parameter type BT = BrickType;
+tests/ClassTypeParamAlias/dut.sv:7:  parameter type CT1 = Ctype1, CT2 = Ctype2;
+third_party/tests/Google/generic/class/class_test_53.sv:29:  parameter type BT = BrickType;
+third_party/tests/Google/generic/class/class_test_53.sv:30:  parameter type CT1 = Ctype1, CT2 = Ctype2;
+third_party/tests/Ariane2024/sc_collected_files/acc_dispatcher_d72dec54841873c52713fafef567d9ccd7a7a618.sv:39:    parameter type acc_req_t = accelerator_req_t,
+third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_instr_pkg.sv:1398:  class cmdline_enum_processor #(parameter type T = riscv_instr_group_t);
+
+=== KEY 2: a RANGED type override actual at an instantiation ===
+-- uhdm2rtlil --
+type_param_override_elem_sel/dut.sv:32:  child #(.id_t(logic [1:0])) u (   // OVERRIDE: element becomes 2 bits
+cva6_equiv/rtl/core/load_store_unit.sv:615:      .dtype(logic [$bits(ld_valid) + $bits(ld_trans_id) + $bits(ld_result) + $bits(ld_ex) - 1:0]),
+cva6_equiv/rtl/core/load_store_unit.sv:625:      .dtype(logic [$bits(st_valid) + $bits(st_trans_id) + $bits(st_result) + $bits(st_ex) - 1:0]),
+cva6_equiv/rtl/core/cvfpu/src/fpnew_opgroup_multifmt_slice.sv:236:          .AuxType     ( logic [AUX_BITS-1:0] )
+cva6_equiv/rtl/core/cvfpu/src/fpnew_opgroup_multifmt_slice.sv:274:            .AuxType     ( logic [AUX_BITS-1:0] )
+cva6_equiv/rtl/core/cvfpu/src/fpnew_opgroup_multifmt_slice.sv:306:            .AuxType     ( logic [AUX_BITS-1:0] )
+cva6_equiv/rtl/core/cvfpu/src/fpnew_opgroup_multifmt_slice.sv:344:            .AuxType     ( logic [AUX_BITS-1:0] )
+cva6_equiv/rtl/core/cvfpu/src/fpnew_opgroup_multifmt_slice.sv:387:          .AuxType      ( logic [AUX_BITS-1:0] )
+cva6_equiv/rtl/core/fpu_wrap.sv:535:        .TagType       (logic [CVA6Cfg.TRANS_ID_BITS-1:0])
+TypeParameterAsPortTypeWithLogicAnonymous/dut.sv:12:  test_module #(.test_parameter(logic[1:0])) inst1(.a_in(val), .a(a));
+param_type_logic_width/dut.sv:17:    shift_reg #(.dtype(logic [$bits(a) + $bits(b) - 1:0])) u (
+-- surelog --
+tests/ArianeElab/dut.sv:2017:      .TagType        ( logic [TRANS_ID_BITS-1:0] )
+tests/ArianeElab2/dut.sv:2073:      .TagType        ( logic [TRANS_ID_BITS-1:0] )
+third_party/tests/Ariane2024/sc_collected_files/fpu_wrap_d71989ec9b5caa604bf90e66bf04bea53792d4a6.sv:534:        .TagType       (logic [CVA6Cfg.TRANS_ID_BITS-1:0])
+third_party/tests/Ariane2024/sc_collected_files/load_store_unit_0768d0ef24e0a2ef367b3479b41389fb3eaacbfc.sv:392:      .dtype(logic [$bits(ld_valid) + $bits(ld_trans_id) + $bits(ld_result) + $bits(ld_ex) - 1:0]),
+third_party/tests/Ariane2024/sc_collected_files/load_store_unit_0768d0ef24e0a2ef367b3479b41389fb3eaacbfc.sv:402:      .dtype(logic [$bits(st_valid) + $bits(st_trans_id) + $bits(st_result) + $bits(st_ex) - 1:0]),
+third_party/tests/Ariane2024/sc_collected_files/fpnew_opgroup_multifmt_slice_d9e4c46c553e2c4a7a2b2ac71295ab535e73c973.sv:212:          .AuxType     ( logic [AUX_BITS-1:0] )
+third_party/tests/Ariane2024/sc_collected_files/fpnew_opgroup_multifmt_slice_d9e4c46c553e2c4a7a2b2ac71295ab535e73c973.sv:246:          .AuxType     ( logic [AUX_BITS-1:0] )
+third_party/tests/Ariane2024/sc_collected_files/fpnew_opgroup_multifmt_slice_d9e4c46c553e2c4a7a2b2ac71295ab535e73c973.sv:284:          .AuxType      ( logic [AUX_BITS-1:0] )
+third_party/tests/ariane/src/load_store_unit.sv:237:        .dtype ( logic[$bits(ld_valid) + $bits(ld_trans_id) + $bits(ld_result) + $bits(ld_ex) - 1: 0]),
+third_party/tests/ariane/src/load_store_unit.sv:247:        .dtype ( logic[$bits(st_valid) + $bits(st_trans_id) + $bits(st_result) + $bits(st_ex) - 1: 0]),
+third_party/tests/ariane/src/common_cells/test/cdc_fifo_tb.sv:51:    cdc_fifo_gray #(.T(logic [31:0]), .LOG_DEPTH(DEPTH)) i_dut (.*);
+third_party/tests/ariane/src/common_cells/test/cdc_fifo_tb.sv:53:    cdc_fifo_2phase #(.T(logic [31:0]), .LOG_DEPTH(DEPTH)) i_dut (.*);
+third_party/tests/ariane/src/riscv-dbg/src/dm_csrs.sv:501:        .dtype            ( logic [31:0]         ),
+third_party/tests/ariane/src/fpu_wrap.sv:515:      .TagType        ( logic [TRANS_ID_BITS-1:0] )
+third_party/tests/ariane/src/fpu/src/common_cells/test/cdc_fifo_tb.sv:51:    cdc_fifo_gray #(.T(logic [31:0]), .LOG_DEPTH(DEPTH)) i_dut (.*);
+third_party/tests/ariane/src/fpu/src/common_cells/test/cdc_fifo_tb.sv:53:    cdc_fifo_2phase #(.T(logic [31:0]), .LOG_DEPTH(DEPTH)) i_dut (.*);
+third_party/tests/ariane/src/fpu/src/fpnew_opgroup_multifmt_slice.sv:204:          .AuxType     ( logic [AUX_BITS-1:0] )
+third_party/tests/ariane/src/fpu/src/fpnew_opgroup_multifmt_slice.sv:236:          .AuxType     ( logic [AUX_BITS-1:0] )
+third_party/tests/ariane/src/fpu/src/fpnew_opgroup_multifmt_slice.sv:268:          .AuxType      ( logic [AUX_BITS-1:0] )
+third_party/tests/ariane/src/axi_riscv_atomics/src/axi_riscv_lrsc.sv:461:        .DATA_T     (logic[AXI_ADDR_WIDTH-1:0]),
+third_party/tests/AzadiRTL/fpnew_opgroup_multifmt_slice.sv:204:          .AuxType     ( logic [AUX_BITS-1:0] )
+third_party/tests/AzadiRTL/fpnew_opgroup_multifmt_slice.sv:236:          .AuxType     ( logic [AUX_BITS-1:0] )
+third_party/tests/AzadiRTL/fpnew_opgroup_multifmt_slice.sv:268:          .AuxType      ( logic [AUX_BITS-1:0] )
+third_party/tests/YosysTests/architecture/synth_xilinx_srl/pos_clk_no_enable_no_init_not_inferred_N_width.v:11:            \$_DFFE_PP_ r(.C(clk), .D(int[w][d]), .E(1'b0), .Q(int[w][d+1]));
+third_party/tests/YosysTests/architecture/synth_xilinx_srl/sr_fixed_length_other_users_port.v:12:            \$_DFFE_PP_ r(.C(clk), .D(int[w][d]), .E(1'b1), .Q(int[w][d+1]));
+third_party/tests/YosysTests/architecture/synth_xilinx_srl/pos_clk_no_enable_no_init_not_inferred_with_reset_var_len.v:11:            \$_DFF_PP0_ r(.C(clk), .D(int[w][d]), .R(r), .Q(int[w][d+1]));
+third_party/tests/YosysTests/architecture/synth_xilinx_srl/test21a.v:8:            \$_DFFE_PP_ r(.C(clk), .D(int[d]), .E(1'b1), .Q(int[d+1]));
+third_party/tests/YosysTests/architecture/synth_xilinx_srl/pos_clk_no_enable_no_init_not_inferred_with_reset.v:11:            \$_DFF_PP0_ r(.C(clk), .D(int[w][d]), .R(r), .Q(int[w][d+1]));
+third_party/tests/YosysTests/architecture/synth_xilinx_srl/sr_fixed_length_other_users_xor.v:12:            \$_DFFE_PP_ r(.C(clk), .D(int[w][d]), .E(1'b1), .Q(int[w][d+1]));
+third_party/tests/Verilator/t_typedef_param.v:26:   TestNonAnsi #( .p_t (reg [2:0]) )
+third_party/tests/Verilator/t_typedef_param.v:34:   TestAnsi #( .p_t (reg [2:0]))
+third_party/tests/Verilator/t_param_type.v:48:   mod_typ #(.TYP (bit [23:0]    )) mod_ar1d (clk, cnt_ar1d[24-1:0], siz_ar1d);
+third_party/tests/Verilator/t_param_type.v:49:   mod_typ #(.TYP (bit [3:0][3:0])) mod_ar2d (clk, cnt_ar2d[16-1:0], siz_ar2d);
+third_party/tests/Verilator/t_type_param.v:19:   foo #(.bar (logic[bar_bits-1:0])) foo_inst (.bar_size (bar_size));
+third_party/tests/Verilator/t_type_param.v:27:   foo #(.bar (logic [ $bits(qux1) - 1 : 0]))
+third_party/tests/Verilator/t_type_param.v:33:   foo #(.bar (logic [ $bits(qux2) - 1 : 0]))
+third_party/tests/Verilator/t_type_param.v:39:   foo #(.bar (logic [ $bits(qux3) - 1 : 0]))
+third_party/tests/Verilator/t_type_param.v:102:            foo #(.bar (logic[m-1:0])) foo_inst (.bar_size ());
+
+=== SHAPE LISTER — verdict per site ===
+KEY 1
+  FIRE   packed_struct_array_fifo/dut.sv:8  `parameter type dtype = d_t`
+           d_t is a COMPILATION-UNIT typedef in the same file -> mints work@packed_struct_array_fifo.d_t
+  GATED  type_param_packed_dim/dut.sv:3     `= id_t`      id_t is a TYPE PARAMETER of the SAME header (local scope)
+  GATED  type_param_unpacked_port/dut.sv:38 `= base_resp_t` same-header type parameter
+  GATED  cva6_equiv/wrappers/*.sv           cva6_equiv carries no dut.sv/dut.v/project.f -> NOT a discovered test
+  GATED  tests/ClassTypeParamAlias, Google/.../class_test_53, Ibex/.../riscv_instr_pkg.sv
+                                            CLASS holders (lateBinding is commented out at UhdmWriter.cpp:1067);
+                                            ClassTypeParamAlias is SLANG_REJECT in both modes anyway
+  GATED  Ariane2024/.../acc_dispatcher      `= accelerator_req_t`, a same-header localparam type; and the row is
+                                            SLANG_REJECT (default) / NO_DATABASE (testflags) — non-comparable
+KEY 2
+  FIRE   param_type_logic_width/dut.sv:17   `.dtype(logic [$bits(a) + $bits(b) - 1:0])`
+           a is the leftmost-chain leaf and binds; b mints work@shift_reg.b at 17:48
+  GATED  type_param_override_elem_sel:32    `.id_t(logic [1:0])`        no identifier in the range
+  GATED  TypeParameterAsPortTypeWithLogicAnonymous:12 `.test_parameter(logic[1:0])`  same
+  GATED  every `.TagType/.AuxType/.DATA_T/.T(logic [<PARAM>-1:0])` site (ArianeElab, ArianeElab2, ariane,
+         Ariane2024, cva6_equiv, dm_csrs, cdc_fifo_tb, axi_riscv_lrsc): the range names only PARAMETERS, which
+         reduce to their value before any reference exists (grid arm s5) — and every ariane-family row is
+         SURELOG_FAIL / SLANG_REJECT / NO_DATABASE, so none of them is a comparable row
+
+=== PREDICTED MOVER SET (databases that change bytes) ===
+  uhdm2rtlil: param_type_logic_width x {default,testflags}   -> CMP_NOTEQUAL -> CMP_EQUAL (CONVERSION)
+  uhdm2rtlil: packed_struct_array_fifo x {default,testflags} -> stays CMP_NOTEQUAL (ADVANCE ONLY)
+  surelog   : NONE
+
+POSITIVE CONTROL: key1 sees packed_struct_array_fifo=1 ; key2 sees param_type_logic_width=1 (both must be >=1)
+CENSUS CONTROL: PASS
