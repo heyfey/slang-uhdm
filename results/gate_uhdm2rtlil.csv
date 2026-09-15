@@ -179,7 +179,7 @@ DivisionOfSize,testflags,CMP_EQUAL,,,differ
 DotMultirange,testflags,CMP_EQUAL,,,match
 DotRange,testflags,CMP_EQUAL,,,match
 DpiChandle,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/DpiChandle/dut.sv:12:11: error: invalid operands to binary expression ('chandle' and 'int'),,
-dyn_field_select,testflags,CMP_NOTEQUAL,decompile:,,
+dyn_field_select,testflags,CMP_EQUAL,,,differ
 dyn_packed_multidim,testflags,CMP_EQUAL,,,match
 dynslice,testflags,CMP_EQUAL,,,match
 empty_port_connection,testflags,CMP_EQUAL,,,differ

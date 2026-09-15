@@ -8594,6 +8594,196 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 elems->push_back(bs);
             }
         }
+        else if (comp.sels.size() > 1) {
+            // § hpCompMultiSelElemShape — SITE 2 of 2, THE ELEMENT SHAPE.
+            //
+            // THE LAW, decoded from Surelog and measured on golden: a path
+            // component whose written select run has MORE THAN ONE STEP is
+            // EITHER ONE `var_select` named after the component carrying one
+            // `Exprs` entry per step, OR one `bit_select` PER STEP with only
+            // the FIRST carrying the component's `VpiName` — and the TABLE
+            // below says which, off the two axes `lastMember` and
+            // (`inLhs`, `baseSelMode`).  No arm looks at the INDEX KIND: a
+            // constant, a localparam, a genvar and a runtime net index are
+            // shaped identically.
+            //
+            // SURELOG.  `CompileHelper::compileSelectExpression`
+            // (Surelog src/DesignCompile/CompileExpression.cpp:1259) mints the
+            // `var_select` at :1272 the moment the select node has BOTH a child
+            // and a sibling — "more than one" — names it after the component
+            // (:1277) and pushes one compiled index into `Exprs` per step
+            // (:1315-:1320); a SINGLE step falls to :1332 and mints the flat
+            // `bit_select`.  The hier_path element loop calls it only for a
+            // component's OWN select node (:5560-:5570); the MID-path bracket
+            // run is walked bracket-by-bracket by the loop's own arm at :5602,
+            // which mints one `bit_select` each and clears the pending name
+            // after the first — which is why golden's second and later mid
+            // bit_selects are UNNAMED.
+            //
+            // GOLDEN GRID (arm a1 / a2, one surelog run each, 37 hier_paths,
+            // ROOT select count 0..3 x MEMBER step count 0..3 x index kind
+            // constant / localparam / genvar / runtime-net x cont-assign,
+            // process, function body, condition, call argument, gen-block,
+            // interface and high-conn holders):
+            //   m2[r][c].v            bit_select[m2] + bit_select[-] + ref_obj[v]
+            //   m2[r][c].sat[s]       bit_select[m2] + bit_select[-] + bit_select[sat]/1
+            //   m2[r][c].sat[s][1]    bit_select[m2] + bit_select[-] + var_select[sat]/2
+            //   m2[r][c].sat[2][0]    bit_select[m2] + bit_select[-] + var_select[sat]/2
+            //   m2[r][c].sat[K][1]    bit_select[m2] + bit_select[-] + var_select[sat]/2
+            //   g2[r][c].deep[t][s][1] bit_select[g2] + bit_select[-] + var_select[deep]/3
+            //   g2[r][c].sub.sat[s][1] bit_select[g2] + bit_select[-] + ref_obj[sub]
+            //                                        + var_select[sat]/2
+            //   tb[r][c].lv[s][1].a   bit_select[tb] + bit_select[-]
+            //                         + bit_select[lv]/1 + bit_select[-]/1 + ref_obj[a]
+            //   m0.lv[s][1].b (rval)  ref_obj[m0] + bit_select[lv]/1 + bit_select[-]/1
+            //                                     + ref_obj[b]
+            //   m0.lv[s][1].a (LVAL)  ref_obj[m0] + var_select[lv]/2 + ref_obj[a]
+            //   wv[r][c].sat[s][1] (LVAL)  2 bit_selects + ref_obj[sat]
+            //                                            + var_select[-]/2
+            //   m0.sat[s][1]  (LVAL)  ref_obj[m0] + var_select[sat]/2
+            //
+            // TWO AXES DECIDE THE SHAPE, and they are the SAME TWO
+            // (`inLhs`, `baseSelMode`) that already decide this hier_path's
+            // own SPAN and § hpTrailSelIdxDecompiled89's bracket convention —
+            // i.e. WHICH SURELOG BUILDER RAN.  Measured, arm a3, all four
+            // cells of each row:
+            //
+            //   component  root selected  lvalue   golden element(s)
+            //   TRAILING       yes          no     var_select[name]/n
+            //   TRAILING       yes          YES    ref_obj[name] + var_select[-]/n
+            //   TRAILING       no           no     var_select[name]/n
+            //   TRAILING       no           YES    var_select[name]/n
+            //   MID            yes          no     bit_select chain
+            //   MID            yes          YES    bit_select chain
+            //   MID            no           no     bit_select chain
+            //   MID            no           YES    var_select[name]/n
+            //
+            // so the SPLIT fires on `inLhs && baseSelMode` and the bit_select
+            // CHAIN fires everywhere in the MID row except `inLhs &&
+            // !baseSelMode`.  (This builder is only ever ENTERED for a
+            // trailing multi-step run with a SELECTED root — the routing gate
+            // demands it — so the two TRAILING `no` rows are carried by the
+            // nested-select arm further down, which already emits golden's
+            // named var_select; they are in the table because the law is a
+            // law, not because this code reaches them.)
+            //
+            // The spans and the index parents, measured cell for cell on
+            // golden: the first mid bit_select spans the COMPONENT NAME TOKEN
+            // and each later one spans the PRECEDING SELECTOR, its ref_obj
+            // index parents at the HIER_PATH and its constant index stays
+            // unparented; a var_select spans the component name token to the
+            // END OF ITS LAST BRACKET and BOTH index kinds parent at the
+            // var_select itself; the SPLIT's anonymous var_select carries no
+            // file, line or column at all.
+            {
+                const std::string memAt39 = dottedAt;
+                for (auto& sel39 : comp.sels)
+                    dottedAt += selGroup89(*sel39.sel, mid79);
+                const bool chain39 = !lastMember && !(inLhs && !baseSelMode);
+                const bool split39 = lastMember && inLhs && baseSelMode;
+                if (chain39) {
+                    for (size_t k39 = 0; k39 < comp.sels.size(); ++k39) {
+                        auto* bs39 = s.MakeBit_select();
+                        if (k39 == 0) // only the first step carries vpiName
+                            bs39->VpiName(comp.name);
+                        bs39->VpiParent(hp);
+                        std::string at39 = memAt39;
+                        for (size_t q39 = 0; q39 <= k39; ++q39)
+                            at39 += selGroup89(*comp.sels[q39].sel, mid79);
+                        bs39->VpiFullName(at39);
+                        setLoc(bs39, k39 == 0
+                                         ? comp.nameSpan
+                                         : comp.sels[k39 - 1].sel->sourceRange);
+                        bool savedSCP39 = suppressConstParent;
+                        suppressConstParent = true;
+                        if (auto* ix39 = emitExpr(*comp.sels[k39].sel, bs39,
+                                                  prefix, netMap)) {
+                            // A VARIABLE index ref parents at the HIER_PATH
+                            // (golden, arm a2 `tb[r][c].lv[s][1].a`); a
+                            // constant index stays unparented.
+                            if (((UHDM::any*)ix39)->UhdmType() ==
+                                UHDM::uhdmref_obj)
+                                ((UHDM::any*)ix39)->VpiParent(hp);
+                            bs39->VpiIndex((UHDM::expr*)ix39);
+                        }
+                        suppressConstParent = savedSCP39;
+                        // § patCaGenIdxValueRender112 — the same
+                        // post-emission, still-a-ref_obj gate the other two
+                        // sites carry.
+                        if (bs39->VpiIndex() &&
+                            bs39->VpiIndex()->UhdmType() == UHDM::uhdmref_obj)
+                            if (auto* f39 =
+                                    patCaGenIdxFold112(*comp.sels[k39].sel))
+                                bs39->VpiIndex(f39);
+                        // § hpIdxClassBodyNeverLateBinds143.
+                        hpIdxClassNoBind143((UHDM::any*)bs39->VpiIndex());
+                        elems->push_back(bs39);
+                    }
+                }
+                else {
+                    auto* vs39 = s.MakeVar_select();
+                    std::string ipfx39;
+                    if (split39) {
+                        // § hpCompMultiSelTrailLvalueSplit39 — the LVALUE face
+                        // of a trailing run under a SELECTED root: a named
+                        // `ref_obj` at the component token, then an ANONYMOUS
+                        // `var_select` with NO location at all.
+                        auto* r39 = s.MakeRef_obj();
+                        r39->VpiName(comp.name);
+                        r39->VpiParent(hp);
+                        r39->VpiFullName(memAt39);
+                        setLoc(r39, comp.nameSpan);
+                        elems->push_back(r39);
+                        vs39->VpiParent(hp);
+                        vs39->VpiFullName(joinRef(prefix, dotted));
+                        ipfx39 = joinRef(prefix, dotted);
+                    }
+                    else {
+                        vs39->VpiName(comp.name);
+                        vs39->VpiParent(hp);
+                        // The doubled lazily-frozen fullname
+                        // (work@<mod>.<path name>.<component>) is what UHDM's
+                        // ComputeFullName builds from this parent chain, and
+                        // it is byte-for-byte golden's.
+                        (void)vs39->VpiFullName();
+                        setLoc(vs39, SourceRange(comp.nameSpan.start(),
+                                                 comp.sels.back().selEnd));
+                        ipfx39 = joinRef(joinRef(prefix, dotted), comp.name);
+                    }
+                    auto* idxs39 = s.MakeExprVec();
+                    bool savedFCP39 = forceConstParent;
+                    for (auto& sel39 : comp.sels) {
+                        forceConstParent = isLiteralExpr(*sel39.sel);
+                        if (auto* ix39 =
+                                emitExpr(*sel39.sel, vs39, ipfx39, netMap)) {
+                            // Golden parents EVERY var_select index at the
+                            // var_select, including one an earlier law FOLDED
+                            // to a constant from a non-literal source
+                            // (§ hierSelPkgParamFold's `sat[p3::PK][1]` ->
+                            // `[1]`, arm a3): `isLiteralExpr` is false there,
+                            // so the flag alone leaves it unparented.  A
+                            // post-pass on the RESULT reaches it without
+                            // turning `forceConstParent` on for everything
+                            // nested inside a compound index.
+                            if (((UHDM::any*)ix39)->UhdmType() ==
+                                    UHDM::uhdmconstant &&
+                                !((UHDM::any*)ix39)->VpiParent())
+                                ((UHDM::any*)ix39)->VpiParent(vs39);
+                            idxs39->push_back((UHDM::expr*)ix39);
+                        }
+                    }
+                    forceConstParent = savedFCP39;
+                    vs39->Exprs(idxs39);
+                    // § hpIdxClassBodyNeverLateBinds143 — a path-element index
+                    // compiled inside a CLASS BODY is handed a parentless
+                    // hier_path and can only reach the class's never-drained
+                    // late-binding pool, so nothing under it binds.
+                    for (auto* ix39 : *idxs39)
+                        hpIdxClassNoBind143((UHDM::any*)ix39);
+                    elems->push_back(vs39);
+                }
+            }
+        }
         else if (!comp.sels.empty()) {
             auto& sel = comp.sels[0];
             // § hpMixedIdxPkgFold34 / § concatIdxDecompile29 /
@@ -27503,6 +27693,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 esBottom->kind == ExpressionKind::ElementSelect) {
                 if (auto* hp = emitMixedHierPath(expr, parent, prefix, netMap))
                     return hp;
+            }
+            // § hpCompMultiSelElemShape — SITE 1 of 2, THE ROUTING.  The gate
+            // just above reads `es.value()`, so it sees only the OUTERMOST
+            // select step: a member whose select run has TWO OR MORE steps
+            // (`tbl[r][c].sat[s][1]`) presents an ElementSelect there, fails
+            // the gate, and falls all the way through to the DOTTED-PATH arm
+            // below — which flattens the whole written reference into ONE
+            // ref_obj named `tbl[r][c]` plus one bit_select named `sat[s]`
+            // carrying only the LAST index.  That is the `dyn_field_select`
+            // head.  Peeling the WHOLE select run first puts the same
+            // reference in front of the same builder the one-step spelling
+            // already uses.
+            //
+            // The gate keeps the mixed builder's own precondition: the member
+            // chain must bottom out in a select run over a plain NamedValue.
+            // A member chain over a BARE name (`m0.sat[s][1]`) is deliberately
+            // NOT routed here — it is already golden's through the
+            // nested-select arm further down (arm a1 rows `m0.*`), and moving
+            // it would only move bytes.
+            if (es.value().kind == ExpressionKind::ElementSelect) {
+                const Expression* selBot39 = &expr;
+                while (selBot39->kind == ExpressionKind::ElementSelect)
+                    selBot39 = &selBot39->as<ElementSelectExpression>().value();
+                if (selBot39->kind == ExpressionKind::MemberAccess) {
+                    const Expression* memBot39 = selBot39;
+                    while (memBot39->kind == ExpressionKind::MemberAccess)
+                        memBot39 =
+                            &memBot39->as<MemberAccessExpression>().value();
+                    if (memBot39->kind == ExpressionKind::ElementSelect) {
+                        const Expression* rootBot39 = memBot39;
+                        while (rootBot39->kind == ExpressionKind::ElementSelect)
+                            rootBot39 =
+                                &rootBot39->as<ElementSelectExpression>().value();
+                        if (rootBot39->kind == ExpressionKind::NamedValue)
+                            if (auto* hp = emitMixedHierPath(expr, parent,
+                                                             prefix, netMap))
+                                return hp;
+                    }
+                }
             }
             if (es.value().kind == ExpressionKind::MemberAccess &&
                 esBottom->kind == ExpressionKind::NamedValue) {
