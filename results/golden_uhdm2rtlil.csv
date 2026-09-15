@@ -397,7 +397,7 @@ int_port_signed,default,CMP_EQUAL,,,match
 int_types,default,CMP_EQUAL,,,differ
 int_types_blk1,default,CMP_EQUAL,,,differ
 interface_array,default,CMP_EQUAL,,,differ
-interface_array_fanout,default,CMP_NOTEQUAL,decompile:,,
+interface_array_fanout,default,CMP_EQUAL,,,differ
 InterfaceAlways,default,CMP_EQUAL,,,match
 InterfaceAsPort,default,CMP_EQUAL,,,differ
 InterfaceAsPortAssignValueInSubmodule,default,CMP_EQUAL,,,match
@@ -1268,7 +1268,7 @@ int_port_signed,testflags,CMP_EQUAL,,,match
 int_types,testflags,CMP_EQUAL,,,differ
 int_types_blk1,testflags,CMP_EQUAL,,,differ
 interface_array,testflags,CMP_EQUAL,,,differ
-interface_array_fanout,testflags,CMP_NOTEQUAL,decompile:,,
+interface_array_fanout,testflags,CMP_EQUAL,,,differ
 InterfaceAlways,testflags,CMP_EQUAL,,,match
 InterfaceAsPort,testflags,CMP_EQUAL,,,differ
 InterfaceAsPortAssignValueInSubmodule,testflags,CMP_EQUAL,,,match

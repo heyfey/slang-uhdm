@@ -1,0 +1,40 @@
+r11u36 MOVERS — every database whose bytes changed, pristine -> law.
+
+== uhdm2rtlil (SELFCHECK=1 byteverify.sh law/u2r pris/u2r) ==
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/interface_array_fanout-038689c8/slang.uhdm  patched=a9ab55fa2b03 pristine=363140e1077e
+MOVER ./testflags/interface_array_fanout-038689c8/slang.uhdm  patched=95de89aa3b6c pristine=0e403f991acf
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+== Surelog corpus (SELFCHECK=1 byteverify.sh law/sl pris/sl) ==
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=1180224b238a pristine=fc093d0c6c0b
+MOVER ./default/Rggen-50ccbd70/slang.uhdm  patched=5e2d1b3925cf pristine=d66b516b88c8
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=c3f3017aa058 pristine=49d8efe2729b
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=0427c0beb680 pristine=a0424a93274e
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+== ATTRIBUTION ==
+Rggen/default                 LAW-NAMED (one of this pass's two target heads).
+                              Row status UNCHANGED: CMP_NOTEQUAL at the base
+                              (results/golden_surelog.csv:1190) and after.
+interface_array_fanout x2     LAW-NAMED. BOTH CONVERT to CMP_EQUAL.
+MiniAmiq default+testflags    NOT the law — the documented UVM-family pristine
+SimpleUVM default             nondeterminism (RESUME.md Section 9).  POSITIVE CONTROL:
+                              the PRISTINE binary alone produced FIVE DIFFERENT
+                              MiniAmiq/default hashes in five invocations
+                              (8147255748d1, 6a387bd134ae, 304cd11b6d34,
+                              fc093d0c6c0b from the sweep; the law's
+                              1180224b238a is a sixth draw), every one
+                              CMP_EQUAL.  Path-normalised ORDER-BLIND (sorted)
+                              dump diff, law vs pristine: 4 lines, one UINT +
+                              its vpiDecompile.  PRISTINE-vs-PRISTINE (two runs
+                              of the SAME binary): the SAME 4-line class
+                              (|UINT:1281 <-> |UINT:564).  That is the 0-or-4
+                              line-number class the OPS brief names; status
+                              did not change (rowheads: cmp rc=0 on every UVM
+                              row).

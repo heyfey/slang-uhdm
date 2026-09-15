@@ -1,0 +1,20 @@
+=== interface_array_fanout (uhdm2rtlil, default AND testflags, BASE 34b04279) ===
+baseline row (results/golden_uhdm2rtlil.csv:400 / :1271, results/gate_uhdm2rtlil.csv:400):
+  interface_array_fanout,default,CMP_NOTEQUAL,decompile:,,
+  interface_array_fanout,testflags,CMP_NOTEQUAL,decompile:,,
+uhdm-cmp head (stderr, 1 head: grep -c '^LHS:' = 1), pristine /tmp/r11u36_pris.bin:
+LHS:
+decompile:
+interface_inst: work@myif (work@dut.f.m[0]), id:551, file:/home/heyfey/git-repos/uhdm2rtlil/test/interface_array_fanout/dut.sv, line:38:0
+|vpiParent:
+\_module_inst: work@fanout (work@dut.f), id:966, file:/home/heyfey/git-repos/uhdm2rtlil/test/interface_array_fanout/dut.sv, line:38:3, endln:38:33
+|vpiName:m[0]
+|vpiFullName:work@dut.f.m[0]
+|vpiVariables:
+\_logic_var: (work@dut.f.m[0].vld), id:565, line:5:17, endln:5:20
+  |vpiParent:
+  \_interface_inst: work@myif (work@dut.f.m[0]), id:551, file:/home/heyfey/git-repos/uhdm2rtlil/test/interface_array_fanout/dut.sv, line:38:0
+  |vpiTypespec:
+  ... (175 lines) ...
+    \_logic_typespec: , id:556, line:4:63, endln:4:68
+RHS: <null>

@@ -1,0 +1,76 @@
+r11u36 GATES — all mandatory, all green.  Base 34b04279, branch matrix-1.87.
+
+(1) BUILD BOTH, md5s
+    pristine, built in the pass worktree from the untouched base tree:
+        c8d72796d4550874084656de68f7b845   == the main tree's build at 34b04279
+    law:
+        605224f7c78dbd6f0be4bcc528e88c1c
+    Both frozen chmod 555 at immutable paths before any sweep.
+    cmds.txt binary-PATH audit (by path, never by the name "slang-uhdm"):
+        uhdm2rtlil law   1742/1742 lines name the law binary
+        uhdm2rtlil pris  1742/1742 lines name the pristine binary
+
+(2) GOLDENS
+    SLANG_UHDM=<law>    PASS=23  FAIL=0
+    SLANG_UHDM=/bin/false  PASS=0  FAIL=23        (negative control)
+
+(3) uhdm2rtlil, BOTH modes, ct8rows vs the committed baselines AND vs this
+    pass's own pristine sweep.  Exactly ONE row differs per mode, and it is
+    the CONVERSION:
+        < interface_array_fanout,default,CMP_NOTEQUAL,decompile:,,
+        > interface_array_fanout,default,CMP_EQUAL,,,differ
+        < interface_array_fanout,testflags,CMP_NOTEQUAL,decompile:,,
+        > interface_array_fanout,testflags,CMP_EQUAL,,,differ
+    per-mode STATUS histogram, both modes:
+        774 CMP_EQUAL / 30 CMP_NOTEQUAL / 67 SLANG_REJECT
+     -> 775 CMP_EQUAL / 29 CMP_NOTEQUAL / 67 SLANG_REJECT
+
+(4) Surelog corpus, --mode both, ct8rows vs results/golden_surelog.csv AND vs
+    this pass's own pristine sweep.  STATUS histograms IDENTICAL in both
+    modes:
+        default    474 CMP_EQUAL  9 CMP_NOTEQUAL  5 DEFERRED 285 SLANG_REJECT 25 SURELOG_FAIL
+        testflags  469 CMP_EQUAL  8 CMP_NOTEQUAL  5 DEFERRED 286 SLANG_REJECT 23 SURELOG_FAIL
+                   + 3 NO_DATABASE 1 NO_UHDM 1 TIMEOUT 2 UNTRANSLATABLE
+    Four whole-row diffs, none a status change:
+      Earlgrey_0_1 default+testflags   CMP_EQUAL/differ -> CMP_EQUAL/<blank>
+        The harness 180 s dump budget under a loaded sweep.  CONTROL: re-run
+        alone with the LAW binary -> CMP_EQUAL/differ again, and the database
+        md5s are the committed pins (default 8bdf25272e08,
+        testflags 59d0ee6d10c3) in BOTH the sweep and the re-run.
+      LowMemLib/LowMemPkg testflags    the SURELOG_FAIL detail string embeds
+        the workdir path.  Cosmetic.
+
+(5) BYTEVERIFY, SELFCHECK=1, against this pass's OWN pristine workdirs
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1608)  MOVERS 2/1608   SELFCHECK 1607/1608
+    Surelog     PATH_SETS_IDENTICAL (960)   MOVERS 4/960    SELFCHECK 959/960
+    Every mover named and attributed in MOVERS.r11u36.txt.  Predicted A PRIORI
+    from the PRISTINE databases alone (PREDICT.*.txt), positive control green
+    on both corpora.
+
+    MOVED-WRONG 0 / AWAY 0: no row's status worsened on either corpus in
+    either mode; no CMP_EQUAL became CMP_NOTEQUAL.
+
+PROTECTED DATABASES, law vs this pass's own pristine, by md5:
+    SVSwitch          default 4842211c4030  testflags 4842211c4030   SAME (HARD PIN)
+    YosysVerx         default 6ccda350c24a  testflags 6ccda350c24a   SAME (HARD PIN)
+    InterfaceModPort  default 59a365f3ce2c  testflags 59a365f3ce2c   SAME (nearest neighbour)
+    BlackParrotComplex default e3e354129d5a testflags 73a10e8217e5   SAME
+    YosysOldOr        default d68e0796d62c  testflags d68e0796d62c   SAME
+    Earlgrey_0_1      default 8bdf25272e08  testflags 59d0ee6d10c3   SAME
+
+CANARY BATTERY (tools/probe/r10uvm221repro, the current generation)
+    canaries.sh  surelog     ok=50 changed=2 absent=0
+                 the 2 are Earlgrey_0_1's dump COLUMN only (see gate 4);
+                 both rows stay CMP_EQUAL and both databases are byte-identical.
+    canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh    surelog     ok=58 changed=0 absent=0   PASS
+    ctcan2.sh    uhdm2rtlil  ok=1  changed=0 absent=0   PASS
+    canaudit.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+    rowheads.sh  SeqDriver/SimpleUVM/Scoreboard/MiniAmiq/BuildUVMPkg/
+                 Earlgrey_0_1 -> cmp rc=0 on every measured row;
+                 Rggen/default 1 head, 64 cmp lines (401 at the base).
+
+NOT DONE / NOT NEEDED
+    results/*.csv untouched.  GOLDEN_DEFER unset.  No fenced test dispatched.
+    No git stash.  Sweeps ran --jobs 2 into this pass's own --out/--workdir
+    with SLANG_UHDM exported explicitly per binary.

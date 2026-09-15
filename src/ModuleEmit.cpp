@@ -10339,10 +10339,52 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         /*portView=*/&inst,
                         /*connModport=*/std::string(ip.modport));
                     ei->VpiName(ename);
-                    // An ARRAY-PORT element view (.m(arr)) is a minimal
-                    // reference-style view: it drops BOTH the parameter and
-                    // the override param_assign (interface_array_fanout).
-                    ei->Param_assigns(nullptr);
+                    // § ifaceArrayElemPortViewParamAssignsOnly (r11u36) — AN
+                    // ARRAY-PORT ELEMENT VIEW IS AN ORDINARY PORT VIEW: it
+                    // carries its FULL `Param_assigns` vector and NO
+                    // `Parameters` vector, exactly like the scalar port views
+                    // § ifacePortViewParamAssignsOnly already covers.
+                    //
+                    // The v1.86 law this replaces
+                    // (§ ifaceArrayElemPortViewNoPa, `par=0 pa=0`) died with
+                    // the same Surelog v1.87 producer change that moved the
+                    // scalar views: `NetlistElaboration::elab_interface_` now
+                    // ends EVERY interface_inst build by elaborating the
+                    // copy's own parameters when the netlist carries none, and
+                    // `UhdmWriter.cpp:4411`'s `if (interf->Param_assigns())
+                    // continue;` then makes writeElabParameters — the only
+                    // thing that ever put a `Parameters` vector on a port
+                    // copy — unreachable.  An ARRAY ELEMENT reaches that code
+                    // through the same door as a scalar port copy, so it gets
+                    // the same shape; nothing about the element-ness is left.
+                    //
+                    // GOLDEN GRID (tools/probe/r11u36repro/grid1, real Surelog
+                    // v1.87, rc=0 / `[ERROR] : 0`; `tif #(int W = 8,
+                    // p::cfg_t CFG = p::DEF)` with `localparam int BYT =
+                    // W/8 + CFG.A`, holder arrays `#(.W(32), .CFG(p::OVR))`):
+                    //
+                    //   view                 port form        actual     par pa   W
+                    //   work@top.a0.m[0..1]  tif.mp m[1:0]    arr (ovr)    0  3   8
+                    //   work@top.a1.m[0..1]  tif.mp m[1:0]    dfl (dflt)   0  3   8
+                    //   work@top.a2.m[0..1]  tif.mp m[2]      arr          0  3   8
+                    //   work@top.a3.m        tif    m[1:0]    arr          0  3   8
+                    //   work@top.a4.q        tif.mp q         arr[0]       0  3   8
+                    //   work@top.hm[0..1]    iface holder     arr          0  3   8
+                    //   work@top.a6.w[0..3]  tif.mp w[3:0]    wid          0  3   8
+                    //   work@top.a7.u[0]     tif.mp u[0:0]    one          0  3   8
+                    //   work@top.g[0].a8.m[] in a generate    arr          0  3   8
+                    //   work@top.arr[0..1]   HOME view        -            3  3  32
+                    //
+                    // Every element view carries the vector and folds it at
+                    // the DECLARATION DEFAULTS (W=8, BYT=2), never at the
+                    // connected array's override (W=32, BYT=13) — the VALUE
+                    // law (§ ifaceDefaultScope) is unchanged, only the
+                    // PRESENCE law moved.  Measured heads at the base:
+                    // `interface_array_fanout` RHS:<null> on
+                    // `work@dut.f.m[0]` (a scope::Compare Param_assigns
+                    // one-sided vector, golden 1 : ours 0) and `Rggen`
+                    // RHS:<null> on `work@rggen.u_block_0.u_adapter.
+                    // register_if[0]` (golden 5 : ours 0).
                     ei->Parameters(nullptr);
                     portIfaces->push_back(ei);
                     insts->push_back(ei);
@@ -33497,7 +33539,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             }
             break;
         }
-    // § ifaceArrayElemPortViewNoPa — an interface-ARRAY ELEMENT port view
+    // § ifaceArrayElemPortViewNoPa — REFUTED AT v1.87 AND REMOVED (r11u36);
+    // kept here only as the history of the arm below.  An interface-ARRAY
+    // ELEMENT port view now carries the SAME `par=0 pa=ALL` shape as every
+    // other port view — see § ifaceArrayElemPortViewParamAssignsOnly at the
+    // array-port element loop.  As it read at v1.86:
+    // an interface-ARRAY ELEMENT port view
     // (`.register_if(register_if[0])`) carries NO param_assigns AT ALL, and
     // that outranks the multi-parameterization exception (a) below.  The
     // filtering arms already encoded the rule for a singly-parameterized def

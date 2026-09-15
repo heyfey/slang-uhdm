@@ -1,0 +1,401 @@
+LHS:
+decompile:
+interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+|vpiParent:
+\_module_inst: work@rggen_apb_adapter (work@rggen.u_block_0.u_adapter), id:350817, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:3, endln:164:5
+|vpiName:register_if[0]
+|vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:18253, line:8:29, endln:8:34
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:18254
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:18253, line:8:29, endln:8:34
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].valid
+    |vpiActual:
+    \_logic_typespec: , id:18252, line:8:3, endln:8:8
+  |vpiName:valid
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].valid
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:18255, line:9:29, endln:9:35
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:18256
+    |vpiParent:
+    \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:18255, line:9:29, endln:9:35
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].access
+    |vpiActual:
+    \_enum_typespec: (rggen_rtl_pkg::rggen_access), id:8, line:74:5, endln:74:17
+  |vpiName:access
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].access
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:18270, line:10:29, endln:10:36
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:18271
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:18270, line:10:29, endln:10:36
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].address
+    |vpiActual:
+    \_logic_typespec: , id:18263, line:10:3, endln:10:28
+  |vpiName:address
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].address
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].write_data), id:18285, line:11:29, endln:11:39
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].write_data), id:18286
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].write_data), id:18285, line:11:29, endln:11:39
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].write_data
+    |vpiActual:
+    \_logic_typespec: , id:18278, line:11:3, endln:11:24
+  |vpiName:write_data
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].write_data
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].strobe), id:18306, line:12:29, endln:12:35
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].strobe), id:18307
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].strobe), id:18306, line:12:29, endln:12:35
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].strobe
+    |vpiActual:
+    \_logic_typespec: , id:18296, line:12:3, endln:12:26
+  |vpiName:strobe
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].strobe
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].ready), id:18309, line:13:29, endln:13:34
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].ready), id:18310
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].ready), id:18309, line:13:29, endln:13:34
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].ready
+    |vpiActual:
+    \_logic_typespec: , id:18308, line:13:3, endln:13:8
+  |vpiName:ready
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].ready
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].status), id:18311, line:14:29, endln:14:35
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].status), id:18312
+    |vpiParent:
+    \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].status), id:18311, line:14:29, endln:14:35
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].status
+    |vpiActual:
+    \_enum_typespec: (rggen_rtl_pkg::rggen_status), id:49, line:11:3, endln:16:18
+  |vpiName:status
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].status
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].read_data), id:18326, line:15:29, endln:15:38
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].read_data), id:18327
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].read_data), id:18326, line:15:29, endln:15:38
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].read_data
+    |vpiActual:
+    \_logic_typespec: , id:18319, line:15:3, endln:15:24
+  |vpiName:read_data
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].read_data
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].active), id:18329, line:16:29, endln:16:35
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].active), id:18330
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].active), id:18329, line:16:29, endln:16:35
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].active
+    |vpiActual:
+    \_logic_typespec: , id:18328, line:16:3, endln:16:8
+  |vpiName:active
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].active
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].value), id:18348, line:17:29, endln:17:34
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0].value), id:18349
+    |vpiParent:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].value), id:18348, line:17:29, endln:17:34
+    |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].value
+    |vpiActual:
+    \_logic_typespec: , id:18339, line:17:3, endln:17:26
+  |vpiName:value
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0].value
+  |vpiVisibility:1
+|vpiParamAssign:
+\_param_assign: , id:18360, line:2:17, endln:2:35
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiRhs:
+  \_constant: , id:18361, line:2:33, endln:2:35
+    |vpiParent:
+    \_param_assign: , id:18360, line:2:17, endln:2:35
+    |vpiDecompile:16
+    |vpiSize:32
+    |UINT:16
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18362
+      |vpiParent:
+      \_constant: , id:18361, line:2:33, endln:2:35
+      |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+      |vpiActual:
+      \_int_typespec: , id:10773, line:2:13, endln:2:16
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@rggen_register_if.ADDRESS_WIDTH), id:10774, line:2:17, endln:2:30
+    |vpiParent:
+    \_interface_inst: work@rggen_register_if (work@rggen_register_if), id:347121, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sv-rtl/rggen_register_if.sv, line:1:1, endln:56:13
+    |UINT:16
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen_register_if.ADDRESS_WIDTH), id:10775
+      |vpiParent:
+      \_parameter: (work@rggen_register_if.ADDRESS_WIDTH), id:10774, line:2:17, endln:2:30
+      |vpiFullName:work@rggen_register_if.ADDRESS_WIDTH
+      |vpiActual:
+      \_int_typespec: , id:10773, line:2:13, endln:2:16
+    |vpiSigned:1
+    |vpiName:ADDRESS_WIDTH
+    |vpiFullName:work@rggen_register_if.ADDRESS_WIDTH
+|vpiParamAssign:
+\_param_assign: , id:18363, line:3:17, endln:3:35
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiRhs:
+  \_constant: , id:18364, line:3:33, endln:3:35
+    |vpiParent:
+    \_param_assign: , id:18363, line:3:17, endln:3:35
+    |vpiDecompile:32
+    |vpiSize:32
+    |UINT:32
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18365
+      |vpiParent:
+      \_constant: , id:18364, line:3:33, endln:3:35
+      |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+      |vpiActual:
+      \_int_typespec: , id:10779, line:3:13, endln:3:16
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@rggen_register_if.BUS_WIDTH), id:10780, line:3:17, endln:3:26
+    |vpiParent:
+    \_interface_inst: work@rggen_register_if (work@rggen_register_if), id:347121, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sv-rtl/rggen_register_if.sv, line:1:1, endln:56:13
+    |UINT:32
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen_register_if.BUS_WIDTH), id:10781
+      |vpiParent:
+      \_parameter: (work@rggen_register_if.BUS_WIDTH), id:10780, line:3:17, endln:3:26
+      |vpiFullName:work@rggen_register_if.BUS_WIDTH
+      |vpiActual:
+      \_int_typespec: , id:10779, line:3:13, endln:3:16
+    |vpiSigned:1
+    |vpiName:BUS_WIDTH
+    |vpiFullName:work@rggen_register_if.BUS_WIDTH
+|vpiParamAssign:
+\_param_assign: , id:18366, line:4:17, endln:4:42
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiRhs:
+  \_constant: , id:18367, line:4:33, endln:4:42
+    |vpiParent:
+    \_param_assign: , id:18366, line:4:17, endln:4:42
+    |vpiDecompile:32
+    |vpiSize:32
+    |UINT:32
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18368
+      |vpiParent:
+      \_constant: , id:18367, line:4:33, endln:4:42
+      |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+      |vpiActual:
+      \_int_typespec: , id:10785, line:4:13, endln:4:16
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@rggen_register_if.VALUE_WIDTH), id:10786, line:4:17, endln:4:28
+    |vpiParent:
+    \_interface_inst: work@rggen_register_if (work@rggen_register_if), id:347121, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sv-rtl/rggen_register_if.sv, line:1:1, endln:56:13
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen_register_if.VALUE_WIDTH), id:10787
+      |vpiParent:
+      \_parameter: (work@rggen_register_if.VALUE_WIDTH), id:10786, line:4:17, endln:4:28
+      |vpiFullName:work@rggen_register_if.VALUE_WIDTH
+      |vpiActual:
+      \_int_typespec: , id:10785, line:4:13, endln:4:16
+    |vpiSigned:1
+    |vpiName:VALUE_WIDTH
+    |vpiFullName:work@rggen_register_if.VALUE_WIDTH
+|vpiParamAssign:
+\_param_assign: , id:18369, line:8:19, endln:8:50
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiRhs:
+  \_constant: , id:18370, line:8:49, endln:8:50
+    |vpiParent:
+    \_param_assign: , id:18369, line:8:19, endln:8:50
+    |vpiDecompile:0
+    |vpiSize:32
+    |UINT:0
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18371
+      |vpiParent:
+      \_constant: , id:18370, line:8:49, endln:8:50
+      |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+      |vpiActual:
+      \_int_typespec: , id:10763, line:8:15, endln:8:18
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@rggen_register_if.RGGEN_ACCESS_DATA_BIT), id:10761, line:8:19, endln:8:40
+    |vpiParent:
+    \_param_assign: , id:10757, line:8:19, endln:8:50
+    |UINT:0
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen_register_if.RGGEN_ACCESS_DATA_BIT), id:10762
+      |vpiParent:
+      \_parameter: (work@rggen_register_if.RGGEN_ACCESS_DATA_BIT), id:10761, line:8:19, endln:8:40
+      |vpiFullName:work@rggen_register_if.RGGEN_ACCESS_DATA_BIT
+      |vpiActual:
+      \_int_typespec: , id:10763, line:8:15, endln:8:18
+    |vpiSigned:1
+    |vpiLocalParam:1
+    |vpiName:RGGEN_ACCESS_DATA_BIT
+    |vpiFullName:work@rggen_register_if.RGGEN_ACCESS_DATA_BIT
+    |vpiImported:rggen_rtl_pkg
+|vpiParamAssign:
+\_param_assign: , id:18372, line:9:19, endln:9:50
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiRhs:
+  \_constant: , id:18373, line:9:49, endln:9:50
+    |vpiParent:
+    \_param_assign: , id:18372, line:9:19, endln:9:50
+    |vpiDecompile:1
+    |vpiSize:32
+    |UINT:1
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18374
+      |vpiParent:
+      \_constant: , id:18373, line:9:49, endln:9:50
+      |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+      |vpiActual:
+      \_int_typespec: , id:10770, line:9:15, endln:9:18
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (work@rggen_register_if.RGGEN_ACCESS_NON_POSTED_BIT), id:10768, line:9:19, endln:9:46
+    |vpiParent:
+    \_param_assign: , id:10764, line:9:19, endln:9:50
+    |UINT:1
+    |vpiTypespec:
+    \_ref_typespec: (work@rggen_register_if.RGGEN_ACCESS_NON_POSTED_BIT), id:10769
+      |vpiParent:
+      \_parameter: (work@rggen_register_if.RGGEN_ACCESS_NON_POSTED_BIT), id:10768, line:9:19, endln:9:46
+      |vpiFullName:work@rggen_register_if.RGGEN_ACCESS_NON_POSTED_BIT
+      |vpiActual:
+      \_int_typespec: , id:10770, line:9:15, endln:9:18
+    |vpiSigned:1
+    |vpiLocalParam:1
+    |vpiName:RGGEN_ACCESS_NON_POSTED_BIT
+    |vpiFullName:work@rggen_register_if.RGGEN_ACCESS_NON_POSTED_BIT
+    |vpiImported:rggen_rtl_pkg
+|vpiDefName:work@rggen_register_if
+|vpiModport:
+\_modport: (host), id:18350, line:19:11, endln:19:15
+  |vpiParent:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+  |vpiName:host
+  |vpiIODecl:
+  \_io_decl: (valid), id:18351, line:20:13, endln:20:18
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:2
+    |vpiName:valid
+    |vpiExpr:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].valid), id:18253, line:8:29, endln:8:34
+  |vpiIODecl:
+  \_io_decl: (access), id:18352, line:21:13, endln:21:19
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:2
+    |vpiName:access
+    |vpiExpr:
+    \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].access), id:18255, line:9:29, endln:9:35
+  |vpiIODecl:
+  \_io_decl: (address), id:18353, line:22:13, endln:22:20
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:2
+    |vpiName:address
+    |vpiExpr:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].address), id:18270, line:10:29, endln:10:36
+  |vpiIODecl:
+  \_io_decl: (write_data), id:18354, line:23:13, endln:23:23
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:2
+    |vpiName:write_data
+    |vpiExpr:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].write_data), id:18285, line:11:29, endln:11:39
+  |vpiIODecl:
+  \_io_decl: (strobe), id:18355, line:24:13, endln:24:19
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:2
+    |vpiName:strobe
+    |vpiExpr:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].strobe), id:18306, line:12:29, endln:12:35
+  |vpiIODecl:
+  \_io_decl: (ready), id:18356, line:25:13, endln:25:18
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:1
+    |vpiName:ready
+    |vpiExpr:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].ready), id:18309, line:13:29, endln:13:34
+  |vpiIODecl:
+  \_io_decl: (status), id:18357, line:26:13, endln:26:19
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:1
+    |vpiName:status
+    |vpiExpr:
+    \_enum_var: (work@rggen.u_block_0.u_adapter.register_if[0].status), id:18311, line:14:29, endln:14:35
+  |vpiIODecl:
+  \_io_decl: (read_data), id:18358, line:27:13, endln:27:22
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:1
+    |vpiName:read_data
+    |vpiExpr:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].read_data), id:18326, line:15:29, endln:15:38
+  |vpiIODecl:
+  \_io_decl: (active), id:18359, line:28:13, endln:28:19
+    |vpiParent:
+    \_modport: (host), id:18350, line:19:11, endln:19:15
+    |vpiDirection:1
+    |vpiName:active
+    |vpiExpr:
+    \_logic_var: (work@rggen.u_block_0.u_adapter.register_if[0].active), id:18329, line:16:29, endln:16:35
+  |vpiInterface:
+  \_interface_inst: work@rggen_register_if (work@rggen.u_block_0.u_adapter.register_if[0]), id:18251, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:148:0
+RHS: <null>
