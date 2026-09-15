@@ -1,0 +1,39 @@
+#!/bin/bash
+# v11u47 adversarial grid runner. LISTED==PROCESSED asserted; every rc recorded.
+WD=${WD:?}
+BIN=${BIN:?}
+OUT=${OUT:?}
+GOLDDIR=${GOLDDIR:-$OUT}
+SURELOG=/home/heyfey/git-repos/Surelog/build/bin/surelog
+CMP=/home/heyfey/git-repos/UHDM/build/bin/uhdm-cmp
+mkdir -p "$OUT"
+LISTED=0; PROCESSED=0
+exec 3< <(ls -d "$WD"/*/ | sort -V)
+while read -r d <&3; do
+  LISTED=$((LISTED+1))
+  g=$(basename "$d")
+  w="$OUT/$g"; rm -rf "$w"; mkdir -p "$w"
+  gw="$GOLDDIR/$g"
+  if [ "$GOLDDIR" = "$OUT" ]; then
+    ( cd "$d" && "$SURELOG" -parse -sverilog -top dut dut.sv -mt 0 -mp 0 -o "$w/sl" ) </dev/null >"$w/surelog.log" 2>&1
+    slrc=$?
+  else
+    slrc=REUSE
+  fi
+  GU=$(ls "$gw"/sl/slpp_all/*.uhdm 2>/dev/null | head -1)
+  ( cd "$d" && "$BIN" dut.sv --single-unit -o "$w/ours.uhdm" ) </dev/null >"$w/slang.log" 2>&1
+  ourc=$?
+  if [ -n "$GU" ] && [ -f "$w/ours.uhdm" ]; then
+    "$CMP" "$GU" "$w/ours.uhdm" >"$w/cmp.txt" 2>&1; cmprc=$?
+    heads=$(grep -c '^LHS:' "$w/cmp.txt"; true)
+    lines=$(wc -l < "$w/cmp.txt")
+    md5=$(md5sum "$w/ours.uhdm" | cut -c1-12)
+  else
+    cmprc=NA; heads=NA; lines=NA; md5=NA
+  fi
+  echo "$g slrc=$slrc ourrc=$ourc cmprc=$cmprc heads=$heads cmplines=$lines db=$md5 golden=${GU:-NONE}"
+  PROCESSED=$((PROCESSED+1))
+done
+exec 3<&-
+echo "LISTED=$LISTED PROCESSED=$PROCESSED"
+[ "$LISTED" = "$PROCESSED" ] || echo "GATE-FAIL listed!=processed"

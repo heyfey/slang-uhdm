@@ -1,0 +1,9 @@
+FILES 17236 TESTS 8
+Ariane2024 ['acc_resp_t:struct', 'accelerator_req_t:struct', 'axi_ar_chan_t:struct', 'axi_aw_chan_t:struct', 'axi_w_chan_t:struct', 'b_chan_t:struct', 'bht_update_t:struct', 'bp_resolve_t:struct']
+StructParamFieldRange ['it_t:struct']
+StructParamFuncBodyFieldCompare ['it_t:struct']
+StructParamPatternInitCast ['it_t:struct']
+cva6_equiv ['ar_chan_t:struct', 'aw_chan_t:struct', 'axi_ar_chan_t:struct', 'axi_aw_chan_t:struct', 'axi_b_chan_t:struct', 'axi_r_chan_t:struct', 'axi_req_t:struct', 'axi_rsp_t:struct']
+cva6_struct_param_field ['it_t:struct']
+packed_array_struct ['my_t:struct']
+port_chained_type_param ['noc_req_t:struct']

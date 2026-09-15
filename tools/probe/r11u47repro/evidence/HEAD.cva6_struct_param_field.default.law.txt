@@ -1,0 +1,74 @@
+LHS:
+decompile:
+constant: , id:464
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+
+decompile:
+constant: , id:464
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:280, line:26:12, endln:26:22
+|vpiParent:
+\_range: , id:279, line:26:11, endln:26:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:281, line:26:12, endln:26:20
+  |vpiParent:
+  \_operation: , id:280, line:26:12, endln:26:22
+  |vpiActual:
+  \_ref_obj: (Cfg), id:282, line:26:12, endln:26:15
+    |vpiParent:
+    \_hier_path: (Cfg.XLEN), id:281, line:26:12, endln:26:20
+    |vpiName:Cfg
+  |vpiActual:
+  \_ref_obj: (work@cva6_struct_param_field.x.XLEN), id:283, line:26:16, endln:26:20
+    |vpiParent:
+    \_hier_path: (Cfg.XLEN), id:281, line:26:12, endln:26:20
+    |vpiName:XLEN
+    |vpiFullName:work@cva6_struct_param_field.x.XLEN
+  |vpiName:Cfg.XLEN
+|vpiOperand:
+\_constant: , id:284, line:26:21, endln:26:22
+  |vpiParent:
+  \_operation: , id:280, line:26:12, endln:26:22
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:280, line:26:12, endln:26:22
+|vpiParent:
+\_range: , id:279, line:26:11, endln:26:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:281, line:26:12, endln:26:20
+  |vpiParent:
+  \_operation: , id:280, line:26:12, endln:26:22
+  |vpiActual:
+  \_ref_obj: (Cfg), id:282, line:26:12, endln:26:15
+    |vpiParent:
+    \_hier_path: (Cfg.XLEN), id:281, line:26:12, endln:26:20
+    |vpiName:Cfg
+  |vpiActual:
+  \_ref_obj: (work@cva6_struct_param_field.x.XLEN), id:283, line:26:16, endln:26:20
+    |vpiParent:
+    \_hier_path: (Cfg.XLEN), id:281, line:26:12, endln:26:20
+    |vpiName:XLEN
+    |vpiFullName:work@cva6_struct_param_field.x.XLEN
+  |vpiName:Cfg.XLEN
+|vpiOperand:
+\_constant: , id:284, line:26:21, endln:26:22
+  |vpiParent:
+  \_operation: , id:280, line:26:12, endln:26:22
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9

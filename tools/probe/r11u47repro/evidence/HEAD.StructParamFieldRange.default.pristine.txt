@@ -1,0 +1,166 @@
+LHS:
+decompile:
+struct_typespec: , id:566, line:23:26, endln:23:32
+|vpiParent:
+\_ref_typespec: (work@StructParamFieldRange.I), id:565
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (x), id:567, line:24:26, endln:24:27
+  |vpiParent:
+  \_struct_typespec: , id:566, line:23:26, endln:23:32
+  |vpiName:x
+  |vpiTypespec:
+  \_ref_typespec: (work@StructParamFieldRange.I.x), id:568
+    |vpiParent:
+    \_typespec_member: (x), id:567, line:24:26, endln:24:27
+    |vpiFullName:work@StructParamFieldRange.I.x
+    |vpiActual:
+    \_logic_typespec: , id:569, line:24:5, endln:24:25
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv
+  |vpiRefLineNo:24
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:24
+  |vpiRefEndColumnNo:25
+|vpiTypespecMember:
+\_typespec_member: (y), id:577, line:25:26, endln:25:27
+  |vpiParent:
+  \_struct_typespec: , id:566, line:23:26, endln:23:32
+  |vpiName:y
+  |vpiTypespec:
+  \_ref_typespec: (work@StructParamFieldRange.I.y), id:578
+    |vpiParent:
+    \_typespec_member: (y), id:577, line:25:26, endln:25:27
+    |vpiFullName:work@StructParamFieldRange.I.y
+    |vpiActual:
+    \_logic_typespec: , id:579, line:25:5, endln:25:25
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv
+  |vpiRefLineNo:25
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:25
+  |vpiRefEndColumnNo:25
+
+decompile:
+struct_typespec: , id:566, line:23:26, endln:23:32
+|vpiParent:
+\_ref_typespec: (work@StructParamFieldRange.I), id:565
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (x), id:567, line:24:26, endln:24:27
+  |vpiParent:
+  \_struct_typespec: , id:566, line:23:26, endln:23:32
+  |vpiName:x
+  |vpiTypespec:
+  \_ref_typespec: (work@StructParamFieldRange.I.x), id:568
+    |vpiParent:
+    \_typespec_member: (x), id:567, line:24:26, endln:24:27
+    |vpiFullName:work@StructParamFieldRange.I.x
+    |vpiActual:
+    \_logic_typespec: , id:569, line:24:5, endln:24:25
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv
+  |vpiRefLineNo:24
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:24
+  |vpiRefEndColumnNo:25
+|vpiTypespecMember:
+\_typespec_member: (y), id:577, line:25:26, endln:25:27
+  |vpiParent:
+  \_struct_typespec: , id:566, line:23:26, endln:23:32
+  |vpiName:y
+  |vpiTypespec:
+  \_ref_typespec: (work@StructParamFieldRange.I.y), id:578
+    |vpiParent:
+    \_typespec_member: (y), id:577, line:25:26, endln:25:27
+    |vpiFullName:work@StructParamFieldRange.I.y
+    |vpiActual:
+    \_logic_typespec: , id:579, line:25:5, endln:25:25
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv
+  |vpiRefLineNo:25
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:25
+  |vpiRefEndColumnNo:25
+RHS:
+decompile:
+struct_typespec: (it_t), id:331, line:23:26, endln:26:4
+|vpiParent:
+\_ref_typespec: (work@StructParamFieldRange.I), id:240
+|vpiName:it_t
+|vpiInstance:
+\_module_inst: work@StructParamFieldRange (work@StructParamFieldRange), id:231, file:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv, line:17:1, endln:29:10
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (x), id:332, line:24:26, endln:24:27
+  |vpiParent:
+  \_struct_typespec: (it_t), id:331, line:23:26, endln:26:4
+  |vpiName:x
+  |vpiTypespec:
+  \_ref_typespec: (work@StructParamFieldRange.I.it_t.x), id:341
+    |vpiParent:
+    \_typespec_member: (x), id:332, line:24:26, endln:24:27
+    |vpiFullName:work@StructParamFieldRange.I.it_t.x
+    |vpiActual:
+    \_logic_typespec: , id:333, line:24:5, endln:24:25
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv
+  |vpiRefLineNo:24
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:24
+  |vpiRefEndColumnNo:25
+|vpiTypespecMember:
+\_typespec_member: (y), id:342, line:25:26, endln:25:27
+  |vpiParent:
+  \_struct_typespec: (it_t), id:331, line:23:26, endln:26:4
+  |vpiName:y
+  |vpiTypespec:
+  \_ref_typespec: (work@StructParamFieldRange.I.it_t.y), id:351
+    |vpiParent:
+    \_typespec_member: (y), id:342, line:25:26, endln:25:27
+    |vpiFullName:work@StructParamFieldRange.I.it_t.y
+    |vpiActual:
+    \_logic_typespec: , id:343, line:25:5, endln:25:25
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv
+  |vpiRefLineNo:25
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:25
+  |vpiRefEndColumnNo:25
+
+decompile:
+struct_typespec: (it_t), id:331, line:23:26, endln:26:4
+|vpiParent:
+\_ref_typespec: (work@StructParamFieldRange.I), id:240
+|vpiName:it_t
+|vpiInstance:
+\_module_inst: work@StructParamFieldRange (work@StructParamFieldRange), id:231, file:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv, line:17:1, endln:29:10
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (x), id:332, line:24:26, endln:24:27
+  |vpiParent:
+  \_struct_typespec: (it_t), id:331, line:23:26, endln:26:4
+  |vpiName:x
+  |vpiTypespec:
+  \_ref_typespec: (work@StructParamFieldRange.I.it_t.x), id:341
+    |vpiParent:
+    \_typespec_member: (x), id:332, line:24:26, endln:24:27
+    |vpiFullName:work@StructParamFieldRange.I.it_t.x
+    |vpiActual:
+    \_logic_typespec: , id:333, line:24:5, endln:24:25
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv
+  |vpiRefLineNo:24
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:24
+  |vpiRefEndColumnNo:25
+|vpiTypespecMember:
+\_typespec_member: (y), id:342, line:25:26, endln:25:27
+  |vpiParent:
+  \_struct_typespec: (it_t), id:331, line:23:26, endln:26:4
+  |vpiName:y
+  |vpiTypespec:
+  \_ref_typespec: (work@StructParamFieldRange.I.it_t.y), id:351
+    |vpiParent:
+    \_typespec_member: (y), id:342, line:25:26, endln:25:27
+    |vpiFullName:work@StructParamFieldRange.I.it_t.y
+    |vpiActual:
+    \_logic_typespec: , id:343, line:25:5, endln:25:25
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/tests/StructParamFieldRange/dut.sv
+  |vpiRefLineNo:25
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:25
+  |vpiRefEndColumnNo:25

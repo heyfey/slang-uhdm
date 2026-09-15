@@ -1,0 +1,166 @@
+LHS:
+decompile:
+struct_typespec: , id:566, line:25:26, endln:25:32
+|vpiParent:
+\_ref_typespec: (work@cva6_struct_param_field.I), id:565
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (x), id:567, line:26:26, endln:26:27
+  |vpiParent:
+  \_struct_typespec: , id:566, line:25:26, endln:25:32
+  |vpiName:x
+  |vpiTypespec:
+  \_ref_typespec: (work@cva6_struct_param_field.I.x), id:568
+    |vpiParent:
+    \_typespec_member: (x), id:567, line:26:26, endln:26:27
+    |vpiFullName:work@cva6_struct_param_field.I.x
+    |vpiActual:
+    \_logic_typespec: , id:569, line:26:5, endln:26:25
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+  |vpiRefLineNo:26
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:26
+  |vpiRefEndColumnNo:25
+|vpiTypespecMember:
+\_typespec_member: (y), id:577, line:27:26, endln:27:27
+  |vpiParent:
+  \_struct_typespec: , id:566, line:25:26, endln:25:32
+  |vpiName:y
+  |vpiTypespec:
+  \_ref_typespec: (work@cva6_struct_param_field.I.y), id:578
+    |vpiParent:
+    \_typespec_member: (y), id:577, line:27:26, endln:27:27
+    |vpiFullName:work@cva6_struct_param_field.I.y
+    |vpiActual:
+    \_logic_typespec: , id:579, line:27:5, endln:27:25
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+  |vpiRefLineNo:27
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:27
+  |vpiRefEndColumnNo:25
+
+decompile:
+struct_typespec: , id:566, line:25:26, endln:25:32
+|vpiParent:
+\_ref_typespec: (work@cva6_struct_param_field.I), id:565
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (x), id:567, line:26:26, endln:26:27
+  |vpiParent:
+  \_struct_typespec: , id:566, line:25:26, endln:25:32
+  |vpiName:x
+  |vpiTypespec:
+  \_ref_typespec: (work@cva6_struct_param_field.I.x), id:568
+    |vpiParent:
+    \_typespec_member: (x), id:567, line:26:26, endln:26:27
+    |vpiFullName:work@cva6_struct_param_field.I.x
+    |vpiActual:
+    \_logic_typespec: , id:569, line:26:5, endln:26:25
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+  |vpiRefLineNo:26
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:26
+  |vpiRefEndColumnNo:25
+|vpiTypespecMember:
+\_typespec_member: (y), id:577, line:27:26, endln:27:27
+  |vpiParent:
+  \_struct_typespec: , id:566, line:25:26, endln:25:32
+  |vpiName:y
+  |vpiTypespec:
+  \_ref_typespec: (work@cva6_struct_param_field.I.y), id:578
+    |vpiParent:
+    \_typespec_member: (y), id:577, line:27:26, endln:27:27
+    |vpiFullName:work@cva6_struct_param_field.I.y
+    |vpiActual:
+    \_logic_typespec: , id:579, line:27:5, endln:27:25
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+  |vpiRefLineNo:27
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:27
+  |vpiRefEndColumnNo:25
+RHS:
+decompile:
+struct_typespec: (it_t), id:331, line:25:26, endln:28:4
+|vpiParent:
+\_ref_typespec: (work@cva6_struct_param_field.I), id:240
+|vpiName:it_t
+|vpiInstance:
+\_module_inst: work@cva6_struct_param_field (work@cva6_struct_param_field), id:231, file:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv, line:18:1, endln:31:10
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (x), id:332, line:26:26, endln:26:27
+  |vpiParent:
+  \_struct_typespec: (it_t), id:331, line:25:26, endln:28:4
+  |vpiName:x
+  |vpiTypespec:
+  \_ref_typespec: (work@cva6_struct_param_field.I.it_t.x), id:341
+    |vpiParent:
+    \_typespec_member: (x), id:332, line:26:26, endln:26:27
+    |vpiFullName:work@cva6_struct_param_field.I.it_t.x
+    |vpiActual:
+    \_logic_typespec: , id:333, line:26:5, endln:26:25
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+  |vpiRefLineNo:26
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:26
+  |vpiRefEndColumnNo:25
+|vpiTypespecMember:
+\_typespec_member: (y), id:342, line:27:26, endln:27:27
+  |vpiParent:
+  \_struct_typespec: (it_t), id:331, line:25:26, endln:28:4
+  |vpiName:y
+  |vpiTypespec:
+  \_ref_typespec: (work@cva6_struct_param_field.I.it_t.y), id:351
+    |vpiParent:
+    \_typespec_member: (y), id:342, line:27:26, endln:27:27
+    |vpiFullName:work@cva6_struct_param_field.I.it_t.y
+    |vpiActual:
+    \_logic_typespec: , id:343, line:27:5, endln:27:25
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+  |vpiRefLineNo:27
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:27
+  |vpiRefEndColumnNo:25
+
+decompile:
+struct_typespec: (it_t), id:331, line:25:26, endln:28:4
+|vpiParent:
+\_ref_typespec: (work@cva6_struct_param_field.I), id:240
+|vpiName:it_t
+|vpiInstance:
+\_module_inst: work@cva6_struct_param_field (work@cva6_struct_param_field), id:231, file:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv, line:18:1, endln:31:10
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (x), id:332, line:26:26, endln:26:27
+  |vpiParent:
+  \_struct_typespec: (it_t), id:331, line:25:26, endln:28:4
+  |vpiName:x
+  |vpiTypespec:
+  \_ref_typespec: (work@cva6_struct_param_field.I.it_t.x), id:341
+    |vpiParent:
+    \_typespec_member: (x), id:332, line:26:26, endln:26:27
+    |vpiFullName:work@cva6_struct_param_field.I.it_t.x
+    |vpiActual:
+    \_logic_typespec: , id:333, line:26:5, endln:26:25
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+  |vpiRefLineNo:26
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:26
+  |vpiRefEndColumnNo:25
+|vpiTypespecMember:
+\_typespec_member: (y), id:342, line:27:26, endln:27:27
+  |vpiParent:
+  \_struct_typespec: (it_t), id:331, line:25:26, endln:28:4
+  |vpiName:y
+  |vpiTypespec:
+  \_ref_typespec: (work@cva6_struct_param_field.I.it_t.y), id:351
+    |vpiParent:
+    \_typespec_member: (y), id:342, line:27:26, endln:27:27
+    |vpiFullName:work@cva6_struct_param_field.I.it_t.y
+    |vpiActual:
+    \_logic_typespec: , id:343, line:27:5, endln:27:25
+  |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+  |vpiRefLineNo:27
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:27
+  |vpiRefEndColumnNo:25

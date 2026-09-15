@@ -1,0 +1,4 @@
+default/cva6_struct_param_field PREDICT it_t=12 
+default/struct_member_cfg_width PREDICT fu_data_t=13 
+testflags/cva6_struct_param_field PREDICT it_t=12 
+testflags/struct_member_cfg_width PREDICT fu_data_t=13 

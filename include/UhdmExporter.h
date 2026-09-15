@@ -10360,6 +10360,12 @@ private:
     // and elab views alike) shares this one object (Surelog).
     std::map<std::pair<const void*, std::string>, UHDM::typespec*>
         typeParamDefaultTs;
+    // § tpAnonAggParamTsNoStamp47 — every struct/union clone `makeParamTs`
+    // built for a parameter whose declared type is a TYPE PARAMETER carrying
+    // an ANONYMOUS aggregate default.  Those objects carry NO VpiName and
+    // take NO module/interface vpiInstance; the set is how the elab param
+    // site (which does the module stamp) recognises them.
+    std::set<const UHDM::typespec*> tpAnonAggParamTs47;
     // Part-select fold constants' own logic_typespecs (bare-bound range),
     // materialized in the write-phase tail.
     struct PendingPartSelTs {

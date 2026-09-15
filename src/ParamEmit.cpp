@@ -21658,9 +21658,70 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                             break;
                         }
                 }
+            // § tpAnonAggParamTsNoStamp47 — A PARAMETER DECLARED WITH A TYPE
+            // PARAMETER WHOSE DEFAULT IS AN ANONYMOUS AGGREGATE CARRIES THAT
+            // AGGREGATE'S TYPESPEC **UNNAMED**, AND TAKES NO MODULE OR
+            // INTERFACE `vpiInstance` — ONLY A PACKAGE HOLDER INSTANCES IT.
+            //
+            // PRODUCER.  A `struct_typespec` gets its `VpiName` in exactly one
+            // place: `CompileHelper::compileTypeDef` (Surelog
+            // `src/DesignCompile/CompileHelper.cpp:1094`, `ts->VpiName(name)`),
+            // i.e. a TYPEDEF, and its `vpiInstance` in one more:
+            // `UhdmWriter::writeDataTypes` (`src/DesignCompile/UhdmWriter.cpp:
+            // 799-802`, `if (!tps->Instance()) tps->Instance((instance*)parent)`
+            // over the component's DataType map — again the typedefs, plus
+            // `CompileHelper.cpp:1092`'s package-only `Reduce::Yes` stamp).
+            // An ANONYMOUS aggregate written as a type parameter's default is
+            // built by `compileTypespec`'s `paStruct_union` arm
+            // (`src/DesignCompile/CompileType.cpp:1639-1662`) straight from
+            // `compileParameterDeclaration`'s `paTYPE` arm
+            // (`CompileHelper.cpp:3510`, `Reduce::No`, NULL instance) — it is
+            // never a DataType, so neither stamp reaches it, in any holder and
+            // in either view.  A localparam declared with that type-parameter's
+            // name POINTS AT the same unnamed object; the name `it_t` belongs
+            // to the `type_parameter`, never to its typespec.
+            //
+            // GRID (tools/probe/r11u47repro, g1-g12, every arm's rc recorded).
+            // Golden leaves the aggregate UNNAMED and UNINSTANCED at the
+            // module body (g1 struct, g2 union), the ANSI parameter port list
+            // (g5), an instantiation OVERRIDE of such a parameter (g6), a
+            // variable rather than a localparam of the type (g8), an
+            // INTERFACE body (g9), an UNPACKED anonymous struct (g10), a port
+            // typed by the parameter (g11) and a CHAINED type parameter (g12).
+            // The one holder that DOES instance it is a PACKAGE (g7: golden
+            // 8 copies bare + 2 carrying `package pk`, all ten UNNAMED) — the
+            // `aliasPkg` link below, which this law therefore keeps.
+            // THE CONTROL IS g4: a NAMED typedef bound to the type parameter
+            // (`localparam type it_t = named_t`).  Golden names that clone
+            // `named_t` — the typedef's own name — and instances it; the test
+            // below answers NO for it (the aggregate's syntax sits inside a
+            // `TypedefDeclaration`, not a `TypeParameterDeclaration`), so the
+            // named-typedef rule keeps it untouched.  The decision is made
+            // from the OWNER of the aggregate's declaration, never from the
+            // name string.
+            const Scope* aggScope47 =
+                ct.kind == SymbolKind::PackedStructType
+                    ? (const Scope*)&ct.as<PackedStructType>()
+                    : ct.kind == SymbolKind::UnpackedStructType
+                    ? (const Scope*)&ct.as<UnpackedStructType>()
+                    : (const Scope*)&ct.as<PackedUnionType>();
+            const bool tpAnon47 =
+                ps.getDeclaredType() &&
+                ps.getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
+                typeParamOfAlias(
+                    ps.getDeclaredType()->getType().as<TypeAliasType>()) &&
+                isTypeParamAnonAggDefault35(*aggScope47);
+            if (tpAnon47)
+                alias.clear();
             std::string memberScope = alias;
             if (!syntaxRefPrefix.empty() && !alias.empty())
                 memberScope = syntaxRefPrefix + "." + alias;
+            // The member refs keep the CALLING context's scope and lose only
+            // the parameter-name segment: golden's copies read
+            // `work@dut.I.x` / `work@dut.x`, ours read `work@dut.I.it_t.x` /
+            // `work@dut.it_t.x` (g1, measured both sides).
+            if (tpAnon47)
+                memberScope = syntaxRefPrefix;
             its = ct.kind == SymbolKind::PackedStructType
                       ? (UHDM::typespec*)buildStructTs(ct.as<PackedStructType>(), true,
                                                        memberScope)
@@ -21669,7 +21730,10 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                             ct.as<UnpackedStructType>(), false, memberScope)
                       : (UHDM::typespec*)buildUnionTs(ct.as<PackedUnionType>(), true,
                                                       memberScope);
-            its->VpiName(alias);
+            if (tpAnon47)
+                tpAnonAggParamTs47.insert(its);
+            else
+                its->VpiName(alias);
             if (aliasPkg) {
                 // A param-ts CLONE reaches the ELABORATED (top) home package
                 // when one exists — Surelog's cross-scope instance links land
@@ -22530,8 +22594,17 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             stampCastSizeParamTs(*ps, up, its);
             if (aggParam)
                 attachFoldedBoundMeta(its, (UHDM::instance*)its->Instance());
-            if (its->UhdmType() == UHDM::uhdmstruct_typespec ||
-                its->UhdmType() == UHDM::uhdmunion_typespec) {
+            // § tpAnonAggParamTsNoStamp47 — ...and it takes no module or
+            // interface instance either.  The clone of an ANONYMOUS aggregate
+            // bound to a type parameter is not a typedef object, so Surelog's
+            // only two stamps (`UhdmWriter::writeDataTypes` over the DataType
+            // map, and `compileTypeDef`'s package-only one) never reach it:
+            // golden's copies are bare in the module (g1), interface (g9) and
+            // override (g6) arms and carry the PACKAGE only in g7, which is
+            // `makeParamTs`' own `aliasPkg` link and is already set.
+            if ((its->UhdmType() == UHDM::uhdmstruct_typespec ||
+                 its->UhdmType() == UHDM::uhdmunion_typespec) &&
+                !tpAnonAggParamTs47.count(its)) {
                 // A $UNIT-level struct typedef clone is Instanced at the
                 // DESIGN (struct_param_dim test_struct_t), not the module.
                 bool unitTd9 = false;

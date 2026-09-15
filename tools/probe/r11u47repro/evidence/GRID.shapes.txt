@@ -1,0 +1,132 @@
+=== g1  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/0  struct_typespec  2:26..2:32                 -                        -                           
+ *  0/8  struct_typespec  2:26..2:39                 -                        -                           
+ *  0/11 struct_typespec  2:26..5:4                  it_t                     -                           
+ *  0/1  struct_typespec  2:26..5:4                  it_t                     module_inst: work@dut (work@dut)
+=== g1  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/0  struct_typespec  2:26..2:32                 -                        -                           
+ *  0/8  struct_typespec  2:26..2:39                 -                        -                           
+ *  0/12 struct_typespec  2:26..5:4                  -                        -                           
+=== g2  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ * 11/8  union_typespec   2:26..2:31                 -                        -                           
+ *  0/7  union_typespec   2:26..5:4                  it_t                     -                           
+ *  0/1  union_typespec   2:26..5:4                  it_t                     module_inst: work@dut (work@dut)
+=== g2  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ * 11/8  union_typespec   2:26..2:31                 -                        -                           
+ *  0/8  union_typespec   2:26..5:4                  -                        -                           
+=== g3  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ *  0/4  enum_typespec    2:19..2:67                 it_t                     -                           
+ *  0/1  enum_typespec    2:19..2:67                 it_t                     module_inst: work@dut (work@dut)
+ * 12/10 enum_typespec    ?..?                       -                        -                           
+=== g3  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ *  0/4  enum_typespec    2:19..2:67                 it_t                     -                           
+ *  0/1  enum_typespec    2:19..2:67                 it_t                     module_inst: work@dut (work@dut)
+ * 12/10 enum_typespec    ?..?                       -                        -                           
+=== g4  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ *  0/4  struct_typespec  2:11..2:24                 named_t                  -                           
+ *  0/11 struct_typespec  2:11..5:4                  it_t                     -                           
+ *  0/1  struct_typespec  2:11..5:4                  it_t                     module_inst: work@dut (work@dut)
+ * 12/4  struct_typespec  2:11..5:4                  named_t                  -                           
+ *  2/1  struct_typespec  2:11..5:4                  named_t                  module_inst: work@dut (work@dut)
+=== g4  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ *  0/4  struct_typespec  2:11..2:24                 named_t                  -                           
+ *  0/11 struct_typespec  2:11..5:4                  it_t                     -                           
+ *  0/1  struct_typespec  2:11..5:4                  it_t                     module_inst: work@dut (work@dut)
+ * 12/4  struct_typespec  2:11..5:4                  named_t                  -                           
+ *  2/1  struct_typespec  2:11..5:4                  named_t                  module_inst: work@dut (work@dut)
+=== g5  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/0  struct_typespec  2:36..2:42                 -                        -                           
+ *  0/4  struct_typespec  2:36..2:49                 -                        -                           
+ *  0/11 struct_typespec  2:36..2:83                 it_t                     -                           
+ *  0/1  struct_typespec  2:36..2:83                 it_t                     module_inst: work@dut (work@dut)
+=== g5  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/0  struct_typespec  2:36..2:42                 -                        -                           
+ *  0/4  struct_typespec  2:36..2:49                 -                        -                           
+ *  0/12 struct_typespec  2:36..2:83                 -                        -                           
+=== g6  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/0  struct_typespec  1:36..1:42                 -                        -                           
+ *  0/4  struct_typespec  6:9..6:22                  ov_t                     -                           
+ *  0/11 struct_typespec  6:9..6:56                  it_t                     -                           
+ *  0/1  struct_typespec  6:9..6:56                  it_t                     module_inst: work@sub (work@dut.u0)
+ *  6/2  struct_typespec  6:9..6:56                  ov_t                     -                           
+    1/1  struct_typespec  6:9..6:56                  ov_t                     design: (work@dut)          
+=== g6  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/0  struct_typespec  1:36..1:42                 -                        -                           
+ *  0/4  struct_typespec  6:9..6:22                  ov_t                     -                           
+ *  0/11 struct_typespec  6:9..6:56                  it_t                     -                           
+ *  0/1  struct_typespec  6:9..6:56                  it_t                     module_inst: work@sub (work@dut.u0)
+ *  6/2  struct_typespec  6:9..6:56                  ov_t                     -                           
+    1/1  struct_typespec  6:9..6:56                  ov_t                     design: (work@dut)          
+=== g7  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ *  8/0  struct_typespec  2:26..2:32                 -                        -                           
+ *  2/0  struct_typespec  2:26..2:32                 -                        package: pk (pk::)          
+ *  0/8  struct_typespec  2:26..2:39                 -                        -                           
+ *  0/7  struct_typespec  2:26..2:73                 pk::it_t                 -                           
+ *  0/2  struct_typespec  2:26..2:73                 pk::it_t                 package: pk (pk::)          
+=== g7  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ *  8/0  struct_typespec  2:26..2:32                 -                        -                           
+ *  2/0  struct_typespec  2:26..2:32                 -                        package: pk (pk::)          
+ *  0/8  struct_typespec  2:26..2:39                 -                        -                           
+ *  0/7  struct_typespec  2:26..2:73                 -                        -                           
+ *  0/2  struct_typespec  2:26..2:73                 -                        package: pk (pk::)          
+=== g8  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ *  6/0  struct_typespec  2:26..2:32                 -                        -                           
+ *  0/9  struct_typespec  2:26..2:39                 -                        -                           
+=== g8  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ *  6/0  struct_typespec  2:26..2:32                 -                        -                           
+ *  0/9  struct_typespec  2:26..2:39                 -                        -                           
+=== g9  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/0  struct_typespec  2:26..2:32                 -                        -                           
+ *  0/8  struct_typespec  2:26..2:39                 -                        -                           
+ *  0/11 struct_typespec  2:26..2:73                 it_t                     -                           
+ *  0/1  struct_typespec  2:26..2:73                 it_t                     interface_inst: work@iface (work@dut.i0)
+=== g9  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/0  struct_typespec  2:26..2:32                 -                        -                           
+ *  0/8  struct_typespec  2:26..2:39                 -                        -                           
+ *  0/12 struct_typespec  2:26..2:73                 -                        -                           
+=== g10  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/8  struct_typespec  2:26..2:32                 -                        -                           
+ *  0/8  struct_typespec  2:26..2:66                 it_t                     -                           
+ *  0/1  struct_typespec  2:26..2:66                 it_t                     module_inst: work@dut (work@dut)
+=== g10  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ * 13/8  struct_typespec  2:26..2:32                 -                        -                           
+ *  0/9  struct_typespec  2:26..2:66                 -                        -                           
+=== g11  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ *  7/0  struct_typespec  1:36..1:42                 -                        -                           
+ *  0/5  struct_typespec  1:36..1:49                 -                        -                           
+=== g11  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ *  7/0  struct_typespec  1:36..1:42                 -                        -                           
+ *  0/5  struct_typespec  1:36..1:49                 -                        -                           
+=== g12  golden / ours(pristine) ===
+cnt    kind             loc                        name                     instance                    
+ * 14/0  struct_typespec  1:35..1:41                 -                        -                           
+ *  0/5  struct_typespec  1:35..1:48                 -                        -                           
+ *  0/11 struct_typespec  1:35..1:82                 b_t                      -                           
+ *  0/1  struct_typespec  1:35..1:82                 b_t                      module_inst: work@dut (work@dut)
+=== g12  golden / ours(law) ===
+cnt    kind             loc                        name                     instance                    
+ * 14/0  struct_typespec  1:35..1:41                 -                        -                           
+ *  0/5  struct_typespec  1:35..1:48                 -                        -                           
+ *  0/12 struct_typespec  1:35..1:82                 -                        -                           

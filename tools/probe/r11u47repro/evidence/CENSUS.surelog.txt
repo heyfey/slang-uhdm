@@ -1,0 +1,9 @@
+default/Earlgrey_0_1 DUMP-FAIL
+default/StructParamFieldRange PREDICT it_t=12 
+default/StructParamFuncBodyFieldCompare PREDICT it_t=12 
+default/StructParamPatternInitCast PREDICT it_t=12 
+testflags/Earlgrey_0_1 DUMP-FAIL
+testflags/StructParamFieldRange PREDICT it_t=12 
+testflags/StructParamFuncBodyFieldCompare PREDICT it_t=12 
+testflags/StructParamPatternInitCast PREDICT it_t=12 
+DONE

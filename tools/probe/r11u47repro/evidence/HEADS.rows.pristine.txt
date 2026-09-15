@@ -1,0 +1,8 @@
+default/GenForStructParamBound rc=0 lines=0 heads=0 LHS0=''
+default/StructParamFieldRange rc=255 lines=166 heads=1 LHS0='struct_typespec: , id:566, line:23:26, endln:23:32'
+default/StructParamFuncBodyFieldCompare rc=255 lines=36 heads=1 LHS0='constant: , id:143, line:30:23, endln:30:25'
+default/StructParamPatternInitCast rc=255 lines=15 heads=1 LHS0='decompile:'
+testflags/GenForStructParamBound rc=0 lines=0 heads=0 LHS0=''
+testflags/StructParamFieldRange rc=255 lines=166 heads=1 LHS0='struct_typespec: , id:566, line:23:26, endln:23:32'
+testflags/StructParamFuncBodyFieldCompare rc=255 lines=36 heads=1 LHS0='constant: , id:143, line:30:23, endln:30:25'
+testflags/StructParamPatternInitCast rc=255 lines=15 heads=1 LHS0='decompile:'
