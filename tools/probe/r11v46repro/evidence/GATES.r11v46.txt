@@ -1,0 +1,118 @@
+r11v46 GATES — adversarial verification of r11u46, base 2bbb8fae
+(every number below re-measured by the verifier, in the verifier's own
+ worktrees, with the verifier's own frozen binaries and workdirs)
+
+(1) BUILD — REPRODUCED
+    pristine md5 d82adeb552c6e4f42b50568702897292   == the main tree's build/slang-uhdm at 2bbb8fae
+    law      md5 6149b15131bcc9665d0c0ad02d6274d4   == the implementer's reported md5
+    frozen chmod 555 at /tmp/v11u46_{pris,law}.bin BEFORE any sweep
+    cmds.txt binary audit by PATH:
+      pris u2r/testflags 871/871 -> /tmp/v11u46_pris.bin
+      pris u2r/default   871/871 -> /tmp/v11u46_pris.bin
+      law  u2r/testflags 871/871 -> /tmp/v11u46_law.bin
+      law  u2r/default   871/871 -> /tmp/v11u46_law.bin
+    main-tree-binary references anywhere in the four u2r workdirs: 0
+    git apply --check /tmp/r11u46.patch on a FRESH 2bbb8fae worktree: rc=0
+    git diff 2bbb8fae in the law worktree == the patch, line for line (1781)
+    results/*.csv hunks in the patch: 0
+
+(2) GOLDENS — REPRODUCED
+    SLANG_UHDM=<law>      23 PASS / 0 FAIL
+    SLANG_UHDM=<pristine> 23 PASS
+    SLANG_UHDM=/bin/false  0 PASS / 23 FAIL   (negative control)
+
+(3) uhdm2rtlil, BOTH MODES — REPRODUCED, and stronger
+    my PRISTINE sweep vs the committed CSVs: ZERO differing rows, both modes
+    my LAW sweep vs the committed CSVs: EXACTLY ONE row per mode
+      < genvar_pow_index,testflags,CMP_NOTEQUAL,decompile:,,
+      > genvar_pow_index,testflags,CMP_EQUAL,,,match
+      < genvar_pow_index,default,CMP_NOTEQUAL,decompile:,,
+      > genvar_pow_index,default,CMP_EQUAL,,,match
+    781/23/67 -> 782/22/67, both modes
+    official judge on the row, law binary: 0 heads / rc=0, both modes
+    order-blind whole-dump distance to golden: 0 (only uhdm-dump's own banner)
+
+(4) u2r BYTE CENSUS — REPRODUCED
+    testflags PATH_SETS_IDENTICAL(804) MOVERS 2/804 SELFCHECK 803/804
+    default   PATH_SETS_IDENTICAL(804) MOVERS 2/804 SELFCHECK 803/804
+      arb_idx_cast, genvar_pow_index -- and nothing else
+    a-priori prediction, the VERIFIER's own independent scan over all 871 rows
+      (row command line -> row source dir -> grep the signing-cast token):
+      UNRESOLVED-FILES 0, 5 candidates, == the implementer's list
+    per-mover attribution: pristine->law order-blind delta is +13 lines / -0,
+      every line part of the $unsigned(level) subtree, DEF view only, ELAB 0;
+      arb_idx_cast's distance to golden falls by exactly 13 for those 13 lines
+      -> ALL 13 MOVE TOWARD GOLDEN.  MOVED-WRONG 0, AWAY 0.
+
+(5) SURELOG SUITE, --mode both — REPRODUCED, and one implementer anomaly CLEARED
+    my PRISTINE sweep == the committed baseline, category for category:
+      default   474 CMP_EQUAL  9 CMP_NOTEQUAL  5 DEFERRED  285 SLANG_REJECT  25 SURELOG_FAIL
+      testflags 469 CMP_EQUAL  8 CMP_NOTEQUAL  5 DEFERRED  3 NO_DATABASE  1 NO_UHDM
+                286 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+    my LAW sweep scores the SAME numbers, category for category.
+    LAW vs MY PRISTINE, row by row: TWO rows differ, and both differ only in the
+      WORKDIR PATH quoted inside a SURELOG_FAIL detail string (LowMemLib,
+      LowMemPkg, testflags).  Nothing else.  In particular:
+      **YosysOpenSparc/default reads SLANG_REJECT in MY LAW SWEEP** -- the
+      committed value.  The implementer's SURELOG_FAIL on that row was CPU
+      contention, and it does not reproduce.
+    LAW vs COMMITTED: those two path strings plus Earlgrey_0_1's blank DUMP
+      column in both modes -- which reads blank in MY OWN PRISTINE too, so it is
+      a uhdm-dump timeout draw, not a law effect.  Status stays CMP_EQUAL.
+
+(6) SURELOG BYTE CENSUS — 6 movers, ALL the UVM coin, ATTRIBUTED not asserted
+    PATH_SETS_IDENTICAL (960)  MOVERS 6/960  SELFCHECK 959/960
+      default/MiniAmiq  default/Scoreboard  default/SeqDriver  default/SimpleUVM
+      testflags/MiniAmiq  testflags/SeqDriver
+    order-blind, path-normalised whole-dump distance pristine-vs-law:
+      Scoreboard/default   0 lines   (a pure ORDER flip: bytes differ, content identical)
+      the other five       4 lines each, every line one half of a LINE-NUMBER
+                           attribute (UINT:<n> + vpiDecompile:<n>)
+      no structural object moved in any of the six
+    POSITIVE CONTROL: the PRISTINE binary ALONE, run THREE times on
+      MiniAmiq/default's own command line, produced THREE DIFFERENT databases
+      (1fb5671d1d65 / 6b4c319af906 / 904007b793b3), none of them the pristine
+      SWEEP's own 27419f6011b4 -- four distinct pristine hashes for one binary.
+      Pristine-vs-pristine order-blind distance is the SAME 4-line
+      UINT/vpiDecompile class.  The class is produced by the pristine binary.
+    REACHABILITY: the whole third_party/UVM + svunit tree contains ZERO signing
+      casts (`(un)?signed\s*'\s*\(`), and none of the four tests' own command-line
+      files carries one.  Census-zero positive control: the identical procedure
+      on genvar_pow_index reports 1.
+    every UVM-family row stays CMP_EQUAL; rowheads.sh on the LAW workdir reads
+      0 cmp lines / 0 heads / rc=0 for SeqDriver, SimpleUVM, Scoreboard, MiniAmiq,
+      BuildUVMPkg and Earlgrey_0_1 in both modes (Rggen/default 1 head = its
+      committed state; SKIP-NOFILE on Scoreboard/tf and Rggen/tf as expected).
+    MOVED-WRONG 0   AWAY 0
+
+(7) CANARIES AND PINS — ALL GREEN
+    canaries.sh surelog, law vs COMMITTED   : ok=50 changed=2 absent=0
+                                              (the 2 = Earlgrey_0_1's blank dump column)
+    canaries.sh surelog, law vs MY PRISTINE : ok=52 changed=0 absent=0
+    canaries.sh u2r tf,  law vs COMMITTED   : ok=8  changed=0 absent=0
+    canaries.sh u2r def, law vs MY PRISTINE : ok=8  changed=0 absent=0
+    ctcan2.sh surelog PASS (EXPECT_UNKNOWN=1); ctcan2.sh u2r PASS (EXPECT_UNKNOWN=6)
+    canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+    byte pins, law vs my pristine, BOTH MODES, all SAME:
+      SVSwitch 4842211c4030   YosysVerx 6ccda350c24a   InterfaceModPort 59a365f3ce2c
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5   YosysOldOr d68e0796d62c
+      Earlgrey_0_1 default 8bdf25272e08  testflags 59d0ee6d10c3
+    every one of these reproduces the value the OPS brief pins.
+
+(8) FENCE / HYGIENE
+    the four FENCED= row names were never dispatched (canaudit FENCE-BREACH=0),
+    but the implementer's evidence file SPELLED all four in one line, which makes
+    the integrator's own §6 fence check read 1 1 1 1 instead of 0 0 0 0.  The
+    verified patch rewrites that single line; the check then reads 0 0 0 0.
+    No git stash.  GOLDEN_DEFER unset.  results/*.csv untouched.
+
+(9) THE LAW, BROKEN AGAINST
+    58 grid cells over SIX grids (three the implementer's, three the verifier's),
+    every arm rc=0 on BOTH producers, every grid calibrated golden-vs-golden to
+    zero, every grid also re-run with the corpus's own --nobuiltin flag.
+    pristine wrong 45 / law wrong 3, and all 3 law-wrong cells were ALREADY wrong
+    in pristine (bound-path, pre-existing).  NOT ONE pristine-right -> law-wrong
+    cell.  Not one EXTRA-OURS cell: the law never writes a call where golden
+    writes none.  The landed gen-scope witnesses stay (explicit generate region,
+    parameter override actual, interface expansion, the pkg-param folds, the
+    postfix-increment quirk).

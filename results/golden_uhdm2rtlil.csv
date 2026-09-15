@@ -291,7 +291,7 @@ genvar_iface_struct,default,CMP_EQUAL,,,differ
 genvar_loop_decl_1,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/genvar_loop_decl_1/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'gen,,
 genvar_loop_decl_2,default,CMP_EQUAL,,,differ
 genvar_loop_decl_3,default,CMP_EQUAL,,,differ
-genvar_pow_index,default,CMP_NOTEQUAL,decompile:,,
+genvar_pow_index,default,CMP_EQUAL,,,match
 GetC,default,CMP_EQUAL,,,match
 gpr_genscope_repro,default,CMP_EQUAL,,,match
 hana_test_intermout,default,CMP_EQUAL,,,differ
@@ -1162,7 +1162,7 @@ genvar_iface_struct,testflags,CMP_EQUAL,,,differ
 genvar_loop_decl_1,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/genvar_loop_decl_1/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'gen,,
 genvar_loop_decl_2,testflags,CMP_EQUAL,,,differ
 genvar_loop_decl_3,testflags,CMP_EQUAL,,,differ
-genvar_pow_index,testflags,CMP_NOTEQUAL,decompile:,,
+genvar_pow_index,testflags,CMP_EQUAL,,,match
 GetC,testflags,CMP_EQUAL,,,match
 gpr_genscope_repro,testflags,CMP_EQUAL,,,match
 hana_test_intermout,testflags,CMP_EQUAL,,,differ

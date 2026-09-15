@@ -16315,6 +16315,49 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             }
             return fc;
         }
+        // § signedCastSysFuncCall46 — a SIGNING cast is not an operation at
+        // all.  `signed'(x)` / `unsigned'(x)` in the DEF (syntax) view comes
+        // out of Surelog as the SYSTEM FUNCTION CALL of the same name: a
+        // `sys_func_call` named `$signed` / `$unsigned`, spanning the WHOLE
+        // cast, with the inner expression as its single argument (the
+        // parentheses are not part of the argument's span).  Until now
+        // emitSyntaxExpr had NO arm for SignedCastExpression, so it returned
+        // null and every caller that pushes only non-null operands DROPPED the
+        // cast outright — a def-view `gen_for` condition
+        // `unsigned'(level) < NumLevels` came out with ONE operand where
+        // golden has two (u2r genvar_pow_index and arb_idx_cast share that
+        // head).  The bound (elaborated) emitter already builds the call; only
+        // the syntax view was blind.
+        //
+        // Measured against real Surelog on three purpose-built grids (27
+        // cells, every arm rc=0 on both producers): golden writes the call in
+        // EVERY def-view position — a gen_for condition (either operand,
+        // nested in a binary, under a unary, both operands at once), the loop
+        // INIT, the loop INCREMENT, a gen_if condition, a gen_case selector, a
+        // net range bound, an interface's own gen_for, a def-view gen-block
+        // continuous assign, a concatenation element and a function-call
+        // argument — and `signed'` spells `$signed` on the same rule.  The
+        // only cells where golden writes NOTHING are the ones an explicit
+        // `generate ... endgenerate` region already suppresses wholesale
+        // (grid.sv row O, the landed placeholder law) and a parameter override
+        // actual, which folds — both of which this arm leaves exactly where
+        // they were, because neither reaches emitSyntaxExpr.
+        case syntax::SyntaxKind::SignedCastExpression: {
+            auto& sce = syn.as<syntax::SignedCastExpressionSyntax>();
+            auto* sfc = s.MakeSys_func_call();
+            sfc->VpiName("$" + std::string(sce.signing.valueText()));
+            sfc->VpiParent(parent);
+            setLoc(sfc, syn.sourceRange());
+            // `inner` is the ParenthesizedExpressionSyntax; emitSyntaxExpr's
+            // own paren arm unwraps it, which is why the argument lands at the
+            // INNER token span the way golden writes it.
+            if (auto* a46 = emitSyntaxExpr(*sce.inner, sfc)) {
+                auto* args46 = s.MakeAnyVec();
+                args46->push_back(a46);
+                sfc->Tf_call_args(args46);
+            }
+            return sfc;
+        }
         case syntax::SyntaxKind::CastExpression: {
             // int'(expr) at module compile: operation 67 with a scoped ts ref
             // (int_typespec at the cast-target token) + the operand.

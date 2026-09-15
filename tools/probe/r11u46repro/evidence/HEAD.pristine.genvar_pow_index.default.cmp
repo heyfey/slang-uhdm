@@ -1,0 +1,37 @@
+LHS:
+decompile:
+operation: , id:21, line:12:26, endln:12:54
+|vpiParent:
+\_gen_for: , id:13
+|vpiOpType:20
+|vpiOperand:
+\_sys_func_call: ($unsigned), id:20, line:12:26, endln:12:42
+  |vpiParent:
+  \_operation: , id:21, line:12:26, endln:12:54
+  |vpiArgument:
+  \_ref_obj: (work@genvar_pow_index.level), id:19, line:12:36, endln:12:41
+    |vpiParent:
+    \_sys_func_call: ($unsigned), id:20, line:12:26, endln:12:42
+    |vpiName:level
+    |vpiFullName:work@genvar_pow_index.level
+    |vpiActual:
+    \_int_var: (work@genvar_pow_index.level), id:16, line:12:15, endln:12:20
+  |vpiName:$unsigned
+|vpiOperand:
+\_ref_obj: (work@genvar_pow_index.NumLevels), id:22, line:12:45, endln:12:54
+  |vpiParent:
+  \_operation: , id:21, line:12:26, endln:12:54
+  |vpiName:NumLevels
+  |vpiFullName:work@genvar_pow_index.NumLevels
+RHS:
+decompile:
+operation: , id:39, line:12:26, endln:12:54
+|vpiParent:
+\_gen_for: , id:33
+|vpiOpType:20
+|vpiOperand:
+\_ref_obj: (work@genvar_pow_index.NumLevels), id:40, line:12:45, endln:12:54
+  |vpiParent:
+  \_operation: , id:39, line:12:26, endln:12:54
+  |vpiName:NumLevels
+  |vpiFullName:work@genvar_pow_index.NumLevels

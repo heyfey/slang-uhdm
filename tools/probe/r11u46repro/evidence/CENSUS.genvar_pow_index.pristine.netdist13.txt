@@ -1,0 +1,24 @@
+392d391
+<           \_int_var: (work@genvar_pow_index.level), line:12:15, endln:12:20
+494d492
+<         \_operation: , line:12:26, endln:12:54
+852d849
+<         \_ref_obj: (work@genvar_pow_index.level), line:12:36, endln:12:41
+902,903d898
+<           \_sys_func_call: ($unsigned), line:12:26, endln:12:42
+<       \_sys_func_call: ($unsigned), line:12:26, endln:12:42
+1024d1018
+<           |vpiActual:
+1059d1052
+<         |vpiArgument:
+1408d1400
+<           |vpiFullName:work@genvar_pow_index.level
+1617d1608
+<         |vpiName:$unsigned
+1706d1696
+<           |vpiName:level
+1945d1934
+<       |vpiOperand:
+2275,2276d2263
+<           |vpiParent:
+<         |vpiParent:

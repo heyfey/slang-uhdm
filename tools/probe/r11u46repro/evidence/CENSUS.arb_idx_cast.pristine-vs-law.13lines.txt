@@ -1,0 +1,24 @@
+432a433
+>           \_int_var: (work@dut.level), line:18:15, endln:18:20
+604a606
+>         \_operation: , line:18:26, endln:18:54
+932a935
+>         \_ref_obj: (work@dut.level), line:18:36, endln:18:41
+1022a1026,1027
+>           \_sys_func_call: ($unsigned), line:18:26, endln:18:42
+>       \_sys_func_call: ($unsigned), line:18:26, endln:18:42
+1159a1165
+>           |vpiActual:
+1214a1221
+>         |vpiArgument:
+1589a1597
+>           |vpiFullName:work@dut.level
+1805a1814
+>         |vpiName:$unsigned
+1884a1894
+>           |vpiName:level
+2086a2097
+>       |vpiOperand:
+2373a2385,2386
+>           |vpiParent:
+>         |vpiParent:

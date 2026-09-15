@@ -1,0 +1,50 @@
+The three surelog-corpus byte-movers are the DOCUMENTED UVM pristine nondeterminism,
+not this law.  Order-blind (sorted, path-normalised) whole-dump distance, pristine vs law:
+
+### MiniAmiq/default  ORDER-BLIND P-vs-L = 4 lines
+730575d730574
+<       |UINT:1465
+733309a733309
+>       |UINT:782
+981060d981059
+<       |vpiDecompile:1465
+983961a983961
+>       |vpiDecompile:782
+
+### MiniAmiq/testflags  ORDER-BLIND P-vs-L = 4 lines
+723225a723226
+>       |UINT:0
+729428d729428
+<       |UINT:1004
+973852a973853
+>       |vpiDecompile:0
+980358d980358
+<       |vpiDecompile:1004
+
+### SeqDriver/default  ORDER-BLIND P-vs-L = 4 lines
+700407a700408
+>       |UINT:1182
+700507d700507
+<       |UINT:1247
+945306a945307
+>       |vpiDecompile:1182
+945366d945366
+<       |vpiDecompile:1247
+
+Every line is one half of a LINE-NUMBER attribute value (UINT:<n> + vpiDecompile:<n>)
+-- the 0-or-4-line class RESUME.md \xc2\xa79 names.  No structural object moved.
+
+POSITIVE CONTROL -- the PRISTINE binary ALONE, run twice on MiniAmiq/default's own
+command line, produces two DIFFERENT databases:
+run1 rc=0
+run2 rc=0
+5fae05d6d83aacfcdb96a5faf1536e14  /tmp/r11u46_coin/pris1.uhdm
+27419f6011b4625c9cf1464835473060  /tmp/r11u46_coin/pris2.uhdm
+COIN: the PRISTINE binary alone produces two DIFFERENT MiniAmiq databases
+DONE
+
+and 27419f6011b4... is exactly the md5 byteverify reports for the LAW MiniAmiq/testflags
+database above: a hash the PRISTINE binary itself produces.
+
+Neither MiniAmiq nor SeqDriver compiles any file containing a signing cast
+(predict46_surelog.py lists neither among its 8 candidates), so the law cannot reach them.

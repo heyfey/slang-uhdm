@@ -1,0 +1,24 @@
+=== u2r TESTFLAGS (law vs my own pristine) ===
+databases: patched=804 pristine=804
+PATH_SETS_IDENTICAL (804 paths)
+MOVER ./testflags/arb_idx_cast-dbf8cde6/slang.uhdm  patched=ec7519c68222 pristine=86be1a965306
+MOVER ./testflags/genvar_pow_index-c7bf081b/slang.uhdm  patched=0aed5c6d4404 pristine=6113a8fd5f5f
+MOVERS: 2 / 804
+SELFCHECK (every file vs one fixed file): 803 / 804 flagged
+
+=== u2r DEFAULT ===
+databases: patched=804 pristine=804
+PATH_SETS_IDENTICAL (804 paths)
+MOVER ./default/arb_idx_cast-dbf8cde6/slang.uhdm  patched=d4b841436c0e pristine=7a854e0a965b
+MOVER ./default/genvar_pow_index-c7bf081b/slang.uhdm  patched=afd0249e741d pristine=3fbbdf4d4c37
+MOVERS: 2 / 804
+SELFCHECK (every file vs one fixed file): 803 / 804 flagged
+
+=== SURELOG SUITE (both modes in one workdir) ===
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=39e312a513e5 pristine=accfb1b99b39
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=62e66557add2 pristine=e514c6181ef4
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=8aa156d992ea
+MOVERS: 3 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged

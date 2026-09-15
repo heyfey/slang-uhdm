@@ -38373,6 +38373,17 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             for (auto* o : *ops)
                                 bindGenvar(o);
                     }
+                    // § signedCastSysFuncCall46 — the genvar can now sit
+                    // INSIDE a call's argument vector (`unsigned'(level)` is a
+                    // `$unsigned` sys_func_call), and golden binds that
+                    // ref_obj to the loop's int_var exactly as it binds a bare
+                    // one: grid.sv row A reads
+                    // `ref_obj (work@grid.a) |vpiActual: int_var`.
+                    else if (e->UhdmType() == UHDM::uhdmsys_func_call) {
+                        if (auto* as = ((UHDM::sys_func_call*)e)->Tf_call_args())
+                            for (auto* a : *as)
+                                bindGenvar(a);
+                    }
                 };
                 // A loop bound that reads a PACKAGE parameter FOLDS even in
                 // the def view (a package param cannot be overridden, unlike a
@@ -38474,14 +38485,44 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 };
                 std::function<void(UHDM::any*)> foldPkgLoopRefs =
                     [&](UHDM::any* e) {
-                        if (!e || e->UhdmType() != UHDM::uhdmoperation)
+                        if (!e)
+                            return;
+                        // § signedCastSysFuncCall46 — the package-parameter
+                        // fold reaches THROUGH a signing cast's argument
+                        // vector exactly as it reaches through an operand
+                        // vector.  Golden folds `q < unsigned'(PN)` to
+                        // `$unsigned(<constant 5, UINT, 32>)` with the same
+                        // module-scoped ts ref onto a copy of the package
+                        // parameter's own int_typespec, for the BARE and the
+                        // QUALIFIED spelling alike (grid2.sv rows Q and R,
+                        // measured object-for-object against real Surelog).
+                        if (e->UhdmType() == UHDM::uhdmsys_func_call) {
+                            auto* as46 =
+                                ((UHDM::sys_func_call*)e)->Tf_call_args();
+                            if (!as46)
+                                return;
+                            for (size_t i46 = 0; i46 < as46->size(); i46++) {
+                                auto* a46 = (*as46)[i46];
+                                if (a46->UhdmType() == UHDM::uhdmoperation ||
+                                    a46->UhdmType() ==
+                                        UHDM::uhdmsys_func_call) {
+                                    foldPkgLoopRefs(a46);
+                                    continue;
+                                }
+                                if (auto* c46 = foldPkgLoopRef1(a46, e))
+                                    (*as46)[i46] = c46;
+                            }
+                            return;
+                        }
+                        if (e->UhdmType() != UHDM::uhdmoperation)
                             return;
                         auto* ops = ((UHDM::operation*)e)->Operands();
                         if (!ops)
                             return;
                         for (size_t i9 = 0; i9 < ops->size(); i9++) {
                             auto* o = (*ops)[i9];
-                            if (o->UhdmType() == UHDM::uhdmoperation) {
+                            if (o->UhdmType() == UHDM::uhdmoperation ||
+                                o->UhdmType() == UHDM::uhdmsys_func_call) {
                                 foldPkgLoopRefs(o);
                                 continue;
                             }

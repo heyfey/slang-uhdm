@@ -1,0 +1,78 @@
+##### grid
+-- CALIB golden-vs-golden (shape blocks)
+SHAPE-BLOCKS golden=30 ours=30  golden-only=0 ours-only=0
+-- PRISTINE
+SHAPE-BLOCKS golden=30 ours=4  golden-only=28 ours-only=2
+-- LAW
+SHAPE-BLOCKS golden=30 ours=30  golden-only=3 ours-only=3
+-- PRISTINE->LAW delta (golden-only=blocks the law REMOVED)
+SHAPE-BLOCKS golden=4 ours=30  golden-only=1 ours-only=27
+-- cell lister CALIB / PRIS / LAW
+CELLS-DIFF 0 / 15
+CELLS-DIFF 13 / 15
+CELLS-DIFF 0 / 15
+##### grid2
+-- CALIB golden-vs-golden (shape blocks)
+SHAPE-BLOCKS golden=18 ours=18  golden-only=0 ours-only=0
+-- PRISTINE
+SHAPE-BLOCKS golden=18 ours=8  golden-only=10 ours-only=0
+-- LAW
+SHAPE-BLOCKS golden=18 ours=18  golden-only=1 ours-only=1
+-- PRISTINE->LAW delta (golden-only=blocks the law REMOVED)
+SHAPE-BLOCKS golden=8 ours=18  golden-only=0 ours-only=10
+-- cell lister CALIB / PRIS / LAW
+CELLS-DIFF 0 / 6
+CELLS-DIFF 5 / 6
+CELLS-DIFF 0 / 6
+##### grid3
+-- CALIB golden-vs-golden (shape blocks)
+SHAPE-BLOCKS golden=10 ours=10  golden-only=0 ours-only=0
+-- PRISTINE
+SHAPE-BLOCKS golden=10 ours=6  golden-only=6 ours-only=2
+-- LAW
+SHAPE-BLOCKS golden=10 ours=12  golden-only=1 ours-only=3
+-- PRISTINE->LAW delta (golden-only=blocks the law REMOVED)
+SHAPE-BLOCKS golden=6 ours=12  golden-only=0 ours-only=6
+-- cell lister CALIB / PRIS / LAW
+CELLS-DIFF 0 / 5
+CELLS-DIFF 4 / 6
+CELLS-DIFF 1 / 6
+##### grid4
+-- CALIB golden-vs-golden (shape blocks)
+SHAPE-BLOCKS golden=38 ours=38  golden-only=0 ours-only=0
+-- PRISTINE
+SHAPE-BLOCKS golden=38 ours=14  golden-only=27 ours-only=3
+-- LAW
+SHAPE-BLOCKS golden=38 ours=32  golden-only=9 ours-only=3
+-- PRISTINE->LAW delta (golden-only=blocks the law REMOVED)
+SHAPE-BLOCKS golden=14 ours=32  golden-only=0 ours-only=18
+-- cell lister CALIB / PRIS / LAW
+CELLS-DIFF 0 / 19
+CELLS-DIFF 11 / 19
+CELLS-DIFF 2 / 19
+##### grid5
+-- CALIB golden-vs-golden (shape blocks)
+SHAPE-BLOCKS golden=6 ours=6  golden-only=0 ours-only=0
+-- PRISTINE
+SHAPE-BLOCKS golden=6 ours=0  golden-only=6 ours-only=0
+-- LAW
+SHAPE-BLOCKS golden=6 ours=6  golden-only=0 ours-only=0
+-- PRISTINE->LAW delta (golden-only=blocks the law REMOVED)
+SHAPE-BLOCKS golden=0 ours=6  golden-only=0 ours-only=6
+-- cell lister CALIB / PRIS / LAW
+CELLS-DIFF 0 / 3
+CELLS-DIFF 3 / 3
+CELLS-DIFF 0 / 3
+##### grid6
+-- CALIB golden-vs-golden (shape blocks)
+SHAPE-BLOCKS golden=18 ours=18  golden-only=0 ours-only=0
+-- PRISTINE
+SHAPE-BLOCKS golden=18 ours=0  golden-only=18 ours-only=0
+-- LAW
+SHAPE-BLOCKS golden=18 ours=18  golden-only=1 ours-only=1
+-- PRISTINE->LAW delta (golden-only=blocks the law REMOVED)
+SHAPE-BLOCKS golden=0 ours=18  golden-only=0 ours-only=18
+-- cell lister CALIB / PRIS / LAW
+CELLS-DIFF 0 / 9
+CELLS-DIFF 9 / 9
+CELLS-DIFF 0 / 9

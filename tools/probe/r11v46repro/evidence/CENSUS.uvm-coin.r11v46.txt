@@ -1,0 +1,37 @@
+### MiniAmiq/default ORDER-BLIND P-vs-L
+<       |UINT:0
+>       |UINT:790
+<       |vpiDecompile:0
+>       |vpiDecompile:790
+### Scoreboard/default ORDER-BLIND P-vs-L
+  (0 lines: pure order flip)
+### SeqDriver/default ORDER-BLIND P-vs-L
+<       |UINT:0
+>       |UINT:742
+<       |vpiDecompile:0
+>       |vpiDecompile:742
+### SimpleUVM/default ORDER-BLIND P-vs-L
+<       |UINT:0
+>       |UINT:1050
+<       |vpiDecompile:0
+>       |vpiDecompile:1050
+### MiniAmiq/testflags ORDER-BLIND P-vs-L
+<       |UINT:0
+>       |UINT:723
+<       |vpiDecompile:0
+>       |vpiDecompile:723
+### SeqDriver/testflags ORDER-BLIND P-vs-L
+<       |UINT:0
+>       |UINT:1173
+<       |vpiDecompile:0
+>       |vpiDecompile:1173
+
+POSITIVE CONTROL -- pristine binary alone, MiniAmiq/default, three runs:
+1fb5671d1d65fee34474dc494175077d  /tmp/v11u46_coin/pris1.uhdm
+6b4c319af906ee73d262c4da51863f86  /tmp/v11u46_coin/pris2.uhdm
+904007b793b31416db3340897af45486  /tmp/v11u46_coin/pris3.uhdm
+the pristine SWEEP's own MiniAmiq/default md5 is 27419f6011b4 -- a FOURTH value
+
+pristine-vs-pristine order-blind distance (run1 vs run2), same 4-line class:
+diff: c1.srt: No such file or directory
+diff: c2.srt: No such file or directory

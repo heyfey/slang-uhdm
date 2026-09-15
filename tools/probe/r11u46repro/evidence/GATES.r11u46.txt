@@ -1,0 +1,68 @@
+r11u46 GATES — base 2bbb8fae
+
+(1) BUILD
+    pristine md5 d82adeb552c6e4f42b50568702897292   <- the main tree's own md5 at 2bbb8fae
+    law      md5 6149b15131bcc9665d0c0ad02d6274d4   (reproduced byte-for-byte on a rebuild)
+    both frozen chmod 555 before any sweep
+    cmds.txt binary audit, by PATH:
+      law  u2r/testflags  871/871 name /tmp/r11u46_law.bin
+      law  u2r/default    871/871 name /tmp/r11u46_law.bin
+      law  surelog        1530/1581 name /tmp/r11u46_law.bin; the other 51 carry NO
+                          `slang:` line at all (golden-side failure, our binary never ran)
+      pris u2r/testflags  871/871 name /tmp/r11u46_pris.bin
+      pris u2r/default    871/871 name /tmp/r11u46_pris.bin
+      pris surelog        1531/1581 name /tmp/r11u46_pris.bin (same 50 golden-side rows)
+    references to the MAIN-TREE binary anywhere in either workdir set: 0
+
+(2) GOLDENS
+    SLANG_UHDM=<law>       23 PASS / 0 FAIL
+    SLANG_UHDM=/bin/false   0 PASS / 23 FAIL      (negative control)
+
+(3) uhdm2rtlil, BOTH MODES
+    vs committed results/gate_uhdm2rtlil.csv   : 1 row differs -> genvar_pow_index/testflags CONVERTS
+    vs committed results/golden_uhdm2rtlil.csv : 2 rows differ -> genvar_pow_index BOTH modes CONVERT
+    vs my own pristine CSVs (both modes)       : the same 2 rows, nothing else
+    781 CMP_EQUAL / 23 CMP_NOTEQUAL / 67 SLANG_REJECT  ->  782 / 22 / 67, both modes
+
+(4) SURELOG SUITE, --mode both
+    my pristine sweep == the committed baseline EXACTLY: 474/9 default, 469/8 testflags
+    the law sweep scores the same 474/9 + 469/8
+    three rows read differently from the committed CSV, none an exporter move:
+      Earlgrey_0_1 default+testflags  dump column blank (uhdm-dump timeout draw); status stays
+                                      CMP_EQUAL; MY OWN PRISTINE READS BLANK THE SAME WAY;
+                                      database pins hold (default 8bdf25272e08, tf 59d0ee6d10c3)
+      LowMemLib / LowMemPkg testflags SURELOG_FAIL on both sides; only the WORKDIR PATH quoted
+                                      inside the row's detail text differs
+      YosysOpenSparc default          SLANG_REJECT (committed, and in my pristine) vs SURELOG_FAIL
+                                      in the law sweep -- a GOLDEN-SIDE death writing the giant
+                                      UHDM DB under 3-way CPU contention.  RE-RUN ALONE WITH THE
+                                      LAW BINARY: SLANG_REJECT, the committed value.  Our exporter
+                                      rejects this test with BOTH binaries; it can never carry a
+                                      CMP status.
+
+(5) BYTE CENSUS  (SELFCHECK=1 on every run; see CENSUS.byteverify.r11u46.txt)
+    u2r testflags  804 paths  MOVERS 2  (arb_idx_cast, genvar_pow_index -- both PREDICTED BY NAME)
+    u2r default    804 paths  MOVERS 2  (the same two)
+    surelog        960 paths  MOVERS 3  (MiniAmiq x2, SeqDriver -- the documented UVM coin,
+                                         attributed to the 4-line line-number class with a
+                                         positive control; CENSUS.uvm-coin.r11u46.txt)
+    MOVED-WRONG 0   AWAY 0
+
+(6) CANARIES AND PINS
+    canaries.sh  u2r      ok=8  changed=0  absent=0
+    canaries.sh  surelog  ok=50 changed=2  absent=0   <- the 2 are Earlgrey_0_1's blank dump
+                                                         column (4), status unchanged
+    ctcan2.sh    u2r      PASS (EXPECT_UNKNOWN=6)
+    ctcan2.sh    surelog  PASS (EXPECT_UNKNOWN=1)
+    canaudit.sh           audited=29  UNCOVERED=0  FENCE-BREACH=0
+    rowheads.sh (law surelog workdir): SeqDriver, SimpleUVM, Scoreboard, MiniAmiq, BuildUVMPkg,
+                Earlgrey_0_1 -> 0 heads / cmp rc=0 in both modes; Rggen/default 1 head (its
+                committed state); SKIP-NOFILE on Scoreboard/tf and Rggen/tf, as expected
+    HARD byte pins, both modes:  SVSwitch 4842211c4030   YosysVerx 6ccda350c24a
+    STATUS pins byte-identical to my pristine: InterfaceModPort 59a365f3ce2c,
+                BlackParrotComplex, YosysOldOr
+
+(7) results/*.csv UNTOUCHED (read only).  No git stash.  GOLDEN_DEFER unset.
+    Patch surface: src/ModuleEmit.cpp, src/TypeEmit.cpp, tools/probe/r11u46repro/ -- nothing else.
+    Fence check over the four FENCED= row names (spelled only in canaudit.sh,
+    which the gate's own `grep -v canaudit` excludes): 0 0 0 0.

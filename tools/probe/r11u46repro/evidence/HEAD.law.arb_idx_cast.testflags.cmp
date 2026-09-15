@@ -1,0 +1,23 @@
+LHS:
+decompile:
+constant: , id:276, line:28:64, endln:28:68
+|vpiParent:
+\_operation: , id:279, line:28:64, endln:28:70
+|vpiDecompile:1
+|vpiSize:32
+|INT:1
+|vpiTypespec:
+\_ref_typespec: (work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes), id:277
+  |vpiParent:
+  \_constant: , id:276, line:28:64, endln:28:68
+  |vpiFullName:work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes
+  |vpiActual:
+  \_int_typespec: , id:278, line:22:18, endln:22:30
+|vpiConstType:7
+RHS:
+decompile:
+ref_obj: (work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes.Idx1), id:159, line:28:64, endln:28:68
+|vpiParent:
+\_operation: , id:158, line:28:64, endln:28:70
+|vpiName:Idx1
+|vpiFullName:work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes.Idx1
