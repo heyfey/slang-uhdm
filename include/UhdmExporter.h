@@ -3459,6 +3459,20 @@ private:
     /// wildcard-imported (unqualified) read, or no read at all, leaves the
     /// elaborated RHS in its declared shape.
     bool hasScopedPkgRef(std::string_view pkgName, std::string_view name);
+    // § pkgNestedPatElabNoExpandSize34 (r11u34) — hasScopedPkgRef's SELECT-
+    // TOLERANT sibling.  `hasScopedPkgRef` records a `ScopedName` only when its
+    // RIGHT is a bare `IdentifierName`; slang parses `q::PA[0].e` with an
+    // `IdentifierSelectName` on the right, so that read is invisible to it.
+    // Golden STAMPS for `q::PA[0].e` (grid arm `g1`) exactly as it does for the
+    // bare `q::PA` (arm `g4`) — measured — so the size rule needs the select
+    // form too.  `hasScopedPkgRef` itself is left alone: it is the trigger of
+    // the landed struct-flatten rules (ParamEmit § SCOPED-REFERENCE RULE) and
+    // widening it would move their population.  The PARAMETER-DECLARATION
+    // exclusion is kept, because it is measured for this rule too (arm `g5`:
+    // the only `q::PA` is a parameter default and golden stamps nothing).
+    bool pkgPatScopedRef34(std::string_view pkgName, std::string_view name);
+    bool pkgPatScopedRefsBuilt34 = false;
+    std::set<std::string> pkgPatScopedRefs34;
     std::set<std::string> scopedPkgRefs;
     bool scopedPkgRefsBuilt = false;
     /// True when `<name>.<member>` appears as a MEMBER SELECT anywhere in the
@@ -5571,6 +5585,80 @@ private:
     bool paramInitDef = false;
     // PACKAGE param inits: concat operands unparent in both views.
     bool paramInitPkg = false;
+    // § pkgNestedPatElabNoExpandSize34 (r11u34) — THE ELABORATED PACKAGE
+    // LISTING OF A PATTERN PARAMETER NOTHING RESOLVES THROUGH THE PACKAGE
+    // SCOPE CARRIES NO OPERAND `vpiSize`.
+    //
+    // PRODUCER.  The nested-operand size is `CompileHelper::adjustOpSize`
+    // (Surelog v1.87 `src/DesignCompile/CompileHelper.cpp:5114-5203`), and the
+    // only thing that calls it is `expandPatternAssignment`
+    // (CompileHelper.cpp:5421).  A PACKAGE parameter reaches that call through
+    // exactly one road: `CompileHelper::getValue`'s `pkg::NAME` arm
+    // (`src/DesignCompile/CompileExpression.cpp:901-955`), which fetches the
+    // package's own `param_assign`, runs `expandPatternAssignment` +
+    // `reorderAssignmentPattern` on it IN PLACE and hands back a clone.
+    // `DesignElaboration::elaborateInstance_` (:2588-2637) walks a MODULE's
+    // `paParam_assignment` objects, `NetlistElaboration` walks instances, and
+    // `UhdmWriter` :2204 walks cont_assigns, so none of those three can be on a
+    // package parameter.  (r11v34 CORRECTION: `expandPatternAssignment` has two
+    // FURTHER call sites, both siblings of the `pkg::NAME` arm inside the same
+    // `getValue` — `CompileExpression.cpp:1012`, which walks a module
+    // INSTANCE's netlist `param_assigns` by BARE name, and
+    // `CompileExpression.cpp:1114`, which walks `component->getParam_assigns()`
+    // by BARE name and whose `component` IS the package for an expression
+    // compiled inside one.  The road is therefore not provably unique from the
+    // source alone.  It is unique in every shape that could be MEASURED: arms
+    // `r11v34repro/v1`, `v10` and `v11` put a bare in-package constant read, a
+    // bare in-package WHOLE-name constant read and a wildcard-imported
+    // whole-name constant read on the same package parameter, and golden
+    // leaves all three unstamped.)  So a package parameter that nothing writes
+    // as
+    // `pkg::NAME` keeps its DEFINITION listing's operand sizes in the
+    // elaborated listing too — the same trigger, with the same
+    // parameter-declaration caveat, that `hasScopedPkgRef` already carries for
+    // the struct flatten.  The predicate READ here is `pkgPatScopedRef34`, its
+    // select-tolerant sibling: see that declaration for why the landed one
+    // could not be widened in place.
+    //
+    // MEASURED, one real v1.87 golden per arm (tools/probe/r11u34repro,
+    // `g1`..`g6`, every arm `slrc=0 slerr=0 ourrc=0`), reading the ELABORATED
+    // package listing of `localparam enc_t [0:2] PA = '{'{4,3},'{3,2},'{2,1}}`
+    // (a packed_array_typespec target) beside
+    // `localparam logic [1:0][1:0][3:0] PV = '{'{4'h1,4'h2},'{4'h3,4'h4}}`
+    // (a logic_typespec one):
+    //   g1  `q::PA[0].e`, a SCOPED select        PA front 192, PV 4   STAMPED
+    //   g4  `q::PA` whole, no select             PA front 192, PV 4   STAMPED
+    //   g2  `PA[i].e` unqualified, inside the package's own function   NONE
+    //   g3  `PA[0].e` unqualified after `import q::*`                  NONE
+    //   g5  `q::PA` written ONLY inside a parameter declaration        NONE
+    //   g6  no reader at all                                           NONE
+    // Our PRISTINE binary stamps 1 / 1 / 4 / 4 in ALL SIX arms — it never asks
+    // who reads the parameter.  This flag turns the stamp OFF for the three
+    // unread faces; the READ face (g1/g4) is untouched, so no cell that golden
+    // does stamp can move away from it.
+    //
+    // CORPUS: `cfg_func_width_loop` (uhdm2rtlil, both modes) — package `q`'s
+    // `localparam enc_t [0:NF-1] ENC = '{'{4,3},'{3,2},'{2,1}}` is read only as
+    // `ENC[i].e` inside `q`'s own functions.  Golden's elaborated `q` listing
+    // carries no size on any of the three nested ops; ours carried `vpiSize:1`
+    // on the first and the last, and `operation::Compare`'s `VpiSize` was the
+    // head on both rows.
+    //
+    // BOUNDARY (r11v34, sixteen further arms, every one `slrc=0 slerr=0`):
+    // the predicate is PER-PARAMETER and golden agrees — `v2` reads only
+    // `q::PB` scoped and golden stamps PB alone, leaving its unread siblings
+    // `PA`/`PV` bare.  No reader spelling was found that golden stamps and the
+    // predicate misses: a module-body localparam (`v3`), another package's
+    // localparam (`v5`), a wildcard-imported whole read (`v6`, `v11`), a bare
+    // in-package read (`v1`, `v10`), three-level nesting (`v12`) and a
+    // nested/constant MIXED operand list (`v14`) are all unstamped on both
+    // sides after the gate.  The predicate does OVER-approximate in the safe
+    // direction: when the only scoped read is PROCEDURAL (`always_comb`, arm
+    // `v9`) golden stamps nothing and we still do — unchanged from pristine,
+    // never away from golden.  A generate-block CONTINUOUS assign (`v8`) and an
+    // instance parameter override (`v4`) both DO stamp in golden, and the gate
+    // leaves both alone.
+    bool pkgPatNoExpand34 = false;
     // ELAB package view of a MULTIDIMENSIONAL param (>1 packed range): Surelog
     // compiles its value with Reduce::No (CompileHelper::isMultidimensional
     // gates the reduce), so same-package param references inside the init stay

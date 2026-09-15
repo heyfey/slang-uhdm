@@ -14843,6 +14843,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 paramInitDef = !topView || structWidePkg || structModDefTagged9;
                 paramInitElabFold = topView && structNoScopedRefPkg;
                 paramInitPkg = inPackage;
+                // § pkgNestedPatElabNoExpandSize34 (r11u34) — see the
+                // declaration in UhdmExporter.h for the producer road and the
+                // six-arm golden grid.  The predicate is a SELECT-TOLERANT
+                // sibling of the `hasScopedPkgRef` the struct flatten's
+                // SCOPED-REFERENCE rule reads — the same
+                // `CompileHelper::getValue` `pkg::NAME` arm drives both, but
+                // golden stamps for `q::PA[0].e` too (arm `g1`), which slang
+                // spells with an `IdentifierSelectName` that
+                // `hasScopedPkgRef` does not record.
+                pkgPatNoExpand34 =
+                    inPackage && topView &&
+                    !(ps.getParentScope() &&
+                      pkgPatScopedRef34(ps.getParentScope()->asSymbol().name,
+                                        ps.name));
                 // § elabMisevalRefSubst / § elabMisevalArgNoFold — this
                 // parameter's ELAB Rhs is the one Surelog refused to reduce
                 // (§ elabUnitMisevalNoFold), so the emit runs with the
@@ -15592,6 +15606,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 elabMdimParamInit = false;
                 misevalParamRhsScope = nullptr;
                 paramInitPkg = false;
+                pkgPatNoExpand34 = false;
                 paramInitDef = false;
                 paramInitElabFold = false;
                 importedParamClone = false;

@@ -1,0 +1,17 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (q::maxw::i), id:195
+|vpiParent:
+\_ref_obj: (q::maxw::i), id:194, line:31:20, endln:31:21
+|vpiFullName:q::maxw::i
+|vpiActual:
+\_int_typespec: , id:41, line:23:42, endln:23:45
+
+decompile:
+ref_typespec: (q::maxw::i), id:195
+|vpiParent:
+\_ref_obj: (q::maxw::i), id:194, line:31:20, endln:31:21
+|vpiFullName:q::maxw::i
+|vpiActual:
+\_int_typespec: , id:41, line:23:42, endln:23:45

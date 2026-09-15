@@ -1,0 +1,73 @@
+r11u34 — CORRECTION to tools/probe/r11u29repro/TRIAGE.md §K7
+============================================================
+Every line below is re-measured at 3621c70e with the pristine binary
+(md5 eb63e166e8f297649e0cf6371e4f2be4, byte-identical to the main tree) against
+the v1.87 golden cache.  One head per run on all six rows
+(`grep -c '^LHS:'` = 1).  The raw cmp logs are head.pris.*.cmp.
+
+TRIAGE SAYS                                   MEASURED
+-----------                                   --------
+"All three heads sit on an operation with     TRUE for cfg_func_width_loop and
+ vpiOpType:75"                                iface_zero_width_field.
+                                              FALSE for typed_named_pattern:
+                                              golden's owner operation id:102
+                                              (22:35-22:132) is vpiOpType:67
+                                              (vpiCastOp) over one vpiOpType:33
+                                              (vpiConcatOp), in the DEFINITION
+                                              (uhdmallModules) listing.
+
+"NAMELESS struct_typespec" on                 FALSE.  The struct_typespec IS
+ iface_zero_width_field                       named — `p::bus_t`, id:2.  What
+                                              carries no name (and no fullname
+                                              and no parent) is golden's
+                                              op-level ref_typespec id:90.
+
+"the localparam's own Rhs" as the owner        TRUE, and located: the ELABORATED
+                                              package `p` listing's param_assign
+                                              Rhs for `localparam bus_t B =
+                                              '{CTL:0, DAT:8, STS:0}`.  Behind
+                                              the missing ref golden has also
+                                              FLATTENED: three bare constants at
+                                              size 32 (the int unsigned member
+                                              width) where ours keeps three
+                                              tagged_patterns over 64-bit
+                                              constants.
+
+"we stamp vpiSize:1 on the pattern             TRUE, and located: the head is not
+ operation" (cfg_func_width_loop)              the parameter's own op but the
+                                              FIRST NESTED pattern `'{4, 3}`
+                                              (21:37-21:44) of package q's
+                                              `localparam enc_t [0:NF-1] ENC`,
+                                              in the ELABORATED package listing.
+                                              Ours stamps the THIRD nested op
+                                              (21:55) as well — front() and
+                                              back() — and not the middle one.
+
+"the three tests are the candidates"           FALSE — none of the three converts
+ (conversion)                                  on the K7 head.  Whole-dump diffs
+                                              vs golden at the base:
+                                                cfg_func_width_loop      332 lines
+                                                typed_named_pattern      709 lines
+                                                iface_zero_width_field  1557 lines
+                                              Judged differences stand behind
+                                              every one of the three heads.
+                                              K7 is a HEAD cluster, not a
+                                              conversion cluster.
+
+"the landed producer rule that names both:     REFINED.  r11v26's rule is read
+ Surelog types the elaborated pattern          from ExprEval::getValue, which is
+ operation exactly when every element          one arm of CompileHelper::getValue
+ reduces to a CONSTANT"                        (CompileExpression.cpp:901-955).
+                                              That arm is also the ONLY road by
+                                              which a PACKAGE parameter reaches
+                                              expandPatternAssignment, hence
+                                              adjustOpSize, hence the vpiSize.
+                                              So the two K7 halves are two FIELDS
+                                              of one producer call — and the
+                                              call runs only for a parameter
+                                              something writes as `pkg::NAME`.
+                                              "every element is a constant" is
+                                              necessary, not sufficient: arms g2,
+                                              g3, g5, g6 are all-constant and
+                                              golden stamps nothing in any of
+                                              them.

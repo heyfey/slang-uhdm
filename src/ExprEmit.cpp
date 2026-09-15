@@ -30677,7 +30677,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // six package-listing ops.
                     if (!nestedOps9 && !wasInPattern && !paramInitPkg)
                         op->VpiSize(1);
-                    else if (nestedOps9 && !wasInPattern) {
+                    // § pkgNestedPatElabNoExpandSize34 (r11u34) — ...and the
+                    // NESTED-operand stamp below is the same package/module
+                    // split one step deeper, with the reader as the gate.  The
+                    // operand size is Surelog's `adjustOpSize`, which only ever
+                    // runs from `expandPatternAssignment`, and a PACKAGE
+                    // parameter reaches that call through `getValue`'s
+                    // `pkg::NAME` arm alone.  `pkgPatNoExpand34` is exactly
+                    // `inPackage && topView && !pkgPatScopedRef34(pkg, name)`;
+                    // the six-arm golden grid and the producer road are in the
+                    // flag's declaration (UhdmExporter.h).  A `paramInitPkg`
+                    // guard rides in front so a stale flag from an enclosing
+                    // emit can never reach a module listing.
+                    else if (nestedOps9 && !wasInPattern &&
+                             !(paramInitPkg && pkgPatNoExpand34)) {
                         auto& pct9 = expr.type->getCanonicalType();
                         int32_t tot9 = 0;
                         if (pct9.kind == SymbolKind::PackedArrayType) {

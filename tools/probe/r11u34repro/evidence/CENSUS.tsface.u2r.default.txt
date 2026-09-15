@@ -1,0 +1,2 @@
+iface_zero_width_field default line:8:20  G[ts=1 tag=0 flat=0]  O[ts=0 tag=0 flat=3]
+stamped_gen_param default line:17:21  G[ts=1 tag=0 flat=0]  O[ts=0 tag=0 flat=3]

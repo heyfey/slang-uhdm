@@ -7958,6 +7958,50 @@ bool UhdmExporter::hasScopedPkgRef(std::string_view pkgName,
                                std::string(name)) > 0;
 }
 
+// § pkgNestedPatElabNoExpandSize34 (r11u34) — the SELECT-TOLERANT reader scan.
+// See the declaration in UhdmExporter.h for why this is a separate set from
+// `scopedPkgRefs` and for the six-arm golden grid that fixes its polarity.
+bool UhdmExporter::pkgPatScopedRef34(std::string_view pkgName,
+                                     std::string_view name) {
+    if (!pkgPatScopedRefsBuilt34) {
+        pkgPatScopedRefsBuilt34 = true;
+        auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
+                        bool inParamDecl) -> void {
+            if (node.kind == syntax::SyntaxKind::ParameterDeclaration ||
+                node.kind == syntax::SyntaxKind::TypeParameterDeclaration)
+                inParamDecl = true;
+            if (!inParamDecl && node.kind == syntax::SyntaxKind::ScopedName) {
+                auto& sn = node.as<syntax::ScopedNameSyntax>();
+                if (sn.left && sn.right &&
+                    sn.left->kind == syntax::SyntaxKind::IdentifierName) {
+                    std::string_view rn;
+                    if (sn.right->kind == syntax::SyntaxKind::IdentifierName)
+                        rn = sn.right->as<syntax::IdentifierNameSyntax>()
+                                 .identifier.valueText();
+                    else if (sn.right->kind ==
+                             syntax::SyntaxKind::IdentifierSelectName)
+                        rn = sn.right
+                                 ->as<syntax::IdentifierSelectNameSyntax>()
+                                 .identifier.valueText();
+                    if (!rn.empty())
+                        pkgPatScopedRefs34.insert(
+                            std::string(
+                                sn.left->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText()) +
+                            "::" + std::string(rn));
+                }
+            }
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                if (auto* ch = node.childNode(i))
+                    self(self, *ch, inParamDecl);
+        };
+        for (auto& tree : comp.getSyntaxTrees())
+            scan(scan, tree->root(), false);
+    }
+    return pkgPatScopedRefs34.count(std::string(pkgName) + "::" +
+                                    std::string(name)) > 0;
+}
+
 // `(P)'(x)` — a PARENTHESIZED parameter size cast — reuses P's own
 // declaration int_typespec as the cast target rather than minting one, and
 // Surelog stamps vpiInstance = the package onto that shared object.  Doing the
