@@ -1,0 +1,42 @@
+ARM=r10earl29repro_v1_scope SURELOG_RC=0
+ARM=r10earl29repro_v1_scope PRIS_RC=0
+ARM=r10earl29repro_v1_scope PAT_RC=0
+ARM=r10earl29repro_v1_scope GOLDEN_DUMP_RC=0
+ARM=r10earl29repro_v1_scope PRIS_DUMP_RC=0
+ARM=r10earl29repro_v1_scope PAT_DUMP_RC=0
+r10earl29repro_v1_scope 22:10 hier_path GOLD q.autoexecprogbuf[{1'b1,1}]        PRIS q.autoexecprogbuf[{1'b1,pkv::SP}]  PAT q.autoexecprogbuf[{1'b1,2'd1}]     MOVED-AWAY-STILL-WRONG
+r10earl29repro_v1_scope 22:28 bit_select GOLD work@v1_scope.q.autoexecprogbuf[{1'b1,1}].autoexecprogbuf PRIS work@v1_scope.q.autoexecprogbuf[{1'b1,pkv::SP}].autoexecprogbuf PAT work@v1_scope.q.autoexecprogbuf[{1'b1,2'd1}].autoexecprogbuf MOVED-AWAY-STILL-WRONG
+r10earl29repro_v1_scope 23:10 hier_path GOLD q.autoexecprogbuf[{1'b1,1}]        PRIS q.autoexecprogbuf[{1'b1,SE1}]      PAT q.autoexecprogbuf[{1'b1,SE1}]      
+r10earl29repro_v1_scope 23:28 bit_select GOLD work@v1_scope.q.autoexecprogbuf[{1'b1,1}].autoexecprogbuf PRIS work@v1_scope.q.autoexecprogbuf[{1'b1,SE1}].autoexecprogbuf PAT work@v1_scope.q.autoexecprogbuf[{1'b1,SE1}].autoexecprogbuf 
+r10earl29repro_v1_scope 24:10 hier_path GOLD q.autoexecprogbuf[{1'b1,,1}]       PRIS q.autoexecprogbuf[{1'b1,,pkv::SP}] PAT q.autoexecprogbuf[{1'b1,,2'd1}]    MOVED-AWAY-STILL-WRONG
+r10earl29repro_v1_scope 24:28 bit_select GOLD work@v1_scope.q.autoexecprogbuf[{1'b1,,1}].autoexecprogbuf PRIS work@v1_scope.q.autoexecprogbuf[{1'b1,,pkv::SP}].autoexecprogbuf PAT work@v1_scope.q.autoexecprogbuf[{1'b1,,2'd1}].autoexecprogbuf MOVED-AWAY-STILL-WRONG
+r10earl29repro_v1_scope 24:37 bit_select GOLD work@v1_scope.q.autoexecprogbuf[{1'b1,,1}].autoexecprogbuf.k PRIS work@v1_scope.k                    PAT work@v1_scope.k                    
+r10earl29repro_v1_scope 25:10 hier_path GOLD q.autoexecprogbuf[{1,}]            PRIS q.autoexecprogbuf[{SE1,}]          PAT q.autoexecprogbuf[{SE1,}]          
+r10earl29repro_v1_scope 25:28 bit_select GOLD work@v1_scope.q.autoexecprogbuf[{1,}].autoexecprogbuf PRIS work@v1_scope.q.autoexecprogbuf[{SE1,}].autoexecprogbuf PAT work@v1_scope.q.autoexecprogbuf[{SE1,}].autoexecprogbuf 
+r10earl29repro_v1_scope 25:41 bit_select GOLD work@v1_scope.q.autoexecprogbuf[{1,}].autoexecprogbuf.k PRIS work@v1_scope.k                    PAT work@v1_scope.k                    
+r10earl29repro_v1_scope 38:10 hier_path GOLD q.autoexecprogbuf[{1'b1,SE1}]      PRIS q.autoexecprogbuf[{1'b1,SE1}]      PAT q.autoexecprogbuf[{1'b1,SE1}]      
+r10earl29repro_v1_scope 38:28 bit_select GOLD work@v1_scope_imp.q.autoexecprogbuf[{1'b1,SE1}].autoexecprogbuf PRIS work@v1_scope_imp.q.autoexecprogbuf[{1'b1,SE1}].autoexecprogbuf PAT work@v1_scope_imp.q.autoexecprogbuf[{1'b1,SE1}].autoexecprogbuf 
+r10earl29repro_v1_scope 39:10 hier_path GOLD q.autoexecprogbuf[{,SE1}]          PRIS q.autoexecprogbuf[{,SE1}]          PAT q.autoexecprogbuf[{,SE1}]          
+r10earl29repro_v1_scope 39:28 bit_select GOLD work@v1_scope_imp.q.autoexecprogbuf[{,SE1}].autoexecprogbuf PRIS work@v1_scope_imp.q.autoexecprogbuf[{,SE1}].autoexecprogbuf PAT work@v1_scope_imp.q.autoexecprogbuf[{,SE1}].autoexecprogbuf 
+r10earl29repro_v1_scope 39:31 bit_select GOLD work@v1_scope_imp.q.autoexecprogbuf[{,SE1}].autoexecprogbuf.k PRIS work@v1_scope_imp.k                PAT work@v1_scope_imp.k                
+ARM r10earl29repro_v1_scope SUMMARY cells=15 PRIS_SAME=4 PRIS_DIFF=11 PAT_SAME=4 PAT_DIFF=11 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=4
+ARM=r10earl29repro_b3_edges SURELOG_RC=0
+ARM=r10earl29repro_b3_edges PRIS_RC=0
+ARM=r10earl29repro_b3_edges PAT_RC=0
+ARM=r10earl29repro_b3_edges GOLDEN_DUMP_RC=0
+ARM=r10earl29repro_b3_edges PRIS_DUMP_RC=0
+ARM=r10earl29repro_b3_edges PAT_DUMP_RC=0
+r10earl29repro_b3_edges 35:10 hier_path GOLD q.autoexecprogbuf[{1'b1,2'd1}]     PRIS q.autoexecprogbuf[{1'b1,PP}]       PAT q.autoexecprogbuf[{1'b1,2'd1}]     FIXED
+r10earl29repro_b3_edges 35:28 bit_select GOLD work@b3_edges.q.autoexecprogbuf[{1'b1,2'd1}].autoexecprogbuf PRIS work@b3_edges.q.autoexecprogbuf[{1'b1,PP}].autoexecprogbuf PAT work@b3_edges.q.autoexecprogbuf[{1'b1,2'd1}].autoexecprogbuf FIXED
+r10earl29repro_b3_edges 36:10 hier_path GOLD q.autoexecprogbuf[{1'b1,1+:2}]     PRIS q.autoexecprogbuf[{1'b1,1+:2}]     PAT q.autoexecprogbuf[{1'b1,1+:2}]     
+r10earl29repro_b3_edges 36:28 bit_select GOLD work@b3_edges.q.autoexecprogbuf[{1'b1,1+:2}].autoexecprogbuf PRIS work@b3_edges.q.autoexecprogbuf[{1'b1,1+:2}].autoexecprogbuf PAT work@b3_edges.q.autoexecprogbuf[{1'b1,1+:2}].autoexecprogbuf 
+r10earl29repro_b3_edges 37:10 hier_path GOLD q.autoexecprogbuf[{1'b1,}]         PRIS q.autoexecprogbuf[{1'b1,}]         PAT q.autoexecprogbuf[{1'b1,}]         
+r10earl29repro_b3_edges 37:28 bit_select GOLD work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf PRIS work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf PAT work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf 
+r10earl29repro_b3_edges 38:10 hier_path GOLD q.autoexecprogbuf[{1'b1,$signed(k)}] PRIS q.autoexecprogbuf[{1'b1,$signed(k)}] PAT q.autoexecprogbuf[{1'b1,$signed(k)}] 
+r10earl29repro_b3_edges 38:28 bit_select GOLD work@b3_edges.q.autoexecprogbuf[{1'b1,$signed(k)}].autoexecprogbuf PRIS work@b3_edges.q.autoexecprogbuf[{1'b1,$signed(k)}].autoexecprogbuf PAT work@b3_edges.q.autoexecprogbuf[{1'b1,$signed(k)}].autoexecprogbuf 
+r10earl29repro_b3_edges 43:10 hier_path GOLD q.autoexecprogbuf[{1'b1,}]         PRIS q.autoexecprogbuf[{1'b1,}]         PAT q.autoexecprogbuf[{1'b1,}]         
+r10earl29repro_b3_edges 43:28 bit_select GOLD work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf PRIS work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf PAT work@b3_edges.q.autoexecprogbuf[{1'b1,}].autoexecprogbuf 
+r10earl29repro_b3_edges 43:35 hier_path GOLD u.x                                PRIS u.x                                PAT u.x                                
+r10earl29repro_b3_edges 44:10 hier_path GOLD q.autoexecprogbuf[{1'b1,{2{{1'b1,1'b0}}}}] PRIS q.autoexecprogbuf[{1'b1,{2{{1'b1,1'b0}}}}] PAT q.autoexecprogbuf[{1'b1,{2{{1'b1,1'b0}}}}] 
+r10earl29repro_b3_edges 44:28 bit_select GOLD work@b3_edges.q.autoexecprogbuf[{1'b1,{2{{1'b1,1'b0}}}}].autoexecprogbuf PRIS work@b3_edges.q.autoexecprogbuf[{1'b1,{2{{1'b1,1'b0}}}}].autoexecprogbuf PAT work@b3_edges.q.autoexecprogbuf[{1'b1,{2{{1'b1,1'b0}}}}].autoexecprogbuf 
+ARM r10earl29repro_b3_edges SUMMARY cells=13 PRIS_SAME=11 PRIS_DIFF=2 PAT_SAME=13 PAT_DIFF=0 FIXED=2 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0

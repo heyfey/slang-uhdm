@@ -1,0 +1,31 @@
+=== r11u42 MOVER ATTRIBUTION — the four surelog byte movers
+
+byteverify surelog: MOVERS 4 / 960 (SELFCHECK 959/960)
+  MiniAmiq  default + testflags
+  SeqDriver default + testflags
+
+-- 1. THE MOVE IS NOT THIS LAW'S SHAPE.
+   uhdm-dump, workdir-normalised, RAW and ORDER-BLIND (sorted) alike:
+   MiniAmiq/default   4 diff sides raw, 4 sorted
+   SeqDriver/default  4 diff sides raw, 4 sorted
+   and both are ONE constant's value at ONE dump line:
+     MiniAmiq  1820474 |vpiDecompile:1524 -> 1260 ; 1820476 |UINT:1524 -> 1260
+     SeqDriver 1750140 |vpiDecompile:787  -> 0    ; 1750142 |UINT:787  -> 0
+   § hpTrailSelPkgFold42 rewrites hier_path / bit_select NAME STRINGS and nothing else;
+   it cannot write a constant's UINT.  These are LINE NUMBERS.
+
+-- 2. POSITIVE CONTROL: the PRISTINE binary alone, three runs, identical argv.
+   run a md5=ea5962b0cfc8
+   run b md5=9e096e5515fc
+   run c md5=b4206470d463
+   (and the pristine SWEEP's own copy is a5ed10104679 — a FOURTH value)
+   a-vs-b: 4 diff sides, at dump lines 1820474/1820476 — THE SAME LINES,
+           |vpiDecompile:1101 -> 1059 ; |UINT:1101 -> 1059
+   a-vs-c: 80 diff sides — the wider macro-buffer SourceLocation class.
+   MiniAmiq's database is nondeterministic per invocation ON THE PRISTINE BINARY.
+
+-- 3. THE EXACT CENSUS SAYS THE LAW CANNOT REACH THEM.
+   ct42cen.py over the four PRISTINE databases: CAND 0 / 4, CELLS 0, BAD 0.
+
+-- 4. THE JUDGE DID NOT MOVE.  All four rows are CMP_EQUAL before and after,
+   in both modes, and the whole surelog status histogram is unchanged cell for cell.

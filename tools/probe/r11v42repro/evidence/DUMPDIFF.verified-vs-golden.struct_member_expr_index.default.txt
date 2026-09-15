@@ -1,0 +1,46 @@
+307a308,309
+>     |vpiParent:
+>     \_package: p (p::), file:/home/heyfey/git-repos/uhdm2rtlil/test/struct_member_expr_index/dut.sv, line:6:1, endln:18:11
+318c320
+<       \_ref_typespec: (p::arr_t.pair)
+---
+>       \_ref_typespec: (p::p::arr_t::pair)
+321c323
+<         |vpiFullName:p::arr_t.pair
+---
+>         |vpiFullName:p::p::arr_t::pair
+335c337
+<       \_ref_typespec: (p::arr_t.tag)
+---
+>       \_ref_typespec: (p::p::arr_t::tag)
+338c340
+<         |vpiFullName:p::arr_t.tag
+---
+>         |vpiFullName:p::p::arr_t::tag
+347a350,351
+>     |vpiParent:
+>     \_package: p (p::), file:/home/heyfey/git-repos/uhdm2rtlil/test/struct_member_expr_index/dut.sv, line:6:1, endln:18:11
+358c362
+<       \_ref_typespec: (p::fp_t.sign)
+---
+>       \_ref_typespec: (p::p::fp_t::sign)
+361c365
+<         |vpiFullName:p::fp_t.sign
+---
+>         |vpiFullName:p::p::fp_t::sign
+375c379
+<       \_ref_typespec: (p::fp_t.exponent)
+---
+>       \_ref_typespec: (p::p::fp_t::exponent)
+378c382
+<         |vpiFullName:p::fp_t.exponent
+---
+>         |vpiFullName:p::p::fp_t::exponent
+392c396
+<       \_ref_typespec: (p::fp_t.mantissa)
+---
+>       \_ref_typespec: (p::p::fp_t::mantissa)
+395c399
+<         |vpiFullName:p::fp_t.mantissa
+---
+>         |vpiFullName:p::p::fp_t::mantissa

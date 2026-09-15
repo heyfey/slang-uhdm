@@ -1,0 +1,95 @@
+ARM=g1 SURELOG_RC=0
+ARM=g1 PRIS_RC=0
+ARM=g1 PAT_RC=0
+ARM=g1 GOLDEN_DUMP_RC=0
+ARM=g1 PRIS_DUMP_RC=0
+ARM=g1 PAT_DUMP_RC=0
+g1 37:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 37:18 hier_path GOLD v.m[8 - 1]                         PRIS v.m[q42::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+g1 37:22 bit_select GOLD work@g1.v.m[8 - 1].m               PRIS work@g1.v.m[q42::LP - 1].m         PAT work@g1.v.m[8 - 1].m               FIXED
+g1 38:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 38:18 hier_path GOLD v.m[4 - 1]                         PRIS v.m[q42::PP - 1]                   PAT v.m[4 - 1]                         FIXED
+g1 38:22 bit_select GOLD work@g1.v.m[4 - 1].m               PRIS work@g1.v.m[q42::PP - 1].m         PAT work@g1.v.m[4 - 1].m               FIXED
+g1 39:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 39:18 hier_path GOLD v.m[8]                             PRIS v.m[q42::LP]                       PAT v.m[8]                             FIXED
+g1 39:22 bit_select GOLD work@g1.v.m[8].m                   PRIS work@g1.v.m[q42::LP].m             PAT work@g1.v.m[8].m                   FIXED
+g1 40:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 40:18 hier_path GOLD v.m[-8 + 9]                        PRIS v.m[-q42::LP + 9]                  PAT v.m[-8 + 9]                        FIXED
+g1 40:22 bit_select GOLD work@g1.v.m[-8 + 9].m              PRIS work@g1.v.m[-q42::LP + 9].m        PAT work@g1.v.m[-8 + 9].m              FIXED
+g1 41:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 41:18 hier_path GOLD v.m[8 * 2 - 14]                    PRIS v.m[q42::LP * 2 - 14]              PAT v.m[8 * 2 - 14]                    FIXED
+g1 41:22 bit_select GOLD work@g1.v.m[8 * 2 - 14].m          PRIS work@g1.v.m[q42::LP * 2 - 14].m    PAT work@g1.v.m[8 * 2 - 14].m          FIXED
+g1 42:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 42:18 hier_path GOLD v.m[8 > 2 ? 1 : 0]                 PRIS v.m[q42::LP > 2 ? 1 : 0]           PAT v.m[8 > 2 ? 1 : 0]                 FIXED
+g1 42:22 bit_select GOLD work@g1.v.m[8 > 2 ? 1 : 0].m       PRIS work@g1.v.m[q42::LP > 2 ? 1 : 0].m PAT work@g1.v.m[8 > 2 ? 1 : 0].m       FIXED
+g1 43:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 43:18 hier_path GOLD v.m[8 - 4]                         PRIS v.m[q42::LP - q42::PP]             PAT v.m[8 - 4]                         FIXED
+g1 43:22 bit_select GOLD work@g1.v.m[8 - 4].m               PRIS work@g1.v.m[q42::LP - q42::PP].m   PAT work@g1.v.m[8 - 4].m               FIXED
+g1 44:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 44:18 hier_path GOLD v.m[q42::CATP - 1]                 PRIS v.m[q42::CATP - 1]                 PAT v.m[q42::CATP - 1]                 
+g1 44:22 bit_select GOLD work@g1.v.m[q42::CATP - 1].m       PRIS work@g1.v.m[q42::CATP - 1].m       PAT work@g1.v.m[q42::CATP - 1].m       
+g1 45:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 45:18 hier_path GOLD v.m[q42::REPP - 1]                 PRIS v.m[q42::REPP - 1]                 PAT v.m[q42::REPP - 1]                 
+g1 45:22 bit_select GOLD work@g1.v.m[q42::REPP - 1].m       PRIS work@g1.v.m[q42::REPP - 1].m       PAT work@g1.v.m[q42::REPP - 1].m       
+g1 46:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 46:18 hier_path GOLD v.m                                PRIS v.m                                PAT v.m                                
+g1 46:22 bit_select GOLD work@g1.v.m.m                      PRIS work@g1.v.m.m                      PAT work@g1.v.m.m                      
+g1 49:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 49:18 hier_path GOLD v.m[MLP - 1]                       PRIS v.m[MLP - 1]                       PAT v.m[MLP - 1]                       
+g1 49:22 bit_select GOLD work@g1.v.m[MLP - 1].m             PRIS work@g1.v.m[MLP - 1].m             PAT work@g1.v.m[MLP - 1].m             
+g1 50:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 50:18 hier_path GOLD v.m[MPP - 1]                       PRIS v.m[MPP - 1]                       PAT v.m[MPP - 1]                       
+g1 50:22 bit_select GOLD work@g1.v.m[MPP - 1].m             PRIS work@g1.v.m[MPP - 1].m             PAT work@g1.v.m[MPP - 1].m             
+g1 53:21 hier_path GOLD av.pr[8 - 7]                       PRIS av.pr[q42::LP - 7]                 PAT av.pr[8 - 7]                       FIXED
+g1 53:27 bit_select GOLD work@g1.av.pr[8 - 7].pr            PRIS work@g1.av.pr[q42::LP - 7].pr      PAT work@g1.av.pr[8 - 7].pr            FIXED
+g1 54:21 hier_path GOLD av.pr[1]                           PRIS av.pr[1]                           PAT av.pr[1]                           
+g1 54:27 bit_select GOLD work@g1.av.pr[1].pr                PRIS work@g1.av.pr[1].pr                PAT work@g1.av.pr[1].pr                
+g1 57:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 57:18 hier_path GOLD nv.inner.m[8 - 1]                  PRIS nv.inner.m[q42::LP - 1]            PAT nv.inner.m[8 - 1]                  FIXED
+g1 57:29 bit_select GOLD work@g1.nv.inner.m[8 - 1].m        PRIS work@g1.nv.inner.m[q42::LP - 1].m  PAT work@g1.nv.inner.m[8 - 1].m        FIXED
+g1 60:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 60:18 hier_path GOLD v.m[7]                             PRIS v.m[7]                             PAT v.m[7]                             
+g1 60:22 bit_select GOLD work@g1.v.m[7].m                   PRIS work@g1.v.m[7].m                   PAT work@g1.v.m[7].m                   
+g1 61:10 bit_select GOLD work@g1.o                          PRIS work@g1.o                          PAT work@g1.o                          
+g1 61:18 hier_path GOLD v.m[7 - 1]                         PRIS v.m[7 - 1]                         PAT v.m[7 - 1]                         
+g1 61:22 bit_select GOLD work@g1.v.m[7 - 1].m               PRIS work@g1.v.m[7 - 1].m               PAT work@g1.v.m[7 - 1].m               
+ARM g1 SUMMARY cells=49 PRIS_SAME=31 PRIS_DIFF=18 PAT_SAME=49 PAT_DIFF=0 FIXED=18 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=g2 SURELOG_RC=0
+ARM=g2 PRIS_RC=0
+ARM=g2 PAT_RC=0
+ARM=g2 GOLDEN_DUMP_RC=0
+ARM=g2 PRIS_DUMP_RC=0
+ARM=g2 PAT_DUMP_RC=0
+g2 22:10 bit_select GOLD work@g2.o                          PRIS work@g2.o                          PAT work@g2.o                          
+g2 22:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[LP - 1]                        PAT v.m[8 - 1]                         FIXED
+g2 22:21 bit_select GOLD work@g2.v.m[8 - 1].m               PRIS work@g2.v.m[LP - 1].m              PAT work@g2.v.m[8 - 1].m               FIXED
+g2 23:10 bit_select GOLD work@g2.o                          PRIS work@g2.o                          PAT work@g2.o                          
+g2 23:17 hier_path GOLD v.m[4 - 1]                         PRIS v.m[PP - 1]                        PAT v.m[4 - 1]                         FIXED
+g2 23:21 bit_select GOLD work@g2.v.m[4 - 1].m               PRIS work@g2.v.m[PP - 1].m              PAT work@g2.v.m[4 - 1].m               FIXED
+g2 24:10 bit_select GOLD work@g2.o                          PRIS work@g2.o                          PAT work@g2.o                          
+g2 24:17 hier_path GOLD v.m[8]                             PRIS v.m[8]                             PAT v.m[8]                             
+g2 24:21 bit_select GOLD work@g2.v.m[8].m                   PRIS work@g2.v.m[8].m                   PAT work@g2.v.m[8].m                   
+g2 29:5 hier_path GOLD rv.m[8 - 1]                        PRIS rv.m[q42b::LP - 1]                 PAT rv.m[8 - 1]                        FIXED
+g2 29:8 bit_select GOLD work@g2.rv.m[8 - 1].m              PRIS work@g2.rv.m[q42b::LP - 1].m       PAT work@g2.rv.m[8 - 1].m              FIXED
+g2 30:5 hier_path GOLD rv.m[MLP - 1]                      PRIS rv.m[MLP - 1]                      PAT rv.m[MLP - 1]                      
+g2 30:8 bit_select GOLD work@g2.rv.m[MLP - 1].m            PRIS work@g2.rv.m[MLP - 1].m            PAT work@g2.rv.m[MLP - 1].m            
+g2 32:10 bit_select GOLD work@g2.o                          PRIS work@g2.o                          PAT work@g2.o                          
+g2 32:17 hier_path GOLD rv.m[0]                            PRIS rv.m[0]                            PAT rv.m[0]                            
+g2 32:22 bit_select GOLD work@g2.rv.m[0].m                  PRIS work@g2.rv.m[0].m                  PAT work@g2.rv.m[0].m                  
+g2 37:9 hier_path GOLD v.m[8 - 1]                         PRIS v.m[q42b::LP - 1]                  PAT v.m[8 - 1]                         FIXED
+g2 37:13 bit_select GOLD work@g2.v.m[8 - 1].m               PRIS work@g2.v.m[q42b::LP - 1].m        PAT work@g2.v.m[8 - 1].m               FIXED
+g2 39:10 bit_select GOLD work@g2.o                          PRIS work@g2.o                          PAT work@g2.o                          
+g2 42:10 bit_select GOLD work@g2.arr                        PRIS work@g2.arr                        PAT work@g2.arr                        
+g2 43:10 bit_select GOLD work@g2.arr                        PRIS work@g2.arr                        PAT work@g2.arr                        
+g2 44:10 bit_select GOLD work@g2.o                          PRIS work@g2.o                          PAT work@g2.o                          
+g2 44:17 bit_select GOLD arr[0]                             PRIS arr[0]                             PAT arr[0]                             
+g2 44:17 hier_path GOLD arr[0].m[8 - 1]                    PRIS arr[0].m[8 - 1]                    PAT arr[0].m[8 - 1]                    
+g2 44:26 bit_select GOLD work@g2.arr[0].m[8 - 1].m          PRIS work@g2.arr[0].m[8 - 1].m          PAT work@g2.arr[0].m[8 - 1].m          
+g2 45:10 bit_select GOLD work@g2.o                          PRIS work@g2.o                          PAT work@g2.o                          
+g2 45:17 bit_select GOLD arr[4 - 4]                         PRIS arr[4 - 4]                         PAT arr[4 - 4]                         
+g2 45:17 hier_path GOLD arr[4 - 4].m[3]                    PRIS arr[4 - 4].m[3]                    PAT arr[4 - 4].m[3]                    
+g2 45:35 bit_select GOLD work@g2.arr[4 - 4].m[3].m          PRIS work@g2.arr[4 - 4].m[3].m          PAT work@g2.arr[4 - 4].m[3].m          
+g2 49:12 hier_path GOLD a.m[8 - 1]                         PRIS a.m[q42b::LP - 1]                  PAT a.m[8 - 1]                         FIXED
+g2 49:16 bit_select GOLD work@g2.f.a.m[8 - 1].m             PRIS work@g2.f.a.m[q42b::LP - 1].m      PAT work@g2.f.a.m[8 - 1].m             FIXED
+g2 51:10 bit_select GOLD work@g2.o                          PRIS work@g2.o                          PAT work@g2.o                          
+ARM g2 SUMMARY cells=32 PRIS_SAME=22 PRIS_DIFF=10 PAT_SAME=32 PAT_DIFF=0 FIXED=10 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0

@@ -1,0 +1,31 @@
+=== r11v42 GATES, uhdm2rtlil — VERIFIED binary md5 1607e1d7226351b52b2eba2442d3bb45
+    (pristine 3d25111fd1adc7ffa1b393b18a05cf20 = the ops pin, built from a clean
+     b34a0b3c worktree by this verifier; r11u42's own patched binary
+     156b8c10d2f67b7af38968e991f2da75 reproduced bit for bit from its patch)
+
+goldens 23 PASS / 0 FAIL (verified binary); SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL
+cmds.txt audit: 1742 / 1742 rows name the frozen verified binary by absolute path
+
+-- rows, VERIFIED vs my own PRISTINE sweep, testflags: 1 differing ROW
+   < struct_member_expr_index,testflags,CMP_NOTEQUAL,decompile:,,
+   > struct_member_expr_index,testflags,CMP_EQUAL,,,differ
+-- rows, VERIFIED vs my own PRISTINE sweep, default: 1 differing ROW
+   < struct_member_expr_index,default,CMP_NOTEQUAL,decompile:,,
+   > struct_member_expr_index,default,CMP_EQUAL,,,differ
+   779 / 25 / 67  ->  780 / 24 / 67 in BOTH modes
+-- PRISTINE vs COMMITTED results/golden_uhdm2rtlil.csv (1742 rows, both modes):
+   0 differing rows.  results/*.csv were NOT edited.
+
+-- byteverify (SELFCHECK=1), VERIFIED vs PRISTINE workdir:
+   PATH_SETS_IDENTICAL (1608); MOVERS 2 / 1608 — exactly the two predicted by
+   name from the pristine databases before the verified binary swept:
+     ./default/struct_member_expr_index-8c9e49bc/slang.uhdm
+     ./testflags/struct_member_expr_index-8c9e49bc/slang.uhdm
+   SELFCHECK 1607 / 1608 flagged
+-- byteverify, VERIFIED vs r11u42's PATCHED workdir: MOVERS 0 / 1608
+   (the three verifier refinements re-gate only faces this corpus does not contain)
+
+-- canaries ok=8 changed=0 absent=0; EXPECT_UNKNOWN=6 ctcan2 PASS;
+   canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+-- the four slang-fenced tests were never dispatched by any driver in this
+   directory; they are named only inside canaudit.sh's own FENCED= list.

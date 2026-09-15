@@ -1,0 +1,108 @@
+=== PATCHED surelog sweep summary
+  600/798
+  625/798
+  650/798
+  675/798
+  700/798
+  725/798
+  750/798
+  775/798
+
+[default] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+
+[testflags] 798 tests
+  CMP_EQUAL: 469
+  SLANG_REJECT: 286
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 8
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+=== ct8rows vs COMMITTED results/golden_surelog.csv
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u42_wdx/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u42_wdx/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     324      248 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== ct8rows vs MY PRISTINE sweep
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u42_wdp/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u42_wdx/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u42_wdp/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u42_wdx/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     324      248 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== PRISTINE vs COMMITTED (control)
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u42_wdp/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u42_wdp/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     324      248 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     329      303 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== byteverify surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=f7f3639405d4 pristine=a5ed10104679
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=37703b23a419
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=0ae91aa5e0b2 pristine=1fcf48c8e7e8
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=283a01b459e6 pristine=05df6c25a21b
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+=== canaries
+  Scoreboard                     testflags OK      SLANG_REJECT/
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+=== ctcan2
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+DONE

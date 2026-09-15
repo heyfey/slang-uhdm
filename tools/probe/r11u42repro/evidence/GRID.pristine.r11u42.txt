@@ -1,0 +1,39 @@
+ARM=g1 SURELOG_RC=0
+ARM=g1 OURS_RC=0
+ARM=g1 GOLDEN_DUMP_RC=0
+ARM=g1 OURS_DUMP_RC=0
+----- ARM g1  (LHS is ALWAYS golden)
+37.18     GOLD v.m[8 - 1]                         | OURS v.m[q42::LP - 1]                   DIFF
+38.18     GOLD v.m[4 - 1]                         | OURS v.m[q42::PP - 1]                   DIFF
+39.18     GOLD v.m[8]                             | OURS v.m[q42::LP]                       DIFF
+40.18     GOLD v.m[-8 + 9]                        | OURS v.m[-q42::LP + 9]                  DIFF
+41.18     GOLD v.m[8 * 2 - 14]                    | OURS v.m[q42::LP * 2 - 14]              DIFF
+42.18     GOLD v.m[8 > 2 ? 1 : 0]                 | OURS v.m[q42::LP > 2 ? 1 : 0]           DIFF
+43.18     GOLD v.m[8 - 4]                         | OURS v.m[q42::LP - q42::PP]             DIFF
+44.18     GOLD v.m[q42::CATP - 1]                 | OURS v.m[q42::CATP - 1]                 SAME
+45.18     GOLD v.m[q42::REPP - 1]                 | OURS v.m[q42::REPP - 1]                 SAME
+46.18     GOLD v.m                                | OURS v.m                                SAME
+49.18     GOLD v.m[MLP - 1]                       | OURS v.m[MLP - 1]                       SAME
+50.18     GOLD v.m[MPP - 1]                       | OURS v.m[MPP - 1]                       SAME
+53.21     GOLD av.pr[8 - 7]                       | OURS av.pr[q42::LP - 7]                 DIFF
+54.21     GOLD av.pr[1]                           | OURS av.pr[1]                           SAME
+57.18     GOLD nv.inner.m[8 - 1]                  | OURS nv.inner.m[q42::LP - 1]            DIFF
+60.18     GOLD v.m[7]                             | OURS v.m[7]                             SAME
+61.18     GOLD v.m[7 - 1]                         | OURS v.m[7 - 1]                         SAME
+ARM SUMMARY  SAME=8 DIFF=9
+ARM=g2 SURELOG_RC=0
+ARM=g2 OURS_RC=0
+ARM=g2 GOLDEN_DUMP_RC=0
+ARM=g2 OURS_DUMP_RC=0
+----- ARM g2  (LHS is ALWAYS golden)
+22.17     GOLD v.m[8 - 1]                         | OURS v.m[LP - 1]                        DIFF
+23.17     GOLD v.m[4 - 1]                         | OURS v.m[PP - 1]                        DIFF
+24.17     GOLD v.m[8]                             | OURS v.m[8]                             SAME
+29.5      GOLD rv.m[8 - 1]                        | OURS rv.m[q42b::LP - 1]                 DIFF
+30.5      GOLD rv.m[MLP - 1]                      | OURS rv.m[MLP - 1]                      SAME
+32.17     GOLD rv.m[0]                            | OURS rv.m[0]                            SAME
+37.9      GOLD v.m[8 - 1]                         | OURS v.m[q42b::LP - 1]                  DIFF
+44.17     GOLD arr[0].m[8 - 1]                    | OURS arr[0].m[8 - 1]                    SAME
+45.17     GOLD arr[4 - 4].m[3]                    | OURS arr[4 - 4].m[3]                    SAME
+49.12     GOLD a.m[8 - 1]                         | OURS a.m[q42b::LP - 1]                  DIFF
+ARM SUMMARY  SAME=5 DIFF=5

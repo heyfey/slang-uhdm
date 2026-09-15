@@ -11827,6 +11827,105 @@ UHDM::constant* UhdmExporter::genLpUseFoldBound47(const Expression& e,
     return c;
 }
 
+// § pkgFoldTaintAndHomeScope42V — THE THREE REFUTATIONS of
+// § hpTrailSelPkgFold42's admission test, measured on v1.87 goldens (verifier
+// arms v5/v7/v8/v9/v10/v11, tools/probe/r11v42repro).
+//
+// (A) THE CONCAT TAINT IS NOT THE TOP-LEVEL INITIALISER KIND.  The landed gate
+//     abstains when the package parameter's initialiser IS a concatenation or a
+//     replication.  Golden keeps the IDENTIFIER for more than that: a binary
+//     operation with a concat/replication OPERAND is equally unsubstituted —
+//     golden names `v.m[pa8::CATADD - 1]` for `localparam CATADD = {2'b10,
+//     2'b01} + 0` and `v.m[pa8::REPADD - 1]` for `{2{2'b01}} - 0`, where the
+//     top-level-kind gate folded `9 - 1` / `5 - 1` (PRISTINE WAS RIGHT, the
+//     un-extended patch was WRONG).  Taint therefore propagates through the
+//     operator tree and through a RELAY (`localparam RELCAT = CAT`), but it
+//     stops at a CALL: golden folds `$clog2({2'b10, 2'b01})` to a plain
+//     decimal `4`.  Where golden folds a concat-DERIVED value it prints it in
+//     the value's own base — `32'b1001`, not `9` (arms v8 c07/c08/c09) — so on
+//     the tainted cells this model ABSTAINS rather than writing a decimal
+//     golden never writes: no cell moves off golden, and none moves away.
+//
+// (B) A READ INSIDE THE DECLARING PACKAGE IS STILL SYMBOLIC.  The fold exists
+//     because Surelog compiles packages BEFORE modules — but inside the
+//     declaring package's OWN function, task or class method the parameter has
+//     not yet been substituted, and golden's package def-view keeps the
+//     identifier: `a.m[LP - 1]` for `return a.m[LP-1]` in `pa7`'s own function
+//     (arm v7 c01), `a.m[LP - 2]` in its task (c03), `a.m[LP - 3]` in a class
+//     method (c04).  Pristine was RIGHT on every one of those and the
+//     un-extended patch wrote `8 - 1` / `8 - 2` / `8 - 3`.  The test is
+//     LEXICAL and it is narrow: a QUALIFIED read folds even inside its own
+//     package (c02 `a.m[pa7::LP-1]` is golden's `a.m[8 - 1]`), and an
+//     UNQUALIFIED read of an IMPORTED parameter inside a DIFFERENT package
+//     folds too (arm v8 c01, `pb8::f_imp` is golden's `a.m[8 - 1]`).
+//
+// (C) A QUALIFIED READ OF A DECIMAL-BASED LITERAL CARRIES PLAIN DIGITS.  See
+//     the guard below; arms v9/v11 and the COMMITTED landed arms
+//     tools/probe/r10earl29repro/{v1_scope,b3_edges}.sv measure it, and it
+//     fixes a PRE-EXISTING wrongness at the landed mixed builder too
+//     (`arr[0].m[pz11::SPD+2]` with `SPD = 2'd1` is golden's `arr[0].m[1 + 2]`,
+//     where pristine wrote `2'd1 + 2`).
+//
+// All three refinements are gated on `aggregateAbstain34`, the flag the
+// ELEMENT-SELECT sites (the mixed builder and § hpTrailSelPkgFold42's
+// plain-base site) already pass: the RANGE arm (:29200) passes false and is
+// byte-unchanged — the census says that is right, since the only fold
+// candidates in the whole surelog corpus are Earlgrey_0_1's
+// `addr[0+:BankAddrW]` / `addr[FlashWordsW+:PageW]`, cells whose row is
+// CMP_EQUAL, i.e. cells where GOLDEN KEEPS THE IDENTIFIER.
+static bool concatTainted42V(const slang::ast::Expression& e0, int depth) {
+    if (depth > 12)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    bool tainted = false;
+    e.visit(makeVisitor(
+        [&](auto&, const slang::ast::ConcatenationExpression&) { tainted = true; },
+        [&](auto&, const slang::ast::ReplicationExpression&) { tainted = true; },
+        // A call's RESULT is a plain value: golden folds `$clog2({2'b10,
+        // 2'b01})` to the decimal `4`, so taint does not cross a call.
+        [&](auto&, const slang::ast::CallExpression&) {},
+        [&](auto& v, const NamedValueExpression& nv) {
+            v.visitDefault(nv);
+            if (nv.symbol.kind != SymbolKind::Parameter)
+                return;
+            if (auto* ini = nv.symbol.as<ParameterSymbol>().getInitializer())
+                if (concatTainted42V(*ini, depth + 1))
+                    tainted = true;
+        }));
+    return tainted;
+}
+
+// True when the read is written INSIDE `pkgSym`'s own declaration.
+//
+// The test is SYNTAX ANCESTRY, not source offsets: a package body routinely
+// arrives through an `\`include` (the UVM packaging style), and then the read
+// sits in a DIFFERENT BUFFER from the `package` keyword while still being part
+// of that package's declaration — arm v10, where the offset test let the fold
+// fire and golden's package def-view keeps `a.m[LP - 1]`.  The parent chain
+// spans the include, so it answers correctly in both shapes; the offset test
+// is kept only for a read whose expression has no syntax node.
+static bool insideOwnPkgText42V(const slang::ast::Symbol& pkgSym,
+                                const slang::ast::Expression& read,
+                                slang::SourceRange sr) {
+    auto* syn = pkgSym.getSyntax();
+    if (!syn)
+        return false;
+    if (read.syntax) {
+        for (const slang::syntax::SyntaxNode* n = read.syntax; n; n = n->parent)
+            if (n == syn)
+                return true;
+        return false;
+    }
+    auto pr = syn->sourceRange();
+    if (pr.start() == SourceLocation::NoLocation ||
+        pr.end() == SourceLocation::NoLocation)
+        return false;
+    if (pr.start().buffer() != sr.start().buffer())
+        return false;
+    return sr.start().offset() >= pr.start().offset() &&
+           sr.end().offset() <= pr.end().offset();
+}
+
 // § hierSelPkgParamFold (declaration comment in UhdmExporter.h) — collector.
 void UhdmExporter::collectPkgParamFolds(const Expression& e,
                                         std::vector<PkgFoldSub>& out,
@@ -11849,11 +11948,47 @@ void UhdmExporter::collectPkgParamFolds(const Expression& e,
         if (sr.start() == SourceLocation::NoLocation ||
             sr.end() == SourceLocation::NoLocation || sm->isMacroLoc(sr.start()))
             return;
+        // A QUALIFIED read (`pkg::P`) and an UNQUALIFIED (imported) one are two
+        // different Surelog paths and they print differently — see (B) and (C).
+        const bool qualified42V =
+            rawText(sr).find("::") != std::string::npos;
+        // § pkgFoldTaintAndHomeScope42V (B) — an UNQUALIFIED read written
+        // inside the declaring package keeps its identifier in golden.
+        if (aggregateAbstain34 && !qualified42V &&
+            insideOwnPkgText42V(psc->asSymbol(), nv, sr))
+            return;
         std::string t;
         if (auto* ini = dp.getInitializer()) {
             auto& si = stripImplicitConv(*ini);
-            if (si.kind == ExpressionKind::IntegerLiteral)
+            if (si.kind == ExpressionKind::IntegerLiteral) {
                 t = stripSep(rawText(si.sourceRange));
+                // § pkgFoldTaintAndHomeScope42V (C) — a QUALIFIED read of a
+                // DECIMAL-BASED literal is not spelled back with its base.
+                // Golden keeps the written base for `4'hA` (`v.m[8'hA - 1]`,
+                // `q.w[{1'b0,4'hA}]`) and for `32'h0000_000C` (separators
+                // stripped), but a QUALIFIED `'d` read decompiles as plain
+                // digits: `pkv::SP` with `parameter logic [1:0] SP = 2'd1` is
+                // golden's `q.autoexecprogbuf[{1'b1,1}]`
+                // (tools/probe/r10earl29repro/v1_scope.sv c22/c24) and
+                // `pz9::CNT = 2'd2` is golden's `q.w[{2{{1'b1}}}]` (arm v9
+                // c04) — the un-extended patch wrote `2'd1` / `2'd2`, a string
+                // golden never writes.  The UNQUALIFIED (wildcard-imported)
+                // read is the OTHER path and keeps the spelling: the SAME
+                // `parameter logic [1:0] PP = 2'd1` read as `PP` is golden's
+                // `q.autoexecprogbuf[{1'b1,2'd1}]`
+                // (tools/probe/r10earl29repro/b3_edges.sv c35), so this
+                // normalisation is gated on the qualifier.
+                if (aggregateAbstain34 && qualified42V) {
+                    size_t tick = t.find('\'');
+                    if (tick != std::string::npos && tick + 1 < t.size()) {
+                        size_t bi = tick + 1;
+                        if (t[bi] == 's' || t[bi] == 'S')
+                            bi++;
+                        if (bi < t.size() && (t[bi] == 'd' || t[bi] == 'D'))
+                            t.clear();  // fall through to the decimal value
+                    }
+                }
+            }
             // § hpMixedIdxPkgFold34's V-F1 gate (ADDED AT INTEGRATION): at
             // the ELEMENT-SELECT sites golden keeps the IDENTIFIER for a
             // package parameter whose initialiser is a CONCATENATION or
@@ -11863,9 +11998,11 @@ void UhdmExporter::collectPkgParamFolds(const Expression& e,
             // measured for value folds reappears on the NAME axis.  The
             // pre-existing RANGE arm passes false and keeps its landed
             // behaviour.
-            else if (aggregateAbstain34 &&
-                     (si.kind == ExpressionKind::Concatenation ||
-                      si.kind == ExpressionKind::Replication))
+            // § pkgFoldTaintAndHomeScope42V (A) — the concat/replication taint
+            // reaches through the operator tree and through a relay, and stops
+            // at a call.  This SUBSUMES the top-level-kind test the V-F1 gate
+            // shipped with (a bare concat is tainted by its own kind).
+            else if (aggregateAbstain34 && concatTainted42V(si, 0))
                 return;
         }
         if (t.empty())
@@ -27747,7 +27884,72 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
                     dotted +=
                         "." + std::string((*it2)->as<MemberAccessExpression>().member.name);
-                std::string idxTxt9 = rawText(es.selector().sourceRange);
+                // § hpTrailSelPkgFold42 — THE PACKAGE LEAF OF A TRAILING
+                // MEMBER-SELECT INDEX CARRIES ITS VALUE, AT THIS SITE TOO.
+                //
+                // THE PRODUCER.  `obj.member[<idx>]` over a PLAIN base is named
+                // by Surelog in `CompileHelper::compileSelectExpression`
+                // (CompileExpression.cpp:1495-1537): it compiles the index
+                // expression into a UHDM object, then spells the bracket text
+                // as `"[" + decompileHelper(idx) + "]"` (:1504 for one index,
+                // :1520 per dimension of a var_select, :1537 for a trailing
+                // range) and appends `"." + field_name + idx_str` to the path
+                // name (:1523).  `decompileHelper` (CompileHelper.cpp:2544) is
+                // the closed dispatch § hpMidSelIdxDecompiled79 already decoded
+                // — `constant`->VpiDecompile, `ref_obj`->VpiName,
+                // `operation`->`ExprEval::prettyPrint` — so THE NAME IS A
+                // FUNCTION OF THE OBJECT, never of the source spelling.
+                //
+                // THE FOLD, therefore, is not a text rule at all: Surelog
+                // compiles PACKAGES BEFORE MODULES, so by the time the module's
+                // index expression is compiled a package parameter READ has
+                // already been replaced by its `constant`, while the module's
+                // own parameter/localparam is still a `ref_obj`.  The
+                // subtraction around it does NOT reduce (`Reduce::No`), so what
+                // lands in the name is the PARTIAL fold `23 - 1` — never `22`.
+                // That is § hpMixedIdxPkgFold34's law, and it was applied to
+                // `emitMixedHierPath` only; THIS builder — the one that owns
+                // `obj.member[idx]` with no select on the base — was handed a
+                // NULL table and kept its own raw text.  That is r10uvm92's
+                // README residue R3, and it is closed here.
+                //
+                // MEASURED ON GOLDEN, arms g1/g2 (27 cells, every one's rc
+                // recorded), golden name vs ours:
+                //   QUALIFIED pkg localparam  v.m[q42::LP-1]   -> v.m[8 - 1]
+                //   QUALIFIED pkg parameter   v.m[q42::PP-1]   -> v.m[4 - 1]
+                //   BARE qualified read       v.m[q42::LP]     -> v.m[8]
+                //   unary over a pkg leaf     v.m[-q42::LP+9]  -> v.m[-8 + 9]
+                //   two binops                v.m[q42::LP*2-14]-> v.m[8 * 2 - 14]
+                //   conditional               v.m[q42::LP>2?1:0]->v.m[8 > 2 ? 1 : 0]
+                //   TWO pkg leaves            v.m[q42::LP-q42::PP] -> v.m[8 - 4]
+                //   WILDCARD-imported, bare   v.m[LP-1]        -> v.m[8 - 1]
+                //   array member              av.pr[q42::LP-7] -> av.pr[8 - 7]
+                //   depth 2                   nv.inner.m[q42::LP-1] -> nv.inner.m[8 - 1]
+                //   procedural LVALUE         rv.m[q42b::LP-1] -> rv.m[8 - 1]
+                //   procedural rvalue, function body: the same
+                // and the cells that must NOT move, golden keeping the
+                // IDENTIFIER (ours already right, and still right after this):
+                //   module localparam         v.m[MLP-1]       -> v.m[MLP - 1]
+                //   module parameter          v.m[MPP-1]       -> v.m[MPP - 1]
+                //   CONCAT-initialised pkg lp v.m[q42::CATP-1] -> v.m[q42::CATP - 1]
+                //   REPL-initialised  pkg lp  v.m[q42::REPP-1] -> v.m[q42::REPP - 1]
+                //   sys_func_call index       v.m[$clog2(q42::LP)] -> v.m  (group gone)
+                // The concat/replication pair is § hpMixedIdxPkgFold34's V-F1
+                // gate re-confirmed HERE at OBJECT level, not merely in text:
+                // golden's operand for `q42::CATP` stays a `ref_obj:
+                // (q42::CATP)`, so `aggregateAbstain34` is passed TRUE, exactly
+                // as the mixed builder passes it.
+                //
+                // THE GATE.  `collectPkgParamFolds` collects nothing unless the
+                // index reads a PACKAGE-scope parameter with an integer value,
+                // and `rawTextPkgFold` returns plain `rawText` on an empty
+                // table — so every index in either corpus without such a read
+                // renders BYTE FOR BYTE as before, by construction.
+                std::vector<PkgFoldSub> pf42;
+                collectPkgParamFolds(es.selector(), pf42,
+                                     /*aggregateAbstain34=*/true);
+                std::string idxTxt9 =
+                    rawTextPkgFold(es.selector().sourceRange, pf42);
                 // § concatIdxDecompile29 — THE EARLGREY SITE.  A CONCATENATION
                 // index is decompiled from the tree; every other index keeps its
                 // raw text and its existing § hierSelPkgParamFold reduction (the
@@ -27760,16 +27962,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                         comp, importedParamDefTs);
                          !red9.empty())
                     idxTxt9 = red9;
-                // § hpIdxOpPrettyPrint92 — SITE 2 of 2, AND THE HEAD'S OWN
-                // SITE.  `gp.m_byte_enable[i % gp.m_byte_enable_length]` is a
-                // TRAILING select on a member of a plain base, so it is named
-                // HERE and not in `emitMixedHierPath`.  This site does NOT fold
-                // package parameters (§ hpMixedIdxPkgFold34 was applied to the
-                // mixed builder only), so the model is handed a null table and
-                // the leaves keep this site's own raw text -- README R3.
+                // § hpIdxOpPrettyPrint92 — SITE 2 of 2, AND uvm92's OWN SITE.
+                // `gp.m_byte_enable[i % gp.m_byte_enable_length]` is a TRAILING
+                // select on a member of a plain base, so it is named HERE and
+                // not in `emitMixedHierPath`.  § hpTrailSelPkgFold42 hands the
+                // model the SAME per-leaf table the mixed builder uses, so a
+                // compound index keeps its operator structure while its package
+                // leaves carry their values (`q42::LP - 1` -> `8 - 1`).
                 else if (isPpOperation92(es.selector())) {
                     std::string pp92;
-                    if (ppIdxText92(es.selector(), nullptr, 0, pp92))
+                    if (ppIdxText92(es.selector(), &pf42, 0, pp92))
                         idxTxt9 = pp92;
                 }
                 // § hpTrailSelIdxDecompiled89 — SITE 2 of 2, AND THE HEAD'S OWN

@@ -1,0 +1,26 @@
+=== r11v42 MULTISET SCORING of the package def-view / elaborated PAIR cells
+(golden carries TWO names for one source site inside a package: the def-view
+ copy and the fully reduced elaborated copy; a set-valued cell scorer prints
+ these as MOVED-AWAY even when the verified binary IMPROVES them)
+
+--- arm v7
+  (7, 12): GOLD ['a.m[7]', 'a.m[LP - 1]'] | PRIS ['a.m[LP - 1]'] matches=1/2 | VERIFIED ['a.m[LP - 1]'] matches=1/2
+  (10, 12): GOLD ['a.m[7]', 'a.m[8 - 1]'] | PRIS ['a.m[pa7::LP - 1]'] matches=0/2 | VERIFIED ['a.m[8 - 1]'] matches=1/2
+  (26, 12): GOLD ['a.m[7]', 'a.m[8 - 1]'] | PRIS ['a.m[pa7::LP - 1]'] matches=0/2 | VERIFIED ['a.m[8 - 1]'] matches=1/2
+  (29, 12): GOLD ['a.m[4]', 'a.m[OWN - 1]'] | PRIS ['a.m[OWN - 1]'] matches=1/2 | VERIFIED ['a.m[OWN - 1]'] matches=1/2
+  (37, 12): GOLD ['a.m[8 - 1]'] | PRIS ['a.m[pa7::LP - 1]'] matches=0/1 | VERIFIED ['a.m[8 - 1]'] matches=1/1
+  (47, 17): GOLD ['v.m[8 - 1]'] | PRIS ['v.m[pa7::LP - 1]'] matches=0/1 | VERIFIED ['v.m[8 - 1]'] matches=1/1
+--- arm v8
+  (21, 12): GOLD ['a.m[7]', 'a.m[8 - 1]'] | PRIS ['a.m[LP - 1]'] matches=0/2 | VERIFIED ['a.m[8 - 1]'] matches=1/2
+  (29, 12): GOLD ['arr[0].m[7]', 'arr[0].m[LP - 1]'] | PRIS ['arr[0].m[8 - 1]'] matches=0/2 | VERIFIED ['arr[0].m[LP - 1]'] matches=1/2
+  (32, 12): GOLD ['arr[0].m[7]', 'arr[0].m[8 - 1]'] | PRIS ['arr[0].m[8 - 1]'] matches=1/2 | VERIFIED ['arr[0].m[8 - 1]'] matches=1/2
+  (44, 17): GOLD ["v.m[32'b1001 - 1]"] | PRIS ['v.m[pa8::CATCOND - 1]'] matches=0/1 | VERIFIED ['v.m[pa8::CATCOND - 1]'] matches=0/1
+  (45, 17): GOLD ["v.m[32'b1001 - 1]"] | PRIS ['v.m[pa8::RELCAT - 1]'] matches=0/1 | VERIFIED ['v.m[pa8::RELCAT - 1]'] matches=0/1
+  (46, 17): GOLD ["v.m[32'b1001 - 1]"] | PRIS ['v.m[pa8::RELCATQ - 1]'] matches=0/1 | VERIFIED ['v.m[pa8::RELCATQ - 1]'] matches=0/1
+  (48, 17): GOLD ['v.m[4 - 1]'] | PRIS ['v.m[pa8::CATCALL - 1]'] matches=0/1 | VERIFIED ['v.m[4 - 1]'] matches=1/1
+--- arm v10
+  (2, 12): GOLD ['a.m[7]', 'a.m[LP - 1]'] | PRIS ['a.m[LP - 1]'] matches=1/2 | VERIFIED ['a.m[LP - 1]'] matches=1/2
+  (13, 17): GOLD ['v.m[8 - 1]'] | PRIS ['v.m[pi10::LP - 1]'] matches=0/1 | VERIFIED ['v.m[8 - 1]'] matches=1/1
+
+NO cell goes from matching to not-matching.  Improvements: v7 10:12, v7 26:12,
+v7 37:12, v7 47:17, v8 21:12, v8 29:12 (the LANDED mixed builder), v8 48:17.

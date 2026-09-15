@@ -1,0 +1,31 @@
+=== r11u42 CENSUS INSTRUMENT CONTROLS (grid42 databases)
+--- CALIBRATION golden-vs-golden FIRST
+LABEL GRID-golden  databases=2
+CAND /tmp/r11u42_cenctl/gold/g1/golden.uhdm :: v.m[q42::CATP - 1] | v.m[q42::REPP - 1]
+NOCAND /tmp/r11u42_cenctl/gold/g2/golden.uhdm
+SHAPES (the shape lister, distinct hier_path names):
+  dotted2/base-or-mid-sel      2
+  dotted2/no-sel               1
+  dotted2/trail-sel            22
+  dotted3/trail-sel            1
+TOTAL databases=2 CAND=1 NOCAND=1 BAD=0 CELLS=2
+--- POSITIVE CONTROL (pristine ours: the instrument must SEE the movers)
+LABEL GRID-pristine  databases=2
+CAND /tmp/r11u42_cenctl/pris/g1/slang.uhdm :: av.pr[q42::LP - 7] | nv.inner.m[q42::LP - 1] | v.m[-q42::LP + 9] | v.m[q42::CATP - 1] | v.m[q42::LP * 2 - 14] | v.m[q42::LP - 1] | v.m[q42::LP - q42::PP] | v.m[q42::LP > 2 ? 1 : 0] | v.m[q42::LP] | v.m[q42::PP - 1] | v.m[q42::REPP - 1]
+CAND /tmp/r11u42_cenctl/pris/g2/slang.uhdm :: a.m[q42b::LP - 1] | rv.m[q42b::LP - 1] | v.m[LP - 1] | v.m[PP - 1] | v.m[q42b::LP - 1]
+SHAPES (the shape lister, distinct hier_path names):
+  dotted2/base-or-mid-sel      2
+  dotted2/no-sel               1
+  dotted2/trail-sel            23
+  dotted3/trail-sel            1
+TOTAL databases=2 CAND=2 NOCAND=0 BAD=0 CELLS=16
+--- NEGATIVE CONTROL (patched ours: must land on golden's own residual set)
+LABEL GRID-patched  databases=2
+CAND /tmp/r11u42_cenctl/pat/g1/slang.uhdm :: v.m[q42::CATP - 1] | v.m[q42::REPP - 1]
+NOCAND /tmp/r11u42_cenctl/pat/g2/slang.uhdm
+SHAPES (the shape lister, distinct hier_path names):
+  dotted2/base-or-mid-sel      2
+  dotted2/no-sel               1
+  dotted2/trail-sel            22
+  dotted3/trail-sel            1
+TOTAL databases=2 CAND=1 NOCAND=1 BAD=0 CELLS=2

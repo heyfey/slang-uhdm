@@ -1,0 +1,27 @@
+LABEL PRISTINE-surelog-fireset  databases=19
+NOCAND /tmp/r11u42_prisrefs/sl28/default__BlackBePipeInt-2987e0d2/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__ClassVar-1a3e15c1/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__FuncStructVal-564cdfb7/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__GenForIfaceLocalparamNestedGen-0374ca75/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__GenScopeHierPath-a2114f21/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__IndexedSelectHex-cd46669f/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__LocalScopeHierPath-cd7b627c/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__MultiConcatValueSize-8e3f2431/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__ParamElabMulti-6f8060a1/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/default__Rggen-50ccbd70/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__BlackBePipeInt-2987e0d2/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__ClassVar-1a3e15c1/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__FuncStructVal-564cdfb7/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__GenForIfaceLocalparamNestedGen-0374ca75/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__GenScopeHierPath-a2114f21/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__IndexedSelectHex-cd46669f/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__LocalScopeHierPath-cd7b627c/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__MultiConcatValueSize-8e3f2431/slang.uhdm
+NOCAND /tmp/r11u42_prisrefs/sl28/testflags__ParamElabMulti-6f8060a1/slang.uhdm
+SHAPES (the shape lister, distinct hier_path names):
+  dotted2/base-or-mid-sel      25
+  dotted2/no-sel               526
+  dotted2/trail-sel            227
+  dotted3/base-or-mid-sel      4
+  dotted3/no-sel               4
+TOTAL databases=19 CAND=0 NOCAND=19 BAD=0 CELLS=0

@@ -732,7 +732,7 @@ struct_field_self_guard,default,CMP_EQUAL,,,differ
 struct_init_partial_write,default,CMP_EQUAL,,,match
 struct_little_endian_bit_array,default,CMP_EQUAL,,,match
 struct_member_cfg_width,default,CMP_NOTEQUAL,decompile:,,
-struct_member_expr_index,default,CMP_NOTEQUAL,decompile:,,
+struct_member_expr_index,default,CMP_EQUAL,,,differ
 struct_member_trailing_index,default,CMP_EQUAL,,,differ
 struct_negative_index,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
 struct_param_dim,default,CMP_EQUAL,,,differ
@@ -1603,7 +1603,7 @@ struct_field_self_guard,testflags,CMP_EQUAL,,,differ
 struct_init_partial_write,testflags,CMP_EQUAL,,,match
 struct_little_endian_bit_array,testflags,CMP_EQUAL,,,match
 struct_member_cfg_width,testflags,CMP_NOTEQUAL,decompile:,,
-struct_member_expr_index,testflags,CMP_NOTEQUAL,decompile:,,
+struct_member_expr_index,testflags,CMP_EQUAL,,,differ
 struct_member_trailing_index,testflags,CMP_EQUAL,,,differ
 struct_negative_index,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_negative_index/dut.sv:14:13: error: cannot refer to element -1 of 'bit[3:0][7:0]' [-Windex-oob,,
 struct_param_dim,testflags,CMP_EQUAL,,,differ

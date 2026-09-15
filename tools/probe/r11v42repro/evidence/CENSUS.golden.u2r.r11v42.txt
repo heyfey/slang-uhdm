@@ -1,0 +1,16 @@
+LABEL GOLDEN.u2r databases=1742
+SHAPES (distinct hier_path names):
+  bare                         6
+  dotted2/base-or-mid-sel      413
+  dotted2/no-sel               3124
+  dotted2/trail-sel            552
+  dotted3/base-or-mid-sel      235
+  dotted3/no-sel               1060
+  dotted3/trail-sel            156
+  dotted4/base-or-mid-sel      28
+  dotted4/no-sel               264
+  dotted4/trail-sel            2
+  dotted5/base-or-mid-sel      22
+  dotted5/no-sel               2
+TOTAL databases=1742 FOLD-CAND=0 DBASE-CAND=0 PKGSUBROUTINE-DBS=920 BAD=0
+(NOCAND lines elided from this committed copy: 1742 — rerun cen42v.py for the full listing)

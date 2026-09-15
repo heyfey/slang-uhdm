@@ -1,0 +1,308 @@
+ARM=v1 SURELOG_RC=0
+ARM=v1 PRIS_RC=0
+ARM=v1 PAT_RC=0
+ARM=v1 GOLDEN_DUMP_RC=0
+ARM=v1 PRIS_DUMP_RC=0
+ARM=v1 PAT_DUMP_RC=0
+v1 20:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 20:18 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv1::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v1 20:22 bit_select GOLD work@v1.v.m[8 - 1].m               PRIS work@v1.v.m[pv1::LP - 1].m         PAT work@v1.v.m[8 - 1].m               FIXED
+v1 21:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 21:18 hier_path GOLD v.m[8'hA - 1]                      PRIS v.m[pv1::B8 - 1]                   PAT v.m[8'hA - 1]                      FIXED
+v1 21:22 bit_select GOLD work@v1.v.m[8'hA - 1].m            PRIS work@v1.v.m[pv1::B8 - 1].m         PAT work@v1.v.m[8'hA - 1].m            FIXED
+v1 22:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 22:18 hier_path GOLD v.m[10 - 1]                        PRIS v.m[pv1::DER - 1]                  PAT v.m[10 - 1]                        FIXED
+v1 22:22 bit_select GOLD work@v1.v.m[10 - 1].m              PRIS work@v1.v.m[pv1::DER - 1].m        PAT work@v1.v.m[10 - 1].m              FIXED
+v1 23:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 23:18 hier_path GOLD v.m[-3 + 5]                        PRIS v.m[pv1::NEG + 5]                  PAT v.m[-3 + 5]                        FIXED
+v1 23:22 bit_select GOLD work@v1.v.m[-3 + 5].m              PRIS work@v1.v.m[pv1::NEG + 5].m        PAT work@v1.v.m[-3 + 5].m              FIXED
+v1 24:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 24:18 hier_path GOLD v.m[32'h0000000C - 1]              PRIS v.m[pv1::USCOR - 1]                PAT v.m[32'h0000000C - 1]              FIXED
+v1 24:22 bit_select GOLD work@v1.v.m[32'h0000000C - 1].m    PRIS work@v1.v.m[pv1::USCOR - 1].m      PAT work@v1.v.m[32'h0000000C - 1].m    FIXED
+v1 25:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 25:18 hier_path GOLD v.m[6 - 1]                         PRIS v.m[pv1::ENUMP - 1]                PAT v.m[6 - 1]                         FIXED
+v1 25:22 bit_select GOLD work@v1.v.m[6 - 1].m               PRIS work@v1.v.m[pv1::ENUMP - 1].m      PAT work@v1.v.m[6 - 1].m               FIXED
+v1 26:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 26:18 hier_path GOLD v.m[]                              PRIS v.m[]                              PAT v.m[]                              
+v1 26:22 bit_select GOLD work@v1.v.m[].m                    PRIS work@v1.v.m[].m                    PAT work@v1.v.m[].m                    
+v1 27:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 27:18 hier_path GOLD v.m[ - 1]                          PRIS v.m[ - 1]                          PAT v.m[ - 1]                          
+v1 27:22 bit_select GOLD work@v1.v.m[ - 1].m                PRIS work@v1.v.m[ - 1].m                PAT work@v1.v.m[ - 1].m                
+v1 27:31 bit_select GOLD pv1::ARR                           PRIS pv1::ARR                           PAT pv1::ARR                           
+v1 28:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 28:18 hier_path GOLD v.m[4 * 8 - 30]                    PRIS v.m[pv1::PP * pv1::LP - 30]        PAT v.m[4 * 8 - 30]                    FIXED
+v1 28:22 bit_select GOLD work@v1.v.m[4 * 8 - 30].m          PRIS work@v1.v.m[pv1::PP * pv1::LP - 30].m PAT work@v1.v.m[4 * 8 - 30].m          FIXED
+v1 29:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 29:18 hier_path GOLD v.m[{2'b00,1:0}]                   PRIS v.m[{2'b00,1:0}]                   PAT v.m[{2'b00,1:0}]                   
+v1 29:22 bit_select GOLD work@v1.v.m[{2'b00,1:0}].m         PRIS work@v1.v.m[{2'b00,1:0}].m         PAT work@v1.v.m[{2'b00,1:0}].m         
+v1 30:10 bit_select GOLD work@v1.o                          PRIS work@v1.o                          PAT work@v1.o                          
+v1 30:18 hier_path GOLD v.m                                PRIS v.m                                PAT v.m                                
+v1 30:22 bit_select GOLD work@v1.v.m.m                      PRIS work@v1.v.m.m                      PAT work@v1.v.m.m                      
+ARM v1 SUMMARY cells=34 PRIS_SAME=20 PRIS_DIFF=14 PAT_SAME=34 PAT_DIFF=0 FIXED=14 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=v2 SURELOG_RC=0
+ARM=v2 PRIS_RC=0
+ARM=v2 PAT_RC=0
+ARM=v2 GOLDEN_DUMP_RC=0
+ARM=v2 PRIS_DUMP_RC=0
+ARM=v2 PAT_DUMP_RC=0
+v2 12:10 bit_select GOLD work@v2.o                          PRIS work@v2.o                          PAT work@v2.o                          
+v2 12:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv2::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v2 12:21 bit_select GOLD work@v2.v.m[8 - 1].m               PRIS work@v2.v.m[pv2::LP - 1].m         PAT work@v2.v.m[8 - 1].m               FIXED
+v2 13:10 bit_select GOLD work@v2.o                          PRIS work@v2.o                          PAT work@v2.o                          
+v2 13:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv2::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v2 13:22 bit_select GOLD work@v2.v.m[8 - 1].m               PRIS work@v2.v.m[pv2::LP - 1].m         PAT work@v2.v.m[8 - 1].m               FIXED
+v2 14:10 bit_select GOLD work@v2.o                          PRIS work@v2.o                          PAT work@v2.o                          
+v2 14:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv2::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v2 14:21 bit_select GOLD work@v2.v.m[8 - 1].m               PRIS work@v2.v.m[pv2::LP - 1].m         PAT work@v2.v.m[8 - 1].m               FIXED
+v2 15:10 bit_select GOLD work@v2.o                          PRIS work@v2.o                          PAT work@v2.o                          
+v2 15:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv2::LP - 1]                   PAT v.m[pv2::LP - 1]                   
+v2 15:21 bit_select GOLD work@v2.v.m[8 - 1].m               PRIS work@v2.v.m[pv2::LP - 1].m         PAT work@v2.v.m[pv2::LP - 1].m         
+v2 16:10 bit_select GOLD work@v2.o                          PRIS work@v2.o                          PAT work@v2.o                          
+v2 16:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv2::LP - 1]                   PAT v.m[pv2::LP - 1]                   
+v2 16:21 bit_select GOLD work@v2.v.m[8 - 1].m               PRIS work@v2.v.m[pv2::LP - 1].m         PAT work@v2.v.m[pv2::LP - 1].m         
+v2 17:10 bit_select GOLD work@v2.o                          PRIS work@v2.o                          PAT work@v2.o                          
+v2 17:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv2::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v2 17:21 bit_select GOLD work@v2.v.m[8 - 1].m               PRIS work@v2.v.m[pv2::LP - 1].m         PAT work@v2.v.m[8 - 1].m               FIXED
+v2 18:10 bit_select GOLD work@v2.o                          PRIS work@v2.o                          PAT work@v2.o                          
+v2 18:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv2::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v2 18:21 bit_select GOLD work@v2.v.m[8 - 1].m               PRIS <none>                             PAT <none>                             
+v2 18:23 bit_select GOLD <none>                             PRIS work@v2.v.m[pv2::LP - 1].m         PAT work@v2.v.m[8 - 1].m               MOVED-AWAY-STILL-WRONG
+v2 19:10 bit_select GOLD work@v2.o                          PRIS work@v2.o                          PAT work@v2.o                          
+v2 19:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv2::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v2 19:21 bit_select GOLD work@v2.v.m[8 - 1].m               PRIS work@v2.v.m[pv2::LP - 1].m         PAT work@v2.v.m[8 - 1].m               FIXED
+ARM v2 SUMMARY cells=25 PRIS_SAME=8 PRIS_DIFF=17 PAT_SAME=19 PAT_DIFF=6 FIXED=11 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=1
+ARM=v3 SURELOG_RC=0
+ARM=v3 PRIS_RC=0
+ARM=v3 PAT_RC=0
+ARM=v3 GOLDEN_DUMP_RC=0
+ARM=v3 PRIS_DUMP_RC=0
+ARM=v3 PAT_DUMP_RC=0
+v3 18:10 bit_select GOLD work@sub.so                        PRIS work@sub.so                        PAT work@sub.so                        
+v3 18:18 hier_path GOLD v.m[SPP - 1]                       PRIS v.m[SPP - 1]                       PAT v.m[SPP - 1]                       
+v3 18:22 bit_select GOLD work@sub.v.m[SPP - 1].m            PRIS work@sub.v.m[SPP - 1].m            PAT work@sub.v.m[SPP - 1].m            
+v3 19:10 bit_select GOLD work@sub.so                        PRIS work@sub.so                        PAT work@sub.so                        
+v3 19:18 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv3::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v3 19:22 bit_select GOLD work@sub.v.m[8 - 1].m              PRIS work@sub.v.m[pv3::LP - 1].m        PAT work@sub.v.m[8 - 1].m              FIXED
+v3 26:10 bit_select GOLD work@v3.o                          PRIS work@v3.o                          PAT work@v3.o                          
+v3 26:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[LP - 1]                        PAT v.m[8 - 1]                         FIXED
+v3 26:21 bit_select GOLD work@v3.v.m[8 - 1].m               PRIS work@v3.v.m[LP - 1].m              PAT work@v3.v.m[8 - 1].m               FIXED
+v3 27:10 bit_select GOLD work@v3.o                          PRIS work@v3.o                          PAT work@v3.o                          
+v3 27:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv3b::RELAY - 1]               PAT v.m[8 - 1]                         FIXED
+v3 27:21 bit_select GOLD work@v3.v.m[8 - 1].m               PRIS work@v3.v.m[pv3b::RELAY - 1].m     PAT work@v3.v.m[8 - 1].m               FIXED
+v3 32:14 bit_select GOLD work@v3.gblk[0].o|work@v3.gblk[1].o PRIS work@v3.gblk[0].o|work@v3.gblk[1].o PAT work@v3.gblk[0].o|work@v3.gblk[1].o 
+v3 32:24 hier_path GOLD v.m[GLP - 1]                       PRIS v.m[GLP - 1]                       PAT v.m[GLP - 1]                       
+v3 32:28 bit_select GOLD work@v3.gblk[0].v.m[GLP - 1].m|work@v3.gblk[1].v.m[GLP - 1].m PRIS work@v3.gblk[0].v.m[GLP - 1].m|work@v3.gblk[1].v.m[GLP - 1].m PAT work@v3.gblk[0].v.m[GLP - 1].m|work@v3.gblk[1].v.m[GLP - 1].m 
+v3 33:14 bit_select GOLD work@v3.gblk[0].o|work@v3.gblk[1].o PRIS work@v3.gblk[0].o|work@v3.gblk[1].o PAT work@v3.gblk[0].o|work@v3.gblk[1].o 
+v3 33:24 hier_path GOLD v.m[8 - 1 - gi]                    PRIS v.m[pv3::LP - 1 - gi]              PAT v.m[8 - 1 - gi]                    FIXED
+v3 33:28 bit_select GOLD work@v3.gblk[0].v.m[8 - 1 - gi].m|work@v3.gblk[1].v.m[8 - 1 - gi].m PRIS work@v3.gblk[0].v.m[pv3::LP - 1 - gi].m|work@v3.gblk[1].v.m[pv3::LP - 1 - gi].m PAT work@v3.gblk[0].v.m[8 - 1 - gi].m|work@v3.gblk[1].v.m[8 - 1 - gi].m FIXED
+v3 37:10 hier_path GOLD u_if.v                             PRIS u_if.v                             PAT u_if.v                             
+v3 38:10 bit_select GOLD work@v3.o                          PRIS work@v3.o                          PAT work@v3.o                          
+v3 38:17 hier_path GOLD u_if.v.m[8 - 1]                    PRIS u_if.v.m[pv3::LP - 1]              PAT u_if.v.m[pv3::LP - 1]              
+v3 38:26 bit_select GOLD work@v3.u_if.v.m[8 - 1].m          PRIS work@v3.u_if.v.m[pv3::LP - 1].m    PAT work@v3.u_if.v.m[pv3::LP - 1].m    
+ARM v3 SUMMARY cells=22 PRIS_SAME=12 PRIS_DIFF=10 PAT_SAME=20 PAT_DIFF=2 FIXED=8 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=v4 SURELOG_RC=0
+ARM=v4 PRIS_RC=0
+ARM=v4 PAT_RC=0
+ARM=v4 GOLDEN_DUMP_RC=0
+ARM=v4 PRIS_DUMP_RC=0
+ARM=v4 PAT_DUMP_RC=0
+v4 9:12 hier_path GOLD a.m[7]|a.m[LP - 1]                 PRIS a.m[LP - 1]                        PAT a.m[LP - 1]                        
+v4 9:16 bit_select GOLD pv4::fpk::a.m[7]::m|pv4::fpk::a.m[LP - 1]::m PRIS pv4::fpk::a.m[LP - 1]::m           PAT pv4::fpk::a.m[LP - 1]::m           
+v4 19:10 bit_select GOLD work@v4.o                          PRIS work@v4.o                          PAT work@v4.o                          
+v4 19:17 hier_path GOLD v.m[8 - 1-:2]                      PRIS v.m[8 - 1-:2]                      PAT v.m[8 - 1-:2]                      
+v4 19:19 indexed_part_select GOLD v.m[8 - 1-:2]                      PRIS v.m[8 - 1-:2]                      PAT v.m[8 - 1-:2]                      
+v4 20:10 bit_select GOLD work@v4.o                          PRIS work@v4.o                          PAT work@v4.o                          
+v4 20:17 hier_path GOLD v.m[8 - 1:8 - 4]                   PRIS v.m[8 - 1:8 - 4]                   PAT v.m[8 - 1:8 - 4]                   
+v4 20:19 part_select GOLD v.m[8 - 1:8 - 4]                   PRIS v.m[8 - 1:8 - 4]                   PAT v.m[8 - 1:8 - 4]                   
+v4 21:10 bit_select GOLD work@v4.o                          PRIS work@v4.o                          PAT work@v4.o                          
+v4 21:17 hier_path GOLD nv.inner.m[8 - 1]                  PRIS nv.inner.m[pv4::LP - 1]            PAT nv.inner.m[8 - 1]                  FIXED
+v4 21:28 bit_select GOLD work@v4.nv.inner.m[8 - 1].m        PRIS work@v4.nv.inner.m[pv4::LP - 1].m  PAT work@v4.nv.inner.m[8 - 1].m        FIXED
+v4 22:10 bit_select GOLD work@v4.o                          PRIS work@v4.o                          PAT work@v4.o                          
+v4 22:17 hier_path GOLD av.pr[8 - 7][8 - 5]                PRIS av.pr[pv4::LP-7][pv4::LP-5]        PAT av.pr[pv4::LP-7][pv4::LP-5]        
+v4 22:17 var_select GOLD <none>                             PRIS work@v4.av.pr[pv4::LP-7][pv4::LP-5].pr PAT work@v4.av.pr[pv4::LP-7][pv4::LP-5].pr 
+v4 22:20 var_select GOLD work@v4.av.pr[8 - 7][8 - 5].pr     PRIS <none>                             PAT <none>                             
+v4 23:10 bit_select GOLD work@v4.o                          PRIS work@v4.o                          PAT work@v4.o                          
+v4 27:10 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv4::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v4 27:14 bit_select GOLD work@v4.v.m[8 - 1].m               PRIS work@v4.v.m[pv4::LP - 1].m         PAT work@v4.v.m[8 - 1].m               FIXED
+v4 31:5 hier_path GOLD rv.m[8 - 1]                        PRIS rv.m[pv4::LP - 1]                  PAT rv.m[8 - 1]                        FIXED
+v4 31:8 bit_select GOLD work@v4.rv.m[8 - 1].m              PRIS work@v4.rv.m[pv4::LP - 1].m        PAT work@v4.rv.m[8 - 1].m              FIXED
+v4 32:5 hier_path GOLD rv.t[8 - 6]                        PRIS rv.t[pv4::LP - 6]                  PAT rv.t[8 - 6]                        FIXED
+v4 32:8 bit_select GOLD work@v4.rv.t[8 - 6].t              PRIS work@v4.rv.t[pv4::LP - 6].t        PAT work@v4.rv.t[8 - 6].t              FIXED
+v4 35:9 hier_path GOLD v.m[8 - 2]                         PRIS v.m[pv4::LP - 2]                   PAT v.m[8 - 2]                         FIXED
+v4 35:13 bit_select GOLD work@v4.tk.v.m[8 - 2].m            PRIS work@v4.tk.v.m[pv4::LP - 2].m      PAT work@v4.tk.v.m[8 - 2].m            FIXED
+v4 39:10 bit_select GOLD work@v4.o                          PRIS work@v4.o                          PAT work@v4.o                          
+v4 39:27 bit_select GOLD work@v4.o                          PRIS work@v4.o                          PAT work@v4.o                          
+v4 39:34 hier_path GOLD rv.m[0]                            PRIS rv.m[0]                            PAT rv.m[0]                            
+v4 39:39 bit_select GOLD work@v4.rv.m[0].m                  PRIS work@v4.rv.m[0].m                  PAT work@v4.rv.m[0].m                  
+v4 39:50 bit_select GOLD work@v4.o                          PRIS work@v4.o                          PAT work@v4.o                          
+ARM v4 SUMMARY cells=29 PRIS_SAME=14 PRIS_DIFF=15 PAT_SAME=24 PAT_DIFF=5 FIXED=10 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=v5 SURELOG_RC=0
+ARM=v5 PRIS_RC=0
+ARM=v5 PAT_RC=0
+ARM=v5 GOLDEN_DUMP_RC=0
+ARM=v5 PRIS_DUMP_RC=0
+ARM=v5 PAT_DUMP_RC=0
+v5 16:10 bit_select GOLD work@v5.o                          PRIS work@v5.o                          PAT work@v5.o                          
+v5 16:17 hier_path GOLD v.m[pv5::CATP - 1]                 PRIS v.m[pv5::CATP - 1]                 PAT v.m[pv5::CATP - 1]                 
+v5 16:21 bit_select GOLD work@v5.v.m[pv5::CATP - 1].m       PRIS work@v5.v.m[pv5::CATP - 1].m       PAT work@v5.v.m[pv5::CATP - 1].m       
+v5 17:10 bit_select GOLD work@v5.o                          PRIS work@v5.o                          PAT work@v5.o                          
+v5 17:17 hier_path GOLD v.m[pv5::REPP - 1]                 PRIS v.m[pv5::REPP - 1]                 PAT v.m[pv5::REPP - 1]                 
+v5 17:21 bit_select GOLD work@v5.v.m[pv5::REPP - 1].m       PRIS work@v5.v.m[pv5::REPP - 1].m       PAT work@v5.v.m[pv5::REPP - 1].m       
+v5 18:10 bit_select GOLD work@v5.o                          PRIS work@v5.o                          PAT work@v5.o                          
+v5 18:17 hier_path GOLD v.m[pv5::CATN - 1]                 PRIS v.m[pv5::CATN - 1]                 PAT v.m[pv5::CATN - 1]                 
+v5 18:21 bit_select GOLD work@v5.v.m[pv5::CATN - 1].m       PRIS work@v5.v.m[pv5::CATN - 1].m       PAT work@v5.v.m[pv5::CATN - 1].m       
+v5 19:10 bit_select GOLD work@v5.o                          PRIS work@v5.o                          PAT work@v5.o                          
+v5 19:17 hier_path GOLD v.m[6 - 1]                         PRIS v.m[pv5::TERN - 1]                 PAT v.m[6 - 1]                         FIXED
+v5 19:21 bit_select GOLD work@v5.v.m[6 - 1].m               PRIS work@v5.v.m[pv5::TERN - 1].m       PAT work@v5.v.m[6 - 1].m               FIXED
+v5 20:10 bit_select GOLD work@v5.o                          PRIS work@v5.o                          PAT work@v5.o                          
+v5 20:17 hier_path GOLD v.m[6 - 1]                         PRIS v.m[pv5::CALL - 1]                 PAT v.m[6 - 1]                         FIXED
+v5 20:21 bit_select GOLD work@v5.v.m[6 - 1].m               PRIS work@v5.v.m[pv5::CALL - 1].m       PAT work@v5.v.m[6 - 1].m               FIXED
+v5 21:10 bit_select GOLD work@v5.o                          PRIS work@v5.o                          PAT work@v5.o                          
+v5 21:17 hier_path GOLD v.m[6 - 1]                         PRIS v.m[pv5::CAST - 1]                 PAT v.m[6 - 1]                         FIXED
+v5 21:21 bit_select GOLD work@v5.v.m[6 - 1].m               PRIS work@v5.v.m[pv5::CAST - 1].m       PAT work@v5.v.m[6 - 1].m               FIXED
+v5 22:10 bit_select GOLD work@v5.o                          PRIS work@v5.o                          PAT work@v5.o                          
+v5 22:17 hier_path GOLD v.m[pv5::CATP]                     PRIS v.m[pv5::CATP]                     PAT v.m[pv5::CATP]                     
+v5 22:21 bit_select GOLD work@v5.v.m[pv5::CATP].m           PRIS work@v5.v.m[pv5::CATP].m           PAT work@v5.v.m[pv5::CATP].m           
+v5 23:10 bit_select GOLD work@v5.o                          PRIS work@v5.o                          PAT work@v5.o                          
+v5 23:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv5::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v5 23:21 bit_select GOLD work@v5.v.m[8 - 1].m               PRIS work@v5.v.m[pv5::LP - 1].m         PAT work@v5.v.m[8 - 1].m               FIXED
+ARM v5 SUMMARY cells=24 PRIS_SAME=16 PRIS_DIFF=8 PAT_SAME=24 PAT_DIFF=0 FIXED=8 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=v6 SURELOG_RC=0
+ARM=v6 PRIS_RC=0
+ARM=v6 PAT_RC=0
+ARM=v6 GOLDEN_DUMP_RC=0
+ARM=v6 PRIS_DUMP_RC=0
+ARM=v6 PAT_DUMP_RC=0
+v6 11:10 bit_select GOLD work@leaf.lo                       PRIS work@leaf.lo                       PAT work@leaf.lo                       
+v6 11:18 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pv6::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v6 11:22 bit_select GOLD work@leaf.v.m[8 - 1].m             PRIS work@leaf.v.m[pv6::LP - 1].m       PAT work@leaf.v.m[8 - 1].m             FIXED
+v6 12:10 bit_select GOLD work@leaf.lo                       PRIS work@leaf.lo                       PAT work@leaf.lo                       
+v6 12:18 hier_path GOLD v.m[P - 1]                         PRIS v.m[P - 1]                         PAT v.m[P - 1]                         
+v6 12:22 bit_select GOLD work@leaf.v.m[P - 1].m             PRIS work@leaf.v.m[P - 1].m             PAT work@leaf.v.m[P - 1].m             
+v6 13:10 bit_select GOLD work@leaf.lo                       PRIS work@leaf.lo                       PAT work@leaf.lo                       
+v6 13:18 hier_path GOLD v.m[L - 1]                         PRIS v.m[L - 1]                         PAT v.m[L - 1]                         
+v6 13:22 bit_select GOLD work@leaf.v.m[L - 1].m             PRIS work@leaf.v.m[L - 1].m             PAT work@leaf.v.m[L - 1].m             
+v6 14:10 bit_select GOLD work@leaf.lo                       PRIS work@leaf.lo                       PAT work@leaf.lo                       
+v6 14:18 hier_path GOLD v.m[8 - P]                         PRIS v.m[pv6::LP - P]                   PAT v.m[8 - P]                         FIXED
+v6 14:22 bit_select GOLD work@leaf.v.m[8 - P].m             PRIS work@leaf.v.m[pv6::LP - P].m       PAT work@leaf.v.m[8 - P].m             FIXED
+ARM v6 SUMMARY cells=12 PRIS_SAME=8 PRIS_DIFF=4 PAT_SAME=12 PAT_DIFF=0 FIXED=4 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=v7 SURELOG_RC=0
+ARM=v7 PRIS_RC=0
+ARM=v7 PAT_RC=0
+ARM=v7 GOLDEN_DUMP_RC=0
+ARM=v7 PRIS_DUMP_RC=0
+ARM=v7 PAT_DUMP_RC=0
+v7 7:12 hier_path GOLD a.m[7]|a.m[LP - 1]                 PRIS a.m[LP - 1]                        PAT a.m[LP - 1]                        
+v7 7:16 bit_select GOLD pa7::f_own::a.m[7]::m|pa7::f_own::a.m[LP - 1]::m|pb7::f_own::a.m[7]::m PRIS pa7::f_own::a.m[LP - 1]::m|pb7::f_own::a.m[LP - 1]::m PAT pa7::f_own::a.m[LP - 1]::m|pb7::f_own::a.m[LP - 1]::m 
+v7 10:12 hier_path GOLD a.m[7]|a.m[8 - 1]                  PRIS a.m[pa7::LP - 1]                   PAT a.m[8 - 1]                         MOVED-AWAY-STILL-WRONG
+v7 10:16 bit_select GOLD pa7::f_ownq::a.m[7]::m|pa7::f_ownq::a.m[8 - 1]::m|pb7::f_ownq::a.m[7]::m PRIS pa7::f_ownq::a.m[pa7::LP - 1]::m|pb7::f_ownq::a.m[pa7::LP - 1]::m PAT pa7::f_ownq::a.m[8 - 1]::m|pb7::f_ownq::a.m[8 - 1]::m MOVED-AWAY-STILL-WRONG
+v7 13:9 hier_path GOLD a.m[LP - 2]                        PRIS a.m[LP - 2]                        PAT a.m[LP - 2]                        
+v7 13:13 bit_select GOLD pa7::t_own::a.m[LP - 2]::m|pb7::t_own::a.m[LP - 2]::m PRIS pa7::t_own::a.m[LP - 2]::m|pb7::t_own::a.m[LP - 2]::m PAT pa7::t_own::a.m[LP - 2]::m|pb7::t_own::a.m[LP - 2]::m 
+v7 17:14 hier_path GOLD a.m[LP - 3]                        PRIS a.m[LP - 3]                        PAT a.m[LP - 3]                        
+v7 17:18 bit_select GOLD pa7::c7::mf::a.m[LP - 3]::m        PRIS pa7::c7::mf::a.m[LP - 3]::m        PAT pa7::c7::mf::a.m[LP - 3]::m        
+v7 26:12 hier_path GOLD a.m[7]|a.m[8 - 1]                  PRIS a.m[pa7::LP - 1]                   PAT a.m[8 - 1]                         MOVED-AWAY-STILL-WRONG
+v7 26:16 bit_select GOLD pb7::f_cross::a.m[7]::m|pb7::f_cross::a.m[8 - 1]::m PRIS pb7::f_cross::a.m[pa7::LP - 1]::m  PAT pb7::f_cross::a.m[8 - 1]::m        MOVED-AWAY-STILL-WRONG
+v7 29:12 hier_path GOLD a.m[4]|a.m[OWN - 1]                PRIS a.m[OWN - 1]                       PAT a.m[OWN - 1]                       
+v7 29:16 bit_select GOLD pb7::f_selfb::a.m[4]::m|pb7::f_selfb::a.m[OWN - 1]::m PRIS pb7::f_selfb::a.m[OWN - 1]::m      PAT pb7::f_selfb::a.m[OWN - 1]::m      
+v7 37:12 hier_path GOLD a.m[8 - 1]                         PRIS a.m[pa7::LP - 1]                   PAT a.m[8 - 1]                         FIXED
+v7 37:16 bit_select GOLD work@v7.f_mod.a.m[8 - 1].m         PRIS work@v7.f_mod.a.m[pa7::LP - 1].m   PAT work@v7.f_mod.a.m[8 - 1].m         FIXED
+v7 39:10 bit_select GOLD work@v7.o                          PRIS work@v7.o                          PAT work@v7.o                          
+v7 40:10 bit_select GOLD work@v7.o                          PRIS work@v7.o                          PAT work@v7.o                          
+v7 41:10 bit_select GOLD work@v7.o                          PRIS work@v7.o                          PAT work@v7.o                          
+v7 42:10 bit_select GOLD work@v7.o                          PRIS work@v7.o                          PAT work@v7.o                          
+v7 43:10 bit_select GOLD work@v7.o                          PRIS work@v7.o                          PAT work@v7.o                          
+v7 46:10 bit_select GOLD work@v7.o                          PRIS work@v7.o                          PAT work@v7.o                          
+v7 47:10 bit_select GOLD work@v7.o                          PRIS work@v7.o                          PAT work@v7.o                          
+v7 47:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pa7::LP - 1]                   PAT v.m[8 - 1]                         FIXED
+v7 47:21 bit_select GOLD work@v7.v.m[8 - 1].m               PRIS work@v7.v.m[pa7::LP - 1].m         PAT work@v7.v.m[8 - 1].m               FIXED
+ARM v7 SUMMARY cells=23 PRIS_SAME=11 PRIS_DIFF=12 PAT_SAME=15 PAT_DIFF=8 FIXED=4 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=4
+ARM=v8 SURELOG_RC=0
+ARM=v8 PRIS_RC=0
+ARM=v8 PAT_RC=0
+ARM=v8 GOLDEN_DUMP_RC=0
+ARM=v8 PRIS_DUMP_RC=0
+ARM=v8 PAT_DUMP_RC=0
+v8 21:12 hier_path GOLD a.m[7]|a.m[8 - 1]                  PRIS a.m[LP - 1]                        PAT a.m[8 - 1]                         MOVED-AWAY-STILL-WRONG
+v8 21:16 bit_select GOLD pb8::f_imp::a.m[7]::m|pb8::f_imp::a.m[8 - 1]::m PRIS pb8::f_imp::a.m[LP - 1]::m         PAT pb8::f_imp::a.m[8 - 1]::m          MOVED-AWAY-STILL-WRONG
+v8 29:12 bit_select GOLD arr[0]                             PRIS arr[0]                             PAT arr[0]                             
+v8 29:12 hier_path GOLD arr[0].m[7]|arr[0].m[LP - 1]       PRIS arr[0].m[8 - 1]                    PAT arr[0].m[LP - 1]                   MOVED-AWAY-STILL-WRONG
+v8 29:21 bit_select GOLD pc8::f_mix::arr[0].m[7]::m|pc8::f_mix::arr[0].m[LP - 1]::m PRIS pc8::f_mix::arr[0].m[8 - 1]::m     PAT pc8::f_mix::arr[0].m[LP - 1]::m    MOVED-AWAY-STILL-WRONG
+v8 32:12 bit_select GOLD arr[0]                             PRIS arr[0]                             PAT arr[0]                             
+v8 32:12 hier_path GOLD arr[0].m[7]|arr[0].m[8 - 1]        PRIS arr[0].m[8 - 1]                    PAT arr[0].m[8 - 1]                    
+v8 32:21 bit_select GOLD pc8::f_mixq::arr[0].m[7]::m|pc8::f_mixq::arr[0].m[8 - 1]::m PRIS pc8::f_mixq::arr[0].m[8 - 1]::m    PAT pc8::f_mixq::arr[0].m[8 - 1]::m    
+v8 40:10 bit_select GOLD work@v8.ar                         PRIS work@v8.ar                         PAT work@v8.ar                         
+v8 40:30 bit_select GOLD work@v8.ar                         PRIS work@v8.ar                         PAT work@v8.ar                         
+v8 41:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 41:17 hier_path GOLD v.m[pa8::CAT - 1]                  PRIS v.m[pa8::CAT - 1]                  PAT v.m[pa8::CAT - 1]                  
+v8 41:21 bit_select GOLD work@v8.v.m[pa8::CAT - 1].m        PRIS work@v8.v.m[pa8::CAT - 1].m        PAT work@v8.v.m[pa8::CAT - 1].m        
+v8 42:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 42:17 hier_path GOLD v.m[pa8::CATADD - 1]               PRIS v.m[pa8::CATADD - 1]               PAT v.m[pa8::CATADD - 1]               
+v8 42:21 bit_select GOLD work@v8.v.m[pa8::CATADD - 1].m     PRIS work@v8.v.m[pa8::CATADD - 1].m     PAT work@v8.v.m[pa8::CATADD - 1].m     
+v8 43:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 43:17 hier_path GOLD v.m[pa8::CATPAR - 1]               PRIS v.m[pa8::CATPAR - 1]               PAT v.m[pa8::CATPAR - 1]               
+v8 43:21 bit_select GOLD work@v8.v.m[pa8::CATPAR - 1].m     PRIS work@v8.v.m[pa8::CATPAR - 1].m     PAT work@v8.v.m[pa8::CATPAR - 1].m     
+v8 44:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 44:17 hier_path GOLD v.m[32'b1001 - 1]                  PRIS v.m[pa8::CATCOND - 1]              PAT v.m[pa8::CATCOND - 1]              
+v8 44:21 bit_select GOLD work@v8.v.m[32'b1001 - 1].m        PRIS work@v8.v.m[pa8::CATCOND - 1].m    PAT work@v8.v.m[pa8::CATCOND - 1].m    
+v8 45:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 45:17 hier_path GOLD v.m[32'b1001 - 1]                  PRIS v.m[pa8::RELCAT - 1]               PAT v.m[pa8::RELCAT - 1]               
+v8 45:21 bit_select GOLD work@v8.v.m[32'b1001 - 1].m        PRIS work@v8.v.m[pa8::RELCAT - 1].m     PAT work@v8.v.m[pa8::RELCAT - 1].m     
+v8 46:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 46:17 hier_path GOLD v.m[32'b1001 - 1]                  PRIS v.m[pa8::RELCATQ - 1]              PAT v.m[pa8::RELCATQ - 1]              
+v8 46:21 bit_select GOLD work@v8.v.m[32'b1001 - 1].m        PRIS work@v8.v.m[pa8::RELCATQ - 1].m    PAT work@v8.v.m[pa8::RELCATQ - 1].m    
+v8 47:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 47:17 hier_path GOLD v.m[pa8::REPADD - 1]               PRIS v.m[pa8::REPADD - 1]               PAT v.m[pa8::REPADD - 1]               
+v8 47:21 bit_select GOLD work@v8.v.m[pa8::REPADD - 1].m     PRIS work@v8.v.m[pa8::REPADD - 1].m     PAT work@v8.v.m[pa8::REPADD - 1].m     
+v8 48:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 48:17 hier_path GOLD v.m[4 - 1]                         PRIS v.m[pa8::CATCALL - 1]              PAT v.m[4 - 1]                         FIXED
+v8 48:21 bit_select GOLD work@v8.v.m[4 - 1].m               PRIS work@v8.v.m[pa8::CATCALL - 1].m    PAT work@v8.v.m[4 - 1].m               FIXED
+v8 49:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 50:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 51:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 52:10 bit_select GOLD work@v8.o                          PRIS work@v8.o                          PAT work@v8.o                          
+v8 52:18 bit_select GOLD ar[0]                              PRIS ar[0]                              PAT ar[0]                              
+v8 52:18 hier_path GOLD ar[0].m[8 - 1]                     PRIS ar[0].m[8 - 1]                     PAT ar[0].m[8 - 1]                     
+v8 52:26 bit_select GOLD work@v8.ar[0].m[8 - 1].m           PRIS work@v8.ar[0].m[8 - 1].m           PAT work@v8.ar[0].m[8 - 1].m           
+ARM v8 SUMMARY cells=41 PRIS_SAME=27 PRIS_DIFF=14 PAT_SAME=29 PAT_DIFF=12 FIXED=2 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=4
+ARM=v9 SURELOG_RC=0
+ARM=v9 PRIS_RC=0
+ARM=v9 PAT_RC=0
+ARM=v9 GOLDEN_DUMP_RC=0
+ARM=v9 PRIS_DUMP_RC=0
+ARM=v9 PAT_DUMP_RC=0
+v9 14:10 bit_select GOLD work@v9.o                          PRIS work@v9.o                          PAT work@v9.o                          
+v9 14:17 hier_path GOLD q.w[{1'b1,1}]                      PRIS q.w[{1'b1,SP}]                     PAT q.w[{1'b1,SP}]                     
+v9 14:21 bit_select GOLD work@v9.q.w[{1'b1,1}].w            PRIS work@v9.q.w[{1'b1,SP}].w           PAT work@v9.q.w[{1'b1,SP}].w           
+v9 15:10 bit_select GOLD work@v9.o                          PRIS work@v9.o                          PAT work@v9.o                          
+v9 15:17 hier_path GOLD q.w[{1'b0,4'hA}]                   PRIS q.w[{1'b0,HEX}]                    PAT q.w[{1'b0,HEX}]                    
+v9 15:21 bit_select GOLD work@v9.q.w[{1'b0,4'hA}].w         PRIS work@v9.q.w[{1'b0,HEX}].w          PAT work@v9.q.w[{1'b0,HEX}].w          
+v9 16:10 bit_select GOLD work@v9.o                          PRIS work@v9.o                          PAT work@v9.o                          
+v9 16:17 hier_path GOLD q.w[{1'b0,3:0}]                    PRIS q.w[{1'b0,3:0}]                    PAT q.w[{1'b0,3:0}]                    
+v9 16:21 bit_select GOLD work@v9.q.w[{1'b0,3:0}].w          PRIS work@v9.q.w[{1'b0,3:0}].w          PAT work@v9.q.w[{1'b0,3:0}].w          
+v9 17:10 bit_select GOLD work@v9.o                          PRIS work@v9.o                          PAT work@v9.o                          
+v9 17:17 hier_path GOLD q.w[{2{{1'b1}}}]                   PRIS q.w[{pz9::CNT{{1'b1}}}]            PAT q.w[{2{{1'b1}}}]                   FIXED
+v9 17:21 bit_select GOLD work@v9.q.w[{2{{1'b1}}}].w         PRIS work@v9.q.w[{pz9::CNT{{1'b1}}}].w  PAT work@v9.q.w[{2{{1'b1}}}].w         FIXED
+v9 18:10 bit_select GOLD work@v9.o                          PRIS work@v9.o                          PAT work@v9.o                          
+v9 18:17 hier_path GOLD q.w[{1'b0,4'hA} + 1]               PRIS q.w[{1'b0,pz9::HEX} + 1]           PAT q.w[{1'b0,4'hA} + 1]               FIXED
+v9 18:21 bit_select GOLD work@v9.q.w[{1'b0,4'hA} + 1].w     PRIS work@v9.q.w[{1'b0,pz9::HEX} + 1].w PAT work@v9.q.w[{1'b0,4'hA} + 1].w     FIXED
+v9 19:10 bit_select GOLD work@v9.o                          PRIS work@v9.o                          PAT work@v9.o                          
+v9 19:17 hier_path GOLD q.w[4'hA - 1]                      PRIS q.w[pz9::HEX - 1]                  PAT q.w[4'hA - 1]                      FIXED
+v9 19:21 bit_select GOLD work@v9.q.w[4'hA - 1].w            PRIS work@v9.q.w[pz9::HEX - 1].w        PAT work@v9.q.w[4'hA - 1].w            FIXED
+v9 20:10 bit_select GOLD work@v9.o                          PRIS work@v9.o                          PAT work@v9.o                          
+v9 20:17 hier_path GOLD q.w[{1'b0,,4'hA}]                  PRIS q.w[{1'b0,,HEX}]                   PAT q.w[{1'b0,,HEX}]                   
+v9 20:21 bit_select GOLD work@v9.q.w[{1'b0,,4'hA}].w        PRIS work@v9.q.w[{1'b0,,HEX}].w         PAT work@v9.q.w[{1'b0,,HEX}].w         
+v9 20:30 bit_select GOLD work@v9.q.w[{1'b0,,4'hA}].w.k      PRIS work@v9.k                          PAT work@v9.k                          
+ARM v9 SUMMARY cells=22 PRIS_SAME=9 PRIS_DIFF=13 PAT_SAME=15 PAT_DIFF=7 FIXED=6 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=v10 SURELOG_RC=0
+ARM=v10 PRIS_RC=0
+ARM=v10 PAT_RC=0
+ARM=v10 GOLDEN_DUMP_RC=0
+ARM=v10 PRIS_DUMP_RC=0
+ARM=v10 PAT_DUMP_RC=0
+v10 2:12 hier_path GOLD a.m[7]|a.m[LP - 1]                 PRIS a.m[LP - 1]                        PAT a.m[LP - 1]                        
+v10 2:16 bit_select GOLD pi10::f_inc::a.m[7]::m|pi10::f_inc::a.m[LP - 1]::m PRIS pi10::f_inc::a.m[LP - 1]::m        PAT pi10::f_inc::a.m[LP - 1]::m        
+v10 12:10 bit_select GOLD work@v10.o                         PRIS work@v10.o                         PAT work@v10.o                         
+v10 13:10 bit_select GOLD work@v10.o                         PRIS work@v10.o                         PAT work@v10.o                         
+v10 13:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pi10::LP - 1]                  PAT v.m[8 - 1]                         FIXED
+v10 13:21 bit_select GOLD work@v10.v.m[8 - 1].m              PRIS work@v10.v.m[pi10::LP - 1].m       PAT work@v10.v.m[8 - 1].m              FIXED
+ARM v10 SUMMARY cells=6 PRIS_SAME=2 PRIS_DIFF=4 PAT_SAME=4 PAT_DIFF=2 FIXED=2 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0

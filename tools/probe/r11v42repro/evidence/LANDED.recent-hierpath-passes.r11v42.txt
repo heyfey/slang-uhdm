@@ -1,0 +1,301 @@
+ARM=r11u38repro_grid_g1_memsel38 SURELOG_RC=0
+ARM=r11u38repro_grid_g1_memsel38 PRIS_RC=0
+ARM=r11u38repro_grid_g1_memsel38 PAT_RC=0
+ARM=r11u38repro_grid_g1_memsel38 GOLDEN_DUMP_RC=0
+ARM=r11u38repro_grid_g1_memsel38 PRIS_DUMP_RC=0
+ARM=r11u38repro_grid_g1_memsel38 PAT_DUMP_RC=0
+r11u38repro_grid_g1_memsel38 29:10 hier_path GOLD p3.b                               PRIS p3.b                               PAT p3.b                               
+ARM r11u38repro_grid_g1_memsel38 SUMMARY cells=1 PRIS_SAME=1 PRIS_DIFF=0 PAT_SAME=1 PAT_DIFF=0 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u38repro_grid_g2_paenc38 SURELOG_RC=0
+ARM=r11u38repro_grid_g2_paenc38 PRIS_RC=0
+ARM=r11u38repro_grid_g2_paenc38 PAT_RC=0
+ARM=r11u38repro_grid_g2_paenc38 GOLDEN_DUMP_RC=0
+ARM=r11u38repro_grid_g2_paenc38 PRIS_DUMP_RC=0
+ARM=r11u38repro_grid_g2_paenc38 PAT_DUMP_RC=0
+ARM r11u38repro_grid_g2_paenc38 SUMMARY cells=0 PRIS_SAME=0 PRIS_DIFF=0 PAT_SAME=0 PAT_DIFF=0 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u38repro_grid_g3_home38 SURELOG_RC=0
+ARM=r11u38repro_grid_g3_home38 PRIS_RC=0
+ARM=r11u38repro_grid_g3_home38 PAT_RC=0
+ARM=r11u38repro_grid_g3_home38 GOLDEN_DUMP_RC=0
+ARM=r11u38repro_grid_g3_home38 PRIS_DUMP_RC=0
+ARM=r11u38repro_grid_g3_home38 PAT_DUMP_RC=0
+ARM r11u38repro_grid_g3_home38 SUMMARY cells=0 PRIS_SAME=0 PRIS_DIFF=0 PAT_SAME=0 PAT_DIFF=0 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u39repro_a1_dut SURELOG_RC=0
+ARM=r11u39repro_a1_dut PRIS_RC=0
+ARM=r11u39repro_a1_dut PAT_RC=0
+ARM=r11u39repro_a1_dut GOLDEN_DUMP_RC=0
+ARM=r11u39repro_a1_dut PRIS_DUMP_RC=0
+ARM=r11u39repro_a1_dut PAT_DUMP_RC=0
+r11u39repro_a1_dut 41:16 hier_path GOLD m0.v                               PRIS m0.v                               PAT m0.v                               
+r11u39repro_a1_dut 42:16 hier_path GOLD m0.sat[s_i][1]                     PRIS m0.sat[s_i][1]                     PAT m0.sat[s_i][1]                     
+r11u39repro_a1_dut 42:16 var_select GOLD <none>                             PRIS work@dut.m0.sat[s_i][1].sat        PAT work@dut.m0.sat[s_i][1].sat        
+r11u39repro_a1_dut 42:19 var_select GOLD work@dut.m0.sat[s_i][1].sat        PRIS <none>                             PAT <none>                             
+r11u39repro_a1_dut 43:16 hier_path GOLD m0.sat[s_i]                        PRIS m0.sat[s_i]                        PAT m0.sat[s_i]                        
+r11u39repro_a1_dut 43:23 bit_select GOLD work@dut.m0.sat[s_i].sat           PRIS work@dut.m0.sat[s_i].sat           PAT work@dut.m0.sat[s_i].sat           
+r11u39repro_a1_dut 44:16 hier_path GOLD m0.sat[2][0]                       PRIS m0.sat[2][0]                       PAT m0.sat[2][0]                       
+r11u39repro_a1_dut 44:16 var_select GOLD <none>                             PRIS work@dut.m0.sat[2][0].sat          PAT work@dut.m0.sat[2][0].sat          
+r11u39repro_a1_dut 44:19 var_select GOLD work@dut.m0.sat[2][0].sat          PRIS <none>                             PAT <none>                             
+r11u39repro_a1_dut 47:16 bit_select GOLD m1[r_i]                            PRIS m1[r_i]                            PAT m1[r_i]                            
+r11u39repro_a1_dut 47:16 hier_path GOLD m1[r_i].v                          PRIS m1[r_i].v                          PAT m1[r_i].v                          
+r11u39repro_a1_dut 48:16 bit_select GOLD m1[r_i]                            PRIS m1[r_i]                            PAT m1[r_i]                            
+r11u39repro_a1_dut 48:16 hier_path GOLD m1[r_i].sat[s_i]                   PRIS m1[r_i].sat[s_i]                   PAT m1[r_i].sat[s_i]                   
+r11u39repro_a1_dut 48:28 bit_select GOLD work@dut.m1[r_i].sat[s_i].sat      PRIS work@dut.m1[r_i].sat[s_i].sat      PAT work@dut.m1[r_i].sat[s_i].sat      
+r11u39repro_a1_dut 49:16 bit_select GOLD m1[r_i]                            PRIS m1[r_i]                            PAT m1[r_i]                            
+r11u39repro_a1_dut 49:16 hier_path GOLD m1[r_i].sat[s_i][1]                PRIS m1[r_i].sat[s_i][1]                PAT m1[r_i].sat[s_i][1]                
+r11u39repro_a1_dut 49:24 var_select GOLD work@dut.m1[r_i].sat[s_i][1].sat   PRIS work@dut.m1[r_i].sat[s_i][1].sat   PAT work@dut.m1[r_i].sat[s_i][1].sat   
+r11u39repro_a1_dut 50:16 bit_select GOLD m1[r_i]                            PRIS m1[r_i]                            PAT m1[r_i]                            
+r11u39repro_a1_dut 50:16 hier_path GOLD m1[r_i].sat[2][0]                  PRIS m1[r_i].sat[2][0]                  PAT m1[r_i].sat[2][0]                  
+r11u39repro_a1_dut 50:24 var_select GOLD work@dut.m1[r_i].sat[2][0].sat     PRIS work@dut.m1[r_i].sat[2][0].sat     PAT work@dut.m1[r_i].sat[2][0].sat     
+r11u39repro_a1_dut 53:16 bit_select GOLD m2[r_i]                            PRIS m2[r_i]                            PAT m2[r_i]                            
+r11u39repro_a1_dut 53:16 hier_path GOLD m2[r_i][c_i].v                     PRIS m2[r_i][c_i].v                     PAT m2[r_i][c_i].v                     
+r11u39repro_a1_dut 53:19 bit_select GOLD m2[r_i][c_i]                       PRIS m2[r_i][c_i]                       PAT m2[r_i][c_i]                       
+r11u39repro_a1_dut 54:16 bit_select GOLD m2[r_i]                            PRIS m2[r_i]                            PAT m2[r_i]                            
+r11u39repro_a1_dut 54:16 hier_path GOLD m2[r_i][c_i].sat[s_i]              PRIS m2[r_i][c_i].sat[s_i]              PAT m2[r_i][c_i].sat[s_i]              
+r11u39repro_a1_dut 54:19 bit_select GOLD m2[r_i][c_i]                       PRIS m2[r_i][c_i]                       PAT m2[r_i][c_i]                       
+r11u39repro_a1_dut 54:33 bit_select GOLD work@dut.m2[r_i][c_i].sat[s_i].sat PRIS work@dut.m2[r_i][c_i].sat[s_i].sat PAT work@dut.m2[r_i][c_i].sat[s_i].sat 
+r11u39repro_a1_dut 55:16 bit_select GOLD m2[r_i]                            PRIS m2[r_i]                            PAT m2[r_i]                            
+r11u39repro_a1_dut 55:16 hier_path GOLD m2[r_i][c_i].sat[s_i][1]           PRIS m2[r_i][c_i].sat[s_i][1]           PAT m2[r_i][c_i].sat[s_i][1]           
+r11u39repro_a1_dut 55:19 bit_select GOLD m2[r_i][c_i]                       PRIS m2[r_i][c_i]                       PAT m2[r_i][c_i]                       
+r11u39repro_a1_dut 55:29 var_select GOLD work@dut.m2[r_i][c_i].sat[s_i][1].sat PRIS work@dut.m2[r_i][c_i].sat[s_i][1].sat PAT work@dut.m2[r_i][c_i].sat[s_i][1].sat 
+r11u39repro_a1_dut 56:16 bit_select GOLD m2[r_i]                            PRIS m2[r_i]                            PAT m2[r_i]                            
+r11u39repro_a1_dut 56:16 hier_path GOLD m2[r_i][c_i].sat[2][0]             PRIS m2[r_i][c_i].sat[2][0]             PAT m2[r_i][c_i].sat[2][0]             
+r11u39repro_a1_dut 56:19 bit_select GOLD m2[r_i][c_i]                       PRIS m2[r_i][c_i]                       PAT m2[r_i][c_i]                       
+r11u39repro_a1_dut 56:29 var_select GOLD work@dut.m2[r_i][c_i].sat[2][0].sat PRIS work@dut.m2[r_i][c_i].sat[2][0].sat PAT work@dut.m2[r_i][c_i].sat[2][0].sat 
+r11u39repro_a1_dut 59:16 bit_select GOLD m3[r_i]                            PRIS m3[r_i]                            PAT m3[r_i]                            
+r11u39repro_a1_dut 59:16 hier_path GOLD m3[r_i][c_i][t_i].v                PRIS m3[r_i][c_i][t_i].v                PAT m3[r_i][c_i][t_i].v                
+r11u39repro_a1_dut 59:19 bit_select GOLD m3[r_i][c_i]                       PRIS m3[r_i][c_i]                       PAT m3[r_i][c_i]                       
+r11u39repro_a1_dut 59:24 bit_select GOLD m3[r_i][c_i][t_i]                  PRIS m3[r_i][c_i][t_i]                  PAT m3[r_i][c_i][t_i]                  
+r11u39repro_a1_dut 60:16 bit_select GOLD m3[r_i]                            PRIS m3[r_i]                            PAT m3[r_i]                            
+r11u39repro_a1_dut 60:16 hier_path GOLD m3[r_i][c_i][t_i].sat[s_i]         PRIS m3[r_i][c_i][t_i].sat[s_i]         PAT m3[r_i][c_i][t_i].sat[s_i]         
+r11u39repro_a1_dut 60:19 bit_select GOLD m3[r_i][c_i]                       PRIS m3[r_i][c_i]                       PAT m3[r_i][c_i]                       
+r11u39repro_a1_dut 60:24 bit_select GOLD m3[r_i][c_i][t_i]                  PRIS m3[r_i][c_i][t_i]                  PAT m3[r_i][c_i][t_i]                  
+r11u39repro_a1_dut 60:38 bit_select GOLD work@dut.m3[r_i][c_i][t_i].sat[s_i].sat PRIS work@dut.m3[r_i][c_i][t_i].sat[s_i].sat PAT work@dut.m3[r_i][c_i][t_i].sat[s_i].sat 
+r11u39repro_a1_dut 61:16 bit_select GOLD m3[r_i]                            PRIS m3[r_i]                            PAT m3[r_i]                            
+r11u39repro_a1_dut 61:16 hier_path GOLD m3[r_i][c_i][t_i].sat[s_i][1]      PRIS m3[r_i][c_i][t_i].sat[s_i][1]      PAT m3[r_i][c_i][t_i].sat[s_i][1]      
+r11u39repro_a1_dut 61:19 bit_select GOLD m3[r_i][c_i]                       PRIS m3[r_i][c_i]                       PAT m3[r_i][c_i]                       
+r11u39repro_a1_dut 61:24 bit_select GOLD m3[r_i][c_i][t_i]                  PRIS m3[r_i][c_i][t_i]                  PAT m3[r_i][c_i][t_i]                  
+r11u39repro_a1_dut 61:34 var_select GOLD work@dut.m3[r_i][c_i][t_i].sat[s_i][1].sat PRIS work@dut.m3[r_i][c_i][t_i].sat[s_i][1].sat PAT work@dut.m3[r_i][c_i][t_i].sat[s_i][1].sat 
+r11u39repro_a1_dut 62:16 bit_select GOLD m3[r_i]                            PRIS m3[r_i]                            PAT m3[r_i]                            
+r11u39repro_a1_dut 62:16 hier_path GOLD m3[r_i][c_i][t_i].sat[2][0]        PRIS m3[r_i][c_i][t_i].sat[2][0]        PAT m3[r_i][c_i][t_i].sat[2][0]        
+r11u39repro_a1_dut 62:19 bit_select GOLD m3[r_i][c_i]                       PRIS m3[r_i][c_i]                       PAT m3[r_i][c_i]                       
+r11u39repro_a1_dut 62:24 bit_select GOLD m3[r_i][c_i][t_i]                  PRIS m3[r_i][c_i][t_i]                  PAT m3[r_i][c_i][t_i]                  
+r11u39repro_a1_dut 62:34 var_select GOLD work@dut.m3[r_i][c_i][t_i].sat[2][0].sat PRIS work@dut.m3[r_i][c_i][t_i].sat[2][0].sat PAT work@dut.m3[r_i][c_i][t_i].sat[2][0].sat 
+r11u39repro_a1_dut 65:15 bit_select GOLD m2[0]                              PRIS m2[0]                              PAT m2[0]                              
+r11u39repro_a1_dut 65:15 hier_path GOLD m2[0][1].sat[s_i][1]               PRIS m2[0][1].sat[s_i][1]               PAT m2[0][1].sat[s_i][1]               
+r11u39repro_a1_dut 65:18 bit_select GOLD m2[0][1]                           PRIS m2[0][1]                           PAT m2[0][1]                           
+r11u39repro_a1_dut 65:24 var_select GOLD work@dut.m2[0][1].sat[s_i][1].sat  PRIS work@dut.m2[0][1].sat[s_i][1].sat  PAT work@dut.m2[0][1].sat[s_i][1].sat  
+r11u39repro_a1_dut 66:15 bit_select GOLD m2[0]                              PRIS m2[0]                              PAT m2[0]                              
+r11u39repro_a1_dut 66:15 hier_path GOLD m2[0][1].sat[K][0]                 PRIS m2[0][1].sat[K][0]                 PAT m2[0][1].sat[K][0]                 
+r11u39repro_a1_dut 66:18 bit_select GOLD m2[0][1]                           PRIS m2[0][1]                           PAT m2[0][1]                           
+r11u39repro_a1_dut 66:24 var_select GOLD work@dut.m2[0][1].sat[K][0].sat    PRIS work@dut.m2[0][1].sat[K][0].sat    PAT work@dut.m2[0][1].sat[K][0].sat    
+r11u39repro_a1_dut 67:15 bit_select GOLD m2[r_i]                            PRIS m2[r_i]                            PAT m2[r_i]                            
+r11u39repro_a1_dut 67:15 hier_path GOLD m2[r_i][c_i].sat[K][1]             PRIS m2[r_i][c_i].sat[K][1]             PAT m2[r_i][c_i].sat[K][1]             
+r11u39repro_a1_dut 67:18 bit_select GOLD m2[r_i][c_i]                       PRIS m2[r_i][c_i]                       PAT m2[r_i][c_i]                       
+r11u39repro_a1_dut 67:28 var_select GOLD work@dut.m2[r_i][c_i].sat[K][1].sat PRIS work@dut.m2[r_i][c_i].sat[K][1].sat PAT work@dut.m2[r_i][c_i].sat[K][1].sat 
+r11u39repro_a1_dut 68:15 bit_select GOLD m2[r_i]                            PRIS m2[r_i]                            PAT m2[r_i]                            
+r11u39repro_a1_dut 68:15 hier_path GOLD m2[r_i][c_i].sat[s_i][t_i]         PRIS m2[r_i][c_i].sat[s_i][t_i]         PAT m2[r_i][c_i].sat[s_i][t_i]         
+r11u39repro_a1_dut 68:18 bit_select GOLD m2[r_i][c_i]                       PRIS m2[r_i][c_i]                       PAT m2[r_i][c_i]                       
+r11u39repro_a1_dut 68:28 var_select GOLD work@dut.m2[r_i][c_i].sat[s_i][t_i].sat PRIS work@dut.m2[r_i][c_i].sat[s_i][t_i].sat PAT work@dut.m2[r_i][c_i].sat[s_i][t_i].sat 
+r11u39repro_a1_dut 71:15 bit_select GOLD g2[r_i]                            PRIS g2[r_i]                            PAT g2[r_i]                            
+r11u39repro_a1_dut 71:15 hier_path GOLD g2[r_i][c_i].deep[t_i][s_i][1]     PRIS g2[r_i][c_i].deep[t_i][s_i][1]     PAT g2[r_i][c_i].deep[t_i][s_i][1]     
+r11u39repro_a1_dut 71:18 bit_select GOLD g2[r_i][c_i]                       PRIS g2[r_i][c_i]                       PAT g2[r_i][c_i]                       
+r11u39repro_a1_dut 71:28 var_select GOLD work@dut.g2[r_i][c_i].deep[t_i][s_i][1].deep PRIS work@dut.g2[r_i][c_i].deep[t_i][s_i][1].deep PAT work@dut.g2[r_i][c_i].deep[t_i][s_i][1].deep 
+r11u39repro_a1_dut 72:15 bit_select GOLD g2[r_i]                            PRIS g2[r_i]                            PAT g2[r_i]                            
+r11u39repro_a1_dut 72:15 hier_path GOLD g2[r_i][c_i].deep[0][1][0]         PRIS g2[r_i][c_i].deep[0][1][0]         PAT g2[r_i][c_i].deep[0][1][0]         
+r11u39repro_a1_dut 72:18 bit_select GOLD g2[r_i][c_i]                       PRIS g2[r_i][c_i]                       PAT g2[r_i][c_i]                       
+r11u39repro_a1_dut 72:28 var_select GOLD work@dut.g2[r_i][c_i].deep[0][1][0].deep PRIS work@dut.g2[r_i][c_i].deep[0][1][0].deep PAT work@dut.g2[r_i][c_i].deep[0][1][0].deep 
+r11u39repro_a1_dut 75:15 bit_select GOLD g2[r_i]                            PRIS g2[r_i]                            PAT g2[r_i]                            
+r11u39repro_a1_dut 75:15 hier_path GOLD g2[r_i][c_i].sub.sat[s_i][1]       PRIS g2[r_i][c_i].sub.sat[s_i][1]       PAT g2[r_i][c_i].sub.sat[s_i][1]       
+r11u39repro_a1_dut 75:18 bit_select GOLD g2[r_i][c_i]                       PRIS g2[r_i][c_i]                       PAT g2[r_i][c_i]                       
+r11u39repro_a1_dut 75:32 var_select GOLD work@dut.g2[r_i][c_i].sub.sat[s_i][1].sat PRIS work@dut.g2[r_i][c_i].sub.sat[s_i][1].sat PAT work@dut.g2[r_i][c_i].sub.sat[s_i][1].sat 
+r11u39repro_a1_dut 76:15 bit_select GOLD g2[0]                              PRIS g2[0]                              PAT g2[0]                              
+r11u39repro_a1_dut 76:15 hier_path GOLD g2[0][0].sub.v                     PRIS g2[0][0].sub.v                     PAT g2[0][0].sub.v                     
+r11u39repro_a1_dut 76:18 bit_select GOLD g2[0][0]                           PRIS g2[0][0]                           PAT g2[0][0]                           
+ARM r11u39repro_a1_dut SUMMARY cells=85 PRIS_SAME=81 PRIS_DIFF=4 PAT_SAME=81 PAT_DIFF=4 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u39repro_a2_dut SURELOG_RC=0
+ARM=r11u39repro_a2_dut PRIS_RC=0
+ARM=r11u39repro_a2_dut PAT_RC=0
+ARM=r11u39repro_a2_dut GOLDEN_DUMP_RC=0
+ARM=r11u39repro_a2_dut PRIS_DUMP_RC=0
+ARM=r11u39repro_a2_dut PAT_DUMP_RC=0
+r11u39repro_a2_dut 35:18 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a2_dut 35:18 hier_path GOLD tb[r_i][c_i].lv[s_i][1].a          PRIS tb[r_i][c_i].lv[s_i][1].a          PAT tb[r_i][c_i].lv[s_i][1].a          
+r11u39repro_a2_dut 35:21 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a2_dut 35:31 bit_select GOLD tb[r_i][c_i].lv[s_i]               PRIS tb[r_i][c_i].lv[s_i]               PAT tb[r_i][c_i].lv[s_i]               
+r11u39repro_a2_dut 35:34 bit_select GOLD tb[r_i][c_i].lv[s_i][1]            PRIS tb[r_i][c_i].lv[s_i][1]            PAT tb[r_i][c_i].lv[s_i][1]            
+r11u39repro_a2_dut 38:23 bit_select GOLD work@dut.lvq                       PRIS work@dut.lvq                       PAT work@dut.lvq                       
+r11u39repro_a2_dut 42:13 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a2_dut 42:13 hier_path GOLD tb[r_i][c_i].sat[s_i][1]           PRIS tb[r_i][c_i].sat[s_i][1]           PAT tb[r_i][c_i].sat[s_i][1]           
+r11u39repro_a2_dut 42:16 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a2_dut 42:26 var_select GOLD work@dut.tb[r_i][c_i].sat[s_i][1].sat PRIS work@dut.tb[r_i][c_i].sat[s_i][1].sat PAT work@dut.tb[r_i][c_i].sat[s_i][1].sat 
+r11u39repro_a2_dut 44:5 bit_select GOLD work@dut.lvq                       PRIS work@dut.lvq                       PAT work@dut.lvq                       
+r11u39repro_a2_dut 44:14 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a2_dut 44:14 hier_path GOLD tb[r_i][c_i].lv[s_i][1].b          PRIS tb[r_i][c_i].lv[s_i][1].b          PAT tb[r_i][c_i].lv[s_i][1].b          
+r11u39repro_a2_dut 44:17 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a2_dut 44:27 bit_select GOLD tb[r_i][c_i].lv[s_i]               PRIS tb[r_i][c_i].lv[s_i]               PAT tb[r_i][c_i].lv[s_i]               
+r11u39repro_a2_dut 44:30 bit_select GOLD tb[r_i][c_i].lv[s_i][1]            PRIS tb[r_i][c_i].lv[s_i][1]            PAT tb[r_i][c_i].lv[s_i][1]            
+r11u39repro_a2_dut 45:18 bit_select GOLD work@dut.tmp                       PRIS work@dut.tmp                       PAT work@dut.tmp                       
+r11u39repro_a2_dut 49:12 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a2_dut 49:12 hier_path GOLD tb[r_i][c_i].sat[q][1]             PRIS tb[r_i][c_i].sat[q][1]             PAT tb[r_i][c_i].sat[q][1]             
+r11u39repro_a2_dut 49:15 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a2_dut 49:25 var_select GOLD work@dut.f2.tb[r_i][c_i].sat[q][1].sat PRIS work@dut.f2.tb[r_i][c_i].sat[q][1].sat PAT work@dut.f2.tb[r_i][c_i].sat[q][1].sat 
+r11u39repro_a2_dut 54:19 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a2_dut 54:19 hier_path GOLD tb[r_i][c_i].sat[s_i][1]           PRIS tb[r_i][c_i].sat[s_i][1]           PAT tb[r_i][c_i].sat[s_i][1]           
+r11u39repro_a2_dut 54:22 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a2_dut 54:32 var_select GOLD work@dut.tb[r_i][c_i].sat[s_i][1].sat PRIS work@dut.tb[r_i][c_i].sat[s_i][1].sat PAT work@dut.tb[r_i][c_i].sat[s_i][1].sat 
+r11u39repro_a2_dut 55:29 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a2_dut 55:29 hier_path GOLD tb[r_i][c_i].sat[s_i][1]           PRIS tb[r_i][c_i].sat[s_i][1]           PAT tb[r_i][c_i].sat[s_i][1]           
+r11u39repro_a2_dut 55:32 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a2_dut 55:42 var_select GOLD work@dut.tb[r_i][c_i].sat[s_i][1].sat PRIS work@dut.tb[r_i][c_i].sat[s_i][1].sat PAT work@dut.tb[r_i][c_i].sat[s_i][1].sat 
+r11u39repro_a2_dut 62:18 bit_select GOLD tb[gi]                             PRIS tb[gi]                             PAT tb[gi]                             
+r11u39repro_a2_dut 62:18 hier_path GOLD tb[gi][c_i].sat[s_i][1]            PRIS tb[gi][c_i].sat[s_i][1]            PAT tb[gi][c_i].sat[s_i][1]            
+r11u39repro_a2_dut 62:21 bit_select GOLD tb[gi][c_i]                        PRIS tb[gi][c_i]                        PAT tb[gi][c_i]                        
+r11u39repro_a2_dut 62:30 var_select GOLD work@dut.gb[0].tb[gi][c_i].sat[s_i][1].sat|work@dut.gb[1].tb[gi][c_i].sat[s_i][1].sat PRIS work@dut.gb[0].tb[gi][c_i].sat[s_i][1].sat|work@dut.gb[1].tb[gi][c_i].sat[s_i][1].sat PAT work@dut.gb[0].tb[gi][c_i].sat[s_i][1].sat|work@dut.gb[1].tb[gi][c_i].sat[s_i][1].sat 
+r11u39repro_a2_dut 65:18 bit_select GOLD gb[0]                              PRIS gb[0]                              PAT gb[0]                              
+r11u39repro_a2_dut 65:18 hier_path GOLD gb[0].w                            PRIS gb[0].w                            PAT gb[0].w                            
+r11u39repro_a2_dut 69:17 hier_path GOLD u_if.tb[r_i][c_i].sat[s_i][1]      PRIS u_if.tb[r_i][c_i].sat[s_i][1]      PAT u_if.tb[r_i][c_i].sat[s_i][1]      
+r11u39repro_a2_dut 69:22 bit_select GOLD u_if.tb[r_i]                       PRIS <none>                             PAT <none>                             
+r11u39repro_a2_dut 69:25 bit_select GOLD u_if.tb[r_i][c_i]                  PRIS <none>                             PAT <none>                             
+r11u39repro_a2_dut 69:35 var_select GOLD work@dut.u_if.tb[r_i][c_i].sat[s_i][1].sat PRIS <none>                             PAT <none>                             
+r11u39repro_a2_dut 69:44 bit_select GOLD <none>                             PRIS work@dut.u_if.tb[r_i][c_i].sat[s_i][1].sat[s_i] PAT work@dut.u_if.tb[r_i][c_i].sat[s_i][1].sat[s_i] 
+r11u39repro_a2_dut 72:16 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a2_dut 72:16 hier_path GOLD tb[r_i][c_i].sat[s_i][1]           PRIS tb[r_i][c_i].sat[s_i][1]           PAT tb[r_i][c_i].sat[s_i][1]           
+r11u39repro_a2_dut 72:19 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a2_dut 72:29 var_select GOLD work@dut.u_sub.x.tb[r_i][c_i].sat[s_i][1].sat PRIS work@dut.u_sub.x.tb[r_i][c_i].sat[s_i][1].sat PAT work@dut.u_sub.x.tb[r_i][c_i].sat[s_i][1].sat 
+ARM r11u39repro_a2_dut SUMMARY cells=44 PRIS_SAME=40 PRIS_DIFF=4 PAT_SAME=40 PAT_DIFF=4 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u39repro_a3_dut SURELOG_RC=0
+ARM=r11u39repro_a3_dut PRIS_RC=0
+ARM=r11u39repro_a3_dut PAT_RC=0
+ARM=r11u39repro_a3_dut GOLDEN_DUMP_RC=0
+ARM=r11u39repro_a3_dut PRIS_DUMP_RC=0
+ARM=r11u39repro_a3_dut PAT_DUMP_RC=0
+r11u39repro_a3_dut 33:10 bit_select GOLD wb[0]                              PRIS wb[0]                              PAT wb[0]                              
+r11u39repro_a3_dut 33:10 hier_path GOLD wb[0][1].sat[2][0]                 PRIS wb[0][1].sat[2][0]                 PAT wb[0][1].sat[2][0]                 
+r11u39repro_a3_dut 33:13 bit_select GOLD wb[0][1]                           PRIS wb[0][1]                           PAT wb[0][1]                           
+r11u39repro_a3_dut 33:38 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 34:10 bit_select GOLD wb[1]                              PRIS wb[1]                              PAT wb[1]                              
+r11u39repro_a3_dut 34:10 hier_path GOLD wb[1][0].sat[MP][1]                PRIS wb[1][0].sat[MP][1]                PAT wb[1][0].sat[MP][1]                
+r11u39repro_a3_dut 34:13 bit_select GOLD wb[1][0]                           PRIS wb[1][0]                           PAT wb[1][0]                           
+r11u39repro_a3_dut 34:39 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 36:10 bit_select GOLD wb[1]                              PRIS wb[1]                              PAT wb[1]                              
+r11u39repro_a3_dut 36:10 hier_path GOLD wb[1][1].lv[0][1].a                PRIS wb[1][1].lv[0][1].a                PAT wb[1][1].lv[0][1].a                
+r11u39repro_a3_dut 36:13 bit_select GOLD wb[1][1]                           PRIS wb[1][1]                           PAT wb[1][1]                           
+r11u39repro_a3_dut 36:19 bit_select GOLD wb[1][1].lv[0]                     PRIS wb[1][1].lv[0]                     PAT wb[1][1].lv[0]                     
+r11u39repro_a3_dut 36:22 bit_select GOLD wb[1][1].lv[0][1]                  PRIS wb[1][1].lv[0][1]                  PAT wb[1][1].lv[0][1]                  
+r11u39repro_a3_dut 36:39 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 41:5 bit_select GOLD work@dut.ov                        PRIS work@dut.ov                        PAT work@dut.ov                        
+r11u39repro_a3_dut 41:13 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a3_dut 41:13 hier_path GOLD tb[r_i][c_i].sat[s_i][1]           PRIS tb[r_i][c_i].sat[s_i][1]           PAT tb[r_i][c_i].sat[s_i][1]           
+r11u39repro_a3_dut 41:16 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a3_dut 41:26 var_select GOLD work@dut.tb[r_i][c_i].sat[s_i][1].sat PRIS work@dut.tb[r_i][c_i].sat[s_i][1].sat PAT work@dut.tb[r_i][c_i].sat[s_i][1].sat 
+r11u39repro_a3_dut 42:5 bit_select GOLD work@dut.ov                        PRIS work@dut.ov                        PAT work@dut.ov                        
+r11u39repro_a3_dut 42:13 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a3_dut 42:13 hier_path GOLD tb[r_i][c_i].sat[MP][0]            PRIS tb[r_i][c_i].sat[MP][0]            PAT tb[r_i][c_i].sat[MP][0]            
+r11u39repro_a3_dut 42:16 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a3_dut 42:26 var_select GOLD work@dut.tb[r_i][c_i].sat[MP][0].sat PRIS work@dut.tb[r_i][c_i].sat[MP][0].sat PAT work@dut.tb[r_i][c_i].sat[MP][0].sat 
+r11u39repro_a3_dut 43:5 bit_select GOLD work@dut.ov                        PRIS work@dut.ov                        PAT work@dut.ov                        
+r11u39repro_a3_dut 43:13 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a3_dut 43:13 hier_path GOLD tb[r_i][c_i].sat[1][1]             PRIS tb[r_i][c_i].sat[1][1]             PAT tb[r_i][c_i].sat[1][1]             
+r11u39repro_a3_dut 43:16 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a3_dut 43:26 var_select GOLD work@dut.tb[r_i][c_i].sat[1][1].sat PRIS work@dut.tb[r_i][c_i].sat[1][1].sat PAT work@dut.tb[r_i][c_i].sat[1][1].sat 
+r11u39repro_a3_dut 44:5 bit_select GOLD work@dut.ov                        PRIS work@dut.ov                        PAT work@dut.ov                        
+r11u39repro_a3_dut 44:13 bit_select GOLD tb[r_i]                            PRIS tb[r_i]                            PAT tb[r_i]                            
+r11u39repro_a3_dut 44:13 hier_path GOLD tb[r_i][c_i].sat[s_i][MP]          PRIS tb[r_i][c_i].sat[s_i][MP]          PAT tb[r_i][c_i].sat[s_i][MP]          
+r11u39repro_a3_dut 44:16 bit_select GOLD tb[r_i][c_i]                       PRIS tb[r_i][c_i]                       PAT tb[r_i][c_i]                       
+r11u39repro_a3_dut 44:26 var_select GOLD work@dut.tb[r_i][c_i].sat[s_i][MP].sat PRIS work@dut.tb[r_i][c_i].sat[s_i][MP].sat PAT work@dut.tb[r_i][c_i].sat[s_i][MP].sat 
+r11u39repro_a3_dut 46:5 bit_select GOLD wv[r_i]                            PRIS wv[r_i]                            PAT wv[r_i]                            
+r11u39repro_a3_dut 46:5 hier_path GOLD wv[r_i][c_i].sat[s_i][1]           PRIS wv[r_i][c_i].sat[s_i][1]           PAT wv[r_i][c_i].sat[s_i][1]           
+r11u39repro_a3_dut 46:8 bit_select GOLD wv[r_i][c_i]                       PRIS wv[r_i][c_i]                       PAT wv[r_i][c_i]                       
+r11u39repro_a3_dut 46:39 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 47:5 bit_select GOLD wv[0]                              PRIS wv[0]                              PAT wv[0]                              
+r11u39repro_a3_dut 47:5 hier_path GOLD wv[0][1].sat[2][0]                 PRIS wv[0][1].sat[2][0]                 PAT wv[0][1].sat[2][0]                 
+r11u39repro_a3_dut 47:8 bit_select GOLD wv[0][1]                           PRIS wv[0][1]                           PAT wv[0][1]                           
+r11u39repro_a3_dut 47:39 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 49:5 bit_select GOLD wv[r_i]                            PRIS wv[r_i]                            PAT wv[r_i]                            
+r11u39repro_a3_dut 49:5 hier_path GOLD wv[r_i][c_i].lv[s_i][1].b          PRIS wv[r_i][c_i].lv[s_i][1].b          PAT wv[r_i][c_i].lv[s_i][1].b          
+r11u39repro_a3_dut 49:8 bit_select GOLD wv[r_i][c_i]                       PRIS wv[r_i][c_i]                       PAT wv[r_i][c_i]                       
+r11u39repro_a3_dut 49:18 bit_select GOLD wv[r_i][c_i].lv[s_i]               PRIS wv[r_i][c_i].lv[s_i]               PAT wv[r_i][c_i].lv[s_i]               
+r11u39repro_a3_dut 49:21 bit_select GOLD wv[r_i][c_i].lv[s_i][1]            PRIS wv[r_i][c_i].lv[s_i][1]            PAT wv[r_i][c_i].lv[s_i][1]            
+r11u39repro_a3_dut 49:40 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 50:5 bit_select GOLD wv[0]                              PRIS wv[0]                              PAT wv[0]                              
+r11u39repro_a3_dut 50:5 hier_path GOLD wv[0][1].lv[2][0].a                PRIS wv[0][1].lv[2][0].a                PAT wv[0][1].lv[2][0].a                
+r11u39repro_a3_dut 50:8 bit_select GOLD wv[0][1]                           PRIS wv[0][1]                           PAT wv[0][1]                           
+r11u39repro_a3_dut 50:14 bit_select GOLD wv[0][1].lv[2]                     PRIS wv[0][1].lv[2]                     PAT wv[0][1].lv[2]                     
+r11u39repro_a3_dut 50:17 bit_select GOLD wv[0][1].lv[2][0]                  PRIS wv[0][1].lv[2][0]                  PAT wv[0][1].lv[2][0]                  
+r11u39repro_a3_dut 50:40 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 52:5 hier_path GOLD m0.lv[s_i][1].a                    PRIS m0.lv[s_i][1].a                    PAT m0.lv[s_i][1].a                    
+r11u39repro_a3_dut 52:8 var_select GOLD work@dut.m0.lv[s_i][1].a.lv        PRIS work@dut.m0.lv[s_i][1].a.lv        PAT work@dut.m0.lv[s_i][1].a.lv        
+r11u39repro_a3_dut 52:30 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 53:5 bit_select GOLD work@dut.ov                        PRIS work@dut.ov                        PAT work@dut.ov                        
+r11u39repro_a3_dut 53:23 hier_path GOLD m0.lv[s_i][1].b                    PRIS m0.lv[s_i][1].b                    PAT m0.lv[s_i][1].b                    
+r11u39repro_a3_dut 53:26 bit_select GOLD m0.lv[s_i]                         PRIS m0.lv[s_i]                         PAT m0.lv[s_i]                         
+r11u39repro_a3_dut 53:29 bit_select GOLD m0.lv[s_i][1]                      PRIS m0.lv[s_i][1]                      PAT m0.lv[s_i][1]                      
+r11u39repro_a3_dut 55:5 hier_path GOLD m0.sat[s_i][1]                     PRIS m0.sat[s_i][1]                     PAT m0.sat[s_i][1]                     
+r11u39repro_a3_dut 55:8 var_select GOLD work@dut.m0.sat[s_i][1].sat        PRIS work@dut.m0.sat[s_i][1].sat        PAT work@dut.m0.sat[s_i][1].sat        
+r11u39repro_a3_dut 55:30 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+r11u39repro_a3_dut 56:5 bit_select GOLD work@dut.ov                        PRIS work@dut.ov                        PAT work@dut.ov                        
+r11u39repro_a3_dut 56:23 hier_path GOLD m0.sat[s_i][0]                     PRIS m0.sat[s_i][0]                     PAT m0.sat[s_i][0]                     
+r11u39repro_a3_dut 56:23 var_select GOLD <none>                             PRIS work@dut.m0.sat[s_i][0].sat        PAT work@dut.m0.sat[s_i][0].sat        
+r11u39repro_a3_dut 56:26 var_select GOLD work@dut.m0.sat[s_i][0].sat        PRIS <none>                             PAT <none>                             
+r11u39repro_a3_dut 64:18 bit_select GOLD tb[gi]                             PRIS tb[gi]                             PAT tb[gi]                             
+r11u39repro_a3_dut 64:18 hier_path GOLD tb[gi][c_i].sat[gi][1]             PRIS tb[gi][c_i].sat[gi][1]             PAT tb[gi][c_i].sat[gi][1]             
+r11u39repro_a3_dut 64:21 bit_select GOLD tb[gi][c_i]                        PRIS tb[gi][c_i]                        PAT tb[gi][c_i]                        
+r11u39repro_a3_dut 64:30 var_select GOLD work@dut.gb[0].tb[gi][c_i].sat[gi][1].sat|work@dut.gb[1].tb[gi][c_i].sat[gi][1].sat PRIS work@dut.gb[0].tb[gi][c_i].sat[gi][1].sat|work@dut.gb[1].tb[gi][c_i].sat[gi][1].sat PAT work@dut.gb[0].tb[gi][c_i].sat[gi][1].sat|work@dut.gb[1].tb[gi][c_i].sat[gi][1].sat 
+r11u39repro_a3_dut 67:15 bit_select GOLD gb[0]                              PRIS gb[0]                              PAT gb[0]                              
+r11u39repro_a3_dut 67:15 hier_path GOLD gb[0].w                            PRIS gb[0].w                            PAT gb[0].w                            
+r11u39repro_a3_dut 73:14 bit_select GOLD q[0]                               PRIS q[0]                               PAT q[0]                               
+r11u39repro_a3_dut 73:14 hier_path GOLD q[0][1].sat[k][1]                  PRIS q[0][1].sat[k][1]                  PAT q[0][1].sat[k][1]                  
+r11u39repro_a3_dut 73:16 bit_select GOLD q[0][1]                            PRIS q[0][1]                            PAT q[0][1]                            
+r11u39repro_a3_dut 73:22 var_select GOLD work@dut::C::rd::q[0][1].sat[k][1]::sat PRIS work@dut::C::rd::q[0][1].sat[k][1]::sat PAT work@dut::C::rd::q[0][1].sat[k][1]::sat 
+r11u39repro_a3_dut 76:7 bit_select GOLD q[0]                               PRIS q[0]                               PAT q[0]                               
+r11u39repro_a3_dut 76:7 hier_path GOLD q[0][1].sat[k][1]                  PRIS q[0][1].sat[k][1]                  PAT q[0][1].sat[k][1]                  
+r11u39repro_a3_dut 76:9 bit_select GOLD q[0][1]                            PRIS q[0][1]                            PAT q[0][1]                            
+r11u39repro_a3_dut 79:22 bit_select GOLD work@dut.flat_i                    PRIS work@dut.flat_i                    PAT work@dut.flat_i                    
+ARM r11u39repro_a3_dut SUMMARY cells=82 PRIS_SAME=80 PRIS_DIFF=2 PAT_SAME=80 PAT_DIFF=2 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u40repro_grid_g1_hop40_dut SURELOG_RC=0
+ARM=r11u40repro_grid_g1_hop40_dut PRIS_RC=0
+ARM=r11u40repro_grid_g1_hop40_dut PAT_RC=0
+ARM=r11u40repro_grid_g1_hop40_dut GOLDEN_DUMP_RC=0
+ARM=r11u40repro_grid_g1_hop40_dut PRIS_DUMP_RC=0
+ARM=r11u40repro_grid_g1_hop40_dut PAT_DUMP_RC=0
+r11u40repro_grid_g1_hop40_dut 18:10 hier_path GOLD CFG.BUS.DAT                        PRIS CFG.BUS.DAT                        PAT CFG.BUS.DAT                        
+r11u40repro_grid_g1_hop40_dut 97:35 hier_path GOLD s.sub                              PRIS s.sub                              PAT s.sub                              
+r11u40repro_grid_g1_hop40_dut 98:35 hier_path GOLD s.sub                              PRIS s.sub                              PAT s.sub                              
+r11u40repro_grid_g1_hop40_dut 104:35 hier_path GOLD s3.sub                             PRIS s3.sub                             PAT s3.sub                             
+r11u40repro_grid_g1_hop40_dut 105:36 bit_select GOLD sarr[1]                            PRIS sarr[1]                            PAT sarr[1]                            
+r11u40repro_grid_g1_hop40_dut 105:36 hier_path GOLD sarr[1].sub                        PRIS sarr[1].sub                        PAT sarr[1].sub                        
+ARM r11u40repro_grid_g1_hop40_dut SUMMARY cells=6 PRIS_SAME=6 PRIS_DIFF=0 PAT_SAME=6 PAT_DIFF=0 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u40repro_grid_g2_site40_dut SURELOG_RC=0
+ARM=r11u40repro_grid_g2_site40_dut PRIS_RC=0
+ARM=r11u40repro_grid_g2_site40_dut PAT_RC=0
+ARM=r11u40repro_grid_g2_site40_dut GOLDEN_DUMP_RC=0
+ARM=r11u40repro_grid_g2_site40_dut PRIS_DUMP_RC=0
+ARM=r11u40repro_grid_g2_site40_dut PAT_DUMP_RC=0
+r11u40repro_grid_g2_site40_dut 14:10 hier_path GOLD CFG.BUS.DAT                        PRIS CFG.BUS.DAT                        PAT CFG.BUS.DAT                        
+r11u40repro_grid_g2_site40_dut 47:5 hier_path GOLD stv.m                              PRIS stv.m                              PAT stv.m                              
+r11u40repro_grid_g2_site40_dut 63:30 hier_path GOLD s.sub                              PRIS s.sub                              PAT s.sub                              
+ARM r11u40repro_grid_g2_site40_dut SUMMARY cells=3 PRIS_SAME=3 PRIS_DIFF=0 PAT_SAME=3 PAT_DIFF=0 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u40repro_grid_g3_shape40_dut SURELOG_RC=0
+ARM=r11u40repro_grid_g3_shape40_dut PRIS_RC=0
+ARM=r11u40repro_grid_g3_shape40_dut PAT_RC=0
+ARM=r11u40repro_grid_g3_shape40_dut GOLDEN_DUMP_RC=0
+ARM=r11u40repro_grid_g3_shape40_dut PRIS_DUMP_RC=0
+ARM=r11u40repro_grid_g3_shape40_dut PAT_DUMP_RC=0
+r11u40repro_grid_g3_shape40_dut 13:10 hier_path GOLD CFG.BUS.DAT                        PRIS CFG.BUS.DAT                        PAT CFG.BUS.DAT                        
+r11u40repro_grid_g3_shape40_dut 33:5 bit_select GOLD work@sh40.k_uns                    PRIS work@sh40.k_uns                    PAT work@sh40.k_uns                    
+r11u40repro_grid_g3_shape40_dut 33:21 bit_select GOLD work@sh40.l_usz                    PRIS work@sh40.l_usz                    PAT work@sh40.l_usz                    
+r11u40repro_grid_g3_shape40_dut 47:30 hier_path GOLD s.sub                              PRIS s.sub                              PAT s.sub                              
+ARM r11u40repro_grid_g3_shape40_dut SUMMARY cells=4 PRIS_SAME=4 PRIS_DIFF=0 PAT_SAME=4 PAT_DIFF=0 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0
+ARM=r11u40repro_grid_g4_view40_dut SURELOG_RC=0
+ARM=r11u40repro_grid_g4_view40_dut PRIS_RC=0
+ARM=r11u40repro_grid_g4_view40_dut PAT_RC=0
+ARM=r11u40repro_grid_g4_view40_dut GOLDEN_DUMP_RC=0
+ARM=r11u40repro_grid_g4_view40_dut PRIS_DUMP_RC=0
+ARM=r11u40repro_grid_g4_view40_dut PAT_DUMP_RC=0
+r11u40repro_grid_g4_view40_dut 13:10 hier_path GOLD CFG.BUS.DAT                        PRIS CFG.BUS.DAT                        PAT CFG.BUS.DAT                        
+r11u40repro_grid_g4_view40_dut 39:13 hier_path GOLD s.CFG.BUS.DAT                      PRIS <none>                             PAT <none>                             
+r11u40repro_grid_g4_view40_dut 65:31 hier_path GOLD s.sub                              PRIS s.sub                              PAT s.sub                              
+r11u40repro_grid_g4_view40_dut 66:31 hier_path GOLD s.sub                              PRIS s.sub                              PAT s.sub                              
+r11u40repro_grid_g4_view40_dut 67:31 hier_path GOLD s28.sub                            PRIS s28.sub                            PAT s28.sub                            
+r11u40repro_grid_g4_view40_dut 68:31 hier_path GOLD s.sub                              PRIS s.sub                              PAT s.sub                              
+ARM r11u40repro_grid_g4_view40_dut SUMMARY cells=6 PRIS_SAME=5 PRIS_DIFF=1 PAT_SAME=5 PAT_DIFF=1 FIXED=0 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0

@@ -1,0 +1,25 @@
+ARM=v11 SURELOG_RC=0
+ARM=v11 PRIS_RC=0
+ARM=v11 PAT_RC=0
+ARM=v11 GOLDEN_DUMP_RC=0
+ARM=v11 PRIS_DUMP_RC=0
+ARM=v11 PAT_DUMP_RC=0
+v11 13:10 bit_select GOLD work@v11.arr                       PRIS work@v11.arr                       PAT work@v11.arr                       
+v11 13:31 bit_select GOLD work@v11.arr                       PRIS work@v11.arr                       PAT work@v11.arr                       
+v11 14:10 bit_select GOLD work@v11.o                         PRIS work@v11.o                         PAT work@v11.o                         
+v11 14:17 bit_select GOLD arr[0]                             PRIS arr[0]                             PAT arr[0]                             
+v11 14:17 hier_path GOLD arr[0].m[1 + 2]                    PRIS arr[0].m[2'd1 + 2]                 PAT arr[0].m[1 + 2]                    FIXED
+v11 14:26 bit_select GOLD work@v11.arr[0].m[1 + 2].m         PRIS work@v11.arr[0].m[2'd1 + 2].m      PAT work@v11.arr[0].m[1 + 2].m         FIXED
+v11 15:10 bit_select GOLD work@v11.o                         PRIS work@v11.o                         PAT work@v11.o                         
+v11 15:17 bit_select GOLD arr[0]                             PRIS arr[0]                             PAT arr[0]                             
+v11 15:17 hier_path GOLD arr[0].m[2'd1 + 2]                 PRIS arr[0].m[2'd1 + 2]                 PAT arr[0].m[2'd1 + 2]                 
+v11 15:26 bit_select GOLD work@v11.arr[0].m[2'd1 + 2].m      PRIS work@v11.arr[0].m[2'd1 + 2].m      PAT work@v11.arr[0].m[2'd1 + 2].m      
+v11 16:10 bit_select GOLD work@v11.o                         PRIS work@v11.o                         PAT work@v11.o                         
+v11 16:17 bit_select GOLD arr[0]                             PRIS arr[0]                             PAT arr[0]                             
+v11 16:17 hier_path GOLD arr[0].m[4'hA - 1]                 PRIS arr[0].m[4'hA - 1]                 PAT arr[0].m[4'hA - 1]                 
+v11 16:26 bit_select GOLD work@v11.arr[0].m[4'hA - 1].m      PRIS work@v11.arr[0].m[4'hA - 1].m      PAT work@v11.arr[0].m[4'hA - 1].m      
+v11 17:10 bit_select GOLD work@v11.o                         PRIS work@v11.o                         PAT work@v11.o                         
+v11 17:17 bit_select GOLD arr[0]                             PRIS arr[0]                             PAT arr[0]                             
+v11 17:17 hier_path GOLD arr[0].m[4'hA - 1]                 PRIS arr[0].m[4'hA - 1]                 PAT arr[0].m[4'hA - 1]                 
+v11 17:26 bit_select GOLD work@v11.arr[0].m[4'hA - 1].m      PRIS work@v11.arr[0].m[4'hA - 1].m      PAT work@v11.arr[0].m[4'hA - 1].m      
+ARM v11 SUMMARY cells=18 PRIS_SAME=16 PRIS_DIFF=2 PAT_SAME=18 PAT_DIFF=0 FIXED=2 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=0

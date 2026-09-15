@@ -1,0 +1,21 @@
+LABEL PRISTINE.surelog.under20M databases=957
+SHAPES (distinct hier_path names):
+  bare                         1073
+  dotted2/base-or-mid-sel      1747
+  dotted2/no-sel               12826
+  dotted2/trail-sel            716
+  dotted3/base-or-mid-sel      405
+  dotted3/no-sel               878
+  dotted3/trail-sel            16
+  dotted4/base-or-mid-sel      58
+  dotted4/no-sel               17
+  dotted5/no-sel               2
+  dotted5/trail-sel            2
+TOTAL databases=957 FOLD-CAND=0 DBASE-CAND=0 PKGSUBROUTINE-DBS=600 BAD=0
+(NOCAND lines elided from this committed copy: 957 — rerun cen42v.py for the full listing)
+LABEL PRISTINE.surelog.big3 databases=3
+FOLD-CAND /tmp/v11u42_wd/sl_pris/default/Earlgrey_0_1-71da2fd7/slang.uhdm :: hier_path:flash_ctrl_i.addr[0+:BankAddrW] | hier_path:read_buf[i].addr[FlashWordsW+:PageW]
+NOCAND /tmp/v11u42_wd/sl_pris/default/YosysBigSimEllip-f49d47b7/slang.uhdm
+FOLD-CAND /tmp/v11u42_wd/sl_pris/testflags/Earlgrey_0_1-71da2fd7/slang.uhdm :: hier_path:flash_ctrl_i.addr[0+:BankAddrW] | hier_path:read_buf[i].addr[FlashWordsW+:PageW]
+SHAPES (distinct hier_path names):
+TOTAL databases=3 FOLD-CAND=2 DBASE-CAND=0 PKGSUBROUTINE-DBS=3 BAD=0

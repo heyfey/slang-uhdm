@@ -1,0 +1,13 @@
+ARM=v10 SURELOG_RC=0
+ARM=v10 PRIS_RC=0
+ARM=v10 PAT_RC=0
+ARM=v10 GOLDEN_DUMP_RC=0
+ARM=v10 PRIS_DUMP_RC=0
+ARM=v10 PAT_DUMP_RC=0
+v10 2:12 hier_path GOLD a.m[7]|a.m[LP - 1]                 PRIS a.m[LP - 1]                        PAT a.m[8 - 1]                         MOVED-AWAY-STILL-WRONG
+v10 2:16 bit_select GOLD pi10::f_inc::a.m[7]::m|pi10::f_inc::a.m[LP - 1]::m PRIS pi10::f_inc::a.m[LP - 1]::m        PAT pi10::f_inc::a.m[8 - 1]::m         MOVED-AWAY-STILL-WRONG
+v10 12:10 bit_select GOLD work@v10.o                         PRIS work@v10.o                         PAT work@v10.o                         
+v10 13:10 bit_select GOLD work@v10.o                         PRIS work@v10.o                         PAT work@v10.o                         
+v10 13:17 hier_path GOLD v.m[8 - 1]                         PRIS v.m[pi10::LP - 1]                  PAT v.m[8 - 1]                         FIXED
+v10 13:21 bit_select GOLD work@v10.v.m[8 - 1].m              PRIS work@v10.v.m[pi10::LP - 1].m       PAT work@v10.v.m[8 - 1].m              FIXED
+ARM v10 SUMMARY cells=6 PRIS_SAME=2 PRIS_DIFF=4 PAT_SAME=4 PAT_DIFF=2 FIXED=2 MOVED-WRONG=0 MOVED-AWAY-STILL-WRONG=2

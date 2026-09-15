@@ -1,0 +1,17 @@
+LABEL PRISTINE.u2r databases=1608
+FOLD-CAND /tmp/v11u42_wd/u2r_pris/default/struct_member_expr_index-8c9e49bc/slang.uhdm :: bit_select:work@dut.av.pair[p::MAN_BITS - 22].pair | bit_select:work@dut.value.exponent[p::EXP_BITS - 1].exponent | bit_select:work@dut.value.mantissa[p::MAN_BITS - 1].mantissa | bit_select:work@dut.value.mantissa[p::MAN_BITS - 23].mantissa | hier_path:av.pair[p::MAN_BITS - 22] | hier_path:value.exponent[p::EXP_BITS - 1] | hier_path:value.mantissa[p::MAN_BITS - 1] | hier_path:value.mantissa[p::MAN_BITS - 23]
+FOLD-CAND /tmp/v11u42_wd/u2r_pris/testflags/struct_member_expr_index-8c9e49bc/slang.uhdm :: bit_select:work@dut.av.pair[p::MAN_BITS - 22].pair | bit_select:work@dut.value.exponent[p::EXP_BITS - 1].exponent | bit_select:work@dut.value.mantissa[p::MAN_BITS - 1].mantissa | bit_select:work@dut.value.mantissa[p::MAN_BITS - 23].mantissa | hier_path:av.pair[p::MAN_BITS - 22] | hier_path:value.exponent[p::EXP_BITS - 1] | hier_path:value.mantissa[p::MAN_BITS - 1] | hier_path:value.mantissa[p::MAN_BITS - 23]
+SHAPES (distinct hier_path names):
+  bare                         6
+  dotted2/base-or-mid-sel      318
+  dotted2/no-sel               1494
+  dotted2/trail-sel            234
+  dotted3/base-or-mid-sel      88
+  dotted3/no-sel               368
+  dotted3/trail-sel            36
+  dotted4/base-or-mid-sel      28
+  dotted4/no-sel               34
+  dotted5/base-or-mid-sel      22
+  dotted6/no-sel               20
+TOTAL databases=1608 FOLD-CAND=2 DBASE-CAND=0 PKGSUBROUTINE-DBS=841 BAD=0
+(NOCAND lines elided from this committed copy: 1606 — rerun cen42v.py for the full listing)

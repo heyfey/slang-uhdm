@@ -1,0 +1,76 @@
+LHS:
+decompile:
+hier_path: (value.mantissa[23 - 1]), id:143, line:36:26, endln:36:55
+|vpiParent:
+\_cont_assign: , id:142, line:36:10, endln:36:55
+|vpiActual:
+\_ref_obj: (value), id:144, line:36:26, endln:36:31
+  |vpiParent:
+  \_hier_path: (value.mantissa[23 - 1]), id:143, line:36:26, endln:36:55
+  |vpiName:value
+|vpiActual:
+\_bit_select: (work@dut.value.mantissa[23 - 1].mantissa), id:148, line:36:41, endln:36:54
+  |vpiParent:
+  \_hier_path: (value.mantissa[23 - 1]), id:143, line:36:26, endln:36:55
+  |vpiName:mantissa
+  |vpiFullName:work@dut.value.mantissa[23 - 1].mantissa
+  |vpiIndex:
+  \_operation: , id:146, line:36:41, endln:36:54
+    |vpiParent:
+    \_bit_select: (work@dut.value.mantissa[23 - 1].mantissa), id:148, line:36:41, endln:36:54
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:145, line:36:41, endln:36:52
+      |vpiParent:
+      \_operation: , id:146, line:36:41, endln:36:54
+      |vpiDecompile:23
+      |vpiSize:32
+      |UINT:23
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:147, line:36:53, endln:36:54
+      |vpiParent:
+      \_operation: , id:146, line:36:41, endln:36:54
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+|vpiName:value.mantissa[23 - 1]
+RHS:
+decompile:
+hier_path: (value.mantissa[p::MAN_BITS - 1]), id:116, line:36:26, endln:36:55
+|vpiParent:
+\_cont_assign: , id:115, line:36:10, endln:36:55
+|vpiActual:
+\_ref_obj: (value), id:117, line:36:26, endln:36:31
+  |vpiParent:
+  \_hier_path: (value.mantissa[p::MAN_BITS - 1]), id:116, line:36:26, endln:36:55
+  |vpiName:value
+|vpiActual:
+\_bit_select: (work@dut.value.mantissa[p::MAN_BITS - 1].mantissa), id:118, line:36:41, endln:36:54
+  |vpiParent:
+  \_hier_path: (value.mantissa[p::MAN_BITS - 1]), id:116, line:36:26, endln:36:55
+  |vpiName:mantissa
+  |vpiFullName:work@dut.value.mantissa[p::MAN_BITS - 1].mantissa
+  |vpiIndex:
+  \_operation: , id:119, line:36:41, endln:36:54
+    |vpiParent:
+    \_bit_select: (work@dut.value.mantissa[p::MAN_BITS - 1].mantissa), id:118, line:36:41, endln:36:54
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:121, line:36:41, endln:36:52
+      |vpiParent:
+      \_operation: , id:119, line:36:41, endln:36:54
+      |vpiDecompile:23
+      |vpiSize:32
+      |UINT:23
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:122, line:36:53, endln:36:54
+      |vpiParent:
+      \_operation: , id:119, line:36:41, endln:36:54
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+|vpiName:value.mantissa[p::MAN_BITS - 1]

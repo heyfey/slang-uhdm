@@ -1,0 +1,39 @@
+=== r11v42 — SURELOG MOVER ATTRIBUTION (verifier's own measurement)
+LHS is ALWAYS golden.  byteverify.sh (path-set assertion + SELFCHECK negative
+control) over 960 databases per sweep, two modes.
+
+-- r11u42's PATCHED binary vs my PRISTINE workdir
+PATH_SETS_IDENTICAL (960 paths); SELFCHECK 959 / 960 flagged
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm      patched=f363968f8418 pristine=27419f6011b4
+MOVER ./default/Scoreboard-59431470/slang.uhdm    patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm     patched=92778ccf8ab1 pristine=38cc7f45a244
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm    patched=27419f6011b4 pristine=10b3d0d38768
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm   patched=71337e35e973 pristine=8600a8709be6
+MOVERS: 5 / 960
+   (r11u42 reported 4; the fifth, Scoreboard/default, is the documented
+    ~50/50 svunit_pkg task-list ORDER coin — its ORDER-BLIND diff is 0 lines.)
+
+-- ORDER-BLIND, PATH-NORMALISED attribution (attrib42v.sh), per mover
+./default/MiniAmiq       RAW 4  ORDER-BLIND 4   |UINT:0    vs |UINT:582    (+ the same two vpiDecompile lines)
+./default/Scoreboard     RAW 92 ORDER-BLIND 0   -> pure ORDER coin, no content moved
+./default/SeqDriver      RAW 4  ORDER-BLIND 4   |UINT:765  vs |UINT:974
+./testflags/MiniAmiq     RAW 4  ORDER-BLIND 4   |UINT:0    vs |UINT:761
+./testflags/SeqDriver    RAW 4  ORDER-BLIND 4   |UINT:834  vs |UINT:839
+Every moved cell is ONE constant's vpiDecompile/UINT — a LINE NUMBER — at one
+dump line.  This law writes NAME STRINGS only and never a constant's UINT.
+
+-- THE POSITIVE CONTROL that settles the attribution: the PRISTINE binary ALONE
+   (md5 3d25111fd1adc7ffa1b393b18a05cf20), three runs, IDENTICAL argv (MiniAmiq,
+   default, read back from that row's own cmds.txt), in a scratch dir of its own:
+     run1 rc=0  md5 b4ceda6bc6319a6714d2d5d6e1bb21c1
+     run2 rc=0  md5 c04e5b9b6dab0a9a0c2bb0b3d63060e1
+     run3 rc=0  md5 547f53338e3c1bb1e76db889d1a3bda9
+   THREE DIFFERENT DATABASES, none equal to the sweep's, and the order-blind
+   diff between them is the SAME 4 lines:
+     run1 vs run2:  |UINT:1042 vs |UINT:0     (+ vpiDecompile)
+     run1 vs run3:  |UINT:1042 vs |UINT:1135  (+ vpiDecompile)
+   The movers are the binary's own nondeterminism, not the patch.
+
+-- VERIFIED binary vs my PRISTINE workdir: see GATES.surelog.r11v42.txt.
+-- VERIFIED binary vs r11u42's PATCHED binary, uhdm2rtlil: MOVERS 0 / 1608
+   (the verifier fix re-gates only faces neither corpus contains).

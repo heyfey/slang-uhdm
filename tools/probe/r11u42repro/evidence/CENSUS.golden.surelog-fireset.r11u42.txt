@@ -1,0 +1,52 @@
+LABEL GOLDEN-surelog-fireset-under10MB  databases=42
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__ArianeElab-5bd32195/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__ArianeElab2-99fa7f26/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__BitSelectHier-cfa47d33/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__BitsStructMember-da03b8cc/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__BlackParrotConf-69bbbbdd/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__ClassVar-1a3e15c1/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__ForeachClass-075f44ad/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__ForeachForeach-5d4846ee/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__FuncDef2-ff532f8e/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__FuncStructVal-564cdfb7/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__GenForIfaceLocalparamNestedGen-0374ca75/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__GenScopeHierPath-a2114f21/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__IndexPartSelectBind-53025913/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__IndexedSelectHex-cd46669f/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__LocalScopeHierPath-cd7b627c/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__MultiConcatValueSize-8e3f2431/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__ParamElabMulti-6f8060a1/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__SplitFile-ef1eb19c/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__UnitThisNew-db599faa/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__Verilator-26bacbb4/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/default__YosysTestSuite-f2882ad9/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__ArianeElab-5bd32195/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__ArianeElab2-99fa7f26/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__BitSelectHier-cfa47d33/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__BitsStructMember-da03b8cc/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__BlackParrotConf-69bbbbdd/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__ClassVar-1a3e15c1/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__ForeachClass-075f44ad/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__ForeachForeach-5d4846ee/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__FuncDef2-ff532f8e/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__FuncStructVal-564cdfb7/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__GenForIfaceLocalparamNestedGen-0374ca75/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__GenScopeHierPath-a2114f21/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__IndexPartSelectBind-53025913/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__IndexedSelectHex-cd46669f/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__LocalScopeHierPath-cd7b627c/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__MultiConcatValueSize-8e3f2431/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__ParamElabMulti-6f8060a1/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__SplitFile-ef1eb19c/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__UnitThisNew-db599faa/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__Verilator-26bacbb4/golden.uhdm
+NOCAND /tmp/r11u42_goldrefs/sl28s/testflags__YosysTestSuite-f2882ad9/golden.uhdm
+SHAPES (the shape lister, distinct hier_path names):
+  bare                         4
+  dotted2/base-or-mid-sel      16
+  dotted2/no-sel               574
+  dotted2/trail-sel            56
+  dotted3/base-or-mid-sel      4
+  dotted3/no-sel               38
+  dotted3/trail-sel            2
+TOTAL databases=42 CAND=0 NOCAND=42 BAD=0 CELLS=0

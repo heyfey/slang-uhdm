@@ -1,0 +1,158 @@
+307a308,309
+>     |vpiParent:
+>     \_package: p (p::), file:/home/heyfey/git-repos/uhdm2rtlil/test/struct_member_expr_index/dut.sv, line:6:1, endln:18:11
+318c320
+<       \_ref_typespec: (p::arr_t.pair)
+---
+>       \_ref_typespec: (p::p::arr_t::pair)
+321c323
+<         |vpiFullName:p::arr_t.pair
+---
+>         |vpiFullName:p::p::arr_t::pair
+335c337
+<       \_ref_typespec: (p::arr_t.tag)
+---
+>       \_ref_typespec: (p::p::arr_t::tag)
+338c340
+<         |vpiFullName:p::arr_t.tag
+---
+>         |vpiFullName:p::p::arr_t::tag
+347a350,351
+>     |vpiParent:
+>     \_package: p (p::), file:/home/heyfey/git-repos/uhdm2rtlil/test/struct_member_expr_index/dut.sv, line:6:1, endln:18:11
+358c362
+<       \_ref_typespec: (p::fp_t.sign)
+---
+>       \_ref_typespec: (p::p::fp_t::sign)
+361c365
+<         |vpiFullName:p::fp_t.sign
+---
+>         |vpiFullName:p::p::fp_t::sign
+375c379
+<       \_ref_typespec: (p::fp_t.exponent)
+---
+>       \_ref_typespec: (p::p::fp_t::exponent)
+378c382
+<         |vpiFullName:p::fp_t.exponent
+---
+>         |vpiFullName:p::p::fp_t::exponent
+392c396
+<       \_ref_typespec: (p::fp_t.mantissa)
+---
+>       \_ref_typespec: (p::p::fp_t::mantissa)
+395c399
+<         |vpiFullName:p::fp_t.mantissa
+---
+>         |vpiFullName:p::p::fp_t::mantissa
+1146c1150
+<     \_hier_path: (value.mantissa[23 - 1]), line:36:26, endln:36:55
+---
+>     \_hier_path: (value.mantissa[p::MAN_BITS - 1]), line:36:26, endln:36:55
+1152c1156
+<         \_hier_path: (value.mantissa[23 - 1]), line:36:26, endln:36:55
+---
+>         \_hier_path: (value.mantissa[p::MAN_BITS - 1]), line:36:26, endln:36:55
+1155c1159
+<       \_bit_select: (work@dut.value.mantissa[23 - 1].mantissa), line:36:41, endln:36:54
+---
+>       \_bit_select: (work@dut.value.mantissa[p::MAN_BITS - 1].mantissa), line:36:41, endln:36:54
+1157c1161
+<         \_hier_path: (value.mantissa[23 - 1]), line:36:26, endln:36:55
+---
+>         \_hier_path: (value.mantissa[p::MAN_BITS - 1]), line:36:26, endln:36:55
+1159c1163
+<         |vpiFullName:work@dut.value.mantissa[23 - 1].mantissa
+---
+>         |vpiFullName:work@dut.value.mantissa[p::MAN_BITS - 1].mantissa
+1163c1167
+<           \_bit_select: (work@dut.value.mantissa[23 - 1].mantissa), line:36:41, endln:36:54
+---
+>           \_bit_select: (work@dut.value.mantissa[p::MAN_BITS - 1].mantissa), line:36:41, endln:36:54
+1181c1185
+<       |vpiName:value.mantissa[23 - 1]
+---
+>       |vpiName:value.mantissa[p::MAN_BITS - 1]
+1231c1235
+<     \_hier_path: (value.mantissa[23 - 23]), line:39:26, endln:39:56
+---
+>     \_hier_path: (value.mantissa[p::MAN_BITS - 23]), line:39:26, endln:39:56
+1237c1241
+<         \_hier_path: (value.mantissa[23 - 23]), line:39:26, endln:39:56
+---
+>         \_hier_path: (value.mantissa[p::MAN_BITS - 23]), line:39:26, endln:39:56
+1240c1244
+<       \_bit_select: (work@dut.value.mantissa[23 - 23].mantissa), line:39:41, endln:39:55
+---
+>       \_bit_select: (work@dut.value.mantissa[p::MAN_BITS - 23].mantissa), line:39:41, endln:39:55
+1242c1246
+<         \_hier_path: (value.mantissa[23 - 23]), line:39:26, endln:39:56
+---
+>         \_hier_path: (value.mantissa[p::MAN_BITS - 23]), line:39:26, endln:39:56
+1244c1248
+<         |vpiFullName:work@dut.value.mantissa[23 - 23].mantissa
+---
+>         |vpiFullName:work@dut.value.mantissa[p::MAN_BITS - 23].mantissa
+1248c1252
+<           \_bit_select: (work@dut.value.mantissa[23 - 23].mantissa), line:39:41, endln:39:55
+---
+>           \_bit_select: (work@dut.value.mantissa[p::MAN_BITS - 23].mantissa), line:39:41, endln:39:55
+1266c1270
+<       |vpiName:value.mantissa[23 - 23]
+---
+>       |vpiName:value.mantissa[p::MAN_BITS - 23]
+1280c1284
+<     \_hier_path: (value.exponent[8 - 1]), line:40:26, endln:40:55
+---
+>     \_hier_path: (value.exponent[p::EXP_BITS - 1]), line:40:26, endln:40:55
+1286c1290
+<         \_hier_path: (value.exponent[8 - 1]), line:40:26, endln:40:55
+---
+>         \_hier_path: (value.exponent[p::EXP_BITS - 1]), line:40:26, endln:40:55
+1289c1293
+<       \_bit_select: (work@dut.value.exponent[8 - 1].exponent), line:40:41, endln:40:54
+---
+>       \_bit_select: (work@dut.value.exponent[p::EXP_BITS - 1].exponent), line:40:41, endln:40:54
+1291c1295
+<         \_hier_path: (value.exponent[8 - 1]), line:40:26, endln:40:55
+---
+>         \_hier_path: (value.exponent[p::EXP_BITS - 1]), line:40:26, endln:40:55
+1293c1297
+<         |vpiFullName:work@dut.value.exponent[8 - 1].exponent
+---
+>         |vpiFullName:work@dut.value.exponent[p::EXP_BITS - 1].exponent
+1297c1301
+<           \_bit_select: (work@dut.value.exponent[8 - 1].exponent), line:40:41, endln:40:54
+---
+>           \_bit_select: (work@dut.value.exponent[p::EXP_BITS - 1].exponent), line:40:41, endln:40:54
+1315c1319
+<       |vpiName:value.exponent[8 - 1]
+---
+>       |vpiName:value.exponent[p::EXP_BITS - 1]
+1365c1369
+<     \_hier_path: (av.pair[23 - 22]), line:45:26, endln:45:49
+---
+>     \_hier_path: (av.pair[p::MAN_BITS - 22]), line:45:26, endln:45:49
+1371c1375
+<         \_hier_path: (av.pair[23 - 22]), line:45:26, endln:45:49
+---
+>         \_hier_path: (av.pair[p::MAN_BITS - 22]), line:45:26, endln:45:49
+1374c1378
+<       \_bit_select: (work@dut.av.pair[23 - 22].pair), line:45:34, endln:45:48
+---
+>       \_bit_select: (work@dut.av.pair[p::MAN_BITS - 22].pair), line:45:34, endln:45:48
+1376c1380
+<         \_hier_path: (av.pair[23 - 22]), line:45:26, endln:45:49
+---
+>         \_hier_path: (av.pair[p::MAN_BITS - 22]), line:45:26, endln:45:49
+1378c1382
+<         |vpiFullName:work@dut.av.pair[23 - 22].pair
+---
+>         |vpiFullName:work@dut.av.pair[p::MAN_BITS - 22].pair
+1382c1386
+<           \_bit_select: (work@dut.av.pair[23 - 22].pair), line:45:34, endln:45:48
+---
+>           \_bit_select: (work@dut.av.pair[p::MAN_BITS - 22].pair), line:45:34, endln:45:48
+1400c1404
+<       |vpiName:av.pair[23 - 22]
+---
+>       |vpiName:av.pair[p::MAN_BITS - 22]

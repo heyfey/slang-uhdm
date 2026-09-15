@@ -1,0 +1,16 @@
+LABEL PRISTINE-u2r-both-modes  databases=1608
+CAND /tmp/r11u42_wdp/u2r/default/struct_member_expr_index-8c9e49bc/slang.uhdm :: av.pair[p::MAN_BITS - 22] | value.exponent[p::EXP_BITS - 1] | value.mantissa[p::MAN_BITS - 1] | value.mantissa[p::MAN_BITS - 23]
+CAND /tmp/r11u42_wdp/u2r/testflags/struct_member_expr_index-8c9e49bc/slang.uhdm :: av.pair[p::MAN_BITS - 22] | value.exponent[p::EXP_BITS - 1] | value.mantissa[p::MAN_BITS - 1] | value.mantissa[p::MAN_BITS - 23]
+SHAPES (the shape lister, distinct hier_path names):
+  bare                         6
+  dotted2/base-or-mid-sel      318
+  dotted2/no-sel               1494
+  dotted2/trail-sel            234
+  dotted3/base-or-mid-sel      88
+  dotted3/no-sel               368
+  dotted3/trail-sel            36
+  dotted4/base-or-mid-sel      28
+  dotted4/no-sel               34
+  dotted5/base-or-mid-sel      22
+  dotted6/no-sel               20
+TOTAL databases=1608 CAND=2 NOCAND=1606 BAD=0 CELLS=8

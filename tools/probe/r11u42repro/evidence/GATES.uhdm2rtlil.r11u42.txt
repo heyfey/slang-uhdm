@@ -1,0 +1,24 @@
+=== r11u42 GATES, uhdm2rtlil
+goldens 23 PASS / 0 FAIL; SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL
+
+-- ct8rows testflags: COMMITTED results/gate_uhdm2rtlil.csv vs PATCHED
+   1 differing ROW:
+   < struct_member_expr_index,testflags,CMP_NOTEQUAL,decompile:,,
+   > struct_member_expr_index,testflags,CMP_EQUAL,,,differ
+   testflags base 779/25/67 -> fresh 780/24/67
+
+-- ct8rows default: COMMITTED results/golden_uhdm2rtlil.csv (default rows) vs PATCHED
+   1 differing ROW:
+   < struct_member_expr_index,default,CMP_NOTEQUAL,decompile:,,
+   > struct_member_expr_index,default,CMP_EQUAL,,,differ
+   default base 779/25/67 -> fresh 780/24/67
+
+-- PRISTINE vs COMMITTED control: 0 differing ROWS (PASS), both modes
+
+-- byteverify (SELFCHECK=1): PATH_SETS_IDENTICAL (1608); MOVERS 2 / 1608
+   MOVER ./default/struct_member_expr_index-8c9e49bc/slang.uhdm
+   MOVER ./testflags/struct_member_expr_index-8c9e49bc/slang.uhdm
+   SELFCHECK 1607 / 1608 flagged
+
+-- canaries ok=8 changed=0 absent=0 ; EXPECT_UNKNOWN=6 ctcan2 PASS
+-- canaudit: audited=29 UNCOVERED=0 FENCE-BREACH=0
