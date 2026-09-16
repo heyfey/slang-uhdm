@@ -8524,8 +8524,35 @@ UHDM::typespec* UhdmExporter::anonAggregateElemTs(
                     pl = rs->left;
                     pr = rs->right;
                 }
-            r->Left_expr(makeBoundConst(pl, pd[di].left, r));
-            r->Right_expr(makeBoundConst(pr, pd[di].right, r));
+            // § bodyTypedefElemBoundSymbolic52 — under a module/interface-body
+            // typedef that carries an unpacked dimension the element typespec
+            // is the DEFINITION-compiled object (a hard `Reduce::No`), so a
+            // bound that NAMES something stays an operation over a ref_obj in
+            // every copy.  A literal bound is a literal either way, so only a
+            // non-numeric bound takes the symbolic path.
+            auto bnd52 = [&](const syntax::ExpressionSyntax* bs,
+                             int64_t v) -> UHDM::expr* {
+                if (unfoldedTypedefElemDims && bs) {
+                    std::string raw52(rawText(bs->sourceRange()));
+                    bool numeric52 = !raw52.empty();
+                    for (char ch : raw52)
+                        if (!isdigit((unsigned char)ch)) {
+                            numeric52 = false;
+                            break;
+                        }
+                    if (!numeric52)
+                        if (auto* e52 = (UHDM::expr*)emitSyntaxExpr(*bs, r))
+                            return e52;
+                }
+                return makeBoundConst(bs, v, r);
+            };
+            auto* lb52 = bnd52(pl, pd[di].left);
+            auto* rb52 = bnd52(pr, pd[di].right);
+            if ((lb52 && lb52->UhdmType() != UHDM::uhdmconstant) ||
+                (rb52 && rb52->UhdmType() != UHDM::uhdmconstant))
+                elemSymBoundTs52.insert(lts);
+            r->Left_expr(lb52);
+            r->Right_expr(rb52);
             rv->push_back(r);
         }
         lts->Ranges(rv);
@@ -14142,9 +14169,17 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
 
 // Copy a range vector object-for-object (bounds that are not plain constants
 // are shared — only their VALUES are compared).
+//
+// § bodyTypedefElemBoundSymbolic52 — with a non-empty `refPrefix` a SYMBOLIC
+// bound is cloned instead of shared, and each cloned ref_obj is re-scoped
+// `<refPrefix>.<name>`.  That is the measured name cell of a body typedef's
+// element bound: golden writes the DEFINITION copy's ref bare (`NDATA`) and
+// every per-reference COPY scoped through the typedef name (`mem_t.NDATA`),
+// on the same object in the same span (c1/x1/x2/x3, 4 arms).
 static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
                                          const UHDM::VectorOfrange* src,
-                                         UHDM::any* parent) {
+                                         UHDM::any* parent,
+                                         const std::string& refPrefix = {}) {
     if (!src)
         return nullptr;
     auto* rv = s.MakeRangeVec();
@@ -14156,9 +14191,101 @@ static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
         r->VpiColumnNo(r0->VpiColumnNo());
         r->VpiEndLineNo(r0->VpiEndLineNo());
         r->VpiEndColumnNo(r0->VpiEndColumnNo());
+        auto cpLoc = [](UHDM::any* d, const UHDM::any* s0) {
+            d->VpiFile(s0->VpiFile());
+            d->VpiLineNo(s0->VpiLineNo());
+            d->VpiColumnNo(s0->VpiColumnNo());
+            d->VpiEndLineNo(s0->VpiEndLineNo());
+            d->VpiEndColumnNo(s0->VpiEndColumnNo());
+        };
+        // § bodyTypedefElemBoundSymbolic52 (verifier fix, r11u52v) — the clone
+        // below models exactly three kinds.  ASK FIRST whether the whole tree
+        // is modelled, because a clone that silently drops an operand it
+        // cannot model leaves a BINARY operation carrying ONE operand — a
+        // malformed expression we never emitted before the law.  Four legal
+        // bound forms reach it: `[$clog2(N)-1:0]`, `[$bits(int)-1:0]`,
+        // `[pkg::f(N)-1:0]` (a constant function call) and `[ARR[0]-1:0]` (a
+        // bit-select), whose operands are sys_func_call / func_call /
+        // bit_select.  Asking BEFORE minting also keeps the serializer clean:
+        // an abandoned half-clone would leave orphan objects in its table.
+        // When the answer is no the bound is SHARED, exactly as at the base.
+        std::function<bool(const UHDM::any*)> cpAble =
+            [&](const UHDM::any* o0) -> bool {
+            if (!o0)
+                return false;
+            if (o0->UhdmType() == UHDM::uhdmconstant ||
+                o0->UhdmType() == UHDM::uhdmref_obj)
+                return true;
+            if (o0->UhdmType() == UHDM::uhdmoperation) {
+                if (auto* ops0 = ((UHDM::operation*)o0)->Operands())
+                    for (auto* x0 : *ops0)
+                        if (!cpAble(x0))
+                            return false;
+                return true;
+            }
+            return false;
+        };
+        // One level of operation clone is all a range bound ever needs
+        // (`NDATA-1`): operands are ref_objs and constants.
+        std::function<UHDM::any*(const UHDM::any*, UHDM::any*)> cpOp =
+            [&](const UHDM::any* o0, UHDM::any* par) -> UHDM::any* {
+            if (!o0)
+                return nullptr;
+            if (o0->UhdmType() == UHDM::uhdmconstant) {
+                auto* k0 = (const UHDM::constant*)o0;
+                auto* k = s.MakeConstant();
+                k->VpiDecompile(k0->VpiDecompile());
+                k->VpiSize(k0->VpiSize());
+                k->VpiValue(k0->VpiValue());
+                k->VpiConstType(k0->VpiConstType());
+                k->VpiParent(par);
+                cpLoc(k, k0);
+                return k;
+            }
+            if (o0->UhdmType() == UHDM::uhdmref_obj) {
+                auto* f0 = (const UHDM::ref_obj*)o0;
+                auto* f = s.MakeRef_obj();
+                f->VpiName(f0->VpiName());
+                // The copy's ref scopes through the typedef name.  NEVER read
+                // the source's VpiFullName to decide: ref_obj::VpiFullName()
+                // SYNTHESIZES a name from the parent chain and STAMPS it back
+                // into the object (UHDM ref_obj.cpp:43) — a read there is a
+                // write, and it never reports empty.
+                f->VpiFullName(refPrefix + "." + std::string(f0->VpiName()));
+                f->VpiParent(par);
+                cpLoc(f, f0);
+                return f;
+            }
+            if (o0->UhdmType() == UHDM::uhdmoperation) {
+                auto* p0 = (const UHDM::operation*)o0;
+                auto* p = s.MakeOperation();
+                p->VpiOpType(p0->VpiOpType());
+                p->VpiParent(par);
+                cpLoc(p, p0);
+                if (auto* ops0 = ((UHDM::operation*)p0)->Operands()) {
+                    auto* ops = s.MakeAnyVec();
+                    for (auto* x0 : *ops0)
+                        if (auto* x = cpOp(x0, p))
+                            ops->push_back(x);
+                    p->Operands(ops);
+                }
+                return p;
+            }
+            return nullptr;
+        };
         auto cpB = [&](const UHDM::expr* b) -> UHDM::expr* {
-            if (!b || b->UhdmType() != UHDM::uhdmconstant)
+            if (!b)
+                return nullptr;
+            if (b->UhdmType() != UHDM::uhdmconstant) {
+                // Only a caller that NAMES a scope clones a symbolic bound;
+                // every other one shares it exactly as before.  And only a
+                // bound whose WHOLE tree is modelled (cpAble) is cloned — see
+                // the note above the predicate.
+                if (!refPrefix.empty() && cpAble(b))
+                    if (auto* cl = cpOp(b, r))
+                        return (UHDM::expr*)cl;
                 return (UHDM::expr*)b;
+            }
             auto* c0 = (const UHDM::constant*)b;
             auto* c = s.MakeConstant();
             c->VpiDecompile(c0->VpiDecompile());
@@ -14185,7 +14312,8 @@ static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
 // Aggregates (enum/struct/union) have no cheap copy — the caller shares those,
 // which compares equal because uhdm-cmp never tests object identity.
 static UHDM::typespec* freshLeafTsCopy(UHDM::Serializer& s,
-                                       const UHDM::typespec* src) {
+                                       const UHDM::typespec* src,
+                                       const std::string& refPrefix = {}) {
     if (!src || !src->VpiName().empty())
         return nullptr;
     UHDM::typespec* out = nullptr;
@@ -14238,12 +14366,13 @@ static UHDM::typespec* freshLeafTsCopy(UHDM::Serializer& s,
         auto* l0 = (const UHDM::logic_typespec*)src;
         lt->VpiSigned(l0->VpiSigned());
         lt->Ranges(copyRangeVec(
-            s, ((UHDM::logic_typespec*)l0)->Ranges(), lt));
+            s, ((UHDM::logic_typespec*)l0)->Ranges(), lt, refPrefix));
     }
     else if (auto* bt = out->Cast<UHDM::bit_typespec*>()) {
         auto* b0 = (const UHDM::bit_typespec*)src;
         bt->VpiSigned(b0->VpiSigned());
-        bt->Ranges(copyRangeVec(s, ((UHDM::bit_typespec*)b0)->Ranges(), bt));
+        bt->Ranges(
+            copyRangeVec(s, ((UHDM::bit_typespec*)b0)->Ranges(), bt, refPrefix));
     }
     return out;
 }
@@ -14275,7 +14404,13 @@ UHDM::array_typespec* UhdmExporter::copyArrayTypedefTs(
         ert->VpiFullName(bareName);
         ert->VpiParent(cp);
         auto* act = er->Actual_typespec();
-        if (auto* fresh = freshLeafTsCopy(s, act)) {
+        // § bodyTypedefElemBoundSymbolic52 — the per-reference copy scopes a
+        // symbolic element bound ref through the typedef name (`mem_t.NDATA`).
+        // Only an element THIS law left symbolic is cloned-and-scoped; every
+        // other element copy keeps the shared bound it has always had.
+        if (auto* fresh = freshLeafTsCopy(
+                s, act,
+                elemSymBoundTs52.count(act) ? bareName : std::string())) {
             fresh->VpiParent(ert);
             ert->Actual_typespec(fresh);
         }
@@ -14386,8 +14521,21 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             ts = sts;
         }
         else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+            // § bodyTypedefElemBoundSymbolic52 (ROAD C) — this is the
+            // MODULE-BODY / INTERFACE-BODY typedef route, the one Surelog
+            // compiles with a hard `Reduce::No`: its ELEMENT typespec's packed
+            // bounds stay symbolic in every copy.  The element's own refs are
+            // BARE here (the measured name cell: golden writes the definition
+            // copy's bound as `NDATA`, and only the per-reference COPIES carry
+            // the `<typedef>.NDATA` scoping — see copyRangeVec).
+            bool savedUfE = unfoldedTypedefElemDims;
+            std::string savedPfxE = syntaxRefPrefix;
+            unfoldedTypedefElemDims = true;
+            syntaxRefPrefix.clear();
             auto* ats = buildUnpackedArrayTypedefTs(
                 ta, prefix + "." + std::string(ta.name));
+            syntaxRefPrefix = savedPfxE;
+            unfoldedTypedefElemDims = savedUfE;
             ats->VpiParent(m);
             ts = ats;
         }

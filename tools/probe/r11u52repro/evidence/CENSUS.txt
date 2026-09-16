@@ -1,0 +1,148 @@
+r11u52 — CENSUS AND GATES (base 4e421b38; pristine md5 9be297f87ce752ca318a4d32b204ebe9,
+law md5 b83456d497931cf6aec70c2918efc63d; both frozen 555 before any sweep)
+
+== GATE 1 build
+pristine worktree build md5 = 9be297f87ce752ca318a4d32b204ebe9 (== main tree at 4e421b38)
+law build md5 = b83456d497931cf6aec70c2918efc63d; 0 compiler errors
+
+== GATE 2 goldens (law binary)
+PASS=23 FAIL=0 ; negative control SLANG_UHDM=/bin/false -> PASS=0 FAIL=23
+
+== A-PRIORI MOVER PREDICTION (made before the byte census ran)
+construct scan (typedef ... <name> [ ... ] ;) over uhdm2rtlil/test, Surelog/tests,
+Surelog/third_party/tests -> 34 files / 20 test dirs carry the construct, but the LAW
+fires only where the element typespec is minted INLINE with a NON-NUMERIC packed bound:
+  uhdm2rtlil mem_packed_2d_byte_write  logic [NDATA-1:0][DATA_SIZE-1:0] mem_t [DEPTH]   FIRES
+  uhdm2rtlil cva6_equiv (5 hpdcache files, same shape)                                  not a discovered ROW
+  uhdm2rtlil rp32 (logic select_t [IFN-1:0])        element has no packed bound          no
+  uhdm2rtlil TypedefVariableDimensions, unpacked_struct_array_typedef (named element)    no
+  Surelog YosysTestSuite/typedef_memory, Verilator t_initarray_nonarray, UnpackedTypespec,
+    ArrayExprFuncArg, DefaultPattern*, FuncRetArray, TypedefUnpacked, VarRangeTypedef,
+    HierPathVarArray, SplitFile, CastTypespec, VirtualClass, Google/*, AmiqEth, black-parrot
+    -> numeric bound, int/named element, class scope or associative dim                  no
+PREDICTED MOVERS BY NAME: mem_packed_2d_byte_write default + testflags.  Surelog: ZERO.
+
+== GATE 5 byte census, uhdm2rtlil (SELFCHECK positive control)
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/mem_packed_2d_byte_write-8742967e/slang.uhdm  patched=41cd452aebaa pristine=642a9e7e5547
+MOVER ./testflags/mem_packed_2d_byte_write-8742967e/slang.uhdm  patched=ac8d544f78b8 pristine=c34ff1c140d0
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+== GATE 5 byte census, surelog (SELFCHECK positive control)
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=04fc339a01af pristine=27419f6011b4
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=d45f50a6e9aa pristine=c6a2724bb643
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=eb1c6ba9b636 pristine=42aec5e5d123
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=df80b09eef8c pristine=7638da956967
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+== MOVER ATTRIBUTION
+-- the 2 uhdm2rtlil movers are the PREDICTED row.  Order-blind whole-dump diff,
+   pristine -> law, both modes: 124 lines each, ALL of them the law:
+     12 >         |vpiParent:
+     12 >       |vpiOperand:
+      6 >         |vpiSize:64
+      6 <       |vpiSize:64
+      6 >       |vpiOpType:11
+      6 >         |vpiDecompile:1
+      6 >         |vpiConstType:9
+      6 <       |vpiConstType:9
+      6 >         |UINT:1
+      6 >         \_operation: , line:19:29, endln:19:40
+      6 >         \_operation: , line:19:18, endln:19:25
+      3 >         |vpiName:NDATA
+      3 >         |vpiName:DATA_SIZE
+      3 <       |vpiDecompile:NDATA-1
+      3 <       |vpiDecompile:DATA_SIZE-1
+      3 <       |UINT:63
+      3 <       |UINT:1
+      3 >     \_operation: , line:19:29, endln:19:40
+      3 >     \_operation: , line:19:18, endln:19:25
+      3 >       \_constant: , line:19:39, endln:19:40
+      3 <     \_constant: , line:19:29, endln:19:40
+      3 >       \_constant: , line:19:24, endln:19:25
+   SHAPE LISTER (object-kind histogram, pristine -> law, default; testflags identical):
+27c27
+<      46 \_operation:
+---
+>      64 \_operation:
+33c33
+<      39 \_ref_obj:
+---
+>      45 \_ref_obj:
+
+-- the 4 surelog movers are the DOCUMENTED UVM-family coin, not this law.
+   order-blind whole-dump diff of each (uhdm-dump, workdir-normalised, sorted):
+== default/MiniAmiq-544c7f61 order-blind diff lines=4
+>       |UINT:0
+<       |UINT:1311
+>       |vpiDecompile:0
+<       |vpiDecompile:1311
+== default/SeqDriver-32af76aa order-blind diff lines=4
+>       |UINT:633
+<       |UINT:682
+>       |vpiDecompile:633
+<       |vpiDecompile:682
+== default/SimpleUVM-1dc93a62 order-blind diff lines=4
+>       |UINT:1182
+<       |UINT:629
+>       |vpiDecompile:1182
+<       |vpiDecompile:629
+== testflags/MiniAmiq-544c7f61 order-blind diff lines=4
+>       |UINT:1052
+<       |UINT:856
+>       |vpiDecompile:1052
+<       |vpiDecompile:856
+   POSITIVE CONTROL — the SAME pristine binary run TWICE on MiniAmiq/default:
+     run a md5 87d90000c605fa23b46c6317b396cd31   CMP_EQUAL
+     run b md5 8a4ae4ae7dbb1e93099cd64846c9d22a   CMP_EQUAL
+   i.e. the family's databases differ run to run with no code change at all.
+   Statuses: SeqDriver/SimpleUVM/Scoreboard/MiniAmiq/BuildUVMPkg/Earlgrey_0_1 all
+   cmp rc=0, 0 heads, both modes (rowheads.sh), i.e. CMP_EQUAL and STILL EQUAL.
+
+== GATES 3 and 4 — row joins (ct8rows.sh; results/*.csv READ ONLY)
+-- uhdm2rtlil testflags vs the committed gate baseline
+PASS: every row byte-identical to the committed baseline
+-- uhdm2rtlil testflags vs my own pristine sweep
+PASS: every row byte-identical to the committed baseline
+-- uhdm2rtlil default vs my own pristine sweep
+PASS: every row byte-identical to the committed baseline
+-- surelog both modes vs the committed baseline (the only two differing rows carry the
+   WORKDIR PATH inside a SURELOG_FAIL detail string; statuses identical)
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u52_wd_law/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u52_wd_law/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+
+row counts law sweep: surelog 1596 rows 943 CMP_EQUAL / 17 CMP_NOTEQUAL (474/9 default +
+469/8 testflags); uhdm2rtlil 871 rows 783 / 21 in BOTH modes — the 4e421b38 baseline, exactly.
+
+== CANARIES
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+-- protected databases by name (law vs pristine md5, 12 chars)
+   InterfaceModPort/default SAME law=59a365f3ce2c pris=59a365f3ce2c
+   InterfaceModPort/testflags SAME law=59a365f3ce2c pris=59a365f3ce2c
+   BlackParrotComplex/default SAME law=e3e354129d5a pris=e3e354129d5a
+   BlackParrotComplex/testflags SAME law=73a10e8217e5 pris=73a10e8217e5
+   YosysOldOr/default SAME law=d68e0796d62c pris=d68e0796d62c
+   YosysOldOr/testflags SAME law=d68e0796d62c pris=d68e0796d62c
+   SVSwitch/default SAME law=4842211c4030 pris=4842211c4030
+   SVSwitch/testflags SAME law=4842211c4030 pris=4842211c4030
+   YosysVerx/default SAME law=6ccda350c24a pris=6ccda350c24a
+   YosysVerx/testflags SAME law=6ccda350c24a pris=6ccda350c24a
+   Earlgrey_0_1/default SAME law=8bdf25272e08 pris=8bdf25272e08
+   Earlgrey_0_1/testflags SAME law=59d0ee6d10c3 pris=59d0ee6d10c3

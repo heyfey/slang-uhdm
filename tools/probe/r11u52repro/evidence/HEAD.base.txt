@@ -1,0 +1,63 @@
+r11u52 ROAD C — the head on mem_packed_2d_byte_write, BASE 4e421b38, both modes
+binary pris_9be297f87ce752ca318a4d32b204ebe9 (byte-identical to the main tree at the base)
+
+---- default (uhdm-cmp golden.uhdm vs ours; 1 head, 28 cmp lines)
+LHS:
+decompile:
+operation: , id:38, line:19:18, endln:19:25
+|vpiParent:
+\_range: , id:36, line:19:17, endln:19:28
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (NDATA), id:37, line:19:18, endln:19:23
+  |vpiParent:
+  \_operation: , id:38, line:19:18, endln:19:25
+  |vpiName:NDATA
+|vpiOperand:
+\_constant: , id:39, line:19:24, endln:19:25
+  |vpiParent:
+  \_operation: , id:38, line:19:18, endln:19:25
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:36, line:19:18, endln:19:25
+|vpiParent:
+\_range: , id:35, line:19:17, endln:19:28
+|vpiDecompile:NDATA-1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9
+
+---- testflags (uhdm-cmp golden.uhdm vs ours; 1 head, 28 cmp lines)
+LHS:
+decompile:
+operation: , id:38, line:19:18, endln:19:25
+|vpiParent:
+\_range: , id:36, line:19:17, endln:19:28
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (NDATA), id:37, line:19:18, endln:19:23
+  |vpiParent:
+  \_operation: , id:38, line:19:18, endln:19:25
+  |vpiName:NDATA
+|vpiOperand:
+\_constant: , id:39, line:19:24, endln:19:25
+  |vpiParent:
+  \_operation: , id:38, line:19:18, endln:19:25
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:29, line:19:18, endln:19:25
+|vpiParent:
+\_range: , id:28, line:19:17, endln:19:28
+|vpiDecompile:NDATA-1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9
+

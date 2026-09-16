@@ -1,0 +1,41 @@
+r11u52 — THE RESIDUE ON mem_packed_2d_byte_write (default; testflags identical)
+whole-dump order-blind diff against the golden database, id- and path-normalised:
+  BASE 4e421b38 : 120 golden-only / 35 ours-only lines
+  AFTER the law :  27 golden-only /  6 ours-only lines
+(the '> Restored design' line is the dump's own header naming the input file)
+
+every remaining line, by content:
+      3 < |vpiParent:
+      2 < |vpiSize:64
+      2 < |vpiOperand:
+      2 < |vpiConstType:7
+      2 < \_operation: , line:19:51, endln:19:56
+      2 < \_constant: 
+      1 > WD/u2r/default/mem_packed_2d_byte_write-8742967e/slang.uhdm: Restored design Pre-Elab: 
+      1 < |vpiOpType:11
+      1 < |vpiNetType:36
+      1 < |vpiName:DEPTH
+      1 < |vpiFullName:work@dut.wdata.wdata.i
+      1 > |vpiFullName:work@dut.wdata.i
+      1 < |vpiFullName:work@dut.mem.mem.i
+      1 > |vpiFullName:work@dut.mem.i
+      1 < |vpiFullName:mem_t.DEPTH
+      1 < |vpiDecompile:3
+      1 < Restored design Pre-Elab: 
+      1 < \_ref_obj: (work@dut.wdata.wdata.i), line:27:71, endln:27:72
+      1 > \_ref_obj: (work@dut.wdata.i), line:27:71, endln:27:72
+      1 < \_ref_obj: (work@dut.mem.mem.i), line:27:49, endln:27:50
+      1 > \_ref_obj: (work@dut.mem.i), line:27:49, endln:27:50
+      1 < \_ref_obj: (mem_t.DEPTH), line:19:51, endln:19:56
+      1 < \_range: , line:19:51, endln:19:56
+      1 > \_operation: , line:19:51, endln:19:56
+      1 < |INT:3
+      1 < |INT:1
+
+they are exactly THREE things, all named in the brief and none of them this law:
+ R0  |vpiNetType:36 missing from our logic_net (work@dut.mem) — golden stamps all eight
+     nets, we stamp seven; net::Compare reads VpiNetType, so this is the JUDGED head now.
+ R1  the doubled hier-path segment: golden work@dut.mem.mem.i / work@dut.wdata.wdata.i
+     at 27:49 / 27:71, ours single-segment work@dut.mem.i / work@dut.wdata.i.
+ R2  one extra GOLDEN copy of the array's own [DEPTH] bound operation (ref_obj
+     mem_t.DEPTH) — the pre-existing typespec-pool copy-count residue (r11u35 R4).

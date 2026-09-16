@@ -10065,6 +10065,25 @@ private:
     // (VirtualClass). buildUnpackedArrayTypedefTs consults it for the
     // [l:r] dimension form, which otherwise folds both bounds.
     bool unfoldedTypedefDims = false;
+    // § bodyTypedefElemBoundSymbolic52 (ROAD C) — true only while building the
+    // ELEMENT typespec of a MODULE- or INTERFACE-BODY typedef that carries an
+    // UNPACKED dimension.  Surelog's producer hands a HARD `Reduce::No` into
+    // that typedef (CompileModule.cpp:653 module body / :1130 interface body ->
+    // compileDataDeclaration -> compileTypeDef -> the element compileTypespec
+    // at CompileHelper.cpp:1060), so the element's PACKED bounds never reduce,
+    // in any copy, while the array_typespec wrapper's own unpacked bound is
+    // rebuilt per instance.  Read ONLY by anonAggregateElemTs, which otherwise
+    // folds every element bound to a constant carrying the written text as its
+    // vpiDecompile.  A separate flag from unfoldedTypedefDims on purpose: the
+    // class arm's behaviour must not move.
+    bool unfoldedTypedefElemDims = false;
+    // The element typespecs § bodyTypedefElemBoundSymbolic52 left SYMBOLIC.
+    // copyArrayTypedefTs consults it to decide whether a per-reference copy
+    // clones the bound and scopes its ref through the typedef name.  Recorded
+    // by identity because the object cannot be asked: ref_obj::VpiFullName()
+    // synthesizes a name from the parent chain AND writes it back, so reading
+    // it as a test both lies and mutates (UHDM ref_obj.cpp:43).
+    std::set<const UHDM::typespec*> elemSymBoundTs52;
     // Set during a vector-typedef signal CLONE emission: a COMPUTED range
     // bound (cW-1) folds to a BARE constant (no loc, no parent).
     bool bareCloneComputedBounds = false;

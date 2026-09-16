@@ -1,0 +1,44 @@
+r11u52 R0 — THE NEXT HEAD, MEASURED: a net declared with an UNPACKED-ARRAY
+TYPEDEF carries no vpiNetType on our side.  Golden stamps 36 (vpiWire).
+Arms run with the LAW binary; every other net in these designs agrees.
+
+== c1_typedef_mod
+   work@dut.mem                       golden=NT     ours=-      <-- DIVERGES
+   work@dut.o                         golden=NT     ours=NT     
+   work@dut.p1                        golden=NT     ours=NT     
+   work@dut.plain                     golden=NT     ours=NT     
+   work@dut.s1                        golden=-      ours=-      
+   work@dut.u1                        golden=NT     ours=-      <-- DIVERGES
+   work@dut.wdata                     golden=NT     ours=NT     
+   work@dut.s1                        golden=-      ours=-      
+== x1_elemkinds
+   work@dut.a                         golden=NT     ours=-      <-- DIVERGES
+   work@dut.bt                        golden=-      ours=-      
+   work@dut.it                        golden=-      ours=-      
+   work@dut.li                        golden=NT     ours=-      <-- DIVERGES
+   work@dut.nm                        golden=NT     ours=-      <-- DIVERGES
+   work@dut.o                         golden=NT     ours=NT     
+   work@dut.rr                        golden=NT     ours=-      <-- DIVERGES
+   work@dut.sg                        golden=NT     ours=-      <-- DIVERGES
+   work@dut.tw                        golden=NT     ours=-      <-- DIVERGES
+== x2_copies
+   work@dut.a                         golden=NT     ours=NT     
+   work@dut.b                         golden=NT     ours=NT     
+   work@dut.i0.o                      golden=NT     ours=NT     
+   work@dut.i1.o                      golden=NT     ours=NT     
+   work@dut.o                         golden=NT     ours=NT     
+   work@sub.o                         golden=NT     ours=NT     
+   work@sub.u                         golden=NT     ours=-      <-- DIVERGES
+   work@sub.w                         golden=NT     ours=NT     
+== c3_typedef_iface
+   work@dut.o                         golden=NT     ours=NT     
+   work@ifc.a                         golden=NT     ours=-      <-- DIVERGES
+   work@ifc.b                         golden=NT     ours=NT     
+
+THE SITE, decoded: src/EmitHelpers.h:970 netTypeFor()'s DEF-view arm returns 36 for a
+module-local typedef net only when the typedef's canonical kind is PackedArrayType or
+ScalarType; a FixedSizeUnpackedArrayType typedef falls through every arm and the net is
+left untagged.  NOT taken in this pass: it is a NET-TAGGING law, its blast radius is
+every net in both corpora (not the six element bounds this pass moved), and closing it
+does not convert the row either (R1's hier-path segments stand behind it).  It wants its
+own census and its own pass.
