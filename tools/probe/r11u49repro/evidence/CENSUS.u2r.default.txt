@@ -1,0 +1,13 @@
+DIFF cva6_struct_param_field default uhdmtopModules work@cva6_struct_param_field.I line:29:19  G[op=75 ts=struct_typespec() ops=[op67 op67]]  O[op=75 ts=struct_typespec() ops=[const/64 const/64]]
+DIFF iface_zero_width_field default uhdmallInterfaces work@my_if.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=- ops=[tagged_pattern tagged_pattern tagged_pattern]]
+DIFF iface_zero_width_field default uhdmallModules work@pass.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=- ops=[tagged_pattern tagged_pattern tagged_pattern]]
+DIFF iface_zero_width_field default uhdmallModules work@top.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=- ops=[tagged_pattern tagged_pattern tagged_pattern]]
+DIFF iface_zero_width_field default uhdmtopModules work@top.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/64 const/64]]
+DIFF iface_zero_width_field default uhdmtopModules work@top.a.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/64 const/64]]
+DIFF iface_zero_width_field default uhdmtopModules work@top.b.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/64 const/64]]
+DIFF iface_zero_width_field default uhdmtopModules work@top.u.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/64 const/64]]
+DIFF iface_zero_width_field default uhdmtopModules work@top.u.man.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/64 const/64]]
+DIFF iface_zero_width_field default uhdmtopModules work@top.u.sub.B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/64 const/64]]
+DIFF iface_zero_width_field default uhdmtopPackages p::B line:8:20  G[op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]]  O[op=75 ts=- ops=[tagged_pattern tagged_pattern tagged_pattern]]
+DIFF stamped_gen_param default uhdmtopPackages q2::IMPL line:17:21  G[op=75 ts=struct_typespec(q2::impl_t) ops=[const/4 const/36 const/2]]  O[op=75 ts=- ops=[tagged_pattern tagged_pattern tagged_pattern]]
+CENSUS /tmp/r11u49_pris/u2r default: tests=871 GOLDEN-typed-flat-cells=227 differing-cells=245

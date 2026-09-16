@@ -1,0 +1,42 @@
+r11u49 PREDICTED MOVER SET — written from PRISTINE databases + the golden grid,
+BEFORE any patched sweep was scored.
+
+INSTRUMENT + POSITIVE CONTROL: census.py/shape.py over the pristine uhdm2rtlil
+workdir reports 227 GOLDEN typed-flat ELAB cells corpus-wide (default) — the
+lister demonstrably sees a golden stamp; a zero OUR column is a fact about the
+corpus, not about the instrument.  cand.py bounds the risk: 335 cells per mode
+are untyped+tagged on OUR side (the complete set this law could flip), and all
+but three tests' worth of them AGREE with golden (both tagged) — those are the
+AWAY-GOLDEN risk and MUST NOT move.
+
+uhdm2rtlil, BOTH MODES — the law's cell (golden typed+flat, ours untyped+tagged)
+appears on exactly two tests:
+    iface_zero_width_field   4 cells (p::B in uhdmtopPackages, and the
+                             materialized copies work@my_if.B / work@pass.B /
+                             work@top.B)
+    stamped_gen_param        1 cell (q2::IMPL, uhdmtopPackages)
+
+PREDICTION: the ONLY uhdm2rtlil mover is **iface_zero_width_field, both modes**.
+  * stamped_gen_param does NOT move: its IMPL is a PACKED struct selected as
+    `q2::IMPL.UnitTypes[grp]` from a MODULE localparam — neither law's trigger
+    (LAW A is inPackage+unpacked; LAW B is package-scope selects only).  Its
+    cell is this pass's R1 residue.
+  * typed_named_pattern does NOT move: the cast arm is not landed here.
+  * The 335 AGREE candidate cells do NOT move.
+
+Surelog suite, BOTH MODES: prediction pending its own census (below); the law
+fires only on (A) an UNPACKED-struct PACKAGE localparam with a named/default
+pattern, or (B) a struct-pattern package param member-selected inside its own
+package OUTSIDE a parameter declaration.
+
+MOVED-WRONG must be 0 and AWAY-GOLDEN must be 0 on the 14-arm golden grid.
+
+SURELOG SUITE census (pristine, default; 793 test dirs reachable, POSITIVE
+CONTROL = 484 GOLDEN typed-flat ELAB cells corpus-wide):
+the law's cell (golden typed+flat, ours untyped+tagged) appears on exactly ONE
+test, `StructParamPatternInitCast` (`cfg_pkg::Base`, uhdmtopPackages) — and
+`Base` is a PACKED struct that is never member-selected at all (it is passed
+WHOLE to a const-function builder from a MODULE parameter declaration), so
+neither law's trigger reaches it.
+
+PREDICTION, Surelog suite, BOTH MODES: **ZERO movers.**

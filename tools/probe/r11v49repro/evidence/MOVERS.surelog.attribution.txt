@@ -1,0 +1,32 @@
+r11v49 — attribution of the SURELOG movers by RE-DRAW from the UNCHANGED pristine binary
+(binary md5 adf22bb0c9085e300eec1b4a7c8cdacc, three consecutive draws on the sweep's own command line)
+
+MiniAmiq/default   be78400d354b (18852266)  fd7be485d4f1 (18852275)  1c2a67cdd102 (18852311)
+                   sweep pris=d3adf64ba936  sweep law=0f60a516c169 — neither drawn
+SeqDriver/default  f14b0ecef4a1 (18074289)  a2151f8f0089 (18074291)  2fb39f8b4130 (18074287)
+                   sweep pris=6b602e9f35b8  sweep law=137b68e687ca  sweep fix=2fb39f8b4130 (DRAWN by pristine)
+Scoreboard/default 1621aec6c9f3            e70775324004            1621aec6c9f3
+                   the UNCHANGED binary draws BOTH sweep hashes — the documented ~50/50 COIN, caught in the act
+
+order-blind sorted-dump diff, patched vs pristine, path-normalised:
+  default/MiniAmiq    4 lines: |UINT:689<->982,   |vpiDecompile:689<->982
+  default/SeqDriver   4 lines: |UINT:1166<->1191, |vpiDecompile:1166<->1191
+  testflags/MiniAmiq  4 lines: |UINT:1194<->1505, |vpiDecompile:1194<->1505
+  testflags/SeqDriver 4 lines: |UINT:1029<->1526, |vpiDecompile:1029<->1526
+  default/Scoreboard  0 lines  (a pure object-ORDER flip: the svunit_pkg vpiTaskFunc list)
+
+STATUS is CMP_EQUAL on every one of these in both modes, on every sweep.
+
+--- FINAL BINARY (acbe2f0ed8915eb33dec990178ffd794) vs the same pristine sweep ---
+MOVERS 5 / 960, the identical UVM set; order-blind sorted-dump diff, path-normalised:
+  default/MiniAmiq    4 lines: |UINT:982<->0,     |vpiDecompile:982<->0
+  default/SeqDriver   4 lines: |UINT:1191<->0,    |vpiDecompile:1191<->0
+  testflags/MiniAmiq  4 lines: |UINT:1505<->1514, |vpiDecompile:1505<->1514
+  testflags/SeqDriver 4 lines: |UINT:1029<->1423, |vpiDecompile:1029<->1423
+  default/Scoreboard  0 lines
+
+CROSS-CHECK: the final sweep drew SeqDriver/default=2fb39f8b4130 and
+Scoreboard/default=1621aec6c9f3 — BOTH of which the UNCHANGED pristine binary
+drew in its own re-draws above, and MiniAmiq/default=27419f6011b4, which the
+IMPLEMENTER's independent pristine sweep drew.  Same hashes, different binaries.
+STATUS CMP_EQUAL on every one, both modes, every sweep.

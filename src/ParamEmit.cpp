@@ -12967,8 +12967,121 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // reaches the same flat walk; every rule below that reads
                     // `pctS` is gated on `inPackage` or `isImported`, neither
                     // of which a child instance's own formal can be.
+                    // § unpackedPkgPatFlat49 (r11u49) — AN UNPACKED-STRUCT
+                    // PACKAGE PARAMETER FLAT-FOLDS LIKE A PACKED ONE.  Surelog
+                    // decides the elaborated package listing's shape on the
+                    // OPERATION, not on the struct's packing: `getValue`'s
+                    // `pkg::NAME` arm and `substituteAssignedValue`'s member
+                    // select both run `expandPatternAssignment` over whatever
+                    // `param_assign` they were handed, and its member walk
+                    // reads the typespec's members — `struct_typespec` either
+                    // way.  Grid `a1` puts three `ubus_t` (UNPACKED) and three
+                    // `pbus_t` (PACKED) localparams in one package and varies
+                    // only the reader: golden's elab listing flattens the
+                    // member-selected and the `p::`-scoped one of EACH triple
+                    // (bare op ts ref -> `p::ubus_t` / `p::pbus_t`, operands at
+                    // the member width) and keeps the never-read one tagged.
+                    // `a5` adds the width control: an UNPACKED 96-bit struct
+                    // flattens too, so the >64b WIDTH rule is a packed-only
+                    // fact (`getBitWidth()` answers 0 for an unpacked struct,
+                    // which is what keeps it out of that gate here).
+                    //   THREE FENCES, each with its own golden arm; every one
+                    // of them was an AWAY-GOLDEN cell on an earlier build of
+                    // this law, caught by the grid before any sweep.
+                    //  * A PATTERN-VALUED ELEMENT (`b2`).  `b2`'s `FU` (flat
+                    //    unpacked, `p::FU.b`) flattens in golden while `UN` and
+                    //    `UU` — the same unpacked struct with a nested pattern
+                    //    member, read the same way — keep the tagged tree.
+                    //    That is `patParamPatElem26v`, the same fence the
+                    //    evalFunc trigger already carries.
+                    //  * A TYPE KEY (`a3`'s `KTYP`, `b3`'s `UTYP`: `'{int: 4}`).
+                    //    Golden keeps the tagged tree; the member walk matches
+                    //    no `memberSetters` at all, so the flatten came out as
+                    //    a TYPED op with ZERO operands.
+                    //  * A POSITIONAL pattern (`a3`'s `KPOS`, `b3`'s `UPOS`:
+                    //    `'{1, 2}`).  Golden re-sizes its operands to the member
+                    //    width but leaves the op UNTYPED — the same reason
+                    //    `patParamEvalFuncRead26` refuses one: Surelog's
+                    //    flatten runs only `if (op->Typespec())` and it never
+                    //    types a positional elab op.  Typing it is a mint.
+                    //    (The operand re-size alone stays a residue: our
+                    //    pristine leaves those constants at the unsized 64 and
+                    //    this law does not touch them.)
+                    //   `'{default: N}` and `'{A:1, default: N}` are NOT fenced
+                    // — golden flattens both (`a3` `KDEF`/`KMIX`, `b3` `UDEF`).
+                    //   Scoped to `inPackage`: a module-LOCAL or MATERIALIZED-
+                    // IMPORT unpacked struct param already reaches a flat op75
+                    // through its own road (grid `a2`, `a6` — both sides typed
+                    // and flat on the pristine binary), and widening this one
+                    // onto them would double-emit.
+                    const Expression* upe49 =
+                        structOvPat ? structOvPat
+                        : structRefPat9 ? structRefPat9
+                                        : &stripImplicitConv(*init);
+                    bool unpPkgPat49 = false;
+                    if (inPackage &&
+                        pctS.kind == SymbolKind::UnpackedStructType && upe49 &&
+                        upe49->kind ==
+                            ExpressionKind::StructuredAssignmentPattern &&
+                        !patParamPatElem26v(*upe49)) {
+                        auto& sap49 =
+                            upe49->as<StructuredAssignmentPatternExpression>();
+                        unpPkgPat49 = sap49.typeSetters.empty() &&
+                                      sap49.indexSetters.empty();
+                        // § unpNonIntegralMemberDeclined49v (r11v49) — THE
+                        // FOURTH FENCE, and the only one a PACKED struct could
+                        // never need: an unpacked struct may carry a member
+                        // that is not integral at all (`real`, `string`, an
+                        // UNPACKED ARRAY), and golden keeps the tagged tree for
+                        // exactly those.  Verifier arm `v14.sv` is one package,
+                        // three unpacked structs, each read `p::NAME.member`
+                        // the same way, differing only in one member's type:
+                        //   `uk_t {logic [31:0]; logic [7:0]}` -> golden FLAT
+                        //   `ur_t {real;   logic [7:0]}`       -> golden TAGGED
+                        //   `us_t {string; logic [7:0]}`       -> golden TAGGED
+                        // and `v1.sv`'s `uarr_t {logic[7:0]; logic[15:0] b[3]}`
+                        // is the unpacked-array face, also TAGGED in golden.
+                        // Without this clause the r11u49 law binary
+                        // `d2d18afeeb28465f3ab0542185e67c0c` flattened `UR` and
+                        // `US`, where the PRISTINE binary had both right — and
+                        // `UR` came out STRUCTURALLY WRONG as well as
+                        // away-golden: the flat walk (`fsc9` below) emits one
+                        // operand per field it can reduce, so the `real` member
+                        // vanished and a TWO-member struct flattened to a
+                        // ONE-operand op75.  A packed struct's fields are
+                        // integral by construction, so the packed road is
+                        // untouched and every landed witness stays.
+                        //   ...and `time` joins them, the ONE integral type
+                        // golden also declines.  Arm `v17.sv` sweeps every
+                        // predefined integral member type in one package, one
+                        // struct each, all read `p::NAME.a`: `byte` `shortint`
+                        // `int` `longint` `integer` `bit` `logic` `reg` all
+                        // FLATTEN in golden and `time` alone stays TAGGED, and
+                        // `v16.sv` proves it is the TYPE and not the width —
+                        // a `logic [63:0]` and a `longint` member both flatten
+                        // beside a `time` member that does not.  (Surelog
+                        // compiles a `time` member to a `time_typespec`, which
+                        // its `adjustOpSize` walk does not size, so the op is
+                        // never typed and its flatten never runs.)
+                        if (unpPkgPat49)
+                            for (auto& fld49 :
+                                 ((const Scope&)pctS.as<UnpackedStructType>())
+                                     .membersOfType<FieldSymbol>()) {
+                                auto& ft49 =
+                                    fld49.getType().getCanonicalType();
+                                if (!ft49.isIntegral() ||
+                                    (ft49.kind ==
+                                         SymbolKind::PredefinedIntegerType &&
+                                     ft49.as<PredefinedIntegerType>()
+                                             .integerKind ==
+                                         PredefinedIntegerType::Time)) {
+                                    unpPkgPat49 = false;
+                                    break;
+                                }
+                            }
+                    }
                     structPat = (pctS.kind == SymbolKind::PackedStructType ||
-                                 ovNonStructPat108 ||
+                                 ovNonStructPat108 || unpPkgPat49 ||
                                  (unpStructOvRef9 &&
                                   pctS.kind == SymbolKind::UnpackedStructType)) &&
                                 (k0 == ExpressionKind::StructuredAssignmentPattern ||

@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (work@my_if), id:379
+|vpiParent:
+\_operation: , id:378, line:8:24, endln:8:46
+|vpiFullName:work@my_if
+|vpiActual:
+\_struct_typespec: (p::bus_t), id:380, line:7:11, endln:7:75
+
+decompile:
+ref_typespec: (work@my_if), id:379
+|vpiParent:
+\_operation: , id:378, line:8:24, endln:8:46
+|vpiFullName:work@my_if
+|vpiActual:
+\_struct_typespec: (p::bus_t), id:380, line:7:11, endln:7:75
+RHS: <null>

@@ -8277,6 +8277,28 @@ bool UhdmExporter::isParenCastWidthParam(std::string_view name) {
 // copy (§ modDefImportPatSel, ParamEmit).  Every BlackBePipeInt select that
 // decides the recorded 14-parameter ordering is written inside bp_common_pkg
 // (dut.sv:2157 and friends), so the package-scope restriction keeps it.
+//
+// § pkgScopeMemberSelect49 (r11u49) — ...and the PACKAGE SCOPE IS THE WHOLE OF
+// IT: the construct the select is written in does not matter, only which scope
+// it is written in.  The `inParamDecl` half of the old test was a shape of the
+// witnesses, not a rule.  Grid `b1` is the unconfounded measurement — eight
+// identical packed-struct package localparams, NO `p::NAME` anywhere (the
+// module wildcard-imports, so the scoped-reference road cannot fire), each
+// selected in exactly one context:
+//
+//   in the PACKAGE   parameter decl / typedef dim / function body / variable
+//                    decl dim   -> golden FLATTENS all four
+//   in the MODULE    localparam / typedef dim / cont-assign
+//                    -> golden keeps the TAGGED tree on all three
+//   never selected   -> TAGGED
+//
+// The old predicate answered only the first of the four package faces, so
+// `S_TDEF`, `S_FUNC` and `S_VDEC` stayed tagged against a flat golden; the
+// three MODULE faces stay declined because `inPkg` already excludes them, and
+// that is the polarity `pkgMemberSelectPkgScope` measured.  The producer reads
+// the same way: `substituteAssignedValue` reduces the package's own
+// `param_assign` in place for any select compiled INSIDE the package, and a
+// module-side read resolves the value without re-reducing it.
 bool UhdmExporter::hasMemberSelectOf(std::string_view name) {
     if (!memberSelectBasesBuilt) {
         memberSelectBasesBuilt = true;
@@ -8300,7 +8322,32 @@ bool UhdmExporter::hasMemberSelectOf(std::string_view name) {
                 inPkg = true;
             if (node.kind == syntax::SyntaxKind::ParameterDeclaration)
                 inParamDecl = true;
-            if (inParamDecl && inPkg) {
+            // § pkgClassBodySelectDeclined49v (r11v49) — ...but NOT a select
+            // written inside a CLASS DECLARATION, even one in the package.
+            // Surelog's `substituteAssignedValue` runs off the package's own
+            // elaboration; a class body is compiled on its own road and never
+            // reduces the package's `param_assign`.  Verifier arm `v11.sv` is
+            // the decisive measurement — four identical packed-struct package
+            // localparams, each selected in exactly one site, no `p::NAME`
+            // anywhere (the module wildcard-imports), and the arm separates
+            // "class" from "never evaluated" by using one of each:
+            //   `RFCALL`  package function body, function CALLED      -> golden FLAT
+            //   `RFDEAD`  package function body, function NEVER called-> golden FLAT
+            //   `RCUSED`  class method, class instantiated and called -> golden TAGGED
+            //   `RCDEAD`  class method, class never used              -> golden TAGGED
+            // So the discriminator is the CLASS, not whether the body is ever
+            // evaluated.  Without this clause `RCUSED` and `RCDEAD` both moved
+            // AWAY-GOLDEN (tagged -> typed+flat) on the r11u49 law binary
+            // `d2d18afeeb28465f3ab0542185e67c0c`, where the PRISTINE binary had
+            // them right; arm `v4.sv`'s `r::RCLS` is the same cell in isolation.
+            // This is the UVM shape — a package whose classes are full of
+            // `obj.field` — so the clause also bounds the name-keyed scan's
+            // false-positive reach across the UVM corpus.
+            if (node.kind == syntax::SyntaxKind::ClassDeclaration)
+                return;
+            // § pkgScopeMemberSelect49 — `inPkg` alone; see the note above.
+            (void)inParamDecl;
+            if (inPkg) {
                 if (node.kind == syntax::SyntaxKind::MemberAccessExpression) {
                     if (auto n = baseName(
                             node.as<syntax::MemberAccessExpressionSyntax>()

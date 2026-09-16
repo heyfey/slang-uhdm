@@ -1,0 +1,94 @@
+  TO    a1 uhdmtopPackages p::PSEL                    -> op=75 ts=struct_typespec(p::pbus_t) ops=[const/8 const/8 const/8]
+  TO    a1 uhdmtopPackages p::USCP                    -> op=75 ts=struct_typespec(p::ubus_t) ops=[const/32 const/32 const/32]
+  TO    a1 uhdmtopPackages p::USEL                    -> op=75 ts=struct_typespec(p::ubus_t) ops=[const/32 const/32 const/32]
+ARM a1  TO 3  AWAY 0  STILL 0  SAME 9
+  STILL a2 uhdmtopModules  work@a2.UM                 G=op=75 ts=struct_typespec(ubus_t) ops=[const/32 const/32]
+                        ours=op=75 ts=struct_typespec(ubus_t) ops=[const/32 const/64]
+  STILL a2 uhdmtopModules  work@a2.UN                 G=op=75 ts=struct_typespec(ubus_t) ops=[const/32 const/32]
+                        ours=op=75 ts=struct_typespec(ubus_t) ops=[const/32 const/64]
+ARM a2  TO 0  AWAY 0  STILL 2  SAME 4
+  TO    a3 uhdmtopPackages p::KDEF                    -> op=75 ts=struct_typespec(p::u3_t) ops=[const/32 const/32 const/32]
+  TO    a3 uhdmtopPackages p::KMIX                    -> op=75 ts=struct_typespec(p::u3_t) ops=[const/32 const/32 const/32]
+  TO    a3 uhdmtopPackages p::KNAM                    -> op=75 ts=struct_typespec(p::u3_t) ops=[const/32 const/32 const/32]
+  STILL a3 uhdmtopPackages p::KPOS                    G=op=75 ts=- ops=[const/32 const/32 const/32]
+                        ours=op=75 ts=- ops=[const/64 const/64 const/64]
+ARM a3  TO 3  AWAY 0  STILL 1  SAME 6
+  TO    a5 uhdmtopPackages p::W32                     -> op=75 ts=struct_typespec(p::n32_t) ops=[const/32]
+  TO    a5 uhdmtopPackages p::W96                     -> op=75 ts=struct_typespec(p::n96_t) ops=[const/32 const/32 const/32]
+ARM a5  TO 2  AWAY 0  STILL 0  SAME 2
+  STILL a6 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  STILL a6 uhdmtopModules  work@a6.UI                 G=op=75 ts=struct_typespec(p::ub_t) ops=[const/32 const/32]
+                        ours=op=75 ts=struct_typespec(p::ub_t) ops=[const/32 const/64]
+  STILL a6 uhdmtopModules  work@a6.UL                 G=op=75 ts=struct_typespec(p::ub_t) ops=[const/32 const/32]
+                        ours=op=75 ts=struct_typespec(p::ub_t) ops=[const/32 const/64]
+ARM a6  TO 0  AWAY 0  STILL 3  SAME 4
+  TO    a7 uhdmtopPackages p::PS                      -> op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+ARM a7  TO 1  AWAY 0  STILL 0  SAME 1
+  STILL a8 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  TO    a8 uhdmtopPackages p::PS                      -> op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+ARM a8  TO 1  AWAY 0  STILL 1  SAME 1
+  STILL a9 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  TO    a9 uhdmtopPackages p::S_FUNC                  -> op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+  STILL a9 uhdmtopPackages p::S_MPAR                  G=op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+                        ours=op=75 ts=- ops=[tagged_pattern tagged_pattern]
+  STILL a9 uhdmtopPackages p::S_MPRT                  G=op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+                        ours=op=75 ts=- ops=[tagged_pattern tagged_pattern]
+  STILL a9 uhdmtopPackages p::S_MTDF                  G=op=75 ts=- ops=[tagged_pattern tagged_pattern]
+                        ours=op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+  TO    a9 uhdmtopPackages p::S_TDEF                  -> op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+ARM a9  TO 2  AWAY 0  STILL 4  SAME 17
+  STILL b1 uhdmallModules  work@b1.S_FUNC             G=op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+                        ours=op=75 ts=- ops=[tagged_pattern tagged_pattern]
+  STILL b1 uhdmallModules  work@b1.S_MPAR             G=op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+                        ours=op=75 ts=- ops=[tagged_pattern tagged_pattern]
+  STILL b1 uhdmallModules  work@b1.S_PARM             G=op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+                        ours=op=75 ts=- ops=[tagged_pattern tagged_pattern]
+  STILL b1 uhdmallModules  work@b1.S_TDEF             G=op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+                        ours=op=75 ts=- ops=[tagged_pattern tagged_pattern]
+  STILL b1 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  STILL b1 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  STILL b1 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  STILL b1 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  STILL b1 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  TO    b1 uhdmtopPackages p::S_FUNC                  -> op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+  TO    b1 uhdmtopPackages p::S_TDEF                  -> op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+  TO    b1 uhdmtopPackages p::S_VDEC                  -> op=75 ts=struct_typespec(p::pb_t) ops=[const/8 const/8]
+ARM b1  TO 3  AWAY 0  STILL 9  SAME 31
+  STILL b2 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  STILL b2 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  STILL b2 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  TO    b2 uhdmtopPackages p::FU                      -> op=75 ts=struct_typespec(p::flatu_t) ops=[const/32 const/32]
+  STILL b2 uhdmtopPackages p::PN                      G=op=75 ts=- ops=[tagged_pattern tagged_pattern]
+                        ours=op=75 ts=struct_typespec(p::pnest_t) ops=[op75 const/8]
+ARM b2  TO 1  AWAY 0  STILL 4  SAME 8
+  STILL b3 uhdmallPackages p::PTYP                    G=op=75 ts=- ops=[tagged_pattern]
+                        ours=op=75 ts=- ops=[]
+  STILL b3 uhdmtopPackages p::PPOS                    G=op=75 ts=- ops=[const/8 const/8]
+                        ours=op=75 ts=struct_typespec(p::pk_t) ops=[const/8 const/8]
+  STILL b3 uhdmtopPackages p::PTYP                    G=op=75 ts=- ops=[tagged_pattern]
+                        ours=op=75 ts=struct_typespec(p::pk_t) ops=[]
+  TO    b3 uhdmtopPackages p::UDEF                    -> op=75 ts=struct_typespec(p::un_t) ops=[const/32 const/32]
+  STILL b3 uhdmtopPackages p::UPOS                    G=op=75 ts=- ops=[const/32 const/32]
+                        ours=op=75 ts=- ops=[const/64 const/64]
+ARM b3  TO 1  AWAY 0  STILL 4  SAME 7
+  TO    u1 uhdmtopPackages p::BSCP                    -> op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]
+  TO    u1 uhdmtopPackages p::BSEL                    -> op=75 ts=struct_typespec(p::bus_t) ops=[const/32 const/32 const/32]
+ARM u1  TO 2  AWAY 0  STILL 0  SAME 4
+ARM u2  TO 0  AWAY 0  STILL 0  SAME 4
+  STILL a4 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+  STILL a4 uhdmtopModules  ?                          G=RHS-NOT-OPERATION
+                        ours=<absent>
+ARM a4  TO 0  AWAY 0  STILL 2  SAME 4
+VERIFIER GRID TOTAL over 14 arms: TO 19  AWAY 0  STILL 30  SAME 102
