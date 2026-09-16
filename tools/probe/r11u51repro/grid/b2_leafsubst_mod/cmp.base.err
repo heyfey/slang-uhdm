@@ -1,0 +1,32 @@
+LHS:
+decompile:
+constant: , id:174, line:8:31, endln:8:58
+|vpiParent:
+\_param_assign: , id:173, line:8:27, endln:8:58
+|vpiDecompile:16'b0000000000100000
+|vpiSize:16
+|BIN:0000000000100000
+|vpiTypespec:
+\_ref_typespec: (work@dut), id:248
+  |vpiParent:
+  \_constant: , id:174, line:8:31, endln:8:58
+  |vpiFullName:work@dut
+  |vpiActual:
+  \_logic_typespec: , id:247
+|vpiConstType:3
+RHS:
+decompile:
+constant: , id:113, line:8:31, endln:8:58
+|vpiParent:
+\_param_assign: , id:112, line:8:27, endln:8:58
+|vpiDecompile:16'b000zzzzzzzzzzz00
+|vpiSize:16
+|BIN:000zzzzzzzzzzz00
+|vpiTypespec:
+\_ref_typespec: (work@dut), id:114
+  |vpiParent:
+  \_constant: , id:113, line:8:31, endln:8:58
+  |vpiFullName:work@dut
+  |vpiActual:
+  \_logic_typespec: , id:156
+|vpiConstType:3

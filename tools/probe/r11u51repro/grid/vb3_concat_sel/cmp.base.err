@@ -1,0 +1,16 @@
+LHS:
+decompile:
+operation: , id:83, line:10:30, endln:10:39
+|vpiParent:
+\_param_assign: , id:73, line:10:25, endln:10:39
+|vpiOpType:33
+|vpiReordered:1
+|vpiOperand:
+\_ref_obj: (pk::C0), id:84, line:10:31, endln:10:33
+  |vpiParent:
+  \_operation: , id:83, line:10:30, endln:10:39
+  |vpiName:C0
+  |vpiFullName:pk::C0
+  |vpiActual:
+  \_constant: , id:62, line:9:30, endln:9:35
+RHS: <null>

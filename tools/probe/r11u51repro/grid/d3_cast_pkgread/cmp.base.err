@@ -1,0 +1,15 @@
+LHS:
+decompile:
+constant: , id:47, line:11:51, endln:11:53
+|vpiParent:
+\_sys_func_call: ($unsigned), id:48
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:32, line:11:41, endln:11:54
+|vpiSize:32
+|BIN:00000000000000000000000001000000
+|vpiConstType:3

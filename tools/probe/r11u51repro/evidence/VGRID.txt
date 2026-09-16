@@ -1,0 +1,255 @@
+# r11v51 VERIFIER GRID — eight new arms on roads A/B/C/D/E, ~51 cells.
+# base 24f51df9; verifier's OWN pristine build, md5 9be297f87ce752ca318a4d32b204ebe9
+# golden = pinned Surelog v1.87 (0445655ee7): -parse -nobuiltin -nocache -sv
+# ours   = the pristine binary: dut.sv --single-unit --nobuiltin
+# LHS is ALWAYS golden.  Every arm's rc is recorded for BOTH sides.
+
+== RC TABLE ==
+va1_bits_signal golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+vb1_pkg_oper golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=29
+vb2_concat_bound golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=45
+vb3_concat_sel golden_rc=0 ours_rc=4  cmp_rc=255 heads=1 cmplines=15
+vc1_typedef_shapes golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=109
+vd1_pattern_width golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=31
+ve1_ca_lhs_fixedrhs golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+ve2_ca_rhs_more golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=31
+
+== ROAD A — grid/va1_bits_signal : the PORTS/SIGNALS half of getTypespec ==
+   sites are the $bits call column on each localparam line
+19:23        gold   2 DEF:constant  2 ELAB:constant 
+19:23        ours   2 DEF:constant  2 ELAB:constant 
+20:23        gold   2 DEF:constant  2 ELAB:constant 
+20:23        ours   2 DEF:constant  2 ELAB:constant 
+21:23        gold   2 DEF:constant  2 ELAB:constant 
+21:23        ours   2 DEF:constant  2 ELAB:constant 
+22:23        gold   2 DEF:constant  2 ELAB:constant 
+22:23        ours   2 DEF:constant  2 ELAB:constant 
+23:23        gold   2 DEF:sys_func_call  2 ELAB:sys_func_call 
+23:23        ours   2 DEF:constant  2 ELAB:constant 
+24:23        gold   2 DEF:sys_func_call  2 ELAB:sys_func_call 
+24:23        ours   2 DEF:constant  2 ELAB:constant 
+25:23        gold   2 DEF:constant  2 ELAB:constant 
+25:23        ours   2 DEF:constant  2 ELAB:constant 
+   19 port  20 signal  21 struct signal  22 signal member  23 type param->keyword  24 type param->struct  25 signal
+
+== ROAD B — grid/vb1_pkg_oper : nine Rhs kinds, elaborated package copy ==
+-- gold
+      3    DEF operation@10:30
+      1    DEF ref_obj@10:30
+      2    ELAB constant@10:30
+      1    DEF constant@10:35
+      2    DEF operation@11:30
+      2    ELAB constant@11:30
+      1    DEF ref_obj@11:31
+      4    DEF operation@12:30
+      1    DEF ref_obj@12:30
+      1    DEF ref_obj@12:35
+      1    DEF ref_obj@12:40
+      2    ELAB constant@12:40
+      2    DEF operation@13:30
+      2    ELAB operation@13:30
+      1    DEF ref_obj@13:31
+      1    ELAB ref_obj@13:31
+      1    DEF ref_obj@14:31
+      2    ELAB constant@14:31
+      1    DEF integer_typespec@15:30
+      3    DEF operation@15:30
+      2    ELAB constant@15:30
+      1    DEF ref_obj@15:33
+      3    DEF operation@16:30
+      1    DEF ref_obj@16:30
+      2    ELAB constant@16:30
+      1    DEF constant@16:35
+      1    DEF ref_obj@19:30
+      2    ELAB constant@19:30
+      3    DEF operation@20:30
+      1    DEF ref_obj@20:30
+      2    ELAB constant@20:30
+      1    DEF constant@20:39
+-- ours
+      3    DEF operation@10:30
+      1    DEF ref_obj@10:30
+      2    ELAB constant@10:30
+      1    DEF constant@10:35
+      2    DEF operation@11:30
+      2    ELAB constant@11:30
+      1    DEF ref_obj@11:31
+      4    DEF operation@12:30
+      1    DEF ref_obj@12:30
+      2    ELAB constant@12:30
+      1    DEF ref_obj@12:35
+      1    DEF ref_obj@12:40
+      2    DEF operation@13:30
+      2    ELAB operation@13:30
+      1    DEF ref_obj@13:31
+      1    ELAB constant@13:31
+      2    ELAB constant@14:30
+      1    DEF ref_obj@14:31
+      1    DEF integer_typespec@15:30
+      3    DEF operation@15:30
+      2    ELAB constant@15:30
+      1    DEF ref_obj@15:33
+      3    DEF operation@16:30
+      1    DEF ref_obj@16:30
+      2    ELAB constant@16:30
+      1    DEF constant@16:35
+      1    DEF ref_obj@19:30
+      2    ELAB constant@19:30
+      3    DEF operation@20:30
+      1    DEF ref_obj@20:30
+      2    ELAB constant@20:30
+      1    DEF constant@20:39
+   10 C0+2'b01  11 ~C0  12 C0?C3:C0  13 {C0}  14 (C3)  15 2'(C3)  16 C3+1  19 pk::C3  20 pk::C3+2'b01
+
+== ROAD B — grid/vb2_concat_bound : where the concat exception starts and stops ==
+-- gold ELAB
+      3    operation@7:31
+      1    ref_obj@7:32
+      1    ref_obj@7:36
+      1    operation@8:31
+      1    constant@8:32
+      1    constant@8:39
+      2    operation@9:31
+      1    constant@9:32
+      2    operation@9:33
+      1    ref_obj@9:34
+      5    operation@10:31
+      1    ref_obj@10:32
+      1    constant@10:38
+      3    operation@11:31
+      1    ref_obj@11:32
+      1    ref_obj@11:36
+      3    operation@12:31
+      2    operation@12:32
+      1    ref_obj@12:33
+      2    operation@12:38
+      1    ref_obj@12:39
+-- ours ELAB
+      3    operation@7:31
+      1    constant@7:32
+      1    constant@7:36
+      1    operation@8:31
+      1    constant@8:32
+      1    constant@8:39
+      2    constant@9:31
+      2    constant@10:31
+      3    operation@11:31
+      1    constant@11:32
+      1    constant@11:36
+      3    operation@12:31
+      2    operation@12:32
+      1    constant@12:33
+      2    operation@12:38
+      1    constant@12:39
+   7 {C0,C3}  8 {2'b01,2'b10}  9 {2{C0}}  10 {C0}+4'b0001  11 localparam {C0,C3}  12 {{C0},{C3}}
+
+== ROAD B — grid/vb3_concat_sel : ERROR CELL, ours exits 4 ==
+   golden_rc/ours_rc:
+   golden_rc=0
+   ours_rc=4
+   our stderr:
+   slang-uhdm: unsupported constructs encountered:
+     range select base
+
+== ROAD C — grid/vc1_typedef_shapes : shapes beside the unpacked-dim typedef ==
+   gold  gen_t_lines=18 vpiElemTypespec=6 two_t_ranges(head)=see cmp.base.err
+   ours  gen_t_lines=0 vpiElemTypespec=2 two_t_ranges(head)=see cmp.base.err
+   head = array_typespec (two_t): golden 2 vpiRange + vpiElemTypespec, ours 1 vpiRange + none
+
+== ROAD D — grid/vd1_pattern_width : the member widths ==
+-- gold
+   DEF constant@13:30 size=64
+   DEF constant@13:37 size=64
+   DEF constant@13:44 size=32
+   DEF constant@13:54 size=64
+   DEF constant@14:30 size=64
+   DEF constant@14:37 size=64
+   DEF constant@14:44 size=64
+   DEF constant@14:54 size=64
+   DEF constant@16:28 size=8
+   DEF constant@16:34 size=8
+   ELAB constant@13:30 size=8
+   ELAB constant@13:37 size=16
+   ELAB constant@13:44 size=64
+   ELAB constant@13:54 size=32
+   ELAB constant@14:30 size=8
+   ELAB constant@14:37 size=16
+   ELAB constant@14:44 size=64
+   ELAB constant@14:54 size=32
+   ELAB constant@16:28 size=8
+   ELAB constant@16:34 size=8
+-- ours
+   DEF constant@13:30 size=64
+   DEF constant@13:37 size=64
+   DEF constant@13:44 size=32
+   DEF constant@13:54 size=64
+   DEF constant@14:30 size=64
+   DEF constant@14:37 size=64
+   DEF constant@14:44 size=64
+   DEF constant@14:54 size=64
+   DEF constant@16:28 size=8
+   DEF constant@16:34 size=8
+   ELAB constant@13:30 size=64
+   ELAB constant@13:37 size=64
+   ELAB constant@13:44 size=32
+   ELAB constant@13:54 size=64
+   ELAB constant@14:30 size=64
+   ELAB constant@14:37 size=64
+   ELAB constant@14:44 size=64
+   ELAB constant@14:54 size=64
+   ELAB constant@16:28 size=8
+   ELAB constant@16:34 size=8
+   13 localparam mix_t L (A logic[7:0], B logic[15:0], C logic[63:0], D int unsigned)
+   14 parameter mix_t P    16 localparam barr_t U (unpacked-array pattern)
+
+== ROAD E — grid/ve1_ca_lhs_fixedrhs : seven LHS kinds, Rhs held at CFG.n ==
+   read per cont_assign: the substituted Rhs kind, its VpiSize, and the Lhs object.
+   The Lhs column is the authoritative key (the cont_assign line tracker lags one
+   object on shared assigns); the first row of each side is the CFG param_assign.
+-- gold ELAB
+   ca@        rhs=operation:   size=32     lhs=parameter: (work@dut.CFG)
+   ca@15:10   rhs=             size=32     lhs=ref_obj: (work@dut.o_full)
+   ca@18:10   rhs=             size=32     lhs=bit_select: (work@dut.o_bit)
+   ca@17:10   rhs=constant:    size=<unset> lhs=part_select: o_part (work@dut.o_part)
+   ca@18:10   rhs=constant:    size=<unset> lhs=bit_select: (work@dut.o_arr)
+   ca@19:10   rhs=             size=32     lhs=ref_obj: (work@dut.o_sgn)
+   ca@20:10   rhs=             size=8      lhs=ref_obj: (work@dut.o_narrow)
+   ca@21:10   rhs=             size=64     lhs=ref_obj: (work@dut.o_wide)
+-- ours ELAB
+   ca@        rhs=operation:   size=32     lhs=parameter: (work@dut.CFG)
+   ca@18:10   rhs=constant:    size=32     lhs=bit_select: (work@dut.o_arr)
+   golden: o_full 32, o_bit 32, o_part <unset>, o_arr <unset>, o_sgn 32,
+           o_narrow (logic [7:0]) 8, o_wide (logic [63:0]) 64 — the LHS DECLARATION's
+           width, and UNSET for a bit-select / part-select Lhs (tps is null there).
+   ours:   one fresh cont_assign only (the unpacked-array element), constant@32,
+           no source location; the other six share the definition object.
+
+== ROAD E — grid/ve2_ca_rhs_more : seven Rhs kinds ==
+-- gold ELAB
+   ca@24:10 rhs=constant:
+   ca@24:10 rhs=<shared/none>
+   ca@25:10 rhs=constant: , line:12:41, endln:12:42
+   ca@25:10 rhs=<shared/none>
+   ca@26:10 rhs=constant: , line:14:29, endln:14:31
+   ca@26:10 rhs=<shared/none>
+   ca@27:10 rhs=constant:
+   ca@27:10 rhs=<shared/none>
+   ca@28:10 rhs=operation: , line:28:19, endln:28:30
+   ca@28:10 rhs=<shared/none>
+   ca@29:10 rhs=<shared/none>
+   ca@31:12 rhs=constant: , line:11:34, endln:11:35
+   ca@31:12 rhs=<shared/none>
+-- ours ELAB
+   ca@24:10 rhs=constant:
+   ca@24:10 rhs=<shared/none>
+   ca@25:10 rhs=<shared/none>
+   ca@26:10 rhs=constant:
+   ca@26:10 rhs=<shared/none>
+   ca@27:10 rhs=operation: , line:27:19, endln:27:39
+   ca@27:10 rhs=<shared/none>
+   ca@28:10 rhs=operation: , line:28:19, endln:28:30
+   ca@28:10 rhs=<shared/none>
+   ca@29:10 rhs=<shared/none>
+   ca@31:12 rhs=hier_path: (CFG.n), line:31:20, endln:31:25
+   ca@31:12 rhs=<shared/none>
+   24 CFG.n+1  25 OC.sub.n  26 AP[0]  27 {16'h0,CFG.n[15:0]}  28 CFG.n+a_i  29 a_i  31 CFG.n in generate

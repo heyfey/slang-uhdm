@@ -1,0 +1,84 @@
+# r11v51 — blast radius per road, counted by TEST DIRECTORY across both corpora
+# roots: uhdm2rtlil/test/*, Surelog/tests/*, Surelog/third_party/tests/*
+# 15530 .sv/.v/.svh files scanned; tags u2r: / sl: / sl3p:
+
+## ROAD A — a dir declaring 'parameter|localparam type' AND calling $bits
+sl3p:ariane
+sl3p:Ariane2024
+sl3p:AzadiRTL
+sl3p:Google
+sl3p:Ibex
+sl3p:Tnoc
+sl3p:Verilator
+sl:ClassScope
+u2r:bits_of_type_param
+u2r:cva6_equiv
+u2r:ibex
+u2r:param_type_logic_width
+u2r:type_param_override_elem_sel
+u2r:type_param_packed_dim
+COUNT=14  (FOLDMAP said 7)
+
+## ROAD A — same-FILE criterion (stricter)
+sl3p:Ariane2024
+sl3p:Verilator
+sl3p:ariane
+sl:ClassScope
+u2r:bits_of_type_param
+u2r:cva6_equiv
+u2r:param_type_logic_width
+u2r:type_param_override_elem_sel
+u2r:type_param_packed_dim
+COUNT=9
+
+## ROAD C — a dir with a typedef carrying an unpacked dimension
+sl3p:Google
+sl3p:Verilator
+sl3p:YosysTestSuite
+sl:UnpackedTypespec
+u2r:cva6_equiv
+u2r:mem_packed_2d_byte_write
+COUNT=6  (FOLDMAP said 3)
+
+## ROAD E — a dir with a struct-typed parameter AND a dotted read on a cont_assign
+sl3p:ariane
+sl3p:Ariane2024
+sl3p:AzadiRTL
+sl3p:Earlgrey_0_1
+sl3p:Earlgrey_nexysvideo
+sl3p:Earlgrey_Verilator_0_1
+sl3p:Earlgrey_Verilator_01_05_21
+sl3p:Ibex
+sl3p:IncompTitan
+sl3p:Opentitan
+sl3p:Rp32
+sl3p:Verilator
+sl:GenForIfaceLocalparamNestedGen
+sl:GenForStructParamBound
+sl:GenIfIfaceParamStructField
+sl:InterfaceParamOverrideProp
+sl:StructParamFieldRange
+sl:StructParamFuncBodyFieldCompare
+sl:StructParamPatternInitCast
+u2r:cva6_equiv
+u2r:cva6_struct_param_field
+u2r:ibex
+u2r:iface_array_elem_cfg_param
+u2r:iface_cfg_mem
+u2r:iface_cfg_param_def_pass
+u2r:iface_nested_param_field
+u2r:iface_port_localparam
+u2r:iface_scalar_localparam
+u2r:iface_struct_field_param_width
+u2r:iface_struct_field_partsel
+u2r:iface_wholestruct_param
+u2r:ImportedDoubleCastedParameter
+u2r:paramod_struct_param
+u2r:rp32
+u2r:rp32_vfriendly
+u2r:StructParameter
+u2r:struct_param_field_shift
+u2r:struct_param_func_arg
+u2r:struct_param_func_config
+u2r:struct_param_pattern_packing
+COUNT=40  (FOLDMAP said 20)

@@ -1,0 +1,228 @@
+a1_bits_argkind golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+a2_bits_holder golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+a3_bits_iface golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+b1_leafsubst_pkg golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b2_leafsubst_mod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=32
+b3_leafsubst_ca golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+c1_typedef_mod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+c2_typedef_pkg golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=350
+c3_typedef_iface golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+d1_cast_pkg golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=5
+d2_cast_mod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=17
+d3_cast_pkgread golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+e1_ca_rhskind golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+e2_ca_lhskind golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+e3_ca_structparam golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=31
+
+=== ROAD A — $bits argument kind x holder x view (a1/a2/a3)
+SITE         SIDE  VIEW   OBJECT
+15:23        golden DEF    sys_func_call
+15:23        golden DEF    sys_func_call
+15:23        golden ELAB   sys_func_call
+15:23        golden ELAB   sys_func_call
+15:23        ours  DEF    constant
+15:23        ours  DEF    constant
+15:23        ours  ELAB   constant
+15:23        ours  ELAB   constant
+16:23        golden DEF    constant
+16:23        golden DEF    constant
+16:23        golden ELAB   constant
+16:23        golden ELAB   constant
+16:23        ours  DEF    constant
+16:23        ours  DEF    constant
+16:23        ours  ELAB   constant
+16:23        ours  ELAB   constant
+17:23        golden DEF    sys_func_call
+17:23        golden DEF    sys_func_call
+17:23        golden ELAB   constant
+17:23        golden ELAB   constant
+17:23        ours  DEF    constant
+17:23        ours  DEF    constant
+17:23        ours  ELAB   constant
+17:23        ours  ELAB   constant
+18:23        golden DEF    sys_func_call
+18:23        golden DEF    sys_func_call
+18:23        golden ELAB   sys_func_call
+18:23        golden ELAB   sys_func_call
+18:23        ours  DEF    constant
+18:23        ours  DEF    constant
+18:23        ours  ELAB   constant
+18:23        ours  ELAB   constant
+19:23        golden DEF    constant
+19:23        golden DEF    constant
+19:23        golden ELAB   constant
+19:23        golden ELAB   constant
+19:23        ours  DEF    constant
+19:23        ours  DEF    constant
+19:23        ours  ELAB   constant
+19:23        ours  ELAB   constant
+20:23        golden DEF    constant
+20:23        golden DEF    constant
+20:23        golden ELAB   constant
+20:23        golden ELAB   constant
+20:23        ours  DEF    constant
+20:23        ours  DEF    constant
+20:23        ours  ELAB   constant
+20:23        ours  ELAB   constant
+-- MISSING cells: 0
+SITE         SIDE  VIEW   OBJECT
+7:24         golden ELAB   sys_func_call
+7:24         golden ELAB   sys_func_call
+7:24         golden ELAB   sys_func_call
+7:24         golden ELAB   sys_func_call
+7:24         ours  ELAB   constant
+7:24         ours  ELAB   constant
+7:24         ours  ELAB   constant
+7:24         ours  ELAB   constant
+8:24         golden ELAB   constant
+8:24         golden ELAB   constant
+8:24         golden ELAB   constant
+8:24         golden ELAB   constant
+8:24         ours  ELAB   constant
+8:24         ours  ELAB   constant
+8:24         ours  ELAB   constant
+8:24         ours  ELAB   constant
+-- MISSING cells: 0
+
+=== ROAD B — leaf substitution inside a package parameter (b1/b2/b3)
+-- b1_leafsubst_pkg: ref_obj survivals per view
+   gold           ref_obj: (pk::C0) endln:8:51@DEF         ref_obj: (pk::C0) endln:9:51@DEF     ref_obj: (pk::C3) endln:10:32@DEF       ref_obj: (pk::C0) endln:11:50@DEF         ref_obj: (pk::C0) endln:8:51@ELAB         ref_obj: (pk::C0) endln:9:51@ELAB       ref_obj: (pk::C0) endln:11:50@ELAB 
+   ours           ref_obj: (pk::C0) endln:8:51@DEF         ref_obj: (pk::C0) endln:9:51@DEF     ref_obj: (pk::C3) endln:10:32@DEF       ref_obj: (pk::C0) endln:11:50@DEF 
+-- b2_leafsubst_mod: ref_obj survivals per view
+   gold   
+   ours   
+-- b3_leafsubst_ca: ref_obj survivals per view
+   gold   
+   ours   
+
+=== ROAD C — a typedef's ELEMENT bound (c1/c2/c3)
+-- c1_typedef_mod: symbolic bounds each side carries
+   gold         1 (DATA_SIZE), line:10:30       1 (DATA_SIZE), line:13:29       2 (mem_t.DATA_SIZE), line:13:29       1 (mem_t.DEPTH), line:13:51       2 (mem_t.NDATA), line:13:18       1 (NDATA), line:10:19       1 (NDATA), line:11:19       1 (NDATA), line:13:18       1 (NDATA), line:15:18       1 (NDATA), line:21:10       1 (pk1_t.NDATA), line:14:18       1 (up1_t.DEPTH), line:15:51       2 (up1_t.NDATA), line:15:18       2 (work@dut.mem.mem.NDATA), line:22:37       1 (work@dut.mem_t.DEPTH), line:13:51       1 (work@dut.pk1_t.NDATA), line:14:18       1 (work@dut.st_t.f.NDATA), line:16:34       1 (work@dut.up1_t.DEPTH), line:15:51       2 (work@dut.wdata.wdata.NDATA), line:22:74 
+   ours         1 (DATA_SIZE), line:10:30       1 (NDATA), line:10:19       1 (NDATA), line:11:19       1 (NDATA), line:21:10       1 (pk1_t.NDATA), line:14:18       2 (work@dut.mem.mem.NDATA), line:22:37       1 (work@dut.mem_t.DEPTH), line:13:51       1 (work@dut.pk1_t.NDATA), line:14:18       1 (work@dut.st_t.f.NDATA), line:16:34       1 (work@dut.up1_t.DEPTH), line:15:51       2 (work@dut.wdata.wdata.NDATA), line:22:74 
+-- c2_typedef_pkg: symbolic bounds each side carries
+   gold         1 (DATA_SIZE), line:7:29       1 (NDATA), line:7:18       1 (pk::pk::mem_t::DEPTH), line:7:51       1 (pk::pk::pk1_t::NDATA), line:8:18 
+   ours         1 (pk1_t.NDATA), line:8:18       1 (pk::pk::pk1_t::NDATA), line:8:18 
+-- c3_typedef_iface: symbolic bounds each side carries
+   gold         1 (NDATA), line:4:18       1 (pk1_t.NDATA), line:4:18       1 (work@ifc.pk1_t.DEPTH), line:4:36       1 (work@ifc.pl1_t.NDATA), line:5:18 
+   ours         1 (work@ifc.pk1_t.DEPTH), line:4:36       1 (work@ifc.pl1_t.NDATA), line:5:18 
+
+=== ROAD D — an elaborated pattern element's SIZE (d1/d2/d3)
+-- d1_cast_pkg
+   gold:
+     site=8:20 size=64 parent=sys_func_call
+     site=9:20 size=64 parent=sys_func_call
+     site=10:10 size=32 parent=<pattern>
+     site=11:10 size=64 parent=<pattern>
+     site=8:20 size=32 parent=operation
+     site=9:20 size=32 parent=operation
+     site=10:10 size=32 parent=operation
+     site=11:10 size=32 parent=operation
+     site=8:20 size=? parent=string_typespec
+     site=9:20 size=? parent=string_typespec
+   ours:
+     site=8:20 size=64 parent=sys_func_call
+     site=9:10 size=64 parent=<pattern>
+     site=10:10 size=32 parent=<pattern>
+     site=11:10 size=64 parent=<pattern>
+     site=8:20 size=64 parent=sys_func_call
+     site=9:10 size=64 parent=<pattern>
+     site=10:10 size=32 parent=<pattern>
+     site=11:10 size=64 parent=<pattern>
+     site=8:20 size=? parent=string_typespec
+     site=8:20 size=? parent=string_typespec
+-- d2_cast_mod
+   gold:
+     site=9:20 size=64 parent=sys_func_call
+     site=9:38 size=64 parent=sys_func_call
+     site=9:50 size=64 parent=operation
+     site=9:58 size=64 parent=<pattern>
+     site=10:33 size=64 parent=sys_func_call
+     site=11:23 size=64 parent=param_assign
+     site=11:23 size=? parent=int_typespec
+     site=9:20 size=32 parent=operation
+     site=9:38 size=32 parent=operation
+     site=9:46 size=32 parent=operation
+     site=9:58 size=32 parent=operation
+     site=10:23 size=32 parent=param_assign
+     site=10:23 size=? parent=int_typespec
+     site=11:23 size=32 parent=param_assign
+     site=11:23 size=? parent=int_typespec
+   ours:
+     site=9:20 size=64 parent=sys_func_call
+     site=9:38 size=64 parent=sys_func_call
+     site=9:50 size=64 parent=operation
+     site=9:58 size=64 parent=<pattern>
+     site=10:33 size=64 parent=sys_func_call
+     site=11:23 size=64 parent=param_assign
+     site=11:23 size=? parent=int_typespec
+     site=9:10 size=32 parent=operation
+     site=9:28 size=32 parent=operation
+     site=9:46 size=32 parent=operation
+     site=9:58 size=32 parent=operation
+     site=10:23 size=32 parent=param_assign
+     site=10:23 size=? parent=int_typespec
+     site=11:23 size=32 parent=param_assign
+     site=11:23 size=? parent=int_typespec
+
+=== ROAD E — the elaborated cont_assign Rhs (e1/e2/e3)
+-- e1_ca_rhskind: elaborated cont_assign Rhs per side ('(shared)' = the def object reused)
+   gold:
+     12:10 -> constant
+     12:10 -> (shared)
+     12:10 -> (shared)
+     13:10 -> constant
+     13:10 -> (shared)
+     13:10 -> (shared)
+     14:10 -> constant
+     14:10 -> (shared)
+     15:10 -> constant
+     15:10 -> (shared)
+     15:10 -> (shared)
+     16:10 -> (shared)
+   ours:
+     12:10 -> (shared)
+     13:10 -> constant
+     13:10 -> (shared)
+     13:10 -> (shared)
+     14:10 -> constant
+     14:10 -> (shared)
+     15:10 -> (shared)
+     16:10 -> (shared)
+-- e2_ca_lhskind: elaborated cont_assign Rhs per side ('(shared)' = the def object reused)
+   gold:
+     10:10 -> constant
+     10:10 -> (shared)
+     10:10 -> (shared)
+     11:10 -> constant
+     11:10 -> (shared)
+     11:10 -> (shared)
+     12:10 -> constant
+     13:10 -> (shared)
+     12:10 -> (shared)
+     13:10 -> constant
+     13:10 -> (shared)
+     14:10 -> constant
+     14:10 -> (shared)
+     14:10 -> (shared)
+   ours:
+     10:10 -> (shared)
+     11:10 -> (shared)
+     12:10 -> (shared)
+     13:10 -> constant
+     13:10 -> (shared)
+     14:10 -> (shared)
+-- e3_ca_structparam: elaborated cont_assign Rhs per side ('(shared)' = the def object reused)
+   gold:
+     13:10 -> constant
+     13:10 -> (shared)
+     13:10 -> (shared)
+     14:10 -> constant
+     14:10 -> (shared)
+     14:10 -> (shared)
+     15:10 -> constant
+     15:10 -> (shared)
+     15:10 -> (shared)
+   ours:
+     13:10 -> (shared)
+     14:10 -> (shared)
+     15:10 -> (shared)

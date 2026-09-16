@@ -1,0 +1,28 @@
+LHS:
+decompile:
+sys_func_call: ($bits), id:44, line:7:25, endln:7:34
+|vpiParent:
+\_param_assign: , id:43, line:7:20, endln:7:34
+|vpiArgument:
+\_ref_obj: (work@dut.TP), id:45, line:7:31, endln:7:33
+  |vpiParent:
+  \_sys_func_call: ($bits), id:44, line:7:25, endln:7:34
+  |vpiName:TP
+  |vpiFullName:work@dut.TP
+|vpiName:$bits
+RHS:
+decompile:
+constant: , id:40, line:7:25, endln:7:34
+|vpiParent:
+\_param_assign: , id:39, line:7:20, endln:7:34
+|vpiDecompile:97
+|vpiSize:64
+|UINT:97
+|vpiTypespec:
+\_ref_typespec: (work@dut), id:41
+  |vpiParent:
+  \_constant: , id:40, line:7:25, endln:7:34
+  |vpiFullName:work@dut
+  |vpiActual:
+  \_int_typespec: , id:42, line:7:15, endln:7:18
+|vpiConstType:9

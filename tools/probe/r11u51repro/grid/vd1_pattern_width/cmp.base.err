@@ -1,0 +1,31 @@
+LHS:
+decompile:
+parameter: (pk::U), id:462, line:16:21, endln:16:22
+|vpiParent:
+\_package: pk (pk::), id:251, file:<GRID>/vd1_pattern_width/dut.sv, line:6:1, endln:17:11
+|vpiTypespec:
+\_ref_typespec: (pk::U), id:467
+  |vpiParent:
+  \_parameter: (pk::U), id:462, line:16:21, endln:16:22
+  |vpiFullName:pk::U
+  |vpiActual:
+  \_array_typespec: (barr_t), id:450, line:15:11, endln:15:33
+|vpiLocalParam:1
+|vpiName:U
+|vpiFullName:pk::U
+RHS:
+decompile:
+parameter: (pk::U), id:43, line:16:21, endln:16:22
+|vpiParent:
+\_package: pk (pk::), id:2, file:<GRID>/vd1_pattern_width/dut.sv, line:6:1, endln:17:11
+|vpiSize:1
+|vpiTypespec:
+\_ref_typespec: (pk::U), id:44
+  |vpiParent:
+  \_parameter: (pk::U), id:43, line:16:21, endln:16:22
+  |vpiFullName:pk::U
+  |vpiActual:
+  \_array_typespec: , id:46, line:16:14, endln:16:22
+|vpiLocalParam:1
+|vpiName:U
+|vpiFullName:pk::U

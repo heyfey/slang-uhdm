@@ -1,0 +1,350 @@
+LHS:
+decompile:
+package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+|vpiParent:
+\_design: (work@dut), id:238
+|vpiName:pk
+|vpiFullName:pk::
+|vpiParameter:
+\_parameter: (pk::DATA_SIZE), id:105, line:4:26, endln:4:35
+  |vpiParent:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |UINT:64
+  |vpiTypespec:
+  \_ref_typespec: (pk::DATA_SIZE), id:109
+    |vpiParent:
+    \_parameter: (pk::DATA_SIZE), id:105, line:4:26, endln:4:35
+    |vpiFullName:pk::DATA_SIZE
+    |vpiActual:
+    \_int_typespec: , id:104, line:4:13, endln:4:25
+  |vpiName:DATA_SIZE
+  |vpiFullName:pk::DATA_SIZE
+|vpiParameter:
+\_parameter: (pk::DEPTH), id:119, line:5:26, endln:5:31
+  |vpiParent:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |UINT:4
+  |vpiTypespec:
+  \_ref_typespec: (pk::DEPTH), id:122
+    |vpiParent:
+    \_parameter: (pk::DEPTH), id:119, line:5:26, endln:5:31
+    |vpiFullName:pk::DEPTH
+    |vpiActual:
+    \_int_typespec: , id:118, line:5:13, endln:5:25
+  |vpiName:DEPTH
+  |vpiFullName:pk::DEPTH
+|vpiParameter:
+\_parameter: (pk::NDATA), id:132, line:6:26, endln:6:31
+  |vpiParent:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |UINT:2
+  |vpiTypespec:
+  \_ref_typespec: (pk::NDATA), id:135
+    |vpiParent:
+    \_parameter: (pk::NDATA), id:132, line:6:26, endln:6:31
+    |vpiFullName:pk::NDATA
+    |vpiActual:
+    \_int_typespec: , id:131, line:6:13, endln:6:25
+  |vpiName:NDATA
+  |vpiFullName:pk::NDATA
+|vpiParamAssign:
+\_param_assign: , id:110, line:4:26, endln:4:40
+  |vpiParent:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRhs:
+  \_constant: , id:116, line:4:38, endln:4:40
+    |vpiParent:
+    \_param_assign: , id:110, line:4:26, endln:4:40
+    |vpiDecompile:64
+    |vpiSize:64
+    |UINT:64
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:117
+      |vpiParent:
+      \_constant: , id:116, line:4:38, endln:4:40
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:104, line:4:13, endln:4:25
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::DATA_SIZE), id:105, line:4:26, endln:4:35
+|vpiParamAssign:
+\_param_assign: , id:123, line:5:26, endln:5:39
+  |vpiParent:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRhs:
+  \_constant: , id:129, line:5:38, endln:5:39
+    |vpiParent:
+    \_param_assign: , id:123, line:5:26, endln:5:39
+    |vpiDecompile:4
+    |vpiSize:64
+    |UINT:4
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:130
+      |vpiParent:
+      \_constant: , id:129, line:5:38, endln:5:39
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:118, line:5:13, endln:5:25
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::DEPTH), id:119, line:5:26, endln:5:31
+|vpiParamAssign:
+\_param_assign: , id:136, line:6:26, endln:6:39
+  |vpiParent:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRhs:
+  \_constant: , id:142, line:6:38, endln:6:39
+    |vpiParent:
+    \_param_assign: , id:136, line:6:26, endln:6:39
+    |vpiDecompile:2
+    |vpiSize:64
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:143
+      |vpiParent:
+      \_constant: , id:142, line:6:38, endln:6:39
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:131, line:6:13, endln:6:25
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::NDATA), id:132, line:6:26, endln:6:31
+|vpiTypedef:
+\_array_typespec: (pk::mem_t), id:144, line:7:11, endln:7:57
+  |vpiParent:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiName:pk::mem_t
+  |vpiInstance:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRange:
+  \_range: , id:145, line:7:51, endln:7:56
+    |vpiParent:
+    \_array_typespec: (pk::mem_t), id:144, line:7:11, endln:7:57
+    |vpiLeftRange:
+    \_constant: , id:146
+      |vpiParent:
+      \_range: , id:145, line:7:51, endln:7:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:148, line:7:51, endln:7:56
+      |vpiParent:
+      \_range: , id:145, line:7:51, endln:7:56
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (pk::pk::mem_t::DEPTH), id:147, line:7:51, endln:7:56
+        |vpiParent:
+        \_operation: , id:148, line:7:51, endln:7:56
+        |vpiName:DEPTH
+        |vpiFullName:pk::pk::mem_t::DEPTH
+        |vpiActual:
+        \_constant: , id:129, line:5:38, endln:5:39
+      |vpiOperand:
+      \_constant: , id:149
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_typespec: (pk::pk::mem_t), id:172
+    |vpiParent:
+    \_array_typespec: (pk::mem_t), id:144, line:7:11, endln:7:57
+    |vpiFullName:pk::pk::mem_t
+    |vpiActual:
+    \_logic_typespec: , id:171, line:7:11, endln:7:43
+|vpiTypedef:
+\_logic_typespec: (pk::pk1_t), id:184, line:8:11, endln:8:28
+  |vpiParent:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiName:pk::pk1_t
+  |vpiInstance:
+  \_package: pk (pk::), id:103, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRange:
+  \_range: , id:179, line:8:17, endln:8:28
+    |vpiParent:
+    \_logic_typespec: (pk::pk1_t), id:184, line:8:11, endln:8:28
+    |vpiLeftRange:
+    \_operation: , id:181, line:8:18, endln:8:25
+      |vpiParent:
+      \_range: , id:179, line:8:17, endln:8:28
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (pk::pk::pk1_t::NDATA), id:180, line:8:18, endln:8:23
+        |vpiParent:
+        \_operation: , id:181, line:8:18, endln:8:25
+        |vpiName:NDATA
+        |vpiFullName:pk::pk::pk1_t::NDATA
+        |vpiActual:
+        \_constant: , id:142, line:6:38, endln:6:39
+      |vpiOperand:
+      \_constant: , id:182, line:8:24, endln:8:25
+        |vpiParent:
+        \_operation: , id:181, line:8:18, endln:8:25
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:183, line:8:26, endln:8:27
+      |vpiParent:
+      \_range: , id:179, line:8:17, endln:8:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:pk
+RHS:
+decompile:
+package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pk
+|vpiFullName:pk::
+|vpiParameter:
+\_parameter: (pk::DATA_SIZE), id:3, line:4:26, endln:4:35
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |UINT:64
+  |vpiTypespec:
+  \_ref_typespec: (pk::DATA_SIZE), id:4
+    |vpiParent:
+    \_parameter: (pk::DATA_SIZE), id:3, line:4:26, endln:4:35
+    |vpiFullName:pk::DATA_SIZE
+    |vpiActual:
+    \_int_typespec: , id:8, line:4:13, endln:4:25
+  |vpiName:DATA_SIZE
+  |vpiFullName:pk::DATA_SIZE
+|vpiParameter:
+\_parameter: (pk::DEPTH), id:9, line:5:26, endln:5:31
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |UINT:4
+  |vpiTypespec:
+  \_ref_typespec: (pk::DEPTH), id:10
+    |vpiParent:
+    \_parameter: (pk::DEPTH), id:9, line:5:26, endln:5:31
+    |vpiFullName:pk::DEPTH
+    |vpiActual:
+    \_int_typespec: , id:14, line:5:13, endln:5:25
+  |vpiName:DEPTH
+  |vpiFullName:pk::DEPTH
+|vpiParameter:
+\_parameter: (pk::NDATA), id:15, line:6:26, endln:6:31
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |UINT:2
+  |vpiTypespec:
+  \_ref_typespec: (pk::NDATA), id:16
+    |vpiParent:
+    \_parameter: (pk::NDATA), id:15, line:6:26, endln:6:31
+    |vpiFullName:pk::NDATA
+    |vpiActual:
+    \_int_typespec: , id:20, line:6:13, endln:6:25
+  |vpiName:NDATA
+  |vpiFullName:pk::NDATA
+|vpiParamAssign:
+\_param_assign: , id:5, line:4:26, endln:4:40
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRhs:
+  \_constant: , id:6, line:4:38, endln:4:40
+    |vpiParent:
+    \_param_assign: , id:5, line:4:26, endln:4:40
+    |vpiDecompile:64
+    |vpiSize:64
+    |UINT:64
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:7
+      |vpiParent:
+      \_constant: , id:6, line:4:38, endln:4:40
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:8, line:4:13, endln:4:25
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::DATA_SIZE), id:3, line:4:26, endln:4:35
+|vpiParamAssign:
+\_param_assign: , id:11, line:5:26, endln:5:39
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRhs:
+  \_constant: , id:12, line:5:38, endln:5:39
+    |vpiParent:
+    \_param_assign: , id:11, line:5:26, endln:5:39
+    |vpiDecompile:4
+    |vpiSize:64
+    |UINT:4
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:13
+      |vpiParent:
+      \_constant: , id:12, line:5:38, endln:5:39
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:14, line:5:13, endln:5:25
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::DEPTH), id:9, line:5:26, endln:5:31
+|vpiParamAssign:
+\_param_assign: , id:17, line:6:26, endln:6:39
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRhs:
+  \_constant: , id:18, line:6:38, endln:6:39
+    |vpiParent:
+    \_param_assign: , id:17, line:6:26, endln:6:39
+    |vpiDecompile:2
+    |vpiSize:64
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:19
+      |vpiParent:
+      \_constant: , id:18, line:6:38, endln:6:39
+      |vpiFullName:pk
+      |vpiActual:
+      \_int_typespec: , id:20, line:6:13, endln:6:25
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pk::NDATA), id:15, line:6:26, endln:6:31
+|vpiTypedef:
+\_logic_typespec: (pk::pk1_t), id:21, line:8:11, endln:8:28
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiName:pk::pk1_t
+  |vpiInstance:
+  \_package: pk (pk::), id:2, file:<GRID>/c2_typedef_pkg/dut.sv, line:3:1, endln:9:11
+  |vpiRange:
+  \_range: , id:22, line:8:17, endln:8:28
+    |vpiParent:
+    \_logic_typespec: (pk::pk1_t), id:21, line:8:11, endln:8:28
+    |vpiLeftRange:
+    \_operation: , id:23, line:8:18, endln:8:25
+      |vpiParent:
+      \_range: , id:22, line:8:17, endln:8:28
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (pk::pk::pk1_t::NDATA), id:24, line:8:18, endln:8:23
+        |vpiParent:
+        \_operation: , id:23, line:8:18, endln:8:25
+        |vpiName:NDATA
+        |vpiFullName:pk::pk::pk1_t::NDATA
+        |vpiActual:
+        \_constant: , id:18, line:6:38, endln:6:39
+      |vpiOperand:
+      \_constant: , id:25, line:8:24, endln:8:25
+        |vpiParent:
+        \_operation: , id:23, line:8:18, endln:8:25
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:26, line:8:26, endln:8:27
+      |vpiParent:
+      \_range: , id:22, line:8:17, endln:8:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:pk

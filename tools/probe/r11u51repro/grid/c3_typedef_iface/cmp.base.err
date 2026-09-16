@@ -1,0 +1,28 @@
+LHS:
+decompile:
+operation: , id:38, line:4:18, endln:4:25
+|vpiParent:
+\_range: , id:36, line:4:17, endln:4:28
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (NDATA), id:37, line:4:18, endln:4:23
+  |vpiParent:
+  \_operation: , id:38, line:4:18, endln:4:25
+  |vpiName:NDATA
+|vpiOperand:
+\_constant: , id:39, line:4:24, endln:4:25
+  |vpiParent:
+  \_operation: , id:38, line:4:18, endln:4:25
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+RHS:
+decompile:
+constant: , id:35, line:4:18, endln:4:25
+|vpiParent:
+\_range: , id:34, line:4:17, endln:4:28
+|vpiDecompile:NDATA-1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9

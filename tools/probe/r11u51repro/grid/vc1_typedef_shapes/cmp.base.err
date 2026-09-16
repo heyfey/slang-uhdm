@@ -1,0 +1,109 @@
+LHS:
+decompile:
+array_typespec: (two_t), id:19, line:14:11, endln:14:42
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:335, file:<GRID>/vc1_typedef_shapes/dut.sv, line:7:1, endln:28:10
+|vpiName:two_t
+|vpiInstance:
+\_module_inst: work@dut (work@dut), id:335, file:<GRID>/vc1_typedef_shapes/dut.sv, line:7:1, endln:28:10
+|vpiRange:
+\_range: , id:20, line:14:36, endln:14:41
+  |vpiParent:
+  \_array_typespec: (two_t), id:19, line:14:11, endln:14:42
+  |vpiLeftRange:
+  \_constant: , id:21
+    |vpiParent:
+    \_range: , id:20, line:14:36, endln:14:41
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_operation: , id:23, line:14:36, endln:14:41
+    |vpiParent:
+    \_range: , id:20, line:14:36, endln:14:41
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@dut.two_t.DEPTH), id:22, line:14:36, endln:14:41
+      |vpiParent:
+      \_operation: , id:23, line:14:36, endln:14:41
+      |vpiName:DEPTH
+      |vpiFullName:work@dut.two_t.DEPTH
+    |vpiOperand:
+    \_constant: , id:24
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+|vpiRange:
+\_range: , id:25, line:14:43, endln:14:44
+  |vpiParent:
+  \_array_typespec: (two_t), id:19, line:14:11, endln:14:42
+  |vpiLeftRange:
+  \_constant: , id:26
+    |vpiParent:
+    \_range: , id:25, line:14:43, endln:14:44
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_operation: , id:28, line:14:43, endln:14:44
+    |vpiParent:
+    \_range: , id:25, line:14:43, endln:14:44
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:27, line:14:43, endln:14:44
+      |vpiParent:
+      \_operation: , id:28, line:14:43, endln:14:44
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:29
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+|vpiElemTypespec:
+\_ref_typespec: (work@dut.two_t), id:42
+  |vpiParent:
+  \_array_typespec: (two_t), id:19, line:14:11, endln:14:42
+  |vpiFullName:work@dut.two_t
+  |vpiActual:
+  \_logic_typespec: , id:41, line:14:11, endln:14:28
+RHS:
+decompile:
+array_typespec: (two_t), id:21, line:14:11, endln:14:45
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:2, file:<GRID>/vc1_typedef_shapes/dut.sv, line:7:1, endln:28:10
+|vpiName:two_t
+|vpiInstance:
+\_module_inst: work@dut (work@dut), id:2, file:<GRID>/vc1_typedef_shapes/dut.sv, line:7:1, endln:28:10
+|vpiRange:
+\_range: , id:22, line:14:36, endln:14:41
+  |vpiParent:
+  \_array_typespec: (two_t), id:21, line:14:11, endln:14:45
+  |vpiLeftRange:
+  \_constant: , id:23
+    |vpiParent:
+    \_range: , id:22, line:14:36, endln:14:41
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_operation: , id:24, line:14:36, endln:14:41
+    |vpiParent:
+    \_range: , id:22, line:14:36, endln:14:41
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@dut.two_t.DEPTH), id:25, line:14:36, endln:14:41
+      |vpiParent:
+      \_operation: , id:24, line:14:36, endln:14:41
+      |vpiName:DEPTH
+      |vpiFullName:work@dut.two_t.DEPTH
+    |vpiOperand:
+    \_constant: , id:26
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7

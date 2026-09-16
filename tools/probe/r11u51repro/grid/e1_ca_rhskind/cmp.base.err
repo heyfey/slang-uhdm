@@ -1,0 +1,26 @@
+LHS:
+decompile:
+constant: , id:385, line:5:31, endln:5:32
+|vpiParent:
+\_cont_assign: , id:380, line:12:10, endln:12:21
+|vpiDecompile:3
+|vpiSize:32
+|UINT:3
+|vpiConstType:9
+RHS:
+decompile:
+hier_path: (CFG.n), id:75, line:12:16, endln:12:21
+|vpiParent:
+\_cont_assign: , id:74, line:12:10, endln:12:21
+|vpiActual:
+\_ref_obj: (CFG), id:76, line:12:16, endln:12:19
+  |vpiParent:
+  \_hier_path: (CFG.n), id:75, line:12:16, endln:12:21
+  |vpiName:CFG
+|vpiActual:
+\_ref_obj: (work@dut.n), id:77, line:12:20, endln:12:21
+  |vpiParent:
+  \_hier_path: (CFG.n), id:75, line:12:16, endln:12:21
+  |vpiName:n
+  |vpiFullName:work@dut.n
+|vpiName:CFG.n

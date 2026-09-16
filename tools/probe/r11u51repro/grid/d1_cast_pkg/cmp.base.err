@@ -1,0 +1,6 @@
+LHS:
+decompile:
+ref_typespec: , id:289
+|vpiActual:
+\_struct_typespec: (pk::four_t), id:2, line:4:11, endln:6:4
+RHS: <null>

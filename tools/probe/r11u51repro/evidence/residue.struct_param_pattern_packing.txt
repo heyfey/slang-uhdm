@@ -1,0 +1,29 @@
+struct_param_pattern_packing  golden=3204 ours=2920 gonly=303 oonly=19
+
+== golden-only line census ==
+     46 |vpiParent:
+     11 \_logic_typespec: , 
+     11 \_constant: , 
+     10 |vpiActual:
+     10 \_cont_assign: , 
+      9 \_range: , 
+      9 \_operation: , 
+      7 |vpiSize:64
+      7 |vpiInstance:
+      7 |vpiConstType:9
+      7 \_struct_typespec: (p::cfg_t), 
+      7 \_package: p (p::), file:dut.sv, 
+      5 |vpiTypespecMember:
+      5 |vpiTypespec:
+      5 |vpiRhs:
+      5 |vpiRefFile:dut.sv
+      5 |vpiRefColumnNo:5
+      5 |vpiLhs:
+      5 \_tagged_pattern: , 
+      5 \_ref_typespec: (work@dut)
+
+== ours-only line census ==
+      9 \_operation: , 
+      5 \_tagged_pattern: , 
+      4 \_struct_typespec: (p::cfg_t), 
+      1 slang.uhdm: Restored design Pre-Elab: 

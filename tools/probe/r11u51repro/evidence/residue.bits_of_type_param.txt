@@ -1,0 +1,36 @@
+bits_of_type_param  golden=1398 ours=1461 gonly=20 oonly=83
+
+== golden-only line census ==
+      4 \_sys_func_call: ($bits), 
+      2 |vpiName:req_t
+      2 |vpiName:$bits
+      2 |vpiFullName:work@dut.req_t
+      2 |vpiArgument:
+      2 |UINT:97
+      2 \_ref_obj: (work@dut.req_t), 
+      1 \_type_parameter: (work@dut.req_t), 
+      1 \_type_parameter: (work@dut.data_t), 
+      1 \_package: pk (pk::), file:dut.sv, 
+      1 golden.uhdm: Restored design Pre-Elab: 
+
+== ours-only line census ==
+     10 |vpiParent:
+      6 \_constant: , 
+      4 |vpiTypespec:
+      4 |vpiConstType:9
+      4 |vpiActual:
+      3 |vpiSize:64
+      3 \_range: , 
+      3 \_operation: , 
+      3 \_logic_typespec: , 
+      2 |vpiOperand:
+      2 |vpiFullName:work@dut.req_t
+      2 |vpiFullName:work@dut.data_t
+      2 |vpiFullName:work@dut
+      2 |vpiDecompile:97
+      2 |UINT:97
+      2 \_type_parameter: (work@dut.req_t)
+      2 \_type_parameter: (work@dut.data_t)
+      2 \_ref_typespec: (work@dut)
+      2 \_module_inst: work@dut (work@dut), file:dut.sv, 
+      2 \_int_typespec: , 

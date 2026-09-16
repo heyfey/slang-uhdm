@@ -1,0 +1,45 @@
+ibex_tracer  golden=181873 ours=168632 gonly=17389 oonly=4148
+
+== golden-only line census ==
+   3139 |vpiParent:
+    948 \_range: , 
+    744 \_logic_typespec: , 
+    694 \_constant: , 
+    634 |vpiSize:64
+    619 |vpiInstance:
+    594 |vpiConstType:9
+    411 \_package: ibex_pkg (ibex_pkg::), file:ibex_pkg.sv, 
+    391 \_ref_typespec: (work@ibex_tracer)
+    342 \_ref_typespec: (ibex_tracer_pkg)
+    322 |UINT:0
+    318 |vpiRightRange:
+    318 |vpiLeftRange:
+    318 |vpiDecompile:0
+    318 \_tagged_pattern: , 
+    312 |vpiRange:
+    303 \_int_typespec: , 
+    298 |vpiActual:
+    281 |vpiTypespec:
+    208 \_package: ibex_tracer_pkg (ibex_tracer_pkg::), file:ibex_tracer_pkg.sv, 
+
+== ours-only line census ==
+    905 |vpiParent:
+    437 \_tagged_pattern: , 
+    315 |vpiActual:
+    271 \_operation: , 
+    188 \_constant: , 
+    164 \_enum_const: (OPCODE_OP_IMM), 
+    126 |vpiSize:2
+    126 |vpiConstType:3
+    112 \_enum_const: (OPCODE_OP), 
+     61 |vpiFullName:work@ibex_tracer
+     60 |vpiDecompile:2'b01
+     60 \_ref_typespec: (work@ibex_tracer)
+     60 |BIN:01
+     42 |vpiTypespec:
+     42 |vpiDecompile:2'b10
+     42 \_logic_typespec: , 
+     42 |BIN:10
+     24 |vpiDecompile:2'b00
+     24 \_ref_typespec: (work@ibex_tracer.ibex_pkg::exc_cause_t.lower_cause)
+     24 \_ref_typespec: (work@ibex_tracer.ibex_pkg::exc_cause_t.irq_int)

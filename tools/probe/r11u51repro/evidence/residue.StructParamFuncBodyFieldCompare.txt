@@ -1,0 +1,45 @@
+StructParamFuncBodyFieldCompare  golden=3061 ours=3055 gonly=345 oonly=339
+
+== golden-only line census ==
+     48 \_operation: , 
+     27 |vpiOperand:
+     26 |vpiParent:
+     18 \_struct_typespec: , 
+     14 \_constant: , 
+      9 |vpiSize:64
+      9 |vpiConstType:9
+      9 |vpiActual:
+      8 \_void_typespec: , 
+      8 \_ref_typespec: (work@StructParamFuncBodyFieldCompare)
+      7 |vpiTypespec:
+      7 \_struct_typespec: (cfg_pkg::cfg_t), 
+      7 \_ref_obj: (Cfg), 
+      6 |vpiDecompile:1
+      6 |UINT:1
+      4 |vpiSize:32
+      4 |vpiOpType:67
+      4 |vpiFullName:work@StructParamFuncBodyFieldCompare
+      4 |vpiExpr:
+      4 |vpiDecompile:63
+
+== ours-only line census ==
+     35 |vpiParent:
+     30 \_hier_path: (Cfg.XLEN), 
+     24 \_operation: , 
+     20 \_struct_typespec: , 
+     19 |vpiActual:
+     17 \_ref_obj: (Cfg), 
+     10 |vpiOperand:
+     10 |vpiName:XLEN
+     10 |vpiName:Cfg.XLEN
+     10 |vpiName:Cfg
+     10 \_range: , 
+     10 \_constant: , 
+      8 |vpiConstType:9
+      8 \_integer_typespec: , 
+      7 |vpiSize:64
+      6 |vpiOpType:11
+      6 |vpiDecompile:1
+      6 |UINT:1
+      6 \_ref_obj: (XLEN), 
+      6 \_logic_typespec: , 

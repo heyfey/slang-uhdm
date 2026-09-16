@@ -1,0 +1,18 @@
+LHS:
+decompile:
+ref_obj: (pk::C0), id:70, line:8:49, endln:8:51
+|vpiParent:
+\_operation: , id:69, line:8:48, endln:8:52
+|vpiName:C0
+|vpiFullName:pk::C0
+|vpiActual:
+\_constant: , id:20, line:6:30, endln:6:35
+RHS:
+decompile:
+constant: , id:91, line:8:49, endln:8:51
+|vpiParent:
+\_operation: , id:89, line:8:48, endln:8:52
+|vpiDecompile:2'b00
+|vpiSize:2
+|BIN:00
+|vpiConstType:3

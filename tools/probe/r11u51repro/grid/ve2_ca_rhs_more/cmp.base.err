@@ -1,0 +1,31 @@
+LHS:
+decompile:
+parameter: (p::ARR), id:340, line:14:21, endln:14:24
+|vpiParent:
+\_package: p (p::), id:187, file:<GRID>/ve2_ca_rhs_more/dut.sv, line:8:1, endln:15:11
+|vpiTypespec:
+\_ref_typespec: (p::ARR), id:345
+  |vpiParent:
+  \_parameter: (p::ARR), id:340, line:14:21, endln:14:24
+  |vpiFullName:p::ARR
+  |vpiActual:
+  \_array_typespec: (iarr_t), id:331, line:13:11, endln:13:34
+|vpiLocalParam:1
+|vpiName:ARR
+|vpiFullName:p::ARR
+RHS:
+decompile:
+parameter: (p::ARR), id:35, line:14:21, endln:14:24
+|vpiParent:
+\_package: p (p::), id:2, file:<GRID>/ve2_ca_rhs_more/dut.sv, line:8:1, endln:15:11
+|vpiSize:1
+|vpiTypespec:
+\_ref_typespec: (p::ARR), id:36
+  |vpiParent:
+  \_parameter: (p::ARR), id:35, line:14:21, endln:14:24
+  |vpiFullName:p::ARR
+  |vpiActual:
+  \_array_typespec: , id:38, line:14:14, endln:14:24
+|vpiLocalParam:1
+|vpiName:ARR
+|vpiFullName:p::ARR
