@@ -1,0 +1,13 @@
+21 p_lit
+22 p_mul
+23 p_div
+24 p_sbad
+25 p_add
+26 p_clog
+27 p_pow
+28 p_shd
+29 p_umin
+30 p_sub
+32 n_mul
+33 n_sbad
+34 n_shd

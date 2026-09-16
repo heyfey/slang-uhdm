@@ -1,0 +1,26 @@
+SAME c01    DEF   ('op11', ('UINT', '40', '32', '9', 'int_typespec'))
+SAME c01    ELAB  ('fold', ('INT', '39', '64', '7', 'NONE'))
+DIFF c02    DEF   G=('op11', ('DEC', '40', '32', '1', 'int_typespec'))
+                   O=('op11', ('UINT', '40', '32', '9', 'int_typespec'))
+SAME c02    ELAB  ('fold', ('INT', '39', '64', '7', 'NONE'))
+DIFF c03    DEF   G=('op11', ('DEC', '40', '32', '1', 'int_typespec'))
+                   O=('op11', ('UINT', '40', '32', '9', 'int_typespec'))
+SAME c03    ELAB  ('fold', ('INT', '39', '64', '7', 'NONE'))
+DIFF c04    DEF   G=('op11', ('DEC', '40', '32', '1', 'int_typespec'))
+                   O=('op11', ('UINT', '40', '32', '9', 'int_typespec'))
+SAME c04    ELAB  ('fold', ('INT', '39', '64', '7', 'NONE'))
+DIFF c05    DEF   G=('op11', ('DEC', '40', '32', '1', 'int_typespec'))
+                   O=('op11', ('UINT', '40', '32', '9', 'int_typespec'))
+SAME c05    ELAB  ('fold', ('INT', '39', '64', '7', 'NONE'))
+DIFF c06    DEF   G=('op11', ('HEX', '28', '32', '5', 'int_typespec'))
+                   O=('op11', ('UINT', '40', '32', '9', 'int_typespec'))
+SAME c06    ELAB  ('fold', ('INT', '39', '64', '7', 'NONE'))
+SAME c07    DEF   ('op11', ('INT', '64', '32', '7', 'int_typespec'))
+SAME c07    ELAB  ('fold', ('INT', '63', '64', '7', 'NONE'))
+DIFF c08    DEF   G=('op11', ('DEC', '4', '32', '1', 'int_typespec'))
+                   O=None
+DIFF c09    DEF   G=('op11', ('INT', '4', '32', '7', 'int_typespec'))
+                   O=None
+DIFF c10    DEF   G=('op11', ('INT', '4', '32', '7', 'int_typespec'))
+                   O=None
+CELLS 17 SAME 9 DIFF 8

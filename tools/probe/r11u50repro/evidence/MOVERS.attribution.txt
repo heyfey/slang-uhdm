@@ -1,0 +1,40 @@
+r11u50 — the MOVER ATTRIBUTION, order-blind (uhdm-dump sorted, workdir normalised).
+
+u2r  MOVERS 2 / 1608   (SELFCHECK 1607/1608 flagged)
+  ibex_icache/default   4 order-blind lines:
+    >         |INT:22
+    <         |UINT:22
+    >         |vpiConstType:7
+    <         |vpiConstType:9
+  ibex_icache/testflags   4 order-blind lines:
+    >         |INT:22
+    <         |UINT:22
+    >         |vpiConstType:7
+    <         |vpiConstType:9
+
+surelog  MOVERS 3 / 960   (SELFCHECK 959/960 flagged) — all three the DOCUMENTED
+per-invocation coin (RESUME §9): 4 order-blind lines, one UINT/vpiDecompile LINE
+NUMBER pair, moving BOTH ways.  POSITIVE CONTROL: the SAME pristine binary run a
+second time draws its own set on the same three databases, and its
+default/SeqDriver lands on 2fb39f8b4130 — the very hash the law binary produced.
+  default/MiniAmiq-544c7f61:
+    <       |UINT:0
+    >       |UINT:1506
+    <       |vpiDecompile:0
+    >       |vpiDecompile:1506
+  default/SeqDriver-32af76aa:
+    >       |UINT:0
+    <       |UINT:1162
+    >       |vpiDecompile:0
+    <       |vpiDecompile:1162
+  testflags/SeqDriver-32af76aa:
+    <       |UINT:620
+    >       |UINT:953
+    <       |vpiDecompile:620
+    >       |vpiDecompile:953
+
+COIN POSITIVE CONTROL (pristine run A vs pristine run B, same frozen binary):
+  default/MiniAmiq    runA=6feea53bf1a9 runB=27419f6011b4   DIFFER
+  default/SeqDriver   runA=2fb39f8b4130 runB=f4f7b1c5f83e   DIFFER
+  testflags/SeqDriver runA=05df6c25a21b runB=cfc65a7b20d9   DIFFER
+  default/SimpleUVM   runA=d4f8cd018f2d runB=d4f8cd018f2d   SAME (the 0-line draw)

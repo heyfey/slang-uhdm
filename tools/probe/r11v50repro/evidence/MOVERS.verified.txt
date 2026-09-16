@@ -1,0 +1,97 @@
+r11v50 — THE MOVER SETS, MEASURED ON THE VERIFIER'S OWN SWEEPS
+(binaries frozen before any sweep; every cmds.txt audited by binary PATH —
+1742/1742 u2r and 960/960 surelog name the frozen binary, 0 name the main tree)
+
+== uhdm2rtlil, LAW vs PRISTINE — REPRODUCES THE PASS'S NUMBER EXACTLY ==
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm    patched=946a08c60b18 pristine=5b3e22429722
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=e7a1a82f152e pristine=de55da748b46
+MOVERS: 2 / 1608      SELFCHECK 1607 / 1608 flagged
+  (the same two paths AND the same eight md5 prefixes the pass committed)
+
+ATTRIBUTION (order-blind: uhdm-dump, workdir-normalised, sorted). Size delta 0
+on both, so the size rule proves nothing and the sorted diff is the instrument:
+  default/ibex_icache    4 lines      testflags/ibex_icache  4 lines
+    < |UINT:22             > |INT:22
+    < |vpiConstType:9      > |vpiConstType:7
+  — the law's OWN cell, and nothing else, in both modes.
+
+== Surelog suite, LAW vs PRISTINE — 5 MOVERS, NOT THE PASS'S 3 ==
+MOVER ./default/MiniAmiq-544c7f61      patched=23f64723cc74 pristine=27419f6011b4
+MOVER ./default/Scoreboard-59431470    patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SeqDriver-32af76aa     patched=ebb28054f71b pristine=2fb39f8b4130
+MOVER ./testflags/MiniAmiq-544c7f61    patched=4362fccdfb85 pristine=27419f6011b4
+MOVER ./testflags/SeqDriver-32af76aa   patched=0c64f3c52ec0 pristine=2972489848e9
+MOVERS: 5 / 960       SELFCHECK 959 / 960 flagged
+
+THE SET IS NOT A CONSTANT — IT IS A DRAW. The pass drew three (MiniAmiq/default,
+SeqDriver both modes); this verifier drew five; r11u32's README records an
+earlier law build drawing five as well. What IS constant, and what the gate
+needs, is all three of:
+  (a) every mover is in the documented UVM coin family
+      {MiniAmiq, SeqDriver, SimpleUVM, Scoreboard} — no other name has ever
+      appeared, in either run;
+  (b) every one attributes to the documented class and NOT to the law:
+      default/MiniAmiq    4 lines   |UINT:0    <-> |UINT:1068   + the same
+                                    |vpiDecompile: LINE-NUMBER pair
+      default/SeqDriver   4 lines   |UINT:0    <-> |UINT:858    + ditto
+      testflags/MiniAmiq  4 lines   |UINT:0    <-> |UINT:879    + ditto
+      testflags/SeqDriver 4 lines   |UINT:1113 <-> |UINT:1167   + ditto
+      default/Scoreboard  0 lines   (size delta 0 — a PURE ORDER draw, the
+                                    svunit_pkg vpiTaskFunc list flip)
+      NOT ONE carries |INT: or |vpiConstType: — the law's cell is absent from
+      every one of the five;
+  (c) the UVM rows' CMP status does not change: 474/9 + 469/8, histograms
+      identical to pristine and to results/golden_surelog.csv, canaries
+      ok=52 changed=0.
+
+POSITIVE CONTROL FOR THE COIN (the same FROZEN pristine binary, twice, same
+command line, MiniAmiq/default):
+      runA 64369038c3e4      runB da1573a088aa      DIFFER
+and across operators: the pass's pristine sweep drew 27419f6011b4 for
+default/MiniAmiq and so did this verifier's, while the pass's LAW drew
+0813bc970386 and this verifier's law drew 23f64723cc74 — four draws, three
+values, one binary pair. SeqDriver run standalone (three times, pristine) is
+stable at 2fb39f8b4130 — which is exactly the value the pass reported its LAW
+binary producing, and the value this verifier's PRISTINE sweep produced.
+
+== PROTECTED BYTE PINS, law vs this verifier's pristine — ALL IDENTICAL ==
+  SVSwitch           4842211c4030 both modes     (the OPS pin)
+  YosysVerx          6ccda350c24a both modes     (the OPS pin)
+  InterfaceModPort   59a365f3ce2c both modes     (the OPS pin)
+  Earlgrey_0_1       default 8bdf25272e08 / testflags 59d0ee6d10c3 (the OPS pins)
+  BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5
+  YosysOldOr         d68e0796d62c both modes
+Earlgrey_0_1 was the live risk this pass carried (predict50 names it:
+flash_ctrl_pkg::FlashTotalPages = NumBanks * PagesPerBank, a multiply the
+marker never marked) and it did not move a byte.
+
+== THE DECISIVE COIN PROOF: FIX vs LAW, two binaries that differ ONLY in the
+== `'d` abstention — a shape that does not occur in EITHER corpus ==
+u2r   fix vs law: MOVERS 0 / 1608   (byte-identical on every database, so the
+      fence fix provably costs nothing on the uhdm2rtlil corpus)
+surelog fix vs law: MOVERS 5 / 960 — and every one is in the coin family:
+  default/MiniAmiq     fix=48a51e0e0f7c  law=23f64723cc74
+  default/Scoreboard   fix=e70775324004  law=1621aec6c9f3   <- fix = PRISTINE
+  default/SeqDriver    fix=1b18e6ac54b6  law=ebb28054f71b
+  testflags/MiniAmiq   fix=27419f6011b4  law=4362fccdfb85   <- fix = PRISTINE
+  testflags/SeqDriver  fix=05df6c25a21b  law=0c64f3c52ec0   <- = the PASS's own
+                                                              pristine runA value
+Two of the five land the FIXED binary exactly on the PRISTINE hash and a third
+on the hash the pass recorded for a PRISTINE run. Three binaries drawing from
+one interchangeable pool on exactly {MiniAmiq, SeqDriver, SimpleUVM, Scoreboard}
+is the coin, not a law.
+
+surelog fix vs pristine: MOVERS 3 / 960 (MiniAmiq/default, SeqDriver both modes)
+— the very count and very nearly the very set the pass reported for its LAW
+binary, drawn here by a DIFFERENT binary. The count is a draw.
+
+== THE ONE ROW-SIDE THAT MOVES IN THE FIXED SWEEP, AND WHY IT IS NOT A CHANGE ==
+Earlgrey_0_1/testflags: status CMP_EQUAL in all three sweeps and in
+results/golden_surelog.csv; only the DUMP COLUMN reads blank instead of
+`differ` (canaries.sh flags it as `CMP_EQUAL/differ -> CMP_EQUAL/`, ok=51
+changed=1).  This is the uhdm-dump timeout draw the OPS brief names by name,
+and THE PIN IS THE DATABASE: md5 59d0ee6d10c3 in pristine, law AND fix — the
+OPS byte pin, unchanged.  Earlgrey_0_1/default likewise 8bdf25272e08 in all
+three, dump column `differ` in all three.

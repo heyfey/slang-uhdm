@@ -599,6 +599,111 @@ UHDM::constant* UhdmExporter::pkgVarDimBoundEnc82(const Symbol& declSym,
 // typespec worth sharing and takes the synthesized, unsigned int_typespec
 // spanning its whole declaration — the same typed/untyped split
 // § defNetBoundUntypedPkgTs measured.
+// § pkgSubstEncIsReduceTable50 (r11u50) — THE INT/UINT PICK OF A SUBSTITUTED
+// PACKAGE PARAMETER IS `ExprEval::reduceExpr`'S OPERATOR TABLE READ OFF THE
+// PARAMETER'S OWN INITIALIZER — THE SAME TABLE § rangeBoundReduceEnc33 ALREADY
+// USES FOR THE BOUND ITSELF, NOT THE NARROWER `paramIntEnc` MARKER.
+//
+// PRODUCER.  A substituted leaf carries the parameter's STORED encoding:
+// `CompileHelper::getValue`'s instance arm mints `c->VpiConstType(
+// sval->vpiValType())`, and that stored `Value` is what
+// `UHDM::ExprEval::reduceExpr` (`~/git-repos/UHDM/templates/ExprEval.cpp`) made
+// of the initializer — the per-operator table § rangeBoundReduceEnc33
+// transcribed at TypeEmit.cpp ~18444 and § dimExprBoundFold79 /
+// § dimExprLeafBoundInit79v (`dimRedCtExpr79`, TypeEmit.cpp ~18254) already
+// spell in full:
+//   `-` `*` `/` `%` `**`        vpiIntConst, unconditionally
+//   unary `-`                   vpiIntConst
+//   `+`                         vpiIntConst when EITHER reduced operand is
+//                               vpiInt/String/Real/Dec, else vpiUIntConst
+//   `&` `|` and every shift     vpiUIntConst
+//   a `$` system call           vpiUIntConst
+//   an unsized literal          vpiUIntConst; a SIZED one, its base letter
+//   a NAME                      the table applied to ITS initializer
+//
+// `analyzeParamEnc`'s marker answers a STRICTLY SMALLER question — a `/`, a
+// `%`, a signed `**`, or a TOP-LEVEL `-` — and disagrees with the table on
+// nine of g1_enc50's twenty-four cells and four of g2_conf50's seventeen,
+// golden deciding every one of the thirteen in the table's favour:
+//   g1 c03 `A - B - C + 1`      a SUBTRACT UNDER AN ADD -> golden INT:22 ct 7
+//                               (ibex_pkg.sv:396's own shape, the head)
+//      c05 `B * C`              MULTIPLY -> INT     c10 `1 + (A - B)` -> INT
+//      c11 `(A - B) + 1` -> INT c18 `-B + 40` UNARY MINUS -> INT
+//      c19 `(A - B) * 2` -> INT c21/c22/c23 the c03 shape DECLARED `int` /
+//                               UNTYPED / `logic [31:0]` -> INT, all three
+//                               (the pick is declaration-type blind)
+//   g2 d01 `(A / B) << 1`       a SHIFT over a divide -> golden UINT:8 ct 9,
+//                               where the marker said INT — the table moves
+//                               this cell the OTHER way and golden agrees
+//      d06 `A ** 1`             an UNSIGNED power -> INT   d17 `5 * 8` -> INT
+//      d14 `M_SHD + 24`         an add over d01 -> UINT
+// and AGREES with it on the other 35 (the literal, the plain `+`, `$clog2`,
+// every `/`/`%` cell, the bitwise arms).
+//
+// THE ABSTENTION IS THE FENCE.  This encoder writes decimal digits under an
+// `INT:`/`UINT:` tag and nothing else, so an answer it cannot spell must leave
+// the caller's own alone: g2 d08 `32'h28` is golden `HEX:28` ct 5 (the table
+// says vpiHexConst — the same based-literal refusal `pkgVarDimBoundEnc82` and
+// `ovActualStoredWidth82` already make), and g2 d09 `A ^ 60`, d11 `{8'd0,
+// 8'd40}`, d12 `int'(A - B)`, d13 `A ? 40 : 8` are nodes the table REFUSES
+// (returns 0).  d09 and d11 are golden `ref_obj` — an unfolded bound, a
+// different question — and d12/d13 are golden UINT, which the marker already
+// answers.  All five are byte-unchanged by this law.
+//
+// § pkgSubstEncBasedLitAbstain50v (r11v50) — AND THE `'d` BASE IS A BASED
+// LITERAL TOO.  The fence paragraph above is only true for three of the four
+// base letters: `vecBaseCt79` maps `'d` to `vpiIntConst`, which passes the
+// `ct50 ==` filter below, so a BARE sized-decimal package parameter was
+// answered `INT:`/ct 7 — and golden's own answer for that shape is neither the
+// marker's `UINT:`/ct 9 nor the table's `INT:`/ct 7 but `DEC:`/vpiConstType
+// **1**, a THIRD encoding this decimal-digit encoder cannot spell either.
+// MEASURED on real v1.87 goldens, b3 `grid/b3_dbase50.sv` cells e02/e03/e04/e05
+// and b1 `grid/b1_break50.sv` c01/c02 — `32'd40`, `'d40`, the same under a
+// `signed` declaration, and a NAME reading one:
+//     golden `DEC:40` ct 1   pristine `UINT:40` ct 9   ungated law `INT:40` ct 7
+// Every one of the six is wrong on both sides, so no cell regresses — but the
+// flip moves four bytes per cell that NO golden licenses, in a shape the law's
+// own fence claims it leaves alone.  The abstention is restored here, through
+// bare NAME hops because the walk itself follows them (e05 is `T_REFD =
+// T_DEC`).  It costs NOTHING measured: none of the 13 grid conversions and
+// neither corpus mover bottoms out on a based literal — `32'd32 + 8` (b1 c10,
+// golden `INT:40` ct 7) is an ADD at the top, so the table still answers it and
+// the cell still converts.
+static bool basedLitOrigin50(const slang::ast::Expression& e0, int depth) {
+    if (depth > 32)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::IntegerLiteral)
+        return e.syntax != nullptr &&
+               e.syntax->kind ==
+                   slang::syntax::SyntaxKind::IntegerVectorExpression;
+    if (e.kind == ExpressionKind::NamedValue ||
+        e.kind == ExpressionKind::HierarchicalValue) {
+        auto& sy50 = e.as<ValueExpressionBase>().symbol;
+        if (sy50.kind != SymbolKind::Parameter)
+            return false;
+        if (auto* in50 = sy50.as<ParameterSymbol>().getInitializer())
+            return basedLitOrigin50(*in50, depth + 1);
+    }
+    return false;
+}
+
+bool UhdmExporter::pkgSubstIntEnc50(const ParameterSymbol& dp) {
+    bool ie50 = false;
+    if (auto it50 = paramIntEnc.find(&dp); it50 != paramIntEnc.end())
+        ie50 = it50->second;
+    if (auto* in50 = dp.getInitializer()) {
+        // § pkgSubstEncBasedLitAbstain50v — a based literal at the bottom of
+        // the derivation keeps the marker's answer, `'d` included.
+        if (basedLitOrigin50(*in50, 0))
+            return ie50;
+        int32_t ct50 = dimRedCtExpr79(*in50, 0);
+        if (ct50 == vpiIntConst || ct50 == vpiUIntConst)
+            ie50 = ct50 == vpiIntConst;
+    }
+    return ie50;
+}
+
 UHDM::constant* UhdmExporter::pkgBoundValueConst9(const ParameterSymbol& dp,
                                                   UHDM::BaseClass* parent) {
     auto& dcv = dp.getValue();
@@ -615,9 +720,9 @@ UHDM::constant* UhdmExporter::pkgBoundValueConst9(const ParameterSymbol& dp,
     // substitutes it (rstmgr_ctrl.sv:31 net bound, :64 process part-select
     // width), while flash_ctrl_pkg's `AddrW = BankW + PageW + WordW` — an ADD,
     // which paramIntEnc does NOT mark — stays ct9 (flash_erase_ctrl.sv:41).
-    bool ieC9 = false;
-    if (auto ie9 = paramIntEnc.find(&dp); ie9 != paramIntEnc.end())
-        ieC9 = ie9->second;
+    // § pkgSubstEncIsReduceTable50 (r11u50) — the marker is the FALLBACK; the
+    // reduce table above it answers first wherever it can spell the encoding.
+    bool ieC9 = pkgSubstIntEnc50(dp);
     c->VpiValue((ieC9 ? "INT:" : "UINT:") + digits);
     c->VpiConstType(ieC9 ? vpiIntConst : vpiUIntConst);
     c->VpiParent(parent);
@@ -5408,10 +5513,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 // `localparam int PktW = $clog2(...)` is a
                                 // SYSTEM CALL, which `analyzeParamEnc` does
                                 // not mark, so it keeps UINT / ct 9.
-                                bool ie109 = false;
-                                if (auto iet109 = paramIntEnc.find(ip109);
-                                    iet109 != paramIntEnc.end())
-                                    ie109 = iet109->second;
+                                // § pkgSubstEncIsReduceTable50 (r11u50) — the
+                                // port half of § defNetBoundPkgIntEnc takes
+                                // the same reduce table as the net half.
+                                bool ie109 = pkgSubstIntEnc50(*ip109);
                                 c->VpiSize(
                                     (int32_t)ip109->getType().getBitWidth());
                                 c->VpiConstType(ie109 ? vpiIntConst
@@ -14946,10 +15051,11 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             // `logic [OffDomains-1:0] rst_pd_n` reading
                             // rstmgr_pkg's `OffDomains = PowerDomains-1` — 2
                             // heads, the ONLY difference left on either.
-                            bool dIntEnc9 = false;
-                            if (auto ie9 = paramIntEnc.find(&dsy);
-                                ie9 != paramIntEnc.end())
-                                dIntEnc9 = ie9->second;
+                            // § pkgSubstEncIsReduceTable50 (r11u50) — the same
+                            // § defNetBoundPkgIntEnc question, so the same
+                            // answer: the reduce table first, the marker as
+                            // the fallback.
+                            bool dIntEnc9 = pkgSubstIntEnc50(dp);
                             c->VpiValue((dIntEnc9 ? "INT:" : "UINT:") + digits);
                             c->VpiConstType(dIntEnc9 ? vpiIntConst
                                                      : vpiUIntConst);

@@ -1,0 +1,12 @@
+SHAPE     54  owner=range                  ts=NONE                 size=64    tag=UINT    ct=9
+SHAPE      6  owner=operation              ts=NONE                 size=64    tag=UINT    ct=9
+SHAPE      5  owner=io_decl                ts=NONE                 size=64    tag=UINT    ct=9
+SHAPE      4  owner=typespec_member        ts=NONE                 size=-     tag=-       ct=-
+SHAPE      4  owner=typespec_member        ts=NONE                 size=32    tag=DEC     ct=1
+SHAPE      2  owner=assignment             ts=NONE                 size=-     tag=-       ct=-
+SHAPE      2  owner=assignment             ts=NONE                 size=32    tag=DEC     ct=1
+SHAPE      2  owner=operation              ts=NONE                 size=1     tag=UINT    ct=9
+SHAPE      2  owner=param_assign           ts=struct_typespec      size=64    tag=BIN     ct=3
+SHAPE      2  owner=ref_typespec           ts=NONE                 size=-     tag=-       ct=-
+SHAPE      2  owner=tagged_pattern         ts=NONE                 size=-1    tag=BIN     ct=3
+SHAPES 11  CONSTANTS 85

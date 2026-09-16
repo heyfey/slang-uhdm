@@ -1,0 +1,44 @@
+===== GATES for law (/tmp/v11u50_wdL) =====
+--- (3) u2r row-join vs committed baselines and vs my own pristine
+  vs golden_uhdm2rtlil.csv    rows=1742 DIFFERING=0
+  vs my pristine              rows=1742 DIFFERING=0
+  u2r default {'CMP_EQUAL': 783, 'CMP_NOTEQUAL': 21, 'SLANG_REJECT': 67}
+  u2r testflags {'CMP_EQUAL': 783, 'CMP_NOTEQUAL': 21, 'SLANG_REJECT': 67}
+--- (4) surelog row-join
+  vs golden_surelog.csv     rows=1596 DIFFERING=2
+      ('LowMemLib', 'testflags')
+        ref  ('SURELOG_FAIL', '[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".', '')
+        mine ('SURELOG_FAIL', '[INF:CM0023] Creating log file "/tmp/v11u50_wdL/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".', '')
+      ('LowMemPkg', 'testflags')
+        ref  ('SURELOG_FAIL', '[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".', '')
+        mine ('SURELOG_FAIL', '[INF:CM0023] Creating log file "/tmp/v11u50_wdL/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".', '')
+  vs my pristine            rows=1596 DIFFERING=2
+      ('LowMemLib', 'testflags')
+        ref  ('SURELOG_FAIL', '[INF:CM0023] Creating log file "/tmp/v11u50_wdP/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".', '')
+        mine ('SURELOG_FAIL', '[INF:CM0023] Creating log file "/tmp/v11u50_wdL/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".', '')
+      ('LowMemPkg', 'testflags')
+        ref  ('SURELOG_FAIL', '[INF:CM0023] Creating log file "/tmp/v11u50_wdP/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".', '')
+        mine ('SURELOG_FAIL', '[INF:CM0023] Creating log file "/tmp/v11u50_wdL/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".', '')
+  surelog default {'CMP_EQUAL': 474, 'SLANG_REJECT': 285, 'SURELOG_FAIL': 25, 'DEFERRED': 5, 'CMP_NOTEQUAL': 9}
+  surelog testflags {'CMP_EQUAL': 469, 'SLANG_REJECT': 286, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'CMP_NOTEQUAL': 8, 'TIMEOUT': 1, 'NO_UHDM': 1}
+--- canaries / ctcan2 / canaudit
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+--- protected DB byte pins (vs my pristine)
+  default/SVSwitch 4842211c4030  pristine=4842211c4030
+  testflags/SVSwitch 4842211c4030  pristine=4842211c4030
+  default/YosysVerx 6ccda350c24a  pristine=6ccda350c24a
+  testflags/YosysVerx 6ccda350c24a  pristine=6ccda350c24a
+  default/InterfaceModPort 59a365f3ce2c  pristine=59a365f3ce2c
+  testflags/InterfaceModPort 59a365f3ce2c  pristine=59a365f3ce2c
+  default/BlackParrotComplex e3e354129d5a  pristine=e3e354129d5a
+  testflags/BlackParrotComplex 73a10e8217e5  pristine=73a10e8217e5
+  default/YosysOldOr d68e0796d62c  pristine=d68e0796d62c
+  testflags/YosysOldOr d68e0796d62c  pristine=d68e0796d62c
+  default/Earlgrey_0_1 8bdf25272e08  pristine=8bdf25272e08
+  testflags/Earlgrey_0_1 59d0ee6d10c3  pristine=59d0ee6d10c3
+
+[exited with code 0]

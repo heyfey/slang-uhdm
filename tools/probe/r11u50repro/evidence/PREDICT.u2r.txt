@@ -1,0 +1,21 @@
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/cva6_equiv/rtl/core/include/ariane_pkg.sv  ariane_pkg::ICACHE_INDEX_WIDTH = $clog2(`CONFIG_L1I_SIZE / ICACHE_SET_ASSOC)
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/cva6_equiv/rtl/core/include/ariane_pkg.sv  ariane_pkg::ICACHE_TAG_WIDTH = riscv::PLEN - ICACHE_INDEX_WIDTH
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/cva6_equiv/rtl/core/include/ariane_pkg.sv  ariane_pkg::DCACHE_INDEX_WIDTH = $clog2(`CONFIG_L1D_SIZE / DCACHE_SET_ASSOC)
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/cva6_equiv/rtl/core/include/ariane_pkg.sv  ariane_pkg::DCACHE_TAG_WIDTH = riscv::PLEN - DCACHE_INDEX_WIDTH
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/cva6_equiv/rtl/core/include/dummy_l15_pkg.sv  l15_pkg::L15_DATA_BUS_WORDS = L15_DATA_BUS_WIDTH / L15_WORD_WIDTH
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/cva6_equiv/rtl/core/include/dummy_l15_pkg.sv  l15_pkg::L15_BE_WIDTH = L15_DATA_BUS_WIDTH / 8
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/cva6_equiv/rtl/vendor/pulp-platform/common_cells/src/cf_math_pkg.sv  cf_math_pkg::idx_t = logic[cf_math_pkg::idx_width(NumIdx)-1:0]` /// As typedef: /// `typedef logic [cf_math_pkg
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/prim/prim_sha2_pkg.sv  prim_sha2_pkg::WordByte32 = $bits(sha_word32_t)/8
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/prim/prim_sha2_pkg.sv  prim_sha2_pkg::WordByte64 = $bits(sha_word64_t)/8
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::BUS_BYTES = BUS_SIZE/8
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::BUS_W = $clog2(BUS_BYTES)
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_LINE_BYTES = IC_LINE_SIZE/8
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_LINE_W = $clog2(IC_LINE_BYTES)
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_NUM_LINES = IC_SIZE_BYTES / IC_NUM_WAYS / IC_LINE_BYTES
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_LINE_BEATS = IC_LINE_BYTES / BUS_BYTES
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_LINE_BEATS_W = $clog2(IC_LINE_BEATS)
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_INDEX_W = $clog2(IC_NUM_LINES)
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_INDEX_HI = IC_INDEX_W + IC_LINE_W - 1
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_TAG_SIZE = ADDR_W - IC_INDEX_W - IC_LINE_W + 1
+CANDIDATE /home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_pkg.sv  ibex_pkg::IC_OUTPUT_BEATS = (BUS_BYTES / 2)
+CANDIDATE_FILES 5  CANDIDATE_PARAMS 20  SCANNED 2925

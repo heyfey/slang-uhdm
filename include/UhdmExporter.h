@@ -10196,6 +10196,14 @@ private:
     // (the same constant the plain-vector def-net bound arm already builds).
     UHDM::constant* pkgBoundValueConst9(const slang::ast::ParameterSymbol& dp,
                                         UHDM::BaseClass* parent);
+    /// § pkgSubstEncIsReduceTable50 (r11u50) — THE INT/UINT PICK OF A
+    /// SUBSTITUTED PACKAGE PARAMETER IS § dimRedCtExpr79'S TABLE, NOT THE
+    /// `paramIntEnc` MARKER.  See the law at the definition in TypeEmit.cpp.
+    /// Answers `true` for `INT:`/ct 7 and `false` for `UINT:`/ct 9; every
+    /// encoding the table cannot spell (a based literal's own base letter) and
+    /// every node it refuses (a `^`, a concat, a comparison, an explicit cast)
+    /// keeps `paramIntEnc`'s answer untouched.
+    bool pkgSubstIntEnc50(const slang::ast::ParameterSymbol& dp);
     // § shadowedImportParamFold — the same name-keyed getValue one level OUT
     // of a range bound: substitute every ref_obj in an already-emitted DEF-view
     // tree whose name a wildcard-imported package ALSO declares, when a
