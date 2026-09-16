@@ -175,6 +175,22 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign refresh (2026-09-16, HEAD = the pass-54 landing).** The
+> matrix-1.87 branch has landed 54 passes since the df23d880 rebaseline:
+> surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
+> are the three slang-fenced tests), uhdm2rtlil 785 equal / 19 not-equal /
+> 67 reject in both modes (of 871). The steering maps are
+> `tools/probe/r11u44repro/TRIAGE2.md` (the second full triage; C1/C3/C4/C5/
+> C6/C7 dispatched and landed, 5 conversions among them) and
+> `tools/probe/r11u51repro/FOLDMAP.md` (the C2 fold-decision census: five
+> producer roads; C landed pass 51, A pass 52 CONVERTING bits_of_type_param,
+> B pass 53, E pass 54 CONVERTING struct_param_pattern_packing; road D
+> refuted as mapped — its re-scoped law and every remaining road residue are
+> queued in the FOLDMAP and the probe READMEs). Conversions this stretch:
+> genvar_pow_index (44), packed_struct_array_fifo (47), bits_of_type_param
+> (52), struct_param_pattern_packing (54). The pass-29 paragraph below and
+> the v1.86 table under it are HISTORY.
+
 > **v1.87 campaign refresh (2026-09-14, HEAD = the pass-29 landing).** The
 > matrix-1.87 branch (Surelog v1.87 + UHDM v1.87 + slang 7d61e0ad1 +
 > uhdm2rtlil v0.68) has landed 29 passes since the df23d880 rebaseline:
