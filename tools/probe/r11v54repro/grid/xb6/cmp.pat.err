@@ -1,0 +1,25 @@
+LHS:
+decompile:
+constant: , id:81, line:6:33, endln:6:37
+|vpiParent:
+\_operation: , id:80, line:6:32, endln:6:40
+|vpiDecompile:2'b01
+|vpiSize:2
+|BIN:01
+|vpiTypespec:
+\_ref_typespec: (pk), id:82
+  |vpiParent:
+  \_constant: , id:81, line:6:33, endln:6:37
+  |vpiFullName:pk
+  |vpiActual:
+  \_logic_typespec: , id:83, line:3:13, endln:3:24
+|vpiConstType:3
+RHS:
+decompile:
+ref_obj: (pk::pq::Q1), id:41, line:6:33, endln:6:39
+|vpiParent:
+\_operation: , id:40, line:6:32, endln:6:40
+|vpiName:pq::Q1
+|vpiFullName:pk::pq::Q1
+|vpiActual:
+\_parameter: (pq::Q1), id:25, line:3:25, endln:3:27

@@ -1,0 +1,2 @@
+golden_rc=0
+ours_rc=4

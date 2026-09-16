@@ -1,0 +1,48 @@
+LHS:
+decompile:
+operation: , id:78, line:6:30, endln:6:41
+|vpiParent:
+\_param_assign: , id:61, line:6:25, endln:6:41
+|vpiOpType:34
+|vpiOperand:
+\_constant: , id:79, line:6:31, endln:6:32
+  |vpiDecompile:2
+  |vpiSize:64
+  |UINT:2
+  |vpiConstType:9
+|vpiOperand:
+\_operation: , id:80, line:6:32, endln:6:40
+  |vpiParent:
+  \_operation: , id:78, line:6:30, endln:6:41
+  |vpiOpType:33
+  |vpiOperand:
+  \_constant: , id:81, line:6:33, endln:6:37
+    |vpiParent:
+    \_operation: , id:80, line:6:32, endln:6:40
+    |vpiDecompile:2'b01
+    |vpiSize:2
+    |BIN:01
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:82
+      |vpiParent:
+      \_constant: , id:81, line:6:33, endln:6:37
+      |vpiFullName:pk
+      |vpiActual:
+      \_logic_typespec: , id:83, line:3:13, endln:3:24
+    |vpiConstType:3
+RHS:
+decompile:
+constant: , id:38, line:6:30, endln:6:41
+|vpiParent:
+\_param_assign: , id:37, line:6:25, endln:6:41
+|vpiDecompile:4'b0101
+|vpiSize:4
+|BIN:0101
+|vpiTypespec:
+\_ref_typespec: (pk), id:39
+  |vpiParent:
+  \_constant: , id:38, line:6:30, endln:6:41
+  |vpiFullName:pk
+  |vpiActual:
+  \_logic_typespec: , id:64
+|vpiConstType:3

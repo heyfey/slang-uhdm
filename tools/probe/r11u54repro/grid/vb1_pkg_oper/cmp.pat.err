@@ -1,0 +1,135 @@
+LHS:
+decompile:
+operation: , id:624, line:23:14, endln:24:61
+|vpiParent:
+\_cont_assign: , id:622, line:23:10, endln:24:61
+|vpiOpType:9
+|vpiOperand:
+\_operation: , id:625, line:23:15, endln:24:61
+  |vpiParent:
+  \_operation: , id:624, line:23:14, endln:24:61
+  |vpiOpType:33
+  |vpiOperand:
+  \_bit_select: (pk::P1), id:626, line:23:23, endln:23:24
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk::P1
+    |vpiIndex:
+    \_constant: , id:627, line:23:23, endln:23:24
+      |vpiParent:
+      \_bit_select: (pk::P1), id:626, line:23:23, endln:23:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (pk::P2), id:628, line:23:34, endln:23:35
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk::P2
+    |vpiIndex:
+    \_constant: , id:629, line:23:34, endln:23:35
+      |vpiParent:
+      \_bit_select: (pk::P2), id:628, line:23:34, endln:23:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (pk::P3), id:630, line:23:45, endln:23:46
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk::P3
+    |vpiIndex:
+    \_constant: , id:631, line:23:45, endln:23:46
+      |vpiParent:
+      \_bit_select: (pk::P3), id:630, line:23:45, endln:23:46
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (pk::P4), id:632, line:23:56, endln:23:57
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk::P4
+    |vpiIndex:
+    \_constant: , id:633, line:23:56, endln:23:57
+      |vpiParent:
+      \_bit_select: (pk::P4), id:632, line:23:56, endln:23:57
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (pk::P5), id:634, line:23:67, endln:23:68
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk::P5
+    |vpiIndex:
+    \_constant: , id:635, line:23:67, endln:23:68
+      |vpiParent:
+      \_bit_select: (pk::P5), id:634, line:23:67, endln:23:68
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (pk::P6), id:636, line:24:23, endln:24:24
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk::P6
+    |vpiIndex:
+    \_constant: , id:637, line:24:23, endln:24:24
+      |vpiParent:
+      \_bit_select: (pk::P6), id:636, line:24:23, endln:24:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (pk::P7), id:638, line:24:34, endln:24:35
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk::P7
+    |vpiIndex:
+    \_constant: , id:639, line:24:34, endln:24:35
+      |vpiParent:
+      \_bit_select: (pk::P7), id:638, line:24:34, endln:24:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (pk2::Q0), id:640, line:24:46, endln:24:47
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk2::Q0
+    |vpiIndex:
+    \_constant: , id:641, line:24:46, endln:24:47
+      |vpiParent:
+      \_bit_select: (pk2::Q0), id:640, line:24:46, endln:24:47
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_bit_select: (pk2::Q1), id:642, line:24:58, endln:24:59
+    |vpiParent:
+    \_operation: , id:625, line:23:15, endln:24:61
+    |vpiName:pk2::Q1
+    |vpiIndex:
+    \_constant: , id:643, line:24:58, endln:24:59
+      |vpiParent:
+      \_bit_select: (pk2::Q1), id:642, line:24:58, endln:24:59
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+RHS:
+decompile:
+constant: , id:239
+|vpiDecompile:1
+|vpiSize:1
+|UINT:1
+|vpiConstType:9

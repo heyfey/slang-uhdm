@@ -1,0 +1,23 @@
+LHS:
+decompile:
+constant: , id:1023, line:23:39, endln:23:41
+|vpiParent:
+\_sys_func_call: ($unsigned), id:1024
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiConstType:9
+RHS:
+decompile:
+sys_func_call: ($unsigned), id:91, line:23:29, endln:23:42
+|vpiParent:
+\_operation: , id:88, line:23:22, endln:23:87
+|vpiArgument:
+\_constant: , id:92, line:23:39, endln:23:41
+  |vpiParent:
+  \_sys_func_call: ($unsigned), id:91, line:23:29, endln:23:42
+  |vpiDecompile:64
+  |vpiSize:64
+  |UINT:64
+  |vpiConstType:9
+|vpiName:$unsigned

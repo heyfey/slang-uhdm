@@ -1,0 +1,69 @@
+LHS:
+decompile:
+operation: , id:154, line:8:30, endln:8:61
+|vpiParent:
+\_param_assign: , id:114, line:8:25, endln:8:61
+|vpiTypespec:
+\_ref_typespec: (pk), id:156
+  |vpiParent:
+  \_operation: , id:154, line:8:30, endln:8:61
+  |vpiFullName:pk
+  |vpiActual:
+  \_integer_typespec: , id:155, line:8:30, endln:8:31
+|vpiOpType:67
+|vpiOperand:
+\_operation: , id:138, line:8:33, endln:8:60
+  |vpiParent:
+  \_operation: , id:154, line:8:30, endln:8:61
+  |vpiOpType:32
+  |vpiOperand:
+  \_operation: , id:135, line:8:33, endln:8:42
+    |vpiParent:
+    \_operation: , id:138, line:8:33, endln:8:60
+    |vpiTypespec:
+    \_ref_typespec: (pk), id:137
+      |vpiParent:
+      \_operation: , id:135, line:8:33, endln:8:42
+      |vpiFullName:pk
+      |vpiActual:
+      \_logic_typespec: , id:136, line:8:33, endln:8:38
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:134, line:8:40, endln:8:41
+      |vpiParent:
+      \_operation: , id:135, line:8:33, endln:8:42
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiOperand:
+  \_constant: , id:152, line:8:45, endln:8:53
+    |vpiParent:
+    \_operation: , id:138, line:8:33, endln:8:60
+    |vpiSize:4
+    |BIN:0111
+    |vpiConstType:3
+  |vpiOperand:
+  \_constant: , id:153, line:8:56, endln:8:60
+    |vpiParent:
+    \_operation: , id:138, line:8:33, endln:8:60
+    |vpiDecompile:4'd0
+    |vpiSize:4
+    |DEC:0
+    |vpiConstType:1
+RHS:
+decompile:
+constant: , id:106, line:8:30, endln:8:61
+|vpiParent:
+\_param_assign: , id:105, line:8:25, endln:8:61
+|vpiDecompile:7
+|vpiSize:4
+|UINT:7
+|vpiTypespec:
+\_ref_typespec: (pk), id:107
+  |vpiParent:
+  \_constant: , id:106, line:8:30, endln:8:61
+  |vpiFullName:pk
+  |vpiActual:
+  \_logic_typespec: , id:108, line:8:13, endln:8:24
+|vpiConstType:9

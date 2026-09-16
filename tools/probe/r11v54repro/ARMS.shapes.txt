@@ -1,0 +1,198 @@
+=== xb1b gold.pat [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::X1                     operation@9:30{vpiOpType:32}[operation@9:31{vpiOpType:14}[operation@9:31{vpiOpType:33}[ref_obj(pk::C0)@9:32{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@9:36{vpiName:C3}[actual=constant@4:30]], constant@9:43{vpiDecompile:4'b0111,vpiSize:4,BIN:0111,vpiConstType:3}], ref_obj(pk::C0)@9:54{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@9:59{vpiName:C3}[actual=constant@4:30]]
+uhdmtopPackages    pk::X2                     constant@11:30{vpiDecompile:2,vpiSize:2,UINT:2,ts=logic_typespec@11:13,vpiConstType:9}
+uhdmtopPackages    pk::X4                     constant@13:22{vpiDecompile:3,vpiSize:32,UINT:3,ts=int_typespec@13:13,vpiConstType:9}
+uhdmtopPackages    pk::X5                     constant@15:30{vpiDecompile:11,vpiSize:2,BIN:11,ts=logic_typespec@15:13,vpiConstType:3}
+uhdmtopPackages    pk::X6                     operation@17:30{vpiOpType:4}[operation@17:31{vpiOpType:34}[constant@17:32{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@17:33{vpiOpType:33}[ref_obj(pk::C0)@17:34{vpiName:C0}[actual=constant@3:30]]]]
+uhdmtopPackages    pk::X7                     operation@19:25{vpiOpType:15}[operation@19:25{vpiOpType:33}[ref_obj(pk::C0)@19:26{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@19:30{vpiName:C3}[actual=constant@4:30]], constant@19:37{vpiDecompile:4'b0000,vpiSize:4,BIN:0000,vpiConstType:3}]
+uhdmtopPackages    pk::X8                     operation@21:30{vpiOpType:34}[constant@21:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@21:32{vpiOpType:33}[ref_obj(pk::C0)@21:33{vpiName:C0}[actual=constant@3:30]]]
+uhdmtopPackages    pk::X9                     operation@23:30{vpiOpType:33}[operation@23:32{vpiOpType:32}[bit_select(pk::C0)@23:32{vpiName:C0}, ref_obj(pk::C0)@23:40{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@23:45{vpiName:C3}[actual=constant@4:30]], ref_obj(pk::C3)@23:50{vpiName:C3}[actual=constant@4:30]]
+=== xb1b ours.pris [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::X1                     constant@9:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@9:13,vpiConstType:3}
+uhdmtopPackages    pk::X2                     constant@11:31{vpiDecompile:2,vpiSize:2,UINT:2,ts=logic_typespec@11:13,vpiConstType:9}
+uhdmtopPackages    pk::X4                     constant@13:22{vpiDecompile:3,vpiSize:32,UINT:3,ts=int_typespec@13:13,vpiConstType:9}
+uhdmtopPackages    pk::X5                     constant@15:30{vpiDecompile:3,vpiSize:32,UINT:3,ts=logic_typespec@15:13,vpiConstType:9}
+uhdmtopPackages    pk::X6                     constant@17:30{vpiDecompile:10,vpiSize:4,UINT:10,ts=logic_typespec@17:13,vpiConstType:9}
+uhdmtopPackages    pk::X7                     constant@19:25{vpiDecompile:1'b1,vpiSize:1,BIN:1,ts=logic_typespec@19:13,vpiConstType:3}
+uhdmtopPackages    pk::X8                     constant@21:30{vpiDecompile:4'b0101,vpiSize:4,BIN:0101,ts=logic_typespec,vpiConstType:3}
+uhdmtopPackages    pk::X9                     operation@23:30{vpiOpType:33}[operation@23:32{vpiOpType:32}[bit_select(pk::C0)@23:32{vpiName:C0}, constant@23:40{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, constant@23:45{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}], constant@23:50{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}]
+=== xb1b ours.pat [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::X1                     constant@9:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@9:13,vpiConstType:3}
+uhdmtopPackages    pk::X2                     constant@11:31{vpiDecompile:2,vpiSize:2,UINT:2,ts=logic_typespec@11:13,vpiConstType:9}
+uhdmtopPackages    pk::X4                     constant@13:22{vpiDecompile:3,vpiSize:32,UINT:3,ts=int_typespec@13:13,vpiConstType:9}
+uhdmtopPackages    pk::X5                     constant@15:30{vpiDecompile:3,vpiSize:32,UINT:3,ts=logic_typespec@15:13,vpiConstType:9}
+uhdmtopPackages    pk::X6                     operation@17:30{vpiOpType:4}[operation@17:31{vpiOpType:34}[constant@17:32{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@17:33{vpiOpType:33}[ref_obj(pk::C0)@17:34{vpiName:C0}[actual=constant@3:30]]]]
+uhdmtopPackages    pk::X7                     operation@19:25{vpiOpType:15}[operation@19:25{vpiOpType:33}[ref_obj(pk::C0)@19:26{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@19:30{vpiName:C3}[actual=constant@4:30]], constant@19:37{vpiDecompile:4'b0000,vpiSize:4,BIN:0000,vpiConstType:3}]
+uhdmtopPackages    pk::X8                     operation@21:30{vpiOpType:34}[constant@21:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@21:32{vpiOpType:33}[ref_obj(pk::C0)@21:33{vpiName:C0}[actual=constant@3:30]]]
+uhdmtopPackages    pk::X9                     operation@23:30{vpiOpType:33}[operation@23:32{vpiOpType:32}[bit_select(pk::C0)@23:32{vpiName:C0}, ref_obj(pk::C0)@23:40{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@23:45{vpiName:C3}[actual=constant@4:30]], ref_obj(pk::C3)@23:50{vpiName:C3}[actual=constant@4:30]]
+=== xb2 gold.pat [uhdmtopPackages]
+uhdmtopPackages    pq::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pq::QC                     operation@4:30{vpiOpType:33}[constant@4:35{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, ref_obj(pq::Q0)@4:31{vpiName:Q0}[actual=constant@3:30]]
+uhdmtopPackages    pk::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::QC                     operation@4:30{vpiOpType:33}[constant@4:35{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, ref_obj(pk::Q0)@4:31{vpiName:Q0}]
+uhdmtopPackages    pk::C0                     constant@9:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@9:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@10:31{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@10:14,vpiConstType:3}
+uhdmtopPackages    pk::Y1                     operation@12:31{vpiOpType:33}[ref_obj(pk::C3)@12:36{vpiName:C3}[actual=constant@10:31], ref_obj(pk::C0)@12:32{vpiName:C0}[actual=constant@9:30]]
+uhdmtopPackages    pk::Y2                     operation@14:31{ts=integer_typespec@14:31,vpiOpType:67}[operation@14:34{vpiOpType:34}[constant@14:35{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@14:36{vpiOpType:33}[ref_obj(pk::C0)@14:37{vpiName:C0}[actual=constant@9:30]]]]
+uhdmtopPackages    pk::Y3                     operation@16:30{vpiOpType:33}[constant@16:31{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}, ref_obj(pk::C0)@16:39{vpiName:C0}[actual=constant@9:30]]
+uhdmtopPackages    pk::Y4                     constant@18:30{vpiSize:4,BIN:1001,ts=logic_typespec@18:13,vpiConstType:3}
+uhdmtopPackages    pk::Y5                     constant@20:30{vpiDecompile:10,vpiSize:4,INT:10,ts=logic_typespec@20:13,vpiConstType:7}
+uhdmtopPackages    pk::Y6                     operation@23:22{vpiOpType:75}[tagged_pattern@23:27{ts=string_typespec(a)@23:24}[constant@23:27{vpiSize:4,BIN:0111,vpiConstType:3}], tagged_pattern@23:40{ts=string_typespec(b)@23:37}[constant@23:40{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@9:13,vpiConstType:3}]]
+uhdmtopPackages    pk::Y7                     operation@25:30{vpiOpType:33}[operation@25:31{vpiOpType:33}[ref_obj(pk::C0)@25:32{vpiName:C0}[actual=constant@9:30], ref_obj(pk::C3)@25:36{vpiName:C3}[actual=constant@10:31]], ref_obj(pk::C0)@25:41{vpiName:C0}[actual=constant@9:30]]
+uhdmtopPackages    pk::Y8                     constant@27:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@27:13,vpiConstType:3}
+=== xb2 ours.pris [uhdmtopPackages]
+uhdmtopPackages    pq::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pq::QC                     operation@4:30{vpiOpType:33}[constant@4:31{vpiDecompile:2'b10,vpiSize:2,BIN:10,vpiConstType:3}, constant@4:35{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}]
+uhdmtopPackages    pk::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::QC                     operation@4:30{vpiOpType:33}[constant@4:35{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, ref_obj(pk::pq::Q0)@4:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25]]
+uhdmtopPackages    pk::C0                     constant@9:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@9:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@10:31{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@10:14,vpiConstType:3}
+uhdmtopPackages    pk::Y1                     operation@12:31{vpiOpType:33}[constant@12:32{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, constant@12:36{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}]
+uhdmtopPackages    pk::Y2                     constant@14:31{vpiDecompile:5,vpiSize:4,UINT:5,ts=logic_typespec@14:14,vpiConstType:9}
+uhdmtopPackages    pk::Y3                     operation@16:30{vpiOpType:33}[constant@16:39{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, ref_obj(pk::pq::Q0)@16:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25]]
+uhdmtopPackages    pk::Y4                     constant@18:30{vpiDecompile:9,vpiSize:4,UINT:9,ts=logic_typespec@18:13,vpiConstType:9}
+uhdmtopPackages    pk::Y5                     constant@20:30{vpiDecompile:10,vpiSize:4,UINT:10,ts=logic_typespec@20:13,vpiConstType:9}
+uhdmtopPackages    pk::Y6                     operation@23:22{ts=struct_typespec(pk::s_t)@22:11,vpiOpType:75}[constant@23:27{vpiSize:4,BIN:0111,ts=logic_typespec@22:27,vpiConstType:3}, constant@23:40{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}]
+uhdmtopPackages    pk::Y7                     operation@25:30{vpiOpType:33}[operation@25:31{vpiOpType:33}[constant@25:32{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, constant@25:36{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}], constant@25:41{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}]
+uhdmtopPackages    pk::Y8                     constant@27:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@27:13,vpiConstType:3}
+=== xb2 ours.pat [uhdmtopPackages]
+uhdmtopPackages    pq::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pq::QC                     operation@4:30{vpiOpType:33}[constant@4:35{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, ref_obj(pq::Q0)@4:31{vpiName:Q0}[actual=constant@3:30]]
+uhdmtopPackages    pk::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::QC                     operation@4:30{vpiOpType:33}[constant@4:35{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, ref_obj(pk::pq::Q0)@4:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25]]
+uhdmtopPackages    pk::C0                     constant@9:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@9:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@10:31{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@10:14,vpiConstType:3}
+uhdmtopPackages    pk::Y1                     operation@12:31{vpiOpType:33}[ref_obj(pk::C3)@12:36{vpiName:C3}[actual=constant@10:31], ref_obj(pk::C0)@12:32{vpiName:C0}[actual=constant@9:30]]
+uhdmtopPackages    pk::Y2                     operation@14:31{ts=integer_typespec@14:31,vpiOpType:67}[operation@14:34{vpiOpType:34}[constant@14:35{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@14:36{vpiOpType:33}[ref_obj(pk::C0)@14:37{vpiName:C0}[actual=constant@9:30]]]]
+uhdmtopPackages    pk::Y3                     operation@16:30{vpiOpType:33}[ref_obj(pk::C0)@16:39{vpiName:C0}[actual=constant@9:30], ref_obj(pk::pq::Q0)@16:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25]]
+uhdmtopPackages    pk::Y4                     constant@18:30{vpiDecompile:9,vpiSize:4,UINT:9,ts=logic_typespec@18:13,vpiConstType:9}
+uhdmtopPackages    pk::Y5                     constant@20:30{vpiDecompile:10,vpiSize:4,UINT:10,ts=logic_typespec@20:13,vpiConstType:9}
+uhdmtopPackages    pk::Y6                     operation@23:22{ts=struct_typespec(pk::s_t)@22:11,vpiOpType:75}[constant@23:27{vpiSize:4,BIN:0111,ts=logic_typespec@22:27,vpiConstType:3}, constant@23:40{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}]
+uhdmtopPackages    pk::Y7                     operation@25:30{vpiOpType:33}[operation@25:31{vpiOpType:33}[ref_obj(pk::C0)@25:32{vpiName:C0}[actual=constant@9:30], ref_obj(pk::C3)@25:36{vpiName:C3}[actual=constant@10:31]], ref_obj(pk::C0)@25:41{vpiName:C0}[actual=constant@9:30]]
+uhdmtopPackages    pk::Y8                     constant@27:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@27:13,vpiConstType:3}
+=== xb3b gold.pat [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::Z4                     constant@6:30{vpiDecompile:4,vpiSize:32,UINT:4,ts=int_typespec@6:13,vpiConstType:9}
+uhdmtopPackages    pk::Z5                     operation@8:30{ts=integer_typespec@8:30,vpiOpType:67}[operation@8:33{vpiOpType:32}[operation@8:33{ts=logic_typespec@8:33,vpiOpType:67}[constant@8:40{vpiDecompile:1,vpiSize:64,UINT:1,vpiConstType:9}], constant@8:45{vpiSize:4,BIN:0111,vpiConstType:3}, constant@8:56{vpiDecompile:4'd0,vpiSize:4,DEC:0,vpiConstType:1}]]
+uhdmtopPackages    pk::Z6                     sys_func_call($signed)@10:37{vpiName:$signed}[operation@10:45{vpiOpType:33}[ref_obj(pk::C0)@10:46{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@10:50{vpiName:C3}[actual=constant@4:30]]]
+uhdmtopPackages    pk::Z8                     operation@12:30{ts=integer_typespec@12:30,vpiOpType:67}[operation@12:33{vpiOpType:32}[operation@12:34{vpiOpType:14}[operation@12:34{vpiOpType:33}[ref_obj(pk::C0)@12:35{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@12:38{vpiName:C3}[actual=constant@4:30]], constant@12:45{vpiDecompile:4'b0111,vpiSize:4,BIN:0111,vpiConstType:3}], ref_obj(pk::C0)@12:56{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@12:61{vpiName:C3}[actual=constant@4:30]]]
+=== xb3b ours.pris [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::Z4                     constant@6:30{vpiDecompile:4,vpiSize:32,UINT:4,ts=int_typespec@6:13,vpiConstType:9}
+uhdmtopPackages    pk::Z5                     constant@8:30{vpiDecompile:7,vpiSize:4,UINT:7,ts=logic_typespec@8:13,vpiConstType:9}
+uhdmtopPackages    pk::Z6                     sys_func_call($signed)@10:37{vpiName:$signed}[operation@10:45{vpiOpType:33}[constant@10:46{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, constant@10:50{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}]]
+uhdmtopPackages    pk::Z8                     constant@12:30{vpiDecompile:1,vpiSize:2,UINT:1,ts=logic_typespec@12:13,vpiConstType:9}
+=== xb3b ours.pat [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:2'b11,vpiSize:2,BIN:11,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::Z4                     constant@6:30{vpiDecompile:4,vpiSize:32,UINT:4,ts=int_typespec@6:13,vpiConstType:9}
+uhdmtopPackages    pk::Z5                     constant@8:30{vpiDecompile:7,vpiSize:4,UINT:7,ts=logic_typespec@8:13,vpiConstType:9}
+uhdmtopPackages    pk::Z6                     sys_func_call($signed)@10:37{vpiName:$signed}[operation@10:45{vpiOpType:33}[ref_obj(pk::C0)@10:46{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@10:50{vpiName:C3}[actual=constant@4:30]]]
+uhdmtopPackages    pk::Z8                     constant@12:30{vpiDecompile:1,vpiSize:2,UINT:1,ts=logic_typespec@12:13,vpiConstType:9}
+=== xb4 gold.pat [uhdmtopPackages]
+uhdmtopPackages    pq::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pq::Q1                     constant@4:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::C0                     constant@8:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@8:13,vpiConstType:3}
+uhdmtopPackages    pk::W1                     operation@10:30{vpiOpType:33}[constant@10:31{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}, constant@10:39{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@4:13,vpiConstType:3}]
+uhdmtopPackages    pk::W2                     operation@12:30{vpiOpType:33}[constant@12:31{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}, constant@12:39{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}]
+uhdmtopPackages    pk::W3                     operation@14:30{vpiOpType:33}[constant@14:35{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}, ref_obj(pk::C0)@14:31{vpiName:C0}[actual=constant@8:30]]
+uhdmtopPackages    pk::W4                     operation@16:30{vpiOpType:34}[constant@16:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@16:32{vpiOpType:33}[ref_obj(pk::C0)@16:33{vpiName:C0}[actual=constant@8:30]]]
+uhdmtopPackages    pk::W5                     operation@18:30{vpiOpType:34}[constant@18:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@18:32{vpiOpType:33}[constant@18:33{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@4:13,vpiConstType:3}]]
+uhdmtopPackages    pk::W6                     operation@20:30{vpiOpType:29}[operation@20:30{vpiOpType:33}[constant@20:31{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}, ref_obj(pk::C0)@20:39{vpiName:C0}[actual=constant@8:30]], constant@20:45{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,vpiConstType:3}]
+=== xb4 ours.pris [uhdmtopPackages]
+uhdmtopPackages    pq::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pq::Q1                     constant@4:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::C0                     constant@8:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@8:13,vpiConstType:3}
+uhdmtopPackages    pk::W1                     operation@10:30{vpiOpType:33}[ref_obj(pk::pq::Q1)@10:39{vpiName:pq::Q1}[actual=parameter(pq::Q1)@4:25], ref_obj(pk::pq::Q0)@10:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25]]
+uhdmtopPackages    pk::W2                     operation@12:30{vpiOpType:33}[constant@12:39{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}, ref_obj(pk::pq::Q0)@12:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25]]
+uhdmtopPackages    pk::W3                     operation@14:30{vpiOpType:33}[constant@14:31{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, constant@14:35{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}]
+uhdmtopPackages    pk::W4                     constant@16:30{vpiDecompile:4'b0101,vpiSize:4,BIN:0101,ts=logic_typespec,vpiConstType:3}
+uhdmtopPackages    pk::W5                     constant@18:30{vpiDecompile:4'b0101,vpiSize:4,BIN:0101,ts=logic_typespec,vpiConstType:3}
+uhdmtopPackages    pk::W6                     constant@20:30{vpiDecompile:9,vpiSize:4,UINT:9,ts=logic_typespec@20:13,vpiConstType:9}
+=== xb4 ours.pat [uhdmtopPackages]
+uhdmtopPackages    pq::Q0                     constant@3:30{vpiDecompile:2'b10,vpiSize:2,BIN:10,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pq::Q1                     constant@4:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::C0                     constant@8:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@8:13,vpiConstType:3}
+uhdmtopPackages    pk::W1                     operation@10:30{vpiOpType:33}[ref_obj(pk::pq::Q1)@10:39{vpiName:pq::Q1}[actual=parameter(pq::Q1)@4:25], ref_obj(pk::pq::Q0)@10:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25]]
+uhdmtopPackages    pk::W2                     operation@12:30{vpiOpType:33}[constant@12:39{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}, ref_obj(pk::pq::Q0)@12:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25]]
+uhdmtopPackages    pk::W3                     operation@14:30{vpiOpType:33}[constant@14:35{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}, ref_obj(pk::C0)@14:31{vpiName:C0}[actual=constant@8:30]]
+uhdmtopPackages    pk::W4                     operation@16:30{vpiOpType:34}[constant@16:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@16:32{vpiOpType:33}[ref_obj(pk::C0)@16:33{vpiName:C0}[actual=constant@8:30]]]
+uhdmtopPackages    pk::W5                     operation@18:30{vpiOpType:34}[constant@18:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@18:32{vpiOpType:33}[ref_obj(pk::pq::Q1)@18:33{vpiName:pq::Q1}[actual=parameter(pq::Q1)@4:25]]]
+uhdmtopPackages    pk::W6                     operation@20:30{vpiOpType:29}[operation@20:30{vpiOpType:33}[ref_obj(pk::pq::Q0)@20:31{vpiName:pq::Q0}[actual=parameter(pq::Q0)@3:25], ref_obj(pk::C0)@20:39{vpiName:C0}[actual=constant@8:30]], constant@20:45{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,vpiConstType:3}]
+=== xb5 gold.pat [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::IC                     operation@4:30{vpiOpType:33}[constant@4:35{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}, ref_obj(pk::C0)@4:31{vpiName:C0}[actual=constant@3:30]]
+uhdmtopPackages    pk::IR                     operation@5:30{vpiOpType:34}[constant@5:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@5:32{vpiOpType:33}[ref_obj(pk::C0)@5:33{vpiName:C0}[actual=constant@3:30]]]
+uhdmtopPackages    pk::IB                     operation@6:30{vpiOpType:29}[operation@6:30{vpiOpType:33}[ref_obj(pk::C0)@6:31{vpiName:C0}[actual=constant@3:30], constant@6:35{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}], constant@6:44{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,vpiConstType:3}]
+uhdmtopPackages    pk::RP                     constant@7:30{vpiDecompile:1.5,vpiSize:32,REAL:1.500000,ts=real_typespec@7:13,vpiConstType:2}
+uhdmtopPackages    pk::SP                     constant@8:30{vpiDecompile:"ab",vpiSize:16,ts=string_typespec@8:13,vpiConstType:6}
+uhdmtopPackages    pk::TP                     constant@9:30{vpiSize:64,UINT:10000000,ts=time_typespec@9:13,vpiConstType:9}
+uhdmtopPackages    pk::cbody::KC              operation@11:33{vpiOpType:33}[constant@11:38{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}, ref_obj(pk::cbody::C0)@11:34{vpiName:C0}]
+uhdmtopPackages    pk::cbody::KR              operation@12:33{vpiOpType:34}[constant@12:34{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@12:35{vpiOpType:33}[ref_obj(pk::cbody::C0)@12:36{vpiName:C0}]]
+=== xb5 ours.pris [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::IC                     operation@4:30{vpiOpType:33}[constant@4:31{vpiDecompile:2'b01,vpiSize:2,BIN:01,vpiConstType:3}, constant@4:35{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}]
+uhdmtopPackages    pk::IR                     constant@5:30{vpiDecompile:4'b0101,vpiSize:4,BIN:0101,ts=logic_typespec,vpiConstType:3}
+uhdmtopPackages    pk::IB                     constant@6:30{vpiDecompile:7,vpiSize:4,UINT:7,ts=logic_typespec@6:13,vpiConstType:9}
+uhdmtopPackages    pk::RP                     constant@7:30{vpiDecompile:1.500000,vpiSize:64,REAL:1.500000,ts=real_typespec@7:13,vpiConstType:2}
+uhdmtopPackages    pk::SP                     constant@8:30{vpiDecompile:"ab",vpiSize:16,ts=string_typespec@8:13,vpiConstType:6}
+uhdmtopPackages    pk::TP                     constant@9:30{vpiSize:64,UINT:10000000,ts=time_typespec@9:13,vpiConstType:9}
+uhdmtopPackages    pk::cbody::KC              operation@11:33{vpiOpType:33}[ref_obj(pk::cbody::C0)@11:34{vpiName:C0}[actual=constant@3:30], constant@11:38{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}]
+uhdmtopPackages    pk::cbody::KR              operation@12:33{vpiOpType:34}[constant@12:34{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@12:35{vpiOpType:33}[ref_obj(pk::cbody::C0)@12:36{vpiName:C0}[actual=constant@3:30]]]
+=== xb5 ours.pat [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::IC                     operation@4:30{vpiOpType:33}[constant@4:35{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}, ref_obj(pk::C0)@4:31{vpiName:C0}[actual=constant@3:30]]
+uhdmtopPackages    pk::IR                     operation@5:30{vpiOpType:34}[constant@5:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@5:32{vpiOpType:33}[ref_obj(pk::C0)@5:33{vpiName:C0}[actual=constant@3:30]]]
+uhdmtopPackages    pk::IB                     operation@6:30{vpiOpType:29}[operation@6:30{vpiOpType:33}[ref_obj(pk::C0)@6:31{vpiName:C0}[actual=constant@3:30], constant@6:35{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}], constant@6:44{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,vpiConstType:3}]
+uhdmtopPackages    pk::RP                     constant@7:30{vpiDecompile:1.500000,vpiSize:64,REAL:1.500000,ts=real_typespec@7:13,vpiConstType:2}
+uhdmtopPackages    pk::SP                     constant@8:30{vpiDecompile:"ab",vpiSize:16,ts=string_typespec@8:13,vpiConstType:6}
+uhdmtopPackages    pk::TP                     constant@9:30{vpiSize:64,UINT:10000000,ts=time_typespec@9:13,vpiConstType:9}
+uhdmtopPackages    pk::cbody::KC              operation@11:33{vpiOpType:33}[ref_obj(pk::cbody::C0)@11:34{vpiName:C0}[actual=constant@3:30], constant@11:38{vpiDecompile:2'b11,vpiSize:2,BIN:11,vpiConstType:3}]
+uhdmtopPackages    pk::cbody::KR              operation@12:33{vpiOpType:34}[constant@12:34{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@12:35{vpiOpType:33}[ref_obj(pk::cbody::C0)@12:36{vpiName:C0}[actual=constant@3:30]]]
+=== xb6 gold.pat [uhdmtopPackages]
+uhdmtopPackages    pq::Q1                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::W5                     operation@6:30{vpiOpType:34}[constant@6:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@6:32{vpiOpType:33}[constant@6:33{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}]]
+=== xb6 ours.pris [uhdmtopPackages]
+uhdmtopPackages    pq::Q1                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::W5                     constant@6:30{vpiDecompile:4'b0101,vpiSize:4,BIN:0101,ts=logic_typespec,vpiConstType:3}
+=== xb6 ours.pat [uhdmtopPackages]
+uhdmtopPackages    pq::Q1                     constant@3:30{vpiDecompile:2'b01,vpiSize:2,BIN:01,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::W5                     operation@6:30{vpiOpType:34}[constant@6:31{vpiDecompile:2,vpiSize:64,UINT:2,vpiConstType:9}, operation@6:32{vpiOpType:33}[ref_obj(pk::pq::Q1)@6:33{vpiName:pq::Q1}[actual=parameter(pq::Q1)@3:25]]]
+=== xb7 gold.pat [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:4'b0011,vpiSize:4,BIN:0011,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::V1                     constant@6:35{vpiSize:4,BIN:0001,ts=logic_typespec@6:13,vpiConstType:3}
+uhdmtopPackages    pk::V2                     constant@8:48{vpiSize:4,BIN:0001,ts=logic_typespec@8:13,vpiConstType:3}
+uhdmtopPackages    pk::V3                     operation@10:30{vpiOpType:32}[operation@10:31{vpiOpType:14}[operation@10:31{vpiOpType:33}[part_select@10:32{vpiName:C0}, part_select@10:41{vpiName:C3}], constant@10:53{vpiDecompile:4'b0111,vpiSize:4,BIN:0111,vpiConstType:3}], ref_obj(pk::C0)@10:64{vpiName:C0}[actual=constant@3:30], ref_obj(pk::C3)@10:69{vpiName:C3}[actual=constant@4:30]]
+uhdmtopPackages    pk::V4                     constant@12:35{vpiDecompile:0101,vpiSize:4,BIN:0101,ts=logic_typespec@12:13,vpiConstType:3}
+uhdmtopPackages    pk::V5                     constant@14:35{vpiSize:4,BIN:0110,ts=logic_typespec@14:13,vpiConstType:3}
+uhdmtopPackages    pk::V6                     constant@16:41{vpiSize:4,BIN:0001,ts=logic_typespec@16:13,vpiConstType:3}
+uhdmtopPackages    pk::V7                     constant@18:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@18:13,vpiConstType:9}
+=== xb7 ours.pris [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:4'b0011,vpiSize:4,BIN:0011,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::V1                     constant@6:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@6:13,vpiConstType:9}
+uhdmtopPackages    pk::V2                     constant@8:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@8:13,vpiConstType:9}
+uhdmtopPackages    pk::V3                     constant@10:30{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,ts=logic_typespec@10:13,vpiConstType:3}
+uhdmtopPackages    pk::V4                     constant@12:30{vpiDecompile:5,vpiSize:4,UINT:5,ts=logic_typespec@12:13,vpiConstType:9}
+uhdmtopPackages    pk::V5                     constant@14:30{vpiDecompile:6,vpiSize:4,UINT:6,ts=logic_typespec@14:13,vpiConstType:9}
+uhdmtopPackages    pk::V6                     constant@16:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@16:13,vpiConstType:9}
+uhdmtopPackages    pk::V7                     constant@18:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@18:13,vpiConstType:9}
+=== xb7 ours.pat [uhdmtopPackages]
+uhdmtopPackages    pk::C0                     constant@3:30{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,ts=logic_typespec@3:13,vpiConstType:3}
+uhdmtopPackages    pk::C3                     constant@4:30{vpiDecompile:4'b0011,vpiSize:4,BIN:0011,ts=logic_typespec@4:13,vpiConstType:3}
+uhdmtopPackages    pk::V1                     constant@6:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@6:13,vpiConstType:9}
+uhdmtopPackages    pk::V2                     constant@8:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@8:13,vpiConstType:9}
+uhdmtopPackages    pk::V3                     constant@10:30{vpiDecompile:4'b0001,vpiSize:4,BIN:0001,ts=logic_typespec@10:13,vpiConstType:3}
+uhdmtopPackages    pk::V4                     constant@12:30{vpiDecompile:5,vpiSize:4,UINT:5,ts=logic_typespec@12:13,vpiConstType:9}
+uhdmtopPackages    pk::V5                     constant@14:30{vpiDecompile:6,vpiSize:4,UINT:6,ts=logic_typespec@14:13,vpiConstType:9}
+uhdmtopPackages    pk::V6                     constant@16:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@16:13,vpiConstType:9}
+uhdmtopPackages    pk::V7                     constant@18:30{vpiDecompile:1,vpiSize:4,UINT:1,ts=logic_typespec@18:13,vpiConstType:9}

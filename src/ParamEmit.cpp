@@ -303,6 +303,90 @@ static bool containsPatternOrConcat(const Expression& e) {
     return found;
 }
 
+// § pkgElabConcatTreeNoFold54 (r11u54) — ROAD B, THE V1-CORRECTED GATE.
+//
+// THE LAW.  In the ELABORATED PACKAGE listing the producer replaces the whole
+// Rhs with its reduced object UNLESS the Rhs tree CONTAINS a CONCATENATION or
+// a REPLICATION anywhere; a kept tree is the DEFINITION listing's tree, down
+// to its `ref_obj` leaves and their `vpiActual`.  Binary and unary operations,
+// conditionals, width casts, part-selects and cross-package reads ALL
+// substitute — six cells our emitter already gets right by folding, which is
+// why the refusal must be keyed on the concat and NOT on "the whole Rhs is the
+// reference" (`tools/probe/r11u51repro/FOLDMAP.md:562`, finding V1: that
+// reading mispredicts six of `vb1`'s nine cells, every one of them already
+// equal to golden).
+//
+// PRODUCER.  `CompileHelper::substituteAssignedValue`
+// (Surelog v1.87 `src/DesignCompile/CompileExpression.cpp:83-105`) is the gate
+// the grid sees the shadow of: it refuses a tree whose operation is a
+// `vpiConcatOp` or a `vpiAssignmentPatternOp` unless `-parametersubstitution`
+// is given (our sweeps never pass it), and the refusal RECURSES into every
+// operand, which is why an ADDITION containing a concat is refused too.  The
+// package is compiled twice — `FunctorCompilePackage::operator()`
+// (`src/DesignCompile/CompilePackage.cpp:61-71`), `Reduce::Yes` then
+// `Reduce::No` — and only the `Reduce::Yes` copy substitutes.
+//
+// THE CONDITIONAL'S BRANCH IS THE EXCEPTION, and it is MEASURED, not assumed:
+// `wb1`'s `S5 = C0 ? {C0} : C3` — a concatenation in a conditional BRANCH —
+// SUBSTITUTES in golden (a `constant` BIN:0001 size 4 with no vpiDecompile,
+// stamped at the branch, `19:36`), because the reducer answers a conditional
+// with the SELECTED branch's own reduction rather than valuing both arms.
+// `S2 = (C0 < C3) ? C0 : C3` is the same shape one notch along, stamped
+// `12:43`, the selected branch.  So the walk does NOT descend into a
+// conditional's BRANCHES.
+//
+// IT IS THE BRANCH, NOT THE CONDITIONAL.  The verifier's `xb7` cuts the two
+// apart on real v1.87 goldens (`tools/probe/r11v54repro/grid/xb7`): a concat or
+// a replication in a BRANCH substitutes in every shape tested — `V1` plain
+// condition, `V2` comparison condition, `V4` replication branch, `V5` literal
+// concat branch, `V6` nested conditional, `V7` under a width cast — but a
+// concat in the CONDITION is KEPT (`V3 = ({C0[1:0],C3[1:0]}==4'b0111)?C0:C3`,
+// and the same shape in `xb1b` `X1` and `xb3b` `Z8`).  This predicate answers
+// NO for both, so it UNDER-fires on the CONDITION shape: we fold there and
+// golden keeps.  That is a RESIDUE, not a regression — the pristine binary
+// folds those cells too and `xb7` is byte-identical between the two binaries —
+// and descending into a conditional's CONDITION (never its branches) is the
+// next cut.  A non-reducible CONDITION blocks the substitution for its own
+// reason as well (`xb3b` `Z5`'s `logic'(1)` cast condition is kept; `V7`
+// isolates the cast and substitutes).
+//
+// GOLDEN GRID — the ELABORATED package listing, one real v1.87 golden per arm
+// (`tools/probe/r11u54repro/grid`, every arm `golden_rc=0 ours_rc=0`):
+//   vb1  P1 `C0+2'b01` / P2 `~C0` / P3 `C0?C3:C0` / P5 `(C3)` / P6 `2'(C3)` /
+//        P7 `C3+1` / Q0 `pk::C3` / Q1 `pk::C3+2'b01`   SUBSTITUTE (we agree)
+//        P4 `{C0}`                                      KEPT     (we over-fold the leaf)
+//   vb2  K1 `{C0,C3}` / K2 `{2'b01,2'b10}` / K6 localparam / K7 nested
+//                                                       KEPT     (leaf over-fold)
+//        K3 `{2{C0}}` / K4 `{C0}+4'b0001`               KEPT     (WHOLE-expr over-fold)
+//   wb1  S1 `<<` / S2 `?:` / S3 `&` / S7 part-selects / S10 `4'(C0+C3)` /
+//        S11 `-C0` / T1 cross-package `+`                SUBSTITUTE (we agree)
+//        S4 concat / S5 concat-in-branch(substitutes) /
+//        S6 `4'({2{...}})` / S8 localparam `{2{...}}` /
+//        S9 `{C0,4'h5}` / S12 `{...}&4'hF` / T0 / T2     KEPT
+// Module scope is OUT of the law: golden folds the same concats whole there
+// (`vb2`'s module controls `M1`/`M2`, `b2`), so the gate stays `inPackage`.
+static bool concatBearing54(const Expression& e0) {
+    const Expression* e = &e0;
+    while (e->kind == ExpressionKind::Conversion)
+        e = &e->as<ConversionExpression>().operand();
+    switch (e->kind) {
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+            return true;
+        case ExpressionKind::UnaryOp:
+            return concatBearing54(e->as<UnaryExpression>().operand());
+        case ExpressionKind::BinaryOp:
+            return concatBearing54(e->as<BinaryExpression>().left()) ||
+                   concatBearing54(e->as<BinaryExpression>().right());
+        default:
+            // A conditional (the SELECTED-BRANCH rule above; its CONDITION is
+            // the measured residue, not a claim), a select, a call and every
+            // leaf answer NO: the pristine binary folds them and golden
+            // substitutes them.
+            return false;
+    }
+}
+
 bool UhdmExporter::cliOverridden(const ParameterSymbol& ps) const {
     if (cliParams.empty() || cliParams.find(std::string(ps.name)) == cliParams.end())
         return false;
@@ -11475,19 +11559,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // inits keep the operation in both views.
                 else if (!ps.getType().getCanonicalType().isString() &&
                          !srlgElabUnreducibleCall(*init) &&
-                         !(inPackage && [&] {
-                             // A pkg param whose init is a concatenation — or
-                             // an explicit size/type cast wrapping one, e.g.
-                             // 3'({3'({3'h1})}) — keeps the operation in the
-                             // elab view (Surelog leaves the cast/concat tree
-                             // unfolded rather than reducing it to a constant).
-                             const Expression* e = &stripImplicitConv(*init);
-                             while (e->kind == ExpressionKind::Conversion &&
-                                    !e->as<ConversionExpression>().isImplicit())
-                                 e = &stripImplicitConv(
-                                     e->as<ConversionExpression>().operand());
-                             return e->kind == ExpressionKind::Concatenation;
-                         }()) &&
+                         // § pkgElabConcatTreeNoFold54 (r11u54) — ROAD B.  A
+                         // pkg param whose init is a concatenation — or an
+                         // explicit size/type cast wrapping one, e.g.
+                         // 3'({3'({3'h1})}) — keeps the operation in the elab
+                         // view (Surelog leaves the cast/concat tree unfolded
+                         // rather than reducing it to a constant).  WIDENED
+                         // from "a concatenation at the top, under casts" to
+                         // the producer's own recursion: a REPLICATION counts
+                         // too, and a concat/replication buried under a binary
+                         // or unary operation refuses the whole substitution
+                         // (`substituteAssignedValue` recurses into operands).
+                         // A conditional does NOT recurse — see the law.
+                         !(inPackage && concatBearing54(*init)) &&
                          // A materialized IMPORTED param's concat init keeps
                          // the operation in the elab view too (Surelog).
                          !(isImported && stripImplicitConv(*init).kind ==
@@ -15079,6 +15163,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 pkgElabSymOperands = ((inPackage && topView) ||
                                       (!inPackage && isImported)) &&
                                      packedDimCount(ps.getType()) > 1;
+                // § pkgElabConcatTreeNoFold54 (r11u54) — ROAD B, the LEAF half
+                // of the same law.  A concat/replication tree that SURVIVES in
+                // the elaborated package listing is the DEFINITION listing's
+                // tree, so its `ref_obj` leaves survive with their `vpiActual`
+                // too — golden keeps `ref_obj (pk::C0)` inside `{C0, C3}`,
+                // `{C0}` and `{C0, 4'h5}` in the elab copy where we folded
+                // each leaf to a constant (`vb1` P4, `vb2` K1/K6/K7, `wb1`
+                // S9).  The Reduce::No road this flag already names for a
+                // MULTIDIMENSIONAL parameter is the same road: nothing in the
+                // tree is reduced, so nothing in it is substituted.
+                if (inPackage && topView && concatBearing54(*init))
+                    pkgElabSymOperands = true;
                 // Same Reduce::No gate, MODULE scope: a multidimensional
                 // localparam's elab Rhs is copied from the def form, so the
                 // call arguments inside it are not reduced either (the

@@ -1,0 +1,69 @@
+LHS:
+decompile:
+operation: , id:1177, line:26:30, endln:26:56
+|vpiParent:
+\_param_assign: , id:1166, line:26:25, endln:26:56
+|vpiOpType:33
+|vpiReordered:1
+|vpiOperand:
+\_ref_obj: (pk2::pk::C3), id:1179, line:26:44, endln:26:55
+  |vpiParent:
+  \_operation: , id:1177, line:26:30, endln:26:56
+  |vpiName:pk::C3
+  |vpiFullName:pk2::pk::C3
+  |vpiActual:
+  \_parameter: (pk::C3), id:27, line:9:26, endln:9:28
+|vpiOperand:
+\_ref_obj: (pk2::pk::C0), id:1178, line:26:31, endln:26:42
+  |vpiParent:
+  \_operation: , id:1177, line:26:30, endln:26:56
+  |vpiName:pk::C0
+  |vpiFullName:pk2::pk::C0
+  |vpiActual:
+  \_parameter: (pk::C0), id:8, line:8:26, endln:8:28
+RHS:
+decompile:
+operation: , id:175, line:26:30, endln:26:56
+|vpiParent:
+\_param_assign: , id:174, line:26:25, endln:26:56
+|vpiOpType:33
+|vpiOperand:
+\_part_select: C0 (pk2::C0), id:176, line:26:31, endln:26:42
+  |vpiParent:
+  \_operation: , id:175, line:26:30, endln:26:56
+  |vpiName:C0
+  |vpiFullName:pk2::C0
+  |vpiDefName:C0
+  |vpiConstantSelect:1
+  |vpiLeftRange:
+  \_constant: , id:177, line:26:38, endln:26:39
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:178, line:26:40, endln:26:41
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiOperand:
+\_part_select: C3 (pk2::C3), id:179, line:26:44, endln:26:55
+  |vpiParent:
+  \_operation: , id:175, line:26:30, endln:26:56
+  |vpiName:C3
+  |vpiFullName:pk2::C3
+  |vpiDefName:C3
+  |vpiConstantSelect:1
+  |vpiLeftRange:
+  \_constant: , id:180, line:26:51, endln:26:52
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:181, line:26:53, endln:26:54
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

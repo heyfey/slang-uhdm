@@ -1,0 +1,41 @@
+LHS:
+decompile:
+operation: , id:44, line:4:30, endln:4:41
+|vpiParent:
+\_param_assign: , id:33, line:4:25, endln:4:41
+|vpiOpType:33
+|vpiReordered:1
+|vpiOperand:
+\_constant: , id:46, line:4:35, endln:4:40
+  |vpiDecompile:2'b11
+  |vpiSize:2
+  |BIN:11
+  |vpiConstType:3
+|vpiOperand:
+\_ref_obj: (pk::C0), id:45, line:4:31, endln:4:33
+  |vpiParent:
+  \_operation: , id:44, line:4:30, endln:4:41
+  |vpiName:C0
+  |vpiFullName:pk::C0
+  |vpiActual:
+  \_constant: , id:21, line:3:30, endln:3:35
+RHS:
+decompile:
+operation: , id:76, line:4:30, endln:4:41
+|vpiParent:
+\_param_assign: , id:75, line:4:25, endln:4:41
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:78, line:4:31, endln:4:33
+  |vpiParent:
+  \_operation: , id:76, line:4:30, endln:4:41
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:79, line:4:35, endln:4:40
+  |vpiDecompile:2'b11
+  |vpiSize:2
+  |BIN:11
+  |vpiConstType:3

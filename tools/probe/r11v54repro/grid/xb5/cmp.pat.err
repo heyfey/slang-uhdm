@@ -1,0 +1,32 @@
+LHS:
+decompile:
+constant: , id:115, line:7:30, endln:7:33
+|vpiParent:
+\_param_assign: , id:109, line:7:25, endln:7:33
+|vpiDecompile:1.5
+|vpiSize:32
+|REAL:1.500000
+|vpiTypespec:
+\_ref_typespec: (pk), id:116
+  |vpiParent:
+  \_constant: , id:115, line:7:30, endln:7:33
+  |vpiFullName:pk
+  |vpiActual:
+  \_real_typespec: , id:104, line:7:13, endln:7:17
+|vpiConstType:2
+RHS:
+decompile:
+constant: , id:109, line:7:30, endln:7:33
+|vpiParent:
+\_param_assign: , id:108, line:7:25, endln:7:33
+|vpiDecompile:1.500000
+|vpiSize:64
+|REAL:1.500000
+|vpiTypespec:
+\_ref_typespec: (pk), id:110
+  |vpiParent:
+  \_constant: , id:109, line:7:30, endln:7:33
+  |vpiFullName:pk
+  |vpiActual:
+  \_real_typespec: , id:111, line:7:13, endln:7:17
+|vpiConstType:2
