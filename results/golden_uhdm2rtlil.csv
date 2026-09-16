@@ -740,7 +740,7 @@ struct_param_field_shift,default,CMP_EQUAL,,,differ
 struct_param_func_arg,default,CMP_EQUAL,,,differ
 struct_param_func_config,default,CMP_EQUAL,,,differ
 struct_param_func_loop,default,CMP_EQUAL,,,differ
-struct_param_pattern_packing,default,CMP_NOTEQUAL,decompile:,,
+struct_param_pattern_packing,default,CMP_EQUAL,,,differ
 struct_param_repl_count,default,CMP_EQUAL,,,differ
 struct_part_select_write,default,CMP_EQUAL,,,match
 struct_pat_fill,default,CMP_EQUAL,,,match
@@ -1611,7 +1611,7 @@ struct_param_field_shift,testflags,CMP_EQUAL,,,differ
 struct_param_func_arg,testflags,CMP_EQUAL,,,differ
 struct_param_func_config,testflags,CMP_EQUAL,,,differ
 struct_param_func_loop,testflags,CMP_EQUAL,,,differ
-struct_param_pattern_packing,testflags,CMP_NOTEQUAL,decompile:,,
+struct_param_pattern_packing,testflags,CMP_EQUAL,,,differ
 struct_param_repl_count,testflags,CMP_EQUAL,,,differ
 struct_part_select_write,testflags,CMP_EQUAL,,,match
 struct_pat_fill,testflags,CMP_EQUAL,,,match

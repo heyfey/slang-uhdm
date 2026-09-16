@@ -1,0 +1,102 @@
+r11v55 — ADVERSARIAL VERIFICATION GATES.  Every number below was produced from
+binaries built in this verifier's OWN worktrees at 455f226d; nothing is carried
+forward from the implementer's report.
+
+BINARIES (all frozen `chmod 555` before any sweep)
+  pristine  490c201cceef32cff72cfd7192df9396   (byte-identical to the main
+                                                tree's build at 455f226d)
+  law       0ae83e6a68ff28835665185e522f14a8   (= the implementer's final md5)
+  fix       3adf163eba2a507938ba380cad920ccc   (law + §
+                                                caStructParamPatternSubstCastFence55v)
+
+(1) BUILD.  Both worktrees configured Release against ~/.local slang + UHDM,
+    `cmake --build build -j 2`, 0 errors, md5s taken separately.
+
+(2) GOLDENS.  law: PASS=23 FAIL=0.  fix: PASS=23 FAIL=0.
+    NEGATIVE CONTROL `SLANG_UHDM=/bin/false`: PASS=0 FAIL=23.
+
+(3) uhdm2rtlil, BOTH MODES, own --out/--workdir, SLANG_UHDM exported per arm.
+    cmds.txt audited BY BINARY PATH: 1742/1742 per workdir, one path each.
+      pristine  871 rows  default  CMP_EQUAL=784 CMP_NOTEQUAL=20 SLANG_REJECT=67
+                          testflags CMP_EQUAL=784 CMP_NOTEQUAL=20 SLANG_REJECT=67
+                -> CONTROL: 0 rows differ from results/golden_uhdm2rtlil.csv in
+                   either mode (byte-identical join).
+      law       871 rows  default  CMP_EQUAL=785 CMP_NOTEQUAL=19 SLANG_REJECT=67
+                          testflags CMP_EQUAL=785 CMP_NOTEQUAL=19 SLANG_REJECT=67
+      fix       identical to law, both modes.
+    The ONE differing row per mode, quoted:
+      < struct_param_pattern_packing,default,CMP_NOTEQUAL,decompile:,,
+      > struct_param_pattern_packing,default,CMP_EQUAL,,,differ
+      < struct_param_pattern_packing,testflags,CMP_NOTEQUAL,decompile:,,
+      > struct_param_pattern_packing,testflags,CMP_EQUAL,,,differ
+    results/*.csv were READ ONLY; the converted row is quoted, not promoted.
+
+(4) surelog, --mode both, own --out/--workdir.  cmds.txt audited: every one of
+    the 1531 `slang:` invocations names the frozen binary for that arm; the 50
+    without a `slang:` line are rows where slang was never invoked.
+      pristine  default 474 CMP_EQUAL / 9 CMP_NOTEQUAL
+                testflags 469 CMP_EQUAL / 8 CMP_NOTEQUAL
+      law       474/9 + 469/8  — status histograms IDENTICAL to pristine and to
+                results/golden_surelog.csv in both modes.
+      fix       474/9 + 469/8  — same.
+    law vs pristine: 2 differing rows of 1596, both the LowMemLib / LowMemPkg
+    SURELOG_FAIL detail strings that embed the workdir path.
+    fix vs pristine: those 2 plus Earlgrey_0_1/testflags's dump COLUMN reading
+    blank (status stays CMP_EQUAL; its DATABASE pin 59d0ee6d10c3 is intact) —
+    the documented uhdm-dump timeout draw.
+
+(5) BYTEVERIFY (SELFCHECK=1), law/fix workdirs vs THIS pass's OWN pristine
+    workdirs.
+    uhdm2rtlil   law vs pristine   MOVERS 2 / 1608   SELFCHECK 1607/1608
+                 fix vs pristine   MOVERS 2 / 1608   SELFCHECK 1607/1608
+                 fix vs law        MOVERS 0 / 1608
+      both movers are ./default/ and ./testflags/struct_param_pattern_packing,
+      the row PREDICTED BY NAME; the fix's mover hashes equal the law's
+      (7f47687dd5f1 / 4cdcbddd4d8f), so the narrowing is a corpus no-op.
+    surelog      law vs pristine   MOVERS 4 / 960    SELFCHECK 959/960
+                 fix vs pristine   MOVERS 4 / 960    SELFCHECK 959/960
+      MiniAmiq x2 + Scoreboard/default + SeqDriver/testflags.  Attributed
+      ORDER-BLIND (path-normalised, id-stripped, sorted dumps):
+        MiniAmiq/default    delta 44 bytes, 4 lines: UINT:0 / UINT:655 +
+                            the matching vpiDecompile pair
+        MiniAmiq/testflags  delta 42 bytes, the same 4-line class
+        SeqDriver/testflags delta 3 bytes,  the same 4-line class
+        Scoreboard/default  delta 0 bytes,  0 order-blind lines (the documented
+                            ~50/50 coin drawing the same content)
+      POSITIVE CONTROL: the SAME pristine binary run TWICE on MiniAmiq gives a
+      44-byte delta and exactly the same 4-line class (UINT:0 vs UINT:605), so
+      the class is pristine nondeterminism, not the law.  None of these four
+      directories declares a struct-typed parameter read on a cont_assign.
+
+    CANARY PINS (law and fix, both modes, identical to pristine)
+      SVSwitch           4842211c4030   YosysVerx          6ccda350c24a
+      InterfaceModPort   59a365f3ce2c   BlackParrotComplex SAME
+      YosysOldOr         SAME           Earlgrey_0_1       8bdf25272e08 /
+                                                           59d0ee6d10c3
+    CANARY ROWS
+      u2r     canaries ok=8 changed=0;  ctcan2 PASS
+      surelog canaries ok=52 changed=0 (law); ok=51 changed=1 (fix — the
+              Earlgrey dump-column draw above, status unchanged); ctcan2 PASS
+      canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+    UVM family + Earlgrey_0_1 rows under the law: SeqDriver, SimpleUVM,
+    Scoreboard/default, MiniAmiq, BuildUVMPkg, Earlgrey_0_1 all CMP_EQUAL in
+    both modes, unchanged.
+
+(6) THE HEAD AND THE RESIDUE (measured here, both modes, per-mode golden cache
+    entry read from each cmds.txt — the default and testflags goldens are
+    DIFFERENT cache entries, and pointing uhdm-cmp at a path that does not
+    exist returns rc=0 with 0 heads, so each path was stat'd first).
+      pristine head, both modes:
+        LHS: constant @18:34-18:35  |vpiDecompile:3 |vpiSize:32 |UINT:3
+             |vpiConstType:9   (parent cont_assign @40:10-40:24)
+        RHS: hier_path (CFG.n) @40:19-40:24
+      residue, order-blind, path- and id-normalised:
+        golden 3204 (default) / 2694 (testflags) lines
+        pristine ours 2920 / 2410 -> 303 golden-only, 19 ours-only, both modes
+        law ours      3010 / 2500 -> 213 golden-only, 19 ours-only, both modes
+      law and fix: uhdm-cmp rc=0, heads=0, 0 cmp lines, BOTH modes — the row
+      CONVERTS, it does not merely advance.
+
+MOVED-WRONG 0.  AWAY-FROM-GOLDEN 0 (with the fix; the law binary alone moves
+4 cells away in grid arms vv9_cast2, vv1c_cast and vv1_typeset — see README §2).

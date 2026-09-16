@@ -25880,6 +25880,144 @@ static bool cellDbg92() {
     return v;
 }
 
+// ---------------------------------------------------------------------------
+// § caStructParamPatternSubst55 (r11u55) — ROAD E: THE ELABORATED
+// cont_assign's CONSTANT-REDUCING Rhs IS SUBSTITUTED PER INSTANCE.
+//
+// THE PRODUCER.  `UhdmWriter::writeCont_assign` (Surelog v1.87
+// `src/DesignCompile/UhdmWriter.cpp:2090`) walks `netlist->cont_assigns()` —
+// i.e. PER ELABORATED INSTANCE — and at `:2245`, once the pattern-flatten
+// attempts have declined, runs
+//
+//     any* res = m_helper.reduceExpr((expr*)rhs, invalidValue, mod, …);
+//     if (invalidValue == false)
+//       if (res && (res->UhdmType() == uhdmconstant)) {
+//         if (cloned == false) {
+//           assign = clone_tree(assign);  assign->VpiParent(m);
+//           res = m_helper.adjustSize(tps, mod, …, (constant*)res, true);
+//           res->VpiParent(assign); }
+//         assign->Rhs((constant*)res); }
+//
+// The block sits OUTSIDE the `lhs->UhdmType() == uhdmref_obj` test above it
+// and never inspects the Rhs kind, so the honest predicate is *"the Rhs
+// reduces to a constant"* — under ALL SEVEN Lhs kinds (grid `ve1`) and for a
+// field read, a nested field read, an unpacked-array element read and a
+// bit-select of a member alike (grids `ve2`, `ve5`).  The DEFINITION listing
+// always keeps the written expression: `compileContinuousAssignment` compiles
+// it with a hard `Reduce::No` (`CompileHelper.cpp:2500`), and our def view
+// already agrees.
+//
+// WHICH OBJECT, AND AT WHAT WIDTH.  `reduceExpr` hands back the value's own
+// object, so the substituted constant is stamped at the SOURCE OF THE VALUE —
+// the package pattern element's literal (grid `ve4`: `n: 3` -> the `3`;
+// `m: K + 1` -> the element expression's start, value already reduced to 4;
+// `default: 0` -> the `0` in the default clause) — and carries that literal's
+// own encoding.  `CompileHelper::adjustSize` (`CompileHelper.cpp:4065`) then
+// re-sizes it against `tps`, which `writeCont_assign` fills from
+// `lhs->Typespec()` — a WHOLE-NAME Lhs only.  Measured table, grid
+// `ve6_adjust_table` (member 16 bits, read by an 8 / 16 / 32-bit Lhs):
+//
+//   vpiUIntConst    uniquify-CLONED per assign; value MASKED to the Lhs width
+//                   and the decompile rewritten (300 at a `logic [7:0]` Lhs
+//                   becomes `UINT:44`, size 8); size = the Lhs width.
+//   vpiHexConst     size = the Lhs width; the `16'hBEEF` spelling untouched.
+//   vpiBinaryConst  resized ONLY when SHRINKING (`if (orig_size > size)`),
+//                   value truncated to the low bits; a WIDER Lhs leaves the
+//                   member's own size alone.
+//   vpiDecConst     size untouched — the `c->VpiConstType() != vpiDecConst`
+//                   guard never lets `size` leave `orig_size`.
+//   bit/part-select/array-element Lhs — `tps` is null, `adjustSize` returns
+//                   at once, and the constant keeps the MEMBER's own width.
+//
+// RESIDUE, MEASURED AND DECLINED (grid `ve6_adjust_table`): the Hex, Binary
+// and Dec arms do NOT uniquify, so when ONE member is read by several
+// cont_assigns of the same instance golden shares ONE object between them and
+// the last writer's width wins (`h_nar`/`h_eq`/`h_wid` all read size 32, the
+// widest and last).  We mint a fresh constant per assign.  No row in either
+// corpus reads one member from two Lhs of different widths, so the coupling is
+// corpus-invisible; modelling it would add cross-assign shared state for a
+// cell only this pass's own arm can see.
+//
+// WHAT THIS ADDS TO § structParamSetter.  That arm already models the case
+// where the parameter's OWN initializer is written as an assignment pattern.
+// Three widenings, each with its own measured cell:
+//   (W1) the initializer CHAIN — `parameter p::cfg_t CFG = p::LIT` reaches its
+//        pattern through a reference to a package localparam, which is the
+//        witness `struct_param_pattern_packing`'s shape and `ve1`/`ve4`'s;
+//   (W2) a NESTED read — `OC.sub.n`, `OC.m.a.n` (`ve2`, `ve5`);
+//   (W3) `adjustSize` against the Lhs declaration, which the existing arm
+//        never ran: `ve3_multi_inst`'s inline-pattern instance folds `7` at
+//        size 64 today where golden carries 32.
+//
+// THE FENCE.  A function-BUILT struct parameter (`= p::build()`) never
+// reaches a pattern here and is left to § caAsmMemberSliceFold, which already
+// carries the corpus rows `struct_param_func_arg`, `struct_param_func_loop`
+// and `struct_param_func_config`.  A read whose value is not constant (a
+// struct VARIABLE's field, an interface signal, a non-constant array index)
+// has no pattern element either and keeps the shared def object, exactly as
+// golden does (`ve5` controls `o_var`, `o_ifc`, `o_ridx`).
+
+static bool cellDbg55() {
+    static const bool v = [] {
+        const char* e = getenv("R11U55_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+// Follow a struct-typed parameter's initializer to the assignment pattern that
+// actually gives it its value, through references to OTHER parameters and
+// localparams (`CFG = p::LIT`) and through conversions.  Depth-fenced; returns
+// null the moment the chain reaches anything else — a call, a concatenation,
+// a bare reference to a non-parameter.
+static const slang::ast::StructuredAssignmentPatternExpression*
+structParamPattern55(const Expression* init) {
+    for (int hop = 0; init && hop < 8; ++hop) {
+        auto& ic = stripImplicitConv(*init);
+        if (ic.kind == ExpressionKind::StructuredAssignmentPattern)
+            return &ic.as<StructuredAssignmentPatternExpression>();
+        // § caStructParamPatternSubstCastFence55v (r11v55, VERIFIER FIX) — an
+        // EXPLICIT CAST IN THE CHAIN IS WHERE GOLDEN DECLINES.
+        // `stripImplicitConv` above already removes slang's IMPLICIT
+        // conversions, so the hop that stood here removed only EXPLICIT casts
+        // (`#(.C(p::cfg_t'(p::OTHER)))`, `localparam cfg_t L = cfg_t'('{…}`).
+        // MEASURED, grid `vv9_cast2` (both binaries rc=0, legal SV): for
+        // `leaf #(.C(p::cfg_t'(p::OTHER)))` golden's `writeCont_assign`
+        // reduce DECLINES — its elaborated `u_c` cont_assigns carry NO own
+        // Rhs and share the definition object — and the PRISTINE binary
+        // agrees with it, while the hop made us substitute `31`@11:33 and
+        // `16'h00EF`@11:40.  That is pristine-right -> patched-wrong on a
+        // compilable design, so the chain stops at an explicit cast.  Arm
+        // `vv1c_cast` shows the same decline for a cast-written package
+        // localparam (unmeasurable as a cell: our emitter rejects that source
+        // with rc=4, `expression kind: Invalid`).  Removing the hop can only
+        // turn a substitution back into the pristine share — it never widens.
+        if (ic.kind == ExpressionKind::NamedValue &&
+            ic.as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter) {
+            init = ic.as<NamedValueExpression>()
+                       .symbol.as<ParameterSymbol>()
+                       .getInitializer();
+            continue;
+        }
+        return nullptr;
+    }
+    return nullptr;
+}
+
+// The pattern element that sets ONE member of a structured pattern.  A named
+// setter wins; `default:` fills in for a member the pattern never names.  A
+// TYPE setter (`'{int: 0}`) is declined — the value it stands for is not the
+// element's own literal and this law's whole point is the literal's location
+// and encoding.
+static const Expression* patMemberSetter55(
+    const slang::ast::StructuredAssignmentPatternExpression& ap,
+    const Symbol& member) {
+    for (auto& ms : ap.memberSetters)
+        if (ms.member == &member)
+            return ms.expr;
+    return ap.defaultSetter;
+}
+
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instance* m,
                                    const std::string& prefix, NetMap& netMap, bool topView,
                                    DefInfo* defInfo, bool shareWithDef,
@@ -26920,32 +27058,84 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // the ELAB view to the member's pattern-setter constant (fresh CA,
         // def CA not shared).
         const Expression* structParamSetter = nullptr;
+        // § caStructParamPatternSubst55 — the MEMBER whose declared width the
+        // producer's reduce product carries before `adjustSize` runs, and
+        // whether the read reached the pattern through a chain (W1/W2) rather
+        // than off the parameter's own literal pattern.  Both are recorded so
+        // the emission site can size the constant the way `adjustSize` does.
+        const Type* spsMemberTy55 = nullptr;
+        // THE Lhs FENCE ON THE WIDENINGS.  Every struct-param dotted read in
+        // either corpus is written onto a WHOLE NAME (census `shapes55.py`:
+        // 23 directories, no site with a select Lhs), and the arms that carry
+        // a bit-select / part-select / array-element Lhs today — the
+        // `callIdxLhs` def-share and the general fold — are large families
+        // this law has no measurement for.  Golden folds under all seven Lhs
+        // kinds (`ve1`); we widen only where the corpus reads, and the other
+        // three cells are recorded as measured residues.
+        const bool plainLhs55 =
+            stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
         if (topView) {
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::MemberAccess) {
-                auto& ma = rc.as<MemberAccessExpression>();
-                auto& base = stripImplicitConv(ma.value());
-                if (base.kind == ExpressionKind::NamedValue &&
-                    base.as<NamedValueExpression>().symbol.kind ==
+                // Collect the member chain from the read down to its base:
+                // `OC.sub.n` gives [n, sub] and a base of `OC`.
+                std::vector<const MemberAccessExpression*> chain55;
+                const Expression* base = &rc;
+                for (int hop = 0; hop < 8 &&
+                                  base->kind == ExpressionKind::MemberAccess;
+                     ++hop) {
+                    chain55.push_back(&base->as<MemberAccessExpression>());
+                    base = &stripImplicitConv(
+                        base->as<MemberAccessExpression>().value());
+                }
+                if (base->kind == ExpressionKind::NamedValue &&
+                    base->as<NamedValueExpression>().symbol.kind ==
                         SymbolKind::Parameter) {
-                    auto& psym = base.as<NamedValueExpression>()
+                    auto& psym = base->as<NamedValueExpression>()
                                      .symbol.as<ParameterSymbol>();
                     if (psym.getType().getCanonicalType().kind ==
                         SymbolKind::PackedStructType) {
-                        if (auto pinit = psym.getInitializer()) {
-                            auto& ic = stripImplicitConv(*pinit);
-                            if (ic.kind ==
-                                ExpressionKind::StructuredAssignmentPattern) {
-                                auto& ap =
-                                    ic.as<StructuredAssignmentPatternExpression>();
-                                for (auto& ms : ap.memberSetters)
-                                    if (ms.member == &ma.member) {
-                                        structParamSetter = ms.expr;
-                                        break;
-                                    }
-                                if (!structParamSetter)
-                                    structParamSetter = ap.defaultSetter;
-                            }
+                        auto* init55 = psym.getInitializer();
+                        // The PRISTINE shape, unchanged and unfenced: the
+                        // parameter's own initializer IS the pattern and the
+                        // read is one level deep.
+                        bool ownPat55 =
+                            init55 &&
+                            stripImplicitConv(*init55).kind ==
+                                ExpressionKind::StructuredAssignmentPattern;
+                        // W1: follow `CFG = p::LIT` to the package
+                        // localparam's own pattern.
+                        auto* ap = structParamPattern55(init55);
+                        // W2: descend one pattern per member, OUTERMOST LAST
+                        // (the chain was collected inside-out).
+                        const Expression* set55 = nullptr;
+                        const Type* mty55 = nullptr;
+                        // EVERY level must be consumed.  If an intermediate
+                        // member's setter is not itself a pattern (nor a
+                        // reference that reaches one), the walk stops holding
+                        // the OUTER member's expression, which is not the value
+                        // the read asks for — decline rather than substitute it.
+                        size_t used55 = 0;
+                        for (size_t i = chain55.size(); ap && i-- > 0;) {
+                            set55 = patMemberSetter55(*ap, chain55[i]->member);
+                            if (!set55)
+                                break;
+                            mty55 = &chain55[i]->member.as<ValueSymbol>().getType();
+                            ++used55;
+                            ap = i ? structParamPattern55(set55) : nullptr;
+                        }
+                        bool whole55 = set55 && used55 == chain55.size();
+                        bool bottomed55 =
+                            whole55 &&
+                            stripImplicitConv(*set55).kind !=
+                                ExpressionKind::StructuredAssignmentPattern;
+                        if (whole55 && chain55.size() == 1 && ownPat55) {
+                            structParamSetter = set55;   // pristine
+                            spsMemberTy55 = plainLhs55 ? mty55 : nullptr;
+                        }
+                        else if (bottomed55 && plainLhs55) {
+                            structParamSetter = set55;   // W1 / W2
+                            spsMemberTy55 = mty55;
                         }
                     }
                 }
@@ -29754,11 +29944,111 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
         // Struct-param member access folds to the member's setter constant
         // (source encoding + setter loc, parented at the ca).
+        // § caStructParamPatternSubst55 CELL TRACE.  `R11U55_CELLDBG=1` names
+        // EVERY cont_assign that reaches this site, with the predicate's
+        // answer and the object the emission produced — not only the shape the
+        // law intends to change, so a row moved by accident cannot hide.
+        if (cellDbg55() && topView)
+            fprintf(stderr,
+                    "R11U55CELL %s:%d sps=%d rhsPre=%s plainLhs=%d\n",
+                    prefix.c_str(), (int)assign.sourceRange.start().offset(),
+                    structParamSetter ? 1 : 0,
+                    rhs ? UHDM::UhdmName(rhs->UhdmType()).data() : "-",
+                    (int)plainLhs);
         if (!rhs && topView && structParamSetter) {
             bool fsp = forceConstParent;
             forceConstParent = true;
             rhs = emitExpr(*structParamSetter, ca, prefix, netMap);
             forceConstParent = fsp;
+            // § caStructParamPatternSubst55 — THE VALUE IS ALREADY REDUCED.
+            // `reduceExpr` hands back a CONSTANT even when the pattern element
+            // is written as an expression: `m: K + 1` substitutes `UINT:4` at
+            // the element expression's own start, not an operation (`ve4`).
+            // Our `emitExpr` of the element gives the operation, so fold it
+            // here, at the member's declared width and the setter's span.
+            if (spsMemberTy55 && rhs &&
+                rhs->UhdmType() != UHDM::uhdmconstant) {
+                ASTContext ctx55(comp.getRoot(), LookupLocation::max);
+                ConstantValue cv55 = ctx55.tryEval(*structParamSetter);
+                auto mw0 = (int32_t)spsMemberTy55->getBitWidth();
+                if (cv55 && cv55.isInteger() && !cv55.integer().hasUnknown() &&
+                    cv55.integer().getBitWidth() <= 64 && mw0 > 0) {
+                    if (auto u55 = cv55.integer().as<uint64_t>()) {
+                        auto* c55 = s.MakeConstant();
+                        std::string d55 = std::to_string(*u55);
+                        c55->VpiDecompile(d55);
+                        c55->VpiValue("UINT:" + d55);
+                        c55->VpiConstType(vpiUIntConst);
+                        c55->VpiSize(mw0);
+                        c55->VpiParent(ca);
+                        setLoc(c55, stripImplicitConv(*structParamSetter)
+                                        .sourceRange);
+                        rhs = c55;
+                    }
+                }
+            }
+            // § caStructParamPatternSubst55 (W3) — `adjustSize`, which this
+            // arm never ran.  The reduce product enters at the MEMBER's own
+            // declared width; `writeCont_assign` then fills `tps` from
+            // `lhs->Typespec()` — a WHOLE-NAME Lhs only, which is exactly what
+            // `caLhsAdjustBind106` binds — and `adjustSize` re-stamps a clone
+            // per the table in the § block above.  With no `tps` (a
+            // bit-select, part-select or unpacked-array-element Lhs)
+            // `adjustSize` returns at once and the member width stands.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant && spsMemberTy55) {
+                auto* c55 = (UHDM::constant*)rhs;
+                auto mw55 = (int32_t)spsMemberTy55->getBitWidth();
+                // The producer reduces the member to ITS OWN declared width
+                // before any Lhs is consulted; our `emitExpr` of the bare
+                // element expression carries slang's context width instead
+                // (an unsized `7` arrives at 64).  Restamp first, then adjust.
+                if (mw55 > 0 && c55->VpiConstType() == vpiUIntConst)
+                    c55->VpiSize(mw55);
+                std::string ln55;
+                int32_t lw55 = 0;
+                if (caLhsAdjustBind106(ae.left(), lw55, ln55) && lw55 > 0) {
+                    auto ct55 = c55->VpiConstType();
+                    int32_t os55 = c55->VpiSize();
+                    if (ct55 == vpiUIntConst) {
+                        // The UINT arm masks the value to the new width and
+                        // rewrites the decompile with it (`ve6`: 300 at a
+                        // `logic [7:0]` Lhs is `UINT:44`, size 8).
+                        std::string_view v55 = c55->VpiValue();
+                        auto colon55 = v55.find(':');
+                        uint64_t uv55 = 0;
+                        if (colon55 != std::string_view::npos)
+                            uv55 = (uint64_t)std::strtoull(
+                                std::string(v55.substr(colon55 + 1)).c_str(),
+                                nullptr, 10);
+                        if (lw55 < 64)
+                            uv55 &= ((uint64_t)1 << lw55) - 1;
+                        c55->VpiValue("UINT:" + std::to_string(uv55));
+                        c55->VpiDecompile(std::to_string(uv55));
+                        c55->VpiSize(lw55);
+                    }
+                    else if (ct55 == vpiBinaryConst) {
+                        // Shrink only, low bits kept; a wider Lhs is a no-op.
+                        if (os55 > lw55) {
+                            std::string_view v55 = c55->VpiValue();
+                            auto colon55 = v55.find(':');
+                            std::string d55(
+                                colon55 != std::string_view::npos
+                                    ? v55.substr(colon55 + 1)
+                                    : v55);
+                            if ((int32_t)d55.size() > os55 - lw55)
+                                d55.erase(0, (size_t)(os55 - lw55));
+                            c55->VpiValue("BIN:" + d55);
+                            c55->VpiDecompile(d55);
+                            c55->VpiSize(lw55);
+                        }
+                    }
+                    else if (ct55 != vpiDecConst) {
+                        // Hex (and the rest): the width follows the Lhs, the
+                        // source spelling is untouched.
+                        c55->VpiSize(lw55);
+                    }
+                }
+            }
         }
         // A MEMBER-select (hier_path) LHS with a literal RHS gets a BARE
         // loc-only Rhs constant in the elab view — Surelog does not re-parent

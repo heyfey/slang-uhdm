@@ -1,0 +1,298 @@
+########## vv1a_pos
+--- gold.law
+ELAB ca@8:10      LHS=ref_obj((work@dut.o_n))   @8:10      RHS=constant        @4:28      vpiDecompile:3 vpiSize:32 vpiConstType:9
+ELAB ca@9:10      LHS=ref_obj((work@dut.o_h))   @9:10      RHS=constant        @4:31      vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5
+--- ours.pris
+ELAB ca@8:10      LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@9:10      LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.law
+ELAB ca@8:10      LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@9:10      LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.fix
+ELAB ca@8:10      LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@9:10      LHS=<none>                    @-         RHS=<none>          @-         
+########## vv1b_repl
+--- gold.law
+ELAB ca@8:10      LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@9:10      LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.pris
+ELAB ca@8:10      LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@9:10      LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.law
+ELAB ca@8:10      LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@9:10      LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.fix
+ELAB ca@8:10      LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@9:10      LHS=<none>                    @-         RHS=<none>          @-         
+########## vv2_chain
+--- gold.law
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_mid.u_thru.o_n))@20:10     RHS=constant        @16:32     vpiDecompile:55 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_mid.u_thru.o_b))@21:10     RHS=constant        @16:42     vpiDecompile:64'h3000 vpiSize:64 vpiConstType:5
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_2hop.o_n))@20:10     RHS=constant        @15:32     vpiDecompile:21 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_2hop.o_b))@21:10     RHS=constant        @15:42     vpiDecompile:64'h2000 vpiSize:64 vpiConstType:5
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_dflt.o_n))@20:10     RHS=constant        @14:32     vpiDecompile:3 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_dflt.o_b))@21:10     RHS=constant        @14:42     vpiDecompile:64'h1000 vpiSize:64 vpiConstType:5
+--- ours.pris
+ELAB ca@20:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@21:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@20:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@21:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@20:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@21:10     LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.law
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_mid.u_thru.o_n))@20:10     RHS=constant        @16:32     vpiDecompile:55 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_mid.u_thru.o_b))@21:10     RHS=constant        @16:42     vpiDecompile:64'h3000 vpiSize:64 vpiConstType:5
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_2hop.o_n))@20:10     RHS=constant        @15:32     vpiDecompile:21 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_2hop.o_b))@21:10     RHS=constant        @15:42     vpiDecompile:64'h2000 vpiSize:64 vpiConstType:5
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_dflt.o_n))@20:10     RHS=constant        @14:32     vpiDecompile:3 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_dflt.o_b))@21:10     RHS=constant        @14:42     vpiDecompile:64'h1000 vpiSize:64 vpiConstType:5
+--- ours.fix
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_mid.u_thru.o_n))@20:10     RHS=constant        @16:32     vpiDecompile:55 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_mid.u_thru.o_b))@21:10     RHS=constant        @16:42     vpiDecompile:64'h3000 vpiSize:64 vpiConstType:5
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_2hop.o_n))@20:10     RHS=constant        @15:32     vpiDecompile:21 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_2hop.o_b))@21:10     RHS=constant        @15:42     vpiDecompile:64'h2000 vpiSize:64 vpiConstType:5
+ELAB ca@20:10     LHS=ref_obj((work@dut.u_dflt.o_n))@20:10     RHS=constant        @14:32     vpiDecompile:3 vpiSize:32 vpiConstType:9
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_dflt.o_b))@21:10     RHS=constant        @14:42     vpiDecompile:64'h1000 vpiSize:64 vpiConstType:5
+########## vv3_default
+--- gold.law
+ELAB ca@26:10     LHS=ref_obj((work@dut.o_8))   @26:10     RHS=constant        @14:39     vpiDecompile:4294967295 vpiSize:32 vpiConstType:9
+ELAB ca@27:10     LHS=ref_obj((work@dut.o_16))  @27:10     RHS=constant        @14:39     vpiDecompile:4294967295 vpiSize:32 vpiConstType:9
+ELAB ca@28:10     LHS=ref_obj((work@dut.o_32))  @28:10     RHS=constant        @14:39     vpiDecompile:4294967295 vpiSize:32 vpiConstType:9
+ELAB ca@29:10     LHS=ref_obj((work@dut.o_s))   @29:10     RHS=constant        @19:31     vpiDecompile:-1 vpiSize:32 vpiConstType:7
+ELAB ca@30:10     LHS=ref_obj((work@dut.o_u))   @30:10     RHS=constant        @19:38     vpiDecompile:7 vpiSize:32 vpiConstType:9
+--- ours.pris
+ELAB ca@26:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@27:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@28:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@29:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@30:10     LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.law
+ELAB ca@26:10     LHS=ref_obj((work@dut.o_8))   @26:10     RHS=constant        @14:39     vpiDecompile:'1 vpiSize:-1 vpiConstType:3
+ELAB ca@27:10     LHS=ref_obj((work@dut.o_16))  @27:10     RHS=constant        @14:39     vpiDecompile:'1 vpiSize:-1 vpiConstType:3
+ELAB ca@28:10     LHS=ref_obj((work@dut.o_32))  @28:10     RHS=constant        @14:39     vpiDecompile:'1 vpiSize:-1 vpiConstType:3
+ELAB ca@29:10     LHS=ref_obj((work@dut.o_s))   @29:10     RHS=constant        @19:31     vpiDecompile:4294967295 vpiSize:32 vpiConstType:9
+ELAB ca@30:10     LHS=ref_obj((work@dut.o_u))   @30:10     RHS=constant        @19:38     vpiDecompile:7 vpiSize:32 vpiConstType:9
+--- ours.fix
+ELAB ca@26:10     LHS=ref_obj((work@dut.o_8))   @26:10     RHS=constant        @14:39     vpiDecompile:'1 vpiSize:-1 vpiConstType:3
+ELAB ca@27:10     LHS=ref_obj((work@dut.o_16))  @27:10     RHS=constant        @14:39     vpiDecompile:'1 vpiSize:-1 vpiConstType:3
+ELAB ca@28:10     LHS=ref_obj((work@dut.o_32))  @28:10     RHS=constant        @14:39     vpiDecompile:'1 vpiSize:-1 vpiConstType:3
+ELAB ca@29:10     LHS=ref_obj((work@dut.o_s))   @29:10     RHS=constant        @19:31     vpiDecompile:4294967295 vpiSize:32 vpiConstType:9
+ELAB ca@30:10     LHS=ref_obj((work@dut.o_u))   @30:10     RHS=constant        @19:38     vpiDecompile:7 vpiSize:32 vpiConstType:9
+########## vv4_singleread
+--- gold.law
+ELAB ca@19:10     LHS=ref_obj((work@dut.u_n.u_o))@19:10     RHS=constant        @14:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@19:29     LHS=ref_obj((work@dut.u_n.h_o))@19:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+ELAB ca@19:48     LHS=ref_obj((work@dut.u_n.b_o))@19:48     RHS=constant        @14:52     vpiDecompile:11000011 vpiSize:8 vpiConstType:3
+ELAB ca@19:67     LHS=ref_obj((work@dut.u_n.d_o))@19:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_e.u_o))@24:10     RHS=constant        @14:31     vpiDecompile:300 vpiSize:32 vpiConstType:9
+ELAB ca@24:29     LHS=ref_obj((work@dut.u_e.h_o))@24:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:16 vpiConstType:5
+ELAB ca@24:48     LHS=ref_obj((work@dut.u_e.b_o))@24:48     RHS=constant        @14:52     vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+ELAB ca@24:67     LHS=ref_obj((work@dut.u_e.d_o))@24:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+ELAB ca@29:10     LHS=ref_obj((work@dut.u_w.u_o))@29:10     RHS=constant        @14:31     vpiDecompile:300 vpiSize:64 vpiConstType:9
+ELAB ca@29:29     LHS=ref_obj((work@dut.u_w.h_o))@29:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5
+ELAB ca@29:48     LHS=ref_obj((work@dut.u_w.b_o))@29:48     RHS=constant        @14:52     vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+ELAB ca@29:67     LHS=ref_obj((work@dut.u_w.d_o))@29:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+--- ours.pris
+ELAB ca@19:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@19:29     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@19:48     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@19:67     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@24:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@24:29     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@24:48     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@24:67     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@29:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@29:29     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@29:48     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@29:67     LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.law
+ELAB ca@19:10     LHS=ref_obj((work@dut.u_n.u_o))@19:10     RHS=constant        @14:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@19:29     LHS=ref_obj((work@dut.u_n.h_o))@19:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+ELAB ca@19:48     LHS=ref_obj((work@dut.u_n.b_o))@19:48     RHS=constant        @14:52     vpiDecompile:11000011 vpiSize:8 vpiConstType:3
+ELAB ca@19:67     LHS=ref_obj((work@dut.u_n.d_o))@19:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_e.u_o))@24:10     RHS=constant        @14:31     vpiDecompile:300 vpiSize:32 vpiConstType:9
+ELAB ca@24:29     LHS=ref_obj((work@dut.u_e.h_o))@24:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:16 vpiConstType:5
+ELAB ca@24:48     LHS=ref_obj((work@dut.u_e.b_o))@24:48     RHS=constant        @14:52     vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+ELAB ca@24:67     LHS=ref_obj((work@dut.u_e.d_o))@24:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+ELAB ca@29:10     LHS=ref_obj((work@dut.u_w.u_o))@29:10     RHS=constant        @14:31     vpiDecompile:300 vpiSize:64 vpiConstType:9
+ELAB ca@29:29     LHS=ref_obj((work@dut.u_w.h_o))@29:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5
+ELAB ca@29:48     LHS=ref_obj((work@dut.u_w.b_o))@29:48     RHS=constant        @14:52     vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+ELAB ca@29:67     LHS=ref_obj((work@dut.u_w.d_o))@29:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+--- ours.fix
+ELAB ca@19:10     LHS=ref_obj((work@dut.u_n.u_o))@19:10     RHS=constant        @14:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@19:29     LHS=ref_obj((work@dut.u_n.h_o))@19:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+ELAB ca@19:48     LHS=ref_obj((work@dut.u_n.b_o))@19:48     RHS=constant        @14:52     vpiDecompile:11000011 vpiSize:8 vpiConstType:3
+ELAB ca@19:67     LHS=ref_obj((work@dut.u_n.d_o))@19:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_e.u_o))@24:10     RHS=constant        @14:31     vpiDecompile:300 vpiSize:32 vpiConstType:9
+ELAB ca@24:29     LHS=ref_obj((work@dut.u_e.h_o))@24:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:16 vpiConstType:5
+ELAB ca@24:48     LHS=ref_obj((work@dut.u_e.b_o))@24:48     RHS=constant        @14:52     vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+ELAB ca@24:67     LHS=ref_obj((work@dut.u_e.d_o))@24:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+ELAB ca@29:10     LHS=ref_obj((work@dut.u_w.u_o))@29:10     RHS=constant        @14:31     vpiDecompile:300 vpiSize:64 vpiConstType:9
+ELAB ca@29:29     LHS=ref_obj((work@dut.u_w.h_o))@29:29     RHS=constant        @14:39     vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5
+ELAB ca@29:48     LHS=ref_obj((work@dut.u_w.b_o))@29:48     RHS=constant        @14:52     vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+ELAB ca@29:67     LHS=ref_obj((work@dut.u_w.d_o))@29:67     RHS=constant        @14:80     vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+########## vv5_deepmulti
+--- gold.law
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_def.o_n))@24:10     RHS=constant        @17:41     vpiDecompile:5 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_def.o_w))@25:10     RHS=constant        @17:47     vpiDecompile:16'h00AA vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_def.o_k))@26:10     RHS=constant        @17:61     vpiDecompile:9 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_ovr.o_n))@24:10     RHS=constant        @18:41     vpiDecompile:31 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_ovr.o_w))@25:10     RHS=constant        @18:48     vpiDecompile:16'h00CC vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_ovr.o_k))@26:10     RHS=constant        @18:62     vpiDecompile:13 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_part.o_n))@24:10     RHS=constant        @16:33     vpiDecompile:17 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_part.o_w))@25:10     RHS=constant        @16:40     vpiDecompile:16'h00BB vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_part.o_k))@26:10     RHS=constant        @19:44     vpiDecompile:77 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_mix.o_n))@24:10     RHS=constant        @35:26     vpiDecompile:41 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_mix.o_w))@25:10     RHS=constant        @35:33     vpiDecompile:16'h00DD vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_mix.o_k))@26:10     RHS=constant        @35:47     vpiDecompile:99 vpiSize:32 vpiConstType:9
+--- ours.pris
+ELAB ca@24:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@25:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@26:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@24:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@25:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@26:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@24:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@25:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@26:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@24:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@25:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_mix.o_k))@26:10     RHS=constant        @35:47     vpiDecompile:99 vpiSize:64 vpiConstType:9
+--- ours.law
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_def.o_n))@24:10     RHS=constant        @17:41     vpiDecompile:5 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_def.o_w))@25:10     RHS=constant        @17:47     vpiDecompile:16'h00AA vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_def.o_k))@26:10     RHS=constant        @17:61     vpiDecompile:9 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_ovr.o_n))@24:10     RHS=constant        @18:41     vpiDecompile:31 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_ovr.o_w))@25:10     RHS=constant        @18:48     vpiDecompile:16'h00CC vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_ovr.o_k))@26:10     RHS=constant        @18:62     vpiDecompile:13 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_part.o_n))@24:10     RHS=constant        @16:33     vpiDecompile:17 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_part.o_w))@25:10     RHS=constant        @16:40     vpiDecompile:16'h00BB vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_part.o_k))@26:10     RHS=constant        @19:44     vpiDecompile:77 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_mix.o_n))@24:10     RHS=constant        @35:26     vpiDecompile:41 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_mix.o_w))@25:10     RHS=constant        @35:33     vpiDecompile:16'h00DD vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_mix.o_k))@26:10     RHS=constant        @35:47     vpiDecompile:99 vpiSize:32 vpiConstType:9
+--- ours.fix
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_def.o_n))@24:10     RHS=constant        @17:41     vpiDecompile:5 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_def.o_w))@25:10     RHS=constant        @17:47     vpiDecompile:16'h00AA vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_def.o_k))@26:10     RHS=constant        @17:61     vpiDecompile:9 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_ovr.o_n))@24:10     RHS=constant        @18:41     vpiDecompile:31 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_ovr.o_w))@25:10     RHS=constant        @18:48     vpiDecompile:16'h00CC vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_ovr.o_k))@26:10     RHS=constant        @18:62     vpiDecompile:13 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_part.o_n))@24:10     RHS=constant        @16:33     vpiDecompile:17 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_part.o_w))@25:10     RHS=constant        @16:40     vpiDecompile:16'h00BB vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_part.o_k))@26:10     RHS=constant        @19:44     vpiDecompile:77 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.u_mix.o_n))@24:10     RHS=constant        @35:26     vpiDecompile:41 vpiSize:32 vpiConstType:9
+ELAB ca@25:10     LHS=ref_obj((work@dut.u_mix.o_w))@25:10     RHS=constant        @35:33     vpiDecompile:16'h00DD vpiSize:32 vpiConstType:5
+ELAB ca@26:10     LHS=ref_obj((work@dut.u_mix.o_k))@26:10     RHS=constant        @35:47     vpiDecompile:99 vpiSize:32 vpiConstType:9
+########## vv6_edge
+--- gold.law
+ELAB ca@22:10     LHS=ref_obj((work@dut.o_wide))@22:10     RHS=constant        @14:34     vpiDecompile:96'hDEADBEEFCAFEBABE12345678 vpiSize:96 vpiConstType:5
+ELAB ca@23:10     LHS=ref_obj((work@dut.o_ev))  @23:10     RHS=constant        @15:34     vpiDecompile:9 vpiSize:32 vpiConstType:7
+ELAB ca@24:10     LHS=ref_obj((work@dut.o_xz))  @24:10     RHS=constant        @16:34     vpiDecompile:8'b1010xx01 vpiSize:8 vpiConstType:3
+ELAB ca@25:10     LHS=ref_obj((work@dut.o_ok))  @25:10     RHS=constant        @17:34     vpiDecompile:8'd7 vpiSize:8 vpiConstType:1
+--- ours.pris
+ELAB ca@22:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@23:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@24:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@25:10     LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.law
+ELAB ca@22:10     LHS=ref_obj((work@dut.o_wide))@22:10     RHS=constant        @14:34     vpiDecompile:96'hDEADBEEFCAFEBABE12345678 vpiSize:96 vpiConstType:5
+ELAB ca@23:10     LHS=ref_obj((work@dut.o_ev))  @23:10     RHS=constant        @15:34     vpiDecompile:9 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.o_xz))  @24:10     RHS=constant        @16:34     vpiDecompile:8'b1010xx01 vpiSize:8 vpiConstType:3
+ELAB ca@25:10     LHS=ref_obj((work@dut.o_ok))  @25:10     RHS=constant        @17:34     vpiDecompile:8'd7 vpiSize:8 vpiConstType:1
+--- ours.fix
+ELAB ca@22:10     LHS=ref_obj((work@dut.o_wide))@22:10     RHS=constant        @14:34     vpiDecompile:96'hDEADBEEFCAFEBABE12345678 vpiSize:96 vpiConstType:5
+ELAB ca@23:10     LHS=ref_obj((work@dut.o_ev))  @23:10     RHS=constant        @15:34     vpiDecompile:9 vpiSize:32 vpiConstType:9
+ELAB ca@24:10     LHS=ref_obj((work@dut.o_xz))  @24:10     RHS=constant        @16:34     vpiDecompile:8'b1010xx01 vpiSize:8 vpiConstType:3
+ELAB ca@25:10     LHS=ref_obj((work@dut.o_ok))  @25:10     RHS=constant        @17:34     vpiDecompile:8'd7 vpiSize:8 vpiConstType:1
+########## vv7_gensubst
+--- gold.law
+ELAB ca@22:10     LHS=ref_obj((work@dut.o_a1))  @22:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@23:10     LHS=ref_obj((work@dut.o_a2))  @23:10     RHS=constant        @13:43     
+ELAB ca@24:10     LHS=ref_obj((work@dut.o_a32)) @24:10     RHS=constant        @13:43     
+ELAB ca@25:10     LHS=ref_obj((work@dut.o_q2))  @25:10     RHS=constant        @14:43     vpiDecompile:0 vpiSize:1 vpiConstType:3
+ELAB ca@26:10     LHS=ref_obj((work@dut.o_q1))  @26:10     RHS=constant        @14:43     
+ELAB ca@27:10     LHS=ref_obj((work@dut.o_n8))  @27:10     RHS=constant        @14:53     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@28:10     LHS=ref_obj((work@dut.o_n32)) @28:10     RHS=constant        @14:53     vpiDecompile:300 vpiSize:32 vpiConstType:9
+--- ours.pris
+ELAB ca@22:10     LHS=ref_obj((work@dut.o_a1))  @22:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@23:10     LHS=ref_obj((work@dut.o_a2))  @23:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@24:10     LHS=ref_obj((work@dut.o_a32)) @24:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@25:10     LHS=ref_obj((work@dut.o_q2))  @25:10     RHS=constant        @14:43     vpiDecompile:2'b10 vpiSize:2 vpiConstType:3
+ELAB ca@26:10     LHS=ref_obj((work@dut.o_q1))  @26:10     RHS=constant        @14:43     vpiDecompile:2'b10 vpiSize:2 vpiConstType:3
+ELAB ca@27:10     LHS=ref_obj((work@dut.o_n8))  @27:10     RHS=constant        @14:53     vpiDecompile:300 vpiSize:64 vpiConstType:9
+ELAB ca@28:10     LHS=ref_obj((work@dut.o_n32)) @28:10     RHS=constant        @14:53     vpiDecompile:300 vpiSize:64 vpiConstType:9
+--- ours.law
+ELAB ca@22:10     LHS=ref_obj((work@dut.o_a1))  @22:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@23:10     LHS=ref_obj((work@dut.o_a2))  @23:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@24:10     LHS=ref_obj((work@dut.o_a32)) @24:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@25:10     LHS=ref_obj((work@dut.o_q2))  @25:10     RHS=constant        @14:43     vpiDecompile:2'b10 vpiSize:2 vpiConstType:3
+ELAB ca@26:10     LHS=ref_obj((work@dut.o_q1))  @26:10     RHS=constant        @14:43     vpiDecompile:0 vpiSize:1 vpiConstType:3
+ELAB ca@27:10     LHS=ref_obj((work@dut.o_n8))  @27:10     RHS=constant        @14:53     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@28:10     LHS=ref_obj((work@dut.o_n32)) @28:10     RHS=constant        @14:53     vpiDecompile:300 vpiSize:32 vpiConstType:9
+--- ours.fix
+ELAB ca@22:10     LHS=ref_obj((work@dut.o_a1))  @22:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@23:10     LHS=ref_obj((work@dut.o_a2))  @23:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@24:10     LHS=ref_obj((work@dut.o_a32)) @24:10     RHS=constant        @13:43     vpiDecompile:1'b1 vpiSize:1 vpiConstType:3
+ELAB ca@25:10     LHS=ref_obj((work@dut.o_q2))  @25:10     RHS=constant        @14:43     vpiDecompile:2'b10 vpiSize:2 vpiConstType:3
+ELAB ca@26:10     LHS=ref_obj((work@dut.o_q1))  @26:10     RHS=constant        @14:43     vpiDecompile:0 vpiSize:1 vpiConstType:3
+ELAB ca@27:10     LHS=ref_obj((work@dut.o_n8))  @27:10     RHS=constant        @14:53     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@28:10     LHS=ref_obj((work@dut.o_n32)) @28:10     RHS=constant        @14:53     vpiDecompile:300 vpiSize:32 vpiConstType:9
+########## vv8_sharemut
+--- gold.law
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_a.o_n))@15:10     RHS=constant        @12:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@15:29     LHS=ref_obj((work@dut.u_a.o_h))@15:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+ELAB ca@18:10     LHS=ref_obj((work@dut.u_b.o_n))@18:10     RHS=constant        @12:31     vpiDecompile:300 vpiSize:32 vpiConstType:9
+ELAB ca@18:29     LHS=ref_obj((work@dut.u_b.o_h))@18:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_c.o_n))@21:10     RHS=constant        @12:31     vpiDecompile:300 vpiSize:64 vpiConstType:9
+ELAB ca@21:29     LHS=ref_obj((work@dut.u_c.o_h))@21:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:64 vpiConstType:5
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_d.o_n))@15:10     RHS=constant        @12:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@15:29     LHS=ref_obj((work@dut.u_d.o_h))@15:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+--- ours.pris
+ELAB ca@15:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@15:29     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@18:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@18:29     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@21:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@21:29     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@15:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@15:29     LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.law
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_a.o_n))@15:10     RHS=constant        @12:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@15:29     LHS=ref_obj((work@dut.u_a.o_h))@15:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+ELAB ca@18:10     LHS=ref_obj((work@dut.u_b.o_n))@18:10     RHS=constant        @12:31     vpiDecompile:300 vpiSize:32 vpiConstType:9
+ELAB ca@18:29     LHS=ref_obj((work@dut.u_b.o_h))@18:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_c.o_n))@21:10     RHS=constant        @12:31     vpiDecompile:300 vpiSize:64 vpiConstType:9
+ELAB ca@21:29     LHS=ref_obj((work@dut.u_c.o_h))@21:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:64 vpiConstType:5
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_d.o_n))@15:10     RHS=constant        @12:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@15:29     LHS=ref_obj((work@dut.u_d.o_h))@15:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+--- ours.fix
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_a.o_n))@15:10     RHS=constant        @12:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@15:29     LHS=ref_obj((work@dut.u_a.o_h))@15:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+ELAB ca@18:10     LHS=ref_obj((work@dut.u_b.o_n))@18:10     RHS=constant        @12:31     vpiDecompile:300 vpiSize:32 vpiConstType:9
+ELAB ca@18:29     LHS=ref_obj((work@dut.u_b.o_h))@18:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5
+ELAB ca@21:10     LHS=ref_obj((work@dut.u_c.o_n))@21:10     RHS=constant        @12:31     vpiDecompile:300 vpiSize:64 vpiConstType:9
+ELAB ca@21:29     LHS=ref_obj((work@dut.u_c.o_h))@21:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:64 vpiConstType:5
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_d.o_n))@15:10     RHS=constant        @12:31     vpiDecompile:44 vpiSize:8 vpiConstType:9
+ELAB ca@15:29     LHS=ref_obj((work@dut.u_d.o_h))@15:29     RHS=constant        @12:39     vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5
+########## vv9_cast2
+--- gold.law
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_p.o_n))@15:10     RHS=constant        @10:33     vpiDecompile:12 vpiSize:32 vpiConstType:9
+ELAB ca@16:10     LHS=ref_obj((work@dut.u_p.o_h))@16:10     RHS=constant        @10:40     vpiDecompile:16'h00CD vpiSize:32 vpiConstType:5
+ELAB ca@15:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@16:10     LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.pris
+ELAB ca@15:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@16:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@15:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@16:10     LHS=<none>                    @-         RHS=<none>          @-         
+--- ours.law
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_p.o_n))@15:10     RHS=constant        @10:33     vpiDecompile:12 vpiSize:32 vpiConstType:9
+ELAB ca@16:10     LHS=ref_obj((work@dut.u_p.o_h))@16:10     RHS=constant        @10:40     vpiDecompile:16'h00CD vpiSize:32 vpiConstType:5
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_c.o_n))@15:10     RHS=constant        @11:33     vpiDecompile:31 vpiSize:32 vpiConstType:9
+ELAB ca@16:10     LHS=ref_obj((work@dut.u_c.o_h))@16:10     RHS=constant        @11:40     vpiDecompile:16'h00EF vpiSize:32 vpiConstType:5
+--- ours.fix
+ELAB ca@15:10     LHS=ref_obj((work@dut.u_p.o_n))@15:10     RHS=constant        @10:33     vpiDecompile:12 vpiSize:32 vpiConstType:9
+ELAB ca@16:10     LHS=ref_obj((work@dut.u_p.o_h))@16:10     RHS=constant        @10:40     vpiDecompile:16'h00CD vpiSize:32 vpiConstType:5
+ELAB ca@15:10     LHS=<none>                    @-         RHS=<none>          @-         
+ELAB ca@16:10     LHS=<none>                    @-         RHS=<none>          @-         

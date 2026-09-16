@@ -1,0 +1,105 @@
+r11u55 — A-PRIORI MOVER PREDICTION, made and written down BEFORE the law-binary
+sweeps, from the source-text census (`shapes55.py`, evidence/CENSUS.txt) plus a
+read of each directory's actual construct.
+
+23 directories in the two corpora declare a user-typed parameter and read a
+dotted name off it on a continuous assign.  Each is scored move-or-stay with
+the REASON, so a row that moves without a reason here is a regression.
+
+Dirs that CANNOT move (no judged database at this pin) — 5
+  Ariane2024                   sl3p  default SLANG_REJECT / testflags NO_DATABASE
+  Earlgrey_Verilator_01_05_21  sl3p  DEFERRED both modes
+  Earlgrey_nexysvideo          sl3p  DEFERRED both modes
+  IncompTitan                  sl3p  SLANG_REJECT both modes
+  cva6_equiv                   u2r   not a discovered row in either CSV
+
+Judged CMP_EQUAL — must STAY equal — 13 rows x 2 modes
+  ImportedDoubleCastedParameter  STAY  `assign o = 32'(A.Prefix)` — an EXPLICIT
+                                       cast wraps the read, so the Rhs is a
+                                       Conversion, not a MemberAccess.
+  PackStructField                STAY  `my_package::my_parameter.a`, own inline
+                                       pattern, plain Lhs: the PRISTINE arm
+                                       already fires.  W3 is a no-op — the
+                                       setter is `1'b1` (BIN size 1) and the
+                                       Lhs `my_struct` is 2 bits, so the
+                                       shrink-only Bin rule never triggers.
+  StructLocalParam               STAY  `P.a`, own pattern, `1'b1` onto a 1-bit
+                                       Lhs: pristine arm, W3 a no-op.
+  StructParameter                STAY  same construct as StructLocalParam.
+  paramod_struct_param           STAY  `assign o = x ^ CFG.a` — an OPERATION,
+                                       not a bare member read.
+  param_struct_field_bitsel      STAY  `TBL[sel_i].flags` — the chain bottoms on
+                                       an ElementSelect under a NON-constant
+                                       index, never on a NamedValue parameter.
+  param_unpacked_struct_array    STAY  same (`TBL[sel_i].accept/code/tag`).
+  struct_param_field_shift       STAY  `Cfg.XLEN_ALIGN_BYTES` inside a
+                                       replication inside a concat, in a
+                                       generate scope — not a bare read.
+  struct_param_func_arg          STAY  `CFG = p::build()` is FUNCTION-BUILT;
+                                       the chain reaches a Call, not a pattern.
+                                       Owned by § caAsmMemberSliceFold.
+  struct_param_func_loop         STAY  same.
+  struct_param_func_config       STAY  `Cfg.u.flag1` / `Cfg.u.a`: a DEEP read,
+                                       but `Cfg = build(U)` is function-built,
+                                       so W2 never reaches a pattern.
+  struct_param_repl_count        STAY  `CVA6Cfg.VLEN` inside a replication
+                                       count inside a concat inside a ternary.
+  UnionParameter                 STAY  `LovingHome.bunn1_t ^ din` is an
+                                       operation, and the parameter's canonical
+                                       type is a packed UNION, which the
+                                       PackedStructType test rejects anyway.
+
+Judged CMP_NOTEQUAL — 5 rows
+  StructParamFieldRange            STAY NOTEQUAL  `a_i ? I.x : I.y` — a ternary.
+  cva6_struct_param_field          STAY NOTEQUAL  same construct.
+  StructParamPatternInitCast       STAY NOTEQUAL  `a_i ? INT.S_SW : INT.M_SW`.
+  StructParamFuncBodyFieldCompare  STAY NOTEQUAL  `assign f_o = Cfg.Flag` IS a
+                                   bare read on a plain Lhs, but `Cfg =
+                                   cfg_pkg::build_config(cfg_pkg::Base)` is
+                                   function-built, so the chain reaches a Call.
+                                   (`b_o` is a ternary.)
+  struct_param_pattern_packing     ** MOVE **  the witness: five bare reads
+                                   (`CFG.n`, `CFG.base`, `CFG3.a`, `CFG3.b`,
+                                   `CFG3.c`), all onto whole-name Lhs, and
+                                   `parameter p::cfg_t CFG = p::LIT` is exactly
+                                   W1's chain to a package localparam's
+                                   pattern.  Predicted: the `decompile:` head
+                                   closes; ADVANCE expected, conversion NOT
+                                   promised (303 golden-only dump lines behind
+                                   the head, mostly the `p::cfg_t` function-
+                                   argument typespec family we never emit).
+
+PREDICTION: exactly ONE row moves, in both modes — struct_param_pattern_packing
+— and nothing else in either corpus.
+
+----------------------------------------------------------------------
+MEASURED OUTCOME (law binary md5 328d4e33c1d9ae9e3f7eabf2125a9c78)
+
+uhdm2rtlil, whole-row gate, testflags AND default, vs the committed baselines:
+  1 differing ROW per mode, quoted in full:
+    < struct_param_pattern_packing,testflags,CMP_NOTEQUAL,decompile:,,
+    > struct_param_pattern_packing,testflags,CMP_EQUAL,,,differ
+    < struct_param_pattern_packing,default,CMP_NOTEQUAL,decompile:,,
+    > struct_param_pattern_packing,default,CMP_EQUAL,,,differ
+  status histogram  784 -> 785 CMP_EQUAL,  20 -> 19 CMP_NOTEQUAL, both modes.
+
+byteverify, law workdir vs THIS PASS'S OWN pristine workdir:
+  databases: patched=1608 pristine=1608
+  PATH_SETS_IDENTICAL (1608 paths)
+  MOVER ./default/struct_param_pattern_packing-551f1414/slang.uhdm
+  MOVER ./testflags/struct_param_pattern_packing-551f1414/slang.uhdm
+  MOVERS: 2 / 1608
+  SELFCHECK (positive control, every file vs one fixed file): 1607 / 1608
+  flagged — the comparator can see.
+
+MOVED-WRONG 0.  AWAY-FROM-GOLDEN 0.  The prediction was exact.
+
+The row CONVERTS rather than merely advancing: uhdm-cmp returns rc=0 with
+heads=0 and 0 cmp lines in both modes.  The 303-line dump residue falls to 213
+golden-only (the fold removes 90 lines: the five substituted constants, the
+five cont_assign clones and their attributes); the remaining 213 golden-only
+and 19 ours-only lines are the `p::cfg_t` FUNCTION-ARGUMENT typespec family
+(11 `struct_typespec`, 10 `typespec_member`, 17 `ref_typespec`, 7
+`vpiInstance`, 7 `package`), which the comparator's reachable walk does not
+enter.  The dump column therefore still reads `differ` while the judge reads
+CMP_EQUAL.

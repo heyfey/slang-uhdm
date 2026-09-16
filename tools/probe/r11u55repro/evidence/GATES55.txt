@@ -1,0 +1,135 @@
+r11u55 — GATE TRANSCRIPT.  Binaries frozen at immutable paths before any sweep;
+every cmds.txt audited by BINARY PATH (not by the string "slang-uhdm", which
+also matches slang-uhdm-goldens/).
+
+  pristine  /tmp/r11u55_bin/pris.bin   md5 490c201cceef32cff72cfd7192df9396
+  law       /tmp/r11u55_bin/law2.bin   md5 0ae83e6a68ff28835665185e522f14a8
+
+(An earlier law build, md5 328d4e33c1d9ae9e3f7eabf2125a9c78, was swept and then
+SUPERSEDED: the chain walk was hardened to require every member level to be
+consumed.  Both binaries produce byte-identical uhdm2rtlil databases — the
+mover hashes below match across the two — so the hardening is a measured
+no-op on the corpus and a latent wrong-value fix off it.  Only law2's numbers
+are reported.)
+
+GATE 1 — build both, md5s
+  pristine build in the r11u55 worktree at 455f226d:
+      490c201cceef32cff72cfd7192df9396  build/slang-uhdm
+      490c201cceef32cff72cfd7192df9396  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+  BYTE-IDENTICAL to the main tree at the base commit.  PASS.
+
+GATE 2 — goldens + negative control (law2)
+  bash tests/check_goldens.sh                  -> PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false bash tests/check_goldens.sh -> PASS=0 FAIL=23
+  PASS.
+
+GATE 3 — uhdm2rtlil both modes, whole-row join vs the committed baselines
+  cmds.txt audit: slang:   /tmp/r11u55_bin/law2.bin
+  testflags vs results/gate_uhdm2rtlil.csv
+      871 baseline ROWS, 871 fresh ROWS
+      1 differing ROW:
+        < struct_param_pattern_packing,testflags,CMP_NOTEQUAL,decompile:,,
+        > struct_param_pattern_packing,testflags,CMP_EQUAL,,,differ
+      status  784 -> 785 CMP_EQUAL, 20 -> 19 CMP_NOTEQUAL, 67 SLANG_REJECT
+      dump    248 -> 249 differ, 536 match, 87 -> 86 blank
+  default vs the default half of results/golden_uhdm2rtlil.csv
+      1 differing ROW:
+        < struct_param_pattern_packing,default,CMP_NOTEQUAL,decompile:,,
+        > struct_param_pattern_packing,default,CMP_EQUAL,,,differ
+      status  784 -> 785 CMP_EQUAL, 20 -> 19 CMP_NOTEQUAL, 67 SLANG_REJECT
+  results/*.csv were READ ONLY.  The CONVERTED row is quoted above and NOT
+  edited into the baselines by this pass.
+  Control: the PRISTINE binary's own sweep of both modes is byte-identical to
+  the committed baselines (ct8rows "PASS: every row byte-identical" on each),
+  so the one moved row is attributable to the law and to nothing else.
+
+GATE 5 — byteverify, SELFCHECK=1, law workdir vs THIS PASS'S OWN pristine workdir
+  databases: patched=1608 pristine=1608
+  PATH_SETS_IDENTICAL (1608 paths)
+  MOVER ./default/struct_param_pattern_packing-551f1414/slang.uhdm
+        patched=7f47687dd5f1 pristine=b90078b3bd2e
+  MOVER ./testflags/struct_param_pattern_packing-551f1414/slang.uhdm
+        patched=4cdcbddd4d8f pristine=68f2cde388af
+  MOVERS: 2 / 1608
+  SELFCHECK (positive control, every file vs one fixed file): 1607 / 1608
+  flagged — the comparator is not blind.
+  Both movers were PREDICTED BY NAME before the sweep (evidence/PREDICT55.txt).
+
+GATE 4 — Surelog suite, --mode both, whole-row join
+  cmds.txt audit: slang:   /tmp/r11u55_bin/law2.bin
+  vs results/golden_surelog.csv: 3 differing ROWS, none a law mover:
+    < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+    > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+        the DUMP COLUMN reads blank — the documented uhdm-dump timeout draw.
+        It reads exactly the same on THIS PASS'S PRISTINE sweep, and the
+        DATABASE byte-compare (the actual pin) is 59d0ee6d10c3, unchanged.
+    < LowMemLib,testflags,SURELOG_FAIL,…"/tmp/m187base/sl/wd/testflags/…",,
+    > LowMemLib,testflags,SURELOG_FAIL,…"/tmp/r11u55_wd/lsl/testflags/…",,
+    < LowMemPkg,testflags,SURELOG_FAIL,…"/tmp/m187base/sl/wd/testflags/…",,
+    > LowMemPkg,testflags,SURELOG_FAIL,…"/tmp/r11u55_wd/lsl/testflags/…",,
+        a SURELOG_FAIL detail string that embeds the WORKDIR PATH.
+  status  default   474 CMP_EQUAL /  9 CMP_NOTEQUAL  — UNCHANGED
+  status  testflags 469 CMP_EQUAL /  8 CMP_NOTEQUAL  — UNCHANGED
+  vs THIS PASS'S OWN PRISTINE surelog sweep: only the two LowMem path strings
+  differ; the Earlgrey dump-column draw agrees between the two sweeps.
+  The CMP_NOTEQUAL SET is IDENTICAL between pristine and law (name, mode and
+  head field), so no surelog row advanced or regressed.
+
+GATE 5b — byteverify, SELFCHECK=1, surelog law workdir vs pristine workdir
+  databases: patched=960 pristine=960
+  PATH_SETS_IDENTICAL (960 paths)
+  MOVER ./default/MiniAmiq-544c7f61/slang.uhdm
+  MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm
+  MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm
+  MOVERS: 3 / 960
+  SELFCHECK (positive control): 959 / 960 flagged.
+
+  ATTRIBUTION — all three are the documented per-invocation COIN, not the law.
+  Order-blind (both dumps sorted, workdir normalised) each mover is EXACTLY the
+  4-line UINT/vpiDecompile LINE-NUMBER class:
+      MiniAmiq/default    UINT:784  -> UINT:627   (+ the same pair as decompile)
+      MiniAmiq/testflags  UINT:1489 -> UINT:0
+      SeqDriver/testflags UINT:0    -> UINT:1235
+  POSITIVE CONTROL that this is a coin and not the law: the SAME PRISTINE
+  BINARY run twice on MiniAmiq/default gives two different databases
+  (f9c38712c2d8 vs 8a1b5930abe4, identical byte size) whose order-blind diff is
+  the SAME 4-line class (UINT:852 vs UINT:942).  Neither MiniAmiq nor SeqDriver
+  appears in the 23-directory boundary census, and neither declares a
+  struct-typed parameter read on a continuous assign, so the law's predicate
+  cannot fire in either.
+  All five UVM-family rows and Earlgrey_0_1 stay CONVERTED: rowheads.sh reports
+  cmplines=0 heads=0 cmp rc=0 for SeqDriver, SimpleUVM, Scoreboard/default,
+  MiniAmiq, BuildUVMPkg and Earlgrey_0_1 in both measured modes
+  (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected).
+  Rggen/default reads 64 cmplines / 1 head on BOTH binaries.
+
+CANARY BYTE PINS (law workdir vs pristine workdir, both modes)
+  SVSwitch            4842211c4030 / 4842211c4030   SAME — the brief's pin
+  YosysVerx           6ccda350c24a / 6ccda350c24a   SAME — the brief's pin
+  InterfaceModPort    59a365f3ce2c / 59a365f3ce2c   SAME — the brief's pin
+  BlackParrotComplex  default e3e354129d5a, testflags 73a10e8217e5   SAME
+  YosysOldOr          d68e0796d62c both modes       SAME
+  Earlgrey_0_1        default 8bdf25272e08, testflags 59d0ee6d10c3   SAME
+                      — both the brief's pins.
+
+CANARIES
+  canaries.sh  /tmp/r11u55_wd/lu2r_tf.csv results/gate_uhdm2rtlil.csv
+      ---- canary rows: ok=8 changed=0 absent=0
+  canaries.sh  /tmp/r11u55_wd/lsl.csv     results/golden_surelog.csv
+      ---- canary rows: ok=51 changed=1 absent=0
+      the ONE changed row is Earlgrey_0_1/testflags CMP_EQUAL/differ ->
+      CMP_EQUAL/<blank>, the dump-column draw described under GATE 4.  The SAME
+      script on THIS PASS'S PRISTINE sweep reports the identical ok=51
+      changed=1 with the identical row, so it is not attributable to the law.
+  EXPECT_UNKNOWN=6 ctcan2.sh results/gate_uhdm2rtlil.csv lu2r_tf.csv
+      PASS: every supplementary canary row is byte-identical to the baseline.
+  EXPECT_UNKNOWN=1 ctcan2.sh results/golden_surelog.csv lsl.csv
+      PASS: every supplementary canary row is byte-identical to the baseline.
+  canaudit.sh canaries.sh ctcan2.sh
+      ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+      PASS: every brief-protected name and family is carried by a script that
+      RUNS here.
+
+FENCE CHECK on the deliverable patch
+  the four slang-fenced names appear ZERO times in the diff (grep over
+  /tmp/r11u55.patch for each: 0 hits).  GOLDEN_DEFER unset throughout.
