@@ -67,7 +67,7 @@ BindModule,default,CMP_EQUAL,,,match
 BindModuleWithInputPorts,default,CMP_EQUAL,,,match
 BindModuleWithInputPortsInGenScope,default,CMP_EQUAL,,,match
 BindModuleWithOutputPorts,default,CMP_EQUAL,,,match
-bits_of_type_param,default,CMP_NOTEQUAL,decompile:,,
+bits_of_type_param,default,CMP_EQUAL,,,differ
 BitsCallOnExpression,default,CMP_EQUAL,,,match
 BitsCallOnParametetrizedTypeFromPackage,default,CMP_EQUAL,,,match
 BitsCallOnStructMember,default,CMP_EQUAL,,,match
@@ -938,7 +938,7 @@ BindModule,testflags,CMP_EQUAL,,,match
 BindModuleWithInputPorts,testflags,CMP_EQUAL,,,match
 BindModuleWithInputPortsInGenScope,testflags,CMP_EQUAL,,,match
 BindModuleWithOutputPorts,testflags,CMP_EQUAL,,,match
-bits_of_type_param,testflags,CMP_NOTEQUAL,decompile:,,
+bits_of_type_param,testflags,CMP_EQUAL,,,differ
 BitsCallOnExpression,testflags,CMP_EQUAL,,,match
 BitsCallOnParametetrizedTypeFromPackage,testflags,CMP_EQUAL,,,match
 BitsCallOnStructMember,testflags,CMP_EQUAL,,,match

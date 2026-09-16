@@ -69,6 +69,121 @@ inline const bool lawOff38 = [] {
 }();
 
 // ---------------------------------------------------------------------------
+// § bitsTypeParamArgNeverFolds53 — IS THIS TYPE THE ALIAS SLANG MINTS FOR A
+// `parameter type` / `localparam type`?
+//
+// slang mints a `TypeAliasType` for every type parameter and parents it to the
+// declaring scope (slang `source/ast/symbols/ParameterSymbols.cpp:214-218`);
+// a reference to the parameter's NAME used as a type resolves to that alias.
+// A plain `typedef` produces a `TypeAliasType` too, so the alias kind alone
+// does not separate them — ask the declaring scope which symbol owns the name.
+// The two live on OPPOSITE sides of Surelog's fold gate: a typedef IS in
+// `component->getDataType` and a type parameter is not (the full model is on
+// `UhdmExporter::srlgBitsFoldArg` in src/ExprEmit.cpp), so the question is
+// asked here once and read by both the expression emitter and the parameter
+// emitter, which must not drift apart.  The refusal is NOT unconditional —
+// see § importedTypeShadowsTypeParam53 immediately below, which is the gate.
+// ---------------------------------------------------------------------------
+// § importedTypeShadowsTypeParam53 (v11v53) — DOES A WILDCARD-IMPORTED PACKAGE
+// EXPORT A TYPE UNDER THIS BARE NAME?
+//
+// `getTypespec`'s two-map lookup is not only the component's OWN typedefs:
+// `CompileHelper::importPackage` (Surelog src/DesignCompile/CompileHelper.cpp:
+// 162-169) copies the WHOLE data type map of every imported package into the
+// importing component's map — the same `m_dataTypes` that
+// CompileExpression.cpp:4542 reads.  So when an imported package exports a
+// type whose name is also the module's type parameter's, `getTypespec`
+// RESOLVES the bare name and `compileBits` FOLDS, even though the name a
+// SystemVerilog lookup binds is the local parameter (a local declaration beats
+// a wildcard import, IEEE 1800-2017 26.3).
+//
+// This is not a corner: the corpus witness's own shape names its type
+// parameter exactly as the package typedef it defaults to
+// (`parameter type req_t = pk::req_t`), and real designs write
+// `import pk::*` beside it.  MEASURED on v1.87 goldens
+// (tools/probe/r11v53repro/grid, evidence/VIEWS.txt): golden mints
+// `constant UINT:8` / `UINT:97` in BOTH views for the shadowed name (x1, x9,
+// x10, x11, x15) and DEF-keep / ELAB-fold for the package holder (x13), while
+// an import that does NOT collide keeps the call in both views (x12).  Six
+// faces that are judge-EQUAL at e3a249bd, so an ungated refusal is
+// judge-visible and wrong.
+//
+// The scope chain is climbed because the import may sit in the module header,
+// in the interface header, or at COMPILATION-UNIT scope (arm x9 — golden folds
+// for all three); the package's own wildcard imports are followed one small
+// depth because `Package::append` carries them into its map as well (arm x15).
+// The shadow must be a TYPE: an imported VALUE of the same name is not in the
+// data type map either, and `isType()` keeps the refusal standing there (x14).
+// ---------------------------------------------------------------------------
+inline bool pkgExportsType53(const Scope& pkg, std::string_view name, int depth) {
+    if (auto* m = pkg.find(std::string(name)); m && m->isType())
+        return true;
+    if (depth >= 2)
+        return false;
+    if (auto* wd = pkg.getWildcardImportData()) {
+        for (auto* wi : wd->wildcardImports) {
+            if (const auto* p = wi->getPackage())
+                if (pkgExportsType53(*p, name, depth + 1))
+                    return true;
+        }
+    }
+    return false;
+}
+
+inline bool wildcardImportedType53(const Scope& scope, std::string_view name) {
+    const Scope* s = &scope;
+    for (int guard = 0; s && guard < 64; ++guard) {
+        if (auto* wd = s->getWildcardImportData()) {
+            for (auto* wi : wd->wildcardImports) {
+                if (const auto* p = wi->getPackage())
+                    if (pkgExportsType53(*p, name, 1))
+                        return true;
+            }
+        }
+        auto& sym = s->asSymbol();
+        if (sym.kind == SymbolKind::Root)
+            break;
+        s = sym.getParentScope();
+    }
+    return false;
+}
+
+inline bool typeParamAliasType53(const Type* t) {
+    if (!t || t->kind != SymbolKind::TypeAlias)
+        return false;
+    auto* scope = t->getParentScope();
+    if (!scope)
+        return false;
+    auto* sym = scope->find(std::string(t->name));
+    if (!(sym && sym->kind == SymbolKind::TypeParameter &&
+          &sym->as<TypeParameterSymbol>().getTypeAlias() == t))
+        return false;
+    // § importedTypeShadowsTypeParam53 — an imported package type of the same
+    // name IS in the producer's data type map, so the producer folds.
+    return !wildcardImportedType53(*scope, t->name);
+}
+
+// § bitsTypeParamArgNeverFolds53 — is this WHOLE expression a `$bits` whose
+// argument names a type parameter?  The parameter emitter's ELABORATED arm
+// mints a parameter's folded constant without ever calling `emitExpr`, so it
+// needs the question in this form to dispatch back to the expression emitter.
+inline bool bitsOfTypeParamInit53(const Expression& e0) {
+    const Expression* e = &e0;
+    while (e->kind == ExpressionKind::Conversion &&
+           e->as<ConversionExpression>().isImplicit())
+        e = &e->as<ConversionExpression>().operand();
+    if (e->kind != ExpressionKind::Call)
+        return false;
+    auto& ce = e->as<CallExpression>();
+    if (!ce.isSystemCall() || ce.getSubroutineName() != "$bits" ||
+        ce.arguments().empty())
+        return false;
+    auto* a0 = ce.arguments()[0];
+    return a0->kind == ExpressionKind::DataType &&
+           typeParamAliasType53(a0->type);
+}
+
+// ---------------------------------------------------------------------------
 // § typeParamLocalKeyword18 — the WRITTEN keyword of a TYPE parameter.
 //
 // Surelog stamps `vpiLocalParam` on a `type_parameter` from the DECLARATION

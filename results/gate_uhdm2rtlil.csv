@@ -67,7 +67,7 @@ BindModule,testflags,CMP_EQUAL,,,match
 BindModuleWithInputPorts,testflags,CMP_EQUAL,,,match
 BindModuleWithInputPortsInGenScope,testflags,CMP_EQUAL,,,match
 BindModuleWithOutputPorts,testflags,CMP_EQUAL,,,match
-bits_of_type_param,testflags,CMP_NOTEQUAL,decompile:,,
+bits_of_type_param,testflags,CMP_EQUAL,,,differ
 BitsCallOnExpression,testflags,CMP_EQUAL,,,match
 BitsCallOnParametetrizedTypeFromPackage,testflags,CMP_EQUAL,,,match
 BitsCallOnStructMember,testflags,CMP_EQUAL,,,match

@@ -1,0 +1,57 @@
+u2r	TypeParameterAsPortTypeWithEnum	TPDECL_ONLY no_bits
+u2r	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	TPDECL_ONLY no_bits
+u2r	TypeParameterAsPortTypeWithLogic	TPDECL_ONLY no_bits
+u2r	TypeParameterAsPortTypeWithLogicAnonymous	TPDECL_ONLY no_bits
+u2r	TypeParameterAsPortTypeWithStruct	TPDECL_ONLY no_bits
+u2r	arb_idx_cast	TPDECL_ONLY no_bits
+u2r	bits_of_type_param	TPARG=hpdcache_req_t,req_t
+u2r	cva6_equiv	TPARG=T,btb_prediction_t,code_word_t,data_t,dtype,hpdcache_dir_entry_t,hpdcache_mem_req_t,hpdcache_mem_req_w_t,hpdcache_req_addr_t,hpdcache_req_t,hpdcache_tag_t,parity_t,resp_id_t,resp_t,rtab_entry_t
+u2r	cva6_struct_param_field	TPDECL_ONLY no_bits
+u2r	gen_scope_numports	TPDECL_ONLY no_bits
+u2r	gen_scope_typaram	TPDECL_ONLY no_bits
+u2r	ibex	TPDECL_ONLY bits_args=27
+u2r	packed_array_reset_loop	TPDECL_ONLY no_bits
+u2r	packed_array_struct	TPDECL_ONLY no_bits
+u2r	packed_array_struct_port_sel	TPDECL_ONLY no_bits
+u2r	packed_struct_array_fifo	TPDECL_ONLY no_bits
+u2r	param_name_collision_typeparam	TPDECL_ONLY no_bits
+u2r	param_nested_struct_field_width	TPDECL_ONLY no_bits
+u2r	param_type_logic_width	TPDECL_ONLY bits_args=2
+u2r	port_chained_type_param	TPDECL_ONLY no_bits
+u2r	struct_member_cfg_width	TPDECL_ONLY no_bits
+u2r	top_module_type_param	TPDECL_ONLY no_bits
+u2r	type_param_override_elem_sel	TPARG=id_t,resp_id_t
+u2r	type_param_packed_dim	TPARG=resp_id_t
+u2r	type_param_unpacked_port	TPDECL_ONLY no_bits
+sl	ArianeElab	TPDECL_ONLY no_bits
+sl	ArianeElab2	TPDECL_ONLY no_bits
+sl	ClassScope	TPARG=PARAM_T,T,the_type
+sl	ClassTypeParamAlias	TPDECL_ONLY no_bits
+sl	HierPathPackedVar	TPDECL_ONLY no_bits
+sl	InvalidTypeParam	TPDECL_ONLY no_bits
+sl	PackageTypeParam	TPDECL_ONLY no_bits
+sl	ParamIndex	TPDECL_ONLY no_bits
+sl	StructParamFieldRange	TPDECL_ONLY no_bits
+sl	StructParamFuncBodyFieldCompare	TPDECL_ONLY no_bits
+sl	StructParamPatternInitCast	TPDECL_ONLY no_bits
+sl	TypeParam	TPDECL_ONLY no_bits
+sl	TypeParam2	TPDECL_ONLY no_bits
+sl	TypeParamElab	TPDECL_ONLY no_bits
+sl	TypeParamOverride	TPDECL_ONLY no_bits
+sl	UnitElabExternNested	TPDECL_ONLY no_bits
+sl	VirtualClass	TPDECL_ONLY no_bits
+sl3p	Ariane2024	TPARG=btb_prediction_t,dtype
+sl3p	AzadiRTL	TPDECL_ONLY bits_args=13
+sl3p	Google	TPDECL_ONLY bits_args=4
+sl3p	Ibex	TPDECL_ONLY bits_args=4
+sl3p	Tnoc	TPDECL_ONLY bits_args=19
+sl3p	Verilator	TPARG=bar,three_t
+sl3p	ariane	TPARG=aw_t,data_t
+u2r	bits_of_type_param	N=3	hpdcache_req_t; pk::req_t; req_t
+u2r	cva6_equiv	N=15	T; btb_prediction_t; code_word_t; data_t; dtype; hpdcache_dir_entry_t
+u2r	type_param_override_elem_sel	N=2	id_t; resp_id_t
+u2r	type_param_packed_dim	N=1	resp_id_t
+sl	ClassScope	N=4	PARAM_T; T; prefix``T; the_type
+sl3p	Ariane2024	N=2	btb_prediction_t; dtype
+sl3p	Verilator	N=2	bar; three_t
+sl3p	ariane	N=2	aw_t; data_t

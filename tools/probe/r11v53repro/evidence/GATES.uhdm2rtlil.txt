@@ -1,0 +1,90 @@
+### GATE (1) BUILDS — verifier's own worktrees at e3a249bd, -j 2, md5 separately
+pristine  /tmp/wt_v11u53pris/build/slang-uhdm  7ad7754335b99b206c84ce70148edec3   (== main tree at e3a249bd)
+r11u53    (implementer's patch applied)        603fd453ae8e481417463eada04cabe1   (== implementer's claim)
+verified  (+ importedTypeShadowsTypeParam53)   cf14ad224f6125a553825b3a6d29c842
+
+### GATE (2) GOLDEN DUMP TESTS
+pristine  PASS=23 FAIL=0
+r11u53    PASS=23 FAIL=0
+verified  PASS=23 FAIL=0
+negctl /bin/false  FAIL=23 PASS=0
+
+### GATE (3) uhdm2rtlil, BOTH MODES
+-- pristine
+[default] 871 tests
+  CMP_EQUAL: 783
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 21
+
+[testflags] 871 tests
+  CMP_EQUAL: 783
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 21
+-- r11u53
+[default] 871 tests
+  CMP_EQUAL: 784
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 20
+
+[testflags] 871 tests
+  CMP_EQUAL: 784
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 20
+-- verified
+[default] 871 tests
+  CMP_EQUAL: 784
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 20
+
+[testflags] 871 tests
+  CMP_EQUAL: 784
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 20
+
+-- row-join: pristine vs the committed baseline results/golden_uhdm2rtlil.csv
+PASS: every row byte-identical to the committed baseline
+-- row-join: VERIFIED vs the committed baseline (the ONLY differing rows, quoted)
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< bits_of_type_param,default,CMP_NOTEQUAL,decompile:,,
+< bits_of_type_param,testflags,CMP_NOTEQUAL,decompile:,,
+> bits_of_type_param,default,CMP_EQUAL,,,differ
+> bits_of_type_param,testflags,CMP_EQUAL,,,differ
+-- row-join: VERIFIED vs results/gate_uhdm2rtlil.csv (testflags gate)
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< bits_of_type_param,testflags,CMP_NOTEQUAL,decompile:,,
+> bits_of_type_param,testflags,CMP_EQUAL,,,differ
+
+### binary-path audit of every u2r cmds.txt
+wdp: 1742 cmds.txt, naming: /tmp/v11u53_pris.bin 
+wdq: 1742 cmds.txt, naming: /tmp/v11u53_pat.bin 
+wdr: 1742 cmds.txt, naming: /tmp/v11u53_fix.bin 
+
+### GATE (5) byteverify, uhdm2rtlil, SELFCHECK=1
+-- r11u53 vs pristine
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/bits_of_type_param-064a3e49/slang.uhdm  patched=5d4b73d9854f pristine=64ae6ff4e09e
+MOVER ./default/type_param_override_elem_sel-212ed556/slang.uhdm  patched=685e430b33f9 pristine=767039a29cc0
+MOVER ./default/type_param_packed_dim-2a08511b/slang.uhdm  patched=19db9a52e2d1 pristine=feaccfd1f337
+MOVER ./testflags/bits_of_type_param-064a3e49/slang.uhdm  patched=27b71081e625 pristine=d244c0947e29
+MOVER ./testflags/type_param_override_elem_sel-212ed556/slang.uhdm  patched=94bf6c13e71a pristine=37ce30511bba
+MOVER ./testflags/type_param_packed_dim-2a08511b/slang.uhdm  patched=bcd193f7eb57 pristine=bd63a4e44bde
+MOVERS: 6 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+-- VERIFIED vs pristine
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/bits_of_type_param-064a3e49/slang.uhdm  patched=5d4b73d9854f pristine=64ae6ff4e09e
+MOVER ./default/type_param_override_elem_sel-212ed556/slang.uhdm  patched=685e430b33f9 pristine=767039a29cc0
+MOVER ./default/type_param_packed_dim-2a08511b/slang.uhdm  patched=19db9a52e2d1 pristine=feaccfd1f337
+MOVER ./testflags/bits_of_type_param-064a3e49/slang.uhdm  patched=27b71081e625 pristine=d244c0947e29
+MOVER ./testflags/type_param_override_elem_sel-212ed556/slang.uhdm  patched=94bf6c13e71a pristine=37ce30511bba
+MOVER ./testflags/type_param_packed_dim-2a08511b/slang.uhdm  patched=bcd193f7eb57 pristine=bd63a4e44bde
+MOVERS: 6 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+-- VERIFIED vs r11u53  (the fix must be corpus-invisible)
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+### canaries, uhdm2rtlil (testflags-only CSV, which is what the gate baseline holds)
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.

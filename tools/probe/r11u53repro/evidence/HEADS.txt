@@ -1,0 +1,70 @@
+##### w1_bits_argkind  base head:
+LHS:
+decompile:
+sys_func_call: ($bits), id:77, line:22:23, endln:22:32
+|vpiParent:
+----- pat head:
+LHS:
+decompile:
+sys_func_call: ($bits), id:101, line:26:23, endln:26:35
+|vpiParent:
+##### w2_bits_holder  base head:
+LHS:
+decompile:
+sys_func_call: ($bits), id:44, line:13:25, endln:13:34
+|vpiParent:
+----- pat head:
+LHS:
+decompile:
+func_call: (f), id:116, line:21:23, endln:21:24
+|vpiParent:
+##### w3_typedef_view  base head:
+LHS:
+decompile:
+sys_func_call: ($bits), id:77, line:20:23, endln:20:40
+|vpiParent:
+----- pat head:
+LHS:
+decompile:
+sys_func_call: ($bits), id:77, line:20:23, endln:20:40
+|vpiParent:
+##### w4_bits_iface  base head:
+LHS:
+decompile:
+sys_func_call: ($bits), id:73, line:13:24, endln:13:33
+|vpiParent:
+----- pat head:
+LHS:
+decompile:
+operation: , id:138, line:17:10, endln:17:15
+|vpiParent:
+##### w5_bits_override  base head:
+LHS:
+decompile:
+sys_func_call: ($bits), id:59, line:17:23, endln:17:32
+|vpiParent:
+----- pat head:
+LHS:
+decompile:
+operation: , id:159, line:18:14, endln:18:22
+|vpiParent:
+##### w6_bits_pkgscope  base head:
+LHS:
+decompile:
+package: pk (pk::), id:1, file:/tmp/wt_r11u53/tools/probe/r11u53repro/grid/w6_bits_pkgscope/dut.sv, line:6:1, endln:8:11
+|vpiParent:
+----- pat head:
+LHS:
+decompile:
+package: pk (pk::), id:1, file:/tmp/wt_r11u53/tools/probe/r11u53repro/grid/w6_bits_pkgscope/dut.sv, line:6:1, endln:8:11
+|vpiParent:
+##### w7_bits_inexpr  base head:
+LHS:
+decompile:
+sys_func_call: ($bits), id:51, line:20:29, endln:20:38
+|vpiParent:
+----- pat head:
+LHS:
+decompile:
+operation: , id:91, line:20:24, endln:20:38
+|vpiParent:

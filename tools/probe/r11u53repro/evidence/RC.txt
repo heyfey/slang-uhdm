@@ -1,0 +1,21 @@
+# r11u53 GRID — run53.sh rc lines, both binaries
+# pristine md5 7ad7754335b99b206c84ce70148edec3 (byte-identical to the main tree at e3a249bd)
+# patched  md5 603fd453ae8e481417463eada04cabe1
+
+## base (pristine)
+w1_bits_argkind    golden_rc=0 ours_rc=0 
+w2_bits_holder     golden_rc=0 ours_rc=0 
+w3_typedef_view    golden_rc=0 ours_rc=0 
+w4_bits_iface      golden_rc=0 ours_rc=0 
+w5_bits_override   golden_rc=0 ours_rc=0 
+w6_bits_pkgscope   golden_rc=0 ours_rc=0 
+w7_bits_inexpr     golden_rc=0 ours_rc=0 
+
+## pat (patched)
+w1_bits_argkind    golden_rc=0 ours_rc=0 
+w2_bits_holder     golden_rc=0 ours_rc=0 
+w3_typedef_view    golden_rc=0 ours_rc=0 
+w4_bits_iface      golden_rc=0 ours_rc=0 
+w5_bits_override   golden_rc=0 ours_rc=0 
+w6_bits_pkgscope   golden_rc=0 ours_rc=0 
+w7_bits_inexpr     golden_rc=0 ours_rc=0 

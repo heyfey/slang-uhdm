@@ -10189,6 +10189,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // dispatch explicitly.
             if (init->kind == ExpressionKind::MinTypMax)
                 rhs = emitExpr(*init, pa, prefix, netMap);
+            // § bitsTypeParamArgNeverFolds53 — THE ELABORATED HALF, and it is
+            // the same dispatch for the same reason.  `compileBits`
+            // (Surelog src/DesignCompile/CompileExpression.cpp:4686) can only
+            // fold when `getTypespec` (`:4534`) resolves the argument, and its
+            // two-map lookup (`:4541-4544`) reaches TYPEDEFS and PORTS/SIGNALS
+            // — never the parameter table.  A `parameter type` / `localparam
+            // type` is therefore invisible to it in the ELABORATED compile
+            // too, so golden keeps the `sys_func_call ($bits)` in the
+            // `uhdmtopModules`/`uhdmtopPackages` listing exactly as it does in
+            // the definition one.  This path never reaches `emitExpr` for an
+            // initializer slang has a value for, so dispatch explicitly and
+            // let § bitsTypeParamArgNeverFolds53's gate in
+            // `UhdmExporter::srlgBitsFoldArg` answer.
+            // Measured, tools/probe/r11u53repro/grid — golden KEEPS in both
+            // views for every holder, component kind and binding:
+            //   w1 (module body localparam)   TP / TB / TS / TL  KEEP / KEEP
+            //   w2 (parameter-port-list Rhs)                     KEEP / KEEP
+            //   w4 (interface body localparam)                   KEEP (ELAB)
+            //   w5 (instance override of the type parameter)     KEEP / KEEP
+            //   w6 (elaborated PACKAGE parameter)                KEEP / KEEP
+            // The controls in the same modules (`$bits(pk::req_t)`,
+            // `$bits(pk::byte_t)`, `$bits(logic [9:0])`) fold on both sides.
+            if (!rhs && topView && bitsOfTypeParamInit53(*init))
+                rhs = emitExpr(*init, pa, prefix, netMap);
             // A struct parameter initialized by a MEMBER-BY-MEMBER const
             // function does NOT fold to a constant: Surelog's EvalFunc hands
             // back the function's own struct_var, and the VALUE lives in the

@@ -1,0 +1,114 @@
+# r11u53 SURELOG-CORPUS GATE READINGS (patched vs this pass's own pristine control)
+
+## ct8rows: committed results/golden_surelog.csv -> patched
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u53_wdq/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u53_wdq/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     324      248 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     329      303 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+## ct8rows: own pristine control -> patched
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u53_wdp/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u53_wdq/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u53_wdp/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u53_wdq/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     324      248 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     329      303 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+## byteverify.sh SELFCHECK=1
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=e22a70cacf12 pristine=27419f6011b4
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=21ad8027f4d8 pristine=2fb39f8b4130
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=893957111e62
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=fa39f1dfba4f pristine=05df6c25a21b
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+## order-blind attribution of those movers (uhdm-dump, path- and id-normalised, sorted)
+default MiniAmiq orderblind_diff_lines=4
+<       |UINT:0
+>       |UINT:597
+<       |vpiDecompile:0
+>       |vpiDecompile:597
+default SeqDriver orderblind_diff_lines=4
+<       |UINT:0
+>       |UINT:1420
+<       |vpiDecompile:0
+>       |vpiDecompile:1420
+testflags MiniAmiq orderblind_diff_lines=4
+>       |UINT:0
+<       |UINT:940
+>       |vpiDecompile:0
+<       |vpiDecompile:940
+testflags SeqDriver orderblind_diff_lines=4
+<       |UINT:0
+>       |UINT:556
+<       |vpiDecompile:0
+>       |vpiDecompile:556
+
+[exited with code 0]
+testflags SeqDriver orderblind_diff_lines=4
+<       |UINT:0
+>       |UINT:556
+<       |vpiDecompile:0
+>       |vpiDecompile:556
+
+## PROTECTED DATABASES BY NAME (md5, pristine vs patched)
+default InterfaceModPort pris=59a365f3ce2c pat=59a365f3ce2c SAME
+testflags InterfaceModPort pris=59a365f3ce2c pat=59a365f3ce2c SAME
+default BlackParrotComplex pris=e3e354129d5a pat=e3e354129d5a SAME
+testflags BlackParrotComplex pris=73a10e8217e5 pat=73a10e8217e5 SAME
+default YosysOldOr pris=d68e0796d62c pat=d68e0796d62c SAME
+testflags YosysOldOr pris=d68e0796d62c pat=d68e0796d62c SAME
+default SVSwitch pris=4842211c4030 pat=4842211c4030 SAME
+testflags SVSwitch pris=4842211c4030 pat=4842211c4030 SAME
+default YosysVerx pris=6ccda350c24a pat=6ccda350c24a SAME
+testflags YosysVerx pris=6ccda350c24a pat=6ccda350c24a SAME
+default Earlgrey_0_1 pris=8bdf25272e08 pat=8bdf25272e08 SAME
+testflags Earlgrey_0_1 pris=59d0ee6d10c3 pat=59d0ee6d10c3 SAME
+
+## canaries
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+
+## POSITIVE CONTROL — the PRISTINE binary against ITSELF (two fresh sweeps, no code change)
+MiniAmiq run1=7207abd0e3c0 run2=b8a9547a1f15 sweepPRIS=27419f6011b4 sweepPAT=e22a70cacf12
+SeqDriver run1=2fb39f8b4130 run2=0112568d700f sweepPRIS=2fb39f8b4130 sweepPAT=21ad8027f4d8
+
+PRISTINE-vs-PRISTINE MiniAmiq orderblind_diff_lines=4
+>       |UINT:892
+<       |UINT:905
+>       |vpiDecompile:892
+<       |vpiDecompile:905
+PRISTINE-vs-PRISTINE SeqDriver orderblind_diff_lines=4
+<       |UINT:0
+>       |UINT:590
+<       |vpiDecompile:0
+>       |vpiDecompile:590

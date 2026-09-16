@@ -1,0 +1,45 @@
+# r11u53 SHAPE LISTER — the census's positive control (shape53.sh)
+# Kg/Kours = sys_func_call ($bits) objects per view; TPg/TPours = type_parameter objects.
+# A row with TP=0 on BOTH sides reads OUT-OF-REACH, never as agreement.
+
+## default — PRISTINE
+ROW                                          VIEW      Kg Kours   TPg TPours  VERDICT
+bits_of_type_param-064a3e49                  DEF        2     0     4     5  KEEP-COUNT-DIFFERS
+bits_of_type_param-064a3e49                  ELAB       4     0     6     8  KEEP-COUNT-DIFFERS
+param_type_logic_width-76c151e4              DEF        0     0     2     2  OK
+param_type_logic_width-76c151e4              ELAB       0     0     4     4  OK
+type_param_override_elem_sel-212ed556        DEF        2     0     6     6  KEEP-COUNT-DIFFERS
+type_param_override_elem_sel-212ed556        ELAB       4     0    10    12  KEEP-COUNT-DIFFERS
+type_param_packed_dim-2a08511b               DEF        2     0     6     6  KEEP-COUNT-DIFFERS
+type_param_packed_dim-2a08511b               ELAB       4     0     9    12  KEEP-COUNT-DIFFERS
+## default — PATCHED
+ROW                                          VIEW      Kg Kours   TPg TPours  VERDICT
+bits_of_type_param-064a3e49                  DEF        2     2     4     5  OK
+bits_of_type_param-064a3e49                  ELAB       4     4     6     8  OK
+param_type_logic_width-76c151e4              DEF        0     0     2     2  OK
+param_type_logic_width-76c151e4              ELAB       0     0     4     4  OK
+type_param_override_elem_sel-212ed556        DEF        2     2     6     6  OK
+type_param_override_elem_sel-212ed556        ELAB       4     2    10    12  KEEP-COUNT-DIFFERS
+type_param_packed_dim-2a08511b               DEF        2     2     6     6  OK
+type_param_packed_dim-2a08511b               ELAB       4     2     9    12  KEEP-COUNT-DIFFERS
+
+## testflags — PRISTINE
+ROW                                          VIEW      Kg Kours   TPg TPours  VERDICT
+bits_of_type_param-064a3e49                  DEF        2     0     4     5  KEEP-COUNT-DIFFERS
+bits_of_type_param-064a3e49                  ELAB       4     0     6     8  KEEP-COUNT-DIFFERS
+param_type_logic_width-76c151e4              DEF        0     0     2     2  OK
+param_type_logic_width-76c151e4              ELAB       0     0     2     2  OK
+type_param_override_elem_sel-212ed556        DEF        2     0     6     6  KEEP-COUNT-DIFFERS
+type_param_override_elem_sel-212ed556        ELAB       2     0     4     6  KEEP-COUNT-DIFFERS
+type_param_packed_dim-2a08511b               DEF        2     0     6     6  KEEP-COUNT-DIFFERS
+type_param_packed_dim-2a08511b               ELAB       2     0     3     6  KEEP-COUNT-DIFFERS
+## testflags — PATCHED
+ROW                                          VIEW      Kg Kours   TPg TPours  VERDICT
+bits_of_type_param-064a3e49                  DEF        2     2     4     5  OK
+bits_of_type_param-064a3e49                  ELAB       4     4     6     8  OK
+param_type_logic_width-76c151e4              DEF        0     0     2     2  OK
+param_type_logic_width-76c151e4              ELAB       0     0     2     2  OK
+type_param_override_elem_sel-212ed556        DEF        2     2     6     6  OK
+type_param_override_elem_sel-212ed556        ELAB       2     0     4     6  KEEP-COUNT-DIFFERS
+type_param_packed_dim-2a08511b               DEF        2     2     6     6  OK
+type_param_packed_dim-2a08511b               ELAB       2     0     3     6  KEEP-COUNT-DIFFERS

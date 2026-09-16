@@ -1,0 +1,171 @@
+### GATE (4) SURELOG SUITE, BOTH MODES
+-- pristine
+   [default] 798 tests
+     CMP_EQUAL: 474
+     SLANG_REJECT: 285
+     SURELOG_FAIL: 25
+     CMP_NOTEQUAL: 9
+     DEFERRED: 5
+   [testflags] 798 tests
+     CMP_EQUAL: 469
+     SLANG_REJECT: 286
+     SURELOG_FAIL: 23
+     CMP_NOTEQUAL: 8
+     DEFERRED: 5
+     NO_DATABASE: 3
+     UNTRANSLATABLE: 2
+     TIMEOUT: 1
+     NO_UHDM: 1
+-- r11u53
+   [default] 798 tests
+     CMP_EQUAL: 474
+     SLANG_REJECT: 285
+     SURELOG_FAIL: 25
+     CMP_NOTEQUAL: 9
+     DEFERRED: 5
+   [testflags] 798 tests
+     CMP_EQUAL: 469
+     SLANG_REJECT: 286
+     SURELOG_FAIL: 23
+     CMP_NOTEQUAL: 8
+     DEFERRED: 5
+     NO_DATABASE: 3
+     UNTRANSLATABLE: 2
+     TIMEOUT: 1
+     NO_UHDM: 1
+-- verified
+   [default] 798 tests
+     CMP_EQUAL: 474
+     SLANG_REJECT: 285
+     SURELOG_FAIL: 25
+     CMP_NOTEQUAL: 9
+     DEFERRED: 5
+   [testflags] 798 tests
+     CMP_EQUAL: 469
+     SLANG_REJECT: 286
+     SURELOG_FAIL: 23
+     CMP_NOTEQUAL: 8
+     DEFERRED: 5
+     NO_DATABASE: 3
+     UNTRANSLATABLE: 2
+     TIMEOUT: 1
+     NO_UHDM: 1
+
+-- row-join: pristine vs the committed results/golden_surelog.csv
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsp/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsp/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+-- row-join: r11u53 vs the committed baseline
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsq/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsq/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+-- row-join: VERIFIED vs the committed baseline
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsr/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsr/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+-- row-join: VERIFIED vs MY OWN pristine control (the path-text rows cancel here)
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsp/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsr/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsp/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u53_wsr/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+
+### binary-path audit of every surelog cmds.txt
+wsp: 1581 cmds.txt, naming: /tmp/v11u53_pris.bin 
+wsq: 1581 cmds.txt, naming: /tmp/v11u53_pat.bin 
+wsr: 1581 cmds.txt, naming: /tmp/v11u53_fix.bin 
+
+### GATE (5) byteverify, surelog, SELFCHECK=1
+-- r11u53 vs pristine
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=8fe42eb154d6 pristine=41d6d89bb304
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=d288a352c8eb
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=707b43747923
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=60de92f226dc pristine=d09885873c52
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+-- VERIFIED vs pristine
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=2896b85748fe pristine=41d6d89bb304
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=ca12e694cb0a pristine=d288a352c8eb
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=6e42ef023c12 pristine=707b43747923
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=d09885873c52
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+-- VERIFIED vs r11u53 (the fix must be corpus-invisible)
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=2896b85748fe pristine=8fe42eb154d6
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=ca12e694cb0a pristine=2fb39f8b4130
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=6e42ef023c12 pristine=27419f6011b4
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=60de92f226dc
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+### PROTECTED DATABASES by md5 (12-hex), all three sweeps
+MODE      ROW                  pristine       r11u53         verified      
+default   SVSwitch              4842211c4030 4842211c4030 4842211c4030
+default   YosysVerx             6ccda350c24a 6ccda350c24a 6ccda350c24a
+default   InterfaceModPort      59a365f3ce2c 59a365f3ce2c 59a365f3ce2c
+default   BlackParrotComplex    e3e354129d5a e3e354129d5a e3e354129d5a
+default   YosysOldOr            d68e0796d62c d68e0796d62c d68e0796d62c
+default   Earlgrey_0_1          8bdf25272e08 8bdf25272e08 8bdf25272e08
+testflags SVSwitch              4842211c4030 4842211c4030 4842211c4030
+testflags YosysVerx             6ccda350c24a 6ccda350c24a 6ccda350c24a
+testflags InterfaceModPort      59a365f3ce2c 59a365f3ce2c 59a365f3ce2c
+testflags BlackParrotComplex    73a10e8217e5 73a10e8217e5 73a10e8217e5
+testflags YosysOldOr            d68e0796d62c d68e0796d62c d68e0796d62c
+testflags Earlgrey_0_1          59d0ee6d10c3 59d0ee6d10c3 59d0ee6d10c3
+
+### canaries, surelog
+-- r11u53
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+PASS: every supplementary canary row is byte-identical to the baseline.
+-- verified
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+PASS: every supplementary canary row is byte-identical to the baseline.
+
+### UVM-family row status (must stay CMP_EQUAL both modes)
+BuildUVMPkg      pristine[default,CMP_EQUAL testflags,CMP_EQUAL ] r11u53[default,CMP_EQUAL testflags,CMP_EQUAL ] verified[default,CMP_EQUAL testflags,CMP_EQUAL ]
+MiniAmiq         pristine[default,CMP_EQUAL testflags,CMP_EQUAL ] r11u53[default,CMP_EQUAL testflags,CMP_EQUAL ] verified[default,CMP_EQUAL testflags,CMP_EQUAL ]
+SeqDriver        pristine[default,CMP_EQUAL testflags,CMP_EQUAL ] r11u53[default,CMP_EQUAL testflags,CMP_EQUAL ] verified[default,CMP_EQUAL testflags,CMP_EQUAL ]
+SimpleUVM        pristine[default,CMP_EQUAL testflags,CMP_EQUAL ] r11u53[default,CMP_EQUAL testflags,CMP_EQUAL ] verified[default,CMP_EQUAL testflags,CMP_EQUAL ]
+Scoreboard       pristine[default,CMP_EQUAL testflags,SLANG_REJECT ] r11u53[default,CMP_EQUAL testflags,SLANG_REJECT ] verified[default,CMP_EQUAL testflags,SLANG_REJECT ]
+Earlgrey_0_1     pristine[default,CMP_EQUAL testflags,CMP_EQUAL ] r11u53[default,CMP_EQUAL testflags,CMP_EQUAL ] verified[default,CMP_EQUAL testflags,CMP_EQUAL ]
+
+### MOVER ATTRIBUTION — every surelog mover is the documented UVM-family COIN,
+### proved with a POSITIVE CONTROL (the pristine binary against ITSELF)
+
+-- order-blind whole-dump diff of the four r11u53-vs-pristine movers
+   (uhdm-dump, workdir paths normalised, both sides sorted):
+   default/MiniAmiq    4 lines   UINT:659   <-> UINT:1161   + the two vpiDecompile twins
+   default/SeqDriver   4 lines   UINT:1000  <-> UINT:0      + the two vpiDecompile twins
+   testflags/MiniAmiq  4 lines   UINT:915   <-> UINT:0      + the two vpiDecompile twins
+   testflags/SeqDriver 4 lines   UINT:891   <-> UINT:1319   + the two vpiDecompile twins
+   -- i.e. exactly the 0-or-4-line UINT/vpiDecompile LINE-NUMBER class the ops
+      rules name for this family.  No object appears or disappears.
+
+-- POSITIVE CONTROL 1: the PRISTINE binary run FOUR times on MiniAmiq's own
+   argv gives FOUR DISTINCT databases
+       c0c0c8eaae60   81dad18d43f0   2d3451f0cd1a   391b35b37c8a
+   and pristine-vs-pristine reduces to the SAME 4-line UINT/vpiDecompile class
+   (1053 <-> 1391, 1053 <-> 0, 0 <-> 1061).  The mover is the coin.
+
+-- POSITIVE CONTROL 2: `default/Scoreboard` moved in the VERIFIED sweep and not
+   in the r11u53 one.  Its two databases are the SAME SIZE (11163535 bytes) and
+   the order-blind diff is **0 lines** -- a pure ORDER flip.  The PRISTINE
+   binary run FOUR times on Scoreboard's own argv:
+       e70775324004   e70775324004   1621aec6c9f3   e70775324004
+   -- the pristine binary itself lands on BOTH hashes, and `1621aec6c9f3` is
+   exactly the hash the verified sweep produced.  The coin, not the law.
+
+-- Both rows are CMP_EQUAL in both modes in all three sweeps (see the UVM-family
+   table above); Scoreboard/testflags is SLANG_REJECT in the committed baseline
+   too.

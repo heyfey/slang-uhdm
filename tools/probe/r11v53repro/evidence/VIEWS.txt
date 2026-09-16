@@ -1,0 +1,43 @@
+r11v53 — THE SHADOWING BREAK, per VIEW, per binary
+DEF = the uhdmall* listing, ELAB = the uhdmtop* listing.  KEEP = sys_func_call ($bits), FOLD = constant.
+
+== x1_import_shadow_same   (site 17:22)
+   GOLDEN          2 DEF=constant       2 ELAB=constant 
+   pristine        2 DEF=constant       2 ELAB=constant 
+   r11u53          2 DEF=sys_func_call       2 ELAB=sys_func_call 
+   verified        2 DEF=constant       2 ELAB=constant 
+== x9_unit_import_shadow   (site 13:22)
+   GOLDEN          2 DEF=constant       2 ELAB=constant 
+   pristine        2 DEF=constant       2 ELAB=constant 
+   r11u53          2 DEF=sys_func_call       2 ELAB=sys_func_call 
+   verified        2 DEF=constant       2 ELAB=constant 
+== x10_iface_import_shadow   (site 9:22)
+   GOLDEN          4 ELAB=constant 
+   pristine        4 ELAB=constant 
+   r11u53          4 ELAB=sys_func_call 
+   verified        4 ELAB=constant 
+== x11_realistic_cva6   (site 15:39)
+   GOLDEN          2 DEF=constant       2 ELAB=constant 
+   pristine        2 DEF=constant       2 ELAB=constant 
+   r11u53          2 DEF=sys_func_call       2 ELAB=sys_func_call 
+   verified        2 DEF=constant       2 ELAB=constant 
+== x13_pkg_import_shadow   (site 10:23)
+   GOLDEN          2 DEF=sys_func_call       2 ELAB=constant 
+   pristine        2 DEF=sys_func_call       2 ELAB=constant 
+   r11u53          2 DEF=sys_func_call       2 ELAB=sys_func_call 
+   verified        2 DEF=sys_func_call       2 ELAB=constant 
+== x15_import_chain   (site 18:22)
+   GOLDEN          2 DEF=constant       2 ELAB=constant 
+   pristine        2 DEF=constant       2 ELAB=constant 
+   r11u53          2 DEF=sys_func_call       2 ELAB=sys_func_call 
+   verified        2 DEF=constant       2 ELAB=constant 
+== x12_import_noshadow   (site 12:22)
+   GOLDEN          2 DEF=sys_func_call       2 ELAB=sys_func_call 
+   pristine        2 DEF=constant       2 ELAB=constant 
+   r11u53          2 DEF=sys_func_call       2 ELAB=sys_func_call 
+   verified        2 DEF=sys_func_call       2 ELAB=sys_func_call 
+== x14_import_value_notype   (site 14:22)
+   GOLDEN          1 DEF=sys_func_call       2 ELAB=constant 
+   pristine        2 DEF=constant       2 ELAB=constant 
+   r11u53          2 DEF=sys_func_call       2 ELAB=sys_func_call 
+   verified        2 DEF=sys_func_call       2 ELAB=sys_func_call 

@@ -1,0 +1,8 @@
+ARM                  base_g   base_o    pat_g    pat_o  DIRECTION
+w1_bits_argkind         221      188      165      100  TOWARD-GOLDEN (-144)
+w2_bits_holder           94       78       56       29  TOWARD-GOLDEN (-87)
+w3_typedef_view          44       33       44       33  UNCHANGED
+w4_bits_iface           116      124       87       71  TOWARD-GOLDEN (-82)
+w5_bits_override         68       55       47       22  TOWARD-GOLDEN (-54)
+w6_bits_pkgscope        168       45      163       36  TOWARD-GOLDEN (-14)
+w7_bits_inexpr          138       91      112       63  TOWARD-GOLDEN (-54)

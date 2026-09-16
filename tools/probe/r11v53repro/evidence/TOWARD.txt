@@ -1,0 +1,16 @@
+ARM                         base(g+o)    impl(g+o)     fix(g+o)  impl-vs-base fix-vs-base
+x1_import_shadow_same              21           57           21  AWAY(+36)      UNCHANGED
+x2_import_shadow_diff              33           61           33  AWAY(+28)      UNCHANGED
+x3_pkg_qualified_tp                87           67           67  TOWARD(-20)    TOWARD(-20)
+x4_genblock_lptype                158          158          158  UNCHANGED      UNCHANGED
+x5_typedef_of_tp                  258          222          222  TOWARD(-36)    TOWARD(-36)
+x6_var_range_holder                58           45           45  TOWARD(-13)    TOWARD(-13)
+x7_pkg_class_tp                   167          167          167  UNCHANGED      UNCHANGED
+x8_struct_member_tp               100           64           64  TOWARD(-36)    TOWARD(-36)
+x9_unit_import_shadow              21           57           21  AWAY(+36)      UNCHANGED
+x10_iface_import_shadow            19           51           19  AWAY(+32)      UNCHANGED
+x11_realistic_cva6                 21           57           21  AWAY(+36)      UNCHANGED
+x12_import_noshadow                95           59           59  TOWARD(-36)    TOWARD(-36)
+x13_pkg_import_shadow              58           76           58  AWAY(+18)      UNCHANGED
+x14_import_value_notype            98          102          102  AWAY(+4)       AWAY(+4)
+x15_import_chain                   21           57           21  AWAY(+36)      UNCHANGED

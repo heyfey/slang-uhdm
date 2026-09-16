@@ -1,0 +1,15 @@
+x1_import_shadow_same golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+x2_import_shadow_diff golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=32
+x3_pkg_qualified_tp golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=63
+x4_genblock_lptype golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=246
+x5_typedef_of_tp golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=120
+x6_var_range_holder golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=21
+x7_pkg_class_tp golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=120
+x8_struct_member_tp golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+x9_unit_import_shadow golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+x10_iface_import_shadow golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+x11_realistic_cva6 golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+x12_import_noshadow golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+x13_pkg_import_shadow golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=14
+x14_import_value_notype golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=37
+x15_import_chain golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0

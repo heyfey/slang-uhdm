@@ -1,0 +1,15 @@
+# run artifacts only — the distilled readings live in evidence/
+slpp_all/
+*.uhdm
+*.log
+*.dump
+*.out
+*.err
+rc.*.txt
+grid/*/slpp_all/
+grid/*/*.uhdm
+grid/*/*.log
+grid/*/*.dump
+grid/*/*.out
+grid/*/*.err
+grid/*/rc.*.txt

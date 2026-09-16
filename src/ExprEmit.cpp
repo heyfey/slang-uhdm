@@ -3825,6 +3825,63 @@ static int packedDimCountE(const Type& t) {
     return n;
 }
 
+// § bitsTypeParamArgNeverFolds53 — A `$bits` WHOSE ARGUMENT NAMES A TYPE
+// PARAMETER IS NOT A FOLD SITE AT ALL, IN EITHER VIEW.
+//
+// `CompileHelper::compileBits` is the only thing that folds `$bits`, and it
+// does not obey its caller's `Reduce` flag — it UPGRADES itself
+// (Surelog src/DesignCompile/CompileExpression.cpp:4750-4756, v1.87
+// `0445655ee7`):
+//
+//     tps = getTypespec(component, fC, typeSpecId, compileDesign, reduce, instance);
+//     if (m_elabMode && (reduce == Reduce::No) && tps) {
+//       UHDM::ExprEval eval;
+//       if (eval.isFullySpecified(tps)) reduce = Reduce::Yes;
+//     }
+//     if ((reduce == Reduce::Yes) && tps) bits = Bits(tps, ...);
+//
+// and mints the `UINT:<bits>` / `vpiSize:64` constant at `:4779-4785`.  So the
+// whole decision hangs on `getTypespec` (`:4534`) returning non-null, and for
+// a BARE NAME `getTypespec` fills `basename` (`:4452`) and then looks in
+// EXACTLY TWO PLACES (`:4541-4544`): the component's DATA TYPE map, and its
+// PORTS and SIGNALS.  The DATA TYPE map is populated only by `compileTypeDef`
+// (src/DesignCompile/CompileHelper.cpp:636), by class definitions (`:160`) and
+// by imports (`:168`) — i.e. only by TYPEDEFS.  A `parameter type` / a
+// `localparam type` lives in the PARAMETER table and is in NEITHER map, so
+// `tps` stays null, the self-upgrade cannot fire, `Bits()` is never called and
+// the final `else` at `:4802` emits a `sys_func_call ($bits)` — in the
+// definition compile AND in the elaborated one.
+//
+// THE DECISION IS ON THE ARGUMENT'S SYNTAX, NEVER ON THE RESOLVED TYPE.  The
+// decisive cell is `w1_bits_argkind`'s `parameter type TB = logic [9:0]`: the
+// argument resolves to a fully specified BUILT-IN type and golden STILL keeps
+// the call, in both views.  Golden grid (tools/probe/r11u53repro/grid,
+// one module-body localparam holder, `bash cell53.sh <arm> <tag> <sites>`):
+//
+//   $bits(TP)  parameter type TP = pk::req_t     KEEP / KEEP
+//   $bits(TB)  parameter type TB = logic [9:0]   KEEP / KEEP   <- decisive
+//   $bits(TS)  parameter type TS = pk::byte_t    KEEP / KEEP
+//   $bits(TL)  localparam type TL = pk::req_t    KEEP / KEEP
+//   $bits(loc_t)  typedef pk::req_t loc_t        KEEP / fold   <- W3, NOT this
+//   $bits(pk::req_t) / $bits(pk::byte_t) / $bits(logic [9:0])  fold / fold
+//
+// and the holder is not a gate (`w2_bits_holder`: parameter-port-list Rhs,
+// body localparam Rhs and a function-body `return` all KEEP), nor is the
+// component kind (`w4_bits_iface` interface body, `w6_bits_pkgscope`
+// elaborated package), nor is an instantiation-time OVERRIDE of the type
+// parameter (`w5_bits_override`: golden keeps in the definition copy and in
+// BOTH instance copies, the overridden one included — which is the same proof
+// again, from the elaborated side).
+//
+// The W3 cell — a MODULE-LOCAL typedef, which IS in the data-type map, so
+// only `m_elabMode` can separate its views — is a different cell on the same
+// road and is deliberately NOT written here; `w3_typedef_view` measures it and
+// the pass README records what it found.
+//
+// The predicate itself is `typeParamAliasType53` in src/EmitHelpers.h — the
+// parameter emitter's ELABORATED arm asks the same question and the two must
+// not drift apart.
+// ---------------------------------------------------------------------------
 // Would Surelog's DEFINITION compile fold `$bits(<arg>)`?  `compileBits`
 // folds only when `getTypespec()` resolves the argument to a FULLY SPECIFIED
 // typespec, and `getTypespec` looks in exactly three places: the built-in
@@ -3841,9 +3898,17 @@ bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0,
                                    bool elabView) {
     using namespace slang::ast;
     auto& arg = stripImplicitConv(arg0);
-    // A TYPE argument always resolves; only full specification is in doubt.
-    if (arg.kind == ExpressionKind::DataType)
+    // A TYPE argument always resolves; only full specification is in doubt —
+    // EXCEPT when the name is a type parameter's, which `getTypespec` cannot
+    // find at all (§ bitsTypeParamArgNeverFolds53 above).  This question is
+    // asked of the SYNTAX the argument names, before the resolved type is
+    // consulted, because the resolved type answers "fully specified" in
+    // exactly the cell that proves the producer ignores it.
+    if (arg.kind == ExpressionKind::DataType) {
+        if (typeParamAliasType53(arg.type))
+            return false;
         return srlgFullySpecType(*arg.type, 0);
+    }
     const Expression* root = &arg;
     while (true) {
         auto& r = stripImplicitConv(*root);

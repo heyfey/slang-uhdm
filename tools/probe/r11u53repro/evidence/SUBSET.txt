@@ -1,0 +1,32 @@
+# r11u53 — MOVED-WRONG 0 / AWAY-GOLDEN 0 as a SET containment (subset53.sh)
+
+## default
+bits_of_type_param-064a3e49
+  pristine: bits_of_type_param-064a3e49 golden=1398 ours=1461 orderblind_diff=155 gonly=20 oonly=83
+  patched : bits_of_type_param-064a3e49 golden=1398 ours=1453 orderblind_diff=105 gonly=6 oonly=61
+  divergence texts: pristine=54 patched=41 NOT-PRESENT-BEFORE=0
+## default
+type_param_override_elem_sel-212ed556
+  pristine: type_param_override_elem_sel-212ed556 golden=1520 ours=1490 orderblind_diff=246 gonly=100 oonly=70
+  patched : type_param_override_elem_sel-212ed556 golden=1520 ours=1493 orderblind_diff=229 gonly=92 oonly=65
+  divergence texts: pristine=77 patched=72 NOT-PRESENT-BEFORE=0
+## default
+type_param_packed_dim-2a08511b
+  pristine: type_param_packed_dim-2a08511b golden=1110 ours=1090 orderblind_diff=207 gonly=80 oonly=60
+  patched : type_param_packed_dim-2a08511b golden=1110 ours=1093 orderblind_diff=194 gonly=72 oonly=55
+  divergence texts: pristine=72 patched=67 NOT-PRESENT-BEFORE=0
+## testflags
+bits_of_type_param-064a3e49
+  pristine: bits_of_type_param-064a3e49 golden=888 ours=951 orderblind_diff=153 gonly=20 oonly=83
+  patched : bits_of_type_param-064a3e49 golden=888 ours=943 orderblind_diff=103 gonly=6 oonly=61
+  divergence texts: pristine=54 patched=41 NOT-PRESENT-BEFORE=0
+## testflags
+type_param_override_elem_sel-212ed556
+  pristine: type_param_override_elem_sel-212ed556 golden=1010 ours=980 orderblind_diff=243 gonly=100 oonly=70
+  patched : type_param_override_elem_sel-212ed556 golden=1010 ours=983 orderblind_diff=228 gonly=92 oonly=65
+  divergence texts: pristine=77 patched=72 NOT-PRESENT-BEFORE=0
+## testflags
+type_param_packed_dim-2a08511b
+  pristine: type_param_packed_dim-2a08511b golden=600 ours=580 orderblind_diff=202 gonly=80 oonly=60
+  patched : type_param_packed_dim-2a08511b golden=600 ours=583 orderblind_diff=192 gonly=72 oonly=55
+  divergence texts: pristine=72 patched=67 NOT-PRESENT-BEFORE=0

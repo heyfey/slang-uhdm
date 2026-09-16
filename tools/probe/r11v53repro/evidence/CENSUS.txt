@@ -1,0 +1,43 @@
+r11v53 CENSUS — where the construct lives, both corpora, a priori (before any patched run)
+
+== uhdm2rtlil v0.68: directories declaring a type parameter ==
+40
+== ...of those, the ones that call $bits() on a name they declared as a type parameter ==
+  bits_of_type_param : hpdcache_req_t req_t
+  cva6_equiv/rtl/core : dtype
+  cva6_equiv/rtl/core/cache_subsystem/hpdcache/rtl/src : hpdcache_dir_entry_t hpdcache_req_addr_t hpdcache_req_t hpdcache_tag_t rtab_entry_t
+  cva6_equiv/rtl/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride : hpdcache_req_t
+  cva6_equiv/rtl/core/cache_subsystem/hpdcache/rtl/src/utils : hpdcache_mem_req_t hpdcache_mem_req_w_t resp_id_t resp_t
+  cva6_equiv/rtl/core/frontend : btb_prediction_t
+  cva6_equiv/rtl/vendor/pulp-platform/common_cells/src : code_word_t data_t parity_t T
+  cva6_equiv/wrappers : hpdcache_req_t resp_id_t
+  type_param_override_elem_sel : id_t resp_id_t
+  type_param_packed_dim : resp_id_t
+  (cva6_equiv/** is vendored RTL, NOT a discovered corpus row -- the only discovered
+   cva6 row is cva6_struct_param_field, which declares no type parameter)
+
+== Surelog v1.87 suite ==
+  tests/ClassScope/dut.sv : PARAM_T
+  tests/ClassScope/dut.sv : T
+  tests/ClassScope/dut.sv : the_type
+  third_party/tests/Ariane2024/sc_collected_files/btb_ad9ef9592acf071eb0e64e76f8313ac805055ee9.sv : btb_prediction_t
+  third_party/tests/Ariane2024/sc_collected_files/fifo_v3_129149eb1366639c03e80ba47efcc47a84f24d0b.sv : dtype
+  third_party/tests/ariane/src/common_cells/src/id_queue.sv : data_t
+  third_party/tests/ariane/src/common_cells/test/id_queue_tb.sv : data_t
+  third_party/tests/ariane/src/fpu/src/common_cells/src/id_queue.sv : data_t
+  third_party/tests/ariane/src/fpu/src/common_cells/test/id_queue_tb.sv : data_t
+  third_party/tests/Verilator/t_type_param.v : bar
+
+== the FIX's own gate: which of those files ALSO carry a wildcard package import? ==
+  tests/ClassScope/dut.sv : 0
+  third_party/tests/Ariane2024/sc_collected_files/btb_ad9ef9592acf071eb0e64e76f8313ac805055ee9.sv : 0
+  third_party/tests/Ariane2024/sc_collected_files/fifo_v3_129149eb1366639c03e80ba47efcc47a84f24d0b.sv : 0
+  third_party/tests/ariane/src/common_cells/src/id_queue.sv : 0
+  third_party/tests/Verilator/t_type_param.v : 0
+  bits_of_type_param : 0
+  type_param_override_elem_sel : 0
+  type_param_packed_dim : 0
+  param_type_logic_width : 0
+  => ZERO.  PREDICTION: the fix's gate cannot fire anywhere in either corpus,
+     so the verified binary must be BYTE-IDENTICAL to the implementer's on every
+     database in both corpora.  (u2r: measured 0 movers / 1608.)
