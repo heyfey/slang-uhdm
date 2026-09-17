@@ -1,0 +1,18 @@
+r11u62 — THE POSITIVE CONTROL FOR THE FOUR SURELOG MOVERS
+
+A census or an attribution that reports "the coin" without SHOWING the coin is
+an assertion.  This is the measurement: the SAME FROZEN PRISTINE BINARY
+(md5 e2623a8b6ffeff31ef7276edae6951cd, chmod 555) re-run a second time on the
+four moved databases, with the sweep's OWN command line read out of its
+cmds.txt and only the -o path changed.
+
+  database                   pristine sweep   LAW sweep      pristine RE-RUN
+  default/MiniAmiq           2aedad6f2daa     7fb1bde84f3e   3f0f8ce7c3de   <- a THIRD hash
+  testflags/MiniAmiq         65d8967a7013     27419f6011b4   d85b9562a0a2   <- a THIRD hash
+  default/Scoreboard         e70775324004     1621aec6c9f3   1621aec6c9f3   <- the LAW binary's own hash
+  default/SeqDriver          2fb39f8b4130     a6b2035b5049   2fb39f8b4130   <- back to the pristine sweep's hash
+
+The pristine binary lands on the LAW binary's hash for Scoreboard and on a
+hash NEITHER sweep produced for both MiniAmiq arms.  The draw is per
+invocation, not per binary, and the law is not in it.  Status for all five UVM
+rows stays CMP_EQUAL (Scoreboard/testflags is its pre-existing SLANG_REJECT).

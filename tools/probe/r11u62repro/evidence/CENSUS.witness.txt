@@ -1,0 +1,16 @@
+PRISTINE DIFF lhs=2    rhs=0    owner=operation            ts=NONE                 size=1     tag=UINT  ct=9   val=0 dec=0
+PRISTINE DIFF lhs=0    rhs=1    owner=operation            ts=NONE                 size=3     tag=UINT  ct=9   val=0 dec=0
+PRISTINE DIFF lhs=6    rhs=7    owner=operation            ts=NONE                 size=64    tag=UINT  ct=9   val=1 dec=1
+PRISTINE DIFF lhs=2    rhs=1    owner=param_assign         ts=struct_typespec      size=64    tag=BIN   ct=3   val=0000000000000000000000000100000000000000000000000000000000000011 dec=0000000000000000000000000100000000000000000000000000000000000011
+PRISTINE DIFF lhs=0    rhs=1    owner=param_assign         ts=struct_typespec      size=64    tag=UINT  ct=9   val=274877906947 dec=274877906947
+PRISTINE DIFF lhs=54   rhs=50   owner=range                ts=NONE                 size=64    tag=UINT  ct=9   val=31 dec=31
+PRISTINE DIFF lhs=4    rhs=2    owner=typespec_member      ts=NONE                 size=-     tag=-     ct=-   val=- dec=-
+PRISTINE DIFF lhs=4    rhs=2    owner=typespec_member      ts=NONE                 size=32    tag=DEC   ct=1   val=64 dec=32'd64
+PRISTINE LINES 8  lhs_const 85  rhs_const 77
+LAW DIFF lhs=2    rhs=0    owner=operation            ts=NONE                 size=1     tag=UINT  ct=9   val=0 dec=0
+LAW DIFF lhs=0    rhs=1    owner=operation            ts=NONE                 size=3     tag=UINT  ct=9   val=0 dec=0
+LAW DIFF lhs=6    rhs=7    owner=operation            ts=NONE                 size=64    tag=UINT  ct=9   val=1 dec=1
+LAW DIFF lhs=54   rhs=50   owner=range                ts=NONE                 size=64    tag=UINT  ct=9   val=31 dec=31
+LAW DIFF lhs=4    rhs=2    owner=typespec_member      ts=NONE                 size=-     tag=-     ct=-   val=- dec=-
+LAW DIFF lhs=4    rhs=2    owner=typespec_member      ts=NONE                 size=32    tag=DEC   ct=1   val=64 dec=32'd64
+LAW LINES 6  lhs_const 85  rhs_const 77

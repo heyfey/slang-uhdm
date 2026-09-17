@@ -1646,6 +1646,37 @@ private:
     std::optional<int32_t> ovActualStoredWidth82(
         const slang::ast::ParameterSymbol& p, int depth);
 
+    /// § ovStructActualOwnEnc62 (r11u62) — AN OVERRIDDEN STRUCT- OR PACKED-
+    /// UNION-TYPED PARAMETER'S ELABORATED `param_assign` Rhs CARRIES THE
+    /// OVERRIDE ACTUAL'S OWN ENCODING, AND ONLY ITS `VpiSize` IS RE-RENDERED
+    /// AT THE FORMAL.
+    ///
+    /// All four judged fields come from ONE stored `Value`:
+    /// `DesignElaboration.cpp:2163` compiles the ACTUAL in the parent instance
+    /// with `Reduce::Yes` and `:2188` hands that constant's own tagged value
+    /// string to `ExprBuilder::fromVpiValue` (`ExprBuilder.cpp:978` — the whole
+    /// table: `BIN:`->Binary, `HEX:`->Hexadecimal, `OCT:`->**Unsigned**,
+    /// `DEC:`->Integer); `NetlistElaboration.cpp:523-561` stamps
+    /// `uhdmValue()` / `decompiledValue()` / `getSize()` / `vpiValType()` off
+    /// it and then runs `adjustSize` with the formal's typespec, which for a
+    /// struct is `SrlgTsK::Other` and touches nothing but the size.  So a
+    /// function-built struct actual is `BIN` ct 3 with a `<w>'b` decompile, a
+    /// based literal keeps its OWN base letter and digits, an `'o` actual
+    /// reads `UINT` and a `'d` actual reads `INT`.
+    ///
+    /// The law was already implemented for every SCALAR formal (`ovEnc8` +
+    /// `srlgAdjustSize`); `clsParam8`'s fence (`else w8 = 0`) still stands
+    /// untouched — the new arm computes its own width from the formal and
+    /// runs the pipeline IN PARALLEL beside it, where the actual previously
+    /// fell to the typed-override arm's `UINT:<decimal>` (r11v62 R-F).
+    /// `ovActualLitEnc62` (ParamEmit.cpp, file-local) is its producer stage.
+    /// Fences, each a measured golden cell: a NamedValue actual stays
+    /// § elabOvRefAsmBinConst / § asmEncFollowsRef's, a MemberAccess stays
+    /// § structParamMemberOvBinary's, an explicit CAST and an ASSIGNMENT
+    /// PATTERN leave golden an UNFOLDED `operation` and are declined, and a
+    /// >64-bit formal keeps its existing renderer (golden wants the literal's
+    /// own digits there — ranked residue, not claimed).
+
     /// § ovHopBareActualElabFold40 — AN OVERRIDE ACTUAL THAT CROSSES AN
     /// INTERFACE-PORT HOP IS REDUCED AT ELABORATION LIKE ANY OTHER: THE
     /// CHILD'S ELABORATED `param_assign` Rhs IS THE CONSTANT AND EVERY

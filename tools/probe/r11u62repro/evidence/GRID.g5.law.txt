@@ -1,0 +1,36 @@
+SAME r62e::CFG                          <func_call>
+SAME r62e::CFG                          tag=BIN  ct=3  size=64   val=0000000000000000000000000100000000000000000000000000000000000011 dec=0000000000000000000000000100000000000000000000000000000000000011 ts=struct_typespec
+SAME work@e01.P                         <func_call>
+SAME work@e02.P                         <func_call>
+SAME work@e03.P                         <func_call>
+SAME work@e04.P                         <func_call>
+SAME work@e05.P                         <func_call>
+SAME work@e06.P                         tag=BIN  ct=3  size=-1   val=0 dec='0 ts=struct_typespec
+SAME work@e07.P                         <func_call>
+SAME work@e08.P                         <func_call>
+SAME work@e09.P                         <func_call>
+SAME work@e10.P                         <func_call>
+SAME work@e12.P                         tag=BIN  ct=3  size=-1   val=0 dec='0 ts=struct_typespec
+SAME work@e13.P                         tag=BIN  ct=3  size=-1   val=0 dec='0 ts=union_typespec
+SAME work@e14.P                         <func_call>
+SAME work@e15.P                         <func_call>
+SAME work@e16.P                         <func_call>
+SAME work@tb62e.LC                      tag=BIN  ct=3  size=64   val=0000000000000000000000000100000000000000000000000000000000000011 dec=0000000000000000000000000100000000000000000000000000000000000011 ts=struct_typespec
+SAME work@tb62e.LC                      tag=BIN  ct=3  size=64   val=0000000000000000000000000100000000000000000000000000000000000011 dec=64'b0000000000000000000000000100000000000000000000000000000000000011 ts=struct_typespec
+SAME work@tb62e.gblk.x10.P              tag=HEX  ct=5  size=64   val=000000600000003D dec=64'h000000600000003D ts=struct_typespec
+SAME work@tb62e.x01.P                   tag=BIN  ct=3  size=64   val=101 dec='b101 ts=struct_typespec
+SAME work@tb62e.x02.P                   tag=UINT ct=9  size=64   val=23 dec=23 ts=struct_typespec
+SAME work@tb62e.x03.P                   tag=INT  ct=7  size=64   val=29 dec=29 ts=struct_typespec
+SAME work@tb62e.x04.P                   tag=HEX  ct=5  size=64   val=1F dec='h1F ts=struct_typespec
+SAME work@tb62e.x05.P                   tag=HEX  ct=5  size=64   val=0000002000000031 dec=64'h0000002000000031 ts=struct_typespec
+DIFF work@tb62e.x06.P                   G= tag=HEX  ct=5  size=128  val=00000000000000400000000000000033 dec=128'h00000000000000400000000000000033 ts=struct_typespec
+                                        O= tag=HEX  ct=5  size=128  val=400000000000000033 dec=128'h400000000000000033 ts=struct_typespec
+SAME work@tb62e.x07.P                   tag=UINT ct=9  size=64   val=31 dec=31 ts=struct_typespec
+SAME work@tb62e.x08.P                   tag=INT  ct=7  size=64   val=-1 dec=-1 ts=struct_typespec
+SAME work@tb62e.x09.P                   tag=BIN  ct=3  size=64   val=0000000000000000000000000100000000000000000000000000000000100011 dec=64'b0000000000000000000000000100000000000000000000000000000000100011 ts=struct_typespec
+SAME work@tb62e.x12.P                   tag=HEX  ct=5  size=32   val=10000037 dec=32'h10000037 ts=struct_typespec
+SAME work@tb62e.x13.P                   tag=HEX  ct=5  size=32   val=39 dec=32'h39 ts=union_typespec
+SAME work@tb62e.x14.P                   tag=BIN  ct=3  size=64   val=0000000000000000000000000100000000000000000000000000000000000011 dec=64'b0000000000000000000000000100000000000000000000000000000000000011 ts=struct_typespec
+SAME work@tb62e.x15.P                   tag=BIN  ct=3  size=64   val=0000000000000000000000000100000000000000000000000000000000000011 dec=64'b0000000000000000000000000100000000000000000000000000000000000011 ts=struct_typespec
+SAME work@tb62e.x16.P                   tag=HEX  ct=5  size=64   val=000000400000003B dec=64'h000000400000003B ts=struct_typespec
+ROWS 32 SAME 31 DIFF 1

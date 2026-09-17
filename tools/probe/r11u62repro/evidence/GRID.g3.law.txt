@@ -1,0 +1,12 @@
+SAME r50::CFG                     (('func_call',), ('BIN', '000000000000000000000000', '64', '3', '000000000000000000000000', 'struct_typespec'))
+SAME work@h2.P                    (('func_call',),)
+SAME work@h3.P                    (('func_call',),)
+SAME work@h4.P                    (('func_call',),)
+SAME work@h5.L                    (('BIN', '000000000000000000000000', '64', '3', '000000000000000000000000', 'struct_typespec'),)
+SAME work@h6.M                    (('func_call',),)
+SAME work@tb52.u2.P               (('BIN', '000000000000000000000000', '64', '3', "64'b00000000000000000000", 'struct_typespec'),)
+SAME work@tb52.u3.P               (('BIN', '000000000000000000000000', '64', '3', "64'b00000000000000000000", 'struct_typespec'),)
+SAME work@tb52.u4.P               (('HEX', '0000002000000005', '64', '5', "64'h0000002000000005", 'struct_typespec'),)
+SAME work@tb52.u5.L               (('BIN', '000000000000000000000000', '64', '3', "64'b00000000000000000000", 'struct_typespec'),)
+SAME work@tb52.u6.M               (('BIN', '000000000000000000000000', '64', '3', "64'b00000000000000000000", 'struct_typespec'),)
+ROWS 11 SAME 11 DIFF 0

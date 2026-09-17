@@ -5082,6 +5082,107 @@ bool srlgLitEnc(const std::string& raw0, SrlgOvEnc& out) {
     }
 }
 
+// § ovStructActualOwnEnc62 — the PRODUCER stage for an override actual written
+// on a STRUCT / packed-UNION formal.  `srlgLitEnc` above is the SIZED based
+// literal, and it is shared by every scalar override site, so it is not
+// touched; this wrapper adds the two written spellings the struct site also
+// measures and that one deliberately refuses:
+//
+//  * the UNSIZED based literal (`'h1F`, `'b101`, `'o27`, `'d29`).
+//    `CompileExpression.cpp:507-510` leaves `VpiSize(-1)` when the text before
+//    the tick is empty, so `StValue::decompiledValue` (`Value.cpp`, the
+//    `(m_size && m_size != -1)` guard) renders the base WITHOUT a size prefix,
+//    and the final size comes from the consumer.
+//  * the NEGATIVE bare decimal (`-1`).  `CompileExpression.cpp:554` keeps the
+//    source text and stamps `"INT:" + value` with `VpiSize(64)` whenever the
+//    first character is `-`; the non-negative form is `srlgLitEnc`'s own
+//    no-tick arm (`UINT:` at 64).
+//
+// Every base letter follows `ExprBuilder::fromVpiValue` (`ExprBuilder.cpp:978`),
+// which is what actually decides the stored `Value`'s TYPE and therefore the
+// four judged fields: `BIN:` -> Binary, `HEX:` -> Hexadecimal, `OCT:` ->
+// **Unsigned** (:1051, there is no Octal arm), `DEC:` -> Integer.  That is why
+// an `'o` actual reads `UINT`/ct 9 and a `'d` actual reads `INT`/ct 7 — both
+// measured, r11u62 grid g4 u04/u05 and g5 x02/x03.
+bool ovActualLitEnc62(const std::string& raw0, SrlgOvEnc& out) {
+    if (srlgLitEnc(raw0, out))
+        return true;
+    std::string raw;
+    for (char ch : raw0)
+        if (ch != '_')
+            raw += ch;
+    if (raw.empty())
+        return false;
+    const auto tk = raw.find('\'');
+    if (tk == std::string::npos) {
+        if (raw[0] != '-' || raw.size() < 2 ||
+            raw.find_first_not_of("0123456789", 1) != std::string::npos)
+            return false;
+        out.ct = vpiIntConst;
+        out.dg = raw;
+        out.size = 64;
+        srlgOvRender(out);
+        return true;
+    }
+    if (tk != 0)
+        return false;  // a SIZED literal srlgLitEnc already ruled on
+    size_t bp = 1;
+    if (bp < raw.size() && (raw[bp] == 's' || raw[bp] == 'S'))
+        bp++;
+    if (bp >= raw.size())
+        return false;
+    const char b = (char)tolower((unsigned char)raw[bp]);
+    const std::string dg = raw.substr(bp + 1);
+    if (dg.empty())
+        return false;
+    switch (b) {
+        case 'h':
+            if (dg.find_first_not_of("0123456789abcdefABCDEF") !=
+                std::string::npos)
+                return false;
+            out.ct = vpiHexConst;
+            out.dg = dg;
+            break;
+        case 'b':
+            if (dg.find_first_not_of("01") != std::string::npos)
+                return false;
+            out.ct = vpiBinaryConst;
+            out.dg = dg;
+            break;
+        case 'o': {
+            if (dg.find_first_not_of("01234567") != std::string::npos)
+                return false;
+            uint64_t v = 0;
+            for (char ch : dg) {
+                if (v > (~0ull >> 3))
+                    return false;
+                v = (v << 3) | (uint64_t)(ch - '0');
+            }
+            out.ct = vpiUIntConst;
+            out.dg = std::to_string(v);
+            break;
+        }
+        case 'd': {
+            if (dg.find_first_not_of("0123456789") != std::string::npos)
+                return false;
+            uint64_t v = 0;
+            for (char ch : dg) {
+                if (v > (~0ull / 10))
+                    return false;
+                v = v * 10 + (uint64_t)(ch - '0');
+            }
+            out.ct = vpiIntConst;
+            out.dg = std::to_string(v);
+            break;
+        }
+        default:
+            return false;
+    }
+    out.size = -1;
+    srlgOvRender(out);  // size <= 0 -> the decompile carries NO size prefix
+    return true;
+}
+
 // A/B GATES for the two pass-28 override-encoding laws.  Both default to the
 // LAW BEING ON (unset env == new behaviour); setting either to 1 restores the
 // pre-pass-28 path for exactly one clause, which is how pass 27 pinned the
@@ -9474,6 +9575,221 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         srcBaseOv8 = true;
                     }
                 }
+                // § ovStructActualOwnEnc62 (r11u62) — AN OVERRIDDEN
+                // STRUCT-TYPED PARAMETER'S ELABORATED `param_assign` Rhs
+                // CARRIES THE OVERRIDE ACTUAL'S OWN ENCODING.
+                //
+                // THE PRODUCER, line by line on the pinned v1.87 sources.
+                //  1. `DesignElaboration.cpp:2163` compiles the ACTUAL in the
+                //     PARENT instance with `Reduce::Yes`, and when the fold is
+                //     a constant, `:2187-2188`
+                //         const std::string_view v = c->VpiValue();
+                //         value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
+                //     turns THAT constant's own tagged value string into the
+                //     `Value*` the child instance stores (`:2271/:2284/:2328`
+                //     `instance->setValue(name, value, ...)`).
+                //  2. `ExprBuilder::fromVpiValue` (`ExprBuilder.cpp:978`) is
+                //     the whole encoding table: `BIN:` -> StValue Binary,
+                //     `HEX:` -> StValue Hexadecimal, `OCT:` -> LValue
+                //     **Unsigned** (:1051 — there is NO Octal arm), `DEC:` ->
+                //     LValue Integer, `INT:`/`UINT:` verbatim.
+                //  3. `NetlistElaboration.cpp:514-568` — the
+                //     `(overriden == false) && (!isMultidimensional)` arm —
+                //     reads it back and stamps ALL FOUR judged fields off that
+                //     ONE Value:
+                //         c->VpiValue(value->uhdmValue());
+                //         c->VpiDecompile(value->decompiledValue());
+                //         c->VpiSize(value->getSize());
+                //         c->VpiConstType(value->vpiValType());
+                //     then `populateCoreMembers(assign->getAssignId(), ...)`
+                //     (which is why golden's constant sits at the DEFINITION's
+                //     default-initializer span, not the actual's) and finally
+                //     `adjustSize(<the formal's typespec>, ...)`.
+                //  4. `StValue::decompiledValue` (`Value.cpp`) renders
+                //     `<size>'b` / `<size>'h` / `<size>'o` from the Value's own
+                //     size, and NOTHING otherwise — so the `64'b…` prefix is
+                //     the Value's, not adjustSize's, and an unsized literal
+                //     (`m_size == -1`) prints its base bare.
+                //  5. `CompileHelper::adjustSize` (`CompileHelper.cpp:4065`)
+                //     against a STRUCT typespec is `SrlgTsK::Other`: the
+                //     `vpiUIntConst` arm masks and re-sizes, the
+                //     `vpiBinaryConst` arm finds neither a logic nor an int
+                //     target and changes nothing but the size, and everything
+                //     else falls to `:4242 c->VpiSize(size)`.  `srlgAdjustSize`
+                //     already models exactly that, so this arm only supplies
+                //     the producer stage — EXCEPT for adjustSize's
+                //     `orig_size == -1` tail (`:4218-4241`), which lives INSIDE
+                //     the `vpiBinaryConst` branch and is reproduced below.
+                //
+                // WHY THE SCALAR HALF ALREADY AGREED: `clsParam8` ends with
+                // `else w8 = 0; // struct/union/typedef vector: other arms own
+                // it`, so the whole `ovEnc8` + `srlgAdjustSize` pipeline was
+                // switched off for exactly this formal kind and the actual fell
+                // to the plain typed-override arm, which re-decimalises to
+                // `UINT:<digits>` at the struct width.  Grid g4's nine scalar
+                // control cells (`int` / `logic [63:0]` / untyped / packed
+                // array x HEX / 'd / bare-decimal / operation actuals) are all
+                // SAME on both sides before this pass — the law is not new, the
+                // FENCE was.
+                //
+                // GOLDEN GRID (real Surelog v1.87, rc=0, 0 `[ERR`;
+                // calibration golden-vs-golden g4 52 rows 0 DIFF, g5 32 rows
+                // 0 DIFF).  Every cell is one elaborated `param_assign` Rhs on
+                // a 64-bit `struct packed {logic[31:0] XLEN; logic[31:0] TID;}`
+                // formal unless noted:
+                //   actual                      golden                    arm
+                //   r62::build_config()         BIN ct3  64'b…0011  sz 64  CALL
+                //   build_arg(32'd35)           BIN ct3  64'b…        sz 64  CALL
+                //   {32'd64, 32'd9}             BIN ct3  64'b…1001  sz 64  CONCAT
+                //   64'h0000_0020_0000_0005     HEX ct5  64'h…       sz 64  LIT
+                //   64'sh0000_0020_0000_0031    HEX ct5  64'h…       sz 64  LIT
+                //   64'b0…0111                  BIN ct3  64'b…       sz 64  LIT
+                //   64'o…07                     UINT ct9 23          sz 64  LIT
+                //   64'd274877906951            INT ct7  2748…951    sz 64  LIT
+                //   32'h15   (NARROW)           HEX ct5  32'h15      sz 64  LIT
+                //   32'h1000_0037 (enum member) HEX ct5  32'h1000…   sz 32  LIT
+                //   32'h39   (packed UNION)     HEX ct5  32'h39      sz 32  LIT
+                //   'h1F     (UNSIZED)          HEX ct5  'h1F        sz 64  LIT
+                //   'b101    (UNSIZED)          BIN ct3  'b101       sz 64  LIT
+                //   'o27     (UNSIZED)          UINT ct9 23          sz 64  LIT
+                //   'd29     (UNSIZED)          INT ct7  29          sz 64  LIT
+                //   -1                          INT ct7  -1          sz 64  LIT
+                //   31       (bare decimal)     UINT ct9 31          sz 64  (agreed)
+                //   64'h… inside a GENERATE     HEX ct5  64'h…       sz 64  LIT
+                //   64'h… RE-PASSED one deeper  HEX ct5  64'h…       sz 64  LIT
+                //
+                // THE FENCES, each a measured golden cell this arm must NOT
+                // touch:
+                //  F1 a NamedValue actual — a bare reference to a parameter, or
+                //     a localparam hop to one — is owned by
+                //     § elabOvRefAsmBinConst / § asmEncFollowsRef and already
+                //     golden (g5 x14/x15 SAME); declined here.
+                //  F2 a MemberAccess actual is § structParamMemberOvBinary's
+                //     (its own BIN slice at the MEMBER's width); declined.
+                //  F3 an EXPLICIT CAST (`cfg_t'(64'h…)`) and an ASSIGNMENT
+                //     PATTERN (`'{XLEN:…, TID:…}`) leave golden an UNFOLDED
+                //     `operation` (g4 u10/u11) — folding OUR constant into a
+                //     different wrong answer is the r11u50 R1 refusal, so both
+                //     are declined.  `stripImplicitConv` only removes IMPLICIT
+                //     conversions, so an explicit cast survives as
+                //     `ExpressionKind::Conversion` and this arm's kind test
+                //     turns it away on its own.
+                //  F4 a BinaryOp / UnaryOp actual (`r62::CFG | 64'h1`) is
+                //     golden `UINT` already (g4 u08 SAME); declined.
+                //  F5 >64-bit formals: golden keeps the LITERAL'S OWN digits
+                //     (g5 x06: `128'h0000…0033` -> HEX `000000000000004000…`)
+                //     where the existing wide arm re-renders from the value and
+                //     drops the leading zeros.  Same law, different renderer —
+                //     deliberately NOT claimed here (R1).
+                bool ovStructEnc62 = false;
+                if (!srcBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
+                    !enumCstOv8 && !strRefOv8 && overridden && boundInit &&
+                    typedParam) {
+                    auto& sk62 = ps.getType().getCanonicalType();
+                    const int32_t sw62 = (int32_t)ps.getType().getBitWidth();
+                    if ((sk62.kind == SymbolKind::PackedStructType ||
+                         sk62.kind == SymbolKind::PackedUnionType) &&
+                        sw62 > 0 && sw62 <= 64 && iv.getBitWidth() <= 64) {
+                        auto& ov62 = stripImplicitConv(*boundInit);
+                        SrlgOvEnc e62;
+                        bool have62 = false;
+                        if (ov62.kind == ExpressionKind::IntegerLiteral ||
+                            (ov62.kind == ExpressionKind::UnaryOp &&
+                             ov62.as<UnaryExpression>().op ==
+                                 UnaryOperator::Minus &&
+                             stripImplicitConv(
+                                 ov62.as<UnaryExpression>().operand())
+                                     .kind == ExpressionKind::IntegerLiteral)) {
+                            have62 = ovActualLitEnc62(rawTextLit(ov62), e62);
+                        }
+                        // A constant-function CALL and a CONCATENATION both
+                        // reach `fromVpiValue` as `BIN:` — the assembler
+                        // (`ExprEval::reduceExpr`'s struct_var arm) and the
+                        // concat arm each stamp `vpiBinaryConst` — so both
+                        // enter as the PACKED BITS at the formal's width,
+                        // MSB-first, with the `<w>'b` decompile the Value
+                        // renders.
+                        else if (ov62.kind == ExpressionKind::Concatenation ||
+                                 (ov62.kind == ExpressionKind::Call &&
+                                  ov62.type &&
+                                  (ov62.type->getCanonicalType().kind ==
+                                       SymbolKind::PackedStructType ||
+                                   ov62.type->getCanonicalType().kind ==
+                                       SymbolKind::PackedUnionType))) {
+                            std::string b62;
+                            for (int32_t k62 = sw62 - 1; k62 >= 0; k62--)
+                                b62 += (k62 < (int32_t)iv.getBitWidth() &&
+                                        iv[k62] == slang::logic_t(1))
+                                           ? '1'
+                                           : '0';
+                            e62.ct = vpiBinaryConst;
+                            e62.dg = b62;
+                            e62.size = sw62;
+                            srlgOvRender(e62);
+                            have62 = true;
+                        }
+                        // THE RE-PASS, one level deeper.  `#(.P(P))` compiles
+                        // the bare reference in the PARENT instance, so the
+                        // constant `fromVpiValue` sees is the PARENT's own
+                        // elaborated Rhs and its encoding is inherited whole —
+                        // measured on g4 `work@tb62.u14.g.P`, a `64'h…` actual
+                        // passed one module further down, where golden writes
+                        // the same HEX ct 5 at both depths.
+                        // ONLY `vpiHexConst` is claimed here: a BINARY source
+                        // is § elabOvRefAsmBinConst's, an INT source is
+                        // § elabOvRefIntConst's, and a UINT source is already
+                        // the terminal arm's answer — all three are reached by
+                        // falling through, which is why this sub-arm must not
+                        // widen past the one encoding nobody owns.
+                        else if (ov62.kind == ExpressionKind::NamedValue) {
+                            auto& sy62 =
+                                ov62.as<NamedValueExpression>().symbol;
+                            if (sy62.kind == SymbolKind::Parameter) {
+                                auto it62 = elabParamPa.find(&sy62);
+                                if (it62 != elabParamPa.end() && it62->second) {
+                                    auto* r62 = it62->second->Rhs();
+                                    if (r62 &&
+                                        r62->UhdmType() == UHDM::uhdmconstant &&
+                                        ((UHDM::constant*)r62)->VpiConstType() ==
+                                            vpiHexConst &&
+                                        srlgEncFromConst((UHDM::constant*)r62,
+                                                         e62)) {
+                                        srlgOvRender(e62);
+                                        have62 = true;
+                                    }
+                                }
+                            }
+                        }
+                        if (have62) {
+                            srlgAdjustSize(e62, SrlgTsK::Other, false, sw62);
+                            // adjustSize's `orig_size == -1` tail, which lives
+                            // INSIDE its vpiBinaryConst branch
+                            // (CompileHelper.cpp:4218-4241) and which
+                            // `srlgAdjustSize` does not carry: an UNSIZED
+                            // binary takes the target's size, and a value of 1
+                            // is rewritten to the target-width mask.
+                            if (e62.ct == vpiBinaryConst && e62.size < 0) {
+                                if (srlgBinVal(e62.dg) == 1ull) {
+                                    const uint64_t mask62 =
+                                        sw62 >= 64
+                                            ? ~0ull
+                                            : (((uint64_t)1 << sw62) - 1);
+                                    e62.ct = vpiUIntConst;
+                                    e62.dg = std::to_string(mask62);
+                                    e62.dec = e62.dg;
+                                }
+                                e62.size = sw62;
+                            }
+                            c->VpiValue(srlgOvValue(e62));
+                            c->VpiConstType(e62.ct);
+                            c->VpiSize(e62.size);
+                            c->VpiDecompile(e62.dec);
+                            srcBaseOv8 = true;
+                            ovStructEnc62 = true;
+                        }
+                    }
+                }
+                (void)ovStructEnc62;
                 // § structParamMemberOvBinary — AN OVERRIDE ACTUAL THAT IS A
                 // BARE MEMBER SELECT OF A STRUCT-TYPED PARAMETER ENTERS THE
                 // OVERRIDE PIPELINE AS THE MEMBER'S OWN BIT SLICE: a

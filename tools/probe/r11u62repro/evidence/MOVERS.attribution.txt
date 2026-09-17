@@ -1,0 +1,44 @@
+r11u62 — MOVER ATTRIBUTION (order-blind: uhdm-dump | path-normalised | sort)
+
+=== uhdm2rtlil: MOVERS 2 / 1608, SELFCHECK 1607/1608, PATH_SETS_IDENTICAL ===
+--- struct_member_cfg_width/default  size 25108 -> 25184 (delta NONZERO: a REAL mover)
+>         |BIN:0000000000000000000000000100000000000000000000000000000000000011
+<         |UINT:274877906947
+>         |vpiConstType:3
+<         |vpiConstType:9
+<         |vpiDecompile:274877906947
+>         |vpiDecompile:64'b0000000000000000000000000100000000000000000000000000000000000011
+--- struct_member_cfg_width/testflags  size 20197 -> 20273 (delta NONZERO: a REAL mover)
+>         |BIN:0000000000000000000000000100000000000000000000000000000000000011
+<         |UINT:274877906947
+>         |vpiConstType:3
+<         |vpiConstType:9
+<         |vpiDecompile:274877906947
+>         |vpiDecompile:64'b0000000000000000000000000100000000000000000000000000000000000011
+
+  Both modes: THREE lines, one cell, the law's own —
+    <  |UINT:274877906947            >  |BIN:0000...0011
+    <  |vpiConstType:9               >  |vpiConstType:3
+    <  |vpiDecompile:274877906947    >  |vpiDecompile:64'b0000...0011
+  and that is exactly golden's cell (see HEAD.*.pristine.cmp).
+
+=== surelog: MOVERS 4 / 960, SELFCHECK 959/960, PATH_SETS_IDENTICAL ===
+  None of the four is in PREDICT.sl.txt.  All four are the documented
+  per-invocation UVM coin: a 0-or-4-line UINT/vpiDecompile LINE-NUMBER pair
+  moving BOTH ways, plus a 0-line draw.
+--- default/MiniAmiq-544c7f61  size 18852322 -> 18852321
+<       |UINT:1449
+>       |UINT:933
+<       |vpiDecompile:1449
+>       |vpiDecompile:933
+--- default/Scoreboard-59431470  size 11163535 -> 11163535
+--- default/SeqDriver-32af76aa  size 18074287 -> 18074289
+<       |UINT:0
+>       |UINT:710
+<       |vpiDecompile:0
+>       |vpiDecompile:710
+--- testflags/MiniAmiq-544c7f61  size 18852321 -> 18852277
+>       |UINT:0
+<       |UINT:838
+>       |vpiDecompile:0
+<       |vpiDecompile:838
