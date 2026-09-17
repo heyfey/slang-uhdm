@@ -1,0 +1,39 @@
+GOLDEN-CENSUS cells=17287 overwide=0 overwide_elab=0 rows_overwide=0
+PREDICT rows=0 cells=0 candidate_rows=32
+  CANDROW default/FunctionParam-e7a24749
+  CANDROW default/LocalParamInNestedForLoops-7f617a88
+  CANDROW default/LocalParamSelect-982eec69
+  CANDROW default/ModuleInstantiationAndIndirectParams-2906b22a
+  CANDROW default/NestedForLoops-3f87b11a
+  CANDROW default/SelectGivenBySelectOnParameterInFunction-5958e270
+  CANDROW default/UnionParameter-f712117c
+  CANDROW default/const_cast_signext-5e330eed
+  CANDROW default/expr_width_cast-49ff8acd
+  CANDROW default/ff_dead_both_branches-0e60b48a
+  CANDROW default/ff_dead_guarded_reset-a24f98e3
+  CANDROW default/iface_array_elem_cfg_param-e60a2aea
+  CANDROW default/iface_cfg_param_def_pass-cce0db2f
+  CANDROW default/iface_zero_width_field-3e8dd54e
+  CANDROW default/struct_param_pattern_packing-551f1414
+  CANDROW default/struct_param_repl_count-31a76827
+  CANDROW testflags/FunctionParam-e7a24749
+  CANDROW testflags/LocalParamInNestedForLoops-7f617a88
+  CANDROW testflags/LocalParamSelect-982eec69
+  CANDROW testflags/ModuleInstantiationAndIndirectParams-2906b22a
+  CANDROW testflags/NestedForLoops-3f87b11a
+  CANDROW testflags/SelectGivenBySelectOnParameterInFunction-5958e270
+  CANDROW testflags/UnionParameter-f712117c
+  CANDROW testflags/const_cast_signext-5e330eed
+  CANDROW testflags/expr_width_cast-49ff8acd
+  CANDROW testflags/ff_dead_both_branches-0e60b48a
+  CANDROW testflags/ff_dead_guarded_reset-a24f98e3
+  CANDROW testflags/iface_array_elem_cfg_param-e60a2aea
+  CANDROW testflags/iface_cfg_param_def_pass-cce0db2f
+  CANDROW testflags/iface_zero_width_field-3e8dd54e
+  CANDROW testflags/struct_param_pattern_packing-551f1414
+  CANDROW testflags/struct_param_repl_count-31a76827
+FLATTEN-CENSUS elab_patterns_golden=1657 joined=768 GOLDFLAT_OURSTAGGED=2 rows=2
+  R0ROW default/stamped_gen_param-07e8f8ed cells=1
+  R0ROW testflags/stamped_gen_param-07e8f8ed cells=1
+  R0CELL default/stamped_gen_param-07e8f8ed elabpkg q2 IMPL goldn=3 oursn=3
+  R0CELL testflags/stamped_gen_param-07e8f8ed elabpkg q2 IMPL goldn=3 oursn=3

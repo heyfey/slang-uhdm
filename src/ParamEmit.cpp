@@ -15545,9 +15545,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // keeps a wide package struct-pattern param's tagged_pattern
                 // tree in the ELAB view, but the two views are NOT byte-
                 // identical after all: in the ELABORATED listing every UINT
-                // element constant is re-sized to ITS MEMBER's bit width and
-                // the value masked, while DEC / HEX / BIN elements are left
-                // exactly as the def view has them.  Measured on
+                // element constant is re-sized to ITS MEMBER's bit width,
+                // while DEC / HEX / BIN elements are left exactly as the def
+                // view has them.  (This note used to read "and the value
+                // masked"; § patElabNoMask59 below refutes that conjunct at
+                // the producer and removes the two writes it authorised —
+                // the re-size is a SIZE write and nothing else.)  Measured on
                 // tools/probe/r10fsv_memleft.sv (a 12-member pattern covering
                 // unsigned'(ref) / unsigned'(lit) / bit'(x) / 16'd7 / 64'h5 /
                 // plain ref / plain literal / enum member / replication /
@@ -15641,11 +15644,83 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             catch (...) {
                                 continue;
                             }
-                            uv9 &= (it9->second >= 64)
-                                       ? ~(uint64_t)0
-                                       : (((uint64_t)1 << it9->second) - 1);
-                            c9->VpiValue("UINT:" + std::to_string(uv9));
-                            c9->VpiDecompile(std::to_string(uv9));
+                            (void)uv9;  // parsed only as the element filter
+                            // § patElabNoMask59 (r11u59) — THE RE-SIZE DOES
+                            // NOT MASK.  The note above says the elaborated
+                            // element is "re-sized to ITS MEMBER's bit width
+                            // AND THE VALUE MASKED".  The second conjunct is
+                            // refuted at the producer and on an eight-arm
+                            // golden grid, and the two writes it authorised are
+                            // removed here; the SIZE write, which every cell
+                            // this arm reaches still needs, stays.
+                            //
+                            // THE PRODUCER.  The stamp is
+                            // `CompileHelper::adjustOpSize`
+                            // (Surelog `src/DesignCompile/CompileHelper.cpp:5114`),
+                            // and its struct arm ends, for every one of the
+                            // four typespec shapes it handles, in exactly two
+                            // lines (`:5153-5154`, `:5170-5171`, `:5188-5189`,
+                            // `:5199-5200`):
+                            //     adjustUnsized(any_cast<constant*>(cop), ncsize);
+                            //     cop->VpiSize(ncsize);
+                            // `adjustUnsized` (`:5091`) returns immediately
+                            // unless `c->VpiSize() == -1` — an UNBASED UNSIZED
+                            // literal — and even then only when its value is 1.
+                            // So for every SIZED element the only field written
+                            // is VpiSize: vpiValue, vpiDecompile and
+                            // vpiConstType survive the re-size untouched.
+                            //
+                            // THE GOLDEN GRID (six arms, one real Surelog
+                            // v1.87 run each, all cut inside the BAILED state
+                            // where the elaborated listing stays tagged and
+                            // every cell is readable by member name):
+                            //   WIDTHS (`wa1_widths`) — 300 into members of
+                            //     width 1 / 4 / 8, 70000 into 16, 5000000000
+                            //     into 32: golden reads `UINT:300` at
+                            //     vpiSize:1, `UINT:300` at 4, `UINT:300` at 8,
+                            //     `UINT:70000` at 16, `UINT:5000000000` at 32.
+                            //     A value 300 times too wide for its one-bit
+                            //     member is still 300.  We wrote 0/12/44/4464/
+                            //     705032704.
+                            //   BASES (`wa2_bases`) — the same 300 reaching
+                            //     five 8-bit members through references
+                            //     written decimal / hex / binary / octal /
+                            //     sized-decimal: golden keeps the REFERENCE's
+                            //     own encoding verbatim at the member size —
+                            //     `HEX:12C` decompiling `32'h12C` at
+                            //     vpiSize:8, `BIN:100101100` at 8, `32'o454`
+                            //     at 8, `DEC:300` decompiling `16'd300` at 8.
+                            //   SIGNEDNESS (`wa3_signed`) — golden's element
+                            //     is the referenced parameter's elaborated
+                            //     constant COPIED, with the size overwritten:
+                            //     a negative reference stays `INT:-5`
+                            //     decompiling `-5` at vpiSize:8.
+                            //   LITERAL vs REFERENCE (`wa4_litref`) — 300 as a
+                            //     literal, as a parameter, as an enum member
+                            //     and through a cast: golden gives all four
+                            //     `UINT:300` at vpiSize:8, so the `refMem9`
+                            //     split is a SIZE-side rule only.
+                            //   THE FITTING CONTROL (`wa5_fitctl`) — every
+                            //     value fits its member; golden re-sizes and
+                            //     changes nothing else, which is why this
+                            //     removal is identity wherever a value fits.
+                            //   THE ONE EXCEPTION (`wa6_unsized`) —
+                            //     `adjustUnsized`: an element written `'1`
+                            //     (vpiSize -1, BIN:1) becomes `UINT:255`
+                            //     decompiling `255` at an 8-bit member, while
+                            //     `'0` is left for the substitution to settle.
+                            //     We still emit `BIN:1` / `'1` there; that is
+                            //     a MISSING write, not a wrong one, and it is
+                            //     recorded as a residue rather than added,
+                            //     because no corpus cell carries it.
+                            //
+                            // The element FILTER is deliberately unchanged —
+                            // the `UINT:` prefix test and the `stoull` parse
+                            // above still decide WHICH elements this arm
+                            // touches — so the set of cells that receive a
+                            // size is exactly what it was at `4c5747e2` and
+                            // the only difference this makes is the two value
+                            // fields it stops writing.
                             c9->VpiSize((int32_t)it9->second);
                         }
                 }

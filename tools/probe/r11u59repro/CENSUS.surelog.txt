@@ -1,0 +1,45 @@
+GOLDEN-CENSUS cells=92081 overwide=8 overwide_elab=8 rows_overwide=2
+PREDICT rows=0 cells=0 candidate_rows=38
+  CANDROW default/ArrayTypespec-5e56cd8a
+  CANDROW default/BlackBePipeInt-2987e0d2
+  CANDROW default/BlackParrotComplex-5bed297d
+  CANDROW default/DefaultTag-9611a5af
+  CANDROW default/Earlgrey_0_1-71da2fd7
+  CANDROW default/EnumConstElab-d1ef321b
+  CANDROW default/FuncStructVal-564cdfb7
+  CANDROW default/NoReducTypespec-e5536851
+  CANDROW default/PAssignType-2de33ee2
+  CANDROW default/ParamArrayUnsizedPattern-fcd0331d
+  CANDROW default/ParamComplex-eee2b0f6
+  CANDROW default/ParamComplexVerilator-78daa7da
+  CANDROW default/ParamNoSubst-c99f7a8c
+  CANDROW default/ParamOverloading-addfdef8
+  CANDROW default/ParamScope-30199985
+  CANDROW default/ParamSubstituteComplex-a120fbcb
+  CANDROW default/ReorderPatt-cb2c2879
+  CANDROW default/StructParamFuncBodyFieldCompare-dc918b36
+  CANDROW default/TypespecExpr-2b4155f3
+  CANDROW testflags/ArrayTypespec-5e56cd8a
+  CANDROW testflags/BlackBePipeInt-2987e0d2
+  CANDROW testflags/BlackParrotComplex-5bed297d
+  CANDROW testflags/DefaultTag-9611a5af
+  CANDROW testflags/Earlgrey_0_1-71da2fd7
+  CANDROW testflags/EnumConstElab-d1ef321b
+  CANDROW testflags/FuncStructVal-564cdfb7
+  CANDROW testflags/NoReducTypespec-e5536851
+  CANDROW testflags/PAssignType-2de33ee2
+  CANDROW testflags/ParamArrayUnsizedPattern-fcd0331d
+  CANDROW testflags/ParamComplex-eee2b0f6
+  CANDROW testflags/ParamComplexVerilator-78daa7da
+  CANDROW testflags/ParamNoSubst-c99f7a8c
+  CANDROW testflags/ParamOverloading-addfdef8
+  CANDROW testflags/ParamScope-30199985
+  CANDROW testflags/ParamSubstituteComplex-a120fbcb
+  CANDROW testflags/ReorderPatt-cb2c2879
+  CANDROW testflags/StructParamFuncBodyFieldCompare-dc918b36
+  CANDROW testflags/TypespecExpr-2b4155f3
+FLATTEN-CENSUS elab_patterns_golden=1150 joined=607 GOLDFLAT_OURSTAGGED=2 rows=2
+  R0ROW default/StructParamPatternInitCast-5f8c57d4 cells=1
+  R0ROW testflags/StructParamPatternInitCast-5f8c57d4 cells=1
+  R0CELL default/StructParamPatternInitCast-5f8c57d4 elabpkg cfg_pkg Base goldn=1 oursn=1
+  R0CELL testflags/StructParamPatternInitCast-5f8c57d4 elabpkg cfg_pkg Base goldn=1 oursn=1
