@@ -1,0 +1,29 @@
+LHS:
+decompile:
+logic_net: (work@dut.mem), id:499, line:20:9, endln:20:12
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:428, file:/home/heyfey/git-repos/uhdm2rtlil/test/mem_packed_2d_byte_write/dut.sv, line:6:1, endln:34:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.mem), id:519
+  |vpiParent:
+  \_logic_net: (work@dut.mem), id:499, line:20:9, endln:20:12
+  |vpiFullName:work@dut.mem
+  |vpiActual:
+  \_array_typespec: (mem_t), id:500, line:19:11, endln:19:57
+|vpiName:mem
+|vpiFullName:work@dut.mem
+|vpiNetType:36
+RHS:
+decompile:
+logic_net: (work@dut.mem), id:53, line:20:9, endln:20:12
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:9, file:/home/heyfey/git-repos/uhdm2rtlil/test/mem_packed_2d_byte_write/dut.sv, line:6:1, endln:34:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.mem), id:54
+  |vpiParent:
+  \_logic_net: (work@dut.mem), id:53, line:20:9, endln:20:12
+  |vpiFullName:work@dut.mem
+  |vpiActual:
+  \_array_typespec: (mem_t), id:380, line:19:11, endln:19:57
+|vpiName:mem
+|vpiFullName:work@dut.mem

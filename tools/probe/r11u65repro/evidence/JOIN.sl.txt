@@ -1,0 +1,10 @@
+r11u65 OURS-vs-GOLDEN NET JOIN — corpus sl, every arm with a database,
+keyed on (view, scope path, net name, net UHDM kind), VpiNetType as a
+sorted MULTISET per key.  Every non-MATCH row is listed below verbatim.
+ARMS=960 goldenKeys=134094 oursKeys=134088 MATCH=134088 NT-DIFF=0 ONLY-GOLDEN=6 ONLY-OURS=0
+ONLY-GOLDEN default/SequenceInst-93ff2aad DEF|work@m|end_event|logic_net NT=1
+ONLY-GOLDEN default/SequenceInst-93ff2aad DEF|work@m|form|logic_net NT=1
+ONLY-GOLDEN default/SequenceInst-93ff2aad DEF|work@m|start_event|logic_net NT=1
+ONLY-GOLDEN testflags/SequenceInst-93ff2aad DEF|work@m|end_event|logic_net NT=1
+ONLY-GOLDEN testflags/SequenceInst-93ff2aad DEF|work@m|form|logic_net NT=1
+ONLY-GOLDEN testflags/SequenceInst-93ff2aad DEF|work@m|start_event|logic_net NT=1

@@ -1,0 +1,22 @@
+r11u65 OURS-vs-GOLDEN NET JOIN AFTER THE LAW — corpus u2r.
+ARMS=1608 goldenKeys=21352 oursKeys=21332 MATCH=21332 NT-DIFF=0 ONLY-GOLDEN=20 ONLY-OURS=0
+ONLY-GOLDEN default/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|content_q|struct_net NT=0
+ONLY-GOLDEN default/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|q_n|struct_net NT=0
+ONLY-GOLDEN default/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|tq|struct_net NT=0
+ONLY-GOLDEN default/packed_array_struct-a5048efa ELAB|work@packed_array_struct|arr|packed_array_net NT=0
+ONLY-GOLDEN default/packed_array_struct-a5048efa ELAB|work@packed_array_struct|scalar_sig|struct_net NT=0
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|funct3|logic_net NT=1
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|imm_11_0|logic_net NT=1
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|opcode|logic_net NT=1
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|rd|logic_net NT=1
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|rs1|logic_net NT=1
+ONLY-GOLDEN testflags/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|content_q|struct_net NT=0
+ONLY-GOLDEN testflags/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|q_n|struct_net NT=0
+ONLY-GOLDEN testflags/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|tq|struct_net NT=0
+ONLY-GOLDEN testflags/packed_array_struct-a5048efa ELAB|work@packed_array_struct|arr|packed_array_net NT=0
+ONLY-GOLDEN testflags/packed_array_struct-a5048efa ELAB|work@packed_array_struct|scalar_sig|struct_net NT=0
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|funct3|logic_net NT=1
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|imm_11_0|logic_net NT=1
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|opcode|logic_net NT=1
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|rd|logic_net NT=1
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|rs1|logic_net NT=1

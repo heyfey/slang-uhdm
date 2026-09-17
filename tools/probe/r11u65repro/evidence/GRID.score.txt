@@ -1,0 +1,49 @@
+  TO-GOLDEN   c1_typedef_mod ('DEF', 'work@dut', 'mem', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   c1_typedef_mod ('DEF', 'work@dut', 'u1', 'logic_net') golden=[36] base=[0] law=[36]
+ARM c1_typedef_mod     CALIB-OK SAME=8 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+ARM c2_typedef_pkg     CALIB-OK SAME=4 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   c3_typedef_iface ('DEF', 'work@ifc', 'a', 'logic_net') golden=[36] base=[0] law=[36]
+ARM c3_typedef_iface   CALIB-OK SAME=3 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'a', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'ad', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'd2', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'l', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'nm', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'r', 'logic_net') golden=[48] base=[0] law=[48]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'rg', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'sg', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'tw', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n1_netkinds ('DEF', 'work@dut', 'vd', 'logic_net') golden=[36] base=[0] law=[36]
+ARM n1_netkinds        CALIB-OK SAME=7 TO-GOLDEN=10 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=1 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   n2_scopes ('DEF', 'work@expl', 'e1', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n2_scopes ('DEF', 'work@wild', 'w1', 'logic_net') golden=[36] base=[0] law=[36]
+ARM n2_scopes          CALIB-OK SAME=15 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   n3_ports ('DEF', 'work@dut', 'body', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n3_ports ('DEF', 'work@dut2', 'ai', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n3_ports ('DEF', 'work@dut2', 'local2', 'logic_net') golden=[36] base=[0] law=[36]
+ARM n3_ports           CALIB-OK SAME=14 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=1 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   n4_gen ('DEF', 'work@dut', 'top', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n4_gen ('DEF', 'work@leaf', 'la', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n4_gen ('DEF', 'work@never_inst', 'na', 'logic_net') golden=[36] base=[0] law=[36]
+ARM n4_gen             CALIB-OK SAME=11 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   n5_iface ('DEF', 'work@ifc_i', 'ia', 'logic_net') golden=[36] base=[0] law=[36]
+ARM n5_iface           CALIB-OK SAME=7 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=1 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+SKIP n6_containers      (missing database)
+  TO-GOLDEN   n7_guards ('DEF', 'work@dut', 'ch', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n7_guards ('DEF', 'work@dut', 'wa', 'logic_net') golden=[36] base=[1] law=[36]
+  TO-GOLDEN   n7_guards ('DEF', 'work@dut', 'wv', 'logic_net') golden=[36] base=[1] law=[36]
+ARM n7_guards          CALIB-OK SAME=17 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=1 MOVED-WRONG=0 ONLY-GOLDEN=1 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   n8_portsiface ('DEF', 'work@ifc8', 'ta', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n8_portsiface ('DEF', 'work@ifc8', 'vd', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   n8_portsiface ('DEF', 'work@sub8', 'sb', 'logic_net') golden=[36] base=[0] law=[36]
+ARM n8_portsiface      CALIB-OK SAME=10 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   x1_elemkinds ('DEF', 'work@dut', 'a', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   x1_elemkinds ('DEF', 'work@dut', 'li', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   x1_elemkinds ('DEF', 'work@dut', 'nm', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   x1_elemkinds ('DEF', 'work@dut', 'rr', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   x1_elemkinds ('DEF', 'work@dut', 'sg', 'logic_net') golden=[36] base=[0] law=[36]
+  TO-GOLDEN   x1_elemkinds ('DEF', 'work@dut', 'tw', 'logic_net') golden=[36] base=[0] law=[36]
+ARM x1_elemkinds       CALIB-OK SAME=4 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+  TO-GOLDEN   x2_copies ('DEF', 'work@sub', 'u', 'logic_net') golden=[36] base=[0] law=[36]
+ARM x2_copies          CALIB-OK SAME=8 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 KEYSET-MOVED=0
+TOTAL SAME=108 TO-GOLDEN=35 AWAY-GOLDEN=0 STILL-WRONG=2 MOVED-WRONG=0 ONLY-GOLDEN=3 ONLY-OURS=0 KEYSET-MOVED=0

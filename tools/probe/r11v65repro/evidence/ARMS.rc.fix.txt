@@ -1,0 +1,10 @@
+v1_netkw golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=29
+v2_aliaschain golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=77
+v3_ports golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=114
+v4_ifacegen golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=8
+v5_elem golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=8
+v6_scopes golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=140
+v7_decl golden_rc=0 ours_rc=4  slerr=0 cmp_rc=255 heads=1 cmplines=51
+v8_alias2 golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=77
+v9_minimal golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=8
+va_ctx golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=8

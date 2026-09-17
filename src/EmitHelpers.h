@@ -1286,10 +1286,154 @@ inline syntax::SyntaxKind aliasVectorKeyword(const Type& t) {
     return syntax::SyntaxKind::Unknown;
 }
 
+// § unpackedAliasNetType65 — AN UNPACKED DIMENSION IS TRANSPARENT TO THE
+// DEF-VIEW NET TYPE.  The producer, at the pinned sources:
+//
+//   ElaborationStep.cpp:1487-1500  a signal whose written type resolves to a
+//     DataType whose ACTUAL category is SIMPLE_TYPEDEF has its Signal::m_type
+//     REWRITTEN to that typedef's own base VObjectType -- `logic` ->
+//     paIntVec_TypeLogic, `reg` -> paIntVec_TypeReg, `wire` -> paNetType_Wire;
+//     every other actual (bit, int, struct, enum, a type parameter) leaves
+//     m_type alone.
+//   UhdmWriter.cpp:891  the DEFINITION-view net is then stamped
+//     `dest_net->VpiNetType(getVpiNetType(orig_net->getType()))`, and
+//     getVpiNetType (:572) maps paIntVec_TypeLogic -> vpiLogicNet(36),
+//     paIntVec_TypeReg -> vpiReg(48).
+//
+// NEITHER step reads a dimension.  The typedef's own unpacked dimension lives
+// on its DECLARATOR, not on its data type, and a declarator dimension on the
+// USE site is not part of the rule either -- so `a_t a`, `a_t a [2]` and
+// `v_t v [D]` all answer exactly what `v_t v` answers.  Measured, golden,
+// grid n1/n2/n3/n4/n5/n7/n8.
+//
+// This function answers ONLY the shapes that carry at least one unpacked
+// level, so it is DISJOINT from the def-view alias arm below it, which
+// already answers the dimension-less ones.  Its guards are golden cells:
+//   * a TYPE PARAMETER prints NO net type in any cell (n7 t1/t2/t3, and
+//     § namedTypeLeafNoNetType32) -- a `TypeAssignment` syntax;
+//   * a SCOPED package name (`pk::a_t x`, `pk::v_t x [4]`) prints none, while
+//     the SAME package typedef reached through a wildcard or explicit IMPORT
+//     prints 36 (n2 w1/e1 = 36 against s1/sd/sq = 0) -- so the gate is the
+//     WRITTEN FORM, exactly as § unqualDimNet9 reads it, NEVER the alias's
+//     home scope;
+//   * the element must be a FOUR-STATE packed vector or scalar: `bit [N-1:0]
+//     b_t [D]` prints none, as do an `int`, `enum` or `struct` element
+//     (n1 b/i/ea/sa).
+inline int32_t unpackedAliasNetType65(const Symbol& internal) {
+    auto* dt = internal.getDeclaredType();
+    if (!dt)
+        return 0;
+    // The WRITTEN form must be a bare (possibly dimensioned) name.  A packed
+    // dim makes slang parse it as an IdentifierSelectName; a `pkg::T` is a
+    // ScopedName and prints no net type.
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return 0;
+    auto nk = tsyn->as<syntax::NamedTypeSyntax>().name->kind;
+    if (nk != syntax::SyntaxKind::IdentifierName &&
+        nk != syntax::SyntaxKind::IdentifierSelectName)
+        return 0;
+    // Strip the levels the DECLARATOR wrote, keeping the written alias
+    // visible (`a_t x [2]` -> `a_t`).
+    const Type* w = &dt->getType();
+    bool anyUnpacked = false;
+    for (int g = 0; g < 32 && w->kind == SymbolKind::FixedSizeUnpackedArrayType;
+         g++) {
+        w = &w->as<FixedSizeUnpackedArrayType>().elementType;
+        anyUnpacked = true;
+    }
+    if (w->kind != SymbolKind::TypeAlias)
+        return 0;
+    // A type parameter is a TypeAliasType whose syntax is a `TypeAssignment`.
+    if (auto* syn = w->getSyntax();
+        syn && syn->kind == syntax::SyntaxKind::TypeAssignment)
+        return 0;
+    // Descend the alias chain's OWN unpacked levels to the element.
+    const Type* e = &w->as<TypeAliasType>().targetType.getType();
+    for (int g = 0; g < 32; g++) {
+        const Type& c = e->getCanonicalType();
+        if (c.kind != SymbolKind::FixedSizeUnpackedArrayType)
+            break;
+        e = &c.as<FixedSizeUnpackedArrayType>().elementType;
+        anyUnpacked = true;
+    }
+    if (!anyUnpacked)
+        return 0;  // the dimension-less arm below already owns this shape
+    const Type& ec = e->getCanonicalType();
+    if ((ec.kind != SymbolKind::PackedArrayType &&
+         ec.kind != SymbolKind::ScalarType) ||
+        !ec.isFourState())
+        return 0;
+    // § v11u65 ELEMENT-REACH FENCE -- the producer's rewrite (A) resolves the
+    // written name ONE hop and stops, so an element the law reaches THROUGH a
+    // further alias is only stamped in the narrow shape golden actually
+    // stamps.  Measured golden, verifier arms v8 d01-d12 / v9 m1-m8 / va
+    // m9-m13, one cell per module:
+    //   * an element that carries NO alias anywhere (`typedef logic [N-1:0]
+    //     a_t [D]`, `lw_t d [2]` reached through no alias) prints 36 in EVERY
+    //     home -- local (d01/d03) and package (d07, and n2 w1/e1);
+    //   * an element that IS, or CONTAINS, an alias prints 36 only when that
+    //     alias is MODULE-LOCAL and is exactly ONE hop from an alias-free
+    //     packed vector or scalar (d02/d03/d04, n1 nm_t, v5 sa/vv, m5/m6);
+    //   * every deeper chain prints NOTHING -- an alias of an alias (d05,
+    //     m4/m8/m11/m13), an alias whose target still holds an alias (d06,
+    //     m1/m2/m3/m7/m9/m10/m12), and EVERY package-homed alias reached below
+    //     the written name (d08/d09/d10/d11/d12), which is why the home test
+    //     lives HERE, on the element, and not on the written name (the written
+    //     name's home is not the gate -- n2 w1/e1 prove that).
+    // Without this fence the clause stamps 36 on all of those, where both
+    // golden and our pristine emission read 0.
+    {
+        auto holdsAlias = [](const Type& t0) {
+            const Type* p = &t0;
+            for (int g = 0; g < 32; g++) {
+                if (p->kind == SymbolKind::TypeAlias)
+                    return true;
+                const Type& pc = p->getCanonicalType();
+                if (pc.kind != SymbolKind::PackedArrayType)
+                    break;
+                p = &pc.as<PackedArrayType>().elementType;
+            }
+            return false;
+        };
+        // Walk the element's packed chain; every alias on it must be local and
+        // one hop from an alias-free vector.
+        const Type* q = e;
+        for (int g = 0; g < 32; g++) {
+            if (q->kind == SymbolKind::TypeAlias) {
+                auto& qa = q->as<TypeAliasType>();
+                if (auto* qs = qa.getParentScope();
+                    !qs || qs->asSymbol().kind == SymbolKind::Package)
+                    return 0;
+                if (holdsAlias(qa.targetType.getType()))
+                    return 0;
+                break;
+            }
+            const Type& qc = q->getCanonicalType();
+            if (qc.kind != SymbolKind::PackedArrayType)
+                break;
+            q = &qc.as<PackedArrayType>().elementType;
+        }
+    }
+    // `reg`-written typedefs net as vpiReg(48), `logic` as vpiNet(36) --
+    // getVpiNetType's two cases, measured on n1 r_t.
+    if (aliasVectorKeyword(*w) == syntax::SyntaxKind::RegType)
+        return vpiReg;
+    return vpiNet;
+}
+
 inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
     // A `parameter type T`-typed port carries no net type (Surelog).
     if (portTypeParam(internal))
         return 0;
+    // § unpackedAliasNetType65, DEF VIEW ONLY -- the elaborated view answers a
+    // net keyword (`wire v_t wv` reads 36 in the def view and 1 in the elab
+    // view, n3) and re-types an unpacked-array signal as a VARIABLE, so it has
+    // no net to stamp at all (n1: our elab view and golden's both hold no net
+    // for `a_t a`).
+    if (defView)
+        if (int32_t u65 = unpackedAliasNetType65(internal))
+            return u65;
     if (internal.kind == SymbolKind::Net) {
         // Implicitly-declared nets (created by an undeclared name in an assign
         // or port connection) print as a bare wire.

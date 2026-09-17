@@ -1,0 +1,26 @@
+r11u65 OURS-vs-GOLDEN NET JOIN — corpus u2r, every arm with a database,
+keyed on (view, scope path, net name, net UHDM kind), VpiNetType as a
+sorted MULTISET per key.  Every non-MATCH row is listed below verbatim.
+ARMS=1608 goldenKeys=21352 oursKeys=21332 MATCH=21330 NT-DIFF=2 ONLY-GOLDEN=20 ONLY-OURS=0
+ONLY-GOLDEN default/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|content_q|struct_net NT=0
+ONLY-GOLDEN default/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|q_n|struct_net NT=0
+ONLY-GOLDEN default/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|tq|struct_net NT=0
+NT-DIFF default/mem_packed_2d_byte_write-8742967e DEF|work@dut|mem|logic_net golden=[36,] ours=[0,] shape=array_typespec/logic_typespec tsname=mem_t
+ONLY-GOLDEN default/packed_array_struct-a5048efa ELAB|work@packed_array_struct|arr|packed_array_net NT=0
+ONLY-GOLDEN default/packed_array_struct-a5048efa ELAB|work@packed_array_struct|scalar_sig|struct_net NT=0
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|funct3|logic_net NT=1
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|imm_11_0|logic_net NT=1
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|opcode|logic_net NT=1
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|rd|logic_net NT=1
+ONLY-GOLDEN default/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|rs1|logic_net NT=1
+ONLY-GOLDEN testflags/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|content_q|struct_net NT=0
+ONLY-GOLDEN testflags/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|q_n|struct_net NT=0
+ONLY-GOLDEN testflags/anon_struct_packed_dim-3a682a50 ELAB|work@anon_struct_packed_dim|tq|struct_net NT=0
+NT-DIFF testflags/mem_packed_2d_byte_write-8742967e DEF|work@dut|mem|logic_net golden=[36,] ours=[0,] shape=array_typespec/logic_typespec tsname=mem_t
+ONLY-GOLDEN testflags/packed_array_struct-a5048efa ELAB|work@packed_array_struct|arr|packed_array_net NT=0
+ONLY-GOLDEN testflags/packed_array_struct-a5048efa ELAB|work@packed_array_struct|scalar_sig|struct_net NT=0
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|funct3|logic_net NT=1
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|imm_11_0|logic_net NT=1
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|opcode|logic_net NT=1
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|rd|logic_net NT=1
+ONLY-GOLDEN testflags/typed_named_pattern-816a70c4 DEF|work@typed_named_pattern|rs1|logic_net NT=1

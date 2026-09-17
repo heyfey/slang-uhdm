@@ -33589,8 +33589,19 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         n->VpiFullName(prefix + "." + name);
         n->VpiParent(iface);
         setLoc(n, nameSpan(it.sym->location, it.sym->name));
-        if (int32_t nt = netTypeFor(*it.sym))
-            n->VpiNetType(nt);
+        // § unpackedAliasNetType65 on the INTERFACE def road.  This road hands
+        // `netTypeFor` NO def-view flag, so the clause has to be spelled here
+        // -- and it is gated on INSTANTIATION, which is the interface's own
+        // discriminator (r10v225 R1, re-measured here on grid n5): golden
+        // stamps the typedef's keyword on an INSTANTIATED interface's def-view
+        // net (`ifc_i.ia` = 36, `ifc8.vd` = 36) and stamps NOTHING on the
+        // UNINSTANTIATED twin (`ifc_u.ua` = 0, and `ifc_u.uv` = 0 where we
+        // already read 36 -- R1, untouched by this pass).
+        int32_t ifnt65 = netTypeFor(*it.sym);
+        if (!ifnt65 && ifaceInstantiated225)
+            ifnt65 = unpackedAliasNetType65(*it.sym);
+        if (ifnt65)
+            n->VpiNetType(ifnt65);
         // An EXPLICITLY package-qualified struct interface VARIABLE
         // (p::req_t req) nets as a wire; an imported bare name (import p::*;
         // req_t req) or local typedef stays UNTYPED (Surelog keys on the

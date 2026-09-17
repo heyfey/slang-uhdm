@@ -1,0 +1,24 @@
+LHS:
+decompile:
+constant: , id:331
+|vpiDecompile:3
+|vpiSize:64
+|INT:3
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:24, line:19:51, endln:19:56
+|vpiParent:
+\_range: , id:22, line:19:51, endln:19:56
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@dut.mem_t.DEPTH), id:25, line:19:51, endln:19:56
+  |vpiParent:
+  \_operation: , id:24, line:19:51, endln:19:56
+  |vpiName:DEPTH
+  |vpiFullName:work@dut.mem_t.DEPTH
+|vpiOperand:
+\_constant: , id:26
+  |vpiSize:64
+  |INT:1
+  |vpiConstType:7

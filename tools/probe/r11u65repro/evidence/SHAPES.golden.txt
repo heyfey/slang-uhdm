@@ -1,0 +1,78 @@
+r11u65 GOLDEN-vs-GOLDEN SHAPE CENSUS -- every net reachable from the
+design root of every golden database of BOTH corpora (uhdm2rtlil 1742
+arms + surelog 1581 arms), keyed on
+  view | scope kind | net kind | typespec kind | element ts kind | named?
+with the histogram of vpiNetType values in that cell.
+distinct shape cells: 72
+ELAB|module_inst|logic_net|logic_typespec|-|-                            NT0=186106 NT1=52346 NT2=14 NT3=16 NT5=1 NT6=1 NT10=2 NT11=2 NT12=24 NT13=2 NT36=126782 NT48=22495
+DEF|module_inst|logic_net|logic_typespec|-|-                             NT0=179 NT1=13863 NT2=10 NT3=10 NT5=1 NT6=1 NT10=2 NT11=2 NT12=66 NT13=2 NT36=78194 NT48=8898
+DEF|module_inst|logic_net|-|-|-                                          NT0=26363 NT1=9226 NT2=4 NT3=6 NT12=6 NT36=33399 NT48=1964
+ELAB|gen_scope|logic_net|logic_typespec|-|-                              NT1=5305 NT48=1640
+DEF|module_inst|logic_net|struct_typespec|-|named                        NT0=3842 NT1=239
+DEF|module_inst|logic_net|class_typespec|-|named                         NT0=2651
+ELAB|module_inst|struct_net|struct_typespec|-|named                      NT0=2118 NT1=440
+DEF|module_inst|logic_net|enum_typespec|-|named                          NT0=2339
+ELAB|module_inst|array_net|-|-|-                                         NT0=1247
+DEF|module_inst|logic_net|logic_typespec|-|named                         NT0=63 NT36=817 NT48=2
+DEF|interface_inst|logic_net|class_typespec|-|named                      NT0=808
+DEF|module_inst|logic_net|string_typespec|-|-                            NT0=740
+ELAB|module_inst|logic_net|logic_typespec|-|named                        NT1=4 NT2=4 NT3=4 NT36=708 NT48=2
+DEF|interface_inst|logic_net|logic_typespec|-|-                          NT1=60 NT36=652 NT48=4
+DEF|package|logic_net|class_typespec|-|named                             NT0=480
+DEF|module_inst|logic_net|int_typespec|-|-                               NT0=448
+ELAB|interface_inst|logic_net|logic_typespec|-|-                         NT0=72 NT1=104 NT36=234 NT48=12
+DEF|module_inst|logic_net|integer_typespec|-|-                           NT0=327
+ELAB|module_inst|logic_net|-|-|-                                         NT0=48 NT1=265
+DEF|interface_inst|logic_net|-|-|-                                       NT0=148 NT1=24 NT36=102 NT48=4
+DEF|module_inst|logic_net|packed_array_typespec|struct_typespec|-        NT0=189 NT1=69
+ELAB|gen_scope|struct_net|struct_typespec|-|named                        NT0=246
+DEF|interface_inst|logic_net|string_typespec|-|-                         NT0=224
+DEF|module_inst|logic_net|bit_typespec|-|-                               NT0=206
+ELAB|interface_inst|struct_net|struct_typespec|-|named                   NT0=158 NT1=14
+DEF|module_inst|logic_net|struct_typespec|-|-                            NT0=152
+DEF|module_inst|logic_net|unsupported_typespec|-|named                   NT0=125 NT1=2
+ELAB|module_inst|packed_array_net|-|-|-                                  NT0=16 NT1=106
+DEF|package|logic_net|string_typespec|-|-                                NT0=120
+DEF|interface_inst|logic_net|int_typespec|-|-                            NT0=100
+DEF|interface_inst|logic_net|struct_typespec|-|named                     NT0=80 NT1=18
+DEF|module_inst|logic_net|packed_array_typespec|enum_typespec|-          NT0=94
+DEF|interface_inst|array_net|-|-|-                                       NT0=94
+ELAB|gen_scope|logic_net|-|-|-                                           NT1=80
+DEF|interface_inst|logic_net|bit_typespec|-|-                            NT0=76
+DEF|module_inst|logic_net|enum_typespec|-|-                              NT0=70
+ELAB|interface_inst|array_net|-|-|-                                      NT0=60
+ELAB|module_inst|struct_net|struct_typespec|-|-                          NT0=51
+DEF|package|logic_net|int_typespec|-|-                                   NT0=40
+DEF|package|logic_net|bit_typespec|-|-                                   NT0=20
+DEF|module_inst|logic_net|union_typespec|-|named                         NT0=19
+ELAB|module_inst|logic_net|unsupported_typespec|-|named                  NT0=18
+DEF|module_inst|logic_net|byte_typespec|-|-                              NT0=18
+DEF|interface_inst|logic_net|logic_typespec|-|named                      NT0=16 NT36=2
+DEF|interface_inst|logic_net|enum_typespec|-|named                       NT0=18
+DEF|module_inst|logic_net|union_typespec|-|-                             NT0=14
+ELAB|module_inst|struct_net|union_typespec|-|-                           NT0=14
+ELAB|gen_scope|array_net|-|-|-                                           NT0=14
+DEF|module_inst|logic_net|chandle_typespec|-|-                           NT0=14
+ELAB|module_inst|logic_net|integer_typespec|-|-                          NT1=4 NT2=4 NT3=4
+DEF|module_inst|logic_net|event_typespec|-|-                             NT0=12
+DEF|module_inst|logic_net|real_typespec|-|-                              NT0=12
+ELAB|module_inst|struct_net|packed_array_typespec|struct_typespec|-      NT0=10
+ELAB|interface_inst|logic_net|-|-|-                                      NT1=10
+DEF|module_inst|logic_net|packed_array_typespec|struct_typespec|named    NT0=8
+DEF|module_inst|logic_net|array_typespec|struct_typespec|named           NT0=8
+DEF|module_inst|logic_net|bit_typespec|-|named                           NT0=8
+DEF|module_inst|logic_net|packed_array_typespec|enum_typespec|named      NT0=4
+DEF|module_inst|logic_net|interface_typespec|-|named                     NT0=4
+DEF|module_inst|logic_net|int_typespec|-|named                           NT0=4
+DEF|package|logic_net|struct_typespec|-|named                            NT0=4
+DEF|module_inst|logic_net|array_typespec|logic_typespec|named            NT36=2
+ELAB|module_inst|logic_net|time_typespec|-|-                             NT0=2
+DEF|module_inst|logic_net|long_int_typespec|-|-                          NT0=2
+DEF|module_inst|logic_net|short_int_typespec|-|-                         NT0=2
+DEF|module_inst|logic_net|short_real_typespec|-|-                        NT0=2
+DEF|interface_inst|logic_net|real_typespec|-|-                           NT0=2
+DEF|interface_inst|logic_net|unsupported_typespec|-|named                NT0=2
+DEF|package|logic_net|unsupported_typespec|-|named                       NT0=2
+DEF|package|logic_net|logic_typespec|-|named                             NT0=2
+DEF|interface_inst|logic_net|packed_array_typespec|struct_typespec|-     NT0=2
+DEF|module_inst|logic_net|array_typespec|int_typespec|named              NT0=2

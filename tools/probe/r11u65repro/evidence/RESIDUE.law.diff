@@ -1,0 +1,53 @@
+50,51d49
+<       \_constant: 
+<     \_constant: 
+155d152
+<         |INT:1
+162d158
+<       |INT:3
+418,419d413
+<         \_operation: , line:19:51, endln:19:56
+<         \_operation: , line:19:51, endln:19:56
+421a416
+>     \_operation: , line:19:51, endln:19:56
+603d597
+<       \_range: , line:19:51, endln:19:56
+613d606
+<       \_ref_obj: (mem_t.DEPTH), line:19:51, endln:19:56
+634a628
+>                                   \_ref_obj: (work@dut.mem.i), line:27:49, endln:27:50
+636d629
+<                                   \_ref_obj: (work@dut.mem.mem.i), line:27:49, endln:27:50
+645a639
+>                                   \_ref_obj: (work@dut.wdata.i), line:27:71, endln:27:72
+648d641
+<                                   \_ref_obj: (work@dut.wdata.wdata.i), line:27:71, endln:27:72
+860,861d852
+<         |vpiConstType:7
+<       |vpiConstType:7
+988d978
+<       |vpiDecompile:3
+1035d1024
+<         |vpiFullName:mem_t.DEPTH
+1099a1089
+>                                     |vpiFullName:work@dut.mem.i
+1102d1091
+<                                     |vpiFullName:work@dut.mem.mem.i
+1134a1124
+>                                     |vpiFullName:work@dut.wdata.i
+1138d1127
+<                                     |vpiFullName:work@dut.wdata.wdata.i
+1245d1233
+<         |vpiName:DEPTH
+1379,1380d1366
+<       |vpiOperand:
+<       |vpiOperand:
+1394d1379
+<       |vpiOpType:11
+1508,1510d1492
+<         |vpiParent:
+<         |vpiParent:
+<       |vpiParent:
+1827,1828d1808
+<         |vpiSize:64
+<       |vpiSize:64
