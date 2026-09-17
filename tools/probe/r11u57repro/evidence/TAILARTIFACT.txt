@@ -1,0 +1,17 @@
+# r11u57 — the 5 whole-dump 'NEW' texts on type_param_packed_dim, resolved
+
+The whole-dump subset prover reports 5 new ours-only line TEXTS; the
+judge-reachable prover reports 0.  The cause, measured at the exact
+indentation depth the dump prints (8 spaces, the depth the new operation
+tree puts its literal operand at):
+
+  occurrences of '        |UINT:1'   whole / judge-sections / weaklyReferenced tail
+    golden        6 / 2 / 1
+    ours base     6 / 1 / 2     <- whole-dump total EQUAL to golden: no diff line
+    ours law      7 / 2 / 2     <- judge sections now MATCH golden (1 -> 2)
+
+Our TAIL is byte-identical before and after (cmp of the weaklyReferenced
+section: identical), so nothing moved there.  The whole-dump total changed
+only because the judge-section deficit that used to cancel the pre-existing
+tail surplus is gone.  The tail is unreachable to uhdm-cmp (RESUME s9), and
+uhdm-cmp itself reads 1 head / 30 cmp lines on this row before AND after.

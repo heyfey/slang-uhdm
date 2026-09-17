@@ -1,0 +1,17 @@
+# r11u57 arm heads, uhdm-cmp, before and after
+e1_inexpr57 base heads=1 cmplines=48 head=operation: , id:146, line:21:24, endln:21:38
+e1_inexpr57 law heads=1 cmplines=8 head=ref_typespec: (work@dut), id:172
+e2_holder57 base heads=1 cmplines=30 head=packed_array_var: (work@dut.rt_i), id:197, line:13:18, endln:13:22
+e2_holder57 law heads=1 cmplines=30 head=packed_array_var: (work@dut.rt_i), id:197, line:13:18, endln:13:22
+e3_shadow57 base heads=1 cmplines=48 head=operation: , id:61, line:19:24, endln:19:42
+e3_shadow57 law heads=1 cmplines=46 head=operation: , id:94, line:20:14, endln:20:29
+e4_typedef57 base heads=1 cmplines=21 head=sys_func_call: ($bits), id:32, line:14:29, endln:14:41
+e4_typedef57 law heads=1 cmplines=21 head=sys_func_call: ($bits), id:32, line:14:29, endln:14:41
+e5_genblock57 base heads=1 cmplines=21 head=constant: , id:43, line:13:33, endln:13:49
+e5_genblock57 law heads=1 cmplines=21 head=constant: , id:43, line:13:33, endln:13:49
+e6_override57 base heads=1 cmplines=48 head=operation: , id:50, line:9:25, endln:9:39
+e6_override57 law heads=1 cmplines=46 head=operation: , id:129, line:14:14, endln:14:27
+e7_pkgiface57 base heads=1 cmplines=67 head=package: pk (pk::), id:1, file:/tmp/wt_r11u57/tools/probe/r11u57repro/grid/e7_pkgiface57/dut.sv, line:5:1, endln:7:11
+e7_pkgiface57 law heads=1 cmplines=67 head=package: pk (pk::), id:1, file:/tmp/wt_r11u57/tools/probe/r11u57repro/grid/e7_pkgiface57/dut.sv, line:5:1, endln:7:11
+e8_reduce57 base heads=1 cmplines=48 head=operation: , id:122, line:15:33, endln:15:46
+e8_reduce57 law heads=1 cmplines=48 head=operation: , id:146, line:19:23, endln:19:48

@@ -1,0 +1,19 @@
+# r11u57 grid — rc for BOTH sides, both binaries (an arm whose compile fails teaches error-recovery, not golden)
+## tag=base
+e1_inexpr57 golden_rc=0 ours_rc=0 
+e2_holder57 golden_rc=0 ours_rc=0 
+e3_shadow57 golden_rc=0 ours_rc=0 
+e4_typedef57 golden_rc=0 ours_rc=0 
+e5_genblock57 golden_rc=0 ours_rc=0 
+e6_override57 golden_rc=0 ours_rc=0 
+e7_pkgiface57 golden_rc=0 ours_rc=0 
+e8_reduce57 golden_rc=0 ours_rc=0 
+## tag=law
+e1_inexpr57 golden_rc=0 ours_rc=0 
+e2_holder57 golden_rc=0 ours_rc=0 
+e3_shadow57 golden_rc=0 ours_rc=0 
+e4_typedef57 golden_rc=0 ours_rc=0 
+e5_genblock57 golden_rc=0 ours_rc=0 
+e6_override57 golden_rc=0 ours_rc=0 
+e7_pkgiface57 golden_rc=0 ours_rc=0 
+e8_reduce57 golden_rc=0 ours_rc=0 

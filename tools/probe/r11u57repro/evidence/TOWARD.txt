@@ -1,0 +1,35 @@
+ARM                     A_g      A_o      B_g      B_o  DIRECTION
+e1_inexpr57             279       99      145       60  TOWARD-GOLDEN (-173)
+e2_holder57             109       58       63       57  TOWARD-GOLDEN (-47)
+e3_shadow57              62       57       40       51  TOWARD-GOLDEN (-28)
+e4_typedef57             23       11       23       11  UNCHANGED
+e5_genblock57            98       40       98       40  UNCHANGED
+e6_override57           165       47       77       23  TOWARD-GOLDEN (-112)
+e7_pkgiface57            81       59       40       43  TOWARD-GOLDEN (-57)
+e8_reduce57             222       62      122       44  TOWARD-GOLDEN (-118)
+
+ARM                base           law            VERDICT
+e1_inexpr57        f09518f330be   c9544759a58d   MOVED
+e2_holder57        1c3f7418536a   1c837c641959   MOVED
+e3_shadow57        b27c15571883   481d5e0e5d96   MOVED
+e4_typedef57       3dcf3a6fa9ed   3dcf3a6fa9ed   SAME
+e5_genblock57      6ea8a0d654c4   6ea8a0d654c4   SAME
+e6_override57      b86907412e09   a795553e0700   MOVED
+e7_pkgiface57      dddc84cd04fb   d48e63e9d165   MOVED
+e8_reduce57        9c84c4b00722   381ed4e8c316   MOVED
+
+e1_inexpr57  judge-diff base=342 law=180  texts cleared=65 new=7
+    NEW > |BIN:1
+    NEW > \_constant: , line:24:42, endln:24:46
+    NEW > \_operation: , line:24:41, endln:24:47
+    NEW > \_ref_obj: (work@dut.WID), line:28:23, endln:28:26
+    NEW > |vpiDecompile:1'b1
+    NEW > |vpiFullName:work@dut.WID
+    NEW > |vpiName:WID
+e2_holder57  judge-diff base=116 law=49  texts cleared=26 new=0
+e3_shadow57  judge-diff base=96 law=68  texts cleared=15 new=0
+e4_typedef57  judge-diff base=28 law=28  texts cleared=0 new=0
+e5_genblock57  judge-diff base=59 law=59  texts cleared=0 new=0
+e6_override57  judge-diff base=207 law=95  texts cleared=28 new=0
+e7_pkgiface57  judge-diff base=117 law=60  texts cleared=26 new=0
+e8_reduce57  judge-diff base=261 law=143  texts cleared=36 new=0

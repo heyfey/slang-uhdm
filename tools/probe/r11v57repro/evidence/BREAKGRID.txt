@@ -1,0 +1,31 @@
+r11v57 BREAK GRID — the official judge, base binary vs the SHIPPED (fixed) one.
+All arms golden_rc=0 ours_rc=0 on every binary (run57.sh records both).
+
+ARM              base head                              base   fix head                               fix   VERDICT
+b1_aggpat57      sys_func_call($bits) @9:40 (vpiSize)     25   sys_func_call($bits) @9:40 (vpiSize)     25   RESTORED (ungated law: ref_typespec/RHS:<null>, 8 -- REGRESSION)
+b2_cast57        constant @8:23 vs operation              50   constant @8:23 vs operation              50   head unchanged; C3 8'($bits(TP)) now MATCHES golden's sys_func_call
+b3_zerorep57     operation @7:31 vs constant              63   ref_typespec @7:31 / RHS:<null>           8   ADVANCE (op kind now golden's; the op carries no ts -- R2 class)
+b4_funcarg57     func_call(dbl) @9:23 vs constant         42   operation @13:14 (arm scaffolding)       74   ADVANCE (the param cells CLEARED; new head is a bigger object)
+b5_perinst57     sys_func_call($bits) @10:31 vs constant  28   operation @13:14 (arm scaffolding)       60   ADVANCE (per-instance reachability correct in BOTH copies)
+b6_class57       ref_typespec (pk::cbox::CW) RHS:<null>    8   same                                      8   UNCHANGED (class localparams out of reach)
+b7_nestbits57    constant @8:23                           32   same                                     32   UNCHANGED (visitor cannot see into a DataType arg)
+b8_sibreduce57   operation @11:23 vs constant             55   constant @11:23 vs ref_obj(WID)          23   ADVANCE; the new head IS residue R1, confirmed
+b9_deepcond57    operation @9:44                          48   operation @10:34                         48   no cell regressed; D3/D4 conservatively FENCED
+b10_ovract57     operation @13:27                         41   same                                     41   UNCHANGED (override ACTUAL is out of the hook's reach)
+
+PER-CELL vs GOLDEN, e8_reduce57 (the reachability boundary) -- reproduced independently:
+  CELL GOLDEN                  BASE       FIX          VERDICT
+  T1   constant @14:23         constant   constant     agrees (a containment gate would put a CALL here)
+  T2   operation @15:33        constant   operation @15:33   MATCHES GOLDEN
+  T3   operation @16:23        constant   operation @16:23   MATCHES GOLDEN
+  T4   constant @17:23         constant   constant     control, folded both sides
+  T5   operation @18:23        constant   operation @18:23   MATCHES GOLDEN
+  T6   operation @19:23        constant   constant     FENCED (residue R3), base behaviour preserved
+  T7   constant @20:23         constant   constant     agrees
+
+PER-CELL vs GOLDEN, b9_deepcond57 (the fence under stress):
+  D1 (0)?7:((1)?9:$bits(TP))          golden constant       fix constant            agrees (chain descends, call unreachable)
+  D2 (0)?7:((0)?9:$bits(TP)+1)        golden operation@9:44 fix operation@9:44      MATCHES GOLDEN
+  D3 (0)?7:($bits(TP)+((1)?2:3))      golden operation      fix constant            FENCED, no regression
+  D4 ($bits(TP)>0)?((0)?7:8):9        golden operation      fix constant            FENCED, no regression
+  D5 (1)?$bits(TP):7                  golden sys_func_call  fix sys_func_call       MATCHES GOLDEN

@@ -10295,8 +10295,40 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             //   w6 (elaborated PACKAGE parameter)                KEEP / KEEP
             // The controls in the same modules (`$bits(pk::req_t)`,
             // `$bits(pk::byte_t)`, `$bits(logic [9:0])`) fold on both sides.
-            if (!rhs && topView && bitsOfTypeParamInit53(*init))
-                rhs = emitExpr(*init, pa, prefix, netMap);
+            // § bitsOfTypeParamInExpr57 (r11u57) — ...AND THE CALL DOES NOT
+            // HAVE TO BE THE WHOLE Rhs.  r11u53 wrote this dispatch for the
+            // whole-Rhs shape only and named the rest its R2; `compileBits`
+            // is per-`$bits`-NODE and its self-upgrade (`:4750-4756`) dies
+            // with the call, so a `$bits(<type parameter>)` buried in an
+            // operation golden keeps in both views keeps the call in the
+            // ELABORATED listing too — and the operation around it cannot
+            // reduce, its operand not being a constant.  The predicate is the
+            // same one, asked of every `$bits` node in the initializer
+            // instead of only its root; the per-node gate inside
+            // `UhdmExporter::srlgBitsFoldArg` still decides each call, so the
+            // controls in the same initializer (`$bits(pk::req_t)`) fold on
+            // the way through and the other operands keep their landed
+            // encodings.  Measured, tools/probe/r11u57repro/grid, ELAB view:
+            //   e1  (1 << $bits(TP)) / $bits(TP)+1 / $bits(TP)*2-3 /
+            //       {$bits(TP){1'b1}} / $bits(TP)+$bits(TQ) / WID+$bits(TP)
+            //   e2  parameter-port-list holder (the two corpus witnesses')
+            //   e6  BOTH instance copies of an OVERRIDDEN type parameter
+            //   e7  elaborated PACKAGE parameter
+            // and the arms that must NOT move: e3's wildcard-SHADOWED name
+            // (golden folds; § importedTypeShadowsTypeParam53 keeps us
+            // folding), e4's module-local typedef of a package-scoped name
+            // (the W3 cell, golden's OPPOSITE polarity in this view), e5's
+            // generate-block localparam (out of both halves' reach).
+            // The predicate hands back the sub-expression to emit FROM, not a
+            // bool: the producer's reduce answers a constant-condition
+            // conditional with the TAKEN BRANCH alone, so an initializer
+            // `(0) ? 7 : $bits(TP) + 1` must be emitted from the branch and
+            // one whose call stands only in the branch NOT taken must not be
+            // claimed at all (grid/e8_reduce57).
+            if (!rhs && topView) {
+                if (const Expression* be7 = bitsOfTypeParamInExpr57(*init))
+                    rhs = emitExpr(*be7, pa, prefix, netMap);
+            }
             // A struct parameter initialized by a MEMBER-BY-MEMBER const
             // function does NOT fold to a constant: Surelog's EvalFunc hands
             // back the function's own struct_var, and the VALUE lives in the

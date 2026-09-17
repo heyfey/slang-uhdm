@@ -1,0 +1,49 @@
+u2r	TypeParameterAsPortTypeWithEnum	TPDECL_ONLY bits_args=0
+u2r	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	TPDECL_ONLY bits_args=0
+u2r	TypeParameterAsPortTypeWithLogic	TPDECL_ONLY bits_args=0
+u2r	TypeParameterAsPortTypeWithLogicAnonymous	TPDECL_ONLY bits_args=0
+u2r	TypeParameterAsPortTypeWithStruct	TPDECL_ONLY bits_args=0
+u2r	arb_idx_cast	TPDECL_ONLY bits_args=0
+u2r	bits_of_type_param	BURIED=0 WHOLE=1 dut.sv:17[WHOLE:req_t]
+u2r	cva6_equiv	BURIED=11 WHOLE=3 wrappers/wrapper_hpdcache_mux.sv:320[WHOLE:hpdcache_req_t] wrappers/wrapper_hpdcache_mem_resp_demux.sv:318[BURIED:resp_id_t] rtl/vendor/pulp-platform/common_cells/src/ecc_encode.sv:48[BURIED:code_word_t] rtl/vendor/pulp-platform/common_cells/src/ecc_encode.sv:60[BURIED:parity_t] rtl/vendor/pulp-platform/common_cells/src/ecc_encode.sv:61[BURIED:code_word_t] rtl/vendor/pulp-platform/common_cells/src/ecc_encode.sv:70[BURIED:parity_t] rtl/vendor/pulp-platform/common_cells/src/ecc_decode.sv:84[BURIED:parity_t] rtl/vendor/pulp-platform/common_cells/src/ecc_decode.sv:85[BURIED:code_word_t] rtl/vendor/pulp-platform/common_cells/src/ecc_decode.sv:117[BURIED:code_word_t] rtl/vendor/pulp-platform/common_cells/src/id_queue.sv:55[BURIED:data_t] rtl/vendor/pulp-platform/common_cells/src/id_queue.sv:361[BURIED:data_t] rtl/vendor/pulp-platform/common_cells/src/stream_register.sv:36[NO-ASSIGN:T] rtl/core/cva6_fifo_v3.sv:60[NO-ASSIGN:dtype] rtl/core/cva6_fifo_v3.sv:61[NO-ASSIGN:dtype] rtl/core/cva6_fifo_v3.sv:183[NO-ASSIGN:dtype] rtl/core/cva6_fifo_v3.sv:196[NO-ASSIGN:dtype] rtl/core/frontend/btb.sv:61[WHOLE:btb_prediction_t] rtl/core/cache_subsystem/hpdcache/rtl/src/hpdcache_memctrl.sv:190[WHOLE:hpdcache_dir_entry_t] rtl/core/cache_subsystem/hpdcache/rtl/src/hpdcache_rtab.sv:383[NO-ASSIGN:hpdcache_req_addr_t] rtl/core/cache_subsystem/hpdcache/rtl/src/hpdcache_rtab.sv:544[NO-ASSIGN:rtab_entry_t] rtl/core/cache_subsystem/hpdcache/rtl/src/hpdcache_core_arbiter.sv:114[NO-ASSIGN:hpdcache_req_t] rtl/core/cache_subsystem/hpdcache/rtl/src/hpdcache_core_arbiter.sv:136[NO-ASSIGN:hpdcache_tag_t] rtl/core/cache_subsystem/hpdcache/rtl/src/hwpf_stride/hwpf_stride_arb.sv:93[NO-ASSIGN:hpdcache_req_t] rtl/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_req_read_arbiter.sv:84[NO-ASSIGN:hpdcache_mem_req_t] rtl/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_req_write_arbiter.sv:167[NO-ASSIGN:hpdcache_mem_req_t] rtl/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_req_write_arbiter.sv:180[NO-ASSIGN:hpdcache_mem_req_w_t] rtl/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_resp_demux.sv:34[BURIED:resp_id_t] rtl/core/cache_subsystem/hpdcache/rtl/src/utils/hpdcache_mem_resp_demux.sv:81[NO-ASSIGN:resp_t]
+u2r	cva6_struct_param_field	TPDECL_ONLY bits_args=0
+u2r	gen_scope_numports	TPDECL_ONLY bits_args=0
+u2r	gen_scope_typaram	TPDECL_ONLY bits_args=0
+u2r	ibex	TPDECL_ONLY bits_args=27
+u2r	packed_array_reset_loop	TPDECL_ONLY bits_args=0
+u2r	packed_array_struct	TPDECL_ONLY bits_args=0
+u2r	packed_array_struct_port_sel	TPDECL_ONLY bits_args=0
+u2r	packed_struct_array_fifo	TPDECL_ONLY bits_args=0
+u2r	param_name_collision_typeparam	TPDECL_ONLY bits_args=0
+u2r	param_nested_struct_field_width	TPDECL_ONLY bits_args=0
+u2r	param_type_logic_width	TPDECL_ONLY bits_args=2
+u2r	port_chained_type_param	TPDECL_ONLY bits_args=0
+u2r	struct_member_cfg_width	TPDECL_ONLY bits_args=0
+u2r	top_module_type_param	TPDECL_ONLY bits_args=0
+u2r	type_param_override_elem_sel	BURIED=1 WHOLE=0 dut.sv:16[BURIED:id_t]
+u2r	type_param_packed_dim	BURIED=1 WHOLE=0 dut.sv:4[BURIED:resp_id_t]
+u2r	type_param_unpacked_port	TPDECL_ONLY bits_args=0
+sl	ArianeElab	TPDECL_ONLY bits_args=0
+sl	ArianeElab2	TPDECL_ONLY bits_args=0
+sl	ClassScope	BURIED=2 WHOLE=0 dut.sv:5[BURIED:PARAM_T] dut.sv:22[NO-ASSIGN:T] dut.sv:33[NO-ASSIGN:T] dut.sv:50[BURIED:the_type]
+sl	ClassTypeParamAlias	TPDECL_ONLY bits_args=0
+sl	HierPathPackedVar	TPDECL_ONLY bits_args=0
+sl	InvalidTypeParam	TPDECL_ONLY bits_args=0
+sl	PackageTypeParam	TPDECL_ONLY bits_args=0
+sl	ParamIndex	TPDECL_ONLY bits_args=0
+sl	StructParamFieldRange	TPDECL_ONLY bits_args=0
+sl	StructParamFuncBodyFieldCompare	TPDECL_ONLY bits_args=0
+sl	StructParamPatternInitCast	TPDECL_ONLY bits_args=0
+sl	TypeParam	TPDECL_ONLY bits_args=0
+sl	TypeParam2	TPDECL_ONLY bits_args=0
+sl	TypeParamElab	TPDECL_ONLY bits_args=0
+sl	TypeParamOverride	TPDECL_ONLY bits_args=0
+sl	UnitElabExternNested	TPDECL_ONLY bits_args=0
+sl	VirtualClass	TPDECL_ONLY bits_args=0
+sl3p	Ariane2024	BURIED=0 WHOLE=1 sc_collected_files/fifo_v3_129149eb1366639c03e80ba47efcc47a84f24d0b.sv:54[NO-ASSIGN:dtype] sc_collected_files/fifo_v3_129149eb1366639c03e80ba47efcc47a84f24d0b.sv:55[NO-ASSIGN:dtype] sc_collected_files/fifo_v3_129149eb1366639c03e80ba47efcc47a84f24d0b.sv:157[NO-ASSIGN:dtype] sc_collected_files/btb_ad9ef9592acf071eb0e64e76f8313ac805055ee9.sv:61[WHOLE:btb_prediction_t]
+sl3p	AzadiRTL	TPDECL_ONLY bits_args=13
+sl3p	Google	TPDECL_ONLY bits_args=4
+sl3p	Ibex	TPDECL_ONLY bits_args=4
+sl3p	Tnoc	TPDECL_ONLY bits_args=19
+sl3p	Verilator	BURIED=0 WHOLE=1 t_type_param.v:10[WHOLE:bar] t_enum.v:63[NO-ASSIGN:three_t]
+sl3p	ariane	BURIED=4 WHOLE=0 src/axi_node/src/axi_AW_allocator.sv:122[NO-ASSIGN:aw_t] src/common_cells/test/id_queue_tb.sv:31[NO-ASSIGN:data_t] src/common_cells/src/id_queue.sv:48[BURIED:data_t] src/common_cells/src/id_queue.sv:219[BURIED:data_t] src/fpu/src/common_cells/test/id_queue_tb.sv:31[NO-ASSIGN:data_t] src/fpu/src/common_cells/src/id_queue.sv:48[BURIED:data_t] src/fpu/src/common_cells/src/id_queue.sv:217[BURIED:data_t]

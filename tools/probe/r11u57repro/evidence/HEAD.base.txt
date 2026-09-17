@@ -1,0 +1,119 @@
+# r11u57 — the corpus witnesses' heads at 9cc6957a and after the law
+
+## BASE (pristine binary, md5 a5c8b3e869a33e96fb9bf481ee4eb415)
+### default type_param_packed_dim
+rc/heads/cmplines: heads=1 cmplines=30
+LHS:
+decompile:
+packed_array_var: (work@dut.rt_i), id:165, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:189, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:166
+  |vpiParent:
+  \_packed_array_var: (work@dut.rt_i), id:165, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:155, line:5:31, endln:5:52
+|vpiName:rt_i
+|vpiFullName:work@dut.rt_i
+|vpiVisibility:1
+RHS:
+decompile:
+logic_var: (work@dut.rt_i), id:157, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:131, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:156
+  |vpiParent:
+  \_logic_var: (work@dut.rt_i), id:157, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:147, line:5:31, endln:5:52
+|vpiName:rt_i
+|vpiFullName:work@dut.rt_i
+|vpiVisibility:1
+### default type_param_override_elem_sel
+rc/heads/cmplines: heads=1 cmplines=23
+LHS:
+decompile:
+logic_typespec: , id:209, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:210, line:32:23, endln:32:28
+  |vpiParent:
+  \_logic_typespec: , id:209, line:32:17, endln:32:28
+  |vpiLeftRange:
+  \_constant: , id:211, line:32:24, endln:32:25
+    |vpiParent:
+    \_range: , id:210, line:32:23, endln:32:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:212, line:32:26, endln:32:27
+    |vpiParent:
+    \_range: , id:210, line:32:23, endln:32:28
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS: <null>
+### testflags type_param_packed_dim
+rc/heads/cmplines: heads=1 cmplines=30
+LHS:
+decompile:
+packed_array_var: (work@dut.rt_i), id:81, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:104, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:82
+  |vpiParent:
+  \_packed_array_var: (work@dut.rt_i), id:81, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:71, line:5:31, endln:5:52
+|vpiName:rt_i
+|vpiFullName:work@dut.rt_i
+|vpiVisibility:1
+RHS:
+decompile:
+logic_var: (work@dut.rt_i), id:73, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:47, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:72
+  |vpiParent:
+  \_logic_var: (work@dut.rt_i), id:73, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:63, line:5:31, endln:5:52
+|vpiName:rt_i
+|vpiFullName:work@dut.rt_i
+|vpiVisibility:1
+### testflags type_param_override_elem_sel
+rc/heads/cmplines: heads=1 cmplines=23
+LHS:
+decompile:
+logic_typespec: , id:125, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:126, line:32:23, endln:32:28
+  |vpiParent:
+  \_logic_typespec: , id:125, line:32:17, endln:32:28
+  |vpiLeftRange:
+  \_constant: , id:127, line:32:24, endln:32:25
+    |vpiParent:
+    \_range: , id:126, line:32:23, endln:32:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:128, line:32:26, endln:32:27
+    |vpiParent:
+    \_range: , id:126, line:32:23, endln:32:28
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS: <null>

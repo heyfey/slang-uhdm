@@ -1,0 +1,142 @@
+# r11u57 — the Surelog suite: row joins, byte verification, battery
+
+## per-mode STATUS and DUMP histograms, committed baseline -> this pass's law sweep
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     324      248 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     329      303 differ     166 match 
+
+## the ONLY differing rows, against the committed baseline AND against this pass's own pristine control
+### committed vs law
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u57_lw/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u57_lw/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+### committed vs MY PRISTINE (same two rows, same reason: the workdir path inside a SURELOG_FAIL message)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u57_pw/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u57_pw/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+
+## cmds.txt audit BY BINARY PATH
+/tmp/r11u57_lw/sl: cmds=1581  with a slang: line=1531
+       1531 /tmp/r11u57_law.bin
+/tmp/r11u57_pw/sl: cmds=1581  with a slang: line=1531
+       1531 /tmp/r11u57_pris.bin
+
+## byteverify SELFCHECK=1, law vs this pass's own pristine
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=1dddb5915f8d pristine=ace6c1774ad3
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=3710fac61779 pristine=2fb39f8b4130
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=effcf8be906d pristine=b0ee505a3060
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=360e5f7cbffd pristine=27419f6011b4
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=2c16c91f077b pristine=eae4a3ecf8b6
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+## ORDER-BLIND ATTRIBUTION of the five movers (uhdm-dump, path-normalised, sorted)
+== default/MiniAmiq-544c7f61  orderblind_diff_lines=4
+>       |UINT:1499
+<       |UINT:986
+>       |vpiDecompile:1499
+<       |vpiDecompile:986
+== default/SeqDriver-32af76aa  orderblind_diff_lines=4
+<       |UINT:0
+>       |UINT:1003
+<       |vpiDecompile:0
+>       |vpiDecompile:1003
+== default/SimpleUVM-1dc93a62  orderblind_diff_lines=4
+>       |UINT:1072
+<       |UINT:1328
+>       |vpiDecompile:1072
+<       |vpiDecompile:1328
+== testflags/MiniAmiq-544c7f61  orderblind_diff_lines=4
+<       |UINT:0
+>       |UINT:954
+<       |vpiDecompile:0
+>       |vpiDecompile:954
+== testflags/SeqDriver-32af76aa  orderblind_diff_lines=4
+<       |UINT:1518
+>       |UINT:779
+<       |vpiDecompile:1518
+>       |vpiDecompile:779
+
+## POSITIVE CONTROL — the SAME pristine binary, run twice, no code change at all
+   MiniAmiq   run1 b4f2ec65fedc  run2 7ba770b783a7   (sweep pristine ace6c1774ad3, law 1dddb5915f8d)
+   SeqDriver  run1 e4ef218438f1  run2 dc3c627f2997   (sweep pristine 2fb39f8b4130, law 3710fac61779)
+   SimpleUVM  run1 d4f8cd018f2d  run2 d4f8cd018f2d   (a 0-line draw, the documented other face)
+   all six control runs CMP_EQUAL
+   and it closes on the SAME CLASS, not merely on 'some difference':
+     PRISTINE-vs-PRISTINE MiniAmiq  orderblind_diff_lines=4   UINT:1007 <-> UINT:840   vpiDecompile:1007 <-> vpiDecompile:840
+     PRISTINE-vs-PRISTINE SeqDriver orderblind_diff_lines=4   UINT:1424 <-> UINT:1035  vpiDecompile:1424 <-> vpiDecompile:1035
+     PRISTINE-vs-PRISTINE SimpleUVM orderblind_diff_lines=0
+
+## UVM-family and Earlgrey STATUS, pristine -> law: unchanged
+   pris MiniAmiq,default,CMP_EQUAL
+   pris MiniAmiq,testflags,CMP_EQUAL
+   law  MiniAmiq,default,CMP_EQUAL
+   law  MiniAmiq,testflags,CMP_EQUAL
+   pris SeqDriver,default,CMP_EQUAL
+   pris SeqDriver,testflags,CMP_EQUAL
+   law  SeqDriver,default,CMP_EQUAL
+   law  SeqDriver,testflags,CMP_EQUAL
+   pris SimpleUVM,default,CMP_EQUAL
+   pris SimpleUVM,testflags,CMP_EQUAL
+   law  SimpleUVM,default,CMP_EQUAL
+   law  SimpleUVM,testflags,CMP_EQUAL
+   pris Scoreboard,default,CMP_EQUAL
+   pris Scoreboard,testflags,SLANG_REJECT
+   law  Scoreboard,default,CMP_EQUAL
+   law  Scoreboard,testflags,SLANG_REJECT
+   pris BuildUVMPkg,default,CMP_EQUAL
+   pris BuildUVMPkg,testflags,CMP_EQUAL
+   law  BuildUVMPkg,default,CMP_EQUAL
+   law  BuildUVMPkg,testflags,CMP_EQUAL
+   pris Earlgrey_0_1,default,CMP_EQUAL
+   pris Earlgrey_0_1,testflags,CMP_EQUAL
+   law  Earlgrey_0_1,default,CMP_EQUAL
+   law  Earlgrey_0_1,testflags,CMP_EQUAL
+
+## rowheads.sh on the law workdir (LHS always golden)
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+MiniAmiq       default          0      0 cmp rc=0
+MiniAmiq       testflags        0      0 cmp rc=0
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+-- measured=11  SKIP-NOFILE=1  UNKNOWN-NAME=0
+
+## PROTECTED DATABASES BY NAME (md5, pristine -> law)
+   SVSwitch default 4842211c4030 -> 4842211c4030 SAME
+   SVSwitch testflags 4842211c4030 -> 4842211c4030 SAME
+   YosysVerx default 6ccda350c24a -> 6ccda350c24a SAME
+   YosysVerx testflags 6ccda350c24a -> 6ccda350c24a SAME
+   InterfaceModPort default 59a365f3ce2c -> 59a365f3ce2c SAME
+   InterfaceModPort testflags 59a365f3ce2c -> 59a365f3ce2c SAME
+   BlackParrotComplex default e3e354129d5a -> e3e354129d5a SAME
+   BlackParrotComplex testflags 73a10e8217e5 -> 73a10e8217e5 SAME
+   YosysOldOr default d68e0796d62c -> d68e0796d62c SAME
+   YosysOldOr testflags d68e0796d62c -> d68e0796d62c SAME
+   Earlgrey_0_1 default 8bdf25272e08 -> 8bdf25272e08 SAME
+   Earlgrey_0_1 testflags 59d0ee6d10c3 -> 59d0ee6d10c3 SAME
+
+## battery
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.

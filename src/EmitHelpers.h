@@ -163,6 +163,20 @@ inline bool typeParamAliasType53(const Type* t) {
     return !wildcardImportedType53(*scope, t->name);
 }
 
+// § bitsTypeParamArgNeverFolds53 — is THIS CALL a `$bits` whose argument names
+// a type parameter?  The call shape alone, factored out of
+// `bitsOfTypeParamInit53` (whose behaviour is unchanged) so that r11u57's
+// buried-operand form asks the identical question of a node it finds inside an
+// expression instead of re-deriving it.
+inline bool bitsOfTypeParamCall53(const CallExpression& ce) {
+    if (!ce.isSystemCall() || ce.getSubroutineName() != "$bits" ||
+        ce.arguments().empty())
+        return false;
+    auto* a0 = ce.arguments()[0];
+    return a0->kind == ExpressionKind::DataType &&
+           typeParamAliasType53(a0->type);
+}
+
 // § bitsTypeParamArgNeverFolds53 — is this WHOLE expression a `$bits` whose
 // argument names a type parameter?  The parameter emitter's ELABORATED arm
 // mints a parameter's folded constant without ever calling `emitExpr`, so it
@@ -174,13 +188,203 @@ inline bool bitsOfTypeParamInit53(const Expression& e0) {
         e = &e->as<ConversionExpression>().operand();
     if (e->kind != ExpressionKind::Call)
         return false;
-    auto& ce = e->as<CallExpression>();
-    if (!ce.isSystemCall() || ce.getSubroutineName() != "$bits" ||
-        ce.arguments().empty())
-        return false;
-    auto* a0 = ce.arguments()[0];
-    return a0->kind == ExpressionKind::DataType &&
-           typeParamAliasType53(a0->type);
+    return bitsOfTypeParamCall53(e->as<CallExpression>());
+}
+
+// ---------------------------------------------------------------------------
+// § bitsOfTypeParamInExpr57 (r11u57) — ROAD A's ELABORATED HALF, WIDENED FROM
+// THE WHOLE Rhs TO A BURIED OPERAND.
+//
+// `compileBits` (Surelog src/DesignCompile/CompileExpression.cpp:4686) is a
+// PER-`$bits`-NODE function: the self-upgrade that turns `Reduce::No` into
+// `Reduce::Yes` in the elaborated compile (`:4750-4756`) reads only
+// `m_elabMode`, the caller's `reduce` and `getTypespec`'s answer FOR THIS
+// ARGUMENT (`:4534`, two-map lookup at `:4541-4544`), and it upgrades a LOCAL
+// copy of `reduce` that dies with the call.  Nothing in it can see whether
+// the `$bits` is the whole initializer or one operand of an operation, and
+// nothing in it can see the holder or the view beyond `m_elabMode`.  So a
+// `$bits(<type parameter>)` that `getTypespec` cannot resolve survives as a
+// `sys_func_call` wherever it stands — and the operation around it cannot
+// reduce either, because its operand is not a constant.
+//
+// MEASURED (tools/probe/r11u57repro/grid, v1.87 goldens, both views):
+// golden keeps the call in the ELABORATED listing for `(1 << $bits(TP))`,
+// `$bits(TP) + 1`, `$bits(TP) * 2 - 3`, `{$bits(TP){1'b1}}`,
+// `$bits(TP) + $bits(TQ)` and `WID + $bits(TP)` (e1), in the PARAMETER PORT
+// LIST and the module body alike (e2), for a non-shadowed name beside a
+// shadowed one (e3), in BOTH instance copies of an OVERRIDDEN type parameter
+// (e6) and in an elaborated PACKAGE parameter (e7) — while every
+// `$bits(pk::req_t)` control in the same modules folds on both sides.
+//
+// The gate is `typeParamAliasType53` UNCHANGED, import-shadow door included:
+// the wildcard-imported name (e3 `req_t`) folds on both sides before and
+// after, and the W3 cell (a module-local typedef of a package-scoped name,
+// e4) is golden's OPPOSITE polarity in this view — golden folds it in the
+// elaborated listing, and a typedef alias is not a type parameter's alias, so
+// the predicate keeps refusing to claim it.
+//
+// ...AND CONTAINMENT IS NOT THE QUESTION — REACHABILITY IS.  The producer's
+// elaborated reduce is bottom-up, and a CONSTANT-CONDITION CONDITIONAL is
+// answered by its TAKEN BRANCH alone (the already-landed
+// § elabTernaryBranchFold reads the same behaviour from the value side).  So
+// a `$bits(<type parameter>)` standing in the branch that is NOT taken never
+// reaches the result and golden FOLDS the whole initializer.  Measured on
+// `grid/e8_reduce57`, ELABORATED view, golden:
+//
+//   T1 = (1) ? 7 : $bits(TP)         -> constant 7          (call unreachable)
+//   T2 = (0) ? 7 : $bits(TP) + 1     -> the BRANCH's own operation at 15:33,
+//                                       the conditional itself GONE
+//   T3 = (1'b0) && ($bits(TP) > 0)   -> the whole `&&` operation KEPT
+//                                       (a short circuit does not reduce)
+//   T5 = ($bits(TP) > 0) ? 7 : 9     -> the whole conditional KEPT
+//                                       (the CONDITION cannot reduce)
+//   T6 = 1 + ((0) ? 7 : $bits(TP))   -> `1 + $bits(TP)`, the INTERIOR
+//                                       conditional collapsed away
+//   T7 = 1 + ((1) ? 7 : $bits(TP))   -> constant 8
+//
+// so the three pieces below are: which sub-expression the reduce would carry
+// (`elabCondBranch57`, T2's substitution), whether a surviving call is
+// REACHABLE inside it (`bitsOfTypeParamReach57`, T1/T7 vs T3/T5), and a FENCE
+// for T6 — an interior conditional the producer collapses and this emission
+// would re-render, which is the one shape that would move AWAY from golden.
+// T6 is left folded exactly as it is at the base and named as a residue.
+inline bool bitsOfTypeParamReach57(const Expression& e0) {
+    bool found = false;
+    auto visitor = makeVisitor(
+        [&](auto& v, const CallExpression& c) {
+            if (bitsOfTypeParamCall53(c))
+                found = true;
+            v.visitDefault(c);
+        },
+        [&](auto& v, const ConditionalExpression& c) {
+            const Expression* known = c.knownSide();
+            if (!known) {
+                v.visitDefault(c);
+                return;
+            }
+            // The CONDITIONS are always reached — a surviving call in one of
+            // them is what stops the producer reducing the conditional at all
+            // (T5) — and of the two branches only the taken one is.
+            for (auto& cd : c.conditions)
+                cd.expr->visit(v);
+            known->visit(v);
+        });
+    e0.visit(visitor);
+    return found;
+}
+
+// Is there a conditional STRICTLY BELOW `root` that the producer would
+// collapse into one of its branches?  The emission re-renders the syntax it is
+// handed, so such a node would come out as a `vpiConditionOp` operation golden
+// does not carry (T6).  The root itself is exempt: `elabCondBranch57` has
+// already descended through every collapsible conditional at the top, so a
+// conditional still standing there is one golden keeps whole (T5).
+inline bool interiorCondFold57(const Expression& root) {
+    bool found = false;
+    auto visitor = makeVisitor([&](auto& v, const ConditionalExpression& c) {
+        if (&c != &root && c.knownSide()) {
+            bool condCall = false;
+            for (auto& cd : c.conditions)
+                if (bitsOfTypeParamReach57(*cd.expr))
+                    condCall = true;
+            if (!condCall)
+                found = true;
+        }
+        v.visitDefault(c);
+    });
+    root.visit(visitor);
+    return found;
+}
+
+// The sub-expression the producer's elaborated reduce carries for this
+// initializer: descend through every TOP-LEVEL conditional whose condition is
+// constant and carries no surviving call, taking the known side (T2).
+inline const Expression& elabCondBranch57(const Expression& e0) {
+    const Expression* e = &e0;
+    for (int guard = 0; guard < 64; ++guard) {
+        while (e->kind == ExpressionKind::Conversion &&
+               e->as<ConversionExpression>().isImplicit())
+            e = &e->as<ConversionExpression>().operand();
+        if (e->kind != ExpressionKind::ConditionalOp)
+            break;
+        auto& c = e->as<ConditionalExpression>();
+        const Expression* known = c.knownSide();
+        if (!known)
+            break;
+        bool condCall = false;
+        for (auto& cd : c.conditions)
+            if (bitsOfTypeParamReach57(*cd.expr))
+                condCall = true;
+        if (condCall)
+            break;
+        e = known;
+    }
+    return *e;
+}
+
+// Does an ASSIGNMENT PATTERN stand anywhere in this expression?  (r11v57)
+//
+// THE FENCE THE VERIFIER ADDED, AND THE MEASUREMENT THAT FORCED IT.  A
+// parameter whose initializer is an assignment pattern does NOT reach the
+// elaborated fold chain's constant arm at all: the generic tail at the end of
+// `emitParameters` emits it, and the pattern machinery downstream of that
+// emission is what stamps the operation's `Typespec` and substitutes each
+// element in place of a `tagged_pattern`.  Claiming such an initializer here
+// PREEMPTS that tail, and the operation comes out stripped.  Measured on
+// `tools/probe/r11v57repro/grid/b1_aggpat57`, ELABORATED view, real v1.87
+// goldens, both binaries `golden_rc=0 ours_rc=0`:
+//
+//   A1 `localparam logic [15:0] A1 [0:1] = '{$bits(TP), 16'd3}`
+//        golden    operation op75, Typespec -> array_typespec  @9:14
+//        PRISTINE  operation op75, Typespec -> array_typespec  @9:14   RIGHT
+//        ungated   operation op75, NO Typespec at all                  WRONG
+//   A3 `localparam pair_t A3 = '{x: $bits(TP), y: 16'd4}`
+//        golden    operation op75, Typespec -> struct_typespec(pair_t),
+//                  operands BARE
+//        PRISTINE  operation op75, Typespec -> struct_typespec(pair_t),
+//                  operands BARE                                       RIGHT
+//        ungated   operation op75, NO Typespec, operands wrapped in
+//                  `tagged_pattern` + `string_typespec` golden does not
+//                  carry at all                                        WRONG
+//
+// `uhdm-cmp` convicts it: the ungated binary's head on that arm is
+// `LHS: ref_typespec (work@dut) -> array_typespec @9:14 / RHS: <null>` — a
+// NEW head EARLIER in the walk than the pristine binary's, on a field the
+// pristine binary had right.  Its cmp line count FELL (25 -> 8) while doing
+// so, which is exactly why a residue COUNT cannot score this arm.
+//
+// The fence is a pure REDUCTION of the widened gate: a `$bits` call is not an
+// assignment pattern, so r11u53's landed whole-Rhs arm is untouched, and both
+// corpus witnesses' `(1 << $bits(<type param>))` is an operation, not a
+// pattern — their `param_assign` trees are byte-identical to golden with the
+// fence in place (re-measured).  No arm of r11u57's own grid carries a
+// pattern, so nothing the pass claimed is given up.
+inline bool assignPatternInExpr57(const Expression& root) {
+    bool found = false;
+    auto visitor =
+        makeVisitor([&](auto& v, std::derived_from<Expression> auto& x) {
+            if (x.kind == ExpressionKind::SimpleAssignmentPattern ||
+                x.kind == ExpressionKind::StructuredAssignmentPattern ||
+                x.kind == ExpressionKind::ReplicatedAssignmentPattern)
+                found = true;
+            v.visitDefault(x);
+        });
+    root.visit(visitor);
+    return found;
+}
+
+// The whole question in one call: the sub-expression this initializer's
+// elaborated Rhs must be emitted FROM, or null when the producer folds it.
+inline const Expression* bitsOfTypeParamInExpr57(const Expression& e0) {
+    const Expression& e = elabCondBranch57(e0);
+    if (!bitsOfTypeParamReach57(e))
+        return nullptr;
+    if (interiorCondFold57(e))
+        return nullptr;
+    // § assignPatternInExpr57 (r11v57) — the pattern tail owns this shape.
+    if (assignPatternInExpr57(e))
+        return nullptr;
+    return &e;
 }
 
 // ---------------------------------------------------------------------------

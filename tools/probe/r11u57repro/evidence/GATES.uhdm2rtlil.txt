@@ -1,0 +1,62 @@
+# r11u57 uhdm2rtlil byte census and row joins
+
+## byteverify law-vs-my-own-pristine, SELFCHECK=1
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/type_param_override_elem_sel-212ed556/slang.uhdm  patched=556f1a57fe54 pristine=685e430b33f9
+MOVER ./default/type_param_packed_dim-2a08511b/slang.uhdm  patched=800116a3279a pristine=19db9a52e2d1
+MOVER ./testflags/type_param_override_elem_sel-212ed556/slang.uhdm  patched=6ce4c1334984 pristine=94bf6c13e71a
+MOVER ./testflags/type_param_packed_dim-2a08511b/slang.uhdm  patched=490247f60e98 pristine=bcd193f7eb57
+MOVERS: 4 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+## cmds.txt audit BY BINARY PATH
+law cmds=1742 naming /tmp/r11u57_law.bin=1742
+pris cmds=1742 naming /tmp/r11u57_pris.bin=1742
+
+## row joins (ct8rows)
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+
+## AWAY-GOLDEN as set containment, judge-reachable sections
+[default] type_param_packed_dim-2a08511b
+[default]   judge sections: pristine gonly=28 oonly=46  ->  patched gonly=6 oonly=40
+[default]   divergence texts: pristine=44 patched=24 NOT-PRESENT-BEFORE=0
+[default] type_param_override_elem_sel-212ed556
+[default]   judge sections: pristine gonly=27 oonly=35  ->  patched gonly=5 oonly=29
+[default]   divergence texts: pristine=39 patched=19 NOT-PRESENT-BEFORE=0
+[testflags] type_param_packed_dim-2a08511b
+[testflags]   judge sections: pristine gonly=28 oonly=46  ->  patched gonly=6 oonly=40
+[testflags]   divergence texts: pristine=44 patched=24 NOT-PRESENT-BEFORE=0
+[testflags] type_param_override_elem_sel-212ed556
+[testflags]   judge sections: pristine gonly=27 oonly=35  ->  patched gonly=5 oonly=29
+[testflags]   divergence texts: pristine=39 patched=19 NOT-PRESENT-BEFORE=0
+
+## whole-dump prover for contrast (tail included)
+[default] type_param_packed_dim-2a08511b
+[default]   pristine: type_param_packed_dim-2a08511b golden=1110 ours=1093 orderblind_diff=194 gonly=72 oonly=55
+[default]   patched : type_param_packed_dim-2a08511b golden=1110 ours=1109 orderblind_diff=173 gonly=59 oonly=58
+[default]   divergence texts: pristine=67 patched=60 NOT-PRESENT-BEFORE=5
+[default]     NEW > |UINT:1
+[default]     NEW > |vpiConstType:9
+[default]     NEW > |vpiDecompile:1
+[default]     NEW > |vpiOperand:
+[default]     NEW > |vpiSize:64
+[default] type_param_override_elem_sel-212ed556
+[default]   pristine: type_param_override_elem_sel-212ed556 golden=1520 ours=1493 orderblind_diff=229 gonly=92 oonly=65
+[default]   patched : type_param_override_elem_sel-212ed556 golden=1520 ours=1509 orderblind_diff=183 gonly=70 oonly=59
+[default]   divergence texts: pristine=72 patched=59 NOT-PRESENT-BEFORE=0
+[testflags] type_param_packed_dim-2a08511b
+[testflags]   pristine: type_param_packed_dim-2a08511b golden=600 ours=583 orderblind_diff=192 gonly=72 oonly=55
+[testflags]   patched : type_param_packed_dim-2a08511b golden=600 ours=599 orderblind_diff=171 gonly=59 oonly=58
+[testflags]   divergence texts: pristine=67 patched=60 NOT-PRESENT-BEFORE=5
+[testflags]     NEW > |UINT:1
+[testflags]     NEW > |vpiConstType:9
+[testflags]     NEW > |vpiDecompile:1
+[testflags]     NEW > |vpiOperand:
+[testflags]     NEW > |vpiSize:64
+[testflags] type_param_override_elem_sel-212ed556
+[testflags]   pristine: type_param_override_elem_sel-212ed556 golden=1010 ours=983 orderblind_diff=228 gonly=92 oonly=65
+[testflags]   patched : type_param_override_elem_sel-212ed556 golden=1010 ours=999 orderblind_diff=182 gonly=70 oonly=59
+[testflags]   divergence texts: pristine=72 patched=59 NOT-PRESENT-BEFORE=0

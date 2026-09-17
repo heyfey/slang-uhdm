@@ -1,0 +1,5 @@
+# r11u57 — the DEFINITION listing is untouched; only the ELABORATED one changes
+default type_param_packed_dim  DEF identical=YES  TAIL identical=YES  ELAB lines 227 -> 243
+default type_param_override_elem_sel  DEF identical=YES  TAIL identical=YES  ELAB lines 332 -> 348
+testflags type_param_packed_dim  DEF identical=YES  TAIL identical=YES  ELAB lines 227 -> 243
+testflags type_param_override_elem_sel  DEF identical=YES  TAIL identical=YES  ELAB lines 332 -> 348

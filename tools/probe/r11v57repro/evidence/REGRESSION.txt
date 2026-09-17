@@ -1,0 +1,41 @@
+r11v57 — THE REGRESSION THE VERIFIER FOUND, AND WHY A RESIDUE COUNT MISSES IT.
+
+ARM tools/probe/r11v57repro/grid/b1_aggpat57, ELABORATED view, real v1.87
+goldens, golden_rc=0 ours_rc=0 on all three binaries.
+
+  A1  localparam logic [15:0] A1 [0:1] = '{$bits(TP), 16'd3};
+  A3  localparam pair_t       A3       = '{x: $bits(TP), y: 16'd4};
+
+                 A1 operation @9:38 (op75)          A3 operation @12:26 (op75)
+  GOLDEN         Typespec -> array_typespec  @9:14  Typespec -> struct_typespec(pair_t)
+                 operands BARE                      operands BARE
+  PRISTINE       Typespec -> array_typespec  @9:14  Typespec -> struct_typespec(pair_t)
+                 operands BARE               RIGHT  operands BARE                 RIGHT
+  UNGATED LAW    NO Typespec at all         WRONG   NO Typespec; operands wrapped in
+                                                    `tagged_pattern` + `string_typespec`
+                                                    golden does not carry       WRONG
+
+THE OFFICIAL JUDGE CONVICTS IT.  uhdm-cmp on b1_aggpat57:
+  pristine  head `sys_func_call: ($bits) @9:40` (a vpiSize residue), 25 cmp lines
+  ungated   head `ref_typespec: (work@dut) -> array_typespec @9:14 / RHS: <null>`,
+            8 cmp lines  -- a NEW head EARLIER in the walk, on a field the
+            pristine binary had RIGHT.
+
+WHY THE COUNT LIES: the cmp line count FELL, 25 -> 8, while this happened, and
+the order-blind whole-dump residue fell too.  Both read as progress.  Only the
+HEAD, and set containment over the judge-reachable dump (NEW-OURS 29, NEW-GOLD
+24 at the base measurement), name it.
+
+CAUSE: an assignment-pattern initializer never reaches the elaborated fold
+chain's constant arm; the GENERIC TAIL at the end of `emitParameters` emits it,
+and the pattern machinery downstream of that emission is what stamps the
+operation's `Typespec` and substitutes each element in place of a
+`tagged_pattern`.  Setting `rhs` at the r11u57 hook PREEMPTS that tail.
+
+FIX: `§ assignPatternInExpr57` -- `bitsOfTypeParamInExpr57` returns null when an
+assignment pattern stands anywhere in the claimed expression.  A pure REDUCTION
+of the widened gate.  MEASURED AFTER: b1 head and cmp line count back to the
+pristine reading (25), A1 and A3 byte-restored, NEW-OURS 0; and the fence costs
+the pass NOTHING -- e1..e8 cmp line counts are identical under the ungated law
+and the fix (8/30/46/21/21/46/67/48), and `byteverify` fix-vs-ungated over the
+whole uhdm2rtlil corpus reads MOVERS 0 / 1608.

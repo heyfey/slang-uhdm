@@ -1,0 +1,6 @@
+slpp_all/
+*.uhdm
+*.dump
+*.log
+cmp.*
+rc.*

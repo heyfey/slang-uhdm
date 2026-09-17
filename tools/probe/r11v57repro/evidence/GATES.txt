@@ -1,0 +1,71 @@
+r11v57 GATES — every number re-measured by the verifier from its own binaries.
+
+BINARIES (built by the verifier from fresh 9cc6957a worktrees, frozen 555)
+  pristine  /tmp/v11u57_pris.bin  a5c8b3e869a33e96fb9bf481ee4eb415
+            == the main tree's build/slang-uhdm at the base, byte-identical
+  law       /tmp/v11u57_law.bin   bf7b1b3841621ffe005194bcd9baaf19
+            == the implementer's claimed md5, reproduced bit-for-bit
+  SHIPPED   /tmp/v11u57_fix.bin   2fa585e9ec9f6ccea23c8fee77b6fa7f
+
+1. goldens        law PASS=23 FAIL=0 | fix PASS=23 FAIL=0 | SLANG_UHDM=/bin/false PASS=0 FAIL=23
+2. Surelog suite  474/9 + 469/8 on pristine, law AND fix -- every histogram line identical,
+                  and 0 DIFFERING ROWS law-vs-pristine and fix-vs-pristine (workdir-normalised).
+                  Against the committed CSV the only rows that move are LowMemLib/LowMemPkg
+                  testflags (the workdir path inside a SURELOG_FAIL string) and
+                  Earlgrey_0_1/testflags's BLANK dump column -- all three move THE SAME WAY
+                  on the PRISTINE control, so none is attributable to the patch.
+3. uhdm2rtlil     785/19/67 both modes on all three binaries; 0 differing rows against
+                  results/golden_uhdm2rtlil.csv, results/gate_uhdm2rtlil.csv and the
+                  verifier's own pristine sweep, status AND dump column.
+4. cmds.txt audit BY BINARY PATH: suite 1531/1531 each, u2r 1608 databases each,
+                  no other `slang-uhdm` path in any cmds.txt (the goldens dir excluded).
+5. byteverify     u2r  fix vs pristine: MOVERS 4 / 1608 -- the 4 PREDICTED BY NAME, nothing else
+                       (selfcheck 1607/1608).  fix vs ungated law: MOVERS 0 / 1608.
+                  sl   fix vs pristine: MOVERS 6 / 960 -- MiniAmiq x2, SeqDriver x2, SimpleUVM,
+                       Scoreboard/default.  All six are the documented UVM coin:
+                       five close order-blind on the 4-line UINT:/vpiDecompile: LINE-NUMBER
+                       class, Scoreboard on the 0-line order draw.
+                  POSITIVE CONTROL: the UNCHANGED pristine binary run TWICE byte-moves all
+                  four default rows and closes on the IDENTICAL classes (4/0/4/4); the
+                  pristine re-run's Scoreboard hash e70775324004 is the SAME hash the law and
+                  the fix produce -- proof of a coin, not of a law effect.
+                  (The implementer reported 5 Surelog movers; the 6th is that coin.)
+6. MOVED-WRONG / AWAY-GOLDEN  0 / 0, as SET CONTAINMENT over the JUDGE-REACHABLE dump
+                  (weaklyReferenced tail excluded by construction), all four movers, both modes:
+                    type_param_packed_dim        golden-only 29 -> 7,  ours-only 47 -> 41
+                    type_param_override_elem_sel golden-only 28 -> 6,  ours-only 36 -> 30
+                  NEW-OURS = 0 and LOST-GOLD = 0 on every one.
+7. canaries       u2r ok=8 changed=0; suite ok=51 changed=1 -- the one CHANGED row is
+                  Earlgrey_0_1/testflags's blank dump column, and the PRISTINE control reads
+                  ok=51 changed=1 on the SAME row.  Both ctcan2 PASS.
+                  canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0.
+8. protected DBs  byte-SAME at their pins under the fix: SVSwitch 4842211c4030,
+                  YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+                  Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3,
+                  BlackParrotComplex, YosysOldOr.
+9. rowheads       SeqDriver/SimpleUVM/Scoreboard/MiniAmiq/BuildUVMPkg/Earlgrey_0_1
+                  cmp rc=0, 0 heads, 0 cmp lines (Scoreboard/testflags SKIP-NOFILE as documented).
+10. results/*.csv read, never written.  Fenced tests never dispatched (canaudit FENCE-BREACH=0;
+                  the patch surface adds 0 hits for any fenced name).
+
+SHAPE LISTER beside the census (the positive control that makes a zero readable):
+  ROW                            VIEW  Kg Kours TPg TPours   pristine -> law/fix
+  type_param_packed_dim          DEF    2   2     6   6      OK -> OK
+  type_param_packed_dim          ELAB   4   2/4   9  12      KEEP-COUNT-DIFFERS -> OK
+  type_param_override_elem_sel   DEF    2   2     6   6      OK -> OK
+  type_param_override_elem_sel   ELAB   4   2/4  10  12      KEEP-COUNT-DIFFERS -> OK
+  bits_of_type_param             DEF    2   2     4   5      OK -> OK   (LANDED, stays CMP_EQUAL)
+  bits_of_type_param             ELAB   4   4     6   8      OK -> OK   (LANDED, stays CMP_EQUAL)
+  param_type_logic_width         DEF/ELAB 0 0   2/4 2/4      census POSITIVE CONTROL: a readable zero
+
+WITNESS HEADS, both modes, under the shipped binary -- UNCHANGED from the base:
+  type_param_packed_dim         1 head / 30 cmp lines  LHS packed_array_var: (work@dut.rt_i) @8:22
+  type_param_override_elem_sel  1 head / 23 cmp lines  LHS logic_typespec: @32:17, RHS: <null>
+NO ROW CONVERTS -- exactly as the implementer predicted before the sweep.
+
+INDEPENDENT CENSUS (widened): census57.py requires `parameter|localparam type`, which
+misses the bare `type T = ...` form legal in a parameter port list and a class parameter
+list.  A widened regex finds one extra directory, sl3p/Google (class_test_52.sv,
+`localparam Max_int = {$bits(DT) - 1{1'b1}}`).  It is NOT reachable: Google is
+SLANG_REJECT/default and TIMEOUT/testflags and produces no database.  The predicted
+mover set is unchanged.
