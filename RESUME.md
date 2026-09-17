@@ -175,6 +175,21 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign refresh (2026-09-17, HEAD = the pass-64 landing).** The
+> matrix-1.87 branch has landed 64 passes since the df23d880 rebaseline:
+> surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
+> are the three slang-fenced tests), uhdm2rtlil 787 equal / 17 not-equal /
+> 67 reject in both modes (of 871). Conversions since the pass-54 refresh:
+> iface_zero_width_field (60), struct_member_cfg_width (63) — six u2r
+> conversions in the pass 44-63 stretch. TRIAGE2's clusters and the
+> FOLDMAP's roads are all landed or queued out; steering now follows the
+> probe-README residue chains. The queue: RV0 folded-operand encoding
+> (packed road), the r11u49 R3 cast arm (typed_named_pattern), the
+> generate-scope share cell (struct_param_field_shift), the r11u56 R0
+> member-width stamp on a based literal, BBPI's 62 bare op-ref cells, the
+> r11v65 V-R1 dimension-less alias-of-alias (a landed-code guard), and the
+> TRIAGE2 singletons. The pass-54 paragraph below is HISTORY.
+
 > **v1.87 campaign refresh (2026-09-16, HEAD = the pass-54 landing).** The
 > matrix-1.87 branch has landed 54 passes since the df23d880 rebaseline:
 > surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
