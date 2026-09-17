@@ -1,0 +1,28 @@
+4,5c4,5
+< MEMBER t_t.a @23:41 #1  ->  logic_typespec nbits=3
+< MEMBER t_t.a @23:41 #2  ->  logic_typespec nbits=3
+---
+> MEMBER t_t.a @23:41 #1  ->  logic_typespec nbits=1 SYM
+> MEMBER t_t.a @23:41 #2  ->  logic_typespec nbits=1 SYM
+14,15c14,15
+< MEMBER t_t.b @23:58 #1  ->  logic_typespec nbits=3
+< MEMBER t_t.b @23:58 #2  ->  logic_typespec nbits=3
+---
+> MEMBER t_t.b @23:58 #1  ->  logic_typespec nbits=1 SYM
+> MEMBER t_t.b @23:58 #2  ->  logic_typespec nbits=1 SYM
+29,30c29,30
+< MEMBER u_t.a @15:34 #1  ->  logic_typespec nbits=3
+< MEMBER u_t.a @15:34 #2  ->  logic_typespec nbits=3
+---
+> MEMBER u_t.a @15:34 #1  ->  logic_typespec nbits=1 SYM
+> MEMBER u_t.a @15:34 #2  ->  logic_typespec nbits=1 SYM
+34,35c34,35
+< MEMBER u_t.b @15:51 #1  ->  logic_typespec nbits=3
+< MEMBER u_t.b @15:51 #2  ->  logic_typespec nbits=3
+---
+> MEMBER u_t.b @15:51 #1  ->  logic_typespec nbits=1 SYM
+> MEMBER u_t.b @15:51 #2  ->  logic_typespec nbits=1 SYM
+43c43
+< SYMMEMBERS 22
+---
+> SYMMEMBERS 30

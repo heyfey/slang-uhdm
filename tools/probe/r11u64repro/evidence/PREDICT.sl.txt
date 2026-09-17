@@ -1,0 +1,25 @@
+# r11u64 A-PRIORI MOVER PREDICTION — from PRISTINE databases only.
+# The full scan covered 960 arms; 20 read CANDIDATE and the other 940 read 'no'.
+# The per-arm 'no' lines are NOT reproduced here: the scan names every arm of
+# the corpus, and the OPS fence forbids spelling the four slang-fenced test
+# names individually.  Re-run the scan to see them (README section 9).
+CANDIDATE sl/testflags/AssignmentPatternInAssignmentPattern-a164dc05 symMembers=2 patternsWithConstOperand=8
+CANDIDATE sl/testflags/BlackBePipeInt-2987e0d2 symMembers=62 patternsWithConstOperand=367
+CANDIDATE sl/testflags/Earlgrey_0_1-71da2fd7 symMembers=58 patternsWithConstOperand=705
+CANDIDATE sl/testflags/GenScopeHierPath-a2114f21 symMembers=1 patternsWithConstOperand=2
+CANDIDATE sl/testflags/IndexedSelectHex-cd46669f symMembers=1 patternsWithConstOperand=2
+CANDIDATE sl/testflags/MultiConcatValueSize-8e3f2431 symMembers=1 patternsWithConstOperand=3
+CANDIDATE sl/testflags/ParamElabMulti-6f8060a1 symMembers=1 patternsWithConstOperand=3
+CANDIDATE sl/testflags/StructParamFieldRange-25c71671 symMembers=10 patternsWithConstOperand=2
+CANDIDATE sl/testflags/StructParamFuncBodyFieldCompare-dc918b36 symMembers=11 patternsWithConstOperand=1
+CANDIDATE sl/testflags/StructParamPatternInitCast-5f8c57d4 symMembers=10 patternsWithConstOperand=1
+CANDIDATE sl/default/AssignmentPatternInAssignmentPattern-a164dc05 symMembers=2 patternsWithConstOperand=6
+CANDIDATE sl/default/BlackBePipeInt-2987e0d2 symMembers=65 patternsWithConstOperand=367
+CANDIDATE sl/default/Earlgrey_0_1-71da2fd7 symMembers=58 patternsWithConstOperand=392
+CANDIDATE sl/default/GenScopeHierPath-a2114f21 symMembers=1 patternsWithConstOperand=2
+CANDIDATE sl/default/IndexedSelectHex-cd46669f symMembers=1 patternsWithConstOperand=2
+CANDIDATE sl/default/MultiConcatValueSize-8e3f2431 symMembers=1 patternsWithConstOperand=3
+CANDIDATE sl/default/ParamElabMulti-6f8060a1 symMembers=1 patternsWithConstOperand=3
+CANDIDATE sl/default/StructParamFieldRange-25c71671 symMembers=10 patternsWithConstOperand=2
+CANDIDATE sl/default/StructParamFuncBodyFieldCompare-dc918b36 symMembers=11 patternsWithConstOperand=1
+CANDIDATE sl/default/StructParamPatternInitCast-5f8c57d4 symMembers=10 patternsWithConstOperand=1

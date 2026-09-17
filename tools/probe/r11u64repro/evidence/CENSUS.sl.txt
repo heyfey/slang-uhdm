@@ -1,0 +1,22 @@
+UNCHANGED  testflags AssignmentPatternInAssignmentPattern  rows=ROWS 10  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  testflags BlackBePipeInt  rows=ROWS 198  PRIS-DIFF=2 LAW-DIFF=2
+UNCHANGED  testflags Earlgrey_0_1  rows=ROWS 525  PRIS-DIFF=93 LAW-DIFF=93
+UNCHANGED  testflags GenScopeHierPath  rows=ROWS 3  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  testflags IndexedSelectHex  rows=ROWS 3  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  testflags MultiConcatValueSize  rows=ROWS 5  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  testflags ParamElabMulti  rows=ROWS 5  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  testflags StructParamFieldRange  rows=ROWS 3  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  testflags StructParamFuncBodyFieldCompare  rows=ROWS 2  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  testflags StructParamPatternInitCast  rows=ROWS 2  PRIS-DIFF=2 LAW-DIFF=2
+CENSUS testflags scored=10 calib-ok=10 calib-bad=0 TO-GOLDEN=0 AWAY-GOLDEN=0 UNCHANGED=10
+UNCHANGED  default AssignmentPatternInAssignmentPattern  rows=ROWS 10  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  default BlackBePipeInt  rows=ROWS 198  PRIS-DIFF=2 LAW-DIFF=2
+UNCHANGED  default Earlgrey_0_1  rows=ROWS 516  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default GenScopeHierPath  rows=ROWS 3  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default IndexedSelectHex  rows=ROWS 3  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default MultiConcatValueSize  rows=ROWS 5  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default ParamElabMulti  rows=ROWS 5  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default StructParamFieldRange  rows=ROWS 3  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  default StructParamFuncBodyFieldCompare  rows=ROWS 2  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  default StructParamPatternInitCast  rows=ROWS 2  PRIS-DIFF=2 LAW-DIFF=2
+CENSUS default scored=10 calib-ok=10 calib-bad=0 TO-GOLDEN=0 AWAY-GOLDEN=0 UNCHANGED=10

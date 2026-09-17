@@ -1,0 +1,4 @@
+DIFF        module_inst:work@tb.u9 | cont_assign(v) | 108:14
+   G: ts=<none> opsz=0 ops=[constant sz=3 ct=1 val=DEC:2 dec=3'd2 ; constant sz=3 ct=9 val=UINT:0 dec=0 ; constant sz=8 ct=9 val=UINT:0 dec=0]
+   O: ts=<none> opsz=0 ops=[constant sz=3 ct=9 val=UINT:2 dec=2 ; constant sz=3 ct=9 val=UINT:0 dec=0 ; constant sz=8 ct=9 val=UINT:0 dec=0]
+ROWS 20 SAME 19 DIFF 1 ONLY-GOLDEN 0 ONLY-OURS 0

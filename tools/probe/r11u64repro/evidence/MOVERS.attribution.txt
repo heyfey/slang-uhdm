@@ -1,0 +1,16 @@
+== testflags (pris size 20241 -> law 20241)
+2038c2038,2039
+<           |vpiSize:3
+---
+>           |vpiSize:1
+>           |vpiSize:1
+2043d2043
+<           |vpiSize:64
+== default (pris size 25273 -> law 25273)
+2507c2507,2508
+<           |vpiSize:3
+---
+>           |vpiSize:1
+>           |vpiSize:1
+2512d2512
+<           |vpiSize:64

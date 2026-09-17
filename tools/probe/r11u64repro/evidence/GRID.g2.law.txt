@@ -1,0 +1,5 @@
+DIFF        module_inst:work@tb.u3 | operation() | 32:19
+   G: ts=<none> opsz=0 ops=[tagged_pattern TAGGED ; tagged_pattern TAGGED]
+   O: ts=<none> opsz=0 ops=[part_select sz=3 name=pa ; constant sz=-1 ct=3 val=BIN:0 dec='0]
+ONLY-OURS   module_inst:work@tb.u8 | struct_var(dv) | 82:12  ->  ts=struct_typespec:u_t opsz=0 ops=[constant sz=3 ct=1 val=DEC:1 dec=3'd1 ; constant sz=-1 ct=3 val=BIN:0 dec='0]
+ROWS 18 SAME 16 DIFF 1 ONLY-GOLDEN 1 ONLY-OURS 1

@@ -1,0 +1,2 @@
+op@15:14 | [3] (ref_obj nm=work@vtb4.z1.pa sz=8) (constant sz=5 ct=9 UINT:0 dc=0) (constant sz=6 ct=9 UINT:0 dc=0)
+op@15:14 | [3] tagged[(a)]{(ref_obj nm=work@vz1.pa)} tagged[(b)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(c)]{(constant sz=-1 ct=3 BIN:0 dc='0)}

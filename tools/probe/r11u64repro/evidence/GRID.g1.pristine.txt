@@ -1,0 +1,19 @@
+DIFF        module_inst:work@tb.u1 | cont_assign(v) | 22:14
+   G: ts=<none> opsz=0 ops=[part_select sz=3 name=pa ; constant sz=1 ct=9 val=UINT:1 dec=1 ; constant sz=1 ct=9 val=UINT:0 dec=0 ; constant sz=1 ct=9 val=UINT:0 dec=0]
+   O: ts=<none> opsz=0 ops=[part_select sz=3 name=pa ; constant sz=3 ct=9 val=UINT:7 dec=7 ; constant sz=3 ct=9 val=UINT:0 dec=0 ; constant sz=3 ct=9 val=UINT:0 dec=0]
+DIFF        module_inst:work@tb.u10 | cont_assign(v) | 118:14
+   G: ts=<none> opsz=0 ops=[part_select sz=3 name=pa ; constant sz=1 ct=9 val=UINT:0 dec=0 ; constant sz=8 ct=9 val=UINT:0 dec=0]
+   O: ts=<none> opsz=0 ops=[part_select sz=3 name=pa ; constant sz=3 ct=9 val=UINT:0 dec=0 ; constant sz=8 ct=9 val=UINT:0 dec=0]
+DIFF        module_inst:work@tb.u3 | cont_assign(v) | 42:14
+   G: ts=<none> opsz=0 ops=[part_select sz=64 name=pa ; constant sz=1 ct=9 val=UINT:0 dec=0]
+   O: ts=<none> opsz=0 ops=[part_select sz=64 name=pa ; constant sz=3 ct=9 val=UINT:0 dec=0]
+DIFF        module_inst:work@tb.u4 | cont_assign(v) | 53:14
+   G: ts=<none> opsz=0 ops=[part_select sz=6 name=pa ; constant sz=1 ct=9 val=UINT:0 dec=0 ; constant sz=5 ct=9 val=UINT:0 dec=0]
+   O: ts=<none> opsz=0 ops=[part_select sz=6 name=pa ; constant sz=6 ct=9 val=UINT:0 dec=0 ; constant sz=5 ct=9 val=UINT:0 dec=0]
+DIFF        module_inst:work@tb.u7 | cont_assign(v) | 86:14
+   G: ts=<none> opsz=0 ops=[part_select sz=4 name=pa ; constant sz=8 ct=9 val=UINT:0 dec=0]
+   O: ts=<none> opsz=0 ops=[part_select sz=4 name=pa ; constant sz=16 ct=9 val=UINT:0 dec=0]
+DIFF        module_inst:work@tb.u9 | cont_assign(v) | 108:14
+   G: ts=<none> opsz=0 ops=[constant sz=3 ct=1 val=DEC:2 dec=3'd2 ; constant sz=3 ct=9 val=UINT:0 dec=0 ; constant sz=8 ct=9 val=UINT:0 dec=0]
+   O: ts=<none> opsz=0 ops=[constant sz=3 ct=9 val=UINT:2 dec=2 ; constant sz=3 ct=9 val=UINT:0 dec=0 ; constant sz=8 ct=9 val=UINT:0 dec=0]
+ROWS 20 SAME 14 DIFF 6 ONLY-GOLDEN 0 ONLY-OURS 0

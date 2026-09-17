@@ -1,0 +1,18 @@
+op@20:14 | [2] (ref_obj nm=work@vtb3.k2.pa sz=8) (constant sz=124 ct=9 UINT:0 dc=0)
+op@20:14 | [2] tagged[(m0)]{(ref_obj nm=work@vc2.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@30:14 | [2] (ref_obj nm=work@vtb3.k4.pa sz=8) (constant sz=10 ct=9 UINT:0 dc=0)
+op@30:14 | [2] tagged[(m0)]{(ref_obj nm=work@vc4.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@38:14 | [3] (constant sz=3 ct=9 UINT:0 dc=0) (constant sz=8 ct=6 STRING:x dc="x") (part_select)
+op@38:14 | [3] tagged[(a)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(sname)]{(constant sz=8 ct=6 STRING:x dc="x")} tagged[(c)]{(part_select)}
+op@47:14 | [2] (ref_obj nm=work@vtb3.k9.pa sz=8) (constant sz=103 ct=9 UINT:0 dc=0)
+op@47:14 | [2] tagged[(m0)]{(ref_obj nm=work@vc9.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@56:14 | [2] (ref_obj nm=work@vtb3.k10.pa sz=8) (constant sz=-1 ct=3 BIN:0 dc='0)
+op@56:14 | [2] tagged[(m0)]{(ref_obj nm=work@vc10.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@65:14 | [2] (ref_obj nm=work@vtb3.k11.pa sz=8) (operation opType=67 [(constant sz=-1 ct=3 BIN:0 dc='0)])
+op@65:14 | [2] tagged[(m0)]{(ref_obj nm=work@vc11.pa)} tagged[(m1)]{(operation opType=67 [(constant sz=-1 ct=3 BIN:0 dc='0)])}
+op@74:14 | [2] (ref_obj nm=work@vtb3.k12.pa sz=8) (constant sz=22 ct=9 UINT:0 dc=0)
+op@74:14 | [2] tagged[(m0)]{(ref_obj nm=work@vc12.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@9:14 | [2] (part_select sz=8) (operation opType=75 [(constant sz=1 ct=3 BIN:0 dc='0)])
+op@9:14 | [2] tagged[(m0)]{(part_select)} tagged[(m1)]{(operation opType=75 [tagged[(default)]{(constant sz=-1 ct=3 BIN:0 dc='0)}])}
+op@9:33 | [1] (constant sz=1 ct=3 BIN:0 dc='0)
+op@9:33 | [1] tagged[(default)]{(constant sz=-1 ct=3 BIN:0 dc='0)}

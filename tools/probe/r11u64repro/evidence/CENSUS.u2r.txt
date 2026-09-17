@@ -1,0 +1,20 @@
+UNCHANGED  testflags BitSelectOfParameterPassedToSubmoduleInGenFor  rows=ROWS 3  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  testflags BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule  rows=ROWS 5  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  testflags cva6_struct_param_field  rows=ROWS 3  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  testflags iface_struct_field_param_width  rows=ROWS 8  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  testflags iface_zero_width_field  rows=ROWS 9  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  testflags ModuleInstantiationAndIndirectParams  rows=ROWS 3  PRIS-DIFF=0 LAW-DIFF=0
+TO-GOLDEN  testflags struct_member_cfg_width  rows=ROWS 2  PRIS-DIFF=1 LAW-DIFF=0
+UNCHANGED  testflags TypedefStructParamWithRangeInSubmodule  rows=ROWS 4  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  testflags UnionCustomTypeMultirange  rows=ROWS 10  PRIS-DIFF=0 LAW-DIFF=0
+CENSUS testflags scored=9 calib-ok=9 calib-bad=0 TO-GOLDEN=1 AWAY-GOLDEN=0 UNCHANGED=8
+UNCHANGED  default BitSelectOfParameterPassedToSubmoduleInGenFor  rows=ROWS 3  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule  rows=ROWS 5  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default cva6_struct_param_field  rows=ROWS 3  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  default iface_struct_field_param_width  rows=ROWS 8  PRIS-DIFF=1 LAW-DIFF=1
+UNCHANGED  default iface_zero_width_field  rows=ROWS 9  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default ModuleInstantiationAndIndirectParams  rows=ROWS 3  PRIS-DIFF=0 LAW-DIFF=0
+TO-GOLDEN  default struct_member_cfg_width  rows=ROWS 2  PRIS-DIFF=1 LAW-DIFF=0
+UNCHANGED  default TypedefStructParamWithRangeInSubmodule  rows=ROWS 4  PRIS-DIFF=0 LAW-DIFF=0
+UNCHANGED  default UnionCustomTypeMultirange  rows=ROWS 10  PRIS-DIFF=0 LAW-DIFF=0
+CENSUS default scored=9 calib-ok=9 calib-bad=0 TO-GOLDEN=1 AWAY-GOLDEN=0 UNCHANGED=8

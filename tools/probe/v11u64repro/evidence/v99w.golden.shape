@@ -1,0 +1,14 @@
+op@23:18 | [2] (constant sz=32 ct=9 UINT:1 dc=1) (constant sz=4 ct=9 UINT:0 dc=0)
+op@23:18 | [2] (constant sz=8 ct=9 UINT:1 dc=1) (constant sz=4 ct=9 UINT:0 dc=0)
+op@23:18 | [2] tagged[(pw)]{(constant sz=-1 ct=3 BIN:1 dc='1)} tagged[(q4)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@23:42 | [2] (constant sz=32 ct=9 UINT:0 dc=0) (constant sz=4 ct=9 UINT:15 dc=15)
+op@23:42 | [2] (constant sz=8 ct=9 UINT:0 dc=0) (constant sz=4 ct=9 UINT:15 dc=15)
+op@23:42 | [2] tagged[(pw)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(q4)]{(constant sz=-1 ct=3 BIN:1 dc='1)}
+op@29:19 | [8] (constant sz=1 ct=9 UINT:1 dc=1) (constant sz=4 ct=9 UINT:15 dc=15) (constant sz=32 ct=9 UINT:4294967295 dc=4294967295) (constant sz=64 ct=9 UINT:18446744073709551615 dc=18446744073709551615) (constant sz=65 ct=9 UINT:18446744073709551615 dc=18446744073709551615) (constant sz=12 ct=9 UINT:4095 dc=4095) (constant sz=6 ct=7 INT:1 dc=1) (constant sz=8 ct=9 UINT:255 dc=255)
+op@29:19 | [8] tagged[(w1)]{(constant sz=-1 ct=3 BIN:1 dc='1)} tagged[(w4)]{(constant sz=-1 ct=3 BIN:1 dc='1)} tagged[(w32)]{(constant sz=-1 ct=3 BIN:1 dc='1)} tagged[(w64)]{(constant sz=-1 ct=3 BIN:1 dc='1)} tagged[(w65)]{(constant sz=-1 ct=3 BIN:1 dc='1)} tagged[(wtd)]{(constant sz=-1 ct=3 BIN:1 dc='1)} tagged[(wen)]{(constant sz=6 ct=7 INT:1 dc=1)} tagged[(ws8)]{(constant sz=-1 ct=3 BIN:1 dc='1)}
+op@30:19 | [8] (constant sz=1 ct=9 UINT:0 dc=0) (constant sz=4 ct=9 UINT:0 dc=0) (constant sz=32 ct=9 UINT:0 dc=0) (constant sz=64 ct=9 UINT:0 dc=0) (constant sz=65 ct=9 UINT:0 dc=0) (constant sz=12 ct=9 UINT:0 dc=0) (constant sz=6 ct=7 INT:0 dc=0) (constant sz=8 ct=9 UINT:0 dc=0)
+op@30:19 | [8] tagged[(w1)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(w4)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(w32)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(w64)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(w65)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(wtd)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(wen)]{(constant sz=6 ct=7 INT:0 dc=0)} tagged[(ws8)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@31:19 | [2] (constant sz=128 ct=9 UINT:18446744073709551615 dc=18446744073709551615) (constant sz=8 ct=9 UINT:255 dc=255)
+op@31:19 | [2] tagged[(a128)]{(constant sz=-1 ct=3 BIN:1 dc='1)} tagged[(b8)]{(constant sz=-1 ct=3 BIN:1 dc='1)}
+op@31:45 | [2] (constant sz=128 ct=9 UINT:0 dc=0) (constant sz=8 ct=9 UINT:0 dc=0)
+op@31:45 | [2] tagged[(a128)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(b8)]{(constant sz=-1 ct=3 BIN:0 dc='0)}

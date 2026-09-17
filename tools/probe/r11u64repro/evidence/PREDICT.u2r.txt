@@ -1,0 +1,23 @@
+# r11u64 A-PRIORI MOVER PREDICTION — from PRISTINE databases only.
+# The full scan covered 1608 arms; 18 read CANDIDATE and the other 1590 read 'no'.
+# The per-arm 'no' lines are NOT reproduced here: the scan names every arm of
+# the corpus, and the OPS fence forbids spelling the four slang-fenced test
+# names individually.  Re-run the scan to see them (README section 9).
+CANDIDATE u2r/testflags/BitSelectOfParameterPassedToSubmoduleInGenFor-334158aa symMembers=1 patternsWithConstOperand=2
+CANDIDATE u2r/testflags/BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule-5fd99b05 symMembers=1 patternsWithConstOperand=3
+CANDIDATE u2r/testflags/cva6_struct_param_field-80aba5af symMembers=10 patternsWithConstOperand=2
+CANDIDATE u2r/testflags/iface_struct_field_param_width-66613b2e symMembers=2 patternsWithConstOperand=2
+CANDIDATE u2r/testflags/iface_zero_width_field-3e8dd54e symMembers=4 patternsWithConstOperand=10
+CANDIDATE u2r/testflags/ModuleInstantiationAndIndirectParams-2906b22a symMembers=2 patternsWithConstOperand=3
+CANDIDATE u2r/testflags/struct_member_cfg_width-e3b35de8 symMembers=6 patternsWithConstOperand=2
+CANDIDATE u2r/testflags/TypedefStructParamWithRangeInSubmodule-d078a329 symMembers=1 patternsWithConstOperand=2
+CANDIDATE u2r/testflags/UnionCustomTypeMultirange-c87c4fb7 symMembers=3 patternsWithConstOperand=8
+CANDIDATE u2r/default/BitSelectOfParameterPassedToSubmoduleInGenFor-334158aa symMembers=1 patternsWithConstOperand=2
+CANDIDATE u2r/default/BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule-5fd99b05 symMembers=1 patternsWithConstOperand=3
+CANDIDATE u2r/default/cva6_struct_param_field-80aba5af symMembers=10 patternsWithConstOperand=2
+CANDIDATE u2r/default/iface_struct_field_param_width-66613b2e symMembers=2 patternsWithConstOperand=2
+CANDIDATE u2r/default/iface_zero_width_field-3e8dd54e symMembers=4 patternsWithConstOperand=10
+CANDIDATE u2r/default/ModuleInstantiationAndIndirectParams-2906b22a symMembers=2 patternsWithConstOperand=3
+CANDIDATE u2r/default/struct_member_cfg_width-e3b35de8 symMembers=6 patternsWithConstOperand=2
+CANDIDATE u2r/default/TypedefStructParamWithRangeInSubmodule-d078a329 symMembers=1 patternsWithConstOperand=2
+CANDIDATE u2r/default/UnionCustomTypeMultirange-c87c4fb7 symMembers=3 patternsWithConstOperand=8

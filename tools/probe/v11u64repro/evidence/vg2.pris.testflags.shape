@@ -1,0 +1,24 @@
+op@105:14 | [2] (ref_obj nm=work@vtb2.j12.pa sz=8) (constant sz=5 ct=9 UINT:0 dc=0)
+op@105:14 | [2] tagged[(m0)]{(ref_obj nm=work@vb12.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@18:15 | [2] (ref_obj nm=work@vtb2.j1.pa sz=8) (constant sz=6 ct=9 UINT:0 dc=0)
+op@18:15 | [2] tagged[(pa0)]{(ref_obj nm=work@vb1.pa)} tagged[(pb)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@19:15 | [2] (ref_obj nm=work@vtb2.j1.pa sz=8) (constant sz=5 ct=9 UINT:0 dc=0)
+op@19:15 | [2] tagged[(pa0)]{(ref_obj nm=work@vb1.pa)} tagged[(pc)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@20:15 | [2] (ref_obj nm=work@vtb2.j1.pa sz=8) (constant sz=5 ct=9 UINT:0 dc=0)
+op@20:15 | [2] tagged[(pa0)]{(ref_obj nm=work@vb1.pa)} tagged[(pd)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@29:14 | [3] (ref_obj nm=work@vtb2.j4.pa sz=8) (constant sz=3 ct=9 UINT:0 dc=0) (constant sz=6 ct=9 UINT:0 dc=0)
+op@29:14 | [3] (ref_obj nm=work@vtb2.j4b.pa sz=8) (constant sz=9 ct=9 UINT:0 dc=0) (constant sz=18 ct=9 UINT:0 dc=0)
+op@29:14 | [3] tagged[(m0)]{(ref_obj nm=work@vb4.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(m2)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@39:16 | [2] tagged[(m0)]{(ref_obj nm=work@vb5.g.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@39:16 | [2] tagged[(m0)]{(ref_obj nm=work@vtb2.j5.g[0].pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@39:16 | [2] tagged[(m0)]{(ref_obj nm=work@vtb2.j5.g[1].pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@50:14 | [1] tagged[(default)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@50:14 | [2] (constant sz=3 ct=9 UINT:0 dc=0) (constant sz=3 ct=9 UINT:0 dc=0)
+op@58:14 | [3] (ref_obj nm=work@vtb2.j7.pa sz=8) (constant sz=3 ct=9 UINT:0 dc=0) (constant sz=3 ct=9 UINT:0 dc=0)
+op@58:14 | [3] tagged[(m0)]{(ref_obj nm=work@vb7.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:X dc='X)} tagged[(m2)]{(constant sz=-1 ct=3 BIN:Z dc='Z)}
+op@66:11 | [1] (constant sz=11 ct=9 UINT:0 dc=0)
+op@74:19 | [2] tagged[(m0)]{(ref_obj nm=work@vb9.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@75:19 | [2] tagged[(m0)]{(ref_obj nm=work@vb9.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@83:14 | [2] tagged[(m0)]{(ref_obj nm=work@vif.pa)} tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)}
+op@96:14 | [2] (constant sz=8 ct=9 UINT:1 dc=1) (constant sz=3 ct=9 UINT:0 dc=0)
+op@96:14 | [2] tagged[(m1)]{(constant sz=-1 ct=3 BIN:0 dc='0)} tagged[(m0)]{(constant sz=8 ct=1 DEC:1 dc=8'd1)}

@@ -513,6 +513,281 @@ static int64_t surelogTsBits(const Type& t) {
     return -1;
 }
 
+// § patFlatUnsizedMemberNoInstWidth64 (r11u64) — THE WIDTH AN UNSIZED PATTERN
+// OPERAND TAKES IS `ExprEval::size` OF THE MEMBER TYPESPEC **WITH NO
+// INSTANCE**, NOT THE MEMBER'S ELABORATED WIDTH.
+//
+// THE PRODUCER.  `UHDM::ExprEval::flattenPatternAssignments`
+// (`~/git-repos/UHDM/templates/ExprEval.cpp:889-916`) is the only place an
+// unsized member value is re-typed, and its width call passes a NULL instance:
+//
+//     uint64_t size = ExprEval::size(fieldTypes[index], invalidValue,
+//                                    /*inst=*/nullptr, exp, true, true);
+//
+// `ExprEval::size` (`ExprEval.cpp:1271-1594`) starts a `logic_typespec` at 1
+// bit and multiplies each range in by
+// `getValue(reduceExpr(bound, iv, inst, pexpr, muteError))`; with `inst ==
+// nullptr` a bound that needs the instance cannot be reduced and `getValue`
+// reads **0**, so `(0 - 0 + 1)` leaves the member ONE BIT WIDE however wide it
+// elaborates.  `surelogTsBits` above answers slang's elaborated width, which is
+// the right answer at the OTHER stamp on this same road —
+// `CompileHelper::expandPatternAssignment`
+// (`~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:5207`) sizes with
+// `Bits(member, …, Reduce::Yes, /*instance=*/instance, …)` and IS
+// instance-aware — and the wrong answer here.  The two are separated in golden
+// by g1 `u3`, where ONE pattern carries both: operand[0] `pa[3:0]` is stamped
+// **64** by the instance-aware walk and the `'0` beside it is **1**.
+//
+// WHICH BOUNDS THE NO-INSTANCE READ LOSES, MEASURED (grid g1, golden):
+//   `logic [V-1:0]`            module PARAMETER      -> 1   (u1, u9, u10)
+//   `logic [LP-1:0]`           module LOCALPARAM     -> 1   (u4 `b`)
+//   `logic [q64::CFG.XLEN-1:0]` package STRUCT member (a `hier_path`)
+//                                                    -> 1   (u3, the corpus
+//                                                            witness's own)
+//   `logic [V-1:0][7:0]`       symbolic OUTER range  -> 8   (u7: the element's
+//                                                            8 bits times the
+//                                                            lost range's 1)
+// and which it does NOT lose, because Surelog FOLDED the bound into constants
+// while building the typespec and `reduceExpr` needs no instance for a tree of
+// constants:
+//   `logic [q64::PW-1:0]`      package LOCALPARAM, emitted as `5 - 1` -> 5
+//   `logic [$bits(q64::sub_t)-1:0]`  emitted as `8 - 1`               -> 8
+//   `logic [3+1:0]`            pure literal arithmetic                -> 5
+//   `logic [7:0]` / `logic` / `int` / a nested struct / `[1:0][7:0]`  unchanged
+//
+// so the honest predicate is NOT "the bound is a reference": it is "the bound
+// is a tree `reduceExpr` cannot fold WITHOUT an instance".  The transcription
+// below therefore DECLINES — leaving `surelogTsBits`' answer in place — the
+// moment a bound is constant-FOLDABLE but not itself a constant, and claims a
+// width only where a reference it cannot value is in the tree.  Our emitted
+// member typespecs carry the same bounds golden's do: `tsbits64` reads the same
+// 18 SYM members and the same per-member widths out of BOTH g1 databases.
+//
+// Classify a bound's expression tree.  `ref` records that a REFERENCE — the one
+// shape the no-instance read provably loses — is somewhere in it.  Answers
+// false for any node kind outside {constant, operation, ref_obj, hier_path}: a
+// shape this law has not measured is a shape it declines.
+//
+// THE FENCE THIS BUILT, AND THE CELL THAT CONVICTED IT (g1 `u5`,
+// `logic [$bits(q64::sub_t)-1:0]`).  Golden FOLDS that bound while building the
+// typespec and emits `8 - 1`, two constants, so its own no-instance read
+// answers 8; OUR typespec keeps a `sys_func_call ($bits)` in the bound, a
+// PRE-EXISTING divergence of the typespec itself.  A law that read our tree and
+// called the call unvaluable moved that cell from pristine-RIGHT (8) to
+// patched-WRONG (1) — measured on the grid before any sweep.  So the claim is
+// made only where the two producers' bound trees are the SAME shape, which the
+// grid and the corpus witness both show they are for a reference bound.
+static bool boundTreeKind64(const UHDM::any* e, bool& ref, int depth) {
+    if (!e || depth > 16)
+        return false;
+    switch (e->UhdmType()) {
+        case UHDM::uhdmconstant:
+            return true;
+        case UHDM::uhdmref_obj:
+        case UHDM::uhdmhier_path:
+            ref = true;
+            return true;
+        case UHDM::uhdmoperation: {
+            auto* ops = ((const UHDM::operation*)e)->Operands();
+            if (!ops || ops->empty())
+                return false;
+            for (auto* o : *ops)
+                if (!boundTreeKind64(o, ref, depth + 1))
+                    return false;
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
+// One range bound's value under the NO-INSTANCE read.  Answers false when the
+// bound is constant-foldable but not a bare constant, and when it holds any
+// shape outside the measured set (the caller then declines the whole
+// computation); sets `unval` when the bound is one the read loses.
+static bool boundNoInst64(const UHDM::any* e, int64_t& v, bool& unval) {
+    if (!e)
+        return false;
+    if (e->UhdmType() == UHDM::uhdmconstant) {
+        std::string_view s = ((const UHDM::constant*)e)->VpiValue();
+        auto c = s.find(':');
+        if (c == std::string_view::npos)
+            return false;
+        std::string pfx(s.substr(0, c));
+        std::string dig(s.substr(c + 1));
+        if (dig.empty())
+            return false;
+        int base = 0;
+        if (pfx == "UINT" || pfx == "INT" || pfx == "DEC")
+            base = 10;
+        else if (pfx == "BIN")
+            base = 2;
+        else if (pfx == "OCT")
+            base = 8;
+        else if (pfx == "HEX")
+            base = 16;
+        else
+            return false;
+        errno = 0;
+        char* end = nullptr;
+        long long r = strtoll(dig.c_str(), &end, base);
+        if (errno != 0 || !end || *end != '\0')
+            return false;
+        v = (int64_t)r;
+        return true;
+    }
+    bool ref = false;
+    if (!boundTreeKind64(e, ref, 0) || !ref)
+        return false;
+    v = 0;
+    unval = true;
+    return true;
+}
+
+static int64_t noInstTsBits64(const UHDM::typespec* ts, bool& unval, bool& bail,
+                              int depth);
+
+static int64_t applyRanges64(const UHDM::VectorOfrange* r, int64_t bits,
+                             bool& unval, bool& bail) {
+    if (!r)
+        return bits;
+    for (auto* ran : *r) {
+        int64_t lv = 0, rv = 0;
+        if (!boundNoInst64(ran->Left_expr(), lv, unval) ||
+            !boundNoInst64(ran->Right_expr(), rv, unval)) {
+            bail = true;
+            return 0;
+        }
+        bits = bits * ((lv > rv) ? (lv - rv + 1) : (rv - lv + 1));
+        if (bits <= 0 || bits > 4096) {
+            bail = true;
+            return 0;
+        }
+    }
+    return bits;
+}
+
+// `ExprEval::size` over an EMITTED typespec, transcribed for the kinds a struct
+// member can carry.  Any other kind BAILS, and a bail always leaves the caller
+// on its pre-existing answer.
+static int64_t noInstTsBits64(const UHDM::typespec* ts, bool& unval, bool& bail,
+                              int depth) {
+    if (!ts || depth > 16) {
+        bail = true;
+        return 0;
+    }
+    switch (ts->UhdmType()) {
+        case UHDM::uhdmlogic_typespec: {
+            auto* t = (const UHDM::logic_typespec*)ts;
+            int64_t b = 1;
+            if (auto* rt = t->Elem_typespec())
+                if (auto* at = rt->Actual_typespec()) {
+                    bool eb = false;
+                    int64_t e = noInstTsBits64(at, unval, eb, depth + 1);
+                    if (!eb)
+                        b = e;
+                }
+            return applyRanges64(t->Ranges(), b, unval, bail);
+        }
+        case UHDM::uhdmbit_typespec:
+            return applyRanges64(((const UHDM::bit_typespec*)ts)->Ranges(), 1,
+                                 unval, bail);
+        case UHDM::uhdmint_typespec: {
+            auto* t = (const UHDM::int_typespec*)ts;
+            auto* r = t->Ranges();
+            return applyRanges64(r, (r && !r->empty()) ? 1 : 32, unval, bail);
+        }
+        case UHDM::uhdmbyte_typespec:
+            return 8;
+        case UHDM::uhdmshort_int_typespec:
+            return 16;
+        case UHDM::uhdmlong_int_typespec:
+            return 64;
+        case UHDM::uhdmshort_real_typespec:
+        case UHDM::uhdmreal_typespec:
+            return 32;
+        case UHDM::uhdmenum_typespec: {
+            auto* rt = ((const UHDM::enum_typespec*)ts)->Base_typespec();
+            if (!rt || !rt->Actual_typespec()) {
+                bail = true;
+                return 0;
+            }
+            return noInstTsBits64(rt->Actual_typespec(), unval, bail, depth + 1);
+        }
+        case UHDM::uhdmstruct_typespec: {
+            auto* ms = ((const UHDM::struct_typespec*)ts)->Members();
+            if (!ms) {
+                bail = true;
+                return 0;
+            }
+            int64_t sum = 0;
+            for (auto* m : *ms) {
+                auto* rt = m->Typespec();
+                if (!rt || !rt->Actual_typespec()) {
+                    bail = true;
+                    return 0;
+                }
+                sum += noInstTsBits64(rt->Actual_typespec(), unval, bail,
+                                      depth + 1);
+                if (bail)
+                    return 0;
+            }
+            return sum;
+        }
+        case UHDM::uhdmunion_typespec: {
+            auto* ms = ((const UHDM::union_typespec*)ts)->Members();
+            if (!ms) {
+                bail = true;
+                return 0;
+            }
+            int64_t mx = 0;
+            for (auto* m : *ms) {
+                auto* rt = m->Typespec();
+                if (!rt || !rt->Actual_typespec()) {
+                    bail = true;
+                    return 0;
+                }
+                int64_t v = noInstTsBits64(rt->Actual_typespec(), unval, bail,
+                                           depth + 1);
+                if (bail)
+                    return 0;
+                if (v > mx)
+                    mx = v;
+            }
+            return mx;
+        }
+        case UHDM::uhdmpacked_array_typespec: {
+            auto* t = (const UHDM::packed_array_typespec*)ts;
+            auto* rt = t->Elem_typespec();
+            if (!rt || !rt->Actual_typespec()) {
+                bail = true;
+                return 0;
+            }
+            int64_t b =
+                noInstTsBits64(rt->Actual_typespec(), unval, bail, depth + 1);
+            if (bail)
+                return 0;
+            return applyRanges64(t->Ranges(), b, unval, bail);
+        }
+        case UHDM::uhdmarray_typespec: {
+            auto* t = (const UHDM::array_typespec*)ts;
+            auto* rt = t->Elem_typespec();
+            if (!rt || !rt->Actual_typespec()) {
+                bail = true;
+                return 0;
+            }
+            int64_t b =
+                noInstTsBits64(rt->Actual_typespec(), unval, bail, depth + 1);
+            if (bail)
+                return 0;
+            return applyRanges64(t->Ranges(), b, unval, bail);
+        }
+        default:
+            bail = true;
+            return 0;
+    }
+}
+
 // The value OBJECT a struct-pattern op-75 `rhs` holds for member `mem`
 // (declaration index `idx`), or null.  Both shapes a package param's Rhs can
 // take are read: the TAGGED listing (match the tagged_pattern whose typespec
@@ -32059,6 +32334,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     int64_t fw9 = surelogTsBits(
                                         fields9[i9]->getDeclaredType()
                                             ->getType());
+                                    // § patFlatUnsizedMemberNoInstWidth64
+                                    // (r11u64) — ...AND THE WIDTH THE FLATTEN
+                                    // LENDS IT IS THE NO-INSTANCE ONE.  The
+                                    // full law is written out beside
+                                    // `noInstTsBits64`; here it is one
+                                    // override, taken only where the emitted
+                                    // member typespec carries a bound the
+                                    // no-instance read LOSES.  Every other
+                                    // member — every constant bound, every
+                                    // constant-foldable bound, every kind the
+                                    // transcription does not cover — bails and
+                                    // keeps `surelogTsBits`' answer, so this
+                                    // arm cannot move a cell it did not decode.
+                                    {
+                                        const UHDM::typespec* mts64 =
+                                            mrt9 ? mrt9->Actual_typespec()
+                                                 : nullptr;
+                                        bool unval64 = false, bail64 = false;
+                                        int64_t nw64 = noInstTsBits64(
+                                            mts64, unval64, bail64, 0);
+                                        if (unval64 && !bail64 && nw64 > 0)
+                                            fw9 = nw64;
+                                    }
                                     // `'x`/`'z` fold to 0 on the CA carrier
                                     // (measured, b1 D2 `w1:'x` -> UINT:0 sz 1);
                                     // the `default:` half keeps its landed
