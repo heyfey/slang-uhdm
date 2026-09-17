@@ -1,0 +1,14 @@
+# r11u56 POSITIVE CONTROL for the corpus census ZERO
+# the pass-54 witness test struct_param_pattern_packing, UNMODIFIED:
+31e6f3db6a47946df29217108142f5b7  o.pris.uhdm
+31e6f3db6a47946df29217108142f5b7  o.law.uhdm
+# the same sources with ONE setter changed to an INT-answering subtract (n: 3 - 1):
+440c26da42a76e062cbc1a5d8f47b2d7  out.pris.uhdm
+5dfd63ca1ac0c3210e870043a410a272  out.law.uhdm
+# order-blind, workdir-normalised dump diff of the MODIFIED pair:
+>       |INT:2
+< out.pris.uhdm: Restored design Pre-Elab: 
+> out.law.uhdm: Restored design Pre-Elab: 
+<       |UINT:2
+>       |vpiConstType:7
+<       |vpiConstType:9

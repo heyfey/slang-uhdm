@@ -1,0 +1,37 @@
+SAME work@dut.u_n.o1              ('constant', '25:31', "vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5")
+SAME work@dut.u_n.o10             ('constant', '29:32', "vpiDecompile:16'd40 vpiSize:16 vpiConstType:1")
+SAME work@dut.u_n.o11             ('constant', '29:41', "vpiDecompile:16'h28 vpiSize:8 vpiConstType:5")
+DIFF work@dut.u_n.o12            
+   G ('constant', '29:50', "vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3")
+   O ('constant', '29:50', 'vpiDecompile:11000011 vpiSize:8 vpiConstType:3')
+SAME work@dut.u_n.o13             ('constant', '29:59', "vpiDecompile:16'o7654 vpiSize:8 vpiConstType:4")
+SAME work@dut.u_n.o2              ('constant', '25:44', 'vpiDecompile:11000011 vpiSize:8 vpiConstType:3')
+SAME work@dut.u_n.o3              ('constant', '26:31', "vpiDecompile:16'o7654 vpiSize:8 vpiConstType:4")
+SAME work@dut.u_n.o4              ('constant', '26:44', "vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1")
+SAME work@dut.u_n.o5              ('constant', '26:58', "vpiDecompile:16'shBEEF vpiSize:8 vpiConstType:5")
+SAME work@dut.u_n.o6              ('constant', '27:32', "vpiDecompile:16'sd4660 vpiSize:16 vpiConstType:1")
+SAME work@dut.u_n.o7              ('constant', '27:47', "vpiDecompile:16'hBEEF vpiSize:8 vpiConstType:5")
+DIFF work@dut.u_n.o8             
+   G ('constant', '28:32', "vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3")
+   O ('constant', '28:32', 'vpiDecompile:11000011 vpiSize:8 vpiConstType:3')
+DIFF work@dut.u_n.o9             
+   G ('constant', '28:61', "vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1")
+   O ('constant', '28:61', "vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1")
+SAME work@dut.u_w.o1              ('constant', '25:31', "vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5")
+SAME work@dut.u_w.o10             ('constant', '29:32', "vpiDecompile:16'd40 vpiSize:16 vpiConstType:1")
+SAME work@dut.u_w.o11             ('constant', '29:41', "vpiDecompile:16'h28 vpiSize:32 vpiConstType:5")
+SAME work@dut.u_w.o12             ('constant', '29:50', "vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3")
+SAME work@dut.u_w.o13             ('constant', '29:59', "vpiDecompile:16'o7654 vpiSize:32 vpiConstType:4")
+SAME work@dut.u_w.o2              ('constant', '25:44', "vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3")
+SAME work@dut.u_w.o3              ('constant', '26:31', "vpiDecompile:16'o7654 vpiSize:32 vpiConstType:4")
+SAME work@dut.u_w.o4              ('constant', '26:44', "vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1")
+SAME work@dut.u_w.o5              ('constant', '26:58', "vpiDecompile:16'shBEEF vpiSize:32 vpiConstType:5")
+SAME work@dut.u_w.o6              ('constant', '27:32', "vpiDecompile:16'sd4660 vpiSize:16 vpiConstType:1")
+SAME work@dut.u_w.o7              ('constant', '27:47', "vpiDecompile:16'hBEEF vpiSize:32 vpiConstType:5")
+DIFF work@dut.u_w.o8             
+   G ('constant', '28:32', "vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3")
+   O ('constant', '28:32', "vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3")
+DIFF work@dut.u_w.o9             
+   G ('constant', '28:61', "vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1")
+   O ('constant', '28:61', "vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1")
+e3_base56 CELLS 26 SAME 21 DIFF 5

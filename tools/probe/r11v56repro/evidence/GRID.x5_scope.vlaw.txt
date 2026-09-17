@@ -1,0 +1,15 @@
+SAME work@dut.gb[0].u_d.oe        ('constant', '15:36', 'vpiDecompile:2 vpiSize:32 vpiConstType:7')
+SAME work@dut.gb[0].u_d.os        ('constant', '15:29', 'vpiDecompile:-7 vpiSize:32 vpiConstType:7')
+SAME work@dut.gb[0].u_d.ou        ('constant', '15:44', 'vpiDecompile:3 vpiSize:32 vpiConstType:9')
+SAME work@dut.u_a.oe              ('constant', '14:36', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+SAME work@dut.u_a.os              ('constant', '14:29', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+SAME work@dut.u_a.ou              ('constant', '14:44', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.u_b.oe              ('constant', '15:36', 'vpiDecompile:2 vpiSize:32 vpiConstType:7')
+SAME work@dut.u_b.os              ('constant', '15:29', 'vpiDecompile:-7 vpiSize:32 vpiConstType:7')
+SAME work@dut.u_b.ou              ('constant', '15:44', 'vpiDecompile:3 vpiSize:32 vpiConstType:9')
+DIFF work@dut.u_c.oe             
+   G ('constant', '24:39', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+   O ('constant', '24:39', "vpiDecompile:4'd9 vpiSize:32 vpiConstType:7")
+SAME work@dut.u_c.os              ('constant', '24:32', 'vpiDecompile:-3 vpiSize:32 vpiConstType:7')
+SAME work@dut.u_c.ou              ('constant', '24:50', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+x5_scope CELLS 12 SAME 11 DIFF 1

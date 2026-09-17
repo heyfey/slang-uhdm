@@ -1,0 +1,31 @@
+DIFF work@dut.u_1.a              
+   G ('constant', '15:32', 'vpiDecompile:255 vpiSize:8 vpiConstType:9')
+   O ('constant', '15:32', "vpiDecompile:'1 vpiSize:-1 vpiConstType:3")
+DIFF work@dut.u_1.b              
+   G ('constant', '15:32', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+   O ('constant', '15:32', "vpiDecompile:'1 vpiSize:-1 vpiConstType:3")
+DIFF work@dut.u_1.c              
+   G ('constant', '15:32', 'vpiDecompile:4294967295 vpiSize:64 vpiConstType:9')
+   O ('constant', '15:32', "vpiDecompile:'1 vpiSize:-1 vpiConstType:3")
+DIFF work@dut.u_1.d              
+   G ('constant', '15:40', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+   O ('constant', '15:40', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+DIFF work@dut.u_1.e              
+   G ('constant', '15:48', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+   O ('constant', '15:48', 'vpiDecompile:9 vpiSize:32 vpiConstType:9')
+DIFF work@dut.u_2.a              
+   G ('constant', '15:32', 'vpiDecompile:255 vpiSize:8 vpiConstType:9')
+   O ('constant', '15:32', "vpiDecompile:'1 vpiSize:-1 vpiConstType:3")
+DIFF work@dut.u_2.b              
+   G ('constant', '15:32', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+   O ('constant', '15:32', "vpiDecompile:'1 vpiSize:-1 vpiConstType:3")
+DIFF work@dut.u_2.c              
+   G ('constant', '15:32', 'vpiDecompile:4294967295 vpiSize:64 vpiConstType:9')
+   O ('constant', '15:32', "vpiDecompile:'1 vpiSize:-1 vpiConstType:3")
+DIFF work@dut.u_2.d              
+   G ('constant', '15:40', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+   O ('constant', '15:40', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+DIFF work@dut.u_2.e              
+   G ('constant', '15:48', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+   O ('constant', '15:48', 'vpiDecompile:9 vpiSize:32 vpiConstType:9')
+e4_share56 CELLS 10 SAME 0 DIFF 10

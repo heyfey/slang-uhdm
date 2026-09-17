@@ -1,0 +1,110 @@
+# SHAPE LISTER: every dir inside the CA_DOT_PARAM boundary, with the setter classes its patterns carry
+sl3p  Ariane2024                                   dotted=258 classes=BASED,ENUMNAME,INTISH,PLAIN,UNSIZED CANDIDATE:UNSIZED+INTISH+ENUMNAME
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   exponent: '1
+        UNSIZED   exponent: '1
+        INTISH    mantissa: 2**(MAN_BITS-1)
+        INTISH    mantissa: 2**(MAN_BITS-1)
+        INTISH    mantissa: 2**(MAN_BITS-1)
+        ENUMNAME  PipeConfig: BEFORE
+        ENUMNAME  default: PARALLEL
+        ENUMNAME  default: MERGED
+        ENUMNAME  default: PARALLEL
+        ENUMNAME  default: MERGED
+        ENUMNAME  PipeConfig: BEFORE
+sl3p  Earlgrey_Verilator_01_05_21                  dotted=7   classes=BASED,ENUMNAME,INTISH,PLAIN,UNSIZED CANDIDATE:UNSIZED+INTISH+ENUMNAME
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   d_param: '0
+        INTISH    nonce_size: 2'(OtbnNonceWidth/64-1)
+        INTISH    nonce_size: 2'(SramNonceWidth/64-1)
+        INTISH    <positional>: 1344/MsgWidth
+        INTISH    <positional>: 1152/MsgWidth
+        INTISH    <positional>: 1088/MsgWidth
+        INTISH    <positional>: 832/MsgWidth
+        ENUMNAME  mpp: PRIV_LVL_U
+        ENUMNAME  xdebugver: XDEBUGVER_STD
+        ENUMNAME  cause: DBG_CAUSE_NONE
+        ENUMNAME  prv: PRIV_LVL_M
+        ENUMNAME  mpp: PRIV_LVL_U
+        ENUMNAME  slow_clk_val: DiffValid
+sl3p  Earlgrey_nexysvideo                          dotted=14  classes=BASED,ENUMNAME,INTISH,PLAIN,UNSIZED CANDIDATE:UNSIZED+INTISH+ENUMNAME
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        INTISH    nonce_size: 2'(OtbnNonceWidth/64-1)
+        INTISH    nonce_size: 2'(SramNonceWidth/64-1)
+        INTISH    <positional>: 1344/MsgWidth
+        INTISH    <positional>: 1152/MsgWidth
+        INTISH    <positional>: 1088/MsgWidth
+        INTISH    <positional>: 832/MsgWidth
+        ENUMNAME  mpp: PRIV_LVL_U
+        ENUMNAME  xdebugver: XDEBUGVER_STD
+        ENUMNAME  cause: DBG_CAUSE_NONE
+        ENUMNAME  prv: PRIV_LVL_M
+        ENUMNAME  mpp: PRIV_LVL_U
+        ENUMNAME  slow_clk_val: DiffValid
+u2r   ImportedDoubleCastedParameter                dotted=1   classes=BASED                        abstain-only
+sl3p  IncompTitan                                  dotted=7   classes=BASED,ENUMNAME,INTISH,PLAIN,UNSIZED CANDIDATE:UNSIZED+INTISH+ENUMNAME
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        INTISH    nonce_size: 2'(OtbnNonceWidth/64-1)
+        INTISH    nonce_size: 2'(SramNonceWidth/64-1)
+        INTISH    <positional>: 1344/MsgWidth
+        INTISH    <positional>: 1152/MsgWidth
+        INTISH    <positional>: 1088/MsgWidth
+        INTISH    <positional>: 832/MsgWidth
+        ENUMNAME  mpp: PRIV_LVL_U
+        ENUMNAME  xdebugver: XDEBUGVER_STD
+        ENUMNAME  cause: DBG_CAUSE_NONE
+        ENUMNAME  prv: PRIV_LVL_M
+        ENUMNAME  mpp: PRIV_LVL_U
+        ENUMNAME  slow_clk_val: DiffValid
+sl    PackStructField                              dotted=2   classes=BASED                        abstain-only
+u2r   StructLocalParam                             dotted=1   classes=BASED                        abstain-only
+sl    StructParamFieldRange                        dotted=2   classes=BASED,PLAIN                  abstain-only
+sl    StructParamFuncBodyFieldCompare              dotted=3   classes=BASED,PLAIN                  abstain-only
+sl    StructParamPatternInitCast                   dotted=2   classes=BASED,PLAIN                  abstain-only
+u2r   StructParameter                              dotted=1   classes=BASED                        abstain-only
+u2r   UnionParameter                               dotted=1   classes=PLAIN                        abstain-only
+u2r   cva6_equiv                                   dotted=555 classes=BASED,ENUMNAME,INTISH,PLAIN,UNSIZED CANDIDATE:UNSIZED+INTISH+ENUMNAME
+        UNSIZED   default: '0
+        UNSIZED   next: '0
+        UNSIZED   default: '0
+        UNSIZED   default: '0
+        UNSIZED   next: '0
+        UNSIZED   next: '0
+        INTISH    mantissa: 2**(MAN_BITS-1)
+        INTISH    mantissa: 2**(MAN_BITS-1)
+        INTISH    mantissa: 2**(MAN_BITS-1)
+        INTISH    mem_req_size: get_hpdcache_mem_size(HPDcacheCfg.u.memDataWidth/8)
+        ENUMNAME  PipeConfig: BEFORE
+        ENUMNAME  default: PARALLEL
+        ENUMNAME  default: MERGED
+        ENUMNAME  default: PARALLEL
+        ENUMNAME  default: MERGED
+        ENUMNAME  PipeConfig: BEFORE
+u2r   cva6_struct_param_field                      dotted=2   classes=BASED,PLAIN                  abstain-only
+u2r   param_struct_field_bitsel                    dotted=3   classes=BASED                        abstain-only
+u2r   param_unpacked_struct_array                  dotted=3   classes=BASED                        abstain-only
+u2r   paramod_struct_param                         dotted=1   classes=BASED                        abstain-only
+u2r   struct_param_field_shift                     dotted=2   classes=-                            abstain-only
+u2r   struct_param_func_arg                        dotted=1   classes=-                            abstain-only
+u2r   struct_param_func_config                     dotted=2   classes=-                            abstain-only
+u2r   struct_param_func_loop                       dotted=1   classes=-                            abstain-only
+u2r   struct_param_pattern_packing                 dotted=5   classes=BASED,PLAIN                  abstain-only
+u2r   struct_param_repl_count                      dotted=2   classes=PLAIN                        abstain-only
+# TOTAL DIRS IN BOUNDARY: 23 ; CANDIDATE DIRS: 5

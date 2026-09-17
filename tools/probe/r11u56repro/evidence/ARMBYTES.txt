@@ -1,0 +1,10 @@
+# r11u56 WHOLE-DUMP byte check, law vs pristine, per grid arm
+# (workdir-normalised, sorted; the 2-line arms differ only in uhdm-dump's own banner)
+e1_enc56 moved_lines=54
+e2_width56 moved_lines=176
+e3_base56 moved_lines=2
+e4_share56 moved_lines=54
+e5_deffill56 moved_lines=82
+vv3_default moved_lines=26
+vv4_singleread moved_lines=2
+vv6_edge moved_lines=6

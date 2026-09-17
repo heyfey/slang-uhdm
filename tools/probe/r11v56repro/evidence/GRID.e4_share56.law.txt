@@ -1,0 +1,11 @@
+SAME work@dut.u_1.a               ('constant', '15:32', 'vpiDecompile:255 vpiSize:8 vpiConstType:9')
+SAME work@dut.u_1.b               ('constant', '15:32', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.u_1.c               ('constant', '15:32', 'vpiDecompile:4294967295 vpiSize:64 vpiConstType:9')
+SAME work@dut.u_1.d               ('constant', '15:40', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+SAME work@dut.u_1.e               ('constant', '15:48', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+SAME work@dut.u_2.a               ('constant', '15:32', 'vpiDecompile:255 vpiSize:8 vpiConstType:9')
+SAME work@dut.u_2.b               ('constant', '15:32', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.u_2.c               ('constant', '15:32', 'vpiDecompile:4294967295 vpiSize:64 vpiConstType:9')
+SAME work@dut.u_2.d               ('constant', '15:40', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+SAME work@dut.u_2.e               ('constant', '15:48', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+e4_share56 CELLS 10 SAME 10 DIFF 0

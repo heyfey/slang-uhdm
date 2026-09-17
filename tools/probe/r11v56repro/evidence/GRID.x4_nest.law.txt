@@ -1,0 +1,17 @@
+SAME work@dut.a1                  ('constant', '16:43', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.a2                  ('constant', '16:43', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.a3                  ('constant', '16:51', "vpiDecompile:16'd7 vpiSize:16 vpiConstType:1")
+SAME work@dut.b3                  ('constant', '18:38', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.c1                  ('constant', '29:36', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+SAME work@dut.c2                  ('constant', '29:43', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+SAME work@dut.c3                  ('constant', '29:52', 'vpiDecompile:255 vpiSize:32 vpiConstType:9')
+DIFF work@dut.d1                 
+   G ('constant', '40:37', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+   O None
+DIFF work@dut.d2                 
+   G ('constant', '40:37', '')
+   O None
+DIFF work@dut.d3                 
+   G ('constant', '40:37', '')
+   O ('constant', '40:37', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+x4_nest CELLS 10 SAME 7 DIFF 3

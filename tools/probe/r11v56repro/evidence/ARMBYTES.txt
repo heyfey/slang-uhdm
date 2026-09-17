@@ -1,0 +1,23 @@
+# r11v56 ARM BYTES — whole uhdm-dump, pristine vs the FIXED law binary, per arm.
+# "2" = the dump banner line pair only (the arm is byte-unchanged).
+e1_enc56 66
+e2_width56 200
+e3_base56 2
+e4_share56 70
+e5_deffill56 94
+vv1a_pos 2
+vv1b_repl 2
+vv1c_cast 2
+vv2_chain 2
+vv3_default 32
+vv4_singleread 2
+vv5_deepmulti 2
+vv6_edge 6
+vv7_gensubst 2
+vv8_sharemut 2
+vv9_cast2 2
+x1_optable 38
+x2_enum 28
+x3_names 32
+x4_nest 50
+x5_scope 54

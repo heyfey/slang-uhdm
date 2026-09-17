@@ -1,0 +1,21 @@
+# r11u56 SURELOG MOVERS: 4 / 960, all four the documented per-invocation UVM coin
+# byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (960), SELFCHECK 959/960 flagged
+
+## order-blind (uhdm-dump sorted, workdir-normalised) attribution — 4 lines each,
+## ONE UINT/vpiDecompile LINE-NUMBER pair, never an encoding or a constType:
+default/MiniAmiq   UINT:1278 <-> UINT:784    (size delta +42)
+default/SeqDriver  UINT:0    <-> UINT:1322   (size delta +5)
+testflags/MiniAmiq UINT:582  <-> UINT:727    (size delta 0)
+testflags/SeqDriver UINT:0   <-> UINT:1477
+
+## POSITIVE CONTROL: the SAME frozen pristine binary, run a SECOND time,
+## draws a THIRD hash on every one of the four databases:
+default/MiniAmiq-544c7f61   pris1=f3dcccf314d1 pris2=c4ef656a9ca0 law=87d90000c605
+default/SeqDriver-32af76aa  pris1=2fb39f8b4130 pris2=d8d4713891de law=ccef7556335a
+testflags/MiniAmiq-544c7f61 pris1=f363968f8418 pris2=6cc80c428710 law=358ed2cdc2fe
+testflags/SeqDriver-32af76aa pris1=05df6c25a21b pris2=8aad2d3bcf74 law=4c7c2ca6671e
+
+## the law's OWN signature, for contrast (evidence/POSCTL.census.txt):
+UINT:2 -> INT:2 with vpiConstType:9 -> vpiConstType:7
+
+## all five rows stay CMP_EQUAL; rowheads 0 lines 0 heads for the whole UVM family.

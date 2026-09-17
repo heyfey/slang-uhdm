@@ -1,0 +1,12 @@
+# r11v56 POSITIVE CONTROL for the corpus census ZERO (fixed binary)
+# struct_param_pattern_packing UNMODIFIED, both binaries:
+6c93b82bdf62cdbc1b75baf957293b88  base/out.pris_3adf163e.uhdm
+6c93b82bdf62cdbc1b75baf957293b88  base/out.vlaw_a5c8b3e8.uhdm
+# the same sources with ONE setter changed to 'n: 3 - 1':
+01feb3ec531308453d1037693b33b1c9  mod/out.pris_3adf163e.uhdm
+9072bf648fa69919558c5c21d0a8f4fe  mod/out.vlaw_a5c8b3e8.uhdm
+# order-blind, workdir-normalised dump diff of the MODIFIED pair (4 lines):
+>       |INT:2
+<       |UINT:2
+>       |vpiConstType:7
+<       |vpiConstType:9

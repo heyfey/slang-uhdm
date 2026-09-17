@@ -1,0 +1,7 @@
+DIFF work@dut.o_ev               
+   G ('constant', '15:34', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+   O ('constant', '15:34', 'vpiDecompile:9 vpiSize:32 vpiConstType:9')
+SAME work@dut.o_ok                ('constant', '17:34', "vpiDecompile:8'd7 vpiSize:8 vpiConstType:1")
+SAME work@dut.o_wide              ('constant', '14:34', "vpiDecompile:96'hDEADBEEFCAFEBABE12345678 vpiSize:96 vpiConstType:5")
+SAME work@dut.o_xz                ('constant', '16:34', "vpiDecompile:8'b1010xx01 vpiSize:8 vpiConstType:3")
+vv6_edge CELLS 4 SAME 3 DIFF 1

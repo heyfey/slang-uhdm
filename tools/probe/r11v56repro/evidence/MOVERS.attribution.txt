@@ -1,0 +1,44 @@
+# r11v56 SURELOG MOVER ATTRIBUTION — the FIXED law binary vs my own pristine sweep
+# byteverify SELFCHECK=1: MOVERS 5/960, SELFCHECK 959/960 flagged, PATH_SETS_IDENTICAL (960 paths)
+# u2r: MOVERS 0/1608, SELFCHECK 1607/1608 flagged, PATH_SETS_IDENTICAL (1608 paths)
+
+# order-blind (sorted, workdir-normalised uhdm-dump) diff per mover:
+== default/MiniAmiq-544c7f61 orderblind_lines=4
+<       |UINT:0
+>       |UINT:983
+<       |vpiDecompile:0
+>       |vpiDecompile:983
+== default/SeqDriver-32af76aa orderblind_lines=4
+<       |UINT:0
+>       |UINT:573
+<       |vpiDecompile:0
+>       |vpiDecompile:573
+== default/SimpleUVM-1dc93a62 orderblind_lines=4
+>       |UINT:724
+<       |UINT:846
+>       |vpiDecompile:724
+<       |vpiDecompile:846
+== testflags/MiniAmiq-544c7f61 orderblind_lines=4
+>       |UINT:1067
+<       |UINT:1170
+>       |vpiDecompile:1067
+<       |vpiDecompile:1170
+== testflags/SeqDriver-32af76aa orderblind_lines=4
+>       |UINT:0
+<       |UINT:916
+>       |vpiDecompile:0
+<       |vpiDecompile:916
+
+# EVERY mover is ONE UINT:/vpiDecompile LINE-NUMBER pair. Never an encoding,
+# never a vpiConstType -- which is exactly what this law's signature looks like
+# (see POSCTL.census.txt for what the law's own four lines are).
+
+# POSITIVE CONTROL: the SAME frozen PRISTINE binary, re-run on the same sources:
+  MiniAmiq/default   sweep=27419f6011b4  rerun=adc427aa3783  law=18ca1bd3e326   -> a THIRD hash
+  SimpleUVM/default  sweep=e721664372a2  rerun=d4f8cd018f2d  law=8e79d161d9ca   -> a THIRD hash
+  SeqDriver/default  sweep=2fb39f8b4130  4 reruns: 2fb39f8b4130, 91a1dc1b1e2c, 2fb39f8b4130, 2fb39f8b4130
+                     law=812c22ad4135   -> the pristine binary alone draws TWO hashes
+
+# rows and heads after the movers: all five UVM rows CMP_EQUAL both modes;
+# rowheads SeqDriver/SimpleUVM/Scoreboard/MiniAmiq/BuildUVMPkg/Earlgrey_0_1 = 0 lines 0 heads;
+# Rggen 64 lines / 1 head, unchanged.

@@ -10223,6 +10223,17 @@ private:
     /// every node it refuses (a `^`, a concat, a comparison, an explicit cast)
     /// keeps `paramIntEnc`'s answer untouched.
     bool pkgSubstIntEnc50(const slang::ast::ParameterSymbol& dp);
+    /// § caSubstLeafEncReduceTable56 (r11u56) — THE ENCODING OF THE CONSTANT
+    /// SUBSTITUTED AT AN ELABORATED cont_assign Rhs IS THE SAME REDUCE TABLE,
+    /// READ OFF THE PATTERN ELEMENT THAT SETS THE MEMBER.  See the law at the
+    /// definition in ModuleEmit.cpp.  Returns the `vpiConstType` the producer
+    /// would carry, or 0 to ABSTAIN — a based literal at the bottom of the
+    /// derivation (`'d` included, § pkgSubstEncBasedLitAbstain50v) and every
+    /// node `dimRedCtExpr79` refuses.  An ENUM MEMBER answers from its OWN
+    /// initializer through the same table (r11v56: a blanket `vpiIntConst`
+    /// moved the octal, unsized-decimal and NAME-initialised members from
+    /// right to wrong); an implicit member, which has no literal, is `INT`.
+    int32_t caSubstLeafCt56(const slang::ast::Expression& e);
     // § shadowedImportParamFold — the same name-keyed getValue one level OUT
     // of a range bound: substitute every ref_obj in an already-emitted DEF-view
     // tree whose name a wildcard-imported package ALSO declares, when a

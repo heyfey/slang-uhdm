@@ -26018,6 +26018,109 @@ static const Expression* patMemberSetter55(
     return ap.defaultSetter;
 }
 
+// § caSubstLeafEncReduceTable56 (r11u56) — THE SUBSTITUTED cont_assign VALUE'S
+// ENCODING IS THE PRODUCER'S REDUCE TABLE READ OFF THE PATTERN ELEMENT, NOT ONE
+// SYNTHETIC `UINT:` PER FOLDED VALUE.
+//
+// THE PRODUCER, IN TWO STEPS.  The elaborated parameter's value is a POSITIONAL
+// `vpiAssignmentPatternOp` whose operands are the members' values ALREADY
+// STAMPED with their own encoding and width (measured directly in the golden
+// `uhdmtopModules` listing, grid `e1_enc56`: `-1` is `INT:-1` at 32, the enum
+// member `E_B` is `INT:9` at 4, `'1` on a 32-bit member is `UINT:4294967295` at
+// 32 and on an 8-bit member `UINT:255` at 8).  `UhdmWriter::writeCont_assign`
+// (Surelog v1.87 `src/DesignCompile/UhdmWriter.cpp:2245`) then reduces the
+// dotted read to THAT operand — `ExprEval::hierarchicalSelector`'s
+// `uhdmtagged_pattern` arm returns `reduceExpr` of the element itself
+// (`~/git-repos/UHDM/templates/ExprEval.cpp:3014`) — and re-sizes it with
+// `CompileHelper::adjustSize` (`CompileHelper.cpp:4065`), which is the table
+// § caStructParamPatternSubst55 (W3) already transcribes.
+//
+// WHERE ct 7 vs ct 9 vs ct 3 COMES FROM.  Step one is the encoder:
+//   * a unary `-` is minted by `reduceExpr`'s `vpiMinusOp` arm
+//     (`ExprEval.cpp:3407-3424`) as `INT:<-val0>` — the OPERAND's magnitude
+//     negated, so `-16'd5` is `INT:-5` and not a based literal;
+//   * `-`, `*`, `/`, `%`, `**` and an `+` over a signed-ish operand are the
+//     same table's `vpiIntConst` arms; the shifts, the bitwise arms, a plain
+//     decimal literal and a `$` call are `vpiUIntConst` — this is EXACTLY
+//     § pkgSubstEncIsReduceTable50's table, already written as
+//     `dimRedCtExpr79`, so it is REUSED here rather than copied;
+//   * a NAME that resolves to an ENUM MEMBER carries the stored `Value`'s
+//     `vpiValType()`, and `LValue::vpiValType` maps `Type::Integer` to
+//     `vpiIntConst` (`~/git-repos/Surelog/src/Expression/Value.cpp:952`) —
+//     `E_B` is `INT:9` even though its own literal is `4'd9`;
+//   * a SIZED literal keeps its base letter (`HEX`/`OCT`/`BIN`/`DEC`), which
+//     this decimal-digit writer cannot spell, so it ABSTAINS.
+//
+// THE `'d` ABSTENTION IS THE FENCE, one site over.  § pkgSubstEncBasedLitAbstain50v
+// (r11v50) measured golden answering a THIRD encoding, `DEC:`/ct 1, for a based
+// DECIMAL leaf where `vecBaseCt79` reports `vpiIntConst`; `basedLitOrigin56`
+// makes the same refusal here, through bare NAME hops, and grid `e3_base56`
+// (26 cells, all four base letters, the `'s` forms and a NAME reading each)
+// is byte-unchanged by this law.
+static bool basedLitOrigin56(const slang::ast::Expression& e0, int depth) {
+    if (depth > 32)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::IntegerLiteral)
+        return e.syntax != nullptr &&
+               e.syntax->kind ==
+                   slang::syntax::SyntaxKind::IntegerVectorExpression;
+    if (e.kind == ExpressionKind::NamedValue ||
+        e.kind == ExpressionKind::HierarchicalValue) {
+        auto& sy56 = e.as<ValueExpressionBase>().symbol;
+        if (sy56.kind != SymbolKind::Parameter)
+            return false;
+        if (auto* in56 = sy56.as<ParameterSymbol>().getInitializer())
+            return basedLitOrigin56(*in56, depth + 1);
+    }
+    return false;
+}
+
+int32_t UhdmExporter::caSubstLeafCt56(const slang::ast::Expression& e0) {
+    const Expression& e = stripImplicitConv(e0);
+    if (basedLitOrigin56(e, 0))
+        return 0;
+    // THE ENUM ARM, AND WHY IT IS NOT A BLANKET `vpiIntConst` (r11v56).  The
+    // bound walk answers `vpiUIntConst` for every non-parameter NAME, so an
+    // enum member needs its own arm — but `LValue::vpiValType`
+    // (`~/git-repos/Surelog/src/Expression/Value.cpp:952`) reads the member's
+    // STORED `Value`, whose `Type` is the one the member's OWN LITERAL set.
+    // Measured at this site (verifier arm `x2_enum`, golden Surelog v1.87,
+    // one member read once each, 32-bit Lhs):
+    //
+    //   `4'd9` -> INT:9 ct 7      `16'd40` -> INT:40 ct 7   (Type::Integer)
+    //   `4'sd3` -> INT:3 ct 7     `-7` (int base) -> INT:-7 ct 7
+    //   `K * 2` -> INT:12 ct 7    implicit (NO initializer) -> INT:2 ct 7
+    //   `4'o7`  -> UINT:7  ct 9   `9` unsized -> UINT:9 ct 9
+    //   `R_A = K` (a NAME) -> UINT:6 ct 9
+    //   `4'b1001` -> BIN `4'b1001` ct 3 @4    `4'hC` -> HEX `4'hC` ct 5
+    //
+    // So the member's initializer decides, by EXACTLY the table
+    // `dimRedCtExpr79` already carries: `'d`/`'sd` and every arithmetic arm
+    // answer `vpiIntConst`; `'o`, `'b`, `'h`, an unsized decimal and a NAME
+    // answer something this writer must NOT re-spell, and the abstention
+    // leaves the pass-54 mint's own `vpiUIntConst` standing, which is what
+    // golden carries for the octal, unsized-decimal and NAME forms.  A blanket
+    // `vpiIntConst` moved those three cells from RIGHT to WRONG.
+    //
+    // THE `'d` FENCE DOES NOT REACH HERE, and that is measured, not assumed:
+    // § pkgSubstEncBasedLitAbstain50v abstains because golden re-spells a
+    // based-DECIMAL *parameter* leaf as `DEC:`/ct 1, but an enum member's
+    // based-decimal literal is consumed into the stored `Value` and comes back
+    // as ct 7 (`od`, `om`).  `basedLitOrigin56` above only follows
+    // `SymbolKind::Parameter`, so it never sees this arm.
+    if ((e.kind == ExpressionKind::NamedValue ||
+         e.kind == ExpressionKind::HierarchicalValue) &&
+        e.as<ValueExpressionBase>().symbol.kind == SymbolKind::EnumValue) {
+        if (auto* ein56 = e.as<ValueExpressionBase>().symbol.getInitializer())
+            return dimRedCtExpr79(*ein56, 0);
+        // An IMPLICIT member (`enum { I_A, I_B, I_C }`) has no literal of its
+        // own; Surelog stores the counted value as `Type::Integer` (`oi`).
+        return vpiIntConst;
+    }
+    return dimRedCtExpr79(e, 0);
+}
+
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instance* m,
                                    const std::string& prefix, NetMap& netMap, bool topView,
                                    DefInfo* defInfo, bool shareWithDef,
@@ -27064,6 +27167,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // than off the parameter's own literal pattern.  Both are recorded so
         // the emission site can size the constant the way `adjustSize` does.
         const Type* spsMemberTy55 = nullptr;
+        // § caSubstLeafEncReduceTable56 — and whether the setter that won is a
+        // PURE `'{default: X}` FILL (a pattern with no member setter at all).
+        // That fill is a different producer: measured in grids `e5_deffill56`
+        // and `vv3_default`, its unbased-unsized value is stamped ONCE at the
+        // 32-bit default width and not per member.
+        bool spsPureDef56 = false;
         // THE Lhs FENCE ON THE WIDENINGS.  Every struct-param dotted read in
         // either corpus is written onto a WHOLE NAME (census `shapes55.py`:
         // 23 directories, no site with a select Lhs), and the arms that carry
@@ -27116,10 +27225,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         // the OUTER member's expression, which is not the value
                         // the read asks for — decline rather than substitute it.
                         size_t used55 = 0;
+                        bool pdef56 = false;
                         for (size_t i = chain55.size(); ap && i-- > 0;) {
                             set55 = patMemberSetter55(*ap, chain55[i]->member);
                             if (!set55)
                                 break;
+                            pdef56 = ap->memberSetters.empty() &&
+                                     set55 == ap->defaultSetter;
                             mty55 = &chain55[i]->member.as<ValueSymbol>().getType();
                             ++used55;
                             ap = i ? structParamPattern55(set55) : nullptr;
@@ -27132,10 +27244,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         if (whole55 && chain55.size() == 1 && ownPat55) {
                             structParamSetter = set55;   // pristine
                             spsMemberTy55 = plainLhs55 ? mty55 : nullptr;
+                            spsPureDef56 = pdef56;
                         }
                         else if (bottomed55 && plainLhs55) {
                             structParamSetter = set55;   // W1 / W2
                             spsMemberTy55 = mty55;
+                            spsPureDef56 = pdef56;
                         }
                     }
                 }
@@ -29985,6 +30099,114 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                         .sourceRange);
                         rhs = c55;
                     }
+                }
+            }
+            // § caSubstLeafEncReduceTable56 (F1/F2) — THE ENCODING.  The fold
+            // above mints one `vpiUIntConst` for every value it evaluates;
+            // golden's answer is the reduce table's (see the § block above the
+            // emitter).  Only a constant WE encoded in decimal is re-spelled —
+            // a based literal carried through by `emitExpr` is already the
+            // producer's own encoding and is never touched.
+            //   F1 the constant type: `caSubstLeafCt56`'s `vpiIntConst`.
+            //   F2 the value's sign: `reduceExpr`'s `vpiMinusOp` arm writes
+            //      `-<operand magnitude>`, so the digits come from the OPERAND
+            //      (`-16'd5` -> `-5`); every other `vpiIntConst` answer writes
+            //      the setter's own signed value (`K - 1` -> `5`, `E_B` -> `9`,
+            //      NOT the 4-bit two's-complement reading `-7`).
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                ((UHDM::constant*)rhs)->VpiConstType() == vpiUIntConst &&
+                caSubstLeafCt56(*structParamSetter) == vpiIntConst) {
+                auto& sv56 = stripImplicitConv(*structParamSetter);
+                ASTContext cx56(comp.getRoot(), LookupLocation::max);
+                std::string d56;
+                if (sv56.kind == ExpressionKind::UnaryOp &&
+                    sv56.as<UnaryExpression>().op == UnaryOperator::Minus) {
+                    ConstantValue o56 = cx56.tryEval(stripImplicitConv(
+                        sv56.as<UnaryExpression>().operand()));
+                    if (o56 && o56.isInteger() && !o56.integer().hasUnknown())
+                        if (auto u56 = o56.integer().as<uint64_t>())
+                            d56 = (*u56 ? "-" : "") + std::to_string(*u56);
+                }
+                else {
+                    ConstantValue v56 = cx56.tryEval(sv56);
+                    if (v56 && v56.isInteger() && !v56.integer().hasUnknown()) {
+                        auto& iv56 = v56.integer();
+                        if (iv56.isSigned()) {
+                            if (auto i56 = iv56.as<int64_t>())
+                                d56 = std::to_string(*i56);
+                        }
+                        else if (auto u56 = iv56.as<uint64_t>()) {
+                            d56 = std::to_string(*u56);
+                        }
+                    }
+                }
+                if (!d56.empty()) {
+                    auto* c56 = (UHDM::constant*)rhs;
+                    c56->VpiDecompile(d56);
+                    c56->VpiValue("INT:" + d56);
+                    c56->VpiConstType(vpiIntConst);
+                }
+            }
+            // § caSubstLeafEncReduceTable56 (F3) — AN UNBASED-UNSIZED LEAF IS
+            // SIZED BEFORE ANY Lhs IS CONSULTED, AND THE NAMED SETTER AND THE
+            // PURE `default:` FILL ARE TWO DIFFERENT PRODUCERS.
+            //
+            // `'1`/`'0`/`'x` are written `BIN:1`/`BIN:0`/`BIN:x` at
+            // `vpiSize:-1` (`CompileExpression.cpp:508`).  What golden carries
+            // as the ELABORATED parameter operand — read straight out of the
+            // `uhdmtopModules` listing — is already sized, and which value it
+            // holds depends on how the member was set:
+            //
+            //   NAMED setter (`'{u1: '1, …}`), grids `e1`/`e2`/`e4`: the
+            //   member's value comes back through the VALUE STORE, so it is
+            //   `UINT:<mask(member width)>` at the member's width, and an X/Z
+            //   fill arrives as `UINT:0` (`e2` `zx`/`zz`).  A member wider than
+            //   64 bits keeps the 64-bit all-ones the store saturates to, at
+            //   the member's own width (`e2` `a96` = `UINT:18446744073709551615`
+            //   at 96).
+            //
+            //   PURE `'{default: X}` FILL (no member setter at all), grids
+            //   `e5_deffill56` + `vv3_default`: ONE object is stamped for every
+            //   member it fills, by `adjustUnsized` at the 32-BIT DEFAULT WIDTH
+            //   — never the member's.  `'1` is `UINT:4294967295` whatever the
+            //   member is (`e5` s1 `32/8`, s2 `8/64/16`, s7 `96/8`, `vv3`
+            //   `8/16/32` — all `4294967295`), and only the SIZE follows the
+            //   member.  `'0` and `'x` are left as written (`adjustUnsized`
+            //   rewrites the value only when it reads 1) and keep `BIN`: `e5`
+            //   s4 is `'0` at 8 and at 32, s6 is `'X` at 32.
+            //
+            // Only AFTER that does `writeCont_assign`'s `adjustSize` mask to
+            // the Lhs — the W3 block below, unchanged.  Without this step the
+            // substituted object is a `vpiSize:-1` constant, which the producer
+            // never plants at a cont_assign Rhs.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant && spsMemberTy55 &&
+                ((UHDM::constant*)rhs)->VpiSize() == -1 &&
+                stripImplicitConv(*structParamSetter).kind ==
+                    ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                auto mw56 = (int32_t)spsMemberTy55->getBitWidth();
+                if (mw56 > 0) {
+                    auto lv56 = stripImplicitConv(*structParamSetter)
+                                    .as<UnbasedUnsizedIntegerLiteral>()
+                                    .getLiteralValue();
+                    bool ones56 = !lv56.isUnknown() && lv56.value;
+                    auto* c56 = (UHDM::constant*)rhs;
+                    if (!spsPureDef56) {
+                        uint64_t uv56 = 0;
+                        if (ones56)
+                            uv56 = mw56 >= 64 ? ~(uint64_t)0
+                                              : ((((uint64_t)1) << mw56) - 1);
+                        std::string d56 = std::to_string(uv56);
+                        c56->VpiDecompile(d56);
+                        c56->VpiValue("UINT:" + d56);
+                        c56->VpiConstType(vpiUIntConst);
+                    }
+                    else if (ones56) {
+                        std::string d56 = std::to_string((uint64_t)0xFFFFFFFFu);
+                        c56->VpiDecompile(d56);
+                        c56->VpiValue("UINT:" + d56);
+                        c56->VpiConstType(vpiUIntConst);
+                    }
+                    c56->VpiSize(mw56);
                 }
             }
             // § caStructParamPatternSubst55 (W3) — `adjustSize`, which this

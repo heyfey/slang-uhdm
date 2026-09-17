@@ -1,0 +1,31 @@
+DIFF work@dut.ob                 
+   G ('constant', '25:39', "vpiDecompile:4'b1001 vpiSize:4 vpiConstType:3")
+   O ('constant', '25:39', 'vpiDecompile:9 vpiSize:32 vpiConstType:9')
+DIFF work@dut.od                 
+   G ('constant', '25:31', 'vpiDecompile:9 vpiSize:32 vpiConstType:7')
+   O ('constant', '25:31', 'vpiDecompile:9 vpiSize:32 vpiConstType:9')
+DIFF work@dut.oh                 
+   G ('constant', '25:47', "vpiDecompile:4'hC vpiSize:32 vpiConstType:5")
+   O ('constant', '25:47', 'vpiDecompile:12 vpiSize:32 vpiConstType:9')
+DIFF work@dut.oi                 
+   G ('constant', '27:31', 'vpiDecompile:2 vpiSize:32 vpiConstType:7')
+   O ('constant', '27:31', 'vpiDecompile:2 vpiSize:32 vpiConstType:9')
+DIFF work@dut.om                 
+   G ('constant', '27:39', 'vpiDecompile:40 vpiSize:32 vpiConstType:7')
+   O ('constant', '27:39', 'vpiDecompile:40 vpiSize:32 vpiConstType:9')
+DIFF work@dut.on_                
+   G ('constant', '26:31', 'vpiDecompile:-7 vpiSize:32 vpiConstType:7')
+   O ('constant', '26:31', 'vpiDecompile:4294967289 vpiSize:32 vpiConstType:9')
+SAME work@dut.oo                  ('constant', '25:55', 'vpiDecompile:7 vpiSize:32 vpiConstType:9')
+SAME work@dut.orr                 ('constant', '27:47', 'vpiDecompile:6 vpiSize:32 vpiConstType:9')
+DIFF work@dut.os                 
+   G ('constant', '26:55', 'vpiDecompile:3 vpiSize:32 vpiConstType:7')
+   O ('constant', '26:55', 'vpiDecompile:3 vpiSize:32 vpiConstType:9')
+SAME work@dut.ou                  ('constant', '25:63', 'vpiDecompile:9 vpiSize:32 vpiConstType:9')
+DIFF work@dut.ow                 
+   G ('constant', '26:39', "vpiDecompile:16'hCAFE vpiSize:32 vpiConstType:5")
+   O ('constant', '26:39', 'vpiDecompile:51966 vpiSize:32 vpiConstType:9')
+DIFF work@dut.ox                 
+   G ('constant', '26:47', 'vpiDecompile:12 vpiSize:32 vpiConstType:7')
+   O ('constant', '26:47', 'vpiDecompile:12 vpiSize:32 vpiConstType:9')
+x2_enum CELLS 12 SAME 3 DIFF 9

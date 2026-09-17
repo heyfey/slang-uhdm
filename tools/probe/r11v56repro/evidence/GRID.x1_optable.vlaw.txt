@@ -1,0 +1,29 @@
+SAME work@dut.o01                 ('constant', '30:33', 'vpiDecompile:12 vpiSize:32 vpiConstType:7')
+SAME work@dut.o02                 ('constant', '30:45', 'vpiDecompile:3 vpiSize:32 vpiConstType:7')
+SAME work@dut.o03                 ('constant', '30:57', 'vpiDecompile:2 vpiSize:32 vpiConstType:7')
+SAME work@dut.o04                 ('constant', '30:69', 'vpiDecompile:36 vpiSize:32 vpiConstType:7')
+SAME work@dut.o05                 ('constant', '31:33', 'vpiDecompile:3 vpiSize:32 vpiConstType:9')
+SAME work@dut.o06                 ('constant', '31:47', 'vpiDecompile:3 vpiSize:32 vpiConstType:9')
+SAME work@dut.o07                 ('constant', '31:61', 'vpiDecompile:2 vpiSize:32 vpiConstType:9')
+SAME work@dut.o08                 ('constant', '31:74', 'vpiDecompile:14 vpiSize:32 vpiConstType:9')
+DIFF work@dut.o09                
+   G None
+   O ('constant', '32:33', 'vpiDecompile:5 vpiSize:32 vpiConstType:9')
+DIFF work@dut.o10                
+   G ('constant', '32:46', 'vpiDecompile:1 vpiSize:1 vpiConstType:3')
+   O ('constant', '32:46', 'vpiDecompile:1 vpiSize:32 vpiConstType:9')
+DIFF work@dut.o11                
+   G ('constant', '32:58', 'vpiSize:16 vpiConstType:3')
+   O ('constant', '32:58', 'vpiDecompile:258 vpiSize:32 vpiConstType:9')
+DIFF work@dut.o12                
+   G ('constant', '33:37', 'vpiDecompile:3 vpiSize:32 vpiConstType:9')
+   O ('constant', '33:33', 'vpiDecompile:3 vpiSize:32 vpiConstType:9')
+SAME work@dut.o13                 ('constant', '33:49', 'vpiDecompile:6 vpiSize:32 vpiConstType:9')
+SAME work@dut.o14                 ('constant', '33:63', 'vpiDecompile:6 vpiSize:32 vpiConstType:9')
+SAME work@dut.o15                 ('constant', '34:34', 'vpiDecompile:-12 vpiSize:32 vpiConstType:7')
+SAME work@dut.o16                 ('constant', '34:50', 'vpiDecompile:-3 vpiSize:32 vpiConstType:7')
+SAME work@dut.o17                 ('constant', '34:63', 'vpiDecompile:0 vpiSize:32 vpiConstType:7')
+SAME work@dut.o18                 ('constant', '34:76', 'vpiDecompile:0 vpiSize:32 vpiConstType:7')
+SAME work@dut.o19                 ('constant', '35:34', 'vpiDecompile:6597069766656 vpiSize:64 vpiConstType:9')
+SAME work@dut.o20                 ('constant', '35:50', 'vpiDecompile:4294967289 vpiSize:32 vpiConstType:9')
+x1_optable CELLS 20 SAME 16 DIFF 4

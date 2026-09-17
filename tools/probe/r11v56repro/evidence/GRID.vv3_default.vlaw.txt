@@ -1,0 +1,6 @@
+SAME work@dut.o_16                ('constant', '14:39', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.o_32                ('constant', '14:39', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.o_8                 ('constant', '14:39', 'vpiDecompile:4294967295 vpiSize:32 vpiConstType:9')
+SAME work@dut.o_s                 ('constant', '19:31', 'vpiDecompile:-1 vpiSize:32 vpiConstType:7')
+SAME work@dut.o_u                 ('constant', '19:38', 'vpiDecompile:7 vpiSize:32 vpiConstType:9')
+vv3_default CELLS 5 SAME 5 DIFF 0

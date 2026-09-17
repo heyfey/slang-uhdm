@@ -1,0 +1,23 @@
+# r11u56 GATE LOG (base 9fd4d5bc)
+(1) binaries: pristine 3adf163eba2a507938ba380cad920ccc (= the main tree at the base); law 27341f25ee945fa1468fb6cb940ee01a
+(2) goldens law: PASS=23 FAIL=0 ; SLANG_UHDM=/bin/false: PASS=0 FAIL=23 ; goldens pristine: PASS=23
+(3) u2r law: 785 CMP_EQUAL / 19 CMP_NOTEQUAL / 67 SLANG_REJECT, BOTH modes
+    ct8rows vs results/gate_uhdm2rtlil.csv        PASS: every row byte-identical
+    ct8rows vs results/golden_uhdm2rtlil.csv      PASS (both modes joined)
+    ct8rows vs my own pristine sweep (tf and def)  PASS
+(4) surelog law: 474 CMP_EQUAL / 9 CMP_NOTEQUAL (default) + 469 / 8 (testflags)
+    ct8rows vs results/golden_surelog.csv: 2 differing rows, both the SURELOG_FAIL
+    detail strings that quote the WORKDIR PATH (LowMemLib, LowMemPkg) — my own
+    PRISTINE sweep differs from the committed baseline in exactly the same two.
+(5) byteverify SELFCHECK=1: u2r MOVERS 0/1608, SELFCHECK 1607/1608, PATH_SETS_IDENTICAL
+                            sl  MOVERS 4/960,  SELFCHECK 959/960,  PATH_SETS_IDENTICAL
+    (the four are the UVM coin — see MOVERS.attribution.txt with its positive control)
+canaries: sl ok=52 changed=0 absent=0 ; u2r ok=8 changed=0 absent=0
+ctcan2:   PASS (EXPECT_UNKNOWN=1 sl, EXPECT_UNKNOWN=6 u2r)
+canaudit: audited=29 UNCOVERED=0 FENCE-BREACH=0
+rowheads: SeqDriver/SimpleUVM/Scoreboard/MiniAmiq/BuildUVMPkg/Earlgrey_0_1 all 0 lines 0 heads;
+          Rggen/default 64 lines 1 head (unchanged); SKIP-NOFILE on Scoreboard/tf + Rggen/tf
+protected DBs law == pristine: SVSwitch 4842211c4030, YosysVerx 6ccda350c24a,
+          InterfaceModPort 59a365f3ce2c, BlackParrotComplex e3e354129d5a/73a10e8217e5,
+          YosysOldOr d68e0796d62c, Earlgrey_0_1 8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)
+results/*.csv untouched; no row converts, so no baseline row is promoted.
