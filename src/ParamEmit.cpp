@@ -15649,6 +15649,158 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             c9->VpiSize((int32_t)it9->second);
                         }
                 }
+                // § pkgElabPatMemberStamp58 (r11u58) — ROAD D, gated on the
+                // READ, and it supplies the "second, unfound condition" the
+                // § patElabUintResize note above leaves open.
+                //
+                // THE PRODUCER.  `CompileHelper::getValue`'s PACKAGE arm
+                // (Surelog `src/DesignCompile/CompileExpression.cpp:921-952`)
+                // is reached only for a `::`-QUALIFIED name (`:884`).  For a
+                // package parameter whose Rhs is a `vpiAssignmentPatternOp` it
+                // runs, ON THE PACKAGE'S OWN elaborated `param_assign`,
+                //   `rhs = expandPatternAssignment(ts, (expr *)rhs, ...)`
+                // (`:941`), and `substituteAssignedValue` lets it through
+                // because `-parametersubstitution` DEFAULTS TO TRUE
+                // (`CommandLineParser.cpp:387`; only `--disable-feature=` turns
+                // it off).  `CompileHelper::expandPatternAssignment`
+                // (`CompileHelper.cpp:5207`) first calls
+                // `ExprEval::flattenPatternAssignments(s, tps, rhs)`, which
+                // CLONES the operation but SHARES the element objects
+                // (`recursiveFlattening` pushes each `tagged_pattern`'s own
+                // `Pattern()`), so the clone's operand list is UNTAGGED.  The
+                // `taggedPattern` test at `:5253` therefore answers NO, the
+                // POSITIONAL arm at `:5404` runs, and for each operand it calls
+                // `adjustOpSize(tps, cop, opIndex, rhs, ...)`
+                // (`CompileHelper.cpp:5114`), whose struct arm walks
+                // `stps->Members()` to `opIndex` and does
+                //   `adjustUnsized(any_cast<constant*>(cop), ncsize);
+                //    cop->VpiSize(ncsize);`
+                // — an IN-PLACE write on the shared element.  `adjustUnsized`
+                // (`:5091`) touches only an UNSIZED `'1`, so the value, the
+                // `vpiDecompile` and the `vpiConstType` all survive; VpiSize is
+                // the only field written, and `expr::Compare` reads
+                // `VpiDecompile` then `VpiSize`, so VpiSize is the judged head.
+                // `expandPatternAssignment` RETURNS its original `result`, so
+                // the package's own listing keeps its tagged tree whenever
+                // `ExprEval::getValue`'s own write-back (`templates/
+                // ExprEval.cpp:337-347`) is refused for want of a typespec on
+                // the op — the SYMBOLIC-MEMBER-DIM case, which is the witness's.
+                //
+                // THE BAIL, and it is the whole reason the view-only reading of
+                // road D moved 18 equal rows away.  The positional loop ends
+                // with
+                //   `int shift = (csize - 1 - i);
+                //    if (shift < 0 || shift >= 64) return result;`
+                // so the FIRST element whose member is WIDER THAN 64 BITS is
+                // stamped and then ENDS THE WALK; every element after it keeps
+                // its COMPILED size.  `FuncStructVal` is that arm in the corpus:
+                // its `cva6_config_pkg::cva6_cfg` IS in the flipped state —
+                // golden's elaborated listing carries XLEN 32, NrCommitPorts 32,
+                // ... TvalEn 1 against a definition listing that reads 64 for
+                // every one of them — and it stops at `PMPCfgRstVal`, the first
+                // 1024-bit member, leaving `NrNonIdempotentRules`,
+                // `NrExecuteRegionRules`, `NrCachedRegionRules` and
+                // `MaxOutstandingStores` at the compiled 64 that the
+                // § patElabUintResize note reads as "a literal element keeps its
+                // 64".  They are not literals-vs-references; they are AFTER THE
+                // BAIL.  Grid `xd1` is the isolating arm and it was PREDICTED
+                // before it was run: `A`(32) stamped, `W`(128) stamped, then
+                // `B`/`D`/`F` left at 64/32/8.
+                //
+                // THE READ GATE is `pkgPatCallArgParam58` — see its comment.
+                // Grid `xd8` fixes the boundary (parameter default / body
+                // localparam / instance override actual stamp; the same call in
+                // a `cont_assign` or an `always_comb` does not), `xd4` `R3`
+                // the unqualified same-package face, `xd6` the three faces that
+                // must NOT move (a whole read as a parameter default, a
+                // member-select read, and no read at all).
+                //
+                // THE WIDTHS are the MEMBER's, in BOTH directions: grid `xd5`
+                // re-cuts r11u51 V4's `vd1` inside the flipped state —
+                // 64 -> 8, 64 -> 16, `32'd7` -> **64** (a WIDENING, with
+                // `vpiDecompile:32'd7` / `DEC:7` / constType 1 all preserved),
+                // 64 -> 32 — and a non-constant element takes the stamp too
+                // (`W`'s cast operation gains `vpiSize:128`; the witness's
+                // `Length` gains 1024).
+                //
+                // RESIDUE, measured and NOT taken: golden also runs this stamp
+                // off a MEMBER-SELECT read (`xd6` `P2`, `xd4` `R5`) and off the
+                // reads that make it FLATTEN (`xd3`, `xd8` `S1`/`S2`/`S5`).  Our
+                // exporter does not flatten those arms at all, so stamping them
+                // alone would not reach golden's shape; the gate stays on the
+                // call-argument read, whose tagged form is the witness's.
+                if (topView && structPat && structWidePkg && inPackage && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation &&
+                    ((UHDM::operation*)rhs)->VpiOpType() ==
+                        vpiAssignmentPatternOp &&
+                    stripImplicitConv(*init).kind ==
+                        ExpressionKind::StructuredAssignmentPattern &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedStructType &&
+                    ps.getParentScope() &&
+                    pkgPatCallArgParam58(ps.getParentScope()->asSymbol().name,
+                                         ps.name)) {
+                    std::map<std::string, UHDM::any*> el58;
+                    if (auto* ops58 = ((UHDM::operation*)rhs)->Operands())
+                        for (auto* o58 : *ops58) {
+                            if (o58->UhdmType() != UHDM::uhdmtagged_pattern)
+                                continue;
+                            auto* tp58 = (UHDM::tagged_pattern*)o58;
+                            auto* rt58 = tp58->Typespec();
+                            auto* at58 =
+                                rt58 ? rt58->Actual_typespec() : nullptr;
+                            if (!at58 || !tp58->Pattern())
+                                continue;
+                            el58[std::string(at58->VpiName())] =
+                                (UHDM::any*)tp58->Pattern();
+                        }
+                    // The producer's flatten refuses a pattern that does not
+                    // name every member (`UHDM_UNMATCHED_FIELD_IN_PATTERN_ASSIGN`
+                    // returns the original), so a partial pattern stamps
+                    // NOTHING.  Collect first, write only when all are present.
+                    std::vector<std::pair<UHDM::expr*, uint64_t>> todo58;
+                    bool all58 = !el58.empty();
+                    for (auto& f58 : ps.getType()
+                                         .getCanonicalType()
+                                         .as<PackedStructType>()
+                                         .membersOfType<FieldSymbol>()) {
+                        auto it58 = el58.find(std::string(f58.name));
+                        uint64_t w58 = f58.getType().getBitWidth();
+                        if (it58 == el58.end() || w58 == 0) {
+                            all58 = false;
+                            break;
+                        }
+                        // § v11u58 (the verifier's second fix) — A NESTED
+                        // ASSIGNMENT PATTERN ELEMENT ENDS THE WALK, AND IS NOT
+                        // STAMPED.  `:5414`'s `reduceExpr` / `:5420`'s
+                        // `get_uvalue` cannot give a nested `'{...}` a value,
+                        // so `CompileHelper.cpp:5423`'s
+                        // `if (invalidValue) return result;` fires at it and
+                        // every element from there on keeps its compiled size.
+                        // Measured (grid `va12_nested`, one golden run): with
+                        // members `A`(32) `N`(a 48-bit nested struct) `D`(8),
+                        // golden's elaborated listing stamps `A` to 32, leaves
+                        // `N` with NO vpiSize at all, and leaves `D` at its
+                        // COMPILED 32 — stamping `N` to 48 and `D` to 8 moves
+                        // two cells AWAY from golden and takes the row's cmp
+                        // from 16 to 85 lines on a new head.  This is the
+                        // width bail's sibling exit and it comes FIRST,
+                        // because the element is not stamped before it.
+                        if (it58->second->UhdmType() == UHDM::uhdmoperation &&
+                            ((UHDM::operation*)it58->second)->VpiOpType() ==
+                                vpiAssignmentPatternOp)
+                            break;
+                        auto* e58 = any_cast<UHDM::expr*>(it58->second);
+                        if (e58)
+                            todo58.emplace_back(e58, w58);
+                        if (w58 > 64)
+                            break;  // adjustOpSize stamps it, then the walk
+                                    // returns (`shift >= 64`)
+                    }
+                    if (all58)
+                        for (auto& [e58, w58] : todo58)
+                            e58->VpiSize((int32_t)w58);
+                }
                 // § unbasedModFold9 — an UNBASED-UNSIZED default on a TYPED
                 // parameter reaches the module views already folded, in two
                 // shapes the package arms above do not cover.  Measured on one

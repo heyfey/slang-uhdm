@@ -3594,6 +3594,22 @@ private:
     bool pkgPatScopedRef34(std::string_view pkgName, std::string_view name);
     bool pkgPatScopedRefsBuilt34 = false;
     std::set<std::string> pkgPatScopedRefs34;
+    // § pkgElabPatMemberStamp58 (r11u58) — ROAD D's READ GATE.  True when
+    // `pkg::<name>` is written as an ARGUMENT OF A CALL that stands inside a
+    // PARAMETER context (a parameter port default, a body localparam, or an
+    // instance parameter override actual).  That is the read that reaches
+    // `CompileHelper::getValue` with the QUALIFIED name, whose package arm
+    // (`CompileExpression.cpp:941`) runs `expandPatternAssignment` on the
+    // package's OWN elaborated `param_assign` Rhs — the in-place re-stamp road
+    // D measures.  Measured boundary (grid `xd8`, five holders, one golden
+    // run): a parameter port default, a body localparam and an instance
+    // override actual all trigger; the SAME call written in a `cont_assign` or
+    // inside an `always_comb` does NOT.  Grid `xd4` `R3` adds the other face:
+    // the same call written UNQUALIFIED inside the parameter's own package
+    // never reaches the `::` arm and never stamps.
+    bool pkgPatCallArgParam58(std::string_view pkgName, std::string_view name);
+    bool pkgPatCallArgsBuilt58 = false;
+    std::set<std::string> pkgPatCallArgs58;
     std::set<std::string> scopedPkgRefs;
     bool scopedPkgRefsBuilt = false;
     /// True when `<name>.<member>` appears as a MEMBER SELECT anywhere in the

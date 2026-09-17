@@ -1,0 +1,30 @@
+# r11u58 grid rcs — golden = Surelog v1.87 (~/git-repos/Surelog/build/bin/surelog),
+# ours = the two frozen binaries, EVERY arm records BOTH rcs.
+# runner: GRID=<griddir> bash run54.sh <binary> <tag> [arms...]
+#   pristine md5 2fa585e9ec9f6ccea23c8fee77b6fa7f  (= the main tree at cfcaecd5)
+#   patched  md5 8e6071209329cff27b3589297d32d1fd
+#
+# arm                      golden_rc ours_rc  cmp_rc heads cmplines(pris -> pat)
+wd2_tagged_wrapkinds             0       0      255     1     23 ->  23   (NEGATIVE CONTROL, inert)
+wd3_tagged_evalfunc              0       0      255     1     16 ->  14
+xd1_bail_width                   0       0      255     1     16 ->  14
+xd2_bail_nonconst                0       0      255     1      8 ->   8
+xd2b_fwdref_bail                 0       0      255     1     38 ->  38
+xd3_nobail_ctl                   0       0      255     1      5 ->   5
+xd4_reader_kinds                 0       0      255     1     74 ->  74
+xd5_vd1_flipped                  0       0      255     1     16 ->  14
+xd6_nostamp_faces                0       0      255     1      5 ->   5   (MUST-NOT-MOVE faces, inert)
+xd8_localparam_read              0       0      255     1      5 ->   5
+vd1_pattern_width                0       0      255     1     31 ->  31   (r11u51 V4, inert here)
+wd1_member_kinds                 0       0      255     1     23 ->  23   (r11u54, inert here)
+cw1 StructParamFuncBodyFieldCompare
+                                 0       0      255     1     18 ->  37   (HEAD CLEARS AND ADVANCES)
+cw2 FuncStructVal (its own .sl flags; golden_rc=4 is the committed row's own)
+                                 4       0        0     0      0 ->   0   (57/57 cells equal, 0 movers)
+
+# POSITIVE CONTROL for the producer decode (§2a of the README):
+#   surelog -parse -nobuiltin -nocache -sv --disable-feature=parametersubstitution dut.sv
+# on wd3_tagged_evalfunc -> golden_rc=0 and the elaborated listing reverts to
+# wd2's answer, A=64 B=64 C=64 D=32 E=64 L=no size.  The flag reaches only
+# substituteAssignedValue's `substitute` (CompileExpression.cpp:93), the guard
+# on the expandPatternAssignment call at :941.

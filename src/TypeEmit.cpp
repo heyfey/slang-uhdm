@@ -8307,6 +8307,130 @@ bool UhdmExporter::pkgPatScopedRef34(std::string_view pkgName,
                                     std::string(name)) > 0;
 }
 
+// § pkgElabPatMemberStamp58 (r11u58) — ROAD D's READ GATE (declared in
+// UhdmExporter.h, where the measured boundary is written out).  ONE syntax walk
+// collects every `pkg::NAME` that stands inside a CALL (`InvocationExpression`)
+// which itself stands inside a PARAMETER context.  The callee's own scoped name
+// is collected too and is harmless: a function is not a parameter.
+bool UhdmExporter::pkgPatCallArgParam58(std::string_view pkgName,
+                                        std::string_view name) {
+    if (!pkgPatCallArgsBuilt58) {
+        pkgPatCallArgsBuilt58 = true;
+        // § pkgElabPatMemberStamp58 LIVENESS (v11u58, the verifier's fix).
+        // The producer stamps only where it CONSTANT-EVALUATES the qualified
+        // read: `getValue` runs from `ExprEval`'s value functor, which is
+        // reached when a parameter is REDUCED, and Surelog reduces a parameter
+        // only in a scope it ELABORATES.  A parameter context that the
+        // elaborated design never carries — a module reached only through a
+        // dead generate branch (measured: grid `va3_deadgen`, golden leaves
+        // `pk::G1` tagged at its COMPILED 64/64/32 while the live twin `pk::G2`
+        // is stamped) or a parameter inside an uninstantiated generate block of
+        // a live module (grid `va9_deadblock`, same answer) — is compiled but
+        // never reduced, so golden does NOT stamp and a syntax-only gate moves
+        // us AWAY from golden.  Collect, from the ELABORATED hierarchy, the
+        // syntax of every parameter declarator/declaration and every instance
+        // parameter-override list that really exists, and let only those turn
+        // the parameter context on.
+        std::set<const syntax::SyntaxNode*> liveCtx58;
+        std::set<const syntax::SyntaxNode*> liveBody58;
+        auto noteParam58 = [&](const Symbol& sym) {
+            const syntax::SyntaxNode* sx = sym.getSyntax();
+            if (!sx)
+                return;
+            liveCtx58.insert(sx);
+            for (const syntax::SyntaxNode* p = sx->parent; p; p = p->parent) {
+                if (p->kind == syntax::SyntaxKind::ParameterDeclaration ||
+                    p->kind ==
+                        syntax::SyntaxKind::ParameterDeclarationStatement) {
+                    liveCtx58.insert(p);
+                    break;
+                }
+                if (p->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                    p->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                    p->kind == syntax::SyntaxKind::PackageDeclaration)
+                    break;
+            }
+        };
+        auto walkLive = [&](auto&& self, const Scope& sc) -> void {
+            for (auto& m : sc.members()) {
+                if (m.kind == SymbolKind::Parameter ||
+                    m.kind == SymbolKind::TypeParameter) {
+                    noteParam58(m);
+                }
+                else if (m.kind == SymbolKind::Instance) {
+                    auto& is58 = m.as<InstanceSymbol>();
+                    for (auto* p58 = is58.getSyntax(); p58; p58 = p58->parent)
+                        if (p58->kind ==
+                            syntax::SyntaxKind::HierarchyInstantiation) {
+                            if (auto* pva58 =
+                                    p58->as<syntax::
+                                                HierarchyInstantiationSyntax>()
+                                        .parameters)
+                                liveCtx58.insert(pva58);
+                            break;
+                        }
+                    const syntax::SyntaxNode* bsx58 = is58.body.getSyntax();
+                    if (bsx58 && !liveBody58.insert(bsx58).second)
+                        continue;
+                    self(self, is58.body);
+                }
+                else if (m.kind == SymbolKind::InstanceArray) {
+                    self(self, m.as<Scope>());
+                }
+                else if (m.kind == SymbolKind::GenerateBlock) {
+                    if (!m.as<GenerateBlockSymbol>().isUninstantiated)
+                        self(self, m.as<Scope>());
+                }
+                else if (m.kind == SymbolKind::GenerateBlockArray) {
+                    for (auto& gb58 : m.as<GenerateBlockArraySymbol>().entries)
+                        self(self, *gb58);
+                }
+            }
+        };
+        for (auto* ti58 : comp.getRoot().topInstances) {
+            if (ti58->body.getSyntax())
+                liveBody58.insert(ti58->body.getSyntax());
+            walkLive(walkLive, ti58->body);
+        }
+        for (auto* pkg58 : comp.getPackages())
+            walkLive(walkLive, *pkg58);
+        for (auto* cu58 : comp.getCompilationUnits())
+            walkLive(walkLive, *cu58);
+        auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
+                        bool inParamCtx, bool inCall) -> void {
+            if ((node.kind == syntax::SyntaxKind::ParameterDeclaration ||
+                 node.kind ==
+                     syntax::SyntaxKind::ParameterDeclarationStatement ||
+                 node.kind == syntax::SyntaxKind::Declarator ||
+                 node.kind == syntax::SyntaxKind::ParameterValueAssignment) &&
+                liveCtx58.count(&node))
+                inParamCtx = true;
+            if (node.kind == syntax::SyntaxKind::InvocationExpression)
+                inCall = true;
+            if (inParamCtx && inCall &&
+                node.kind == syntax::SyntaxKind::ScopedName) {
+                auto& sn = node.as<syntax::ScopedNameSyntax>();
+                if (sn.left && sn.right &&
+                    sn.left->kind == syntax::SyntaxKind::IdentifierName &&
+                    sn.right->kind == syntax::SyntaxKind::IdentifierName)
+                    pkgPatCallArgs58.insert(
+                        std::string(sn.left->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText()) +
+                        "::" +
+                        std::string(sn.right->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText()));
+            }
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                if (auto* ch = node.childNode(i))
+                    self(self, *ch, inParamCtx, inCall);
+        };
+        for (auto& tree : comp.getSyntaxTrees())
+            scan(scan, tree->root(), false, false);
+    }
+    return pkgPatCallArgs58.count(std::string(pkgName) + "::" +
+                                  std::string(name)) > 0;
+}
+
 // `(P)'(x)` — a PARENTHESIZED parameter size cast — reuses P's own
 // declaration int_typespec as the cast target rather than minting one, and
 // Surelog stamps vpiInstance = the package onto that shared object.  Doing the
