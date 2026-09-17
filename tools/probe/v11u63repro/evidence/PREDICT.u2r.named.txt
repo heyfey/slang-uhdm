@@ -1,0 +1,2 @@
+HITS default/struct_member_cfg_width 1
+HITS testflags/struct_member_cfg_width 1

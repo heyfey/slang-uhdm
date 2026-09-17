@@ -1,0 +1,9 @@
+predict63 over the u2r PRISTINE workdir, both modes.
+SCANNED 1608
+--- every CANDIDATE (a hier_path with no Typespec whose Root_value is an expr carrying one):
+CAND default/struct_member_cfg_width path=fu_data_i.operand_a parent=port root=struct_var:fu_data_i ts=struct_typespec:fu_data_t
+CAND testflags/struct_member_cfg_width path=fu_data_i.operand_a parent=port root=struct_var:fu_data_i ts=struct_typespec:fu_data_t
+--- every arm with a nonzero hit count:
+HITS default/struct_member_cfg_width 1
+HITS testflags/struct_member_cfg_width 1
+--- arms with zero: 1608 total HITS lines, 1606 of them zero

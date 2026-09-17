@@ -7632,7 +7632,7 @@ UHDM::interface_inst* UhdmExporter::makeBindIfaceTwin(UHDM::interface_inst* src,
 //     "struct only" fence was written first and REFUTED by a2 before it landed.
 void UhdmExporter::bindConnPathRootTs53(UHDM::any* h, const Expression& conn,
                                         const std::string& tsPrefix,
-                                        NetMap* parentNets) {
+                                        NetMap* parentNets, bool namedConn63) {
     if (!h || (h->UhdmType() != UHDM::uhdmhier_path &&
                h->UhdmType() != UHDM::uhdmoperation))
         return;
@@ -7739,9 +7739,125 @@ void UhdmExporter::bindConnPathRootTs53(UHDM::any* h, const Expression& conn,
                 rt->Actual_typespec(tt->second);
                 hp->Typespec(rt);
             }
+        // § connPathRootOwnTs63 — WHEN THE ROOT'S DECLARED TYPE IS NOT IN THE
+        // TYPEDEF REGISTRY, THE TYPESPEC IS THE ROOT OBJECT'S OWN.
+        //
+        // The arm above asks `typedefTs` for the root's SLANG type.  Surelog
+        // never asks a registry at all: it reads the typespec off the very
+        // UHDM object the root name resolves to, and hangs a FRESH
+        // ref_typespec on the path pointing at that SAME actual
+        // (~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp:
+        // 5480-5494, `compileSelectExpression`):
+        //
+        //     UHDM::hier_path *path = s.MakeHier_path();
+        //     if (instance && (reduce == Reduce::Yes)) {
+        //       UHDM::any *rootValue = getObject(the_name, component, ...,
+        //                                        instance, pexpr);
+        //       if (rootValue) {
+        //         if (expr *expval = any_cast<expr *>(rootValue)) {
+        //           path->Root_value(rootValue);
+        //           if (ref_typespec *expval_rt = expval->Typespec()) {
+        //             if (path->Typespec() == nullptr) {
+        //               ref_typespec *path_rt = s.MakeRef_typespec();
+        //               path_rt->VpiParent(path);
+        //               path->Typespec(path_rt);
+        //             }
+        //             path->Typespec()->Actual_typespec(
+        //                 expval_rt->Actual_typespec());
+        //           }
+        //         } else if (port *expval = ...) {           // NO TYPESPEC
+        //           path->Root_value(expval->Low_conn());
+        //         } else if (param_assign *passign = ...) { ... }
+        //       }
+        //     }
+        //
+        // `getObject`'s answer is the elaborated net/var, which is the object
+        // `parentNets` already hands this site as `Root_value` — so the
+        // typespec edge and the root edge are ONE binding off ONE object, the
+        // reading the landed § patHierPathRootTs114 (the pattern-CA road,
+        // `flattenPatternCaRhs`) already transcribes, and it is transcribed
+        // here unchanged: the ref_typespec is MINTED PER PATH, its
+        // `Actual_typespec` is the ROOT's own object, SHARED, and the mint
+        // carries NO name (`ref_typespec::Compare` reads `VpiName`,
+        // `VpiDefName` and `Actual_typespec`; both strings being EMPTY is part
+        // of the compared shape, and `VpiFullName` COMPUTES itself from the
+        // parent chain when unset, which is how golden's dump prints the full
+        // dotted path without Surelog ever writing one).
+        //
+        // PROVED BY IDS ON GOLDEN, not assumed: in the corpus head's database
+        // the path's `ref_typespec` and the root `struct_var`'s are DIFFERENT
+        // objects (#315 vs #309) whose `Actual_typespec` is the IDENTICAL
+        // `struct_typespec` object (#337, the one the elaborated
+        // `type_parameter fu_data_t` also carries).
+        //
+        // THE FENCE IS THE ROOT OBJECT ITSELF, and every cell of it is a
+        // measured golden row (grid g1, 43 rows, calibration golden-vs-golden
+        // 0 DIFF):
+        //   * only where the root NAME resolves in `parentNets` — the same
+        //     lookup that already gates `Root_value`, and Surelog's `getObject`
+        //     is that lookup;
+        //   * only when that object IS an `expr` (a net/var) — a `port` root
+        //     takes Surelog's second branch, which writes `Root_value` and NO
+        //     typespec, and that branch is a different site here;
+        //   * only when that object HAS a `ref_typespec` with an actual — an
+        //     `array_net` root carries none on EITHER side (g1 c20 `ea[0].q`:
+        //     golden `rv=array_net` `ts=<none>`), so one test does the work of
+        //     a kind fence;
+        //   * only where this site runs at all, which is the ELABORATED
+        //     connection walk — golden's DEF-view `ref_module` connections
+        //     carry neither field (all 23 def rows of g1), and this site never
+        //     sees them.
+        // NO KIND FENCE and NO GENERATE FENCE: golden attaches
+        // `struct_typespec`, `union_typespec`, `array_typespec` and an
+        // ANONYMOUS struct_typespec alike (g1 c01-c04, c11, c12), and it
+        // attaches for a GEN-LOCAL root too (g1 c07 `gv.a`, `rv=struct_net`) —
+        // where the pattern-CA road's `rootGenLocal114` fence was needed
+        // because THAT root reaches `getObject` through a gen_scope netlist
+        // that lists `array_vars()`, which `getObject` does not search.
+        // AND THE POSITIONAL FENCE, which a golden grid CONVICTED before this
+        // arm shipped.  An ORDERED (positional) connection carries NEITHER
+        // field in golden — grid g3, one module per cell, the named and the
+        // positional spelling of the SAME connection side by side:
+        //
+        //   p01 `.a_i(v.a)`   typedef root         ts=struct_typespec rv=struct_net
+        //   p02 ` (v.a, o)`   typedef root         ts=<none>          rv=<none>
+        //   p03 `.a_i(pin.a)` TYPE-PARAMETER root  ts=struct_typespec rv=struct_var
+        //   p04 ` (pin.a, o)` TYPE-PARAMETER root  ts=<none>          rv=<none>
+        //   p05 `.a_i(anon.a)` ANONYMOUS root      ts=struct_typespec rv=struct_net
+        //   p06 ` (anon.a, o)` ANONYMOUS root      ts=<none>          rv=<none>
+        //   p07 ` ({v.a,v.b}, o)` concat operands  ts=<none>          rv=<none>
+        //
+        // (g2 f02 reads the same, and the DEF rows of all of them are
+        // `<none>`/`<none>` as always.)  The arm ABOVE and the `Root_value`
+        // binding below it do not carry this fence and stamp p02 / g2 f02
+        // today; that is PRE-EXISTING, it is recorded as residue R1, and it is
+        // NOT widened here — a fence removal on those two edges moves a
+        // COMPARED field (`hier_path::Compare` reads `Root_value`) on every
+        // positional member connection in both corpora and is a law of its
+        // own.  This arm simply does not cross it.  `findConnSyntax` answers
+        // null for a positional connection AND for `.*` (which Surelog does
+        // not expand at all — one nameless port carrying a `STRING:.*`
+        // constant, no hier_path), so both decline through one test.
+        //
+        // The `Root_value` binding below is the SHIPPED one, reached exactly as
+        // before — ungated, because ungating it is what would move a compared
+        // field on cells this law does not own.  Only the typespec arm after it
+        // is new, and only it reads `namedConn63`.
         if (!hp->Root_value() && parentNets)
             if (auto nit = parentNets->find(bs); nit != parentNets->end())
                 hp->Root_value(nit->second);
+        if (parentNets && namedConn63 && !hp->Typespec())
+            if (auto nit = parentNets->find(bs); nit != parentNets->end())
+                if (auto* rx63 = nit->second
+                                     ? any_cast<UHDM::expr*>(nit->second)
+                                     : nullptr)
+                    if (auto* rrt63 = rx63->Typespec())
+                        if (auto* ract63 = rrt63->Actual_typespec()) {
+                            auto* prt63 = s.MakeRef_typespec();
+                            prt63->VpiParent(hp);
+                            prt63->Actual_typespec(ract63);
+                            hp->Typespec(prt63);
+                        }
     }
 }
 
@@ -12580,9 +12696,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         // object's typespec, not just one that IS the actual.
                         // Called on `h` itself so a concat / replication /
                         // binary / ternary actual reaches its nested paths.
-                        bindConnPathRootTs53(h, *expr,
-                                             prefix + "." + std::string(ps.name),
-                                             parentNets);
+                        bindConnPathRootTs53(
+                            h, *expr, prefix + "." + std::string(ps.name),
+                            parentNets,
+                            findConnSyntax(connInst, ps.name) != nullptr);
                         // § connReplFoldNested54 — a REPLICATION nested at any
                         // depth in this ELABORATED actual folds to a full-width
                         // BIN constant.  The ts fullname is

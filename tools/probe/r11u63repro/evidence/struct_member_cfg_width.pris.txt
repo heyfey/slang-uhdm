@@ -1,0 +1,4 @@
+DIFF        module_inst:work@tb.t.m.c | port(a_i) | fu_data_i.operand_a
+   G: ts=struct_typespec:fu_data_t rv=struct_var:fu_data_i sz=0 dec= elems=2
+   O: ts=<none> rv=struct_var:fu_data_i sz=0 dec= elems=2
+ROWS 12 SAME 11 DIFF 1 ONLY-GOLDEN 0 ONLY-OURS 0

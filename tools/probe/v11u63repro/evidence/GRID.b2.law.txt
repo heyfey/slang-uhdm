@@ -1,0 +1,10 @@
+DIFF        module_inst:work@tb.i03.u | port(a_i) | p[0].v.a
+   G: ts=<none> rv=ref_obj: sz=0 dec= elems=3
+   O: ts=<none> rv=<none> sz=0 dec= elems=3
+DIFF        module_inst:work@tb.i05.u | port(a_i) | pgv.a
+   G: ts=struct_typespec:qk63::st_t rv=struct_net:pgv sz=0 dec= elems=2
+   O: ts=struct_typespec:qk63::st_t rv=logic_var:pgv sz=0 dec= elems=2
+ONLY-OURS   module_inst:work@tb.i07.u | port(a_i) | LPV.a  ->  ts=struct_typespec:qk63::st_t rv=<none> sz=0 dec= elems=2
+ONLY-OURS   module_inst:work@tb.i08.u | port(a_i) | PV.a  ->  ts=struct_typespec:qk63::st_t rv=<none> sz=0 dec= elems=2
+ONLY-OURS   module_inst:work@tb.i09.bnd.u | port(a_i) | bv.a  ->  ts=struct_typespec:qk63::st_t rv=struct_net:bv sz=0 dec= elems=2
+ROWS 25 SAME 22 DIFF 2 ONLY-GOLDEN 1 ONLY-OURS 3

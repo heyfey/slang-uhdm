@@ -1,0 +1,21 @@
+v11u63 — THE SURELOG MOVER POSITIVE CONTROL (the SAME frozen PRISTINE binary,
+re-run; md5 first 12).  Every surelog mover is the documented coin.
+
+arm                          sweep-pristine  sweep-law     pristine-binary re-run(s)
+default/MiniAmiq             9740d4fa7083    27419f6011b4  1bbda55e0c75   (THIRD hash)
+testflags/MiniAmiq           cee04d7e5656    f1c1ca43440a  02359cdcff0f   (THIRD hash)
+testflags/SeqDriver          629559051bba    05df6c25a21b  f01a46868afe   (THIRD hash)
+default/Scoreboard           e70775324004    1621aec6c9f3  e70775324004, 1621aec6c9f3 x4
+                                                           (the pristine binary alone
+                                                            produces BOTH sweep hashes)
+
+ORDER-BLIND ATTRIBUTION (uhdm-dump | workdir-normalised | sort | diff):
+  default/MiniAmiq    delta=-44  removed=2 added=2   UINT/vpiDecompile 998 <-> 0
+  testflags/MiniAmiq  delta=-42  removed=2 added=2   UINT/vpiDecompile 896 <-> 611
+  testflags/SeqDriver delta=-5   removed=2 added=2   UINT/vpiDecompile 1030 <-> 0
+  default/Scoreboard  delta=0    removed=0 added=0   pure REORDER draw
+
+A-PRIORI: predict63 over the 960 PRISTINE surelog databases names ZERO
+candidate paths, and ZERO in any of these four arms.  The zero is not vacuous:
+13 surelog tests DO hold the law's face (FACE.sl.names), Earlgrey_0_1 with 8890
+elaborated port-connection hier_paths and Rggen with 233.

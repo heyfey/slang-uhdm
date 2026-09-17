@@ -1,0 +1,5 @@
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/struct_member_cfg_width-e3b35de8/slang.uhdm  patched=ac8dd921dde7 pristine=a5e45a825fed
+MOVER ./testflags/struct_member_cfg_width-e3b35de8/slang.uhdm  patched=7b036be006b3 pristine=03da354143fc
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

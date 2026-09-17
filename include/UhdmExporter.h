@@ -1179,14 +1179,34 @@ private:
     // NESTED concat / replication / binary / ternary operands, for input and
     // output directions, inside generate scopes and instance arrays, and for
     // struct and union roots (an anonymous-struct or typedef'd-unpacked-array
-    // root is golden's too but is residue R1/R2 here).  The
+    // root is golden's too, and § connPathRootOwnTs63 below now reaches both).
+    // The
     // typespec is emitted only when the root's declared type HAS one
     // (`typedefTs`): an ANONYMOUS unpacked array root (`el_t ea_i [0:1]`) gets
     // the Root_value and NO typespec, which is why there is no typespec-KIND
     // fence here — `array_typespec` is a legitimate actual (arm a2 `u_ua`).
     // The DEF view's ref_module connections never reach this site.
+    //
+    // § connPathRootOwnTs63 — AND WHEN THE REGISTRY HAS NOTHING FOR THE ROOT'S
+    // DECLARED TYPE, THE TYPESPEC IS THE ROOT OBJECT'S OWN.  Surelog asks no
+    // registry: it copies `Actual_typespec` off the UHDM net/var the root name
+    // resolves to (`compileSelectExpression`,
+    // ~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp:5480-5494) —
+    // the very object this site binds as `Root_value`.  So a root whose slang
+    // type `typedefTs` cannot answer (a TYPE-PARAMETER-typed port, an
+    // ANONYMOUS struct, a package unpacked-array typedef) still gets golden's
+    // edge, and a root whose UHDM object has no typespec of its own (an
+    // `array_net`) still gets nothing.  The body carries the transcription,
+    // the ids that prove the actual is SHARED and the mint PER PATH, and the
+    // grid cell behind every fence.
+    // @a namedConn63 is true when THIS connection is written in the NAMED form
+    // (`findConnSyntax` answers for the formal): an ORDERED connection, and a
+    // `.*` wildcard, carry neither field in golden (grid g3 p02/p04/p06/p07),
+    // and only the § connPathRootOwnTs63 arm reads the flag — the shipped
+    // `typedefTs` arm and the `Root_value` binding keep their exact behaviour.
     void bindConnPathRootTs53(UHDM::any* h, const slang::ast::Expression& conn,
-                              const std::string& tsPrefix, NetMap* parentNets);
+                              const std::string& tsPrefix, NetMap* parentNets,
+                              bool namedConn63);
 
     /// § connReplFoldNested54 — A REPLICATION NESTED AT ANY DEPTH INSIDE AN
     /// ELABORATED PORT-CONNECTION ACTUAL FOLDS TO A FULL-WIDTH BIN CONSTANT.

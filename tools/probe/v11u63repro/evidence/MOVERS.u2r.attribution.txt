@@ -1,0 +1,29 @@
+v11u63 — u2r MOVER ATTRIBUTION, order-blind (uhdm-dump | sed workdir | sort | diff)
+
+byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (1608 paths), MOVERS 2/1608,
+SELFCHECK 1607/1608 -- the two movers are struct_member_cfg_width, both modes,
+exactly the pair predict63 named a priori from the PRISTINE databases alone.
+
+default   25184 -> 25273 bytes   removed=0  added=7
+testflags 20273 -> 20241 bytes   removed=0  added=7   (lines up, bytes down:
+                                                       serializer string packing)
+
+the seven ADDED lines, both modes, identical:
+>               \_hier_path: (fu_data_i.operand_a), line:19:19, endln:19:38
+>             \_ref_typespec: (work@tb.t.m.c.a_i.fu_data_i.operand_a)
+>               \_struct_typespec: (fu_data_t), line:25:13, endln:25:26
+>               |vpiActual:
+>               |vpiFullName:work@tb.t.m.c.a_i.fu_data_i.operand_a
+>               |vpiParent:
+>             |vpiTypespec:
+
+WHOLE-DUMP ORDER-BLIND RESIDUE on the witness (default), golden vs ours:
+  pristine  149 golden-only / 37 ours-only
+  law       143 golden-only / 38 ours-only
+The one NEW ours-only line is `\_struct_typespec: (fu_data_t), endln:25:26`
+against golden's `endln:29:6` -- a SPAN on the shared struct_typespec, which no
+generated Compare reads.  TO-GOLDEN 2, AWAY-GOLDEN 0, STILL-WRONG 0.
+
+CLONE-VS-SHARE, PROVED BY IDS ON BOTH SIDES (tsid63 over Serializer::AllObjects):
+  golden  REF_TS #306 (type_parameter) #309 (struct_var) #315 (hier_path) -> ONE struct_typespec #337
+  ours    REF_TS #378 (type_parameter) #382 (struct_var) #388 (hier_path) -> ONE struct_typespec #405

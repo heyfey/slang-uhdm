@@ -1,0 +1,12 @@
+SHAPE <noowner> | operation() | CFG.TID  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE <noowner> | operation() | CFG.XLEN  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE <noowner> | operation() | CFG.XLEN #1  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE function:cfg_pkg::build_config | assignment() | c.TID  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE function:cfg_pkg::build_config | assignment() | c.TID #1  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE function:cfg_pkg::build_config | assignment() | c.XLEN  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE function:cfg_pkg::build_config | assignment() | c.XLEN #1  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@mid | port(a_i) | fu_data_i.operand_a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.t.m | operation() | CFG.TID  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.t.m | operation() | CFG.XLEN  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.t.m | operation() | CFG.XLEN #1  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.t.m.c | port(a_i) | fu_data_i.operand_a  ->  ts=struct_typespec:fu_data_t rv=struct_var:fu_data_i sz=0 dec= elems=2

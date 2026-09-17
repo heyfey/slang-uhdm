@@ -1,0 +1,26 @@
+THE THREE SURELOG MOVERS ARE THE DOCUMENTED PER-INVOCATION COIN, NOT THE LAW.
+
+predict63 named ZERO candidates in all 960 surelog databases, and the byte
+verifier reports three movers.  Both readings are reconciled, and the control is
+decisive: the SAME FROZEN PRISTINE BINARY, re-run once on each arm from that
+arm's OWN cmds.txt, lands on a THIRD hash every time -- neither sweep's.
+
+  arm                        sweep-PRISTINE  sweep-LAW     RERUN-PRISTINE
+  default/SeqDriver          4af6e8d41a18    fef28dbcaec0  2fb39f8b4130
+  testflags/SeqDriver        3ce729346429    356f18823bb0  05df6c25a21b
+  testflags/MiniAmiq         9a808dc397d2    793b1616c2c4  7cb9249c497b
+
+(2fb39f8b4130 is the very hash r11u62's own PRISTINE sweep produced for
+default/SeqDriver -- the coin has been seen landing on it before.)
+
+ORDER-BLIND ATTRIBUTION (uhdm-dump | workdir-normalised | sort | diff): each arm
+is FOUR lines, a UINT / vpiDecompile LINE-NUMBER pair moving BOTH ways, which is
+the emitter-nondeterminism class RESUME 9 records (SourceLocation compares across
+macro buffers ordering differently under slang's parallel parse):
+
+  default/SeqDriver    size 18074289 -> 18074291   983 <-> 676
+  testflags/MiniAmiq   size 18852322 -> 18852322  1026 <-> 1077
+  testflags/SeqDriver  size 18074703 -> 18074701  1161 <->  949
+
+No structural line is added or removed in any of them; the whole delta is the
+digit count of one line number.  All five UVM-family rows stay CMP_EQUAL.

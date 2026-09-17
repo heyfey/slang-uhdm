@@ -1,0 +1,11 @@
+SHAPE module_inst:work@p01 | port(a_i) | v.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@p03 | port(a_i) | pin.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@p05 | port(a_i) | anon.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.i1.u | port(a_i) | v.a  ->  ts=struct_typespec:r63::st_t rv=struct_net:v sz=0 dec= elems=2
+SHAPE module_inst:work@tb.i2.u | port(a_i) | v.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.i3.u | port(a_i) | pin.a  ->  ts=struct_typespec:r63::st_t rv=struct_var:pin sz=0 dec= elems=2
+SHAPE module_inst:work@tb.i4.u | port(a_i) | pin.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.i5.u | port(a_i) | anon.a  ->  ts=struct_typespec: rv=struct_net:anon sz=0 dec= elems=2
+SHAPE module_inst:work@tb.i6.u | port(a_i) | anon.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.i7.u | operation() | v.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SHAPE module_inst:work@tb.i7.u | operation() | v.b  ->  ts=<none> rv=<none> sz=0 dec= elems=2

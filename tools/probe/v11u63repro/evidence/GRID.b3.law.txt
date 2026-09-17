@@ -1,0 +1,7 @@
+DIFF        module_inst:work@tb.i6.u | port(a_i) | pin.a
+   G: ts=logic_typespec: rv=logic_var:pin sz=0 dec= elems=2
+   O: ts=struct_typespec: rv=struct_var:pin sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i7.up | port(a_i) | v.b
+   G: ts=<none> rv=<none> sz=0 dec= elems=2
+   O: ts=struct_typespec:ek63::st_t rv=struct_net:v sz=0 dec= elems=2
+ROWS 16 SAME 14 DIFF 2 ONLY-GOLDEN 0 ONLY-OURS 0

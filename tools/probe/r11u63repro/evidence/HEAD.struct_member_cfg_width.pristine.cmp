@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (work@tb.t.m.c.a_i.fu_data_i.operand_a), id:451
+|vpiParent:
+\_hier_path: (fu_data_i.operand_a), id:450, line:19:19, endln:19:38
+|vpiFullName:work@tb.t.m.c.a_i.fu_data_i.operand_a
+|vpiActual:
+\_struct_typespec: (fu_data_t), id:361, line:25:13, endln:29:6
+
+decompile:
+ref_typespec: (work@tb.t.m.c.a_i.fu_data_i.operand_a), id:451
+|vpiParent:
+\_hier_path: (fu_data_i.operand_a), id:450, line:19:19, endln:19:38
+|vpiFullName:work@tb.t.m.c.a_i.fu_data_i.operand_a
+|vpiActual:
+\_struct_typespec: (fu_data_t), id:361, line:25:13, endln:29:6
+RHS: <null>

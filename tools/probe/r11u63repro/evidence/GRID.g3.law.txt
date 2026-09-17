@@ -1,0 +1,22 @@
+SAME        module_inst:work@p01 | port(a_i) | v.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SAME        module_inst:work@p03 | port(a_i) | pin.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SAME        module_inst:work@p05 | port(a_i) | anon.a  ->  ts=<none> rv=<none> sz=0 dec= elems=2
+SAME        module_inst:work@tb.i1.u | port(a_i) | v.a  ->  ts=struct_typespec:r63::st_t rv=struct_net:v sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i2.u | port(a_i) | v.a
+   G: ts=<none> rv=<none> sz=0 dec= elems=2
+   O: ts=struct_typespec:r63::st_t rv=struct_net:v sz=0 dec= elems=2
+SAME        module_inst:work@tb.i3.u | port(a_i) | pin.a  ->  ts=struct_typespec:r63::st_t rv=struct_var:pin sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i4.u | port(a_i) | pin.a
+   G: ts=<none> rv=<none> sz=0 dec= elems=2
+   O: ts=<none> rv=struct_var:pin sz=0 dec= elems=2
+SAME        module_inst:work@tb.i5.u | port(a_i) | anon.a  ->  ts=struct_typespec: rv=struct_net:anon sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i6.u | port(a_i) | anon.a
+   G: ts=<none> rv=<none> sz=0 dec= elems=2
+   O: ts=<none> rv=struct_net:anon sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i7.u | operation() | v.a
+   G: ts=<none> rv=<none> sz=0 dec= elems=2
+   O: ts=struct_typespec:r63::st_t rv=struct_net:v sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i7.u | operation() | v.b
+   G: ts=<none> rv=<none> sz=0 dec= elems=2
+   O: ts=struct_typespec:r63::st_t rv=struct_net:v sz=0 dec= elems=2
+ROWS 11 SAME 6 DIFF 5 ONLY-GOLDEN 0 ONLY-OURS 0

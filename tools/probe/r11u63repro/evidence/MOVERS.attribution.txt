@@ -1,0 +1,30 @@
+=== default  pris=25184 law=25273
+249a250
+>               \_hier_path: (fu_data_i.operand_a), line:19:19, endln:19:38
+830a832
+>             \_ref_typespec: (work@tb.t.m.c.a_i.fu_data_i.operand_a)
+872a875
+>               \_struct_typespec: (fu_data_t), line:25:13, endln:25:26
+1035a1039
+>               |vpiActual:
+1524a1529
+>               |vpiFullName:work@tb.t.m.c.a_i.fu_data_i.operand_a
+1944a1950
+>               |vpiParent:
+2611a2618
+>             |vpiTypespec:
+=== testflags  pris=20273 law=20241
+159a160
+>               \_hier_path: (fu_data_i.operand_a), line:19:19, endln:19:38
+672a674
+>             \_ref_typespec: (work@tb.t.m.c.a_i.fu_data_i.operand_a)
+714a717
+>               \_struct_typespec: (fu_data_t), line:25:13, endln:25:26
+853a857
+>               |vpiActual:
+1236a1241
+>               |vpiFullName:work@tb.t.m.c.a_i.fu_data_i.operand_a
+1564a1570
+>               |vpiParent:
+2125a2132
+>             |vpiTypespec:

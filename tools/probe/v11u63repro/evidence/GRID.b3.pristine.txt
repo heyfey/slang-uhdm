@@ -1,0 +1,25 @@
+DIFF        module_inst:work@tb.i1.u | port(a_i) | pin.i.a
+   G: ts=struct_typespec:ek63::st_t rv=struct_var:pin.i sz=0 dec= elems=2
+   O: ts=<none> rv=struct_var:pin.i sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i2.u | port(a_i) | p[0].a
+   G: ts=struct_typespec:ek63::st_t rv=struct_var:p[0] sz=0 dec= elems=2
+   O: ts=<none> rv=struct_var:p[0] sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i3.u | operation() | a.a
+   G: ts=struct_typespec:ek63::st_t rv=struct_var:a sz=0 dec= elems=2
+   O: ts=<none> rv=struct_var:a sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i3.u | operation() | a.b.a
+   G: ts=struct_typespec:ek63::st_t rv=struct_var:a.b sz=0 dec= elems=2
+   O: ts=<none> rv=struct_var:a.b sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i4.g.u | port(a_i) | an.a
+   G: ts=struct_typespec: rv=struct_net:an sz=0 dec= elems=2
+   O: ts=<none> rv=struct_net:an sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i5.og.ig[0].u | port(a_i) | pin.a
+   G: ts=struct_typespec:ek63::st_t rv=struct_var:pin sz=0 dec= elems=2
+   O: ts=<none> rv=struct_var:pin sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i6.u | port(a_i) | pin.a
+   G: ts=logic_typespec: rv=logic_var:pin sz=0 dec= elems=2
+   O: ts=<none> rv=struct_var:pin sz=0 dec= elems=2
+DIFF        module_inst:work@tb.i7.up | port(a_i) | v.b
+   G: ts=<none> rv=<none> sz=0 dec= elems=2
+   O: ts=struct_typespec:ek63::st_t rv=struct_net:v sz=0 dec= elems=2
+ROWS 16 SAME 8 DIFF 8 ONLY-GOLDEN 0 ONLY-OURS 0

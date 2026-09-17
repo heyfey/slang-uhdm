@@ -1,0 +1,19 @@
+POSITIVE CONTROL for predict63 (it names every cell the law can move, and nothing else):
+-- g1 (pristine database)
+CAND g1 path=pin.a parent=port root=struct_var:pin ts=struct_typespec:p63::st_t
+CAND g1 path=av[1].a parent=port root=array_var:av ts=array_typespec:p63::arr_t
+CAND g1 path=anon.a parent=port root=struct_net:anon ts=struct_typespec:
+HITS g1 3
+-- g2 (pristine database)
+HITS g2 0
+-- g3 (pristine database)
+CAND g3 path=pin.a parent=port root=struct_var:pin ts=struct_typespec:r63::st_t
+CAND g3 path=pin.a parent=port root=struct_var:pin ts=struct_typespec:r63::st_t
+CAND g3 path=anon.a parent=port root=struct_net:anon ts=struct_typespec:
+CAND g3 path=anon.a parent=port root=struct_net:anon ts=struct_typespec:
+HITS g3 4
+-- the corpus witness (pristine database)
+CAND struct_member_cfg_width path=fu_data_i.operand_a parent=port root=struct_var:fu_data_i ts=struct_typespec:fu_data_t
+HITS struct_member_cfg_width 1
+
+NEGATIVE READING: g2 scores 0 because its one wrong cell (f02, positional) already CARRIES a typespec from the shipped typedefTs arm -- nothing for this law to add.
