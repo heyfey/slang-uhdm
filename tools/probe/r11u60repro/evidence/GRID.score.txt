@@ -1,0 +1,110 @@
+  TO           uhdmallModules   work@g1q.PFUN                line:11:19    
+       golden ['op=75 ts=struct_typespec(p1::pb_t) ops=[const/8 const/8]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p1::pb_t) ops=[const/8 const/8]']
+  TO           uhdmallModules   work@g1q.PSEL                line:7:19     
+       golden ['op=75 ts=struct_typespec(p1::pb_t) ops=[const/8 const/8]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p1::pb_t) ops=[const/8 const/8]']
+  TO           uhdmallModules   work@g1r.PFUN                line:11:19    
+       golden ['op=75 ts=struct_typespec(p1::pb_t) ops=[const/8 const/8]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p1::pb_t) ops=[const/8 const/8]']
+  TO           uhdmallModules   work@g1r.PSEL                line:7:19     
+       golden ['op=75 ts=struct_typespec(p1::pb_t) ops=[const/8 const/8]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p1::pb_t) ops=[const/8 const/8]']
+  MISSING      uhdmtopModules   ?                            line:10:19     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:11:19     g=['RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:8:19      g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:9:19      g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+ARM g1   TO 4   AWAY 0   MOVED-WRONG 0   STILL 0   SAME 26  MISSING 4
+  TO           uhdmallModules   work@g2q.USEL                line:4:19     
+       golden ['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]']
+  TO           uhdmallModules   work@g2r.USEL                line:4:19     
+       golden ['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]']
+  MISSING      uhdmtopModules   ?                            line:5:19      g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:6:19      g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:7:19      g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  STILL        uhdmtopModules   work@g2top.u_q.UMOD          line:7:19      golden=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g2top.u_q.UNON          line:6:19      golden=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g2top.u_q.USCP          line:5:19      golden=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g2top.u_q.USEL          line:4:19      golden=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g2top.u_r.UMOD          line:7:19      golden=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g2top.u_r.UNON          line:6:19      golden=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g2top.u_r.USCP          line:5:19      golden=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g2top.u_r.USEL          line:4:19      golden=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p2::ub_t) ops=[const/32 const/64]']
+ARM g2   TO 2   AWAY 0   MOVED-WRONG 0   STILL 8   SAME 14  MISSING 3
+  TO           uhdmallInterfaces work@g3if.B3                 line:7:19     
+       golden ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+  TO           uhdmallModules   work@g3child.B3              line:7:19     
+       golden ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+  TO           uhdmallModules   work@g3port.B3               line:7:19     
+       golden ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/64]']
+       law    ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+  TO           uhdmallModules   work@g3sel.B3                line:7:19     
+       golden ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/64]']
+       law    ['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+  STILL        uhdmallPackages  p3b::B3                      line:7:19      golden=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]', 'op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+  STILL        uhdmtopModules   work@g3top.u_c1.B3           line:7:19      golden=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g3top.u_c2.B3           line:7:19      golden=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g3top.u_if.B3           line:7:19      golden=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g3top.u_p.B3            line:7:19      golden=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g3top.u_s.B3            line:7:19      golden=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/64]']
+  STILL        uhdmtopPackages  p3b::B3                      line:7:19      golden=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]', 'op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p3::u3_t) ops=[const/32 const/32]']
+ARM g3   TO 4   AWAY 0   MOVED-WRONG 0   STILL 7   SAME 10  MISSING 0
+  TO           uhdmallModules   work@g4b.B4                  line:5:19     
+       golden ['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]']
+  TO           uhdmallModules   work@g4e.B4                  line:5:19     
+       golden ['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]']
+  TO           uhdmallModules   work@g4w.B4                  line:5:19     
+       golden ['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]']
+  STILL        uhdmtopModules   work@g4top.u_b.B4            line:5:19      golden=['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g4top.u_e.B4            line:5:19      golden=['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g4top.u_w.B4            line:5:19      golden=['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p4::u4_t) ops=[const/32 const/64]']
+ARM g4   TO 3   AWAY 0   MOVED-WRONG 0   STILL 3   SAME 2   MISSING 0
+  TO           uhdmallModules   work@g5q.FPLAIN              line:13:22    
+       golden ['op=75 ts=struct_typespec(p5::plain_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p5::plain_t) ops=[const/32 const/32]']
+  STILL        uhdmallModules   work@g5q.FPOS                line:15:22     golden=['op=75 ts=- ops=[const/32 const/32]'] ours=['op=75 ts=- ops=[const/64 const/64]']
+  MISSING      uhdmtopModules   ?                            line:14:22     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:16:22     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:17:22     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  STILL        uhdmtopModules   work@g5top.u_q.FNEST         line:14:22     golden=['op=75 ts=- ops=[op75 const/64]'] ours=['op=75 ts=struct_typespec(p5::nest_t) ops=[op75 const/64]']
+  STILL        uhdmtopModules   work@g5top.u_q.FPLAIN        line:13:22     golden=['op=75 ts=struct_typespec(p5::plain_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p5::plain_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g5top.u_q.FPOS          line:15:22     golden=['op=75 ts=- ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p5::plain_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g5top.u_q.FREAL         line:16:22     golden=['op=75 ts=- ops=[const/32 const/64]'] ours=['op=75 ts=struct_typespec(p5::realm_t) ops=[const/64 const/64]']
+  STILL        uhdmtopModules   work@g5top.u_q.FTIME         line:17:22     golden=['op=75 ts=- ops=[const/? const/64]'] ours=['op=75 ts=struct_typespec(p5::timem_t) ops=[const/64 const/64]']
+  STILL        uhdmtopPackages  p5::FPOS                     line:15:22     golden=['op=75 ts=- ops=[const/32 const/32]'] ours=['op=75 ts=- ops=[const/64 const/64]']
+ARM g5   TO 1   AWAY 0   MOVED-WRONG 0   STILL 7   SAME 12  MISSING 3
+  TO           uhdmallModules   work@g6q.CPKG                line:5:19     
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/32 const/32]']
+  MISSING      uhdmtopModules   ?                            line:4:19      g=['RHS-NOT-OPERATION'] o=None l=None
+  STILL        uhdmtopModules   work@g6top.u_q.CCLS          line:4:19      golden=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/32 const/64]']
+  STILL        uhdmtopModules   work@g6top.u_q.CPKG          line:5:19      golden=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/32 const/32]'] ours=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/32 const/64]']
+ARM g6   TO 1   AWAY 0   MOVED-WRONG 0   STILL 2   SAME 5   MISSING 1
+  TO           uhdmallModules   work@g7q.WSEL                line:7:19     
+       golden ['op=75 ts=struct_typespec(p7::w7_t) ops=[const/32 const/32 const/32]']
+       pris   ['op=75 ts=- ops=[tagged_pattern tagged_pattern tagged_pattern]']
+       law    ['op=75 ts=struct_typespec(p7::w7_t) ops=[const/32 const/32 const/32]']
+  MISSING      uhdmtopModules   ?                            line:6:19      g=['RHS-NOT-OPERATION'] o=None l=None
+ARM g7   TO 1   AWAY 0   MOVED-WRONG 0   STILL 0   SAME 7   MISSING 1

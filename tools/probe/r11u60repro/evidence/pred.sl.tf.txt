@@ -1,0 +1,398 @@
+NOTE 3SigsSensList NOFILE
+NOTE AVLMM NOFILE
+NOTE AaFirstTest NOFILE
+NOTE AmiqEth NOFILE
+NOTE AmiqSimpleTestSuite NOFILE
+NOTE Ariane NOFILE
+NOTE ArianeElab NOFILE
+NOTE ArianeElab2 NOFILE
+NOTE Assert NOFILE
+NOTE Assertions NOFILE
+NOTE AssignPattern NOFILE
+NOTE AssignPatternArray NOFILE
+NOTE AssignPlus NOFILE
+NOTE Assignments NOFILE
+NOTE AssociativeArray NOFILE
+NOTE AssumeProp NOFILE
+NOTE Attributes NOFILE
+NOTE AttributesNets NOFILE
+NOTE AxiInterconnect NOFILE
+NOTE AzadiRTL NOFILE
+NOTE BadLabel NOFILE
+NOTE BadScope NOFILE
+NOTE BindMethod NOFILE
+NOTE BindStmt NOFILE
+NOTE BindStmt2 NOFILE
+NOTE BindingPort NOFILE
+NOTE Bindings NOFILE
+NOTE BitSelectHier NOFILE
+NOTE BitsOp NOFILE
+NOTE BitsStructMember NOFILE
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_default_cfg_p         line:2046:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_unicore_cfg_p         line:2565:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_unicore_megaparrot_override_p line:2567:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_unicore_tinyparrot_override_p line:2977:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_unicore_miniparrot_override_p line:3381:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_override_p line:3790:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_cfg_p     line:3805:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_megaparrot_override_p line:4182:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_megaparrot_cfg_p line:4229:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_miniparrot_override_p line:4606:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_miniparrot_cfg_p line:4636:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_l2e_override_p line:5013:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_2_override_p line:5396:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_2_cfg_p     line:5403:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_2_l2e_override_p line:5780:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_3_override_p line:6163:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_3_cfg_p     line:6170:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_override_p line:6547:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_cfg_p     line:6555:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_l2e_override_p line:6932:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_6_override_p line:7315:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_6_cfg_p     line:7323:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_8_override_p line:7700:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_8_cfg_p     line:7708:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_12_override_p line:8085:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_12_cfg_p    line:8094:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_16_override_p line:8471:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_16_cfg_p    line:8480:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_acc_scratchpad_override_p line:8857:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_acc_vdp_override_p line:9240:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_acc_scratchpad_override_p line:9627:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_acc_vdp_override_p line:10010:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_cce_ucode_override_p line:10397:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_cce_ucode_megaparrot_override_p line:10779:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_cce_ucode_miniparrot_override_p line:11161:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_2_cce_ucode_override_p line:11543:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_3_cce_ucode_override_p line:11925:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_cce_ucode_override_p line:12307:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_6_cce_ucode_override_p line:12689:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_8_cce_ucode_override_p line:13071:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_12_cce_ucode_override_p line:13453:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_16_cce_ucode_override_p line:13835:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_default_cfg_p         line:2046:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_unicore_cfg_p         line:2565:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_unicore_megaparrot_override_p line:2567:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_unicore_tinyparrot_override_p line:2977:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_unicore_miniparrot_override_p line:3381:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_override_p line:3790:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_cfg_p     line:3805:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_megaparrot_override_p line:4182:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_megaparrot_cfg_p line:4229:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_miniparrot_override_p line:4606:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_miniparrot_cfg_p line:4636:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_l2e_override_p line:5013:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_2_override_p line:5396:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_2_cfg_p     line:5403:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_2_l2e_override_p line:5780:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_3_override_p line:6163:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_3_cfg_p     line:6170:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_override_p line:6547:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_cfg_p     line:6555:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_l2e_override_p line:6932:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_6_override_p line:7315:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_6_cfg_p     line:7323:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_8_override_p line:7700:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_8_cfg_p     line:7708:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_12_override_p line:8085:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_12_cfg_p    line:8094:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_16_override_p line:8471:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_16_cfg_p    line:8480:31
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_acc_scratchpad_override_p line:8857:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_acc_vdp_override_p line:9240:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_acc_scratchpad_override_p line:9627:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_acc_vdp_override_p line:10010:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_cce_ucode_override_p line:10397:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_cce_ucode_megaparrot_override_p line:10779:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_1_cce_ucode_miniparrot_override_p line:11161:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_2_cce_ucode_override_p line:11543:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_3_cce_ucode_override_p line:11925:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_4_cce_ucode_override_p line:12307:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_6_cce_ucode_override_p line:12689:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_8_cce_ucode_override_p line:13071:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_12_cce_ucode_override_p line:13453:28
+PRED BlackBePipeInt                     work@bp_be_pipe_int.bp_multicore_16_cce_ucode_override_p line:13835:28
+NOTE BlackParrot NOFILE
+NOTE BlackParrotConf NOFILE
+NOTE BlackParrotMuteErrors NOFILE
+NOTE BlackParrotParam NOFILE
+NOTE BlackParrotStructParam NOFILE
+NOTE BlackUcode NOFILE
+NOTE BlackUnicore NOFILE
+NOTE BlackboxMissingDef NOFILE
+NOTE BuildOVMPkg NOFILE
+NOTE BuiltInMethod NOFILE
+NOTE CaseInside NOFILE
+NOTE CastEnum NOFILE
+NOTE CastPartSelect NOFILE
+NOTE CastShift NOFILE
+NOTE CastStructMember NOFILE
+NOTE CastTypespec NOFILE
+NOTE CastUnsigned NOFILE
+NOTE Cell NOFILE
+NOTE Checker NOFILE
+NOTE ClassCons NOFILE
+NOTE ClassExtendParam NOFILE
+NOTE ClassFuncProto NOFILE
+NOTE ClassFuncTask NOFILE
+NOTE ClassMemberFunc NOFILE
+NOTE ClassMemberRef NOFILE
+NOTE ClassMethodCall NOFILE
+NOTE ClassScope NOFILE
+NOTE ClassTypeParamAlias NOFILE
+NOTE ClockingBlock NOFILE
+NOTE ClockingDrive NOFILE
+NOTE ClockingSntx NOFILE
+NOTE ComplexBitSelect NOFILE
+NOTE ComplexEscaped NOFILE
+NOTE ConcatOrder NOFILE
+NOTE ConcatRadix NOFILE
+NOTE ConcatVal NOFILE
+NOTE ConstHighConn NOFILE
+NOTE ContAssign NOFILE
+NOTE CoresSweRV NOFILE
+NOTE CoresSweRVMP NOFILE
+NOTE Covergroup NOFILE
+NOTE CrossItem NOFILE
+NOTE DecimalSize NOFILE
+NOTE DefaultAssign NOFILE
+NOTE DefaultNetType NOFILE
+NOTE Delay2Param NOFILE
+NOTE DoWhile NOFILE
+NOTE DollarBitsUnary NOFILE
+NOTE DollarRoot NOFILE
+NOTE DoublePres NOFILE
+NOTE Driver NOFILE
+NOTE Earlgrey NOFILE
+NOTE Earlgrey_0_1 DUMPRC-15
+NOTE Earlgrey_Verilator_0_1 NOFILE
+NOTE ElabDefinitionDiagnostics NOFILE
+NOTE ElabIf NOFILE
+NOTE ElabSysCall NOFILE
+NOTE EnumParenType NOFILE
+NOTE EnumVarNoTypedef NOFILE
+NOTE Escape NOFILE
+NOTE EvalFuncArray NOFILE
+NOTE EvalFuncPack NOFILE
+NOTE ExponTimeIfElseGen NOFILE
+NOTE ExprEvalPartial NOFILE
+NOTE ExtendClassMember NOFILE
+NOTE FSMBsp13 NOFILE
+NOTE FileListWithCompressed NOFILE
+NOTE FilePackUnion NOFILE
+NOTE FilePackageImport NOFILE
+NOTE FileTypespec NOFILE
+NOTE ForElab NOFILE
+NOTE ForLoopBind NOFILE
+NOTE ForeachClass NOFILE
+NOTE ForeachClassParent NOFILE
+NOTE ForeachForeach NOFILE
+NOTE FuncBinding NOFILE
+NOTE FuncBinding2 NOFILE
+NOTE FuncDef NOFILE
+NOTE FuncDef2 NOFILE
+NOTE FuncDefaultVal NOFILE
+NOTE FuncWidthScope NOFILE
+NOTE FuncWidthScopeOverride NOFILE
+NOTE GateLevel NOFILE
+NOTE GenFor NOFILE
+NOTE GenForDec NOFILE
+NOTE GenIf NOFILE
+NOTE GenIfElse NOFILE
+NOTE GenIfNamed NOFILE
+NOTE GenModHierPath NOFILE
+NOTE GenScopeFunc NOFILE
+NOTE GenScopeShadow NOFILE
+NOTE GenVarRef NOFILE
+NOTE GenerateAssigns NOFILE
+NOTE GenerateBlock NOFILE
+NOTE GenerateInterface NOFILE
+NOTE GenerateModule NOFILE
+NOTE GenerateRegion NOFILE
+NOTE Google NOFILE
+NOTE HierBitSelect NOFILE
+NOTE HierBitSlice NOFILE
+NOTE HierMultiSelect NOFILE
+NOTE HierPathLhs NOFILE
+NOTE HierPathModule NOFILE
+NOTE HierPathPackedArrayNet NOFILE
+NOTE HierPathPackedVar NOFILE
+NOTE HierPathTfArg NOFILE
+NOTE HierPathUnpackedInPacked NOFILE
+NOTE IODataTypes NOFILE
+NOTE Ibex NOFILE
+NOTE IbexGoogle NOFILE
+NOTE Icarus NOFILE
+NOTE IllegalZeroValue NOFILE
+NOTE ImplicitGenBlock NOFILE
+NOTE IncompTitan NOFILE
+NOTE IndexPartSelectBind NOFILE
+NOTE IndexedSelect NOFILE
+NOTE Interconnect NOFILE
+NOTE InterfBinding NOFILE
+NOTE InterfImport NOFILE
+NOTE InterfTypeBad NOFILE
+NOTE InvalidTypeParam NOFILE
+NOTE LeftPadding NOFILE
+NOTE LegalPastFunc NOFILE
+NOTE LetExpr NOFILE
+NOTE LetInlined NOFILE
+NOTE LibraryIntercon NOFILE
+NOTE LocalScopeAssign NOFILE
+NOTE LogicCast NOFILE
+NOTE Loop NOFILE
+NOTE LoopParam NOFILE
+NOTE LoopParamOver NOFILE
+NOTE LowMemLib NOFILE
+NOTE LowMemPkg NOFILE
+NOTE Lpddr NOFILE
+NOTE MaskNeg NOFILE
+NOTE ModPortArrayBind NOFILE
+NOTE ModPortHighConn NOFILE
+NOTE ModPortParam NOFILE
+NOTE ModPortRange NOFILE
+NOTE ModPortTest NOFILE
+NOTE Monitor NOFILE
+NOTE MultContAssign NOFILE
+NOTE MultiConcat NOFILE
+NOTE MultiIndexBind NOFILE
+NOTE NameCollisionBind NOFILE
+NOTE NamedEventHierPath NOFILE
+NOTE NegParam NOFILE
+NOTE NetLValue NOFILE
+NOTE NetType NOFILE
+NOTE NyuziProcessor NOFILE
+NOTE OVMSwitch NOFILE
+NOTE OldLibrary NOFILE
+NOTE OpTypespec NOFILE
+NOTE Opentitan NOFILE
+NOTE OrderedPortUnkownModule NOFILE
+NOTE PPComment NOFILE
+NOTE PackEnumVal NOFILE
+NOTE PackageDpi NOFILE
+NOTE PackageFuncCall NOFILE
+NOTE PackageHierRef NOFILE
+NOTE PackageParam NOFILE
+NOTE PackageValue NOFILE
+NOTE PackageVar NOFILE
+NOTE PackedArrayHierPath NOFILE
+NOTE ParamArray NOFILE
+NOTE ParamArraySelect NOFILE
+NOTE ParamBitSelect NOFILE
+NOTE ParamElab NOFILE
+NOTE ParamFileMacro NOFILE
+NOTE ParamFileNoTop NOFILE
+NOTE ParamInFunc NOFILE
+NOTE ParamIndex NOFILE
+NOTE ParamLine NOFILE
+NOTE ParamNoDefault NOFILE
+NOTE ParamOverload1 NOFILE
+NOTE ParamOverload3 NOFILE
+NOTE PartSelectHierPath NOFILE
+NOTE PartSelectRange NOFILE
+NOTE PatAssignOp NOFILE
+NOTE PkgImportFunc NOFILE
+NOTE PkgImportPkg NOFILE
+NOTE PortWildcard NOFILE
+NOTE PoundDelay NOFILE
+NOTE PoundParam NOFILE
+NOTE PpLppdr NOFILE
+NOTE PragmaProtect NOFILE
+NOTE PreProcMacro NOFILE
+NOTE PreProcMacroFunc NOFILE
+NOTE PreprocLine NOFILE
+NOTE PreprocString NOFILE
+NOTE PreprocUhdmCov NOFILE
+NOTE ProcForLoop NOFILE
+NOTE RewriteNonConstForLoopCond NOFILE
+NOTE Rggen NOFILE
+NOTE RiscV NOFILE
+NOTE Rom NOFILE
+NOTE Scoreboard NOFILE
+NOTE Scr1 NOFILE
+NOTE SeqUseNonTemp NOFILE
+NOTE SimpleClass NOFILE
+NOTE SimpleClass1 NOFILE
+NOTE SimpleClass2 NOFILE
+NOTE SimpleCmdLineTest NOFILE
+NOTE SimpleIncludeAndMacros NOFILE
+NOTE SimpleInterface NOFILE
+NOTE SimpleOVM NOFILE
+NOTE SimpleParserTest NOFILE
+NOTE SimpleParserTestCache NOFILE
+NOTE SimpleTask NOFILE
+NOTE SimpleVMM NOFILE
+NOTE Sky130Cell NOFILE
+NOTE Sky130Udp NOFILE
+NOTE SplitFile NOFILE
+NOTE StreamingOp NOFILE
+NOTE StructStructHierPath NOFILE
+NOTE StructVar NOFILE
+NOTE StructVarImp NOFILE
+NOTE SynthFilterDollarError NOFILE
+NOTE SystemCall NOFILE
+NOTE TNocBadType NOFILE
+NOTE TaggedParam NOFILE
+NOTE TaskDeclNoOrder NOFILE
+NOTE TestBasic NOFILE
+NOTE TestBatchMode NOFILE
+NOTE TestFileSplit NOFILE
+NOTE TestMacros NOFILE
+NOTE TestNoHash NOFILE
+NOTE TestSepComp NOFILE
+NOTE TestSepCompBadPath NOFILE
+NOTE TestSepCompNoHash NOFILE
+NOTE ThisHier NOFILE
+NOTE TimeUnit NOFILE
+NOTE Tnoc NOFILE
+NOTE TranslateOff NOFILE
+NOTE TypeDefScope NOFILE
+NOTE TypeParam2 NOFILE
+NOTE Typename NOFILE
+NOTE TypespecBits NOFILE
+NOTE UVMNestedSeq NOFILE
+NOTE UVMSwitch NOFILE
+NOTE UhdmCoverage NOFILE
+NOTE Unisim NOFILE
+NOTE UnitAmiqEth NOFILE
+NOTE UnitClass NOFILE
+NOTE UnitConcat NOFILE
+NOTE UnitDefParam NOFILE
+NOTE UnitElab NOFILE
+NOTE UnitElabExternNested NOFILE
+NOTE UnitEnum NOFILE
+NOTE UnitForLoop NOFILE
+NOTE UnitForeach NOFILE
+NOTE UnitLibrary NOFILE
+NOTE UnitPackage NOFILE
+NOTE UnitPartSelect NOFILE
+NOTE UnitQueue NOFILE
+NOTE UnitSVA NOFILE
+NOTE UnitSimpleIncludeAndMacros NOFILE
+NOTE UnitTest NOFILE
+NOTE UnitThisNew NOFILE
+NOTE UnsizedConstInst NOFILE
+NOTE UnsizedPacked NOFILE
+NOTE UtdSV NOFILE
+NOTE VarInFunc NOFILE
+NOTE VarSelect NOFILE
+NOTE Verilator NOFILE
+NOTE VoidFuncReturn NOFILE
+NOTE Yosys NOFILE
+NOTE YosysBigSimAmber23 NOFILE
+NOTE YosysBigSimLm32 NOFILE
+NOTE YosysBigSimOpenMsp NOFILE
+NOTE YosysBigSimPong NOFILE
+NOTE YosysCam NOFILE
+NOTE YosysDsp NOFILE
+NOTE YosysEth NOFILE
+NOTE YosysIce40 NOFILE
+NOTE YosysOldAes NOFILE
+NOTE YosysOldSasc NOFILE
+NOTE YosysSmall NOFILE
+NOTE YosysTestSuite NOFILE
+NOTE YosysTests NOFILE
+NOTE Zachjs NOFILE
+NOTE rp32 NOFILE
+== /tmp/r11u60_pris/sl testflags: CANDIDATE DEF struct-op cells=168   PREDICTED cells=84 on 1 tests
+== PREDICTED MOVERS: BlackBePipeInt

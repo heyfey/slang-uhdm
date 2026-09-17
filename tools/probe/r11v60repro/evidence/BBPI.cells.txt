@@ -1,0 +1,20 @@
+# BlackBePipeInt — per-cell attribution of the op-level ref_typespec NAME
+# columns: golden | pristine(fd9480..) | verified(9452577e..)
+# WHOLE DUMP:
+   62  work@bp_be_pipe_int | BARE | BARE
+   41  work@bp_be_pipe_int | BARE | work@bp_be_pipe_int
+   41  BARE | bp_common_pkg | bp_common_pkg
+    1  NONE | work@bp_be_pipe_int | work@bp_be_pipe_int
+cells: 482 482 482
+
+# DEF listings only (uhdmallModules/Interfaces/Packages):
+   41  work@bp_be_pipe_int | BARE | work@bp_be_pipe_int
+cells: 286 286 286
+
+# shape.py cell classes over the DEF listings:
+ARM BBPI TO 0   AWAY 0   MOVED-WRONG 0   STILL 0   SAME 710 MISSING 0
+
+# databases:
+6ccd7e81eb2779ac23fe2b67cc28d0cb  /tmp/v11u60_bbpi/pris.uhdm
+0754dbaa7154500d49565ad8407b0006  /tmp/v11u60_bbpi/law.uhdm
+0754dbaa7154500d49565ad8407b0006  /tmp/v11u60_bbpi/fix.uhdm

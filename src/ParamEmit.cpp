@@ -13096,6 +13096,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // survives the elab view" behaviour, which (unlike the width
                 // and symbolic-dim rules) still REDUCES each member value.
                 bool structNoScopedRefPkg = false;
+                // § modDefImportPkgSelFlat60 (r11u60) — THE MATERIALIZED IMPORT
+                // COPY of a package struct-pattern parameter is TYPED and FLAT
+                // in the DEFINITION listing exactly when the DECLARING PACKAGE's
+                // OWN SCOPE member-selects that parameter.  Set below; read by
+                // the flat op75 walk.
+                bool impPkgSelFlat60 = false;
                 {
                     auto& pctS = ps.getType().getCanonicalType();
                     auto k0 = structOvPat  ? structOvPat->kind
@@ -13369,6 +13375,164 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         structWidePkg = false;
                         structNoScopedRefPkg = false;
                     }
+                    // § modDefImportPkgSelFlat60 (r11u60) — THE IMPORT-COPY
+                    // FACE of § unpackedPkgPatFlat49 / § pkgScopeMemberSelect49.
+                    //
+                    // THE LAW.  A module's or interface's DEFINITION listing
+                    // carries a MATERIALIZED COPY of every parameter it imports
+                    // from a package, and golden TYPES and FLATTENS that copy —
+                    // op75 -> ref_typespec -> the package's struct_typespec, one
+                    // constant per member at the MEMBER WIDTH — exactly when the
+                    // DECLARING PACKAGE'S OWN SCOPE member-selects the parameter.
+                    //
+                    // THE PRODUCER.  Surelog's `substituteAssignedValue` reduces
+                    // the package's own `param_assign` IN PLACE for every
+                    // `P.member` select compiled inside the package, and the
+                    // module definition's import copy is a CLONE of that same
+                    // `param_assign`.  So only a reduce that ALREADY RAN during
+                    // the package's compilation is visible in the clone.  The
+                    // SCOPED-REFERENCE trigger (`CompileHelper::getValue`'s
+                    // `pkg::NAME` arm) reduces the package listing too, but it
+                    // runs while a MODULE BODY is compiled — after the module
+                    // definitions have been materialized — so its clone keeps
+                    // the tagged tree.  That asymmetry is the whole law, and it
+                    // is what grid arm `g1` isolates:
+                    //
+                    //   trigger (all five params identical but for the reader)
+                    //                         | elab pkg | golden DEF import copy
+                    //   package typedef-dim select  PSEL |   flat   |   FLAT
+                    //   package function-body select PFUN|   flat   |   FLAT
+                    //   `p1::PSCP` whole read, module    |   flat   |  TAGGED
+                    //   `PMOD.a` select, module          |  tagged  |  TAGGED
+                    //   never read                  PNON |  tagged  |  TAGGED
+                    //
+                    // Neither the IMPORT KIND nor the HOLDER decides anything:
+                    // arm `g4` puts the same parameter behind a wildcard HEADER
+                    // import, a wildcard BODY import and an explicit
+                    // `import p4::B4` and golden flattens all three (a module
+                    // that only writes `p4::v4_t` and never imports has no copy
+                    // at all, on both sides); arm `g3` materializes it into an
+                    // interface, two module instances, a module with a plain
+                    // parameter port list and a module whose port list selects
+                    // it, and golden flattens every one.
+                    //
+                    // THE FENCES ARE INHERITED, NOT RE-DERIVED — every shape
+                    // pass 48 fenced at the package face is fenced here, and arm
+                    // `g5` (one package, one dead package-function select per
+                    // parameter, only the SHAPE varying) shows golden's DEF
+                    // import copy answering exactly as its elab package listing:
+                    //   plain named pattern        -> FLAT   (the control)
+                    //   pattern-valued element     -> TAGGED (patParamPatElem26v)
+                    //   POSITIONAL pattern         -> untyped, operands resized
+                    //   `real` member              -> TAGGED
+                    //   `time` member              -> TAGGED
+                    // and arm `g6` the class fence (`p6::CCLS`, selected only in
+                    // a class method: golden TAGGED in both listings) which
+                    // rides along for free because `hasMemberSelectOf` already
+                    // returns at a `ClassDeclaration`.  The TYPE-KEY face is NOT
+                    // MEASURABLE at this face at all: arm `g8` shows Surelog
+                    // v1.87 raising `[ERR:UH0713] Unmatched member during
+                    // pattern assignment` the moment a type-key pattern is
+                    // MATERIALIZED into an importing module, where r11u49's `b3`
+                    // reads the same parameter from a NON-importing module and
+                    // compiles clean — an arm whose compile fails teaches error
+                    // recovery, not golden, so the type/index-setter fence stays
+                    // and is never widened.
+                    //
+                    // The >64-bit WIDTH rule does NOT apply here, and that is
+                    // measured, not assumed: arm `g7`'s 96-bit packed `p7::WSEL`
+                    // is package-selected and golden flattens its DEF import
+                    // copy at 32/32/32, while its never-read sibling `p7::WNON`
+                    // stays tagged — the member select outranks the width at
+                    // this face exactly as it does in the package listing.
+                    //
+                    // Scope: the PHYSICAL definition view of a MODULE or
+                    // INTERFACE only (`defViewOrig9 && !inPackage`).  A
+                    // re-exporting PACKAGE's copy already flattens on the
+                    // pristine binary (`g3`'s `p3b::B3`) and is left alone; the
+                    // elaborated views are reached by their own road and are
+                    // untouched.  `hasMemberSelectOf`'s OWN SET is unchanged
+                    // (pass 48 keeps its bare-name predicate) but THIS face no
+                    // longer reads it — the next paragraph says why.
+                    // § importCopyDeclPkgSelect60v (r11v60) — THE TRIGGER IS
+                    // RESOLVED TO THE DECLARING PACKAGE, never to a bare name.
+                    // `hasMemberSelectOf` answers for ANY package (the r11u49
+                    // R1 warning), and at THIS face that warning is not
+                    // theoretical: verifier arm `v1.sv` puts an identically
+                    // named struct localparam in two packages, selects only
+                    // `pa`'s, and golden keeps `work@v1q.HIT` (the copy of
+                    // `pb::HIT`) TAGGED while the bare-name test flattens it.
+                    // Arm `v7.sv` is the second face: an UNQUALIFIED select of
+                    // an IMPORT COPY inside another package (`CFGY.a` written
+                    // in `pd`) reduces THAT copy — golden flattens
+                    // `work@v7d.CFGY` and keeps `work@v7q.CFGY` (the declaring
+                    // package `pc`'s own copy) TAGGED — while a SCOPED
+                    // `pc::CFGX.a` written in `pd` reduces `pc`'s own
+                    // `param_assign` and golden flattens `work@v7q.CFGX`.  So
+                    // the predicate is "a select resolving to THIS package's
+                    // param_assign, written in some package scope": unqualified
+                    // inside the declaring package, or spelled `pkg::NAME.` in
+                    // any package.  Both the corpus witnesses satisfy it —
+                    // `iface_zero_width_field`'s `p::B` is selected in `p`, and
+                    // BlackBePipeInt's `bp_default_cfg_p` / `bp_unicore_cfg_p`
+                    // are declared AND selected inside `bp_common_pkg`.
+                    const Symbol* homePkg60 = nullptr;
+                    for (auto* hs60 = ps.getParentScope(); hs60;) {
+                        auto& hsym60 = hs60->asSymbol();
+                        if (hsym60.kind == SymbolKind::Package) {
+                            homePkg60 = &hsym60;
+                            break;
+                        }
+                        hs60 = hsym60.getParentScope();
+                    }
+                    if (!inPackage && isImported && defViewOrig9 && !funcScope &&
+                        (pctS.kind == SymbolKind::PackedStructType ||
+                         pctS.kind == SymbolKind::UnpackedStructType) &&
+                        k0 == ExpressionKind::StructuredAssignmentPattern &&
+                        upe49 &&
+                        upe49->kind ==
+                            ExpressionKind::StructuredAssignmentPattern &&
+                        !patParamPatElem26v(*upe49) &&
+                        !structHasSymbolicMemberDim(pctS) && homePkg60 &&
+                        hasMemberSelectOfInPkg(homePkg60->name, ps.name)) {
+                        auto& sapI60 =
+                            upe49->as<StructuredAssignmentPatternExpression>();
+                        bool ok60 = sapI60.typeSetters.empty() &&
+                                    sapI60.indexSetters.empty();
+                        // § packedTimeMemberDeclined60v (r11v60) — the
+                        // non-integral / `time` fence runs over BOTH packings.
+                        // r11u49 scoped it to the unpacked struct because "a
+                        // packed struct's fields are integral by construction",
+                        // which is true and beside the point: `time` IS
+                        // integral, it is legal in a packed struct, and golden
+                        // declines it there too.  Verifier arm `v2.sv` —
+                        // `struct packed { time t; logic [31:0] a; }`,
+                        // package-selected, imported: golden keeps
+                        // `work@v2q.TPK` TAGGED and flattens its plain packed
+                        // sibling `work@v2q.CPK`.  Without this the law
+                        // flattened TPK with the `time` operand still at 64.
+                        if (ok60)
+                            for (auto& fld60 :
+                                 (pctS.kind == SymbolKind::PackedStructType
+                                      ? (const Scope&)
+                                            pctS.as<PackedStructType>()
+                                      : (const Scope&)
+                                            pctS.as<UnpackedStructType>())
+                                     .membersOfType<FieldSymbol>()) {
+                                auto& ft60 =
+                                    fld60.getType().getCanonicalType();
+                                if (!ft60.isIntegral() ||
+                                    (ft60.kind ==
+                                         SymbolKind::PredefinedIntegerType &&
+                                     ft60.as<PredefinedIntegerType>()
+                                             .integerKind ==
+                                         PredefinedIntegerType::Time)) {
+                                    ok60 = false;
+                                    break;
+                                }
+                            }
+                        impPkgSelFlat60 = ok60;
+                    }
                 }
                 // § modDefReExportPat — record this PACKAGE DEF listing's
                 // tagged-vs-flat verdict, and replay it in the module import
@@ -13433,8 +13597,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         defInstantiatedAsArray(ob0->getDefinition()))
                         ifaceArrayDefFold = true;
                 }
-                if (structPat && (topView || ifaceArrayDefFold) &&
-                    !structWidePkg && !structModDefTagged9) {
+                // § modDefImportPkgSelFlat60 — the import-copy face enters the
+                // SAME flat walk (decoded above).  It is a separate disjunct,
+                // not a widening of `structPat`: the unpacked admission
+                // `unpPkgPat49` is deliberately `inPackage`-only (widening it
+                // would double-emit on the elaborated module road, r11u49 arms
+                // `a2`/`a6`), and `structModDefTagged9` must keep holding every
+                // import copy the package never selected.
+                if ((structPat && (topView || ifaceArrayDefFold) &&
+                     !structWidePkg && !structModDefTagged9) ||
+                    impPkgSelFlat60) {
                     auto& pctS = ps.getType().getCanonicalType();
                     // An OVERRIDE by a param REFERENCE substitutes the
                     // REFERENCED param's pattern, anchored at the override site.

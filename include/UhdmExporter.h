@@ -3620,6 +3620,17 @@ private:
     bool hasMemberSelectOf(std::string_view name);
     std::set<std::string> memberSelectBases;
     bool memberSelectBasesBuilt = false;
+    /// § importCopyDeclPkgSelect60v (r11v60) — the DECLARING-PACKAGE-RESOLVED
+    /// sibling of `hasMemberSelectOf`, for the MATERIALIZED IMPORT COPY face.
+    /// True when a member select that resolves to `<pkg>::<name>`'s OWN
+    /// `param_assign` is written in some PACKAGE scope (never a class body):
+    /// either UNQUALIFIED inside `pkg` itself, or spelled `pkg::name.member`
+    /// inside any package.  A select of the same bare NAME written in a
+    /// DIFFERENT package — whether it is that package's own same-named
+    /// parameter or its own IMPORT COPY — reduces THAT object, not this one,
+    /// and golden keeps this copy tagged.  Measured: `v1.sv`, `v7.sv`.
+    bool hasMemberSelectOfInPkg(std::string_view pkg, std::string_view name);
+    std::set<std::string> memberSelectPkgBases;
     /// True when `(<name>)'(x)` appears anywhere: a PARENTHESIZED parameter
     /// size cast reuses the referenced parameter's own declaration
     /// int_typespec as the cast target, and Surelog stamps vpiInstance = the

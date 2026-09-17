@@ -1,0 +1,29 @@
+# iface_zero_width_field, TESTFLAGS mode, verified binary.
+# NOTE (r11v60): in TESTFLAGS mode this row's head is NOT the R0 cell — it is a
+# design-level uhdmallPackages VECTOR-SIZE head (the SafeCompare vector overload
+# sets BOTH containers), present and IDENTICAL on the pristine and the verified
+# binary, and it MASKS the p::B cell in that mode.  6064 lines total; the head
+# object is the first block, reproduced here.  The DEFAULT-mode files carry the
+# R0 head and its clearance.
+# grep -c '^LHS:' = 1
+
+LHS:
+decompile:
+design: (work@top), id:1014
+|vpiName:work@top
+|uhdmallPackages:
+\_package: builtin (builtin::), id:1015
+  |vpiParent:
+  \_design: (work@top), id:1014
+  |vpiName:builtin
+  |vpiFullName:builtin::
+  |vpiDefName:builtin
+|uhdmallPackages:
+\_package: p (p::), id:252, file:/home/heyfey/git-repos/uhdm2rtlil/test/iface_zero_width_field/dut.sv, line:6:1, endln:18:11
+  |vpiParent:
+  \_design: (work@top), id:1014
+  |vpiName:p
+  |vpiFullName:p::
+  |vpiParameter:
+  \_parameter: (p::B), id:263, line:8:20, endln:8:21
+    |vpiParent:

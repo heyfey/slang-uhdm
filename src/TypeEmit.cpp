@@ -8545,10 +8545,55 @@ bool UhdmExporter::hasMemberSelectOf(std::string_view name) {
                                        .identifier.valueText());
             return {};
         };
+        // § importCopyDeclPkgSelect60v (r11v60) — the same walk, keeping the
+        // QUALIFIER as well as the base: `pc::CFGX.a` keys on ("pc","CFGX"),
+        // a bare `CFGY.a` on ("", "CFGY") which the caller resolves against
+        // the package the select is WRITTEN IN.
+        auto qualBase =
+            [](const syntax::SyntaxNode* b) -> std::pair<std::string, std::string> {
+            std::string q;
+            for (int g = 0; g < 8 && b && b->kind == syntax::SyntaxKind::ScopedName;
+                 ++g) {
+                auto& sn = b->as<syntax::ScopedNameSyntax>();
+                q.clear();
+                if (sn.separator.kind == parsing::TokenKind::DoubleColon &&
+                    sn.left->kind == syntax::SyntaxKind::IdentifierName)
+                    q = std::string(sn.left->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText());
+                b = sn.right;
+            }
+            if (b && b->kind == syntax::SyntaxKind::IdentifierName)
+                return {q, std::string(b->as<syntax::IdentifierNameSyntax>()
+                                           .identifier.valueText())};
+            return {};
+        };
+        auto note = [&](const syntax::SyntaxNode* left,
+                        const std::string& pkgName) {
+            auto [q, n] = qualBase(left);
+            if (n.empty())
+                return;
+            memberSelectBases.insert(n);
+            // Only a select that resolves to THIS package's own object: bare,
+            // or the package's own name.  A `pc::X.a` written in `pd` DOES
+            // reduce `pc`'s param_assign (golden flattens `work@v7q.CFGX`, the
+            // copy in a module importing `pc`), but the copy a module that
+            // imports `pd` carries is TAGGED in golden — the clone it is taken
+            // from is `pd`'s ELABORATED one, which the reduce never reached.
+            // One trigger cannot answer both, so the cross-package SCOPED
+            // spelling is declined outright (v7q.CFGX stays STILL-WRONG, a
+            // recorded residue) rather than modelled wrong at either face.
+            if (q.empty() || q == pkgName)
+                memberSelectPkgBases.insert(pkgName + "::" + n);
+        };
         auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
-                        bool inParamDecl, bool inPkg) -> void {
-            if (node.kind == syntax::SyntaxKind::PackageDeclaration)
+                        bool inParamDecl, bool inPkg,
+                        std::string pkgName) -> void {
+            if (node.kind == syntax::SyntaxKind::PackageDeclaration) {
                 inPkg = true;
+                pkgName =
+                    std::string(node.as<syntax::ModuleDeclarationSyntax>()
+                                    .header->name.valueText());
+            }
             if (node.kind == syntax::SyntaxKind::ParameterDeclaration)
                 inParamDecl = true;
             // § pkgClassBodySelectDeclined49v (r11v49) — ...but NOT a select
@@ -8578,27 +8623,37 @@ bool UhdmExporter::hasMemberSelectOf(std::string_view name) {
             (void)inParamDecl;
             if (inPkg) {
                 if (node.kind == syntax::SyntaxKind::MemberAccessExpression) {
-                    if (auto n = baseName(
-                            node.as<syntax::MemberAccessExpressionSyntax>()
-                                .left);
-                        !n.empty())
-                        memberSelectBases.insert(n);
+                    note(node.as<syntax::MemberAccessExpressionSyntax>().left,
+                         pkgName);
                 }
                 else if (node.kind == syntax::SyntaxKind::ScopedName) {
                     auto& sn = node.as<syntax::ScopedNameSyntax>();
                     if (sn.separator.kind == parsing::TokenKind::Dot)
-                        if (auto n = baseName(sn.left); !n.empty())
-                            memberSelectBases.insert(n);
+                        note(sn.left, pkgName);
                 }
             }
             for (size_t i = 0, n = node.getChildCount(); i < n; i++)
                 if (auto* ch = node.childNode(i))
-                    self(self, *ch, inParamDecl, inPkg);
+                    self(self, *ch, inParamDecl, inPkg, pkgName);
         };
+        (void)baseName;
         for (auto& tree : comp.getSyntaxTrees())
-            scan(scan, tree->root(), false, false);
+            scan(scan, tree->root(), false, false, std::string());
     }
     return memberSelectBases.count(std::string(name)) > 0;
+}
+
+// § importCopyDeclPkgSelect60v (r11v60) — see the declaration in
+// UhdmExporter.h.  Shares the one scan `hasMemberSelectOf` builds, so the
+// class fence and the package-scope restriction are the same object.
+bool UhdmExporter::hasMemberSelectOfInPkg(std::string_view pkg,
+                                          std::string_view name) {
+    if (pkg.empty() || name.empty())
+        return false;
+    if (!memberSelectBasesBuilt)
+        (void)hasMemberSelectOf(name);
+    return memberSelectPkgBases.count(std::string(pkg) + "::" +
+                                      std::string(name)) > 0;
 }
 
 // Packed struct typespec: typespec_members with member-type Ref locations
