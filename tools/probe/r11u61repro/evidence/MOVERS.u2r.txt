@@ -1,0 +1,18 @@
+# r11u61 — the u2r byte movers, attributed (ORDER-BLIND, path-normalised)
+
+MOVERS 6 / 1608 (byteverify SELFCHECK=1):
+  iface_zero_width_field default + testflags   -- the law's cells, the CONVERSION
+  rp32_r5p_alu           default + testflags   -- byte ORDER only
+  rp32_r5p_wbu           default + testflags   -- byte ORDER only
+
+## iface_zero_width_field, pristine -> law, sorted path-normalised dump diff
+     12 < |vpiSize:64
+     12 > |vpiSize:32
+   -- and nothing else, in EITHER mode.  Golden carries 12 more |vpiSize:32
+   lines than the pristine binary in this listing, so all 12 move TO GOLDEN.
+
+## rp32_r5p_alu / rp32_r5p_wbu, pristine -> law
+   order-blind diff = 0 lines in BOTH modes on BOTH tests: the databases are
+   CONTENT-IDENTICAL and only the serialisation ORDER moved (the walk mints
+   its operand constants in a different order).  Both rows are CMP_EQUAL on
+   the pristine sweep and on the patched sweep alike.

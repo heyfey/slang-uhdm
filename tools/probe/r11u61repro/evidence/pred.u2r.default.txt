@@ -1,0 +1,83 @@
+NOTE DpiChandle default NOFILE
+NOTE EnumBases default NOFILE
+NOTE EnumMultirange default NOFILE
+NOTE EnumParameterInNestedModules default NOFILE
+NOTE EnumVariantInPackage default NOFILE
+NOTE EscapedIdentifiersInHierPath default NOFILE
+NOTE FunctionOutputArgument default NOFILE
+NOTE ImportFunction default NOFILE
+NOTE ImportPackageWithFunction default NOFILE
+NOTE LargeModuleParameter default NOFILE
+NOTE NegationAsParameterOfInstance default NOFILE
+NOTE ParameterRangeUsingDot default NOFILE
+NOTE PatternType default NOFILE
+NOTE ReadmemhInGenblock default NOFILE
+NOTE StreamOpInitialAlways default NOFILE
+NOTE StructParameterInGenScope default NOFILE
+NOTE TaskOutputArgument default NOFILE
+NOTE TypedefAlias default NOFILE
+NOTE UnionInPackageWithMultirange default NOFILE
+NOTE VoidFunction2Returns default NOFILE
+NOTE bitwise_operations default NOFILE
+NOTE bitwise_operations_reverted_range default NOFILE
+NOTE conditional_if default NOFILE
+NOTE custom_map_incomp default NOFILE
+NOTE fib default NOFILE
+NOTE func_width_scope default NOFILE
+NOTE genvar_loop_decl_1 default NOFILE
+NOTE hello-uvm default NOFILE
+NOTE ibex_controller default NOFILE
+NOTE ibex_core default NOFILE
+NOTE ibex_cs_registers default NOFILE
+NOTE ibex_dummy_instr default NOFILE
+NOTE ibex_ex_block default NOFILE
+NOTE ibex_id_stage default NOFILE
+NOTE ibex_if_stage default NOFILE
+NOTE ibex_lockstep default NOFILE
+NOTE ibex_prefetch_buffer default NOFILE
+NOTE ibex_register_file_latch default NOFILE
+NOTE ibex_top default NOFILE
+NOTE ibex_top_tracing default NOFILE
+NOTE iface_modport_passthrough default NOFILE
+PRED iface_nested_param_field           uhdmtopModules    work@iface_nested_param_field.s.CFG line:8:36
+PRED iface_nested_param_field           uhdmtopModules    work@iface_nested_param_field.u.sub.CFG line:8:36
+NOTE iface_port_localparam default NOFILE
+PRED iface_scalar_localparam            uhdmtopModules    work@iface_scalar_localparam.s.CFG line:6:36
+PRED iface_scalar_localparam            uhdmtopModules    work@iface_scalar_localparam.u.sub.CFG line:6:36
+PRED iface_struct_field_partsel         uhdmtopModules    work@iface_struct_field_partsel.s.CFG line:10:36
+PRED iface_struct_field_partsel         uhdmtopModules    work@iface_struct_field_partsel.u.sub.CFG line:10:36
+PRED iface_zero_width_field             uhdmtopModules    work@top.B                       line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.a.B                     line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.b.B                     line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.u.B                     line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.u.sub.B                 line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.u.man.B                 line:8:20
+NOTE initval default NOFILE
+NOTE logic_ops default NOFILE
+NOTE module_scope_func default NOFILE
+NOTE port_sign_extend default NOFILE
+NOTE rand_const default NOFILE
+NOTE reg_wire_error default NOFILE
+PRED rp32_r5p_alu                       uhdmtopModules    work@r5p_alu_dec_wrap.ISA        line:18:20
+NOTE rp32_r5p_csr default NOFILE
+NOTE rp32_r5p_degu default NOFILE
+NOTE rp32_r5p_degu_soc_top default NOFILE
+NOTE rp32_r5p_hamster default NOFILE
+NOTE rp32_r5p_mouse_soc_top default NOFILE
+PRED rp32_r5p_wbu                       uhdmtopModules    work@r5p_wbu_dec_wrap.ISA        line:21:20
+NOTE rp32_soc_vfriendly default NOFILE
+NOTE simple_abc9 default NOFILE
+NOTE sizebits default NOFILE
+NOTE struct_negative_index default NOFILE
+NOTE struct_sizebits default NOFILE
+NOTE struct_unpacked_array_member default NOFILE
+NOTE svinterface1 default NOFILE
+NOTE svinterface_at_top default NOFILE
+NOTE svtypes_enum_simple default NOFILE
+NOTE svtypes_struct_array default NOFILE
+NOTE synthesis default NOFILE
+NOTE union4_repro default NOFILE
+NOTE various_port_sign_extend default NOFILE
+NOTE various_struct_access default NOFILE
+== /tmp/r11u61_wd/u2rP default: CANDIDATE ELAB struct-op cells=184  PREDICTED=14 cells on 6 tests
+== PREDICTED TESTS: iface_nested_param_field iface_scalar_localparam iface_struct_field_partsel iface_zero_width_field rp32_r5p_alu rp32_r5p_wbu

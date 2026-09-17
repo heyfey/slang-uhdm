@@ -1,0 +1,33 @@
+=== MiniAmiq default   cwd=/home/heyfey/git-repos/Surelog/third_party/tests/MiniAmiq
+    sweep pristine: 27419f6011b4 18852277 B
+    sweep patched : 4362fccdfb85 18852279 B
+    PRISTINE re-draw 1: 5a2e87045ac5 18852322 B  rc=0
+    PRISTINE re-draw 2: 2b821b6d1086 18852279 B  rc=0
+    PRISTINE re-draw 3: e2fa1b202869 18852279 B  rc=0
+=== Scoreboard default   cwd=/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard
+    sweep pristine: e70775324004 11163535 B
+    sweep patched : 1621aec6c9f3 11163535 B
+    PRISTINE re-draw 1: 1621aec6c9f3 11163535 B  rc=0
+    PRISTINE re-draw 2: e70775324004 11163535 B  rc=0
+    PRISTINE re-draw 3: 1621aec6c9f3 11163535 B  rc=0
+=== SeqDriver default   cwd=/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver
+    sweep pristine: a0b13f91d5d2 18074279 B
+    sweep patched : c8386fc2d7af 18074292 B
+    PRISTINE re-draw 1: cdd937c42903 18074291 B  rc=0
+    PRISTINE re-draw 2: 3ef032bf4e46 18074291 B  rc=0
+    PRISTINE re-draw 3: a41bc97f8cc7 18074292 B  rc=0
+
+## the ORDER-BLIND, path-normalised sorted-dump diff of each mover
+  default/MiniAmiq     4 lines   |UINT:0    <-> |UINT:879   (+ vpiDecompile)
+  default/Scoreboard   0 lines   (the documented 0-line order draw)
+  default/SeqDriver    4 lines   |UINT:748  <-> |UINT:1356  (+ vpiDecompile)
+  testflags/MiniAmiq   4 lines   |UINT:1045 <-> |UINT:924   (+ vpiDecompile)
+
+Every one is the documented 0-or-4-line UINT/vpiDecompile line-number class,
+and every one is RE-DRAWN from the UNCHANGED PRISTINE binary above rather
+than asserted: Scoreboard/default's PRISTINE re-draws produce BOTH the
+sweep-pristine hash e70775324004 AND the sweep-patched hash 1621aec6c9f3,
+and MiniAmiq/SeqDriver give three different hashes and up to three different
+SIZES from three runs of one unchanged binary.
+Their STATUS is CMP_EQUAL in both modes on both sweeps, and rowheads reads
+0 cmp lines / 0 heads / rc=0 for every one of them on the patched workdir.

@@ -1,0 +1,76 @@
+NOTE DpiChandle testflags NOFILE-O
+NOTE EnumBases testflags NOFILE-O
+NOTE EnumMultirange testflags NOFILE-O
+NOTE EnumParameterInNestedModules testflags NOFILE-O
+NOTE EnumVariantInPackage testflags NOFILE-O
+NOTE EscapedIdentifiersInHierPath testflags NOFILE-O
+NOTE FunctionOutputArgument testflags NOFILE-O
+NOTE ImportFunction testflags NOFILE-O
+NOTE ImportPackageWithFunction testflags NOFILE-O
+NOTE LargeModuleParameter testflags NOFILE-O
+NOTE NegationAsParameterOfInstance testflags NOFILE-O
+NOTE ParameterRangeUsingDot testflags NOFILE-O
+NOTE PatternType testflags NOFILE-O
+NOTE ReadmemhInGenblock testflags NOFILE-O
+NOTE StreamOpInitialAlways testflags NOFILE-O
+NOTE StructParameterInGenScope testflags NOFILE-O
+NOTE TaskOutputArgument testflags NOFILE-O
+NOTE TypedefAlias testflags NOFILE-O
+NOTE UnionInPackageWithMultirange testflags NOFILE-O
+NOTE VoidFunction2Returns testflags NOFILE-O
+NOTE bitwise_operations testflags NOFILE-O
+NOTE bitwise_operations_reverted_range testflags NOFILE-O
+NOTE conditional_if testflags NOFILE-O
+NOTE custom_map_incomp testflags NOFILE-O
+LAWCELL cva6_struct_param_field            uhdmtopModules    work@cva6_struct_param_field.I line:29:19     golden=['op=75 ts=struct_typespec() ops=[op67 op67]'] ours=['op=75 ts=struct_typespec() ops=[const/64@9=UINT:1 const/64@9=UINT:2]']
+NOTE fib testflags NOFILE-O
+NOTE func_width_scope testflags NOFILE-O
+NOTE genvar_loop_decl_1 testflags NOFILE-O
+NOTE hello-uvm testflags NOFILE-O
+NOTE ibex_controller testflags NOFILE-O
+NOTE ibex_core testflags NOFILE-O
+NOTE ibex_cs_registers testflags NOFILE-O
+NOTE ibex_dummy_instr testflags NOFILE-O
+NOTE ibex_ex_block testflags NOFILE-O
+NOTE ibex_id_stage testflags NOFILE-O
+NOTE ibex_if_stage testflags NOFILE-O
+NOTE ibex_lockstep testflags NOFILE-O
+NOTE ibex_prefetch_buffer testflags NOFILE-O
+NOTE ibex_register_file_latch testflags NOFILE-O
+NOTE ibex_top testflags NOFILE-O
+NOTE ibex_top_tracing testflags NOFILE-O
+NOTE iface_modport_passthrough testflags NOFILE-O
+NOTE iface_port_localparam testflags NOFILE-O
+LAWCELL iface_zero_width_field             uhdmtopModules    work@top.B                     line:8:20      golden=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/32@9=UINT:8 const/32@9=UINT:0]'] ours=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/64@9=UINT:8 const/64@9=UINT:0]']
+LAWCELL iface_zero_width_field             uhdmtopModules    work@top.a.B                   line:8:20      golden=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/32@9=UINT:8 const/32@9=UINT:0]'] ours=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/64@9=UINT:8 const/64@9=UINT:0]']
+LAWCELL iface_zero_width_field             uhdmtopModules    work@top.b.B                   line:8:20      golden=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/32@9=UINT:8 const/32@9=UINT:0]'] ours=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/64@9=UINT:8 const/64@9=UINT:0]']
+LAWCELL iface_zero_width_field             uhdmtopModules    work@top.u.B                   line:8:20      golden=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/32@9=UINT:8 const/32@9=UINT:0]'] ours=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/64@9=UINT:8 const/64@9=UINT:0]']
+LAWCELL iface_zero_width_field             uhdmtopModules    work@top.u.man.B               line:8:20      golden=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/32@9=UINT:8 const/32@9=UINT:0]'] ours=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/64@9=UINT:8 const/64@9=UINT:0]']
+LAWCELL iface_zero_width_field             uhdmtopModules    work@top.u.sub.B               line:8:20      golden=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/32@9=UINT:8 const/32@9=UINT:0]'] ours=['op=75 ts=struct_typespec(p::bus_t) ops=[const/32@9=UINT:0 const/64@9=UINT:8 const/64@9=UINT:0]']
+NOTE initval testflags NOFILE-O
+NOTE logic_ops testflags NOFILE-O
+NOTE module_scope_func testflags NOFILE-O
+NOTE port_sign_extend testflags NOFILE-O
+NOTE rand_const testflags NOFILE-O
+NOTE reg_wire_error testflags NOFILE-O
+NOTE rp32_r5p_csr testflags NOFILE-O
+NOTE rp32_r5p_degu testflags NOFILE-O
+NOTE rp32_r5p_degu_soc_top testflags NOFILE-O
+NOTE rp32_r5p_hamster testflags NOFILE-O
+NOTE rp32_r5p_mouse_soc_top testflags NOFILE-O
+NOTE rp32_soc_vfriendly testflags NOFILE-O
+NOTE simple_abc9 testflags NOFILE-O
+NOTE sizebits testflags NOFILE-O
+NOTE struct_negative_index testflags NOFILE-O
+NOTE struct_sizebits testflags NOFILE-O
+NOTE struct_unpacked_array_member testflags NOFILE-O
+NOTE svinterface1 testflags NOFILE-O
+NOTE svinterface_at_top testflags NOFILE-O
+NOTE svtypes_enum_simple testflags NOFILE-O
+NOTE svtypes_struct_array testflags NOFILE-O
+NOTE synthesis testflags NOFILE-O
+NOTE union4_repro testflags NOFILE-O
+NOTE various_port_sign_extend testflags NOFILE-O
+NOTE various_struct_access testflags NOFILE-O
+== /tmp/r11u61_wd/u2rP testflags: ALLCTRL(golden typed-flat, every listing)=227  GCTRL(golden typed-flat, ELAB listings)=219  LAWCELLS=7 on 2 tests  RISK(must not move)=447
+== LAW TESTS: cva6_struct_param_field iface_zero_width_field

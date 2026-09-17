@@ -1,0 +1,120 @@
+  TO           uhdmtopModules   work@h1.K                    line:10:17    
+       golden ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+  TO           uhdmtopModules   work@h1.M                    line:29:17    
+       golden ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:7 const/32@9=UINT:8 const/32@9=UINT:9]']
+       pris   ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:7 const/64@9=UINT:8 const/64@9=UINT:9]']
+       law    ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:7 const/32@9=UINT:8 const/32@9=UINT:9]']
+  TO           uhdmtopModules   work@h1.a.K                  line:10:17    
+       golden ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+  TO           uhdmtopModules   work@h1.b.K                  line:10:17    
+       golden ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+  TO           uhdmtopModules   work@h1.u.K                  line:10:17    
+       golden ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+  TO           uhdmtopModules   work@h1.u.L                  line:24:17    
+       golden ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:4 const/32@9=UINT:5 const/32@9=UINT:6]']
+       pris   ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:4 const/64@9=UINT:5 const/64@9=UINT:6]']
+       law    ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:4 const/32@9=UINT:5 const/32@9=UINT:6]']
+  TO           uhdmtopModules   work@h1.v.K                  line:10:17    
+       golden ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:1 const/32@9=UINT:2 const/32@9=UINT:3]']
+  TO           uhdmtopModules   work@h1.v.L                  line:24:17    
+       golden ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:4 const/32@9=UINT:5 const/32@9=UINT:6]']
+       pris   ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:4 const/64@9=UINT:5 const/64@9=UINT:6]']
+       law    ['op=75 ts=struct_typespec(p1::t1) ops=[const/32@9=UINT:4 const/32@9=UINT:5 const/32@9=UINT:6]']
+ARM h1   TO 8   AWAY 0   MOVED-WRONG 0   STILL 0   SAME 10  MISSING 0
+  STILL        uhdmtopModules   work@h2.WCAT                 line:22:19     golden=['op=75 ts=struct_typespec(s2_t) ops=[const/4@9=UINT:1 const/12@3=BIN:10100101 const/33@9=UINT:2 const/6@9=UINT:3]'] ours=['op=75 ts=struct_typespec(s2_t) ops=[const/4@9=UINT:1 const/12@3=BIN:000010100101 const/33@9=UINT:2 const/6@9=UINT:3]']
+  STILL        uhdmtopModules   work@h2.WREP                 line:24:19     golden=['op=75 ts=struct_typespec(s2_t) ops=[const/4@9=UINT:1 const/12@9=UINT:2 const/33@3=BIN:111 const/6@9=UINT:4]'] ours=['op=75 ts=struct_typespec(s2_t) ops=[const/4@9=UINT:1 const/12@9=UINT:2 const/33@3=BIN:000000000000000000000000000000111 const/6@9=UINT:4]']
+ARM h2   TO 0   AWAY 0   MOVED-WRONG 0   STILL 2   SAME 12  MISSING 0
+  TO           uhdmtopModules   work@h3.UBASED               line:10:19    
+       golden ['op=75 ts=struct_typespec(u3_t) ops=[const/8@3=BIN:11 const/16@5=HEX:AB const/32@1= const/64@3=BIN:101]']
+       pris   ['op=75 ts=struct_typespec(u3_t) ops=[const/8@3=BIN:11 const/8@5=HEX:AB const/4@1= const/3@3=BIN:101]']
+       law    ['op=75 ts=struct_typespec(u3_t) ops=[const/8@3=BIN:11 const/16@5=HEX:AB const/32@1= const/64@3=BIN:101]']
+  STILL        uhdmtopModules   work@h3.UCAT                 line:12:19     golden=['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@3=BIN:10100101 const/32@9=UINT:2 const/64@9=UINT:3]'] ours=['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 op33 const/64@9=UINT:2 const/64@9=UINT:3]']
+  TO           uhdmtopModules   work@h3.UDEF                 line:14:19    
+       golden ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@9=UINT:0 const/32@9=UINT:0 const/64@9=UINT:0]']
+       pris   ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/64@9=UINT:0]']
+       law    ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@9=UINT:0 const/32@9=UINT:0 const/64@9=UINT:0]']
+  TO           uhdmtopModules   work@h3.UENUM                line:11:19    
+       golden ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@7=INT:9 const/32@9=UINT:2 const/64@7=INT:10]']
+       pris   ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/6@7=INT:9 const/64@9=UINT:2 const/6@7=INT:10]']
+       law    ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@7=INT:9 const/32@9=UINT:2 const/64@7=INT:10]']
+  TO           uhdmtopModules   work@h3.UPLAIN               line:9:19     
+       golden ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3 const/64@9=UINT:4]']
+       pris   ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3 const/64@9=UINT:4]']
+       law    ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3 const/64@9=UINT:4]']
+  TO           uhdmtopModules   work@h3.UPOS                 line:15:19    
+       golden ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3 const/64@9=UINT:4]']
+       pris   ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3 const/64@9=UINT:4]']
+       law    ['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3 const/64@9=UINT:4]']
+  STILL        uhdmtopModules   work@h3.UREP                 line:13:19     golden=['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@3=BIN:111 const/64@9=UINT:4]'] ours=['op=75 ts=struct_typespec(u3_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 op34 const/64@9=UINT:4]']
+ARM h3   TO 5   AWAY 0   MOVED-WRONG 0   STILL 2   SAME 7   MISSING 0
+  MISSING      uhdmtopModules   ?                            line:11:19     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:12:19     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:13:19     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:14:19     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:15:19     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:16:19     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  STILL        uhdmtopModules   work@h4.REAL4                line:12:19     golden=['op=75 ts=struct_typespec(r4_t) ops=[const/8@9=UINT:1 const/32@2=REAL:2.500000 const/64@9=UINT:7]'] ours=['op=75 ts=struct_typespec(r4_t) ops=[const/8@9=UINT:1 const/64@2=REAL:2.500000 const/64@9=UINT:7]']
+ARM h4   TO 0   AWAY 0   MOVED-WRONG 0   STILL 1   SAME 11  MISSING 6
+  MISSING      uhdmtopModules   ?                            line:10:20     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:11:20     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:13:20     g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  TO           uhdmtopModules   work@h5.BOK                  line:14:20    
+       golden ['op=75 ts=struct_typespec(bok_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/16@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(bok_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(bok_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/16@9=UINT:3]']
+  STILL        uhdmtopModules   work@h5.BR                   line:12:20     golden=['op=75 ts=struct_typespec(br_t) ops=[const/8@9=UINT:1 const/32@9=UINT:2 const/16@9=UINT:3]'] ours=['op=75 ts=struct_typespec(br_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+  STILL        uhdmtopModules   work@h5.BW                   line:10:20     golden=['op=75 ts=struct_typespec(bw_t) ops=[const/8@9=UINT:1 const/96@9=UINT:2 const/64@9=UINT:3]'] ours=['op=75 ts=struct_typespec(bw_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+ARM h5   TO 1   AWAY 0   MOVED-WRONG 0   STILL 2   SAME 7   MISSING 3
+  STILL        uhdmallModules   work@h6child.PK              line:7:19      golden=['op=75 ts=- ops=[tagged_pattern tagged_pattern tagged_pattern]'] ours=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+  MISSING      uhdmtopModules   ?                            line:14:47     g=['RHS-NOT-OPERATION'] o=None l=None
+  MISSING      uhdmtopModules   ?                            line:7:19      g=['RHS-NOT-OPERATION', 'RHS-NOT-OPERATION', 'RHS-NOT-OPERATION', 'RHS-NOT-OPERATION'] o=None l=None
+  TO           uhdmtopModules   work@h6.PK                   line:7:19     
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3]']
+  TO           uhdmtopModules   work@h6.TOPL                 line:21:19    
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:13 const/16@9=UINT:14 const/32@9=UINT:15]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:13 const/64@9=UINT:14 const/64@9=UINT:15]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:13 const/16@9=UINT:14 const/32@9=UINT:15]']
+  TO           uhdmtopModules   work@h6.c0.CH                line:16:19    
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:10 const/16@9=UINT:11 const/32@9=UINT:12]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:10 const/64@9=UINT:11 const/64@9=UINT:12]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:10 const/16@9=UINT:11 const/32@9=UINT:12]']
+  TO           uhdmtopModules   work@h6.c0.PK                line:7:19     
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3]']
+  TO           uhdmtopModules   work@h6.c0.PP                line:14:47    
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:7 const/16@9=UINT:8 const/32@9=UINT:9]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:7 const/64@9=UINT:8 const/64@9=UINT:9]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:7 const/16@9=UINT:8 const/32@9=UINT:9]']
+  TO           uhdmtopModules   work@h6.c1.CH                line:16:19    
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:10 const/16@9=UINT:11 const/32@9=UINT:12]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:10 const/64@9=UINT:11 const/64@9=UINT:12]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:10 const/16@9=UINT:11 const/32@9=UINT:12]']
+  TO           uhdmtopModules   work@h6.c1.PK                line:7:19     
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3]']
+  STILL        uhdmtopModules   work@h6.c1.PP                line:14:47     golden=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:16 const/16@9=UINT:17 const/32@9=UINT:18]'] ours=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:7 const/64@9=UINT:8 const/64@9=UINT:9]']
+  MISSING      uhdmtopModules   work@h6.gb[0].GL             line:28:23     g=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:19 const/16@9=UINT:20 const/32@9=UINT:21]'] o=None l=None
+  MISSING      uhdmtopModules   work@h6.gb[1].GL             line:28:23     g=['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:19 const/16@9=UINT:20 const/32@9=UINT:21]'] o=None l=None
+  TO           uhdmtopModules   work@h6.i0.IF                line:11:19    
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:4 const/16@9=UINT:5 const/32@9=UINT:6]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:4 const/64@9=UINT:5 const/64@9=UINT:6]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:4 const/16@9=UINT:5 const/32@9=UINT:6]']
+  TO           uhdmtopModules   work@h6.i0.PK                line:7:19     
+       golden ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3]']
+       pris   ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/64@9=UINT:2 const/64@9=UINT:3]']
+       law    ['op=75 ts=struct_typespec(p6::u6_t) ops=[const/8@9=UINT:1 const/16@9=UINT:2 const/32@9=UINT:3]']
+ARM h6   TO 9   AWAY 0   MOVED-WRONG 0   STILL 2   SAME 8   MISSING 4

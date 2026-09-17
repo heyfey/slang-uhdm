@@ -1,0 +1,83 @@
+NOTE DpiChandle testflags NOFILE
+NOTE EnumBases testflags NOFILE
+NOTE EnumMultirange testflags NOFILE
+NOTE EnumParameterInNestedModules testflags NOFILE
+NOTE EnumVariantInPackage testflags NOFILE
+NOTE EscapedIdentifiersInHierPath testflags NOFILE
+NOTE FunctionOutputArgument testflags NOFILE
+NOTE ImportFunction testflags NOFILE
+NOTE ImportPackageWithFunction testflags NOFILE
+NOTE LargeModuleParameter testflags NOFILE
+NOTE NegationAsParameterOfInstance testflags NOFILE
+NOTE ParameterRangeUsingDot testflags NOFILE
+NOTE PatternType testflags NOFILE
+NOTE ReadmemhInGenblock testflags NOFILE
+NOTE StreamOpInitialAlways testflags NOFILE
+NOTE StructParameterInGenScope testflags NOFILE
+NOTE TaskOutputArgument testflags NOFILE
+NOTE TypedefAlias testflags NOFILE
+NOTE UnionInPackageWithMultirange testflags NOFILE
+NOTE VoidFunction2Returns testflags NOFILE
+NOTE bitwise_operations testflags NOFILE
+NOTE bitwise_operations_reverted_range testflags NOFILE
+NOTE conditional_if testflags NOFILE
+NOTE custom_map_incomp testflags NOFILE
+NOTE fib testflags NOFILE
+NOTE func_width_scope testflags NOFILE
+NOTE genvar_loop_decl_1 testflags NOFILE
+NOTE hello-uvm testflags NOFILE
+NOTE ibex_controller testflags NOFILE
+NOTE ibex_core testflags NOFILE
+NOTE ibex_cs_registers testflags NOFILE
+NOTE ibex_dummy_instr testflags NOFILE
+NOTE ibex_ex_block testflags NOFILE
+NOTE ibex_id_stage testflags NOFILE
+NOTE ibex_if_stage testflags NOFILE
+NOTE ibex_lockstep testflags NOFILE
+NOTE ibex_prefetch_buffer testflags NOFILE
+NOTE ibex_register_file_latch testflags NOFILE
+NOTE ibex_top testflags NOFILE
+NOTE ibex_top_tracing testflags NOFILE
+NOTE iface_modport_passthrough testflags NOFILE
+PRED iface_nested_param_field           uhdmtopModules    work@iface_nested_param_field.s.CFG line:8:36
+PRED iface_nested_param_field           uhdmtopModules    work@iface_nested_param_field.u.sub.CFG line:8:36
+NOTE iface_port_localparam testflags NOFILE
+PRED iface_scalar_localparam            uhdmtopModules    work@iface_scalar_localparam.s.CFG line:6:36
+PRED iface_scalar_localparam            uhdmtopModules    work@iface_scalar_localparam.u.sub.CFG line:6:36
+PRED iface_struct_field_partsel         uhdmtopModules    work@iface_struct_field_partsel.s.CFG line:10:36
+PRED iface_struct_field_partsel         uhdmtopModules    work@iface_struct_field_partsel.u.sub.CFG line:10:36
+PRED iface_zero_width_field             uhdmtopModules    work@top.B                       line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.a.B                     line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.b.B                     line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.u.B                     line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.u.sub.B                 line:8:20
+PRED iface_zero_width_field             uhdmtopModules    work@top.u.man.B                 line:8:20
+NOTE initval testflags NOFILE
+NOTE logic_ops testflags NOFILE
+NOTE module_scope_func testflags NOFILE
+NOTE port_sign_extend testflags NOFILE
+NOTE rand_const testflags NOFILE
+NOTE reg_wire_error testflags NOFILE
+PRED rp32_r5p_alu                       uhdmtopModules    work@r5p_alu_dec_wrap.ISA        line:18:20
+NOTE rp32_r5p_csr testflags NOFILE
+NOTE rp32_r5p_degu testflags NOFILE
+NOTE rp32_r5p_degu_soc_top testflags NOFILE
+NOTE rp32_r5p_hamster testflags NOFILE
+NOTE rp32_r5p_mouse_soc_top testflags NOFILE
+PRED rp32_r5p_wbu                       uhdmtopModules    work@r5p_wbu_dec_wrap.ISA        line:21:20
+NOTE rp32_soc_vfriendly testflags NOFILE
+NOTE simple_abc9 testflags NOFILE
+NOTE sizebits testflags NOFILE
+NOTE struct_negative_index testflags NOFILE
+NOTE struct_sizebits testflags NOFILE
+NOTE struct_unpacked_array_member testflags NOFILE
+NOTE svinterface1 testflags NOFILE
+NOTE svinterface_at_top testflags NOFILE
+NOTE svtypes_enum_simple testflags NOFILE
+NOTE svtypes_struct_array testflags NOFILE
+NOTE synthesis testflags NOFILE
+NOTE union4_repro testflags NOFILE
+NOTE various_port_sign_extend testflags NOFILE
+NOTE various_struct_access testflags NOFILE
+== /tmp/r11u61_wd/u2rP testflags: CANDIDATE ELAB struct-op cells=184  PREDICTED=14 cells on 6 tests
+== PREDICTED TESTS: iface_nested_param_field iface_scalar_localparam iface_struct_field_partsel iface_zero_width_field rp32_r5p_alu rp32_r5p_wbu

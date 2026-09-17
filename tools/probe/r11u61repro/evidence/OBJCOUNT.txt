@@ -1,0 +1,26 @@
+# r11u61 — object-count side effect of routing a cell through the op75 walk
+# (uhdm-dump --stats, which counts OBJECTS, not dump prints)
+
+iface_zero_width_field (the witness), default mode
+  kind              pris   law   golden
+  constant            83    83     81
+  operation           15    15     15
+  param_assign        11    11     11
+  struct_typespec     23    23     27
+  typespec_member     67    67     79
+  int_typespec        66    66     78
+  tagged_pattern       3     3      3
+  ref_typespec       150   156    162     <- +6, TOWARD golden
+
+arm h3.sv (off-corpus)
+  ref_typespec       124   129    112     <- +5, away from golden's count
+  every other kind IDENTICAL on the two binaries
+  (constant 78, operation 27, param_assign 14, struct_typespec 15,
+   tagged_pattern 22, typespec_member 60, int_typespec 24,
+   short_int_typespec 15, long_int_typespec 15)
+
+Nothing is double-emitted: only ref_typespec moves.  The extra object is the
+op75 walk's own `s.MakeRef_typespec()`; the ref built by the road it replaced
+stays in the serializer with no parent in the tree, i.e. in the weakly
+referenced tail the judge never walks.  The row CONVERTS, which demonstrates
+that rather than assuming it.

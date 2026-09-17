@@ -1,0 +1,21 @@
+# r11u61 — the Surelog suite's ONLY a-priori predicted test, and why it does not move
+
+pred61.py names 4 cells on 1 test in BOTH modes:
+PRED InterfaceParamOverrideProp         uhdmtopModules    work@top.CFG_OVR                 line:20:23
+PRED InterfaceParamOverrideProp         uhdmtopModules    work@top.inst.CFG                line:9:36
+PRED InterfaceParamOverrideProp         uhdmtopModules    work@top.u.t.CFG                 line:9:36
+PRED InterfaceParamOverrideProp         uhdmtopModules    work@top.u.u.t.CFG               line:9:36
+
+InterfaceParamOverrideProp/dut.sv:5-7
+  typedef struct { int unsigned DLY; } hsk_t;
+  typedef struct { hsk_t HSK; } cfg_t;
+  localparam cfg_t CFG_DEF = '{HSK: '{DLY: 1}};
+
+TWO INDEPENDENT FENCES decline it:
+  * cfg_t's only member HSK is an UNPACKED STRUCT -> not integral -> declined
+  * the pattern's element '{DLY: 1} is PATTERN-VALUED -> patParamPatElem26v
+
+Measured, patched vs own pristine sweep database:
+  default   SAME 629440ddcde4
+  testflags SAME e242072e9c7c
+and the row is CMP_EQUAL in both modes on both sweeps.

@@ -13102,6 +13102,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // OWN SCOPE member-selects that parameter.  Set below; read by
                 // the flat op75 walk.
                 bool impPkgSelFlat60 = false;
+                // § elabUnpStructOperandWidth61 (r11u61) — THE ELABORATED
+                // MODULE/INTERFACE COPY of an UNPACKED struct pattern param
+                // sizes EVERY operand at its member's width, not just the
+                // first.  Set below; read by the flat op75 walk.
+                bool unpElabFlat61 = false;
                 {
                     auto& pctS = ps.getType().getCanonicalType();
                     auto k0 = structOvPat  ? structOvPat->kind
@@ -13533,6 +13538,252 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                         impPkgSelFlat60 = ok60;
                     }
+                    // § elabUnpStructOperandWidth61 (r11u61) — EVERY OPERAND OF
+                    // A FLAT ELABORATED STRUCT PATTERN IS SIZED AT ITS MEMBER'S
+                    // WIDTH, NOT ONLY THE FIRST.
+                    //
+                    // THE PRODUCER, read in the pinned Surelog v1.87.  An
+                    // instance's parameter whose value is an assignment pattern
+                    // is DEEP-CLONED per instance and then reduced —
+                    // `NetlistElaboration.cpp:262-283`:
+                    //     param_assign* pclone = clone_tree(mod_assign, ...);
+                    //     if (substituteAssignedValue(rhs, ...))
+                    //       rhs = expandPatternAssignment(ts, rhs, mod, ..., instance);
+                    // `substituteAssignedValue`
+                    // (`CompileExpression.cpp:83-105`) answers the command-line
+                    // `parametersubstitution` flag for a pattern op, so the
+                    // reduce runs on EVERY elaborated copy — no member-select,
+                    // scoped-reference or import predicate is involved at this
+                    // face at all.  `expandPatternAssignment`
+                    // (`CompileHelper.cpp:5207`) first FLATTENS
+                    // (`ExprEval::flattenPatternAssignments`, which strips the
+                    // `tagged_pattern` wrappers), and its UNTAGGED arm
+                    // (`CompileHelper.cpp:5409-5441`) then walks the operands:
+                    //     for (any* op : *operands) {
+                    //       expr* vexp = reduceExpr(cop, invalidValue, ...);
+                    //       uint64_t v = eval.get_uvalue(invalidValue, vexp);
+                    //       int32_t csize = adjustOpSize(tps, cop, opIndex, ...);
+                    //       if (invalidValue) { return result; }
+                    //       ... if (shift < 0 || shift >= 64) return result; ...
+                    //       opIndex++;
+                    //     }
+                    // and `adjustOpSize` (`CompileHelper.cpp:5114-5158`) matches
+                    // `index == opIndex` against the struct typespec's MEMBERS
+                    // and writes `cop->VpiSize(Bits(member))`.  So the rule is
+                    // "size operand i at member i's width", for EVERY i up to
+                    // and INCLUDING the first operand that does not reduce.
+                    //
+                    // The committed "a re-emitted OUTERMOST pattern sizes its
+                    // FIRST operand" stamp (`ExprEmit.cpp`, the `reemitting`
+                    // arm) is the SPECIAL CASE of this walk where operand 0 is a
+                    // `hier_path` that never reduces: `adjustOpSize` runs before
+                    // the `invalidValue` bail, so exactly one operand is sized.
+                    // It stays untouched here — this law does not widen it.
+                    //
+                    // WHY ONLY THE UNPACKED STRUCT.  The PACKED struct's
+                    // elaborated copy already reaches the flat op75 walk through
+                    // `structPat`, which sizes every operand; grid arm `h2`
+                    // (four packed members at 4 / 12 / 33 / 6 bits x plain /
+                    // based / enum / concat / replication / default / positional
+                    // values) is byte-identical to golden on the pristine
+                    // binary, every cell.  The UNPACKED twin `h3` (the same
+                    // sweep over `byte` / `shortint` / `int` / `longint`) is
+                    // wrong in EVERY cell: golden folds and sizes
+                    // `8 16 32 64` throughout while the pristine binary leaves
+                    // `8 64 64 64`, keeps a concat as `op33` and a replication
+                    // as `op34`, and keeps a based literal at its source width.
+                    //
+                    // WHAT DECIDES NOTHING, measured.  Arm `h6` carries one
+                    // unpacked struct through an imported package parameter, a
+                    // module localparam, an interface localparam, a parameter
+                    // PORT, an OVERRIDDEN parameter port and two generate-block
+                    // localparams: golden sizes every operand of every one, so
+                    // the holder, the import, the override and the copy count
+                    // are all irrelevant — it is the ELABORATED VIEW alone.
+                    //
+                    // THE FENCES ARE THE BAIL, and arm `h5` measures each one
+                    // with UNBASED literals so "sized at the member width" can
+                    // never be confused with "kept its own":
+                    //   member kinds (byte, X, shortint) x the value `2`
+                    //     X = shortint (the control) -> golden 8 / 16 / 16
+                    //     X = logic [95:0]           -> golden 8 / 96 / 64
+                    //         (sized, then the per-bit loop's `shift >= 64`
+                    //          bails and the THIRD operand keeps 64)
+                    //     X = time                   -> golden 8 / 64 / 64
+                    //     X = string                 -> golden 8 /  8 / 64
+                    //     X = real                   -> golden 8 / 32 / 16
+                    //         (NO bail — but `Bits(real)` is 32, not the 64 a
+                    //          `getBitWidth()` walk would write, so `real` is
+                    //          declined rather than modelled wrong)
+                    // and arm `h4` adds the two nested shapes — a PATTERN-VALUED
+                    // member and an UNPACKED-ARRAY member — where golden keeps
+                    // the inner `op75` as the operand and the walk bails on it,
+                    // which the pristine binary ALREADY matches; both are
+                    // declined so those right cells are never re-emitted.
+                    //
+                    // TWO MORE FENCES, and the ENCODING-VISIBLE grid is what
+                    // found them (a lister that prints only `vpiSize` cannot
+                    // see either):
+                    //   * A CONCATENATION or REPLICATION member value.  Golden
+                    //     keeps the reduce's RAW digit string and only rewrites
+                    //     `vpiSize` — `adjustOpSize` calls `adjustUnsized`,
+                    //     which re-encodes an UNSIZED constant only, then
+                    //     `cop->VpiSize(ncsize)` — so a 12-bit member holding
+                    //     `{4'b1010, 4'b0101}` is `BIN:10100101` AT SIZE 12,
+                    //     eight digits in a twelve-bit constant.  This walk's
+                    //     concat / replication arms write the ZERO-PADDED
+                    //     string (`BIN:000010100101`).  That mismatch is
+                    //     PRE-EXISTING on the packed road — grid `h2`'s `WCAT`
+                    //     and `WREP` carry it identically on the pristine and
+                    //     the law binary — so it is a residue of the walk, not
+                    //     of this law, and the unpacked road is fenced off it
+                    //     rather than joining it (`h3`'s `UCAT` / `UREP` keep
+                    //     the pristine `op33` / `op34` operands).
+                    //   * An OVERRIDDEN parameter.  Grid `h6`'s `c1.PP`
+                    //     (`h6child #(.PP('{b8:16, s16:17, i32:18}))`) shows
+                    //     golden's elaborated copy carrying the OVERRIDE values
+                    //     while both our binaries carry the DEFAULT ones: the
+                    //     substitution of an inline struct-pattern override into
+                    //     the instance copy is a separate, pre-existing gap, and
+                    //     re-sizing the wrong values would be a MOVED-WRONG cell
+                    //     dressed as progress.
+                    if (!inPackage && !funcScope && topView && !defViewOrig9 &&
+                        !overridden &&
+                        pctS.kind == SymbolKind::UnpackedStructType && upe49 &&
+                        (upe49->kind ==
+                             ExpressionKind::StructuredAssignmentPattern ||
+                         upe49->kind ==
+                             ExpressionKind::SimpleAssignmentPattern) &&
+                        !patParamPatElem26v(*upe49)) {
+                        bool ok61 = true;
+                        // § elabUnpStructOperandBail61v (r11v61, the verifier's
+                        // fences) — A NEGATIVE REDUCED OPERAND ENDS THE WALK.
+                        // `expandPatternAssignment`'s loop calls
+                        // `eval.get_uvalue(invalidValue, vexp)` on each reduced
+                        // operand BEFORE the `if (invalidValue) return result;`
+                        // bail, and an UNSIGNED getter handed a reduce that
+                        // produced a NEGATIVE `vpiIntConst` sets that flag: the
+                        // bailing operand is still re-sized (adjustOpSize ran
+                        // first) and EVERY OPERAND AFTER IT KEEPS ITS OWN
+                        // unsized 64 — the same bail shape r11u61's `h5`
+                        // measured for `string` / `time` / >64b and fenced, but
+                        // with a NEGATIVE value, which no arm of that grid
+                        // carried.  Measured on real v1.87 goldens (arms
+                        // v9/v10/v11/v12 of tools/probe/r11v61repro):
+                        //   '{a: -3, b: 2}'   (byte, shortint)
+                        //     golden  const/8 INT:-3   const/64 UINT:2
+                        //     pristine op1              const/64 UINT:2   <- RIGHT
+                        //     r11u61   const/8 UINT:253 const/16 UINT:2   <- WRONG
+                        //   '{a: 1, b: -2, c: 3}' sizes 8 / 8 / 64 in golden,
+                        //   and r11u61 writes 8 / 8 / 8 — operand 3 was right
+                        //   on the PRISTINE binary and is wrong after the law.
+                        // A PASS-THROUGH LITERAL is NOT this case and must not
+                        // be declined: `'{a: 8'shFF, b: 2}` and
+                        // `'{a: 32'hFFFFFFFF, b: 2}` reduce to the literal
+                        // object itself (constType HEX, not INT), `get_uvalue`
+                        // reads them unsigned, the walk COMPLETES, and golden
+                        // sizes both operands (arm v11 `A1`/`A2`/`A3`, all TO
+                        // GOLDEN under this fence).  So the fence keys on "the
+                        // reduce REPLACED the operand", i.e. the element is not
+                        // an integer literal, AND the value is signed-negative.
+                        //
+                        // TWO MORE BAILS OF THE SAME `get_uvalue` TABLE, each
+                        // measured on a real v1.87 golden where the PRISTINE
+                        // binary was ALREADY RIGHT and r11u61 made it wrong:
+                        //   * AN UNKNOWN LEADING DIGIT.  `parseBinary` is a
+                        //     `strtol`-shaped scan, so `BIN:1x01` parses its
+                        //     leading `1` and survives while `BIN:X` has no
+                        //     valid digit at all and returns nullptr ->
+                        //     invalidValue -> bail.  Arm `v13` `Z1`
+                        //     (`'{a: 1'bx, b: 2}`, members `logic[7:0]` /
+                        //     `shortint`): golden AND the pristine binary both
+                        //     write `BIN:X`@8 + `UINT:2`@64, and r11u61 writes
+                        //     the second operand at 16 — an AWAY cell.  The
+                        //     fence declines ANY unknown bit rather than
+                        //     modelling "leading digit", which costs `v13`'s
+                        //     `X1` (a TO cell) and can never mint an AWAY one.
+                        //   * AN EXPLICIT CAST ELEMENT.  Arm `v14` `C1`
+                        //     (`'{a: byte'(7), b: 2}`): golden KEEPS the
+                        //     `op67` cast as the operand and leaves operand 2
+                        //     at 64, and the pristine binary is BYTE-IDENTICAL
+                        //     to it; r11u61 folds the cast to `UINT:7`@8 and
+                        //     re-sizes operand 2 to 16 — both operands AWAY.
+                        //     (Surelog folds a SIZE cast `8'(7)` and an ENUM
+                        //     cast `e_t'(1)` — `v15` `K1`/`K3` — so this fence
+                        //     also declines two cells that were moving TO
+                        //     golden.  A fence that only ever turns the law OFF
+                        //     is the right trade until the cast table is
+                        //     decoded; neither cell exists in either corpus.)
+                        auto bailElem61 = [&](const Expression& e61) {
+                            auto& s61 = stripImplicitConv(e61);
+                            if (s61.kind == ExpressionKind::Conversion &&
+                                !s61.as<ConversionExpression>().isImplicit())
+                                return true;
+                            ASTContext nc61(comp.getRoot(),
+                                            LookupLocation::max);
+                            if (auto uv61 = nc61.tryEval(s61);
+                                uv61 && uv61.isInteger() &&
+                                uv61.integer().hasUnknown())
+                                return true;
+                            if (s61.kind == ExpressionKind::IntegerLiteral)
+                                return false;
+                            auto cv61 = nc61.tryEval(e61);
+                            if (!cv61 || !cv61.isInteger())
+                                return false;
+                            auto& iv61 = cv61.integer();
+                            return iv61.isSigned() && !iv61.hasUnknown() &&
+                                   iv61.isNegative();
+                        };
+                        auto catRep61 = [&](const Expression& e61) {
+                            auto k61 = stripImplicitConv(e61).kind;
+                            return k61 == ExpressionKind::Concatenation ||
+                                   k61 == ExpressionKind::Replication ||
+                                   bailElem61(e61);
+                        };
+                        if (upe49->kind ==
+                            ExpressionKind::StructuredAssignmentPattern) {
+                            auto& sap61 =
+                                upe49->as<StructuredAssignmentPatternExpression>();
+                            ok61 = sap61.typeSetters.empty() &&
+                                   sap61.indexSetters.empty();
+                            if (ok61 && sap61.defaultSetter &&
+                                catRep61(*sap61.defaultSetter))
+                                ok61 = false;
+                            if (ok61)
+                                for (auto& ms61 : sap61.memberSetters)
+                                    if (ms61.expr && catRep61(*ms61.expr)) {
+                                        ok61 = false;
+                                        break;
+                                    }
+                        }
+                        else {
+                            for (auto* el61 :
+                                 upe49->as<SimpleAssignmentPatternExpression>()
+                                     .elements())
+                                if (el61 && catRep61(*el61)) {
+                                    ok61 = false;
+                                    break;
+                                }
+                        }
+                        if (ok61)
+                            for (auto& fld61 :
+                                 ((const Scope&)pctS.as<UnpackedStructType>())
+                                     .membersOfType<FieldSymbol>()) {
+                                auto& ft61 =
+                                    fld61.getType().getCanonicalType();
+                                if (!ft61.isIntegral() ||
+                                    (ft61.kind ==
+                                         SymbolKind::PredefinedIntegerType &&
+                                     ft61.as<PredefinedIntegerType>()
+                                             .integerKind ==
+                                         PredefinedIntegerType::Time) ||
+                                    ft61.getBitWidth() > 64) {
+                                    ok61 = false;
+                                    break;
+                                }
+                            }
+                        unpElabFlat61 = ok61;
+                    }
                 }
                 // § modDefReExportPat — record this PACKAGE DEF listing's
                 // tagged-vs-flat verdict, and replay it in the module import
@@ -13604,9 +13855,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // would double-emit on the elaborated module road, r11u49 arms
                 // `a2`/`a6`), and `structModDefTagged9` must keep holding every
                 // import copy the package never selected.
+                // § elabUnpStructOperandWidth61 — the ELABORATED unpacked-struct
+                // copy enters the SAME flat walk (decoded above).  A third
+                // separate disjunct, for the same reason pass 59's was one:
+                // `unpPkgPat49` stays `inPackage`-only and `structWidePkg` /
+                // `structModDefTagged9` keep deciding the faces they own.
                 if ((structPat && (topView || ifaceArrayDefFold) &&
                      !structWidePkg && !structModDefTagged9) ||
-                    impPkgSelFlat60) {
+                    impPkgSelFlat60 || unpElabFlat61) {
                     auto& pctS = ps.getType().getCanonicalType();
                     // An OVERRIDE by a param REFERENCE substitutes the
                     // REFERENCED param's pattern, anchored at the override site.
@@ -13955,6 +14211,58 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         ec8->VpiSize(
                                             (int32_t)fld.getType().getBitWidth());
                                     opnds->push_back(ec8);
+                                    continue;
+                                }
+                            }
+                        }
+                        // § elabModOwnEnumBinFold61 (r11u61) — ...and at a
+                        // MODULE-OWN site an enum member whose OWN initializer
+                        // is an EXPRESSION has no literal form to substitute,
+                        // so it folds to the BIN STRING AT THE MEMBER WIDTH
+                        // instead.  This is not a new model: it is the
+                        // `enumFold6` form the `reemitting` road in
+                        // `ExprEmit.cpp` already produces for exactly this
+                        // case, and the comment beside it records why —
+                        // rp32's `RV32I = {RV_32I, RV_NONE}` has no literal
+                        // form, `enumConstMap` holds its SOURCE TEXT, and
+                        // handing that back renders `{RV_32I,RV_NONE}` where
+                        // golden wants `23'b01000000000000000000000`.  The
+                        // arm above still owns every PACKAGE / IMPORTED site
+                        // and every literal-form member (grid `h3`'s `UENUM`,
+                        // `F0 = 6'd9`, which golden writes as vpiIntConst 9 at
+                        // the member width and this clause must not touch).
+                        // Without it, routing the elaborated unpacked copy
+                        // through this walk turned `rp32_r5p_alu` and
+                        // `rp32_r5p_wbu` from CMP_EQUAL to CMP_NOTEQUAL in
+                        // both modes — the measured regression that found it.
+                        if (unpElabFlat61 && !inPackage && !isImported &&
+                            se->type && se->type->isIntegral()) {
+                            auto& sev61 = stripImplicitConv(*se);
+                            if (sev61.kind == ExpressionKind::NamedValue &&
+                                sev61.as<NamedValueExpression>().symbol.kind ==
+                                    SymbolKind::EnumValue) {
+                                ASTContext ec61(comp.getRoot(),
+                                                LookupLocation::max);
+                                if (auto cv61 = ec61.tryEval(*se);
+                                    cv61 && cv61.isInteger() &&
+                                    !cv61.integer().hasUnknown()) {
+                                    auto iv61 = cv61.integer();
+                                    int32_t w61 =
+                                        (int32_t)fld.getType().getBitWidth();
+                                    std::string b61;
+                                    for (int32_t i61 = w61 - 1; i61 >= 0; i61--)
+                                        b61 += (iv61[i61] == slang::logic_t(1))
+                                                   ? '1'
+                                                   : '0';
+                                    auto* c61 = s.MakeConstant();
+                                    setLoc(c61, se->sourceRange);
+                                    c61->VpiSize(w61);
+                                    c61->VpiValue("BIN:" + b61);
+                                    c61->VpiConstType(vpiBinaryConst);
+                                    c61->VpiDecompile(std::to_string(w61) +
+                                                      "'b" + b61);
+                                    c61->VpiParent(op2);
+                                    opnds->push_back(c61);
                                     continue;
                                 }
                             }

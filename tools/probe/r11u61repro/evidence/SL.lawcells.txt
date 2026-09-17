@@ -1,0 +1,12 @@
+# r11u61 — the four Surelog-suite census LAWCELLs, by name, on both frozen binaries
+# (patched vs own pristine sweep database, default mode)
+StructParamFieldRange            SAME 794ce35f5738
+StructParamFuncBodyFieldCompare  SAME e0708b2dc3d2
+StructParamPatternInitCast       SAME 54fa0c67e9ca
+ParamNoImport                    SAME 0df53a393bd3
+
+None of the four is this law's cell:
+  ParamNoImport   -- our Rhs is not an operation at all (op=? ts=- ops=[])
+  the other three -- golden keeps a CAST (op67) or an arithmetic op (op29) as
+                     the operand where we fold a constant; the same face as
+                     uhdm2rtlil's cva6_struct_param_field, not this one.

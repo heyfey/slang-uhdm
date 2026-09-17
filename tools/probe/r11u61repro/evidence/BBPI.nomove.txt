@@ -1,0 +1,20 @@
+# r11u61 — BlackBePipeInt predicted NOT to move, and measured NOT to move,
+# BEFORE the patched surelog sweep, with a POSITIVE CONTROL for the instrument.
+
+## the prediction
+BlackBePipeInt's config parameters are declared with
+  bp_common_aviary_cfg_pkgdef.svh:85   typedef struct packed
+so bp_proc_param_s is a PACKED struct and this law (UnpackedStructType only)
+cannot reach one of its cells.  Grid arm h2 shows the packed elaborated road
+already byte-identical to golden in every cell on the PRISTINE binary.
+
+## the measurement (both frozen binaries, the sweep's own command line)
+cd ~/git-repos/Surelog/tests/BlackBePipeInt && <bin> dut.sv --single-unit -o out.uhdm
+  pris.bin  rc=0  md5 0754dbaa7154500d49565ad8407b0006
+  law3.bin  rc=0  md5 0754dbaa7154500d49565ad8407b0006     <- BYTE-IDENTICAL
+
+## POSITIVE CONTROL for the same instrument, same two binaries, arm h3.sv
+  pris.bin  md5 d747b61786c0c5cfc8203ab81c3cf94d
+  law3.bin  md5 64d7e8d959da566a9c455462350d63f6     <- DIFFERENT, so the
+  comparison can see a move; BlackBePipeInt's identity is a fact about the
+  design, not about the method.

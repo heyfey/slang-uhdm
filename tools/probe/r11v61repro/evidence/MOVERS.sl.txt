@@ -1,0 +1,22 @@
+# surelog movers, r11v61 fix.bin vs the verifier's own pristine sweep (5/960) — order-blind
+== default/MiniAmiq-544c7f61 order-blind = 4
+<       |UINT:1061
+>       |UINT:1419
+<       |vpiDecompile:1061
+>       |vpiDecompile:1419
+== default/Scoreboard-59431470 order-blind = 0
+== default/SeqDriver-32af76aa order-blind = 4
+>       |UINT:0
+<       |UINT:887
+>       |vpiDecompile:0
+<       |vpiDecompile:887
+== testflags/MiniAmiq-544c7f61 order-blind = 4
+<       |UINT:0
+>       |UINT:867
+<       |vpiDecompile:0
+>       |vpiDecompile:867
+== testflags/SeqDriver-32af76aa order-blind = 4
+<       |UINT:550
+>       |UINT:982
+<       |vpiDecompile:550
+>       |vpiDecompile:982

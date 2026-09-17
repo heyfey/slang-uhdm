@@ -1,0 +1,26 @@
+# r11u61 — the order-blind residue of iface_zero_width_field, sectioned, before and after
+
+## PRISTINE (2a4ac214), default mode
+PRE                    2
+uhdmallClasses         0
+uhdmallInterfaces      0
+uhdmallModules         0
+uhdmallPackages        0
+uhdmtopModules         520
+uhdmtopPackages        5
+WHOLE(order-blind)     527
+
+## LAW, default mode
+PRE                    2
+uhdmallClasses         0
+uhdmallInterfaces      0
+uhdmallModules         0
+uhdmallPackages        0
+uhdmtopModules         496
+uhdmtopPackages        5
+WHOLE(order-blind)     503
+
+## the uhdmtopModules residue, classified (PRISTINE)
+SIZE 24  CLONE 362  CA 82  PARAM 15  OTHER 37   = 520
+## the uhdmtopModules residue, classified (LAW)
+SIZE  0  CLONE 362  CA 82  PARAM 15  OTHER 37   = 496
