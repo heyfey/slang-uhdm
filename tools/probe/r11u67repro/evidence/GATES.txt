@@ -1,0 +1,49 @@
+# r11u67 GATES — all measured against MY OWN pristine sweeps at 12c6de50.
+
+(1) BUILD.  pristine md5 40563d03c6a4c68ed7192f6bd5657f5e (= the OPS pin, byte-identical
+    to the main tree at 12c6de50); law md5 92000bd6492e4dc376c4650aaad1675a.
+    cmds.txt audit BY BINARY PATH: u2r 1742/1742 and surelog 1531/1531 name the frozen
+    binary of their own sweep, and nothing else.
+
+(2) GOLDENS.   law  PASS=23 FAIL=0 ; pristine PASS=23 ; SLANG_UHDM=/bin/false PASS=0 FAIL=23.
+
+(3) uhdm2rtlil, BOTH MODES: CMP_EQUAL 787 / CMP_NOTEQUAL 17 / SLANG_REJECT 67 each.
+    ct8rows vs results/golden_uhdm2rtlil.csv (both modes joined) : PASS, every row byte-identical.
+    ct8rows vs results/gate_uhdm2rtlil.csv  (testflags)          : PASS.
+    ct8rows law vs my own pristine sweep                          : PASS.
+
+(4) surelog --mode both: default 474 CMP_EQUAL / 9 CMP_NOTEQUAL ; testflags 469 / 8.
+    ct8rows vs results/golden_surelog.csv: 2 differing rows, both QUOTED, neither a status
+    or dump move -- the detail column embeds the WORKDIR PATH:
+      < LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] … "/tmp/m187base/sl/wd/testflags/LowMemLib-…",
+      > LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] … "/tmp/r11u67_wd/law_sl/testflags/LowMemLib-…",
+      < LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] … "/tmp/m187base/sl/wd/testflags/LowMemPkg-…",
+      > LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] … "/tmp/r11u67_wd/law_sl/testflags/LowMemPkg-…",
+    ct8rows law vs my own pristine sweep adds only Earlgrey_0_1's DUMP COLUMN, and it is MY
+    PRISTINE side that drew blank; the law side reads ',,differ' -- exactly the committed
+    baseline row, in both modes.  Status CMP_EQUAL on every side; the database pin is below.
+
+(5) BYTEVERIFY (SELFCHECK=1) vs my own pristine workdirs:
+      uhdm2rtlil MOVERS 0 / 1608   SELFCHECK 1607/1608 flagged
+      surelog    MOVERS 4 / 960    SELFCHECK  959/960  flagged
+    All four named and attributed in MOVERS.attribution.txt (the UVM coin class).
+
+CANARIES
+  canaries.sh  law_sl.csv  vs results/golden_surelog.csv   : ok=52 changed=0 absent=0
+  canaries.sh  law_u2r_tf  vs results/gate_uhdm2rtlil.csv  : ok=8  changed=0 absent=0
+  ctcan2.sh    surelog (EXPECT_UNKNOWN=1)                  : ok=58 changed=0  PASS
+  ctcan2.sh    u2r     (EXPECT_UNKNOWN=6)                  : ok=1  changed=0  PASS
+  canaudit.sh  canaries.sh ctcan2.sh                       : audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+
+PROTECTED DATABASES (md5, law vs my pristine -- IDENTICAL on every one)
+  SVSwitch         default/testflags  4842211c4030  (HARD PIN, both modes)
+  YosysVerx        default/testflags  6ccda350c24a  (HARD PIN, both modes)
+  InterfaceModPort default/testflags  59a365f3ce2c
+  BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5
+  YosysOldOr       default/testflags  d68e0796d62c
+  Earlgrey_0_1     default 8bdf25272e08 / testflags 59d0ee6d10c3
+
+ROWHEADS with the law binary (official uhdm-cmp, one head per run):
+  SeqDriver, SimpleUVM, Scoreboard/default, MiniAmiq, BuildUVMPkg, Earlgrey_0_1 --
+  every row 0 cmp lines, 0 heads, cmp rc=0, in both modes.  Scoreboard/testflags is the
+  expected SKIP-NOFILE.  The CONVERTED UVM family stays CMP_EQUAL.

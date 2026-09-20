@@ -1,0 +1,48 @@
+=== FENCE vs committed golden_surelog.csv
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_fix/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_fix/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+=== FENCE vs my pristine sweep
+---- WHOLE-ROW diff (status AND dump column): 5 differing ROWS (10 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,
+> Earlgrey_0_1,default,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_pris/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_fix/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_pris/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_fix/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+< YosysOpenSparc,default,SURELOG_FAIL,             /home/heyfey/git-repos/Surelog/third_party/tests/YosysOpenSparc/t2.v:428192:9: previous definition.,,
+> YosysOpenSparc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOpenSparc/t2.v:269093:6: error: expected a declaration name,,
+=== FENCE status
+    474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+    469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+=== byteverify surelog FENCE vs pris
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=5ddc9267c30b pristine=ecb765b91548
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=135de15cb2a7 pristine=3c746d5ab065
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=92b75fdeef4d pristine=ac981f275377
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=d7c04c5f17f0
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+=== canaries FENCE
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+=== protected databases (fence vs pristine)
+SVSwitch/default fence=4842211c4030 pris=4842211c4030
+SVSwitch/testflags fence=4842211c4030 pris=4842211c4030
+YosysVerx/default fence=6ccda350c24a pris=6ccda350c24a
+YosysVerx/testflags fence=6ccda350c24a pris=6ccda350c24a
+InterfaceModPort/default fence=59a365f3ce2c pris=59a365f3ce2c
+InterfaceModPort/testflags fence=59a365f3ce2c pris=59a365f3ce2c
+BlackParrotComplex/default fence=e3e354129d5a pris=e3e354129d5a
+BlackParrotComplex/testflags fence=73a10e8217e5 pris=73a10e8217e5
+YosysOldOr/default fence=d68e0796d62c pris=d68e0796d62c
+YosysOldOr/testflags fence=d68e0796d62c pris=d68e0796d62c
+Earlgrey_0_1/default fence=8bdf25272e08 pris=8bdf25272e08
+Earlgrey_0_1/testflags fence=59d0ee6d10c3 pris=59d0ee6d10c3

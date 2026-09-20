@@ -1,0 +1,76 @@
+# r11v67 GATES — every one measured against MY OWN pristine sweeps at 12c6de50.
+
+(1) BUILD.  pristine `40563d03c6a4c68ed7192f6bd5657f5e` (the OPS pin);
+    the implementer's law rebuilt from /tmp/r11u67.patch on a FRESH 12c6de50
+    worktree `92000bd6492e4dc376c4650aaad1675a` (the reported md5, bit-for-bit);
+    the law PLUS this verification's fence `86ff3c2bde71e08ca72788e0cbb859c1`.
+    All three frozen 555 before any sweep.
+    cmds.txt audit BY BINARY PATH, every sweep: u2r 1742 / 1742 and surelog
+    1581 / 1581 name only the frozen binary of their own sweep.
+    /tmp/r11u67.verified.patch applies clean with `git apply` on a FRESH
+    12c6de50 (sources then byte-identical to the verified worktree) and with
+    `git apply -3` on HEAD ff5541cd, 0 conflict markers.  Fence greps on the
+    four slang-fenced names: all 0.
+
+(2) GOLDENS.  fence PASS=23 FAIL=0 ; law PASS=23 FAIL=0 ; pristine PASS=23
+    FAIL=0 ; SLANG_UHDM=/bin/false PASS=0 FAIL=23 (the negative control).
+
+(3) uhdm2rtlil, BOTH MODES, FENCE binary: 787 CMP_EQUAL / 17 CMP_NOTEQUAL /
+    67 SLANG_REJECT in each mode.
+      ct8rows vs results/golden_uhdm2rtlil.csv (both modes joined): PASS,
+        0 differing rows, every row byte-identical.
+      ct8rows vs results/gate_uhdm2rtlil.csv (testflags): PASS, 0 differing rows.
+    The SHIPPED LAW reads the same: 787/17/67, both joins PASS.
+
+(4) surelog --mode both, FENCE binary: default 474 CMP_EQUAL / 9 CMP_NOTEQUAL;
+    testflags 469 / 8 — the committed scoreboard exactly.
+      ct8rows vs results/golden_surelog.csv: 2 differing rows, both QUOTED,
+      neither a status nor a dump move — the detail column embeds the WORKDIR:
+        LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] … "/tmp/m187base/…"
+                                      -> … "/tmp/v11u67_wd/sl_fix/…"
+        LowMemPkg,testflags,SURELOG_FAIL,  (the same substitution)
+      Earlgrey_0_1 reads the committed `,,differ` in BOTH modes on the fence
+      side.  ct8rows FENCE vs MY PRISTINE adds two environment draws that are
+      NOT binary-attributable, each quoted in SLGATES.fence.txt:
+        * Earlgrey_0_1's DUMP COLUMN — my PRISTINE side drew blank in both
+          modes (the documented uhdm-dump timeout draw); both database pins
+          hold byte-identically, and the status is CMP_EQUAL on every side;
+        * YosysOpenSparc/default — my PRISTINE side drew SURELOG_FAIL where
+          the committed baseline and BOTH patched sweeps read SLANG_REJECT.
+          This is the GOLDEN PRODUCER drawing differently under memory
+          pressure (three surelog sweeps ran concurrently); the row is not
+          CMP_EQUAL on any side and no binary can move it.
+      The SHIPPED LAW reads the same statuses; its Earlgrey dump column drew
+      blank instead, which is the same draw wearing the other face.
+
+(5) BYTEVERIFY (SELFCHECK=1) vs my own pristine workdirs, FENCE binary:
+      uhdm2rtlil MOVERS 0 / 1608   SELFCHECK 1607 / 1608 flagged
+      surelog    MOVERS 4 / 960    SELFCHECK  959 / 960  flagged
+    All four are MiniAmiq ×2 and SeqDriver ×2 — inside the documented
+    pristine-nondeterministic UVM family, each exactly 4 order-blind lines of
+    the UINT/vpiDecompile line-number class, with ZERO vpiNetType lines.
+    The SHIPPED LAW measured 5 / 960 (the same four plus Scoreboard/default,
+    0 order-blind lines — the pure ORDER coin).  Attribution and the RUN coin
+    control are in MOVERS.attribution.txt.
+    Every UVM-family row stays CMP_EQUAL in both modes on both patched
+    binaries (MiniAmiq, SeqDriver, SimpleUVM, BuildUVMPkg, Scoreboard/default,
+    Earlgrey_0_1), which is the official uhdm-cmp verdict.
+
+CANARIES (fence)
+  canaries.sh sl_fix.csv  vs results/golden_surelog.csv  : ok=52 changed=0 absent=0
+  canaries.sh u2r_fix_tf  vs results/gate_uhdm2rtlil.csv : ok=8  changed=0 absent=0
+  ctcan2.sh surelog (EXPECT_UNKNOWN=1)                   : PASS
+  ctcan2.sh u2r     (EXPECT_UNKNOWN=6)                   : PASS
+  canaudit.sh canaries.sh ctcan2.sh                      : audited=29 UNCOVERED=0
+                                                           FENCE-BREACH=0 PASS
+  (The shipped law's canaries read ok=50 changed=2, and the two are
+   Earlgrey_0_1's DUMP COLUMN in both modes — the same draw as (4), with the
+   database pins byte-identical.)
+
+PROTECTED DATABASES (md5, fence vs my pristine — IDENTICAL on every one)
+  SVSwitch           default/testflags  4842211c4030   (HARD PIN)
+  YosysVerx          default/testflags  6ccda350c24a   (HARD PIN)
+  InterfaceModPort   default/testflags  59a365f3ce2c
+  BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5
+  YosysOldOr         default/testflags  d68e0796d62c
+  Earlgrey_0_1       default 8bdf25272e08 / testflags 59d0ee6d10c3

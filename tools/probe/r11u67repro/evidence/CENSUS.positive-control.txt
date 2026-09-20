@@ -1,0 +1,55 @@
+# POSITIVE CONTROL for the census instrument: it SEES vpiNetType differences.
+# g1_lawA golden vs PRISTINE:
+NT-DIFF ctl/g1_pris DEF|work@dut|a10|logic_net golden=[0,] ours=[36,] shape=logic_typespec/- tsname=pg1::pv2_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a11|logic_net golden=[0,] ours=[36,] shape=logic_typespec/- tsname=uv2_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a12|logic_net golden=[48,] ours=[0,] shape=logic_typespec/- tsname=rw_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a13|logic_net golden=[48,] ours=[36,] shape=logic_typespec/- tsname=r_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a15|logic_net golden=[1,] ours=[0,] shape=logic_typespec/- tsname=pg1::pw_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a16|logic_net golden=[1,] ours=[0,] shape=logic_typespec/- tsname=uw_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a19|logic_net golden=[2,] ours=[0,] shape=logic_typespec/- tsname=pg1::pw_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a1|logic_net golden=[36,] ours=[0,] shape=logic_typespec/- tsname=w_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a2|logic_net golden=[36,] ours=[0,] shape=logic_typespec/- tsname=w_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a3|logic_net golden=[36,] ours=[0,] shape=logic_typespec/- tsname=w_t
+NT-DIFF ctl/g1_pris DEF|work@dut|a4|logic_net golden=[48,] ours=[0,] shape=logic_typespec/- tsname=rw_t
+ONLY-GOLDEN ctl/g1_pris ELAB|work@dut|a12|logic_net NT=1
+ONLY-GOLDEN ctl/g1_pris ELAB|work@dut|a15|logic_net NT=1
+ONLY-GOLDEN ctl/g1_pris ELAB|work@dut|a16|logic_net NT=1
+ONLY-GOLDEN ctl/g1_pris ELAB|work@dut|a19|logic_net NT=2
+ONLY-GOLDEN ctl/g1_pris ELAB|work@dut|a2|logic_net NT=1
+ONLY-GOLDEN ctl/g1_pris ELAB|work@dut|a3|logic_net NT=2
+ONLY-GOLDEN ctl/g1_pris ELAB|work@dut|a4|logic_net NT=48
+JOIN ctl/g1_pris goldenKeys=33 oursKeys=26 MATCH=15 NT-DIFF=11 ONLY-GOLDEN=7 ONLY-OURS=0
+# g1_lawA golden vs LAW:
+NT-DIFF ctl/g1_law DEF|work@dut|a15|logic_net golden=[1,] ours=[0,] shape=logic_typespec/- tsname=pg1::pw_t
+NT-DIFF ctl/g1_law DEF|work@dut|a16|logic_net golden=[1,] ours=[0,] shape=logic_typespec/- tsname=uw_t
+NT-DIFF ctl/g1_law DEF|work@dut|a19|logic_net golden=[2,] ours=[0,] shape=logic_typespec/- tsname=pg1::pw_t
+ONLY-GOLDEN ctl/g1_law ELAB|work@dut|a12|logic_net NT=1
+ONLY-GOLDEN ctl/g1_law ELAB|work@dut|a15|logic_net NT=1
+ONLY-GOLDEN ctl/g1_law ELAB|work@dut|a16|logic_net NT=1
+ONLY-GOLDEN ctl/g1_law ELAB|work@dut|a19|logic_net NT=2
+ONLY-GOLDEN ctl/g1_law ELAB|work@dut|a2|logic_net NT=1
+ONLY-GOLDEN ctl/g1_law ELAB|work@dut|a3|logic_net NT=2
+ONLY-GOLDEN ctl/g1_law ELAB|work@dut|a4|logic_net NT=48
+JOIN ctl/g1_law goldenKeys=33 oursKeys=26 MATCH=23 NT-DIFF=3 ONLY-GOLDEN=7 ONLY-OURS=0
+# g3_lawC golden vs PRISTINE:
+NT-DIFF ctl/g3_pris DEF|work@ifu|q0|logic_net golden=[0,] ours=[36,] shape=-/- tsname=-
+NT-DIFF ctl/g3_pris DEF|work@ifx|n1|logic_net golden=[36,] ours=[1,] shape=logic_typespec/- tsname=v_t
+NT-DIFF ctl/g3_pris DEF|work@ifx|n2|logic_net golden=[36,] ours=[2,] shape=logic_typespec/- tsname=v_t
+NT-DIFF ctl/g3_pris DEF|work@ifx|n3|logic_net golden=[36,] ours=[3,] shape=logic_typespec/- tsname=v_t
+NT-DIFF ctl/g3_pris DEF|work@ifx|n4|logic_net golden=[36,] ours=[4,] shape=logic_typespec/- tsname=v_t
+NT-DIFF ctl/g3_pris DEF|work@ifx|n5|logic_net golden=[36,] ours=[1,] shape=logic_typespec/- tsname=v_t
+NT-DIFF ctl/g3_pris DEF|work@ifx|n6|logic_net golden=[36,] ours=[2,] shape=logic_typespec/- tsname=v_t
+NT-DIFF ctl/g3_pris DEF|work@ifx|n7|logic_net golden=[48,] ours=[1,] shape=logic_typespec/- tsname=r_t
+NT-DIFF ctl/g3_pris DEF|work@ifx|n8|logic_net golden=[36,] ours=[1,] shape=logic_typespec/- tsname=w_t
+ONLY-GOLDEN ctl/g3_pris ELAB|work@dut/u0|n5|array_net NT=0
+ONLY-GOLDEN ctl/g3_pris ELAB|work@dut/u0|n6|array_net NT=0
+ONLY-OURS ctl/g3_pris ELAB|work@dut/u0|n5|logic_net NT=1
+ONLY-OURS ctl/g3_pris ELAB|work@dut/u0|n6|logic_net NT=2
+JOIN ctl/g3_pris goldenKeys=32 oursKeys=32 MATCH=21 NT-DIFF=9 ONLY-GOLDEN=2 ONLY-OURS=2
+# g3_lawC golden vs LAW:
+NT-DIFF ctl/g3_law DEF|work@ifu|q0|logic_net golden=[0,] ours=[36,] shape=-/- tsname=-
+ONLY-GOLDEN ctl/g3_law ELAB|work@dut/u0|n5|array_net NT=0
+ONLY-GOLDEN ctl/g3_law ELAB|work@dut/u0|n6|array_net NT=0
+ONLY-OURS ctl/g3_law ELAB|work@dut/u0|n5|logic_net NT=1
+ONLY-OURS ctl/g3_law ELAB|work@dut/u0|n6|logic_net NT=2
+JOIN ctl/g3_law goldenKeys=32 oursKeys=32 MATCH=29 NT-DIFF=1 ONLY-GOLDEN=2 ONLY-OURS=2

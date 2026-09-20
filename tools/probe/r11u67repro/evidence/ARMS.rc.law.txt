@@ -1,0 +1,5 @@
+g1_lawA golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=77
+g2_lawB golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=131
+g3_lawC golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=8
+g4_order golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=8
+g5_unit golden_rc=0 ours_rc=0  slerr=0 cmp_rc=255 heads=1 cmplines=8

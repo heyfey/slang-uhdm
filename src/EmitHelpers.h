@@ -1286,6 +1286,220 @@ inline syntax::SyntaxKind aliasVectorKeyword(const Type& t) {
     return syntax::SyntaxKind::Unknown;
 }
 
+// § aliasBindSimpleType67 — WHAT A WRITTEN TYPEDEF'S `DataType` ENDS UP BEING,
+// which is the ONLY thing the def-view net-type rewrite reads.  The producer,
+// at the pinned sources:
+//
+//   CompileHelper.cpp:877-905  a typedef written over a NAMED type (`typedef
+//     v_t w_t;`, `typedef v_t [1:0] w_t;`, a `pkg::T`) is compiled to a
+//     TypeDef holding a *DummyType*, and its typespec is built EAGERLY only
+//     when the enclosing scope is a PACKAGE or a FileContent ($unit):
+//     `if ((reduce == Reduce::Yes) && ((valuedcomponenti_cast<Package*>(scope)
+//     || valuedcomponenti_cast<FileContent*>(scope))))` … `dummy->setTypespec`.
+//     A typedef written over a BUILT-IN (`typedef logic [1:0] v_t;`) is
+//     compiled to a *SimpleType* (:1057), category SIMPLE_TYPEDEF, carrying
+//     the base keyword's VObjectType.
+//   ElaborationStep.cpp:102-190  bindTypedefs_ then rebinds ONLY the dummies
+//     that have NO typespec (`if (noTypespec == true)` … `if (prevDef &&
+//     prevDef->getCategory() == DataType::Category::DUMMY)`):
+//     `typd->setDefinition(def); typd->setDataType((DataType*)def);` where
+//     `def` is the TARGET'S OWN DataType.  A package/$unit typedef over a
+//     named type therefore KEEPS its DummyType forever.
+//   ElaborationStep.cpp:1487-1500  the signal rewrite fires only on
+//     `cat == DataType::Category::SIMPLE_TYPEDEF`, mapping paIntVec_TypeLogic
+//     -> vpiNet(36) and paIntVec_TypeReg -> vpiReg(48) at UhdmWriter.cpp:891
+//     / :572.  A DUMMY leaves `Signal::m_type` exactly as WRITTEN — the net
+//     keyword when one was written, and nothing at all for a bare named type.
+//
+// Measured golden, grid g1/g2 (one file, rc=0, 0 [ERR), every typedef named so
+// that it sorts AFTER its target (see the ORDER caveat below):
+//
+//   declaration              home of the written typedef    golden
+//   `w_t a1`  (v_t [1:0])    module-local                   36
+//   `wire w_t a2` / `wand a3`  module-local                 36  (keyword LOSES)
+//   `rw_t a4` (r_t [1:0])    module-local, reg chain        48
+//   `wire rw_t a12` / `wire r_t a13`                        48
+//   `bw_t a5` (b_t [1:0])    module-local, bit chain         0
+//   `v2_t a6`, `wire v2_t a18`  module-local alias-of-alias 36
+//   `pw_t a8` / `uw_t a9` / `pv2_t a10` / `uv2_t a11`        0  (DUMMY)
+//   `cv_t e1` / `uv_t e7` / `cr_t e4`  package/$unit SIMPLE 36 / 36 / 48
+//   `cv2_t e2` / `cr2_t e5` / `uv2_t e8`  package/$unit DUMMY 0
+//   `typedef cv2_t l2_t; l2_t f2;`  LOCAL over a package DUMMY 0
+//   `typedef cv_t  l1_t; l1_t f1;`  LOCAL over a package SIMPLE 36
+//
+// ORDER CAVEAT — bindTypedefs_ walks each scope's `getTypeDefMap()`, which is
+// NAME-SORTED, and binds to the target's DataType AS IT STANDS AT THAT MOMENT.
+// A module-local typedef whose target is ANOTHER module-local typedef over a
+// named type therefore answers 36 when the target's name sorts FIRST and 0
+// when it sorts second — proved on grid g4_order, where two cells of the SAME
+// shape and the same textual order answer 36 (`zb_t` over `aq_t`) and 0
+// (`ab_t` over `zq_t`).  That also DECODES the cell pass 64 recorded as
+// "golden contradicting itself" (v2 `warr` 36 against v8 `d06` / v9 `m1` 0):
+// `wa_t` sorts after `w_t`, `lc_t` sorts before `lw_t`.  This function does
+// NOT model the sort order: it answers `Unknown` for that chain and leaves the
+// shape to the landed code.
+enum class AliasBind67 {
+    NotApplicable,  // not a bare dimension-less alias-named net
+    Unknown,        // a local-over-local chain: the answer is bind-ORDER
+    Dummy,          // the chain stops at a never-rebound DummyType
+    Other,          // a SimpleType, but not a four-state logic/reg base
+    Logic,
+    Reg,
+};
+
+// A typedef written DIRECTLY over a built-in is a SimpleType carrying that
+// base keyword (CompileHelper.cpp:1057, `SimpleType(fC, type_name, stype)`
+// with `fC->Type(stype)`).
+inline AliasBind67 aliasBaseKeyword67(const Type& alias) {
+    auto& ta = alias.as<TypeAliasType>();
+    if (auto* tsyn = ta.targetType.getTypeSyntax()) {
+        if (tsyn->kind == syntax::SyntaxKind::LogicType)
+            return AliasBind67::Logic;
+        if (tsyn->kind == syntax::SyntaxKind::RegType)
+            return AliasBind67::Reg;
+    }
+    return AliasBind67::Other;
+}
+
+// A PACKAGE or $unit typedef over a named type keeps its compile-time
+// typespec and is never rebound.
+//
+// r11v67 FENCE -- except a `$unit` typedef written over a SCOPED name.
+// `CompileHelper.cpp:877-905` builds the eager typespec for a `FileContent`
+// scope from the target's NAME, and a `pkg::T` target resolves there, so the
+// signal rewrite DOES reach the package typedef's own `SimpleType`.  Measured
+// on real v1.87 goldens (grid `wb_scoped`, one file, rc=0, 0 `[ERR`), with the
+// unqualified `$unit` twin and the PACKAGE-homed twin as the two controls:
+//
+//   home     written target      declaration          golden  pristine  shipped
+//   $unit    `pk::cv_t`          `uq_t y01`             36      36        0  AWAY
+//   $unit    `pk::cv_t`          `wire uq_t y02`        36      36        1  AWAY
+//   $unit    `pk::cr_t`          `uqr_t y03`            48      48        0  AWAY
+//   $unit    `pk::cr_t`          `wire uqr_t y04`       48      36        1  MOVED-WRONG
+//   $unit    `pk::cv_t [1:0]`    `uqd_t y09` / `wire`   36       0        0
+//   $unit    `pk::cv2_t` (dummy) `uq2_t y05`             0      36        0
+//   $unit    `pk::cw_t`  (dummy) `uqw_t y07`             0      36        0
+//   $unit    `ua_t` (unqualified)`ub_t d17`              0      36        0
+//   PACKAGE  `pk::cv_t`          `bq_t y20` / `bqr_t`    0      36/48     0
+//
+// So the `$unit` scoped-target typedef behaves exactly like a MODULE-LOCAL
+// one -- it is bound to its target's own `DataType`, and the chain below it
+// decides (a package `SimpleType` -> 36/48, a package dummy -> 0).  The
+// PACKAGE-homed scoped twin is NOT bound, and the unqualified `$unit` twin is
+// not either, so this fence turns on the WRITTEN NAME, never on the home
+// alone.  `arrays03`'s `typedef reg8_t [0:3] reg2dim1_t;` is unqualified and
+// keeps the shipped answer.
+inline bool aliasHomeNeverRebound67(const Type& alias) {
+    auto& ta = alias.as<TypeAliasType>();
+    auto* sc = ta.getParentScope();
+    if (!sc)
+        return true;
+    auto k = sc->asSymbol().kind;
+    if (k == SymbolKind::Package)
+        return true;
+    if (k != SymbolKind::CompilationUnit)
+        return false;
+    if (auto* tsyn = ta.targetType.getTypeSyntax();
+        tsyn && tsyn->kind == syntax::SyntaxKind::NamedType) {
+        auto nk = tsyn->as<syntax::NamedTypeSyntax>().name->kind;
+        if (nk != syntax::SyntaxKind::IdentifierName &&
+            nk != syntax::SyntaxKind::IdentifierSelectName)
+            return false;  // a SCOPED target: bound like a module-local one
+    }
+    return true;
+}
+
+// Two aliases bound in the SAME `bindTypedefs_` map walk.
+inline bool aliasSameScope67(const Type& a, const Type& b) {
+    auto* sa = a.as<TypeAliasType>().getParentScope();
+    auto* sb = b.as<TypeAliasType>().getParentScope();
+    return sa && sa == sb;
+}
+
+inline const Type* stripPacked67(const Type* t) {
+    for (int g = 0; g < 32 && t->kind == SymbolKind::PackedArrayType; g++)
+        t = &t->as<PackedArrayType>().elementType;
+    return t;
+}
+
+inline AliasBind67 aliasBind67(const Symbol& internal) {
+    auto* dt = internal.getDeclaredType();
+    if (!dt)
+        return AliasBind67::NotApplicable;
+    // The WRITTEN form must be a bare (possibly packed-dimensioned) name: a
+    // `pkg::T` is a ScopedName and never reaches the rewrite at all (the same
+    // parse split § unqualDimNet9 records).
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return AliasBind67::NotApplicable;
+    auto nk = tsyn->as<syntax::NamedTypeSyntax>().name->kind;
+    if (nk != syntax::SyntaxKind::IdentifierName &&
+        nk != syntax::SyntaxKind::IdentifierSelectName)
+        return AliasBind67::NotApplicable;
+    // ANY unpacked level is § unpackedAliasNetType65's ground, not this one;
+    // a struct, enum, int or two-state leaf answers elsewhere already.
+    auto ck = dt->getType().getCanonicalType().kind;
+    if (ck != SymbolKind::PackedArrayType && ck != SymbolKind::ScalarType)
+        return AliasBind67::NotApplicable;
+    const Type* w = stripPacked67(&dt->getType());
+    if (w->kind != SymbolKind::TypeAlias)
+        return AliasBind67::NotApplicable;
+    // A type parameter is a TypeAliasType whose syntax is a `TypeAssignment`;
+    // it prints no net type in any cell (§ namedTypeLeafNoNetType32).
+    if (auto* syn = w->getSyntax();
+        syn && syn->kind == syntax::SyntaxKind::TypeAssignment)
+        return AliasBind67::NotApplicable;
+    // r11v67 FENCE -- the rebind is a WALK, not two levels.  `bindTypedefs_`
+    // rebinds A to T's OWN DataType, and T may itself have been rebound; the
+    // shipped two-level form answered `Unknown` from the third hop on, which
+    // read a MODULE-LOCAL typedef over a `$unit` scoped-target alias as a
+    // dummy.  Measured (grid `wd_locunit`, rc=0, 0 `[ERR`): `typedef pk::cv_t
+    // uq_t;` at `$unit`, then `typedef uq_t m1_t;` in the module ->
+    // `m1_t c01` / `wire m1_t c02` golden 36 (shipped 0 / 1, pristine 36 --
+    // AWAY), and the `reg` twin `m2_t c03` / `wire m2_t c04` golden 48
+    // (shipped 0 / 1).  The unqualified `$unit` twin `typedef ub_t m4_t;`
+    // stays at golden 0 / 1, which is what the walk's `Dummy` still answers.
+    //
+    // The ORDER guard stays exactly where the shipped law put it: when the
+    // next alias lives in the SAME scope AND is itself written over a name,
+    // WHICH DataType A got depends on the name-sorted bind order, so the walk
+    // answers `Unknown` and leaves the shape to the landed code (R-ORDER).
+    // Across scopes the target is already bound, which is why the walk may
+    // cross a scope boundary but never a same-scope dummy.
+    const Type* a = w;
+    for (int hop = 0; hop < 32; hop++) {
+        const Type* t =
+            stripPacked67(&a->as<TypeAliasType>().targetType.getType());
+        if (t->kind != SymbolKind::TypeAlias)
+            return aliasBaseKeyword67(*a);  // A is itself a SimpleType
+        // A is written over a NAMED type, so it was compiled to a DummyType.
+        if (aliasHomeNeverRebound67(*a))
+            return AliasBind67::Dummy;
+        if (auto* syn = t->getSyntax();
+            syn && syn->kind == syntax::SyntaxKind::TypeAssignment)
+            return AliasBind67::NotApplicable;
+        // A is rebound to T's OWN DataType.
+        const Type* tt =
+            stripPacked67(&t->as<TypeAliasType>().targetType.getType());
+        if (tt->kind == SymbolKind::TypeAlias && aliasSameScope67(*a, *t))
+            return AliasBind67::Unknown;  // the bind ORDER decides
+        a = t;
+    }
+    return AliasBind67::Unknown;
+}
+
+// The net type § aliasBindSimpleType67 is certain of, or 0.
+inline int32_t aliasBindNetType67(const Symbol& internal) {
+    switch (aliasBind67(internal)) {
+        case AliasBind67::Logic:
+            return vpiNet;
+        case AliasBind67::Reg:
+            return vpiReg;
+        default:
+            return 0;
+    }
+}
+
 // § unpackedAliasNetType65 — AN UNPACKED DIMENSION IS TRANSPARENT TO THE
 // DEF-VIEW NET TYPE.  The producer, at the pinned sources:
 //
@@ -1434,6 +1648,28 @@ inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
     if (defView)
         if (int32_t u65 = unpackedAliasNetType65(internal))
             return u65;
+    // § aliasBindSimpleType67, DEF VIEW ONLY.  LAW A — the rewrite reads the
+    // typedef's BOUND DataType and its own base keyword, so a module-local
+    // typedef written over an alias answers 36/48 and OUTRANKS a net keyword
+    // (`w_t a1`, `wire w_t a2`, `wand w_t a3` = 36; `rw_t a4`, `wire rw_t
+    // a12`, `wire r_t a13` = 48).  LAW B — a chain that stops at a
+    // never-rebound DummyType is NOT rewritten at all, so the signal keeps
+    // what was WRITTEN: nothing for a bare name (`pv2_t a10`, `cv2_t e2` = 0,
+    // where we stamped 36), and the net keyword when one was written.
+    bool dummyChain67 = false;
+    if (defView) {
+        switch (aliasBind67(internal)) {
+            case AliasBind67::Logic:
+                return vpiNet;
+            case AliasBind67::Reg:
+                return vpiReg;
+            case AliasBind67::Dummy:
+                dummyChain67 = true;
+                break;
+            default:
+                break;
+        }
+    }
     if (internal.kind == SymbolKind::Net) {
         // Implicitly-declared nets (created by an undeclared name in an assign
         // or port connection) print as a bare wire.
@@ -1447,7 +1683,7 @@ inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
             if (dt0->getType().getCanonicalType().kind ==
                 SymbolKind::PredefinedIntegerType)
                 return 0;
-            if (dt0->getType().kind == SymbolKind::TypeAlias) {
+            if (dt0->getType().kind == SymbolKind::TypeAlias && !dummyChain67) {
                 auto& ta1 = dt0->getType().as<TypeAliasType>();
                 auto ck1 = ta1.targetType.getType().getCanonicalType().kind;
                 if (auto ps1 = ta1.getParentScope();
@@ -1594,6 +1830,11 @@ inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
                         if (auto sc = la->as<TypeAliasType>().getParentScope();
                             sc && sc->asSymbol().kind == SymbolKind::Package)
                             return 0;
+                    // § aliasBindSimpleType67 LAW B — a chain that stops at a
+                    // never-rebound DummyType is not rewritten, and a bare
+                    // named type carries no net type of its own.
+                    if (dummyChain67)
+                        return 0;
                     // A `reg`-written typedef nets as vpiReg, not vpiNet.
                     if (aliasVectorKeyword(t) == syntax::SyntaxKind::RegType)
                         return vpiReg;

@@ -1,0 +1,47 @@
+# r11u67 BYTE MOVERS, both corpora, law vs my own pristine workdirs (SELFCHECK=1).
+#   uhdm2rtlil : MOVERS 0 / 1608   (SELFCHECK 1607/1608 flagged)
+#   surelog    : MOVERS 4 / 960    (SELFCHECK  959/960  flagged)
+# PREDICTED mover set: EMPTY, from the base census (NT-DIFF=0 on 155446 keys).
+# The four surelog movers are ALL in the documented pristine-NONDETERMINISTIC
+# UVM family, and every one is the documented 0-or-4-line UINT/vpiDecompile
+# line-number class.  Order-blind whole-dump diffs (dumps path-normalised and
+# sorted), law vs pristine:
+
+## default_MiniAmiq-544c7f61   order-blind diff lines = 4
+<       |UINT:1429
+>       |UINT:1508
+<       |vpiDecompile:1429
+>       |vpiDecompile:1508
+
+## default_SimpleUVM-1dc93a62   order-blind diff lines = 4
+>       |UINT:0
+<       |UINT:1439
+>       |vpiDecompile:0
+<       |vpiDecompile:1439
+
+## testflags_MiniAmiq-544c7f61   order-blind diff lines = 4
+>       |UINT:1086
+<       |UINT:544
+>       |vpiDecompile:1086
+<       |vpiDecompile:544
+
+## testflags_SeqDriver-32af76aa   order-blind diff lines = 4
+>       |UINT:0
+<       |UINT:1323
+>       |vpiDecompile:0
+<       |vpiDecompile:1323
+
+# THE COIN CONTROL: the SAME PRISTINE BINARY run four more times on
+# MiniAmiq/default gives four DIFFERENT databases, none of them equal to the
+# sweep's own pristine database:
+9827091daf11ce03dd497d421feb9857  p1.uhdm
+6c45425e13cbc51640022e853dcc2185  p2.uhdm
+4896eaf4dd33f30d49674ab1a015b988  p3.uhdm
+01cd64284fc60c33394f438cef79cbed  p4.uhdm
+  (sweep pristine: dbb2e9cae2c1…, sweep law: 69241d59905b…)
+# and PRISTINE-vs-PRISTINE (p1 vs p2) shows the SAME class, with no vpiNetType:
+<       |UINT:1061
+>       |UINT:1234
+<       |vpiDecompile:1061
+>       |vpiDecompile:1234
+  vpiNetType lines in that diff: 0

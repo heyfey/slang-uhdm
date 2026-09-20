@@ -1,0 +1,36 @@
+=== law vs committed surelog
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_law/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_law/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+=== law vs my pristine
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_pris/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_law/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_pris/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u67_wd/sl_law/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+< YosysOpenSparc,default,SURELOG_FAIL,             /home/heyfey/git-repos/Surelog/third_party/tests/YosysOpenSparc/t2.v:428192:9: previous definition.,,
+> YosysOpenSparc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOpenSparc/t2.v:269093:6: error: expected a declaration name,,
+=== law status
+    474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+    469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+=== byteverify surelog law vs pris
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=832b819d5f28 pristine=ecb765b91548
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=e70775324004 pristine=1621aec6c9f3
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=3c746d5ab065
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=15294f7f52da pristine=ac981f275377
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=d7c04c5f17f0
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+=== canaries
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.

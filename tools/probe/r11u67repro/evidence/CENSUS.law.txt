@@ -1,0 +1,12 @@
+# r11u67 NET CENSUS AFTER THE LAW — same instrument, same keys.
+
+## uhdm2rtlil, both modes
+arms=1608 goldenKeys=21352 oursKeys=21332 MATCH=21332 NT-DIFF=0 ONLY-GOLDEN=20 ONLY-OURS=0
+NT-DIFF rows: 0
+
+## surelog, both modes
+arms=960 goldenKeys=134094 oursKeys=134088 MATCH=134088 NT-DIFF=0 ONLY-GOLDEN=6 ONLY-OURS=0
+NT-DIFF rows: 0
+
+# Identical to the base census, cell for cell: vpiNetType agrees with golden on
+# every one of the 155446 golden net keys, in both views, before AND after.

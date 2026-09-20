@@ -1,0 +1,40 @@
+# r11v67 — BYTE MOVERS, named and attributed (SELFCHECK=1 byteverify against
+# MY OWN pristine workdirs at 12c6de50; binary paths audited in every cmds.txt)
+
+uhdm2rtlil, SHIPPED LAW  (92000bd6492e4dc376c4650aaad1675a)
+  MOVERS 0 / 1608        SELFCHECK 1607 / 1608 flagged
+uhdm2rtlil, WITH THE FENCE
+  MOVERS 0 / 1608        SELFCHECK 1607 / 1608 flagged
+
+surelog, SHIPPED LAW
+  MOVERS 5 / 960         SELFCHECK 959 / 960 flagged
+    ./default/MiniAmiq-544c7f61     ORDER-BLIND 4 lines   UINT/vpiDecompile 776 <-> 968   vpiNetType lines 0
+    ./testflags/MiniAmiq-544c7f61   ORDER-BLIND 4 lines   UINT/vpiDecompile 728 <-> 751   vpiNetType lines 0
+    ./default/SeqDriver-32af76aa    ORDER-BLIND 4 lines   UINT/vpiDecompile   0 <-> 1355  vpiNetType lines 0
+    ./testflags/SeqDriver-32af76aa  ORDER-BLIND 4 lines   UINT/vpiDecompile   0 <-> 854   vpiNetType lines 0
+    ./default/Scoreboard-59431470   ORDER-BLIND 0 lines   (a pure ORDER draw)             vpiNetType lines 0
+
+  Every one is inside the documented pristine-nondeterministic UVM family and
+  every one is the documented 0-or-4-line UINT/vpiDecompile line-number class.
+  NOT ONE carries a vpiNetType line, which is the only field either law can
+  write.  (The implementer reported four; the fifth, Scoreboard/default, is the
+  ~50/50 coin RESUME.md §9 names by test — it drew the other way in my run.)
+
+  THE COIN CONTROL, RUN RATHER THAN ASSERTED.  The SAME PRISTINE BINARY
+  (40563d03c6a4c68ed7192f6bd5657f5e) on SeqDriver/default, three fresh runs
+  from the test's own source directory, against the sweep's own pristine
+  database:
+      37aeafcca58159740b90ca76da5350dc   run 1
+      2fb39f8b41308bbe2c70c7f320bc35e1   run 2
+      b8002596ac4ebb3f4dfc4926b9bdff93   run 3
+      3c746d5ab065166bdd3a77b8d4d163db   the pristine sweep's own database
+  Four runs, four different databases -- and run 2's hash is EXACTLY the hash
+  byteverify attributed to the law side for that row.  The mover is the coin.
+
+PROTECTED DATABASES (md5, law vs my pristine -- IDENTICAL on every one)
+  SVSwitch           default/testflags  4842211c4030   (HARD PIN)
+  YosysVerx          default/testflags  6ccda350c24a   (HARD PIN)
+  InterfaceModPort   default/testflags  59a365f3ce2c
+  BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5
+  YosysOldOr         default/testflags  d68e0796d62c
+  Earlgrey_0_1       default 8bdf25272e08 / testflags 59d0ee6d10c3

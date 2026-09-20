@@ -1630,6 +1630,15 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             continue;
         // A net typed by an ALIAS-OF-ALIAS typedef omits its net type
         // (Surelog); other nets print it.
+        // § aliasBindSimpleType67 LAW A — this guard's witness (uhdm2rtlil
+        // arrays03, `typedef reg8_t [0:3] reg2dim1_t;` at $unit scope) is a
+        // typedef Surelog NEVER REBINDS, so the rewrite never fires and the
+        // net type is whatever was written.  A MODULE-LOCAL twin of the same
+        // shape IS rebound, to its target's own SimpleType, and golden stamps
+        // that typedef's base keyword: `typedef v_t [1:0] w_t; w_t wnod;` = 36
+        // (v2 `wnod`, v8 `d15`, va `m9`/`m10` `wd`, g1 `a1`/`a2`/`a3`), and
+        // the `reg` chain = 48 (g1 `a4`).  Zero only what the chain leaves at
+        // a DummyType.
         bool aliasOfAlias0 = false;
         if (auto dt0 = it.sym->getDeclaredType())
             if (dt0->getType().kind == SymbolKind::TypeAlias) {
@@ -1638,7 +1647,8 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 aliasOfAlias0 =
                     tt0.kind == SymbolKind::PackedArrayType &&
                     tt0.as<PackedArrayType>().elementType.kind ==
-                        SymbolKind::TypeAlias;
+                        SymbolKind::TypeAlias &&
+                    aliasBindNetType67(*it.sym) == 0;
             }
         // A PACKED-ARRAY typedef signal (pkg::b c) carries NO net type even
         // when its element leaf is a pkg struct (Surelog).
@@ -33597,9 +33607,20 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         // net (`ifc_i.ia` = 36, `ifc8.vd` = 36) and stamps NOTHING on the
         // UNINSTANTIATED twin (`ifc_u.ua` = 0, and `ifc_u.uv` = 0 where we
         // already read 36 -- R1, untouched by this pass).
+        // § aliasBindSimpleType67 LAW C — the same typedef rewrite runs on an
+        // INSTANTIATED interface's def-view nets, and it OUTRANKS the net
+        // keyword there exactly as it does on the module def road: golden
+        // reads `wire v_t n1` / `wand v_t n2` / `wor n3` / `tri n4` = 36,
+        // `wire r_t n7` = 48, `wire v_t n5 [2]` = 36, while the same
+        // declarations in an UNINSTANTIATED interface keep their keyword
+        // (1/2/3/4 -- grid g3, ifx against ifu; r10v225 R1 is the same gate).
         int32_t ifnt65 = netTypeFor(*it.sym);
-        if (!ifnt65 && ifaceInstantiated225)
-            ifnt65 = unpackedAliasNetType65(*it.sym);
+        if (ifaceInstantiated225) {
+            if (int32_t b67 = aliasBindNetType67(*it.sym))
+                ifnt65 = b67;
+            else if (int32_t u65 = unpackedAliasNetType65(*it.sym))
+                ifnt65 = u65;  // the dimensioned half: `wire v_t n5 [2]` = 36
+        }
         if (ifnt65)
             n->VpiNetType(ifnt65);
         // An EXPLICITLY package-qualified struct interface VARIABLE

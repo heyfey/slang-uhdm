@@ -1,0 +1,12 @@
+# r11u67 NET CENSUS, BOTH CORPORA, PRISTINE (12c6de50) vs each arm's own GOLDEN.
+# instrument: tools/probe/r11u65repro/netcen65.cpp --join (key = view|scope path|net name|net kind)
+
+## uhdm2rtlil, both modes
+arms=1608 goldenKeys=21352 oursKeys=21332 MATCH=21332 NT-DIFF=0 ONLY-GOLDEN=20 ONLY-OURS=0
+NT-DIFF rows:
+  (none)
+
+## surelog, both modes
+arms=960 goldenKeys=134094 oursKeys=134088 MATCH=134088 NT-DIFF=0 ONLY-GOLDEN=6 ONLY-OURS=0
+NT-DIFF rows:
+  (none)
