@@ -793,7 +793,7 @@ top_module_type_param,testflags,CMP_EQUAL,,,differ
 type_param_override_elem_sel,testflags,CMP_NOTEQUAL,decompile:,,
 type_param_packed_dim,testflags,CMP_NOTEQUAL,decompile:,,
 type_param_unpacked_port,testflags,CMP_NOTEQUAL,decompile:,,
-typed_named_pattern,testflags,CMP_NOTEQUAL,decompile:,,
+typed_named_pattern,testflags,CMP_EQUAL,,,differ
 typedef_package,testflags,CMP_EQUAL,,,differ
 typedef_packed_enum_array,testflags,CMP_EQUAL,,,match
 typedef_param,testflags,CMP_EQUAL,,,differ

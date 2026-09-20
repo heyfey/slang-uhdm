@@ -1,0 +1,26 @@
+test | typed_named_pattern/dut.sv:22 | cast=op32_i_t keys=named holder=param | localparam op32_i_t NOP_CAST  = op32_i_t'{imm_11_0: 12'h123, rs1: 5'd5, funct3: 3'd2, rd: 5'd9, opcode: '{opc:
+test | rp32/hamster/r5p_hamster.sv:309 | cast=op32_i_t keys=named holder=param | localparam op32_i_t NOP = op32_i_t'{imm_11_0: 12'd0, rs1: 5'd0, funct3: ADD, rd: 5'd0, opcode: '{opc: OP_IMM,
+tests | CastStructMember/dut.sv:7 | cast=width_t keys=positional holder=param | localparam width_t w = width_t'{32};
+tests | DefaultPatternAssign/dut.sv:2 | cast=int keys=default holder=param | parameter int VALUE_TEMP = int'{default: 1};
+tests | Google/chapter-12/12.6.3--conditional_pattern.sv:34 | cast=a keys=positional holder=other | val = tmp matches tagged a '{4'b01zx, .v} ? 1 : 2;
+tests | Google/chapter-12/12.6.1--casex_pattern.sv:32 | cast=a keys=positional holder=other | tagged a '{.v, 4'b00?x} : $display("a %d", v);
+tests | Google/chapter-12/12.6.1--casex_pattern.sv:33 | cast=a keys=positional holder=other | tagged a '{.v1, .v2} : $display("a %d %d", v1, v2);
+tests | Google/chapter-12/12.6.1--casex_pattern.sv:34 | cast=b keys=positional holder=other | tagged b '{.v1, .v2} : $display("b %d %d", v1, v2);
+tests | Google/chapter-12/12.6.1--casex_pattern.sv:35 | cast=c keys=positional holder=other | tagged c '{4'h??0x, .v} : $display("c %d", v);
+tests | Google/chapter-12/12.6.2--if_pattern.sv:31 | cast=a keys=positional holder=other | initial if (tmp matches tagged a '{4'b01zx, .v})
+tests | Google/chapter-12/12.6.1--case_pattern.sv:32 | cast=a keys=positional holder=other | tagged a '{.v, 0} : $display("a %d", v);
+tests | Google/chapter-12/12.6.1--case_pattern.sv:33 | cast=a keys=positional holder=other | tagged a '{.v1, .v2} : $display("a %d %d", v1, v2);
+tests | Google/chapter-12/12.6.1--case_pattern.sv:34 | cast=b keys=positional holder=other | tagged b '{.v1, .v2} : $display("b %d %d", v1, v2);
+tests | Google/chapter-12/12.6.1--case_pattern.sv:35 | cast=c keys=positional holder=other | tagged c '{0, .v} : $display("c %d", v);
+tests | Google/chapter-12/12.6.1--casez_pattern.sv:32 | cast=a keys=positional holder=other | tagged a '{.v, 4'bzz0?} : $display("a %d", v);
+tests | Google/chapter-12/12.6.1--casez_pattern.sv:33 | cast=a keys=positional holder=other | tagged a '{.v1, .v2} : $display("a %d %d", v1, v2);
+tests | Google/chapter-12/12.6.1--casez_pattern.sv:34 | cast=b keys=positional holder=other | tagged b '{.v1, .v2} : $display("b %d %d", v1, v2);
+tests | Google/chapter-12/12.6.1--casez_pattern.sv:35 | cast=c keys=positional holder=other | tagged c '{4'hz00?, .v} : $display("c %d", v);
+tests | Zachjs/relong/functions.sv:55 | cast=return keys=named holder=other | return '{
+tests | Zachjs/relong/cache_request.sv:46 | cast=return keys=named holder=other | return '{
+tests | Tnoc/cores/tnoc/rtl/axi_adapter/tnoc_axi_pkg.sv:89 | cast=return keys=default holder=other | TNOC_AXI_OKAY:          return '{                     default: 1'b0 };
+tests | Tnoc/cores/tnoc/rtl/axi_adapter/tnoc_axi_pkg.sv:90 | cast=return keys=named holder=other | TNOC_AXI_EXOKAY:        return '{ exokay:       1'b1, default: 1'b0 };
+tests | Tnoc/cores/tnoc/rtl/axi_adapter/tnoc_axi_pkg.sv:91 | cast=return keys=named holder=other | TNOC_AXI_SLAVE_ERROR:   return '{ slave_error:  1'b1, default: 1'b0 };
+tests | Tnoc/cores/tnoc/rtl/axi_adapter/tnoc_axi_pkg.sv:92 | cast=return keys=named holder=other | TNOC_AXI_DECODE_ERROR:  return '{ decode_error: 1'b1, default: 1'b0 };
+tests | Verilator/t_struct_init.v:45 | cast=b4_t keys=named holder=other | const b4_t b4_const_b = b4_t'{ b1 : 1'b0, b0 : 1'b1, b3 : 1'b1, b2 : 1'b0 };
+TOTAL 25

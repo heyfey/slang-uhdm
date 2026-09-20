@@ -1,0 +1,124 @@
+r11v70 — GATES, measured HERE, on binaries built HERE.
+
+BINARIES (frozen chmod 555 before any sweep):
+575be751afd6818113a6788148e78797  /tmp/v11u70_bin/pris.bin
+e4a5be301d98c37d3f5536d8768882e0  /tmp/v11u70_bin/law.bin
+5b29177972f5ead865d5513a6dd722b0  /tmp/v11u70_bin/fix.bin
+  pris = a fresh worktree at 3e392403  -> 575be751afd6818113a6788148e78797, the brief's hash
+  law  = /tmp/r11u70.patch on a fresh 3e392403 -> e4a5be301d98c37d3f5536d8768882e0, the implementer's hash
+  fix  = law + the three fences of README section 3
+  build errors: law 0, fix 0
+
+1. GOLDENS
+   law: PASS 23 FAIL 0
+   fix: PASS 23 FAIL 0
+   negative control SLANG_UHDM=/bin/false: PASS 0 FAIL 23
+
+2. uhdm2rtlil, BOTH MODES
+   pris def CMP_EQUAL 787 CMP_NOTEQUAL 17 SLANG_REJECT 67
+   pris tf  CMP_EQUAL 787 CMP_NOTEQUAL 17 SLANG_REJECT 67
+   law  def CMP_EQUAL 788 CMP_NOTEQUAL 16 SLANG_REJECT 67
+   law  tf  CMP_EQUAL 788 CMP_NOTEQUAL 16 SLANG_REJECT 67
+   fix  def CMP_EQUAL 788 CMP_NOTEQUAL 16 SLANG_REJECT 67
+   fix  tf  CMP_EQUAL 788 CMP_NOTEQUAL 16 SLANG_REJECT 67
+   row-join vs results/golden_uhdm2rtlil.csv (BOTH modes in one file):
+     pristine : 0 differing rows
+     law      : 2 differing rows, quoted below
+     verified : the SAME 2 rows
+       < typed_named_pattern,default,CMP_NOTEQUAL,decompile:,,
+       < typed_named_pattern,testflags,CMP_NOTEQUAL,decompile:,,
+       > typed_named_pattern,default,CMP_EQUAL,,,differ
+       > typed_named_pattern,testflags,CMP_EQUAL,,,differ
+   cmds.txt audited BY BINARY PATH: 1742/1742 in each of the three workdirs, 0 foreign paths.
+
+3. BYTEVERIFY SELFCHECK=1, uhdm2rtlil
+   law vs my own pristine : MOVERS 2/1608, both typed_named_pattern, SELFCHECK 1607/1608
+   fix vs my own pristine : MOVERS 2/1608, the same two, SELFCHECK 1607/1608
+   fix vs LAW             : MOVERS 0/1608  <- the fences cost nothing on the corpus
+
+4. THE HEAD (uhdm-cmp, golden vs pristine, one head per run)
+LHS:
+decompile:
+ref_typespec: (work@typed_named_pattern), id:103
+|vpiParent:
+\_operation: , id:102, line:22:35, endln:22:132
+|vpiFullName:work@typed_named_pattern
+|vpiActual:
+\_struct_typespec: (q::op32_i_t), id:13, line:9:11, endln:15:4
+
+   grep -c '^LHS:' = 1; both modes byte-identical text.
+   order-blind whole-dump distance golden vs pristine = 677 lines.
+
+5. SURELOG SUITE, --mode both
+   pristine 474 CMP_EQUAL / 9 CMP_NOTEQUAL (default) + 469 / 8 (testflags)
+   law      474 / 9 + 469 / 8
+   verified 474 / 9 + 469 / 8
+   every other bucket identical in all three (DEFERRED 5/5, NO_DATABASE 3,
+   NO_UHDM 1, TIMEOUT 1, UNTRANSLATABLE 2, SLANG_REJECT 285/286,
+   SURELOG_FAIL 25/23).
+   Row-join vs results/golden_surelog.csv, all three sweeps, the SAME 4 rows:
+     Earlgrey_0_1 default+testflags — the DUMP COLUMN reads blank instead of
+       `differ`, status CMP_EQUAL on every side INCLUDING MY PRISTINE, so it is
+       the documented uhdm-dump timeout draw and not any binary's;
+     LowMemLib,testflags and LowMemPkg,testflags — the WORKDIR PATH inside a
+       golden-side SURELOG_FAIL string.
+   Row-join law vs MY OWN pristine: only the two LowMem workdir-path rows.
+   Row-join verified vs MY OWN pristine: the same two.
+   NOTE: the implementer's pristine sweep read YosysOpenSparc,default as
+   SURELOG_FAIL where the committed baseline and their law read SLANG_REJECT.
+   NEITHER of my sweeps reproduces that outlier — all three of mine read the
+   committed value — which confirms their reading of it as a golden-PRODUCER
+   resource draw on a 269k-line design.
+   cmds.txt audited BY BINARY PATH: 1531 slang lines in each of the three
+   surelog workdirs, ONE binary path each, 0 foreign paths.
+
+6. BYTEVERIFY SELFCHECK=1, SURELOG SUITE, vs MY OWN pristine workdirs
+   law      PATH_SETS_IDENTICAL (960)  MOVERS 4 / 960  SELFCHECK 959/960
+   verified PATH_SETS_IDENTICAL (960)  MOVERS 5 / 960  SELFCHECK 959/960
+   verified vs LAW                     MOVERS 3 / 960
+   EVERY mover is UVM-family and EVERY ONE is proven a COIN BY RE-DRAW from the
+   UNCHANGED PRISTINE BINARY, not asserted:
+     default/SeqDriver   sweep-pris 83c03a596faf; pristine re-draws
+                         2fb39f8b4130 / 07e7b05deb07 / 137b68e687ca
+                         -> re-draw 1 IS the LAW sweep's hash
+     default/MiniAmiq    sweep-pris 5bdbe4ab0b40; pristine re-draws
+                         d32e4d31e86e / 27419f6011b4 / 10a66307b8b2
+                         -> re-draw 2 IS the LAW *and* verified sweep's hash
+     default/Scoreboard  sweep-pris e70775324004; FOUR pristine re-draws all
+                         1621aec6c9f3 -> which IS the verified sweep's hash
+     testflags/SeqDriver sweep-pris 08f81a2c1509; four pristine re-draws
+                         71d8f6b7f291 / 2d17a94ea03e / 990b4e2a26cc /
+                         b299927f1df4 — four distinct faces, unchanged binary
+     testflags/MiniAmiq  sweep-pris c9b17db966e2; pristine re-draw 3
+                         27419f6011b4 = the verified sweep's hash
+   STATUS of every UVM row is unmoved in all three sweeps: MiniAmiq, SeqDriver,
+   SimpleUVM, BuildUVMPkg CMP_EQUAL both modes; Scoreboard CMP_EQUAL default /
+   SLANG_REJECT testflags, exactly as committed.
+
+7. CANARIES
+   canaries.sh  surelog, law:      ok=50 changed=2 absent=0
+   canaries.sh  surelog, verified: ok=50 changed=2 absent=0
+     the two are Earlgrey_0_1's DUMP-COLUMN draw, CMP_EQUAL -> CMP_EQUAL, and
+     MY PRISTINE reads the same blank column.
+   canaries.sh  u2r/testflags, verified: ok=8 changed=0 absent=0
+   ctcan2.sh    surelog PASS (law and verified); u2r/testflags PASS
+   canaudit.sh  in tools/probe/r11v70repro: audited=29 UNCOVERED=0 FENCE-BREACH=0
+   PROTECTED DATABASES, md5 vs my own pristine, at the brief's hashes, for BOTH
+   the law and the verified binary, both modes:
+     Earlgrey_0_1 default 8bdf25272e08  testflags 59d0ee6d10c3  SAME
+     SVSwitch     4842211c4030 SAME   YosysVerx 6ccda350c24a SAME
+     InterfaceModPort 59a365f3ce2c SAME
+     BlackParrotComplex e3e354129d5a / 73a10e8217e5 SAME
+     YosysOldOr   d68e0796d62c SAME
+   rowheads.sh on BOTH the law and the verified workdirs: SeqDriver, SimpleUVM,
+   Scoreboard, MiniAmiq, BuildUVMPkg and Earlgrey_0_1 all cmp rc=0 / 0 heads in
+   every mode they have a file for; Rggen/default keeps its one pre-existing
+   head (64 cmp lines, rc=255), row unchanged.  SKIP-NOFILE on Scoreboard/tf
+   and Rggen/tf as expected.
+
+8. THE IMPLEMENTER GRID, RE-RUN WITH ALL THREE BINARIES
+   c1 c2 c3 c5 c6 c7 c8 c9 c10 c11 c12 c13 c14 c15 (c4 is slang-rejected).
+   Order-blind distance to golden, verified vs law: IDENTICAL on all 14.
+   No fence of this review costs any cell the law won.
+
+9. results/*.csv NOT EDITED by either patch (0 hunks).

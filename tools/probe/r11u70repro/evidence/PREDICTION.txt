@@ -1,0 +1,53 @@
+r11u70 — PREDICTED MOVER SET, written from the PRISTINE side before a single
+patched sweep was scored.
+
+THE POPULATION IS A SOURCE FACT.  A database cannot tell `T'{m: v}` from
+`'{m: v}` — that is the whole of the head (golden writes vpiCastOp over
+vpiConcatOp for the first and vpiAssignmentPatternOp for the second, and we
+wrote the second for both).  So the census instrument is a comment-stripping
+source scanner over EVERY file either corpus can hand a compiler
+(census70.py, CENSUS.source.txt): 25 raw `<name>'{` hits, of which 14 are
+`tagged <member> '{...}` union patterns and 6 are `return '{...}` — the
+scanner's preceding-token false positives, listed rather than filtered so the
+reader can check them.
+
+THE FIVE GENUINE CAST SITES, both corpora:
+
+  uhdm2rtlil typed_named_pattern   dut.sv:22                named keys, param
+      -> CMP_NOTEQUAL both modes at 3e392403.  THE LAW'S CELL.
+  uhdm2rtlil rp32_r5p_hamster      rp32/hamster/…:309       named keys, param
+      -> SLANG_REJECT both modes ("no member named 'alu' in 'dec_t'",
+         r5p_hamster.sv:267).  No database on our side; cannot move.
+  surelog    CastStructMember      dut.sv:7                 POSITIONAL, param
+      -> SLANG_REJECT both modes, and positional keys are fenced out anyway
+         (golden emits no ref_obj and then FOLDS — grid c2/c5).
+  surelog    DefaultPatternAssign  dut.sv:2                 `default`, param
+      -> CMP_EQUAL both modes.  The LANDED int arm of castDefaultPatternConcat
+         owns it; `default` keys are fenced out of this arm.  A NEIGHBOUR
+         FENCE: it must stay equal.
+  surelog    Verilator             t_struct_init.v:45       named keys, but a
+                                                            `const b4_t` VARIABLE
+      -> SLANG_REJECT both modes, and the law is scoped to parameter
+         initialisers, so the holder is out of scope too.
+
+PREDICTED MOVER SET, BY NAME:
+    typed_named_pattern in BOTH uhdm2rtlil modes, and NOTHING ELSE.
+    ZERO movers in the Surelog suite, both modes.
+    typed_named_pattern is predicted to CONVERT (CMP_NOTEQUAL -> CMP_EQUAL),
+    not merely to advance: at the base its whole judged residue is the cast
+    subtree plus the five leaked wires, and everything else that differs in
+    its dump is VpiFullName / VpiParent (which no generated Compare reads) or
+    the weaklyReferenced tail (which the judge does not reach).
+
+POSITIVE CONTROLS (both sides non-empty, so a zero is a fact about the corpus
+and not about the instrument):
+  * SOURCE side — the scanner returns 25 hits across the two corpora,
+    including four cast sites that are NOT this law's and eleven files it had
+    to strip comments in to reject (aes_cipher_core.sv's `32h'{ b12, … }`
+    comment block appears in three third_party designs and is correctly
+    dropped).
+  * DATABASE side — the golden column of the shape lister is non-empty:
+    op67-over-op33-with-ref_obj-keys is present in typed_named_pattern's
+    golden and in 8 of the 15 grid arms (GRID.golden.txt).
+  * OUR side — the shape lister reads our pristine databases and prints the
+    op75 cells it would replace (GRID.score.txt, 33 STILL + 55 SAME rows).

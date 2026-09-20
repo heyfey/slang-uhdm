@@ -9567,6 +9567,132 @@ UHDM::constant* UhdmExporter::thisDeepMemberMockup84(const Expression& expr,
 
 // A property-decl FORMAL reference: property-scoped ref bound to an implicit
 // module wire minted at the first use (Surelog leaks formals as module nets).
+// § castNamedPatternConcat70 — THE ONE ADMISSION TEST, read by both halves of
+// the law (the parameter road, which turns its struct flatten off, and the
+// expression emitter, which builds the cast shape).  Everything the golden
+// grid FENCED OUT is fenced here, once:
+//
+//   * the CAST spelling only.  `'{m: v}` with no type prefix is a plain
+//     assignment-pattern operation in golden and stays one (grid c13, and the
+//     corpus cell's own `NOP_PLAIN` sibling).
+//   * MEMBER keys only.  A `default:` key becomes a ref_obj named "default"
+//     with NO actual and no mint (grid c6/c12), and POSITIONAL keys become
+//     bare values with no ref_obj at all and then FOLD in the elaborated
+//     listing (grid c2/c5).  Two further shapes, neither of them this one.
+//   * a STRUCT or UNION cast target.  An array or vector-typedef target takes
+//     the positional road above (grid c5/c6).
+//   * no key that NAMES one of the holder's own declarations: that key is an
+//     ordinary reference to the declared object and golden mints nothing
+//     (grid c10, `wire [3:0] a; logic [3:0] b;` beside `p2_t'{a: .., b: ..}`).
+//   * LITERAL key values throughout.  Golden's elaborated listing reduces a
+//     computed value operand (grid c14: `I[3:0]` -> `4'b0100`) while leaving
+//     the shape alone; the law does not model that reduction, so a pattern
+//     that would need it stays on its old road.
+static bool castPatLiteralVal70(const Expression& e) {
+    auto& sv70 = stripImplicitConv(e);
+    switch (sv70.kind) {
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        case ExpressionKind::RealLiteral:
+        case ExpressionKind::StringLiteral:
+            return true;
+        case ExpressionKind::StructuredAssignmentPattern: {
+            auto& ap70 = sv70.as<StructuredAssignmentPatternExpression>();
+            if (ap70.defaultSetter || !ap70.typeSetters.empty() ||
+                !ap70.indexSetters.empty() || ap70.memberSetters.empty())
+                return false;
+            for (auto& m70 : ap70.memberSetters)
+                if (!castPatLiteralVal70(*m70.expr))
+                    return false;
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
+bool UhdmExporter::castNamedStructPattern70(const Expression& e,
+                                            const Scope& home) {
+    if (e.kind != ExpressionKind::StructuredAssignmentPattern || !e.syntax ||
+        e.syntax->kind != syntax::SyntaxKind::AssignmentPatternExpression ||
+        !e.syntax->as<syntax::AssignmentPatternExpressionSyntax>().type ||
+        !e.type)
+        return false;
+    auto& ct70 = e.type->getCanonicalType();
+    if (!ct70.isStruct() && ct70.kind != SymbolKind::PackedUnionType &&
+        ct70.kind != SymbolKind::UnpackedUnionType)
+        return false;
+    auto& ap70 = e.as<StructuredAssignmentPatternExpression>();
+    if (ap70.memberSetters.empty() || ap70.defaultSetter ||
+        !ap70.typeSetters.empty() || !ap70.indexSetters.empty())
+        return false;
+    auto* patSyn70 =
+        &*e.syntax->as<syntax::AssignmentPatternExpressionSyntax>().pattern;
+    if (patSyn70->kind != syntax::SyntaxKind::StructuredAssignmentPattern)
+        return false;
+    // § castMintDefaultNetType70v (r11v70) — THE MINT IS `default_nettype`'s,
+    // not the law's.  The wire this pattern's keys leak is minted by
+    // `UhdmWriter::lateBinding` (Surelog UhdmWriter.cpp:3966-4008), and that
+    // road reads the HOLDER's `default_nettype` twice: it mints NOTHING and
+    // raises `EL0535 Illegal implicit net` when the default is `none`, and
+    // otherwise stamps `getVpiNetType(m_defaultNetType)`, where the shape arm
+    // below writes a flat 1.  `nets::Compare` READS `VpiNetType`
+    // (UHDM generated/src/nets.cpp:277) and `instance::Compare` reads `Nets()`
+    // as a VECTOR (instance.cpp:336), so both readings are judged.
+    // Measured, real Surelog v1.87, verifier arms `v17`/`v18`/`v19` — one
+    // module, one `p2_t'{a: 4'd1, b: 4'd2}`, only the directive varying:
+    //   `default_nettype none` -> golden's net list is `o` ALONE and the two
+    //                             key ref_objs carry NO actual (2x EL0535)
+    //   `default_nettype wand` -> golden mints `a`,`b` with vpiNetType 2
+    //   `default_nettype tri`  -> ...with vpiNetType 4
+    // and with `none` the PRISTINE binary's net list already MATCHED golden's,
+    // so firing there is a pristine-right -> patched-wrong move.  The law owns
+    // the plain-`wire` default and nothing else.
+    if (home.getDefaultNetType().netKind != NetType::Wire)
+        return false;
+    size_t n70 = 0;
+    for (auto item70 :
+         patSyn70->as<syntax::StructuredAssignmentPatternSyntax>().items) {
+        if (item70->kind != syntax::SyntaxKind::AssignmentPatternItem)
+            return false;
+        auto& ai70 = item70->as<syntax::AssignmentPatternItemSyntax>();
+        std::string knm70 = std::string(rawText(ai70.key->sourceRange()));
+        // § castKeyImportedBind70v (r11v70) — `Scope::find` IS NOT THE BINDING
+        // QUESTION.  slang's `Scope::find` answers for DIRECT members only and
+        // says so in its own body ("Don't return imported symbols"; it returns
+        // nullptr for `ExplicitImport` outright, slang Scope.cpp:546-570),
+        // while `UhdmWriter::lateBinding` searches the design's enum constants
+        // and the imported packages' parameters and variables BEFORE it reaches
+        // the mint (UhdmWriter.cpp:3860-3960).  A key whose name arrives
+        // through an import therefore BINDS in golden and mints nothing, and
+        // `Scope::find` cannot see it.  Measured, real Surelog v1.87:
+        //   verifier arm `v21` — `import q::*` where `q` declares
+        //     `enum {a, b}`: golden's key ref_obj carries
+        //     `vpiActual -> enum_const (a)` and the module's net list is `o`
+        //     ALONE
+        //   verifier arm `v20` — `q` declares `localparam int a`: golden
+        //     REPLACES the key operand with that parameter's 32-bit CONSTANT,
+        //     again with no net minted
+        // and in BOTH the pristine binary's net list already matched golden's.
+        // The unqualified lookup is the fence that sees what `find` cannot; it
+        // only ever DECLINES, so a name it finds and `lateBinding` would not
+        // costs a conversion, never a wrong database.
+        if (knm70.empty() || home.find(knm70) ||
+            Lookup::unqualified(home, knm70))
+            return false;
+        const Expression* kv70 = nullptr;
+        for (auto& st70 : ap70.memberSetters)
+            if (st70.member->name == knm70) {
+                kv70 = st70.expr.get();
+                break;
+            }
+        if (!kv70 || !castPatLiteralVal70(*kv70))
+            return false;
+        n70++;
+    }
+    return n70 == ap70.memberSetters.size();
+}
+
 UHDM::ref_obj* UhdmExporter::emitPropFormalRef(std::string_view nm, SourceRange nr,
                                                UHDM::BaseClass* parent,
                                                const std::string& prefix) {
@@ -31987,6 +32113,217 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             return fc9;
                         }
                         return cop9;
+                    }
+                }
+                // ---- LAW castNamedPatternConcat (r11u70) ----
+                // The SAME producer fact, on the NAMED-KEY / AGGREGATE-TARGET
+                // face the default/int arm above deliberately excluded.
+                // `T'{m: v, ...}` over a struct or union T is compiled by
+                // Surelog as operation(vpiCastOp) — carrying a ts ref to T —
+                // over ONE operation(vpiConcatOp) whose operands ALTERNATE:
+                // the member key spelled as a bare `ref_obj` (no
+                // vpiStructMember; that flag belongs to the `default` key
+                // alone), then its value, in SOURCE order.  The key ref_obj
+                // is a REFERENCE, so it binds like any other name written in
+                // the module: an existing net or variable of that name if
+                // there is one, otherwise an implicit wire MINTED in the
+                // module (vpiNetType 1) — the same UhdmWriter::lateBinding
+                // road `fnLocalParamRangeActual` already models.
+                //
+                // Measured on a 15-arm golden matrix (arms c1..c15,
+                // `tools/probe/r11u70repro`), all Surelog v1.87:
+                //   struct / union / unpacked-struct / array / vector-typedef
+                //   cast targets      -> op67 over op33 in BOTH listings
+                //   NAMED keys        -> ref_obj + value pairs, one minted
+                //                        wire per DISTINCT key name (c11: two
+                //                        params, one pair of wires)
+                //   a key that names an existing net or variable (c10)
+                //                     -> binds it, mints nothing
+                //   POSITIONAL keys (c2/c5)
+                //                     -> values only, NO ref_obj, NO mint —
+                //                        and the elaborated listing then FOLDS
+                //                        the whole cast to one constant
+                //   `default` key (c6/c12)
+                //                     -> a ref_obj named "default" with NO
+                //                        actual and NO mint
+                //   the UNCAST twin `'{m: v}` (c13)
+                //                     -> op75, tagged in def / typed+flat in
+                //                        elab — untouched, and the corpus
+                //                        test's own `NOP_PLAIN` is that twin
+                //   the mint lands in the DEF listing's net list only; the
+                //   ELAB listing's net list keeps just the declarations.
+                // The named-key form never folds in either listing (the
+                // ref_obj operands stop `reduceExpr` dead), which is why this
+                // arm needs no view split at all: the two listings are the
+                // same tree.
+                //
+                // Scope: NAMED member keys ONLY, over a STRUCT or UNION cast
+                // target, written where a module is in scope to bind against.
+                // Positional keys, `default` keys over an aggregate, and the
+                // array / vector-typedef targets keep their old shape (each is
+                // recorded with its golden arm; none has a corpus cell).
+                if (castSyn9 && patSyn9 && expr.type &&
+                    castPatAdmit70.count(&expr)) {
+                    UHDM::typespec* tts70 = nullptr;
+                    if (auto t70 = pkgTopTypedefTs.find(
+                            (const Symbol*)&expr.type->getCanonicalType());
+                        t70 != pkgTopTypedefTs.end())
+                        tts70 = t70->second;
+                    if (!tts70 && expr.type->kind == SymbolKind::TypeAlias) {
+                        if (auto t71 = pkgTopTypedefTs.find(
+                                &expr.type->as<TypeAliasType>());
+                            t71 != pkgTopTypedefTs.end())
+                            tts70 = t71->second;
+                        if (!tts70)
+                            if (auto t72 = typedefTs.find(expr.type);
+                                t72 != typedefTs.end())
+                                tts70 = t72->second;
+                    }
+                    // R11U70_CASTDBG=1 prints one line per CAST'd struct/union
+                    // pattern reaching this arm, with the three inputs that
+                    // decide it: whether the target typespec was found,
+                    // whether a binding home is open, and whether the mint
+                    // belongs in that home's net list.  The `home=0` reading
+                    // is what located the emission ORDER fact — parameter
+                    // initialisers compile before their module's nets.
+                    static const bool castDbg70 = getenv("R11U70_CASTDBG");
+                    if (castDbg70)
+                        fprintf(stderr,
+                                "CAST70 %u:%u ts=%d home=%d list=%d keys=%d\n",
+                                (unsigned)sm->getLineNumber(
+                                    expr.sourceRange.start()),
+                                (unsigned)sm->getColumnNumber(
+                                    expr.sourceRange.start()),
+                                (int)(tts70 != nullptr),
+                                (int)(castKeyNetHome70 != nullptr),
+                                (int)castKeyNetList70,
+                                (int)ap.memberSetters.size());
+                    // VALIDATE THE WHOLE PATTERN BEFORE MINTING ANYTHING: a
+                    // key that bails half way through would otherwise leave a
+                    // leaked wire in the module's net list and a half-built
+                    // tree in the arena.
+                    struct CastKey70 {
+                        std::string name;
+                        SourceRange range;
+                        const Expression* val;
+                    };
+                    std::vector<CastKey70> keys70;
+                    bool val70ok = tts70 && castKeyNetHome70 &&
+                                   patSyn9->kind ==
+                                       syntax::SyntaxKind::
+                                           StructuredAssignmentPattern;
+                    if (val70ok)
+                        for (auto item70 :
+                             patSyn9
+                                 ->as<syntax::StructuredAssignmentPatternSyntax>()
+                                 .items) {
+                            if (item70->kind !=
+                                syntax::SyntaxKind::AssignmentPatternItem) {
+                                val70ok = false;
+                                break;
+                            }
+                            auto& ai70 =
+                                item70->as<syntax::AssignmentPatternItemSyntax>();
+                            std::string knm70 =
+                                std::string(rawText(ai70.key->sourceRange()));
+                            const Expression* kv70 = nullptr;
+                            for (auto& st70 : ap.memberSetters)
+                                if (st70.member->name == knm70) {
+                                    kv70 = st70.expr.get();
+                                    break;
+                                }
+                            if (!kv70) {
+                                val70ok = false;
+                                break;
+                            }
+                            keys70.push_back(
+                                {knm70, ai70.key->sourceRange(), kv70});
+                        }
+                    if (val70ok && keys70.size() != ap.memberSetters.size())
+                        val70ok = false;
+                    if (val70ok) {
+                        auto* cop70 = s.MakeOperation();
+                        cop70->VpiOpType(vpiCastOp);
+                        cop70->VpiParent(parent);
+                        setLoc(cop70, expr.sourceRange);
+                        std::string cpfx70 = prefix;
+                        if (cpfx70.size() >= 2 &&
+                            cpfx70.compare(cpfx70.size() - 2, 2, "::") == 0)
+                            cpfx70.resize(cpfx70.size() - 2);
+                        auto* crt70 = s.MakeRef_typespec();
+                        crt70->VpiFullName(cpfx70);
+                        crt70->VpiParent(cop70);
+                        crt70->Actual_typespec(tts70);
+                        cop70->Typespec(crt70);
+                        // The concat spans `{ .. }` — the pattern syntax minus
+                        // its leading apostrophe (Surelog re-lexes the brace).
+                        auto* ccat70 = s.MakeOperation();
+                        ccat70->VpiOpType(vpiConcatOp);
+                        ccat70->VpiParent(cop70);
+                        {
+                            auto pr70 = patSyn9->sourceRange();
+                            setLoc(ccat70,
+                                   SourceRange(pr70.start() + 1, pr70.end()));
+                        }
+                        // Bind the key name the way the module binds any other
+                        // written name; mint an implicit wire when it binds to
+                        // nothing (UhdmWriter.cpp:3985).
+                        // Two cast patterns in one module that name the same
+                        // key share ONE wire (grid c11), and the def listing's
+                        // copy is parked for `emitModuleDef` to list after the
+                        // declarations.
+                        auto keyNet70 = [&](const std::string& knm,
+                                            SourceRange kr) -> UHDM::any* {
+                            auto ck70 =
+                                std::make_pair(castKeyNetHome70, knm);
+                            if (auto f70 = castKeyNets70.find(ck70);
+                                f70 != castKeyNets70.end())
+                                return f70->second;
+                            auto* inet70 = s.MakeLogic_net();
+                            inet70->VpiName(knm);
+                            inet70->VpiFullName(castKeyNetPrefix70 + "." + knm);
+                            inet70->VpiParent(castKeyNetHome70);
+                            inet70->VpiNetType(1);
+                            setLoc(inet70, kr);
+                            castKeyNets70[ck70] = inet70;
+                            if (castKeyNetList70)
+                                castKeyNetPending70[castKeyNetHome70].push_back(
+                                    inet70);
+                            return inet70;
+                        };
+                        auto* cops70 = s.MakeAnyVec();
+                        for (auto& k70 : keys70) {
+                            auto* kro70 = s.MakeRef_obj();
+                            kro70->VpiName(k70.name);
+                            kro70->VpiFullName(joinRef(prefix, k70.name));
+                            kro70->VpiParent(ccat70);
+                            setLoc(kro70, k70.range);
+                            kro70->Actual_group(keyNet70(k70.name, k70.range));
+                            cops70->push_back(kro70);
+                            bool sv70 = suppressConstParent,
+                                 fc70 = forceConstParent;
+                            suppressConstParent = true;
+                            forceConstParent = false;
+                            UHDM::any* v70 =
+                                emitExpr(*k70.val, ccat70, prefix, netMap);
+                            suppressConstParent = sv70;
+                            forceConstParent = fc70;
+                            if (!v70)
+                                continue;
+                            // Surelog's concat operand constant is UNparented
+                            // (compileConst never back-links); every other
+                            // operand keeps its parent.
+                            if (v70->UhdmType() == UHDM::uhdmconstant)
+                                v70->VpiParent(nullptr);
+                            else
+                                v70->VpiParent(ccat70);
+                            cops70->push_back(v70);
+                        }
+                        ccat70->Operands(cops70);
+                        auto* couter70 = s.MakeAnyVec();
+                        couter70->push_back(ccat70);
+                        cop70->Operands(couter70);
+                        return cop70;
                     }
                 }
             }

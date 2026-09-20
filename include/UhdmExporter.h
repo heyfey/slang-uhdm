@@ -5984,6 +5984,36 @@ private:
     std::set<const slang::ast::Symbol*> vlogHiddenBlockVars;
     UHDM::instance* implicitNetModule = nullptr;
     std::string implicitNetPrefix;
+    // § castNamedPatternConcat70 — the instance a `T'{m: v}` cast pattern's
+    // member KEY binds against, and whether a wire it has to mint belongs in
+    // that instance's net LIST.  Surelog's key ref_obj is an ordinary written
+    // name, so it binds a net/variable of that name or leaks an implicit wire;
+    // the leak shows up in the DEFINITION listing's net list and NOT in the
+    // elaborated one, which keeps only the declarations.  Set around parameter
+    // emission only, so no other road can see it.
+    UHDM::instance* castKeyNetHome70 = nullptr;
+    std::string castKeyNetPrefix70;
+    bool castKeyNetList70 = false;
+    // One minted wire per (instance, key name) — grid c11 writes two cast
+    // patterns with the same keys in one module and golden mints ONE pair.
+    std::map<std::pair<UHDM::instance*, std::string>, UHDM::logic_net*>
+        castKeyNets70;
+    // Def-view mints parked until the module's own nets exist.
+    std::map<UHDM::instance*, std::vector<UHDM::logic_net*>>
+        castKeyNetPending70;
+    // The pattern expressions the PARAMETER road admitted to the law.  One
+    // decision point for both halves: the parameter road turns its own struct
+    // flatten off and records the expression here, and the expression emitter
+    // builds the cast shape for exactly those.  A pointer-identity set, so no
+    // other pattern in the same call can pick the shape up by accident.
+    std::set<const slang::ast::Expression*> castPatAdmit70;
+    /// Whether this pattern is a `T'{named keys}` cast over a struct or union
+    /// target that the law owns: the cast spelling, member keys only, no key
+    /// naming one of `home`'s own declarations (golden binds those instead of
+    /// leaking a wire — grid c10), and literal-valued keys throughout (golden
+    /// REDUCES a computed key value in the elaborated listing — grid c14).
+    bool castNamedStructPattern70(const slang::ast::Expression& e,
+                                  const slang::ast::Scope& home);
     // § fnLocalParamRangeNet — the SUBROUTINE whose own declaration TYPE is
     // being emitted (return type, formal type, body-local type).  Surelog
     // compiles those type ranges with the subroutine's parameters out of

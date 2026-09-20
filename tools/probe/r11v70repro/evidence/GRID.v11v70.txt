@@ -1,0 +1,118 @@
+r11v70 — THE ADVERSARIAL GRID, 22 arms, every golden a real Surelog v1.87 run.
+Binaries: pris 575be751afd6818113a6788148e78797 (base 3e392403)
+          law  e4a5be301d98c37d3f5536d8768882e0 (/tmp/r11u70.patch as submitted)
+          fix  5b29177972f5ead865d5513a6dd722b0 (the verified patch)
+gdist = ORDER-BLIND whole-dump distance to golden (ids + workdir normalised).
+NETS  = the definition listing's module net list, IN ORDER (instance::Compare reads it as a VECTOR).
+
+ARM  g-pris  g-law   g-fix    what the arm varies
+v1   817     802     817      PACKAGE-declared cast param, member-selected in its OWN package (turns the flatten on)
+       G   nets: work@v1.o,work@v1.o2,work@v1.a,work@v1.b,
+       P   nets: work@v1.o,work@v1.o2,
+       LAW nets: work@v1.o,work@v1.o2,
+       FIX nets: work@v1.o,work@v1.o2,
+v2   703     522     522      module localparam, the corpus shape, plus a member-select of it
+       G   nets: work@v2.o,work@v2.a,work@v2.b,
+       P   nets: work@v2.o,
+       LAW nets: work@v2.o,work@v2.a,work@v2.b,
+       FIX nets: work@v2.o,work@v2.a,work@v2.b,
+v3   688     522     522      struct typedef declared at COMPILATION-UNIT level, not in a package
+       G   nets: work@v3.o,work@v3.a,work@v3.b,
+       P   nets: work@v3.o,
+       LAW nets: work@v3.o,work@v3.a,work@v3.b,
+       FIX nets: work@v3.o,work@v3.a,work@v3.b,
+v4   782     685     685      NESTED cast T'{a: U'{x,y}, b}
+       G   nets: work@v4.o,work@v4.a,work@v4.x,work@v4.y,work@v4.b,
+       P   nets: work@v4.o,
+       LAW nets: work@v4.o,work@v4.a,work@v4.b,
+       FIX nets: work@v4.o,work@v4.a,work@v4.b,
+v5   828     544     544      the module instantiated TWICE
+       G   nets: work@sub5.o,work@sub5.a,work@sub5.b,work@v5.o1,work@v5.o2,
+       P   nets: work@sub5.o,work@v5.o1,work@v5.o2,
+       LAW nets: work@sub5.o,work@sub5.a,work@sub5.b,work@v5.o1,work@v5.o2,
+       FIX nets: work@sub5.o,work@sub5.a,work@sub5.b,work@v5.o1,work@v5.o2,
+v6   694     522     522      the cast in a PARAMETER PORT declaration
+       G   nets: work@v6.o,work@v6.a,work@v6.b,
+       P   nets: work@v6.o,
+       LAW nets: work@v6.o,work@v6.a,work@v6.b,
+       FIX nets: work@v6.o,work@v6.a,work@v6.b,
+v7   691     691     691      a key that names an OUTPUT PORT of the holder
+       G   nets: work@v7.a,work@v7.b,
+       P   nets: work@v7.a,
+       LAW nets: work@v7.a,
+       FIX nets: work@v7.a,
+v8   632     580     580      a typedef ALIAS of the struct as cast target
+       G   nets: work@v8.o,work@v8.a,work@v8.b,
+       P   nets: work@v8.o,
+       LAW nets: work@v8.o,work@v8.a,work@v8.b,
+       FIX nets: work@v8.o,work@v8.a,work@v8.b,
+v9   694     522     522      a module with NO ports at all (empty net list before the mint)
+       G   nets: work@v9.a,work@v9.b,
+       P   nets: 
+       LAW nets: work@v9.a,work@v9.b,
+       FIX nets: work@v9.a,work@v9.b,
+v10  691     691     691      keys naming a GENVAR and a declared logic
+       G   nets: work@v10.o,work@v10.b,work@v10.a,
+       P   nets: work@v10.o,work@v10.b,
+       LAW nets: work@v10.o,work@v10.b,
+       FIX nets: work@v10.o,work@v10.b,
+v11  866     538     538      two MODULES each with their own cast param, same key names
+       G   nets: work@m11a.o,work@m11a.a,work@m11a.b,work@v11.o,work@v11.o2,work@v11.a,work@v11.b,
+       P   nets: work@m11a.o,work@v11.o,work@v11.o2,
+       LAW nets: work@m11a.o,work@m11a.a,work@m11a.b,work@v11.o,work@v11.o2,work@v11.a,work@v11.b,
+       FIX nets: work@m11a.o,work@m11a.a,work@m11a.b,work@v11.o,work@v11.o2,work@v11.a,work@v11.b,
+v12  718     718     718      the cast param inside a GENERATE block
+       G   nets: work@v12.o,
+       P   nets: work@v12.o,
+       LAW nets: work@v12.o,
+       FIX nets: work@v12.o,
+v13  724     724     724      both keys naming OUTPUT PORTS
+       G   nets: work@v13.a,work@v13.b,
+       P   nets: work@v13.a,work@v13.b,
+       LAW nets: work@v13.a,work@v13.b,
+       FIX nets: work@v13.a,work@v13.b,
+v14  844     843     844      UNPACKED struct cast param in a package, member-selected
+       G   nets: work@v14.o,work@v14.a,work@v14.b,
+       P   nets: work@v14.o,
+       LAW nets: work@v14.o,
+       FIX nets: work@v14.o,
+v15  696     608     696      the cast param declared in an INTERFACE
+       G   nets: work@v15.o,
+       P   nets: work@v15.o,
+       LAW nets: work@v15.o,
+       FIX nets: work@v15.o,
+v16  694     522     522      keys written in REVERSE member order
+       G   nets: work@v16.o,work@v16.b,work@v16.a,
+       P   nets: work@v16.o,
+       LAW nets: work@v16.o,work@v16.b,work@v16.a,
+       FIX nets: work@v16.o,work@v16.b,work@v16.a,
+v17  684     544     684      `default_nettype none`
+       G   nets: work@v17.o,
+       P   nets: work@v17.o,
+       LAW nets: work@v17.o,work@v17.a,work@v17.b,
+       FIX nets: work@v17.o,
+v18  694     526     694      `default_nettype wand`
+       G   nets: work@v18.o,work@v18.a,work@v18.b,
+       P   nets: work@v18.o,
+       LAW nets: work@v18.o,work@v18.a,work@v18.b,
+       FIX nets: work@v18.o,
+v19  694     526     694      `default_nettype tri`
+       G   nets: work@v19.o,work@v19.a,work@v19.b,
+       P   nets: work@v19.o,
+       LAW nets: work@v19.o,work@v19.a,work@v19.b,
+       FIX nets: work@v19.o,
+v20  674     612     674      a key naming a WILDCARD-IMPORTED package localparam
+       G   nets: work@v20.o,
+       P   nets: work@v20.o,
+       LAW nets: work@v20.o,work@v20.a,work@v20.b,
+       FIX nets: work@v20.o,
+v21  684     564     684      a key naming a WILDCARD-IMPORTED enum constant
+       G   nets: work@v21.o,
+       P   nets: work@v21.o,
+       LAW nets: work@v21.o,work@v21.a,work@v21.b,
+       FIX nets: work@v21.o,
+v22  693     693     693      a key naming a MODULE-LOCAL localparam (the other key mints)
+       G   nets: work@v22.o,work@v22.b,
+       P   nets: work@v22.o,
+       LAW nets: work@v22.o,
+       FIX nets: work@v22.o,

@@ -1,0 +1,9 @@
+LHS:
+decompile:
+ref_typespec: (work@typed_named_pattern), id:103
+|vpiParent:
+\_operation: , id:102, line:22:35, endln:22:132
+|vpiFullName:work@typed_named_pattern
+|vpiActual:
+\_struct_typespec: (q::op32_i_t), id:13, line:9:11, endln:15:4
+RHS: <null>

@@ -1,0 +1,49 @@
+r11v70 — THE THREE AWAY CELLS THE LAW OPENED, AND WHAT GOLDEN WRITES THERE.
+
+== v17  `default_nettype none
+Surelog rc=4, 2 x [ERR:EL0535] Illegal implicit net (UhdmWriter.cpp:3968-3979):
+[ERR:EL0535] /tmp/v11u70_arms/v17.sv:6:29: Illegal implicit net "a".
+[ERR:EL0535] /tmp/v11u70_arms/v17.sv:6:38: Illegal implicit net "b".
+GOLDEN net list: work@v17.o,
+PRIS   net list: work@v17.o,  <- MATCHES GOLDEN
+LAW    net list: work@v17.o,work@v17.a,work@v17.b,  <- AWAY
+FIX    net list: work@v17.o,  <- restored
+
+== v18/v19  the net TYPE the mint hardcodes
+golden vpiNetType for the minted key wire, by directive:
+  wand:     |vpiNetType:2
+  tri :     |vpiNetType:4
+  LAW writes (wand arm):     |vpiNetType:1
+  nets::Compare reads VpiNetType (UHDM generated/src/nets.cpp:277).
+
+== v20  a key naming a WILDCARD-IMPORTED package localparam
+GOLDEN concat operand at the key position is the parameter's VALUE, not a ref:
+        |vpiOpType:33
+        |vpiOperand:
+        \_constant: , line:7:29, endln:7:30
+          |vpiParent:
+          \_param_assign: , line:3:18, endln:3:23
+          |vpiDecompile:7
+GOLDEN net list: work@v20.o,
+LAW    net list: work@v20.o,work@v20.a,work@v20.b,  <- AWAY
+
+== v21  a key naming a WILDCARD-IMPORTED enum constant
+GOLDEN binds the enum_const and mints nothing:
+        \_ref_obj: (work@v21.a), line:6:29, endln:6:30
+          |vpiParent:
+          \_operation: , line:6:28, endln:6:46
+          |vpiName:a
+          |vpiFullName:work@v21.a
+          |vpiActual:
+          \_enum_const: (a), line:3:30, endln:3:35
+        |vpiOperand:
+GOLDEN net list: work@v21.o,
+LAW    net list: work@v21.o,work@v21.a,work@v21.b,  <- AWAY
+FIX    net list: work@v21.o,  <- restored
+
+== v1  THE HALF-FIRE: the admission cleared structPat where the shape arm declined
+uhdmtopPackages / q::PK, the package's ELABORATED listing:
+  GOLDEN       |vpiOpType:67         |vpiOpType:33         \_ref_obj: (q::a), line:3:30, endln:3:31         \_constant: , line:3:33, endln:3:37           |DEC:1         \_ref_obj: (q::b), line:3:39, endln:3:40         \_constant: , line:3:42, endln:3:46           |DEC:2 
+  PRIS         |vpiOpType:75       \_constant: , line:3:33, endln:3:37         |DEC:1       \_constant: , line:3:42, endln:3:46         |DEC:2     \_constant: , line:4:31, endln:4:35 
+  LAW          |vpiOpType:75       \_tagged_pattern: , line:3:33, endln:3:37         \_constant: , line:3:33, endln:3:37           |DEC:1           \_tagged_pattern: , line:3:33, endln:3:37       \_tagged_pattern: , line:3:42, endln:3:46 
+  FIX          |vpiOpType:75       \_constant: , line:3:33, endln:3:37         |DEC:1       \_constant: , line:3:42, endln:3:46         |DEC:2     \_constant: , line:4:31, endln:4:35 

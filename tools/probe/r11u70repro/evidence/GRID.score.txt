@@ -1,0 +1,201 @@
+tnp   SAME   uhdmallModules|work@typed_named_pattern|CA work@typed_named_pattern.o_cast
+tnp   SAME   uhdmallModules|work@typed_named_pattern|CA work@typed_named_pattern.o_plain
+tnp   TO     uhdmallModules|work@typed_named_pattern|NETS
+tnp   TO     uhdmallModules|work@typed_named_pattern|PARAM work@typed_named_pattern.NOP_CAST
+tnp   SAME   uhdmallModules|work@typed_named_pattern|PARAM work@typed_named_pattern.NOP_PLAIN
+tnp   STILL  uhdmtopModules|q|PARAM ?
+        G NONE
+        P None
+        L None
+tnp   SAME   uhdmtopModules|work@typed_named_pattern|CA ?
+tnp   SAME   uhdmtopModules|work@typed_named_pattern|NETS
+tnp   TO     uhdmtopModules|work@typed_named_pattern|PARAM work@typed_named_pattern.NOP_CAST
+tnp   SAME   uhdmtopModules|work@typed_named_pattern|PARAM work@typed_named_pattern.NOP_PLAIN
+c1    SAME   uhdmallModules|work@c1|CA work@c1.o
+c1    TO     uhdmallModules|work@c1|NETS
+c1    TO     uhdmallModules|work@c1|PARAM work@c1.A
+c1    SAME   uhdmtopModules|work@c1|CA ?
+c1    SAME   uhdmtopModules|work@c1|NETS
+c1    TO     uhdmtopModules|work@c1|PARAM work@c1.A
+c2    SAME   uhdmallModules|work@c2|CA work@c2.o
+c2    SAME   uhdmallModules|work@c2|NETS
+c2    STILL  uhdmallModules|work@c2|PARAM work@c2.A
+        G op67{ts=ref_typespec[work@c2]->struct_typespec(q::p2_t)}[op33{ts=-}[K4:DEC=1 K4:DEC=2]]
+        P op75{ts=-}[K4:DEC=1 K4:DEC=2]
+        L op75{ts=-}[K4:DEC=1 K4:DEC=2]
+c2    SAME   uhdmtopModules|work@c2|CA ?
+c2    SAME   uhdmtopModules|work@c2|NETS
+c2    STILL  uhdmtopModules|work@c2|PARAM work@c2.A
+        G op67{ts=ref_typespec[work@c2]->struct_typespec(q::p2_t)}[K8:BIN=00010010]
+        P op75{ts=ref_typespec[work@c2]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=2]
+        L op75{ts=ref_typespec[work@c2]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=2]
+c3    SAME   uhdmallModules|work@c3|CA work@c3.o
+c3    TO     uhdmallModules|work@c3|NETS
+c3    TO     uhdmallModules|work@c3|PARAM work@c3.A
+c3    SAME   uhdmtopModules|work@c3|CA ?
+c3    SAME   uhdmtopModules|work@c3|NETS
+c3    STILL  uhdmtopModules|work@c3|PARAM work@c3.A
+        G op67{ts=ref_typespec[work@c3]->struct_typespec(q::u2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+        P op75{ts=ref_typespec[work@c3]->struct_typespec(q::u2_t)}[K4:DEC=1 K4:DEC=2]
+        L op75{ts=ref_typespec[work@c3]->struct_typespec(q::u2_t)}[K4:DEC=1 K4:DEC=2]
+c4  G-ONLY (our compile produced no database)
+c5    SAME   uhdmallModules|work@c5|CA work@c5.o
+c5    SAME   uhdmallModules|work@c5|NETS
+c5    STILL  uhdmallModules|work@c5|PARAM work@c5.A
+        G op67{ts=ref_typespec[work@c5]->array_typespec(v4_t)}[op33{ts=-}[K4:DEC=1 K4:DEC=2]]
+        P op75{ts=-}[K4:DEC=1 K4:DEC=2]
+        L op75{ts=-}[K4:DEC=1 K4:DEC=2]
+c5    STILL  uhdmtopModules|work@c5|CA ?
+        G NONE
+        P None
+        L None
+c5    STILL  uhdmtopModules|work@c5|CA work@c5.o
+        G None
+        P K4:UINT=1
+        L K4:UINT=1
+c5    SAME   uhdmtopModules|work@c5|NETS
+c5    STILL  uhdmtopModules|work@c5|PARAM work@c5.A
+        G op67{ts=ref_typespec[work@c5]->array_typespec(v4_t)}[K8:BIN=00010010]
+        P op75{ts=ref_typespec[work@c5]->array_typespec()}[K4:DEC=1 K4:DEC=2]
+        L op75{ts=ref_typespec[work@c5]->array_typespec()}[K4:DEC=1 K4:DEC=2]
+c6    SAME   uhdmallModules|work@c6|CA work@c6.o
+c6    SAME   uhdmallModules|work@c6|NETS
+c6    STILL  uhdmallModules|work@c6|PARAM work@c6.A
+        G op67{ts=ref_typespec[work@c6]->logic_typespec(v8_t)}[op33{ts=-}[R(default->-) K1:BIN=1]]
+        P op75{ts=-}[tp(string_typespec(default))[K1:BIN=1]]
+        L op75{ts=-}[tp(string_typespec(default))[K1:BIN=1]]
+c6    STILL  uhdmtopModules|work@c6|CA ?
+        G NONE
+        P None
+        L None
+c6    STILL  uhdmtopModules|work@c6|CA work@c6.o
+        G None
+        P K-:?=
+        L K-:?=
+c6    SAME   uhdmtopModules|work@c6|NETS
+c6    STILL  uhdmtopModules|work@c6|PARAM work@c6.A
+        G op67{ts=ref_typespec[work@c6]->logic_typespec(v8_t)}[op33{ts=-}[R(default->-) K1:BIN=1]]
+        P K8:UINT=255
+        L K8:UINT=255
+c7    SAME   uhdmallModules|work@c7|CA work@c7.o
+c7    STILL  uhdmallModules|work@c7|NETS
+        G o,a,b
+        P o
+        L o
+c7    STILL  uhdmallModules|work@c7|PARAM work@c7.PK
+        G op67{ts=ref_typespec[work@c7]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->-) K4:DEC=1 R(b->-) K4:DEC=2]]
+        P op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+        L op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+c7    STILL  uhdmallPackages|q|PARAM q::PK
+        G op67{ts=ref_typespec[q]->struct_typespec(q::p2_t)}[op33{ts=-}[R(q::a->-) K4:DEC=1 R(q::b->-) K4:DEC=2]]
+        P op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+        L op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+c7    SAME   uhdmtopModules|work@c7|CA ?
+c7    SAME   uhdmtopModules|work@c7|NETS
+c7    STILL  uhdmtopModules|work@c7|PARAM work@c7.PK
+        G op67{ts=ref_typespec[work@c7]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->-) K4:DEC=1 R(b->-) K4:DEC=2]]
+        P op75{ts=ref_typespec[work@c7]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=2]
+        L op75{ts=ref_typespec[work@c7]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=2]
+c7    STILL  uhdmtopPackages|q|PARAM q::PK
+        G op67{ts=ref_typespec[q]->struct_typespec(q::p2_t)}[op33{ts=-}[R(q::a->logic_net) K4:DEC=1 R(q::b->logic_net) K4:DEC=2]]
+        P op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+        L op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+c8    SAME   uhdmallModules|work@c8|CA work@c8.o
+c8    STILL  uhdmallModules|work@c8|NETS
+        G o,v,a,b
+        P o,v
+        L o,v
+c8    SAME   uhdmtopModules|work@c8|CA ?
+c8    SAME   uhdmtopModules|work@c8|NETS
+c9    STILL  uhdmallModules|work@c9|CA work@c9.o
+        G op67{ts=ref_typespec[work@c9]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+        P op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+        L op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+c9    STILL  uhdmallModules|work@c9|NETS
+        G o,a,b
+        P o
+        L o
+c9    STILL  uhdmtopModules|work@c9|CA work@c9.o
+        G op67{ts=ref_typespec[work@c9]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+        P op75{ts=-}[K4:UINT=1 K4:UINT=2]
+        L op75{ts=-}[K4:UINT=1 K4:UINT=2]
+c9    SAME   uhdmtopModules|work@c9|NETS
+c10   SAME   uhdmallModules|work@c10|CA work@c10.o
+c10   SAME   uhdmallModules|work@c10|NETS
+c10   STILL  uhdmallModules|work@c10|PARAM work@c10.A
+        G op67{ts=ref_typespec[work@c10]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+        P op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+        L op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+c10   SAME   uhdmtopModules|work@c10|CA ?
+c10   SAME   uhdmtopModules|work@c10|NETS
+c10   STILL  uhdmtopModules|work@c10|PARAM work@c10.A
+        G op67{ts=ref_typespec[work@c10]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+        P op75{ts=ref_typespec[work@c10]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=2]
+        L op75{ts=ref_typespec[work@c10]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=2]
+c11   SAME   uhdmallModules|work@c11|CA work@c11.o
+c11   TO     uhdmallModules|work@c11|NETS
+c11   TO     uhdmallModules|work@c11|PARAM work@c11.A
+c11   TO     uhdmallModules|work@c11|PARAM work@c11.B
+c11   STILL  uhdmtopModules|work@c11|CA work@c11.o
+        G op24{ts=-}[R(A->-) R(B->-)]
+        P K8:UINT=70
+        L K8:UINT=70
+c11   SAME   uhdmtopModules|work@c11|NETS
+c11   TO     uhdmtopModules|work@c11|PARAM work@c11.A
+c11   TO     uhdmtopModules|work@c11|PARAM work@c11.B
+c12   SAME   uhdmallModules|work@c12|CA work@c12.o
+c12   SAME   uhdmallModules|work@c12|NETS
+c12   STILL  uhdmallModules|work@c12|PARAM work@c12.A
+        G op67{ts=ref_typespec[work@c12]->struct_typespec(q::p2_t)}[op33{ts=-}[R(default->-) K4:DEC=1]]
+        P op75{ts=-}[tp(string_typespec(default))[K4:DEC=1]]
+        L op75{ts=-}[tp(string_typespec(default))[K4:DEC=1]]
+c12   SAME   uhdmtopModules|work@c12|CA ?
+c12   SAME   uhdmtopModules|work@c12|NETS
+c12   STILL  uhdmtopModules|work@c12|PARAM work@c12.A
+        G op67{ts=ref_typespec[work@c12]->struct_typespec(q::p2_t)}[op33{ts=-}[R(default->-) K4:DEC=1]]
+        P op75{ts=ref_typespec[work@c12]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=1]
+        L op75{ts=ref_typespec[work@c12]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=1]
+c13   SAME   uhdmallModules|work@c13|CA work@c13.o
+c13   SAME   uhdmallModules|work@c13|NETS
+c13   SAME   uhdmallModules|work@c13|PARAM work@c13.A
+c13   SAME   uhdmtopModules|work@c13|CA ?
+c13   SAME   uhdmtopModules|work@c13|NETS
+c13   SAME   uhdmtopModules|work@c13|PARAM work@c13.A
+c14   SAME   uhdmallModules|work@c14|CA work@c14.o
+c14   STILL  uhdmallModules|work@c14|NETS
+        G o,a,b
+        P o
+        L o
+c14   STILL  uhdmallModules|work@c14|PARAM work@c14.A
+        G op67{ts=ref_typespec[work@c14]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) part_select() R(b->logic_net) K4:DEC=2]]
+        P op75{ts=-}[tp(string_typespec(a))[part_select()] tp(string_typespec(b))[K4:DEC=2]]
+        L op75{ts=-}[tp(string_typespec(a))[part_select()] tp(string_typespec(b))[K4:DEC=2]]
+c14   SAME   uhdmallModules|work@c14|PARAM work@c14.I
+c14   SAME   uhdmtopModules|work@c14|CA ?
+c14   SAME   uhdmtopModules|work@c14|NETS
+c14   STILL  uhdmtopModules|work@c14|PARAM work@c14.A
+        G op67{ts=ref_typespec[work@c14]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:BIN=0100 R(b->logic_net) K4:DEC=2]]
+        P op75{ts=ref_typespec[work@c14]->struct_typespec(q::p2_t)}[K4:UINT=4 K4:DEC=2]
+        L op75{ts=ref_typespec[work@c14]->struct_typespec(q::p2_t)}[K4:UINT=4 K4:DEC=2]
+c14   SAME   uhdmtopModules|work@c14|PARAM work@c14.I
+c15   STILL  uhdmallModules|work@c15|NETS
+        G o,a,b
+        P o
+        L o
+c15   SAME   uhdmallModules|work@sub|CA work@sub.o
+c15   SAME   uhdmallModules|work@sub|NETS
+c15   SAME   uhdmallModules|work@sub|PARAM work@sub.P
+c15   SAME   uhdmtopModules|work@c15|NETS
+c15   STILL  uhdmtopModules|work@sub|CA ?
+        G NONE
+        P None
+        L None
+c15   STILL  uhdmtopModules|work@sub|CA work@c15.u.o
+        G None
+        P K8:UINT=18
+        L K8:UINT=18
+c15   SAME   uhdmtopModules|work@sub|NETS
+c15   STILL  uhdmtopModules|work@sub|PARAM work@c15.u.P
+        G op67{ts=ref_typespec[work@c15.u]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+        P K8:UINT=18
+        L K8:UINT=18

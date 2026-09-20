@@ -1,0 +1,9 @@
+OP67 2  /tmp/r11u70_sw/law/u2r/default/ClogOfParamOfInstanceInitializedByStructMember-12e1efcc/slang.uhdm
+OP67 4  /tmp/r11u70_sw/law/u2r/default/def_ctx_struct_param-ffe4fee8/slang.uhdm
+OP67 3  /tmp/r11u70_sw/law/u2r/default/DivisionOfSize-cec16cd8/slang.uhdm
+OP67 3  /tmp/r11u70_sw/law/u2r/default/latch_decoder_partial-63147649/slang.uhdm
+OP67 3  /tmp/r11u70_sw/law/u2r/default/latch_tlb_napot-e9d271df/slang.uhdm
+OP67 1  /tmp/r11u70_sw/law/u2r/default/OneCast-f6440e63/slang.uhdm
+OP67 2  /tmp/r11u70_sw/law/u2r/default/OutputSizeWithParameterOfInstanceInitializedByStructMember-b91aba25/slang.uhdm
+OP67 2  /tmp/r11u70_sw/law/u2r/default/typed_named_pattern-816a70c4/slang.uhdm
+DBCENSUS /tmp/r11u70_sw/law/u2r/default databases=804 OP67cells=20 OP75cells=829

@@ -2107,6 +2107,19 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             if (member.kind == SymbolKind::StatementBlock)
                 hoistBlk(member.as<StatementBlockSymbol>());
     }
+    // § castNamedPatternConcat70 — the wires a `T'{m: v}` cast pattern's
+    // member keys leaked.  Parameter initialisers are emitted BEFORE this
+    // module's nets (UhdmExporter's def loop runs `emitParameters` ahead of
+    // `emitModuleDef`), so the mint is parked per module there and drained
+    // here: golden lists the leaked wires AFTER every declaration
+    // (`o_cast, o_plain, imm_11_0, rs1, funct3, rd, opcode` on the corpus
+    // cell) and before the hoisted-class and `$dumpvars` names below.
+    if (auto ck70 = castKeyNetPending70.find(m);
+        ck70 != castKeyNetPending70.end()) {
+        for (auto* kn70 : ck70->second)
+            nets->push_back(kn70);
+        castKeyNetPending70.erase(ck70);
+    }
     if (!nets->empty())
         m->Nets(nets);
     // ...then the names the HOISTED class method bodies could not resolve

@@ -5692,6 +5692,45 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         bool v;
         ~EpdRestore() { f = v; }
     } epdRestore{elabParamDim, savedEpd};
+    // § castNamedPatternConcat70 — a parameter initialiser is the only holder
+    // the law is scoped to, so the binding home is opened here and closed on
+    // the way out.  The DEFINITION listing's net list carries the minted
+    // wires; the elaborated listing gets its own copies, unlisted (measured:
+    // golden's elab module lists only the declared nets, yet its key ref_objs
+    // still resolve to `logic_net`s — grid c1/c3/c10/c11).
+    UHDM::instance* savedCkh70 = castKeyNetHome70;
+    std::string savedCkp70 = castKeyNetPrefix70;
+    bool savedCkl70 = castKeyNetList70;
+    // The admission set is per CALL: the very same pattern Expression is
+    // reached by a package's own listing and again by every module that
+    // materializes that package parameter, and those holders do NOT share the
+    // rule (grid c7).  Leaking one admission into the next call is exactly how
+    // the imported copy picked the shape up before this was scoped.
+    std::set<const Expression*> savedAdm70;
+    savedAdm70.swap(castPatAdmit70);
+    struct Ckn70Restore {
+        UhdmExporter& e;
+        UHDM::instance* h;
+        std::string p;
+        bool l;
+        std::set<const Expression*>& a;
+        ~Ckn70Restore() {
+            e.castKeyNetHome70 = h;
+            e.castKeyNetPrefix70 = p;
+            e.castKeyNetList70 = l;
+            e.castPatAdmit70.swap(a);
+        }
+    } ckn70Restore{*this, savedCkh70, savedCkp70, savedCkl70, savedAdm70};
+    if (m && m->UhdmType() == UHDM::uhdmmodule_inst) {
+        castKeyNetHome70 = (UHDM::instance*)m;
+        castKeyNetPrefix70 = prefix;
+        castKeyNetList70 = !topView;
+    }
+    else {
+        castKeyNetHome70 = nullptr;
+        castKeyNetPrefix70.clear();
+        castKeyNetList70 = false;
+    }
     // Fresh per DEF-view module pass: a generate condition folds an imported
     // param through THIS module's copy (see defModImportParam).
     if (!topView && !inPackage && !funcScope)
@@ -13879,6 +13918,76 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                   pctS.kind == SymbolKind::UnpackedStructType)) &&
                                 (k0 == ExpressionKind::StructuredAssignmentPattern ||
                                  k0 == ExpressionKind::SimpleAssignmentPattern);
+                    // § castNamedPatternConcat70 — a `T'{named keys}` cast
+                    // over a struct/union target is NOT an assignment-pattern
+                    // operation in ANY view: Surelog compiles it to
+                    // vpiCastOp-over-vpiConcatOp (ExprEmit's arm of that law),
+                    // identically in the definition and the elaborated
+                    // listing, and the ref_obj key operands stop `reduceExpr`
+                    // dead so nothing folds.  The struct road owns neither
+                    // shape, so it must not claim this init: with `structPat`
+                    // left set, the elaborated view would rebuild the flat
+                    // op75 the def view no longer has.  Measured on the corpus
+                    // cell (`typed_named_pattern`) and on grid arms c1/c3/c4/
+                    // c10/c11/c14; the UNCAST twin in the same module
+                    // (`NOP_PLAIN`, grid c13) keeps the road and stays
+                    // byte-identical.
+                    // The holder is the module's OWN declaration: a package
+                    // parameter MATERIALIZED into an importing module keeps
+                    // the cast SHAPE in golden but leaves its key ref_objs
+                    // DANGLING in every module listing (grid c7), a third
+                    // binding rule this law does not own.
+                    // R11U70_CASTDBG=1 prints one line per parameter the
+                    // admission test looks at, with the five inputs that
+                    // decide it.  `sp=0` is the imported-copy face (grid c7)
+                    // and `sPat=0` the unpacked one (grid c3) — the two
+                    // readings that scoped this gate.
+                    static const bool castDbg70 = getenv("R11U70_CASTDBG");
+                    if (castDbg70)
+                        fprintf(stderr,
+                                "CASTPAR70 %s sp=%d psk=%d top=%d pkg=%d "
+                                "sPat=%d adm=%d\n",
+                                std::string(ps.name).c_str(),
+                                (int)(ps.getParentScope() == &body),
+                                ps.getParentScope()
+                                    ? (int)ps.getParentScope()->asSymbol().kind
+                                    : -1,
+                                (int)topView, (int)inPackage, (int)structPat,
+                                (int)castNamedStructPattern70(
+                                    stripImplicitConv(*init), body));
+                    // § castAdmitNeedsHome70v (r11v70) — THE TWO HALVES MUST
+                    // AGREE.  `ps.getParentScope() == &body` does NOT fence a
+                    // package-declared cast param out: inside the PACKAGE's own
+                    // `emitParameters` that test is TRUE, so the road below
+                    // cleared `structPat` while the shape arm in ExprEmit
+                    // declined for want of a module to bind against
+                    // (`castKeyNetHome70` is set only for `uhdmmodule_inst`) —
+                    // and the parameter then took NEITHER road, landing on a
+                    // THIRD shape.  Measured, verifier arm `v1` (one package
+                    // declaring `localparam p2_t PK = p2_t'{a: 4'd1, b: 4'd2}`
+                    // and reading `PK.a` in its own scope, which is what turns
+                    // the flatten on), `uhdmtopPackages / q::PK`:
+                    //   GOLDEN    op67[ op33[ R(q::a) K4:DEC=1 R(q::b) K4:DEC=2 ] ]
+                    //   PRISTINE  op75[ K4:DEC=1 K4:DEC=2 ]            (FLAT)
+                    //   r11u70    op75[ tp[K4:DEC=1] tp[K4:DEC=2] ]    (TAGGED)
+                    // Neither of ours is golden, so this is not an away-golden
+                    // move, but it is an UNMODELLED shape the law never
+                    // measured.  Requiring the binding home here makes the
+                    // admission test and the shape arm answer the same
+                    // question; a package or interface holder keeps the
+                    // pristine road whole (the interface face is a residue —
+                    // `lateBinding` mints for `uhdminterface_inst` too).
+                    if (!structOvPat && !structRefPat9 && castKeyNetHome70 &&
+                        ps.getParentScope() == &body &&
+                        castNamedStructPattern70(stripImplicitConv(*init),
+                                                 body)) {
+                        // An UNPACKED struct never set `structPat` in the
+                        // first place (grid c3) — the admission is not a
+                        // widening of that flag, it REPLACES the road for the
+                        // patterns it owns.
+                        structPat = false;
+                        castPatAdmit70.insert(&stripImplicitConv(*init));
+                    }
                     // The rule follows the PACKAGE ORIGIN of the struct param:
                     // it applies in its home package (inPackage) AND when the
                     // param is MATERIALIZED into an importing module/package

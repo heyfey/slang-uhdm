@@ -1,0 +1,122 @@
+== tnp  (Surelog v1.87, )
+uhdmallModules|work@typed_named_pattern|PARAM work@typed_named_pattern.NOP_CAST|op67{ts=ref_typespec[work@typed_named_pattern]->struct_typespec(q::op32_i_t)}[op33{ts=-}[R(imm_11_0->logic_net) K12:HEX=123 R(rs1->logic_net) K5:DEC=5 R(funct3->logic_net) K3:DEC=2 R(rd->logic_net) K5:DEC=9 R(opcode->logic_net) op75{ts=-}[tp(string_typespec(opc))[K1:BIN=1] tp(string_typespec(c11))[K2:BIN=11]]]]
+uhdmallModules|work@typed_named_pattern|PARAM work@typed_named_pattern.NOP_PLAIN|op75{ts=-}[tp(string_typespec(imm_11_0))[K12:HEX=123] tp(string_typespec(rs1))[K5:DEC=5] tp(string_typespec(funct3))[K3:DEC=2] tp(string_typespec(rd))[K5:DEC=9] tp(string_typespec(opcode))[op75{ts=-}[tp(string_typespec(opc))[K1:BIN=1] tp(string_typespec(c11))[K2:BIN=11]]]]
+uhdmallModules|work@typed_named_pattern|CA work@typed_named_pattern.o_cast|R(NOP_CAST->-)
+uhdmallModules|work@typed_named_pattern|CA work@typed_named_pattern.o_plain|R(NOP_PLAIN->-)
+uhdmtopModules|work@typed_named_pattern|PARAM work@typed_named_pattern.NOP_CAST|op67{ts=ref_typespec[work@typed_named_pattern]->struct_typespec(q::op32_i_t)}[op33{ts=-}[R(imm_11_0->logic_net) K12:HEX=123 R(rs1->logic_net) K5:DEC=5 R(funct3->logic_net) K3:DEC=2 R(rd->logic_net) K5:DEC=9 R(opcode->logic_net) op75{ts=-}[tp(string_typespec(opc))[K1:BIN=1] tp(string_typespec(c11))[K2:BIN=11]]]]
+uhdmtopModules|work@typed_named_pattern|PARAM work@typed_named_pattern.NOP_PLAIN|op75{ts=ref_typespec[work@typed_named_pattern]->struct_typespec(q::op32_i_t)}[K12:HEX=123 K5:DEC=5 K3:DEC=2 K5:DEC=9 op75{ts=ref_typespec[]->struct_typespec(q::opcode_t)}[K1:BIN=1 K2:BIN=11]]
+uhdmtopModules|work@typed_named_pattern|CA ?|NONE
+uhdmtopModules|work@typed_named_pattern|CA ?|NONE
+uhdmtopModules|q|PARAM ?|NONE
+uhdmtopModules|q|PARAM ?|NONE
+uhdmallModules|work@typed_named_pattern|NETS|o_cast,o_plain,imm_11_0,rs1,funct3,rd,opcode
+uhdmtopModules|work@typed_named_pattern|NETS|o_cast,o_plain
+== c1  (Surelog v1.87, package q;)
+uhdmallModules|work@c1|PARAM work@c1.A|op67{ts=ref_typespec[work@c1]->struct_typespec(q::op32_i_t)}[op33{ts=-}[R(imm_11_0->logic_net) K12:HEX=123 R(rs1->logic_net) K5:DEC=5 R(funct3->logic_net) K3:DEC=2 R(rd->logic_net) K5:DEC=9 R(opcode->logic_net) op75{ts=-}[tp(string_typespec(opc))[K1:BIN=1] tp(string_typespec(c11))[K2:BIN=11]]]]
+uhdmallModules|work@c1|CA work@c1.o|R(A->-)
+uhdmtopModules|work@c1|PARAM work@c1.A|op67{ts=ref_typespec[work@c1]->struct_typespec(q::op32_i_t)}[op33{ts=-}[R(imm_11_0->logic_net) K12:HEX=123 R(rs1->logic_net) K5:DEC=5 R(funct3->logic_net) K3:DEC=2 R(rd->logic_net) K5:DEC=9 R(opcode->logic_net) op75{ts=-}[tp(string_typespec(opc))[K1:BIN=1] tp(string_typespec(c11))[K2:BIN=11]]]]
+uhdmtopModules|work@c1|CA ?|NONE
+uhdmallModules|work@c1|NETS|o,imm_11_0,rs1,funct3,rd,opcode
+uhdmtopModules|work@c1|NETS|o
+== c2  (Surelog v1.87, package q;)
+uhdmallModules|work@c2|PARAM work@c2.A|op67{ts=ref_typespec[work@c2]->struct_typespec(q::p2_t)}[op33{ts=-}[K4:DEC=1 K4:DEC=2]]
+uhdmallModules|work@c2|CA work@c2.o|R(A->-)
+uhdmtopModules|work@c2|PARAM work@c2.A|op67{ts=ref_typespec[work@c2]->struct_typespec(q::p2_t)}[K8:BIN=00010010]
+uhdmtopModules|work@c2|CA ?|NONE
+uhdmallModules|work@c2|NETS|o
+uhdmtopModules|work@c2|NETS|o
+== c3  (Surelog v1.87, package q;)
+uhdmallModules|work@c3|PARAM work@c3.A|op67{ts=ref_typespec[work@c3]->struct_typespec(q::u2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmallModules|work@c3|CA work@c3.o|hier_path(A.a)
+uhdmtopModules|work@c3|PARAM work@c3.A|op67{ts=ref_typespec[work@c3]->struct_typespec(q::u2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmtopModules|work@c3|CA ?|NONE
+uhdmallModules|work@c3|NETS|o,a,b
+uhdmtopModules|work@c3|NETS|o
+== c4  (Surelog v1.87, package q;)
+uhdmallModules|work@c4|PARAM work@c4.A|op67{ts=ref_typespec[work@c4]->union_typespec(q::un_t)}[op33{ts=-}[R(w->logic_net) K8:DEC=7 R(v->logic_net) K8:DEC=7]]
+uhdmallModules|work@c4|CA work@c4.o|R(A->-)
+uhdmtopModules|work@c4|PARAM work@c4.A|op67{ts=ref_typespec[work@c4]->union_typespec(q::un_t)}[op33{ts=-}[R(w->logic_net) K8:DEC=7 R(v->logic_net) K8:DEC=7]]
+uhdmtopModules|work@c4|CA ?|NONE
+uhdmallModules|work@c4|NETS|o,w,v
+uhdmtopModules|work@c4|NETS|o
+== c5  (Surelog v1.87, package q;)
+uhdmallModules|work@c5|PARAM work@c5.A|op67{ts=ref_typespec[work@c5]->array_typespec(v4_t)}[op33{ts=-}[K4:DEC=1 K4:DEC=2]]
+uhdmallModules|work@c5|CA work@c5.o|bit_select(work@c5.A)
+uhdmtopModules|work@c5|PARAM work@c5.A|op67{ts=ref_typespec[work@c5]->array_typespec(v4_t)}[K8:BIN=00010010]
+uhdmtopModules|work@c5|CA ?|NONE
+uhdmallModules|work@c5|NETS|o
+uhdmtopModules|work@c5|NETS|o
+== c6  (Surelog v1.87, package q;)
+uhdmallModules|work@c6|PARAM work@c6.A|op67{ts=ref_typespec[work@c6]->logic_typespec(v8_t)}[op33{ts=-}[R(default->-) K1:BIN=1]]
+uhdmallModules|work@c6|CA work@c6.o|R(A->-)
+uhdmtopModules|work@c6|PARAM work@c6.A|op67{ts=ref_typespec[work@c6]->logic_typespec(v8_t)}[op33{ts=-}[R(default->-) K1:BIN=1]]
+uhdmtopModules|work@c6|CA ?|NONE
+uhdmallModules|work@c6|NETS|o
+uhdmtopModules|work@c6|NETS|o
+== c7  (Surelog v1.87, package q;)
+uhdmallPackages|q|PARAM q::PK|op67{ts=ref_typespec[q]->struct_typespec(q::p2_t)}[op33{ts=-}[R(q::a->-) K4:DEC=1 R(q::b->-) K4:DEC=2]]
+uhdmtopPackages|q|PARAM q::PK|op67{ts=ref_typespec[q]->struct_typespec(q::p2_t)}[op33{ts=-}[R(q::a->logic_net) K4:DEC=1 R(q::b->logic_net) K4:DEC=2]]
+uhdmallModules|work@c7|PARAM work@c7.PK|op67{ts=ref_typespec[work@c7]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->-) K4:DEC=1 R(b->-) K4:DEC=2]]
+uhdmallModules|work@c7|CA work@c7.o|R(PK->-)
+uhdmtopModules|work@c7|PARAM work@c7.PK|op67{ts=ref_typespec[work@c7]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->-) K4:DEC=1 R(b->-) K4:DEC=2]]
+uhdmtopModules|work@c7|CA ?|NONE
+uhdmallModules|work@c7|NETS|o,a,b
+uhdmtopModules|work@c7|NETS|o
+== c8  (Surelog v1.87, package q;)
+uhdmallModules|work@c8|CA work@c8.o|R(v->logic_net)
+uhdmtopModules|work@c8|CA ?|NONE
+uhdmallModules|work@c8|NETS|o,v,a,b
+uhdmtopModules|work@c8|NETS|o,v
+== c9  (Surelog v1.87, package q;)
+uhdmallModules|work@c9|CA work@c9.o|op67{ts=ref_typespec[work@c9]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmtopModules|work@c9|CA work@c9.o|op67{ts=ref_typespec[work@c9]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmallModules|work@c9|NETS|o,a,b
+uhdmtopModules|work@c9|NETS|o
+== c10  (Surelog v1.87, package q;)
+uhdmallModules|work@c10|PARAM work@c10.A|op67{ts=ref_typespec[work@c10]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmallModules|work@c10|CA work@c10.o|R(A->-)
+uhdmtopModules|work@c10|PARAM work@c10.A|op67{ts=ref_typespec[work@c10]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmtopModules|work@c10|CA ?|NONE
+uhdmallModules|work@c10|NETS|o,a,b
+uhdmtopModules|work@c10|NETS|o,a,a
+== c11  (Surelog v1.87, package q;)
+uhdmallModules|work@c11|PARAM work@c11.A|op67{ts=ref_typespec[work@c11]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmallModules|work@c11|PARAM work@c11.B|op67{ts=ref_typespec[work@c11]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=3 R(b->logic_net) K4:DEC=4]]
+uhdmallModules|work@c11|CA work@c11.o|op24{ts=-}[R(A->-) R(B->-)]
+uhdmtopModules|work@c11|PARAM work@c11.A|op67{ts=ref_typespec[work@c11]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmtopModules|work@c11|PARAM work@c11.B|op67{ts=ref_typespec[work@c11]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=3 R(b->logic_net) K4:DEC=4]]
+uhdmtopModules|work@c11|CA work@c11.o|op24{ts=-}[R(A->-) R(B->-)]
+uhdmallModules|work@c11|NETS|o,a,b
+uhdmtopModules|work@c11|NETS|o
+== c12  (Surelog v1.87, package q;)
+uhdmallModules|work@c12|PARAM work@c12.A|op67{ts=ref_typespec[work@c12]->struct_typespec(q::p2_t)}[op33{ts=-}[R(default->-) K4:DEC=1]]
+uhdmallModules|work@c12|CA work@c12.o|R(A->-)
+uhdmtopModules|work@c12|PARAM work@c12.A|op67{ts=ref_typespec[work@c12]->struct_typespec(q::p2_t)}[op33{ts=-}[R(default->-) K4:DEC=1]]
+uhdmtopModules|work@c12|CA ?|NONE
+uhdmallModules|work@c12|NETS|o
+uhdmtopModules|work@c12|NETS|o
+== c13  (Surelog v1.87, package q;)
+uhdmallModules|work@c13|PARAM work@c13.A|op75{ts=-}[tp(string_typespec(a))[K4:DEC=1] tp(string_typespec(b))[K4:DEC=2]]
+uhdmallModules|work@c13|CA work@c13.o|R(A->-)
+uhdmtopModules|work@c13|PARAM work@c13.A|op75{ts=ref_typespec[work@c13]->struct_typespec(q::p2_t)}[K4:DEC=1 K4:DEC=2]
+uhdmtopModules|work@c13|CA ?|NONE
+uhdmallModules|work@c13|NETS|o
+uhdmtopModules|work@c13|NETS|o
+== c14  (Surelog v1.87, package q;)
+uhdmallModules|work@c14|PARAM work@c14.I|K64:UINT=4
+uhdmallModules|work@c14|PARAM work@c14.A|op67{ts=ref_typespec[work@c14]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) part_select() R(b->logic_net) K4:DEC=2]]
+uhdmallModules|work@c14|CA work@c14.o|R(A->-)
+uhdmtopModules|work@c14|PARAM work@c14.I|K32:UINT=4
+uhdmtopModules|work@c14|PARAM work@c14.A|op67{ts=ref_typespec[work@c14]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:BIN=0100 R(b->logic_net) K4:DEC=2]]
+uhdmtopModules|work@c14|CA ?|NONE
+uhdmallModules|work@c14|NETS|o,a,b
+uhdmtopModules|work@c14|NETS|o
+== c15  (Surelog v1.87, package q;)
+uhdmallModules|work@sub|PARAM work@sub.P|op75{ts=-}[tp(string_typespec(a))[K64:UINT=0] tp(string_typespec(b))[K64:UINT=0]]
+uhdmallModules|work@sub|CA work@sub.o|R(P->-)
+uhdmtopModules|work@sub|PARAM work@c15.u.P|op67{ts=ref_typespec[work@c15.u]->struct_typespec(q::p2_t)}[op33{ts=-}[R(a->logic_net) K4:DEC=1 R(b->logic_net) K4:DEC=2]]
+uhdmtopModules|work@sub|CA ?|NONE
+uhdmallModules|work@c15|NETS|o,a,b
+uhdmallModules|work@sub|NETS|o
+uhdmtopModules|work@c15|NETS|o
+uhdmtopModules|work@sub|NETS|o
