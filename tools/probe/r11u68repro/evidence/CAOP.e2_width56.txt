@@ -1,0 +1,42 @@
+-- e2_width56 SIZE
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_e.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_n.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_w.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+ARM e2_width56 SIZE TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 45 ABSENT 0 SHAPE-MISMATCH 3
+-- e2_width56 ENC
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_e.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_n.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_w.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+ARM e2_width56 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 45 ABSENT 0 SHAPE-MISMATCH 3
+-- e2_width56 FULL
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_e.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_n.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+  SHAPE-MISMATCH uhdmtopModules   work@dut.u_w.C             golden=9 pris=7 law=7
+     G const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:18446744073709551615 const/32@9=UINT:0 const/32@9=UINT:0 const/32@9=UINT:0 const/64@7=INT:-1 const/4@7=INT:9
+     P const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+     L const/8@9=UINT:255 const/32@9=UINT:4294967295 const/64@9=UINT:18446744073709551615 const/96@9=UINT:0 const/32@9=UINT:0 const/32@7=INT:-1 const/4@7=INT:9
+ARM e2_width56 FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 45 ABSENT 0 SHAPE-MISMATCH 3

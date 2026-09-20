@@ -10312,6 +10312,32 @@ private:
     /// moved the octal, unsized-decimal and NAME-initialised members from
     /// right to wrong); an implicit member, which has no literal, is `INT`.
     int32_t caSubstLeafCt56(const slang::ast::Expression& e);
+    /// § caSubstMemberStampAllEnc68 (r11u68) — TRUE when a BINARY setter's
+    /// constant is one `CompileHelper::adjustSize` re-sizes through its
+    /// `int_typespec` arm (`CompileHelper.cpp:4150-4215`: `VpiSize(min(orig,
+    /// size))`, value UNTOUCHED) rather than the `logic_typespec` arm
+    /// (`:4136-4148`, which drops the leading digits and rewrites the
+    /// decompile).  A SIGNED based binary literal and a based binary reached
+    /// through a NAME both carry a constant typespec of the first kind; a
+    /// DIRECT unsigned based binary carries one of the second.  The member
+    /// stamp declines the first class, because § caStructParamPatternSubst55
+    /// (W3) transcribes only the second arm and raising `orig_size` under it
+    /// would rewrite a value the producer keeps.  See the law at the
+    /// definition in ModuleEmit.cpp.
+    bool caIntTsBinOrigin68(const slang::ast::Expression& e, int depth);
+    /// § caSubstBailStopsMemberStamp68v (r11v68) — PROOF that the producer's
+    /// `reduceExpr` + `get_uvalue` ACCEPT this setter, so
+    /// `expandPatternAssignment`'s walk continues past it and the members
+    /// after it are still member-stamped.  One-sided: TRUE only for the setter
+    /// kinds measured golden-side; everything else is unproven and leaves the
+    /// pristine stamp standing.  See the law at the definition in
+    /// ModuleEmit.cpp.
+    bool caSetterProvenFolds68v(const slang::ast::Expression& e, int depth);
+    /// TRUE when every member of `upto`'s struct DECLARED BEFORE it is set by
+    /// a setter `caSetterProvenFolds68v` proves folds — i.e. the producer's
+    /// walk provably reaches `upto` still stamping.
+    bool caPriorMembersProven68v(const slang::ast::Expression& ap,
+                                 const slang::ast::Symbol& upto);
     // § shadowedImportParamFold — the same name-keyed getValue one level OUT
     // of a range bound: substitute every ref_obj in an already-emitted DEF-view
     // tree whose name a wildcard-imported package ALSO declares, when a

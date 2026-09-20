@@ -1,0 +1,8 @@
+-- vv3_default SIZE
+  TO          uhdmtopModules   work@dut.NN                op1  golden=const/64                   pris=const/32                   law=const/64
+ARM vv3_default SIZE TO 1 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 13 ABSENT 0 SHAPE-MISMATCH 0
+-- vv3_default ENC
+ARM vv3_default ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 3 SAME 11 ABSENT 0 SHAPE-MISMATCH 0
+-- vv3_default FULL
+  TO          uhdmtopModules   work@dut.NN                op1  golden=const/64@9=UINT:7          pris=const/32@9=UINT:7          law=const/64@9=UINT:7
+ARM vv3_default FULL TO 1 AWAY 0 MOVED-WRONG 0 STILL 3 SAME 10 ABSENT 0 SHAPE-MISMATCH 0

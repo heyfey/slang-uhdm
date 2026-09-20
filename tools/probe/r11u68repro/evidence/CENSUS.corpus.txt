@@ -1,0 +1,61 @@
+SETTER HISTOGRAM: NEG?=31 OK=19973 XLEAD=5
+LAW-A CANDIDATE TESTS (5):
+  Earlgrey_Verilator_01_05_21                  NEG?:1088/MsgWidth | NEG?:1152/MsgWidth | NEG?:1344/MsgWidth | NEG?:832/MsgWidth | NEG?:InfoTypeSize[0] - 1 | NEG?:InfoT
+  Earlgrey_nexysvideo                          NEG?:1088/MsgWidth | NEG?:1152/MsgWidth | NEG?:1344/MsgWidth | NEG?:832/MsgWidth | NEG?:InfoTypeSize[0] - 1 | NEG?:InfoT
+  IncompTitan                                  NEG?:1088/MsgWidth | NEG?:1152/MsgWidth | NEG?:1344/MsgWidth | NEG?:832/MsgWidth | NEG?:InfoTypeSize[0] - 1 | NEG?:InfoT
+  Kmac                                         NEG?:1088/MsgWidth | NEG?:1152/MsgWidth | NEG?:1344/MsgWidth | NEG?:832/MsgWidth
+  rp32                                         XLEAD:1'bx
+LAW-B CANDIDATE TESTS (53):
+  Ariane2024                                   1'b0 | 1'b1 | 16'd0 | 4'b0010 | 4'b0011 | 4'b0110 | 4'b1110 | 4'b1111 | 5'b10000 | 5'b10001 | 5'b10111 | 5'b11000 | 5'b1
+  ArianeElab                                   1'b0 | 1'b1 | 4'b0010 | 4'b0011 | 4'b0110 | 4'b1110 | 4'b1111 | 5'b10000 | 5'b10001 | 5'b10111 | 5'b11000 | 5'b11111 | 6
+  ArianeElab2                                  1'b0 | 1'b1 | 4'b0010 | 4'b0011 | 4'b0110 | 4'b1110 | 4'b1111 | 5'b10000 | 5'b10001 | 5'b10111 | 5'b11000 | 5'b11111 | 6
+  AzadiRTL                                     1'b0 | 1'b1 | 32'h0000_0088 | 32'h0000_2200 | 32'h0000_8822 | 32'h0000_ff00 | 32'h0044_0000 | 32'h0088_0044 | 32'h00f0_0
+  BadScope                                     1'b0 | 1'b1
+  BlackParrotMuteErrors                        1'b1 | 256'h56d24a00181de99e0f690b447a8dde2a1ffb8bc3067 | 256'hefb7ea7ee90093cf4affd9aaa2d6c0ec446cfdf5f2d
+  CastTypespec                                 3'h0
+  Earlgrey_0_1                                 1'b0 | 1'b1 | 168'h1000000000000100000000000000000000000 | 168'h10000000004000000000000 | 168'h100000001F | 168'h1000000
+  Earlgrey_Verilator_01_05_21                  1'b0 | 1'b1 | 168'h1000000000000100000000000000000000000 | 168'h10000000004000000000000 | 168'h100000001F | 168'h1000000
+  Earlgrey_Verilator_0_1                       1'b0 | 1'b1 | 168'h1000000000000100000000000000000000000 | 168'h10000000004000000000000 | 168'h100000001F | 168'h1000000
+  Earlgrey_nexysvideo                          1'b0 | 1'b1 | 168'h1000000000000100000000000000000000000 | 168'h10000000004000000000000 | 168'h100000001F | 168'h1000000
+  FuncStructVal                                16'd0 | 64'h0 | 64'h800 | 64'h808
+  Ibex                                         168'h1000000000000100000000000000000000000 | 168'h10000000004000000000000 | 168'h100000001F | 168'h1000000800000000000 |
+  IncompTitan                                  1'b0 | 1'b1 | 168'h1000000000000100000000000000000000000 | 168'h10000000004000000000000 | 168'h100000001F | 168'h1000000
+  ModuleInstantiationAndIndirectParams         32'haa551234
+  Opentitan                                    1'b1 | 168'h1000000000000100000000000000000000000 | 168'h10000000004000000000000 | 168'h100000001F | 168'h10000008000000
+  PackStructField                              1'b0 | 1'b1
+  ParamComplex                                 1'b0
+  ParamComplexVerilator                        1'b0
+  ParamConcat                                  1'b0 | 1'b1
+  ParamNoImport                                2'b10
+  ParamOverload3                               1'b1 | 4'b1111 | 5'b11111
+  ParamSubstituteComplex                       1'b1 | 4'b1111 | 5'b11111
+  ParamTypespec2                               1'b0 | 1'b1
+  ParameterRangeUsingDot                       1'b0
+  PatternAssignmentOfStructParam               1'b0 | 1'b1
+  Rp32                                         1'b0 | 1'b1 | 32'h0000_0000
+  StructLocalParam                             1'b1
+  StructParamFieldRange                        32'd64
+  StructParamPatternInitCast                   32'd64
+  StructParameter                              1'b1
+  TaggedParam                                  1'b1
+  TaggedPatternLogic                           1'b0 | 1'b1
+  Tnoc                                         1'b0 | 1'b1
+  Verilator                                    2'h0 | 2'h1 | 2'h2 | 2'h3 | 8'h03 | 8'h07 | 8'h33 | 8'h37 | 8'h3F | 8'hC3 | 8'hE1
+  ariane                                       1'b0 | 1'b1 | 4'b0010 | 4'b0011 | 4'b0110 | 4'b1110 | 4'b1111 | 5'b10000 | 5'b10001 | 5'b10111 | 5'b11000 | 5'b11111 | 6
+  assert_wide_const_cond                       32'd4
+  const_cast_signext                           12'h800 | 12'hFFF
+  cva6_equiv                                   1'b0 | 1'b1 | 4'b0010 | 4'b0011 | 4'b0110 | 4'b1110 | 4'b1111 | 5'b10000 | 5'b10001 | 5'b10111 | 5'b11000 | 5'b11111 | 6
+  cva6_struct_param_field                      32'd64
+  ff_dead_both_branches                        1'b0
+  ff_dead_guarded_reset                        1'b0
+  ibex                                         1'b0 | 1'b1 | 168'h1000000000000100000000000000000000000 | 168'h10000000004000000000000 | 168'h100000001F | 168'h1000000
+  iface_wholestruct_param                      4'h1 | 4'h5
+  param_array_wildcard                         32'h0
+  paramod_struct_param                         4'd3 | 4'd5
+  rggen                                        2'h0 | 2'h1 | 2'h2 | 2'h3 | 7'h10 | 7'h38 | 7'h58 | 8'h30 | 8'h38 | 8'h40 | 8'h48
+  rp32                                         1'b0 | 1'b1 | 1'bx | 12'd0 | 12'h001 | 12'h002 | 12'h003 | 12'h100 | 12'h102 | 12'h103 | 12'h104 | 12'h105 | 12'h106 | 1
+  rp32_vfriendly                               1'b0
+  stamped_gen_param                            2'b11 | 4'h9
+  struct_param_pattern_packing                 1'b1 | 16'hBEEF | 64'h1000 | 8'hA5
+  typed_named_pattern                          12'h123 | 3'd2 | 5'd5 | 5'd9
+  wav-lpddr-hw                                 1'b0 | 1'b1 | 32'h0000_0088 | 32'h0000_2200 | 32'h0000_8822 | 32'h0000_ff00 | 32'h0044_0000 | 32'h0088_0044 | 32'h00f0_0

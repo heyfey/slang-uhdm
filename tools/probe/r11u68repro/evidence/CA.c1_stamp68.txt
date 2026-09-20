@@ -1,0 +1,235 @@
+  TO          work@c1_stamp68.u_n.o_b4_m16
+     G 8
+     P 4
+     L 8
+  TO          work@c1_stamp68.u_n.o_b4_m24
+     G 8
+     P 4
+     L 8
+  TO          work@c1_stamp68.u_n.o_b4_m8
+     G 8
+     P 4
+     L 8
+  TO          work@c1_stamp68.u_n.o_d16_m24
+     G 24
+     P 16
+     L 24
+  TO          work@c1_stamp68.u_n.o_d16_m8
+     G 8
+     P 16
+     L 8
+  TO          work@c1_stamp68.u_n.o_d4_m16
+     G 16
+     P 4
+     L 16
+  TO          work@c1_stamp68.u_n.o_d4_m24
+     G 24
+     P 4
+     L 24
+  TO          work@c1_stamp68.u_n.o_d4_m8
+     G 8
+     P 4
+     L 8
+  TO          work@c1_stamp68.u_n.o_nd16
+     G 8
+     P 16
+     L 8
+  TO          work@c1_stamp68.u_n.o_nd16w
+     G 24
+     P 16
+     L 24
+  TO          work@c1_stamp68.u_n.o_sd16_m24
+     G 24
+     P 16
+     L 24
+  TO          work@c1_stamp68.u_n.o_sd16_m8
+     G 8
+     P 16
+     L 8
+  TO          work@c1_stamp68.u_w.o_b16_m24
+     G 24
+     P 16
+     L 24
+  TO          work@c1_stamp68.u_w.o_b16_m8
+     G 8
+     P 16
+     L 8
+  TO          work@c1_stamp68.u_w.o_b4_m16
+     G 16
+     P 4
+     L 16
+  TO          work@c1_stamp68.u_w.o_b4_m24
+     G 24
+     P 4
+     L 24
+  TO          work@c1_stamp68.u_w.o_b4_m8
+     G 8
+     P 4
+     L 8
+  TO          work@c1_stamp68.u_w.o_d16_m24
+     G 24
+     P 16
+     L 24
+  TO          work@c1_stamp68.u_w.o_d16_m8
+     G 8
+     P 16
+     L 8
+  TO          work@c1_stamp68.u_w.o_d4_m16
+     G 16
+     P 4
+     L 16
+  TO          work@c1_stamp68.u_w.o_d4_m24
+     G 24
+     P 4
+     L 24
+  TO          work@c1_stamp68.u_w.o_d4_m8
+     G 8
+     P 4
+     L 8
+  TO          work@c1_stamp68.u_w.o_nd16
+     G 8
+     P 16
+     L 8
+  TO          work@c1_stamp68.u_w.o_nd16w
+     G 24
+     P 16
+     L 24
+  TO          work@c1_stamp68.u_w.o_sd16_m24
+     G 24
+     P 16
+     L 24
+  TO          work@c1_stamp68.u_w.o_sd16_m8
+     G 8
+     P 16
+     L 8
+ARM c1_stamp68 SIZE TO 26 AWAY 0 MOVED-WRONG 0 STILL 8 SAME 44
+  TO          work@c1_stamp68.u_n.o_b16_m24
+     G vpiDecompile:1010010111000011 vpiConstType:3
+     P vpiDecompile:11000011 vpiConstType:3
+     L vpiDecompile:1010010111000011 vpiConstType:3
+  TO          work@c1_stamp68.u_n.o_b16_m8
+     G vpiDecompile:16'b1010010111000011 vpiConstType:3
+     P vpiDecompile:11000011 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiConstType:3
+  TO          work@c1_stamp68.u_n.o_b4_m16
+     G vpiDecompile:1011 vpiConstType:3
+     P vpiDecompile:4'b1011 vpiConstType:3
+     L vpiDecompile:1011 vpiConstType:3
+  TO          work@c1_stamp68.u_n.o_b4_m24
+     G vpiDecompile:1011 vpiConstType:3
+     P vpiDecompile:4'b1011 vpiConstType:3
+     L vpiDecompile:1011 vpiConstType:3
+ARM c1_stamp68 VAL TO 4 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 72
+  TO          work@c1_stamp68.u_n.o_b16_m24
+     G vpiDecompile:1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:11000011 vpiSize:8 vpiConstType:3
+     L vpiDecompile:1010010111000011 vpiSize:8 vpiConstType:3
+  TO          work@c1_stamp68.u_n.o_b16_m8
+     G vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:11000011 vpiSize:8 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+  TO          work@c1_stamp68.u_n.o_b4_m16
+     G vpiDecompile:1011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:4'b1011 vpiSize:4 vpiConstType:3
+     L vpiDecompile:1011 vpiSize:8 vpiConstType:3
+  TO          work@c1_stamp68.u_n.o_b4_m24
+     G vpiDecompile:1011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:4'b1011 vpiSize:4 vpiConstType:3
+     L vpiDecompile:1011 vpiSize:8 vpiConstType:3
+  TO          work@c1_stamp68.u_n.o_b4_m8
+     G vpiDecompile:4'b1011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:4'b1011 vpiSize:4 vpiConstType:3
+     L vpiDecompile:4'b1011 vpiSize:8 vpiConstType:3
+  TO          work@c1_stamp68.u_n.o_d16_m24
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@c1_stamp68.u_n.o_d16_m8
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@c1_stamp68.u_n.o_d4_m16
+     G vpiDecompile:4'd9 vpiSize:16 vpiConstType:1
+     P vpiDecompile:4'd9 vpiSize:4 vpiConstType:1
+     L vpiDecompile:4'd9 vpiSize:16 vpiConstType:1
+  TO          work@c1_stamp68.u_n.o_d4_m24
+     G vpiDecompile:4'd9 vpiSize:24 vpiConstType:1
+     P vpiDecompile:4'd9 vpiSize:4 vpiConstType:1
+     L vpiDecompile:4'd9 vpiSize:24 vpiConstType:1
+  TO          work@c1_stamp68.u_n.o_d4_m8
+     G vpiDecompile:4'd9 vpiSize:8 vpiConstType:1
+     P vpiDecompile:4'd9 vpiSize:4 vpiConstType:1
+     L vpiDecompile:4'd9 vpiSize:8 vpiConstType:1
+  TO          work@c1_stamp68.u_n.o_nd16
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@c1_stamp68.u_n.o_nd16w
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@c1_stamp68.u_n.o_sd16_m24
+     G vpiDecompile:16'sd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'sd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'sd4660 vpiSize:24 vpiConstType:1
+  TO          work@c1_stamp68.u_n.o_sd16_m8
+     G vpiDecompile:16'sd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'sd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'sd4660 vpiSize:8 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_b16_m24
+     G vpiDecompile:16'b1010010111000011 vpiSize:24 vpiConstType:3
+     P vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:24 vpiConstType:3
+  TO          work@c1_stamp68.u_w.o_b16_m8
+     G vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+  TO          work@c1_stamp68.u_w.o_b4_m16
+     G vpiDecompile:4'b1011 vpiSize:16 vpiConstType:3
+     P vpiDecompile:4'b1011 vpiSize:4 vpiConstType:3
+     L vpiDecompile:4'b1011 vpiSize:16 vpiConstType:3
+  TO          work@c1_stamp68.u_w.o_b4_m24
+     G vpiDecompile:4'b1011 vpiSize:24 vpiConstType:3
+     P vpiDecompile:4'b1011 vpiSize:4 vpiConstType:3
+     L vpiDecompile:4'b1011 vpiSize:24 vpiConstType:3
+  TO          work@c1_stamp68.u_w.o_b4_m8
+     G vpiDecompile:4'b1011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:4'b1011 vpiSize:4 vpiConstType:3
+     L vpiDecompile:4'b1011 vpiSize:8 vpiConstType:3
+  TO          work@c1_stamp68.u_w.o_d16_m24
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_d16_m8
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_d4_m16
+     G vpiDecompile:4'd9 vpiSize:16 vpiConstType:1
+     P vpiDecompile:4'd9 vpiSize:4 vpiConstType:1
+     L vpiDecompile:4'd9 vpiSize:16 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_d4_m24
+     G vpiDecompile:4'd9 vpiSize:24 vpiConstType:1
+     P vpiDecompile:4'd9 vpiSize:4 vpiConstType:1
+     L vpiDecompile:4'd9 vpiSize:24 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_d4_m8
+     G vpiDecompile:4'd9 vpiSize:8 vpiConstType:1
+     P vpiDecompile:4'd9 vpiSize:4 vpiConstType:1
+     L vpiDecompile:4'd9 vpiSize:8 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_nd16
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_nd16w
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_sd16_m24
+     G vpiDecompile:16'sd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'sd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'sd4660 vpiSize:24 vpiConstType:1
+  TO          work@c1_stamp68.u_w.o_sd16_m8
+     G vpiDecompile:16'sd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'sd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'sd4660 vpiSize:8 vpiConstType:1
+ARM c1_stamp68 FULL TO 28 AWAY 0 MOVED-WRONG 0 STILL 10 SAME 40

@@ -1,0 +1,90 @@
+# EVERY ARM, ALL FOUR LISTINGS: golden vs PRISTINE vs FIX2 (shipped)
+# instrument: shape68.py + cmpv2.py (section-keyed); AWAY/MOVED-WRONG must be 0
+a1_ovf66  SUMMARY rows=2 TO=1 AWAY/MOVED-WRONG=0
+a2_uwrap66  SUMMARY rows=2 TO=1 AWAY/MOVED-WRONG=0
+a3_inst66  SUMMARY rows=8 TO=0 AWAY/MOVED-WRONG=0
+a4_wide66  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+a5_nest66  SUMMARY rows=4 TO=1 AWAY/MOVED-WRONG=0
+a6_misc66  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+a7_arith66  SUMMARY rows=5 TO=1 AWAY/MOVED-WRONG=0
+a8_real66  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+b1_refuse68  SUMMARY rows=56 TO=8 AWAY/MOVED-WRONG=0
+b2_faces68  SUMMARY rows=62 TO=12 AWAY/MOVED-WRONG=0
+b3_ops68  SUMMARY rows=80 TO=20 AWAY/MOVED-WRONG=0
+b4_postsz68  SUMMARY rows=4 TO=22 AWAY/MOVED-WRONG=0
+b5_redsz68  SUMMARY rows=2 TO=21 AWAY/MOVED-WRONG=0
+b6_cast68  SUMMARY rows=20 TO=0 AWAY/MOVED-WRONG=0
+g2_fncall66  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+g3_neg66  SUMMARY rows=6 TO=8 AWAY/MOVED-WRONG=0
+g4_base66  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+g5_width66  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+g6_hold66  SUMMARY rows=33 TO=0 AWAY/MOVED-WRONG=0
+g7_add66  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+g8_face66  SUMMARY rows=12 TO=0 AWAY/MOVED-WRONG=0
+v1_ofire68  SUMMARY rows=56 TO=18 AWAY/MOVED-WRONG=0
+v2_align68  SUMMARY rows=30 TO=33 AWAY/MOVED-WRONG=0
+v9  SUMMARY rows=14 TO=2 AWAY/MOVED-WRONG=0
+x1_optable  SUMMARY rows=2 TO=7 AWAY/MOVED-WRONG=0
+c1_stamp68  SUMMARY rows=4 TO=0 AWAY/MOVED-WRONG=0
+e1_enc56  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+e2_width56  SUMMARY rows=6 TO=0 AWAY/MOVED-WRONG=0
+e3_base56  SUMMARY rows=4 TO=0 AWAY/MOVED-WRONG=0
+e4_share56  SUMMARY rows=3 TO=2 AWAY/MOVED-WRONG=0
+e5_deffill56  SUMMARY rows=14 TO=0 AWAY/MOVED-WRONG=0
+v3_lawb68  SUMMARY rows=6 TO=9 AWAY/MOVED-WRONG=0
+v4_cabail68  SUMMARY rows=4 TO=3 AWAY/MOVED-WRONG=0
+vv3_default  SUMMARY rows=4 TO=1 AWAY/MOVED-WRONG=0
+vv4_singleread  SUMMARY rows=6 TO=0 AWAY/MOVED-WRONG=0
+vv6_edge  SUMMARY rows=2 TO=0 AWAY/MOVED-WRONG=0
+
+# cont_assign cell scorer (ca68.py) on every ca arm
+c1_stamp68: ARM c1_stamp68 FULL TO 28 AWAY 0 MOVED-WRONG 0 STILL 10 SAME 40
+e1_enc56: ARM e1_enc56 FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 20
+e2_width56: ARM e2_width56 FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 27
+e3_base56: ARM e3_base56 FULL TO 4 AWAY 0 MOVED-WRONG 0 STILL 1 SAME 21
+e4_share56: ARM e4_share56 FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 10
+e5_deffill56: ARM e5_deffill56 FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 14
+v3_lawb68: ARM v3_lawb68 FULL TO 6 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 28
+v4_cabail68: ARM v4_cabail68 FULL TO 5 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 5
+vv3_default: ARM vv3_default FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 5
+vv4_singleread: ARM vv4_singleread FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 12
+vv6_edge: ARM vv6_edge FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 4
+
+# POSITIVE CONTROL (path-neutral runpair.sh): pris-vs-pris SAME, pris-vs-fix2 differs
+SAME     vv4_singleread (ra=0 rb=0)
+DIFFERS  a1_ovf66 (ra=0 rb=0)
+DIFFERS  a2_uwrap66 (ra=0 rb=0)
+SAME     a3_inst66 (ra=0 rb=0)
+SAME     a4_wide66 (ra=0 rb=0)
+DIFFERS  a5_nest66 (ra=0 rb=0)
+SAME     a6_misc66 (ra=0 rb=0)
+DIFFERS  a7_arith66 (ra=0 rb=0)
+SAME     a8_real66 (ra=0 rb=0)
+DIFFERS  b1_refuse68 (ra=0 rb=0)
+DIFFERS  b2_faces68 (ra=0 rb=0)
+DIFFERS  b3_ops68 (ra=0 rb=0)
+DIFFERS  b4_postsz68 (ra=0 rb=0)
+DIFFERS  b5_redsz68 (ra=0 rb=0)
+SAME     b6_cast68 (ra=0 rb=0)
+SAME     g2_fncall66 (ra=0 rb=0)
+DIFFERS  g3_neg66 (ra=0 rb=0)
+SAME     g4_base66 (ra=0 rb=0)
+SAME     g5_width66 (ra=0 rb=0)
+SAME     g6_hold66 (ra=0 rb=0)
+SAME     g7_add66 (ra=0 rb=0)
+SAME     g8_face66 (ra=0 rb=0)
+DIFFERS  v1_ofire68 (ra=0 rb=0)
+DIFFERS  v2_align68 (ra=0 rb=0)
+DIFFERS  v9 (ra=0 rb=0)
+DIFFERS  x1_optable (ra=0 rb=0)
+DIFFERS  c1_stamp68 (ra=0 rb=0)
+DIFFERS  e1_enc56 (ra=0 rb=0)
+SAME     e2_width56 (ra=0 rb=0)
+DIFFERS  e3_base56 (ra=0 rb=0)
+DIFFERS  e4_share56 (ra=0 rb=0)
+SAME     e5_deffill56 (ra=0 rb=0)
+DIFFERS  v3_lawb68 (ra=0 rb=0)
+DIFFERS  v4_cabail68 (ra=0 rb=0)
+DIFFERS  vv3_default (ra=0 rb=0)
+SAME     vv4_singleread (ra=0 rb=0)
+SAME     vv6_edge (ra=0 rb=0)

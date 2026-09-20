@@ -1,0 +1,18 @@
+# a7_arith66 (a COMMITTED r11v66 arm) — the LAW A over-fire and its fix
+## golden / pristine / LAW (unfixed)
+  STILL work@a7_arith66.C     op0  g=const/32@7=INT:4000000000      ours=const/32@7=INT:-294967296
+  AWAY! work@a7_arith66.C     op1  g=const/64@9=UINT:4000000000     p=const/64@9=UINT:4000000000     l=const/32@9=UINT:4000000000
+  AWAY! work@a7_arith66.C     op2  g=const/32@7=INT:10000           p=const/32@7=INT:10000           l=const/64@7=INT:10000
+  AWAY! work@a7_arith66.C     op3  g=const/32@7=INT:900000000       p=const/32@7=INT:900000000       l=const/64@7=INT:900000000
+  AWAY! work@a7_arith66.C     op4  g=const/32@7=INT:-100            p=const/32@7=INT:-100            l=const/64@7=INT:-100
+  TO    work@a7_arith66.C     op5  g=const/64@7=INT:36              p=const/32@7=INT:36              l=const/64@7=INT:36
+  SHAPE work@a7_arith66.uo.OV op0  g=const/32@7=INT:-3              p=NOOP                           l=NOOP
+  SHAPE work@a7_arith66.uo.OV op1  g=const/64@7=INT:12              p=-                              l=-
+SUMMARY rows=5 TO=1 AWAY/MOVED-WRONG=4
+
+## golden / pristine / FIX2 (shipped)
+  STILL work@a7_arith66.C     op0  g=const/32@7=INT:4000000000      ours=const/32@7=INT:-294967296
+  TO    work@a7_arith66.C     op5  g=const/64@7=INT:36              p=const/32@7=INT:36              l=const/64@7=INT:36
+  SHAPE work@a7_arith66.uo.OV op0  g=const/32@7=INT:-3              p=NOOP                           l=NOOP
+  SHAPE work@a7_arith66.uo.OV op1  g=const/64@7=INT:12              p=-                              l=-
+SUMMARY rows=5 TO=1 AWAY/MOVED-WRONG=0

@@ -1,0 +1,28 @@
+### r11u68 ORDER-BLIND ATTRIBUTION of the shipped binary's 5 byteverify movers
+MiniAmiq/default    ORDER-BLIND-DIFF-LINES=4   UINT:1345 <-> UINT:1190 (+ the vpiDecompile twin)
+MiniAmiq/testflags  ORDER-BLIND-DIFF-LINES=4   UINT:680  <-> UINT:977
+SeqDriver/default   ORDER-BLIND-DIFF-LINES=4   UINT:0    <-> UINT:1272
+SeqDriver/testflags ORDER-BLIND-DIFF-LINES=4   UINT:676  <-> UINT:781
+Scoreboard/default  ORDER-BLIND-DIFF-LINES=0   the pure ORDER coin
+
+### and the PRE-FENCE binary's 4, drawn from the same coin:
+MiniAmiq/default ORDER-BLIND-DIFF-LINES=4
+>       |UINT:1190
+<       |UINT:643
+>       |vpiDecompile:1190
+<       |vpiDecompile:643
+MiniAmiq/testflags ORDER-BLIND-DIFF-LINES=4
+<       |UINT:0
+>       |UINT:977
+<       |vpiDecompile:0
+>       |vpiDecompile:977
+SeqDriver/default ORDER-BLIND-DIFF-LINES=4
+<       |UINT:0
+>       |UINT:1272
+<       |vpiDecompile:0
+>       |vpiDecompile:1272
+SeqDriver/testflags ORDER-BLIND-DIFF-LINES=4
+<       |UINT:1251
+>       |UINT:781
+<       |vpiDecompile:1251
+>       |vpiDecompile:781

@@ -1,0 +1,35 @@
+  TO          work@dut.u_n.o9
+     G 8
+     P 16
+     L 8
+  TO          work@dut.u_w.o8
+     G 8
+     P 16
+     L 8
+  TO          work@dut.u_w.o9
+     G 8
+     P 16
+     L 8
+ARM e3_base56 SIZE TO 3 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 23
+  TO          work@dut.u_n.o8
+     G vpiDecompile:16'b1010010111000011 vpiConstType:3
+     P vpiDecompile:11000011 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiConstType:3
+ARM e3_base56 VAL TO 1 AWAY 0 MOVED-WRONG 0 STILL 1 SAME 24
+  TO          work@dut.u_n.o8
+     G vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:11000011 vpiSize:8 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+  TO          work@dut.u_n.o9
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@dut.u_w.o8
+     G vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+  TO          work@dut.u_w.o9
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+ARM e3_base56 FULL TO 4 AWAY 0 MOVED-WRONG 0 STILL 1 SAME 21

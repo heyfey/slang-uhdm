@@ -1,0 +1,22 @@
+-- g3_neg66 SIZE
+  TO          uhdmtopModules   work@g3_neg66.C            op1  golden=const/16                   pris=const/32                   law=const/16
+  TO          uhdmtopModules   work@g3_neg66.C            op4  golden=const/64                   pris=const/16                   law=const/64
+  TO          uhdmtopModules   work@g3_neg66.C            op5  golden=const/64                   pris=const/16                   law=const/64
+  TO          uhdmtopModules   work@g3_neg66.C            op6  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@g3_neg66.C            op7  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@g3_neg66.C            op9  golden=const/64                   pris=const/32                   law=const/64
+  TO          uhdmtopModules   work@g3_neg66.C            op10 golden=const/64                   pris=const/32                   law=const/64
+  TO          uhdmtopModules   work@g3_neg66.C            op12 golden=const/64                   pris=const/32                   law=const/64
+ARM g3_neg66 SIZE TO 8 AWAY 0 MOVED-WRONG 0 STILL 3 SAME 47 ABSENT 0 SHAPE-MISMATCH 0
+-- g3_neg66 ENC
+ARM g3_neg66 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 3 SAME 55 ABSENT 0 SHAPE-MISMATCH 0
+-- g3_neg66 FULL
+  TO          uhdmtopModules   work@g3_neg66.C            op1  golden=const/16@7=INT:-5          pris=const/32@7=INT:-5          law=const/16@7=INT:-5
+  TO          uhdmtopModules   work@g3_neg66.C            op4  golden=const/64@7=INT:-3          pris=const/16@7=INT:-3          law=const/64@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op5  golden=const/64@7=INT:-3          pris=const/16@7=INT:-3          law=const/64@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op6  golden=const/64@7=INT:-3          pris=const/8@7=INT:-3           law=const/64@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op7  golden=const/64@7=INT:-3          pris=const/8@7=INT:-3           law=const/64@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op9  golden=const/64@7=INT:0           pris=const/32@7=INT:0           law=const/64@7=INT:0
+  TO          uhdmtopModules   work@g3_neg66.C            op10 golden=const/64@7=INT:0           pris=const/32@7=INT:0           law=const/64@7=INT:0
+  TO          uhdmtopModules   work@g3_neg66.C            op12 golden=const/64@7=INT:0           pris=const/32@7=INT:0           law=const/64@7=INT:0
+ARM g3_neg66 FULL TO 8 AWAY 0 MOVED-WRONG 0 STILL 3 SAME 47 ABSENT 0 SHAPE-MISMATCH 0

@@ -1,0 +1,22 @@
+-- b1_refuse68 SIZE
+  TO          uhdmtopModules   work@b1_refuse68.C_negk    op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b1_refuse68.C_negk    op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b1_refuse68.C_negl    op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b1_refuse68.C_negl    op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b1_refuse68.C_unkx    op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b1_refuse68.C_unkx    op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b1_refuse68.C_xor     op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b1_refuse68.C_xor     op2  golden=const/64                   pris=const/8                    law=const/64
+ARM b1_refuse68 SIZE TO 8 AWAY 0 MOVED-WRONG 0 STILL 6 SAME 316 ABSENT 6 SHAPE-MISMATCH 0
+-- b1_refuse68 ENC
+ARM b1_refuse68 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 6 SAME 324 ABSENT 6 SHAPE-MISMATCH 0
+-- b1_refuse68 FULL
+  TO          uhdmtopModules   work@b1_refuse68.C_negk    op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b1_refuse68.C_negk    op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b1_refuse68.C_negl    op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b1_refuse68.C_negl    op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b1_refuse68.C_unkx    op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b1_refuse68.C_unkx    op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b1_refuse68.C_xor     op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b1_refuse68.C_xor     op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+ARM b1_refuse68 FULL TO 8 AWAY 0 MOVED-WRONG 0 STILL 10 SAME 312 ABSENT 6 SHAPE-MISMATCH 0

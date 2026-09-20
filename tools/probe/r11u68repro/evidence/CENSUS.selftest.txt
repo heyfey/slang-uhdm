@@ -1,0 +1,42 @@
+  ok  KU ^ 3           -> UNFOLD  (want UNFOLD)
+  ok  KU ~^ 3          -> UNFOLD  (want UNFOLD)
+  ok  KU ^~ 3          -> UNFOLD  (want UNFOLD)
+  ok  K === 6          -> UNFOLD  (want UNFOLD)
+  ok  K !== 6          -> UNFOLD  (want UNFOLD)
+  ok  K ==? 6          -> UNFOLD  (want UNFOLD)
+  ok  +K               -> UNFOLD  (want UNFOLD)
+  ok  1'bx             -> XLEAD   (want XLEAD)
+  ok  8'hX             -> XLEAD   (want XLEAD)
+  ok  8'bx0000001      -> XLEAD   (want XLEAD)
+  ok  -K               -> NEG     (want NEG)
+  ok  -16'd5           -> NEG     (want NEG)
+  ok  2 - 5            -> NEG?    (want NEG?)
+  ok  K * 2            -> NEG?    (want NEG?)
+  ok  3                -> -       (want -)
+  ok  K                -> -       (want -)
+  ok  8'hA5            -> -       (want -)
+  ok  8'b1x01          -> -       (want -)
+  ok  8'b1000000x      -> -       (want -)
+  ok  KU & 3           -> -       (want -)
+  ok  KU | 8           -> -       (want -)
+  ok  KU << 1          -> -       (want -)
+  ok  K > 2            -> -       (want -)
+  ok  K ? 3 : 4        -> -       (want -)
+  ok  $clog2(40)       -> -       (want -)
+  ok  {4'd1, 4'd2}     -> -       (want -)
+  ok  ~KU              -> -       (want -)
+  ok  K == 6           -> -       (want -)
+  ok  K != 6           -> -       (want -)
+  ok  LAW-A arm b1_refuse68
+  ok  LAW-A arm b2_faces68
+  ok  LAW-A arm b3_ops68
+  ok  LAW-A arm b4_postsz68
+  ok  LAW-A arm b5_redsz68
+  ok  LAW-A arm a1_ovf66
+  ok  LAW-A arm g3_neg66
+  ok  LAW-A arm v9
+  ok  LAW-A arm x1_optable
+  ok  LAW-B arm b1_refuse68
+  ok  LAW-B arm b5_redsz68
+  ok  LAW-B arm g4_base66
+SELFTEST PASS (0 bad)

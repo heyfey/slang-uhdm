@@ -1,0 +1,38 @@
+### r11u68 SURELOG GATES — law (pre-fence, md5 a713b94f7d85562dd1d679a613233cf9) vs pristine
+=== BINARY AUDIT (every cmds.txt in the law workdir)
+    196 /tmp/r11u68_law.bin
+=== BINARY AUDIT (pristine workdir)
+    196 /tmp/r11u68_pris.bin
+=== STATUS COUNTS
+sl_p.csv: [(('default', 'CMP_EQUAL'), 474), (('default', 'CMP_NOTEQUAL'), 9), (('default', 'DEFERRED'), 5), (('default', 'SLANG_REJECT'), 285), (('default', 'SURELOG_FAIL'), 25), (('testflags', 'CMP_EQUAL'), 469), (('testflags', 'CMP_NOTEQUAL'), 8), (('testflags', 'DEFERRED'), 5), (('testflags', 'NO_DATABASE'), 3), (('testflags', 'NO_UHDM'), 1), (('testflags', 'SLANG_REJECT'), 286), (('testflags', 'SURELOG_FAIL'), 23), (('testflags', 'TIMEOUT'), 1), (('testflags', 'UNTRANSLATABLE'), 2)]
+sl_l.csv: [(('default', 'CMP_EQUAL'), 474), (('default', 'CMP_NOTEQUAL'), 9), (('default', 'DEFERRED'), 5), (('default', 'SLANG_REJECT'), 285), (('default', 'SURELOG_FAIL'), 25), (('testflags', 'CMP_EQUAL'), 469), (('testflags', 'CMP_NOTEQUAL'), 8), (('testflags', 'DEFERRED'), 5), (('testflags', 'NO_DATABASE'), 3), (('testflags', 'NO_UHDM'), 1), (('testflags', 'SLANG_REJECT'), 286), (('testflags', 'SURELOG_FAIL'), 23), (('testflags', 'TIMEOUT'), 1), (('testflags', 'UNTRANSLATABLE'), 2)]
+=== ROW JOIN vs the committed baseline and vs my own pristine sweep
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== BYTEVERIFY (SELFCHECK)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=2896b85748fe pristine=168e10c89bc3
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=776c0173f757
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=4b330d242254
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=11b3c284dcf4 pristine=108c5b37a184
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+=== CANARIES
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+PASS: every supplementary canary row is byte-identical to the baseline.
+=== BYTE PINS
+  SVSwitch/default law= pris= SAME
+  SVSwitch/testflags law= pris= SAME
+  YosysVerx/default law= pris= SAME
+  YosysVerx/testflags law= pris= SAME
+  InterfaceModPort/default law= pris= SAME
+  InterfaceModPort/testflags law= pris= SAME
+  BlackParrotComplex/default law= pris= SAME
+  BlackParrotComplex/testflags law= pris= SAME
+  YosysOldOr/default law= pris= SAME
+  YosysOldOr/testflags law= pris= SAME
+  Earlgrey_0_1/default law= pris= SAME
+  Earlgrey_0_1/testflags law= pris= SAME
+=== CANAUDIT
+PASS: every brief-protected name and family is carried by a script that RUNS here.

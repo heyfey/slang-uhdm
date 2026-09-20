@@ -1,0 +1,60 @@
+# v11u68 arm v1_ofire68 — golden shape, LAW A over-fire hunt
+  uhdmtopModules   work@v1_ofire68.C_plain            line:53:40     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@9=UINT:3 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_pkgref           line:54:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@9=UINT:11 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_pkgparm          line:55:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@1=DEC:12 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_sysbits          line:56:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@9=UINT:32 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_syshigh          line:57:36     op=75 ts=struct_typespec(qq::vt_t) ops=[sys_func_call($high) const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_fcall2           line:58:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@9=UINT:5 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_fcallv           line:59:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@3=BIN:00000011 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_negl1            line:60:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@7=INT:-1 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_shl2             line:61:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@9=UINT:24 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_shlu             line:62:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@9=UINT:24 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_sgnhex           line:63:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@5=HEX:F0 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_sgnbin           line:64:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@3=BIN:1011 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_sgndec           line:65:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@1=DEC:200 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_strl9            line:66:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@6=STRING:abcdefghi const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_unkz             line:67:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@3=BIN:z const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_unkhx            line:68:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@5=HEX:xA const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_unkhx2           line:69:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@5=HEX:Ax const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_unkox            line:70:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@4=OCT:x7 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_wide70           line:71:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@5=HEX:5 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_wide96           line:72:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@3=BIN:1 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_wide65d          line:73:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@1=DEC:1 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_bigdec           line:74:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@1=DEC:18446744073709551615 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_xorn             line:75:36     op=75 ts=struct_typespec(qq::vt_t) ops=[op30 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_negk             line:76:36     op=75 ts=struct_typespec(qq::vt_t) ops=[const/32@7=INT:-6 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_tcast            line:77:36     op=75 ts=struct_typespec(qq::vt_t) ops=[op67 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_eqq              line:78:36     op=75 ts=struct_typespec(qq::vt_t) ops=[op16 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_nested           line:79:36     op=75 ts=struct_typespec(qq::vn_t) ops=[op75 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v1_ofire68.C_uplus            line:80:36     op=75 ts=struct_typespec(qq::vt_t) ops=[op2 const/64@9=UINT:7 const/64@9=UINT:7]
+
+# three-way score golden / pristine / fix2
+  STILL work@v1_ofire68.C_eqq     op0  g=op16                           ours=const/32@9=UINT:1
+  TO    work@v1_ofire68.C_eqq     op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_eqq     op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v1_ofire68.C_fcallv  op0  g=const/32@3=BIN:00000011        ours=const/32@9=UINT:3
+  TO    work@v1_ofire68.C_negk    op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_negk    op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_negl1   op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_negl1   op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_nested  op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_nested  op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v1_ofire68.C_syshigh op0  g=sys_func_call($high)           ours=const/32@9=UINT:15
+  STILL work@v1_ofire68.C_syshigh op1  g=const/64@9=UINT:7              ours=const/8@9=UINT:7
+  STILL work@v1_ofire68.C_syshigh op2  g=const/64@9=UINT:7              ours=const/8@9=UINT:7
+  STILL work@v1_ofire68.C_tcast   op0  g=op67                           ours=const/32@9=UINT:7
+  STILL work@v1_ofire68.C_tcast   op1  g=const/64@9=UINT:7              ours=const/8@9=UINT:7
+  STILL work@v1_ofire68.C_tcast   op2  g=const/64@9=UINT:7              ours=const/8@9=UINT:7
+  TO    work@v1_ofire68.C_unkhx   op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_unkhx   op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_unkox   op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_unkox   op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_unkz    op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_unkz    op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v1_ofire68.C_uplus   op0  g=op2                            ours=const/32@9=UINT:6
+  TO    work@v1_ofire68.C_uplus   op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_uplus   op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v1_ofire68.C_xorn    op0  g=op30                           ours=const/32@9=UINT:5
+  TO    work@v1_ofire68.C_xorn    op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v1_ofire68.C_xorn    op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+SUMMARY rows=56 TO=18 AWAY/MOVED-WRONG=0

@@ -1,0 +1,137 @@
+# v3_lawb68 — cont_assign cells: golden / PRISTINE / LAW(unfixed) 
+  TO          work@v3_lawb68.u_n.a1             
+     G 8
+     P 16
+     L 8
+  AWAY        work@v3_lawb68.u_n.a15            
+     G 16
+     P 16
+     L 8
+  AWAY        work@v3_lawb68.u_n.a18            
+     G 16
+     P 16
+     L 8
+  TO          work@v3_lawb68.u_n.a3             
+     G 24
+     P 16
+     L 24
+  TO          work@v3_lawb68.u_w.a1             
+     G 8
+     P 16
+     L 8
+  AWAY        work@v3_lawb68.u_w.a15            
+     G 16
+     P 16
+     L 8
+  AWAY        work@v3_lawb68.u_w.a18            
+     G 16
+     P 16
+     L 8
+  TO          work@v3_lawb68.u_w.a3             
+     G 24
+     P 16
+     L 24
+  TO          work@v3_lawb68.u_w.a4             
+     G 8
+     P 16
+     L 8
+ARM v3_lawb68 SIZE TO 5 AWAY 4 MOVED-WRONG 0 STILL 1 SAME 26
+  TO          work@v3_lawb68.u_n.a4             
+     G vpiDecompile:16'b1010010111000011 vpiConstType:3
+     P vpiDecompile:11000011 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiConstType:3
+ARM v3_lawb68 VAL TO 1 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 33
+  TO          work@v3_lawb68.u_n.a1             
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  AWAY        work@v3_lawb68.u_n.a15            
+     G vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  AWAY        work@v3_lawb68.u_n.a18            
+     G vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v3_lawb68.u_n.a3             
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@v3_lawb68.u_n.a4             
+     G vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:11000011 vpiSize:8 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+  TO          work@v3_lawb68.u_w.a1             
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  AWAY        work@v3_lawb68.u_w.a15            
+     G vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  AWAY        work@v3_lawb68.u_w.a18            
+     G vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v3_lawb68.u_w.a3             
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@v3_lawb68.u_w.a4             
+     G vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+ARM v3_lawb68 FULL TO 6 AWAY 4 MOVED-WRONG 0 STILL 2 SAME 24
+
+# v3_lawb68 — golden / PRISTINE / FIX2 (shipped)
+  TO          work@v3_lawb68.u_n.a1             
+     G 8
+     P 16
+     L 8
+  TO          work@v3_lawb68.u_n.a3             
+     G 24
+     P 16
+     L 24
+  TO          work@v3_lawb68.u_w.a1             
+     G 8
+     P 16
+     L 8
+  TO          work@v3_lawb68.u_w.a3             
+     G 24
+     P 16
+     L 24
+  TO          work@v3_lawb68.u_w.a4             
+     G 8
+     P 16
+     L 8
+ARM v3_lawb68 SIZE TO 5 AWAY 0 MOVED-WRONG 0 STILL 1 SAME 30
+  TO          work@v3_lawb68.u_n.a4             
+     G vpiDecompile:16'b1010010111000011 vpiConstType:3
+     P vpiDecompile:11000011 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiConstType:3
+ARM v3_lawb68 VAL TO 1 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 33
+  TO          work@v3_lawb68.u_n.a1             
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v3_lawb68.u_n.a3             
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@v3_lawb68.u_n.a4             
+     G vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:11000011 vpiSize:8 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+  TO          work@v3_lawb68.u_w.a1             
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v3_lawb68.u_w.a3             
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@v3_lawb68.u_w.a4             
+     G vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+     P vpiDecompile:16'b1010010111000011 vpiSize:16 vpiConstType:3
+     L vpiDecompile:16'b1010010111000011 vpiSize:8 vpiConstType:3
+ARM v3_lawb68 FULL TO 6 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 28

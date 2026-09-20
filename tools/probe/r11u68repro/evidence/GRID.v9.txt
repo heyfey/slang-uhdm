@@ -1,0 +1,10 @@
+-- v9 SIZE
+  TO          uhdmtopModules   work@v9.PN                 op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@v9.PSW                op1  golden=const/64                   pris=const/32                   law=const/64
+ARM v9 SIZE TO 2 AWAY 0 MOVED-WRONG 0 STILL 5 SAME 17 ABSENT 0 SHAPE-MISMATCH 0
+-- v9 ENC
+ARM v9 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 5 SAME 19 ABSENT 0 SHAPE-MISMATCH 0
+-- v9 FULL
+  TO          uhdmtopModules   work@v9.PN                 op1  golden=const/64@7=INT:-4          pris=const/8@7=INT:-4           law=const/64@7=INT:-4
+  TO          uhdmtopModules   work@v9.PSW                op1  golden=const/64@7=INT:-1          pris=const/32@7=INT:-1          law=const/64@7=INT:-1
+ARM v9 FULL TO 2 AWAY 0 MOVED-WRONG 0 STILL 5 SAME 17 ABSENT 0 SHAPE-MISMATCH 0

@@ -1,0 +1,18 @@
+-- e5_deffill56 SIZE
+  SHAPE-MISMATCH uhdmtopModules   work@dut.P6                golden=2 pris=0 law=0
+     G const/32@3=BIN:X const/32@3=BIN:X
+     P
+     L
+ARM e5_deffill56 SIZE TO 0 AWAY 0 MOVED-WRONG 0 STILL 3 SAME 35 ABSENT 0 SHAPE-MISMATCH 1
+-- e5_deffill56 ENC
+  SHAPE-MISMATCH uhdmtopModules   work@dut.P6                golden=2 pris=0 law=0
+     G const/32@3=BIN:X const/32@3=BIN:X
+     P
+     L
+ARM e5_deffill56 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 11 SAME 27 ABSENT 0 SHAPE-MISMATCH 1
+-- e5_deffill56 FULL
+  SHAPE-MISMATCH uhdmtopModules   work@dut.P6                golden=2 pris=0 law=0
+     G const/32@3=BIN:X const/32@3=BIN:X
+     P
+     L
+ARM e5_deffill56 FULL TO 0 AWAY 0 MOVED-WRONG 0 STILL 12 SAME 26 ABSENT 0 SHAPE-MISMATCH 1

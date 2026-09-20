@@ -26203,6 +26203,214 @@ static bool basedLitOrigin56(const slang::ast::Expression& e0, int depth) {
     return false;
 }
 
+// § caSubstMemberStampAllEnc68 (r11u68) — THE ONE SETTER CLASS THE MEMBER
+// STAMP MUST NOT REACH, and it is `adjustSize`'s OWN branch table that says so.
+//
+// `CompileHelper::adjustSize` (`~/git-repos/Surelog/src/DesignCompile/
+// CompileHelper.cpp:4065-4246`) re-sizes a `vpiBinaryConst` through whichever
+// typespec the CONSTANT ITSELF carries (`:4118-4133`: `if (c->Typespec()) ts =
+// tstmp`), and the two arms behave differently:
+//   * `uhdmlogic_typespec` (`:4136-4148`) — when `orig_size > size` it DROPS
+//     the leading digits and REWRITES `VpiValue`/`VpiDecompile` with the bare
+//     bit string.  This is the arm § caStructParamPatternSubst55 (W3) already
+//     transcribes, and it is the arm an UNSIGNED based binary literal takes.
+//   * `uhdmint_typespec` (`:4150-4215`) — a SIGNED based literal carries a
+//     signed `int_typespec`, and that arm ends at `:4215` with
+//     `c->VpiSize((orig_size < size) ? orig_size : size)` and NEVER touches
+//     the value: golden keeps `4'sb1011` verbatim at the min size.
+// Measured on real v1.87 goldens (grid `c1_stamp68`, `sb4_*` at an 8-bit Lhs):
+// golden is `4'sb1011` `vpiSize:8`, where raising `orig_size` to a 16- or
+// 24-bit member and then running W3's SHRINK would rewrite the decompile to
+// the bare `1011` — a value moved from RIGHT to WRONG inside a law that claims
+// only `VpiSize`.  So the stamp declines exactly this class; the `'s` forms of
+// every other base letter are untouched by the decline because their arms
+// (`vpiDecConst` never re-sized, the rest `c->VpiSize(size)`) do not read
+// `orig_size` at all.
+// Measured side by side in `c1_stamp68` on one Surelog v1.87 golden, all three
+// read at an 8-bit Lhs so `adjustSize` has to shrink:
+//   `16'b1010010111000011` on a 24-bit member  -> golden `1010010111000011`
+//        (the LOGIC arm: digits rewritten, the `16'b` prefix gone)
+//   `4'sb1011`             on a 16-bit member  -> golden `4'sb1011`
+//   `B16` (a NAME whose init is `16'b…`) on a 24-bit member
+//                                              -> golden `16'b1010010111000011`
+// — the last two are the INT arm, which never touches the value.
+bool UhdmExporter::caIntTsBinOrigin68(const slang::ast::Expression& e0,
+                                      int depth) {
+    if (depth > 32)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::IntegerLiteral) {
+        if (!e.syntax ||
+            e.syntax->kind !=
+                slang::syntax::SyntaxKind::IntegerVectorExpression)
+            return false;
+        std::string raw = rawText(e.sourceRange);
+        auto q = raw.find('\'');
+        if (q == std::string::npos || q + 2 >= raw.size())
+            return false;
+        bool bin = (raw[q + 1] == 's' || raw[q + 1] == 'S')
+                       ? (raw[q + 2] == 'b' || raw[q + 2] == 'B')
+                       : false;
+        // A DIRECT literal only takes the int arm when it is SIGNED; the
+        // unsigned form carries a logic typespec and W3's shrink is right.
+        return bin && depth == 0;
+    }
+    if (e.kind == ExpressionKind::NamedValue ||
+        e.kind == ExpressionKind::HierarchicalValue) {
+        auto& sy = e.as<ValueExpressionBase>().symbol;
+        if (sy.kind != SymbolKind::Parameter)
+            return false;
+        auto* in = sy.as<ParameterSymbol>().getInitializer();
+        if (!in)
+            return false;
+        // Through a NAME the parameter's own int typespec rides along, so a
+        // based BINARY of EITHER signedness takes the int arm.
+        const Expression& ie = stripImplicitConv(*in);
+        if (ie.kind == ExpressionKind::IntegerLiteral) {
+            if (!ie.syntax ||
+                ie.syntax->kind !=
+                    slang::syntax::SyntaxKind::IntegerVectorExpression)
+                return false;
+            std::string raw = rawText(ie.sourceRange);
+            auto q = raw.find('\'');
+            if (q == std::string::npos || q + 1 >= raw.size())
+                return false;
+            size_t b = q + 1;
+            if (raw[b] == 's' || raw[b] == 'S')
+                b++;
+            return b < raw.size() && (raw[b] == 'b' || raw[b] == 'B');
+        }
+        return caIntTsBinOrigin68(ie, depth + 1);
+    }
+    return false;
+}
+
+// § caSubstBailStopsMemberStamp68v (r11v68) — THE BAIL REACHES THIS SITE TOO,
+// AND § caSubstMemberStampAllEnc68 MUST NOT STAMP PAST IT.
+//
+// THE PRODUCER IS THE SAME ONE.  `UhdmWriter::writeCont_assign` reduces the
+// dotted read through `ExprEval::flattenPatternAssignments`, and the size
+// stamping it reaches is `CompileHelper::expandPatternAssignment`'s untagged
+// walk (`~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:5407-5441`) —
+// the SAME `reduceExpr` / `get_uvalue` / `adjustOpSize` / `if (invalidValue)
+// return result;` sequence § patBailStopsMemberStamp68 transcribes on the
+// packed PARAMETER road.  So the member stamp stops at the FIRST member the
+// reduce refuses HERE as well, and every member AFTER it keeps the size
+// `reduceExpr` gave it.
+//
+// MEASURED, verifier arm `v4_cabail68` (real Surelog v1.87, `slrc=0 ourrc=0
+// slerr=0`), two structs with the SAME members and the SAME setters, differing
+// only in WHERE the bailing member sits:
+//
+//   X1 `'{a: 16'd4660, bail: -3, c: 16'd4660, d: UD16, e: 16'd4660}`
+//      a    (before the bail)            golden `vpiSize:8`  = the member
+//      c    (after)                      golden `vpiSize:16` = the LITERAL
+//      d    (after, through a NAME)      golden `vpiSize:16`
+//      e    (after, 24-bit member)       golden `vpiSize:16`
+//   X2 the identical members with `bail` LAST
+//      a, c, d  golden `vpiSize:8`   e  golden `vpiSize:24`   -- all stamped
+//
+// Without this gate the law reads X1's `c`/`d`/`e` as 8/8/24 where the
+// PRISTINE binary already read golden's 16/16/16: pristine-right ->
+// patched-wrong on legal SV, on three cells, and arm `v3_lawb68` reproduces
+// two more (`nld`, `nud`, both behind a `-3`).
+//
+// THE GATE IS DELIBERATELY ONE-SIDED.  We do not detect the refusal; we
+// require PROOF OF ITS ABSENCE, because an over-detected refusal would move a
+// cell golden DID stamp.  `caSetterProvenFolds68v` answers TRUE only for the
+// setter kinds whose acceptance is measured golden-side (arms `b1_refuse68`,
+// `v1_ofire68`, `v2_align68`): a based literal whose FIRST digit is a valid
+// digit for its base (`8'hAx` and `8'b1z` complete; `8'hxA`, `6'ox7`, `8'bx`
+// and `1'bz` refuse — `NumUtils::parse*` is `from_chars`-shaped and stops at
+// the first bad character rather than rejecting the string), an unsized
+// decimal, `'0`/`'1`, a string of at most 64 characters, and a NAME or enum
+// member that bottoms out at one of those.  EVERYTHING ELSE -- every operator,
+// cast, call, concatenation, replication and nested pattern -- is UNPROVEN and
+// leaves the PRISTINE stamp standing, which is a STILL cell and never an AWAY
+// one.  The `vpiUIntConst` arm is outside the gate: it is pass 54/55 ground,
+// unchanged by r11u68, and narrowing it is not this fix's claim.
+bool UhdmExporter::caSetterProvenFolds68v(const slang::ast::Expression& e0,
+                                          int depth) {
+    if (depth > 32)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral: {
+            if (!e.syntax ||
+                e.syntax->kind !=
+                    slang::syntax::SyntaxKind::IntegerVectorExpression)
+                return true;  // an UNSIZED decimal: no base letter, no sign
+            std::string raw = rawText(e.sourceRange);
+            auto q = raw.find('\'');
+            if (q == std::string::npos)
+                return false;
+            size_t b = q + 1;
+            if (b < raw.size() && (raw[b] == 's' || raw[b] == 'S'))
+                b++;
+            if (b >= raw.size())
+                return false;
+            char base = (char)tolower((unsigned char)raw[b]);
+            b++;
+            while (b < raw.size() &&
+                   (raw[b] == '_' || isspace((unsigned char)raw[b])))
+                b++;
+            if (b >= raw.size())
+                return false;
+            char c = raw[b];
+            if (c == 'x' || c == 'X' || c == 'z' || c == 'Z' || c == '?' ||
+                !isalnum((unsigned char)c))
+                return false;
+            if (base == 'd') {
+                // `parseUint64` is RANGE-STRICT, so a decimal wider than 64
+                // bits of magnitude refuses where `70'h5` does not.
+                auto iv = e.as<IntegerLiteral>().getValue();
+                if (iv.hasUnknown() || !iv.as<uint64_t>())
+                    return false;
+            }
+            return true;
+        }
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+            return !e.as<UnbasedUnsizedIntegerLiteral>()
+                        .getLiteralValue()
+                        .isUnknown();
+        case ExpressionKind::StringLiteral:
+            return e.as<StringLiteral>().getValue().size() <= 64;
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue: {
+            auto& sy = e.as<ValueExpressionBase>().symbol;
+            if (sy.kind == SymbolKind::EnumValue) {
+                if (auto* ein = sy.getInitializer())
+                    return caSetterProvenFolds68v(*ein, depth + 1);
+                return true;  // an implicit member: a counted non-negative
+            }
+            if (sy.kind != SymbolKind::Parameter)
+                return false;
+            auto* in = sy.as<ParameterSymbol>().getInitializer();
+            return in && caSetterProvenFolds68v(*in, depth + 1);
+        }
+        default:
+            return false;
+    }
+}
+
+bool UhdmExporter::caPriorMembersProven68v(const slang::ast::Expression& ap0,
+                                           const slang::ast::Symbol& upto) {
+    if (ap0.kind != ExpressionKind::StructuredAssignmentPattern)
+        return false;
+    auto& ap = ap0.as<StructuredAssignmentPatternExpression>();
+    auto* sc = upto.getParentScope();
+    if (!sc)
+        return false;
+    for (auto& fld : sc->membersOfType<FieldSymbol>()) {
+        if (&fld == (const Symbol*)&upto)
+            return true;
+        const Expression* se = patMemberSetter55(ap, fld);
+        if (!se || !caSetterProvenFolds68v(*se, 0))
+            return false;
+    }
+    return false;  // the member is not in its own scope's field list: decline
+}
+
 int32_t UhdmExporter::caSubstLeafCt56(const slang::ast::Expression& e0) {
     const Expression& e = stripImplicitConv(e0);
     if (basedLitOrigin56(e, 0))
@@ -27300,6 +27508,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // and `vv3_default`, its unbased-unsized value is stamped ONCE at the
         // 32-bit default width and not per member.
         bool spsPureDef56 = false;
+        // § caSubstBailStopsMemberStamp68v (r11v68) — and whether the
+        // producer's walk PROVABLY reaches this member still stamping: every
+        // member declared before it, at every level of the chain, is set by a
+        // setter whose reduce we can prove does not refuse.  Only the widened
+        // (r11u68) half of the member stamp is gated on it.
+        bool spsPriorProven68v = false;
         // THE Lhs FENCE ON THE WIDENINGS.  Every struct-param dotted read in
         // either corpus is written onto a WHOLE NAME (census `shapes55.py`:
         // 23 directories, no site with a select Lhs), and the arms that carry
@@ -27353,12 +27567,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         // the read asks for — decline rather than substitute it.
                         size_t used55 = 0;
                         bool pdef56 = false;
+                        bool prov68v = true;
                         for (size_t i = chain55.size(); ap && i-- > 0;) {
                             set55 = patMemberSetter55(*ap, chain55[i]->member);
                             if (!set55)
                                 break;
                             pdef56 = ap->memberSetters.empty() &&
                                      set55 == ap->defaultSetter;
+                            // § caSubstBailStopsMemberStamp68v — the walk that
+                            // stamps this level runs over THIS level's members
+                            // in declaration order, so every level of a W2
+                            // chain has to clear.
+                            if (prov68v &&
+                                !caPriorMembersProven68v(*ap,
+                                                         chain55[i]->member))
+                                prov68v = false;
                             mty55 = &chain55[i]->member.as<ValueSymbol>().getType();
                             ++used55;
                             ap = i ? structParamPattern55(set55) : nullptr;
@@ -27372,11 +27595,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             structParamSetter = set55;   // pristine
                             spsMemberTy55 = plainLhs55 ? mty55 : nullptr;
                             spsPureDef56 = pdef56;
+                            spsPriorProven68v = prov68v;
                         }
                         else if (bottomed55 && plainLhs55) {
                             structParamSetter = set55;   // W1 / W2
                             spsMemberTy55 = mty55;
                             spsPureDef56 = pdef56;
+                            spsPriorProven68v = prov68v;
                         }
                     }
                 }
@@ -30351,7 +30576,51 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // before any Lhs is consulted; our `emitExpr` of the bare
                 // element expression carries slang's context width instead
                 // (an unsized `7` arrives at 64).  Restamp first, then adjust.
-                if (mw55 > 0 && c55->VpiConstType() == vpiUIntConst)
+                //
+                // § caSubstMemberStampAllEnc68 (r11u68) — AND THE STAMP IS NOT
+                // THE `vpiUIntConst` ARM'S ALONE: `CompileHelper::adjustOpSize`
+                // (`CompileHelper.cpp:5114-5203`) writes
+                // `cop->VpiSize(<member bits>)` on EVERY operand it reaches,
+                // whatever that operand's encoding, and touches neither
+                // `VpiValue` nor `VpiConstType` — the `adjustUnsized` call
+                // beside it is the only value writer and it fires on `'1`
+                // alone.  `adjustSize` then runs from THAT size, and its arms
+                // read it: a `vpiDecConst` is never re-sized at all
+                // (`:4093-4096`), so golden's `16'd4660` on an 8-bit member is
+                // `vpiSize:8` at EVERY Lhs; an unsigned based binary takes the
+                // shrink arm from the MEMBER width, so golden's
+                // `16'b1010010111000011` on an 8-bit member keeps all sixteen
+                // digits at `vpiSize:8` where the 16-bit literal width made us
+                // drop eight of them.  Measured, grid `c1_stamp68` (every base
+                // letter x 4/16-bit literal x 8/16/24-bit member x 8/32-bit
+                // Lhs, real Surelog v1.87): `vpiDecConst` = the member width,
+                // `vpiBinaryConst` = min(member, Lhs), `vpiHexConst`/
+                // `vpiOctConst` = the Lhs (unmoved by this stamp, which is the
+                // fence), and the `e3_base56` cells r11u56 left standing are
+                // the same three faces.
+                //
+                // THE ONE DECLINE is the BINARY setter whose constant golden
+                // re-sizes through `adjustSize`'s `int_typespec` arm
+                // (`caIntTsBinOrigin68` above) — a SIGNED based binary, and
+                // any based binary reached through a NAME.  That arm keeps the
+                // digits where W3 below transcribes the `logic_typespec` arm,
+                // which drops them, so stamping there would rewrite
+                // `4'sb1011` to a bare `1011` and `16'b1010010111000011` to
+                // its unprefixed digits: a value moved inside a law that
+                // claims only `VpiSize`.
+                //
+                // § caSubstBailStopsMemberStamp68v (r11v68) — AND ONLY WHEN
+                // THE WALK PROVABLY REACHES THIS MEMBER STILL STAMPING.  The
+                // same `if (invalidValue) return result;` that stops the
+                // packed-parameter walk stops this one; measured on arm
+                // `v4_cabail68`, a `-3` two members earlier leaves golden's
+                // `16'd4660` at `vpiSize:16` where the member stamp would
+                // write 8.  Unproven leaves the pass-54/55 `vpiUIntConst` arm
+                // exactly as it stood.
+                if (mw55 > 0 &&
+                    (c55->VpiConstType() == vpiUIntConst ||
+                     (spsPriorProven68v &&
+                      !caIntTsBinOrigin68(*structParamSetter, 0))))
                     c55->VpiSize(mw55);
                 std::string ln55;
                 int32_t lw55 = 0;

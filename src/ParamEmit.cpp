@@ -709,6 +709,332 @@ static bool patNoFoldTarget(const Type& t) {
            ct.kind != SymbolKind::PackedUnionType;
 }
 
+// ===========================================================================
+// § patBailStopsMemberStamp68 (r11u68) — THE BAIL'S SIZE HALF ON THE PACKED
+// PARAMETER ROAD.
+//
+// THE PRODUCER, read in the pinned trees.  `expandPatternAssignment`'s
+// untagged arm (`~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:
+// 5407-5441`) walks the flattened operands in member order:
+//
+//     expr* vexp = reduceExpr(cop, invalidValue, ...);
+//     uint64_t v = eval.get_uvalue(invalidValue, vexp);
+//     int32_t csize = adjustOpSize(tps, cop, opIndex, rhs, ...);
+//     if (invalidValue) { return result; }
+//
+// `adjustOpSize` (`:5114-5203`) writes `cop->VpiSize(<member bits>)` and
+// returns, so the operand that trips the flag IS re-sized and every operand
+// AFTER it is never reached — it keeps the size `reduceExpr` gave it.  The
+// walk's landed model here covers ONE cause of that flag (a member whose value
+// is itself an assignment pattern, `nestBailK`); these two functions cover the
+// two OTHER causes that r11u66's R0 measured, each transcribed from the line
+// that raises the flag rather than guessed.
+//
+// CAUSE 1 — `get_uvalue` REFUSES THE REDUCED OPERAND
+// (`~/git-repos/UHDM/templates/ExprEval.cpp:2058-2160`).  It sets
+// `invalidValue` when the reduce did not hand back a constant at all, and
+// otherwise when the encoding's own `NumUtils::parse*` scan finds no valid
+// LEADING digit: `parseUint64` on an `INT:`/`DEC:` string that starts with a
+// minus, `parseBinary` on `BIN:X`, `parseHex` on `HEX:X`, `parseOctal` on
+// `OCT:X`.  The scans are `strtol`-shaped, so an unknown digit BEHIND a valid
+// one survives — `BIN:1x01` and `BIN:1000000x` complete the walk where
+// `BIN:x0000001` does not.  `patUvalueRefuses68` reads OUR OWN emitted
+// operand, which is the same object the producer reads: measured across 109
+// detector rows (`b1_refuse68`, `b2_faces68`, `b3_ops68`, `b6_cast68`) our
+// operand's `vpiConstType` and `vpiValue` are byte-identical to golden's on
+// every row this predicate answers.  The `expr->VpiSize() > 64` clause of the
+// same function is deliberately NOT transcribed: golden does NOT bail on
+// `70'h5`, `65'h1`, `96'b1` or `96'o1`, so the size it tests is the reduce
+// product's, not the literal's declared width (§6 R2).
+//
+// CAUSE 2 — `reduceExpr` LEAVES AN OPERATION.  `get_uvalue`'s first branch
+// then refuses it (`any_cast<const constant*>` fails), but OUR walk has
+// already folded it to a constant, so the refusal has to be read off the AST.
+// The operator set is measured, not assumed — arm `b3_ops68` puts 27 operators
+// at operand 0 of a detector struct and reads golden's controls:
+//   REFUSED (the op survives): `^` (op30), `~^`/`^~` (op31), `===` (op16),
+//     `!==` (op17), `==?` (op69), unary `+` (op2)
+//   FOLDED:  `&`, `|`, `~`, `&&`, `||`, `!`, every reduction operator,
+//     `==`, `!=`, `<`, `<=`, `>=`, `<<`, `<<<`, `>>`, `>>>`, `**`, `?:`,
+//     a concatenation, a replication, a `$` call and a constant function call.
+// A CAST whose target typespec is outside `reduceExpr`'s own six
+// (`ExprEval.cpp:4185-4314`: int / long_int / bit / short_int / integer /
+// enum) is a third face of this cause — measured in `b6_cast68` and left to
+// § 6 R1, because naming it needs a slang-type-to-typespec mapping this law
+// does not have to spend.
+static bool patAstRefuses68(const Expression& e0) {
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::BinaryOp) {
+        switch (e.as<BinaryExpression>().op) {
+            case BinaryOperator::BinaryXor:
+            case BinaryOperator::BinaryXnor:
+            case BinaryOperator::CaseEquality:
+            case BinaryOperator::CaseInequality:
+            case BinaryOperator::WildcardEquality:
+            case BinaryOperator::WildcardInequality:
+                return true;
+            default:
+                return false;
+        }
+    }
+    if (e.kind == ExpressionKind::UnaryOp)
+        return e.as<UnaryExpression>().op == UnaryOperator::Plus;
+    return false;
+}
+
+static bool patUvalueRefuses68(const UHDM::any* ob) {
+    if (!ob || ob->UhdmType() != UHDM::uhdmconstant)
+        return true;
+    auto* c = (const UHDM::constant*)ob;
+    std::string_view v = c->VpiValue();
+    auto after = [&](std::string_view pfx) -> std::string_view {
+        return v.size() >= pfx.size() && v.compare(0, pfx.size(), pfx) == 0
+                   ? v.substr(pfx.size())
+                   : std::string_view();
+    };
+    // `ltrim(sv, c)` in ExprEval drops everything UP TO AND INCLUDING the
+    // character when it is present, which is how a stored `'sb1010` loses its
+    // prefix before the digit scan.
+    auto trim = [](std::string_view s, char ch) {
+        auto p = s.find(ch);
+        return p == std::string_view::npos ? s : s.substr(p + 1);
+    };
+    switch (c->VpiConstType()) {
+        case vpiBinaryConst: {
+            std::string_view d = after("BIN:");
+            d = trim(trim(trim(d, '\''), 's'), 'b');
+            return d.empty() || (d[0] != '0' && d[0] != '1');
+        }
+        case vpiHexConst: {
+            std::string_view d = after("HEX:");
+            d = trim(trim(trim(d, '\''), 's'), 'h');
+            return d.empty() || !isxdigit((unsigned char)d[0]);
+        }
+        case vpiOctConst: {
+            std::string_view d = after("OCT:");
+            d = trim(trim(trim(d, '\''), 's'), 'o');
+            return d.empty() || d[0] < '0' || d[0] > '7';
+        }
+        case vpiDecConst: {
+            std::string_view d = after("DEC:");
+            return d.empty() || !isdigit((unsigned char)d[0]);
+        }
+        case vpiIntConst: {
+            std::string_view d = after("INT:");
+            return d.empty() || !isdigit((unsigned char)d[0]);
+        }
+        case vpiUIntConst: {
+            std::string_view d = after("UINT:");
+            return d.empty() || !isdigit((unsigned char)d[0]);
+        }
+        case vpiStringConst:
+            return after("STRING:").size() > 64;
+        case vpiScalar: {
+            std::string_view d = after("SCAL:");
+            return d.empty() || (d[0] != '0' && d[0] != '1');
+        }
+        case vpiRealConst:
+            return true;
+        default:
+            return true;
+    }
+}
+
+// § patRedSz68 — THE SIZE A POST-BAIL OPERAND KEEPS, and it is
+// `ExprEval::reduceExpr`'s own answer, measured operand-kind by operand-kind
+// on real v1.87 goldens (arms `b4_postsz68` and `b5_redsz68`: operand 0 is a
+// guaranteed bail, so every operand after it prints the producer's size
+// directly, against an 8-bit member that no reduce answer collides with):
+//   a SIZED literal            its own declared width  (4'd3 -> 4, 96'h1 -> 96)
+//   an UNSIZED decimal literal 64
+//   a STRING literal           8 x the character count ("abc" -> 24)
+//   a NAME                     the parameter's DECLARED width (byte 8,
+//                              shortint 16, longint 64, an untyped localparam
+//                              32, bit[3:0] 4, logic[95:0] 96, an enum member
+//                              its base width)
+//   unary `-`                  the OPERAND's size (-PU -> 32, -P8 -> 8)
+//   `+`                        max(l, r)  (PU+1 -> 64, P8+P8 -> 8, P8+1 -> 64)
+//   `-` `*` `/` `%` `**` `&` `|` `>>` `>>>` `<<` `<<<`, `?:`, a cast,
+//   a `$` call and a constant function call   64
+// 0 = ABSTAIN, which leaves today's member stamp standing — a STILL cell, never
+// an AWAY one.  Everything this table does not answer abstains, `'1`, the
+// concatenation and the replication included: their VALUE is re-encoded at the
+// member width by the branches that mint them, so moving the size alone would
+// leave a bit string whose length contradicts it.
+static int32_t patRedSz68(const Expression& e0, int depth) {
+    if (depth > 32)
+        return 0;
+    const Expression& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral:
+            if (e.syntax &&
+                e.syntax->kind ==
+                    slang::syntax::SyntaxKind::IntegerVectorExpression)
+                return (int32_t)e.type->getBitWidth();
+            return 64;
+        case ExpressionKind::StringLiteral:
+            return (int32_t)(e.as<StringLiteral>().getValue().size() * 8);
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue: {
+            auto& sy = e.as<ValueExpressionBase>().symbol;
+            if (sy.kind != SymbolKind::Parameter &&
+                sy.kind != SymbolKind::EnumValue)
+                return 0;
+            auto w = e.type->getBitWidth();
+            return w ? (int32_t)w : 0;
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& u = e.as<UnaryExpression>();
+            if (u.op != UnaryOperator::Minus)
+                return 0;
+            return patRedSz68(u.operand(), depth + 1);
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b = e.as<BinaryExpression>();
+            switch (b.op) {
+                case BinaryOperator::Add: {
+                    int32_t l = patRedSz68(b.left(), depth + 1);
+                    int32_t r = patRedSz68(b.right(), depth + 1);
+                    return (l && r) ? (l > r ? l : r) : 0;
+                }
+                case BinaryOperator::Subtract:
+                case BinaryOperator::Multiply:
+                case BinaryOperator::Divide:
+                case BinaryOperator::Mod:
+                case BinaryOperator::Power:
+                case BinaryOperator::BinaryAnd:
+                case BinaryOperator::BinaryOr:
+                case BinaryOperator::LogicalShiftRight:
+                case BinaryOperator::ArithmeticShiftRight:
+                    return 64;
+                // `<<` and `<<<` are DELIBERATELY absent: the producer's
+                // arithmetic runs at 64 bits where slang's is
+                // self-determined, so `KU << 40` is golden
+                // `UINT:6597069766656` and ours a masked `0` — moving the size
+                // under a value we do not have is not this law's claim
+                // (r11v66's R-V1, § 6 R3).
+                default:
+                    return 0;
+            }
+        }
+        case ExpressionKind::ConditionalOp:
+            return 64;
+        case ExpressionKind::Conversion:
+            return 64;
+        case ExpressionKind::Call:
+            return 64;
+        default:
+            return 0;
+    }
+}
+
+// § patBailNegCorroborated68v (r11v68) — A NEGATIVE WE WROTE IS NOT PROOF THE
+// PRODUCER WROTE ONE, AND THE BAIL MUST NOT FIRE ON OUR OWN ARITHMETIC RESIDUE.
+//
+// `get_uvalue` refuses an `INT:`/`DEC:`/`UINT:` string whose first character
+// is not a digit, which for an integer arm means a leading MINUS
+// (`NumUtils::parseUint64` is `std::from_chars` into an UNSIGNED, so `-4`
+// fails).  `patUvalueRefuses68` reads that off OUR operand — and our value is
+// slang's, computed in the expression's SELF-DETERMINED width, where
+// `ExprEval` does every `vpiIntConst` arm in `int64_t` over the reduced
+// operand values and never wraps (`~/git-repos/UHDM/templates/ExprEval.cpp:
+// 3443` `int64_t val = val0 - val1`, `:3479` `val0 * val1`).  That is r11v66's
+// R-V1, still open, and it makes an OVERFLOWING product negative for us and
+// positive for the producer.
+//
+// MEASURED, arm `a7_arith66` (a COMMITTED r11v66 arm, re-run here unmodified,
+// `slrc=0 ourrc=0 slerr=0`): `a: BIG*2` with `localparam int BIG =
+// 2000000000` is golden `INT:4000000000` and ours `INT:-294967296`.  Reading
+// the refusal off our own string bails at operand 0, where golden walks on and
+// bails at operand 4 (`SB-200` = `INT:-100`, negative in BOTH arithmetics).
+// Without this corroboration the four operands between them take
+// `patRedSz68`'s answer where golden stamped the member width -- 64/32/32/32
+// against golden's 32/64/32/32 -- four cells moved from RIGHT (the pristine
+// binary agrees with golden on all four) to WRONG.
+//
+// So the negative half of the refusal fires only when the PRODUCER's int64
+// arithmetic is negative too.  `patInt64Val68v` runs the same `int64_t` table
+// over the setter; anything it cannot answer ABSTAINS, which leaves the member
+// stamp standing -- a STILL cell, never an AWAY one.  The other refusal faces
+// (a non-constant, an unknown leading digit, an operator the reduce leaves,
+// `vpiRealConst`) are properties of the OBJECT's shape, not of a value we
+// might have wrapped, and are unchanged.
+static bool patInt64Val68v(const Expression& e0, const ASTContext& actx,
+                           int depth, int64_t& out) {
+    if (depth > 16)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::UnaryOp) {
+        auto& u = e.as<UnaryExpression>();
+        if (u.op != UnaryOperator::Minus)
+            return false;
+        int64_t v68 = 0;
+        if (!patInt64Val68v(u.operand(), actx, depth + 1, v68))
+            return false;
+        out = -v68;
+        return true;
+    }
+    if (e.kind == ExpressionKind::BinaryOp) {
+        auto& b = e.as<BinaryExpression>();
+        int64_t l68 = 0, r68 = 0;
+        switch (b.op) {
+            case BinaryOperator::Add:
+            case BinaryOperator::Subtract:
+            case BinaryOperator::Multiply:
+            case BinaryOperator::Divide:
+            case BinaryOperator::Mod:
+                break;
+            default:
+                return false;
+        }
+        if (!patInt64Val68v(b.left(), actx, depth + 1, l68) ||
+            !patInt64Val68v(b.right(), actx, depth + 1, r68))
+            return false;
+        switch (b.op) {
+            case BinaryOperator::Add: out = l68 + r68; return true;
+            case BinaryOperator::Subtract: out = l68 - r68; return true;
+            case BinaryOperator::Multiply: out = l68 * r68; return true;
+            case BinaryOperator::Divide:
+                if (r68 == 0) return false;
+                out = l68 / r68;
+                return true;
+            case BinaryOperator::Mod:
+                if (r68 == 0) return false;
+                out = l68 % r68;
+                return true;
+            default: return false;
+        }
+    }
+    ConstantValue cv68 = actx.tryEval(e);
+    if (!cv68 || !cv68.isInteger() || cv68.integer().hasUnknown())
+        return false;
+    auto& iv68 = cv68.integer();
+    if (auto s68 = iv68.as<int64_t>()) {
+        out = *s68;
+        return true;
+    }
+    if (auto u68 = iv68.as<uint64_t>()) {
+        out = (int64_t)*u68;
+        return true;
+    }
+    return false;
+}
+
+// TRUE when the operand's refusal is the LEADING-MINUS one on an integer arm
+// -- the only face whose truth depends on WHOSE arithmetic produced the value.
+static bool patRefusalIsNeg68v(const UHDM::any* ob) {
+    if (!ob || ob->UhdmType() != UHDM::uhdmconstant)
+        return false;
+    auto* c = (const UHDM::constant*)ob;
+    int32_t ct = c->VpiConstType();
+    if (ct != vpiIntConst && ct != vpiUIntConst && ct != vpiDecConst)
+        return false;
+    std::string_view v = c->VpiValue();
+    auto col = v.find(':');
+    return col != std::string_view::npos && col + 1 < v.size() &&
+           v[col + 1] == '-';
+}
+
 // § castDefaultPatternConcat — is this parameter's init `int'{default: X}`?
 // Surelog's CompileHelper::defaultPatternAssignment reduces exactly that shape
 // (a vpiCastOp over a concat whose first operand is the `default` ref) to a
@@ -14308,8 +14634,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             fiK++;
                         }
                     }
+                    // § patBailStopsMemberStamp68 (r11u68) — the setter that
+                    // produced each operand, parallel to `opnds`.  Recorded by
+                    // FLUSHING the previous iteration's setter at the top of
+                    // the next one, because the body pushes from a dozen
+                    // branches and several iterations push nothing at all
+                    // (`'x` / `'z` reach no constant), so an index computed
+                    // from the FIELD number would slide.
+                    std::vector<const Expression*> opSet68;
+                    const Expression* pend68 = nullptr;
                     int fiK9 = -1;
                     for (auto& fld : fsc9.membersOfType<FieldSymbol>()) {
+                        while (opSet68.size() < opnds->size())
+                            opSet68.push_back(pend68);
                         fiK9++;
                         const Expression* se = nullptr;
                         if (sinitK.kind ==
@@ -14345,6 +14682,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                         if (!se)
                             continue;
+                        // § patBailStopsMemberStamp68 — A `default:`-SOURCED
+                        // OPERAND IS A DIFFERENT PRODUCER AND ITS SIZE IS NOT
+                        // THIS TABLE'S.  § caSubstLeafEncReduceTable56's F3
+                        // already decoded the split for the cont_assign road:
+                        // a pure `'{default: X}` fill is stamped ONCE by
+                        // `defaultPatternAssignment` at the 32-bit default
+                        // width, never by the per-operand reduce.  Measured
+                        // here too (arm `e5_deffill56`, `'{default: -1}` over
+                        // `int a; logic [7:0] b;`): golden's second operand is
+                        // `INT:-1` at **32**, where `patRedSz68` would answer
+                        // the reduce's 64.  Recording NO setter for such an
+                        // operand makes Phase 2 abstain on it while the
+                        // `get_uvalue` half still sees the object, so the BAIL
+                        // it causes is still detected.
+                        pend68 =
+                            (sinitK.kind ==
+                                 ExpressionKind::StructuredAssignmentPattern &&
+                             se == sinitK
+                                       .as<StructuredAssignmentPatternExpression>()
+                                       .defaultSetter)
+                                ? nullptr
+                                : se;
                         // A NESTED struct-pattern member is KEPT as a nested
                         // op75 in the ELAB view — Surelog does NOT fold the
                         // inner pattern. Recurse via the reemitting path, which
@@ -15077,6 +15436,125 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             c2->VpiParent(op2);
                             setLoc(c2, se->sourceRange);
                             opnds->push_back(c2);
+                        }
+                    }
+                    // § patBailStopsMemberStamp68 (r11u68) — THE BAIL'S SIZE
+                    // HALF.  The walk above stamps the member width on every
+                    // operand; `expandPatternAssignment` stops stamping at the
+                    // FIRST operand its reduce or `get_uvalue` refuses
+                    // (`CompileHelper.cpp:5407-5441`, the decode beside
+                    // `patAstRefuses68`), and the operands after it keep
+                    // `reduceExpr`'s own size.  Read off the finished operand
+                    // list, because the refusal is a property of the OBJECT
+                    // the producer reads and this is where that object exists.
+                    // The bailing operand itself is untouched: `adjustOpSize`
+                    // runs on the line BEFORE the `if (invalidValue) return`.
+                    //
+                    // THE ABSTENTIONS, all of them leaving today's member stamp
+                    // standing (a STILL cell, never an AWAY one): an operand
+                    // kind `patRedSz68` does not answer, and any operand whose
+                    // VALUE is not the producer's — the fold above masks to the
+                    // member width, so `~KU` is ours `UINT:249` where golden
+                    // has `UINT:4294967289`, and moving a size under a value we
+                    // do not have would be a moved-wrong cell dressed as a size
+                    // fix.  The guard compares the digits we WROTE against the
+                    // setter's own evaluation, using pass 55's F2 rule for the
+                    // unary minus (the OPERAND's magnitude negated), so the
+                    // cells the landed encoding law already spells right are
+                    // exactly the cells whose size may move.
+                    //
+                    // `ifaceArrayDefFold` abstains for § patOperandEncReduce-
+                    // Table66's reason, unchanged: where golden keeps the
+                    // `tagged_pattern` TREE the producer never ran this walk,
+                    // so there is no bail to model.
+                    while (opSet68.size() < opnds->size())
+                        opSet68.push_back(pend68);
+                    if (!ifaceArrayDefFold) {
+                        int bail68 = -1;
+                        auto dec68 =
+                            [](const slang::SVInt& iv) -> std::string {
+                            if (iv.isSigned()) {
+                                if (auto i68 = iv.as<int64_t>())
+                                    return std::to_string(*i68);
+                                return std::string();
+                            }
+                            if (auto u68 = iv.as<uint64_t>())
+                                return std::to_string(*u68);
+                            return std::string();
+                        };
+                        for (size_t i68 = 0; i68 < opnds->size(); i68++) {
+                            auto* ob68 = (*opnds)[i68];
+                            const Expression* sx68 =
+                                i68 < opSet68.size() ? opSet68[i68] : nullptr;
+                            if (bail68 < 0) {
+                                bool ref68 = patUvalueRefuses68(ob68);
+                                // § patBailNegCorroborated68v (r11v68) — a
+                                // MINUS we wrote is a refusal only when the
+                                // producer's int64 arithmetic is negative too.
+                                if (ref68 && patRefusalIsNeg68v(ob68)) {
+                                    int64_t nv68 = 0;
+                                    if (!sx68 ||
+                                        !patInt64Val68v(*sx68, ectx, 0,
+                                                        nv68) ||
+                                        nv68 >= 0)
+                                        ref68 = false;
+                                }
+                                if (ref68 ||
+                                    (sx68 && patAstRefuses68(*sx68)))
+                                    bail68 = (int)i68;
+                                continue;
+                            }
+                            if (!sx68 || !ob68 ||
+                                ob68->UhdmType() != UHDM::uhdmconstant)
+                                continue;
+                            auto* c68 = (UHDM::constant*)ob68;
+                            int32_t rsz68 = patRedSz68(*sx68, 0);
+                            if (rsz68 <= 0 || rsz68 == c68->VpiSize())
+                                continue;
+                            int32_t ct68 = c68->VpiConstType();
+                            if (ct68 == vpiUIntConst || ct68 == vpiIntConst) {
+                                auto& sv68 = stripImplicitConv(*sx68);
+                                std::string want68;
+                                if (sv68.kind == ExpressionKind::UnaryOp &&
+                                    sv68.as<UnaryExpression>().op ==
+                                        UnaryOperator::Minus) {
+                                    ConstantValue o68 =
+                                        ectx.tryEval(stripImplicitConv(
+                                            sv68.as<UnaryExpression>()
+                                                .operand()));
+                                    if (o68 && o68.isInteger() &&
+                                        !o68.integer().hasUnknown()) {
+                                        std::string m68 = dec68(o68.integer());
+                                        if (!m68.empty() && m68 != "0")
+                                            want68 = m68[0] == '-'
+                                                         ? m68.substr(1)
+                                                         : ("-" + m68);
+                                        else if (m68 == "0")
+                                            want68 = "0";
+                                    }
+                                }
+                                else {
+                                    ConstantValue v68 = ectx.tryEval(sv68);
+                                    if (v68 && v68.isInteger() &&
+                                        !v68.integer().hasUnknown())
+                                        want68 = dec68(v68.integer());
+                                }
+                                std::string_view gv68 = c68->VpiValue();
+                                auto col68 = gv68.find(':');
+                                if (want68.empty() ||
+                                    col68 == std::string_view::npos ||
+                                    gv68.substr(col68 + 1) != want68)
+                                    continue;
+                            }
+                            else if (ct68 == vpiBinaryConst) {
+                                // Only a PASS-THROUGH based literal carries its
+                                // own digits here; every other binary operand
+                                // was re-encoded at the member width.
+                                if (stripImplicitConv(*sx68).kind !=
+                                    ExpressionKind::IntegerLiteral)
+                                    continue;
+                            }
+                            c68->VpiSize(rsz68);
                         }
                     }
                     op2->Operands(opnds);

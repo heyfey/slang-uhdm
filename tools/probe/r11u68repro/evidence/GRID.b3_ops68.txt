@@ -1,0 +1,70 @@
+-- b3_ops68 SIZE
+  TO          uhdmtopModules   work@b3_ops68.C_ceq        op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_ceq        op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_cne        op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_cne        op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_uplus      op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_uplus      op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_wieq       op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_wieq       op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xdec       op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xdec       op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xhex       op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xhex       op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xnor1      op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xnor1      op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xnor2      op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xnor2      op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xoct       op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xoct       op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xor        op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b3_ops68.C_xor        op2  golden=const/64                   pris=const/8                    law=const/64
+  SHAPE-MISMATCH uhdmtopModules   work@b3_ops68.C_xunsz      golden=3 pris=2 law=2
+     G const/8@9=UINT:0 const/8@9=UINT:7 const/8@9=UINT:7
+     P const/8@9=UINT:7 const/8@9=UINT:7
+     L const/8@9=UINT:7 const/8@9=UINT:7
+  SHAPE-MISMATCH uhdmtopModules   work@b3_ops68.C_zunsz      golden=3 pris=2 law=2
+     G const/8@9=UINT:0 const/8@9=UINT:7 const/8@9=UINT:7
+     P const/8@9=UINT:7 const/8@9=UINT:7
+     L const/8@9=UINT:7 const/8@9=UINT:7
+ARM b3_ops68 SIZE TO 20 AWAY 0 MOVED-WRONG 0 STILL 7 SAME 447 ABSENT 0 SHAPE-MISMATCH 2
+-- b3_ops68 ENC
+  SHAPE-MISMATCH uhdmtopModules   work@b3_ops68.C_xunsz      golden=3 pris=2 law=2
+     G const/8@9=UINT:0 const/8@9=UINT:7 const/8@9=UINT:7
+     P const/8@9=UINT:7 const/8@9=UINT:7
+     L const/8@9=UINT:7 const/8@9=UINT:7
+  SHAPE-MISMATCH uhdmtopModules   work@b3_ops68.C_zunsz      golden=3 pris=2 law=2
+     G const/8@9=UINT:0 const/8@9=UINT:7 const/8@9=UINT:7
+     P const/8@9=UINT:7 const/8@9=UINT:7
+     L const/8@9=UINT:7 const/8@9=UINT:7
+ARM b3_ops68 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 13 SAME 461 ABSENT 0 SHAPE-MISMATCH 2
+-- b3_ops68 FULL
+  TO          uhdmtopModules   work@b3_ops68.C_ceq        op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_ceq        op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_cne        op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_cne        op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_uplus      op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_uplus      op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_wieq       op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_wieq       op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xdec       op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xdec       op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xhex       op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xhex       op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xnor1      op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xnor1      op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xnor2      op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xnor2      op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xoct       op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xoct       op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xor        op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b3_ops68.C_xor        op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  SHAPE-MISMATCH uhdmtopModules   work@b3_ops68.C_xunsz      golden=3 pris=2 law=2
+     G const/8@9=UINT:0 const/8@9=UINT:7 const/8@9=UINT:7
+     P const/8@9=UINT:7 const/8@9=UINT:7
+     L const/8@9=UINT:7 const/8@9=UINT:7
+  SHAPE-MISMATCH uhdmtopModules   work@b3_ops68.C_zunsz      golden=3 pris=2 law=2
+     G const/8@9=UINT:0 const/8@9=UINT:7 const/8@9=UINT:7
+     P const/8@9=UINT:7 const/8@9=UINT:7
+     L const/8@9=UINT:7 const/8@9=UINT:7
+ARM b3_ops68 FULL TO 20 AWAY 0 MOVED-WRONG 0 STILL 13 SAME 441 ABSENT 0 SHAPE-MISMATCH 2

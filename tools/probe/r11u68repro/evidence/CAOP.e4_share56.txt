@@ -1,0 +1,10 @@
+-- e4_share56 SIZE
+  TO          uhdmtopModules   work@dut.u_1.C             op3  golden=const/64                   pris=const/16                   law=const/64
+  TO          uhdmtopModules   work@dut.u_2.C             op3  golden=const/64                   pris=const/16                   law=const/64
+ARM e4_share56 SIZE TO 2 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 18 ABSENT 0 SHAPE-MISMATCH 0
+-- e4_share56 ENC
+ARM e4_share56 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 20 ABSENT 0 SHAPE-MISMATCH 0
+-- e4_share56 FULL
+  TO          uhdmtopModules   work@dut.u_1.C             op3  golden=const/64@9=UINT:300        pris=const/16@9=UINT:300        law=const/64@9=UINT:300
+  TO          uhdmtopModules   work@dut.u_2.C             op3  golden=const/64@9=UINT:300        pris=const/16@9=UINT:300        law=const/64@9=UINT:300
+ARM e4_share56 FULL TO 2 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 18 ABSENT 0 SHAPE-MISMATCH 0

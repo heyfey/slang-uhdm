@@ -1,0 +1,113 @@
+# v4_cabail68 — cont_assign cells: golden / PRISTINE / LAW(unfixed) 
+  TO          work@v4_cabail68.u_x.q1           
+     G 8
+     P 16
+     L 8
+  AWAY        work@v4_cabail68.u_x.q3           
+     G 16
+     P 16
+     L 8
+  AWAY        work@v4_cabail68.u_x.q4           
+     G 16
+     P 16
+     L 8
+  AWAY        work@v4_cabail68.u_x.q5           
+     G 16
+     P 16
+     L 24
+  TO          work@v4_cabail68.u_y.r1           
+     G 8
+     P 16
+     L 8
+  TO          work@v4_cabail68.u_y.r2           
+     G 8
+     P 16
+     L 8
+  TO          work@v4_cabail68.u_y.r3           
+     G 8
+     P 16
+     L 8
+  TO          work@v4_cabail68.u_y.r4           
+     G 24
+     P 16
+     L 24
+ARM v4_cabail68 SIZE TO 5 AWAY 3 MOVED-WRONG 0 STILL 0 SAME 2
+ARM v4_cabail68 VAL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 10
+  TO          work@v4_cabail68.u_x.q1           
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  AWAY        work@v4_cabail68.u_x.q3           
+     G vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  AWAY        work@v4_cabail68.u_x.q4           
+     G vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  AWAY        work@v4_cabail68.u_x.q5           
+     G vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+  TO          work@v4_cabail68.u_y.r1           
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v4_cabail68.u_y.r2           
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v4_cabail68.u_y.r3           
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v4_cabail68.u_y.r4           
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+ARM v4_cabail68 FULL TO 5 AWAY 3 MOVED-WRONG 0 STILL 0 SAME 2
+
+# v4_cabail68 — golden / PRISTINE / FIX2 (shipped)
+  TO          work@v4_cabail68.u_x.q1           
+     G 8
+     P 16
+     L 8
+  TO          work@v4_cabail68.u_y.r1           
+     G 8
+     P 16
+     L 8
+  TO          work@v4_cabail68.u_y.r2           
+     G 8
+     P 16
+     L 8
+  TO          work@v4_cabail68.u_y.r3           
+     G 8
+     P 16
+     L 8
+  TO          work@v4_cabail68.u_y.r4           
+     G 24
+     P 16
+     L 24
+ARM v4_cabail68 SIZE TO 5 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 5
+ARM v4_cabail68 VAL TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 10
+  TO          work@v4_cabail68.u_x.q1           
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v4_cabail68.u_y.r1           
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v4_cabail68.u_y.r2           
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v4_cabail68.u_y.r3           
+     G vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:8 vpiConstType:1
+  TO          work@v4_cabail68.u_y.r4           
+     G vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+     P vpiDecompile:16'd4660 vpiSize:16 vpiConstType:1
+     L vpiDecompile:16'd4660 vpiSize:24 vpiConstType:1
+ARM v4_cabail68 FULL TO 5 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 5

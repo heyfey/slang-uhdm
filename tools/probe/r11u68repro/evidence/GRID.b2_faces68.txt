@@ -1,0 +1,30 @@
+-- b2_faces68 SIZE
+  TO          uhdmtopModules   work@b2_faces68.C_nparm    op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_nparm    op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_nsd      op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_nsd      op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_nsub     op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_nsub     op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_xlead    op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_xlead    op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_xq       op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_xq       op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_xz       op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b2_faces68.C_xz       op2  golden=const/64                   pris=const/8                    law=const/64
+ARM b2_faces68 SIZE TO 12 AWAY 0 MOVED-WRONG 0 STILL 11 SAME 349 ABSENT 0 SHAPE-MISMATCH 0
+-- b2_faces68 ENC
+ARM b2_faces68 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 6 SAME 366 ABSENT 0 SHAPE-MISMATCH 0
+-- b2_faces68 FULL
+  TO          uhdmtopModules   work@b2_faces68.C_nparm    op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_nparm    op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_nsd      op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_nsd      op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_nsub     op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_nsub     op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_xlead    op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_xlead    op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_xq       op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_xq       op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_xz       op1  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b2_faces68.C_xz       op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+ARM b2_faces68 FULL TO 12 AWAY 0 MOVED-WRONG 0 STILL 14 SAME 346 ABSENT 0 SHAPE-MISMATCH 0

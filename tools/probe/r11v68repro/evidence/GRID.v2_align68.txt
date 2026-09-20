@@ -1,0 +1,65 @@
+# v11u68 arm v2_align68 — golden shape
+  uhdmtopModules   work@v2_align68.C1                 line:58:40     op=75 ts=struct_typespec(qa::s6_t) ops=[op30 const/8@3=BIN:x const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C2                 line:58:72     op=75 ts=struct_typespec(qa::s6_t) ops=[const/8@1=DEC:5 const/8@3=BIN:x const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C3                 line:59:40     op=75 ts=struct_typespec(qa::s6_t) ops=[const/8@1=DEC:5 const/8@3=BIN:1z const/8@9=UINT:7 const/8@9=UINT:7 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C4                 line:59:72     op=75 ts=struct_typespec(qa::s6_t) ops=[const/8@3=BIN:x const/8@3=BIN:z const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C5                 line:60:40     op=75 ts=struct_typespec(qa::sn_t) ops=[const/8@1=DEC:5 op75 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C6                 line:60:72     op=75 ts=struct_typespec(qa::sn_t) ops=[op30 op75 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C7                 line:61:40     op=75 ts=struct_typespec(qa::sa_t) ops=[const/8@1=DEC:5 op75 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C8                 line:61:72     op=75 ts=struct_typespec(qa::sa_t) ops=[op30 op75 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C9                 line:62:40     op=75 ts=struct_typespec(qa::s4_t) ops=[op30 const/64@9=UINT:9 const/64@9=UINT:7 const/64@9=UINT:9]
+  uhdmtopModules   work@v2_align68.C10                line:62:72     op=75 ts=struct_typespec(qa::s4_t) ops=[const/8@9=UINT:7 const/8@9=UINT:7 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C11                line:63:40     op=75 ts=struct_typespec(qa::s4_t) ops=[const/8@9=UINT:7 const/8@9=UINT:7 const/8@9=UINT:7 op30]
+  uhdmtopModules   work@v2_align68.C12                line:63:74     op=75 ts=struct_typespec(qa::s6_t) ops=[op30 const/64@9=UINT:7 const/32@7=INT:-6 const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C13                line:64:40     op=75 ts=struct_typespec(qa::s6_t) ops=[const/8@1=DEC:5 const/8@9=UINT:7 const/8@9=UINT:7 const/8@9=UINT:7 const/8@9=UINT:7 const/8@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C14                line:64:74     op=75 ts=struct_typespec(qa::s6_t) ops=[op30 const/8@6=STRING:a const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7 const/64@9=UINT:7]
+  uhdmtopModules   work@v2_align68.C15                line:65:40     op=75 ts=struct_typespec(qa::s6_t) ops=[op30 const/4@1=DEC:3 const/96@5=HEX:1 const/32@9=UINT:6 const/64@9=UINT:7 const/32@7=INT:-6]
+
+  STILL work@v2_align68.C1  op0  g=op30                           ours=const/8@9=UINT:5
+  TO    work@v2_align68.C1  op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C1  op3  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C1  op4  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C1  op5  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v2_align68.C11 op3  g=op30                           ours=const/8@9=UINT:5
+  STILL work@v2_align68.C12 op0  g=op30                           ours=const/8@9=UINT:5
+  TO    work@v2_align68.C12 op1  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C12 op2  g=const/32@7=INT:-6              p=const/8@7=INT:-6               l=const/32@7=INT:-6
+  TO    work@v2_align68.C12 op3  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C12 op4  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C12 op5  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v2_align68.C14 op0  g=op30                           ours=const/8@9=UINT:5
+  TO    work@v2_align68.C14 op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C14 op3  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C14 op4  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C14 op5  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v2_align68.C15 op0  g=op30                           ours=const/8@9=UINT:5
+  TO    work@v2_align68.C15 op1  g=const/4@1=DEC:3                p=const/8@1=DEC:3                l=const/4@1=DEC:3
+  TO    work@v2_align68.C15 op2  g=const/96@5=HEX:1               p=const/8@5=HEX:1                l=const/96@5=HEX:1
+  TO    work@v2_align68.C15 op3  g=const/32@9=UINT:6              p=const/8@9=UINT:6               l=const/32@9=UINT:6
+  TO    work@v2_align68.C15 op4  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C15 op5  g=const/32@7=INT:-6              p=const/8@7=INT:-6               l=const/32@7=INT:-6
+  TO    work@v2_align68.C2  op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C2  op3  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C2  op4  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C2  op5  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C4  op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C4  op3  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C4  op4  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C4  op5  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C5  op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C5  op3  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v2_align68.C6  op0  g=op30                           ours=const/8@9=UINT:5
+  TO    work@v2_align68.C6  op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C6  op3  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v2_align68.C7  op1  g=op75                           ours=const/16@9=UINT:258
+  STILL work@v2_align68.C7  op2  g=const/64@9=UINT:7              ours=const/8@9=UINT:7
+  STILL work@v2_align68.C7  op3  g=const/64@9=UINT:7              ours=const/8@9=UINT:7
+  STILL work@v2_align68.C8  op0  g=op30                           ours=const/8@9=UINT:5
+  STILL work@v2_align68.C8  op1  g=op75                           ours=const/16@9=UINT:258
+  TO    work@v2_align68.C8  op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  TO    work@v2_align68.C8  op3  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v2_align68.C9  op0  g=op30                           ours=const/8@9=UINT:5
+  STILL work@v2_align68.C9  op1  g=const/64@9=UINT:9              ours=const/8@9=UINT:9
+  TO    work@v2_align68.C9  op2  g=const/64@9=UINT:7              p=const/8@9=UINT:7               l=const/64@9=UINT:7
+  STILL work@v2_align68.C9  op3  g=const/64@9=UINT:9              ours=const/8@9=UINT:9
+SUMMARY rows=30 TO=33 AWAY/MOVED-WRONG=0

@@ -1,0 +1,18 @@
+### r11u68 u2r GATES — shipped law (md5 aedb5d8261aeac22923ad6b48d6325bb) vs pristine
+-- status counts
+u2r_p_tf.csv: {'CMP_EQUAL': 787, 'CMP_NOTEQUAL': 17, 'SLANG_REJECT': 67}
+u2r_l3_tf.csv: {'CMP_EQUAL': 787, 'CMP_NOTEQUAL': 17, 'SLANG_REJECT': 67}
+u2r_p_def.csv: {'CMP_EQUAL': 787, 'CMP_NOTEQUAL': 17, 'SLANG_REJECT': 67}
+u2r_l3_def.csv: {'CMP_EQUAL': 787, 'CMP_NOTEQUAL': 17, 'SLANG_REJECT': 67}
+-- row joins
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+-- byteverify
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+-- canaries
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.

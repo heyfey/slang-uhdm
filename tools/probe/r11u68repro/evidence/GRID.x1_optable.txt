@@ -1,0 +1,20 @@
+-- x1_optable SIZE
+  TO          uhdmtopModules   work@dut.C                 op11 golden=const/64                   pris=const/32                   law=const/64
+  TO          uhdmtopModules   work@dut.C                 op12 golden=const/64                   pris=const/32                   law=const/64
+  TO          uhdmtopModules   work@dut.C                 op13 golden=const/64                   pris=const/32                   law=const/64
+  TO          uhdmtopModules   work@dut.C                 op14 golden=const/64                   pris=const/32                   law=const/64
+  TO          uhdmtopModules   work@dut.C                 op15 golden=const/64                   pris=const/32                   law=const/64
+  TO          uhdmtopModules   work@dut.C                 op16 golden=const/64                   pris=const/32                   law=const/64
+  TO          uhdmtopModules   work@dut.C                 op17 golden=const/64                   pris=const/32                   law=const/64
+ARM x1_optable SIZE TO 7 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 71 ABSENT 0 SHAPE-MISMATCH 0
+-- x1_optable ENC
+ARM x1_optable ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 78 ABSENT 0 SHAPE-MISMATCH 0
+-- x1_optable FULL
+  TO          uhdmtopModules   work@dut.C                 op11 golden=const/64@9=UINT:3          pris=const/32@9=UINT:3          law=const/64@9=UINT:3
+  TO          uhdmtopModules   work@dut.C                 op12 golden=const/64@9=UINT:6          pris=const/32@9=UINT:6          law=const/64@9=UINT:6
+  TO          uhdmtopModules   work@dut.C                 op13 golden=const/64@9=UINT:6          pris=const/32@9=UINT:6          law=const/64@9=UINT:6
+  TO          uhdmtopModules   work@dut.C                 op14 golden=const/64@7=INT:-12         pris=const/32@7=INT:-12         law=const/64@7=INT:-12
+  TO          uhdmtopModules   work@dut.C                 op15 golden=const/64@7=INT:-3          pris=const/32@7=INT:-3          law=const/64@7=INT:-3
+  TO          uhdmtopModules   work@dut.C                 op16 golden=const/64@7=INT:0           pris=const/32@7=INT:0           law=const/64@7=INT:0
+  TO          uhdmtopModules   work@dut.C                 op17 golden=const/64@7=INT:0           pris=const/32@7=INT:0           law=const/64@7=INT:0
+ARM x1_optable FULL TO 7 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 71 ABSENT 0 SHAPE-MISMATCH 0

@@ -1,0 +1,56 @@
+# v11u68 GATES on the SHIPPED binary a3c3218c61a86b654659f9a50751d0a0
+# pristine 82111bbd435be0d05af1580b2222a687 = main tree at ff5541cd
+# r11u68 as submitted aedb5d8261aeac22923ad6b48d6325bb
+
+## goldens
+PASS=23 FAIL=0
+negctl(/bin/false) PASS=0 FAIL=23
+
+## u2r both modes
+  tf {'CMP_EQUAL': 787, 'CMP_NOTEQUAL': 17, 'SLANG_REJECT': 67}
+  def {'CMP_EQUAL': 787, 'CMP_NOTEQUAL': 17, 'SLANG_REJECT': 67}
+
+## surelog both modes
+  default EQ 474 NE 9
+  testflags EQ 469 NE 8
+
+## cmds.txt binary audit (every file, by ABSOLUTE PATH)
+  u2r: /tmp/v11u68_bin/fix2.bin (1742 files)
+  sl: /tmp/v11u68_bin/fix2.bin (1581 files)
+
+## byteverify SELFCHECK=1 vs my own pristine workdirs
+  u2r: MOVERS 0 / 1608 (selfcheck 1607/1608 sighted)
+  sl : MOVERS 6 / 960 (selfcheck 959/960 sighted), all attributed:
+    MiniAmiq default/testflags, SeqDriver default/testflags, SimpleUVM default -- 4 order-blind lines each,
+    a UINT:/vpiDecompile LINE-NUMBER pair; Scoreboard/default -- 0 lines, the pure order coin.
+    vpiSize lines: 0.  vpiConstType lines: 0.  NEITHER LAW'S SIGNATURE.
+
+## byte pins (shipped vs my pristine)
+  SVSwitch/default shipped=4842211c4030 pristine=4842211c4030 SAME
+  SVSwitch/testflags shipped=4842211c4030 pristine=4842211c4030 SAME
+  YosysVerx/default shipped=6ccda350c24a pristine=6ccda350c24a SAME
+  YosysVerx/testflags shipped=6ccda350c24a pristine=6ccda350c24a SAME
+  InterfaceModPort/default shipped=59a365f3ce2c pristine=59a365f3ce2c SAME
+  InterfaceModPort/testflags shipped=59a365f3ce2c pristine=59a365f3ce2c SAME
+  BlackParrotComplex/default shipped=e3e354129d5a pristine=e3e354129d5a SAME
+  BlackParrotComplex/testflags shipped=73a10e8217e5 pristine=73a10e8217e5 SAME
+  YosysOldOr/default shipped=d68e0796d62c pristine=d68e0796d62c SAME
+  YosysOldOr/testflags shipped=d68e0796d62c pristine=d68e0796d62c SAME
+  Earlgrey_0_1/default shipped=8bdf25272e08 pristine=8bdf25272e08 SAME
+  Earlgrey_0_1/testflags shipped=59d0ee6d10c3 pristine=59d0ee6d10c3 SAME
+
+## rowheads (the OFFICIAL judge) on the UVM family + Earlgrey
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+MiniAmiq       default          0      0 cmp rc=0
+MiniAmiq       testflags        0      0 cmp rc=0
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+-- measured=11  SKIP-NOFILE=1  UNKNOWN-NAME=0

@@ -1,0 +1,8 @@
+-- a5_nest66 SIZE
+  TO          uhdmtopModules   work@a5_nest66.C           op1  golden=const/64                   pris=const/32                   law=const/64
+ARM a5_nest66 SIZE TO 1 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 13 ABSENT 0 SHAPE-MISMATCH 0
+-- a5_nest66 ENC
+ARM a5_nest66 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 1 SAME 15 ABSENT 0 SHAPE-MISMATCH 0
+-- a5_nest66 FULL
+  TO          uhdmtopModules   work@a5_nest66.C           op1  golden=const/64@7=INT:5           pris=const/32@7=INT:5           law=const/64@7=INT:5
+ARM a5_nest66 FULL TO 1 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 13 ABSENT 0 SHAPE-MISMATCH 0

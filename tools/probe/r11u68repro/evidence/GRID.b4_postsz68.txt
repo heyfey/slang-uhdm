@@ -1,0 +1,50 @@
+-- b4_postsz68 SIZE
+  TO          uhdmtopModules   work@b4_postsz68.CB        op1  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CB        op2  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CB        op3  golden=const/32                   pris=const/8                    law=const/32
+  TO          uhdmtopModules   work@b4_postsz68.CB        op4  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CB        op5  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CB        op6  golden=const/32                   pris=const/8                    law=const/32
+  TO          uhdmtopModules   work@b4_postsz68.CB        op9  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CB        op10 golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CB        op11 golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CB        op17 golden=const/4                    pris=const/8                    law=const/4
+  TO          uhdmtopModules   work@b4_postsz68.CB        op18 golden=const/16                   pris=const/8                    law=const/16
+  TO          uhdmtopModules   work@b4_postsz68.CB        op21 golden=const/32                   pris=const/8                    law=const/32
+  TO          uhdmtopModules   work@b4_postsz68.CB        op22 golden=const/32                   pris=const/8                    law=const/32
+  TO          uhdmtopModules   work@b4_postsz68.CB        op25 golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CN        op9  golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CN        op10 golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CN        op11 golden=const/64                   pris=const/8                    law=const/64
+  TO          uhdmtopModules   work@b4_postsz68.CN        op17 golden=const/4                    pris=const/8                    law=const/4
+  TO          uhdmtopModules   work@b4_postsz68.CN        op18 golden=const/16                   pris=const/8                    law=const/16
+  TO          uhdmtopModules   work@b4_postsz68.CN        op21 golden=const/32                   pris=const/8                    law=const/32
+  TO          uhdmtopModules   work@b4_postsz68.CN        op22 golden=const/32                   pris=const/8                    law=const/32
+  TO          uhdmtopModules   work@b4_postsz68.CN        op25 golden=const/64                   pris=const/8                    law=const/64
+ARM b4_postsz68 SIZE TO 22 AWAY 0 MOVED-WRONG 0 STILL 8 SAME 126 ABSENT 52 SHAPE-MISMATCH 0
+-- b4_postsz68 ENC
+ARM b4_postsz68 ENC TO 0 AWAY 0 MOVED-WRONG 0 STILL 8 SAME 148 ABSENT 52 SHAPE-MISMATCH 0
+-- b4_postsz68 FULL
+  TO          uhdmtopModules   work@b4_postsz68.CB        op1  golden=const/64@9=UINT:3          pris=const/8@9=UINT:3           law=const/64@9=UINT:3
+  TO          uhdmtopModules   work@b4_postsz68.CB        op2  golden=const/64@9=UINT:7          pris=const/8@9=UINT:7           law=const/64@9=UINT:7
+  TO          uhdmtopModules   work@b4_postsz68.CB        op3  golden=const/32@9=UINT:12         pris=const/8@9=UINT:12          law=const/32@9=UINT:12
+  TO          uhdmtopModules   work@b4_postsz68.CB        op4  golden=const/64@7=INT:12          pris=const/8@7=INT:12           law=const/64@7=INT:12
+  TO          uhdmtopModules   work@b4_postsz68.CB        op5  golden=const/64@7=INT:7           pris=const/8@7=INT:7            law=const/64@7=INT:7
+  TO          uhdmtopModules   work@b4_postsz68.CB        op6  golden=const/32@7=INT:-6          pris=const/8@7=INT:-6           law=const/32@7=INT:-6
+  TO          uhdmtopModules   work@b4_postsz68.CB        op9  golden=const/64@9=UINT:3          pris=const/8@9=UINT:3           law=const/64@9=UINT:3
+  TO          uhdmtopModules   work@b4_postsz68.CB        op10 golden=const/64@9=UINT:6          pris=const/8@9=UINT:6           law=const/64@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CB        op11 golden=const/64@9=UINT:6          pris=const/8@9=UINT:6           law=const/64@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CB        op17 golden=const/4@5=HEX:A            pris=const/8@5=HEX:A            law=const/4@5=HEX:A
+  TO          uhdmtopModules   work@b4_postsz68.CB        op18 golden=const/16@5=HEX:BEEF        pris=const/8@5=HEX:BEEF         law=const/16@5=HEX:BEEF
+  TO          uhdmtopModules   work@b4_postsz68.CB        op21 golden=const/32@9=UINT:6          pris=const/8@9=UINT:6           law=const/32@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CB        op22 golden=const/32@9=UINT:6          pris=const/8@9=UINT:6           law=const/32@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CB        op25 golden=const/64@9=UINT:6          pris=const/8@9=UINT:6           law=const/64@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CN        op9  golden=const/64@9=UINT:3          pris=const/8@9=UINT:3           law=const/64@9=UINT:3
+  TO          uhdmtopModules   work@b4_postsz68.CN        op10 golden=const/64@9=UINT:6          pris=const/8@9=UINT:6           law=const/64@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CN        op11 golden=const/64@9=UINT:6          pris=const/8@9=UINT:6           law=const/64@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CN        op17 golden=const/4@5=HEX:A            pris=const/8@5=HEX:A            law=const/4@5=HEX:A
+  TO          uhdmtopModules   work@b4_postsz68.CN        op18 golden=const/16@5=HEX:BEEF        pris=const/8@5=HEX:BEEF         law=const/16@5=HEX:BEEF
+  TO          uhdmtopModules   work@b4_postsz68.CN        op21 golden=const/32@9=UINT:6          pris=const/8@9=UINT:6           law=const/32@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CN        op22 golden=const/32@9=UINT:6          pris=const/8@9=UINT:6           law=const/32@9=UINT:6
+  TO          uhdmtopModules   work@b4_postsz68.CN        op25 golden=const/64@9=UINT:6          pris=const/8@9=UINT:6           law=const/64@9=UINT:6
+ARM b4_postsz68 FULL TO 22 AWAY 0 MOVED-WRONG 0 STILL 8 SAME 126 ABSENT 52 SHAPE-MISMATCH 0
