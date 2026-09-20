@@ -1,0 +1,31 @@
+# r11u66 GRID — the byte-level signature, order-blind and workdir-normalised
+# uhdm-dump diff of the PRISTINE binary against the SHIPPED law binary, per arm.
+
+  v9                24 lines
+  x1_optable        36 lines
+  g2_fncall66        0 lines
+  g3_neg66          70 lines
+  g4_base66         28 lines
+  g5_width66        20 lines
+  g6_hold66         48 lines
+  g7_add66          20 lines
+  g8_face66         28 lines
+
+# the CLASS of every one of them (all nine arms together):
+     61   > INT
+     61   < UINT
+     61   < vpiConstType
+     61   > vpiConstType
+     15   < vpiDecompile
+     15   > vpiDecompile
+
+# and the law binary WITHOUT the ifaceArrayDefFold abstention vs the shipped one:
+  v9                 0 lines
+  x1_optable         0 lines
+  g2_fncall66        0 lines
+  g3_neg66           0 lines
+  g4_base66          0 lines
+  g5_width66         0 lines
+  g6_hold66          0 lines
+  g7_add66           0 lines
+  g8_face66          4 lines

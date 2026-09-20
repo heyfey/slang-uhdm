@@ -1,0 +1,14 @@
+-- g2_fncall66 FULL
+  STILL       uhdmtopModules   work@g2_fncall66.C         op3  golden=const/32@7=INT:-6        pris=const/32@9=UINT:4294967290 law=const/32@9=UINT:4294967290
+  STILL       uhdmtopModules   work@g2_fncall66.C         op4  golden=const/64@9=UINT:7        pris=const/32@9=UINT:7        law=const/32@9=UINT:7
+  STILL       uhdmtopModules   work@g2_fncall66.C         op5  golden=const/64@7=INT:5         pris=const/32@9=UINT:5        law=const/32@9=UINT:5
+  STILL       uhdmtopModules   work@g2_fncall66.C         op6  golden=const/64@9=UINT:32       pris=const/32@9=UINT:32       law=const/32@9=UINT:32
+  STILL       uhdmtopModules   work@g2_fncall66.C         op7  golden=const/64@9=UINT:6        pris=const/32@9=UINT:6        law=const/32@9=UINT:6
+  STILL       uhdmtopModules   work@g2_fncall66.C         op8  golden=const/64@9=UINT:7        pris=const/32@9=UINT:7        law=const/32@9=UINT:7
+  ABSENT uhdmtopPackages  q2::L2                       9 cells (neither binary emits this row)
+ARM g2_fncall66 FULL TO 0 ENC-TO 0 AWAY 0 MOVED-WRONG 0 STILL 6 SAME 21
+-- g2_fncall66 ENC
+  STILL       uhdmtopModules   work@g2_fncall66.C         op3  golden=const@7=INT:-6           pris=const@9=UINT:4294967290  law=const@9=UINT:4294967290
+  STILL       uhdmtopModules   work@g2_fncall66.C         op5  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@9=UINT:5
+  ABSENT uhdmtopPackages  q2::L2                       9 cells (neither binary emits this row)
+ARM g2_fncall66 ENC TO 0 ENC-TO 0 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 25

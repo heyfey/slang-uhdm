@@ -1,0 +1,17 @@
+# r11u66 PROTECTED DATABASES — md5 of slang.uhdm, PRISTINE vs the SHIPPED
+# binary, both modes, on this pass's own surelog sweeps.
+
+  SVSwitch             default    4842211c4030  SAME
+  SVSwitch             testflags  4842211c4030  SAME
+  YosysVerx            default    6ccda350c24a  SAME
+  YosysVerx            testflags  6ccda350c24a  SAME
+  InterfaceModPort     default    59a365f3ce2c  SAME
+  InterfaceModPort     testflags  59a365f3ce2c  SAME
+  BlackParrotComplex   default    e3e354129d5a  SAME
+  BlackParrotComplex   testflags  73a10e8217e5  SAME
+  YosysOldOr           default    d68e0796d62c  SAME
+  YosysOldOr           testflags  d68e0796d62c  SAME
+  Earlgrey_0_1         default    8bdf25272e08  SAME
+  Earlgrey_0_1         testflags  59d0ee6d10c3  SAME
+  BlackBePipeInt       default    0754dbaa7154  SAME
+  BlackBePipeInt       testflags  85520d3442c4  SAME

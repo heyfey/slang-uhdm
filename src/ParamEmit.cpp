@@ -14910,6 +14910,169 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     (int32_t)fld.getType().getBitWidth());
                                 c2->VpiValue("UINT:" + dg);
                                 c2->VpiConstType(vpiUIntConst);
+                                // § patOperandEncReduceTable66 (r11u66) — A
+                                // FOLDED PATTERN OPERAND CARRIES THE
+                                // PRODUCER'S OWN ENCODING, AND IT IS THE SAME
+                                // `ExprEval::reduceExpr` OPERATOR TABLE
+                                // § pkgSubstEncIsReduceTable50 AND
+                                // § caSubstLeafEncReduceTable56 ALREADY READ —
+                                // A THIRD SITE, NOT A THIRD TABLE.
+                                //
+                                // THE PRODUCER.  The elaborated copy of a
+                                // struct-pattern parameter is reduced by
+                                // `expandPatternAssignment`
+                                // (`CompileHelper.cpp:5207`), whose untagged
+                                // arm (`:5409-5441`) calls
+                                // `ExprEval::reduceExpr` on EVERY operand and
+                                // then `adjustOpSize` (`:5114-5158`).
+                                // `adjustOpSize` writes only `VpiSize` — the
+                                // ENCODING on the operand is whatever
+                                // `reduceExpr`'s own per-operator arm stamped:
+                                // `-`, `*`, `/`, `%`, `**` and a `+` over a
+                                // signed-ish reduced operand are
+                                // `vpiIntConst`; the shifts, the bitwise arms,
+                                // a plain unsized decimal and a `$` call are
+                                // `vpiUIntConst`
+                                // (`~/git-repos/UHDM/templates/ExprEval.cpp:2058-2160`,
+                                // :3167-3178, :3407-3424).  The mint above
+                                // writes ONE synthetic `vpiUIntConst` for every
+                                // value it evaluates.
+                                //
+                                // The table is NOT re-derived here:
+                                // `caSubstLeafCt56` IS pass 49's
+                                // `dimRedCtExpr79` plus pass 55's enum arm and
+                                // pass 49's `'d`/based-letter ABSTENTION
+                                // (`basedLitOrigin56`), and this site CALLS it.
+                                // Measured at THIS site on real Surelog v1.87
+                                // goldens (`tools/probe/r11u66repro/grid`):
+                                //   `K * 2` INT:12   `K / 2` INT:3
+                                //   `K % 4` INT:2    `K ** 2` INT:36
+                                //   `2 - 5` INT:-3   `K - K` INT:0
+                                //   `KU >> 1` / `>>>` / `&` / `|` / `<<` UINT
+                                //   `LM + 1` (LM = N*2) INT:17
+                                //   `LA + 1` (LA = N+1) **UINT:10**
+                                //   `LH + 1` (LH = 32'h28) **UINT:41**
+                                //   `(N - 1) << 1` **UINT:14**
+                                // — the last three are the fence cells a
+                                // blanket "arithmetic is INT" law would move
+                                // from RIGHT to WRONG, and the table declines
+                                // all three.  The law is MONOTONE: it only
+                                // ever re-spells a `vpiUIntConst` the line
+                                // above just wrote, so a table answer of
+                                // `vpiUIntConst` or an abstention (0) is a
+                                // no-op and can never mint an AWAY cell.
+                                //
+                                // THE VALUE HALF IS PASS 55'S F2, RE-MEASURED
+                                // HERE (arm `g3_neg66`, not carried forward):
+                                // a unary `-` writes the NEGATED OPERAND
+                                // MAGNITUDE — `-16'd5` is golden `INT:-5`, not
+                                // the 16-bit reading 65531 — and every other
+                                // `vpiIntConst` answer writes the setter's own
+                                // SIGNED value in its OWN self-determined type:
+                                // `2 - 5` is `INT:-3` onto a `logic [7:0]`
+                                // member just as onto a signed 32-bit one
+                                // (golden `INT:-3` for both, where this walk's
+                                // member-masked unsigned reading writes 253 and
+                                // 4294967293).  So the digits come from the
+                                // STRIPPED setter, never from `uvm`, which the
+                                // line above has already forced unsigned and
+                                // masked to the member.
+                                //
+                                // THE SIZE HALF IS NOT TOUCHED.  The landed
+                                // width stamps (§ elabUnpStructOperandWidth61
+                                // and the >64b / bail rules above) own
+                                // `VpiSize` at this site; this law rewrites
+                                // `VpiConstType`, `VpiValue` and
+                                // `VpiDecompile` and leaves the size the line
+                                // above wrote exactly as it is.
+                                //
+                                // WHAT IT DOES NOT CLAIM, each fenced by
+                                // staying out of its branch: the based-literal
+                                // setter (the `IntegerLiteral` arm above keeps
+                                // the producer's own base letter), the
+                                // bare-parameter-reference fold (RULE 2's
+                                // literal-form arm), the enum substitution
+                                // (§ enumMemberSubstConst /
+                                // § elabModOwnEnumBinFold61), the concat and
+                                // replication BIN re-encodings, the CAST arm
+                                // (§ patMemberCastNoDecomp — golden is
+                                // `UINT:6` ct 9 for `int'(K)` at this site and
+                                // the table abstains on a Conversion anyway),
+                                // the cont_assign road (pass 55) and the
+                                // package/dimension road (pass 49).
+                                //
+                                // THE ONE FACE OF THIS WALK THAT ABSTAINS:
+                                // `ifaceArrayDefFold`.  The law copies what
+                                // `expandPatternAssignment`'s operand walk
+                                // STAMPED, so where the producer never ran
+                                // that walk there is no encoding to copy.
+                                // Measured (arm `g8_face66`, real v1.87
+                                // golden): an interface instantiated as an
+                                // array with NO override —
+                                // `bus8 arr[1:0] ()` — keeps its DEFINITION
+                                // listing's parameter default as a
+                                // `tagged_pattern` TREE in golden, while this
+                                // walk already flat-folds it on the PRISTINE
+                                // binary (`work@bus8.CFG` op0 golden
+                                // `tagged_pattern`, pristine `UINT:5`).  That
+                                // SHAPE residue belongs to `ifaceArrayDefFold`
+                                // itself, whose corpus witness
+                                // (`iface_array_elem_cfg_param`) instantiates
+                                // the array WITH an override and does flat-fold
+                                // in golden; re-spelling a byte inside a shape
+                                // the producer does not have would be a moved
+                                // -wrong cell dressed as progress.  The
+                                // abstention costs ZERO cells of this pass's
+                                // grid — every TO cell of `g8_face66` is in
+                                // `uhdmtopModules` / `uhdmtopPackages` or on
+                                // § modDefImportPkgSelFlat60's import-copy face
+                                // — and zero corpus bytes.
+                                if (!ifaceArrayDefFold &&
+                                    caSubstLeafCt56(*se) == vpiIntConst) {
+                                    auto& sv66 = stripImplicitConv(*se);
+                                    std::string d66;
+                                    auto dec66 = [](const slang::SVInt& iv)
+                                        -> std::string {
+                                        if (iv.isSigned()) {
+                                            if (auto i66 = iv.as<int64_t>())
+                                                return std::to_string(*i66);
+                                            return std::string();
+                                        }
+                                        if (auto u66 = iv.as<uint64_t>())
+                                            return std::to_string(*u66);
+                                        return std::string();
+                                    };
+                                    if (sv66.kind == ExpressionKind::UnaryOp &&
+                                        sv66.as<UnaryExpression>().op ==
+                                            UnaryOperator::Minus) {
+                                        ConstantValue o66 = ectx.tryEval(
+                                            stripImplicitConv(
+                                                sv66.as<UnaryExpression>()
+                                                    .operand()));
+                                        if (o66 && o66.isInteger() &&
+                                            !o66.integer().hasUnknown()) {
+                                            std::string m66 =
+                                                dec66(o66.integer());
+                                            if (!m66.empty() && m66 != "0")
+                                                d66 = m66[0] == '-'
+                                                          ? m66.substr(1)
+                                                          : ("-" + m66);
+                                            else if (m66 == "0")
+                                                d66 = "0";
+                                        }
+                                    }
+                                    else {
+                                        ConstantValue v66 = ectx.tryEval(sv66);
+                                        if (v66 && v66.isInteger() &&
+                                            !v66.integer().hasUnknown())
+                                            d66 = dec66(v66.integer());
+                                    }
+                                    if (!d66.empty()) {
+                                        c2->VpiDecompile(d66);
+                                        c2->VpiValue("INT:" + d66);
+                                        c2->VpiConstType(vpiIntConst);
+                                    }
+                                }
                             }
                             c2->VpiParent(op2);
                             setLoc(c2, se->sourceRange);

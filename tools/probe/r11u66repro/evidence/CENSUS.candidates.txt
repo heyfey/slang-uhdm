@@ -1,0 +1,8 @@
+CANDIDATE Earlgrey_Verilator_01_05_21                1088/MsgWidth | 1152/MsgWidth | 1344/MsgWidth | 576/MsgWidth | 832/MsgWidth | InfoTypeSize[0] - 1 | InfoTypeSi
+CANDIDATE Earlgrey_nexysvideo                        1088/MsgWidth | 1152/MsgWidth | 1344/MsgWidth | 576/MsgWidth | 832/MsgWidth | InfoTypeSize[0] - 1 | InfoTypeSi
+CANDIDATE IncompTitan                                1088/MsgWidth | 1152/MsgWidth | 1344/MsgWidth | 576/MsgWidth | 832/MsgWidth | InfoTypeSize[0] - 1 | InfoTypeSi
+CANDIDATE Kmac                                       1088/MsgWidth | 1152/MsgWidth | 1344/MsgWidth | 576/MsgWidth | 832/MsgWidth
+CANDIDATE Tnoc                                       32 * (64 / 8)
+CANDIDATE Verilator                                  (twentyone / 8) + 1
+SETTERS AGG=785 BASED=6133 CAST=2223 INTISH=31 NAME=507 OTHER=5047 PLAIN=1582 UINTISH=3701
+CANDIDATES 6

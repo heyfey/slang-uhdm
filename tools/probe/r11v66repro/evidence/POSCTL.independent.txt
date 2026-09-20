@@ -1,0 +1,19 @@
+# v11u66 INDEPENDENT POSITIVE CONTROL (cva6_struct_param_field, u2r corpus source)
+# unmodified sources, pristine vs law, order-blind:
+1c1
+< base/pris/o.uhdm: Restored design Pre-Elab: 
+---
+> base/law/o.uhdm: Restored design Pre-Elab: 
+# the SAME sources with XLEN: 32'd64 -> XLEN: 128 - 64 :
+204a205
+>         |INT:64
+346c347
+< mut/pris/o.uhdm: Restored design Pre-Elab: 
+---
+> mut/law/o.uhdm: Restored design Pre-Elab: 
+812d812
+<         |UINT:64
+923a924
+>         |vpiConstType:7
+930d930
+<         |vpiConstType:9

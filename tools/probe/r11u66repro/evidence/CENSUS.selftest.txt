@@ -1,0 +1,41 @@
+  g2_fncall66      INTISH OTHER PLAIN UINTISH
+  g3_neg66         INTISH
+  g4_base66        BASED INTISH NAME PLAIN UINTISH
+  g5_width66       AGG BASED INTISH UINTISH
+  g6_hold66        INTISH PLAIN UINTISH
+  g7_add66         INTISH NAME UINTISH
+  g8_face66        INTISH PLAIN UINTISH
+  v9               BASED INTISH PLAIN
+  x1_optable       AGG CAST INTISH OTHER UINTISH
+  ok  K * 2                  want=INTISH   got=INTISH
+  ok  K / 2                  want=INTISH   got=INTISH
+  ok  K % 4                  want=INTISH   got=INTISH
+  ok  K ** 2                 want=INTISH   got=INTISH
+  ok  2 - 5                  want=INTISH   got=INTISH
+  ok  -K                     want=INTISH   got=INTISH
+  ok  -16'd5                 want=INTISH   got=INTISH
+  ok  LM + 1                 want=INTISH   got=INTISH
+  ok  LD + 1                 want=INTISH   got=INTISH
+  ok  (N - 1) + 0            want=INTISH   got=INTISH
+  ok  KU >> 1                want=UINTISH  got=UINTISH
+  ok  KU >>> 1               want=UINTISH  got=UINTISH
+  ok  KU & 3                 want=UINTISH  got=UINTISH
+  ok  KU | 8                 want=UINTISH  got=UINTISH
+  ok  KU << 1                want=UINTISH  got=UINTISH
+  ok  KU ^ 3                 want=UINTISH  got=UINTISH
+  ok  K > 2                  want=UINTISH  got=UINTISH
+  ok  K ? 3 : 4              want=UINTISH  got=UINTISH
+  ok  $clog2(40)             want=UINTISH  got=UINTISH
+  ok  $bits(K)               want=UINTISH  got=UINTISH
+  ok  LA + 1                 want=UINTISH  got=UINTISH
+  ok  LH + 1                 want=UINTISH  got=UINTISH
+  ok  (N - 1) << 1           want=UINTISH  got=UINTISH
+  ok  32'd40                 want=BASED    got=BASED
+  ok  32'h28                 want=BASED    got=BASED
+  ok  4'b1111                want=BASED    got=BASED
+  ok  7                      want=PLAIN    got=PLAIN
+  ok  K                      want=NAME     got=NAME
+  ok  int'(K)                want=CAST     got=CAST
+  ok  {4'b1010, 4'b0101}     want=AGG      got=AGG
+  ok  {3{4'b1010}}           want=AGG      got=AGG
+SELFTEST PASS

@@ -1,0 +1,16 @@
+CANDIDATE Ariane2024                                 2**(MAN_BITS-1)
+CANDIDATE AzadiRTL                                   2**(MAN_BITS-1)
+CANDIDATE CrossFunc                                  2*i
+CANDIDATE Earlgrey_Verilator_01_05_21                1088/MsgWidth | 1152/MsgWidth | 1344/MsgWidth | 576/MsgWidth | 832/MsgWidth | InfoTypeSize[0] - 1 | InfoTypeSi
+CANDIDATE Earlgrey_nexysvideo                        1088/MsgWidth | 1152/MsgWidth | 1344/MsgWidth | 576/MsgWidth | 832/MsgWidth | InfoTypeSize[0] - 1 | InfoTypeSi
+CANDIDATE IncompTitan                                1088/MsgWidth | 1152/MsgWidth | 1344/MsgWidth | 576/MsgWidth | 832/MsgWidth | InfoTypeSize[0] - 1 | InfoTypeSi
+CANDIDATE Kmac                                       1088/MsgWidth | 1152/MsgWidth | 1344/MsgWidth | 576/MsgWidth | 832/MsgWidth
+CANDIDATE Tnoc                                       -1 | 32 * (64 / 8)
+CANDIDATE Verilator                                  (twentyone / 8) + 1
+CANDIDATE Zachjs                                     3 - i
+CANDIDATE ariane                                     2**(MAN_BITS-1)
+CANDIDATE black-parrot                               ($bits(rv64_pmpcfg_entry_s)*8)'(data_comp_mp.pmpcfg)
+CANDIDATE cva6_equiv                                 2**(MAN_BITS-1)
+CANDIDATE struct_pattern_procedural                  2**(23-1)
+SETTERS AGG=1078 BASED=7399 CAST=2300 INTISH=50 NAME=2265 OTHER=6536 PLAIN=1990 UINTISH=3826
+CANDIDATES 14

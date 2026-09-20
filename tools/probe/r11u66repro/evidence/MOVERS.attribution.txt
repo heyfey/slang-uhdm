@@ -1,0 +1,36 @@
+# r11u66 UVM COIN POSITIVE CONTROL — the same FROZEN PRISTINE binary, run
+# TWICE on each sweep's own command line (from the test's own source dir).
+# Every one of the surelog "movers" is a per-invocation draw, and the
+# pristine binary's own draws CROSS the shipped binary's.
+
+  database            sweep pristine  sweep law2      pristine re-draw 1  pristine re-draw 2
+  default/MiniAmiq    cb8571e719cb    3d93f0e9964d    b4d3b8aa38a8        c72869e2c07d
+  default/SeqDriver   2fb39f8b4130    e02ac8e66710    ef0ca17741a3        599eae646fa2
+  default/SimpleUVM   1207b8357060  **d4f8cd018f2d**  16767df42667      **d4f8cd018f2d**
+  testflags/SeqDriver 5df9344e26c2    12774e3a3a86    05df6c25a21b        47199dd18a1a
+
+  * default/SimpleUVM: the PRISTINE binary's SECOND draw is EXACTLY the hash the
+    shipped binary produced in its sweep.  Five hashes on one database across
+    two binaries and three invocations, with the sets crossing.
+  * the INTERMEDIATE law binary (97e1e07d…, no ifaceArrayDefFold abstention)
+    drew a fifth set on its own sweep — MiniAmiq/default 53205609dd5a,
+    SeqDriver/default b0a48d339c30, SimpleUVM/default d4f8cd018f2d,
+    MiniAmiq/testflags 7da0531e6f37, SeqDriver/testflags 0a972adb51ac — and its
+    SimpleUVM/default hash is the same d4f8cd018f2d.  testflags/MiniAmiq moved
+    on that sweep and did NOT move on the shipped one: the SET ITSELF varies
+    per invocation, which is the definition of the coin.
+    (pristine testflags/MiniAmiq re-draws: f4eb36bc7efa, a3641766dcb7.)
+
+# ORDER-BLIND CLASS (sorted uhdm-dump, workdir normalised), pristine vs the
+# SHIPPED binary.  Every one is the documented FOUR-LINE UINT/vpiDecompile
+# LINE-NUMBER class, and never a vpiConstType — which is what this law's own
+# signature would have looked like:
+
+  default/MiniAmiq     4 lines   |UINT:1317 <-> |UINT:616   + the matching |vpiDecompile pair
+  default/SeqDriver    4 lines   |UINT:0    <-> |UINT:978   + the matching |vpiDecompile pair
+  default/SimpleUVM    4 lines   |UINT:650  <-> |UINT:0     + the matching |vpiDecompile pair
+  testflags/SeqDriver  4 lines   |UINT:1362 <-> |UINT:798   + the matching |vpiDecompile pair
+
+# All five UVM rows (BuildUVMPkg, MiniAmiq, SeqDriver, SimpleUVM, Scoreboard)
+# stay CMP_EQUAL in both modes, and rowheads reads 0 cmp lines / 0 heads / rc 0
+# for the whole family and for Earlgrey_0_1.

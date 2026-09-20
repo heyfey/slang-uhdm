@@ -1,0 +1,36 @@
+-- g3_neg66 FULL
+  TO          uhdmtopModules   work@g3_neg66.C            op0  golden=const/32@7=INT:-5        pris=const/32@9=UINT:4294967291 law=const/32@7=INT:-5
+  ENC-TO      uhdmtopModules   work@g3_neg66.C            op1  golden=const/16@7=INT:-5        pris=const/32@9=UINT:4294967291 law=const/32@7=INT:-5
+  TO          uhdmtopModules   work@g3_neg66.C            op2  golden=const/32@7=INT:-5        pris=const/32@9=UINT:4294967291 law=const/32@7=INT:-5
+  TO          uhdmtopModules   work@g3_neg66.C            op3  golden=const/32@7=INT:-5        pris=const/32@9=UINT:4294967291 law=const/32@7=INT:-5
+  ENC-TO      uhdmtopModules   work@g3_neg66.C            op4  golden=const/64@7=INT:-3        pris=const/16@9=UINT:65533    law=const/16@7=INT:-3
+  ENC-TO      uhdmtopModules   work@g3_neg66.C            op5  golden=const/64@7=INT:-3        pris=const/16@9=UINT:65533    law=const/16@7=INT:-3
+  ENC-TO      uhdmtopModules   work@g3_neg66.C            op6  golden=const/64@7=INT:-3        pris=const/8@9=UINT:253       law=const/8@7=INT:-3
+  ENC-TO      uhdmtopModules   work@g3_neg66.C            op7  golden=const/64@7=INT:-3        pris=const/8@9=UINT:253       law=const/8@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op8  golden=const/64@7=INT:-3        pris=const/64@9=UINT:18446744073709551613 law=const/64@7=INT:-3
+  ENC-TO      uhdmtopModules   work@g3_neg66.C            op9  golden=const/64@7=INT:0         pris=const/32@9=UINT:0        law=const/32@7=INT:0
+  ENC-TO      uhdmtopModules   work@g3_neg66.C            op10 golden=const/64@7=INT:0         pris=const/32@9=UINT:0        law=const/32@7=INT:0
+  TO          uhdmtopModules   work@g3_neg66.C            op11 golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  ENC-TO      uhdmtopModules   work@g3_neg66.C            op12 golden=const/64@7=INT:0         pris=const/32@9=UINT:0        law=const/32@7=INT:0
+  STILL       uhdmtopModules   work@g3_neg66.U3           op0  golden=const/8@7=INT:-3         pris=op11                     law=op11
+  STILL       uhdmtopModules   work@g3_neg66.U3           op1  golden=const/32@7=INT:-5        pris=op1                      law=op1
+  STILL       uhdmtopModules   work@g3_neg66.U3           op2  golden=const/64@7=INT:10        pris=op25                     law=op25
+ARM g3_neg66 FULL TO 5 ENC-TO 8 AWAY 0 MOVED-WRONG 0 STILL 3 SAME 42
+-- g3_neg66 ENC
+  TO          uhdmtopModules   work@g3_neg66.C            op0  golden=const@7=INT:-5           pris=const@9=UINT:4294967291  law=const@7=INT:-5
+  TO          uhdmtopModules   work@g3_neg66.C            op1  golden=const@7=INT:-5           pris=const@9=UINT:4294967291  law=const@7=INT:-5
+  TO          uhdmtopModules   work@g3_neg66.C            op2  golden=const@7=INT:-5           pris=const@9=UINT:4294967291  law=const@7=INT:-5
+  TO          uhdmtopModules   work@g3_neg66.C            op3  golden=const@7=INT:-5           pris=const@9=UINT:4294967291  law=const@7=INT:-5
+  TO          uhdmtopModules   work@g3_neg66.C            op4  golden=const@7=INT:-3           pris=const@9=UINT:65533       law=const@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op5  golden=const@7=INT:-3           pris=const@9=UINT:65533       law=const@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op6  golden=const@7=INT:-3           pris=const@9=UINT:253         law=const@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op7  golden=const@7=INT:-3           pris=const@9=UINT:253         law=const@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op8  golden=const@7=INT:-3           pris=const@9=UINT:18446744073709551613 law=const@7=INT:-3
+  TO          uhdmtopModules   work@g3_neg66.C            op9  golden=const@7=INT:0            pris=const@9=UINT:0           law=const@7=INT:0
+  TO          uhdmtopModules   work@g3_neg66.C            op10 golden=const@7=INT:0            pris=const@9=UINT:0           law=const@7=INT:0
+  TO          uhdmtopModules   work@g3_neg66.C            op11 golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g3_neg66.C            op12 golden=const@7=INT:0            pris=const@9=UINT:0           law=const@7=INT:0
+  STILL       uhdmtopModules   work@g3_neg66.U3           op0  golden=const@7=INT:-3           pris=op11                     law=op11
+  STILL       uhdmtopModules   work@g3_neg66.U3           op1  golden=const@7=INT:-5           pris=op1                      law=op1
+  STILL       uhdmtopModules   work@g3_neg66.U3           op2  golden=const@7=INT:10           pris=op25                     law=op25
+ARM g3_neg66 ENC TO 13 ENC-TO 0 AWAY 0 MOVED-WRONG 0 STILL 3 SAME 42

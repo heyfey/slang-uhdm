@@ -1,0 +1,20 @@
+# r11u66 CENSUS POSITIVE CONTROL — the zero is SIGHTED
+# witness: uhdm2rtlil/test/iface_zero_width_field/dut.sv
+# (re-run on the SHIPPED binary 82111bbd435b: base 0 lines, mut 40 lines)
+# UNMODIFIED sources, pristine vs the SHIPPED binary, order-blind
+  LINES 0
+
+# the SAME sources with ONE setter changed  DAT: 8  ->  DAT: 10 - 2 :
+        2 >             |INT:8
+        3 >           |INT:8
+        5 >         |INT:8
+        2 <             |UINT:8
+        3 <           |UINT:8
+        5 <         |UINT:8
+        2 >             |vpiConstType:7
+        3 >           |vpiConstType:7
+        5 >         |vpiConstType:7
+        2 <             |vpiConstType:9
+        3 <           |vpiConstType:9
+        5 <         |vpiConstType:9
+  LINES 40

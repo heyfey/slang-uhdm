@@ -1,0 +1,36 @@
+-- g6_hold66 FULL
+  STILL       uhdmallModules   work@g6_hold66.UK          op0  golden=tagged_pattern           pris=op11                     law=op11
+  STILL       uhdmallModules   work@g6_hold66.UK          op1  golden=tagged_pattern           pris=op22                     law=op22
+  TO          uhdmtopModules   work@g6_hold66.MD          op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.MD          op1  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.ML          op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.MP          op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.NL          op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.PK          op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.PORT        op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.UK          op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  ABSENT uhdmtopModules   work@g6_hold66.c2.PP         2 cells (neither binary emits this row)
+  ABSENT uhdmtopModules   work@g6_hold66.gblk.GL       2 cells (neither binary emits this row)
+  TO          uhdmtopModules   work@g6_hold66.u_if.IL     op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.u_if.IP     op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopPackages  q6::PK                     op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+  TO          uhdmtopPackages  q6::UK                     op0  golden=const/32@7=INT:5         pris=const/32@9=UINT:5        law=const/32@7=INT:5
+ARM g6_hold66 FULL TO 12 ENC-TO 0 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 35
+-- g6_hold66 ENC
+  STILL       uhdmallModules   work@g6_hold66.UK          op0  golden=tagged_pattern           pris=op11                     law=op11
+  STILL       uhdmallModules   work@g6_hold66.UK          op1  golden=tagged_pattern           pris=op22                     law=op22
+  TO          uhdmtopModules   work@g6_hold66.MD          op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.MD          op1  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.ML          op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.MP          op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.NL          op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.PK          op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.PORT        op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.UK          op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  ABSENT uhdmtopModules   work@g6_hold66.c2.PP         2 cells (neither binary emits this row)
+  ABSENT uhdmtopModules   work@g6_hold66.gblk.GL       2 cells (neither binary emits this row)
+  TO          uhdmtopModules   work@g6_hold66.u_if.IL     op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopModules   work@g6_hold66.u_if.IP     op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopPackages  q6::PK                     op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+  TO          uhdmtopPackages  q6::UK                     op0  golden=const@7=INT:5            pris=const@9=UINT:5           law=const@7=INT:5
+ARM g6_hold66 ENC TO 12 ENC-TO 0 AWAY 0 MOVED-WRONG 0 STILL 2 SAME 35

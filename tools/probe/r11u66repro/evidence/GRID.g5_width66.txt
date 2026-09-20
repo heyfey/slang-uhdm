@@ -1,0 +1,14 @@
+-- g5_width66 FULL
+  TO          uhdmtopModules   work@g5_width66.C          op0  golden=const/4@7=INT:4          pris=const/4@9=UINT:4         law=const/4@7=INT:4
+  TO          uhdmtopModules   work@g5_width66.C          op2  golden=const/8@7=INT:12         pris=const/8@9=UINT:12        law=const/8@7=INT:12
+  TO          uhdmtopModules   work@g5_width66.C          op4  golden=const/16@7=INT:3         pris=const/16@9=UINT:3        law=const/16@7=INT:3
+  TO          uhdmtopModules   work@g5_width66.C          op6  golden=const/32@7=INT:36        pris=const/32@9=UINT:36       law=const/32@7=INT:36
+  TO          uhdmtopModules   work@g5_width66.C          op8  golden=const/64@7=INT:2         pris=const/64@9=UINT:2        law=const/64@7=INT:2
+ARM g5_width66 FULL TO 5 ENC-TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 47
+-- g5_width66 ENC
+  TO          uhdmtopModules   work@g5_width66.C          op0  golden=const@7=INT:4            pris=const@9=UINT:4           law=const@7=INT:4
+  TO          uhdmtopModules   work@g5_width66.C          op2  golden=const@7=INT:12           pris=const@9=UINT:12          law=const@7=INT:12
+  TO          uhdmtopModules   work@g5_width66.C          op4  golden=const@7=INT:3            pris=const@9=UINT:3           law=const@7=INT:3
+  TO          uhdmtopModules   work@g5_width66.C          op6  golden=const@7=INT:36           pris=const@9=UINT:36          law=const@7=INT:36
+  TO          uhdmtopModules   work@g5_width66.C          op8  golden=const@7=INT:2            pris=const@9=UINT:2           law=const@7=INT:2
+ARM g5_width66 ENC TO 5 ENC-TO 0 AWAY 0 MOVED-WRONG 0 STILL 0 SAME 47
