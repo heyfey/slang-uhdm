@@ -1351,6 +1351,19 @@ private:
                          DefInfo* defInfo, bool shareWithDef,
                          std::set<const slang::ast::Symbol*>* instRefs,
                          std::set<const slang::ast::Symbol*>* lhsSyms);
+    /// § caStructParamGenScopeSubst69 — the elaborated cont_assign Rhs that
+    /// § caStructParamPatternSubst55 substitutes for a constant-valued read of
+    /// a struct parameter's field.  Shared by the module-level emitter and the
+    /// GENERATE-SCOPE one, because `UhdmWriter::writeCont_assign` runs one
+    /// reducer over `netlist->cont_assigns()` for both homes.
+    UHDM::any* emitCaStructParamSubst55(const slang::ast::Expression& setter,
+                                        const slang::ast::Type* memberTy55,
+                                        bool pureDef56,
+                                        bool priorProven68v,
+                                        const slang::ast::Expression& lhsExpr,
+                                        UHDM::cont_assign* ca,
+                                        const std::string& prefix,
+                                        NetMap& netMap);
     UHDM::process_stmt* emitProcess(const slang::ast::ProceduralBlockSymbol& block,
                                     UHDM::instance* m, const std::string& prefix,
                                     NetMap& netMap);
