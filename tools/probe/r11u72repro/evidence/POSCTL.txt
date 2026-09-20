@@ -1,0 +1,18 @@
+r11u72 POSITIVE CONTROL for the corpus census zero
+corpus test: uhdm2rtlil/test/cva6_struct_param_field/dut.sv
+perturbation: one setter  VLEN: 32'd64  ->  VLEN: 32'd64 - 100
+both binaries run in the SAME directory writing the SAME output name
+(the serializer embeds the output path, so a two-directory pairing
+ reads DIFFERS on everything and proves nothing)
+
+orig  pristine vs law: SAME
+moved  pristine vs law: DIFFERS
+
+the moved cell, order-blind:
+>         |INT:-36
+<         |INT:4294967260
+>         |vpiDecompile:-36
+<         |vpiDecompile:4294967260
+
+and GOLDEN (Surelog v1.87) on the moved sources writes:
+          |INT:-36

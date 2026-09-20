@@ -1,0 +1,44 @@
+r11v72 — GATES on the VERIFIED binary (5e22824a8872e046a35c523ce51cf127)
+
+goldens: 23 PASS / 0 FAIL   (/bin/false: 0 PASS / 23 FAIL)
+
+u2r testflags: CMP_EQUAL 788  CMP_NOTEQUAL 16  SLANG_REJECT 67   (871 rows)
+u2r default  : CMP_EQUAL 788  CMP_NOTEQUAL 16  SLANG_REJECT 67   (871 rows)
+  1742-row join vs results/golden_uhdm2rtlil.csv : PASS (0 differing rows)
+  1742-row join vs this pass's own pristine sweep: PASS (0 differing rows)
+  byteverify vs pristine: MOVERS 0/1608, selfcheck 1607/1608
+  byteverify vs the law  : MOVERS 0/1608
+
+surelog default  : CMP_EQUAL 474  CMP_NOTEQUAL 9   SLANG_REJECT 285  SURELOG_FAIL 25  DEFERRED 5
+surelog testflags: CMP_EQUAL 469  CMP_NOTEQUAL 8   SLANG_REJECT 286  SURELOG_FAIL 23  DEFERRED 5
+  whole-row join vs results/golden_surelog.csv: 4 rows, all environment:
+    Earlgrey_0_1,default   CMP_EQUAL,,,differ -> CMP_EQUAL,,,   (dump COLUMN only)
+    Earlgrey_0_1,testflags CMP_EQUAL,,,differ -> CMP_EQUAL,,,   (dump COLUMN only)
+    LowMemLib,testflags  SURELOG_FAIL detail = the workdir log path
+    LowMemPkg,testflags  SURELOG_FAIL detail = the workdir log path
+  byteverify vs pristine: MOVERS 6/960, selfcheck 959/960 — all UVM coin:
+    default/Scoreboard   0 substantive lines
+    default/MiniAmiq     4 lines  UINT:605 <-> UINT:728    + the vpiDecompile pair
+    default/SeqDriver    4 lines  UINT:0 <-> UINT:542       + the vpiDecompile pair
+    default/SimpleUVM    4 lines  UINT:0 <-> UINT:1453      + the vpiDecompile pair
+    testflags/MiniAmiq   4 lines  UINT:1089 <-> UINT:1336   + the vpiDecompile pair
+    testflags/SeqDriver  4 lines  UINT:1245 <-> UINT:1497   + the vpiDecompile pair
+    vpiConstType lines in any of the six: 0
+
+canaries.sh  surelog: ok=50 changed=2 (both the Earlgrey dump column, same on pristine)
+canaries.sh  u2r    : ok=8  changed=0
+ctcan2.sh    both   : PASS
+canaudit.sh         : audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+protected databases, identical on pristine / law / verified in BOTH modes:
+  SVSwitch 4842211c4030   YosysVerx 6ccda350c24a   InterfaceModPort 59a365f3ce2c
+  Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5   YosysOldOr d68e0796d62c
+
+UVM family rows on the verified binary: BuildUVMPkg, MiniAmiq, SeqDriver,
+SimpleUVM CMP_EQUAL both modes; Scoreboard CMP_EQUAL default /
+SLANG_REJECT testflags — as committed.
+
+cmds.txt audit: 1742 per u2r sweep all naming the frozen binary; 1581 per
+surelog sweep, 1530/1531 naming it (the rest are rows where Surelog failed
+and slang never ran); 0 name the main tree in any of the six sweeps.

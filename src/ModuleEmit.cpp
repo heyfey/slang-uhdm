@@ -26584,68 +26584,21 @@ bool UhdmExporter::caIntTsBinOrigin68(const slang::ast::Expression& e0,
 // leaves the PRISTINE stamp standing, which is a STILL cell and never an AWAY
 // one.  The `vpiUIntConst` arm is outside the gate: it is pass 54/55 ground,
 // unchanged by r11u68, and narrowing it is not this fix's claim.
+// § redTableOneHome72 (r11u72) — THE PROOF-OF-COMPLETION AND THE PACKED
+// PARAMETER ROAD'S REFUSAL ARE NOW ONE TRANSCRIPTION.  The body below moved
+// verbatim to `red72SetterCompletes` in `EmitHelpers.h`, where it sits beside
+// the `get_uvalue` object face § patUvalueRefuses68 reads, the unfolded-
+// operator face § patAstRefuses68 reads, and the int64 VALUE table that now
+// writes the very string that object face reads.  The measured boundary is
+// unchanged — the first-digit scan, the range-strict decimal, the 64-character
+// string, the NAME and enum-member hops, and "everything else is UNPROVEN".
+// r11v68's RV3 asked for this merge once the value half closed; it is closed
+// by § patOperandIntSixtyFour72, so the two predicates are one home.
 bool UhdmExporter::caSetterProvenFolds68v(const slang::ast::Expression& e0,
                                           int depth) {
-    if (depth > 32)
-        return false;
-    const Expression& e = stripImplicitConv(e0);
-    switch (e.kind) {
-        case ExpressionKind::IntegerLiteral: {
-            if (!e.syntax ||
-                e.syntax->kind !=
-                    slang::syntax::SyntaxKind::IntegerVectorExpression)
-                return true;  // an UNSIZED decimal: no base letter, no sign
-            std::string raw = rawText(e.sourceRange);
-            auto q = raw.find('\'');
-            if (q == std::string::npos)
-                return false;
-            size_t b = q + 1;
-            if (b < raw.size() && (raw[b] == 's' || raw[b] == 'S'))
-                b++;
-            if (b >= raw.size())
-                return false;
-            char base = (char)tolower((unsigned char)raw[b]);
-            b++;
-            while (b < raw.size() &&
-                   (raw[b] == '_' || isspace((unsigned char)raw[b])))
-                b++;
-            if (b >= raw.size())
-                return false;
-            char c = raw[b];
-            if (c == 'x' || c == 'X' || c == 'z' || c == 'Z' || c == '?' ||
-                !isalnum((unsigned char)c))
-                return false;
-            if (base == 'd') {
-                // `parseUint64` is RANGE-STRICT, so a decimal wider than 64
-                // bits of magnitude refuses where `70'h5` does not.
-                auto iv = e.as<IntegerLiteral>().getValue();
-                if (iv.hasUnknown() || !iv.as<uint64_t>())
-                    return false;
-            }
-            return true;
-        }
-        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
-            return !e.as<UnbasedUnsizedIntegerLiteral>()
-                        .getLiteralValue()
-                        .isUnknown();
-        case ExpressionKind::StringLiteral:
-            return e.as<StringLiteral>().getValue().size() <= 64;
-        case ExpressionKind::NamedValue:
-        case ExpressionKind::HierarchicalValue: {
-            auto& sy = e.as<ValueExpressionBase>().symbol;
-            if (sy.kind == SymbolKind::EnumValue) {
-                if (auto* ein = sy.getInitializer())
-                    return caSetterProvenFolds68v(*ein, depth + 1);
-                return true;  // an implicit member: a counted non-negative
-            }
-            if (sy.kind != SymbolKind::Parameter)
-                return false;
-            auto* in = sy.as<ParameterSymbol>().getInitializer();
-            return in && caSetterProvenFolds68v(*in, depth + 1);
-        }
-        default:
-            return false;
-    }
+    return red72SetterCompletes(
+        e0, depth,
+        [this](slang::SourceRange r) { return this->rawText(r); });
 }
 
 bool UhdmExporter::caPriorMembersProven68v(const slang::ast::Expression& ap0,
@@ -26777,7 +26730,23 @@ UHDM::any* UhdmExporter::emitCaStructParamSubst55(const Expression& setter,
             auto& sv56 = stripImplicitConv(setter);
             ASTContext cx56(comp.getRoot(), LookupLocation::max);
             std::string d56;
-            if (sv56.kind == ExpressionKind::UnaryOp &&
+            // § patOperandIntSixtyFour72 (r11u72) — THE SAME VALUE HALF, ON
+            // THE SAME TABLE, ON THIS ROAD.  `writeCont_assign` reduces the
+            // dotted read through the very `ExprEval::reduceExpr` arms the
+            // packed-parameter road reads, so the digits here are the
+            // producer's int64 answer too.  Measured on the cont_assign cells
+            // of `t1_arith72` (real Surelog v1.87): `BIG * 2` is golden
+            // `4000000000` and ours `-294967296`; `2 ** 40` is golden
+            // `1099511627776` and ours `0`; `KU - 5` and `BU - 5` are golden
+            // `-2` and ours `4294967294`; `LU - 5` is golden `-2` where ours
+            // wrote `18446744073709551614`; `-(BIG * 2)` is golden
+            // `-4000000000` where ours wrote `-18446744073414584320`.  The
+            // table ABSTAINS wherever it cannot answer and the pass-55/65
+            // writer below then stands exactly as it did.
+            int64_t i72 = 0;
+            if (red72Int64(sv56, cx56, 0, i72) == Red72::Value)
+                d56 = std::to_string(i72);
+            else if (sv56.kind == ExpressionKind::UnaryOp &&
                 sv56.as<UnaryExpression>().op == UnaryOperator::Minus) {
                 ConstantValue o56 = cx56.tryEval(stripImplicitConv(
                     sv56.as<UnaryExpression>().operand()));

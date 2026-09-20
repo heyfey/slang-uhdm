@@ -1,0 +1,25 @@
+== STRICT (parameter/localparam spans only)
+   AGG=785 BASED=6133 CAST=2223 INTISH=31 NAME=507 OTHER=5047 PLAIN=1582 UINTISH=3701
+   AGREE=20 OVF=2 WRAP=9
+   CAND Earlgrey_Verilator_01_05_21              WRAP: InfoTypeSize[0] - 1 | WRAP: InfoTypeSize[1] - 1 | WRAP: InfoTypeSize[2] - 1
+   CAND Earlgrey_nexysvideo                      WRAP: InfoTypeSize[0] - 1 | WRAP: InfoTypeSize[1] - 1 | WRAP: InfoTypeSize[2] - 1
+   CAND IncompTitan                              WRAP: InfoTypeSize[0] - 1 | WRAP: InfoTypeSize[1] - 1 | WRAP: InfoTypeSize[2] - 1
+   CAND Tnoc                                     OVF: 32 * (64 / 8)
+   CAND Verilator                                OVF: (twentyone / 8) + 1
+   CANDIDATES 5
+== LOOSE (every pattern span)
+   AGG=1078 BASED=7399 CAST=2300 INTISH=50 NAME=2265 OTHER=6536 PLAIN=1990 UINTISH=3826
+   AGREE=21 OVF=17 WRAP=12
+   CAND Ariane2024                               OVF: 2**(MAN_BITS-1)
+   CAND AzadiRTL                                 OVF: 2**(MAN_BITS-1)
+   CAND CrossFunc                                OVF: 2*i
+   CAND Earlgrey_Verilator_01_05_21              WRAP: InfoTypeSize[0] - 1 | WRAP: InfoTypeSize[1] - 1 | WRAP: InfoTypeSize[2] - 1
+   CAND Earlgrey_nexysvideo                      WRAP: InfoTypeSize[0] - 1 | WRAP: InfoTypeSize[1] - 1 | WRAP: InfoTypeSize[2] - 1
+   CAND IncompTitan                              WRAP: InfoTypeSize[0] - 1 | WRAP: InfoTypeSize[1] - 1 | WRAP: InfoTypeSize[2] - 1
+   CAND Tnoc                                     OVF: 32 * (64 / 8) | WRAP: -1
+   CAND Verilator                                OVF: (twentyone / 8) + 1
+   CAND Zachjs                                   WRAP: 3 - i
+   CAND ariane                                   OVF: 2**(MAN_BITS-1)
+   CAND cva6_equiv                               OVF: 2**(MAN_BITS-1)
+   CAND struct_pattern_procedural                OVF: 2**(23-1)
+   CANDIDATES 12

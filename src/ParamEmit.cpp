@@ -762,82 +762,19 @@ static bool patNoFoldTarget(const Type& t) {
 // enum) is a third face of this cause — measured in `b6_cast68` and left to
 // § 6 R1, because naming it needs a slang-type-to-typespec mapping this law
 // does not have to spend.
+//
+// § redTableOneHome72 (r11u72) — BOTH FACES NOW LIVE IN ONE HOME.  The
+// operator face and the object face below are `red72ReduceLeavesOp` and
+// `red72UvalueRefusesObj` in `EmitHelpers.h`, beside the int64 VALUE table
+// that writes the very string the object face reads and beside the
+// cont_assign road's proof-of-completion.  Nothing about either boundary
+// changed in the move; the § block there carries the decode.
 static bool patAstRefuses68(const Expression& e0) {
-    const Expression& e = stripImplicitConv(e0);
-    if (e.kind == ExpressionKind::BinaryOp) {
-        switch (e.as<BinaryExpression>().op) {
-            case BinaryOperator::BinaryXor:
-            case BinaryOperator::BinaryXnor:
-            case BinaryOperator::CaseEquality:
-            case BinaryOperator::CaseInequality:
-            case BinaryOperator::WildcardEquality:
-            case BinaryOperator::WildcardInequality:
-                return true;
-            default:
-                return false;
-        }
-    }
-    if (e.kind == ExpressionKind::UnaryOp)
-        return e.as<UnaryExpression>().op == UnaryOperator::Plus;
-    return false;
+    return red72ReduceLeavesOp(e0);
 }
 
 static bool patUvalueRefuses68(const UHDM::any* ob) {
-    if (!ob || ob->UhdmType() != UHDM::uhdmconstant)
-        return true;
-    auto* c = (const UHDM::constant*)ob;
-    std::string_view v = c->VpiValue();
-    auto after = [&](std::string_view pfx) -> std::string_view {
-        return v.size() >= pfx.size() && v.compare(0, pfx.size(), pfx) == 0
-                   ? v.substr(pfx.size())
-                   : std::string_view();
-    };
-    // `ltrim(sv, c)` in ExprEval drops everything UP TO AND INCLUDING the
-    // character when it is present, which is how a stored `'sb1010` loses its
-    // prefix before the digit scan.
-    auto trim = [](std::string_view s, char ch) {
-        auto p = s.find(ch);
-        return p == std::string_view::npos ? s : s.substr(p + 1);
-    };
-    switch (c->VpiConstType()) {
-        case vpiBinaryConst: {
-            std::string_view d = after("BIN:");
-            d = trim(trim(trim(d, '\''), 's'), 'b');
-            return d.empty() || (d[0] != '0' && d[0] != '1');
-        }
-        case vpiHexConst: {
-            std::string_view d = after("HEX:");
-            d = trim(trim(trim(d, '\''), 's'), 'h');
-            return d.empty() || !isxdigit((unsigned char)d[0]);
-        }
-        case vpiOctConst: {
-            std::string_view d = after("OCT:");
-            d = trim(trim(trim(d, '\''), 's'), 'o');
-            return d.empty() || d[0] < '0' || d[0] > '7';
-        }
-        case vpiDecConst: {
-            std::string_view d = after("DEC:");
-            return d.empty() || !isdigit((unsigned char)d[0]);
-        }
-        case vpiIntConst: {
-            std::string_view d = after("INT:");
-            return d.empty() || !isdigit((unsigned char)d[0]);
-        }
-        case vpiUIntConst: {
-            std::string_view d = after("UINT:");
-            return d.empty() || !isdigit((unsigned char)d[0]);
-        }
-        case vpiStringConst:
-            return after("STRING:").size() > 64;
-        case vpiScalar: {
-            std::string_view d = after("SCAL:");
-            return d.empty() || (d[0] != '0' && d[0] != '1');
-        }
-        case vpiRealConst:
-            return true;
-        default:
-            return true;
-    }
+    return red72UvalueRefusesObj(ob);
 }
 
 // § patRedSz68 — THE SIZE A POST-BAIL OPERAND KEEPS, and it is
@@ -880,6 +817,13 @@ static int32_t patRedSz68(const Expression& e0, int depth) {
             if (sy.kind != SymbolKind::Parameter &&
                 sy.kind != SymbolKind::EnumValue)
                 return 0;
+            // § redUntypedIntNameSz72 (r11u72) — an IMPLICITLY typed parameter
+            // whose initializer is a unary minus is stored at the untyped
+            // default 32, not at slang's inferred literal width (arm
+            // `t5_untyped72`: `-8'd3` and `-4'd3` are both golden 32).  The
+            // decode is in the § block beside `red72UntypedMinusName`.
+            if (red72UntypedMinusName(e))
+                return 32;
             auto w = e.type->getBitWidth();
             return w ? (int32_t)w : 0;
         }
@@ -959,65 +903,16 @@ static int32_t patRedSz68(const Expression& e0, int depth) {
 // (a non-constant, an unknown leading digit, an operator the reduce leaves,
 // `vpiRealConst`) are properties of the OBJECT's shape, not of a value we
 // might have wrapped, and are unchanged.
+// § redTableOneHome72 (r11u72) — THE CORROBORATION IS NOW A READ OF THE TABLE
+// THAT WRITES THE VALUE.  `patInt64Val68v` was a SECOND int64 transcription
+// standing beside the one the value writer needed; both are now
+// `red72Int64` in `EmitHelpers.h`, so the fence and the digits cannot drift
+// apart.  The measured boundary is unchanged: anything the table cannot
+// answer ABSTAINS, which leaves the member stamp standing -- a STILL cell,
+// never an AWAY one.
 static bool patInt64Val68v(const Expression& e0, const ASTContext& actx,
                            int depth, int64_t& out) {
-    if (depth > 16)
-        return false;
-    const Expression& e = stripImplicitConv(e0);
-    if (e.kind == ExpressionKind::UnaryOp) {
-        auto& u = e.as<UnaryExpression>();
-        if (u.op != UnaryOperator::Minus)
-            return false;
-        int64_t v68 = 0;
-        if (!patInt64Val68v(u.operand(), actx, depth + 1, v68))
-            return false;
-        out = -v68;
-        return true;
-    }
-    if (e.kind == ExpressionKind::BinaryOp) {
-        auto& b = e.as<BinaryExpression>();
-        int64_t l68 = 0, r68 = 0;
-        switch (b.op) {
-            case BinaryOperator::Add:
-            case BinaryOperator::Subtract:
-            case BinaryOperator::Multiply:
-            case BinaryOperator::Divide:
-            case BinaryOperator::Mod:
-                break;
-            default:
-                return false;
-        }
-        if (!patInt64Val68v(b.left(), actx, depth + 1, l68) ||
-            !patInt64Val68v(b.right(), actx, depth + 1, r68))
-            return false;
-        switch (b.op) {
-            case BinaryOperator::Add: out = l68 + r68; return true;
-            case BinaryOperator::Subtract: out = l68 - r68; return true;
-            case BinaryOperator::Multiply: out = l68 * r68; return true;
-            case BinaryOperator::Divide:
-                if (r68 == 0) return false;
-                out = l68 / r68;
-                return true;
-            case BinaryOperator::Mod:
-                if (r68 == 0) return false;
-                out = l68 % r68;
-                return true;
-            default: return false;
-        }
-    }
-    ConstantValue cv68 = actx.tryEval(e);
-    if (!cv68 || !cv68.isInteger() || cv68.integer().hasUnknown())
-        return false;
-    auto& iv68 = cv68.integer();
-    if (auto s68 = iv68.as<int64_t>()) {
-        out = *s68;
-        return true;
-    }
-    if (auto u68 = iv68.as<uint64_t>()) {
-        out = (int64_t)*u68;
-        return true;
-    }
-    return false;
+    return red72Int64(e0, actx, depth, out) == Red72::Value;
 }
 
 // TRUE when the operand's refusal is the LEADING-MINUS one on an integer arm
@@ -15510,7 +15405,52 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             return std::to_string(*u66);
                                         return std::string();
                                     };
-                                    if (sv66.kind == ExpressionKind::UnaryOp &&
+                                    // § patOperandIntSixtyFour72 (r11u72) —
+                                    // THE VALUE HALF OF THIS TABLE IS THE
+                                    // PRODUCER'S int64 ARITHMETIC OVER THE
+                                    // REDUCED OPERANDS, NOT slang's answer in
+                                    // the expression's self-determined width.
+                                    // `reduceExpr` reads each reduced operand
+                                    // with `get_value` as `int64_t` and runs
+                                    // the arm in `int64_t`, so it never wraps
+                                    // at the expression's own width; the two
+                                    // coincide on every cell pass 55/66
+                                    // measured and part on the overflow and
+                                    // unsigned-wrap classes r11v66's R-V1
+                                    // named.  Measured here on real Surelog
+                                    // v1.87 goldens (`t1_arith72`,
+                                    // `t2_leaf72`, and the committed
+                                    // `a2_uwrap66` / `a7_arith66`):
+                                    //   `bit [31:0] KU = 3; KU - 5`
+                                    //        golden INT:-2   ours INT:4294967294
+                                    //   `bit [63:0] LU = 3; LU - 5`
+                                    //        golden INT:-2   ours a digit string
+                                    //        UHDM re-renders as INT:0
+                                    //   `int BIG = 2000000000; BIG * 2`
+                                    //        golden INT:4000000000
+                                    //        ours INT:-294967296  (the ONE
+                                    //        measured regressed-field cell of
+                                    //        pass 66, and `VpiDecompile` is a
+                                    //        field the judge reads)
+                                    //   `2 ** 40`  golden INT:1099511627776
+                                    //        ours INT:0
+                                    //   `localparam MD = -16'd5; … MD`
+                                    //        golden INT:-5   ours INT:65531
+                                    // The table ABSTAINS (`Red72::Unknown`)
+                                    // wherever it cannot answer, and the
+                                    // pass-66 writer below then stands exactly
+                                    // as it did — a STILL cell, never an AWAY
+                                    // one.  Beyond-int64 `**` renders abstain
+                                    // rather than transcribe the producer's
+                                    // out-of-range cast artefact; the decode
+                                    // and every arm are in the § block beside
+                                    // `red72Int64`.
+                                    int64_t i72 = 0;
+                                    if (red72Int64(sv66, ectx, 0, i72) ==
+                                        Red72::Value)
+                                        d66 = std::to_string(i72);
+                                    else if (sv66.kind ==
+                                                 ExpressionKind::UnaryOp &&
                                         sv66.as<UnaryExpression>().op ==
                                             UnaryOperator::Minus) {
                                         ConstantValue o66 = ectx.tryEval(
@@ -15608,8 +15548,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         nv68 >= 0)
                                         ref68 = false;
                                 }
+                                // § redTableOneHome72 (r11u72) — THE THIRD
+                                // REFUSAL FACE: a LEAF `get_value` cannot
+                                // read.  A BIN/HEX/OCT operand wider than 64
+                                // bits sets `invalidValue` inside the arm
+                                // (`ExprEval.cpp:1969`, `:1984`, `:1998`), so
+                                // the OPERATION survives the reduce and
+                                // `get_uvalue` then refuses the operation
+                                // itself.  Our walk has already folded it to a
+                                // constant, so — exactly like
+                                // § patAstRefuses68's operator face — the
+                                // refusal has to be read off the AST.
+                                // Measured, arm `t3_beyond72`:
+                                // `logic [95:0] W96H = 96'h1; … W96H - 1` is
+                                // golden an unfolded `op11` and the operands
+                                // after it keep `reduceExpr`'s own size, while
+                                // the DECIMAL-encoded `96'd5 * 2` — which has
+                                // no size guard — is golden `INT:10` and does
+                                // NOT bail.
+                                int64_t rv72 = 0;
                                 if (ref68 ||
-                                    (sx68 && patAstRefuses68(*sx68)))
+                                    (sx68 && patAstRefuses68(*sx68)) ||
+                                    (sx68 && red72Int64(*sx68, ectx, 0,
+                                                        rv72) ==
+                                                 Red72::Refuses))
                                     bail68 = (int)i68;
                                 continue;
                             }
@@ -15624,7 +15586,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             if (ct68 == vpiUIntConst || ct68 == vpiIntConst) {
                                 auto& sv68 = stripImplicitConv(*sx68);
                                 std::string want68;
-                                if (sv68.kind == ExpressionKind::UnaryOp &&
+                                // § patOperandIntSixtyFour72 (r11u72) — THE
+                                // GUARD READS THE SAME TABLE THE WRITER WROTE
+                                // WITH.  This check asks "are the digits on
+                                // this operand the producer's?", and the value
+                                // half is now the producer's int64 answer, so
+                                // the expectation must be computed the same
+                                // way or every cell the value law converts
+                                // would lose its size move (measured:
+                                // `t5_untyped72` `a`/`b`/`i`, `a2_uwrap66`
+                                // `b`/`c`, `t1_arith72` `h`/`m` all stop
+                                // matching against slang's own evaluation).
+                                int64_t w72 = 0;
+                                if (red72Int64(sv68, ectx, 0, w72) ==
+                                    Red72::Value)
+                                    want68 = std::to_string(w72);
+                                else if (sv68.kind ==
+                                             ExpressionKind::UnaryOp &&
                                     sv68.as<UnaryExpression>().op ==
                                         UnaryOperator::Minus) {
                                     ConstantValue o68 =

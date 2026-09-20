@@ -1,0 +1,84 @@
+== t1_arith72  (golden | pristine | law), ELAB cont_assign
+< ELAB ca@43:10     LHS=ref_obj((work@t1_arith72.y0))@43:10     RHS=constant        @31:29     vpiDecompile:4000000000 vpiSize:32 vpiConstType:7
+> ELAB ca@43:10     LHS=ref_obj((work@t1_arith72.y0))@43:10     RHS=constant        @31:29     vpiDecompile:-294967296 vpiSize:32 vpiConstType:7
+< ELAB ca@43:46     LHS=ref_obj((work@t1_arith72.y2))@43:46     RHS=constant        @31:51     vpiDecompile:1099511627776 vpiSize:32 vpiConstType:7
+> ELAB ca@43:46     LHS=ref_obj((work@t1_arith72.y2))@43:46     RHS=constant        @31:51     vpiDecompile:0 vpiSize:32 vpiConstType:7
+< ELAB ca@44:46     LHS=ref_obj((work@t1_arith72.y6))@44:46     RHS=constant        @32:38     vpiDecompile:-2 vpiSize:32 vpiConstType:7
+< ELAB ca@44:64     LHS=ref_obj((work@t1_arith72.y7))@44:64     RHS=constant        @32:47     vpiDecompile:-2 vpiSize:8 vpiConstType:7
+< ELAB ca@45:10     LHS=ref_obj((work@t1_arith72.y8))@45:10     RHS=constant        @32:56     vpiDecompile:-2 vpiSize:64 vpiConstType:7
+> ELAB ca@44:46     LHS=ref_obj((work@t1_arith72.y6))@44:46     RHS=constant        @32:38     vpiDecompile:4294967294 vpiSize:32 vpiConstType:7
+> ELAB ca@44:64     LHS=ref_obj((work@t1_arith72.y7))@44:64     RHS=constant        @32:47     vpiDecompile:4294967294 vpiSize:8 vpiConstType:7
+> ELAB ca@45:10     LHS=ref_obj((work@t1_arith72.y8))@45:10     RHS=constant        @32:56     vpiDecompile:18446744073709551614 vpiSize:64 vpiConstType:7
+< ELAB ca@46:10     LHS=ref_obj((work@t1_arith72.y12))@46:10     RHS=constant        @33:48     vpiDecompile:-4000000000 vpiSize:32 vpiConstType:7
+> ELAB ca@46:10     LHS=ref_obj((work@t1_arith72.y12))@46:10     RHS=constant        @33:48     vpiDecompile:-18446744073414584320 vpiSize:32 vpiConstType:7
+   -- law vs golden:
+   golden == law  (ROAD CONVERGED)
+== t2_leaf72  (golden | pristine | law), ELAB cont_assign
+< ELAB ca@33:10     LHS=ref_obj((work@t2_leaf72.y0))@33:10     RHS=constant        @25:29     vpiDecompile:-5 vpiSize:32 vpiConstType:7
+< ELAB ca@33:27     LHS=ref_obj((work@t2_leaf72.y1))@33:27     RHS=constant        @25:36     vpiDecompile:-5 vpiSize:32 vpiConstType:7
+< ELAB ca@33:44     LHS=ref_obj((work@t2_leaf72.y2))@33:44     RHS=constant        @25:47     vpiDecompile:-3 vpiSize:32 vpiConstType:7
+< ELAB ca@33:61     LHS=ref_obj((work@t2_leaf72.y3))@33:61     RHS=constant        @25:54     vpiDecompile:4000000000 vpiSize:32 vpiConstType:7
+< ELAB ca@34:10     LHS=ref_obj((work@t2_leaf72.y4))@34:10     RHS=constant        @25:62     vpiDecompile:4000000000 vpiSize:32 vpiConstType:7
+< ELAB ca@34:27     LHS=ref_obj((work@t2_leaf72.y5))@34:27     RHS=constant        @26:29     vpiDecompile:-2 vpiSize:64 vpiConstType:7
+> ELAB ca@33:10     LHS=ref_obj((work@t2_leaf72.y0))@33:10     RHS=constant        @25:29     vpiDecompile:65531 vpiSize:32 vpiConstType:7
+> ELAB ca@33:27     LHS=ref_obj((work@t2_leaf72.y1))@33:27     RHS=constant        @25:36     vpiDecompile:65531 vpiSize:32 vpiConstType:7
+> ELAB ca@33:44     LHS=ref_obj((work@t2_leaf72.y2))@33:44     RHS=constant        @25:47     vpiDecompile:253 vpiSize:32 vpiConstType:7
+> ELAB ca@33:61     LHS=ref_obj((work@t2_leaf72.y3))@33:61     RHS=constant        @25:54     vpiDecompile:-294967296 vpiSize:32 vpiConstType:7
+> ELAB ca@34:10     LHS=ref_obj((work@t2_leaf72.y4))@34:10     RHS=constant        @25:62     vpiDecompile:-294967296 vpiSize:32 vpiConstType:7
+> ELAB ca@34:27     LHS=ref_obj((work@t2_leaf72.y5))@34:27     RHS=constant        @26:29     vpiDecompile:18446744073709551614 vpiSize:64 vpiConstType:7
+   -- law vs golden:
+   golden == law  (ROAD CONVERGED)
+== t3_beyond72  (golden | pristine | law), ELAB cont_assign
+< ELAB ca@41:61     LHS=ref_obj((work@t3_beyond72.y3))@41:61     RHS=constant        @30:62     vpiDecompile:-9223372036854775808 vpiSize:32 vpiConstType:7
+< ELAB ca@42:10     LHS=ref_obj((work@t3_beyond72.y4))@42:10     RHS=constant        @30:72     vpiDecompile:-9223372036854775808 vpiSize:32 vpiConstType:7
+< ELAB ca@42:27     LHS=ref_obj((work@t3_beyond72.y5))@42:27     RHS=constant        @31:29     vpiDecompile:4052555153018976256 vpiSize:32 vpiConstType:7
+< ELAB ca@42:44     LHS=<none>                    @-         RHS=<none>          @-         
+< ELAB ca@42:61     LHS=ref_obj((work@t3_beyond72.y7))@42:61     RHS=constant        @31:50     vpiDecompile:10 vpiSize:96 vpiConstType:7
+< ELAB ca@43:10     LHS=ref_obj((work@t3_beyond72.y8))@43:10     RHS=constant        @31:61     vpiDecompile:-1 vpiSize:65 vpiConstType:7
+< ELAB ca@43:27     LHS=ref_obj((work@t3_beyond72.y9))@43:27     RHS=constant        @31:71     vpiDecompile:-2 vpiSize:64 vpiConstType:7
+> ELAB ca@41:61     LHS=ref_obj((work@t3_beyond72.y3))@41:61     RHS=constant        @30:62     vpiDecompile:0 vpiSize:32 vpiConstType:7
+> ELAB ca@42:10     LHS=ref_obj((work@t3_beyond72.y4))@42:10     RHS=constant        @30:72     vpiDecompile:0 vpiSize:32 vpiConstType:7
+> ELAB ca@42:27     LHS=ref_obj((work@t3_beyond72.y5))@42:27     RHS=constant        @31:29     vpiDecompile:-1201670133 vpiSize:32 vpiConstType:7
+> ELAB ca@42:44     LHS=ref_obj((work@t3_beyond72.y6))@42:44     RHS=operation       @31:39     
+> ELAB ca@42:61     LHS=ref_obj((work@t3_beyond72.y7))@42:61     RHS=operation       @31:50     
+> ELAB ca@43:10     LHS=ref_obj((work@t3_beyond72.y8))@43:10     RHS=operation       @31:61     
+> ELAB ca@43:27     LHS=ref_obj((work@t3_beyond72.y9))@43:27     RHS=constant        @31:71     vpiDecompile:18446744073709551614 vpiSize:64 vpiConstType:7
+   -- law vs golden:
+< ELAB ca@41:61     LHS=ref_obj((work@t3_beyond72.y3))@41:61     RHS=constant        @30:62     vpiDecompile:-9223372036854775808 vpiSize:32 vpiConstType:7
+< ELAB ca@42:10     LHS=ref_obj((work@t3_beyond72.y4))@42:10     RHS=constant        @30:72     vpiDecompile:-9223372036854775808 vpiSize:32 vpiConstType:7
+> ELAB ca@41:61     LHS=ref_obj((work@t3_beyond72.y3))@41:61     RHS=constant        @30:62     vpiDecompile:0 vpiSize:32 vpiConstType:7
+> ELAB ca@42:10     LHS=ref_obj((work@t3_beyond72.y4))@42:10     RHS=constant        @30:72     vpiDecompile:0 vpiSize:32 vpiConstType:7
+< ELAB ca@42:44     LHS=<none>                    @-         RHS=<none>          @-         
+< ELAB ca@42:61     LHS=ref_obj((work@t3_beyond72.y7))@42:61     RHS=constant        @31:50     vpiDecompile:10 vpiSize:96 vpiConstType:7
+< ELAB ca@43:10     LHS=ref_obj((work@t3_beyond72.y8))@43:10     RHS=constant        @31:61     vpiDecompile:-1 vpiSize:65 vpiConstType:7
+> ELAB ca@42:44     LHS=ref_obj((work@t3_beyond72.y6))@42:44     RHS=operation       @31:39     
+> ELAB ca@42:61     LHS=ref_obj((work@t3_beyond72.y7))@42:61     RHS=operation       @31:50     
+> ELAB ca@43:10     LHS=ref_obj((work@t3_beyond72.y8))@43:10     RHS=operation       @31:61     
+== g3_neg66  (golden | pristine | law), ELAB cont_assign
+< ELAB ca@40:68     LHS=ref_obj((work@g3_neg66.o12))@40:68     RHS=constant        @27:61     vpiDecompile:5 vpiSize:32 vpiConstType:7
+> ELAB ca@40:68     LHS=ref_obj((work@g3_neg66.o12))@40:68     RHS=constant        @27:61     vpiDecompile:-18446744073709551611 vpiSize:32 vpiConstType:7
+< ELAB ca@47:10     LHS=ref_obj((work@g3_neg66.uo))@47:10     RHS=constant        @45:48     vpiDecompile:10 vpiSize:32 vpiConstType:7
+> ELAB ca@47:10     LHS=<none>                    @-         RHS=<none>          @-         
+   -- law vs golden:
+< ELAB ca@47:10     LHS=ref_obj((work@g3_neg66.uo))@47:10     RHS=constant        @45:48     vpiDecompile:10 vpiSize:32 vpiConstType:7
+> ELAB ca@47:10     LHS=<none>                    @-         RHS=<none>          @-         
+== a6_misc66  (golden | pristine | law), ELAB cont_assign
+< ELAB ca@31:10     LHS=ref_obj((work@a6_misc66.y0))@31:10     RHS=constant        @22:30     vpiDecompile:5 vpiSize:32 vpiConstType:7
+< ELAB ca@31:27     LHS=ref_obj((work@a6_misc66.y1))@31:27     RHS=constant        @22:46     vpiDecompile:10 vpiSize:32 vpiConstType:7
+> ELAB ca@31:10     LHS=ref_obj((work@a6_misc66.y0))@31:10     RHS=constant        @22:30     vpiDecompile:5 vpiSize:32 vpiConstType:9
+> ELAB ca@31:27     LHS=ref_obj((work@a6_misc66.y1))@31:27     RHS=constant        @22:46     vpiDecompile:10 vpiSize:32 vpiConstType:9
+< ELAB ca@32:61     LHS=ref_obj((work@a6_misc66.y7))@32:61     RHS=constant        @24:41     vpiDecompile:3 vpiSize:32 vpiConstType:7
+> ELAB ca@32:61     LHS=ref_obj((work@a6_misc66.y7))@32:61     RHS=constant        @24:41     vpiDecompile:-18446744073709551613 vpiSize:32 vpiConstType:7
+   -- law vs golden:
+< ELAB ca@31:10     LHS=ref_obj((work@a6_misc66.y0))@31:10     RHS=constant        @22:30     vpiDecompile:5 vpiSize:32 vpiConstType:7
+< ELAB ca@31:27     LHS=ref_obj((work@a6_misc66.y1))@31:27     RHS=constant        @22:46     vpiDecompile:10 vpiSize:32 vpiConstType:7
+> ELAB ca@31:10     LHS=ref_obj((work@a6_misc66.y0))@31:10     RHS=constant        @22:30     vpiDecompile:5 vpiSize:32 vpiConstType:9
+> ELAB ca@31:27     LHS=ref_obj((work@a6_misc66.y1))@31:27     RHS=constant        @22:46     vpiDecompile:10 vpiSize:32 vpiConstType:9
+== a8_real66  (golden | pristine | law), ELAB cont_assign
+< ELAB ca@28:27     LHS=ref_obj((work@a8_real66.y1))@28:27     RHS=constant        @21:42     vpiDecompile:1099511627776 vpiSize:32 vpiConstType:7
+> ELAB ca@28:27     LHS=ref_obj((work@a8_real66.y1))@28:27     RHS=constant        @21:42     vpiDecompile:0 vpiSize:32 vpiConstType:7
+< ELAB ca@29:10     LHS=<none>                    @-         RHS=<none>          @-         
+> ELAB ca@29:10     LHS=ref_obj((work@a8_real66.y3))@29:10     RHS=constant        @22:30     vpiDecompile:4 vpiSize:32 vpiConstType:7
+   -- law vs golden:
+< ELAB ca@29:10     LHS=<none>                    @-         RHS=<none>          @-         
+> ELAB ca@29:10     LHS=ref_obj((work@a8_real66.y3))@29:10     RHS=constant        @22:30     vpiDecompile:4 vpiSize:32 vpiConstType:7

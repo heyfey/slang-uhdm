@@ -1,0 +1,15 @@
+r11v72 — POSITIVE CONTROL for the corpus census zero, re-run with the VERIFIED binary.
+corpus test uhdm2rtlil/test/cva6_struct_param_field/dut.sv, one setter 32'd64 -> 32'd64 - 100,
+both binaries in the SAME directory writing the SAME output name.
+
+orig  pristine vs verified: SAME     (md5 3aa5062f78c1 both)
+moved pristine vs verified: DIFFERS  (pristine d9c7121efe61, verified cb958c968d7f)
+
+the moved cell, order-blind:
+  pristine   |INT:4294967260
+  verified   |INT:-36
+  GOLDEN Surelog v1.87 on the moved sources: |INT:-36
+
+COIN POSITIVE CONTROL (the surelog byte movers): the SAME frozen PRISTINE binary,
+MiniAmiq/default's own command line, three invocations, three distinct databases:
+  15cdd33c6d68  d1dc57cc3d97  4302707f753c

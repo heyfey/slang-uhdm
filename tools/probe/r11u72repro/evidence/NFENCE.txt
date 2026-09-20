@@ -1,0 +1,19 @@
+r11u72 nf EXPERIMENT — the law with § patBailNegCorroborated68v REMOVED
+law md5 8794860fd835afa68733006ee62a7438 / nf md5 54dd19826ab4e56e7b573c02c60f69f6
+built in its own worktree at 9637b9fd, configured from scratch
+
+  t1_arith72  nf == law
+  t2_leaf72  nf == law
+  t3_beyond72  nf == law
+  t4_pred72  nf == law
+  t5_untyped72  nf == law
+  t6_wide72  nf == law
+  t7_fence72  nf == law
+  a2_uwrap66  nf == law
+  a7_arith66  nf == law
+  b2_faces68  nf == law
+  b3_ops68  nf == law
+  v1_ofire68  nf == law
+  x3_names  nf == law
+  g3_neg66  nf == law
+  a4_wide66  nf == law

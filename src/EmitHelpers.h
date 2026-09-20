@@ -11,6 +11,8 @@
 #include <algorithm>
 #include <cctype>
 #include <charconv>
+#include <climits>
+#include <cmath>
 #include <functional>
 
 #include "slang/ast/ASTVisitor.h"
@@ -7373,6 +7375,512 @@ inline bool stmtScopeHasTdListing157(const slang::ast::Scope& sc) {
         if (m.kind == slang::ast::SymbolKind::TypeAlias)
             return true;
     return false;
+}
+
+// ===========================================================================
+// § redTableOneHome72 (r11u72) — THE PRODUCER'S REDUCE TABLE IN ONE HOME:
+// THE VALUE HALF IS int64 ARITHMETIC OVER THE REDUCED OPERANDS, AND THE TWO
+// PROVEN-FOLD PREDICATES READ THE SAME TRANSCRIPTION.
+//
+// THE PRODUCER, read in the pinned trees.  `ExprEval::reduceExpr`
+// (`~/git-repos/UHDM/templates/ExprEval.cpp`) reduces every operand to a
+// constant, reads it with `get_value` (`:1947-2056`) as an `int64_t`, and
+// applies the arm IN int64_t — it NEVER wraps at the expression's own width,
+// where slang's own evaluation runs at the expression's self-determined type
+// and does:
+//
+//     :3301  vpiAddOp   (signed arm)  int64_t val = val0 + val1
+//     :3415  vpiMinusOp               int64_t val = -val0
+//     :3454  vpiSubOp                 int64_t val = val0 - val1
+//     :3490  vpiMultOp                int64_t val = val0 * val1
+//     :3726  vpiModOp                 int64_t val = val0 % val1   (val1 != 0)
+//     :3782  vpiPowerOp   val = static_cast<int64_t>(std::pow<int64_t>(v0,v1))
+//     :3822  vpiDivOp                 int64_t val = num / divisor (divisor != 0)
+//
+// and each of those writes `INT:<val>` + `VpiDecompile(<val>)`, both of which
+// the judge reads (`constant::Compare` -> `expr::Compare` `VpiDecompile`).
+// This is r11v66's R-V1, measured on real Surelog v1.87 goldens and quoted in
+// the pass README: `bit [31:0] KU = 3; KU - 5` is golden `INT:-2` where ours
+// wrote `INT:4294967294`; `int BIG = 2000000000; BIG * 2` is golden
+// `INT:4000000000` where ours wrote `INT:-294967296`; `2 ** 40` is golden
+// `INT:1099511627776` where ours wrote `INT:0`; a 64-bit unsigned wrap wrote a
+// digit string UHDM re-renders as `INT:0`.
+//
+// THE LEAF.  `get_value` reads the REDUCED operand's own value string, so a
+// NAME reduces to the parameter's STORED value — which the producer computed
+// with THIS SAME table.  `localparam MD = -16'd5` is stored `INT:-5` and is
+// golden `INT:-5` at the pattern operand, where slang types the name 16 bits
+// unsigned and evaluates it 65531.  So a name hop is FOLLOWED INTO ITS
+// INITIALIZER, guarded by the requirement that the two agree modulo the
+// name's own width (an OVERRIDDEN parameter's value is not its declared
+// initializer's, and that guard is what declines it).
+//
+// THE REFUSALS, which are the same table read the other way round.  A leaf the
+// reduce cannot read makes the whole arm refuse, the operation SURVIVES, and
+// `get_uvalue` then refuses the operation itself — which is the bail
+// § patBailStopsMemberStamp68 transcribes.  Two faces are transcribed here:
+//   * a BIN / HEX / OCT operand wider than 64 bits (`:1969`, `:1984`, `:1998`
+//     set `invalidValue` on `VpiSize() > 64`).  Measured, arm `t3_beyond72`:
+//     `logic [95:0] W96H = 96'h1; … W96H - 1` is golden an UNFOLDED `op11`,
+//     while the DECIMAL-encoded `96'd5 * 2` — which has no size guard — is
+//     golden `INT:10`.
+//   * BEYOND int64 on the `**` arm.  `std::pow` runs in `double` and the cast
+//     back is out of range: golden writes `INT:-9223372036854775808` for
+//     `2 ** 64` and for `2 ** 70`, and `INT:4052555153018976256` for `3 ** 39`
+//     (the DOUBLE-rounded value; the exact int64 is …267).  That render is the
+//     cast's own out-of-range artefact, so this table ABSTAINS there rather
+//     than transcribe it — never writing a 0 in its place (§6 R2).
+// The `+ - *` arms are NOT abstained past int64: the producer's int64 add,
+// subtract and multiply WRAP, and golden writes the wrapped value
+// (`t3_beyond72`: `longint HUGE = 4e18; HUGE * 4` is golden
+// `INT:-2446744073709551616`, which our 64-bit evaluation already matched).
+// The wrap is computed through `uint64_t` here so the transcription is not
+// signed-overflow UB in our own build.
+enum class Red72 { Unknown, Value, Refuses };
+
+/// § redTableOneHome72 — face (1): the FIRST-DIGIT scan `NumUtils::parse*`
+/// performs.  `ltrim` + `std::from_chars` stops at the first bad character
+/// rather than rejecting the string, so `8'hAx` and `8'b1z` COMPLETE where
+/// `8'hxA`, `6'ox7`, `8'bx` and `1'bz` REFUSE (r11u68 `b1_refuse68`, r11v68
+/// `v1_ofire68` / `v2_align68`).  `raw` is the literal's own source text.
+inline bool red72LitDigitOk(std::string_view raw0) {
+    std::string raw(raw0);
+    auto q = raw.find('\'');
+    if (q == std::string::npos)
+        return false;
+    size_t b = q + 1;
+    if (b < raw.size() && (raw[b] == 's' || raw[b] == 'S'))
+        b++;
+    if (b >= raw.size())
+        return false;
+    b++;  // the base letter itself
+    while (b < raw.size() && (raw[b] == '_' || isspace((unsigned char)raw[b])))
+        b++;
+    if (b >= raw.size())
+        return false;
+    char c = raw[b];
+    return !(c == 'x' || c == 'X' || c == 'z' || c == 'Z' || c == '?' ||
+             !isalnum((unsigned char)c));
+}
+
+/// § redTableOneHome72 — face (1b): the base letter of a based literal's own
+/// source text, lower-cased, or 0 when there is none.
+inline char red72LitBase(std::string_view raw0) {
+    std::string raw(raw0);
+    auto q = raw.find('\'');
+    if (q == std::string::npos)
+        return 0;
+    size_t b = q + 1;
+    if (b < raw.size() && (raw[b] == 's' || raw[b] == 'S'))
+        b++;
+    if (b >= raw.size())
+        return 0;
+    return (char)tolower((unsigned char)raw[b]);
+}
+
+/// § redTableOneHome72 — face (2): `ExprEval::get_uvalue` (`:2058-2160`) read
+/// off the OBJECT the producer reads.  It refuses a non-constant outright, and
+/// otherwise when the encoding's own scan finds no valid LEADING digit:
+/// `parseUint64` on an `INT:`/`DEC:`/`UINT:` string that starts with a minus,
+/// `parseBinary` on `BIN:X`, `parseHex` on `HEX:X`, `parseOctal` on `OCT:X`, a
+/// string longer than 64 characters, and `vpiRealConst` always.  The
+/// `VpiSize() > 64` clause is deliberately NOT transcribed: golden does not
+/// bail on `70'h5`, `65'h1`, `96'b1` or `96'o1` (r11u68 §6 R2).
+inline bool red72UvalueRefusesObj(const UHDM::any* ob) {
+    if (!ob || ob->UhdmType() != UHDM::uhdmconstant)
+        return true;
+    auto* c = (const UHDM::constant*)ob;
+    std::string_view v = c->VpiValue();
+    auto after = [&](std::string_view pfx) -> std::string_view {
+        return v.size() >= pfx.size() && v.compare(0, pfx.size(), pfx) == 0
+                   ? v.substr(pfx.size())
+                   : std::string_view();
+    };
+    // `ltrim(sv, c)` in ExprEval drops everything UP TO AND INCLUDING the
+    // character when it is present, which is how a stored `'sb1010` loses its
+    // prefix before the digit scan.
+    auto trim = [](std::string_view s, char ch) {
+        auto p = s.find(ch);
+        return p == std::string_view::npos ? s : s.substr(p + 1);
+    };
+    switch (c->VpiConstType()) {
+        case vpiBinaryConst: {
+            std::string_view d = after("BIN:");
+            d = trim(trim(trim(d, '\''), 's'), 'b');
+            return d.empty() || (d[0] != '0' && d[0] != '1');
+        }
+        case vpiHexConst: {
+            std::string_view d = after("HEX:");
+            d = trim(trim(trim(d, '\''), 's'), 'h');
+            return d.empty() || !isxdigit((unsigned char)d[0]);
+        }
+        case vpiOctConst: {
+            std::string_view d = after("OCT:");
+            d = trim(trim(trim(d, '\''), 's'), 'o');
+            return d.empty() || d[0] < '0' || d[0] > '7';
+        }
+        case vpiDecConst: {
+            std::string_view d = after("DEC:");
+            return d.empty() || !isdigit((unsigned char)d[0]);
+        }
+        case vpiIntConst: {
+            std::string_view d = after("INT:");
+            return d.empty() || !isdigit((unsigned char)d[0]);
+        }
+        case vpiUIntConst: {
+            std::string_view d = after("UINT:");
+            return d.empty() || !isdigit((unsigned char)d[0]);
+        }
+        case vpiStringConst:
+            return after("STRING:").size() > 64;
+        case vpiScalar: {
+            std::string_view d = after("SCAL:");
+            return d.empty() || (d[0] != '0' && d[0] != '1');
+        }
+        case vpiRealConst:
+            return true;
+        default:
+            return true;
+    }
+}
+
+/// § redTableOneHome72 — face (3): the operators `reduceExpr` LEAVES, so that
+/// `get_uvalue`'s `any_cast<const constant*>` fails on the surviving
+/// operation.  The set is measured, not assumed (r11u68 `b3_ops68`, 27
+/// operators at operand 0 of a detector struct): `^` (op30), `~^`/`^~` (op31),
+/// `===` (op16), `!==` (op17), `==?` (op69) and unary `+` (op2) survive; every
+/// other operator, cast, call, concatenation and replication folds.
+inline bool red72ReduceLeavesOp(const Expression& e0) {
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::BinaryOp) {
+        switch (e.as<BinaryExpression>().op) {
+            case BinaryOperator::BinaryXor:
+            case BinaryOperator::BinaryXnor:
+            case BinaryOperator::CaseEquality:
+            case BinaryOperator::CaseInequality:
+            case BinaryOperator::WildcardEquality:
+            case BinaryOperator::WildcardInequality:
+                return true;
+            default:
+                return false;
+        }
+    }
+    if (e.kind == ExpressionKind::UnaryOp)
+        return e.as<UnaryExpression>().op == UnaryOperator::Plus;
+    return false;
+}
+
+/// § redTableOneHome72 — face (3b): a leaf `get_value` cannot read at all,
+/// which makes the whole arm refuse and the OPERATION survive.  `get_value`
+/// and `get_uvalue` guard on `VpiSize() > 64` for BIN / HEX / OCT and on
+/// nothing at all for a DECIMAL-encoded operand of any width
+/// (`ExprEval.cpp:1969`, `:1984`, `:1998`, against `:2008` / `:2120`), and
+/// r11u68's §6 R2 established that the size tested is the REDUCE PRODUCT's.
+/// Which size that is depends on WHERE the leaf sits, and both positions are
+/// measured on real Surelog v1.87 goldens:
+///
+///   INSIDE AN ARM (`inArm`), arm `t6_wide72` — the reduce hands `get_value`
+///   the operand as written, so the DECLARED width decides and the value does
+///   not: `96'h123456789ABCDEF012345678 - 1`, `96'h1 - 1`, `96'b1 - 1` and the
+///   same three through a NAME are ALL golden an unfolded `op11`, while
+///   `96'd5 * 2` — decimal, no guard — is golden `INT:10`.
+///
+///   AS THE OPERAND ITSELF (`!inArm`), arm `b2_faces68` (r11u68) — Surelog has
+///   already narrowed the literal by VALUE, so only a literal whose value
+///   needs more than 64 bits bails: `96'h123456789ABCDEF012345678` at operand
+///   0 stops the member stamp (golden's `K+1` probes read 64) while `96'b1`
+///   does not (they read 8), and `70'h5`, `65'h1`, `96'b1`, `96'o1` in
+///   `b3_ops68` / `v1_ofire68` all complete.
+inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
+    if (e.kind != ExpressionKind::IntegerLiteral || !e.syntax ||
+        e.syntax->kind != slang::syntax::SyntaxKind::IntegerVectorExpression)
+        return false;
+    char base = red72LitBase(
+        e.syntax->as<slang::syntax::IntegerVectorExpressionSyntax>()
+            .base.rawText());
+    if (base != 'b' && base != 'h' && base != 'o')
+        return false;
+    if (inArm)
+        return e.type->getBitWidth() > 64;
+    auto iv = e.as<IntegerLiteral>().getValue();
+    // An UNKNOWN digit is NOT this face: `8'b1000000x`, `8'b1x000001` and
+    // `8'hAx` all COMPLETE golden-side (`b2_faces68` `C_xtail`, `b3_ops68`
+    // `C_xmid`, `v1_ofire68` `C_unkhx2` — their `K+1` probes read 8), because
+    // `NumUtils::parse*` stops at the first bad character rather than
+    // rejecting the string; the LEADING-digit face already owns that decision
+    // and `SVInt::as<uint64_t>()` declines an unknown value outright, so it
+    // has to be excluded here or this face over-fires on it.  The wide
+    // boundary caught exactly those six cells.
+    return !iv.hasUnknown() && !iv.as<uint64_t>();
+}
+
+/// § redTableOneHome72 — face (4): THE VALUE HALF.  Returns `Value` with the
+/// producer's own int64 answer, `Refuses` when a leaf makes the arm refuse (so
+/// the operation survives and the caller's bail fires), and `Unknown` for
+/// everything this table does not model — which leaves the caller's landed
+/// behaviour exactly as it stood, a STILL cell and never an AWAY one.
+///
+/// § redWideLeafPositionNotDepth72v (r11v72) — `inArm` IS A POSITION, NOT A
+/// RECURSION DEPTH.  `red72WideBasedLeaf` reads the DECLARED width inside an
+/// arm and the VALUE at the operand itself, and the two rules are measured on
+/// different cells (`t6_wide72` against r11u68's `b2_faces68`).  The first cut
+/// of this function keyed them on `depth > 0`, so a NAME sitting AT operand 0
+/// — one hop, no arm — got the DECLARED-width rule and bailed where golden
+/// COMPLETES.  Measured, verifier arm `v6_wname32` (real Surelog v1.87,
+/// `slrc=0 ourrc=0 slerr=0`), operand 0 a bare name onto a wide-DECLARED,
+/// narrow-VALUED parameter, with `K+1`/`K+2` probes on 8-bit members:
+///
+///   `logic [95:0] W96H = 96'h1`  golden probes 8 (COMPLETES) -- law 64  AWAY
+///   `logic [95:0] W96B = 96'b1`  golden probes 8 (COMPLETES) -- law 64  AWAY
+///   `logic [70:0] W71H = 71'h5`  golden probes 8 (COMPLETES) -- law 64  AWAY
+///   `logic [95:0] W96X = 96'h123456789ABCDEF012345678`
+///                                golden probes 64 (REFUSES)  -- law 64  ok
+///
+/// six pristine-right -> patched-wrong cells.  A NAME hop does not enter an
+/// arm, so it PROPAGATES the caller's position; only descending into a binary
+/// or unary operand sets it.  Every committed cell of the face is a literal at
+/// operand 0 (`b2_faces68`, `v1_ofire68`, `b3_ops68` — position false, as
+/// before) or a leaf inside an arm (`t6_wide72` — position true, as before),
+/// so this re-keying moves exactly the six cells above and nothing else.
+inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
+                        int64_t& out, bool inArm = false) {
+    if (depth > 16)
+        return Red72::Unknown;
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::UnaryOp) {
+        auto& u = e.as<UnaryExpression>();
+        if (u.op != UnaryOperator::Minus)
+            return Red72::Unknown;
+        int64_t v = 0;
+        Red72 r = red72Int64(u.operand(), actx, depth + 1, v, true);
+        if (r != Red72::Value)
+            return r;
+        out = (int64_t)(0ULL - (uint64_t)v);
+        return Red72::Value;
+    }
+    if (e.kind == ExpressionKind::BinaryOp) {
+        auto& b = e.as<BinaryExpression>();
+        switch (b.op) {
+            case BinaryOperator::Add:
+            case BinaryOperator::Subtract:
+            case BinaryOperator::Multiply:
+            case BinaryOperator::Divide:
+            case BinaryOperator::Mod:
+            case BinaryOperator::Power:
+                break;
+            default:
+                return Red72::Unknown;
+        }
+        int64_t l = 0, r = 0;
+        Red72 rl = red72Int64(b.left(), actx, depth + 1, l, true);
+        if (rl == Red72::Refuses)
+            return Red72::Refuses;
+        Red72 rr = red72Int64(b.right(), actx, depth + 1, r, true);
+        if (rr == Red72::Refuses)
+            return Red72::Refuses;
+        if (rl != Red72::Value || rr != Red72::Value)
+            return Red72::Unknown;
+        switch (b.op) {
+            case BinaryOperator::Add:
+                out = (int64_t)((uint64_t)l + (uint64_t)r);
+                return Red72::Value;
+            case BinaryOperator::Subtract:
+                out = (int64_t)((uint64_t)l - (uint64_t)r);
+                return Red72::Value;
+            case BinaryOperator::Multiply:
+                out = (int64_t)((uint64_t)l * (uint64_t)r);
+                return Red72::Value;
+            case BinaryOperator::Divide:
+                if (r == 0 || (l == INT64_MIN && r == -1))
+                    return Red72::Unknown;
+                out = l / r;
+                return Red72::Value;
+            case BinaryOperator::Mod:
+                if (r == 0 || (l == INT64_MIN && r == -1))
+                    return Red72::Unknown;
+                out = l % r;
+                return Red72::Value;
+            case BinaryOperator::Power: {
+                double d = std::pow((double)l, (double)r);
+                // BEYOND int64 ABSTAINS: the producer's own render there is the
+                // cast's out-of-range artefact (measured `INT:-9223372036854775808`).
+                if (!(d >= -9223372036854775808.0) ||
+                    !(d < 9223372036854775808.0))
+                    return Red72::Unknown;
+                out = (int64_t)d;
+                return Red72::Value;
+            }
+            default:
+                return Red72::Unknown;
+        }
+    }
+    // A NAME reduces to the parameter's STORED value, which the producer built
+    // with this same table — so follow the initializer, and DECLINE when the
+    // name's own value is not that initializer's value modulo the name's width
+    // (an overridden parameter, a defaulted port).
+    if (e.kind == ExpressionKind::NamedValue ||
+        e.kind == ExpressionKind::HierarchicalValue) {
+        auto& sy = e.as<ValueExpressionBase>().symbol;
+        const Expression* in = nullptr;
+        if (sy.kind == SymbolKind::Parameter)
+            in = sy.as<ParameterSymbol>().getInitializer();
+        else if (sy.kind == SymbolKind::EnumValue)
+            in = sy.as<EnumValueSymbol>().getInitializer();
+        if (in) {
+            int64_t v = 0;
+            Red72 r = red72Int64(*in, actx, depth + 1, v, inArm);
+            if (r == Red72::Refuses)
+                return Red72::Refuses;
+            if (r == Red72::Value) {
+                ConstantValue nv = actx.tryEval(e);
+                auto w = e.type ? e.type->getBitWidth() : 0;
+                if (nv && nv.isInteger() && !nv.integer().hasUnknown() && w) {
+                    uint64_t mask = w >= 64 ? ~(uint64_t)0
+                                            : ((((uint64_t)1) << w) - 1);
+                    uint64_t nu = 0;
+                    bool got = false;
+                    if (auto s2 = nv.integer().as<int64_t>()) {
+                        nu = (uint64_t)*s2;
+                        got = true;
+                    }
+                    else if (auto u2 = nv.integer().as<uint64_t>()) {
+                        nu = *u2;
+                        got = true;
+                    }
+                    if (got && ((nu & mask) == (((uint64_t)v) & mask))) {
+                        out = v;
+                        return Red72::Value;
+                    }
+                }
+            }
+        }
+    }
+    // The wide-leaf refusal reads DIFFERENTLY inside an arm and at the operand
+    // itself; the § block on `red72WideBasedLeaf` carries both measurements.
+    // The wide boundary caught the first cut of this face treating them alike:
+    // 16 pristine-right -> patched-wrong size cells on `b3_ops68` `C_b70` /
+    // `C_d96` / `C_h65` / `C_h70` / `C_o96`, `b2_faces68` `C_wb96` and
+    // `v1_ofire68` `C_wide70` / `C_wide96`.
+    if (red72WideBasedLeaf(e, inArm))
+        return Red72::Refuses;
+    ConstantValue cv = actx.tryEval(e);
+    if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
+        return Red72::Unknown;
+    auto& iv = cv.integer();
+    if (auto s = iv.as<int64_t>()) {
+        out = *s;
+        return Red72::Value;
+    }
+    if (auto u = iv.as<uint64_t>()) {
+        out = (int64_t)*u;
+        return Red72::Value;
+    }
+    return Red72::Unknown;
+}
+
+/// § redTableOneHome72 — face (5): PROOF that the producer's walk reaches a
+/// member still stamping, i.e. that every setter before it COMPLETES.  This is
+/// r11v68's `caSetterProvenFolds68v` body, lifted into this home unchanged so
+/// that the cont_assign road and the packed-parameter road read ONE
+/// transcription of the boundary: a based literal whose FIRST digit is valid
+/// for its base (face 1), an unsized decimal, `'0`/`'1`, a string of at most 64
+/// characters, and a NAME or enum member bottoming out at one of those.
+/// EVERYTHING ELSE is unproven and leaves the pristine behaviour standing.
+/// `raw` is the caller's source-text reader.
+template <typename RawFn>
+inline bool red72SetterCompletes(const Expression& e0, int depth,
+                                 const RawFn& raw) {
+    if (depth > 32)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral: {
+            if (!e.syntax ||
+                e.syntax->kind !=
+                    slang::syntax::SyntaxKind::IntegerVectorExpression)
+                return true;  // an UNSIZED decimal: no base letter, no sign
+            std::string rawt = raw(e.sourceRange);
+            if (!red72LitDigitOk(rawt))
+                return false;
+            if (red72LitBase(rawt) == 'd') {
+                // `parseUint64` is RANGE-STRICT, so a decimal wider than 64
+                // bits of magnitude refuses where `70'h5` does not.
+                auto iv = e.as<IntegerLiteral>().getValue();
+                if (iv.hasUnknown() || !iv.as<uint64_t>())
+                    return false;
+            }
+            return true;
+        }
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+            return !e.as<UnbasedUnsizedIntegerLiteral>()
+                        .getLiteralValue()
+                        .isUnknown();
+        case ExpressionKind::StringLiteral:
+            return e.as<StringLiteral>().getValue().size() <= 64;
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue: {
+            auto& sy = e.as<ValueExpressionBase>().symbol;
+            if (sy.kind == SymbolKind::EnumValue) {
+                if (auto* ein = sy.as<EnumValueSymbol>().getInitializer())
+                    return red72SetterCompletes(*ein, depth + 1, raw);
+                return true;  // an implicit member: a counted non-negative
+            }
+            if (sy.kind != SymbolKind::Parameter)
+                return false;
+            auto* in = sy.as<ParameterSymbol>().getInitializer();
+            return in && red72SetterCompletes(*in, depth + 1, raw);
+        }
+        default:
+            return false;
+    }
+}
+
+/// § redUntypedIntNameSz72 (r11u72) — THE POST-BAIL SIZE OF AN UNTYPED
+/// LOCALPARAM WHOSE INITIALIZER IS A UNARY MINUS, AND IT IS 32.
+///
+/// § patRedSz68's NAME arm answers with slang's declared width, which for an
+/// untyped `localparam` is the INITIALIZER's own (8 for `-8'd3`, 16 for
+/// `-16'd5`).  The producer's is not: `reduceExpr`'s `vpiMinusOp` arm mints an
+/// `INT:` whose stored parameter value comes back at the untyped default 32.
+/// Measured, arm `t5_untyped72` — operand 0 is a guaranteed bail (`8'hxA`), so
+/// every operand after it prints `reduceExpr`'s OWN size against 24-bit
+/// members that collide with nothing:
+///
+///   `localparam UM8  = -8'd3`   golden `INT:-3` at **32** (slang says 8)
+///   `localparam UM4  = -4'd3`   golden `INT:-3` at **32** (slang says 4)
+///   `-UM8`                      golden `INT:3`  at **32**
+///   `localparam UH16 = 16'h28`  golden `HEX:28` at 16   — a based literal
+///   `localparam UD16 = 16'd9`   golden `DEC:`   at 16     keeps its own width
+///   `localparam UI   = 5`       golden `UINT:5` at 32
+///   `localparam byte TB = 8'sd7` golden at 8            — a TYPED name does not
+///
+/// The rule is therefore narrow and one-sided: an IMPLICITLY typed parameter
+/// with no dimensions whose initializer is a unary minus reads 32.  It is
+/// needed because § patOperandIntSixtyFour72 moves the bail onto operands this
+/// size never reached before (`x3_names` `md`, `t2_leaf72` `c`), where slang's
+/// width would be a pristine-right -> patched-wrong cell.
+inline bool red72UntypedMinusName(const Expression& e0) {
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind != ExpressionKind::NamedValue &&
+        e.kind != ExpressionKind::HierarchicalValue)
+        return false;
+    auto& sy = e.as<ValueExpressionBase>().symbol;
+    if (sy.kind != SymbolKind::Parameter)
+        return false;
+    auto& ps = sy.as<ParameterSymbol>();
+    const auto* ts = ps.getDeclaredType() ? ps.getDeclaredType()->getTypeSyntax()
+                                          : nullptr;
+    if (!ts || ts->kind != slang::syntax::SyntaxKind::ImplicitType)
+        return false;
+    auto& its = ts->as<slang::syntax::ImplicitTypeSyntax>();
+    if (!its.dimensions.empty())
+        return false;
+    const Expression* in = ps.getInitializer();
+    if (!in)
+        return false;
+    const Expression& si = stripImplicitConv(*in);
+    return si.kind == ExpressionKind::UnaryOp &&
+           si.as<UnaryExpression>().op == UnaryOperator::Minus;
 }
 
 } // namespace slang_uhdm
