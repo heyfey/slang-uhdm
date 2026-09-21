@@ -1,0 +1,33 @@
+LHS:
+decompile:
+logic_var: (pd::d_rsgn), id:139, line:11:23, endln:11:29
+|vpiParent:
+\_package: pd (pd::), id:42, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vi_defnt/dut.sv, line:4:1, endln:24:11
+|vpiTypespec:
+\_ref_typespec: (pd::d_rsgn), id:140
+  |vpiParent:
+  \_logic_var: (pd::d_rsgn), id:139, line:11:23, endln:11:29
+  |vpiFullName:pd::d_rsgn
+  |vpiActual:
+  \_logic_typespec: , id:135, line:11:3, endln:11:21
+|vpiName:d_rsgn
+|vpiFullName:pd::d_rsgn
+|vpiSigned:1
+|vpiAutomatic:1
+|vpiVisibility:1
+RHS:
+decompile:
+logic_var: (pd::d_rsgn), id:36, line:11:23, endln:11:29
+|vpiParent:
+\_package: pd (pd::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vi_defnt/dut.sv, line:4:1, endln:24:11
+|vpiTypespec:
+\_ref_typespec: (pd::d_rsgn), id:41
+  |vpiParent:
+  \_logic_var: (pd::d_rsgn), id:36, line:11:23, endln:11:29
+  |vpiFullName:pd::d_rsgn
+  |vpiActual:
+  \_logic_typespec: , id:37, line:11:3, endln:11:21
+|vpiName:d_rsgn
+|vpiFullName:pd::d_rsgn
+|vpiAutomatic:1
+|vpiVisibility:1

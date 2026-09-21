@@ -1,0 +1,707 @@
+LHS:
+decompile:
+package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+|vpiParent:
+\_design: (work@dut), id:690
+|vpiName:pt
+|vpiFullName:pt::
+|vpiVariables:
+\_bit_var: (pt::t_bit), id:341, line:16:48, endln:16:53
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_bit), id:342
+    |vpiParent:
+    \_bit_var: (pt::t_bit), id:341, line:16:48, endln:16:53
+    |vpiFullName:pt::t_bit
+    |vpiActual:
+    \_bit_typespec: (bt_t), id:336, line:15:11, endln:15:20
+  |vpiName:t_bit
+  |vpiFullName:pt::t_bit
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (pt::t_si), id:352, line:22:48, endln:22:52
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_si), id:353
+    |vpiParent:
+    \_struct_var: (pt::t_si), id:352, line:22:48, endln:22:52
+    |vpiFullName:pt::t_si
+    |vpiActual:
+    \_struct_typespec: (pt::si_t), id:184, line:21:11, endln:21:50
+  |vpiName:t_si
+  |vpiFullName:pt::t_si
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (pt::t_en), id:356, line:26:48, endln:26:52
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_en), id:357
+    |vpiParent:
+    \_enum_var: (pt::t_en), id:356, line:26:48, endln:26:52
+    |vpiFullName:pt::t_en
+    |vpiActual:
+    \_enum_typespec: (pt::en_t), id:211, line:25:3, endln:25:53
+  |vpiName:t_en
+  |vpiFullName:pt::t_en
+  |vpiVisibility:1
+|vpiVariables:
+\_union_var: (pt::t_anonu), id:400, line:32:59, endln:32:66
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_anonu), id:401
+    |vpiParent:
+    \_union_var: (pt::t_anonu), id:400, line:32:59, endln:32:66
+    |vpiFullName:pt::t_anonu
+    |vpiActual:
+    \_union_typespec: , id:387, line:32:3, endln:32:8
+  |vpiName:t_anonu
+  |vpiFullName:pt::t_anonu
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (pt::t_us), id:402, line:34:48, endln:34:52
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_us), id:403
+    |vpiParent:
+    \_struct_var: (pt::t_us), id:402, line:34:48, endln:34:52
+    |vpiFullName:pt::t_us
+    |vpiActual:
+    \_struct_typespec: (pt::us_t), id:231, line:33:11, endln:33:44
+  |vpiName:t_us
+  |vpiFullName:pt::t_us
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (pt::t_anonsi), id:420, line:41:48, endln:41:56
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_anonsi), id:421
+    |vpiParent:
+    \_struct_var: (pt::t_anonsi), id:420, line:41:48, endln:41:56
+    |vpiFullName:pt::t_anonsi
+    |vpiActual:
+    \_struct_typespec: , id:410, line:41:3, endln:41:9
+  |vpiName:t_anonsi
+  |vpiFullName:pt::t_anonsi
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_bit_typespec: (pt::bt_t), id:162, line:15:11, endln:15:20
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::bt_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiRange:
+  \_range: , id:159, line:15:15, endln:15:20
+    |vpiParent:
+    \_bit_typespec: (pt::bt_t), id:162, line:15:11, endln:15:20
+    |vpiLeftRange:
+    \_constant: , id:160, line:15:16, endln:15:17
+      |vpiParent:
+      \_range: , id:159, line:15:15, endln:15:20
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:161, line:15:18, endln:15:19
+      |vpiParent:
+      \_range: , id:159, line:15:15, endln:15:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_enum_typespec: (pt::en_t), id:211, line:25:3, endln:25:53
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::en_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pt::pt::en_t), id:212
+    |vpiParent:
+    \_enum_typespec: (pt::en_t), id:211, line:25:3, endln:25:53
+    |vpiFullName:pt::pt::en_t
+    |vpiActual:
+    \_logic_typespec: , id:210, line:25:16, endln:25:27
+  |vpiEnumConst:
+  \_enum_const: (EA), id:214, line:25:30, endln:25:32
+    |vpiParent:
+    \_enum_typespec: (pt::en_t), id:211, line:25:3, endln:25:53
+    |vpiName:EA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (EB), id:215, line:25:34, endln:25:36
+    |vpiParent:
+    \_enum_typespec: (pt::en_t), id:211, line:25:3, endln:25:53
+    |vpiName:EB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_int_typespec: (pt::int_t), id:230, line:29:11, endln:29:14
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::int_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiSigned:1
+|vpiTypedef:
+\_logic_typespec: (pt::parr_t), id:229, line:27:11, endln:27:27
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::parr_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiRange:
+  \_range: , id:223, line:27:17, endln:27:22
+    |vpiParent:
+    \_logic_typespec: (pt::parr_t), id:229, line:27:11, endln:27:27
+    |vpiLeftRange:
+    \_constant: , id:224, line:27:18, endln:27:19
+      |vpiParent:
+      \_range: , id:223, line:27:17, endln:27:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:225, line:27:20, endln:27:21
+      |vpiParent:
+      \_range: , id:223, line:27:17, endln:27:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , id:226, line:27:22, endln:27:27
+    |vpiParent:
+    \_logic_typespec: (pt::parr_t), id:229, line:27:11, endln:27:27
+    |vpiLeftRange:
+    \_constant: , id:227, line:27:23, endln:27:24
+      |vpiParent:
+      \_range: , id:226, line:27:22, endln:27:27
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:228, line:27:25, endln:27:26
+      |vpiParent:
+      \_range: , id:226, line:27:22, endln:27:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_logic_typespec: (pt::rg_t), id:170, line:17:11, endln:17:20
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::rg_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiRange:
+  \_range: , id:167, line:17:15, endln:17:20
+    |vpiParent:
+    \_logic_typespec: (pt::rg_t), id:170, line:17:11, endln:17:20
+    |vpiLeftRange:
+    \_constant: , id:168, line:17:16, endln:17:17
+      |vpiParent:
+      \_range: , id:167, line:17:15, endln:17:20
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:169, line:17:18, endln:17:19
+      |vpiParent:
+      \_range: , id:167, line:17:15, endln:17:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_struct_typespec: (pt::si_t), id:184, line:21:11, endln:21:50
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::si_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:186, line:21:31, endln:21:32
+    |vpiParent:
+    \_struct_typespec: (pt::si_t), id:184, line:21:11, endln:21:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::si_t::x), id:187
+      |vpiParent:
+      \_typespec_member: (x), id:186, line:21:31, endln:21:32
+      |vpiFullName:pt::pt::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:185, line:21:27, endln:21:30
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:192, line:21:46, endln:21:47
+    |vpiParent:
+    \_struct_typespec: (pt::si_t), id:184, line:21:11, endln:21:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::si_t::y), id:193
+      |vpiParent:
+      \_typespec_member: (y), id:192, line:21:46, endln:21:47
+      |vpiFullName:pt::pt::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:191, line:21:34, endln:21:45
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (pt::st_t), id:171, line:19:11, endln:19:58
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::st_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:176, line:19:39, endln:19:40
+    |vpiParent:
+    \_struct_typespec: (pt::st_t), id:171, line:19:11, endln:19:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::st_t::x), id:177
+      |vpiParent:
+      \_typespec_member: (x), id:176, line:19:39, endln:19:40
+      |vpiFullName:pt::pt::st_t::x
+      |vpiActual:
+      \_logic_typespec: , id:175, line:19:27, endln:19:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:182, line:19:54, endln:19:55
+    |vpiParent:
+    \_struct_typespec: (pt::st_t), id:171, line:19:11, endln:19:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::st_t::y), id:183
+      |vpiParent:
+      \_typespec_member: (y), id:182, line:19:54, endln:19:55
+      |vpiFullName:pt::pt::st_t::y
+      |vpiActual:
+      \_logic_typespec: , id:181, line:19:42, endln:19:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_union_typespec: (pt::un_t), id:194, line:23:11, endln:23:58
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::un_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:199, line:23:39, endln:23:40
+    |vpiParent:
+    \_union_typespec: (pt::un_t), id:194, line:23:11, endln:23:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::un_t::a), id:200
+      |vpiParent:
+      \_typespec_member: (a), id:199, line:23:39, endln:23:40
+      |vpiFullName:pt::pt::un_t::a
+      |vpiActual:
+      \_logic_typespec: , id:198, line:23:27, endln:23:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:205, line:23:54, endln:23:55
+    |vpiParent:
+    \_union_typespec: (pt::un_t), id:194, line:23:11, endln:23:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::un_t::b), id:206
+      |vpiParent:
+      \_typespec_member: (b), id:205, line:23:54, endln:23:55
+      |vpiFullName:pt::pt::un_t::b
+      |vpiActual:
+      \_logic_typespec: , id:204, line:23:42, endln:23:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_struct_typespec: (pt::us_t), id:231, line:33:11, endln:33:44
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::us_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:236, line:33:32, endln:33:33
+    |vpiParent:
+    \_struct_typespec: (pt::us_t), id:231, line:33:11, endln:33:44
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::us_t::a), id:237
+      |vpiParent:
+      \_typespec_member: (a), id:236, line:33:32, endln:33:33
+      |vpiFullName:pt::pt::us_t::a
+      |vpiActual:
+      \_logic_typespec: , id:235, line:33:20, endln:33:31
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:33
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:33
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:239, line:33:40, endln:33:41
+    |vpiParent:
+    \_struct_typespec: (pt::us_t), id:231, line:33:11, endln:33:44
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::us_t::b), id:240
+      |vpiParent:
+      \_typespec_member: (b), id:239, line:33:40, endln:33:41
+      |vpiFullName:pt::pt::us_t::b
+      |vpiActual:
+      \_byte_typespec: , id:238, line:33:35, endln:33:39
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:33
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:33
+    |vpiRefEndColumnNo:39
+|vpiTypedef:
+\_struct_typespec: (pt::usl_t), id:251, line:37:11, endln:37:51
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::usl_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:256, line:37:32, endln:37:33
+    |vpiParent:
+    \_struct_typespec: (pt::usl_t), id:251, line:37:11, endln:37:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::usl_t::a), id:257
+      |vpiParent:
+      \_typespec_member: (a), id:256, line:37:32, endln:37:33
+      |vpiFullName:pt::pt::usl_t::a
+      |vpiActual:
+      \_logic_typespec: , id:255, line:37:20, endln:37:31
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:37
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:37
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:262, line:37:47, endln:37:48
+    |vpiParent:
+    \_struct_typespec: (pt::usl_t), id:251, line:37:11, endln:37:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::usl_t::b), id:263
+      |vpiParent:
+      \_typespec_member: (b), id:262, line:37:47, endln:37:48
+      |vpiFullName:pt::pt::usl_t::b
+      |vpiActual:
+      \_logic_typespec: , id:261, line:37:35, endln:37:46
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:37
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:37
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_union_typespec: (pt::uu_t), id:241, line:35:11, endln:35:44
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::uu_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:246, line:35:32, endln:35:33
+    |vpiParent:
+    \_union_typespec: (pt::uu_t), id:241, line:35:11, endln:35:44
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::uu_t::a), id:247
+      |vpiParent:
+      \_typespec_member: (a), id:246, line:35:32, endln:35:33
+      |vpiFullName:pt::pt::uu_t::a
+      |vpiActual:
+      \_logic_typespec: , id:245, line:35:20, endln:35:31
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:35
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:35
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:249, line:35:40, endln:35:41
+    |vpiParent:
+    \_union_typespec: (pt::uu_t), id:241, line:35:11, endln:35:44
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::uu_t::b), id:250
+      |vpiParent:
+      \_typespec_member: (b), id:249, line:35:40, endln:35:41
+      |vpiFullName:pt::pt::uu_t::b
+      |vpiActual:
+      \_byte_typespec: , id:248, line:35:35, endln:35:39
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:35
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:35
+    |vpiRefEndColumnNo:39
+|vpiTypedef:
+\_union_typespec: (pt::uul_t), id:264, line:39:11, endln:39:51
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::uul_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:269, line:39:32, endln:39:33
+    |vpiParent:
+    \_union_typespec: (pt::uul_t), id:264, line:39:11, endln:39:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::uul_t::a), id:270
+      |vpiParent:
+      \_typespec_member: (a), id:269, line:39:32, endln:39:33
+      |vpiFullName:pt::pt::uul_t::a
+      |vpiActual:
+      \_logic_typespec: , id:268, line:39:20, endln:39:31
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:39
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:39
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:275, line:39:47, endln:39:48
+    |vpiParent:
+    \_union_typespec: (pt::uul_t), id:264, line:39:11, endln:39:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pt::pt::uul_t::b), id:276
+      |vpiParent:
+      \_typespec_member: (b), id:275, line:39:47, endln:39:48
+      |vpiFullName:pt::pt::uul_t::b
+      |vpiActual:
+      \_logic_typespec: , id:274, line:39:35, endln:39:46
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv
+    |vpiRefLineNo:39
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:39
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_logic_typespec: (pt::word_t), id:154, line:11:11, endln:11:22
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiName:pt::word_t
+  |vpiInstance:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiRange:
+  \_range: , id:151, line:11:17, endln:11:22
+    |vpiParent:
+    \_logic_typespec: (pt::word_t), id:154, line:11:11, endln:11:22
+    |vpiLeftRange:
+    \_constant: , id:152, line:11:18, endln:11:19
+      |vpiParent:
+      \_range: , id:151, line:11:17, endln:11:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:153, line:11:20, endln:11:21
+      |vpiParent:
+      \_range: , id:151, line:11:17, endln:11:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:pt
+|vpiNet:
+\_logic_net: (pt::t_word), id:761, line:12:48, endln:12:54
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_word), id:767
+    |vpiParent:
+    \_logic_net: (pt::t_word), id:761, line:12:48, endln:12:54
+    |vpiFullName:pt::t_word
+    |vpiActual:
+    \_logic_typespec: (pt::word_t), id:762, line:11:11, endln:11:22
+  |vpiName:t_word
+  |vpiFullName:pt::t_word
+|vpiNet:
+\_logic_net: (pt::t_word2), id:768, line:14:48, endln:14:55
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_word2), id:770
+    |vpiParent:
+    \_logic_net: (pt::t_word2), id:768, line:14:48, endln:14:55
+    |vpiFullName:pt::t_word2
+    |vpiActual:
+    \_unsupported_typespec: (word2_t), id:769, line:14:3, endln:14:10
+  |vpiName:t_word2
+  |vpiFullName:pt::t_word2
+|vpiNet:
+\_logic_net: (pt::t_reg), id:771, line:18:48, endln:18:53
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_reg), id:777
+    |vpiParent:
+    \_logic_net: (pt::t_reg), id:771, line:18:48, endln:18:53
+    |vpiFullName:pt::t_reg
+    |vpiActual:
+    \_logic_typespec: (pt::rg_t), id:772, line:17:11, endln:17:20
+  |vpiName:t_reg
+  |vpiFullName:pt::t_reg
+|vpiNet:
+\_logic_net: (pt::t_st), id:778, line:20:48, endln:20:52
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_st), id:779
+    |vpiParent:
+    \_logic_net: (pt::t_st), id:778, line:20:48, endln:20:52
+    |vpiFullName:pt::t_st
+    |vpiActual:
+    \_struct_typespec: (pt::st_t), id:171, line:19:11, endln:19:58
+  |vpiName:t_st
+  |vpiFullName:pt::t_st
+|vpiNet:
+\_logic_net: (pt::t_un), id:780, line:24:48, endln:24:52
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_un), id:781
+    |vpiParent:
+    \_logic_net: (pt::t_un), id:780, line:24:48, endln:24:52
+    |vpiFullName:pt::t_un
+    |vpiActual:
+    \_union_typespec: (pt::un_t), id:194, line:23:11, endln:23:58
+  |vpiName:t_un
+  |vpiFullName:pt::t_un
+|vpiNet:
+\_logic_net: (pt::t_parr), id:782, line:28:48, endln:28:54
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_parr), id:791
+    |vpiParent:
+    \_logic_net: (pt::t_parr), id:782, line:28:48, endln:28:54
+    |vpiFullName:pt::t_parr
+    |vpiActual:
+    \_logic_typespec: (pt::parr_t), id:783, line:27:11, endln:27:27
+  |vpiName:t_parr
+  |vpiFullName:pt::t_parr
+|vpiNet:
+\_logic_net: (pt::t_int), id:792, line:30:48, endln:30:53
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_int), id:795
+    |vpiParent:
+    \_logic_net: (pt::t_int), id:792, line:30:48, endln:30:53
+    |vpiFullName:pt::t_int
+    |vpiActual:
+    \_int_typespec: (pt::int_t), id:793, line:29:11, endln:29:14
+  |vpiName:t_int
+  |vpiFullName:pt::t_int
+|vpiNet:
+\_logic_net: (pt::t_anon), id:796, line:31:59, endln:31:65
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_anon), id:810
+    |vpiParent:
+    \_logic_net: (pt::t_anon), id:796, line:31:59, endln:31:65
+    |vpiFullName:pt::t_anon
+    |vpiActual:
+    \_struct_typespec: , id:797, line:31:3, endln:31:16
+  |vpiName:t_anon
+  |vpiFullName:pt::t_anon
+|vpiNet:
+\_logic_net: (pt::t_uu), id:811, line:36:48, endln:36:52
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_uu), id:812
+    |vpiParent:
+    \_logic_net: (pt::t_uu), id:811, line:36:48, endln:36:52
+    |vpiFullName:pt::t_uu
+    |vpiActual:
+    \_union_typespec: (pt::uu_t), id:241, line:35:11, endln:35:44
+  |vpiName:t_uu
+  |vpiFullName:pt::t_uu
+|vpiNet:
+\_logic_net: (pt::t_usl), id:813, line:38:48, endln:38:53
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_usl), id:814
+    |vpiParent:
+    \_logic_net: (pt::t_usl), id:813, line:38:48, endln:38:53
+    |vpiFullName:pt::t_usl
+    |vpiActual:
+    \_struct_typespec: (pt::usl_t), id:251, line:37:11, endln:37:51
+  |vpiName:t_usl
+  |vpiFullName:pt::t_usl
+|vpiNet:
+\_logic_net: (pt::t_uul), id:815, line:40:48, endln:40:53
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_uul), id:816
+    |vpiParent:
+    \_logic_net: (pt::t_uul), id:815, line:40:48, endln:40:53
+    |vpiFullName:pt::t_uul
+    |vpiActual:
+    \_union_typespec: (pt::uul_t), id:264, line:39:11, endln:39:51
+  |vpiName:t_uul
+  |vpiFullName:pt::t_uul
+|vpiNet:
+\_logic_net: (pt::t_anonus), id:817, line:42:48, endln:42:56
+  |vpiParent:
+  \_package: pt (pt::), id:146, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z3_pkgtdnet/dut.sv, line:10:1, endln:43:11
+  |vpiTypespec:
+  \_ref_typespec: (pt::t_anonus), id:831
+    |vpiParent:
+    \_logic_net: (pt::t_anonus), id:817, line:42:48, endln:42:56
+    |vpiFullName:pt::t_anonus
+    |vpiActual:
+    \_struct_typespec: , id:818, line:42:3, endln:42:26
+  |vpiName:t_anonus
+  |vpiFullName:pt::t_anonus
+RHS: <null>

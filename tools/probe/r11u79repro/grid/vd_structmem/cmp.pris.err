@@ -1,0 +1,359 @@
+LHS:
+decompile:
+package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+|vpiParent:
+\_design: (work@dut), id:393
+|vpiName:ps
+|vpiFullName:ps::
+|vpiVariables:
+\_struct_var: (ps::v_senum), id:273, line:13:16, endln:13:23
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (ps::v_senum), id:274
+    |vpiParent:
+    \_struct_var: (ps::v_senum), id:273, line:13:16, endln:13:23
+    |vpiFullName:ps::v_senum
+    |vpiActual:
+    \_struct_typespec: (ps::s_enum_t), id:106, line:8:11, endln:8:57
+  |vpiName:v_senum
+  |vpiFullName:ps::v_senum
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (ps::v_sbit), id:275, line:14:16, endln:14:22
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (ps::v_sbit), id:276
+    |vpiParent:
+    \_struct_var: (ps::v_sbit), id:275, line:14:16, endln:14:22
+    |vpiFullName:ps::v_sbit
+    |vpiActual:
+    \_struct_typespec: (ps::s_bit_t), id:115, line:9:11, endln:9:57
+  |vpiName:v_sbit
+  |vpiFullName:ps::v_sbit
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (ps::v_spas), id:277, line:15:16, endln:15:22
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (ps::v_spas), id:278
+    |vpiParent:
+    \_struct_var: (ps::v_spas), id:277, line:15:16, endln:15:22
+    |vpiFullName:ps::v_spas
+    |vpiActual:
+    \_struct_typespec: (ps::s_pastruct_t), id:128, line:10:11, endln:10:59
+  |vpiName:v_spas
+  |vpiFullName:ps::v_spas
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (ps::base_t), id:84, line:6:11, endln:6:58
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiName:ps::base_t
+  |vpiInstance:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:89, line:6:39, endln:6:40
+    |vpiParent:
+    \_struct_typespec: (ps::base_t), id:84, line:6:11, endln:6:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::base_t::x), id:90
+      |vpiParent:
+      \_typespec_member: (x), id:89, line:6:39, endln:6:40
+      |vpiFullName:ps::ps::base_t::x
+      |vpiActual:
+      \_logic_typespec: , id:88, line:6:27, endln:6:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:95, line:6:54, endln:6:55
+    |vpiParent:
+    \_struct_typespec: (ps::base_t), id:84, line:6:11, endln:6:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::base_t::y), id:96
+      |vpiParent:
+      \_typespec_member: (y), id:95, line:6:54, endln:6:55
+      |vpiFullName:ps::ps::base_t::y
+      |vpiActual:
+      \_logic_typespec: , id:94, line:6:42, endln:6:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_enum_typespec: (ps::e_t), id:101, line:7:3, endln:7:43
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiName:ps::e_t
+  |vpiInstance:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (ps::ps::e_t), id:102
+    |vpiParent:
+    \_enum_typespec: (ps::e_t), id:101, line:7:3, endln:7:43
+    |vpiFullName:ps::ps::e_t
+    |vpiActual:
+    \_logic_typespec: , id:100, line:7:16, endln:7:27
+  |vpiEnumConst:
+  \_enum_const: (QA), id:104, line:7:30, endln:7:32
+    |vpiParent:
+    \_enum_typespec: (ps::e_t), id:101, line:7:3, endln:7:43
+    |vpiName:QA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (QB), id:105, line:7:34, endln:7:36
+    |vpiParent:
+    \_enum_typespec: (ps::e_t), id:101, line:7:3, endln:7:43
+    |vpiName:QB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (ps::s_bit_t), id:115, line:9:11, endln:9:57
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiName:ps::s_bit_t
+  |vpiInstance:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (m), id:120, line:9:37, endln:9:38
+    |vpiParent:
+    \_struct_typespec: (ps::s_bit_t), id:115, line:9:11, endln:9:57
+    |vpiName:m
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_bit_t::m), id:121
+      |vpiParent:
+      \_typespec_member: (m), id:120, line:9:37, endln:9:38
+      |vpiFullName:ps::ps::s_bit_t::m
+      |vpiActual:
+      \_bit_typespec: , id:119, line:9:27, endln:9:36
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:36
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:126, line:9:53, endln:9:54
+    |vpiParent:
+    \_struct_typespec: (ps::s_bit_t), id:115, line:9:11, endln:9:57
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_bit_t::y), id:127
+      |vpiParent:
+      \_typespec_member: (y), id:126, line:9:53, endln:9:54
+      |vpiFullName:ps::ps::s_bit_t::y
+      |vpiActual:
+      \_logic_typespec: , id:125, line:9:41, endln:9:52
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:52
+|vpiTypedef:
+\_struct_typespec: (ps::s_enum_t), id:106, line:8:11, endln:8:57
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiName:ps::s_enum_t
+  |vpiInstance:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (m), id:107, line:8:31, endln:8:32
+    |vpiParent:
+    \_struct_typespec: (ps::s_enum_t), id:106, line:8:11, endln:8:57
+    |vpiName:m
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_enum_t::m), id:108
+      |vpiParent:
+      \_typespec_member: (m), id:107, line:8:31, endln:8:32
+      |vpiFullName:ps::ps::s_enum_t::m
+      |vpiActual:
+      \_enum_typespec: (ps::e_t), id:101, line:7:3, endln:7:43
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:113, line:8:53, endln:8:54
+    |vpiParent:
+    \_struct_typespec: (ps::s_enum_t), id:106, line:8:11, endln:8:57
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_enum_t::y), id:114
+      |vpiParent:
+      \_typespec_member: (y), id:113, line:8:53, endln:8:54
+      |vpiFullName:ps::ps::s_enum_t::y
+      |vpiActual:
+      \_logic_typespec: , id:112, line:8:41, endln:8:52
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:52
+|vpiTypedef:
+\_struct_typespec: (ps::s_pa_t), id:152, line:12:11, endln:12:57
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiName:ps::s_pa_t
+  |vpiInstance:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (m), id:160, line:12:44, endln:12:45
+    |vpiParent:
+    \_struct_typespec: (ps::s_pa_t), id:152, line:12:11, endln:12:57
+    |vpiName:m
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_pa_t::m), id:161
+      |vpiParent:
+      \_typespec_member: (m), id:160, line:12:44, endln:12:45
+      |vpiFullName:ps::ps::s_pa_t::m
+      |vpiActual:
+      \_logic_typespec: , id:159, line:12:27, endln:12:43
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:43
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:163, line:12:53, endln:12:54
+    |vpiParent:
+    \_struct_typespec: (ps::s_pa_t), id:152, line:12:11, endln:12:57
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_pa_t::y), id:164
+      |vpiParent:
+      \_typespec_member: (y), id:163, line:12:53, endln:12:54
+      |vpiFullName:ps::ps::s_pa_t::y
+      |vpiActual:
+      \_logic_typespec: , id:162, line:12:47, endln:12:52
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:47
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:52
+|vpiTypedef:
+\_struct_typespec: (ps::s_pastruct_t), id:128, line:10:11, endln:10:59
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiName:ps::s_pastruct_t
+  |vpiInstance:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (m), id:134, line:10:40, endln:10:41
+    |vpiParent:
+    \_struct_typespec: (ps::s_pastruct_t), id:128, line:10:11, endln:10:59
+    |vpiName:m
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_pastruct_t::m), id:135
+      |vpiParent:
+      \_typespec_member: (m), id:134, line:10:40, endln:10:41
+      |vpiFullName:ps::ps::s_pastruct_t::m
+      |vpiActual:
+      \_packed_array_typespec: , id:133, line:10:27, endln:10:39
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:39
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:140, line:10:55, endln:10:56
+    |vpiParent:
+    \_struct_typespec: (ps::s_pastruct_t), id:128, line:10:11, endln:10:59
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_pastruct_t::y), id:141
+      |vpiParent:
+      \_typespec_member: (y), id:140, line:10:55, endln:10:56
+      |vpiFullName:ps::ps::s_pastruct_t::y
+      |vpiActual:
+      \_logic_typespec: , id:139, line:10:43, endln:10:54
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:43
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:54
+|vpiTypedef:
+\_struct_typespec: (ps::s_signed_t), id:142, line:11:11, endln:11:59
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiName:ps::s_signed_t
+  |vpiInstance:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (m), id:147, line:11:46, endln:11:47
+    |vpiParent:
+    \_struct_typespec: (ps::s_signed_t), id:142, line:11:11, endln:11:59
+    |vpiName:m
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_signed_t::m), id:148
+      |vpiParent:
+      \_typespec_member: (m), id:147, line:11:46, endln:11:47
+      |vpiFullName:ps::ps::s_signed_t::m
+      |vpiActual:
+      \_logic_typespec: , id:146, line:11:27, endln:11:45
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:45
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:150, line:11:55, endln:11:56
+    |vpiParent:
+    \_struct_typespec: (ps::s_signed_t), id:142, line:11:11, endln:11:59
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (ps::ps::s_signed_t::y), id:151
+      |vpiParent:
+      \_typespec_member: (y), id:150, line:11:55, endln:11:56
+      |vpiFullName:ps::ps::s_signed_t::y
+      |vpiActual:
+      \_logic_typespec: , id:149, line:11:49, endln:11:54
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:49
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:54
+|vpiDefName:ps
+|vpiNet:
+\_logic_net: (ps::v_ssgn), id:398, line:16:16, endln:16:22
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (ps::v_ssgn), id:399
+    |vpiParent:
+    \_logic_net: (ps::v_ssgn), id:398, line:16:16, endln:16:22
+    |vpiFullName:ps::v_ssgn
+    |vpiActual:
+    \_struct_typespec: (ps::s_signed_t), id:142, line:11:11, endln:11:59
+  |vpiName:v_ssgn
+  |vpiFullName:ps::v_ssgn
+|vpiNet:
+\_logic_net: (ps::v_spa), id:400, line:17:16, endln:17:21
+  |vpiParent:
+  \_package: ps (ps::), id:83, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vd_structmem/dut.sv, line:5:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (ps::v_spa), id:401
+    |vpiParent:
+    \_logic_net: (ps::v_spa), id:400, line:17:16, endln:17:21
+    |vpiFullName:ps::v_spa
+    |vpiActual:
+    \_struct_typespec: (ps::s_pa_t), id:152, line:12:11, endln:12:57
+  |vpiName:v_spa
+  |vpiFullName:ps::v_spa
+RHS: <null>

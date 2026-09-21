@@ -1,0 +1,23 @@
+decompile:
+real_typespec: (r1_t), id:348, line:31:11, endln:31:15
+|vpiParent:
+\_real_var: (q8::k_r1), id:350, line:33:51, endln:33:55
+|vpiName:r1_t
+|vpiTypedefAlias:
+\_ref_typespec: (q8::k_r1::r1_t), id:349
+  |vpiParent:
+  \_real_typespec: (r1_t), id:348, line:31:11, endln:31:15
+  |vpiFullName:q8::k_r1::r1_t
+  |vpiActual:
+  \_real_typespec: (q8::r1_t), id:211, line:31:11, endln:31:15
+|vpiInstance:
+\_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+
+decompile:
+real_typespec: (q8::r1_t), id:86, line:31:11, endln:31:15
+|vpiParent:
+\_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+|vpiName:q8::r1_t
+|vpiInstance:
+\_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+

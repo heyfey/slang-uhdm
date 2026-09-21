@@ -1,0 +1,66 @@
+# r11u79 GATES — all mandatory gates, one place
+
+## build
+pristine c56e3f2c141ee7e9a6bb41c9d4e38f8c == main tree @15ff66f6 == OPS pin
+patched  67a6075c5d761d74bd4a28b0d0cf0b6b
+
+## goldens
+patched PASS 23 FAIL 0 / pristine PASS 23 FAIL 0 / /bin/false PASS 0 FAIL 23
+
+## uhdm2rtlil
+u2r_tf_patch.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+u2r_def_patch.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+u2r_tf_pris.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+u2r_def_pris.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+byteverify SELFCHECK=1 patched vs own pristine: MOVERS 0 / 1608 (selfcheck 1607/1608)
+
+## surelog
+== sl_patch.csv
+    474    default/CMP_EQUAL
+    469    testflags/CMP_EQUAL
+    286    testflags/SLANG_REJECT
+    285    default/SLANG_REJECT
+     25    default/SURELOG_FAIL
+     23    testflags/SURELOG_FAIL
+      9    default/CMP_NOTEQUAL
+      8    testflags/CMP_NOTEQUAL
+      5    testflags/DEFERRED
+      5    default/DEFERRED
+      3    testflags/NO_DATABASE
+      2    testflags/UNTRANSLATABLE
+      1    testflags/TIMEOUT
+      1    testflags/NO_UHDM
+== sl_pris.csv
+    474    default/CMP_EQUAL
+    469    testflags/CMP_EQUAL
+    286    testflags/SLANG_REJECT
+    285    default/SLANG_REJECT
+     25    default/SURELOG_FAIL
+     23    testflags/SURELOG_FAIL
+      9    default/CMP_NOTEQUAL
+      8    testflags/CMP_NOTEQUAL
+      5    testflags/DEFERRED
+      5    default/DEFERRED
+      3    testflags/NO_DATABASE
+      2    testflags/UNTRANSLATABLE
+      1    testflags/TIMEOUT
+      1    testflags/NO_UHDM
+byteverify SELFCHECK=1 patched vs own pristine: MOVERS 5 / 960 (selfcheck 959/960)
+
+## canary database byte pins (patched vs own pristine)
+  SVSwitch/default 4842211c4030 SAME
+  SVSwitch/testflags 4842211c4030 SAME
+  YosysVerx/default 6ccda350c24a SAME
+  YosysVerx/testflags 6ccda350c24a SAME
+  InterfaceModPort/default 59a365f3ce2c SAME
+  InterfaceModPort/testflags 59a365f3ce2c SAME
+  YosysOldOr/default d68e0796d62c SAME
+  YosysOldOr/testflags d68e0796d62c SAME
+  BlackParrotComplex/default e3e354129d5a SAME
+  BlackParrotComplex/testflags 73a10e8217e5 SAME
+  Earlgrey_0_1/default 8bdf25272e08 SAME
+  Earlgrey_0_1/testflags 59d0ee6d10c3 SAME
+
+## binary path audit
+  u2r     patch 1742/1742  pris 1742/1742   other-tree 0
+  surelog patch 1531/1581  pris 1531/1581   other-tree 0 (50 surelog-side failures never invoked an exporter)

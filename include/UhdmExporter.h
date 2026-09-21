@@ -8549,6 +8549,17 @@ private:
                         const std::string& prefix,
                         UHDM::VectorOfvariables* out,
                         bool stampTsInstance = true);
+    /// § caPkgListingIsTheSignalVector79 (r11u79, LAW A) — the FIXED-SIZE
+    /// unpacked-array entry of a PACKAGE's own variable listing: an
+    /// `array_var` wrapping the element type's own variable kind, sized 1 in
+    /// the def view and FLATTENED in the elaborated one.  Returns false when
+    /// the shape is not this law's (no written declarator dimension, a
+    /// degenerate count) and the caller must leave the entry unlisted.  The
+    /// law, its Surelog citations and the measured element/dimension table
+    /// live at the definition in src/ParamEmit.cpp.
+    bool emitPkgFixedArrayVar79(const slang::ast::Symbol& vs,
+                                UHDM::instance* up, const std::string& prefix,
+                                UHDM::VectorOfvariables* out, bool topView79);
     // § pkgInitRefBindsOwnListing47 — resolve the vpiActual of every UNQUALIFIED
     // ref inside the INITIALISERS of a finished VARIABLE LISTING against that
     // SAME listing, FIRST entry of the name winning, and drop a binding that

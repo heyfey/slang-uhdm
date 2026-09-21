@@ -1,0 +1,19 @@
+LHS:
+decompile:
+unsupported_typespec: (word2_t), id:594, line:18:3, endln:18:10
+|vpiName:word2_t
+|vpiInstance:
+\_package: pd (pd::), id:73, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+RHS:
+decompile:
+logic_typespec: (pd::word2_t), id:95, line:17:11, endln:17:17
+|vpiName:pd::word2_t
+|vpiTypedefAlias:
+\_ref_typespec: (pd::word2_t), id:96
+  |vpiParent:
+  \_logic_typespec: (pd::word2_t), id:95, line:17:11, endln:17:17
+  |vpiFullName:pd::word2_t
+  |vpiActual:
+  \_logic_typespec: (pd::word2_t), id:7, line:15:11, endln:15:22
+|vpiInstance:
+\_package: pd (pd::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11

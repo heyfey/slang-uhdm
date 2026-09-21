@@ -1,0 +1,8 @@
+decompile:
+ref_typespec: (pq::q_chd), id:90
+|vpiParent:
+\_chandle_var: (pq::q_chd), id:88, line:32:21, endln:32:26
+|vpiFullName:pq::q_chd
+|vpiActual:
+\_chandle_typespec: , id:89, line:32:3, endln:32:10
+

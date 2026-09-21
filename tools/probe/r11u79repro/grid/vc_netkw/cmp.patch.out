@@ -1,0 +1,31 @@
+decompile:
+logic_net: (work@dut.k_signed), id:243, line:8:21, endln:8:29
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:428, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vc_netkw/dut.sv, line:11:1, endln:22:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.k_signed), id:244
+  |vpiParent:
+  \_logic_net: (work@dut.k_signed), id:243, line:8:21, endln:8:29
+  |vpiFullName:work@dut.k_signed
+  |vpiActual:
+  \_logic_typespec: , id:242, line:8:3, endln:8:20
+|vpiName:k_signed
+|vpiFullName:work@dut.k_signed
+|vpiNetType:1
+|vpiSigned:1
+
+decompile:
+logic_net: (work@dut.k_signed), id:227, line:8:21, endln:8:29
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:196, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vc_netkw/dut.sv, line:11:1, endln:22:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.k_signed), id:232
+  |vpiParent:
+  \_logic_net: (work@dut.k_signed), id:227, line:8:21, endln:8:29
+  |vpiFullName:work@dut.k_signed
+  |vpiActual:
+  \_logic_typespec: , id:228, line:8:3, endln:8:20
+|vpiName:k_signed
+|vpiFullName:work@dut.k_signed
+|vpiNetType:1
+

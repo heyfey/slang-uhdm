@@ -1,0 +1,379 @@
+decompile:
+package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+|vpiParent:
+\_design: (work@dut), id:506
+|vpiName:q3
+|vpiFullName:q3::
+|vpiParameter:
+\_type_parameter: (q3::T_t), id:157, line:30:23, endln:30:26
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiName:T_t
+  |vpiFullName:q3::T_t
+  |vpiTypespec:
+  \_ref_typespec: (q3::T_t), id:162
+    |vpiParent:
+    \_type_parameter: (q3::T_t), id:157, line:30:23, endln:30:26
+    |vpiFullName:q3::T_t
+    |vpiActual:
+    \_logic_typespec: , id:161, line:30:29, endln:30:40
+|vpiTypedef:
+\_logic_typespec: (q3base::b_t), id:11, line:6:11, endln:6:22
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:663, file:q3_tdchain/dut.sv, line:37:1, endln:44:10
+  |vpiName:q3base::b_t
+  |vpiInstance:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:8, line:6:17, endln:6:22
+    |vpiParent:
+    \_logic_typespec: (q3base::b_t), id:11, line:6:11, endln:6:22
+    |vpiLeftRange:
+    \_constant: , id:9, line:6:18, endln:6:19
+      |vpiParent:
+      \_range: , id:8, line:6:17, endln:6:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:10, line:6:20, endln:6:21
+      |vpiParent:
+      \_range: , id:8, line:6:17, endln:6:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_bit_typespec: (q3::bt_t), id:170, line:32:11, endln:32:20
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiName:q3::bt_t
+  |vpiInstance:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:167, line:32:15, endln:32:20
+    |vpiParent:
+    \_bit_typespec: (q3::bt_t), id:170, line:32:11, endln:32:20
+    |vpiLeftRange:
+    \_constant: , id:168, line:32:16, endln:32:17
+      |vpiParent:
+      \_range: , id:167, line:32:15, endln:32:20
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:169, line:32:18, endln:32:19
+      |vpiParent:
+      \_range: , id:167, line:32:15, endln:32:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_logic_typespec: (q3::h1_t), id:134, line:11:11, endln:11:22
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiName:q3::h1_t
+  |vpiInstance:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:131, line:11:17, endln:11:22
+    |vpiParent:
+    \_logic_typespec: (q3::h1_t), id:134, line:11:11, endln:11:22
+    |vpiLeftRange:
+    \_constant: , id:132, line:11:18, endln:11:19
+      |vpiParent:
+      \_range: , id:131, line:11:17, endln:11:22
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:133, line:11:20, endln:11:21
+      |vpiParent:
+      \_range: , id:131, line:11:17, endln:11:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_logic_typespec: (q3::pa_t), id:156, line:25:11, endln:25:27
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiName:q3::pa_t
+  |vpiInstance:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:150, line:25:17, endln:25:22
+    |vpiParent:
+    \_logic_typespec: (q3::pa_t), id:156, line:25:11, endln:25:27
+    |vpiLeftRange:
+    \_constant: , id:151, line:25:18, endln:25:19
+      |vpiParent:
+      \_range: , id:150, line:25:17, endln:25:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:152, line:25:20, endln:25:21
+      |vpiParent:
+      \_range: , id:150, line:25:17, endln:25:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , id:153, line:25:22, endln:25:27
+    |vpiParent:
+    \_logic_typespec: (q3::pa_t), id:156, line:25:11, endln:25:27
+    |vpiLeftRange:
+    \_constant: , id:154, line:25:23, endln:25:24
+      |vpiParent:
+      \_range: , id:153, line:25:22, endln:25:27
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:155, line:25:25, endln:25:26
+      |vpiParent:
+      \_range: , id:153, line:25:22, endln:25:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_logic_typespec: (q3::r1_t), id:142, line:20:11, endln:20:20
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiName:q3::r1_t
+  |vpiInstance:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:139, line:20:15, endln:20:20
+    |vpiParent:
+    \_logic_typespec: (q3::r1_t), id:142, line:20:11, endln:20:20
+    |vpiLeftRange:
+    \_constant: , id:140, line:20:16, endln:20:17
+      |vpiParent:
+      \_range: , id:139, line:20:15, endln:20:20
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:141, line:20:18, endln:20:19
+      |vpiParent:
+      \_range: , id:139, line:20:15, endln:20:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_import_typespec: (q3base), id:125, line:10:10, endln:10:21
+|vpiDefName:q3
+|vpiNet:
+\_logic_net: (q3::c_h1), id:581, line:14:23, endln:14:27
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_h1), id:587
+    |vpiParent:
+    \_logic_net: (q3::c_h1), id:581, line:14:23, endln:14:27
+    |vpiFullName:q3::c_h1
+    |vpiActual:
+    \_logic_typespec: (q3::h1_t), id:582, line:11:11, endln:11:22
+  |vpiName:c_h1
+  |vpiFullName:q3::c_h1
+|vpiNet:
+\_logic_net: (q3::c_h2), id:588, line:15:23, endln:15:27
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_h2), id:590
+    |vpiParent:
+    \_logic_net: (q3::c_h2), id:588, line:15:23, endln:15:27
+    |vpiFullName:q3::c_h2
+    |vpiActual:
+    \_unsupported_typespec: (h2_t), id:589, line:15:3, endln:15:7
+  |vpiName:c_h2
+  |vpiFullName:q3::c_h2
+|vpiNet:
+\_logic_net: (q3::c_h3), id:591, line:16:23, endln:16:27
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_h3), id:593
+    |vpiParent:
+    \_logic_net: (q3::c_h3), id:591, line:16:23, endln:16:27
+    |vpiFullName:q3::c_h3
+    |vpiActual:
+    \_unsupported_typespec: (h3_t), id:592, line:16:3, endln:16:7
+  |vpiName:c_h3
+  |vpiFullName:q3::c_h3
+|vpiNet:
+\_logic_net: (q3::c_wh1), id:594, line:17:23, endln:17:28
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_wh1), id:600
+    |vpiParent:
+    \_logic_net: (q3::c_wh1), id:594, line:17:23, endln:17:28
+    |vpiFullName:q3::c_wh1
+    |vpiActual:
+    \_logic_typespec: (q3::h1_t), id:595, line:11:11, endln:11:22
+  |vpiName:c_wh1
+  |vpiFullName:q3::c_wh1
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (q3::c_wh2), id:601, line:18:23, endln:18:28
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_wh2), id:603
+    |vpiParent:
+    \_logic_net: (q3::c_wh2), id:601, line:18:23, endln:18:28
+    |vpiFullName:q3::c_wh2
+    |vpiActual:
+    \_unsupported_typespec: (h2_t), id:602, line:18:8, endln:18:12
+  |vpiName:c_wh2
+  |vpiFullName:q3::c_wh2
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (q3::c_wh3), id:604, line:19:23, endln:19:28
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_wh3), id:606
+    |vpiParent:
+    \_logic_net: (q3::c_wh3), id:604, line:19:23, endln:19:28
+    |vpiFullName:q3::c_wh3
+    |vpiActual:
+    \_unsupported_typespec: (h3_t), id:605, line:19:8, endln:19:12
+  |vpiName:c_wh3
+  |vpiFullName:q3::c_wh3
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (q3::c_r1), id:607, line:22:23, endln:22:27
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_r1), id:613
+    |vpiParent:
+    \_logic_net: (q3::c_r1), id:607, line:22:23, endln:22:27
+    |vpiFullName:q3::c_r1
+    |vpiActual:
+    \_logic_typespec: (q3::r1_t), id:608, line:20:11, endln:20:20
+  |vpiName:c_r1
+  |vpiFullName:q3::c_r1
+|vpiNet:
+\_logic_net: (q3::c_r2), id:614, line:23:23, endln:23:27
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_r2), id:616
+    |vpiParent:
+    \_logic_net: (q3::c_r2), id:614, line:23:23, endln:23:27
+    |vpiFullName:q3::c_r2
+    |vpiActual:
+    \_unsupported_typespec: (r2_t), id:615, line:23:3, endln:23:7
+  |vpiName:c_r2
+  |vpiFullName:q3::c_r2
+|vpiNet:
+\_logic_net: (q3::c_wr1), id:617, line:24:23, endln:24:28
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_wr1), id:623
+    |vpiParent:
+    \_logic_net: (q3::c_wr1), id:617, line:24:23, endln:24:28
+    |vpiFullName:q3::c_wr1
+    |vpiActual:
+    \_logic_typespec: (q3::r1_t), id:618, line:20:11, endln:20:20
+  |vpiName:c_wr1
+  |vpiFullName:q3::c_wr1
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (q3::c_pa), id:624, line:26:23, endln:26:27
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_pa), id:633
+    |vpiParent:
+    \_logic_net: (q3::c_pa), id:624, line:26:23, endln:26:27
+    |vpiFullName:q3::c_pa
+    |vpiActual:
+    \_logic_typespec: (q3::pa_t), id:625, line:25:11, endln:25:27
+  |vpiName:c_pa
+  |vpiFullName:q3::c_pa
+|vpiNet:
+\_logic_net: (q3::c_wpa), id:634, line:27:23, endln:27:28
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_wpa), id:643
+    |vpiParent:
+    \_logic_net: (q3::c_wpa), id:634, line:27:23, endln:27:28
+    |vpiFullName:q3::c_wpa
+    |vpiActual:
+    \_logic_typespec: (q3::pa_t), id:635, line:25:11, endln:25:27
+  |vpiName:c_wpa
+  |vpiFullName:q3::c_wpa
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (q3::c_imp), id:644, line:28:23, endln:28:28
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_imp), id:650
+    |vpiParent:
+    \_logic_net: (q3::c_imp), id:644, line:28:23, endln:28:28
+    |vpiFullName:q3::c_imp
+    |vpiActual:
+    \_logic_typespec: (q3base::b_t), id:645, line:6:11, endln:6:22
+  |vpiName:c_imp
+  |vpiFullName:q3::c_imp
+|vpiNet:
+\_logic_net: (q3::c_wimp), id:651, line:29:23, endln:29:29
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_wimp), id:657
+    |vpiParent:
+    \_logic_net: (q3::c_wimp), id:651, line:29:23, endln:29:29
+    |vpiFullName:q3::c_wimp
+    |vpiActual:
+    \_logic_typespec: (q3base::b_t), id:652, line:6:11, endln:6:22
+  |vpiName:c_wimp
+  |vpiFullName:q3::c_wimp
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (q3::c_tparam), id:658, line:31:23, endln:31:31
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_tparam), id:659
+    |vpiParent:
+    \_logic_net: (q3::c_tparam), id:658, line:31:23, endln:31:31
+    |vpiFullName:q3::c_tparam
+    |vpiActual:
+    \_logic_typespec: , id:161, line:30:29, endln:30:40
+  |vpiName:c_tparam
+  |vpiFullName:q3::c_tparam
+|vpiNet:
+\_logic_net: (q3::c_bt2), id:660, line:34:23, endln:34:28
+  |vpiParent:
+  \_package: q3 (q3::), id:124, file:q3_tdchain/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (q3::c_bt2), id:662
+    |vpiParent:
+    \_logic_net: (q3::c_bt2), id:660, line:34:23, endln:34:28
+    |vpiFullName:q3::c_bt2
+    |vpiActual:
+    \_unsupported_typespec: (bt2_t), id:661, line:34:3, endln:34:8
+  |vpiName:c_bt2
+  |vpiFullName:q3::c_bt2
+

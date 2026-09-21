@@ -1,0 +1,1200 @@
+LHS:
+decompile:
+package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+|vpiParent:
+\_design: (work@dut), id:854
+|vpiName:pu
+|vpiFullName:pu::
+|vpiVariables:
+\_array_var: (pu::u_vlog), id:173, line:15:15, endln:15:21
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_vlog), id:174
+    |vpiParent:
+    \_array_var: (pu::u_vlog), id:173, line:15:15, endln:15:21
+    |vpiFullName:pu::u_vlog
+    |vpiActual:
+    \_array_typespec: , id:175
+  |vpiName:u_vlog
+  |vpiFullName:pu::u_vlog
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:168, line:15:23, endln:15:28
+    |vpiParent:
+    \_array_var: (pu::u_vlog), id:173, line:15:15, endln:15:21
+    |vpiLeftRange:
+    \_constant: , id:169, line:15:24, endln:15:25
+      |vpiParent:
+      \_range: , id:168, line:15:23, endln:15:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:170, line:15:26, endln:15:27
+      |vpiParent:
+      \_range: , id:168, line:15:23, endln:15:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pu::u_vlog), id:171, line:15:15, endln:15:21
+    |vpiParent:
+    \_array_var: (pu::u_vlog), id:173, line:15:15, endln:15:21
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_vlog), id:172
+      |vpiParent:
+      \_logic_var: (pu::u_vlog), id:171, line:15:15, endln:15:21
+      |vpiFullName:pu::u_vlog
+      |vpiActual:
+      \_logic_typespec: , id:164, line:15:3, endln:15:14
+    |vpiFullName:pu::u_vlog
+|vpiVariables:
+\_array_var: (pu::u_vsi), id:206, line:19:15, endln:19:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_vsi), id:207
+    |vpiParent:
+    \_array_var: (pu::u_vsi), id:206, line:19:15, endln:19:20
+    |vpiFullName:pu::u_vsi
+    |vpiActual:
+    \_array_typespec: , id:208
+  |vpiName:u_vsi
+  |vpiFullName:pu::u_vsi
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:201, line:19:23, endln:19:28
+    |vpiParent:
+    \_array_var: (pu::u_vsi), id:206, line:19:15, endln:19:20
+    |vpiLeftRange:
+    \_constant: , id:202, line:19:24, endln:19:25
+      |vpiParent:
+      \_range: , id:201, line:19:23, endln:19:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:203, line:19:26, endln:19:27
+      |vpiParent:
+      \_range: , id:201, line:19:23, endln:19:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_struct_var: (pu::u_vsi), id:204, line:19:15, endln:19:20
+    |vpiParent:
+    \_array_var: (pu::u_vsi), id:206, line:19:15, endln:19:20
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_vsi), id:205
+      |vpiParent:
+      \_struct_var: (pu::u_vsi), id:204, line:19:15, endln:19:20
+      |vpiFullName:pu::u_vsi
+      |vpiActual:
+      \_struct_typespec: (pu::si_t), id:74, line:11:11, endln:11:50
+    |vpiFullName:pu::u_vsi
+|vpiVariables:
+\_array_var: (pu::u_nsi), id:214, line:20:15, endln:20:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_nsi), id:215
+    |vpiParent:
+    \_array_var: (pu::u_nsi), id:214, line:20:15, endln:20:20
+    |vpiFullName:pu::u_nsi
+    |vpiActual:
+    \_array_typespec: , id:216
+  |vpiName:u_nsi
+  |vpiFullName:pu::u_nsi
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:209, line:20:23, endln:20:28
+    |vpiParent:
+    \_array_var: (pu::u_nsi), id:214, line:20:15, endln:20:20
+    |vpiLeftRange:
+    \_constant: , id:210, line:20:24, endln:20:25
+      |vpiParent:
+      \_range: , id:209, line:20:23, endln:20:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:211, line:20:26, endln:20:27
+      |vpiParent:
+      \_range: , id:209, line:20:23, endln:20:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_struct_var: (pu::u_nsi), id:212, line:20:15, endln:20:20
+    |vpiParent:
+    \_array_var: (pu::u_nsi), id:214, line:20:15, endln:20:20
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_nsi), id:213
+      |vpiParent:
+      \_struct_var: (pu::u_nsi), id:212, line:20:15, endln:20:20
+      |vpiFullName:pu::u_nsi
+      |vpiActual:
+      \_struct_typespec: (pu::si_t), id:74, line:11:11, endln:11:50
+    |vpiFullName:pu::u_nsi
+|vpiVariables:
+\_array_var: (pu::u_ven), id:234, line:23:15, endln:23:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_ven), id:235
+    |vpiParent:
+    \_array_var: (pu::u_ven), id:234, line:23:15, endln:23:20
+    |vpiFullName:pu::u_ven
+    |vpiActual:
+    \_array_typespec: , id:236
+  |vpiName:u_ven
+  |vpiFullName:pu::u_ven
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:229, line:23:23, endln:23:28
+    |vpiParent:
+    \_array_var: (pu::u_ven), id:234, line:23:15, endln:23:20
+    |vpiLeftRange:
+    \_constant: , id:230, line:23:24, endln:23:25
+      |vpiParent:
+      \_range: , id:229, line:23:23, endln:23:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:231, line:23:26, endln:23:27
+      |vpiParent:
+      \_range: , id:229, line:23:23, endln:23:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_enum_var: (pu::u_ven), id:232, line:23:15, endln:23:20
+    |vpiParent:
+    \_array_var: (pu::u_ven), id:234, line:23:15, endln:23:20
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_ven), id:233
+      |vpiParent:
+      \_enum_var: (pu::u_ven), id:232, line:23:15, endln:23:20
+      |vpiFullName:pu::u_ven
+      |vpiActual:
+      \_enum_typespec: (pu::en_t), id:101, line:13:3, endln:13:64
+    |vpiFullName:pu::u_ven
+|vpiVariables:
+\_array_var: (pu::u_nen), id:242, line:24:15, endln:24:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_nen), id:243
+    |vpiParent:
+    \_array_var: (pu::u_nen), id:242, line:24:15, endln:24:20
+    |vpiFullName:pu::u_nen
+    |vpiActual:
+    \_array_typespec: , id:244
+  |vpiName:u_nen
+  |vpiFullName:pu::u_nen
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:237, line:24:23, endln:24:28
+    |vpiParent:
+    \_array_var: (pu::u_nen), id:242, line:24:15, endln:24:20
+    |vpiLeftRange:
+    \_constant: , id:238, line:24:24, endln:24:25
+      |vpiParent:
+      \_range: , id:237, line:24:23, endln:24:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:239, line:24:26, endln:24:27
+      |vpiParent:
+      \_range: , id:237, line:24:23, endln:24:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_enum_var: (pu::u_nen), id:240, line:24:15, endln:24:20
+    |vpiParent:
+    \_array_var: (pu::u_nen), id:242, line:24:15, endln:24:20
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_nen), id:241
+      |vpiParent:
+      \_enum_var: (pu::u_nen), id:240, line:24:15, endln:24:20
+      |vpiFullName:pu::u_nen
+      |vpiActual:
+      \_enum_typespec: (pu::en_t), id:101, line:13:3, endln:13:64
+    |vpiFullName:pu::u_nen
+|vpiVariables:
+\_array_var: (pu::u_vint), id:251, line:25:15, endln:25:21
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_vint), id:252
+    |vpiParent:
+    \_array_var: (pu::u_vint), id:251, line:25:15, endln:25:21
+    |vpiFullName:pu::u_vint
+    |vpiActual:
+    \_array_typespec: , id:253
+  |vpiName:u_vint
+  |vpiFullName:pu::u_vint
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:246, line:25:23, endln:25:28
+    |vpiParent:
+    \_array_var: (pu::u_vint), id:251, line:25:15, endln:25:21
+    |vpiLeftRange:
+    \_constant: , id:247, line:25:24, endln:25:25
+      |vpiParent:
+      \_range: , id:246, line:25:23, endln:25:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:248, line:25:26, endln:25:27
+      |vpiParent:
+      \_range: , id:246, line:25:23, endln:25:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_int_var: (pu::u_vint), id:249, line:25:15, endln:25:21
+    |vpiParent:
+    \_array_var: (pu::u_vint), id:251, line:25:15, endln:25:21
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_vint), id:250
+      |vpiParent:
+      \_int_var: (pu::u_vint), id:249, line:25:15, endln:25:21
+      |vpiFullName:pu::u_vint
+      |vpiActual:
+      \_int_typespec: , id:245, line:25:3, endln:25:6
+    |vpiFullName:pu::u_vint
+|vpiVariables:
+\_array_var: (pu::u_vbit), id:266, line:26:15, endln:26:21
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_vbit), id:267
+    |vpiParent:
+    \_array_var: (pu::u_vbit), id:266, line:26:15, endln:26:21
+    |vpiFullName:pu::u_vbit
+    |vpiActual:
+    \_array_typespec: , id:268
+  |vpiName:u_vbit
+  |vpiFullName:pu::u_vbit
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:261, line:26:23, endln:26:28
+    |vpiParent:
+    \_array_var: (pu::u_vbit), id:266, line:26:15, endln:26:21
+    |vpiLeftRange:
+    \_constant: , id:262, line:26:24, endln:26:25
+      |vpiParent:
+      \_range: , id:261, line:26:23, endln:26:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:263, line:26:26, endln:26:27
+      |vpiParent:
+      \_range: , id:261, line:26:23, endln:26:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_bit_var: (pu::u_vbit), id:264, line:26:15, endln:26:21
+    |vpiParent:
+    \_array_var: (pu::u_vbit), id:266, line:26:15, endln:26:21
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_vbit), id:265
+      |vpiParent:
+      \_bit_var: (pu::u_vbit), id:264, line:26:15, endln:26:21
+      |vpiFullName:pu::u_vbit
+      |vpiActual:
+      \_bit_typespec: , id:257, line:26:3, endln:26:14
+    |vpiFullName:pu::u_vbit
+    |vpiRange:
+    \_range: , id:261, line:26:23, endln:26:28
+|vpiVariables:
+\_array_var: (pu::u_vreal), id:275, line:27:15, endln:27:22
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_vreal), id:276
+    |vpiParent:
+    \_array_var: (pu::u_vreal), id:275, line:27:15, endln:27:22
+    |vpiFullName:pu::u_vreal
+    |vpiActual:
+    \_array_typespec: , id:277
+  |vpiName:u_vreal
+  |vpiFullName:pu::u_vreal
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:270, line:27:23, endln:27:28
+    |vpiParent:
+    \_array_var: (pu::u_vreal), id:275, line:27:15, endln:27:22
+    |vpiLeftRange:
+    \_constant: , id:271, line:27:24, endln:27:25
+      |vpiParent:
+      \_range: , id:270, line:27:23, endln:27:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:272, line:27:26, endln:27:27
+      |vpiParent:
+      \_range: , id:270, line:27:23, endln:27:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_real_var: (pu::u_vreal), id:273, line:27:15, endln:27:22
+    |vpiParent:
+    \_array_var: (pu::u_vreal), id:275, line:27:15, endln:27:22
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_vreal), id:274
+      |vpiParent:
+      \_real_var: (pu::u_vreal), id:273, line:27:15, endln:27:22
+      |vpiFullName:pu::u_vreal
+      |vpiActual:
+      \_real_typespec: , id:269, line:27:3, endln:27:7
+    |vpiFullName:pu::u_vreal
+|vpiVariables:
+\_array_var: (pu::u_vstr), id:284, line:28:15, endln:28:21
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_vstr), id:285
+    |vpiParent:
+    \_array_var: (pu::u_vstr), id:284, line:28:15, endln:28:21
+    |vpiFullName:pu::u_vstr
+    |vpiActual:
+    \_array_typespec: , id:286
+  |vpiName:u_vstr
+  |vpiFullName:pu::u_vstr
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:279, line:28:23, endln:28:28
+    |vpiParent:
+    \_array_var: (pu::u_vstr), id:284, line:28:15, endln:28:21
+    |vpiLeftRange:
+    \_constant: , id:280, line:28:24, endln:28:25
+      |vpiParent:
+      \_range: , id:279, line:28:23, endln:28:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:281, line:28:26, endln:28:27
+      |vpiParent:
+      \_range: , id:279, line:28:23, endln:28:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_string_var: (pu::u_vstr), id:282, line:28:15, endln:28:21
+    |vpiParent:
+    \_array_var: (pu::u_vstr), id:284, line:28:15, endln:28:21
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_vstr), id:283
+      |vpiParent:
+      \_string_var: (pu::u_vstr), id:282, line:28:15, endln:28:21
+      |vpiFullName:pu::u_vstr
+      |vpiActual:
+      \_string_typespec: , id:278, line:28:3, endln:28:9
+    |vpiFullName:pu::u_vstr
+|vpiVariables:
+\_array_var: (pu::u_2d), id:302, line:30:15, endln:30:19
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_2d), id:303
+    |vpiParent:
+    \_array_var: (pu::u_2d), id:302, line:30:15, endln:30:19
+    |vpiFullName:pu::u_2d
+    |vpiActual:
+    \_array_typespec: , id:304
+  |vpiName:u_2d
+  |vpiFullName:pu::u_2d
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:294, line:30:20, endln:30:25
+    |vpiParent:
+    \_array_var: (pu::u_2d), id:302, line:30:15, endln:30:19
+    |vpiLeftRange:
+    \_constant: , id:295, line:30:21, endln:30:22
+      |vpiParent:
+      \_range: , id:294, line:30:20, endln:30:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:296, line:30:23, endln:30:24
+      |vpiParent:
+      \_range: , id:294, line:30:20, endln:30:25
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , id:297, line:30:25, endln:30:30
+    |vpiParent:
+    \_array_var: (pu::u_2d), id:302, line:30:15, endln:30:19
+    |vpiLeftRange:
+    \_constant: , id:298, line:30:26, endln:30:27
+      |vpiParent:
+      \_range: , id:297, line:30:25, endln:30:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:299, line:30:28, endln:30:29
+      |vpiParent:
+      \_range: , id:297, line:30:25, endln:30:30
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pu::u_2d), id:300, line:30:15, endln:30:19
+    |vpiParent:
+    \_array_var: (pu::u_2d), id:302, line:30:15, endln:30:19
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_2d), id:301
+      |vpiParent:
+      \_logic_var: (pu::u_2d), id:300, line:30:15, endln:30:19
+      |vpiFullName:pu::u_2d
+      |vpiActual:
+      \_logic_typespec: , id:290, line:30:3, endln:30:14
+    |vpiFullName:pu::u_2d
+|vpiVariables:
+\_array_var: (pu::u_sh), id:319, line:31:15, endln:31:19
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_sh), id:320
+    |vpiParent:
+    \_array_var: (pu::u_sh), id:319, line:31:15, endln:31:19
+    |vpiFullName:pu::u_sh
+    |vpiActual:
+    \_array_typespec: , id:321
+  |vpiName:u_sh
+  |vpiFullName:pu::u_sh
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:312, line:31:21, endln:31:22
+    |vpiParent:
+    \_array_var: (pu::u_sh), id:319, line:31:15, endln:31:19
+    |vpiLeftRange:
+    \_constant: , id:313
+      |vpiParent:
+      \_range: , id:312, line:31:21, endln:31:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:315, line:31:21, endln:31:22
+      |vpiParent:
+      \_range: , id:312, line:31:21, endln:31:22
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:314, line:31:21, endln:31:22
+        |vpiParent:
+        \_operation: , id:315, line:31:21, endln:31:22
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:316
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiReg:
+  \_logic_var: (pu::u_sh), id:317, line:31:15, endln:31:19
+    |vpiParent:
+    \_array_var: (pu::u_sh), id:319, line:31:15, endln:31:19
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_sh), id:318
+      |vpiParent:
+      \_logic_var: (pu::u_sh), id:317, line:31:15, endln:31:19
+      |vpiFullName:pu::u_sh
+      |vpiActual:
+      \_logic_typespec: , id:308, line:31:3, endln:31:14
+    |vpiFullName:pu::u_sh
+|vpiVariables:
+\_array_var: (pu::u_dyn), id:346, line:34:15, endln:34:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_dyn), id:347
+    |vpiParent:
+    \_array_var: (pu::u_dyn), id:346, line:34:15, endln:34:20
+    |vpiFullName:pu::u_dyn
+    |vpiActual:
+    \_array_typespec: , id:348
+  |vpiName:u_dyn
+  |vpiFullName:pu::u_dyn
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:2
+  |vpiReg:
+  \_logic_var: (pu::u_dyn), id:344, line:34:15, endln:34:20
+    |vpiParent:
+    \_array_var: (pu::u_dyn), id:346, line:34:15, endln:34:20
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_dyn), id:345
+      |vpiParent:
+      \_logic_var: (pu::u_dyn), id:344, line:34:15, endln:34:20
+      |vpiFullName:pu::u_dyn
+      |vpiActual:
+      \_logic_typespec: , id:337, line:34:3, endln:34:14
+    |vpiFullName:pu::u_dyn
+|vpiVariables:
+\_array_var: (pu::u_q), id:361, line:35:15, endln:35:18
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_q), id:362
+    |vpiParent:
+    \_array_var: (pu::u_q), id:361, line:35:15, endln:35:18
+    |vpiFullName:pu::u_q
+    |vpiActual:
+    \_array_typespec: , id:363
+  |vpiName:u_q
+  |vpiFullName:pu::u_q
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:4
+  |vpiReg:
+  \_logic_var: (pu::u_q), id:359, line:35:15, endln:35:18
+    |vpiParent:
+    \_array_var: (pu::u_q), id:361, line:35:15, endln:35:18
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_q), id:360
+      |vpiParent:
+      \_logic_var: (pu::u_q), id:359, line:35:15, endln:35:18
+      |vpiFullName:pu::u_q
+      |vpiActual:
+      \_logic_typespec: , id:352, line:35:3, endln:35:14
+    |vpiFullName:pu::u_q
+|vpiVariables:
+\_array_var: (pu::u_as), id:378, line:36:15, endln:36:19
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_as), id:381
+    |vpiParent:
+    \_array_var: (pu::u_as), id:378, line:36:15, endln:36:19
+    |vpiFullName:pu::u_as
+    |vpiActual:
+    \_array_typespec: , id:379
+  |vpiName:u_as
+  |vpiFullName:pu::u_as
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:3
+  |vpiReg:
+  \_logic_var: (pu::u_as), id:376, line:36:15, endln:36:19
+    |vpiParent:
+    \_array_var: (pu::u_as), id:378, line:36:15, endln:36:19
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_as), id:377
+      |vpiParent:
+      \_logic_var: (pu::u_as), id:376, line:36:15, endln:36:19
+      |vpiFullName:pu::u_as
+      |vpiActual:
+      \_logic_typespec: , id:367, line:36:3, endln:36:14
+    |vpiFullName:pu::u_as
+|vpiTypedef:
+\_array_typespec: (pu::arr_t), id:106, line:32:11, endln:32:34
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::arr_t
+  |vpiInstance:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiRange:
+  \_range: , id:107, line:32:29, endln:32:34
+    |vpiParent:
+    \_array_typespec: (pu::arr_t), id:106, line:32:11, endln:32:34
+    |vpiLeftRange:
+    \_constant: , id:108, line:32:30, endln:32:31
+      |vpiParent:
+      \_range: , id:107, line:32:29, endln:32:34
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:109, line:32:32, endln:32:33
+      |vpiParent:
+      \_range: , id:107, line:32:29, endln:32:34
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (pu::pu::arr_t), id:118
+    |vpiParent:
+    \_array_typespec: (pu::arr_t), id:106, line:32:11, endln:32:34
+    |vpiFullName:pu::pu::arr_t
+    |vpiActual:
+    \_logic_typespec: , id:117, line:32:11, endln:32:22
+|vpiTypedef:
+\_enum_typespec: (pu::en_t), id:101, line:13:3, endln:13:64
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::en_t
+  |vpiInstance:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pu::pu::en_t), id:102
+    |vpiParent:
+    \_enum_typespec: (pu::en_t), id:101, line:13:3, endln:13:64
+    |vpiFullName:pu::pu::en_t
+    |vpiActual:
+    \_logic_typespec: , id:100, line:13:16, endln:13:27
+  |vpiEnumConst:
+  \_enum_const: (EA), id:104, line:13:30, endln:13:32
+    |vpiParent:
+    \_enum_typespec: (pu::en_t), id:101, line:13:3, endln:13:64
+    |vpiName:EA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (EB), id:105, line:13:34, endln:13:36
+    |vpiParent:
+    \_enum_typespec: (pu::en_t), id:101, line:13:3, endln:13:64
+    |vpiName:EB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (pu::si_t), id:74, line:11:11, endln:11:50
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::si_t
+  |vpiInstance:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:76, line:11:31, endln:11:32
+    |vpiParent:
+    \_struct_typespec: (pu::si_t), id:74, line:11:11, endln:11:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::si_t::x), id:77
+      |vpiParent:
+      \_typespec_member: (x), id:76, line:11:31, endln:11:32
+      |vpiFullName:pu::pu::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:75, line:11:27, endln:11:30
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:82, line:11:46, endln:11:47
+    |vpiParent:
+    \_struct_typespec: (pu::si_t), id:74, line:11:11, endln:11:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::si_t::y), id:83
+      |vpiParent:
+      \_typespec_member: (y), id:82, line:11:46, endln:11:47
+      |vpiFullName:pu::pu::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:81, line:11:34, endln:11:45
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (pu::sl_t), id:61, line:10:11, endln:18:28
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::sl_t
+  |vpiInstance:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:66, line:10:39, endln:10:40
+    |vpiParent:
+    \_struct_typespec: (pu::sl_t), id:61, line:10:11, endln:18:28
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::sl_t::x), id:67
+      |vpiParent:
+      \_typespec_member: (x), id:66, line:10:39, endln:10:40
+      |vpiFullName:pu::pu::sl_t::x
+      |vpiActual:
+      \_logic_typespec: , id:65, line:10:27, endln:10:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:72, line:10:54, endln:10:55
+    |vpiParent:
+    \_struct_typespec: (pu::sl_t), id:61, line:10:11, endln:18:28
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::sl_t::y), id:73
+      |vpiParent:
+      \_typespec_member: (y), id:72, line:10:54, endln:10:55
+      |vpiFullName:pu::pu::sl_t::y
+      |vpiActual:
+      \_logic_typespec: , id:71, line:10:42, endln:10:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_union_typespec: (pu::un_t), id:84, line:12:11, endln:22:28
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::un_t
+  |vpiInstance:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:89, line:12:39, endln:12:40
+    |vpiParent:
+    \_union_typespec: (pu::un_t), id:84, line:12:11, endln:22:28
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::un_t::a), id:90
+      |vpiParent:
+      \_typespec_member: (a), id:89, line:12:39, endln:12:40
+      |vpiFullName:pu::pu::un_t::a
+      |vpiActual:
+      \_logic_typespec: , id:88, line:12:27, endln:12:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:95, line:12:54, endln:12:55
+    |vpiParent:
+    \_union_typespec: (pu::un_t), id:84, line:12:11, endln:22:28
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::un_t::b), id:96
+      |vpiParent:
+      \_typespec_member: (b), id:95, line:12:54, endln:12:55
+      |vpiFullName:pu::pu::un_t::b
+      |vpiActual:
+      \_logic_typespec: , id:94, line:12:42, endln:12:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:53
+|vpiDefName:pu
+|vpiNet:
+\_logic_net: (pu::u_nlog), id:881, line:16:15, endln:16:21
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_nlog), id:886
+    |vpiParent:
+    \_logic_net: (pu::u_nlog), id:881, line:16:15, endln:16:21
+    |vpiFullName:pu::u_nlog
+    |vpiActual:
+    \_logic_typespec: , id:885, line:16:3, endln:16:28
+  |vpiName:u_nlog
+  |vpiFullName:pu::u_nlog
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pu::u_vsl), id:887, line:17:15, endln:17:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_vsl), id:888
+    |vpiParent:
+    \_logic_net: (pu::u_vsl), id:887, line:17:15, endln:17:20
+    |vpiFullName:pu::u_vsl
+    |vpiActual:
+    \_struct_typespec: (pu::sl_t), id:61, line:10:11, endln:18:28
+  |vpiName:u_vsl
+  |vpiFullName:pu::u_vsl
+|vpiNet:
+\_logic_net: (pu::u_nsl), id:889, line:18:15, endln:18:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_nsl), id:890
+    |vpiParent:
+    \_logic_net: (pu::u_nsl), id:889, line:18:15, endln:18:20
+    |vpiFullName:pu::u_nsl
+    |vpiActual:
+    \_struct_typespec: (pu::sl_t), id:61, line:10:11, endln:18:28
+  |vpiName:u_nsl
+  |vpiFullName:pu::u_nsl
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pu::u_vun), id:891, line:21:15, endln:21:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_vun), id:892
+    |vpiParent:
+    \_logic_net: (pu::u_vun), id:891, line:21:15, endln:21:20
+    |vpiFullName:pu::u_vun
+    |vpiActual:
+    \_union_typespec: (pu::un_t), id:84, line:12:11, endln:22:28
+  |vpiName:u_vun
+  |vpiFullName:pu::u_vun
+|vpiNet:
+\_logic_net: (pu::u_nun), id:893, line:22:15, endln:22:20
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_nun), id:894
+    |vpiParent:
+    \_logic_net: (pu::u_nun), id:893, line:22:15, endln:22:20
+    |vpiFullName:pu::u_nun
+    |vpiActual:
+    \_union_typespec: (pu::un_t), id:84, line:12:11, endln:22:28
+  |vpiName:u_nun
+  |vpiFullName:pu::u_nun
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pu::u_td), id:895, line:33:15, endln:33:19
+  |vpiParent:
+  \_package: pu (pu::), id:60, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_td), id:906
+    |vpiParent:
+    \_logic_net: (pu::u_td), id:895, line:33:15, endln:33:19
+    |vpiFullName:pu::u_td
+    |vpiActual:
+    \_array_typespec: (pu::arr_t), id:896, line:32:11, endln:32:34
+  |vpiName:u_td
+  |vpiFullName:pu::u_td
+RHS:
+decompile:
+package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pu
+|vpiFullName:pu::
+|vpiVariables:
+\_array_var: (pu::u_dyn), id:47, line:34:15, endln:34:20
+  |vpiParent:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_dyn), id:49
+    |vpiParent:
+    \_array_var: (pu::u_dyn), id:47, line:34:15, endln:34:20
+    |vpiFullName:pu::u_dyn
+    |vpiActual:
+    \_array_typespec: , id:48
+  |vpiName:u_dyn
+  |vpiFullName:pu::u_dyn
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:2
+  |vpiReg:
+  \_logic_var: (pu::u_dyn), id:54, line:34:15, endln:34:20
+    |vpiParent:
+    \_array_var: (pu::u_dyn), id:47, line:34:15, endln:34:20
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_dyn), id:55
+      |vpiParent:
+      \_logic_var: (pu::u_dyn), id:54, line:34:15, endln:34:20
+      |vpiFullName:pu::u_dyn
+      |vpiActual:
+      \_logic_typespec: , id:50, line:34:3, endln:34:14
+    |vpiFullName:pu::u_dyn
+|vpiVariables:
+\_array_var: (pu::u_q), id:56, line:35:15, endln:35:18
+  |vpiParent:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_q), id:58
+    |vpiParent:
+    \_array_var: (pu::u_q), id:56, line:35:15, endln:35:18
+    |vpiFullName:pu::u_q
+    |vpiActual:
+    \_array_typespec: , id:57
+  |vpiName:u_q
+  |vpiFullName:pu::u_q
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:4
+  |vpiReg:
+  \_logic_var: (pu::u_q), id:63, line:35:15, endln:35:18
+    |vpiParent:
+    \_array_var: (pu::u_q), id:56, line:35:15, endln:35:18
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_q), id:64
+      |vpiParent:
+      \_logic_var: (pu::u_q), id:63, line:35:15, endln:35:18
+      |vpiFullName:pu::u_q
+      |vpiActual:
+      \_logic_typespec: , id:59, line:35:3, endln:35:14
+    |vpiFullName:pu::u_q
+|vpiVariables:
+\_array_var: (pu::u_as), id:65, line:36:15, endln:36:19
+  |vpiParent:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pu::u_as), id:67
+    |vpiParent:
+    \_array_var: (pu::u_as), id:65, line:36:15, endln:36:19
+    |vpiFullName:pu::u_as
+    |vpiActual:
+    \_array_typespec: , id:66
+  |vpiName:u_as
+  |vpiFullName:pu::u_as
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:3
+  |vpiReg:
+  \_logic_var: (pu::u_as), id:72, line:36:15, endln:36:19
+    |vpiParent:
+    \_array_var: (pu::u_as), id:65, line:36:15, endln:36:19
+    |vpiTypespec:
+    \_ref_typespec: (pu::u_as), id:73
+      |vpiParent:
+      \_logic_var: (pu::u_as), id:72, line:36:15, endln:36:19
+      |vpiFullName:pu::u_as
+      |vpiActual:
+      \_logic_typespec: , id:68, line:36:3, endln:36:14
+    |vpiFullName:pu::u_as
+|vpiTypedef:
+\_enum_typespec: (pu::en_t), id:39, line:13:3, endln:13:64
+  |vpiParent:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::en_t
+  |vpiInstance:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pu::pu::en_t), id:44
+    |vpiParent:
+    \_enum_typespec: (pu::en_t), id:39, line:13:3, endln:13:64
+    |vpiFullName:pu::pu::en_t
+    |vpiActual:
+    \_logic_typespec: , id:40, line:13:16, endln:13:27
+  |vpiEnumConst:
+  \_enum_const: (EA), id:45, line:13:30, endln:13:32
+    |vpiParent:
+    \_enum_typespec: (pu::en_t), id:39, line:13:3, endln:13:64
+    |vpiName:EA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (EB), id:46, line:13:34, endln:13:36
+    |vpiParent:
+    \_enum_typespec: (pu::en_t), id:39, line:13:3, endln:13:64
+    |vpiName:EB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (pu::si_t), id:16, line:11:11, endln:11:50
+  |vpiParent:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::si_t
+  |vpiInstance:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:17, line:11:31, endln:11:32
+    |vpiParent:
+    \_struct_typespec: (pu::si_t), id:16, line:11:11, endln:11:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::si_t::x), id:19
+      |vpiParent:
+      \_typespec_member: (x), id:17, line:11:31, endln:11:32
+      |vpiFullName:pu::pu::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:92, line:11:27, endln:11:30
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:20, line:11:46, endln:11:47
+    |vpiParent:
+    \_struct_typespec: (pu::si_t), id:16, line:11:11, endln:11:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::si_t::y), id:25
+      |vpiParent:
+      \_typespec_member: (y), id:20, line:11:46, endln:11:47
+      |vpiFullName:pu::pu::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:95, line:11:34, endln:11:45
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (pu::sl_t), id:3, line:10:11, endln:10:58
+  |vpiParent:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::sl_t
+  |vpiInstance:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:4, line:10:39, endln:10:40
+    |vpiParent:
+    \_struct_typespec: (pu::sl_t), id:3, line:10:11, endln:10:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::sl_t::x), id:9
+      |vpiParent:
+      \_typespec_member: (x), id:4, line:10:39, endln:10:40
+      |vpiFullName:pu::pu::sl_t::x
+      |vpiActual:
+      \_logic_typespec: , id:79, line:10:27, endln:10:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:10, line:10:54, endln:10:55
+    |vpiParent:
+    \_struct_typespec: (pu::sl_t), id:3, line:10:11, endln:10:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::sl_t::y), id:15
+      |vpiParent:
+      \_typespec_member: (y), id:10, line:10:54, endln:10:55
+      |vpiFullName:pu::pu::sl_t::y
+      |vpiActual:
+      \_logic_typespec: , id:85, line:10:42, endln:10:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_union_typespec: (pu::un_t), id:26, line:12:11, endln:12:58
+  |vpiParent:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiName:pu::un_t
+  |vpiInstance:
+  \_package: pu (pu::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv, line:9:1, endln:37:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:27, line:12:39, endln:12:40
+    |vpiParent:
+    \_union_typespec: (pu::un_t), id:26, line:12:11, endln:12:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::un_t::a), id:32
+      |vpiParent:
+      \_typespec_member: (a), id:27, line:12:39, endln:12:40
+      |vpiFullName:pu::pu::un_t::a
+      |vpiActual:
+      \_logic_typespec: , id:102, line:12:27, endln:12:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:33, line:12:54, endln:12:55
+    |vpiParent:
+    \_union_typespec: (pu::un_t), id:26, line:12:11, endln:12:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pu::pu::un_t::b), id:38
+      |vpiParent:
+      \_typespec_member: (b), id:33, line:12:54, endln:12:55
+      |vpiFullName:pu::pu::un_t::b
+      |vpiActual:
+      \_logic_typespec: , id:108, line:12:42, endln:12:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z5_pkgunpacked/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:53
+|vpiDefName:pu

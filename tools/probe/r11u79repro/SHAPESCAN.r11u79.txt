@@ -1,0 +1,3 @@
+# r11u79 OBJECT-BLOCK REGRESSION SCAN: a block that matched golden on the
+# PRISTINE binary and differs on the PATCHED one is a MOVED-WRONG.
+SECTIONS_SCANNED=228  NEWLY_WRONG_BLOCKS=0  BLOCKS_FIXED=353

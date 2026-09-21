@@ -1,0 +1,1627 @@
+decompile:
+module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+|vpiParent:
+\_design: (work@dut), id:344
+|vpiFullName:work@dut
+|vpiTypedef:
+\_struct_typespec: (q1::inner_t), id:25, line:9:11, endln:9:58
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::inner_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:30, line:9:39, endln:9:40
+    |vpiParent:
+    \_struct_typespec: (q1::inner_t), id:25, line:9:11, endln:9:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::inner_t.a), id:31
+      |vpiParent:
+      \_typespec_member: (a), id:30, line:9:39, endln:9:40
+      |vpiFullName:work@dut.q1::inner_t.a
+      |vpiActual:
+      \_logic_typespec: , id:29, line:9:27, endln:9:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:36, line:9:54, endln:9:55
+    |vpiParent:
+    \_struct_typespec: (q1::inner_t), id:25, line:9:11, endln:9:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::inner_t.b), id:37
+      |vpiParent:
+      \_typespec_member: (b), id:36, line:9:54, endln:9:55
+      |vpiFullName:work@dut.q1::inner_t.b
+      |vpiActual:
+      \_logic_typespec: , id:35, line:9:42, endln:9:53
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_struct_typespec: (q1::innerint_t), id:47, line:12:11, endln:12:35
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::innerint_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:49, line:12:31, endln:12:32
+    |vpiParent:
+    \_struct_typespec: (q1::innerint_t), id:47, line:12:11, endln:12:35
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::innerint_t.x), id:50
+      |vpiParent:
+      \_typespec_member: (x), id:49, line:12:31, endln:12:32
+      |vpiFullName:work@dut.q1::innerint_t.x
+      |vpiActual:
+      \_int_typespec: , id:48, line:12:27, endln:12:30
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:30
+|vpiTypedef:
+\_struct_typespec: (q1::s_membit), id:110, line:25:11, endln:25:50
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_membit
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:115, line:25:37, endln:25:38
+    |vpiParent:
+    \_struct_typespec: (q1::s_membit), id:110, line:25:11, endln:25:50
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_membit.a), id:116
+      |vpiParent:
+      \_typespec_member: (a), id:115, line:25:37, endln:25:38
+      |vpiFullName:work@dut.q1::s_membit.a
+      |vpiActual:
+      \_bit_typespec: , id:114, line:25:27, endln:25:36
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:36
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:118, line:25:46, endln:25:47
+    |vpiParent:
+    \_struct_typespec: (q1::s_membit), id:110, line:25:11, endln:25:50
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_membit.b), id:119
+      |vpiParent:
+      \_typespec_member: (b), id:118, line:25:46, endln:25:47
+      |vpiFullName:work@dut.q1::s_membit.b
+      |vpiActual:
+      \_logic_typespec: , id:117, line:25:40, endln:25:45
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:40
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (q1::s_memnest), id:38, line:10:11, endln:10:54
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memnest
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:39, line:10:35, endln:10:36
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnest), id:38, line:10:11, endln:10:54
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memnest.a), id:40
+      |vpiParent:
+      \_typespec_member: (a), id:39, line:10:35, endln:10:36
+      |vpiFullName:work@dut.q1::s_memnest.a
+      |vpiActual:
+      \_struct_typespec: (q1::inner_t), id:25, line:9:11, endln:9:58
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:34
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:45, line:10:50, endln:10:51
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnest), id:38, line:10:11, endln:10:54
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memnest.b), id:46
+      |vpiParent:
+      \_typespec_member: (b), id:45, line:10:50, endln:10:51
+      |vpiFullName:work@dut.q1::s_memnest.b
+      |vpiActual:
+      \_logic_typespec: , id:44, line:10:38, endln:10:49
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:38
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:49
+|vpiTypedef:
+\_struct_typespec: (q1::s_memnestint), id:51, line:13:11, endln:13:57
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memnestint
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:52, line:13:38, endln:13:39
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnestint), id:51, line:13:11, endln:13:57
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memnestint.a), id:53
+      |vpiParent:
+      \_typespec_member: (a), id:52, line:13:38, endln:13:39
+      |vpiFullName:work@dut.q1::s_memnestint.a
+      |vpiActual:
+      \_struct_typespec: (q1::innerint_t), id:47, line:12:11, endln:12:35
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:37
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:58, line:13:53, endln:13:54
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnestint), id:51, line:13:11, endln:13:57
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memnestint.b), id:59
+      |vpiParent:
+      \_typespec_member: (b), id:58, line:13:53, endln:13:54
+      |vpiFullName:work@dut.q1::s_memnestint.b
+      |vpiActual:
+      \_logic_typespec: , id:57, line:13:41, endln:13:52
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:52
+|vpiTypedef:
+\_struct_typespec: (q1::s_memparrst), id:60, line:15:11, endln:15:54
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memparrst
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:66, line:15:41, endln:15:42
+    |vpiParent:
+    \_struct_typespec: (q1::s_memparrst), id:60, line:15:11, endln:15:54
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memparrst.a), id:67
+      |vpiParent:
+      \_typespec_member: (a), id:66, line:15:41, endln:15:42
+      |vpiFullName:work@dut.q1::s_memparrst.a
+      |vpiActual:
+      \_packed_array_typespec: , id:65, line:15:27, endln:15:40
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:15
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:15
+    |vpiRefEndColumnNo:40
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:69, line:15:50, endln:15:51
+    |vpiParent:
+    \_struct_typespec: (q1::s_memparrst), id:60, line:15:11, endln:15:54
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memparrst.b), id:70
+      |vpiParent:
+      \_typespec_member: (b), id:69, line:15:50, endln:15:51
+      |vpiFullName:work@dut.q1::s_memparrst.b
+      |vpiActual:
+      \_logic_typespec: , id:68, line:15:44, endln:15:49
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:15
+    |vpiRefColumnNo:44
+    |vpiRefEndLineNo:15
+    |vpiRefEndColumnNo:49
+|vpiTypedef:
+\_struct_typespec: (q1::s_memreg), id:71, line:17:11, endln:17:48
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memreg
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:76, line:17:37, endln:17:38
+    |vpiParent:
+    \_struct_typespec: (q1::s_memreg), id:71, line:17:11, endln:17:48
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memreg.a), id:77
+      |vpiParent:
+      \_typespec_member: (a), id:76, line:17:37, endln:17:38
+      |vpiFullName:work@dut.q1::s_memreg.a
+      |vpiActual:
+      \_logic_typespec: , id:75, line:17:27, endln:17:36
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:17
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:17
+    |vpiRefEndColumnNo:36
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:79, line:17:44, endln:17:45
+    |vpiParent:
+    \_struct_typespec: (q1::s_memreg), id:71, line:17:11, endln:17:48
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memreg.b), id:80
+      |vpiParent:
+      \_typespec_member: (b), id:79, line:17:44, endln:17:45
+      |vpiFullName:work@dut.q1::s_memreg.b
+      |vpiActual:
+      \_logic_typespec: , id:78, line:17:40, endln:17:43
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:17
+    |vpiRefColumnNo:40
+    |vpiRefEndLineNo:17
+    |vpiRefEndColumnNo:43
+|vpiTypedef:
+\_struct_typespec: (q1::s_memsigned), id:81, line:19:11, endln:19:59
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memsigned
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:86, line:19:46, endln:19:47
+    |vpiParent:
+    \_struct_typespec: (q1::s_memsigned), id:81, line:19:11, endln:19:59
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memsigned.a), id:87
+      |vpiParent:
+      \_typespec_member: (a), id:86, line:19:46, endln:19:47
+      |vpiFullName:work@dut.q1::s_memsigned.a
+      |vpiActual:
+      \_logic_typespec: , id:85, line:19:27, endln:19:45
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:45
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:89, line:19:55, endln:19:56
+    |vpiParent:
+    \_struct_typespec: (q1::s_memsigned), id:81, line:19:11, endln:19:59
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memsigned.b), id:90
+      |vpiParent:
+      \_typespec_member: (b), id:89, line:19:55, endln:19:56
+      |vpiFullName:work@dut.q1::s_memsigned.b
+      |vpiActual:
+      \_logic_typespec: , id:88, line:19:49, endln:19:54
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:49
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:54
+|vpiTypedef:
+\_struct_typespec: (q1::s_memuarr), id:91, line:21:11, endln:21:51
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memuarr
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:96, line:21:32, endln:21:39
+    |vpiParent:
+    \_struct_typespec: (q1::s_memuarr), id:91, line:21:11, endln:21:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memuarr.a), id:97
+      |vpiParent:
+      \_typespec_member: (a), id:96, line:21:32, endln:21:39
+      |vpiFullName:work@dut.q1::s_memuarr.a
+      |vpiActual:
+      \_array_typespec: , id:101
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:104, line:21:47, endln:21:48
+    |vpiParent:
+    \_struct_typespec: (q1::s_memuarr), id:91, line:21:11, endln:21:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memuarr.b), id:105
+      |vpiParent:
+      \_typespec_member: (b), id:104, line:21:47, endln:21:48
+      |vpiFullName:work@dut.q1::s_memuarr.b
+      |vpiActual:
+      \_logic_typespec: , id:103, line:21:41, endln:21:46
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_struct_typespec: (q1::s_memunion), id:16, line:7:11, endln:7:52
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memunion
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:21, line:7:39, endln:7:40
+    |vpiParent:
+    \_struct_typespec: (q1::s_memunion), id:16, line:7:11, endln:7:52
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memunion.a), id:22
+      |vpiParent:
+      \_typespec_member: (a), id:21, line:7:39, endln:7:40
+      |vpiFullName:work@dut.q1::s_memunion.a
+      |vpiActual:
+      \_logic_typespec: , id:20, line:7:27, endln:7:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:23, line:7:48, endln:7:49
+    |vpiParent:
+    \_struct_typespec: (q1::s_memunion), id:16, line:7:11, endln:7:52
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memunion.b), id:24
+      |vpiParent:
+      \_typespec_member: (b), id:23, line:7:48, endln:7:49
+      |vpiFullName:work@dut.q1::s_memunion.b
+      |vpiActual:
+      \_union_typespec: (q1::uun_t), id:2, line:6:11, endln:6:58
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:47
+|vpiTypedef:
+\_struct_typespec: (q1::s_one), id:106, line:23:11, endln:23:37
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_one
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:108, line:23:33, endln:23:34
+    |vpiParent:
+    \_struct_typespec: (q1::s_one), id:106, line:23:11, endln:23:37
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_one.a), id:109
+      |vpiParent:
+      \_typespec_member: (a), id:108, line:23:33, endln:23:34
+      |vpiFullName:work@dut.q1::s_one.a
+      |vpiActual:
+      \_logic_typespec: , id:107, line:23:27, endln:23:32
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:32
+|vpiTypedef:
+\_union_typespec: (q1::uun_t), id:2, line:6:11, endln:6:58
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::uun_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:1, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:8, line:6:39, endln:6:40
+    |vpiParent:
+    \_union_typespec: (q1::uun_t), id:2, line:6:11, endln:6:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::uun_t.a), id:9
+      |vpiParent:
+      \_typespec_member: (a), id:8, line:6:39, endln:6:40
+      |vpiFullName:work@dut.q1::uun_t.a
+      |vpiActual:
+      \_logic_typespec: , id:7, line:6:27, endln:6:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:14, line:6:54, endln:6:55
+    |vpiParent:
+    \_union_typespec: (q1::uun_t), id:2, line:6:11, endln:6:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::uun_t.b), id:15
+      |vpiParent:
+      \_typespec_member: (b), id:14, line:6:54, endln:6:55
+      |vpiFullName:work@dut.q1::uun_t.b
+      |vpiActual:
+      \_logic_typespec: , id:13, line:6:42, endln:6:53
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_import_typespec: (q1), id:238, line:30:10, endln:30:15
+|vpiDefName:work@dut
+|vpiNet:
+\_logic_net: (work@dut.m_union), id:372, line:8:48, endln:8:55
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_union), id:373
+    |vpiParent:
+    \_logic_net: (work@dut.m_union), id:372, line:8:48, endln:8:55
+    |vpiFullName:work@dut.m_union
+    |vpiActual:
+    \_struct_typespec: (q1::s_memunion), id:16, line:7:11, endln:7:52
+  |vpiName:m_union
+  |vpiFullName:work@dut.m_union
+|vpiNet:
+\_logic_net: (work@dut.m_nest), id:374, line:11:48, endln:11:54
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_nest), id:375
+    |vpiParent:
+    \_logic_net: (work@dut.m_nest), id:374, line:11:48, endln:11:54
+    |vpiFullName:work@dut.m_nest
+    |vpiActual:
+    \_struct_typespec: (q1::s_memnest), id:38, line:10:11, endln:10:54
+  |vpiName:m_nest
+  |vpiFullName:work@dut.m_nest
+|vpiNet:
+\_logic_net: (work@dut.m_nestint), id:376, line:14:48, endln:14:57
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_nestint), id:377
+    |vpiParent:
+    \_logic_net: (work@dut.m_nestint), id:376, line:14:48, endln:14:57
+    |vpiFullName:work@dut.m_nestint
+    |vpiActual:
+    \_struct_typespec: (q1::s_memnestint), id:51, line:13:11, endln:13:57
+  |vpiName:m_nestint
+  |vpiFullName:work@dut.m_nestint
+|vpiNet:
+\_logic_net: (work@dut.m_parrst), id:378, line:16:48, endln:16:56
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_parrst), id:379
+    |vpiParent:
+    \_logic_net: (work@dut.m_parrst), id:378, line:16:48, endln:16:56
+    |vpiFullName:work@dut.m_parrst
+    |vpiActual:
+    \_struct_typespec: (q1::s_memparrst), id:60, line:15:11, endln:15:54
+  |vpiName:m_parrst
+  |vpiFullName:work@dut.m_parrst
+|vpiNet:
+\_logic_net: (work@dut.m_reg), id:380, line:18:48, endln:18:53
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_reg), id:381
+    |vpiParent:
+    \_logic_net: (work@dut.m_reg), id:380, line:18:48, endln:18:53
+    |vpiFullName:work@dut.m_reg
+    |vpiActual:
+    \_struct_typespec: (q1::s_memreg), id:71, line:17:11, endln:17:48
+  |vpiName:m_reg
+  |vpiFullName:work@dut.m_reg
+|vpiNet:
+\_logic_net: (work@dut.m_signed), id:382, line:20:48, endln:20:56
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_signed), id:383
+    |vpiParent:
+    \_logic_net: (work@dut.m_signed), id:382, line:20:48, endln:20:56
+    |vpiFullName:work@dut.m_signed
+    |vpiActual:
+    \_struct_typespec: (q1::s_memsigned), id:81, line:19:11, endln:19:59
+  |vpiName:m_signed
+  |vpiFullName:work@dut.m_signed
+|vpiNet:
+\_logic_net: (work@dut.m_uarr), id:384, line:22:48, endln:22:54
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_uarr), id:385
+    |vpiParent:
+    \_logic_net: (work@dut.m_uarr), id:384, line:22:48, endln:22:54
+    |vpiFullName:work@dut.m_uarr
+    |vpiActual:
+    \_struct_typespec: (q1::s_memuarr), id:91, line:21:11, endln:21:51
+  |vpiName:m_uarr
+  |vpiFullName:work@dut.m_uarr
+|vpiNet:
+\_logic_net: (work@dut.m_one), id:386, line:24:48, endln:24:53
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_one), id:387
+    |vpiParent:
+    \_logic_net: (work@dut.m_one), id:386, line:24:48, endln:24:53
+    |vpiFullName:work@dut.m_one
+    |vpiActual:
+    \_struct_typespec: (q1::s_one), id:106, line:23:11, endln:23:37
+  |vpiName:m_one
+  |vpiFullName:work@dut.m_one
+|vpiNet:
+\_logic_net: (work@dut.m_bit), id:388, line:26:48, endln:26:53
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_bit), id:389
+    |vpiParent:
+    \_logic_net: (work@dut.m_bit), id:388, line:26:48, endln:26:53
+    |vpiFullName:work@dut.m_bit
+    |vpiActual:
+    \_struct_typespec: (q1::s_membit), id:110, line:25:11, endln:25:50
+  |vpiName:m_bit
+  |vpiFullName:work@dut.m_bit
+|vpiNet:
+\_logic_net: (work@dut.o), id:390, line:29:33, endln:29:34
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:o
+  |vpiFullName:work@dut.o
+  |vpiNetType:36
+|vpiPort:
+\_port: (o), id:366, line:29:33, endln:29:34
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@dut.o.o), id:391, line:29:33, endln:29:34
+    |vpiParent:
+    \_port: (o), id:366, line:29:33, endln:29:34
+    |vpiName:o
+    |vpiFullName:work@dut.o.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), id:390, line:29:33, endln:29:34
+  |vpiTypedef:
+  \_ref_typespec: (work@dut.o), id:371
+    |vpiParent:
+    \_port: (o), id:366, line:29:33, endln:29:34
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_typespec: , id:370, line:29:20, endln:29:32
+|vpiContAssign:
+\_cont_assign: , id:241, line:31:10, endln:33:45
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:365, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiRhs:
+  \_operation: , id:269, line:31:14, endln:33:45
+    |vpiParent:
+    \_cont_assign: , id:241, line:31:10, endln:33:45
+    |vpiOpType:30
+    |vpiOperand:
+    \_operation: , id:265, line:31:14, endln:33:28
+      |vpiParent:
+      \_operation: , id:269, line:31:14, endln:33:45
+      |vpiOpType:30
+      |vpiOperand:
+      \_operation: , id:261, line:31:14, endln:32:67
+        |vpiParent:
+        \_operation: , id:265, line:31:14, endln:33:28
+        |vpiOpType:30
+        |vpiOperand:
+        \_operation: , id:257, line:31:14, endln:32:47
+          |vpiParent:
+          \_operation: , id:261, line:31:14, endln:32:67
+          |vpiOpType:30
+          |vpiOperand:
+          \_operation: , id:253, line:31:14, endln:32:30
+            |vpiParent:
+            \_operation: , id:257, line:31:14, endln:32:47
+            |vpiOpType:30
+            |vpiOperand:
+            \_operation: , id:249, line:31:14, endln:31:69
+              |vpiParent:
+              \_operation: , id:253, line:31:14, endln:32:30
+              |vpiOpType:30
+              |vpiOperand:
+              \_operation: , id:245, line:31:14, endln:31:48
+                |vpiParent:
+                \_operation: , id:249, line:31:14, endln:31:69
+                |vpiOpType:30
+                |vpiOperand:
+                \_operation: , id:242, line:31:14, endln:31:30
+                  |vpiParent:
+                  \_operation: , id:245, line:31:14, endln:31:48
+                  |vpiOpType:33
+                  |vpiOperand:
+                  \_constant: , id:243, line:31:15, endln:31:20
+                    |vpiDecompile:20'd0
+                    |vpiSize:20
+                    |DEC:0
+                    |vpiConstType:1
+                  |vpiOperand:
+                  \_ref_obj: (work@dut.m_union), id:244, line:31:22, endln:31:29
+                    |vpiParent:
+                    \_operation: , id:242, line:31:14, endln:31:30
+                    |vpiName:m_union
+                    |vpiFullName:work@dut.m_union
+                    |vpiActual:
+                    \_logic_net: (work@dut.m_union), id:372, line:8:48, endln:8:55
+                |vpiOperand:
+                \_operation: , id:246, line:31:33, endln:31:48
+                  |vpiParent:
+                  \_operation: , id:245, line:31:14, endln:31:48
+                  |vpiOpType:33
+                  |vpiOperand:
+                  \_constant: , id:247, line:31:34, endln:31:39
+                    |vpiDecompile:20'd0
+                    |vpiSize:20
+                    |DEC:0
+                    |vpiConstType:1
+                  |vpiOperand:
+                  \_ref_obj: (work@dut.m_nest), id:248, line:31:41, endln:31:47
+                    |vpiParent:
+                    \_operation: , id:246, line:31:33, endln:31:48
+                    |vpiName:m_nest
+                    |vpiFullName:work@dut.m_nest
+                    |vpiActual:
+                    \_logic_net: (work@dut.m_nest), id:374, line:11:48, endln:11:54
+              |vpiOperand:
+              \_operation: , id:250, line:31:51, endln:31:69
+                |vpiParent:
+                \_operation: , id:249, line:31:14, endln:31:69
+                |vpiOpType:33
+                |vpiOperand:
+                \_constant: , id:251, line:31:52, endln:31:57
+                  |vpiDecompile:24'd0
+                  |vpiSize:24
+                  |DEC:0
+                  |vpiConstType:1
+                |vpiOperand:
+                \_ref_obj: (work@dut.m_nestint), id:252, line:31:59, endln:31:68
+                  |vpiParent:
+                  \_operation: , id:250, line:31:51, endln:31:69
+                  |vpiName:m_nestint
+                  |vpiFullName:work@dut.m_nestint
+                  |vpiActual:
+                  \_logic_net: (work@dut.m_nestint), id:376, line:14:48, endln:14:57
+            |vpiOperand:
+            \_operation: , id:254, line:32:14, endln:32:30
+              |vpiParent:
+              \_operation: , id:253, line:31:14, endln:32:30
+              |vpiOpType:33
+              |vpiOperand:
+              \_constant: , id:255, line:32:15, endln:32:19
+                |vpiDecompile:7'd0
+                |vpiSize:7
+                |DEC:0
+                |vpiConstType:1
+              |vpiOperand:
+              \_ref_obj: (work@dut.m_parrst), id:256, line:32:21, endln:32:29
+                |vpiParent:
+                \_operation: , id:254, line:32:14, endln:32:30
+                |vpiName:m_parrst
+                |vpiFullName:work@dut.m_parrst
+                |vpiActual:
+                \_logic_net: (work@dut.m_parrst), id:378, line:16:48, endln:16:56
+          |vpiOperand:
+          \_operation: , id:258, line:32:33, endln:32:47
+            |vpiParent:
+            \_operation: , id:257, line:31:14, endln:32:47
+            |vpiOpType:33
+            |vpiOperand:
+            \_constant: , id:259, line:32:34, endln:32:39
+              |vpiDecompile:23'd0
+              |vpiSize:23
+              |DEC:0
+              |vpiConstType:1
+            |vpiOperand:
+            \_ref_obj: (work@dut.m_reg), id:260, line:32:41, endln:32:46
+              |vpiParent:
+              \_operation: , id:258, line:32:33, endln:32:47
+              |vpiName:m_reg
+              |vpiFullName:work@dut.m_reg
+              |vpiActual:
+              \_logic_net: (work@dut.m_reg), id:380, line:18:48, endln:18:53
+        |vpiOperand:
+        \_operation: , id:262, line:32:50, endln:32:67
+          |vpiParent:
+          \_operation: , id:261, line:31:14, endln:32:67
+          |vpiOpType:33
+          |vpiOperand:
+          \_constant: , id:263, line:32:51, endln:32:56
+            |vpiDecompile:23'd0
+            |vpiSize:23
+            |DEC:0
+            |vpiConstType:1
+          |vpiOperand:
+          \_ref_obj: (work@dut.m_signed), id:264, line:32:58, endln:32:66
+            |vpiParent:
+            \_operation: , id:262, line:32:50, endln:32:67
+            |vpiName:m_signed
+            |vpiFullName:work@dut.m_signed
+            |vpiActual:
+            \_logic_net: (work@dut.m_signed), id:382, line:20:48, endln:20:56
+      |vpiOperand:
+      \_operation: , id:266, line:33:14, endln:33:28
+        |vpiParent:
+        \_operation: , id:265, line:31:14, endln:33:28
+        |vpiOpType:33
+        |vpiOperand:
+        \_constant: , id:267, line:33:15, endln:33:20
+          |vpiDecompile:31'd0
+          |vpiSize:31
+          |DEC:0
+          |vpiConstType:1
+        |vpiOperand:
+        \_ref_obj: (work@dut.m_one), id:268, line:33:22, endln:33:27
+          |vpiParent:
+          \_operation: , id:266, line:33:14, endln:33:28
+          |vpiName:m_one
+          |vpiFullName:work@dut.m_one
+          |vpiActual:
+          \_logic_net: (work@dut.m_one), id:386, line:24:48, endln:24:53
+    |vpiOperand:
+    \_operation: , id:270, line:33:31, endln:33:45
+      |vpiParent:
+      \_operation: , id:269, line:31:14, endln:33:45
+      |vpiOpType:33
+      |vpiOperand:
+      \_constant: , id:271, line:33:32, endln:33:37
+        |vpiDecompile:23'd0
+        |vpiSize:23
+        |DEC:0
+        |vpiConstType:1
+      |vpiOperand:
+      \_ref_obj: (work@dut.m_bit), id:272, line:33:39, endln:33:44
+        |vpiParent:
+        \_operation: , id:270, line:33:31, endln:33:45
+        |vpiName:m_bit
+        |vpiFullName:work@dut.m_bit
+        |vpiActual:
+        \_logic_net: (work@dut.m_bit), id:388, line:26:48, endln:26:53
+  |vpiLhs:
+  \_ref_obj: (work@dut.o), id:240, line:31:10, endln:31:11
+    |vpiParent:
+    \_cont_assign: , id:241, line:31:10, endln:33:45
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), id:390, line:29:33, endln:29:34
+
+decompile:
+module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiFullName:work@dut
+|vpiTypedef:
+\_struct_typespec: (q1::inner_t), id:161, line:9:11, endln:9:58
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::inner_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:162, line:9:39, endln:9:40
+    |vpiParent:
+    \_struct_typespec: (q1::inner_t), id:161, line:9:11, endln:9:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::inner_t.a), id:167
+      |vpiParent:
+      \_typespec_member: (a), id:162, line:9:39, endln:9:40
+      |vpiFullName:work@dut.q1::inner_t.a
+      |vpiActual:
+      \_logic_typespec: , id:27, line:9:27, endln:9:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:168, line:9:54, endln:9:55
+    |vpiParent:
+    \_struct_typespec: (q1::inner_t), id:161, line:9:11, endln:9:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::inner_t.b), id:173
+      |vpiParent:
+      \_typespec_member: (b), id:168, line:9:54, endln:9:55
+      |vpiFullName:work@dut.q1::inner_t.b
+      |vpiActual:
+      \_logic_typespec: , id:33, line:9:42, endln:9:53
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_struct_typespec: (q1::innerint_t), id:183, line:12:11, endln:12:35
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::innerint_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:184, line:12:31, endln:12:32
+    |vpiParent:
+    \_struct_typespec: (q1::innerint_t), id:183, line:12:11, endln:12:35
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::innerint_t.x), id:186
+      |vpiParent:
+      \_typespec_member: (x), id:184, line:12:31, endln:12:32
+      |vpiFullName:work@dut.q1::innerint_t.x
+      |vpiActual:
+      \_int_typespec: , id:49, line:12:27, endln:12:30
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:30
+|vpiTypedef:
+\_struct_typespec: (q1::s_membit), id:246, line:25:11, endln:25:50
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_membit
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:247, line:25:37, endln:25:38
+    |vpiParent:
+    \_struct_typespec: (q1::s_membit), id:246, line:25:11, endln:25:50
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_membit.a), id:252
+      |vpiParent:
+      \_typespec_member: (a), id:247, line:25:37, endln:25:38
+      |vpiFullName:work@dut.q1::s_membit.a
+      |vpiActual:
+      \_bit_typespec: , id:112, line:25:27, endln:25:36
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:36
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:253, line:25:46, endln:25:47
+    |vpiParent:
+    \_struct_typespec: (q1::s_membit), id:246, line:25:11, endln:25:50
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_membit.b), id:255
+      |vpiParent:
+      \_typespec_member: (b), id:253, line:25:46, endln:25:47
+      |vpiFullName:work@dut.q1::s_membit.b
+      |vpiActual:
+      \_logic_typespec: , id:118, line:25:40, endln:25:45
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:40
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (q1::s_memnest), id:174, line:10:11, endln:10:54
+  |vpiName:q1::s_memnest
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:175, line:10:35, endln:10:36
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnest), id:174, line:10:11, endln:10:54
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::s_memnest.a), id:176
+      |vpiParent:
+      \_typespec_member: (a), id:175, line:10:35, endln:10:36
+      |vpiFullName:q1::s_memnest.a
+      |vpiActual:
+      \_struct_typespec: (q1::inner_t), id:161, line:9:11, endln:9:58
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:34
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:177, line:10:50, endln:10:51
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnest), id:174, line:10:11, endln:10:54
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::s_memnest.b), id:182
+      |vpiParent:
+      \_typespec_member: (b), id:177, line:10:50, endln:10:51
+      |vpiFullName:q1::s_memnest.b
+      |vpiActual:
+      \_logic_typespec: , id:42, line:10:38, endln:10:49
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:38
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:49
+|vpiTypedef:
+\_struct_typespec: (q1::s_memnestint), id:187, line:13:11, endln:13:57
+  |vpiName:q1::s_memnestint
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:188, line:13:38, endln:13:39
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnestint), id:187, line:13:11, endln:13:57
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::s_memnestint.a), id:189
+      |vpiParent:
+      \_typespec_member: (a), id:188, line:13:38, endln:13:39
+      |vpiFullName:q1::s_memnestint.a
+      |vpiActual:
+      \_struct_typespec: (q1::innerint_t), id:183, line:12:11, endln:12:35
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:37
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:190, line:13:53, endln:13:54
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnestint), id:187, line:13:11, endln:13:57
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::s_memnestint.b), id:195
+      |vpiParent:
+      \_typespec_member: (b), id:190, line:13:53, endln:13:54
+      |vpiFullName:q1::s_memnestint.b
+      |vpiActual:
+      \_logic_typespec: , id:55, line:13:41, endln:13:52
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:52
+|vpiTypedef:
+\_struct_typespec: (q1::s_memparrst), id:196, line:15:11, endln:15:54
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memparrst
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:197, line:15:41, endln:15:42
+    |vpiParent:
+    \_struct_typespec: (q1::s_memparrst), id:196, line:15:11, endln:15:54
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memparrst.a), id:203
+      |vpiParent:
+      \_typespec_member: (a), id:197, line:15:41, endln:15:42
+      |vpiFullName:work@dut.q1::s_memparrst.a
+      |vpiActual:
+      \_packed_array_typespec: , id:62, line:15:27, endln:15:40
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:15
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:15
+    |vpiRefEndColumnNo:40
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:204, line:15:50, endln:15:51
+    |vpiParent:
+    \_struct_typespec: (q1::s_memparrst), id:196, line:15:11, endln:15:54
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memparrst.b), id:206
+      |vpiParent:
+      \_typespec_member: (b), id:204, line:15:50, endln:15:51
+      |vpiFullName:work@dut.q1::s_memparrst.b
+      |vpiActual:
+      \_logic_typespec: , id:69, line:15:44, endln:15:49
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:15
+    |vpiRefColumnNo:44
+    |vpiRefEndLineNo:15
+    |vpiRefEndColumnNo:49
+|vpiTypedef:
+\_struct_typespec: (q1::s_memreg), id:207, line:17:11, endln:17:48
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memreg
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:208, line:17:37, endln:17:38
+    |vpiParent:
+    \_struct_typespec: (q1::s_memreg), id:207, line:17:11, endln:17:48
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memreg.a), id:213
+      |vpiParent:
+      \_typespec_member: (a), id:208, line:17:37, endln:17:38
+      |vpiFullName:work@dut.q1::s_memreg.a
+      |vpiActual:
+      \_logic_typespec: , id:73, line:17:27, endln:17:36
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:17
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:17
+    |vpiRefEndColumnNo:36
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:214, line:17:44, endln:17:45
+    |vpiParent:
+    \_struct_typespec: (q1::s_memreg), id:207, line:17:11, endln:17:48
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memreg.b), id:216
+      |vpiParent:
+      \_typespec_member: (b), id:214, line:17:44, endln:17:45
+      |vpiFullName:work@dut.q1::s_memreg.b
+      |vpiActual:
+      \_logic_typespec: , id:79, line:17:40, endln:17:43
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:17
+    |vpiRefColumnNo:40
+    |vpiRefEndLineNo:17
+    |vpiRefEndColumnNo:43
+|vpiTypedef:
+\_struct_typespec: (q1::s_memsigned), id:217, line:19:11, endln:19:59
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memsigned
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:218, line:19:46, endln:19:47
+    |vpiParent:
+    \_struct_typespec: (q1::s_memsigned), id:217, line:19:11, endln:19:59
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memsigned.a), id:223
+      |vpiParent:
+      \_typespec_member: (a), id:218, line:19:46, endln:19:47
+      |vpiFullName:work@dut.q1::s_memsigned.a
+      |vpiActual:
+      \_logic_typespec: , id:83, line:19:27, endln:19:45
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:45
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:224, line:19:55, endln:19:56
+    |vpiParent:
+    \_struct_typespec: (q1::s_memsigned), id:217, line:19:11, endln:19:59
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memsigned.b), id:226
+      |vpiParent:
+      \_typespec_member: (b), id:224, line:19:55, endln:19:56
+      |vpiFullName:work@dut.q1::s_memsigned.b
+      |vpiActual:
+      \_logic_typespec: , id:89, line:19:49, endln:19:54
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:49
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:54
+|vpiTypedef:
+\_struct_typespec: (q1::s_memuarr), id:227, line:21:11, endln:21:51
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memuarr
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:228, line:21:32, endln:21:39
+    |vpiParent:
+    \_struct_typespec: (q1::s_memuarr), id:227, line:21:11, endln:21:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memuarr.a), id:238
+      |vpiParent:
+      \_typespec_member: (a), id:228, line:21:32, endln:21:39
+      |vpiFullName:work@dut.q1::s_memuarr.a
+      |vpiActual:
+      \_array_typespec: , id:93
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:239, line:21:47, endln:21:48
+    |vpiParent:
+    \_struct_typespec: (q1::s_memuarr), id:227, line:21:11, endln:21:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memuarr.b), id:241
+      |vpiParent:
+      \_typespec_member: (b), id:239, line:21:47, endln:21:48
+      |vpiFullName:work@dut.q1::s_memuarr.b
+      |vpiActual:
+      \_logic_typespec: , id:104, line:21:41, endln:21:46
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_struct_typespec: (q1::s_memunion), id:152, line:7:11, endln:7:52
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_memunion
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:153, line:7:39, endln:7:40
+    |vpiParent:
+    \_struct_typespec: (q1::s_memunion), id:152, line:7:11, endln:7:52
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memunion.a), id:158
+      |vpiParent:
+      \_typespec_member: (a), id:153, line:7:39, endln:7:40
+      |vpiFullName:work@dut.q1::s_memunion.a
+      |vpiActual:
+      \_logic_typespec: , id:18, line:7:27, endln:7:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:159, line:7:48, endln:7:49
+    |vpiParent:
+    \_struct_typespec: (q1::s_memunion), id:152, line:7:11, endln:7:52
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_memunion.b), id:160
+      |vpiParent:
+      \_typespec_member: (b), id:159, line:7:48, endln:7:49
+      |vpiFullName:work@dut.q1::s_memunion.b
+      |vpiActual:
+      \_union_typespec: (q1::uun_t), id:139, line:6:11, endln:6:58
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:47
+|vpiTypedef:
+\_struct_typespec: (q1::s_one), id:242, line:23:11, endln:23:37
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::s_one
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:243, line:23:33, endln:23:34
+    |vpiParent:
+    \_struct_typespec: (q1::s_one), id:242, line:23:11, endln:23:37
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::s_one.a), id:245
+      |vpiParent:
+      \_typespec_member: (a), id:243, line:23:33, endln:23:34
+      |vpiFullName:work@dut.q1::s_one.a
+      |vpiActual:
+      \_logic_typespec: , id:108, line:23:27, endln:23:32
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:32
+|vpiTypedef:
+\_union_typespec: (q1::uun_t), id:139, line:6:11, endln:6:58
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:334, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:q1::uun_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:138, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:140, line:6:39, endln:6:40
+    |vpiParent:
+    \_union_typespec: (q1::uun_t), id:139, line:6:11, endln:6:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::uun_t.a), id:145
+      |vpiParent:
+      \_typespec_member: (a), id:140, line:6:39, endln:6:40
+      |vpiFullName:work@dut.q1::uun_t.a
+      |vpiActual:
+      \_logic_typespec: , id:5, line:6:27, endln:6:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:146, line:6:54, endln:6:55
+    |vpiParent:
+    \_union_typespec: (q1::uun_t), id:139, line:6:11, endln:6:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q1::uun_t.b), id:151
+      |vpiParent:
+      \_typespec_member: (b), id:146, line:6:54, endln:6:55
+      |vpiFullName:work@dut.q1::uun_t.b
+      |vpiActual:
+      \_logic_typespec: , id:11, line:6:42, endln:6:53
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_import_typespec: (q1), id:332, line:30:10, endln:30:15
+|vpiDefName:work@dut
+|vpiNet:
+\_logic_net: (work@dut.m_union), id:275, line:8:48, endln:8:55
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_union), id:276
+    |vpiParent:
+    \_logic_net: (work@dut.m_union), id:275, line:8:48, endln:8:55
+    |vpiFullName:work@dut.m_union
+    |vpiActual:
+    \_struct_typespec: (q1::s_memunion), id:152, line:7:11, endln:7:52
+  |vpiName:m_union
+  |vpiFullName:work@dut.m_union
+|vpiNet:
+\_logic_net: (work@dut.m_nest), id:277, line:11:48, endln:11:54
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_nest), id:278
+    |vpiParent:
+    \_logic_net: (work@dut.m_nest), id:277, line:11:48, endln:11:54
+    |vpiFullName:work@dut.m_nest
+    |vpiActual:
+    \_struct_typespec: (q1::s_memnest), id:174, line:10:11, endln:10:54
+  |vpiName:m_nest
+  |vpiFullName:work@dut.m_nest
+|vpiNet:
+\_logic_net: (work@dut.m_nestint), id:279, line:14:48, endln:14:57
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_nestint), id:280
+    |vpiParent:
+    \_logic_net: (work@dut.m_nestint), id:279, line:14:48, endln:14:57
+    |vpiFullName:work@dut.m_nestint
+    |vpiActual:
+    \_struct_typespec: (q1::s_memnestint), id:187, line:13:11, endln:13:57
+  |vpiName:m_nestint
+  |vpiFullName:work@dut.m_nestint
+|vpiNet:
+\_logic_net: (work@dut.m_parrst), id:281, line:16:48, endln:16:56
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_parrst), id:282
+    |vpiParent:
+    \_logic_net: (work@dut.m_parrst), id:281, line:16:48, endln:16:56
+    |vpiFullName:work@dut.m_parrst
+    |vpiActual:
+    \_struct_typespec: (q1::s_memparrst), id:196, line:15:11, endln:15:54
+  |vpiName:m_parrst
+  |vpiFullName:work@dut.m_parrst
+|vpiNet:
+\_logic_net: (work@dut.m_reg), id:283, line:18:48, endln:18:53
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_reg), id:284
+    |vpiParent:
+    \_logic_net: (work@dut.m_reg), id:283, line:18:48, endln:18:53
+    |vpiFullName:work@dut.m_reg
+    |vpiActual:
+    \_struct_typespec: (q1::s_memreg), id:207, line:17:11, endln:17:48
+  |vpiName:m_reg
+  |vpiFullName:work@dut.m_reg
+|vpiNet:
+\_logic_net: (work@dut.m_signed), id:285, line:20:48, endln:20:56
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_signed), id:286
+    |vpiParent:
+    \_logic_net: (work@dut.m_signed), id:285, line:20:48, endln:20:56
+    |vpiFullName:work@dut.m_signed
+    |vpiActual:
+    \_struct_typespec: (q1::s_memsigned), id:217, line:19:11, endln:19:59
+  |vpiName:m_signed
+  |vpiFullName:work@dut.m_signed
+|vpiNet:
+\_logic_net: (work@dut.m_one), id:287, line:24:48, endln:24:53
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_one), id:288
+    |vpiParent:
+    \_logic_net: (work@dut.m_one), id:287, line:24:48, endln:24:53
+    |vpiFullName:work@dut.m_one
+    |vpiActual:
+    \_struct_typespec: (q1::s_one), id:242, line:23:11, endln:23:37
+  |vpiName:m_one
+  |vpiFullName:work@dut.m_one
+|vpiNet:
+\_logic_net: (work@dut.m_bit), id:289, line:26:48, endln:26:53
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.m_bit), id:290
+    |vpiParent:
+    \_logic_net: (work@dut.m_bit), id:289, line:26:48, endln:26:53
+    |vpiFullName:work@dut.m_bit
+    |vpiActual:
+    \_struct_typespec: (q1::s_membit), id:246, line:25:11, endln:25:50
+  |vpiName:m_bit
+  |vpiFullName:work@dut.m_bit
+|vpiNet:
+\_logic_net: (work@dut.o), id:291, line:29:33, endln:29:34
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:o
+  |vpiFullName:work@dut.o
+  |vpiNetType:36
+|vpiPort:
+\_port: (o), id:325, line:29:33, endln:29:34
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiName:o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@dut.o.o), id:326, line:29:33, endln:29:34
+    |vpiParent:
+    \_port: (o), id:325, line:29:33, endln:29:34
+    |vpiName:o
+    |vpiFullName:work@dut.o.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), id:291, line:29:33, endln:29:34
+  |vpiTypedef:
+  \_ref_typespec: (work@dut.o), id:331
+    |vpiParent:
+    \_port: (o), id:325, line:29:33, endln:29:34
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_typespec: , id:394, line:29:20, endln:29:32
+|vpiContAssign:
+\_cont_assign: , id:292, line:31:10, endln:33:45
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:274, file:q1_structmem/dut.sv, line:29:1, endln:34:10
+  |vpiRhs:
+  \_operation: , id:293, line:31:14, endln:33:45
+    |vpiParent:
+    \_cont_assign: , id:292, line:31:10, endln:33:45
+    |vpiOpType:30
+    |vpiOperand:
+    \_operation: , id:294, line:31:14, endln:33:28
+      |vpiParent:
+      \_operation: , id:293, line:31:14, endln:33:45
+      |vpiOpType:30
+      |vpiOperand:
+      \_operation: , id:295, line:31:14, endln:32:67
+        |vpiParent:
+        \_operation: , id:294, line:31:14, endln:33:28
+        |vpiOpType:30
+        |vpiOperand:
+        \_operation: , id:296, line:31:14, endln:32:47
+          |vpiParent:
+          \_operation: , id:295, line:31:14, endln:32:67
+          |vpiOpType:30
+          |vpiOperand:
+          \_operation: , id:297, line:31:14, endln:32:30
+            |vpiParent:
+            \_operation: , id:296, line:31:14, endln:32:47
+            |vpiOpType:30
+            |vpiOperand:
+            \_operation: , id:298, line:31:14, endln:31:69
+              |vpiParent:
+              \_operation: , id:297, line:31:14, endln:32:30
+              |vpiOpType:30
+              |vpiOperand:
+              \_operation: , id:299, line:31:14, endln:31:48
+                |vpiParent:
+                \_operation: , id:298, line:31:14, endln:31:69
+                |vpiOpType:30
+                |vpiOperand:
+                \_operation: , id:300, line:31:14, endln:31:30
+                  |vpiParent:
+                  \_operation: , id:299, line:31:14, endln:31:48
+                  |vpiOpType:33
+                  |vpiOperand:
+                  \_constant: , id:301, line:31:15, endln:31:20
+                    |vpiDecompile:20'd0
+                    |vpiSize:20
+                    |DEC:0
+                    |vpiConstType:1
+                  |vpiOperand:
+                  \_ref_obj: (work@dut.m_union), id:302, line:31:22, endln:31:29
+                    |vpiParent:
+                    \_operation: , id:300, line:31:14, endln:31:30
+                    |vpiName:m_union
+                    |vpiFullName:work@dut.m_union
+                    |vpiActual:
+                    \_logic_net: (work@dut.m_union), id:275, line:8:48, endln:8:55
+                |vpiOperand:
+                \_operation: , id:303, line:31:33, endln:31:48
+                  |vpiParent:
+                  \_operation: , id:299, line:31:14, endln:31:48
+                  |vpiOpType:33
+                  |vpiOperand:
+                  \_constant: , id:304, line:31:34, endln:31:39
+                    |vpiDecompile:20'd0
+                    |vpiSize:20
+                    |DEC:0
+                    |vpiConstType:1
+                  |vpiOperand:
+                  \_ref_obj: (work@dut.m_nest), id:305, line:31:41, endln:31:47
+                    |vpiParent:
+                    \_operation: , id:303, line:31:33, endln:31:48
+                    |vpiName:m_nest
+                    |vpiFullName:work@dut.m_nest
+                    |vpiActual:
+                    \_logic_net: (work@dut.m_nest), id:277, line:11:48, endln:11:54
+              |vpiOperand:
+              \_operation: , id:306, line:31:51, endln:31:69
+                |vpiParent:
+                \_operation: , id:298, line:31:14, endln:31:69
+                |vpiOpType:33
+                |vpiOperand:
+                \_constant: , id:307, line:31:52, endln:31:57
+                  |vpiDecompile:24'd0
+                  |vpiSize:24
+                  |DEC:0
+                  |vpiConstType:1
+                |vpiOperand:
+                \_ref_obj: (work@dut.m_nestint), id:308, line:31:59, endln:31:68
+                  |vpiParent:
+                  \_operation: , id:306, line:31:51, endln:31:69
+                  |vpiName:m_nestint
+                  |vpiFullName:work@dut.m_nestint
+                  |vpiActual:
+                  \_logic_net: (work@dut.m_nestint), id:279, line:14:48, endln:14:57
+            |vpiOperand:
+            \_operation: , id:309, line:32:14, endln:32:30
+              |vpiParent:
+              \_operation: , id:297, line:31:14, endln:32:30
+              |vpiOpType:33
+              |vpiOperand:
+              \_constant: , id:310, line:32:15, endln:32:19
+                |vpiDecompile:7'd0
+                |vpiSize:7
+                |DEC:0
+                |vpiConstType:1
+              |vpiOperand:
+              \_ref_obj: (work@dut.m_parrst), id:311, line:32:21, endln:32:29
+                |vpiParent:
+                \_operation: , id:309, line:32:14, endln:32:30
+                |vpiName:m_parrst
+                |vpiFullName:work@dut.m_parrst
+                |vpiActual:
+                \_logic_net: (work@dut.m_parrst), id:281, line:16:48, endln:16:56
+          |vpiOperand:
+          \_operation: , id:312, line:32:33, endln:32:47
+            |vpiParent:
+            \_operation: , id:296, line:31:14, endln:32:47
+            |vpiOpType:33
+            |vpiOperand:
+            \_constant: , id:313, line:32:34, endln:32:39
+              |vpiDecompile:23'd0
+              |vpiSize:23
+              |DEC:0
+              |vpiConstType:1
+            |vpiOperand:
+            \_ref_obj: (work@dut.m_reg), id:314, line:32:41, endln:32:46
+              |vpiParent:
+              \_operation: , id:312, line:32:33, endln:32:47
+              |vpiName:m_reg
+              |vpiFullName:work@dut.m_reg
+              |vpiActual:
+              \_logic_net: (work@dut.m_reg), id:283, line:18:48, endln:18:53
+        |vpiOperand:
+        \_operation: , id:315, line:32:50, endln:32:67
+          |vpiParent:
+          \_operation: , id:295, line:31:14, endln:32:67
+          |vpiOpType:33
+          |vpiOperand:
+          \_constant: , id:316, line:32:51, endln:32:56
+            |vpiDecompile:23'd0
+            |vpiSize:23
+            |DEC:0
+            |vpiConstType:1
+          |vpiOperand:
+          \_ref_obj: (work@dut.m_signed), id:317, line:32:58, endln:32:66
+            |vpiParent:
+            \_operation: , id:315, line:32:50, endln:32:67
+            |vpiName:m_signed
+            |vpiFullName:work@dut.m_signed
+            |vpiActual:
+            \_logic_net: (work@dut.m_signed), id:285, line:20:48, endln:20:56
+      |vpiOperand:
+      \_operation: , id:318, line:33:14, endln:33:28
+        |vpiParent:
+        \_operation: , id:294, line:31:14, endln:33:28
+        |vpiOpType:33
+        |vpiOperand:
+        \_constant: , id:319, line:33:15, endln:33:20
+          |vpiDecompile:31'd0
+          |vpiSize:31
+          |DEC:0
+          |vpiConstType:1
+        |vpiOperand:
+        \_ref_obj: (work@dut.m_one), id:320, line:33:22, endln:33:27
+          |vpiParent:
+          \_operation: , id:318, line:33:14, endln:33:28
+          |vpiName:m_one
+          |vpiFullName:work@dut.m_one
+          |vpiActual:
+          \_logic_net: (work@dut.m_one), id:287, line:24:48, endln:24:53
+    |vpiOperand:
+    \_operation: , id:321, line:33:31, endln:33:45
+      |vpiParent:
+      \_operation: , id:293, line:31:14, endln:33:45
+      |vpiOpType:33
+      |vpiOperand:
+      \_constant: , id:322, line:33:32, endln:33:37
+        |vpiDecompile:23'd0
+        |vpiSize:23
+        |DEC:0
+        |vpiConstType:1
+      |vpiOperand:
+      \_ref_obj: (work@dut.m_bit), id:323, line:33:39, endln:33:44
+        |vpiParent:
+        \_operation: , id:321, line:33:31, endln:33:45
+        |vpiName:m_bit
+        |vpiFullName:work@dut.m_bit
+        |vpiActual:
+        \_logic_net: (work@dut.m_bit), id:289, line:26:48, endln:26:53
+  |vpiLhs:
+  \_ref_obj: (work@dut.o), id:324, line:31:10, endln:31:11
+    |vpiParent:
+    \_cont_assign: , id:292, line:31:10, endln:33:45
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), id:291, line:29:33, endln:29:34
+

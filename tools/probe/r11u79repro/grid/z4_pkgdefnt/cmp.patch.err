@@ -1,0 +1,19 @@
+LHS:
+decompile:
+unsupported_typespec: (w2_t), id:868, line:33:3, endln:33:7
+|vpiName:w2_t
+|vpiInstance:
+\_package: pd (pd::), id:59, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z4_pkgdefnt/dut.sv, line:9:1, endln:46:11
+RHS:
+decompile:
+logic_typespec: (pd::w2_t), id:167, line:32:11, endln:32:14
+|vpiName:pd::w2_t
+|vpiTypedefAlias:
+\_ref_typespec: (pd::w2_t), id:168
+  |vpiParent:
+  \_logic_typespec: (pd::w2_t), id:167, line:32:11, endln:32:14
+  |vpiFullName:pd::w2_t
+  |vpiActual:
+  \_logic_typespec: (pd::w2_t), id:7, line:30:11, endln:30:22
+|vpiInstance:
+\_package: pd (pd::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/z4_pkgdefnt/dut.sv, line:9:1, endln:46:11

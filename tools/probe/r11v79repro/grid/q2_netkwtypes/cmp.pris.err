@@ -1,0 +1,309 @@
+LHS:
+decompile:
+package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+|vpiParent:
+\_design: (work@dut), id:450
+|vpiName:q2
+|vpiFullName:q2::
+|vpiVariables:
+\_integer_var: (q2::v_integer), id:178, line:25:21, endln:25:30
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::v_integer), id:179
+    |vpiParent:
+    \_integer_var: (q2::v_integer), id:178, line:25:21, endln:25:30
+    |vpiFullName:q2::v_integer
+    |vpiActual:
+    \_integer_typespec: , id:177, line:25:3, endln:25:10
+  |vpiName:v_integer
+  |vpiFullName:q2::v_integer
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_time_var: (q2::v_time), id:181, line:26:21, endln:26:27
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::v_time), id:182
+    |vpiParent:
+    \_time_var: (q2::v_time), id:181, line:26:21, endln:26:27
+    |vpiFullName:q2::v_time
+    |vpiActual:
+    \_time_typespec: , id:180, line:26:3, endln:26:7
+  |vpiName:v_time
+  |vpiFullName:q2::v_time
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_byte_var: (q2::v_byte), id:184, line:27:21, endln:27:27
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::v_byte), id:185
+    |vpiParent:
+    \_byte_var: (q2::v_byte), id:184, line:27:21, endln:27:27
+    |vpiFullName:q2::v_byte
+    |vpiActual:
+    \_byte_typespec: , id:183, line:27:3, endln:27:7
+  |vpiName:v_byte
+  |vpiFullName:q2::v_byte
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_short_int_var: (q2::v_shortint), id:187, line:28:21, endln:28:31
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::v_shortint), id:188
+    |vpiParent:
+    \_short_int_var: (q2::v_shortint), id:187, line:28:21, endln:28:31
+    |vpiFullName:q2::v_shortint
+    |vpiActual:
+    \_short_int_typespec: , id:186, line:28:3, endln:28:11
+  |vpiName:v_shortint
+  |vpiFullName:q2::v_shortint
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_long_int_var: (q2::v_longint), id:190, line:29:21, endln:29:30
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::v_longint), id:191
+    |vpiParent:
+    \_long_int_var: (q2::v_longint), id:190, line:29:21, endln:29:30
+    |vpiFullName:q2::v_longint
+    |vpiActual:
+    \_long_int_typespec: , id:189, line:29:3, endln:29:10
+  |vpiName:v_longint
+  |vpiFullName:q2::v_longint
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiDefName:q2
+|vpiNet:
+\_logic_net: (q2::n_integer), id:532, line:9:21, endln:9:30
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_integer), id:534
+    |vpiParent:
+    \_logic_net: (q2::n_integer), id:532, line:9:21, endln:9:30
+    |vpiFullName:q2::n_integer
+    |vpiActual:
+    \_integer_typespec: , id:533, line:9:8, endln:9:15
+  |vpiName:n_integer
+  |vpiFullName:q2::n_integer
+|vpiNet:
+\_logic_net: (q2::n_time), id:535, line:10:21, endln:10:27
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_time), id:537
+    |vpiParent:
+    \_logic_net: (q2::n_time), id:535, line:10:21, endln:10:27
+    |vpiFullName:q2::n_time
+    |vpiActual:
+    \_time_typespec: , id:536, line:10:8, endln:10:12
+  |vpiName:n_time
+  |vpiFullName:q2::n_time
+|vpiNet:
+\_logic_net: (q2::n_logicsigned), id:538, line:11:27, endln:11:40
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_logicsigned), id:543
+    |vpiParent:
+    \_logic_net: (q2::n_logicsigned), id:538, line:11:27, endln:11:40
+    |vpiFullName:q2::n_logicsigned
+    |vpiActual:
+    \_logic_typespec: , id:542, line:11:8, endln:11:26
+  |vpiName:n_logicsigned
+  |vpiFullName:q2::n_logicsigned
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (q2::n_wandlogic), id:544, line:12:21, endln:12:32
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_wandlogic), id:549
+    |vpiParent:
+    \_logic_net: (q2::n_wandlogic), id:544, line:12:21, endln:12:32
+    |vpiFullName:q2::n_wandlogic
+    |vpiActual:
+    \_logic_typespec: , id:548, line:12:8, endln:12:19
+  |vpiName:n_wandlogic
+  |vpiFullName:q2::n_wandlogic
+  |vpiNetType:2
+|vpiNet:
+\_logic_net: (q2::n_wandinteger), id:550, line:13:21, endln:13:34
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_wandinteger), id:552
+    |vpiParent:
+    \_logic_net: (q2::n_wandinteger), id:550, line:13:21, endln:13:34
+    |vpiFullName:q2::n_wandinteger
+    |vpiActual:
+    \_integer_typespec: , id:551, line:13:8, endln:13:15
+  |vpiName:n_wandinteger
+  |vpiFullName:q2::n_wandinteger
+|vpiNet:
+\_logic_net: (q2::n_worplain), id:553, line:14:21, endln:14:31
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_worplain), id:558
+    |vpiParent:
+    \_logic_net: (q2::n_worplain), id:553, line:14:21, endln:14:31
+    |vpiFullName:q2::n_worplain
+    |vpiActual:
+    \_logic_typespec: , id:557, line:14:3, endln:14:13
+  |vpiName:n_worplain
+  |vpiFullName:q2::n_worplain
+  |vpiNetType:3
+|vpiNet:
+\_logic_net: (q2::n_sup0), id:559, line:15:21, endln:15:27
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_sup0), id:561
+    |vpiParent:
+    \_logic_net: (q2::n_sup0), id:559, line:15:21, endln:15:27
+    |vpiFullName:q2::n_sup0
+    |vpiActual:
+    \_logic_typespec: , id:560, line:15:3, endln:15:10
+  |vpiName:n_sup0
+  |vpiFullName:q2::n_sup0
+  |vpiNetType:11
+|vpiNet:
+\_logic_net: (q2::n_sup1), id:562, line:16:21, endln:16:27
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_sup1), id:564
+    |vpiParent:
+    \_logic_net: (q2::n_sup1), id:562, line:16:21, endln:16:27
+    |vpiFullName:q2::n_sup1
+    |vpiActual:
+    \_logic_typespec: , id:563, line:16:3, endln:16:10
+  |vpiName:n_sup1
+  |vpiFullName:q2::n_sup1
+  |vpiNetType:10
+|vpiNet:
+\_logic_net: (q2::n_uwire), id:565, line:17:21, endln:17:28
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_uwire), id:570
+    |vpiParent:
+    \_logic_net: (q2::n_uwire), id:565, line:17:21, endln:17:28
+    |vpiFullName:q2::n_uwire
+    |vpiActual:
+    \_logic_typespec: , id:569, line:17:3, endln:17:14
+  |vpiName:n_uwire
+  |vpiFullName:q2::n_uwire
+  |vpiNetType:13
+|vpiNet:
+\_logic_net: (q2::n_trireg), id:571, line:18:21, endln:18:29
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_trireg), id:576
+    |vpiParent:
+    \_logic_net: (q2::n_trireg), id:571, line:18:21, endln:18:29
+    |vpiFullName:q2::n_trireg
+    |vpiActual:
+    \_logic_typespec: , id:575, line:18:3, endln:18:15
+  |vpiName:n_trireg
+  |vpiFullName:q2::n_trireg
+  |vpiNetType:7
+|vpiNet:
+\_logic_net: (q2::n_tri0), id:577, line:19:21, endln:19:27
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_tri0), id:582
+    |vpiParent:
+    \_logic_net: (q2::n_tri0), id:577, line:19:21, endln:19:27
+    |vpiFullName:q2::n_tri0
+    |vpiActual:
+    \_logic_typespec: , id:581, line:19:3, endln:19:13
+  |vpiName:n_tri0
+  |vpiFullName:q2::n_tri0
+  |vpiNetType:5
+|vpiNet:
+\_logic_net: (q2::n_tri1), id:583, line:20:21, endln:20:27
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_tri1), id:588
+    |vpiParent:
+    \_logic_net: (q2::n_tri1), id:583, line:20:21, endln:20:27
+    |vpiFullName:q2::n_tri1
+    |vpiActual:
+    \_logic_typespec: , id:587, line:20:3, endln:20:13
+  |vpiName:n_tri1
+  |vpiFullName:q2::n_tri1
+  |vpiNetType:6
+|vpiNet:
+\_logic_net: (q2::n_triand), id:589, line:21:21, endln:21:29
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_triand), id:594
+    |vpiParent:
+    \_logic_net: (q2::n_triand), id:589, line:21:21, endln:21:29
+    |vpiFullName:q2::n_triand
+    |vpiActual:
+    \_logic_typespec: , id:593, line:21:3, endln:21:15
+  |vpiName:n_triand
+  |vpiFullName:q2::n_triand
+  |vpiNetType:8
+|vpiNet:
+\_logic_net: (q2::n_trior), id:595, line:22:21, endln:22:28
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_trior), id:600
+    |vpiParent:
+    \_logic_net: (q2::n_trior), id:595, line:22:21, endln:22:28
+    |vpiFullName:q2::n_trior
+    |vpiActual:
+    \_logic_typespec: , id:599, line:22:3, endln:22:14
+  |vpiName:n_trior
+  |vpiFullName:q2::n_trior
+  |vpiNetType:9
+|vpiNet:
+\_logic_net: (q2::n_tri), id:601, line:23:21, endln:23:26
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_tri), id:606
+    |vpiParent:
+    \_logic_net: (q2::n_tri), id:601, line:23:21, endln:23:26
+    |vpiFullName:q2::n_tri
+    |vpiActual:
+    \_logic_typespec: , id:605, line:23:3, endln:23:12
+  |vpiName:n_tri
+  |vpiFullName:q2::n_tri
+  |vpiNetType:4
+|vpiNet:
+\_logic_net: (q2::n_wiresigned), id:607, line:24:21, endln:24:33
+  |vpiParent:
+  \_package: q2 (q2::), id:2, file:q2_netkwtypes/dut.sv, line:8:1, endln:30:11
+  |vpiTypespec:
+  \_ref_typespec: (q2::n_wiresigned), id:612
+    |vpiParent:
+    \_logic_net: (q2::n_wiresigned), id:607, line:24:21, endln:24:33
+    |vpiFullName:q2::n_wiresigned
+    |vpiActual:
+    \_logic_typespec: , id:611, line:24:3, endln:24:14
+  |vpiName:n_wiresigned
+  |vpiFullName:q2::n_wiresigned
+  |vpiNetType:1
+RHS: <null>

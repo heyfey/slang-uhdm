@@ -1,0 +1,282 @@
+LHS:
+decompile:
+gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+|vpiParent:
+\_gen_scope_array: (work@dut.gi[0]), id:682, line:34:40, endln:42:6
+|vpiFullName:work@dut.gi[0]
+|vpiVariables:
+\_logic_var: (work@dut.gi[0].a_net), id:442, line:35:18, endln:35:23
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].a_net), id:443
+    |vpiParent:
+    \_logic_var: (work@dut.gi[0].a_net), id:442, line:35:18, endln:35:23
+    |vpiFullName:work@dut.gi[0].a_net
+    |vpiActual:
+    \_logic_typespec: , id:438, line:35:5, endln:35:17
+  |vpiName:a_net
+  |vpiFullName:work@dut.gi[0].a_net
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@dut.gi[0].a_var), id:451, line:36:18, endln:36:23
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].a_var), id:452
+    |vpiParent:
+    \_logic_var: (work@dut.gi[0].a_var), id:451, line:36:18, endln:36:23
+    |vpiFullName:work@dut.gi[0].a_var
+    |vpiActual:
+    \_logic_typespec: , id:447, line:36:5, endln:36:17
+  |vpiName:a_var
+  |vpiFullName:work@dut.gi[0].a_var
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@dut.gi[0].b_net), id:460, line:37:18, endln:37:23
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].b_net), id:461
+    |vpiParent:
+    \_logic_var: (work@dut.gi[0].b_net), id:460, line:37:18, endln:37:23
+    |vpiFullName:work@dut.gi[0].b_net
+    |vpiActual:
+    \_logic_typespec: , id:456, line:37:5, endln:37:17
+  |vpiName:b_net
+  |vpiFullName:work@dut.gi[0].b_net
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@dut.gi[0].c_net), id:469, line:38:18, endln:38:23
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].c_net), id:470
+    |vpiParent:
+    \_logic_var: (work@dut.gi[0].c_net), id:469, line:38:18, endln:38:23
+    |vpiFullName:work@dut.gi[0].c_net
+    |vpiActual:
+    \_logic_typespec: , id:465, line:38:5, endln:38:17
+  |vpiName:c_net
+  |vpiFullName:work@dut.gi[0].c_net
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@dut.gi[0].c_unread), id:478, line:39:18, endln:39:26
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].c_unread), id:479
+    |vpiParent:
+    \_logic_var: (work@dut.gi[0].c_unread), id:478, line:39:18, endln:39:26
+    |vpiFullName:work@dut.gi[0].c_unread
+    |vpiActual:
+    \_logic_typespec: , id:474, line:39:5, endln:39:17
+  |vpiName:c_unread
+  |vpiFullName:work@dut.gi[0].c_unread
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@dut.gi[0].z_net), id:487, line:40:18, endln:40:23
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].z_net), id:488
+    |vpiParent:
+    \_logic_var: (work@dut.gi[0].z_net), id:487, line:40:18, endln:40:23
+    |vpiFullName:work@dut.gi[0].z_net
+    |vpiActual:
+    \_logic_typespec: , id:483, line:40:5, endln:40:17
+  |vpiName:z_net
+  |vpiFullName:work@dut.gi[0].z_net
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@dut.gi[0].unitnet), id:496, line:41:18, endln:41:25
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].unitnet), id:497
+    |vpiParent:
+    \_logic_var: (work@dut.gi[0].unitnet), id:496, line:41:18, endln:41:25
+    |vpiFullName:work@dut.gi[0].unitnet
+    |vpiActual:
+    \_logic_typespec: , id:492, line:41:5, endln:41:17
+  |vpiName:unitnet
+  |vpiFullName:work@dut.gi[0].unitnet
+  |vpiVisibility:1
+|vpiParameter:
+\_parameter: (work@dut.gi[0].i), id:705, line:34:0
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |UINT:0
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].i), id:707
+    |vpiParent:
+    \_parameter: (work@dut.gi[0].i), id:705, line:34:0
+    |vpiFullName:work@dut.gi[0].i
+    |vpiActual:
+    \_int_typespec: , id:706
+  |vpiLocalParam:1
+  |vpiName:i
+  |vpiFullName:work@dut.gi[0].i
+|vpiNet:
+\_logic_net: (work@dut.gi[0].a_net), id:428, line:8:16, endln:8:21
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].a_net), id:429
+    |vpiParent:
+    \_logic_net: (work@dut.gi[0].a_net), id:428, line:8:16, endln:8:21
+    |vpiFullName:work@dut.gi[0].a_net
+    |vpiActual:
+    \_logic_typespec: , id:424, line:8:3, endln:8:15
+  |vpiName:a_net
+  |vpiFullName:work@dut.gi[0].a_net
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (work@dut.gi[0].a_net), id:433, line:8:16, endln:8:21
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.gi[0].a_net), id:434
+    |vpiParent:
+    \_logic_net: (work@dut.gi[0].a_net), id:433, line:8:16, endln:8:21
+    |vpiFullName:work@dut.gi[0].a_net
+    |vpiActual:
+    \_logic_typespec: , id:424, line:8:3, endln:8:15
+  |vpiName:a_net
+  |vpiFullName:work@dut.gi[0].a_net
+  |vpiNetType:1
+|vpiContAssign:
+\_cont_assign: , id:684, line:35:34, endln:35:49
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiRhs:
+  \_constant: , id:399, line:35:44, endln:35:49
+    |vpiParent:
+    \_cont_assign: , id:684, line:35:34, endln:35:49
+    |vpiDecompile:32'd1
+    |vpiSize:32
+    |DEC:1
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@dut.gi[0].a_net), id:685, line:35:34, endln:35:39
+    |vpiParent:
+    \_cont_assign: , id:684, line:35:34, endln:35:49
+    |vpiName:a_net
+    |vpiFullName:work@dut.gi[0].a_net
+    |vpiActual:
+    \_logic_net: (work@dut.a_net), id:322, line:8:16, endln:8:21
+|vpiContAssign:
+\_cont_assign: , id:687, line:36:34, endln:36:49
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiRhs:
+  \_constant: , id:402, line:36:44, endln:36:49
+    |vpiParent:
+    \_cont_assign: , id:687, line:36:34, endln:36:49
+    |vpiDecompile:32'd2
+    |vpiSize:32
+    |DEC:2
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@dut.gi[0].a_var), id:688, line:36:34, endln:36:39
+    |vpiParent:
+    \_cont_assign: , id:687, line:36:34, endln:36:49
+    |vpiName:a_var
+    |vpiFullName:work@dut.gi[0].a_var
+    |vpiActual:
+    \_logic_var: (work@dut.a_var), id:331, line:9:16, endln:9:21
+|vpiContAssign:
+\_cont_assign: , id:690, line:37:34, endln:37:49
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiRhs:
+  \_constant: , id:405, line:37:44, endln:37:49
+    |vpiParent:
+    \_cont_assign: , id:690, line:37:34, endln:37:49
+    |vpiDecompile:32'd3
+    |vpiSize:32
+    |DEC:3
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@dut.gi[0].b_net), id:691, line:37:34, endln:37:39
+    |vpiParent:
+    \_cont_assign: , id:690, line:37:34, endln:37:49
+    |vpiName:b_net
+    |vpiFullName:work@dut.gi[0].b_net
+    |vpiActual:
+    \_logic_net: (work@dut.b_net), id:370, line:14:16, endln:14:21
+|vpiContAssign:
+\_cont_assign: , id:693, line:38:34, endln:38:49
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiRhs:
+  \_constant: , id:408, line:38:44, endln:38:49
+    |vpiParent:
+    \_cont_assign: , id:693, line:38:34, endln:38:49
+    |vpiDecompile:32'd4
+    |vpiSize:32
+    |DEC:4
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@dut.gi[0].c_net), id:694, line:38:34, endln:38:39
+    |vpiParent:
+    \_cont_assign: , id:693, line:38:34, endln:38:49
+    |vpiName:c_net
+    |vpiFullName:work@dut.gi[0].c_net
+    |vpiActual:
+    \_logic_net: (work@dut.c_net), id:379, line:18:16, endln:18:21
+|vpiContAssign:
+\_cont_assign: , id:696, line:39:35, endln:39:51
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiRhs:
+  \_constant: , id:411, line:39:46, endln:39:51
+    |vpiParent:
+    \_cont_assign: , id:696, line:39:35, endln:39:51
+    |vpiDecompile:32'd5
+    |vpiSize:32
+    |DEC:5
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@dut.gi[0].c_unread), id:697, line:39:35, endln:39:43
+    |vpiParent:
+    \_cont_assign: , id:696, line:39:35, endln:39:51
+    |vpiName:c_unread
+    |vpiFullName:work@dut.gi[0].c_unread
+|vpiContAssign:
+\_cont_assign: , id:699, line:40:34, endln:40:49
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiRhs:
+  \_constant: , id:414, line:40:44, endln:40:49
+    |vpiParent:
+    \_cont_assign: , id:699, line:40:34, endln:40:49
+    |vpiDecompile:32'd6
+    |vpiSize:32
+    |DEC:6
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@dut.gi[0].z_net), id:700, line:40:34, endln:40:39
+    |vpiParent:
+    \_cont_assign: , id:699, line:40:34, endln:40:49
+    |vpiName:z_net
+    |vpiFullName:work@dut.gi[0].z_net
+|vpiContAssign:
+\_cont_assign: , id:702, line:41:34, endln:41:49
+  |vpiParent:
+  \_gen_scope: (work@dut.gi[0]), id:683, line:34:40, endln:42:6
+  |vpiRhs:
+  \_constant: , id:417, line:41:44, endln:41:49
+    |vpiParent:
+    \_cont_assign: , id:702, line:41:34, endln:41:49
+    |vpiDecompile:32'd7
+    |vpiSize:32
+    |DEC:7
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@dut.gi[0].unitnet), id:703, line:41:34, endln:41:41
+    |vpiParent:
+    \_cont_assign: , id:702, line:41:34, endln:41:49
+    |vpiName:unitnet
+    |vpiFullName:work@dut.gi[0].unitnet
+RHS: <null>

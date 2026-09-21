@@ -1,0 +1,29 @@
+LHS:
+decompile:
+logic_net: (work@dut.n_integer), id:620, line:9:21, endln:9:30
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:613, file:q2_netkwtypes/dut.sv, line:32:1, endln:41:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.n_integer), id:622
+  |vpiParent:
+  \_logic_net: (work@dut.n_integer), id:620, line:9:21, endln:9:30
+  |vpiFullName:work@dut.n_integer
+  |vpiActual:
+  \_integer_typespec: , id:621, line:9:8, endln:9:15
+|vpiName:n_integer
+|vpiFullName:work@dut.n_integer
+RHS:
+decompile:
+logic_net: (work@dut.n_integer), id:197, line:9:21, endln:9:30
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:196, file:q2_netkwtypes/dut.sv, line:32:1, endln:41:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.n_integer), id:199
+  |vpiParent:
+  \_logic_net: (work@dut.n_integer), id:197, line:9:21, endln:9:30
+  |vpiFullName:work@dut.n_integer
+  |vpiActual:
+  \_integer_typespec: , id:198, line:9:8, endln:9:15
+|vpiName:n_integer
+|vpiFullName:work@dut.n_integer
+|vpiNetType:1

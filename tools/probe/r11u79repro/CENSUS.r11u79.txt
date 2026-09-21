@@ -1,0 +1,18 @@
+# r11u79 census summary
+uhdm2rtlil 1742 invocations: LIST rows 0, VAR rows 0, MOVED 0
+surelog 1596 invocations: LIST rows 660 (MOVED 0), VAR rows 1118 (MOVED 0)
+
+# rows per (test,mode)
+     12 ApbSlave/default
+     12 ApbSlave/testflags
+     88 BuildUVMPkg/default
+     88 BuildUVMPkg/testflags
+    236 MiniAmiq/default
+    236 MiniAmiq/testflags
+      2 PackageNet/default
+      2 PackageNet/testflags
+    130 Scoreboard/default
+    302 SeqDriver/default
+    302 SeqDriver/testflags
+    184 SimpleUVM/default
+    184 SimpleUVM/testflags

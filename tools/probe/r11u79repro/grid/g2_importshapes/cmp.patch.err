@@ -1,0 +1,23 @@
+LHS:
+decompile:
+constant: , id:536, line:32:34, endln:32:39
+|vpiParent:
+\_cont_assign: , id:535, line:32:34, endln:32:49
+|vpiDecompile:7
+|vpiSize:32
+|UINT:7
+|vpiTypespec:
+\_ref_typespec: (work@dut.gw[0]), id:537
+  |vpiParent:
+  \_constant: , id:536, line:32:34, endln:32:39
+  |vpiFullName:work@dut.gw[0]
+  |vpiActual:
+  \_int_typespec: , id:538, line:12:14, endln:12:17
+|vpiConstType:9
+RHS:
+decompile:
+ref_obj: (work@dut.gw[0].W_PAR), id:384, line:32:34, endln:32:39
+|vpiParent:
+\_cont_assign: , id:382, line:32:34, endln:32:49
+|vpiName:W_PAR
+|vpiFullName:work@dut.gw[0].W_PAR

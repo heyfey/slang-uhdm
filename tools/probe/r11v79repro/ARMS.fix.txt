@@ -1,0 +1,8 @@
+q1_structmem golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=1627
+q2_netkwtypes golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=29
+q3_tdchain golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=379
+q4_unpacked golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=31
+q5_impreach golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=400
+q6_mod77ctl golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=303
+q7_qual golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=5
+q8_hopviews golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=23

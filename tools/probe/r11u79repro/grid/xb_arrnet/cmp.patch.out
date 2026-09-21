@@ -1,0 +1,19 @@
+decompile:
+bit_select: (g1[0]), id:105, line:23:29, endln:23:31
+|vpiParent:
+\_hier_path: (g1[0].mb_pk[0]), id:103, line:23:29, endln:23:43
+|vpiName:g1
+|vpiFullName:g1[0]
+|vpiIndex:
+\_constant: , id:104, line:23:32, endln:23:33
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+
+decompile:
+ref_obj: (g1[0]), id:36, line:23:29, endln:23:34
+|vpiParent:
+\_hier_path: (g1[0].mb_pk[0]), id:35, line:23:29, endln:23:43
+|vpiName:g1[0]
+

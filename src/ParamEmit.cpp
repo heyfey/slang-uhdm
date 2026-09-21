@@ -26380,6 +26380,430 @@ const Symbol* UhdmExporter::importShadowOf(const Symbol& ta) {
     return nullptr;
 }
 
+// § caPkgListingIsTheSignalVector79 (r11u79) — THE PACKAGE'S OWN LISTING IS
+// THE PACKAGE'S SIGNAL VECTOR, SPLIT BY `elabSignal` AND WRITTEN BY TWO
+// DIFFERENT WRITERS.
+//
+// THE PRODUCER, end to end.  `NetlistElaboration::elaboratePackages`
+// (Surelog src/DesignCompile/NetlistElaboration.cpp:100-134) runs over BOTH
+// package views (`for (Package* pack : {p->getUnElabPackage(), p})`) and
+// hands every entry of `pack->getSignals()` to `elabSignal(sig, nullptr,
+// nullptr, nullptr, netlist, pack, "", false, tscache, reduce)`.  A signal
+// whose `elabSignal` returns FALSE is a VARIABLE: it is pushed onto
+// `netlist->variables()` and then ERASED from `getSignals()` (:120-129).
+// `UhdmWriter::writePackage` (UhdmWriter.cpp:1180) then writes the two
+// vectors with two different writers:
+//
+//   p->Variables(netlist->variables())            (:1281-1291)
+//   writeNets(pack, pack->getSignals(), p, ..., instance = nullptr)  (:1298)
+//
+// and `writeNets` with a null instance is the FLAT writer — always
+// `s.MakeLogic_net()` (:822) stamped `getVpiNetType(orig_net->getType())`
+// (:891), with no array wrapper of any kind (its `array_net` arm is gated on
+// an `interface_inst` parent, :899).  So a package NET is a plain
+// `logic_net` however it was declared, unpacked dimensions included, and a
+// package VARIABLE is whatever `elabSignal` built.
+//
+// This is the PACKAGE-SIDE TWIN of § caImportedPkgNetHoist77 /
+// § caImportedPkgHoistKindTable77 / § caImportedPkgDefNetType77, which land
+// the same three readings on the MODULE's hoisted copy of this listing
+// (src/ModuleEmit.cpp) — the same signal vector, the same kind table and the
+// same one-hop net-type rule, one function over.  It is NOT the same object
+// shape: the module's ELABORATED view wraps a net in a `struct_net` /
+// `array_net`, this one never does.
+//
+// Three switches, each droppable alone.  `R11U79_PKGNET_OFF=1` drops LAW A
+// (package NETs and fixed-size unpacked-array variables leave the listing
+// again), `R11U79_KIND_OFF=1` drops LAW B (the net/variable discriminator
+// reverts to the pre-79 "an integral non-enum TypeAlias is a net"),
+// `R11U79_NT_OFF=1` drops LAW C (the per-view `vpiNetType` reverts to
+// "vpiNet(36) in the elaborated view, nothing in the def view"),
+// `R11U79_OFF=1` drops all three, and `R11U79_CELLDBG=1` traces every
+// package-listing entry, the DECLINED ones included.
+static bool pkgNetOff79() {
+    static const bool v = getenv("R11U79_PKGNET_OFF") != nullptr ||
+                          getenv("R11U79_OFF") != nullptr;
+    return v;
+}
+static bool pkgKindOff79() {
+    static const bool v = getenv("R11U79_KIND_OFF") != nullptr ||
+                          getenv("R11U79_OFF") != nullptr;
+    return v;
+}
+static bool pkgNtOff79() {
+    static const bool v = getenv("R11U79_NT_OFF") != nullptr ||
+                          getenv("R11U79_OFF") != nullptr;
+    return v;
+}
+static bool pkgCellDbg79() {
+    static const bool v = [] {
+        const char* e = getenv("R11U79_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+// Does a struct's every member read as `logic_typespec` or `struct_typespec`
+// in golden's arena?  `elabSignal`'s struct arm (NetlistElaboration.cpp:
+// 2140-2153) walks the MEMBERS' own typespecs and keeps `isNet` only when
+// every one of them is logic or struct.  A packed ARRAY of logic compiles to
+// a logic_typespec carrying the dims, so its LEAF decides; a packed array of
+// STRUCT compiles to a packed_array_typespec and drops `isNet`.  The test
+// applies to an UNPACKED struct too — `compileTypespec` builds a
+// struct_typespec for both spellings (measured, arm `z3_pkgtdnet`: all-logic
+// `usl_t` is a net, `us_t` with a `byte` member is a struct_var).
+static bool pkgStructAllLogic79(const slang::ast::Type& st79) {
+    auto& ct79 = st79.getCanonicalType();
+    if (ct79.kind != SymbolKind::PackedStructType &&
+        ct79.kind != SymbolKind::UnpackedStructType)
+        return false;
+    auto allLogicMember = [](const slang::ast::Type& mt) {
+        const Type* leaf = &mt;
+        while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType)
+            leaf = &leaf->getCanonicalType()
+                        .as<PackedArrayType>()
+                        .elementType;
+        auto& lc = leaf->getCanonicalType();
+        return lc.kind == SymbolKind::ScalarType && lc.isFourState();
+    };
+    if (ct79.kind == SymbolKind::PackedStructType) {
+        for (auto& f79 : ct79.as<PackedStructType>().members()) {
+            if (f79.kind != SymbolKind::Field)
+                continue;
+            auto& mt79 = f79.as<FieldSymbol>().getType().getCanonicalType();
+            // v11u79 FIX 1 — A NESTED STRUCT MEMBER PASSES UNCONDITIONALLY.
+            // `elabSignal` tests the member's OWN TYPESPEC KIND, not its
+            // contents: a struct member compiles to a `struct_typespec`,
+            // which is one of the two kinds the arm accepts, and the walk
+            // stops there.  Recursing into it reads golden backwards —
+            // MEASURED on `q1_structmem` `m_nestint` and on `q8_hopviews`
+            // `k_n2`/`k_n3`/`k_n4` (a struct whose member struct carries an
+            // `int`, in both package views), all five golden `logic_net`.
+            if (mt79.kind == SymbolKind::PackedStructType ||
+                mt79.kind == SymbolKind::UnpackedStructType)
+                continue;
+            if (!allLogicMember(mt79))
+                return false;
+        }
+        return true;
+    }
+    for (auto& f79 : ct79.as<UnpackedStructType>().members()) {
+        if (f79.kind != SymbolKind::Field)
+            continue;
+        auto& mt79 = f79.as<FieldSymbol>().getType().getCanonicalType();
+        // v11u79 FIX 1, the unpacked half — same reading, `k_n4`.
+        if (mt79.kind == SymbolKind::PackedStructType ||
+            mt79.kind == SymbolKind::UnpackedStructType)
+            continue;
+        if (!allLogicMember(mt79))
+            return false;
+    }
+    return true;
+}
+
+// v11u79 FIX 2 — THE TYPESPEC OVERRIDE IS READ PER VIEW, AND THE DEF VIEW
+// RESOLVES EXACTLY ONE TYPEDEF HOP.
+//
+// `elabSignal` reads the typespec the signal CARRIES, and the two package
+// views do not carry the same one.  The def view's is `compileTypespec`'s
+// reading of the type AS WRITTEN — one hop — so a chain of two or more
+// presents an alias typespec the arm chain has no case for and the
+// DECLARATION's answer stands; the elaborated view's signal has been fully
+// resolved and every chain length answers as the one-hop spelling does.
+//
+// MEASURED, arm `q8_hopviews`, one real Surelog v1.87 golden, every override
+// kind at one, two and three hops, BOTH package sections scored:
+//
+//   spelling                       DEF (uhdmallPackages)   ELAB (uhdmtopPackages)
+//   typedef bit     -> b1_t x      bit_var                 bit_var
+//   typedef b1_t    -> b2_t x      logic_net               bit_var
+//   typedef b2_t    -> b3_t x      logic_net               bit_var
+//   typedef enum    -> e1_t x      enum_var                enum_var
+//   typedef e1_t    -> e2_t x      logic_net               enum_var
+//   typedef struct(int) -> s1_t x  struct_var              struct_var
+//   typedef s1_t    -> s2_t x      logic_net               struct_var
+//   typedef byte    -> y1_t x      byte_var                byte_var
+//   typedef y1_t    -> y2_t x      logic_net               byte_var
+//   typedef real    -> r1_t x      real_var                real_var
+//   typedef r1_t    -> r2_t x      logic_net               real_var
+//   typedef struct(unpacked,byte) -> u1_t x   struct_var   struct_var
+//   typedef u1_t    -> u2_t x      logic_net               struct_var
+//   an ALL-LOGIC struct at any chain length stays logic_net in both views
+//   (`k_g1`/`k_g2`), so the rule only ever moves an entry TOWARD the net
+//   vector and never mints an object golden lacks.
+static bool pkgAliasChainTwoPlus79(const slang::ast::Type& t79) {
+    if (t79.kind != SymbolKind::TypeAlias)
+        return false;
+    return t79.as<TypeAliasType>().targetType.getType().kind ==
+           SymbolKind::TypeAlias;
+}
+
+// § caPkgListingKindTable79 (LAW B) — WHICH VECTOR A PACKAGE DECLARATION
+// LANDS IN.  `elabSignal`'s two decisions, read on a package Signal:
+//
+//   (1) THE DECLARATION (NetlistElaboration.cpp:2074-2092).  A net keyword
+//       keeps `isNet`; a declaration written with a TYPE IDENTIFIER keeps it
+//       too (Surelog's `compileNetDeclaration` takes the net_declaration
+//       grammar for `<type-id> <name>;` — the user-defined-nettype ambiguity
+//       § packageVarAutomaticIsDataDeclShape26 already decodes); a BUILTIN
+//       KEYWORD spelling (`logic`, `int`, `time`, `string`, `real`, a
+//       `const`, a `var`) sets it FALSE.
+//   (2) THE TYPESPEC OVERRIDES IT (:2133-2160): a struct whose members are
+//       all logic/struct flips it back TRUE, any other struct FALSE; an
+//       `enum`, a `bit`, a `byte`, a `real` and a `class` typespec force it
+//       FALSE whatever the declaration said; a UNION and a packed ARRAY have
+//       no arm at all and keep (1)'s answer.
+//   (3) For an UNPACKED ARRAY the typespec `elabSignal` compiled is the
+//       ELEMENT's, so (2) is read on the element — the declaration does not
+//       get the last word there either.
+//
+// MEASURED, one real Surelog golden per row, PACKAGE SECTION scored (arms
+// `z3_pkgtdnet`, `z4_pkgdefnt`, `z5_pkgunpacked`, `z8_pkgqual`, and the
+// pass-77/r11v77 arms `y1`/`y2`/`va`/`vd`/`vi` as carried-in controls):
+//
+//   wire/tri/wand/wor/supply0/supply1/tri0/tri1/triand/trior/trireg/uwire
+//                                       -> logic_net      (LAW A)
+//   wire logic / wire signed / wire <td> -> logic_net
+//   wire en_t                            -> enum_var      <- (2) beats (1)
+//   wire si_t (an `int` member)          -> struct_var    <- (2) beats (1)
+//   wire bit [7:0]                       -> bit_var       <- (2) beats (1)
+//   wire sl_t / wire un_t                -> logic_net
+//   logic/reg/integer/time/bit/int/byte/real/string/chandle/class handle
+//                                        -> their own *_var
+//   typedef logic/reg/int/packed-array/packed-struct(all logic)/union
+//                                        -> logic_net
+//   typedef bit                          -> bit_var
+//   typedef enum                         -> enum_var
+//   typedef struct with an int/bit/enum/packed-array-of-struct member
+//                                        -> struct_var
+//   typedef UNPACKED struct, all logic   -> logic_net
+//   typedef UNPACKED struct, a byte      -> struct_var
+//   typedef UNPACKED union               -> logic_net
+//   anonymous packed struct              -> logic_net
+//   anonymous packed struct, an int      -> struct_var
+//   anonymous packed UNION               -> union_var
+//   anonymous unpacked struct, all logic -> logic_net
+//   const/var/static/plain <struct-td>   -> logic_net (the qualifier is not
+//                                           the discriminator)
+//
+// and the unpacked table (arm `z5_pkgunpacked`, every element spelling):
+//   logic/int/bit/real/string element     -> array_var (element *_var)
+//   si_t / en_t element, net or variable  -> array_var (struct_var/enum_var)
+//   sl_t / un_t element, net or variable  -> logic_net, the dimension DROPPED
+//   wire [7:0] a [0:1]                    -> logic_net
+//   a TYPEDEF'd unpacked array            -> logic_net
+//
+// GOLDEN WRITES NOTHING ON A MISS: `event`, a typedef alone, a parameter and
+// a subroutine local are in NEITHER vector here and stay unlisted.
+enum class PkgListKind79 {
+    Net,       // the flat logic_net of `writeNets(..., instance = nullptr)`
+    ArrayVar,  // a fixed-size unpacked array VARIABLE holder
+    StructVar, // a struct the member test dropped out of the net vector
+    UnionVar,  // an ANONYMOUS packed union
+    VarRoad,   // `emitPackageVar`'s own kind decides
+};
+
+// (2)+(3): the typespec override, read on @a t79 (the ELEMENT type for an
+// unpacked array).  Returns -1 for "no arm — keep the declaration's answer",
+// 0 for FALSE and 1 for TRUE.
+static int pkgTypespecOverride79(const slang::ast::Type& t79) {
+    auto& ct79 = t79.getCanonicalType();
+    // A packed ARRAY whose LEAF is a scalar compiles to a logic/bit typespec
+    // carrying the dims, so the leaf decides; one whose leaf is anything else
+    // compiles to a packed_array_typespec, which `elabSignal` reads and then
+    // tests NOTHING (:2135-2139 sets `tmp` and falls out of the chain).
+    if (ct79.kind == SymbolKind::PackedArrayType) {
+        const Type* leaf79 = &ct79;
+        while (leaf79->getCanonicalType().kind == SymbolKind::PackedArrayType)
+            leaf79 = &leaf79->getCanonicalType()
+                          .as<PackedArrayType>()
+                          .elementType;
+        auto& lc79 = leaf79->getCanonicalType();
+        if (lc79.kind != SymbolKind::ScalarType)
+            return -1;
+        return lc79.isFourState() ? -1 : 0;
+    }
+    if (ct79.kind == SymbolKind::PackedStructType ||
+        ct79.kind == SymbolKind::UnpackedStructType)
+        return pkgStructAllLogic79(ct79) ? 1 : 0;
+    if (ct79.kind == SymbolKind::EnumType)
+        return 0;
+    if (ct79.kind == SymbolKind::ScalarType)
+        return ct79.isFourState() ? -1 : 0;
+    if (ct79.kind == SymbolKind::FloatingType)
+        return 0;
+    if (ct79.kind == SymbolKind::ClassType)
+        return 0;
+    if (ct79.kind == SymbolKind::PredefinedIntegerType)
+        return ct79.as<PredefinedIntegerType>().integerKind ==
+                       PredefinedIntegerType::Byte
+                   ? 0
+                   : -1;
+    return -1;
+}
+
+static PkgListKind79 pkgListKind79(const slang::ast::Symbol& sym79,
+                                   bool topView79) {
+    auto* dt79 = sym79.getDeclaredType();
+    if (!dt79)
+        return PkgListKind79::VarRoad;
+    const Type& wt79 = dt79->getType();
+    auto& ct79 = wt79.getCanonicalType();
+    // A DYNAMIC container keeps its own road (`emitPkgArrayVar`), measured
+    // separately and untouched here.
+    if (ct79.kind == SymbolKind::DynamicArrayType ||
+        ct79.kind == SymbolKind::QueueType ||
+        ct79.kind == SymbolKind::AssociativeArrayType)
+        return PkgListKind79::VarRoad;
+    const bool fixedArr79 = ct79.kind == SymbolKind::FixedSizeUnpackedArrayType;
+    // (1) the declaration.
+    auto* tsyn79 = dt79->getTypeSyntax();
+    bool isNet79 = sym79.kind == SymbolKind::Net ||
+                   (tsyn79 && (tsyn79->kind == syntax::SyntaxKind::NamedType ||
+                               tsyn79->kind == syntax::SyntaxKind::StructType));
+    // (3) an unpacked dimension moves the reading to the ELEMENT.
+    const Type* ov79 = &wt79;
+    if (fixedArr79)
+        ov79 = &ct79.as<FixedSizeUnpackedArrayType>().elementType;
+    // (2) the typespec override — v11u79 FIX 2: in the DEF view it is read on
+    // the ONE-HOP resolution, so a chain of two or more typedefs has no arm at
+    // all and (1) stands.  The rule is the scalar road's: an unpacked
+    // declarator's element type is already past its own alias when
+    // `FixedSizeUnpackedArrayType` canonicalises, and `z5_pkgunpacked` scores
+    // both views agreeing on every element spelling.
+    const bool defHop79 = !topView79 && !fixedArr79 &&
+                          pkgAliasChainTwoPlus79(wt79);
+    if (!defHop79)
+        if (int o79 = pkgTypespecOverride79(*ov79); o79 >= 0)
+            isNet79 = o79 != 0;
+    if (isNet79)
+        return PkgListKind79::Net;
+    if (fixedArr79)
+        return PkgListKind79::ArrayVar;
+    auto& oc79 = ov79->getCanonicalType();
+    if (oc79.kind == SymbolKind::PackedStructType ||
+        oc79.kind == SymbolKind::UnpackedStructType)
+        return PkgListKind79::StructVar;
+    // An ANONYMOUS packed union is the one union spelling golden reads as a
+    // variable (`z3_pkgtdnet` `t_anonu`); a TYPEDEF'd one keeps (1)'s net.
+    if (oc79.kind == SymbolKind::PackedUnionType)
+        return PkgListKind79::UnionVar;
+    return PkgListKind79::VarRoad;
+}
+
+// § caPkgListingNetTypeIsPerView79 (LAW C) — THE `vpiNetType` A PACKAGE NET
+// CARRIES, AND IT IS NOT THE SAME IN THE TWO VIEWS.
+//
+// `writeNets` stamps `getVpiNetType(orig_net->getType())` (UhdmWriter.cpp:891,
+// the table at :572) in both package views, but the two views hold DIFFERENT
+// Signal objects and only the ELABORATED one has been through
+// `ElaborationStep`'s type rewrite (ElaborationStep.cpp:1489-1500): when the
+// declaration's type NAME resolves to a SIMPLE_TYPEDEF whose own written type
+// is `logic` / `reg` / `wire`, the signal's type is REPLACED by that keyword.
+// Exactly one hop — a typedef of a typedef is not a SIMPLE_TYPEDEF target and
+// nothing is rewritten.
+//
+// The DEF-view value is `compileNetDeclaration`'s (CompileHelper.cpp:2096):
+// the NET KEYWORD, unless a BUILTIN data-type keyword other than `logic`
+// stands between it and the name ("`wire logic` is `wire`", :2174-2181), in
+// which case that keyword answers the table instead — and answers 0 for every
+// keyword the table has no arm for.  A declaration with no net keyword at all
+// carries no type in the def view.
+//
+// MEASURED, arm `z4_pkgdefnt`, both views, every spelling its own row:
+//
+//   spelling                     DEF   ELAB
+//   wire/tri/wand/wor/...        kw    kw        (1/4/2/3/5/6/7/8/9/10/11/13)
+//   wire logic [7:0]             1     1
+//   wire signed [7:0]            1     1
+//   wand integer                 0     0         <- the data type answers
+//   wire w_t   (logic [3:0])     1     36        <- the ONE hop
+//   wire w2_t  (a typedef of it) 1     1
+//   wire st_t / wire un_t        1     1
+//   w_t x      (no keyword)      0     36
+//   rg_t x     (typedef reg)     0     48
+//   parr_t x / arr_t x           0     36
+//   w2_t x / st_t x / un_t x / int_t x / an anonymous struct   0   0
+static int32_t pkgNetKeywordVpi79(const slang::ast::NetSymbol& ns79) {
+    switch (ns79.netType.netKind) {
+        case slang::ast::NetType::Wire:
+            return vpiWire;
+        case slang::ast::NetType::WAnd:
+            return vpiWand;
+        case slang::ast::NetType::WOr:
+            return vpiWor;
+        case slang::ast::NetType::Tri:
+            return vpiTri;
+        case slang::ast::NetType::TriAnd:
+            return vpiTriAnd;
+        case slang::ast::NetType::TriOr:
+            return vpiTriOr;
+        case slang::ast::NetType::Tri0:
+            return vpiTri0;
+        case slang::ast::NetType::Tri1:
+            return vpiTri1;
+        case slang::ast::NetType::TriReg:
+            return vpiTriReg;
+        case slang::ast::NetType::Supply0:
+            return vpiSupply0;
+        case slang::ast::NetType::Supply1:
+            return vpiSupply1;
+        case slang::ast::NetType::UWire:
+            return vpiUwire;
+        default:
+            return 0;
+    }
+}
+
+// The `getVpiNetType` table's answer for a WRITTEN BUILTIN KEYWORD node.
+static int32_t pkgKeywordNetType79(const slang::syntax::SyntaxNode* ts79) {
+    if (!ts79)
+        return 0;
+    if (ts79->kind == syntax::SyntaxKind::LogicType)
+        return vpiNet;
+    if (ts79->kind == syntax::SyntaxKind::RegType)
+        return vpiReg;
+    return 0;
+}
+
+static int32_t pkgNetTypeForView79(const slang::ast::Symbol& sym79,
+                                   bool topView79) {
+    auto* dt79 = sym79.getDeclaredType();
+    if (!dt79)
+        return 0;
+    auto* tsyn79 = dt79->getTypeSyntax();
+    const bool named79 =
+        tsyn79 && tsyn79->kind == syntax::SyntaxKind::NamedType;
+    // The DEF-view reading.
+    int32_t def79 = 0;
+    if (sym79.kind == SymbolKind::Net) {
+        auto& ns79 = sym79.as<NetSymbol>();
+        // "wire logic" is "wire": only a NON-logic builtin keyword displaces
+        // the net keyword, and then it answers the table itself.
+        if (tsyn79 && !named79 &&
+            tsyn79->kind != syntax::SyntaxKind::LogicType &&
+            tsyn79->kind != syntax::SyntaxKind::ImplicitType)
+            def79 = pkgKeywordNetType79(tsyn79);
+        else
+            def79 = pkgNetKeywordVpi79(ns79);
+    }
+    if (!topView79)
+        return def79;
+    // The ELABORATED view's ONE-HOP rewrite.
+    if (named79) {
+        auto& t79 = dt79->getType();
+        if (t79.kind == SymbolKind::TypeAlias)
+            if (auto* asyn79 = t79.as<TypeAliasType>().getSyntax();
+                asyn79 &&
+                asyn79->kind == syntax::SyntaxKind::TypedefDeclaration)
+                if (int32_t hop79 = pkgKeywordNetType79(
+                        asyn79->as<syntax::TypedefDeclarationSyntax>().type))
+                    return hop79;
+        return def79;
+    }
+    return def79;
+}
+
 UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView) {
     std::string prefix = std::string(pkg.name) + "::";
     auto* up = s.MakePackage();
@@ -28789,7 +29213,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         // SeqDriver (adpcm_pkg carries uvm_pkg's 33).  `emitOne9` is the
         // former loop body, unchanged; only own variables register in the
         // per-view binding maps, so a clone never displaces its home.
-        auto emitOne9 = [&](const VariableSymbol& vs, bool own9) {
+        auto emitOne9 = [&](const ValueSymbol& vs, bool own9) {
             const DeclaredType* dt = vs.getDeclaredType();
             if (!dt)
                 return;
@@ -28800,9 +29224,62 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             bool anonPacked =
                 dt->getType().kind == SymbolKind::PackedStructType ||
                 dt->getType().kind == SymbolKind::PackedUnionType;
-            if (!anonPacked &&
-                (!ct.isIntegral() || ct.isEnum() ||
-                 dt->getType().kind != SymbolKind::TypeAlias)) {
+            // § caPkgListingKindTable79 (LAW B) — which vector this entry
+            // lands in.  With the switch off the pre-79 discriminator stands
+            // verbatim ("an integral non-enum TypeAlias, or an anonymous
+            // packed aggregate, is a net"), which is right for eleven of the
+            // measured spellings and wrong for six.
+            bool isNet79;
+            if (pkgKindOff79())
+                isNet79 = anonPacked ||
+                          !(!ct.isIntegral() || ct.isEnum() ||
+                            dt->getType().kind != SymbolKind::TypeAlias);
+            else
+                isNet79 = pkgListKind79(vs, topView) == PkgListKind79::Net;
+            // THE A-PRIORI MOVER PREDICTOR.  One row per entry that reaches
+            // this listing, the DECLINED ones included, carrying BOTH
+            // answers — the pre-79 road's and this pass's — computed in the
+            // same run on the same binary, so a corpus mover is named by
+            // name without a second binary.  It over-predicts by design (a
+            // `StructVar`/`UnionVar`/`ArrayVar` mint counts as MOVED even
+            // where the pre-79 road happened to build the same class):
+            // a predicted mover that does not move costs nothing, an
+            // unpredicted one convicts the law.
+            if (pkgCellDbg79()) {
+                const bool preNet79 =
+                    anonPacked || !(!ct.isIntegral() || ct.isEnum() ||
+                                    dt->getType().kind != SymbolKind::TypeAlias);
+                auto& pct79 = ct;
+                const bool preDrop79 =
+                    !preNet79 &&
+                    (pct79.kind == SymbolKind::FixedSizeUnpackedArrayType ||
+                     pct79.kind == SymbolKind::UnpackedStructType ||
+                     pct79.kind == SymbolKind::UnpackedUnionType ||
+                     dt->getType().kind == SymbolKind::PackedStructType ||
+                     dt->getType().kind == SymbolKind::PackedUnionType);
+                auto vk79 = pkgListKind79(vs, topView);
+                // 0 absent (a NET, which the pre-79 walk never saw) /
+                // 1 net / 2 var / 3 dropped outright.
+                int pre79 = vs.kind == SymbolKind::Net
+                                ? 0
+                                : (preNet79 ? 1 : (preDrop79 ? 3 : 2));
+                int now79 = isNet79
+                                ? 1
+                                : (vk79 == PkgListKind79::VarRoad ? 2 : 4);
+                int32_t ntNew79 = pkgNetTypeForView79(vs, topView);
+                int32_t ntPre79 = (isNet79 && topView) ? vpiNet : 0;
+                bool moved79 = pre79 != now79 ||
+                               (isNet79 && ntNew79 != ntPre79) ||
+                               (!isNet79 && vk79 != PkgListKind79::VarRoad);
+                fprintf(stderr,
+                        "R11U79LIST name=%s%s view=%d sym=%d pre=%d now=%d "
+                        "vk=%d nt=%d ntpre=%d %s\n",
+                        prefix.c_str(), std::string(vs.name).c_str(),
+                        (int)topView, (int)vs.kind, pre79, now79, (int)vk79,
+                        (int)ntNew79, (int)ntPre79,
+                        moved79 ? "MOVED" : "SAME");
+            }
+            if (!isNet79) {
                 emitPackageVar(vs, up, prefix, pvars);
                 return;
             }
@@ -28811,11 +29288,17 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             n->VpiFullName(prefix + std::string(vs.name));
             n->VpiParent(up);
             setLoc(n, nameSpan(vs.location, vs.name));
-            // vpiNet (36), not vpiWire: a package data declaration is not a
-            // wire, and Surelog stamps the generic net kind — and only in the
-            // ELABORATED view.
-            if (topView)
-                n->VpiNetType(vpiNet);
+            // § caPkgListingNetTypeIsPerView79 (LAW C) — the def view carries
+            // the NET KEYWORD and the elaborated one the written base keyword
+            // through exactly ONE typedef hop.  With the switch off the
+            // pre-79 stamp stands: vpiNet (36) on every entry, elaborated
+            // view only.
+            if (pkgNtOff79()) {
+                if (topView)
+                    n->VpiNetType(vpiNet);
+            }
+            else if (int32_t nt79 = pkgNetTypeForView79(vs, topView))
+                n->VpiNetType(nt79);
             // The net's typespec ref is named after the NET (my_package1::v)
             // and resolves to this view's shared package typedef object.
             UHDM::typespec* nts = nullptr;
@@ -28869,6 +29352,24 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 rt->Actual_typespec(bind);
                 n->Typespec(rt);
             }
+            // § caPkgListingIsTheSignalVector79 (LAW A) — the shapes the
+            // pre-79 listing never reached carry a typespec too, and it is
+            // the ELEMENT type's: golden's flat `logic_net` for
+            // `sl_t a [0:1]` refers to `sl_t`'s own struct_typespec, the
+            // unpacked dimension dropped with the array wrapper
+            // (`z5_pkgunpacked`, ten element spellings; `y1_pkgnetkind`'s
+            // eight net keywords; `z3_pkgtdnet`'s anonymous struct).
+            else if (!pkgNetOff79()) {
+                if (auto* ets79 = makeTypespec(vs)) {
+                    auto* rt79 = s.MakeRef_typespec();
+                    rt79->VpiFullName(prefix + std::string(vs.name));
+                    rt79->VpiParent(n);
+                    rt79->Actual_typespec(ets79);
+                    n->Typespec(rt79);
+                    if (!ets79->Instance())
+                        ets79->Instance(up);
+                }
+            }
             pnets->push_back(n);
             if (own9) {
                 pkgViewVarObjs9[&vs] = n;
@@ -28901,9 +29402,19 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     }
                 };
                 for (auto& qm9 : q9.members()) {
-                    if (qm9.kind == SymbolKind::Variable) {
+                    // § caPkgListingIsTheSignalVector79 (LAW A) — the clone
+                    // reproduces the home package's WHOLE SIGNAL VECTOR, nets
+                    // included: `CompileHelper::importPackage` pushes
+                    // `def->getSignals()` into the importing scope's own
+                    // vector (CompileHelper.cpp:183-190) and the package
+                    // writer then lists it exactly as the home package's.
+                    // MEASURED on `z7_pkgimpclone`: `pb` lists `pa`'s
+                    // `a_net`/`a_uarr`/`a_struct`/`a_var` and `pc` lists both
+                    // hops' entries, direct and transitive alike.
+                    if (qm9.kind == SymbolKind::Variable ||
+                        (!pkgNetOff79() && qm9.kind == SymbolKind::Net)) {
                         qflush9(qm9.location, false);
-                        emitOne9(qm9.as<VariableSymbol>(), false);
+                        emitOne9(qm9.as<ValueSymbol>(), false);
                     }
                     else if (qm9.kind == SymbolKind::WildcardImport) {
                         if (auto* r9 =
@@ -28926,9 +29437,14 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 impVars9(*q9, seen9);
                 continue;
             }
-            if (mem.kind != SymbolKind::Variable)
+            // § caPkgListingIsTheSignalVector79 (LAW A) — a package NET is an
+            // entry of the very vector this listing is built from
+            // (`pack->getSignals()`), so it rides the walk at its own source
+            // slot exactly as a variable does.
+            if (mem.kind != SymbolKind::Variable &&
+                !(!pkgNetOff79() && mem.kind == SymbolKind::Net))
                 continue;
-            auto& vs = mem.as<VariableSymbol>();
+            auto& vs = mem.as<ValueSymbol>();
             if (!vs.getDeclaredType())
                 continue;
             flushHoist9(vs.location, false);
@@ -29866,6 +30382,46 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
     if (!dt)
         return;
     auto& ct = dt->getType().getCanonicalType();
+    // § caPkgListingIsTheSignalVector79 — THE PACKAGE'S OWN LISTING ONLY.
+    // `stampTsInstance` is this function's standing discriminator between the
+    // two callers (the package listing passes true, the importing MODULE's
+    // hoist passes false — see § oobCtorLocalsRideTheImport203's exception
+    // below, which uses the same reading).  Every shape r11u79 adds was
+    // measured on golden's PACKAGE SECTION and on nothing else, so the
+    // module's hoisted copy keeps the pre-79 answer it was measured into by
+    // § caImportedPkgHoistKindTable77 and by r11v77's `ArraySkip` — golden
+    // writes nothing on a miss, and a holder minted on an unmeasured road is
+    // the same class of invention.
+    const bool pkgOwn79 = stampTsInstance;
+    // THE SECOND CENSUS ROW, and it closes this pass's one blind spot: an
+    // entry that reaches the listing WITHOUT passing `emitOne9` — a hoisted
+    // out-of-body constructor local and every entry of a wildcard-import
+    // clone's flush — is traced here, so no listed object is unnamed.  MOVED
+    // is computed against the PRE-79 road in the same run on the same binary.
+    if (pkgCellDbg79()) {
+        auto vk79 = pkgListKind79(vs, pkgEmitTopView);
+        const bool preDrop79 =
+            ct.kind == SymbolKind::FixedSizeUnpackedArrayType ||
+            ct.kind == SymbolKind::UnpackedStructType ||
+            ct.kind == SymbolKind::UnpackedUnionType ||
+            dt->getType().kind == SymbolKind::PackedStructType ||
+            dt->getType().kind == SymbolKind::PackedUnionType;
+        const bool mint79 = pkgOwn79 && !pkgKindOff79() &&
+                            (vk79 == PkgListKind79::StructVar ||
+                             vk79 == PkgListKind79::UnionVar);
+        const bool arr79 = pkgOwn79 && !pkgNetOff79() &&
+                           ct.kind == SymbolKind::FixedSizeUnpackedArrayType;
+        // The NET-keyword lifetime override is a no-op for the two kinds the
+        // pre-79 road could reach through a `SymbolKind::Net` symbol.
+        const bool netAuto79 =
+            vs.kind == SymbolKind::Net && ct.kind != SymbolKind::EnumType &&
+            ct.kind != SymbolKind::ClassType;
+        fprintf(stderr,
+                "R11U79VAR name=%s%s own=%d sym=%d vk=%d predrop=%d %s\n",
+                prefix.c_str(), std::string(vs.name).c_str(), (int)pkgOwn79,
+                (int)vs.kind, (int)vk79, (int)preDrop79,
+                (mint79 || arr79 || netAuto79) ? "MOVED" : "SAME");
+    }
     // Unpacked aggregates (array_var + vpiReg child + folded ranges) are not
     // modelled here yet — dropping is the honest arm, mis-shaping them is
     // not.  DYNAMIC containers are (emitPkgArrayVar).
@@ -29908,7 +30464,28 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
             emitPkgArrayVar(vs, up, prefix, out, stampTsInstance);
             return;
         case SymbolKind::FixedSizeUnpackedArrayType:
+            // § caPkgListingIsTheSignalVector79 (LAW A) — a FIXED-SIZE
+            // unpacked array is `makeVar_`'s `array_var` in golden's package
+            // listing whenever the ELEMENT's typespec reads as a variable
+            // (`z5_pkgunpacked`, ten element spellings): the holder wraps the
+            // element's own kind, carries the declarator's ranges, and sizes
+            // itself 1 in the def view and FLATTENED in the elaborated one.
+            // v11u79: the two arms of the r11u79 spelling both returned, so
+            // the guard is the whole of it.  Squashed to one call and one
+            // return — NOT to a bare call, which would drop the guard and run
+            // the builder on the importing module's hoisted copy, ground this
+            // law was never measured on.
+            if (pkgOwn79 && !pkgNetOff79())
+                emitPkgFixedArrayVar79(vs, up, prefix, out, pkgEmitTopView);
+            return;
         case SymbolKind::UnpackedStructType:
+            // § caPkgListingKindTable79 (LAW B) — an unpacked struct whose
+            // members are not all logic/struct is a `struct_var` in golden's
+            // package listing (`z3_pkgtdnet` `t_us`); the all-logic spelling
+            // never arrives here, the caller's net branch takes it.
+            if (!(pkgOwn79 && !pkgKindOff79()))
+                return;
+            break;
         case SymbolKind::UnpackedUnionType:
             return;
         default:
@@ -29918,10 +30495,32 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
     // (Surelog-measured, probe2); the caller's net branch handles them. This
     // guard only defends future callers — mis-shaping as logic_var via the
     // reg fallback below would be worse than dropping.
-    if (dt->getType().kind == SymbolKind::PackedStructType ||
-        dt->getType().kind == SymbolKind::PackedUnionType)
+    //
+    // § caPkgListingKindTable79 (LAW B) — with ONE measured exception, and it
+    // is the anonymous PACKED UNION: golden's package listing reads
+    // `union packed {...} t_anonu;` as a `union_var` while the typedef'd
+    // spelling stays a net (`z3_pkgtdnet`, both views).  An anonymous packed
+    // STRUCT is a net unless its member test drops it, and then it is a
+    // `struct_var` — both arrive here from the caller's discriminator.
+    UHDM::variables* vNew79 = nullptr;
+    if (pkgOwn79 && !pkgKindOff79()) {
+        switch (pkgListKind79(vs, pkgEmitTopView)) {
+            case PkgListKind79::StructVar:
+                vNew79 = s.MakeStruct_var();
+                break;
+            case PkgListKind79::UnionVar:
+                vNew79 = s.MakeUnion_var();
+                break;
+            default:
+                break;
+        }
+        if (vNew79)
+            vNew79->VpiVisibility(1);
+    }
+    if (!vNew79 && (dt->getType().kind == SymbolKind::PackedStructType ||
+                    dt->getType().kind == SymbolKind::PackedUnionType))
         return;
-    auto* v = makeVar(vs, /*portBacked=*/false);
+    auto* v = vNew79 ? vNew79 : makeVar(vs, /*portBacked=*/false);
     // A `reg` declaration is excluded from makeVar's logic_var arm because a
     // MODULE `reg` stays a net; a PACKAGE one is a logic_var like every other
     // keyword-typed package declaration.
@@ -30004,6 +30603,18 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
                              !qual26 && !newInit26;
             }
         }
+        // § caPkgListingKindTable79 — a declaration written with a NET
+        // KEYWORD never matched data_declaration to begin with, so the
+        // ambiguity § 26 decodes does not arise for it:
+        // `compileNetDeclaration` calls `sig->setStatic()` unconditionally
+        // (CompileHelper.cpp:2186/2199) and golden reads the holder
+        // vpiAutomatic 0.  A NO-OP for every kind the pre-79 listing could
+        // reach through a `SymbolKind::Net` symbol — an `enum_var` and a
+        // `class_var` already start this test at TRUE — and the reading the
+        // `struct_var` and `union_var` of LAW B need (`va_netstructkinds`
+        // `n_wsi`, both views).
+        if (vs.kind == SymbolKind::Net)
+            netShape26 = true;
         // § hoistedLocalKeepsItsLifetime209 — THE NET/DATA-DECLARATION
         // AMBIGUITY § 26 DECODES IS A PACKAGE-ITEM ONE.  It exists because a
         // package item written `<type-identifier> <name>;` matches
@@ -30393,6 +31004,146 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
         }
     }
     out->push_back(av);
+    return true;
+}
+
+// § caPkgListingIsTheSignalVector79 (LAW A) — THE FIXED-SIZE UNPACKED
+// PACKAGE ARRAY, the one shape this listing dropped outright.
+//
+// `elabSignal`'s variable arm wraps the scalar holder: `makeVar_` builds the
+// element variable of the element type's OWN kind and hangs it on an
+// `array_var` carrying the declarator's ranges.  MEASURED on golden, arm
+// `z5_pkgunpacked`, every element spelling and every dimension spelling, in
+// BOTH package views:
+//
+//   logic/int/bit/real/string element -> array_var, element *_var of its kind
+//   si_t / en_t element               -> array_var, struct_var / enum_var
+//   sl_t / un_t / wire element        -> NOT HERE: the caller's net branch
+//                                        takes them (a flat logic_net)
+//   vpiSize                           -> 1 in the DEF view, the FLATTENED
+//                                        element count in the ELABORATED one
+//                                        (`u_2d [0:1][0:2]` reads SIX)
+//   vpiArrayType 1, vpiRandType 1, vpiVisibility 1
+//   vpiAutomatic                      -> § packageVarAutomaticIsDataDeclShape26
+//                                        verbatim: the keyword spellings are
+//                                        automatic, a bare TYPE IDENTIFIER is
+//                                        not (`u_vlog` 1, `u_vsi` 0)
+//   the element object                -> EMPTY vpiName, the ARRAY's fullname,
+//                                        and the element type's own typespec
+//
+// The `vpiAutomatic` reading is a CLONE of § 26's, not a call into it: the
+// rule lives inline in `emitPackageVar` for the scalar listing and the two
+// copies differ in gate-verified ways (this one has no initializer arm and no
+// declarator-span rule), so they stay apart until the corpus is converged.
+bool UhdmExporter::emitPkgFixedArrayVar79(const Symbol& vs,
+                                          UHDM::instance* up,
+                                          const std::string& prefix,
+                                          UHDM::VectorOfvariables* out,
+                                          bool topView79) {
+    auto* dt79 = vs.getDeclaredType();
+    if (!dt79)
+        return false;
+    auto& ct79 = dt79->getType().getCanonicalType();
+    if (ct79.kind != SymbolKind::FixedSizeUnpackedArrayType)
+        return false;
+    // The declarator's written dimensions are what golden's ranges come from;
+    // a TYPEDEF'd unpacked array has none and is a NET in this listing, so it
+    // never arrives here.
+    auto* dsyn79 = vs.getSyntax();
+    if (!dsyn79 || dsyn79->kind != syntax::SyntaxKind::Declarator ||
+        dsyn79->as<syntax::DeclaratorSyntax>().dimensions.empty())
+        return false;
+    // The FLATTENED element count: every fixed unpacked level multiplied.
+    const Type* el79 = &dt79->getType();
+    int64_t flat79 = 1;
+    while (el79->getCanonicalType().kind ==
+           SymbolKind::FixedSizeUnpackedArrayType) {
+        auto& fa79 = el79->getCanonicalType().as<FixedSizeUnpackedArrayType>();
+        flat79 *= (int64_t)fa79.range.width();
+        el79 = &fa79.elementType;
+    }
+    if (flat79 <= 0 || flat79 > (int64_t)1 << 30)
+        return false;
+    std::string full79 = prefix + std::string(vs.name);
+    auto* av79 = s.MakeArray_var();
+    av79->VpiName(vs.name);
+    av79->VpiFullName(full79);
+    av79->VpiParent(up);
+    setLoc(av79, nameSpan(vs.location, vs.name));
+    av79->VpiSize(topView79 ? (int32_t)flat79 : 1);
+    av79->VpiArrayType(1);
+    av79->VpiRandType(vpiNotRand);
+    av79->VpiVisibility(1);
+    // § packageVarAutomaticIsDataDeclShape26, cloned: a declaration whose
+    // written data type is a bare type IDENTIFIER matched net_declaration and
+    // is the STATIC one; a keyword-spelled type, a `const`/`var` qualifier or
+    // a `new` initializer forces data_declaration and the automatic lifetime.
+    bool netShape79 = false, staticKw79 = false, autoKw79 = false;
+    if (const syntax::SyntaxNode* par79 = dsyn79->parent;
+        par79 && par79->kind == syntax::SyntaxKind::DataDeclaration) {
+        auto& dd79 = par79->as<syntax::DataDeclarationSyntax>();
+        bool qual79 = false;
+        for (auto md79 : dd79.modifiers) {
+            if (md79.kind == parsing::TokenKind::ConstKeyword ||
+                md79.kind == parsing::TokenKind::VarKeyword)
+                qual79 = true;
+            else if (md79.kind == parsing::TokenKind::StaticKeyword)
+                staticKw79 = true;
+            else if (md79.kind == parsing::TokenKind::AutomaticKeyword)
+                autoKw79 = true;
+        }
+        netShape79 =
+            dd79.type->kind == syntax::SyntaxKind::NamedType && !qual79;
+    }
+    // A declaration written with a NET KEYWORD is not a data_declaration at
+    // all: `compileNetDeclaration` calls `sig->setStatic()` unconditionally
+    // (CompileHelper.cpp:2186/2199), so golden's `wire si_t a [0:1]` holder
+    // is vpiAutomatic 0 where the variable-spelled twin is 1
+    // (`vh_arrelem` `a_nsi`/`a_nen`, `z5_pkgunpacked` `u_nsi`/`u_nen`).
+    if (vs.kind == SymbolKind::Net)
+        netShape79 = true;
+    if ((!netShape79 && !staticKw79) || autoKw79)
+        av79->VpiAutomatic(true);
+    // The ELEMENT's signedness rides the HOLDER, not the element: golden's
+    // `int u_vint [0:1]` reads `vpiSigned:1` on the `array_var` and NOTHING
+    // on its `int_var` child, in both views (`z5_pkgunpacked`, the only one
+    // of the fourteen element spellings with a signed leaf).  Both are
+    // compared cells — `variables::Compare` reads VpiSigned on each object —
+    // so the flag has to be moved, not just added.
+    if (el79->isSigned())
+        av79->VpiSigned(true);
+    {
+        auto* ats79 = s.MakeArray_typespec();
+        auto* art79 = s.MakeRef_typespec();
+        art79->VpiFullName(full79);
+        art79->VpiParent(av79);
+        art79->Actual_typespec(ats79);
+        av79->Typespec(art79);
+    }
+    if (auto* rngs79 = buildUnpackedRanges(vs, av79))
+        av79->Ranges(rngs79);
+    if (auto* reg79 = makeReturnVar(s, *el79)) {
+        reg79->VpiParent(av79);
+        reg79->VpiFullName(full79);
+        // `makeReturnVar` stamps the integer kinds' own signedness; golden
+        // carries it on the HOLDER instead (see above), so the element's is
+        // cleared here rather than left to disagree.
+        reg79->VpiSigned(false);
+        setLoc(reg79, nameSpan(vs.location, vs.name));
+        if (auto* ets79 = makeTypespec(vs, dt79->getTypeSyntax())) {
+            auto* rrt79 = s.MakeRef_typespec();
+            rrt79->VpiFullName(full79);
+            rrt79->VpiParent(reg79);
+            rrt79->Actual_typespec(ets79);
+            reg79->Typespec(rrt79);
+            if (!ets79->Instance())
+                ets79->Instance(up);
+        }
+        auto* rv79 = s.MakeVariablesVec();
+        rv79->push_back(reg79);
+        av79->Variables(rv79);
+    }
+    out->push_back(av79);
     return true;
 }
 

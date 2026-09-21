@@ -1,0 +1,599 @@
+LHS:
+decompile:
+package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+|vpiParent:
+\_design: (work@dut), id:344
+|vpiName:q1
+|vpiFullName:q1::
+|vpiVariables:
+\_struct_var: (q1::m_union), id:273, line:8:48, endln:8:55
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_union), id:274
+    |vpiParent:
+    \_struct_var: (q1::m_union), id:273, line:8:48, endln:8:55
+    |vpiFullName:q1::m_union
+    |vpiActual:
+    \_struct_typespec: (q1::s_memunion), id:134, line:7:11, endln:7:52
+  |vpiName:m_union
+  |vpiFullName:q1::m_union
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (q1::m_parrst), id:279, line:16:48, endln:16:56
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_parrst), id:280
+    |vpiParent:
+    \_struct_var: (q1::m_parrst), id:279, line:16:48, endln:16:56
+    |vpiFullName:q1::m_parrst
+    |vpiActual:
+    \_struct_typespec: (q1::s_memparrst), id:178, line:15:11, endln:15:54
+  |vpiName:m_parrst
+  |vpiFullName:q1::m_parrst
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (q1::m_uarr), id:285, line:22:48, endln:22:54
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_uarr), id:286
+    |vpiParent:
+    \_struct_var: (q1::m_uarr), id:285, line:22:48, endln:22:54
+    |vpiFullName:q1::m_uarr
+    |vpiActual:
+    \_struct_typespec: (q1::s_memuarr), id:209, line:21:11, endln:21:51
+  |vpiName:m_uarr
+  |vpiFullName:q1::m_uarr
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (q1::m_bit), id:289, line:26:48, endln:26:53
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_bit), id:290
+    |vpiParent:
+    \_struct_var: (q1::m_bit), id:289, line:26:48, endln:26:53
+    |vpiFullName:q1::m_bit
+    |vpiActual:
+    \_struct_typespec: (q1::s_membit), id:228, line:25:11, endln:25:50
+  |vpiName:m_bit
+  |vpiFullName:q1::m_bit
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (q1::inner_t), id:143, line:9:11, endln:9:58
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::inner_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:148, line:9:39, endln:9:40
+    |vpiParent:
+    \_struct_typespec: (q1::inner_t), id:143, line:9:11, endln:9:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::inner_t::a), id:149
+      |vpiParent:
+      \_typespec_member: (a), id:148, line:9:39, endln:9:40
+      |vpiFullName:q1::q1::inner_t::a
+      |vpiActual:
+      \_logic_typespec: , id:147, line:9:27, endln:9:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:154, line:9:54, endln:9:55
+    |vpiParent:
+    \_struct_typespec: (q1::inner_t), id:143, line:9:11, endln:9:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::inner_t::b), id:155
+      |vpiParent:
+      \_typespec_member: (b), id:154, line:9:54, endln:9:55
+      |vpiFullName:q1::q1::inner_t::b
+      |vpiActual:
+      \_logic_typespec: , id:153, line:9:42, endln:9:53
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_struct_typespec: (q1::innerint_t), id:165, line:12:11, endln:12:35
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::innerint_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:167, line:12:31, endln:12:32
+    |vpiParent:
+    \_struct_typespec: (q1::innerint_t), id:165, line:12:11, endln:12:35
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::innerint_t::x), id:168
+      |vpiParent:
+      \_typespec_member: (x), id:167, line:12:31, endln:12:32
+      |vpiFullName:q1::q1::innerint_t::x
+      |vpiActual:
+      \_int_typespec: , id:166, line:12:27, endln:12:30
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:30
+|vpiTypedef:
+\_struct_typespec: (q1::s_membit), id:228, line:25:11, endln:25:50
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_membit
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:233, line:25:37, endln:25:38
+    |vpiParent:
+    \_struct_typespec: (q1::s_membit), id:228, line:25:11, endln:25:50
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_membit::a), id:234
+      |vpiParent:
+      \_typespec_member: (a), id:233, line:25:37, endln:25:38
+      |vpiFullName:q1::q1::s_membit::a
+      |vpiActual:
+      \_bit_typespec: , id:232, line:25:27, endln:25:36
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:36
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:236, line:25:46, endln:25:47
+    |vpiParent:
+    \_struct_typespec: (q1::s_membit), id:228, line:25:11, endln:25:50
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_membit::b), id:237
+      |vpiParent:
+      \_typespec_member: (b), id:236, line:25:46, endln:25:47
+      |vpiFullName:q1::q1::s_membit::b
+      |vpiActual:
+      \_logic_typespec: , id:235, line:25:40, endln:25:45
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:40
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (q1::s_memnest), id:156, line:10:11, endln:10:54
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_memnest
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:157, line:10:35, endln:10:36
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnest), id:156, line:10:11, endln:10:54
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memnest::a), id:158
+      |vpiParent:
+      \_typespec_member: (a), id:157, line:10:35, endln:10:36
+      |vpiFullName:q1::q1::s_memnest::a
+      |vpiActual:
+      \_struct_typespec: (q1::inner_t), id:143, line:9:11, endln:9:58
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:34
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:163, line:10:50, endln:10:51
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnest), id:156, line:10:11, endln:10:54
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memnest::b), id:164
+      |vpiParent:
+      \_typespec_member: (b), id:163, line:10:50, endln:10:51
+      |vpiFullName:q1::q1::s_memnest::b
+      |vpiActual:
+      \_logic_typespec: , id:162, line:10:38, endln:10:49
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:38
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:49
+|vpiTypedef:
+\_struct_typespec: (q1::s_memnestint), id:169, line:13:11, endln:13:57
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_memnestint
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:170, line:13:38, endln:13:39
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnestint), id:169, line:13:11, endln:13:57
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memnestint::a), id:171
+      |vpiParent:
+      \_typespec_member: (a), id:170, line:13:38, endln:13:39
+      |vpiFullName:q1::q1::s_memnestint::a
+      |vpiActual:
+      \_struct_typespec: (q1::innerint_t), id:165, line:12:11, endln:12:35
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:37
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:176, line:13:53, endln:13:54
+    |vpiParent:
+    \_struct_typespec: (q1::s_memnestint), id:169, line:13:11, endln:13:57
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memnestint::b), id:177
+      |vpiParent:
+      \_typespec_member: (b), id:176, line:13:53, endln:13:54
+      |vpiFullName:q1::q1::s_memnestint::b
+      |vpiActual:
+      \_logic_typespec: , id:175, line:13:41, endln:13:52
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:13
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:13
+    |vpiRefEndColumnNo:52
+|vpiTypedef:
+\_struct_typespec: (q1::s_memparrst), id:178, line:15:11, endln:15:54
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_memparrst
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:184, line:15:41, endln:15:42
+    |vpiParent:
+    \_struct_typespec: (q1::s_memparrst), id:178, line:15:11, endln:15:54
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memparrst::a), id:185
+      |vpiParent:
+      \_typespec_member: (a), id:184, line:15:41, endln:15:42
+      |vpiFullName:q1::q1::s_memparrst::a
+      |vpiActual:
+      \_packed_array_typespec: , id:183, line:15:27, endln:15:40
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:15
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:15
+    |vpiRefEndColumnNo:40
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:187, line:15:50, endln:15:51
+    |vpiParent:
+    \_struct_typespec: (q1::s_memparrst), id:178, line:15:11, endln:15:54
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memparrst::b), id:188
+      |vpiParent:
+      \_typespec_member: (b), id:187, line:15:50, endln:15:51
+      |vpiFullName:q1::q1::s_memparrst::b
+      |vpiActual:
+      \_logic_typespec: , id:186, line:15:44, endln:15:49
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:15
+    |vpiRefColumnNo:44
+    |vpiRefEndLineNo:15
+    |vpiRefEndColumnNo:49
+|vpiTypedef:
+\_struct_typespec: (q1::s_memreg), id:189, line:17:11, endln:17:48
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_memreg
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:194, line:17:37, endln:17:38
+    |vpiParent:
+    \_struct_typespec: (q1::s_memreg), id:189, line:17:11, endln:17:48
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memreg::a), id:195
+      |vpiParent:
+      \_typespec_member: (a), id:194, line:17:37, endln:17:38
+      |vpiFullName:q1::q1::s_memreg::a
+      |vpiActual:
+      \_logic_typespec: , id:193, line:17:27, endln:17:36
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:17
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:17
+    |vpiRefEndColumnNo:36
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:197, line:17:44, endln:17:45
+    |vpiParent:
+    \_struct_typespec: (q1::s_memreg), id:189, line:17:11, endln:17:48
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memreg::b), id:198
+      |vpiParent:
+      \_typespec_member: (b), id:197, line:17:44, endln:17:45
+      |vpiFullName:q1::q1::s_memreg::b
+      |vpiActual:
+      \_logic_typespec: , id:196, line:17:40, endln:17:43
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:17
+    |vpiRefColumnNo:40
+    |vpiRefEndLineNo:17
+    |vpiRefEndColumnNo:43
+|vpiTypedef:
+\_struct_typespec: (q1::s_memsigned), id:199, line:19:11, endln:19:59
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_memsigned
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:204, line:19:46, endln:19:47
+    |vpiParent:
+    \_struct_typespec: (q1::s_memsigned), id:199, line:19:11, endln:19:59
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memsigned::a), id:205
+      |vpiParent:
+      \_typespec_member: (a), id:204, line:19:46, endln:19:47
+      |vpiFullName:q1::q1::s_memsigned::a
+      |vpiActual:
+      \_logic_typespec: , id:203, line:19:27, endln:19:45
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:45
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:207, line:19:55, endln:19:56
+    |vpiParent:
+    \_struct_typespec: (q1::s_memsigned), id:199, line:19:11, endln:19:59
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memsigned::b), id:208
+      |vpiParent:
+      \_typespec_member: (b), id:207, line:19:55, endln:19:56
+      |vpiFullName:q1::q1::s_memsigned::b
+      |vpiActual:
+      \_logic_typespec: , id:206, line:19:49, endln:19:54
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:49
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:54
+|vpiTypedef:
+\_struct_typespec: (q1::s_memuarr), id:209, line:21:11, endln:21:51
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_memuarr
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:214, line:21:32, endln:21:39
+    |vpiParent:
+    \_struct_typespec: (q1::s_memuarr), id:209, line:21:11, endln:21:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memuarr::a), id:215
+      |vpiParent:
+      \_typespec_member: (a), id:214, line:21:32, endln:21:39
+      |vpiFullName:q1::q1::s_memuarr::a
+      |vpiActual:
+      \_array_typespec: , id:219
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:222, line:21:47, endln:21:48
+    |vpiParent:
+    \_struct_typespec: (q1::s_memuarr), id:209, line:21:11, endln:21:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memuarr::b), id:223
+      |vpiParent:
+      \_typespec_member: (b), id:222, line:21:47, endln:21:48
+      |vpiFullName:q1::q1::s_memuarr::b
+      |vpiActual:
+      \_logic_typespec: , id:221, line:21:41, endln:21:46
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_struct_typespec: (q1::s_memunion), id:134, line:7:11, endln:7:52
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_memunion
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:139, line:7:39, endln:7:40
+    |vpiParent:
+    \_struct_typespec: (q1::s_memunion), id:134, line:7:11, endln:7:52
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memunion::a), id:140
+      |vpiParent:
+      \_typespec_member: (a), id:139, line:7:39, endln:7:40
+      |vpiFullName:q1::q1::s_memunion::a
+      |vpiActual:
+      \_logic_typespec: , id:138, line:7:27, endln:7:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:141, line:7:48, endln:7:49
+    |vpiParent:
+    \_struct_typespec: (q1::s_memunion), id:134, line:7:11, endln:7:52
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_memunion::b), id:142
+      |vpiParent:
+      \_typespec_member: (b), id:141, line:7:48, endln:7:49
+      |vpiFullName:q1::q1::s_memunion::b
+      |vpiActual:
+      \_union_typespec: (q1::uun_t), id:121, line:6:11, endln:6:58
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:47
+|vpiTypedef:
+\_struct_typespec: (q1::s_one), id:224, line:23:11, endln:23:37
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::s_one
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:226, line:23:33, endln:23:34
+    |vpiParent:
+    \_struct_typespec: (q1::s_one), id:224, line:23:11, endln:23:37
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::s_one::a), id:227
+      |vpiParent:
+      \_typespec_member: (a), id:226, line:23:33, endln:23:34
+      |vpiFullName:q1::q1::s_one::a
+      |vpiActual:
+      \_logic_typespec: , id:225, line:23:27, endln:23:32
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:32
+|vpiTypedef:
+\_union_typespec: (q1::uun_t), id:121, line:6:11, endln:6:58
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiName:q1::uun_t
+  |vpiInstance:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:126, line:6:39, endln:6:40
+    |vpiParent:
+    \_union_typespec: (q1::uun_t), id:121, line:6:11, endln:6:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::uun_t::a), id:127
+      |vpiParent:
+      \_typespec_member: (a), id:126, line:6:39, endln:6:40
+      |vpiFullName:q1::q1::uun_t::a
+      |vpiActual:
+      \_logic_typespec: , id:125, line:6:27, endln:6:38
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:132, line:6:54, endln:6:55
+    |vpiParent:
+    \_union_typespec: (q1::uun_t), id:121, line:6:11, endln:6:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q1::q1::uun_t::b), id:133
+      |vpiParent:
+      \_typespec_member: (b), id:132, line:6:54, endln:6:55
+      |vpiFullName:q1::q1::uun_t::b
+      |vpiActual:
+      \_logic_typespec: , id:131, line:6:42, endln:6:53
+    |vpiRefFile:q1_structmem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiDefName:q1
+|vpiNet:
+\_logic_net: (q1::m_nest), id:355, line:11:48, endln:11:54
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_nest), id:356
+    |vpiParent:
+    \_logic_net: (q1::m_nest), id:355, line:11:48, endln:11:54
+    |vpiFullName:q1::m_nest
+    |vpiActual:
+    \_struct_typespec: (q1::s_memnest), id:156, line:10:11, endln:10:54
+  |vpiName:m_nest
+  |vpiFullName:q1::m_nest
+|vpiNet:
+\_logic_net: (q1::m_nestint), id:357, line:14:48, endln:14:57
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_nestint), id:358
+    |vpiParent:
+    \_logic_net: (q1::m_nestint), id:357, line:14:48, endln:14:57
+    |vpiFullName:q1::m_nestint
+    |vpiActual:
+    \_struct_typespec: (q1::s_memnestint), id:169, line:13:11, endln:13:57
+  |vpiName:m_nestint
+  |vpiFullName:q1::m_nestint
+|vpiNet:
+\_logic_net: (q1::m_reg), id:359, line:18:48, endln:18:53
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_reg), id:360
+    |vpiParent:
+    \_logic_net: (q1::m_reg), id:359, line:18:48, endln:18:53
+    |vpiFullName:q1::m_reg
+    |vpiActual:
+    \_struct_typespec: (q1::s_memreg), id:189, line:17:11, endln:17:48
+  |vpiName:m_reg
+  |vpiFullName:q1::m_reg
+|vpiNet:
+\_logic_net: (q1::m_signed), id:361, line:20:48, endln:20:56
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_signed), id:362
+    |vpiParent:
+    \_logic_net: (q1::m_signed), id:361, line:20:48, endln:20:56
+    |vpiFullName:q1::m_signed
+    |vpiActual:
+    \_struct_typespec: (q1::s_memsigned), id:199, line:19:11, endln:19:59
+  |vpiName:m_signed
+  |vpiFullName:q1::m_signed
+|vpiNet:
+\_logic_net: (q1::m_one), id:363, line:24:48, endln:24:53
+  |vpiParent:
+  \_package: q1 (q1::), id:120, file:q1_structmem/dut.sv, line:5:1, endln:27:11
+  |vpiTypespec:
+  \_ref_typespec: (q1::m_one), id:364
+    |vpiParent:
+    \_logic_net: (q1::m_one), id:363, line:24:48, endln:24:53
+    |vpiFullName:q1::m_one
+    |vpiActual:
+    \_struct_typespec: (q1::s_one), id:224, line:23:11, endln:23:37
+  |vpiName:m_one
+  |vpiFullName:q1::m_one
+RHS: <null>

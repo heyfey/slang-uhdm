@@ -1,0 +1,5 @@
+decompile:
+ref_typespec: , id:137
+|vpiActual:
+\_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+

@@ -1,0 +1,289 @@
+decompile:
+package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+|vpiParent:
+\_design: (work@dut), id:657
+|vpiName:pa5
+|vpiFullName:pa5::
+|vpiVariables:
+\_array_var: (pa5::a_uarr), id:125, line:7:15, endln:7:21
+  |vpiParent:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pa5::a_uarr), id:126
+    |vpiParent:
+    \_array_var: (pa5::a_uarr), id:125, line:7:15, endln:7:21
+    |vpiFullName:pa5::a_uarr
+    |vpiActual:
+    \_array_typespec: , id:127
+  |vpiName:a_uarr
+  |vpiFullName:pa5::a_uarr
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:120, line:7:22, endln:7:27
+    |vpiParent:
+    \_array_var: (pa5::a_uarr), id:125, line:7:15, endln:7:21
+    |vpiLeftRange:
+    \_constant: , id:121, line:7:23, endln:7:24
+      |vpiParent:
+      \_range: , id:120, line:7:22, endln:7:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:122, line:7:25, endln:7:26
+      |vpiParent:
+      \_range: , id:120, line:7:22, endln:7:27
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pa5::a_uarr), id:123, line:7:15, endln:7:21
+    |vpiParent:
+    \_array_var: (pa5::a_uarr), id:125, line:7:15, endln:7:21
+    |vpiTypespec:
+    \_ref_typespec: (pa5::a_uarr), id:124
+      |vpiParent:
+      \_logic_var: (pa5::a_uarr), id:123, line:7:15, endln:7:21
+      |vpiFullName:pa5::a_uarr
+      |vpiActual:
+      \_logic_typespec: , id:116, line:7:3, endln:7:14
+    |vpiFullName:pa5::a_uarr
+|vpiVariables:
+\_struct_var: (pa5::a_struct), id:128, line:9:15, endln:9:23
+  |vpiParent:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pa5::a_struct), id:129
+    |vpiParent:
+    \_struct_var: (pa5::a_struct), id:128, line:9:15, endln:9:23
+    |vpiFullName:pa5::a_struct
+    |vpiActual:
+    \_struct_typespec: (pa5::asi_t), id:25, line:8:11, endln:8:50
+  |vpiName:a_struct
+  |vpiFullName:pa5::a_struct
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (pa5::a_var), id:137, line:10:15, endln:10:20
+  |vpiParent:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pa5::a_var), id:138
+    |vpiParent:
+    \_logic_var: (pa5::a_var), id:137, line:10:15, endln:10:20
+    |vpiFullName:pa5::a_var
+    |vpiActual:
+    \_logic_typespec: , id:133, line:10:3, endln:10:14
+  |vpiName:a_var
+  |vpiFullName:pa5::a_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (pa5::asi_t), id:25, line:8:11, endln:8:50
+  |vpiParent:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiName:pa5::asi_t
+  |vpiInstance:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:27, line:8:31, endln:8:32
+    |vpiParent:
+    \_struct_typespec: (pa5::asi_t), id:25, line:8:11, endln:8:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pa5::pa5::asi_t::x), id:28
+      |vpiParent:
+      \_typespec_member: (x), id:27, line:8:31, endln:8:32
+      |vpiFullName:pa5::pa5::asi_t::x
+      |vpiActual:
+      \_int_typespec: , id:26, line:8:27, endln:8:30
+    |vpiRefFile:q5_impreach/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:33, line:8:46, endln:8:47
+    |vpiParent:
+    \_struct_typespec: (pa5::asi_t), id:25, line:8:11, endln:8:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pa5::pa5::asi_t::y), id:34
+      |vpiParent:
+      \_typespec_member: (y), id:33, line:8:46, endln:8:47
+      |vpiFullName:pa5::pa5::asi_t::y
+      |vpiActual:
+      \_logic_typespec: , id:32, line:8:34, endln:8:45
+    |vpiRefFile:q5_impreach/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_logic_typespec: (pa5::aw_t), id:42, line:11:11, endln:11:22
+  |vpiParent:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiName:pa5::aw_t
+  |vpiInstance:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiRange:
+  \_range: , id:39, line:11:17, endln:11:22
+    |vpiParent:
+    \_logic_typespec: (pa5::aw_t), id:42, line:11:11, endln:11:22
+    |vpiLeftRange:
+    \_constant: , id:40, line:11:18, endln:11:19
+      |vpiParent:
+      \_range: , id:39, line:11:17, endln:11:22
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:41, line:11:20, endln:11:21
+      |vpiParent:
+      \_range: , id:39, line:11:17, endln:11:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:pa5
+|vpiNet:
+\_logic_net: (pa5::a_net), id:703, line:6:15, endln:6:20
+  |vpiParent:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pa5::a_net), id:708
+    |vpiParent:
+    \_logic_net: (pa5::a_net), id:703, line:6:15, endln:6:20
+    |vpiFullName:pa5::a_net
+    |vpiActual:
+    \_logic_typespec: , id:707, line:6:3, endln:6:13
+  |vpiName:a_net
+  |vpiFullName:pa5::a_net
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pa5::a_wtd), id:709, line:12:15, endln:12:20
+  |vpiParent:
+  \_package: pa5 (pa5::), id:24, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pa5::a_wtd), id:715
+    |vpiParent:
+    \_logic_net: (pa5::a_wtd), id:709, line:12:15, endln:12:20
+    |vpiFullName:pa5::a_wtd
+    |vpiActual:
+    \_logic_typespec: (pa5::aw_t), id:710, line:11:11, endln:11:22
+  |vpiName:a_wtd
+  |vpiFullName:pa5::a_wtd
+  |vpiNetType:1
+
+decompile:
+package: pa5 (pa5::), id:2, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pa5
+|vpiFullName:pa5::
+|vpiVariables:
+\_logic_var: (pa5::a_var), id:19, line:10:15, endln:10:20
+  |vpiParent:
+  \_package: pa5 (pa5::), id:2, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pa5::a_var), id:24
+    |vpiParent:
+    \_logic_var: (pa5::a_var), id:19, line:10:15, endln:10:20
+    |vpiFullName:pa5::a_var
+    |vpiActual:
+    \_logic_typespec: , id:20, line:10:3, endln:10:14
+  |vpiName:a_var
+  |vpiFullName:pa5::a_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (pa5::asi_t), id:3, line:8:11, endln:8:50
+  |vpiParent:
+  \_package: pa5 (pa5::), id:2, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiName:pa5::asi_t
+  |vpiInstance:
+  \_package: pa5 (pa5::), id:2, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:4, line:8:31, endln:8:32
+    |vpiParent:
+    \_struct_typespec: (pa5::asi_t), id:3, line:8:11, endln:8:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pa5::pa5::asi_t::x), id:6
+      |vpiParent:
+      \_typespec_member: (x), id:4, line:8:31, endln:8:32
+      |vpiFullName:pa5::pa5::asi_t::x
+      |vpiActual:
+      \_int_typespec: , id:5, line:8:27, endln:8:30
+    |vpiRefFile:q5_impreach/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:7, line:8:46, endln:8:47
+    |vpiParent:
+    \_struct_typespec: (pa5::asi_t), id:3, line:8:11, endln:8:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pa5::pa5::asi_t::y), id:12
+      |vpiParent:
+      \_typespec_member: (y), id:7, line:8:46, endln:8:47
+      |vpiFullName:pa5::pa5::asi_t::y
+      |vpiActual:
+      \_logic_typespec: , id:8, line:8:34, endln:8:45
+    |vpiRefFile:q5_impreach/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_logic_typespec: (pa5::aw_t), id:13, line:11:11, endln:11:22
+  |vpiParent:
+  \_package: pa5 (pa5::), id:2, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiName:pa5::aw_t
+  |vpiInstance:
+  \_package: pa5 (pa5::), id:2, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiRange:
+  \_range: , id:14, line:11:17, endln:11:22
+    |vpiParent:
+    \_logic_typespec: (pa5::aw_t), id:13, line:11:11, endln:11:22
+    |vpiLeftRange:
+    \_constant: , id:15, line:11:18, endln:11:19
+      |vpiParent:
+      \_range: , id:14, line:11:17, endln:11:22
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:16, line:11:20, endln:11:21
+      |vpiParent:
+      \_range: , id:14, line:11:17, endln:11:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:pa5
+|vpiNet:
+\_logic_net: (pa5::a_struct), id:17, line:9:15, endln:9:23
+  |vpiParent:
+  \_package: pa5 (pa5::), id:2, file:q5_impreach/dut.sv, line:5:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pa5::a_struct), id:18
+    |vpiParent:
+    \_logic_net: (pa5::a_struct), id:17, line:9:15, endln:9:23
+    |vpiFullName:pa5::a_struct
+    |vpiActual:
+    \_struct_typespec: (pa5::asi_t), id:3, line:8:11, endln:8:50
+  |vpiName:a_struct
+  |vpiFullName:pa5::a_struct
+

@@ -1,0 +1,220 @@
+decompile:
+package: pi (pi::), id:16, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+|vpiParent:
+\_design: (work@dut), id:359
+|vpiName:pi
+|vpiFullName:pi::
+|vpiVariables:
+\_logic_var: (pi::i_var), id:136, line:7:15, endln:7:20
+  |vpiParent:
+  \_package: pi (pi::), id:16, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pi::i_var), id:137
+    |vpiParent:
+    \_logic_var: (pi::i_var), id:136, line:7:15, endln:7:20
+    |vpiFullName:pi::i_var
+    |vpiActual:
+    \_logic_typespec: , id:132, line:7:3, endln:7:14
+  |vpiName:i_var
+  |vpiFullName:pi::i_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_array_var: (pi::i_arr), id:159, line:9:15, endln:9:20
+  |vpiParent:
+  \_package: pi (pi::), id:16, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pi::i_arr), id:160
+    |vpiParent:
+    \_array_var: (pi::i_arr), id:159, line:9:15, endln:9:20
+    |vpiFullName:pi::i_arr
+    |vpiActual:
+    \_array_typespec: , id:161
+  |vpiName:i_arr
+  |vpiFullName:pi::i_arr
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:154, line:9:21, endln:9:26
+    |vpiParent:
+    \_array_var: (pi::i_arr), id:159, line:9:15, endln:9:20
+    |vpiLeftRange:
+    \_constant: , id:155, line:9:22, endln:9:23
+      |vpiParent:
+      \_range: , id:154, line:9:21, endln:9:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:156, line:9:24, endln:9:25
+      |vpiParent:
+      \_range: , id:154, line:9:21, endln:9:26
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pi::i_arr), id:157, line:9:15, endln:9:20
+    |vpiParent:
+    \_array_var: (pi::i_arr), id:159, line:9:15, endln:9:20
+    |vpiTypespec:
+    \_ref_typespec: (pi::i_arr), id:158
+      |vpiParent:
+      \_logic_var: (pi::i_arr), id:157, line:9:15, endln:9:20
+      |vpiFullName:pi::i_arr
+      |vpiActual:
+      \_logic_typespec: , id:150, line:9:3, endln:9:14
+    |vpiFullName:pi::i_arr
+|vpiTypedef:
+\_struct_typespec: (pi::is_t), id:17, line:10:11, endln:10:58
+  |vpiParent:
+  \_package: pi (pi::), id:16, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiName:pi::is_t
+  |vpiInstance:
+  \_package: pi (pi::), id:16, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:22, line:10:39, endln:10:40
+    |vpiParent:
+    \_struct_typespec: (pi::is_t), id:17, line:10:11, endln:10:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pi::pi::is_t::a), id:23
+      |vpiParent:
+      \_typespec_member: (a), id:22, line:10:39, endln:10:40
+      |vpiFullName:pi::pi::is_t::a
+      |vpiActual:
+      \_logic_typespec: , id:21, line:10:27, endln:10:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:28, line:10:54, endln:10:55
+    |vpiParent:
+    \_struct_typespec: (pi::is_t), id:17, line:10:11, endln:10:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pi::pi::is_t::b), id:29
+      |vpiParent:
+      \_typespec_member: (b), id:28, line:10:54, endln:10:55
+      |vpiFullName:pi::pi::is_t::b
+      |vpiActual:
+      \_logic_typespec: , id:27, line:10:42, endln:10:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:53
+|vpiDefName:pi
+|vpiNet:
+\_logic_net: (pi::i_net), id:368, line:8:15, endln:8:20
+  |vpiParent:
+  \_package: pi (pi::), id:16, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pi::i_net), id:373
+    |vpiParent:
+    \_logic_net: (pi::i_net), id:368, line:8:15, endln:8:20
+    |vpiFullName:pi::i_net
+    |vpiActual:
+    \_logic_typespec: , id:372, line:8:3, endln:8:14
+  |vpiName:i_net
+  |vpiFullName:pi::i_net
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pi::i_st), id:374, line:11:15, endln:11:19
+  |vpiParent:
+  \_package: pi (pi::), id:16, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pi::i_st), id:375
+    |vpiParent:
+    \_logic_net: (pi::i_st), id:374, line:11:15, endln:11:19
+    |vpiFullName:pi::i_st
+    |vpiActual:
+    \_struct_typespec: (pi::is_t), id:17, line:10:11, endln:10:58
+  |vpiName:i_st
+  |vpiFullName:pi::i_st
+
+decompile:
+package: pi (pi::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pi
+|vpiFullName:pi::
+|vpiVariables:
+\_logic_var: (pi::i_var), id:16, line:7:15, endln:7:20
+  |vpiParent:
+  \_package: pi (pi::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pi::i_var), id:21
+    |vpiParent:
+    \_logic_var: (pi::i_var), id:16, line:7:15, endln:7:20
+    |vpiFullName:pi::i_var
+    |vpiActual:
+    \_logic_typespec: , id:17, line:7:3, endln:7:14
+  |vpiName:i_var
+  |vpiFullName:pi::i_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (pi::is_t), id:3, line:10:11, endln:10:58
+  |vpiParent:
+  \_package: pi (pi::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiName:pi::is_t
+  |vpiInstance:
+  \_package: pi (pi::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:4, line:10:39, endln:10:40
+    |vpiParent:
+    \_struct_typespec: (pi::is_t), id:3, line:10:11, endln:10:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pi::pi::is_t::a), id:9
+      |vpiParent:
+      \_typespec_member: (a), id:4, line:10:39, endln:10:40
+      |vpiFullName:pi::pi::is_t::a
+      |vpiActual:
+      \_logic_typespec: , id:27, line:10:27, endln:10:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:10, line:10:54, endln:10:55
+    |vpiParent:
+    \_struct_typespec: (pi::is_t), id:3, line:10:11, endln:10:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pi::pi::is_t::b), id:15
+      |vpiParent:
+      \_typespec_member: (b), id:10, line:10:54, endln:10:55
+      |vpiFullName:pi::pi::is_t::b
+      |vpiActual:
+      \_logic_typespec: , id:33, line:10:42, endln:10:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:53
+|vpiDefName:pi
+|vpiNet:
+\_logic_net: (pi::i_st), id:22, line:11:15, endln:11:19
+  |vpiParent:
+  \_package: pi (pi::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/ve_ifacenet/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pi::i_st), id:23
+    |vpiParent:
+    \_logic_net: (pi::i_st), id:22, line:11:15, endln:11:19
+    |vpiFullName:pi::i_st
+    |vpiActual:
+    \_struct_typespec: (pi::is_t), id:3, line:10:11, endln:10:58
+  |vpiName:i_st
+  |vpiFullName:pi::i_st
+

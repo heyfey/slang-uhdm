@@ -1,0 +1,1224 @@
+decompile:
+package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+|vpiParent:
+\_design: (work@dut), id:483
+|vpiName:q8
+|vpiFullName:q8::
+|vpiVariables:
+\_bit_var: (q8::k_b1), id:318, line:12:51, endln:12:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_b1), id:319
+    |vpiParent:
+    \_bit_var: (q8::k_b1), id:318, line:12:51, endln:12:55
+    |vpiFullName:q8::k_b1
+    |vpiActual:
+    \_bit_typespec: (b1_t), id:313, line:9:11, endln:9:23
+  |vpiName:k_b1
+  |vpiFullName:q8::k_b1
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (q8::k_e1), id:326, line:17:51, endln:17:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_e1), id:327
+    |vpiParent:
+    \_enum_var: (q8::k_e1), id:326, line:17:51, endln:17:55
+    |vpiFullName:q8::k_e1
+    |vpiActual:
+    \_enum_typespec: (q8::e1_t), id:182, line:15:3, endln:15:56
+  |vpiName:k_e1
+  |vpiFullName:q8::k_e1
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (q8::k_s1), id:331, line:21:51, endln:21:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_s1), id:332
+    |vpiParent:
+    \_struct_var: (q8::k_s1), id:331, line:21:51, endln:21:55
+    |vpiFullName:q8::k_s1
+    |vpiActual:
+    \_struct_typespec: (q8::s1_t), id:187, line:19:11, endln:19:50
+  |vpiName:k_s1
+  |vpiFullName:q8::k_s1
+  |vpiVisibility:1
+|vpiVariables:
+\_byte_var: (q8::k_y1), id:343, line:29:51, endln:29:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_y1), id:344
+    |vpiParent:
+    \_byte_var: (q8::k_y1), id:343, line:29:51, endln:29:55
+    |vpiFullName:q8::k_y1
+    |vpiActual:
+    \_byte_typespec: (y1_t), id:341, line:27:11, endln:27:15
+  |vpiName:k_y1
+  |vpiFullName:q8::k_y1
+  |vpiVisibility:1
+|vpiVariables:
+\_real_var: (q8::k_r1), id:350, line:33:51, endln:33:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_r1), id:351
+    |vpiParent:
+    \_real_var: (q8::k_r1), id:350, line:33:51, endln:33:55
+    |vpiFullName:q8::k_r1
+    |vpiActual:
+    \_real_typespec: (r1_t), id:348, line:31:11, endln:31:15
+  |vpiName:k_r1
+  |vpiFullName:q8::k_r1
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (q8::k_u1), id:355, line:37:51, endln:37:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_u1), id:356
+    |vpiParent:
+    \_struct_var: (q8::k_u1), id:355, line:37:51, endln:37:55
+    |vpiFullName:q8::k_u1
+    |vpiActual:
+    \_struct_typespec: (q8::u1_t), id:212, line:35:11, endln:35:44
+  |vpiName:k_u1
+  |vpiFullName:q8::k_u1
+  |vpiVisibility:1
+|vpiTypedef:
+\_bit_typespec: (q8::b1_t), id:177, line:9:11, endln:9:23
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::b1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiRange:
+  \_range: , id:174, line:9:18, endln:9:23
+    |vpiParent:
+    \_bit_typespec: (q8::b1_t), id:177, line:9:11, endln:9:23
+    |vpiLeftRange:
+    \_constant: , id:175, line:9:19, endln:9:20
+      |vpiParent:
+      \_range: , id:174, line:9:18, endln:9:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:176, line:9:21, endln:9:22
+      |vpiParent:
+      \_range: , id:174, line:9:18, endln:9:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_enum_typespec: (q8::e1_t), id:182, line:15:3, endln:15:56
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::e1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (q8::q8::e1_t), id:183
+    |vpiParent:
+    \_enum_typespec: (q8::e1_t), id:182, line:15:3, endln:15:56
+    |vpiFullName:q8::q8::e1_t
+    |vpiActual:
+    \_logic_typespec: , id:181, line:15:16, endln:15:27
+  |vpiEnumConst:
+  \_enum_const: (QA), id:185, line:15:30, endln:15:32
+    |vpiParent:
+    \_enum_typespec: (q8::e1_t), id:182, line:15:3, endln:15:56
+    |vpiName:QA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (QB), id:186, line:15:34, endln:15:36
+    |vpiParent:
+    \_enum_typespec: (q8::e1_t), id:182, line:15:3, endln:15:56
+    |vpiName:QB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (q8::g1_t), id:197, line:23:11, endln:23:58
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::g1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:202, line:23:39, endln:23:40
+    |vpiParent:
+    \_struct_typespec: (q8::g1_t), id:197, line:23:11, endln:23:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::g1_t::a), id:203
+      |vpiParent:
+      \_typespec_member: (a), id:202, line:23:39, endln:23:40
+      |vpiFullName:q8::q8::g1_t::a
+      |vpiActual:
+      \_logic_typespec: , id:201, line:23:27, endln:23:38
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:208, line:23:54, endln:23:55
+    |vpiParent:
+    \_struct_typespec: (q8::g1_t), id:197, line:23:11, endln:23:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::g1_t::b), id:209
+      |vpiParent:
+      \_typespec_member: (b), id:208, line:23:54, endln:23:55
+      |vpiFullName:q8::q8::g1_t::b
+      |vpiActual:
+      \_logic_typespec: , id:207, line:23:42, endln:23:53
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_struct_typespec: (q8::n1_t), id:222, line:39:11, endln:39:51
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::n1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:227, line:39:39, endln:39:40
+    |vpiParent:
+    \_struct_typespec: (q8::n1_t), id:222, line:39:11, endln:39:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n1_t::a), id:228
+      |vpiParent:
+      \_typespec_member: (a), id:227, line:39:39, endln:39:40
+      |vpiFullName:q8::q8::n1_t::a
+      |vpiActual:
+      \_logic_typespec: , id:226, line:39:27, endln:39:38
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:39
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:39
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:229, line:39:47, endln:39:48
+    |vpiParent:
+    \_struct_typespec: (q8::n1_t), id:222, line:39:11, endln:39:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n1_t::b), id:230
+      |vpiParent:
+      \_typespec_member: (b), id:229, line:39:47, endln:39:48
+      |vpiFullName:q8::q8::n1_t::b
+      |vpiActual:
+      \_struct_typespec: (q8::g1_t), id:197, line:23:11, endln:23:58
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:39
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:39
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_struct_typespec: (q8::n2_t), id:231, line:41:11, endln:41:51
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::n2_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:236, line:41:39, endln:41:40
+    |vpiParent:
+    \_struct_typespec: (q8::n2_t), id:231, line:41:11, endln:41:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n2_t::a), id:237
+      |vpiParent:
+      \_typespec_member: (a), id:236, line:41:39, endln:41:40
+      |vpiFullName:q8::q8::n2_t::a
+      |vpiActual:
+      \_logic_typespec: , id:235, line:41:27, endln:41:38
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:41
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:41
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:238, line:41:47, endln:41:48
+    |vpiParent:
+    \_struct_typespec: (q8::n2_t), id:231, line:41:11, endln:41:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n2_t::b), id:239
+      |vpiParent:
+      \_typespec_member: (b), id:238, line:41:47, endln:41:48
+      |vpiFullName:q8::q8::n2_t::b
+      |vpiActual:
+      \_struct_typespec: (q8::s1_t), id:187, line:19:11, endln:19:50
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:41
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:41
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_struct_typespec: (q8::n3_t), id:240, line:43:11, endln:43:44
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::n3_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:241, line:43:32, endln:43:33
+    |vpiParent:
+    \_struct_typespec: (q8::n3_t), id:240, line:43:11, endln:43:44
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n3_t::a), id:242
+      |vpiParent:
+      \_typespec_member: (a), id:241, line:43:32, endln:43:33
+      |vpiFullName:q8::q8::n3_t::a
+      |vpiActual:
+      \_struct_typespec: (q8::s1_t), id:187, line:19:11, endln:19:50
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:43
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:43
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:243, line:43:40, endln:43:41
+    |vpiParent:
+    \_struct_typespec: (q8::n3_t), id:240, line:43:11, endln:43:44
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n3_t::b), id:244
+      |vpiParent:
+      \_typespec_member: (b), id:243, line:43:40, endln:43:41
+      |vpiFullName:q8::q8::n3_t::b
+      |vpiActual:
+      \_struct_typespec: (q8::s1_t), id:187, line:19:11, endln:19:50
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:43
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:43
+    |vpiRefEndColumnNo:39
+|vpiTypedef:
+\_struct_typespec: (q8::n4_t), id:245, line:45:11, endln:45:44
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::n4_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:250, line:45:32, endln:45:33
+    |vpiParent:
+    \_struct_typespec: (q8::n4_t), id:245, line:45:11, endln:45:44
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n4_t::a), id:251
+      |vpiParent:
+      \_typespec_member: (a), id:250, line:45:32, endln:45:33
+      |vpiFullName:q8::q8::n4_t::a
+      |vpiActual:
+      \_logic_typespec: , id:249, line:45:20, endln:45:31
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:45
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:45
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:252, line:45:40, endln:45:41
+    |vpiParent:
+    \_struct_typespec: (q8::n4_t), id:245, line:45:11, endln:45:44
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n4_t::b), id:253
+      |vpiParent:
+      \_typespec_member: (b), id:252, line:45:40, endln:45:41
+      |vpiFullName:q8::q8::n4_t::b
+      |vpiActual:
+      \_struct_typespec: (q8::u1_t), id:212, line:35:11, endln:35:44
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:45
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:45
+    |vpiRefEndColumnNo:39
+|vpiTypedef:
+\_real_typespec: (q8::r1_t), id:211, line:31:11, endln:31:15
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::r1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+|vpiTypedef:
+\_struct_typespec: (q8::s1_t), id:187, line:19:11, endln:19:50
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::s1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:189, line:19:31, endln:19:32
+    |vpiParent:
+    \_struct_typespec: (q8::s1_t), id:187, line:19:11, endln:19:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::s1_t::x), id:190
+      |vpiParent:
+      \_typespec_member: (x), id:189, line:19:31, endln:19:32
+      |vpiFullName:q8::q8::s1_t::x
+      |vpiActual:
+      \_int_typespec: , id:188, line:19:27, endln:19:30
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:195, line:19:46, endln:19:47
+    |vpiParent:
+    \_struct_typespec: (q8::s1_t), id:187, line:19:11, endln:19:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::s1_t::y), id:196
+      |vpiParent:
+      \_typespec_member: (y), id:195, line:19:46, endln:19:47
+      |vpiFullName:q8::q8::s1_t::y
+      |vpiActual:
+      \_logic_typespec: , id:194, line:19:34, endln:19:45
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (q8::u1_t), id:212, line:35:11, endln:35:44
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::u1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:217, line:35:32, endln:35:33
+    |vpiParent:
+    \_struct_typespec: (q8::u1_t), id:212, line:35:11, endln:35:44
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::u1_t::a), id:218
+      |vpiParent:
+      \_typespec_member: (a), id:217, line:35:32, endln:35:33
+      |vpiFullName:q8::q8::u1_t::a
+      |vpiActual:
+      \_logic_typespec: , id:216, line:35:20, endln:35:31
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:35
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:35
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:220, line:35:40, endln:35:41
+    |vpiParent:
+    \_struct_typespec: (q8::u1_t), id:212, line:35:11, endln:35:44
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::u1_t::b), id:221
+      |vpiParent:
+      \_typespec_member: (b), id:220, line:35:40, endln:35:41
+      |vpiFullName:q8::q8::u1_t::b
+      |vpiActual:
+      \_byte_typespec: , id:219, line:35:35, endln:35:39
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:35
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:35
+    |vpiRefEndColumnNo:39
+|vpiTypedef:
+\_byte_typespec: (q8::y1_t), id:210, line:27:11, endln:27:15
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::y1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiSigned:1
+|vpiDefName:q8
+|vpiNet:
+\_logic_net: (q8::k_b2), id:496, line:13:51, endln:13:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_b2), id:498
+    |vpiParent:
+    \_logic_net: (q8::k_b2), id:496, line:13:51, endln:13:55
+    |vpiFullName:q8::k_b2
+    |vpiActual:
+    \_unsupported_typespec: (b2_t), id:497, line:13:3, endln:13:7
+  |vpiName:k_b2
+  |vpiFullName:q8::k_b2
+|vpiNet:
+\_logic_net: (q8::k_b3), id:499, line:14:51, endln:14:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_b3), id:501
+    |vpiParent:
+    \_logic_net: (q8::k_b3), id:499, line:14:51, endln:14:55
+    |vpiFullName:q8::k_b3
+    |vpiActual:
+    \_unsupported_typespec: (b3_t), id:500, line:14:3, endln:14:7
+  |vpiName:k_b3
+  |vpiFullName:q8::k_b3
+|vpiNet:
+\_logic_net: (q8::k_e2), id:502, line:18:51, endln:18:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_e2), id:504
+    |vpiParent:
+    \_logic_net: (q8::k_e2), id:502, line:18:51, endln:18:55
+    |vpiFullName:q8::k_e2
+    |vpiActual:
+    \_unsupported_typespec: (e2_t), id:503, line:18:3, endln:18:7
+  |vpiName:k_e2
+  |vpiFullName:q8::k_e2
+|vpiNet:
+\_logic_net: (q8::k_s2), id:505, line:22:51, endln:22:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_s2), id:507
+    |vpiParent:
+    \_logic_net: (q8::k_s2), id:505, line:22:51, endln:22:55
+    |vpiFullName:q8::k_s2
+    |vpiActual:
+    \_unsupported_typespec: (s2_t), id:506, line:22:3, endln:22:7
+  |vpiName:k_s2
+  |vpiFullName:q8::k_s2
+|vpiNet:
+\_logic_net: (q8::k_g1), id:508, line:25:51, endln:25:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_g1), id:509
+    |vpiParent:
+    \_logic_net: (q8::k_g1), id:508, line:25:51, endln:25:55
+    |vpiFullName:q8::k_g1
+    |vpiActual:
+    \_struct_typespec: (q8::g1_t), id:197, line:23:11, endln:23:58
+  |vpiName:k_g1
+  |vpiFullName:q8::k_g1
+|vpiNet:
+\_logic_net: (q8::k_g2), id:510, line:26:51, endln:26:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_g2), id:512
+    |vpiParent:
+    \_logic_net: (q8::k_g2), id:510, line:26:51, endln:26:55
+    |vpiFullName:q8::k_g2
+    |vpiActual:
+    \_unsupported_typespec: (g2_t), id:511, line:26:3, endln:26:7
+  |vpiName:k_g2
+  |vpiFullName:q8::k_g2
+|vpiNet:
+\_logic_net: (q8::k_y2), id:513, line:30:51, endln:30:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_y2), id:515
+    |vpiParent:
+    \_logic_net: (q8::k_y2), id:513, line:30:51, endln:30:55
+    |vpiFullName:q8::k_y2
+    |vpiActual:
+    \_unsupported_typespec: (y2_t), id:514, line:30:3, endln:30:7
+  |vpiName:k_y2
+  |vpiFullName:q8::k_y2
+|vpiNet:
+\_logic_net: (q8::k_r2), id:516, line:34:51, endln:34:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_r2), id:518
+    |vpiParent:
+    \_logic_net: (q8::k_r2), id:516, line:34:51, endln:34:55
+    |vpiFullName:q8::k_r2
+    |vpiActual:
+    \_unsupported_typespec: (r2_t), id:517, line:34:3, endln:34:7
+  |vpiName:k_r2
+  |vpiFullName:q8::k_r2
+|vpiNet:
+\_logic_net: (q8::k_u2), id:519, line:38:51, endln:38:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_u2), id:521
+    |vpiParent:
+    \_logic_net: (q8::k_u2), id:519, line:38:51, endln:38:55
+    |vpiFullName:q8::k_u2
+    |vpiActual:
+    \_unsupported_typespec: (u2_t), id:520, line:38:3, endln:38:7
+  |vpiName:k_u2
+  |vpiFullName:q8::k_u2
+|vpiNet:
+\_logic_net: (q8::k_n1), id:522, line:40:51, endln:40:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_n1), id:523
+    |vpiParent:
+    \_logic_net: (q8::k_n1), id:522, line:40:51, endln:40:55
+    |vpiFullName:q8::k_n1
+    |vpiActual:
+    \_struct_typespec: (q8::n1_t), id:222, line:39:11, endln:39:51
+  |vpiName:k_n1
+  |vpiFullName:q8::k_n1
+|vpiNet:
+\_logic_net: (q8::k_n2), id:524, line:42:51, endln:42:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_n2), id:525
+    |vpiParent:
+    \_logic_net: (q8::k_n2), id:524, line:42:51, endln:42:55
+    |vpiFullName:q8::k_n2
+    |vpiActual:
+    \_struct_typespec: (q8::n2_t), id:231, line:41:11, endln:41:51
+  |vpiName:k_n2
+  |vpiFullName:q8::k_n2
+|vpiNet:
+\_logic_net: (q8::k_n3), id:526, line:44:51, endln:44:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_n3), id:527
+    |vpiParent:
+    \_logic_net: (q8::k_n3), id:526, line:44:51, endln:44:55
+    |vpiFullName:q8::k_n3
+    |vpiActual:
+    \_struct_typespec: (q8::n3_t), id:240, line:43:11, endln:43:44
+  |vpiName:k_n3
+  |vpiFullName:q8::k_n3
+|vpiNet:
+\_logic_net: (q8::k_n4), id:528, line:46:51, endln:46:55
+  |vpiParent:
+  \_package: q8 (q8::), id:169, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_n4), id:529
+    |vpiParent:
+    \_logic_net: (q8::k_n4), id:528, line:46:51, endln:46:55
+    |vpiFullName:q8::k_n4
+    |vpiActual:
+    \_struct_typespec: (q8::n4_t), id:245, line:45:11, endln:45:44
+  |vpiName:k_n4
+  |vpiFullName:q8::k_n4
+
+decompile:
+package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:q8
+|vpiFullName:q8::
+|vpiVariables:
+\_enum_var: (q8::k_e1), id:147, line:17:51, endln:17:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_e1), id:148
+    |vpiParent:
+    \_enum_var: (q8::k_e1), id:147, line:17:51, endln:17:55
+    |vpiFullName:q8::k_e1
+    |vpiActual:
+    \_enum_typespec: (q8::e1_t), id:19, line:15:3, endln:15:56
+  |vpiName:k_e1
+  |vpiFullName:q8::k_e1
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (q8::k_e2), id:149, line:18:51, endln:18:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_e2), id:150
+    |vpiParent:
+    \_enum_var: (q8::k_e2), id:149, line:18:51, endln:18:55
+    |vpiFullName:q8::k_e2
+    |vpiActual:
+    \_enum_typespec: (q8::e2_t), id:27, line:15:3, endln:15:56
+  |vpiName:k_e2
+  |vpiFullName:q8::k_e2
+  |vpiVisibility:1
+|vpiVariables:
+\_real_var: (q8::k_r1), id:163, line:33:51, endln:33:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_r1), id:164
+    |vpiParent:
+    \_real_var: (q8::k_r1), id:163, line:33:51, endln:33:55
+    |vpiFullName:q8::k_r1
+    |vpiActual:
+    \_real_typespec: (q8::r1_t), id:86, line:31:11, endln:31:15
+  |vpiName:k_r1
+  |vpiFullName:q8::k_r1
+  |vpiVisibility:1
+|vpiVariables:
+\_real_var: (q8::k_r2), id:165, line:34:51, endln:34:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_r2), id:166
+    |vpiParent:
+    \_real_var: (q8::k_r2), id:165, line:34:51, endln:34:55
+    |vpiFullName:q8::k_r2
+    |vpiActual:
+    \_real_typespec: (q8::r2_t), id:87, line:32:11, endln:32:15
+  |vpiName:k_r2
+  |vpiFullName:q8::k_r2
+  |vpiVisibility:1
+|vpiTypedef:
+\_bit_typespec: (q8::b1_t), id:3, line:9:11, endln:9:23
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::b1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiRange:
+  \_range: , id:4, line:9:18, endln:9:23
+    |vpiParent:
+    \_bit_typespec: (q8::b1_t), id:3, line:9:11, endln:9:23
+    |vpiLeftRange:
+    \_constant: , id:5, line:9:19, endln:9:20
+      |vpiParent:
+      \_range: , id:4, line:9:18, endln:9:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:6, line:9:21, endln:9:22
+      |vpiParent:
+      \_range: , id:4, line:9:18, endln:9:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_enum_typespec: (q8::e1_t), id:19, line:15:3, endln:15:56
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::e1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (q8::q8::e1_t), id:24
+    |vpiParent:
+    \_enum_typespec: (q8::e1_t), id:19, line:15:3, endln:15:56
+    |vpiFullName:q8::q8::e1_t
+    |vpiActual:
+    \_logic_typespec: , id:20, line:15:16, endln:15:27
+  |vpiEnumConst:
+  \_enum_const: (QA), id:25, line:15:30, endln:15:32
+    |vpiParent:
+    \_enum_typespec: (q8::e1_t), id:19, line:15:3, endln:15:56
+    |vpiName:QA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (QB), id:26, line:15:34, endln:15:36
+    |vpiParent:
+    \_enum_typespec: (q8::e1_t), id:19, line:15:3, endln:15:56
+    |vpiName:QB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (q8::g1_t), id:57, line:23:11, endln:23:58
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::g1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:58, line:23:39, endln:23:40
+    |vpiParent:
+    \_struct_typespec: (q8::g1_t), id:57, line:23:11, endln:23:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::g1_t::a), id:63
+      |vpiParent:
+      \_typespec_member: (a), id:58, line:23:39, endln:23:40
+      |vpiFullName:q8::q8::g1_t::a
+      |vpiActual:
+      \_logic_typespec: , id:198, line:23:27, endln:23:38
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:64, line:23:54, endln:23:55
+    |vpiParent:
+    \_struct_typespec: (q8::g1_t), id:57, line:23:11, endln:23:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::g1_t::b), id:69
+      |vpiParent:
+      \_typespec_member: (b), id:64, line:23:54, endln:23:55
+      |vpiFullName:q8::q8::g1_t::b
+      |vpiActual:
+      \_logic_typespec: , id:204, line:23:42, endln:23:53
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:23
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:23
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_struct_typespec: (q8::n1_t), id:109, line:39:11, endln:39:51
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::n1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:110, line:39:39, endln:39:40
+    |vpiParent:
+    \_struct_typespec: (q8::n1_t), id:109, line:39:11, endln:39:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n1_t::a), id:115
+      |vpiParent:
+      \_typespec_member: (a), id:110, line:39:39, endln:39:40
+      |vpiFullName:q8::q8::n1_t::a
+      |vpiActual:
+      \_logic_typespec: , id:225, line:39:27, endln:39:38
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:39
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:39
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:116, line:39:47, endln:39:48
+    |vpiParent:
+    \_struct_typespec: (q8::n1_t), id:109, line:39:11, endln:39:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n1_t::b), id:117
+      |vpiParent:
+      \_typespec_member: (b), id:116, line:39:47, endln:39:48
+      |vpiFullName:q8::q8::n1_t::b
+      |vpiActual:
+      \_struct_typespec: (q8::g1_t), id:57, line:23:11, endln:23:58
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:39
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:39
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_struct_typespec: (q8::n2_t), id:118, line:41:11, endln:41:51
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::n2_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:119, line:41:39, endln:41:40
+    |vpiParent:
+    \_struct_typespec: (q8::n2_t), id:118, line:41:11, endln:41:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n2_t::a), id:124
+      |vpiParent:
+      \_typespec_member: (a), id:119, line:41:39, endln:41:40
+      |vpiFullName:q8::q8::n2_t::a
+      |vpiActual:
+      \_logic_typespec: , id:234, line:41:27, endln:41:38
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:41
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:41
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:125, line:41:47, endln:41:48
+    |vpiParent:
+    \_struct_typespec: (q8::n2_t), id:118, line:41:11, endln:41:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n2_t::b), id:126
+      |vpiParent:
+      \_typespec_member: (b), id:125, line:41:47, endln:41:48
+      |vpiFullName:q8::q8::n2_t::b
+      |vpiActual:
+      \_struct_typespec: (q8::s1_t), id:36, line:19:11, endln:19:50
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:41
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:41
+    |vpiRefEndColumnNo:46
+|vpiTypedef:
+\_struct_typespec: (q8::n3_t), id:127, line:43:11, endln:43:44
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::n3_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:128, line:43:32, endln:43:33
+    |vpiParent:
+    \_struct_typespec: (q8::n3_t), id:127, line:43:11, endln:43:44
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n3_t::a), id:129
+      |vpiParent:
+      \_typespec_member: (a), id:128, line:43:32, endln:43:33
+      |vpiFullName:q8::q8::n3_t::a
+      |vpiActual:
+      \_struct_typespec: (q8::s1_t), id:36, line:19:11, endln:19:50
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:43
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:43
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:130, line:43:40, endln:43:41
+    |vpiParent:
+    \_struct_typespec: (q8::n3_t), id:127, line:43:11, endln:43:44
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n3_t::b), id:131
+      |vpiParent:
+      \_typespec_member: (b), id:130, line:43:40, endln:43:41
+      |vpiFullName:q8::q8::n3_t::b
+      |vpiActual:
+      \_struct_typespec: (q8::s1_t), id:36, line:19:11, endln:19:50
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:43
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:43
+    |vpiRefEndColumnNo:39
+|vpiTypedef:
+\_struct_typespec: (q8::n4_t), id:132, line:45:11, endln:45:44
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::n4_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:133, line:45:32, endln:45:33
+    |vpiParent:
+    \_struct_typespec: (q8::n4_t), id:132, line:45:11, endln:45:44
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n4_t::a), id:138
+      |vpiParent:
+      \_typespec_member: (a), id:133, line:45:32, endln:45:33
+      |vpiFullName:q8::q8::n4_t::a
+      |vpiActual:
+      \_logic_typespec: , id:248, line:45:20, endln:45:31
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:45
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:45
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:139, line:45:40, endln:45:41
+    |vpiParent:
+    \_struct_typespec: (q8::n4_t), id:132, line:45:11, endln:45:44
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::n4_t::b), id:140
+      |vpiParent:
+      \_typespec_member: (b), id:139, line:45:40, endln:45:41
+      |vpiFullName:q8::q8::n4_t::b
+      |vpiActual:
+      \_struct_typespec: (q8::u1_t), id:88, line:35:11, endln:35:44
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:45
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:45
+    |vpiRefEndColumnNo:39
+|vpiTypedef:
+\_real_typespec: (q8::r1_t), id:86, line:31:11, endln:31:15
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::r1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+|vpiTypedef:
+\_real_typespec: (q8::r2_t), id:87, line:32:11, endln:32:15
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::r2_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+|vpiTypedef:
+\_struct_typespec: (q8::s1_t), id:36, line:19:11, endln:19:50
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::s1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:37, line:19:31, endln:19:32
+    |vpiParent:
+    \_struct_typespec: (q8::s1_t), id:36, line:19:11, endln:19:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::s1_t::x), id:39
+      |vpiParent:
+      \_typespec_member: (x), id:37, line:19:31, endln:19:32
+      |vpiFullName:q8::q8::s1_t::x
+      |vpiActual:
+      \_int_typespec: , id:188, line:19:27, endln:19:30
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:40, line:19:46, endln:19:47
+    |vpiParent:
+    \_struct_typespec: (q8::s1_t), id:36, line:19:11, endln:19:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::s1_t::y), id:45
+      |vpiParent:
+      \_typespec_member: (y), id:40, line:19:46, endln:19:47
+      |vpiFullName:q8::q8::s1_t::y
+      |vpiActual:
+      \_logic_typespec: , id:191, line:19:34, endln:19:45
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:19
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:19
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (q8::u1_t), id:88, line:35:11, endln:35:44
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::u1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:89, line:35:32, endln:35:33
+    |vpiParent:
+    \_struct_typespec: (q8::u1_t), id:88, line:35:11, endln:35:44
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::u1_t::a), id:94
+      |vpiParent:
+      \_typespec_member: (a), id:89, line:35:32, endln:35:33
+      |vpiFullName:q8::q8::u1_t::a
+      |vpiActual:
+      \_logic_typespec: , id:215, line:35:20, endln:35:31
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:35
+    |vpiRefColumnNo:20
+    |vpiRefEndLineNo:35
+    |vpiRefEndColumnNo:31
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:95, line:35:40, endln:35:41
+    |vpiParent:
+    \_struct_typespec: (q8::u1_t), id:88, line:35:11, endln:35:44
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q8::q8::u1_t::b), id:97
+      |vpiParent:
+      \_typespec_member: (b), id:95, line:35:40, endln:35:41
+      |vpiFullName:q8::q8::u1_t::b
+      |vpiActual:
+      \_byte_typespec: , id:221, line:35:35, endln:35:39
+    |vpiRefFile:q8_hopviews/dut.sv
+    |vpiRefLineNo:35
+    |vpiRefColumnNo:35
+    |vpiRefEndLineNo:35
+    |vpiRefEndColumnNo:39
+|vpiTypedef:
+\_byte_typespec: (q8::y1_t), id:84, line:27:11, endln:27:15
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::y1_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiSigned:1
+|vpiTypedef:
+\_byte_typespec: (q8::y2_t), id:85, line:28:11, endln:28:15
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiName:q8::y2_t
+  |vpiInstance:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiSigned:1
+|vpiDefName:q8
+|vpiNet:
+\_logic_net: (q8::k_b1), id:141, line:12:51, endln:12:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_b1), id:142
+    |vpiParent:
+    \_logic_net: (q8::k_b1), id:141, line:12:51, endln:12:55
+    |vpiFullName:q8::k_b1
+    |vpiActual:
+    \_bit_typespec: (q8::b1_t), id:3, line:9:11, endln:9:23
+  |vpiName:k_b1
+  |vpiFullName:q8::k_b1
+|vpiNet:
+\_logic_net: (q8::k_b2), id:143, line:13:51, endln:13:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_b2), id:144
+    |vpiParent:
+    \_logic_net: (q8::k_b2), id:143, line:13:51, endln:13:55
+    |vpiFullName:q8::k_b2
+    |vpiActual:
+    \_bit_typespec: (q8::b2_t), id:7, line:9:11, endln:9:23
+  |vpiName:k_b2
+  |vpiFullName:q8::k_b2
+|vpiNet:
+\_logic_net: (q8::k_b3), id:145, line:14:51, endln:14:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_b3), id:146
+    |vpiParent:
+    \_logic_net: (q8::k_b3), id:145, line:14:51, endln:14:55
+    |vpiFullName:q8::k_b3
+    |vpiActual:
+    \_bit_typespec: (q8::b3_t), id:16, line:10:11, endln:10:15
+  |vpiName:k_b3
+  |vpiFullName:q8::k_b3
+|vpiNet:
+\_logic_net: (q8::k_s1), id:151, line:21:51, endln:21:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_s1), id:152
+    |vpiParent:
+    \_logic_net: (q8::k_s1), id:151, line:21:51, endln:21:55
+    |vpiFullName:q8::k_s1
+    |vpiActual:
+    \_struct_typespec: (q8::s1_t), id:36, line:19:11, endln:19:50
+  |vpiName:k_s1
+  |vpiFullName:q8::k_s1
+|vpiNet:
+\_logic_net: (q8::k_s2), id:153, line:22:51, endln:22:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_s2), id:154
+    |vpiParent:
+    \_logic_net: (q8::k_s2), id:153, line:22:51, endln:22:55
+    |vpiFullName:q8::k_s2
+    |vpiActual:
+    \_struct_typespec: (q8::s2_t), id:46, line:19:11, endln:19:50
+  |vpiName:k_s2
+  |vpiFullName:q8::k_s2
+|vpiNet:
+\_logic_net: (q8::k_g1), id:155, line:25:51, endln:25:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_g1), id:156
+    |vpiParent:
+    \_logic_net: (q8::k_g1), id:155, line:25:51, endln:25:55
+    |vpiFullName:q8::k_g1
+    |vpiActual:
+    \_struct_typespec: (q8::g1_t), id:57, line:23:11, endln:23:58
+  |vpiName:k_g1
+  |vpiFullName:q8::k_g1
+|vpiNet:
+\_logic_net: (q8::k_g2), id:157, line:26:51, endln:26:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_g2), id:158
+    |vpiParent:
+    \_logic_net: (q8::k_g2), id:157, line:26:51, endln:26:55
+    |vpiFullName:q8::k_g2
+    |vpiActual:
+    \_struct_typespec: (q8::g2_t), id:70, line:23:11, endln:23:58
+  |vpiName:k_g2
+  |vpiFullName:q8::k_g2
+|vpiNet:
+\_logic_net: (q8::k_y1), id:159, line:29:51, endln:29:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_y1), id:160
+    |vpiParent:
+    \_logic_net: (q8::k_y1), id:159, line:29:51, endln:29:55
+    |vpiFullName:q8::k_y1
+    |vpiActual:
+    \_byte_typespec: (q8::y1_t), id:84, line:27:11, endln:27:15
+  |vpiName:k_y1
+  |vpiFullName:q8::k_y1
+|vpiNet:
+\_logic_net: (q8::k_y2), id:161, line:30:51, endln:30:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_y2), id:162
+    |vpiParent:
+    \_logic_net: (q8::k_y2), id:161, line:30:51, endln:30:55
+    |vpiFullName:q8::k_y2
+    |vpiActual:
+    \_byte_typespec: (q8::y2_t), id:85, line:28:11, endln:28:15
+  |vpiName:k_y2
+  |vpiFullName:q8::k_y2
+|vpiNet:
+\_logic_net: (q8::k_n1), id:167, line:40:51, endln:40:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_n1), id:168
+    |vpiParent:
+    \_logic_net: (q8::k_n1), id:167, line:40:51, endln:40:55
+    |vpiFullName:q8::k_n1
+    |vpiActual:
+    \_struct_typespec: (q8::n1_t), id:109, line:39:11, endln:39:51
+  |vpiName:k_n1
+  |vpiFullName:q8::k_n1
+|vpiNet:
+\_logic_net: (q8::k_n2), id:169, line:42:51, endln:42:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_n2), id:170
+    |vpiParent:
+    \_logic_net: (q8::k_n2), id:169, line:42:51, endln:42:55
+    |vpiFullName:q8::k_n2
+    |vpiActual:
+    \_struct_typespec: (q8::n2_t), id:118, line:41:11, endln:41:51
+  |vpiName:k_n2
+  |vpiFullName:q8::k_n2
+|vpiNet:
+\_logic_net: (q8::k_n3), id:171, line:44:51, endln:44:55
+  |vpiParent:
+  \_package: q8 (q8::), id:2, file:q8_hopviews/dut.sv, line:8:1, endln:47:11
+  |vpiTypespec:
+  \_ref_typespec: (q8::k_n3), id:172
+    |vpiParent:
+    \_logic_net: (q8::k_n3), id:171, line:44:51, endln:44:55
+    |vpiFullName:q8::k_n3
+    |vpiActual:
+    \_struct_typespec: (q8::n3_t), id:127, line:43:11, endln:43:44
+  |vpiName:k_n3
+  |vpiFullName:q8::k_n3
+

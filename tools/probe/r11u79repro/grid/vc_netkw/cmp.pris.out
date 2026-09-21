@@ -1,0 +1,78 @@
+decompile:
+package: pw (pw::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vc_netkw/dut.sv, line:3:1, endln:9:11
+|vpiParent:
+\_design: (work@dut), id:328
+|vpiName:pw
+|vpiFullName:pw::
+|vpiDefName:pw
+|vpiNet:
+\_logic_net: (pw::k_uwire), id:359, line:4:16, endln:4:23
+  |vpiParent:
+  \_package: pw (pw::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vc_netkw/dut.sv, line:3:1, endln:9:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::k_uwire), id:364
+    |vpiParent:
+    \_logic_net: (pw::k_uwire), id:359, line:4:16, endln:4:23
+    |vpiFullName:pw::k_uwire
+    |vpiActual:
+    \_logic_typespec: , id:363, line:4:3, endln:4:15
+  |vpiName:k_uwire
+  |vpiFullName:pw::k_uwire
+  |vpiNetType:13
+|vpiNet:
+\_logic_net: (pw::k_tri1), id:365, line:5:16, endln:5:22
+  |vpiParent:
+  \_package: pw (pw::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vc_netkw/dut.sv, line:3:1, endln:9:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::k_tri1), id:370
+    |vpiParent:
+    \_logic_net: (pw::k_tri1), id:365, line:5:16, endln:5:22
+    |vpiFullName:pw::k_tri1
+    |vpiActual:
+    \_logic_typespec: , id:369, line:5:3, endln:5:15
+  |vpiName:k_tri1
+  |vpiFullName:pw::k_tri1
+  |vpiNetType:6
+|vpiNet:
+\_logic_net: (pw::k_triand), id:371, line:6:16, endln:6:24
+  |vpiParent:
+  \_package: pw (pw::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vc_netkw/dut.sv, line:3:1, endln:9:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::k_triand), id:376
+    |vpiParent:
+    \_logic_net: (pw::k_triand), id:371, line:6:16, endln:6:24
+    |vpiFullName:pw::k_triand
+    |vpiActual:
+    \_logic_typespec: , id:375, line:6:3, endln:6:15
+  |vpiName:k_triand
+  |vpiFullName:pw::k_triand
+  |vpiNetType:8
+|vpiNet:
+\_logic_net: (pw::k_trior), id:377, line:7:16, endln:7:23
+  |vpiParent:
+  \_package: pw (pw::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vc_netkw/dut.sv, line:3:1, endln:9:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::k_trior), id:382
+    |vpiParent:
+    \_logic_net: (pw::k_trior), id:377, line:7:16, endln:7:23
+    |vpiFullName:pw::k_trior
+    |vpiActual:
+    \_logic_typespec: , id:381, line:7:3, endln:7:15
+  |vpiName:k_trior
+  |vpiFullName:pw::k_trior
+  |vpiNetType:9
+|vpiNet:
+\_logic_net: (pw::k_signed), id:383, line:8:21, endln:8:29
+  |vpiParent:
+  \_package: pw (pw::), id:2, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vc_netkw/dut.sv, line:3:1, endln:9:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::k_signed), id:388
+    |vpiParent:
+    \_logic_net: (pw::k_signed), id:383, line:8:21, endln:8:29
+    |vpiFullName:pw::k_signed
+    |vpiActual:
+    \_logic_typespec: , id:387, line:8:3, endln:8:14
+  |vpiName:k_signed
+  |vpiFullName:pw::k_signed
+  |vpiNetType:1
+

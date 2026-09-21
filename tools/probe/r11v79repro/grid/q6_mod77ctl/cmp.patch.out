@@ -1,0 +1,303 @@
+decompile:
+package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+|vpiParent:
+\_design: (work@dut), id:322
+|vpiName:p6
+|vpiFullName:p6::
+|vpiVariables:
+\_array_var: (p6::h_uarr), id:124, line:8:15, endln:8:21
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (p6::h_uarr), id:125
+    |vpiParent:
+    \_array_var: (p6::h_uarr), id:124, line:8:15, endln:8:21
+    |vpiFullName:p6::h_uarr
+    |vpiActual:
+    \_array_typespec: , id:126
+  |vpiName:h_uarr
+  |vpiFullName:p6::h_uarr
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:119, line:8:22, endln:8:27
+    |vpiParent:
+    \_array_var: (p6::h_uarr), id:124, line:8:15, endln:8:21
+    |vpiLeftRange:
+    \_constant: , id:120, line:8:23, endln:8:24
+      |vpiParent:
+      \_range: , id:119, line:8:22, endln:8:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:121, line:8:25, endln:8:26
+      |vpiParent:
+      \_range: , id:119, line:8:22, endln:8:27
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (p6::h_uarr), id:122, line:8:15, endln:8:21
+    |vpiParent:
+    \_array_var: (p6::h_uarr), id:124, line:8:15, endln:8:21
+    |vpiTypespec:
+    \_ref_typespec: (p6::h_uarr), id:123
+      |vpiParent:
+      \_logic_var: (p6::h_uarr), id:122, line:8:15, endln:8:21
+      |vpiFullName:p6::h_uarr
+      |vpiActual:
+      \_logic_typespec: , id:115, line:8:3, endln:8:14
+    |vpiFullName:p6::h_uarr
+|vpiVariables:
+\_struct_var: (p6::h_struct), id:127, line:10:15, endln:10:23
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (p6::h_struct), id:128
+    |vpiParent:
+    \_struct_var: (p6::h_struct), id:127, line:10:15, endln:10:23
+    |vpiFullName:p6::h_struct
+    |vpiActual:
+    \_struct_typespec: (p6::hsi_t), id:35, line:9:11, endln:9:50
+  |vpiName:h_struct
+  |vpiFullName:p6::h_struct
+  |vpiVisibility:1
+|vpiVariables:
+\_union_var: (p6::h_anonu), id:144, line:13:50, endln:13:57
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (p6::h_anonu), id:145
+    |vpiParent:
+    \_union_var: (p6::h_anonu), id:144, line:13:50, endln:13:57
+    |vpiFullName:p6::h_anonu
+    |vpiActual:
+    \_union_typespec: , id:131, line:13:3, endln:13:8
+  |vpiName:h_anonu
+  |vpiFullName:p6::h_anonu
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (p6::h_var), id:153, line:14:15, endln:14:20
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (p6::h_var), id:154
+    |vpiParent:
+    \_logic_var: (p6::h_var), id:153, line:14:15, endln:14:20
+    |vpiFullName:p6::h_var
+    |vpiActual:
+    \_logic_typespec: , id:149, line:14:3, endln:14:14
+  |vpiName:h_var
+  |vpiFullName:p6::h_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_array_var: (p6::h_uasi), id:167, line:17:15, endln:17:21
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (p6::h_uasi), id:168
+    |vpiParent:
+    \_array_var: (p6::h_uasi), id:167, line:17:15, endln:17:21
+    |vpiFullName:p6::h_uasi
+    |vpiActual:
+    \_array_typespec: , id:169
+  |vpiName:h_uasi
+  |vpiFullName:p6::h_uasi
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:162, line:17:22, endln:17:27
+    |vpiParent:
+    \_array_var: (p6::h_uasi), id:167, line:17:15, endln:17:21
+    |vpiLeftRange:
+    \_constant: , id:163, line:17:23, endln:17:24
+      |vpiParent:
+      \_range: , id:162, line:17:22, endln:17:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:164, line:17:25, endln:17:26
+      |vpiParent:
+      \_range: , id:162, line:17:22, endln:17:27
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_struct_var: (p6::h_uasi), id:165, line:17:15, endln:17:21
+    |vpiParent:
+    \_array_var: (p6::h_uasi), id:167, line:17:15, endln:17:21
+    |vpiTypespec:
+    \_ref_typespec: (p6::h_uasi), id:166
+      |vpiParent:
+      \_struct_var: (p6::h_uasi), id:165, line:17:15, endln:17:21
+      |vpiFullName:p6::h_uasi
+      |vpiActual:
+      \_struct_typespec: (p6::hsi_t), id:35, line:9:11, endln:9:50
+    |vpiFullName:p6::h_uasi
+|vpiTypedef:
+\_struct_typespec: (p6::hsi_t), id:35, line:9:11, endln:9:50
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiName:p6::hsi_t
+  |vpiInstance:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:37, line:9:31, endln:9:32
+    |vpiParent:
+    \_struct_typespec: (p6::hsi_t), id:35, line:9:11, endln:9:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (p6::p6::hsi_t::x), id:38
+      |vpiParent:
+      \_typespec_member: (x), id:37, line:9:31, endln:9:32
+      |vpiFullName:p6::p6::hsi_t::x
+      |vpiActual:
+      \_int_typespec: , id:36, line:9:27, endln:9:30
+    |vpiRefFile:q6_mod77ctl/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:43, line:9:46, endln:9:47
+    |vpiParent:
+    \_struct_typespec: (p6::hsi_t), id:35, line:9:11, endln:9:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (p6::p6::hsi_t::y), id:44
+      |vpiParent:
+      \_typespec_member: (y), id:43, line:9:46, endln:9:47
+      |vpiFullName:p6::p6::hsi_t::y
+      |vpiActual:
+      \_logic_typespec: , id:42, line:9:34, endln:9:45
+    |vpiRefFile:q6_mod77ctl/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (p6::hsl_t), id:45, line:11:11, endln:11:58
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiName:p6::hsl_t
+  |vpiInstance:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:50, line:11:39, endln:11:40
+    |vpiParent:
+    \_struct_typespec: (p6::hsl_t), id:45, line:11:11, endln:11:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (p6::p6::hsl_t::a), id:51
+      |vpiParent:
+      \_typespec_member: (a), id:50, line:11:39, endln:11:40
+      |vpiFullName:p6::p6::hsl_t::a
+      |vpiActual:
+      \_logic_typespec: , id:49, line:11:27, endln:11:38
+    |vpiRefFile:q6_mod77ctl/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:56, line:11:54, endln:11:55
+    |vpiParent:
+    \_struct_typespec: (p6::hsl_t), id:45, line:11:11, endln:11:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (p6::p6::hsl_t::b), id:57
+      |vpiParent:
+      \_typespec_member: (b), id:56, line:11:54, endln:11:55
+      |vpiFullName:p6::p6::hsl_t::b
+      |vpiActual:
+      \_logic_typespec: , id:55, line:11:42, endln:11:53
+    |vpiRefFile:q6_mod77ctl/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_logic_typespec: (p6::hw_t), id:65, line:15:11, endln:15:22
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiName:p6::hw_t
+  |vpiInstance:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiRange:
+  \_range: , id:62, line:15:17, endln:15:22
+    |vpiParent:
+    \_logic_typespec: (p6::hw_t), id:65, line:15:11, endln:15:22
+    |vpiLeftRange:
+    \_constant: , id:63, line:15:18, endln:15:19
+      |vpiParent:
+      \_range: , id:62, line:15:17, endln:15:22
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:64, line:15:20, endln:15:21
+      |vpiParent:
+      \_range: , id:62, line:15:17, endln:15:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:p6
+|vpiNet:
+\_logic_net: (p6::h_net), id:338, line:7:15, endln:7:20
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (p6::h_net), id:343
+    |vpiParent:
+    \_logic_net: (p6::h_net), id:338, line:7:15, endln:7:20
+    |vpiFullName:p6::h_net
+    |vpiActual:
+    \_logic_typespec: , id:342, line:7:3, endln:7:13
+  |vpiName:h_net
+  |vpiFullName:p6::h_net
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (p6::h_sl), id:344, line:12:15, endln:12:19
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (p6::h_sl), id:345
+    |vpiParent:
+    \_logic_net: (p6::h_sl), id:344, line:12:15, endln:12:19
+    |vpiFullName:p6::h_sl
+    |vpiActual:
+    \_struct_typespec: (p6::hsl_t), id:45, line:11:11, endln:11:58
+  |vpiName:h_sl
+  |vpiFullName:p6::h_sl
+|vpiNet:
+\_logic_net: (p6::h_wtd), id:346, line:16:15, endln:16:20
+  |vpiParent:
+  \_package: p6 (p6::), id:34, file:q6_mod77ctl/dut.sv, line:6:1, endln:18:11
+  |vpiTypespec:
+  \_ref_typespec: (p6::h_wtd), id:352
+    |vpiParent:
+    \_logic_net: (p6::h_wtd), id:346, line:16:15, endln:16:20
+    |vpiFullName:p6::h_wtd
+    |vpiActual:
+    \_logic_typespec: (p6::hw_t), id:347, line:15:11, endln:15:22
+  |vpiName:h_wtd
+  |vpiFullName:p6::h_wtd
+  |vpiNetType:1
+

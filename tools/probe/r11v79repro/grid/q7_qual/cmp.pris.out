@@ -1,0 +1,511 @@
+decompile:
+package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+|vpiParent:
+\_design: (work@dut), id:477
+|vpiName:q7
+|vpiFullName:q7::
+|vpiVariables:
+\_struct_var: (q7::g_plain), id:114, line:8:24, endln:8:31
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_plain), id:115
+    |vpiParent:
+    \_struct_var: (q7::g_plain), id:114, line:8:24, endln:8:31
+    |vpiFullName:q7::g_plain
+    |vpiActual:
+    \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+  |vpiName:g_plain
+  |vpiFullName:q7::g_plain
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (q7::g_const), id:126, line:9:24, endln:9:47
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_const), id:127
+    |vpiParent:
+    \_struct_var: (q7::g_const), id:126, line:9:24, endln:9:47
+    |vpiFullName:q7::g_const
+    |vpiActual:
+    \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+  |vpiName:g_const
+  |vpiFullName:q7::g_const
+  |vpiAutomatic:1
+  |vpiConstantVariable:1
+  |vpiVisibility:1
+  |vpiExpr:
+  \_operation: , id:128, line:9:36, endln:9:47
+    |vpiParent:
+    \_struct_var: (q7::g_const), id:126, line:9:24, endln:9:47
+    |vpiTypespec:
+    \_ref_typespec: , id:137
+      |vpiActual:
+      \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+    |vpiOpType:75
+    |vpiOperand:
+    \_constant: , id:117, line:9:40, endln:9:41
+      |vpiParent:
+      \_operation: , id:128, line:9:36, endln:9:47
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:122, line:9:45, endln:9:46
+      |vpiParent:
+      \_operation: , id:128, line:9:36, endln:9:47
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiVariables:
+\_struct_var: (q7::g_var), id:138, line:10:24, endln:10:29
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_var), id:139
+    |vpiParent:
+    \_struct_var: (q7::g_var), id:138, line:10:24, endln:10:29
+    |vpiFullName:q7::g_var
+    |vpiActual:
+    \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+  |vpiName:g_var
+  |vpiFullName:q7::g_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (q7::g_static), id:140, line:11:24, endln:11:32
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_static), id:141
+    |vpiParent:
+    \_struct_var: (q7::g_static), id:140, line:11:24, endln:11:32
+    |vpiFullName:q7::g_static
+    |vpiActual:
+    \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+  |vpiName:g_static
+  |vpiFullName:q7::g_static
+  |vpiVisibility:1
+|vpiVariables:
+\_array_var: (q7::g_arr), id:170, line:15:24, endln:15:29
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_arr), id:171
+    |vpiParent:
+    \_array_var: (q7::g_arr), id:170, line:15:24, endln:15:29
+    |vpiFullName:q7::g_arr
+    |vpiActual:
+    \_array_typespec: , id:172
+  |vpiName:g_arr
+  |vpiFullName:q7::g_arr
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:165, line:15:30, endln:15:35
+    |vpiParent:
+    \_array_var: (q7::g_arr), id:170, line:15:24, endln:15:29
+    |vpiLeftRange:
+    \_constant: , id:166, line:15:31, endln:15:32
+      |vpiParent:
+      \_range: , id:165, line:15:30, endln:15:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:167, line:15:33, endln:15:34
+      |vpiParent:
+      \_range: , id:165, line:15:30, endln:15:35
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (q7::g_arr), id:168, line:15:24, endln:15:29
+    |vpiParent:
+    \_array_var: (q7::g_arr), id:170, line:15:24, endln:15:29
+    |vpiTypespec:
+    \_ref_typespec: (q7::g_arr), id:169
+      |vpiParent:
+      \_logic_var: (q7::g_arr), id:168, line:15:24, endln:15:29
+      |vpiFullName:q7::g_arr
+      |vpiActual:
+      \_logic_typespec: , id:161, line:15:3, endln:15:14
+    |vpiFullName:q7::g_arr
+|vpiVariables:
+\_array_var: (q7::g_arrstatic), id:185, line:16:24, endln:16:35
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_arrstatic), id:186
+    |vpiParent:
+    \_array_var: (q7::g_arrstatic), id:185, line:16:24, endln:16:35
+    |vpiFullName:q7::g_arrstatic
+    |vpiActual:
+    \_array_typespec: , id:187
+  |vpiName:g_arrstatic
+  |vpiFullName:q7::g_arrstatic
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:180, line:16:36, endln:16:41
+    |vpiParent:
+    \_array_var: (q7::g_arrstatic), id:185, line:16:24, endln:16:35
+    |vpiLeftRange:
+    \_constant: , id:181, line:16:37, endln:16:38
+      |vpiParent:
+      \_range: , id:180, line:16:36, endln:16:41
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:182, line:16:39, endln:16:40
+      |vpiParent:
+      \_range: , id:180, line:16:36, endln:16:41
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (q7::g_arrstatic), id:183, line:16:24, endln:16:35
+    |vpiParent:
+    \_array_var: (q7::g_arrstatic), id:185, line:16:24, endln:16:35
+    |vpiTypespec:
+    \_ref_typespec: (q7::g_arrstatic), id:184
+      |vpiParent:
+      \_logic_var: (q7::g_arrstatic), id:183, line:16:24, endln:16:35
+      |vpiFullName:q7::g_arrstatic
+      |vpiActual:
+      \_logic_typespec: , id:176, line:16:10, endln:16:21
+    |vpiFullName:q7::g_arrstatic
+|vpiVariables:
+\_array_var: (q7::g_arrconst), id:203, line:17:24, endln:17:34
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_arrconst), id:204
+    |vpiParent:
+    \_array_var: (q7::g_arrconst), id:203, line:17:24, endln:17:34
+    |vpiFullName:q7::g_arrconst
+    |vpiActual:
+    \_array_typespec: , id:205
+  |vpiName:g_arrconst
+  |vpiFullName:q7::g_arrconst
+  |vpiAutomatic:1
+  |vpiConstantVariable:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiExpr:
+  \_operation: , id:198, line:17:43, endln:17:56
+    |vpiParent:
+    \_logic_var: (q7::g_arrconst), id:201, line:17:24, endln:17:34
+    |vpiOpType:75
+    |vpiOperand:
+    \_constant: , id:199, line:17:45, endln:17:49
+      |vpiDecompile:8'd0
+      |vpiSize:8
+      |DEC:0
+      |vpiConstType:1
+    |vpiOperand:
+    \_constant: , id:200, line:17:51, endln:17:55
+      |vpiDecompile:8'd0
+      |vpiSize:8
+      |DEC:0
+      |vpiConstType:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:195, line:17:35, endln:17:40
+    |vpiParent:
+    \_array_var: (q7::g_arrconst), id:203, line:17:24, endln:17:34
+    |vpiLeftRange:
+    \_constant: , id:196, line:17:36, endln:17:37
+      |vpiParent:
+      \_range: , id:195, line:17:35, endln:17:40
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:197, line:17:38, endln:17:39
+      |vpiParent:
+      \_range: , id:195, line:17:35, endln:17:40
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (q7::g_arrconst), id:201, line:17:24, endln:17:34
+    |vpiParent:
+    \_array_var: (q7::g_arrconst), id:203, line:17:24, endln:17:34
+    |vpiTypespec:
+    \_ref_typespec: (q7::g_arrconst), id:202
+      |vpiParent:
+      \_logic_var: (q7::g_arrconst), id:201, line:17:24, endln:17:34
+      |vpiFullName:q7::g_arrconst
+      |vpiActual:
+      \_logic_typespec: , id:191, line:17:9, endln:17:20
+    |vpiFullName:q7::g_arrconst
+    |vpiExpr:
+    \_operation: , id:198, line:17:43, endln:17:56
+|vpiVariables:
+\_array_var: (q7::g_arrvar), id:215, line:18:24, endln:18:32
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_arrvar), id:216
+    |vpiParent:
+    \_array_var: (q7::g_arrvar), id:215, line:18:24, endln:18:32
+    |vpiFullName:q7::g_arrvar
+    |vpiActual:
+    \_array_typespec: , id:217
+  |vpiName:g_arrvar
+  |vpiFullName:q7::g_arrvar
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:210, line:18:33, endln:18:38
+    |vpiParent:
+    \_array_var: (q7::g_arrvar), id:215, line:18:24, endln:18:32
+    |vpiLeftRange:
+    \_constant: , id:211, line:18:34, endln:18:35
+      |vpiParent:
+      \_range: , id:210, line:18:33, endln:18:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:212, line:18:36, endln:18:37
+      |vpiParent:
+      \_range: , id:210, line:18:33, endln:18:38
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (q7::g_arrvar), id:213, line:18:24, endln:18:32
+    |vpiParent:
+    \_array_var: (q7::g_arrvar), id:215, line:18:24, endln:18:32
+    |vpiTypespec:
+    \_ref_typespec: (q7::g_arrvar), id:214
+      |vpiParent:
+      \_logic_var: (q7::g_arrvar), id:213, line:18:24, endln:18:32
+      |vpiFullName:q7::g_arrvar
+      |vpiActual:
+      \_logic_typespec: , id:209, line:18:7, endln:18:18
+    |vpiFullName:q7::g_arrvar
+|vpiVariables:
+\_array_var: (q7::g_arrsi), id:223, line:19:24, endln:19:31
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_arrsi), id:224
+    |vpiParent:
+    \_array_var: (q7::g_arrsi), id:223, line:19:24, endln:19:31
+    |vpiFullName:q7::g_arrsi
+    |vpiActual:
+    \_array_typespec: , id:225
+  |vpiName:g_arrsi
+  |vpiFullName:q7::g_arrsi
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:218, line:19:32, endln:19:37
+    |vpiParent:
+    \_array_var: (q7::g_arrsi), id:223, line:19:24, endln:19:31
+    |vpiLeftRange:
+    \_constant: , id:219, line:19:33, endln:19:34
+      |vpiParent:
+      \_range: , id:218, line:19:32, endln:19:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:220, line:19:35, endln:19:36
+      |vpiParent:
+      \_range: , id:218, line:19:32, endln:19:37
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_struct_var: (q7::g_arrsi), id:221, line:19:24, endln:19:31
+    |vpiParent:
+    \_array_var: (q7::g_arrsi), id:223, line:19:24, endln:19:31
+    |vpiTypespec:
+    \_ref_typespec: (q7::g_arrsi), id:222
+      |vpiParent:
+      \_struct_var: (q7::g_arrsi), id:221, line:19:24, endln:19:31
+      |vpiFullName:q7::g_arrsi
+      |vpiActual:
+      \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+    |vpiFullName:q7::g_arrsi
+|vpiVariables:
+\_struct_var: (q7::g_wsi), id:226, line:20:24, endln:20:29
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_wsi), id:227
+    |vpiParent:
+    \_struct_var: (q7::g_wsi), id:226, line:20:24, endln:20:29
+    |vpiFullName:q7::g_wsi
+    |vpiActual:
+    \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+  |vpiName:g_wsi
+  |vpiFullName:q7::g_wsi
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiName:q7::si_t
+  |vpiInstance:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:29, line:6:31, endln:6:32
+    |vpiParent:
+    \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (q7::q7::si_t::x), id:30
+      |vpiParent:
+      \_typespec_member: (x), id:29, line:6:31, endln:6:32
+      |vpiFullName:q7::q7::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:28, line:6:27, endln:6:30
+    |vpiRefFile:q7_qual/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:35, line:6:46, endln:6:47
+    |vpiParent:
+    \_struct_typespec: (q7::si_t), id:27, line:6:11, endln:6:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (q7::q7::si_t::y), id:36
+      |vpiParent:
+      \_typespec_member: (y), id:35, line:6:46, endln:6:47
+      |vpiFullName:q7::q7::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:34, line:6:34, endln:6:45
+    |vpiRefFile:q7_qual/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (q7::sl_t), id:37, line:7:11, endln:14:47
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiName:q7::sl_t
+  |vpiInstance:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:42, line:7:39, endln:7:40
+    |vpiParent:
+    \_struct_typespec: (q7::sl_t), id:37, line:7:11, endln:14:47
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (q7::q7::sl_t::a), id:43
+      |vpiParent:
+      \_typespec_member: (a), id:42, line:7:39, endln:7:40
+      |vpiFullName:q7::q7::sl_t::a
+      |vpiActual:
+      \_logic_typespec: , id:41, line:7:27, endln:7:38
+    |vpiRefFile:q7_qual/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:48, line:7:54, endln:7:55
+    |vpiParent:
+    \_struct_typespec: (q7::sl_t), id:37, line:7:11, endln:14:47
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (q7::q7::sl_t::b), id:49
+      |vpiParent:
+      \_typespec_member: (b), id:48, line:7:54, endln:7:55
+      |vpiFullName:q7::q7::sl_t::b
+      |vpiActual:
+      \_logic_typespec: , id:47, line:7:42, endln:7:53
+    |vpiRefFile:q7_qual/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:53
+|vpiDefName:q7
+|vpiNet:
+\_logic_net: (q7::g_slplain), id:486, line:12:24, endln:12:33
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_slplain), id:487
+    |vpiParent:
+    \_logic_net: (q7::g_slplain), id:486, line:12:24, endln:12:33
+    |vpiFullName:q7::g_slplain
+    |vpiActual:
+    \_struct_typespec: (q7::sl_t), id:37, line:7:11, endln:14:47
+  |vpiName:g_slplain
+  |vpiFullName:q7::g_slplain
+|vpiNet:
+\_logic_net: (q7::g_slvar), id:488, line:13:24, endln:13:31
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_slvar), id:489
+    |vpiParent:
+    \_logic_net: (q7::g_slvar), id:488, line:13:24, endln:13:31
+    |vpiFullName:q7::g_slvar
+    |vpiActual:
+    \_struct_typespec: (q7::sl_t), id:37, line:7:11, endln:14:47
+  |vpiName:g_slvar
+  |vpiFullName:q7::g_slvar
+|vpiNet:
+\_logic_net: (q7::g_slconst), id:490, line:14:24, endln:14:33
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_slconst), id:491
+    |vpiParent:
+    \_logic_net: (q7::g_slconst), id:490, line:14:24, endln:14:33
+    |vpiFullName:q7::g_slconst
+    |vpiActual:
+    \_struct_typespec: (q7::sl_t), id:37, line:7:11, endln:14:47
+  |vpiName:g_slconst
+  |vpiFullName:q7::g_slconst
+|vpiNet:
+\_logic_net: (q7::g_wsl), id:492, line:21:24, endln:21:29
+  |vpiParent:
+  \_package: q7 (q7::), id:26, file:q7_qual/dut.sv, line:5:1, endln:22:11
+  |vpiTypespec:
+  \_ref_typespec: (q7::g_wsl), id:493
+    |vpiParent:
+    \_logic_net: (q7::g_wsl), id:492, line:21:24, endln:21:29
+    |vpiFullName:q7::g_wsl
+    |vpiActual:
+    \_struct_typespec: (q7::sl_t), id:37, line:7:11, endln:14:47
+  |vpiName:g_wsl
+  |vpiFullName:q7::g_wsl
+  |vpiNetType:1
+

@@ -1,0 +1,889 @@
+decompile:
+module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+|vpiParent:
+\_design: (work@dut), id:241
+|vpiName:work@dut
+|vpiTypedef:
+\_struct_typespec: (pq::q_t), id:2, line:6:11, endln:7:38
+  |vpiName:pq::q_t
+  |vpiInstance:
+  \_package: pq (pq::), id:1, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:8, line:6:39, endln:6:40
+    |vpiParent:
+    \_struct_typespec: (pq::q_t), id:2, line:6:11, endln:7:38
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pq::q_t.x), id:9
+      |vpiParent:
+      \_typespec_member: (x), id:8, line:6:39, endln:6:40
+      |vpiFullName:pq::q_t.x
+      |vpiActual:
+      \_logic_typespec: , id:7, line:6:27, endln:6:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:14, line:6:54, endln:6:55
+    |vpiParent:
+    \_struct_typespec: (pq::q_t), id:2, line:6:11, endln:7:38
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pq::q_t.y), id:15
+      |vpiParent:
+      \_typespec_member: (y), id:14, line:6:54, endln:6:55
+      |vpiFullName:pq::q_t.y
+      |vpiActual:
+      \_logic_typespec: , id:13, line:6:42, endln:6:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_import_typespec: (pq), id:30, line:14:10, endln:14:15
+|vpiDefName:work@dut
+|vpiTop:1
+|vpiNet:
+\_struct_net: (work@dut.q_const), id:161, line:7:14, endln:7:38
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.q_const), id:162
+    |vpiParent:
+    \_struct_net: (work@dut.q_const), id:161, line:7:14, endln:7:38
+    |vpiFullName:work@dut.q_const
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:2, line:6:11, endln:7:38
+  |vpiName:q_const
+  |vpiFullName:work@dut.q_const
+|vpiNet:
+\_struct_net: (work@dut.q_var), id:164, line:8:14, endln:8:19
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.q_var), id:165
+    |vpiParent:
+    \_struct_net: (work@dut.q_var), id:164, line:8:14, endln:8:19
+    |vpiFullName:work@dut.q_var
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:2, line:6:11, endln:7:38
+  |vpiName:q_var
+  |vpiFullName:work@dut.q_var
+|vpiNet:
+\_struct_net: (work@dut.q_plain), id:166, line:9:14, endln:9:21
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.q_plain), id:167
+    |vpiParent:
+    \_struct_net: (work@dut.q_plain), id:166, line:9:14, endln:9:21
+    |vpiFullName:work@dut.q_plain
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:2, line:6:11, endln:7:38
+  |vpiName:q_plain
+  |vpiFullName:work@dut.q_plain
+|vpiNet:
+\_struct_net: (work@dut.q_wire), id:168, line:10:14, endln:10:20
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.q_wire), id:169
+    |vpiParent:
+    \_struct_net: (work@dut.q_wire), id:168, line:10:14, endln:10:20
+    |vpiFullName:work@dut.q_wire
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:2, line:6:11, endln:7:38
+  |vpiName:q_wire
+  |vpiFullName:work@dut.q_wire
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (work@dut.o), id:177, line:13:33, endln:13:34
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.o), id:178
+    |vpiParent:
+    \_logic_net: (work@dut.o), id:177, line:13:33, endln:13:34
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_typespec: , id:173, line:13:20, endln:13:32
+  |vpiName:o
+  |vpiFullName:work@dut.o
+  |vpiNetType:36
+|vpiTopModule:1
+|vpiPort:
+\_port: (o), id:149, line:13:33, endln:13:34
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiName:o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@dut.o), id:179, line:13:33, endln:13:34
+    |vpiParent:
+    \_port: (o), id:149, line:13:33, endln:13:34
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), id:177, line:13:33, endln:13:34
+  |vpiTypedef:
+  \_ref_typespec: (work@dut.o), id:155
+    |vpiParent:
+    \_port: (o), id:149, line:13:33, endln:13:34
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_typespec: , id:154, line:13:20, endln:13:32
+|vpiGenScopeArray:
+\_gen_scope_array: (work@dut.gv[0]), id:333, line:15:40, endln:20:6
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiName:gv[0]
+  |vpiFullName:work@dut.gv[0]
+  |vpiGenScope:
+  \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+    |vpiParent:
+    \_gen_scope_array: (work@dut.gv[0]), id:333, line:15:40, endln:20:6
+    |vpiFullName:work@dut.gv[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.gv[0].q_const), id:208, line:16:18, endln:16:25
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].q_const), id:209
+        |vpiParent:
+        \_logic_var: (work@dut.gv[0].q_const), id:208, line:16:18, endln:16:25
+        |vpiFullName:work@dut.gv[0].q_const
+        |vpiActual:
+        \_logic_typespec: , id:204, line:16:5, endln:16:17
+      |vpiName:q_const
+      |vpiFullName:work@dut.gv[0].q_const
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.gv[0].q_var), id:217, line:17:18, endln:17:23
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].q_var), id:218
+        |vpiParent:
+        \_logic_var: (work@dut.gv[0].q_var), id:217, line:17:18, endln:17:23
+        |vpiFullName:work@dut.gv[0].q_var
+        |vpiActual:
+        \_logic_typespec: , id:213, line:17:5, endln:17:17
+      |vpiName:q_var
+      |vpiFullName:work@dut.gv[0].q_var
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.gv[0].q_plain), id:226, line:18:18, endln:18:25
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].q_plain), id:227
+        |vpiParent:
+        \_logic_var: (work@dut.gv[0].q_plain), id:226, line:18:18, endln:18:25
+        |vpiFullName:work@dut.gv[0].q_plain
+        |vpiActual:
+        \_logic_typespec: , id:222, line:18:5, endln:18:17
+      |vpiName:q_plain
+      |vpiFullName:work@dut.gv[0].q_plain
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.gv[0].q_wire), id:235, line:19:18, endln:19:24
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].q_wire), id:236
+        |vpiParent:
+        \_logic_var: (work@dut.gv[0].q_wire), id:235, line:19:18, endln:19:24
+        |vpiFullName:work@dut.gv[0].q_wire
+        |vpiActual:
+        \_logic_typespec: , id:231, line:19:5, endln:19:17
+      |vpiName:q_wire
+      |vpiFullName:work@dut.gv[0].q_wire
+      |vpiVisibility:1
+    |vpiParameter:
+    \_parameter: (work@dut.gv[0].i), id:347, line:15:0
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |UINT:0
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].i), id:349
+        |vpiParent:
+        \_parameter: (work@dut.gv[0].i), id:347, line:15:0
+        |vpiFullName:work@dut.gv[0].i
+        |vpiActual:
+        \_int_typespec: , id:348
+      |vpiLocalParam:1
+      |vpiName:i
+      |vpiFullName:work@dut.gv[0].i
+    |vpiContAssign:
+    \_cont_assign: , id:335, line:16:34, endln:16:49
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |vpiRhs:
+      \_constant: , id:188, line:16:44, endln:16:49
+        |vpiParent:
+        \_cont_assign: , id:335, line:16:34, endln:16:49
+        |vpiDecompile:32'd1
+        |vpiSize:32
+        |DEC:1
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.gv[0].q_const), id:336, line:16:34, endln:16:41
+        |vpiParent:
+        \_cont_assign: , id:335, line:16:34, endln:16:49
+        |vpiName:q_const
+        |vpiFullName:work@dut.gv[0].q_const
+        |vpiActual:
+        \_struct_net: (work@dut.q_const), id:161, line:7:14, endln:7:38
+    |vpiContAssign:
+    \_cont_assign: , id:338, line:17:34, endln:17:49
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |vpiRhs:
+      \_constant: , id:191, line:17:44, endln:17:49
+        |vpiParent:
+        \_cont_assign: , id:338, line:17:34, endln:17:49
+        |vpiDecompile:32'd2
+        |vpiSize:32
+        |DEC:2
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.gv[0].q_var), id:339, line:17:34, endln:17:39
+        |vpiParent:
+        \_cont_assign: , id:338, line:17:34, endln:17:49
+        |vpiName:q_var
+        |vpiFullName:work@dut.gv[0].q_var
+        |vpiActual:
+        \_struct_net: (work@dut.q_var), id:164, line:8:14, endln:8:19
+    |vpiContAssign:
+    \_cont_assign: , id:341, line:18:34, endln:18:49
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |vpiRhs:
+      \_constant: , id:194, line:18:44, endln:18:49
+        |vpiParent:
+        \_cont_assign: , id:341, line:18:34, endln:18:49
+        |vpiDecompile:32'd3
+        |vpiSize:32
+        |DEC:3
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.gv[0].q_plain), id:342, line:18:34, endln:18:41
+        |vpiParent:
+        \_cont_assign: , id:341, line:18:34, endln:18:49
+        |vpiName:q_plain
+        |vpiFullName:work@dut.gv[0].q_plain
+        |vpiActual:
+        \_struct_net: (work@dut.q_plain), id:166, line:9:14, endln:9:21
+    |vpiContAssign:
+    \_cont_assign: , id:344, line:19:34, endln:19:49
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:334, line:15:40, endln:20:6
+      |vpiRhs:
+      \_constant: , id:197, line:19:44, endln:19:49
+        |vpiParent:
+        \_cont_assign: , id:344, line:19:34, endln:19:49
+        |vpiDecompile:32'd4
+        |vpiSize:32
+        |DEC:4
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.gv[0].q_wire), id:345, line:19:34, endln:19:40
+        |vpiParent:
+        \_cont_assign: , id:344, line:19:34, endln:19:49
+        |vpiName:q_wire
+        |vpiFullName:work@dut.gv[0].q_wire
+        |vpiActual:
+        \_struct_net: (work@dut.q_wire), id:168, line:10:14, endln:10:20
+|vpiContAssign:
+\_cont_assign: , id:290, line:7:14, endln:7:21
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_operation: , id:306, line:7:24, endln:7:38
+    |vpiParent:
+    \_cont_assign: , id:290, line:7:14, endln:7:21
+    |vpiOpType:75
+    |vpiOperand:
+    \_constant: , id:279, line:7:35, endln:7:37
+      |vpiParent:
+      \_operation: , id:306, line:7:24, endln:7:38
+      |vpiDecompile:0
+      |vpiSize:8
+      |UINT:0
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , id:283, line:7:35, endln:7:37
+      |vpiParent:
+      \_operation: , id:306, line:7:24, endln:7:38
+      |vpiDecompile:0
+      |vpiSize:8
+      |UINT:0
+      |vpiConstType:9
+  |vpiLhs:
+  \_struct_net: (work@dut.q_const), id:291, line:7:14, endln:7:38
+    |vpiParent:
+    \_cont_assign: , id:290, line:7:14, endln:7:21
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q_const), id:292
+      |vpiParent:
+      \_struct_net: (work@dut.q_const), id:291, line:7:14, endln:7:38
+      |vpiFullName:work@dut.q_const
+      |vpiActual:
+      \_struct_typespec: (pq::q_t), id:293, line:6:11, endln:7:38
+    |vpiName:q_const
+    |vpiFullName:work@dut.q_const
+|vpiContAssign:
+\_cont_assign: , id:312, line:21:10, endln:21:72
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:275, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiRhs:
+  \_operation: , id:314, line:21:14, endln:21:72
+    |vpiParent:
+    \_cont_assign: , id:312, line:21:10, endln:21:72
+    |vpiOpType:30
+    |vpiOperand:
+    \_operation: , id:315, line:21:14, endln:21:57
+      |vpiParent:
+      \_operation: , id:314, line:21:14, endln:21:72
+      |vpiOpType:30
+      |vpiOperand:
+      \_operation: , id:316, line:21:14, endln:21:41
+        |vpiParent:
+        \_operation: , id:315, line:21:14, endln:21:57
+        |vpiOpType:30
+        |vpiOperand:
+        \_hier_path: (gv[0].q_const), id:317, line:21:14, endln:21:27
+          |vpiParent:
+          \_operation: , id:316, line:21:14, endln:21:41
+          |vpiActual:
+          \_bit_select: (gv[0]), id:318, line:21:14, endln:21:16
+            |vpiParent:
+            \_hier_path: (gv[0].q_const), id:317, line:21:14, endln:21:27
+            |vpiName:gv
+            |vpiFullName:gv[0]
+            |vpiIndex:
+            \_constant: , id:319, line:21:17, endln:21:18
+              |vpiParent:
+              \_bit_select: (gv[0]), id:318, line:21:14, endln:21:16
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiActual:
+          \_ref_obj: (work@dut.q_const), id:320, line:21:20, endln:21:27
+            |vpiParent:
+            \_hier_path: (gv[0].q_const), id:317, line:21:14, endln:21:27
+            |vpiName:q_const
+            |vpiFullName:work@dut.q_const
+          |vpiName:gv[0].q_const
+        |vpiOperand:
+        \_hier_path: (gv[0].q_var), id:321, line:21:30, endln:21:41
+          |vpiParent:
+          \_operation: , id:316, line:21:14, endln:21:41
+          |vpiActual:
+          \_bit_select: (gv[0]), id:322, line:21:30, endln:21:32
+            |vpiParent:
+            \_hier_path: (gv[0].q_var), id:321, line:21:30, endln:21:41
+            |vpiName:gv
+            |vpiFullName:gv[0]
+            |vpiIndex:
+            \_constant: , id:323, line:21:33, endln:21:34
+              |vpiParent:
+              \_bit_select: (gv[0]), id:322, line:21:30, endln:21:32
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiActual:
+          \_ref_obj: (work@dut.q_var), id:324, line:21:36, endln:21:41
+            |vpiParent:
+            \_hier_path: (gv[0].q_var), id:321, line:21:30, endln:21:41
+            |vpiName:q_var
+            |vpiFullName:work@dut.q_var
+          |vpiName:gv[0].q_var
+      |vpiOperand:
+      \_hier_path: (gv[0].q_plain), id:325, line:21:44, endln:21:57
+        |vpiParent:
+        \_operation: , id:315, line:21:14, endln:21:57
+        |vpiActual:
+        \_bit_select: (gv[0]), id:326, line:21:44, endln:21:46
+          |vpiParent:
+          \_hier_path: (gv[0].q_plain), id:325, line:21:44, endln:21:57
+          |vpiName:gv
+          |vpiFullName:gv[0]
+          |vpiIndex:
+          \_constant: , id:327, line:21:47, endln:21:48
+            |vpiParent:
+            \_bit_select: (gv[0]), id:326, line:21:44, endln:21:46
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiActual:
+        \_ref_obj: (work@dut.q_plain), id:328, line:21:50, endln:21:57
+          |vpiParent:
+          \_hier_path: (gv[0].q_plain), id:325, line:21:44, endln:21:57
+          |vpiName:q_plain
+          |vpiFullName:work@dut.q_plain
+        |vpiName:gv[0].q_plain
+    |vpiOperand:
+    \_hier_path: (gv[0].q_wire), id:329, line:21:60, endln:21:72
+      |vpiParent:
+      \_operation: , id:314, line:21:14, endln:21:72
+      |vpiActual:
+      \_bit_select: (gv[0]), id:330, line:21:60, endln:21:62
+        |vpiParent:
+        \_hier_path: (gv[0].q_wire), id:329, line:21:60, endln:21:72
+        |vpiName:gv
+        |vpiFullName:gv[0]
+        |vpiIndex:
+        \_constant: , id:331, line:21:63, endln:21:64
+          |vpiParent:
+          \_bit_select: (gv[0]), id:330, line:21:60, endln:21:62
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiActual:
+      \_ref_obj: (work@dut.q_wire), id:332, line:21:66, endln:21:72
+        |vpiParent:
+        \_hier_path: (gv[0].q_wire), id:329, line:21:60, endln:21:72
+        |vpiName:q_wire
+        |vpiFullName:work@dut.q_wire
+      |vpiName:gv[0].q_wire
+  |vpiLhs:
+  \_ref_obj: (work@dut.o), id:313, line:21:10, endln:21:11
+    |vpiParent:
+    \_cont_assign: , id:312, line:21:10, endln:21:72
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), id:177, line:13:33, endln:13:34
+
+decompile:
+module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:work@dut
+|vpiTypedef:
+\_struct_typespec: (pq::q_t), id:25, line:6:11, endln:6:58
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiName:pq::q_t
+  |vpiInstance:
+  \_package: pq (pq::), id:24, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:26, line:6:39, endln:6:40
+    |vpiParent:
+    \_struct_typespec: (pq::q_t), id:25, line:6:11, endln:6:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.pq::q_t.x), id:31
+      |vpiParent:
+      \_typespec_member: (x), id:26, line:6:39, endln:6:40
+      |vpiFullName:work@dut.pq::q_t.x
+      |vpiActual:
+      \_logic_typespec: , id:5, line:6:27, endln:6:38
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:32, line:6:54, endln:6:55
+    |vpiParent:
+    \_struct_typespec: (pq::q_t), id:25, line:6:11, endln:6:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.pq::q_t.y), id:37
+      |vpiParent:
+      \_typespec_member: (y), id:32, line:6:54, endln:6:55
+      |vpiFullName:work@dut.pq::q_t.y
+      |vpiActual:
+      \_logic_typespec: , id:11, line:6:42, endln:6:53
+    |vpiRefFile:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_import_typespec: (pq), id:221, line:14:10, endln:14:15
+|vpiDefName:work@dut
+|vpiTop:1
+|vpiNet:
+\_struct_net: (work@dut.q_const), id:148, line:7:14, endln:7:21
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.q_const), id:149
+    |vpiParent:
+    \_struct_net: (work@dut.q_const), id:148, line:7:14, endln:7:21
+    |vpiFullName:work@dut.q_const
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:25, line:6:11, endln:6:58
+  |vpiName:q_const
+  |vpiFullName:work@dut.q_const
+|vpiNet:
+\_struct_net: (work@dut.q_var), id:150, line:8:14, endln:8:19
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.q_var), id:151
+    |vpiParent:
+    \_struct_net: (work@dut.q_var), id:150, line:8:14, endln:8:19
+    |vpiFullName:work@dut.q_var
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:25, line:6:11, endln:6:58
+  |vpiName:q_var
+  |vpiFullName:work@dut.q_var
+|vpiNet:
+\_struct_net: (work@dut.q_plain), id:152, line:9:14, endln:9:21
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.q_plain), id:153
+    |vpiParent:
+    \_struct_net: (work@dut.q_plain), id:152, line:9:14, endln:9:21
+    |vpiFullName:work@dut.q_plain
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:25, line:6:11, endln:6:58
+  |vpiName:q_plain
+  |vpiFullName:work@dut.q_plain
+|vpiNet:
+\_struct_net: (work@dut.q_wire), id:154, line:10:14, endln:10:20
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.q_wire), id:155
+    |vpiParent:
+    \_struct_net: (work@dut.q_wire), id:154, line:10:14, endln:10:20
+    |vpiFullName:work@dut.q_wire
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:25, line:6:11, endln:6:58
+  |vpiName:q_wire
+  |vpiFullName:work@dut.q_wire
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (work@dut.o), id:147, line:13:33, endln:13:34
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.o), id:146
+    |vpiParent:
+    \_logic_net: (work@dut.o), id:147, line:13:33, endln:13:34
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_typespec: , id:142, line:13:20, endln:13:32
+  |vpiName:o
+  |vpiFullName:work@dut.o
+  |vpiNetType:36
+|vpiTopModule:1
+|vpiPort:
+\_port: (o), id:223, line:13:33, endln:13:34
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiName:o
+  |vpiDirection:2
+  |vpiLowConn:
+  \_ref_obj: (work@dut.o), id:224, line:13:33, endln:13:34
+    |vpiParent:
+    \_port: (o), id:223, line:13:33, endln:13:34
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), id:147, line:13:33, endln:13:34
+  |vpiTypedef:
+  \_ref_typespec: (work@dut.o), id:229
+    |vpiParent:
+    \_port: (o), id:223, line:13:33, endln:13:34
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_typespec: , id:134, line:13:20, endln:13:32
+|vpiGenScopeArray:
+\_gen_scope_array: (work@dut.gv[0]), id:177, line:15:40, endln:20:6
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiName:gv[0]
+  |vpiFullName:work@dut.gv[0]
+  |vpiGenScope:
+  \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+    |vpiParent:
+    \_gen_scope_array: (work@dut.gv[0]), id:177, line:15:40, endln:20:6
+    |vpiFullName:work@dut.gv[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.gv[0].q_const), id:181, line:16:18, endln:16:25
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].q_const), id:187
+        |vpiParent:
+        \_logic_var: (work@dut.gv[0].q_const), id:181, line:16:18, endln:16:25
+        |vpiFullName:work@dut.gv[0].q_const
+        |vpiActual:
+        \_logic_typespec: , id:183, line:16:5, endln:16:17
+      |vpiName:q_const
+      |vpiFullName:work@dut.gv[0].q_const
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.gv[0].q_var), id:188, line:17:18, endln:17:23
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].q_var), id:194
+        |vpiParent:
+        \_logic_var: (work@dut.gv[0].q_var), id:188, line:17:18, endln:17:23
+        |vpiFullName:work@dut.gv[0].q_var
+        |vpiActual:
+        \_logic_typespec: , id:190, line:17:5, endln:17:17
+      |vpiName:q_var
+      |vpiFullName:work@dut.gv[0].q_var
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.gv[0].q_plain), id:195, line:18:18, endln:18:25
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].q_plain), id:201
+        |vpiParent:
+        \_logic_var: (work@dut.gv[0].q_plain), id:195, line:18:18, endln:18:25
+        |vpiFullName:work@dut.gv[0].q_plain
+        |vpiActual:
+        \_logic_typespec: , id:197, line:18:5, endln:18:17
+      |vpiName:q_plain
+      |vpiFullName:work@dut.gv[0].q_plain
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.gv[0].q_wire), id:202, line:19:18, endln:19:24
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].q_wire), id:208
+        |vpiParent:
+        \_logic_var: (work@dut.gv[0].q_wire), id:202, line:19:18, endln:19:24
+        |vpiFullName:work@dut.gv[0].q_wire
+        |vpiActual:
+        \_logic_typespec: , id:204, line:19:5, endln:19:17
+      |vpiName:q_wire
+      |vpiFullName:work@dut.gv[0].q_wire
+      |vpiVisibility:1
+    |vpiParameter:
+    \_parameter: (work@dut.gv[0].i), id:179, line:15:0
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |UINT:0
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.gv[0].i), id:180
+        |vpiParent:
+        \_parameter: (work@dut.gv[0].i), id:179, line:15:0
+        |vpiFullName:work@dut.gv[0].i
+        |vpiActual:
+        \_int_typespec: , id:230
+      |vpiLocalParam:1
+      |vpiName:i
+      |vpiFullName:work@dut.gv[0].i
+    |vpiContAssign:
+    \_cont_assign: , id:209, line:16:34, endln:16:49
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |vpiRhs:
+      \_constant: , id:210, line:16:44, endln:16:49
+        |vpiParent:
+        \_cont_assign: , id:209, line:16:34, endln:16:49
+        |vpiDecompile:32'd1
+        |vpiSize:32
+        |DEC:1
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.gv[0].q_const), id:211, line:16:34, endln:16:41
+        |vpiParent:
+        \_cont_assign: , id:209, line:16:34, endln:16:49
+        |vpiName:q_const
+        |vpiFullName:work@dut.gv[0].q_const
+        |vpiActual:
+        \_struct_net: (work@dut.q_const), id:148, line:7:14, endln:7:21
+    |vpiContAssign:
+    \_cont_assign: , id:212, line:17:34, endln:17:49
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |vpiRhs:
+      \_constant: , id:213, line:17:44, endln:17:49
+        |vpiParent:
+        \_cont_assign: , id:212, line:17:34, endln:17:49
+        |vpiDecompile:32'd2
+        |vpiSize:32
+        |DEC:2
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.gv[0].q_var), id:214, line:17:34, endln:17:39
+        |vpiParent:
+        \_cont_assign: , id:212, line:17:34, endln:17:49
+        |vpiName:q_var
+        |vpiFullName:work@dut.gv[0].q_var
+        |vpiActual:
+        \_struct_net: (work@dut.q_var), id:150, line:8:14, endln:8:19
+    |vpiContAssign:
+    \_cont_assign: , id:215, line:18:34, endln:18:49
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |vpiRhs:
+      \_constant: , id:216, line:18:44, endln:18:49
+        |vpiParent:
+        \_cont_assign: , id:215, line:18:34, endln:18:49
+        |vpiDecompile:32'd3
+        |vpiSize:32
+        |DEC:3
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.gv[0].q_plain), id:217, line:18:34, endln:18:41
+        |vpiParent:
+        \_cont_assign: , id:215, line:18:34, endln:18:49
+        |vpiName:q_plain
+        |vpiFullName:work@dut.gv[0].q_plain
+        |vpiActual:
+        \_struct_net: (work@dut.q_plain), id:152, line:9:14, endln:9:21
+    |vpiContAssign:
+    \_cont_assign: , id:218, line:19:34, endln:19:49
+      |vpiParent:
+      \_gen_scope: (work@dut.gv[0]), id:178, line:15:40, endln:20:6
+      |vpiRhs:
+      \_constant: , id:219, line:19:44, endln:19:49
+        |vpiParent:
+        \_cont_assign: , id:218, line:19:34, endln:19:49
+        |vpiDecompile:32'd4
+        |vpiSize:32
+        |DEC:4
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.gv[0].q_wire), id:220, line:19:34, endln:19:40
+        |vpiParent:
+        \_cont_assign: , id:218, line:19:34, endln:19:49
+        |vpiName:q_wire
+        |vpiFullName:work@dut.gv[0].q_wire
+        |vpiActual:
+        \_struct_net: (work@dut.q_wire), id:154, line:10:14, endln:10:20
+|vpiContAssign:
+\_cont_assign: , id:156, line:21:10, endln:21:72
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), id:141, file:/tmp/wt_r11u79/tools/probe/r11u79repro/grid/vg_constauto/dut.sv, line:13:1, endln:22:10
+  |vpiRhs:
+  \_operation: , id:157, line:21:14, endln:21:72
+    |vpiParent:
+    \_cont_assign: , id:156, line:21:10, endln:21:72
+    |vpiOpType:30
+    |vpiOperand:
+    \_operation: , id:158, line:21:14, endln:21:57
+      |vpiParent:
+      \_operation: , id:157, line:21:14, endln:21:72
+      |vpiOpType:30
+      |vpiOperand:
+      \_operation: , id:159, line:21:14, endln:21:41
+        |vpiParent:
+        \_operation: , id:158, line:21:14, endln:21:57
+        |vpiOpType:30
+        |vpiOperand:
+        \_hier_path: (gv[0].q_const), id:160, line:21:14, endln:21:27
+          |vpiParent:
+          \_operation: , id:159, line:21:14, endln:21:41
+          |vpiActual:
+          \_bit_select: (gv[0]), id:161, line:21:14, endln:21:16
+            |vpiParent:
+            \_hier_path: (gv[0].q_const), id:160, line:21:14, endln:21:27
+            |vpiName:gv
+            |vpiFullName:gv[0]
+            |vpiIndex:
+            \_constant: , id:162, line:21:17, endln:21:18
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiActual:
+          \_ref_obj: (work@dut.q_const), id:163, line:21:20, endln:21:27
+            |vpiParent:
+            \_hier_path: (gv[0].q_const), id:160, line:21:14, endln:21:27
+            |vpiName:q_const
+            |vpiFullName:work@dut.q_const
+          |vpiName:gv[0].q_const
+        |vpiOperand:
+        \_hier_path: (gv[0].q_var), id:164, line:21:30, endln:21:41
+          |vpiParent:
+          \_operation: , id:159, line:21:14, endln:21:41
+          |vpiActual:
+          \_bit_select: (gv[0]), id:165, line:21:30, endln:21:32
+            |vpiParent:
+            \_hier_path: (gv[0].q_var), id:164, line:21:30, endln:21:41
+            |vpiName:gv
+            |vpiFullName:gv[0]
+            |vpiIndex:
+            \_constant: , id:166, line:21:33, endln:21:34
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiActual:
+          \_ref_obj: (work@dut.q_var), id:167, line:21:36, endln:21:41
+            |vpiParent:
+            \_hier_path: (gv[0].q_var), id:164, line:21:30, endln:21:41
+            |vpiName:q_var
+            |vpiFullName:work@dut.q_var
+          |vpiName:gv[0].q_var
+      |vpiOperand:
+      \_hier_path: (gv[0].q_plain), id:168, line:21:44, endln:21:57
+        |vpiParent:
+        \_operation: , id:158, line:21:14, endln:21:57
+        |vpiActual:
+        \_bit_select: (gv[0]), id:169, line:21:44, endln:21:46
+          |vpiParent:
+          \_hier_path: (gv[0].q_plain), id:168, line:21:44, endln:21:57
+          |vpiName:gv
+          |vpiFullName:gv[0]
+          |vpiIndex:
+          \_constant: , id:170, line:21:47, endln:21:48
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+        |vpiActual:
+        \_ref_obj: (work@dut.q_plain), id:171, line:21:50, endln:21:57
+          |vpiParent:
+          \_hier_path: (gv[0].q_plain), id:168, line:21:44, endln:21:57
+          |vpiName:q_plain
+          |vpiFullName:work@dut.q_plain
+        |vpiName:gv[0].q_plain
+    |vpiOperand:
+    \_hier_path: (gv[0].q_wire), id:172, line:21:60, endln:21:72
+      |vpiParent:
+      \_operation: , id:157, line:21:14, endln:21:72
+      |vpiActual:
+      \_bit_select: (gv[0]), id:173, line:21:60, endln:21:62
+        |vpiParent:
+        \_hier_path: (gv[0].q_wire), id:172, line:21:60, endln:21:72
+        |vpiName:gv
+        |vpiFullName:gv[0]
+        |vpiIndex:
+        \_constant: , id:174, line:21:63, endln:21:64
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiActual:
+      \_ref_obj: (work@dut.q_wire), id:175, line:21:66, endln:21:72
+        |vpiParent:
+        \_hier_path: (gv[0].q_wire), id:172, line:21:60, endln:21:72
+        |vpiName:q_wire
+        |vpiFullName:work@dut.q_wire
+      |vpiName:gv[0].q_wire
+  |vpiLhs:
+  \_ref_obj: (work@dut.o), id:176, line:21:10, endln:21:11
+    |vpiParent:
+    \_cont_assign: , id:156, line:21:10, endln:21:72
+    |vpiName:o
+    |vpiFullName:work@dut.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), id:147, line:13:33, endln:13:34
+

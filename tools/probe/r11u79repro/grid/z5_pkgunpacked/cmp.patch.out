@@ -1,0 +1,33 @@
+decompile:
+bit_var: (pu::u_vbit), id:264, line:26:15, endln:26:21
+|vpiParent:
+\_array_var: (pu::u_vbit), id:266, line:26:15, endln:26:21
+|vpiTypespec:
+\_ref_typespec: (pu::u_vbit), id:265
+  |vpiParent:
+  \_bit_var: (pu::u_vbit), id:264, line:26:15, endln:26:21
+  |vpiFullName:pu::u_vbit
+  |vpiActual:
+  \_bit_typespec: , id:257, line:26:3, endln:26:14
+|vpiFullName:pu::u_vbit
+|vpiRange:
+\_range: , id:261, line:26:23, endln:26:28
+  |vpiParent:
+  \_array_var: (pu::u_vbit), id:266, line:26:15, endln:26:21
+  |vpiLeftRange:
+  \_constant: , id:262, line:26:24, endln:26:25
+    |vpiParent:
+    \_range: , id:261, line:26:23, endln:26:28
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:263, line:26:26, endln:26:27
+    |vpiParent:
+    \_range: , id:261, line:26:23, endln:26:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+
