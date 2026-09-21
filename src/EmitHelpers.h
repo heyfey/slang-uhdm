@@ -8537,6 +8537,56 @@ inline bool red78LitWrittenSigned(const Expression& lit) {
     return b78.size() >= 2 && (b78[1] == 's' || b78[1] == 'S');
 }
 
+/// § hopStoreHandsOnItsTypespec81 (r11u81) — THE ARGUMENT A SIGNEDNESS CAST
+/// HANDS ITS OPERAND'S TYPESPEC ON FROM, or null when `e0` is not one.
+///
+/// `red76SignCastPassThru` answers the narrower question "which BASED LITERAL
+/// does this cast hand back?" and declines every spelling whose argument is
+/// not one — including `signed'(TB)` over a declared `byte` and `signed'(UD)`
+/// over an untyped name, the two faces r11u78 recorded as R3 and R1.  This
+/// reader answers only "what is under the cast", so the typespec walk can
+/// follow the producer's `return c` into a NAME.  Both spellings Surelog
+/// rewrites into a `$signed`/`$unsigned` `sys_func_call` are accepted, exactly
+/// as the landed reader accepts them.
+inline const Expression* red81SignCastArg81(const Expression& e0) {
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::Conversion && e.syntax &&
+        e.syntax->kind == slang::syntax::SyntaxKind::SignedCastExpression)
+        return &e.as<ConversionExpression>().operand();
+    if (e.kind == ExpressionKind::Call && e.as<CallExpression>().isSystemCall()) {
+        std::string n81(e.as<CallExpression>().getSubroutineName());
+        if (!n81.empty() && n81[0] != '$')
+            n81.insert(n81.begin(), '$');
+        if (n81 != "$signed" && n81 != "$unsigned")
+            return nullptr;
+        auto args81 = e.as<CallExpression>().arguments();
+        if (args81.size() != 1)
+            return nullptr;
+        return args81[0];
+    }
+    return nullptr;
+}
+
+/// § hopStoreHandsOnItsTypespec81 — is this cast the `$signed` spelling?  The
+/// landed reader takes the same answer off `e.type->isSigned()`.
+inline bool red81SignCastIsSigned81(const Expression& e0) {
+    const Expression& e = stripImplicitConv(e0);
+    return e.type && e.type->isSigned();
+}
+
+/// § hopStoreHandsOnItsTypespec81 — a based literal's WRITTEN width: its bit
+/// width when the size token is there, -1 when it is UNSIZED (the producer's
+/// `VpiSize() == -1`, the value its range guard at `CompileHelper.cpp:3946`
+/// refuses), and 0 when `lit` is not a based literal at all.
+inline int32_t red81LitWrittenSize81(const Expression& lit) {
+    const auto* ivsp = red76VecSyntax(lit);
+    if (!ivsp)
+        return 0;
+    if (ivsp->size.rawText().empty())
+        return -1;
+    return lit.type ? (int32_t)lit.type->getBitWidth() : 0;
+}
+
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {
     const Expression& e = stripImplicitConv(e0);
     if (e.kind != ExpressionKind::NamedValue &&

@@ -710,6 +710,430 @@ static bool patNoFoldTarget(const Type& t) {
 }
 
 // ===========================================================================
+// § hopStoreHandsOnItsTypespec81 (r11u81) — THE HOP PARAMETER'S OWN TYPESPEC.
+//
+// The § block in `include/UhdmExporter.h` carries the producer's two halves
+// and the return codes.  THE MEASUREMENT, arms `a1_hopts81` / `a2_castts81` /
+// `a3_hopbnd81` (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`, 24-bit members,
+// operand 0 a guaranteed bail), read with the committed typespec-aware lister
+// `tools/probe/r11u78repro/ts78.py`; each hop's `int_typespec` is located at
+// THAT PARAMETER'S OWN DECLARATION, which is what identifies the author:
+//
+//   hop over   golden                                   ours (pristine)
+//   16'd5      ref_typespec with NO actual              none
+//   16'h5      int_typespec @ the hop's decl (+range)   none
+//   16'o5      int_typespec @ the hop's decl (+range)   none
+//   8'h5       int_typespec @ the hop's decl (+range)   none
+//   64'hF      int_typespec @ the hop's decl (+range)   none
+//   'h5        ref_typespec with NO actual              none
+//   'd5        ref_typespec with NO actual              none
+//   5          int_typespec @ the hop's decl            none
+//   -5         int_typespec @ the hop's decl            none
+//   16'd9+16'd1 int_typespec @ the hop's decl           none
+//   16'(5)     int_typespec @ the hop's decl            none
+//   int'(3)    int_typespec @ the hop's decl            none
+//   PH + 1     int_typespec @ the hop's decl            none
+//   depth 2/3  the LAST hop's int_typespec              none
+//   16'sd5     the LITERAL's own int_typespec           the same — EQUAL, and
+//                                                       the control that
+//                                                       proves the gate
+//   byte TB    byte_typespec                            none
+//   int  TI    int_typespec                             none
+//   shortint TS short_int_typespec                      none
+//   signed SG  int_typespec (signed)                    none
+//   signed'(TB)  byte_typespec (the cast hands the NAME's on)   none
+//   signed'(UD)  ref_typespec with NO actual                    none
+//   unsigned'(UH) int_typespec @ UH's decl (+range)             none
+//   16'd5 / 16'h5 / 16'o5 written DIRECTLY as the member — golden NONE and
+//     ours NONE, EQUAL on both binaries: no hop, no store, nothing to hand on.
+//
+// THE ABSTENTIONS, each with a golden cell proving it is needed: an `s`-marked
+// literal ANYWHERE in the chain (`16'sh5` one hop up is golden the HOP's
+// unsigned+ranged `int_typespec` while our literal path has already written
+// the literal's SIGNED one — a REPLACE, which this law does not do); an
+// implicit parameter with a PACKED DIMENSION or a DECLARED vector/bit/user
+// type (`logic [7:0]` is golden a `logic_typespec` whose `Ranges` the judge
+// reads and the dump does not print); a signedness cast on its MINT face
+// (`signed'(16'h5)` is golden `logic_typespec` written directly and the hop's
+// `int_typespec` one hop up — two different answers for one spelling); and
+// `$unsigned` over an `INT:` argument, which is the producer's negative-mint
+// face (`ExprEval.cpp:4713-4731`).
+//
+// ONLY EVER ADDS: the write is gated on the operand carrying no typespec,
+// which is the producer's own gate at `CompileExpression.cpp:2991`.
+int32_t UhdmExporter::red81StoreCt81(const Expression& e0, int depth,
+                                     int32_t& size81, bool& mint81) {
+    if (depth > 16)
+        return 0;
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::IntegerLiteral) {
+        if (const auto* v81 = red76VecSyntax(e)) {
+            size81 = red81LitWrittenSize81(e);
+            switch (red72LitBase(v81->base.rawText())) {
+                case 'd': return vpiDecConst;
+                case 'h': return vpiHexConst;
+                case 'o': return vpiOctConst;
+                case 'b': return vpiBinaryConst;
+                default: return 0;
+            }
+        }
+        // A plain decimal literal is `dimRedCtExpr79`'s `vpiUIntConst`.
+        return vpiUIntConst;
+    }
+    if (e.kind == ExpressionKind::NamedValue) {
+        auto& sy81 = e.as<NamedValueExpression>().symbol;
+        if (sy81.kind != SymbolKind::Parameter)
+            return 0;
+        const Expression* in81 = sy81.as<ParameterSymbol>().getInitializer();
+        if (!in81)
+            return 0;
+        return red81StoreCt81(*in81, depth + 1, size81, mint81);
+    }
+    if (const Expression* arg81 = red81SignCastArg81(e)) {
+        int32_t asz81 = 0;
+        bool am81 = false;
+        const int32_t act81 = red81StoreCt81(*arg81, depth + 1, asz81, am81);
+        if (!act81)
+            return 0;
+        // § castSignCastNeedsAValidRead76v (r11v76) — AND THE PRODUCER ONLY
+        // REACHES ITS ARM AFTER THE READ SUCCEEDED.  `get_value` /
+        // `get_uvalue` bail outright on a b/o/h operand wider than 64 bits
+        // (`ExprEval.cpp:1969`, `:1984`, `:1998`), so the fold never happens
+        // and golden keeps the whole `sys_func_call` — measured, `v3cast76`
+        // `HQ8`, `unsigned'(96'hFFFFFFFFFFFFFFFFFFFFFFFF)`.
+        if (asz81 > 64 &&
+            (act81 == vpiHexConst || act81 == vpiOctConst ||
+             act81 == vpiBinaryConst))
+            return 0;
+        if (red81SignCastIsSigned81(e)) {
+            // `$signed` returns its operand on `vpiIntConst`/`vpiDecConst`
+            // (`ExprEval.cpp:4712`) and MINTS an `INT:` on the other four
+            // (`:4763-4770`) — and a minted `INT:` reaches the very same
+            // `int_typespec` arm of the untyped switch.
+            if (act81 == vpiIntConst || act81 == vpiDecConst) {
+                size81 = asz81;
+                return act81;
+            }
+            mint81 = true;
+            return vpiIntConst;
+        }
+        // `$unsigned` hands a `vpiDecConst` straight back (`:4716`; a
+        // literal's own `DEC:` digits are never negative).  On a
+        // `vpiIntConst` it either hands it back or MINTS a `UINT:` for a
+        // negative one (`:4722-4729`) — both readings are the switch's
+        // int arm, so the typespec is the same either way.  The other four
+        // are `result = c` (`:4779`).
+        if (act81 == vpiIntConst) {
+            mint81 = true;
+            return vpiUIntConst;
+        }
+        size81 = asz81;
+        return act81;
+    }
+    if (e.kind == ExpressionKind::Conversion && e.syntax &&
+        e.syntax->kind == slang::syntax::SyntaxKind::CastExpression) {
+        // A WIDTH or TYPE cast that the producer's reduce actually FOLDS
+        // mints an `INT:`/`UINT:` constant (`ExprEval.cpp:4262-4306`), and
+        // both readings reach the same `int_typespec` arm of the untyped
+        // switch.  But `reduceExpr`'s `vpiCastOp` arm only answers FIVE
+        // target typespecs — `int`, `long_int`, `bit`, `short_int`,
+        // `integer` (`:4196-4220`) — and Surelog gives a SIZE cast an
+        // `integer_typespec` carrying the width, which is one of them.
+        // Everything else keeps the OPERATION, and there is no stored
+        // constant for the switch to read: measured, `a3_hopbnd81` op4,
+        // `localparam WC4 = byte'(5)` is golden an unfolded `op67` where
+        // `int'(3)` beside it is golden `const/32@9=UINT:3` with the hop's
+        // `int_typespec`.
+        auto& cs81 = e.syntax->as<slang::syntax::CastExpressionSyntax>();
+        if (!slang::syntax::DataTypeSyntax::isKind(cs81.left->kind))
+            return vpiUIntConst;
+        switch (cs81.left->kind) {
+            case slang::syntax::SyntaxKind::IntType:
+            case slang::syntax::SyntaxKind::ShortIntType:
+            case slang::syntax::SyntaxKind::LongIntType:
+            case slang::syntax::SyntaxKind::IntegerType:
+            case slang::syntax::SyntaxKind::BitType:
+                return vpiUIntConst;
+            default:
+                return 0;
+        }
+    }
+    // Everything else is the landed encoding table's business.  Its based
+    // answers can only come from a literal leaf this walk has already read,
+    // so a based answer HERE has no width to range and abstains.
+    const int32_t d81 = dimRedCtExpr79(e, 0);
+    if (d81 == vpiIntConst || d81 == vpiUIntConst)
+        return d81;
+    return 0;
+}
+
+int UhdmExporter::red81ParamStore81(const ParameterSymbol& ps, int& kind81,
+                                    int32_t& arg81) {
+    // § hopStorePackageHomeOnly81 — AND THE HOP MUST LIVE IN A PACKAGE.
+    //
+    // Surelog substitutes a parameter NAME by two different routes and they
+    // hand on two different typespecs.  A PACKAGE parameter goes through
+    // `CompileExpression.cpp:920-955`, whose `pack->getParam_assigns()` loop
+    // CLONES the stored `param_assign` Rhs and carries its typespec; a MODULE
+    // instance parameter goes through the simple Value store at `:962-985`,
+    // which MINTS a fresh constant and attaches a typespec only when
+    // `sval->isSigned()`.
+    //
+    // MEASURED, arm `a4_posmod81` (real Surelog v1.87, `slrc=0 ourrc=0
+    // slerr=0`), eight patterns over the same two spellings `1` and `4'h5`:
+    //
+    //   hop home   pattern      `parameter`/`localparam`   golden
+    //   module     POSITIONAL   parameter  MODPOS          ts=- on all four
+    //   module     NAMED        parameter  MODNAMED        ts=-
+    //   module     POSITIONAL   localparam LOCPOS          ts=-
+    //   module     NAMED        localparam LOCNAMED        ts=-
+    //   package    NAMED        localparam PKGNAMED        int_typespec (+range)
+    //   package    POSITIONAL   localparam PKGPOS          int_typespec (+range)
+    //   …and the four module instances that RECEIVE those six as `.R(...)`
+    //   carry exactly what their source carried.
+    //
+    // So the discriminator is the HOP'S HOME, not the pattern's form and not
+    // the `parameter`/`localparam` keyword.  THE COST OF NOT HAVING THIS
+    // GATE IS MEASURED TOO: the first cut of this law took the surelog row
+    // `ParamOverloading` (`parameter v1 = 1; … '{v1, v2}` in a module) from
+    // CMP_EQUAL to CMP_NOTEQUAL in BOTH modes, with `uhdm-cmp`'s head reading
+    // `LHS: <null>` against our added `int_typespec`.
+    const slang::ast::Scope* sc81 = ps.getParentScope();
+    if (!sc81 || sc81->asSymbol().kind != SymbolKind::Package)
+        return -1;
+    const auto* tsx81 =
+        ps.getDeclaredType() ? ps.getDeclaredType()->getTypeSyntax() : nullptr;
+    if (!tsx81)
+        return -1;
+    namespace sx81 = slang::syntax;
+    if (tsx81->kind == sx81::SyntaxKind::ImplicitType) {
+        auto& its81 = tsx81->as<sx81::ImplicitTypeSyntax>();
+        if (!its81.dimensions.empty())
+            return -1;
+        if (its81.signing) {
+            // `localparam signed X` / `unsigned X` is compiled by
+            // `CompileType.cpp:1394-1436`, not by the value switch: a plain
+            // `int_typespec` carrying the written signedness.
+            kind81 = Ts81Int;
+            arg81 = its81.signing.kind == slang::parsing::TokenKind::SignedKeyword
+                        ? 1
+                        : 0;
+            return 1;
+        }
+        const Expression* in81 = ps.getInitializer();
+        if (!in81)
+            return -1;
+        int32_t sz81 = 0;
+        bool mint81 = false;
+        const int32_t ct81 = red81StoreCt81(*in81, 0, sz81, mint81);
+        switch (ct81) {
+            case vpiDecConst:
+                // `CompileHelper.cpp:3922` — an empty `case` that breaks.
+                return 0;
+            case vpiIntConst:
+            case vpiUIntConst:
+                kind81 = Ts81Int;
+                arg81 = 0;
+                return 1;
+            case vpiHexConst:
+            case vpiOctConst:
+            case vpiBinaryConst:
+                // UNSIZED: `:3946`'s `if (c->VpiSize() != -1)` attaches
+                // nothing, so this arm has no answer either.
+                if (sz81 <= 0)
+                    return 0;
+                kind81 = Ts81Based;
+                arg81 = sz81;
+                return 1;
+            default:
+                return -1;
+        }
+    }
+    // A DECLARED TYPE — AND THIS LAW DECLINES EVERY ONE OF THEM.
+    //
+    // The face is real and r11u78 named it R3: `signed'(TB)` over
+    // `localparam byte TB = 8'd5` is golden `byte_typespec` (signed), and a
+    // bare `localparam int TI = 5` one hop up is golden `int_typespec`
+    // (signed) — both measured here, `a2_castts81` op10/op19/op21/op22.  But
+    // the wide boundary measured THREE more declared-type faces that answer
+    // DIFFERENTLY, and no rule this pass can cite separates them:
+    //
+    //   `localparam int PK = 11`, `'{p: qq::PK, …}` in the same package
+    //       -> golden NOTHING              (`v1_ofire68` C_pkgref op0)
+    //   `localparam int unsigned BIG = 300`, `'{M: pk::BIG, …}` in a MODULE
+    //       -> golden NOTHING              (`xv7_overridepkg` MBASE op0)
+    //   `localparam int K = 6`, `'{p: signed'(K), …}`
+    //       -> golden the `$signed` MINT's `logic_typespec`, not K's
+    //                                      (`b2_faces68` C_csgn/C_dssgn op0)
+    //   `localparam logic [95:0] PW = 96'd12`, `'{p: qq::PW, …}`
+    //       -> golden PW's `logic_typespec` WITH its ranges
+    //                                      (`v1_ofire68` C_pkgparm op0)
+    //
+    // A package-QUALIFIED spelling and a cast between the name and the member
+    // each flip the answer, and a `logic` vector flips it back — Surelog
+    // reaches a declared parameter's value through several routes (the simple
+    // Value store at `CompileExpression.cpp:962-985`, which MINTS a bare
+    // constant, against the `param_assign` clone at `:920-955`, which carries
+    // the typespec) and which one wins is not decidable from the four cells
+    // that agree.  Writing here would have cost two AWAY cells on the wide
+    // boundary; LAW C is therefore DROPPED WHOLE, and it is droppable alone —
+    // this is the only place it would have written.
+    (void)tsx81;
+    return -1;
+}
+
+int UhdmExporter::red81HopPlan81(const Expression& e0, int depth, int& kind81,
+                                 int32_t& arg81, bool outer81) {
+    if (depth > 16)
+        return -1;
+    const Expression& e = stripImplicitConv(e0);
+    if (const Expression* arg81e = red81SignCastArg81(e)) {
+        // A `return c` / `result = c` face hands the ARGUMENT's own constant
+        // back, typespec included (§ castSignednessReturnsOperand76), so
+        // whatever rides out of the argument rides out of the cast.
+        // A cast does not move the lexical site, so `outer81` rides through.
+        const int r81 =
+            red81HopPlan81(*arg81e, depth + 1, kind81, arg81, outer81);
+        if (r81 != 0)
+            return r81;
+        // NOTHING rides out: the argument's constant has no typespec, which
+        // is exactly the condition `$signed`'s arm tests before it MINTS the
+        // signed-logic hint (`ExprEval.cpp:4700-4711`, `!c->Typespec()`; the
+        // b/o/h/UInt arm at `:4763-4770` attaches the same hint
+        // unconditionally to a constant it has just made).  `$unsigned`
+        // attaches nothing on either face.  MEASURED: `signed'(16'd5)` is
+        // golden `logic_typespec` signed, DIRECTLY and one hop up
+        // (`z1_ts78` op1/op11), while `signed'(UD)` over a NAME is golden a
+        // ref with no actual (`a2_castts81` op8/op18) — the NAME left a
+        // `ref_typespec` behind, so the mint's own gate refused.
+        if (red81SignCastIsSigned81(e)) {
+            kind81 = Ts81Logic;
+            arg81 = 1;
+            return 1;
+        }
+        return 0;
+    }
+    if (e.kind == ExpressionKind::IntegerLiteral) {
+        // An `s`-marked literal's constant carries its OWN signed
+        // `int_typespec` (`CompileExpression.cpp:514-521`), which our literal
+        // path already writes.
+        if (red78LitWrittenSigned(e)) {
+            kind81 = Ts81Int;
+            arg81 = 1;
+            return 1;
+        }
+        return 0;
+    }
+    if (e.kind != ExpressionKind::NamedValue)
+        return 0;
+    auto& sy81 = e.as<NamedValueExpression>().symbol;
+    if (sy81.kind != SymbolKind::Parameter)
+        return -1;
+    // § hopSpellingIsUnqualified81v (r11v81) — A PACKAGE-QUALIFIED SPELLING
+    // HANDS NOTHING ON.
+    //
+    // MEASURED, arm `v13_scope81` — ONE package pattern, ONE spelling
+    // (`16'h5`), four setters, real Surelog v1.87 (`slrc=0 ourrc=0 slerr=0`):
+    //
+    //   `LH`         same package, UNQUALIFIED  -> int_typespec/U[15:0]
+    //   `v13b::LH`   same package, QUALIFIED    -> NOTHING
+    //   `BH`         other package, imported    -> int_typespec/U[15:0]
+    //   `v13a::BH`   other package, QUALIFIED   -> NOTHING
+    //
+    // So the discriminator is the SPELLING, not the package identity: a
+    // qualified name is resolved by a different route that MINTS a bare
+    // constant (the sizes give it away — `v12_home81`'s qualified `5` comes
+    // out `UINT:5@64` where the unqualified one is `@32`), and
+    // `CompileExpression.cpp:2973-2995`'s hand-on never runs on it.  Only the
+    // spelling the SETTER itself carries is tested: a hop whose own
+    // initializer names `v5a::A` still hands ITS typespec on when the setter
+    // spells the hop bare (`v5_chain81` op2, golden `int_typespec/U[15:0]`).
+    if (outer81 && e.syntax &&
+        e.syntax->kind == slang::syntax::SyntaxKind::ScopedName)
+        return -1;
+    auto& ps81 = sy81.as<ParameterSymbol>();
+    // THE HOP'S OWN STORE IS ASKED FIRST, and that ORDER is measured, not
+    // assumed: `localparam SH = 16'sh5` one hop up is golden the HOP's
+    // UNSIGNED, RANGED `int_typespec` and NOT the `s`-marked literal's signed
+    // one (`a3_hopbnd81` op8, `z1_ts78` op6/op8/op10), while
+    // `localparam PSD = 16'sd5` — whose DecConst arm has no answer — IS the
+    // literal's (`a1_hopts81` op2).
+    const int s81 = red81ParamStore81(ps81, kind81, arg81);
+    if (s81 != 0)
+        return s81;
+    const Expression* in81 = ps81.getInitializer();
+    if (!in81)
+        return -1;
+    // The initializer's text lives in the HOP's own declaration, so whatever
+    // it spells is no longer the setter's spelling: `outer81` clears.
+    const int r81 = red81HopPlan81(*in81, depth + 1, kind81, arg81, false);
+    if (r81 != 0)
+        return r81;
+    // The switch had no arm AND nothing rode up — and golden still carries a
+    // `ref_typespec`, with no actual at all.  MEASURED on five faces:
+    // `16'd5` / `'h5` / `'d5` one hop up, `unsigned'(16'd5)` one hop up and
+    // `signed'(UD)` written directly (`a1_hopts81` op1/op10/op12,
+    // `a3_hopbnd81` op10, `a2_castts81` op7/op8/op18, `z1_ts78` op3).
+    kind81 = Ts81Empty;
+    return 1;
+}
+
+UHDM::typespec* UhdmExporter::red81MakeStoreTs81(int kind81, int32_t arg81) {
+    switch (kind81) {
+        case Ts81Empty:
+            return nullptr;
+        case Ts81Logic: {
+            auto* t81 = s.MakeLogic_typespec();
+            t81->VpiSigned(arg81 != 0);
+            return t81;
+        }
+        case Ts81Based: {
+            auto* it81 = s.MakeInt_typespec();
+            it81->VpiSigned(false);
+            auto* r81 = s.MakeRange();
+            r81->VpiParent(it81);
+            auto* l81 = s.MakeConstant();
+            l81->VpiValue("INT:" + std::to_string(arg81 - 1));
+            r81->Left_expr(l81);
+            auto* rv81 = s.MakeConstant();
+            rv81->VpiValue(std::string("INT:0"));
+            r81->Right_expr(rv81);
+            auto* rs81 = s.MakeRangeVec();
+            rs81->push_back(r81);
+            it81->Ranges(rs81);
+            return it81;
+        }
+        case Ts81Byte: {
+            auto* t81 = s.MakeByte_typespec();
+            t81->VpiSigned(arg81 != 0);
+            return t81;
+        }
+        case Ts81ShortInt: {
+            auto* t81 = s.MakeShort_int_typespec();
+            t81->VpiSigned(arg81 != 0);
+            return t81;
+        }
+        case Ts81LongInt: {
+            auto* t81 = s.MakeLong_int_typespec();
+            t81->VpiSigned(arg81 != 0);
+            return t81;
+        }
+        case Ts81Integer: {
+            auto* t81 = s.MakeInteger_typespec();
+            t81->VpiSigned(arg81 != 0);
+            return t81;
+        }
+        case Ts81AtomInt:
+        case Ts81Int:
+        default: {
+            auto* t81 = s.MakeInt_typespec();
+            t81->VpiSigned(arg81 != 0);
+            return t81;
+        }
+    }
+}
+
+// ===========================================================================
 // § patBailStopsMemberStamp68 (r11u68) — THE BAIL'S SIZE HALF ON THE PACKED
 // PARAMETER ROAD.
 //
@@ -15910,6 +16334,121 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     c76->Typespec(rt78);
                                 }
                             }
+                        }
+                    // § hopStoreHandsOnItsTypespec81 (r11u81) — THE HOP
+                    // PARAMETER'S OWN TYPESPEC, r11u78's R0.
+                    //
+                    // The producer, the measured grid and every abstention are
+                    // in the § block beside `red81StoreCt81`; the plan walk
+                    // returns 1 only where it has a complete shape.
+                    //
+                    // WRITTEN LAST, AFTER § patBailStopsMemberStamp68 and
+                    // AFTER § castOperandCarriesItsTypespec78, and ADD-ONLY:
+                    // the size law above reads `vpiConstType` and never
+                    // `Typespec`, and the cast law's own write is the one
+                    // golden hangs where BOTH fire — `signed'(16'd5)` one hop
+                    // up is golden the cast's `logic_typespec`, not the hop's,
+                    // because the producer's hand-on is gated on the constant
+                    // having none (`CompileExpression.cpp:2991`).  Running
+                    // second under the same gate transcribes that order.
+                    //
+                    // § patternHomeIsAPackage81v (r11v81) — AND THE PATTERN
+                    // ITSELF MUST BE WRITTEN IN A PACKAGE.
+                    //
+                    // r11u81 gated on the HOP's home and measured that a
+                    // MODULE-homed hop hands nothing on (`a4_posmod81`).  The
+                    // CROSS cell — a PACKAGE-homed hop reached from a pattern
+                    // written in a MODULE — was not in that grid, and golden
+                    // hands nothing on there either.  MEASURED, arm
+                    // `v1_qualhop81` (real Surelog v1.87, `slrc=0 ourrc=0
+                    // slerr=0`), one package (`PU`/`PH`/`PD`) and one
+                    // spelling per pattern:
+                    //
+                    //   pattern in the PACKAGE, read out    -> int_typespec,
+                    //       (`PKGSIDE`, and `.R(v1p::PKGSIDE)`)   ranges, the
+                    //                                             empty ref
+                    //   pattern in the MODULE, hops IMPORTED unqualified
+                    //       (`IM`, and `.R(IM)`)           -> NOTHING
+                    //   pattern in the MODULE, hops QUALIFIED
+                    //       (`QM`, and `.R(QM)`)           -> NOTHING
+                    //
+                    // and `v12_home81` `LREAD` adds the third shape: a
+                    // PACKAGE pattern read into a module localparam by a bare
+                    // name keeps whatever the PACKAGE built, which is nothing
+                    // when its own setters were qualified.  Golden's constants
+                    // on the module road are a different MINT (`UINT:5@64`
+                    // against `@32`, `INT:5` against `DEC:5`), which is the
+                    // simple Value store at `CompileExpression.cpp:962-985`
+                    // rather than the `param_assign` clone at `:920-955`.
+                    //
+                    // Without this gate the law wrote on all of them: two
+                    // whole-cell AWAY (`QM`/`IM` op2, `16'h5`, where pristine
+                    // read golden's `ts=-` exactly) plus ten more typespec-axis
+                    // AWAY cells on `v1_qualhop81` / `v12_home81` alone.
+                    //
+                    // THE PATTERN'S HOME IS READ LEXICALLY, off the pattern
+                    // SYNTAX the emitted Rhs actually came from — `sinitK`,
+                    // which is the substituted source pattern on every
+                    // substitution road (the override at `structOvPat`, the
+                    // bare-reference and array-element roads at
+                    // `structRefPat9`, the parameter's own initializer
+                    // otherwise).  Walking its syntax parents to a
+                    // `PackageDeclaration` answers "was this pattern WRITTEN
+                    // in a package", which is the question the producer's two
+                    // routes turn on, on every road at once and with no
+                    // symbol road to enumerate.  A pattern with no syntax
+                    // answers NO, so an unknown road can only be MORE
+                    // conservative.
+                    bool pkgPat81 = false;
+                    for (const slang::syntax::SyntaxNode* pn81 = sinitK.syntax;
+                         pn81; pn81 = pn81->parent) {
+                        if (pn81->kind ==
+                            slang::syntax::SyntaxKind::PackageDeclaration) {
+                            pkgPat81 = true;
+                            break;
+                        }
+                    }
+                    if (!ifaceArrayDefFold && pkgPat81)
+                        for (size_t i81 = 0; i81 < opnds->size(); i81++) {
+                            const Expression* sx81 =
+                                i81 < opSet68.size() ? opSet68[i81] : nullptr;
+                            auto* ob81 = (*opnds)[i81];
+                            if (!sx81 || !ob81 ||
+                                ob81->UhdmType() != UHDM::uhdmconstant)
+                                continue;
+                            auto* c81 = (UHDM::constant*)ob81;
+                            if (c81->Typespec())
+                                continue;
+                            // WHERE THE PRODUCER'S REDUCE REFUSES, THERE IS NO
+                            // CONSTANT TO HANG A TYPESPEC ON.  Golden keeps
+                            // the OPERATION (or the tagged_pattern tree) and
+                            // our walk has already folded a constant into the
+                            // slot — r11u78's R5 / r11u73's R2.  The two
+                            // refusal readers § patBailStopsMemberStamp68
+                            // already uses are reused rather than copied, so
+                            // the write cannot decorate a cell whose very
+                            // KIND golden disagrees with: measured,
+                            // `w7_untw73` `C` op2/op3 (`96'h1 + 96'h1` and
+                            // `64'd18446744073709551614 - 64'd1`, golden
+                            // unfolded `operation`s) and `cvc_unt` `PDD` op1
+                            // (golden a `tagged_pattern`).
+                            {
+                                int64_t rf81 = 0;
+                                if (patAstRefuses68(*sx81) ||
+                                    red72Int64(*sx81, ectx, 0, rf81) ==
+                                        Red72::Refuses)
+                                    continue;
+                            }
+                            int k81 = 0;
+                            int32_t a81 = 0;
+                            if (red81HopPlan81(*sx81, 0, k81, a81, true) != 1)
+                                continue;
+                            auto* rt81 = s.MakeRef_typespec();
+                            rt81->VpiParent(c81);
+                            if (UHDM::typespec* at81 =
+                                    red81MakeStoreTs81(k81, a81))
+                                rt81->Actual_typespec(at81);
+                            c81->Typespec(rt81);
                         }
                     op2->Operands(opnds);
                     rhs = op2;

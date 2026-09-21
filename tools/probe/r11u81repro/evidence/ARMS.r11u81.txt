@@ -1,0 +1,480 @@
+== a1_hopts81 GOLDEN
+TOPMOD CA op75 n=19
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [3] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [4] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [5] constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [6] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [7] constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+   [8] constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+   [9] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [10] constant sz=-1 ct=5 v=HEX:5 d='h5 ts=ref()/NOACTUAL
+   [11] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [12] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [13] constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+   [14] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [15] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [16] constant sz=16 ct=9 v=UINT:5 d= ts=-
+   [17] constant sz=16 ct=7 v=INT:10 d=10 ts=-
+   [18] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=19
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+   [6] tagged_pattern
+== a1_hopts81 PRISTINE
+TOPMOD CA op75 n=19
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [3] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [4] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+   [5] constant sz=24 ct=3 v=BIN:000000000000000000000101 d=16'b101 ts=-
+   [6] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [7] constant sz=32 ct=7 v=INT:10 d=10 ts=-
+   [8] constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+   [9] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [10] constant sz=32 ct=5 v=HEX:5 d='h5 ts=-
+   [11] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [12] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [13] constant sz=32 ct=7 v=INT:10 d=10 ts=-
+   [14] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [15] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [16] constant sz=64 ct=9 v=UINT:5 d= ts=-
+   [17] constant sz=16 ct=7 v=INT:10 d=10 ts=-
+   [18] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=19
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+   [6] tagged_pattern
+== a1_hopts81 LAW
+TOPMOD CA op75 n=19
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [3] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [4] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [5] constant sz=24 ct=3 v=BIN:000000000000000000000101 d=16'b101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [6] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [7] constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+   [8] constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+   [9] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [10] constant sz=32 ct=5 v=HEX:5 d='h5 ts=ref()/NOACTUAL
+   [11] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [12] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [13] constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+   [14] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [15] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [16] constant sz=64 ct=9 v=UINT:5 d= ts=-
+   [17] constant sz=16 ct=7 v=INT:10 d=10 ts=-
+   [18] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=19
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+   [6] tagged_pattern
+== a2_castts81 GOLDEN
+TOPMOD CA op75 n=25
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+   [3] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+   [4] constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+   [5] constant sz=32 ct=9 v=UINT:156 d=156 ts=int_typespec/U
+   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+   [7] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [8] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [9] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [10] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=byte_typespec/S
+   [11] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+   [12] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [13] constant sz=16 ct=7 v=INT:5 d=5 ts=logic_typespec/S
+   [14] constant sz=16 ct=7 v=INT:5 d=5 ts=logic_typespec/S
+   [15] constant sz=64 ct=7 v=INT:5 d=5 ts=logic_typespec/S
+   [16] constant sz=8 ct=9 v=UINT:156 d=156 ts=-
+   [17] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [18] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [19] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=byte_typespec/S
+   [20] constant sz=16 ct=9 v=UINT:5 d=5 ts=short_int_typespec/S
+   [21] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=byte_typespec/S
+   [22] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [23] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [24] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=25
+   [0] tagged_pattern
+== a2_castts81 PRISTINE
+TOPMOD CA op75 n=25
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=9 v=UINT:5 d=5 ts=-
+   [3] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [4] constant sz=16 ct=9 v=UINT:10 d=10 ts=-
+   [5] constant sz=8 ct=9 v=UINT:156 d=156 ts=-
+   [6] constant sz=16 ct=9 v=UINT:5 d=5 ts=-
+   [7] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [8] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [9] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [10] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [11] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [12] constant sz=16 ct=9 v=UINT:5 d=5 ts=-
+   [13] constant sz=64 ct=9 v=UINT:5 d= ts=-
+   [14] constant sz=64 ct=9 v=UINT:5 d= ts=-
+   [15] constant sz=64 ct=9 v=UINT:5 d= ts=-
+   [16] constant sz=64 ct=9 v=UINT:156 d= ts=-
+   [17] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [18] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [19] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [20] constant sz=64 ct=9 v=UINT:5 d= ts=-
+   [21] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [22] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [23] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [24] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=25
+   [0] tagged_pattern
+== a2_castts81 LAW
+TOPMOD CA op75 n=25
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [3] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [4] constant sz=16 ct=9 v=UINT:10 d=10 ts=int_typespec/U
+   [5] constant sz=8 ct=9 v=UINT:156 d=156 ts=int_typespec/U
+   [6] constant sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [7] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [8] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [9] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [10] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [11] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [12] constant sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [13] constant sz=64 ct=9 v=UINT:5 d= ts=logic_typespec/S
+   [14] constant sz=64 ct=9 v=UINT:5 d= ts=logic_typespec/S
+   [15] constant sz=64 ct=9 v=UINT:5 d= ts=logic_typespec/S
+   [16] constant sz=64 ct=9 v=UINT:156 d= ts=-
+   [17] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [18] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [19] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [20] constant sz=64 ct=9 v=UINT:5 d= ts=-
+   [21] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [22] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [23] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [24] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=25
+   [0] tagged_pattern
+== a3_hopbnd81 GOLDEN
+TOPMOD CA op75 n=17
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=32 ct=7 v=INT:200 d= ts=int_typespec/U
+   [3] constant sz=32 ct=9 v=UINT:253 d=253 ts=int_typespec/U
+   [4] operation
+   [5] constant sz=32 ct=9 v=UINT:3 d=3 ts=int_typespec/U
+   [6] constant sz=8 ct=5 v=HEX:5 d=8'h5 ts=int_typespec/U[INT:7/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [7] constant sz=64 ct=5 v=HEX:F d=64'hF ts=int_typespec/U[INT:63/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [8] constant sz=16 ct=5 v=HEX:5 d=16'sh5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [9] constant sz=32 ct=9 v=UINT:6 d=6 ts=int_typespec/U
+   [10] constant sz=-1 ct=1 v=DEC:5 d='d5 ts=ref()/NOACTUAL
+   [11] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=logic_typespec/U[UINT:7/ct9/sz64/d7:UINT:0/ct9/sz64/d0@sz0]
+   [12] constant sz=1 ct=3 v=BIN:1 d=1'b1 ts=bit_typespec
+   [13] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [14] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=int_typespec/U[UINT:7/ct9/sz64/d7:UINT:0/ct9/sz64/d0@sz0]
+   [15] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [16] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG WC4 op67 n=1
+   [0] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+TOPPKG A op75 n=17
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+   [6] tagged_pattern
+== a3_hopbnd81 PRISTINE
+TOPMOD CA op75 n=17
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=24 ct=9 v=UINT:16777160 d=16777160 ts=-
+   [3] constant sz=24 ct=9 v=UINT:16777213 d=16777213 ts=-
+   [4] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [5] constant sz=32 ct=9 v=UINT:3 d=3 ts=-
+   [6] constant sz=8 ct=5 v=HEX:5 d=8'h5 ts=-
+   [7] constant sz=64 ct=5 v=HEX:F d=64'hF ts=-
+   [8] constant sz=16 ct=5 v=HEX:5 d=16'sh5 ts=int_typespec/S
+   [9] constant sz=32 ct=9 v=UINT:6 d=6 ts=-
+   [10] constant sz=32 ct=1 v=DEC:5 d='d5 ts=-
+   [11] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [12] constant sz=24 ct=3 v=BIN:000000000000000000000001 d=1'b1 ts=-
+   [13] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [14] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [15] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [16] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG WC4 op67 n=1
+   [0] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+TOPPKG A op75 n=17
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+   [6] tagged_pattern
+== a3_hopbnd81 LAW
+TOPMOD CA op75 n=17
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=24 ct=9 v=UINT:16777160 d=16777160 ts=int_typespec/U
+   [3] constant sz=24 ct=9 v=UINT:16777213 d=16777213 ts=int_typespec/U
+   [4] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [5] constant sz=32 ct=9 v=UINT:3 d=3 ts=int_typespec/U
+   [6] constant sz=8 ct=5 v=HEX:5 d=8'h5 ts=int_typespec/U[INT:7/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [7] constant sz=64 ct=5 v=HEX:F d=64'hF ts=int_typespec/U[INT:63/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [8] constant sz=16 ct=5 v=HEX:5 d=16'sh5 ts=int_typespec/S
+   [9] constant sz=32 ct=9 v=UINT:6 d=6 ts=int_typespec/U
+   [10] constant sz=32 ct=1 v=DEC:5 d='d5 ts=ref()/NOACTUAL
+   [11] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [12] constant sz=24 ct=3 v=BIN:000000000000000000000001 d=1'b1 ts=-
+   [13] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [14] constant sz=8 ct=1 v=DEC:5 d=8'd5 ts=-
+   [15] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [16] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG WC4 op67 n=1
+   [0] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+TOPPKG A op75 n=17
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+   [6] tagged_pattern
+== a4_posmod81 GOLDEN
+TOPMOD MODPOS op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD MODNAMED op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD LOCPOS op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD LOCNAMED op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+== a4_posmod81 PRISTINE
+TOPMOD MODPOS op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD MODNAMED op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD LOCPOS op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD LOCNAMED op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+== a4_posmod81 LAW
+TOPMOD MODPOS op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD MODNAMED op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD LOCPOS op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD LOCNAMED op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+   [2] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [3] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=5 ct=9 v=UINT:1 d=1 ts=-
+   [1] constant sz=5 ct=5 v=HEX:5 d=4'h5 ts=-
+== x9c_cast73 GOLDEN
+TOPMOD CA op75 n=6
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [4] constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+   [5] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=6
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+== x9c_cast73 PRISTINE
+TOPMOD CA op75 n=6
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [4] constant sz=32 ct=7 v=INT:10 d=10 ts=-
+   [5] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=6
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+== x9c_cast73 LAW
+TOPMOD CA op75 n=6
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [4] constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+   [5] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=6
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+   [5] tagged_pattern
+== z1_ts78 GOLDEN
+TOPMOD CA op75 n=22
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [4] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [5] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [6] constant sz=16 ct=5 v=HEX:5 d=16'sh5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [7] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [8] constant sz=16 ct=4 v=OCT:5 d=16'so5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [9] constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [10] constant sz=16 ct=3 v=BIN:101 d=16'sb101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [11] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [12] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [13] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [14] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [15] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+   [16] constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=-
+   [17] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [18] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [19] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [20] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+   [21] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=22
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+== z1_ts78 PRISTINE
+TOPMOD CA op75 n=22
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [4] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [5] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [6] constant sz=16 ct=5 v=HEX:5 d=16'sh5 ts=int_typespec/S
+   [7] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+   [8] constant sz=16 ct=4 v=OCT:5 d=16'so5 ts=int_typespec/S
+   [9] constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=-
+   [10] constant sz=16 ct=3 v=BIN:101 d=16'sb101 ts=int_typespec/S
+   [11] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [12] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [13] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [14] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [15] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+   [16] constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=-
+   [17] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [18] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [19] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [20] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+   [21] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=22
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+== z1_ts78 LAW
+TOPMOD CA op75 n=22
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [2] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+   [4] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [5] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [6] constant sz=16 ct=5 v=HEX:5 d=16'sh5 ts=int_typespec/S
+   [7] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [8] constant sz=16 ct=4 v=OCT:5 d=16'so5 ts=int_typespec/S
+   [9] constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [10] constant sz=16 ct=3 v=BIN:101 d=16'sb101 ts=int_typespec/S
+   [11] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=logic_typespec/S
+   [12] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [13] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [14] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [15] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+   [16] constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=-
+   [17] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [18] constant sz=16 ct=1 v=DEC:5 d=16'sd5 ts=int_typespec/S
+   [19] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [20] constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+   [21] constant sz=64 ct=9 v=UINT:7 d=7 ts=-
+TOPPKG A op75 n=22
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern

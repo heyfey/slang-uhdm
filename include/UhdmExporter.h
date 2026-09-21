@@ -3561,6 +3561,90 @@ private:
     /// carries the resolved `Symbol&`, so no scope has to be guessed.
     /// Returns the `vpiConstType`, or 0 to ABSTAIN, on `dimRedCt79`'s terms.
     int32_t dimRedCtExpr79(const slang::ast::Expression& e, int depth);
+
+    /// § hopStoreHandsOnItsTypespec81 (r11u81) — A PARAMETER NAME HANDS ON ITS
+    /// OWN TYPESPEC, AND AN UNTYPED PARAMETER'S TYPESPEC IS ITS STORED VALUE'S
+    /// ENCODING.
+    ///
+    /// `expr::Compare` reads `Typespec`, and the widest typespec face left at
+    /// r11u79 was r11u78's R0: every pattern operand reached through a
+    /// parameter NAME hop carries a typespec in golden and nothing in ours.
+    /// THE PRODUCER, in two halves:
+    ///
+    ///  * `CompileExpression.cpp:2973-2995` (and its instance twin at
+    ///    `:2919-2930`) substitutes a reference to a parameter with a clone of
+    ///    that parameter's stored `Rhs` and then hangs the PARAMETER's own
+    ///    `Actual_typespec` on the clone behind a fresh `ref_typespec` —
+    ///    **gated on the clone having no typespec of its own**, which is why
+    ///    an `s`-marked literal's `int_typespec` survives a hop untouched and
+    ///    why this law is ADD-ONLY too.
+    ///  * `CompileHelper.cpp:3904-3995` gives an IMPLICITLY typed parameter
+    ///    its typespec by switching on the reduced value's `VpiConstType`:
+    ///    `vpiIntConst`/`vpiUIntConst` -> `int_typespec`, `VpiSigned(false)`,
+    ///    no ranges (the `v.front() == '-'` test at `:3924` reads `"INT:-5"`,
+    ///    so it never fires — the field is false on EVERY arm);
+    ///    `vpiHexConst`/`vpiOctConst`/`vpiBinaryConst` -> the same plus a
+    ///    `[VpiSize-1:0]` RANGE, and NOTHING AT ALL when the literal is
+    ///    unsized (`:3946`, `if (c->VpiSize() != -1)`); `vpiDecConst` ->
+    ///    NOTHING (`:3922`, an empty `case` that just breaks).  A DECLARED
+    ///    type answers from `CompileType.cpp:1125-1190` instead, where the
+    ///    integer ATOM keywords are `bool isSigned = true` by default.
+    ///
+    /// `red81HopPlan81` walks the derivation chain the producer walks and
+    /// returns **1** with the plan in `kind81`/`arg81`, **0** when nothing
+    /// rides out of this expression (a bare literal or an operation — the
+    /// hop above it answers), or **-1** to ABSTAIN.  `kind81` is
+    /// `Ts81Empty` (a `ref_typespec` with NO actual, which is what golden
+    /// hangs where the switch has no arm and nothing rode up), `Ts81Int`
+    /// (`arg81` = VpiSigned), `Ts81Based` (`arg81` = the range width),
+    /// `Ts81Logic` (the `$signed` mint hint) or one of the atom kinds
+    /// (`arg81` = VpiSigned).
+    ///
+    /// THE ORDER INSIDE A NAME IS MEASURED: the hop's OWN store answers
+    /// FIRST, and only when its arm is empty does whatever rode up from the
+    /// initializer survive.  `localparam SH = 16'sh5` one hop up is golden
+    /// the HOP's unsigned, RANGED `int_typespec` and not the `s`-marked
+    /// literal's signed one; `localparam PSD = 16'sd5`, whose `vpiDecConst`
+    /// arm is empty, IS the literal's.
+    ///
+    /// `red81ParamStore81` returns **0** for "this switch has no arm" — the
+    /// `vpiDecConst` case and an UNSIZED based one — which is a different
+    /// answer from ABSTAIN and is what lets the chain continue.
+    enum : int {
+        Ts81Empty = 0,
+        Ts81Int = 1,
+        Ts81Based = 2,
+        Ts81Byte = 3,
+        Ts81ShortInt = 4,
+        Ts81LongInt = 5,
+        Ts81Integer = 6,
+        Ts81AtomInt = 7,
+        Ts81Logic = 8,
+    };
+    /// § hopSpellingIsUnqualified81v (r11v81) — `outer81` marks the hop the
+    /// SETTER ITSELF spells, as opposed to one reached through a hop's own
+    /// initializer.  A PACKAGE-QUALIFIED spelling at that outer position is
+    /// golden NOTHING (arm `v13_scope81`, `v13b::LH` beside `LH`), so the
+    /// walk ABSTAINS there; casts keep the flag because they do not change
+    /// the lexical site, and a parameter's initializer clears it because that
+    /// text lives in the parameter's own declaration.
+    int red81HopPlan81(const slang::ast::Expression& e, int depth, int& kind81,
+                       int32_t& arg81, bool outer81);
+    /// § hopStoreHandsOnItsTypespec81 — ONE parameter's own store, with no
+    /// chain walk: the declared type's typespec, or the untyped switch's
+    /// answer on its initializer's encoding.  Same return codes.
+    int red81ParamStore81(const slang::ast::ParameterSymbol& ps, int& kind81,
+                          int32_t& arg81);
+    /// § hopStoreHandsOnItsTypespec81 — the `VpiConstType` the producer's
+    /// reduce stamps on a parameter's stored value, with the WRITTEN width a
+    /// based literal's range needs (`size81` is -1 for an unsized one).
+    /// `mint81` is set when a signedness cast MINTS rather than handing its
+    /// argument back, which this law does not model.  0 abstains.
+    int32_t red81StoreCt81(const slang::ast::Expression& e, int depth,
+                           int32_t& size81, bool& mint81);
+    /// § hopStoreHandsOnItsTypespec81 — the typespec object a plan names, or
+    /// null for `Ts81Empty` (whose `ref_typespec` stays actual-less).
+    UHDM::typespec* red81MakeStoreTs81(int kind81, int32_t arg81);
     /// § dimExprBoundFold79 — is this size syntax one of the CLAIMED
     /// expression shapes (an arithmetic/shift/bitwise-and-or binary, a unary
     /// +/-, or a `$`-system call)?  A bare identifier, a qualified name, a

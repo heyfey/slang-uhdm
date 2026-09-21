@@ -1,0 +1,10 @@
+=== lawx  /tmp/r11u81_bin/law  md5=213d8d6a3e321e72f8d09d8a7a56c796
+--- goldens
+  PASS=23 FAIL=0
+--- uhdm2rtlil both modes
+    CMP_EQUAL: 788   SLANG_REJECT: 67   CMP_NOTEQUAL: 16 
+--- surelog both modes
+    UNTRANSLATABLE: 2   TIMEOUT: 1   NO_UHDM: 1 
+--- cmds.txt audit (every invocation must name THIS binary)
+  wd_u2r_lawx: cmds=1742 naming-this-binary=1742 naming-MAIN-TREE=0
+  wd_sl_lawx: cmds=1581 naming-this-binary=1531 naming-MAIN-TREE=0

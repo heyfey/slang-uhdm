@@ -1,0 +1,89 @@
+r11v81 WIDE BOUNDARY — 3279 arms (every */grid/*.sv plus every dut.sv and design.sv
+under tools/probe, this pass's four INCLUDED), three binaries per arm in ONE directory
+writing ONE file name (the serializer embeds the output path).
+
+PL = pristine vs the implementer's law   PF = pristine vs the verifier's fix   LF = law vs fix
+  arms            3279
+  SAME (all three) 3214
+  PL=DIFFERS       26
+  PF=DIFFERS       26
+  LF=DIFFERS       0   <- the fix moves NOTHING on any committed arm
+  NODB             39, every one prc==lrc==frc
+
+THE 26 DIFFERS ARMS
+  r11u56repro/grid/e1_enc56/dut.sv
+  r11u56repro/grid/e3_base56/dut.sv
+  r11u68repro/ca/c1_stamp68/dut.sv
+  r11u68repro/grid/b5_redsz68.sv
+  r11u72repro/grid/t2_leaf72.sv
+  r11u72repro/grid/t5_untyped72.sv
+  r11u73repro/grid/cvc_unt.sv
+  r11u73repro/grid/w4_hop73.sv
+  r11u73repro/grid/w7_untw73.sv
+  r11u76repro/grid/y3_castenc76.sv
+  r11u76repro/grid/y5_paren76.sv
+  r11u78repro/grid/z2_hop78.sv
+  r11u78repro/grid/z1_ts78.sv
+  r11u81repro/grid/a1_hopts81.sv
+  r11u81repro/grid/a2_castts81.sv
+  r11u81repro/grid/a3_hopbnd81.sv
+  r11u81repro/grid/a4_posmod81.sv
+  r11v56repro/grid/x3_names/dut.sv
+  r11v72repro/grid/v2_usz72.sv
+  r11v72repro/grid/v4_hop72.sv
+  r11v73repro/grid/x2_mint73.sv
+  r11v73repro/grid/x4_cmp73.sv
+  r11v73repro/grid/x5_rel73.sv
+  r11v73repro/grid/x9c_cast73.sv
+  r11v76repro/grid/v3cast76.sv
+  r11v78repro/grid/w1_ts78v.sv
+
+THE 22 NON-a* ARMS SCORED AGAINST REAL v1.87 GOLDENS
+== pris vs law
+  r11u56_e1_enc56  TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=20 SHAPE=1
+  r11u56_e3_base56 TO=4 AWAY=0 STILL=0 WRONG2=0 EQ=22 SHAPE=0
+  r11u68_b5_redsz68 TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=52 SHAPE=0
+  r11u68_c1_stamp68 TO=4 AWAY=0 STILL=0 WRONG2=2 EQ=72 SHAPE=0
+  r11u72_t2_leaf72 TO=2 AWAY=0 STILL=2 WRONG2=0 EQ=12 SHAPE=0
+  r11u72_t5_untyped72 TO=5 AWAY=0 STILL=2 WRONG2=0 EQ=13 SHAPE=0
+  r11u73_cvc_unt   TO=0 AWAY=0 STILL=4 WRONG2=1 EQ=4 SHAPE=0
+  r11u73_w4_hop73  TO=17 AWAY=0 STILL=4 WRONG2=0 EQ=25 SHAPE=0
+  r11u73_w7_untw73 TO=6 AWAY=0 STILL=3 WRONG2=0 EQ=11 SHAPE=2
+  r11u76_y3_castenc76 TO=4 AWAY=0 STILL=2 WRONG2=5 EQ=33 SHAPE=0
+  r11u76_y5_paren76 TO=2 AWAY=0 STILL=2 WRONG2=2 EQ=43 SHAPE=0
+  r11u78_z1_ts78   TO=4 AWAY=0 STILL=3 WRONG2=0 EQ=37 SHAPE=0
+  r11u78_z2_hop78  TO=0 AWAY=0 STILL=3 WRONG2=1 EQ=26 SHAPE=0
+  r11v56_x3_names  TO=2 AWAY=0 STILL=5 WRONG2=0 EQ=11 SHAPE=0
+  r11v72_v2_usz72  TO=8 AWAY=0 STILL=0 WRONG2=0 EQ=10 SHAPE=0
+  r11v72_v4_hop72  TO=1 AWAY=0 STILL=3 WRONG2=0 EQ=12 SHAPE=0
+  r11v73_x2_mint73 TO=3 AWAY=0 STILL=7 WRONG2=0 EQ=16 SHAPE=2
+  r11v73_x4_cmp73  TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=12 SHAPE=0
+  r11v73_x5_rel73  TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=12 SHAPE=6
+  r11v73_x9c_cast73 TO=2 AWAY=0 STILL=0 WRONG2=0 EQ=10 SHAPE=0
+  r11v76_v3cast76  TO=5 AWAY=0 STILL=3 WRONG2=1 EQ=29 SHAPE=0
+  r11v78_w1_ts78v  TO=1 AWAY=0 STILL=3 WRONG2=2 EQ=28 SHAPE=0
+TOTAL TO=73 AWAY=0 STILL=67 WRONG2=14 EQ=510 SHAPE=11
+== pris vs fix
+  r11u56_e1_enc56  TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=20 SHAPE=1
+  r11u56_e3_base56 TO=4 AWAY=0 STILL=0 WRONG2=0 EQ=22 SHAPE=0
+  r11u68_b5_redsz68 TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=52 SHAPE=0
+  r11u68_c1_stamp68 TO=4 AWAY=0 STILL=0 WRONG2=2 EQ=72 SHAPE=0
+  r11u72_t2_leaf72 TO=2 AWAY=0 STILL=2 WRONG2=0 EQ=12 SHAPE=0
+  r11u72_t5_untyped72 TO=5 AWAY=0 STILL=2 WRONG2=0 EQ=13 SHAPE=0
+  r11u73_cvc_unt   TO=0 AWAY=0 STILL=4 WRONG2=1 EQ=4 SHAPE=0
+  r11u73_w4_hop73  TO=17 AWAY=0 STILL=4 WRONG2=0 EQ=25 SHAPE=0
+  r11u73_w7_untw73 TO=6 AWAY=0 STILL=3 WRONG2=0 EQ=11 SHAPE=2
+  r11u76_y3_castenc76 TO=4 AWAY=0 STILL=2 WRONG2=5 EQ=33 SHAPE=0
+  r11u76_y5_paren76 TO=2 AWAY=0 STILL=2 WRONG2=2 EQ=43 SHAPE=0
+  r11u78_z1_ts78   TO=4 AWAY=0 STILL=3 WRONG2=0 EQ=37 SHAPE=0
+  r11u78_z2_hop78  TO=0 AWAY=0 STILL=3 WRONG2=1 EQ=26 SHAPE=0
+  r11v56_x3_names  TO=2 AWAY=0 STILL=5 WRONG2=0 EQ=11 SHAPE=0
+  r11v72_v2_usz72  TO=8 AWAY=0 STILL=0 WRONG2=0 EQ=10 SHAPE=0
+  r11v72_v4_hop72  TO=1 AWAY=0 STILL=3 WRONG2=0 EQ=12 SHAPE=0
+  r11v73_x2_mint73 TO=3 AWAY=0 STILL=7 WRONG2=0 EQ=16 SHAPE=2
+  r11v73_x4_cmp73  TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=12 SHAPE=0
+  r11v73_x5_rel73  TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=12 SHAPE=6
+  r11v73_x9c_cast73 TO=2 AWAY=0 STILL=0 WRONG2=0 EQ=10 SHAPE=0
+  r11v76_v3cast76  TO=5 AWAY=0 STILL=3 WRONG2=1 EQ=29 SHAPE=0
+  r11v78_w1_ts78v  TO=1 AWAY=0 STILL=3 WRONG2=2 EQ=28 SHAPE=0
+TOTAL TO=73 AWAY=0 STILL=67 WRONG2=14 EQ=510 SHAPE=11

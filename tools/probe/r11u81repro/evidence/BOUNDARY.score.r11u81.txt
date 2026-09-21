@@ -1,0 +1,382 @@
+  __r11u56repro_grid_e1_enc56__dut TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=20 SHAPE=1
+    SHAPE  CFG g=20 p=19 l=19
+  __r11u56repro_grid_e3_base56__dut TO=4 AWAY=0 STILL=0 WRONG2=0 EQ=22 SHAPE=0
+    TO     C op9 
+       g=constant sz=16 ct=1 v=DEC:40 d=16'd40 ts=ref()/NOACTUAL
+       p=constant sz=16 ct=1 v=DEC:40 d=16'd40 ts=-
+       l=constant sz=16 ct=1 v=DEC:40 d=16'd40 ts=ref()/NOACTUAL
+    TO     C op10
+       g=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=-
+       l=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     C op11
+       g=constant sz=16 ct=3 v=BIN:1010010111000011 d=16'b1010010111000011 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=3 v=BIN:1010010111000011 d=16'b1010010111000011 ts=-
+       l=constant sz=16 ct=3 v=BIN:1010010111000011 d=16'b1010010111000011 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     C op12
+       g=constant sz=16 ct=4 v=OCT:7654 d=16'o7654 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=4 v=OCT:7654 d=16'o7654 ts=-
+       l=constant sz=16 ct=4 v=OCT:7654 d=16'o7654 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+  __r11u68repro_ca_c1_stamp68__dut TO=4 AWAY=0 STILL=0 WRONG2=2 EQ=72 SHAPE=0
+    TO     C op33
+       g=constant sz=8 ct=5 v=HEX:BEEF d=16'hBEEF ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=8 ct=5 v=HEX:BEEF d=16'hBEEF ts=-
+       l=constant sz=8 ct=5 v=HEX:BEEF d=16'hBEEF ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    WRONG2 C op34
+       g=constant sz=8 ct=3 v=BIN:1010010111000011 d=16'b1010010111000011 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=8 ct=3 v=BIN:11000011 d=16'b1010010111000011 ts=-
+       l=constant sz=8 ct=3 v=BIN:11000011 d=16'b1010010111000011 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     C op35
+       g=constant sz=8 ct=1 v=DEC:4660 d=16'd4660 ts=ref()/NOACTUAL
+       p=constant sz=8 ct=1 v=DEC:4660 d=16'd4660 ts=-
+       l=constant sz=8 ct=1 v=DEC:4660 d=16'd4660 ts=ref()/NOACTUAL
+    TO     C op36
+       g=constant sz=8 ct=4 v=OCT:7654 d=16'o7654 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=8 ct=4 v=OCT:7654 d=16'o7654 ts=-
+       l=constant sz=8 ct=4 v=OCT:7654 d=16'o7654 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    WRONG2 C op37
+       g=constant sz=24 ct=3 v=BIN:1010010111000011 d=16'b1010010111000011 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=24 ct=3 v=BIN:000000001010010111000011 d=16'b1010010111000011 ts=-
+       l=constant sz=24 ct=3 v=BIN:000000001010010111000011 d=16'b1010010111000011 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     C op38
+       g=constant sz=24 ct=1 v=DEC:4660 d=16'd4660 ts=ref()/NOACTUAL
+       p=constant sz=24 ct=1 v=DEC:4660 d=16'd4660 ts=-
+       l=constant sz=24 ct=1 v=DEC:4660 d=16'd4660 ts=ref()/NOACTUAL
+  __r11u68repro_grid__b5_redsz68 TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=52 SHAPE=0
+    TO     CB op11
+       g=constant sz=32 ct=9 v=UINT:6 d=6 ts=int_typespec/U
+       p=constant sz=32 ct=9 v=UINT:6 d=6 ts=-
+       l=constant sz=32 ct=9 v=UINT:6 d=6 ts=int_typespec/U
+  __r11u72repro_grid__t2_leaf72 TO=2 AWAY=0 STILL=2 WRONG2=0 EQ=12 SHAPE=0
+    TO     C op0 
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+    TO     C op2 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+  __r11u72repro_grid__t5_untyped72 TO=5 AWAY=0 STILL=2 WRONG2=0 EQ=13 SHAPE=0
+    TO     C op1 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op2 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op3 
+       g=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=-
+       l=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     C op4 
+       g=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=ref()/NOACTUAL
+       p=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=-
+       l=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=ref()/NOACTUAL
+    TO     C op5 
+       g=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+       p=constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+  __r11u73repro_grid__cvc_unt TO=0 AWAY=0 STILL=4 WRONG2=1 EQ=4 SHAPE=0
+    WRONG2 PDD op1 
+       g=tagged_pattern
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+  __r11u73repro_grid__w4_hop73 TO=17 AWAY=0 STILL=4 WRONG2=0 EQ=25 SHAPE=0
+    TO     C op1 
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+    TO     C op2 
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+    TO     C op3 
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+    TO     C op4 
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+    TO     C op5 
+       g=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=-
+       l=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     C op6 
+       g=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=-
+       l=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     C op7 
+       g=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=-
+       l=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     C op8 
+       g=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=ref()/NOACTUAL
+       p=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=-
+       l=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=ref()/NOACTUAL
+    TO     C op9 
+       g=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=ref()/NOACTUAL
+       p=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=-
+       l=constant sz=16 ct=1 v=DEC:9 d=16'd9 ts=ref()/NOACTUAL
+    TO     C op13
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+    TO     C op15
+       g=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:10 d=10 ts=-
+       l=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+    TO     C op16
+       g=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:10 d=10 ts=-
+       l=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+    TO     C op17
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op18
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op19
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op20
+       g=constant sz=32 ct=7 v=INT:-40 d=-40 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-40 d=-40 ts=-
+       l=constant sz=32 ct=7 v=INT:-40 d=-40 ts=int_typespec/U
+    TO     C op21
+       g=constant sz=32 ct=7 v=INT:-40 d=-40 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-40 d=-40 ts=-
+       l=constant sz=32 ct=7 v=INT:-40 d=-40 ts=int_typespec/U
+  __r11u73repro_grid__w7_untw73 TO=6 AWAY=0 STILL=3 WRONG2=0 EQ=11 SHAPE=2
+    TO     C op1 
+       g=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:6 d=6 ts=-
+       l=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/U
+    TO     C op4 
+       g=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:6 d=6 ts=-
+       l=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/U
+    TO     C op5 
+       g=constant sz=32 ct=7 v=INT:-9223372036854775808 d=-9223372036854775808 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-9223372036854775808 d=-9223372036854775808 ts=-
+       l=constant sz=32 ct=7 v=INT:-9223372036854775808 d=-9223372036854775808 ts=int_typespec/U
+    TO     C op6 
+       g=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+       p=constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+    TO     C op7 
+       g=constant sz=32 ct=9 v=UINT:18 d=18 ts=int_typespec/U
+       p=constant sz=32 ct=9 v=UINT:18 d=18 ts=-
+       l=constant sz=32 ct=9 v=UINT:18 d=18 ts=int_typespec/U
+    TO     C op8 
+       g=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:6 d=6 ts=-
+       l=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/U
+    SHAPE  AD g=2 p=- l=-
+    SHAPE  AH g=2 p=- l=-
+  __r11u76repro_grid__y3_castenc76 TO=4 AWAY=0 STILL=2 WRONG2=5 EQ=33 SHAPE=0
+    WRONG2 CA op3 
+       g=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+       p=constant sz=16 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+    WRONG2 CA op4 
+       g=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+       p=constant sz=16 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+    TO     CA op5 
+       g=constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+       l=constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     CA op6 
+       g=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+       p=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+       l=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+    WRONG2 CA op7 
+       g=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+       p=constant sz=16 ct=9 v=UINT:10 d=10 ts=-
+       l=constant sz=16 ct=9 v=UINT:10 d=10 ts=int_typespec/U
+    WRONG2 CA op8 
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=24 ct=9 v=UINT:16777211 d=16777211 ts=-
+       l=constant sz=24 ct=9 v=UINT:16777211 d=16777211 ts=int_typespec/U
+    WRONG2 CA op9 
+       g=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+       p=constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+    TO     CA op12
+       g=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+       p=constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+    TO     CA op13
+       g=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:10 d=10 ts=-
+       l=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+  __r11u76repro_grid__y5_paren76 TO=2 AWAY=0 STILL=2 WRONG2=2 EQ=43 SHAPE=0
+    TO     CZ op2 
+       g=constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+       l=constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     CZ op3 
+       g=constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=-
+       l=constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    WRONG2 CZ op4 
+       g=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/U
+       p=constant sz=16 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+    WRONG2 CZ op5 
+       g=constant sz=-1 ct=1 v=DEC:5 d='d5 ts=logic_typespec/S
+       p=constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=32 ct=9 v=UINT:5 d=5 ts=logic_typespec/S
+  __r11u78repro_grid__z1_ts78 TO=4 AWAY=0 STILL=3 WRONG2=0 EQ=37 SHAPE=0
+    TO     CA op3 
+       g=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+       p=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+       l=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+    TO     CA op5 
+       g=constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+       l=constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     CA op7 
+       g=constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+       l=constant sz=16 ct=4 v=OCT:5 d=16'o5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     CA op9 
+       g=constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=-
+       l=constant sz=16 ct=3 v=BIN:101 d=16'b101 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+  __r11u78repro_grid__z2_hop78 TO=0 AWAY=0 STILL=3 WRONG2=1 EQ=26 SHAPE=0
+    WRONG2 CA op3 
+       g=constant sz=32 ct=7 v=INT:-100 d=-100 ts=int_typespec/U
+       p=constant sz=24 ct=9 v=UINT:16777116 d=16777116 ts=-
+       l=constant sz=24 ct=9 v=UINT:16777116 d=16777116 ts=int_typespec/U
+  __r11v56repro_grid_x3_names__dut TO=2 AWAY=0 STILL=5 WRONG2=0 EQ=11 SHAPE=0
+    TO     C op2 
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+    TO     C op4 
+       g=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=-
+       l=constant sz=16 ct=5 v=HEX:28 d=16'h28 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+  __r11v72repro_grid__v2_usz72 TO=8 AWAY=0 STILL=0 WRONG2=0 EQ=10 SHAPE=0
+    TO     C op1 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op2 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op3 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op4 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op5 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+    TO     C op6 
+       g=constant sz=32 ct=7 v=INT:-4 d=-4 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-4 d=-4 ts=-
+       l=constant sz=32 ct=7 v=INT:-4 d=-4 ts=int_typespec/U
+    TO     C op7 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/S
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/S
+    TO     C op8 
+       g=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-3 d=-3 ts=-
+       l=constant sz=32 ct=7 v=INT:-3 d=-3 ts=int_typespec/U
+  __r11v72repro_grid__v4_hop72 TO=1 AWAY=0 STILL=3 WRONG2=0 EQ=12 SHAPE=0
+    TO     C op2 
+       g=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:-5 d=-5 ts=-
+       l=constant sz=32 ct=7 v=INT:-5 d=-5 ts=int_typespec/U
+  __r11v73repro_grid__x2_mint73 TO=3 AWAY=0 STILL=7 WRONG2=0 EQ=16 SHAPE=2
+    TO     CA op5 
+       g=constant sz=32 ct=9 v=UINT:16 d=16 ts=int_typespec/U
+       p=constant sz=32 ct=9 v=UINT:16 d=16 ts=-
+       l=constant sz=32 ct=9 v=UINT:16 d=16 ts=int_typespec/U
+    TO     CA op9 
+       g=constant sz=32 ct=7 v=INT:4 d=4 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:4 d=4 ts=-
+       l=constant sz=32 ct=7 v=INT:4 d=4 ts=int_typespec/U
+    TO     CA op10
+       g=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:10 d=10 ts=-
+       l=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+    SHAPE  HXR g=2 p=- l=-
+    SHAPE  XR g=2 p=- l=-
+  __r11v73repro_grid__x4_cmp73 TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=12 SHAPE=0
+    TO     CA op8 
+       g=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:10 d=10 ts=-
+       l=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+  __r11v73repro_grid__x5_rel73 TO=1 AWAY=0 STILL=7 WRONG2=0 EQ=12 SHAPE=6
+    TO     CA op8 
+       g=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:10 d=10 ts=-
+       l=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+    SHAPE  CE g=2 p=- l=-
+    SHAPE  CN g=2 p=- l=-
+    SHAPE  HCE g=2 p=- l=-
+    SHAPE  HCN g=2 p=- l=-
+    SHAPE  HWE g=2 p=- l=-
+    SHAPE  WE g=2 p=- l=-
+  __r11v73repro_grid__x9c_cast73 TO=2 AWAY=0 STILL=0 WRONG2=0 EQ=10 SHAPE=0
+    TO     CA op1 
+       g=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+       p=constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+    TO     CA op4 
+       g=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+       p=constant sz=32 ct=7 v=INT:10 d=10 ts=-
+       l=constant sz=32 ct=7 v=INT:10 d=10 ts=int_typespec/U
+  __r11v76repro_grid__v3cast76 TO=5 AWAY=0 STILL=3 WRONG2=1 EQ=29 SHAPE=0
+    TO     CA op2 
+       g=constant sz=16 ct=5 v=HEX:ab d=16'hab ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:ab d=16'hab ts=-
+       l=constant sz=16 ct=5 v=HEX:ab d=16'hab ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     CA op3 
+       g=constant sz=16 ct=5 v=HEX:ab d=16'hab ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=16 ct=5 v=HEX:ab d=16'hab ts=-
+       l=constant sz=16 ct=5 v=HEX:ab d=16'hab ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+    TO     CA op6 
+       g=constant sz=4 ct=1 v=DEC:20 d=4'd20 ts=ref()/NOACTUAL
+       p=constant sz=4 ct=1 v=DEC:20 d=4'd20 ts=-
+       l=constant sz=4 ct=1 v=DEC:20 d=4'd20 ts=ref()/NOACTUAL
+    WRONG2 CA op7 
+       g=constant sz=32 ct=7 v=INT:31 d=31 ts=int_typespec/U
+       p=constant sz=16 ct=9 v=UINT:31 d=31 ts=-
+       l=constant sz=16 ct=9 v=UINT:31 d=31 ts=int_typespec/U
+    TO     CA op9 
+       g=constant sz=8 ct=1 v=DEC:200 d=8'sd200 ts=int_typespec/S
+       p=constant sz=8 ct=1 v=DEC:200 d=8'sd200 ts=-
+       l=constant sz=8 ct=1 v=DEC:200 d=8'sd200 ts=int_typespec/S
+    TO     CA op11
+       g=constant sz=4 ct=3 v=BIN:1111 d=4'b1111 ts=int_typespec/U[INT:3/ct0/sz0:INT:0/ct0/sz0@sz0]
+       p=constant sz=4 ct=3 v=BIN:1111 d=4'b1111 ts=-
+       l=constant sz=4 ct=3 v=BIN:1111 d=4'b1111 ts=int_typespec/U[INT:3/ct0/sz0:INT:0/ct0/sz0@sz0]
+  __r11v78repro_grid__w1_ts78v TO=1 AWAY=0 STILL=3 WRONG2=2 EQ=28 SHAPE=0
+    TO     CA op2 
+       g=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+       p=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+       l=constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+    WRONG2 CA op6 
+       g=constant sz=32 ct=7 v=INT:31 d=31 ts=int_typespec/U
+       p=constant sz=16 ct=9 v=UINT:31 d=31 ts=-
+       l=constant sz=16 ct=9 v=UINT:31 d=31 ts=int_typespec/U
+    WRONG2 CA op7 
+       g=constant sz=-1 ct=1 v=DEC:5 d='sd5 ts=int_typespec/S
+       p=constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+       l=constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+TOTAL TO=73 AWAY=0 STILL=67 WRONG2=14 EQ=510 SHAPE=11

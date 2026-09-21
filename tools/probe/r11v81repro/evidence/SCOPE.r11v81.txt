@@ -1,0 +1,394 @@
+r11v81 — THE SCOPE CELLS, read straight off the databases with ts81probe.
+
+######## v13_scope81
+---- GOLDEN (Surelog v1.87)
+TOPMOD CY op75 n=5
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [4] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+TOPPKG Y op75 n=5
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+---- PRISTINE
+TOPMOD CY op75 n=5
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [4] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+TOPPKG Y op75 n=5
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+---- IMPLEMENTER'S LAW
+TOPMOD CY op75 n=5
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [4] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+TOPPKG Y op75 n=5
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+---- VERIFIER'S FIX
+TOPMOD CY op75 n=5
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [4] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+TOPPKG Y op75 n=5
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+   [4] tagged_pattern
+
+######## v1_qualhop81
+---- GOLDEN (Surelog v1.87)
+TOPMOD PKGSIDE op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD QM op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD IM op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPPKG PKGSIDE op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- PRISTINE
+TOPMOD PKGSIDE op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=24 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=24 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD QM op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD IM op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPPKG PKGSIDE op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- IMPLEMENTER'S LAW
+TOPMOD PKGSIDE op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=24 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=24 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD QM op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD IM op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPPKG PKGSIDE op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- VERIFIER'S FIX
+TOPMOD PKGSIDE op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=24 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=24 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD QM op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD IM op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPPKG PKGSIDE op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+
+######## v12_home81
+---- GOLDEN (Surelog v1.87)
+TOPMOD LREAD op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD MOWN op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=64 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPPKG XQ op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- PRISTINE
+TOPMOD LREAD op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD MOWN op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPPKG XQ op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- IMPLEMENTER'S LAW
+TOPMOD LREAD op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD MOWN op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPPKG XQ op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- VERIFIER'S FIX
+TOPMOD LREAD op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD MOWN op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPPKG XQ op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+
+######## v14_read81
+---- GOLDEN (Surelog v1.87)
+TOPMOD CDEF op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD RQUAL op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD RBARE op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD SRC op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPPKG SRC op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- PRISTINE
+TOPMOD CDEF op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD RQUAL op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD RBARE op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD SRC op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=24 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=24 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPPKG SRC op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- IMPLEMENTER'S LAW
+TOPMOD CDEF op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD RQUAL op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD RBARE op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD SRC op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=24 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=24 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPPKG SRC op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+---- VERIFIER'S FIX
+TOPMOD CDEF op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD RQUAL op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD RBARE op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPMOD SRC op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=24 ct=9 v=UINT:5 d=5 ts=-
+   [2] constant sz=24 ct=5 v=HEX:5 d=16'h5 ts=-
+   [3] constant sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD R op75 n=4
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/U
+   [2] constant sz=16 ct=5 v=HEX:5 d=16'h5 ts=int_typespec/U[INT:15/ct0/sz0:INT:0/ct0/sz0@sz0]
+   [3] constant sz=16 ct=1 v=DEC:5 d=16'd5 ts=ref()/NOACTUAL
+TOPPKG SRC op75 n=4
+   [0] tagged_pattern
+   [1] tagged_pattern
+   [2] tagged_pattern
+   [3] tagged_pattern
+

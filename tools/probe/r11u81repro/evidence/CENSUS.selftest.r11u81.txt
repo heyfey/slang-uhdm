@@ -1,0 +1,10 @@
+  a1_hopts81       HOP81
+  a2_castts81      HOP81
+  a3_hopbnd81      HOP81
+  x9c_cast73       HOP81
+  z1_ts78          HOP81
+  z2_hop78         HOP81
+  v3cast76         HOP81
+  y3_castenc76     HOP81
+  not sighted (23): cy_base76 cy_cast76 cy_ref76 cy_sdec76 cz_base78 cz_paren78 cz_shift78 cz_ts78 cz_uns78 v1unk76 v2par76 v4val76
+SELFTEST PASS

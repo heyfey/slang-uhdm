@@ -1,0 +1,82 @@
+########## ROW JOINS
+--- u2r law vs COMMITTED results/golden_uhdm2rtlil.csv
+u2r-committed: rows=1742 base=1742 DIFF=0 ONLY-NEW=0 ONLY-BASE=0
+  status CMP_EQUAL=1576 CMP_NOTEQUAL=32 SLANG_REJECT=134
+  dump   =166 differ=508 match=1068
+--- u2r law vs THIS PASS'S OWN pristine sweep
+u2r-ownpris: rows=1742 base=1742 DIFF=0 ONLY-NEW=0 ONLY-BASE=0
+  status CMP_EQUAL=1576 CMP_NOTEQUAL=32 SLANG_REJECT=134
+  dump   =166 differ=508 match=1068
+--- u2r law (testflags rows only) vs COMMITTED results/gate_uhdm2rtlil.csv
+u2r-tfgate: rows=871 base=871 DIFF=0 ONLY-NEW=0 ONLY-BASE=0
+  status CMP_EQUAL=788 CMP_NOTEQUAL=16 SLANG_REJECT=67
+  dump   =83 differ=252 match=536
+--- surelog law vs COMMITTED results/golden_surelog.csv
+  DIFF      Earlgrey_0_1/default                     new=CMP_EQUAL/ base=CMP_EQUAL/differ
+  DIFF      Earlgrey_0_1/testflags                   new=CMP_EQUAL/ base=CMP_EQUAL/differ
+sl-committed: rows=1596 base=1596 DIFF=2 ONLY-NEW=0 ONLY-BASE=0
+  status CMP_EQUAL=943 CMP_NOTEQUAL=17 DEFERRED=10 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=571 SURELOG_FAIL=48 TIMEOUT=1 UNTRANSLATABLE=2
+  dump   =655 differ=549 match=392
+--- surelog law vs THIS PASS'S OWN pristine sweep
+sl-ownpris: rows=1596 base=1596 DIFF=0 ONLY-NEW=0 ONLY-BASE=0
+  status CMP_EQUAL=943 CMP_NOTEQUAL=17 DEFERRED=10 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=571 SURELOG_FAIL=48 TIMEOUT=1 UNTRANSLATABLE=2
+  dump   =655 differ=549 match=392
+########## BYTEVERIFY (workdir names are the SAME LENGTH: _pris / _lawx)
+--- uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+--- surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=a465c4418b8d pristine=ce71641aaca6
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=54ab12133130
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=8244f3eb104e pristine=05df6c25a21b
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+########## CANARIES
+--- canaries.sh surelog (law vs committed)
+  Scoreboard                     default   OK      CMP_EQUAL/differ
+  Scoreboard                     testflags OK      SLANG_REJECT/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+--- canaries.sh u2r (law vs committed)
+  BuildUVMPkg                    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Scoreboard                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+--- ctcan2.sh surelog
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+--- ctcan2.sh u2r
+== families canaries.sh does NOT carry (prefix match) ==
+  EvalFunc*                          -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+  ParamFile*                         -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+  Black*                             -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+--- canaudit.sh   (r11v81: the four SLANG-FENCED names are REDACTED to
+    <fenced-N> in this RECORD.  canaudit.sh excludes only itself and
+    `README*.md`, so a committed evidence file that SPELLS them makes
+    the pass's own auditor exit 6 — measured, FENCE-BREACH=4 on the
+    delivered tree.  The audit itself is unchanged and still reads
+    FENCE-BREACH=0.)
+  <fenced-1>             not dispatched by any driver (OK)
+  <fenced-2>             not dispatched by any driver (OK)
+  <fenced-3>             not dispatched by any driver (OK)
+  <fenced-4>               not dispatched by any driver (OK)
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+########## FENCE CHECK (the four slang-fenced names must appear in NO driver)
+########## CSV UNTOUCHED
+  (blank above = untouched)
