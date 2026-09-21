@@ -1,0 +1,236 @@
+LHS:
+decompile:
+package: pv (pv::), id:16, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+|vpiParent:
+\_design: (work@dut), id:322
+|vpiName:pv
+|vpiFullName:pv::
+|vpiVariables:
+\_logic_var: (pv::s_ns), id:127, line:7:21, endln:7:25
+  |vpiParent:
+  \_package: pv (pv::), id:16, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::s_ns), id:128
+    |vpiParent:
+    \_logic_var: (pv::s_ns), id:127, line:7:21, endln:7:25
+    |vpiFullName:pv::s_ns
+    |vpiActual:
+    \_logic_typespec: , id:123, line:7:3, endln:7:15
+  |vpiName:s_ns
+  |vpiFullName:pv::s_ns
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_array_var: (pv::a_ns), id:141, line:8:21, endln:8:25
+  |vpiParent:
+  \_package: pv (pv::), id:16, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_ns), id:142
+    |vpiParent:
+    \_array_var: (pv::a_ns), id:141, line:8:21, endln:8:25
+    |vpiFullName:pv::a_ns
+    |vpiActual:
+    \_array_typespec: , id:143
+  |vpiName:a_ns
+  |vpiFullName:pv::a_ns
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:136, line:8:26, endln:8:31
+    |vpiParent:
+    \_array_var: (pv::a_ns), id:141, line:8:21, endln:8:25
+    |vpiLeftRange:
+    \_constant: , id:137, line:8:27, endln:8:28
+      |vpiParent:
+      \_range: , id:136, line:8:26, endln:8:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:138, line:8:29, endln:8:30
+      |vpiParent:
+      \_range: , id:136, line:8:26, endln:8:31
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pv::a_ns), id:139, line:8:21, endln:8:25
+    |vpiParent:
+    \_array_var: (pv::a_ns), id:141, line:8:21, endln:8:25
+    |vpiTypespec:
+    \_ref_typespec: (pv::a_ns), id:140
+      |vpiParent:
+      \_logic_var: (pv::a_ns), id:139, line:8:21, endln:8:25
+      |vpiFullName:pv::a_ns
+      |vpiActual:
+      \_logic_typespec: , id:132, line:8:3, endln:8:14
+    |vpiFullName:pv::a_ns
+|vpiVariables:
+\_logic_var: (pv::pkd_ns), id:159, line:11:21, endln:11:27
+  |vpiParent:
+  \_package: pv (pv::), id:16, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::pkd_ns), id:160
+    |vpiParent:
+    \_logic_var: (pv::pkd_ns), id:159, line:11:21, endln:11:27
+    |vpiFullName:pv::pkd_ns
+    |vpiActual:
+    \_logic_typespec: , id:152, line:11:3, endln:11:19
+  |vpiName:pkd_ns
+  |vpiFullName:pv::pkd_ns
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (pv::st_t), id:17, line:9:11, endln:9:58
+  |vpiParent:
+  \_package: pv (pv::), id:16, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiName:pv::st_t
+  |vpiInstance:
+  \_package: pv (pv::), id:16, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:22, line:9:39, endln:9:40
+    |vpiParent:
+    \_struct_typespec: (pv::st_t), id:17, line:9:11, endln:9:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::st_t::x), id:23
+      |vpiParent:
+      \_typespec_member: (x), id:22, line:9:39, endln:9:40
+      |vpiFullName:pv::pv::st_t::x
+      |vpiActual:
+      \_logic_typespec: , id:21, line:9:27, endln:9:38
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:28, line:9:54, endln:9:55
+    |vpiParent:
+    \_struct_typespec: (pv::st_t), id:17, line:9:11, endln:9:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::st_t::y), id:29
+      |vpiParent:
+      \_typespec_member: (y), id:28, line:9:54, endln:9:55
+      |vpiFullName:pv::pv::st_t::y
+      |vpiActual:
+      \_logic_typespec: , id:27, line:9:42, endln:9:53
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:53
+|vpiDefName:pv
+|vpiNet:
+\_logic_net: (pv::t_ns), id:325, line:10:21, endln:10:25
+  |vpiParent:
+  \_package: pv (pv::), id:16, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::t_ns), id:326
+    |vpiParent:
+    \_logic_net: (pv::t_ns), id:325, line:10:21, endln:10:25
+    |vpiFullName:pv::t_ns
+    |vpiActual:
+    \_struct_typespec: (pv::st_t), id:17, line:9:11, endln:9:58
+  |vpiName:t_ns
+  |vpiFullName:pv::t_ns
+RHS:
+decompile:
+package: pv (pv::), id:2, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pv
+|vpiFullName:pv::
+|vpiVariables:
+\_logic_var: (pv::s_ns), id:16, line:7:21, endln:7:25
+  |vpiParent:
+  \_package: pv (pv::), id:2, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::s_ns), id:21
+    |vpiParent:
+    \_logic_var: (pv::s_ns), id:16, line:7:21, endln:7:25
+    |vpiFullName:pv::s_ns
+    |vpiActual:
+    \_logic_typespec: , id:17, line:7:3, endln:7:15
+  |vpiName:s_ns
+  |vpiFullName:pv::s_ns
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (pv::pkd_ns), id:24, line:11:21, endln:11:27
+  |vpiParent:
+  \_package: pv (pv::), id:2, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::pkd_ns), id:32
+    |vpiParent:
+    \_logic_var: (pv::pkd_ns), id:24, line:11:21, endln:11:27
+    |vpiFullName:pv::pkd_ns
+    |vpiActual:
+    \_logic_typespec: , id:25, line:11:3, endln:11:19
+  |vpiName:pkd_ns
+  |vpiFullName:pv::pkd_ns
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (pv::st_t), id:3, line:9:11, endln:9:58
+  |vpiParent:
+  \_package: pv (pv::), id:2, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiName:pv::st_t
+  |vpiInstance:
+  \_package: pv (pv::), id:2, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:4, line:9:39, endln:9:40
+    |vpiParent:
+    \_struct_typespec: (pv::st_t), id:3, line:9:11, endln:9:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::st_t::x), id:9
+      |vpiParent:
+      \_typespec_member: (x), id:4, line:9:39, endln:9:40
+      |vpiFullName:pv::pv::st_t::x
+      |vpiActual:
+      \_logic_typespec: , id:36, line:9:27, endln:9:38
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:10, line:9:54, endln:9:55
+    |vpiParent:
+    \_struct_typespec: (pv::st_t), id:3, line:9:11, endln:9:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::st_t::y), id:15
+      |vpiParent:
+      \_typespec_member: (y), id:10, line:9:54, endln:9:55
+      |vpiFullName:pv::pv::st_t::y
+      |vpiActual:
+      \_logic_typespec: , id:42, line:9:42, endln:9:53
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:53
+|vpiDefName:pv
+|vpiNet:
+\_logic_net: (pv::t_ns), id:22, line:10:21, endln:10:25
+  |vpiParent:
+  \_package: pv (pv::), id:2, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/xe_impkind/dut.sv, line:6:1, endln:12:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::t_ns), id:23
+    |vpiParent:
+    \_logic_net: (pv::t_ns), id:22, line:10:21, endln:10:25
+    |vpiFullName:pv::t_ns
+    |vpiActual:
+    \_struct_typespec: (pv::st_t), id:3, line:9:11, endln:9:58
+  |vpiName:t_ns
+  |vpiFullName:pv::t_ns

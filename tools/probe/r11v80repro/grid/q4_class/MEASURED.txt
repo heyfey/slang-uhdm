@@ -1,0 +1,157 @@
+# q4_class — golden / pristine(15ff66f6) / r11u80 / r11u80.verified, uhdmtopModules
+## GOLDEN
+work@dut.e_int             array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=int_var                                           ts=int_typespec()
+work@dut.e_integ           array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=integer_var                                       ts=integer_typespec()
+work@dut.e_shrt            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=short_int_var                                     ts=short_int_typespec()
+work@dut.e_long            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=long_int_var                                      ts=long_int_typespec()
+work@dut.e_byte            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=byte_var                                          ts=byte_typespec()
+work@dut.e_time            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=time_var                                          ts=time_typespec()
+work@dut.e_bit             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=bit_var                                           ts=bit_typespec()
+work@dut.e_real            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=real_var                                          ts=real_typespec()
+work@dut.e_sreal           array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=short_real_var                                    ts=None
+work@dut.e_str             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=string_var                                        ts=string_typespec()
+work@dut.e_log             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_reg             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_pk2             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_tdbit           array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=bit_var                                           ts=bit_typespec(b_t)
+work@dut.e_tdw             array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.e_sb              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=struct_var                                        ts=struct_typespec(pq4::sb_t)
+work@dut.e_ei              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::ei_t)
+work@dut.e_el              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::el_t)
+work@dut.e_nel             array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::el_t)
+work@dut.e_sn              array_net  Size=2                     ts=None                       | elem=struct_net     Name=e_sn                          ts=struct_typespec(pq4::sn_t)
+work@dut.e_nsn             array_net  Size=2                     ts=None                       | elem=struct_net     Name=e_nsn NetType=1               ts=struct_typespec(pq4::sn_t)
+## PRISTINE
+work@dut.e_int             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=int_typespec()
+work@dut.e_integ           array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=integer_typespec()
+work@dut.e_shrt            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=short_int_typespec()
+work@dut.e_long            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=long_int_typespec()
+work@dut.e_byte            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=byte_typespec()
+work@dut.e_time            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=time_typespec()
+work@dut.e_bit             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=bit_typespec()
+work@dut.e_real            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=real_typespec()
+work@dut.e_sreal           array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=short_real_typespec()
+work@dut.e_str             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=string_typespec()
+work@dut.e_log             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_reg             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_pk2             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_tdbit           array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=bit_typespec(b_t)
+work@dut.e_tdw             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.e_sn              array_net  Size=2                     ts=None                       | elem=struct_net     Name=e_sn                          ts=struct_typespec(pq4::sn_t)
+work@dut.e_nsn             array_net  Size=2                     ts=None                       | elem=struct_net     Name=e_nsn                         ts=struct_typespec(pq4::sn_t)
+## r11u80 (implementer)
+work@dut.e_int             array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=int_var                                           ts=int_typespec()
+work@dut.e_integ           array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=integer_var                                       ts=integer_typespec()
+work@dut.e_shrt            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=short_int_var                                     ts=short_int_typespec()
+work@dut.e_long            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=long_int_var                                      ts=long_int_typespec()
+work@dut.e_byte            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=byte_var                                          ts=byte_typespec()
+work@dut.e_time            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=time_var                                          ts=time_typespec()
+work@dut.e_bit             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=bit_var                                           ts=bit_typespec()
+work@dut.e_real            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=real_var                                          ts=real_typespec()
+work@dut.e_sreal           array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=short_real_var                                    ts=None
+work@dut.e_str             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=string_var                                        ts=string_typespec()
+work@dut.e_log             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_reg             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_pk2             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_tdbit           array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=bit_var                                           ts=bit_typespec(b_t)
+work@dut.e_tdw             array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.e_sb              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=struct_var                                        ts=struct_typespec(pq4::sb_t)
+work@dut.e_ei              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::ei_t)
+work@dut.e_el              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::el_t)
+work@dut.e_nel             array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::el_t)
+work@dut.e_sn              array_net  Size=2                     ts=None                       | elem=struct_net     Name=e_sn                          ts=struct_typespec(pq4::sn_t)
+work@dut.e_nsn             array_net  Size=2                     ts=None                       | elem=struct_net     Name=e_nsn NetType=1               ts=struct_typespec(pq4::sn_t)
+## r11u80.verified
+work@dut.e_int             array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=int_var                                           ts=int_typespec()
+work@dut.e_integ           array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=integer_var                                       ts=integer_typespec()
+work@dut.e_shrt            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=short_int_var                                     ts=short_int_typespec()
+work@dut.e_long            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=long_int_var                                      ts=long_int_typespec()
+work@dut.e_byte            array_var  Size=2 Signed=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=byte_var                                          ts=byte_typespec()
+work@dut.e_time            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=time_var                                          ts=time_typespec()
+work@dut.e_bit             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=bit_var                                           ts=bit_typespec()
+work@dut.e_real            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=real_var                                          ts=real_typespec()
+work@dut.e_sreal           array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=short_real_var                                    ts=None
+work@dut.e_str             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=string_var                                        ts=string_typespec()
+work@dut.e_log             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_reg             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_pk2             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.e_tdbit           array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=bit_var                                           ts=bit_typespec(b_t)
+work@dut.e_tdw             array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.e_sb              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=struct_var                                        ts=struct_typespec(pq4::sb_t)
+work@dut.e_ei              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::ei_t)
+work@dut.e_el              array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::el_t)
+work@dut.e_nel             array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=enum_var                                          ts=enum_typespec(pq4::el_t)
+work@dut.e_sn              array_net  Size=2                     ts=None                       | elem=struct_net     Name=e_sn                          ts=struct_typespec(pq4::sn_t)
+work@dut.e_nsn             array_net  Size=2                     ts=None                       | elem=struct_net     Name=e_nsn NetType=1               ts=struct_typespec(pq4::sn_t)
+## DEF VIEW (uhdmallModules) golden / pristine / verified — vpiNetType
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.e_int           logic_net    ts=int_typespec()               Name=e_int
+uhdmallModules work@dut.e_integ         logic_net    ts=integer_typespec()           Name=e_integ
+uhdmallModules work@dut.e_shrt          logic_net    ts=short_int_typespec()         Name=e_shrt
+uhdmallModules work@dut.e_long          logic_net    ts=long_int_typespec()          Name=e_long
+uhdmallModules work@dut.e_byte          logic_net    ts=byte_typespec()              Name=e_byte
+uhdmallModules work@dut.e_time          logic_net    ts=time_typespec()              Name=e_time
+uhdmallModules work@dut.e_bit           logic_net    ts=bit_typespec()               Name=e_bit
+uhdmallModules work@dut.e_real          logic_net    ts=real_typespec()              Name=e_real
+uhdmallModules work@dut.e_sreal         logic_net    ts=short_real_typespec()        Name=e_sreal
+uhdmallModules work@dut.e_str           logic_net    ts=string_typespec()            Name=e_str
+uhdmallModules work@dut.e_log           logic_net    ts=logic_typespec()             Name=e_log NetType=36
+uhdmallModules work@dut.e_reg           logic_net    ts=logic_typespec()             Name=e_reg NetType=48
+uhdmallModules work@dut.e_pk2           logic_net    ts=logic_typespec()             Name=e_pk2 NetType=36
+uhdmallModules work@dut.e_tdbit         logic_net    ts=bit_typespec(pq4::b_t)       Name=e_tdbit
+uhdmallModules work@dut.e_tdw           logic_net    ts=logic_typespec(pq4::w_t)     Name=e_tdw NetType=36
+uhdmallModules work@dut.e_sb            logic_net    ts=struct_typespec(pq4::sb_t)   Name=e_sb
+uhdmallModules work@dut.e_sn            logic_net    ts=struct_typespec(pq4::sn_t)   Name=e_sn
+uhdmallModules work@dut.e_nsn           logic_net    ts=struct_typespec(pq4::sn_t)   Name=e_nsn NetType=1
+uhdmallModules work@dut.e_ei            logic_net    ts=enum_typespec(pq4::ei_t)     Name=e_ei
+uhdmallModules work@dut.e_el            logic_net    ts=enum_typespec(pq4::el_t)     Name=e_el
+uhdmallModules work@dut.e_nel           logic_net    ts=enum_typespec(pq4::el_t)     Name=e_nel NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36
+--
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.e_int           logic_net    ts=int_typespec()               Name=e_int
+uhdmallModules work@dut.e_integ         logic_net    ts=integer_typespec()           Name=e_integ
+uhdmallModules work@dut.e_shrt          logic_net    ts=short_int_typespec()         Name=e_shrt
+uhdmallModules work@dut.e_long          logic_net    ts=long_int_typespec()          Name=e_long
+uhdmallModules work@dut.e_byte          logic_net    ts=byte_typespec()              Name=e_byte
+uhdmallModules work@dut.e_time          logic_net    ts=time_typespec()              Name=e_time
+uhdmallModules work@dut.e_bit           logic_net    ts=bit_typespec()               Name=e_bit
+uhdmallModules work@dut.e_real          logic_net    ts=real_typespec()              Name=e_real
+uhdmallModules work@dut.e_sreal         logic_net    ts=short_real_typespec()        Name=e_sreal
+uhdmallModules work@dut.e_str           logic_net    ts=string_typespec()            Name=e_str
+uhdmallModules work@dut.e_log           logic_net    ts=logic_typespec()             Name=e_log NetType=36
+uhdmallModules work@dut.e_reg           logic_net    ts=logic_typespec()             Name=e_reg NetType=48
+uhdmallModules work@dut.e_pk2           logic_net    ts=logic_typespec()             Name=e_pk2 NetType=36
+uhdmallModules work@dut.e_tdbit         logic_net    ts=bit_typespec(pq4::b_t)       Name=e_tdbit
+uhdmallModules work@dut.e_tdw           logic_net    ts=logic_typespec(pq4::w_t)     Name=e_tdw
+uhdmallModules work@dut.e_sb            logic_net    ts=struct_typespec(pq4::sb_t)   Name=e_sb
+uhdmallModules work@dut.e_sn            logic_net    ts=struct_typespec(pq4::sn_t)   Name=e_sn
+uhdmallModules work@dut.e_nsn           logic_net    ts=struct_typespec(pq4::sn_t)   Name=e_nsn NetType=1
+uhdmallModules work@dut.e_ei            logic_net    ts=enum_typespec(pq4::ei_t)     Name=e_ei
+uhdmallModules work@dut.e_el            logic_net    ts=enum_typespec(pq4::el_t)     Name=e_el
+uhdmallModules work@dut.e_nel           logic_net    ts=enum_typespec(pq4::el_t)     Name=e_nel NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36
+--
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.e_int           logic_net    ts=int_typespec()               Name=e_int
+uhdmallModules work@dut.e_integ         logic_net    ts=integer_typespec()           Name=e_integ
+uhdmallModules work@dut.e_shrt          logic_net    ts=short_int_typespec()         Name=e_shrt
+uhdmallModules work@dut.e_long          logic_net    ts=long_int_typespec()          Name=e_long
+uhdmallModules work@dut.e_byte          logic_net    ts=byte_typespec()              Name=e_byte
+uhdmallModules work@dut.e_time          logic_net    ts=time_typespec()              Name=e_time
+uhdmallModules work@dut.e_bit           logic_net    ts=bit_typespec()               Name=e_bit
+uhdmallModules work@dut.e_real          logic_net    ts=real_typespec()              Name=e_real
+uhdmallModules work@dut.e_sreal         logic_net    ts=short_real_typespec()        Name=e_sreal
+uhdmallModules work@dut.e_str           logic_net    ts=string_typespec()            Name=e_str
+uhdmallModules work@dut.e_log           logic_net    ts=logic_typespec()             Name=e_log NetType=36
+uhdmallModules work@dut.e_reg           logic_net    ts=logic_typespec()             Name=e_reg NetType=48
+uhdmallModules work@dut.e_pk2           logic_net    ts=logic_typespec()             Name=e_pk2 NetType=36
+uhdmallModules work@dut.e_tdbit         logic_net    ts=bit_typespec(pq4::b_t)       Name=e_tdbit
+uhdmallModules work@dut.e_tdw           logic_net    ts=logic_typespec(pq4::w_t)     Name=e_tdw
+uhdmallModules work@dut.e_sb            logic_net    ts=struct_typespec(pq4::sb_t)   Name=e_sb
+uhdmallModules work@dut.e_sn            logic_net    ts=struct_typespec(pq4::sn_t)   Name=e_sn
+uhdmallModules work@dut.e_nsn           logic_net    ts=struct_typespec(pq4::sn_t)   Name=e_nsn NetType=1
+uhdmallModules work@dut.e_ei            logic_net    ts=enum_typespec(pq4::ei_t)     Name=e_ei
+uhdmallModules work@dut.e_el            logic_net    ts=enum_typespec(pq4::el_t)     Name=e_el
+uhdmallModules work@dut.e_nel           logic_net    ts=enum_typespec(pq4::el_t)     Name=e_nel NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36

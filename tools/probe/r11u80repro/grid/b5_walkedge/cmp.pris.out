@@ -1,0 +1,87 @@
+decompile:
+named_begin: (work@ifc.gi), id:70
+|vpiParent:
+\_gen_for: , id:30
+|vpiName:gi
+|vpiFullName:work@ifc.gi
+|vpiStmt:
+\_assignment: , id:53, line:7:18, endln:7:22
+  |vpiParent:
+  \_named_begin: (work@ifc.gi), id:70
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiLhs:
+  \_logic_var: (work@ifc.gi.i_ns), id:51, line:7:18, endln:7:22
+    |vpiParent:
+    \_assignment: , id:53, line:7:18, endln:7:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ifc.gi.i_ns), id:52
+      |vpiParent:
+      \_logic_var: (work@ifc.gi.i_ns), id:51, line:7:18, endln:7:22
+      |vpiFullName:work@ifc.gi.i_ns
+      |vpiActual:
+      \_logic_typespec: , id:50, line:7:5, endln:7:17
+    |vpiName:i_ns
+    |vpiFullName:work@ifc.gi.i_ns
+|vpiStmt:
+\_assignment: , id:63, line:8:18, endln:8:22
+  |vpiParent:
+  \_named_begin: (work@ifc.gi), id:70
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiLhs:
+  \_logic_var: (work@ifc.gi.i_up), id:61, line:8:18, endln:8:22
+    |vpiParent:
+    \_assignment: , id:63, line:8:18, endln:8:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ifc.gi.i_up), id:62
+      |vpiParent:
+      \_logic_var: (work@ifc.gi.i_up), id:61, line:8:18, endln:8:22
+      |vpiFullName:work@ifc.gi.i_up
+      |vpiActual:
+      \_logic_typespec: , id:60, line:8:5, endln:8:17
+    |vpiName:i_up
+    |vpiFullName:work@ifc.gi.i_up
+|vpiStmt:
+\_cont_assign: , id:65, line:9:12, endln:9:24
+  |vpiParent:
+  \_named_begin: (work@ifc.gi), id:70
+  |vpiRhs:
+  \_constant: , id:66, line:9:19, endln:9:24
+    |vpiParent:
+    \_cont_assign: , id:65, line:9:12, endln:9:24
+    |vpiDecompile:32'd7
+    |vpiSize:32
+    |DEC:7
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@ifc.gi.i_ns), id:64, line:9:12, endln:9:16
+    |vpiParent:
+    \_cont_assign: , id:65, line:9:12, endln:9:24
+    |vpiName:i_ns
+    |vpiFullName:work@ifc.gi.i_ns
+|vpiStmt:
+\_cont_assign: , id:68, line:10:12, endln:10:24
+  |vpiParent:
+  \_named_begin: (work@ifc.gi), id:70
+  |vpiRhs:
+  \_constant: , id:69, line:10:19, endln:10:24
+    |vpiParent:
+    \_cont_assign: , id:68, line:10:12, endln:10:24
+    |vpiDecompile:32'd7
+    |vpiSize:32
+    |DEC:7
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@ifc.gi.i_up), id:67, line:10:12, endln:10:16
+    |vpiParent:
+    \_cont_assign: , id:68, line:10:12, endln:10:24
+    |vpiName:i_up
+    |vpiFullName:work@ifc.gi.i_up
+
+decompile:
+begin: (work@ifc), id:53
+|vpiParent:
+\_gen_for: , id:39
+|vpiFullName:work@ifc
+

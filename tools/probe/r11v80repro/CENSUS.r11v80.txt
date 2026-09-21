@@ -1,0 +1,31 @@
+# r11v80 census — the counter's own rows, both corpora, both modes,
+# run with the VERIFIED binary.  Full TSVs are session scratch; this is
+# the summary and the positive control.
+
+uhdm2rtlil  9480 cell rows   R11U69CELL 5588  R11U74BIND 3892
+            R11U77HOIST 0   R11U77DEFNT 0
+surelog    41398 cell rows   R11U69CELL 28136 R11U74BIND 12574
+            R11U77HOIST 278 (ALL kind=0 Pre77; 0 on kinds 5-8)
+            R11U77DEFNT 410 (0 MOVED)
+
+the nine (test,mode) pairs carrying hoisted entries:
+  ApbSlave	default
+  ApbSlave	testflags
+  PackageNet	default
+  PackageNet	testflags
+  Scoreboard	default
+  SeqDriver	default
+  SeqDriver	testflags
+  SimpleUVM	default
+  SimpleUVM	testflags
+
+POSITIVE CONTROL — same counter, same binary, this verifier's grid:
+  q1a_netchain  HOISTKINDS[      7 kind=6 ] DEFNT_MOVED=7
+  q1b_varchain  HOISTKINDS[      4 kind=5       2 kind=6 ] DEFNT_MOVED=0
+  q2_dims  HOISTKINDS[     12 kind=5       2 kind=6 ] DEFNT_MOVED=14
+  q3_varnt2  HOISTKINDS[     15 kind=0       7 kind=5       1 kind=6 ] DEFNT_MOVED=12
+  q4_class  HOISTKINDS[     19 kind=5       2 kind=6 ] DEFNT_MOVED=5
+  q5_tdarr  HOISTKINDS[      1 kind=6       1 kind=7       7 kind=8 ] DEFNT_MOVED=4
+  q6_twohop  HOISTKINDS[     15 kind=5       2 kind=6 ] DEFNT_MOVED=5
+  q7_mixed  HOISTKINDS[      4 kind=5 ] DEFNT_MOVED=3
+  q8_sizefaces  HOISTKINDS[     14 kind=5       2 kind=6 ] DEFNT_MOVED=16

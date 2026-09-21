@@ -1354,6 +1354,96 @@ static bool cellDbg77() {
     return v;
 }
 
+// ===========================================================================
+// § caImportedPkgHoistUnpackedBuilder80 / § caImportedPkgDefNetTypeVar80
+// (r11u80) — r11u77's two residues, batched.  Two switches, each droppable
+// ALONE: `R11U80_HOLDER_OFF=1` drops the unpacked HOLDER BUILDER (every
+// spelling falls back to r11u77's `ArraySkip`/`ArrayVar` reading, byte for
+// byte); `R11U80_VARNT_OFF=1` drops the `var`-qualifier arm of the def-view
+// `vpiNetType` rule; `R11U80_OFF=1` drops both.
+static bool holderOff80() {
+    static const bool v = getenv("R11U80_HOLDER_OFF") != nullptr ||
+                          getenv("R11U80_OFF") != nullptr;
+    return v;
+}
+static bool varNtOff80() {
+    static const bool v = getenv("R11U80_VARNT_OFF") != nullptr ||
+                          getenv("R11U80_OFF") != nullptr;
+    return v;
+}
+
+// § caImportedPkgHoistUnpackedBuilder80, PART 1 — WHICH GRAMMAR RULE THE
+// DECLARATION MATCHED.  A package item written `<type-identifier> <name>;`
+// matches `net_declaration` as well as `data_declaration` and Surelog's
+// parser takes the NET one (`compileNetDeclaration` -> `sig->setStatic()`
+// unconditionally, CompileHelper.cpp:2186/2200), while a keyword-spelled type
+// or a `const`/`var` qualifier forces the DATA one, whose
+// `is_static = (component is ModuleDefinition || Program)`
+// (CompileHelper.cpp:2294) is FALSE for a package.
+//
+// This is § packageVarAutomaticIsDataDeclShape26's predicate, read on the
+// HOISTED symbol.  It is reproduced here rather than shared because § 26 lives
+// in `emitPackageVar` (src/ParamEmit.cpp) and decides a SCALAR's
+// `vpiAutomatic`; this one decides an unpacked HOLDER's `vpiAutomatic` AND —
+// the term § 26 has no use for — `elabSignal`'s `!sig->isStatic()` arm of the
+// net-or-variable test.  § 26's `newInit26` term is left out on purpose: a
+// `new` initializer is not spellable on a FIXED-SIZE unpacked array, which is
+// the only shape that reaches here.
+static bool pkgDataDeclRoad80(const Symbol& sym80, bool* staticKw80 = nullptr,
+                              bool* autoKw80 = nullptr, bool* constKw80 = nullptr) {
+    if (staticKw80)
+        *staticKw80 = false;
+    if (autoKw80)
+        *autoKw80 = false;
+    if (constKw80)
+        *constKw80 = false;
+    if (sym80.kind == SymbolKind::Net)
+        return false;
+    auto* dsyn80 = sym80.getSyntax();
+    if (!dsyn80 || dsyn80->kind != syntax::SyntaxKind::Declarator)
+        return false;
+    const syntax::SyntaxNode* par80 = dsyn80->parent;
+    if (!par80 || par80->kind != syntax::SyntaxKind::DataDeclaration)
+        return false;
+    auto& dd80 = par80->as<syntax::DataDeclarationSyntax>();
+    bool qual80 = false;
+    for (auto md80 : dd80.modifiers) {
+        if (md80.kind == parsing::TokenKind::ConstKeyword) {
+            qual80 = true;
+            if (constKw80)
+                *constKw80 = true;
+        }
+        else if (md80.kind == parsing::TokenKind::VarKeyword)
+            qual80 = true;
+        else if (md80.kind == parsing::TokenKind::StaticKeyword) {
+            if (staticKw80)
+                *staticKw80 = true;
+        }
+        else if (md80.kind == parsing::TokenKind::AutomaticKeyword) {
+            if (autoKw80)
+                *autoKw80 = true;
+        }
+    }
+    return dd80.type->kind != syntax::SyntaxKind::NamedType || qual80;
+}
+
+// Does the declaration carry the `var` keyword?  § caImportedPkgDefNetTypeVar80
+// needs it alone, without the `const` term `pkgDataDeclRoad80` folds in.
+static bool pkgVarKeyword80(const Symbol& sym80) {
+    if (sym80.kind == SymbolKind::Net)
+        return false;
+    auto* dsyn80 = sym80.getSyntax();
+    if (!dsyn80 || dsyn80->kind != syntax::SyntaxKind::Declarator)
+        return false;
+    const syntax::SyntaxNode* par80 = dsyn80->parent;
+    if (!par80 || par80->kind != syntax::SyntaxKind::DataDeclaration)
+        return false;
+    for (auto md80 : par80->as<syntax::DataDeclarationSyntax>().modifiers)
+        if (md80.kind == parsing::TokenKind::VarKeyword)
+            return true;
+    return false;
+}
+
 // The package NET's own keyword, mapped the way `UhdmWriter::getVpiNetType`
 // maps Surelog's `Signal::getType()` (UhdmWriter.cpp:572-620).  Measured
 // golden-side on `y5_defnettype`, every keyword its own row: wire 1, wand 2,
@@ -1390,6 +1480,36 @@ static int32_t pkgNetKeywordVpi77(const slang::ast::NetSymbol& ns77) {
     }
 }
 
+// The keyword read itself, lifted out of `pkgVarDeclNetType77` VERBATIM by
+// § caImportedPkgHoistUnpackedBuilder80 so the ONE-HOP seam is one piece of
+// code: the def-view rule reads it on the DECLARED type, and the hoisted
+// unpacked holder's net-or-variable test reads the same seam on the ELEMENT
+// type (an unpacked array's declared type is the ARRAY, so the alias the hop
+// has to see is the element's).  @a t77 must be the type the syntax names.
+static int32_t pkgDeclBaseKeyword77(const syntax::SyntaxNode* tsyn77,
+                                    const Type& t77) {
+    auto keyword77 = [](const syntax::SyntaxNode* ts77) -> int32_t {
+        if (!ts77)
+            return 0;
+        if (ts77->kind == syntax::SyntaxKind::LogicType)
+            return vpiNet;
+        if (ts77->kind == syntax::SyntaxKind::RegType)
+            return vpiReg;
+        return 0;
+    };
+    if (tsyn77 && tsyn77->kind == syntax::SyntaxKind::NamedType) {
+        // ONE hop: the named typedef's OWN written base type, never the
+        // canonical type behind a chain of them.
+        if (t77.kind != SymbolKind::TypeAlias)
+            return 0;
+        auto* asyn77 = t77.as<TypeAliasType>().getSyntax();
+        if (!asyn77 || asyn77->kind != syntax::SyntaxKind::TypedefDeclaration)
+            return 0;
+        return keyword77(asyn77->as<syntax::TypedefDeclarationSyntax>().type);
+    }
+    return keyword77(tsyn77);
+}
+
 // § caImportedPkgDefNetType77 — THE DEF-VIEW HOISTED NET'S `vpiNetType` IS
 // THE DECLARATION'S WRITTEN BASE KEYWORD, RESOLVED THROUGH EXACTLY ONE
 // TYPEDEF HOP.  `writeNets` stamps `getVpiNetType(orig_net->getType())` and
@@ -1410,31 +1530,30 @@ static int32_t pkgNetKeywordVpi77(const slang::ast::NetSymbol& ns77) {
 // rule is not an inference: `word2_t`'s own typedef node is a NamedType, and
 // Surelog's `getVpiNetType` has no arm for one.
 static int32_t pkgVarDeclNetType77(const Symbol& sym77) {
-    auto keyword77 = [](const syntax::SyntaxNode* ts77) -> int32_t {
-        if (!ts77)
-            return 0;
-        if (ts77->kind == syntax::SyntaxKind::LogicType)
-            return vpiNet;
-        if (ts77->kind == syntax::SyntaxKind::RegType)
-            return vpiReg;
-        return 0;
-    };
     auto* dt77 = sym77.getDeclaredType();
     if (!dt77)
         return 0;
-    auto* tsyn77 = dt77->getTypeSyntax();
-    if (tsyn77 && tsyn77->kind == syntax::SyntaxKind::NamedType) {
-        // ONE hop: the named typedef's OWN written base type, never the
-        // canonical type behind a chain of them.
-        auto& t77 = dt77->getType();
-        if (t77.kind != SymbolKind::TypeAlias)
-            return 0;
-        auto* asyn77 = t77.as<TypeAliasType>().getSyntax();
-        if (!asyn77 || asyn77->kind != syntax::SyntaxKind::TypedefDeclaration)
-            return 0;
-        return keyword77(asyn77->as<syntax::TypedefDeclarationSyntax>().type);
-    }
-    return keyword77(tsyn77);
+    // § caImportedPkgDefNetTypeVar80 (r11u80) — A `var`-QUALIFIED DECLARATION
+    // IS NOT A NET TYPE, WHATEVER ITS BASE KEYWORD.  `writeNets` stamps
+    // `getVpiNetType(orig_net->getType())` (UhdmWriter.cpp:891) and
+    // `Signal::getType()` is the node `compileDataDeclaration` built the
+    // Signal from — but the `var` arm hops one level first
+    // (CompileHelper.cpp:2341-2344, `variable_declaration = Sibling(var_type)`)
+    // so `Child(data_type)` lands past the base-keyword node and the Signal
+    // carries `slNoType`, for which `getVpiNetType` answers 0.
+    //
+    // MEASURED, arm `z2_varnt`, one real Surelog golden, the var qualifier
+    // against every base keyword the rule can answer for, each with its
+    // unqualified control beside it:
+    //     logic 36 / VAR logic NONE      reg 48 / VAR reg NONE
+    //     w_t   36 / VAR w_t   NONE      r_t 48 / VAR r_t NONE
+    //     const logic 36  <- `const` alone does NOT clear it
+    //     const var logic NONE           var bare/int/bit/s_t NONE
+    // and the fifteen spellings of `vi_defnt` are unmoved but `d_varlog`,
+    // which was this rule's one disagreement with golden (r11v77 residue 2).
+    if (!varNtOff80() && pkgVarKeyword80(sym77))
+        return 0;
+    return pkgDeclBaseKeyword77(dt77->getTypeSyntax(), dt77->getType());
 }
 
 // § caImportedPkgHoistKindTable77 — GOLDEN'S KIND TABLE FOR A HOISTED HOLDER,
@@ -1482,7 +1601,206 @@ enum class HoistKind77 {
     ArrayVar,    // an unpacked array of a VARIABLE shape
     ArrayNet,    // an unpacked array of a NET shape
     ArraySkip,   // an unpacked array this builder does NOT write (see below)
+    ArrayTdEmpty,  // § 80: a TYPEDEF'd unpacked array — golden's EMPTY holder
 };
+
+// § caImportedPkgHoistUnpackedSizeFolds80 (r11v80) — THE SIZE-STYLE DIMENSION
+// CONTRIBUTES ONE UNLESS ITS EXPRESSION FOLDS WITHOUT READING A NAME.
+//
+// `compileRanges`' "specified by size" branch evaluates the dimension with
+// `m_exprBuilder.evalExpr(fC, rexpr, instance, true)` and multiplies the
+// running product ONLY `if (rightV->isValid())`
+// (CompileExpression.cpp:4062-4082); the "specified by range" branch instead
+// runs `reduceExpr` on BOTH bounds and `eval.get_value`, which does resolve
+// parameters.  At the package-import hoist site the instance handed to
+// `evalExpr` cannot see a package parameter, so EVERY size-style dim that
+// names one contributes 1 while a literal-only expression folds.
+//
+// MEASURED, one real Surelog golden per row, grid `q8_sizefaces` (and the
+// two-dimensional faces on `q2_dims`):
+//   [4] 4   [2*2] 4   [3+1] 4   [(4)] 4        <- literal, folds
+//   [PN] 1  [LN] 1    [PN*2] 1  [LM*2] 1       <- names a param/localparam
+//   [0:3] 4   [PN-1:0] 3   [LN-1:0] 5          <- RANGE form always folds
+//   [PN][0:1] 2   [0:1][PN] 2   [PN][LN] 1     <- the product of the above
+//   wire [PN] 1   wire [PN][0:1] 2             <- the net side, identically
+//
+// This is § fixedUnpackedCount6's quirk, and r11u80 read it as absent here
+// because its only arm was `[2*2]`, which folds on BOTH sites.  The two laws
+// still differ: § 6 keys "param-sized" on `kind != IntegerLiteralExpression`,
+// which would give `[2*2]` ONE, and golden reads FOUR at this site.
+static bool hoistSizeExprFolds80(const syntax::ExpressionSyntax* ex80) {
+    if (!ex80)
+        return false;
+    bool named80 = false;
+    std::function<void(const syntax::SyntaxNode&)> walk80 =
+        [&](const syntax::SyntaxNode& n80) {
+            for (size_t i80 = 0, e80 = n80.getChildCount(); i80 < e80; ++i80) {
+                if (auto* c80 = n80.childNode(i80))
+                    walk80(*c80);
+                else if (auto t80 = n80.childToken(i80);
+                         t80.kind == parsing::TokenKind::Identifier ||
+                         t80.kind == parsing::TokenKind::SystemIdentifier ||
+                         t80.kind == parsing::TokenKind::Dollar)
+                    named80 = true;
+            }
+        };
+    walk80(*ex80);
+    return !named80;
+}
+
+// The flattened `unpackedSize` golden writes on the holder: the product over
+// the WRITTEN declarator dimensions, each contributing its width except a
+// size-style one whose expression names something (see above).
+static int32_t hoistUnpackedSize80(const Symbol& sym80, const Type& ct80) {
+    const syntax::SyntaxNode* dsyn80 = sym80.getSyntax();
+    if (!dsyn80 || dsyn80->kind != syntax::SyntaxKind::Declarator)
+        return 1;
+    auto& dims80 = dsyn80->as<syntax::DeclaratorSyntax>().dimensions;
+    int32_t n80 = 1;
+    const Type* w80 = &ct80;
+    for (size_t d80 = 0, nd80 = dims80.size(); d80 < nd80; ++d80) {
+        auto& wc80 = w80->getCanonicalType();
+        if (wc80.kind != SymbolKind::FixedSizeUnpackedArrayType)
+            break;
+        auto& ua80 = wc80.as<FixedSizeUnpackedArrayType>();
+        bool folds80 = true;
+        if (auto* sp80 = dims80[d80]->specifier;
+            sp80 && sp80->kind == syntax::SyntaxKind::RangeDimensionSpecifier)
+            if (auto* bs80 = sp80->as<syntax::RangeDimensionSpecifierSyntax>()
+                                 .selector->as_if<syntax::BitSelectSyntax>())
+                folds80 = hoistSizeExprFolds80(bs80->expr);
+        if (folds80)
+            n80 *= (int32_t)ua80.range.width();
+        w80 = &ua80.elementType;
+    }
+    return n80;
+}
+
+// § caImportedPkgHoistUnpackedBuilder80, PART 2 — THE ELEMENT IS THE ELEMENT
+// TYPESPEC'S OWN KIND.  `makeVar_` builds the element from the typespec class
+// FIRST (ElaborationStep.cpp:1930-2023, the `tpstype` switch) and only then
+// wraps it (:2171), so the `vpiReg` object under an `array_var` is the very
+// object the SCALAR spelling of the same type would be.  Answers
+// `ElemVar80::None` for an element class this builder does not mint, and the
+// caller then writes NO holder at all — GOLDEN WRITES NOTHING ON A MISS, and a
+// holder carrying an element of the wrong class is the same invention.
+//
+// MEASURED, one real Surelog golden per row, grid `z1_arrgrid` +
+// `vh_arrelem` + `vb_unpackedfaces`, read off the `vpiReg` child:
+//   int -> int_var      integer -> integer_var    shortint -> short_int_var
+//   longint -> long_int_var   byte -> byte_var    time -> time_var
+//   real -> real_var    shortreal -> short_real_var   string -> string_var
+//   bit -> bit_var      logic/reg -> logic_var
+//   a packed struct -> struct_var   an enum -> enum_var
+//   a packed union -> union_var
+enum class ElemVar80 {
+    None,   // a class this builder does not mint: write NO holder at all
+    Logic, Bit, Int, Integer, ShortInt, LongInt, Byte, Time,
+    Real, ShortReal, String, Enum, Struct, Union,
+};
+
+static ElemVar80 hoistElemClass80(const Type& elem80) {
+    auto& ec80 = elem80.getCanonicalType();
+    switch (ec80.kind) {
+        case SymbolKind::PredefinedIntegerType:
+            switch (ec80.as<PredefinedIntegerType>().integerKind) {
+                case PredefinedIntegerType::Int:
+                    return ElemVar80::Int;
+                case PredefinedIntegerType::Integer:
+                    return ElemVar80::Integer;
+                case PredefinedIntegerType::ShortInt:
+                    return ElemVar80::ShortInt;
+                case PredefinedIntegerType::LongInt:
+                    return ElemVar80::LongInt;
+                case PredefinedIntegerType::Byte:
+                    return ElemVar80::Byte;
+                case PredefinedIntegerType::Time:
+                    return ElemVar80::Time;
+            }
+            return ElemVar80::None;
+        case SymbolKind::FloatingType:
+            return ec80.as<FloatingType>().floatKind == FloatingType::ShortReal
+                       ? ElemVar80::ShortReal
+                       : ElemVar80::Real;
+        case SymbolKind::StringType:
+            return ElemVar80::String;
+        case SymbolKind::EnumType:
+            return ElemVar80::Enum;
+        case SymbolKind::PackedStructType:
+            return ElemVar80::Struct;
+        case SymbolKind::PackedUnionType:
+            return ElemVar80::Union;
+        case SymbolKind::ScalarType:
+        case SymbolKind::PackedArrayType: {
+            // A packed VECTOR is its LEAF's class carrying the dims
+            // (`compileTypespec`'s logic arm); a packed array of an AGGREGATE
+            // is not a shape this builder was measured on, so it declines.
+            const Type* lf80 = &ec80;
+            while (lf80->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                lf80 = &lf80->getCanonicalType()
+                            .as<PackedArrayType>()
+                            .elementType;
+            if (lf80->getCanonicalType().kind != SymbolKind::ScalarType)
+                return ElemVar80::None;
+            return ec80.isFourState() ? ElemVar80::Logic : ElemVar80::Bit;
+        }
+        default:
+            return ElemVar80::None;
+    }
+}
+
+static UHDM::variables* hoistElemVar80(UHDM::Serializer& s80,
+                                       ElemVar80 k80) {
+    switch (k80) {
+        case ElemVar80::Logic:     return s80.MakeLogic_var();
+        case ElemVar80::Bit:       return s80.MakeBit_var();
+        case ElemVar80::Int:       return s80.MakeInt_var();
+        case ElemVar80::Integer:   return s80.MakeInteger_var();
+        case ElemVar80::ShortInt:  return s80.MakeShort_int_var();
+        case ElemVar80::LongInt:   return s80.MakeLong_int_var();
+        case ElemVar80::Byte:      return s80.MakeByte_var();
+        case ElemVar80::Time:      return s80.MakeTime_var();
+        case ElemVar80::Real:      return s80.MakeReal_var();
+        case ElemVar80::ShortReal: return s80.MakeShort_real_var();
+        case ElemVar80::String:    return s80.MakeString_var();
+        case ElemVar80::Enum:      return s80.MakeEnum_var();
+        case ElemVar80::Struct:    return s80.MakeStruct_var();
+        case ElemVar80::Union:     return s80.MakeUnion_var();
+        default:                   return nullptr;
+    }
+}
+
+// § caImportedPkgHoistUnpackedBuilder80, PART 3 — THE WRAPPED ELEMENT'S NAME.
+// `elabSignal` names the element object from the SIGNAL before the wrapper
+// adopts it, and the SPAN Surelog stamps on it is the TYPESPEC'S span, which
+// exists only when the declaration's written type resolves to a type node in
+// exactly ONE typedef hop (`sig->setTypespecId(NetType)`,
+// CompileHelper.cpp:2187 — the same one-hop seam
+// § caImportedPkgDefNetType77 reads).
+//
+// MEASURED, ten rows, `z1_arrgrid` + `vh_arrelem` + `vb_unpackedfaces`, on the
+// `array_net` element:
+//   NAMED (vpiName = the signal, vpiFullName DOUBLED `<holder>.<name>`):
+//     wire sl_t / sl_t / var sl_t / wire un_t / r_t / wire w_t
+//   UNNAMED (no vpiName, vpiFullName = the HOLDER's):
+//     wire [7:0]  (no named type at all)
+//     sl2_t / wire sl2_t  (a typedef CHAIN — the hop lands on another
+//                          NamedType, so there is no type node to span)
+// @a elem80 is the ELEMENT type, not the declared one: an unpacked array's
+// declared type is the ARRAY, so the alias the hop has to see is the
+// element's — the same seam `pkgDeclBaseKeyword77` reads.
+static bool hoistElemNamed80(const syntax::SyntaxNode* tsyn80,
+                             const Type& elem80) {
+    if (!tsyn80 || tsyn80->kind != syntax::SyntaxKind::NamedType)
+        return false;
+    if (elem80.kind != SymbolKind::TypeAlias)
+        return false;
+    auto* asyn80 = elem80.as<TypeAliasType>().getSyntax();
+    if (!asyn80 || asyn80->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto& inner80 = asyn80->as<syntax::TypedefDeclarationSyntax>().type;
+    return inner80->kind != syntax::SyntaxKind::NamedType;
+}
 
 // Does a packed struct's every member read as `logic_typespec` or
 // `struct_typespec` in golden's arena?  elabSignal walks the MEMBERS' own
@@ -1554,28 +1872,137 @@ static HoistKind77 hoistKind77(const Symbol& sym77) {
     // `uhdmallModules`, ten of ten).  GOLDEN WRITES NOTHING ON A MISS, and a
     // holder of the wrong KIND is the same class of invention.
     if (ct77.kind == SymbolKind::FixedSizeUnpackedArrayType) {
-        const Type* el77 =
-            &ct77.as<FixedSizeUnpackedArrayType>().elementType;
-        auto& ec77 = el77->getCanonicalType();
-        // A SECOND unpacked dimension flattens golden's `vpiSize`; a TYPEDEF'd
-        // array carries no declarator dimension, and golden's holder for one
-        // is empty.  Neither is written.
-        if (ec77.kind == SymbolKind::FixedSizeUnpackedArrayType)
+        if (holderOff80()) {
+            // ------------------------------------------------------------
+            // r11u77's reading, kept verbatim behind § 80's switch so the
+            // holder law is droppable alone and its byte delta attributes to
+            // one law and nothing else.
+            const Type* el77 =
+                &ct77.as<FixedSizeUnpackedArrayType>().elementType;
+            auto& ec77 = el77->getCanonicalType();
+            if (ec77.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                return HoistKind77::ArraySkip;
+            const syntax::SyntaxNode* dsyn77 = sym77.getSyntax();
+            if (!dsyn77 || dsyn77->kind != syntax::SyntaxKind::Declarator ||
+                dsyn77->as<syntax::DeclaratorSyntax>().dimensions.empty())
+                return HoistKind77::ArraySkip;
+            if (ec77.kind == SymbolKind::PackedStructType)
+                return structMembersAllLogic77(ec77) ? HoistKind77::ArrayNet
+                                                     : HoistKind77::ArraySkip;
+            if (ec77.kind == SymbolKind::EnumType)
+                return HoistKind77::ArraySkip;
+            if (ec77.kind == SymbolKind::PackedUnionType)
+                return isNetDecl77 ? HoistKind77::ArrayNet
+                                   : HoistKind77::ArraySkip;
+            return isNetDecl77 ? HoistKind77::ArrayNet : HoistKind77::ArrayVar;
+        }
+        // ----------------------------------------------------------------
+        // § caImportedPkgHoistUnpackedBuilder80 — THE WRAPPER IS THE SCALAR
+        // HOLDER WRAPPED, AND NOW THIS BUILDER WRITES IT.
+        //
+        // `elabSignal` decides net-or-variable ONCE, on the whole signal, and
+        // `makeVar_`/the array_net arm then wrap whatever it decided
+        // (NetlistElaboration.cpp:2534-2548 on the net side,
+        // ElaborationStep.cpp:2171-2350 on the variable side).  Its test is
+        // three terms in this order (NetlistElaboration.cpp:2074-2160):
+        //
+        //   (1) `isNet = true` unless the DECLARATION says otherwise:
+        //       `sig->isConst() || sig->isVar() || !sig->isStatic()` — and
+        //       `!isStatic` is exactly the DATA-DECLARATION road
+        //       (`pkgDataDeclRoad80`) at package scope — or the signal's own
+        //       written base keyword is one of the listed non-net spellings
+        //       (StringConst, int/integer/byte/longint/shortint, string, real,
+        //       realtime, shortreal, event, chandle, BIT, enum_base, and
+        //       `logic` when not `var`).  `reg` is NOT on that list, which is
+        //       the whole of the difference between `w_t x[0:1]` and
+        //       `r_t x[0:1]` below.
+        //   (2) a WRITTEN NET KEYWORD forces `isNet` back to TRUE (:2101).
+        //   (3) the ELEMENT TYPESPEC then overrides both (:2133-2160): a
+        //       packed struct whose members are all logic/struct flips it to
+        //       TRUE, and an enum / bit / byte / real / class typespec forces
+        //       it FALSE.  A packed UNION is NOT on that list.
+        //
+        // MEASURED — thirty rows, one real Surelog golden each, `z1_arrgrid`
+        // + `vh_arrelem` + `vb_unpackedfaces`, every one of them reproduced by
+        // exactly this rule:
+        //
+        //   wire [7:0] a[0:1]      array_net    reg [7:0] a[0:1]   array_var
+        //   logic [7:0] a[0:1]     array_var    var logic a[0:1]   array_var
+        //   {wire,} sl_t a[0:1]    array_net    var sl_t a[0:1]    array_NET
+        //   {wire,} si_t a[0:1]    array_var    var si_t a[0:1]    array_var
+        //   {wire,} en_t a[0:1]    array_var    var en_t a[0:1]    array_var
+        //   wire un_t a[0:1]       array_net    un_t a[0:1]        array_var
+        //   w_t a[0:1] (td logic)  array_VAR    r_t a[0:1] (td reg) array_NET
+        //   wire w_t a[0:1]        array_net    b_t a[0:1] (td bit) array_var
+        //   sl2_t a[0:1] (chain)   array_net    si2_t a[0:1] (chain) array_var
+        //   int/bit/byte/real/shortreal/string/shortint/longint/integer/time
+        //                          array_var, each with its OWN element class
+        //
+        // AND THE TWO SPELLINGS WITH NO WRAPPER AT ALL.  A TYPEDEF'd unpacked
+        // array has no declarator dimension, so `compileRanges` returns none
+        // and `makeVar_`'s wrapper never runs: golden's holder is the BARE
+        // `array_var` the typespec arm minted (ElaborationStep.cpp:2022) —
+        // name, fullname, `vpiVisibility 1`, an `array_typespec`, and NOTHING
+        // else: no `vpiSize`, no `vpiRange`, no `vpiReg`, no `vpiArrayType`
+        // (`vb_unpackedfaces` u_td and `z1_arrgrid` z_td2, a 2-D one).  That
+        // absence is TRANSCRIBED, not filled.  A typedef'd array that ALSO
+        // carries a declarator dimension (`arr1_t x[0:2]`) wraps golden's
+        // array_var in a SECOND array_var (`z1_arrgrid` z_tdplus, element
+        // `array_var`) — a shape this builder does not write, so it writes
+        // nothing for it.
+        const syntax::SyntaxNode* dsyn80 = sym77.getSyntax();
+        const bool declDims80 =
+            dsyn80 && dsyn80->kind == syntax::SyntaxKind::Declarator &&
+            !dsyn80->as<syntax::DeclaratorSyntax>().dimensions.empty();
+        if (t77->kind == SymbolKind::TypeAlias)
+            return declDims80 ? HoistKind77::ArraySkip
+                              : HoistKind77::ArrayTdEmpty;
+        if (!declDims80)
             return HoistKind77::ArraySkip;
-        const syntax::SyntaxNode* dsyn77 = sym77.getSyntax();
-        if (!dsyn77 || dsyn77->kind != syntax::SyntaxKind::Declarator ||
-            dsyn77->as<syntax::DeclaratorSyntax>().dimensions.empty())
+        // The LEAF element, one unpacked level down per written dimension.
+        const Type* el80 = &ct77.as<FixedSizeUnpackedArrayType>().elementType;
+        for (size_t d80 = 1,
+                    n80 = dsyn80->as<syntax::DeclaratorSyntax>().dimensions.size();
+             d80 < n80; ++d80) {
+            auto& lc80 = el80->getCanonicalType();
+            if (lc80.kind != SymbolKind::FixedSizeUnpackedArrayType)
+                return HoistKind77::ArraySkip;
+            el80 = &lc80.as<FixedSizeUnpackedArrayType>().elementType;
+        }
+        auto& ec80 = el80->getCanonicalType();
+        // A further unpacked level the declarator did NOT write is a typedef'd
+        // array behind a written one: not this builder's shape.
+        if (ec80.kind == SymbolKind::FixedSizeUnpackedArrayType)
             return HoistKind77::ArraySkip;
-        // The element's own typespec, the SAME table the scalar road reads.
-        if (ec77.kind == SymbolKind::PackedStructType)
-            return structMembersAllLogic77(ec77) ? HoistKind77::ArrayNet
-                                                 : HoistKind77::ArraySkip;
-        if (ec77.kind == SymbolKind::EnumType)
+        // We must be able to mint the element's own class, or we write nothing.
+        if (hoistElemClass80(*el80) == ElemVar80::None)
             return HoistKind77::ArraySkip;
-        if (ec77.kind == SymbolKind::PackedUnionType)
-            return isNetDecl77 ? HoistKind77::ArrayNet
-                               : HoistKind77::ArraySkip;
-        return isNetDecl77 ? HoistKind77::ArrayNet : HoistKind77::ArrayVar;
+        // (1) + (2): the declaration's road.
+        bool isNet80;
+        if (isNetDecl77)
+            isNet80 = true;
+        else if (pkgDataDeclRoad80(sym77))
+            isNet80 = false;
+        else
+            // The net road: the written base keyword through exactly one
+            // typedef hop, and only `reg` keeps `isNet` — read on the ELEMENT
+            // type, because an unpacked array's DECLARED type is the array and
+            // the alias the hop has to see is the element's (`r_t x[0:1]`
+            // array_net vs `w_t x[0:1]` array_var, `z1_arrgrid`).
+            isNet80 = pkgDeclBaseKeyword77(dt77->getTypeSyntax(), *el80) ==
+                      vpiReg;
+        // (3) the ELEMENT typespec overrides both.
+        if (ec80.kind == SymbolKind::PackedStructType)
+            isNet80 = structMembersAllLogic77(ec80);
+        else if (ec80.kind == SymbolKind::EnumType ||
+                 ec80.kind == SymbolKind::ClassType ||
+                 ec80.kind == SymbolKind::FloatingType ||
+                 (ec80.kind == SymbolKind::PredefinedIntegerType &&
+                  ec80.as<PredefinedIntegerType>().integerKind ==
+                      PredefinedIntegerType::Byte) ||
+                 (ec80.isIntegral() && !ec80.isFourState()))
+            isNet80 = false;
+        return isNet80 ? HoistKind77::ArrayNet : HoistKind77::ArrayVar;
     }
     // (2) the typespec overrides the declaration.
     if (ct77.kind == SymbolKind::PackedStructType)
@@ -1685,34 +2112,189 @@ UHDM::any* UhdmExporter::makeHoistHolder77(const Symbol& sym77, int kind77,
             hvars77->push_back(sv77);
             return sv77;
         }
+        case HoistKind77::ArrayTdEmpty: {
+            // § caImportedPkgHoistUnpackedBuilder80 — a TYPEDEF'd unpacked
+            // array has NO declarator dimension, so `compileRanges` hands
+            // `makeVar_` nothing and its wrapper (ElaborationStep.cpp:2171)
+            // never runs: golden's holder is the bare `array_var` the
+            // typespec arm minted (:2022) plus the tail's `vpiVisibility`
+            // (:2416) — and nothing else.  MEASURED on `vb_unpackedfaces`
+            // u_td and `z1_arrgrid` z_td2 (a 2-D one): no vpiSize, no
+            // vpiRange, no vpiReg, no vpiRandType, no vpiArrayType.
+            // GOLDEN WRITES NOTHING ON A MISS — the absence is transcribed.
+            auto* av80 = s.MakeArray_var();
+            av80->VpiName(sym77.name);
+            av80->VpiFullName(full77);
+            av80->VpiParent(m);
+            setLoc(av80, nameSpan(sym77.location, sym77.name));
+            // § caImportedPkgHoistUnpackedTdRoad80 (r11v80) — THE TYPEDEF'd
+            // ARRAY TAKES THE SAME NET-OR-VARIABLE ROAD AS EVERY OTHER
+            // SPELLING, READ ON THE TYPEDEF'S OWN WRITTEN BASE KEYWORD.  A
+            // `reg`-based array typedef keeps `isNet` (paIntVec_TypeReg is
+            // absent from `elabSignal`'s non-net list), so it lands in
+            // `getSimpleVarFromTypespec` (NetlistElaboration.cpp:2505-2512),
+            // which names the object and binds the RESOLVED typespec but
+            // never stamps `vpiVisibility`; every other base goes through
+            // `makeVar_`, whose tail stamps `vpiVisibility 1`
+            // (ElaborationStep.cpp:2416).
+            //
+            // And the typespec is the UNQUALIFIED fresh clone ONLY when the
+            // typedef's own written base is the `logic` keyword; a `reg` base,
+            // a typedef CHAIN, a struct element and a nested array all bind
+            // the HOME PACKAGE'S OWN object, which carries the QUALIFIED name.
+            //
+            // MEASURED, one real Surelog golden per row, arm `q5_tdarr`
+            // (r11u80 had only the two `logic`-based rows, u_td and z_td2,
+            // where the two readings agree):
+            //   arr_t   `typedef logic [7:0] arr_t [0:1]`  vis 1, ts (arr_t)
+            //   arr2d_t `typedef logic [7:0] .. [0:1][0:2]` vis 1, ts (arr2d_t)
+            //   arr2_t  `typedef arr_t arr2_t`             vis 1, ts (pq5::arr2_t)
+            //   arr3_t  a chain of two                     vis 1, ts (pq5::arr3_t)
+            //   arrs_t  `typedef sl_t arrs_t [0:1]`        vis 1, ts (pq5::arrs_t)
+            //   arrn_t  `typedef arr_t arrn_t [0:2]`       vis 1, ts (pq5::arrn_t)
+            //   arrr_t  `typedef reg [7:0] arrr_t [0:1]`   NO vis, ts (pq5::arrr_t)
+            const int32_t tdk80 =
+                pkgDeclBaseKeyword77(dt77->getTypeSyntax(), dt77->getType());
+            if (sym77.kind == SymbolKind::Net || tdk80 != vpiReg)
+                av80->VpiVisibility(1);
+            UHDM::typespec* ats80 = nullptr;
+            if (tdk80 != vpiNet)
+                ats80 = pkgTs77(dt77->getType());
+            if (!ats80) {
+                auto* fresh80 = s.MakeArray_typespec();
+                if (dt77->getType().kind == SymbolKind::TypeAlias)
+                    fresh80->VpiName(dt77->getType().name);
+                ats80 = fresh80;
+            }
+            if (auto* rt80 = refTs77(av80, ats80, full77))
+                av80->Typespec(rt80);
+            hvars77->push_back(av80);
+            return av80;
+        }
         case HoistKind77::ArrayVar: {
             // `makeVar_`'s unpacked wrapper: an EMPTY `array_typespec` (the
-            // imported Signal resolves none), the four flags golden prints,
-            // one `vpiRange` per written dimension, and the element variable
-            // in `vpiReg` carrying the declaration's own base typespec.
+            // imported Signal resolves none), the flags golden prints, one
+            // `vpiRange` per written dimension, and the element variable in
+            // `vpiReg` carrying the declaration's own base typespec.
             auto* av77 = s.MakeArray_var();
             av77->VpiName(sym77.name);
             av77->VpiFullName(full77);
             av77->VpiParent(m);
             setLoc(av77, nameSpan(sym77.location, sym77.name));
             auto& ct77 = dt77->getType().getCanonicalType();
-            av77->VpiSize(
-                (int32_t)ct77.as<FixedSizeUnpackedArrayType>().range.width());
+            const Type* elT80 =
+                &ct77.as<FixedSizeUnpackedArrayType>().elementType;
+            const syntax::SyntaxNode* dsyn80 = sym77.getSyntax();
+            if (dsyn80 && dsyn80->kind != syntax::SyntaxKind::Declarator)
+                dsyn80 = nullptr;
+            // The ELEMENT is one unpacked level down PER WRITTEN DIMENSION:
+            // `logic [7:0] x [0:1][0:2][0:3]` wraps ONE holder round a
+            // `logic_var`, not three round each other (`z1_arrgrid` z_3d,
+            // `vb_unpackedfaces` u_2d).
+            if (dsyn80 && !holderOff80())
+                for (size_t d80 = 1,
+                            nd80 = dsyn80->as<syntax::DeclaratorSyntax>()
+                                       .dimensions.size();
+                     d80 < nd80; ++d80) {
+                    auto& lc80 = elT80->getCanonicalType();
+                    if (lc80.kind != SymbolKind::FixedSizeUnpackedArrayType)
+                        break;
+                    elT80 = &lc80.as<FixedSizeUnpackedArrayType>().elementType;
+                }
+            if (holderOff80()) {
+                av77->VpiSize((int32_t)ct77.as<FixedSizeUnpackedArrayType>()
+                                  .range.width());
+                av77->VpiAutomatic(true);
+            }
+            else {
+                // § caImportedPkgHoistUnpackedBuilder80 — THE FLATTENED SIZE.
+                // `makeVar_` writes `VpiSize(unpackedSize)` and `unpackedSize`
+                // is `compileRanges`' PRODUCT over the whole written dimension
+                // list (NetlistElaboration.cpp:2199-2201), not the outer
+                // width: golden reads SIX for `[0:1][0:2]`
+                // (`vb_unpackedfaces` u_2d) and TWENTY-FOUR for
+                // `[0:1][0:2][0:3]` (`z1_arrgrid` z_3d), and FOUR for the
+                // expression size `[2*2]` and THREE for the descending
+                // `[3:1]`.
+                //
+                // IT IS NOT § fixedUnpackedCount6, but it is not the plain
+                // product either: a SIZE-STYLE dim whose expression NAMES
+                // something contributes ONE (§ caImportedPkgHoistUnpackedSize-
+                // Folds80, r11v80, arm `q8_sizefaces`) while `[2*2]` — the one
+                // expression arm r11u80 had — folds to FOUR on both sites.
+                av77->VpiSize(hoistUnpackedSize80(sym77, ct77));
+                // § caImportedPkgHoistUnpackedBuilder80 — vpiAutomatic is
+                // `!sig->isStatic()` (ElaborationStep.cpp:2408) and only the
+                // DATA-DECLARATION road leaves a package Signal non-static.
+                // MEASURED: `logic`/`reg`/`int`/`bit`/`byte`/`real`/`string`/
+                // `shortint`/`longint`/`integer`/`time`/`shortreal` and every
+                // `var`- or `const`-qualified spelling read 1; a bare
+                // type-identifier spelling (`w_t`, `si2_t`, `b_t`, `arr_t`)
+                // and every net-keyword one read 0.
+                bool stKw80 = false, auKw80 = false;
+                bool dataRoad80 =
+                    pkgDataDeclRoad80(sym77, &stKw80, &auKw80, nullptr);
+                if ((dataRoad80 && !stKw80) || auKw80)
+                    av77->VpiAutomatic(true);
+                // `obj->VpiSigned(sig->isSigned())` (:2400): set by default for
+                // the integer ATOMS and by the written `signed` keyword for a
+                // vector, and NOT by a typedef'd element — which is exactly
+                // § arrayVarSignedWritten8's predicate, so it is CALLED here
+                // too.  MEASURED 1 on int/integer/shortint/longint/byte and on
+                // `logic signed [7:0]`; absent on bit/logic/time/real/
+                // shortreal/string and on the `b_t`/`w_t` typedefs.
+                {
+                    const Type* lf80 = elT80;
+                    while (lf80->getCanonicalType().kind ==
+                           SymbolKind::FixedSizeUnpackedArrayType)
+                        lf80 = &lf80->getCanonicalType()
+                                    .as<FixedSizeUnpackedArrayType>()
+                                    .elementType;
+                    if (arraySignedWritten8(dt77->getType(), *lf80))
+                        av77->VpiSigned(true);
+                }
+                // `obj->VpiConstantVariable(sig->isConst())` (:2401).
+                // MEASURED on `z1_arrgrid` z_klog (`const logic [7:0] [0:1]`).
+                if (sym77.kind == SymbolKind::Variable &&
+                    sym77.as<VariableSymbol>().flags.has(VariableFlags::Const))
+                    av77->VpiConstantVariable(true);
+            }
             if (auto* rt77 = refTs77(av77, s.MakeArray_typespec(), full77))
                 av77->Typespec(rt77);
-            av77->VpiAutomatic(true);
             av77->VpiRandType(1);
             av77->VpiVisibility(1);
             av77->VpiArrayType(1);
             if (auto* rngs77 = buildUnpackedRanges(sym77, av77))
                 av77->Ranges(rngs77);
-            auto* el77 = s.MakeLogic_var();
+            // § caImportedPkgHoistUnpackedBuilder80 — THE ELEMENT IS THE
+            // ELEMENT TYPESPEC'S OWN KIND, minted by the same table the
+            // SCALAR road reads, and typed by the HOME PACKAGE'S OWN object
+            // when the element is a typedef (`struct_typespec pz::si2_t`,
+            // `logic_typespec w_t`) exactly as the StructVar arm above.
+            const ElemVar80 ek80 =
+                holderOff80() ? ElemVar80::Logic : hoistElemClass80(*elT80);
+            UHDM::variables* el77 = hoistElemVar80(s, ek80);
+            if (!el77)
+                el77 = s.MakeLogic_var();
             el77->VpiFullName(full77);
             el77->VpiParent(av77);
             setLoc(el77, nameSpan(sym77.location, sym77.name));
-            if (auto* rt77 = refTs77(
-                    el77, makeTypespec(sym77, dt77->getTypeSyntax()), full77))
-                el77->Typespec(rt77);
+            // A `shortreal` element carries NO typespec: `makeVar_`'s
+            // `tpstype` switch (ElaborationStep.cpp:1930-2023) has an arm for
+            // `uhdmreal_typespec` and NONE for `uhdmshort_real_typespec`, so
+            // the object falls through to the keyword fallback, which leaves
+            // it untyped.  MEASURED on `z1_arrgrid` z_sreal against its `real`
+            // twin z_real, which IS typed.  `expr::Compare` reads `Typespec`,
+            // so the absence is a compared field and is transcribed.
+            if (ek80 != ElemVar80::ShortReal || holderOff80()) {
+                UHDM::typespec* ets80 = nullptr;
+                if (!holderOff80())
+                    ets80 = pkgTs77(*elT80);
+                if (!ets80)
+                    ets80 = makeTypespec(sym77, dt77->getTypeSyntax());
+                if (auto* rt77 = refTs77(el77, ets80, full77))
+                    el77->Typespec(rt77);
+            }
             auto* evec77 = s.MakeVariablesVec();
             evec77->push_back(el77);
             av77->Variables(evec77);
@@ -1720,41 +2302,114 @@ UHDM::any* UhdmExporter::makeHoistHolder77(const Symbol& sym77, int kind77,
             return av77;
         }
         case HoistKind77::ArrayNet: {
-            // `elabSignal`'s unpacked wrapper on the NET side: the element
-            // net is built first and the `array_net` adopts it.  A STRUCT
-            // element keeps its own name (golden prints the doubled
-            // fullname); a logic element carries none.
+            // `elabSignal`'s unpacked wrapper on the NET side
+            // (NetlistElaboration.cpp:2534-2548): the element net is built
+            // first, by the scalar road, and the `array_net` adopts it.
             auto& ct77 = dt77->getType().getCanonicalType();
-            auto& el77 = ct77.as<FixedSizeUnpackedArrayType>().elementType;
+            const Type* elP80 =
+                &ct77.as<FixedSizeUnpackedArrayType>().elementType;
+            // The ELEMENT is one unpacked level down PER WRITTEN DIMENSION,
+            // as on the variable side.
+            if (!holderOff80())
+                if (auto* ds80 = sym77.getSyntax();
+                    ds80 && ds80->kind == syntax::SyntaxKind::Declarator)
+                    for (size_t d80 = 1,
+                                nd80 = ds80->as<syntax::DeclaratorSyntax>()
+                                           .dimensions.size();
+                         d80 < nd80; ++d80) {
+                        auto& lc80 = elP80->getCanonicalType();
+                        if (lc80.kind != SymbolKind::FixedSizeUnpackedArrayType)
+                            break;
+                        elP80 =
+                            &lc80.as<FixedSizeUnpackedArrayType>().elementType;
+                    }
+            auto& el77 = *elP80;
             auto* an77 = s.MakeArray_net();
             an77->VpiName(sym77.name);
             an77->VpiFullName(full77);
             an77->VpiParent(m);
             setLoc(an77, nameSpan(sym77.location, sym77.name));
-            an77->VpiSize(
-                (int32_t)ct77.as<FixedSizeUnpackedArrayType>().range.width());
+            // The FLATTENED count, the same `unpackedSize` the variable side
+            // writes (NetlistElaboration.cpp:2545) — and with the same
+            // size-style fold (§ caImportedPkgHoistUnpackedSizeFolds80:
+            // `wire [7:0] n_par [PN]` reads ONE, `[PN][0:1]` reads TWO,
+            // arm `q8_sizefaces`).
+            {
+                int32_t n80;
+                if (holderOff80()) {
+                    n80 = (int32_t)ct77.as<FixedSizeUnpackedArrayType>()
+                              .range.width();
+                }
+                else {
+                    n80 = hoistUnpackedSize80(sym77, ct77);
+                }
+                an77->VpiSize(n80);
+            }
             if (auto* rngs77 = buildUnpackedRanges(sym77, an77))
                 an77->Ranges(rngs77);
+            // § caImportedPkgHoistUnpackedBuilder80 — the element's NAME is
+            // the one-hop rule (`hoistElemNamed80`), not the element's class:
+            // a `wire [7:0]` element and a typedef-CHAIN element are both
+            // UNNAMED and carry the HOLDER's fullname, while every one-hop
+            // named type — `sl_t`, `un_t`, `r_t`, `w_t` — is NAMED and carries
+            // the DOUBLED one.  r11u77 keyed that on "the element is a packed
+            // struct", which is right for `sl_t` and wrong for the other
+            // four (a_nun, z_tdr, z_ntdw named where we left them bare;
+            // z_sl2/z_nsl2 bare where we named them).
+            const bool named80 = holderOff80()
+                                     ? el77.getCanonicalType().kind ==
+                                           SymbolKind::PackedStructType
+                                     : hoistElemNamed80(dt77->getTypeSyntax(),
+                                                        el77);
+            const std::string efull80 =
+                named80 ? full77 + "." + std::string(sym77.name) : full77;
             UHDM::net* in77 = nullptr;
             if (el77.getCanonicalType().kind == SymbolKind::PackedStructType) {
                 auto* sn77 = s.MakeStruct_net();
-                sn77->VpiName(sym77.name);
-                sn77->VpiFullName(full77 + "." + std::string(sym77.name));
+                if (named80)
+                    sn77->VpiName(sym77.name);
+                sn77->VpiFullName(efull80);
+                // The element net carries the declaration's own net keyword —
+                // and the SAME ONE-HOP seam governs it, so a chain carries
+                // none where the direct spelling carries the keyword.
+                // MEASURED `vpiNetType:1` on `wire sl_t a[0:1]` (`vh_arrelem`
+                // a_nsl) against NONE on `wire sl2_t` and on `var sl_t`
+                // (`z1_arrgrid` z_nsl2 / z_sl2 / z_vsl).
+                if (!holderOff80() && named80) {
+                    int32_t k80 = nt77;
+                    if (!k80)
+                        k80 = pkgDeclBaseKeyword77(dt77->getTypeSyntax(), el77);
+                    if (k80)
+                        sn77->VpiNetType(k80);
+                }
                 auto* ts77 = pkgTs77(el77);
-                if (auto* rt77 = refTs77(sn77, ts77,
-                                         full77 + "." +
-                                             std::string(sym77.name)))
+                if (auto* rt77 = refTs77(sn77, ts77, efull80))
                     sn77->Typespec(rt77);
                 in77 = sn77;
             }
             else {
                 auto* ln77 = s.MakeLogic_net();
-                ln77->VpiFullName(full77);
+                if (named80 && !holderOff80())
+                    ln77->VpiName(sym77.name);
+                ln77->VpiFullName(efull80);
                 if (nt77)
                     ln77->VpiNetType(nt77);
-                if (auto* rt77 =
-                        refTs77(ln77, makeTypespec(sym77, dt77->getTypeSyntax()),
-                                full77))
+                // A VARIABLE-road `array_net` (`r_t x[0:1]`) has no net
+                // keyword, so its element's `vpiNetType` is the written base
+                // keyword through the one hop — the same read `elabSignal`
+                // makes, `getVpiNetType(netKeyword ?: sig->getType())`
+                // (NetlistElaboration.cpp:2528).  MEASURED 48 on z_tdr
+                // against 1 on the `wire w_t` twin z_ntdw.
+                if (!nt77 && !holderOff80())
+                    if (int32_t k80 =
+                            pkgDeclBaseKeyword77(dt77->getTypeSyntax(), el77))
+                        ln77->VpiNetType(k80);
+                UHDM::typespec* ets80 = nullptr;
+                if (!holderOff80())
+                    ets80 = pkgTs77(el77);
+                if (!ets80)
+                    ets80 = makeTypespec(sym77, dt77->getTypeSyntax());
+                if (auto* rt77 = refTs77(ln77, ets80, efull80))
                     ln77->Typespec(rt77);
                 in77 = ln77;
             }

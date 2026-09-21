@@ -1,0 +1,37 @@
+decompile:
+package: pa (pa::), id:5, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/y3_impshape/dut.sv, line:7:1, endln:10:11
+|vpiParent:
+\_design: (work@dut), id:502
+|vpiName:pa
+|vpiFullName:pa::
+|vpiVariables:
+\_logic_var: (pa::a_var), id:179, line:9:16, endln:9:21
+  |vpiParent:
+  \_package: pa (pa::), id:5, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/y3_impshape/dut.sv, line:7:1, endln:10:11
+  |vpiTypespec:
+  \_ref_typespec: (pa::a_var), id:180
+    |vpiParent:
+    \_logic_var: (pa::a_var), id:179, line:9:16, endln:9:21
+    |vpiFullName:pa::a_var
+    |vpiActual:
+    \_logic_typespec: , id:175, line:9:3, endln:9:15
+  |vpiName:a_var
+  |vpiFullName:pa::a_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiDefName:pa
+|vpiNet:
+\_logic_net: (pa::a_net), id:539, line:8:16, endln:8:21
+  |vpiParent:
+  \_package: pa (pa::), id:5, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/y3_impshape/dut.sv, line:7:1, endln:10:11
+  |vpiTypespec:
+  \_ref_typespec: (pa::a_net), id:544
+    |vpiParent:
+    \_logic_net: (pa::a_net), id:539, line:8:16, endln:8:21
+    |vpiFullName:pa::a_net
+    |vpiActual:
+    \_logic_typespec: , id:543, line:8:3, endln:8:15
+  |vpiName:a_net
+  |vpiFullName:pa::a_net
+  |vpiNetType:1
+

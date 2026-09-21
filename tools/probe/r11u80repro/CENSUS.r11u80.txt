@@ -1,0 +1,79 @@
+r11u80 SITE CENSUS — the movers PREDICTED BY NAME, a priori, from the corpora
+themselves, with a POSITIVE CONTROL for every counter.
+
+INSTRUMENT.  `cellcen80.py` replays `verify_golden.py`'s OWN discovery and its
+OWN slang argument vector, runs the PATCHED binary with `R11U77_CELLDBG=1`,
+and writes one row per traced site with that invocation's rc.  Two buckets are
+read out of it:
+
+  * the UNPACKED ROAD  — `R11U77HOIST` lines whose `kind=` is 5 (ArrayVar),
+    6 (ArrayNet), 7 (ArraySkip) or 8 (ArrayTdEmpty).  Every entry LAW A can
+    touch prints one, the declined ones included.
+  * LAW B             — `R11U77DEFNT` lines that read MOVED, differenced
+    against the same run under `R11U80_VARNT_OFF=1`.
+
+THE POSITIVE CONTROLS, on the grid, with the SAME counter and the SAME
+binary — both buckets fire:
+
+  arm                unpacked road (kind=count)      defnt MOVED  on / off
+  z1_arrgrid         k5=23  k6=5  k7=1  k8=1              9  /  10
+  vh_arrelem         k5=6   k6=4                          6  /   6
+  vb_unpackedfaces   k5=5   k6=1  k8=1                    5  /   5
+  y2_pkgvarkind      k5=1   k6=1                          5  /   5
+  z2_varnt           (none)                              10  /   7
+  vi_defnt           (none)                               5  /   4
+  g2_importshapes    (none)                               1  /   1
+
+A census zero is therefore a reading, not a silence.
+
+=== uhdm2rtlil, BOTH MODES =================================================
+9480 traced cell rows over 871 tests x 2 modes.
+
+  UNPACKED ROAD (kind 5/6/7/8):   0
+  R11U77DEFNT lines at all:       0
+  LAW B MOVED:                    0
+
+The uhdm2rtlil corpus carries NO hoisted imported-package entry of any kind,
+so neither law has a site there. This is the same zero r11u77's own census
+reported for this corpus, measured independently here.
+
+PREDICTED MOVERS, uhdm2rtlil, BY NAME: NONE.
+
+=== surelog, BOTH MODES ====================================================
+41398 traced cell rows over 798 tests x 2 modes.
+
+  R11U77HOIST lines:              278   -- ALL of them kind=0 (Pre77)
+  UNPACKED ROAD (kind 5/6/7/8):     0
+  R11U77DEFNT lines:              410   -- every one net=0 (a VARIABLE)
+  LAW B MOVED:                      0
+
+The 278 hoisted entries live in NINE (test, mode) pairs and not one of them is
+an unpacked array:
+
+  ApbSlave/default  ApbSlave/testflags  PackageNet/default
+  PackageNet/testflags  Scoreboard/default  SeqDriver/default
+  SeqDriver/testflags  SimpleUVM/default  SimpleUVM/testflags
+
+and the 410 def-view entries live in ELEVEN, the same nine plus
+MiniAmiq/default and MiniAmiq/testflags.
+
+WHY `MOVED 0` SETTLES LAW B.  The `R11U77DEFNT` line prints the PRE-77 answer
+and the CURRENT one side by side; LAW B can only turn a nonzero answer into 0,
+so an entry it fires on with a nonzero pre-77 answer reads MOVED.  MOVED = 0
+over both corpora therefore means the def-view `vpiNetType` byte of every
+hoisted corpus entry is unchanged — no hoisted corpus declaration carries the
+`var` qualifier.
+
+WHY THE `kind` HISTOGRAM SETTLES LAW A.  Every entry the hoist loop considers
+prints one `R11U77HOIST` line, the DECLINED ones included, and LAW A can only
+act on kinds 5-8.  278 lines, 0 of them on the unpacked road, means no corpus
+declaration reaches this builder at all.
+
+PREDICTED MOVERS, surelog, BY NAME: NONE.
+
+=== THE PREDICTION ========================================================
+MOVERS PREDICTED A PRIORI, BY NAME, BOTH CORPORA, BOTH MODES: **NONE.**
+Any surelog byte mover the verifier finds is therefore the documented UVM
+macro-buffer `UINT`/`vpiDecompile` line-number class or the Scoreboard order
+draw, and must be attributed by an ORDER-BLIND, path-normalised whole-dump
+diff before it is believed.

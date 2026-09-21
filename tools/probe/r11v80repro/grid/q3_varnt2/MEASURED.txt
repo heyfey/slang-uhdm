@@ -1,0 +1,115 @@
+# q3_varnt2 — golden / pristine(15ff66f6) / r11u80 / r11u80.verified, uhdmtopModules
+## GOLDEN
+work@dut.c_ulog            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.c_ureg            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.v_ulog            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.v_ureg            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.c_utdw            array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.v_utdw            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.v_utdr            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(r_t)
+work@dut.c_utdr            array_net  Size=2                     ts=None                       | elem=logic_net      Name=c_utdr NetType=48             ts=logic_typespec(pq3::r_t)
+## PRISTINE
+work@dut.c_ulog            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.c_ureg            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.v_ulog            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.v_ureg            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.c_utdw            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.v_utdw            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.c_utdr            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(r_t)
+work@dut.v_utdr            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(r_t)
+## r11u80 (implementer)
+work@dut.c_ulog            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.c_ureg            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.v_ulog            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.v_ureg            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.c_utdw            array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.v_utdw            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.v_utdr            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(r_t)
+work@dut.c_utdr            array_net  Size=2                     ts=None                       | elem=logic_net      Name=c_utdr NetType=48             ts=logic_typespec(pq3::r_t)
+## r11u80.verified
+work@dut.c_ulog            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.c_ureg            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.v_ulog            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.v_ureg            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.c_utdw            array_var  Size=2 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.v_utdw            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(w_t)
+work@dut.v_utdr            array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec(r_t)
+work@dut.c_utdr            array_net  Size=2                     ts=None                       | elem=logic_net      Name=c_utdr NetType=48             ts=logic_typespec(pq3::r_t)
+## DEF VIEW (uhdmallModules) golden / pristine / verified — vpiNetType
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.c_log           logic_net    ts=logic_typespec()             Name=c_log NetType=36
+uhdmallModules work@dut.c_reg           logic_net    ts=logic_typespec()             Name=c_reg NetType=48
+uhdmallModules work@dut.c_tdw           logic_net    ts=logic_typespec(pq3::w_t)     Name=c_tdw NetType=36
+uhdmallModules work@dut.c_tdr           logic_net    ts=logic_typespec(pq3::r_t)     Name=c_tdr NetType=48
+uhdmallModules work@dut.c_slog          logic_net    ts=logic_typespec()             Name=c_slog NetType=36
+uhdmallModules work@dut.s_log           logic_net    ts=logic_typespec()             Name=s_log NetType=36
+uhdmallModules work@dut.s_reg           logic_net    ts=logic_typespec()             Name=s_reg NetType=48
+uhdmallModules work@dut.k_log           logic_net    ts=logic_typespec()             Name=k_log NetType=36
+uhdmallModules work@dut.k_reg           logic_net    ts=logic_typespec()             Name=k_reg NetType=48
+uhdmallModules work@dut.v_slog          logic_net    ts=logic_typespec()             Name=v_slog
+uhdmallModules work@dut.v_tdw2          logic_net    ts=logic_typespec(pq3::w2_t)    Name=v_tdw2
+uhdmallModules work@dut.v_tdr2          logic_net    ts=logic_typespec(pq3::r2_t)    Name=v_tdr2
+uhdmallModules work@dut.v_pk2           logic_net    ts=logic_typespec()             Name=v_pk2
+uhdmallModules work@dut.v_kreg          logic_net    ts=logic_typespec()             Name=v_kreg
+uhdmallModules work@dut.c_ulog          logic_net    ts=logic_typespec()             Name=c_ulog NetType=36
+uhdmallModules work@dut.c_ureg          logic_net    ts=logic_typespec()             Name=c_ureg NetType=48
+uhdmallModules work@dut.v_ulog          logic_net    ts=logic_typespec()             Name=v_ulog
+uhdmallModules work@dut.v_ureg          logic_net    ts=logic_typespec()             Name=v_ureg
+uhdmallModules work@dut.c_utdw          logic_net    ts=logic_typespec(pq3::w_t)     Name=c_utdw NetType=36
+uhdmallModules work@dut.v_utdw          logic_net    ts=logic_typespec(pq3::w_t)     Name=v_utdw
+uhdmallModules work@dut.c_utdr          logic_net    ts=logic_typespec(pq3::r_t)     Name=c_utdr NetType=48
+uhdmallModules work@dut.v_utdr          logic_net    ts=logic_typespec(pq3::r_t)     Name=v_utdr
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36
+uhdmallModules work@dut.v_stlog         logic_net    ts=None                         Name=v_stlog NetType=1
+--
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.c_log           logic_net    ts=logic_typespec()             Name=c_log NetType=36
+uhdmallModules work@dut.c_reg           logic_net    ts=logic_typespec()             Name=c_reg NetType=48
+uhdmallModules work@dut.c_tdw           logic_net    ts=logic_typespec(pq3::w_t)     Name=c_tdw NetType=36
+uhdmallModules work@dut.c_tdr           logic_net    ts=logic_typespec(pq3::r_t)     Name=c_tdr NetType=48
+uhdmallModules work@dut.c_slog          logic_net    ts=logic_typespec()             Name=c_slog NetType=36
+uhdmallModules work@dut.s_log           logic_net    ts=logic_typespec()             Name=s_log NetType=36
+uhdmallModules work@dut.s_reg           logic_net    ts=logic_typespec()             Name=s_reg NetType=48
+uhdmallModules work@dut.k_log           logic_net    ts=logic_typespec()             Name=k_log NetType=36
+uhdmallModules work@dut.k_reg           logic_net    ts=logic_typespec()             Name=k_reg NetType=48
+uhdmallModules work@dut.v_slog          logic_net    ts=logic_typespec()             Name=v_slog NetType=36
+uhdmallModules work@dut.v_tdw2          logic_net    ts=logic_typespec(pq3::w2_t)    Name=v_tdw2
+uhdmallModules work@dut.v_tdr2          logic_net    ts=logic_typespec(pq3::r2_t)    Name=v_tdr2
+uhdmallModules work@dut.v_pk2           logic_net    ts=logic_typespec()             Name=v_pk2 NetType=36
+uhdmallModules work@dut.v_stlog         logic_net    ts=logic_typespec()             Name=v_stlog NetType=36
+uhdmallModules work@dut.v_kreg          logic_net    ts=logic_typespec()             Name=v_kreg NetType=48
+uhdmallModules work@dut.c_ulog          logic_net    ts=logic_typespec()             Name=c_ulog NetType=36
+uhdmallModules work@dut.c_ureg          logic_net    ts=logic_typespec()             Name=c_ureg NetType=48
+uhdmallModules work@dut.v_ulog          logic_net    ts=logic_typespec()             Name=v_ulog NetType=36
+uhdmallModules work@dut.v_ureg          logic_net    ts=logic_typespec()             Name=v_ureg NetType=48
+uhdmallModules work@dut.c_utdw          logic_net    ts=logic_typespec(pq3::w_t)     Name=c_utdw
+uhdmallModules work@dut.v_utdw          logic_net    ts=logic_typespec(pq3::w_t)     Name=v_utdw
+uhdmallModules work@dut.c_utdr          logic_net    ts=logic_typespec(pq3::r_t)     Name=c_utdr
+uhdmallModules work@dut.v_utdr          logic_net    ts=logic_typespec(pq3::r_t)     Name=v_utdr
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36
+--
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.c_log           logic_net    ts=logic_typespec()             Name=c_log NetType=36
+uhdmallModules work@dut.c_reg           logic_net    ts=logic_typespec()             Name=c_reg NetType=48
+uhdmallModules work@dut.c_tdw           logic_net    ts=logic_typespec(pq3::w_t)     Name=c_tdw NetType=36
+uhdmallModules work@dut.c_tdr           logic_net    ts=logic_typespec(pq3::r_t)     Name=c_tdr NetType=48
+uhdmallModules work@dut.c_slog          logic_net    ts=logic_typespec()             Name=c_slog NetType=36
+uhdmallModules work@dut.s_log           logic_net    ts=logic_typespec()             Name=s_log NetType=36
+uhdmallModules work@dut.s_reg           logic_net    ts=logic_typespec()             Name=s_reg NetType=48
+uhdmallModules work@dut.k_log           logic_net    ts=logic_typespec()             Name=k_log NetType=36
+uhdmallModules work@dut.k_reg           logic_net    ts=logic_typespec()             Name=k_reg NetType=48
+uhdmallModules work@dut.v_slog          logic_net    ts=logic_typespec()             Name=v_slog
+uhdmallModules work@dut.v_tdw2          logic_net    ts=logic_typespec(pq3::w2_t)    Name=v_tdw2
+uhdmallModules work@dut.v_tdr2          logic_net    ts=logic_typespec(pq3::r2_t)    Name=v_tdr2
+uhdmallModules work@dut.v_pk2           logic_net    ts=logic_typespec()             Name=v_pk2
+uhdmallModules work@dut.v_stlog         logic_net    ts=logic_typespec()             Name=v_stlog
+uhdmallModules work@dut.v_kreg          logic_net    ts=logic_typespec()             Name=v_kreg
+uhdmallModules work@dut.c_ulog          logic_net    ts=logic_typespec()             Name=c_ulog NetType=36
+uhdmallModules work@dut.c_ureg          logic_net    ts=logic_typespec()             Name=c_ureg NetType=48
+uhdmallModules work@dut.v_ulog          logic_net    ts=logic_typespec()             Name=v_ulog
+uhdmallModules work@dut.v_ureg          logic_net    ts=logic_typespec()             Name=v_ureg
+uhdmallModules work@dut.c_utdw          logic_net    ts=logic_typespec(pq3::w_t)     Name=c_utdw
+uhdmallModules work@dut.v_utdw          logic_net    ts=logic_typespec(pq3::w_t)     Name=v_utdw
+uhdmallModules work@dut.c_utdr          logic_net    ts=logic_typespec(pq3::r_t)     Name=c_utdr
+uhdmallModules work@dut.v_utdr          logic_net    ts=logic_typespec(pq3::r_t)     Name=v_utdr
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36

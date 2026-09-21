@@ -1,0 +1,67 @@
+# q5_tdarr — golden / pristine(15ff66f6) / r11u80 / r11u80.verified, uhdmtopModules
+## GOLDEN
+work@dut.t_a               array_var  Visibility=1               ts=array_typespec(arr_t)      | elem=None                                              ts=None
+work@dut.t_a2              array_var  Visibility=1               ts=array_typespec(pq5::arr2_t) | elem=None                                              ts=None
+work@dut.t_a3              array_var  Visibility=1               ts=array_typespec(pq5::arr3_t) | elem=None                                              ts=None
+work@dut.t_2d              array_var  Visibility=1               ts=array_typespec(arr2d_t)    | elem=None                                              ts=None
+work@dut.t_sl              array_var  Visibility=1               ts=array_typespec(pq5::arrs_t) | elem=None                                              ts=None
+work@dut.t_nest            array_var  Visibility=1               ts=array_typespec(pq5::arrn_t) | elem=None                                              ts=None
+work@dut.t_plus            array_var  Size=3 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=array_var                                         ts=array_typespec(arr_t)
+work@dut.t_r               array_var                             ts=array_typespec(pq5::arrr_t) | elem=None                                              ts=None
+work@dut.t_ctl             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+## PRISTINE
+work@dut.t_ctl             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+## r11u80 (implementer)
+work@dut.t_a               array_var  Visibility=1               ts=array_typespec(arr_t)      | elem=None                                              ts=None
+work@dut.t_a2              array_var  Visibility=1               ts=array_typespec(arr2_t)     | elem=None                                              ts=None
+work@dut.t_a3              array_var  Visibility=1               ts=array_typespec(arr3_t)     | elem=None                                              ts=None
+work@dut.t_2d              array_var  Visibility=1               ts=array_typespec(arr2d_t)    | elem=None                                              ts=None
+work@dut.t_sl              array_var  Visibility=1               ts=array_typespec(arrs_t)     | elem=None                                              ts=None
+work@dut.t_r               array_var  Visibility=1               ts=array_typespec(arrr_t)     | elem=None                                              ts=None
+work@dut.t_nest            array_var  Visibility=1               ts=array_typespec(arrn_t)     | elem=None                                              ts=None
+work@dut.t_ctl             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+## r11u80.verified
+work@dut.t_a               array_var  Visibility=1               ts=array_typespec(arr_t)      | elem=None                                              ts=None
+work@dut.t_a2              array_var  Visibility=1               ts=array_typespec(pq5::arr2_t) | elem=None                                              ts=None
+work@dut.t_a3              array_var  Visibility=1               ts=array_typespec(pq5::arr3_t) | elem=None                                              ts=None
+work@dut.t_2d              array_var  Visibility=1               ts=array_typespec(arr2d_t)    | elem=None                                              ts=None
+work@dut.t_sl              array_var  Visibility=1               ts=array_typespec(pq5::arrs_t) | elem=None                                              ts=None
+work@dut.t_r               array_var                             ts=array_typespec(pq5::arrr_t) | elem=None                                              ts=None
+work@dut.t_nest            array_var  Visibility=1               ts=array_typespec(pq5::arrn_t) | elem=None                                              ts=None
+work@dut.t_ctl             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+## DEF VIEW (uhdmallModules) golden / pristine / verified — vpiNetType
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.t_a             logic_net    ts=array_typespec(pq5::arr_t)   Name=t_a NetType=36
+uhdmallModules work@dut.t_a2            logic_net    ts=array_typespec(pq5::arr2_t)  Name=t_a2
+uhdmallModules work@dut.t_a3            logic_net    ts=array_typespec(pq5::arr3_t)  Name=t_a3
+uhdmallModules work@dut.t_2d            logic_net    ts=array_typespec(pq5::arr2d_t) Name=t_2d NetType=36
+uhdmallModules work@dut.t_sl            logic_net    ts=array_typespec(pq5::arrs_t)  Name=t_sl
+uhdmallModules work@dut.t_r             logic_net    ts=array_typespec(pq5::arrr_t)  Name=t_r NetType=48
+uhdmallModules work@dut.t_nest          logic_net    ts=array_typespec(pq5::arrn_t)  Name=t_nest
+uhdmallModules work@dut.t_plus          logic_net    ts=array_typespec(pq5::arr_t)   Name=t_plus NetType=36
+uhdmallModules work@dut.t_ctl           logic_net    ts=logic_typespec()             Name=t_ctl NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36
+--
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.t_a             logic_net    ts=logic_typespec()             Name=t_a NetType=36
+uhdmallModules work@dut.t_a2            logic_net    ts=logic_typespec()             Name=t_a2
+uhdmallModules work@dut.t_a3            logic_net    ts=logic_typespec()             Name=t_a3
+uhdmallModules work@dut.t_2d            logic_net    ts=logic_typespec()             Name=t_2d NetType=36
+uhdmallModules work@dut.t_sl            logic_net    ts=logic_typespec()             Name=t_sl
+uhdmallModules work@dut.t_r             logic_net    ts=logic_typespec()             Name=t_r NetType=48
+uhdmallModules work@dut.t_nest          logic_net    ts=logic_typespec()             Name=t_nest
+uhdmallModules work@dut.t_plus          logic_net    ts=logic_typespec()             Name=t_plus
+uhdmallModules work@dut.t_ctl           logic_net    ts=logic_typespec()             Name=t_ctl NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36
+--
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.t_a             logic_net    ts=logic_typespec()             Name=t_a NetType=36
+uhdmallModules work@dut.t_a2            logic_net    ts=logic_typespec()             Name=t_a2
+uhdmallModules work@dut.t_a3            logic_net    ts=logic_typespec()             Name=t_a3
+uhdmallModules work@dut.t_2d            logic_net    ts=logic_typespec()             Name=t_2d NetType=36
+uhdmallModules work@dut.t_sl            logic_net    ts=logic_typespec()             Name=t_sl
+uhdmallModules work@dut.t_r             logic_net    ts=logic_typespec()             Name=t_r NetType=48
+uhdmallModules work@dut.t_nest          logic_net    ts=logic_typespec()             Name=t_nest
+uhdmallModules work@dut.t_plus          logic_net    ts=logic_typespec()             Name=t_plus
+uhdmallModules work@dut.t_ctl           logic_net    ts=logic_typespec()             Name=t_ctl NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36

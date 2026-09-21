@@ -1,0 +1,131 @@
+# q8_sizefaces — golden / pristine(15ff66f6) / r11u80 / r11u80.verified, uhdmtopModules
+## GOLDEN
+work@dut.s_lit             array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_fold            array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_fold2           array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_paren           array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_par             array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_lpar            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_pexp            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_pmix            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_lit             array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_pl              array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_lp              array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_pp              array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.n_par             array_net  Size=1                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+work@dut.n_mix             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+## PRISTINE
+work@dut.s_lit             array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_fold            array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_fold2           array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_paren           array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_pexp            array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_pmix            array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_lit             array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.n_par             array_net  Size=3                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+## r11u80 (implementer)
+work@dut.s_lit             array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_fold            array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_fold2           array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_paren           array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_pexp            array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_pmix            array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_lit             array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_pl              array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_lp              array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_pp              array_var  Size=15 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.n_par             array_net  Size=3                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+work@dut.n_mix             array_net  Size=6                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+## r11u80.verified
+work@dut.s_lit             array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_fold            array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_fold2           array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_paren           array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_par             array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_lpar            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_pexp            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.s_pmix            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_lit             array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.r_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_pl              array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_lp              array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.m_pp              array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()
+work@dut.n_par             array_net  Size=1                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+work@dut.n_mix             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()
+## DEF VIEW (uhdmallModules) golden / pristine / verified — vpiNetType
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.LM              parameter    ts=int_typespec()               Signed=1 Name=LM
+uhdmallModules work@dut.LN              parameter    ts=int_typespec()               Signed=1 Name=LN
+uhdmallModules work@dut.PN              parameter    ts=int_typespec()               Signed=1 Name=PN
+uhdmallModules work@dut.s_lit           logic_net    ts=logic_typespec()             Name=s_lit NetType=36
+uhdmallModules work@dut.s_fold          logic_net    ts=logic_typespec()             Name=s_fold NetType=36
+uhdmallModules work@dut.s_fold2         logic_net    ts=logic_typespec()             Name=s_fold2 NetType=36
+uhdmallModules work@dut.s_paren         logic_net    ts=logic_typespec()             Name=s_paren NetType=36
+uhdmallModules work@dut.s_par           logic_net    ts=logic_typespec()             Name=s_par NetType=36
+uhdmallModules work@dut.s_lpar          logic_net    ts=logic_typespec()             Name=s_lpar NetType=36
+uhdmallModules work@dut.s_pexp          logic_net    ts=logic_typespec()             Name=s_pexp NetType=36
+uhdmallModules work@dut.s_pmix          logic_net    ts=logic_typespec()             Name=s_pmix NetType=36
+uhdmallModules work@dut.r_lit           logic_net    ts=logic_typespec()             Name=r_lit NetType=36
+uhdmallModules work@dut.r_par           logic_net    ts=logic_typespec()             Name=r_par NetType=36
+uhdmallModules work@dut.r_lpar          logic_net    ts=logic_typespec()             Name=r_lpar NetType=36
+uhdmallModules work@dut.m_pl            logic_net    ts=logic_typespec()             Name=m_pl NetType=36
+uhdmallModules work@dut.m_lp            logic_net    ts=logic_typespec()             Name=m_lp NetType=36
+uhdmallModules work@dut.m_pp            logic_net    ts=logic_typespec()             Name=m_pp NetType=36
+uhdmallModules work@dut.n_par           logic_net    ts=logic_typespec()             Name=n_par NetType=1
+uhdmallModules work@dut.n_mix           logic_net    ts=logic_typespec()             Name=n_mix NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36
+--
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.LM              parameter    ts=int_typespec()               Signed=1 Name=LM
+uhdmallModules work@dut.LN              parameter    ts=int_typespec()               Signed=1 Name=LN
+uhdmallModules work@dut.PN              parameter    ts=int_typespec()               Signed=1 Name=PN
+uhdmallModules work@dut.s_lit           logic_net    ts=logic_typespec()             Name=s_lit NetType=36
+uhdmallModules work@dut.s_fold          logic_net    ts=logic_typespec()             Name=s_fold NetType=36
+uhdmallModules work@dut.s_fold2         logic_net    ts=logic_typespec()             Name=s_fold2 NetType=36
+uhdmallModules work@dut.s_paren         logic_net    ts=logic_typespec()             Name=s_paren NetType=36
+uhdmallModules work@dut.s_par           logic_net    ts=logic_typespec()             Name=s_par NetType=36
+uhdmallModules work@dut.s_lpar          logic_net    ts=logic_typespec()             Name=s_lpar NetType=36
+uhdmallModules work@dut.s_pexp          logic_net    ts=logic_typespec()             Name=s_pexp NetType=36
+uhdmallModules work@dut.s_pmix          logic_net    ts=logic_typespec()             Name=s_pmix NetType=36
+uhdmallModules work@dut.r_lit           logic_net    ts=logic_typespec()             Name=r_lit NetType=36
+uhdmallModules work@dut.r_par           logic_net    ts=logic_typespec()             Name=r_par NetType=36
+uhdmallModules work@dut.r_lpar          logic_net    ts=logic_typespec()             Name=r_lpar NetType=36
+uhdmallModules work@dut.m_pl            logic_net    ts=logic_typespec()             Name=m_pl NetType=36
+uhdmallModules work@dut.m_lp            logic_net    ts=logic_typespec()             Name=m_lp NetType=36
+uhdmallModules work@dut.m_pp            logic_net    ts=logic_typespec()             Name=m_pp NetType=36
+uhdmallModules work@dut.n_par           logic_net    ts=logic_typespec()             Name=n_par NetType=1
+uhdmallModules work@dut.n_mix           logic_net    ts=logic_typespec()             Name=n_mix NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36
+--
+uhdmallModules work@dut                 design       ts=None                         
+uhdmallModules work@dut.LM              parameter    ts=int_typespec()               Signed=1 Name=LM
+uhdmallModules work@dut.LN              parameter    ts=int_typespec()               Signed=1 Name=LN
+uhdmallModules work@dut.PN              parameter    ts=int_typespec()               Signed=1 Name=PN
+uhdmallModules work@dut.s_lit           logic_net    ts=logic_typespec()             Name=s_lit NetType=36
+uhdmallModules work@dut.s_fold          logic_net    ts=logic_typespec()             Name=s_fold NetType=36
+uhdmallModules work@dut.s_fold2         logic_net    ts=logic_typespec()             Name=s_fold2 NetType=36
+uhdmallModules work@dut.s_paren         logic_net    ts=logic_typespec()             Name=s_paren NetType=36
+uhdmallModules work@dut.s_par           logic_net    ts=logic_typespec()             Name=s_par NetType=36
+uhdmallModules work@dut.s_lpar          logic_net    ts=logic_typespec()             Name=s_lpar NetType=36
+uhdmallModules work@dut.s_pexp          logic_net    ts=logic_typespec()             Name=s_pexp NetType=36
+uhdmallModules work@dut.s_pmix          logic_net    ts=logic_typespec()             Name=s_pmix NetType=36
+uhdmallModules work@dut.r_lit           logic_net    ts=logic_typespec()             Name=r_lit NetType=36
+uhdmallModules work@dut.r_par           logic_net    ts=logic_typespec()             Name=r_par NetType=36
+uhdmallModules work@dut.r_lpar          logic_net    ts=logic_typespec()             Name=r_lpar NetType=36
+uhdmallModules work@dut.m_pl            logic_net    ts=logic_typespec()             Name=m_pl NetType=36
+uhdmallModules work@dut.m_lp            logic_net    ts=logic_typespec()             Name=m_lp NetType=36
+uhdmallModules work@dut.m_pp            logic_net    ts=logic_typespec()             Name=m_pp NetType=36
+uhdmallModules work@dut.n_par           logic_net    ts=logic_typespec()             Name=n_par NetType=1
+uhdmallModules work@dut.n_mix           logic_net    ts=logic_typespec()             Name=n_mix NetType=1
+uhdmallModules work@dut.o               logic_net    ts=None                         Name=o NetType=36

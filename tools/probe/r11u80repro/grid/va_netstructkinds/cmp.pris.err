@@ -1,0 +1,248 @@
+LHS:
+decompile:
+package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+|vpiParent:
+\_design: (work@dut), id:357
+|vpiName:pn
+|vpiFullName:pn::
+|vpiVariables:
+\_struct_var: (pn::n_wsi), id:221, line:12:14, endln:12:19
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiTypespec:
+  \_ref_typespec: (pn::n_wsi), id:222
+    |vpiParent:
+    \_struct_var: (pn::n_wsi), id:221, line:12:14, endln:12:19
+    |vpiFullName:pn::n_wsi
+    |vpiActual:
+    \_struct_typespec: (pn::si_t), id:61, line:8:11, endln:8:50
+  |vpiName:n_wsi
+  |vpiFullName:pn::n_wsi
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (pn::n_wen), id:225, line:14:14, endln:14:19
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiTypespec:
+  \_ref_typespec: (pn::n_wen), id:226
+    |vpiParent:
+    \_enum_var: (pn::n_wen), id:225, line:14:14, endln:14:19
+    |vpiFullName:pn::n_wen
+    |vpiActual:
+    \_enum_typespec: (pn::en_t), id:88, line:10:3, endln:10:44
+  |vpiName:n_wen
+  |vpiFullName:pn::n_wen
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (pn::v_si), id:227, line:15:14, endln:15:18
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiTypespec:
+  \_ref_typespec: (pn::v_si), id:228
+    |vpiParent:
+    \_struct_var: (pn::v_si), id:227, line:15:14, endln:15:18
+    |vpiFullName:pn::v_si
+    |vpiActual:
+    \_struct_typespec: (pn::si_t), id:61, line:8:11, endln:8:50
+  |vpiName:v_si
+  |vpiFullName:pn::v_si
+  |vpiVisibility:1
+|vpiTypedef:
+\_enum_typespec: (pn::en_t), id:88, line:10:3, endln:10:44
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiName:pn::en_t
+  |vpiInstance:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pn::pn::en_t), id:89
+    |vpiParent:
+    \_enum_typespec: (pn::en_t), id:88, line:10:3, endln:10:44
+    |vpiFullName:pn::pn::en_t
+    |vpiActual:
+    \_logic_typespec: , id:87, line:10:16, endln:10:27
+  |vpiEnumConst:
+  \_enum_const: (EA), id:91, line:10:30, endln:10:32
+    |vpiParent:
+    \_enum_typespec: (pn::en_t), id:88, line:10:3, endln:10:44
+    |vpiName:EA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (EB), id:92, line:10:34, endln:10:36
+    |vpiParent:
+    \_enum_typespec: (pn::en_t), id:88, line:10:3, endln:10:44
+    |vpiName:EB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (pn::si_t), id:61, line:8:11, endln:8:50
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiName:pn::si_t
+  |vpiInstance:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:63, line:8:31, endln:8:32
+    |vpiParent:
+    \_struct_typespec: (pn::si_t), id:61, line:8:11, endln:8:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pn::pn::si_t::x), id:64
+      |vpiParent:
+      \_typespec_member: (x), id:63, line:8:31, endln:8:32
+      |vpiFullName:pn::pn::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:62, line:8:27, endln:8:30
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:69, line:8:46, endln:8:47
+    |vpiParent:
+    \_struct_typespec: (pn::si_t), id:61, line:8:11, endln:8:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pn::pn::si_t::y), id:70
+      |vpiParent:
+      \_typespec_member: (y), id:69, line:8:46, endln:8:47
+      |vpiFullName:pn::pn::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:68, line:8:34, endln:8:45
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (pn::sl_t), id:48, line:7:11, endln:7:58
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiName:pn::sl_t
+  |vpiInstance:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:53, line:7:39, endln:7:40
+    |vpiParent:
+    \_struct_typespec: (pn::sl_t), id:48, line:7:11, endln:7:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pn::pn::sl_t::x), id:54
+      |vpiParent:
+      \_typespec_member: (x), id:53, line:7:39, endln:7:40
+      |vpiFullName:pn::pn::sl_t::x
+      |vpiActual:
+      \_logic_typespec: , id:52, line:7:27, endln:7:38
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:59, line:7:54, endln:7:55
+    |vpiParent:
+    \_struct_typespec: (pn::sl_t), id:48, line:7:11, endln:7:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pn::pn::sl_t::y), id:60
+      |vpiParent:
+      \_typespec_member: (y), id:59, line:7:54, endln:7:55
+      |vpiFullName:pn::pn::sl_t::y
+      |vpiActual:
+      \_logic_typespec: , id:58, line:7:42, endln:7:53
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_union_typespec: (pn::un_t), id:71, line:9:11, endln:9:60
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiName:pn::un_t
+  |vpiInstance:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:76, line:9:40, endln:9:41
+    |vpiParent:
+    \_union_typespec: (pn::un_t), id:71, line:9:11, endln:9:60
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pn::pn::un_t::a), id:77
+      |vpiParent:
+      \_typespec_member: (a), id:76, line:9:40, endln:9:41
+      |vpiFullName:pn::pn::un_t::a
+      |vpiActual:
+      \_logic_typespec: , id:75, line:9:27, endln:9:39
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:39
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:82, line:9:56, endln:9:57
+    |vpiParent:
+    \_union_typespec: (pn::un_t), id:71, line:9:11, endln:9:60
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pn::pn::un_t::b), id:83
+      |vpiParent:
+      \_typespec_member: (b), id:82, line:9:56, endln:9:57
+      |vpiFullName:pn::pn::un_t::b
+      |vpiActual:
+      \_logic_typespec: , id:81, line:9:43, endln:9:55
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:43
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:55
+|vpiDefName:pn
+|vpiNet:
+\_logic_net: (pn::n_wsl), id:364, line:11:14, endln:11:19
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiTypespec:
+  \_ref_typespec: (pn::n_wsl), id:365
+    |vpiParent:
+    \_logic_net: (pn::n_wsl), id:364, line:11:14, endln:11:19
+    |vpiFullName:pn::n_wsl
+    |vpiActual:
+    \_struct_typespec: (pn::sl_t), id:48, line:7:11, endln:7:58
+  |vpiName:n_wsl
+  |vpiFullName:pn::n_wsl
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pn::n_wun), id:366, line:13:14, endln:13:19
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiTypespec:
+  \_ref_typespec: (pn::n_wun), id:367
+    |vpiParent:
+    \_logic_net: (pn::n_wun), id:366, line:13:14, endln:13:19
+    |vpiFullName:pn::n_wun
+    |vpiActual:
+    \_union_typespec: (pn::un_t), id:71, line:9:11, endln:9:60
+  |vpiName:n_wun
+  |vpiFullName:pn::n_wun
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pn::v_un), id:368, line:16:14, endln:16:18
+  |vpiParent:
+  \_package: pn (pn::), id:47, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/va_netstructkinds/dut.sv, line:6:1, endln:17:11
+  |vpiTypespec:
+  \_ref_typespec: (pn::v_un), id:369
+    |vpiParent:
+    \_logic_net: (pn::v_un), id:368, line:16:14, endln:16:18
+    |vpiFullName:pn::v_un
+    |vpiActual:
+    \_union_typespec: (pn::un_t), id:71, line:9:11, endln:9:60
+  |vpiName:v_un
+  |vpiFullName:pn::v_un
+RHS: <null>

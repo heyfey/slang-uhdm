@@ -1,0 +1,176 @@
+r11v80 — THE GATES, run by the VERIFIER, in its own worktrees, on its own
+frozen binaries.  Base 15ff66f6.
+
+================================================================ BINARIES
+Built -j 2 in /tmp/wt_v11u80pris and /tmp/wt_v11u80 (fresh worktrees at
+15ff66f6, the second with /tmp/r11u80.patch applied by `git apply`, rc=0,
+output written to a FILE); md5 taken separately; both frozen chmod 555
+before any sweep.
+
+  pristine            c56e3f2c141ee7e9a6bb41c9d4e38f8c
+  main tree @15ff66f6 c56e3f2c141ee7e9a6bb41c9d4e38f8c   <- COMPARED, not assumed
+  OPS pin             c56e3f2c141ee7e9a6bb41c9d4e38f8c
+  r11u80              b1136aebd7f36e4e42a8ea30f23e3f9e   <- the implementer's md5,
+                                                            reproduced BIT FOR BIT
+  r11u80.verified     a27d19b6f7515623f3c1d19c753153ce
+
+  src/ModuleEmit.cpp from /tmp/r11u80.patch   efde22ca03f9e799c406e46198edabc4
+                                              == the implementer's claim
+  src/ParamEmit.cpp  pristine AND both patched   fadfb3803a8b57c44cfad3e61b2fb4d4
+                                              == UNTOUCHED (the sister pass's ground)
+
+  patch surface: src/ModuleEmit.cpp + tools/probe/r11u80repro/ (189 files)
+  fences: the four slang-fenced names appear 0 times in the production diff
+  results/*.csv: 0 files touched
+
+================================================================ GOLDEN DUMPS
+  SLANG_UHDM=pristine         PASS 23  FAIL 0
+  SLANG_UHDM=r11u80           PASS 23  FAIL 0
+  SLANG_UHDM=r11u80.verified  PASS 23  FAIL 0
+  SLANG_UHDM=/bin/false       PASS  0  FAIL 23      <- negative control
+
+================================================================ uhdm2rtlil
+verify_golden.py --jobs 3, SLANG_UHDM exported per binary, own --out/--workdir.
+
+  status, EVERY binary, BOTH modes:
+      CMP_EQUAL 788   CMP_NOTEQUAL 16   SLANG_REJECT 67   (871 rows)
+      = the committed baseline exactly
+
+  whole-row join vs results/golden_uhdm2rtlil.csv (mode-joined; that CSV holds
+  BOTH modes, so a single-mode fresh CSV must be joined per mode or every
+  other-mode row reads as REMOVED):
+      pristine  testflags 0   default 0
+      r11u80    testflags 0   default 0
+      verified  testflags 0   default 0      differing row-sides
+  vs results/gate_uhdm2rtlil.csv (testflags gate), verified: PASS, every row
+      byte-identical to the committed baseline
+  pristine vs verified: 0 differing rows, both modes
+  r11u80   vs verified: 0 differing rows, both modes
+
+  byteverify SELFCHECK=1 against the verifier's OWN pristine workdir:
+      r11u80    databases 1608/1608  PATH_SETS_IDENTICAL  MOVERS 0/1608 (selfcheck 1607)
+      verified  databases 1608/1608  PATH_SETS_IDENTICAL  MOVERS 0/1608 (selfcheck 1607)
+
+  binary audit: 1742/1742 cmds.txt name the intended frozen binary in each of
+      the three workdirs; 0 cmds.txt name any other binary.
+
+================================================================ surelog
+  status, EVERY binary:
+      default    CMP_EQUAL 474  CMP_NOTEQUAL 9   DEFERRED 5  SLANG_REJECT 285
+                 SURELOG_FAIL 25
+      testflags  CMP_EQUAL 469  CMP_NOTEQUAL 8   DEFERRED 5  NO_DATABASE 3
+                 NO_UHDM 1  SLANG_REJECT 286  SURELOG_FAIL 23  TIMEOUT 1
+                 UNTRANSLATABLE 2
+      = the committed baseline exactly (474/9 + 469/8 of 798)
+
+  whole-row join vs results/golden_surelog.csv:
+      pristine  2 rows: LowMemLib/LowMemPkg testflags, the SURELOG_FAIL message
+                carries the WORKDIR PATH — environment
+      r11u80    3 rows: the same two + Earlgrey_0_1/testflags dump COLUMN
+                `differ` -> blank
+      verified  4 rows: the same two + Earlgrey_0_1 default AND testflags dump
+                COLUMN `differ` -> blank
+      Every one is environment: the Earlgrey dump column is a uhdm-dump timeout
+      draw and its DATABASE byte-compare is the pin, which holds (below).
+
+  byteverify SELFCHECK=1 against the verifier's OWN pristine workdir:
+      r11u80    databases 960/960  PATH_SETS_IDENTICAL  MOVERS 3/960 (selfcheck 959)
+      verified  databases 960/960  PATH_SETS_IDENTICAL  MOVERS 5/960 (selfcheck 959)
+
+  EVERY MOVER ATTRIBUTED, path-normalised and ORDER-BLIND (both dumps sorted):
+
+      r11u80    default/MiniAmiq     4 lines  UINT/vpiDecompile   0 <->  727
+                default/SimpleUVM    4 lines  UINT/vpiDecompile   0 <-> 1253
+                testflags/MiniAmiq   4 lines  UINT/vpiDecompile 1388 <->  802
+      verified  default/MiniAmiq     4 lines  UINT/vpiDecompile   0 <->  973
+                default/SeqDriver    4 lines  UINT/vpiDecompile   0 <->  578
+                default/SimpleUVM    4 lines  UINT/vpiDecompile   0 <-> 1323
+                testflags/MiniAmiq   4 lines  UINT/vpiDecompile 1388 <-> 1111
+                testflags/SeqDriver  4 lines  UINT/vpiDecompile   0 <-> 1120
+
+  Every one is a UINT:<n> / vpiDecompile:<n> PAIR — the documented UVM
+  macro-buffer SourceLocation line-number class, order-blind.  NOT ONE
+  vpiNetType, NOT ONE listing line, NOT ONE hoisted object.  The mover SET
+  differs between the two patched binaries on the same faces, which is the
+  signature of the draw and not of a code change.
+
+  MOVER RULE — the UVM family stays CONVERTED on all three binaries:
+      BuildUVMPkg  default CMP_EQUAL  testflags CMP_EQUAL
+      MiniAmiq     default CMP_EQUAL  testflags CMP_EQUAL
+      SeqDriver    default CMP_EQUAL  testflags CMP_EQUAL
+      SimpleUVM    default CMP_EQUAL  testflags CMP_EQUAL
+      Scoreboard   default CMP_EQUAL  testflags SLANG_REJECT
+
+  binary audit: 1531/1581 cmds.txt name the intended frozen binary (the 50
+      without a binary line are the SURELOG_FAIL/NO_DATABASE arms that never
+      invoked slang); 0 cmds.txt name any other binary.
+
+================================================================ CANARIES
+Database md5 (first 12), all three binaries, both modes — ALL IDENTICAL and
+all equal to the OPS pins:
+
+  SVSwitch             4842211c4030   (OPS hard byte pin)
+  YosysVerx            6ccda350c24a   (OPS hard byte pin)
+  InterfaceModPort     59a365f3ce2c
+  BlackParrotComplex   e3e354129d5a (default) / 73a10e8217e5 (testflags)
+  YosysOldOr           d68e0796d62c
+  Earlgrey_0_1         8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)
+                       — the OPS pins exactly, so the dump-COLUMN blank above
+                         is a uhdm-dump draw and not a database change
+
+  canaries.sh  surelog   ok=50 changed=2 (the two Earlgrey dump-COLUMN draws)
+  canaries.sh  u2r       ok=8  changed=0
+  ctcan2.sh    surelog   ok=58 changed=0   PASS
+  ctcan2.sh    u2r       ok=1  changed=0   PASS
+  canaudit.sh            audited=29  UNCOVERED=0  FENCE-BREACH=0   PASS
+
+================================================================ CENSUS
+cellcen80.py replays verify_golden.py's OWN discovery and argv, runs the
+VERIFIED binary with R11U77_CELLDBG=1 and records every invocation's rc.
+
+  uhdm2rtlil, both modes:  9480 cell rows (5588 R11U69CELL + 3892 R11U74BIND)
+                           0 R11U77HOIST lines
+                           0 R11U77DEFNT lines
+                           rc: 10912 x 0, 131 x 3, 30 x 4 — every arm recorded
+
+  surelog, both modes:    41398 cell rows (28136 R11U69CELL + 12574 R11U74BIND
+                          + 410 R11U77DEFNT + 278 R11U77HOIST)
+                          278 R11U77HOIST, EVERY ONE kind=0 (Pre77)
+                            -> 0 on the unpacked road (kinds 5-8)
+                          410 R11U77DEFNT, 0 MOVED
+                          rc: 36818 x 0, 4 x 1, 32 x 2, 578 x 3, 12 x 4
+                          the 278 live in nine (test, mode) pairs:
+                            ApbSlave default+testflags, PackageNet
+                            default+testflags, Scoreboard default,
+                            SeqDriver default+testflags, SimpleUVM
+                            default+testflags
+                          — reproducing r11u80's census row for row, on the
+                            VERIFIED binary
+
+  POSITIVE CONTROL, the SAME counter and the SAME binary, this verifier's grid:
+      q1a_netchain  kind=6 x7                       DEFNT MOVED 7
+      q1b_varchain  kind=5 x4  kind=6 x2            DEFNT MOVED 0  SAME 6
+      q2_dims       kind=5 x12 kind=6 x2            DEFNT MOVED 14
+      q3_varnt2     kind=0 x15 kind=5 x7 kind=6 x1  DEFNT MOVED 12 SAME 11
+      q4_class      kind=5 x19 kind=6 x2            DEFNT MOVED 5  SAME 16
+      q5_tdarr      kind=6 x1  kind=7 x1  kind=8 x7 DEFNT MOVED 4  SAME 5
+      q6_twohop     kind=5 x15 kind=6 x2            DEFNT MOVED 5  SAME 12
+      q7_mixed      kind=5 x4                       DEFNT MOVED 3  SAME 1
+      q8_sizefaces  kind=5 x14 kind=6 x2            DEFNT MOVED 16
+  kinds 5/6/7/8 are ArrayVar/ArrayNet/ArraySkip/ArrayTdEmpty — the unpacked
+  road — and ALL FOUR fire.  The counter can see; the corpus zero is a reading.
+
+  MOVERS PREDICTED A PRIORI, BY NAME, BOTH CORPORA, BOTH MODE COLUMNS: NONE.
+  Observed: none in uhdm2rtlil; in surelog only the five UVM macro-buffer
+  line-number draws above, each shown to be environment before it was believed.
+
+================================================================ THE LEDGER
+43 arms (this verifier's 9 + r11u80's 34) x 2 dump sections, element level,
+golden vs pristine vs patched:
+
+                       CONVERTED   MOVED-WRONG   STILL-WRONG   PRE-EXISTING
+  r11u80                   85           0            10             5
+  r11u80.verified         102           0             0             5
+
+MOVED-WRONG 0 / AWAY-GOLDEN 0, both corpora, both mode columns, both patched
+binaries.  results/*.csv UNTOUCHED.

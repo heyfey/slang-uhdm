@@ -1,0 +1,125 @@
+r11u80 GATES — every number below is a RUN in this pass's own worktree, with
+this pass's own binaries frozen `chmod 555` at immutable paths before any
+sweep, and every `cmds.txt` audited by binary PATH.
+
+(1) BUILD
+    pristine  c56e3f2c141ee7e9a6bb41c9d4e38f8c
+              == the main tree's build/slang-uhdm @15ff66f6 == the OPS pin
+              (compared, not assumed)
+    patched   b1136aebd7f36e4e42a8ea30f23e3f9e
+    Both built -j 2, md5 taken separately, both frozen chmod 555.
+
+(2) GOLDENS
+    patched   PASS 23  FAIL 0
+    pristine  PASS 23  FAIL 0
+    /bin/false PASS 0  FAIL 23          (the negative control)
+
+(3) uhdm2rtlil, BOTH MODES
+    patched  testflags 788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+    patched  default   788 / 16 / 67
+    pristine testflags 788 / 16 / 67    pristine default 788 / 16 / 67
+      == the committed 15ff66f6 baseline, both binaries, both modes
+    whole-row join vs results/gate_uhdm2rtlil.csv (testflags):
+      PASS — every row byte-identical to the committed baseline
+    whole-row join vs results/golden_uhdm2rtlil.csv (BOTH modes, 1742 rows):
+      0 of 1742 rows differing
+    whole-row join pristine vs patched: 0 differing, both modes
+    binary audit: 1742/1742 cmds.txt name /tmp/r11u80_pris.bin in the pristine
+      workdir and /tmp/r11u80_fix.bin in the patched one; 0 name any other
+    byteverify SELFCHECK=1 patched vs own pristine:
+      PATH_SETS_IDENTICAL (1608 paths); MOVERS 0 / 1608;
+      selfcheck 1607 / 1608 flagged (the comparator sees)
+
+(4) surelog, --mode both
+    patched  default   474 CMP_EQUAL / 9 CMP_NOTEQUAL / 285 SLANG_REJECT
+                       25 SURELOG_FAIL / 5 DEFERRED
+    patched  testflags 469 CMP_EQUAL / 8 CMP_NOTEQUAL / 286 SLANG_REJECT
+                       23 SURELOG_FAIL / 5 DEFERRED / 3 NO_DATABASE /
+                        2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    pristine: IDENTICAL, bucket for bucket, in both modes
+      == the committed 15ff66f6 baseline (474/9 + 469/8 of 798)
+    whole-row join vs results/golden_surelog.csv: 3 of 1596 rows, ALL
+      ENVIRONMENT and ALL present on the PRISTINE sweep too --
+        Earlgrey_0_1/testflags   dump column `differ` -> blank (the documented
+                                 uhdm-dump timeout draw; status stays CMP_EQUAL
+                                 and the DATABASE byte-compare is the pin, see
+                                 gate (5))
+        LowMemLib/testflags      SURELOG_FAIL detail carries the WORKDIR path
+        LowMemPkg/testflags      same
+    whole-row join PRISTINE vs PATCHED: 2 of 1596 rows, both the LowMem*
+      workdir strings.  Every other row, including every mode column, is
+      byte-identical between the two binaries.
+    binary audit: 1581 cmds.txt in each workdir; 1531 name this pass's own
+      binary (/tmp/r11u80_pris.bin resp. /tmp/r11u80_fix2.bin) and the other
+      50 are rows where slang was never invoked (SURELOG_FAIL / NO_DATABASE).
+      ZERO name any other binary.
+    byteverify SELFCHECK=1 patched vs own pristine:
+      PATH_SETS_IDENTICAL; MOVERS 4 / 960; selfcheck 959 / 960 flagged
+
+    THE FOUR MOVERS, ATTRIBUTED ONE BY ONE by a path-normalised, id-stripped,
+    ORDER-BLIND whole-dump diff.  The census PREDICTED NONE, so every one of
+    them had to be shown to be environment before it was believed:
+
+      default/MiniAmiq       4 lines   UINT/vpiDecompile 1252 <-> 1063
+      testflags/MiniAmiq     4 lines   UINT/vpiDecompile  734 <->  974
+      testflags/SeqDriver    4 lines   UINT/vpiDecompile    0 <-> 1226
+      default/Scoreboard     0 lines   (the order draw -- order-blind identical)
+
+    Every one is a `UINT:<n>` / `vpiDecompile:<n>` PAIR: the documented UVM
+    macro-buffer line-number class, plus the documented ZERO-line order draw.
+    NOT ONE vpiNetType, NOT ONE listing line, NOT ONE hoisted object.
+
+    THE UVM FAMILY STAYS CONVERTED.  Committed / pristine / patched, all three
+    equal, both modes:
+      BuildUVMPkg CMP_EQUAL   MiniAmiq CMP_EQUAL   SeqDriver CMP_EQUAL
+      SimpleUVM  CMP_EQUAL    Scoreboard CMP_EQUAL/SLANG_REJECT
+      Earlgrey_0_1 CMP_EQUAL  ApbSlave CMP_EQUAL   PackageNet CMP_EQUAL
+      Rggen CMP_NOTEQUAL/SURELOG_FAIL (its committed rows, unchanged)
+
+(5) CANARIES
+    PROTECTED DATABASES, md5 pristine | patched, both modes:
+      SVSwitch            4842211c4030 | 4842211c4030   SAME  == the OPS pin
+      YosysVerx           6ccda350c24a | 6ccda350c24a   SAME  == the OPS pin
+      InterfaceModPort    59a365f3ce2c | 59a365f3ce2c   SAME  == the OPS pin
+      BlackParrotComplex  e3e354129d5a / 73a10e8217e5   SAME both modes
+      YosysOldOr          d68e0796d62c | d68e0796d62c   SAME both modes
+      Earlgrey_0_1        8bdf25272e08 (default) | 59d0ee6d10c3 (testflags)
+                          SAME both modes == the OPS pins
+    canaries.sh  surelog vs committed  ok=51 changed=1 absent=0
+                 the one CHANGED is Earlgrey_0_1/testflags' dump COLUMN
+                 (CMP_EQUAL/differ -> CMP_EQUAL/), present on the PRISTINE
+                 sweep too and pinned by the byte-identical database above
+    canaries.sh  u2r vs committed      ok=8  changed=0 absent=0
+    ctcan2.sh    u2r  PASS (every supplementary canary row byte-identical)
+
+(6) FENCES
+    the four slang-fenced names: 0 occurrences in the production diff,
+    0 files in tools/probe/r11u80repro/ but canaudit.sh's own FENCED= line.
+    canaudit.sh: audited=29  UNCOVERED=0  FENCE-BREACH=0
+    results/*.csv UNTOUCHED (read only; `git diff --stat` names only
+    src/ModuleEmit.cpp).
+
+(7) THE GRID BOUNDARY (the wide gate)
+    34 arms x 2 dump sections, object-block comparator (shapecmp80.py) run on
+    the PRISTINE pair and the PATCHED pair:
+      MOVED-WRONG 0   — not one block that matched golden on the pristine
+                        binary differs on the patched one
+      CONVERTED  32 blocks
+    Per-arm whole-database delta (dump-path normalised, header dropped):
+    only vb_unpackedfaces, vh_arrelem, vi_defnt, z1_arrgrid and z2_varnt move.
+    All 23 r11u77 control arms and the other 6 r11v77 ones — including
+    y2_pkgvarkind, which also carries hoisted unpacked arrays — are
+    BYTE-IDENTICAL between the two binaries.
+    All 34 arms: golden_rc=0 ours_rc=0, and cmp_rc / head counts IDENTICAL
+    between the two binaries (the R0 head masks every arm here; see README §7).
+
+(8) THE PATCH ITSELF
+    /tmp/r11u80.patch = `git diff` vs 15ff66f6.
+    Surface: src/ModuleEmit.cpp + tools/probe/r11u80repro/ ONLY.
+      no results/*.csv, no ParamEmit.cpp, no other production file.
+    Applied to a FRESH `git worktree add <dir> 15ff66f6`:
+      `git apply` rc=0 (output written to a FILE, never piped);
+      the applied src/ModuleEmit.cpp is BYTE-IDENTICAL to this pass's own
+      (md5 efde22ca03f9e799c406e46198edabc4) and so is the whole probe dir;
+      a clean `cmake --build -j 2` of that tree links
+      b1136aebd7f36e4e42a8ea30f23e3f9e — the patched pin, bit for bit.

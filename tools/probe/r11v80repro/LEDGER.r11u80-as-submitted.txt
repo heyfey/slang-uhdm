@@ -1,0 +1,173 @@
+CONVERTED    q1a_netchain work@dut.q_nsl
+CONVERTED    q1a_netchain work@dut.q_nsl2
+CONVERTED    q1a_netchain work@dut.q_nun
+PRE-EXISTING q1a_netchain work@dut.q_nun2
+   G ['work@dut.q_nun2            array_net  Size=2                     ts=None                       | elem=union_var      Name=q_nun2                        ts=union_typespec(pq1a::un2_t)']
+   P ['work@dut.q_nun2            array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=union_typespec(pq1a::un2_t)']
+   F ['work@dut.q_nun2            array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=union_typespec(pq1a::un2_t)']
+CONVERTED    q1a_netchain work@dut.q_nw
+PRE-EXISTING q1a_netchain work@dut.q_nw2
+   G ['work@dut.q_nw2             array_net  Size=2                     ts=None                       | elem=logic_net      Name=q_nw2 NetType=1               ts=logic_typespec(pq1a::w2_t)']
+   P ['work@dut.q_nw2             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec(pq1a::w2_t)']
+   F ['work@dut.q_nw2             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec(pq1a::w2_t)']
+CONVERTED    q1b_varchain work@dut.q_ven2
+CONVERTED    q1b_varchain work@dut.q_vr
+CONVERTED    q1b_varchain work@dut.q_vr2
+CONVERTED    q1b_varchain work@dut.q_vsi2
+CONVERTED    q1b_varchain work@dut.q_vsl2
+CONVERTED    q1b_varchain work@dut.q_vun2
+CONVERTED    q2_dims work@dut.d_2d
+CONVERTED    q2_dims work@dut.d_3d
+CONVERTED    q2_dims work@dut.d_4d
+PRE-EXISTING q2_dims work@dut.d_lpar
+   G ['work@dut.d_lpar            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['work@dut.d_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   F ['work@dut.d_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+STILL-WRONG q2_dims work@dut.d_mix
+   G ['work@dut.d_mix             array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['<NONE>']
+   F ['work@dut.d_mix             array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+CONVERTED    q2_dims work@dut.d_n2d
+CONVERTED    q2_dims work@dut.d_nsl2d
+PRE-EXISTING q2_dims work@dut.d_par
+   G ['work@dut.d_par             array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['work@dut.d_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   F ['work@dut.d_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+CONVERTED    q3_varnt2 work@dut.c_utdr
+CONVERTED    q3_varnt2 work@dut.c_utdw
+CONVERTED    q4_class work@dut.e_bit
+CONVERTED    q4_class work@dut.e_byte
+CONVERTED    q4_class work@dut.e_ei
+CONVERTED    q4_class work@dut.e_el
+CONVERTED    q4_class work@dut.e_int
+CONVERTED    q4_class work@dut.e_integ
+CONVERTED    q4_class work@dut.e_long
+CONVERTED    q4_class work@dut.e_nel
+CONVERTED    q4_class work@dut.e_nsn
+CONVERTED    q4_class work@dut.e_real
+CONVERTED    q4_class work@dut.e_sb
+CONVERTED    q4_class work@dut.e_shrt
+CONVERTED    q4_class work@dut.e_sreal
+CONVERTED    q4_class work@dut.e_str
+CONVERTED    q4_class work@dut.e_tdbit
+CONVERTED    q4_class work@dut.e_tdw
+CONVERTED    q4_class work@dut.e_time
+CONVERTED    q5_tdarr work@dut.t_2d
+CONVERTED    q5_tdarr work@dut.t_a
+STILL-WRONG q5_tdarr work@dut.t_a2
+   G ['work@dut.t_a2              array_var  Visibility=1               ts=array_typespec(pq5::arr2_t) | elem=None                                              ts=None']
+   P ['<NONE>']
+   F ['work@dut.t_a2              array_var  Visibility=1               ts=array_typespec(arr2_t)     | elem=None                                              ts=None']
+STILL-WRONG q5_tdarr work@dut.t_a3
+   G ['work@dut.t_a3              array_var  Visibility=1               ts=array_typespec(pq5::arr3_t) | elem=None                                              ts=None']
+   P ['<NONE>']
+   F ['work@dut.t_a3              array_var  Visibility=1               ts=array_typespec(arr3_t)     | elem=None                                              ts=None']
+STILL-WRONG q5_tdarr work@dut.t_nest
+   G ['work@dut.t_nest            array_var  Visibility=1               ts=array_typespec(pq5::arrn_t) | elem=None                                              ts=None']
+   P ['<NONE>']
+   F ['work@dut.t_nest            array_var  Visibility=1               ts=array_typespec(arrn_t)     | elem=None                                              ts=None']
+PRE-EXISTING q5_tdarr work@dut.t_plus
+   G ['work@dut.t_plus            array_var  Size=3 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=array_var                                         ts=array_typespec(arr_t)']
+   P ['<NONE>']
+   F ['<NONE>']
+STILL-WRONG q5_tdarr work@dut.t_r
+   G ['work@dut.t_r               array_var                             ts=array_typespec(pq5::arrr_t) | elem=None                                              ts=None']
+   P ['<NONE>']
+   F ['work@dut.t_r               array_var  Visibility=1               ts=array_typespec(arrr_t)     | elem=None                                              ts=None']
+STILL-WRONG q5_tdarr work@dut.t_sl
+   G ['work@dut.t_sl              array_var  Visibility=1               ts=array_typespec(pq5::arrs_t) | elem=None                                              ts=None']
+   P ['<NONE>']
+   F ['work@dut.t_sl              array_var  Visibility=1               ts=array_typespec(arrs_t)     | elem=None                                              ts=None']
+CONVERTED    q6_twohop work@dut.a_klog
+CONVERTED    q6_twohop work@dut.a_ksi
+PRE-EXISTING q6_twohop work@dut.a_nslog
+   G ['work@dut.a_nslog           array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1 Signed=1                 ts=logic_typespec()']
+   P ['work@dut.a_nslog           array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()']
+   F ['work@dut.a_nslog           array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()']
+CONVERTED    q6_twohop work@dut.a_sint
+CONVERTED    q6_twohop work@dut.a_slog
+CONVERTED    q6_twohop work@dut.a_stat
+CONVERTED    q6_twohop work@dut.a_tdb
+CONVERTED    q6_twohop work@dut.a_tdr
+CONVERTED    q6_twohop work@dut.a_tdw
+CONVERTED    q6_twohop work@dut.a_uint
+CONVERTED    q6_twohop work@dut.a_ven
+CONVERTED    q6_twohop work@dut.a_vsi
+CONVERTED    q6_twohop work@dut.a_vun
+CONVERTED    q7_mixed work@dut.g_2d
+CONVERTED    q7_mixed work@dut.g_si
+STILL-WRONG q8_sizefaces work@dut.m_lp
+   G ['work@dut.m_lp              array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['<NONE>']
+   F ['work@dut.m_lp              array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+STILL-WRONG q8_sizefaces work@dut.m_pl
+   G ['work@dut.m_pl              array_var  Size=2 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['<NONE>']
+   F ['work@dut.m_pl              array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+STILL-WRONG q8_sizefaces work@dut.m_pp
+   G ['work@dut.m_pp              array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['<NONE>']
+   F ['work@dut.m_pp              array_var  Size=15 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+STILL-WRONG q8_sizefaces work@dut.n_mix
+   G ['work@dut.n_mix             array_net  Size=2                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()']
+   P ['<NONE>']
+   F ['work@dut.n_mix             array_net  Size=6                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()']
+PRE-EXISTING q8_sizefaces work@dut.n_par
+   G ['work@dut.n_par             array_net  Size=1                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()']
+   P ['work@dut.n_par             array_net  Size=3                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()']
+   F ['work@dut.n_par             array_net  Size=3                     ts=None                       | elem=logic_net      NetType=1                          ts=logic_typespec()']
+PRE-EXISTING q8_sizefaces work@dut.s_lpar
+   G ['work@dut.s_lpar            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['work@dut.s_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   F ['work@dut.s_lpar            array_var  Size=5 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+PRE-EXISTING q8_sizefaces work@dut.s_par
+   G ['work@dut.s_par             array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['work@dut.s_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   F ['work@dut.s_par             array_var  Size=3 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+PRE-EXISTING q8_sizefaces work@dut.s_pexp
+   G ['work@dut.s_pexp            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['work@dut.s_pexp            array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   F ['work@dut.s_pexp            array_var  Size=6 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+PRE-EXISTING q8_sizefaces work@dut.s_pmix
+   G ['work@dut.s_pmix            array_var  Size=1 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   P ['work@dut.s_pmix            array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+   F ['work@dut.s_pmix            array_var  Size=4 Automatic=1 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=logic_var                                         ts=logic_typespec()']
+CONVERTED    vb_unpackedfaces work@dut.u_2d
+CONVERTED    vb_unpackedfaces work@dut.u_nsi
+CONVERTED    vb_unpackedfaces work@dut.u_si
+CONVERTED    vb_unpackedfaces work@dut.u_td
+CONVERTED    vh_arrelem work@dut.a_nen
+CONVERTED    vh_arrelem work@dut.a_nsi
+CONVERTED    vh_arrelem work@dut.a_nsl
+CONVERTED    vh_arrelem work@dut.a_nun
+CONVERTED    vh_arrelem work@dut.a_ven
+CONVERTED    vh_arrelem work@dut.a_vsi
+CONVERTED    vh_arrelem work@dut.a_vun
+CONVERTED    z1_arrgrid work@dut.z_3d
+CONVERTED    z1_arrgrid work@dut.z_bit
+CONVERTED    z1_arrgrid work@dut.z_byte
+CONVERTED    z1_arrgrid work@dut.z_int
+CONVERTED    z1_arrgrid work@dut.z_integ
+CONVERTED    z1_arrgrid work@dut.z_klog
+CONVERTED    z1_arrgrid work@dut.z_long
+CONVERTED    z1_arrgrid work@dut.z_nbit
+CONVERTED    z1_arrgrid work@dut.z_nsl2
+CONVERTED    z1_arrgrid work@dut.z_ntdw
+CONVERTED    z1_arrgrid work@dut.z_real
+CONVERTED    z1_arrgrid work@dut.z_short
+CONVERTED    z1_arrgrid work@dut.z_si2
+CONVERTED    z1_arrgrid work@dut.z_sl2
+CONVERTED    z1_arrgrid work@dut.z_slog
+CONVERTED    z1_arrgrid work@dut.z_sreal
+CONVERTED    z1_arrgrid work@dut.z_str
+CONVERTED    z1_arrgrid work@dut.z_td2
+PRE-EXISTING z1_arrgrid work@dut.z_tdplus
+   G ['work@dut.z_tdplus          array_var  Size=3 RandType=1 Visibility=1 ArrayType=1 ts=array_typespec()           | elem=array_var                                         ts=array_typespec(arr1_t)']
+   P ['<NONE>']
+   F ['<NONE>']
+CONVERTED    z1_arrgrid work@dut.z_tdr
+CONVERTED    z1_arrgrid work@dut.z_tdw
+CONVERTED    z1_arrgrid work@dut.z_time
+CONVERTED    z1_arrgrid work@dut.z_ven
+CONVERTED    z1_arrgrid work@dut.z_vsi
+CONVERTED    z1_arrgrid work@dut.z_vun

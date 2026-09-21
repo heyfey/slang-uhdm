@@ -1,0 +1,1588 @@
+LHS:
+decompile:
+package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+|vpiParent:
+\_design: (work@dut), id:2162
+|vpiName:pz
+|vpiFullName:pz::
+|vpiVariables:
+\_array_var: (pz::z_int), id:752, line:21:16, endln:21:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_int), id:753
+    |vpiParent:
+    \_array_var: (pz::z_int), id:752, line:21:16, endln:21:21
+    |vpiFullName:pz::z_int
+    |vpiActual:
+    \_array_typespec: , id:754
+  |vpiName:z_int
+  |vpiFullName:pz::z_int
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:747, line:21:25, endln:21:30
+    |vpiParent:
+    \_array_var: (pz::z_int), id:752, line:21:16, endln:21:21
+    |vpiLeftRange:
+    \_constant: , id:748, line:21:26, endln:21:27
+      |vpiParent:
+      \_range: , id:747, line:21:25, endln:21:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:749, line:21:28, endln:21:29
+      |vpiParent:
+      \_range: , id:747, line:21:25, endln:21:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_int_var: (pz::z_int), id:750, line:21:16, endln:21:21
+    |vpiParent:
+    \_array_var: (pz::z_int), id:752, line:21:16, endln:21:21
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_int), id:751
+      |vpiParent:
+      \_int_var: (pz::z_int), id:750, line:21:16, endln:21:21
+      |vpiFullName:pz::z_int
+      |vpiActual:
+      \_int_typespec: , id:746, line:21:3, endln:21:6
+    |vpiFullName:pz::z_int
+|vpiVariables:
+\_array_var: (pz::z_bit), id:767, line:22:16, endln:22:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_bit), id:768
+    |vpiParent:
+    \_array_var: (pz::z_bit), id:767, line:22:16, endln:22:21
+    |vpiFullName:pz::z_bit
+    |vpiActual:
+    \_array_typespec: , id:769
+  |vpiName:z_bit
+  |vpiFullName:pz::z_bit
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:762, line:22:25, endln:22:30
+    |vpiParent:
+    \_array_var: (pz::z_bit), id:767, line:22:16, endln:22:21
+    |vpiLeftRange:
+    \_constant: , id:763, line:22:26, endln:22:27
+      |vpiParent:
+      \_range: , id:762, line:22:25, endln:22:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:764, line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , id:762, line:22:25, endln:22:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_bit_var: (pz::z_bit), id:765, line:22:16, endln:22:21
+    |vpiParent:
+    \_array_var: (pz::z_bit), id:767, line:22:16, endln:22:21
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_bit), id:766
+      |vpiParent:
+      \_bit_var: (pz::z_bit), id:765, line:22:16, endln:22:21
+      |vpiFullName:pz::z_bit
+      |vpiActual:
+      \_bit_typespec: , id:758, line:22:3, endln:22:14
+    |vpiFullName:pz::z_bit
+    |vpiRange:
+    \_range: , id:762, line:22:25, endln:22:30
+|vpiVariables:
+\_array_var: (pz::z_byte), id:776, line:23:16, endln:23:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_byte), id:777
+    |vpiParent:
+    \_array_var: (pz::z_byte), id:776, line:23:16, endln:23:22
+    |vpiFullName:pz::z_byte
+    |vpiActual:
+    \_array_typespec: , id:778
+  |vpiName:z_byte
+  |vpiFullName:pz::z_byte
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:771, line:23:25, endln:23:30
+    |vpiParent:
+    \_array_var: (pz::z_byte), id:776, line:23:16, endln:23:22
+    |vpiLeftRange:
+    \_constant: , id:772, line:23:26, endln:23:27
+      |vpiParent:
+      \_range: , id:771, line:23:25, endln:23:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:773, line:23:28, endln:23:29
+      |vpiParent:
+      \_range: , id:771, line:23:25, endln:23:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_byte_var: (pz::z_byte), id:774, line:23:16, endln:23:22
+    |vpiParent:
+    \_array_var: (pz::z_byte), id:776, line:23:16, endln:23:22
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_byte), id:775
+      |vpiParent:
+      \_byte_var: (pz::z_byte), id:774, line:23:16, endln:23:22
+      |vpiFullName:pz::z_byte
+      |vpiActual:
+      \_byte_typespec: , id:770, line:23:3, endln:23:7
+    |vpiFullName:pz::z_byte
+|vpiVariables:
+\_array_var: (pz::z_real), id:785, line:24:16, endln:24:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_real), id:786
+    |vpiParent:
+    \_array_var: (pz::z_real), id:785, line:24:16, endln:24:22
+    |vpiFullName:pz::z_real
+    |vpiActual:
+    \_array_typespec: , id:787
+  |vpiName:z_real
+  |vpiFullName:pz::z_real
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:780, line:24:25, endln:24:30
+    |vpiParent:
+    \_array_var: (pz::z_real), id:785, line:24:16, endln:24:22
+    |vpiLeftRange:
+    \_constant: , id:781, line:24:26, endln:24:27
+      |vpiParent:
+      \_range: , id:780, line:24:25, endln:24:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:782, line:24:28, endln:24:29
+      |vpiParent:
+      \_range: , id:780, line:24:25, endln:24:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_real_var: (pz::z_real), id:783, line:24:16, endln:24:22
+    |vpiParent:
+    \_array_var: (pz::z_real), id:785, line:24:16, endln:24:22
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_real), id:784
+      |vpiParent:
+      \_real_var: (pz::z_real), id:783, line:24:16, endln:24:22
+      |vpiFullName:pz::z_real
+      |vpiActual:
+      \_real_typespec: , id:779, line:24:3, endln:24:7
+    |vpiFullName:pz::z_real
+|vpiVariables:
+\_array_var: (pz::z_str), id:794, line:25:16, endln:25:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_str), id:795
+    |vpiParent:
+    \_array_var: (pz::z_str), id:794, line:25:16, endln:25:21
+    |vpiFullName:pz::z_str
+    |vpiActual:
+    \_array_typespec: , id:796
+  |vpiName:z_str
+  |vpiFullName:pz::z_str
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:789, line:25:25, endln:25:30
+    |vpiParent:
+    \_array_var: (pz::z_str), id:794, line:25:16, endln:25:21
+    |vpiLeftRange:
+    \_constant: , id:790, line:25:26, endln:25:27
+      |vpiParent:
+      \_range: , id:789, line:25:25, endln:25:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:791, line:25:28, endln:25:29
+      |vpiParent:
+      \_range: , id:789, line:25:25, endln:25:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_string_var: (pz::z_str), id:792, line:25:16, endln:25:21
+    |vpiParent:
+    \_array_var: (pz::z_str), id:794, line:25:16, endln:25:21
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_str), id:793
+      |vpiParent:
+      \_string_var: (pz::z_str), id:792, line:25:16, endln:25:21
+      |vpiFullName:pz::z_str
+      |vpiActual:
+      \_string_typespec: , id:788, line:25:3, endln:25:9
+    |vpiFullName:pz::z_str
+|vpiVariables:
+\_array_var: (pz::z_reg), id:809, line:26:16, endln:26:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_reg), id:810
+    |vpiParent:
+    \_array_var: (pz::z_reg), id:809, line:26:16, endln:26:21
+    |vpiFullName:pz::z_reg
+    |vpiActual:
+    \_array_typespec: , id:811
+  |vpiName:z_reg
+  |vpiFullName:pz::z_reg
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:804, line:26:25, endln:26:30
+    |vpiParent:
+    \_array_var: (pz::z_reg), id:809, line:26:16, endln:26:21
+    |vpiLeftRange:
+    \_constant: , id:805, line:26:26, endln:26:27
+      |vpiParent:
+      \_range: , id:804, line:26:25, endln:26:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:806, line:26:28, endln:26:29
+      |vpiParent:
+      \_range: , id:804, line:26:25, endln:26:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pz::z_reg), id:807, line:26:16, endln:26:21
+    |vpiParent:
+    \_array_var: (pz::z_reg), id:809, line:26:16, endln:26:21
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_reg), id:808
+      |vpiParent:
+      \_logic_var: (pz::z_reg), id:807, line:26:16, endln:26:21
+      |vpiFullName:pz::z_reg
+      |vpiActual:
+      \_logic_typespec: , id:800, line:26:3, endln:26:14
+    |vpiFullName:pz::z_reg
+|vpiVariables:
+\_array_var: (pz::z_varlog), id:821, line:27:21, endln:27:29
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_varlog), id:822
+    |vpiParent:
+    \_array_var: (pz::z_varlog), id:821, line:27:21, endln:27:29
+    |vpiFullName:pz::z_varlog
+    |vpiActual:
+    \_array_typespec: , id:823
+  |vpiName:z_varlog
+  |vpiFullName:pz::z_varlog
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:816, line:27:30, endln:27:35
+    |vpiParent:
+    \_array_var: (pz::z_varlog), id:821, line:27:21, endln:27:29
+    |vpiLeftRange:
+    \_constant: , id:817, line:27:31, endln:27:32
+      |vpiParent:
+      \_range: , id:816, line:27:30, endln:27:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:818, line:27:33, endln:27:34
+      |vpiParent:
+      \_range: , id:816, line:27:30, endln:27:35
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pz::z_varlog), id:819, line:27:21, endln:27:29
+    |vpiParent:
+    \_array_var: (pz::z_varlog), id:821, line:27:21, endln:27:29
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_varlog), id:820
+      |vpiParent:
+      \_logic_var: (pz::z_varlog), id:819, line:27:21, endln:27:29
+      |vpiFullName:pz::z_varlog
+      |vpiActual:
+      \_logic_typespec: , id:815, line:27:9, endln:27:20
+    |vpiFullName:pz::z_varlog
+|vpiVariables:
+\_array_var: (pz::z_vsi), id:876, line:39:16, endln:39:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_vsi), id:877
+    |vpiParent:
+    \_array_var: (pz::z_vsi), id:876, line:39:16, endln:39:21
+    |vpiFullName:pz::z_vsi
+    |vpiActual:
+    \_array_typespec: , id:878
+  |vpiName:z_vsi
+  |vpiFullName:pz::z_vsi
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:871, line:39:25, endln:39:30
+    |vpiParent:
+    \_array_var: (pz::z_vsi), id:876, line:39:16, endln:39:21
+    |vpiLeftRange:
+    \_constant: , id:872, line:39:26, endln:39:27
+      |vpiParent:
+      \_range: , id:871, line:39:25, endln:39:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:873, line:39:28, endln:39:29
+      |vpiParent:
+      \_range: , id:871, line:39:25, endln:39:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_struct_var: (pz::z_vsi), id:874, line:39:16, endln:39:21
+    |vpiParent:
+    \_array_var: (pz::z_vsi), id:876, line:39:16, endln:39:21
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_vsi), id:875
+      |vpiParent:
+      \_struct_var: (pz::z_vsi), id:874, line:39:16, endln:39:21
+      |vpiFullName:pz::z_vsi
+      |vpiActual:
+      \_struct_typespec: (pz::si_t), id:139, line:11:11, endln:11:50
+    |vpiFullName:pz::z_vsi
+|vpiVariables:
+\_array_var: (pz::z_ven), id:884, line:40:16, endln:40:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_ven), id:885
+    |vpiParent:
+    \_array_var: (pz::z_ven), id:884, line:40:16, endln:40:21
+    |vpiFullName:pz::z_ven
+    |vpiActual:
+    \_array_typespec: , id:886
+  |vpiName:z_ven
+  |vpiFullName:pz::z_ven
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:879, line:40:25, endln:40:30
+    |vpiParent:
+    \_array_var: (pz::z_ven), id:884, line:40:16, endln:40:21
+    |vpiLeftRange:
+    \_constant: , id:880, line:40:26, endln:40:27
+      |vpiParent:
+      \_range: , id:879, line:40:25, endln:40:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:881, line:40:28, endln:40:29
+      |vpiParent:
+      \_range: , id:879, line:40:25, endln:40:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_enum_var: (pz::z_ven), id:882, line:40:16, endln:40:21
+    |vpiParent:
+    \_array_var: (pz::z_ven), id:884, line:40:16, endln:40:21
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_ven), id:883
+      |vpiParent:
+      \_enum_var: (pz::z_ven), id:882, line:40:16, endln:40:21
+      |vpiFullName:pz::z_ven
+      |vpiActual:
+      \_enum_typespec: (pz::en_t), id:166, line:13:3, endln:13:44
+    |vpiFullName:pz::z_ven
+|vpiVariables:
+\_array_var: (pz::z_vun), id:892, line:41:16, endln:41:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_vun), id:893
+    |vpiParent:
+    \_array_var: (pz::z_vun), id:892, line:41:16, endln:41:21
+    |vpiFullName:pz::z_vun
+    |vpiActual:
+    \_array_typespec: , id:894
+  |vpiName:z_vun
+  |vpiFullName:pz::z_vun
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:887, line:41:25, endln:41:30
+    |vpiParent:
+    \_array_var: (pz::z_vun), id:892, line:41:16, endln:41:21
+    |vpiLeftRange:
+    \_constant: , id:888, line:41:26, endln:41:27
+      |vpiParent:
+      \_range: , id:887, line:41:25, endln:41:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:889, line:41:28, endln:41:29
+      |vpiParent:
+      \_range: , id:887, line:41:25, endln:41:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_union_var: (pz::z_vun), id:890, line:41:16, endln:41:21
+    |vpiParent:
+    \_array_var: (pz::z_vun), id:892, line:41:16, endln:41:21
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_vun), id:891
+      |vpiParent:
+      \_union_var: (pz::z_vun), id:890, line:41:16, endln:41:21
+      |vpiFullName:pz::z_vun
+      |vpiActual:
+      \_union_typespec: (pz::un_t), id:149, line:12:11, endln:12:60
+    |vpiFullName:pz::z_vun
+|vpiVariables:
+\_array_var: (pz::z_3d), id:913, line:44:16, endln:44:20
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_3d), id:914
+    |vpiParent:
+    \_array_var: (pz::z_3d), id:913, line:44:16, endln:44:20
+    |vpiFullName:pz::z_3d
+    |vpiActual:
+    \_array_typespec: , id:915
+  |vpiName:z_3d
+  |vpiFullName:pz::z_3d
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:902, line:44:25, endln:44:30
+    |vpiParent:
+    \_array_var: (pz::z_3d), id:913, line:44:16, endln:44:20
+    |vpiLeftRange:
+    \_constant: , id:903, line:44:26, endln:44:27
+      |vpiParent:
+      \_range: , id:902, line:44:25, endln:44:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:904, line:44:28, endln:44:29
+      |vpiParent:
+      \_range: , id:902, line:44:25, endln:44:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , id:905, line:44:30, endln:44:35
+    |vpiParent:
+    \_array_var: (pz::z_3d), id:913, line:44:16, endln:44:20
+    |vpiLeftRange:
+    \_constant: , id:906, line:44:31, endln:44:32
+      |vpiParent:
+      \_range: , id:905, line:44:30, endln:44:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:907, line:44:33, endln:44:34
+      |vpiParent:
+      \_range: , id:905, line:44:30, endln:44:35
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , id:908, line:44:35, endln:44:40
+    |vpiParent:
+    \_array_var: (pz::z_3d), id:913, line:44:16, endln:44:20
+    |vpiLeftRange:
+    \_constant: , id:909, line:44:36, endln:44:37
+      |vpiParent:
+      \_range: , id:908, line:44:35, endln:44:40
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:910, line:44:38, endln:44:39
+      |vpiParent:
+      \_range: , id:908, line:44:35, endln:44:40
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pz::z_3d), id:911, line:44:16, endln:44:20
+    |vpiParent:
+    \_array_var: (pz::z_3d), id:913, line:44:16, endln:44:20
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_3d), id:912
+      |vpiParent:
+      \_logic_var: (pz::z_3d), id:911, line:44:16, endln:44:20
+      |vpiFullName:pz::z_3d
+      |vpiActual:
+      \_logic_typespec: , id:898, line:44:3, endln:44:14
+    |vpiFullName:pz::z_3d
+|vpiVariables:
+\_array_var: (pz::z_szexp), id:932, line:45:16, endln:45:23
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_szexp), id:933
+    |vpiParent:
+    \_array_var: (pz::z_szexp), id:932, line:45:16, endln:45:23
+    |vpiFullName:pz::z_szexp
+    |vpiActual:
+    \_array_typespec: , id:934
+  |vpiName:z_szexp
+  |vpiFullName:pz::z_szexp
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:923, line:45:26, endln:45:29
+    |vpiParent:
+    \_array_var: (pz::z_szexp), id:932, line:45:16, endln:45:23
+    |vpiLeftRange:
+    \_constant: , id:924
+      |vpiParent:
+      \_range: , id:923, line:45:26, endln:45:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:928, line:45:26, endln:45:29
+      |vpiParent:
+      \_range: , id:923, line:45:26, endln:45:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , id:926, line:45:26, endln:45:29
+        |vpiParent:
+        \_operation: , id:928, line:45:26, endln:45:29
+        |vpiOpType:25
+        |vpiOperand:
+        \_constant: , id:925, line:45:26, endln:45:27
+          |vpiParent:
+          \_operation: , id:926, line:45:26, endln:45:29
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:927, line:45:28, endln:45:29
+          |vpiParent:
+          \_operation: , id:926, line:45:26, endln:45:29
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:929
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiReg:
+  \_logic_var: (pz::z_szexp), id:930, line:45:16, endln:45:23
+    |vpiParent:
+    \_array_var: (pz::z_szexp), id:932, line:45:16, endln:45:23
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_szexp), id:931
+      |vpiParent:
+      \_logic_var: (pz::z_szexp), id:930, line:45:16, endln:45:23
+      |vpiFullName:pz::z_szexp
+      |vpiActual:
+      \_logic_typespec: , id:919, line:45:3, endln:45:14
+    |vpiFullName:pz::z_szexp
+|vpiVariables:
+\_array_var: (pz::z_desc), id:947, line:46:16, endln:46:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_desc), id:948
+    |vpiParent:
+    \_array_var: (pz::z_desc), id:947, line:46:16, endln:46:22
+    |vpiFullName:pz::z_desc
+    |vpiActual:
+    \_array_typespec: , id:949
+  |vpiName:z_desc
+  |vpiFullName:pz::z_desc
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:942, line:46:25, endln:46:30
+    |vpiParent:
+    \_array_var: (pz::z_desc), id:947, line:46:16, endln:46:22
+    |vpiLeftRange:
+    \_constant: , id:943, line:46:26, endln:46:27
+      |vpiParent:
+      \_range: , id:942, line:46:25, endln:46:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:944, line:46:28, endln:46:29
+      |vpiParent:
+      \_range: , id:942, line:46:25, endln:46:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pz::z_desc), id:945, line:46:16, endln:46:22
+    |vpiParent:
+    \_array_var: (pz::z_desc), id:947, line:46:16, endln:46:22
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_desc), id:946
+      |vpiParent:
+      \_logic_var: (pz::z_desc), id:945, line:46:16, endln:46:22
+      |vpiFullName:pz::z_desc
+      |vpiActual:
+      \_logic_typespec: , id:938, line:46:3, endln:46:14
+    |vpiFullName:pz::z_desc
+|vpiVariables:
+\_array_var: (pz::z_klog), id:972, line:51:21, endln:51:27
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_klog), id:973
+    |vpiParent:
+    \_array_var: (pz::z_klog), id:972, line:51:21, endln:51:27
+    |vpiFullName:pz::z_klog
+    |vpiActual:
+    \_array_typespec: , id:974
+  |vpiName:z_klog
+  |vpiFullName:pz::z_klog
+  |vpiAutomatic:1
+  |vpiConstantVariable:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiExpr:
+  \_operation: , id:966, line:51:36, endln:51:49
+    |vpiParent:
+    \_logic_var: (pz::z_klog), id:970, line:51:21, endln:51:27
+    |vpiOpType:75
+    |vpiOperand:
+    \_constant: , id:967, line:51:38, endln:51:42
+      |vpiDecompile:8'd1
+      |vpiSize:8
+      |DEC:1
+      |vpiConstType:1
+    |vpiOperand:
+    \_constant: , id:969, line:51:44, endln:51:48
+      |vpiDecompile:8'd2
+      |vpiSize:8
+      |DEC:2
+      |vpiConstType:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:963, line:51:28, endln:51:33
+    |vpiParent:
+    \_array_var: (pz::z_klog), id:972, line:51:21, endln:51:27
+    |vpiLeftRange:
+    \_constant: , id:964, line:51:29, endln:51:30
+      |vpiParent:
+      \_range: , id:963, line:51:28, endln:51:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:965, line:51:31, endln:51:32
+      |vpiParent:
+      \_range: , id:963, line:51:28, endln:51:33
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pz::z_klog), id:970, line:51:21, endln:51:27
+    |vpiParent:
+    \_array_var: (pz::z_klog), id:972, line:51:21, endln:51:27
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_klog), id:971
+      |vpiParent:
+      \_logic_var: (pz::z_klog), id:970, line:51:21, endln:51:27
+      |vpiFullName:pz::z_klog
+      |vpiActual:
+      \_logic_typespec: , id:959, line:51:9, endln:51:20
+    |vpiFullName:pz::z_klog
+    |vpiExpr:
+    \_operation: , id:966, line:51:36, endln:51:49
+|vpiVariables:
+\_array_var: (pz::z_short), id:1019, line:59:16, endln:59:23
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_short), id:1020
+    |vpiParent:
+    \_array_var: (pz::z_short), id:1019, line:59:16, endln:59:23
+    |vpiFullName:pz::z_short
+    |vpiActual:
+    \_array_typespec: , id:1021
+  |vpiName:z_short
+  |vpiFullName:pz::z_short
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:1014, line:59:25, endln:59:30
+    |vpiParent:
+    \_array_var: (pz::z_short), id:1019, line:59:16, endln:59:23
+    |vpiLeftRange:
+    \_constant: , id:1015, line:59:26, endln:59:27
+      |vpiParent:
+      \_range: , id:1014, line:59:25, endln:59:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:1016, line:59:28, endln:59:29
+      |vpiParent:
+      \_range: , id:1014, line:59:25, endln:59:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_short_int_var: (pz::z_short), id:1017, line:59:16, endln:59:23
+    |vpiParent:
+    \_array_var: (pz::z_short), id:1019, line:59:16, endln:59:23
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_short), id:1018
+      |vpiParent:
+      \_short_int_var: (pz::z_short), id:1017, line:59:16, endln:59:23
+      |vpiFullName:pz::z_short
+      |vpiActual:
+      \_short_int_typespec: , id:1013, line:59:3, endln:59:11
+    |vpiFullName:pz::z_short
+|vpiVariables:
+\_array_var: (pz::z_long), id:1028, line:60:16, endln:60:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_long), id:1029
+    |vpiParent:
+    \_array_var: (pz::z_long), id:1028, line:60:16, endln:60:22
+    |vpiFullName:pz::z_long
+    |vpiActual:
+    \_array_typespec: , id:1030
+  |vpiName:z_long
+  |vpiFullName:pz::z_long
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:1023, line:60:25, endln:60:30
+    |vpiParent:
+    \_array_var: (pz::z_long), id:1028, line:60:16, endln:60:22
+    |vpiLeftRange:
+    \_constant: , id:1024, line:60:26, endln:60:27
+      |vpiParent:
+      \_range: , id:1023, line:60:25, endln:60:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:1025, line:60:28, endln:60:29
+      |vpiParent:
+      \_range: , id:1023, line:60:25, endln:60:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_long_int_var: (pz::z_long), id:1026, line:60:16, endln:60:22
+    |vpiParent:
+    \_array_var: (pz::z_long), id:1028, line:60:16, endln:60:22
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_long), id:1027
+      |vpiParent:
+      \_long_int_var: (pz::z_long), id:1026, line:60:16, endln:60:22
+      |vpiFullName:pz::z_long
+      |vpiActual:
+      \_long_int_typespec: , id:1022, line:60:3, endln:60:10
+    |vpiFullName:pz::z_long
+|vpiVariables:
+\_array_var: (pz::z_integ), id:1037, line:61:16, endln:61:23
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_integ), id:1038
+    |vpiParent:
+    \_array_var: (pz::z_integ), id:1037, line:61:16, endln:61:23
+    |vpiFullName:pz::z_integ
+    |vpiActual:
+    \_array_typespec: , id:1039
+  |vpiName:z_integ
+  |vpiFullName:pz::z_integ
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:1032, line:61:25, endln:61:30
+    |vpiParent:
+    \_array_var: (pz::z_integ), id:1037, line:61:16, endln:61:23
+    |vpiLeftRange:
+    \_constant: , id:1033, line:61:26, endln:61:27
+      |vpiParent:
+      \_range: , id:1032, line:61:25, endln:61:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:1034, line:61:28, endln:61:29
+      |vpiParent:
+      \_range: , id:1032, line:61:25, endln:61:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_integer_var: (pz::z_integ), id:1035, line:61:16, endln:61:23
+    |vpiParent:
+    \_array_var: (pz::z_integ), id:1037, line:61:16, endln:61:23
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_integ), id:1036
+      |vpiParent:
+      \_integer_var: (pz::z_integ), id:1035, line:61:16, endln:61:23
+      |vpiFullName:pz::z_integ
+      |vpiActual:
+      \_integer_typespec: , id:1031, line:61:3, endln:61:10
+    |vpiFullName:pz::z_integ
+|vpiVariables:
+\_array_var: (pz::z_time), id:1046, line:62:16, endln:62:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_time), id:1047
+    |vpiParent:
+    \_array_var: (pz::z_time), id:1046, line:62:16, endln:62:22
+    |vpiFullName:pz::z_time
+    |vpiActual:
+    \_array_typespec: , id:1048
+  |vpiName:z_time
+  |vpiFullName:pz::z_time
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:1041, line:62:25, endln:62:30
+    |vpiParent:
+    \_array_var: (pz::z_time), id:1046, line:62:16, endln:62:22
+    |vpiLeftRange:
+    \_constant: , id:1042, line:62:26, endln:62:27
+      |vpiParent:
+      \_range: , id:1041, line:62:25, endln:62:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:1043, line:62:28, endln:62:29
+      |vpiParent:
+      \_range: , id:1041, line:62:25, endln:62:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_time_var: (pz::z_time), id:1044, line:62:16, endln:62:22
+    |vpiParent:
+    \_array_var: (pz::z_time), id:1046, line:62:16, endln:62:22
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_time), id:1045
+      |vpiParent:
+      \_time_var: (pz::z_time), id:1044, line:62:16, endln:62:22
+      |vpiFullName:pz::z_time
+      |vpiActual:
+      \_time_typespec: , id:1040, line:62:3, endln:62:7
+    |vpiFullName:pz::z_time
+|vpiVariables:
+\_array_var: (pz::z_sreal), id:1054, line:63:16, endln:63:23
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_sreal), id:1055
+    |vpiParent:
+    \_array_var: (pz::z_sreal), id:1054, line:63:16, endln:63:23
+    |vpiFullName:pz::z_sreal
+    |vpiActual:
+    \_array_typespec: , id:1056
+  |vpiName:z_sreal
+  |vpiFullName:pz::z_sreal
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:1050, line:63:25, endln:63:30
+    |vpiParent:
+    \_array_var: (pz::z_sreal), id:1054, line:63:16, endln:63:23
+    |vpiLeftRange:
+    \_constant: , id:1051, line:63:26, endln:63:27
+      |vpiParent:
+      \_range: , id:1050, line:63:25, endln:63:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:1052, line:63:28, endln:63:29
+      |vpiParent:
+      \_range: , id:1050, line:63:25, endln:63:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_short_real_var: (pz::z_sreal), id:1053, line:63:16, endln:63:23
+    |vpiParent:
+    \_array_var: (pz::z_sreal), id:1054, line:63:16, endln:63:23
+    |vpiFullName:pz::z_sreal
+|vpiVariables:
+\_array_var: (pz::z_slog), id:1069, line:64:22, endln:64:28
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_slog), id:1070
+    |vpiParent:
+    \_array_var: (pz::z_slog), id:1069, line:64:22, endln:64:28
+    |vpiFullName:pz::z_slog
+    |vpiActual:
+    \_array_typespec: , id:1071
+  |vpiName:z_slog
+  |vpiFullName:pz::z_slog
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:1064, line:64:29, endln:64:34
+    |vpiParent:
+    \_array_var: (pz::z_slog), id:1069, line:64:22, endln:64:28
+    |vpiLeftRange:
+    \_constant: , id:1065, line:64:30, endln:64:31
+      |vpiParent:
+      \_range: , id:1064, line:64:29, endln:64:34
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:1066, line:64:32, endln:64:33
+      |vpiParent:
+      \_range: , id:1064, line:64:29, endln:64:34
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pz::z_slog), id:1067, line:64:22, endln:64:28
+    |vpiParent:
+    \_array_var: (pz::z_slog), id:1069, line:64:22, endln:64:28
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_slog), id:1068
+      |vpiParent:
+      \_logic_var: (pz::z_slog), id:1067, line:64:22, endln:64:28
+      |vpiFullName:pz::z_slog
+      |vpiActual:
+      \_logic_typespec: , id:1060, line:64:3, endln:64:21
+    |vpiFullName:pz::z_slog
+|vpiVariables:
+\_array_var: (pz::z_nbit), id:1082, line:65:16, endln:65:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_nbit), id:1083
+    |vpiParent:
+    \_array_var: (pz::z_nbit), id:1082, line:65:16, endln:65:22
+    |vpiFullName:pz::z_nbit
+    |vpiActual:
+    \_array_typespec: , id:1084
+  |vpiName:z_nbit
+  |vpiFullName:pz::z_nbit
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:1077, line:65:25, endln:65:30
+    |vpiParent:
+    \_array_var: (pz::z_nbit), id:1082, line:65:16, endln:65:22
+    |vpiLeftRange:
+    \_constant: , id:1078, line:65:26, endln:65:27
+      |vpiParent:
+      \_range: , id:1077, line:65:25, endln:65:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:1079, line:65:28, endln:65:29
+      |vpiParent:
+      \_range: , id:1077, line:65:25, endln:65:30
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_bit_var: (pz::z_nbit), id:1080, line:65:16, endln:65:22
+    |vpiParent:
+    \_array_var: (pz::z_nbit), id:1082, line:65:16, endln:65:22
+    |vpiTypespec:
+    \_ref_typespec: (pz::z_nbit), id:1081
+      |vpiParent:
+      \_bit_var: (pz::z_nbit), id:1080, line:65:16, endln:65:22
+      |vpiFullName:pz::z_nbit
+      |vpiActual:
+      \_bit_typespec: (b_t), id:1072, line:16:11, endln:16:21
+    |vpiFullName:pz::z_nbit
+    |vpiRange:
+    \_range: , id:1077, line:65:25, endln:65:30
+|vpiTypedef:
+\_array_typespec: (pz::arr1_t), id:211, line:55:11, endln:55:35
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::arr1_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiRange:
+  \_range: , id:212, line:55:30, endln:55:35
+    |vpiParent:
+    \_array_typespec: (pz::arr1_t), id:211, line:55:11, endln:55:35
+    |vpiLeftRange:
+    \_constant: , id:213, line:55:31, endln:55:32
+      |vpiParent:
+      \_range: , id:212, line:55:30, endln:55:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:214, line:55:33, endln:55:34
+      |vpiParent:
+      \_range: , id:212, line:55:30, endln:55:35
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (pz::pz::arr1_t), id:223
+    |vpiParent:
+    \_array_typespec: (pz::arr1_t), id:211, line:55:11, endln:55:35
+    |vpiFullName:pz::pz::arr1_t
+    |vpiActual:
+    \_logic_typespec: , id:222, line:55:11, endln:55:22
+|vpiTypedef:
+\_array_typespec: (pz::arr2_t), id:195, line:53:11, endln:53:35
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::arr2_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiRange:
+  \_range: , id:196, line:53:30, endln:53:35
+    |vpiParent:
+    \_array_typespec: (pz::arr2_t), id:195, line:53:11, endln:53:35
+    |vpiLeftRange:
+    \_constant: , id:197, line:53:31, endln:53:32
+      |vpiParent:
+      \_range: , id:196, line:53:30, endln:53:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:198, line:53:33, endln:53:34
+      |vpiParent:
+      \_range: , id:196, line:53:30, endln:53:35
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , id:199, line:53:35, endln:53:40
+    |vpiParent:
+    \_array_typespec: (pz::arr2_t), id:195, line:53:11, endln:53:35
+    |vpiLeftRange:
+    \_constant: , id:200, line:53:36, endln:53:37
+      |vpiParent:
+      \_range: , id:199, line:53:35, endln:53:40
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:201, line:53:38, endln:53:39
+      |vpiParent:
+      \_range: , id:199, line:53:35, endln:53:40
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (pz::pz::arr2_t), id:210
+    |vpiParent:
+    \_array_typespec: (pz::arr2_t), id:195, line:53:11, endln:53:35
+    |vpiFullName:pz::pz::arr2_t
+    |vpiActual:
+    \_logic_typespec: , id:209, line:53:11, endln:53:22
+|vpiTypedef:
+\_bit_typespec: (pz::b_t), id:194, line:16:11, endln:16:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::b_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiRange:
+  \_range: , id:191, line:16:16, endln:16:21
+    |vpiParent:
+    \_bit_typespec: (pz::b_t), id:194, line:16:11, endln:16:21
+    |vpiLeftRange:
+    \_constant: , id:192, line:16:17, endln:16:18
+      |vpiParent:
+      \_range: , id:191, line:16:16, endln:16:21
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:193, line:16:19, endln:16:20
+      |vpiParent:
+      \_range: , id:191, line:16:16, endln:16:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_enum_typespec: (pz::en_t), id:166, line:13:3, endln:13:44
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::en_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pz::pz::en_t), id:167
+    |vpiParent:
+    \_enum_typespec: (pz::en_t), id:166, line:13:3, endln:13:44
+    |vpiFullName:pz::pz::en_t
+    |vpiActual:
+    \_logic_typespec: , id:165, line:13:16, endln:13:27
+  |vpiEnumConst:
+  \_enum_const: (ZA), id:169, line:13:30, endln:13:32
+    |vpiParent:
+    \_enum_typespec: (pz::en_t), id:166, line:13:3, endln:13:44
+    |vpiName:ZA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (ZB), id:170, line:13:34, endln:13:36
+    |vpiParent:
+    \_enum_typespec: (pz::en_t), id:166, line:13:3, endln:13:44
+    |vpiName:ZB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_logic_typespec: (pz::r_t), id:186, line:15:11, endln:15:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::r_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiRange:
+  \_range: , id:183, line:15:17, endln:15:22
+    |vpiParent:
+    \_logic_typespec: (pz::r_t), id:186, line:15:11, endln:15:22
+    |vpiLeftRange:
+    \_constant: , id:184, line:15:18, endln:15:19
+      |vpiParent:
+      \_range: , id:183, line:15:17, endln:15:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:185, line:15:20, endln:15:21
+      |vpiParent:
+      \_range: , id:183, line:15:17, endln:15:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_struct_typespec: (pz::si_t), id:139, line:11:11, endln:11:50
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::si_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:141, line:11:31, endln:11:32
+    |vpiParent:
+    \_struct_typespec: (pz::si_t), id:139, line:11:11, endln:11:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pz::pz::si_t::x), id:142
+      |vpiParent:
+      \_typespec_member: (x), id:141, line:11:31, endln:11:32
+      |vpiFullName:pz::pz::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:140, line:11:27, endln:11:30
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:147, line:11:46, endln:11:47
+    |vpiParent:
+    \_struct_typespec: (pz::si_t), id:139, line:11:11, endln:11:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pz::pz::si_t::y), id:148
+      |vpiParent:
+      \_typespec_member: (y), id:147, line:11:46, endln:11:47
+      |vpiFullName:pz::pz::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:146, line:11:34, endln:11:45
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (pz::sl_t), id:126, line:10:11, endln:49:30
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::sl_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:131, line:10:39, endln:10:40
+    |vpiParent:
+    \_struct_typespec: (pz::sl_t), id:126, line:10:11, endln:49:30
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pz::pz::sl_t::x), id:132
+      |vpiParent:
+      \_typespec_member: (x), id:131, line:10:39, endln:10:40
+      |vpiFullName:pz::pz::sl_t::x
+      |vpiActual:
+      \_logic_typespec: , id:130, line:10:27, endln:10:38
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:137, line:10:54, endln:10:55
+    |vpiParent:
+    \_struct_typespec: (pz::sl_t), id:126, line:10:11, endln:49:30
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pz::pz::sl_t::y), id:138
+      |vpiParent:
+      \_typespec_member: (y), id:137, line:10:54, endln:10:55
+      |vpiFullName:pz::pz::sl_t::y
+      |vpiActual:
+      \_logic_typespec: , id:136, line:10:42, endln:10:53
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_union_typespec: (pz::un_t), id:149, line:12:11, endln:12:60
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::un_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:154, line:12:40, endln:12:41
+    |vpiParent:
+    \_union_typespec: (pz::un_t), id:149, line:12:11, endln:12:60
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pz::pz::un_t::a), id:155
+      |vpiParent:
+      \_typespec_member: (a), id:154, line:12:40, endln:12:41
+      |vpiFullName:pz::pz::un_t::a
+      |vpiActual:
+      \_logic_typespec: , id:153, line:12:27, endln:12:39
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:39
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:160, line:12:56, endln:12:57
+    |vpiParent:
+    \_union_typespec: (pz::un_t), id:149, line:12:11, endln:12:60
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pz::pz::un_t::b), id:161
+      |vpiParent:
+      \_typespec_member: (b), id:160, line:12:56, endln:12:57
+      |vpiFullName:pz::pz::un_t::b
+      |vpiActual:
+      \_logic_typespec: , id:159, line:12:43, endln:12:55
+    |vpiRefFile:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:43
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:55
+|vpiTypedef:
+\_logic_typespec: (pz::w_t), id:178, line:14:11, endln:14:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiName:pz::w_t
+  |vpiInstance:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiRange:
+  \_range: , id:175, line:14:17, endln:14:22
+    |vpiParent:
+    \_logic_typespec: (pz::w_t), id:178, line:14:11, endln:14:22
+    |vpiLeftRange:
+    \_constant: , id:176, line:14:18, endln:14:19
+      |vpiParent:
+      \_range: , id:175, line:14:17, endln:14:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:177, line:14:20, endln:14:21
+      |vpiParent:
+      \_range: , id:175, line:14:17, endln:14:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:pz
+|vpiNet:
+\_logic_net: (pz::z_tdw), id:2217, line:30:16, endln:30:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_tdw), id:2223
+    |vpiParent:
+    \_logic_net: (pz::z_tdw), id:2217, line:30:16, endln:30:21
+    |vpiFullName:pz::z_tdw
+    |vpiActual:
+    \_logic_typespec: (pz::w_t), id:2218, line:14:11, endln:30:30
+  |vpiName:z_tdw
+  |vpiFullName:pz::z_tdw
+|vpiNet:
+\_logic_net: (pz::z_tdr), id:2224, line:31:16, endln:31:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_tdr), id:2230
+    |vpiParent:
+    \_logic_net: (pz::z_tdr), id:2224, line:31:16, endln:31:21
+    |vpiFullName:pz::z_tdr
+    |vpiActual:
+    \_logic_typespec: (pz::r_t), id:2225, line:15:11, endln:31:30
+  |vpiName:z_tdr
+  |vpiFullName:pz::z_tdr
+|vpiNet:
+\_logic_net: (pz::z_ntdw), id:2231, line:32:16, endln:32:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_ntdw), id:2237
+    |vpiParent:
+    \_logic_net: (pz::z_ntdw), id:2231, line:32:16, endln:32:22
+    |vpiFullName:pz::z_ntdw
+    |vpiActual:
+    \_logic_typespec: (pz::w_t), id:2232, line:14:11, endln:32:30
+  |vpiName:z_ntdw
+  |vpiFullName:pz::z_ntdw
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pz::z_sl2), id:2238, line:35:16, endln:35:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_sl2), id:2240
+    |vpiParent:
+    \_logic_net: (pz::z_sl2), id:2238, line:35:16, endln:35:21
+    |vpiFullName:pz::z_sl2
+    |vpiActual:
+    \_unsupported_typespec: (sl2_t), id:2239, line:35:3, endln:35:30
+  |vpiName:z_sl2
+  |vpiFullName:pz::z_sl2
+|vpiNet:
+\_logic_net: (pz::z_si2), id:2241, line:36:16, endln:36:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_si2), id:2243
+    |vpiParent:
+    \_logic_net: (pz::z_si2), id:2241, line:36:16, endln:36:21
+    |vpiFullName:pz::z_si2
+    |vpiActual:
+    \_unsupported_typespec: (si2_t), id:2242, line:36:3, endln:36:30
+  |vpiName:z_si2
+  |vpiFullName:pz::z_si2
+|vpiNet:
+\_logic_net: (pz::z_vsl), id:2244, line:49:16, endln:49:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_vsl), id:2245
+    |vpiParent:
+    \_logic_net: (pz::z_vsl), id:2244, line:49:16, endln:49:21
+    |vpiFullName:pz::z_vsl
+    |vpiActual:
+    \_struct_typespec: (pz::sl_t), id:126, line:10:11, endln:49:30
+  |vpiName:z_vsl
+  |vpiFullName:pz::z_vsl
+|vpiNet:
+\_logic_net: (pz::z_nsl2), id:2246, line:52:16, endln:52:22
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_nsl2), id:2248
+    |vpiParent:
+    \_logic_net: (pz::z_nsl2), id:2246, line:52:16, endln:52:22
+    |vpiFullName:pz::z_nsl2
+    |vpiActual:
+    \_unsupported_typespec: (sl2_t), id:2247, line:52:9, endln:52:30
+  |vpiName:z_nsl2
+  |vpiFullName:pz::z_nsl2
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pz::z_td2), id:2249, line:54:16, endln:54:21
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_td2), id:2263
+    |vpiParent:
+    \_logic_net: (pz::z_td2), id:2249, line:54:16, endln:54:21
+    |vpiFullName:pz::z_td2
+    |vpiActual:
+    \_array_typespec: (pz::arr2_t), id:2250, line:53:11, endln:53:35
+  |vpiName:z_td2
+  |vpiFullName:pz::z_td2
+|vpiNet:
+\_logic_net: (pz::z_tdplus), id:2264, line:56:16, endln:56:24
+  |vpiParent:
+  \_package: pz (pz::), id:125, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/z1_arrgrid/dut.sv, line:9:1, endln:66:11
+  |vpiTypespec:
+  \_ref_typespec: (pz::z_tdplus), id:2275
+    |vpiParent:
+    \_logic_net: (pz::z_tdplus), id:2264, line:56:16, endln:56:24
+    |vpiFullName:pz::z_tdplus
+    |vpiActual:
+    \_array_typespec: (pz::arr1_t), id:2265, line:55:11, endln:56:30
+  |vpiName:z_tdplus
+  |vpiFullName:pz::z_tdplus
+RHS: <null>

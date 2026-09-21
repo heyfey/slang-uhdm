@@ -1,0 +1,82 @@
+r11u80 — THE GOLDEN GRID, measured against one real Surelog v1.87 golden per
+arm.  Read as: HOLDER KIND / the compared scalar flags / the vpiReg|vpiNet
+ELEMENT's own class.  `auto` = vpiAutomatic, `sgn` = vpiSigned,
+`const` = vpiConstantVariable, `size` = vpiSize, `rng` = vpiRange count.
+Every row below is reproduced by the ONE rule in
+§ caImportedPkgHoistUnpackedBuilder80, except the one marked NOT WRITTEN.
+
+=== A. ELEMENT KINDS x NET/VAR (arms vh_arrelem, z1_arrgrid) ===============
+declaration                     GOLDEN holder    auto sgn  element
+wire  [7:0] a [0:1]             array_net         -    -   logic_net
+logic [7:0] a [0:1]             array_var         1    -   logic_var
+reg   [7:0] a [0:1]             array_var         1    -   logic_var
+var logic [7:0] a [0:1]         array_var         1    -   logic_var
+logic signed [7:0] a [0:1]      array_var         1    1   logic_var
+int         a [0:1]             array_var         1    1   int_var
+integer     a [0:1]             array_var         1    1   integer_var
+shortint    a [0:1]             array_var         1    1   short_int_var
+longint     a [0:1]             array_var         1    1   long_int_var
+byte        a [0:1]             array_var         1    1   byte_var
+time        a [0:1]             array_var         1    -   time_var
+bit   [3:0] a [0:1]             array_var         1    -   bit_var
+real        a [0:1]             array_var         1    -   real_var
+shortreal   a [0:1]             array_var         1    -   short_real_var
+                                (the shortreal element carries NO typespec:
+                                 makeVar_'s tpstype switch has a real arm and
+                                 no short_real one -- its `real` twin IS typed)
+string      a [0:1]             array_var         1    -   string_var
+const logic [7:0] a [0:1] = '{} array_var         1    -   logic_var  (const 1)
+wire  sl_t  a [0:1]             array_net         -    -   struct_net (nt=1)
+sl_t        a [0:1]             array_net         -    -   struct_net
+var   sl_t  a [0:1]             array_net         -    -   struct_net
+wire  si_t  a [0:1]             array_var         -    -   struct_var
+si_t        a [0:1]             array_var         -    -   struct_var
+var   si_t  a [0:1]             array_var         1    -   struct_var
+wire  un_t  a [0:1]             array_net         -    -   logic_net
+un_t        a [0:1]             array_var         -    -   union_var
+var   un_t  a [0:1]             array_var         1    -   union_var
+wire  en_t  a [0:1]             array_var         -    -   enum_var
+en_t        a [0:1]             array_var         -    -   enum_var
+var   en_t  a [0:1]             array_var         1    -   enum_var
+w_t   a [0:1]   (td logic[3:0]) array_VAR         -    -   logic_var
+r_t   a [0:1]   (td reg  [3:0]) array_NET         -    -   logic_net (nt=48)
+b_t   a [0:1]   (td bit  [3:0]) array_var         -    -   bit_var
+wire  w_t   a [0:1]             array_net         -    -   logic_net (nt=1)
+sl2_t a [0:1]   (CHAIN -> sl_t) array_net         -    -   struct_net (no nt)
+wire  sl2_t a [0:1]             array_net         -    -   struct_net (no nt)
+si2_t a [0:1]   (CHAIN -> si_t) array_var         -    -   struct_var
+
+=== B. DIMENSION SPELLINGS (arms vb_unpackedfaces, z1_arrgrid) =============
+logic [7:0] a [0:1]             size 2   rng 1
+logic [7:0] a [2]               size 2   rng 1
+logic [7:0] a [3:1]             size 3   rng 1
+logic [7:0] a [2*2]             size 4   rng 1     <- NOT the param-sized quirk
+logic [7:0] a [0:1][0:2]        size 6   rng 2     <- FLATTENED
+logic [7:0] a [0:1][0:2][0:3]   size 24  rng 3     <- FLATTENED
+arr_t  a        (td array)      NO size, NO rng, NO element, NO randtype,
+                                NO arraytype; only vpiName + vpiVisibility 1
+                                + an array_typespec named `arr_t` UNQUALIFIED
+arr2_t a        (td 2-D array)  the same EMPTY holder
+arr1_t a [0:2]  (td array + a   size 3 rng 1, element a NESTED array_var
+                 declarator dim) -- NOT WRITTEN (residue R1)
+
+=== C. THE VAR QUALIFIER x THE BASE KEYWORDS, def view (arms vi_defnt,
+       z2_varnt) — vpiNetType on the hoisted def-view logic_net ============
+logic [7:0]        36      var logic [7:0]        NONE
+reg   [7:0]        48      var reg   [7:0]        NONE
+w_t   (td logic)   36      var w_t                NONE
+r_t   (td reg)     48      var r_t                NONE
+s_t   (td struct)  NONE    var s_t                NONE
+const logic [7:0]  36      const var logic [7:0]  NONE
+                           var (implicit)         NONE
+                           var int / var bit      NONE
+and the other fourteen `vi_defnt` spellings are UNMOVED: logic signed 36,
+reg signed 48, logic 36, reg 48, r_t 48, ls_t 36, w_t 36, logic[3:0][7:0] 36,
+b_t / w2_t (the ONE hop) / int unsigned / shortint / longint  NONE.
+
+=== D. THE PASS-77 CONTROLS =================================================
+The 23 r11u77 arms and the 9 r11v77 arms are carried in verbatim.  Their
+databases are BYTE-IDENTICAL between the pristine and the patched binary on
+every one of them except the three this pass names (vb_unpackedfaces,
+vh_arrelem, vi_defnt) plus the two new ones (z1_arrgrid, z2_varnt).
+`y2_pkgvarkind`, which also carries hoisted unpacked arrays, is byte-identical.

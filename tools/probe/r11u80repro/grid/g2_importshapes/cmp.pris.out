@@ -1,0 +1,89 @@
+decompile:
+package: pw (pw::), id:18, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/g2_importshapes/dut.sv, line:8:1, endln:13:11
+|vpiParent:
+\_design: (work@dut), id:437
+|vpiName:pw
+|vpiFullName:pw::
+|vpiVariables:
+\_logic_var: (pw::w_ns), id:235, line:9:16, endln:9:20
+  |vpiParent:
+  \_package: pw (pw::), id:18, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/g2_importshapes/dut.sv, line:8:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::w_ns), id:236
+    |vpiParent:
+    \_logic_var: (pw::w_ns), id:235, line:9:16, endln:9:20
+    |vpiFullName:pw::w_ns
+    |vpiActual:
+    \_logic_typespec: , id:231, line:9:3, endln:9:15
+  |vpiName:w_ns
+  |vpiFullName:pw::w_ns
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (pw::w_same), id:244, line:10:16, endln:10:22
+  |vpiParent:
+  \_package: pw (pw::), id:18, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/g2_importshapes/dut.sv, line:8:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::w_same), id:245
+    |vpiParent:
+    \_logic_var: (pw::w_same), id:244, line:10:16, endln:10:22
+    |vpiFullName:pw::w_same
+    |vpiActual:
+    \_logic_typespec: , id:240, line:10:3, endln:10:15
+  |vpiName:w_same
+  |vpiFullName:pw::w_same
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiParameter:
+\_parameter: (pw::W_PAR), id:20, line:12:18, endln:12:23
+  |vpiParent:
+  \_package: pw (pw::), id:18, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/g2_importshapes/dut.sv, line:8:1, endln:13:11
+  |UINT:7
+  |vpiTypespec:
+  \_ref_typespec: (pw::W_PAR), id:24
+    |vpiParent:
+    \_parameter: (pw::W_PAR), id:20, line:12:18, endln:12:23
+    |vpiFullName:pw::W_PAR
+    |vpiActual:
+    \_int_typespec: , id:19, line:12:14, endln:12:17
+  |vpiSigned:1
+  |vpiLocalParam:1
+  |vpiName:W_PAR
+  |vpiFullName:pw::W_PAR
+|vpiParamAssign:
+\_param_assign: , id:25, line:12:18, endln:12:27
+  |vpiParent:
+  \_package: pw (pw::), id:18, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/g2_importshapes/dut.sv, line:8:1, endln:13:11
+  |vpiRhs:
+  \_constant: , id:31, line:12:26, endln:12:27
+    |vpiParent:
+    \_param_assign: , id:25, line:12:18, endln:12:27
+    |vpiDecompile:7
+    |vpiSize:64
+    |UINT:7
+    |vpiTypespec:
+    \_ref_typespec: (pw), id:32
+      |vpiParent:
+      \_constant: , id:31, line:12:26, endln:12:27
+      |vpiFullName:pw
+      |vpiActual:
+      \_int_typespec: , id:19, line:12:14, endln:12:17
+    |vpiConstType:9
+  |vpiLhs:
+  \_parameter: (pw::W_PAR), id:20, line:12:18, endln:12:23
+|vpiDefName:pw
+|vpiNet:
+\_logic_net: (pw::w_net), id:444, line:11:16, endln:11:21
+  |vpiParent:
+  \_package: pw (pw::), id:18, file:/tmp/wt_r11u80/tools/probe/r11u80repro/grid/g2_importshapes/dut.sv, line:8:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::w_net), id:449
+    |vpiParent:
+    \_logic_net: (pw::w_net), id:444, line:11:16, endln:11:21
+    |vpiFullName:pw::w_net
+    |vpiActual:
+    \_logic_typespec: , id:448, line:11:3, endln:11:15
+  |vpiName:w_net
+  |vpiFullName:pw::w_net
+  |vpiNetType:1
+
