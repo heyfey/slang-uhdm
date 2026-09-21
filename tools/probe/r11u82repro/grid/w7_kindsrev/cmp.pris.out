@@ -1,0 +1,8 @@
+decompile:
+ref_typespec: (work@dut.y_pn), id:64
+|vpiParent:
+\_logic_net: (work@dut.y_pn), id:59, line:6:15, endln:6:19
+|vpiFullName:work@dut.y_pn
+|vpiActual:
+\_logic_typespec: , id:60, line:6:3, endln:6:14
+

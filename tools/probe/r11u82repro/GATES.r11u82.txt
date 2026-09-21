@@ -1,0 +1,73 @@
+r11u82 GATES — every gate, on the binaries built in this pass's own worktree.
+
+== BUILD  (-j 2, md5 taken separately, both frozen chmod 555 before any sweep)
+87f32e6a31b52cd5b7766f0b8bcc731a     pris.bin
+65484d52491e71d8675def23d0953826     patch.bin
+   pristine == the main tree build/slang-uhdm at f25df07e == the OPS pin
+   87f32e6a31b52cd5b7766f0b8bcc731a, compared not assumed.
+
+== GOLDEN DUMP TESTS
+   patched  PASS=23 FAIL=0
+   pristine PASS=23 FAIL=0
+   /bin/false PASS=0 FAIL=23   (negative control)
+
+== uhdm2rtlil  (871 rows x 2 modes, --jobs 3, own --out/--workdir)
+   patched  testflags 788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+   patched  default   788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+   pristine identical in both modes
+   ct8rows vs results/gate_uhdm2rtlil.csv            PASS (every row byte-identical)
+   ct8rows vs results/golden_uhdm2rtlil.csv (BOTH modes joined)
+            patched  0 of 1742 rows differing
+            pristine 0 of 1742 rows differing
+   ct8rows own pristine vs own patched, each mode    PASS
+   byteverify SELFCHECK=1 patched vs own pristine    MOVERS 0 / 1608 (selfcheck 1607/1608)
+
+== surelog  (798 rows x 2 modes)
+   patched  default 474 CMP_EQUAL / 9 CMP_NOTEQUAL; testflags 469 / 8
+   pristine default 474 / 9;                        testflags 469 / 8
+   every other status bucket identical on both binaries
+   ct8rows vs results/golden_surelog.csv: 3 of 1596 rows on the PATCHED sweep
+     and THE SAME 3 on the PRISTINE sweep — the Earlgrey_0_1/testflags dump-
+     COLUMN draw and two LowMem* workdir strings, all environment
+   ct8rows own pristine vs own patched: 2 rows, both the LowMem* workdir string
+   byteverify SELFCHECK=1 patched vs own pristine    MOVERS 5 / 960 (selfcheck 959/960)
+
+== THE FIVE SURELOG MOVERS, ATTRIBUTED ORDER-BLIND (sorted, path-normalised
+   whole-dump diff).  Every one is exactly FOUR lines and every one of those
+   four is a UINT:<n> / vpiDecompile:<n> pair — the documented UVM macro-
+   buffer line-number class.  Not one listing line, not one vpiActual, not
+   one cont_assign among them.
+   default/MiniAmiq    4 lines  UINT/vpiDecompile 1371 <-> 1077
+   default/SeqDriver   4 lines  UINT/vpiDecompile  628 <->  961
+   default/SimpleUVM   4 lines  UINT/vpiDecompile    0 <-> 1416
+   testflags/MiniAmiq  4 lines  UINT/vpiDecompile 1057 <-> 1033
+   testflags/SeqDriver 4 lines  UINT/vpiDecompile    0 <-> 1048
+   BuildUVMPkg, MiniAmiq, SeqDriver, SimpleUVM, Scoreboard all stay CMP_EQUAL.
+   MOVED-WRONG 0 / AWAY-GOLDEN 0, both corpora, BOTH mode columns.
+
+== CANARIES (databases by name, md5 prefix, patched vs own pristine)
+   SVSwitch           4842211c4030 both modes, both binaries  (HARD pin)
+   YosysVerx          6ccda350c24a both modes, both binaries  (HARD pin)
+   InterfaceModPort   59a365f3ce2c both modes, both binaries
+   BlackParrotComplex e3e354129d5a / 73a10e8217e5
+   YosysOldOr         d68e0796d62c both modes
+   Earlgrey_0_1       8bdf25272e08 default / 59d0ee6d10c3 testflags (tf db pin)
+   canaries.sh surelog ok=51 changed=1 — Earlgrey_0_1/testflags's dump COLUMN
+     only, CMP_EQUAL/differ -> CMP_EQUAL/<blank>, and the PRISTINE sweep reads
+     ok=51 changed=1 on the same row: the documented uhdm-dump timeout draw
+   canaries.sh u2r     ok=8  changed=0
+   ctcan2 surelog PASS; ctcan2 u2r PASS
+   canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+   rowheads measured=12, 11 of them '0 0 cmp rc=0'; Rggen/default 64 1 rc=255
+     (its committed CMP_NOTEQUAL row, unchanged); SKIP-NOFILE 2, UNKNOWN 0
+
+== BINARY AUDIT (every cmds.txt by binary PATH, not by the string slang-uhdm)
+   u2r     patched 1742/1742 own binary, pristine 1742/1742
+   surelog patched 1531/1581 own binary, pristine 1531/1581 (the other 50 rows
+           run no slang at all); other-tree binaries 0 in all four workdirs
+
+== FENCES
+   the four slang-fenced names: 0 in the production diff, 0 in any file of
+   this directory but canaudit.sh's own FENCED= line
+   results/*.csv untouched; ParamEmit.cpp untouched (the sister pass's ground)
+   patch surface: src/ModuleEmit.cpp + tools/probe/r11u82repro/ only

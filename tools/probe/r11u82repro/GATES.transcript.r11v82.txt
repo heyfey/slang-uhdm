@@ -1,0 +1,296 @@
+############ STATUS HISTOGRAMS
+--- u2r/pris
+    788 default,CMP_EQUAL
+     16 default,CMP_NOTEQUAL
+     67 default,SLANG_REJECT
+    788 testflags,CMP_EQUAL
+     16 testflags,CMP_NOTEQUAL
+     67 testflags,SLANG_REJECT
+--- sl/pris
+    474 default,CMP_EQUAL
+      9 default,CMP_NOTEQUAL
+      5 default,DEFERRED
+    285 default,SLANG_REJECT
+     25 default,SURELOG_FAIL
+    469 testflags,CMP_EQUAL
+      8 testflags,CMP_NOTEQUAL
+      5 testflags,DEFERRED
+      3 testflags,NO_DATABASE
+      1 testflags,NO_UHDM
+    286 testflags,SLANG_REJECT
+     23 testflags,SURELOG_FAIL
+      1 testflags,TIMEOUT
+      2 testflags,UNTRANSLATABLE
+--- u2r/patch
+    788 default,CMP_EQUAL
+     16 default,CMP_NOTEQUAL
+     67 default,SLANG_REJECT
+    788 testflags,CMP_EQUAL
+     16 testflags,CMP_NOTEQUAL
+     67 testflags,SLANG_REJECT
+--- sl/patch
+    474 default,CMP_EQUAL
+      9 default,CMP_NOTEQUAL
+      5 default,DEFERRED
+    285 default,SLANG_REJECT
+     25 default,SURELOG_FAIL
+    469 testflags,CMP_EQUAL
+      8 testflags,CMP_NOTEQUAL
+      5 testflags,DEFERRED
+      3 testflags,NO_DATABASE
+      1 testflags,NO_UHDM
+    286 testflags,SLANG_REJECT
+     23 testflags,SURELOG_FAIL
+      1 testflags,TIMEOUT
+      2 testflags,UNTRANSLATABLE
+--- u2r/vfix
+    788 default,CMP_EQUAL
+     16 default,CMP_NOTEQUAL
+     67 default,SLANG_REJECT
+    788 testflags,CMP_EQUAL
+     16 testflags,CMP_NOTEQUAL
+     67 testflags,SLANG_REJECT
+--- sl/vfix
+    474 default,CMP_EQUAL
+      9 default,CMP_NOTEQUAL
+      5 default,DEFERRED
+    285 default,SLANG_REJECT
+     25 default,SURELOG_FAIL
+    469 testflags,CMP_EQUAL
+      8 testflags,CMP_NOTEQUAL
+      5 testflags,DEFERRED
+      3 testflags,NO_DATABASE
+      1 testflags,NO_UHDM
+    286 testflags,SLANG_REJECT
+     23 testflags,SURELOG_FAIL
+      1 testflags,TIMEOUT
+      2 testflags,UNTRANSLATABLE
+############ ROW GATE vs COMMITTED BASELINES
+=== u2r/pris vs results/gate_uhdm2rtlil.csv
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base: 
+  default  fresh:      83      256 differ     532 match 
+  testflags  base:      83      252 differ     536 match 
+  testflags  fresh:      83      252 differ     536 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== u2r/pris vs results/golden_uhdm2rtlil.csv
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:      83      256 differ     532 match 
+  default  fresh:      83      256 differ     532 match 
+  testflags  base:      83      252 differ     536 match 
+  testflags  fresh:      83      252 differ     536 match 
+PASS: every row byte-identical to the committed baseline
+=== sl/pris vs results/golden_surelog.csv
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     325      247 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== u2r/patch vs results/gate_uhdm2rtlil.csv
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base: 
+  default  fresh:      83      256 differ     532 match 
+  testflags  base:      83      252 differ     536 match 
+  testflags  fresh:      83      252 differ     536 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== u2r/patch vs results/golden_uhdm2rtlil.csv
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:      83      256 differ     532 match 
+  default  fresh:      83      256 differ     532 match 
+  testflags  base:      83      252 differ     536 match 
+  testflags  fresh:      83      252 differ     536 match 
+PASS: every row byte-identical to the committed baseline
+=== sl/patch vs results/golden_surelog.csv
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     324      248 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== u2r/vfix vs results/gate_uhdm2rtlil.csv
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base: 
+  default  fresh:      83      256 differ     532 match 
+  testflags  base:      83      252 differ     536 match 
+  testflags  fresh:      83      252 differ     536 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+=== u2r/vfix vs results/golden_uhdm2rtlil.csv
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:      83      256 differ     532 match 
+  default  fresh:      83      256 differ     532 match 
+  testflags  base:      83      252 differ     536 match 
+  testflags  fresh:      83      252 differ     536 match 
+PASS: every row byte-identical to the committed baseline
+=== sl/vfix vs results/golden_surelog.csv
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     325      247 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+############ ROW JOIN pris-vs-vfix and patch-vs-vfix
+--- u2r: pris vs vfix
+    differing lines: 0
+--- u2r: patch vs vfix
+    differing lines: 0
+--- sl: pris vs vfix
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u82_wd/sl_pris/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u82_wd/sl_vfix/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u82_wd/sl_pris/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u82_wd/sl_vfix/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+    differing lines: 4
+--- sl: patch vs vfix
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u82_wd/sl_patch/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u82_wd/sl_vfix/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u82_wd/sl_patch/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u82_wd/sl_vfix/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+    differing lines: 6
+############ BYTEVERIFY (SELFCHECK=1) vs own pristine
+--- u2r: patch vs pris
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+    MOVER lines:
+--- u2r: vfix vs pris
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+    MOVER lines:
+--- sl: patch vs pris
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+    MOVER lines:
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=e58e2a73b4c3 pristine=49316bbd34de
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=37aeafcca581
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=bc76123b22f8 pristine=18ceec493fbd
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=2df1b8b8cfd7 pristine=4cf6bacbcaa8
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=f36131d97b38 pristine=d55472c65399
+--- sl: vfix vs pris
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+    MOVER lines:
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=49316bbd34de
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=7b6387602351 pristine=37aeafcca581
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=5e04d2bd6589 pristine=18ceec493fbd
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=4cf6bacbcaa8
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=5d3afc6f6630 pristine=d55472c65399
+############ CANARIES
+--- sl/pris
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+--- u2r/pris
+---- canary rows: ok=8 changed=0 absent=8 unknown-names=25
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+--- ctcan2 sl/pris
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+--- ctcan2 u2r/pris
+  Black*                             -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+---- ctcan2 rows: ok=1 changed=0 absent=1 unknown-patterns=6
+FAIL: a supplementary canary moved.
+--- sl/patch
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+--- u2r/patch
+---- canary rows: ok=8 changed=0 absent=8 unknown-names=25
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+--- ctcan2 sl/patch
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+--- ctcan2 u2r/patch
+  Black*                             -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+---- ctcan2 rows: ok=1 changed=0 absent=1 unknown-patterns=6
+FAIL: a supplementary canary moved.
+--- sl/vfix
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+--- u2r/vfix
+---- canary rows: ok=8 changed=0 absent=8 unknown-names=25
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+--- ctcan2 sl/vfix
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+--- ctcan2 u2r/vfix
+  Black*                             -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+---- ctcan2 rows: ok=1 changed=0 absent=1 unknown-patterns=6
+FAIL: a supplementary canary moved.
+############ BINARY AUDIT (by PATH)
+u2r/pris cmds=1742 own=1742 foreign=1742
+u2r/patch cmds=1742 own=1742 foreign=1742
+u2r/vfix cmds=1742 own=1742 foreign=1742
+sl/pris cmds=1581 own=1531 foreign=1531
+sl/patch cmds=1581 own=1531 foreign=1531
+sl/vfix cmds=1581 own=1531 foreign=1531
+############ CANARY DATABASE md5s
+pris default SVSwitch 4842211c4030
+pris testflags SVSwitch 4842211c4030
+pris default YosysVerx 6ccda350c24a
+pris testflags YosysVerx 6ccda350c24a
+pris default InterfaceModPort 59a365f3ce2c
+pris testflags InterfaceModPort 59a365f3ce2c
+pris default BlackParrotComplex e3e354129d5a
+pris testflags BlackParrotComplex 73a10e8217e5
+pris default YosysOldOr d68e0796d62c
+pris testflags YosysOldOr d68e0796d62c
+pris default Earlgrey_0_1 8bdf25272e08
+pris testflags Earlgrey_0_1 59d0ee6d10c3
+pris default genvar_loop_decl_3 261801607985
+pris testflags genvar_loop_decl_3 6ac5063529f9
+patch default SVSwitch 4842211c4030
+patch testflags SVSwitch 4842211c4030
+patch default YosysVerx 6ccda350c24a
+patch testflags YosysVerx 6ccda350c24a
+patch default InterfaceModPort 59a365f3ce2c
+patch testflags InterfaceModPort 59a365f3ce2c
+patch default BlackParrotComplex e3e354129d5a
+patch testflags BlackParrotComplex 73a10e8217e5
+patch default YosysOldOr d68e0796d62c
+patch testflags YosysOldOr d68e0796d62c
+patch default Earlgrey_0_1 8bdf25272e08
+patch testflags Earlgrey_0_1 59d0ee6d10c3
+patch default genvar_loop_decl_3 261801607985
+patch testflags genvar_loop_decl_3 6ac5063529f9
+vfix default SVSwitch 4842211c4030
+vfix testflags SVSwitch 4842211c4030
+vfix default YosysVerx 6ccda350c24a
+vfix testflags YosysVerx 6ccda350c24a
+vfix default InterfaceModPort 59a365f3ce2c
+vfix testflags InterfaceModPort 59a365f3ce2c
+vfix default BlackParrotComplex e3e354129d5a
+vfix testflags BlackParrotComplex 73a10e8217e5
+vfix default YosysOldOr d68e0796d62c
+vfix testflags YosysOldOr d68e0796d62c
+vfix default Earlgrey_0_1 8bdf25272e08
+vfix testflags Earlgrey_0_1 59d0ee6d10c3
+vfix default genvar_loop_decl_3 261801607985
+vfix testflags genvar_loop_decl_3 6ac5063529f9

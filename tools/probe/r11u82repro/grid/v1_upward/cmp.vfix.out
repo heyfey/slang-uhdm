@@ -1,0 +1,30 @@
+decompile:
+logic_net: (work@dut.u_if.q), id:313, line:13:36, endln:13:37
+|vpiParent:
+\_interface_inst: work@ifc (work@dut.u_if), id:471, file:/tmp/v11u82_grid/v1_upward/dut.sv, line:28:3, endln:28:20
+|vpiTypespec:
+\_ref_typespec: (work@dut.u_if.q), id:314
+  |vpiParent:
+  \_logic_net: (work@dut.u_if.q), id:313, line:13:36, endln:13:37
+  |vpiFullName:work@dut.u_if.q
+  |vpiActual:
+  \_logic_typespec: , id:309, line:13:23, endln:13:35
+|vpiName:q
+|vpiFullName:work@dut.u_if.q
+|vpiNetType:36
+
+decompile:
+logic_var: (work@dut.u_if.q), id:230, line:13:36, endln:13:37
+|vpiParent:
+\_interface_inst: work@ifc (work@dut.u_if), id:225, file:/tmp/v11u82_grid/v1_upward/dut.sv, line:28:3, endln:28:20
+|vpiTypespec:
+\_ref_typespec: (work@dut.u_if.q), id:235
+  |vpiParent:
+  \_logic_var: (work@dut.u_if.q), id:230, line:13:36, endln:13:37
+  |vpiFullName:work@dut.u_if.q
+  |vpiActual:
+  \_logic_typespec: , id:231, line:13:23, endln:13:35
+|vpiName:q
+|vpiFullName:work@dut.u_if.q
+|vpiVisibility:1
+

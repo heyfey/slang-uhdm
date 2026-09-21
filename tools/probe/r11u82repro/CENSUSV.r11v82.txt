@@ -1,0 +1,23 @@
+r11v82 SITE CENSUS on the VERIFIER-CORRECTED binary (vfix.bin, md5 33f341dfa44841c1223ce59eeaa071b6)
+
+== uhdm2rtlil (1742 test x mode arms)
+      3892 R11U74BIND
+      1636 NO-SITE
+         4 R11U82PATHFOLD
+   rc:    5386 rc=0     131 rc=3      12 rc=4       3 rc=-11 
+   LAW A sites: 4, declined=1: 0 ; LAW B collisions: 0
+     struct_param_func_arg	default	rc=0	R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+     struct_param_func_arg	testflags	rc=0	R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+     struct_param_func_loop	default	rc=0	R11U82PATHFOLD work@struct_param_func_loop member=n road=camemsel simple=1 declined=0
+     struct_param_func_loop	testflags	rc=0	R11U82PATHFOLD work@struct_param_func_loop member=n road=camemsel simple=1 declined=0
+
+== surelog (1573 test x mode arms)
+     12574 R11U74BIND
+      1521 NO-SITE
+         2 R11U82PATHFOLD
+   rc:   12571 rc=0     900 rc=-11     578 rc=3      32 rc=2      12 rc=4       4 rc=1 
+   LAW A sites: 2, declined=1: 0 ; LAW B collisions: 0
+     StructParamFuncBodyFieldCompare	default	rc=0	R11U82PATHFOLD work@StructParamFuncBodyFieldCompare member=Flag road=camemsel simple=1 declined=0
+     StructParamFuncBodyFieldCompare	testflags	rc=0	R11U82PATHFOLD work@StructParamFuncBodyFieldCompare member=Flag road=camemsel simple=1 declined=0
+
+PREDICTED MOVER SET: EMPTY, both corpora, both modes.

@@ -1,0 +1,31 @@
+decompile:
+constant: , id:198, line:12:40, endln:12:41
+|vpiParent:
+\_func_call: (p::build), id:197, line:12:31, endln:12:34
+|vpiDecompile:700
+|vpiSize:64
+|UINT:700
+|vpiTypespec:
+\_ref_typespec: , id:200
+  |vpiParent:
+  \_constant: , id:198, line:12:40, endln:12:41
+  |vpiActual:
+  \_int_typespec: , id:17, line:6:34, endln:6:37
+|vpiConstType:9
+
+decompile:
+constant: , id:149, line:11:41, endln:11:44
+|vpiParent:
+\_param_assign: , id:148, line:11:37, endln:11:44
+|vpiDecompile:600
+|vpiSize:32
+|UINT:600
+|vpiTypespec:
+\_ref_typespec: (work@dut.u1), id:150
+  |vpiParent:
+  \_constant: , id:149, line:11:41, endln:11:44
+  |vpiFullName:work@dut.u1
+  |vpiActual:
+  \_int_typespec: , id:73, line:11:24, endln:11:36
+|vpiConstType:9
+

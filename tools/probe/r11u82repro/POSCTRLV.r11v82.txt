@@ -1,0 +1,112 @@
+== c1_order
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+== c2_kinds
+   R11U82COLLIDE name=k_nn impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=k_nv impNet=1 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=k_vn impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=k_vv impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=k_only impNet=0 ownNet=0 same=1 take=0
+== c3_expimp
+   R11U82COLLIDE name=e_net impNet=1 ownNet=1 same=1 take=0
+   R11U82COLLIDE name=e_var impNet=0 ownNet=0 same=1 take=0
+== c4_portns
+   R11U82COLLIDE name=p_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=q_var impNet=0 ownNet=0 same=0 take=1
+== vf_collide
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=c_st impNet=1 ownNet=1 same=0 take=1
+== w2_width
+   R11U82COLLIDE name=w_big impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=w_small impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=v_big impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=v_small impNet=0 ownNet=0 same=0 take=1
+== w3_arraynet
+   R11U82COLLIDE name=a_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=a_var impNet=0 ownNet=0 same=0 take=1
+== w4_twopkg
+   R11U82COLLIDE name=d_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=d_var impNet=0 ownNet=0 same=0 take=1
+== w5_deepgen
+   R11U82COLLIDE name=h_net impNet=1 ownNet=1 same=0 take=1
+== w6_multiinst
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+== w7_kindsrev
+   R11U82COLLIDE name=y_pn impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=y_sv impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=y_ns impNet=1 ownNet=1 same=0 take=1
+== w8_structown
+   R11U82COLLIDE name=z_pv impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=z_ps impNet=1 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=z_ctl impNet=0 ownNet=0 same=0 take=1
+== w9_typeshapes
+   R11U82COLLIDE name=t_st impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=t_un impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=t_en impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=t_pa impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=t_tv impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=t_lv impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=t_in impNet=0 ownNet=1 same=0 take=0
+== w10_ownshapes
+   R11U82COLLIDE name=m_st impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=m_us impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=m_un impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=m_en impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=m_in impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=m_pa impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=m_tv impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=m_re impNet=0 ownNet=0 same=0 take=1
+== w1_iface
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+== s1_modform
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=t road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=t road=camemsel simple=0 declined=1
+== s2_childpath
+   R11U82PATHFOLD work@dut.u1 member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+== s3_pkgbase
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut.G1 member=n road=genscope simple=1 declined=0
+   R11U82PATHFOLD work@dut.G1 member=n road=genscope simple=1 declined=0
+== s5_ifacepath
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+== s6_pathforms
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+== v1_upward
+   R11U82PATHFOLD work@dut.u1 member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut.u1 member=n road=camemsel simple=1 declined=0
+== v2_aliaschain
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+== v3_rootpath
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+== v4_twoinst
+   R11U82PATHFOLD work@dut.u1 member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut.u1 member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut.u2 member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut.u2 member=n road=camemsel simple=0 declined=1
+== v5_ifaceport
+   R11U82PATHFOLD work@dut.u1 member=n road=camemsel simple=0 declined=1
+== v6_genpathchild
+   R11U82PATHFOLD work@dut.G1 member=n road=genscope simple=0 declined=1
+   R11U82PATHFOLD work@dut.G1 member=n road=genscope simple=0 declined=1
+   R11U82PATHFOLD work@dut.G1 member=n road=genscope simple=1 declined=0
+== xf_crossblk
+== xh_ancpath
+   R11U82PATHFOLD work@dut.B1.B2 member=n road=genscope simple=1 declined=0
+   R11U82PATHFOLD work@dut.B1.B2 member=n road=genscope simple=0 declined=1

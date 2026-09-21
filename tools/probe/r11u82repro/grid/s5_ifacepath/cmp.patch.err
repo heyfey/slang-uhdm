@@ -1,0 +1,17 @@
+LHS:
+decompile:
+constant: , id:187, line:11:40, endln:11:43
+|vpiParent:
+\_typespec_member: (n), id:184, line:4:40, endln:4:41
+|vpiDecompile:900
+|vpiSize:64
+|UINT:900
+|vpiTypespec:
+\_ref_typespec: (work@dut.u_if.I_LOC.p::cfg_t.n), id:188
+  |vpiParent:
+  \_constant: , id:187, line:11:40, endln:11:43
+  |vpiFullName:work@dut.u_if.I_LOC.p::cfg_t.n
+  |vpiActual:
+  \_int_typespec: , id:189, line:5:34, endln:5:37
+|vpiConstType:9
+RHS: <null>

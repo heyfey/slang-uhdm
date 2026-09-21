@@ -1,0 +1,12 @@
+c1_order golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+c2_kinds golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+c3_expimp golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+c4_portns golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=8
+s1_modform golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+s2_childpath golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+s3_pkgbase golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=29
+s5_ifacepath golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+s6_pathforms golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28
+vf_collide golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+xf_crossblk golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+xh_ancpath golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=28

@@ -1,0 +1,13 @@
+arm            pris                     patch                   
+c1_order           24/4     20/0
+c2_kinds           36/4     33/1
+c3_expimp          12/0     12/0
+c4_portns         16/32    14/30
+s1_modform       333/40    348/5
+s2_childpath     224/23    231/5
+s3_pkgbase       913/23   913/23
+s5_ifacepath     176/23    183/5
+s6_pathforms    275/122  275/122
+vf_collide         23/9     20/6
+xf_crossblk      398/45   398/45
+xh_ancpath       445/39   429/29

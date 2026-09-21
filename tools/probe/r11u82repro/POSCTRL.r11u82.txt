@@ -1,0 +1,50 @@
+r11u82 CENSUS POSITIVE CONTROL — the same trace, the same binary, on the
+grid arms where the two laws ACT.  A census zero needs a positive control:
+these rows prove the instrument can see both sites and both outcomes.
+
+== c1_order
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+== c2_kinds
+   R11U82COLLIDE name=k_nn impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=k_nv impNet=1 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=k_vn impNet=0 ownNet=1 same=0 take=0
+   R11U82COLLIDE name=k_vv impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=k_only impNet=0 ownNet=0 same=1 take=0
+== c3_expimp
+   R11U82COLLIDE name=e_net impNet=1 ownNet=1 same=1 take=0
+   R11U82COLLIDE name=e_var impNet=0 ownNet=0 same=1 take=0
+== c4_portns
+   R11U82COLLIDE name=p_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=q_var impNet=0 ownNet=0 same=0 take=1
+== s1_modform
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=t road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=t road=camemsel simple=0 declined=1
+== s2_childpath
+   R11U82PATHFOLD work@dut.u1 member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+== s3_pkgbase
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+   R11U82PATHFOLD work@dut.G1 member=n road=genscope simple=1 declined=0
+   R11U82PATHFOLD work@dut.G1 member=n road=genscope simple=1 declined=0
+== s5_ifacepath
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+== s6_pathforms
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=0 declined=1
+   R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+== vf_collide
+   R11U82COLLIDE name=c_net impNet=1 ownNet=1 same=0 take=1
+   R11U82COLLIDE name=c_var impNet=0 ownNet=0 same=0 take=1
+   R11U82COLLIDE name=c_st impNet=0 ownNet=0 same=0 take=1
+== xf_crossblk
+== xh_ancpath
+   R11U82PATHFOLD work@dut.B1.B2 member=n road=genscope simple=1 declined=0
+   R11U82PATHFOLD work@dut.B1.B2 member=n road=genscope simple=0 declined=1

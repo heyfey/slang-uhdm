@@ -1,0 +1,33 @@
+r11u82 SITE CENSUS SUMMARY — one row per traced cell, both corpora, both
+modes, on the PATCHED binary (the traces are taken BEFORE the gate, so the
+same run names the cells the laws move and the cells they decline).
+The full TSVs are reproducible with cellcen82.py.
+
+== uhdm2rtlil  (1742 test x mode arms)
+   NO-SITE            1636
+   R11U74BIND         3892
+   R11U82PATHFOLD     4
+   rc breakdown (rows): rc=-11=3, rc=0=5386, rc=3=131, rc=4=12
+   LAW A sites: 4, of them declined=1: 0
+   LAW B collisions: 0, of them take=1: 0
+     struct_param_func_arg	default	rc=0	R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+     struct_param_func_arg	testflags	rc=0	R11U82PATHFOLD work@dut member=n road=camemsel simple=1 declined=0
+     struct_param_func_loop	default	rc=0	R11U82PATHFOLD work@struct_param_func_loop member=n road=camemsel simple=1 declined=0
+     struct_param_func_loop	testflags	rc=0	R11U82PATHFOLD work@struct_param_func_loop member=n road=camemsel simple=1 declined=0
+
+== surelog  (1573 test x mode arms)
+   NO-SITE            1521
+   R11U74BIND         12574
+   R11U82PATHFOLD     2
+   rc breakdown (rows): rc=-11=900, rc=0=12571, rc=1=4, rc=2=32, rc=3=578, rc=4=12
+   LAW A sites: 2, of them declined=1: 0
+   LAW B collisions: 0, of them take=1: 0
+     StructParamFuncBodyFieldCompare	default	rc=0	R11U82PATHFOLD work@StructParamFuncBodyFieldCompare member=Flag road=camemsel simple=1 declined=0
+     StructParamFuncBodyFieldCompare	testflags	rc=0	R11U82PATHFOLD work@StructParamFuncBodyFieldCompare member=Flag road=camemsel simple=1 declined=0
+
+BOTH LAWS ARE CORPUS-INVISIBLE, and the zeros are zeros inside a LIVE
+population: 3892 (u2r) and 12574 (surelog) `R11U74BIND` rows reach the very
+lookup LAW B changes, and every one of them reports NO import collision.  The
+LAW A sites that do exist are the landed conversions' own cells and every one
+of them is a SIMPLE NAME, so the fold they ride is untouched.
+PREDICTED MOVER SET: EMPTY, both corpora, both modes.

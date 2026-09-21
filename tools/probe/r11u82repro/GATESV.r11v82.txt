@@ -1,0 +1,80 @@
+r11v82 VERIFIER GATES — three binaries, six sweeps, the verifier's own
+worktrees and workdirs.  Full transcript: /tmp/v11u82_GATES.txt.
+
+== BUILD (own worktrees at f25df07e, -j 2, md5 separately, chmod 555 frozen)
+   87f32e6a31b52cd5b7766f0b8bcc731a  pris.bin   == the main tree's
+                                     build/slang-uhdm at f25df07e == the OPS pin
+   65484d52491e71d8675def23d0953826  patch.bin  == the implementer's md5,
+                                     reproduced bit for bit
+   33f341dfa44841c1223ce59eeaa071b6  vfix.bin   the verifier-corrected binary
+
+== GOLDEN DUMP TESTS      pris 23/0, patch 23/0, vfix 23/0; /bin/false 0/23
+
+== uhdm2rtlil (871 x 2 modes, --jobs 3, own --out/--workdir)
+   pris / patch / vfix all 788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+     in BOTH modes
+   ct8rows vs results/golden_uhdm2rtlil.csv (both modes, 1742 rows)
+        PASS on all three — every row byte-identical
+   ct8rows vs results/gate_uhdm2rtlil.csv (testflags column)   PASS on all three
+   CSV row diff vfix vs pris: 0 of 1742
+   byteverify SELFCHECK=1 vs own pristine
+        patch  MOVERS 0 / 1608   (selfcheck 1607/1608)
+        vfix   MOVERS 0 / 1608   (selfcheck 1607/1608)
+
+== surelog (798 x 2 modes)
+   pris / patch / vfix all 474 CMP_EQUAL / 9 CMP_NOTEQUAL default and
+     469 / 8 testflags; every other status bucket identical on all three
+   ct8rows vs results/golden_surelog.csv (1596 rows)
+        pris 4 rows, patch 3 rows, vfix 4 rows — and every one is environment:
+        Earlgrey_0_1's dump COLUMN reading blank instead of `differ` (the
+        documented uhdm-dump timeout draw; the STATUS stays CMP_EQUAL and the
+        DATABASE is on its pin) plus the two LowMem* SURELOG_FAIL rows whose
+        detail string embeds the workdir path.  The draw is NOT binary-
+        correlated: PRISTINE drew it in BOTH modes, patch in one.
+   CSV row diff vfix vs pris: the two LowMem* workdir strings only
+   byteverify SELFCHECK=1 vs own pristine
+        patch  MOVERS 5 / 960   (selfcheck 959/960)
+        vfix   MOVERS 5 / 960   (selfcheck 959/960)
+   THE FIVE MOVERS, ATTRIBUTED ORDER-BLIND (sorted, path-normalised whole-dump
+   diff, vfix vs pris) — EXACTLY FOUR LINES EACH, every one a
+   UINT:<n> / vpiDecompile:<n> PAIR, the documented UVM macro-buffer class.
+   Not one listing line, not one vpiActual, not one cont_assign:
+        default/MiniAmiq    0 <-> 532
+        default/SeqDriver   640 <-> 669
+        default/SimpleUVM   1481 <-> 958
+        testflags/MiniAmiq  0 <-> 1098
+        testflags/SeqDriver 1500 <-> 1489
+
+== CANARIES (all three binaries)
+   Databases on their pins, byte-identical across pris / patch / vfix:
+        SVSwitch           4842211c4030 both modes   (HARD pin)
+        YosysVerx          6ccda350c24a both modes   (HARD pin)
+        InterfaceModPort   59a365f3ce2c both modes
+        BlackParrotComplex e3e354129d5a / 73a10e8217e5
+        YosysOldOr         d68e0796d62c both modes
+        Earlgrey_0_1       8bdf25272e08 / 59d0ee6d10c3   (tf db pin)
+        genvar_loop_decl_3 261801607985 / 6ac5063529f9   (the pass-74 binding
+                           bytes the brief protects — unmoved)
+   canaries.sh surelog: the ONLY CHANGED row on ANY binary is
+        Earlgrey_0_1 CMP_EQUAL/differ -> CMP_EQUAL/<blank>, the dump COLUMN
+        (pris both modes, patch testflags, vfix both modes) — environment.
+   canaries.sh u2r ok=8 changed=0 on all three.
+   ctcan2 surelog PASS on all three (ok=58 changed=0).
+   ctcan2 u2r PASS on all three against the TESTFLAGS baseline it expects
+        (ok=1 changed=0 unknown-patterns=6 = EXPECT_UNKNOWN).
+   canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0.
+   rowheads measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0, IDENTICAL on pris and
+        vfix: SeqDriver, SimpleUVM, Scoreboard, MiniAmiq, BuildUVMPkg and
+        Earlgrey_0_1 all `0 cmp lines / 0 heads / rc=0`; Rggen/default its
+        committed 64 / 1 / rc=255.
+
+== BINARY AUDIT (every cmds.txt by binary PATH)
+   u2r pris/patch/vfix  1742 of 1742 name their OWN frozen binary
+   sl  pris/patch/vfix  1531 of 1581 (the other 50 run no slang at all)
+   DISTINCT FOREIGN BINARIES: 0 in all six workdirs.
+
+== SCOREBOARD
+   MOVED-WRONG 0 / AWAY-GOLDEN 0, both corpora, BOTH mode columns, on the
+   corrected binary.  results/*.csv untouched.  src/ParamEmit.cpp untouched.
+   The four slang-fenced names: 0 in the production diff, 0 in this directory
+   outside canaudit.sh's own FENCED= line.

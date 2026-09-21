@@ -1,0 +1,29 @@
+decompile:
+logic_net: (work@dut.m_us), id:719, line:22:20, endln:22:24
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:660, file:/tmp/v11u82_grid/w10_ownshapes/dut.sv, line:19:1, endln:41:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.m_us), id:720
+  |vpiParent:
+  \_logic_net: (work@dut.m_us), id:719, line:22:20, endln:22:24
+  |vpiFullName:work@dut.m_us
+  |vpiActual:
+  \_struct_typespec: (ty::su_t), id:18, line:13:11, endln:13:58
+|vpiName:m_us
+|vpiFullName:work@dut.m_us
+|vpiNetType:1
+
+decompile:
+logic_net: (work@dut.m_us), id:254, line:22:20, endln:22:24
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:202, file:/tmp/v11u82_grid/w10_ownshapes/dut.sv, line:19:1, endln:41:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.m_us), id:255
+  |vpiParent:
+  \_logic_net: (work@dut.m_us), id:254, line:22:20, endln:22:24
+  |vpiFullName:work@dut.m_us
+  |vpiActual:
+  \_struct_typespec: (ty::su_t), id:165, line:13:11, endln:13:58
+|vpiName:m_us
+|vpiFullName:work@dut.m_us
+

@@ -1,0 +1,30 @@
+LHS:
+decompile:
+logic_net: (work@dut.u_if.o), id:147, line:9:36, endln:9:37
+|vpiParent:
+\_interface_inst: work@ifc (work@dut.u_if), id:257, file:/tmp/v11u82_grid/w1_iface/dut.sv, line:21:3, endln:21:20
+|vpiTypespec:
+\_ref_typespec: (work@dut.u_if.o), id:148
+  |vpiParent:
+  \_logic_net: (work@dut.u_if.o), id:147, line:9:36, endln:9:37
+  |vpiFullName:work@dut.u_if.o
+  |vpiActual:
+  \_logic_typespec: , id:143, line:9:23, endln:9:35
+|vpiName:o
+|vpiFullName:work@dut.u_if.o
+|vpiNetType:36
+RHS:
+decompile:
+logic_var: (work@dut.u_if.o), id:100, line:9:36, endln:9:37
+|vpiParent:
+\_interface_inst: work@ifc (work@dut.u_if), id:95, file:/tmp/v11u82_grid/w1_iface/dut.sv, line:21:3, endln:21:20
+|vpiTypespec:
+\_ref_typespec: (work@dut.u_if.o), id:105
+  |vpiParent:
+  \_logic_var: (work@dut.u_if.o), id:100, line:9:36, endln:9:37
+  |vpiFullName:work@dut.u_if.o
+  |vpiActual:
+  \_logic_typespec: , id:101, line:9:23, endln:9:35
+|vpiName:o
+|vpiFullName:work@dut.u_if.o
+|vpiVisibility:1

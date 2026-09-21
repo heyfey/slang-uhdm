@@ -18297,6 +18297,10 @@ static bool impWidthOff75();
 static bool glpFoldOff75();
 static bool caSuppOff75();
 static bool cellDbg75();
+static bool pathFoldOff82();
+static bool collideOff82();
+static bool structNetOff82();
+static bool cellDbg82();
 
 // § caNamesakePkgImportHome75 (r11u75) — THE NAMESAKE A WILDCARD OR EXPLICIT
 // IMPORT PUTS IN THE MODULE'S OWN SCOPE.
@@ -18455,8 +18459,16 @@ static const Symbol* nsImportHome75(const Scope& sc, std::string_view nm) {
 // ONLY where a namesake exists, which is exactly the set those laws already
 // decline to move (`caLhsUnboundOwnLocal23`'s namesake clause,
 // `caLhsBindVariableFinds25`) — it installs the object they refused to guess.
+//
+// § caNamesakeImportCopyShadows82 (r11u82) — LAW B: WHICH OF TWO NAMESAKES.
+//
+// `shadowed82`, when non-null, is written with the candidate this law did NOT
+// choose, so the caller can fall back to it rather than leave a cell pristine
+// bound and this law unresolvable.  The rule itself is decoded at the one
+// site that reads it, inside the InstanceBody arm below.
 static const Symbol* genCaLhsNamesake74(const Expression& lhsExpr,
-                                        const Scope& blk) {
+                                        const Scope& blk,
+                                        const Symbol** shadowed82 = nullptr) {
     if (bindOff74())
         return nullptr;
     auto& l74 = stripImplicitConv(lhsExpr);
@@ -18542,6 +18554,133 @@ static const Symbol* genCaLhsNamesake74(const Expression& lhsExpr,
             if (v74->kind != SymbolKind::Variable &&
                 v74->kind != SymbolKind::Net)
                 return nullptr;
+            // ==== § caNamesakeImportCopyShadows82 (r11u82) — LAW B ==========
+            // A NAMESAKE THAT COLLIDES WITH A MODULE-OWN DECLARATION BINDS THE
+            // IMPORTED PACKAGE COPY, AND THE ORDER THAT DECIDES IT IS THE
+            // PRODUCER'S TWO SIGNAL VECTORS, NOT SystemVerilog's SHADOWING.
+            //
+            // `slang::ast::Scope::find` answers the language's rule: a local
+            // declaration shadows a wildcard import, so we bound the MODULE's
+            // own object.  The producer never asks that question.  Its search
+            // is `CompileHelper::bindVariable`
+            // (`src/DesignCompile/CompileStmt.cpp:3073-3090` for the
+            // ModuleInstance overload, `:3139-3150` for the `module_inst`
+            // one) and `UhdmWriter::lateBinding`
+            // (`src/DesignCompile/UhdmWriter.cpp:3767-3812`), and BOTH walk
+            // whole vectors in order, returning the FIRST name match:
+            //   * NETS first, then VARIABLES;
+            //   * and inside each vector the IMPORTED COPY comes first,
+            //     because `CompileHelper::importPackage`
+            //     (`src/DesignCompile/CompileHelper.cpp:171-189`) pushes the
+            //     imported package's `getVariables()` and `getSignals()` into
+            //     the importing scope's own registries during the module's
+            //     import pass, ahead of the module's declarations.
+            //
+            // GOLDEN, ROW BY ROW (grid `c2_kinds`, one generate scope, five
+            // gen-local targets, five package names, four of them also
+            // declared by the module; every arm `golden_rc=0 ours_rc=0`):
+            //   pkg NET  + module NET  -> the PACKAGE's net   (`k_nn`)
+            //   pkg NET  + module VAR  -> the PACKAGE's net   (`k_nv`)
+            //   pkg VAR  + module NET  -> the MODULE's net    (`k_vn`)  <-- !
+            //   pkg VAR  + module VAR  -> the PACKAGE's var   (`k_vv`)
+            //   pkg VAR  + no module-own declaration
+            //                          -> the PACKAGE's var   (`k_only`,
+            //                             r11u75's landed cell, unmoved)
+            // `k_vn` is the row that proves the rule is the VECTOR ORDER and
+            // not "the import always wins": the module's own NET is reached
+            // before the package's VARIABLE because nets are searched first.
+            // So the choice is exactly `impNet || !ownNet`.
+            //
+            // SOURCE ORDER IS NOT A DISCRIMINATOR (`c1_order`): two modules
+            // differing only in whether `import pc::*;` is written BEFORE or
+            // AFTER the colliding declarations bind the package copy in both.
+            // A module PORT of the name loses to the imported net just the
+            // same (`c4_portns` `p_net`, golden the package's line-4 net where
+            // pristine binds the port's), and a package name with no module
+            // namesake at all is untouched (`c3_expimp`, both spellings).
+            //
+            // JUDGE-SILENT, BYTE-SCORED.  The two candidates carry the same
+            // `VpiName` and the same synthesised `vpiFullName`, and golden's
+            // object has already been visited in the module's own `Nets()`
+            // walk by the time the cell's `Actual_group` is compared, so
+            // `ref_obj::Compare` short-circuits on `m_visited` (r11v77's
+            // `vf_collide` is `cmp_rc 0` at this base).  The pointer is wrong
+            // all the same — the two objects differ in width and in span —
+            // and the byte gate is what scores it.
+            //
+            // THE FALLBACK IS THE POINT OF `shadowed82`: the imported copy is
+            // resolved through the caller's `netMap`, and a package signal
+            // whose holder we do not hoist (an unpacked-array net, say) has no
+            // object there.  Handing the caller the OTHER candidate keeps such
+            // a cell exactly where pristine left it instead of unbinding a
+            // cell golden binds — GOLDEN WRITES NOTHING ON A MISS, but it does
+            // write here, so the pass must not turn a wrong object into no
+            // object.
+            // § caNamesakeStructIsProducerNet82 (verifier r11v82) — THE VECTOR
+            // THE CANDIDATE SITS IN IS THE PRODUCER'S CLASSIFICATION, NOT
+            // slang's SYMBOL KIND.
+            //
+            // `impNet || !ownNet` is the right shape and the wrong reading of
+            // "net".  Surelog files a STRUCT-typed declaration — packed or
+            // unpacked, in a package or in a module body — as a `struct_net`,
+            // which its search reaches in the NETS vector; slang calls that
+            // same declaration a `Variable`.  Read off golden type by type,
+            // with the OTHER side held fixed so the answer IS the
+            // classification (verifier arms `w9_typeshapes`, the module's own
+            // a net in every row, and `w10_ownshapes`, the package's copy a
+            // plain variable in every row):
+            //   packed struct   -> `struct_net`   NET
+            //   UNPACKED struct -> `struct_net`   NET   (`w10` `m_us`)
+            //   packed union    -> `union_var`    variable
+            //   enum, int, real, packed array, typedef'd vector, plain logic
+            //                   -> `*_var`        variable
+            // so the line is exactly STRUCT, and nothing else crosses it.
+            //
+            // Reading slang's kind instead cost cells BOTH WAYS, measured on
+            // real v1.87 goldens: a package plain variable colliding with a
+            // module-own struct (`w8_structown` `z_pv`, `w10` `m_st`/`m_us`)
+            // took the package's copy where golden binds the MODULE's
+            // struct_net — three cells PRISTINE-RIGHT and patched WRONG — and
+            // a package STRUCT colliding with a module-own net (`w7_kindsrev`
+            // `y_sv`) declined where golden binds the PACKAGE's struct_net.
+            // One predicate closes both directions and leaves every other
+            // measured row exactly where it was.
+            auto prodNet82 = [](const Symbol* s82) {
+                if (s82->kind == SymbolKind::Net)
+                    return true;
+                if (s82->kind != SymbolKind::Variable)
+                    return false;
+                auto& t82 = s82->as<ValueSymbol>().getType().getCanonicalType();
+                return t82.kind == SymbolKind::PackedStructType ||
+                       t82.kind == SymbolKind::UnpackedStructType;
+            };
+            if (ws74.kind == SymbolKind::InstanceBody &&
+                (v74->kind == SymbolKind::Variable ||
+                 v74->kind == SymbolKind::Net)) {
+                if (const Symbol* imp82 = nsImportHome75(*w74, nm74)) {
+                    bool impNet82 = structNetOff82() ? imp82->kind ==
+                                                           SymbolKind::Net
+                                                     : prodNet82(imp82);
+                    bool ownNet82 = structNetOff82() ? v74->kind ==
+                                                           SymbolKind::Net
+                                                     : prodNet82(v74);
+                    bool take82 = !collideOff82() && imp82 != v74 &&
+                                  (impNet82 || !ownNet82);
+                    // The trace names every COLLISION, taken or declined, so
+                    // the corpus census can predict the mover set by name.
+                    if (cellDbg74() || cellDbg75() || cellDbg82())
+                        fprintf(stderr,
+                                "R11U82COLLIDE name=%s impNet=%d ownNet=%d "
+                                "same=%d take=%d\n",
+                                nm74.c_str(), (int)impNet82, (int)ownNet82,
+                                (int)(imp82 == v74), (int)take82);
+                    if (take82) {
+                        if (shadowed82)
+                            *shadowed82 = v74;
+                        return imp82;
+                    }
+                }
+            }
             return v74;
         }
         // The walk dies at the instance body — a PARENT instance's namesake
@@ -22119,17 +22258,100 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                                 (int)foldRec75);
                                 }
                                 else if (!genBase75) {
-                                    caMemSel.push_back({m, ca, false, bp74,
-                                                        std::string(fld74.name),
-                                                        off74, mw74, tot74,
-                                                        lw74 > 0 ? lw74 : 0,
-                                                        fullName});
+                                    // ==== § caMemSelWrittenPathNeverFolds82 ==
+                                    // (r11u82) — LAW A: THE FOLD ITSELF
+                                    // DECLINES ON A WRITTEN PATH.
+                                    //
+                                    // r11u75's fence stopped only the RECORD
+                                    // that strips the cell's own-local actual
+                                    // and left the `caMemSel` push "exactly as
+                                    // pristine takes it", because narrowing
+                                    // the pre-existing road is a different law
+                                    // with its own grid.  This is that grid,
+                                    // and it says the same thing the gen-scope
+                                    // road says: REFERENCE FORM decides.
+                                    // Golden's elaborated listing SHARES the
+                                    // definition `cont_assign` — symbolic
+                                    // `hier_path` and all — for every written
+                                    // path, and mints a folded constant only
+                                    // for a SIMPLE NAME.  Measured, every arm
+                                    // `golden_rc=0 ours_rc=0`:
+                                    //   `M_LOC.n` / `M_LOC.t`, module level,
+                                    //       simple            -> golden FOLDS
+                                    //   `dut.M_LOC.n` / `.t`, the SAME base by
+                                    //       a written path    -> hier_path
+                                    //       (grid `s1_modform`)
+                                    //   `u1.K_LOC.n`, into a CHILD instance
+                                    //                         -> hier_path,
+                                    //       while `K_LOC.n` inside the child
+                                    //       folds (`s2_childpath`)
+                                    //   `u_if.I_LOC.n`, into an INTERFACE
+                                    //                         -> hier_path
+                                    //       (`s5_ifacepath`)
+                                    //   `dut.M_LOC.n` read from a GENERATE
+                                    //       scope              -> hier_path
+                                    //       (r11v75 `xh_ancpath` `b_modp`,
+                                    //       this law's witness and the one
+                                    //       JUDGE-VISIBLE cell of the set: a
+                                    //       folded constant where golden keeps
+                                    //       a `hier_path` differs on VpiType)
+                                    // and the two forms that are NOT paths and
+                                    // must keep folding: a PACKAGE-scoped base
+                                    // `p::P_LOC.n` and its wildcard-imported
+                                    // spelling `P_LOC.n`, both golden-folded
+                                    // module level and inside a generate scope
+                                    // (`s3_pkgbase`, 5 of 5 rows) — slang
+                                    // binds those as a `NamedValue`, so the
+                                    // form test passes them through.
+                                    //
+                                    // AT MODULE LEVEL THE JUDGE IS SILENT and
+                                    // the byte gate is not: golden's elab slot
+                                    // IS the def object, so `cont_assign::
+                                    // Compare`'s `m_visited.insert(this)`
+                                    // returns 0 before it reads a field
+                                    // (`s1`/`s2`/`s5` are all `cmp_rc 0` on the
+                                    // pristine binary).  The cell is wrong all
+                                    // the same, and the moment the two objects
+                                    // diverge it is scored.
+                                    //
+                                    // WITHHOLDING THE PUSH IS THE WHOLE FIX —
+                                    // the drain is what swaps the shared slot
+                                    // for a fresh folded `cont_assign`, so a
+                                    // cell that is never recorded keeps the
+                                    // shared definition object golden carries.
+                                    // `foldRec75` was already false here, so
+                                    // § caGenScopeFoldedLhsNoOwnBind75 is
+                                    // untouched by construction.
+                                    //
+                                    // THE TRACE IS TAKEN BEFORE THE GATE and
+                                    // does not read the switch, so the same
+                                    // run names the cells the law WOULD move
+                                    // and the cells it declines to — which is
+                                    // what lets the corpus census predict the
+                                    // mover set BY NAME from the pristine
+                                    // reading.
+                                    if (cellDbg74() || cellDbg75() ||
+                                        cellDbg82())
+                                        fprintf(stderr,
+                                                "R11U82PATHFOLD %s member=%s "
+                                                "road=genscope simple=%d "
+                                                "declined=%d\n",
+                                                fullName.c_str(),
+                                                std::string(fld74.name).c_str(),
+                                                (int)simpleBase75,
+                                                (int)(!simpleBase75 &&
+                                                      !pathFoldOff82()));
+                                    if (simpleBase75 || pathFoldOff82())
+                                        caMemSel.push_back({m, ca, false, bp74,
+                                                            std::string(fld74.name),
+                                                            off74, mw74, tot74,
+                                                            lw74 > 0 ? lw74 : 0,
+                                                            fullName});
                                     // A WRITTEN PATH IS NOT A FOLD GOLDEN
                                     // AGREES WITH, so the cell is not marked
                                     // folded and keeps the own-local actual
                                     // golden carries (`xh_ancpath` `b_modp`,
-                                    // golden `hier_path` + `logic_var`).  The
-                                    // push itself is pristine's and stays.
+                                    // golden `hier_path` + `logic_var`).
                                     foldRec75 = simpleBase75;
                                 }
                                 if (!genBase75 && cellDbg74())
@@ -24096,11 +24318,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // A namesake we cannot resolve to an emitted object leaves the
             // cell EXACTLY as pristine left it — declined, never moved onto a
             // third object.
-            if (const Symbol* nsy74 = genCaLhsNamesake74(ae.left(), blk)) {
+            const Symbol* nsAlt82 = nullptr;
+            if (const Symbol* nsy74 =
+                    genCaLhsNamesake74(ae.left(), blk, &nsAlt82)) {
                 auto* l74 = ca->Lhs();
-                auto it74 = netMap.find(nsy74);
-                UHDM::any* nso75 =
-                    it74 != netMap.end() ? it74->second : nullptr;
+                // § caNamesakeImportCopyShadows82 (r11u82) — the resolution is
+                // a lambda only so that LAW B's OTHER candidate can be tried
+                // through exactly the same three steps (the `netMap` hit, the
+                // `genScopeNets` fallback and the unpacked-array fence) rather
+                // than a second, drifting copy of them.
+                auto resolve82 = [&](const Symbol* sy82) -> UHDM::any* {
+                    auto it74 = netMap.find(sy82);
+                    UHDM::any* nso75 =
+                        it74 != netMap.end() ? it74->second : nullptr;
                 // § caGenScopeNetNamesakeStore75 (r11u75) — LAW A.  THE FIND
                 // IS RIGHT AND THE STORE WAS INCOMPLETE.
                 //
@@ -24135,15 +24365,22 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // reached through `netMap`'s array-net entry.  The fence is
                 // read off the RESOLVED OBJECT's kind, so it covers both
                 // stores at once.
-                if (!netNsOff75()) {
-                    if (!nso75) {
-                        auto gi75 = genScopeNets.find(nsy74);
-                        if (gi75 != genScopeNets.end())
-                            nso75 = gi75->second;
+                    if (!netNsOff75()) {
+                        if (!nso75) {
+                            auto gi75 = genScopeNets.find(sy82);
+                            if (gi75 != genScopeNets.end())
+                                nso75 = gi75->second;
+                        }
+                        if (nso75 && nso75->UhdmType() == UHDM::uhdmarray_net)
+                            nso75 = nullptr;
                     }
-                    if (nso75 && nso75->UhdmType() == UHDM::uhdmarray_net)
-                        nso75 = nullptr;
-                }
+                    return nso75;
+                };
+                UHDM::any* nso75 = resolve82(nsy74);
+                // LAW B's fallback: the shadowed candidate, and only when the
+                // chosen one has no emitted object at all.
+                if (!nso75 && nsAlt82)
+                    nso75 = resolve82(nsAlt82);
                 bool did74 = false;
                 if (l74 && l74->UhdmType() == UHDM::uhdmref_obj && nso75) {
                     ((UHDM::ref_obj*)l74)->Actual_group(nso75);
@@ -28607,6 +28844,39 @@ static bool cellDbg75() {
     }();
     return v;
 }
+// § caMemSelWrittenPathNeverFolds82 / § caNamesakeImportCopyShadows82 —
+// r11u82's two switches, each droppable ALONE.
+// `R11U82_PATHFOLD_OFF=1` drops the written-path fold decline on the
+// pre-existing `caMemSel` road (both its record sites); `R11U82_COLLIDE_OFF=1`
+// drops the namesake collision's preference for the imported package copy;
+// `R11U82_OFF=1` drops both; `R11U82_CELLDBG=1` traces every cell that reaches
+// either site, the DECLINED ones included.
+static bool pathFoldOff82() {
+    static const bool v = getenv("R11U82_PATHFOLD_OFF") != nullptr ||
+                          getenv("R11U82_OFF") != nullptr;
+    return v;
+}
+static bool collideOff82() {
+    static const bool v = getenv("R11U82_COLLIDE_OFF") != nullptr ||
+                          getenv("R11U82_OFF") != nullptr;
+    return v;
+}
+// § caNamesakeStructIsProducerNet82 — the verifier's correction, droppable
+// ALONE: `R11V82_STRUCTNET_OFF=1` returns the collide predicate to slang's
+// symbol kind (the reading that broke `w8_structown` and `w10_ownshapes`),
+// so the correction can be scored on its own without dropping LAW B.
+static bool structNetOff82() {
+    static const bool v = getenv("R11V82_STRUCTNET_OFF") != nullptr ||
+                          getenv("R11U82_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg82() {
+    static const bool v = [] {
+        const char* e = getenv("R11U82_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
 
 // § caAsmMemberSliceFoldGenLocalBase75 (r11u75) — THE DRAIN.
 //
@@ -29999,7 +30269,34 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         // LSB.
                         int32_t off16 =
                             tot16 - ((int32_t)fld16.bitOffset + mw16);
-                        if (mw16 > 0 && off16 >= 0 && tot16 > 0) {
+                        // § caMemSelWrittenPathNeverFolds82 (r11u82) — LAW A's
+                        // OTHER RECORD SITE, the same rule and the same test.
+                        // The golden grid and the decode are at the generate-
+                        // scope record site beside `emitGenScopes`; the cells
+                        // it convicts HERE are the module-level ones
+                        // (`s1_modform` `m_path`/`m_patht`, `s2_childpath`
+                        // `c_path`, `s5_ifacepath` `i_path`), where golden's
+                        // elaborated slot is the shared definition object with
+                        // its symbolic `hier_path`.  Nulling `caMemSelBase`
+                        // withholds BOTH pushes — the shared slot's and the
+                        // elab-owned one's — so the drain never swaps the cell
+                        // and nothing is minted.
+                        bool simpleBase82 =
+                            stripImplicitConv(ma16.value()).kind ==
+                            ExpressionKind::NamedValue;
+                        // The trace is taken before the gate and does not read
+                        // the switch — see the generate-scope site.
+                        if (cellDbg74() || cellDbg75() || cellDbg82())
+                            fprintf(stderr,
+                                    "R11U82PATHFOLD %s member=%s "
+                                    "road=camemsel simple=%d declined=%d\n",
+                                    prefix.c_str(),
+                                    std::string(fld16.name).c_str(),
+                                    (int)simpleBase82,
+                                    (int)(!simpleBase82 && !pathFoldOff82()));
+                        if (!simpleBase82 && !pathFoldOff82()) {
+                        }
+                        else if (mw16 > 0 && off16 >= 0 && tot16 > 0) {
                             caMemSelBase = bp16;
                             caMemSelName = std::string(fld16.name);
                             caMemSelOff = off16;
