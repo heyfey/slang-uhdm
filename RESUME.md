@@ -175,6 +175,25 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign refresh (2026-09-20, HEAD = the pass-73 landing).** The
+> matrix-1.87 branch has landed 73 passes since the df23d880 rebaseline:
+> surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
+> are the three slang-fenced tests), uhdm2rtlil 788 equal / 16 not-equal /
+> 67 reject in both modes (of 871). Conversions since the pass-64 refresh:
+> typed_named_pattern (69) — seven u2r conversions in the pass 44-69
+> stretch. Landed grounds since: the net-type cells (64/66), the size-stamp
+> walk (67), the gen-scope substitution merge + share-cut + namesake width
+> (68/71), the cast-pattern mint (69), the value half of the reduce table —
+> int64, the pow cast artefact, the decimal leaf, the untyped-mint chain
+> (70/72), and the namesake Lhs binding + gen-scope member fold (73). The
+> queue: the gen-scope NET namesake binding (pass-73 R1, the cheapest cell),
+> the gen-scope localparam fold base, the package-imported namesake (two
+> shapes measured), the signed based-decimal VALUE (pass-72 R1, the widest
+> value cell), r11u67 R-KWDUMMY + the pass-64 element-reach refinement,
+> BBPI's 62 bare op-ref cells, the r11u70 package/interface cast holders,
+> the r11u68 cast face, and the TRIAGE2 singletons. The pass-64 paragraph
+> below is HISTORY.
+
 > **v1.87 campaign refresh (2026-09-17, HEAD = the pass-64 landing).** The
 > matrix-1.87 branch has landed 64 passes since the df23d880 rebaseline:
 > surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
