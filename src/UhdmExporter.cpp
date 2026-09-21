@@ -7121,6 +7121,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // have applied the producer's own bail rule and the base's elaborated
     // param_assign Rhs finally SAYS whether it assembled.
     drainCaAsmMemberSlice();
+    // § caAsmMemberSliceFoldGenLocalBase75 (r11u75) — the same cell with its
+    // base declared in the GENERATE SCOPE, whose digits ride on the record
+    // instead of being sliced out of an `elabParamPa` entry that road never
+    // makes.  Straight after, and disjoint from it by the base's scope.
+    drainCaGenLpMemSel75();
     // § paAsmMemberSliceFold21 (r11u21) — the ELABORATED param_assign that
     // reads a MEMBER of that same assembled parameter, and every parameter
     // whose value depends on such a read.  Immediately after, and for the

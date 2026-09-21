@@ -1,0 +1,18 @@
+LHS:
+decompile:
+constant: , id:362, line:12:31, endln:12:34
+|vpiParent:
+\_cont_assign: , id:357, line:27:12, endln:27:27
+|vpiDecompile:300
+|vpiSize:16
+|UINT:300
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:190, line:12:31, endln:12:34
+|vpiParent:
+\_cont_assign: , id:189, line:27:12, endln:27:27
+|vpiDecompile:300
+|vpiSize:32
+|UINT:300
+|vpiConstType:9

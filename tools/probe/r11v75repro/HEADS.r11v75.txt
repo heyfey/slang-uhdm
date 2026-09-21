@@ -1,0 +1,59 @@
+r11v75 — THE THREE BREAKS, cell by cell, through the pass's own resolving
+lister (calist75.py).  golden = pinned Surelog v1.87, regenerated per arm.
+
+================ xc_impw — LAW B's WIDTH HALF SUPPRESSES A CLIMB
+GOLDEN
+  work@dut.u.gz.tt   actual -   rhs constant BIN:...100101100 sz=12
+  work@dut.u.gz.ff   actual -   rhs constant BIN:...100101100 sz=4
+  work@dut.u.gz.nn   actual -   rhs constant BIN:...100101100 sz=32
+PRISTINE (own-local actuals wrong, SIZES RIGHT)
+  tt  logic_var(work@dut.u.gz.tt)  sz=12
+  ff  logic_var(work@dut.u.gz.ff)  sz=4
+  nn  logic_var(work@dut.u.gz.nn)  sz=32
+PATCHED (actuals fixed, SIZES BROKEN)
+  tt  -   sz=32      <-- AWAY-GOLDEN
+  ff  -   sz=4 -> 32 <-- AWAY-GOLDEN
+  nn  -   sz=32
+VERIFIED
+  tt  -   sz=12      ff  -  sz=4      nn  -  sz=32     (golden, cell for cell)
+Attribution: R11U75_IMPW_OFF=1 on the patched binary restores 12 and 4.
+
+================ xf_crossblk — LAW C FOLDS A WRITTEN PATH
+GOLDEN
+  A1.a_own    actual -                         rhs constant BIN 320 sz=32
+  A2.a_cross  actual logic_var(...A2.a_cross)  rhs hier_path
+  A2.a_ct     actual logic_var(...A2.a_ct)     rhs hier_path
+  A3[0].a_it  actual -                         rhs constant BIN 400 sz=32
+  A3[1].a_it  actual -                         rhs constant BIN 401 sz=32
+  A4.a_idx    actual logic_var(...A4.a_idx)    rhs hier_path
+PATCHED
+  A2.a_cross  actual -   rhs constant BIN 320 sz=32   <-- BOTH FIELDS AWAY-GOLDEN
+  A2.a_ct     actual -   rhs constant BIN 01011010     <-- BOTH FIELDS AWAY-GOLDEN
+  A4.a_idx    actual -   rhs constant BIN 401 sz=32    <-- BOTH FIELDS AWAY-GOLDEN
+PRISTINE is golden on those three cells (hier_path + the own-local actual).
+VERIFIED: the arm's whole cont_assign listing matches golden — 0 differing rows.
+score75: gold_only 431 (pristine) -> 460 (patched) -> 399 (verified).
+
+================ xh_ancpath — THE RULE IS THE REFERENCE FORM
+GOLDEN
+  B_LOC.n      (ancestor block, SIMPLE name)  folded, no actual
+  B1.B_LOC.n   (the same base, a PATH)        hier_path + own-local actual
+  M_LOC.n      (module base, SIMPLE)          folded, no actual
+  dut.M_LOC.n  (the same base, a PATH)        hier_path + own-local actual
+  C_LOC.n      (this block's own base)        folded, no actual
+PATCHED: b_path folded + actual stripped (both wrong); b_modp folded (the
+  PRE-EXISTING caMemSel over-fold, pristine does it too) AND actual stripped.
+VERIFIED: b_path golden; b_modp keeps golden's actual and carries the
+  pre-existing folded Rhs — the one cell left, and it is pristine's residue.
+score75: gold_only 453 -> 467 (patched) -> 446 (verified).
+
+================ xi_genimp2 — AN ACTUAL GOLDEN DOES NOT HAVE
+GOLDEN
+  work@dut.G1[0].k_ns       logic_var (work@dut.k_ns)     <- one hop from the MODULE body
+  work@dut.G1[0].G2.g_ns    -                             <- one hop from a GEN BLOCK that imports
+PATCHED
+  k_ns    logic_var (work@dut.k_ns)      (golden — LAW B working)
+  g_ns    logic_var (work@dut.g_ns)      <-- INVENTED
+VERIFIED: both golden.  score75 ours_only 1 -> 3 (patched) -> 1 (verified).
+Control arm xg_genimp (gen-block import, module does NOT import): golden binds
+nothing and all three binaries bind nothing.

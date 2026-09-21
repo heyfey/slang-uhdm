@@ -17002,7 +17002,10 @@ static bool cellDbg69();
 // (`Scope.cpp:560`), so the walk cannot see it without a `members()` scan — and
 // even with the width fixed the arm would keep a head for the module-level
 // variable we do not emit at all.  MEASURED, DECLINED, recorded as this pass's
-// R2 rather than approximated.
+// R2 rather than approximated — until r11u75, which closes both halves; the
+// import lookup and its switch are declared here and defined below.
+static bool impWidthOff75();
+static const Symbol* nsImportHome75(const Scope& sc, std::string_view nm);
 static int32_t caLhsAdjustBindSymW71(const Symbol& sym) {
     if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
         return 0;
@@ -17049,14 +17052,29 @@ static int32_t genCaSubstAdjustW71(const Expression& lhsExpr, const Scope& blk) 
             // ONLY `uhdmmodule_inst` has a case in `bindVariable`'s switch;
             // an interface (or program) body falls to the default and the
             // walk goes on to the instantiating scope without looking here.
-            if (ib71.getDefinition().definitionKind == DefinitionKind::Module)
-                if (const Symbol* hit71 = q->find(nm71)) {
+            if (ib71.getDefinition().definitionKind == DefinitionKind::Module) {
+                const Symbol* hit71 = q->find(nm71);
+                // § caNamesakePkgImportHome75 (r11u75) — LAW B's WIDTH HALF.
+                // `bindVariable` searches the module component's own variable
+                // registry, and `importPackage` has already copied the
+                // imported package's signals into it, so the imported name is
+                // found THERE and `adjustSize` re-sizes to ITS width.  That is
+                // r11u71's R2 measured end to end: arm `w8_unitname` row `gp`
+                // (`import q::pkgname;`, a 16-bit package signal, a 32-bit
+                // gen-local target) is golden `UINT:300 vpiSize:16` and
+                // pristine `vpiSize:32` — the arm's ONE head.  The lookup runs
+                // only where `find` misses, so every landed cell answers as it
+                // did, and it consults THIS module body's import items only.
+                if (!hit71 && !impWidthOff75())
+                    hit71 = nsImportHome75(*q, nm71);
+                if (hit71) {
                     const Symbol* v71 = hit71;
                     if (v71->kind == SymbolKind::Port)
                         v71 = v71->as<PortSymbol>().internalSymbol;
                     if (v71)
                         return caLhsAdjustBindSymW71(*v71);
                 }
+            }
             auto* pi71 = ib71.parentInstance;
             q = pi71 ? pi71->getParentScope() : nullptr;
             continue;
@@ -17087,6 +17105,98 @@ static bool cellDbg71();
 static bool bindOff74();
 static bool foldOff74();
 static bool cellDbg74();
+static bool netNsOff75();
+static bool impBindOff75();
+static bool impWidthOff75();
+static bool glpFoldOff75();
+static bool caSuppOff75();
+static bool cellDbg75();
+
+// § caNamesakePkgImportHome75 (r11u75) — THE NAMESAKE A WILDCARD OR EXPLICIT
+// IMPORT PUTS IN THE MODULE'S OWN SCOPE.
+//
+// `slang::ast::Scope::find` is documented "won't return anything weird like
+// forwarding typedefs or imported symbols" and returns `nullptr` outright for
+// an `ExplicitImport` (`slang/source/ast/Scope.cpp:559-562`); a WILDCARD
+// import puts no entry in the scope's `nameMap` at all, because slang resolves
+// those through `lookupName`'s wildcard pass and not through the map.  So both
+// import spellings are invisible to the one-hop namesake walk, and that is the
+// whole of r11u71's R2 and r11v74's third residue.
+//
+// THE PRODUCER MATERIALISES A HOLDER, and we already emit it.  Surelog's
+// `CompileHelper::importPackage` copies the imported package's SIGNAL VECTOR
+// into the importing scope's own registries, so the module carries a
+// module-level object of the package variable's own kind, at the PACKAGE's
+// source location, under the MODULE's name — measured on golden, arm
+// `g2_importshapes`: `logic_var (work@dut.w_ns), line:9:16` where line 9 is
+// `package pw`'s own declaration.  Our exporter builds exactly that object
+// (`emitImportedPkgVarNets` for the def view, the `collectImportedPkgVars`
+// hoist in `emitInstance` for the elaborated one) and keys it in `topNets` —
+// which IS the `netMap` `emitGenScopes` is handed — under the PACKAGE
+// VARIABLE'S symbol.  So the binding needs no new object: only the name has
+// to resolve.
+//
+// THE GOLDEN GRID (`g2_importshapes`, `golden_rc=0 ours_rc=0`), one gen block,
+// one row per import spelling, each Lhs a gen-local `logic [31:0]`:
+//   `import pw::*` + package `logic [15:0] w_ns`  -> `logic_var work@dut.w_ns`
+//   `import pw::*` + package `logic [31:0] w_same` -> `logic_var work@dut.w_same`
+//   `import pw::*` + package `wire  [31:0] w_net`  -> `logic_net work@dut.w_net`
+//   `import pe::e_ns` (EXPLICIT)                   -> `logic_var work@dut.e_ns`
+//   a package NEVER imported (`pu::u_ns`)          -> **none**, both sides
+//   a `$unit`-scope name (`logic [7:0] unitname`)  -> **none** (r11v69's `gu`)
+// and arm `g4_edges` adds the edge the census needed: a COMPILATION-UNIT
+// `import pun::*` — whose listing Surelog materialises TWICE in the module —
+// is **NOT a namesake home** either (`E1[0].E2.un_ns` carries no actual in
+// golden).  Which is what this helper reproduces by construction: it reads the
+// IMPORT ITEMS OF THE ONE SCOPE IT IS HANDED and never climbs to the
+// compilation unit, exactly as § caGenScopeLhsNamesakeBind74's walk does not.
+//
+// The returned symbol is the PACKAGE's own variable; the caller looks it up in
+// `netMap`, so a package NET (whose module holder we do not hoist at all) and
+// anything else without an emitted object DECLINES — golden binds `w_net` and
+// we do not, which is recorded as a residue rather than guessed at.
+//
+// ONLY A SIGNAL IS A HOME, and that fence is load-bearing on the WIDTH half
+// (verifier r11v75, arm `xc_impw`).  `importPackage` copies the imported
+// package's SIGNAL VECTOR; a package PARAMETER, TYPEDEF or FUNCTION of the
+// name puts nothing in the importing module's variable registry, so
+// `bindVariable` does not stop there — it goes on to the instantiating scope
+// exactly as it does on a plain miss.  The width walk
+// (`genCaSubstAdjustW71`) is the one that CLIMBS, so returning a non-signal
+// here made it RETURN 0 and never reach the outer namesake it used to
+// resize to: measured on golden, a child module with `import pk::*` where
+// `pk` holds `localparam int zz`, `typedef logic [3:0] tt` and `function ff`,
+// and the instantiating module holds 8-, 12- and 4-bit signals of those
+// names — golden is `vpiSize` 12 and 4 on `tt`/`ff` (the PARENT's signals),
+// which the pristine binary already read and an unfiltered home broke.  The
+// BINDING half filtered on the same two kinds downstream from the start, so
+// this fence changes it not at all; keeping it inside the helper keeps the
+// two halves answering one rule.
+static const Symbol* nsImportHome75(const Scope& sc, std::string_view nm) {
+    auto sig75 = [](const Symbol* s75) -> const Symbol* {
+        return s75 && (s75->kind == SymbolKind::Variable ||
+                       s75->kind == SymbolKind::Net)
+                   ? s75
+                   : nullptr;
+    };
+    for (auto& mem75 : sc.members()) {
+        if (mem75.kind == SymbolKind::ExplicitImport) {
+            auto* im75 = mem75.as<ExplicitImportSymbol>().importedSymbol();
+            if (im75 && im75->name == nm)
+                if (const Symbol* s75 = sig75(im75))
+                    return s75;
+        }
+        else if (mem75.kind == SymbolKind::WildcardImport) {
+            auto* pk75 = mem75.as<WildcardImportSymbol>().getPackage();
+            if (!pk75)
+                continue;
+            if (const Symbol* h75 = pk75->find(nm))
+                if (const Symbol* s75 = sig75(h75))
+                    return s75;
+        }
+    }
+    return nullptr;
+}
 
 // § caGenScopeLhsNamesakeBind74 (r11u74) — A GENERATE-SCOPE `cont_assign`
 // WHOSE TARGET IS A GENERATE-LOCAL VARIABLE POINTS ITS Lhs `ref_obj` AT THE
@@ -17214,6 +17324,28 @@ static const Symbol* genCaLhsNamesake74(const Expression& lhsExpr,
             // THE ONE HOP, found or not: whatever this scope answers is the
             // whole answer, and a miss here is a golden-agreed UNBOUND cell.
             const Symbol* hit74 = w74->find(nm74);
+            // § caNamesakePkgImportHome75 (r11u75) — LAW B's BINDING HALF.
+            // The one scope's answer includes the names ITS OWN import items
+            // put there, which `Scope::find` refuses to report.  Still exactly
+            // one scope: the helper reads that scope's members and never
+            // climbs, so a `$unit` import (arm `g4_edges` `un_ns`) and a
+            // package nobody imported (`g2_importshapes` `u_ns`) stay UNBOUND,
+            // which is golden on both.
+            //
+            // ONLY A MODULE BODY HAS A HOLDER (verifier r11v75, arms
+            // `xg_genimp` and `xi_genimp2`).  `importPackage` materialises the
+            // imported signals in the COMPONENT's registries; a generate
+            // block that writes its own `import pg::*` gets none, and golden
+            // binds nothing for a cell whose one searchable scope is that
+            // block — measured twice, with and without the module importing
+            // the same package, and in the second the module-level holder
+            // EXISTS and golden still leaves the cell UNBOUND while its
+            // sibling one hop from the module body binds it.  Reading a
+            // generate block's import items therefore writes an actual golden
+            // does not have, so the lookup is asked of an InstanceBody only.
+            if (!hit74 && !impBindOff75() &&
+                ws74.kind == SymbolKind::InstanceBody)
+                hit74 = nsImportHome75(*w74, nm74);
             if (!hit74 || hit74 == &sym74)
                 return nullptr;
             const Symbol* v74 = hit74;
@@ -17931,6 +18063,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 rt->VpiParent(up);
                 up->Typespec(rt);
                 params->push_back(up);
+                // § caAsmMemberSliceFoldGenLocalBase75 (r11u75) — the one
+                // record this law needs from the generate-scope parameter
+                // listing: the object whose struct typespec carries the
+                // MEMBER typespecs golden's folded constant points at.  A
+                // map write and nothing else; no object is minted here and no
+                // field of `up` is touched, so the listing is byte-unchanged
+                // with the law switched off.
+                genScopeParamObj75[&gm] = up;
                 // § genLpUnpackedArray — an UNPACKED-ARRAY gen-scope localparam
                 // (`localparam bit [1:0] INITIAL_VALUE[4] = '{2'h0,…}`, Rggen
                 // block_0:1811) has no integer value, so every arm below —
@@ -20584,6 +20724,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // nested-struct fence), and the drain declines unless the base's
             // own elaborated `param_assign` Rhs is the assembled BIN constant
             // of exactly the struct's packed width.
+            // § caAsmMemberSliceFoldGenLocalBase75 (r11u75) — set when THIS
+            // cell has been recorded for a member fold, on either road, so
+            // § caGenScopeFoldedLhsNoOwnBind75 below can read it.
+            bool foldRec75 = false;
             if (!rhs && !foldOff74()) {
                 auto& rc74 = stripImplicitConv(ae.right());
                 if (rc74.kind == ExpressionKind::MemberAccess) {
@@ -20616,12 +20760,193 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             if (mw74 > 0 && off74 >= 0 && tot74 > 0) {
                                 int32_t lw74 =
                                     genCaSubstAdjustW71(ae.left(), blk);
-                                caMemSel.push_back({m, ca, false, bp74,
-                                                    std::string(fld74.name),
-                                                    off74, mw74, tot74,
-                                                    lw74 > 0 ? lw74 : 0,
-                                                    fullName});
-                                if (cellDbg74())
+                                // ==== § caAsmMemberSliceFoldGenLocalBase75 ===
+                                // (r11u75) — LAW C: THE BASE DECLARED IN A
+                                // GENERATE SCOPE.
+                                //
+                                // § caAsmMemberSliceFoldGenScope74 extended the
+                                // FOLD to a cont_assign written inside a
+                                // generate block; its BASE still has to be a
+                                // parameter the module/package listing emitted,
+                                // because `drainCaAsmMemberSlice` reads the
+                                // base's answer off `elabParamPa`, which only
+                                // `emitParameters`' `topView` arm fills.  A
+                                // localparam declared in the generate scope
+                                // itself is emitted by `emitGenScopes`' own
+                                // parameter loop, reaches no such map, and the
+                                // cell stays symbolic — verifier r11v74's
+                                // second residue, arm `v7_foldshape` row
+                                // `gl_loc`.
+                                //
+                                // GOLDEN FOLDS IT, AND FOLDS IT PER ITERATION.
+                                // Arm `g3_lpbase` varies ONLY where the base is
+                                // declared, with the module-level row as the
+                                // control: `G_LOC.n` (a gen-scope `localparam
+                                // p::cfg_t = p::build(256)`) is golden
+                                // `BIN:…100000000 vpiSize:32`, exactly the
+                                // module-level row's object; `G_OVR =
+                                // p::build(256 + i*8)` reads 256 in `gf[0]` and
+                                // 264 in `gf[1]`, so the value is the
+                                // ITERATION'S, not a shared one; `G_LOC.t`
+                                // takes the other member (`BIN:11000011`
+                                // vpiSize 8); a base one scope OUT read from a
+                                // nested block folds; and an operation AROUND
+                                // the select declines on both sides (r11u69's
+                                // R1, unmoved).  Arm `g4_edges` adds the
+                                // generate KIND: a gen-IF arm and a gen-CASE
+                                // arm fold identically.
+                                //
+                                // WHY A SECOND RECORD AND NOT THE SAME DRAIN.
+                                // The existing drain slices the digits out of
+                                // the base's own elaborated `param_assign` Rhs
+                                // and DECLINES unless that Rhs is the assembled
+                                // `BIN` of exactly the struct's packed width —
+                                // the producer's own bail signal (grid `d14`
+                                // `kid_ovr`).  Our gen-scope localparam does not
+                                // carry that shape at all: measured on `g3`,
+                                // golden's `work@dut.gf[0].G_LOC` is
+                                // `BIN:0000000000000000000000010000000011000011`
+                                // and ours is `UINT:65731` — the same VALUE in a
+                                // different encoding, which is a residue of the
+                                // gen-scope parameter listing and NOT this
+                                // law's ground.  So this road takes the digits
+                                // from the value itself and leaves the existing
+                                // drain, its map and its bail rule untouched.
+                                //
+                                // THE BAIL PROXY.  `asmRefFamilyBase` already
+                                // required the initializer to be the
+                                // member-by-member const-function call
+                                // (`memLeftInitCall`); on top of that the
+                                // producer's leftover model must NAME EVERY
+                                // MEMBER of the struct, and the value slang
+                                // folded must be a fully-defined integer of
+                                // exactly the struct's packed width.  A builder
+                                // the model cannot account for writes nothing —
+                                // golden keeps the symbolic `hier_path` there
+                                // and so do we.
+                                // THE ROAD IS CHOSEN BY THE BASE'S DECLARING
+                                // SCOPE AND NOT BY THE SWITCH — measured, and
+                                // it is a switch-interaction bug caught by the
+                                // ledger.  Reading the switch here sent a
+                                // generate-scope base down the `caMemSel`
+                                // road, where the drain declines it for want
+                                // of an `elabParamPa` entry but the RECORD
+                                // still set `foldRec75`, so
+                                // § caGenScopeFoldedLhsNoOwnBind75 fired on a
+                                // cell whose Rhs never folded:
+                                // `R11U75_GLPFOLD_OFF=1` then left `g4_edges`
+                                // `f_if`/`f_case` stripped of the `vpiActual`
+                                // pristine carries.  A switch must revert its
+                                // own law and nothing else, so the scope test
+                                // stands alone and the switch decides only
+                                // whether the record is taken.  Skipping the
+                                // `caMemSel` push for such a base is
+                                // unobservable either way: that drain resolves
+                                // the base through `elabParamPa`, misses, and
+                                // mints nothing.
+                                bool genBase75 = false;
+                                if (auto* bs75 = bp74->getParentScope())
+                                    genBase75 = bs75->asSymbol().kind ==
+                                                SymbolKind::GenerateBlock;
+                                // THE PRODUCER FOLDS A SIMPLE NAME AND LEAVES A
+                                // WRITTEN PATH ALONE (verifier r11v75, arms
+                                // `xf_crossblk` and `xh_ancpath`).  Golden folds
+                                // `B_LOC.n` (an ENCLOSING block's base by its
+                                // simple name) and `C_LOC.n` (this block's own),
+                                // and it does NOT fold `B1.B_LOC.n`,
+                                // `A1.A_LOC.n` (a SIBLING block), `A3[1].L_LOC.n`
+                                // (another ITERATION) or even `dut.M_LOC.n` — on
+                                // every one of those golden keeps the symbolic
+                                // `hier_path` AND binds the cell's own local.
+                                // `asmRefFamilyBase` accepts a
+                                // `HierarchicalValue` as readily as a
+                                // `NamedValue`, so without this fence the law
+                                // folds four shapes golden does not and
+                                // § caGenScopeFoldedLhsNoOwnBind75 then strips an
+                                // actual golden HAS.  It gates the RECORD on both
+                                // roads: the `caMemSel` push stays exactly as
+                                // pristine takes it (a hierarchical MODULE base
+                                // already over-folds there and that is a
+                                // pre-existing residue, not this law's), but the
+                                // cell is not marked folded, so nothing is
+                                // stripped from it.
+                                bool simpleBase75 =
+                                    stripImplicitConv(ma74.value()).kind ==
+                                    ExpressionKind::NamedValue;
+                                if (genBase75 && !simpleBase75) {
+                                    if (cellDbg74() || cellDbg75())
+                                        fprintf(stderr,
+                                                "R11U75PATHBASE %s member=%s\n",
+                                                fullName.c_str(),
+                                                std::string(fld74.name).c_str());
+                                }
+                                else if (genBase75 && !glpFoldOff75()) {
+                                    std::string bits75;
+                                    size_t seen75 = 0;
+                                    if (auto* in75 = bp74->getInitializer())
+                                        if (auto* sub75 = memLeftInitCall(*in75))
+                                            if (auto* lo75 =
+                                                    srlgEvalFuncMemberLeftovers(
+                                                        *sub75))
+                                                seen75 = lo75->size();
+                                    size_t nmem75 = 0;
+                                    for (auto& f75 :
+                                         bct74.as<PackedStructType>()
+                                             .membersOfType<FieldSymbol>()) {
+                                        (void)f75;
+                                        nmem75++;
+                                    }
+                                    const ConstantValue& bv75 = bp74->getValue();
+                                    if (seen75 == nmem75 && nmem75 > 0 &&
+                                        bv75.isInteger() &&
+                                        !bv75.integer().hasUnknown() &&
+                                        (int32_t)bv75.integer().getBitWidth() ==
+                                            tot74) {
+                                        bits75 = bv75.integer().toString(
+                                            LiteralBase::Binary, false);
+                                        if ((int32_t)bits75.size() < tot74)
+                                            bits75.insert(
+                                                0,
+                                                (size_t)tot74 - bits75.size(),
+                                                '0');
+                                    }
+                                    if ((int32_t)bits75.size() == tot74) {
+                                        caGenLpSel75.push_back(
+                                            {ca, bp74, std::string(fld74.name),
+                                             bits75.substr((size_t)off74,
+                                                           (size_t)mw74),
+                                             off74, mw74, tot74,
+                                             lw74 > 0 ? lw74 : 0});
+                                        foldRec75 = true;
+                                    }
+                                    if (cellDbg74() || cellDbg75())
+                                        fprintf(stderr,
+                                                "R11U75GLPFOLD %s:%d member=%s "
+                                                "off=%d mw=%d tot=%d lhsw=%d "
+                                                "rec=%d\n",
+                                                fullName.c_str(),
+                                                (int)assign.sourceRange.start()
+                                                    .offset(),
+                                                std::string(fld74.name).c_str(),
+                                                (int)off74, (int)mw74,
+                                                (int)tot74, (int)lw74,
+                                                (int)foldRec75);
+                                }
+                                else if (!genBase75) {
+                                    caMemSel.push_back({m, ca, false, bp74,
+                                                        std::string(fld74.name),
+                                                        off74, mw74, tot74,
+                                                        lw74 > 0 ? lw74 : 0,
+                                                        fullName});
+                                    // A WRITTEN PATH IS NOT A FOLD GOLDEN
+                                    // AGREES WITH, so the cell is not marked
+                                    // folded and keeps the own-local actual
+                                    // golden carries (`xh_ancpath` `b_modp`,
+                                    // golden `hier_path` + `logic_var`).  The
+                                    // push itself is pristine's and stays.
+                                    foldRec75 = simpleBase75;
+                                }
+                                if (!genBase75 && cellDbg74())
                                     fprintf(stderr,
                                             "R11U74FOLD %s:%d member=%s off=%d "
                                             "mw=%d tot=%d lhsw=%d\n",
@@ -22053,6 +22378,44 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // which is precisely the half bindGenLocal9's allowAnc9 exists for,
             // so this flag must not reach it.
             bool constRhsOwnLocal25 = false;
+            // § caGenScopeFoldedLhsNoOwnBind75 (r11u75) — THE FOLD'S OWN
+            // CONSTANT IS A CONSTANT Rhs, and golden reads it as one.
+            //
+            // § genCaConstRhsLhsNoBind25 above is keyed on the INSTALLED Rhs
+            // ("it reads only the INSTALLED Rhs", its own note says), and a
+            // member-select cell has no constant installed at this point —
+            // the fold is a RECORD here and a write at the drain.  So a cell
+            // the fold converts kept the own-local `vpiActual` the fallback
+            // wrote, while golden, whose substitution happened before its
+            // writer ever reached the Lhs, carries NONE.
+            //
+            // MEASURED AT THE BASE, three arms, on cells pass 73 ALREADY
+            // FOLDS: `g3_lpbase` `gf[0].g_mod` and `gf[1].g_mod` (a
+            // module-level base read from a generate scope) are golden
+            // `vpiActual` NONE and pristine `logic_var
+            // (work@dut.gf[0].g_mod)`, with the Rhs constant already
+            // byte-identical; `v7_foldshape` `twice_a`/`twice_b` the same;
+            // and `g4_edges` `f_if`/`f_case` join them once LAW C folds.  So
+            // this is not a consequence of LAW C — it is a residue LAW C
+            // would otherwise inherit, and it closes for both roads at once.
+            //
+            // It is deliberately as NARROW as § genCaConstRhsLhsNoBind25: the
+            // target must be a variable of THIS generate scope, which is the
+            // own-local face, and an ANCESTOR scope's local keeps its binding
+            // (`bindGenLocal9`'s `allowAnc9` half) exactly as it does for a
+            // literal Rhs.  § caGenScopeLhsNamesakeBind74's namesake write
+            // runs AFTER this and is untouched: the joint cell (`v7_foldshape`
+            // `both`) keeps golden's namesake actual AND its folded constant.
+            if (foldRec75 && !caSuppOff75() &&
+                stripImplicitConv(ae.left()).kind ==
+                    ExpressionKind::NamedValue) {
+                auto& ls75 = stripImplicitConv(ae.left())
+                                 .as<NamedValueExpression>()
+                                 .symbol;
+                if (ls75.kind == SymbolKind::Variable &&
+                    ls75.getParentScope() == static_cast<const Scope*>(&blk))
+                    constRhsOwnLocal25 = true;
+            }
             if ((isLiteralExpr(stripImplicitConv(ae.right())) ||
                  (rhs && rhs->UhdmType() == UHDM::uhdmconstant)) &&
                 stripImplicitConv(ae.left()).kind ==
@@ -22550,13 +22913,57 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (const Symbol* nsy74 = genCaLhsNamesake74(ae.left(), blk)) {
                 auto* l74 = ca->Lhs();
                 auto it74 = netMap.find(nsy74);
+                UHDM::any* nso75 =
+                    it74 != netMap.end() ? it74->second : nullptr;
+                // § caGenScopeNetNamesakeStore75 (r11u75) — LAW A.  THE FIND
+                // IS RIGHT AND THE STORE WAS INCOMPLETE.
+                //
+                // A net declared in an ENCLOSING GENERATE SCOPE is emitted by
+                // `emitGenScopes`'s own member loop, which files the plain
+                // `logic_net` in `genScopeNets` and puts it in `netMap` ONLY
+                // for the net-ified-`reg` arm (`caVar`) — see the two stores
+                // at the mint.  So the pass-73 walk RESOLVED the namesake and
+                // then found no object for it, and the cell stayed unbound
+                // where golden binds: verifier arm `v9_hops` row `n3`, golden
+                // `logic_net work@dut.L1[0].L2.n3`, pristine `<null>`, and it
+                // is that arm's ONE head.  `genScopeNets` is the same map the
+                // landed `bindGenLocal9` fallback already resolves through, so
+                // nothing new is minted and nothing new is keyed — the store
+                // is simply consulted where it was not.
+                //
+                // THE GOLDEN GRID (`g1_netkinds`, one enclosing gen scope, one
+                // nested one, every target a gen-local variable): a ranged
+                // `wire [31:0]`, a SCALAR `wire`, a NET-DECL-ASSIGN
+                // `wire = 32'd7` and a net-ified `reg` all bind the enclosing
+                // scope's net in golden; a struct-typed namesake binds its
+                // `struct_net` (arm `g4_edges` `sn_ns`, already right at the
+                // base through `netMap`); and the two-scopes-out rows stay
+                // UNBOUND on both sides, so the one-hop law is untouched.
+                //
+                // THE ONE FENCE, and it corrects a pristine over-bind:
+                // an UNPACKED-ARRAY net namesake is NOT a home.  Arm
+                // `g4_edges` row `an_ns` (`wire [7:0] an_ns [0:1]` one scope
+                // out, a `logic [7:0] an_ns` target inside) carries NO actual
+                // in golden, while pristine binds `array_net
+                // (work@dut.E1[0].an_ns)` — an object golden does not have,
+                // reached through `netMap`'s array-net entry.  The fence is
+                // read off the RESOLVED OBJECT's kind, so it covers both
+                // stores at once.
+                if (!netNsOff75()) {
+                    if (!nso75) {
+                        auto gi75 = genScopeNets.find(nsy74);
+                        if (gi75 != genScopeNets.end())
+                            nso75 = gi75->second;
+                    }
+                    if (nso75 && nso75->UhdmType() == UHDM::uhdmarray_net)
+                        nso75 = nullptr;
+                }
                 bool did74 = false;
-                if (l74 && l74->UhdmType() == UHDM::uhdmref_obj &&
-                    it74 != netMap.end() && it74->second) {
-                    ((UHDM::ref_obj*)l74)->Actual_group(it74->second);
+                if (l74 && l74->UhdmType() == UHDM::uhdmref_obj && nso75) {
+                    ((UHDM::ref_obj*)l74)->Actual_group(nso75);
                     did74 = true;
                 }
-                if (cellDbg74())
+                if (cellDbg74() || cellDbg75())
                     fprintf(stderr,
                             "R11U74BIND %s:%d name=%s ns=%s bound=%d\n",
                             fullName.c_str(),
@@ -22567,7 +22974,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 .c_str(),
                             std::string(nsy74->name).c_str(), (int)did74);
             }
-            else if (cellDbg74() &&
+            else if ((cellDbg74() || cellDbg75()) &&
                      stripImplicitConv(ae.left()).kind ==
                          ExpressionKind::NamedValue) {
                 auto* la74 = ca->Lhs();
@@ -26969,6 +27376,121 @@ static bool cellDbg69() {
         return e && *e && *e != '0';
     }();
     return v;
+}
+// § caGenScopeNetNamesakeStore75 / § caNamesakePkgImportHome75 /
+// § caAsmMemberSliceFoldGenLocalBase75 / § caGenScopeFoldedLhsNoOwnBind75 —
+// r11u75's own switches, each droppable ALONE so a mover's byte delta can be
+// attributed to one law and nothing else.  `R11U75_NETNS_OFF=1` drops the
+// gen-scope NET namesake store AND its unpacked-array fence;
+// `R11U75_IMPBIND_OFF=1` drops the imported-package namesake BINDING;
+// `R11U75_IMPW_OFF=1` drops its WIDTH half (the two halves are gated apart
+// because the witnesses separate them); `R11U75_GLPFOLD_OFF=1` drops the
+// generate-scope-declared localparam fold base; `R11U75_CASUPP_OFF=1` drops
+// the folded cell's own-local Lhs suppression; `R11U75_OFF=1` drops all five;
+// `R11U75_CELLDBG=1` traces every cell that reaches either site, the DECLINED
+// ones included.
+static bool netNsOff75() {
+    static const bool v = getenv("R11U75_NETNS_OFF") != nullptr ||
+                          getenv("R11U75_OFF") != nullptr;
+    return v;
+}
+static bool impBindOff75() {
+    static const bool v = getenv("R11U75_IMPBIND_OFF") != nullptr ||
+                          getenv("R11U75_OFF") != nullptr;
+    return v;
+}
+static bool impWidthOff75() {
+    static const bool v = getenv("R11U75_IMPW_OFF") != nullptr ||
+                          getenv("R11U75_OFF") != nullptr;
+    return v;
+}
+static bool glpFoldOff75() {
+    static const bool v = getenv("R11U75_GLPFOLD_OFF") != nullptr ||
+                          getenv("R11U75_OFF") != nullptr;
+    return v;
+}
+static bool caSuppOff75() {
+    static const bool v = getenv("R11U75_CASUPP_OFF") != nullptr ||
+                          getenv("R11U75_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg75() {
+    static const bool v = [] {
+        const char* e = getenv("R11U75_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+// § caAsmMemberSliceFoldGenLocalBase75 (r11u75) — THE DRAIN.
+//
+// Mirrors `drainCaAsmMemberSlice`'s write cell for cell — the member's own
+// typespec off the base parameter's struct typespec, `adjustSize` branch by
+// branch, and NOTHING MINTED UNTIL THE WRITE IS CERTAIN (a minted-then-
+// discarded object is still serialized, the r11u9 lesson) — and differs from
+// it in exactly one place: the digits come from the record, because the
+// generate-scope parameter listing does not carry the assembled `BIN` the
+// module/package one does.  It runs straight after that drain and never
+// touches a cell that drain owns: the two record vectors are disjoint by the
+// base's declaring scope.
+void UhdmExporter::drainCaGenLpMemSel75() {
+    for (auto& g75 : caGenLpSel75) {
+        if (!g75.ca || !g75.base || g75.mw <= 0 || g75.off < 0 ||
+            (int32_t)g75.bits.size() != g75.mw)
+            continue;
+        auto pit75 = genScopeParamObj75.find(g75.base);
+        if (pit75 == genScopeParamObj75.end() || !pit75->second)
+            continue;
+        // THE MEMBER'S OWN TYPESPEC, off the struct typespec this parameter
+        // actually points at — the object golden's constant carries, and the
+        // one `adjustSize` switches on.  A member typespec we cannot see
+        // declines the fold.
+        UHDM::typespec* memTs75 = nullptr;
+        if (auto* prt75 = pit75->second->Typespec())
+            if (auto* pts75 = prt75->Actual_typespec();
+                pts75 && pts75->UhdmType() == UHDM::uhdmstruct_typespec)
+                if (auto* mems75 =
+                        ((UHDM::struct_typespec*)pts75)->Members())
+                    for (auto* mem75 : *mems75)
+                        if (mem75->VpiName() == g75.member) {
+                            if (auto* mrt75 = mem75->Typespec())
+                                memTs75 = mrt75->Actual_typespec();
+                            break;
+                        }
+        if (!memTs75)
+            continue;
+        std::string mbits75 = g75.bits;
+        int32_t size75 = g75.mw;
+        auto mk75 = memTs75->UhdmType();
+        // `adjustSize`, branch by branch (CompileHelper.cpp:4065-4218) — the
+        // same reading `drainCaAsmMemberSlice` takes, including its recorded
+        // decline for a SIGNED int member (a mutation of a shared typespec is
+        // its own law and no arm here asks for it).
+        if (mk75 == UHDM::uhdmint_typespec) {
+            if (((UHDM::int_typespec*)memTs75)->VpiSigned())
+                continue;
+            if (g75.lhsBits > 0 && g75.lhsBits < size75)
+                size75 = g75.lhsBits;
+        }
+        else if (mk75 == UHDM::uhdmlogic_typespec) {
+            if (g75.lhsBits > 0 && size75 > g75.lhsBits) {
+                mbits75 =
+                    mbits75.substr(mbits75.size() - (size_t)g75.lhsBits);
+                size75 = g75.lhsBits;
+            }
+        }
+        auto* fc75 = s.MakeConstant();
+        fc75->VpiValue("BIN:" + mbits75);
+        fc75->VpiDecompile(mbits75);
+        fc75->VpiSize(size75);
+        fc75->VpiConstType(vpiBinaryConst);
+        auto* frt75 = s.MakeRef_typespec();
+        frt75->VpiParent(fc75);
+        frt75->Actual_typespec(memTs75);
+        fc75->Typespec(frt75);
+        fc75->VpiParent(g75.ca);
+        g75.ca->Rhs(fc75);
+    }
 }
 
 // § caSubstLeafEncReduceTable56 (r11u56) — THE SUBSTITUTED cont_assign VALUE'S

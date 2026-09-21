@@ -1,0 +1,25 @@
+r11u75 SWITCH LEDGER — normalised dump-line delta of each build against the
+PRISTINE database, per arm.  0 means BYTE-IDENTICAL after normalising the
+output filename the dump header echoes.  `off` = R11U75_OFF=1; sX =
+R11U75_X_OFF=1 with the other four laws still on.
+
+arm                patch     off       sNETNS    sIMPBIND  sIMPW     sGLPFOLD  sCASUPP  
+a1_fbgenkind       0         0         0         0         0         0         0        
+a3_fbfence         0         0         0         0         0         0         0        
+b1_bindvis         0         0         0         0         0         0         0        
+b2_homes           0         0         0         0         0         0         0        
+b3_rhskind         0         0         0         0         0         0         0        
+b4_nonamesake      0         0         0         0         0         0         0        
+b5_walkedge        0         0         0         0         0         0         0        
+g1_netkinds        6         0         0         6         6         6         6        
+g2_importshapes    6         0         6         0         6         6         6        
+g3_lpbase          320       0         320       320       320       4         292      
+g4_edges           56        0         54        56        56        2         52       
+g5_glpwidth        152       0         152       152       152       0         150      
+v1_nearest         0         0         0         0         0         0         0        
+v2_kindns          0         0         0         0         0         0         0        
+v4_lhsshape        0         0         0         0         0         0         0        
+v6_ifacepkg        2         0         2         0         2         2         2        
+v7_foldshape       62        0         62        62        62        8         50       
+v9_hops            2         0         0         2         2         2         2        
+w8_unitname        4         0         4         2         2         4         4        

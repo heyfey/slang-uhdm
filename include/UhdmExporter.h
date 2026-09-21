@@ -2419,6 +2419,34 @@ private:
     };
     std::vector<SrlgCaMemSel> caMemSel;
     void drainCaAsmMemberSlice();
+    // § caAsmMemberSliceFoldGenLocalBase75 (r11u75) — THE SAME FOLD WITH THE
+    // BASE DECLARED IN THE GENERATE SCOPE ITSELF.  `SrlgCaMemSel`'s drain
+    // resolves its base through `elabParamPa`, which only the module/package
+    // listing fills, so a generate-scope localparam base never reaches it and
+    // the cell stays symbolic where golden folds (r11v74's `v7_foldshape`
+    // `gl_loc`).  This record carries the MEMBER'S DIGITS instead of a base
+    // pointer to slice later, because the generate-scope parameter listing
+    // does not carry the assembled `BIN` the module one does — the value is
+    // the same and only its encoding differs, which is a residue of that
+    // listing and not of this law.  The decode, the golden grid and the bail
+    // proxy are at the record site in `ModuleEmit.cpp`.
+    struct SrlgCaGenLpSel75 {
+        UHDM::cont_assign* ca = nullptr;
+        const slang::ast::ParameterSymbol* base = nullptr;
+        std::string member;
+        std::string bits;    // the member's slice of the assembly, MSB first
+        int32_t off = 0;     // index into the assembly, from the MSB
+        int32_t mw = 0;      // the member's own width
+        int32_t total = 0;   // the struct's packed width
+        int32_t lhsBits = 0; // 0 when bindVariable does not bind
+    };
+    std::vector<SrlgCaGenLpSel75> caGenLpSel75;
+    // The UHDM `parameter` object `emitGenScopes` built for a generate-scope
+    // localparam, so the drain above can read the MEMBER'S OWN typespec off
+    // the struct typespec that parameter points at — the object golden's
+    // folded constant carries.
+    std::map<const slang::ast::Symbol*, UHDM::parameter*> genScopeParamObj75;
+    void drainCaGenLpMemSel75();
     // § paAsmMemberSliceFold21 (r11u21) — AN ELABORATED `param_assign` WHOSE
     // INITIALIZER READS A MEMBER OF AN ASSEMBLED FUNCTION-BUILT STRUCT
     // PARAMETER FOLDS TO THAT MEMBER'S BIT SLICE, AND EVERY OTHER PARAMETER

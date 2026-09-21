@@ -1,0 +1,28 @@
+r11v75 — CENSUS, uhdm2rtlil, 871 tests x 2 modes, the pass's own cellcen75.py
+  binaries: pristine ca45217f... vs VERIFIED 94dbf8d5...
+
+rows = 11076 (9480 trace + 1596 NO-GEN-SCOPE-CA)
+   5588 R11U69CELL
+   3892 R11U74BIND
+   1596 NO-GEN-SCOPE-CA
+
+rc histogram:
+  10912 rc=0
+    131 rc=3
+     30 rc=4
+      3 rc=-11
+
+bound=1 on 2858 of 3892 R11U74BIND cells
+adjw non-zero on 214 R11U69CELL cells
+
+PRISTINE census vs VERIFIED census: 0 differing lines of 11076
+the only rc!=0 arms that emit a trace row at all:
+   arb_idx_cast/default  rc=4
+   arb_idx_cast/testflags  rc=4
+
+POSITIVE CONTROL — the same trace on grid arms where the laws act:
+   g1_netkinds: pris_rows=12 verified_rows=12 DIFFERING=6
+   xb_arrnet: pris_rows=4 verified_rows=4 DIFFERING=4
+   xi_genimp2: pris_rows=2 verified_rows=2 DIFFERING=2
+   xf_crossblk: pris_rows=12 verified_rows=12 DIFFERING=18
+   g3_lpbase: pris_rows=30 verified_rows=30 DIFFERING=52

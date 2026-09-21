@@ -1,0 +1,100 @@
+r11v75 — GATES.  Every number measured in this verifier's own worktrees, with
+its own frozen binaries, its own workdirs and its own CSVs.  results/*.csv were
+READ ONLY and never written.
+
+== 1. BINARIES (built here, -j 2, md5 separately, chmod 555 before any sweep)
+pristine  ca45217f2ac9f7766fc232a8be0ee319  == main tree @2f728c97 == OPS pin
+patched   3bcf6c65315faa0e2615d0e46373b915  == the implementer's claimed md5
+verified  94dbf8d5f10018e936b23d148082b613  patched + the three fences
+The verified patch, applied to a FRESH 2f728c97 worktree, yields a src/ and
+include/ tree identical to the one that produced the verified binary.
+
+== 2. GOLDENS
+pristine PASS 23 FAIL 0 | patched PASS 23 FAIL 0 | verified PASS 23 FAIL 0
+SLANG_UHDM=/bin/false   PASS 0  FAIL 23   (negative control)
+
+== 3. SURELOG, --mode both, 1596 rows each
+                 default            testflags
+pristine     CMP_EQUAL 474 / NE 9   469 / 8
+patched      CMP_EQUAL 474 / NE 9   469 / 8
+verified     CMP_EQUAL 474 / NE 9   469 / 8
+whole-row join vs results/golden_surelog.csv, PATCHED  : 4 rows, all environment
+   Earlgrey_0_1 default+testflags   CMP_EQUAL,,,differ -> CMP_EQUAL,,,  (dump COLUMN draw; STATUS unchanged)
+   LowMem{Lib,Pkg}/testflags        the workdir path inside a SURELOG_FAIL string
+the PRISTINE sweep produces the SAME four rows, so they are not the patch's.
+whole-row join patched vs THIS verifier's own pristine: 2 rows, the two LowMem*
+   path strings and nothing else.
+
+== 4. BYTEVERIFY (SELFCHECK=1), surelog, patched vs this verifier's pristine
+databases 960/960, PATH_SETS_IDENTICAL, SELFCHECK 959/960 flagged
+MOVERS 5/960, all UVM family, each attributed ORDER-BLIND (sorted,
+path-normalised, id-stripped whole dump):
+   default/MiniAmiq     4 lines: UINT:1365 <-> UINT:1384 + the vpiDecompile pair
+   default/SeqDriver    4 lines: UINT:0    <-> UINT:706  + the vpiDecompile pair
+   default/SimpleUVM    4 lines: UINT:575  <-> UINT:0    + the vpiDecompile pair
+   testflags/MiniAmiq   4 lines: UINT:1349 <-> UINT:768  + the vpiDecompile pair
+   default/Scoreboard   0 lines  (the pure ORDER draw of the same class)
+No vpiActual, no folded constant, not one line of any law in this pass.
+
+== 5. CANARIES
+canary DATABASE byte pins, patched vs this verifier's pristine — ALL SAME, and
+every one the OPS value:
+   SVSwitch 4842211c4030 | YosysVerx 6ccda350c24a | InterfaceModPort 59a365f3ce2c
+   YosysOldOr d68e0796d62c | BlackParrotComplex e3e354129d5a / 73a10e8217e5
+   Earlgrey_0_1 8bdf25272e08 / 59d0ee6d10c3
+canaries.sh surelog patched vs own pristine   ok=52 changed=0 absent=0
+canaries.sh surelog patched vs committed      ok=50 changed=2 (both Earlgrey dump-column)
+ctcan2 EXPECT_UNKNOWN=1 surelog               ok=58 changed=0  PASS
+canaudit.sh canaries.sh ctcan2.sh             audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+   (run in BOTH r11u75repro and r11v75repro)
+rowheads.sh on the patched workdir: SeqDriver, SimpleUVM, Scoreboard/default,
+   MiniAmiq, BuildUVMPkg, Earlgrey_0_1 all "0 0 cmp rc=0"; Rggen/default stays
+   the known 64/1 rc=255; SKIP-NOFILE 2 (Scoreboard/tf, Rggen/tf), UNKNOWN-NAME 0.
+genvar_loop_decl_3 (pass 73's binding row) is BYTE-IDENTICAL on all three
+   binaries — 261801607985.
+
+== 6. BINARY PATH AUDIT
+sl_pris  1531/1581 cmds.txt name the frozen pristine binary
+sl_patch 1531/1581 cmds.txt name the frozen patched binary
+the other 50 carry a `surelog:` line ALONE (Surelog-side failures that never
+invoked an exporter).  0 cmds.txt in any workdir names a main-tree or another
+worktree's binary.
+
+== 7. THE VERIFIED BINARY (94dbf8d5f10018e936b23d148082b613) — FULL BATTERY
+goldens                       PASS 23 FAIL 0
+surelog --mode both           474/9 default, 469/8 testflags  (the baseline)
+  vs results/golden_surelog.csv   2 rows: the two LowMem* workdir path strings
+                                   (Earlgrey's dump column matched this run)
+  vs this verifier's pristine     4 rows: the two LowMem* strings + Earlgrey's
+                                   dump COLUMN draw (blank on the pristine run,
+                                   populated here); STATUS CMP_EQUAL on both
+uhdm2rtlil both modes         788/16/67 of 871, both modes
+  vs results/gate_uhdm2rtlil.csv (testflags)   0 differing rows
+  vs results/golden_uhdm2rtlil.csv (both modes) 0 of 1743 differing
+  vs this verifier's own pristine, both modes   0 differing rows
+byteverify SELFCHECK=1 u2r    MOVERS 0 / 1608, selfcheck 1607/1608 flagged
+byteverify SELFCHECK=1 surelog MOVERS 5 / 960, selfcheck 959/960 flagged
+  default/MiniAmiq    4 lines  UINT:0    <-> UINT:1384  + the vpiDecompile pair
+  default/SeqDriver   4 lines  UINT:794  <-> UINT:706   + the vpiDecompile pair
+  testflags/MiniAmiq  4 lines  UINT:829  <-> UINT:768   + the vpiDecompile pair
+  testflags/SeqDriver 4 lines  UINT:1156 <-> UINT:0     + the vpiDecompile pair
+  default/Scoreboard  0 lines  (the pure ORDER draw)
+  — the documented UVM macro-buffer line-number class, order-blind, no
+    vpiActual and no folded constant among them.
+UVM family rows: BuildUVMPkg / MiniAmiq / SeqDriver / SimpleUVM CMP_EQUAL in
+  both modes and Scoreboard CMP_EQUAL/SLANG_REJECT — identical on all three
+  binaries.
+canaries.sh surelog verified vs committed     ok=52 changed=0
+canaries.sh surelog verified vs own pristine  ok=50 changed=2 (Earlgrey dump column)
+canaries.sh u2r      verified vs committed    ok=8  changed=0
+ctcan2 surelog ok=58 changed=0 PASS ; ctcan2 u2r PASS
+canary DB byte pins verified vs pristine: ALL SAME and all the OPS values
+rowheads verified workdir: measured=11, every one "0 0 cmp rc=0",
+  SKIP-NOFILE=1 (Scoreboard/testflags), UNKNOWN-NAME=0
+binary path audit: u2r 1742/1742, surelog 1531/1581 (the other 50 carry a
+  `surelog:` line alone); 0 cmds.txt anywhere names a main-tree binary.
+
+SCORE (verified binary): MOVED-WRONG 0, AWAY-GOLDEN 0, both corpora, both
+mode columns.  Grid: FIVE arms convert (g1_netkinds, v9_hops, w8_unitname,
+xj_twoinst, xl_impclimb), 0 arms regress, and no arm's ours-only dump-line
+count rises.

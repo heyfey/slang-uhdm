@@ -1,0 +1,21 @@
+r11u75 SITE CENSUS SUMMARY — one row per traced cell, both binaries, both
+corpora, both modes.  The full TSVs are reproducible with cellcen75.py.
+
+== uhdm2rtlil  (1742 test x mode arms)
+   R11U69CELL         5588
+   R11U74BIND         3892
+   R11U74FOLD         0
+   R11U75GLPFOLD      0
+   NO-GEN-SCOPE-CA    1596
+   rc breakdown (rows): rc=-11=3, rc=0=10912, rc=3=131, rc=4=30
+   DIFF pristine-vs-patched census: 0 differing rows
+
+== surelog  (1573 test x mode arms)
+   R11U69CELL         28136
+   R11U74BIND         12574
+   R11U74FOLD         0
+   R11U75GLPFOLD      0
+   NO-GEN-SCOPE-CA    1506
+   rc breakdown (rows): rc=-11=5449, rc=0=36141, rc=1=4, rc=2=32, rc=3=578, rc=4=12
+   DIFF pristine-vs-patched census: 0 differing rows
+

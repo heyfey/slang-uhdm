@@ -1,0 +1,47 @@
+decompile:
+operation: , id:46, line:11:11, endln:11:28
+|vpiParent:
+\_assignment: , id:42, line:11:5, endln:11:28
+|vpiOpType:75
+|vpiOperand:
+\_tagged_pattern: , id:48, line:11:16, endln:11:17
+  |vpiParent:
+  \_operation: , id:46, line:11:11, endln:11:28
+  |vpiPattern:
+  \_constant: , id:47, line:11:16, endln:11:17
+    |vpiDecompile:9
+    |vpiSize:64
+    |UINT:9
+    |vpiConstType:9
+  |vpiTypespec:
+  \_ref_typespec: (p::bnest), id:50
+    |vpiParent:
+    \_tagged_pattern: , id:48, line:11:16, endln:11:17
+    |vpiFullName:p::bnest
+    |vpiActual:
+    \_string_typespec: (w), id:49, line:11:13, endln:11:14
+|vpiOperand:
+\_tagged_pattern: , id:52, line:11:22, endln:11:27
+  |vpiParent:
+  \_operation: , id:46, line:11:11, endln:11:28
+  |vpiPattern:
+  \_constant: , id:51, line:11:22, endln:11:27
+    |vpiDecompile:8'hA5
+    |vpiSize:8
+    |HEX:A5
+    |vpiConstType:5
+  |vpiTypespec:
+  \_ref_typespec: (p::bnest), id:54
+    |vpiParent:
+    \_tagged_pattern: , id:52, line:11:22, endln:11:27
+    |vpiFullName:p::bnest
+    |vpiActual:
+    \_string_typespec: (t), id:53, line:11:19, endln:11:20
+
+decompile:
+constant: , id:106, line:20:27, endln:20:36
+|vpiDecompile:2469
+|vpiSize:64
+|UINT:2469
+|vpiConstType:9
+

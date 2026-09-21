@@ -1,0 +1,15 @@
+decompile:
+logic_net: (work@dut.g_nest), id:208, line:17:60, endln:17:66
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:182, file:/tmp/wt_r11u75/tools/probe/r11u75repro/grid/a1_fbgenkind/dut.sv, line:15:1, endln:40:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.g_nest), id:207
+  |vpiParent:
+  \_logic_net: (work@dut.g_nest), id:208, line:17:60, endln:17:66
+  |vpiFullName:work@dut.g_nest
+  |vpiActual:
+  \_logic_typespec: , id:193, line:17:11, endln:17:23
+|vpiName:g_nest
+|vpiFullName:work@dut.g_nest
+|vpiNetType:36
+

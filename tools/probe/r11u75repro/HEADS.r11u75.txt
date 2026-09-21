@@ -1,0 +1,594 @@
+== a1_fbgenkind [pris] head (1 LHS lines)
+LHS: <null>
+RHS:
+decompile:
+logic_net: (work@dut.g_nest), id:208, line:17:60, endln:17:66
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:182, file:GRID/a1_fbgenkind/dut.sv, line:15:1, endln:40:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.g_nest), id:207
+  |vpiParent:
+  \_logic_net: (work@dut.g_nest), id:208, line:17:60, endln:17:66
+  |vpiFullName:work@dut.g_nest
+  |vpiActual:
+  \_logic_typespec: , id:193, line:17:11, endln:17:23
+|vpiName:g_nest
+|vpiFullName:work@dut.g_nest
+|vpiNetType:36
+
+== a1_fbgenkind [patch] head (1 LHS lines)
+LHS: <null>
+RHS:
+decompile:
+logic_net: (work@dut.g_nest), id:208, line:17:60, endln:17:66
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:182, file:GRID/a1_fbgenkind/dut.sv, line:15:1, endln:40:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.g_nest), id:207
+  |vpiParent:
+  \_logic_net: (work@dut.g_nest), id:208, line:17:60, endln:17:66
+  |vpiFullName:work@dut.g_nest
+  |vpiActual:
+  \_logic_typespec: , id:193, line:17:11, endln:17:23
+|vpiName:g_nest
+|vpiFullName:work@dut.g_nest
+|vpiNetType:36
+
+== a3_fbfence [pris] head (1 LHS lines)
+LHS:
+decompile:
+operation: , id:46, line:11:11, endln:11:28
+|vpiParent:
+\_assignment: , id:42, line:11:5, endln:11:28
+|vpiOpType:75
+|vpiOperand:
+\_tagged_pattern: , id:48, line:11:16, endln:11:17
+  |vpiParent:
+  \_operation: , id:46, line:11:11, endln:11:28
+  |vpiPattern:
+  \_constant: , id:47, line:11:16, endln:11:17
+    |vpiDecompile:9
+    |vpiSize:64
+    |UINT:9
+    |vpiConstType:9
+  |vpiTypespec:
+  \_ref_typespec: (p::bnest), id:50
+    |vpiParent:
+    \_tagged_pattern: , id:48, line:11:16, endln:11:17
+    |vpiFullName:p::bnest
+    |vpiActual:
+    \_string_typespec: (w), id:49, line:11:13, endln:11:14
+|vpiOperand:
+
+== a3_fbfence [patch] head (1 LHS lines)
+LHS:
+decompile:
+operation: , id:46, line:11:11, endln:11:28
+|vpiParent:
+\_assignment: , id:42, line:11:5, endln:11:28
+|vpiOpType:75
+|vpiOperand:
+\_tagged_pattern: , id:48, line:11:16, endln:11:17
+  |vpiParent:
+  \_operation: , id:46, line:11:11, endln:11:28
+  |vpiPattern:
+  \_constant: , id:47, line:11:16, endln:11:17
+    |vpiDecompile:9
+    |vpiSize:64
+    |UINT:9
+    |vpiConstType:9
+  |vpiTypespec:
+  \_ref_typespec: (p::bnest), id:50
+    |vpiParent:
+    \_tagged_pattern: , id:48, line:11:16, endln:11:17
+    |vpiFullName:p::bnest
+    |vpiActual:
+    \_string_typespec: (w), id:49, line:11:13, endln:11:14
+|vpiOperand:
+
+== b1_bindvis [pris] head (0 LHS lines)
+
+== b1_bindvis [patch] head (0 LHS lines)
+
+== b2_homes [pris] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:659, line:24:12, endln:24:16
+|vpiParent:
+\_cont_assign: , id:658, line:24:12, endln:24:26
+|vpiDecompile:5
+|vpiSize:32
+|UINT:5
+|vpiTypespec:
+\_ref_typespec: (work@dut.ga[0]), id:660
+  |vpiParent:
+  \_constant: , id:659, line:24:12, endln:24:16
+  |vpiFullName:work@dut.ga[0]
+  |vpiActual:
+  \_int_typespec: , id:661, line:8:13, endln:8:16
+|vpiConstType:9
+RHS:
+decompile:
+ref_obj: (work@dut.ga[0].P_NS), id:383, line:24:12, endln:24:16
+|vpiParent:
+\_cont_assign: , id:381, line:24:12, endln:24:26
+|vpiName:P_NS
+|vpiFullName:work@dut.ga[0].P_NS
+
+== b2_homes [patch] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:659, line:24:12, endln:24:16
+|vpiParent:
+\_cont_assign: , id:658, line:24:12, endln:24:26
+|vpiDecompile:5
+|vpiSize:32
+|UINT:5
+|vpiTypespec:
+\_ref_typespec: (work@dut.ga[0]), id:660
+  |vpiParent:
+  \_constant: , id:659, line:24:12, endln:24:16
+  |vpiFullName:work@dut.ga[0]
+  |vpiActual:
+  \_int_typespec: , id:661, line:8:13, endln:8:16
+|vpiConstType:9
+RHS:
+decompile:
+ref_obj: (work@dut.ga[0].P_NS), id:383, line:24:12, endln:24:16
+|vpiParent:
+\_cont_assign: , id:381, line:24:12, endln:24:26
+|vpiName:P_NS
+|vpiFullName:work@dut.ga[0].P_NS
+
+== b3_rhskind [pris] head (0 LHS lines)
+
+== b3_rhskind [patch] head (0 LHS lines)
+
+== b4_nonamesake [pris] head (0 LHS lines)
+
+== b4_nonamesake [patch] head (0 LHS lines)
+
+== b5_walkedge [pris] head (1 LHS lines)
+LHS:
+decompile:
+named_begin: (work@ifc.gi), id:70
+|vpiParent:
+\_gen_for: , id:30
+|vpiName:gi
+|vpiFullName:work@ifc.gi
+|vpiStmt:
+\_assignment: , id:53, line:7:18, endln:7:22
+  |vpiParent:
+  \_named_begin: (work@ifc.gi), id:70
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiLhs:
+  \_logic_var: (work@ifc.gi.i_ns), id:51, line:7:18, endln:7:22
+    |vpiParent:
+    \_assignment: , id:53, line:7:18, endln:7:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ifc.gi.i_ns), id:52
+      |vpiParent:
+      \_logic_var: (work@ifc.gi.i_ns), id:51, line:7:18, endln:7:22
+      |vpiFullName:work@ifc.gi.i_ns
+      |vpiActual:
+      \_logic_typespec: , id:50, line:7:5, endln:7:17
+
+== b5_walkedge [patch] head (1 LHS lines)
+LHS:
+decompile:
+named_begin: (work@ifc.gi), id:70
+|vpiParent:
+\_gen_for: , id:30
+|vpiName:gi
+|vpiFullName:work@ifc.gi
+|vpiStmt:
+\_assignment: , id:53, line:7:18, endln:7:22
+  |vpiParent:
+  \_named_begin: (work@ifc.gi), id:70
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiLhs:
+  \_logic_var: (work@ifc.gi.i_ns), id:51, line:7:18, endln:7:22
+    |vpiParent:
+    \_assignment: , id:53, line:7:18, endln:7:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ifc.gi.i_ns), id:52
+      |vpiParent:
+      \_logic_var: (work@ifc.gi.i_ns), id:51, line:7:18, endln:7:22
+      |vpiFullName:work@ifc.gi.i_ns
+      |vpiActual:
+      \_logic_typespec: , id:50, line:7:5, endln:7:17
+
+== g1_netkinds [pris] head (1 LHS lines)
+LHS:
+decompile:
+logic_net: (work@dut.G1[0].e_plain), id:317, line:10:18, endln:10:25
+|vpiParent:
+\_gen_scope: (work@dut.G1[0]), id:581, line:9:40, endln:28:6
+|vpiTypespec:
+\_ref_typespec: (work@dut.G1[0].e_plain), id:318
+  |vpiParent:
+  \_logic_net: (work@dut.G1[0].e_plain), id:317, line:10:18, endln:10:25
+  |vpiFullName:work@dut.G1[0].e_plain
+  |vpiActual:
+  \_logic_typespec: , id:313, line:10:5, endln:10:17
+|vpiName:e_plain
+|vpiFullName:work@dut.G1[0].e_plain
+|vpiNetType:1
+RHS: <null>
+
+== g1_netkinds [patch] head (0 LHS lines)
+
+== g2_importshapes [pris] head (1 LHS lines)
+LHS:
+decompile:
+package: pw (pw::), id:18, file:GRID/g2_importshapes/dut.sv, line:8:1, endln:13:11
+|vpiParent:
+\_design: (work@dut), id:437
+|vpiName:pw
+|vpiFullName:pw::
+|vpiVariables:
+\_logic_var: (pw::w_ns), id:235, line:9:16, endln:9:20
+  |vpiParent:
+  \_package: pw (pw::), id:18, file:GRID/g2_importshapes/dut.sv, line:8:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::w_ns), id:236
+    |vpiParent:
+    \_logic_var: (pw::w_ns), id:235, line:9:16, endln:9:20
+    |vpiFullName:pw::w_ns
+    |vpiActual:
+    \_logic_typespec: , id:231, line:9:3, endln:9:15
+  |vpiName:w_ns
+  |vpiFullName:pw::w_ns
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (pw::w_same), id:244, line:10:16, endln:10:22
+
+== g2_importshapes [patch] head (1 LHS lines)
+LHS:
+decompile:
+package: pw (pw::), id:18, file:GRID/g2_importshapes/dut.sv, line:8:1, endln:13:11
+|vpiParent:
+\_design: (work@dut), id:437
+|vpiName:pw
+|vpiFullName:pw::
+|vpiVariables:
+\_logic_var: (pw::w_ns), id:235, line:9:16, endln:9:20
+  |vpiParent:
+  \_package: pw (pw::), id:18, file:GRID/g2_importshapes/dut.sv, line:8:1, endln:13:11
+  |vpiTypespec:
+  \_ref_typespec: (pw::w_ns), id:236
+    |vpiParent:
+    \_logic_var: (pw::w_ns), id:235, line:9:16, endln:9:20
+    |vpiFullName:pw::w_ns
+    |vpiActual:
+    \_logic_typespec: , id:231, line:9:3, endln:9:15
+  |vpiName:w_ns
+  |vpiFullName:pw::w_ns
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (pw::w_same), id:244, line:10:16, endln:10:22
+
+== g3_lpbase [pris] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:895, line:38:44, endln:38:47
+|vpiParent:
+\_func_call: (p::build), id:894, line:38:35, endln:38:38
+|vpiDecompile:512
+|vpiSize:64
+|UINT:512
+|vpiTypespec:
+\_ref_typespec: , id:897
+  |vpiParent:
+  \_constant: , id:895, line:38:44, endln:38:47
+  |vpiActual:
+  \_int_typespec: , id:17, line:9:34, endln:9:37
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:43, line:15:31, endln:15:40
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (p), id:744
+  |vpiParent:
+
+== g3_lpbase [patch] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:895, line:38:44, endln:38:47
+|vpiParent:
+\_func_call: (p::build), id:894, line:38:35, endln:38:38
+|vpiDecompile:512
+|vpiSize:64
+|UINT:512
+|vpiTypespec:
+\_ref_typespec: , id:897
+  |vpiParent:
+  \_constant: , id:895, line:38:44, endln:38:47
+  |vpiActual:
+  \_int_typespec: , id:17, line:9:34, endln:9:37
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:43, line:15:31, endln:15:40
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (p), id:744
+  |vpiParent:
+
+== g4_edges [pris] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:451, line:45:46, endln:45:49
+|vpiParent:
+\_func_call: (ps::build), id:450, line:45:36, endln:45:40
+|vpiDecompile:112
+|vpiSize:64
+|UINT:112
+|vpiTypespec:
+\_ref_typespec: , id:453
+  |vpiParent:
+  \_constant: , id:451, line:45:46, endln:45:49
+  |vpiActual:
+  \_int_typespec: , id:32, line:16:34, endln:16:37
+|vpiConstType:9
+RHS: <null>
+
+== g4_edges [patch] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:451, line:45:46, endln:45:49
+|vpiParent:
+\_func_call: (ps::build), id:450, line:45:36, endln:45:40
+|vpiDecompile:112
+|vpiSize:64
+|UINT:112
+|vpiTypespec:
+\_ref_typespec: , id:453
+  |vpiParent:
+  \_constant: , id:451, line:45:46, endln:45:49
+  |vpiActual:
+  \_int_typespec: , id:32, line:16:34, endln:16:37
+|vpiConstType:9
+RHS: <null>
+
+== g5_glpwidth [pris] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:364, line:32:38, endln:32:41
+|vpiParent:
+\_func_call: (p::build), id:363, line:32:29, endln:32:32
+|vpiDecompile:321
+|vpiSize:64
+|UINT:321
+|vpiTypespec:
+\_ref_typespec: , id:366
+  |vpiParent:
+  \_constant: , id:364, line:32:38, endln:32:41
+  |vpiActual:
+  \_int_typespec: , id:20, line:14:34, endln:14:37
+|vpiConstType:9
+RHS: <null>
+
+== g5_glpwidth [patch] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:364, line:32:38, endln:32:41
+|vpiParent:
+\_func_call: (p::build), id:363, line:32:29, endln:32:32
+|vpiDecompile:321
+|vpiSize:64
+|UINT:321
+|vpiTypespec:
+\_ref_typespec: , id:366
+  |vpiParent:
+  \_constant: , id:364, line:32:38, endln:32:41
+  |vpiActual:
+  \_int_typespec: , id:20, line:14:34, endln:14:37
+|vpiConstType:9
+RHS: <null>
+
+== v1_nearest [pris] head (0 LHS lines)
+
+== v1_nearest [patch] head (0 LHS lines)
+
+== v2_kindns [pris] head (0 LHS lines)
+
+== v2_kindns [patch] head (0 LHS lines)
+
+== v4_lhsshape [pris] head (1 LHS lines)
+LHS:
+decompile:
+bit_select: (gb[0]), id:133, line:24:25, endln:24:27
+|vpiParent:
+\_hier_path: (gb[0].av[0]), id:131, line:24:25, endln:24:36
+|vpiName:gb
+|vpiFullName:gb[0]
+|vpiIndex:
+\_constant: , id:132, line:24:28, endln:24:29
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+RHS:
+decompile:
+ref_obj: (gb[0]), id:31, line:24:25, endln:24:30
+|vpiParent:
+\_hier_path: (gb[0].av[0]), id:30, line:24:25, endln:24:36
+|vpiName:gb[0]
+
+== v4_lhsshape [patch] head (1 LHS lines)
+LHS:
+decompile:
+bit_select: (gb[0]), id:133, line:24:25, endln:24:27
+|vpiParent:
+\_hier_path: (gb[0].av[0]), id:131, line:24:25, endln:24:36
+|vpiName:gb
+|vpiFullName:gb[0]
+|vpiIndex:
+\_constant: , id:132, line:24:28, endln:24:29
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+RHS:
+decompile:
+ref_obj: (gb[0]), id:31, line:24:25, endln:24:30
+|vpiParent:
+\_hier_path: (gb[0].av[0]), id:30, line:24:25, endln:24:36
+|vpiName:gb[0]
+
+== v6_ifacepkg [pris] head (1 LHS lines)
+LHS:
+decompile:
+named_begin: (work@ifc.gi), id:117
+|vpiParent:
+\_gen_for: , id:77
+|vpiName:gi
+|vpiFullName:work@ifc.gi
+|vpiStmt:
+\_assignment: , id:100, line:11:18, endln:11:22
+  |vpiParent:
+  \_named_begin: (work@ifc.gi), id:117
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiLhs:
+  \_logic_var: (work@ifc.gi.i_ns), id:98, line:11:18, endln:11:22
+    |vpiParent:
+    \_assignment: , id:100, line:11:18, endln:11:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ifc.gi.i_ns), id:99
+      |vpiParent:
+      \_logic_var: (work@ifc.gi.i_ns), id:98, line:11:18, endln:11:22
+      |vpiFullName:work@ifc.gi.i_ns
+      |vpiActual:
+      \_logic_typespec: , id:97, line:11:5, endln:11:17
+
+== v6_ifacepkg [patch] head (1 LHS lines)
+LHS:
+decompile:
+named_begin: (work@ifc.gi), id:117
+|vpiParent:
+\_gen_for: , id:77
+|vpiName:gi
+|vpiFullName:work@ifc.gi
+|vpiStmt:
+\_assignment: , id:100, line:11:18, endln:11:22
+  |vpiParent:
+  \_named_begin: (work@ifc.gi), id:117
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiLhs:
+  \_logic_var: (work@ifc.gi.i_ns), id:98, line:11:18, endln:11:22
+    |vpiParent:
+    \_assignment: , id:100, line:11:18, endln:11:22
+    |vpiTypespec:
+    \_ref_typespec: (work@ifc.gi.i_ns), id:99
+      |vpiParent:
+      \_logic_var: (work@ifc.gi.i_ns), id:98, line:11:18, endln:11:22
+      |vpiFullName:work@ifc.gi.i_ns
+      |vpiActual:
+      \_logic_typespec: , id:97, line:11:5, endln:11:17
+
+== v7_foldshape [pris] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:528, line:21:41, endln:21:44
+|vpiParent:
+\_func_call: (p::build), id:527, line:21:32, endln:21:35
+|vpiDecompile:256
+|vpiSize:64
+|UINT:256
+|vpiTypespec:
+\_ref_typespec: , id:530
+  |vpiParent:
+  \_constant: , id:528, line:21:41, endln:21:44
+  |vpiActual:
+  \_int_typespec: , id:17, line:6:34, endln:6:37
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:43, line:12:28, endln:12:37
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (p), id:471
+  |vpiParent:
+
+== v7_foldshape [patch] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:528, line:21:41, endln:21:44
+|vpiParent:
+\_func_call: (p::build), id:527, line:21:32, endln:21:35
+|vpiDecompile:256
+|vpiSize:64
+|UINT:256
+|vpiTypespec:
+\_ref_typespec: , id:530
+  |vpiParent:
+  \_constant: , id:528, line:21:41, endln:21:44
+  |vpiActual:
+  \_int_typespec: , id:17, line:6:34, endln:6:37
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:43, line:12:28, endln:12:37
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (p), id:471
+  |vpiParent:
+
+== v9_hops [pris] head (1 LHS lines)
+LHS:
+decompile:
+logic_net: (work@dut.L1[0].L2.n3), id:243, line:13:20, endln:13:22
+|vpiParent:
+\_gen_scope: (work@dut.L1[0].L2), id:409, line:11:12, endln:20:8
+|vpiTypespec:
+\_ref_typespec: (work@dut.L1[0].L2.n3), id:244
+  |vpiParent:
+  \_logic_net: (work@dut.L1[0].L2.n3), id:243, line:13:20, endln:13:22
+  |vpiFullName:work@dut.L1[0].L2.n3
+  |vpiActual:
+  \_logic_typespec: , id:239, line:13:7, endln:13:19
+|vpiName:n3
+|vpiFullName:work@dut.L1[0].L2.n3
+|vpiNetType:1
+RHS: <null>
+
+== v9_hops [patch] head (0 LHS lines)
+
+== w8_unitname [pris] head (1 LHS lines)
+LHS:
+decompile:
+constant: , id:362, line:12:31, endln:12:34
+|vpiParent:
+\_cont_assign: , id:357, line:27:12, endln:27:27
+|vpiDecompile:300
+|vpiSize:16
+|UINT:300
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:190, line:12:31, endln:12:34
+|vpiParent:
+\_cont_assign: , id:189, line:27:12, endln:27:27
+|vpiDecompile:300
+|vpiSize:32
+|UINT:300
+|vpiConstType:9
+
+== w8_unitname [patch] head (0 LHS lines)
+

@@ -1,0 +1,19 @@
+LHS:
+decompile:
+bit_select: (gb[0]), id:133, line:24:25, endln:24:27
+|vpiParent:
+\_hier_path: (gb[0].av[0]), id:131, line:24:25, endln:24:36
+|vpiName:gb
+|vpiFullName:gb[0]
+|vpiIndex:
+\_constant: , id:132, line:24:28, endln:24:29
+  |vpiDecompile:0
+  |vpiSize:64
+  |UINT:0
+  |vpiConstType:9
+RHS:
+decompile:
+ref_obj: (gb[0]), id:31, line:24:25, endln:24:30
+|vpiParent:
+\_hier_path: (gb[0].av[0]), id:30, line:24:25, endln:24:36
+|vpiName:gb[0]

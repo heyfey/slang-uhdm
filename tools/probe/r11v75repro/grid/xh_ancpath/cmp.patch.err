@@ -1,0 +1,28 @@
+LHS:
+decompile:
+constant: , id:317, line:21:44, endln:21:47
+|vpiParent:
+\_func_call: (p::build), id:316, line:21:35, endln:21:38
+|vpiDecompile:704
+|vpiSize:64
+|UINT:704
+|vpiTypespec:
+\_ref_typespec: , id:319
+  |vpiParent:
+  \_constant: , id:317, line:21:44, endln:21:47
+  |vpiActual:
+  \_int_typespec: , id:17, line:7:34, endln:7:37
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:208, line:13:31, endln:13:44
+|vpiDecompile:600
+|vpiSize:64
+|UINT:600
+|vpiTypespec:
+\_ref_typespec: , id:347
+  |vpiParent:
+  \_constant: , id:208, line:13:31, endln:13:44
+  |vpiActual:
+  \_int_typespec: , id:18, line:7:34, endln:7:37
+|vpiConstType:9

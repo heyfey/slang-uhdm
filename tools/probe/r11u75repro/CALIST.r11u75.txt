@@ -1,0 +1,352 @@
+== a1_fbgenkind [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++O  uhdmallModules   work@dut.gc.g_case             <no golden row>                          -
+!!  uhdmtopModules   work@dut.gn.gn2[0].g_nest      -                                        logic_net (work@dut.g_nest), line:17:60, endln:17:66
++G  uhdmallModules   gc.g_case                      -                                        <no ours row>
+
+== a1_fbgenkind [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++O  uhdmallModules   work@dut.gc.g_case             <no golden row>                          -
+!!  uhdmtopModules   work@dut.gn.gn2[0].g_nest      -                                        logic_net (work@dut.g_nest), line:17:60, endln:17:66
++G  uhdmallModules   gc.g_case                      -                                        <no ours row>
+
+== a3_fbfence [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+~   uhdmtopModules   work@dut.gb.g_nest             logic_net (work@dut.g_nest), line:27:32, endln:27:38 logic_net (work@dut.g_nest), line:27:32, endln:27:38
+                                                      rhs G: constant UINT:64 sz=32
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.gb.g_op               logic_net (work@dut.g_op), line:28:32, endln:28:36 logic_net (work@dut.g_op), line:28:32, endln:28:36
+                                                      rhs G: constant UINT:65 sz=32
+                                                      rhs O: operation
+~   uhdmtopModules   work@dut.gb.g_cat              logic_net (work@dut.g_cat), line:29:32, endln:29:37 logic_net (work@dut.g_cat), line:29:32, endln:29:37
+                                                      rhs G: constant BIN:00000000000000000000000001000000 sz=32
+                                                      rhs O: operation
+~   uhdmtopModules   work@dut.gb.g_deep             logic_net (work@dut.g_deep), line:30:32, endln:30:38 logic_net (work@dut.g_deep), line:30:32, endln:30:38
+                                                      rhs G: constant UINT:9 sz=32
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.t_cat                 logic_net (work@dut.t_cat), line:29:24, endln:29:29 logic_net (work@dut.t_cat), line:29:24, endln:29:29
+                                                      rhs G: constant BIN:00000000000000000000000001000000 sz=32
+                                                      rhs O: operation
++G  uhdmtopModules   work@dut.t_nest                logic_net (work@dut.t_nest), line:27:24, endln:27:30 <no ours row>
++G  uhdmtopModules   work@dut.t_deep                logic_net (work@dut.t_deep), line:30:24, endln:30:30 <no ours row>
++G  uhdmtopModules   work@dut.t_bit                 -                                        <no ours row>
+
+== a3_fbfence [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+~   uhdmtopModules   work@dut.gb.g_nest             logic_net (work@dut.g_nest), line:27:32, endln:27:38 logic_net (work@dut.g_nest), line:27:32, endln:27:38
+                                                      rhs G: constant UINT:64 sz=32
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.gb.g_op               logic_net (work@dut.g_op), line:28:32, endln:28:36 logic_net (work@dut.g_op), line:28:32, endln:28:36
+                                                      rhs G: constant UINT:65 sz=32
+                                                      rhs O: operation
+~   uhdmtopModules   work@dut.gb.g_cat              logic_net (work@dut.g_cat), line:29:32, endln:29:37 logic_net (work@dut.g_cat), line:29:32, endln:29:37
+                                                      rhs G: constant BIN:00000000000000000000000001000000 sz=32
+                                                      rhs O: operation
+~   uhdmtopModules   work@dut.gb.g_deep             logic_net (work@dut.g_deep), line:30:32, endln:30:38 logic_net (work@dut.g_deep), line:30:32, endln:30:38
+                                                      rhs G: constant UINT:9 sz=32
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.t_cat                 logic_net (work@dut.t_cat), line:29:24, endln:29:29 logic_net (work@dut.t_cat), line:29:24, endln:29:29
+                                                      rhs G: constant BIN:00000000000000000000000001000000 sz=32
+                                                      rhs O: operation
++G  uhdmtopModules   work@dut.t_nest                logic_net (work@dut.t_nest), line:27:24, endln:27:30 <no ours row>
++G  uhdmtopModules   work@dut.t_deep                logic_net (work@dut.t_deep), line:30:24, endln:30:30 <no ours row>
++G  uhdmtopModules   work@dut.t_bit                 -                                        <no ours row>
+
+== b1_bindvis [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== b1_bindvis [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== b2_homes [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++O  uhdmtopModules   work@dut.ga[0].P_NS            <no golden row>                          -
+~   uhdmtopModules   -                              -                                        -
+                                                      rhs G: constant  sz=32
+                                                      rhs O: -
+!!  uhdmtopModules   work@dut.ga[0].mod_only        logic_var (work@dut.mod_only), line:9:17, endln:9:25 -
++O  uhdmtopModules   work@dut.ga[1].P_NS            <no golden row>                          -
+~   uhdmtopModules   -                              -                                        -
+                                                      rhs G: constant  sz=32
+                                                      rhs O: -
+!!  uhdmtopModules   work@dut.ga[1].mod_only        logic_var (work@dut.mod_only), line:9:17, endln:9:25 -
+!!  uhdmtopModules   work@dut.ga[1].gin.anc         logic_var (work@dut.ga[1].anc), line:20:18, endln:20:21 -
+!!  uhdmtopModules   work@dut.ga[1].gin.v_ns        logic_var (work@dut.ga[1].v_ns), line:12:18, endln:12:22 -
++G  uhdmtopModules   -                              -                                        <no ours row>
++G  uhdmtopModules   -                              -                                        <no ours row>
+
+== b2_homes [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++O  uhdmtopModules   work@dut.ga[0].P_NS            <no golden row>                          -
+~   uhdmtopModules   -                              -                                        -
+                                                      rhs G: constant  sz=32
+                                                      rhs O: -
+!!  uhdmtopModules   work@dut.ga[0].mod_only        logic_var (work@dut.mod_only), line:9:17, endln:9:25 -
++O  uhdmtopModules   work@dut.ga[1].P_NS            <no golden row>                          -
+~   uhdmtopModules   -                              -                                        -
+                                                      rhs G: constant  sz=32
+                                                      rhs O: -
+!!  uhdmtopModules   work@dut.ga[1].mod_only        logic_var (work@dut.mod_only), line:9:17, endln:9:25 -
+!!  uhdmtopModules   work@dut.ga[1].gin.anc         logic_var (work@dut.ga[1].anc), line:20:18, endln:20:21 -
+!!  uhdmtopModules   work@dut.ga[1].gin.v_ns        logic_var (work@dut.ga[1].v_ns), line:12:18, endln:12:22 -
++G  uhdmtopModules   -                              -                                        <no ours row>
++G  uhdmtopModules   -                              -                                        <no ours row>
+
+== b3_rhskind [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== b3_rhskind [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== b4_nonamesake [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+~   uhdmtopModules   work@dut.gb[0].q_hp            -                                        -
+                                                      rhs G: constant  sz=
+                                                      rhs O: constant UINT:300 sz=32
++G  uhdmtopModules   -                              -                                        <no ours row>
++G  uhdmtopModules   -                              logic_var (work@dut.gb[0].q_cast), line:12:52, endln:12:58 <no ours row>
++G  uhdmtopModules   -                              -                                        <no ours row>
+
+== b4_nonamesake [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+~   uhdmtopModules   work@dut.gb[0].q_hp            -                                        -
+                                                      rhs G: constant  sz=
+                                                      rhs O: constant UINT:300 sz=32
++G  uhdmtopModules   -                              -                                        <no ours row>
++G  uhdmtopModules   -                              logic_var (work@dut.gb[0].q_cast), line:12:52, endln:12:58 <no ours row>
++G  uhdmtopModules   -                              -                                        <no ours row>
+
+== b5_walkedge [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++G  uhdmallInterfaces work@ifc.gi.i_ns               -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces work@ifc.gi.i_up               -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
+
+== b5_walkedge [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++G  uhdmallInterfaces work@ifc.gi.i_ns               -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces work@ifc.gi.i_up               -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
+
+== g1_netkinds [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmtopModules   work@dut.G1[0].G2.e_plain      logic_net (work@dut.G1[0].e_plain), line:10:18, endln:10:25 -
+!!  uhdmtopModules   work@dut.G1[0].G2.e_scalar     logic_net (work@dut.G1[0].e_scalar), line:11:18, endln:11:26 -
+!!  uhdmtopModules   work@dut.G1[0].G2.e_nda        logic_net (work@dut.G1[0].e_nda), line:12:18, endln:12:23 -
+
+== g1_netkinds [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== g2_importshapes [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmtopModules   work@dut.gw[0].w_ns            logic_var (work@dut.w_ns), line:9:16, endln:9:20 -
+!!  uhdmtopModules   work@dut.gw[0].w_same          logic_var (work@dut.w_same), line:10:16, endln:10:22 -
+!!  uhdmtopModules   work@dut.gw[0].w_net           logic_net (work@dut.w_net), line:11:16, endln:11:21 -
++O  uhdmtopModules   work@dut.gw[0].W_PAR           <no golden row>                          -
+~   uhdmtopModules   -                              -                                        -
+                                                      rhs G: constant  sz=32
+                                                      rhs O: -
+!!  uhdmtopModules   work@dut.gw[0].e_ns            logic_var (work@dut.e_ns), line:16:16, endln:16:20 -
++G  uhdmtopModules   -                              -                                        <no ours row>
+
+== g2_importshapes [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmtopModules   work@dut.gw[0].w_net           logic_net (work@dut.w_net), line:11:16, endln:11:21 -
++O  uhdmtopModules   work@dut.gw[0].W_PAR           <no golden row>                          -
+~   uhdmtopModules   -                              -                                        -
+                                                      rhs G: constant  sz=32
+                                                      rhs O: -
++G  uhdmtopModules   -                              -                                        <no ours row>
+
+== g3_lpbase [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmtopModules   work@dut.gf[0].g_loc           -                                        logic_var (work@dut.gf[0].g_loc), line:28:18, endln:28:23
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[0].g_ovr           -                                        logic_var (work@dut.gf[0].g_ovr), line:28:25, endln:28:30
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[0].g_mod           -                                        logic_var (work@dut.gf[0].g_mod), line:28:32, endln:28:37
+!!  uhdmtopModules   work@dut.gf[0].g_t             -                                        logic_var (work@dut.gf[0].g_t), line:28:39, endln:28:42
+                                                      rhs G: constant BIN:11000011 sz=8
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[0].g_narrow        -                                        logic_var (work@dut.gf[0].g_narrow), line:29:18, endln:29:26
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.gf[0].g_sh            -                                        -
+                                                      rhs G: constant UINT:257 sz=64
+                                                      rhs O: constant UINT:257 sz=32
+!!  uhdmtopModules   work@dut.gf[0].gn.n_loc        -                                        logic_var (work@dut.gf[0].gn.n_loc), line:37:20, endln:37:25
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[0].gn.n_own        -                                        logic_var (work@dut.gf[0].gn.n_own), line:37:27, endln:37:32
+                                                      rhs G: constant BIN:00000000000000000000001000000000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[1].g_loc           -                                        logic_var (work@dut.gf[1].g_loc), line:28:18, endln:28:23
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[1].g_ovr           -                                        logic_var (work@dut.gf[1].g_ovr), line:28:25, endln:28:30
+                                                      rhs G: constant BIN:00000000000000000000000100001000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[1].g_mod           -                                        logic_var (work@dut.gf[1].g_mod), line:28:32, endln:28:37
+!!  uhdmtopModules   work@dut.gf[1].g_t             -                                        logic_var (work@dut.gf[1].g_t), line:28:39, endln:28:42
+                                                      rhs G: constant BIN:11000011 sz=8
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[1].g_narrow        -                                        logic_var (work@dut.gf[1].g_narrow), line:29:18, endln:29:26
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.gf[1].g_sh            -                                        -
+                                                      rhs G: constant UINT:257 sz=64
+                                                      rhs O: constant UINT:257 sz=32
+!!  uhdmtopModules   work@dut.gf[1].gn.n_loc        -                                        logic_var (work@dut.gf[1].gn.n_loc), line:37:20, endln:37:25
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[1].gn.n_own        -                                        logic_var (work@dut.gf[1].gn.n_own), line:37:27, endln:37:32
+                                                      rhs G: constant BIN:00000000000000000000001000000000 sz=32
+                                                      rhs O: hier_path
++G  uhdmtopModules   -                              -                                        <no ours row>
++G  uhdmtopModules   -                              -                                        <no ours row>
+
+== g3_lpbase [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+~   uhdmtopModules   work@dut.gf[0].g_sh            -                                        -
+                                                      rhs G: constant UINT:257 sz=64
+                                                      rhs O: constant UINT:257 sz=32
+~   uhdmtopModules   work@dut.gf[1].g_sh            -                                        -
+                                                      rhs G: constant UINT:257 sz=64
+                                                      rhs O: constant UINT:257 sz=32
++G  uhdmtopModules   -                              -                                        <no ours row>
++G  uhdmtopModules   -                              -                                        <no ours row>
+
+== g4_edges [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++O  uhdmallModules   work@dut.F2.f_case             <no golden row>                          -
+!!  uhdmtopModules   work@dut.E1[0].E2.an_ns        -                                        array_net (work@dut.E1[0].an_ns), line:29:16, endln:29:21
+!!  uhdmtopModules   work@dut.F1.f_if               -                                        logic_var (work@dut.F1.f_if), line:40:18, endln:40:22
+                                                      rhs G: constant BIN:00000000000000000000000001100000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.F2.f_case             -                                        logic_var (work@dut.F2.f_case), line:46:20, endln:46:26
+                                                      rhs G: constant BIN:00000000000000000000000001110000 sz=32
+                                                      rhs O: hier_path
++G  uhdmallModules   F2.f_case                      -                                        <no ours row>
+
+== g4_edges [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++O  uhdmallModules   work@dut.F2.f_case             <no golden row>                          -
++G  uhdmallModules   F2.f_case                      -                                        <no ours row>
+
+== g5_glpwidth [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+~   uhdmtopModules   work@dut.gw[0].n_nar           logic_var (work@dut.n_nar), line:25:16, endln:25:21 logic_var (work@dut.n_nar), line:25:16, endln:25:21
+                                                      rhs G: constant BIN:00000000000000000000000101000001 sz=8
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.gw[0].n_wid           logic_var (work@dut.n_wid), line:26:16, endln:26:21 logic_var (work@dut.n_wid), line:26:16, endln:26:21
+                                                      rhs G: constant BIN:00000000000000000000000101000001 sz=32
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.gw[0].w_nar           logic_var (work@dut.w_nar), line:27:16, endln:27:21 logic_var (work@dut.w_nar), line:27:16, endln:27:21
+                                                      rhs G: constant BIN:00010111 sz=8
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.gw[0].w_wid           logic_var (work@dut.w_wid), line:28:16, endln:28:21 logic_var (work@dut.w_wid), line:28:16, endln:28:21
+                                                      rhs G: constant BIN:0000000011000011101001010000111100010111 sz=40
+                                                      rhs O: hier_path
+~   uhdmtopModules   work@dut.gw[0].b_any           logic_var (work@dut.b_any), line:29:16, endln:29:21 logic_var (work@dut.b_any), line:29:16, endln:29:21
+                                                      rhs G: constant BIN:01011011 sz=8
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gw[0].only            -                                        logic_var (work@dut.gw[0].only), line:38:18, endln:38:22
+                                                      rhs G: constant BIN:00000000000000000000000101000001 sz=32
+                                                      rhs O: hier_path
+
+== g5_glpwidth [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== v1_nearest [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== v1_nearest [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== v2_kindns [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== v2_kindns [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== v4_lhsshape [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmallModules   -                              ref_obj (a), line:19:15, endln:19:16     ref_obj (work@dut.gb.a), line:19:15, endln:19:16
+
+== v4_lhsshape [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmallModules   -                              ref_obj (a), line:19:15, endln:19:16     ref_obj (work@dut.gb.a), line:19:15, endln:19:16
+
+== v6_ifacepkg [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmtopModules   work@dut.gm[0].pkns            logic_var (work@dut.pkns), line:5:16, endln:5:20 -
++G  uhdmallInterfaces work@ifc.gi.i_ns               -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces work@ifc.gi.pkns               -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
+
+== v6_ifacepkg [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
++G  uhdmallInterfaces work@ifc.gi.i_ns               -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces work@ifc.gi.pkns               -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
++G  uhdmallInterfaces -                              -                                        <no ours row>
+
+== v7_foldshape [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmtopModules   work@dut.gf[0].gl_loc          -                                        logic_var (work@dut.gf[0].gl_loc), line:24:18, endln:24:24
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[0].twice_a         -                                        logic_var (work@dut.gf[0].twice_a), line:25:18, endln:25:25
+!!  uhdmtopModules   work@dut.gf[0].twice_b         -                                        logic_var (work@dut.gf[0].twice_b), line:25:27, endln:25:34
+!!  uhdmtopModules   work@dut.gf[1].gl_loc          -                                        logic_var (work@dut.gf[1].gl_loc), line:24:18, endln:24:24
+                                                      rhs G: constant BIN:00000000000000000000000100000000 sz=32
+                                                      rhs O: hier_path
+!!  uhdmtopModules   work@dut.gf[1].twice_a         -                                        logic_var (work@dut.gf[1].twice_a), line:25:18, endln:25:25
+!!  uhdmtopModules   work@dut.gf[1].twice_b         -                                        logic_var (work@dut.gf[1].twice_b), line:25:27, endln:25:34
+
+== v7_foldshape [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== v9_hops [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+!!  uhdmtopModules   work@dut.L1[0].L2.L3.n3        logic_net (work@dut.L1[0].L2.n3), line:13:20, endln:13:22 -
+
+== v9_hops [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+
+== w8_unitname [PRISTINE] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+~   uhdmtopModules   work@dut.gu.unitname           -                                        -
+                                                      rhs G: constant  sz=
+                                                      rhs O: constant UINT:300 sz=32
+!!  uhdmtopModules   work@dut.gp.pkgname            logic_var (work@dut.pkgname), line:7:16, endln:7:23 -
+                                                      rhs G: constant UINT:300 sz=16
+                                                      rhs O: constant UINT:300 sz=32
+~   uhdmtopModules   work@dut.gc.nowhere            -                                        -
+                                                      rhs G: constant  sz=
+                                                      rhs O: constant UINT:300 sz=32
++O  uhdmtopModules   -                              <no golden row>                          -
+
+== w8_unitname [PATCHED] cont_assign rows differing golden vs ours
+    section          lhs_fullname                   GOLDEN actual                            OURS actual
+~   uhdmtopModules   work@dut.gu.unitname           -                                        -
+                                                      rhs G: constant  sz=
+                                                      rhs O: constant UINT:300 sz=32
+~   uhdmtopModules   work@dut.gc.nowhere            -                                        -
+                                                      rhs G: constant  sz=
+                                                      rhs O: constant UINT:300 sz=32
++O  uhdmtopModules   -                              <no golden row>                          -
+

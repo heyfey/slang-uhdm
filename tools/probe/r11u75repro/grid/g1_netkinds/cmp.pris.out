@@ -1,0 +1,15 @@
+decompile:
+logic_net: (work@dut.G1[0].e_plain), id:317, line:10:18, endln:10:25
+|vpiParent:
+\_gen_scope: (work@dut.G1[0]), id:581, line:9:40, endln:28:6
+|vpiTypespec:
+\_ref_typespec: (work@dut.G1[0].e_plain), id:318
+  |vpiParent:
+  \_logic_net: (work@dut.G1[0].e_plain), id:317, line:10:18, endln:10:25
+  |vpiFullName:work@dut.G1[0].e_plain
+  |vpiActual:
+  \_logic_typespec: , id:313, line:10:5, endln:10:17
+|vpiName:e_plain
+|vpiFullName:work@dut.G1[0].e_plain
+|vpiNetType:1
+

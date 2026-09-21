@@ -1,0 +1,58 @@
+r11u75 CENSUS POSITIVE CONTROL — the same instrument, same env, on grid arms
+whose cells are known.  A census that reads ZERO in the corpus needs this, or
+the zero could be a silent instrument.
+
+  R11U74_CELLDBG=1 R11U75_CELLDBG=1 <binary> dut.sv --single-unit --nobuiltin -o /dev/null
+
+== g1_netkinds (LAW A: 5 hits, 3 golden-agreed misses, 2 module-body controls)
+   R11U74BIND work@dut.G1[0].G2:1118 name=e_plain ns=e_plain bound=1
+   R11U74BIND work@dut.G1[0].G2:1198 name=e_scalar ns=e_scalar bound=1
+   R11U74BIND work@dut.G1[0].G2:1278 name=e_nda ns=e_nda bound=1
+   R11U74BIND work@dut.G1[0].G2:1355 name=e_reg ns=e_reg bound=1
+   R11U74BIND work@dut.G1[0].G2:1437 name=e_var ns=e_var bound=1
+   R11U74BIND work@dut.G1[0].G2:1514 name=mb_plain ns=- bound=0
+   R11U74BIND work@dut.G1[0].G2:1595 name=tgt_net ns=- bound=0
+   R11U74BIND work@dut.G1[0].G2:1675 name=pin_i ns=- bound=0
+   R11U74BIND work@dut.H1[0]:1895 name=mb_plain ns=mb_plain bound=1
+   R11U74BIND work@dut.H1[0]:1948 name=pin_i ns=pin_i bound=1
+
+== g2_importshapes (LAW B: 3 import hits, 1 found-and-unbound, 3 declines)
+   R11U74BIND work@dut.gw[0]:1181 name=w_ns ns=w_ns bound=1
+   R11U74BIND work@dut.gw[0]:1258 name=w_same ns=w_same bound=1
+   R11U74BIND work@dut.gw[0]:1335 name=w_net ns=w_net bound=0    <- residue 1
+   R11U74BIND work@dut.gw[0]:1414 name=W_PAR ns=- bound=0
+   R11U74BIND work@dut.gw[0]:1491 name=e_ns ns=e_ns bound=1
+   R11U74BIND work@dut.gw[0]:1562 name=u_ns ns=- bound=0
+   R11U74BIND work@dut.gw[0]:1640 name=unitname ns=- bound=0
+
+== g4_edges (the array-net FENCE, visible: found, and deliberately not bound)
+   R11U74BIND work@dut.E1[0].E2:1309 name=un_ns ns=- bound=0
+   R11U74BIND work@dut.E1[0].E2:1387 name=sn_ns ns=sn_ns bound=1
+   R11U74BIND work@dut.E1[0].E2:1461 name=an_ns ns=an_ns bound=0  <- the fence
+   R11U75GLPFOLD work@dut.F1:1616 member=n off=0 mw=32 tot=40 lhsw=0 rec=1
+   R11U75GLPFOLD work@dut.F2:1797 member=n off=0 mw=32 tot=40 lhsw=0 rec=1
+
+== g3_lpbase (LAW C: 12 GLPFOLD cells beside 2 pass-73 caMemSel cells)
+   R11U75GLPFOLD work@dut.gf[0]:1343 member=n off=0 mw=32 tot=40 lhsw=0 rec=1
+   R11U75GLPFOLD work@dut.gf[0]:1399 member=n off=0 mw=32 tot=40 lhsw=0 rec=1
+   R11U74FOLD    work@dut.gf[0]:1476 member=n off=0 mw=32 tot=40 lhsw=0
+   R11U75GLPFOLD work@dut.gf[0]:1549 member=t off=32 mw=8 tot=40 lhsw=0 rec=1
+   R11U75GLPFOLD work@dut.gf[0]:1621 member=n off=0 mw=32 tot=40 lhsw=0 rec=1
+   R11U75GLPFOLD work@dut.gf[0].gn:1897 member=n off=0 mw=32 tot=40 lhsw=0 rec=1
+   R11U75GLPFOLD work@dut.gf[0].gn:1955 member=n off=0 mw=32 tot=40 lhsw=0 rec=1
+   ... and the identical set under work@dut.gf[1] with its OWN values.
+
+== v7_foldshape (the JOINT cell: both laws fire and the trace says so)
+   R11U74FOLD    work@dut.gf[0]:1131 member=n off=0 mw=32 tot=40 lhsw=32
+   R11U74BIND    work@dut.gf[0]:1131 name=both ns=both bound=1
+   R11U75GLPFOLD work@dut.gf[0]:1185 member=n off=0 mw=32 tot=40 lhsw=0 rec=1
+
+THE INSTRUMENT CAN SEE.  It names hits, misses, fenced cells and both fold
+roads, which is why the corpus reading of 0 differing rows is a reading.
+
+NOTE ON THE FENCE ROW.  `an_ns ns=an_ns bound=0` reads exactly like a
+golden-agreed miss in the trace, which is deliberate: the walk's answer and the
+store's answer are printed apart (`ns=` vs `bound=`) so a cell we FIND and
+decline can never be confused with one we never saw.  `w_net` is the other
+face of the same pair — found, no object, declined — and residue 1 is written
+against it.

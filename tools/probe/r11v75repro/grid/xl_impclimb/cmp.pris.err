@@ -1,0 +1,32 @@
+LHS:
+decompile:
+constant: , id:397
+|vpiParent:
+\_cont_assign: , id:399, line:19:30, endln:19:40
+|vpiDecompile:00000000000000000000000100101100
+|vpiSize:16
+|BIN:00000000000000000000000100101100
+|vpiTypespec:
+\_ref_typespec: (work@dut.u.gc), id:398
+  |vpiParent:
+  \_constant: , id:397
+  |vpiFullName:work@dut.u.gc
+  |vpiActual:
+  \_int_typespec: , id:386, line:10:27, endln:10:39
+|vpiConstType:3
+RHS:
+decompile:
+constant: , id:247
+|vpiParent:
+\_cont_assign: , id:219, line:19:30, endln:19:40
+|vpiDecompile:00000000000000000000000100101100
+|vpiSize:32
+|BIN:00000000000000000000000100101100
+|vpiTypespec:
+\_ref_typespec: (work@dut.u.gc), id:248
+  |vpiParent:
+  \_constant: , id:247
+  |vpiFullName:work@dut.u.gc
+  |vpiActual:
+  \_int_typespec: , id:18, line:10:27, endln:10:39
+|vpiConstType:3

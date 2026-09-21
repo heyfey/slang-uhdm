@@ -1,0 +1,32 @@
+r11v75 — SWITCH LEDGER, read as "differing dump lines vs PRISTINE / vs the
+binary under test", path-normalised whole dumps, one slang-uhdm run per cell.
+
+`R11U75_OFF=1` reproduces the PRISTINE database BYTE FOR BYTE on all 31 arms,
+on BOTH the patched binary (3bcf6c65...) and the verified one (94dbf8d5...):
+0 differing lines, every arm, rc=0 every arm.
+
+Per-switch, on the VERIFIED binary (0 in the first column = that switch returns
+the arm to pristine; 0 in the second = the switch is a no-op on that arm):
+
+arm              NETNS     IMPBIND   IMPW      GLPFOLD   CASUPP
+g1_netkinds      0/9       9/0       9/0       9/0       9/0
+g2_importshapes  9/0       0/9       9/0       9/0       9/0
+w8_unitname      7/0       4/3       3/4       7/0       7/0
+g3_lpbase        390/0     390/0     390/0     6/384     348/42
+g5_glpwidth      177/0     177/0     177/0     0/177     174/3
+v7_foldshape     76/0      76/0      76/0      12/64     58/18
+g4_edges         64/3      67/0      67/0      3/64      61/6
+v9_hops          0/3       3/0       3/0       3/0       3/0
+v6_ifacepkg      3/0       0/3       3/0       3/0       3/0
+xc_impw          12/0      12/0      12/0      12/0      0/12
+xf_crossblk      96/0      96/0      96/0      0/96      87/9
+xh_ancpath       67/0      67/0      67/0      3/64      58/9
+xi_genimp2       3/0       0/3       3/0       3/0       3/0
+xj_twoinst       0/6       6/0       6/0       6/0       6/0
+xk_order         0/15      15/0      15/0      15/0      15/0
+
+Note `xc_impw`'s IMPW column: after the signal fence the width half has NO
+effect on that arm at all (12/0 = the switch changes nothing and the whole
+delta from pristine is § caGenScopeFoldedLhsNoOwnBind75's, confirmed by the
+CASUPP column 0/12).  On the PATCHED binary the same cell read 12/12 — half
+the delta was the width half writing 32 where golden says 12 and 4.
