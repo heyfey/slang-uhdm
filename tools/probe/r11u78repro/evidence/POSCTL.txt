@@ -1,0 +1,20 @@
+ARM cz_base78.sv prc=0 lrc=0 SAME
+ARM cz_shift78.sv prc=0 lrc=0 DIFFERS
+ARM cz_uns78.sv prc=0 lrc=0 DIFFERS
+ARM cz_paren78.sv prc=0 lrc=0 DIFFERS
+ARM cz_ts78.sv prc=0 lrc=0 DIFFERS
+  cz_base78        TO=0 AWAY=0 STILL=2 WRONG2=0 EQ=38 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+  cz_shift78       TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@9=UINT:100/ts=-  p=const/64@9=UINT:18446744073709551588/ts=-  l=const/64@9=UINT:100/ts=-
+  cz_uns78         TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@9=UINT:256/ts=-  p=const/64@9=UINT:16/ts=-  l=const/64@9=UINT:256/ts=-
+  cz_paren78       TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@7=INT:201/ts=-  p=const/64@9=UINT:18446744073709551561/ts=-  l=const/64@7=INT:201/ts=-
+  cz_ts78          TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@1=DEC:5/ts=logic_typespec()U  p=const/64@1=DEC:5/ts=-  l=const/64@1=DEC:5/ts=logic_typespec()U
+TOTAL TO=4 AWAY=0 STILL=10 WRONG2=0 EQ=186 SHAPE=5

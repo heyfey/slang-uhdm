@@ -1,0 +1,94 @@
+r11u78 — GATES (all mandatory, all green)
+
+1. BINARIES, built -j 2 in this pass's own worktree at 7d0c7bf4, md5s taken
+   separately, both frozen chmod 555 before any sweep.
+     pristine 963667a2299a360105d9677e3a065959
+              — BYTE-IDENTICAL to the main tree's build/slang-uhdm at 7d0c7bf4
+     law      11d069db9ddbeff921367ab3b426b853
+   Every cmds.txt audited by ABSOLUTE binary path: 3484 u2r + the surelog
+   workdirs, 0 name the main-tree binary.
+
+2. GOLDENS
+     law      23 PASS / 0 FAIL
+     pristine 23 PASS / 0 FAIL
+     SLANG_UHDM=/bin/false   0 PASS / 23 FAIL      (negative control)
+
+3. uhdm2rtlil, BOTH MODES, BOTH BINARIES
+     788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT of 871, in each mode on
+     each binary — the committed baseline.
+     row joins (ct8rows.sh, WHOLE ROW, dump column included):
+       results/gate_uhdm2rtlil.csv  vs law/testflags     PASS
+       results/golden_uhdm2rtlil.csv (BOTH modes, 1742 rows) vs law    PASS
+       results/golden_uhdm2rtlil.csv vs this pass's own pristine        PASS
+       own pristine vs law, testflags                                   PASS
+       own pristine vs law, default                                     PASS
+     byteverify (SELFCHECK=1, law vs this pass's own pristine workdir):
+       databases 1608/1608, PATH_SETS_IDENTICAL, MOVERS 0 / 1608,
+       selfcheck 1607 / 1608 flagged.
+
+4. SURELOG SUITE, --mode both, BOTH BINARIES
+     474 CMP_EQUAL / 9 CMP_NOTEQUAL default
+     469 CMP_EQUAL / 8 CMP_NOTEQUAL testflags        on the law binary AND on
+     the pristine one — the committed baseline, status histogram identical.
+     vs results/golden_surelog.csv, THREE rows differ, and the PRISTINE sweep
+     carries the SAME three (they are environment, not code):
+       Earlgrey_0_1/testflags   dump COLUMN blank on a uhdm-dump timeout draw
+                                under load; status stays CMP_EQUAL and the
+                                DATABASE byte-compare — the actual pin — is
+                                IDENTICAL (59d0ee6d10c3)
+       LowMemLib/testflags      SURELOG_FAIL detail carries the workdir path
+       LowMemPkg/testflags      SURELOG_FAIL detail carries the workdir path
+     law vs THIS PASS'S OWN PRISTINE sweep: only the two LowMem* path details.
+
+5. byteverify SURELOG (SELFCHECK=1, law vs own pristine workdir)
+     databases 960/960, PATH_SETS_IDENTICAL, MOVERS 5 / 960,
+     selfcheck 959 / 960 flagged.
+     All five are the UVM coin, PREDICTED (the census predicts no LAW mover in
+     either corpus) and attributed ORDER-BLIND — see MOVERS.txt: each moves
+     exactly 4 sorted lines, every one a UINT/vpiDecompile PAIR whose value is
+     a LINE NUMBER; ZERO vpiConstType, ZERO vpiSize, ZERO vpiTypespec lines.
+     COIN POSITIVE CONTROL: the PRISTINE binary alone, three runs of
+     MiniAmiq/default in one directory writing one name, gives three DIFFERENT
+     databases, and two pristine-only runs differ by the SAME 4-line class.
+
+6. CANARIES
+     canaries.sh surelog law      ok=51 changed=1 absent=0
+     canaries.sh surelog PRISTINE ok=51 changed=1 absent=0   (the same row)
+       the one changed row is Earlgrey_0_1/testflags's dump column, gate 4
+     canaries.sh u2r/testflags    ok=8  changed=0 absent=0
+     EXPECT_UNKNOWN=1 ctcan2.sh surelog   PASS
+     EXPECT_UNKNOWN=6 ctcan2.sh u2r       PASS
+     canaudit.sh  PASS: every brief-protected name and family is carried by a
+                  script that RUNS here
+     PROTECTED DATABASES, law vs pristine, byte for byte:
+       SVSwitch           4842211c4030 / 4842211c4030   (both modes)
+       YosysVerx          6ccda350c24a / 6ccda350c24a   (both modes)
+       InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   (both modes)
+       BlackParrotComplex e3e354129d5a (default) 73a10e8217e5 (testflags), same
+       YosysOldOr         d68e0796d62c / d68e0796d62c   (both modes)
+       Earlgrey_0_1       8bdf25272e08 (default) 59d0ee6d10c3 (testflags), same
+
+7. THE SEVEN CONVERSION ROWS (rowheads.sh, the official uhdm-cmp, LHS golden)
+     SeqDriver, SimpleUVM, Scoreboard, MiniAmiq, BuildUVMPkg, Earlgrey_0_1 —
+     0 cmp lines / 0 heads in both modes on the law binary.
+     Rggen/default unchanged at 64 / 1.
+     SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags, as expected.
+
+8. WIDE BOUNDARY — 2161 committed probe arms (every .sv carrying an assignment
+   pattern, a signedness cast, a signed based literal or a parenthesised
+   literal; r11v76's own list was 1708), path-neutral, both binaries:
+     2130 SAME, 16 DIFFERS, 15 NODB.
+   FIFTEEN of the sixteen are this pass's own grid and control arms plus the
+   committed r11u76 / r11v73 / r11v76 witnesses §3 scores with AWAY 0.
+   THE SIXTEENTH is r10uvm154repro/l154_noenum.sv, and it is the COMMITTED
+   LAYOUT PROOF: it contains NO ENUM and NO PATTERN, its only moved bytes are
+   one UINT/vpiDecompile pair 23179289 -> 23183385 (delta EXACTLY 4096) sitting
+   BELOW \_weaklyReferenced:, and the committed control run on THIS binary pair
+   reads
+     enum keywords in the source: 0  (must be 0)
+     JUDGE-VISIBLE HEAD IDENTICAL (the two binaries agree on everything
+       uhdm-cmp reads)
+     TAIL DIFFERS with no enum in the source => LAYOUT-DERIVED, not this law
+     LAYOUTPROOF OK
+
+9. results/*.csv UNTOUCHED — git diff vs 7d0c7bf4 over results/ is empty.

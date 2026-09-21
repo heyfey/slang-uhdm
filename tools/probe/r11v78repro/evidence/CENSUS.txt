@@ -1,0 +1,94 @@
+== STRICT (parameter/localparam spans only)
+   AGG=785 BASED=6133 CAST=2223 INTISH=31 NAME=507 OTHER=5047 PLAIN=1582 UINTISH=3701
+   AGREE=4392 PAREN78=39 SCAST=21 SHIFT78=1503
+   CANDIDATES 13
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_M_E
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_M_S
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_M_T
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_S_E
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_S_S
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_S_T
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled)
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled)
+                           | (1 << 
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled)
+                  | (1 << e_cfg_wri
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled) | (1 << e_cfg_coherent)
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled) | (1 << e_cfg_lr_sc)
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled) | (1 << e_cfg_writeback)
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_writeback) | (1 << e_cfg_word_tracking)
+     BlackBePipeInt                               SHIFT78: (1 << e_div) | (1 << e_mul) | (1 << e_mulh)
+     CastTypespec                                 SHIFT78: top_pkg::TL_SZW'(WordSize)
+     Earlgrey_0_1                                 PAREN78: WakeUpPeris'(1'b1)
+     Earlgrey_Verilator_01_05_21                  PAREN78: KeyWidth'(32'hDEADBEEF)
+     Earlgrey_Verilator_01_05_21                  PAREN78: KeyWidth'(32'hFACEBEEF)
+     Earlgrey_Verilator_0_1                       PAREN78: WakeUpPeris'(1'b1)
+     Earlgrey_nexysvideo                          PAREN78: KeyWidth'(32'hDEADBEEF)
+     Earlgrey_nexysvideo                          PAREN78: KeyWidth'(32'hFACEBEEF)
+     IncompTitan                                  PAREN78: KeyWidth'(32'hDEADBEEF)
+     IncompTitan                                  PAREN78: KeyWidth'(32'hFACEBEEF)
+     Rp32                                         PAREN78: csr_context_t'(2'b00)
+     Rp32                                         PAREN78: csr_endian_t '(1'b0)
+     Rp32                                         PAREN78: csr_vector_t'(2'b01)
+     Rp32                                         PAREN78: csr_xlen_t   '(2'b00)
+     Rp32                                         PAREN78: isa_level_t  '(2'b00)
+     StructParamFuncBodyFieldCompare              SHIFT78: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(1)
+     StructParamFuncBodyFieldCompare              SHIFT78: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(3)
+     StructParamPatternInitCast                   SHIFT78: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(1)
+     StructParamPatternInitCast                   SHIFT78: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(3)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheFlushOnFence)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheFlushOnFenceI)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheInvalidateOnFlush)
+     cva6_equiv                                   SHIFT78: (CVA6Cfg.XLEN'(1) << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'
+     rp32                                         PAREN78: csr_context_t'(2'b00)
+     rp32                                         PAREN78: csr_endian_t '(1'b0)
+     rp32                                         PAREN78: csr_vector_t'(2'b01)
+     rp32                                         PAREN78: csr_xlen_t   '(2'b00)
+     rp32                                         PAREN78: isa_level_t  '(2'b00)
+== LOOSE (every pattern span)
+   AGG=1078 BASED=7399 CAST=2300 INTISH=50 NAME=2265 OTHER=6536 PLAIN=1990 UINTISH=3826
+   AGREE=4613 PAREN78=39 SCAST=21 SHIFT78=1503
+   CANDIDATES 13
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_M_E
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_M_S
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_M_T
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_S_E
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_S_S
+     Ariane2024                                   SHIFT78: (1 << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'(riscv::IRQ_S_T
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled)
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled)
+                           | (1 << 
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled)
+                  | (1 << e_cfg_wri
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled) | (1 << e_cfg_coherent)
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled) | (1 << e_cfg_lr_sc)
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_enabled) | (1 << e_cfg_writeback)
+     BlackBePipeInt                               SHIFT78: (1 << e_cfg_writeback) | (1 << e_cfg_word_tracking)
+     BlackBePipeInt                               SHIFT78: (1 << e_div) | (1 << e_mul) | (1 << e_mulh)
+     CastTypespec                                 SHIFT78: top_pkg::TL_SZW'(WordSize)
+     Earlgrey_0_1                                 PAREN78: WakeUpPeris'(1'b1)
+     Earlgrey_Verilator_01_05_21                  PAREN78: KeyWidth'(32'hDEADBEEF)
+     Earlgrey_Verilator_01_05_21                  PAREN78: KeyWidth'(32'hFACEBEEF)
+     Earlgrey_Verilator_0_1                       PAREN78: WakeUpPeris'(1'b1)
+     Earlgrey_nexysvideo                          PAREN78: KeyWidth'(32'hDEADBEEF)
+     Earlgrey_nexysvideo                          PAREN78: KeyWidth'(32'hFACEBEEF)
+     IncompTitan                                  PAREN78: KeyWidth'(32'hDEADBEEF)
+     IncompTitan                                  PAREN78: KeyWidth'(32'hFACEBEEF)
+     Rp32                                         PAREN78: csr_context_t'(2'b00)
+     Rp32                                         PAREN78: csr_endian_t '(1'b0)
+     Rp32                                         PAREN78: csr_vector_t'(2'b01)
+     Rp32                                         PAREN78: csr_xlen_t   '(2'b00)
+     Rp32                                         PAREN78: isa_level_t  '(2'b00)
+     StructParamFuncBodyFieldCompare              SHIFT78: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(1)
+     StructParamFuncBodyFieldCompare              SHIFT78: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(3)
+     StructParamPatternInitCast                   SHIFT78: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(1)
+     StructParamPatternInitCast                   SHIFT78: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(3)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheFlushOnFence)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheFlushOnFenceI)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheInvalidateOnFlush)
+     cva6_equiv                                   SHIFT78: (CVA6Cfg.XLEN'(1) << (CVA6Cfg.XLEN - 1)) | CVA6Cfg.XLEN'
+     rp32                                         PAREN78: csr_context_t'(2'b00)
+     rp32                                         PAREN78: csr_endian_t '(1'b0)
+     rp32                                         PAREN78: csr_vector_t'(2'b01)
+     rp32                                         PAREN78: csr_xlen_t   '(2'b00)
+     rp32                                         PAREN78: isa_level_t  '(2'b00)

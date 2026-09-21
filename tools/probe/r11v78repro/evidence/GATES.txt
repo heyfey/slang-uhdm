@@ -1,0 +1,98 @@
+r11v78 — ADVERSARIAL VERIFICATION GATES (base 7d0c7bf4)
+
+0. BINARIES, each built -j 2 in this verifier's OWN worktree, md5 taken
+   separately, frozen chmod 555 BEFORE any sweep.
+     pristine  /tmp/v11u78_pris.bin  963667a2299a360105d9677e3a065959
+               -- byte-identical to the main tree's build/slang-uhdm at 7d0c7bf4
+     law       /tmp/v11u78_law.bin   11d069db9ddbeff921367ab3b426b853
+               -- the implementer's md5, reproduced exactly from /tmp/r11u78.patch
+     verified  /tmp/v11u78_vfx.bin   a1304be10090119c2c6beafc61c81c92
+               -- law + § pkgSubstAbstainSeesParens78v
+   /tmp/r11u78.verified.patch applies clean on a FRESH 7d0c7bf4 worktree and
+   rebuilds to a1304be10090119c2c6beafc61c81c92 (verified in /tmp/wt_v11u78fresh).
+   cmds.txt audit by ABSOLUTE binary path:
+     u2r  1742 per binary, all naming the frozen binary, 0 the main tree
+     sl   1531 / 1531 / 1530 per binary, same
+1. GOLDENS   law 23 PASS / 0 FAIL ; pristine 23 / 0 ; verified 23 / 0
+             SLANG_UHDM=/bin/false  0 PASS / 23 FAIL
+2. UHDM2RTLIL both modes, EACH binary: 788 CMP_EQUAL / 16 CMP_NOTEQUAL /
+   67 SLANG_REJECT of 871.
+     1742-row both-mode join vs results/golden_uhdm2rtlil.csv   PASS (law, vfx, pristine)
+     same join vs this verifier's own pristine sweep            PASS
+     testflags gate vs results/gate_uhdm2rtlil.csv              PASS
+     byteverify SELFCHECK=1 law vs own pristine : MOVERS 0 / 1608, selfcheck 1607/1608
+     byteverify SELFCHECK=1 vfx vs own pristine : MOVERS 0 / 1608, selfcheck 1607/1608
+3. SURELOG --mode both, EACH binary: 474 CMP_EQUAL / 9 CMP_NOTEQUAL default,
+   469 / 8 testflags.  Status histograms identical.
+     law      vs own pristine : 2 rows differ, both the LowMem* workdir-path detail
+     verified vs COMMITTED CSV: 2 rows differ, THE SAME TWO LowMem* path details --
+                            every status AND every dump column identical to
+                            results/golden_surelog.csv (dump histograms
+                            324/248/226 default and 329/303/166 testflags, to the
+                            unit).  THE CLEANEST DRAW OF THE RUN.
+     The Earlgrey_0_1 dump-COLUMN blanks seen on the two --jobs 3 draws (law and
+     PRISTINE alike) are a uhdm-dump TIMEOUT under load: the same sweep at
+     --jobs 2 reads `differ`, the committed value.  Status was CMP_EQUAL on every
+     draw and the DATABASE byte-compare -- the actual pin -- never moved.
+4. byteverify SURELOG SELFCHECK=1 (960 databases, PATH_SETS_IDENTICAL):
+     law vs pristine  MOVERS 4 / 960   vfx vs pristine  MOVERS 6 / 960
+   Every mover is the UVM coin, attributed ORDER-BLIND on path-normalised sorted
+   dumps -- 4 sorted lines (one UINT/vpiDecompile PAIR holding a LINE NUMBER) or
+   0 sorted lines (a pure order draw).  ZERO vpiConstType, ZERO vpiSize, ZERO
+   vpiTypespec lines in any of them.
+     law: MiniAmiq/default 0<->1214, SeqDriver/default 692<->1490,
+          MiniAmiq/testflags 0<->790, Scoreboard/default 0 lines
+     vfx: MiniAmiq/default 651<->1214, SeqDriver/default 1243<->1490,
+          SimpleUVM/default 0<->1016, MiniAmiq/testflags 1213<->790,
+          SeqDriver/testflags 0<->1252, Scoreboard/default 0 lines
+   COIN POSITIVE CONTROL: the PRISTINE binary ALONE, three runs of MiniAmiq's
+   own invocation in ONE directory writing ONE name -> 839f925090c5,
+   c1709eb4e1c5, c1709eb4e1c5.  Order-blind diff of the two DIFFERENT ones is
+   the SAME 4-line UINT/vpiDecompile line-number class (765 <-> 0).
+5. CANARIES  surelog VERIFIED ok=52 changed=0 (the --jobs 2 draw)
+             surelog law ok=50 changed=2 and surelog PRISTINE ok=50 changed=2
+             on the --jobs 3 draws -- the same two rows on both, Earlgrey_0_1's
+             dump column (gate 3)
+             u2r ok=8 changed=0
+             ctcan2 surelog ok=58 changed=0 PASS ; ctcan2 u2r ok=1 changed=0 PASS
+             canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+   PROTECTED DATABASES, law AND verified vs pristine, byte-identical at the
+   committed values:
+     SVSwitch 4842211c4030 (both modes)   YosysVerx 6ccda350c24a (both modes)
+     InterfaceModPort 59a365f3ce2c        BlackParrotComplex SAME
+     YosysOldOr SAME                      Earlgrey_0_1 8bdf25272e08 / 59d0ee6d10c3
+6. CONVERSION ROWS (rowheads.sh, official uhdm-cmp, golden as LHS), law AND
+   verified: SeqDriver, SimpleUVM, Scoreboard, MiniAmiq, BuildUVMPkg and
+   Earlgrey_0_1 all read 0 cmp lines / 0 heads in every mode that has a golden
+   (12 measured, 2 SKIP-NOFILE as expected); Rggen/default unchanged 64 / 1.
+7. GRID, 33 arms (the pass's 25 + this verifier's 5 + the two road arms),
+   every operand read once, scored on VpiDecompile / VpiSize / VpiConstType /
+   Typespec plus the value byte:
+     TOTAL TO=95  AWAY=0  MOVED-WRONG=0  WRONG2=3  STILL=69
+   The pass's own 25 arms reproduce TO 71 / AWAY 0 / WRONG2 2 arm for arm.
+   SIZE AXIS over every law arm: TO 12, AWAY 0, WRONG2 0.
+   SCORER POSITIVE CONTROL: scoring z4_shift78 and w1_ts78v with the binaries
+   SWAPPED turns all 25 of their TO cells into AWAY cells, so AWAY=0 is a
+   measurement.
+8. WIDE BOUNDARY, 2298 probe arms (a superset of the pass's 2161), path-neutral,
+   both binaries in one directory writing one name:
+     pristine vs law      2267 SAME, 16 DIFFERS, 15 NODB
+     law      vs verified 2283 SAME,  0 DIFFERS, 15 NODB
+   Fifteen of the sixteen are law-owned grid and control arms, all scored in
+   gate 7 with AWAY 0.  The sixteenth is the committed layout proof
+   r10uvm154repro/l154_noenum.sv; its own layoutproof154.sh on THIS binary pair
+   reads "JUDGE-VISIBLE HEAD IDENTICAL" / "TAIL DIFFERS with no enum in the
+   source => LAYOUT-DERIVED, not this law" / "LAYOUTPROOF OK", tail delta
+   23179289 -> 23183385 = exactly 4096.  Every NODB arm has prc == lrc.
+9. CENSUS, both corpora, reproduced to the unit:
+     STRICT AGREE=4392 PAREN78=39 SCAST=21 SHIFT78=1503 UNSARM78=0 TSCAST78=0
+            CANDIDATES 13
+     LOOSE  AGREE=4613 PAREN78=39 SCAST=21 SHIFT78=1503 UNSARM78=0 TSCAST78=0
+            CANDIDATES 13
+     selftest PASS.  0 of the 1503 SHIFT78 lines contains ">>".
+   POSITIVE CONTROL on a real corpus test's own sources, on the VERIFIED binary:
+     cz_base78 SAME ; cz_shift78 / cz_uns78 / cz_paren78 / cz_ts78 all DIFFERS.
+10. results/*.csv untouched (git diff over results/ empty).
+    Fence check: 0 hits for each of the four fenced names in the verified patch.
+    Verified patch surface: src/EmitHelpers.h, src/ParamEmit.cpp, src/TypeEmit.cpp,
+    tools/probe/r11u78repro/, tools/probe/r11v78repro/ -- nothing else.

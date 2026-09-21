@@ -15502,6 +15502,72 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         c2->VpiConstType(vpiIntConst);
                                     }
                                 }
+                                // § patOperandUnsignedArmValue78 (r11u78) —
+                                // THE UNSIGNED ARM'S VALUE HALF (r11u76's R0).
+                                //
+                                // The table above re-spells only the cells it
+                                // encodes `vpiIntConst`.  Where the reduce
+                                // table answers `vpiUIntConst` the ENCODING is
+                                // already right and the VALUE is not: the
+                                // branch above wrote slang's reading MASKED TO
+                                // THE MEMBER, and the producer's arm minted
+                                // `UINT:` from its own `int64_t`/`uint64_t`
+                                // arithmetic over the reduced operands
+                                // (`~/git-repos/UHDM/templates/ExprEval.cpp:
+                                // 3167-3178` for `+`, `:3149-3171` / `:3236-
+                                // 3255` for the shifts), whose LEAVES are the
+                                // written digits § redBasedLeafWrittenDigits76
+                                // already reads.  `adjustOpSize` writes only
+                                // `VpiSize`, so nothing masks it afterwards.
+                                //
+                                // MEASURED, arm `z3_uns78` (real Surelog
+                                // v1.87, `slrc=0 ourrc=0 slerr=0`, 64-bit
+                                // members, `K+1`/`K+2` probes):
+                                //   `2'b111 + 1`    golden UINT:8    ours 4
+                                //   `3'o77 + 1`     golden UINT:64   ours 8
+                                //   `4'hFF + 1`     golden UINT:256  ours 16
+                                //   `8'shC8 + 1`    golden UINT:201
+                                //                   ours 18446744073709551561
+                                //   `3'so7 + 1`     golden UINT:8    ours 0
+                                //   `4'sb1111 + 1`  golden UINT:16   ours 0
+                                // against the CONTROLS in the same arm, every
+                                // one of which is already EQUAL on both
+                                // binaries and stays so: `8'hC8 + 1` (201),
+                                // `16'hFFFF + 1` (65536), `2'b11 + 2'b11` (6),
+                                // `1'b1 + 1'b1` (2), `LA + 1` (8, `LA = K+1`),
+                                // `LH + 1` (41, `LH = 32'h28`), `KU + 1` (7),
+                                // `4'd3 + 1` and `K * 2` (the `vpiIntConst`
+                                // face, untouched here).
+                                //
+                                // CONFINED TO AN ARM.  The gate requires the
+                                // setter to be a `BinaryOp`, because that is
+                                // the whole of the measured face: a LEAF or a
+                                // NAME at the member is a different object
+                                // (the producer hands back the literal's or
+                                // the parameter's own stored constant) and
+                                // re-spelling it here would be an unmeasured
+                                // claim.  `red72Int64` ABSTAINS on everything
+                                // it does not model — the bitwise arms, the
+                                // calls, an unknown digit — which leaves the
+                                // branch above standing, a STILL cell and
+                                // never an AWAY one.  The SIZE and the
+                                // ENCODING are not touched.
+                                else if (!ifaceArrayDefFold &&
+                                         caSubstLeafCt56(*se) ==
+                                             vpiUIntConst &&
+                                         stripImplicitConv(*se).kind ==
+                                             ExpressionKind::BinaryOp &&
+                                         red78ArmBasedLeaf(*se)) {
+                                    int64_t u78 = 0;
+                                    if (red72Int64(stripImplicitConv(*se),
+                                                   ectx, 0, u78) ==
+                                        Red72::Value) {
+                                        std::string d78 = std::to_string(
+                                            (uint64_t)u78);
+                                        c2->VpiDecompile(d78);
+                                        c2->VpiValue("UINT:" + d78);
+                                    }
+                                }
                             }
                             c2->VpiParent(op2);
                             setLoc(c2, se->sourceRange);
@@ -15603,6 +15669,55 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             int32_t rsz68 = patRedSz68(*sx68, ectx, 0);
                             if (rsz68 <= 0 || rsz68 == c68->VpiSize())
                                 continue;
+                            // § castHopSizeFollowsLiteral78 (r11u78) — THE
+                            // DIGITS GUARD MUST NOT JUDGE AN OPERAND THAT IS
+                            // ABOUT TO BE RE-SPELLED.
+                            //
+                            // The guard below asks "are the digits on this
+                            // operand the producer's?" by comparing what the
+                            // mint wrote against `red72Int64`'s answer.  On a
+                            // signedness-cast pass-thru the answer is NEITHER:
+                            // the mint wrote the member-masked slang value and
+                            // § castSignednessReturnsOperand76 replaces it
+                            // with the literal's own spelling — but only AFTER
+                            // this loop, because that law's ORDER constraint
+                            // (its § block, six measured AWAY cells) puts the
+                            // re-spell last.  So the guard sees a value that
+                            // belongs to neither reading and declines the size
+                            // move, and it declines it ONLY where slang and
+                            // the producer disagree about the literal, i.e.
+                            // exactly on `signed'`.
+                            //
+                            // MEASURED, arm `z2_hop78` (real Surelog v1.87,
+                            // `slrc=0 ourrc=0 slerr=0`, 24-bit members,
+                            // operand 0 a guaranteed bail):
+                            //   `signed'(8'sd200)`   one hop   golden 8 ours 24
+                            //   `signed'(8'sd200)`   TWO hops  golden 8 ours 24
+                            //   `signed'(8'sd200)`   DIRECT    golden 8 ours 24
+                            //   `unsigned'(8'sd200)` one hop   golden 8 ours 8
+                            //   `unsigned'(8'sd200)` DIRECT    golden 8 ours 8
+                            // — the unsigned spelling already passes the guard
+                            // (slang evaluates it to 200 as well), which is
+                            // what convicts the guard rather than the size
+                            // table: `patRedSz68` answers 8 on all five.
+                            //
+                            // The exemption fires ONLY where the re-spell
+                            // itself will fire, on the very same two calls, so
+                            // the size it takes is the size of the constant
+                            // this operand is about to become.  Everything
+                            // else keeps the guard.
+                            {
+                                const Expression* pl78 =
+                                    red76SignCastPassThru(*sx68);
+                                std::string pv78, pd78;
+                                int32_t pc78 = 0, ps78 = 0;
+                                if (pl78 && red76SignCastConst(*pl78, pv78,
+                                                               pd78, pc78,
+                                                               ps78)) {
+                                    c68->VpiSize(rsz68);
+                                    continue;
+                                }
+                            }
                             int32_t ct68 = c68->VpiConstType();
                             if (ct68 == vpiUIntConst || ct68 == vpiIntConst) {
                                 auto& sv68 = stripImplicitConv(*sx68);
@@ -15694,8 +15809,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             if (!sx76 || !ob76 ||
                                 ob76->UhdmType() != UHDM::uhdmconstant)
                                 continue;
+                            bool cs78 = false, ad78 = false;
                             const Expression* lit76 =
-                                red76SignCastPassThru(*sx76);
+                                red76SignCastPassThru(*sx76, &cs78, &ad78);
                             if (!lit76)
                                 continue;
                             std::string v76, d76;
@@ -15707,6 +15823,93 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             c76->VpiValue(v76);
                             c76->VpiDecompile(d76);
                             c76->VpiConstType(ct76);
+                            // § castOperandCarriesItsTypespec78 (r11u78) —
+                            // THE FOURTH JUDGE-READ FIELD ON THIS SHAPE.
+                            //
+                            // `expr::Compare`
+                            // (`~/git-repos/UHDM/build/generated/src/expr.cpp:
+                            // 83-103`) reads `Typespec` beside `VpiDecompile`
+                            // and `VpiSize`, and r11v76 left this cell as its
+                            // first residue: three of the four fields moved to
+                            // golden's and the fourth did not exist on ours.
+                            //
+                            // THE PRODUCER.  On the `return c` faces the
+                            // constant that comes out is the ARGUMENT's, with
+                            // the typespec the ARGUMENT had — and Surelog's
+                            // literal arm hangs an `int_typespec` exactly when
+                            // the base token carries the `s` marker.  When it
+                            // does NOT, `$signed`'s arm
+                            // (`~/git-repos/UHDM/templates/ExprEval.cpp:
+                            // 4700-4711`) sees `!c->Typespec()` and mints a
+                            // signed `logic_typespec` behind a `ref_typespec`
+                            // parented to the constant; `$unsigned` mints
+                            // nothing and the constant comes out bare.
+                            //
+                            // MEASURED, arms `z1_ts78` and `z2_hop78` (real
+                            // Surelog v1.87, `slrc=0 ourrc=0 slerr=0`, read
+                            // with the typespec-aware lister
+                            // `tools/probe/r11u78repro/ts78.py`):
+                            //   `signed'(16'd5)`     logic_typespec  (hop AND
+                            //                                         direct)
+                            //   `signed'(16'sd5)`    int_typespec
+                            //   `unsigned'(16'sd5)`  int_typespec
+                            //   `unsigned'(16'sh5)`  int_typespec
+                            //   `unsigned'(16'so5)`  int_typespec
+                            //   `unsigned'(16'sb101)`int_typespec
+                            //   `unsigned'(8'shC8)`  int_typespec
+                            //   `unsigned'(3'so7)`   int_typespec
+                            //   `unsigned'(16'h5)`   NONE written directly
+                            //   `unsigned'(16'o5)`   NONE written directly
+                            //   `unsigned'(16'b101)` NONE written directly
+                            // and the verbatim controls `16'd5` / `16'h5` /
+                            // `16'o5` (none) and `16'sd5` / `8'sd200` /
+                            // `8'shC8` (int_typespec) are byte-identical on
+                            // both binaries already — our own literal path
+                            // writes this very object.
+                            //
+                            // TWO ABSTENTIONS, each with golden proving it is
+                            // needed:
+                            //  * A NAME BETWEEN THE CAST AND THE LITERAL.
+                            //    Golden's answer is then the HOPPED symbol's,
+                            //    not the literal's: `signed'(TB)` over
+                            //    `byte TB = 8'd5` is `byte_typespec`
+                            //    (`v3cast76` op1) and `signed'(UD)` over
+                            //    `localparam UD = 16'd5` is a ref_typespec
+                            //    with NO actual at all (`y3_castenc76` op6,
+                            //    and `unsigned'(16'd5)` one hop up in
+                            //    `z1_ts78` is the same empty shape).  Writing
+                            //    the literal's answer there would be a guess.
+                            //  * AN UNSIGNED SPELLING UNDER `$unsigned`.
+                            //    Written DIRECTLY as the member golden has
+                            //    none and so have we, which is an EQUAL cell;
+                            //    reached through a NAME HOP golden carries the
+                            //    hopped parameter's own `int_typespec`, which
+                            //    is the untyped-parameter store's doing and
+                            //    not this cast's — a separate face, left as
+                            //    the STILL cell it already is (R1).
+                            //
+                            // ONLY EVER ADDS.  The write is gated on the
+                            // operand having NO typespec, so it can never
+                            // replace one an earlier law put there.
+                            if (ad78 && !c76->Typespec()) {
+                                UHDM::typespec* at78 = nullptr;
+                                if (red78LitWrittenSigned(*lit76)) {
+                                    auto* it78 = s.MakeInt_typespec();
+                                    it78->VpiSigned(true);
+                                    at78 = it78;
+                                }
+                                else if (cs78) {
+                                    auto* lt78 = s.MakeLogic_typespec();
+                                    lt78->VpiSigned(true);
+                                    at78 = lt78;
+                                }
+                                if (at78) {
+                                    auto* rt78 = s.MakeRef_typespec();
+                                    rt78->VpiParent(c76);
+                                    rt78->Actual_typespec(at78);
+                                    c76->Typespec(rt78);
+                                }
+                            }
                         }
                     op2->Operands(opnds);
                     rhs = op2;

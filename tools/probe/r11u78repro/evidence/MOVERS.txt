@@ -1,0 +1,34 @@
+== the five surelog movers, attributed ORDER-BLIND (sorted, path-normalised dumps)
+== default/MiniAmiq-544c7f61 sorted-diff-lines=4
+<       |UINT:1079
+>       |UINT:1231
+<       |vpiDecompile:1079
+>       |vpiDecompile:1231
+== default/SeqDriver-32af76aa sorted-diff-lines=4
+<       |UINT:0
+>       |UINT:881
+<       |vpiDecompile:0
+>       |vpiDecompile:881
+== default/SimpleUVM-1dc93a62 sorted-diff-lines=4
+<       |UINT:0
+>       |UINT:686
+<       |vpiDecompile:0
+>       |vpiDecompile:686
+== testflags/MiniAmiq-544c7f61 sorted-diff-lines=4
+>       |UINT:0
+<       |UINT:618
+>       |vpiDecompile:0
+<       |vpiDecompile:618
+== testflags/SeqDriver-32af76aa sorted-diff-lines=4
+>       |UINT:0
+<       |UINT:718
+>       |vpiDecompile:0
+<       |vpiDecompile:718
+
+[exited with code 0]
+
+== COIN POSITIVE CONTROL: the PRISTINE binary alone, three runs of MiniAmiq/default
+   in ONE directory writing ONE name -> three DIFFERENT databases
+   94d5a6b85c5d / bce92816e69c / 1fe8b718edbb
+   order-blind diff of runs 1 and 2 = the SAME 4-line UINT/vpiDecompile line-number class:
+     < |UINT:835   > |UINT:885   < |vpiDecompile:835   > |vpiDecompile:885

@@ -669,14 +669,42 @@ UHDM::constant* UhdmExporter::pkgVarDimBoundEnc82(const Symbol& declSym,
 // neither corpus mover bottoms out on a based literal — `32'd32 + 8` (b1 c10,
 // golden `INT:40` ct 7) is an ADD at the top, so the table still answers it and
 // the cell still converts.
+// § pkgSubstAbstainSeesParens78v (r11v78) — THE ABSTENTION MUST READ THE
+// LITERAL THE TABLE READS.  § caSubstLeafCtSeesParens78 taught
+// `dimRedCtExpr79` to walk parentheses; this guard, which exists to keep the
+// package-substitution encoder OFF a based literal, was left reading
+// `e.syntax->kind` directly and so does not recognise a PARENTHESISED one.
+// The two walks then disagree: `basedLitOrigin50((32'd40))` is false, the
+// table is consulted, `vecBaseCt79` answers `vpiIntConst`, and
+// `pkgSubstIntEnc50` re-spells the substituted constant.
+//
+// MEASURED, verifier arm `w4_parenroad78v` (real Surelog v1.87,
+// `slrc=0 ourrc=0 slerr=0`), the `logic [P-1:0]` dimension operands:
+//
+//   `parameter P_PDEC  = (32'd40)`    golden `DEC:40`/ct 1
+//                                     pristine `UINT:40`/ct 9
+//                                     ungated law `INT:40`/ct 7
+//   `((32'd40))`, `(32'sd40)` and a NAME reading `(32'd40)`: the same three
+//   readings, four cells in all — and the bare `32'd40` control beside them
+//   is golden `DEC:40` / ours `UINT:40` on BOTH binaries, abstained.
+//
+// Neither reading is golden's, so no cell regresses — which is exactly what
+// § pkgSubstEncBasedLitAbstain50v's own § block says about this shape before
+// refusing to move it: the flip "moves four bytes per cell that NO golden
+// licenses, in a shape the law's own fence claims it leaves alone".  Reading
+// the literal through the committed paren-walking `red76VecSyntax` restores
+// the fence's shape under parentheses.  It costs NOTHING measured: the ARM
+// face `(32'd32) + 8` is a `BinaryOp` at the top, which this walk does not
+// answer at all, so it still reaches the table and still CONVERTS to golden's
+// `INT:40`/ct 7 (`w4_parenroad78v` c08), and the cont_assign road's
+// `(16'd4660) + 1` converts likewise on all three of its sites
+// (`w5_contparen78v`).
 static bool basedLitOrigin50(const slang::ast::Expression& e0, int depth) {
     if (depth > 32)
         return false;
     const Expression& e = stripImplicitConv(e0);
     if (e.kind == ExpressionKind::IntegerLiteral)
-        return e.syntax != nullptr &&
-               e.syntax->kind ==
-                   slang::syntax::SyntaxKind::IntegerVectorExpression;
+        return red76VecSyntax(e) != nullptr;
     if (e.kind == ExpressionKind::NamedValue ||
         e.kind == ExpressionKind::HierarchicalValue) {
         auto& sy50 = e.as<ValueExpressionBase>().symbol;
@@ -18709,8 +18737,29 @@ int32_t UhdmExporter::dimRedCtExpr79(const slang::ast::Expression& e0,
         // (`'0`/`'1` stay OUT: the syntax table refuses
         // `UnbasedUnsizedLiteralExpression`, so this walk must refuse it too.)
         case ExpressionKind::IntegerLiteral:
-            if (e.syntax && e.syntax->kind == SK::IntegerVectorExpression)
-                return vecBaseCt79(rawText(e.syntax->sourceRange()));
+            // § caSubstLeafCtSeesParens78 (r11u78) — AND THE PARENTHESES ARE
+            // NOT A DIFFERENT LITERAL.  `Expression::create`
+            // (`~/git-repos/slang/source/ast/Expression.cpp:791-799`,
+            // `:1002`) binds a `ParenthesizedExpression` by recursing into the
+            // inner syntax and then OVERWRITING the result's `syntax` pointer
+            // with the parenthesized node, so a bound `(8'sd200)` is an
+            // `IntegerLiteral` whose `syntax->kind` is
+            // `ParenthesizedExpression` and this arm fell through to
+            // `vpiUIntConst`.  The SYNTAX table `dimRedCt79` beside it has
+            // always stripped parentheses (`while (e->kind ==
+            // ParenthesizedExpression)`); this is the bound walk catching up,
+            // not a new rule.
+            //
+            // MEASURED, the committed arm `y5_paren76` (real Surelog v1.87,
+            // `slrc=0 ourrc=0 slerr=0`, r11u76's R1): `(8'sd200) + 1` is
+            // golden `const/64@7=INT:201`, `(4'd20) + 1` golden `@7 INT:21`
+            // and even the agreeing control `(8'd7) + 1` golden `@7 INT:8` —
+            // three cells that were `@9 UINT` on BOTH binaries, exactly as
+            // their unparenthesised spellings are golden `@7 INT`.
+            // `red76VecSyntax` is the committed paren-walking reader
+            // (§ redBasedLeafWrittenDigits76), reused rather than copied.
+            if (const auto* pv78 = red76VecSyntax(e))
+                return vecBaseCt79(rawText(pv78->sourceRange()));
             return vpiUIntConst;
         // A NAME contributes the encoding of ITS OWN initializer — and the
         // symbol comes from the binder, not from a re-lookup.

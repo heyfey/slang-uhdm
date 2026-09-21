@@ -7801,6 +7801,64 @@ inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
 /// operand 0 (`b2_faces68`, `v1_ofire68`, `b3_ops68` — position false, as
 /// before) or a leaf inside an arm (`t6_wide72` — position true, as before),
 /// so this re-keying moves exactly the six cells above and nothing else.
+/// § redShiftIsUnsignedSixtyFour78 (r11u78) — THE SHIFT COUNT THE PRODUCER
+/// ACTUALLY APPLIES.
+///
+/// `ExprEval::reduceExpr` writes `((uint64_t)val0) >> ((uint64_t)val1)`
+/// (`~/git-repos/UHDM/templates/ExprEval.cpp:3164`) and
+/// `((uint64_t)val0) << ((uint64_t)val1)` (`:3251`) with NO range check on
+/// `val1`, so a count of 64 or more is C++ UB and what the producer emits is
+/// whatever the host's shift instruction does.  On x86-64 `shr`/`shl` mask the
+/// count to its low SIX bits, and golden says so out loud — measured, arm
+/// `z4_shift78` (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`, 64-bit members
+/// so nothing is masked away by the member):
+///
+///   `8'sd200 >>> 70`  golden `UINT:3`      = 200 >> (70 & 63) = 200 >> 6
+///   `8'sd200 <<  70`  golden `UINT:12800`  = 200 << (70 & 63) = 200 << 6
+///
+/// This is the same class as § patPowCastArtefact73's `cvttsd2si` pattern: the
+/// producer's answer is an artefact of its host, and transcribing it is what
+/// "follow the goldens" means.  The mask is written explicitly so that THIS
+/// build performs no undefined shift of its own.
+inline unsigned red78ShiftCount(int64_t r) {
+    return (unsigned)(((uint64_t)r) & 63u);
+}
+
+/// § patOperandUnsignedArmValue78 (r11u78) — THE MEASURED FACE'S FENCE.
+///
+/// The unsigned-arm value writer is confined to arms that REACH A SIZED BASED
+/// LITERAL, through parameter NAME hops, because that is the whole of what
+/// `z3_uns78` and `z4_shift78` measure: the two readings part on the leaf's
+/// written digits (`2'b111` is 7 to the producer and 3 to slang) and on the
+/// producer's 64-bit unmasked arithmetic over them.  An arm of NAMES alone
+/// (`LA + 1`, `LH + 1`, `KU + 1`) is EQUAL on both binaries in every measured
+/// cell, so declining it costs nothing and keeps the a-priori census
+/// decidable from the SOURCES — which is what makes a named mover prediction
+/// possible at all.  Declining is a STILL cell, never an AWAY one.
+inline bool red78ArmBasedLeaf(const Expression& e0, int depth = 0) {
+    if (depth > 16)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::UnaryOp)
+        return red78ArmBasedLeaf(e.as<UnaryExpression>().operand(), depth + 1);
+    if (e.kind == ExpressionKind::BinaryOp) {
+        auto& b = e.as<BinaryExpression>();
+        return red78ArmBasedLeaf(b.left(), depth + 1) ||
+               red78ArmBasedLeaf(b.right(), depth + 1);
+    }
+    if (e.kind == ExpressionKind::IntegerLiteral)
+        return red76VecSyntax(e) != nullptr;
+    if (e.kind == ExpressionKind::NamedValue ||
+        e.kind == ExpressionKind::HierarchicalValue) {
+        auto& sy = e.as<ValueExpressionBase>().symbol;
+        if (sy.kind != SymbolKind::Parameter)
+            return false;
+        const Expression* in = sy.as<ParameterSymbol>().getInitializer();
+        return in && red78ArmBasedLeaf(*in, depth + 1);
+    }
+    return false;
+}
+
 inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
                         int64_t& out, bool inArm = false) {
     if (depth > 16)
@@ -7826,6 +7884,20 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
             case BinaryOperator::Divide:
             case BinaryOperator::Mod:
             case BinaryOperator::Power:
+            // § redShiftIsUnsignedSixtyFour78 (r11u78) — THE SHIFTS ARE ON
+            // THIS TABLE, AND THERE IS NO ARITHMETIC ONE.  `reduceExpr` gives
+            // `vpiRShiftOp` and `vpiArithRShiftOp` ONE body
+            // (`~/git-repos/UHDM/templates/ExprEval.cpp:3149-3171`) and
+            // `vpiLShiftOp`/`vpiArithLShiftOp` another (`:3236-3255`); both
+            // read their operands with `get_value` — the WRITTEN DIGITS — and
+            // both compute `((uint64_t)val0) >> / << ((uint64_t)val1)`, mint
+            // `UINT:` and stamp `VpiSize(64)`.  `>>>` therefore does NOT sign-
+            // fill: it is the logical shift of the digit magnitude.  The
+            // measured table is in the § block beside `red78ShiftCount`.
+            case BinaryOperator::LogicalShiftRight:
+            case BinaryOperator::ArithmeticShiftRight:
+            case BinaryOperator::LogicalShiftLeft:
+            case BinaryOperator::ArithmeticShiftLeft:
                 break;
             default:
                 return Red72::Unknown;
@@ -7893,6 +7965,14 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
                     out = (int64_t)d;
                 return Red72::Value;
             }
+            case BinaryOperator::LogicalShiftRight:
+            case BinaryOperator::ArithmeticShiftRight:
+                out = (int64_t)(((uint64_t)l) >> red78ShiftCount(r));
+                return Red72::Value;
+            case BinaryOperator::LogicalShiftLeft:
+            case BinaryOperator::ArithmeticShiftLeft:
+                out = (int64_t)(((uint64_t)l) << red78ShiftCount(r));
+                return Red72::Value;
             default:
                 return Red72::Unknown;
         }
@@ -8229,7 +8309,20 @@ inline bool red73MintsUntypedInt(const Expression& x0, int depth) {
 /// It declines an UNSIZED based literal (`'d5`), whose `VpiSize` is -1 and
 /// whose verbatim copy is a different measurement, and it walks parameter NAME
 /// hops because the producer reduces the reference to the same constant.
-inline const Expression* red76SignCastPassThru(const Expression& e0) {
+///
+/// § castOperandCarriesItsTypespec78 (r11u78) — the two out-parameters.
+/// `expr::Compare` READS `Typespec`, and which typespec comes out of the
+/// producer's arm depends on TWO things this walk already knows and threw
+/// away: whether the cast was `$signed` (its arm at
+/// `~/git-repos/UHDM/templates/ExprEval.cpp:4700-4711` mints a signed
+/// `logic_typespec` when the returned constant has none) and whether the
+/// argument WAS the literal, with no NAME hop between the two (a hop hands
+/// back the hopped parameter's own constant, whose typespec is that
+/// parameter's, not the literal's — measured in the § block at the write
+/// site).  Both are reported here rather than re-walked at the caller.
+inline const Expression* red76SignCastPassThru(const Expression& e0,
+                                               bool* castIsSigned78 = nullptr,
+                                               bool* argIsDirect78 = nullptr) {
     // A bare reference to an IMPLICITLY typed parameter is answered with that
     // parameter's own stored constant, so the cast may sit one or more NAME
     // hops above the operand being written (`CS = signed'(16'd5)`, member
@@ -8281,7 +8374,11 @@ inline const Expression* red76SignCastPassThru(const Expression& e0) {
     if (!arg || !e.type)
         return nullptr;
     const bool sgn76 = e.type->isSigned();
+    if (castIsSigned78)
+        *castIsSigned78 = sgn76;
     const Expression* c76 = &stripImplicitConv(*arg);
+    if (argIsDirect78)
+        *argIsDirect78 = c76->kind != ExpressionKind::NamedValue;
     for (int g76 = 0; c76 && g76 < 8; g76++) {
         if (c76->kind != ExpressionKind::NamedValue)
             break;
@@ -8376,6 +8473,25 @@ inline bool red76SignCastConst(const Expression& lit, std::string& value,
     decomp.erase(std::remove(decomp.begin(), decomp.end(), '_'), decomp.end());
     size = (int32_t)lit.type->getBitWidth();
     return size > 0;
+}
+
+/// § castOperandCarriesItsTypespec78 (r11u78) — WAS THE `s` MARKER WRITTEN?
+/// Surelog's literal arm hangs an `int_typespec` on a based literal's constant
+/// exactly when the base token carries the signedness marker (`'sd`, `'sh`,
+/// `'so`, `'sb`) and hangs NOTHING otherwise — measured on the DEF-view
+/// `sys_func_call` arguments and on the verbatim members of `z1_ts78` /
+/// `z2_hop78` (golden: `16'sd5` and `8'sd200` and `8'shC8` and `3'so7` and
+/// `4'sb1111` each carry one, `16'd5` / `16'h5` / `16'o5` / `16'b101` carry
+/// none).  Our own literal path (`ExprEmit.cpp` ~20318) already writes exactly
+/// that, and the verbatim controls `8'sd200` / `8'shC8` in `z2_hop78` are
+/// byte-identical to golden's on BOTH binaries, which is this reader's
+/// positive control.
+inline bool red78LitWrittenSigned(const Expression& lit) {
+    const auto* ivsp = red76VecSyntax(lit);
+    if (!ivsp)
+        return false;
+    std::string b78(ivsp->base.rawText());
+    return b78.size() >= 2 && (b78[1] == 's' || b78[1] == 'S');
 }
 
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {

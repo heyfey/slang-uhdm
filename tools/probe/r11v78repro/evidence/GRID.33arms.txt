@@ -1,0 +1,179 @@
+  cy_base76        TO=0 AWAY=0 STILL=2 WRONG2=0 EQ=38 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+  cy_cast76        TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@1=DEC:5/ts=int_typespec()U  p=const/64@1=DEC:5/ts=-  l=const/64@1=DEC:5/ts=int_typespec()U
+  cy_ref76         TO=0 AWAY=0 STILL=3 WRONG2=0 EQ=37 SHAPE=2
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+  cy_sdec76        TO=0 AWAY=0 STILL=2 WRONG2=0 EQ=38 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+  cz_base78        TO=0 AWAY=0 STILL=2 WRONG2=0 EQ=38 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+  cz_paren78       TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@7=INT:201/ts=-  p=const/64@9=UINT:18446744073709551561/ts=-  l=const/64@7=INT:201/ts=-
+  cz_shift78       TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@9=UINT:100/ts=-  p=const/64@9=UINT:18446744073709551588/ts=-  l=const/64@9=UINT:100/ts=-
+  cz_ts78          TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@1=DEC:5/ts=logic_typespec()U  p=const/64@1=DEC:5/ts=-  l=const/64@1=DEC:5/ts=logic_typespec()U
+  cz_uns78         TO=1 AWAY=0 STILL=2 WRONG2=0 EQ=37 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@cy76.PA op0   g=const/64@9=UINT:256/ts=-  p=const/64@9=UINT:16/ts=-  l=const/64@9=UINT:256/ts=-
+  v1unk76          TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=104 SHAPE=6
+    SHAPE  work@v1unk76.CA g=3 p=2 l=2
+    SHAPE  work@v1unk76.CB g=3 p=2 l=2
+    SHAPE  work@v1unk76.CC g=3 p=2 l=2
+    SHAPE  work@v1unk76.CD g=3 p=2 l=2
+    SHAPE  work@v1unk76.CE g=3 p=2 l=2
+    SHAPE  work@v1unk76.CJ g=3 p=2 l=2
+  v2par76          TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=110 SHAPE=4
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=1 p=- l=-
+    SHAPE  ? g=1 p=- l=-
+  v3cast76         TO=6 AWAY=0 STILL=9 WRONG2=0 EQ=115 SHAPE=2
+    SHAPE  ? g=1 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    TO     work@v3cast76.CA op4   g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@v3cast76.CA op5   g=const/8@1=DEC:200/ts=int_typespec()U  p=const/8@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@v3cast76.CA op10  g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+    TO     work@v3cast76.CA op12  g=const/8@1=DEC:200/ts=int_typespec()U  p=const/24@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@v3cast76.CA op15  g=const/8@1=DEC:200/ts=int_typespec()U  p=const/8@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@v3cast76.CA op16  g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+  v4val76          TO=1 AWAY=0 STILL=5 WRONG2=0 EQ=176 SHAPE=6
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    TO     work@v4val76.CF op0   g=const/64@9=UINT:100/ts=-  p=const/64@9=UINT:18446744073709551588/ts=-  l=const/64@9=UINT:100/ts=-
+  w1_ts78v         TO=8 AWAY=0 STILL=4 WRONG2=1 EQ=95 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@w1_ts78v.CA op1   g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@w1_ts78v.CA op3   g=const/8@1=DEC:200/ts=int_typespec()U  p=const/24@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@w1_ts78v.CA op4   g=const/8@1=DEC:200/ts=int_typespec()U  p=const/24@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    WRONG2 work@w1_ts78v.CA op8   g=const/32@7=INT:15/ts=int_typespec()U  p=const/4@3=BIN:1111/ts=-  l=const/4@3=BIN:1111/ts=int_typespec()U
+    TO     work@w1_ts78v.CA op9   g=const/3@4=OCT:7/ts=int_typespec()U  p=const/3@4=OCT:7/ts=-  l=const/3@4=OCT:7/ts=int_typespec()U
+    TO     work@w1_ts78v.CA op10  g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@w1_ts78v.CA op11  g=const/8@1=DEC:200/ts=int_typespec()U  p=const/24@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@w1_ts78v.CA op12  g=const/8@1=DEC:200/ts=int_typespec()U  p=const/24@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@w1_ts78v.CA op13  g=const/4@3=BIN:1111/ts=int_typespec()U  p=const/4@3=BIN:1111/ts=-  l=const/4@3=BIN:1111/ts=int_typespec()U
+  w2_shift78v      TO=11 AWAY=0 STILL=0 WRONG2=0 EQ=170 SHAPE=1
+    TO     work@w2_shift78v.CA op0   g=const/64@9=UINT:0/ts=-  p=const/64@9=UINT:18446744073709551615/ts=-  l=const/64@9=UINT:0/ts=-
+    TO     work@w2_shift78v.CB op0   g=const/64@9=UINT:200/ts=-  p=const/64@9=UINT:18446744073709551615/ts=-  l=const/64@9=UINT:200/ts=-
+    TO     work@w2_shift78v.CC op0   g=const/64@9=UINT:100/ts=-  p=const/64@9=UINT:18446744073709551615/ts=-  l=const/64@9=UINT:100/ts=-
+    TO     work@w2_shift78v.CD op0   g=const/64@9=UINT:200/ts=-  p=const/64@9=UINT:0/ts=-  l=const/64@9=UINT:200/ts=-
+    TO     work@w2_shift78v.CE op0   g=const/64@9=UINT:0/ts=-  p=const/64@9=UINT:18446744073709551615/ts=-  l=const/64@9=UINT:0/ts=-
+    TO     work@w2_shift78v.CF op0   g=const/64@9=UINT:50/ts=-  p=const/64@9=UINT:18446744073709551602/ts=-  l=const/64@9=UINT:50/ts=-
+    TO     work@w2_shift78v.CG op0   g=const/64@9=UINT:50/ts=-  p=const/64@9=UINT:18446744073709551602/ts=-  l=const/64@9=UINT:50/ts=-
+    TO     work@w2_shift78v.CH op0   g=const/64@9=UINT:50/ts=-  p=const/64@9=UINT:18446744073709551602/ts=-  l=const/64@9=UINT:50/ts=-
+    TO     work@w2_shift78v.CJ op0   g=const/64@9=UINT:9223372036854775758/ts=-  p=const/64@9=UINT:18446744073709551566/ts=-  l=const/64@9=UINT:9223372036854775758/ts=-
+    TO     work@w2_shift78v.CL op0   g=const/64@9=UINT:0/ts=-  p=const/64@9=UINT:18446744073709551615/ts=-  l=const/64@9=UINT:0/ts=-
+    SHAPE  work@w2_shift78v.CM g=3 p=2 l=2
+    TO     work@w2_shift78v.CN op0   g=const/64@9=UINT:60/ts=-  p=const/64@9=UINT:0/ts=-  l=const/64@9=UINT:60/ts=-
+  w3_uns78v        TO=4 AWAY=0 STILL=2 WRONG2=0 EQ=218 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@w3_uns78v.CM op0   g=const/64@9=UINT:256/ts=-  p=const/64@9=UINT:16/ts=-  l=const/64@9=UINT:256/ts=-
+    TO     work@w3_uns78v.CN op0   g=const/64@9=UINT:256/ts=-  p=const/64@9=UINT:16/ts=-  l=const/64@9=UINT:256/ts=-
+    TO     work@w3_uns78v.CO op0   g=const/64@7=INT:201/ts=-  p=const/64@9=UINT:18446744073709551561/ts=-  l=const/64@7=INT:201/ts=-
+    TO     work@w3_uns78v.CP op0   g=const/64@9=UINT:256/ts=-  p=const/64@9=UINT:16/ts=-  l=const/64@9=UINT:256/ts=-
+  w4_parenroad78v  TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=82 SHAPE=1
+    SHAPE  ? g=1 p=- l=-
+  w5_contparen78v  TO=1 AWAY=0 STILL=0 WRONG2=0 EQ=29 SHAPE=0
+    TO     work@w5_contparen78v.CFG op5   g=const/32@7=INT:4661/ts=-  p=const/32@9=UINT:4661/ts=-  l=const/32@7=INT:4661/ts=-
+  x1_sdec73        TO=0 AWAY=0 STILL=1 WRONG2=0 EQ=123 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+  x7_sdecpos73     TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=86 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+  x9c_cast73       TO=2 AWAY=0 STILL=2 WRONG2=0 EQ=39 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@x9c_cast73.CA op2   g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+    TO     work@x9c_cast73.CA op3   g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+  y1_sdval76       TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=236 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+  y2_digits76      TO=5 AWAY=0 STILL=0 WRONG2=0 EQ=177 SHAPE=0
+    TO     work@y2_digits76.CB op0   g=const/64@9=UINT:8/ts=-  p=const/64@9=UINT:4/ts=-  l=const/64@9=UINT:8/ts=-
+    TO     work@y2_digits76.CC op0   g=const/64@9=UINT:64/ts=-  p=const/64@9=UINT:8/ts=-  l=const/64@9=UINT:64/ts=-
+    TO     work@y2_digits76.CD op0   g=const/64@9=UINT:256/ts=-  p=const/64@9=UINT:16/ts=-  l=const/64@9=UINT:256/ts=-
+    TO     work@y2_digits76.CH op0   g=const/64@9=UINT:201/ts=-  p=const/64@9=UINT:18446744073709551561/ts=-  l=const/64@9=UINT:201/ts=-
+    TO     work@y2_digits76.CJ op0   g=const/64@9=UINT:8/ts=-  p=const/64@9=UINT:0/ts=-  l=const/64@9=UINT:8/ts=-
+  y3_castenc76     TO=7 AWAY=0 STILL=11 WRONG2=0 EQ=131 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@y3_castenc76.CA op1   g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+    TO     work@y3_castenc76.CA op2   g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@y3_castenc76.CA op10  g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+    TO     work@y3_castenc76.CA op11  g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@y3_castenc76.CA op14  g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+    TO     work@y3_castenc76.CA op15  g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@y3_castenc76.CA op16  g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+  y4_pos76         TO=0 AWAY=0 STILL=4 WRONG2=0 EQ=156 SHAPE=6
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+  y5_paren76       TO=4 AWAY=0 STILL=5 WRONG2=1 EQ=127 SHAPE=2
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    TO     work@y5_paren76.CA op0   g=const/64@7=INT:201/ts=-  p=const/64@9=UINT:18446744073709551561/ts=-  l=const/64@7=INT:201/ts=-
+    TO     work@y5_paren76.CB op0   g=const/64@7=INT:21/ts=-  p=const/64@9=UINT:5/ts=-  l=const/64@7=INT:21/ts=-
+    WRONG2 work@y5_paren76.CD op0   g=op24  p=const/64@9=UINT:16/ts=-  l=const/64@7=INT:16/ts=-
+    TO     work@y5_paren76.CF op0   g=const/64@7=INT:8/ts=-  p=const/64@9=UINT:8/ts=-  l=const/64@7=INT:8/ts=-
+    TO     work@y5_paren76.CZ op1   g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+  z1_ts78          TO=9 AWAY=0 STILL=4 WRONG2=0 EQ=117 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@z1_ts78.CA op1   g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+    TO     work@z1_ts78.CA op2   g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@z1_ts78.CA op4   g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@z1_ts78.CA op6   g=const/16@5=HEX:5/ts=int_typespec()U  p=const/16@5=HEX:5/ts=-  l=const/16@5=HEX:5/ts=int_typespec()U
+    TO     work@z1_ts78.CA op8   g=const/16@4=OCT:5/ts=int_typespec()U  p=const/16@4=OCT:5/ts=-  l=const/16@4=OCT:5/ts=int_typespec()U
+    TO     work@z1_ts78.CA op10  g=const/16@3=BIN:101/ts=int_typespec()U  p=const/16@3=BIN:101/ts=-  l=const/16@3=BIN:101/ts=int_typespec()U
+    TO     work@z1_ts78.CA op11  g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+    TO     work@z1_ts78.CA op12  g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+    TO     work@z1_ts78.CA op13  g=const/16@1=DEC:5/ts=int_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=int_typespec()U
+  z2_hop78         TO=9 AWAY=0 STILL=1 WRONG2=1 EQ=83 SHAPE=1
+    SHAPE  ? g=2 p=- l=-
+    TO     work@z2_hop78.CA op1   g=const/8@1=DEC:200/ts=int_typespec()U  p=const/24@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@z2_hop78.CA op2   g=const/8@1=DEC:200/ts=int_typespec()U  p=const/8@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@z2_hop78.CA op4   g=const/8@5=HEX:C8/ts=int_typespec()U  p=const/8@5=HEX:C8/ts=-  l=const/8@5=HEX:C8/ts=int_typespec()U
+    WRONG2 work@z2_hop78.CA op5   g=const/32@7=INT:15/ts=int_typespec()U  p=const/4@3=BIN:1111/ts=-  l=const/4@3=BIN:1111/ts=int_typespec()U
+    TO     work@z2_hop78.CA op6   g=const/3@4=OCT:7/ts=int_typespec()U  p=const/3@4=OCT:7/ts=-  l=const/3@4=OCT:7/ts=int_typespec()U
+    TO     work@z2_hop78.CA op7   g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+    TO     work@z2_hop78.CA op8   g=const/8@1=DEC:200/ts=int_typespec()U  p=const/24@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@z2_hop78.CA op9   g=const/8@1=DEC:200/ts=int_typespec()U  p=const/24@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@z2_hop78.CA op10  g=const/8@1=DEC:200/ts=int_typespec()U  p=const/8@1=DEC:200/ts=-  l=const/8@1=DEC:200/ts=int_typespec()U
+    TO     work@z2_hop78.CA op11  g=const/16@1=DEC:5/ts=logic_typespec()U  p=const/16@1=DEC:5/ts=-  l=const/16@1=DEC:5/ts=logic_typespec()U
+  z3_uns78         TO=6 AWAY=0 STILL=0 WRONG2=0 EQ=192 SHAPE=1
+    TO     work@z3_uns78.CA op0   g=const/64@9=UINT:8/ts=-  p=const/64@9=UINT:4/ts=-  l=const/64@9=UINT:8/ts=-
+    TO     work@z3_uns78.CB op0   g=const/64@9=UINT:64/ts=-  p=const/64@9=UINT:8/ts=-  l=const/64@9=UINT:64/ts=-
+    TO     work@z3_uns78.CC op0   g=const/64@9=UINT:256/ts=-  p=const/64@9=UINT:16/ts=-  l=const/64@9=UINT:256/ts=-
+    TO     work@z3_uns78.CD op0   g=const/64@9=UINT:201/ts=-  p=const/64@9=UINT:18446744073709551561/ts=-  l=const/64@9=UINT:201/ts=-
+    TO     work@z3_uns78.CE op0   g=const/64@9=UINT:8/ts=-  p=const/64@9=UINT:0/ts=-  l=const/64@9=UINT:8/ts=-
+    TO     work@z3_uns78.CF op0   g=const/64@9=UINT:16/ts=-  p=const/64@9=UINT:0/ts=-  l=const/64@9=UINT:16/ts=-
+    SHAPE  work@z3_uns78.CQ g=3 p=2 l=2
+  z4_shift78       TO=17 AWAY=0 STILL=2 WRONG2=0 EQ=217 SHAPE=2
+    SHAPE  ? g=2 p=- l=-
+    SHAPE  ? g=2 p=- l=-
+    TO     work@z4_shift78.CA op0   g=const/64@9=UINT:100/ts=-  p=const/64@9=UINT:18446744073709551588/ts=-  l=const/64@9=UINT:100/ts=-
+    TO     work@z4_shift78.CB op0   g=const/64@9=UINT:100/ts=-  p=const/64@9=UINT:9223372036854775780/ts=-  l=const/64@9=UINT:100/ts=-
+    TO     work@z4_shift78.CC op0   g=const/64@9=UINT:400/ts=-  p=const/64@9=UINT:18446744073709551504/ts=-  l=const/64@9=UINT:400/ts=-
+    TO     work@z4_shift78.CD op0   g=const/64@9=UINT:400/ts=-  p=const/64@9=UINT:18446744073709551504/ts=-  l=const/64@9=UINT:400/ts=-
+    TO     work@z4_shift78.CE op0   g=const/64@9=UINT:50/ts=-  p=const/64@9=UINT:18446744073709551602/ts=-  l=const/64@9=UINT:50/ts=-
+    TO     work@z4_shift78.CF op0   g=const/64@9=UINT:7/ts=-  p=const/64@9=UINT:18446744073709551615/ts=-  l=const/64@9=UINT:7/ts=-
+    TO     work@z4_shift78.CG op0   g=const/64@9=UINT:3/ts=-  p=const/64@9=UINT:18446744073709551615/ts=-  l=const/64@9=UINT:3/ts=-
+    TO     work@z4_shift78.CH op0   g=const/64@9=UINT:63/ts=-  p=const/64@9=UINT:3/ts=-  l=const/64@9=UINT:63/ts=-
+    TO     work@z4_shift78.CI op0   g=const/64@9=UINT:100/ts=-  p=const/64@9=UINT:18446744073709551588/ts=-  l=const/64@9=UINT:100/ts=-
+    TO     work@z4_shift78.CJ op0   g=const/64@9=UINT:101/ts=-  p=const/64@9=UINT:18446744073709551589/ts=-  l=const/64@9=UINT:101/ts=-
+    TO     work@z4_shift78.CL op0   g=const/64@9=UINT:200/ts=-  p=const/64@9=UINT:18446744073709551560/ts=-  l=const/64@9=UINT:200/ts=-
+    TO     work@z4_shift78.CQ op1   g=const/64@9=UINT:7/ts=-  p=const/8@9=UINT:7/ts=-  l=const/64@9=UINT:7/ts=-
+    TO     work@z4_shift78.CQ op2   g=const/64@9=UINT:8/ts=-  p=const/8@9=UINT:8/ts=-  l=const/64@9=UINT:8/ts=-
+    TO     work@z4_shift78.CR op0   g=const/64@9=UINT:3/ts=-  p=const/64@9=UINT:18446744073709551615/ts=-  l=const/64@9=UINT:3/ts=-
+    TO     work@z4_shift78.CS op0   g=const/64@9=UINT:12800/ts=-  p=const/64@9=UINT:0/ts=-  l=const/64@9=UINT:12800/ts=-
+    TO     work@z4_shift78.CT op1   g=const/64@9=UINT:7/ts=-  p=const/8@9=UINT:7/ts=-  l=const/64@9=UINT:7/ts=-
+    TO     work@z4_shift78.CT op2   g=const/64@9=UINT:8/ts=-  p=const/8@9=UINT:8/ts=-  l=const/64@9=UINT:8/ts=-
+TOTAL TO=95 AWAY=0 STILL=69 WRONG2=3 EQ=3119 SHAPE=50
