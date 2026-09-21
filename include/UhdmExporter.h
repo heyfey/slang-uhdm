@@ -1363,7 +1363,15 @@ private:
                                         const slang::ast::Expression& lhsExpr,
                                         UHDM::cont_assign* ca,
                                         const std::string& prefix,
-                                        NetMap& netMap);
+                                        NetMap& netMap,
+                                        /// § caStructParamGenScopeShareCut71 —
+                                        /// the width `adjustSize` re-sizes to.
+                                        /// -1 = "ask `caLhsAdjustBind106`", the
+                                        /// module-level home's own answer;
+                                        /// 0 = the producer's `ts == nullptr`
+                                        /// return-at-once (the member width
+                                        /// stands); >0 = that width.
+                                        int32_t adjustW71 = -1);
     UHDM::process_stmt* emitProcess(const slang::ast::ProceduralBlockSymbol& block,
                                     UHDM::instance* m, const std::string& prefix,
                                     NetMap& netMap);

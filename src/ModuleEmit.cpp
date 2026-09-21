@@ -16920,6 +16920,171 @@ static const Expression* caStructParamSetter55(const Expression& rhsExpr,
 static bool off69();
 static bool cellDbg69();
 
+// ---------------------------------------------------------------------------
+// § caStructParamGenScopeShareCut71 (r11u71) — THE SHARE HALF IS NOT A SHARE
+// DECISION AT ALL, AND `bindVariable`'s NAME HIT IS THE ONLY THING `adjustSize`
+// EVER READS.
+//
+// THE PRODUCER, quoted from the pinned Surelog v1.87 (`0445655ee7`)
+// `src/DesignCompile/UhdmWriter.cpp:2121-2176`:
+//
+//     const typespec* tps = nullptr;
+//     if (const ref_typespec* rt = lhs->Typespec()) tps = rt->Actual_typespec();
+//     …
+//     if (lhs->UhdmType() == uhdmref_obj) {
+//       any* var = m_helper.bindVariable(mod, m, lhs->VpiName(), …);   // :2122
+//       if (var) {
+//         if (rhs->UhdmType() == uhdmoperation) { …clone; ref->Actual_group(var)… }
+//         if (expr* exp = any_cast<expr*>(var))                        // :2168
+//           if (const ref_typespec* rt = exp->Typespec())
+//             if (const typespec* temp = rt->Actual_typespec())
+//               tps = temp;                                            // :2172
+//       }
+//     }
+//
+// `:2168-2172` sits OUTSIDE the `rhs is operation` arm and INSIDE `if (var)`:
+// for EVERY cont_assign whose Lhs ref NAME `bindVariable` finds, `tps` becomes
+// THAT FOUND DECLARATION's typespec — whatever the Rhs is, and whatever the
+// ref's own `vpiActual` points at.  `CompileHelper::adjustSize`
+// (`CompileHelper.cpp:4065`, `if (ts == nullptr) { return result; }` at
+// `:4073`) then returns AT ONCE, so the constant keeps the member's own width
+// and the member's own spelling.
+//
+// r11v71 (verifier) — AND THE `adjustSize` THAT READS IT IS NOT THE ONE INSIDE
+// THAT BLOCK.  The block above holds a reduce+`adjustSize` pair at `:2144-2158`
+// that IS gated on `if (var)`, so quoting it alone reads as "no name hit ⇒ no
+// substitution", the opposite of this law.  The site these cells take is
+// `UhdmWriter.cpp:2245-2281`, the `if (simplified == false)` arm:
+//
+//     any* res = m_helper.reduceExpr((expr*)rhs, invalidValue, mod, …); // :2257
+//     if (invalidValue == false && res && res->UhdmType() == uhdmconstant) {
+//       if (cloned == false) {
+//         assign = (cont_assign*)UHDM::clone_tree(assign, …);           // :2269
+//         lhs = assign->Lhs();  cloned = true;
+//         res = m_helper.adjustSize(tps, mod, …, (constant*)res, true); // :2274
+//       }
+//       assign->Rhs((constant*)res);                                    // :2280
+//
+// `:2257` is NOT gated on `bindVariable` — THAT is why the substitution fires
+// on every cell — and `:2274` reads the `tps` that `:2110` took from the Lhs
+// ref's own typespec (absent on a gen-scope cont_assign's Lhs ref, measured in
+// golden) and `:2168-2172` overwrote with the name hit.  `:2269` is the clone
+// whose Lhs ref leaves `getLateBinding()`, which is the binding face below.
+// (`:2100`'s delay clone would skip `:2274`, but a parameter delay is no longer
+// a `ref_obj` after elaboration: arm `x2_delayclone` measures golden re-sizing
+// a delayed namesake cell exactly like its delay-free control.)
+//
+// So the pass-68 gate's premise is REFUTED: there is no "share" branch to
+// decline.  The producer substitutes on EVERY cell; what the name hit decides
+// is only whether the substituted constant is RE-SIZED.  Measured in golden,
+// arm `w10_sharesize` (no namesake anywhere, so no hit): member `8'hA5` onto a
+// 32-bit Lhs is `HEX:A5` at **8**, member `300` onto an 8-bit AND onto a 64-bit
+// Lhs is ONE object `UINT:300` at **32**, member `64'd70000` onto a 32-bit Lhs
+// is `DEC:70000` at **64** — the Lhs is never consulted in either direction.
+// And arm `v1_namesake` (a hit): a gen-local `logic [31:0] nw` shadowing a
+// module-body `logic [7:0] nw` is `UINT:44` at **8**, the NAMESAKE's width, not
+// the target's and not the member's.
+//
+// `caLhsAdjustBindSymW71` is `caLhsAdjustBind106`'s fence set read off a SYMBOL
+// (an implicit net, a bare `var d;`, a `time`, a non-`real` float and a
+// non-integral all leave `adjustSize` nothing to size with), and
+// `genCaSubstAdjustW71` is `bindVariable`'s own walk: `module_inst` scopes are
+// SEARCHED, an `interface_inst` and a `gen_scope` fall to the default and
+// RECURSE, and the walk dies at the compilation unit because the design carries
+// no `Variables()` — which is why arm `w8_unitname` measures a `$unit` namesake
+// NOT found by golden (row `gu`: golden keeps the member width, and so do we).
+//
+// THE ONE CELL OF THAT ARM THIS WALK DOES NOT MODEL is `gp`, a namesake reached
+// through `import q::pkgname;`: golden re-sizes to the package signal's 16 bits
+// because Surelog materialises the imported variable as a module-level
+// `logic_var (work@dut.pkgname)` and `bindVariable` finds THAT.
+// `slang::ast::Scope::find` returns `nullptr` for an `ExplicitImport` by design
+// (`Scope.cpp:560`), so the walk cannot see it without a `members()` scan — and
+// even with the width fixed the arm would keep a head for the module-level
+// variable we do not emit at all.  MEASURED, DECLINED, recorded as this pass's
+// R2 rather than approximated.
+static int32_t caLhsAdjustBindSymW71(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
+        return 0;
+    if (sym.kind == SymbolKind::Net && sym.as<NetSymbol>().isImplicit)
+        return 0;
+    if (hasBareImplicitType(sym))
+        return 0;
+    auto& t = sym.as<ValueSymbol>().getType();
+    if (auto& ct71 = t.getCanonicalType();
+        ct71.kind == SymbolKind::FloatingType)
+        return ct71.as<FloatingType>().floatKind == FloatingType::Real ? 32 : 0;
+    if (!t.isIntegral())
+        return 0;
+    if (auto* pit71 = t.getCanonicalType().as_if<PredefinedIntegerType>();
+        pit71 && pit71->integerKind == PredefinedIntegerType::Time)
+        return 0;
+    auto bw71 = (int32_t)t.getBitWidth();
+    return bw71 > 0 ? bw71 : 0;
+}
+
+static bool nsOff71();
+
+// The width `adjustSize` will use for a GENERATE-SCOPE cont_assign, or 0 for
+// "no typespec — the constant stands as the member left it".
+static int32_t genCaSubstAdjustW71(const Expression& lhsExpr, const Scope& blk) {
+    // A MODULE-BODY target keeps § caStructParamPatternSubst55's own bind
+    // verbatim, so every landed cell answers exactly as it did.
+    int32_t w106 = 0;
+    std::string ln106;
+    if (caLhsAdjustBind106(lhsExpr, w106, ln106) && w106 > 0)
+        return w106;
+    if (nsOff71())
+        return 0;
+    auto& l71 = stripImplicitConv(lhsExpr);
+    if (l71.kind != ExpressionKind::NamedValue)
+        return 0;
+    std::string_view nm71 = l71.as<NamedValueExpression>().symbol.name;
+    if (nm71.empty())
+        return 0;
+    for (const Scope* q = &blk; q;) {
+        auto& qs = q->asSymbol();
+        if (qs.kind == SymbolKind::InstanceBody) {
+            auto& ib71 = qs.as<InstanceBodySymbol>();
+            // ONLY `uhdmmodule_inst` has a case in `bindVariable`'s switch;
+            // an interface (or program) body falls to the default and the
+            // walk goes on to the instantiating scope without looking here.
+            if (ib71.getDefinition().definitionKind == DefinitionKind::Module)
+                if (const Symbol* hit71 = q->find(nm71)) {
+                    const Symbol* v71 = hit71;
+                    if (v71->kind == SymbolKind::Port)
+                        v71 = v71->as<PortSymbol>().internalSymbol;
+                    if (v71)
+                        return caLhsAdjustBindSymW71(*v71);
+                }
+            auto* pi71 = ib71.parentInstance;
+            q = pi71 ? pi71->getParentScope() : nullptr;
+            continue;
+        }
+        // r11v71 (verifier) — THE INSTANCE-ARRAY HOP.  `bindVariable`'s
+        // `default:` arm recurses through `scope->VpiParent()`, and an instance
+        // ARRAY is crossed by it exactly as a gen scope is: it has no case in
+        // the switch either.  Measured on golden, arm `x8_instarray`: one leaf
+        // instantiated SINGLY and as `u_arr[0:1]`, its gen-local `anc` shadowed
+        // by dut's 5-bit body namesake, gives `UINT:12 vpiSize:8`… `:5` on ALL
+        // THREE instances — the array members are not special.  `x6_ifacedeep`
+        // measures the interface-array twin (`u_arr[1].gi.inbody` sizes at the
+        // instantiating module's 9 bits).  Without this hop the walk dies at
+        // the `InstanceArraySymbol` scope and the member width stands, which
+        // `R11U71_NS_OFF=1` still drops with the rest of the walk.
+        if (qs.kind != SymbolKind::GenerateBlock &&
+            qs.kind != SymbolKind::GenerateBlockArray &&
+            qs.kind != SymbolKind::InstanceArray)
+            break;
+        q = qs.getParentScope();
+    }
+    return 0;
+}
+
+static bool off71();
+static bool ifOff71();
+static bool cellDbg71();
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -20140,8 +20305,36 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
             const bool ifaceHome69 =
                 m && m->UhdmType() == UHDM::uhdminterface_inst;
-            if (!rhs && !off69() && plainLhs69 && !genCaLhsGenLocal113 &&
-                !ifaceHome69)
+            // § caStructParamGenScopeShareCut71 (r11u71) — THE CUT.  The gate
+            // above declined the "share" half on the premise that golden was
+            // sharing the `param_assign` operand and that minting a fresh
+            // constant would be a different object.  Both halves of that are
+            // refuted at the base: no generated `Compare` reads `VpiParent`,
+            // so sharing is invisible to the judge, and golden's object on
+            // those cells is a plain constant at the MEMBER's own declared
+            // width (arm `w10_sharesize`, both directions).  The producer
+            // substitutes on EVERY cell; `bindVariable`'s NAME hit decides
+            // only whether `adjustSize` re-sizes — which is what
+            // `genCaSubstAdjustW71` (the § block beside `emitGenScopes`)
+            // computes, and `adjWt71 == 0` is the producer's `ts == nullptr`
+            // return-at-once.
+            //
+            // The Lhs BINDING face rides along without a line of its own:
+            // once `rhs` is a constant, § genCaConstRhsLhsNoBind25 below
+            // already drops the `vpiActual` on an OWN-SCOPE gen-local
+            // variable target, which is exactly the set golden leaves
+            // unbound (`writeCont_assign` clones, and a cloned Lhs ref is not
+            // in `mod->getLateBinding()`).  Measured, arm `w9_sharehead`:
+            // golden's Lhs ref carries no `vpiActual` while the gen-local
+            // `logic_var` itself IS present in golden's `vpiVariables` — the
+            // head `LHS: <null>` names the BINDING, never a missing variable.
+            // An ANCESTOR gen-local, an interface-body target and a module
+            // signal all stay BOUND on both sides (`clone_tree` copies a
+            // pointer the compiler had already resolved).
+            const bool fire71 =
+                off71() ? (!genCaLhsGenLocal113 && !ifaceHome69)
+                        : (!ifaceHome69 || !ifOff71());
+            if (!rhs && !off69() && plainLhs69 && fire71)
                 sps69 = caStructParamSetter55(ae.right(), /*plainLhs55=*/true,
                                               spsMemberTy69, spsPureDef69,
                                               [this](const Expression& a,
@@ -20150,20 +20343,46 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                                       a, m);
                                               },
                                               spsPriorProven69);
-            if (cellDbg69())
+            // THE CELL TRACE.  It sits OUTSIDE the A/B switch and names EVERY
+            // generate-scope cont_assign that reaches the site — the declined
+            // ones included — with the PREDICATE's answer and each gate's, so
+            // the census cannot be blind to a row the cut moves by accident.
+            // `sps` is evaluated for the trace even on cells the OFF binary
+            // would never ask about, which is the only way the a-priori mover
+            // prediction can cover the newly-fired half.
+            // The walk runs ONLY for a cell that actually substitutes (and for
+            // the trace), so no design pays for it per cont_assign.
+            const int32_t adjWt71 =
+                (sps69 && !off71()) ? genCaSubstAdjustW71(ae.left(), blk) : -1;
+            if (cellDbg69() || cellDbg71()) {
+                const Type* dmt71 = nullptr;
+                bool dpd71 = false, dpp71 = false;
+                const Expression* dsps71 =
+                    plainLhs69 ? caStructParamSetter55(
+                                     ae.right(), /*plainLhs55=*/true, dmt71,
+                                     dpd71,
+                                     [this](const Expression& a,
+                                            const Symbol& mm) {
+                                         return caPriorMembersProven68v(a, mm);
+                                     },
+                                     dpp71)
+                               : nullptr;
                 fprintf(stderr,
                         "R11U69CELL %s:%d plainLhs=%d genLocal=%d iface=%d "
-                        "sps=%d rhsPre=%s\n",
+                        "sps=%d rhsPre=%s adjw=%d spsAny=%d\n",
                         fullName.c_str(),
                         (int)assign.sourceRange.start().offset(),
                         (int)plainLhs69, (int)genCaLhsGenLocal113,
                         (int)ifaceHome69, sps69 ? 1 : 0,
-                        rhs ? UHDM::UhdmName(rhs->UhdmType()).data() : "-");
+                        rhs ? UHDM::UhdmName(rhs->UhdmType()).data() : "-",
+                        (int)genCaSubstAdjustW71(ae.left(), blk),
+                        dsps71 ? 1 : 0);
+            }
             if (sps69)
                 rhs = emitCaStructParamSubst55(*sps69, spsMemberTy69,
                                                spsPureDef69, spsPriorProven69,
                                                ae.left(), ca,
-                                               fullName, netMap);
+                                               fullName, netMap, adjWt71);
             if (!rhs) {
                 // Gen-scope STREAMING operand refs stay unbound (Surelog).
                 const Expression* rc0 = &stripImplicitConv(ae.right());
@@ -26392,6 +26611,31 @@ static bool off69() {
     static const bool v = getenv("R11U69_OFF") != nullptr;
     return v;
 }
+// § caStructParamGenScopeShareCut71 — the two gates, each droppable alone.
+// `R11U71_OFF=1` puts the FIRE decision back on pass 68's `!genCaLhsGenLocal113
+// && !ifaceHome69`; `R11U71_NS_OFF=1` keeps the cut but puts the W3 width back
+// on `caLhsAdjustBind106` alone (so a namesake sizes at the member width, as
+// pass 68 shipped); `R11U71_IF_OFF=1` keeps the interface home fenced out.
+static bool off71() {
+    static const bool v = getenv("R11U71_OFF") != nullptr;
+    return v;
+}
+static bool nsOff71() {
+    static const bool v =
+        getenv("R11U71_NS_OFF") != nullptr || getenv("R11U71_OFF") != nullptr;
+    return v;
+}
+static bool ifOff71() {
+    static const bool v = getenv("R11U71_IF_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg71() {
+    static const bool v = [] {
+        const char* e = getenv("R11U71_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
 static bool cellDbg69() {
     static const bool v = [] {
         const char* e = getenv("R11U69_CELLDBG");
@@ -26679,7 +26923,8 @@ UHDM::any* UhdmExporter::emitCaStructParamSubst55(const Expression& setter,
                                                   const Expression& lhsExpr,
                                                   UHDM::cont_assign* ca,
                                                   const std::string& prefix,
-                                                  NetMap& netMap) {
+                                                  NetMap& netMap,
+                                                  int32_t adjustW71) {
     UHDM::any* rhs = nullptr;
         bool fsp = forceConstParent;
         forceConstParent = true;
@@ -26897,9 +27142,25 @@ UHDM::any* UhdmExporter::emitCaStructParamSubst55(const Expression& setter,
                  (priorProven68v &&
                   !caIntTsBinOrigin68(setter, 0))))
                 c55->VpiSize(mw55);
+            // § caStructParamGenScopeShareCut71 — `adjustW71` IS the producer's
+            // `tps`, decided by `bindVariable`'s NAME hit at the call site.  The
+            // module-level home passes -1 and keeps `caLhsAdjustBind106`
+            // verbatim; a generate-scope cell passes 0 when the walk found
+            // nothing (`adjustSize` returns at once, so the member width and
+            // the source spelling stand) and the FOUND declaration's width
+            // otherwise — which on a namesake is NOT the assignment's real
+            // target (`v1_namesake`: a 32-bit gen-local shadowed by an 8-bit
+            // module-body `nw` gives golden `UINT:44` at 8).
             std::string ln55;
             int32_t lw55 = 0;
-            if (caLhsAdjustBind106(lhsExpr, lw55, ln55) && lw55 > 0) {
+            bool bind55 = false;
+            if (adjustW71 < 0)
+                bind55 = caLhsAdjustBind106(lhsExpr, lw55, ln55) && lw55 > 0;
+            else if (adjustW71 > 0) {
+                lw55 = adjustW71;
+                bind55 = true;
+            }
+            if (bind55) {
                 auto ct55 = c55->VpiConstType();
                 int32_t os55 = c55->VpiSize();
                 if (ct55 == vpiUIntConst) {
