@@ -1,0 +1,23 @@
+# r11u77 GATE BATTERY — the full run, in order.
+## binaries
+pristine 963667a2299a360105d9677e3a065959  == main tree @7d0c7bf4 == OPS pin
+patched  c676e58722bcd4bba191cfec84ab6799
+
+## goldens
+patched PASS 23 FAIL 0 / pristine PASS 23 / /bin/false FAIL 23
+
+## uhdm2rtlil both modes, both binaries
+788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT  x4
+byteverify SELFCHECK=1: MOVERS 0/1608, selfcheck 1607/1608
+
+## surelog --mode both, both binaries
+default 474/9   testflags 469/8   (committed baseline exactly)
+byteverify SELFCHECK=1: MOVERS 5/960, all UVM nondeterminism (4-line UINT/vpiDecompile)
+
+## canary DB byte pins (patched vs own pristine): ALL SAME
+SVSwitch 4842211c4030  YosysVerx 6ccda350c24a  InterfaceModPort 59a365f3ce2c
+YosysOldOr d68e0796d62c  BlackParrotComplex e3e354129d5a/73a10e8217e5
+Earlgrey_0_1 8bdf25272e08/59d0ee6d10c3
+
+## canaudit
+audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS

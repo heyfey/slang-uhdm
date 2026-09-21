@@ -1,0 +1,26 @@
+# r11u77 CENSUS POSITIVE CONTROL — the same trace, on the grid arms.
+# A census zero needs one.  Columns: def-view entries seen, of them MOVED,
+# of them package NETS, elaborated entries seen, of them kind != Pre77.
+b1_bindvis         defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+b2_homes           defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+b5_walkedge        defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+g1_netkinds        defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+g2_importshapes    defnt=4    MOVED=1    net=1    hoist=4    kind!=0=1
+g4_edges           defnt=2    MOVED=0    net=0    hoist=2    kind!=0=0
+v6_ifacepkg        defnt=1    MOVED=0    net=0    hoist=1    kind!=0=0
+v9_hops            defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+w8_unitname        defnt=1    MOVED=0    net=0    hoist=1    kind!=0=0
+xb_arrnet          defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+xc_impw            defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+xe_impkind         defnt=4    MOVED=2    net=0    hoist=4    kind!=0=2
+xg_genimp          defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+xi_genimp2         defnt=2    MOVED=0    net=0    hoist=2    kind!=0=0
+xj_twoinst         defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+xk_order           defnt=0    MOVED=0    net=0    hoist=0    kind!=0=0
+xl_impclimb        defnt=1    MOVED=0    net=0    hoist=1    kind!=0=0
+y1_pkgnetkind      defnt=8    MOVED=8    net=8    hoist=8    kind!=0=8
+y2_pkgvarkind      defnt=13   MOVED=5    net=0    hoist=13   kind!=0=5
+y3_impshape        defnt=10   MOVED=6    net=6    hoist=10   kind!=0=6
+y4_bindreach       defnt=5    MOVED=4    net=2    hoist=5    kind!=0=4
+y5_defnettype      defnt=19   MOVED=15   net=8    hoist=19   kind!=0=10
+y6_hoistconv       defnt=8    MOVED=4    net=0    hoist=8    kind!=0=0

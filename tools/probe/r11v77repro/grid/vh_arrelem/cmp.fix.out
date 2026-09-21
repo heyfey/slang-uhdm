@@ -1,0 +1,478 @@
+decompile:
+package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+|vpiParent:
+\_design: (work@dut), id:696
+|vpiName:pv
+|vpiFullName:pv::
+|vpiVariables:
+\_array_var: (pv::a_vlog), id:316, line:11:15, endln:11:21
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_vlog), id:317
+    |vpiParent:
+    \_array_var: (pv::a_vlog), id:316, line:11:15, endln:11:21
+    |vpiFullName:pv::a_vlog
+    |vpiActual:
+    \_array_typespec: , id:318
+  |vpiName:a_vlog
+  |vpiFullName:pv::a_vlog
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:311, line:11:23, endln:11:28
+    |vpiParent:
+    \_array_var: (pv::a_vlog), id:316, line:11:15, endln:11:21
+    |vpiLeftRange:
+    \_constant: , id:312, line:11:24, endln:11:25
+      |vpiParent:
+      \_range: , id:311, line:11:23, endln:11:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:313, line:11:26, endln:11:27
+      |vpiParent:
+      \_range: , id:311, line:11:23, endln:11:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pv::a_vlog), id:314, line:11:15, endln:11:21
+    |vpiParent:
+    \_array_var: (pv::a_vlog), id:316, line:11:15, endln:11:21
+    |vpiTypespec:
+    \_ref_typespec: (pv::a_vlog), id:315
+      |vpiParent:
+      \_logic_var: (pv::a_vlog), id:314, line:11:15, endln:11:21
+      |vpiFullName:pv::a_vlog
+      |vpiActual:
+      \_logic_typespec: , id:307, line:11:3, endln:11:14
+    |vpiFullName:pv::a_vlog
+|vpiVariables:
+\_array_var: (pv::a_nsi), id:336, line:14:15, endln:14:20
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_nsi), id:337
+    |vpiParent:
+    \_array_var: (pv::a_nsi), id:336, line:14:15, endln:14:20
+    |vpiFullName:pv::a_nsi
+    |vpiActual:
+    \_array_typespec: , id:338
+  |vpiName:a_nsi
+  |vpiFullName:pv::a_nsi
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:331, line:14:23, endln:14:28
+    |vpiParent:
+    \_array_var: (pv::a_nsi), id:336, line:14:15, endln:14:20
+    |vpiLeftRange:
+    \_constant: , id:332, line:14:24, endln:14:25
+      |vpiParent:
+      \_range: , id:331, line:14:23, endln:14:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:333, line:14:26, endln:14:27
+      |vpiParent:
+      \_range: , id:331, line:14:23, endln:14:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_struct_var: (pv::a_nsi), id:334, line:14:15, endln:14:20
+    |vpiParent:
+    \_array_var: (pv::a_nsi), id:336, line:14:15, endln:14:20
+    |vpiTypespec:
+    \_ref_typespec: (pv::a_nsi), id:335
+      |vpiParent:
+      \_struct_var: (pv::a_nsi), id:334, line:14:15, endln:14:20
+      |vpiFullName:pv::a_nsi
+      |vpiActual:
+      \_struct_typespec: (pv::si_t), id:61, line:7:11, endln:7:50
+    |vpiFullName:pv::a_nsi
+|vpiVariables:
+\_array_var: (pv::a_vsi), id:344, line:15:15, endln:15:20
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_vsi), id:345
+    |vpiParent:
+    \_array_var: (pv::a_vsi), id:344, line:15:15, endln:15:20
+    |vpiFullName:pv::a_vsi
+    |vpiActual:
+    \_array_typespec: , id:346
+  |vpiName:a_vsi
+  |vpiFullName:pv::a_vsi
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:339, line:15:23, endln:15:28
+    |vpiParent:
+    \_array_var: (pv::a_vsi), id:344, line:15:15, endln:15:20
+    |vpiLeftRange:
+    \_constant: , id:340, line:15:24, endln:15:25
+      |vpiParent:
+      \_range: , id:339, line:15:23, endln:15:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:341, line:15:26, endln:15:27
+      |vpiParent:
+      \_range: , id:339, line:15:23, endln:15:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_struct_var: (pv::a_vsi), id:342, line:15:15, endln:15:20
+    |vpiParent:
+    \_array_var: (pv::a_vsi), id:344, line:15:15, endln:15:20
+    |vpiTypespec:
+    \_ref_typespec: (pv::a_vsi), id:343
+      |vpiParent:
+      \_struct_var: (pv::a_vsi), id:342, line:15:15, endln:15:20
+      |vpiFullName:pv::a_vsi
+      |vpiActual:
+      \_struct_typespec: (pv::si_t), id:61, line:7:11, endln:7:50
+    |vpiFullName:pv::a_vsi
+|vpiVariables:
+\_array_var: (pv::a_nen), id:364, line:18:15, endln:18:20
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_nen), id:365
+    |vpiParent:
+    \_array_var: (pv::a_nen), id:364, line:18:15, endln:18:20
+    |vpiFullName:pv::a_nen
+    |vpiActual:
+    \_array_typespec: , id:366
+  |vpiName:a_nen
+  |vpiFullName:pv::a_nen
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:359, line:18:23, endln:18:28
+    |vpiParent:
+    \_array_var: (pv::a_nen), id:364, line:18:15, endln:18:20
+    |vpiLeftRange:
+    \_constant: , id:360, line:18:24, endln:18:25
+      |vpiParent:
+      \_range: , id:359, line:18:23, endln:18:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:361, line:18:26, endln:18:27
+      |vpiParent:
+      \_range: , id:359, line:18:23, endln:18:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_enum_var: (pv::a_nen), id:362, line:18:15, endln:18:20
+    |vpiParent:
+    \_array_var: (pv::a_nen), id:364, line:18:15, endln:18:20
+    |vpiTypespec:
+    \_ref_typespec: (pv::a_nen), id:363
+      |vpiParent:
+      \_enum_var: (pv::a_nen), id:362, line:18:15, endln:18:20
+      |vpiFullName:pv::a_nen
+      |vpiActual:
+      \_enum_typespec: (pv::en_t), id:88, line:9:3, endln:9:44
+    |vpiFullName:pv::a_nen
+|vpiVariables:
+\_array_var: (pv::a_ven), id:372, line:19:15, endln:19:20
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_ven), id:373
+    |vpiParent:
+    \_array_var: (pv::a_ven), id:372, line:19:15, endln:19:20
+    |vpiFullName:pv::a_ven
+    |vpiActual:
+    \_array_typespec: , id:374
+  |vpiName:a_ven
+  |vpiFullName:pv::a_ven
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:367, line:19:23, endln:19:28
+    |vpiParent:
+    \_array_var: (pv::a_ven), id:372, line:19:15, endln:19:20
+    |vpiLeftRange:
+    \_constant: , id:368, line:19:24, endln:19:25
+      |vpiParent:
+      \_range: , id:367, line:19:23, endln:19:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:369, line:19:26, endln:19:27
+      |vpiParent:
+      \_range: , id:367, line:19:23, endln:19:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_enum_var: (pv::a_ven), id:370, line:19:15, endln:19:20
+    |vpiParent:
+    \_array_var: (pv::a_ven), id:372, line:19:15, endln:19:20
+    |vpiTypespec:
+    \_ref_typespec: (pv::a_ven), id:371
+      |vpiParent:
+      \_enum_var: (pv::a_ven), id:370, line:19:15, endln:19:20
+      |vpiFullName:pv::a_ven
+      |vpiActual:
+      \_enum_typespec: (pv::en_t), id:88, line:9:3, endln:9:44
+    |vpiFullName:pv::a_ven
+|vpiTypedef:
+\_enum_typespec: (pv::en_t), id:88, line:9:3, endln:9:44
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiName:pv::en_t
+  |vpiInstance:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pv::pv::en_t), id:89
+    |vpiParent:
+    \_enum_typespec: (pv::en_t), id:88, line:9:3, endln:9:44
+    |vpiFullName:pv::pv::en_t
+    |vpiActual:
+    \_logic_typespec: , id:87, line:9:16, endln:9:27
+  |vpiEnumConst:
+  \_enum_const: (VA), id:91, line:9:30, endln:9:32
+    |vpiParent:
+    \_enum_typespec: (pv::en_t), id:88, line:9:3, endln:9:44
+    |vpiName:VA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (VB), id:92, line:9:34, endln:9:36
+    |vpiParent:
+    \_enum_typespec: (pv::en_t), id:88, line:9:3, endln:9:44
+    |vpiName:VB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (pv::si_t), id:61, line:7:11, endln:7:50
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiName:pv::si_t
+  |vpiInstance:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:63, line:7:31, endln:7:32
+    |vpiParent:
+    \_struct_typespec: (pv::si_t), id:61, line:7:11, endln:7:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::si_t::x), id:64
+      |vpiParent:
+      \_typespec_member: (x), id:63, line:7:31, endln:7:32
+      |vpiFullName:pv::pv::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:62, line:7:27, endln:7:30
+    |vpiRefFile:/tmp/v11u77_grid/vh_arrelem/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:69, line:7:46, endln:7:47
+    |vpiParent:
+    \_struct_typespec: (pv::si_t), id:61, line:7:11, endln:7:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::si_t::y), id:70
+      |vpiParent:
+      \_typespec_member: (y), id:69, line:7:46, endln:7:47
+      |vpiFullName:pv::pv::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:68, line:7:34, endln:7:45
+    |vpiRefFile:/tmp/v11u77_grid/vh_arrelem/dut.sv
+    |vpiRefLineNo:7
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:7
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (pv::sl_t), id:48, line:6:11, endln:13:28
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiName:pv::sl_t
+  |vpiInstance:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:53, line:6:39, endln:6:40
+    |vpiParent:
+    \_struct_typespec: (pv::sl_t), id:48, line:6:11, endln:13:28
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::sl_t::x), id:54
+      |vpiParent:
+      \_typespec_member: (x), id:53, line:6:39, endln:6:40
+      |vpiFullName:pv::pv::sl_t::x
+      |vpiActual:
+      \_logic_typespec: , id:52, line:6:27, endln:6:38
+    |vpiRefFile:/tmp/v11u77_grid/vh_arrelem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:59, line:6:54, endln:6:55
+    |vpiParent:
+    \_struct_typespec: (pv::sl_t), id:48, line:6:11, endln:13:28
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::sl_t::y), id:60
+      |vpiParent:
+      \_typespec_member: (y), id:59, line:6:54, endln:6:55
+      |vpiFullName:pv::pv::sl_t::y
+      |vpiActual:
+      \_logic_typespec: , id:58, line:6:42, endln:6:53
+    |vpiRefFile:/tmp/v11u77_grid/vh_arrelem/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_union_typespec: (pv::un_t), id:71, line:8:11, endln:17:28
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiName:pv::un_t
+  |vpiInstance:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:76, line:8:40, endln:8:41
+    |vpiParent:
+    \_union_typespec: (pv::un_t), id:71, line:8:11, endln:17:28
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::un_t::a), id:77
+      |vpiParent:
+      \_typespec_member: (a), id:76, line:8:40, endln:8:41
+      |vpiFullName:pv::pv::un_t::a
+      |vpiActual:
+      \_logic_typespec: , id:75, line:8:27, endln:8:39
+    |vpiRefFile:/tmp/v11u77_grid/vh_arrelem/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:39
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:82, line:8:56, endln:8:57
+    |vpiParent:
+    \_union_typespec: (pv::un_t), id:71, line:8:11, endln:17:28
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pv::pv::un_t::b), id:83
+      |vpiParent:
+      \_typespec_member: (b), id:82, line:8:56, endln:8:57
+      |vpiFullName:pv::pv::un_t::b
+      |vpiActual:
+      \_logic_typespec: , id:81, line:8:43, endln:8:55
+    |vpiRefFile:/tmp/v11u77_grid/vh_arrelem/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:43
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:55
+|vpiDefName:pv
+|vpiNet:
+\_logic_net: (pv::a_nlog), id:711, line:10:15, endln:10:21
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_nlog), id:716
+    |vpiParent:
+    \_logic_net: (pv::a_nlog), id:711, line:10:15, endln:10:21
+    |vpiFullName:pv::a_nlog
+    |vpiActual:
+    \_logic_typespec: , id:715, line:10:3, endln:10:28
+  |vpiName:a_nlog
+  |vpiFullName:pv::a_nlog
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pv::a_nsl), id:717, line:12:15, endln:12:20
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_nsl), id:718
+    |vpiParent:
+    \_logic_net: (pv::a_nsl), id:717, line:12:15, endln:12:20
+    |vpiFullName:pv::a_nsl
+    |vpiActual:
+    \_struct_typespec: (pv::sl_t), id:48, line:6:11, endln:13:28
+  |vpiName:a_nsl
+  |vpiFullName:pv::a_nsl
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pv::a_vsl), id:719, line:13:15, endln:13:20
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_vsl), id:720
+    |vpiParent:
+    \_logic_net: (pv::a_vsl), id:719, line:13:15, endln:13:20
+    |vpiFullName:pv::a_vsl
+    |vpiActual:
+    \_struct_typespec: (pv::sl_t), id:48, line:6:11, endln:13:28
+  |vpiName:a_vsl
+  |vpiFullName:pv::a_vsl
+|vpiNet:
+\_logic_net: (pv::a_nun), id:721, line:16:15, endln:16:20
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_nun), id:722
+    |vpiParent:
+    \_logic_net: (pv::a_nun), id:721, line:16:15, endln:16:20
+    |vpiFullName:pv::a_nun
+    |vpiActual:
+    \_union_typespec: (pv::un_t), id:71, line:8:11, endln:17:28
+  |vpiName:a_nun
+  |vpiFullName:pv::a_nun
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pv::a_vun), id:723, line:17:15, endln:17:20
+  |vpiParent:
+  \_package: pv (pv::), id:47, file:/tmp/v11u77_grid/vh_arrelem/dut.sv, line:5:1, endln:20:11
+  |vpiTypespec:
+  \_ref_typespec: (pv::a_vun), id:724
+    |vpiParent:
+    \_logic_net: (pv::a_vun), id:723, line:17:15, endln:17:20
+    |vpiFullName:pv::a_vun
+    |vpiActual:
+    \_union_typespec: (pv::un_t), id:71, line:8:11, endln:17:28
+  |vpiName:a_vun
+  |vpiFullName:pv::a_vun
+

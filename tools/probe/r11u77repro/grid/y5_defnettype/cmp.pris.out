@@ -1,0 +1,814 @@
+decompile:
+package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+|vpiParent:
+\_design: (work@dut), id:520
+|vpiName:pd
+|vpiFullName:pd::
+|vpiVariables:
+\_logic_var: (pd::d_logic), id:143, line:10:20, endln:10:27
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_logic), id:144
+    |vpiParent:
+    \_logic_var: (pd::d_logic), id:143, line:10:20, endln:10:27
+    |vpiFullName:pd::d_logic
+    |vpiActual:
+    \_logic_typespec: , id:139, line:10:3, endln:10:16
+  |vpiName:d_logic
+  |vpiFullName:pd::d_logic
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (pd::d_reg), id:152, line:11:20, endln:11:25
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_reg), id:153
+    |vpiParent:
+    \_logic_var: (pd::d_reg), id:152, line:11:20, endln:11:25
+    |vpiFullName:pd::d_reg
+    |vpiActual:
+    \_logic_typespec: , id:148, line:11:3, endln:11:16
+  |vpiName:d_reg
+  |vpiFullName:pd::d_reg
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_integer_var: (pd::d_integer), id:155, line:12:20, endln:12:29
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_integer), id:156
+    |vpiParent:
+    \_integer_var: (pd::d_integer), id:155, line:12:20, endln:12:29
+    |vpiFullName:pd::d_integer
+    |vpiActual:
+    \_integer_typespec: , id:154, line:12:3, endln:12:10
+  |vpiName:d_integer
+  |vpiFullName:pd::d_integer
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_time_var: (pd::d_time), id:158, line:13:20, endln:13:26
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_time), id:159
+    |vpiParent:
+    \_time_var: (pd::d_time), id:158, line:13:20, endln:13:26
+    |vpiFullName:pd::d_time
+    |vpiActual:
+    \_time_typespec: , id:157, line:13:3, endln:13:7
+  |vpiName:d_time
+  |vpiFullName:pd::d_time
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_bit_var: (pd::d_bit), id:167, line:14:20, endln:14:25
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_bit), id:168
+    |vpiParent:
+    \_bit_var: (pd::d_bit), id:167, line:14:20, endln:14:25
+    |vpiFullName:pd::d_bit
+    |vpiActual:
+    \_bit_typespec: , id:163, line:14:3, endln:14:16
+  |vpiName:d_bit
+  |vpiFullName:pd::d_bit
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (pd::d_tdenum), id:191, line:24:20, endln:24:28
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdenum), id:192
+    |vpiParent:
+    \_enum_var: (pd::d_tdenum), id:191, line:24:20, endln:24:28
+    |vpiFullName:pd::d_tdenum
+    |vpiActual:
+    \_enum_typespec: (pd::en_t), id:113, line:23:3, endln:23:44
+  |vpiName:d_tdenum
+  |vpiFullName:pd::d_tdenum
+  |vpiVisibility:1
+|vpiTypedef:
+\_enum_typespec: (pd::en_t), id:113, line:23:3, endln:23:44
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::en_t
+  |vpiInstance:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pd::pd::en_t), id:114
+    |vpiParent:
+    \_enum_typespec: (pd::en_t), id:113, line:23:3, endln:23:44
+    |vpiFullName:pd::pd::en_t
+    |vpiActual:
+    \_logic_typespec: , id:112, line:23:16, endln:23:27
+  |vpiEnumConst:
+  \_enum_const: (DA), id:116, line:23:30, endln:23:32
+    |vpiParent:
+    \_enum_typespec: (pd::en_t), id:113, line:23:3, endln:23:44
+    |vpiName:DA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (DB), id:117, line:23:34, endln:23:36
+    |vpiParent:
+    \_enum_typespec: (pd::en_t), id:113, line:23:3, endln:23:44
+    |vpiName:DB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_logic_typespec: (pd::parr_t), id:95, line:19:11, endln:19:27
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::parr_t
+  |vpiInstance:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:89, line:19:17, endln:19:22
+    |vpiParent:
+    \_logic_typespec: (pd::parr_t), id:95, line:19:11, endln:19:27
+    |vpiLeftRange:
+    \_constant: , id:90, line:19:18, endln:19:19
+      |vpiParent:
+      \_range: , id:89, line:19:17, endln:19:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:91, line:19:20, endln:19:21
+      |vpiParent:
+      \_range: , id:89, line:19:17, endln:19:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , id:92, line:19:22, endln:19:27
+    |vpiParent:
+    \_logic_typespec: (pd::parr_t), id:95, line:19:11, endln:19:27
+    |vpiLeftRange:
+    \_constant: , id:93, line:19:23, endln:19:24
+      |vpiParent:
+      \_range: , id:92, line:19:22, endln:19:27
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:94, line:19:25, endln:19:26
+      |vpiParent:
+      \_range: , id:92, line:19:22, endln:19:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_struct_typespec: (pd::st_t), id:96, line:21:11, endln:21:58
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::st_t
+  |vpiInstance:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:101, line:21:39, endln:21:40
+    |vpiParent:
+    \_struct_typespec: (pd::st_t), id:96, line:21:11, endln:21:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pd::pd::st_t::x), id:102
+      |vpiParent:
+      \_typespec_member: (x), id:101, line:21:39, endln:21:40
+      |vpiFullName:pd::pd::st_t::x
+      |vpiActual:
+      \_logic_typespec: , id:100, line:21:27, endln:21:38
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:107, line:21:54, endln:21:55
+    |vpiParent:
+    \_struct_typespec: (pd::st_t), id:96, line:21:11, endln:21:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pd::pd::st_t::y), id:108
+      |vpiParent:
+      \_typespec_member: (y), id:107, line:21:54, endln:21:55
+      |vpiFullName:pd::pd::st_t::y
+      |vpiActual:
+      \_logic_typespec: , id:106, line:21:42, endln:21:53
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_union_typespec: (pd::un_t), id:118, line:25:11, endln:25:57
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::un_t
+  |vpiInstance:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:123, line:25:38, endln:25:39
+    |vpiParent:
+    \_union_typespec: (pd::un_t), id:118, line:25:11, endln:25:57
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pd::pd::un_t::a), id:124
+      |vpiParent:
+      \_typespec_member: (a), id:123, line:25:38, endln:25:39
+      |vpiFullName:pd::pd::un_t::a
+      |vpiActual:
+      \_logic_typespec: , id:122, line:25:26, endln:25:37
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:26
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:37
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:129, line:25:53, endln:25:54
+    |vpiParent:
+    \_union_typespec: (pd::un_t), id:118, line:25:11, endln:25:57
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pd::pd::un_t::b), id:130
+      |vpiParent:
+      \_typespec_member: (b), id:129, line:25:53, endln:25:54
+      |vpiFullName:pd::pd::un_t::b
+      |vpiActual:
+      \_logic_typespec: , id:128, line:25:41, endln:25:52
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:52
+|vpiTypedef:
+\_logic_typespec: (pd::word_t), id:81, line:15:11, endln:15:22
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::word_t
+  |vpiInstance:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:78, line:15:17, endln:15:22
+    |vpiParent:
+    \_logic_typespec: (pd::word_t), id:81, line:15:11, endln:15:22
+    |vpiLeftRange:
+    \_constant: , id:79, line:15:18, endln:15:19
+      |vpiParent:
+      \_range: , id:78, line:15:17, endln:15:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:80, line:15:20, endln:15:21
+      |vpiParent:
+      \_range: , id:78, line:15:17, endln:15:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:pd
+|vpiNet:
+\_logic_net: (pd::d_tdlogic), id:586, line:16:20, endln:16:29
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdlogic), id:592
+    |vpiParent:
+    \_logic_net: (pd::d_tdlogic), id:586, line:16:20, endln:16:29
+    |vpiFullName:pd::d_tdlogic
+    |vpiActual:
+    \_logic_typespec: (pd::word_t), id:587, line:15:11, endln:15:22
+  |vpiName:d_tdlogic
+  |vpiFullName:pd::d_tdlogic
+|vpiNet:
+\_logic_net: (pd::d_tdtd), id:593, line:18:20, endln:18:26
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdtd), id:595
+    |vpiParent:
+    \_logic_net: (pd::d_tdtd), id:593, line:18:20, endln:18:26
+    |vpiFullName:pd::d_tdtd
+    |vpiActual:
+    \_unsupported_typespec: (word2_t), id:594, line:18:3, endln:18:10
+  |vpiName:d_tdtd
+  |vpiFullName:pd::d_tdtd
+|vpiNet:
+\_logic_net: (pd::d_tdparr), id:596, line:20:20, endln:20:28
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdparr), id:605
+    |vpiParent:
+    \_logic_net: (pd::d_tdparr), id:596, line:20:20, endln:20:28
+    |vpiFullName:pd::d_tdparr
+    |vpiActual:
+    \_logic_typespec: (pd::parr_t), id:597, line:19:11, endln:19:27
+  |vpiName:d_tdparr
+  |vpiFullName:pd::d_tdparr
+|vpiNet:
+\_logic_net: (pd::d_tdstruct), id:606, line:22:20, endln:22:30
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdstruct), id:607
+    |vpiParent:
+    \_logic_net: (pd::d_tdstruct), id:606, line:22:20, endln:22:30
+    |vpiFullName:pd::d_tdstruct
+    |vpiActual:
+    \_struct_typespec: (pd::st_t), id:96, line:21:11, endln:21:58
+  |vpiName:d_tdstruct
+  |vpiFullName:pd::d_tdstruct
+|vpiNet:
+\_logic_net: (pd::d_tdunion), id:608, line:26:20, endln:26:29
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdunion), id:609
+    |vpiParent:
+    \_logic_net: (pd::d_tdunion), id:608, line:26:20, endln:26:29
+    |vpiFullName:pd::d_tdunion
+    |vpiActual:
+    \_union_typespec: (pd::un_t), id:118, line:25:11, endln:25:57
+  |vpiName:d_tdunion
+  |vpiFullName:pd::d_tdunion
+|vpiNet:
+\_logic_net: (pd::d_wire), id:610, line:27:20, endln:27:26
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_wire), id:615
+    |vpiParent:
+    \_logic_net: (pd::d_wire), id:610, line:27:20, endln:27:26
+    |vpiFullName:pd::d_wire
+    |vpiActual:
+    \_logic_typespec: , id:614, line:27:3, endln:27:16
+  |vpiName:d_wire
+  |vpiFullName:pd::d_wire
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pd::d_tri), id:616, line:28:20, endln:28:25
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tri), id:621
+    |vpiParent:
+    \_logic_net: (pd::d_tri), id:616, line:28:20, endln:28:25
+    |vpiFullName:pd::d_tri
+    |vpiActual:
+    \_logic_typespec: , id:620, line:28:3, endln:28:16
+  |vpiName:d_tri
+  |vpiFullName:pd::d_tri
+  |vpiNetType:4
+|vpiNet:
+\_logic_net: (pd::d_wand), id:622, line:29:20, endln:29:26
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_wand), id:627
+    |vpiParent:
+    \_logic_net: (pd::d_wand), id:622, line:29:20, endln:29:26
+    |vpiFullName:pd::d_wand
+    |vpiActual:
+    \_logic_typespec: , id:626, line:29:3, endln:29:16
+  |vpiName:d_wand
+  |vpiFullName:pd::d_wand
+  |vpiNetType:2
+|vpiNet:
+\_logic_net: (pd::d_wor), id:628, line:30:20, endln:30:25
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_wor), id:633
+    |vpiParent:
+    \_logic_net: (pd::d_wor), id:628, line:30:20, endln:30:25
+    |vpiFullName:pd::d_wor
+    |vpiActual:
+    \_logic_typespec: , id:632, line:30:3, endln:30:16
+  |vpiName:d_wor
+  |vpiFullName:pd::d_wor
+  |vpiNetType:3
+|vpiNet:
+\_logic_net: (pd::d_sup0), id:634, line:31:20, endln:31:26
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_sup0), id:636
+    |vpiParent:
+    \_logic_net: (pd::d_sup0), id:634, line:31:20, endln:31:26
+    |vpiFullName:pd::d_sup0
+    |vpiActual:
+    \_logic_typespec: , id:635, line:31:3, endln:31:10
+  |vpiName:d_sup0
+  |vpiFullName:pd::d_sup0
+  |vpiNetType:11
+|vpiNet:
+\_logic_net: (pd::d_sup1), id:637, line:32:20, endln:32:26
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_sup1), id:639
+    |vpiParent:
+    \_logic_net: (pd::d_sup1), id:637, line:32:20, endln:32:26
+    |vpiFullName:pd::d_sup1
+    |vpiActual:
+    \_logic_typespec: , id:638, line:32:3, endln:32:10
+  |vpiName:d_sup1
+  |vpiFullName:pd::d_sup1
+  |vpiNetType:10
+|vpiNet:
+\_logic_net: (pd::d_tri0), id:640, line:33:20, endln:33:26
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tri0), id:645
+    |vpiParent:
+    \_logic_net: (pd::d_tri0), id:640, line:33:20, endln:33:26
+    |vpiFullName:pd::d_tri0
+    |vpiActual:
+    \_logic_typespec: , id:644, line:33:3, endln:33:16
+  |vpiName:d_tri0
+  |vpiFullName:pd::d_tri0
+  |vpiNetType:5
+|vpiNet:
+\_logic_net: (pd::d_trireg), id:646, line:34:20, endln:34:28
+  |vpiParent:
+  \_package: pd (pd::), id:73, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_trireg), id:651
+    |vpiParent:
+    \_logic_net: (pd::d_trireg), id:646, line:34:20, endln:34:28
+    |vpiFullName:pd::d_trireg
+    |vpiActual:
+    \_logic_typespec: , id:650, line:34:3, endln:34:16
+  |vpiName:d_trireg
+  |vpiFullName:pd::d_trireg
+  |vpiNetType:7
+
+decompile:
+package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pd
+|vpiFullName:pd::
+|vpiVariables:
+\_logic_var: (pd::d_logic), id:62, line:10:20, endln:10:27
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_logic), id:67
+    |vpiParent:
+    \_logic_var: (pd::d_logic), id:62, line:10:20, endln:10:27
+    |vpiFullName:pd::d_logic
+    |vpiActual:
+    \_logic_typespec: , id:63, line:10:3, endln:10:16
+  |vpiName:d_logic
+  |vpiFullName:pd::d_logic
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (pd::d_reg), id:68, line:11:20, endln:11:25
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_reg), id:73
+    |vpiParent:
+    \_logic_var: (pd::d_reg), id:68, line:11:20, endln:11:25
+    |vpiFullName:pd::d_reg
+    |vpiActual:
+    \_logic_typespec: , id:69, line:11:3, endln:11:16
+  |vpiName:d_reg
+  |vpiFullName:pd::d_reg
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_integer_var: (pd::d_integer), id:74, line:12:20, endln:12:29
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_integer), id:76
+    |vpiParent:
+    \_integer_var: (pd::d_integer), id:74, line:12:20, endln:12:29
+    |vpiFullName:pd::d_integer
+    |vpiActual:
+    \_integer_typespec: , id:75, line:12:3, endln:12:10
+  |vpiName:d_integer
+  |vpiFullName:pd::d_integer
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_time_var: (pd::d_time), id:77, line:13:20, endln:13:26
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_time), id:79
+    |vpiParent:
+    \_time_var: (pd::d_time), id:77, line:13:20, endln:13:26
+    |vpiFullName:pd::d_time
+    |vpiActual:
+    \_time_typespec: , id:78, line:13:3, endln:13:7
+  |vpiName:d_time
+  |vpiFullName:pd::d_time
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_bit_var: (pd::d_bit), id:80, line:14:20, endln:14:25
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_bit), id:85
+    |vpiParent:
+    \_bit_var: (pd::d_bit), id:80, line:14:20, endln:14:25
+    |vpiFullName:pd::d_bit
+    |vpiActual:
+    \_bit_typespec: , id:81, line:14:3, endln:14:16
+  |vpiName:d_bit
+  |vpiFullName:pd::d_bit
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (pd::d_tdenum), id:109, line:24:20, endln:24:28
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdenum), id:110
+    |vpiParent:
+    \_enum_var: (pd::d_tdenum), id:109, line:24:20, endln:24:28
+    |vpiFullName:pd::d_tdenum
+    |vpiActual:
+    \_enum_typespec: (pd::en_t), id:41, line:23:3, endln:23:44
+  |vpiName:d_tdenum
+  |vpiFullName:pd::d_tdenum
+  |vpiVisibility:1
+|vpiTypedef:
+\_enum_typespec: (pd::en_t), id:41, line:23:3, endln:23:44
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::en_t
+  |vpiInstance:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pd::pd::en_t), id:46
+    |vpiParent:
+    \_enum_typespec: (pd::en_t), id:41, line:23:3, endln:23:44
+    |vpiFullName:pd::pd::en_t
+    |vpiActual:
+    \_logic_typespec: , id:42, line:23:16, endln:23:27
+  |vpiEnumConst:
+  \_enum_const: (DA), id:47, line:23:30, endln:23:32
+    |vpiParent:
+    \_enum_typespec: (pd::en_t), id:41, line:23:3, endln:23:44
+    |vpiName:DA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (DB), id:48, line:23:34, endln:23:36
+    |vpiParent:
+    \_enum_typespec: (pd::en_t), id:41, line:23:3, endln:23:44
+    |vpiName:DB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_logic_typespec: (pd::parr_t), id:21, line:19:11, endln:19:27
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::parr_t
+  |vpiInstance:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:22, line:19:17, endln:19:22
+    |vpiParent:
+    \_logic_typespec: (pd::parr_t), id:21, line:19:11, endln:19:27
+    |vpiLeftRange:
+    \_constant: , id:23, line:19:18, endln:19:19
+      |vpiParent:
+      \_range: , id:22, line:19:17, endln:19:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:24, line:19:20, endln:19:21
+      |vpiParent:
+      \_range: , id:22, line:19:17, endln:19:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , id:25, line:19:22, endln:19:27
+    |vpiParent:
+    \_logic_typespec: (pd::parr_t), id:21, line:19:11, endln:19:27
+    |vpiLeftRange:
+    \_constant: , id:26, line:19:23, endln:19:24
+      |vpiParent:
+      \_range: , id:25, line:19:22, endln:19:27
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:27, line:19:25, endln:19:26
+      |vpiParent:
+      \_range: , id:25, line:19:22, endln:19:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiTypedef:
+\_struct_typespec: (pd::st_t), id:28, line:21:11, endln:21:58
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::st_t
+  |vpiInstance:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:29, line:21:39, endln:21:40
+    |vpiParent:
+    \_struct_typespec: (pd::st_t), id:28, line:21:11, endln:21:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pd::pd::st_t::x), id:34
+      |vpiParent:
+      \_typespec_member: (x), id:29, line:21:39, endln:21:40
+      |vpiFullName:pd::pd::st_t::x
+      |vpiActual:
+      \_logic_typespec: , id:127, line:21:27, endln:21:38
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:35, line:21:54, endln:21:55
+    |vpiParent:
+    \_struct_typespec: (pd::st_t), id:28, line:21:11, endln:21:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pd::pd::st_t::y), id:40
+      |vpiParent:
+      \_typespec_member: (y), id:35, line:21:54, endln:21:55
+      |vpiFullName:pd::pd::st_t::y
+      |vpiActual:
+      \_logic_typespec: , id:133, line:21:42, endln:21:53
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv
+    |vpiRefLineNo:21
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:21
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_union_typespec: (pd::un_t), id:49, line:25:11, endln:25:57
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::un_t
+  |vpiInstance:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:50, line:25:38, endln:25:39
+    |vpiParent:
+    \_union_typespec: (pd::un_t), id:49, line:25:11, endln:25:57
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pd::pd::un_t::a), id:55
+      |vpiParent:
+      \_typespec_member: (a), id:50, line:25:38, endln:25:39
+      |vpiFullName:pd::pd::un_t::a
+      |vpiActual:
+      \_logic_typespec: , id:148, line:25:26, endln:25:37
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:26
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:37
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:56, line:25:53, endln:25:54
+    |vpiParent:
+    \_union_typespec: (pd::un_t), id:49, line:25:11, endln:25:57
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pd::pd::un_t::b), id:61
+      |vpiParent:
+      \_typespec_member: (b), id:56, line:25:53, endln:25:54
+      |vpiFullName:pd::pd::un_t::b
+      |vpiActual:
+      \_logic_typespec: , id:154, line:25:41, endln:25:52
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:41
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:52
+|vpiTypedef:
+\_logic_typespec: (pd::word_t), id:3, line:15:11, endln:15:22
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiName:pd::word_t
+  |vpiInstance:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiRange:
+  \_range: , id:4, line:15:17, endln:15:22
+    |vpiParent:
+    \_logic_typespec: (pd::word_t), id:3, line:15:11, endln:15:22
+    |vpiLeftRange:
+    \_constant: , id:5, line:15:18, endln:15:19
+      |vpiParent:
+      \_range: , id:4, line:15:17, endln:15:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:6, line:15:20, endln:15:21
+      |vpiParent:
+      \_range: , id:4, line:15:17, endln:15:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiDefName:pd
+|vpiNet:
+\_logic_net: (pd::d_tdlogic), id:86, line:16:20, endln:16:29
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdlogic), id:87
+    |vpiParent:
+    \_logic_net: (pd::d_tdlogic), id:86, line:16:20, endln:16:29
+    |vpiFullName:pd::d_tdlogic
+    |vpiActual:
+    \_logic_typespec: (pd::word_t), id:88, line:15:11, endln:15:22
+  |vpiName:d_tdlogic
+  |vpiFullName:pd::d_tdlogic
+|vpiNet:
+\_logic_net: (pd::d_tdtd), id:93, line:18:20, endln:18:26
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdtd), id:94
+    |vpiParent:
+    \_logic_net: (pd::d_tdtd), id:93, line:18:20, endln:18:26
+    |vpiFullName:pd::d_tdtd
+    |vpiActual:
+    \_logic_typespec: (pd::word2_t), id:95, line:17:11, endln:17:17
+  |vpiName:d_tdtd
+  |vpiFullName:pd::d_tdtd
+|vpiNet:
+\_logic_net: (pd::d_tdparr), id:97, line:20:20, endln:20:28
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdparr), id:98
+    |vpiParent:
+    \_logic_net: (pd::d_tdparr), id:97, line:20:20, endln:20:28
+    |vpiFullName:pd::d_tdparr
+    |vpiActual:
+    \_logic_typespec: (pd::parr_t), id:99, line:19:11, endln:19:27
+  |vpiName:d_tdparr
+  |vpiFullName:pd::d_tdparr
+|vpiNet:
+\_logic_net: (pd::d_tdstruct), id:107, line:22:20, endln:22:30
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdstruct), id:108
+    |vpiParent:
+    \_logic_net: (pd::d_tdstruct), id:107, line:22:20, endln:22:30
+    |vpiFullName:pd::d_tdstruct
+    |vpiActual:
+    \_struct_typespec: (pd::st_t), id:28, line:21:11, endln:21:58
+  |vpiName:d_tdstruct
+  |vpiFullName:pd::d_tdstruct
+|vpiNet:
+\_logic_net: (pd::d_tdunion), id:111, line:26:20, endln:26:29
+  |vpiParent:
+  \_package: pd (pd::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y5_defnettype/dut.sv, line:9:1, endln:35:11
+  |vpiTypespec:
+  \_ref_typespec: (pd::d_tdunion), id:112
+    |vpiParent:
+    \_logic_net: (pd::d_tdunion), id:111, line:26:20, endln:26:29
+    |vpiFullName:pd::d_tdunion
+    |vpiActual:
+    \_union_typespec: (pd::un_t), id:49, line:25:11, endln:25:57
+  |vpiName:d_tdunion
+  |vpiFullName:pd::d_tdunion
+

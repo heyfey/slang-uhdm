@@ -1,0 +1,24 @@
+  28136 R11U69CELL
+  12574 R11U74BIND
+   1495 NO-SITE-ROW
+    410 R11U77DEFNT
+    278 R11U77HOIST
+--- surelog: R11U77 rows by MOVED/SAME and kind
+    410 SAME
+    278 net=0 kind=0
+--- tests with any R11U77 row
+ApbSlave	default
+ApbSlave	testflags
+MiniAmiq	default
+MiniAmiq	testflags
+PackageNet	default
+PackageNet	testflags
+Scoreboard	default
+SeqDriver	default
+SeqDriver	testflags
+SimpleUVM	default
+SimpleUVM	testflags
+--- uhdm2rtlil
+   5588 R11U69CELL
+   3892 R11U74BIND
+   1596 NO-SITE-ROW

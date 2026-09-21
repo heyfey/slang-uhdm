@@ -1,0 +1,8 @@
+va_netstructkinds golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=247
+vb_unpackedfaces golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=430
+vc_netkw golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=78
+vd_structmem golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=358
+ve_ifacenet golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=220
+vf_collide golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=170
+vg_constauto golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=192
+vh_arrelem golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=478

@@ -1,0 +1,30 @@
+LHS:
+decompile:
+logic_net: (work@dut.y_reg), id:419, line:17:20, endln:17:25
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:406, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y6_hoistconv/dut.sv, line:29:1, endln:37:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.y_reg), id:424
+  |vpiParent:
+  \_logic_net: (work@dut.y_reg), id:419, line:17:20, endln:17:25
+  |vpiFullName:work@dut.y_reg
+  |vpiActual:
+  \_logic_typespec: , id:423, line:17:3, endln:17:16
+|vpiName:y_reg
+|vpiFullName:work@dut.y_reg
+|vpiNetType:48
+RHS:
+decompile:
+logic_net: (work@dut.y_reg), id:135, line:17:20, endln:17:25
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:128, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y6_hoistconv/dut.sv, line:29:1, endln:37:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.y_reg), id:140
+  |vpiParent:
+  \_logic_net: (work@dut.y_reg), id:135, line:17:20, endln:17:25
+  |vpiFullName:work@dut.y_reg
+  |vpiActual:
+  \_logic_typespec: , id:136, line:17:3, endln:17:16
+|vpiName:y_reg
+|vpiFullName:work@dut.y_reg
+|vpiNetType:36

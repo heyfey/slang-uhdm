@@ -1,0 +1,192 @@
+decompile:
+package: pq (pq::), id:16, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+|vpiParent:
+\_design: (work@dut), id:241
+|vpiName:pq
+|vpiFullName:pq::
+|vpiTypedef:
+\_struct_typespec: (pq::q_t), id:17, line:6:11, endln:7:38
+  |vpiParent:
+  \_package: pq (pq::), id:16, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiName:pq::q_t
+  |vpiInstance:
+  \_package: pq (pq::), id:16, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:22, line:6:39, endln:6:40
+    |vpiParent:
+    \_struct_typespec: (pq::q_t), id:17, line:6:11, endln:7:38
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pq::pq::q_t::x), id:23
+      |vpiParent:
+      \_typespec_member: (x), id:22, line:6:39, endln:6:40
+      |vpiFullName:pq::pq::q_t::x
+      |vpiActual:
+      \_logic_typespec: , id:21, line:6:27, endln:6:38
+    |vpiRefFile:/tmp/v11u77_grid/vg_constauto/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:28, line:6:54, endln:6:55
+    |vpiParent:
+    \_struct_typespec: (pq::q_t), id:17, line:6:11, endln:7:38
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pq::pq::q_t::y), id:29
+      |vpiParent:
+      \_typespec_member: (y), id:28, line:6:54, endln:6:55
+      |vpiFullName:pq::pq::q_t::y
+      |vpiActual:
+      \_logic_typespec: , id:27, line:6:42, endln:6:53
+    |vpiRefFile:/tmp/v11u77_grid/vg_constauto/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiDefName:pq
+|vpiNet:
+\_logic_net: (pq::q_const), id:250, line:7:14, endln:7:21
+  |vpiParent:
+  \_package: pq (pq::), id:16, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiTypespec:
+  \_ref_typespec: (pq::q_const), id:251
+    |vpiParent:
+    \_logic_net: (pq::q_const), id:250, line:7:14, endln:7:21
+    |vpiFullName:pq::q_const
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:17, line:6:11, endln:7:38
+  |vpiName:q_const
+  |vpiFullName:pq::q_const
+|vpiNet:
+\_logic_net: (pq::q_var), id:252, line:8:14, endln:8:19
+  |vpiParent:
+  \_package: pq (pq::), id:16, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiTypespec:
+  \_ref_typespec: (pq::q_var), id:253
+    |vpiParent:
+    \_logic_net: (pq::q_var), id:252, line:8:14, endln:8:19
+    |vpiFullName:pq::q_var
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:17, line:6:11, endln:7:38
+  |vpiName:q_var
+  |vpiFullName:pq::q_var
+|vpiNet:
+\_logic_net: (pq::q_plain), id:254, line:9:14, endln:9:21
+  |vpiParent:
+  \_package: pq (pq::), id:16, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiTypespec:
+  \_ref_typespec: (pq::q_plain), id:255
+    |vpiParent:
+    \_logic_net: (pq::q_plain), id:254, line:9:14, endln:9:21
+    |vpiFullName:pq::q_plain
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:17, line:6:11, endln:7:38
+  |vpiName:q_plain
+  |vpiFullName:pq::q_plain
+|vpiNet:
+\_logic_net: (pq::q_wire), id:256, line:10:14, endln:10:20
+  |vpiParent:
+  \_package: pq (pq::), id:16, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiTypespec:
+  \_ref_typespec: (pq::q_wire), id:257
+    |vpiParent:
+    \_logic_net: (pq::q_wire), id:256, line:10:14, endln:10:20
+    |vpiFullName:pq::q_wire
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:17, line:6:11, endln:7:38
+  |vpiName:q_wire
+  |vpiFullName:pq::q_wire
+  |vpiNetType:1
+
+decompile:
+package: pq (pq::), id:2, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pq
+|vpiFullName:pq::
+|vpiTypedef:
+\_struct_typespec: (pq::q_t), id:3, line:6:11, endln:6:58
+  |vpiParent:
+  \_package: pq (pq::), id:2, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiName:pq::q_t
+  |vpiInstance:
+  \_package: pq (pq::), id:2, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:4, line:6:39, endln:6:40
+    |vpiParent:
+    \_struct_typespec: (pq::q_t), id:3, line:6:11, endln:6:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pq::pq::q_t::x), id:9
+      |vpiParent:
+      \_typespec_member: (x), id:4, line:6:39, endln:6:40
+      |vpiFullName:pq::pq::q_t::x
+      |vpiActual:
+      \_logic_typespec: , id:25, line:6:27, endln:6:38
+    |vpiRefFile:/tmp/v11u77_grid/vg_constauto/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:10, line:6:54, endln:6:55
+    |vpiParent:
+    \_struct_typespec: (pq::q_t), id:3, line:6:11, endln:6:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pq::pq::q_t::y), id:15
+      |vpiParent:
+      \_typespec_member: (y), id:10, line:6:54, endln:6:55
+      |vpiFullName:pq::pq::q_t::y
+      |vpiActual:
+      \_logic_typespec: , id:31, line:6:42, endln:6:53
+    |vpiRefFile:/tmp/v11u77_grid/vg_constauto/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:53
+|vpiDefName:pq
+|vpiNet:
+\_logic_net: (pq::q_const), id:16, line:7:14, endln:7:21
+  |vpiParent:
+  \_package: pq (pq::), id:2, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiTypespec:
+  \_ref_typespec: (pq::q_const), id:17
+    |vpiParent:
+    \_logic_net: (pq::q_const), id:16, line:7:14, endln:7:21
+    |vpiFullName:pq::q_const
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:3, line:6:11, endln:6:58
+  |vpiName:q_const
+  |vpiFullName:pq::q_const
+|vpiNet:
+\_logic_net: (pq::q_var), id:18, line:8:14, endln:8:19
+  |vpiParent:
+  \_package: pq (pq::), id:2, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiTypespec:
+  \_ref_typespec: (pq::q_var), id:19
+    |vpiParent:
+    \_logic_net: (pq::q_var), id:18, line:8:14, endln:8:19
+    |vpiFullName:pq::q_var
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:3, line:6:11, endln:6:58
+  |vpiName:q_var
+  |vpiFullName:pq::q_var
+|vpiNet:
+\_logic_net: (pq::q_plain), id:20, line:9:14, endln:9:21
+  |vpiParent:
+  \_package: pq (pq::), id:2, file:/tmp/v11u77_grid/vg_constauto/dut.sv, line:5:1, endln:11:11
+  |vpiTypespec:
+  \_ref_typespec: (pq::q_plain), id:21
+    |vpiParent:
+    \_logic_net: (pq::q_plain), id:20, line:9:14, endln:9:21
+    |vpiFullName:pq::q_plain
+    |vpiActual:
+    \_struct_typespec: (pq::q_t), id:3, line:6:11, endln:6:58
+  |vpiName:q_plain
+  |vpiFullName:pq::q_plain
+

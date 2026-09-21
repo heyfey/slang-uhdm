@@ -1,0 +1,170 @@
+LHS:
+decompile:
+package: pc (pc::), id:16, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+|vpiParent:
+\_design: (work@dut), id:249
+|vpiName:pc
+|vpiFullName:pc::
+|vpiVariables:
+\_logic_var: (pc::c_var), id:118, line:7:15, endln:7:20
+  |vpiParent:
+  \_package: pc (pc::), id:16, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiTypespec:
+  \_ref_typespec: (pc::c_var), id:119
+    |vpiParent:
+    \_logic_var: (pc::c_var), id:118, line:7:15, endln:7:20
+    |vpiFullName:pc::c_var
+    |vpiActual:
+    \_logic_typespec: , id:114, line:7:3, endln:7:14
+  |vpiName:c_var
+  |vpiFullName:pc::c_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (pc::cs_t), id:17, line:8:11, endln:8:58
+  |vpiParent:
+  \_package: pc (pc::), id:16, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiName:pc::cs_t
+  |vpiInstance:
+  \_package: pc (pc::), id:16, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:22, line:8:39, endln:8:40
+    |vpiParent:
+    \_struct_typespec: (pc::cs_t), id:17, line:8:11, endln:8:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pc::pc::cs_t::a), id:23
+      |vpiParent:
+      \_typespec_member: (a), id:22, line:8:39, endln:8:40
+      |vpiFullName:pc::pc::cs_t::a
+      |vpiActual:
+      \_logic_typespec: , id:21, line:8:27, endln:8:38
+    |vpiRefFile:/tmp/v11u77_grid/vf_collide/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:28, line:8:54, endln:8:55
+    |vpiParent:
+    \_struct_typespec: (pc::cs_t), id:17, line:8:11, endln:8:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pc::pc::cs_t::b), id:29
+      |vpiParent:
+      \_typespec_member: (b), id:28, line:8:54, endln:8:55
+      |vpiFullName:pc::pc::cs_t::b
+      |vpiActual:
+      \_logic_typespec: , id:27, line:8:42, endln:8:53
+    |vpiRefFile:/tmp/v11u77_grid/vf_collide/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:53
+|vpiDefName:pc
+|vpiNet:
+\_logic_net: (pc::c_net), id:258, line:6:15, endln:6:20
+  |vpiParent:
+  \_package: pc (pc::), id:16, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiTypespec:
+  \_ref_typespec: (pc::c_net), id:263
+    |vpiParent:
+    \_logic_net: (pc::c_net), id:258, line:6:15, endln:6:20
+    |vpiFullName:pc::c_net
+    |vpiActual:
+    \_logic_typespec: , id:262, line:6:3, endln:6:14
+  |vpiName:c_net
+  |vpiFullName:pc::c_net
+  |vpiNetType:1
+|vpiNet:
+\_logic_net: (pc::c_st), id:264, line:9:15, endln:9:19
+  |vpiParent:
+  \_package: pc (pc::), id:16, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiTypespec:
+  \_ref_typespec: (pc::c_st), id:265
+    |vpiParent:
+    \_logic_net: (pc::c_st), id:264, line:9:15, endln:9:19
+    |vpiFullName:pc::c_st
+    |vpiActual:
+    \_struct_typespec: (pc::cs_t), id:17, line:8:11, endln:8:58
+  |vpiName:c_st
+  |vpiFullName:pc::c_st
+RHS:
+decompile:
+package: pc (pc::), id:2, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pc
+|vpiFullName:pc::
+|vpiVariables:
+\_logic_var: (pc::c_var), id:16, line:7:15, endln:7:20
+  |vpiParent:
+  \_package: pc (pc::), id:2, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiTypespec:
+  \_ref_typespec: (pc::c_var), id:21
+    |vpiParent:
+    \_logic_var: (pc::c_var), id:16, line:7:15, endln:7:20
+    |vpiFullName:pc::c_var
+    |vpiActual:
+    \_logic_typespec: , id:17, line:7:3, endln:7:14
+  |vpiName:c_var
+  |vpiFullName:pc::c_var
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_struct_typespec: (pc::cs_t), id:3, line:8:11, endln:8:58
+  |vpiParent:
+  \_package: pc (pc::), id:2, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiName:pc::cs_t
+  |vpiInstance:
+  \_package: pc (pc::), id:2, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:4, line:8:39, endln:8:40
+    |vpiParent:
+    \_struct_typespec: (pc::cs_t), id:3, line:8:11, endln:8:58
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pc::pc::cs_t::a), id:9
+      |vpiParent:
+      \_typespec_member: (a), id:4, line:8:39, endln:8:40
+      |vpiFullName:pc::pc::cs_t::a
+      |vpiActual:
+      \_logic_typespec: , id:27, line:8:27, endln:8:38
+    |vpiRefFile:/tmp/v11u77_grid/vf_collide/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:10, line:8:54, endln:8:55
+    |vpiParent:
+    \_struct_typespec: (pc::cs_t), id:3, line:8:11, endln:8:58
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pc::pc::cs_t::b), id:15
+      |vpiParent:
+      \_typespec_member: (b), id:10, line:8:54, endln:8:55
+      |vpiFullName:pc::pc::cs_t::b
+      |vpiActual:
+      \_logic_typespec: , id:33, line:8:42, endln:8:53
+    |vpiRefFile:/tmp/v11u77_grid/vf_collide/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:53
+|vpiDefName:pc
+|vpiNet:
+\_logic_net: (pc::c_st), id:22, line:9:15, endln:9:19
+  |vpiParent:
+  \_package: pc (pc::), id:2, file:/tmp/v11u77_grid/vf_collide/dut.sv, line:5:1, endln:10:11
+  |vpiTypespec:
+  \_ref_typespec: (pc::c_st), id:23
+    |vpiParent:
+    \_logic_net: (pc::c_st), id:22, line:9:15, endln:9:19
+    |vpiFullName:pc::c_st
+    |vpiActual:
+    \_struct_typespec: (pc::cs_t), id:3, line:8:11, endln:8:58
+  |vpiName:c_st
+  |vpiFullName:pc::c_st

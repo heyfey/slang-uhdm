@@ -1,0 +1,29 @@
+decompile:
+logic_net: (work@dut.P1.sup_ns), id:194, line:18:20, endln:18:26
+|vpiParent:
+\_gen_scope: (work@dut.P1), id:316, line:7:10, endln:20:6
+|vpiTypespec:
+\_ref_typespec: (work@dut.P1.sup_ns), id:195
+  |vpiParent:
+  \_logic_net: (work@dut.P1.sup_ns), id:194, line:18:20, endln:18:26
+  |vpiFullName:work@dut.P1.sup_ns
+  |vpiActual:
+  \_logic_typespec: , id:190, line:18:5, endln:18:19
+|vpiName:sup_ns
+|vpiFullName:work@dut.P1.sup_ns
+|vpiNetType:11
+
+decompile:
+logic_net: (work@dut.P1.sup_ns), id:172, line:18:20, endln:18:26
+|vpiParent:
+\_gen_scope: (work@dut.P1), id:153, line:7:10, endln:20:6
+|vpiTypespec:
+\_ref_typespec: (work@dut.P1.sup_ns), id:173
+  |vpiParent:
+  \_logic_net: (work@dut.P1.sup_ns), id:172, line:18:20, endln:18:26
+  |vpiFullName:work@dut.P1.sup_ns
+  |vpiActual:
+  \_logic_typespec: , id:174, line:18:5, endln:18:19
+|vpiName:sup_ns
+|vpiFullName:work@dut.P1.sup_ns
+

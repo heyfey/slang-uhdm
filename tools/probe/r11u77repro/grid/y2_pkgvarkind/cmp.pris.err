@@ -1,0 +1,712 @@
+LHS:
+decompile:
+package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+|vpiParent:
+\_design: (work@dut), id:728
+|vpiName:pk
+|vpiFullName:pk::
+|vpiVariables:
+\_logic_var: (pk::v_plain), id:344, line:9:21, endln:9:28
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_plain), id:345
+    |vpiParent:
+    \_logic_var: (pk::v_plain), id:344, line:9:21, endln:9:28
+    |vpiFullName:pk::v_plain
+    |vpiActual:
+    \_logic_typespec: , id:340, line:9:3, endln:9:15
+  |vpiName:v_plain
+  |vpiFullName:pk::v_plain
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (pk::v_structi), id:348, line:13:21, endln:13:30
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_structi), id:349
+    |vpiParent:
+    \_struct_var: (pk::v_structi), id:348, line:13:21, endln:13:30
+    |vpiFullName:pk::v_structi
+    |vpiActual:
+    \_struct_typespec: (pk::si_t), id:57, line:12:11, endln:12:50
+  |vpiName:v_structi
+  |vpiFullName:pk::v_structi
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (pk::v_enum), id:352, line:17:21, endln:17:27
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_enum), id:353
+    |vpiParent:
+    \_enum_var: (pk::v_enum), id:352, line:17:21, endln:17:27
+    |vpiFullName:pk::v_enum
+    |vpiActual:
+    \_enum_typespec: (pk::e_t), id:80, line:16:3, endln:16:43
+  |vpiName:v_enum
+  |vpiFullName:pk::v_enum
+  |vpiVisibility:1
+|vpiVariables:
+\_array_var: (pk::v_uarr), id:366, line:18:21, endln:18:27
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_uarr), id:367
+    |vpiParent:
+    \_array_var: (pk::v_uarr), id:366, line:18:21, endln:18:27
+    |vpiFullName:pk::v_uarr
+    |vpiActual:
+    \_array_typespec: , id:368
+  |vpiName:v_uarr
+  |vpiFullName:pk::v_uarr
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:361, line:18:28, endln:18:33
+    |vpiParent:
+    \_array_var: (pk::v_uarr), id:366, line:18:21, endln:18:27
+    |vpiLeftRange:
+    \_constant: , id:362, line:18:29, endln:18:30
+      |vpiParent:
+      \_range: , id:361, line:18:28, endln:18:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:363, line:18:31, endln:18:32
+      |vpiParent:
+      \_range: , id:361, line:18:28, endln:18:33
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiReg:
+  \_logic_var: (pk::v_uarr), id:364, line:18:21, endln:18:27
+    |vpiParent:
+    \_array_var: (pk::v_uarr), id:366, line:18:21, endln:18:27
+    |vpiTypespec:
+    \_ref_typespec: (pk::v_uarr), id:365
+      |vpiParent:
+      \_logic_var: (pk::v_uarr), id:364, line:18:21, endln:18:27
+      |vpiFullName:pk::v_uarr
+      |vpiActual:
+      \_logic_typespec: , id:357, line:18:3, endln:18:14
+    |vpiFullName:pk::v_uarr
+|vpiVariables:
+\_logic_var: (pk::v_pkd), id:388, line:20:21, endln:20:26
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_pkd), id:389
+    |vpiParent:
+    \_logic_var: (pk::v_pkd), id:388, line:20:21, endln:20:26
+    |vpiFullName:pk::v_pkd
+    |vpiActual:
+    \_logic_typespec: , id:381, line:20:3, endln:20:19
+  |vpiName:v_pkd
+  |vpiFullName:pk::v_pkd
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_int_var: (pk::v_int), id:391, line:21:21, endln:21:26
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_int), id:392
+    |vpiParent:
+    \_int_var: (pk::v_int), id:391, line:21:21, endln:21:26
+    |vpiFullName:pk::v_int
+    |vpiActual:
+    \_int_typespec: , id:390, line:21:3, endln:21:6
+  |vpiName:v_int
+  |vpiFullName:pk::v_int
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_byte_var: (pk::v_byte), id:394, line:22:21, endln:22:27
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_byte), id:395
+    |vpiParent:
+    \_byte_var: (pk::v_byte), id:394, line:22:21, endln:22:27
+    |vpiFullName:pk::v_byte
+    |vpiActual:
+    \_byte_typespec: , id:393, line:22:3, endln:22:7
+  |vpiName:v_byte
+  |vpiFullName:pk::v_byte
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_bit_var: (pk::v_bit), id:397, line:23:21, endln:23:26
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_bit), id:398
+    |vpiParent:
+    \_bit_var: (pk::v_bit), id:397, line:23:21, endln:23:26
+    |vpiFullName:pk::v_bit
+    |vpiActual:
+    \_bit_typespec: , id:396, line:23:3, endln:23:6
+  |vpiName:v_bit
+  |vpiFullName:pk::v_bit
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_real_var: (pk::v_real), id:400, line:24:21, endln:24:27
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_real), id:401
+    |vpiParent:
+    \_real_var: (pk::v_real), id:400, line:24:21, endln:24:27
+    |vpiFullName:pk::v_real
+    |vpiActual:
+    \_real_typespec: , id:399, line:24:3, endln:24:7
+  |vpiName:v_real
+  |vpiFullName:pk::v_real
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_string_var: (pk::v_str), id:403, line:25:21, endln:25:26
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_str), id:404
+    |vpiParent:
+    \_string_var: (pk::v_str), id:403, line:25:21, endln:25:26
+    |vpiFullName:pk::v_str
+    |vpiActual:
+    \_string_typespec: , id:402, line:25:3, endln:25:9
+  |vpiName:v_str
+  |vpiFullName:pk::v_str
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_enum_typespec: (pk::e_t), id:80, line:16:3, endln:16:43
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiName:pk::e_t
+  |vpiInstance:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pk::pk::e_t), id:81
+    |vpiParent:
+    \_enum_typespec: (pk::e_t), id:80, line:16:3, endln:16:43
+    |vpiFullName:pk::pk::e_t
+    |vpiActual:
+    \_logic_typespec: , id:79, line:16:16, endln:16:27
+  |vpiEnumConst:
+  \_enum_const: (EA), id:83, line:16:30, endln:16:32
+    |vpiParent:
+    \_enum_typespec: (pk::e_t), id:80, line:16:3, endln:16:43
+    |vpiName:EA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (EB), id:84, line:16:34, endln:16:36
+    |vpiParent:
+    \_enum_typespec: (pk::e_t), id:80, line:16:3, endln:16:43
+    |vpiName:EB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (pk::si_t), id:57, line:12:11, endln:12:50
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiName:pk::si_t
+  |vpiInstance:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:59, line:12:31, endln:12:32
+    |vpiParent:
+    \_struct_typespec: (pk::si_t), id:57, line:12:11, endln:12:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::si_t::x), id:60
+      |vpiParent:
+      \_typespec_member: (x), id:59, line:12:31, endln:12:32
+      |vpiFullName:pk::pk::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:58, line:12:27, endln:12:30
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:65, line:12:46, endln:12:47
+    |vpiParent:
+    \_struct_typespec: (pk::si_t), id:57, line:12:11, endln:12:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::si_t::y), id:66
+      |vpiParent:
+      \_typespec_member: (y), id:65, line:12:46, endln:12:47
+      |vpiFullName:pk::pk::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:64, line:12:34, endln:12:45
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (pk::st_t), id:44, line:10:11, endln:19:33
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiName:pk::st_t
+  |vpiInstance:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:49, line:10:39, endln:10:40
+    |vpiParent:
+    \_struct_typespec: (pk::st_t), id:44, line:10:11, endln:19:33
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::st_t::x), id:50
+      |vpiParent:
+      \_typespec_member: (x), id:49, line:10:39, endln:10:40
+      |vpiFullName:pk::pk::st_t::x
+      |vpiActual:
+      \_logic_typespec: , id:48, line:10:27, endln:10:38
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:55, line:10:54, endln:10:55
+    |vpiParent:
+    \_struct_typespec: (pk::st_t), id:44, line:10:11, endln:19:33
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::st_t::y), id:56
+      |vpiParent:
+      \_typespec_member: (y), id:55, line:10:54, endln:10:55
+      |vpiFullName:pk::pk::st_t::y
+      |vpiActual:
+      \_logic_typespec: , id:54, line:10:42, endln:10:53
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_struct_typespec: (pk::sx_t), id:67, line:14:11, endln:14:51
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiName:pk::sx_t
+  |vpiInstance:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:72, line:14:39, endln:14:40
+    |vpiParent:
+    \_struct_typespec: (pk::sx_t), id:67, line:14:11, endln:14:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::sx_t::a), id:73
+      |vpiParent:
+      \_typespec_member: (a), id:72, line:14:39, endln:14:40
+      |vpiFullName:pk::pk::sx_t::a
+      |vpiActual:
+      \_logic_typespec: , id:71, line:14:27, endln:14:38
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:14
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:14
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:74, line:14:47, endln:14:48
+    |vpiParent:
+    \_struct_typespec: (pk::sx_t), id:67, line:14:11, endln:14:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::sx_t::b), id:75
+      |vpiParent:
+      \_typespec_member: (b), id:74, line:14:47, endln:14:48
+      |vpiFullName:pk::pk::sx_t::b
+      |vpiActual:
+      \_struct_typespec: (pk::st_t), id:44, line:10:11, endln:19:33
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:14
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:14
+    |vpiRefEndColumnNo:46
+|vpiDefName:pk
+|vpiNet:
+\_logic_net: (pk::v_struct), id:735, line:11:21, endln:11:29
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_struct), id:736
+    |vpiParent:
+    \_logic_net: (pk::v_struct), id:735, line:11:21, endln:11:29
+    |vpiFullName:pk::v_struct
+    |vpiActual:
+    \_struct_typespec: (pk::st_t), id:44, line:10:11, endln:19:33
+  |vpiName:v_struct
+  |vpiFullName:pk::v_struct
+|vpiNet:
+\_logic_net: (pk::v_structn), id:737, line:15:21, endln:15:30
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_structn), id:738
+    |vpiParent:
+    \_logic_net: (pk::v_structn), id:737, line:15:21, endln:15:30
+    |vpiFullName:pk::v_structn
+    |vpiActual:
+    \_struct_typespec: (pk::sx_t), id:67, line:14:11, endln:14:51
+  |vpiName:v_structn
+  |vpiFullName:pk::v_structn
+|vpiNet:
+\_logic_net: (pk::v_sarr), id:739, line:19:21, endln:19:27
+  |vpiParent:
+  \_package: pk (pk::), id:43, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_sarr), id:740
+    |vpiParent:
+    \_logic_net: (pk::v_sarr), id:739, line:19:21, endln:19:27
+    |vpiFullName:pk::v_sarr
+    |vpiActual:
+    \_struct_typespec: (pk::st_t), id:44, line:10:11, endln:19:33
+  |vpiName:v_sarr
+  |vpiFullName:pk::v_sarr
+RHS:
+decompile:
+package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+|vpiParent:
+\_design: (work@dut), id:1
+|vpiName:pk
+|vpiFullName:pk::
+|vpiVariables:
+\_logic_var: (pk::v_plain), id:43, line:9:21, endln:9:28
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_plain), id:48
+    |vpiParent:
+    \_logic_var: (pk::v_plain), id:43, line:9:21, endln:9:28
+    |vpiFullName:pk::v_plain
+    |vpiActual:
+    \_logic_typespec: , id:44, line:9:3, endln:9:15
+  |vpiName:v_plain
+  |vpiFullName:pk::v_plain
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (pk::v_enum), id:55, line:17:21, endln:17:27
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_enum), id:56
+    |vpiParent:
+    \_enum_var: (pk::v_enum), id:55, line:17:21, endln:17:27
+    |vpiFullName:pk::v_enum
+    |vpiActual:
+    \_enum_typespec: (pk::e_t), id:35, line:16:3, endln:16:43
+  |vpiName:v_enum
+  |vpiFullName:pk::v_enum
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (pk::v_pkd), id:57, line:20:21, endln:20:26
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_pkd), id:65
+    |vpiParent:
+    \_logic_var: (pk::v_pkd), id:57, line:20:21, endln:20:26
+    |vpiFullName:pk::v_pkd
+    |vpiActual:
+    \_logic_typespec: , id:58, line:20:3, endln:20:19
+  |vpiName:v_pkd
+  |vpiFullName:pk::v_pkd
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_int_var: (pk::v_int), id:66, line:21:21, endln:21:26
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_int), id:68
+    |vpiParent:
+    \_int_var: (pk::v_int), id:66, line:21:21, endln:21:26
+    |vpiFullName:pk::v_int
+    |vpiActual:
+    \_int_typespec: , id:67, line:21:3, endln:21:6
+  |vpiName:v_int
+  |vpiFullName:pk::v_int
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_byte_var: (pk::v_byte), id:69, line:22:21, endln:22:27
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_byte), id:71
+    |vpiParent:
+    \_byte_var: (pk::v_byte), id:69, line:22:21, endln:22:27
+    |vpiFullName:pk::v_byte
+    |vpiActual:
+    \_byte_typespec: , id:70, line:22:3, endln:22:7
+  |vpiName:v_byte
+  |vpiFullName:pk::v_byte
+  |vpiSigned:1
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_bit_var: (pk::v_bit), id:72, line:23:21, endln:23:26
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_bit), id:74
+    |vpiParent:
+    \_bit_var: (pk::v_bit), id:72, line:23:21, endln:23:26
+    |vpiFullName:pk::v_bit
+    |vpiActual:
+    \_bit_typespec: , id:73, line:23:3, endln:23:6
+  |vpiName:v_bit
+  |vpiFullName:pk::v_bit
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_real_var: (pk::v_real), id:75, line:24:21, endln:24:27
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_real), id:77
+    |vpiParent:
+    \_real_var: (pk::v_real), id:75, line:24:21, endln:24:27
+    |vpiFullName:pk::v_real
+    |vpiActual:
+    \_real_typespec: , id:76, line:24:3, endln:24:7
+  |vpiName:v_real
+  |vpiFullName:pk::v_real
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_string_var: (pk::v_str), id:78, line:25:21, endln:25:26
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_str), id:80
+    |vpiParent:
+    \_string_var: (pk::v_str), id:78, line:25:21, endln:25:26
+    |vpiFullName:pk::v_str
+    |vpiActual:
+    \_string_typespec: , id:79, line:25:3, endln:25:9
+  |vpiName:v_str
+  |vpiFullName:pk::v_str
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiTypedef:
+\_enum_typespec: (pk::e_t), id:35, line:16:3, endln:16:43
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiName:pk::e_t
+  |vpiInstance:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (pk::pk::e_t), id:40
+    |vpiParent:
+    \_enum_typespec: (pk::e_t), id:35, line:16:3, endln:16:43
+    |vpiFullName:pk::pk::e_t
+    |vpiActual:
+    \_logic_typespec: , id:36, line:16:16, endln:16:27
+  |vpiEnumConst:
+  \_enum_const: (EA), id:41, line:16:30, endln:16:32
+    |vpiParent:
+    \_enum_typespec: (pk::e_t), id:35, line:16:3, endln:16:43
+    |vpiName:EA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (EB), id:42, line:16:34, endln:16:36
+    |vpiParent:
+    \_enum_typespec: (pk::e_t), id:35, line:16:3, endln:16:43
+    |vpiName:EB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+|vpiTypedef:
+\_struct_typespec: (pk::si_t), id:16, line:12:11, endln:12:50
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiName:pk::si_t
+  |vpiInstance:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:17, line:12:31, endln:12:32
+    |vpiParent:
+    \_struct_typespec: (pk::si_t), id:16, line:12:11, endln:12:50
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::si_t::x), id:19
+      |vpiParent:
+      \_typespec_member: (x), id:17, line:12:31, endln:12:32
+      |vpiFullName:pk::pk::si_t::x
+      |vpiActual:
+      \_int_typespec: , id:97, line:12:27, endln:12:30
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:30
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:20, line:12:46, endln:12:47
+    |vpiParent:
+    \_struct_typespec: (pk::si_t), id:16, line:12:11, endln:12:50
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::si_t::y), id:25
+      |vpiParent:
+      \_typespec_member: (y), id:20, line:12:46, endln:12:47
+      |vpiFullName:pk::pk::si_t::y
+      |vpiActual:
+      \_logic_typespec: , id:100, line:12:34, endln:12:45
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:34
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:45
+|vpiTypedef:
+\_struct_typespec: (pk::st_t), id:3, line:10:11, endln:10:58
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiName:pk::st_t
+  |vpiInstance:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), id:4, line:10:39, endln:10:40
+    |vpiParent:
+    \_struct_typespec: (pk::st_t), id:3, line:10:11, endln:10:58
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::st_t::x), id:9
+      |vpiParent:
+      \_typespec_member: (x), id:4, line:10:39, endln:10:40
+      |vpiFullName:pk::pk::st_t::x
+      |vpiActual:
+      \_logic_typespec: , id:84, line:10:27, endln:10:38
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (y), id:10, line:10:54, endln:10:55
+    |vpiParent:
+    \_struct_typespec: (pk::st_t), id:3, line:10:11, endln:10:58
+    |vpiName:y
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::st_t::y), id:15
+      |vpiParent:
+      \_typespec_member: (y), id:10, line:10:54, endln:10:55
+      |vpiFullName:pk::pk::st_t::y
+      |vpiActual:
+      \_logic_typespec: , id:90, line:10:42, endln:10:53
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:53
+|vpiTypedef:
+\_struct_typespec: (pk::sx_t), id:26, line:14:11, endln:14:51
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiName:pk::sx_t
+  |vpiInstance:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), id:27, line:14:39, endln:14:40
+    |vpiParent:
+    \_struct_typespec: (pk::sx_t), id:26, line:14:11, endln:14:51
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::sx_t::a), id:32
+      |vpiParent:
+      \_typespec_member: (a), id:27, line:14:39, endln:14:40
+      |vpiFullName:pk::pk::sx_t::a
+      |vpiActual:
+      \_logic_typespec: , id:107, line:14:27, endln:14:38
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:14
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:14
+    |vpiRefEndColumnNo:38
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:33, line:14:47, endln:14:48
+    |vpiParent:
+    \_struct_typespec: (pk::sx_t), id:26, line:14:11, endln:14:51
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (pk::pk::sx_t::b), id:34
+      |vpiParent:
+      \_typespec_member: (b), id:33, line:14:47, endln:14:48
+      |vpiFullName:pk::pk::sx_t::b
+      |vpiActual:
+      \_struct_typespec: (pk::st_t), id:3, line:10:11, endln:10:58
+    |vpiRefFile:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv
+    |vpiRefLineNo:14
+    |vpiRefColumnNo:42
+    |vpiRefEndLineNo:14
+    |vpiRefEndColumnNo:46
+|vpiDefName:pk
+|vpiNet:
+\_logic_net: (pk::v_struct), id:49, line:11:21, endln:11:29
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_struct), id:50
+    |vpiParent:
+    \_logic_net: (pk::v_struct), id:49, line:11:21, endln:11:29
+    |vpiFullName:pk::v_struct
+    |vpiActual:
+    \_struct_typespec: (pk::st_t), id:3, line:10:11, endln:10:58
+  |vpiName:v_struct
+  |vpiFullName:pk::v_struct
+|vpiNet:
+\_logic_net: (pk::v_structi), id:51, line:13:21, endln:13:30
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_structi), id:52
+    |vpiParent:
+    \_logic_net: (pk::v_structi), id:51, line:13:21, endln:13:30
+    |vpiFullName:pk::v_structi
+    |vpiActual:
+    \_struct_typespec: (pk::si_t), id:16, line:12:11, endln:12:50
+  |vpiName:v_structi
+  |vpiFullName:pk::v_structi
+|vpiNet:
+\_logic_net: (pk::v_structn), id:53, line:15:21, endln:15:30
+  |vpiParent:
+  \_package: pk (pk::), id:2, file:/tmp/wt_r11u77/tools/probe/r11u77repro/grid/y2_pkgvarkind/dut.sv, line:8:1, endln:26:11
+  |vpiTypespec:
+  \_ref_typespec: (pk::v_structn), id:54
+    |vpiParent:
+    \_logic_net: (pk::v_structn), id:53, line:15:21, endln:15:30
+    |vpiFullName:pk::v_structn
+    |vpiActual:
+    \_struct_typespec: (pk::sx_t), id:26, line:14:11, endln:14:51
+  |vpiName:v_structn
+  |vpiFullName:pk::v_structn

@@ -1,0 +1,101 @@
+LHS:
+decompile:
+gen_scope: (work@dut.G1[0]), id:213, line:14:40, endln:20:6
+|vpiParent:
+\_gen_scope_array: (work@dut.G1[0]), id:212, line:14:40, endln:20:6
+|vpiFullName:work@dut.G1[0]
+|vpiVariables:
+\_logic_var: (work@dut.G1[0].k_ns), id:154, line:16:18, endln:16:22
+  |vpiParent:
+  \_gen_scope: (work@dut.G1[0]), id:213, line:14:40, endln:20:6
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.G1[0].k_ns), id:155
+    |vpiParent:
+    \_logic_var: (work@dut.G1[0].k_ns), id:154, line:16:18, endln:16:22
+    |vpiFullName:work@dut.G1[0].k_ns
+    |vpiActual:
+    \_logic_typespec: , id:150, line:16:5, endln:16:17
+  |vpiName:k_ns
+  |vpiFullName:work@dut.G1[0].k_ns
+  |vpiVisibility:1
+|vpiParameter:
+\_parameter: (work@dut.G1[0].i), id:217, line:14:0
+  |vpiParent:
+  \_gen_scope: (work@dut.G1[0]), id:213, line:14:40, endln:20:6
+  |UINT:0
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.G1[0].i), id:219
+    |vpiParent:
+    \_parameter: (work@dut.G1[0].i), id:217, line:14:0
+    |vpiFullName:work@dut.G1[0].i
+    |vpiActual:
+    \_int_typespec: , id:218
+  |vpiLocalParam:1
+  |vpiName:i
+  |vpiFullName:work@dut.G1[0].i
+|vpiTypedef:
+\_import_typespec: (pg), id:139, line:15:12, endln:15:17
+|vpiContAssign:
+\_cont_assign: , id:214, line:16:32, endln:16:44
+  |vpiParent:
+  \_gen_scope: (work@dut.G1[0]), id:213, line:14:40, endln:20:6
+  |vpiRhs:
+  \_constant: , id:143, line:16:39, endln:16:44
+    |vpiParent:
+    \_cont_assign: , id:214, line:16:32, endln:16:44
+    |vpiDecompile:32'd9
+    |vpiSize:32
+    |DEC:9
+    |vpiConstType:1
+  |vpiLhs:
+  \_ref_obj: (work@dut.G1[0].k_ns), id:215, line:16:32, endln:16:36
+    |vpiParent:
+    \_cont_assign: , id:214, line:16:32, endln:16:44
+    |vpiName:k_ns
+    |vpiFullName:work@dut.G1[0].k_ns
+    |vpiActual:
+    \_logic_var: (work@dut.k_ns), id:121, line:9:16, endln:9:20
+|vpiGenScopeArray:
+\_gen_scope_array: (work@dut.G1[0].G2), id:220, line:17:12, endln:19:8
+  |vpiParent:
+  \_gen_scope: (work@dut.G1[0]), id:213, line:14:40, endln:20:6
+  |vpiName:G2
+  |vpiFullName:work@dut.G1[0].G2
+  |vpiGenScope:
+  \_gen_scope: (work@dut.G1[0].G2), id:221, line:17:12, endln:19:8
+    |vpiParent:
+    \_gen_scope_array: (work@dut.G1[0].G2), id:220, line:17:12, endln:19:8
+    |vpiFullName:work@dut.G1[0].G2
+    |vpiVariables:
+    \_logic_var: (work@dut.G1[0].G2.g_ns), id:170, line:18:20, endln:18:24
+      |vpiParent:
+      \_gen_scope: (work@dut.G1[0].G2), id:221, line:17:12, endln:19:8
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.G1[0].G2.g_ns), id:171
+        |vpiParent:
+        \_logic_var: (work@dut.G1[0].G2.g_ns), id:170, line:18:20, endln:18:24
+        |vpiFullName:work@dut.G1[0].G2.g_ns
+        |vpiActual:
+        \_logic_typespec: , id:166, line:18:7, endln:18:19
+      |vpiName:g_ns
+      |vpiFullName:work@dut.G1[0].G2.g_ns
+      |vpiVisibility:1
+    |vpiContAssign:
+    \_cont_assign: , id:222, line:18:34, endln:18:46
+      |vpiParent:
+      \_gen_scope: (work@dut.G1[0].G2), id:221, line:17:12, endln:19:8
+      |vpiRhs:
+      \_constant: , id:159, line:18:41, endln:18:46
+        |vpiParent:
+        \_cont_assign: , id:222, line:18:34, endln:18:46
+        |vpiDecompile:32'd1
+        |vpiSize:32
+        |DEC:1
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.G1[0].G2.g_ns), id:223, line:18:34, endln:18:38
+        |vpiParent:
+        \_cont_assign: , id:222, line:18:34, endln:18:46
+        |vpiName:g_ns
+        |vpiFullName:work@dut.G1[0].G2.g_ns
+RHS: <null>

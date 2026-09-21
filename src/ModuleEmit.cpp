@@ -1319,6 +1319,458 @@ UHDM::array_net* UhdmExporter::makeIfaceDefArrayNet225(
     return an;
 }
 
+// ===========================================================================
+// § caImportedPkgNetHoist77 / § caImportedPkgHoistKindTable77 /
+// § caImportedPkgDefNetType77 (r11u77) — THE IMPORTED-PACKAGE HOLDER HOIST.
+//
+// Three switches, each droppable ALONE so a mover's byte delta attributes to
+// one law and nothing else.  `R11U77_PKGNET_OFF=1` drops the package NET from
+// the hoisted listing (both views); `R11U77_HOISTKIND_OFF=1` drops the
+// elaborated-view KIND table (a hoisted struct stays our `logic_var` and an
+// unpacked array stays absent); `R11U77_DEFNT_OFF=1` drops the DEF-view
+// `vpiNetType` spelling table for hoisted VARIABLES; `R11U77_OFF=1` drops all
+// three; `R11U77_CELLDBG=1` traces every hoisted entry, the DECLINED ones
+// included.
+static bool pkgNetOff77() {
+    static const bool v = getenv("R11U77_PKGNET_OFF") != nullptr ||
+                          getenv("R11U77_OFF") != nullptr;
+    return v;
+}
+static bool hoistKindOff77() {
+    static const bool v = getenv("R11U77_HOISTKIND_OFF") != nullptr ||
+                          getenv("R11U77_OFF") != nullptr;
+    return v;
+}
+static bool defNtOff77() {
+    static const bool v = getenv("R11U77_DEFNT_OFF") != nullptr ||
+                          getenv("R11U77_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg77() {
+    static const bool v = [] {
+        const char* e = getenv("R11U77_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+// The package NET's own keyword, mapped the way `UhdmWriter::getVpiNetType`
+// maps Surelog's `Signal::getType()` (UhdmWriter.cpp:572-620).  Measured
+// golden-side on `y5_defnettype`, every keyword its own row: wire 1, wand 2,
+// wor 3, tri 4, tri0 5, trireg 7, supply1 10, supply0 11 — in BOTH views, the
+// def-view logic_net and the elaborated net alike.
+static int32_t pkgNetKeywordVpi77(const slang::ast::NetSymbol& ns77) {
+    switch (ns77.netType.netKind) {
+        case slang::ast::NetType::Wire:
+            return vpiWire;
+        case slang::ast::NetType::WAnd:
+            return vpiWand;
+        case slang::ast::NetType::WOr:
+            return vpiWor;
+        case slang::ast::NetType::Tri:
+            return vpiTri;
+        case slang::ast::NetType::TriAnd:
+            return vpiTriAnd;
+        case slang::ast::NetType::TriOr:
+            return vpiTriOr;
+        case slang::ast::NetType::Tri0:
+            return vpiTri0;
+        case slang::ast::NetType::Tri1:
+            return vpiTri1;
+        case slang::ast::NetType::TriReg:
+            return vpiTriReg;
+        case slang::ast::NetType::Supply0:
+            return vpiSupply0;
+        case slang::ast::NetType::Supply1:
+            return vpiSupply1;
+        case slang::ast::NetType::UWire:
+            return vpiUwire;
+        default:
+            return 0;
+    }
+}
+
+// § caImportedPkgDefNetType77 — THE DEF-VIEW HOISTED NET'S `vpiNetType` IS
+// THE DECLARATION'S WRITTEN BASE KEYWORD, RESOLVED THROUGH EXACTLY ONE
+// TYPEDEF HOP.  `writeNets` stamps `getVpiNetType(orig_net->getType())` and
+// `Signal::getType()` carries the type NODE Surelog compiled the package
+// declaration from, so only `logic` (36) and `reg` (48) answer for a variable
+// and everything else answers 0.
+//
+// MEASURED, arm `y5_defnettype`, one real Surelog golden, every spelling its
+// own row:
+//     logic  -> 36     reg -> 48     integer/time/bit -> none
+//     typedef logic [3:0] word_t;  word_t x       -> 36
+//     typedef logic [1:0][7:0] parr_t; parr_t x   -> 36
+//     typedef word_t word2_t;      word2_t x      -> NONE  <- the ONE hop
+//     a packed struct / enum / union typedef      -> NONE
+// The pre-77 rule was "a FOUR-STATE INTEGRAL declaration is stamped 36",
+// which is right for the first three rows and wrong for the last three (a
+// packed struct and a packed union ARE four-state integral).  The one-hop
+// rule is not an inference: `word2_t`'s own typedef node is a NamedType, and
+// Surelog's `getVpiNetType` has no arm for one.
+static int32_t pkgVarDeclNetType77(const Symbol& sym77) {
+    auto keyword77 = [](const syntax::SyntaxNode* ts77) -> int32_t {
+        if (!ts77)
+            return 0;
+        if (ts77->kind == syntax::SyntaxKind::LogicType)
+            return vpiNet;
+        if (ts77->kind == syntax::SyntaxKind::RegType)
+            return vpiReg;
+        return 0;
+    };
+    auto* dt77 = sym77.getDeclaredType();
+    if (!dt77)
+        return 0;
+    auto* tsyn77 = dt77->getTypeSyntax();
+    if (tsyn77 && tsyn77->kind == syntax::SyntaxKind::NamedType) {
+        // ONE hop: the named typedef's OWN written base type, never the
+        // canonical type behind a chain of them.
+        auto& t77 = dt77->getType();
+        if (t77.kind != SymbolKind::TypeAlias)
+            return 0;
+        auto* asyn77 = t77.as<TypeAliasType>().getSyntax();
+        if (!asyn77 || asyn77->kind != syntax::SyntaxKind::TypedefDeclaration)
+            return 0;
+        return keyword77(asyn77->as<syntax::TypedefDeclarationSyntax>().type);
+    }
+    return keyword77(tsyn77);
+}
+
+// § caImportedPkgHoistKindTable77 — GOLDEN'S KIND TABLE FOR A HOISTED HOLDER,
+// which is `NetlistElaboration::elabSignal` (NetlistElaboration.cpp:2050-2780)
+// read on the imported Signal.  Its two decisions, in order:
+//
+//   (1) net-or-variable, from the DECLARATION: a net keyword keeps `isNet`
+//       true; `logic`/`int`/`string`/`bit`/`byte`/`real`/a const/a non-static
+//       all set it FALSE (:2074-2092);
+//   (2) then the TYPESPEC OVERRIDES it (:2133-2160) — a `struct_typespec`
+//       whose members are ALL `logic_typespec` or `struct_typespec` flips
+//       `isNet` back to TRUE, and an `enum`/`bit`/`byte`/`real`/`class`
+//       typespec forces it FALSE, whatever the declaration said;
+//   (3) an UNPACKED dimension then wraps the object: a net becomes an
+//       `array_net` (:2534-2548), a variable an `array_var` (`makeVar_`).
+//
+// MEASURED, three arms, one real Surelog golden each:
+//   y2 `st_t v_struct` (all-logic members)   -> struct_net   (we: logic_var)
+//   y2 `si_t v_structi` (an `int` member)    -> struct_var   (we: logic_var)
+//   y2 `sx_t v_structn` (a nested struct)    -> struct_net   (we: logic_var)
+//   y5 `un_t d_tdunion` (a packed union)     -> union_var    (we: logic_var)
+//   y2 `logic [7:0] v_uarr [0:1]`            -> array_var    (we: NOTHING)
+//   y2 `st_t v_sarr [0:1]`                   -> array_net    (we: NOTHING)
+//   y1 `wire sn_t n_wstruct`                 -> struct_net
+//   y1 `wire en_t n_wenum`                   -> enum_var     <- (2) beats (1)
+//   y1 `wire [7:0] n_arr [0:1]`              -> array_net
+// and the shapes we already agree on stay on their own road untouched
+// (plain `logic`, a packed array, an integral typedef, int/byte/bit/real/
+// string/enum).
+//
+// THE KIND TABLE IS NOT THE BIND TABLE.  § genCaLhsArrayNetNeverBinds17's
+// decode — `bindVariable` searches `Variables()` then `Nets()` and never
+// `Array_nets()` — is measured again here on the IMPORT road: golden binds
+// the `array_var` of `v_uarr` and binds NOTHING for the `array_net` of
+// `v_sarr` / `n_arr` / `r_narr`, although all three holders exist (arms
+// `y2_pkgvarkind`, `y4_bindreach`).  This law writes the holder; the pass-74
+// binding law then serves the cells with no new binding code, because it
+// resolves through `netMap` and declines what it does not find there.
+enum class HoistKind77 {
+    Pre77,       // not this law's shape: the pre-77 road decides
+    LogicNet,    // a package NET, plain
+    StructNet,   // a struct whose members are all logic/struct
+    StructVar,   // any other packed struct
+    PkgVarRoad,  // `emitPackageVar`'s own kind, never the logic_var clone
+    ArrayVar,    // an unpacked array of a VARIABLE shape
+    ArrayNet,    // an unpacked array of a NET shape
+    ArraySkip,   // an unpacked array this builder does NOT write (see below)
+};
+
+// Does a packed struct's every member read as `logic_typespec` or
+// `struct_typespec` in golden's arena?  elabSignal walks the MEMBERS' own
+// typespecs, so a `logic [7:0]` member and a nested packed struct keep
+// `isNet`, while an `int`/`bit`/`byte`/`enum`/`real` member drops it.
+static bool structMembersAllLogic77(const Type& st77) {
+    auto& ct77 = st77.getCanonicalType();
+    if (ct77.kind != SymbolKind::PackedStructType)
+        return false;
+    for (auto& f77 : ct77.as<PackedStructType>().members()) {
+        if (f77.kind != SymbolKind::Field)
+            continue;
+        auto& mt77 = f77.as<FieldSymbol>().getType().getCanonicalType();
+        if (mt77.kind == SymbolKind::PackedStructType) {
+            if (!structMembersAllLogic77(mt77))
+                return false;
+            continue;
+        }
+        // A packed ARRAY of logic compiles to a logic_typespec carrying the
+        // dims (compileTypespec's logic arm), so its leaf decides.
+        const Type* leaf77 = &mt77;
+        while (leaf77->getCanonicalType().kind == SymbolKind::PackedArrayType)
+            leaf77 = &leaf77->getCanonicalType()
+                          .as<PackedArrayType>()
+                          .elementType;
+        auto& lc77 = leaf77->getCanonicalType();
+        if (lc77.kind != SymbolKind::ScalarType || !lc77.isFourState())
+            return false;
+    }
+    return true;
+}
+
+static HoistKind77 hoistKind77(const Symbol& sym77) {
+    auto* dt77 = sym77.getDeclaredType();
+    if (!dt77)
+        return HoistKind77::Pre77;
+    const bool isNetDecl77 = sym77.kind == SymbolKind::Net;
+    const Type* t77 = &dt77->getType();
+    auto& ct77 = t77->getCanonicalType();
+    // (3) the unpacked dimension wraps whatever (1)+(2) decided.
+    //
+    // § caImportedPkgHoistUnpackedIsWrappedScalar77 (r11v77) — THE WRAPPER IS
+    // THE SCALAR HOLDER WRAPPED, AND THIS BUILDER WRITES ONLY THE TWO SCALAR
+    // HOLDERS IT WAS MEASURED ON.  `elabSignal`'s unpacked wrapper runs AFTER
+    // steps (1) and (2), so the ELEMENT's own typespec decides net-or-variable
+    // exactly as it does for the scalar spelling — the declaration does NOT
+    // get the last word.  MEASURED, one real Surelog golden per row, ten
+    // element spellings side by side (grid `vh_arrelem`) plus four dimension
+    // spellings (`vb_unpackedfaces`), read as kind / vpiAutomatic / the
+    // `vpiReg`|`vpiNet` element's own kind:
+    //
+    //   wire  [7:0] a [0:1]      array_net auto=0 logic_net    <- written
+    //   logic [7:0] a [0:1]      array_var auto=1 logic_var    <- written
+    //   {wire,} sl_t a [0:1]     array_net auto=0 struct_net   <- written
+    //   wire  un_t  a [0:1]      array_net auto=0 logic_net    <- written
+    //   logic [7:0] a [2]        array_var auto=1 logic_var    <- written
+    //   {wire,} si_t a [0:1]     array_VAR auto=0 struct_var
+    //   {wire,} en_t a [0:1]     array_VAR auto=0 enum_var
+    //   un_t        a [0:1]      array_VAR auto=0 union_var
+    //   logic [7:0] a [0:1][0:2] array_var vpiSize SIX (flattened), not two
+    //   arr_t       a            array_var NO vpiSize, NO range, NO element
+    //
+    // The last five want a struct/enum/union ELEMENT VARIABLE this builder
+    // does not write, a FLATTENED size it does not compute, and an EMPTY
+    // holder — so each of them keeps the pre-77 ELABORATED reading (no holder
+    // at all, `ArraySkip`) rather than a holder whose compared fields are not
+    // golden's.  Their DEF-VIEW entry is unaffected and stays on LAW A's
+    // listing, where golden agrees with all ten (`vh_arrelem`,
+    // `uhdmallModules`, ten of ten).  GOLDEN WRITES NOTHING ON A MISS, and a
+    // holder of the wrong KIND is the same class of invention.
+    if (ct77.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+        const Type* el77 =
+            &ct77.as<FixedSizeUnpackedArrayType>().elementType;
+        auto& ec77 = el77->getCanonicalType();
+        // A SECOND unpacked dimension flattens golden's `vpiSize`; a TYPEDEF'd
+        // array carries no declarator dimension, and golden's holder for one
+        // is empty.  Neither is written.
+        if (ec77.kind == SymbolKind::FixedSizeUnpackedArrayType)
+            return HoistKind77::ArraySkip;
+        const syntax::SyntaxNode* dsyn77 = sym77.getSyntax();
+        if (!dsyn77 || dsyn77->kind != syntax::SyntaxKind::Declarator ||
+            dsyn77->as<syntax::DeclaratorSyntax>().dimensions.empty())
+            return HoistKind77::ArraySkip;
+        // The element's own typespec, the SAME table the scalar road reads.
+        if (ec77.kind == SymbolKind::PackedStructType)
+            return structMembersAllLogic77(ec77) ? HoistKind77::ArrayNet
+                                                 : HoistKind77::ArraySkip;
+        if (ec77.kind == SymbolKind::EnumType)
+            return HoistKind77::ArraySkip;
+        if (ec77.kind == SymbolKind::PackedUnionType)
+            return isNetDecl77 ? HoistKind77::ArrayNet
+                               : HoistKind77::ArraySkip;
+        return isNetDecl77 ? HoistKind77::ArrayNet : HoistKind77::ArrayVar;
+    }
+    // (2) the typespec overrides the declaration.
+    if (ct77.kind == SymbolKind::PackedStructType)
+        return structMembersAllLogic77(ct77) ? HoistKind77::StructNet
+                                             : HoistKind77::StructVar;
+    if (isNetDecl77) {
+        // (2) again: an ENUM typespec forces `isNet` FALSE however the
+        // declaration was written — `wire en_t n_wenum` is an `enum_var` in
+        // golden (y1), and `emitPackageVar` already writes exactly that kind
+        // for the variable spelling, so the net spelling takes its road.
+        if (ct77.kind == SymbolKind::EnumType)
+            return HoistKind77::PkgVarRoad;
+        // Everything else a package NET can be reads as a plain logic_net
+        // carrying the net keyword (y1: plain, scalar, tri, wand, supply0).
+        return HoistKind77::LogicNet;
+    }
+    // A packed UNION is the third shape the pre-77 `intTypedef9` arm swept
+    // into a `logic_var`: golden's holder is a `union_var` (y5 `d_tdunion`).
+    if (ct77.kind == SymbolKind::PackedUnionType)
+        return HoistKind77::PkgVarRoad;
+    return HoistKind77::Pre77;
+}
+
+// The ELABORATED holder for one hoisted entry whose kind this pass owns.
+// Returns the object (already filed in its own vector) or nullptr when the
+// shape is not this law's and the pre-77 road must decide.  @a kind77 is a
+// `HoistKind77`, passed as an int so the header carries no enum.
+UHDM::any* UhdmExporter::makeHoistHolder77(const Symbol& sym77, int kind77,
+                                           UHDM::instance* m,
+                                           const std::string& prefix,
+                                           UHDM::VectorOfvariables* hvars77,
+                                           UHDM::VectorOfnet* hnets77,
+                                           UHDM::VectorOfarray_net* hanets77) {
+    auto hk77 = (HoistKind77)kind77;
+    auto* dt77 = sym77.getDeclaredType();
+    if (!dt77)
+        return nullptr;
+    const std::string full77 = prefix + "." + std::string(sym77.name);
+    const int32_t nt77 = sym77.kind == SymbolKind::Net
+                             ? pkgNetKeywordVpi77(sym77.as<NetSymbol>())
+                             : 0;
+    // Golden's holder binds the HOME PACKAGE'S OWN typedef object, by its
+    // qualified name — `struct_net work@dut.t_ns -> struct_typespec pv::st_t`
+    // (xe_impkind), never the unqualified clone the integral-typedef arm
+    // mints.  Both registries are consulted because a package typedef lands
+    // in `pkgTopTypedefTs` and a file-scope one in `typedefTs`.
+    auto pkgTs77 = [&](const Type& t77) -> UHDM::typespec* {
+        if (t77.kind != SymbolKind::TypeAlias)
+            return nullptr;
+        if (auto it77 = pkgTopTypedefTs.find((const void*)&t77);
+            it77 != pkgTopTypedefTs.end())
+            return it77->second;
+        if (auto it77 = typedefTs.find(&t77); it77 != typedefTs.end())
+            return it77->second;
+        return nullptr;
+    };
+    auto refTs77 = [&](UHDM::BaseClass* owner77, UHDM::typespec* ts77,
+                       const std::string& fn77) -> UHDM::ref_typespec* {
+        if (!ts77)
+            return nullptr;
+        auto* rt77 = s.MakeRef_typespec();
+        rt77->VpiParent(owner77);
+        rt77->VpiFullName(fn77);
+        rt77->Actual_typespec(ts77);
+        return rt77;
+    };
+    switch (hk77) {
+        case HoistKind77::LogicNet: {
+            auto* ln77 = s.MakeLogic_net();
+            ln77->VpiName(sym77.name);
+            ln77->VpiFullName(full77);
+            ln77->VpiParent(m);
+            setLoc(ln77, nameSpan(sym77.location, sym77.name));
+            if (nt77)
+                ln77->VpiNetType(nt77);
+            if (auto* rt77 = refTs77(ln77, makeTypespec(sym77), full77))
+                ln77->Typespec(rt77);
+            hnets77->push_back(ln77);
+            return ln77;
+        }
+        case HoistKind77::StructNet: {
+            auto* sn77 = s.MakeStruct_net();
+            sn77->VpiName(sym77.name);
+            sn77->VpiFullName(full77);
+            sn77->VpiParent(m);
+            setLoc(sn77, nameSpan(sym77.location, sym77.name));
+            if (nt77)
+                sn77->VpiNetType(nt77);
+            auto* ts77 = pkgTs77(dt77->getType());
+            if (auto* rt77 = refTs77(sn77, ts77 ? ts77 : makeTypespec(sym77),
+                                     full77))
+                sn77->Typespec(rt77);
+            hnets77->push_back(sn77);
+            return sn77;
+        }
+        case HoistKind77::StructVar: {
+            auto* sv77 = s.MakeStruct_var();
+            sv77->VpiName(sym77.name);
+            sv77->VpiFullName(full77);
+            sv77->VpiParent(m);
+            setLoc(sv77, nameSpan(sym77.location, sym77.name));
+            sv77->VpiVisibility(1);
+            auto* ts77 = pkgTs77(dt77->getType());
+            if (auto* rt77 = refTs77(sv77, ts77 ? ts77 : makeTypespec(sym77),
+                                     full77))
+                sv77->Typespec(rt77);
+            hvars77->push_back(sv77);
+            return sv77;
+        }
+        case HoistKind77::ArrayVar: {
+            // `makeVar_`'s unpacked wrapper: an EMPTY `array_typespec` (the
+            // imported Signal resolves none), the four flags golden prints,
+            // one `vpiRange` per written dimension, and the element variable
+            // in `vpiReg` carrying the declaration's own base typespec.
+            auto* av77 = s.MakeArray_var();
+            av77->VpiName(sym77.name);
+            av77->VpiFullName(full77);
+            av77->VpiParent(m);
+            setLoc(av77, nameSpan(sym77.location, sym77.name));
+            auto& ct77 = dt77->getType().getCanonicalType();
+            av77->VpiSize(
+                (int32_t)ct77.as<FixedSizeUnpackedArrayType>().range.width());
+            if (auto* rt77 = refTs77(av77, s.MakeArray_typespec(), full77))
+                av77->Typespec(rt77);
+            av77->VpiAutomatic(true);
+            av77->VpiRandType(1);
+            av77->VpiVisibility(1);
+            av77->VpiArrayType(1);
+            if (auto* rngs77 = buildUnpackedRanges(sym77, av77))
+                av77->Ranges(rngs77);
+            auto* el77 = s.MakeLogic_var();
+            el77->VpiFullName(full77);
+            el77->VpiParent(av77);
+            setLoc(el77, nameSpan(sym77.location, sym77.name));
+            if (auto* rt77 = refTs77(
+                    el77, makeTypespec(sym77, dt77->getTypeSyntax()), full77))
+                el77->Typespec(rt77);
+            auto* evec77 = s.MakeVariablesVec();
+            evec77->push_back(el77);
+            av77->Variables(evec77);
+            hvars77->push_back(av77);
+            return av77;
+        }
+        case HoistKind77::ArrayNet: {
+            // `elabSignal`'s unpacked wrapper on the NET side: the element
+            // net is built first and the `array_net` adopts it.  A STRUCT
+            // element keeps its own name (golden prints the doubled
+            // fullname); a logic element carries none.
+            auto& ct77 = dt77->getType().getCanonicalType();
+            auto& el77 = ct77.as<FixedSizeUnpackedArrayType>().elementType;
+            auto* an77 = s.MakeArray_net();
+            an77->VpiName(sym77.name);
+            an77->VpiFullName(full77);
+            an77->VpiParent(m);
+            setLoc(an77, nameSpan(sym77.location, sym77.name));
+            an77->VpiSize(
+                (int32_t)ct77.as<FixedSizeUnpackedArrayType>().range.width());
+            if (auto* rngs77 = buildUnpackedRanges(sym77, an77))
+                an77->Ranges(rngs77);
+            UHDM::net* in77 = nullptr;
+            if (el77.getCanonicalType().kind == SymbolKind::PackedStructType) {
+                auto* sn77 = s.MakeStruct_net();
+                sn77->VpiName(sym77.name);
+                sn77->VpiFullName(full77 + "." + std::string(sym77.name));
+                auto* ts77 = pkgTs77(el77);
+                if (auto* rt77 = refTs77(sn77, ts77,
+                                         full77 + "." +
+                                             std::string(sym77.name)))
+                    sn77->Typespec(rt77);
+                in77 = sn77;
+            }
+            else {
+                auto* ln77 = s.MakeLogic_net();
+                ln77->VpiFullName(full77);
+                if (nt77)
+                    ln77->VpiNetType(nt77);
+                if (auto* rt77 =
+                        refTs77(ln77, makeTypespec(sym77, dt77->getTypeSyntax()),
+                                full77))
+                    ln77->Typespec(rt77);
+                in77 = ln77;
+            }
+            in77->VpiParent(an77);
+            setLoc(in77, nameSpan(sym77.location, sym77.name));
+            auto* nvec77 = s.MakeNetVec();
+            nvec77->push_back(in77);
+            an77->Nets(nvec77);
+            hanets77->push_back(an77);
+            return an77;
+        }
+        default:
+            return nullptr;
+    }
+}
+
 // This is `emitModuleDef`'s own hoist loop, moved out verbatim so the
 // interface definition writer can run it too.  It stays the module road's
 // only producer — the extraction changes no module byte.
@@ -1335,7 +1787,11 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
     // (emitInstance). The whole group comes FIRST — ahead of the module's own
     // declarations — and repeats once per import copy (ApbSlave's file-level
     // `import svunit_pkg::*` lists svunit_version/current_tc twice each).
-    for (auto* iv9 : collectImportedPkgVars(body, *sm)) {
+    // § caImportedPkgNetHoist77 — the listing is the package's SIGNAL vector.
+    std::vector<const Symbol*> sigs77;
+    collectImportedPkgVars(body, *sm, &sigs77, !pkgNetOff77(),
+                           !hoistKindOff77());
+    for (auto* iv9 : sigs77) {
         auto* n9 = s.MakeLogic_net();
         n9->VpiName(iv9->name);
         n9->VpiFullName(prefix + "." + std::string(iv9->name));
@@ -1347,9 +1803,30 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
         // vpiNetType 36, while `int`, `string` and class-handle declarations
         // are listed as bare logic_nets with none (r10apb3 repro 11; ApbSlave
         // svunit_version/current_tc).
-        if (dt9 && dt9->getType().getCanonicalType().isIntegral() &&
-            dt9->getType().getCanonicalType().isFourState())
-            n9->VpiNetType(vpiNet);
+        const int32_t preNt77 =
+            (dt9 && dt9->getType().getCanonicalType().isIntegral() &&
+             dt9->getType().getCanonicalType().isFourState())
+                ? vpiNet
+                : 0;
+        int32_t postNt77 = preNt77;
+        if (iv9->kind == SymbolKind::Net)
+            // § caImportedPkgNetHoist77 — a package NET carries its own
+            // keyword here, in the def view exactly as in the elaborated one
+            // (y5: wire 1, wand 2, wor 3, tri 4, tri0 5, trireg 7, supply1
+            // 10, supply0 11).
+            postNt77 = pkgNetKeywordVpi77(iv9->as<NetSymbol>());
+        else if (!defNtOff77())
+            // § caImportedPkgDefNetType77 — the written base keyword through
+            // exactly one typedef hop.
+            postNt77 = pkgVarDeclNetType77(*iv9);
+        if (postNt77)
+            n9->VpiNetType(postNt77);
+        if (cellDbg77())
+            fprintf(stderr, "R11U77DEFNT name=%s net=%d pre=%d post=%d %s\n",
+                    std::string(iv9->name).c_str(),
+                    (int)(iv9->kind == SymbolKind::Net), (int)preNt77,
+                    (int)postNt77,
+                    preNt77 == postNt77 ? "SAME" : "MOVED");
         bool typed9 = false;
         if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias)
             if (auto ti9 = typedefTs.find(&dt9->getType());
@@ -10236,9 +10713,49 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // vpiInstance. The whole group leads the module's own variables.
     {
         auto* mvars9 = s.MakeVariablesVec();
-        for (auto* iv9 : collectImportedPkgVars(body, *sm)) {
+        // § caImportedPkgNetHoist77 / § caImportedPkgHoistKindTable77 — the
+        // hoisted NETS and the shapes whose elaborated KIND golden does not
+        // read off the declaration.  The two laws are gated apart: a package
+        // NET exists here only because LAW A listed it, so its whole kind
+        // walk is LAW A's; a package VARIABLE's kind correction is LAW B's.
+        auto* hnets77 = s.MakeNetVec();
+        auto* hanets77 = s.MakeArray_netVec();
+        std::vector<const Symbol*> sigs77;
+        collectImportedPkgVars(body, *sm, &sigs77, !pkgNetOff77(),
+                               !hoistKindOff77());
+        for (auto* iv9 : sigs77) {
             const DeclaredType* dt9 = iv9->getDeclaredType();
-            bool intTypedef9 = dt9 &&
+            HoistKind77 hk77 = HoistKind77::Pre77;
+            if (iv9->kind == SymbolKind::Net ? !pkgNetOff77()
+                                             : !hoistKindOff77())
+                hk77 = hoistKind77(*iv9);
+            if (cellDbg77())
+                fprintf(stderr,
+                        "R11U77HOIST name=%s net=%d kind=%d prefix=%s\n",
+                        std::string(iv9->name).c_str(),
+                        (int)(iv9->kind == SymbolKind::Net), (int)hk77,
+                        prefix.c_str());
+            // § caImportedPkgHoistUnpackedIsWrappedScalar77 — an unpacked
+            // array whose golden holder this builder does not write keeps the
+            // PRE-77 ELABORATED reading, which is no holder at all: the entry
+            // is skipped outright, never handed to the pre-77 road, so the
+            // elaborated listing is byte-for-byte pristine's for it.  Its
+            // DEF-VIEW entry is LAW A's and is not touched here.
+            if (hk77 == HoistKind77::ArraySkip)
+                continue;
+            if (hk77 != HoistKind77::Pre77 &&
+                hk77 != HoistKind77::PkgVarRoad) {
+                if (auto* ho77 =
+                        makeHoistHolder77(*iv9, (int)hk77, m, prefix, mvars9,
+                                          hnets77, hanets77)) {
+                    if (!topNets.count(iv9)) {
+                        topNets[iv9] = ho77;
+                        sigOrder.emplace_back(iv9, ho77);
+                    }
+                    continue;
+                }
+            }
+            bool intTypedef9 = hk77 != HoistKind77::PkgVarRoad && dt9 &&
                                dt9->getType().kind == SymbolKind::TypeAlias &&
                                dt9->getType().getCanonicalType().isIntegral() &&
                                !dt9->getType().getCanonicalType().isEnum();
@@ -10274,7 +10791,12 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             bool ownPkgMember209 =
                 iv9->getParentScope() &&
                 iv9->getParentScope()->asSymbol().kind == SymbolKind::Package;
-            if (!ownPkgMember209 && iv9->lifetime != VariableLifetime::Static)
+            // The listing is a Symbol vector since § caImportedPkgNetHoist77;
+            // this arm is a VARIABLE's by construction (`intTypedef9` reads a
+            // TypeAlias declared type and a package NET never reaches it).
+            if (!ownPkgMember209 &&
+                iv9->kind == SymbolKind::Variable &&
+                iv9->as<VariableSymbol>().lifetime != VariableLifetime::Static)
                 lv9->VpiAutomatic(true);
             auto& ta9 = dt9->getType().as<TypeAliasType>();
             const syntax::SyntaxNode* tSyn9 = nullptr;
@@ -10316,6 +10838,15 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         bindListingInitRefs47(mvars9);
         if (!mvars9->empty())
             vars->insert(vars->begin(), mvars9->begin(), mvars9->end());
+        // The hoisted group LEADS the module's own declarations in every
+        // slot, not only in `Variables()`: golden's elab `work@dut` lists
+        // `struct_net t_ns` ahead of the module's own output net `o`
+        // (xe_impkind), and the array_net slot follows the same order.
+        if (!hnets77->empty())
+            nets->insert(nets->begin(), hnets77->begin(), hnets77->end());
+        if (!hanets77->empty())
+            arrayNets->insert(arrayNets->begin(), hanets77->begin(),
+                              hanets77->end());
     }
     if (!nets->empty())
         m->Nets(nets);
@@ -35096,7 +35627,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     // HOISTED base net verbatim: the hoisted road has its own net-type rule
     // (`emitImportedPkgVarNets`) and this law does not touch it.
     {
-        auto hv225 = collectImportedPkgVars(body, *sm);
+        // The index alignment is with the vector `emitImportedPkgVarNets`
+        // just listed, so this reads the SAME merged listing
+        // (§ caImportedPkgNetHoist77) — a package NET's def-view entry takes
+        // an interface array_net exactly as a package variable's does.
+        std::vector<const Symbol*> hv225;
+        collectImportedPkgVars(body, *sm, &hv225, !pkgNetOff77(),
+                               !hoistKindOff77());
         for (size_t i225 = 0; i225 < hv225.size() && i225 < nets->size();
              i225++) {
             auto* hn225 = (*nets)[i225];

@@ -1,0 +1,99 @@
+LHS:
+decompile:
+gen_scope: (work@dut.G1[0]), id:184, line:12:40, endln:19:6
+|vpiParent:
+\_gen_scope_array: (work@dut.G1[0]), id:183, line:12:40, endln:19:6
+|vpiFullName:work@dut.G1[0]
+|vpiParameter:
+\_parameter: (work@dut.G1[0].i), id:185, line:12:0
+  |vpiParent:
+  \_gen_scope: (work@dut.G1[0]), id:184, line:12:40, endln:19:6
+  |UINT:0
+  |vpiTypespec:
+  \_ref_typespec: (work@dut.G1[0].i), id:187
+    |vpiParent:
+    \_parameter: (work@dut.G1[0].i), id:185, line:12:0
+    |vpiFullName:work@dut.G1[0].i
+    |vpiActual:
+    \_int_typespec: , id:186
+  |vpiLocalParam:1
+  |vpiName:i
+  |vpiFullName:work@dut.G1[0].i
+|vpiTypedef:
+\_import_typespec: (pg), id:120, line:13:12, endln:13:17
+|vpiGenScopeArray:
+\_gen_scope_array: (work@dut.G1[0].G2), id:188, line:15:12, endln:18:8
+  |vpiParent:
+  \_gen_scope: (work@dut.G1[0]), id:184, line:12:40, endln:19:6
+  |vpiName:G2
+  |vpiFullName:work@dut.G1[0].G2
+  |vpiGenScope:
+  \_gen_scope: (work@dut.G1[0].G2), id:189, line:15:12, endln:18:8
+    |vpiParent:
+    \_gen_scope_array: (work@dut.G1[0].G2), id:188, line:15:12, endln:18:8
+    |vpiFullName:work@dut.G1[0].G2
+    |vpiVariables:
+    \_logic_var: (work@dut.G1[0].G2.g_ns), id:143, line:16:20, endln:16:24
+      |vpiParent:
+      \_gen_scope: (work@dut.G1[0].G2), id:189, line:15:12, endln:18:8
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.G1[0].G2.g_ns), id:144
+        |vpiParent:
+        \_logic_var: (work@dut.G1[0].G2.g_ns), id:143, line:16:20, endln:16:24
+        |vpiFullName:work@dut.G1[0].G2.g_ns
+        |vpiActual:
+        \_logic_typespec: , id:139, line:16:7, endln:16:19
+      |vpiName:g_ns
+      |vpiFullName:work@dut.G1[0].G2.g_ns
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.G1[0].G2.h_ns), id:152, line:17:20, endln:17:24
+      |vpiParent:
+      \_gen_scope: (work@dut.G1[0].G2), id:189, line:15:12, endln:18:8
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.G1[0].G2.h_ns), id:153
+        |vpiParent:
+        \_logic_var: (work@dut.G1[0].G2.h_ns), id:152, line:17:20, endln:17:24
+        |vpiFullName:work@dut.G1[0].G2.h_ns
+        |vpiActual:
+        \_logic_typespec: , id:148, line:17:7, endln:17:19
+      |vpiName:h_ns
+      |vpiFullName:work@dut.G1[0].G2.h_ns
+      |vpiVisibility:1
+    |vpiContAssign:
+    \_cont_assign: , id:190, line:16:34, endln:16:46
+      |vpiParent:
+      \_gen_scope: (work@dut.G1[0].G2), id:189, line:15:12, endln:18:8
+      |vpiRhs:
+      \_constant: , id:129, line:16:41, endln:16:46
+        |vpiParent:
+        \_cont_assign: , id:190, line:16:34, endln:16:46
+        |vpiDecompile:32'd1
+        |vpiSize:32
+        |DEC:1
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.G1[0].G2.g_ns), id:191, line:16:34, endln:16:38
+        |vpiParent:
+        \_cont_assign: , id:190, line:16:34, endln:16:46
+        |vpiName:g_ns
+        |vpiFullName:work@dut.G1[0].G2.g_ns
+    |vpiContAssign:
+    \_cont_assign: , id:193, line:17:34, endln:17:46
+      |vpiParent:
+      \_gen_scope: (work@dut.G1[0].G2), id:189, line:15:12, endln:18:8
+      |vpiRhs:
+      \_constant: , id:132, line:17:41, endln:17:46
+        |vpiParent:
+        \_cont_assign: , id:193, line:17:34, endln:17:46
+        |vpiDecompile:32'd2
+        |vpiSize:32
+        |DEC:2
+        |vpiConstType:1
+      |vpiLhs:
+      \_ref_obj: (work@dut.G1[0].G2.h_ns), id:194, line:17:34, endln:17:38
+        |vpiParent:
+        \_cont_assign: , id:193, line:17:34, endln:17:46
+        |vpiName:h_ns
+        |vpiFullName:work@dut.G1[0].G2.h_ns
+RHS: <null>

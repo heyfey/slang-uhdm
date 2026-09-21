@@ -1,0 +1,60 @@
+# r11u77 GRID — 23 arms, one head per run, every rc recorded.
+# The goldens are regenerated per arm per tag by the pinned Surelog v1.87.
+# cmplines is a LOWER BOUND (masks cascade); the arbiter is cmp_rc and the
+# per-arm dump distance in SCORE.r11u77.txt.
+
+## PRISTINE  963667a2299a360105d9677e3a065959
+b1_bindvis       golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+b2_homes         golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=23
+b5_walkedge      golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+g1_netkinds      golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+g2_importshapes  golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=89
+g4_edges         golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+v6_ifacepkg      golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+v9_hops          golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+w8_unitname      golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+xb_arrnet        golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=19
+xc_impw          golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=32
+xe_impkind       golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=236
+xg_genimp        golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=98
+xi_genimp2       golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=100
+xj_twoinst       golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+xk_order         golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=29
+xl_impclimb      golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+y1_pkgnetkind    golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=192
+y2_pkgvarkind    golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=712
+y3_impshape      golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=37
+y4_bindreach     golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=234
+y5_defnettype    golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=814
+y6_hoistconv     golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=30
+
+## PATCHED  c676e58722bcd4bba191cfec84ab6799
+b1_bindvis       golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+b2_homes         golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=23
+b5_walkedge      golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+g1_netkinds      golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+g2_importshapes  golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=89
+g4_edges         golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+v6_ifacepkg      golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+v9_hops          golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+w8_unitname      golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+xb_arrnet        golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=19
+xc_impw          golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=32
+xe_impkind       golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=236
+xg_genimp        golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=98
+xi_genimp2       golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=100
+xj_twoinst       golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+xk_order         golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=29
+xl_impclimb      golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0
+y1_pkgnetkind    golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=192
+y2_pkgvarkind    golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=712
+y3_impshape      golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=37
+y4_bindreach     golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=234
+y5_defnettype    golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=814
+y6_hoistconv     golden_rc=0 ours_rc=0  cmp_rc=0   heads=0 cmplines=0   <-- CONVERTS
+
+# Every arm's ONE head, both binaries, is the PACKAGE object itself (residue 1,
+# the `emitPackage` listing) EXCEPT `y6_hoistconv`, whose pristine head is
+# LAW C's own and whose patched run returns 0:
+#   y6 pristine head:  LHS logic_net (work@dut.y_reg) |vpiNetType:48
+#                      RHS logic_net (work@dut.y_reg) |vpiNetType:36

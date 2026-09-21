@@ -916,6 +916,17 @@ private:
                                 UHDM::instance* m, const std::string& prefix,
                                 DefInfo& info, UHDM::VectorOfnet* nets,
                                 bool bindRefs);
+    // § caImportedPkgHoistKindTable77 / § caImportedPkgNetHoist77 — the
+    // ELABORATED holder for one hoisted import entry whose kind golden does
+    // not read off the declaration (a packed struct, an unpacked array, a
+    // package net).  `kind77` is a `HoistKind77` (ModuleEmit.cpp); nullptr
+    // means "not this law's shape" and the pre-77 road decides.  The law and
+    // its golden kind table live at the definition.
+    UHDM::any* makeHoistHolder77(const slang::ast::Symbol& sym77, int kind77,
+                                 UHDM::instance* m, const std::string& prefix,
+                                 UHDM::VectorOfvariables* hvars77,
+                                 UHDM::VectorOfnet* hnets77,
+                                 UHDM::VectorOfarray_net* hanets77);
     UHDM::instance* emitModuleDefPorts(const slang::ast::InstanceSymbol& inst);
     UHDM::instance* emitInstance(const slang::ast::InstanceSymbol& inst,
                                  const std::string& path, UHDM::instance* parentM,
