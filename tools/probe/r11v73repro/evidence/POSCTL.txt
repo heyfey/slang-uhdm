@@ -1,0 +1,13 @@
+r11v73 POSITIVE CONTROL — re-run on the VERIFIED binary 0666658a1ae58470f631f76b409130f0
+against the frozen pristine 598195b29a98fb7ee3263d01d53861e6, both writing the
+SAME output name in the SAME directory (the serializer embeds the output path).
+
+  cvb_base   prc=0 lrc=0 SAME
+  cvb_pow    prc=0 lrc=0 DIFFERS      the POW face
+  cvc_base   prc=0 lrc=0 SAME
+  cvc_unt    prc=0 lrc=0 DIFFERS      the UNTCHAIN face
+  cve_base   prc=0 lrc=0 SAME
+  cve_dec    prc=0 lrc=0 DIFFERS      the DECWIDE face
+
+All three faces stay sighted after the three verifier fixes, so the corpus
+census zero is still a zero the instrument can see through.

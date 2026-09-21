@@ -1,0 +1,32 @@
+r11u73 GATES — measured numbers, law f7e288e08efb587e4a2b8c9dcfd11752 vs pristine 598195b29a98fb7ee3263d01d53861e6
+
+goldens law   PASS=23 FAIL=0
+goldens pris  PASS=23 FAIL=0
+goldens /bin/false PASS=0 FAIL=23
+
+u2r tf   788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+u2r def  788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+u2r joins: vs results/gate_uhdm2rtlil.csv PASS; vs results/golden_uhdm2rtlil.csv (1742 rows) PASS; vs own pristine PASS
+byteverify u2r: PATH_SETS_IDENTICAL (1608) MOVERS 0/1608 selfcheck 1607/1608
+
+surelog law  default 474/9   testflags 469/8
+surelog pris default 474/9   testflags 469/8
+byteverify sl: PATH_SETS_IDENTICAL (960) MOVERS 4/960 selfcheck 959/960 (the UVM coin; 0 vpiConstType lines)
+coin positive control (pristine x3 on MiniAmiq/default): 7f0352c5930f 26db02f9efd9 93c118335e6a
+
+canaries sl law  ok=50 changed=2 (Earlgrey dump column)
+canaries sl pris ok=50 changed=2 (the SAME two)
+canaries u2r     ok=8  changed=0
+ctcan2 sl ok=58 changed=0 PASS ; ctcan2 u2r ok=1 changed=0 PASS
+canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+protected databases, law vs pristine, both modes:
+  SVSwitch 4842211c4030 SAME ; YosysVerx 6ccda350c24a SAME ; InterfaceModPort 59a365f3ce2c SAME
+  Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3 SAME
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5 SAME ; YosysOldOr d68e0796d62c SAME
+
+cmds.txt audit: u2r 1742/1742 name the frozen binary, 0 name the main tree
+                sl  1531/1581 name the frozen binary, 0 name the main tree
+
+fence check (the four slang-fenced names, unspelled per OPS): 0 0 0 0
+results/*.csv untouched

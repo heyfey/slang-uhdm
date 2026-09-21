@@ -7591,6 +7591,32 @@ inline bool red72ReduceLeavesOp(const Expression& e0) {
 ///   0 stops the member stamp (golden's `K+1` probes read 64) while `96'b1`
 ///   does not (they read 8), and `70'h5`, `65'h1`, `96'b1`, `96'o1` in
 ///   `b3_ops68` / `v1_ofire68` all complete.
+///
+/// § redDecLeafRangeStrict73 (r11u73) — THE DECIMAL LEAF REFUSES ON ITS VALUE,
+/// NOT ON ITS WIDTH, AND ONLY INSIDE AN ARM.  `get_value`'s `vpiDecConst` case
+/// (`~/git-repos/UHDM/templates/ExprEval.cpp:1978`) has NO `VpiSize() > 64`
+/// guard: it strips `DEC:` and calls `NumUtils::parseInt64`, which is
+/// `std::from_chars` into an `int64_t` and therefore RANGE-STRICT.  So a
+/// based-DECIMAL leaf refuses exactly when its magnitude exceeds INT64_MAX,
+/// whatever its declared width — while the HEX arm beside it refuses on the
+/// DECLARED width and reads `parseHex` into the same `int64_t` without
+/// complaint.  Measured, arm `w3_dec73` (real Surelog v1.87, `slrc=0 ourrc=0
+/// slerr=0`), operand 0 the candidate and `K+1`/`K+2` on 8-bit members:
+///
+///   INSIDE AN ARM (`inArm`), the VALUE decides:
+///     `DU - 1`,   `DU = 64'd18446744073709551614`   golden an unfolded `op11`
+///     `64'd18446744073709551614 - 1` (literal)      golden an unfolded `op11`
+///     `DU % 3`                                      golden an unfolded `op13`
+///     `D96W - 1`, `D96W = 96'd18446744073709551616` golden `op11`, probes 64
+///     `D96 * 2`,  `D96 = 96'd5`   — 96 bits, small  golden `INT:10`, probes 8
+///     `DS - 1`,   `DS = 64'd9223372036854775807`    golden folds,    probes 8
+///     `HU - 1`,   `HU = 64'hFFFFFFFFFFFFFFFE`       golden `INT:-3` — the SAME
+///                 bits in HEX at 64 bits do NOT refuse
+///
+///   AS THE OPERAND ITSELF (`!inArm`), the >64-BIT VALUE rule of the based
+///   faces stands unchanged: `96'd18446744073709551616` and a NAME onto it
+///   both stop the member stamp (probes 64) while `64'd18446744073709551614`
+///   and a NAME onto it do not (probes 8).
 inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
     if (e.kind != ExpressionKind::IntegerLiteral || !e.syntax ||
         e.syntax->kind != slang::syntax::SyntaxKind::IntegerVectorExpression)
@@ -7598,11 +7624,33 @@ inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
     char base = red72LitBase(
         e.syntax->as<slang::syntax::IntegerVectorExpressionSyntax>()
             .base.rawText());
-    if (base != 'b' && base != 'h' && base != 'o')
+    if (base != 'b' && base != 'h' && base != 'o' && base != 'd')
         return false;
-    if (inArm)
+    if (inArm && base != 'd')
         return e.type->getBitWidth() > 64;
     auto iv = e.as<IntegerLiteral>().getValue();
+    if (inArm) {
+        // § redDecLeafRangeStrict73 — `parseInt64` is range-strict, so the
+        // refusal is "does this magnitude fit a SIGNED 64", not "is it wider
+        // than 64 bits".  A value needing more than 64 bits fails it too.
+        if (iv.hasUnknown())
+            return false;
+        // § redDecLeafMagnitudeNotSign73v (r11v73) — AND THE MAGNITUDE IS THE
+        // ONE THAT WAS WRITTEN.  `get_value` reads the `DEC:` STRING, and
+        // Surelog writes a based-decimal literal by its WRITTEN DIGITS
+        // whatever its signedness: measured, arm `x7_sdecpos73` (real Surelog
+        // v1.87, `slrc=0 ourrc=0 slerr=0`), `1'sd1 * 1'sd1` is golden `INT:1`
+        // and `32'sd4294967295 * 32'sd4294967295` golden `INT:-8589934591`
+        // (= (2**32-1)**2 wrapped), so the producer read 1 and 4294967295,
+        // not -1 and -1.  `SVInt::as<uint64_t>()` SIGN-EXTENDS a signed
+        // literal, which turns every `W'sd<top bit set>` into 0xFFFF…  and
+        // refuses an arm the producer folds: on `x7_sdecpos73` that took TEN
+        // probe cells from RIGHT (`const/8`) to WRONG (`const/64`) — the
+        // member stamp stopped where golden completes.  Read the magnitude.
+        iv.setSigned(false);
+        auto du = iv.as<uint64_t>();
+        return !du || *du > (uint64_t)INT64_MAX;
+    }
     // An UNKNOWN digit is NOT this face: `8'b1000000x`, `8'b1x000001` and
     // `8'hAx` all COMPLETE golden-side (`b2_faces68` `C_xtail`, `b3_ops68`
     // `C_xmid`, `v1_ofire68` `C_unkhx2` — their `K+1` probes read 8), because
@@ -7701,13 +7749,37 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
                 out = l % r;
                 return Red72::Value;
             case BinaryOperator::Power: {
+                // § patPowCastArtefact73 (r11u73) — THE `**` ARM RUNS IN
+                // `double` AND ITS PAST-int64 RENDER IS THE CAST'S OWN
+                // OUT-OF-RANGE ARTEFACT, WHICH IS A VALUE LIKE ANY OTHER.
+                // `ExprEval.cpp:3782` is
+                //   `val = static_cast<int64_t>(std::pow<int64_t>(val0,val1))`
+                // and `std::pow<int64_t>` promotes BOTH operands to `double`
+                // (`__gnu_cxx::__promote_2<int64_t,int64_t>::__type` IS
+                // `double`), so the arm is double arithmetic with ONE
+                // narrowing at the end.  Two faces, both measured on real
+                // Surelog v1.87 goldens (`w1_pow73`, `w2_powbail73`,
+                // `t3_beyond72`, `t7_fence72`):
+                //   WITHIN range the cast keeps the DOUBLE-ROUNDED value —
+                //     `3 ** 39` is golden `INT:4052555153018976256` where the
+                //     exact int64 is …267, and `5 ** 27` golden
+                //     `INT:7450580596923828224`;
+                //   PAST range the cast is out of range and x86-64's
+                //     `cvttsd2si` writes the integer-indefinite pattern
+                //     0x8000000000000000 — `2 ** 63`, `2 ** 64`, `2 ** 70`,
+                //     `3 ** 40`, `7 ** 23`, `10 ** 19` and `(-3) ** 41` are
+                //     ALL golden `INT:-9223372036854775808`.
+                // r11u72 ABSTAINED on the second face (its R0) rather than
+                // transcribe it.  It is transcribed here as the producer's own
+                // value, and computed WITHOUT performing the narrowing
+                // ourselves, so this build has no signed-conversion UB and the
+                // answer does not depend on our own compiler's choice.
                 double d = std::pow((double)l, (double)r);
-                // BEYOND int64 ABSTAINS: the producer's own render there is the
-                // cast's out-of-range artefact (measured `INT:-9223372036854775808`).
                 if (!(d >= -9223372036854775808.0) ||
                     !(d < 9223372036854775808.0))
-                    return Red72::Unknown;
-                out = (int64_t)d;
+                    out = INT64_MIN;
+                else
+                    out = (int64_t)d;
                 return Red72::Value;
             }
             default:
@@ -7859,7 +7931,124 @@ inline bool red72SetterCompletes(const Expression& e0, int depth,
 /// needed because § patOperandIntSixtyFour72 moves the bail onto operands this
 /// size never reached before (`x3_names` `md`, `t2_leaf72` `c`), where slang's
 /// width would be a pristine-right -> patched-wrong cell.
-inline bool red72UntypedMinusName(const Expression& e0) {
+///
+/// § redUntypedIntNameChain73 (r11u73) — IT IS NOT THE MINUS, IT IS "THE
+/// PRODUCER MINTED THIS CONSTANT", AND IT FOLLOWS A NAME CHAIN.
+///
+/// r11v72's RV-3 found the rule stopping at one hop: `MD = -16'd5`,
+/// `HOP1 = MD`, `HOP2 = HOP1` is golden 32 and ours 16.  Measured wider, arms
+/// `w4_hop73` and `w7_untw73` (real Surelog v1.87, operand 0 a guaranteed bail
+/// `8'hxA`, 24-bit members that collide with nothing), an IMPLICITLY typed
+/// parameter with no dimensions stores its initializer's REDUCED constant, and
+/// that constant is either a BASED LITERAL carried verbatim with its own width
+/// or one the producer's own reduce MINTED — and a minted one comes back at
+/// the untyped default 32 whatever its arm's `VpiSize` was:
+///
+///   VERBATIM (golden keeps the literal's width, so this face ABSTAINS):
+///     `UH16 = 16'h28` 16 · `HH1 = UH16` 16 · `HH2 = HH1` 16
+///     `UD16 = 16'd9`  16 · `HD1 = UD16`  16
+///     `byte TB = 8'sd7` 8 (TYPED) · `HT1 = TB` 8 — the chain runs THROUGH a
+///                                    typed name and still reads the literal
+///   MINTED (golden 32, slang's width in parentheses):
+///     `MD = -16'd5` 32 · `HOP1` 32 · `HOP2` 32 · `HOP3` 32        (16)
+///     `NB = -8'd3`  32 · `HN1`  32 · `HN2`  32                     (8)
+///     `MU = -UH16`  32 · `HU1`  32                                 (16)
+///     `bit [15:0] WD = -16'd5` 16 (TYPED) · `HW1 = WD` **32**      (16)
+///     `AR = 16'd9 + 16'd1` 32 · `HA1 = AR` 32                      (16)
+///     `A64 = 64'd5 + 64'd1` 32 (64) · `AW = 96'd5 + 96'd1` 32 · `HAW` 32 (96)
+///     `AP = 2 ** 64` 32 (the `**` arm's own `VpiSize` is 64)
+///     `AC = 16'(5)` 32 (16) — a CAST mints too
+///     `AS = 16'd9 << 1` 32 (16) — an arm the value table does not model
+///     `UI = 5` 32 — an UNSIZED decimal is not a based literal either
+///
+/// `HW1` is what rules out "inherit the target's width": `WD` is TYPED and
+/// golden stores IT at 16, yet the untyped name one hop above reads 32,
+/// because what `WD` holds is a MINTED `INT:-5` and not `16'd5`.
+///
+/// THE GATE: when the producer's reduce REFUSES the initializer there is no
+/// minted constant at all — golden keeps the whole operation unfolded
+/// (`AH = 96'h1 + 96'h1` is golden an `op24`, `AD = 64'd18446744073709551614 -
+/// 64'd1` an `op11`) — so the face stands down there and today's width stays,
+/// a STILL cell rather than a second wrong answer.  That is why this predicate
+/// takes the context: the refusal is read from `red72Int64`, the ONE home,
+/// and never transcribed a second time.
+inline bool red73MintsUntypedInt(const Expression& x0, int depth) {
+    if (depth > 16)
+        return false;
+    const Expression& x = stripImplicitConv(x0);
+    switch (x.kind) {
+        case ExpressionKind::IntegerLiteral:
+            // A BASED literal is carried verbatim with its own width; an
+            // UNSIZED decimal is not (`UI = 5` is golden 32).
+            return !x.syntax ||
+                   x.syntax->kind !=
+                       slang::syntax::SyntaxKind::IntegerVectorExpression;
+        case ExpressionKind::BinaryOp:
+            // § redRelationalMintsOneBit73v (r11v73) — THE COMPARISON FAMILY
+            // IS NOT MINTED.  Measured, arms `x4_cmp73` and `x5_rel73` (real
+            // Surelog v1.87, `slrc=0 ourrc=0 slerr=0`), an untyped NAME one
+            // and two hops above the initializer, operand 0 a guaranteed bail
+            // and 24-bit members:
+            //   `EQ = (16'd5 == 16'd5)` golden `const/1@3=BIN:1`  — ONE BIT,
+            //   and so are `!=`, `<`, `<=`, `>`, `>=`, and a TWO-hop chain
+            //   onto one of them; `===`, `!==`, `==?` are golden UNFOLDED
+            //   (`op16`/`op17`/`op69`), so there is no minted constant there
+            //   either.
+            //   `&&` and `||` DO mint (golden `const/32@9=UINT:0`/`UINT:1`),
+            //   as do `~`, `!`, `&`, `>>`, `+`, a cast, and `(16'd9 > 16'd5)
+            //   << 1` (golden `const/32@9=UINT:2` — the SHIFT mints over a
+            //   relational, so only the TOP operator decides).
+            // Answering TRUE here stamped 32 over golden's one bit on SEVEN
+            // size cells that the pristine binary had RIGHT.
+            switch (x.as<BinaryExpression>().op) {
+                case BinaryOperator::Equality:
+                case BinaryOperator::Inequality:
+                case BinaryOperator::CaseEquality:
+                case BinaryOperator::CaseInequality:
+                case BinaryOperator::WildcardEquality:
+                case BinaryOperator::WildcardInequality:
+                case BinaryOperator::GreaterThanEqual:
+                case BinaryOperator::GreaterThan:
+                case BinaryOperator::LessThanEqual:
+                case BinaryOperator::LessThan:
+                    return false;
+                default:
+                    return true;
+            }
+        case ExpressionKind::Conversion:
+            // § redSignCastMintsNothing73v (r11v73) — A SIGNEDNESS CAST IS NOT
+            // A MINT.  Measured, arm `x9c_cast73` (real Surelog v1.87,
+            // `slrc=0 ourrc=0 slerr=0`), an untyped NAME one hop above:
+            //   `C16 = 16'(5)`            golden `const/32@9=UINT:5`  MINTED
+            //   `CS  = signed'(16'd5)`    golden `const/16@1=`        16 BITS
+            //   `CU  = unsigned'(16'sd5)` golden `const/16@1=`        16 BITS
+            //   `AD  = 16'd9 + 16'd1`     golden `const/32@7=INT:10`  MINTED
+            // A WIDTH cast mints; `signed'`/`unsigned'` keep the operand's
+            // width (and an encoding we do not match either — `@1` with an
+            // empty value — which is r11v73's RV-6, not this face's business).
+            // Answering TRUE here stamped 32 over golden's 16 on two size
+            // cells the pristine binary had RIGHT.
+            return !x.syntax ||
+                   x.syntax->kind !=
+                       slang::syntax::SyntaxKind::SignedCastExpression;
+        case ExpressionKind::UnaryOp:
+            return true;
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue: {
+            auto& s2 = x.as<ValueExpressionBase>().symbol;
+            if (s2.kind != SymbolKind::Parameter)
+                return false;
+            const Expression* i2 = s2.as<ParameterSymbol>().getInitializer();
+            return i2 && red73MintsUntypedInt(*i2, depth + 1);
+        }
+        default:
+            // Everything else — a string, a real, `'0`/`'1`, a concatenation,
+            // an enum member, a call — is unmeasured and ABSTAINS.
+            return false;
+    }
+}
+
+inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {
     const Expression& e = stripImplicitConv(e0);
     if (e.kind != ExpressionKind::NamedValue &&
         e.kind != ExpressionKind::HierarchicalValue)
@@ -7878,9 +8067,11 @@ inline bool red72UntypedMinusName(const Expression& e0) {
     const Expression* in = ps.getInitializer();
     if (!in)
         return false;
-    const Expression& si = stripImplicitConv(*in);
-    return si.kind == ExpressionKind::UnaryOp &&
-           si.as<UnaryExpression>().op == UnaryOperator::Minus;
+    if (!red73MintsUntypedInt(*in, 0))
+        return false;
+    // The producer minted nothing where its own reduce refused the arm.
+    int64_t rv73 = 0;
+    return red72Int64(*in, actx, 0, rv73) != Red72::Refuses;
 }
 
 } // namespace slang_uhdm

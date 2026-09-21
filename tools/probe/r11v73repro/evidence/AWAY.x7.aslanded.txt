@@ -1,0 +1,33 @@
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CA       op1  G=const/8@9=UINT:7 P=const/8@9=UINT:7 L=const/64@9=UINT:7
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CA       op2  G=const/8@9=UINT:8 P=const/8@9=UINT:8 L=const/64@9=UINT:8
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CB       op1  G=const/8@9=UINT:7 P=const/8@9=UINT:7 L=const/64@9=UINT:7
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CB       op2  G=const/8@9=UINT:8 P=const/8@9=UINT:8 L=const/64@9=UINT:8
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CC       op1  G=const/8@9=UINT:7 P=const/8@9=UINT:7 L=const/64@9=UINT:7
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CC       op2  G=const/8@9=UINT:8 P=const/8@9=UINT:8 L=const/64@9=UINT:8
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CD       op1  G=const/8@9=UINT:7 P=const/8@9=UINT:7 L=const/64@9=UINT:7
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CD       op2  G=const/8@9=UINT:8 P=const/8@9=UINT:8 L=const/64@9=UINT:8
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CE       op1  G=const/8@9=UINT:7 P=const/8@9=UINT:7 L=const/64@9=UINT:7
+  *** AWAY uhdmtopModules work@x7_sdecpos73.CE       op2  G=const/8@9=UINT:8 P=const/8@9=UINT:8 L=const/64@9=UINT:8
+ARM x7_sdecpos73_ASLANDED FULL TO=2 AWAY=10 MOVED-WRONG=10 STILL=3 SAME=69 WRONG2=0
+ARM x7_sdecpos73_ASLANDED ENC  TO=0 AWAY=0 MOVED-WRONG=0 STILL=3 SAME=81 WRONG2=0
+ARM x4_cmp73_ASLANDED FULL TO=4 AWAY=0 MOVED-WRONG=0 STILL=0 SAME=47 WRONG2=4
+ARM x4_cmp73_ASLANDED ENC  TO=0 AWAY=0 MOVED-WRONG=0 STILL=4 SAME=51 WRONG2=0
+ARM x5_rel73_ASLANDED FULL TO=1 AWAY=0 MOVED-WRONG=0 STILL=12 SAME=46 WRONG2=7
+ARM x5_rel73_ASLANDED ENC  TO=0 AWAY=0 MOVED-WRONG=0 STILL=19 SAME=47 WRONG2=0
+ARM x2_mint73_ASLANDED FULL TO=6 AWAY=0 MOVED-WRONG=0 STILL=5 SAME=59 WRONG2=2
+ARM x2_mint73_ASLANDED ENC  TO=0 AWAY=0 MOVED-WRONG=0 STILL=7 SAME=65 WRONG2=0
+  *** SIZE-AWAY uhdmtopModules work@x9c_cast73.CA       op2  G=('const', '16') P=('const', '16') L=('const', '32')
+  *** SIZE-AWAY uhdmtopModules work@x9c_cast73.CA       op3  G=('const', '16') P=('const', '16') L=('const', '32')
+ARM x9c_cast73_ASLANDED  SIZE TO=2 AWAY=2 STILL=0 SAME=23 WRONG2=0
+Traceback (most recent call last):
+  File "/tmp/v11u73_sizeaxis.py", line 22, in <module>
+    G,P,L=cells(g),cells(p),cells(l)
+                            ^^^^^^^^
+  File "/tmp/v11u73_sizeaxis.py", line 11, in cells
+    for sect,name,loc,d in shape.parse(path):
+                           ^^^^^^^^^^^^^^^^^
+  File "/tmp/v11u73_g/shape.py", line 31, in parse
+    lines = open(path, errors='replace').read().splitlines()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'xa_powinf73.law.dump'
+ARM xa_powinf73_ASLANDED SIZE TO=1 AWAY=0 STILL=0 SAME=43 WRONG2=0

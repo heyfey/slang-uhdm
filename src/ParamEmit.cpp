@@ -798,7 +798,11 @@ static bool patUvalueRefuses68(const UHDM::any* ob) {
 // concatenation and the replication included: their VALUE is re-encoded at the
 // member width by the branches that mint them, so moving the size alone would
 // leave a bit string whose length contradicts it.
-static int32_t patRedSz68(const Expression& e0, int depth) {
+// § redUntypedIntNameChain73 (r11u73) — the NAME arm's untyped face now reads
+// the ONE home's refusal as well as its own chain walk, so this table takes the
+// caller's `ASTContext`.  Nothing else about it moved.
+static int32_t patRedSz68(const Expression& e0, const ASTContext& actx,
+                          int depth) {
     if (depth > 32)
         return 0;
     const Expression& e = stripImplicitConv(e0);
@@ -822,7 +826,15 @@ static int32_t patRedSz68(const Expression& e0, int depth) {
             // default 32, not at slang's inferred literal width (arm
             // `t5_untyped72`: `-8'd3` and `-4'd3` are both golden 32).  The
             // decode is in the § block beside `red72UntypedMinusName`.
-            if (red72UntypedMinusName(e))
+            // § redUntypedIntNameChain73 (r11u73) — and the rule is not the
+            // minus but "the producer MINTED this constant", followed along a
+            // NAME chain: `MD = -16'd5`, `HOP1 = MD`, `HOP2 = HOP1` is golden
+            // 32 where slang says 16 (r11v72's RV-3, arm `v4_hop72` `c`),
+            // `AR = 16'd9 + 16'd1` and a cast and a shift are golden 32 too,
+            // while a chain bottoming at a BASED literal keeps that literal's
+            // width.  The measured table is in the § block beside
+            // `red73MintsUntypedInt`.
+            if (red72UntypedMinusName(e, actx))
                 return 32;
             auto w = e.type->getBitWidth();
             return w ? (int32_t)w : 0;
@@ -831,14 +843,14 @@ static int32_t patRedSz68(const Expression& e0, int depth) {
             auto& u = e.as<UnaryExpression>();
             if (u.op != UnaryOperator::Minus)
                 return 0;
-            return patRedSz68(u.operand(), depth + 1);
+            return patRedSz68(u.operand(), actx, depth + 1);
         }
         case ExpressionKind::BinaryOp: {
             auto& b = e.as<BinaryExpression>();
             switch (b.op) {
                 case BinaryOperator::Add: {
-                    int32_t l = patRedSz68(b.left(), depth + 1);
-                    int32_t r = patRedSz68(b.right(), depth + 1);
+                    int32_t l = patRedSz68(b.left(), actx, depth + 1);
+                    int32_t r = patRedSz68(b.right(), actx, depth + 1);
                     return (l && r) ? (l > r ? l : r) : 0;
                 }
                 case BinaryOperator::Subtract:
@@ -15579,7 +15591,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ob68->UhdmType() != UHDM::uhdmconstant)
                                 continue;
                             auto* c68 = (UHDM::constant*)ob68;
-                            int32_t rsz68 = patRedSz68(*sx68, 0);
+                            int32_t rsz68 = patRedSz68(*sx68, ectx, 0);
                             if (rsz68 <= 0 || rsz68 == c68->VpiSize())
                                 continue;
                             int32_t ct68 = c68->VpiConstType();

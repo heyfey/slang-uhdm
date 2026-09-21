@@ -1,0 +1,17 @@
+r11u73 POSITIVE CONTROL — the census zero is SIGHTED.
+Sources: /home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv,
+one added parameter per face; both binaries run in the SAME directory writing
+the SAME output name (the serializer embeds the output path).
+
+  cvb_base   prc=0 lrc=0 SAME
+  cvb_pow    prc=0 lrc=0 DIFFERS
+  cvc_base   prc=0 lrc=0 SAME
+  cvc_unt    prc=0 lrc=0 DIFFERS
+  cve_base   prc=0 lrc=0 SAME
+  cve_dec    prc=0 lrc=0 DIFFERS
+
+cvb_* = the POW face (2**64 in a 64-bit struct field)
+cvc_* = the UNTCHAIN face (an untyped name chain after a guaranteed bail)
+cve_* = the DECWIDE face (a >64-bit-VALUE decimal at operand 0, 8-bit probes)
+Each _base is the SAME source with the candidate replaced by a value the
+law cannot reach, and reads SAME on both binaries.

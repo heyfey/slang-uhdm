@@ -1,0 +1,18 @@
+== STRICT (parameter/localparam spans only)
+   AGG=785 BASED=6133 CAST=2223 INTISH=31 NAME=507 OTHER=5047 PLAIN=1582 UINTISH=3701
+   AGREE=31
+   CANDIDATES 0
+== LOOSE (every pattern span)
+   AGG=1078 BASED=7399 CAST=2300 INTISH=50 NAME=2265 OTHER=6536 PLAIN=1990 UINTISH=3826
+   AGREE=37 POW=13
+   CAND Ariane2024                               POW: 2**(MAN_BITS-1)
+   CAND AzadiRTL                                 POW: 2**(MAN_BITS-1)
+   CAND ariane                                   POW: 2**(MAN_BITS-1)
+   CAND cva6_equiv                               POW: 2**(MAN_BITS-1)
+   CAND struct_pattern_procedural                POW: 2**(23-1)
+   CANDIDATES 5
+== r11u72 CLASSES (unchanged scanner)
+   STRICT AGREE=20 OVF=2 WRAP=9
+   CANDIDATES 5
+   LOOSE  AGREE=21 OVF=17 WRAP=12
+   CANDIDATES 12

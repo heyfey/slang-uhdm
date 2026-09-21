@@ -1,0 +1,64 @@
+r11v73 GATES — three binaries, all built -j 2 in /tmp/wt_v11u73 and
+/tmp/wt_v11u73pris at 71490354, md5s taken separately, frozen chmod 555 before
+any sweep.
+
+  pristine  598195b29a98fb7ee3263d01d53861e6  (byte-identical to the main tree)
+  as landed f7e288e08efb587e4a2b8c9dcfd11752  (/tmp/r11u73.patch on fresh 71490354)
+  verified  0666658a1ae58470f631f76b409130f0  (/tmp/r11u73.verified.patch)
+
+goldens: 23 PASS / 0 FAIL on pristine, as landed and verified
+         SLANG_UHDM=/bin/false  0 PASS / 23 FAIL
+
+u2r both modes (verified)  788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT each
+u2r 1742-row both-mode join vs results/golden_uhdm2rtlil.csv   0 differing rows
+u2r 1742-row both-mode join vs own pristine sweep              0 differing rows
+u2r ct8rows vs results/gate_uhdm2rtlil.csv                     PASS
+u2r canaries ok=8 changed=0 ; ctcan2 PASS
+u2r byteverify SELFCHECK=1 PATH_SETS_IDENTICAL (1608) MOVERS 0/1608 selfcheck 1607/1608
+u2r cmds audit 1742/1742 name the frozen binary, 0 name the main tree
+
+surelog --mode both
+  pristine  default 474/9   testflags 469/8
+  as landed default 474/9   testflags 469/8
+  verified  default 474/9   testflags 469/8
+surelog 1596-row join vs results/golden_surelog.csv — the ONLY differing rows on
+  ANY of the three binaries are environment:
+    Earlgrey_0_1 default/testflags  STATUS CMP_EQUAL throughout; the DUMP COLUMN
+      reads blank on a uhdm-dump timeout draw.  The PRISTINE sweep draws it
+      blank in BOTH modes and the as-landed sweep in testflags only, so the
+      column is a draw, not a binary property; both Earlgrey databases are on
+      their pins on every binary in both modes.
+    LowMemLib / LowMemPkg testflags  SURELOG_FAIL with the workdir path inside
+      the detail string.
+surelog byteverify SELFCHECK=1
+  as landed vs own pristine  PATH_SETS_IDENTICAL (960) MOVERS 2/960 selfcheck 959/960
+    testflags/MiniAmiq and testflags/SeqDriver
+  verified  vs own pristine  PATH_SETS_IDENTICAL (960) MOVERS 4/960 selfcheck 959/960
+    default/MiniAmiq, default/Scoreboard, default/SimpleUVM, testflags/MiniAmiq
+  EVERY mover is UVM family and attributes ORDER-BLIND (uhdm-dump, workdir
+  normalised, sorted) to the documented coin: FOUR diff lines = ONE
+  UINT/vpiDecompile line-number PAIR, or ZERO lines (default/Scoreboard, the
+  order draw).  ZERO vpiConstType lines on all six.
+  COIN POSITIVE CONTROL: the SAME frozen pristine binary, three runs on the
+  MiniAmiq/testflags invocation, three databases:
+    3bd592f4083d  8555d65d2b37  aeda3d121173
+surelog canaries ok=51 changed=1 (the Earlgrey dump column) ; ctcan2 ok=58 PASS
+surelog cmds audit 1531/1581 name the frozen binary, 0 name the main tree
+  (on the as-landed sweep and on the verified sweep alike)
+
+protected databases, every binary, both modes, byte-identical to their pins:
+  SVSwitch 4842211c4030 ; YosysVerx 6ccda350c24a ; InterfaceModPort 59a365f3ce2c
+  Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5 ; YosysOldOr d68e0796d62c
+UVM family CMP_EQUAL as committed (Scoreboard/testflags SLANG_REJECT as committed)
+
+canaudit  audited=29  UNCOVERED=0  FENCE-BREACH=0   (it read FENCE-BREACH=4 on
+          the patch as landed — see README finding 4)
+fence check (the four slang-fenced names, unspelled per OPS): 0 0 0 0
+results/*.csv untouched
+
+census73.py --selftest PASS ; census unchanged from the committed CENSUS.txt to
+  the unit (STRICT INTISH=31 AGREE=31 CANDIDATES 0 ; LOOSE INTISH=50 AGREE=37
+  POW=13 CANDIDATES 5 ; DECWIDE=0 UNTCHAIN=0)
+positive control (cvb_pow / cvc_unt / cve_dec vs their _base twins) DIFFERS /
+  DIFFERS / DIFFERS and SAME / SAME / SAME, prc=0 lrc=0, on the verified binary
