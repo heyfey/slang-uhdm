@@ -876,8 +876,17 @@ static int32_t patRedSz68(const Expression& e0, const ASTContext& actx,
         case ExpressionKind::ConditionalOp:
             return 64;
         case ExpressionKind::Conversion:
-            return 64;
         case ExpressionKind::Call:
+            // § castSignednessReturnsOperand76 (r11u76) — a `$signed` /
+            // `$unsigned` (which is what `signed'`/`unsigned'` become) on its
+            // `return c` face creates NO constant: the size that comes out is
+            // the ARGUMENT literal's, not `reduceExpr`'s 64.  Measured, arm
+            // `y3_castenc76`, `signed'(16'd5)` / `unsigned'(16'sd5)` /
+            // `$signed(16'd5)` written DIRECTLY as members: golden `const/16`,
+            // ours `const/64`.  Every other cast and call keeps the 64 below.
+            if (const Expression* pt76 = red76SignCastPassThru(e))
+                if (pt76->type && pt76->type->getBitWidth())
+                    return (int32_t)pt76->type->getBitWidth();
             return 64;
         default:
             return 0;
@@ -15656,6 +15665,49 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             c68->VpiSize(rsz68);
                         }
                     }
+                    // § castSignednessReturnsOperand76 (r11u76) — THE
+                    // ENCODING HALF.  On the producer's `return c` faces the
+                    // constant that leaves a `$signed`/`$unsigned` IS the
+                    // argument literal's, so the operand carries that
+                    // literal's own `VpiConstType` / `VpiValue` /
+                    // `VpiDecompile` — `signed'(16'd5)` is golden
+                    // `const/16@1=DEC:5` with decompile `16'd5`, where the
+                    // branches above wrote one synthetic `UINT:5`.  The
+                    // measured table, the producer's line numbers and the
+                    // three judge-read fields are in the § block beside
+                    // `red76SignCastPassThru`.
+                    //
+                    // WRITTEN LAST, AFTER § patBailStopsMemberStamp68, on
+                    // purpose: that law's size move is gated on the operand
+                    // still carrying a `vpiUIntConst`/`vpiIntConst`, which is
+                    // exactly what the branches above wrote, so re-spelling
+                    // the encoding first would silently withdraw the size
+                    // move (`y3_castenc76` op1/op2/op5/op6/op10/op11 would go
+                    // from golden's 16 to the member's 24 — six AWAY cells).
+                    // The SIZE is left as it stands here; `patRedSz68`'s own
+                    // cast arm supplies it.
+                    if (!ifaceArrayDefFold)
+                        for (size_t i76 = 0; i76 < opnds->size(); i76++) {
+                            const Expression* sx76 =
+                                i76 < opSet68.size() ? opSet68[i76] : nullptr;
+                            auto* ob76 = (*opnds)[i76];
+                            if (!sx76 || !ob76 ||
+                                ob76->UhdmType() != UHDM::uhdmconstant)
+                                continue;
+                            const Expression* lit76 =
+                                red76SignCastPassThru(*sx76);
+                            if (!lit76)
+                                continue;
+                            std::string v76, d76;
+                            int32_t ct76 = 0, sz76 = 0;
+                            if (!red76SignCastConst(*lit76, v76, d76, ct76,
+                                                    sz76))
+                                continue;
+                            auto* c76 = (UHDM::constant*)ob76;
+                            c76->VpiValue(v76);
+                            c76->VpiDecompile(d76);
+                            c76->VpiConstType(ct76);
+                        }
                     op2->Operands(opnds);
                     rhs = op2;
                     // § elabStructMemberFold — this listing's later member

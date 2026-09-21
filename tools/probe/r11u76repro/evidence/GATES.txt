@@ -1,0 +1,107 @@
+r11u76 GATES — measured numbers, law 7833a385a271030c33f8314403482bfc
+                vs pristine ca45217f2ac9f7766fc232a8be0ee319
+
+(1) BINARIES
+    pristine ca45217f2ac9f7766fc232a8be0ee319 — byte-identical to the main
+      tree's build/slang-uhdm at 2f728c97 (the value the standing brief names)
+    law      7833a385a271030c33f8314403482bfc
+    both built -j 2 in this pass's own worktree, md5s taken separately, frozen
+    chmod 555 before any sweep; EVERY cmds.txt audited by ABSOLUTE binary path:
+      u2r  law 1742 files -> only /tmp/r11u76_law_7833…bin ; main-tree hits 0
+      u2r  pris 1742 files -> only /tmp/r11u76_pris_ca45…bin ; main-tree hits 0
+      sl   law 1581 files -> only /tmp/r11u76_law_7833…bin ; main-tree hits 0
+      sl   pris 1581 files -> only /tmp/r11u76_pris_ca45…bin ; main-tree hits 0
+    fence check (the four slang-fenced names, unspelled per OPS): 0 0 0 0
+
+(2) GOLDENS
+    law        PASS=23 FAIL=0
+    pristine   PASS=23 FAIL=0
+    /bin/false PASS=0  FAIL=23     (the negative control)
+
+(3) uhdm2rtlil, BOTH MODES
+    law  testflags 788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+    law  default   788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+    pris testflags 788 / 16 / 67      pris default 788 / 16 / 67
+    row joins (WHOLE ROW, dump column included):
+      law both-mode join (1742 rows) vs results/golden_uhdm2rtlil.csv   PASS
+      law testflags      vs results/gate_uhdm2rtlil.csv                 PASS
+      law both-mode join vs THIS PASS'S OWN pristine both-mode join     PASS
+      pris both-mode join vs results/golden_uhdm2rtlil.csv              PASS
+    dump histograms identical: default 256 differ / 532 match,
+                               testflags 252 differ / 536 match
+    byteverify u2r: PATH_SETS_IDENTICAL (1608)  MOVERS 0/1608
+                    SELFCHECK 1607/1608 flagged
+
+(4) SURELOG SUITE, --mode both
+    law  default 474 CMP_EQUAL / 9 CMP_NOTEQUAL
+    law  testflags 469 CMP_EQUAL / 8 CMP_NOTEQUAL
+    pris default 474 / 9        pris testflags 469 / 8
+    vs results/golden_surelog.csv, law: STATUS columns identical in both modes.
+    THREE rows differ, all of them ENVIRONMENT and all named by the brief:
+      Earlgrey_0_1,testflags   CMP_EQUAL/differ -> CMP_EQUAL/   (the dump
+        COLUMN reads blank on a uhdm-dump timeout draw under load; the
+        DATABASE byte-compare is the pin and it is IDENTICAL, below)
+      LowMemLib,testflags / LowMemPkg,testflags  SURELOG_FAIL detail carries
+        the WORKDIR PATH in its [INF:CM0023] log-file string
+    The PRISTINE sweep of the same corpus, same harness, shows the SAME class:
+      Earlgrey_0_1 default AND testflags blank + the same two path details.
+    law vs THIS PASS'S OWN pristine: only Earlgrey_0_1,default (the blank draw,
+      this time on the pristine side) and the two path details.
+
+(5) BYTEVERIFY SURELOG (SELFCHECK=1)
+    PATH_SETS_IDENTICAL (960)  MOVERS 4/960  SELFCHECK 959/960 flagged
+    the four, ATTRIBUTED ORDER-BLIND (uhdm-dump, workdir path normalised,
+    both sides sorted):
+      default/MiniAmiq-544c7f61     4 lines   UINT:1438 -> UINT:1179
+                                              + the matching vpiDecompile pair
+      default/SeqDriver-32af76aa    4 lines   UINT:1450 -> UINT:946  + pair
+      testflags/MiniAmiq-544c7f61   4 lines   UINT:1330 -> UINT:1389 + pair
+      default/Scoreboard-59431470   0 lines   (92 unsorted — the pure
+                                              svunit_pkg vpiTaskFunc ORDER coin)
+    Every moved line is a UINT/vpiDecompile pair whose value is a LINE NUMBER:
+    the 0-or-4-line class the standing brief names as pristine-nondeterministic
+    in the UVM family.  ZERO vpiConstType lines, ZERO vpiSize lines, ZERO
+    non-line-number values.
+    COIN POSITIVE CONTROL — the PRISTINE binary alone, three runs of
+    MiniAmiq/default in one directory:
+      3d3d9aaec5ef  8d96a0cdaa94  a40d164d30ae     (three DIFFERENT databases,
+      none equal to either sweep's)
+    and the order-blind diff of two of those PRISTINE-ONLY runs is the SAME
+    class: 4 lines of UINT/vpiDecompile line numbers (UINT:0 -> UINT:1506),
+    plus 2 header lines that are only the output FILE NAME.
+
+(6) CANARIES
+    canaries sl  law  ok=51 changed=1  (Earlgrey_0_1/testflags dump column)
+    canaries sl  pris ok=50 changed=2  (Earlgrey_0_1 BOTH modes, same class)
+    canaries u2r law  ok=8  changed=0
+    ctcan2 sl  EXPECT_UNKNOWN=1  ok=58 changed=0  PASS   (law and pristine)
+    ctcan2 u2r EXPECT_UNKNOWN=6  ok=1  changed=0  PASS
+    canaudit.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+
+    PROTECTED DATABASES BY NAME — law vs pristine, BYTE compare:
+      InterfaceModPort   default 59a365f3ce2c  testflags 59a365f3ce2c  SAME
+      BlackParrotComplex default e3e354129d5a  testflags 73a10e8217e5  SAME
+      YosysOldOr         default d68e0796d62c  testflags d68e0796d62c  SAME
+      SVSwitch           default 4842211c4030  testflags 4842211c4030  SAME
+      YosysVerx          default 6ccda350c24a  testflags 6ccda350c24a  SAME
+      Earlgrey_0_1       default 8bdf25272e08  testflags 59d0ee6d10c3  SAME
+    SVSwitch 4842211c4030, YosysVerx 6ccda350c24a and Earlgrey
+    59d0ee6d10c3 / 8bdf25272e08 are the brief's own pinned values.
+
+(7) THE SEVEN CONVERSION ROWS (rowheads.sh, official uhdm-cmp, LHS golden)
+    law  = pristine, line for line:
+      SeqDriver    default 0/0   testflags 0/0
+      SimpleUVM    default 0/0   testflags 0/0
+      Scoreboard   default 0/0   testflags SKIP-NOFILE (expected)
+      MiniAmiq     default 0/0   testflags 0/0
+      BuildUVMPkg  default 0/0   testflags 0/0
+      Earlgrey_0_1 default 0/0   testflags 0/0
+      Rggen        default 64/1  testflags SKIP-NOFILE (expected)
+
+(8) WIDE BOUNDARY — 1122 probe arms containing an assignment pattern
+    1105 SAME, 11 DIFFERS, 6 NODB (prc=lrc=3 on BOTH binaries).
+    The 11 are this pass's own eight grid/control arms plus the three
+    committed r11v73 witnesses; cy_base76 reads SAME.  NO corpus-derived arm
+    and NO earlier pass's arm differs.
+
+(9) results/*.csv UNTOUCHED (git diff vs 2f728c97 over results/ is empty).

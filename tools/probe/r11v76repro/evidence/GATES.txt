@@ -1,0 +1,99 @@
+r11v76 VERIFIER GATES — verified binary e9b87a87c00163abbb950adf8b6bb988
+                        law (implementer) 7833a385a271030c33f8314403482bfc
+                        pristine ca45217f2ac9f7766fc232a8be0ee319
+
+(1) BINARIES — built -j 2 in THIS verifier's own worktrees at 2f728c97, md5s
+    taken separately, frozen chmod 555 before any sweep.
+      pristine ca45217f2ac9f7766fc232a8be0ee319  == the main tree's
+                                                    build/slang-uhdm
+      law      7833a385a271030c33f8314403482bfc  == the implementer's claim,
+                                                    reproduced bit-for-bit
+      verified e9b87a87c00163abbb950adf8b6bb988
+    cmds.txt audited by ABSOLUTE binary path:
+      u2r  3484 files, main-tree hits 0; sl 3162 files, main-tree hits 0.
+    fence check on the verified patch (four names, unspelled): 0 0 0 0
+
+(2) GOLDENS  verified PASS=23 FAIL=0 ; pristine PASS=23 FAIL=0 ;
+             SLANG_UHDM=/bin/false PASS=0 FAIL=23
+
+(3) uhdm2rtlil BOTH MODES, both binaries: 788 CMP_EQUAL / 16 CMP_NOTEQUAL /
+    67 SLANG_REJECT in each mode.
+      1742-row both-mode join vs results/golden_uhdm2rtlil.csv  PASS (verified)
+      1742-row both-mode join vs results/golden_uhdm2rtlil.csv  PASS (pristine)
+      testflags vs results/gate_uhdm2rtlil.csv                  PASS
+      verified vs THIS verifier's own pristine, both modes      PASS
+      byteverify u2r SELFCHECK=1: PATH_SETS_IDENTICAL (1608)
+                                  MOVERS 0/1608, selfcheck 1607/1608
+
+(4) SURELOG --mode both
+      law      default 474 CMP_EQUAL / 9 CMP_NOTEQUAL   testflags 469 / 8
+      verified default 474 / 9                          testflags 469 / 8
+    vs results/golden_surelog.csv the STATUS histograms are identical in both
+    modes on both binaries.  The only differing rows are the environment
+    classes the standing brief names: Earlgrey_0_1's dump COLUMN blank on a
+    uhdm-dump timeout draw (status stays CMP_EQUAL) and LowMemLib/LowMemPkg's
+    SURELOG_FAIL detail carrying the workdir path.
+
+(4b) BYTEVERIFY SURELOG, SELFCHECK=1, verified vs THIS verifier's own
+    pristine sweep:  PATH_SETS_IDENTICAL (960)  MOVERS 6/960
+                     SELFCHECK 959/960 flagged
+    All six are the UVM family and all six are ATTRIBUTED ORDER-BLIND
+    (uhdm-dump, output-file header normalised, both sides sorted):
+      default/MiniAmiq    4 lines  UINT:674 -> UINT:1172   + the vpiDecompile pair
+      default/SeqDriver   4 lines  UINT:772 -> UINT:949    + pair
+      default/SimpleUVM   4 lines  UINT:0   -> UINT:1497   + pair
+      testflags/MiniAmiq  4 lines  UINT:0   -> UINT:846    + pair
+      testflags/SeqDriver 4 lines  UINT:0   -> UINT:1209   + pair
+      default/Scoreboard  0 lines  (94 unsorted — the pure svunit_pkg
+                                    vpiTaskFunc ORDER coin)
+    Every moved line is a UINT/vpiDecompile pair whose value is a LINE NUMBER.
+    ZERO vpiConstType lines, ZERO vpiSize lines — and vpiConstType/vpiValue/
+    vpiDecompile are the only fields LAW B writes, on a face the census shows
+    no corpus row reaches.
+    COIN POSITIVE CONTROL — the PRISTINE binary ALONE, three runs of
+    MiniAmiq/default in ONE directory writing ONE output name:
+      2755563dc14b   f51fc409fd3e   7901c2f4bacd    (three DIFFERENT databases)
+    and the order-blind diff of two PRISTINE-ONLY runs is the SAME class:
+      run1 vs run2   4 lines  UINT:980 -> UINT:1427 + pair
+      run1 vs run3   4 lines  UINT:980 -> UINT:631  + pair
+
+(5) CANARIES (verified binary)
+      canaries sl   ok=51 changed=1 (Earlgrey_0_1/testflags dump column)
+      canaries u2r  ok=8  changed=0
+      ctcan2 sl  EXPECT_UNKNOWN=1  ok=58 changed=0  PASS
+      ctcan2 u2r EXPECT_UNKNOWN=6  ok=1  changed=0  PASS
+      canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+    PROTECTED DATABASES, verified vs law, BYTE compare, both modes:
+      InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   SAME
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5   SAME
+      YosysOldOr         d68e0796d62c / d68e0796d62c   SAME
+      SVSwitch           4842211c4030 / 4842211c4030   SAME  (brief pin)
+      YosysVerx          6ccda350c24a / 6ccda350c24a   SAME  (brief pin)
+      Earlgrey_0_1       8bdf25272e08 / 59d0ee6d10c3   SAME  (brief pins)
+
+(6) THE SEVEN CONVERSION ROWS (rowheads.sh, official uhdm-cmp, LHS golden),
+    verified binary: SeqDriver 0/0 both modes, SimpleUVM 0/0 both,
+    Scoreboard default 0/0 (testflags SKIP-NOFILE, expected), MiniAmiq 0/0
+    both, BuildUVMPkg 0/0 both, Earlgrey_0_1 0/0 both; Rggen default 64/1
+    unchanged (testflags SKIP-NOFILE, expected).  measured=12 UNKNOWN-NAME=0
+
+(7) WIDE BOUNDARY — 1708 arms, the implementer's 1122 (every probe arm with an
+    assignment pattern) PLUS 586 more that filter missed but that contain a
+    signedness cast, a signed based literal or a parenthesised literal.
+      law      vs pristine: 1687 SAME, 11 DIFFERS, 10 NODB
+      verified vs pristine: 1687 SAME, 11 DIFFERS, 10 NODB  (identical sets)
+    The eleven are this pass's own eight grid/control arms and the three
+    committed r11v73 witnesses.  NODB arms read prc=lrc=3 on both binaries.
+
+(8) CENSUS — census76.py reproduced to the unit: STRICT AGG=785 BASED=6133
+    CAST=2223 INTISH=31 NAME=507 OTHER=5047 PLAIN=1582 UINTISH=3701
+    AGREE=2233 SCAST=21 CANDIDATES 1; LOOSE AGG=1078 ... INTISH=50 AGREE=2329
+    SCAST=21 CANDIDATES 1.  SDECVAL=0 and SDECREF=0 in both corpora, both
+    spans.  The single SCAST candidate cva6_equiv has no project.f / dut.sv /
+    dut.v, so discover_uhdm2rtlil never yields it: 0 rows in the committed CSV
+    and 0 in this verifier's sweep.  PREDICTION: no movers, either corpus,
+    either mode — and that is what byteverify measured.
+    --selftest printed SELFTEST FAIL from the committed tree until the
+    grid-discovery fix in this patch; it now reads SELFTEST PASS.
+
+(9) results/*.csv UNTOUCHED (git diff vs 2f728c97 over results/ is empty).

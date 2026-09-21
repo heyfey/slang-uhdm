@@ -1,0 +1,33 @@
+r11u76 POSITIVE CONTROL — the census zero is SIGHTED.
+Sources: /home/heyfey/git-repos/uhdm2rtlil/test/cva6_struct_param_field/dut.sv,
+one changed parameter per face; both binaries run in the SAME directory writing
+the SAME output name (the serializer embeds the output path).
+
+ARM cy_base76.sv prc=0 lrc=0 SAME
+ARM cy_cast76.sv prc=0 lrc=0 DIFFERS
+ARM cy_ref76.sv prc=0 lrc=0 DIFFERS
+ARM cy_sdec76.sv prc=0 lrc=0 DIFFERS
+
+cy_sdec76 = the SDECVAL face  (8'sd200 + 1 in a 64-bit struct field)
+cy_ref76  = the SDECREF face  (4'd99999999999999999999 + 1)
+cy_cast76 = the SCAST face    (unsigned'(16'sd5))
+cy_base76 is the SAME source with the candidate replaced by 64'd12 and reads
+SAME on both binaries.
+
+--- the converted cells, golden | law ---
+== cy_base76
+work@cy76.PA                       op0  const/64@1=DEC:12                const/64@1=DEC:12                
+work@cy76.PA                       op1  const/8@9=UINT:7                 const/8@9=UINT:7                 
+work@cy76.PA                       op2  const/8@9=UINT:8                 const/8@9=UINT:8                 
+== cy_sdec76
+work@cy76.PA                       op0  const/64@7=INT:201               const/64@7=INT:201               
+work@cy76.PA                       op1  const/8@9=UINT:7                 const/8@9=UINT:7                 
+work@cy76.PA                       op2  const/8@9=UINT:8                 const/8@9=UINT:8                 
+== cy_ref76
+work@cy76.PA                       op0  op24                             const/64@7=INT:16                  <<<
+work@cy76.PA                       op1  const/64@9=UINT:7                const/64@9=UINT:7                
+work@cy76.PA                       op2  const/64@9=UINT:8                const/64@9=UINT:8                
+== cy_cast76
+work@cy76.PA                       op0  const/64@1=DEC:5                 const/64@1=DEC:5                 
+work@cy76.PA                       op1  const/8@9=UINT:7                 const/8@9=UINT:7                 
+work@cy76.PA                       op2  const/8@9=UINT:8                 const/8@9=UINT:8                 

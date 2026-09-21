@@ -7617,17 +7617,119 @@ inline bool red72ReduceLeavesOp(const Expression& e0) {
 ///   faces stands unchanged: `96'd18446744073709551616` and a NAME onto it
 ///   both stop the member stamp (probes 64) while `64'd18446744073709551614`
 ///   and a NAME onto it do not (probes 8).
-inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
-    if (e.kind != ExpressionKind::IntegerLiteral || !e.syntax ||
-        e.syntax->kind != slang::syntax::SyntaxKind::IntegerVectorExpression)
+/// § redBasedLeafWrittenDigits76 (r11u76) — A BASED LEAF INSIDE A REDUCE ARM
+/// CONTRIBUTES ITS DIGITS AS THEY WERE WRITTEN, IN ITS OWN BASE, UNTRUNCATED
+/// AND UNSIGNED.
+///
+/// `ExprEval::get_value` (`~/git-repos/UHDM/templates/ExprEval.cpp:1947-2056`)
+/// never sees a value: it reads the constant's `VpiValue` STRING and hands the
+/// digits to `NumUtils::parse*`.  Surelog's literal arm
+/// (`CompileExpression.cpp:543-563`) writes that string from the SOURCE
+/// SPELLING — `8'sd200` is `DEC:200`, `8'shC8` is `HEX:C8`, `4'sb1111` is
+/// `BIN:1111` — with no truncation to the declared width and no sign.  We read
+/// slang's stored `SVInt` instead, which is truncated AND sign-extended, and
+/// the two readings disagree on every literal whose digits overflow its width
+/// or whose top bit is set under an `s` marker.  Measured, arms `y1_sdval76`
+/// and `y2_digits76` (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`, operand 0
+/// the candidate at a 64-bit member and `K+1`/`K+2` on 8-bit members):
+///
+///     setter                      golden           pristine (slang's SVInt)
+///     8'sd200 + 1                 INT:201          INT:-55
+///     4'sd15 - 1                  INT:14           INT:-2
+///     1'sd1 - 1                   INT:0            INT:-2
+///     2'sd3 + 1                   INT:4            INT:0
+///     16'sd40000 + 1              INT:40001        INT:-25535
+///     32'sd4294967295 - 1         INT:4294967294   INT:-2
+///     -8'sd200                    INT:-200         INT:56
+///     8'sd200 / 8'sd2             INT:100          INT:-28
+///     8'sd200 % 8'sd7             INT:4            INT:0
+///     2'sd3 ** 2                  INT:9            INT:1
+///     4'd20 + 1                   INT:21           INT:5       <- DIGITS, not
+///     2'b111 + 1                  UINT:8           UINT:4         the stored
+///     3'o77 + 1                   UINT:64          UINT:8         4-bit / 2-bit
+///     4'hFF + 1                   UINT:256         UINT:16        pattern
+///     8'shC8 * 8'shC8             INT:40000        INT:3136
+///     4'sb1111 * 4'sb1111         INT:225          INT:1
+///     4'd9223372036854775807 + 1  INT:-9223372036854775808  INT:16
+///
+/// and the same read decides the REFUSAL, because it is the same
+/// `NumUtils::parse*` call: `4'd99999999999999999999 + 1` and
+/// `4'h1FFFFFFFFFFFFFFFFFF + 1` are golden UNFOLDED `op24`s (the digits
+/// overflow the parser) although their stored patterns are four bits wide, and
+/// `4'd9223372036854775807 + 1` folds because INT64_MAX parses.  Keeping the
+/// refusal on the stored pattern and the value on the digits would be two
+/// different readings of one string, so this pass moves both together.
+///
+/// The parser is NOT transcribed a second time: `srlgNegLitGetValue30`
+/// (§ negLitPkgRetFoldNested30, measured on r10vbuvm30's own goldens —
+/// `-4'd20` folds to -20 and `-4'hFF` to -255) IS `get_value`'s decimal/
+/// binary/octal/hex matrix, width guard included.  The literal's spelling is
+/// rebuilt from its own three tokens (size, base, value), which is what
+/// `rawTextLit` reassembles for a macro-crossing literal and is therefore
+/// readable where a source-range read is not.
+///
+/// CONFINED TO `inArm`.  At operand 0 a based literal is emitted VERBATIM by
+/// the literal path and already byte-matches golden (`y4_pos76` `A`-`D`:
+/// `8'sd200` is `const/64@1=DEC:200`, `8'shC8` `@5=HEX:C8`, `4'sb1111`
+/// `@3=BIN:1111` on both binaries), so the table must not re-read it there.
+///
+/// PARENTHESES ARE NOT A DIFFERENT LITERAL.  `Expression::create`
+/// (`~/git-repos/slang/source/ast/Expression.cpp:791-799` and `:1002`) binds a
+/// `ParenthesizedExpression` by recursing into its inner syntax and then
+/// OVERWRITES the result's `syntax` pointer with the parenthesized node, so a
+/// bound `(16'd5)` is an `IntegerLiteral` whose `syntax->kind` is
+/// `ParenthesizedExpression`.  Every reader of a literal's written spelling
+/// has to walk through that, and `signed'(X)`'s operand is parenthesized BY
+/// GRAMMAR (`SignedCastExpressionSyntax` holds a
+/// `ParenthesizedExpressionSyntax& inner`), so LAW B cannot see its own
+/// literal without this.
+inline const slang::syntax::IntegerVectorExpressionSyntax* red76VecSyntax(
+    const Expression& e) {
+    if (e.kind != ExpressionKind::IntegerLiteral || !e.syntax)
+        return nullptr;
+    const slang::syntax::SyntaxNode* sy = e.syntax;
+    for (int i = 0; sy && i < 8 &&
+                    sy->kind ==
+                        slang::syntax::SyntaxKind::ParenthesizedExpression;
+         i++)
+        sy = sy->as<slang::syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!sy ||
+        sy->kind != slang::syntax::SyntaxKind::IntegerVectorExpression)
+        return nullptr;
+    return &sy->as<slang::syntax::IntegerVectorExpressionSyntax>();
+}
+
+inline bool red76BasedLeafDigits(const Expression& e, int64_t& out) {
+    const auto* ivsp = red76VecSyntax(e);
+    if (!ivsp)
         return false;
-    char base = red72LitBase(
-        e.syntax->as<slang::syntax::IntegerVectorExpressionSyntax>()
-            .base.rawText());
+    if (e.as<IntegerLiteral>().getValue().hasUnknown())
+        return false;
+    auto& ivs = *ivsp;
+    char base = red72LitBase(ivs.base.rawText());
     if (base != 'b' && base != 'h' && base != 'o' && base != 'd')
         return false;
-    if (inArm && base != 'd')
-        return e.type->getBitWidth() > 64;
+    std::string raw = std::string(ivs.size.rawText()) +
+                      std::string(ivs.base.rawText()) +
+                      std::string(ivs.value.rawText());
+    if (raw.find('\'') == std::string::npos)
+        return false;
+    return srlgNegLitGetValue30(raw, (int32_t)e.type->getBitWidth(),
+                                std::string(), out);
+}
+
+inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
+    // § redBasedLeafWrittenDigits76 — the syntax read walks PARENTHESES, so
+    // that the refusal and the value are one reading of one literal on a
+    // `(8'sd200) + 1` exactly as on `8'sd200 + 1` (the § block beside
+    // `red76VecSyntax` carries why a bound literal can wear a parenthesized
+    // syntax node at all).
+    const auto* ivsp0 = red76VecSyntax(e);
+    if (!ivsp0)
+        return false;
+    char base = red72LitBase(ivsp0->base.rawText());
+    if (base != 'b' && base != 'h' && base != 'o' && base != 'd')
+        return false;
     auto iv = e.as<IntegerLiteral>().getValue();
     if (inArm) {
         // § redDecLeafRangeStrict73 — `parseInt64` is range-strict, so the
@@ -7647,9 +7749,18 @@ inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
         // refuses an arm the producer folds: on `x7_sdecpos73` that took TEN
         // probe cells from RIGHT (`const/8`) to WRONG (`const/64`) — the
         // member stamp stopped where golden completes.  Read the magnitude.
-        iv.setSigned(false);
-        auto du = iv.as<uint64_t>();
-        return !du || *du > (uint64_t)INT64_MAX;
+        //
+        // § redBasedLeafWrittenDigits76 (r11u76) — ...AND THE MAGNITUDE IS
+        // READ OFF THE DIGITS, NOT OFF THE STORED PATTERN, in EVERY base.  The
+        // two halves of that string — which digits refuse and what the ones
+        // that do not refuse are worth — are now one call.  This subsumes the
+        // old `base != 'd' -> width > 64` clause (`srlgNegLitGetValue30`
+        // carries `get_value`'s own `VpiSize() > 64` guard on b/o/h and NO
+        // guard on `d`) and adds the digit-overflow face the width test could
+        // not see: `4'h1FFFFFFFFFFFFFFFFFF + 1` is golden an unfolded `op24`
+        // at four declared bits.
+        int64_t dv76 = 0;
+        return !red76BasedLeafDigits(e, dv76);
     }
     // An UNKNOWN digit is NOT this face: `8'b1000000x`, `8'b1x000001` and
     // `8'hAx` all COMPLETE golden-side (`b2_faces68` `C_xtail`, `b3_ops68`
@@ -7835,6 +7946,19 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
     // `v1_ofire68` `C_wide70` / `C_wide96`.
     if (red72WideBasedLeaf(e, inArm))
         return Red72::Refuses;
+    // § redBasedLeafWrittenDigits76 (r11u76) — THE VALUE HALF OF THE SAME
+    // STRING.  A based leaf the parser accepted is worth its WRITTEN DIGITS in
+    // its own base, not slang's truncated and sign-extended `SVInt`.  The
+    // measured table and the confinement to `inArm` are in the § block beside
+    // `red76BasedLeafDigits`; the refusal half sits two lines above, reading
+    // the same call, so the two cannot drift apart.
+    if (inArm) {
+        int64_t dv76 = 0;
+        if (red76BasedLeafDigits(e, dv76)) {
+            out = dv76;
+            return Red72::Value;
+        }
+    }
     ConstantValue cv = actx.tryEval(e);
     if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
         return Red72::Unknown;
@@ -8028,6 +8152,16 @@ inline bool red73MintsUntypedInt(const Expression& x0, int depth) {
             // empty value — which is r11v73's RV-6, not this face's business).
             // Answering TRUE here stamped 32 over golden's 16 on two size
             // cells the pristine binary had RIGHT.
+            //
+            // § castSignednessReturnsOperand76 (r11u76) — WHY it keeps the
+            // operand's width: because the producer hands the operand's own
+            // CONSTANT back (`ExprEval.cpp:4695-4712`), so there is nothing
+            // minted to re-stamp.  That is only true on the faces where its
+            // `return c` runs; `signed'(16'h5)` and `signed'(16'b101)` MINT
+            // (golden `const/32@7=INT:5` on both, arm `y3_castenc76` op3/op4)
+            // and this abstention leaves them at 16 — a STILL cell, r11u76's
+            // R2, and NOT widened here because the mint's value arithmetic
+            // (`:4735-4770`) is a separate transcription.
             return !x.syntax ||
                    x.syntax->kind !=
                        slang::syntax::SyntaxKind::SignedCastExpression;
@@ -8046,6 +8180,202 @@ inline bool red73MintsUntypedInt(const Expression& x0, int depth) {
             // an enum member, a call — is unmeasured and ABSTAINS.
             return false;
     }
+}
+
+/// § castSignednessReturnsOperand76 (r11u76) — A SIGNEDNESS CAST OVER A BASED
+/// LITERAL IS THAT LITERAL'S OWN CONSTANT, BYTE FOR BYTE.
+///
+/// Surelog rewrites `signed'(X)` / `unsigned'(X)` into a `$signed` /
+/// `$unsigned` `sys_func_call` (our DEF view already emits exactly that, and
+/// it is byte-identical to golden's).  `ExprEval::reduceExpr`'s arm for that
+/// call (`~/git-repos/UHDM/templates/ExprEval.cpp:4682-4781`) reduces the
+/// argument and then branches on the reduced constant's OWN `VpiConstType`:
+///
+///   `$signed`   + `vpiIntConst` / `vpiDecConst`      -> `return c`   (:4712)
+///   `$signed`   + UInt/Binary/Hex/Oct                -> MINTS `INT:<res>`
+///   `$unsigned` + `vpiIntConst`/`vpiDecConst`, >= 0  -> `return c`   (:4716)
+///   `$unsigned` + `vpiIntConst`/`vpiDecConst`, <  0  -> MINTS `UINT:<masked>`
+///   `$unsigned` + UInt/Binary/Hex/Oct                -> `result = c` (:4779)
+///
+/// On the `return c` faces NOTHING is created: the constant that comes out is
+/// the ARGUMENT's, with its own `VpiSize`, `VpiConstType`, `VpiValue` and
+/// `VpiDecompile` — the literal's source spelling included.  Measured, arm
+/// `y3_castenc76` (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`, operand 0 a
+/// guaranteed bail and 24-bit members), each cast read both ONE HOP above
+/// through an untyped name and DIRECTLY as the member, with identical answers:
+///
+///   `signed'(16'd5)`      golden `const/16@1=DEC:5`  dec `16'd5`   ours @9 UINT:5
+///   `unsigned'(16'sd5)`   golden `const/16@1=DEC:5`  dec `16'sd5`  ours @9 UINT:5
+///   `unsigned'(16'o5)`    golden `const/16@4=OCT:5`  dec `16'o5`   ours @9 UINT:5
+///   `$signed(16'd5)`      golden `const/16@1=DEC:5`                ours @9 UINT:5
+///   `$unsigned(16'sd5)`   golden `const/16@1=DEC:5`                ours @9 UINT:5
+///   `signed'(UD)`, `UD = 16'd5`  golden `const/16@1=DEC:5`         ours @9 UINT:5
+///   --- and the MINTING faces, which this law does NOT claim: ---
+///   `signed'(16'h5)`      golden `const/32@7=INT:5`   ours `const/16@9=UINT:5`
+///   `signed'(16'b101)`    golden `const/32@7=INT:5`   ours `const/16@9=UINT:5`
+///   `signed'(5)`          golden `const/32@7=INT:5`   ours `const/32@9=UINT:5`
+///   `signed'(16'd9+16'd1)` golden `const/32@7=INT:10` ours `const/16@9=UINT:10`
+///   `16'(5)`              golden `const/32@9=UINT:5`  EQUAL  (control)
+///   `16'd9 + 16'd1`       golden `const/32@7=INT:10`  EQUAL  (control)
+///   `16'd5` / `16'h5` written DIRECTLY  golden `@1=DEC:5` / `@5=HEX:5`  EQUAL
+///
+/// THE JUDGE READS THE MOVE: `constant::Compare`
+/// (`~/git-repos/UHDM/build/generated/src/constant.cpp:58-71`) compares
+/// `VpiConstType` and nothing else of its own, and `expr::Compare` above it
+/// compares `VpiDecompile` and `VpiSize`.  `VpiValue` is NOT compared — so of
+/// the four fields this law moves, three are judge-visible.
+///
+/// Returns the based literal whose constant the producer hands back, or null.
+/// It declines an UNSIZED based literal (`'d5`), whose `VpiSize` is -1 and
+/// whose verbatim copy is a different measurement, and it walks parameter NAME
+/// hops because the producer reduces the reference to the same constant.
+inline const Expression* red76SignCastPassThru(const Expression& e0) {
+    // A bare reference to an IMPLICITLY typed parameter is answered with that
+    // parameter's own stored constant, so the cast may sit one or more NAME
+    // hops above the operand being written (`CS = signed'(16'd5)`, member
+    // `HCS`).  Measured identical to the direct spelling on every cell of
+    // `y3_castenc76` (op1/op2/op5/op6/op10/op11 against op14/op15/op16).  A
+    // name with a DECLARED type is NOT followed: golden stores a re-sized
+    // constant there and this law has not measured it.
+    const Expression* e1 = &stripImplicitConv(e0);
+    for (int h76 = 0; e1 && h76 < 8; h76++) {
+        if (e1->kind != ExpressionKind::NamedValue)
+            break;
+        auto& hs76 = e1->as<NamedValueExpression>().symbol;
+        if (hs76.kind != SymbolKind::Parameter)
+            return nullptr;
+        auto& hp76 = hs76.as<ParameterSymbol>();
+        const auto* hts76 = hp76.getDeclaredType()
+                                ? hp76.getDeclaredType()->getTypeSyntax()
+                                : nullptr;
+        if (!hts76 ||
+            hts76->kind != slang::syntax::SyntaxKind::ImplicitType ||
+            !hts76->as<slang::syntax::ImplicitTypeSyntax>().dimensions.empty())
+            return nullptr;
+        const Expression* hin76 = hp76.getInitializer();
+        if (!hin76)
+            return nullptr;
+        e1 = &stripImplicitConv(*hin76);
+    }
+    if (!e1)
+        return nullptr;
+    const Expression& e = *e1;
+    const Expression* arg = nullptr;
+    if (e.kind == ExpressionKind::Conversion && e.syntax &&
+        e.syntax->kind == slang::syntax::SyntaxKind::SignedCastExpression)
+        arg = &e.as<ConversionExpression>().operand();
+    else if (e.kind == ExpressionKind::Call &&
+             e.as<CallExpression>().isSystemCall()) {
+        std::string n76(e.as<CallExpression>().getSubroutineName());
+        if (!n76.empty() && n76[0] != '$')
+            n76.insert(n76.begin(), '$');
+        if (n76 != "$signed" && n76 != "$unsigned")
+            return nullptr;
+        auto args76 = e.as<CallExpression>().arguments();
+        if (args76.size() != 1)
+            return nullptr;
+        arg = args76[0];
+    }
+    else
+        return nullptr;
+    if (!arg || !e.type)
+        return nullptr;
+    const bool sgn76 = e.type->isSigned();
+    const Expression* c76 = &stripImplicitConv(*arg);
+    for (int g76 = 0; c76 && g76 < 8; g76++) {
+        if (c76->kind != ExpressionKind::NamedValue)
+            break;
+        auto& sy76 = c76->as<NamedValueExpression>().symbol;
+        if (sy76.kind != SymbolKind::Parameter)
+            return nullptr;
+        const Expression* in76 =
+            sy76.as<ParameterSymbol>().getInitializer();
+        if (!in76)
+            return nullptr;
+        c76 = &stripImplicitConv(*in76);
+    }
+    const auto* ivsp76 = c76 ? red76VecSyntax(*c76) : nullptr;
+    if (!ivsp76)
+        return nullptr;
+    auto& ivs76 = *ivsp76;
+    if (ivs76.size.rawText().empty())
+        return nullptr;
+    const char base76 = red72LitBase(ivs76.base.rawText());
+    // `$signed` returns the operand only on the `vpiDecConst` face; the other
+    // three bases reach the mint.  `$unsigned` returns it on all four (the
+    // decimal one because a literal's own `DEC:` digits are never negative).
+    if (sgn76) {
+        if (base76 != 'd')
+            return nullptr;
+    }
+    else if (base76 != 'd' && base76 != 'h' && base76 != 'b' && base76 != 'o')
+        return nullptr;
+    // § castSignCastNeedsAValidRead76v (r11v76) — AND THE PRODUCER ONLY
+    // REACHES ITS `return c` AFTER THE READ SUCCEEDED.  The `$signed`/
+    // `$unsigned` arm calls `get_value` (`ExprEval.cpp:4695`) or `get_uvalue`
+    // (`:4733`) on the reduced argument BEFORE it decides anything, and both
+    // carry the refusals § redBasedLeafWrittenDigits76 already models: a
+    // `VpiSize() > 64` outright bail on b/o/h (`:1969/:1984/:1998` and
+    // `:2077/:2094/:2106`) and a range-strict `parseInt64` on decimal
+    // (`:1978`).  When either sets `invalidValue` the CALLER abandons the
+    // fold, so golden keeps the whole `sys_func_call` — measured, verifier
+    // arm `v3cast76` `HQ8`: `unsigned'(96'hFFFFFFFFFFFFFFFFFFFFFFFF)` is
+    // golden a `sys_func_call($unsigned)`, unfolded, where an ungated
+    // pass-thru wrote a 24-bit constant carrying twenty-four hex digits.
+    // Declining here restores the landed behaviour on that cell (a STILL, not
+    // an AWAY) and leaves every measured pass-thru cell untouched, because
+    // each of their spellings parses.
+    int64_t vg76 = 0;
+    if (!srlgNegLitGetValue30(std::string(ivs76.size.rawText()) +
+                                  std::string(ivs76.base.rawText()) +
+                                  std::string(ivs76.value.rawText()),
+                              (int32_t)c76->type->getBitWidth(), std::string(),
+                              vg76))
+        return nullptr;
+    return c76;
+}
+
+/// The four fields the producer's `return c` hands on, read off the literal's
+/// own three tokens.  False when the spelling is not readable.
+inline bool red76SignCastConst(const Expression& lit, std::string& value,
+                               std::string& decomp, int32_t& ct,
+                               int32_t& size) {
+    const auto* ivsp = red76VecSyntax(lit);
+    if (!ivsp)
+        return false;
+    auto& ivs = *ivsp;
+    std::string digits(ivs.value.rawText());
+    digits.erase(std::remove(digits.begin(), digits.end(), '_'), digits.end());
+    if (digits.empty())
+        return false;
+    switch (red72LitBase(ivs.base.rawText())) {
+        case 'd': value = "DEC:"; ct = vpiDecConst; break;
+        case 'h':
+            // § castSignCaseIsWritten76v (r11v76) — THE DIGITS ARE COPIED, NOT
+            // CASED.  Surelog's literal arm
+            // (`CompileExpression.cpp:474-507`) assigns `v` the SOURCE
+            // SPELLING and strips only `#` and `_` before prefixing `HEX:`;
+            // there is no case conversion anywhere on that path.  Measured,
+            // verifier arm `v3cast76` (real Surelog v1.87,
+            // `slrc=0 ourrc=0 slerr=0`): `unsigned'(16'hab)` is golden
+            // `const/16@5=HEX:ab` at one hop and written directly, and the
+            // verbatim control `16'hab` beside it is `HEX:ab` on BOTH
+            // binaries — our own literal path already copies the spelling.
+            // Upper-casing here made the constant disagree with its OWN
+            // `vpiDecompile:16'hab`, which no golden constant ever does.
+            value = "HEX:";
+            ct = vpiHexConst;
+            break;
+        case 'b': value = "BIN:"; ct = vpiBinaryConst; break;
+        case 'o': value = "OCT:"; ct = vpiOctConst; break;
+        default: return false;
+    }
+    value += digits;
+    decomp = std::string(ivs.size.rawText()) + std::string(ivs.base.rawText()) +
+             std::string(ivs.value.rawText());
+    decomp.erase(std::remove(decomp.begin(), decomp.end(), '_'), decomp.end());
+    size = (int32_t)lit.type->getBitWidth();
+    return size > 0;
 }
 
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {

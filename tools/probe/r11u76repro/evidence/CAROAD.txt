@@ -1,0 +1,9 @@
+arm                pristine      law
+y1_sdval76               26        0
+y2_digits76              22       10
+y3_castenc76             30       30
+y4_pos76                 12       10
+y5_paren76               22       20
+x1_sdec73                14        2
+x7_sdecpos73              6        0
+x9c_cast73                4        4

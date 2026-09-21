@@ -1,0 +1,21 @@
+== STRICT (parameter/localparam spans only)
+   AGG=785 BASED=6133 CAST=2223 INTISH=31 NAME=507 OTHER=5047 PLAIN=1582 UINTISH=3701
+   AGREE=2233 SCAST=21
+   CANDIDATES 1
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheFlushOnFence)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheFlushOnFenceI)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheInvalidateOnFlush)
+== LOOSE (every pattern span)
+   AGG=1078 BASED=7399 CAST=2300 INTISH=50 NAME=2265 OTHER=6536 PLAIN=1990 UINTISH=3826
+   AGREE=2329 SCAST=21
+   CANDIDATES 1
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheFlushOnFence)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheFlushOnFenceI)
+     cva6_equiv                                   SCAST: unsigned'(CVA6ConfigDcacheInvalidateOnFlush)
+  x1_sdec73        AGREE SDECVAL
+  x7_sdecpos73     AGREE SDECVAL
+  y1_sdval76       AGREE SDECVAL
+  y2_digits76      AGREE SDECVAL
+  y3_castenc76     AGREE SCAST
+  y4_pos76         AGREE SDECREF SDECVAL
+SELFTEST PASS
