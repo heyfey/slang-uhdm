@@ -1,0 +1,28 @@
+PER-CELL TRANSITIONS pris -> lawx
+  MATCH        -> MATCH          684
+  DIFF         -> DIFF            25
+  UNSCORED     -> UNSCORED        17
+  DIFF         -> MATCH           13
+  OURS-ONLY    -> OURS-ONLY       10
+  GOLD-ONLY    -> GOLD-ONLY       10
+  OURS-ONLY    -> <absent>         5
+MOVED-WRONG (MATCH -> non-MATCH) = 0
+NAMED TRANSITIONS:
+  q11_ndastrmod          OURS-ONLY  -> <absent>   ('work@dut.u_s', '6:32-6:37', 'w_str')
+  u10_strprog            OURS-ONLY  -> <absent>   ('', '4:32-4:37', 'w_str')
+  u12_strnonansi         OURS-ONLY  -> <absent>   ('work@dut.u_s', '5:32-5:33', 'o')
+  u3_strgenmod           OURS-ONLY  -> <absent>   ('work@dut.u_s.g', '5:34-5:39', 'w_str')
+  u4_strgenif            OURS-ONLY  -> <absent>   ('work@dut.u_if.g', '5:34-5:39', 'w_str')
+  w13_dlyparamtop        DIFF       -> MATCH      ('', '5:13-5:23', 'c')
+  w13_dlyparamtop        DIFF       -> MATCH      ('work@dut', '5:13-5:23', 'c')
+  w14_dlyparamovr        DIFF       -> MATCH      ('work@dut.u_s', '5:13-5:23', 'c')
+  w14_dlyparamovr        DIFF       -> MATCH      ('work@sub', '5:13-5:23', 'c')
+  w15_dlyparamtwoinst    DIFF       -> MATCH      ('work@dut.u_a', '5:13-5:23', 'c')
+  w15_dlyparamtwoinst    DIFF       -> MATCH      ('work@dut.u_b', '5:13-5:23', 'c')
+  w15_dlyparamtwoinst    DIFF       -> MATCH      ('work@ifc', '5:13-5:23', 'c')
+  w2_dlylocalparam       DIFF       -> MATCH      ('work@dut.u_if', '5:13-5:23', 'c')
+  w2_dlylocalparam       DIFF       -> MATCH      ('work@ifc', '5:13-5:23', 'c')
+  w4_dlyparammod         DIFF       -> MATCH      ('work@dut.u_s', '5:13-5:23', 'c')
+  w4_dlyparammod         DIFF       -> MATCH      ('work@sub', '5:13-5:23', 'c')
+  z2b_delayref           DIFF       -> MATCH      ('work@dut.u_if', '8:13-8:28', 'c_dref')
+  z2b_delayref           DIFF       -> MATCH      ('work@ifc', '8:13-8:28', 'c_dref')

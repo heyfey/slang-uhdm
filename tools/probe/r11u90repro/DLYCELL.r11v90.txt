@@ -1,0 +1,22 @@
+arm                       gold  pris   p=g   law   l=g
+vy12_dlytwocells             4     4     0     4     4
+vy14_dlyifarray              3     3     0     3     3
+vy15_dlydefonly              2     2     0     2     2
+vy17_dlyifnested             2     2     0     2     2
+vy19_dlymodportname          2     2     0     2     2
+vy1_dlylpmod                 2     2     0     2     2
+vy4_dlyparamshadow           2     2     0     2     2
+vy5_dlyparamovrmod           3     3     0     3     3
+vy6_dlyifmulti               4     4     1     4     3
+vy7_dlyparamreal             2     2     0     2     2
+vy8_dlynested                4     4     0     4     4
+vy9_dlyifport                2     2     0     2     2
+w13_dlyparamtop              2     2     0     2     2
+w14_dlyparamovr              2     2     0     2     2
+w15_dlyparamtwoinst          3     3     0     3     3
+w2_dlylocalparam             2     2     0     2     2
+w4_dlyparammod               2     2     0     2     2
+z2b_delayref                 2     2     0     2     2
+
+arms where law matches FEWER golden delays than pristine = 0
+golden delays pristine matched and law does NOT (AWAY) = 0

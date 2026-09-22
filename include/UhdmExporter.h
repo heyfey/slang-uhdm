@@ -3125,8 +3125,13 @@ private:
     /// The vpiDelay expression of a continuous assign / net-decl-assign
     /// (`assign #0.1 a = b;`, `wire #3 w = a;`), or null when the statement
     /// carries no delay.  See the definition (ModuleEmit.cpp) for the model.
+    /// § caDelayParamRefSpelling90 (r11u90): when `scope` and `prefix` are
+    /// given, a delay written as a BARE parameter NAME comes back as the
+    /// `ref_obj` the producer binds, not as a constant.
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
-                                UHDM::BaseClass* parent);
+                                UHDM::BaseClass* parent,
+                                const slang::ast::Scope* scope = nullptr,
+                                const std::string* prefix = nullptr);
     std::string rawText(slang::SourceRange range);
     /// § caNonTernFoldEnc27 (r11u27) -- the ENCODING channel of
     /// `ExprEval::reduceExpr`'s non-ternary cont-assign fold: the

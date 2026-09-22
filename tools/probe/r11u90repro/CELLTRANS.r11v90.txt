@@ -1,0 +1,13 @@
+arms scored=163  unscored(no dump trio)=7
+unscored arms: ['u1_strnoinit_if', 'u2_strnoinit_mod', 'v11_bothonly', 'v11b_bothonlymod', 'vy13_dlyparamup', 'w6_dlyndaparam', 'w8_dlytwo']
+
+PER-CELL TRANSITION MATRIX  (pristine -> law)
+  MATCH        -> MATCH         1725
+  OURS-ONLY    -> ABSENT          95
+  GOLD-ONLY    -> GOLD-ONLY       13
+  OURS-ONLY    -> OURS-ONLY        5
+  COUNT        -> COUNT            2
+
+MATCH cells: pristine=1725  law=1725
+MOVED-WRONG (MATCH -> non-MATCH) = 0
+AWAY (new GOLD-ONLY or new OURS-ONLY) = 0

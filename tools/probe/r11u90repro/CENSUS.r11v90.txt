@@ -1,0 +1,20 @@
+== surelog: rows=798 distinct-files=10314 unreadable=0
+   LAW A  sites=6 files=4 rows=2
+      A    2  /home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/verilog/src/unisims/ICAPE2.v
+      A    2  /home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/verilog/src/unisims/ICAPE3.v
+      A    1  /home/heyfey/git-repos/Surelog/third_party/tests/Icarus/ivltests/drive_strength1.v
+      A    1  /home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/verilog/src/glbl.v
+   LAW B  sites=203 files=6 rows=2
+      B   64  /home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/verilog/src/unisims/ISERDES.v
+      B   37  /home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/verilog/src/unisims/ODELAYE2_FINEDELAY.v
+      B   37  /home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/verilog/src/unisims/IDELAYE2_FINEDELAY.v
+      B   32  /home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/verilog/src/unisims/IDELAYE2.v
+      B   32  /home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/verilog/src/unisims/ODELAYE2.v
+      B    1  /home/heyfey/git-repos/Surelog/third_party/tests/Icarus/ivltests/sched1.v
+   LAW A rows: ['Icarus', 'Unisim']
+   LAW B rows: ['Icarus', 'Unisim']
+== uhdm2rtlil: rows=871 distinct-files=2171 unreadable=0
+   LAW A  sites=0 files=0 rows=0
+   LAW B  sites=0 files=0 rows=0
+   LAW A rows: []
+   LAW B rows: []
