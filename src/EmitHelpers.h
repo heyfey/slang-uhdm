@@ -8938,6 +8938,14 @@ inline bool red87HopDeclaredType87(const slang::ast::ParameterSymbol& ps87) {
 /// (`w4_chnn89` `N1`, golden `32 /S`): golden's SIZE there is 32 where ours is
 /// the declaration's 8, so the cell cannot reach golden on this field alone
 /// and the road that produces the 32 is undecoded — recorded as R1.
+// § modPkgFedHopStore91 (r11u91) — declared here so the landed chain
+// recursion below can ask the PACKAGE-FED question at every hop; defined in
+// full further down, beside the § block that decodes the road.
+inline const slang::ast::ParameterSymbol* red91PkgFedInner91(
+    const slang::ast::ParameterSymbol& ps91);
+inline bool red91PkgStoreSigned91(const slang::ast::ParameterSymbol& ps91,
+                                  int depth91);
+
 inline bool red87StoreSigned87(const slang::ast::ParameterSymbol& ps87,
                                int depth89 = 0) {
     if (ps87.isOverridden())
@@ -8951,10 +8959,27 @@ inline bool red87StoreSigned87(const slang::ast::ParameterSymbol& ps87,
             const Expression& e89 = stripImplicitConv(*in89);
             if (e89.kind == ExpressionKind::NamedValue) {
                 auto& sy89 = e89.as<ValueExpressionBase>().symbol;
-                if (sy89.kind == SymbolKind::Parameter &&
-                    red87StoreSigned87(sy89.as<slang::ast::ParameterSymbol>(),
-                                       depth89 + 1))
-                    return true;
+                if (sy89.kind == SymbolKind::Parameter) {
+                    auto& iq89 = sy89.as<slang::ast::ParameterSymbol>();
+                    if (red87StoreSigned87(iq89, depth89 + 1))
+                        return true;
+                    // § modPkgFedHopStore91 (r11u91) — AND THE CHAIN REACHES
+                    // THROUGH A PACKAGE-FED HOP.  When the inner hop is itself
+                    // fed by a package parameter, ITS store carries the
+                    // package's signedness, so the mint hangs the bare signed
+                    // `int_typespec` on the constant this hop substitutes and
+                    // `valueRange` reads it here too.  MEASURED, `p1_pkgin91`
+                    // `R10` (`logic [7:0] R10 = R1` over `logic [7:0] R1 =
+                    // p1p::PI`): golden `8 INT:5 int_typespec/S`, the pristine
+                    // binary `8 INT:5 ts=-`.  An OR, not a replacement: where
+                    // the package inner is UNSIGNED the mint hangs nothing,
+                    // the `:2568` fill-in runs and THIS hop's own declaration
+                    // gets its vote back.
+                    if (const slang::ast::ParameterSymbol* pf89 =
+                            red91PkgFedInner91(iq89))
+                        if (red91PkgStoreSigned91(*pf89, 0))
+                            return true;
+                }
             }
         }
     }
@@ -9139,6 +9164,298 @@ inline bool red89OvrStoreSize89(const slang::ast::ParameterSymbol& ps89,
         return false;
     sz89 = w89;
     return true;
+}
+
+/// § modPkgFedHopStore91 (r11u91) — THE PACKAGE-HOMED INNER, r11u89's R1 and
+/// pass-88's R0.  A module/gen/interface-homed hop whose initializer is a BARE
+/// NAME resolving to a PACKAGE parameter takes a DIFFERENT road from the one
+/// the landed chain law walks, and on that road the READER'S OWN DECLARATION
+/// GETS NO VOTE ON THE SIGNEDNESS AND, FOR A `vpiDecConst`, NONE ON THE WIDTH.
+///
+/// THE ROAD, line by line at the pin.
+///
+///  1. `CompileExpression.cpp:2729-2751` (`paPackage_scope`, `m_elabMode`)
+///     CLONES the package's ELABORATED `param_assign` Rhs constant —
+///     `UHDM::clone_tree(param->Rhs(), …)` — so the read carries the package
+///     constant's VpiValue, VpiDecompile, VpiConstType, VpiSize **and its
+///     ref_typespec**, which `CompileHelper.cpp:3744-3750` had already filled
+///     in with the PACKAGE parameter's own declared typespec
+///     (`if (c->Typespec() == nullptr) … Actual_typespec(ts)`).
+///  2. `DesignElaboration.cpp:2565` then calls `adjustSize(ts, …)` with the
+///     READER's typespec.  `adjustSize` (`CompileHelper.cpp:4086-4088`) skips
+///     the resize for `vpiDecConst` alone and re-sizes every other const type
+///     to `Bits(ts)`.
+///  3. `:2578-2587` builds the store from that constant and hands
+///     `valueRange` `cts ? cts : ts` as its THIRD argument — and `cts` is the
+///     CLONE's typespec, i.e. the PACKAGE parameter's.  The `:2568` fill-in
+///     cannot run, so the reader's own declaration never reaches
+///     `valueRange`'s signedness switch at `CompileHelper.cpp:5548-5566`.
+///
+/// MEASURED (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`), arms
+/// `p1_pkgin91` / `p2_pkgedge91` / `p3_pkgsize91` / `p4_pkghome91`:
+///
+///   reader          package inner                golden      ours (pristine)
+///   logic [7:0] N   int PI = 16'd5               32 INT:5/S  8 INT:5 ts=-
+///   logic [7:0] N   logic [15:0] PU = 16'd7      16 INT:7 -  8 INT:7 ts=-
+///   logic [7:0] N   logic signed [15:0] PS       16 INT:9/S  8 INT:9 ts=-
+///   logic [7:0] N   bit signed [7:0] PBS = 8'd3   8 INT:3/S  8 INT:3 ts=-
+///   logic [7:0] N   (implicit) PIMP = 16'd11     16 INT:11-  8 INT:11 ts=-
+///   logic [7:0] N   shortint PSH = 16'd4         16 INT:4 -  8 INT:4 ts=-
+///   logic [7:0] N   int PH = 8'hA                 8 HEX:A/S  8 HEX:A ts=-
+///   int         N   logic [15:0] PU = 16'd7      16 INT:7 -  32 INT:7 /S  <<<
+///   logic [7:0] N   logic [7:0] QD = 16'd5        8 INT:5 -  16 INT:5 ts=-
+///   logic [7:0] N   int QDL = 8'd5               32 INT:5/S  16 INT:5 ts=-
+///   logic [7:0] N   (implicit) QIM = 8'd5         8 INT:5 -  16 INT:5 ts=-
+///   logic [15:0] N  logic [7:0] QC8 = QI          8 INT:5 -  16 INT:5 ts=-
+///   logic [15:0] N  (implicit) QCIM = QI         32 INT:5/S  16 INT:5 ts=-
+///
+/// THE ROW MARKED `<<<` IS WHY THIS IS NOT AN "OR IN THE PACKAGE'S FLAG": a
+/// SIGNED reader over an UNSIGNED package inner is golden BARE and at the
+/// package's width, and the pristine binary writes the reader's `32 /S` on
+/// both fields.  The package answers, or nothing does.
+///
+/// `red91HopHomeIsPackage91` — the mirror of `red87HopHomeIsInstance87`.  A
+/// compilation-unit parameter takes the same `CompileHelper.cpp:3718` road
+/// (`valuedcomponenti_cast<FileContent*>` sits beside the `Package*` arm).
+inline bool red91HopHomeIsPackage91(const slang::ast::ParameterSymbol& ps91) {
+    const slang::ast::Scope* sc91 = ps91.getParentScope();
+    if (!sc91)
+        return false;
+    const SymbolKind k91 = sc91->asSymbol().kind;
+    // § modPkgFedHopStore91v (r11v91) — A PACKAGE, AND ONLY A PACKAGE.  The
+    // CompilationUnit arm was asserted from `CompileHelper.cpp:3718` and is
+    // REFUTED by golden: `localparam int KUNIT = 16'd13` at `$unit` read by
+    // `logic [7:0] G5` is golden `8 ts=-` — the READER's width, bare — where
+    // this law's package answer would write `32 int_typespec/S` on both
+    // fields (`v5_road2way91` `G5`, `v2_pkgroad91` `W6`).  `$unit::KUNIT`
+    // written with its scope is not folded by golden at all (a `ref_obj`),
+    // so neither face has a cell to reach there either.
+    return k91 == SymbolKind::Package;
+}
+
+/// § modPkgFedHopStore91v (r11v91) — THE ROAD IS THE SYNTAX, NOT THE HOME.
+/// The decoded producer road is `CompileExpression.cpp:2729-2751`, the
+/// `paPackage_scope` arm — it fires on `pkg::name`, the WRITTEN scope.  A
+/// name brought in by `import pkg::*` resolves to the SAME slang
+/// `ParameterSymbol` with the same package parent scope, and golden treats
+/// the two reads DIFFERENTLY.  Measured on `v5_road2way91`, both readers in
+/// ONE module over ONE package parameter `localparam int KI = 16'd5`:
+///
+///   localparam logic [7:0] G1 = v5p::KI;   golden 32 int_typespec/S
+///   localparam logic [7:0] G2 = KI;        golden  8 ts=-
+///
+/// and the same split on the unsigned `logic [11:0] KU` (`G3` golden 12,
+/// `G4` golden 8).  Keying on the home alone made the imported read a
+/// MOVED-WRONG cell on BOTH fields; this gate is what makes the law the
+/// clone road's and not the symbol table's.
+inline bool red91InitIsScopedName91(const Expression& e91) {
+    const slang::syntax::SyntaxNode* sx91 = e91.syntax;
+    return sx91 && sx91->kind == slang::syntax::SyntaxKind::ScopedName;
+}
+
+/// § modPkgFedHopStore91 — the PACKAGE hop's own typespec, which is what
+/// `valueRange` reads: its DECLARED one when it has one, else (recursively)
+/// the one the clone it was itself initialised from carried.  The tail is the
+/// landed `red87StoreSigned87`'s, applied to the PACKAGE parameter: only
+/// `logic_typespec` / `bit_typespec` / `int_typespec` are named by
+/// `CompileHelper.cpp:5548-5566`, so `byte` / `shortint` / `integer` /
+/// `longint` are golden BARE although SystemVerilog calls them signed
+/// (measured, `p1_pkgin91` `R7` over a `shortint`).
+/// § modPkgFedHopStore91 — WHICH declaration the package hop carries, with a
+/// REFUSAL arm the landed `red87HopDeclaredType87` does not need.
+///   1  a written data type — the producer's `ts` is that type and `Bits(ts)`
+///      is a width this reader can name.
+///   0  a PLAIN implicit declaration — the producer attaches nothing and the
+///      clone keeps the inner's typespec and width.
+///  -1  an implicit declaration wearing a SIGNING KEYWORD or a DIMENSION:
+///      the producer SYNTHESIZES a typespec whose width is neither the
+///      literal's nor `getBitWidth()`'s.  MEASURED, `p4_pkghome91` `U3` over
+///      `localparam signed QSI = 16'd5` — golden `32 INT:5 int_typespec/S`,
+///      slang's `getBitWidth()` 16, the pristine binary 8.  Writing 16 there
+///      would be a MOVED-WRONG cell, so the whole shape is refused on BOTH
+///      faces and recorded as a residue.
+inline int red91PkgDeclKind91(const slang::ast::ParameterSymbol& ps91) {
+    const slang::ast::DeclaredType* dt91 = ps91.getDeclaredType().get();
+    const slang::syntax::SyntaxNode* tsx91 =
+        dt91 ? dt91->getTypeSyntax() : nullptr;
+    if (!tsx91)
+        return -1;
+    if (tsx91->kind != slang::syntax::SyntaxKind::ImplicitType)
+        return 1;
+    auto& its91 = tsx91->as<slang::syntax::ImplicitTypeSyntax>();
+    return (its91.signing.valid() || !its91.dimensions.empty()) ? -1 : 0;
+}
+
+inline bool red91PkgStoreSigned91(const slang::ast::ParameterSymbol& ps91,
+                                  int depth91) {
+    if (!red91HopHomeIsPackage91(ps91))
+        return false;
+    const int dk91 = red91PkgDeclKind91(ps91);
+    if (dk91 < 0)
+        return false;
+    if (dk91 == 0) {
+        // An IMPLICIT package hop attaches no typespec of its own, so the
+        // clone keeps the inner's (`p3_pkgsize91` `QCIM` over `int QI`,
+        // golden `32 INT:5 int_typespec/S`).
+        if (depth91 >= 8)
+            return false;
+        const Expression* in91 = ps91.getInitializer();
+        if (!in91)
+            return false;
+        const Expression& e91 = stripImplicitConv(*in91);
+        if (e91.kind != ExpressionKind::NamedValue)
+            return false;
+        auto& sy91 = e91.as<ValueExpressionBase>().symbol;
+        if (sy91.kind != SymbolKind::Parameter)
+            return false;
+        return red91PkgStoreSigned91(sy91.as<slang::ast::ParameterSymbol>(),
+                                     depth91 + 1);
+    }
+    const slang::ast::Type& ty91 = ps91.getType().getCanonicalType();
+    if (!ty91.isSigned())
+        return false;
+    const slang::ast::Type* el91 = &ty91;
+    while (el91->kind == SymbolKind::PackedArrayType)
+        el91 = &el91->as<slang::ast::PackedArrayType>()
+                    .elementType.getCanonicalType();
+    if (el91->kind == SymbolKind::ScalarType)
+        return true;
+    if (el91->kind == SymbolKind::PredefinedIntegerType)
+        return el91->as<slang::ast::PredefinedIntegerType>().integerKind ==
+               slang::ast::PredefinedIntegerType::Int;
+    return false;
+}
+
+/// § modPkgFedHopStore91 — and the WIDTH the same clone carries, which
+/// `adjustSize` keeps for a `vpiDecConst` and overwrites for every other const
+/// type.  The package hop's own elaborated width is `Bits(its declared type)`
+/// when it has one and the inner answer otherwise — measured on
+/// `p3_pkgsize91`, where `logic [7:0] QD = 16'd5` is golden **8** (the
+/// declaration, not the literal's 16), `int QDL = 8'd5` is golden **32**, the
+/// implicit `QIM = 8'd5` is golden **8** (the literal's), and the chain
+/// `logic [7:0] QC8 = QI` is golden **8** although its inner answers 32.
+///
+/// ONLY the `'d` leaf: every other base is re-sized by `adjustSize` to the
+/// READER's declared width, which our own emission already writes
+/// (`p1_pkgin91` `R6` over `int PH = 8'hA` is golden `8`, `p2_pkgedge91` `S4`
+/// over an `'o` hop is golden `8` and EQUAL on both binaries).  A plain
+/// unsized decimal is `vpiUIntConst` and takes that same road
+/// (`p2_pkgedge91` `S2` over `int QZ = 5`, golden `8`).
+inline bool red91PkgStoreSize91(const slang::ast::ParameterSymbol& ps91,
+                                int depth91, int32_t& sz91) {
+    if (depth91 > 8)
+        return false;
+    if (!red91HopHomeIsPackage91(ps91))
+        return false;
+    const int dk91 = red91PkgDeclKind91(ps91);
+    if (dk91 < 0)
+        return false;
+    const Expression* in91 = ps91.getInitializer();
+    if (!in91)
+        return false;
+    const Expression& e91 = stripImplicitConv(*in91);
+    int32_t psz91 = 0;
+    if (const auto* v91 = red76VecSyntax(e91)) {
+        if (red72LitBase(v91->base.rawText()) != 'd')
+            return false;
+        psz91 = red81LitWrittenSize81(e91);
+        if (psz91 <= 0)
+            return false;
+    }
+    else if (e91.kind == ExpressionKind::NamedValue) {
+        auto& sy91 = e91.as<ValueExpressionBase>().symbol;
+        if (sy91.kind != SymbolKind::Parameter)
+            return false;
+        if (!red91PkgStoreSize91(sy91.as<slang::ast::ParameterSymbol>(),
+                                 depth91 + 1, psz91))
+            return false;
+    }
+    else {
+        return false;
+    }
+    if (dk91 == 0) {
+        sz91 = psz91;
+        return true;
+    }
+    const int32_t b91 = (int32_t)ps91.getType().getBitWidth();
+    if (b91 <= 0)
+        return false;
+    sz91 = b91;
+    return true;
+}
+
+/// § modPkgFedHopStore91 — the gate both faces share: the hop the pattern
+/// NAMES is module/gen/interface-homed, not overridden and carries an
+/// EXPLICIT declared type (without one `DesignElaboration.cpp:2585`'s
+/// `if (ts)` never calls `valueRange` and `:2565` never calls `adjustSize`, so
+/// the store keeps the clone verbatim — `p1_pkgin91` `R11`, golden `32 INT:5
+/// ts=-`, EQUAL on both binaries), and its initializer is a PACKAGE-SCOPED
+/// NAME (`pkg::name` — see `red91InitIsScopedName91`, which is what puts the
+/// read on the clone road) whose symbol is a PACKAGE parameter.  Returns that
+/// inner, or null.
+inline const slang::ast::ParameterSymbol* red91PkgFedInner91(
+    const slang::ast::ParameterSymbol& ps91) {
+    if (ps91.isOverridden())
+        return nullptr;
+    if (!red87HopHomeIsInstance87(ps91))
+        return nullptr;
+    if (!red87HopDeclaredType87(ps91))
+        return nullptr;
+    const Expression* in91 = ps91.getInitializer();
+    if (!in91)
+        return nullptr;
+    const Expression& e91 = stripImplicitConv(*in91);
+    if (e91.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    // § modPkgFedHopStore91v (r11v91) — the WRITTEN scope is the road.
+    if (!red91InitIsScopedName91(e91))
+        return nullptr;
+    auto& sy91 = e91.as<ValueExpressionBase>().symbol;
+    if (sy91.kind != SymbolKind::Parameter)
+        return nullptr;
+    auto& iq91 = sy91.as<slang::ast::ParameterSymbol>();
+    if (!red91HopHomeIsPackage91(iq91))
+        return nullptr;
+    return &iq91;
+}
+
+/// § modPkgFedHopStore91v (r11v91) — DOES THE CLONE CARRY A TYPESPEC AT ALL?
+/// `CompileHelper.cpp:3744-3750` hangs the package parameter's own declared
+/// typespec on its elaborated constant only when it HAS one; a PLAIN implicit
+/// package declaration whose chain bottoms out at a LITERAL leaves the
+/// constant bare.  The clone is then bare too, `DesignElaboration.cpp:2568`'s
+/// fill-in DOES run, and `valueRange`'s third argument is the READER's
+/// typespec — so on that one shape the reader's declaration keeps its vote
+/// and the landed `red87StoreSigned87` is still the right answer.
+///
+/// MEASURED, `v1_pkgsign91` `V5`: `localparam logic signed [15:0] V5 =
+/// v1p::PIMP` over `localparam PIMP = 16'd11` is golden `16 INT:11
+/// int_typespec/S`, which the PRISTINE binary already writes; replacing the
+/// declaration read there dropped the typespec — an AWAY cell.  The unsigned
+/// reader of the same shape (`p1_pkgin91` `R5`, golden `16 INT:11 ts=-`) is
+/// unaffected either way, which is why the landed grid could not see it.
+inline bool red91PkgCloneHasTs91(const slang::ast::ParameterSymbol& ps91,
+                                 int depth91) {
+    if (depth91 > 8)
+        return false;
+    if (!red91HopHomeIsPackage91(ps91))
+        return false;
+    const int dk91 = red91PkgDeclKind91(ps91);
+    if (dk91 < 0)
+        return false;
+    if (dk91 == 1)
+        return true;
+    const Expression* in91 = ps91.getInitializer();
+    if (!in91)
+        return false;
+    const Expression& e91 = stripImplicitConv(*in91);
+    if (e91.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& sy91 = e91.as<ValueExpressionBase>().symbol;
+    if (sy91.kind != SymbolKind::Parameter)
+        return false;
+    return red91PkgCloneHasTs91(sy91.as<slang::ast::ParameterSymbol>(),
+                                depth91 + 1);
 }
 
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {

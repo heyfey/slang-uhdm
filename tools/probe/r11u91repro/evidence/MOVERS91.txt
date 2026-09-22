@@ -1,0 +1,32 @@
+# r11u91 byteverify movers — order-blind attribution on path-normalised SORTED dumps
+MOVERS 5 / 2568, PATH_SETS_IDENTICAL, SELFCHECK 2567/2568
+== default/MiniAmiq-544c7f61  sorted-line diff: 4
+<       |UINT:0
+>       |UINT:1321
+<       |vpiDecompile:0
+>       |vpiDecompile:1321
+== default/SeqDriver-32af76aa  sorted-line diff: 4
+<       |UINT:1096
+>       |UINT:605
+<       |vpiDecompile:1096
+>       |vpiDecompile:605
+== default/SimpleUVM-1dc93a62  sorted-line diff: 4
+>       |UINT:0
+<       |UINT:1318
+>       |vpiDecompile:0
+<       |vpiDecompile:1318
+== testflags/MiniAmiq-544c7f61  sorted-line diff: 4
+<       |UINT:1071
+>       |UINT:922
+<       |vpiDecompile:1071
+>       |vpiDecompile:922
+== testflags/SeqDriver-32af76aa  sorted-line diff: 4
+>       |UINT:0
+<       |UINT:742
+>       |vpiDecompile:0
+<       |vpiDecompile:742
+
+[exited with code 0]
+
+COIN CONTROL: the PRISTINE binary alone, five runs of MiniAmiq in one dir:
+  2d12f2f0a8e6 2c6b4fe9268e d748e531aecb 5272fa4c2678 417ef11b1f65

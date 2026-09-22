@@ -1,0 +1,12 @@
+MOVERS (r11v91) — surelog corpus, fixd vs pris, order-blind on sorted path-normalised dumps
+u2r: MOVERS 0 / 1608
+surelog: MOVERS 6 / 960, PATH_SETS_IDENTICAL, SELFCHECK 959/960
+  default/Scoreboard   0 sorted-line diffs  -- pure ORDER draw (svunit_pkg vpiTaskFunc)
+  default/MiniAmiq     UINT:1356 <-> UINT:0    vpiDecompile 1356 <-> 0
+  default/SeqDriver    UINT:0    <-> UINT:619   vpiDecompile 0 <-> 619
+  default/SimpleUVM    UINT:697  <-> UINT:0     vpiDecompile 697 <-> 0
+  testflags/MiniAmiq   UINT:534  <-> UINT:1052  vpiDecompile 534 <-> 1052
+  testflags/SeqDriver  UINT:0    <-> UINT:581   vpiDecompile 0 <-> 581
+ZERO vpiSize, ZERO Typespec, ZERO vpiConstType lines in any mover.
+COIN CONTROL: pristine binary alone, 5 MiniAmiq runs to this verifier's own -o:
+  c8a5aa245267 5bf5141771a3 09a0fc9b894c e151c32cd0f3 892e33d41868  (5 distinct)

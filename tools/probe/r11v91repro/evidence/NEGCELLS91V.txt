@@ -1,0 +1,14 @@
+wNI    G=INT:-3 ct7 sz32 d=-3             PRIS=UINT:0 ct9 sz32 d=-3             LAW=INT:-3 ct7 sz32 d=-3             <<<< TO
+wNB4   G=INT:-3 ct7 sz32 d=-3             PRIS=UINT:0 ct9 sz4 d=-3              LAW=INT:-3 ct7 sz4 d=-3             
+wNL8   G=INT:-3 ct7 sz32 d=-3             PRIS=UINT:0 ct9 sz8 d=-3              LAW=INT:-3 ct7 sz8 d=-3             
+wNBY   G=INT:-3 ct7 sz32 d=-3             PRIS=UINT:0 ct9 sz8 d=-3              LAW=INT:-3 ct7 sz8 d=-3             
+wNLL   G=INT:-3 ct7 sz64 d=-3             PRIS=UINT:0 ct9 sz64 d=-3             LAW=INT:-3 ct7 sz64 d=-3             <<<< TO
+wNMIN  G=INT:-2147483647 ct7 sz32 d=-2147483647 PRIS=UINT:0 ct9 sz32 d=-2147483647    LAW=INT:-2147483647 ct7 sz32 d=-2147483647 <<<< TO
+wNIMP  G=INT:-3 ct7 sz32 d=-3             PRIS=UINT:0 ct9 sz32 d=-3             LAW=INT:-3 ct7 sz32 d=-3             <<<< TO
+wNOP   G=INT:-3 ct7 sz32 d=-3             PRIS=UINT:0 ct9 sz32 d=-3             LAW=INT:-3 ct7 sz32 d=-3             <<<< TO
+wNU8   G=INT:-3 ct7 sz32 d=-3             PRIS=UINT:253 ct9 sz8 d=253           LAW=UINT:253 ct9 sz8 d=253          
+wNZ    G=INT:0 ct7 sz32 d=0               PRIS=UINT:0 ct9 sz32 d=0              LAW=UINT:0 ct9 sz32 d=0             
+wNFC   G=INT:-3 ct7 sz32 d=-3             PRIS=INT:-3 ct7 sz32 d=-3             LAW=INT:-3 ct7 sz32 d=-3            
+wPPOS  G=UINT:3 ct9 sz32 d=3              PRIS=UINT:3 ct9 sz32 d=3              LAW=UINT:3 ct9 sz32 d=3             
+wPB4   G=INT:3 ct7 sz32 d=3               PRIS=DEC:3 ct1 sz4 d=4'd3             LAW=DEC:3 ct1 sz4 d=4'd3            
+TO=5 AWAY=0

@@ -1,0 +1,63 @@
+# r11u91 WIDE BOUNDARY — every *.sv under tools/probe, pristine vs law
+arms=8185 SAME=7919 DIFFERS=44 NODB=222   (NODB prc!=lrc = 0: 212 rc=3, 6 rc=2, 4 rc=139)
+
+## the differing-line census over all 44 arms (id-stripped dumps)
+    162 |vpiConstType
+    120 \_int_typespec
+    116 |vpiSize
+     97 |UINT
+     85 |INT
+     62 |vpiTypespec
+     62 |vpiParent
+     62 |vpiFullName
+     62 |vpiActual
+     62 \_ref_typespec
+     62 \_constant
+     58 |vpiSigned
+     44 |vpiDecompile
+
+## per arm
+r10buvm22repro_g22_sv/ tot=12 page=8
+r10earl32repro_a2_type_sv/ tot=4 page=0
+r10earl33repro_b2_init_sv/ tot=4 page=0
+r10earl34repro_v4_paren_sv/ tot=8 page=0
+r10earl60repro_vfa_v60_sv/ tot=0 page=0
+r10earl60repro_vfe_v60_sv/ tot=0 page=0
+r10earl60repro_vff_v60_sv/ tot=0 page=0
+r10earl70repro_g3_enc70_sv/ tot=8 page=0
+r10uvm154repro_l154_noenum_sv/ tot=8 page=8
+r10uvm185repro_grid185_g185_e_kinds_sv/ tot=12 page=12
+r10v187repro_arms187_v187_i_signedonly_sv/ tot=0 page=0
+r10v65repro_a4_hier_sv/ tot=8 page=0
+r10v75repro_a5_origin75_sv/ tot=20 page=0
+r10v76repro_a4_val76_sv/ tot=4 page=0
+r10v96repro_v96_a8_folds_sv/ tot=12 page=0
+r10vearl70repro_v1_axes70_sv/ tot=8 page=0
+r10vearl70repro_v2_encoding70_sv/ tot=16 page=0
+r11u68repro_grid_b2_faces68_sv/ tot=4 page=0
+r11u72repro_grid_t1_arith72_sv/ tot=8 page=0
+r11u72repro_grid_t2_leaf72_sv/ tot=16 page=0
+r11u76repro_grid_y1_sdval76_sv/ tot=0 page=0
+r11u76repro_grid_y3_castenc76_sv/ tot=10 page=0
+r11u78repro_grid_z2_hop78_sv/ tot=30 page=0
+r11u78repro_grid_z4_shift78_sv/ tot=0 page=0
+r11u81repro_grid_a1_hopts81_sv/ tot=4 page=0
+r11u81repro_grid_a3_hopbnd81_sv/ tot=20 page=0
+r11u86repro_grid_m2_enc86_sv/ tot=4 page=0
+r11u88repro_grid_q12_ndaparamenc_dut_sv/ tot=4 page=0
+r11u89repro_grid_w4_chnn89_sv/ tot=44 page=0
+r11u91repro_grid88_n1_pkgneg91_dut_sv/ tot=36 page=0
+r11u91repro_grid_a1_hopts81_sv/ tot=4 page=0
+r11u91repro_grid_a3_hopbnd81_sv/ tot=20 page=0
+r11u91repro_grid_n1_pkgneg91_sv/ tot=36 page=0
+r11u91repro_grid_p1_pkgin91_sv/ tot=190 page=0
+r11u91repro_grid_p2_pkgedge91_sv/ tot=84 page=0
+r11u91repro_grid_p3_pkgsize91_sv/ tot=64 page=0
+r11u91repro_grid_p4_pkghome91_sv/ tot=288 page=0
+r11v38repro_arms_v2_paenc_sv/ tot=0 page=0
+r11v38repro_arms_v3_pa2_sv/ tot=0 page=0
+r11v42repro_grid42v_v1_dut_sv/ tot=4 page=0
+r11v56repro_grid_x3_names_dut_sv/ tot=12 page=0
+r11v72repro_grid_v2_usz72_sv/ tot=8 page=0
+r11v76repro_grid_v3cast76_sv/ tot=10 page=0
+r11v78repro_grid_w1_ts78v_sv/ tot=30 page=0

@@ -16754,7 +16754,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         Red72::Value)
                                     continue;
                             }
-                            if (!red87StoreSigned87(*hp87))
+                            // ===== § modPkgFedHopStore91 (r11u91) — LAW A ===
+                            // A hop FED BY A PACKAGE parameter takes the
+                            // clone road, and `valueRange`'s third argument is
+                            // then the PACKAGE parameter's own typespec: the
+                            // reader's declaration gets no vote.  The full
+                            // decode and the measured table are in the §
+                            // block beside `red91PkgFedInner91`.  It REPLACES
+                            // the landed declaration read on that one shape
+                            // rather than adding to it, because a SIGNED
+                            // reader over an UNSIGNED package inner is golden
+                            // BARE (`p1_pkgin91` `R8`, `int R8 = p1p::PU`,
+                            // golden `16 INT:7 ts=-` where the pristine binary
+                            // writes `32 /S`).  THE BINARY FACE IS DECLINED
+                            // WHOLE: our member stamp zero-pads a `'b` hop's
+                            // digit string to the member width, so `p4_pkghome91`
+                            // `U1` cannot reach golden's `8 BIN:1010 /S` on the
+                            // typespec alone and a half-golden cell is worse
+                            // than none (r11u89 LAW C's own rule).
+                            // § modPkgFedHopStore91v (r11v91) — AND THE
+                            // REPLACEMENT ONLY HOLDS WHERE THE CLONE ACTUALLY
+                            // CARRIES A TYPESPEC.  A plain implicit package
+                            // declaration over a literal leaves the package
+                            // constant BARE, `DesignElaboration.cpp:2568`'s
+                            // fill-in runs, and the READER's declaration votes
+                            // again — `v1_pkgsign91` `V5`, golden and pristine
+                            // `16 INT:11 int_typespec/S`, which the
+                            // unconditional replacement dropped.
+                            const slang::ast::ParameterSymbol* pi91 =
+                                red91PkgFedInner91(*hp87);
+                            if (pi91 && !red91PkgCloneHasTs91(*pi91, 0))
+                                pi91 = nullptr;
+                            if (pi91) {
+                                if (have87 == vpiBinaryConst)
+                                    continue;
+                                if (!red91PkgStoreSigned91(*pi91, 0))
+                                    continue;
+                            }
+                            else if (!red87StoreSigned87(*hp87))
                                 continue;
                             auto* it87 = s.MakeInt_typespec();
                             it87->VpiSigned(true);
@@ -16851,7 +16888,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                             bool dec87 = false;
                             int32_t sz87 = 0;
-                            if (!red87StoreSize87(*hq87, 0, dec87, sz87)) {
+                            // ===== § modPkgFedHopStore91 (r11u91) — LAW A's
+                            // WIDTH FACE.  `adjustSize` keeps a `vpiDecConst`'s
+                            // own width, and the width the clone brings is the
+                            // PACKAGE hop's: `Bits` of its declared type, or
+                            // the inner answer where it has none.  Every other
+                            // base is re-sized to the reader's declared width,
+                            // which our emission already writes, so this reader
+                            // answers for the `'d` leaf alone.  The BINARY face
+                            // is declined here for the same reason as above.
+                            const slang::ast::ParameterSymbol* pj91 =
+                                have87 == vpiBinaryConst
+                                    ? nullptr
+                                    : red91PkgFedInner91(*hq87);
+                            if (pj91) {
+                                if (!red91PkgStoreSize91(*pj91, 0, sz87))
+                                    continue;
+                            }
+                            else if (!red87StoreSize87(*hq87, 0, dec87, sz87)) {
                                 // § modOvrStoreSizeIsTheOverride89 (r11u89) —
                                 // r11u87's R3, the one shape the landed reader
                                 // declines BY NAME.  The override road sizes

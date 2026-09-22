@@ -16053,8 +16053,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }));
                         callSigned9 = hasCall9 && cv.integer().isSigned();
                     }
-                    c->VpiValue((callSigned9 ? "INT:" : "UINT:") + digits);
-                    c->VpiConstType(callSigned9 ? vpiIntConst : vpiUIntConst);
+                    // ===== § pkgParamNegFoldIsInt91 (r11u91) — LAW B, the
+                    // pass-87 R3 head of `q12_ndaparamenc`.  A NEGATIVE value
+                    // written here as `"UINT:" + digits` becomes `UINT:-3`,
+                    // which the serializer READS BACK AS ZERO — the arm's cell
+                    // reaches the database as `UINT:0` wearing a `-3`
+                    // decompile where golden writes `INT:-3 vpiConstType 7`.
+                    // This site is the ONLY one that gets it wrong: our own
+                    // package `param_assign` emitter and the parameter-read
+                    // road both already write `INT:-3` (measured, arm
+                    // `n1_pkgneg91`: `work@dut.L_PN` and the elaborated
+                    // `np::PN` are golden on BOTH binaries), and the general
+                    // constant encoder 8 000 lines above carries this exact
+                    // rule in so many words —  "integer y = -1 -> INT:-1,
+                    // never UINT:-1 (which serializes as 0)".
+                    //
+                    // GOLDEN, arm `n1_pkgneg91`, ten written forms x three
+                    // reading homes (real Surelog v1.87, `golden_rc=0
+                    // ours_rc=0`), every cell `INT:` at `vpiConstType` 7:
+                    //   int PN = -3 / byte PNB / longint PNL / (implicit) PNIM
+                    //   logic signed [7:0] PN8 / int PNE = 0 - 3
+                    //   int PNMIN = -2147483647
+                    // and the POSITIVE control `int PP = 3` is `UINT:3`, equal
+                    // on both binaries before and after.
+                    //
+                    // TWO SHAPES ARE DECLINED, both measured: an UNSIGNED
+                    // declared type over a negative initializer (`logic [7:0]
+                    // PNU = -3`) is golden `INT:-3` where our own package
+                    // constant is `UINT:253` — the VALUE differs, not just the
+                    // encoding, and that is the package emitter's ground; and
+                    // `-0` is golden `INT:0` where ours is `UINT:0` — the
+                    // value is golden already and the producer's INT comes
+                    // from the negation's own reduce, not from the sign of the
+                    // result.  Both are recorded as residues.
+                    const bool neg91 = cv.integer().isSigned() &&
+                                       cv.integer().isNegative();
+                    c->VpiValue(((callSigned9 || neg91) ? "INT:" : "UINT:") +
+                                digits);
+                    c->VpiConstType((callSigned9 || neg91) ? vpiIntConst
+                                                           : vpiUIntConst);
                     // § castDefaultPatternConcat — Surelog's
                     // substituteAssignedValue hands the read the parameter's
                     // OWN value object, and for an `int'{default:X}` param that

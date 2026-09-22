@@ -1,0 +1,213 @@
+# r11u91 — the five moving arms, per cell, golden | pristine | law
+=== p1_pkgin91
+TOPMOD A op75 n=8@TOPMOD A op75 n=8@TOPMOD A op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=16 ct=7 v=INT:7 d=7 ts=-@   [2] constant sz=8 ct=7 v=INT:7 d=7 ts=-@   [2] constant sz=16 ct=7 v=INT:7 d=7 ts=-
+   [3] constant sz=16 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [3] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=16 ct=7 v=INT:9 d=9 ts=int_typespec/S
+   [4] constant sz=8 ct=7 v=INT:3 d=3 ts=int_typespec/S@   [4] constant sz=8 ct=7 v=INT:3 d=3 ts=-@   [4] constant sz=8 ct=7 v=INT:3 d=3 ts=int_typespec/S
+   [5] constant sz=16 ct=7 v=INT:11 d=11 ts=-@   [5] constant sz=8 ct=7 v=INT:11 d=11 ts=-@   [5] constant sz=16 ct=7 v=INT:11 d=11 ts=-
+   [6] constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S@   [6] constant sz=8 ct=5 v=HEX:A d=8'hA ts=-@   [6] constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S
+   [7] constant sz=16 ct=7 v=INT:4 d=4 ts=-@   [7] constant sz=8 ct=7 v=INT:4 d=4 ts=-@   [7] constant sz=16 ct=7 v=INT:4 d=4 ts=-
+TOPMOD B op75 n=8@TOPMOD B op75 n=8@TOPMOD B op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=7 v=INT:7 d=7 ts=-@   [1] constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S@   [1] constant sz=16 ct=7 v=INT:7 d=7 ts=-
+   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S@   [5] constant sz=8 ct=7 v=INT:-3 d=-3 ts=-@   [5] constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S
+   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [6] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] constant sz=16 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [7] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=16 ct=7 v=INT:9 d=9 ts=int_typespec/S
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=16 ct=7 v=INT:7 d=7 ts=-@   [2] constant sz=8 ct=7 v=INT:7 d=7 ts=-@   [2] constant sz=16 ct=7 v=INT:7 d=7 ts=-
+   [3] constant sz=16 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [3] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=16 ct=7 v=INT:9 d=9 ts=int_typespec/S
+   [4] constant sz=8 ct=7 v=INT:3 d=3 ts=int_typespec/S@   [4] constant sz=8 ct=7 v=INT:3 d=3 ts=-@   [4] constant sz=8 ct=7 v=INT:3 d=3 ts=int_typespec/S
+   [5] constant sz=16 ct=7 v=INT:11 d=11 ts=-@   [5] constant sz=8 ct=7 v=INT:11 d=11 ts=-@   [5] constant sz=16 ct=7 v=INT:11 d=11 ts=-
+   [6] constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S@   [6] constant sz=8 ct=5 v=HEX:A d=8'hA ts=-@   [6] constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S
+   [7] constant sz=16 ct=7 v=INT:4 d=4 ts=-@   [7] constant sz=8 ct=7 v=INT:4 d=4 ts=-@   [7] constant sz=16 ct=7 v=INT:4 d=4 ts=-
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=16 ct=7 v=INT:7 d=7 ts=-@   [1] constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S@   [1] constant sz=16 ct=7 v=INT:7 d=7 ts=-
+   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S@   [5] constant sz=8 ct=7 v=INT:-3 d=-3 ts=-@   [5] constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S
+   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [6] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] constant sz=16 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [7] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=16 ct=7 v=INT:9 d=9 ts=int_typespec/S
+=== p2_pkgedge91
+TOPMOD A op75 n=8@TOPMOD A op75 n=8@TOPMOD A op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S@   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [3] constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=-@   [3] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-@   [3] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+   [4] constant sz=8 ct=9 v=UINT:15 d=15 ts=-@   [4] constant sz=8 ct=9 v=UINT:15 d=15 ts=-@   [4] constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-@   [6] constant sz=64 ct=7 v=INT:21 d=21 ts=-@   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-
+   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [7] constant sz=4 ct=7 v=INT:5 d=5 ts=-@   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+TOPMOD B op75 n=8@TOPMOD B op75 n=8@TOPMOD B op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:6 d=6 ts=-@   [1] constant sz=32 ct=7 v=INT:6 d=6 ts=-@   [1] constant sz=32 ct=7 v=INT:6 d=6 ts=-
+   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [4] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=-
+   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-@   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-@   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-
+   [7] constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=-@   [7] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-@   [7] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S@   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [3] constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=-@   [3] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-@   [3] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+   [4] constant sz=8 ct=9 v=UINT:15 d=15 ts=-@   [4] constant sz=8 ct=9 v=UINT:15 d=15 ts=-@   [4] constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-@   [6] constant sz=64 ct=7 v=INT:21 d=21 ts=-@   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-
+   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [7] constant sz=4 ct=7 v=INT:5 d=5 ts=-@   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:6 d=6 ts=-@   [1] constant sz=32 ct=7 v=INT:6 d=6 ts=-@   [1] constant sz=32 ct=7 v=INT:6 d=6 ts=-
+   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [2] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [4] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=-
+   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-@   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-@   [6] constant sz=32 ct=7 v=INT:21 d=21 ts=-
+   [7] constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=-@   [7] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-@   [7] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+=== p3_pkgsize91
+TOPMOD A op75 n=8@TOPMOD A op75 n=8@TOPMOD A op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [2] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=64 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=64 ct=7 v=INT:5 d=5 ts=-
+   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [6] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] constant sz=12 ct=7 v=INT:5 d=5 ts=-@   [7] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [7] constant sz=12 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [2] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [2] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=64 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=64 ct=7 v=INT:5 d=5 ts=-
+   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [6] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [6] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] constant sz=12 ct=7 v=INT:5 d=5 ts=-@   [7] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [7] constant sz=12 ct=7 v=INT:5 d=5 ts=-
+=== p4_pkghome91
+TOPMOD A op75 n=8@TOPMOD A op75 n=8@TOPMOD A op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=int_typespec/S@   [1] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-@   [1] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [3] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [7] constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=int_typespec/S@   [7] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-@   [7] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=int_typespec/S@   [1] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-@   [1] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [3] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [7] constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=int_typespec/S@   [7] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-@   [7] constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+TOPMOD D op75 n=8@TOPMOD D op75 n=8@TOPMOD D op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [2] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [2] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [2] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+   [3] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [4] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+   [5] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [5] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [5] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [6] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+   [7] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [2] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [2] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [2] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+   [3] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [4] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+   [5] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [5] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [5] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S@   [6] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+   [7] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+TOPIFC C op75 n=8@TOPIFC C op75 n=8@TOPIFC C op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [3] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [4] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [4] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [7] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+TOPGEN B op75 n=8@TOPGEN R op75 n=8@TOPGEN R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [3] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [4] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [4] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-@   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [7] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+TOPGEN R op75 n=8@@
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@@
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@@
+   [2] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@@
+   [3] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@@
+   [4] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@@
+   [5] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@@
+   [6] constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S@@
+   [7] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@@
+=== w4_chnn89
+TOPMOD A op75 n=8@TOPMOD A op75 n=8@TOPMOD A op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S@   [2] constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S@   [2] constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   [6] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [6] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [6] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [7] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [7] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [7] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+TOPMOD B op75 n=8@TOPMOD B op75 n=8@TOPMOD B op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [2] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [2] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [3] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [3] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   [6] constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [6] constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [6] constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] constant sz=16 ct=7 v=INT:6 d=6 ts=int_typespec/S@   [7] constant sz=16 ct=7 v=INT:6 d=6 ts=int_typespec/S@   [7] constant sz=16 ct=7 v=INT:6 d=6 ts=int_typespec/S
+TOPMOD D op75 n=8@TOPMOD D op75 n=8@TOPMOD D op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [2] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [2] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [2] constant sz=8 ct=7 v=INT:9 d=9 ts=-
+   [3] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=8 ct=7 v=INT:9 d=9 ts=-
+   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [5] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [5] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [5] constant sz=8 ct=7 v=INT:9 d=9 ts=-
+   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [7] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=8 ct=7 v=INT:9 d=9 ts=-
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [1] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [2] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [2] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [2] constant sz=8 ct=7 v=INT:9 d=9 ts=-
+   [3] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [3] constant sz=8 ct=7 v=INT:9 d=9 ts=-
+   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [4] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [5] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [5] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [5] constant sz=8 ct=7 v=INT:9 d=9 ts=-
+   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=-@   [6] constant sz=32 ct=7 v=INT:9 d=9 ts=-
+   [7] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=8 ct=7 v=INT:9 d=9 ts=-@   [7] constant sz=8 ct=7 v=INT:9 d=9 ts=-
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S@   [2] constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S@   [2] constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-@   [3] constant sz=16 ct=7 v=INT:5 d=5 ts=-
+   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   [6] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [6] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [6] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [7] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [7] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [7] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+TOPMOD R op75 n=8@TOPMOD R op75 n=8@TOPMOD R op75 n=8
+   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-@   [0] constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [1] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [1] constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [2] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [2] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [3] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [3] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [3] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-@   [4] constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   [5] constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-@   [5] constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   [6] constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [6] constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S@   [6] constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] constant sz=16 ct=7 v=INT:6 d=6 ts=int_typespec/S@   [7] constant sz=16 ct=7 v=INT:6 d=6 ts=int_typespec/S@   [7] constant sz=16 ct=7 v=INT:6 d=6 ts=int_typespec/S
