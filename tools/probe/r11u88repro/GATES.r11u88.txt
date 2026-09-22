@@ -1,0 +1,125 @@
+r11u88 — ALL GATES, raw readings.  Base 90e9c301.
+pristine md5 baf851ea5434f02c3e184be51afe5b65 (== main tree @90e9c301, cmp-verified)
+law      md5 6e3fac914a6b13438df7016aa6f10f91
+both frozen chmod 555 at /tmp/<pass>_bin/{pris,lawx} BEFORE any sweep.
+
+(1) BUILD ------------------------------------------------------------------
+cmake --build build -j 2, md5sum taken separately, ' error ' count 0 on both.
+cmp build/slang-uhdm <main tree @90e9c301>  -> identical (pristine).
+
+(2) GOLDENS ----------------------------------------------------------------
+pristine   PASS 23   FAIL 0
+law        PASS 23   FAIL 0
+/bin/false PASS 0    FAIL 23     (negative control)
+
+(3) uhdm2rtlil, BOTH MODES, BOTH BINARIES ----------------------------------
+pris/u2r_tf.csv   SLANG_REJECT=67 CMP_NOTEQUAL=16 CMP_EQUAL=788
+pris/u2r_def.csv  SLANG_REJECT=67 CMP_NOTEQUAL=16 CMP_EQUAL=788
+law /u2r_tf.csv   SLANG_REJECT=67 CMP_NOTEQUAL=16 CMP_EQUAL=788
+law /u2r_def.csv  SLANG_REJECT=67 CMP_NOTEQUAL=16 CMP_EQUAL=788
+ct8rows results/gate_uhdm2rtlil.csv  vs law tf   -> PASS: every row byte-identical
+ct8rows own pristine tf              vs law tf   -> PASS: every row byte-identical
+ct8rows own pristine def             vs law def  -> PASS: every row byte-identical
+whole-row join, BOTH modes, vs results/golden_uhdm2rtlil.csv (1742 rows):
+   law      0 rows differ
+   pristine 0 rows differ
+   law vs own pristine 0 rows differ
+byteverify SELFCHECK=1  law vs own pristine:
+   databases: patched=1608 pristine=1608
+   PATH_SETS_IDENTICAL (1608 paths)
+   MOVERS: 0 / 1608
+   SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+(4) surelog, --mode both, BOTH BINARIES ------------------------------------
+                 pristine                       law
+default    CMP_EQUAL 474 / NE 9           CMP_EQUAL 474 / NE 9
+testflags  CMP_EQUAL 469 / NE 8           CMP_EQUAL 469 / NE 8
+every other status bucket IDENTICAL on the two binaries:
+   default   SLANG_REJECT 285  SURELOG_FAIL 25  DEFERRED 5
+   testflags SLANG_REJECT 286  SURELOG_FAIL 23  DEFERRED 5  NO_DATABASE 3
+             UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+
+whole-row join vs results/golden_surelog.csv (1596 rows):
+  LAW      4 rows differ, EVERY ONE ENVIRONMENT, quoted:
+     Earlgrey_0_1/default    CMP_EQUAL dump 'differ' -> ''   (uhdm-dump timeout draw)
+     Earlgrey_0_1/testflags  CMP_EQUAL dump 'differ' -> ''   (uhdm-dump timeout draw)
+     LowMemLib/testflags     SURELOG_FAIL "... Creating log file <WORKDIR>/..."
+     LowMemPkg/testflags     SURELOG_FAIL "... Creating log file <WORKDIR>/..."
+  PRISTINE 4 rows differ — THE SAME FOUR, so the Earlgrey dump-column draw and
+           the workdir path string are both BINARY-INDEPENDENT here.
+  LAW vs own PRISTINE: 2 rows differ — the two workdir path strings ALONE.
+  NO STATUS CHANGES ANYWHERE, on any join.  Earlgrey_0_1 is CMP_EQUAL on all
+  four rows on both binaries and its DATABASE byte pins are below.
+
+byteverify SELFCHECK=1  law vs own pristine:
+   databases: patched=960 pristine=960
+   PATH_SETS_IDENTICAL (960 paths)
+   MOVER ./default/MiniAmiq-544c7f61/slang.uhdm    7d25a0e63284 <-> 869c9edc3245
+   MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  c942e08f7ec7 <-> 93a8ba485719
+   MOVERS: 2 / 960
+   SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+TWO MOVERS, BOTH UVM FAMILY, BOTH ATTRIBUTED ORDER-BLIND (dumps
+path-normalised, id-stripped and SORTED), not assumed:
+   default/MiniAmiq    4 lines  UINT:1259 <-> UINT:1249  vpiDecompile:1259 <-> :1249
+   testflags/MiniAmiq  4 lines  UINT:550  <-> UINT:1525  vpiDecompile:550  <-> :1525
+Every differing line is a UINT:<n> + vpiDecompile:<n> PAIR — the UVM
+macro-buffer line-number class exactly as the standing ops note describes it.
+No vpiNetDeclAssign, no cont_assign, no vpiStrength0/1, no vpiDelay and no
+listing line among them — and NEITHER of this pass's laws has a site in this
+corpus at all (README §6).  MOVER RULE, nonzero = real: the family's ROWS STAY
+EQUAL — BuildUVMPkg, MiniAmiq, SeqDriver, SimpleUVM are CMP_EQUAL in both modes
+on the committed baseline, on the pristine binary and on the law binary, and
+Scoreboard is CMP_EQUAL/SKIP unchanged.
+
+rowheads.sh on the LAW workdir: 12 measured, 11 of them '0 0 cmp rc=0';
+Rggen/default reads '64 1 cmp rc=255', its committed CMP_NOTEQUAL row
+unchanged.  SKIP-NOFILE 2 (Scoreboard/testflags + Rggen/testflags, expected),
+UNKNOWN-NAME 0.
+
+(5) CANARIES ---------------------------------------------------------------
+DATABASE byte pins, law vs own pristine — ALL SAME, every one the OPS pin:
+   SVSwitch            default/testflags  4842211c4030   (OPS HARD pin)
+   YosysVerx           default/testflags  6ccda350c24a   (OPS HARD pin)
+   InterfaceModPort    default/testflags  59a365f3ce2c   (OPS pin — an INTERFACE
+                                                          test, so it was watched
+                                                          BYTE FOR BYTE, and this
+                                                          pass's ground is the
+                                                          interface listing)
+   YosysOldOr          default/testflags  d68e0796d62c
+   BlackParrotComplex  default e3e354129d5a  testflags 73a10e8217e5
+   Earlgrey_0_1        default 8bdf25272e08  testflags 59d0ee6d10c3  (OPS pins)
+
+CSV canaries:
+   canaries.sh  surelog, law vs committed      ok=50 changed=2 absent=0
+                (both Earlgrey_0_1, CMP_EQUAL/differ -> CMP_EQUAL/'' — the
+                 DUMP-column draw; STATUS CMP_EQUAL on all four)
+   canaries.sh  surelog, law vs OWN PRISTINE   ok=52 changed=0 absent=0
+   canaries.sh  u2r,     law vs committed gate ok=8  changed=0 absent=0
+   ctcan2       surelog  EXPECT_UNKNOWN=1      ok=58 changed=0  PASS
+   ctcan2       u2r      EXPECT_UNKNOWN=6      ok=1  changed=0  PASS
+   canaudit.sh  canaries.sh ctcan2.sh          audited=29 UNCOVERED=0
+                                               FENCE-BREACH=0  PASS
+
+(6) BINARY PATH AUDIT ------------------------------------------------------
+   u2r pristine      1742 / 1742 cmds.txt name /tmp/r11u88_bin/pris   others 0
+   u2r law           1742 / 1742 cmds.txt name /tmp/r11u88_bin/lawx   others 0
+   surelog pristine  1531 / 1581 cmds.txt name /tmp/r11u88_bin/pris   others 0
+   surelog law       1531 / 1581 cmds.txt name /tmp/r11u88_bin/lawx   others 0
+The other 50 are Surelog-side failures that never invoked an exporter (their
+cmds.txt carries the 'surelog:' line alone).  No cmds.txt in any of the four
+workdirs names a main-tree or another worktree's binary; the only other
+'slang-uhdm' string in them is the golden CACHE prefix
+/home/heyfey/.cache/slang-uhdm-goldens/, which is not a binary (counted: 0
+non-cache occurrences).
+
+(7) GRID -------------------------------------------------------------------
+73 arms, all golden_rc=0 ours_rc=0 on BOTH binaries.
+13 CONVERT (cmp_rc 255 -> 0), 0 REGRESS.
+per cell: MATCH 463 -> 499, DIFF 12 -> 14, GOLD-ONLY 47 -> 9,
+          OURS-ONLY 24 -> 10, UNSCORED 15 -> 15; no cell MATCH -> DIFF.
+AWAY arbiter: AWAY = 0 on 72 of 73 arms; z2b_delayref reads 5 BARE generic
+field lines lost to the multiset intersection when this pass DELETED an
+ours-only cont_assign golden never writes (GOLD-ONLY 0 on both binaries there).
+switch ledger: R11U88_OFF=1 reproduces the PRISTINE database BYTE FOR BYTE on
+all 73 arms.

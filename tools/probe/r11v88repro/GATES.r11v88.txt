@@ -1,0 +1,106 @@
+r11v88 GATES — all on the SHIPPED binary (law + verifier fix)
+  pristine  baf851ea5434f02c3e184be51afe5b65  (cmp-identical to main tree @90e9c301 = OPS pin)
+  law       6e3fac914a6b13438df7016aa6f10f91  (implementer's patch as submitted — md5 reproduced)
+  shipped   269fd5209a13dbe6ae1edf6976201521  (law + § the EnumValue guard)
+  all three chmod 555 at /tmp/v11u88_bin/{pris,lawx,lawv} before any sweep
+
+(1) GOLDENS
+  pristine   PASS 23  FAIL 0
+  shipped    PASS 23  FAIL 0
+  /bin/false PASS 0   FAIL 23      (negative control)
+
+(2) uhdm2rtlil, both modes, both binaries
+  pristine default 788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+  pristine testflags 788 / 16 / 67
+  shipped  default 788 / 16 / 67
+  shipped  testflags 788 / 16 / 67
+  ct8rows shipped-tf vs results/gate_uhdm2rtlil.csv        PASS
+  ct8rows shipped-tf vs own pristine                       PASS
+  ct8rows shipped-def vs own pristine                      PASS
+  whole-row join BOTH modes vs results/golden_uhdm2rtlil.csv:
+      pristine 0 of 1743 rows differ; shipped 0 of 1743 rows differ
+  byteverify SELFCHECK=1 shipped vs own pristine:
+      databases 1608/1608, PATH_SETS_IDENTICAL, MOVERS 0 / 1608,
+      SELFCHECK 1607 / 1608 flagged
+
+(3) surelog --mode both, both binaries
+  pristine default   CMP_EQUAL 474 / CMP_NOTEQUAL 9
+  pristine testflags CMP_EQUAL 469 / CMP_NOTEQUAL 8
+  shipped  default   CMP_EQUAL 474 / CMP_NOTEQUAL 9
+  shipped  testflags CMP_EQUAL 469 / CMP_NOTEQUAL 8
+  every other bucket identical on the two binaries:
+      DEFERRED 5/5, SLANG_REJECT 285/286, SURELOG_FAIL 25/23,
+      NO_DATABASE 3, UNTRANSLATABLE 2, TIMEOUT 1, NO_UHDM 1
+  whole-row join vs results/golden_surelog.csv: 4 of 1597 rows, ON BOTH
+  BINARIES, all four ENVIRONMENT and quoted:
+      Earlgrey_0_1/default    CMP_EQUAL, dump column 'differ' -> ''
+      Earlgrey_0_1/testflags  CMP_EQUAL, dump column 'differ' -> ''
+      LowMemLib/testflags     SURELOG_FAIL, workdir path string inside the message
+      LowMemPkg/testflags     SURELOG_FAIL, workdir path string inside the message
+  whole-row join shipped vs OWN pristine: 2 rows, the two path strings alone.
+  STATUS diffs shipped vs pristine: 0.  STATUS diffs shipped vs committed: 0.
+  byteverify SELFCHECK=1 shipped vs own pristine:
+      databases 960/960, PATH_SETS_IDENTICAL, MOVERS 4 / 960,
+      SELFCHECK 959 / 960 flagged
+      MOVERS, each ATTRIBUTED ORDER-BLIND (dumps path-normalised, id-stripped,
+      sorted), not assumed:
+        default/MiniAmiq    4 lines  UINT:0    <-> UINT:1226  + vpiDecompile pair
+        testflags/MiniAmiq  4 lines  UINT:0    <-> UINT:591   + vpiDecompile pair
+        default/SeqDriver   4 lines  UINT:630  <-> UINT:871   + vpiDecompile pair
+        testflags/SeqDriver 4 lines  UINT:871  <-> UINT:0     + vpiDecompile pair
+      No cont_assign / vpiNetDeclAssign / vpiStrength0/1 / vpiDelay / listing
+      line among them, and neither law has a site in this corpus (§3 of the
+      README: 0 interface net-decl-assigns at the SOURCE in either corpus).
+      POSITIVE CONTROL FOR THE COIN: the PRISTINE binary alone, run SIX times
+      on SeqDriver from its own source dir, produced FIVE DISTINCT database
+      md5s, and the order-blind delta between two PRISTINE runs is the
+      identical 4-line UINT + vpiDecompile class.  The count of that coin is
+      not a number a pass can pin; the class is.
+  UVM family rows on the shipped binary, byte-identical to the committed
+  baseline: BuildUVMPkg/MiniAmiq/SeqDriver/SimpleUVM CMP_EQUAL both modes,
+  Scoreboard CMP_EQUAL / SLANG_REJECT unchanged.
+  rowheads: measured=12, 11 of them `0 0 cmp rc=0`; Rggen/default 64 1 rc=255
+  (its committed CMP_NOTEQUAL row unchanged); SKIP-NOFILE 2; UNKNOWN-NAME 0.
+
+(4) CANARY DATABASE BYTE PINS, shipped vs own pristine — ALL SAME, each the
+    OPS pin verbatim:
+      SVSwitch            default/testflags  4842211c4030   (HARD pin)
+      YosysVerx           default/testflags  6ccda350c24a   (HARD pin)
+      InterfaceModPort    default/testflags  59a365f3ce2c   (watched BYTE FOR
+                                                             BYTE — an interface
+                                                             test, this pass's
+                                                             own ground)
+      YosysOldOr          default/testflags  d68e0796d62c
+      BlackParrotComplex  default e3e354129d5a  testflags 73a10e8217e5
+      Earlgrey_0_1        default 8bdf25272e08  testflags 59d0ee6d10c3
+    canaries.sh surelog shipped vs committed      ok=50 changed=2 absent=0
+                                                   (both Earlgrey_0_1, the
+                                                    DUMP-column draw; STATUS
+                                                    CMP_EQUAL on all four rows)
+    canaries.sh surelog shipped vs OWN pristine   ok=52 changed=0 absent=0
+    canaries.sh u2r     shipped vs committed gate ok=8  changed=0 absent=0
+    ctcan2 surelog EXPECT_UNKNOWN=1  ok=58 changed=0  PASS
+    ctcan2 u2r     EXPECT_UNKNOWN=6  ok=1  changed=0  PASS
+    canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+
+(5) BINARY PATH AUDIT (every cmds.txt in all four workdirs, by absolute path)
+    u2r pristine     1742 / 1742 name /tmp/v11u88_bin/pris   other-tree: 0
+    u2r shipped      1742 / 1742 name /tmp/v11u88_bin/lawv   other-tree: 0
+    surelog pristine 1531 / 1581 name /tmp/v11u88_bin/pris   other-tree: 0
+    surelog shipped  1531 / 1581 name /tmp/v11u88_bin/lawv   other-tree: 0
+    The other 50 carry the `surelog:` line ALONE (golden-side failures that
+    never invoked an exporter) and name the pinned
+    ~/git-repos/Surelog/build/bin/surelog.  The only other `slang-uhdm` string
+    in any cmds.txt is the golden CACHE prefix, which is not a binary.
+
+(6) SURFACE
+    git diff 90e9c301 --name-only  ->  src/ModuleEmit.cpp  (production), plus
+    tools/probe/r11u88repro/ and tools/probe/r11v88repro/.
+    results/*.csv UNTOUCHED.  src/ParamEmit.cpp UNTOUCHED.
+    The four slang-fenced names: 0 occurrences in `git diff 90e9c301 -- src
+    include`; 0 files in either probe directory outside canaudit.sh's own
+    FENCED= line.  GOLDEN_DEFER unset throughout.
+
+(7) SWITCHES, re-measured with the SHIPPED binary — byte-identical to the
+    committed SWITCHES.r11u88.txt; R11U88_OFF=1 reads 0 on all 73 arms, i.e.
+    it reproduces the PRISTINE database BYTE FOR BYTE.
