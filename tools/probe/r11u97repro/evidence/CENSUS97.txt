@@ -1,0 +1,53 @@
+ADD97      120
+ADDW97     178
+AGREE97    12795
+BWL97      23
+CMP97      19
+CMPF97     7922
+UDC97      310
+UNB97      208
+UNBF97     28327
+UNBO97     40
+--- candidate tests: 57
+  v1_amulbrk96v      ADD97 CMP97 UDC97 UNB97 UNBO97
+  v5_unbased96v      ADD97 UNB97 UNBO97
+  y2_unsized96       ADD97 UDC97
+  z1_unbased97       ADD97 UDC97 UNB97 UNBO97
+  z2_addmint97       ADD97
+  z3_cmpfam97        ADD97 CMP97 UNB97 UNBO97
+  z5_chain97         ADD97 UDC97 UNB97 UNBO97
+  live A   -
+  live B   -
+  live C   -
+  live D   -
+  live E   -
+  live F   -
+  live G   -
+  live H   -
+  live I   -
+  live J   -
+  live K   UNB97
+  live L   ADD97 ADDW97
+  live M   CMP97
+  live N   CMP97
+  live O   CMP97
+  live P   CMP97
+  live Q   CMP97
+  live R   CMP97
+  live S   -
+  live T   -
+  live U   -
+  live UNB97 literals: 1
+  live UNBO97 wire x = '0;             -
+  live UNBO97 wire x = '1 - 0;         ['1']
+  live UNBO97 wire x = 2 * '1;         ['1']
+  live UNBO97 m u (.a('0), .b('1));    -
+  live UNBO97 wire y = ('1);           -
+  live BWL97 localparam int A = 4'd12;      -
+  live BWL97 localparam int B = 4'd20;      ["4'd20"]
+  live BWL97 localparam int C = 8'hff;      -
+  live BWL97 localparam int D = 4'hff;      ["4'hff"]
+  live BWL97 localparam int E = 2'b11;      -
+  live BWL97 localparam int F = 2'b111;     ["2'b111"]
+  not sighted (2): p1_pkgin91 q4_negpkg94
+SELFTEST PASS

@@ -1,0 +1,9 @@
+=== POSITIVE CONTROL: the last two arguments reversed — every TO must become an AWAY
+z1_unbased97         VIEW-KEYED  TO=0  AWAY=34  STILL=50  EQ=611  MWRONG=34  SKIP=68  keys=207
+z2_addmint97         VIEW-KEYED  TO=0  AWAY=40  STILL=12  EQ=913  MWRONG=40  SKIP=91  keys=284
+z3_cmpfam97          VIEW-KEYED  TO=0  AWAY=120  STILL=39  EQ=946  MWRONG=120  SKIP=96  keys=317
+z4_xz97              VIEW-KEYED  TO=0  AWAY=2  STILL=14  EQ=154  MWRONG=2  SKIP=8  keys=42
+z5_chain97           VIEW-KEYED  TO=0  AWAY=12  STILL=18  EQ=240  MWRONG=12  SKIP=26  keys=80
+z6_pahome97          VIEW-KEYED  TO=0  AWAY=13  STILL=5  EQ=177  MWRONG=13  SKIP=16  keys=55
+v1_amulbrk96v        VIEW-KEYED  TO=0  AWAY=10  STILL=4  EQ=546  MWRONG=10  SKIP=46  keys=158
+v5_unbased96v        VIEW-KEYED  TO=0  AWAY=12  STILL=24  EQ=144  MWRONG=12  SKIP=18  keys=54

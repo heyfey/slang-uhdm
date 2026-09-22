@@ -7999,6 +7999,121 @@ inline bool red96UnsizedDecDigits96(const Expression& e96, int64_t& out96) {
     return srlgNegLitGetValue30(raw96, -1, raw96, out96);
 }
 
+/// § unbasedUnsizedIsOneDigit97 (r11u97) — LAW A, r11v96's RV96-1.  THE THIRD
+/// LITERAL KIND ON THE SAME STRING ROAD: `'1` IS WORTH THE DIGIT 1.
+///
+/// Surelog never builds an unbased-unsized literal wide.  `'1` is compiled by
+/// `~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp:610-618`
+/// (`paNumber_Tick1`) to
+///
+///     c->VpiValue("BIN:1");  c->VpiConstType(vpiBinaryConst);
+///     c->VpiSize(-1);        c->VpiDecompile("'1");
+///
+/// and `'0` to the same three lines with `BIN:0`, so `get_value` — which
+/// parses the VpiValue string — reads the digit 1 or the digit 0 whatever the
+/// context width.  slang, obeying the LRM, types the literal at the context's
+/// width and FILLS it (`UnbasedUnsizedIntegerLiteral::getValue()`), so our
+/// reduce reads 4294967295 in an `int` context and -1 in a `longint` one.
+/// Every landed value law then widens the misreading: the sub arm turns
+/// `'1 - 0` into `INT:4294967295` and r11u96's mult arm turns `'1 * 2` into
+/// `INT:8589934590`.
+///
+/// MEASURED (real Surelog v1.87, arms `z1_unbased97` and `z4_xz97`, every cell
+/// `slrc=0 ourrc=0 slerr=0`, read through the net-decl-assign road):
+///
+///   package declaration                golden       ours (pristine)
+///   int     U1MIN  = '1 - 0            INT:1        INT:4294967295
+///   int     U1SUB  = '1 - 1            INT:0        INT:4294967294
+///   int     U1NEG  = -'1               INT:-1       INT:-4294967295
+///   int     U1MUL  = '1 * 2            INT:2        INT:8589934590
+///   int     U1MULR = 2 * '1            INT:2        INT:8589934590
+///   int     U1DIV  = '1 / 1            INT:1        INT:4294967295
+///   int     U1DIVR = 6 / '1            INT:6        INT:0
+///   int     U1MOD  = '1 % 7            INT:1        INT:3
+///   int     U1SUBR = 5 - '1            INT:4        INT:-4294967290
+///   int     U1DEEP = ('1 * 2) * 3      INT:6        INT:25769803770
+///   int     U1PAR  = (('1)) - 0        INT:1        INT:4294967295
+///   int     U1CHN  = U1MUL * 2         INT:4        INT:17179869180
+///   longint U1L    = '1 - 0            INT:1        INT:-1
+///   logic [7:0]      U1U8 = '1 - 0     INT:1        INT:4294967295
+///   logic signed[3:0]U1S4 = '1 - 0     INT:1        INT:4294967295
+///   AND THE `'0` FACE, EQUAL ON BOTH BINARIES ALREADY:
+///   int     U0SUB  = '0 - 0            INT:0        INT:0
+///   int     U0MUL  = '0 * 5            INT:0        INT:0
+///   int     U0NEG  = -'0               INT:0        INT:0
+///
+/// TWO SHAPES ARE OUT OF THIS ARM AND MEASURED SO:
+///   * `'x` and `'z` — `exitUnbased_unsized_literal`
+///     (`SV3_1aTreeShapeListener.cpp:874`) maps them to `paX` / `paZ`, which
+///     are not the digit road at all, and Surelog v1.87 leaves `'x - 0`,
+///     `'z - 0` and `'x * 2` UNFOLDED: golden writes a `ref_obj` to the
+///     parameter and NO CONSTANT (arm `z4_xz97`).  GOLDEN WRITES NOTHING ON A
+///     MISS, so the arm declines on an unknown bit.
+///   * the BARE literal, no operator at all — `int U1BARE = '1` is golden
+///     `UINT:4294967295` (`adjustSize`'s own `(orig_size == -1) && (val == 1)`
+///     branch, `CompileHelper.cpp:4196`, which fills the mask) and
+///     `int U0BARE = '0` is golden `BIN:0`.  That is why this arm is CONFINED
+///     TO `inArm`, exactly as r11u76's based-leaf and r11u96's unsized-decimal
+///     arms are: at operand 0 the literal is not on the reduce road.
+inline bool red97UnbasedDigit97(const Expression& e97, int64_t& out97) {
+    if (e97.kind != ExpressionKind::UnbasedUnsizedIntegerLiteral)
+        return false;
+    slang::logic_t b97 =
+        e97.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+    if (b97.isUnknown())
+        return false;
+    out97 = b97.value ? 1 : 0;
+    return true;
+}
+
+/// § intCompareIsMinusOne97 (r11u97) — LAW C's VALUE HALF, r11v96's RV96-3.
+/// `reduceExpr` routes `vpiLeOp`, `vpiLtOp`, `vpiGeOp`, `vpiGtOp`, `vpiNeqOp`
+/// and `vpiEqOp` to `reduceCompOp`
+/// (`~/git-repos/UHDM/templates/ExprEval.cpp:3173-3182` -> `:1639-1746`),
+/// which reads BOTH operands with `get_uvalue` INTO AN `int64_t` and compares
+/// them SIGNED, then mints `BIN:<0|1>` with `VpiSize(1)` and
+/// `vpiBinaryConst`.  The signedness is not incidental and it is measured:
+/// `int DU64 = (64'hFFFF_FFFF_FFFF_FFFF > 1)` is golden FALSE and
+/// `DU64E = (… < 1)` golden TRUE, where slang — reading the same literal as
+/// 2^64-1 — answers the other way round on both.  So the comparison is
+/// computed HERE, on this file's own `int64_t` road, and never taken from
+/// slang's stored answer.
+///
+/// `&&`, `||` and `!` are NOT on this road: `vpiLogAndOp` (`:3387`),
+/// `vpiLogOrOp` (`:3369`) and `vpiNotOp` mint `UINT:` at `VpiSize(64)`, and
+/// every one of their cells is EQUAL on both binaries already (arm
+/// `z3_cmpfam97`: `CAND`, `CANDF`, `COR`, `CNOT`, `CNOTT`).  `===` and `!==`
+/// are not reduced at all — golden leaves `CCEQ` / `CCNE` UNFOLDED.
+///
+/// The value is computed in `red97CompValue97` below, which reads the two
+/// operands through `red72Int64` and compares them here rather than adding a
+/// comparison arm to `red72Int64` itself: that function is read by ParamEmit,
+/// ModuleEmit and ExprEmit for widths, ranges and selects, and an arm there
+/// would move cells no declaration-keyed census could name in advance.  The
+/// census class `CMP97` is a superset of THIS gate — a package parameter whose
+/// initializer's top-level operator is one of the six — and that is only true
+/// because the road stays one call site wide.
+inline constexpr bool red97CmpArm97 = true;
+
+inline bool red97CompTop97(const Expression& e097) {
+    if (!red97CmpArm97)
+        return false;
+    const Expression& e97 = stripImplicitConv(e097);
+    if (e97.kind != ExpressionKind::BinaryOp)
+        return false;
+    switch (e97.as<BinaryExpression>().op) {
+        case BinaryOperator::Equality:
+        case BinaryOperator::Inequality:
+        case BinaryOperator::GreaterThanEqual:
+        case BinaryOperator::GreaterThan:
+        case BinaryOperator::LessThanEqual:
+        case BinaryOperator::LessThan:
+            return true;
+        default:
+            return false;
+    }
+}
+
 inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
     // § redBasedLeafWrittenDigits76 — the syntax read walks PARENTHESES, so
     // that the refusal and the value are one reading of one literal on a
@@ -8180,6 +8295,14 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
             case BinaryOperator::LogicalShiftLeft:
             case BinaryOperator::ArithmeticShiftLeft:
                 break;
+            // § intCompareIsMinusOne97 (r11u97) — THE COMPARISON IS NOT ON
+            // THIS TABLE, DELIBERATELY.  `red72Int64` is read by ParamEmit,
+            // ModuleEmit and ExprEmit for widths, ranges, selects and folds
+            // alike, and a comparison that started answering a value here
+            // would move cells no census keyed on a PARAMETER DECLARATION
+            // could name in advance.  LAW C reads the two operands through
+            // this function instead and compares them itself, one call site
+            // wide: the § block beside `red97CompValue97`.
             default:
                 return Red72::Unknown;
         }
@@ -8291,7 +8414,56 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
                         nu = *u2;
                         got = true;
                     }
-                    if (got && ((nu & mask) == (((uint64_t)v) & mask))) {
+                    // § chainStoreChecksTheInitializer97 (r11u97) — THE
+                    // REGRESSION LAW A ALONE CAUSES, and the ONE WIDENING
+                    // that closes it.
+                    //
+                    // The guard above asks "is this name's value the
+                    // INITIALIZER'S value, or an override?" and answers it by
+                    // comparing the store against OUR OWN REDUCE.  That is
+                    // sound only while the two readings agree — and the whole
+                    // point of the digit arms (r11u76's based leaf, r11u96's
+                    // unsized decimal, LAW A's `'0`/`'1`) is that they do not.
+                    // With LAW A in, `int U1MUL = '1 * 2` reduces to 2 while
+                    // slang's store holds 0xFFFFFFFE, the guard declines, and
+                    // the chain `int U1CHN = U1MUL * 2` falls back to the
+                    // STORE — writing `INT:-4` where PRISTINE wrote
+                    // `INT:17179869180` and golden writes `INT:4`.  A
+                    // MOVED-WRONG cell, found by LAW A's own grid
+                    // (`z1_unbased97` `wU1CHN`), and the only one in the pass.
+                    //
+                    // The cure asks the guard's own question a second way:
+                    // the store is the initializer's value when SLANG'S
+                    // evaluation of the initializer matches it, at the name's
+                    // width.  An OVERRIDDEN parameter and a defaulted port
+                    // still fail BOTH tests — their store is a different
+                    // number from their written initializer under either
+                    // reading — so nothing that used to decline now folds for
+                    // the wrong reason.  It is a pure WIDENING: every name
+                    // this guard accepted before, it still accepts.
+                    //
+                    // MEASURED: `wU1CHN` golden `INT:4`, pristine
+                    // `INT:17179869180`, law `INT:4`; and r11v96's RV96-4
+                    // falls out with it — `longint CHAIN = SEP - 0` over
+                    // `longint SEP = 4_294_967_296 - 0` is golden
+                    // `INT:4294967296` where both r11u96 binaries write
+                    // `INT:0` (arm `z5_chain97`).
+                    constexpr bool chn97 = true;
+                    bool okInit97 = false;
+                    if (chn97 && got &&
+                        (nu & mask) != (((uint64_t)v) & mask)) {
+                        ConstantValue iv97 = actx.tryEval(*in);
+                        if (iv97 && iv97.isInteger() &&
+                            !iv97.integer().hasUnknown()) {
+                            if (auto s97 = iv97.integer().as<int64_t>())
+                                okInit97 = (nu & mask) ==
+                                           (((uint64_t)*s97) & mask);
+                            else if (auto u97 = iv97.integer().as<uint64_t>())
+                                okInit97 = (nu & mask) == (*u97 & mask);
+                        }
+                    }
+                    if (got && (((nu & mask) == (((uint64_t)v) & mask)) ||
+                                okInit97)) {
                         out = v;
                         return Red72::Value;
                     }
@@ -8332,6 +8504,20 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
             return Red72::Value;
         }
     }
+    // § unbasedUnsizedIsOneDigit97 (r11u97) — LAW A, the SAME reading one
+    // literal kind further: `'1` is the digit 1 and `'0` the digit 0, whatever
+    // width slang filled.  Confined to `inArm` for r11u76's reason — at
+    // operand 0 the BARE literal is golden `UINT:<mask>` / `BIN:0` and the
+    // literal path already writes it.  The measured table, the `'x`/`'z`
+    // decline and the bare-literal measurement are in the § block beside
+    // `red97UnbasedDigit97`.
+    if (inArm) {
+        int64_t dv97 = 0;
+        if (red97UnbasedDigit97(e, dv97)) {
+            out = dv97;
+            return Red72::Value;
+        }
+    }
     ConstantValue cv = actx.tryEval(e);
     if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
         return Red72::Unknown;
@@ -8345,6 +8531,96 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
         return Red72::Value;
     }
     return Red72::Unknown;
+}
+
+/// § intCompareIsMinusOne97 (r11u97) — LAW C's VALUE, `reduceCompOp`'s own
+/// six lines.  Both operands are read through `red72Int64` WITH `inArm` set —
+/// they ARE the operands of an operation, so the based-leaf, unsized-decimal
+/// and unbased-unsized digit arms all apply, exactly as they do for the
+/// producer, which calls `reduceExpr` on each operand and then `get_uvalue`.
+/// The comparison itself is SIGNED over `int64_t` because `reduceCompOp`
+/// assigns `get_uvalue`'s `uint64_t` into `int64_t v0` / `int64_t v1` before
+/// comparing (`~/git-repos/UHDM/templates/ExprEval.cpp:1669-1670`): measured
+/// on `int DU64 = (64'hFFFF_FFFF_FFFF_FFFF > 1)`, golden FALSE where slang
+/// answers true, and its mirror `DU64E`, golden TRUE where slang answers
+/// false.  Where either operand refuses the int64 road this returns false and
+/// the site writes what it wrote before — GOLDEN WRITES NOTHING ON A MISS.
+inline bool red97CompValue97(const Expression& e097, const ASTContext& actx97,
+                             bool& out97) {
+    if (!red97CompTop97(e097))
+        return false;
+    auto& b97 = stripImplicitConv(e097).as<BinaryExpression>();
+    int64_t l97 = 0, r97 = 0;
+    if (red72Int64(b97.left(), actx97, 0, l97, true) != Red72::Value)
+        return false;
+    if (red72Int64(b97.right(), actx97, 0, r97, true) != Red72::Value)
+        return false;
+    switch (b97.op) {
+        case BinaryOperator::Equality:
+            out97 = l97 == r97;
+            return true;
+        case BinaryOperator::Inequality:
+            out97 = l97 != r97;
+            return true;
+        case BinaryOperator::GreaterThanEqual:
+            out97 = l97 >= r97;
+            return true;
+        case BinaryOperator::GreaterThan:
+            out97 = l97 > r97;
+            return true;
+        case BinaryOperator::LessThanEqual:
+            out97 = l97 <= r97;
+            return true;
+        case BinaryOperator::LessThan:
+            out97 = l97 < r97;
+            return true;
+        default:
+            return false;
+    }
+}
+
+/// § cmpBinIsTheWidthRenderingHome97v (r11v97) — THE VERIFIER'S FIX.  LAW C's
+/// `BIN:` branch writes the decompile `<psym width>'b<v>`, which is golden ONLY
+/// WHERE `adjustSize` ACTUALLY RE-RENDERED THE ONE-BIT ANSWER AT THAT WIDTH.
+/// Two declared types measured here do not reach that branch at all, and on
+/// both of them golden keeps `VpiSize(1)` and a decompile the law overwrites:
+///
+///   package declaration              golden         pristine   r11u97
+///   time              QTM  = (3<4)   BIN:1 sz1 `1'b1`  `1`     `64'b1`  MOVED-WRONG
+///   time              QTMF = (4<3)   BIN:0 sz1 `1'b0`  `0`     `64'b0`  MOVED-WRONG
+///   logic [2:0][3:0]  CPA  = (3<4)   BIN:1 sz1 `1`     `1`     `12'b1`  *** AWAY ***
+///   logic [1:0][1:0]  QPA2 = (3<4)   BIN:1 sz1 `1`     `1`     `4'b1`   *** AWAY ***
+///   logic[1:0][1:0][1:0] QPA3        BIN:1 sz1 `1`     `1`     `8'b1`   *** AWAY ***
+///   typedef logic[2:0][3:0] QTPA     BIN:1 sz1 `1`     `1`     `12'b1`  *** AWAY ***
+///   logic [2:0][3:0]  QPAF = (4<3)   BIN:0 sz1 `0`     `0`     `12'b0`  *** AWAY ***
+///
+/// (arms `k1_ctype94v` and `k7_cwidth94v`, real Surelog v1.87, every cell
+/// `slrc=0 ourrc=0 slerr=0`, read through the net-decl-assign road.)  A
+/// MULTI-DIMENSIONAL packed array is golden the BARE digit with no source
+/// range at all and `time` is golden `1'b<v>` — two different unmodelled
+/// renderings, neither of them the declaration's width.
+///
+/// AND THE HOME ITSELF, measured on the same two arms plus the implementer's
+/// `z3_cmpfam97`: `int`, `integer`, `shortint`, `longint`, `byte`,
+/// `byte unsigned`, `int unsigned`, a TYPEDEF of any of them, `bit`, `logic`,
+/// the IMPLICIT type, `logic [3:0]`, `logic [0:7]`, `logic signed [0:0]`,
+/// `bit [7:0]`, `reg [7:0]`, `logic signed [31:0]`, `bit signed [31:0]` and a
+/// TYPEDEF of a one-dimensional vector are ALL golden `<declared width>'b<v>`
+/// at the declared size — every one of them a `PredefinedIntegerType` that is
+/// not `Time`, a `ScalarType`, or a `PackedArrayType` over a `ScalarType`.
+/// GOLDEN WRITES NOTHING ON A MISS, so outside that home the law declines and
+/// the site writes exactly what the pristine binary wrote.  The `INT:-1`
+/// branch needs no gate: it already asks for a signed `int` and nothing else.
+inline bool red97CmpBinHome97(const Type& c97) {
+    if (c97.kind == SymbolKind::PredefinedIntegerType)
+        return c97.as<PredefinedIntegerType>().integerKind !=
+               PredefinedIntegerType::Time;
+    if (c97.kind == SymbolKind::ScalarType)
+        return true;
+    if (c97.kind == SymbolKind::PackedArrayType)
+        return c97.as<PackedArrayType>().elementType.getCanonicalType().kind ==
+               SymbolKind::ScalarType;
+    return false;
 }
 
 /// § redTableOneHome72 — face (5): PROOF that the producer's walk reaches a
@@ -10068,6 +10344,143 @@ inline bool red96IntMintTop96(const Expression& e096, bool mul96, bool div96,
         default:
             return false;
     }
+}
+
+/// § addMintFollowsOperandMint97 (r11u97) — LAW B, r11v96's RV96-2.  THE MINT
+/// PROPAGATES UPWARD, AND THE `+` ARM IS THE ONLY ARM THAT ASKS.
+///
+/// `reduceExpr`'s `vpiAddOp` / `vpiPlusOp` arm
+/// (`~/git-repos/UHDM/templates/ExprEval.cpp:3260-3329`) is the ONE arm in the
+/// whole table that reads its REDUCED OPERANDS' const types:
+///
+///     bool unsignedOperation = true;
+///     for (auto exp : {expr0, expr1})
+///       if (exp && exp->UhdmType() == uhdmconstant) {
+///         constant *c = (constant *)exp;
+///         if (c->VpiConstType() == vpiIntConst || … vpiStringConst ||
+///             … vpiRealConst || … vpiDecConst) unsignedOperation = false; }
+///
+/// and only the `unsignedOperation` branch mints `UINT:` off `get_uvalue`;
+/// the other mints `INT:` off `get_value`.  So `1 + 2` is `UINT:3` while
+/// `2 * 3 + 1` is `INT:7` — the sub-expression's OWN mint decides the parent's.
+/// (`grep -n unsignedOperation` over that file returns exactly the three lines
+/// of this arm: no other operator reads an operand's const type.)
+///
+/// WHAT MINTS AN `INT:` CHILD, measured cell by cell (arm `z2_addmint97`,
+/// real Surelog v1.87, every cell `slrc=0 ourrc=0 slerr=0`):
+///
+///   package declaration              golden        ours (pristine)
+///   int MMIX   = 2 * 3 + 1           INT:7 ct7     UINT:7 ct9
+///   int MMIX2  = 1 + 2 * 3           INT:7 ct7     UINT:7 ct9
+///   int ASUBL  = (8 - 1) + 1         INT:8 ct7     UINT:8 ct9
+///   int ASUBR  = 1 + (8 - 1)         INT:8 ct7     UINT:8 ct9
+///   int ADIVL  = (6 / 2) + 1         INT:4 ct7     UINT:4 ct9
+///   int AMODL  = (7 % 4) + 1         INT:4 ct7     UINT:4 ct9
+///   int APOWL  = (2 ** 3) + 1        INT:9 ct7     UINT:9 ct9
+///   int ADEEP2 = ((2*3) + 1) + 1     INT:8 ct7     UINT:8 ct9   (add of add)
+///   int ADEEP3 = (((2*3)+1)+1) + 1   INT:9 ct7     UINT:9 ct9
+///   int ANEST  = (1 + (2*3)) + 1     INT:8 ct7     UINT:8 ct9
+///   int APARL  = ((2 * 3)) + 1       INT:7 ct7     UINT:7 ct9
+///   int ATWO   = (2*3) + (4-1)       INT:9 ct7     UINT:9 ct9
+///   int AZERO  = (0 - 0) + 1         INT:1 ct7     UINT:1 ct9   (VALUE 0)
+///   int ANAMEL = XMUL + 1            INT:7 ct7     UINT:7 ct9   (a NAME over
+///   int ANAMER = 1 + XMUL            INT:7 ct7     UINT:7 ct9    `2 * 3`)
+///   int ANAMES = XSUB + 1            INT:8 ct7     UINT:8 ct9
+///   int ANAMEP = XPOW + 1            INT:9 ct7     UINT:9 ct9
+///   int ADECL  = 8'd10 + 1           INT:11 ct7    UINT:11 ct9  (a BASED
+///   int ADECS  = 8'sd10 + 1          INT:11 ct7    UINT:11 ct9   DECIMAL is
+///   int ADECW  = 40'd10 + 1          INT:11 ct7    UINT:11 ct9   a DecConst)
+///
+/// AND WHAT DOES NOT — every one of these EQUAL on both binaries, before and
+/// after, and they are the live negative control:
+///
+///   int CADD   = 1 + 2               UINT:3    two bare decimals: UIntConst
+///   int CLITA  = 4 + 1               UINT:5
+///   int CADD3  = (1 + 2) + 3         UINT:6    an add of two UINT children
+///   int ANAME2 = XADD + 1            UINT:4    a NAME over `1 + 2`
+///   int CSHLA  = (1 << 3) + 1        UINT:9    the shift arms mint UINT
+///   int CSHRA  = (32 >> 2) + 1       UINT:9
+///   int CANDA  = (12 & 10) + 1       UINT:9    the bit arms mint UINT
+///   int CORA   = (12 | 3) + 1        UINT:16
+///   int CLGA   = (1 && 1) + 1        UINT:2    the logical arms mint UINT
+///   int CADDC  = (3 < 4) + 1         UINT:2    a comparison is a BinaryConst
+///   int CHEXA  = 8'h10 + 1           UINT:17   a based HEX leaf is a HexConst
+///   int ADECB  = 4'b1010 + 1         UINT:11   a based BIN leaf
+///   int ADECO  = 8'o12 + 1           UINT:11   a based OCT leaf
+///   int CSYSA  = $clog2(16) + 1      UINT:5    a system call
+///   int CCNDA  = (1 ? 2 : 3) + 1     UINT:3    a ternary
+///   int AENUM  = EA + 1              UINT:4    an ENUM member
+///   int APLUSU = (+5) + 1            UNFOLDED  golden writes no constant
+///
+/// THE BASE LETTER IS THE AXIS ON A BASED LEAF, not the width and not the
+/// sign: `8'd10`, `8'sd10` and `40'd10` all mint `INT:` on the parent and
+/// `8'h10`, `4'b1010`, `8'o12` all leave it `UINT:`.  Surelog builds a based
+/// DECIMAL as a `vpiDecConst` and the other three bases as their own const
+/// types, and `vpiDecConst` is on the arm's list.
+///
+/// The `**` child is behind its own flag: `vpiPowerOp` (`:3760`) mints
+/// `INT:` like the other four, and its VALUE comes off `red72Int64`'s landed
+/// § patPowCastArtefact73 arm, but the TOP-level power face stays r11u96's R1
+/// and this flag lets the child face drop with it.
+inline bool red97OperandMintsInt97(const Expression& e097, bool pow97,
+                                   int depth97 = 0) {
+    if (depth97 > 16)
+        return false;
+    const Expression& e97 = stripImplicitConv(e097);
+    if (e97.kind == ExpressionKind::UnaryOp)
+        return e97.as<UnaryExpression>().op == UnaryOperator::Minus;
+    if (e97.kind == ExpressionKind::BinaryOp) {
+        auto& b97 = e97.as<BinaryExpression>();
+        switch (b97.op) {
+            case BinaryOperator::Subtract:
+            case BinaryOperator::Multiply:
+            case BinaryOperator::Divide:
+            case BinaryOperator::Mod:
+                return true;
+            case BinaryOperator::Power:
+                return pow97;
+            case BinaryOperator::Add:
+                return red97OperandMintsInt97(b97.left(), pow97, depth97 + 1) ||
+                       red97OperandMintsInt97(b97.right(), pow97, depth97 + 1);
+            default:
+                return false;
+        }
+    }
+    if (e97.kind == ExpressionKind::IntegerLiteral) {
+        const auto* ivs97 = red76VecSyntax(e97);
+        if (!ivs97)
+            return false;
+        char b97 = red72LitBase(ivs97->base.rawText());
+        return b97 == 'd';
+    }
+    if (e97.kind == ExpressionKind::NamedValue ||
+        e97.kind == ExpressionKind::HierarchicalValue) {
+        auto& sy97 = e97.as<ValueExpressionBase>().symbol;
+        if (sy97.kind != SymbolKind::Parameter)
+            return false;
+        const Expression* in97 = sy97.as<ParameterSymbol>().getInitializer();
+        return in97 && red97OperandMintsInt97(*in97, pow97, depth97 + 1);
+    }
+    return false;
+}
+
+/// The gate `red96IntMintTop96` one operator wider: an `+` at the TOP mints
+/// `INT:` exactly when one of its operands does.  Its own flag, so LAW B drops
+/// alone and leaves r11u94's and r11u96's arms standing.
+inline bool red97IntMintTop97(const Expression& e097, bool mul96, bool div96,
+                              bool mod96, bool add97, bool pow97) {
+    if (red96IntMintTop96(e097, mul96, div96, mod96))
+        return true;
+    if (!add97)
+        return false;
+    const Expression& e97 = stripImplicitConv(e097);
+    if (e97.kind != ExpressionKind::BinaryOp)
+        return false;
+    auto& b97 = e97.as<BinaryExpression>();
+    if (b97.op != BinaryOperator::Add)
+        return false;
+    return red97OperandMintsInt97(b97.left(), pow97) ||
+           red97OperandMintsInt97(b97.right(), pow97);
 }
 
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {

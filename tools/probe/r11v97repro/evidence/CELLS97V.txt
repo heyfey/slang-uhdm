@@ -1,0 +1,444 @@
+=== r11v97 CELLS, net-decl-assign per cell (r11u97repro/nda97.py); A=pristine
+----- k1_ctype94v   B = LAW AS DELIVERED
+wCBASE    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCBYU     g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wCCHNC    g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCDIVC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCENMC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCEQ0     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCI       g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCIG      g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wCMIN     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCMODC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCNEGN    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCPA      g[BIN:1 ct3 sz1 d1] A[UINT:1 ct9 sz12 d1] B[BIN:1 ct3 sz12 d12'b1] TO:v TO:ct AWAY:d
+wCPOWC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCSH      g[BIN:1 ct3 sz16 d16'b1] A[UINT:1 ct9 sz16 d1] B[BIN:1 ct3 sz16 d16'b1] TO:v TO:ct TO:d
+wCSHLC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCSHLU    NOFOLD golden=ref_obj      A=constant     B=constant
+wCSTRC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCSYS     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCTBS     g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wCTD      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCTL8     g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wCTM      g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz64 d1] B[BIN:1 ct3 sz64 d64'b1] TO:v TO:ct MOVED-WRONG:d
+wCUNM     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+TO=64  AWAY=1  STILL=6  EQ=37  MWRONG=2  MISSING=0  NOFOLD=1  SHAPE=0
+----- k1_ctype94v   B = VERIFIED
+wCBASE    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCBYU     g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wCCHNC    g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCDIVC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCENMC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCEQ0     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCI       g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCIG      g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wCMIN     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCMODC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCNEGN    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCPOWC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCSH      g[BIN:1 ct3 sz16 d16'b1] A[UINT:1 ct9 sz16 d1] B[BIN:1 ct3 sz16 d16'b1] TO:v TO:ct TO:d
+wCSHLC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCSHLU    NOFOLD golden=ref_obj      A=constant     B=constant
+wCSTRC    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCSYS     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCTBS     g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wCTD      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCTL8     g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wCUNM     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+TO=60  AWAY=0  STILL=10  EQ=38  MWRONG=0  MISSING=0  NOFOLD=1  SHAPE=0
+----- k2_chain94v   B = LAW AS DELIVERED
+wBIGDC    g[INT:8589934592 ct7 sz64 d8589934592] A[INT:0 ct7 sz64 d0] B[INT:8589934592 ct7 sz64 d8589934592] TO:v TO:d
+wSHLC     g[INT:4294967296 ct7 sz64 d4294967296] A[INT:-4294967296 ct7 sz64 d-4294967296] B[INT:4294967296 ct7 sz64 d4294967296] TO:v TO:d
+TO=4  AWAY=0  STILL=6  EQ=74  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- k2_chain94v   B = VERIFIED
+wBIGDC    g[INT:8589934592 ct7 sz64 d8589934592] A[INT:0 ct7 sz64 d0] B[INT:8589934592 ct7 sz64 d8589934592] TO:v TO:d
+wSHLC     g[INT:4294967296 ct7 sz64 d4294967296] A[INT:-4294967296 ct7 sz64 d-4294967296] B[INT:4294967296 ct7 sz64 d4294967296] TO:v TO:d
+TO=4  AWAY=0  STILL=6  EQ=74  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- k3_addop94v   B = LAW AS DELIVERED
+wAADBO    g[INT:12 ct7 sz32 d12] A[UINT:12 ct9 sz32 d12] B[INT:12 ct7 sz32 d12] TO:v TO:ct
+wAADNM    g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wADECL    g[INT:11 ct7 sz32 d11] A[UINT:11 ct9 sz32 d11] B[INT:11 ct7 sz32 d11] TO:v TO:ct
+wADEEP    g[INT:12 ct7 sz32 d12] A[UINT:12 ct9 sz32 d12] B[INT:12 ct7 sz32 d12] TO:v TO:ct
+wAHEXD    g[INT:17 ct7 sz32 d17] A[UINT:17 ct9 sz32 d17] B[INT:17 ct7 sz32 d17] TO:v TO:ct
+wALON     g[INT:4294967297 ct7 sz64 d4294967297] A[UINT:1 ct9 sz64 d1] B[INT:4294967297 ct7 sz64 d4294967297] TO:v TO:ct TO:d
+wANEGL    g[INT:0 ct7 sz32 d0] A[UINT:0 ct9 sz32 d0] B[INT:0 ct7 sz32 d0] TO:v TO:ct
+wANM2     g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wAOVF     g[INT:4294967296 ct7 sz32 d4294967296] A[UINT:0 ct9 sz32 d0] B[INT:4294967296 ct7 sz32 d4294967296] TO:v TO:ct TO:d
+wAPOW2    g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wASHFT    g[INT:12 ct7 sz32 d12] A[UINT:12 ct9 sz32 d12] B[INT:12 ct7 sz32 d12] TO:v TO:ct
+wAUMP     g[INT:4 ct7 sz32 d4] A[UINT:4 ct9 sz32 d4] B[INT:4 ct7 sz32 d4] TO:v TO:ct
+TO=26  AWAY=0  STILL=4  EQ=58  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- k3_addop94v   B = VERIFIED
+wAADBO    g[INT:12 ct7 sz32 d12] A[UINT:12 ct9 sz32 d12] B[INT:12 ct7 sz32 d12] TO:v TO:ct
+wAADNM    g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wADECL    g[INT:11 ct7 sz32 d11] A[UINT:11 ct9 sz32 d11] B[INT:11 ct7 sz32 d11] TO:v TO:ct
+wADEEP    g[INT:12 ct7 sz32 d12] A[UINT:12 ct9 sz32 d12] B[INT:12 ct7 sz32 d12] TO:v TO:ct
+wAHEXD    g[INT:17 ct7 sz32 d17] A[UINT:17 ct9 sz32 d17] B[INT:17 ct7 sz32 d17] TO:v TO:ct
+wALON     g[INT:4294967297 ct7 sz64 d4294967297] A[UINT:1 ct9 sz64 d1] B[INT:4294967297 ct7 sz64 d4294967297] TO:v TO:ct TO:d
+wANEGL    g[INT:0 ct7 sz32 d0] A[UINT:0 ct9 sz32 d0] B[INT:0 ct7 sz32 d0] TO:v TO:ct
+wANM2     g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wAOVF     g[INT:4294967296 ct7 sz32 d4294967296] A[UINT:0 ct9 sz32 d0] B[INT:4294967296 ct7 sz32 d4294967296] TO:v TO:ct TO:d
+wAPOW2    g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wASHFT    g[INT:12 ct7 sz32 d12] A[UINT:12 ct9 sz32 d12] B[INT:12 ct7 sz32 d12] TO:v TO:ct
+wAUMP     g[INT:4 ct7 sz32 d4] A[UINT:4 ct9 sz32 d4] B[INT:4 ct7 sz32 d4] TO:v TO:ct
+TO=26  AWAY=0  STILL=4  EQ=58  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- k4_unbop94v   B = LAW AS DELIVERED
+wA10      g[INT:0 ct7 sz32 d0] A[INT:-4294967294 ct7 sz32 d-4294967294] B[INT:0 ct7 sz32 d0] TO:v TO:d
+wA15      g[INT:1 ct7 sz8 d1] A[INT:4294967295 ct7 sz8 d4294967295] B[INT:1 ct7 sz8 d1] TO:v TO:d
+wA16      g[INT:2 ct7 sz32 d2] A[UINT:0 ct9 sz32 d0] B[INT:2 ct7 sz32 d2] TO:v TO:ct TO:d
+wA17      g[INT:-1 ct7 sz32 d-1] A[UINT:0 ct9 sz32 d0] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wA18      g[BIN:0 ct3 sz32 d32'b0] A[UINT:1 ct9 sz32 d1] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wA19      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wA20      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wA3       g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wA4       g[INT:2 ct7 sz64 d2] A[INT:-2 ct7 sz64 d-2] B[INT:2 ct7 sz64 d2] TO:v TO:d
+wA5       g[INT:1 ct7 sz64 d1] A[INT:-1 ct7 sz64 d-1] B[INT:1 ct7 sz64 d1] TO:v TO:d
+wA8       NOFOLD golden=ref_obj      A=constant     B=constant
+wA9       g[INT:-1 ct7 sz32 d-1] A[INT:-4294967295 ct7 sz32 d-4294967295] B[INT:-1 ct7 sz32 d-1] TO:v TO:d
+TO=27  AWAY=0  STILL=4  EQ=49  MWRONG=0  MISSING=0  NOFOLD=1  SHAPE=0
+----- k4_unbop94v   B = VERIFIED
+wA10      g[INT:0 ct7 sz32 d0] A[INT:-4294967294 ct7 sz32 d-4294967294] B[INT:0 ct7 sz32 d0] TO:v TO:d
+wA15      g[INT:1 ct7 sz8 d1] A[INT:4294967295 ct7 sz8 d4294967295] B[INT:1 ct7 sz8 d1] TO:v TO:d
+wA16      g[INT:2 ct7 sz32 d2] A[UINT:0 ct9 sz32 d0] B[INT:2 ct7 sz32 d2] TO:v TO:ct TO:d
+wA17      g[INT:-1 ct7 sz32 d-1] A[UINT:0 ct9 sz32 d0] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wA18      g[BIN:0 ct3 sz32 d32'b0] A[UINT:1 ct9 sz32 d1] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wA19      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wA20      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wA3       g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wA4       g[INT:2 ct7 sz64 d2] A[INT:-2 ct7 sz64 d-2] B[INT:2 ct7 sz64 d2] TO:v TO:d
+wA5       g[INT:1 ct7 sz64 d1] A[INT:-1 ct7 sz64 d-1] B[INT:1 ct7 sz64 d1] TO:v TO:d
+wA8       NOFOLD golden=ref_obj      A=constant     B=constant
+wA9       g[INT:-1 ct7 sz32 d-1] A[INT:-4294967295 ct7 sz32 d-4294967295] B[INT:-1 ct7 sz32 d-1] TO:v TO:d
+TO=27  AWAY=0  STILL=4  EQ=49  MWRONG=0  MISSING=0  NOFOLD=1  SHAPE=0
+----- k5_homes94v   B = LAW AS DELIVERED
+wCA       g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCC       NOFOLD golden=operation    A=operation    B=operation
+wFN       SHAPE golden=constant A=func_call B=func_call
+wIX       NOFOLD golden=bit_select   A=bit_select   B=bit_select
+wPS       NOFOLD golden=indexed_part_select A=indexed_part_select B=indexed_part_select
+wTR       NOFOLD golden=operation    A=operation    B=operation
+TO=3  AWAY=0  STILL=0  EQ=1  MWRONG=0  MISSING=0  NOFOLD=4  SHAPE=1
+----- k5_homes94v   B = VERIFIED
+wCA       g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCC       NOFOLD golden=operation    A=operation    B=operation
+wFN       SHAPE golden=constant A=func_call B=func_call
+wIX       NOFOLD golden=bit_select   A=bit_select   B=bit_select
+wPS       NOFOLD golden=indexed_part_select A=indexed_part_select B=indexed_part_select
+wTR       NOFOLD golden=operation    A=operation    B=operation
+TO=3  AWAY=0  STILL=0  EQ=1  MWRONG=0  MISSING=0  NOFOLD=4  SHAPE=1
+----- k6_width94v   B = LAW AS DELIVERED
+wR1       g[INT:-4294967292 ct7 sz32 d-4294967292] A[INT:2 ct7 sz32 d2] B[INT:-4294967292 ct7 sz32 d-4294967292] TO:v TO:d
+wW1       g[INT:-4294967287 ct7 sz32 d-4294967287] A[INT:7 ct7 sz32 d7] B[INT:-4294967287 ct7 sz32 d-4294967287] TO:v TO:d
+wWM       g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wWMC      g[INT:-8589934586 ct7 sz32 d-8589934586] A[INT:2 ct7 sz32 d2] B[INT:-8589934586 ct7 sz32 d-8589934586] TO:v TO:d
+wi        NOFOLD golden=bit_select   A=bit_select   B=bit_select
+wr        NOFOLD golden=operation    A=operation    B=operation
+ws        NOFOLD golden=indexed_part_select A=indexed_part_select B=indexed_part_select
+TO=8  AWAY=0  STILL=2  EQ=14  MWRONG=0  MISSING=0  NOFOLD=3  SHAPE=0
+----- k6_width94v   B = VERIFIED
+wR1       g[INT:-4294967292 ct7 sz32 d-4294967292] A[INT:2 ct7 sz32 d2] B[INT:-4294967292 ct7 sz32 d-4294967292] TO:v TO:d
+wW1       g[INT:-4294967287 ct7 sz32 d-4294967287] A[INT:7 ct7 sz32 d7] B[INT:-4294967287 ct7 sz32 d-4294967287] TO:v TO:d
+wWM       g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wWMC      g[INT:-8589934586 ct7 sz32 d-8589934586] A[INT:2 ct7 sz32 d2] B[INT:-8589934586 ct7 sz32 d-8589934586] TO:v TO:d
+wi        NOFOLD golden=bit_select   A=bit_select   B=bit_select
+wr        NOFOLD golden=operation    A=operation    B=operation
+ws        NOFOLD golden=indexed_part_select A=indexed_part_select B=indexed_part_select
+TO=8  AWAY=0  STILL=2  EQ=14  MWRONG=0  MISSING=0  NOFOLD=3  SHAPE=0
+----- k7_cwidth94v   B = LAW AS DELIVERED
+wQASC     g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQB8      g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQINT     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wQPA2     g[BIN:1 ct3 sz1 d1] A[UINT:1 ct9 sz4 d1] B[BIN:1 ct3 sz4 d4'b1] TO:v TO:ct AWAY:d
+wQPA3     g[BIN:1 ct3 sz1 d1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct AWAY:d
+wQPAF     g[BIN:0 ct3 sz1 d0] A[UINT:0 ct9 sz12 d0] B[BIN:0 ct3 sz12 d12'b0] TO:v TO:ct AWAY:d
+wQR8      g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQS1      g[BIN:1 ct3 sz1 d1'b1] A[INT:-1 ct7 sz1 d-1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wQTM      g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz64 d1] B[BIN:1 ct3 sz64 d64'b1] TO:v TO:ct MOVED-WRONG:d
+wQTMF     g[BIN:0 ct3 sz1 d1'b0] A[UINT:0 ct9 sz64 d0] B[BIN:0 ct3 sz64 d64'b0] TO:v TO:ct MOVED-WRONG:d
+wQTPA     g[BIN:1 ct3 sz1 d1] A[UINT:1 ct9 sz12 d1] B[BIN:1 ct3 sz12 d12'b1] TO:v TO:ct AWAY:d
+wQTV8     g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQV4      g[BIN:1 ct3 sz4 d4'b1] A[UINT:1 ct9 sz4 d1] B[BIN:1 ct3 sz4 d4'b1] TO:v TO:ct TO:d
+wQV8      g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+TO=36  AWAY=4  STILL=8  EQ=8  MWRONG=6  MISSING=0  NOFOLD=0  SHAPE=0
+----- k7_cwidth94v   B = VERIFIED
+wQASC     g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQB8      g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQINT     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wQR8      g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQS1      g[BIN:1 ct3 sz1 d1'b1] A[INT:-1 ct7 sz1 d-1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wQTV8     g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQV4      g[BIN:1 ct3 sz4 d4'b1] A[UINT:1 ct9 sz4 d1] B[BIN:1 ct3 sz4 d4'b1] TO:v TO:ct TO:d
+wQV8      g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+TO=24  AWAY=0  STILL=20  EQ=12  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- k8_portdf94v   B = LAW AS DELIVERED
+wU1       g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wU1C      g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+TO=4  AWAY=0  STILL=4  EQ=8  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- k8_portdf94v   B = VERIFIED
+wU1       g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wU1C      g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+TO=4  AWAY=0  STILL=4  EQ=8  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- v1_amulbrk96v   B = LAW AS DELIVERED
+wCCMP     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCXOR     NOFOLD golden=ref_obj      A=constant     B=constant
+wMMIX     g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wMMIX2    g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wMREAL    NOFOLD golden=ref_obj      A=constant     B=constant
+wMUNB     g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+TO=9  AWAY=0  STILL=2  EQ=77  MWRONG=0  MISSING=0  NOFOLD=2  SHAPE=0
+----- v1_amulbrk96v   B = VERIFIED
+wCCMP     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCXOR     NOFOLD golden=ref_obj      A=constant     B=constant
+wMMIX     g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wMMIX2    g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wMREAL    NOFOLD golden=ref_obj      A=constant     B=constant
+wMUNB     g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+TO=9  AWAY=0  STILL=2  EQ=77  MWRONG=0  MISSING=0  NOFOLD=2  SHAPE=0
+----- v5_unbased96v   B = LAW AS DELIVERED
+wUDIV     g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wUMIN     g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wUMOD     g[INT:1 ct7 sz32 d1] A[INT:3 ct7 sz32 d3] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wUMUL     g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wUNEG     g[INT:-1 ct7 sz32 d-1] A[INT:-4294967295 ct7 sz32 d-4294967295] B[INT:-1 ct7 sz32 d-1] TO:v TO:d
+wUSUB     g[INT:0 ct7 sz32 d0] A[INT:4294967294 ct7 sz32 d4294967294] B[INT:0 ct7 sz32 d0] TO:v TO:d
+TO=12  AWAY=0  STILL=6  EQ=18  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- v5_unbased96v   B = VERIFIED
+wUDIV     g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wUMIN     g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wUMOD     g[INT:1 ct7 sz32 d1] A[INT:3 ct7 sz32 d3] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wUMUL     g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wUNEG     g[INT:-1 ct7 sz32 d-1] A[INT:-4294967295 ct7 sz32 d-4294967295] B[INT:-1 ct7 sz32 d-1] TO:v TO:d
+wUSUB     g[INT:0 ct7 sz32 d0] A[INT:4294967294 ct7 sz32 d4294967294] B[INT:0 ct7 sz32 d0] TO:v TO:d
+TO=12  AWAY=0  STILL=6  EQ=18  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- y1_muldiv96   B = LAW AS DELIVERED
+TO=0  AWAY=0  STILL=13  EQ=99  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- y1_muldiv96   B = VERIFIED
+TO=0  AWAY=0  STILL=13  EQ=99  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- y2_unsized96   B = LAW AS DELIVERED
+TO=0  AWAY=0  STILL=5  EQ=63  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- y2_unsized96   B = VERIFIED
+TO=0  AWAY=0  STILL=5  EQ=63  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- y4_bail96   B = LAW AS DELIVERED
+wOVF      NOFOLD golden=ref_obj      A=constant     B=constant
+TO=0  AWAY=0  STILL=0  EQ=8  MWRONG=0  MISSING=0  NOFOLD=1  SHAPE=0
+----- y4_bail96   B = VERIFIED
+wOVF      NOFOLD golden=ref_obj      A=constant     B=constant
+TO=0  AWAY=0  STILL=0  EQ=8  MWRONG=0  MISSING=0  NOFOLD=1  SHAPE=0
+----- z1_unbased97   B = LAW AS DELIVERED
+wU1CHN    g[INT:4 ct7 sz32 d4] A[INT:17179869180 ct7 sz32 d17179869180] B[INT:4 ct7 sz32 d4] TO:v TO:d
+wU1DEEP   g[INT:6 ct7 sz32 d6] A[INT:25769803770 ct7 sz32 d25769803770] B[INT:6 ct7 sz32 d6] TO:v TO:d
+wU1DIV    g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1DIVR   g[INT:6 ct7 sz32 d6] A[INT:0 ct7 sz32 d0] B[INT:6 ct7 sz32 d6] TO:v TO:d
+wU1L      g[INT:1 ct7 sz64 d1] A[INT:-1 ct7 sz64 d-1] B[INT:1 ct7 sz64 d1] TO:v TO:d
+wU1MIN    g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MINU   g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MINW   g[INT:1 ct7 sz64 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MOD    g[INT:1 ct7 sz32 d1] A[INT:3 ct7 sz32 d3] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MUL    g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wU1MULR   g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wU1NEG    g[INT:-1 ct7 sz32 d-1] A[INT:-4294967295 ct7 sz32 d-4294967295] B[INT:-1 ct7 sz32 d-1] TO:v TO:d
+wU1PAR    g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1S4     g[INT:1 ct7 sz4 d1] A[INT:4294967295 ct7 sz4 d4294967295] B[INT:1 ct7 sz4 d1] TO:v TO:d
+wU1SHL    NOFOLD golden=ref_obj      A=constant     B=constant
+wU1SUB    g[INT:0 ct7 sz32 d0] A[INT:4294967294 ct7 sz32 d4294967294] B[INT:0 ct7 sz32 d0] TO:v TO:d
+wU1SUBR   g[INT:4 ct7 sz32 d4] A[INT:-4294967290 ct7 sz32 d-4294967290] B[INT:4 ct7 sz32 d4] TO:v TO:d
+wU1U8     g[INT:1 ct7 sz8 d1] A[INT:4294967295 ct7 sz8 d4294967295] B[INT:1 ct7 sz8 d1] TO:v TO:d
+TO=34  AWAY=0  STILL=12  EQ=90  MWRONG=0  MISSING=0  NOFOLD=1  SHAPE=0
+----- z1_unbased97   B = VERIFIED
+wU1CHN    g[INT:4 ct7 sz32 d4] A[INT:17179869180 ct7 sz32 d17179869180] B[INT:4 ct7 sz32 d4] TO:v TO:d
+wU1DEEP   g[INT:6 ct7 sz32 d6] A[INT:25769803770 ct7 sz32 d25769803770] B[INT:6 ct7 sz32 d6] TO:v TO:d
+wU1DIV    g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1DIVR   g[INT:6 ct7 sz32 d6] A[INT:0 ct7 sz32 d0] B[INT:6 ct7 sz32 d6] TO:v TO:d
+wU1L      g[INT:1 ct7 sz64 d1] A[INT:-1 ct7 sz64 d-1] B[INT:1 ct7 sz64 d1] TO:v TO:d
+wU1MIN    g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MINU   g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MINW   g[INT:1 ct7 sz64 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MOD    g[INT:1 ct7 sz32 d1] A[INT:3 ct7 sz32 d3] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MUL    g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wU1MULR   g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+wU1NEG    g[INT:-1 ct7 sz32 d-1] A[INT:-4294967295 ct7 sz32 d-4294967295] B[INT:-1 ct7 sz32 d-1] TO:v TO:d
+wU1PAR    g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1S4     g[INT:1 ct7 sz4 d1] A[INT:4294967295 ct7 sz4 d4294967295] B[INT:1 ct7 sz4 d1] TO:v TO:d
+wU1SHL    NOFOLD golden=ref_obj      A=constant     B=constant
+wU1SUB    g[INT:0 ct7 sz32 d0] A[INT:4294967294 ct7 sz32 d4294967294] B[INT:0 ct7 sz32 d0] TO:v TO:d
+wU1SUBR   g[INT:4 ct7 sz32 d4] A[INT:-4294967290 ct7 sz32 d-4294967290] B[INT:4 ct7 sz32 d4] TO:v TO:d
+wU1U8     g[INT:1 ct7 sz8 d1] A[INT:4294967295 ct7 sz8 d4294967295] B[INT:1 ct7 sz8 d1] TO:v TO:d
+TO=34  AWAY=0  STILL=12  EQ=90  MWRONG=0  MISSING=0  NOFOLD=1  SHAPE=0
+----- z2_addmint97   B = LAW AS DELIVERED
+wADECL    g[INT:11 ct7 sz32 d11] A[UINT:11 ct9 sz32 d11] B[INT:11 ct7 sz32 d11] TO:v TO:ct
+wADECS    g[INT:11 ct7 sz32 d11] A[UINT:11 ct9 sz32 d11] B[INT:11 ct7 sz32 d11] TO:v TO:ct
+wADECW    g[INT:11 ct7 sz32 d11] A[UINT:11 ct9 sz32 d11] B[INT:11 ct7 sz32 d11] TO:v TO:ct
+wADEEP2   g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wADEEP3   g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wADIVL    g[INT:4 ct7 sz32 d4] A[UINT:4 ct9 sz32 d4] B[INT:4 ct7 sz32 d4] TO:v TO:ct
+wAMODL    g[INT:4 ct7 sz32 d4] A[UINT:4 ct9 sz32 d4] B[INT:4 ct7 sz32 d4] TO:v TO:ct
+wANAMEL   g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wANAMEP   g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wANAMER   g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wANAMES   g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wANEST    g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wAPARL    g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wAPLUSU   NOFOLD golden=ref_obj      A=constant     B=constant
+wAPOWL    g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wASUBL    g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wASUBR    g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wATWO     g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wAZERO    g[INT:1 ct7 sz32 d1] A[UINT:1 ct9 sz32 d1] B[INT:1 ct7 sz32 d1] TO:v TO:ct
+wCXORA    NOFOLD golden=ref_obj      A=constant     B=constant
+wMMIX     g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wMMIX2    g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+TO=40  AWAY=0  STILL=2  EQ=138  MWRONG=0  MISSING=0  NOFOLD=2  SHAPE=0
+----- z2_addmint97   B = VERIFIED
+wADECL    g[INT:11 ct7 sz32 d11] A[UINT:11 ct9 sz32 d11] B[INT:11 ct7 sz32 d11] TO:v TO:ct
+wADECS    g[INT:11 ct7 sz32 d11] A[UINT:11 ct9 sz32 d11] B[INT:11 ct7 sz32 d11] TO:v TO:ct
+wADECW    g[INT:11 ct7 sz32 d11] A[UINT:11 ct9 sz32 d11] B[INT:11 ct7 sz32 d11] TO:v TO:ct
+wADEEP2   g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wADEEP3   g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wADIVL    g[INT:4 ct7 sz32 d4] A[UINT:4 ct9 sz32 d4] B[INT:4 ct7 sz32 d4] TO:v TO:ct
+wAMODL    g[INT:4 ct7 sz32 d4] A[UINT:4 ct9 sz32 d4] B[INT:4 ct7 sz32 d4] TO:v TO:ct
+wANAMEL   g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wANAMEP   g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wANAMER   g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wANAMES   g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wANEST    g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wAPARL    g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wAPLUSU   NOFOLD golden=ref_obj      A=constant     B=constant
+wAPOWL    g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wASUBL    g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wASUBR    g[INT:8 ct7 sz32 d8] A[UINT:8 ct9 sz32 d8] B[INT:8 ct7 sz32 d8] TO:v TO:ct
+wATWO     g[INT:9 ct7 sz32 d9] A[UINT:9 ct9 sz32 d9] B[INT:9 ct7 sz32 d9] TO:v TO:ct
+wAZERO    g[INT:1 ct7 sz32 d1] A[UINT:1 ct9 sz32 d1] B[INT:1 ct7 sz32 d1] TO:v TO:ct
+wCXORA    NOFOLD golden=ref_obj      A=constant     B=constant
+wMMIX     g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+wMMIX2    g[INT:7 ct7 sz32 d7] A[UINT:7 ct9 sz32 d7] B[INT:7 ct7 sz32 d7] TO:v TO:ct
+TO=40  AWAY=0  STILL=2  EQ=138  MWRONG=0  MISSING=0  NOFOLD=2  SHAPE=0
+----- z3_cmpfam97   B = LAW AS DELIVERED
+wCCEQ     NOFOLD golden=ref_obj      A=constant     B=constant
+wCCNE     NOFOLD golden=ref_obj      A=constant     B=constant
+wCEQ      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCEQF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCGE      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCGEF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCGT      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCGTF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCLE      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLEF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCLT      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLTC     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLTF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCLTN     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLTU     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLTX     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCNE      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCNEF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wDB32     g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDBS32    g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDIMP     g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz1 d1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wDIMPF    g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wDINTG    g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDIU      g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDL32     g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDLS32    g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDNAME    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wDTD      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wDU64     g[BIN:0 ct3 sz32 d32'b0] A[UINT:1 ct9 sz32 d1] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wDU64E    g[INT:-1 ct7 sz32 d-1] A[UINT:0 ct9 sz32 d0] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wEU1      g[INT:-1 ct7 sz32 d-1] A[UINT:0 ct9 sz32 d0] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wQLT64    g[BIN:1 ct3 sz64 d64'b1] A[UINT:1 ct9 sz64 d1] B[BIN:1 ct3 sz64 d64'b1] TO:v TO:ct TO:d
+wQLTB1    g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz1 d1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wQLTBY    g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQLTL1    g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz1 d1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wQLTS8    g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQLTU8    g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+TO=105  AWAY=0  STILL=7  EQ=84  MWRONG=0  MISSING=0  NOFOLD=2  SHAPE=0
+----- z3_cmpfam97   B = VERIFIED
+wCCEQ     NOFOLD golden=ref_obj      A=constant     B=constant
+wCCNE     NOFOLD golden=ref_obj      A=constant     B=constant
+wCEQ      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCEQF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCGE      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCGEF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCGT      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCGTF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCLE      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLEF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCLT      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLTC     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLTF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCLTN     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLTU     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCLTX     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCNE      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCNEF     g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wDB32     g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDBS32    g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDIMP     g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz1 d1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wDIMPF    g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wDINTG    g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDIU      g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDL32     g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDLS32    g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+wDNAME    g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wDTD      g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wDU64     g[BIN:0 ct3 sz32 d32'b0] A[UINT:1 ct9 sz32 d1] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wDU64E    g[INT:-1 ct7 sz32 d-1] A[UINT:0 ct9 sz32 d0] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wEU1      g[INT:-1 ct7 sz32 d-1] A[UINT:0 ct9 sz32 d0] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wQLT64    g[BIN:1 ct3 sz64 d64'b1] A[UINT:1 ct9 sz64 d1] B[BIN:1 ct3 sz64 d64'b1] TO:v TO:ct TO:d
+wQLTB1    g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz1 d1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wQLTBY    g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQLTL1    g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz1 d1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wQLTS8    g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+wQLTU8    g[BIN:1 ct3 sz8 d8'b1] A[UINT:1 ct9 sz8 d1] B[BIN:1 ct3 sz8 d8'b1] TO:v TO:ct TO:d
+TO=105  AWAY=0  STILL=7  EQ=84  MWRONG=0  MISSING=0  NOFOLD=2  SHAPE=0
+----- z4_xz97   B = LAW AS DELIVERED
+wC1S      g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wUXM      NOFOLD golden=ref_obj      A=constant     B=constant
+wUXS      NOFOLD golden=ref_obj      A=constant     B=constant
+wUZS      NOFOLD golden=ref_obj      A=constant     B=constant
+TO=2  AWAY=0  STILL=6  EQ=8  MWRONG=0  MISSING=0  NOFOLD=3  SHAPE=0
+----- z4_xz97   B = VERIFIED
+wC1S      g[INT:1 ct7 sz32 d1] A[INT:4294967295 ct7 sz32 d4294967295] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wUXM      NOFOLD golden=ref_obj      A=constant     B=constant
+wUXS      NOFOLD golden=ref_obj      A=constant     B=constant
+wUZS      NOFOLD golden=ref_obj      A=constant     B=constant
+TO=2  AWAY=0  STILL=6  EQ=8  MWRONG=0  MISSING=0  NOFOLD=3  SHAPE=0
+----- z5_chain97   B = LAW AS DELIVERED
+wCHAIN    g[INT:4294967296 ct7 sz64 d4294967296] A[INT:0 ct7 sz64 d0] B[INT:4294967296 ct7 sz64 d4294967296] TO:v TO:d
+wCHMUL    g[INT:8589934592 ct7 sz64 d8589934592] A[INT:0 ct7 sz64 d0] B[INT:8589934592 ct7 sz64 d8589934592] TO:v TO:d
+wU1CH2    g[INT:3 ct7 sz32 d3] A[INT:17179869179 ct7 sz32 d17179869179] B[INT:3 ct7 sz32 d3] TO:v TO:d
+wU1CHN    g[INT:4 ct7 sz32 d4] A[INT:17179869180 ct7 sz32 d17179869180] B[INT:4 ct7 sz32 d4] TO:v TO:d
+wU1CHS    g[INT:1 ct7 sz32 d1] A[INT:8589934589 ct7 sz32 d8589934589] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MUL    g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+TO=12  AWAY=0  STILL=0  EQ=40  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- z5_chain97   B = VERIFIED
+wCHAIN    g[INT:4294967296 ct7 sz64 d4294967296] A[INT:0 ct7 sz64 d0] B[INT:4294967296 ct7 sz64 d4294967296] TO:v TO:d
+wCHMUL    g[INT:8589934592 ct7 sz64 d8589934592] A[INT:0 ct7 sz64 d0] B[INT:8589934592 ct7 sz64 d8589934592] TO:v TO:d
+wU1CH2    g[INT:3 ct7 sz32 d3] A[INT:17179869179 ct7 sz32 d17179869179] B[INT:3 ct7 sz32 d3] TO:v TO:d
+wU1CHN    g[INT:4 ct7 sz32 d4] A[INT:17179869180 ct7 sz32 d17179869180] B[INT:4 ct7 sz32 d4] TO:v TO:d
+wU1CHS    g[INT:1 ct7 sz32 d1] A[INT:8589934589 ct7 sz32 d8589934589] B[INT:1 ct7 sz32 d1] TO:v TO:d
+wU1MUL    g[INT:2 ct7 sz32 d2] A[INT:8589934590 ct7 sz32 d8589934590] B[INT:2 ct7 sz32 d2] TO:v TO:d
+TO=12  AWAY=0  STILL=0  EQ=40  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- z6_pahome97   B = LAW AS DELIVERED
+wCIMP     g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz1 d1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wCINT     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCINTF    g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCL32     g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+TO=12  AWAY=0  STILL=0  EQ=4  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+----- z6_pahome97   B = VERIFIED
+wCIMP     g[BIN:1 ct3 sz1 d1'b1] A[UINT:1 ct9 sz1 d1] B[BIN:1 ct3 sz1 d1'b1] TO:v TO:ct TO:d
+wCINT     g[INT:-1 ct7 sz32 d-1] A[UINT:1 ct9 sz32 d1] B[INT:-1 ct7 sz32 d-1] TO:v TO:ct TO:d
+wCINTF    g[BIN:0 ct3 sz32 d32'b0] A[UINT:0 ct9 sz32 d0] B[BIN:0 ct3 sz32 d32'b0] TO:v TO:ct TO:d
+wCL32     g[BIN:1 ct3 sz32 d32'b1] A[UINT:1 ct9 sz32 d1] B[BIN:1 ct3 sz32 d32'b1] TO:v TO:ct TO:d
+TO=12  AWAY=0  STILL=0  EQ=4  MWRONG=0  MISSING=0  NOFOLD=0  SHAPE=0
+=== k5_homes94v — LAW C's reading homes, per constant, (section, instance, line, col)
+('uhdmallModules', 'work@k5_homes94v (work@k5_homes94v', '21', '21') G [('INT:-1', '7', '-1')] P [('UINT:1', '9', '1')] VERIFIED [('INT:-1', '7', '-1')]
+('uhdmallModules', 'work@k5_homes94v (work@k5_homes94v', '24', '12') G [('INT:-1', '7', '-1')] P [('UINT:1', '9', '1')] VERIFIED [('INT:-1', '7', '-1')]
+('uhdmallModules', 'work@k5_homes94v (work@k5_homes94v', '36', '19') G [('INT:-1', '7', '-1')] P [('UINT:1', '9', '1')] VERIFIED [('INT:-1', '7', '-1')]
+('uhdmallModules', 'work@k5_homes94v (work@k5_homes94v', '37', '22') G [('BIN:0', '3', "32'b0")] P [('UINT:0', '9', '0')] VERIFIED [('BIN:0', '3', "32'b0")]
+('uhdmtopModules', 'work@k5_homes94v (work@k5_homes94v', '19', '28') G [('INT:-1', '7', '-1')] P [('UINT:1', '9', '1')] VERIFIED [('INT:-1', '7', '-1')]
+('uhdmtopModules', 'work@k5_homes94v (work@k5_homes94v', '29', '18') G [('INT:-1', '7', '-1')] P [('UINT:1', '9', '1')] VERIFIED [('INT:-1', '7', '-1')]
+('uhdmtopModules', 'work@k5_homes94v (work@k5_homes94v', '30', '24') G [('INT:-1', '7', '-1')] P [('UINT:1', '9', '1')] VERIFIED [('INT:-1', '7', '-1')]
+('uhdmtopModules', 'work@k5_homes94v (work@k5_homes94v', '32', '28') G [('INT:-1', '7', '-1')] P [('UINT:1', '9', '1')] VERIFIED [('INT:-1', '7', '-1')]
+
+UNMOVED, the param_assign fence: 22 (module localparam init) and 28 (.SP override)

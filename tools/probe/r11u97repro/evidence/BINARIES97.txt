@@ -1,0 +1,8 @@
+=== BINARIES (all built in /tmp/wt_r11u97, -j 2, md5 taken separately, chmod 555 before any sweep)
+pristine                   54d56dd004635a3c0a59112c3f88e571   fdaccc06 unmodified — byte-identical to the main tree and to the ops-brief md5
+law                        457297442d61fd7c085ec369c46e3ad2   this patch
+LAW A reverted             aef9f864008880f6d5e5b1edf7e6ffbd   the red97UnbasedDigit97 block removed from red72Int64
+LAW B reverted             d94bf2e2a32e306157b3c4d9542236f3   add97 = false
+LAW C reverted             522a036444c7134de3d774b0fbd2c591   cmpInt97 = cmpBin97 = false
+power child reverted       4f46d42e4bbd76b947e9dccc023463a6   pow97 = false
+chain widening reverted    f0bace529e70e6bacef573703365a08c   chn97 = false — the ONLY face whose removal produces MOVED-WRONG

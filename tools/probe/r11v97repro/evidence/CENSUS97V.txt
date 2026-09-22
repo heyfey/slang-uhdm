@@ -1,0 +1,12 @@
+=== r11v97 CENSUS — reproduced from the committed census97.py, both pinned corpora
+ADD97 120   ADDW97 178   AGREE97 12795   BWL97 23   CMP97 19
+CMPF97 7922   UDC97 310   UNB97 208   UNBF97 28327   UNBO97 40
+--- candidate tests: 57        SELFTEST PASS
+not sighted (2): p1_pkgin91 q4_negpkg94   [the live negative control]
+every number identical to evidence/CENSUS97.txt.
+
+predict97.py, a priori, on this verifier's OWN pristine workdirs:
+  <u2r>      27 rows, 20 of them ibex_*, and ibex_icache named with class ADD97
+  <surelog>  26 rows, and MiniAmiq / SeqDriver / SimpleUVM / Scoreboard named by NONE
+THE MEASURED MOVER SETS ARE SUBSETS: the only u2r mover is ibex_icache (predicted),
+and every surelog mover is the documented nondeterminism (see MOVERS97V.txt).

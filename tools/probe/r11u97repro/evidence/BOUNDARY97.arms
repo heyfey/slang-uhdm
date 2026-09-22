@@ -1,0 +1,35 @@
+=== WIDE BOUNDARY — every *.sv under tools/probe, pristine vs law
+arms=8307 SAME=8059 DIFFERS=28 NODB=220  (8306 in one sweep + z6_pahome97 run on its own after it joined the grid) (216 x prc=lrc=3, 4 x prc=lrc=139; rc mismatch 0)
+
+ARM r11u97repro/grid/z6_pahome97.sv prc=0 lrc=0 DIFFERS
+ARM r10buvm22repro/g22.sv prc=4 lrc=4 DIFFERS
+ARM r10earl60repro/vfe_v60.sv prc=0 lrc=0 DIFFERS
+ARM r10earl60repro/vff_v60.sv prc=4 lrc=4 DIFFERS
+ARM r10earl71repro/d3_earl71.sv prc=0 lrc=0 DIFFERS
+ARM r10earl76repro/g2_orig76.sv prc=0 lrc=0 DIFFERS
+ARM r10uvm146repro/g146_b_kinds.sv prc=0 lrc=0 DIFFERS
+ARM r10uvm154repro/l154_noenum.sv prc=0 lrc=0 DIFFERS
+ARM r10uvm185repro/grid185/g185_e_kinds.sv prc=0 lrc=0 DIFFERS
+ARM r10v146repro/v10_kinds.sv prc=0 lrc=0 DIFFERS
+ARM r10v75repro/a5_origin75.sv prc=0 lrc=0 DIFFERS
+ARM r10vearl71repro/v3_enc71.sv prc=0 lrc=0 DIFFERS
+ARM r11u38repro/grid/g2_paenc38.sv prc=0 lrc=0 DIFFERS
+ARM r11u66repro/grid/g7_add66.sv prc=0 lrc=0 DIFFERS
+ARM r11u73repro/grid/w4_hop73.sv prc=0 lrc=0 DIFFERS
+ARM r11u73repro/grid/w7_untw73.sv prc=0 lrc=0 DIFFERS
+ARM r11u81repro/grid/a1_hopts81.sv prc=0 lrc=0 DIFFERS
+ARM r11u86repro/grid/m2_enc86.sv prc=0 lrc=0 DIFFERS
+ARM r11u97repro/grid/z1_unbased97.sv prc=0 lrc=0 DIFFERS
+ARM r11u97repro/grid/z2_addmint97.sv prc=0 lrc=0 DIFFERS
+ARM r11u97repro/grid/z3_cmpfam97.sv prc=0 lrc=0 DIFFERS
+ARM r11u97repro/grid/z4_xz97.sv prc=0 lrc=0 DIFFERS
+ARM r11u97repro/grid/z5_chain97.sv prc=0 lrc=0 DIFFERS
+ARM r11v66repro/grid/a6_misc66.sv prc=0 lrc=0 DIFFERS
+ARM r11v96repro/grid/v1_amulbrk96v.sv prc=0 lrc=0 DIFFERS
+ARM r11v96repro/grid/v2_bdecbrk96v.sv prc=0 lrc=0 DIFFERS
+ARM r11v96repro/grid/v5_unbased96v.sv prc=0 lrc=0 DIFFERS
+ARM r11v96repro/grid/v7_bigpat96v.sv prc=0 lrc=0 DIFFERS
+
+=== NULL BOUNDARY (the pristine binary against itself over those 28; z6_pahome97 reads SAME)
+SAME=28
+DIFFERS=0

@@ -1,0 +1,56 @@
+=== r11v97 GATES — all on binaries this verifier built itself
+BINARIES
+54d56dd004635a3c0a59112c3f88e571  /tmp/v11u94_bin/pris.bin
+457297442d61fd7c085ec369c46e3ad2  /tmp/v11u94_bin/lawx.bin
+6c59dd0993310c075d8e971a8535ea15  /tmp/v11u94_bin/fixd.bin
+
+GOLDENS
+  pris  PASS=23 FAIL=0    (tests/check_goldens.sh)
+  lawx  PASS=23 FAIL=0
+  fixd  PASS=23 FAIL=0
+  /bin/false  PASS=0 FAIL=23   (negative control)
+
+UHDM2RTLIL, both modes, three binaries
+  pris_u2r_tf    CMP_EQUAL=788 CMP_NOTEQUAL=16 SLANG_REJECT=67
+  pris_u2r_def   CMP_EQUAL=788 CMP_NOTEQUAL=16 SLANG_REJECT=67
+  lawx_u2r_tf    CMP_EQUAL=788 CMP_NOTEQUAL=16 SLANG_REJECT=67
+  lawx_u2r_def   CMP_EQUAL=788 CMP_NOTEQUAL=16 SLANG_REJECT=67
+  fixd_u2r_tf    CMP_EQUAL=788 CMP_NOTEQUAL=16 SLANG_REJECT=67
+  fixd_u2r_def   CMP_EQUAL=788 CMP_NOTEQUAL=16 SLANG_REJECT=67
+  whole-row join vs results/golden_uhdm2rtlil.csv (1742 rows, both modes): DIFF=0 on pris, lawx AND fixd
+  testflags gate vs results/gate_uhdm2rtlil.csv: PASS (byte-identical) on all three
+
+SURELOG --mode both, three binaries
+  pris_sl
+    default CMP_EQUAL=474 CMP_NOTEQUAL=9 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+    testflags CMP_EQUAL=469 CMP_NOTEQUAL=8 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+  lawx_sl
+    default CMP_EQUAL=474 CMP_NOTEQUAL=9 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+    testflags CMP_EQUAL=469 CMP_NOTEQUAL=8 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+  fixd_sl
+    default CMP_EQUAL=474 CMP_NOTEQUAL=9 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+    testflags CMP_EQUAL=469 CMP_NOTEQUAL=8 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+  whole-row join vs results/golden_surelog.csv (1596 rows):
+    pris DIFF=4  lawx DIFF=4  fixd DIFF=3 — every one either a LowMem*/testflags DETAIL
+    carrying the sweep's OWN workdir path or Earlgrey_0_1's blank DUMP COLUMN.
+    NO STATUS MOVED, in either direction, on any row of either corpus.
+
+CMDS.TXT AUDIT, by ABSOLUTE binary path
+  u2r     pris 1742/1742 pris.bin   lawx 1742/1742 lawx.bin   fixd 1742/1742 fixd.bin
+  surelog pris 1531/1581 pris.bin   lawx 1531/1581 lawx.bin   fixd 1531/1581 fixd.bin
+  9969 cmds.txt across the six sweeps; 0 name the main tree (grep -l over all of them).
+
+CANARIES / PINS
+  surelog canaries.sh  pris ok=50 changed=2   lawx ok=50 changed=2   fixd ok=51 changed=1
+    every CHANGED row is Earlgrey_0_1's DUMP COLUMN alone, CMP_EQUAL/differ -> CMP_EQUAL/
+  u2r canaries.sh      ok=8 changed=0 absent=0 on all three
+  ctcan2.sh PASS on both corpora on pris, lawx and fixd
+  canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0
+  protected databases, pristine <-> law <-> verified, BOTH MODES, all SAME and at their pins:
+    SVSwitch 4842211c4030  YosysVerx 6ccda350c24a  InterfaceModPort 59a365f3ce2c
+    BlackParrotComplex e3e354129d5a / 73a10e8217e5  YosysOldOr d68e0796d62c
+    Earlgrey_0_1 8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)
+
+CONVERSION ROWS, official uhdm-cmp, golden as LHS
+  pris / lawx / fixd: measured=13 SKIP-NOFILE=1 UNKNOWN-NAME=0, every row 0 cmp lines /
+  0 heads / cmp rc=0.  The one SKIP-NOFILE is the documented Scoreboard/testflags.

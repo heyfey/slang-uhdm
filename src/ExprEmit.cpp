@@ -16054,13 +16054,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // DELIBERATELY left out (`**` and `~`) are in the § block
                     // beside `red96IntMintTop96`.  Each operator is its own
                     // flag here so that each face drops alone.
+                    //
+                    // § addMintFollowsOperandMint97 (r11u97) — LAW B, the same
+                    // gate reading ONE LEVEL DOWN.  `vpiAddOp` is the only arm
+                    // in the producer's table that asks its REDUCED OPERANDS
+                    // what they minted, so an INT-minting sub-expression
+                    // carries the mint up and `2 * 3 + 1` is `INT:7` where
+                    // `1 + 2` is `UINT:3`.  The decode, the cited producer
+                    // lines and the measured table — including the seventeen
+                    // shapes that DO NOT propagate — are in the § block beside
+                    // `red97OperandMintsInt97`.  `add97` and `pow97` are their
+                    // own flags so the parent face and its power child each
+                    // drop alone.
                     constexpr bool mul96 = true;   // § pkgParamMulDivModIsIntReduce96
                     constexpr bool div96 = true;   // § pkgParamMulDivModIsIntReduce96
                     constexpr bool mod96 = true;   // § pkgParamMulDivModIsIntReduce96
+                    constexpr bool add97 = true;   // § addMintFollowsOperandMint97
+                    constexpr bool pow97 = true;   // § addMintFollowsOperandMint97
                     int64_t mrv94 = 0;
                     bool minus94 = false;
                     if (const Expression* mi94 = psym.getInitializer()) {
-                        if (red96IntMintTop96(*mi94, mul96, div96, mod96)) {
+                        if (red97IntMintTop97(*mi94, mul96, div96, mod96,
+                                              add97, pow97)) {
                             ASTContext mctx94(comp.getRoot(),
                                               LookupLocation::max);
                             minus94 = red72Int64(*mi94, mctx94, 0, mrv94) ==
@@ -16219,6 +16234,147 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // source HEX form module-side too (Surelog).
                     if (typedPkgParam)
                         enumOriginHexRecode(c, psym.getInitializer());
+                    // ===== § intCompareIsMinusOne97 (r11u97) — LAW C,
+                    // r11v96's RV96-3.  A COMPARISON IS A ONE-BIT ANSWER, AND
+                    // ONE DECLARED TYPE TURNS IT INTO MINUS ONE.
+                    //
+                    // `reduceCompOp` (`ExprEval.cpp:1639`, reached from
+                    // `:3173-3182`) mints `BIN:<0|1>` at `VpiSize(1)` with
+                    // `vpiBinaryConst`; `CompileHelper::adjustSize`
+                    // (`~/git-repos/Surelog/src/DesignCompile/
+                    // CompileHelper.cpp:4147-4190`) then re-renders that
+                    // one-bit constant at the declaration's width, and its
+                    // `int_typespec` branch — reached only for a SIGNED
+                    // `int_typespec`, and only when the one bit is set — takes
+                    // the two's complement and writes `INT:` + a NEGATED
+                    // value.  One bit's two's complement is -1, whatever the
+                    // width.  Every other declared type falls through with its
+                    // `BIN:` string intact and the declaration's width.
+                    //
+                    // MEASURED (real Surelog v1.87, arm `z3_cmpfam97`, every
+                    // cell `slrc=0 ourrc=0 slerr=0`, net-decl-assign road):
+                    //
+                    //   package declaration            golden      ours
+                    //   int CLT  = (3 < 4)             INT:-1 ct7  UINT:1 ct9
+                    //   int CGT  = (4 > 3)             INT:-1 ct7  UINT:1 ct9
+                    //   int CLE  = (3 <= 3)            INT:-1 ct7  UINT:1 ct9
+                    //   int CGE  = (3 >= 3)            INT:-1 ct7  UINT:1 ct9
+                    //   int CEQ  = (3 == 3)            INT:-1 ct7  UINT:1 ct9
+                    //   int CNE  = (3 != 4)            INT:-1 ct7  UINT:1 ct9
+                    //   int CLTN = (-1 < 0)            INT:-1 ct7  UINT:1 ct9
+                    //   int CLTX = (2 * 3 < 7)         INT:-1 ct7  UINT:1 ct9
+                    //   td_int_t DTD = (3 < 4)         INT:-1 ct7  UINT:1 ct9
+                    //   int CLTF = (4 < 3)             BIN:0 ct3   UINT:0 ct9
+                    //                                  d `32'b0`   d `0`
+                    //   longint       QLT64            BIN:1 d `64'b1`
+                    //   logic [7:0]   QLTU8            BIN:1 d `8'b1`
+                    //   logic signed [7:0] QLTS8       BIN:1 d `8'b1`
+                    //   byte          QLTBY            BIN:1 d `8'b1`
+                    //   bit / logic   QLTB1 / QLTL1    BIN:1 d `1'b1`
+                    //   integer       DINTG            BIN:1 d `32'b1`
+                    //   int unsigned  DIU              BIN:1 d `32'b1`
+                    //   logic signed [31:0] DLS32      BIN:1 d `32'b1`
+                    //   bit signed [31:0]   DBS32      BIN:1 d `32'b1`
+                    //   (implicit)    DIMP             BIN:1 d `1'b1` sz1
+                    //
+                    // so `int` and a TYPEDEF of it are the whole of the `INT:`
+                    // face — `integer`, `int unsigned` and a signed 32-bit
+                    // `logic`/`bit` are not that typespec and stay `BIN:`.
+                    //
+                    // THE COMPARISON IS COMPUTED ON THIS FILE'S OWN `int64_t`
+                    // ROAD, NEVER TAKEN FROM SLANG'S STORE, because
+                    // `reduceCompOp` assigns `get_uvalue`'s answer to an
+                    // `int64_t` and compares SIGNED:
+                    //   int DU64  = (64'hFFFF_FFFF_FFFF_FFFF > 1)  golden
+                    //                                     BIN:0, slang says 1
+                    //   int DU64E = (64'hFFFF_FFFF_FFFF_FFFF < 1)  golden
+                    //                                     INT:-1, slang says 0
+                    // and `int EU1 = ('1 < 2)` is golden `INT:-1` only because
+                    // LAW A reads `'1` as the digit 1 on that same road.
+                    //
+                    // THE LAW IS CONFINED TO THE READING HOME IT WAS MEASURED
+                    // IN, AND A `param_assign` IS NOT IT.  Golden encodes the
+                    // same comparison differently in each view of a parameter
+                    // DEFAULT: `parameter int P_CINT = z6p::CINT` is `BIN:1`
+                    // with the bare decompile `1` in the module DEFINITION
+                    // (`uhdmallModules`) and `BIN:1` with `32'b1` in every
+                    // ELABORATED instance (`uhdmtopModules`), and this site
+                    // cannot see which view it is emitting into.  The PRISTINE
+                    // binary is already golden at the definition view, so a
+                    // law that wrote there could only make it worse — and the
+                    // first cut of this one did, on `z6_pahome97` (five cells)
+                    // and on the wide boundary at
+                    // `r11v38repro/arms/v2_paenc.sv` 22:39 and 30:26 and
+                    // `r11u38repro/grid/g2_paenc38.sv` 25:36.  Those were the
+                    // only AWAY cells this pass ever produced, the arm
+                    // `z6_pahome97` exists to hold them, and the gate costs
+                    // NOTHING: every cell the law is for is read through a
+                    // `cont_assign`, and all 120 of `z3_cmpfam97`'s and all 12
+                    // of `z6_pahome97`'s still move.
+                    //
+                    // THE GATE IS THE TOP OPERATOR AND NOTHING ELSE.  A CHAIN
+                    // over a comparison (`int CCHN = CLT`) is golden `BIN:1`
+                    // and not `INT:-1`, a comparison UNDER a ternary
+                    // (`CTERN`) or an add (`CADDC`) is golden `UINT:` and
+                    // equal on both binaries, and `===`/`!==` are not reduced
+                    // at all (golden writes no constant).  Where either
+                    // operand refuses the int64 road the gate declines, which
+                    // is the same refusal golden takes.
+                    constexpr bool cmpInt97 = true;  // § intCompareIsMinusOne97
+                    constexpr bool cmpBin97 = true;  // § intCompareIsMinusOne97
+                    // § cmpBinIsTheWidthRenderingHome97v (r11v97)
+                    constexpr bool cmpHome97 = true;
+                    const bool paHome97 =
+                        parent &&
+                        parent->UhdmType() == UHDM::uhdmparam_assign;
+                    const Expression* ci97 =
+                        paHome97 ? nullptr : psym.getInitializer();
+                    if (ci97) {
+                        ASTContext cctx97(comp.getRoot(), LookupLocation::max);
+                        bool crv97 = false;
+                        if (red97CompValue97(*ci97, cctx97, crv97)) {
+                            auto& cty97 = psym.getType().getCanonicalType();
+                            const bool declInt97 =
+                                cty97.kind ==
+                                    SymbolKind::PredefinedIntegerType &&
+                                cty97.as<PredefinedIntegerType>()
+                                        .integerKind ==
+                                    PredefinedIntegerType::Int &&
+                                cty97.isSigned();
+                            if (declInt97 && crv97) {
+                                if (cmpInt97) {
+                                    c->VpiValue("INT:-1");
+                                    c->VpiDecompile("-1");
+                                    c->VpiConstType(vpiIntConst);
+                                }
+                            }
+                            // § cmpBinIsTheWidthRenderingHome97v (r11v97) —
+                            // the `BIN:` branch writes the DECLARATION'S WIDTH
+                            // into the decompile, which is golden only where
+                            // `adjustSize` re-rendered the one-bit answer at
+                            // that width.  `time` and a MULTI-DIMENSIONAL
+                            // packed array never reach that branch: golden
+                            // keeps `VpiSize(1)` and writes `1'b<v>` / the bare
+                            // digit, and on the packed arrays the PRISTINE
+                            // binary is already golden on the decompile.  Five
+                            // AWAY cells and two MOVED-WRONG ones, measured on
+                            // `k1_ctype94v` and `k7_cwidth94v`; the whole
+                            // measured home is in the § block beside
+                            // `red97CmpBinHome97`.  Its own flag, so LAW C's
+                            // `BIN:` face still drops with `cmpBin97` alone.
+                            else if (cmpBin97 && cmpHome97 &&
+                                     red97CmpBinHome97(cty97)) {
+                                const std::string b97 = crv97 ? "1" : "0";
+                                c->VpiValue("BIN:" + b97);
+                                c->VpiDecompile(
+                                    std::to_string(
+                                        (int32_t)psym.getType()
+                                            .getBitWidth()) +
+                                    "'b" + b97);
+                                c->VpiConstType(vpiBinaryConst);
+                            }
+                        }
+                    }
                     setLoc(c, expr.sourceRange);
                     // A PROCEDURAL bit-select INDEX fold reading an imported
                     // param parents at the select and carries a ts ref to the

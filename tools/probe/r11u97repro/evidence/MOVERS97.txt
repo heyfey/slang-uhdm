@@ -1,0 +1,43 @@
+=== BYTEVERIFY, SELFCHECK=1, both corpora, against THIS PASS'S OWN pristine workdirs
+
+--- uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=9c1ffd34e983 pristine=19ad165bf9cd
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=4440db2c6af1 pristine=b2ab930c9443
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+  both movers are ibex_icache, PREDICTED BY NAME by predict97.py (class ADD97).
+  path-normalised whole-dump diff, per mode: 20 lines — 5 x |UINT:22 -> |INT:22 and
+  5 x |vpiConstType:9 -> :7, and NOTHING ELSE (vpiSize 0, Typespec 0, vpiDecompile 0).
+  The cell is ibex_pkg.sv:17  parameter int unsigned IC_TAG_SIZE = ADDR_W - IC_INDEX_W - IC_LINE_W + 1;
+/bin/bash: +: command not found
+  — a  whose LEFT operand is a subtraction, which is LAW B exactly.
+  GOLDEN holds |INT:22 19 times and |UINT:22 3 times; pristine 8/13, law 13/8 — the mover is TO GOLDEN.
+  The row is ibex_icache,{default,testflags},CMP_NOTEQUAL,decompile: in the committed baseline and STAYS so.
+
+--- surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=7b9e2234d243
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=f05c44883b6a pristine=1a6667eee995
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=af6893f845ca pristine=854a93e1ae1b
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=b40aaad5adad pristine=e2ada8f830ff
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=5df9344e26c2 pristine=6befb13e8330
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+  NONE of the five is this pass's, and predict97.py does not name any of them.
+  Attributed ORDER-BLIND on path-normalised SORTED dumps: each moves EXACTLY FOUR LINES,
+  one |UINT: / |vpiDecompile: pair, and across all five |INT: 0, vpiConstType 0, vpiSize 0,
+  Typespec 0, |BIN: 0 — none of the fields these laws write.
+
+  POSITIVE CONTROL, no pad binary needed: the PRISTINE binary run FOUR TIMES on
+  MiniAmiq/default's own cmds.txt invocation produced FOUR DIFFERENT DATABASES
+    98abb96d0f6fca16efa5d362b267237c  ebd2d3d2b8e2d1bfd04ebd1edabe7e1a
+    590246cb12df567c65e0dc2e45c6fe07  c30c2bc6065c149b818bee404b0bfc7c
+  and the order-blind diff of runs 1 and 2 is the SAME class: |UINT:972 -> |UINT:672 with
+  |vpiDecompile: to match, |INT: 0, vpiConstType 0, vpiSize 0, Typespec 0.
+  This is r11u96's R7 / r11v96's RV94-5 — the uvm_pkg 642:23 dynamic-array range bound our
+  emitter prints from an uninitialized pointer-valued UINT — latent on every binary.

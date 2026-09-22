@@ -1,0 +1,35 @@
+=== the 27, scored PER CELL, VIEW-KEYED, five fields (loc97v.py) against FRESH Surelog v1.87 goldens
+r10buvm22repro/g22.sv                            VIEW-KEYED  TO=0  AWAY=0  STILL=0  EQ=285  MWRONG=0  SKIP=6  keys=63
+r10earl60repro/vfe_v60.sv                        VIEW-KEYED  TO=0  AWAY=0  STILL=16  EQ=274  MWRONG=0  SKIP=8  keys=66
+r10earl60repro/vff_v60.sv                        VIEW-KEYED  TO=0  AWAY=0  STILL=12  EQ=398  MWRONG=0  SKIP=9  keys=91
+r10earl71repro/d3_earl71.sv                      VIEW-KEYED  TO=0  AWAY=0  STILL=6  EQ=1309  MWRONG=0  SKIP=1  keys=264
+r10earl76repro/g2_orig76.sv                      VIEW-KEYED  TO=2  AWAY=0  STILL=2  EQ=1801  MWRONG=0  SKIP=3  keys=364
+r10uvm146repro/g146_b_kinds.sv                   VIEW-KEYED  TO=2  AWAY=0  STILL=0  EQ=123  MWRONG=0  SKIP=8  keys=33
+r10uvm154repro/l154_noenum.sv                    VIEW-KEYED  TO=0  AWAY=0  STILL=0  EQ=0  MWRONG=0  SKIP=0  keys=0
+r10uvm185repro/grid185/g185_e_kinds.sv           VIEW-KEYED  TO=0  AWAY=0  STILL=0  EQ=70  MWRONG=0  SKIP=0  keys=14
+r10v146repro/v10_kinds.sv                        VIEW-KEYED  TO=2  AWAY=0  STILL=3  EQ=145  MWRONG=0  SKIP=12  keys=42
+r10v75repro/a5_origin75.sv                       VIEW-KEYED  TO=4  AWAY=0  STILL=15  EQ=1326  MWRONG=0  SKIP=3  keys=272
+r10vearl71repro/v3_enc71.sv                      VIEW-KEYED  TO=0  AWAY=0  STILL=26  EQ=849  MWRONG=0  SKIP=3  keys=178
+r11u38repro/grid/g2_paenc38.sv                   VIEW-KEYED  TO=6  AWAY=0  STILL=9  EQ=470  MWRONG=0  SKIP=3  keys=100
+r11u66repro/grid/g7_add66.sv                     VIEW-KEYED  TO=2  AWAY=0  STILL=49  EQ=374  MWRONG=0  SKIP=30  keys=115
+r11u73repro/grid/w4_hop73.sv                     VIEW-KEYED  TO=0  AWAY=0  STILL=218  EQ=357  MWRONG=0  SKIP=98  keys=213
+r11u73repro/grid/w7_untw73.sv                    VIEW-KEYED  TO=0  AWAY=0  STILL=50  EQ=230  MWRONG=0  SKIP=39  keys=95
+r11u81repro/grid/a1_hopts81.sv                   VIEW-KEYED  TO=0  AWAY=0  STILL=94  EQ=406  MWRONG=0  SKIP=75  keys=175
+r11u86repro/grid/m2_enc86.sv                     VIEW-KEYED  TO=2  AWAY=0  STILL=143  EQ=505  MWRONG=0  SKIP=93  keys=223
+r11v66repro/grid/a6_misc66.sv                    VIEW-KEYED  TO=2  AWAY=0  STILL=32  EQ=216  MWRONG=0  SKIP=16  keys=66
+r11v96repro/grid/v1_amulbrk96v.sv                VIEW-KEYED  TO=10  AWAY=0  STILL=4  EQ=546  MWRONG=0  SKIP=46  keys=158
+r11v96repro/grid/v2_bdecbrk96v.sv                VIEW-KEYED  TO=6  AWAY=0  STILL=38  EQ=311  MWRONG=0  SKIP=36  keys=107
+r11v96repro/grid/v5_unbased96v.sv                VIEW-KEYED  TO=12  AWAY=0  STILL=24  EQ=144  MWRONG=0  SKIP=18  keys=54
+r11v96repro/grid/v7_bigpat96v.sv                 VIEW-KEYED  TO=0  AWAY=0  STILL=18  EQ=187  MWRONG=0  SKIP=32  keys=73
+
+=== this pass's own five grid arms (scored in evidence/GRID97.score against the same goldens)
+r11u97repro/grid/z1_unbased97.sv
+r11u97repro/grid/z2_addmint97.sv
+r11u97repro/grid/z3_cmpfam97.sv
+r11u97repro/grid/z4_xz97.sv
+r11u97repro/grid/z5_chain97.sv
+
+=== THE THREE PAGE-BOUNDARY FALSE MOVERS — |UINT: + |vpiDecompile: only, DELTA EXACTLY 4096
+r10buvm22repro/g22.sv  pris=23302049 law=23306145 delta=4096   |INT:=0 vpiConstType=0 vpiSize=0 Typespec=0
+r10uvm154repro/l154_noenum.sv  pris=23302905 law=23307001 delta=4096   |INT:=0 vpiConstType=0 vpiSize=0 Typespec=0
+r10uvm185repro/grid185/g185_e_kinds.sv  pris=23302905 law=23307001 delta=4096   |INT:=0 vpiConstType=0 vpiSize=0 Typespec=0

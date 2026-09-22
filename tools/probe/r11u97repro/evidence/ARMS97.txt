@@ -1,0 +1,44 @@
+ARM z1_unbased97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=8400 odump=7619
+ARM z1_unbased97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=8400 odump=7619
+ARM z2_addmint97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=11847 odump=10619
+ARM z2_addmint97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=11847 odump=10619
+ARM z3_cmpfam97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=12483 odump=11149
+ARM z3_cmpfam97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=12483 odump=11149
+ARM z4_xz97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=1766 odump=2124
+ARM z4_xz97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=1766 odump=2124
+ARM z5_chain97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=4033 odump=4049
+ARM z5_chain97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=4033 odump=4049
+ARM z6_pahome97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=3102 odump=3252
+ARM z6_pahome97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=3102 odump=3252
+ARM v1_amulbrk96v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=6772 odump=6430
+ARM v1_amulbrk96v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=6772 odump=6430
+ARM v5_unbased96v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=2335 odump=2502
+ARM v5_unbased96v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=2335 odump=2502
+ARM y1_muldiv96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=7131 odump=6576
+ARM y1_muldiv96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=7131 odump=6576
+ARM y2_unsized96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=3950 odump=3813
+ARM y2_unsized96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=3950 odump=3813
+ARM y4_bail96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=861 odump=1289
+ARM y4_bail96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=861 odump=1289

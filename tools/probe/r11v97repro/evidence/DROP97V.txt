@@ -1,0 +1,32 @@
+=== r11v97 DROPPABILITY — rebuilt, not asserted
+chain widening reverted (constexpr bool chn97 = false):
+  md5 f0bace529e70e6bacef573703365a08c — BYTE-IDENTICAL to the implementer's
+  'chain widening reverted' binary, built independently in this verifier's worktree.
+
+scored per cell, per field, PER VIEW, pristine -> chain-reverted:
+  z1_unbased97           VIEW-KEYED  TO=32  AWAY=0  STILL=52  EQ=611  MWRONG=2  SKIP=68  keys=207
+  z2_addmint97           VIEW-KEYED  TO=40  AWAY=0  STILL=12  EQ=913  MWRONG=0  SKIP=91  keys=284
+  z3_cmpfam97            VIEW-KEYED  TO=120  AWAY=0  STILL=39  EQ=946  MWRONG=0  SKIP=96  keys=317
+  z4_xz97                VIEW-KEYED  TO=2  AWAY=0  STILL=14  EQ=154  MWRONG=0  SKIP=8  keys=42
+  z5_chain97             VIEW-KEYED  TO=2  AWAY=0  STILL=28  EQ=240  MWRONG=6  SKIP=26  keys=80
+  z6_pahome97            VIEW-KEYED  TO=13  AWAY=0  STILL=5  EQ=177  MWRONG=0  SKIP=16  keys=55
+  v1_amulbrk96v          VIEW-KEYED  TO=10  AWAY=0  STILL=4  EQ=546  MWRONG=0  SKIP=46  keys=158
+  v5_unbased96v          VIEW-KEYED  TO=12  AWAY=0  STILL=24  EQ=144  MWRONG=0  SKIP=18  keys=54
+  k2_chain94v            VIEW-KEYED  TO=0  AWAY=0  STILL=34  EQ=416  MWRONG=0  SKIP=42  keys=132
+  k8_portdf94v           VIEW-KEYED  TO=2  AWAY=0  STILL=18  EQ=175  MWRONG=2  SKIP=4  keys=43
+
+  z1 34 -> 32 and z5 12 -> 2, MOVED-WRONG 2 + 6 = 8 across the implementer's eight arms —
+  the DROP97 row reproduces exactly.  This verifier's own k8_portdf94v adds 2 more.
+  The chain widening therefore EARNS its place in the patch: LAW A alone regresses
+  without it.
+
+the other faces are droppable by a single constexpr at the ExprEmit call site,
+each independent of the rest:
+    add97      § addMintFollowsOperandMint97 (LAW B)
+    pow97      § addMintFollowsOperandMint97, the POWER child alone
+    cmpInt97   § intCompareIsMinusOne97, the INT:-1 face
+    cmpBin97   § intCompareIsMinusOne97, the BIN: face
+    cmpHome97  § cmpBinIsTheWidthRenderingHome97v (this verifier's fix)
+    chn97      § chainStoreChecksTheInitializer97
+LAW A has NO FLAG — it is the 'if (inArm) red97UnbasedDigit97' block in red72Int64,
+droppable only by removing the block.  Recorded, not objected to.

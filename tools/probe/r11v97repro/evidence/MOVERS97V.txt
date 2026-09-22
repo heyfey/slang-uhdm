@@ -1,0 +1,76 @@
+=== r11v97 BYTEVERIFY — SELFCHECK=1, this verifier's own pristine workdirs
+--- uhdm2rtlil, LAW AS DELIVERED vs PRISTINE
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=9c1ffd34e983 pristine=19ad165bf9cd
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=4440db2c6af1 pristine=b2ab930c9443
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+--- uhdm2rtlil, VERIFIED vs PRISTINE: the SAME two files at the SAME hashes
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=9c1ffd34e983 pristine=19ad165bf9cd
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=4440db2c6af1 pristine=b2ab930c9443
+MOVERS: 2 / 1608
+--- uhdm2rtlil, VERIFIED vs LAW AS DELIVERED: MOVERS 0 / 1608
+    (the verifier's fix is CORPUS-INVISIBLE on uhdm2rtlil — the AWAY it closes is
+     exactly the class the wide boundary exists to catch)
+
+the ibex_icache mover, path-normalised whole-dump diff, PER MODE:
+  20 lines: 5 |UINT:22 -> |INT:22 and 5 |vpiConstType:9 -> :7, and nothing else
+  GOLDEN holds |INT:22 19x against |UINT:22 3x; pristine 8/13; law and verified 13/8.
+  THE MOVER IS TO GOLDEN.  Cell: ibex_pkg.sv:17
+    parameter int unsigned IC_TAG_SIZE = ADDR_W - IC_INDEX_W - IC_LINE_W + 1
+  a '+' whose LEFT operand is a subtraction — LAW B exactly, and predict97.py names
+  the row BY NAME with class ADD97 before any sweep ran.
+
+--- surelog, LAW AS DELIVERED vs PRISTINE
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=43f54a9388c8 pristine=27419f6011b4
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=d6605629816b pristine=2fb39f8b4130
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=47920e20faa2
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=1ffd47421dc9 pristine=7fd82b299a6f
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=62fde8a61845 pristine=ba0635553ccc
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+  order-blind attribution (path-normalised SORTED dumps), every one of the five:
+    4 lines, ONE |UINT:/|vpiDecompile: pair;  |INT: 0  vpiConstType 0  vpiSize 0
+    Typespec 0  |BIN: 0 on all five.
+
+--- surelog, VERIFIED vs PRISTINE: a DIFFERENT DRAW of the same coin
+MOVER ./default/MiniAmiq-544c7f61     MOVER ./default/Scoreboard-59431470
+MOVER ./default/SimpleUVM-1dc93a62    MOVER ./testflags/MiniAmiq-544c7f61
+MOVER ./testflags/SeqDriver-32af76aa  MOVERS: 5 / 960
+=== default/MiniAmiq-544c7f61 orderblind=4 INT=0 ct=0 sz=0 ts=0 BIN=0
+      1 <       |UINT:N
+      1 >       |UINT:N
+      1 <       |vpiDecompile:N
+      1 >       |vpiDecompile:N
+=== default/Scoreboard-59431470 orderblind=0 INT=0 ct=0 sz=0 ts=0 BIN=0
+=== default/SimpleUVM-1dc93a62 orderblind=4 INT=0 ct=0 sz=0 ts=0 BIN=0
+      1 <       |UINT:N
+      1 >       |UINT:N
+      1 <       |vpiDecompile:N
+      1 >       |vpiDecompile:N
+=== testflags/MiniAmiq-544c7f61 orderblind=4 INT=0 ct=0 sz=0 ts=0 BIN=0
+      1 <       |UINT:N
+      1 >       |UINT:N
+      1 <       |vpiDecompile:N
+      1 >       |vpiDecompile:N
+=== testflags/SeqDriver-32af76aa orderblind=4 INT=0 ct=0 sz=0 ts=0 BIN=0
+      1 <       |UINT:N
+      1 >       |UINT:N
+      1 <       |vpiDecompile:N
+      1 >       |vpiDecompile:N
+OB_DONE
+  Scoreboard/default reads ZERO order-blind lines — the pure list-ORDER coin.
+
+=== THE POSITIVE CONTROL, no pad binary needed
+The PRISTINE binary run FOUR TIMES on MiniAmiq/default's own cmds.txt invocation
+produced FOUR DIFFERENT DATABASES:
+2031169eda4996866af488c7e14685a6  /tmp/v11u94_coin/c1.uhdm
+56eed839003258f6db0b46b850faf99c  /tmp/v11u94_coin/c2.uhdm
+31fc6cc1fd56fa714d55033b28ae48e9  /tmp/v11u94_coin/c3.uhdm
+ad5282707c1c6c449d55e97c792f972f  /tmp/v11u94_coin/c4.uhdm
+and the order-blind diff of two of them is the SAME single pair:
+   |UINT:902 -> |UINT:997 and |vpiDecompile:902 -> :997, with |INT: 0, vpiConstType 0,
+   vpiSize 0 and Typespec 0.  R7, latent on every binary.

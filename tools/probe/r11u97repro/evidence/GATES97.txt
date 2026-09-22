@@ -1,0 +1,160 @@
+=== GATES, all mandatory
+
+-- 1. BUILD.  -j 2, md5sum separately, chmod 555 before any sweep.
+pristine                   54d56dd004635a3c0a59112c3f88e571   fdaccc06 unmodified — byte-identical to the main tree and to the ops-brief md5
+law                        457297442d61fd7c085ec369c46e3ad2   this patch
+LAW A reverted             aef9f864008880f6d5e5b1edf7e6ffbd   the red97UnbasedDigit97 block removed from red72Int64
+LAW B reverted             d94bf2e2a32e306157b3c4d9542236f3   add97 = false
+LAW C reverted             522a036444c7134de3d774b0fbd2c591   cmpInt97 = cmpBin97 = false
+power child reverted       4f46d42e4bbd76b947e9dccc023463a6   pow97 = false
+chain widening reverted    f0bace529e70e6bacef573703365a08c   chn97 = false — the ONLY face whose removal produces MOVED-WRONG
+
+-- 2. GOLDENS
+pristine 54d56dd0: PASS=23 FAIL=0
+law      45729744: PASS=23 FAIL=0
+SLANG_UHDM=/bin/false (negative control): PASS=0 FAIL=23
+
+-- 3. uhdm2rtlil, BOTH MODES, BOTH BINARIES
+u2r_tf_pris     CMP_EQUAL: 788 SLANG_REJECT: 67 CMP_NOTEQUAL: 16
+u2r_def_pris    CMP_EQUAL: 788 SLANG_REJECT: 67 CMP_NOTEQUAL: 16
+u2r_tf_lawx     CMP_EQUAL: 788 SLANG_REJECT: 67 CMP_NOTEQUAL: 16
+u2r_def_lawx    CMP_EQUAL: 788 SLANG_REJECT: 67 CMP_NOTEQUAL: 16
+testflags gate vs results/gate_uhdm2rtlil.csv:
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+both-mode 1742-row whole-row join vs results/golden_uhdm2rtlil.csv:
+rows base=1742 new=1742 DIFF=0
+rows base=1742 new=1742 DIFF=0
+
+-- 4. Surelog --mode both, BOTH BINARIES.  474/9 default and 469/8 testflags on both;
+   every histogram cell identical to the committed baseline.
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u97_wd/sl_lawx/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u97_wd/sl_lawx/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     325      247 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+   PRISTINE sweep, same join (the Earlgrey dump-column draw is the PRISTINE sweep's too):
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u97_wd/sl_pris/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u97_wd/sl_pris/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+
+   NO STATUS MOVED, IN EITHER DIRECTION, ON ANY ROW OF EITHER CORPUS.
+
+-- cmds.txt audited BY ABSOLUTE BINARY PATH
+/bin/bash: command substitution: line 1: syntax error near unexpected token `('
+/bin/bash: command substitution: line 1: `grep -l '/tmp/r11u97_bin/pris.bin' \$(find /tmp/r11u97_wd/pris -name cmds.txt) | wc -l) name the frozen pristine"'
+
+-- 4. Surelog --mode both, BOTH BINARIES.  474/9 default and 469/8 testflags on both;
+   every histogram cell identical to the committed baseline.
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u97_wd/sl_lawx/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u97_wd/sl_lawx/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match 
+  default  fresh:     325      247 differ     226 match 
+  testflags  base:     329      303 differ     166 match 
+  testflags  fresh:     330      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+   PRISTINE sweep, same join (the Earlgrey dump-column draw is on the PRISTINE sweep too):
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u97_wd/sl_pris/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u97_wd/sl_pris/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+
+   NO STATUS MOVED, IN EITHER DIRECTION, ON ANY ROW OF EITHER CORPUS.
+
+-- cmds.txt audited BY ABSOLUTE BINARY PATH
+u2r pristine: 1742 files, 1742 name the frozen pristine
+u2r law:      1742 files, 1742 name the frozen law
+surelog: 3162 files; every 'slang:' line names its own frozen binary (0 do not);
+  the 100 with no 'slang:' line at all are rows the golden side failed before our binary ran.
+MAIN-TREE MENTIONS ACROSS THE WHOLE SWEEP SET: 0
+
+-- 6. CANARIES AND PINS
+surelog canaries, LAW:      ---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+surelog canaries, PRISTINE: ---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+  (the 'changed' rows are Earlgrey_0_1's DUMP COLUMN reading blank — the documented
+   uhdm-dump timeout draw under load; the STATUS is CMP_EQUAL on every one and the
+   DATABASE, which is the pin, is byte-identical between the two binaries in both modes.)
+u2r canaries, LAW:      ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+u2r canaries, PRISTINE: ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+ctcan2 surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+ctcan2 u2r:     PASS: every supplementary canary row is byte-identical to the baseline.
+canaudit:       ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+
+PROTECTED DATABASES — md5 (first 12), pristine vs law, both modes:
+  SVSwitch             default   pris=4842211c4030 law=4842211c4030 SAME
+  SVSwitch             testflags pris=4842211c4030 law=4842211c4030 SAME
+  YosysVerx            default   pris=6ccda350c24a law=6ccda350c24a SAME
+  YosysVerx            testflags pris=6ccda350c24a law=6ccda350c24a SAME
+  InterfaceModPort     default   pris=59a365f3ce2c law=59a365f3ce2c SAME
+  InterfaceModPort     testflags pris=59a365f3ce2c law=59a365f3ce2c SAME
+  BlackParrotComplex   default   pris=e3e354129d5a law=e3e354129d5a SAME
+  BlackParrotComplex   testflags pris=73a10e8217e5 law=73a10e8217e5 SAME
+  YosysOldOr           default   pris=d68e0796d62c law=d68e0796d62c SAME
+  YosysOldOr           testflags pris=d68e0796d62c law=d68e0796d62c SAME
+  Earlgrey_0_1         default   pris=8bdf25272e08 law=8bdf25272e08 SAME
+  Earlgrey_0_1         testflags pris=59d0ee6d10c3 law=59d0ee6d10c3 SAME
+
+-- 7. THE CONVERSION ROWS, official uhdm-cmp, golden as LHS, on the LAW binary
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+MiniAmiq       default          0      0 cmp rc=0
+MiniAmiq       testflags        0      0 cmp rc=0
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+ParamOverloading default          0      0 cmp rc=0
+ParamOverloading testflags        0      0 cmp rc=0
+-- measured=13  SKIP-NOFILE=1  UNKNOWN-NAME=0

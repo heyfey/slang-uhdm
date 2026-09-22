@@ -1,0 +1,77 @@
+=== EACH FACE DROPS ALONE — five further binaries from this patch's own flags
+(view-keyed 5-field TO / AWAY / MOVED-WRONG per arm; the pristine dump is always the BEFORE side)
+----- lawx
+  z1_unbased97         VIEW-KEYED  TO=34  AWAY=0  STILL=50  EQ=611  MWRONG=0  SKIP=68  keys=207
+  z2_addmint97         VIEW-KEYED  TO=40  AWAY=0  STILL=12  EQ=913  MWRONG=0  SKIP=91  keys=284
+  z3_cmpfam97          VIEW-KEYED  TO=120  AWAY=0  STILL=39  EQ=946  MWRONG=0  SKIP=96  keys=317
+  z4_xz97              VIEW-KEYED  TO=2  AWAY=0  STILL=14  EQ=154  MWRONG=0  SKIP=8  keys=42
+  z5_chain97           VIEW-KEYED  TO=12  AWAY=0  STILL=18  EQ=240  MWRONG=0  SKIP=26  keys=80
+  z6_pahome97          VIEW-KEYED  TO=13  AWAY=0  STILL=5  EQ=177  MWRONG=0  SKIP=16  keys=55
+  v1_amulbrk96v        VIEW-KEYED  TO=10  AWAY=0  STILL=4  EQ=546  MWRONG=0  SKIP=46  keys=158
+  v5_unbased96v        VIEW-KEYED  TO=12  AWAY=0  STILL=24  EQ=144  MWRONG=0  SKIP=18  keys=54
+  y1_muldiv96          VIEW-KEYED  TO=0  AWAY=0  STILL=22  EQ=563  MWRONG=0  SKIP=56  keys=173
+  y2_unsized96         VIEW-KEYED  TO=0  AWAY=0  STILL=32  EQ=253  MWRONG=0  SKIP=34  keys=91
+----- dropA
+  z1_unbased97         VIEW-KEYED  TO=0  AWAY=0  STILL=84  EQ=611  MWRONG=0  SKIP=68  keys=207
+  z2_addmint97         VIEW-KEYED  TO=40  AWAY=0  STILL=12  EQ=913  MWRONG=0  SKIP=91  keys=284
+  z3_cmpfam97          VIEW-KEYED  TO=116  AWAY=0  STILL=43  EQ=946  MWRONG=3  SKIP=96  keys=317
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z3_cmpfam97 (work@z3_cmpfam97', '85', '31'), 'vp', ['INT'], ['UINT'], ['BIN'])
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z3_cmpfam97 (work@z3_cmpfam97', '85', '31'), 'ct', ['7'], ['9'], ['3'])
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z3_cmpfam97 (work@z3_cmpfam97', '85', '31'), 'd', ['-1'], ['0'], ["32'b0"])
+  z4_xz97              VIEW-KEYED  TO=0  AWAY=0  STILL=16  EQ=154  MWRONG=0  SKIP=8  keys=42
+  z5_chain97           VIEW-KEYED  TO=4  AWAY=0  STILL=26  EQ=240  MWRONG=0  SKIP=26  keys=80
+  z6_pahome97          VIEW-KEYED  TO=13  AWAY=0  STILL=5  EQ=177  MWRONG=0  SKIP=16  keys=55
+  v1_amulbrk96v        VIEW-KEYED  TO=8  AWAY=0  STILL=6  EQ=546  MWRONG=0  SKIP=46  keys=158
+  v5_unbased96v        VIEW-KEYED  TO=0  AWAY=0  STILL=36  EQ=144  MWRONG=0  SKIP=18  keys=54
+  y1_muldiv96          VIEW-KEYED  TO=0  AWAY=0  STILL=22  EQ=563  MWRONG=0  SKIP=56  keys=173
+  y2_unsized96         VIEW-KEYED  TO=0  AWAY=0  STILL=32  EQ=253  MWRONG=0  SKIP=34  keys=91
+----- dropB
+  z1_unbased97         VIEW-KEYED  TO=34  AWAY=0  STILL=50  EQ=611  MWRONG=0  SKIP=68  keys=207
+  z2_addmint97         VIEW-KEYED  TO=0  AWAY=0  STILL=52  EQ=913  MWRONG=0  SKIP=91  keys=284
+  z3_cmpfam97          VIEW-KEYED  TO=120  AWAY=0  STILL=39  EQ=946  MWRONG=0  SKIP=96  keys=317
+  z4_xz97              VIEW-KEYED  TO=2  AWAY=0  STILL=14  EQ=154  MWRONG=0  SKIP=8  keys=42
+  z5_chain97           VIEW-KEYED  TO=12  AWAY=0  STILL=18  EQ=240  MWRONG=0  SKIP=26  keys=80
+  z6_pahome97          VIEW-KEYED  TO=13  AWAY=0  STILL=5  EQ=177  MWRONG=0  SKIP=16  keys=55
+  v1_amulbrk96v        VIEW-KEYED  TO=6  AWAY=0  STILL=8  EQ=546  MWRONG=0  SKIP=46  keys=158
+  v5_unbased96v        VIEW-KEYED  TO=12  AWAY=0  STILL=24  EQ=144  MWRONG=0  SKIP=18  keys=54
+  y1_muldiv96          VIEW-KEYED  TO=0  AWAY=0  STILL=22  EQ=563  MWRONG=0  SKIP=56  keys=173
+  y2_unsized96         VIEW-KEYED  TO=0  AWAY=0  STILL=32  EQ=253  MWRONG=0  SKIP=34  keys=91
+----- dropC
+  z1_unbased97         VIEW-KEYED  TO=34  AWAY=0  STILL=50  EQ=611  MWRONG=0  SKIP=68  keys=207
+  z2_addmint97         VIEW-KEYED  TO=40  AWAY=0  STILL=12  EQ=913  MWRONG=0  SKIP=91  keys=284
+  z3_cmpfam97          VIEW-KEYED  TO=0  AWAY=0  STILL=159  EQ=946  MWRONG=0  SKIP=96  keys=317
+  z4_xz97              VIEW-KEYED  TO=2  AWAY=0  STILL=14  EQ=154  MWRONG=0  SKIP=8  keys=42
+  z5_chain97           VIEW-KEYED  TO=12  AWAY=0  STILL=18  EQ=240  MWRONG=0  SKIP=26  keys=80
+  z6_pahome97          VIEW-KEYED  TO=0  AWAY=0  STILL=18  EQ=177  MWRONG=0  SKIP=16  keys=55
+  v1_amulbrk96v        VIEW-KEYED  TO=6  AWAY=0  STILL=8  EQ=546  MWRONG=0  SKIP=46  keys=158
+  v5_unbased96v        VIEW-KEYED  TO=12  AWAY=0  STILL=24  EQ=144  MWRONG=0  SKIP=18  keys=54
+  y1_muldiv96          VIEW-KEYED  TO=0  AWAY=0  STILL=22  EQ=563  MWRONG=0  SKIP=56  keys=173
+  y2_unsized96         VIEW-KEYED  TO=0  AWAY=0  STILL=32  EQ=253  MWRONG=0  SKIP=34  keys=91
+----- dropP
+  z1_unbased97         VIEW-KEYED  TO=34  AWAY=0  STILL=50  EQ=611  MWRONG=0  SKIP=68  keys=207
+  z2_addmint97         VIEW-KEYED  TO=36  AWAY=0  STILL=16  EQ=913  MWRONG=0  SKIP=91  keys=284
+  z3_cmpfam97          VIEW-KEYED  TO=120  AWAY=0  STILL=39  EQ=946  MWRONG=0  SKIP=96  keys=317
+  z4_xz97              VIEW-KEYED  TO=2  AWAY=0  STILL=14  EQ=154  MWRONG=0  SKIP=8  keys=42
+  z5_chain97           VIEW-KEYED  TO=12  AWAY=0  STILL=18  EQ=240  MWRONG=0  SKIP=26  keys=80
+  z6_pahome97          VIEW-KEYED  TO=13  AWAY=0  STILL=5  EQ=177  MWRONG=0  SKIP=16  keys=55
+  v1_amulbrk96v        VIEW-KEYED  TO=10  AWAY=0  STILL=4  EQ=546  MWRONG=0  SKIP=46  keys=158
+  v5_unbased96v        VIEW-KEYED  TO=12  AWAY=0  STILL=24  EQ=144  MWRONG=0  SKIP=18  keys=54
+  y1_muldiv96          VIEW-KEYED  TO=0  AWAY=0  STILL=22  EQ=563  MWRONG=0  SKIP=56  keys=173
+  y2_unsized96         VIEW-KEYED  TO=0  AWAY=0  STILL=32  EQ=253  MWRONG=0  SKIP=34  keys=91
+----- dropH
+  z1_unbased97         VIEW-KEYED  TO=32  AWAY=0  STILL=52  EQ=611  MWRONG=2  SKIP=68  keys=207
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z1_unbased97 (work@z1_unbased97', '60', '32'), 'vd', ['4'], ['17179869180'], ['-4'])
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z1_unbased97 (work@z1_unbased97', '60', '32'), 'd', ['4'], ['17179869180'], ['-4'])
+  z2_addmint97         VIEW-KEYED  TO=40  AWAY=0  STILL=12  EQ=913  MWRONG=0  SKIP=91  keys=284
+  z3_cmpfam97          VIEW-KEYED  TO=120  AWAY=0  STILL=39  EQ=946  MWRONG=0  SKIP=96  keys=317
+  z4_xz97              VIEW-KEYED  TO=2  AWAY=0  STILL=14  EQ=154  MWRONG=0  SKIP=8  keys=42
+  z5_chain97           VIEW-KEYED  TO=2  AWAY=0  STILL=28  EQ=240  MWRONG=6  SKIP=26  keys=80
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z5_chain97 (work@z5_chain97', '33', '31'), 'vd', ['4'], ['17179869180'], ['-4'])
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z5_chain97 (work@z5_chain97', '33', '31'), 'd', ['4'], ['17179869180'], ['-4'])
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z5_chain97 (work@z5_chain97', '34', '31'), 'vd', ['3'], ['17179869179'], ['-5'])
+    ('MOVED-WRONG', ('uhdmtopModules', 'work@z5_chain97 (work@z5_chain97', '34', '31'), 'd', ['3'], ['17179869179'], ['-5'])
+  z6_pahome97          VIEW-KEYED  TO=13  AWAY=0  STILL=5  EQ=177  MWRONG=0  SKIP=16  keys=55
+  v1_amulbrk96v        VIEW-KEYED  TO=10  AWAY=0  STILL=4  EQ=546  MWRONG=0  SKIP=46  keys=158
+  v5_unbased96v        VIEW-KEYED  TO=12  AWAY=0  STILL=24  EQ=144  MWRONG=0  SKIP=18  keys=54
+  y1_muldiv96          VIEW-KEYED  TO=0  AWAY=0  STILL=22  EQ=563  MWRONG=0  SKIP=56  keys=173
+  y2_unsized96         VIEW-KEYED  TO=0  AWAY=0  STILL=32  EQ=253  MWRONG=0  SKIP=34  keys=91
