@@ -927,6 +927,20 @@ private:
                                  UHDM::VectorOfvariables* hvars77,
                                  UHDM::VectorOfnet* hnets77,
                                  UHDM::VectorOfarray_net* hanets77);
+    /// § caIfaceImportedPkgHoist83 — the ELABORATED hoisted-import listing,
+    /// shared by the module home (`emitInstance`) and the INTERFACE home
+    /// (`emitInterfaceInstance`).  The producer builds both from one vector
+    /// (`comp->getSignals()`, NetlistElaboration.cpp:2810), so this builder is
+    /// one function and the two homes cannot drift.  `arrayNets` is taken by
+    /// reference because the interface home creates its slot on demand;
+    /// `sigOrder` may be null (the interface home keeps no such order).
+    void emitHoistedPkgListing83(
+        const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
+        const std::string& prefix, UHDM::VectorOfvariables* vars,
+        UHDM::VectorOfnet* nets, UHDM::VectorOfarray_net*& arrayNets,
+        NetMap& topNets,
+        std::vector<std::pair<const slang::ast::Symbol*, UHDM::any*>>*
+            sigOrder);
     UHDM::instance* emitModuleDefPorts(const slang::ast::InstanceSymbol& inst);
     UHDM::instance* emitInstance(const slang::ast::InstanceSymbol& inst,
                                  const std::string& path, UHDM::instance* parentM,

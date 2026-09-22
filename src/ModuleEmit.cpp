@@ -1355,6 +1355,34 @@ static bool cellDbg77() {
 }
 
 // ===========================================================================
+// § caIfaceImportedPkgHoist83 / § caIfaceBodyCaFolds83 (r11u83) — THE
+// INTERFACE BODY'S TWO ELABORATED FACES, batched.  Two switches, each
+// droppable ALONE: `R11U83_IFHOIST_OFF=1` drops the interface-body hoisted
+// import listing (the elaborated interface lists `collectNetOrder` alone, as
+// before); `R11U83_IFCAFOLD_OFF=1` drops the interface body's own
+// module-level `cont_assign` fold (the def object is shared through, as
+// before); `R11U83_OFF=1` drops both.  `R11U83_CELLDBG=1` traces every cell
+// that reaches EITHER site, the declined ones included, and the trace is
+// taken BEFORE the gate so one run predicts the mover set.
+static bool ifHoistOff83() {
+    static const bool v = getenv("R11U83_IFHOIST_OFF") != nullptr ||
+                          getenv("R11U83_OFF") != nullptr;
+    return v;
+}
+static bool ifCaFoldOff83() {
+    static const bool v = getenv("R11U83_IFCAFOLD_OFF") != nullptr ||
+                          getenv("R11U83_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg83() {
+    static const bool v = [] {
+        const char* e = getenv("R11U83_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+// ===========================================================================
 // § caImportedPkgHoistUnpackedBuilder80 / § caImportedPkgDefNetTypeVar80
 // (r11u80) — r11u77's two residues, batched.  Two switches, each droppable
 // ALONE: `R11U80_HOLDER_OFF=1` drops the unpacked HOLDER BUILDER (every
@@ -9190,6 +9218,185 @@ void UhdmExporter::foldConnReplNested54(UHDM::any* h, const Expression& conn,
     walk((UHDM::operation*)h);
 }
 
+// § caIfaceImportedPkgHoist83 (r11u83) — THE ELABORATED HOISTED-IMPORT
+// LISTING, ONE BUILDER FOR BOTH HOMES.
+//
+// THE PRODUCER HAS ONE ROAD.  `CompileHelper::importPackage`
+// (~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:171-189) pushes the
+// imported package's variables and its whole SIGNAL VECTOR into the IMPORTING
+// component's own registries, and `CompileModule::collectObjects_`
+// (src/DesignCompile/CompileModule.cpp:579/603 and :1066/1087) is the caller
+// for an INTERFACE declaration exactly as it is for a module — Surelog files
+// both under `ModuleDefinition`.  The elaborated listing is then built by
+// `NetlistElaboration::elab_ports_nets_`'s pass 1 over `comp->getSignals()`
+// (NetlistElaboration.cpp:2810-2811, :3035-3052), and that function's own
+// component-type switch NAMES `paInterface_declaration`
+// (NetlistElaboration.cpp:2807) beside `paModule_declaration`.  The interface
+// instance reaches it through `elab_interface_`
+// (NetlistElaboration.cpp:1847-1849), which calls `elab_ports_nets_` twice
+// with the interface's `ModuleDefinition`.  So a package signal imported into
+// an INTERFACE body is materialised by the SAME `elabSignal` kind table, in
+// the same vector order, as one imported into a module body.
+//
+// We had the module half (r11u77/r11u79) and not the interface half: the
+// interface's elaborated view listed `collectNetOrder(body)` alone.  The
+// pass-80 collide fallback proved the consequence — on arm `w1_iface` the
+// lookup CHOOSES golden's object (`take=1`) and `resolve82` then finds no
+// emitted object for it, so `shadowed82` hands the cell back to the
+// interface's own namesake.  The defect was upstream in the hoist, and this
+// is that hoist: the module-side block is lifted out verbatim so the two
+// homes cannot drift, exactly as r11u69 lifted `caStructParamSetter55` out
+// when its second home landed.
+void UhdmExporter::emitHoistedPkgListing83(
+    const InstanceBodySymbol& body, UHDM::instance* m,
+    const std::string& prefix, UHDM::VectorOfvariables* vars,
+    UHDM::VectorOfnet* nets, UHDM::VectorOfarray_net*& arrayNets,
+    NetMap& topNets,
+    std::vector<std::pair<const Symbol*, UHDM::any*>>* sigOrder) {
+        auto* mvars9 = s.MakeVariablesVec();
+        // § caImportedPkgNetHoist77 / § caImportedPkgHoistKindTable77 — the
+        // hoisted NETS and the shapes whose elaborated KIND golden does not
+        // read off the declaration.  The two laws are gated apart: a package
+        // NET exists here only because LAW A listed it, so its whole kind
+        // walk is LAW A's; a package VARIABLE's kind correction is LAW B's.
+        auto* hnets77 = s.MakeNetVec();
+        auto* hanets77 = s.MakeArray_netVec();
+        std::vector<const Symbol*> sigs77;
+        collectImportedPkgVars(body, *sm, &sigs77, !pkgNetOff77(),
+                               !hoistKindOff77());
+        for (auto* iv9 : sigs77) {
+            const DeclaredType* dt9 = iv9->getDeclaredType();
+            HoistKind77 hk77 = HoistKind77::Pre77;
+            if (iv9->kind == SymbolKind::Net ? !pkgNetOff77()
+                                             : !hoistKindOff77())
+                hk77 = hoistKind77(*iv9);
+            if (cellDbg77())
+                fprintf(stderr,
+                        "R11U77HOIST name=%s net=%d kind=%d prefix=%s\n",
+                        std::string(iv9->name).c_str(),
+                        (int)(iv9->kind == SymbolKind::Net), (int)hk77,
+                        prefix.c_str());
+            // § caImportedPkgHoistUnpackedIsWrappedScalar77 — an unpacked
+            // array whose golden holder this builder does not write keeps the
+            // PRE-77 ELABORATED reading, which is no holder at all: the entry
+            // is skipped outright, never handed to the pre-77 road, so the
+            // elaborated listing is byte-for-byte pristine's for it.  Its
+            // DEF-VIEW entry is LAW A's and is not touched here.
+            if (hk77 == HoistKind77::ArraySkip)
+                continue;
+            if (hk77 != HoistKind77::Pre77 &&
+                hk77 != HoistKind77::PkgVarRoad) {
+                if (auto* ho77 =
+                        makeHoistHolder77(*iv9, (int)hk77, m, prefix, mvars9,
+                                          hnets77, hanets77)) {
+                    if (!topNets.count(iv9)) {
+                        topNets[iv9] = ho77;
+                        if (sigOrder) sigOrder->emplace_back(iv9, ho77);
+                    }
+                    continue;
+                }
+            }
+            bool intTypedef9 = hk77 != HoistKind77::PkgVarRoad && dt9 &&
+                               dt9->getType().kind == SymbolKind::TypeAlias &&
+                               dt9->getType().getCanonicalType().isIntegral() &&
+                               !dt9->getType().getCanonicalType().isEnum();
+            if (!intTypedef9) {
+                size_t at9 = mvars9->size();
+                emitPackageVar(*iv9, m, prefix + ".", mvars9,
+                               /*stampTsInstance=*/false);
+                if (mvars9->size() > at9 && !topNets.count(iv9)) {
+                    topNets[iv9] = (*mvars9)[at9];
+                    if (sigOrder) sigOrder->emplace_back(iv9, (*mvars9)[at9]);
+                }
+                continue;
+            }
+            auto* lv9 = s.MakeLogic_var();
+            lv9->VpiName(iv9->name);
+            lv9->VpiFullName(prefix + "." + std::string(iv9->name));
+            lv9->VpiParent(m);
+            setLoc(lv9, nameSpan(iv9->location, iv9->name));
+            lv9->VpiVisibility(1);
+            // § hoistedLocalKeepsItsLifetime209 — THE ONE COPY THIS LISTING
+            // MINTS ITSELF.  Every other entry above goes through
+            // `emitPackageVar`, which is the law's single decision point; the
+            // integral-typedef arm builds its `logic_var` here, so it has to
+            // carry the source variable's lifetime here too, by the same rule
+            // and with the same gate.  A package MEMBER's copy keeps the
+            // net_declaration shape and stays UNMARKED — golden reads
+            // `vg209_t pg_vec` (a package item) as vpiAutomatic 0 in the
+            // module's listing — while a HOISTED constructor local of the very
+            // same written type is a block_item_declaration and reads 1: grid
+            // arm G's `vg209_t lg_vec`, both module copies, both views, on a
+            // real Surelog golden.  Without this the head simply moved one kind
+            // sideways.
+            bool ownPkgMember209 =
+                iv9->getParentScope() &&
+                iv9->getParentScope()->asSymbol().kind == SymbolKind::Package;
+            // The listing is a Symbol vector since § caImportedPkgNetHoist77;
+            // this arm is a VARIABLE's by construction (`intTypedef9` reads a
+            // TypeAlias declared type and a package NET never reaches it).
+            if (!ownPkgMember209 &&
+                iv9->kind == SymbolKind::Variable &&
+                iv9->as<VariableSymbol>().lifetime != VariableLifetime::Static)
+                lv9->VpiAutomatic(true);
+            auto& ta9 = dt9->getType().as<TypeAliasType>();
+            const syntax::SyntaxNode* tSyn9 = nullptr;
+            if (auto asyn9 = ta9.getSyntax())
+                if (asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)
+                    tSyn9 = asyn9->as<syntax::TypedefDeclarationSyntax>().type;
+            bool savedBTS9 = bypassTypedefShare;
+            bypassTypedefShare = true;
+            auto* cl9 = makeTypespec(ta9, tSyn9);
+            bypassTypedefShare = savedBTS9;
+            if (cl9) {
+                cl9->VpiName(ta9.name);
+                if (auto hs9 = ta9.getParentScope();
+                    hs9 && hs9->asSymbol().kind == SymbolKind::Package)
+                    if (auto hp9 = pkgDefMap.find(&hs9->asSymbol());
+                        hp9 != pkgDefMap.end())
+                        cl9->Instance((UHDM::instance*)hp9->second);
+                auto* rt9 = s.MakeRef_typespec();
+                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
+                rt9->VpiParent(lv9);
+                rt9->Actual_typespec(cl9);
+                lv9->Typespec(rt9);
+            }
+            if (!topNets.count(iv9)) {
+                topNets[iv9] = lv9;
+                if (sigOrder) sigOrder->emplace_back(iv9, lv9);
+            }
+            mvars9->push_back(lv9);
+        }
+        // NOTE § pkgInitRefBindsOwnListing47 — the module's HOISTED listing is a
+        // listing in its own right and golden resolves its initialisers inside
+        // it: arm t65a's `work@t65a.i_back` binds `work@t65a.i_first`, the
+        // module's own hoisted copy, not p1's package object.  Same gate as the
+        // package call site (this vector, unqualified name, first wins,
+        // variables only) — run here, before the merge, so the module's OWN
+        // variables are not in scope of the lookup: golden's hoisted group is
+        // resolved against itself and this pass has no golden for a hoisted
+        // initialiser that names a module-local variable.
+        bindListingInitRefs47(mvars9);
+        if (!mvars9->empty())
+            vars->insert(vars->begin(), mvars9->begin(), mvars9->end());
+        // The hoisted group LEADS the module's own declarations in every
+        // slot, not only in `Variables()`: golden's elab `work@dut` lists
+        // `struct_net t_ns` ahead of the module's own output net `o`
+        // (xe_impkind), and the array_net slot follows the same order.
+        if (!hnets77->empty())
+            nets->insert(nets->begin(), hnets77->begin(), hnets77->end());
+        if (!hanets77->empty()) {
+            // § caIfaceImportedPkgHoist83 — the INTERFACE home creates its
+            // array-net slot on demand (the module home always has one), so
+            // the shared builder owns the vector's existence too.
+            if (!arrayNets)
+                arrayNets = s.MakeArray_netVec();
+            arrayNets->insert(arrayNets->begin(), hanets77->begin(),
+                              hanets77->end());
+        }
+}
+
+
 UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                            UHDM::instance* parentM, NetMap* parentNets,
                                            std::set<const Symbol*>* parentRefs, bool isTop) {
@@ -11366,143 +11573,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // (string_var + its const initializer, class_var, int_var — ApbSlave),
     // which is exactly emitPackageVar's shape, minus the package
     // vpiInstance. The whole group leads the module's own variables.
-    {
-        auto* mvars9 = s.MakeVariablesVec();
-        // § caImportedPkgNetHoist77 / § caImportedPkgHoistKindTable77 — the
-        // hoisted NETS and the shapes whose elaborated KIND golden does not
-        // read off the declaration.  The two laws are gated apart: a package
-        // NET exists here only because LAW A listed it, so its whole kind
-        // walk is LAW A's; a package VARIABLE's kind correction is LAW B's.
-        auto* hnets77 = s.MakeNetVec();
-        auto* hanets77 = s.MakeArray_netVec();
-        std::vector<const Symbol*> sigs77;
-        collectImportedPkgVars(body, *sm, &sigs77, !pkgNetOff77(),
-                               !hoistKindOff77());
-        for (auto* iv9 : sigs77) {
-            const DeclaredType* dt9 = iv9->getDeclaredType();
-            HoistKind77 hk77 = HoistKind77::Pre77;
-            if (iv9->kind == SymbolKind::Net ? !pkgNetOff77()
-                                             : !hoistKindOff77())
-                hk77 = hoistKind77(*iv9);
-            if (cellDbg77())
-                fprintf(stderr,
-                        "R11U77HOIST name=%s net=%d kind=%d prefix=%s\n",
-                        std::string(iv9->name).c_str(),
-                        (int)(iv9->kind == SymbolKind::Net), (int)hk77,
-                        prefix.c_str());
-            // § caImportedPkgHoistUnpackedIsWrappedScalar77 — an unpacked
-            // array whose golden holder this builder does not write keeps the
-            // PRE-77 ELABORATED reading, which is no holder at all: the entry
-            // is skipped outright, never handed to the pre-77 road, so the
-            // elaborated listing is byte-for-byte pristine's for it.  Its
-            // DEF-VIEW entry is LAW A's and is not touched here.
-            if (hk77 == HoistKind77::ArraySkip)
-                continue;
-            if (hk77 != HoistKind77::Pre77 &&
-                hk77 != HoistKind77::PkgVarRoad) {
-                if (auto* ho77 =
-                        makeHoistHolder77(*iv9, (int)hk77, m, prefix, mvars9,
-                                          hnets77, hanets77)) {
-                    if (!topNets.count(iv9)) {
-                        topNets[iv9] = ho77;
-                        sigOrder.emplace_back(iv9, ho77);
-                    }
-                    continue;
-                }
-            }
-            bool intTypedef9 = hk77 != HoistKind77::PkgVarRoad && dt9 &&
-                               dt9->getType().kind == SymbolKind::TypeAlias &&
-                               dt9->getType().getCanonicalType().isIntegral() &&
-                               !dt9->getType().getCanonicalType().isEnum();
-            if (!intTypedef9) {
-                size_t at9 = mvars9->size();
-                emitPackageVar(*iv9, m, prefix + ".", mvars9,
-                               /*stampTsInstance=*/false);
-                if (mvars9->size() > at9 && !topNets.count(iv9)) {
-                    topNets[iv9] = (*mvars9)[at9];
-                    sigOrder.emplace_back(iv9, (*mvars9)[at9]);
-                }
-                continue;
-            }
-            auto* lv9 = s.MakeLogic_var();
-            lv9->VpiName(iv9->name);
-            lv9->VpiFullName(prefix + "." + std::string(iv9->name));
-            lv9->VpiParent(m);
-            setLoc(lv9, nameSpan(iv9->location, iv9->name));
-            lv9->VpiVisibility(1);
-            // § hoistedLocalKeepsItsLifetime209 — THE ONE COPY THIS LISTING
-            // MINTS ITSELF.  Every other entry above goes through
-            // `emitPackageVar`, which is the law's single decision point; the
-            // integral-typedef arm builds its `logic_var` here, so it has to
-            // carry the source variable's lifetime here too, by the same rule
-            // and with the same gate.  A package MEMBER's copy keeps the
-            // net_declaration shape and stays UNMARKED — golden reads
-            // `vg209_t pg_vec` (a package item) as vpiAutomatic 0 in the
-            // module's listing — while a HOISTED constructor local of the very
-            // same written type is a block_item_declaration and reads 1: grid
-            // arm G's `vg209_t lg_vec`, both module copies, both views, on a
-            // real Surelog golden.  Without this the head simply moved one kind
-            // sideways.
-            bool ownPkgMember209 =
-                iv9->getParentScope() &&
-                iv9->getParentScope()->asSymbol().kind == SymbolKind::Package;
-            // The listing is a Symbol vector since § caImportedPkgNetHoist77;
-            // this arm is a VARIABLE's by construction (`intTypedef9` reads a
-            // TypeAlias declared type and a package NET never reaches it).
-            if (!ownPkgMember209 &&
-                iv9->kind == SymbolKind::Variable &&
-                iv9->as<VariableSymbol>().lifetime != VariableLifetime::Static)
-                lv9->VpiAutomatic(true);
-            auto& ta9 = dt9->getType().as<TypeAliasType>();
-            const syntax::SyntaxNode* tSyn9 = nullptr;
-            if (auto asyn9 = ta9.getSyntax())
-                if (asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)
-                    tSyn9 = asyn9->as<syntax::TypedefDeclarationSyntax>().type;
-            bool savedBTS9 = bypassTypedefShare;
-            bypassTypedefShare = true;
-            auto* cl9 = makeTypespec(ta9, tSyn9);
-            bypassTypedefShare = savedBTS9;
-            if (cl9) {
-                cl9->VpiName(ta9.name);
-                if (auto hs9 = ta9.getParentScope();
-                    hs9 && hs9->asSymbol().kind == SymbolKind::Package)
-                    if (auto hp9 = pkgDefMap.find(&hs9->asSymbol());
-                        hp9 != pkgDefMap.end())
-                        cl9->Instance((UHDM::instance*)hp9->second);
-                auto* rt9 = s.MakeRef_typespec();
-                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
-                rt9->VpiParent(lv9);
-                rt9->Actual_typespec(cl9);
-                lv9->Typespec(rt9);
-            }
-            if (!topNets.count(iv9)) {
-                topNets[iv9] = lv9;
-                sigOrder.emplace_back(iv9, lv9);
-            }
-            mvars9->push_back(lv9);
-        }
-        // NOTE § pkgInitRefBindsOwnListing47 — the module's HOISTED listing is a
-        // listing in its own right and golden resolves its initialisers inside
-        // it: arm t65a's `work@t65a.i_back` binds `work@t65a.i_first`, the
-        // module's own hoisted copy, not p1's package object.  Same gate as the
-        // package call site (this vector, unqualified name, first wins,
-        // variables only) — run here, before the merge, so the module's OWN
-        // variables are not in scope of the lookup: golden's hoisted group is
-        // resolved against itself and this pass has no golden for a hoisted
-        // initialiser that names a module-local variable.
-        bindListingInitRefs47(mvars9);
-        if (!mvars9->empty())
-            vars->insert(vars->begin(), mvars9->begin(), mvars9->end());
-        // The hoisted group LEADS the module's own declarations in every
-        // slot, not only in `Variables()`: golden's elab `work@dut` lists
-        // `struct_net t_ns` ahead of the module's own output net `o`
-        // (xe_impkind), and the array_net slot follows the same order.
-        if (!hnets77->empty())
-            nets->insert(nets->begin(), hnets77->begin(), hnets77->end());
-        if (!hanets77->empty())
-            arrayNets->insert(arrayNets->begin(), hanets77->begin(),
-                              hanets77->end());
-    }
+    // § caIfaceImportedPkgHoist83 (r11u83) — the shared builder; the
+    // module home's bytes are this block's, moved and not changed.
+    emitHoistedPkgListing83(body, m, prefix, vars, nets, arrayNets,
+                            topNets, &sigOrder);
     if (!nets->empty())
         m->Nets(nets);
     mintUnitEnumNets(body, m, prefix, topNets, /*defView=*/false);
@@ -38784,6 +38858,57 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         vars->push_back(v);
     }
     ifaceDefaultScope = nullptr;
+    // § caIfaceImportedPkgHoist83 (r11u83) — LAW A.  THE INTERFACE BODY'S
+    // HOISTED IMPORT LISTING, the same builder the module home runs.
+    //
+    // The decode is at `emitHoistedPkgListing83`: `elab_ports_nets_`'s
+    // component-type switch names `paInterface_declaration`
+    // (NetlistElaboration.cpp:2807) beside `paModule_declaration` and its
+    // pass 1 walks `comp->getSignals()` — the very vector
+    // `CompileHelper::importPackage` pushed the imported package's signals
+    // into (CompileHelper.cpp:183-190), for an interface scope exactly as for
+    // a module one.  So the entries, their order and their kinds are the
+    // module home's; nothing here is new but the CALL.
+    //
+    // It runs BEFORE the generic-port doubling below, because the producer's
+    // doubling is a doubling of `netlist->variables()` — the hoisted group is
+    // already in that vector when it happens (arm `i7_dblgen`).
+    //
+    // THE PORT VIEW TAKES THE VARIABLES AND NOT THE NETS, measured on arm
+    // `i4_portview` and not inferred from the `portView` guard the
+    // cont_assign and task_func listings use.  Golden's reference-style view
+    // `work@dut.u_sub.p` lists `[k_var (the hoisted copy), i_own]` and NO
+    // `vpiNet` at all, while the home view `work@dut.u_if` lists those two
+    // variables AND the hoisted `k_net` — which is the same shape our port
+    // view already has for the interface's OWN declarations (it lists the
+    // variables and no nets).  So the port view runs the same builder with a
+    // THROWAWAY net slot: one rule, two slots, and the net half is withheld
+    // by where its output goes rather than by a second decision.
+    //
+    // The holders are filed in `netMap`, which is what serves the cells:
+    // pass 80's `resolve82` reads `netMap` first, so the gen-scope namesake
+    // lookup (§ caNamesakeImportCopyShadows82 + § caNamesakeStructIsProducer
+    // Net82) finds the imported copy with NO NEW LOOKUP CODE — proved by
+    // construction (this block adds nothing to `genCaLhsNamesake74` or to
+    // `resolve82`) and by arm (`w1_iface`'s two cells).
+    if (!ifHoistOff83()) {
+        std::vector<const Symbol*> ifsig83;
+        collectImportedPkgVars(body, *sm, &ifsig83, !pkgNetOff77(),
+                               !hoistKindOff77());
+        if (cellDbg83())
+            for (auto* hs83 : ifsig83)
+                fprintf(stderr,
+                        "R11U83IFHOIST prefix=%s name=%s net=%d portview=%d\n",
+                        prefix.c_str(), std::string(hs83->name).c_str(),
+                        (int)(hs83->kind == SymbolKind::Net),
+                        (int)(portView != nullptr));
+        auto* hnetSlot83 = portView ? s.MakeNetVec() : elabNets;
+        UHDM::VectorOfarray_net* hanetSlot83 = nullptr;
+        UHDM::VectorOfarray_net*& hanetRef83 =
+            portView ? hanetSlot83 : elabArrayNets;
+        emitHoistedPkgListing83(body, iface, prefix, vars, hnetSlot83,
+                                hanetRef83, netMap, /*sigOrder=*/nullptr);
+    }
     // An interface handed to a PLAIN generic interface port lists its
     // variables TWICE (see boundToPlainGenericIfacePort) on its HOME view and
     // on THAT port's own view.  A sibling TYPED port's view of the same
@@ -39208,7 +39333,102 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     if (auto iit2 = ifaceDefMap.find(&def);
         !portView && iit2 != ifaceDefMap.end() && iit2->second->Cont_assigns()) {
         auto* elabCas = s.MakeCont_assignVec();
+        // § caIfaceBodyCaFolds83 (r11u83) — LAW B.  THE INTERFACE BODY'S OWN
+        // MODULE-LEVEL `cont_assign` LISTING IS `writeCont_assign`'S, THE
+        // SAME WRITER THE MODULE'S IS.
+        //
+        // THE DECODE.  `NetlistElaboration::elaborate_`
+        // (~/git-repos/Surelog/src/DesignCompile/NetlistElaboration.cpp:
+        // 762-772) pushes the DEFINITION component's `getContAssigns()` into
+        // the INSTANCE's own netlist — for an interface instance exactly as
+        // for a module one — and `UhdmWriter::writeElabInterface`
+        // (src/DesignCompile/UhdmWriter.cpp:4296-4303) then hands that vector
+        // to `UhdmWriter::writeCont_assign` (:2090), which is the identical
+        // call `writeElabModule` makes at :4146.  Inside it, a cell whose Rhs
+        // REDUCES to a constant is CLONED and folded (:2246-2277), so the
+        // elaborated interface view holds a fresh `cont_assign` carrying the
+        // reduced constant while the def view keeps the written expression.
+        //
+        // We shared the def object through instead, and arm `g11_iface`'s
+        // ONE head was exactly that: golden `constant UINT:6 vpiSize:32` at
+        // the package literal's own span (line 6:31) parented at the elab
+        // `cont_assign` (line 12:10), ours the def `hier_path (C.n)`.  The
+        // generate-scope twin one line down already folds — that is r11u69's
+        // § caStructParamGenScopeSubst69, whose home `emitGenScopes` an
+        // interface DOES reach — so this is the same law's remaining home,
+        // and it runs through the SAME decision and the SAME emitter
+        // (`caStructParamSetter55` / `emitCaStructParamSubst55`), not a
+        // second copy of them.
+        //
+        // THE AST SIDE, index-aligned and SELF-CHECKED.  The def listing was
+        // built by `emitContAssigns` walking `caOrder` — `body.members()` in
+        // source order with the gen-region entries rotated to the end and a
+        // non-`Assignment` form skipped.  This rebuilds that same order over
+        // the ELABORATED body (a different `InstanceBodySymbol` clone of the
+        // same syntax) and uses it ONLY when the two lists are the same
+        // length; a length mismatch declines the law outright rather than
+        // risk reading another cell's expression.
+        std::vector<const ContinuousAssignSymbol*> caSyms83;
+        if (!ifCaFoldOff83()) {
+            std::vector<const ContinuousAssignSymbol*> genRegion83;
+            for (auto& mem83 : body.members()) {
+                if (mem83.kind != SymbolKind::ContinuousAssign)
+                    continue;
+                auto& cs83 = mem83.as<ContinuousAssignSymbol>();
+                if (cs83.getAssignment().kind != ExpressionKind::Assignment)
+                    continue;
+                bool inGenRegion83 = false;
+                for (auto q83 = mem83.getSyntax(); q83; q83 = q83->parent) {
+                    if (q83->kind == syntax::SyntaxKind::GenerateRegion) {
+                        inGenRegion83 = true;
+                        break;
+                    }
+                    if (q83->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                        q83->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                        q83->kind == syntax::SyntaxKind::ProgramDeclaration)
+                        break;
+                }
+                (inGenRegion83 ? genRegion83 : caSyms83).push_back(&cs83);
+            }
+            caSyms83.insert(caSyms83.end(), genRegion83.begin(),
+                            genRegion83.end());
+            if (caSyms83.size() != iit2->second->Cont_assigns()->size())
+                caSyms83.clear();
+        }
+        size_t ci83 = 0;
         for (auto* defCa : *iit2->second->Cont_assigns()) {
+            const size_t myIdx83 = ci83++;
+            // § caIfaceBodyCaFolds83 — the decision, taken BEFORE the gate
+            // reads it so one traced run names every cell that reaches this
+            // site, the declined ones included.
+            const Expression* sps83 = nullptr;
+            const Type* spsTy83 = nullptr;
+            bool spsPure83 = false;
+            bool spsPrior83 = false;
+            const AssignmentExpression* ae83 = nullptr;
+            if (myIdx83 < caSyms83.size()) {
+                auto& asn83 = caSyms83[myIdx83]->getAssignment();
+                ae83 = &asn83.as<AssignmentExpression>();
+                const bool plainLhs83 =
+                    stripImplicitConv(ae83->left()).kind ==
+                    ExpressionKind::NamedValue;
+                sps83 = caStructParamSetter55(
+                    ae83->right(), plainLhs83, spsTy83, spsPure83,
+                    [this](const Expression& a83, const Symbol& m83) {
+                        return caPriorMembersProven68v(a83, m83);
+                    },
+                    spsPrior83);
+                if (cellDbg83())
+                    fprintf(stderr,
+                            "R11U83IFCA %s:%d sps=%d plainLhs=%d rhs=%s\n",
+                            prefix.c_str(),
+                            (int)asn83.sourceRange.start().offset(),
+                            sps83 ? 1 : 0, (int)plainLhs83,
+                            defCa->Rhs()
+                                ? UHDM::UhdmName(defCa->Rhs()->UhdmType())
+                                      .data()
+                                : "-");
+            }
             // Surelog folds ONE cont_assign object (parented at the DEF
             // interface_inst, operands rebound to the PRIMARY instance's elab
             // vars) and shares it into every elab interface_inst view. Only a
@@ -39227,6 +39447,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             else if (defCa->Rhs() &&
                      defCa->Rhs()->UhdmType() == UHDM::uhdmconstant)
                 needsFold = true;
+            // § caIfaceBodyCaFolds83 — a struct-parameter member read is the
+            // THIRD shape that genuinely differs per elaborated view: the
+            // producer's reduce answers a constant and `writeCont_assign`
+            // clones.  The clone this branch already builds is exactly the
+            // object golden writes; only its Rhs has to be the folded value.
+            if (sps83)
+                needsFold = true;
             if (!needsFold) {
                 elabCas->push_back(defCa);
                 continue;
@@ -39237,6 +39464,40 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             ca->VpiColumnNo(defCa->VpiColumnNo());
             ca->VpiEndLineNo(defCa->VpiEndLineNo());
             ca->VpiEndColumnNo(defCa->VpiEndColumnNo());
+            // § caIfaceBodyCaFoldKeepsDriveFields83v (r11v83) — A CLONE THIS
+            // PASS FORCES MUST CARRY THE CELL'S DRIVE FIELDS.
+            //
+            // `cont_assign::Compare` reads VpiNetDeclAssign, VpiStrength0,
+            // VpiStrength1 and Delay BEFORE it reads Rhs
+            // (~/git-repos/UHDM/build/generated/src/cont_assign.cpp:104-124),
+            // and this clone copies only the parent and the span.  Before
+            // § caIfaceBodyCaFolds83 a struct-param cell SHARED the def
+            // object, so `assign #5 d = C.n;` and
+            // `assign (strong1, weak0) d = C.m;` carried their delay and
+            // their strengths into the elaborated view for free; forcing the
+            // clone dropped them.  Golden keeps them — `writeCont_assign`
+            // clones the cell and swaps only the Rhs — so verifier arm
+            // `b14_cadelay` reads golden `|vpiDelay: #5` and
+            // `|vpiStrength0:8 |vpiStrength1:64` on the ELAB cells while the
+            // patched build read neither: pristine-right, patched-wrong, on
+            // legal SV.
+            //
+            // GATED TO THIS PASS'S OWN CELLS.  The two shapes that already
+            // took this clone at the base (a plain-constant Rhs and a
+            // package-enum-const Rhs) drop the same fields, and golden wants
+            // them there too (arm `b16_preclone`) — but that is a
+            // PRE-EXISTING gap with a LIVE corpus site (`InterfaceAssign`
+            // writes a literal into an interface body), so closing it is its
+            // own law with its own census, not a silent widening here.
+            // `sps83` is null whenever LAW B is off, so this rides its
+            // switch.
+            if (sps83) {
+                ca->VpiNetDeclAssign(defCa->VpiNetDeclAssign());
+                ca->VpiStrength0(defCa->VpiStrength0());
+                ca->VpiStrength1(defCa->VpiStrength1());
+                if (auto* dly83 = defCa->Delay())
+                    ca->Delay(dly83);
+            }
             // A pkg-enum-const RHS ref folds to a LOC-LESS digits constant in
             // the elab view (the def keeps the ref).
             UHDM::expr* rhsShare = (UHDM::expr*)defCa->Rhs();
@@ -39327,6 +39588,19 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 }
                 ca->Lhs(bs);
             }
+            // § caIfaceBodyCaFolds83 — the folded Rhs, emitted by the ONE
+            // emitter § caStructParamPatternSubst55 decoded (the source
+            // encoding, the setter's own span, `adjustSize`'s width and
+            // § caSubstLeafEncReduceTable56's table all ride along).  It runs
+            // AFTER the Lhs is built because the emitter sizes the constant
+            // against the Lhs declaration.  A declined emission leaves the
+            // shared Rhs exactly as this branch already set it — GOLDEN
+            // WRITES NOTHING ON A MISS, and neither does this.
+            if (sps83 && ae83)
+                if (auto* fr83 = emitCaStructParamSubst55(
+                        *sps83, spsTy83, spsPure83, spsPrior83, ae83->left(),
+                        ca, prefix, netMap))
+                    ca->Rhs((UHDM::expr*)fr83);
             elabCas->push_back(ca);
         }
         if (!elabCas->empty())

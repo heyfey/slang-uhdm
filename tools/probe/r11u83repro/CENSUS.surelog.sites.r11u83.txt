@@ -1,0 +1,6 @@
+GenForStructParamBound	default	rc=0	R11U83IFCA work@top.b:767 sps=0 plainLhs=0 rhs=constant
+GenForStructParamBound	testflags	rc=0	R11U83IFCA work@top.b:767 sps=0 plainLhs=0 rhs=constant
+InterfaceProcess	default	rc=0	R11U83IFCA work@top.u_sw:58 sps=0 plainLhs=1 rhs=constant
+InterfaceProcess	testflags	rc=0	R11U83IFCA work@top.u_sw:58 sps=0 plainLhs=1 rhs=constant
+StructParamFuncBodyFieldCompare	default	rc=0	R11U82PATHFOLD work@StructParamFuncBodyFieldCompare member=Flag road=camemsel simple=1 declined=0
+StructParamFuncBodyFieldCompare	testflags	rc=0	R11U82PATHFOLD work@StructParamFuncBodyFieldCompare member=Flag road=camemsel simple=1 declined=0

@@ -1,0 +1,54 @@
+# r11v83 PER-CELL SCORE (cellmw83.py, the implementer's arbiter, pristine -> FIXED)
+
+## implementer grid
+c2_kinds         cells=47 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+g11_iface        cells=19 CONVERTED=1 MOVED-WRONG=0 AWAY=0
+i1_ifkinds       cells=76 CONVERTED=10 MOVED-WRONG=0 AWAY=0
+i2_ifimpshape    cells=48 CONVERTED=4 MOVED-WRONG=0 AWAY=0
+i3_transmod      cells=31 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+i4_portview      cells=26 CONVERTED=3 MOVED-WRONG=0 AWAY=0
+i5_twoinst       cells=27 CONVERTED=4 MOVED-WRONG=0 AWAY=0
+MOVED-WRONG i6_ifarray     gold=0 pris=0 patch=1  ('LIST', 'uhdmtopModules', 'work@dut', 'vpiNet', 'struct_net', 'v_sarr', '7:15-7:21')
+i6_ifarray       cells=43 CONVERTED=5 MOVED-WRONG=1 AWAY=0
+i7_dblgen        cells=21 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+i8_modtwin       cells=76 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+i9_dblownnet     cells=23 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+j1_ifcafold      cells=38 CONVERTED=3 MOVED-WRONG=0 AWAY=0
+j2_iftwoinst     cells=20 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+j3_ifcaselect    cells=22 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+s5_ifacepath     cells=14 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+v5_ifaceport     cells=18 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+v6_ifacepkg      cells=28 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+vf_collide       cells=31 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+w1_iface         cells=25 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+y1_pkgnetkind    cells=61 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+y2_pkgvarkind    cells=97 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+y6_hoistconv     cells=45 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+TOTAL CONVERTED=38 MOVED-WRONG=1 AWAY-GOLDEN=0
+
+## implementer grid, NOOWNER cross-check
+y2_pkgvarkind    cells=97 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+y6_hoistconv     cells=45 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+TOTAL CONVERTED=33 MOVED-WRONG=1 AWAY-GOLDEN=0
+
+## verifier break grid
+b10_mixdecline   cells=26 CONVERTED=1 MOVED-WRONG=0 AWAY=0
+b11_nestmod      cells=14 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+b12_ifarr        cells=30 CONVERTED=5 MOVED-WRONG=0 AWAY=0
+b13_exprovmod    cells=8 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+b14_cadelay      cells=16 CONVERTED=3 MOVED-WRONG=0 AWAY=0
+b15_portname     cells=21 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+b16_preclone     cells=12 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+b17_topiface     cells=13 CONVERTED=0 MOVED-WRONG=0 AWAY=0
+b18_xmember      cells=12 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+b19_dblcollide   cells=32 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+b1_fnref         cells=14 CONVERTED=1 MOVED-WRONG=0 AWAY=0
+b2_mpexpr        cells=18 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+b3_ifcaread      cells=20 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+b4_calign        cells=19 CONVERTED=2 MOVED-WRONG=0 AWAY=0
+b5_mpio          cells=22 CONVERTED=3 MOVED-WRONG=0 AWAY=0
+b6_ifgen         cells=22 CONVERTED=3 MOVED-WRONG=0 AWAY=0
+b7_pvmodport     cells=25 CONVERTED=3 MOVED-WRONG=0 AWAY=0
+b8_clkblk        cells=18 CONVERTED=1 MOVED-WRONG=0 AWAY=0
+b9_calign2       cells=20 CONVERTED=4 MOVED-WRONG=0 AWAY=0
+TOTAL CONVERTED=36 MOVED-WRONG=0 AWAY-GOLDEN=0

@@ -1,0 +1,20 @@
+# r11v83 — CENSUS, reproduced independently (patched binary, both corpora, both modes)
+
+uhdm2rtlil : 1742 test x mode arms, 3928 trace rows
+             R11U74BIND 3892   R11U83IFHOIST 0   R11U83IFCA 32 (sps=1: 0)   R11U82PATHFOLD 4
+             rc buckets: rc=0 5392  rc=3 131  rc=4 12  rc=-11 3
+surelog    : 1573 test x mode arms, 12580 trace rows
+             R11U74BIND 12574  R11U83IFHOIST 0   R11U83IFCA 4  (sps=1: 0)   R11U82PATHFOLD 2
+             rc buckets: rc=0 12571  rc=3 578  rc=4 12  rc=2 32  rc=1 4  rc=-11 900
+
+LAW A has ZERO sites in either corpus.  LAW B has 36 live sites and takes NONE.
+PREDICTED MOVER SET: EMPTY, both corpora, both modes.
+
+POSITIVE CONTROL (same instrument, same binary, grid arms):
+  arm            ifhoist net portview ifca sps=1
+  i1_ifkinds       10     4     0       0     0
+  i4_portview       4     2     2       0     0
+  w1_iface          2     1     0       1     0
+  g11_iface         0     0     0       1     1
+  j1_ifcafold       0     0     0       7     3
+  j3_ifcaselect     0     0     0       4     1

@@ -1,0 +1,72 @@
+# r11u83 SITE CENSUS — both corpora, both modes, replaying the harness's own
+# discovery and its own slang argv; every invocation's rc recorded; the four
+# slang-fenced names read off canaudit.sh's FENCED= line and never dispatched.
+
+== uhdm2rtlil: 1742 test x mode arms, 3928 site rows
+   row kinds:
+        3892 R11U74BIND
+        1610 NO-SITE
+          32 R11U83IFCA
+           4 R11U82PATHFOLD
+   rc histogram:
+        5392 rc=0
+         131 rc=3
+          12 rc=4
+           3 rc=-11
+   R11U83IFHOIST rows: 0   (LAW A sites)
+   R11U83IFCA    rows: 32   sps=1: 0   (LAW B sites / takes)
+   the LAW B rows, verbatim:
+     ImportedPackageEnumItemInInterface | default | rc=0 | R11U83IFCA work@top.u_sw:177 sps=0 plainLhs=1 rhs=ref_obj
+     ImportedPackageEnumItemInInterface | testflags | rc=0 | R11U83IFCA work@top.u_sw:177 sps=0 plainLhs=1 rhs=ref_obj
+     InterfaceAssign | default | rc=0 | R11U83IFCA work@top.u_sw:53 sps=0 plainLhs=1 rhs=constant
+     InterfaceAssign | testflags | rc=0 | R11U83IFCA work@top.u_sw:53 sps=0 plainLhs=1 rhs=constant
+     iface_arr_struct_field_partsel | default | rc=0 | R11U83IFCA work@iface_arr_struct_field_partsel.s:606 sps=0 plainLhs=0 rhs=ref_obj
+     iface_arr_struct_field_partsel | testflags | rc=0 | R11U83IFCA work@iface_arr_struct_field_partsel.s:606 sps=0 plainLhs=0 rhs=ref_obj
+     iface_arr_struct_whole_field | default | rc=0 | R11U83IFCA work@iface_arr_struct_whole_field.s:476 sps=0 plainLhs=0 rhs=ref_obj
+     iface_arr_struct_whole_field | testflags | rc=0 | R11U83IFCA work@iface_arr_struct_whole_field.s:476 sps=0 plainLhs=0 rhs=ref_obj
+     iface_array_internal_assign | default | rc=0 | R11U83IFCA work@iface_array_internal_assign.s[0]:372 sps=0 plainLhs=1 rhs=operation
+     iface_array_internal_assign | default | rc=0 | R11U83IFCA work@iface_array_internal_assign.s[1]:372 sps=0 plainLhs=1 rhs=operation
+     iface_array_internal_assign | testflags | rc=0 | R11U83IFCA work@iface_array_internal_assign.s[0]:372 sps=0 plainLhs=1 rhs=operation
+     iface_array_internal_assign | testflags | rc=0 | R11U83IFCA work@iface_array_internal_assign.s[1]:372 sps=0 plainLhs=1 rhs=operation
+     iface_gen_delay | default | rc=0 | R11U83IFCA work@top.intf:642 sps=0 plainLhs=0 rhs=ref_obj
+     iface_gen_delay | testflags | rc=0 | R11U83IFCA work@top.intf:642 sps=0 plainLhs=0 rhs=ref_obj
+     iface_gen_delay_struct | default | rc=0 | R11U83IFCA work@top.intf:890 sps=0 plainLhs=0 rhs=ref_obj
+     iface_gen_delay_struct | testflags | rc=0 | R11U83IFCA work@top.intf:890 sps=0 plainLhs=0 rhs=ref_obj
+     iface_internal_assign | default | rc=0 | R11U83IFCA work@dut.inst:313 sps=0 plainLhs=1 rhs=operation
+     iface_internal_assign | testflags | rc=0 | R11U83IFCA work@dut.inst:313 sps=0 plainLhs=1 rhs=operation
+     iface_pkg_enum_item | default | rc=0 | R11U83IFCA work@top.u_sw:932 sps=0 plainLhs=1 rhs=ref_obj
+     iface_pkg_enum_item | testflags | rc=0 | R11U83IFCA work@top.u_sw:932 sps=0 plainLhs=1 rhs=ref_obj
+     iface_samename_port | default | rc=0 | R11U83IFCA work@dut.bus:307 sps=0 plainLhs=1 rhs=operation
+     iface_samename_port | testflags | rc=0 | R11U83IFCA work@dut.bus:307 sps=0 plainLhs=1 rhs=operation
+     iface_unpacked_signal | default | rc=0 | R11U83IFCA work@dut.inst:206 sps=0 plainLhs=0 rhs=ref_obj
+     iface_unpacked_signal | default | rc=0 | R11U83IFCA work@dut.inst:225 sps=0 plainLhs=0 rhs=bit_select
+     iface_unpacked_signal | testflags | rc=0 | R11U83IFCA work@dut.inst:206 sps=0 plainLhs=0 rhs=ref_obj
+     iface_unpacked_signal | testflags | rc=0 | R11U83IFCA work@dut.inst:225 sps=0 plainLhs=0 rhs=bit_select
+     iface_unpacked_struct_array | default | rc=0 | R11U83IFCA work@top.bus:662 sps=0 plainLhs=0 rhs=ref_obj
+     iface_unpacked_struct_array | testflags | rc=0 | R11U83IFCA work@top.bus:662 sps=0 plainLhs=0 rhs=ref_obj
+     jeras_tcb_gpio | default | rc=0 | R11U83IFCA work@tcb_gpio_wrap.bus:1658 sps=0 plainLhs=1 rhs=operation
+     jeras_tcb_gpio | default | rc=0 | R11U83IFCA work@tcb_gpio_wrap.bus:1747 sps=0 plainLhs=1 rhs=operation
+     jeras_tcb_gpio | testflags | rc=0 | R11U83IFCA work@tcb_gpio_wrap.bus:1658 sps=0 plainLhs=1 rhs=operation
+     jeras_tcb_gpio | testflags | rc=0 | R11U83IFCA work@tcb_gpio_wrap.bus:1747 sps=0 plainLhs=1 rhs=operation
+
+== surelog: 1573 test x mode arms, 12580 site rows
+   row kinds:
+       12574 R11U74BIND
+        1517 NO-SITE
+           4 R11U83IFCA
+           2 R11U82PATHFOLD
+   rc histogram:
+       12571 rc=0
+         900 rc=-11
+         578 rc=3
+          32 rc=2
+          12 rc=4
+           4 rc=1
+   R11U83IFHOIST rows: 0   (LAW A sites)
+   R11U83IFCA    rows: 4   sps=1: 0   (LAW B sites / takes)
+   the LAW B rows, verbatim:
+     GenForStructParamBound | default | rc=0 | R11U83IFCA work@top.b:767 sps=0 plainLhs=0 rhs=constant
+     GenForStructParamBound | testflags | rc=0 | R11U83IFCA work@top.b:767 sps=0 plainLhs=0 rhs=constant
+     InterfaceProcess | default | rc=0 | R11U83IFCA work@top.u_sw:58 sps=0 plainLhs=1 rhs=constant
+     InterfaceProcess | testflags | rc=0 | R11U83IFCA work@top.u_sw:58 sps=0 plainLhs=1 rhs=constant
+

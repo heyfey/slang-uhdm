@@ -1,0 +1,87 @@
+# r11v83 BREAK GRID — 19 arms, three binaries, every arm golden_rc=0 ours_rc=0
+
+arm              pristine  patched   fixed     verdict
+b1_fnref         255       255       255       -
+b2_mpexpr        255       0         0         CONVERTS
+b3_ifcaread      255       255       255       -
+b4_calign        255       255       255       -
+b5_mpio          255       255       255       -
+b6_ifgen         255       255       255       -
+b7_pvmodport     255       255       255       -
+b8_clkblk        255       255       255       -
+b9_calign2       255       255       255       -
+b10_mixdecline   255       255       255       -
+b11_nestmod      255       255       255       -
+b12_ifarr        255       0         0         CONVERTS
+b13_exprovmod    255       255       255       -
+b14_cadelay      255       255       0         CONVERTS by caIfaceBodyCaFoldKeepsDriveFields83v
+b15_portname     255       255       255       -
+b16_preclone     255       255       255       - (the PRE-EXISTING clone gap, left alone: R1)
+b17_topiface     0         0         0         - (the site is not reached; CELLDBG reads 0 hoist entries)
+b18_xmember      255       0         0         CONVERTS
+b19_dblcollide   255       255       255       - (the collide binding CONVERTS inside it; the arm's head is a pre-existing gen-scope naming head)
+
+ZERO REGRESS.  raw runs:
+
+## pristine
+b1_fnref golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b2_mpexpr golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b3_ifcaread golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b4_calign golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b5_mpio golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=151
+b6_ifgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=443
+b7_pvmodport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=191
+b8_clkblk golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b9_calign2 golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b10_mixdecline golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+b11_nestmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=56
+b12_ifarr golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=239
+b13_exprovmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=41
+b14_cadelay golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+b15_portname golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=8
+b16_preclone golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b17_topiface golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b18_xmember golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+b19_dblcollide golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+
+## patched
+b1_fnref golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b2_mpexpr golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b3_ifcaread golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b4_calign golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b5_mpio golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b6_ifgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=41
+b7_pvmodport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=30
+b8_clkblk golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b9_calign2 golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b10_mixdecline golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=25
+b11_nestmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=56
+b12_ifarr golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b13_exprovmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=41
+b14_cadelay golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=9
+b15_portname golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=8
+b16_preclone golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b17_topiface golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b18_xmember golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b19_dblcollide golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+
+## fixed
+b1_fnref golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b2_mpexpr golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b3_ifcaread golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b4_calign golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b5_mpio golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b6_ifgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=41
+b7_pvmodport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=30
+b8_clkblk golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b9_calign2 golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b10_mixdecline golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=25
+b11_nestmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=56
+b12_ifarr golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b13_exprovmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=41
+b14_cadelay golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b15_portname golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=8
+b16_preclone golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b17_topiface golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b18_xmember golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b19_dblcollide golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87

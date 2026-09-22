@@ -1,0 +1,115 @@
+# r11v83 — the r11u83 VERIFIER's grid, both grids, three binaries
+
+pristine  33f341dfa44841c1223ce59eeaa071b6  (== the OPS pin, rebuilt here)
+patched   e91e921c1d296ad7fa2b9f7010aa4da1  (the implementer's, reproduced here)
+fixed     83eb4474a4da700d16c20a5551e18289  (patched + § caIfaceBodyCaFoldKeepsDriveFields83v)
+
+## implementer grid — pristine
+c2_kinds golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+g11_iface golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+i1_ifkinds golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=1109
+i2_ifimpshape golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=529
+i3_transmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+i4_portview golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=239
+i5_twoinst golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=239
+i6_ifarray golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=567
+i7_dblgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=130
+i8_modtwin golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i9_dblownnet golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=172
+j1_ifcafold golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+j2_iftwoinst golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+j3_ifcaselect golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=26
+s5_ifacepath golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+v5_ifaceport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+v6_ifacepkg golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+vf_collide golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+w1_iface golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=30
+y1_pkgnetkind golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+y2_pkgvarkind golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+y6_hoistconv golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+
+## implementer grid — patched
+c2_kinds golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+g11_iface golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i1_ifkinds golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i2_ifimpshape golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+i3_transmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+i4_portview golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i5_twoinst golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i6_ifarray golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i7_dblgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=161
+i8_modtwin golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i9_dblownnet golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=203
+j1_ifcafold golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+j2_iftwoinst golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+j3_ifcaselect golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+s5_ifacepath golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+v5_ifaceport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+v6_ifacepkg golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+vf_collide golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+w1_iface golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=30
+y1_pkgnetkind golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+y2_pkgvarkind golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+y6_hoistconv golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+
+## implementer grid — fixed
+c2_kinds golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+g11_iface golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i1_ifkinds golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i2_ifimpshape golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+i3_transmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+i4_portview golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i5_twoinst golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i6_ifarray golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i7_dblgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=161
+i8_modtwin golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+i9_dblownnet golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=203
+j1_ifcafold golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+j2_iftwoinst golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=15
+j3_ifcaselect golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+s5_ifacepath golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+v5_ifaceport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+v6_ifacepkg golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=87
+vf_collide golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+w1_iface golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=30
+y1_pkgnetkind golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+y2_pkgvarkind golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+y6_hoistconv golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+
+## verifier break grid — pristine
+b1_fnref golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b2_mpexpr golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b3_ifcaread golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b4_calign golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b5_mpio golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=151
+b6_ifgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=443
+b7_pvmodport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=191
+b8_clkblk golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+
+## verifier break grid — patched
+b1_fnref golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b2_mpexpr golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b3_ifcaread golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b4_calign golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b5_mpio golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b6_ifgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=41
+b7_pvmodport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=30
+b8_clkblk golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+
+## verifier break grid — fixed
+b1_fnref golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b2_mpexpr golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b3_ifcaread golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=16
+b4_calign golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b5_mpio golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b6_ifgen golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=41
+b7_pvmodport golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=30
+b8_clkblk golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18
+b9_calign2 golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=34
+b10_mixdecline golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=25
+b11_nestmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=56
+b12_ifarr golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b13_exprovmod golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=41
+b14_cadelay golden_rc=0 ours_rc=0  cmp_rc=0 heads=0 cmplines=0
+b15_portname golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=8
+b16_preclone golden_rc=0 ours_rc=0  cmp_rc=255 heads=1 cmplines=18

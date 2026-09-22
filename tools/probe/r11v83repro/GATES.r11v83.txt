@@ -1,0 +1,135 @@
+# r11v83 GATES — every number measured in this verifier's own worktrees,
+# with all three binaries built here and frozen chmod 555 before any sweep.
+
+BINARIES
+  pristine  33f341dfa44841c1223ce59eeaa071b6   (== the OPS pin, compared not assumed)
+  patched   e91e921c1d296ad7fa2b9f7010aa4da1   (the implementer's, reproduced)
+  fixed     83eb4474a4da700d16c20a5551e18289   (+ caIfaceBodyCaFoldKeepsDriveFields83v)
+
+  /tmp/r11u83.verified.patch applies `git apply -3` clean to a FRESH 14ff07cc,
+  the applied production files are cmp-identical to this worktree's, the whole
+  probe tree is identical, and that tree REBUILDS to 83eb4474a4da700d16c20a5551e18289.
+
+GOLDEN DUMP TESTS (tests/check_goldens.sh, SLANG_UHDM exported per binary)
+  pristine   PASS 23  FAIL 0
+  patched    PASS 23  FAIL 0
+  fixed      PASS 23  FAIL 0
+  /bin/false PASS 0   FAIL 23        (negative control)
+
+uhdm2rtlil, --mode both, --jobs 3, each binary its own --out/--workdir
+  pristine   788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT   both modes
+  patched    788 / 16 / 67                                       both modes
+  fixed      788 / 16 / 67                                       both modes
+  whole-row joins (name,mode keyed, every field):
+    patched vs results/golden_uhdm2rtlil.csv      0 of 1742 rows differ
+    pristine vs results/golden_uhdm2rtlil.csv     0 of 1742
+    fixed   vs results/golden_uhdm2rtlil.csv      0 of 1742
+    fixed   vs patched                            0 of 1742
+    fixed   vs own pristine                       0 of 1742
+    testflags vs results/gate_uhdm2rtlil.csv      0 (patched and fixed)
+  byteverify SELFCHECK=1
+    patched vs own pristine   MOVERS 0 / 1608   selfcheck 1607/1608 flagged
+    fixed   vs own pristine   MOVERS 0 / 1608   selfcheck 1607/1608 flagged
+  binary-path audit  1742/1742 cmds.txt name the intended binary; other-tree
+                     binaries: 0 in every workdir.
+
+surelog, --mode both, --jobs 3
+  pristine   474 CMP_EQUAL / 9 NE (default)   469 / 8 (testflags)
+  patched    474 / 9                          469 / 8
+  fixed      474 / 9                          469 / 8
+  every other status bucket identical on all three: DEFERRED 5/5,
+  SLANG_REJECT 285/286, SURELOG_FAIL 25/23, NO_DATABASE 0/3, NO_UHDM 0/1,
+  TIMEOUT 0/1, UNTRANSLATABLE 0/2.
+  whole-row joins:
+    patched  vs results/golden_surelog.csv   3 of 1596  (all environment)
+       Earlgrey_0_1/testflags   dump column '' vs 'differ'   STATUS CMP_EQUAL both
+       LowMemLib/testflags      workdir path inside a SURELOG_FAIL string
+       LowMemPkg/testflags      workdir path inside a SURELOG_FAIL string
+    pristine vs results/golden_surelog.csv   4 of 1596
+       the same two LowMem path strings + BOTH Earlgrey dump columns blank
+       — so the dump-column draw falls on either binary: it is load, not us.
+    patched  vs own pristine                 3 of 1596
+       Earlgrey_0_1/default dump column (the draw, the other way round) +
+       the two LowMem path strings.
+  byteverify SELFCHECK=1, patched vs own pristine
+    MOVERS 5 / 960, every one UVM family, every one ATTRIBUTED ORDER-BLIND
+    (id-stripped, path-normalised, sorted whole-dump diff):
+      default/MiniAmiq      4 lines   UINT:1404 <-> UINT:0     + the vpiDecompile pair
+      default/SeqDriver     4 lines   UINT:881  <-> UINT:1140  + the vpiDecompile pair
+      default/SimpleUVM     4 lines   UINT:0    <-> UINT:684   + the vpiDecompile pair
+      testflags/MiniAmiq    4 lines   UINT:0    <-> UINT:556   + the vpiDecompile pair
+      default/Scoreboard    0 lines   (a pure ORDER draw — the documented
+                                       svunit_pkg vpiTaskFunc coin)
+    Not one vpiNetType, vpiActual, cont_assign, listing line, Delay or
+    strength among them; neither law has a site in this corpus (§CENSUS).
+    UVM family rows stay CMP_EQUAL: BuildUVMPkg, MiniAmiq, SeqDriver,
+    SimpleUVM both modes; Scoreboard CMP_EQUAL / SLANG_REJECT unchanged.
+  fixed-binary joins:
+    fixed vs own pristine    2 of 1596  (the two LowMem workdir path strings
+                                         ONLY — no Earlgrey draw this run)
+    fixed vs committed       4 of 1596  (both Earlgrey dump columns + LowMem)
+    fixed vs patched         3 of 1596  (the Earlgrey/default draw + LowMem)
+  byteverify SELFCHECK=1, fixed vs own pristine
+    MOVERS 5 / 960, the SAME five UVM-family files, the SAME class, and the
+    line NUMBERS differ from the patched run (MiniAmiq/default 1305 here vs
+    1404 there) — which is the coin showing itself, not a binary property:
+      default/MiniAmiq    4 lines  UINT:1305 <-> UINT:0    + vpiDecompile pair
+      default/SeqDriver   4 lines  UINT:0    <-> UINT:1140 + vpiDecompile pair
+      default/SimpleUVM   4 lines  UINT:0    <-> UINT:684  + vpiDecompile pair
+      testflags/MiniAmiq  4 lines  UINT:1120 <-> UINT:556  + vpiDecompile pair
+      default/Scoreboard  0 lines  (the order draw)
+  canary DATABASE byte pins on the FIXED sweep: all twelve identical to the
+    patched sweep's and to the OPS pins (InterfaceModPort 59a365f3ce2c both
+    modes).  canaries.sh surelog fixed vs OWN PRISTINE: ok=52 changed=0.
+    canaries.sh surelog fixed vs committed: ok=50 changed=2, both the
+    Earlgrey dump-column draw.  ctcan2 surelog PASS.
+  binary-path audit, surelog: 1531 / 1581 cmds.txt name the intended binary;
+    the other 50 name NO exporter at all (Surelog-side failures) — checked,
+    not assumed; other-tree binaries 0.
+
+  rowheads.sh on the patched workdir: measured=12, 11 of them `0 0 cmp rc=0`,
+    Rggen/default its committed `64 1 cmp rc=255`; SKIP-NOFILE 2, UNKNOWN-NAME 0.
+
+CANARY DATABASE BYTE PINS (patched sweep; every one the OPS pin verbatim)
+  SVSwitch            default/testflags  4842211c4030
+  YosysVerx           default/testflags  6ccda350c24a
+  InterfaceModPort    default/testflags  59a365f3ce2c   (an INTERFACE test —
+                                                         watched BYTE for BYTE)
+  YosysOldOr          default/testflags  d68e0796d62c
+  BlackParrotComplex  default e3e354129d5a  testflags 73a10e8217e5
+  Earlgrey_0_1        default 8bdf25272e08  testflags 59d0ee6d10c3
+
+CSV CANARIES
+  canaries.sh  u2r patched  vs committed gate   ok=16 changed=0 absent=0
+  canaries.sh  u2r fixed    vs committed gate   ok=16 changed=0 absent=0
+  canaries.sh  u2r fixed    vs own pristine     ok=16 changed=0 absent=0
+  canaries.sh  surelog patched vs committed     ok=51 changed=1 absent=0
+               (the one CHANGED row is Earlgrey_0_1/testflags, dump column
+                only: CMP_EQUAL/differ -> CMP_EQUAL/)
+  ctcan2  u2r EXPECT_UNKNOWN=6      ok=2  changed=0  PASS
+  ctcan2  surelog EXPECT_UNKNOWN=1  ok=58 changed=0  PASS
+  canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+  The four slang-fenced names occur 0 times in the production diff and in no
+  file of either probe directory but canaudit.sh's own FENCED= line.
+
+SWITCH LEDGER
+  R11U83_OFF=1 reproduces the PRISTINE database BYTE FOR BYTE on all 22
+  implementer arms and all 19 verifier arms, on the patched AND on the fixed
+  binary; each single switch returns exactly its own law's arms to pristine.
+  The ledger is line-for-line identical between the patched and the fixed
+  binary, and `b16_preclone` reads NONE=0 — the proof that the verifier's law
+  is gated to the cells LAW B newly clones.
+
+SCORE
+  cellmw83.py (the implementer's per-cell arbiter), implementer grid,
+    pristine -> patched : CONVERTED 38  MOVED-WRONG 1  AWAY-GOLDEN 0
+    pristine -> fixed   : CONVERTED 38  MOVED-WRONG 1  AWAY-GOLDEN 0
+    NOOWNER cross-check : CONVERTED 33  MOVED-WRONG 1  AWAY-GOLDEN 0
+    the one flagged cell is i6_ifarray's v_sarr element-net SPAN (not a
+    compared field; uhdm-cmp returns 0 on that arm; the module home carries
+    the identical +6 on both binaries).
+  cellmw83.py, verifier break grid (19 arms), pristine -> fixed :
+    CONVERTED 36  MOVED-WRONG 0  AWAY-GOLDEN 0.
+  away83v.py (golden lines matched pristine and no longer matched):
+    0 on every arm of both grids except b19_dblcollide's 2, which is the
+    falling-count trap of a CONVERSION (README §2).

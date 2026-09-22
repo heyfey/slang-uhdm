@@ -1,0 +1,4 @@
+GenForStructParamBound	default	rc=0	R11U83IFCA work@top.b:767 sps=0 plainLhs=0 rhs=constant
+GenForStructParamBound	testflags	rc=0	R11U83IFCA work@top.b:767 sps=0 plainLhs=0 rhs=constant
+InterfaceProcess	default	rc=0	R11U83IFCA work@top.u_sw:58 sps=0 plainLhs=1 rhs=constant
+InterfaceProcess	testflags	rc=0	R11U83IFCA work@top.u_sw:58 sps=0 plainLhs=1 rhs=constant
