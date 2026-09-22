@@ -8587,6 +8587,35 @@ inline int32_t red81LitWrittenSize81(const Expression& lit) {
     return lit.type ? (int32_t)lit.type->getBitWidth() : 0;
 }
 
+/// § modPatHopValueStoreEnc86 (r11u86) — IS THIS SETTER A HOP?  The parameter
+/// a struct-pattern setter NAMES, read through the signedness casts that hand
+/// their operand straight back (`ExprEval.cpp:4682-4781`'s `return c` face),
+/// or null when the setter is a literal, an operation or anything else
+/// WRITTEN DIRECTLY in the pattern.
+///
+/// The distinction is the whole law: golden's module-route encoding belongs to
+/// the SUBSTITUTION, not to the spelling.  Measured, arm `m3_gate86`, one
+/// MODULE pattern with both faces side by side — `a: 16'd5` written directly
+/// is golden `const/16@1=DEC:5 d=16'd5`, while `b: MD` over
+/// `localparam MD = 16'd5` one hop up is golden `const/16@7=INT:5 d=5`, and
+/// `c: 16'o5` direct is golden `OCT:5 d=16'o5` against `d: MO`'s
+/// `UINT:5 d=5`.  Same spelling, two answers, and the hop is the discriminator
+/// (`m5_bnd86` op10 repeats it for `16'sd5`).
+inline const slang::ast::ParameterSymbol* red86HopName86(const Expression& e0,
+                                                         int depth) {
+    if (depth > 16)
+        return nullptr;
+    const Expression& e = stripImplicitConv(e0);
+    if (const Expression* a86 = red81SignCastArg81(e))
+        return red86HopName86(*a86, depth + 1);
+    if (e.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& sy86 = e.as<ValueExpressionBase>().symbol;
+    if (sy86.kind != SymbolKind::Parameter)
+        return nullptr;
+    return &sy86.as<ParameterSymbol>();
+}
+
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {
     const Expression& e = stripImplicitConv(e0);
     if (e.kind != ExpressionKind::NamedValue &&

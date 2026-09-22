@@ -1,0 +1,5 @@
+arms=3384
+SAME=3336
+DIFFERS=9
+NODB=39
+NODB rc mismatches=0

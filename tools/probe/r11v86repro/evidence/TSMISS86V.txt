@@ -1,0 +1,15 @@
+a2_castts81        golden-has-ours-lacks=5  ours-has-golden-lacks=0
+a3_hopbnd81        golden-has-ours-lacks=3  ours-has-golden-lacks=0
+m2_enc86           golden-has-ours-lacks=1  ours-has-golden-lacks=3
+m5_bnd86           golden-has-ours-lacks=2  ours-has-golden-lacks=1
+v10_nest81         golden-has-ours-lacks=2  ours-has-golden-lacks=0
+v14_read81         golden-has-ours-lacks=3  ours-has-golden-lacks=0
+v1_qualhop81       golden-has-ours-lacks=3  ours-has-golden-lacks=0
+v2_store81         golden-has-ours-lacks=2  ours-has-golden-lacks=0
+v3_real81          golden-has-ours-lacks=2  ours-has-golden-lacks=0
+v7_defrep81        golden-has-ours-lacks=3  ours-has-golden-lacks=0
+v8_cast81          golden-has-ours-lacks=1  ours-has-golden-lacks=0
+v9_kwd81           golden-has-ours-lacks=1  ours-has-golden-lacks=0
+z1_decl86          golden-has-ours-lacks=6  ours-has-golden-lacks=0
+z6_sign86          golden-has-ours-lacks=16  ours-has-golden-lacks=2
+TOTAL golden-has-ours-lacks=50  ours-has-golden-lacks=6

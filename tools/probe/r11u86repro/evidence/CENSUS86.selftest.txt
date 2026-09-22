@@ -1,0 +1,8 @@
+  m1_route86       HOP86D
+  m2_enc86         HOP86D HOP86O
+  m3_gate86        HOP86D HOP86O
+  m4_ctx86         HOP86D HOP86O
+  m5_bnd86         HOP86D HOP86O
+  m6_ov86          HOP86D HOP86O HOP86U
+  not sighted (6): a4_posmod81 b1_pin86 v13_scope81 v2_store81 v3_real81 v4_xdig81
+SELFTEST PASS

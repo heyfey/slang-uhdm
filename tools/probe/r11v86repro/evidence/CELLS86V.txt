@@ -1,0 +1,241 @@
+==== z1_decl86  sections g=4 p=4 l=4
+  -- 0:MOD:Z:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=8'd5|L=5]
+   [3] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [4] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [5] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [6] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [7] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+  -- 1:MOD:Z2:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [2] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [3] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [4] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [5] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [6] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [7] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+  -- 2:MOD:R:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=8'd5|L=5]
+   [3] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [4] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [5] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [6] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [7] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+  -- 3:MOD:R:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [2] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [3] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [4] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [5] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [6] moved       sz[G=16|P=32|L=32] ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [7] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+==== z2_view86  sections g=4 p=4 l=4
+  -- 0:MOD:ZQ:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3]
+  -- 1:MOD:R:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3]
+  -- 2:MOD:ZQ:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3]
+  -- 3:MOD:R:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3]
+==== z3_width86  sections g=4 p=4 l=4
+  -- 0:MOD:ZA:op75 n=5
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [2] moved       ct[G=7|P=1|L=7] v[G=INT:65535|P=DEC:65535|L=INT:65535] d[G=65535|P=16'd65535|L=65535]
+   [3] moved       ct[G=9|P=4|L=9] v[G=UINT:255|P=OCT:377|L=UINT:255] d[G=255|P=16'o377|L=255]
+   [4]
+  -- 1:MOD:ZB:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:16777216|P=DEC:16777216|L=INT:16777216] d[G=16777216|P=32'd16777216|L=16777216]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:16777215|P=OCT:77777777|L=UINT:16777215] d[G=16777215|P=32'o77777777|L=16777215]
+   [3] moved       ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+  -- 2:MOD:R:op75 n=5
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [2] moved       ct[G=7|P=1|L=7] v[G=INT:65535|P=DEC:65535|L=INT:65535] d[G=65535|P=16'd65535|L=65535]
+   [3] moved       ct[G=9|P=4|L=9] v[G=UINT:255|P=OCT:377|L=UINT:255] d[G=255|P=16'o377|L=255]
+   [4]
+  -- 3:MOD:R:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:16777216|P=DEC:16777216|L=INT:16777216] d[G=16777216|P=32'd16777216|L=16777216]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:16777215|P=OCT:77777777|L=UINT:16777215] d[G=16777215|P=32'o77777777|L=16777215]
+   [3] moved       ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+==== z4_route86  sections g=4 p=4 l=4
+  -- 0:MOD:Z:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3]
+   [4]
+   [5] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [6]             sz[G=16|P=32|L=32]
+   [7]             sz[G=16|P=32|L=32]
+  -- 1:MOD:ZM:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:21|P=DEC:21|L=INT:21] d[G=21|P=16'd21|L=21]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3]
+   [4]
+   [5] moved       ct[G=7|P=1|L=7] v[G=INT:21|P=DEC:21|L=INT:21] d[G=21|P=16'd21|L=21]
+   [6] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [7]
+  -- 2:MOD:R:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:21|P=DEC:21|L=INT:21] d[G=21|P=16'd21|L=21]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3]
+   [4]
+   [5] moved       ct[G=7|P=1|L=7] v[G=INT:21|P=DEC:21|L=INT:21] d[G=21|P=16'd21|L=21]
+   [6] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [7]
+  -- 3:MOD:R:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3]
+   [4]
+   [5] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [6]             sz[G=16|P=32|L=32]
+   [7]             sz[G=16|P=32|L=32]
+==== z5_home86  sections g=2 p=3 l=3
+  -- 0:MOD:ZM:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [3] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+  -- 1:MOD:R:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] MOVED-WRONG ct[G=7|P=4|L=9] v[G=INT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5]
+   [3] MOVED-WRONG ct[G=9|P=1|L=7] v[G=UINT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+==== z6_sign86  sections g=4 p=4 l=4
+  -- 0:MOD:Z:op75 n=8
+   [0]
+   [1] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'so17|L=15]
+   [3] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [4] moved       ct[G=7|P=1|L=7] v[G=INT:7|P=DEC:7|L=INT:7] d[G=7|P=16'sd7|L=7] ts[G=-|P=int_typespec/S|L=int_typespec/S]
+   [5] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15] ts[G=int_typespec/S|P=-|L=-]
+   [6] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15] ts[G=int_typespec/S|P=-|L=-]
+   [7] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+  -- 1:MOD:Z2:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:17|P=DEC:17|L=INT:17] d[G=17|P=16'd17|L=17]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+   [3]             sz[G=16|P=64|L=64] ct[G=7|P=9|L=9] v[G=INT:5|P=UINT:5|L=UINT:5] d[G=5|P=|L=] ts[G=logic_typespec/S|P=-|L=-]
+   [4] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [5]             sz[G=16|P=64|L=64] ct[G=7|P=9|L=9] v[G=INT:15|P=UINT:15|L=UINT:15] ts[G=logic_typespec/S|P=-|L=-]
+   [6] moved       ct[G=7|P=1|L=7] v[G=INT:17|P=DEC:17|L=INT:17] d[G=17|P=16'd17|L=17]
+   [7] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5] ts[G=int_typespec/S|P=-|L=-]
+  -- 2:MOD:R:op75 n=8
+   [0]
+   [1] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'so17|L=15]
+   [3] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [4] moved       ct[G=7|P=1|L=7] v[G=INT:7|P=DEC:7|L=INT:7] d[G=7|P=16'sd7|L=7] ts[G=-|P=int_typespec/S|L=int_typespec/S]
+   [5] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15] ts[G=int_typespec/S|P=-|L=-]
+   [6] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15] ts[G=int_typespec/S|P=-|L=-]
+   [7] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+  -- 3:MOD:R:op75 n=8
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:17|P=DEC:17|L=INT:17] d[G=17|P=16'd17|L=17]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+   [3]             sz[G=16|P=64|L=64] ct[G=7|P=9|L=9] v[G=INT:5|P=UINT:5|L=UINT:5] d[G=5|P=|L=] ts[G=logic_typespec/S|P=-|L=-]
+   [4] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5] ts[G=int_typespec/S|P=-|L=-]
+   [5]             sz[G=16|P=64|L=64] ct[G=7|P=9|L=9] v[G=INT:15|P=UINT:15|L=UINT:15] ts[G=logic_typespec/S|P=-|L=-]
+   [6] moved       ct[G=7|P=1|L=7] v[G=INT:17|P=DEC:17|L=INT:17] d[G=17|P=16'd17|L=17]
+   [7] moved       ct[G=9|P=4|L=9] v[G=UINT:5|P=OCT:5|L=UINT:5] d[G=5|P=16'o5|L=5] ts[G=int_typespec/S|P=-|L=-]
+==== z7_trunc86  sections g=4 p=4 l=4
+  -- 0:MOD:Z:op75 n=8
+   [0]
+   [1] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [2] moved       sz[G=16|P=4|L=4] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [3] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [4] moved       ct[G=9|P=4|L=9] v[G=UINT:511|P=OCT:777|L=UINT:511] d[G=511|P=16'o777|L=511]
+   [5] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+   [6] moved       sz[G=32|P=16|L=16] ct[G=7|P=1|L=7] v[G=INT:70000|P=DEC:70000|L=INT:70000] d[G=70000|P=32'd70000|L=70000]
+   [7] moved       ct[G=7|P=1|L=7] v[G=INT:200|P=DEC:200|L=INT:200] d[G=200|P=8'd200|L=200]
+  -- 1:MOD:Z2:op75 n=8
+   [0]
+   [1] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [2] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [3] moved       ct[G=9|P=4|L=9] v[G=UINT:511|P=OCT:777|L=UINT:511] d[G=511|P=16'o777|L=511]
+   [4] moved       sz[G=32|P=16|L=16] ct[G=7|P=1|L=7] v[G=INT:70000|P=DEC:70000|L=INT:70000] d[G=70000|P=32'd70000|L=70000]
+   [5] moved       sz[G=16|P=4|L=4] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [6] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [7] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+  -- 2:MOD:R:op75 n=8
+   [0]
+   [1] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [2] moved       sz[G=16|P=4|L=4] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [3] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [4] moved       ct[G=9|P=4|L=9] v[G=UINT:511|P=OCT:777|L=UINT:511] d[G=511|P=16'o777|L=511]
+   [5] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+   [6] moved       sz[G=32|P=16|L=16] ct[G=7|P=1|L=7] v[G=INT:70000|P=DEC:70000|L=INT:70000] d[G=70000|P=32'd70000|L=70000]
+   [7] moved       ct[G=7|P=1|L=7] v[G=INT:200|P=DEC:200|L=INT:200] d[G=200|P=8'd200|L=200]
+  -- 3:MOD:R:op75 n=8
+   [0]
+   [1] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [2] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [3] moved       ct[G=9|P=4|L=9] v[G=UINT:511|P=OCT:777|L=UINT:511] d[G=511|P=16'o777|L=511]
+   [4] moved       sz[G=32|P=16|L=16] ct[G=7|P=1|L=7] v[G=INT:70000|P=DEC:70000|L=INT:70000] d[G=70000|P=32'd70000|L=70000]
+   [5] moved       sz[G=16|P=4|L=4] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [6] moved       sz[G=16|P=8|L=8] ct[G=7|P=1|L=7] v[G=INT:300|P=DEC:300|L=INT:300] d[G=300|P=16'd300|L=300]
+   [7] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+==== z8_ctx86  sections g=10 p=9 l=9
+  -- 0:MOD:ZN:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+   [3] SHAPE g=operation p=operation l=operation
+  -- 1:MOD:ZDF:op75 n=3
+   [0]             ct[G=9|P=4|L=4] v[G=UINT:15|P=OCT:17|L=OCT:17] d[G=15|P=16'o17|L=16'o17]
+   [1]             ct[G=9|P=4|L=4] v[G=UINT:15|P=OCT:17|L=OCT:17] d[G=15|P=16'o17|L=16'o17]
+   [2]             ct[G=9|P=4|L=4] v[G=UINT:15|P=OCT:17|L=OCT:17] d[G=15|P=16'o17|L=16'o17]
+  -- 2:MOD:ZDD:op75 n=3
+   [0]             ct[G=7|P=1|L=1] v[G=INT:5|P=DEC:5|L=DEC:5] d[G=5|P=16'd5|L=16'd5]
+   [1]             ct[G=7|P=1|L=1] v[G=INT:5|P=DEC:5|L=DEC:5] d[G=5|P=16'd5|L=16'd5]
+   [2]             ct[G=7|P=1|L=1] v[G=INT:5|P=DEC:5|L=DEC:5] d[G=5|P=16'd5|L=16'd5]
+  -- 3:MOD:ZRP:op76 n=2
+   [0]
+   [1] SHAPE g=operation p=operation l=operation
+  -- 4:MOD:ZAR:op75 n=3
+   [0] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [1] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+  -- 5:MOD:ZPK:op75 n=3
+   [0] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [1] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+   [2] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+  -- 6:MOD:R:op75 n=4
+   [0]
+   [1] moved       ct[G=7|P=1|L=7] v[G=INT:5|P=DEC:5|L=INT:5] d[G=5|P=16'd5|L=5]
+   [2] moved       ct[G=9|P=4|L=9] v[G=UINT:15|P=OCT:17|L=UINT:15] d[G=15|P=16'o17|L=15]
+   [3] SHAPE g=operation p=operation l=operation
+  -- 7:MOD:R:op75 n=3
+   [0]             ct[G=9|P=4|L=4] v[G=UINT:15|P=OCT:17|L=OCT:17] d[G=15|P=16'o17|L=16'o17]
+   [1]             ct[G=9|P=4|L=4] v[G=UINT:15|P=OCT:17|L=OCT:17] d[G=15|P=16'o17|L=16'o17]
+   [2]             ct[G=9|P=4|L=4] v[G=UINT:15|P=OCT:17|L=OCT:17] d[G=15|P=16'o17|L=16'o17]
+  -- 8:MOD:R:op76 n=2
+   [0] MOVED-WRONG sz[G=64|P=24|L=24] ct[G=9|P=1|L=7] v[G=UINT:3|P=DEC:5|L=INT:5] d[G=3|P=16'd5|L=5]
+   [1] SHAPE g=operation p=constant sz=24 ct=4 v=OCT:17 d=16'o17 ts=- l=constant sz=24 ct=9 v=UINT:15 d=15 ts=-
+MOVED-WRONG CELLS = 3

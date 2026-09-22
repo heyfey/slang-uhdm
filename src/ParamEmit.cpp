@@ -16450,6 +16450,148 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 rt81->Actual_typespec(at81);
                             c81->Typespec(rt81);
                         }
+                    // § modPatHopValueStoreEnc86 (r11u86) — THE MODULE ROUTE'S
+                    // OTHER FACE: a hop substituted into a pattern written in
+                    // a MODULE is rendered by the producer's simple VALUE
+                    // STORE, not by the clone of the stored constant, and the
+                    // Value store's renderers answer a `'d`-based spelling
+                    // `INT:` and an `'o`-based one `UINT:` — in DECIMAL
+                    // digits, both of them.  r11v81's RV81-2, decoded.
+                    //
+                    // THE PRODUCER, LINE BY LINE.  `compileExpression`'s
+                    // `slStringConst` case takes the setter's name and, at
+                    // `CompileExpression.cpp:2875`, asks the instance's simple
+                    // Value store (`if ((reduce == Reduce::Yes) && instance)
+                    // sval = instance->getValue(name);`).  When that answers a
+                    // VALID value the `else` arm at `:3027-3041` MINTS a fresh
+                    // constant out of it —
+                    //
+                    //   UHDM::constant *c = s.MakeConstant();
+                    //   c->VpiValue(sval->uhdmValue());
+                    //   c->VpiDecompile(sval->decompiledValue());
+                    //   c->VpiConstType(sval->vpiValType());
+                    //   c->VpiSize(sval->getSize());
+                    //
+                    // — and ONLY when it does not is the `param_assign` clone
+                    // (with r11u81's typespec hand-on) reached at `:2905-2927`
+                    // / `:2967-2993`.  The three renderers are
+                    // `Value.cpp:270-345` (`SValue`) and `:880-975` (`LValue`):
+                    // `uhdmValue()` prints `"INT:"` for `Type::Integer` and
+                    // `"UINT:"` for `Type::Unsigned`, `vpiValType()` maps those
+                    // two to `vpiIntConst` / `vpiUIntConst`, and
+                    // `decompiledValue()` prints `std::to_string` of the word —
+                    // PLAIN DECIMAL DIGITS, with no width and no base, for both.
+                    // A `'d`-spelled parameter's stored value is
+                    // `Type::Integer` and an `'o`-spelled one's is
+                    // `Type::Unsigned`; `'h` and `'b` have no valid simple
+                    // Value at all, so their cells take the clone and keep
+                    // `HEX:`/`BIN:` with the written decompile.
+                    //
+                    // MEASURED, arms `m1_route86` / `m2_enc86` / `m3_gate86` /
+                    // `m4_ctx86` / `m5_bnd86` / `m6_ov86` (real Surelog v1.87,
+                    // `slrc=0 ourrc=0 slerr=0` on both binaries), 24-bit
+                    // members, operand 0 a guaranteed bail:
+                    //
+                    //   hop spelling  golden (module pattern)   ours (pristine)
+                    //   16'd5         16@7  INT:5    d=5        16@1 DEC:5  d=16'd5
+                    //   32'd5         32@7  INT:5    d=5        32@1 DEC:5  d=32'd5
+                    //   64'd5         64@7  INT:5    d=5        64@1 DEC:5  d=64'd5
+                    //   'd5           -1@7  INT:5    d=5        32@1 DEC:5  d='d5
+                    //   16'd0         16@7  INT:0    d=0        16@1 DEC:0  d=16'd0
+                    //   16'sd5        16@7  INT:5    d=5        16@1 DEC:5  d=16'sd5
+                    //   16'o5         16@9  UINT:5   d=5        16@4 OCT:5  d=16'o5
+                    //   16'o17        16@9  UINT:15  d=15       16@4 OCT:17 d=16'o17
+                    //   16'o777       16@9  UINT:511 d=511      16@4 OCT:777
+                    //   logic[15:0]=16'd5  16@7 INT:5 d=5       16@1 DEC:5  d=16'd5
+                    //   a depth-3 `'d` chain              the same INT: answer
+                    //   unsigned'(MD)                     the same INT: answer
+                    //   16'h5 / 16'b101 / 5 / -5 / 5+1 / $clog2(8) / int TI
+                    //                                    golden == ours ALREADY
+                    //
+                    // and the OCTAL digits are the law's own positive control:
+                    // `16'o17` is golden `15` and `16'o777` is golden `511`, so
+                    // the write cannot be a relabelling of the digits we hold.
+                    //
+                    // THE GATES, each with the golden cell that demands it:
+                    //
+                    // * THE PATTERN'S HOME.  This is the INVERSE of
+                    //   § patternHomeIsAPackage81v's gate and it reads the same
+                    //   `pkgPat81` answer, so the two laws are disjoint by
+                    //   construction: a PACKAGE-homed pattern takes the clone
+                    //   route on every cell and keeps `DEC:`/`OCT:` with
+                    //   r11u81's typespecs (`m3_gate86`'s `.R(m3p::PKGCTL3)`
+                    //   reads golden exactly on both binaries, all eight
+                    //   operands).
+                    // * THE SETTER MUST BE A HOP.  A literal written DIRECTLY
+                    //   in the pattern is golden its own `DEC:`/`OCT:`
+                    //   (`m3_gate86` op1/op3, `m5_bnd86` op10) — the store is
+                    //   only consulted for a NAME.
+                    // * 64 BITS.  `m5_bnd86` op5/op6: `96'd12` is golden
+                    //   `96@1 DEC:12 d=96'd12` and `65'd3` is golden
+                    //   `65@1 DEC:3 d=65'd3` — past 64 bits there is no simple
+                    //   Value and the clone answers, so the law stops at the
+                    //   word boundary.  An UNSIZED literal (`red81LitWrittenSize81`
+                    //   -1) is inside it.
+                    // * A NEGATIVE READ.  `m5_bnd86` op7,
+                    //   `64'd18446744073709551614`, is golden `64@7 INT:0 d=0`:
+                    //   the producer's own word overflowed and the digits are
+                    //   LOST.  A value that does not fit a signed 64-bit read
+                    //   is refused rather than transcribed wrong.
+                    // * THE PRODUCER'S REDUCE.  The same two refusal readers
+                    //   § patBailStopsMemberStamp68 and r11u81 already use:
+                    //   where golden keeps the OPERATION or the tagged tree
+                    //   there is no constant of golden's to agree with.
+                    // * AND THE CELL MUST ALREADY HOLD THE CLASS THE LAW
+                    //   REWRITES — `vpiDecConst` for the `'d` arm,
+                    //   `vpiOctConst` for the `'o` arm.  Every measured cell
+                    //   does; a cell that does not was produced by some other
+                    //   road and this law has measured nothing about it.
+                    //
+                    // WHAT IT DOES NOT TOUCH: `VpiSize` (see the pass README's
+                    // R0 — golden's module-route SIZE is re-decided by the
+                    // pattern expansion in two of the six contexts `m4_ctx86`
+                    // measures and no gate separating them was found) and
+                    // `Typespec` (r11u81's ground; the `16'sd5` hop's leftover
+                    // signed typespec is R1).
+                    if (!ifaceArrayDefFold && !pkgPat81)
+                        for (size_t i86 = 0; i86 < opnds->size(); i86++) {
+                            const Expression* sx86 =
+                                i86 < opSet68.size() ? opSet68[i86] : nullptr;
+                            auto* ob86 = (*opnds)[i86];
+                            if (!sx86 || !ob86 ||
+                                ob86->UhdmType() != UHDM::uhdmconstant)
+                                continue;
+                            auto* c86 = (UHDM::constant*)ob86;
+                            const int32_t have86 = c86->VpiConstType();
+                            if (have86 != vpiDecConst && have86 != vpiOctConst)
+                                continue;
+                            if (!red86HopName86(*sx86, 0))
+                                continue;
+                            int64_t rv86 = 0;
+                            if (patAstRefuses68(*sx86) ||
+                                red72Int64(*sx86, ectx, 0, rv86) != Red72::Value)
+                                continue;
+                            if (rv86 < 0)
+                                continue;
+                            int32_t sz86 = 0;
+                            bool mint86 = false;
+                            const int32_t ct86 =
+                                red81StoreCt81(*sx86, 0, sz86, mint86);
+                            if (sz86 > 64)
+                                continue;
+                            if (ct86 != have86)
+                                continue;
+                            const std::string d86 = std::to_string(rv86);
+                            if (ct86 == vpiDecConst) {
+                                c86->VpiConstType(vpiIntConst);
+                                c86->VpiValue("INT:" + d86);
+                                c86->VpiDecompile(d86);
+                            } else {
+                                c86->VpiConstType(vpiUIntConst);
+                                c86->VpiValue("UINT:" + d86);
+                                c86->VpiDecompile(d86);
+                            }
+                        }
                     op2->Operands(opnds);
                     rhs = op2;
                     // § elabStructMemberFold — this listing's later member

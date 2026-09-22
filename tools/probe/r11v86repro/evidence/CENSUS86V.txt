@@ -1,0 +1,4 @@
+AGREE86    15198
+HOP86U     236
+--- candidate tests: 20
+cross-file 'd/'o declarations for the 78 distinct HOP86U names: 0 hits

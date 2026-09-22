@@ -1,0 +1,26 @@
+=== r11v86 GATES (verifier's own sweeps, /tmp/v11u86_wd, tags pris|lawx) ===
+pristine md5 23aace417bcebd92ef0afde8a20a8a1e (= main tree at 85da93e6)
+law      md5 7a4c780d71aa71fd643b77e4314676b4
+goldens: PASS=23 FAIL=0 on both; SLANG_UHDM=/bin/false PASS=0 FAIL=23
+u2r  : 788/16/67 per mode per binary; both-mode join vs results/golden_uhdm2rtlil.csv byte-identical; gate_uhdm2rtlil.csv PASS
+u2r byteverify: MOVERS 0/1608, SELFCHECK 1607/1608
+surelog: default 474/9, testflags 469/8 on both; every bucket at the committed count
+surelog vs results/golden_surelog.csv: 4 rows differ on EACH binary, identical pris and lawx --
+   Earlgrey_0_1 x2 dump column blank (status CMP_EQUAL, drawn the same on the PRISTINE sweep)
+   LowMemLib/LowMemPkg testflags SURELOG_FAIL, the detail string carries the sweep's workdir path
+surelog pris vs lawx: 2 rows differ, both the LowMem path string
+surelog byteverify: MOVERS 2/960 (MiniAmiq default + testflags), SELFCHECK 959/960
+   order-blind, path-normalised sorted dumps: 4 lines each, one UINT/vpiDecompile pair holding a LINE NUMBER
+   default 1348<->889   testflags 1502<->871   zero vpiConstType, zero vpiSize, zero vpiTypespec
+   COIN POSITIVE CONTROL: the PRISTINE binary alone, four runs of MiniAmiq's own invocation in one
+   directory writing one name, gives FOUR distinct databases (02bec36f67d9 fc4670fae214 4900ba74803c
+   c4933dafc4b2) and the pairwise sorted diffs are the SAME 4-line class (1227<->670, 1227<->1386, 670<->779)
+canaries: surelog ok=50 changed=2 (the two Earlgrey dump cells, identical on the pristine sweep); u2r ok=8 changed=0
+ctcan2: PASS x2 (ok=58 / ok=1, changed=0); canaudit: audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected databases, pristine vs law, both modes: ALL SAME and at the pinned md5s --
+   SVSwitch 4842211c4030  YosysVerx 6ccda350c24a  InterfaceModPort 59a365f3ce2c
+   Earlgrey_0_1 8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)  BlackParrotComplex SAME  YosysOldOr SAME
+conversions: BuildUVMPkg MiniAmiq SeqDriver SimpleUVM (both modes), Scoreboard (default), Earlgrey_0_1 (both),
+   ParamOverloading (both) all CMP_EQUAL on BOTH binaries; Rggen/default CMP_NOTEQUAL unchanged
+cmds.txt audited by ABSOLUTE binary path: u2r 1742/1742 own, surelog 3273/3323 own (the rest carry no slang line); MAINTREE=0 on both binaries
+wide boundary: 3384 arms -> 3336 SAME / 9 DIFFERS / 39 NODB (every NODB prc==lrc)

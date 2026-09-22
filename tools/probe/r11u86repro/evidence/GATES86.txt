@@ -1,0 +1,58 @@
+r11u86 GATE RECORD — base 85da93e6
+==================================
+BINARIES (both frozen chmod 555 before any sweep)
+  pristine  23aace417bcebd92ef0afde8a20a8a1e   == the main tree's build/slang-uhdm at 85da93e6
+  law       7a4c780d71aa71fd643b77e4314676b4
+
+1 GOLDENS          law: 23 PASS / 0 FAIL     negative control (/bin/false): 0 PASS / 23 FAIL
+2 uhdm2rtlil       788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT, BOTH modes, BOTH binaries
+  both-mode join vs results/golden_uhdm2rtlil.csv (1742 rows)          DIFF = 0
+  testflags join vs results/gate_uhdm2rtlil.csv                        PASS
+  testflags + default joins vs this pass's own pristine sweep          PASS
+  byteverify SELFCHECK=1                     MOVERS 0 / 1608   selfcheck 1607/1608
+3 surelog --mode both, EACH binary
+  default   474 CMP_EQUAL / 9 CMP_NOTEQUAL / 5 DEFERRED / 285 SLANG_REJECT / 25 SURELOG_FAIL
+  testflags 469 CMP_EQUAL / 8 CMP_NOTEQUAL / 5 DEFERRED / 286 SLANG_REJECT / 23 SURELOG_FAIL
+            + 3 NO_DATABASE / 1 NO_UHDM / 1 TIMEOUT / 2 UNTRANSLATABLE
+  vs results/golden_surelog.csv: 4 rows differ, NOT ONE a status change --
+    Earlgrey_0_1 default+testflags  CMP_EQUAL/differ -> CMP_EQUAL/   (dump column blank;
+      the PRISTINE sweep drew the SAME blank; the database byte pin never moved)
+    LowMemLib, LowMemPkg testflags  SURELOG_FAIL both sides; the DETAIL string embeds
+      the sweep's own workdir path
+  vs this pass's own pristine sweep: only the two LowMem path strings
+  byteverify SELFCHECK=1                     MOVERS 3 / 960    selfcheck 959/960
+    default/MiniAmiq    4 sorted lines  UINT/vpiDecompile 890 <-> 980
+    testflags/MiniAmiq  4 sorted lines  UINT/vpiDecompile 1319 <-> 774
+    testflags/SeqDriver 4 sorted lines  UINT/vpiDecompile 933 <-> 1136
+    ZERO vpiConstType / vpiSize / vpiTypespec lines in any of the three
+  COIN POSITIVE CONTROL: the PRISTINE binary alone, five runs of MiniAmiq's own
+    invocation in one directory writing one name -> five distinct databases
+    78e5b80de859  f0448d2eb18c  6b5f988d737b  c7f04205883b  3a54c6fa9bba
+    and two of them differ by exactly that 4-line class (1314 <-> 1118)
+4 CANARIES
+  canaries.sh surelog   ok=50 changed=2 absent=0   (the 2 = Earlgrey dump column, status
+                                                    unchanged, same on the pristine sweep)
+  canaries.sh u2r       ok=8  changed=0 absent=0
+  ctcan2.sh   surelog   ok=58 changed=0            PASS
+  ctcan2.sh   u2r       ok=1  changed=0            PASS
+  canaudit.sh           audited=29 UNCOVERED=0 FENCE-BREACH=0   PASS
+  PROTECTED DATABASES, law vs pristine, both modes:
+    SVSwitch           4842211c4030  SAME (the hard pin)
+    YosysVerx          6ccda350c24a  SAME (the hard pin)
+    InterfaceModPort   59a365f3ce2c  SAME (watched byte-for-byte)
+    Earlgrey_0_1       8bdf25272e08 default / 59d0ee6d10c3 testflags  SAME (the tf db pin)
+    BlackParrotComplex e3e354129d5a default / 73a10e8217e5 testflags  SAME
+    YosysOldOr         d68e0796d62c  SAME
+5 CONVERSION ROWS on the official uhdm-cmp, golden as LHS (cmp lines / heads)
+  SeqDriver 0/0 0/0   SimpleUVM 0/0 0/0   MiniAmiq 0/0 0/0   BuildUVMPkg 0/0 0/0
+  Scoreboard 0/0 (default; testflags SLANG_REJECT, no database)
+  ParamOverloading 0/0 0/0            Earlgrey_0_1 0/0 0/0
+  Rggen default 64/1 (unchanged)      Rggen testflags SKIP-NOFILE
+6 WIDE BOUNDARY  3383 arms:  3336 SAME  8 DIFFERS  39 NODB (every NODB prc == lrc)
+  all 8 DIFFERS arms PREDICTED BY NAME:
+    m1_route86 m2_enc86 m3_gate86 m4_ctx86 m5_bnd86 m6_ov86   (this pass's)
+    v1_qualhop81 v12_home81                                   (grid TO=4 / TO=1)
+7 CMDS AUDIT  every cmds.txt read by ABSOLUTE binary path; 0 name the main tree
+8 results/*.csv UNTOUCHED;  ModuleEmit.cpp (the sister pass's ground) NOT in the patch
+9 FENCE  none of the four slang-fenced test names appears in any file here, and none
+  was dispatched;  canaudit.sh FENCE-BREACH=0

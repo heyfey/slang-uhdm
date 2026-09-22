@@ -1,0 +1,4 @@
+      2 2>&1
+      8 DIFFERS
+     39 NODB
+   3336 SAME
