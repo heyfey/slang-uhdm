@@ -1,0 +1,9 @@
+pristine                       2717
+law, all switches ON           185
+R11U93_OFF=1                   2717
+R11U93_IFPORTMINT_OFF=1        2094
+R11U93_IFPORTORD_OFF=1         215
+R11U93_IFPORTLOW_OFF=1         457
+R11U93_IFPORTTYPE_OFF=1        215
+R11U93_PROGGEN_OFF=1           1148
+R11U93_PROGFLAT_OFF=1          808

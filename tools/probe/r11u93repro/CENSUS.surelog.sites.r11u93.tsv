@@ -1,0 +1,20 @@
+InterfaceModPort	default	rc=0	R11U93PROGGEN home=work@interface_modports.U_test drop=1
+InterfaceModPort	testflags	rc=0	R11U93PROGGEN home=work@interface_modports.U_test drop=1
+OneNetInterf	default	rc=0	R11U93PROGGEN home=work@tb.tb drop=1
+OneNetInterf	testflags	rc=0	R11U93PROGGEN home=work@tb.tb drop=1
+OneNetModPort	default	rc=0	R11U93PROGGEN home=work@TOP.tb drop=1
+OneNetModPort	testflags	rc=0	R11U93PROGGEN home=work@TOP.tb drop=1
+OneNetModPortGeneric	default	rc=0	R11U93PROGGEN home=work@TOP.tb drop=1
+OneNetModPortGeneric	testflags	rc=0	R11U93PROGGEN home=work@TOP.tb drop=1
+OneNetRange	default	rc=0	R11U93PROGGEN home=work@TOP.tb drop=1
+OneNetRange	testflags	rc=0	R11U93PROGGEN home=work@TOP.tb drop=1
+SVSwitch	default	rc=4	R11U93PROGGEN home=work@top.TC drop=1
+SVSwitch	testflags	rc=4	R11U93PROGGEN home=work@top.TC drop=1
+#TOTALS	arms=1573	ifmint=0	ifmintBody=0	progFlat=0	progGen=12
+#RC	rc=-11:3	rc=0:944	rc=1:4	rc=2:32	rc=3:578	rc=4:12
+#PREDICTED-MOVER	InterfaceModPort	LAWA-SCOPE
+#PREDICTED-MOVER	OneNetInterf	LAWA-SCOPE
+#PREDICTED-MOVER	OneNetModPort	LAWA-SCOPE
+#PREDICTED-MOVER	OneNetModPortGeneric	LAWA-SCOPE
+#PREDICTED-MOVER	OneNetRange	LAWA-SCOPE
+#PREDICTED-MOVER	SVSwitch	LAWA-SCOPE

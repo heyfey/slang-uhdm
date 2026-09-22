@@ -1,0 +1,56 @@
+arm                            pris     lawx verdict
+i1_ifnda                          0        0 control, unmoved
+m1_modnda                         0        0 control, unmoved
+n1_strnonansi                     0        0 control, unmoved
+n2_strrevorder                    0        0 control, unmoved
+n3_strnonansi_if                102        0 CONVERTED
+n4_nonansi_plain_if             110        0 CONVERTED
+n5_nonansi_noredecl               0        0 control, unmoved
+n6_nonansi_plain                  0        0 control, unmoved
+n7_strnonansi_in                  0        0 control, unmoved
+n8_strtwoports                    0        0 control, unmoved
+n9_strnonansi_prog               NA       NA NOT GOLDEN (golden_rc=3 ours_rc=0)
+n10_strnonansi_gen                0        0 control, unmoved
+n11_ansistr                     113      113 unchanged (unclaimed)
+p1_prognda                        0        0 control, unmoved
+p2_progassign                     0        0 control, unmoved
+p3_progboth                       0        0 control, unmoved
+p4_progdefonly                    0        0 control, unmoved
+p5_progparam                      0        0 control, unmoved
+p6_progtop                        0        0 control, unmoved
+p7_proggennda                    56        0 CONVERTED
+p8_progstr                        0        0 control, unmoved
+p9_progvarinit                    0        0 control, unmoved
+pa2_progif0                      56        0 CONVERTED
+pa3_progifelse                   70        0 CONVERTED
+pa4_progfor                      56        0 CONVERTED
+pa5_progvar                      56        0 CONVERTED
+pa6_prognest                     70        0 CONVERTED
+pa7_progbare                     56        0 CONVERTED
+pa8_proggenonly                  21        0 CONVERTED
+pa9_proggenparam                 72       72 unchanged (unclaimed)
+pa10_proggenmod                  NA       NA NOT GOLDEN (golden_rc=0 ours_rc=3)
+pa11_proggenregion                0        0 NOT GOLDEN (golden_rc=139 ours_rc=0)
+pa12_progsamearm                 70        0 CONVERTED
+pa13_progcollide                 56        0 CONVERTED
+pa14_progvarbody                  0        0 control, unmoved
+pa15_modgennda                    0        0 control, unmoved
+pa16_ifacegennda                  0        0 control, unmoved
+pa17_progtopgen                  56        0 CONVERTED
+pb3_ifnoredecl                  102        0 CONVERTED
+pb4_ifrevorder                  110        0 CONVERTED
+pb5_ifinput                     110        0 CONVERTED
+pb6_ifansi                        0        0 control, unmoved
+pb7_iftwoports                  186        0 CONVERTED
+pb8_ifmodport                   144        0 CONVERTED
+pb9_ifgen                       146        0 CONVERTED
+pb10_ifnetuse                   190        0 CONVERTED
+pb11_ifvarredecl                110        0 CONVERTED
+pb12_ifstrnonport               110        0 CONVERTED
+pb13_ifnoansiplainnouse           0        0 control, unmoved
+pb14_ifbothstr                   15        0 CONVERTED
+pb15_ifnodim                    110        0 CONVERTED
+pb16_ifdeclorder                110        0 CONVERTED
+pb17_ifonedecl                  110        0 CONVERTED
+pb18_ifnodecl                    NA       NA NOT GOLDEN (golden_rc=4 ours_rc=3)
+pb19_modportview                144        0 CONVERTED

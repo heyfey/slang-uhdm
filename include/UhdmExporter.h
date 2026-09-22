@@ -1987,6 +1987,12 @@ private:
     // re-emit the declarator's default.  Kept apart from paramRhsObj because
     // that map is rewritten by the DEF-view pass over the same body symbols.
     std::map<const slang::ast::Symbol*, UHDM::any*> elabOvMisevalRhs;
+    // § caIfacePortDeclNetMint93 — the net an INTERFACE's non-ANSI PORT
+    // DECLARATION minted, per view.  The port's `Low_conn` binds THIS net,
+    // while the body declaration's net (the one every reference binds) stays
+    // in the ordinary net map.  Cleared at the top of each interface net
+    // listing, so only the view being emitted is ever in it.
+    std::map<const slang::ast::Symbol*, UHDM::any*> ifaceMintNet93;
     // Substitutes parameter leaves inside an elab child's part-select bound
     // OPERATION (see ModuleEmit).
     bool foldBareParamBoundIn(const slang::ast::InstanceBodySymbol* body,
