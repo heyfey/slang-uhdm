@@ -1383,6 +1383,47 @@ static bool cellDbg83() {
 }
 
 // ===========================================================================
+// § caIfaceCaCloneKeepsDriveFields85 / § caIfaceCaFoldNestedOperandWidth85 /
+// § caIfaceCaFoldCastOperandNoDecompile85 (r11u85) — THE INTERFACE HOME'S
+// THREE REMAINING `cont_assign` RESIDUES, batched.  Three switches, each
+// droppable ALONE: `R11U85_DRIVE_OFF=1` puts the elaborated-interface clone's
+// drive-field copy back on r11v83's `sps83`-only gate (the two PRE-EXISTING
+// clone shapes drop `Delay` / `VpiStrength0/1` / `VpiNetDeclAssign` again);
+// `R11U85_NESTW_OFF=1` puts the member-width stamp back on every depth (a
+// NESTED member read re-sizes to the member's declared width);
+// `R11U85_CASTDC_OFF=1` puts the cast/concat element's `vpiDecompile` back;
+// `R11U85_OFF=1` drops all three.  `R11U85_CELLDBG=1` traces every cell that
+// reaches the substitution emitter — IN EVERY HOME, the declined ones and the
+// homes the gate excludes included — so ONE run of ONE binary predicts the
+// mover set a priori.
+static bool drvOff85() {
+    static const bool v = getenv("R11U85_DRIVE_OFF") != nullptr ||
+                          getenv("R11U85_OFF") != nullptr;
+    return v;
+}
+static bool nestWOff85() {
+    static const bool v = getenv("R11U85_NESTW_OFF") != nullptr ||
+                          getenv("R11U85_OFF") != nullptr;
+    return v;
+}
+static bool castDcOff85() {
+    static const bool v = getenv("R11U85_CASTDC_OFF") != nullptr ||
+                          getenv("R11U85_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg85() {
+    static const bool v = [] {
+        const char* e = getenv("R11U85_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+// Defined beside `caStructParamSetter55`, whose member chain they read; the
+// generate-scope home calls them from above it.
+static int32_t caSetterChainDepth85(const slang::ast::Expression& rhsExpr);
+static bool castOrConcatSetter85(const slang::ast::Expression& setter);
+
+// ===========================================================================
 // § caImportedPkgHoistUnpackedBuilder80 / § caImportedPkgDefNetTypeVar80
 // (r11u80) — r11u77's two residues, batched.  Two switches, each droppable
 // ALONE: `R11U80_HOLDER_OFF=1` drops the unpacked HOLDER BUILDER (every
@@ -22071,10 +22112,18 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         dsps71 ? 1 : 0);
             }
             if (sps69)
+                // r11u85 passes the READ's member-access depth and whether
+                // this generate scope's home is an INTERFACE.  `ifaceHome69`
+                // is the same flag pass 69/71 already decided the fire on, and
+                // arm `n4_nestgen` measures both of an interface's homes on
+                // ONE nested read: the body cell and the gen-scope cell read
+                // golden's 64 alike, so the two homes take one answer.
                 rhs = emitCaStructParamSubst55(*sps69, spsMemberTy69,
                                                spsPureDef69, spsPriorProven69,
                                                ae.left(), ca,
-                                               fullName, netMap, adjWt71);
+                                               fullName, netMap, adjWt71,
+                                               caSetterChainDepth85(ae.right()),
+                                               ifaceHome69);
             // ==== § caAsmMemberSliceFoldGenScope74 (r11u74) ===============
             // § caAsmMemberSliceFold's FUNCTION-BUILT STRUCT PARAMETER MEMBER
             // FOLD RUNS FOR A cont_assign WRITTEN INSIDE A GENERATE BLOCK
@@ -28807,6 +28856,52 @@ static const Expression* caStructParamSetter55(const Expression& rhsExpr,
     return nullptr;
 }
 
+// § caIfaceCaFoldNestedOperandWidth85 (r11u85) — THE MEMBER-ACCESS DEPTH, read
+// off the SAME chain `caStructParamSetter55` walks.  `C.n` is 1, `D.inner.n`
+// is 2, `E.o2.inner.n` is 3; anything that is not a member read of a parameter
+// is 0.  The depth is the producer's own pattern-nesting count, because every
+// hop consumes exactly one pattern level (W1's `C = p::LIT` hop included —
+// arm `n6_refnest` measures the level reached through a NAMED localparam and
+// reads the same answer as the written one).
+static int32_t caSetterChainDepth85(const Expression& rhsExpr) {
+    const Expression* b85 = &stripImplicitConv(rhsExpr);
+    int32_t d85 = 0;
+    for (int hop = 0; hop < 8 && b85->kind == ExpressionKind::MemberAccess;
+         ++hop) {
+        ++d85;
+        b85 = &stripImplicitConv(b85->as<MemberAccessExpression>().value());
+    }
+    return d85;
+}
+
+// § caIfaceCaFoldCastOperandNoDecompile85 (r11u85) — THE ELEMENT FORMS THE
+// PRODUCER REDUCES WITHOUT A SPELLING.  Measured, form by form, on arm
+// `x3_exprkinds` (ten instances of one interface, one element form each, real
+// Surelog v1.87), reading the ELABORATED parameter operand that golden's fold
+// IS:
+//
+//   `8'd7`            DEC:7        `vpiDecompile:8'd7`   (the written literal)
+//   `KB`              INT:6        `vpiDecompile:6`
+//   `KB + 8'd1`       INT:7        `vpiDecompile:7`
+//   `-KB`             INT:-6       `vpiDecompile:-6`
+//   `KB > 2 ? 3 : 4`  DEC:3        `vpiDecompile:8'd3`   (the chosen literal)
+//   `8'(K)`           INT:2        **no `vpiDecompile`**
+//   `8'(K + 3)`       UINT:5       **no `vpiDecompile`**
+//   `8'(9)`           UINT:9       **no `vpiDecompile`**
+//   `8'(-K)`          UINT:254     **no `vpiDecompile`**
+//   `{4'h1, 4'h2}`    BIN:00010010 **no `vpiDecompile`**
+//
+// So it is not "computed" that drops the spelling — an arithmetic element
+// keeps one and we already match it.  It is the explicit SIZE CAST and the
+// CONCATENATION, and nothing else in the grid.  A replication is NOT included:
+// no arm measured one, and GOLDEN WRITES NOTHING ON A MISS cuts both ways.
+static bool castOrConcatSetter85(const Expression& setter) {
+    auto& sv85 = stripImplicitConv(setter);
+    if (sv85.kind == ExpressionKind::Conversion)
+        return !sv85.as<ConversionExpression>().isImplicit();
+    return sv85.kind == ExpressionKind::Concatenation;
+}
+
 // § caStructParamGenScopeSubst69 — the pass's own run-time switches.
 // `R11U69_OFF=1` restores the pristine behaviour IN THE SHIPPED BINARY so a
 // mover's whole byte delta can be attributed to this law and nothing else;
@@ -29303,7 +29398,9 @@ UHDM::any* UhdmExporter::emitCaStructParamSubst55(const Expression& setter,
                                                   UHDM::cont_assign* ca,
                                                   const std::string& prefix,
                                                   NetMap& netMap,
-                                                  int32_t adjustW71) {
+                                                  int32_t adjustW71,
+                                                  int32_t chain85,
+                                                  bool ifaceHome85) {
     UHDM::any* rhs = nullptr;
         bool fsp = forceConstParent;
         forceConstParent = true;
@@ -29516,11 +29613,6 @@ UHDM::any* UhdmExporter::emitCaStructParamSubst55(const Expression& setter,
             // `16'd4660` at `vpiSize:16` where the member stamp would
             // write 8.  Unproven leaves the pass-54/55 `vpiUIntConst` arm
             // exactly as it stood.
-            if (mw55 > 0 &&
-                (c55->VpiConstType() == vpiUIntConst ||
-                 (priorProven68v &&
-                  !caIntTsBinOrigin68(setter, 0))))
-                c55->VpiSize(mw55);
             // § caStructParamGenScopeShareCut71 — `adjustW71` IS the producer's
             // `tps`, decided by `bindVariable`'s NAME hit at the call site.  The
             // module-level home passes -1 and keeps `caLhsAdjustBind106`
@@ -29530,6 +29622,12 @@ UHDM::any* UhdmExporter::emitCaStructParamSubst55(const Expression& setter,
             // otherwise — which on a namesake is NOT the assignment's real
             // target (`v1_namesake`: a 32-bit gen-local shadowed by an 8-bit
             // module-body `nw` gives golden `UINT:44` at 8).
+            //
+            // r11u85 moved this decision ABOVE the member stamp — it reads
+            // nothing the stamp writes, so the two are independent — because
+            // § caIfaceCaFoldNestedOperandWidth85 has to know whether an
+            // `adjustSize` will overwrite the stamp before it declines to
+            // write it.
             std::string ln55;
             int32_t lw55 = 0;
             bool bind55 = false;
@@ -29539,6 +29637,75 @@ UHDM::any* UhdmExporter::emitCaStructParamSubst55(const Expression& setter,
                 lw55 = adjustW71;
                 bind55 = true;
             }
+            // ==== § caIfaceCaFoldNestedOperandWidth85 (r11u85) ============
+            // THE MEMBER-WIDTH STAMP IS THE PRODUCER'S `adjustOpSize`, AND IT
+            // REACHES THE OUTERMOST PATTERN'S OPERANDS ONLY.  A member read
+            // through a NESTED pattern keeps the OPERAND's own width.
+            //
+            // THE DECODE.  `UhdmWriter::writeCont_assign`
+            // (~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp:2246-2277)
+            // reduces the cell's Rhs and, ONLY when `tps` is non-null, runs
+            // `adjustSize` over the result; `tps` comes from the Lhs ref's own
+            // typespec or from the variable `bindVariable` found, and
+            // `bindVariable` (`CompileStmt.cpp:3089`) stops dead at an
+            // `interface_inst` — which is `caLhsAdjustBind106`'s landed decode.
+            // So in an interface home NOTHING re-stamps the reduce, and what
+            // golden lists is the raw reduce: the ELABORATED PARAMETER OPERAND
+            // ITSELF.  Arm `x3_exprkinds` proves that identity row for row —
+            // every cell's folded Rhs is byte-identical to that instance's
+            // `param_assign` operand for the member.
+            //
+            // MEASURED (real Surelog v1.87), arm `n1_ifnest`, one interface,
+            // nine cells, THREE Lhs widths per shape:
+            //   `C.n`        (depth 1, `int unsigned`, member set `n: 6`)
+            //                golden `UINT:6  vpiSize:32` — ONE shared object
+            //                for the 8-, 32- and 64-bit Lhs alike, so the Lhs
+            //                is not consulted in this home at all;
+            //   `D.inner.n`  (depth 2, same member type, set `n: 11`)
+            //                golden `UINT:11 vpiSize:64` at every Lhs width;
+            //   `D.inner.m`  (depth 2, `logic [7:0]`, set `m: 8'h5A`)
+            //                golden `HEX:5A vpiSize:8`;
+            //   `E.o2.inner.n` (depth 3)        golden `UINT:21 vpiSize:64`;
+            //   `E.o2.t`     (depth 2, 4 bits)  golden `HEX:2  vpiSize:4`.
+            // Arm `n3_nestkinds` crosses the nested member's KIND: `byte`,
+            // `logic [7:0]`, `logic [11:0]` and `longint unsigned` all read
+            // their written literal's own width on both sides, and only the
+            // two UNSIZED-DECIMAL members (`int`, `int unsigned`) read 64
+            // where we wrote 32 — because an unsized decimal operand is 64
+            // bits wide until something stamps it, and at depth >= 2 nothing
+            // does.  Arm `n6_refnest` fences the rule: the inner level reached
+            // through a NAMED localparam (`inner: INNERLIT`) reads 64 exactly
+            // as the written inner pattern does, so the count is the READ's
+            // depth and not "was an inner pattern written here".
+            //
+            // HOME-INDEPENDENT IN THE PRODUCER, GATED TO THE INTERFACE HOMES
+            // HERE.  Arm `n5_nestsel` measures the module home with a SELECT
+            // Lhs — where `writeCont_assign` fills no `tps` either — and
+            // golden reads `UINT:11 vpiSize:64` there too.  Our module home
+            // DECLINES that cell (the landed whole-name Lhs fence), so
+            // widening would change nothing there today; the interface homes
+            // are the ones with witnesses, so the gate names them and the
+            // other homes' would-be sites are censused, not assumed.
+            //
+            // `bind55` is read, not ignored: where an `adjustSize` WILL run
+            // the stamp is invisible anyway, and leaving it in place keeps
+            // every landed `vpiDecConst` cell (whose `adjustSize` arm does not
+            // re-size) byte-identical.
+            const bool nestRaw85 =
+                ifaceHome85 && chain85 >= 2 && !bind55 && !nestWOff85();
+            if (cellDbg85())
+                fprintf(stderr,
+                        "R11U85SUBST chain=%d iface=%d bind=%d nestRaw=%d "
+                        "castdc=%d ct=%d mw=%d sz=%d\n",
+                        (int)chain85, (int)ifaceHome85, (int)bind55,
+                        (int)nestRaw85, (int)castOrConcatSetter85(setter),
+                        (int)c55->VpiConstType(), (int)mw55,
+                        (int)c55->VpiSize());
+            if (mw55 > 0 && !nestRaw85 &&
+                (c55->VpiConstType() == vpiUIntConst ||
+                 (priorProven68v &&
+                  !caIntTsBinOrigin68(setter, 0))))
+                c55->VpiSize(mw55);
             if (bind55) {
                 auto ct55 = c55->VpiConstType();
                 int32_t os55 = c55->VpiSize();
@@ -29582,6 +29749,31 @@ UHDM::any* UhdmExporter::emitCaStructParamSubst55(const Expression& setter,
                 }
             }
         }
+    // ==== § caIfaceCaFoldCastOperandNoDecompile85 (r11u85) ================
+    // AN ELEMENT WRITTEN AS AN EXPLICIT SIZE CAST OR AS A CONCATENATION FOLDS
+    // WITH NO `vpiDecompile` IN THE INTERFACE HOME, AND `constant::Compare`
+    // READS `VpiDecompile` FIRST.
+    //
+    // THE DECODE is the one above: in an interface home `adjustSize` never
+    // runs (`bindVariable` stops at an `interface_inst`), so golden's folded
+    // Rhs IS the elaborated parameter operand, and that operand is whatever
+    // `ExprEval::reduceExpr` left.  Its `vpiCastOp` and concatenation arms
+    // mint a value with no spelling; its name and arithmetic arms write one.
+    // The MODULE twins are the proof that this is a home reading and not an
+    // element reading: `x2_modexpr` and `b13_exprovmod` carry golden's
+    // `vpiDecompile:1` on the very same `8'(K + 1)` element and we match them
+    // byte for byte, because there `adjustSize`'s UINT arm re-writes the
+    // decompile from the value.
+    //
+    // The form table is in the § block at `castOrConcatSetter85`.  Only the
+    // SPELLING is dropped; the value, the width and the encoding stand exactly
+    // where the landed laws left them, so a form this pass does not decode
+    // (arm `x3_exprkinds`'s `8'(K)` INT-vs-UINT and `{4'h1,4'h2}` BIN-vs-UINT
+    // encodings, and its ternary's chosen-literal spelling) stays a measured
+    // residue and moves no further from golden than it already was.
+    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant && ifaceHome85 &&
+        chain85 >= 1 && !castDcOff85() && castOrConcatSetter85(setter))
+        ((UHDM::constant*)rhs)->VpiDecompile("");
     return rhs;
 }
 
@@ -33507,10 +33699,18 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     rhs ? UHDM::UhdmName(rhs->UhdmType()).data() : "-",
                     (int)plainLhs);
         if (!rhs && topView && structParamSetter)
+            // The MODULE home passes its depth for the census trace and
+            // `ifaceHome85 = false`, so nothing this pass decides can reach
+            // it: arm `n2_nestmod` reads golden's answer on all nine shapes
+            // already, and `n5_nestsel` names the one module shape that would
+            // move if the gate were widened (a SELECT Lhs, which this home
+            // declines outright).
             rhs = emitCaStructParamSubst55(*structParamSetter,
                                            spsMemberTy55, spsPureDef56,
                                            spsPriorProven68v,
-                                           ae.left(), ca, prefix, netMap);
+                                           ae.left(), ca, prefix, netMap, -1,
+                                           caSetterChainDepth85(ae.right()),
+                                           /*ifaceHome85=*/false);
         // A MEMBER-select (hier_path) LHS with a literal RHS gets a BARE
         // loc-only Rhs constant in the elab view — Surelog does not re-parent
         // or re-size it (unlike the plain vector-select case, whose value
@@ -39491,7 +39691,62 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // own law with its own census, not a silent widening here.
             // `sps83` is null whenever LAW B is off, so this rides its
             // switch.
-            if (sps83) {
+            // ==== § caIfaceCaCloneKeepsDriveFields85 (r11u85) =============
+            // THE DRIVE FIELDS BELONG TO EVERY CLONE THIS BRANCH BUILDS, NOT
+            // ONLY TO THE CELLS r11u83 NEWLY CLONED — r11v83's R1, closed.
+            //
+            // THE DECODE is the producer's own word for it: `writeCont_assign`
+            // (~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp:2268-2277)
+            // builds the elaborated cell with `UHDM::clone_tree(assign, …)`
+            // and then swaps ONE field, the Rhs.  A `clone_tree` copies the
+            // whole object, so `VpiNetDeclAssign`, both strengths and `Delay`
+            // ride into the elaborated view by construction; our clone was
+            // built field by field and carried the parent and the span alone.
+            // Every one of the four is read by `cont_assign::Compare` BEFORE
+            // the Rhs (`~/git-repos/UHDM/build/generated/src/cont_assign.cpp:
+            // 104-124`), so the gap is judge-visible ahead of everything the
+            // fold decides.
+            //
+            // MEASURED at the base, per cell, on the TWO shapes that already
+            // took this clone before r11u83 (arm `b16_preclone`, and this
+            // pass's `a1_cadrive` / `a2_enumdrive` / `a6_commadrive`):
+            //   plain-constant Rhs  `assign #5 c_del = 32'd8;`
+            //       golden elab `vpiDelay: constant UINT:5 vpiSize:64 #5`,
+            //       ours NONE — and it is arm `a1_cadrive`'s ONE head,
+            //       `RHS: <null>` on the singular overload's mirror;
+            //   plain-constant Rhs  `assign (strong1, weak0) c_str = 32'd9;`
+            //       golden `vpiStrength0:8 vpiStrength1:64`, ours `0 0`;
+            //   package-enum-const Rhs, the same two forms (`a2_enumdrive`);
+            //   a COMMA-LIST `assign #4 p = …, q = …;` — golden puts the one
+            //       delay on BOTH cells (`a6_commadrive`), which is what a
+            //       per-cell clone of one statement does.
+            // Arm `a4_drivemod` is the attribution control: the MODULE home
+            // carries `vpiNetDeclAssign:1`, the delay and both strengths
+            // byte-identically on both sides, so the gap is this clone's.
+            //
+            // NOT WIDENED BEYOND THE COPY.  `VpiNetDeclAssign` is copied
+            // because `clone_tree` copies it, but our interface DEF listing
+            // carries no net-declaration-assignment cell at all (arm
+            // `a3_ndassign`: golden's elaborated interface lists three cells,
+            // two of them `vpiNetDeclAssign:1`, and we list one) — that is a
+            // LISTING law with its own decode and its own census, recorded as
+            // this pass's R0 and not smuggled in here.  Nor does this touch
+            // the cell the producer DECLINES outright: an `assign` carrying a
+            // strength AND a delay is written by neither golden view
+            // (`a7_bothdrive`), and GOLDEN WRITES NOTHING ON A MISS.
+            //
+            // THE CELL TRACE sits OUTSIDE the gate and names EVERY clone this
+            // branch builds with the four fields the def cell carries, so ONE
+            // traced run of ONE binary predicts this law's mover set a priori:
+            // a cell whose four fields are all zero cannot move.
+            if (cellDbg85())
+                fprintf(stderr,
+                        "R11U85DRIVE %s:%d sps=%d nda=%d s0=%d s1=%d dly=%d\n",
+                        prefix.c_str(), (int)defCa->VpiLineNo(),
+                        sps83 ? 1 : 0, (int)defCa->VpiNetDeclAssign(),
+                        (int)defCa->VpiStrength0(), (int)defCa->VpiStrength1(),
+                        defCa->Delay() ? 1 : 0);
+            if (sps83 || !drvOff85()) {
                 ca->VpiNetDeclAssign(defCa->VpiNetDeclAssign());
                 ca->VpiStrength0(defCa->VpiStrength0());
                 ca->VpiStrength1(defCa->VpiStrength1());
@@ -39599,7 +39854,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             if (sps83 && ae83)
                 if (auto* fr83 = emitCaStructParamSubst55(
                         *sps83, spsTy83, spsPure83, spsPrior83, ae83->left(),
-                        ca, prefix, netMap))
+                        ca, prefix, netMap, -1,
+                        caSetterChainDepth85(ae83->right()),
+                        /*ifaceHome85=*/true))
                     ca->Rhs((UHDM::expr*)fr83);
             elabCas->push_back(ca);
         }

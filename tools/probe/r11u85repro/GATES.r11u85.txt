@@ -1,0 +1,134 @@
+r11u85 GATES — the raw numbers behind README §7.
+
+=== 7a. BINARIES (built -j 2 in this pass's own worktree, md5 taken separately,
+===     both frozen chmod 555 at immutable paths BEFORE any sweep)
+pristine  23aace417bcebd92ef0afde8a20a8a1e   /tmp/r11u85_bin/pris.bin
+          cmp-identical to the main tree's build/slang-uhdm @85da93e6 (the OPS pin)
+patched   6db0d24eb7d37ab870c8fa87033644b4   /tmp/r11u85_bin/patch.bin
+
+THE PATCH IS REPRODUCIBLE: applied with `git apply -3` to a FRESH 85da93e6
+worktree (rc 0, 0 conflict markers in either production file), and the applied
+src/ModuleEmit.cpp and include/UhdmExporter.h are `cmp` byte-identical to this
+worktree's, as is the whole tools/probe/r11u85repro/ tree.
+
+=== 7b. GOLDENS
+pristine   PASS 23   FAIL 0
+patched    PASS 23   FAIL 0
+/bin/false PASS 0    FAIL 23     (negative control)
+
+=== 7c. uhdm2rtlil, both modes, both binaries
+788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT   patched default
+788 / 16 / 67                                       patched testflags
+788 / 16 / 67                                       pristine default
+788 / 16 / 67                                       pristine testflags
+
+ct8rows testflags vs results/gate_uhdm2rtlil.csv   PASS: every row byte-identical
+ct8rows testflags vs this pass's own pristine      PASS: every row byte-identical
+ct8rows default   vs this pass's own pristine      PASS: every row byte-identical
+whole-row join both modes vs results/golden_uhdm2rtlil.csv:
+    rows base=1742 fresh=1742 differing=0
+
+byteverify SELFCHECK=1  patched vs this pass's own pristine workdir:
+    databases: patched=1608 pristine=1608
+    PATH_SETS_IDENTICAL (1608 paths)
+    MOVERS: 0 / 1608
+    SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+=== 7d. surelog, --mode both, both binaries
+                 pristine              patched
+default    CMP_EQUAL 474 / NE 9   CMP_EQUAL 474 / NE 9
+testflags  CMP_EQUAL 469 / NE 8   CMP_EQUAL 469 / NE 8
+the committed baseline exactly, and EVERY other status bucket identical on the
+two binaries: 5+5 DEFERRED, 285/286 SLANG_REJECT, 25/23 SURELOG_FAIL,
+3 NO_DATABASE, 1 NO_UHDM, 1 TIMEOUT, 2 UNTRANSLATABLE.
+
+WHOLE-ROW JOIN vs results/golden_surelog.csv (1596 rows):
+  PATCHED   2 rows differ, both ENVIRONMENT -- the workdir path string carried
+            inside a SURELOG_FAIL message:
+     LowMemLib/testflags   committed ... "/tmp/m187base/sl/wd/testflags/..."
+                           ours      ... "/tmp/r11u85_wd/patc/sl/testflags/..."
+     LowMemPkg/testflags   the same
+  PRISTINE  4 rows differ: the SAME two, plus BOTH Earlgrey_0_1 rows whose DUMP
+            COLUMN read blank instead of `differ`:
+     Earlgrey_0_1/default     committed CMP_EQUAL,,,differ   pristine CMP_EQUAL,,,
+     Earlgrey_0_1/testflags   committed CMP_EQUAL,,,differ   pristine CMP_EQUAL,,,
+            That is the documented uhdm-dump TIMEOUT draw under load, and it
+            fell on the PRISTINE binary this time.  STATUS is CMP_EQUAL on all
+            four Earlgrey rows on both binaries, and the DATABASE byte pins
+            below are the real gate.
+
+WHOLE-ROW JOIN patched vs THIS PASS'S OWN PRISTINE: 4 rows differ -- the two
+LowMem workdir path strings and the two Earlgrey dump-column draws.  NO STATUS
+CHANGES ANYWHERE, on either join.
+
+byteverify SELFCHECK=1  patched vs this pass's own pristine workdir:
+    databases: patched=960 pristine=960
+    PATH_SETS_IDENTICAL (960 paths)
+    MOVER ./default/MiniAmiq-544c7f61/slang.uhdm
+    MOVER ./default/Scoreboard-59431470/slang.uhdm
+    MOVER ./default/SeqDriver-32af76aa/slang.uhdm
+    MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm
+    MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm
+    MOVERS: 5 / 960
+    SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+FIVE MOVERS, ALL UVM FAMILY, EVERY ONE ATTRIBUTED ORDER-BLIND (dumps
+path-normalised, id-stripped and SORTED), not assumed:
+    default/MiniAmiq    4 lines   UINT:0    <-> UINT:744   vpiDecompile:0    <-> :744
+    default/SeqDriver   4 lines   UINT:930  <-> UINT:0     vpiDecompile:930  <-> :0
+    default/SimpleUVM   4 lines   UINT:813  <-> UINT:854   vpiDecompile:813  <-> :854
+    testflags/MiniAmiq  4 lines   UINT:1279 <-> UINT:1031  vpiDecompile:1279 <-> :1031
+    default/Scoreboard  0 lines   -- the documented ZERO-LINE ORDER draw
+                                     (svunit_pkg vpiTaskFunc coin)
+Every differing line is a `UINT:<n>` + `vpiDecompile:<n>` PAIR: the UVM
+macro-buffer line-number class exactly as the standing ops note describes it.
+NO vpiNetType, NO vpiActual, NO vpiDelay, NO vpiStrength0/1, NO
+vpiNetDeclAssign, NO cont_assign and NO listing line among them -- and neither
+of this pass's three laws has a site in this corpus at all (README §6).
+
+MOVER RULE, nonzero=real: the UVM family's ROWS STAY EQUAL.
+    BuildUVMPkg  default/testflags  CMP_EQUAL / CMP_EQUAL   committed, pristine, patched
+    MiniAmiq     default/testflags  CMP_EQUAL / CMP_EQUAL   committed, pristine, patched
+    SeqDriver    default/testflags  CMP_EQUAL / CMP_EQUAL   committed, pristine, patched
+    SimpleUVM    default/testflags  CMP_EQUAL / CMP_EQUAL   committed, pristine, patched
+    Scoreboard   default/testflags  CMP_EQUAL / SLANG_REJECT committed, pristine, patched
+
+rowheads.sh on the patched workdir: measured=12, ELEVEN of them `0 0 cmp rc=0`
+(SeqDriver, SimpleUVM, Scoreboard/default, MiniAmiq, BuildUVMPkg, Earlgrey_0_1,
+both modes where present); Rggen/default reads `64 1 cmp rc=255`, its committed
+CMP_NOTEQUAL row unchanged.  SKIP-NOFILE=2 (Scoreboard/testflags, Rggen/testflags
+-- expected).  UNKNOWN-NAME=0.
+
+=== 7e. CANARIES
+DATABASE byte pins, patched vs this pass's own pristine -- ALL SAME, every one
+the OPS pin verbatim:
+    SVSwitch            default/testflags  4842211c4030   (OPS HARD pin)
+    YosysVerx           default/testflags  6ccda350c24a   (OPS HARD pin)
+    InterfaceModPort    default/testflags  59a365f3ce2c   (OPS pin -- an INTERFACE
+                                                           test, so it was watched
+                                                           BYTE for BYTE)
+    YosysOldOr          default/testflags  d68e0796d62c
+    BlackParrotComplex  default e3e354129d5a  testflags 73a10e8217e5
+    Earlgrey_0_1        default 8bdf25272e08  testflags 59d0ee6d10c3   (OPS pins)
+
+CSV canaries:
+    canaries.sh  surelog, patched vs committed          ok=52 changed=0 absent=0
+    canaries.sh  surelog, patched vs OWN PRISTINE       ok=50 changed=2 absent=0
+                 (both Earlgrey_0_1, the DUMP-column draw that fell on the
+                  PRISTINE sweep; STATUS CMP_EQUAL on all four)
+    canaries.sh  u2r, patched vs committed gate         ok=8  changed=0 absent=0
+    ctcan2       surelog  EXPECT_UNKNOWN=1              ok=58 changed=0  PASS
+    ctcan2       u2r      EXPECT_UNKNOWN=6              ok=1  changed=0  PASS
+    canaudit.sh  canaries.sh ctcan2.sh                  audited=29 UNCOVERED=0
+                                                        FENCE-BREACH=0  PASS
+
+=== 7f. BINARY PATH AUDIT (every cmds.txt, by binary PATH)
+    u2r pristine       1742 / 1742 name /tmp/r11u85_bin/pris.bin    other-tree: 0
+    u2r patched        1742 / 1742 name /tmp/r11u85_bin/patch.bin   other-tree: 0
+    surelog pristine   1531 / 1581 name /tmp/r11u85_bin/pris.bin    other-tree: 0
+    surelog patched    1531 / 1581 name /tmp/r11u85_bin/patch.bin   other-tree: 0
+The other 50 are Surelog-side failures that never invoked an exporter (their
+cmds.txt carries the `surelog:` line alone).  No cmds.txt in any of the four
+workdirs names a main-tree or another worktree's binary; the only other
+`slang-uhdm` string in them is the GOLDEN CACHE prefix
+/home/heyfey/.cache/slang-uhdm-goldens/, which is not a binary.

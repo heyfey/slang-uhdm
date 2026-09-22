@@ -1396,7 +1396,20 @@ private:
                                         /// 0 = the producer's `ts == nullptr`
                                         /// return-at-once (the member width
                                         /// stands); >0 = that width.
-                                        int32_t adjustW71 = -1);
+                                        int32_t adjustW71 = -1,
+                                        /// § caIfaceCaFoldNestedOperandWidth85
+                                        /// — the member-access DEPTH of the
+                                        /// read this setter came from (1 for
+                                        /// `C.n`, 2 for `D.inner.n`).  0 = a
+                                        /// caller that does not measure it.
+                                        int32_t chain85 = 0,
+                                        /// § caIfaceCaFold…85 — this call
+                                        /// site's home is an INTERFACE (the
+                                        /// interface body's own listing, or a
+                                        /// generate scope inside one), which
+                                        /// is where `bindVariable` finds no
+                                        /// Lhs and `adjustSize` never runs.
+                                        bool ifaceHome85 = false);
     UHDM::process_stmt* emitProcess(const slang::ast::ProceduralBlockSymbol& block,
                                     UHDM::instance* m, const std::string& prefix,
                                     NetMap& netMap);
