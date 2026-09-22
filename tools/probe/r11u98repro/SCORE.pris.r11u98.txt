@@ -1,0 +1,188 @@
+# r11u98 classcell98 score, pris binary, all four grids, PER CELL and PER SUBTREE
+r11u98/g1_progclassnames           CELL_OK=0 CELL_DIFF=2 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=2 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+   CELL-DIFF program:work@prg (work@prg), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:5:11|vpiClassDefn[0] gold=work@prg::Aclass ours=work@prg::Zclass
+   CELL-DIFF program:work@prg (work@prg), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:5:11|vpiClassDefn[1] gold=work@prg::Zclass ours=work@prg::Aclass
+r11u98/g2_modclassnames            CELL_OK=0 CELL_DIFF=2 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=2 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:5:10|vpiClassDefn[0] gold=work@sub::Aclass ours=work@sub::Zclass
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:5:10|vpiClassDefn[1] gold=work@sub::Zclass ours=work@sub::Aclass
+r11u98/g3_ifaceclassnames          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=2 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=2 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY ROOT|uhdmallClasses[0]=work@Aclass
+   CELL-GOLD-ONLY ROOT|uhdmallClasses[1]=work@Zclass
+   SUB-GOLD-ONLY ROOT|uhdmallClasses work@Aclass
+   SUB-GOLD-ONLY ROOT|uhdmallClasses work@Zclass
+r11u98/g4_pkgclassnames            CELL_OK=2 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=2 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u98/g5_modclassthree            CELL_OK=0 CELL_DIFF=3 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=3 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[0] gold=work@sub::Aclass ours=work@sub::Mclass
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[1] gold=work@sub::Mclass ours=work@sub::Zclass
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[2] gold=work@sub::Zclass ours=work@sub::Aclass
+r11u98/g6_modclasscase             CELL_OK=1 CELL_DIFF=2 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=3 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[0] gold=work@sub::A_cls ours=work@sub::b_cls
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[2] gold=work@sub::b_cls ours=work@sub::A_cls
+r11u98/g7_modclassdigit            CELL_OK=0 CELL_DIFF=3 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=3 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[0] gold=work@sub::c10 ours=work@sub::c9
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[1] gold=work@sub::c2 ours=work@sub::c10
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[2] gold=work@sub::c9 ours=work@sub::c2
+r11u98/g8_modclassprefix           CELL_OK=1 CELL_DIFF=2 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=3 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[0] gold=work@sub::_z ours=work@sub::ab
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[2] gold=work@sub::ab ours=work@sub::_z
+r11u98/g9_modclassparam            CELL_OK=0 CELL_DIFF=2 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=2 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[0] gold=work@sub::Aclass ours=work@sub::Zclass
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[1] gold=work@sub::Pclass ours=work@sub::Aclass
+   CELL-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn[2]=work@sub::Zclass
+   SUB-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:6:10|vpiClassDefn work@sub::Pclass
+r11u98/h10_modfinalbody            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u98/h11_modgeninitname          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u98/h1_modgenclass              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:10:10|vpiClassDefn[0]=work@sub::C
+   SUB-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:10:10|vpiClassDefn work@sub::C
+r11u98/h2_ifacegenclass            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY ROOT|uhdmallClasses[0]=work@C
+   SUB-GOLD-ONLY ROOT|uhdmallClasses work@C
+r11u98/h3_ifacegentask             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY ROOT|uhdmallClasses[0]=work@C
+   SUB-GOLD-ONLY ROOT|uhdmallClasses work@C
+r11u98/h4_modfinalgen              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u98/h5_modgenclassorder         CELL_OK=0 CELL_DIFF=1 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=1 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:9:10|vpiClassDefn[0] gold=work@sub::Agen ours=work@sub::Zbody
+   CELL-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:9:10|vpiClassDefn[1]=work@sub::Zbody
+   SUB-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:9:10|vpiClassDefn work@sub::Agen
+r11u98/h6_modgenclassnest          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:10:10|vpiClassDefn[0]=work@sub::Cdeep
+   SUB-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:10:10|vpiClassDefn work@sub::Cdeep
+r11u98/h7_modforclass              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:8:10|vpiClassDefn[0]=work@sub::Cloop
+   SUB-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:8:10|vpiClassDefn work@sub::Cloop
+r11u98/h8_modgenclass0             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:8:10|vpiClassDefn[0]=work@sub::Cgone
+   SUB-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:8:10|vpiClassDefn work@sub::Cgone
+r11u98/h9_ifaceclassbody           CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY ROOT|uhdmallClasses[0]=work@C
+   SUB-GOLD-ONLY ROOT|uhdmallClasses work@C
+r11u95/a10_proginitnest            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a11_proginitfor1            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a12_proginitfor2            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a13_progforzero             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a14_progforzeroinit         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a15_progforzerovar          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a16_progforzeronest         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a17_progforzeronda          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a18_proggenmixed            CELL_OK=1 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=1 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a19_progtopgeninit          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a1_proggeninit              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a20_proggenparam            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a21_progtopgentask          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a22_progtwoinsttask         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a2_progfinal                CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a3_proggentask              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a4_progclass                CELL_OK=1 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=1 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a5_proginitorder            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a6_proginitorder2           CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a7_progtaskorder            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a8_proggeninit0             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/a9_proginitelse             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c10_modgenclass             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:10:10|vpiClassDefn[0]=work@sub::C
+   SUB-GOLD-ONLY module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:10:10|vpiClassDefn work@sub::C
+r11u95/c11_proggennda              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c12_proggenassign           CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c13_progtwoinstbody         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c1_modgeninit               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c2_ifacegeninit             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c3_progbodyinit             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c4_progbodytask             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c5_progbodyclass            CELL_OK=1 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=1 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c6_modforzero               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c7_ifaceforzero             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c8_modfinalgen              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u95/c9_modgentask               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x10_progif0infor            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x11_progtaskcall            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x12_proggenimportfn         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x13_proggenclassext         CELL_OK=3 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=3 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x14_proggentwoblocks        CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x15_modgenprogram           CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x16_progforzeronestinit     CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x17_ifacegentask            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=1 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=1 SUB_OURS_ONLY=0
+   CELL-GOLD-ONLY ROOT|uhdmallClasses[0]=work@C
+   SUB-GOLD-ONLY ROOT|uhdmallClasses work@C
+r11v95/x18_modgenall               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x19_proggenfinalorder       CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x20_progtopgenclass         CELL_OK=1 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=1 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x21_proggennolabel          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x22_progbaregen             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x23_progforzerofinal        CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x24_proggenforvar           CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x25_proggenmixedorder       CELL_OK=2 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=2 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x26_progimportbodyfn        CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x27_proggendupfirst         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x28_progclassorder          CELL_OK=3 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=3 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x29_progclasstwogen         CELL_OK=3 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=3 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x2_proggenassert            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x30_progclassnames          CELL_OK=0 CELL_DIFF=2 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=2 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+   CELL-DIFF program:work@prg (work@prg), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:5:11|vpiClassDefn[0] gold=work@prg::Aclass ours=work@prg::Zclass
+   CELL-DIFF program:work@prg (work@prg), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:5:11|vpiClassDefn[1] gold=work@prg::Zclass ours=work@prg::Aclass
+r11v95/x31_modclassnames           CELL_OK=0 CELL_DIFF=2 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=2 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:5:10|vpiClassDefn[0] gold=work@sub::Aclass ours=work@sub::Zclass
+   CELL-DIFF module_inst:work@sub (work@sub), file:/tmp/wt_r11u98/dut.sv, line:2:1, endln:5:10|vpiClassDefn[1] gold=work@sub::Zclass ours=work@sub::Aclass
+r11v95/x3_proggendeep              CELL_OK=1 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=1 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x4_proggencase              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x5_progtwoinstgeninit       CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x6_progforzerotask          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x7_progforzeroclass         CELL_OK=1 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=1 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x8_proggendupname           CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11v95/x9_progzeroloopinif         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/i1_ifnda                    CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/m1_modnda                   CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n10_strnonansi_gen          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n11_ansistr                 CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n1_strnonansi               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n2_strrevorder              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n3_strnonansi_if            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n4_nonansi_plain_if         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n5_nonansi_noredecl         CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n6_nonansi_plain            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n7_strnonansi_in            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/n8_strtwoports              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p1_prognda                  CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p2_progassign               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p3_progboth                 CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p4_progdefonly              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p5_progparam                CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p6_progtop                  CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p7_proggennda               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p8_progstr                  CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/p9_progvarinit              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa11_proggenregion          CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa12_progsamearm            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa13_progcollide            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa14_progvarbody            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa15_modgennda              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa16_ifacegennda            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa17_progtopgen             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa2_progif0                 CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa3_progifelse              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa4_progfor                 CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa5_progvar                 CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa6_prognest                CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa7_progbare                CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa8_proggenonly             CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pa9_proggenparam            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb10_ifnetuse               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb11_ifvarredecl            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb12_ifstrnonport           CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb13_ifnoansiplainnouse     CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb14_ifbothstr              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb15_ifnodim                CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb16_ifdeclorder            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb17_ifonedecl              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb19_modportview            CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb3_ifnoredecl              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb4_ifrevorder              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb5_ifinput                 CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb6_ifansi                  CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb7_iftwoports              CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb8_ifmodport               CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+r11u93/pb9_ifgen                   CELL_OK=0 CELL_DIFF=0 CELL_GOLD_ONLY=0 CELL_OURS_ONLY=0 SUB_MATCH=0 SUB_GOLD_ONLY=0 SUB_OURS_ONLY=0
+
+TOTAL arms=137  
+TOTAL arms=137  CELL_DIFF=21 CELL_GOLD_ONLY=13 CELL_OK=21 CELL_OURS_ONLY=0 SUB_GOLD_ONLY=13 SUB_MATCH=42 SUB_OURS_ONLY=0

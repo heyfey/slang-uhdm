@@ -1,0 +1,112 @@
+# r11u98 GATES — all seven
+
+## 1. BUILD
+pristine md5 bad3448ad7399ab90d528c9b0801d239 — cmp-identical to the main tree's build/slang-uhdm at cc9efa23 (the OPS pin), compared with cmp
+law      md5 422d5feeec51c70674a26906c8311aea
+both frozen chmod 555 before any sweep; -j 2; md5 taken separately
+
+## 2. GOLDENS
+PASS=23 FAIL=0  (SLANG_UHDM exported to the LAW binary)
+negative control SLANG_UHDM=/bin/false: PASS=0 FAIL=23
+
+## 3. uhdm2rtlil, BOTH MODES
+u2pr_tf   {'CMP_EQUAL': 788, 'CMP_NOTEQUAL': 16, 'SLANG_REJECT': 67}  rows=871
+u2pr_def  {'CMP_EQUAL': 788, 'CMP_NOTEQUAL': 16, 'SLANG_REJECT': 67}  rows=871
+u2la_tf   {'CMP_EQUAL': 788, 'CMP_NOTEQUAL': 16, 'SLANG_REJECT': 67}  rows=871
+u2la_def  {'CMP_EQUAL': 788, 'CMP_NOTEQUAL': 16, 'SLANG_REJECT': 67}  rows=871
+row-join law/testflags vs results/gate_uhdm2rtlil.csv:            PASS
+row-join law/testflags vs this pass's own pristine testflags:      PASS
+row-join law/default   vs this pass's own pristine default:        PASS
+NO ROW MOVED, so none is quoted.
+cmds.txt binary audit: u2pr 1742/1742 name /tmp/r11u98_pris.bin, u2la 1742/1742 name /tmp/r11u98_lawx.bin
+
+## 4. surelog, --mode both
+slpr  default    CMP_EQUAL=474  CMP_NOTEQUAL=9    {'CMP_EQUAL': 474, 'SLANG_REJECT': 285, 'SURELOG_FAIL': 25, 'DEFERRED': 5, 'CMP_NOTEQUAL': 9}
+slpr  testflags  CMP_EQUAL=469  CMP_NOTEQUAL=8    {'CMP_EQUAL': 469, 'SLANG_REJECT': 286, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'CMP_NOTEQUAL': 8, 'TIMEOUT': 1, 'NO_UHDM': 1}
+slla  default    CMP_EQUAL=474  CMP_NOTEQUAL=9    {'CMP_EQUAL': 474, 'SLANG_REJECT': 285, 'SURELOG_FAIL': 25, 'DEFERRED': 5, 'CMP_NOTEQUAL': 9}
+slla  testflags  CMP_EQUAL=469  CMP_NOTEQUAL=8    {'CMP_EQUAL': 469, 'SLANG_REJECT': 286, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'CMP_NOTEQUAL': 8, 'TIMEOUT': 1, 'NO_UHDM': 1}
+474/9 default + 469/8 testflags on BOTH binaries, histograms identical.
+ROWS MOVED vs results/golden_surelog.csv and vs this pass's own pristine sweep — EXACTLY TWO, both QUOTED:
+    < LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+    > LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u98_wd/slla/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+    < LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+    > LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u98_wd/slla/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+  Both are SURELOG_FAIL on BOTH sides; the only difference is the WORKDIR PATH embedded in the detail string.
+  Earlgrey_0_1's DUMP COLUMN did NOT move in either mode on this run.
+
+## 5. BYTEVERIFY SELFCHECK=1
+uhdm2rtlil: MOVERS 0 / 1608; PATH_SETS_IDENTICAL; SELFCHECK 1607/1608 flagged (the comparator can see)
+surelog:    MOVERS 6 / 960; PATH_SETS_IDENTICAL; SELFCHECK 959/960 flagged
+  PREDICTED MOVER SET WAS EMPTY.  All six are the UVM family and all six are the documented
+  per-invocation coin, attributed THREE independent ways:
+   (a) TRACE — 0 R11U98 lines on all six arms (and on BuildUVMPkg beside them)
+   (b) ORDER-BLIND payload (sorted, workdir-normalised dumps):
+         default/MiniAmiq-544c7f61  order-blind payload lines=4  kinds: |UINT |vpiDecompile 
+         default/Scoreboard-59431470  order-blind payload lines=0  kinds: <none>
+         default/SeqDriver-32af76aa  order-blind payload lines=4  kinds: |UINT |vpiDecompile 
+         default/SimpleUVM-1dc93a62  order-blind payload lines=4  kinds: |UINT |vpiDecompile 
+         testflags/MiniAmiq-544c7f61  order-blind payload lines=4  kinds: |UINT |vpiDecompile 
+         testflags/SeqDriver-32af76aa  order-blind payload lines=4  kinds: |UINT |vpiDecompile 
+       — exactly the 0-or-4-line |UINT:/|vpiDecompile: LINE-NUMBER class the OPS names.
+   (c) THE PRISTINE BINARY DISAGREES WITH ITSELF across three consecutive runs of the
+       SAME argv in the SAME cwd, and in four of the six it wrote the very md5 byteverify
+       attributed to the PATCHED binary:
+         MiniAmiq/default   27419f6011b4  1dddb5915f8d  27419f6011b4   <- 27419f6011b4 IS the 'patched' hash
+         MiniAmiq/testflags dd41d14c0596  27419f6011b4  654e1789aaa7
+         SeqDriver/default  2fb39f8b4130  b7b840aee9fd  c321d1a7590a   <- 2fb39f8b4130 IS the 'patched' hash
+         SeqDriver/testflags 05df6c25a21b x3                           <- 05df6c25a21b IS the 'patched' hash
+         SimpleUVM/default  0271a8ebee35  d4f8cd018f2d  c531a47da5c7   <- d4f8cd018f2d IS the 'pristine' hash
+         Scoreboard/default e70775324004  1621aec6c9f3  e70775324004   <- BOTH byteverify hashes, one binary
+  Statuses did not move: all seven conversion rows CMP_EQUAL in both modes, byte-identical to the committed CSV.
+
+## 6. CANARIES
+surelog vs own pristine: ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+surelog vs committed CSV: ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+u2r      vs committed CSV: ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+ctcan2 surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+ctcan2 u2r:     PASS: every supplementary canary row is byte-identical to the baseline.
+canaudit: PASS: every brief-protected name and family is carried by a script that RUNS here.
+PROTECTED DATABASES (md5 first 12, law vs this pass's own pristine, both modes):
+  SVSwitch             default    pris=4842211c4030 law=4842211c4030 SAME
+  SVSwitch             testflags  pris=4842211c4030 law=4842211c4030 SAME
+  YosysVerx            default    pris=6ccda350c24a law=6ccda350c24a SAME
+  YosysVerx            testflags  pris=6ccda350c24a law=6ccda350c24a SAME
+  InterfaceModPort     default    pris=59a365f3ce2c law=59a365f3ce2c SAME
+  InterfaceModPort     testflags  pris=59a365f3ce2c law=59a365f3ce2c SAME
+  BlackParrotComplex   default    pris=e3e354129d5a law=e3e354129d5a SAME
+  BlackParrotComplex   testflags  pris=73a10e8217e5 law=73a10e8217e5 SAME
+  YosysOldOr           default    pris=d68e0796d62c law=d68e0796d62c SAME
+  YosysOldOr           testflags  pris=d68e0796d62c law=d68e0796d62c SAME
+  Earlgrey_0_1         default    pris=8bdf25272e08 law=8bdf25272e08 SAME
+  Earlgrey_0_1         testflags  pris=59d0ee6d10c3 law=59d0ee6d10c3 SAME
+
+## 7. FENCES
+the four slang-fenced names in git diff cc9efa23 -- src include: 0 occurrences each
+exact fenced-test rows dispatched by any driver here: 0 (checked against canaudit.sh's own FENCED= list)
+  (the only substring hit anywhere in this directory is the u2r test SizeOfUnsignedParameter, which is NOT a fenced test)
+results/*.csv: never written (git status clean on results/)
+src/ParamEmit.cpp, src/EmitHelpers.h, src/ExprEmit.cpp: UNTOUCHED
+   src/ModuleEmit.cpp   | 201 +++++++++++++++++++++++++++++++++++++++++++++++++--
+   src/UhdmExporter.cpp |  97 +++++++++++++++++++++++++
+   2 files changed, 293 insertions(+), 5 deletions(-)
+
+## 8. WIDE ARM BOUNDARY (tools/probe, 4316 arms)
+BOUNDARY listed=4316 processed=4316 moved=74 rc-or-db-anomalies=0
+PROCESSED==LISTED
+attribution summary:
+        8 NO-TRACE OFF-DOES-NOT-REVERT
+        1 NO-TRACE OFF-REVERTS
+        1 R11U98CLASSKEY, OFF-DOES-NOT-REVERT
+       14 R11U98CLASSKEY, OFF-REVERTS
+        6 R11U98CLASSKEY,R11U98IFACECLASS, OFF-REVERTS
+        4 R11U98CLASSKEY,R11U98IFACECLASS,R11U98MODGENCLASS, OFF-REVERTS
+        2 R11U98CLASSKEY,R11U98MODGENCLASS, OFF-REVERTS
+        5 R11U98GENFINAL, OFF-REVERTS
+       25 R11U98IFACECLASS, OFF-REVERTS
+        3 R11U98IFACECLASS,R11U98MODGENCLASS, OFF-REVERTS
+        5 R11U98MODGENCLASS, OFF-REVERTS
+judge over the 74 movers (golden regenerated per arm by the pinned Surelog v1.87):
+       27 BETTER
+        2 NO-GOLDEN-OR-DB
+       45 SAME
+  WORSE: NONE

@@ -14,6 +14,16 @@
 
 namespace slang_uhdm {
 
+// r11u98 LAW B2's gate, and the pass trace (defined in ModuleEmit.cpp, where
+// the other three r11u98 gates live).  See § caIfaceClassIsDesignRoot98 at
+// the AllClasses block below for the decode and the grid.
+bool netDbg98();
+static bool ifaceClassRootOff98() {
+    static const bool v = getenv("R11U98_IFACECLASS_OFF") != nullptr ||
+                          getenv("R11U98_OFF") != nullptr;
+    return v;
+}
+
 UhdmExporter::UhdmExporter(Compilation& compilation, UHDM::Serializer& serializer) :
     comp(compilation), s(serializer), sm(compilation.getSourceManager()) {
     // § macroLocOrder — publish the SourceManager for the free helpers that
@@ -6591,6 +6601,93 @@ UHDM::design* UhdmExporter::exportDesign() {
                         ents.push_back({&dsp->as<ClassType>(), bi});
                 }
             }
+        }
+        // ===== § caIfaceClassIsDesignRoot98 (r11u98, LAW B2) ==============
+        // AN INTERFACE IS NOT A CLASS HOME.  A class written anywhere inside
+        // an `interface` — its body OR one of its generate blocks — is
+        // published at the DESIGN ROOT as `work@<Class>` under
+        // `uhdmallClasses`, and the interface itself carries NO vpiClassDefn.
+        //
+        // The producer road, in the pinned sources.
+        // `ResolveSymbols::createFastLookup`
+        // (`~/git-repos/Surelog/src/DesignCompile/ResolveSymbols.cpp:79-90`)
+        // opens the file with
+        //     types      = {module, package, config, udp, INTERFACE, program,
+        //                   class}_declaration
+        //     stopPoints = {module, package, program, class}_declaration
+        // — INTERFACE IS NOT A STOP POINT.  So the file-level walk descends
+        // straight into an interface and reaches the class declarations
+        // inside it (a generate region is not a stop point either), and files
+        // each one through the BARE `paClass_declaration` case at :160-166:
+        //     ClassDefinition* def = new ClassDefinition(fullName, lib,
+        //                                                nullptr, ...);
+        //     m_fileData->addClassDefinition(fullName, def);
+        // with `fullName = StrCat(libName, "@", name)` (:101) and a NULL
+        // container — which is why the name is `work@C` and not
+        // `work@ifc::C`, and why the interface gets nothing: the
+        // `paInterface_declaration` case falls through to `default:` at
+        // :203-209, which builds a ModuleDefinition and collects no classes
+        // at all.  `CompileDesign::collectObjects_` then copies every
+        // FileContent class into the design (`CompileDesign.cpp:272-277`) and
+        // `UhdmWriter` publishes it at :5181-5194 under
+        //     if (!c->VpiParent()) writeClass(classDef, v4, s, d);
+        // — first-writer-wins, and nobody wrote this one, because it has no
+        // home.  That same test is why a MODULE's or a PROGRAM's class, which
+        // `writeModule`/`writeProgram` already stamped, is NOT here.
+        //
+        // MEASURED on real v1.87 goldens (this pass's grid), and on all four
+        // arms the set-wise arbiter reads OURS-ONLY = 0, i.e. nothing we
+        // write is wrong — the objects are simply absent:
+        //   g3_ifaceclassnames  interface BODY, Zclass then Aclass, no
+        //                       generate -> golden's design lists
+        //                       [work@Aclass, work@Zclass]         182 lines
+        //   h9_ifaceclassbody   interface BODY, one class          216 lines
+        //   h2_ifacegenclass    interface GENERATE block, one class 245 lines
+        //   h3_ifacegentask (= r11v95's committed x17, 318 lines) the same
+        //                       block holding a function, a task, an initial
+        //                       AND a class: GOLD-ONLY is the class and
+        //                       NOTHING ELSE, so the interface's generate
+        //                       flattening of the other three kinds is
+        //                       already right at the base and this pass does
+        //                       not touch it.
+        // The listing order is the design's own multimap, whose keys here all
+        // share the `work@` prefix, so the existing name sort below orders
+        // them exactly as golden does (g3: Aclass before Zclass).
+        if (!ifaceClassRootOff98() || netDbg98()) {
+            std::function<void(const Scope&)> ifaceClasses98 =
+                [&](const Scope& sc) {
+                    for (auto& mem : sc.members()) {
+                        if (mem.kind == SymbolKind::ClassType) {
+                            if (netDbg98())
+                                fprintf(stderr,
+                                        "R11U98IFACECLASS name=%.*s\n",
+                                        (int)mem.name.size(),
+                                        mem.name.data());
+                            if (!ifaceClassRootOff98())
+                                ents.push_back({&mem.as<ClassType>(), false});
+                        }
+                        else if (mem.kind == SymbolKind::GenerateBlock)
+                            ifaceClasses98(mem.as<GenerateBlockSymbol>());
+                        else if (mem.kind == SymbolKind::GenerateBlockArray) {
+                            // ONE syntactic copy of a loop body, exactly as
+                            // the module/program walk takes: the producer
+                            // never evaluates the bound.
+                            auto& arr =
+                                mem.as<GenerateBlockArraySymbol>();
+                            const GenerateBlockSymbol* one98 = nullptr;
+                            for (auto& e : arr.members())
+                                if (e.kind == SymbolKind::GenerateBlock) {
+                                    one98 = &e.as<GenerateBlockSymbol>();
+                                    break;
+                                }
+                            if (one98)
+                                ifaceClasses98(*one98);
+                        }
+                    }
+                };
+            for (auto& [nm98, inst98] : defs)
+                if (useInterfacePath(*inst98))
+                    ifaceClasses98(inst98->body);
         }
         // Surelog compiles builtin.sv before the user sources, so its
         // class_defn objects lead the arena; the design's class LIST is then

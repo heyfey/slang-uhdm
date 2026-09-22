@@ -1,0 +1,8 @@
+# r11u98 switch ledger, summed over the 20-arm grid (cmp lines vs golden)
+pristine                  1797
+law, all switches ON       159   (g9_modclassparam alone, the parameterized-class residue)
+R11U98_OFF=1              1797   EXACTLY the pristine total
+R11U98_CLASSKEY_OFF=1      481
+R11U98_MODGENCLASS_OFF=1   531
+R11U98_IFACECLASS_OFF=1   1120
+R11U98_GENFINAL_OFF=1      188
