@@ -1,0 +1,36 @@
+===== R11U84_OFF=1
+q5_impreach pris_blind=0 pris_ord=0 patch_blind=298 patch_ord=302 rc=0
+t1_cloneviews pris_blind=0 pris_ord=0 patch_blind=25 patch_ord=85 rc=0
+t2_expkinds pris_blind=0 pris_ord=0 patch_blind=906 patch_ord=906 rc=0
+t3_shapes pris_blind=0 pris_ord=0 patch_blind=388 patch_ord=628 rc=0
+t4_expviews pris_blind=0 pris_ord=0 patch_blind=840 patch_ord=844 rc=0
+t5_expfences pris_blind=0 pris_ord=0 patch_blind=84 patch_ord=84 rc=0
+t6_slots pris_blind=0 pris_ord=0 patch_blind=314 patch_ord=754 rc=0
+z7_pkgimpclone pris_blind=0 pris_ord=0 patch_blind=166 patch_ord=166 rc=0
+===== R11U84_ELAB_OFF=1
+q5_impreach pris_blind=298 pris_ord=298 patch_blind=4 patch_ord=4 rc=0
+t1_cloneviews pris_blind=0 pris_ord=0 patch_blind=25 patch_ord=85 rc=0
+t2_expkinds pris_blind=904 pris_ord=904 patch_blind=4 patch_ord=4 rc=0
+t3_shapes pris_blind=388 pris_ord=618 patch_blind=14 patch_ord=14 rc=0
+t4_expviews pris_blind=836 pris_ord=836 patch_blind=12 patch_ord=12 rc=0
+t5_expfences pris_blind=84 pris_ord=84 patch_blind=0 patch_ord=0 rc=0
+t6_slots pris_blind=314 pris_ord=754 patch_blind=2 patch_ord=2 rc=0
+z7_pkgimpclone pris_blind=166 pris_ord=166 patch_blind=0 patch_ord=0 rc=0
+===== R11U84_EXP_OFF=1
+q5_impreach pris_blind=4 pris_ord=4 patch_blind=298 patch_ord=298 rc=0
+t1_cloneviews pris_blind=25 pris_ord=85 patch_blind=0 patch_ord=0 rc=0
+t2_expkinds pris_blind=0 pris_ord=0 patch_blind=906 patch_ord=906 rc=0
+t3_shapes pris_blind=14 pris_ord=300 patch_blind=388 patch_ord=388 rc=0
+t4_expviews pris_blind=6 pris_ord=6 patch_blind=838 patch_ord=838 rc=0
+t5_expfences pris_blind=0 pris_ord=0 patch_blind=84 patch_ord=84 rc=0
+t6_slots pris_blind=2 pris_ord=440 patch_blind=314 patch_ord=314 rc=0
+z7_pkgimpclone pris_blind=0 pris_ord=0 patch_blind=166 patch_ord=166 rc=0
+===== R11U84_ORDER_OFF=1
+q5_impreach pris_blind=298 pris_ord=302 patch_blind=0 patch_ord=0 rc=0
+t1_cloneviews pris_blind=25 pris_ord=85 patch_blind=0 patch_ord=0 rc=0
+t2_expkinds pris_blind=906 pris_ord=906 patch_blind=0 patch_ord=0 rc=0
+t3_shapes pris_blind=388 pris_ord=400 patch_blind=0 patch_ord=296 rc=0
+t4_expviews pris_blind=840 pris_ord=844 patch_blind=0 patch_ord=0 rc=0
+t5_expfences pris_blind=84 pris_ord=84 patch_blind=0 patch_ord=0 rc=0
+t6_slots pris_blind=314 pris_ord=316 patch_blind=0 patch_ord=816 rc=0
+z7_pkgimpclone pris_blind=166 pris_ord=166 patch_blind=0 patch_ord=0 rc=0

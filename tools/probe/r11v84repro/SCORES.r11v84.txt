@@ -1,0 +1,19 @@
+== BREAK GRID, per-cell (reg84.py), patched vs pristine vs golden
+v1_hoistimp          TO-GOLDEN=6    AWAY-GOLDEN=0   STILL-WRONG=0   
+v3_expedge           TO-GOLDEN=10   AWAY-GOLDEN=0   STILL-WRONG=0   
+v4_transexp          TO-GOLDEN=10   AWAY-GOLDEN=0   STILL-WRONG=0   
+v5_nestdia           TO-GOLDEN=0    AWAY-GOLDEN=0   STILL-WRONG=8   
+v6_modctl            TO-GOLDEN=3    AWAY-GOLDEN=0   STILL-WRONG=0   
+v7_ordmix            TO-GOLDEN=22   AWAY-GOLDEN=0   STILL-WRONG=0   
+v8_expkinds2         TO-GOLDEN=16   AWAY-GOLDEN=0   STILL-WRONG=2   
+TOTAL TO-GOLDEN=67 AWAY-GOLDEN=0 STILL-WRONG=10 CELLS-OK=181
+
+== BREAK GRID, byte boundary pristine->patched (path/banner normalised)
+v1_hoistimp ord=204 blind=4
+v2_unitimp ord=0 blind=0
+v3_expedge ord=362 blind=362
+v4_transexp ord=550 blind=550
+v5_nestdia ord=0 blind=0
+v6_modctl ord=29 blind=9
+v7_ordmix ord=736 blind=4
+v8_expkinds2 ord=556 blind=496

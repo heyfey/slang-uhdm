@@ -1,0 +1,5 @@
+invocations=1573  NO-SITE=1314  non-zero-rc rows={'rc=3': 578, 'rc=4': 14, 'rc=2': 32, 'rc=1': 4, 'rc=-11': 4}
+LAW A cells : {'SAME': 660}
+LAW B items : {}
+LAW C pkgs  : {'SAME': 820}
+PREDICTED MOVER INVOCATIONS = 0

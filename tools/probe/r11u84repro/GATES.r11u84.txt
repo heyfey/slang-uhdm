@@ -1,0 +1,63 @@
+r11u84 GATES — all measured on the frozen binaries, base c2ff6b71
+
+BINARIES
+  pristine 0765c72612466247727527e9f48c7512  == main tree @c2ff6b71 == OPS pin
+  patched  217c082c9f5997646c3639e2d212eb40  (reproduced from the patch on a
+                                              fresh c2ff6b71 worktree)
+
+GOLDENS
+  patched    23 PASS / 0 FAIL
+  pristine   23 PASS / 0 FAIL
+  /bin/false  0 PASS / 23 FAIL
+
+UHDM2RTLIL (both modes)
+  patched  CMP_EQUAL 788  CMP_NOTEQUAL 16  SLANG_REJECT 67   both modes
+  row join vs results/golden_uhdm2rtlil.csv (BOTH modes, key (name,mode),
+      status + dump):  base=1742 fresh=1742 common=1742 DIFFER=0   PASS
+  ct8rows vs results/gate_uhdm2rtlil.csv:  PASS (every row byte-identical)
+  byteverify SELFCHECK=1  MOVERS 0 / 1608   selfcheck 1607 / 1608
+  binary audit 1742/1742, OTHER-TREE 0
+
+SURELOG (--mode both)
+  patched   default 474/9   testflags 469/8      == committed baseline
+  pristine  default 474/9   testflags 469/8      (control sweep)
+  row join vs results/golden_surelog.csv: DIFFER=2, BOTH Earlgrey_0_1
+      CMP_EQUAL/differ -> CMP_EQUAL/<blank>, and the PRISTINE sweep produces
+      the same two rows.  Status unchanged; the DB byte pin holds both modes.
+  byteverify SELFCHECK=1  MOVERS 5 / 960  selfcheck 959 / 960
+      all five UVM family, 0 package-listing lines in any of them,
+      each convicted as an environment draw by a 3x re-run control
+  binary audit 1531/1581, OTHER-TREE 0
+
+CANARIES
+  canaries surelog     ok=50 changed=2 (the two Earlgrey dump-column rows)
+  canaries uhdm2rtlil  ok=8  changed=0
+  ctcan2   surelog PASS      ctcan2 uhdm2rtlil PASS
+  canaudit audited=29  UNCOVERED=0  FENCE-BREACH=0
+
+PROTECTED DATABASE BYTE PINS (default / testflags) — ALL MATCH
+  SVSwitch           4842211c4030 / 4842211c4030
+  YosysVerx          6ccda350c24a / 6ccda350c24a
+  InterfaceModPort   59a365f3ce2c / 59a365f3ce2c
+  YosysOldOr         d68e0796d62c / d68e0796d62c
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5
+  Earlgrey_0_1       8bdf25272e08 / 59d0ee6d10c3
+
+ROWHEADS (patched workdir)
+  SeqDriver SimpleUVM Scoreboard MiniAmiq BuildUVMPkg Earlgrey_0_1
+      0 cmplines, 0 heads, cmp rc=0, both modes
+  Rggen/default unchanged 64/1
+  SKIP-NOFILE Scoreboard/testflags, Rggen/testflags (expected)
+
+BOUNDARY (52 arms, order-sensitive normalised dumps)
+  byte-identical pristine vs patched: 44 / 52
+  moved: 8 — q5_impreach, z7_pkgimpclone, t1..t6 (every one carries a clone)
+  cmp_rc CONVERT 0   cmp_rc REGRESS 0
+  per-cell (51 scored arms): TO-GOLDEN 120  AWAY-GOLDEN 0  STILL-WRONG 10
+
+CENSUS (a priori, one binary, positive control shown to fire)
+  surelog     1573 invocations, 820 package views, 660 cells (208 CLONE)
+  uhdm2rtlil  1742 invocations, 752 package views,   0 cells
+  LAW A movers 0   LAW B movers 0   LAW C movers 0   on both corpora
+
+results/*.csv UNTOUCHED.

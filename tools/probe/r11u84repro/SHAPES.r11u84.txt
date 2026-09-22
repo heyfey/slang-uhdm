@@ -1,0 +1,17 @@
+== surelog package-view shape (R11U84ORD, imports x decls) ==
+    740 imports=0 decls=0
+     52 imports=1 decls=0
+     14 imports=0 decls=26
+      6 imports=0 decls=2
+      4 imports=0 decls=18
+      4 imports=0 decls=1
+
+== surelog listing cells, own vs clone ==
+own=1 452
+own=0 208
+clone-bearing tests: MiniAmiq SeqDriver
+
+== uhdm2rtlil package-view shape ==
+    700 imports=0 decls=0
+     36 imports=1 decls=0
+     16 imports=2 decls=0

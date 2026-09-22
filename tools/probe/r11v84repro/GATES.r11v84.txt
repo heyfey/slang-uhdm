@@ -1,0 +1,19 @@
+r11v84 GATES — adversarial verification of r11u84, own worktrees, own binaries
+pristine 0765c72612466247727527e9f48c7512 (== OPS pin)   patched 217c082c9f5997646c3639e2d212eb40
+goldens: patched 23/0, pristine 23/0, /bin/false 0/23
+u2r both modes both binaries: CMP_EQUAL 788 CMP_NOTEQUAL 16 SLANG_REJECT 67
+u2r both-mode row join vs results/golden_uhdm2rtlil.csv: 1742 common, DIFFER 0 (patched AND pristine)
+u2r ct8rows vs results/gate_uhdm2rtlil.csv: PASS; byteverify MOVERS 0/1608, selfcheck 1607/1608
+u2r binary audit: 1742/1742 name the frozen binary, other-tree 0
+surelog both binaries: default 474/9, testflags 469/8 (== committed baseline)
+surelog row join vs results/golden_surelog.csv: DIFFER 2 on BOTH binaries —
+  Earlgrey_0_1 default/testflags CMP_EQUAL/differ -> CMP_EQUAL/<blank> (dump-column draw, pristine reproduces it)
+surelog byteverify MOVERS 5/960: default MiniAmiq, Scoreboard, SimpleUVM; testflags MiniAmiq, SeqDriver
+  ORDER-SENSITIVE path-normalised dump diff of each: 4 lines (UINT+vpiDecompile) x4, Scoreboard 92 (svunit_pkg vpiTaskFunc order coin), package-listing lines 0/5
+canaries sl ok=50 changed=2 (the two Earlgrey rows) / u2r ok=8 changed=0; ctcan2 PASS both; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DB pins BOTH modes: SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c, YosysOldOr d68e0796d62c, BlackParrot e3e354129d5a/73a10e8217e5, Earlgrey 8bdf25272e08/59d0ee6d10c3 — all MATCH
+rowheads: all seven conversion rows 0 cmplines 0 heads cmp rc=0 both modes; Rggen/default 64/1
+census surelog: 1573 invocations, 820 views, 660 cells (452 own + 208 clone), LAW A/B/C movers 0/0/0; views with import AND decl = 0 (52 import-only, 28 decl-only, 740 neither)
+census uhdm2rtlil: 1742 invocations, 752 views, 0 cells, movers 0
+boundary 52 committed arms: 44 byte-identical, 8 moved, CONVERT 0 REGRESS 0, per-cell TO-GOLDEN 120 AWAY 0 STILL-WRONG 10 (51 scored arms)
+R11U84_OFF=1 reproduces the pristine database byte-for-byte on all 52 committed arms AND all 8 verifier arms

@@ -26982,6 +26982,118 @@ static bool pkgCellDbg79() {
     return v;
 }
 
+// § r11u84 — THE IMPORT CLONES IN THE PACKAGE'S OWN LISTING, ONE BATCH.
+//
+// THE PRODUCER, and it is ONE mechanism behind all three laws.
+// `CompileHelper::importPackage` (Surelog src/DesignCompile/CompileHelper.cpp:
+// 127-190) is called once per IMPORT ITEM, from `CompilePackage::
+// collectObjects_` (src/DesignCompile/CompilePackage.cpp:141-167), and for
+// each item it pushes the home package's entries into the IMPORTING scope's
+// own containers:
+//
+//   scope->addVariable(var.second)            (:172-181)  the variable arm
+//   scope->getSignals().push_back(net)        (:182-190)  the net arm
+//
+// Three facts fall straight out of those eighteen lines.
+//
+// (A) THE CLONE IS A POINTER, NOT A COPY.  `push_back(net)` pushes the home
+//     Signal ITSELF, and `design->getPackage(pack_name)` (:167,
+//     src/Design/Design.cpp:435) answers the ELAB Package for every caller —
+//     the unelab twin is minted inside `Package::Package`
+//     (src/Package/Package.cpp:42) and never registered in
+//     `m_packageDefinitions`.  So the DEF view of an importing package and its
+//     ELAB view alias THE SAME ELAB home Signal, the one
+//     `ElaborationStep::bindPortType_`'s SIMPLE_TYPEDEF rewrite
+//     (src/DesignCompile/ElaborationStep.cpp:1489-1500,
+//     `signal->setType(...)`) mutated IN PLACE.  A clone therefore answers
+//     `elabSignal`'s kind question and `getVpiNetType`'s net-type question
+//     with the ELABORATED reading in BOTH views.
+//
+// (B) AN EXPLICIT IMPORT CLONES ITS ONE NAMED ENTRY.  Both arms are filtered
+//     by `object_name` (:174-176 and :184-186), which
+//     `importPackage` reads off the import item's second name node (:137-142)
+//     and leaves EMPTY for a wildcard.  So `import p::n` pushes exactly the
+//     entry called `n` — into whichever container it rides — and a name that
+//     is not a data declaration pushes nothing at all.
+//
+// (C) EVERY CLONE PRECEDES EVERY OWN ENTRY.  `CompilePackage::compile`
+//     (:105-108) runs `collectObjects_(FUNCTION)` FIRST, then `DEFINITION`,
+//     then `OTHER`; `paPackage_import_item` is handled ONLY under FUNCTION
+//     (:164) while `paNet_declaration` and `paData_declaration` are handled
+//     ONLY under DEFINITION (:255, :262).  So the whole import batch is in the
+//     scope's vectors before the package's own first declaration is looked at,
+//     WHATEVER the source order says.  r11u79 modelled the clone as riding the
+//     walk "at the import statement's slot", which is indistinguishable from
+//     this on every package it measured (uvm_pkg, adpcm_pkg and all of its
+//     arms put the import first) and wrong the moment a declaration precedes
+//     an import — arm `t6_slots`.
+//
+// Three switches, each droppable alone.  `R11U84_ELAB_OFF=1` drops LAW A (a
+// clone reads its own view again), `R11U84_EXP_OFF=1` drops LAW B (an
+// explicit import builds no clone again), `R11U84_ORDER_OFF=1` drops LAW C
+// (the clones ride the source-ordered walk at the import slot again), and
+// `R11U84_OFF=1` drops all three.
+static bool pkgCloneElabOff84() {
+    static const bool v = getenv("R11U84_ELAB_OFF") != nullptr ||
+                          getenv("R11U84_OFF") != nullptr;
+    return v;
+}
+static bool pkgExplicitCloneOff84() {
+    static const bool v = getenv("R11U84_EXP_OFF") != nullptr ||
+                          getenv("R11U84_OFF") != nullptr;
+    return v;
+}
+static bool pkgCloneOrderOff84() {
+    static const bool v = getenv("R11U84_ORDER_OFF") != nullptr ||
+                          getenv("R11U84_OFF") != nullptr;
+    return v;
+}
+// Trace every package-listing entry with its OWN/CLONE face and both readings,
+// so a corpus mover is named a priori from ONE binary.
+static bool pkgCloneDbg84() {
+    static const bool v = [] {
+        const char* e = getenv("R11U84_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+// § caPkgExplicitImportClonesItsOneEntry84 (LAW B) — the one entry an
+// explicit import item clones, or null.
+//
+// The producer scans the home's containers for the name (`importPackage`
+// filters `def->getVariables()` and `def->getSignals()` by `object_name`,
+// CompileHelper.cpp:174-176 / :184-186), so this scans the home PACKAGE's
+// members for a DATA DECLARATION of that name.  Deliberately NOT
+// `ExplicitImportSymbol::importedSymbol()`: that forces a resolution, and
+// forcing AST binding during the DEF phase has changed later emission before
+// (RESUME §9, "do not force AST binding during the DEF phase").  It also
+// matches the producer's reach exactly for everything we can compile — a
+// CHAINED explicit item (`import q::n` where `q` only WILDCARD-imported `n`)
+// is accepted by Surelog and REJECTED by slang ("no member named 'n' in
+// package 'q'"), so no such item ever reaches here.
+//
+// A name that is not a data declaration — a parameter, a typedef, a
+// subroutine, a class — answers null: GOLDEN WRITES NOTHING for those
+// (`t2_expkinds` `eh` imports a `parameter`, `ei` a `typedef`; neither puts a
+// row in the listing).
+static const slang::ast::ValueSymbol* pkgExplicitImportEntry84(
+    const slang::ast::PackageSymbol* hp84, std::string_view nm84) {
+    if (!hp84)
+        return nullptr;
+    for (auto& hm84 : hp84->members()) {
+        if (hm84.name != nm84)
+            continue;
+        if (hm84.kind != SymbolKind::Variable && hm84.kind != SymbolKind::Net)
+            continue;
+        auto& hv84 = hm84.as<ValueSymbol>();
+        if (!hv84.getDeclaredType())
+            continue;
+        return &hv84;
+    }
+    return nullptr;
+}
+
 // Does a struct's every member read as `logic_typespec` or `struct_typespec`
 // in golden's arena?  `elabSignal`'s struct arm (NetlistElaboration.cpp:
 // 2140-2153) walks the MEMBERS' own typespecs and keeps `isNet` only when
@@ -29756,6 +29868,20 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             const DeclaredType* dt = vs.getDeclaredType();
             if (!dt)
                 return;
+            // § caPkgCloneReadsTheElaboratedEntry84 (LAW A) — a CLONE aliases
+            // the home's ELAB Signal in both views, so it answers the kind and
+            // the net-type questions with the ELABORATED reading whatever view
+            // is being written.  `pkgCloneEntry84` carries the same answer to
+            // `emitPackageVar`, which decides the variable-road kinds.
+            const bool readTop84 =
+                topView || (!own9 && !pkgCloneElabOff84());
+            auto savedClone84 = pkgCloneEntry84;
+            pkgCloneEntry84 = !own9 && !pkgCloneElabOff84();
+            struct CloneGuard84 {
+                bool* p;
+                bool v;
+                ~CloneGuard84() { *p = v; }
+            } cg84{&pkgCloneEntry84, savedClone84};
             auto& ct = dt->getType().getCanonicalType();
             // Anonymous packed struct/union spellings are NETS like their
             // typedef'd forms (Surelog-measured, r9bpapb probe2) — the
@@ -29774,7 +29900,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                           !(!ct.isIntegral() || ct.isEnum() ||
                             dt->getType().kind != SymbolKind::TypeAlias);
             else
-                isNet79 = pkgListKind79(vs, topView) == PkgListKind79::Net;
+                isNet79 = pkgListKind79(vs, readTop84) == PkgListKind79::Net;
             // THE A-PRIORI MOVER PREDICTOR.  One row per entry that reaches
             // this listing, the DECLINED ones included, carrying BOTH
             // answers — the pre-79 road's and this pass's — computed in the
@@ -29818,6 +29944,28 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         (int)ntNew79, (int)ntPre79,
                         moved79 ? "MOVED" : "SAME");
             }
+            // THE r11u84 A-PRIORI MOVER PREDICTOR.  One row per entry of the
+            // listing carrying its OWN/CLONE face and BOTH readings — this
+            // view's and the elaborated one — computed in the same run on the
+            // same binary, so a corpus mover is named by name without a second
+            // binary.  It over-predicts by design: an entry whose two readings
+            // agree is SAME even though LAW C may still have moved its slot,
+            // which the ORDER row below covers.
+            if (pkgCloneDbg84()) {
+                auto vkView84 = pkgListKind79(vs, topView);
+                auto vkElab84 = pkgListKind79(vs, true);
+                int32_t ntView84 = pkgNetTypeForView79(vs, topView);
+                int32_t ntElab84 = pkgNetTypeForView79(vs, true);
+                const bool moved84 =
+                    !own9 && (vkView84 != vkElab84 || ntView84 != ntElab84);
+                fprintf(stderr,
+                        "R11U84CELL name=%s%s view=%d own=%d vkview=%d "
+                        "vkelab=%d ntview=%d ntelab=%d %s\n",
+                        prefix.c_str(), std::string(vs.name).c_str(),
+                        (int)topView, (int)own9, (int)vkView84, (int)vkElab84,
+                        (int)ntView84, (int)ntElab84,
+                        moved84 ? "MOVED" : "SAME");
+            }
             if (!isNet79) {
                 emitPackageVar(vs, up, prefix, pvars);
                 return;
@@ -29836,7 +29984,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 if (topView)
                     n->VpiNetType(vpiNet);
             }
-            else if (int32_t nt79 = pkgNetTypeForView79(vs, topView))
+            else if (int32_t nt79 = pkgNetTypeForView79(vs, readTop84))
                 n->VpiNetType(nt79);
             // The net's typespec ref is named after the NET (my_package1::v)
             // and resolves to this view's shared package typedef object.
@@ -29940,54 +30088,198 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         emitPackageVar(*qh9[qi9++], up, prefix, pvars);
                     }
                 };
-                for (auto& qm9 : q9.members()) {
-                    // § caPkgListingIsTheSignalVector79 (LAW A) — the clone
-                    // reproduces the home package's WHOLE SIGNAL VECTOR, nets
-                    // included: `CompileHelper::importPackage` pushes
-                    // `def->getSignals()` into the importing scope's own
-                    // vector (CompileHelper.cpp:183-190) and the package
-                    // writer then lists it exactly as the home package's.
-                    // MEASURED on `z7_pkgimpclone`: `pb` lists `pa`'s
-                    // `a_net`/`a_uarr`/`a_struct`/`a_var` and `pc` lists both
-                    // hops' entries, direct and transitive alike.
-                    if (qm9.kind == SymbolKind::Variable ||
-                        (!pkgNetOff79() && qm9.kind == SymbolKind::Net)) {
-                        qflush9(qm9.location, false);
-                        emitOne9(qm9.as<ValueSymbol>(), false);
-                    }
-                    else if (qm9.kind == SymbolKind::WildcardImport) {
-                        if (auto* r9 =
-                                qm9.as<WildcardImportSymbol>().getPackage())
-                            impVars9(*r9, seen9);
+                // § caPkgCloneListingComesFirst84 (LAW C) — the home package's
+                // OWN vector carries its own clones ahead of its own
+                // declarations for exactly the reason this package's does
+                // (`CompilePackage::compile` runs the FUNCTION collect, which
+                // owns `paPackage_import_item`, before the DEFINITION one,
+                // which owns `paNet_declaration`/`paData_declaration`), so a
+                // transitive clone reproduces that order: the home's imports
+                // first, recursively, then the home's own entries.  MEASURED
+                // on `q5_impreach` `pc5` (pa5's five entries, then pb5's
+                // `b_own`, then pc5's own `c_own`).
+                // With LAW C off the one source-ordered walk stands (r11u79's
+                // reading): imports and declarations interleave, and the
+                // single pass serves both.
+                const bool ord84 = !pkgCloneOrderOff84();
+                for (int pass84 = 0; pass84 < (ord84 ? 2 : 1); ++pass84) {
+                    for (auto& qm9 : q9.members()) {
+                        const bool isImp84 =
+                            qm9.kind == SymbolKind::WildcardImport ||
+                            qm9.kind == SymbolKind::ExplicitImport;
+                        if (ord84 && isImp84 != (pass84 == 0))
+                            continue;
+                        // § caPkgListingIsTheSignalVector79 (LAW A) — the
+                        // clone reproduces the home package's WHOLE SIGNAL
+                        // VECTOR, nets included: `CompileHelper::importPackage`
+                        // pushes `def->getSignals()` into the importing
+                        // scope's own vector (CompileHelper.cpp:182-190) and
+                        // the package writer then lists it exactly as the home
+                        // package's.  MEASURED on `z7_pkgimpclone`: `pb` lists
+                        // `pa`'s `a_net`/`a_uarr`/`a_struct`/`a_var` and `pc`
+                        // lists both hops' entries, direct and transitive
+                        // alike.
+                        if (qm9.kind == SymbolKind::Variable ||
+                            (!pkgNetOff79() && qm9.kind == SymbolKind::Net)) {
+                            qflush9(qm9.location, false);
+                            emitOne9(qm9.as<ValueSymbol>(), false);
+                        }
+                        else if (qm9.kind == SymbolKind::WildcardImport) {
+                            if (auto* r9 =
+                                    qm9.as<WildcardImportSymbol>().getPackage())
+                                impVars9(*r9, seen9);
+                        }
+                        // § caPkgExplicitImportClonesItsOneEntry84 (LAW B) —
+                        // the home's own EXPLICIT import put ONE entry in its
+                        // vector, and a wildcard import of the home carries it
+                        // on.  The named entry is found by a plain member scan
+                        // of the home-of-the-home, never through
+                        // `importedSymbol()`, which would force a resolution
+                        // during DEF-phase emission.
+                        else if (qm9.kind == SymbolKind::ExplicitImport &&
+                                 !pkgExplicitCloneOff84()) {
+                            auto& qei84 = qm9.as<ExplicitImportSymbol>();
+                            if (auto* ev84 = pkgExplicitImportEntry84(
+                                    comp.getPackage(qei84.packageName),
+                                    qei84.importName))
+                                emitOne9(*ev84, false);
+                        }
                     }
                 }
                 qflush9(SourceLocation(), true);
             };
-        for (auto& mem : pkg.members()) {
-            if (mem.kind == SymbolKind::WildcardImport) {
-                auto* q9 = mem.as<WildcardImportSymbol>().getPackage();
-                if (!q9)
+        // § caPkgCloneListingComesFirst84 (LAW C) — EVERY IMPORT CLONE
+        // PRECEDES EVERY OWN ENTRY, IN BOTH VECTORS.
+        // `CompilePackage::compile` (Surelog src/DesignCompile/
+        // CompilePackage.cpp:105-108) runs `collectObjects_(FUNCTION)` FIRST,
+        // then `DEFINITION`, then `OTHER`; `paPackage_import_item` is handled
+        // ONLY under FUNCTION (:164) while `paNet_declaration` and
+        // `paData_declaration` are handled ONLY under DEFINITION (:255, :262).
+        // So `importPackage` has pushed the whole import batch into the
+        // scope's vectors before the package's own first declaration is even
+        // looked at, WHATEVER the source order says.  r11u79 modelled the
+        // clone as riding the one source-ordered walk "at the import
+        // statement's slot" — indistinguishable from this on every package it
+        // measured (uvm_pkg, adpcm_pkg and all 38 of its arms open their body
+        // with the import) and wrong the moment a declaration precedes an
+        // import.  MEASURED, arm `t6_slots`: golden's `n1` lists
+        // `m_var, m_uarr | own_var_a, own_var_b, own_var_c` and
+        // `m_net, m_wtd, m_net2 | own_net_a, own_net_b, own_net_c`, both views,
+        // though `own_net_a`/`own_var_a` are written ABOVE the first import.
+        // Within the batch the order is the IMPORT ITEM's, and within one item
+        // the home's own vector order.
+        const bool ordOuter84 = !pkgCloneOrderOff84();
+        // THE A-PRIORI SLOT PREDICTOR, and it is the one LAW C needs: its
+        // whole byte surface is a SLOT, so an ORDER-BLIND census reads it as a
+        // no-op (the switch ledger shows `patch_blind=0` on every arm while
+        // `patch_ord` is 296 and 816).  This row names, from the SAME binary
+        // in the SAME run, every package whose listing the law REORDERS: the
+        // pre-84 walk visits members in source order, this one visits the
+        // import members first, so the two differ exactly when a listed data
+        // declaration is written BEFORE an import item that clones anything.
+        // The `emitsClone84` test is deliberately CHEAP and OVER-PREDICTING (a
+        // wildcard import of an existing package counts even if the home turns
+        // out to list nothing): a predicted mover that does not move costs
+        // nothing, an unpredicted one convicts the law.
+        if (pkgCloneDbg84()) {
+            bool sawDecl84 = false, moved84 = false;
+            int nimp84 = 0, ndecl84 = 0;
+            for (auto& mem84 : pkg.members()) {
+                const bool emitsClone84 =
+                    (mem84.kind == SymbolKind::WildcardImport &&
+                     mem84.as<WildcardImportSymbol>().getPackage()) ||
+                    (mem84.kind == SymbolKind::ExplicitImport &&
+                     comp.getPackage(
+                         mem84.as<ExplicitImportSymbol>().packageName));
+                if (emitsClone84) {
+                    ++nimp84;
+                    if (sawDecl84)
+                        moved84 = true;
                     continue;
-                SourceLocation impAt8 = mem.location;
-                if (auto* isyn8 = mem.getSyntax())
-                    impAt8 = isyn8->sourceRange().start();
-                flushHoist9(impAt8, false);
-                std::set<const PackageSymbol*> seen9{&pkg};
-                impVars9(*q9, seen9);
-                continue;
+                }
+                if (mem84.kind == SymbolKind::Variable ||
+                    mem84.kind == SymbolKind::Net) {
+                    if (!mem84.as<ValueSymbol>().getDeclaredType())
+                        continue;
+                    ++ndecl84;
+                    sawDecl84 = true;
+                }
             }
-            // § caPkgListingIsTheSignalVector79 (LAW A) — a package NET is an
-            // entry of the very vector this listing is built from
-            // (`pack->getSignals()`), so it rides the walk at its own source
-            // slot exactly as a variable does.
-            if (mem.kind != SymbolKind::Variable &&
-                !(!pkgNetOff79() && mem.kind == SymbolKind::Net))
-                continue;
-            auto& vs = mem.as<ValueSymbol>();
-            if (!vs.getDeclaredType())
-                continue;
-            flushHoist9(vs.location, false);
-            emitOne9(vs, true);
+            fprintf(stderr,
+                    "R11U84ORD name=%s view=%d imports=%d decls=%d %s\n",
+                    std::string(pkg.name).c_str(), (int)topView, nimp84,
+                    ndecl84, moved84 ? "MOVED" : "SAME");
+        }
+        for (int pass84 = 0; pass84 < (ordOuter84 ? 2 : 1); ++pass84) {
+            for (auto& mem : pkg.members()) {
+                const bool isImp84 = mem.kind == SymbolKind::WildcardImport ||
+                                     mem.kind == SymbolKind::ExplicitImport;
+                if (ordOuter84 && isImp84 != (pass84 == 0))
+                    continue;
+                if (mem.kind == SymbolKind::WildcardImport) {
+                    auto* q9 = mem.as<WildcardImportSymbol>().getPackage();
+                    if (!q9)
+                        continue;
+                    // With LAW C on, the clone batch runs before the own walk
+                    // and no hoisted local can precede it; with LAW C off the
+                    // r11u79 import-slot flush stands.
+                    if (!ordOuter84) {
+                        SourceLocation impAt8 = mem.location;
+                        if (auto* isyn8 = mem.getSyntax())
+                            impAt8 = isyn8->sourceRange().start();
+                        flushHoist9(impAt8, false);
+                    }
+                    std::set<const PackageSymbol*> seen9{&pkg};
+                    impVars9(*q9, seen9);
+                    continue;
+                }
+                // § caPkgExplicitImportClonesItsOneEntry84 (LAW B) — AN
+                // EXPLICIT IMPORT CLONES ITS ONE NAMED ENTRY, AND NOTHING
+                // ELSE.  `importPackage` filters BOTH data arms by
+                // `object_name` (CompileHelper.cpp:174-176 and :184-186),
+                // which it reads off the import item's second name node
+                // (:137-142) and leaves EMPTY for a wildcard.  So the entry
+                // called `n` is pushed into whichever container it rides and
+                // nothing else is — a `parameter` name and a `typedef` name
+                // put NOTHING in the listing (measured, `t2_expkinds` `eh`
+                // and `ei`).  The clone is cell-for-cell the wildcard clone:
+                // arm `t4_expviews` scores golden's explicit `p2` against its
+                // wildcard control `p3` over thirteen spellings and two views
+                // and they are identical, so ONE builder serves both and no
+                // new kind or net-type table is needed.
+                if (mem.kind == SymbolKind::ExplicitImport &&
+                    !pkgExplicitCloneOff84()) {
+                    auto& ei84 = mem.as<ExplicitImportSymbol>();
+                    auto* ev84 = pkgExplicitImportEntry84(
+                        comp.getPackage(ei84.packageName), ei84.importName);
+                    // THE A-PRIORI MINT PREDICTOR for LAW B: one row per
+                    // explicit import item, naming the listing entry it adds
+                    // (MINT) or declining (NONE) -- a parameter, a typedef, a
+                    // subroutine and an unresolvable package all decline.
+                    if (pkgCloneDbg84())
+                        fprintf(stderr,
+                                "R11U84EXP name=%s::%s view=%d into=%s %s\n",
+                                std::string(ei84.packageName).c_str(),
+                                std::string(ei84.importName).c_str(),
+                                (int)topView, std::string(pkg.name).c_str(),
+                                ev84 ? "MINT" : "NONE");
+                    if (ev84)
+                        emitOne9(*ev84, false);
+                    continue;
+                }
+                // § caPkgListingIsTheSignalVector79 (LAW A) — a package NET is
+                // an entry of the very vector this listing is built from
+                // (`pack->getSignals()`), so it rides the walk at its own
+                // source slot exactly as a variable does.
+                if (mem.kind != SymbolKind::Variable &&
+                    !(!pkgNetOff79() && mem.kind == SymbolKind::Net))
+                    continue;
+                auto& vs = mem.as<ValueSymbol>();
+                if (!vs.getDeclaredType())
+                    continue;
+                flushHoist9(vs.location, false);
+                emitOne9(vs, true);
+            }
         }
         flushHoist9(SourceLocation(), true);
         // NOTE § pkgInitRefBindsOwnListing47 — the listing is complete here, and
@@ -31043,7 +31335,12 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
     // `struct_var` — both arrive here from the caller's discriminator.
     UHDM::variables* vNew79 = nullptr;
     if (pkgOwn79 && !pkgKindOff79()) {
-        switch (pkgListKind79(vs, pkgEmitTopView)) {
+        // § caPkgCloneReadsTheElaboratedEntry84 (LAW A) — an IMPORT-CLONE
+        // entry aliases the home's ELAB Signal in both views, so it reads the
+        // elaborated kind here too (`t1_cloneviews` `h2::v_s2`: a two-hop
+        // struct typedef is a `struct_var` in the clone's DEF view where the
+        // home's own def entry is a `logic_net`).
+        switch (pkgListKind79(vs, pkgEmitTopView || pkgCloneEntry84)) {
             case PkgListKind79::StructVar:
                 vNew79 = s.MakeStruct_var();
                 break;

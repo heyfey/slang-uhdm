@@ -175,6 +175,29 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign refresh (2026-09-21, HEAD = the pass-83 landing).** The
+> matrix-1.87 branch has landed 83 passes since the df23d880 rebaseline:
+> surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
+> are the three slang-fenced tests), uhdm2rtlil 788 equal / 16 not-equal /
+> 67 reject in both modes (of 871). Passes 74-83 are ALL GROUNDWORK — zero
+> conversions, zero regressions; the corpus-visible faces are thinning and
+> the campaign is closing byte-truth laws the judge reads. Landed since the
+> pass-73 refresh: the gen-scope binding stores + package-import homes
+> (74), the written-digits value read + signedness casts (75), the cast
+> typespec hand-on + unsigned-shift table (76), the module-side import
+> hoist + kind tables (77), the package listing's two views (78), the
+> unpacked holder builder (79), the written-path fold decline + the
+> producer's-vector shadowing (80), the package-hop typespec with its two
+> lexical fences (81), the interface import hoist + interface cont_assign
+> reducer (82), and the import clones — the elaborated pointer, the
+> explicit item, the clones-first slot (83). The queue: the interface
+> clone's drive fields + interface-home width/decompile (r11u85, in
+> flight), pass-83 residues, pass-80 R2/R3 module listing faces, r11u67
+> R-KWDUMMY + pass-64 element-reach, BBPI 62 bare cells, r11u70 R3 cast
+> holders, r11u68 R0 cast face, r11u73 R2 dropped-operand, pass-79 R3
+> nested wrapper, pass-81 R1 module-route encoding, TRIAGE2 singletons.
+> The pass-73 paragraph below is HISTORY.
+
 > **v1.87 campaign refresh (2026-09-20, HEAD = the pass-73 landing).** The
 > matrix-1.87 branch has landed 73 passes since the df23d880 rebaseline:
 > surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes

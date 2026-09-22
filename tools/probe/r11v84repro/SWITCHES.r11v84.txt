@@ -1,0 +1,36 @@
+===== R11U84_OFF=1
+v1_hoistimp pris_blind=0 pris_ord=0 patch_blind=4 patch_ord=204 rc=0
+v2_unitimp pris_blind=0 pris_ord=0 patch_blind=0 patch_ord=0 rc=0
+v3_expedge pris_blind=0 pris_ord=0 patch_blind=362 patch_ord=362 rc=0
+v4_transexp pris_blind=0 pris_ord=0 patch_blind=550 patch_ord=550 rc=0
+v5_nestdia pris_blind=0 pris_ord=0 patch_blind=0 patch_ord=0 rc=0
+v6_modctl pris_blind=0 pris_ord=0 patch_blind=9 patch_ord=29 rc=0
+v7_ordmix pris_blind=0 pris_ord=0 patch_blind=4 patch_ord=736 rc=0
+v8_expkinds2 pris_blind=0 pris_ord=0 patch_blind=496 patch_ord=556 rc=0
+===== R11U84_ELAB_OFF=1
+v1_hoistimp pris_blind=0 pris_ord=200 patch_blind=4 patch_ord=4 rc=0
+v2_unitimp pris_blind=0 pris_ord=0 patch_blind=0 patch_ord=0 rc=0
+v3_expedge pris_blind=362 pris_ord=362 patch_blind=0 patch_ord=0 rc=0
+v4_transexp pris_blind=550 pris_ord=550 patch_blind=4 patch_ord=4 rc=0
+v5_nestdia pris_blind=0 pris_ord=0 patch_blind=0 patch_ord=0 rc=0
+v6_modctl pris_blind=0 pris_ord=0 patch_blind=9 patch_ord=29 rc=0
+v7_ordmix pris_blind=0 pris_ord=732 patch_blind=4 patch_ord=4 rc=0
+v8_expkinds2 pris_blind=493 pris_ord=549 patch_blind=9 patch_ord=9 rc=0
+===== R11U84_EXP_OFF=1
+v1_hoistimp pris_blind=4 pris_ord=204 patch_blind=0 patch_ord=0 rc=0
+v2_unitimp pris_blind=0 pris_ord=0 patch_blind=0 patch_ord=0 rc=0
+v3_expedge pris_blind=0 pris_ord=0 patch_blind=362 patch_ord=362 rc=0
+v4_transexp pris_blind=0 pris_ord=0 patch_blind=550 patch_ord=550 rc=0
+v5_nestdia pris_blind=0 pris_ord=0 patch_blind=0 patch_ord=0 rc=0
+v6_modctl pris_blind=9 pris_ord=29 patch_blind=0 patch_ord=0 rc=0
+v7_ordmix pris_blind=4 pris_ord=736 patch_blind=0 patch_ord=0 rc=0
+v8_expkinds2 pris_blind=6 pris_ord=158 patch_blind=494 patch_ord=494 rc=0
+===== R11U84_ORDER_OFF=1
+v1_hoistimp pris_blind=4 pris_ord=4 patch_blind=0 patch_ord=200 rc=0
+v2_unitimp pris_blind=0 pris_ord=0 patch_blind=0 patch_ord=0 rc=0
+v3_expedge pris_blind=362 pris_ord=362 patch_blind=0 patch_ord=0 rc=0
+v4_transexp pris_blind=550 pris_ord=550 patch_blind=0 patch_ord=0 rc=0
+v5_nestdia pris_blind=0 pris_ord=0 patch_blind=0 patch_ord=0 rc=0
+v6_modctl pris_blind=9 pris_ord=29 patch_blind=0 patch_ord=0 rc=0
+v7_ordmix pris_blind=4 pris_ord=4 patch_blind=0 patch_ord=732 rc=0
+v8_expkinds2 pris_blind=496 pris_ord=500 patch_blind=0 patch_ord=152 rc=0

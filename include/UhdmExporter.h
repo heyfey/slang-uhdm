@@ -7355,6 +7355,25 @@ private:
     // decompiles follow Surelog's clone rules (all-ref concat drops the
     // decompile; op-containing concats fold each operand).
     bool importCloneEmit = false;
+    /// § caPkgCloneReadsTheElaboratedEntry84 (r11u84, LAW A) — true while
+    /// emitPackage writes an IMPORT-CLONE entry of another package's listing
+    /// (wildcard or explicit, direct or transitive), in EITHER view.  The
+    /// clone is not a copy: `CompileHelper::importPackage` pushes the HOME
+    /// package's Signal POINTERS into the importing scope's own vector
+    /// (Surelog src/DesignCompile/CompileHelper.cpp:182-190,
+    /// `scope->getSignals().push_back(net)`) and `Design::getPackage`
+    /// (src/Design/Design.cpp:435) answers the ELAB Package for every caller —
+    /// the unelab twin is minted inside Package's ctor (src/Package/Package.cpp:42)
+    /// and never registered under the name.  So BOTH views of the importer
+    /// alias the ELAB home Signal, the one `ElaborationStep`'s SIMPLE_TYPEDEF
+    /// rewrite (src/DesignCompile/ElaborationStep.cpp:1489-1500) mutated in
+    /// place, and a clone answers the KIND and the `vpiNetType` questions with
+    /// the ELABORATED reading whatever view is being written.  The object's
+    /// own view-dependent shape (an unpacked array's `vpiSize`: 1 in the def
+    /// view, flattened in the elaborated one) is NOT affected — it is the
+    /// writer's, not the Signal's.  MEASURED, arm `t1_cloneviews`, thirteen
+    /// home spellings x two views.
+    bool pkgCloneEntry84 = false;
     // True while buildEnumTs builds a package's own DEF-LISTING enum object
     // (emitPackage enum arms, def pass): sys-call base bounds stay SYMBOLIC
     // there (member-use clones and import clones fold) — rp32 fn3_alu_et.
