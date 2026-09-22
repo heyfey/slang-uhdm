@@ -1,0 +1,152 @@
+r11u92 — THE GATES, all five, run in this pass's OWN worktree at 0522e347
+with this pass's OWN frozen binaries and OWN sweep workdirs.
+
+BINARIES (frozen chmod 555 before any sweep; every cmds.txt in all four
+workdirs audited by ABSOLUTE binary PATH, not by the string "slang-uhdm")
+  pristine  bf80949e9090df504e2cfbcf8520e1b3
+            `cmp` byte-identical to the main tree's build/slang-uhdm at
+            0522e347 and to the OPS pin -- compared, not assumed
+  law       5b96e5db4c4d44b2eb6aac6f4147b629
+
+  cmds.txt audit: 6646 files across the four workdirs; the ONLY `slang:`
+  strings present are
+      slang:   /tmp/r11u92_bin/pris.bin      (in the pris workdirs)
+      slang:   /tmp/r11u92_bin/lawx.bin      (in the lawx workdirs)
+  and 100 files carry no `slang:` line at all -- rows whose GOLDEN side
+  failed, so no slang run happened.
+
+  BUILD-RACE NOTE (an ops trap this pass hit and caught): an intermediate
+  binary was built while ModuleEmit.cpp was being edited, so the .o came out
+  NEWER than the source and the next `cmake --build` skipped the file; the
+  interface-home control `n3_strnonansi_if` moved by 3 lines and named it.
+  The shipped law binary was rebuilt from `touch`ed sources with no edit in
+  flight, and n3/n4 read 0 again.
+
+GATE 1  build both, -j 2, md5 taken separately                        GREEN
+
+GATE 2  tests/check_goldens.sh                 23 PASS / 0 FAIL       GREEN
+        negative control SLANG_UHDM=/bin/false  0 PASS / 23 FAIL      GREEN
+
+GATE 3  uhdm2rtlil, BOTH modes (--jobs 3, own --out/--workdir)        GREEN
+  ct8rows.sh results/gate_uhdm2rtlil.csv        lawx_u2r_tf.csv   PASS (0 rows)
+  golden_uhdm2rtlil.csv[testflags] join          lawx_u2r_tf.csv   0 differing
+  golden_uhdm2rtlil.csv[default]   join          lawx_u2r_def.csv  0 differing
+      (results/golden_uhdm2rtlil.csv holds BOTH modes -- 1742 rows -- so it
+       is split per mode before the join; joining it whole against an 871-row
+       per-mode CSV reports all 871 rows as "removed" and means nothing.)
+  pris_u2r_tf.csv  vs lawx_u2r_tf.csv   BYTE-IDENTICAL FILES
+  pris_u2r_def.csv vs lawx_u2r_def.csv  BYTE-IDENTICAL FILES
+  histograms unmoved: testflags 788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67
+                      SLANG_REJECT; dump 83 blank / 252 differ / 536 match
+                      default   dump 83 blank / 256 differ / 532 match
+
+GATE 4  surelog, --mode both (--jobs 3, own --out/--workdir)          GREEN
+  STATUS histograms byte-identical to the committed baseline:
+       default   474 CMP_EQUAL  9 CMP_NOTEQUAL  5 DEFERRED
+                 285 SLANG_REJECT  25 SURELOG_FAIL
+       testflags 469 CMP_EQUAL  8 CMP_NOTEQUAL  5 DEFERRED  3 NO_DATABASE
+                 1 NO_UHDM  286 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT
+                 2 UNTRANSLATABLE
+  ct8rows.sh pris_sl.csv  lawx_sl.csv   -- law vs THIS PASS'S OWN pristine
+     2 rows differ, and the ONLY difference is "pris" vs "lawx" inside the
+     workdir path their SURELOG_FAIL message embeds:
+       LowMemLib,testflags   [INF:CM0023] Creating log file ".../LowMemLib-.../surelog.log"
+       LowMemPkg,testflags   [INF:CM0023] Creating log file ".../LowMemPkg-.../surelog.log"
+     ZERO law-attributable rows.
+  ct8rows.sh results/golden_surelog.csv  lawx_sl.csv
+     4 rows differ from the COMMITTED baseline, each quoted and each an
+     ENVIRONMENT class the OPS names, none a law:
+       Earlgrey_0_1,default   CMP_EQUAL,,,differ -> CMP_EQUAL,,,
+       Earlgrey_0_1,testflags CMP_EQUAL,,,differ -> CMP_EQUAL,,,
+         the dump COLUMN reads blank on a uhdm-dump timeout draw; it reads
+         blank on BOTH of this pass's binaries (the pris-vs-lawx join above
+         shows no Earlgrey row), so it is this environment's draw and not the
+         patch's.  The status pin holds and the DATABASE byte pins hold.
+       LowMemLib/testflags + LowMemPkg/testflags: message text only, the
+         baseline's embeds /tmp/m187base/sl/wd/..., mine embeds my own
+         workdir.  Dump paths embed the workdir.
+
+GATE 5  byteverify SELFCHECK=1 vs this pass's OWN pristine workdirs   GREEN
+  uhdm2rtlil  PATH_SETS_IDENTICAL (1608 paths)
+              MOVERS: 0 / 1608
+              SELFCHECK 1607 / 1608 flagged  (comparator proven live)
+              A-PRIORI PREDICTION: NOTHING.  Nothing moved.
+  surelog     PATH_SETS_IDENTICAL (960 paths)
+              MOVERS: 5 / 960
+              SELFCHECK 959 / 960 flagged  (comparator proven live)
+              A-PRIORI PREDICTION: NOTHING (census + pristine-side mover
+              predictor, §5 of the README).  The five are the UVM family's
+              documented PRISTINE NONDETERMINISM:
+
+    order-blind (sorted, path- and id-normalised) dump diff per mover:
+      default/MiniAmiq    4 lines:  UINT:0    <-> UINT:720   + vpiDecompile
+      default/SeqDriver   4 lines:  UINT:1124 <-> UINT:0     + vpiDecompile
+      default/SimpleUVM   4 lines:  UINT:0    <-> UINT:1040  + vpiDecompile
+      testflags/MiniAmiq  4 lines:  UINT:0    <-> UINT:1484  + vpiDecompile
+      default/Scoreboard  0 lines:  the ORDER draw
+    Every one is the 0-or-4-line UINT/vpiDecompile LINE-NUMBER attribute
+    class.  No net, no cont_assign, no program, no port.
+
+    POSITIVE CONTROL (pristine against ITSELF).  The PRISTINE binary, run
+    FOUR times on default/MiniAmiq's own replayed command line, produces
+    FOUR DIFFERENT database hashes
+      6ec5086afaef840c63507a60c1847eb3  df78430050746f05faffc18826f60472
+      fa063b384cc0f1ba28acf8e8619f1a86  8cb09277f527fdfe597a381e3dd7cf38
+    and every pairwise order-blind diff is the SAME 4-line class:
+      p1 vs p2  UINT:1338 <-> UINT:519    p1 vs p3  UINT:1338 <-> UINT:1150
+      p1 vs p4  UINT:1338 <-> UINT:1401   p2 vs p3  UINT:519  <-> UINT:1150
+    so the reading is the family's own draw, measured, not asserted.
+
+  DATABASE BYTE PINS, read out of the LAW binary's own surelog workdir:
+    SVSwitch          default 4842211c4030   testflags 4842211c4030  HARD PIN OK
+    YosysVerx         default 6ccda350c24a   testflags 6ccda350c24a  HARD PIN OK
+    InterfaceModPort  default 59a365f3ce2c   testflags 59a365f3ce2c  WATCHED OK
+    Earlgrey_0_1      default 8bdf25272e08   testflags 59d0ee6d10c3  PIN OK
+    BlackParrotComplex default e3e354129d5a  testflags 73a10e8217e5  (status pin)
+    YosysOldOr        default d68e0796d62c   testflags d68e0796d62c  (status pin)
+  SVSwitch, InterfaceModPort and SimpleConstraint were three of the SEVEN
+  rows the emitter census named as LAW A candidates; the pristine-side
+  predictor said none of the 26 program homes carries a cell, so none could
+  move, and the pins confirm it byte for byte.
+
+CANARIES
+  canaries.sh  lawx_sl.csv     vs results/golden_surelog.csv      ok=50 changed=2
+      the 2 are Earlgrey_0_1/default and /testflags, dump column blank,
+      status CMP_EQUAL on both -- the environment draw named above
+  canaries.sh  lawx_u2r_tf.csv vs results/gate_uhdm2rtlil.csv     ok=8  changed=0
+  EXPECT_UNKNOWN=1 ctcan2.sh golden_surelog.csv     lawx_sl.csv      PASS (ok=58)
+  EXPECT_UNKNOWN=6 ctcan2.sh gate_uhdm2rtlil.csv    lawx_u2r_tf.csv  PASS (ok=1)
+  canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+
+ROWHEADS (the seven conversion rows, law binary, official uhdm-cmp)
+  SeqDriver   default 0/0 rc=0      SeqDriver   testflags 0/0 rc=0
+  SimpleUVM   default 0/0 rc=0      SimpleUVM   testflags 0/0 rc=0
+  Scoreboard  default 0/0 rc=0      Scoreboard  testflags SKIP-NOFILE (expected)
+  MiniAmiq    default 0/0 rc=0      MiniAmiq    testflags 0/0 rc=0
+  BuildUVMPkg default 0/0 rc=0      BuildUVMPkg testflags 0/0 rc=0
+  Earlgrey_0_1 default 0/0 rc=0     Earlgrey_0_1 testflags 0/0 rc=0
+  Rggen       default 64/1 rc=255 (pre-existing)  Rggen testflags SKIP-NOFILE
+  measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+BOUNDARY (the landed passes' own arms; CTLGRID.r11u92.txt)
+  223 arms from r11u85repro/grid, r11u88repro/grid, r11v88repro/grid,
+  r11u90repro/grid and r11u90repro/grid.verifier, COPIED OUT so no landed
+  pass's directory is written to, compiled by BOTH binaries, dumps compared
+  byte-wise after normalising the database path:
+    arms_same=217  arms_moved=2  rejected=4
+    MOVED r11u90_u10_strprog     lines=52   -> cmp 53 -> 0, AWAY 0
+    MOVED r11u90_u12_strnonansi  lines=81   -> cmp 16 -> 0, AWAY 0
+  The only two arms that move are the two this pass targets (r11u90's R0 and
+  R1) and both CONVERT.  The 4 rejected are refused by slang on BOTH
+  binaries (u1_strnoinit_if, u2_strnoinit_mod, w8_dlytwo, vy13_dlyparamup).
+
+FENCE
+  the four slang-fenced names -- canaudit.sh's own FENCED= line is the list,
+  and this file does not spell them, because canaudit.sh audits every file in
+  this directory except itself and the README records:
+    0 occurrences in `git diff 0522e347 -- src include`
+    0 files in tools/probe/r11u92repro outside canaudit.sh's own FENCED= line
+    0 rows dispatched by either census driver
+    canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+results/*.csv READ ONLY -- never written.  src/ParamEmit.cpp untouched.

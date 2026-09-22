@@ -895,6 +895,24 @@ static bool dlyRefOff90() {
                           getenv("R11U90_OFF") != nullptr;
     return v;
 }
+// § caProgramHomeNoCells92 (r11u92) — LAW A's switch; the law, its decode and
+// its grid are at the gate itself (emitContAssigns).  LAW B's two switches
+// live beside `collectNetOrder` in src/EmitHelpers.h.
+static bool progCellsOff92() {
+    static const bool v = getenv("R11U92_PROGCELL_OFF") != nullptr ||
+                          getenv("R11U92_OFF") != nullptr;
+    return v;
+}
+// NB the name: `cellDbg92` is already taken, by the much older r10e92 pass
+// (`R10E92_CELLDBG`, its own trace further down this file).  This pass's trace
+// is `progTrace92`.
+static bool progTrace92() {
+    static const bool v = [] {
+        const char* e = getenv("R11U92_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
 static bool cellDbg90() {
     static const bool v = [] {
         const char* e = getenv("R11U90_CELLDBG");
@@ -3222,7 +3240,10 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         info.nets[portBase] = n0;
         nets->push_back(n0);
     }
-    for (auto& it : collectNetOrder(body)) {
+    // § caStrPortNetRevertsToPort92 — the MODULE DEFINITION's net listing asks
+    // for the reverted order/anchor (the law, its grid and the interface
+    // home it deliberately does NOT claim: src/EmitHelpers.h).
+    for (auto& it : collectNetOrder(body, /*strPortRevert=*/true)) {
         // The net an EXPLICIT port mints under its own name: bare (no net
         // type, no typespec), anchored at the port-list name, and NOT the
         // netMap entry for the expression's symbol.
@@ -3296,8 +3317,11 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                       .kind == SymbolKind::PackedArrayType;
         // A CLASS-SCOPE-typed net carries no net type either: Surelog never
         // resolved the alias, so none of the alias-driven tags apply.
+        // § caStrPortNetRevertsToPort92 face C — a reverted net has no
+        // declaration left to read a net keyword from (src/EmitHelpers.h).
         if (int32_t nt = (aliasOfAlias0 || classScopeTypeRef(*it.sym) ||
-                          vlogUnresolvedLogicNet(*it.sym))
+                          vlogUnresolvedLogicNet(*it.sym) ||
+                          strPortRevertedNet92(it))
                              ? 0
                              : netTypeFor(*it.sym, true))
             n->VpiNetType(nt);
@@ -10135,7 +10159,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // the others mint is left untyped — which Surelog's elaboration turns
     // into a plain automatic VARIABLE instead of a net.
     std::set<const Symbol*> explicitPortTsSeen;
-    for (auto& it : collectNetOrder(body)) {
+    // § caStrPortNetRevertsToPort92 — the MODULE/PROGRAM ELABORATED net
+    // listing, the same answer as the definition's (src/EmitHelpers.h).
+    for (auto& it : collectNetOrder(body, /*strPortRevert=*/true)) {
         if (it.portExprNet) {
             std::string pname(it.netNameSym->name);
             std::string pfull = prefix + "." + pname;
@@ -11945,7 +11971,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             else
                 setLoc(n, regNetSpan(*it.sym));
             if (!isStruct) {
-                if (int32_t nt = vlogUnresolvedLogicNet(*it.sym)
+                // § caStrPortNetRevertsToPort92 face C — the ELABORATED view's
+                // same answer (src/EmitHelpers.h).
+                if (int32_t nt = (vlogUnresolvedLogicNet(*it.sym) ||
+                                  strPortRevertedNet92(it))
                                      ? 0
                                      : netTypeFor(*it.sym))
                     ((UHDM::logic_net*)n)->VpiNetType(nt);
@@ -28030,7 +28059,17 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
         else {
             // Def view: work@mod.<n>.<n> (port-scoped) with a name; ports
             // whose net is re-declared in the body use work@mod.<n>, no name.
-            bool merged = internal && hasBodyDecl(*internal);
+            // § caStrPortNetRevertsToPort92 face D — a body declaration the
+            // strength law erased does not merge the port (src/EmitHelpers.h).
+            // MODULE/PROGRAM HOMES ONLY, like the law's other three faces:
+            // this same writer serves the INTERFACE definition, and there
+            // golden names BOTH forms port-scoped (`n3`/`n4`: golden writes
+            // `work@ifc.o.o` AND `work@ifc.p.p`, with a plain body
+            // re-declaration on `p`) — a different rule, already a residue,
+            // and not one this law is entitled to half-transcribe.
+            bool merged = internal && hasBodyDecl(*internal) &&
+                          !(m->UhdmType() != UHDM::uhdminterface_inst &&
+                            strPortRevertedLowConn92(*internal));
             if (topView || merged) {
                 if (topView)
                     lc->VpiName(ps.name);
@@ -30237,6 +30276,85 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                    DefInfo* defInfo, bool shareWithDef,
                                    std::set<const Symbol*>* instRefs,
                                    std::set<const Symbol*>* lhsSyms) {
+    // § caProgramHomeNoCells92 — LAW A: A PROGRAM HOME WRITES NO
+    // `cont_assign` AT ALL, WRITTEN ASSIGNMENT AND NET-DECLARATION ASSIGNMENT
+    // ALIKE, IN EITHER VIEW.  r11u90's R0, widened by its own decode.
+    //
+    // THE DECODE IS TWO INDEPENDENT ABSENCES IN THE PRODUCER, one per source
+    // of a cell:
+    //
+    // (1) THE WRITTEN `assign` IS COMPILED AND THROWN AWAY.  The program's
+    //     continuous-assignment arm
+    //     (~/git-repos/Surelog/src/DesignCompile/CompileProgram.cpp:233-238)
+    //     reads
+    //         case VObjectType::paContinuous_assign: {
+    //           if (collectType != CollectType::OTHER) break;
+    //           m_helper.compileContinuousAssignment(m_program, fC,
+    //                                                fC->Child(id),
+    //                                                m_compileDesign, nullptr);
+    //           break;
+    //         }
+    //     — it DISCARDS the returned vector, where the module's arm
+    //     (CompileModule.cpp:676-688) pushes every element onto
+    //     `m_module->getContAssigns()`.  So `Program::getContAssigns()` is
+    //     null however many `assign` statements the program body carries.
+    //
+    // (2) THE NET-DECLARATION ASSIGNMENT NEVER REACHES THE PROGRAM WRITER.
+    //     Those cells are minted by the signal walk onto the INSTANCE's
+    //     netlist (`NetlistElaboration::elabSignal`, NetlistElaboration.cpp:
+    //     2708-2730, `netlist->cont_assigns()`).  `writeInstance`
+    //     (UhdmWriter.cpp:4146-4152) and the interface instance writer
+    //     (:4301-4307) both drain that vector into the object; the program
+    //     writers do NOT — `writeProgram` (:1857) and `writeElabProgram`
+    //     (:2006) each write `m->Cont_assigns(mod->getContAssigns())` and
+    //     nothing else.  The definition component's (empty) vector is the
+    //     ONLY thing a program object can ever carry, in both views.
+    //
+    // THE GOLDEN GRID (every golden regenerated by the pinned Surelog v1.87;
+    // cells counted per holder by `cacell92.py`, listings by `lister92.py`):
+    //   p1_prognda     an nda in a program — golden's `work@dut.u_p` lists the
+    //                  NET and NO `vpiContAssign` vector at all; we wrote one.
+    //   p2_progassign  a WRITTEN `assign` — golden writes NOTHING, in the
+    //                  DEFINITION view (`work@prg`) and the ELABORATED one
+    //                  (`work@dut.u_p`) alike.  This is the arm that widened
+    //                  r11u90's R0 from the nda cell to the whole vector.
+    //   p3_progboth    both forms together — golden still empty, ours 2 cells
+    //                  elaborated + 1 definition.
+    //   p4_progdefonly the program never instantiated — the definition view
+    //                  alone, still empty.
+    //   p5_progparam   a parameter OVERRIDDEN at instantiation and read by
+    //                  both forms — nothing to fold, because nothing is there.
+    //   p6_progtop     the program as the design TOP — the same.
+    //   p9_progvarinit a VARIABLE initializer beside an nda — golden keeps the
+    //                  variable's own `vpiExpr` (not a cell) and writes no
+    //                  vector; only our nda cell had to go.
+    //   m1_modnda / i1_ifnda  THE CONTROLS: the same net declaration in a
+    //                  MODULE and in an INTERFACE home keeps its cell in both
+    //                  tools (`cmp rc=0` on both, before and after).
+    // NOT CLAIMED: `p7_proggennda` — a generate block inside a program, where
+    // golden writes no `gen_scope` AT ALL and lists `w_gen` in the program's
+    // own net vector.  Our gen-scope cell there lives inside an object golden
+    // does not have; dropping the cell alone would transcribe half of a
+    // different law, so the generate listing is left exactly where it was and
+    // recorded as a residue.
+    //
+    // GOLDEN WRITES NOTHING ON A MISS — and neither does this: the gate is
+    // taken BEFORE the first `Make` call, so no object is minted and
+    // discarded.  `instRefs` / `lhsSyms` are the collectors for objects this
+    // function builds; with no cells built there is nothing to collect, and
+    // the caller's only use of `lhsSyms` (un-parenting a typespec a cell's Lhs
+    // elaboration re-pointed) has nothing to undo.
+    // THE TRACE sits OUTSIDE the gate and names EVERY program home this
+    // function reaches, so ONE traced run of ONE binary censuses the
+    // population and predicts LAW A's mover set a priori — with the law
+    // switched off as readily as on.
+    if (m && m->UhdmType() == UHDM::uhdmprogram) {
+        if (progTrace92())
+            fprintf(stderr, "R11U92PROG home=%s topView=%d drop=%d\n",
+                    prefix.c_str(), (int)topView, (int)!progCellsOff92());
+        if (!progCellsOff92())
+            return;
+    }
     bool savedElabCa9 = elabCaEmit;
     elabCaEmit = topView;
     struct ElabCaRestore9 {
@@ -34760,9 +34878,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (psD.direction != ArgumentDirection::In)
                 continue;
             const Expression* initD = psD.getInitializer();
-            if (!initD && psD.internalSymbol)
+            if (!initD && psD.internalSymbol) {
+                // § caStrPortNetRevertsToPort92 face E — the DECLARATION's
+                // initializer, and the declaration is the one the strength law
+                // erased, so there is no default here to synthesize a cell
+                // from (src/EmitHelpers.h).  The port's OWN default, read
+                // above, is untouched.
+                if (strPortRevertedInit92(*psD.internalSymbol))
+                    continue;
                 if (auto* dtsD = psD.internalSymbol->getDeclaredType())
                     initD = dtsD->getInitializer();
+            }
             if (!initD)
                 continue;
             ASTContext dctx(comp.getRoot(), LookupLocation::max);

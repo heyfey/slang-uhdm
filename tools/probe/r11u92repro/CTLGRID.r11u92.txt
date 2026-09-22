@@ -1,0 +1,7 @@
+MOVED r11u90_u10_strprog lines=52
+MOVED r11u90_u12_strnonansi lines=81
+r11u90_u1_strnoinit_if SLANG_REJECT-BOTH-OR-ONE
+r11u90_u2_strnoinit_mod SLANG_REJECT-BOTH-OR-ONE
+r11u90V_vy13_dlyparamup SLANG_REJECT-BOTH-OR-ONE
+r11u90_w8_dlytwo SLANG_REJECT-BOTH-OR-ONE
+CTLGRID arms_same=217 arms_moved=2 rejected=4
