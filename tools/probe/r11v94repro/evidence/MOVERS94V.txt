@@ -1,0 +1,36 @@
+# r11v94 — MOVERS, both corpora, SELFCHECK=1 byteverify, verified binary vs
+# this pass's OWN pristine workdirs (same-length tags pris / fixx, prisl / fixxl)
+
+uhdm2rtlil  1608 databases  PATH_SETS_IDENTICAL  SELFCHECK 1607/1608  MOVERS 2
+  ./default/ibex_icache-e3714209/slang.uhdm    pristine=946a08c60b18 verified=7b7328b35378
+  ./testflags/ibex_icache-e3714209/slang.uhdm  pristine=e7a1a82f152e verified=8238afa8892e
+  PREDICTED BY NAME: predict94.py names 20 ibex_* rows (MIN94); the measured set
+  is a subset.  Both md5s are BYTE-IDENTICAL to the r11u94 law binary's, so the
+  verifier's fix changes nothing in this corpus.
+  ATTRIBUTION, path-normalised whole-dump diff, 28 sides per mode and no other
+  line kind:   7 x |UINT:10 -> |INT:10      7 x |vpiConstType:9 -> :7
+  vpiSize 0, Typespec 0, vpiDecompile 0.
+  THE CELL: ibex_pkg.sv:395 `parameter int unsigned IC_INDEX_HI =
+  IC_INDEX_W + IC_LINE_W - 1` (top-level binary minus), read at
+  ibex_icache.sv:252:45.  GOLDEN THERE READS:
+      \_constant: , line:252:45, endln:252:56
+        |vpiDecompile:10   |vpiSize:32   |INT:10   ...   |vpiConstType:7
+  and the neighbouring IC_LINE_W at 252:57 reads |UINT:3 |vpiConstType:9.
+  THE MOVER IS TO GOLDEN.  Row status CMP_NOTEQUAL both modes, unchanged.
+
+surelog  960 databases  PATH_SETS_IDENTICAL  SELFCHECK 959/960  MOVERS 5
+  ./default/MiniAmiq-544c7f61     ./default/SeqDriver-32af76aa
+  ./default/SimpleUVM-1dc93a62    ./testflags/MiniAmiq-544c7f61
+  ./testflags/SeqDriver-32af76aa
+  ALL FIVE ARE THE DOCUMENTED UVM COIN FAMILY.  Attributed ORDER-BLIND
+  (path-normalised, id-stripped, SORTED dumps): each moves EXACTLY FOUR lines,
+  one |UINT: / |vpiDecompile: pair holding a LINE NUMBER —
+     MiniAmiq/default     912 -> 1205      SeqDriver/default     0 -> 1225
+     SimpleUVM/default      0 ->  961      MiniAmiq/testflags 1246 ->  820
+     SeqDriver/testflags 1512 ->    0
+  Across all five: |INT: 0, vpiSize 0, vpiConstType 0, Typespec 0,
+  int_typespec 0 — none of the fields these laws write.
+  COIN POSITIVE CONTROL: the PRISTINE binary alone, FIVE runs of MiniAmiq's own
+  sweep invocation writing to this pass's own -o path, gives FIVE DISTINCT
+  databases: 694567d648f9 70137d6e247b a742f5c5240d e0b0a4e89847 e6881b32a718.
+  No sweep database was overwritten.

@@ -1,0 +1,39 @@
+# r11v94 — THE THREE STATIC-ADDRESS FALSE MOVERS, and their 16 KB-pad control
+
+Three committed probe arms read DIFFERS in the wide boundary against the
+VERIFIED binary and SAME against the r11u94 law binary:
+
+  tools/probe/r10buvm22repro/g22.sv
+  tools/probe/r10uvm154repro/l154_noenum.sv
+  tools/probe/r10uvm185repro/grid185/g185_e_kinds.sv
+
+THE WHOLE DIFF on each is |UINT: and |vpiDecompile: lines and NOTHING else —
+no vpiSize, no vpiConstType, no typespec, no object added or removed.  The
+values are 23256865 and 23257721, against binary sizes of 23209120 bytes
+(pristine and law) and 23213400 (verified): they are STATIC ADDRESSES that our
+emitter prints as the right range bound of a dynamic array
+(`typedef int e_dyn[];`, g185_e_kinds.sv:46) — a pre-existing latent read that
+is identical on all four binaries and is not this pass's ground.
+
+FOUR TELLS:
+ 1. DELTA.  law -> verified moves each value by exactly 4096 = ONE page, on a
+    binary 4280 bytes larger.
+ 2. LINE KINDS.  |UINT + |vpiDecompile only; every other field byte-identical.
+ 3. DETERMINISM.  the null boundary (pristine binary against ITSELF) over all
+    42 differing arms reads DIFFERS 0 / 42 — no run-to-run coin here.
+ 4. THE 16 KB-PAD POSITIVE CONTROL.  A SEMANTICALLY IDENTICAL binary — the
+    pristine source plus `extern "C" volatile char v11v94_pad16k[16384]` in
+    uhdm_main.cpp, md5 2e92e42603e6d62dc924be0b89aef3be, 23225536 bytes,
+    16416 larger than pristine — moves THE SAME cells of THE SAME three arms,
+    with THE SAME line kinds, by exactly 16384 = FOUR pages:
+
+      l154_noenum      23257721 -> 23274105   (delta 16384)
+      g185_e_kinds     23257721 -> 23274105   (delta 16384)
+      g22              23256865 -> 23273249   (delta 16384)
+                       23257721 -> 23274105   (delta 16384)
+
+    against the verified binary's one-page move of the same two constants.
+
+CONCLUSION: the class is the campaign's documented STATIC-ADDRESS FALSE MOVER
+(r10uvm211 §8).  It is not a semantic mover and no row's status or judge
+verdict depends on it.

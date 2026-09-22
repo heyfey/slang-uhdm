@@ -175,6 +175,39 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign refresh (2026-09-22, HEAD = the pass-93 landing).** The
+> matrix-1.87 branch has landed 93 passes since the df23d880 rebaseline:
+> surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
+> are the three slang-fenced tests), uhdm2rtlil 788 equal / 16 not-equal /
+> 67 reject in both modes (of 871). Passes 84-93 are ALL GROUNDWORK — zero
+> conversions, zero regressions — but pass 93 moved the first corpus bytes
+> since pass 69: ibex_icache moved TO GOLDEN in both modes (its row stays
+> not-equal). Landed since the pass-83 refresh: the module-route
+> Value-store encoding + qualified pin (84), the interface clone's drive
+> fields + width/decompile (85), the signed store test + decimal width
+> (86), the interface net-decl-assign listing + declined cells (87), the
+> signed chain + the package 64-cap + the override's own width (88), the
+> strength declaration that writes nothing + the delay that stays a name
+> (89), the program's empty cont_assign vector + the strength-port revert
+> (90), the package clone that outvotes the reader — gated on the WRITTEN
+> ScopedName scope — + the negative fold's INT (91), the program-generate
+> flattening + the interface port-declaration net mint in source order
+> (92), and the implicit-sign synthesized typespec (32-default) + the
+> negative and negative-zero folds with the concatenation fence (93). An
+> instrument fix rode pass 93: the landed a-priori censuses walked an
+> empty uhdm2rtlil root (singular/plural path mismatch); census94 keys on
+> the sweep's own roots. The queue: the mult/div/mod INT mint (RV94-1,
+> the next head — commoner than the minus), the out-of-32 unsized decimal
+> (RV94-2), the concat class under an explicit type (RV94-3), the COMPLETE
+> program flattening — initial/final/task-func/parameter re-home (pass-92
+> R0), pass-91 R3 written-assign width + R4 binary hop, the $unit ref_obj
+> shape, the enum-hop const type, pass-83 R4 hoisted-copy binding,
+> pass-85 R2/R3, pass-87 R1/R4, pass-86 defparam VALUE, pass-89 R2/R3,
+> pass-80 R2/R3 module listing, r11u67 R-KWDUMMY + pass-64 element-reach,
+> BBPI 62 bare cells, r11u70 R3 cast holders, r11u68 R0 cast face, r11u73
+> R2 dropped-operand, pass-79 R3 nested wrapper, TRIAGE2 singletons.
+> The pass-83 paragraph below is HISTORY.
+
 > **v1.87 campaign refresh (2026-09-21, HEAD = the pass-83 landing).** The
 > matrix-1.87 branch has landed 83 passes since the df23d880 rebaseline:
 > surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes

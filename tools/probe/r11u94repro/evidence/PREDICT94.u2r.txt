@@ -1,0 +1,21 @@
+ibex_alu                                       MIN94
+ibex_branch_predict                            MIN94
+ibex_compressed_decoder                        MIN94
+ibex_controller                                MIN94
+ibex_core                                      MIN94
+ibex_cs_registers                              MIN94
+ibex_decoder                                   MIN94
+ibex_dummy_instr                               MIN94
+ibex_ex_block                                  MIN94
+ibex_icache                                    MIN94
+ibex_id_stage                                  MIN94
+ibex_if_stage                                  MIN94
+ibex_lockstep                                  MIN94
+ibex_multdiv_fast                              MIN94
+ibex_multdiv_slow                              MIN94
+ibex_pmp                                       MIN94
+ibex_top                                       MIN94
+ibex_top_tracing                               MIN94
+ibex_tracer                                    MIN94
+ibex_wb_stage                                  MIN94
+PREDICTED MOVER CANDIDATES: 20 rows

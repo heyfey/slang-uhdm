@@ -16019,7 +16019,48 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto& cv = psym.getValue();
                 if (cv.isInteger() && !cv.integer().hasUnknown()) {
                     auto* c = s.MakeConstant();
-                    std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
+                    // ===== § pkgParamMinusIsIntReduce94 (r11u94) — r11u91's
+                    // R2 (LAW B) and R3 (LAW C), one decoded rule with two
+                    // droppable faces.  The producer's `vpiMinusOp` /
+                    // `vpiSubOp` arms mint `INT:` and an `int64_t` answer the
+                    // declared type never masks; the full decode, the cited
+                    // producer lines and the measured table (including every
+                    // decline) are in the § block beside `red94MinusTop94`.
+                    //
+                    //   LAW B (`negRed94`) — the REDUCE IS THE VALUE.  An
+                    //     UNSIGNED declaration over a negative initializer has
+                    //     already wrapped in slang's store (`logic [7:0] NU8 =
+                    //     -3` is `cv` 253), and a SIGNED one narrower than the
+                    //     answer has truncated it (`byte XBY = -300` is `cv`
+                    //     -44); golden writes `INT:-3` and `INT:-300`.
+                    //   LAW C (`zpsRed94`) — the CONST TYPE IS `INT:` EVEN
+                    //     WHERE THE ANSWER IS NOT NEGATIVE.  `-0`, `-(-3)`,
+                    //     `8 - 1` and `3 - 3` are all golden `vpiConstType 7`
+                    //     where the landed value gate, which can only see the
+                    //     sign of the result, writes 9.
+                    //
+                    // Each drops alone: without LAW B the negative cells fall
+                    // back to `cv`'s digits and the landed `neg91` gate, and
+                    // without LAW C the non-negative ones fall back to
+                    // `UINT:`.  The SIZE is untouched on both faces — golden's
+                    // is the READER's width on this road, which is r11u91's R4
+                    // and its own pass's ground.
+                    int64_t mrv94 = 0;
+                    bool minus94 = false;
+                    if (const Expression* mi94 = psym.getInitializer()) {
+                        if (red94MinusTop94(*mi94)) {
+                            ASTContext mctx94(comp.getRoot(),
+                                              LookupLocation::max);
+                            minus94 = red72Int64(*mi94, mctx94, 0, mrv94) ==
+                                      Red72::Value;
+                        }
+                    }
+                    const bool negRed94 = minus94 && mrv94 < 0;
+                    const bool zpsRed94 = minus94 && mrv94 >= 0;
+                    std::string digits =
+                        (negRed94 || zpsRed94)
+                            ? std::to_string(mrv94)
+                            : cv.integer().toString(LiteralBase::Decimal, false);
                     c->VpiDecompile(digits);
                     bool typedPkgParam = false;
                     if (auto d0 = psym.getDeclaredType())
@@ -16088,10 +16129,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // result.  Both are recorded as residues.
                     const bool neg91 = cv.integer().isSigned() &&
                                        cv.integer().isNegative();
-                    c->VpiValue(((callSigned9 || neg91) ? "INT:" : "UINT:") +
-                                digits);
-                    c->VpiConstType((callSigned9 || neg91) ? vpiIntConst
-                                                           : vpiUIntConst);
+                    // § pkgParamMinusIsIntReduce94 (r11u94) — the two faces
+                    // join the landed predicate as an OR; neither replaces it.
+                    const bool int94 =
+                        callSigned9 || neg91 || negRed94 || zpsRed94;
+                    c->VpiValue((int94 ? "INT:" : "UINT:") + digits);
+                    c->VpiConstType(int94 ? vpiIntConst : vpiUIntConst);
                     // § castDefaultPatternConcat — Surelog's
                     // substituteAssignedValue hands the read the parameter's
                     // OWN value object, and for an `int'{default:X}` param that

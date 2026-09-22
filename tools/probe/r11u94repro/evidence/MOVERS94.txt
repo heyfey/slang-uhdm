@@ -1,0 +1,37 @@
+# r11u94 — MOVERS, both corpora, SELFCHECK=1 byteverify vs this pass's own pristine workdirs
+
+uhdm2rtlil (1608 databases, PATH_SETS_IDENTICAL): MOVERS 2
+  ./default/ibex_icache-e3714209/slang.uhdm   pris=946a08c60b18 law=7b7328b35378
+  ./testflags/ibex_icache-e3714209/slang.uhdm pris=e7a1a82f152e law=8238afa8892e
+  PREDICTED BY NAME: PREDICT94.u2r.txt lists 20 ibex_* rows (MIN94); the measured set is a subset.
+  ATTRIBUTION: the whole path-normalised dump diff is 30 lines — 7 |UINT:10 -> |INT:10 and
+  14 |vpiConstType:9 -> :7 (7 pairs), plus the dump's own header line; vpiSize 0, Typespec 0,
+  vpiDecompile 0. LAW C, on
+  ibex_pkg.sv:395 'parameter int unsigned IC_INDEX_HI = IC_INDEX_W + IC_LINE_W - 1'
+  (top-level operator: the binary minus). GOLDEN at 252:45 reads |INT:10 |vpiConstType:7 —
+  the mover is TO GOLDEN. Row status CMP_NOTEQUAL both modes, unchanged.
+
+surelog (960 databases, PATH_SETS_IDENTICAL): MOVERS 3
+  ./default/MiniAmiq-544c7f61     pris=f3ca21e7489d law=3a1d1cb2ebd6
+  ./default/SeqDriver-32af76aa    pris=2fb39f8b4130 law=8215e03ff554
+  ./testflags/MiniAmiq-544c7f61   pris=892e1fdd7707 law=9dd0615fd83a
+  ATTRIBUTION, ORDER-BLIND (path-normalised, id-stripped, SORTED dumps): each moves
+  EXACTLY 4 lines — one |UINT: / |vpiDecompile: pair holding a LINE NUMBER:
+    <       |UINT:1062
+    >       |UINT:1396
+    <       |vpiDecompile:1062
+    >       |vpiDecompile:1396
+    <       |UINT:0
+    >       |UINT:1259
+    <       |vpiDecompile:0
+    >       |vpiDecompile:1259
+    <       |UINT:1322
+    >       |UINT:1454
+    <       |vpiDecompile:1322
+    >       |vpiDecompile:1454
+  Across all three: |INT: 0, vpiSize 0, vpiConstType 0, Typespec 0, int_typespec 0 —
+  none of the fields these laws write.
+  COIN POSITIVE CONTROL: the PRISTINE binary alone, five runs of MiniAmiq's own
+  invocation writing to this pass's own -o path, gives THREE DISTINCT databases:
+    16eff8f5901a, 27419f6011b4 (x3), 6f2bffe6edd3
+  No sweep database was overwritten.

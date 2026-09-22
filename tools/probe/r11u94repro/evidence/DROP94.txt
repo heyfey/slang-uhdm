@@ -1,0 +1,16 @@
+# r11u94 — the three droppability binaries, scored on the same grid
+
+binary                       md5                               LAW A (5 arms, 88 cells)   LAWS B+C (4 arms, per field)
+full law                     9e4189217a70f8e0ac1707d564e5c4ab  TO=88 AWAY=0 MWRONG=0      TO=62 AWAY=0
+LAW A reverted   (drpA)      7094ed730ea79f7c4adfaa7089e89d1d  TO=0  AWAY=0 MWRONG=0      TO=62 AWAY=0
+LAWS B+C reverted(drpB)      0b351f0d7f9afd5be5b9fd795543d9e0  TO=88 AWAY=0 MWRONG=0      TO=0  AWAY=0
+LAW C reverted   (drpC)      4a389a122354470270512451e75716c5  TO=88 AWAY=0 MWRONG=0      TO=42 AWAY=0
+
+per-arm LAWS B+C fields (v3 / q4 / q5 / q6):
+  full law   5 / 24 / 13 / 20   = 62
+  drpA       5 / 24 / 13 / 20   = 62   (LAW A reverted: the minus laws are untouched)
+  drpB       0 /  0 /  0 /  0   = 0
+  drpC       3 / 18 /  9 / 12   = 42   (LAW C reverted: LAW B's negative cells only)
+
+LAW C alone therefore accounts for 62 - 42 = 20 fields and LAW B for 42.
+pristine f8ea201098701fd023fe53946c621514 scores TO=0 on both grids by construction.

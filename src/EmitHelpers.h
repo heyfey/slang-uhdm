@@ -9267,13 +9267,51 @@ inline bool red91InitIsScopedName91(const Expression& e91) {
 ///      is a width this reader can name.
 ///   0  a PLAIN implicit declaration — the producer attaches nothing and the
 ///      clone keeps the inner's typespec and width.
-///  -1  an implicit declaration wearing a SIGNING KEYWORD or a DIMENSION:
-///      the producer SYNTHESIZES a typespec whose width is neither the
-///      literal's nor `getBitWidth()`'s.  MEASURED, `p4_pkghome91` `U3` over
-///      `localparam signed QSI = 16'd5` — golden `32 INT:5 int_typespec/S`,
-///      slang's `getBitWidth()` 16, the pristine binary 8.  Writing 16 there
-///      would be a MOVED-WRONG cell, so the whole shape is refused on BOTH
-///      faces and recorded as a residue.
+///   2  § pkgImplicitSynIsAnInt94 (r11u94) — an implicit declaration wearing a
+///      SIGNING KEYWORD or a DIMENSION.  r11u91 REFUSED this shape with `-1`
+///      because neither the literal's width nor `getBitWidth()` is golden's
+///      answer; the producer's synthesiser is decoded and measured below, so
+///      the shape now ANSWERS on both faces and the refusal is gone.
+///  -1  no type syntax at all — nothing this reader can name.
+///
+/// THE SYNTHESISER, at the pin.  `compileTypespec`
+/// (`~/git-repos/Surelog/src/DesignCompile/CompileType.cpp:1395-1437`) is
+/// called from `CompileHelper.cpp:3651` with `isVariable = false` for a
+/// parameter, and its `paSigning_Signed` / `paSigning_Unsigned` /
+/// `paPacked_dimension` arms all read
+///
+///     // Parameter implicit type is int
+///     int_typespec* tps = s.MakeInt_typespec();
+///     tps->VpiSigned(true);                    // the SIGNED arm only
+///     if (ranges) { tps->Ranges(ranges); … }
+///
+/// so the producer's `ts` is an `int_typespec` that is SIGNED exactly when the
+/// `signed` keyword is WRITTEN, and carries the written packed dimension as
+/// its ranges and NOTHING when none is written.  `Bits(ts)` is therefore the
+/// dimension's width, or the `int` default 32 when the declaration has no
+/// dimension — never the initializer literal's own width, and never slang's
+/// `getBitWidth()`, which for `localparam signed QSI = 16'd5` answers the
+/// literal's 16.
+///
+/// MEASURED (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`), arms
+/// `q1_pkgsyn94` / `q2_pkgbase94` / `q3_pkgread94`, every reader
+/// `logic [7:0]` unless named:
+///
+///   package declaration            golden        ours (pristine)
+///   signed          QSI = 16'd5    32 /S         8 ts=-
+///   unsigned        QUI = 16'd5    32 ts=-       8 ts=-
+///   signed   [7:0]  QSD = 16'd5     8 /S         8 ts=-
+///            [7:0]  QPD = 16'd5     8 ts=-       8 ts=-   — EQUAL
+///   unsigned [15:0] QUD = 8'd5     16 ts=-       8 ts=-
+///   signed          QS8 = 8'd5     32 /S         8 ts=-
+///   signed   [15:0] QSW = 8'd5     16 /S         8 ts=-
+///   signed          RSC = RI       32 /S         8 ts=-   (a CHAIN over `int`)
+///   signed   [7:0]  RSDC = RI       8 /S         8 ts=-
+///   unsigned        RUC = RI       32 ts=-       8 ts=-
+///
+/// THE WIDTH IS THE DECLARATION'S, NOT THE CHAIN'S: `RSC` is golden 32 over an
+/// inner whose own answer is 32 and `RSDC` is golden 8 over the same inner, so
+/// kind 2 answers from its own dimension and never needs the inner's width.
 inline int red91PkgDeclKind91(const slang::ast::ParameterSymbol& ps91) {
     const slang::ast::DeclaredType* dt91 = ps91.getDeclaredType().get();
     const slang::syntax::SyntaxNode* tsx91 =
@@ -9283,7 +9321,151 @@ inline int red91PkgDeclKind91(const slang::ast::ParameterSymbol& ps91) {
     if (tsx91->kind != slang::syntax::SyntaxKind::ImplicitType)
         return 1;
     auto& its91 = tsx91->as<slang::syntax::ImplicitTypeSyntax>();
-    return (its91.signing.valid() || !its91.dimensions.empty()) ? -1 : 0;
+    return (its91.signing.valid() || !its91.dimensions.empty()) ? 2 : 0;
+}
+
+/// § pkgImplicitSynIsAnInt94 (r11u94) — the SIGNEDNESS of the synthesized
+/// `int_typespec`.  `CompileType.cpp:1395` writes `VpiSigned(true)` on the
+/// `paSigning_Signed` arm ALONE, so the answer is the WRITTEN KEYWORD and not
+/// slang's typing: `localparam unsigned QUI = 16'd5` read by a
+/// `logic signed [31:0]` hop is golden BARE (`q3_pkgread94` `V2`) although
+/// every other road would call the reader signed.
+inline bool red94PkgSynSigned94(const slang::ast::ParameterSymbol& ps94) {
+    const slang::ast::DeclaredType* dt94 = ps94.getDeclaredType().get();
+    const slang::syntax::SyntaxNode* tsx94 =
+        dt94 ? dt94->getTypeSyntax() : nullptr;
+    if (!tsx94 || tsx94->kind != slang::syntax::SyntaxKind::ImplicitType)
+        return false;
+    return tsx94->as<slang::syntax::ImplicitTypeSyntax>().signing.kind ==
+           slang::parsing::TokenKind::SignedKeyword;
+}
+
+/// § pkgImplicitSynIsAnInt94 (r11u94) — and its WIDTH.  `Bits` of an
+/// `int_typespec` with no ranges is the `int` default 32; with the written
+/// packed dimension as its ranges it is that dimension's width, which is the
+/// one number slang's `getBitWidth()` also answers on this shape (the two part
+/// company only where no dimension is written, and there the literal's width
+/// is what slang reports — `signed QSI = 16'd5` is golden 32 and slang 16).
+inline int32_t red94PkgSynBits94(const slang::ast::ParameterSymbol& ps94) {
+    const slang::ast::DeclaredType* dt94 = ps94.getDeclaredType().get();
+    const slang::syntax::SyntaxNode* tsx94 =
+        dt94 ? dt94->getTypeSyntax() : nullptr;
+    if (!tsx94 || tsx94->kind != slang::syntax::SyntaxKind::ImplicitType)
+        return 0;
+    if (tsx94->as<slang::syntax::ImplicitTypeSyntax>().dimensions.empty())
+        return 32;
+    return (int32_t)ps94.getType().getBitWidth();
+}
+
+/// § pkgSynConcatKeepsNoTs94v (r11v94) — THE ONE KIND-2 SHAPE WHOSE CLONE IS
+/// STILL BARE.  `§ pkgImplicitSynIsAnInt94` reads the producer right about the
+/// SYNTHESIS — `compileTypespec` does mint the `int_typespec` for every
+/// implicit declaration wearing a signing keyword or a dimension — but the
+/// typespec only reaches the READ where it also reaches the package
+/// parameter's ELABORATED CONSTANT, and an initializer that contains a
+/// CONCATENATION or a REPLICATION anywhere in its tree leaves that constant
+/// BARE.  `DesignElaboration.cpp:2568`'s fill-in then runs after all and the
+/// READER's declaration votes, exactly as it does for a plain implicit
+/// declaration.
+///
+/// MEASURED (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`), arms
+/// `x5_binface94v` / `x6_concatvote94v`, every reader `logic [7:0]` unless
+/// named.  `P` is the pristine binary, `L` the ungated r11u94 law:
+///
+///   package declaration                  golden   P        L
+///   signed   PCD2 = {4'd1,4'd2}          ts=-     ts=-     ts=/S   <- AWAY
+///   signed   PCD2, reader `signed [15:0]` ts=/S   ts=/S    ts=/S
+///   unsigned PCU2 = {4'd1,4'd2},
+///                   reader `signed [15:0]` ts=/S  ts=/S    ts=-    <- AWAY
+///   signed   PCN2 = {4'd1,4'd2} + 0      ts=-     ts=-     ts=/S   <- AWAY
+///   signed   PCC  = PCD2   (a CHAIN)     ts=-     ts=-     ts=/S   <- AWAY
+///   signed   PTC  = 1 ? {4'd1,4'd2} : 8'd0 ts=-   ts=-     ts=/S   <- AWAY
+///   signed   PSC  = {4'd1,4'd2} >> 1     ts=-     ts=-     ts=/S   <- AWAY
+///   signed   PRP  = {2{4'd3}}            ts=-     ts=-     ts=/S   <- AWAY
+///   AND THE CONTROLS, all EQUAL on both binaries once gated:
+///   signed   PLIT = 8'd18                32 /S    8 ts=-   32 /S   (a TO)
+///   signed   PHX  = 8'h1A                8 /S     8 ts=-   8 /S    (a TO)
+///   signed   KSO  = 3 + 4                8 /S     8 ts=-   8 /S    (a TO)
+///   signed   KSF  = fq(4)                8 /S     8 ts=-   8 /S    (a TO)
+///   signed   PBL  = 8'b1010              ts=-     ts=-     ts=-    (the landed
+///                                          `vpiBinaryConst` decline, unmoved)
+///
+/// BOTH FACES ARE THE SAME DECISION: where the clone is bare the reader votes,
+/// so declining the kind-2 answer HERE — in the has-a-typespec gate, which is
+/// what routes the read back to `red87StoreSigned87` — restores golden on the
+/// unsigned reader (no typespec) and on the signed reader (the reader's own)
+/// in one place.  The written shape is the axis: `3 + 4` keeps its typespec
+/// and `{4'd1,4'd2} + 0` does not, so no reading of the VALUE can separate
+/// them.
+///
+/// The scan is over the SYNTAX, so every nesting is caught without
+/// enumerating expression kinds, and the AST walk follows a NAME into the
+/// parameter it reads.  Declining is the CONSERVATIVE direction — it restores
+/// the pristine behaviour and never invents — so an unmeasured shape that
+/// trips this predicate loses a TO at worst and can never be an AWAY.
+inline bool red94SynHasConcat94(const slang::syntax::SyntaxNode* sn94,
+                                int d94) {
+    if (!sn94 || d94 > 32)
+        return false;
+    if (sn94->kind == slang::syntax::SyntaxKind::ConcatenationExpression ||
+        sn94->kind ==
+            slang::syntax::SyntaxKind::MultipleConcatenationExpression ||
+        sn94->kind ==
+            slang::syntax::SyntaxKind::StreamingConcatenationExpression)
+        return true;
+    for (size_t i94 = 0, n94 = sn94->getChildCount(); i94 < n94; ++i94)
+        if (red94SynHasConcat94(sn94->childNode(i94), d94 + 1))
+            return true;
+    return false;
+}
+
+inline bool red94InitHasConcat94(const slang::ast::ParameterSymbol& ps94,
+                                 int d94);
+
+inline bool red94ExprHasConcat94(const Expression& e094, int d94) {
+    if (d94 > 16)
+        return false;
+    const Expression& e94 = stripImplicitConv(e094);
+    if (e94.syntax && red94SynHasConcat94(e94.syntax, 0))
+        return true;
+    switch (e94.kind) {
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue: {
+            auto& sy94 = e94.as<ValueExpressionBase>().symbol;
+            if (sy94.kind != SymbolKind::Parameter)
+                return false;
+            return red94InitHasConcat94(
+                sy94.as<slang::ast::ParameterSymbol>(), d94 + 1);
+        }
+        case ExpressionKind::UnaryOp:
+            return red94ExprHasConcat94(e94.as<UnaryExpression>().operand(),
+                                        d94 + 1);
+        case ExpressionKind::BinaryOp:
+            return red94ExprHasConcat94(e94.as<BinaryExpression>().left(),
+                                        d94 + 1) ||
+                   red94ExprHasConcat94(e94.as<BinaryExpression>().right(),
+                                        d94 + 1);
+        case ExpressionKind::ConditionalOp:
+            return red94ExprHasConcat94(
+                       e94.as<ConditionalExpression>().left(), d94 + 1) ||
+                   red94ExprHasConcat94(
+                       e94.as<ConditionalExpression>().right(), d94 + 1);
+        case ExpressionKind::Conversion:
+            return red94ExprHasConcat94(
+                e94.as<ConversionExpression>().operand(), d94 + 1);
+        default:
+            return false;
+    }
+}
+
+inline bool red94InitHasConcat94(const slang::ast::ParameterSymbol& ps94,
+                                 int d94) {
+    if (d94 > 8)
+        return true;
+    const Expression* in94 = ps94.getInitializer();
+    if (!in94)
+        return false;
+    return red94ExprHasConcat94(*in94, d94);
 }
 
 inline bool red91PkgStoreSigned91(const slang::ast::ParameterSymbol& ps91,
@@ -9293,6 +9475,12 @@ inline bool red91PkgStoreSigned91(const slang::ast::ParameterSymbol& ps91,
     const int dk91 = red91PkgDeclKind91(ps91);
     if (dk91 < 0)
         return false;
+    // § pkgImplicitSynIsAnInt94 (r11u94) — the SYNTHESIZED `int_typespec` is
+    // signed exactly where the `signed` keyword is written, and the chain
+    // stops here: the producer hangs THIS typespec on the elaborated constant
+    // (`CompileHelper.cpp:3744-3750`) whatever the initializer names.
+    if (dk91 == 2)
+        return red94PkgSynSigned94(ps91);
     if (dk91 == 0) {
         // An IMPLICIT package hop attaches no typespec of its own, so the
         // clone keeps the inner's (`p3_pkgsize91` `QCIM` over `int QI`,
@@ -9377,6 +9565,15 @@ inline bool red91PkgStoreSize91(const slang::ast::ParameterSymbol& ps91,
         sz91 = psz91;
         return true;
     }
+    // § pkgImplicitSynIsAnInt94 (r11u94) — `Bits` of the synthesized
+    // `int_typespec`: the written dimension's width, else the `int` default
+    // 32.  The `'d`-leaf gate above still rules — every other base is re-sized
+    // by `adjustSize` to the READER's declared width (`q2_pkgbase94` `W1`/`W3`/
+    // `W4`, golden 8 on a `logic [7:0]` reader and EQUAL on both binaries).
+    if (dk91 == 2) {
+        sz91 = red94PkgSynBits94(ps91);
+        return sz91 > 0;
+    }
     const int32_t b91 = (int32_t)ps91.getType().getBitWidth();
     if (b91 <= 0)
         return false;
@@ -9443,6 +9640,20 @@ inline bool red91PkgCloneHasTs91(const slang::ast::ParameterSymbol& ps91,
     const int dk91 = red91PkgDeclKind91(ps91);
     if (dk91 < 0)
         return false;
+    // § pkgImplicitSynIsAnInt94 (r11u94) — kind 2 CARRIES one: the producer
+    // synthesizes the `int_typespec` before the clone is taken, so
+    // `DesignElaboration.cpp:2568`'s fill-in cannot run and the reader's
+    // declaration gets no vote.  `q3_pkgread94` `V2` and `V3` are the proof —
+    // a `logic signed [31:0]` reader over `unsigned TUI` / `[11:0] TPD` is
+    // golden BARE where the pristine binary writes the reader's own `/S`.
+    // § pkgSynConcatKeepsNoTs94v (r11v94) — EXCEPT WHERE A CONCATENATION IS
+    // WRITTEN.  The synthesized typespec never reaches the elaborated
+    // constant of a parameter whose initializer contains a concatenation or a
+    // replication, so the clone is bare and the reader votes after all; the
+    // measured table is in the § block beside `red94SynHasConcat94`.  Kind 1
+    // is the LANDED read and is left exactly as it was.
+    if (dk91 == 2)
+        return !red94InitHasConcat94(ps91, 0);
     if (dk91 == 1)
         return true;
     const Expression* in91 = ps91.getInitializer();
@@ -9456,6 +9667,56 @@ inline bool red91PkgCloneHasTs91(const slang::ast::ParameterSymbol& ps91,
         return false;
     return red91PkgCloneHasTs91(sy91.as<slang::ast::ParameterSymbol>(),
                                 depth91 + 1);
+}
+
+/// § pkgParamMinusIsIntReduce94 (r11u94) — IS THE PACKAGE PARAMETER'S
+/// INITIALIZER A MINUS AT THE TOP?  r11u91's R2 and R3 are one rule read at
+/// the producer: `reduceExpr`'s `vpiMinusOp` (unary,
+/// `~/git-repos/UHDM/templates/ExprEval.cpp:3407-3440`) and `vpiSubOp`
+/// (`:3443-3477`) arms BOTH mint
+///
+///     int64_t val = -val0;            // or val0 - val1
+///     c->VpiValue("INT:" + std::to_string(val));
+///     c->VpiDecompile(std::to_string(val));
+///     c->VpiConstType(vpiIntConst);
+///
+/// — `INT:` unconditionally, and an `int64_t` answer that is NEVER masked by
+/// the parameter's declared type.  `vpiAddOp` (`:3260-3300`) is the control:
+/// it reads `get_uvalue` and mints `UINT:` whenever both operands are
+/// unsigned constants.  MEASURED (real Surelog v1.87, arms `q4_negpkg94`,
+/// `q5_negedge94`, `q6_negwid94`, read through the net-decl-assign road):
+///
+///   package declaration             golden        ours (pristine)
+///   logic [7:0]  NU8   = -3         INT:-3        UINT:253     <- R2
+///   logic [7:0]  NUH   = -8'h3      INT:-3        UINT:253
+///   logic [7:0]  NUOP  = 0 - 3      INT:-3        UINT:253
+///   logic [7:0]  XBIG  = -300       INT:-300      UINT:212
+///   logic [7:0]  XWRAP = -259       INT:-259      UINT:253
+///   byte         XBY   = -300       INT:-300      INT:-44
+///   shortint     XSH2  = -70000     INT:-70000    INT:-4464
+///   int          NZ    = -0         INT:0 ct7     UINT:0 ct9   <- R3
+///   int          NDBL  = -(-3)      INT:3 ct7     UINT:3 ct9
+///   int          XSUBP = 8 - 1      INT:7 ct7     UINT:7 ct9
+///   logic [15:0] XM1   = 16 - 1     INT:15 ct7    UINT:15 ct9
+///   int          XSUBZ = 3 - 3      INT:0 ct7     UINT:0 ct9
+///   AND THE DECLINES, every one measured EQUAL on both binaries:
+///   logic [7:0]  XFF   = 8'hff      HEX:ff        (no minus at all)
+///   logic [7:0]  XD    = 253        UINT:253      the SAME stored value
+///   int          XADD  = 1 + 2      UINT:3        `vpiAddOp` stays unsigned
+///   logic [7:0]  XSHL  = -1 <<< 1   UINT:254      the shift arm's own UINT
+///   logic [7:0]  XCAST = 8'(5 - 8)  UINT:253      an EXPLICIT cast on top
+///
+/// The stored value is not the axis — `XD` and `NU8` hold the SAME 253 and
+/// golden renders them differently — so the gate is the WRITTEN SHAPE, read
+/// at the TOP of the initializer with only implicit conversions peeled (an
+/// explicit size cast is a different producer road and keeps its `UINT:`).
+inline bool red94MinusTop94(const Expression& e094) {
+    const Expression& e94 = stripImplicitConv(e094);
+    if (e94.kind == ExpressionKind::UnaryOp)
+        return e94.as<UnaryExpression>().op == UnaryOperator::Minus;
+    if (e94.kind == ExpressionKind::BinaryOp)
+        return e94.as<BinaryExpression>().op == BinaryOperator::Subtract;
+    return false;
 }
 
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {

@@ -1,0 +1,63 @@
+=== v3_negfold91
+wNB4     G=INT:-3 7 32 -3                     P=INT:-3 7 4 -3                      L=INT:-3 7 4 -3                      still:sz
+wNBY     G=INT:-3 7 32 -3                     P=INT:-3 7 8 -3                      L=INT:-3 7 8 -3                      still:sz
+wNFC     G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wNI      G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wNIMP    G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wNL8     G=INT:-3 7 32 -3                     P=INT:-3 7 8 -3                      L=INT:-3 7 8 -3                      still:sz
+wNLL     G=INT:-3 7 64 -3                     P=INT:-3 7 64 -3                     L=INT:-3 7 64 -3                     
+wNMIN    G=INT:-2147483647 7 32 -2147483647   P=INT:-2147483647 7 32 -2147483647   L=INT:-2147483647 7 32 -2147483647   
+wNOP     G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wNU8     G=INT:-3 7 32 -3                     P=UINT:253 9 8 253                   L=INT:-3 7 8 -3                      TO:v TO:ct still:sz TO:d
+wNZ      G=INT:0 7 32 0                       P=UINT:0 9 32 0                      L=INT:0 7 32 0                       TO:v TO:ct
+wPB4     G=INT:3 7 32 3                       P=DEC:3 1 4 4'd3                     L=DEC:3 1 4 4'd3                     still:v still:ct still:sz still:d
+wPPOS    G=UINT:3 9 32 3                      P=UINT:3 9 32 3                      L=UINT:3 9 32 3                      
+PER-FIELD  TO=5  AWAY=0  STILL=8  EQ=39  MWRONG=0  MISSING=0
+=== q4_negpkg94
+wNDBL    G=INT:3 7 32 3                       P=UINT:3 9 32 3                      L=INT:3 7 32 3                       TO:v TO:ct
+wNI      G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wNIH     G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wNPAR    G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wNU16    G=INT:-3 7 32 -3                     P=UINT:65533 9 16 65533              L=INT:-3 7 16 -3                     TO:v TO:ct still:sz TO:d
+wNU32    G=INT:-3 7 32 -3                     P=UINT:4294967293 9 32 4294967293    L=INT:-3 7 32 -3                     TO:v TO:ct TO:d
+wNU8     G=INT:-3 7 32 -3                     P=UINT:253 9 8 253                   L=INT:-3 7 8 -3                      TO:v TO:ct still:sz TO:d
+wNUB4    G=INT:-3 7 32 -3                     P=UINT:13 9 4 13                     L=INT:-3 7 4 -3                      TO:v TO:ct still:sz TO:d
+wNUH     G=INT:-3 7 32 -3                     P=UINT:253 9 8 253                   L=INT:-3 7 8 -3                      TO:v TO:ct still:sz TO:d
+wNUOP    G=INT:-3 7 32 -3                     P=UINT:253 9 8 253                   L=INT:-3 7 8 -3                      TO:v TO:ct still:sz TO:d
+wNUZ     G=INT:0 7 32 0                       P=UINT:0 9 8 0                       L=INT:0 7 8 0                        TO:v TO:ct still:sz
+wNZ      G=INT:0 7 32 0                       P=UINT:0 9 32 0                      L=INT:0 7 32 0                       TO:v TO:ct
+wNZP     G=UINT:0 9 32 0                      P=UINT:0 9 32 0                      L=UINT:0 9 32 0                      
+wPU8     G=UINT:3 9 32 3                      P=UINT:3 9 8 3                       L=UINT:3 9 8 3                       still:sz
+PER-FIELD  TO=24  AWAY=0  STILL=7  EQ=25  MWRONG=0  MISSING=0
+=== q5_negedge94
+wXADD    G=UINT:3 9 32 3                      P=UINT:3 9 32 3                      L=UINT:3 9 32 3                      
+wXADDU   G=UINT:3 9 32 3                      P=UINT:3 9 8 3                       L=UINT:3 9 8 3                       still:sz
+wXB      G=BIN:11111101 3 8 8'b11111101       P=BIN:11111101 3 8 8'b11111101       L=BIN:11111101 3 8 8'b11111101       
+wXBIG    G=INT:-300 7 32 -300                 P=UINT:212 9 8 212                   L=INT:-300 7 8 -300                  TO:v TO:ct still:sz TO:d
+wXCMP    G=UINT:4294967295 9 32 4294967295    P=INT:-1 7 32 -1                     L=INT:-1 7 32 -1                     still:v still:ct still:d
+wXD      G=UINT:253 9 32 253                  P=UINT:253 9 8 253                   L=UINT:253 9 8 253                   still:sz
+wXDIV    G=INT:3 7 32 3                       P=UINT:3 9 32 3                      L=UINT:3 9 32 3                      still:v still:ct
+wXFF     G=HEX:ff 5 32 8'hff                  P=HEX:ff 5 8 8'hff                   L=HEX:ff 5 8 8'hff                   still:sz
+wXMUL    G=INT:6 7 32 6                       P=UINT:6 9 32 6                      L=UINT:6 9 32 6                      still:v still:ct
+wXNEGP   G=INT:3 7 32 3                       P=UINT:3 9 8 3                       L=INT:3 7 8 3                        TO:v TO:ct still:sz
+wXSHL    G=UINT:254 9 32 254                  P=UINT:254 9 8 254                   L=UINT:254 9 8 254                   still:sz
+wXSUB    G=INT:-3 7 32 -3                     P=UINT:253 9 8 253                   L=INT:-3 7 8 -3                      TO:v TO:ct still:sz TO:d
+wXWRAP   G=INT:-259 7 32 -259                 P=UINT:253 9 8 253                   L=INT:-259 7 8 -259                  TO:v TO:ct still:sz TO:d
+wXZSUB   G=INT:0 7 32 0                       P=UINT:0 9 32 0                      L=INT:0 7 32 0                       TO:v TO:ct
+PER-FIELD  TO=13  AWAY=0  STILL=15  EQ=28  MWRONG=0  MISSING=0
+=== q6_negwid94
+wXBY     G=INT:-300 7 32 -300                 P=INT:-44 7 8 -44                    L=INT:-300 7 8 -300                  TO:v still:sz TO:d
+wXCAST   G=UINT:253 9 32 253                  P=UINT:253 9 8 253                   L=UINT:253 9 8 253                   still:sz
+wXLL     G=INT:-3 7 64 -3                     P=INT:-3 7 64 -3                     L=INT:-3 7 64 -3                     
+wXM1     G=INT:15 7 32 15                     P=UINT:15 9 16 15                    L=INT:15 7 16 15                     TO:v TO:ct still:sz
+wXNAME   G=INT:-2 7 32 -2                     P=UINT:254 9 8 254                   L=INT:-2 7 8 -2                      TO:v TO:ct still:sz TO:d
+wXNEGN   G=INT:-7 7 32 -7                     P=UINT:249 9 8 249                   L=INT:-7 7 8 -7                      TO:v TO:ct still:sz TO:d
+wXPAREN  G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wXSH2    G=INT:-70000 7 32 -70000             P=INT:-4464 7 16 -4464               L=INT:-70000 7 16 -70000             TO:v still:sz TO:d
+wXSN     G=INT:-300 7 32 -300                 P=INT:-44 7 8 -44                    L=INT:-300 7 8 -300                  TO:v still:sz TO:d
+wXSUBN   G=INT:-2 7 32 -2                     P=INT:-2 7 32 -2                     L=INT:-2 7 32 -2                     
+wXSUBP   G=INT:7 7 32 7                       P=UINT:7 9 32 7                      L=INT:7 7 32 7                       TO:v TO:ct
+wXSUBPU  G=INT:7 7 32 7                       P=UINT:7 9 8 7                       L=INT:7 7 8 7                        TO:v TO:ct still:sz
+wXSUBZ   G=INT:0 7 32 0                       P=UINT:0 9 32 0                      L=INT:0 7 32 0                       TO:v TO:ct
+wXTERN   G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+PER-FIELD  TO=20  AWAY=0  STILL=8  EQ=28  MWRONG=0  MISSING=0

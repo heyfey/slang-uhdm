@@ -1,0 +1,345 @@
+n1_pkgneg91        TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=0 SHAPE=0 MWRONG=0 UNPAIR=0
+p1_pkgin91         TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=32 SHAPE=0 MWRONG=0 UNPAIR=0
+p2_pkgedge91       TO=0 AWAY=0 STILL=6 WRONG2=0 EQ=26 SHAPE=0 MWRONG=0 UNPAIR=0
+p3_pkgsize91       TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=16 SHAPE=0 MWRONG=0 UNPAIR=0
+   MOVED-WRONG p4_pkghome91 sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY p4_pkghome91 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG p4_pkghome91 sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY p4_pkghome91 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+p4_pkghome91       TO=0 AWAY=2 STILL=4 WRONG2=0 EQ=42 SHAPE=0 MWRONG=2 UNPAIR=1
+   MOVED-WRONG q1_pkgsyn94 sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec0 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec0 ['ts'] G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec0 G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec0 ['sz'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec0 G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec1 ['sz', 'ts'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec1 G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec1 ['ts'] G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec1 G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec1 ['sz'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec1 G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec1 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec2 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec2 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec2 ['ts'] G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec2 G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec2 ['sz'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec2 G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec2 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec3 ['sz', 'ts'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec3 G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec3 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec3 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec3 ['ts'] G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec3 G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec3 ['sz'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec3 G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec3 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec3 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q1_pkgsyn94 sec3 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q1_pkgsyn94 sec3 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+q1_pkgsyn94        TO=0 AWAY=22 STILL=0 WRONG2=0 EQ=10 SHAPE=0 MWRONG=22 UNPAIR=0
+   MOVED-WRONG q2_pkgbase94 sec0 ['ts'] G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   AWAY q2_pkgbase94 sec0 G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   MOVED-WRONG q2_pkgbase94 sec0 ['ts'] G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   AWAY q2_pkgbase94 sec0 G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   MOVED-WRONG q2_pkgbase94 sec0 ['ts'] G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec0 G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec0 ['ts'] G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec0 G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec0 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec1 ['ts'] G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   AWAY q2_pkgbase94 sec1 G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   MOVED-WRONG q2_pkgbase94 sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec1 ['ts'] G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec1 G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec1 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec1 ['ts'] G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   AWAY q2_pkgbase94 sec1 G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   MOVED-WRONG q2_pkgbase94 sec1 ['ts'] G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec1 G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec2 ['ts'] G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   AWAY q2_pkgbase94 sec2 G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   MOVED-WRONG q2_pkgbase94 sec2 ['ts'] G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   AWAY q2_pkgbase94 sec2 G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   MOVED-WRONG q2_pkgbase94 sec2 ['ts'] G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec2 G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec2 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec2 ['ts'] G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec2 G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec2 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec3 ['ts'] G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   AWAY q2_pkgbase94 sec3 G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   MOVED-WRONG q2_pkgbase94 sec3 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec3 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec3 ['ts'] G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec3 G=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec3 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec3 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q2_pkgbase94 sec3 ['ts'] G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   AWAY q2_pkgbase94 sec3 G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   MOVED-WRONG q2_pkgbase94 sec3 ['ts'] G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   AWAY q2_pkgbase94 sec3 G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+q2_pkgbase94       TO=0 AWAY=24 STILL=2 WRONG2=0 EQ=6 SHAPE=0 MWRONG=24 UNPAIR=0
+   MOVED-WRONG q3_pkgread94 sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q3_pkgread94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q3_pkgread94 sec0 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q3_pkgread94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec0 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   AWAY q3_pkgread94 sec0 G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec0 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=4 ct=7 v=INT:6 d=6 ts=-
+   AWAY q3_pkgread94 sec0 G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=4 ct=7 v=INT:6 d=6 ts=-
+   MOVED-WRONG q3_pkgread94 sec0 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q3_pkgread94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q3_pkgread94 sec0 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q3_pkgread94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q3_pkgread94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q3_pkgread94 sec1 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q3_pkgread94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec1 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   AWAY q3_pkgread94 sec1 G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec1 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=4 ct=7 v=INT:6 d=6 ts=-
+   AWAY q3_pkgread94 sec1 G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=4 ct=7 v=INT:6 d=6 ts=-
+   MOVED-WRONG q3_pkgread94 sec1 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q3_pkgread94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q3_pkgread94 sec1 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q3_pkgread94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec2 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   AWAY q3_pkgread94 sec2 G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   MOVED-WRONG q3_pkgread94 sec2 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   AWAY q3_pkgread94 sec2 G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec2 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   AWAY q3_pkgread94 sec2 G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   MOVED-WRONG q3_pkgread94 sec2 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   AWAY q3_pkgread94 sec2 G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec2 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   AWAY q3_pkgread94 sec2 G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   MOVED-WRONG q3_pkgread94 sec2 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   AWAY q3_pkgread94 sec2 G=constant sz=12 ct=7 v=INT:6 d=6 ts=- P=constant sz=12 ct=7 v=INT:6 d=6 ts=- L=constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec2 ['sz', 'ts'] G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   AWAY q3_pkgread94 sec2 G=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S P=constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   MOVED-WRONG q3_pkgread94 sec4 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q3_pkgread94 sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q3_pkgread94 sec4 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q3_pkgread94 sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec4 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q3_pkgread94 sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q3_pkgread94 sec4 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q3_pkgread94 sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec4 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q3_pkgread94 sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q3_pkgread94 sec4 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q3_pkgread94 sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q3_pkgread94 sec4 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q3_pkgread94 sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+q3_pkgread94       TO=0 AWAY=26 STILL=0 WRONG2=0 EQ=6 SHAPE=0 MWRONG=26 UNPAIR=1
+q4_negpkg94        TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=0 SHAPE=0 MWRONG=0 UNPAIR=0
+q5_negedge94       TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=0 SHAPE=0 MWRONG=0 UNPAIR=0
+q6_negwid94        TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=0 SHAPE=0 MWRONG=0 UNPAIR=0
+   MOVED-WRONG q7_pkgchain94 sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q7_pkgchain94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q7_pkgchain94 sec0 ['sz'] G=constant sz=32 ct=7 v=INT:6 d=6 ts=- P=constant sz=32 ct=7 v=INT:6 d=6 ts=- L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   AWAY q7_pkgchain94 sec0 G=constant sz=32 ct=7 v=INT:6 d=6 ts=- P=constant sz=32 ct=7 v=INT:6 d=6 ts=- L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   MOVED-WRONG q7_pkgchain94 sec0 ['sz'] G=constant sz=12 ct=7 v=INT:7 d=7 ts=- P=constant sz=12 ct=7 v=INT:7 d=7 ts=- L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   AWAY q7_pkgchain94 sec0 G=constant sz=12 ct=7 v=INT:7 d=7 ts=- P=constant sz=12 ct=7 v=INT:7 d=7 ts=- L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   MOVED-WRONG q7_pkgchain94 sec0 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q7_pkgchain94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q7_pkgchain94 sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   AWAY q7_pkgchain94 sec0 G=constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   MOVED-WRONG q7_pkgchain94 sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q7_pkgchain94 sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q7_pkgchain94 sec0 ['sz'] G=constant sz=12 ct=7 v=INT:7 d=7 ts=- P=constant sz=12 ct=7 v=INT:7 d=7 ts=- L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   AWAY q7_pkgchain94 sec0 G=constant sz=12 ct=7 v=INT:7 d=7 ts=- P=constant sz=12 ct=7 v=INT:7 d=7 ts=- L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   MOVED-WRONG q7_pkgchain94 sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q7_pkgchain94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q7_pkgchain94 sec1 ['sz'] G=constant sz=32 ct=7 v=INT:6 d=6 ts=- P=constant sz=32 ct=7 v=INT:6 d=6 ts=- L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   AWAY q7_pkgchain94 sec1 G=constant sz=32 ct=7 v=INT:6 d=6 ts=- P=constant sz=32 ct=7 v=INT:6 d=6 ts=- L=constant sz=8 ct=7 v=INT:6 d=6 ts=-
+   MOVED-WRONG q7_pkgchain94 sec1 ['sz'] G=constant sz=12 ct=7 v=INT:7 d=7 ts=- P=constant sz=12 ct=7 v=INT:7 d=7 ts=- L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   AWAY q7_pkgchain94 sec1 G=constant sz=12 ct=7 v=INT:7 d=7 ts=- P=constant sz=12 ct=7 v=INT:7 d=7 ts=- L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   MOVED-WRONG q7_pkgchain94 sec1 ['sz'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY q7_pkgchain94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG q7_pkgchain94 sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   AWAY q7_pkgchain94 sec1 G=constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   MOVED-WRONG q7_pkgchain94 sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY q7_pkgchain94 sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG q7_pkgchain94 sec1 ['sz'] G=constant sz=12 ct=7 v=INT:7 d=7 ts=- P=constant sz=12 ct=7 v=INT:7 d=7 ts=- L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+   AWAY q7_pkgchain94 sec1 G=constant sz=12 ct=7 v=INT:7 d=7 ts=- P=constant sz=12 ct=7 v=INT:7 d=7 ts=- L=constant sz=8 ct=7 v=INT:7 d=7 ts=-
+q7_pkgchain94      TO=0 AWAY=14 STILL=0 WRONG2=0 EQ=2 SHAPE=0 MWRONG=14 UNPAIR=0
+v1_pkgsign91       TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=16 SHAPE=0 MWRONG=0 UNPAIR=0
+v2_pkgroad91       TO=0 AWAY=0 STILL=2 WRONG2=0 EQ=14 SHAPE=0 MWRONG=0 UNPAIR=0
+v3_negfold91       TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=0 SHAPE=0 MWRONG=0 UNPAIR=0
+v4_pkgdepth91      TO=0 AWAY=0 STILL=2 WRONG2=0 EQ=22 SHAPE=0 MWRONG=0 UNPAIR=1
+v5_road2way91      TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=14 SHAPE=2 MWRONG=0 UNPAIR=0
+v6_scoperoad91     TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=40 SHAPE=0 MWRONG=0 UNPAIR=1
+   MOVED-WRONG x1_synedge94v sec0 ['ts'] G=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:A d=8'hA ts=-
+   AWAY x1_synedge94v sec0 G=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:A d=8'hA ts=-
+   MOVED-WRONG x1_synedge94v sec0 ['ts'] G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   AWAY x1_synedge94v sec0 G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   MOVED-WRONG x1_synedge94v sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec0 ['sz', 'ts'] G=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec0 G=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec0 ['sz'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec0 G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec0 ['sz', 'ts'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec0 G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec1 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x1_synedge94v sec1 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x1_synedge94v sec1 ['ts'] G=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:A d=8'hA ts=-
+   AWAY x1_synedge94v sec1 G=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:A d=8'hA ts=-
+   MOVED-WRONG x1_synedge94v sec1 ['ts'] G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   AWAY x1_synedge94v sec1 G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   MOVED-WRONG x1_synedge94v sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec1 ['sz', 'ts'] G=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec1 G=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec1 ['sz'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec1 G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec1 ['sz', 'ts'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec1 G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec2 ['ts'] G=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:A d=8'hA ts=-
+   AWAY x1_synedge94v sec2 G=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:A d=8'hA ts=-
+   MOVED-WRONG x1_synedge94v sec2 ['ts'] G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   AWAY x1_synedge94v sec2 G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   MOVED-WRONG x1_synedge94v sec2 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec2 ['sz', 'ts'] G=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec2 G=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec2 ['sz'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec2 G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec2 ['sz', 'ts'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec2 G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec3 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x1_synedge94v sec3 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x1_synedge94v sec3 ['ts'] G=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:A d=8'hA ts=-
+   AWAY x1_synedge94v sec3 G=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:A d=8'hA ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:A d=8'hA ts=-
+   MOVED-WRONG x1_synedge94v sec3 ['ts'] G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   AWAY x1_synedge94v sec3 G=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+   MOVED-WRONG x1_synedge94v sec3 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec3 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec3 ['sz', 'ts'] G=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec3 G=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec3 ['sz'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec3 G=constant sz=16 ct=7 v=INT:5 d=5 ts=- P=constant sz=16 ct=7 v=INT:5 d=5 ts=- L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x1_synedge94v sec3 ['sz', 'ts'] G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x1_synedge94v sec3 G=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+x1_synedge94v      TO=0 AWAY=26 STILL=0 WRONG2=0 EQ=6 SHAPE=0 MWRONG=26 UNPAIR=0
+x2_minusedge94v    TO=0 AWAY=0 STILL=0 WRONG2=0 EQ=1 SHAPE=0 MWRONG=0 UNPAIR=0
+   MOVED-WRONG x3_roads94v sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec0 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec0 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec0 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec0 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec1 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec1 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec1 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec2 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec2 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec2 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec2 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec2 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec2 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec2 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec2 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec4 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec4 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec4 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec4 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec4 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   MOVED-WRONG x3_roads94v sec4 ['ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   AWAY x3_roads94v sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=- P=constant sz=32 ct=7 v=INT:5 d=5 ts=- L=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   MOVED-WRONG x3_roads94v sec4 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+   AWAY x3_roads94v sec4 G=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:5 d=5 ts=-
+x3_roads94v        TO=0 AWAY=22 STILL=2 WRONG2=0 EQ=8 SHAPE=0 MWRONG=22 UNPAIR=1
+   MOVED-WRONG x4_syncross94v sec0 ['ts'] G=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:7 d=7 ts=-
+   AWAY x4_syncross94v sec0 G=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:7 d=7 ts=-
+   MOVED-WRONG x4_syncross94v sec0 ['ts'] G=constant sz=32 ct=9 v=UINT:7 d=7 ts=- P=constant sz=32 ct=9 v=UINT:7 d=7 ts=- L=constant sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   AWAY x4_syncross94v sec0 G=constant sz=32 ct=9 v=UINT:7 d=7 ts=- P=constant sz=32 ct=9 v=UINT:7 d=7 ts=- L=constant sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   MOVED-WRONG x4_syncross94v sec0 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x4_syncross94v sec0 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x4_syncross94v sec0 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x4_syncross94v sec0 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x4_syncross94v sec0 ['ts'] G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   AWAY x4_syncross94v sec0 G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   MOVED-WRONG x4_syncross94v sec1 ['ts'] G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   AWAY x4_syncross94v sec1 G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   MOVED-WRONG x4_syncross94v sec1 ['ts'] G=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:7 d=7 ts=-
+   AWAY x4_syncross94v sec1 G=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:7 d=7 ts=-
+   MOVED-WRONG x4_syncross94v sec1 ['ts'] G=constant sz=32 ct=9 v=UINT:7 d=7 ts=- P=constant sz=32 ct=9 v=UINT:7 d=7 ts=- L=constant sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   AWAY x4_syncross94v sec1 G=constant sz=32 ct=9 v=UINT:7 d=7 ts=- P=constant sz=32 ct=9 v=UINT:7 d=7 ts=- L=constant sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   MOVED-WRONG x4_syncross94v sec1 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x4_syncross94v sec1 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x4_syncross94v sec1 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x4_syncross94v sec1 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x4_syncross94v sec2 ['ts'] G=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:7 d=7 ts=-
+   AWAY x4_syncross94v sec2 G=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:7 d=7 ts=-
+   MOVED-WRONG x4_syncross94v sec2 ['ts'] G=constant sz=32 ct=9 v=UINT:7 d=7 ts=- P=constant sz=32 ct=9 v=UINT:7 d=7 ts=- L=constant sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   AWAY x4_syncross94v sec2 G=constant sz=32 ct=9 v=UINT:7 d=7 ts=- P=constant sz=32 ct=9 v=UINT:7 d=7 ts=- L=constant sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   MOVED-WRONG x4_syncross94v sec2 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x4_syncross94v sec2 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x4_syncross94v sec2 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x4_syncross94v sec2 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x4_syncross94v sec2 ['ts'] G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   AWAY x4_syncross94v sec2 G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   MOVED-WRONG x4_syncross94v sec3 ['ts'] G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   AWAY x4_syncross94v sec3 G=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+   MOVED-WRONG x4_syncross94v sec3 ['ts'] G=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:7 d=7 ts=-
+   AWAY x4_syncross94v sec3 G=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S P=constant sz=8 ct=9 v=UINT:7 d=7 ts=int_typespec/S L=constant sz=8 ct=9 v=UINT:7 d=7 ts=-
+   MOVED-WRONG x4_syncross94v sec3 ['ts'] G=constant sz=32 ct=9 v=UINT:7 d=7 ts=- P=constant sz=32 ct=9 v=UINT:7 d=7 ts=- L=constant sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   AWAY x4_syncross94v sec3 G=constant sz=32 ct=9 v=UINT:7 d=7 ts=- P=constant sz=32 ct=9 v=UINT:7 d=7 ts=- L=constant sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   MOVED-WRONG x4_syncross94v sec3 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x4_syncross94v sec3 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   MOVED-WRONG x4_syncross94v sec3 ['ts'] G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+   AWAY x4_syncross94v sec3 G=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S P=constant sz=8 ct=7 v=INT:-3 d=-3 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:-3 d=-3 ts=-
+x4_syncross94v     TO=0 AWAY=20 STILL=2 WRONG2=0 EQ=12 SHAPE=0 MWRONG=20 UNPAIR=0
+   MOVED-WRONG x5_binface94v sec1 ['ts'] G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   AWAY x5_binface94v sec1 G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   MOVED-WRONG x5_binface94v sec3 ['ts'] G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+   AWAY x5_binface94v sec3 G=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S P=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S L=constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+x5_binface94v      TO=0 AWAY=2 STILL=22 WRONG2=0 EQ=18 SHAPE=0 MWRONG=2 UNPAIR=0
+   MOVED-WRONG x6_concatvote94v sec1 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:18 d=18 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:18 d=18 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:18 d=18 ts=-
+   AWAY x6_concatvote94v sec1 G=constant sz=32 ct=7 v=INT:18 d=18 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:18 d=18 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:18 d=18 ts=-
+   MOVED-WRONG x6_concatvote94v sec3 ['sz', 'ts'] G=constant sz=32 ct=7 v=INT:18 d=18 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:18 d=18 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:18 d=18 ts=-
+   AWAY x6_concatvote94v sec3 G=constant sz=32 ct=7 v=INT:18 d=18 ts=int_typespec/S P=constant sz=32 ct=7 v=INT:18 d=18 ts=int_typespec/S L=constant sz=8 ct=7 v=INT:18 d=18 ts=-
+x6_concatvote94v   TO=0 AWAY=2 STILL=20 WRONG2=0 EQ=18 SHAPE=0 MWRONG=2 UNPAIR=0
+TOTAL  TO=0  AWAY=160  STILL=62  WRONG2=0  EQ=309  SHAPE=2  MWRONG=160  UNPAIR=5

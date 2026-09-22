@@ -1,0 +1,505 @@
+=== p4_pkghome91   sections G=7 ours=6 aligned=6 UNPAIRED g=1 ours=0
+  SEC MOD A 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=int_typespec/S
+       P constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+       L constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-   Pbad=sz,v,ts Lbad=sz,v,ts
+   [2] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [4] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [6] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [7] G constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=int_typespec/S
+       P constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+       L constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-   Pbad=sz,v,ts Lbad=sz,v,ts
+  SEC MOD R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=int_typespec/S
+       P constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+       L constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-   Pbad=sz,v,ts Lbad=sz,v,ts
+   [2] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [4] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [6] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [7] G constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=int_typespec/S
+       P constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+       L constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-   Pbad=sz,v,ts Lbad=sz,v,ts
+  SEC MOD D 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=-   Pbad=- Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S   Pbad=- Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=-   Pbad=- Lbad=-
+   [4] G constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S   Pbad=- Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=-   Pbad=- Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S   Pbad=- Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=-   Pbad=- Lbad=-
+  SEC MOD R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=-   Pbad=- Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S   Pbad=- Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=-   Pbad=- Lbad=-
+   [4] G constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S   Pbad=- Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=-   Pbad=- Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=int_typespec/S   Pbad=- Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       P constant sz=32 ct=7 v=INT:9 d=9 ts=-
+       L constant sz=32 ct=7 v=INT:9 d=9 ts=-   Pbad=- Lbad=-
+  SEC IFC C 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [2] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [4] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [6] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+  SEC GEN R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [2] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [4] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [6] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=- Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+=== q1_pkgsyn94   sections G=4 ours=4 aligned=4 UNPAIRED g=0 ours=0
+  SEC MOD A 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [4] G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [5] G constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=-   Pbad=- Lbad=-
+   [6] G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=16 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+  SEC MOD B 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [3] G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [4] G constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=-   Pbad=- Lbad=-
+   [5] G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=16 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+  SEC MOD R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [4] G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [5] G constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=-   Pbad=- Lbad=-
+   [6] G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=16 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+  SEC MOD R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [3] G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [4] G constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=-   Pbad=- Lbad=-
+   [5] G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=16 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+=== q2_pkgbase94   sections G=4 ours=4 aligned=4 UNPAIRED g=0 ours=0
+  SEC MOD A 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=ts Lbad=-
+   [2] G constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=-
+       P constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+       L constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-   Pbad=sz,v Lbad=sz,v
+   [3] G constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+       P constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+       L constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S   Pbad=ts Lbad=-
+   [4] G constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+       L constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [6] G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+  SEC MOD B 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [2] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=ts Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [4] G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [6] G constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+       P constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+       L constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S   Pbad=ts Lbad=-
+   [7] G constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+       L constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+  SEC MOD R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=ts Lbad=-
+   [2] G constant sz=8 ct=3 v=BIN:1010 d=8'b1010 ts=-
+       P constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-
+       L constant sz=24 ct=3 v=BIN:000000000000000000001010 d=8'b1010 ts=-   Pbad=sz,v Lbad=sz,v
+   [3] G constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+       P constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+       L constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S   Pbad=ts Lbad=-
+   [4] G constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+       L constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [6] G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+  SEC MOD R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=- Lbad=-
+   [2] G constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S
+       P constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=-
+       L constant sz=8 ct=5 v=HEX:1A d=8'h1A ts=int_typespec/S   Pbad=ts Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [4] G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [6] G constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+       P constant sz=8 ct=9 v=UINT:15 d=15 ts=-
+       L constant sz=8 ct=9 v=UINT:15 d=15 ts=int_typespec/S   Pbad=ts Lbad=-
+   [7] G constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+       L constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S   Pbad=ts Lbad=-
+=== q3_pkgread94   sections G=5 ours=4 aligned=4 UNPAIRED g=1 ours=0
+  SEC MOD A 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=ts Lbad=-
+   [3] G constant sz=12 ct=7 v=INT:6 d=6 ts=-
+       P constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=-   Pbad=sz,ts Lbad=-
+   [4] G constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       P constant sz=4 ct=7 v=INT:6 d=6 ts=-
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz Lbad=-
+   [7] G constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=-   Pbad=- Lbad=-
+  SEC MOD R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=ts Lbad=-
+   [3] G constant sz=12 ct=7 v=INT:6 d=6 ts=-
+       P constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=-   Pbad=sz,ts Lbad=-
+   [4] G constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       P constant sz=4 ct=7 v=INT:6 d=6 ts=-
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=sz Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz Lbad=-
+   [7] G constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=8 ct=7 v=INT:5 d=5 ts=-   Pbad=- Lbad=-
+  SEC IFC C 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [2] G constant sz=12 ct=7 v=INT:6 d=6 ts=-
+       P constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=-   Pbad=sz,ts Lbad=-
+   [3] G constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [4] G constant sz=12 ct=7 v=INT:6 d=6 ts=-
+       P constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=-   Pbad=sz,ts Lbad=-
+   [5] G constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [6] G constant sz=12 ct=7 v=INT:6 d=6 ts=-
+       P constant sz=32 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=-   Pbad=sz,ts Lbad=-
+   [7] G constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+       L constant sz=12 ct=7 v=INT:6 d=6 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+  SEC GEN R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=ts Lbad=-
+   [3] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [4] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=ts Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:5 d=5 ts=-
+       P constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=-   Pbad=ts Lbad=-
+   [7] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+=== q7_pkgchain94   sections G=2 ours=2 aligned=2 UNPAIRED g=0 ours=0
+  SEC MOD A 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:6 d=6 ts=-
+       P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+       L constant sz=32 ct=7 v=INT:6 d=6 ts=-   Pbad=sz Lbad=-
+   [3] G constant sz=12 ct=7 v=INT:7 d=7 ts=-
+       P constant sz=8 ct=7 v=INT:7 d=7 ts=-
+       L constant sz=12 ct=7 v=INT:7 d=7 ts=-   Pbad=sz Lbad=-
+   [4] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:7 d=7 ts=-
+       L constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [7] G constant sz=12 ct=7 v=INT:7 d=7 ts=-
+       P constant sz=8 ct=7 v=INT:7 d=7 ts=-
+       L constant sz=12 ct=7 v=INT:7 d=7 ts=-   Pbad=sz Lbad=-
+  SEC MOD R 75 8
+   [0] G constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       P constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+       L constant sz=24 ct=5 v=HEX:xA d=8'hxA ts=-   Pbad=- Lbad=-
+   [1] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [2] G constant sz=32 ct=7 v=INT:6 d=6 ts=-
+       P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+       L constant sz=32 ct=7 v=INT:6 d=6 ts=-   Pbad=sz Lbad=-
+   [3] G constant sz=12 ct=7 v=INT:7 d=7 ts=-
+       P constant sz=8 ct=7 v=INT:7 d=7 ts=-
+       L constant sz=12 ct=7 v=INT:7 d=7 ts=-   Pbad=sz Lbad=-
+   [4] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz Lbad=-
+   [5] G constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:7 d=7 ts=-
+       L constant sz=32 ct=7 v=INT:7 d=7 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [6] G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+       P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+       L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S   Pbad=sz,ts Lbad=-
+   [7] G constant sz=12 ct=7 v=INT:7 d=7 ts=-
+       P constant sz=8 ct=7 v=INT:7 d=7 ts=-
+       L constant sz=12 ct=7 v=INT:7 d=7 ts=-   Pbad=sz Lbad=-

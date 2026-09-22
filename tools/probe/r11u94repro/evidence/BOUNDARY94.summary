@@ -1,0 +1,37 @@
+# r11u94 WIDE BOUNDARY — every *.sv under tools/probe, both binaries, same dir, same name
+
+8211 arms: 7962 SAME, 33 DIFFERS, 216 NODB
+  NODB: prc == lrc on EVERY arm — 212 x rc=3, 4 x rc=139 (the 4 rc=139 are the 8 shell
+  'Segmentation fault' notices in the raw log, identical on both binaries)
+
+LINE-KIND HISTOGRAM over all 33 DIFFERS arms (1216 lines, 66 of them the dump's own
+header line):
+  216 |vpiConstType   126 |vpiSize     118 |INT       106 |UINT
+   96 \_int_typespec   88 |vpiDecompile 84 \_constant  56 |vpiParent
+   52 |vpiTypespec     52 |vpiFullName  52 |vpiActual  52 \_ref_typespec
+   44 |vpiSigned        4 |vpiOperand    4 \_operation
+
+TWO CLASSES AND NO THIRD:
+  * LAWS B/C, 28 arms — |UINT: <-> |INT:, vpiConstType 9 <-> 7, vpiDecompile.
+  * LAW A, 5 arms (p4_pkghome91, q1, q2, q3, q7) — vpiSize plus the
+    int_typespec / ref_typespec / vpiTypespec / vpiActual / vpiSigned /
+    vpiFullName / vpiParent / \_constant scaffolding.
+  The 4 |vpiOperand + 4 \_operation lines are ALIGNMENT SHIFT inside q3_pkgread94,
+  not new objects: both dumps hold vpiOperand 57 and \_operation 77. The
+  \_constant count moves 443 -> 445, the two parent back-references the dump prints
+  inside the two ADDED ref_typespec sub-trees.
+
+TYPESPEC WRITES ARE ADD-ONLY: int_typespec 92 added / 4 removed, ref_typespec
+48 added / 4 removed, and UNEXPLAINED-REMOVALS = 0 — the ONLY removals in the whole
+boundary are the 4 lines in q3_pkgread94 at the V2/V3 cells, where a logic signed
+[31:0] reader sits over an unsigned / dimension-only package hop and GOLDEN WRITES
+NO TYPESPEC AT ALL.
+
+NO PAGE-BOUNDARY CLASS IN THIS BOUNDARY. Every consecutive value delta in the
+|UINT:/|INT: lines is a two's-complement wrap of the declared width —
+  -2^64, -2^40, -2^32, -2^16, -2^9, -2^8, -2^4, 0 — and NO delta is 4096.
+The ops rule's 16 KB-pad positive control attaches to a 4096-delta-only UINT mover;
+there is none here, so it is not required and was not run.
+
+NO ARM HAS IDENTICAL DUMPS WITH DIFFERING BYTES: all 33 DIFFERS arms have a
+non-empty dump diff, so the pass-91 dead-string class does not arise.
