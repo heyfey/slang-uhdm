@@ -2160,6 +2160,214 @@ bool netDbg98() {
     static const bool v = getenv("R11U98_NETDBG") != nullptr;
     return v;
 }
+
+// ===== r11u99 — the interface fall-through, and the nested module zone =====
+//
+// EIGHT gates, each droppable alone; `R11U99_OFF=1` drops all eight and must
+// reproduce the base binary's database BYTE FOR BYTE.  The trace sits OUTSIDE
+// every one of them, so ONE traced run of ONE binary predicts the mover set a
+// priori.  LAW A1's own gate reader lives beside its one site, in
+// `src/UhdmExporter.cpp` (`ifaceRootWidenOff99`); every other reader is here.
+//
+// LAW A (the interface fall-through) — `useInterfacePath` is
+// `isInterface() && isSimpleInterfaceBody(body)` (`src/EmitHelpers.h:2892-
+// 2910`), and `isSimpleInterfaceBody` is FALSE for an interface holding a
+// CHILD INSTANCE, so such an interface is emitted through `emitModuleDef`
+// wearing a `module_inst`.  Pass 96's § caIfaceClassIsDesignRoot98 keyed its
+// design-root publication on `useInterfacePath`, so it never reached the
+// fallen-through shape, and pass 96's verifier guard
+// § caModGenClassNotIfaceHome98V only stopped the WRONG mint on the generate
+// face.  Golden files the classes of EVERY interface at the design root with
+// a null container, because `ResolveSymbols::createFastLookup`
+// (`~/git-repos/Surelog/src/DesignCompile/ResolveSymbols.cpp:79-90,160-166`)
+// has `paInterface_declaration` in its `types` set but NOT in its
+// `stopPoints` set and no `case` of its own: the file walk descends straight
+// through the interface, reaches each `paClass_declaration` inside it, and
+// files it as `StrCat(libName, "@", name)` with a NULL container — while the
+// interface itself falls to `default:` and collects nothing.
+//   A1 § caIfaceClassRootAnyIface99 — the design-root publication is keyed on
+//      `isInterface()`, not on `useInterfacePath`.  Its site and its gate
+//      reader `ifaceRootWidenOff99` (`R11U99_IFACEROOT_OFF`) are in
+//      `src/UhdmExporter.cpp`'s AllClasses block.
+//   A2 § caIfaceBodyClassNotModuleOwn99 — `emitModuleDef`'s UNCONDITIONAL
+//      body-class push declines on an interface home, symmetric to the landed
+//      generate-face guard.  (This is the ours-only half: v28 mints
+//      `work@outer::Abody` + `work@outer::Zbody` on the module shell where
+//      golden's interface carries no `vpiClassDefn` at all.)
+static bool ifaceBodyOff99() {
+    static const bool v = getenv("R11U99_IFACEBODY_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
+// LAW B (the nested module zone).  The WHOLE road is the `paModule_declaration`
+// case of `createFastLookup` (`ResolveSymbols.cpp:168-201`):
+//
+//     ModuleDefinition* mdef = new ModuleDefinition(fd, object, fullName);
+//     addModuleDefinition(fullName, mdef);
+//     subtypes = stopPoints = {paClass_declaration, paModule_declaration};
+//     for (subobject : sl_collect_all(object, subtypes, subtypes)) {
+//         fullSubName = StrCat(fullName, "::", name);
+//         if (Type(subobject) == paClass_declaration)
+//             ... ClassDefinition(name, lib, mdef, ...) -> mdef
+//         else
+//             addModuleDefinition(fullSubName,
+//                                 new ModuleDefinition(fd, subobject, fullSubName));
+//     }
+//
+// Four consequences, all four MEASURED on real v1.87 goldens:
+//   B1 § caNestedModDefNameScoped99 — the nested module's definition name is
+//      `<outer fullName>::<inner>`, i.e. `work@sub::innermod`, and nothing
+//      else changes: the parent's `ref_module` for an EXPLICIT instantiation
+//      keeps the BARE `work@innermod` VpiDefName (w13's golden), because that
+//      name comes off the instantiation text, not off the definition.  The
+//      def views are published name-sorted by the SCOPED name, so
+//      `work@sub::innermod` follows `work@sub` (w12/w13/w15/w16/w18/w19).
+//   B2 § caNestedModDeclNoRefNoInst99 — a nested module DECLARATION is not an
+//      instantiation: golden writes NO `ref_module` for it on the parent def
+//      and NO elaborated `module_inst` for it under the parent's elaborated
+//      copy.  slang disagrees: `Scope::handleNestedDefinition`
+//      (`~/git-repos/slang/source/ast/Scope.cpp:1281-1308`) IMPLICITLY
+//      instantiates a portless, parameterless, otherwise-uninstantiated
+//      nested module through `InstanceSymbol::createDefaultNested`
+//      (`InstanceSymbols.cpp:419-444`), which FABRICATES a
+//      `HierarchicalInstanceSyntax` out of the declaration's own name token.
+//      That fabricated instance therefore sits at exactly the definition's
+//      location, which is how `implicitNestedInst99` below tells it from a
+//      written one.
+//   B3 § caNestedModNoClassHome99 — a nested module's def view lists NO
+//      classes.  Its `ModuleDefinition` is built by the bare `else` branch
+//      above, which runs no class sub-walk at all; and the OUTER's sub-walk
+//      STOPS at `paModule_declaration`, so the inner's classes are filed
+//      nowhere.  Measured: v29/w11's golden dump contains the strings
+//      `Zinner` and `Ainner` ZERO times, in any home and at the design root.
+//   B4 § caNestedModDeepNoDefView99 — a module nested TWO levels deep gets no
+//      def view at all, because the sub-walk is not recursive and the bare
+//      `else` branch never walks its own subtree.  w14 and w21 (where the
+//      doubly-nested module is even EXPLICITLY instantiated) both publish
+//      exactly `[work@dut, work@sub, work@sub::mid]`, and w21's
+//      `work@sub::mid` carries its `ref_module work@deep (u_d)` with NO
+//      `vpiActual` — a reference to a definition Surelog never made.
+static bool nestNameOff99() {
+    static const bool v = getenv("R11U99_NESTNAME_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
+static bool nestImplOff99() {
+    static const bool v = getenv("R11U99_NESTIMPL_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
+static bool nestClassOff99() {
+    static const bool v = getenv("R11U99_NESTCLASS_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
+bool nestDeepOff99() {
+    static const bool v = getenv("R11U99_NESTDEEP_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
+//   B5 § caNestedModRefNoActual99 — a `ref_module` naming a nested module
+//      RESOLVES TO NOTHING.  The stub's `vpiDefName` is built from the
+//      INSTANTIATION TEXT (`StrCat(libName, "@", <written type name>)`), so
+//      it reads `work@innermod`; the definition is filed in the design's
+//      module map under `work@sub::innermod` (B1's road), so the writer's
+//      lookup misses and golden leaves `vpiActual` unset.  MEASURED: w13's
+//      golden `ref_module work@innermod (u_i)` carries vpiName + vpiDefName
+//      and NO vpiActual, and w21's `ref_module work@deep (u_d)` likewise
+//      (there the definition does not exist at all — B4).
+static bool nestActualOff99() {
+    static const bool v = getenv("R11U99_NESTACTUAL_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
+//   B6 § caNestedModDefParentIsOuter99 — the nested def view is PARENTED ON
+//      THE OUTER DEF, not on the design: golden's `work@sub::innermod` reads
+//      `|vpiParent: \_module_inst: work@sub (work@sub)` (w12/w13/w15/w16/
+//      w18/w21).  No generated `Compare` reads `VpiParent`, so this face is
+//      invisible to the judge and visible only in the dump — which is why it
+//      carries its own gate.
+static bool nestParentOff99() {
+    static const bool v = getenv("R11U99_NESTPARENT_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
+// THE TRACE sits OUTSIDE all six gates.
+bool netDbg99() {
+    static const bool v = getenv("R11U99_NETDBG") != nullptr;
+    return v;
+}
+// The DEFINITION this one is declared inside, or null at file scope.  A
+// nested module's `DefinitionSymbol` is parented on the declaring scope
+// (`DefinitionSymbol::DefinitionSymbol` -> `setParent(scope, ...)`,
+// `~/git-repos/slang/source/ast/symbols/CompilationUnitSymbols.cpp:447-458`),
+// which for `module sub; module innermod; ... endmodule endmodule` is `sub`'s
+// `InstanceBodySymbol`.  A generate block in between is walked through, since
+// Surelog's collect does not stop at one either.
+const slang::ast::DefinitionSymbol* nestOuterDef99(
+    const slang::ast::DefinitionSymbol& def) {
+    // ONLY a nested MODULE inside a MODULE.  `createFastLookup`'s sub-walk is
+    // `sl_collect_all(object, {paClass_declaration, paModule_declaration},
+    // ...)` inside the `paModule_declaration` case alone: a nested INTERFACE
+    // declaration is neither of those subtypes and its enclosing module is
+    // not reached by any other case, so Surelog files nothing for it.
+    // Stronger still, the PINNED Surelog's PARSER REJECTS a nested interface
+    // outright — `interface if_x; logic w; endinterface` inside a module
+    // gives `PA0207 missing 'class' at 'if_x'`, measured on two shapes
+    // (`tools/probe/r10v223repro/arms/v11_nested_iface` and this pass's
+    // w26/w27, `golden_rc=3`).  There is therefore NO golden for the shape,
+    // and this law declines to touch what it cannot measure: those arms keep
+    // the base binary's bare `work@if_x` byte for byte.
+    if (def.definitionKind != slang::ast::DefinitionKind::Module)
+        return nullptr;
+    for (const Scope* sc = def.getParentScope(); sc;) {
+        auto& sym = sc->asSymbol();
+        if (sym.kind == SymbolKind::InstanceBody) {
+            auto& od = sym.as<InstanceBodySymbol>().getDefinition();
+            // The enclosing declaration must be a MODULE too: that is the
+            // only `createFastLookup` case that runs a sub-walk at all (a
+            // program collects classes only, an interface falls to
+            // `default:` and collects nothing).
+            return od.definitionKind == slang::ast::DefinitionKind::Module
+                       ? &od
+                       : nullptr;
+        }
+        if (sym.kind != SymbolKind::GenerateBlock &&
+            sym.kind != SymbolKind::GenerateBlockArray)
+            return nullptr;
+        sc = sym.getParentScope();
+    }
+    return nullptr;
+}
+// 0 at file scope, 1 for `module sub; module inner; ...`, 2 and up below that.
+int nestDepth99(const slang::ast::DefinitionSymbol& def) {
+    int n = 0;
+    for (auto* o = nestOuterDef99(def); o && n < 32; o = nestOuterDef99(*o))
+        ++n;
+    return n;
+}
+// `work@sub::innermod` — the name golden files the definition under.  The
+// caller adds the `work@` (this returns the bare `sub::innermod`), so the one
+// idiom `"work@" + <this>` covers every site.
+std::string defScopedName99(const slang::ast::DefinitionSymbol& def) {
+    if (nestNameOff99())
+        return std::string(def.name);
+    if (auto* o = nestOuterDef99(def))
+        return defScopedName99(*o) + "::" + std::string(def.name);
+    return std::string(def.name);
+}
+// The IMPLICIT instance slang mints for a nested module DECLARATION: the
+// fabricated `HierarchicalInstanceSyntax` reuses the declaration's own name
+// token, so the instance sits exactly where the definition does.  A WRITTEN
+// `innermod u_i ();` names a different token at a different offset, and
+// `handleNestedDefinition` then declines to mint an implicit copy at all
+// (`def->getInstanceCount() > 0`).
+bool implicitNestedInst99(const slang::ast::InstanceSymbol& child) {
+    auto& cd = child.getDefinition();
+    if (!nestOuterDef99(cd))
+        return false;
+    return child.location == cd.location && child.name == cd.name;
+}
 // THE TRACE sits OUTSIDE every gate and names every site either law reaches,
 // so ONE traced run of ONE binary predicts both mover sets a priori.
 static bool netDbg93() {
@@ -3851,7 +4059,10 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     size_t netTsAtEntry = pendingNetTs.size();
-    std::string prefix = "work@" + std::string(def.name);
+    // § caNestedModDefNameScoped99 (LAW B1) — `work@sub::innermod` for a
+    // module declared inside `sub`; `defScopedName99` is the identity at file
+    // scope and under `R11U99_NESTNAME_OFF=1`.
+    std::string prefix = "work@" + defScopedName99(def);
 
     DefInfo& info = defMap[&def];
     currentScope = &body;
@@ -3884,6 +4095,15 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     m->VpiDefName(prefix);
     m->VpiFullName(prefix);
     m->VpiParent(d);
+    // § caNestedModDefParentIsOuter99 (LAW B6) — a nested module's def view
+    // hangs off the OUTER DEF, not off the design (w12/w13/w15/w16/w18/w21).
+    if (!nestParentOff99()) {
+        if (auto* od99 = nestOuterDef99(def)) {
+            if (auto oit99 = defMap.find(od99);
+                oit99 != defMap.end() && oit99->second.mod)
+                m->VpiParent(oit99->second.mod);
+        }
+    }
     m->VpiFile(fullFilePath(def.location));
     if (isLibraryCell(def))
         m->VpiCellInstance(true);
@@ -3950,9 +4170,39 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     {
         auto* mclasses = s.MakeClass_defnVec();
         std::vector<const ClassType*> clist95;
-        for (auto& mem : body.members())
-            if (mem.kind == SymbolKind::ClassType)
-                clist95.push_back(&mem.as<ClassType>());
+        // § caIfaceBodyClassNotModuleOwn99 (r11u99 LAW A2) — AN INTERFACE IS
+        // NOT A CLASS HOME, on the module path too.  An interface holding a
+        // child instance falls through `useInterfacePath` and arrives here
+        // wearing a `module_inst`; pass 96's verifier guard stopped the
+        // GENERATE face from minting on it, and this stops the BODY face.
+        // MEASURED (w02/v28, `interface outer; inner u_in(); class Zbody;
+        // class Abody; endinterface`): the base binary writes
+        // `work@outer::Abody` and `work@outer::Zbody` on the module shell,
+        // CELL OURS-ONLY 2, where golden's interface carries no
+        // `vpiClassDefn` line at all and publishes both at the design root.
+        // § caNestedModNoClassHome99 (LAW B3) — a NESTED module's def view
+        // lists no classes either: `createFastLookup`'s sub-walk stops at
+        // `paModule_declaration` so the outer never files them, and the bare
+        // `else` branch that makes the inner's `ModuleDefinition` runs no
+        // class walk at all.  v29/w11's golden contains `Zinner`/`Ainner`
+        // zero times anywhere.
+        const bool ifaceHome99 = inst.isInterface() && !ifaceBodyOff99();
+        const bool nestHome99 =
+            !nestClassOff99() && nestOuterDef99(def) != nullptr;
+        if (netDbg99() && !body.members().empty()) {
+            for (auto& mem : body.members())
+                if (mem.kind == SymbolKind::ClassType)
+                    fprintf(stderr,
+                            "R11U99BODYCLASS home=%s name=%.*s iface=%d "
+                            "nested=%d\n",
+                            prefix.c_str(), (int)mem.name.size(),
+                            mem.name.data(), inst.isInterface() ? 1 : 0,
+                            nestOuterDef99(def) ? 1 : 0);
+        }
+        if (!ifaceHome99 && !nestHome99)
+            for (auto& mem : body.members())
+                if (mem.kind == SymbolKind::ClassType)
+                    clist95.push_back(&mem.as<ClassType>());
         // § caModGenBlockClassIsModuleOwn98 — LAW B1 (r11u98).  A MODULE
         // home's generate-block classes are the module's OWN, collected by
         // the syntactic `sl_collect_all` in ResolveSymbols whose only stop
@@ -3991,7 +4241,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                     "R11U98MODGENCLASS name=%.*s iface=%d\n",
                                     (int)mem.name.size(), mem.name.data(),
                                     ifaceHome98V ? 1 : 0);
-                        if (!modGenClassOff98() && !ifaceHome98V)
+                        // `!nestHome99` is r11u99 LAW B3's half: a nested
+                        // module is no more a class home than an interface is.
+                        if (!modGenClassOff98() && !ifaceHome98V && !nestHome99)
                             clist95.push_back(&mem.as<ClassType>());
                     }
         }
@@ -5937,7 +6189,9 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
 UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
-    std::string prefix = "work@" + std::string(def.name);
+    // § caNestedModDefNameScoped99 (LAW B1) — the def-view port phase spells
+    // the same scoped prefix `emitModuleDef` does.
+    std::string prefix = "work@" + defScopedName99(def);
     DefInfo& info = defMap[&def];
     currentScope = &body;
     auto* m = info.mod;
@@ -6074,6 +6328,19 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
         if (member.kind != SymbolKind::Instance)
             continue;
         auto& child = member.as<InstanceSymbol>();
+        // § caNestedModDeclNoRefNoInst99 (LAW B2) — the def-view half.  A
+        // nested module DECLARATION is not an instantiation, and golden's
+        // parent def carries no `ref_module` for it (w12's `work@sub` has
+        // `vpiNet` and nothing else; w13, where the same module IS written
+        // `innermod u_i ();`, does carry one).
+        if (implicitNestedInst99(child)) {
+            if (netDbg99())
+                fprintf(stderr, "R11U99NESTREF home=%s name=%.*s\n",
+                        prefix.c_str(), (int)child.name.size(),
+                        child.name.data());
+            if (!nestImplOff99())
+                continue;
+        }
         bool fromBind = false;
         for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
             if (p2->kind == syntax::SyntaxKind::BindDirective) {
@@ -6145,7 +6412,17 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
         setLoc(rm, SourceRange(child.location, child.location + child.name.size()));
         if (auto iit = ifaceDefMap.find(&child.getDefinition()); iit != ifaceDefMap.end())
             rm->Actual_group(iit->second);
-        else if (auto it = defMap.find(&child.getDefinition()); it != defMap.end())
+        // § caNestedModRefNoActual99 (LAW B5) — the stub's defname is the
+        // BARE `work@innermod` while the definition is filed under
+        // `work@sub::innermod`, so Surelog's lookup misses and golden leaves
+        // `vpiActual` unset (w13).  § caNestedModDeepNoDefView99 (LAW B4)
+        // leaves a definition with no shell at all, which is the same
+        // outcome by a second road (w21); guarding on the shell is
+        // byte-identical wherever one exists.
+        else if (auto it = defMap.find(&child.getDefinition());
+                 it != defMap.end() && it->second.mod &&
+                 !(!nestActualOff99() &&
+                   nestOuterDef99(child.getDefinition()) != nullptr))
             rm->Actual_group(it->second.mod);
 
         auto* rports = s.MakePortVec();
@@ -10980,7 +11257,13 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     if (instNm.empty() && !inst.arrayPath.empty())
         if (auto dp9 = prefix.rfind('.'); dp9 != std::string::npos)
             instNm = prefix.substr(dp9 + 1);
-    std::string defPrefix = "work@" + std::string(def.name);
+    // § caNestedModDefNameScoped99 (LAW B1) — an ELABORATED copy of a nested
+    // module wears the scoped def name too: w13's golden writes
+    // `module_inst work@sub::innermod (work@dut.u_s.u_i)` with
+    // `|vpiDefName:work@sub::innermod`, while the parent's `ref_module` for
+    // the same child keeps the bare `work@innermod` (that name comes off the
+    // instantiation text, not off the definition).
+    std::string defPrefix = "work@" + defScopedName99(def);
     std::string parentPrefix;
     if (parentM && parentM->VpiFullName().length())
         parentPrefix = std::string(parentM->VpiFullName());
@@ -13863,6 +14146,35 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
+            // § caNestedModDeclNoRefNoInst99 (LAW B2) — the ELABORATED half.
+            // slang implicitly instantiates a portless, parameterless nested
+            // module declaration; Surelog does not, so golden's elaborated
+            // `work@dut.u_s` carries no `vpiModule` at all (v29/w11).
+            if (implicitNestedInst99(child)) {
+                if (netDbg99())
+                    fprintf(stderr, "R11U99NESTINST home=%s name=%.*s\n",
+                            prefix.c_str(), (int)child.name.size(),
+                            child.name.data());
+                if (!nestImplOff99()) {
+                    // The def-view PORT phase (ports, instance arrays and
+                    // the child `ref_module` stubs) normally runs the first
+                    // time the instance walk reaches a def — emitInstance's
+                    // `!filled` block below.  Declining to ELABORATE this
+                    // child must not decline THAT: golden's `work@sub::mid`
+                    // carries its own `ref_module work@deep (u_d)` (w21).
+                    // `currentScope` is deliberately left where
+                    // emitModuleDefPorts puts it, exactly as the emitInstance
+                    // call site leaves it (RESUME §9: currentScope is stale
+                    // throughout elaborated emission).
+                    auto& cdef99 = child.getDefinition();
+                    if (!defMap[&cdef99].filled) {
+                        defMap[&cdef99].filled = true;
+                        if (!blackboxedDef("work@" + defScopedName99(cdef99)))
+                            emitModuleDefPorts(child);
+                    }
+                    continue;
+                }
+            }
             // Interface instances become interface_inst under vpiInterface.
             if (useInterfacePath(child)) {
                 auto* ii = emitInterfaceInstance(

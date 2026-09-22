@@ -24,6 +24,22 @@ static bool ifaceClassRootOff98() {
     return v;
 }
 
+// r11u99's gates and helpers (defined in ModuleEmit.cpp beside the other
+// pass gates).  See the § blocks there for the decode; the two sites in this
+// file are LAW A1 (the design-root class publication, at the AllClasses block
+// below) and LAW B1 + B4 (the definition-name re-key, in exportDesign).
+bool netDbg99();
+bool nestDeepOff99();
+const slang::ast::DefinitionSymbol* nestOuterDef99(
+    const slang::ast::DefinitionSymbol& def);
+int nestDepth99(const slang::ast::DefinitionSymbol& def);
+std::string defScopedName99(const slang::ast::DefinitionSymbol& def);
+static bool ifaceRootWidenOff99() {
+    static const bool v = getenv("R11U99_IFACEROOT_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
+
 UhdmExporter::UhdmExporter(Compilation& compilation, UHDM::Serializer& serializer) :
     comp(compilation), s(serializer), sm(compilation.getSourceManager()) {
     // § macroLocOrder — publish the SourceManager for the free helpers that
@@ -4915,6 +4931,47 @@ UHDM::design* UhdmExporter::exportDesign() {
         defs.emplace(std::string(d9.name), &di9);
     }
 
+    // ===== r11u99 LAW B1 + LAW B4 — the nested-module definition key =====
+    //
+    // Every `defs` producer above keys on the BARE definition name, and every
+    // consumer below spells the def prefix `"work@" + name`.  Golden files a
+    // module declared inside a module under `<outer fullName>::<inner>`
+    // instead (`createFastLookup`'s `paModule_declaration` case, see the
+    // § blocks in ModuleEmit.cpp), so re-keying the map here carries the
+    // scoped name to ALL of them at once — the parameter pre-pass, the
+    // blackbox lookups, `emitModuleDef`'s own prefix (which recomputes it
+    // from the definition through the same helper) and, decisively, the
+    // NAME-SORTED order the def shells are pushed into `uhdmallModules` in:
+    // golden publishes `work@sub::innermod` right after `work@sub`
+    // (w12/w13/w15/w18), `work@sub::amod` before `work@sub::zmod` (w16), and
+    // a file-scope `innermod` BESIDE a nested one (w19), which a bare key
+    // cannot even represent — one of the two shadows the other.
+    //
+    // LAW B4 drops a module nested two levels deep: golden has no definition
+    // for it at all (w14, and w21 where it is explicitly instantiated), so
+    // publishing one would be inventing an object golden lacks.
+    // The loop runs unconditionally: with both gates off `defScopedName99` is
+    // the identity and nothing is dropped, so `rekey99` comes out equal to
+    // `defs` key for key — which is what `R11U99_OFF=1` has to reproduce.
+    {
+        std::map<std::string, const InstanceSymbol*> rekey99;
+        for (auto& [n99, i99] : defs) {
+            auto& d99 = i99->getDefinition();
+            int depth99 = nestDepth99(d99);
+            if (depth99 == 0) {
+                rekey99.emplace(n99, i99);
+                continue;
+            }
+            if (netDbg99())
+                fprintf(stderr, "R11U99NESTDEF name=%s depth=%d scoped=%s\n",
+                        n99.c_str(), depth99, defScopedName99(d99).c_str());
+            if (depth99 >= 2 && !nestDeepOff99())
+                continue;
+            rekey99.emplace(defScopedName99(d99), i99);
+        }
+        defs.swap(rekey99);
+    }
+
     // User packages (skip built-ins).
     std::vector<const PackageSymbol*> pkgs;
     for (auto pkg : comp.getPackages()) {
@@ -6685,8 +6742,19 @@ UHDM::design* UhdmExporter::exportDesign() {
                         }
                     }
                 };
+            // § caIfaceClassRootAnyIface99 (r11u99 LAW A1) — EVERY interface,
+            // not just the ones `useInterfacePath` admits.  An interface that
+            // holds a child instance is emitted through the module path
+            // (`isSimpleInterfaceBody` is false for it), and pass 96 keyed
+            // this publication on the same predicate, so its classes reached
+            // neither home: v27's `work@Cgen` and v28's `work@Abody` +
+            // `work@Zbody` stayed CELL GOLD-ONLY 1 and 2.  Golden's road does
+            // not consult the interface's CONTENTS at all —
+            // `createFastLookup`'s file walk simply does not stop at an
+            // interface — so the widening is exactly `isInterface()`.
             for (auto& [nm98, inst98] : defs)
-                if (useInterfacePath(*inst98))
+                if (ifaceRootWidenOff99() ? useInterfacePath(*inst98)
+                                          : inst98->isInterface())
                     ifaceClasses98(inst98->body);
         }
         // Surelog compiles builtin.sv before the user sources, so its
