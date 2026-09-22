@@ -1,0 +1,35 @@
+byteverify SELFCHECK=1  /tmp/…/lawx vs /tmp/…/pris  (both corpora in one workdir pair)
+databases: patched=2568 pristine=2568   PATH_SETS_IDENTICAL
+MOVERS: 6 / 2568      SELFCHECK: 2567 / 2568 flagged
+
+each mover attributed ORDER-BLIND (path-normalised, sorted dumps):
+  default_MiniAmiq-544c7f61  sorted-diff-lines=4  vpiSize/Typespec/ConstType lines=0
+     >       |UINT:1530
+     <       |UINT:841
+     >       |vpiDecompile:1530
+     <       |vpiDecompile:841
+  default_Scoreboard-59431470  sorted-diff-lines=0  vpiSize/Typespec/ConstType lines=0
+  default_SeqDriver-32af76aa  sorted-diff-lines=4  vpiSize/Typespec/ConstType lines=0
+     <       |UINT:1418
+     >       |UINT:588
+     <       |vpiDecompile:1418
+     >       |vpiDecompile:588
+  default_SimpleUVM-1dc93a62  sorted-diff-lines=4  vpiSize/Typespec/ConstType lines=0
+     <       |UINT:0
+     >       |UINT:1150
+     <       |vpiDecompile:0
+     >       |vpiDecompile:1150
+  testflags_MiniAmiq-544c7f61  sorted-diff-lines=4  vpiSize/Typespec/ConstType lines=0
+     <       |UINT:1492
+     >       |UINT:779
+     <       |vpiDecompile:1492
+     >       |vpiDecompile:779
+  testflags_SeqDriver-32af76aa  sorted-diff-lines=4  vpiSize/Typespec/ConstType lines=0
+     >       |UINT:0
+     <       |UINT:1008
+     >       |vpiDecompile:0
+     <       |vpiDecompile:1008
+
+COIN POSITIVE CONTROL — the PRISTINE binary alone, five runs of MiniAmiq/default's
+own invocation in one directory writing one name:
+  ad03e4e81c67  cc56fc83ee7e  9035764ad630  44edca8d1f8f  eb9145a353a2   distinct=5

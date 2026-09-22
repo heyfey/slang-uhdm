@@ -1,0 +1,35 @@
+ARM r10uvm185repro/grid185/g185_e_kinds.sv prc=0 lrc=0 DIFFERS
+ARM r11u86repro/grid/m2_enc86.sv prc=0 lrc=0 DIFFERS
+ARM r11v86repro/grid/z1_decl86.sv prc=0 lrc=0 DIFFERS
+ARM r11v86repro/grid/z6_sign86.sv prc=0 lrc=0 DIFFERS
+ARM r11v86repro/grid/z7_trunc86.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y1_sgnd87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y2_face87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y3_home87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y4_size87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y5_ovr87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y6_ovw87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y7_msc87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y8_nob87.sv prc=0 lrc=0 DIFFERS
+
+--- per mover, on path-normalised SORTED dumps:
+    DEL = deleted lines, DEL-not-size = deleted lines that are not a vpiSize: line,
+    ADD-not-typespec-subtree = added lines outside the size / added-typespec subtree
+  r11u86repro/grid/m2_enc86.sv     DEL=2  DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11v86repro/grid/z1_decl86.sv    DEL=13 DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11v86repro/grid/z6_sign86.sv    DEL=1  DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11v86repro/grid/z7_trunc86.sv   DEL=15 DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11u87repro/grid/y1_sgnd87.sv    DEL=13 DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11u87repro/grid/y2_face87.sv    DEL=3  DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11u87repro/grid/y3_home87.sv    DEL=7  DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11u87repro/grid/y4_size87.sv    DEL=7  DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11u87repro/grid/y5_ovr87.sv     DEL=12 DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11u87repro/grid/y6_ovw87.sv     DEL=7  DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11u87repro/grid/y7_msc87.sv     DEL=3  DEL-not-size=0  ADD-not-typespec-subtree=0
+  r11u87repro/grid/y8_nob87.sv     DEL=3  DEL-not-size=0  ADD-not-typespec-subtree=0
+
+  r10uvm185repro/grid185/g185_e_kinds.sv — NOT OURS: an address-derived UINT
+    range bound, 23228761 -> 23232857 (+4096, one page; image 23176744 -> 23185128 B).
+    16 KB-PAD POSITIVE CONTROL: a PRISTINE build + volatile char pad[16384] and NO
+    law code (md5 7a0565097dc1a23e928a596f22ef9b68, image 23193168 B) moves the same
+    arm to UINT:23245145 — +16384, exactly the pad.

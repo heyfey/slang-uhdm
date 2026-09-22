@@ -1,0 +1,396 @@
+##### z1_decl86   GOLDEN | PRISTINE | LAW
+TOPMOD Z op75 n=8|TOPMOD Z op75 n=8|TOPMOD Z op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [2] sz=8 ct=7 v=INT:5 d=5 ts=-|   [2] sz=8 ct=7 v=INT:5 d=5 ts=-|   [2] sz=8 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=-|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [7] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [7] sz=16 ct=9 v=UINT:5 d=5 ts=-
+TOPMOD Z2 op75 n=8|TOPMOD Z2 op75 n=8|TOPMOD Z2 op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [2] sz=8 ct=7 v=INT:5 d=5 ts=-|   [2] sz=8 ct=7 v=INT:5 d=5 ts=-|   [2] sz=8 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=-|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [7] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [7] sz=16 ct=9 v=UINT:5 d=5 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-
+##### z6_sign86   GOLDEN | PRISTINE | LAW
+TOPMOD Z op75 n=8|TOPMOD Z op75 n=8|TOPMOD Z op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/S|   [1] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=16 ct=7 v=INT:7 d=7 ts=-|   [4] sz=16 ct=7 v=INT:7 d=7 ts=int_typespec/S|   [4] sz=16 ct=7 v=INT:7 d=7 ts=int_typespec/S
+   [5] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [5] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [6] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [6] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [6] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [7] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=16 ct=9 v=UINT:15 d=15 ts=-
+TOPMOD Z2 op75 n=8|TOPMOD Z2 op75 n=8|TOPMOD Z2 op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:17 d=17 ts=-|   [1] sz=16 ct=7 v=INT:17 d=17 ts=-|   [1] sz=16 ct=7 v=INT:17 d=17 ts=-
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=logic_typespec/S|   [3] sz=64 ct=9 v=UINT:5 d= ts=-|   [3] sz=64 ct=9 v=UINT:5 d= ts=-
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [5] sz=16 ct=7 v=INT:15 d=15 ts=logic_typespec/S|   [5] sz=64 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=64 ct=9 v=UINT:15 d=15 ts=-
+   [6] sz=16 ct=7 v=INT:17 d=17 ts=-|   [6] sz=16 ct=7 v=INT:17 d=17 ts=-|   [6] sz=16 ct=7 v=INT:17 d=17 ts=-
+   [7] sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/S|   [7] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [7] sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/S|   [1] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=16 ct=7 v=INT:7 d=7 ts=-|   [4] sz=16 ct=7 v=INT:7 d=7 ts=int_typespec/S|   [4] sz=16 ct=7 v=INT:7 d=7 ts=int_typespec/S
+   [5] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [5] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [6] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [6] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [6] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [7] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=16 ct=9 v=UINT:15 d=15 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:17 d=17 ts=-|   [1] sz=16 ct=7 v=INT:17 d=17 ts=-|   [1] sz=16 ct=7 v=INT:17 d=17 ts=-
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=logic_typespec/S|   [3] sz=64 ct=9 v=UINT:5 d= ts=-|   [3] sz=64 ct=9 v=UINT:5 d= ts=-
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [5] sz=16 ct=7 v=INT:15 d=15 ts=logic_typespec/S|   [5] sz=64 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=64 ct=9 v=UINT:15 d=15 ts=-
+   [6] sz=16 ct=7 v=INT:17 d=17 ts=-|   [6] sz=16 ct=7 v=INT:17 d=17 ts=-|   [6] sz=16 ct=7 v=INT:17 d=17 ts=-
+   [7] sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/S|   [7] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [7] sz=16 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+##### z7_trunc86   GOLDEN | PRISTINE | LAW
+TOPMOD Z op75 n=8|TOPMOD Z op75 n=8|TOPMOD Z op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:300 d=300 ts=-|   [1] sz=8 ct=7 v=INT:300 d=300 ts=-|   [1] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [2] sz=16 ct=7 v=INT:300 d=300 ts=-|   [2] sz=4 ct=7 v=INT:300 d=300 ts=-|   [2] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [3] sz=16 ct=7 v=INT:300 d=300 ts=-|   [3] sz=8 ct=7 v=INT:300 d=300 ts=-|   [3] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [4] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [4] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [4] sz=8 ct=9 v=UINT:511 d=511 ts=-
+   [5] sz=4 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=4 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=4 ct=9 v=UINT:15 d=15 ts=-
+   [6] sz=32 ct=7 v=INT:70000 d=70000 ts=-|   [6] sz=16 ct=7 v=INT:70000 d=70000 ts=-|   [6] sz=32 ct=7 v=INT:70000 d=70000 ts=-
+   [7] sz=8 ct=7 v=INT:200 d=200 ts=-|   [7] sz=8 ct=7 v=INT:200 d=200 ts=-|   [7] sz=8 ct=7 v=INT:200 d=200 ts=-
+TOPMOD Z2 op75 n=8|TOPMOD Z2 op75 n=8|TOPMOD Z2 op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:300 d=300 ts=-|   [1] sz=8 ct=7 v=INT:300 d=300 ts=-|   [1] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [2] sz=16 ct=7 v=INT:300 d=300 ts=-|   [2] sz=8 ct=7 v=INT:300 d=300 ts=-|   [2] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [3] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [3] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [3] sz=8 ct=9 v=UINT:511 d=511 ts=-
+   [4] sz=32 ct=7 v=INT:70000 d=70000 ts=-|   [4] sz=16 ct=7 v=INT:70000 d=70000 ts=-|   [4] sz=32 ct=7 v=INT:70000 d=70000 ts=-
+   [5] sz=16 ct=7 v=INT:300 d=300 ts=-|   [5] sz=4 ct=7 v=INT:300 d=300 ts=-|   [5] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [6] sz=16 ct=7 v=INT:300 d=300 ts=-|   [6] sz=8 ct=7 v=INT:300 d=300 ts=-|   [6] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [7] sz=4 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=4 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=4 ct=9 v=UINT:15 d=15 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:300 d=300 ts=-|   [1] sz=8 ct=7 v=INT:300 d=300 ts=-|   [1] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [2] sz=16 ct=7 v=INT:300 d=300 ts=-|   [2] sz=4 ct=7 v=INT:300 d=300 ts=-|   [2] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [3] sz=16 ct=7 v=INT:300 d=300 ts=-|   [3] sz=8 ct=7 v=INT:300 d=300 ts=-|   [3] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [4] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [4] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [4] sz=8 ct=9 v=UINT:511 d=511 ts=-
+   [5] sz=4 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=4 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=4 ct=9 v=UINT:15 d=15 ts=-
+   [6] sz=32 ct=7 v=INT:70000 d=70000 ts=-|   [6] sz=16 ct=7 v=INT:70000 d=70000 ts=-|   [6] sz=32 ct=7 v=INT:70000 d=70000 ts=-
+   [7] sz=8 ct=7 v=INT:200 d=200 ts=-|   [7] sz=8 ct=7 v=INT:200 d=200 ts=-|   [7] sz=8 ct=7 v=INT:200 d=200 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:300 d=300 ts=-|   [1] sz=8 ct=7 v=INT:300 d=300 ts=-|   [1] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [2] sz=16 ct=7 v=INT:300 d=300 ts=-|   [2] sz=8 ct=7 v=INT:300 d=300 ts=-|   [2] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [3] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [3] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [3] sz=8 ct=9 v=UINT:511 d=511 ts=-
+   [4] sz=32 ct=7 v=INT:70000 d=70000 ts=-|   [4] sz=16 ct=7 v=INT:70000 d=70000 ts=-|   [4] sz=32 ct=7 v=INT:70000 d=70000 ts=-
+   [5] sz=16 ct=7 v=INT:300 d=300 ts=-|   [5] sz=4 ct=7 v=INT:300 d=300 ts=-|   [5] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [6] sz=16 ct=7 v=INT:300 d=300 ts=-|   [6] sz=8 ct=7 v=INT:300 d=300 ts=-|   [6] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [7] sz=4 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=4 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=4 ct=9 v=UINT:15 d=15 ts=-
+##### y1_sgnd87   GOLDEN | PRISTINE | LAW
+TOPMOD A op75 n=8|TOPMOD A op75 n=8|TOPMOD A op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD B op75 n=8|TOPMOD B op75 n=8|TOPMOD B op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [3] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [3] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [3] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [4] sz=8 ct=7 v=INT:5 d=5 ts=-|   [4] sz=8 ct=7 v=INT:5 d=5 ts=-|   [4] sz=8 ct=7 v=INT:5 d=5 ts=-
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=64 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD C op75 n=8|TOPMOD C op75 n=8|TOPMOD C op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [4] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [4] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [7] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [3] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [3] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [3] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [4] sz=8 ct=7 v=INT:5 d=5 ts=-|   [4] sz=8 ct=7 v=INT:5 d=5 ts=-|   [4] sz=8 ct=7 v=INT:5 d=5 ts=-
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=64 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [4] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [4] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [7] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+##### y3_home87   GOLDEN | PRISTINE | LAW
+TOPMOD P op75 n=8|TOPMOD P op75 n=8|TOPMOD P op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [4] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [4] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [4] sz=32 ct=9 v=UINT:15 d=15 ts=-
+   [5] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=16 ct=9 v=UINT:15 d=15 ts=-
+   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD M op75 n=8|TOPMOD M op75 n=8|TOPMOD M op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [7] sz=32 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [4] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [4] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [4] sz=32 ct=9 v=UINT:15 d=15 ts=-
+   [5] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=16 ct=9 v=UINT:15 d=15 ts=-
+   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=16 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [7] sz=32 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+##### y4_size87   GOLDEN | PRISTINE | LAW
+TOPMOD A op75 n=8|TOPMOD A op75 n=8|TOPMOD A op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=8 ct=7 v=INT:5 d=5 ts=-|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=8 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=4 ct=7 v=INT:5 d=5 ts=-|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [4] sz=-1 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=-1 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [5] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [6] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [6] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [6] sz=8 ct=9 v=UINT:511 d=511 ts=-
+   [7] sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/S|   [7] sz=32 ct=9 v=UINT:5 d=5 ts=-|   [7] sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+TOPMOD B op75 n=8|TOPMOD B op75 n=8|TOPMOD B op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=96 ct=7 v=INT:12 d=12 ts=-|   [1] sz=96 ct=1 v=DEC:12 d=96'd12 ts=-|   [1] sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+   [2] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:300 d=300 ts=-|   [3] sz=8 ct=7 v=INT:300 d=300 ts=-|   [3] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [4] sz=32 ct=7 v=INT:70000 d=70000 ts=-|   [4] sz=16 ct=7 v=INT:70000 d=70000 ts=-|   [4] sz=32 ct=7 v=INT:70000 d=70000 ts=-
+   [5] sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=4 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [7] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=8 ct=7 v=INT:5 d=5 ts=-|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=8 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=4 ct=7 v=INT:5 d=5 ts=-|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [4] sz=-1 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=-1 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [5] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [5] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [6] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [6] sz=8 ct=9 v=UINT:511 d=511 ts=-|   [6] sz=8 ct=9 v=UINT:511 d=511 ts=-
+   [7] sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/S|   [7] sz=32 ct=9 v=UINT:5 d=5 ts=-|   [7] sz=32 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=96 ct=7 v=INT:12 d=12 ts=-|   [1] sz=96 ct=1 v=DEC:12 d=96'd12 ts=-|   [1] sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+   [2] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:300 d=300 ts=-|   [3] sz=8 ct=7 v=INT:300 d=300 ts=-|   [3] sz=16 ct=7 v=INT:300 d=300 ts=-
+   [4] sz=32 ct=7 v=INT:70000 d=70000 ts=-|   [4] sz=16 ct=7 v=INT:70000 d=70000 ts=-|   [4] sz=32 ct=7 v=INT:70000 d=70000 ts=-
+   [5] sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=4 ct=7 v=INT:5 d=5 ts=-|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [7] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [7] sz=32 ct=9 v=UINT:15 d=15 ts=-|   [7] sz=32 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+##### y5_ovr87   GOLDEN | PRISTINE | LAW
+TOPMOD A op75 n=8|TOPMOD A op75 n=8|TOPMOD A op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [2] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [5] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] sz=32 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=32 ct=7 v=INT:5 d=5 ts=-
+TOPMOD B op75 n=8|TOPMOD B op75 n=8|TOPMOD B op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:9 d=9 ts=-|   [1] sz=32 ct=7 v=INT:9 d=9 ts=-|   [1] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [2] sz=16 ct=7 v=INT:9 d=9 ts=-|   [2] sz=32 ct=7 v=INT:9 d=9 ts=-|   [2] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [3] sz=16 ct=7 v=INT:9 d=9 ts=-|   [3] sz=32 ct=7 v=INT:9 d=9 ts=-|   [3] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [4] sz=16 ct=7 v=INT:9 d=9 ts=-|   [4] sz=32 ct=7 v=INT:9 d=9 ts=-|   [4] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [5] sz=16 ct=7 v=INT:9 d=9 ts=-|   [5] sz=32 ct=7 v=INT:9 d=9 ts=-|   [5] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [6] sz=16 ct=7 v=INT:9 d=9 ts=-|   [6] sz=32 ct=7 v=INT:9 d=9 ts=-|   [6] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [7] sz=16 ct=7 v=INT:9 d=9 ts=-|   [7] sz=32 ct=7 v=INT:9 d=9 ts=-|   [7] sz=32 ct=7 v=INT:9 d=9 ts=-
+TOPMOD B op75 n=8|TOPMOD B op75 n=8|TOPMOD B op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [7] sz=32 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=-|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [2] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=32 ct=7 v=INT:5 d=5 ts=-|   [2] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=32 ct=7 v=INT:5 d=5 ts=-|   [4] sz=16 ct=7 v=INT:5 d=5 ts=-|   [4] sz=32 ct=7 v=INT:5 d=5 ts=-
+   [5] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [6] sz=32 ct=7 v=INT:5 d=5 ts=-|   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [7] sz=32 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=-|   [7] sz=32 ct=7 v=INT:5 d=5 ts=-
+TOPIFC I op75 n=8|TOPIFC I op75 n=8|TOPIFC I op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:5 d=5 ts=-|   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [4] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [4] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [4] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [6] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [6] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [7] sz=32 ct=7 v=INT:5 d=5 ts=-|   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+TOPGEN G op75 n=8||
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-||
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S||
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S||
+   [3] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S||
+   [4] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S||
+   [5] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S||
+   [6] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S||
+   [7] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S||
+##### y6_ovw87   GOLDEN | PRISTINE | LAW
+TOPMOD B op75 n=8|TOPMOD B op75 n=8|TOPMOD B op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=32 ct=7 v=INT:9 d=9 ts=-|   [1] sz=32 ct=7 v=INT:9 d=9 ts=-|   [1] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [2] sz=16 ct=9 v=UINT:17 d=17 ts=-|   [2] sz=32 ct=9 v=UINT:17 d=17 ts=-|   [2] sz=32 ct=9 v=UINT:17 d=17 ts=-
+   [3] sz=64 ct=9 v=UINT:9 d=9 ts=-|   [3] sz=32 ct=9 v=UINT:9 d=9 ts=-|   [3] sz=32 ct=9 v=UINT:9 d=9 ts=-
+   [4] sz=8 ct=7 v=INT:3 d=3 ts=-|   [4] sz=16 ct=7 v=INT:3 d=3 ts=-|   [4] sz=16 ct=7 v=INT:3 d=3 ts=-
+   [5] sz=32 ct=7 v=INT:9 d=9 ts=-|   [5] sz=32 ct=7 v=INT:9 d=9 ts=-|   [5] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [6] sz=16 ct=9 v=UINT:17 d=17 ts=-|   [6] sz=32 ct=9 v=UINT:17 d=17 ts=-|   [6] sz=32 ct=9 v=UINT:17 d=17 ts=-
+   [7] sz=8 ct=7 v=INT:3 d=3 ts=-|   [7] sz=16 ct=7 v=INT:3 d=3 ts=-|   [7] sz=16 ct=7 v=INT:3 d=3 ts=-
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=32 ct=7 v=INT:9 d=9 ts=-|   [1] sz=32 ct=7 v=INT:9 d=9 ts=-|   [1] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [2] sz=16 ct=9 v=UINT:17 d=17 ts=-|   [2] sz=32 ct=9 v=UINT:17 d=17 ts=-|   [2] sz=32 ct=9 v=UINT:17 d=17 ts=-
+   [3] sz=64 ct=9 v=UINT:9 d=9 ts=-|   [3] sz=32 ct=9 v=UINT:9 d=9 ts=-|   [3] sz=32 ct=9 v=UINT:9 d=9 ts=-
+   [4] sz=8 ct=7 v=INT:3 d=3 ts=-|   [4] sz=16 ct=7 v=INT:3 d=3 ts=-|   [4] sz=16 ct=7 v=INT:3 d=3 ts=-
+   [5] sz=32 ct=7 v=INT:9 d=9 ts=-|   [5] sz=32 ct=7 v=INT:9 d=9 ts=-|   [5] sz=32 ct=7 v=INT:9 d=9 ts=-
+   [6] sz=16 ct=9 v=UINT:17 d=17 ts=-|   [6] sz=32 ct=9 v=UINT:17 d=17 ts=-|   [6] sz=32 ct=9 v=UINT:17 d=17 ts=-
+   [7] sz=8 ct=7 v=INT:3 d=3 ts=-|   [7] sz=16 ct=7 v=INT:3 d=3 ts=-|   [7] sz=16 ct=7 v=INT:3 d=3 ts=-
+TOPMOD B op75 n=8|TOPMOD B op75 n=8|TOPMOD B op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S|   [2] sz=32 ct=9 v=UINT:7 d=7 ts=-|   [2] sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:4 d=4 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:4 d=4 ts=-|   [3] sz=16 ct=7 v=INT:4 d=4 ts=int_typespec/S
+   [4] sz=16 ct=7 v=INT:1 d=1 ts=int_typespec/S|   [4] sz=16 ct=7 v=INT:1 d=1 ts=-|   [4] sz=16 ct=7 v=INT:1 d=1 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S|   [6] sz=32 ct=9 v=UINT:7 d=7 ts=-|   [6] sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   [7] sz=16 ct=7 v=INT:1 d=1 ts=int_typespec/S|   [7] sz=16 ct=7 v=INT:1 d=1 ts=-|   [7] sz=16 ct=7 v=INT:1 d=1 ts=int_typespec/S
+TOPMOD R op75 n=8|TOPMOD R op75 n=8|TOPMOD R op75 n=8
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S|   [2] sz=32 ct=9 v=UINT:7 d=7 ts=-|   [2] sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   [3] sz=16 ct=7 v=INT:4 d=4 ts=int_typespec/S|   [3] sz=32 ct=7 v=INT:4 d=4 ts=-|   [3] sz=16 ct=7 v=INT:4 d=4 ts=int_typespec/S
+   [4] sz=16 ct=7 v=INT:1 d=1 ts=int_typespec/S|   [4] sz=16 ct=7 v=INT:1 d=1 ts=-|   [4] sz=16 ct=7 v=INT:1 d=1 ts=int_typespec/S
+   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [5] sz=32 ct=7 v=INT:5 d=5 ts=-|   [5] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [6] sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S|   [6] sz=32 ct=9 v=UINT:7 d=7 ts=-|   [6] sz=32 ct=9 v=UINT:7 d=7 ts=int_typespec/S
+   [7] sz=16 ct=7 v=INT:1 d=1 ts=int_typespec/S|   [7] sz=16 ct=7 v=INT:1 d=1 ts=-|   [7] sz=16 ct=7 v=INT:1 d=1 ts=int_typespec/S
+##### y8_nob87   GOLDEN | PRISTINE | LAW
+TOPMOD N op75 n=3|TOPMOD N op75 n=3|TOPMOD N op75 n=3
+   [0] sz=24 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [0] sz=24 ct=7 v=INT:5 d=5 ts=-|   [0] sz=24 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [1] sz=24 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [1] sz=24 ct=9 v=UINT:15 d=15 ts=-|   [1] sz=24 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [2] sz=24 ct=7 v=INT:5 d=5 ts=-|   [2] sz=24 ct=7 v=INT:5 d=5 ts=-|   [2] sz=24 ct=7 v=INT:5 d=5 ts=-
+TOPMOD D op75 n=3|TOPMOD D op75 n=3|TOPMOD D op75 n=3
+   [0] sz=24 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [0] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-|   [0] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+   [1] sz=24 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-|   [1] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+   [2] sz=24 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [2] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-|   [2] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD B op75 n=3|TOPMOD B op75 n=3|TOPMOD B op75 n=3
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+TOPMOD R op75 n=3|TOPMOD R op75 n=3|TOPMOD R op75 n=3
+   [0] sz=24 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [0] sz=24 ct=7 v=INT:5 d=5 ts=-|   [0] sz=24 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [1] sz=24 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [1] sz=24 ct=9 v=UINT:15 d=15 ts=-|   [1] sz=24 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+   [2] sz=24 ct=7 v=INT:5 d=5 ts=-|   [2] sz=24 ct=7 v=INT:5 d=5 ts=-|   [2] sz=24 ct=7 v=INT:5 d=5 ts=-
+TOPMOD R op75 n=3|TOPMOD R op75 n=3|TOPMOD R op75 n=3
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S|   [1] sz=32 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=-|   [2] sz=16 ct=9 v=UINT:15 d=15 ts=int_typespec/S
+##### m4_ctx86   GOLDEN | PRISTINE | LAW
+TOPMOD PDEF op75 n=4|TOPMOD PDEF op75 n=4|TOPMOD PDEF op75 n=4
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=64 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-
+TOPMOD LP op75 n=4|TOPMOD LP op75 n=4|TOPMOD LP op75 n=4
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=64 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-
+TOPMOD LM op75 n=4|TOPMOD LM op75 n=4|TOPMOD LM op75 n=4
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-
+TOPMOD NP op75 n=2|TOPMOD NP op75 n=2|TOPMOD NP op75 n=2
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] operation|   [1] operation|   [1] operation
+TOPMOD DFLT op75 n=4|TOPMOD DFLT op75 n=4|TOPMOD DFLT op75 n=4
+   [0] sz=24 ct=7 v=INT:5 d=5 ts=-|   [0] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-|   [0] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+   [1] sz=24 ct=7 v=INT:5 d=5 ts=-|   [1] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-|   [1] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+   [2] sz=24 ct=7 v=INT:5 d=5 ts=-|   [2] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-|   [2] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+   [3] sz=24 ct=7 v=INT:5 d=5 ts=-|   [3] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-|   [3] sz=24 ct=1 v=DEC:5 d=16'd5 ts=-
+TOPMOD AR op75 n=3|TOPMOD AR op75 n=3|TOPMOD AR op75 n=3
+   [0] sz=24 ct=9 v=UINT:5 d=5 ts=-|   [0] sz=32 ct=9 v=UINT:5 d=5 ts=-|   [0] sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [1] sz=24 ct=7 v=INT:5 d=5 ts=-|   [1] sz=16 ct=1 v=DEC:5 d=16'd5 ts=-|   [1] sz=16 ct=1 v=DEC:5 d=16'd5 ts=-
+   [2] sz=24 ct=9 v=UINT:5 d=5 ts=-|   [2] sz=16 ct=4 v=OCT:5 d=16'o5 ts=-|   [2] sz=16 ct=4 v=OCT:5 d=16'o5 ts=-
+TOPMOD R op75 n=4|TOPMOD R op75 n=4|TOPMOD R op75 n=4
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-|   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-
+   [1] sz=64 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-|   [1] sz=32 ct=9 v=UINT:5 d=5 ts=-
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-|   [2] sz=16 ct=7 v=INT:5 d=5 ts=-
+   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-|   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-
+TOPMOD R op75 n=4||
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-||
+   [1] sz=64 ct=9 v=UINT:5 d=5 ts=-||
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-||
+   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-||
+TOPGEN GP op75 n=4||
+   [0] sz=24 ct=5 v=HEX:xA d=8'hxA ts=-||
+   [1] sz=64 ct=9 v=UINT:5 d=5 ts=-||
+   [2] sz=16 ct=7 v=INT:5 d=5 ts=-||
+   [3] sz=16 ct=9 v=UINT:5 d=5 ts=-||

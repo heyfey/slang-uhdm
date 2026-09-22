@@ -16029,8 +16029,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // so there is no bail to model.
                     while (opSet68.size() < opnds->size())
                         opSet68.push_back(pend68);
+                    // HOISTED for § modHopStoreSizeIsTheLiteral87 (r11u87),
+                    // which needs the SAME bail index: the operands the
+                    // producer's stamp reached carry the MEMBER width, and
+                    // only the ones past the bail carry the store's own.
+                    int bail68 = -1;
                     if (!ifaceArrayDefFold) {
-                        int bail68 = -1;
                         auto dec68 =
                             [](const slang::SVInt& iv) -> std::string {
                             if (iv.isSigned()) {
@@ -16591,6 +16595,216 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 c86->VpiValue("UINT:" + d86);
                                 c86->VpiDecompile(d86);
                             }
+                        }
+                    // § modHopSignedStoreTs87 (r11u87) — THE SAME MINT'S OTHER
+                    // WRITE: A SIGNED STORE CARRIES A BARE SIGNED
+                    // `int_typespec`.
+                    //
+                    // The block § modPatHopValueStoreEnc86 quotes has a fifth
+                    // line the landed law did not take
+                    // (`CompileExpression.cpp:3032-3040`):
+                    //
+                    //   if (sval->isSigned()) {
+                    //     int_typespec *ts = s.MakeInt_typespec();
+                    //     ts->VpiSigned(true);
+                    //     ref_typespec *rt = s.MakeRef_typespec();
+                    //     rt->VpiParent(c); rt->Actual_typespec(ts);
+                    //     c->Typespec(rt);
+                    //   }
+                    //
+                    // — a BARE signed `int_typespec`, no name and no ranges,
+                    // whatever kind the declaration's own typespec had.  WHICH
+                    // stores answer `isSigned()` is decoded line by line in the
+                    // § block beside `red87StoreSigned87`; the one-line version
+                    // is that only `DesignElaboration.cpp:2585`'s `valueRange`
+                    // ever sets it, only for a MODULE/generate-homed and
+                    // NOT-OVERRIDDEN parameter, and only off an
+                    // `int_typespec` / `logic_typespec` / `bit_typespec` that
+                    // is signed.
+                    //
+                    // MEASURED, arms `y1_sgnd87` (sixteen declarations),
+                    // `y3_home87` (the package twins), `y5_ovr87` and
+                    // `y6_ovw87` (one module instantiated overridden AND left
+                    // at its default), plus the landed `z1_decl86` / `z6_sign86`
+                    // this pass re-ran — real Surelog v1.87, `slrc=0 ourrc=0
+                    // slerr=0` on every one:
+                    //
+                    //   hop declaration           golden   ours (pristine)
+                    //   int / int signed          /S       none
+                    //   signed [15:0] / signed    /S       none
+                    //   logic|reg signed [15:0]   /S       none
+                    //   bit signed [15:0]         /S       none
+                    //   typedef of a signed vec   /S       none
+                    //   int unsigned              none     none  — EQUAL
+                    //   logic [15:0] / bit [15:0] none     none  — EQUAL
+                    //   byte / shortint           none     none  — EQUAL
+                    //   integer / longint         none     none  — EQUAL
+                    //   ANY package-homed hop     none     none  — EQUAL
+                    //   an OVERRIDDEN parameter   none     none  — EQUAL
+                    //
+                    // and the override row is the gate's own positive control:
+                    // `y6_ovw87` instantiates ONE module twice, `#(.P(32'd9))`
+                    // and bare, and golden writes the typespec on the second
+                    // and not on the first, the same declaration both times.
+                    //
+                    // THE GATES BESIDE THAT ONE.  The pattern's home
+                    // (`pkgPat81`, the inverse of § patternHomeIsAPackage81v —
+                    // a PACKAGE-written pattern is r11u81's ground and its
+                    // typespec is the CLONE's, ranges and all); the setter must
+                    // be a HOP spelled as a BARE NAME (`red87BareHop87`: a
+                    // literal written directly in the pattern is never the
+                    // store's, and a `signed'` cast over a `UINT:` hop mints
+                    // its OWN `logic_typespec` — `z6_sign86`'s two cells, the
+                    // one shape that made this law write a wrong KIND before
+                    // the gate); the producer's reduce must not refuse (where
+                    // golden keeps an operation there is no constant of
+                    // golden's to agree with); and the cell must hold one of
+                    // the six integral const types the store can render — the
+                    // `-1@7` unsized and `96@7` wide faces included, since the
+                    // module route has no word fence of its own.
+                    //
+                    // AND NO BAIL GATE.  The size law below writes only past
+                    // § patBailStopsMemberStamp68's bail, because the
+                    // producer's member stamp overwrites the store's WIDTH.
+                    // It does not overwrite the TYPESPEC: measured, `y8_nob87`
+                    // `N` — a pattern with NO bail at all — is golden the
+                    // member width `24` on every operand AND `int_typespec/S`
+                    // on the two signed hops.  Two fields, two rules.
+                    //
+                    // ONLY EVER ADDS: gated on the operand carrying NO
+                    // typespec, which is why the `16'sd5` hop (`m5_bnd86`
+                    // op10, `z6_sign86` `ZSD2`) — where our literal path has
+                    // already hung the literal's own signed `int_typespec` and
+                    // golden has one too — is left exactly as it was.
+                    if (!ifaceArrayDefFold && !pkgPat81)
+                        for (size_t i87 = 0; i87 < opnds->size(); i87++) {
+                            const Expression* sx87 =
+                                i87 < opSet68.size() ? opSet68[i87] : nullptr;
+                            auto* ob87 = (*opnds)[i87];
+                            if (!sx87 || !ob87 ||
+                                ob87->UhdmType() != UHDM::uhdmconstant)
+                                continue;
+                            auto* c87 = (UHDM::constant*)ob87;
+                            if (c87->Typespec())
+                                continue;
+                            const int32_t have87 = c87->VpiConstType();
+                            if (have87 != vpiDecConst && have87 != vpiOctConst &&
+                                have87 != vpiHexConst &&
+                                have87 != vpiBinaryConst &&
+                                have87 != vpiIntConst && have87 != vpiUIntConst)
+                                continue;
+                            const slang::ast::ParameterSymbol* hp87 =
+                                red87BareHop87(*sx87);
+                            if (!hp87)
+                                continue;
+                            {
+                                int64_t rf87 = 0;
+                                if (patAstRefuses68(*sx87) ||
+                                    red72Int64(*sx87, ectx, 0, rf87) !=
+                                        Red72::Value)
+                                    continue;
+                            }
+                            if (!red87StoreSigned87(*hp87))
+                                continue;
+                            auto* it87 = s.MakeInt_typespec();
+                            it87->VpiSigned(true);
+                            auto* rt87 = s.MakeRef_typespec();
+                            rt87->VpiParent(c87);
+                            rt87->Actual_typespec(it87);
+                            c87->Typespec(rt87);
+                        }
+                    // § modHopStoreSizeIsTheLiteral87 (r11u87) — AND THE SIZE
+                    // THE SAME STORE CARRIES.  r11u86's R0, the half of
+                    // r11v81's RV81-2 the landed law left open.
+                    //
+                    // `DesignElaboration.cpp:2578` takes the store's size off
+                    // the ELABORATED constant, and `adjustSize`
+                    // (`CompileHelper.cpp:4086-4088`) re-sizes that constant to
+                    // the declared type's width for every const type EXCEPT
+                    // `vpiDecConst`, which keeps the width the literal was
+                    // WRITTEN with.  The full decode and the chain face are in
+                    // the § block beside `red87StoreSize87`.
+                    //
+                    // MEASURED, arms `y4_size87` / `y5_ovr87` / `y1_sgnd87` /
+                    // `z7_trunc86` / `m2_enc86` (real Surelog v1.87, `slrc=0
+                    // ourrc=0 slerr=0`):
+                    //
+                    //   hop declaration / leaf       golden   ours (pristine)
+                    //   int          = 16'd5         16       32
+                    //   int          = 8'd5          8        32
+                    //   integer      = 16'd5         16       32
+                    //   longint      = 16'd5         16       64
+                    //   logic [3:0]  = 32'd5         32       4
+                    //   bit [7:0]    = 16'd300       16       8
+                    //   shortint     = 32'd70000     32       16
+                    //   [15:0]       = 32'd5         32       16
+                    //   int          = 'd5           -1       32
+                    //   (untyped)    = a 'd hop      the inner's   the outer's
+                    //   int          = 16'o17        32       32  — EQUAL
+                    //   bit [7:0]    = 16'o777       8        8   — EQUAL
+                    //   int YC2      = YC1 ('d)      32       32  — EQUAL
+                    //   any package-homed hop        Bits(ts) the same — EQUAL
+                    //   an OVERRIDDEN parameter      the override's — untouched
+                    //
+                    // THE MEMBER STAMP IS THE THIRD GATE, AND IT IS THE ONE
+                    // THAT CONVICTS.  § patBailStopsMemberStamp68 (r11u68):
+                    // `expandPatternAssignment` stamps the MEMBER width on
+                    // every operand and stops at the first one its reduce
+                    // refuses, so in a pattern with NO bail the store's width
+                    // is gone from every cell — `y8_nob87`'s `N` is golden
+                    // `24@7` on an `int` hop whose store is 16 wide, and
+                    // `z8_ctx86`'s `ZPK`/`ZAR` (no bail either) are golden `24`
+                    // where this law's first cut wrote `16`: five AWAY cells,
+                    // caught by the grid.  So the write rides the SAME bail
+                    // index the stamp does and starts one operand past it.
+                    // Every arm whose operand 0 is the usual unknown-digit
+                    // bail is therefore fully covered, and a bail-free pattern
+                    // is left exactly as our own member stamp wrote it.
+                    //
+                    // THE HOME GATE IS THE SECOND THAT COSTS.  A PACKAGE-homed
+                    // `localparam int PIN = 16'd5` is golden 32 — the
+                    // definition road (`CompileHelper.cpp:3754-3766`) sizes the
+                    // store by `Bits(ts)` for EVERY const type — and our
+                    // emission already writes 32 there, so writing the
+                    // literal's 16 would have been an AWAY cell on all eight
+                    // operands of `y3_home87`'s `P` section.  The OVERRIDE gate
+                    // is the second: `y6_ovw87`'s `#(.P(32'd9))` over a
+                    // `parameter int P = 16'd5` is golden 32, the OVERRIDE's
+                    // width, which is not a width this reader can name — so it
+                    // declines the whole shape rather than write the default's.
+                    if (!ifaceArrayDefFold && !pkgPat81 && bail68 >= 0)
+                        for (size_t j87 = (size_t)bail68 + 1;
+                             j87 < opnds->size(); j87++) {
+                            const Expression* sy87 =
+                                j87 < opSet68.size() ? opSet68[j87] : nullptr;
+                            auto* ob87 = (*opnds)[j87];
+                            if (!sy87 || !ob87 ||
+                                ob87->UhdmType() != UHDM::uhdmconstant)
+                                continue;
+                            auto* c87 = (UHDM::constant*)ob87;
+                            const int32_t have87 = c87->VpiConstType();
+                            if (have87 != vpiDecConst && have87 != vpiOctConst &&
+                                have87 != vpiHexConst &&
+                                have87 != vpiBinaryConst &&
+                                have87 != vpiIntConst && have87 != vpiUIntConst)
+                                continue;
+                            const slang::ast::ParameterSymbol* hq87 =
+                                red87BareHop87(*sy87);
+                            if (!hq87)
+                                continue;
+                            {
+                                int64_t rg87 = 0;
+                                if (patAstRefuses68(*sy87) ||
+                                    red72Int64(*sy87, ectx, 0, rg87) !=
+                                        Red72::Value)
+                                    continue;
+                            }
+                            bool dec87 = false;
+                            int32_t sz87 = 0;
+                            if (!red87StoreSize87(*hq87, 0, dec87, sz87))
+                                continue;
+                            if (sz87 != c87->VpiSize())
+                                c87->VpiSize(sz87);
                         }
                     op2->Operands(opnds);
                     rhs = op2;

@@ -8616,6 +8616,202 @@ inline const slang::ast::ParameterSymbol* red86HopName86(const Expression& e0,
     return &sy86.as<ParameterSymbol>();
 }
 
+/// § modHopSignedStoreTs87 / § modHopStoreSizeIsTheLiteral87 (r11u87) — WHERE
+/// THE MODULE ROUTE'S STORE IS BUILT, AND SO WHICH HOPS IT ANSWERS FOR.
+///
+/// `CompileExpression.cpp:2876`'s `instance->getValue(name)` is the ONE-ARG
+/// `ValuedComponentI::getValue` (`ValuedComponentI.cpp`), a plain lookup in
+/// the instance's own `m_paramMap`, then the DEFINITION's, then the parent
+/// scope's — never `ModuleInstance::getValue(name, exprBuilder)`, which takes
+/// two arguments.  The instance map is filled in ONE place,
+/// `DesignElaboration.cpp:2505-2646`:
+///
+///   * the loop is skipped for an OVERRIDDEN parameter (`overridenParams`,
+///     `:2510`), so an override's store is built elsewhere and never sees
+///     `valueRange`;
+///   * `value = fromVpiValue(c->VpiValue(), c->VpiSize())` (`:2578`) takes
+///     BOTH the store's type and its SIZE off the elaborated constant, and
+///     `ExprBuilder.cpp:978-1061` builds an `LValue` whose `m_signed` is
+///     FALSE for every sized value;
+///   * `valueRange(value, ts, cts ? cts : ts, …)` (`:2585`) then calls
+///     `val->setSigned(...)` with the `VpiSigned` of an `int_typespec`,
+///     `logic_typespec` or `bit_typespec` — and of NOTHING ELSE
+///     (`CompileHelper.cpp:5548-5583`), and only when the parameter HAS a
+///     typespec `ts`.
+///
+/// A PACKAGE/definition-homed parameter takes the other road,
+/// `CompileHelper.cpp:3754-3772`, which sizes the store by `Bits(ts)` for
+/// every const type and never calls `setSigned` at all.
+///
+/// So the store answers SIGNED exactly for a MODULE/generate-homed,
+/// NOT-OVERRIDDEN parameter whose DECLARED type is signed and is one of the
+/// three typespec kinds `valueRange` reads.  Measured against real Surelog
+/// v1.87 on `y1_sgnd87` / `y3_home87` / `y5_ovr87` / `y6_ovw87` (all
+/// `slrc=0 ourrc=0 slerr=0`), golden's operand typespec per declaration:
+///
+///   int / int signed / `signed [15:0]` / `signed`      int_typespec/S
+///   logic signed [15:0] / reg signed [15:0]            int_typespec/S
+///   bit signed [15:0] / a typedef of a signed vector   int_typespec/S
+///   int unsigned / logic [15:0] / bit [15:0] / [15:0]  NONE
+///   byte / shortint / integer / longint                NONE  (their own
+///                                                      typespec kinds are
+///                                                      not read)
+///   any PACKAGE-homed hop, bare or qualified           NONE
+///   an OVERRIDDEN `parameter int P`                    NONE, and the same
+///                                                      module left at its
+///                                                      default is /S
+///
+/// The mint itself (`CompileExpression.cpp:3032-3040`) always makes a BARE
+/// `int_typespec` with `VpiSigned(true)` and no ranges, whatever kind the
+/// declaration's own typespec was.
+/// § modHopSignedStoreTs87 / § modHopStoreSizeIsTheLiteral87 — THE SETTER
+/// SPELLED AS A BARE NAME, never through a signedness cast.
+///
+/// `red86HopName86` reads THROUGH `signed'`/`$signed`, because the landed
+/// encoding law measured that the cast hands the operand's own constant back.
+/// Its TYPESPEC does not always ride with it: over a `UINT:` operand
+/// `$signed` MINTS a fresh constant and attaches its OWN signed
+/// `logic_typespec` (`ExprEval.cpp:4763-4770`) — measured, `z6_sign86`
+/// `signed'(ZSO)` is golden `16@7 INT:5` with a `logic_typespec/S` where the
+/// hop's own mint is `16@9 UINT:15` with an `int_typespec/S`.  Both laws here
+/// therefore decline the cast face whole; it is r11u81's ground.
+inline const slang::ast::ParameterSymbol* red87BareHop87(const Expression& e0) {
+    const Expression& e87 = stripImplicitConv(e0);
+    if (e87.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& sy87 = e87.as<ValueExpressionBase>().symbol;
+    if (sy87.kind != SymbolKind::Parameter)
+        return nullptr;
+    return &sy87.as<ParameterSymbol>();
+}
+
+inline bool red87HopHomeIsInstance87(const slang::ast::ParameterSymbol& ps87) {
+    const slang::ast::Scope* sc87 = ps87.getParentScope();
+    if (!sc87)
+        return false;
+    const SymbolKind k87 = sc87->asSymbol().kind;
+    return k87 == SymbolKind::InstanceBody || k87 == SymbolKind::GenerateBlock;
+}
+
+/// § modHopSignedStoreTs87 — does the DECLARATION carry a type of its own?
+/// Surelog's `ts` is the parameter's own typespec; an implicit parameter with
+/// neither signing nor a packed dimension has none at all for a `'d` leaf, and
+/// for a based one it has a typespec SYNTHESIZED from the literal — whose
+/// signedness is the LITERAL's, which our own literal path has already
+/// written (r11u78), so this reader declines that whole shape.
+inline bool red87HopDeclaredType87(const slang::ast::ParameterSymbol& ps87) {
+    const slang::ast::DeclaredType* dt87 = ps87.getDeclaredType().get();
+    const slang::syntax::SyntaxNode* tsx87 =
+        dt87 ? dt87->getTypeSyntax() : nullptr;
+    if (!tsx87)
+        return false;
+    if (tsx87->kind != slang::syntax::SyntaxKind::ImplicitType)
+        return true;
+    auto& its87 = tsx87->as<slang::syntax::ImplicitTypeSyntax>();
+    return its87.signing.valid() || !its87.dimensions.empty();
+}
+
+/// § modHopSignedStoreTs87 — the truth table above, read off the declaration.
+inline bool red87StoreSigned87(const slang::ast::ParameterSymbol& ps87) {
+    if (ps87.isOverridden())
+        return false;
+    if (!red87HopHomeIsInstance87(ps87))
+        return false;
+    if (!red87HopDeclaredType87(ps87))
+        return false;
+    const slang::ast::Type& ty87 = ps87.getType().getCanonicalType();
+    if (!ty87.isSigned())
+        return false;
+    const slang::ast::Type* el87 = &ty87;
+    while (el87->kind == SymbolKind::PackedArrayType)
+        el87 = &el87->as<slang::ast::PackedArrayType>()
+                    .elementType.getCanonicalType();
+    // `logic` / `reg` / `bit` -> logic_typespec / bit_typespec, both read.
+    if (el87->kind == SymbolKind::ScalarType)
+        return true;
+    // Among the integer ATOMS only `int` is an `int_typespec`; `byte`,
+    // `shortint`, `integer`, `longint` and `time` have their own kinds and
+    // `valueRange`'s switch does not name them (measured: `byte`/`shortint`/
+    // `integer`/`longint` hops are golden ts=- although SystemVerilog calls
+    // the first three signed).
+    if (el87->kind == SymbolKind::PredefinedIntegerType)
+        return el87->as<slang::ast::PredefinedIntegerType>().integerKind ==
+               slang::ast::PredefinedIntegerType::Int;
+    return false;
+}
+
+/// § modHopStoreSizeIsTheLiteral87 (r11u87) — THE SIZE THE SAME STORE CARRIES.
+///
+/// `adjustSize` (`CompileHelper.cpp:4086-4088`) re-sizes the elaborated
+/// constant to `Bits(ts)` for every const type EXCEPT `vpiDecConst`, which
+/// keeps the width the literal was WRITTEN with; and
+/// `DesignElaboration.cpp:2578` then copies that width into the store.  So a
+/// `'d` leaf under a declared type is golden the LITERAL's width (`int ZIN =
+/// 16'd5` is golden `16`, `logic [3:0] YL32 = 32'd5` is golden `32`,
+/// `int YUN = 'd5` is golden `-1`) while an `'o`/`'h`/`'b` leaf is golden the
+/// DECLARED width, which is what our own emission already writes.
+///
+/// A hop over a hop is NOT the leaf's width: the inner hop is substituted by
+/// the MINT, whose const type is `INT:`/`UINT:` and never `DEC:`, so the outer
+/// hop's `adjustSize` DOES re-size it — `int YC2 = YC1` over `int YC1 = 16'd5`
+/// is golden `32`, and the same chain written without a declared type is
+/// golden the inner's `16`.  Returns false wherever the shape is not one of
+/// the three this reader can name, which leaves the emitted size untouched.
+inline bool red87StoreSize87(const slang::ast::ParameterSymbol& ps87,
+                             int depth87, bool& dec87, int32_t& sz87) {
+    if (depth87 > 8)
+        return false;
+    if (ps87.isOverridden())
+        return false;
+    if (!red87HopHomeIsInstance87(ps87))
+        return false;
+    const Expression* in87 = ps87.getInitializer();
+    if (!in87)
+        return false;
+    const Expression& e87 = stripImplicitConv(*in87);
+    bool pdec87 = false;
+    int32_t psz87 = 0;
+    if (const auto* v87 = red76VecSyntax(e87)) {
+        // ONLY the `'d` leaf.  An `'h` leaf under an IMPLICIT declaration is
+        // golden a width this reader cannot name — `localparam X = 4'h5` one
+        // hop up is golden `5`, not the literal's `4` (`a4_posmod81`, sixteen
+        // cells) — and every `'o`/`'h`/`'b` cell the grid measures already
+        // carries the width our own emission writes, so there is nothing to
+        // win by guessing.
+        if (red72LitBase(v87->base.rawText()) != 'd')
+            return false;
+        pdec87 = true;
+        psz87 = red81LitWrittenSize81(e87);
+        if (psz87 == 0)
+            return false;
+    }
+    else if (e87.kind == ExpressionKind::NamedValue) {
+        auto& sy87 = e87.as<ValueExpressionBase>().symbol;
+        if (sy87.kind != SymbolKind::Parameter)
+            return false;
+        bool idec87 = false;
+        int32_t isz87 = 0;
+        if (!red87StoreSize87(sy87.as<ParameterSymbol>(), depth87 + 1, idec87,
+                              isz87))
+            return false;
+        pdec87 = false;
+        psz87 = isz87;
+    }
+    else {
+        return false;
+    }
+    if (!red87HopDeclaredType87(ps87)) {
+        dec87 = pdec87;
+        sz87 = psz87;
+        return true;
+    }
+    if (!pdec87)
+        return false;
+    dec87 = true;
+    sz87 = psz87;
+    return true;
+}
+
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {
     const Expression& e = stripImplicitConv(e0);
     if (e.kind != ExpressionKind::NamedValue &&

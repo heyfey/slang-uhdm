@@ -1,0 +1,4 @@
+wide boundary, 4031 arms (every */grid/*.sv + every dut.sv / design.sv under tools/probe):
+  SAME    3975
+  DIFFERS 5   (four are this pass's cells; g185_e_kinds is the page-boundary artefact)
+  NODB    51  (50 x prc=3/lrc=3, 1 x prc=139/lrc=139 — the identical segfault; every NODB has prc == lrc)
