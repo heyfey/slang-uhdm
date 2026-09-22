@@ -1,0 +1,58 @@
+# v11u93 break grid (rrv93.sh on a copy of grid/): arm  pris-rc pris-cmplines | fixd-rc fixd-cmplines | NESTLIB_OFF cmplines | R11U101_OFF rc cmplines
+b01_sibnested           0    623  0  0    0    0    623
+b02_outerparamwidth     0    623  0  0    0    0    623
+b03_outertypedef        0    535  0  15   15   0    535
+b04_rv2explicit         0    622  0  0    0    0    622
+b05_rv2explicitported   139  NA   0  0    0    139  NA
+b06_rv2gen              139  NA   0  94   94   139  NA
+b07_rv2arr              139  NA   0  0    0    139  NA
+b08_outergenonly        0    372  0  0    0    0    372
+b09a_strength           0    568  0  0    0    0    568
+b09b_netdecl            0    509  0  0    0    0    509
+b09c_proc               0    666  0  0    0    0    666
+b09d_pkgstruct          0    698  0  15   15   0    698
+b09e_gen                0    587  0  0    0    0    587
+b10_inst1               0    484  0  0    0    0    484
+b10_inst2               0    604  0  0    0    0    604
+b10_inst3               0    724  0  0    0    0    724
+b11_shadowtopinst       0    814  0  0    0    0    814
+b12_shadowtopportless   0    458  0  458  458  0    458
+b13b_libouterportless   0    415  0  415  415  0    415
+b13c_librv2implicit     0    359  0  359  380  0    359
+b13d_librv2explicit     139  NA   0  0    0    139  NA
+b13e_libportedinst      0    0    0  0    0    0    0
+b13f_libmixed           0    0    0  0    786  0    0
+b13_libouter            0    0    0  0    449  0    0
+b14_rv2shadow3          0    562  0  616  616  0    562
+b15_bodyparamported     0    518  0  0    0    0    518
+b16_upref               0    442  0  0    0    0    442
+b18_rv2deep             0    424  0  0    0    0    424
+b19_rv2oneexplicit      0    750  0  0    0    0    750
+b20_outerarray          0    668  0  0    0    0    668
+b21_portedusesportless  0    490  0  0    0    0    490
+b22_ifaceinside         0    527  0  0    0    0    527
+b23_childparamnodef     0    519  0  75   75   0    519
+b24_leafshared          0    993  0  0    0    0    993
+b25_rv2toptwo           0    410  0  0    0    0    410
+b26b_toponly_top        0    364  0  0    0    0    364
+b26_toponly             0    462  0  0    0    0    462
+c09d_pkgstruct_genonly  0    15   0  15   15   0    15
+c09d_pkgstruct_inst     0    0    0  0    0    0    0
+
+# display-free sectioned distance (slot101.py distsec) pris / unguarded-law / fixd
+b13_libouter 0 49 0
+b13c_librv2implicit 17 34 17
+b13f_libmixed 0 92 0
+b13d_librv2explicit NA 0 0
+b14_rv2shadow3 66 18 18
+b12_shadowtopportless 18 18 18
+b03_outertypedef 77 3 3
+b09d_pkgstruct 99 1 1
+c09d_pkgstruct_genonly 1 NA NA
+b23_childparamnodef 115 19 19
+b06_rv2gen NA 51 51
+
+# slot101.py move (per slot): pris->unguarded law
+SLOT MOVED-WRONG=42 GAINED=1465 (arms=34, pris -> law)
+# pris->fixd
+SLOT MOVED-WRONG=0 GAINED=1465 (arms=34, pris -> fixd)

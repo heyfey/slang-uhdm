@@ -1,0 +1,7 @@
+# r11u101 PRISTINE-DATABASE PREDICTOR (ct101cen.cpp over every database of this pass's two PRISTINE sweeps, + 3 controls appended)
+# NESTDEF = a scoped (work@<outer>::<inner>) entry in design->AllModules: the published-nested population, LAW B's precondition
+NESTDEF <grid>/x09_rv2twoouters/ours.pris.uhdm work@amod::innermod
+NESTDEF <r11u99-grid>/w12_modinnernoclass/ours.pris.uhdm work@sub::innermod
+#DATABASES 2571 RESTORE_FAIL 0 WITH-NESTDEF 2
+# controls: x09_rv2twoouters (LAW B) hits, w12_modinnernoclass (pass-98 nested) hits; x01_nestport (LAW A) does NOT -- LAW A's
+# population is absent from a pristine database BY CONSTRUCTION (that is the bug), so it is predicted from SOURCE (CENSUS101.txt).

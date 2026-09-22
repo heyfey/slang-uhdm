@@ -1,0 +1,50 @@
+# r11u101 SURELOG BYTE MOVERS -- PREDICTED: NONE (CENSUS101 corpus zero, PREDICT101 corpus zero). Every one attributed.
+## order-blind (sorted, workdir-normalised) uhdm-dump diff, pristine vs law, per mover
+== default_MiniAmiq-544c7f61 dump-lines=1893061/1893061 order-blind-diff=4 module_inst/ref_module/class_defn/name lines among them: 0
+>       |UINT:1055
+<       |UINT:568
+>       |vpiDecompile:1055
+<       |vpiDecompile:568
+== default_SeqDriver-32af76aa dump-lines=1818750/1818750 order-blind-diff=4 module_inst/ref_module/class_defn/name lines among them: 0
+>       |UINT:0
+<       |UINT:542
+>       |vpiDecompile:0
+<       |vpiDecompile:542
+== default_SimpleUVM-1dc93a62 dump-lines=1113010/1113010 order-blind-diff=4 module_inst/ref_module/class_defn/name lines among them: 0
+>       |UINT:1115
+<       |UINT:1344
+>       |vpiDecompile:1115
+<       |vpiDecompile:1344
+== testflags_MiniAmiq-544c7f61 dump-lines=1893061/1893061 order-blind-diff=4 module_inst/ref_module/class_defn/name lines among them: 0
+>       |UINT:0
+<       |UINT:683
+>       |vpiDecompile:0
+<       |vpiDecompile:683
+== testflags_SeqDriver-32af76aa dump-lines=1818810/1818810 order-blind-diff=4 module_inst/ref_module/class_defn/name lines among them: 0
+<       |UINT:1244
+>       |UINT:638
+<       |vpiDecompile:1244
+>       |vpiDecompile:638
+## POSITIVE CONTROL: the SAME law binary, run twice more over the UVM family (verify_golden --filter, both modes; md5 prefixes)
+./default/BuildUVMPkg-bf853d43/slang.uhdm rep1=429a14a60924 rep2=429a14a60924 law-sweep=429a14a60924 pris-sweep=429a14a60924
+./default/MiniAmiq-544c7f61/slang.uhdm rep1=4baacc838e30 rep2=27419f6011b4 law-sweep=37b93f925dc4 pris-sweep=3dab741ac170
+./default/Scoreboard-59431470/slang.uhdm rep1=1621aec6c9f3 rep2=1621aec6c9f3 law-sweep=e70775324004 pris-sweep=e70775324004
+./default/SeqDriver-32af76aa/slang.uhdm rep1=2fb39f8b4130 rep2=2fb39f8b4130 law-sweep=2fb39f8b4130 pris-sweep=f5ff199dc851
+./default/SimpleUVM-1dc93a62/slang.uhdm rep1=0b3fc7dd7488 rep2=4c7ce5d01c6f law-sweep=6054713acd64 pris-sweep=a64c836f90cf
+./testflags/BuildUVMPkg-bf853d43/slang.uhdm rep1=429a14a60924 rep2=429a14a60924 law-sweep=429a14a60924 pris-sweep=429a14a60924
+./testflags/MiniAmiq-544c7f61/slang.uhdm rep1=9a944fa5a052 rep2=66f93123cc03 law-sweep=27419f6011b4 pris-sweep=5ad11b7b3e1e
+./testflags/SeqDriver-32af76aa/slang.uhdm rep1=cb5a175effd0 rep2=05df6c25a21b law-sweep=4d4bbed62636 pris-sweep=f845474095a9
+./testflags/SimpleUVM-1dc93a62/slang.uhdm rep1=5069002c5b65 rep2=5069002c5b65 law-sweep=5069002c5b65 pris-sweep=5069002c5b65
+## status of the family on both repeats (all seven conversion rows stay CMP_EQUAL; Scoreboard/testflags is SLANG_REJECT exactly as committed)
+name,mode,status
+BuildUVMPkg,default,CMP_EQUAL
+BuildUVMPkg,testflags,CMP_EQUAL
+MiniAmiq,default,CMP_EQUAL
+MiniAmiq,testflags,CMP_EQUAL
+Scoreboard,default,CMP_EQUAL
+Scoreboard,testflags,SLANG_REJECT
+SeqDriver,default,CMP_EQUAL
+SeqDriver,testflags,CMP_EQUAL
+SimpleUVM,default,CMP_EQUAL
+SimpleUVM,testflags,CMP_EQUAL
+BuildUVMPkg,default,CMP_EQUAL BuildUVMPkg,testflags,CMP_EQUAL MiniAmiq,default,CMP_EQUAL MiniAmiq,testflags,CMP_EQUAL Scoreboard,default,CMP_EQUAL Scoreboard,testflags,SLANG_REJECT SeqDriver,default,CMP_EQUAL SeqDriver,testflags,CMP_EQUAL SimpleUVM,default,CMP_EQUAL SimpleUVM,testflags,CMP_EQUAL

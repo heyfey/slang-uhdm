@@ -34,10 +34,66 @@ const slang::ast::DefinitionSymbol* nestOuterDef99(
     const slang::ast::DefinitionSymbol& def);
 int nestDepth99(const slang::ast::DefinitionSymbol& def);
 std::string defScopedName99(const slang::ast::DefinitionSymbol& def);
+bool implicitNestedInst99(const slang::ast::InstanceSymbol& child);
 static bool ifaceRootWidenOff99() {
     static const bool v = getenv("R11U99_IFACEROOT_OFF") != nullptr ||
                           getenv("R11U99_OFF") != nullptr;
     return v;
+}
+
+// r11u101's gates (LAW A § caNestedModPortedDefShell101, LAW B
+// § caNestedModDefKeyScoped101 — the decode is at their one site in
+// exportDesign).  `R11U101_OFF=1` drops both; `R11U101_NETDBG=1` is the
+// trace, OUTSIDE both gates.
+static bool nestPortOff101() {
+    static const bool v = getenv("R11U101_NESTPORT_OFF") != nullptr ||
+                          getenv("R11U101_OFF") != nullptr;
+    return v;
+}
+static bool nestKeyOff101() {
+    static const bool v = getenv("R11U101_NESTKEY_OFF") != nullptr ||
+                          getenv("R11U101_OFF") != nullptr;
+    return v;
+}
+// LAW B/A's SHADOW face on its own switch: a nested definition whose bare
+// name ALSO names a file-scope definition (r11u99's residue w19; the fenced
+// RV1 family lives on the ELABORATED side of the same shape and is not
+// touched — see the site).
+static bool nestShadowOff101() {
+    static const bool v = getenv("R11U101_NESTSHADOW_OFF") != nullptr ||
+                          getenv("R11U101_OFF") != nullptr;
+    return v;
+}
+static bool netDbg101() {
+    static const bool v = getenv("R11U101_NETDBG") != nullptr;
+    return v;
+}
+// v11u93 (verifier) § caNestedModLibUnusedNoDef101V — a nested definition
+// inside a LIBRARY unit (-v/-y) is published only through a WRITTEN instance.
+// Surelog's writer skips every library-file ModuleDefinition the design does
+// not use (`UhdmWriter.cpp:5111-5116`, `designComponents`), and a nested
+// module is "used" only when a written instantiation elaborates it (Surelog
+// never mints slang's implicit nested instance).  MEASURED: `-v lib.sv` with
+// `sub` holding a ported nested `innermod` is CMP_EQUAL on the base binary
+// and the unguarded LAW A published `work@sub::innermod` golden lacks.
+// `R11U101_NESTLIB_OFF=1` drops this guard alone.
+static bool nestLibOff101V() {
+    static const bool v = getenv("R11U101_NESTLIB_OFF") != nullptr;
+    return v;
+}
+// The outer's elaborated BODY a nested definition was declared in (the walk
+// `nestOuterDef99` makes, stopping at the same symbol), or null.
+static const InstanceBodySymbol* nestOuterBody101(const DefinitionSymbol& def) {
+    for (const Scope* sc = def.getParentScope(); sc;) {
+        auto& sym = sc->asSymbol();
+        if (sym.kind == SymbolKind::InstanceBody)
+            return &sym.as<InstanceBodySymbol>();
+        if (sym.kind != SymbolKind::GenerateBlock &&
+            sym.kind != SymbolKind::GenerateBlockArray)
+            return nullptr;
+        sc = sym.getParentScope();
+    }
+    return nullptr;
 }
 
 UhdmExporter::UhdmExporter(Compilation& compilation, UHDM::Serializer& serializer) :
@@ -4970,6 +5026,183 @@ UHDM::design* UhdmExporter::exportDesign() {
             rekey99.emplace(defScopedName99(d99), i99);
         }
         defs.swap(rekey99);
+    }
+
+    // ===== r11u101 LAW A + LAW B — every one-level nested module definition
+    // is published, whether or not slang instantiated it, and under its OWN
+    // scoped key =====
+    //
+    // Golden's road is the `paModule_declaration` case of
+    // `ResolveSymbols::createFastLookup` (`~/git-repos/Surelog/src/
+    // DesignCompile/ResolveSymbols.cpp:168-201`): for EVERY outer module
+    // declaration it collects EVERY `paModule_declaration` directly inside
+    // it and files `new ModuleDefinition(fd, subobject, fullSubName)` under
+    // `StrCat(fullName, "::", name)` — no look at the inner header at all,
+    // and the name it files under is already scoped.  Our `defs` table is
+    // built instance-first (`collectDefs`, keyed on the BARE definition name,
+    // and re-keyed by r11u99's LAW B1 only AFTER collection), which loses two
+    // shapes golden publishes:
+    //   A § caNestedModPortedDefShell101 — a nested module WITH a port or a
+    //      parameter has NO instance at all: `Scope::handleNestedDefinition`
+    //      (`~/git-repos/slang/source/ast/Scope.cpp:1281-1308`) returns early
+    //      on any parameter, any port and a nonzero instance count, and
+    //      `getUnreferencedDefinitions` lists ROOT-scope definitions only
+    //      (`~/git-repos/slang/source/ast/Compilation.cpp:486-501`), so no
+    //      producer above ever sees it.  Golden publishes the full def view
+    //      (ports, parameters, nets, cont_assigns) exactly like any other
+    //      module definition — the shell is built here the way
+    //      `addDefOnlyModule` builds an unreferenced file-scope one, under
+    //      the SAME admission rule (every parameter defaulted, no interface
+    //      port), so nothing is minted that the file-scope road would refuse.
+    //   B § caNestedModDefKeyScoped101 — two outers that each declare a
+    //      nested module of the SAME name (`amod::innermod`,
+    //      `bmod::innermod`) collide on the bare key during collection: the
+    //      second is silently dropped, subtree and all.  Golden files both.
+    //      The one that was dropped is re-entered under its scoped key.
+    //   SHADOW (its own switch, `R11U101_NESTSHADOW_OFF`) — the entry's bare
+    //      name also names a FILE-SCOPE definition (r11u99's w19; this pass's
+    //      x15/x16).  Golden files both, so the nested one is published too;
+    //      the ELABORATED side of that shape (the fenced RV1 family: golden
+    //      elaborates the file-scope body under an explicit instantiation) is
+    //      not touched here — `defs` is the definition table only.
+    // MEASURED on `tools/probe/r11u101repro/grid` against the pinned v1.87
+    // Surelog: 16 arms and r11u99's w19/w23/w24 reach `uhdm-cmp` rc 0 with a
+    // display-free whole-dump distance of 0; the admission rule's two
+    // refusals (x04 a parameter with no default, x17 an interface port) are
+    // left exactly as the base binary writes them.
+    // Only DEPTH-1 definitions whose outer is a file-scope MODULE are
+    // considered (r11u99's § caNestedModDeepNoDefView99 and the module-in-
+    // module restriction of `nestOuterDef99` stay the ground), and only the
+    // nested definition that lives in the outer's REPRESENTATIVE body (each
+    // elaborated body of an outer mints its own `DefinitionSymbol` for the
+    // nested declaration, `Compilation::createDefinition`), so an outer
+    // instantiated twice still publishes each nested definition ONCE.
+    {
+        std::map<const DefinitionSymbol*, const InstanceBodySymbol*> repBody101;
+        for (auto& [n101, i101] : defs) {
+            auto& d101 = i101->getDefinition();
+            if (d101.definitionKind == DefinitionKind::Module &&
+                nestDepth99(d101) == 0)
+                repBody101.emplace(&d101, &i101->body);
+        }
+        // An instance of `nd` anywhere in `body` (the same walk collectDefs
+        // makes: instances, instance-array elements, TAKEN generate blocks).
+        std::function<const InstanceSymbol*(const Scope&, const DefinitionSymbol&)>
+            findInst101 = [&](const Scope& sc,
+                              const DefinitionSymbol& nd) -> const InstanceSymbol* {
+            for (auto& m : sc.members()) {
+                if (m.kind == SymbolKind::Instance) {
+                    if (&m.as<InstanceSymbol>().getDefinition() == &nd)
+                        return &m.as<InstanceSymbol>();
+                }
+                else if (m.kind == SymbolKind::InstanceArray) {
+                    for (auto* e : m.as<InstanceArraySymbol>().elements)
+                        if (e->kind == SymbolKind::Instance &&
+                            &e->as<InstanceSymbol>().getDefinition() == &nd)
+                            return &e->as<InstanceSymbol>();
+                }
+                else if ((m.kind == SymbolKind::GenerateBlock &&
+                          !m.as<GenerateBlockSymbol>().isUninstantiated) ||
+                         m.kind == SymbolKind::GenerateBlockArray) {
+                    if (auto* r = findInst101(m.as<Scope>(), nd))
+                        return r;
+                }
+            }
+            return nullptr;
+        };
+        // A subtree that was dropped with its root is re-collected, keyed the
+        // way the rekey above keys it.
+        auto mergeSub101 = [&](const InstanceSymbol& root) {
+            std::map<std::string, const InstanceSymbol*> sub101;
+            collectDefs(root.body, sub101);
+            for (auto& [n2, i2] : sub101) {
+                auto& d2 = i2->getDefinition();
+                int dp2 = nestDepth99(d2);
+                if (dp2 >= 2 && !nestDeepOff99())
+                    continue;
+                defs.emplace(dp2 == 0 ? n2 : defScopedName99(d2), i2);
+            }
+        };
+        // The bare names a FILE-SCOPE definition carries (the shadow face).
+        std::set<std::string_view> rootNames101;
+        for (auto* sym101 : comp.getDefinitions())
+            if (sym101->kind == SymbolKind::Definition &&
+                !nestOuterBody101(sym101->as<DefinitionSymbol>()))
+                rootNames101.insert(sym101->name);
+        for (auto* sym101 : comp.getDefinitions()) {
+            if (sym101->kind != SymbolKind::Definition)
+                continue;
+            auto& nd = sym101->as<DefinitionSymbol>();
+            // THE SUPERSET TRACE: every definition declared inside another
+            // one's body, whatever its kind and depth, before any filter —
+            // a census zero on this line means no law here can fire.
+            if (netDbg101() && nestOuterBody101(nd))
+                fprintf(stderr, "R11U101NESTANY name=%.*s depth=%d\n",
+                        (int)nd.name.size(), nd.name.data(), nestDepth99(nd));
+            auto* od = nestOuterDef99(nd);
+            if (!od || nestDepth99(nd) != 1)
+                continue;
+            const bool shadow101 = rootNames101.count(nd.name) != 0;
+            auto rb = repBody101.find(od);
+            if (rb == repBody101.end() || nestOuterBody101(nd) != rb->second)
+                continue;
+            std::string key = defScopedName99(nd);
+            // r11u99's name gate dropped: the scoped key IS the bare one, and
+            // the bare table already holds whatever it can.
+            if (key == nd.name || defs.count(key))
+                continue;
+            const bool lib101 =
+                !nestLibOff101V() &&
+                (!nd.sourceLibrary.isDefault ||
+                 (nd.syntaxTree && nd.syntaxTree->isLibraryUnit));
+            if (const InstanceSymbol* have = findInst101(*rb->second, nd)) {
+                if (lib101 && implicitNestedInst99(*have)) {
+                    if (netDbg101())
+                        fprintf(stderr, "R11U101NEST law=B-LIBDECLINE key=%s\n",
+                                key.c_str());
+                    continue;
+                }
+                if (netDbg101())
+                    fprintf(stderr, "R11U101NEST law=B key=%s shadow=%d\n",
+                            key.c_str(), shadow101 ? 1 : 0);
+                if (nestKeyOff101() || (shadow101 && nestShadowOff101()))
+                    continue;
+                defs.emplace(key, have);
+                mergeSub101(*have);
+                continue;
+            }
+            bool admit = !lib101;
+            for (auto& up : nd.parameters)
+                if (!up.hasDefault()) {
+                    admit = false;
+                    break;
+                }
+            // The trace sits OUTSIDE the gate; with the gate off and no trace
+            // nothing is minted, so `R11U101_NESTPORT_OFF=1` is the base.
+            if ((nestPortOff101() || (shadow101 && nestShadowOff101())) &&
+                !netDbg101())
+                continue;
+            const InstanceSymbol* ui = nullptr;
+            if (admit) {
+                ui = &InstanceSymbol::createDefault(comp, nd);
+                for (auto pb : ui->body.getPortList())
+                    if (pb->kind == SymbolKind::InterfacePort) {
+                        admit = false;
+                        break;
+                    }
+            }
+            if (netDbg101())
+                fprintf(stderr, "R11U101NEST law=%s key=%s shadow=%d\n",
+                        admit ? "A" : "A-DECLINE", key.c_str(),
+                        shadow101 ? 1 : 0);
+            if (!admit || nestPortOff101() || (shadow101 && nestShadowOff101()))
+                continue;
+            defs.emplace(key, ui);
+            unrefDefs.insert(&nd);
+            // § defOnlyNoArgTs — this listing is never elaborated.
+            defOnlyDefs.insert(&nd);
+            mergeSub101(*ui);
+        }
     }
 
     // User packages (skip built-ins).

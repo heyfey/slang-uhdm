@@ -1,0 +1,8 @@
+# r11u101 CONTROLS -- every committed grid, databases byte-compared across tags (pris = e29d5182 c566d683..., law = this patch)
+r11u101repro arms=25 buildable=25 cmp-total pris=9772 law=1667  law==pris-bytes:6/25  OFF!=pris-bytes:0/25  movers: x01_nestport x02_nestparam x03_nestportparam x05_nestnonansi x08_nestparaminmid x09_rv2twoouters x10_rv2threeouters x11_rv2ported x12_rv2mixed x13_rv2outertwice x14_nestporttopouter x15_shadowinst x16_shadowport x18_nestportclassouter x19_nestportchild x20_rv2child x21_outerparamported x22_nestportunused x25_rv2childport
+r11u99repro arms=27 buildable=25 cmp-total pris=4534 law=3206  law==pris-bytes:22/25  OFF!=pris-bytes:0/25  movers: w19_modinnersame w23_modinnerport w24_modinnerparam
+r11u98repro arms=20 buildable=20 cmp-total pris=159 law=159  law==pris-bytes:20/20  OFF!=pris-bytes:0/20  movers: none
+r11v98repro arms=31 buildable=30 cmp-total pris=1729 law=1729  law==pris-bytes:30/30  OFF!=pris-bytes:0/30  movers: none
+r11u95repro arms=35 buildable=35 cmp-total pris=72 law=72  law==pris-bytes:35/35  OFF!=pris-bytes:0/35  movers: none
+r11v95repro arms=31 buildable=30 cmp-total pris=522 law=522  law==pris-bytes:30/30  OFF!=pris-bytes:0/30  movers: none
+r11u93repro arms=56 buildable=53 cmp-total pris=185 law=185  law==pris-bytes:53/53  OFF!=pris-bytes:0/53  movers: none

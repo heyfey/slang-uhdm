@@ -1,0 +1,50 @@
+# r11u101 WIDE BOUNDARY -- bnd101.sh <pris> <law> <out> tools/probe (every directory holding a source is one arm; DATABASES byte-compared)
+MOVED r10buvm22repro
+MOVED r10uvm130repro
+MOVED r10uvm154repro
+MOVED r10uvm185repro/grid185
+MOVED r10uvm196repro/grid196
+MOVED r10v109repro
+MOVED r10v117repro
+MOVED r10v130repro
+MOVED r10v209repro/arms
+MOVED r11u101repro/grid/x01_nestport
+MOVED r11u101repro/grid/x02_nestparam
+MOVED r11u101repro/grid/x03_nestportparam
+MOVED r11u101repro/grid/x05_nestnonansi
+MOVED r11u101repro/grid/x08_nestparaminmid
+MOVED r11u101repro/grid/x09_rv2twoouters
+MOVED r11u101repro/grid/x10_rv2threeouters
+MOVED r11u101repro/grid/x11_rv2ported
+MOVED r11u101repro/grid/x12_rv2mixed
+MOVED r11u101repro/grid/x13_rv2outertwice
+MOVED r11u101repro/grid/x14_nestporttopouter
+MOVED r11u101repro/grid/x15_shadowinst
+MOVED r11u101repro/grid/x16_shadowport
+MOVED r11u101repro/grid/x18_nestportclassouter
+MOVED r11u101repro/grid/x19_nestportchild
+MOVED r11u101repro/grid/x20_rv2child
+MOVED r11u101repro/grid/x21_outerparamported
+MOVED r11u101repro/grid/x22_nestportunused
+MOVED r11u101repro/grid/x25_rv2childport
+MOVED r11u99repro/grid/w19_modinnersame
+MOVED r11u99repro/grid/w23_modinnerport
+MOVED r11u99repro/grid/w24_modinnerparam
+BOUNDARY listed=4401 processed=4401 moved=31 rc-or-db-anomalies=0
+PROCESSED==LISTED
+# (one arm segfaults on BOTH binaries -- same rc, not an anomaly; bash prints it twice)
+
+# ATTRIBUTION of every mover that is not this pass's own arm (r11u101_attr: R11U101_NETDBG trace count on the LAW binary;
+#   pristine run TWICE; law with R11U101_OFF=1 vs pristine; order-blind sorted uhdm-dump diff pris vs law with its field classes)
+r10uvm154repro          trace=0 same        off!=pris   orderblind=8  [4 |UINT; 4 |vpiDecompile]  UINT:23376985 -> 23381145
+r10buvm22repro          trace=0 same        off!=pris   orderblind=12 [6 |UINT; 6 |vpiDecompile]  UINT:23376129/23376985 -> 23380289/23381145
+r10uvm185repro/grid185  trace=0 same        off!=pris   orderblind=12 [6 |UINT; 6 |vpiDecompile]  UINT:23376985 -> 23381145
+r10uvm130repro          trace=0 SELF-NONDET off==pris   orderblind=0
+r10v109repro            trace=0 SELF-NONDET off!=pris   orderblind=0
+r10uvm196repro/grid196  trace=0 SELF-NONDET off==pris   orderblind=0
+r10v117repro            trace=0 SELF-NONDET off!=pris   orderblind=0
+r10v130repro            trace=0 SELF-NONDET off==pris2  orderblind=0
+r10v209repro/arms       trace=0 SELF-NONDET off==pris   orderblind=0
+# six are pure ORDER coins (the pristine binary disagrees with itself, zero order-blind lines); three are r11u95's residue R2,
+# the ADDRESS-DERIVED 8-digit UINT tracking the binary image (pristine 23356600 B, law 23367272 B) -- exactly the three arms
+# r11u95's and r11u99's READMEs name.  None holds a nested definition (trace=0).  Page control: PADCTL101.txt.

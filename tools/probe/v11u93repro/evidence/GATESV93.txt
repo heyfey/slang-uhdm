@@ -1,0 +1,44 @@
+# v11u93 GATES (fixd = r11u101 + § caNestedModLibUnusedNoDef101V)
+binaries: pristine c566d68304a691a704d2d4f80493ad79 (== OPS pin), r11u101 law 1b79bf536de130c3c2640e68519803b9 (== implementer's), fixd 249f8d84733c73ff63993a6862db096f; all built -j 2 in own worktrees, frozen chmod 555 before any sweep
+goldens: fixd PASS=23 FAIL=0; SLANG_UHDM=/bin/false PASS=0 FAIL=23
+cmds.txt audit: pris_sl 1531/1531 own, pris_u2 1742/1742 own, fixd_sl 1531/1531 own, fixd_u2 1742/1742 own; main tree 0
+u2r both modes vs results/golden_uhdm2rtlil.csv: PASS every row byte-identical (pris and fixd); tf vs gate_uhdm2rtlil.csv PASS; fixd u2r csv == pris u2r csv
+surelog both modes vs results/golden_surelog.csv: status identical (default 474/9, testflags 469/8); rows differing = LowMemLib/tf + LowMemPkg/tf (workdir path in detail) + Earlgrey_0_1 both modes dump column blank (uhdm-dump timeout draw; SAME in the pristine sweep; DB pins hold). fixd vs pris csv: only the two LowMem path rows.
+byteverify SELFCHECK=1 u2r: MOVERS 0/1608 (selfcheck 1607/1608)
+byteverify SELFCHECK=1 surelog: MOVERS 3/960 (selfcheck 959/960): MiniAmiq/default, SimpleUVM/default, MiniAmiq/testflags -- each order-blind 4 lines UINT/vpiDecompile; positive control: pristine re-runs self-move MiniAmiq both modes, SimpleUVM/default (rerun hash d4f8cd018f == fixd), SeqDriver/default
+pins (fixd == pris both modes): SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c, Earlgrey def 8bdf25272e08 / tf 59d0ee6d10c3, BlackParrotComplex e3e354129d5a/73a10e8217e5, YosysOldOr d68e0796d62c
+canaries.sh (r10uvm221) sl: ok=50 changed=2 (the two Earlgrey dump-column blanks; pristine reads the same); u2r tf ok=8 changed=0; ctcan2.sh PASS x2; canaudit.sh UNCOVERED=0 FENCE-BREACH=0 PASS
+control grids (8 grids, 233 buildable arms): fixd == r11u101 law bytes on 233/233; law movers vs pris = r11u101 grid 19 + r11u99 w19/w23/w24 only; R11U101_OFF=1 == pris bytes 233/233
+
+# WIDE BOUNDARY bnd101.sh pris vs fixd over tools/probe + the v11u93 grid: listed=4473 processed=4473 (PROCESSED==LISTED)
+MOVED r10buvm22repro
+MOVED r10uvm117repro
+MOVED r10uvm130repro
+MOVED r10uvm154repro
+MOVED r10uvm185repro/grid185
+MOVED r10uvm196repro/grid196
+MOVED r10uvm88repro
+MOVED r10v109repro
+MOVED r10v117repro
+MOVED r10v130repro
+MOVED r10v209repro/arms
+MOVED r11u99repro/grid/w19_modinnersame
+MOVED r11u99repro/grid/w23_modinnerport
+MOVED r11u99repro/grid/w24_modinnerparam
+BOUNDARY listed=4473 processed=4473 moved=87 rc-or-db-anomalies=8
+(+ every r11u101 grid law arm and every v11u93 grid arm the laws reach; RC-DIFF = pristine SEGFAULT (139) -> fixd rc 0 on b05/b06/b07/b13d, a law-side fix)
+
+# ATTRIBUTION (attrv93.sh): pristine x3, fixd trace, fixd R11U101_OFF=1, order-blind dump diff
+r10buvm22repro pris3=[158dc9c8 158dc9c8 158dc9c8] distinct=1 fixd=2b007d2c off=2b007d2c trace=0 orderblind=12 [ 6 |UINT; 6 |vpiDecompile;] <23376129 <23376985 <23376985 >23380289 >23381145 >23381145
+r10uvm117repro pris3=[2e257dfe e63be9b6 e63be9b6] distinct=2 fixd=250eb296 off=e04adfa5 trace=0 orderblind=0 []
+r10uvm130repro pris3=[13614261 13614261 6ee93820] distinct=2 fixd=6ee93820 off=2c90334d trace=0 orderblind=0 []
+r10uvm154repro pris3=[5ca230c3 5ca230c3 5ca230c3] distinct=1 fixd=289aac34 off=289aac34 trace=0 orderblind=8 [ 4 |UINT; 4 |vpiDecompile;] <23376985 <23376985 >23381145 >23381145
+r10uvm185repro/grid185 pris3=[60f603f3 60f603f3 60f603f3] distinct=1 fixd=f4972ee8 off=f4972ee8 trace=0 orderblind=12 [ 6 |UINT; 6 |vpiDecompile;] <23376985 <23376985 <23376985 >23381145 >23381145 >23381145
+r10uvm196repro/grid196 pris3=[88f6fc45 4ea7cd28 ea1a2b2f] distinct=3 fixd=4ea7cd28 off=4ea7cd28 trace=0 orderblind=0 []
+r10uvm88repro pris3=[84843f7d 84843f7d 84843f7d] distinct=1 fixd=84843f7d off=84843f7d trace=0 orderblind=0 []
+r10v109repro pris3=[27e7118c d5a30321 ac07fdbd] distinct=3 fixd=ec8e2297 off=dc5a0b14 trace=0 orderblind=0 []
+r10v117repro pris3=[3f4f5d98 7561b21d 8fc7562a] distinct=3 fixd=8fc7562a off=75fcde96 trace=0 orderblind=0 []
+r10v130repro pris3=[afd5732e e80c00af 9c12f6ea] distinct=3 fixd=a66c9111 off=8ef57ee9 trace=0 orderblind=0 []
+r10v209repro/arms pris3=[bead808d bead808d d2a22cca] distinct=2 fixd=71bfddfd off=d2a22cca trace=0 orderblind=0 []
+r10uvm88repro: the boundary's PRISTINE draw was a624cfc6 vs 84843f7d on 6 later pristine runs and on fixd; the two boundary dumps differ ONLY by a vpiTaskFunc order flip (p3::base3::oob_base), order-blind 0 lines -> pristine ORDER coin
+VERDICT OF THE BOUNDARY: 3 binary-image UINT (+4160, off==fixd hash: the gated-OFF law binary reproduces the move, so it is the image, not the law) + 8 order coins (pristine self-disagreement, 0 order-blind lines); 0 carry a trace line

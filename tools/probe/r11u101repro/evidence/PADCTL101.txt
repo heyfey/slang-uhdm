@@ -1,0 +1,10 @@
+# r11u101 16 KB-PAD POSITIVE CONTROL for the three address-derived UINT boundary movers
+# pad binary = PRISTINE e29d5182 + 'volatile char r11u101_pad[16384] = {1};' appended to uhdm_main.cpp, NO law code (never committed)
+# md5 7d70ad11cf8403503ae860a7fbac7453, image 23373016 B (pristine 23356600 B, law 23367272 B)
+# arm                    pristine UINT   pad UINT (delta)        law UINT (delta)
+r10buvm22repro           23376129        23392513 (+16384)       23380289 (+4160)
+                         23376985 x2     23393369 (+16384)       23381145 (+4160)
+r10uvm154repro           23376985 x2     23393369 (+16384)       23381145 (+4160)
+r10uvm185repro/grid185   23376985 x3     23393369 (+16384)       23381145 (+4160)
+# the pad moves every one of these cells by EXACTLY the pad and nothing else moves (order-blind): the value is an ADDRESS
+# inside the binary image, and the law binary's +4160 is its own image growth after section alignment -- not a law effect.

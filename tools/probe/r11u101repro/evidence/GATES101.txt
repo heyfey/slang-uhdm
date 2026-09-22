@@ -1,0 +1,119 @@
+# r11u101 GATES (pris = /tmp frozen copy of the e29d5182 build, law = this patch; both chmod 555 before any sweep)
+## (1) binaries
+md5sum: /tmp/pris_c566.bin: No such file or directory
+c566d68304a691a704d2d4f80493ad79  r11u101_pris.bin
+1b79bf536de130c3c2640e68519803b9  r11u101_law2.bin
+23367472 r11u101_law2.bin
+23356600 r11u101_pris.bin
+## cmds.txt audit by ABSOLUTE binary path
+pris_sl cmds.txt=1581 slang-invocations=1531 naming-the-frozen-pris-binary=1531 naming-the-main-tree=0
+lawx_sl cmds.txt=1581 slang-invocations=1531 naming-the-frozen-law2-binary=1531 naming-the-main-tree=0
+pris_u2 cmds.txt=1742 slang-invocations=1742 naming-the-frozen-pris-binary=1742 naming-the-main-tree=0
+lawx_u2 cmds.txt=1742 slang-invocations=1742 naming-the-frozen-law2-binary=1742 naming-the-main-tree=0
+## (2) goldens
+law: PASS=23 FAIL=0   SLANG_UHDM=/bin/false: PASS=0 FAIL=23
+## (3) uhdm2rtlil --mode both
+### law vs results/golden_uhdm2rtlil.csv (BOTH modes)
+baseline: 1743 lines = 1742 ROWS (the header is not a row)
+fresh   : 1743 lines = 1742 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT
+  default  fresh:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT
+  testflags  base:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT
+  testflags  fresh:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:      83      256 differ     532 match
+  default  fresh:      83      256 differ     532 match
+  testflags  base:      83      252 differ     536 match
+  testflags  fresh:      83      252 differ     536 match
+PASS: every row byte-identical to the committed baseline
+### law testflags rows vs results/gate_uhdm2rtlil.csv (testflags only)
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+### law vs pristine
+baseline: 1743 lines = 1742 ROWS (the header is not a row)
+fresh   : 1743 lines = 1742 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+## (4) surelog --mode both
+### law vs results/golden_surelog.csv
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u101_lawx_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u101_lawx_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     324      248 differ     226 match
+  default  fresh:     324      248 differ     226 match
+  testflags  base:     329      303 differ     166 match
+  testflags  fresh:     329      303 differ     166 match
+ATTENTION: rows moved -- read them above, do not summarise them
+### pristine vs results/golden_surelog.csv
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u101_pris_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u101_pris_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+ATTENTION: rows moved -- read them above, do not summarise them
+### law vs pristine
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u101_pris_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u101_lawx_sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u101_pris_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u101_lawx_sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+ATTENTION: rows moved -- read them above, do not summarise them
+## (5) byteverify SELFCHECK=1 (law workdir vs this pass's own pristine workdir)
+### uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+### surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=37b93f925dc4 pristine=3dab741ac170
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=f5ff199dc851
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=6054713acd64 pristine=a64c836f90cf
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=5ad11b7b3e1e
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=4d4bbed62636 pristine=f845474095a9
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## CANARIES
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+## PROTECTED DATABASES (md5 prefix, law vs pristine)
+SVSwitch default law=4842211c4030 pris=4842211c4030 SAME
+SVSwitch testflags law=4842211c4030 pris=4842211c4030 SAME
+YosysVerx default law=6ccda350c24a pris=6ccda350c24a SAME
+YosysVerx testflags law=6ccda350c24a pris=6ccda350c24a SAME
+InterfaceModPort default law=59a365f3ce2c pris=59a365f3ce2c SAME
+InterfaceModPort testflags law=59a365f3ce2c pris=59a365f3ce2c SAME
+Earlgrey_0_1 default law=8bdf25272e08 pris=8bdf25272e08 SAME
+Earlgrey_0_1 testflags law=59d0ee6d10c3 pris=59d0ee6d10c3 SAME
+BlackParrotComplex default law=e3e354129d5a pris=e3e354129d5a SAME
+BlackParrotComplex testflags law=73a10e8217e5 pris=73a10e8217e5 SAME
+YosysOldOr default law=d68e0796d62c pris=d68e0796d62c SAME
+YosysOldOr testflags law=d68e0796d62c pris=d68e0796d62c SAME

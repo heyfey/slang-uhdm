@@ -1,0 +1,54 @@
+# r11u101 PER-ARM SLOT SCORE vs golden (slot101.py score) and display-free sectioned distance (distsec), pristine -> law
+# arm | pris OK/WRONG/GOLD-ONLY/OURS-ONLY distsec | law OK/WRONG/GOLD-ONLY/OURS-ONLY distsec | the top-level listing cells that were not OK at the base
+x01_nestport             108/0/30/0           48 | 138/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x02_nestparam            108/0/30/0           49 | 138/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x03_nestportparam        108/0/80/0          135 | 188/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x04_nestparamnodef       108/0/20/0           34 | 108/0/20/0           34 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x05_nestnonansi          108/0/44/0           75 | 152/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x06_nestportinst         169/0/0/0             0 | 169/0/0/0             0 |
+x07_nestportdeep         118/0/0/0             0 | 118/0/0/0             0 |
+x08_nestparaminmid       108/0/30/0           49 | 138/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::mid o=None
+x09_rv2twoouters         64/6/43/33           16 | 113/0/0/0             0 | WRONG uhdmallModules[3] g=module_inst:work@bmod::innermod o=module_inst:work@dut;GOLD-ONLY uhdmallModules[4] g=module_inst:work@dut o=None
+x10_rv2threeouters       64/12/62/42          32 | 138/0/0/0             0 | WRONG uhdmallModules[1] g=module_inst:work@amod::innermod o=module_inst:work@bmod;WRONG uhdmallModules[2] g=module_inst:work@bmod o=module_inst:work@cmod;WRONG uhdmallModules[3] g=module_inst:work@bmod::innermod o=module_inst:work@cmod::innermod;WRONG uhdmallModules[4] g=module_inst:work@cmod o=module_inst:work@dut;GOLD-ONLY uhdmallModules[5] g=module_inst:work@cmod::innermod o=None;GOLD-ONLY uhdmallModules[6] g=module_inst:work@dut o=None
+x11_rv2ported            51/5/110/37         120 | 166/0/0/0             0 | WRONG uhdmallModules[1] g=module_inst:work@amod::innermod o=module_inst:work@bmod;WRONG uhdmallModules[2] g=module_inst:work@bmod o=module_inst:work@dut;GOLD-ONLY uhdmallModules[3] g=module_inst:work@bmod::innermod o=None;GOLD-ONLY uhdmallModules[4] g=module_inst:work@dut o=None
+x12_rv2mixed             79/13/41/11          48 | 133/0/0/0             0 | WRONG uhdmallModules[3] g=module_inst:work@bmod::innermod o=module_inst:work@dut;GOLD-ONLY uhdmallModules[4] g=module_inst:work@dut o=None
+x13_rv2outertwice        100/0/30/0           48 | 130/0/0/0             0 | GOLD-ONLY uhdmallModules[3] g=module_inst:work@sub::portmod o=None
+x14_nestporttopouter     63/0/30/0            48 | 93/0/0/0              0 | GOLD-ONLY uhdmallModules[1] g=module_inst:work@sub::innermod o=None
+x15_shadowinst           63/10/60/78         100 | 73/10/50/78          84 | GOLD-ONLY uhdmallModules[3] g=module_inst:work@sub::innermod o=None;WRONG uhdmtopModules[0] g=module_inst:work@dut o=module_inst:work@innermod;OURS-ONLY uhdmtopModules[1] g=None o=module_inst:work@dut
+x16_shadowport           117/0/30/0           48 | 147/0/0/0             0 | GOLD-ONLY uhdmallModules[3] g=module_inst:work@sub::innermod o=None
+x17_nestifaceport        118/0/34/0           55 | 118/0/34/0           55 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x18_nestportclassouter   120/0/30/0           48 | 150/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x19_nestportchild        100/5/63/3           97 | 157/0/11/0           19 | WRONG uhdmallModules[1] g=module_inst:work@leaf o=module_inst:work@sub;GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub o=None;GOLD-ONLY uhdmallModules[3] g=module_inst:work@sub::innermod o=None
+x20_rv2child             63/8/50/32           28 | 121/0/0/0             0 | WRONG uhdmallModules[3] g=module_inst:work@bmod::innermod o=module_inst:work@dut;GOLD-ONLY uhdmallModules[4] g=module_inst:work@dut o=None;GOLD-ONLY uhdmallModules[5] g=module_inst:work@leaf o=None
+x21_outerparamported     211/0/30/0           48 | 241/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x22_nestportunused       72/0/25/0            41 | 97/0/0/0              0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+x23_implchildport        149/0/11/0           19 | 149/0/11/0           19 |
+x24_genchildport         119/0/11/0           19 | 119/0/11/0           19 |
+x25_rv2childport         64/11/80/28          84 | 144/0/11/0           19 | WRONG uhdmallModules[3] g=module_inst:work@bmod::innermod o=module_inst:work@dut;GOLD-ONLY uhdmallModules[4] g=module_inst:work@dut o=None;GOLD-ONLY uhdmallModules[5] g=module_inst:work@leaf o=None
+w01_ifacenestinst        89/1/55/65           70 | 89/1/55/65           70 | GOLD-ONLY uhdmallInterfaces[1] g=interface_inst:work@outer o=None;OURS-ONLY uhdmallModules[1] g=None o=module_inst:work@outer
+w02_ifacenestbody        101/1/39/45          26 | 101/1/39/45          26 | GOLD-ONLY uhdmallInterfaces[1] g=interface_inst:work@outer o=None;OURS-ONLY uhdmallModules[1] g=None o=module_inst:work@outer
+w03_ifacenestmixed       113/1/55/65          70 | 113/1/55/65          70 | GOLD-ONLY uhdmallInterfaces[1] g=interface_inst:work@outer o=None;OURS-ONLY uhdmallModules[1] g=None o=module_inst:work@outer
+w04_ifacenestmodchild  (no pair: golden_rc/ours_rc golden_rc=0 ours_rc=3 )
+w05_ifacesimplebody      132/0/0/0             0 | 132/0/0/0             0 |
+w06_ifacenestnoclass     77/1/69/75           54 | 77/1/69/75           54 | GOLD-ONLY uhdmallInterfaces[1] g=interface_inst:work@outer o=None;OURS-ONLY uhdmallModules[1] g=None o=module_inst:work@outer
+w07_twoifacenest         96/4/85/97           52 | 96/4/85/97           52 | WRONG uhdmallInterfaces[0] g=interface_inst:work@ifa o=interface_inst:work@inner;GOLD-ONLY uhdmallInterfaces[1] g=interface_inst:work@ifz o=None;GOLD-ONLY uhdmallInterfaces[2] g=interface_inst:work@inner o=None;OURS-ONLY uhdmallModules[1] g=None o=module_inst:work@ifa;OURS-ONLY uhdmallModules[2] g=None o=module_inst:work@ifz
+w08_ifacenestarrclass    164/0/58/0           90 | 164/0/58/0           90 |
+w11_modinnerdecl         105/0/0/0             0 | 105/0/0/0             0 |
+w12_modinnernoclass      118/0/0/0             0 | 118/0/0/0             0 |
+w13_modinnerinst         122/0/0/0             0 | 122/0/0/0             0 |
+w14_modinnerdeep         81/0/0/0              0 | 81/0/0/0              0 |
+w15_modinnercontent      150/0/0/0             0 | 150/0/0/0             0 |
+w16_modinnertwo          98/0/0/0              0 | 98/0/0/0              0 |
+w17_ifaceinnerdecl  (no pair: golden_rc/ours_rc golden_rc=3 ours_rc=3 )
+w18_modinnertop          78/0/0/0              0 | 78/0/0/0              0 |
+w19_modinnersame         117/0/10/0           16 | 127/0/0/0             0 | GOLD-ONLY uhdmallModules[3] g=module_inst:work@sub::innermod o=None
+w20_moddeclgen           135/0/0/0             0 | 135/0/0/0             0 |
+w21_moddeepinst          85/0/0/0              0 | 85/0/0/0              0 |
+w22_modinneriface  (no pair: golden_rc/ours_rc golden_rc=3 ours_rc=0 )
+w23_modinnerport         108/0/30/0           48 | 138/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+w24_modinnerparam        108/0/30/0           49 | 138/0/0/0             0 | GOLD-ONLY uhdmallModules[2] g=module_inst:work@sub::innermod o=None
+w25_modinnerclassonly    111/0/0/0             0 | 111/0/0/0             0 |
+w26_modinnerifacereal  (no pair: golden_rc/ours_rc golden_rc=3 ours_rc=0 )
+w27_modinnerifaceinst  (no pair: golden_rc/ours_rc golden_rc=3 ours_rc=0 )
+w28_v196nested           1338/6/432/91       916 | 1338/6/432/91       916 |
+w29_v216nested           131/0/1/0             1 | 131/0/1/0             1 |

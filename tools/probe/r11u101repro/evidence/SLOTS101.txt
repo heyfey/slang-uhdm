@@ -1,0 +1,81 @@
+# r11u101 PER-SLOT and PER-ENTRY movers, pris -> law, every grid (slot101.py move / secmove101.py; LHS golden per tag)
+# SLOT MOVED-WRONG = a positional dump slot equal to golden on the pristine pair and not on the law pair
+# ENTRY AWAY = a top-level entry (def view / top / package) whose display-free distance to golden GROWS
+## r11u101repro
+SLOT MOVED-WRONG=0 GAINED=886 (arms=25, pris -> law2)
+  CLOSER x01_nestport 48->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:5:12
+  CLOSER x02_nestparam 49->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:5:12
+  CLOSER x03_nestportparam 135->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:7:12
+  CLOSER x05_nestnonansi 75->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:9:12
+  CLOSER x08_nestparaminmid 49->0 |uhdmallModules \_module_inst: work@sub::mid, file:dut.sv, line:3:3, endln:8:12
+  CLOSER x09_rv2twoouters 16->0 |uhdmallModules \_module_inst: work@bmod::innermod, file:dut.sv, line:8:3, endln:10:12
+  CLOSER x10_rv2threeouters 16->0 |uhdmallModules \_module_inst: work@amod::innermod, file:dut.sv, line:2:17, endln:2:55
+  CLOSER x10_rv2threeouters 16->0 |uhdmallModules \_module_inst: work@bmod::innermod, file:dut.sv, line:3:17, endln:3:55
+  CLOSER x11_rv2ported 48->0 |uhdmallModules \_module_inst: work@amod::innermod, file:dut.sv, line:3:3, endln:5:12
+  CLOSER x11_rv2ported 72->0 |uhdmallModules \_module_inst: work@bmod::innermod, file:dut.sv, line:8:3, endln:10:12
+  CLOSER x12_rv2mixed 48->0 |uhdmallModules \_module_inst: work@bmod::innermod, file:dut.sv, line:8:3, endln:10:12
+  CLOSER x13_rv2outertwice 48->0 |uhdmallModules \_module_inst: work@sub::portmod, file:dut.sv, line:6:3, endln:8:12
+  CLOSER x14_nestporttopouter 48->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:5:12
+  CLOSER x15_shadowinst 16->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:4:3, endln:4:55
+  CLOSER x16_shadowport 48->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:4:3, endln:4:63
+  CLOSER x18_nestportclassouter 48->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:4:3, endln:7:12
+  CLOSER x19_nestportchild 48->19 |uhdmallModules \_module_inst: work@leaf, file:dut.sv, line:2:1, endln:2:57
+  CLOSER x19_nestportchild 49->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:4:3, endln:6:12
+  CLOSER x20_rv2child 12->0 |uhdmallModules \_module_inst: work@bmod::innermod, file:dut.sv, line:7:3, endln:7:45
+  CLOSER x20_rv2child 16->0 |uhdmallModules \_module_inst: work@leaf, file:dut.sv, line:2:1, endln:2:34
+  CLOSER x21_outerparamported 48->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:5:12
+  CLOSER x22_nestportunused 41->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:5:12
+  CLOSER x25_rv2childport 36->0 |uhdmallModules \_module_inst: work@bmod::innermod, file:dut.sv, line:7:3, endln:7:60
+  CLOSER x25_rv2childport 48->19 |uhdmallModules \_module_inst: work@leaf, file:dut.sv, line:2:1, endln:2:57
+ENTRY AWAY=0 CLOSER=24 distsec 1289 -> 249 (arms=25, pris -> law2)
+## r11u99repro
+SLOT MOVED-WRONG=0 GAINED=70 (arms=27, pris -> law2)
+  CLOSER w19_modinnersame 16->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:4:3, endln:4:55
+  CLOSER w23_modinnerport 48->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:5:12
+  CLOSER w24_modinnerparam 49->0 |uhdmallModules \_module_inst: work@sub::innermod, file:dut.sv, line:3:3, endln:5:12
+ENTRY AWAY=0 CLOSER=3 distsec 1392 -> 1279 (arms=22, pris -> law2)
+## r11u98repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> law2)
+## r11v98repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> law2)
+## r11u95repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> law2)
+## r11v95repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> law2)
+## r11u93repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> law2)
+## THE SCORERS CAN SEE A WRONG MOVE (positive control): the law binary run with R11U99_NESTNAME_OFF=1 (drops pass 98's LANDED scoped name) on the r11u99 grid
+SLOT MOVED-WRONG=527 GAINED=223 (arms=27, pris -> brk)
+   w11_modinnerdecl 30
+   w12_modinnernoclass 10
+   w13_modinnerinst 21
+   w14_modinnerdeep 6
+   w15_modinnercontent 42
+   w16_modinnertwo 49
+   w18_modinnertop 2
+   w21_moddeepinst 10
+   w25_modinnerclassonly 13
+   w28_v196nested 287
+   w29_v216nested 57
+ENTRY AWAY=28 CLOSER=0 distsec 1392 -> 2028 (arms=22, pris -> brk)
+## the fence arm x15_shadowinst, slot by slot (pris -> law): every slot that moves is GAINED
+  GAINED x15_shadowinst uhdmallModules[3] gold=module_inst:work@sub::innermod ours=module_inst:work@sub::innermod
+  GAINED x15_shadowinst uhdmallModules[3]/@vpiDefName[0] gold=work@sub::innermod ours=work@sub::innermod
+  GAINED x15_shadowinst uhdmallModules[3]/vpiNet[0] gold=logic_net: ours=logic_net:
+  GAINED x15_shadowinst uhdmallModules[3]/vpiNet[0]/@vpiName[0] gold=n ours=n
+  GAINED x15_shadowinst uhdmallModules[3]/vpiNet[0]/@vpiNetType[0] gold=1 ours=1
+  GAINED x15_shadowinst uhdmallModules[3]/vpiNet[0]/vpiParent[0] gold=module_inst:work@sub::innermod ours=module_inst:work@sub::innermod
+  GAINED x15_shadowinst uhdmallModules[3]/vpiNet[0]/vpiTypespec[0] gold=ref_typespec: ours=ref_typespec:
+  GAINED x15_shadowinst uhdmallModules[3]/vpiNet[0]/vpiTypespec[0]/vpiActual[0] gold=logic_typespec: ours=logic_typespec:
+  GAINED x15_shadowinst uhdmallModules[3]/vpiNet[0]/vpiTypespec[0]/vpiParent[0] gold=logic_net: ours=logic_net:
+  GAINED x15_shadowinst uhdmallModules[3]/vpiParent[0] gold=module_inst:work@sub ours=module_inst:work@sub
+## x15_shadowinst per-entry display-free distance, law binary
+     2 |uhdmallModules \_module_inst: work@sub, file:dut.sv, line:3:1, endln:6:10 #0
+    38 |uhdmtopModules \_module_inst: work@dut, file:dut.sv, line:7:1, endln:10:10 #0
+    44 |uhdmtopModules \_module_inst: work@innermod, file:dut.sv, line:2:1, endln:2:53 #0
+84

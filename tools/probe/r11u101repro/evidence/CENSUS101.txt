@@ -1,0 +1,55 @@
+# r11u101 SOURCE-SIDE CENSUS (cellcen101.py, LAW binary, R11U101_NETDBG=1, the harness's own discover/translate; FENCED never dispatched)
+## surelog
+/tmp/r11u101_cen_sl.tsv {'arms': 1579, 'nestAny': 8, 'lawA': 4, 'lawAdecline': 0, 'lawB': 2, 'shadow': 2}
+PREDICTED MOVERS: {'#SEED:x01_nestport': ['LAWA-PORTSHELL'], '#SEED:x09_rv2twoouters': ['LAWB-KEYSCOPED'], '#SEED:x16_shadowport': ['LAWA-PORTSHELL']}
+#SEED:x01_nestport	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x01_nestport	default	rc=0	R11U101NEST law=A key=sub::innermod shadow=0
+#SEED:x01_nestport	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x01_nestport	testflags	rc=0	R11U101NEST law=A key=sub::innermod shadow=0
+#SEED:x09_rv2twoouters	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x09_rv2twoouters	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x09_rv2twoouters	default	rc=0	R11U101NEST law=B key=bmod::innermod shadow=0
+#SEED:x09_rv2twoouters	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x09_rv2twoouters	testflags	rc=0	R11U101NEST law=B key=bmod::innermod shadow=0
+#SEED:x09_rv2twoouters	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x16_shadowport	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x16_shadowport	default	rc=0	R11U101NEST law=A key=sub::innermod shadow=1
+#SEED:x16_shadowport	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x16_shadowport	testflags	rc=0	R11U101NEST law=A key=sub::innermod shadow=1
+#TOTALS	arms=1579	nestAny=8	lawA=4	lawAdecline=0	lawB=2	shadow=2
+#RC	rc=-11:3	rc=0:950	rc=1:4	rc=2:32	rc=3:578	rc=4:12
+#PREDICTED-MOVER	#SEED:x01_nestport	LAWA-PORTSHELL
+#PREDICTED-MOVER	#SEED:x09_rv2twoouters	LAWB-KEYSCOPED
+#PREDICTED-MOVER	#SEED:x16_shadowport	LAWA-PORTSHELL
+# corpus lines carrying ANY R11U101 trace (seeds excluded): 0
+# rc=-11 arms under the census's -o /dev/null replay:
+Rggen	testflags	rc=-11	NO-SITE
+Tnoc	default	rc=-11	NO-SITE
+Tnoc	testflags	rc=-11	NO-SITE
+## uhdm2rtlil
+/tmp/r11u101_cen_u2.tsv {'arms': 1748, 'nestAny': 8, 'lawA': 4, 'lawAdecline': 0, 'lawB': 2, 'shadow': 2}
+PREDICTED MOVERS: {'#SEED:x01_nestport': ['LAWA-PORTSHELL'], '#SEED:x09_rv2twoouters': ['LAWB-KEYSCOPED'], '#SEED:x16_shadowport': ['LAWA-PORTSHELL']}
+#SEED:x01_nestport	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x01_nestport	default	rc=0	R11U101NEST law=A key=sub::innermod shadow=0
+#SEED:x01_nestport	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x01_nestport	testflags	rc=0	R11U101NEST law=A key=sub::innermod shadow=0
+#SEED:x09_rv2twoouters	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x09_rv2twoouters	default	rc=0	R11U101NEST law=B key=bmod::innermod shadow=0
+#SEED:x09_rv2twoouters	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x09_rv2twoouters	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x09_rv2twoouters	testflags	rc=0	R11U101NEST law=B key=bmod::innermod shadow=0
+#SEED:x09_rv2twoouters	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x16_shadowport	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x16_shadowport	default	rc=0	R11U101NEST law=A key=sub::innermod shadow=1
+#SEED:x16_shadowport	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x16_shadowport	testflags	rc=0	R11U101NEST law=A key=sub::innermod shadow=1
+#TOTALS	arms=1748	nestAny=8	lawA=4	lawAdecline=0	lawB=2	shadow=2
+#RC	rc=-11:3	rc=0:1606	rc=3:131	rc=4:8
+#PREDICTED-MOVER	#SEED:x01_nestport	LAWA-PORTSHELL
+#PREDICTED-MOVER	#SEED:x09_rv2twoouters	LAWB-KEYSCOPED
+#PREDICTED-MOVER	#SEED:x16_shadowport	LAWA-PORTSHELL
+# corpus lines carrying ANY R11U101 trace (seeds excluded): 0
+# rc=-11 arms under the census's -o /dev/null replay:
+rp32_r5p_degu_soc_top	testflags	rc=-11	NO-SITE
+rp32_r5p_mouse_soc_top	testflags	rc=-11	NO-SITE
+rp32_soc_vfriendly	testflags	rc=-11	NO-SITE

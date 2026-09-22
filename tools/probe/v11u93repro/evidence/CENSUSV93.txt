@@ -1,0 +1,39 @@
+# GOLDEN-FIRST DATABASE CENSUS (dbcenv93.sh; ct101cen over every golden named by each sweep cmds.txt, then every slang.uhdm)
+## prisu2
+golden: #DATABASES 1742 RESTORE_FAIL 0 WITH-NESTDEF 0
+ours:   #DATABASES 1608 RESTORE_FAIL 0 WITH-NESTDEF 0
+## prissl
+golden: #DATABASES 1524 RESTORE_FAIL 0 WITH-NESTDEF 12
+ours:   #DATABASES 960 RESTORE_FAIL 0 WITH-NESTDEF 0
+## fixdsl
+golden: #DATABASES 1524 RESTORE_FAIL 0 WITH-NESTDEF 12
+ours:   #DATABASES 960 RESTORE_FAIL 0 WITH-NESTDEF 0
+## fixdu2
+golden: #DATABASES 1742 RESTORE_FAIL 0 WITH-NESTDEF 0
+ours:   #DATABASES 1608 RESTORE_FAIL 0 WITH-NESTDEF 0
+## the 12 golden databases holding a nested definition (all 6 tests SLANG_REJECT in BOTH modes on both binaries, rc 3 / TimeUnit-tf rc 2 = genuine rejects, no database):
+default/Attributes  work@top::top2
+default/BadLabel  work@test::sub
+default/BadLabel  work@test::sub2
+default/Escape  work@middle::nested
+default/SplitFile  work@middle::nested
+default/TimeUnit  work@middle::nested
+default/UnitElabExternNested  work@dff_nested::ff1
+default/UnitElabExternNested  work@dff_nested::ff2
+default/UnitElabExternNested  work@dff_nested::ff3
+testflags/Attributes  work@top::top2
+testflags/BadLabel  work@test::sub
+testflags/BadLabel  work@test::sub2
+testflags/Escape  work@middle::nested
+testflags/SplitFile  work@middle::nested
+testflags/TimeUnit  work@middle::nested
+testflags/UnitElabExternNested  work@dff_nested::ff1
+testflags/UnitElabExternNested  work@dff_nested::ff2
+testflags/UnitElabExternNested  work@dff_nested::ff3
+## positive control: x09 golden+pristine hit, b01 golden hits
+
+# SOURCE TRACE CENSUS (r11u101 cellcen101.py, fixd binary, R11U101_NETDBG=1, seeds x01/x09/x16)
+u2.out:/tmp/v11u93_cen_u2.tsv {'arms': 1748, 'nestAny': 8, 'lawA': 4, 'lawAdecline': 0, 'lawB': 2, 'shadow': 2}
+sl.out:/tmp/v11u93_cen_sl.tsv {'arms': 1579, 'nestAny': 8, 'lawA': 4, 'lawAdecline': 0, 'lawB': 2, 'shadow': 2}
+corpus lines carrying ANY R11U101 trace: 0 (both corpora)
+rc=-11 under census replay: rp32_r5p_degu_soc_top/tf rp32_r5p_mouse_soc_top/tf rp32_soc_vfriendly/tf Tnoc/def Tnoc/tf Rggen/tf -- PRISTINE segfaults identically on every one (replayv93.py / direct), trace=0 both
