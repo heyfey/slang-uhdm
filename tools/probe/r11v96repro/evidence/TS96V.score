@@ -1,0 +1,21 @@
+=== pattern ts field (golden, pristine, VERIFIED law)
+v3_ctsbrk96v         TO=26  AWAY=0  STILL=0  EQ=35  MWRONG=0  UNPAIR=3
+v4_callcat96v        TO=0  AWAY=0  STILL=6  EQ=38  MWRONG=0  UNPAIR=2
+x6_concatvote94v     TO=2  AWAY=0  STILL=0  EQ=38  MWRONG=0  UNPAIR=0
+y3_kind1cat96        TO=24  AWAY=0  STILL=0  EQ=33  MWRONG=0  UNPAIR=0
+y5_replic96          TO=22  AWAY=0  STILL=0  EQ=35  MWRONG=0  UNPAIR=0
+TOTAL[ts]  TO=74  AWAY=0  STILL=6  EQ=179  MWRONG=0  UNPAIR=5
+=== tags swapped (positive control)
+v3_ctsbrk96v         TO=0  AWAY=26  STILL=0  EQ=35  MWRONG=26  UNPAIR=3
+v4_callcat96v        TO=0  AWAY=0  STILL=6  EQ=38  MWRONG=0  UNPAIR=2
+x6_concatvote94v     TO=0  AWAY=2  STILL=0  EQ=38  MWRONG=2  UNPAIR=0
+y3_kind1cat96        TO=0  AWAY=24  STILL=0  EQ=33  MWRONG=24  UNPAIR=0
+y5_replic96          TO=0  AWAY=22  STILL=0  EQ=35  MWRONG=22  UNPAIR=0
+TOTAL[ts]  TO=0  AWAY=74  STILL=6  EQ=179  MWRONG=74  UNPAIR=5
+=== the AS-DELIVERED law on the same arms (the AWAY this fix closes)
+v3_ctsbrk96v         TO=26  AWAY=4  STILL=0  EQ=31  MWRONG=4  UNPAIR=3
+v4_callcat96v        TO=0  AWAY=12  STILL=6  EQ=26  MWRONG=12  UNPAIR=2
+x6_concatvote94v     TO=2  AWAY=0  STILL=0  EQ=38  MWRONG=0  UNPAIR=0
+y3_kind1cat96        TO=24  AWAY=0  STILL=0  EQ=33  MWRONG=0  UNPAIR=0
+y5_replic96          TO=22  AWAY=0  STILL=0  EQ=35  MWRONG=0  UNPAIR=0
+TOTAL[ts]  TO=74  AWAY=16  STILL=6  EQ=163  MWRONG=16  UNPAIR=5

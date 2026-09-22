@@ -1,0 +1,11 @@
+# r11u96 PATTERN CELLS — ts field (LAW C + the replication face)
+x6_concatvote94v     TO=2  AWAY=0  STILL=0  EQ=38  MWRONG=0  UNPAIR=0
+y3_kind1cat96        TO=24  AWAY=0  STILL=0  EQ=33  MWRONG=0  UNPAIR=0
+y5_replic96          TO=22  AWAY=0  STILL=0  EQ=35  MWRONG=0  UNPAIR=0
+TOTAL[ts]  TO=48  AWAY=0  STILL=0  EQ=106  MWRONG=0  UNPAIR=0
+
+# all five fields
+x6_concatvote94v     TO=2  AWAY=0  STILL=68  EQ=130  MWRONG=0  UNPAIR=0
+y3_kind1cat96        TO=24  AWAY=0  STILL=82  EQ=179  MWRONG=0  UNPAIR=0
+y5_replic96          TO=22  AWAY=0  STILL=122  EQ=141  MWRONG=0  UNPAIR=0
+TOTAL  TO=48  AWAY=0  STILL=272  EQ=450  MWRONG=0  UNPAIR=0

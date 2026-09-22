@@ -1,0 +1,52 @@
+# r11v96 MOVERS — byteverify, all three binaries, plus the NULL CONTROL that convicts the surelog list
+## u2r: lawx vs pris
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=19ad165bf9cd pristine=7b7328b35378
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=b2ab930c9443 pristine=8238afa8892e
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## u2r: fixd vs pris
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=19ad165bf9cd pristine=7b7328b35378
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=b2ab930c9443 pristine=8238afa8892e
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## surelog: lawx vs pris
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=32072a4fdac6 pristine=27419f6011b4
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=a4a8574f9887
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=4ce7882ac332
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=cccb3af59ddd pristine=be12589a7e92
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=fd4698b3af8a pristine=7dbf324b90c2
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## surelog: fixd vs pris
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=ef1bc09e067f pristine=27419f6011b4
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=a4a8574f9887
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=4ce7882ac332
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=8f804e8f3d95 pristine=be12589a7e92
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=fd9d3d240efb pristine=7dbf324b90c2
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+## THE NULL CONTROL: the PRISTINE binary run four times on MiniAmiq/default own invocation
+be927191ca5f38bb68fb6c1caa6d7626  /tmp/v11u94_coin/run1.uhdm
+694567d648f9977d2ebbcf9c7e440e42  /tmp/v11u94_coin/run2.uhdm
+166db333d89d24a978821a0d48b38aa1  /tmp/v11u94_coin/run3.uhdm
+e153bdf4096d7b1a2eb494cf85d31cd3  /tmp/v11u94_coin/run4.uhdm
+   -> four different databases from ONE binary; the order-blind diff of two of them is:
+< /run1.uhdm: Restored design Pre-Elab: 
+> /run2.uhdm: Restored design Pre-Elab: 
+>       |UINT:0
+<       |UINT:618
+>       |vpiDecompile:0
+<       |vpiDecompile:618
+
+## ibex_icache attribution (the only law mover): golden reads INT:2 vpiConstType:7 at every moved cell
+  default: 40 diff lines
+  testflags: 40 diff lines

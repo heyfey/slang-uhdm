@@ -16045,10 +16045,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // `UINT:`.  The SIZE is untouched on both faces — golden's
                     // is the READER's width on this road, which is r11u91's R4
                     // and its own pass's ground.
+                    //
+                    // § pkgParamMulDivModIsIntReduce96 (r11u96) — LAW A, one
+                    // predicate three operators wider.  `vpiMultOp`,
+                    // `vpiDivOp` and `vpiModOp` mint `INT:` and the same
+                    // unmasked `int64_t` as `vpiSubOp`; the decode, the cited
+                    // producer lines, the measured table and the two arms
+                    // DELIBERATELY left out (`**` and `~`) are in the § block
+                    // beside `red96IntMintTop96`.  Each operator is its own
+                    // flag here so that each face drops alone.
+                    constexpr bool mul96 = true;   // § pkgParamMulDivModIsIntReduce96
+                    constexpr bool div96 = true;   // § pkgParamMulDivModIsIntReduce96
+                    constexpr bool mod96 = true;   // § pkgParamMulDivModIsIntReduce96
                     int64_t mrv94 = 0;
                     bool minus94 = false;
                     if (const Expression* mi94 = psym.getInitializer()) {
-                        if (red94MinusTop94(*mi94)) {
+                        if (red96IntMintTop96(*mi94, mul96, div96, mod96)) {
                             ASTContext mctx94(comp.getRoot(),
                                               LookupLocation::max);
                             minus94 = red72Int64(*mi94, mctx94, 0, mrv94) ==

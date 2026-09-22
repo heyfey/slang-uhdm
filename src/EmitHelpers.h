@@ -7930,6 +7930,75 @@ inline bool red76BasedLeafDigits(const Expression& e, int64_t& out) {
                                 std::string(), out);
 }
 
+/// § unsizedDecLeafWrittenDigits96 (r11u96) — LAW B, r11v94's RV94-2.  THE
+/// OTHER HALF OF THE SAME STRING: an UNSIZED DECIMAL leaf is worth its WRITTEN
+/// DIGITS too, and slang's store is not.
+///
+/// The producer never sees a truncated literal.  Surelog builds a bare decimal
+/// as a `vpiUIntConst` carrying `UINT:<the digits as written>`, and
+/// `get_value` (`~/git-repos/UHDM/templates/ExprEval.cpp:1946`) reads that
+/// STRING with the lenient `NumUtils` pair — int64 first, then uint64 cast
+/// down — which is the `dec` arm of `srlgNegLitGetValue30` already in this
+/// file.  slang, obeying the LRM, types an unsized decimal literal `int` and
+/// TRUNCATES its digits to 32 SIGNED bits, so the two readings part company at
+/// 2^31 and not at 2^32: `2147483648` is already `-2147483648` in the store.
+///
+/// MEASURED (real Surelog v1.87, arm `y2_unsized96`, every cell `slrc=0
+/// ourrc=0 slerr=0`, read through the net-decl-assign road):
+///
+///   package declaration                     golden          ours (pristine)
+///   longint B31   =  2147483648 - 0         INT:2147483648      INT:-2147483648
+///   longint B31M  = -2147483648             INT:-2147483648     INT:2147483648
+///   longint B32   =  4294967296 - 0         INT:4294967296      INT:0
+///   longint B33   =  8589934592 - 0         INT:8589934592      INT:0
+///   longint B33M  = -8589934592             INT:-8589934592     INT:0
+///   longint BLMAX =  9223372036854775807-0  INT:9223372036854775807  INT:-1
+///   longint BLMIN = -9223372036854775807    INT:-9223372036854775807 INT:1
+///   longint BMULU =  4294967296 * 2         INT:8589934592      UINT:0
+///   longint BDIVU =  8589934592 / 2         INT:4294967296      UINT:0
+///   and the CONTROLS, equal on both binaries:
+///   longint B30   =  1073741824 - 0         INT:1073741824  — 31 bits, FITS
+///   longint BSMALL=  6 - 1                  INT:5
+///   longint BHEXW =  64'h1_0000_0000 - 0    INT:4294967296  — a BASED leaf,
+///                                             already r11u76's ground
+///
+/// THE DIGITS ARE READ, NOT RE-PARSED.  `srlgNegLitGetValue30`'s no-tick arm
+/// IS `get_value`'s bare-decimal road, guard included: digits that fit neither
+/// `int64` nor `uint64` make it return false, which is the same refusal golden
+/// takes — `longint OVF = 99999999999999999999 - 1` is left UNFOLDED by
+/// Surelog v1.87 (arm `y4_bail96`, no net-decl-assign constant at all).
+///
+/// PARENTHESES ARE WALKED for the reason the § block beside `red76VecSyntax`
+/// gives: a bound `(2147483648)` is an `IntegerLiteral` whose `syntax->kind`
+/// is `ParenthesizedExpression`.
+inline bool red96UnsizedDecDigits96(const Expression& e96, int64_t& out96) {
+    if (e96.kind != ExpressionKind::IntegerLiteral || !e96.syntax)
+        return false;
+    if (e96.as<IntegerLiteral>().getValue().hasUnknown())
+        return false;
+    const slang::syntax::SyntaxNode* sy96 = e96.syntax;
+    for (int i96 = 0; sy96 && i96 < 8 &&
+                      sy96->kind ==
+                          slang::syntax::SyntaxKind::ParenthesizedExpression;
+         i96++)
+        sy96 = sy96->as<slang::syntax::ParenthesizedExpressionSyntax>()
+                   .expression;
+    if (!sy96 ||
+        sy96->kind != slang::syntax::SyntaxKind::IntegerLiteralExpression)
+        return false;
+    std::string raw96(
+        sy96->as<slang::syntax::LiteralExpressionSyntax>().literal.rawText());
+    raw96.erase(std::remove(raw96.begin(), raw96.end(), '_'), raw96.end());
+    if (raw96.empty() || raw96.find('\'') != std::string::npos)
+        return false;
+    for (char c96 : raw96)
+        if (c96 < '0' || c96 > '9')
+            return false;
+    // The no-tick arm of the ONE parser: `lenient(dec, 10, out)`, which is
+    // `get_value`'s own read of the `UINT:` digit string.
+    return srlgNegLitGetValue30(raw96, -1, raw96, out96);
+}
+
 inline bool red72WideBasedLeaf(const Expression& e, bool inArm) {
     // § redBasedLeafWrittenDigits76 — the syntax read walks PARENTHESES, so
     // that the refusal and the value are one reading of one literal on a
@@ -8248,6 +8317,18 @@ inline Red72 red72Int64(const Expression& e0, const ASTContext& actx, int depth,
         int64_t dv76 = 0;
         if (red76BasedLeafDigits(e, dv76)) {
             out = dv76;
+            return Red72::Value;
+        }
+    }
+    // § unsizedDecLeafWrittenDigits96 (r11u96) — LAW B, the SAME reading one
+    // literal kind over: an UNSIZED DECIMAL is worth its written digits, which
+    // slang's `int`-typed store truncates at 2^31.  Confined to `inArm` for
+    // r11u76's reason — at operand 0 the literal path emits the leaf verbatim.
+    // The measured table is in the § block beside `red96UnsizedDecDigits96`.
+    if (inArm) {
+        int64_t dv96 = 0;
+        if (red96UnsizedDecDigits96(e, dv96)) {
+            out = dv96;
             return Red72::Value;
         }
     }
@@ -9458,6 +9539,111 @@ inline bool red94ExprHasConcat94(const Expression& e094, int d94) {
     }
 }
 
+/// § kind1ConcatMustReachTheConstant96v (r11v96) — THE VERIFIER'S GATE ON LAW
+/// C.  A concatenation that stands only inside a CALL'S ARGUMENT LIST never
+/// reaches the elaborated constant: the call is FOLDED at compile time and the
+/// parameter's written typespec is hung on the answer exactly as it is over a
+/// plain literal.  The kind-1 road must therefore not decline on it.
+///
+/// MEASURED (real Surelog v1.87, verifier arms `v3_ctsbrk96v` and
+/// `v4_callcat96v`, every cell `slrc=0 ourrc=0 slerr=0`); `P` = pristine,
+/// `L96` = the r11u96 patch as delivered, `V` = with this gate.  The reader is
+/// `logic [7:0]` — the UNSIGNED one, which is where the site writes nothing
+/// when the read is routed back to the reader's declaration:
+///
+///   package declaration                     golden  P     L96   V
+///   int FBITS = $bits({4'd1,4'd2})          /S      /S    -     /S
+///   int FCLOG = $clog2({4'd1,4'd2})         /S      /S    -     /S
+///   int FFUNC = v4f({4'd1,4'd2})  (a FUNC)  /S      /S    -     /S
+///   int FBREP = $bits({2{4'd3}})            /S      /S    -     /S
+///   int FMIX  = $bits({4'd1,4'd2}) + 4      /S      /S    -     /S
+///   int CBIT  = $bits({4'd1,4'd2})  (`v3`)  /S      /S    -     /S
+///   int CCLG  = $clog2({4'd1,4'd2}) (`v3`)  /S      /S    -     /S
+///   AND THE SHAPES THAT MUST STILL DECLINE, all of them unmoved by this gate:
+///   int FOUT  = $bits(8'd18) + {4'd0,4'd1}  -       ...   -     -
+///   int CCST  = int'({4'd1,4'd2})           -       /S    -     -
+///   int CCMP  = ({4'd1,4'd2}==8'd18)?7:9    -       /S    -     -
+///   int KRCT  = int'({2{4'd3}})             -       /S    -     -
+///   and every cell of `y3_kind1cat96`, `y5_replic96` and `x6_concatvote94v`.
+///
+/// The ARGUMENT LIST is the axis, not the call: a concatenation written beside
+/// a call (`FOUT`) is an operand of the folded expression like any other and
+/// keeps declining.  The landed kind-2 road (§ pkgSynConcatKeepsNoTs94v) reads
+/// `red94InitHasConcat94` unchanged — this predicate is the kind-1 road's
+/// alone, so the landed law cannot move.
+inline bool red96SynHasConcatNoArg96(const slang::syntax::SyntaxNode* sn96,
+                                     int d96) {
+    if (!sn96 || d96 > 32)
+        return false;
+    if (sn96->kind == slang::syntax::SyntaxKind::ConcatenationExpression ||
+        sn96->kind ==
+            slang::syntax::SyntaxKind::MultipleConcatenationExpression ||
+        sn96->kind ==
+            slang::syntax::SyntaxKind::StreamingConcatenationExpression)
+        return true;
+    for (size_t i96 = 0, n96 = sn96->getChildCount(); i96 < n96; ++i96) {
+        const slang::syntax::SyntaxNode* ch96 = sn96->childNode(i96);
+        if (ch96 && ch96->kind == slang::syntax::SyntaxKind::ArgumentList)
+            continue;
+        if (red96SynHasConcatNoArg96(ch96, d96 + 1))
+            return true;
+    }
+    return false;
+}
+
+inline bool red96InitHasConcat96(const slang::ast::ParameterSymbol& ps96,
+                                 int d96);
+
+inline bool red96ExprHasConcat96(const Expression& e096, int d96) {
+    if (d96 > 16)
+        return false;
+    const Expression& e96 = stripImplicitConv(e096);
+    // A CALL's answer is a folded value; its arguments are not operands of the
+    // expression the typespec is hung on.
+    if (e96.kind == ExpressionKind::Call)
+        return false;
+    if (e96.syntax && red96SynHasConcatNoArg96(e96.syntax, 0))
+        return true;
+    switch (e96.kind) {
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue: {
+            auto& sy96 = e96.as<ValueExpressionBase>().symbol;
+            if (sy96.kind != SymbolKind::Parameter)
+                return false;
+            return red96InitHasConcat96(
+                sy96.as<slang::ast::ParameterSymbol>(), d96 + 1);
+        }
+        case ExpressionKind::UnaryOp:
+            return red96ExprHasConcat96(e96.as<UnaryExpression>().operand(),
+                                        d96 + 1);
+        case ExpressionKind::BinaryOp:
+            return red96ExprHasConcat96(e96.as<BinaryExpression>().left(),
+                                        d96 + 1) ||
+                   red96ExprHasConcat96(e96.as<BinaryExpression>().right(),
+                                        d96 + 1);
+        case ExpressionKind::ConditionalOp:
+            return red96ExprHasConcat96(
+                       e96.as<ConditionalExpression>().left(), d96 + 1) ||
+                   red96ExprHasConcat96(
+                       e96.as<ConditionalExpression>().right(), d96 + 1);
+        case ExpressionKind::Conversion:
+            return red96ExprHasConcat96(
+                e96.as<ConversionExpression>().operand(), d96 + 1);
+        default:
+            return false;
+    }
+}
+
+inline bool red96InitHasConcat96(const slang::ast::ParameterSymbol& ps96,
+                                 int d96) {
+    if (d96 > 8)
+        return true;
+    const Expression* in96 = ps96.getInitializer();
+    if (!in96)
+        return false;
+    return red96ExprHasConcat96(*in96, d96);
+}
+
 inline bool red94InitHasConcat94(const slang::ast::ParameterSymbol& ps94,
                                  int d94) {
     if (d94 > 8)
@@ -9631,6 +9817,46 @@ inline const slang::ast::ParameterSymbol* red91PkgFedInner91(
 /// declaration read there dropped the typespec — an AWAY cell.  The unsigned
 /// reader of the same shape (`p1_pkgin91` `R5`, golden `16 INT:11 ts=-`) is
 /// unaffected either way, which is why the landed grid could not see it.
+/// § pkgBareReplicWritesNoTs96 (r11u96) — THE ONE SHAPE WHERE NEITHER SIDE
+/// VOTES.  LAW C's grid found it: a package parameter whose OWN initializer is
+/// a BARE top-level REPLICATION is read with NO typespec at all — not the
+/// package's and not the reader's — whatever the declaration kind and whatever
+/// the reader's sign.  A replication reached through a CHAIN, nested inside a
+/// concatenation, or standing under an operation is NOT this shape: there the
+/// ordinary concat rule holds and the reader votes.
+///
+/// MEASURED (real Surelog v1.87, arm `y5_replic96`, every cell `slrc=0 ourrc=0
+/// slerr=0`).  `P` = pristine, `L` = this law; the `ts` field:
+///
+///   package declaration                reader             golden  P     L
+///   int      KR   = {2{4'd3}}   (k1)   logic [7:0]        ts=-    /S    ts=-
+///   int      KR                        logic signed [15]  ts=-    /S    ts=-
+///   logic[7:0] KRU= {2{4'd3}}   (k1)   logic [7:0]        ts=-    ts=-  ts=-
+///   logic[7:0] KRU                     logic signed [15]  ts=-    ts=-  ts=-
+///   signed   KR2  = {2{4'd3}}   (k2)   logic [7:0]        ts=-    ts=-  ts=-
+///   signed   KR2                       logic signed [15]  ts=-    /S    ts=-
+///   unsigned KRU2 = {2{4'd3}}   (k2)   logic signed [15]  ts=-    /S    ts=-
+///   (implicit) KRIM = {2{4'd3}} (k0)   logic [7:0]        ts=-    ts=-  ts=-
+///   (implicit) KRIM                    logic signed [15]  ts=-    /S    ts=-
+///   AND THE THREE SHAPES THAT ARE **NOT** THIS ONE, all golden `/S` on a
+///   SIGNED reader and all unmoved:
+///   int      KRC  = KR       (a CHAIN)  logic signed [15] /S     /S    /S
+///   int      KRN  = {2{4'd3}} + 0       logic signed [15] /S     /S    /S
+///   int      KRR  = {{2{2'd1}},4'd2}    logic signed [15] /S     /S    /S
+///
+/// THE UNSIGNED-KRU CELL IS WHY THIS PREDICATE EXISTS.  `logic [7:0] KRU`
+/// read by `logic signed [15:0]` is golden BARE and PRISTINE-BARE, and LAW C
+/// alone — which routes a concat-bearing kind-1 read back to the reader's
+/// declaration — wrote the reader's `/S` there: an AWAY cell, caught by this
+/// arm and closed here.  DECLINING IS THE CONSERVATIVE DIRECTION: the site
+/// writes nothing, which is what GOLDEN WRITES ON A MISS.
+inline bool red96TopIsReplic96(const slang::ast::ParameterSymbol& ps96) {
+    const Expression* in96 = ps96.getInitializer();
+    if (!in96)
+        return false;
+    return stripImplicitConv(*in96).kind == ExpressionKind::Replication;
+}
+
 inline bool red91PkgCloneHasTs91(const slang::ast::ParameterSymbol& ps91,
                                  int depth91) {
     if (depth91 > 8)
@@ -9654,8 +9880,50 @@ inline bool red91PkgCloneHasTs91(const slang::ast::ParameterSymbol& ps91,
     // is the LANDED read and is left exactly as it was.
     if (dk91 == 2)
         return !red94InitHasConcat94(ps91, 0);
+    // § kind1ConcatKeepsNoTs96 (r11u96) — LAW C, r11v94's RV94-3.  THE SAME
+    // PRODUCER FACT, ONE KIND OVER.  A WRITTEN declared type is no different
+    // from a synthesized one here: where the initializer holds a
+    // concatenation or a replication the typespec never reaches the package
+    // parameter's elaborated constant, the clone is bare,
+    // `DesignElaboration.cpp:2568`'s fill-in runs and the READER's
+    // declaration votes.  r11v94 landed exactly this for kind 2 and left the
+    // landed kind-1 road alone; this is that road, measured.
+    //
+    // MEASURED (real Surelog v1.87, arm `y3_kind1cat96`, every cell `slrc=0
+    // ourrc=0 slerr=0`).  `P` = pristine, `L` = this law; the `ts` field:
+    //
+    //   package declaration              reader             golden  P    L
+    //   int                 JC = {4'd1,4'd2}  logic [7:0]      ts=-  /S   ts=-
+    //   int                 JC                logic signed[15] /S    /S   /S
+    //   logic [7:0]         JU = {4'd1,4'd2}  logic signed[15] /S    ts=- /S
+    //   logic [7:0]         JU                logic [7:0]      ts=-  ts=- ts=-
+    //   logic signed [15:0] JS = {4'd1,4'd2}  logic [7:0]      ts=-  /S   ts=-
+    //   int                 JR = {2{4'd3}}    logic [7:0]      ts=-  /S   ts=-
+    //   int                 JN = {4'd1,4'd2}+0 logic [7:0]     ts=-  /S   ts=-
+    //   int                 JTC= 1?{..}:8'd0  logic [7:0]      ts=-  /S   ts=-
+    //   int                 JSC= {..} >> 1    logic [7:0]      ts=-  /S   ts=-
+    //   int                 JCH= JC (a CHAIN) logic [7:0]      ts=-  /S   ts=-
+    //   AND THE KIND-1 CONTROLS, which must NOT move and do not:
+    //   int                 JLIT = 8'd18      logic [7:0]      /S    /S   /S
+    //   int                 JOP  = 3 + 4      logic [7:0]      /S    /S   /S
+    //   int                 JHX  = 8'h1A      logic [7:0]      /S    /S   /S
+    //   logic [7:0]         JDU  = 8'd18      logic signed[15] ts=-  ts=- ts=-
+    //
+    // BOTH FACES ARE ONE DECISION, exactly as they were for kind 2: where the
+    // clone is bare the reader votes, so the unsigned reader is golden BARE
+    // and the signed reader is golden `/S`.  `JDU` is the control that proves
+    // the landed replacement still holds without a concatenation — a SIGNED
+    // reader over an UNSIGNED kind-1 package is golden BARE.
+    // § kind1ConcatMustReachTheConstant96v (r11v96) — AND THE CONCATENATION
+    // HAS TO REACH THE CONSTANT.  One inside a CALL'S ARGUMENT LIST does not:
+    // the call folds and the written typespec is hung on its answer, so the
+    // kind-1 road reads `red96InitHasConcat96`, whose § block carries the
+    // seven golden cells (`$bits`, `$clog2`, a user function, a replication
+    // argument, and a call under an add) this gate keeps.  The landed kind-2
+    // road above still reads `red94InitHasConcat94`, unchanged.
     if (dk91 == 1)
-        return true;
+        return !red96InitHasConcat96(ps91, 0);
+
     const Expression* in91 = ps91.getInitializer();
     if (!in91)
         return false;
@@ -9717,6 +9985,89 @@ inline bool red94MinusTop94(const Expression& e094) {
     if (e94.kind == ExpressionKind::BinaryOp)
         return e94.as<BinaryExpression>().op == BinaryOperator::Subtract;
     return false;
+}
+
+/// § pkgParamMulDivModIsIntReduce96 (r11u96) — LAW A, r11u94's R1 and r11v94's
+/// RV94-1.  THE SAME THREE LINES, THREE OPERATORS OVER.  `reduceExpr`'s
+///
+///   `vpiMultOp` (`~/git-repos/UHDM/templates/ExprEval.cpp:3479-3513`)
+///   `vpiModOp`  (`:3709-3745`)
+///   `vpiDivOp`  (`:3803-3841`)
+///
+/// arms are `vpiSubOp`'s (`:3443`) body with one operator swapped:
+///
+///     int64_t val = val0 * val1;          // or val0 % val1, num / divisor
+///     c->VpiValue("INT:" + std::to_string(val));
+///     c->VpiDecompile(std::to_string(val));
+///     c->VpiSize(64);
+///     c->VpiConstType(vpiIntConst);
+///
+/// — `INT:` unconditionally and an `int64_t` the declared type never masks,
+/// against `vpiAddOp` (`:3260`), which reads `get_uvalue` and mints `UINT:`
+/// whenever both operands are unsigned constants.  MEASURED (real Surelog
+/// v1.87, arm `y1_muldiv96`, every cell `slrc=0 ourrc=0 slerr=0`):
+///
+///   package declaration            golden        ours (pristine)
+///   int         XMUL  = 2 * 3      INT:6 ct7     UINT:6 ct9
+///   int         XDIV  = 6 / 2      INT:3 ct7     UINT:3 ct9
+///   int         XMOD  = 7 % 4      INT:3 ct7     UINT:3 ct9
+///   int         MZERO = 0 * 5      INT:0 ct7     UINT:0 ct9
+///   int         DTRUN = 7 / 2      INT:3 ct7     UINT:3 ct9   (truncating)
+///   int         MODZ  = 4 % 4      INT:0 ct7     UINT:0 ct9
+///   int         MNEST = 2 * (3-1)  INT:4 ct7     UINT:4 ct9
+///   int         MCHN  = XMUL * 2   INT:12 ct7    UINT:12 ct9  (a CHAIN)
+///   logic [7:0] MHEX  = 8'h10 * 2  INT:32 ct7    UINT:32 ct9
+///   logic [7:0] MU8   = 100 * 3    INT:300       UINT:44      (the VALUE)
+///   byte        MBY   = 100 * 3    INT:300       UINT:44
+///   bit [3:0]   MB4   = 5 * 5      INT:25        UINT:9
+///   int         MBIG  = 1e5 * 1e5  INT:10000000000  UINT:1410065408
+///   logic [7:0] DU8   = 6 / (-2)   INT:-3        UINT:253
+///   logic [7:0] MODU8 = (-7) % 4   INT:-3        UINT:253
+///   AND THE LIVE CONTROLS, every one EQUAL on both binaries:
+///   int         CADD  = 1 + 2      UINT:3        `vpiAddOp` stays unsigned
+///   int         CSHL  = 1 << 3     UINT:8        the shift arm's own UINT
+///   int         CCAST = int'(2*3)  UINT:6        an EXPLICIT cast on top
+///   int         CLIT  = 6          UINT:6
+///   logic [7:0] CHEX  = 8'hff      HEX:ff
+///   int         CSUB  = 8 - 1      INT:7         the LANDED minus law
+///   int         MNEG  = (-2) * 3   INT:-6        already INT via `neg91`
+///   int         DNEG  = (-6) / 2   INT:-3        (the sign of the RESULT is
+///   int         MODN  = (-7) % 4   INT:-3         what the landed gate sees)
+///
+/// TWO ARMS ARE OUT OF THIS LAW AND MEASURED SO:
+///   * `int CPOW = 2 ** 3` is golden `INT:8` where both binaries write
+///     `UINT:8` — `vpiPowerOp` (`:3760`) mints `INT:` in the same three lines,
+///     but its value face is the `double` artefact § patPowCastArtefact73
+///     already carries, so it is RECORDED and left for its own pass.
+///   * `int CNOT = ~0` is golden `UINT:4294967295` where both binaries write
+///     `INT:-1` (`vpiBitNegOp`, `:3515`, reads `(uint64_t)get_value`).  This
+///     gate is keyed on the WRITTEN OPERATOR, never on the sign of a value, so
+///     it cannot reach `~` in either direction.
+///
+/// A DIVISION OR MODULO BY ZERO IS NOT ON THIS ROAD AT ALL: the producer's
+/// `vpiDivOp` / `vpiModOp` arms only mint when the divisor is nonzero, and
+/// Surelog v1.87 raises `[ERR:UH0722] Division by zero` rather than write a
+/// constant (measured, `y4_bail96`'s first cut, `slrc=4 slerr=2`).
+/// `red72Int64` already answers `Unknown` on `r == 0`, so the gate declines.
+///
+/// Each operator is its own flag so that each face drops alone.
+inline bool red96IntMintTop96(const Expression& e096, bool mul96, bool div96,
+                              bool mod96) {
+    if (red94MinusTop94(e096))
+        return true;
+    const Expression& e96 = stripImplicitConv(e096);
+    if (e96.kind != ExpressionKind::BinaryOp)
+        return false;
+    switch (e96.as<BinaryExpression>().op) {
+        case BinaryOperator::Multiply:
+            return mul96;
+        case BinaryOperator::Divide:
+            return div96;
+        case BinaryOperator::Mod:
+            return mod96;
+        default:
+            return false;
+    }
 }
 
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {

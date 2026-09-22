@@ -1,0 +1,35 @@
+=== net-decl-assign, PER FIELD (golden, pristine, VERIFIED law)
+y1_muldiv96        PER-FIELD  TO=40  AWAY=0  STILL=13  EQ=59  MWRONG=0  MISSING=0
+y2_unsized96       PER-FIELD  TO=26  AWAY=0  STILL=5  EQ=37  MWRONG=0  MISSING=0
+y4_bail96          PER-FIELD  TO=3  AWAY=0  STILL=0  EQ=5  MWRONG=0  MISSING=0
+x2_minusedge94v    PER-FIELD  TO=4  AWAY=0  STILL=5  EQ=47  MWRONG=0  MISSING=0
+v1_amulbrk96v      PER-FIELD  TO=20  AWAY=0  STILL=9  EQ=57  MWRONG=2  MISSING=0
+v2_bdecbrk96v      PER-FIELD  TO=21  AWAY=0  STILL=12  EQ=39  MWRONG=0  MISSING=0
+v5_unbased96v      PER-FIELD  TO=1  AWAY=0  STILL=13  EQ=17  MWRONG=5  MISSING=0
+=== the same with the two tags REVERSED (positive control)
+y1_muldiv96        PER-FIELD  TO=0  AWAY=40  STILL=13  EQ=59  MWRONG=0  MISSING=0
+y2_unsized96       PER-FIELD  TO=0  AWAY=26  STILL=5  EQ=37  MWRONG=0  MISSING=0
+y4_bail96          PER-FIELD  TO=0  AWAY=3  STILL=0  EQ=5  MWRONG=0  MISSING=0
+x2_minusedge94v    PER-FIELD  TO=0  AWAY=4  STILL=5  EQ=47  MWRONG=0  MISSING=0
+v1_amulbrk96v      PER-FIELD  TO=0  AWAY=20  STILL=9  EQ=57  MWRONG=2  MISSING=0
+v2_bdecbrk96v      PER-FIELD  TO=0  AWAY=21  STILL=12  EQ=39  MWRONG=0  MISSING=0
+
+=== LAW A DROPPED (mul96/div96/mod96 = false), md5 919fcc1c5c70c9f9f851ce77b4fb2868
+y1_muldiv96        PER-FIELD  TO=0  AWAY=0  STILL=53  EQ=59  MWRONG=0  MISSING=0
+y2_unsized96       PER-FIELD  TO=20  AWAY=0  STILL=11  EQ=37  MWRONG=0  MISSING=0
+y4_bail96          PER-FIELD  TO=0  AWAY=0  STILL=3  EQ=5  MWRONG=0  MISSING=0
+x2_minusedge94v    PER-FIELD  TO=2  AWAY=0  STILL=7  EQ=47  MWRONG=0  MISSING=0
+v1_amulbrk96v      PER-FIELD  TO=0  AWAY=0  STILL=31  EQ=57  MWRONG=0  MISSING=0
+v2_bdecbrk96v      PER-FIELD  TO=16  AWAY=0  STILL=17  EQ=39  MWRONG=0  MISSING=0
+=== v6_modhome96v — the MODULE home, the parameter port and the override (golden, pristine, verified)
+wMDIV    G=INT:3 7 32 3                       P=INT:3 7 32 3                       L=INT:3 7 32 3                       
+wMMOD    G=INT:3 7 32 3                       P=INT:3 7 32 3                       L=INT:3 7 32 3                       
+wMMUL    G=INT:6 7 32 6                       P=INT:6 7 32 6                       L=INT:6 7 32 6                       
+wMSUB    G=INT:7 7 32 7                       P=INT:7 7 32 7                       L=INT:7 7 32 7                       
+wPMUL    G=INT:6 7 32 6                       P=UINT:6 9 32 6                      L=INT:6 7 32 6                       TO:v TO:ct
+wSP      G=INT:42 7 32 42                     P=INT:42 7 32 42                     L=INT:42 7 32 42                     
+PER-FIELD  TO=2  AWAY=0  STILL=0  EQ=22  MWRONG=0  MISSING=0
+
+=== v7_bigpat96v — LAW B on the PATTERN road, all five fields (golden, pristine, verified)
+v7_bigpat96v         TO=0  AWAY=0  STILL=38  EQ=122  MWRONG=0  UNPAIR=0
+TOTAL  TO=0  AWAY=0  STILL=38  EQ=122  MWRONG=0  UNPAIR=0

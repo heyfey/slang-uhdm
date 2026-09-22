@@ -1,0 +1,64 @@
+# r11v96 GATES — verifier re-measurement. pris=8b04ca25ae24cab79525249c4e5390a5  lawx(as delivered)=125983deb62fe102bd64fe260e22d83a  fixd(verified)=54d56dd004635a3c0a59112c3f88e571
+
+## goldens
+pris 23/0   lawx 23/0   fixd 23/0   SLANG_UHDM=/bin/false 0/23
+
+## uhdm2rtlil, both modes, three binaries
+/tmp/v11u94_wd_pris/u2r_tf.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+/tmp/v11u94_wd_pris/u2r_def.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+/tmp/v11u94_wd_lawx/u2r_tf.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+/tmp/v11u94_wd_lawx/u2r_def.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+/tmp/v11u94_wd_fixd/u2r_tf.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+/tmp/v11u94_wd_fixd/u2r_def.csv:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT 
+
+## surelog --mode both
+== /tmp/v11u94_wd_pris/sl.csv
+    474 default,CMP_EQUAL
+      9 default,CMP_NOTEQUAL
+      5 default,DEFERRED
+    285 default,SLANG_REJECT
+     25 default,SURELOG_FAIL
+    469 testflags,CMP_EQUAL
+      8 testflags,CMP_NOTEQUAL
+      5 testflags,DEFERRED
+      3 testflags,NO_DATABASE
+      1 testflags,NO_UHDM
+    286 testflags,SLANG_REJECT
+     23 testflags,SURELOG_FAIL
+      1 testflags,TIMEOUT
+      2 testflags,UNTRANSLATABLE
+== /tmp/v11u94_wd_lawx/sl.csv
+    474 default,CMP_EQUAL
+      9 default,CMP_NOTEQUAL
+      5 default,DEFERRED
+    285 default,SLANG_REJECT
+     25 default,SURELOG_FAIL
+    469 testflags,CMP_EQUAL
+      8 testflags,CMP_NOTEQUAL
+      5 testflags,DEFERRED
+      3 testflags,NO_DATABASE
+      1 testflags,NO_UHDM
+    286 testflags,SLANG_REJECT
+     23 testflags,SURELOG_FAIL
+      1 testflags,TIMEOUT
+      2 testflags,UNTRANSLATABLE
+== /tmp/v11u94_wd_fixd/sl.csv
+    474 default,CMP_EQUAL
+      9 default,CMP_NOTEQUAL
+      5 default,DEFERRED
+    285 default,SLANG_REJECT
+     25 default,SURELOG_FAIL
+    469 testflags,CMP_EQUAL
+      8 testflags,CMP_NOTEQUAL
+      5 testflags,DEFERRED
+      3 testflags,NO_DATABASE
+      1 testflags,NO_UHDM
+    286 testflags,SLANG_REJECT
+     23 testflags,SURELOG_FAIL
+      1 testflags,TIMEOUT
+      2 testflags,UNTRANSLATABLE
+
+## cmds.txt audit, by ABSOLUTE binary path
+/tmp/v11u94_wd_pris/u2r:    1742 /tmp/v11u94_bin_pris.bin 
+/tmp/v11u94_wd_lawx/u2r:    1742 /tmp/v11u94_bin_lawx.bin 
+/tmp/v11u94_wd_fixd/u2r:    1742 /tmp/v11u94_bin_fixd.bin 

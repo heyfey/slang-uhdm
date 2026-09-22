@@ -16783,6 +16783,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // unconditional replacement dropped.
                             const slang::ast::ParameterSymbol* pi91 =
                                 red91PkgFedInner91(*hp87);
+                            // § pkgBareReplicWritesNoTs96 (r11u96) — and the
+                            // one shape where NEITHER side votes: a package
+                            // parameter whose own initializer is a BARE
+                            // top-level replication is read with no typespec
+                            // at all.  The measured table (nine golden cells
+                            // across all three declaration kinds and both
+                            // reader signs, beside the three shapes that are
+                            // NOT it) is in the § block on
+                            // `red96TopIsReplic96`.
+                            if (pi91 && red96TopIsReplic96(*pi91))
+                                continue;
                             if (pi91 && !red91PkgCloneHasTs91(*pi91, 0))
                                 pi91 = nullptr;
                             if (pi91) {

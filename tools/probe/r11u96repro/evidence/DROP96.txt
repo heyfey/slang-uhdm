@@ -1,0 +1,11 @@
+# r11u96 DROPPABILITY — each law reverted alone in its own fresh 5a20468f worktree
+binary                             y1 LAW A   y2 LAW B   y4       x2       ts y3+y5+x6   
+lawx                               TO=40 AWAY=0 TO=26 AWAY=0 TO=3 AWAY=0 TO=4 AWAY=0 TO=48 AWAY=0  
+dpaX                               TO=0 AWAY=0 TO=20 AWAY=0 TO=0 AWAY=0 TO=2 AWAY=0 TO=48 AWAY=0  
+dpbX                               TO=40 AWAY=0 TO=2 AWAY=0 TO=1 AWAY=0 TO=2 AWAY=0 TO=48 AWAY=0  
+dpcX                               TO=40 AWAY=0 TO=26 AWAY=0 TO=3 AWAY=0 TO=4 AWAY=0 TO=16 AWAY=0  
+dprX                               TO=40 AWAY=0 TO=26 AWAY=0 TO=3 AWAY=0 TO=4 AWAY=0 TO=38 AWAY=2  
+
+lawx = the deliverable; dpaX = LAW A reverted; dpbX = LAW B reverted;
+dpcX = LAW C's kind-1 arm reverted (the replication face kept);
+dprX = the replication face reverted (LAW C kept) -- the ONLY binary with AWAY != 0.

@@ -1,0 +1,70 @@
+# r11u96 GRID — per-field, golden | pristine | law
+== y1_muldiv96 ==
+wCADD    G=UINT:3 9 32 3                      P=UINT:3 9 32 3                      L=UINT:3 9 32 3                      
+wCCAST   G=UINT:6 9 32 6                      P=UINT:6 9 32 6                      L=UINT:6 9 32 6                      
+wCHEX    G=HEX:ff 5 32 8'hff                  P=HEX:ff 5 8 8'hff                   L=HEX:ff 5 8 8'hff                   still:sz
+wCLIT    G=UINT:6 9 32 6                      P=UINT:6 9 32 6                      L=UINT:6 9 32 6                      
+wCNOT    G=UINT:4294967295 9 32 4294967295    P=INT:-1 7 32 -1                     L=INT:-1 7 32 -1                     still:v still:ct still:d
+wCPOW    G=INT:8 7 32 8                       P=UINT:8 9 32 8                      L=UINT:8 9 32 8                      still:v still:ct
+wCSHL    G=UINT:8 9 32 8                      P=UINT:8 9 32 8                      L=UINT:8 9 32 8                      
+wCSUB    G=INT:7 7 32 7                       P=INT:7 7 32 7                       L=INT:7 7 32 7                       
+wDCHN    G=INT:3 7 32 3                       P=UINT:3 9 32 3                      L=INT:3 7 32 3                       TO:v TO:ct
+wDNEG    G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wDTRUN   G=INT:3 7 32 3                       P=UINT:3 9 32 3                      L=INT:3 7 32 3                       TO:v TO:ct
+wDU8     G=INT:-3 7 32 -3                     P=UINT:253 9 8 253                   L=INT:-3 7 8 -3                      TO:v TO:ct still:sz TO:d
+wMB4     G=INT:25 7 32 25                     P=UINT:9 9 4 9                       L=INT:25 7 4 25                      TO:v TO:ct still:sz TO:d
+wMBIG    G=INT:10000000000 7 64 10000000000   P=UINT:1410065408 9 32 1410065408    L=INT:10000000000 7 32 10000000000   TO:v TO:ct still:sz TO:d
+wMBY     G=INT:300 7 32 300                   P=UINT:44 9 8 44                     L=INT:300 7 8 300                    TO:v TO:ct still:sz TO:d
+wMCHN    G=INT:12 7 32 12                     P=UINT:12 9 32 12                    L=INT:12 7 32 12                     TO:v TO:ct
+wMHEX    G=INT:32 7 32 32                     P=UINT:32 9 8 32                     L=INT:32 7 8 32                      TO:v TO:ct still:sz
+wMNEG    G=INT:-6 7 32 -6                     P=INT:-6 7 32 -6                     L=INT:-6 7 32 -6                     
+wMNEST   G=INT:4 7 32 4                       P=UINT:4 9 32 4                      L=INT:4 7 32 4                       TO:v TO:ct
+wMODN    G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wMODU8   G=INT:-3 7 32 -3                     P=UINT:253 9 8 253                   L=INT:-3 7 8 -3                      TO:v TO:ct still:sz TO:d
+wMODZ    G=INT:0 7 32 0                       P=UINT:0 9 32 0                      L=INT:0 7 32 0                       TO:v TO:ct
+wMONE    G=INT:1 7 32 1                       P=UINT:1 9 32 1                      L=INT:1 7 32 1                       TO:v TO:ct
+wMU8     G=INT:300 7 32 300                   P=UINT:44 9 8 44                     L=INT:300 7 8 300                    TO:v TO:ct still:sz TO:d
+wMZERO   G=INT:0 7 32 0                       P=UINT:0 9 32 0                      L=INT:0 7 32 0                       TO:v TO:ct
+wXDIV    G=INT:3 7 32 3                       P=UINT:3 9 32 3                      L=INT:3 7 32 3                       TO:v TO:ct
+wXMOD    G=INT:3 7 32 3                       P=UINT:3 9 32 3                      L=INT:3 7 32 3                       TO:v TO:ct
+wXMUL    G=INT:6 7 32 6                       P=UINT:6 9 32 6                      L=INT:6 7 32 6                       TO:v TO:ct
+PER-FIELD  TO=40  AWAY=0  STILL=13  EQ=59  MWRONG=0  MISSING=0
+== y2_unsized96 ==
+wB30     G=INT:1073741824 7 64 1073741824     P=INT:1073741824 7 64 1073741824     L=INT:1073741824 7 64 1073741824     
+wB31     G=INT:2147483648 7 64 2147483648     P=INT:-2147483648 7 64 -2147483648   L=INT:2147483648 7 64 2147483648     TO:v TO:d
+wB31M    G=INT:-2147483648 7 64 -2147483648   P=INT:2147483648 7 64 2147483648     L=INT:-2147483648 7 64 -2147483648   TO:v TO:d
+wB32     G=INT:4294967296 7 64 4294967296     P=INT:0 7 64 0                       L=INT:4294967296 7 64 4294967296     TO:v TO:d
+wB33     G=INT:8589934592 7 64 8589934592     P=INT:0 7 64 0                       L=INT:8589934592 7 64 8589934592     TO:v TO:d
+wB33M    G=INT:-8589934592 7 64 -8589934592   P=INT:0 7 64 0                       L=INT:-8589934592 7 64 -8589934592   TO:v TO:d
+wBADDU   G=UINT:4294967297 9 64 4294967297    P=UINT:1 9 64 1                      L=UINT:1 9 64 1                      still:v still:d
+wBDIVU   G=INT:4294967296 7 64 4294967296     P=UINT:0 9 64 0                      L=INT:4294967296 7 64 4294967296     TO:v TO:ct TO:d
+wBHEXW   G=INT:4294967296 7 64 4294967296     P=INT:4294967296 7 64 4294967296     L=INT:4294967296 7 64 4294967296     
+wBLBARE  G=UINT:9223372036854775807 9 64 9223372036854775807 P=INT:-1 7 64 -1                     L=INT:-1 7 64 -1                     still:v still:ct still:d
+wBLMAX   G=INT:9223372036854775807 7 64 9223372036854775807 P=INT:-1 7 64 -1                     L=INT:9223372036854775807 7 64 9223372036854775807 TO:v TO:d
+wBLMIN   G=INT:-9223372036854775807 7 64 -9223372036854775807 P=INT:1 7 64 1                       L=INT:-9223372036854775807 7 64 -9223372036854775807 TO:v TO:d
+wBMULU   G=INT:8589934592 7 64 8589934592     P=UINT:0 9 64 0                      L=INT:8589934592 7 64 8589934592     TO:v TO:ct TO:d
+wBSMALL  G=INT:5 7 64 5                       P=INT:5 7 64 5                       L=INT:5 7 64 5                       
+wNB33    G=INT:8589934592 7 32 8589934592     P=INT:0 7 32 0                       L=INT:8589934592 7 32 8589934592     TO:v TO:d
+wUB33    G=INT:8589934592 7 64 8589934592     P=INT:0 7 64 0                       L=INT:8589934592 7 64 8589934592     TO:v TO:d
+wUBLMIN  G=INT:-9223372036854775807 7 64 -9223372036854775807 P=INT:1 7 64 1                       L=INT:-9223372036854775807 7 64 -9223372036854775807 TO:v TO:d
+PER-FIELD  TO=26  AWAY=0  STILL=5  EQ=37  MWRONG=0  MISSING=0
+== y4_bail96 ==
+wDMIN    G=INT:-9223372036854775807 7 64 -9223372036854775807 P=UINT:1 9 64 1                      L=INT:-9223372036854775807 7 64 -9223372036854775807 TO:v TO:ct TO:d
+wMMAX    G=INT:-2 7 64 -2                     P=INT:-2 7 64 -2                     L=INT:-2 7 64 -2                     
+PER-FIELD  TO=3  AWAY=0  STILL=0  EQ=5  MWRONG=0  MISSING=0
+== x2_minusedge94v ==
+wB128    G=INT:-3 7 64 -3                     P=INT:-3 7 128 -3                    L=INT:-3 7 128 -3                    still:sz
+wB64     G=INT:-1 7 64 -1                     P=INT:-1 7 64 -1                     L=INT:-1 7 64 -1                     
+wBADDN   G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wBCAT    G=INT:17 7 32 17                     P=INT:17 7 8 17                      L=INT:17 7 8 17                      still:sz
+wBDIVM   G=INT:-3 7 32 -3                     P=INT:-3 7 32 -3                     L=INT:-3 7 32 -3                     
+wBH2     G=INT:239 7 32 239                   P=INT:239 7 8 239                    L=INT:239 7 8 239                    still:sz
+wBLMIN   G=INT:-9223372036854775807 7 64 -9223372036854775807 P=INT:1 7 64 1                       L=INT:-9223372036854775807 7 64 -9223372036854775807 TO:v TO:d
+wBMIN    G=INT:-2147483648 7 32 -2147483648   P=INT:-2147483648 7 32 -2147483648   L=INT:-2147483648 7 32 -2147483648   
+wBMOD    G=INT:3 7 32 3                       P=UINT:3 9 32 3                      L=INT:3 7 32 3                       TO:v TO:ct
+wBMULM   G=INT:-6 7 32 -6                     P=INT:-6 7 32 -6                     L=INT:-6 7 32 -6                     
+wBN      G=INT:19 7 32 19                     P=INT:19 7 4 19                      L=INT:19 7 4 19                      still:sz
+wBNN     G=INT:-3 7 32 -3                     P=INT:-3 7 8 -3                      L=INT:-3 7 8 -3                      still:sz
+wBSH     G=UINT:4 9 32 4                      P=UINT:4 9 32 4                      L=UINT:4 9 32 4                      
+wBSUBN   G=INT:-2 7 32 -2                     P=INT:-2 7 32 -2                     L=INT:-2 7 32 -2                     
+PER-FIELD  TO=4  AWAY=0  STILL=5  EQ=47  MWRONG=0  MISSING=0

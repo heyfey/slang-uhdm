@@ -1,0 +1,36 @@
+# r11u96 ARM RUNS — every run66.sh line, verbatim, on the pristine and law binaries.
+# (the four drop binaries were run over the same 7 arms as well: 28 further runs, every one slrc=0 ourrc=0 slerr=0)
+ARM y1_muldiv96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=7131 odump=6576
+ARM y2_unsized96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=3950 odump=3813
+ARM y3_kind1cat96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=11395 odump=8424
+ARM y4_bail96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=861 odump=1289
+ARM y5_replic96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=11734 odump=8679
+ARM x2_minusedge94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=3788 odump=3731
+ARM x6_concatvote94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=7499 odump=5686
+ARM y1_muldiv96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=7131 odump=6576
+ARM y2_unsized96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=3950 odump=3813
+ARM y3_kind1cat96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=11395 odump=8280
+ARM y4_bail96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=861 odump=1289
+ARM y5_replic96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=11734 odump=8481
+ARM x2_minusedge94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=3788 odump=3731
+ARM x6_concatvote94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=7499 odump=5668
+
+# THE ONE SHAPE WITH NO GOLDEN, RECORDED:
+# y4_bail96's first cut carried 'localparam int DZ = 6 / Z0' and 'MZ = 6 % Z0' over 'localparam int Z0 = 0'.
+# Surelog v1.87 answered [ERR:UH0722] Division by zero twice — slrc=4 slerr=2 — so THAT SHAPE HAS NO GOLDEN
+# and it was removed from the arm rather than scored.  The producer's vpiDivOp/vpiModOp arms only mint when
+# the divisor is nonzero, and red72Int64 already answers Unknown on r == 0, so the gate declines it anyway.

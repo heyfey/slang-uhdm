@@ -1,0 +1,1763 @@
+# NOTE: one candidate row name is one of the four slang-FENCED tests and is
+# written <FENCED> here per the ops rule.  No arm of it was ever dispatched;
+# `census96.py` reprints the unredacted listing on demand.
+AGREE96    11857
+K1C96      1153
+MDM96      150
+MDMW96     191
+UDC96      310
+UDC96W     10
+--- candidate tests: 64
+  2DParameterOfInstance              K1C96: RndCnstLfsrPermDefault = {
+      128'h16108c9f9008aa37e5118d1ec1d
+  Ariane2024                         K1C96: cva6_cfg = '{
+      XLEN: unsigned'(CVA6ConfigXlen)
+  Ariane2024                         MDM96+MDMW96: PARAM_ACCESS_WORDS = PARAM_CL_WORDS / 2
+  Ariane2024                         MDM96+MDMW96: PARAM_CL_WORDS = CVA6ConfigDcacheLineWidth / PARAM_WORD_W
+  Ariane2024                         MDM96+MDMW96: PARAM_SETS = __BYTES_PER_WAY / __BYTES_PER_CACHELINE
+  Ariane2024                         MDM96+MDMW96: __BYTES_PER_CACHELINE = CVA6ConfigDcacheLineWidth / 8
+  Ariane2024                         MDM96+MDMW96: __BYTES_PER_WAY = CVA6ConfigDcacheByteSize / CVA6ConfigDca
+  Ariane2024                         MDMW96: DCACHE_INDEX_WIDTH = $clog2(`CONFIG_L1D_SIZE / DCACHE_SET_ASS
+  Ariane2024                         MDMW96: ICACHE_INDEX_WIDTH = $clog2(`CONFIG_L1I_SIZE / ICACHE_SET_ASS
+  Ariane2024                         MDMW96: PARAM_DATA_WAYS_PER_RAM_WORD = __minu(
+      __MAX_RAM_WORD_BITS / PARA
+  Ariane2024                         MDMW96: PARAM_MSHR_USE_REGBANK = (PARAM_MSHR_SETS * PARAM_MSHR_WAYS) <= 1
+  Ariane2024                         UDC96: 1001000000000010
+  ArianeElab                         K1C96: ARIANE_MARCHID = {{riscv::XLEN-32{1'b0}}, 32'd3}
+  ArianeElab                         K1C96: ArianeDefaultConfig = '{
+      RASDepth: 2,
+      BTBEntries: 
+  ArianeElab                         K1C96: MSTATUS_SD = {IS_XLEN64, 31'h00000000, ~IS_XLEN64, 31
+  ArianeElab                         K1C96: MSTATUS_SXL = {28'h0000000, IS_XLEN64, IS_XLEN64, 34'h
+  ArianeElab                         K1C96: MSTATUS_UXL = {30'h0000000, IS_XLEN64, IS_XLEN64, 32'h
+  ArianeElab                         K1C96: SSTATUS_SD = {IS_XLEN64, 31'h00000000, ~IS_XLEN64, 31
+  ArianeElab                         MDM96+MDMW96: CONFIG_L1D_SIZE = 32*1024
+  ArianeElab                         MDM96+MDMW96: CONFIG_L1I_SIZE = 16*1024
+  ArianeElab                         MDM96+MDMW96: INSTR_PER_FETCH = FETCH_WIDTH / 16
+  ArianeElab                         MDMW96: DCACHE_INDEX_WIDTH = $clog2(CONFIG_L1D_SIZE / DCACHE_SET_ASSO
+  ArianeElab                         MDMW96: DCACHE_INDEX_WIDTH = $clog2(`CONFIG_L1D_SIZE / DCACHE_SET_ASS
+  ArianeElab                         MDMW96: ICACHE_INDEX_WIDTH = $clog2(CONFIG_L1I_SIZE / ICACHE_SET_ASSO
+  ArianeElab                         MDMW96: ICACHE_INDEX_WIDTH = $clog2(`CONFIG_L1I_SIZE / ICACHE_SET_ASS
+  ArianeElab2                        K1C96: ARIANE_MARCHID = {{riscv::XLEN-32{1'b0}}, 32'd3}
+  ArianeElab2                        K1C96: ArianeDefaultConfig = '{
+      RASDepth: 2,
+      BTBEntries: 
+  ArianeElab2                        K1C96: MSTATUS_SD = {IS_XLEN64, 31'h00000000, ~IS_XLEN64, 31
+  ArianeElab2                        K1C96: MSTATUS_SXL = {28'h0000000, IS_XLEN64, IS_XLEN64, 34'h
+  ArianeElab2                        K1C96: MSTATUS_UXL = {30'h0000000, IS_XLEN64, IS_XLEN64, 32'h
+  ArianeElab2                        K1C96: SSTATUS_SD = {IS_XLEN64, 31'h00000000, ~IS_XLEN64, 31
+  ArianeElab2                        MDM96+MDMW96: CONFIG_L1D_SIZE = 32*1024
+  ArianeElab2                        MDM96+MDMW96: CONFIG_L1I_SIZE = 16*1024
+  ArianeElab2                        MDM96+MDMW96: INSTR_PER_FETCH = FETCH_WIDTH / 16
+  ArianeElab2                        MDMW96: DCACHE_INDEX_WIDTH = $clog2(CONFIG_L1D_SIZE / DCACHE_SET_ASSO
+  ArianeElab2                        MDMW96: DCACHE_INDEX_WIDTH = $clog2(`CONFIG_L1D_SIZE / DCACHE_SET_ASS
+  ArianeElab2                        MDMW96: ICACHE_INDEX_WIDTH = $clog2(CONFIG_L1I_SIZE / ICACHE_SET_ASSO
+  ArianeElab2                        MDMW96: ICACHE_INDEX_WIDTH = $clog2(`CONFIG_L1I_SIZE / ICACHE_SET_ASS
+  BitSelectOfParameterPassedToSubmodule K1C96: DefaultTargetCfg = '{
+      dio_pad_type: {NDioPads{B}}
+   
+  BitSelectOfParameterPassedToSubmoduleInGenFor K1C96: DefaultTargetCfg = '{
+      dio_pad_type: {NDioPads{B}}
+   
+  BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule K1C96: DefaultTargetCfg = '{
+      dio_pad_type: {NDioPads{A}}
+   
+  BitsOp                             MDM96+MDMW96: FLASH_DW = FLASH_BYTES_PER_WORD * 8
+  BitsOp                             MDM96+MDMW96: WordByte = $bits(sha_word_t)/8
+  BlackBePipeInt                     K1C96: all_cfgs_gp = {
+ 
+ bp_multicore_4_l2e_cfg_p
+ ,bp_multi
+  BlackParrotConf                    K1C96: all_cfgs_gp = {
+    bp_sexta_core_cfg_p
+    ,bp_oct_co
+  BlackParrotMuteErrors              K1C96: RndCnstDigestConstDefault = {
+    128'h9d40106e2dc2346ec96d61f0cc529
+  BlackParrotMuteErrors              K1C96: RndCnstDigestIVDefault = {
+    64'ha5af72c1b813aec4,
+    64'h5d7a
+  BlackParrotMuteErrors              K1C96: RndCnstKeyDefault = {
+    128'h047288e1a65c839dae610bbbdf8c4
+  BlackParrotMuteErrors              MDM96+MDMW96: OtpIfWidth = 2**OtpSizeWidth*OtpWidth
+  BlackParrotMuteErrors              MDM96+MDMW96: ScrmblBlockHalfWords = ScrmblBlockWidth / OtpWidth
+  BlackParrotMuteErrors              MDMW96: OtpAddrWidth = OtpByteAddrWidth - $clog2(OtpWidth/8)
+  BlackParrotParam                   K1C96: all_cfgs_gp = {
+    bp_sexta_core_cfg_p
+    ,bp_oct_co
+  BlackParrotStructParam             K1C96: all_cfgs_gp = {
+    
+    bp_multicore_cce_ucode_half_c
+  CastShift                          UDC96W: 1074794756
+  ClassParam                         MDM96+MDMW96: p2 = 5 * p1
+  ConcatOrder                        K1C96: all_cfgs_gp = {
+    bp_multicore_1_cce_ucode_cfg_p
+   
+  ConstSizes                         UDC96: 7698294523898761276
+  DivisionOfSize                     K1C96: PartInvDefault = 3'({
+                                   
+  Earlgrey_0_1                       K1C96: ADDR_MASK_PERI = {
+    32'h 00020fff,
+    32'h 00000fff,
+
+  Earlgrey_0_1                       K1C96: ADDR_SPACE_PERI = {
+    32'h 40000000,
+    32'h 40080000,
+
+  Earlgrey_0_1                       K1C96: CLK_HINT_STATUS_DEFAULT = '{
+    idle: {2{1'b1}}
+  }
+  Earlgrey_0_1                       K1C96: PRESENT_PERM32 = {5'd31, 5'd23, 5'd15, 5'd07,
+           
+  Earlgrey_0_1                       K1C96: PRESENT_PERM32_INV = {5'd31, 5'd27, 5'd23, 5'd19,
+           
+  Earlgrey_0_1                       K1C96: PRESENT_PERM64 = {6'd63, 6'd47, 6'd31, 6'd15,
+           
+  Earlgrey_0_1                       K1C96: PRESENT_PERM64_INV = {6'd63, 6'd59, 6'd55, 6'd51,
+           
+  Earlgrey_0_1                       K1C96: PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,
+               
+  Earlgrey_0_1                       K1C96: PRESENT_SBOX4_INV = {4'hA, 4'h9, 4'h7, 4'h0,
+               
+  Earlgrey_0_1                       K1C96: PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                 
+  Earlgrey_0_1                       K1C96: PRINCE_SBOX4 = {4'h4, 4'hD, 4'h5, 4'hE,
+               
+  Earlgrey_0_1                       K1C96: PRINCE_SBOX4_INV = {4'h1, 4'hC, 4'hE, 4'h5,
+               
+  Earlgrey_0_1                       K1C96: PWR_RST_RSP_DEFAULT = '{
+    rst_lc_src_n: {PowerDomains{1'b1}
+  Earlgrey_0_1                       MDM96+MDMW96: AddrBitsRemain = DataWidth % BusWidth
+  Earlgrey_0_1                       MDM96+MDMW96: FlashTotalPages = NumBanks * PagesPerBank
+  Earlgrey_0_1                       MDM96+MDMW96: FlashWordsPerPage = WordsPerPage / WidthMultiple
+  Earlgrey_0_1                       MDM96+MDMW96: WidthMultiple = DataWidth / BusWidth
+  Earlgrey_0_1                       MDM96+MDMW96: WordByte = $bits(sha_word_t)/8
+  Earlgrey_0_1                       UDC96: 8000000000000080 8000000000008002 8000000000008003 8000000000008009 8000000000008080 8000000000008089
+  Earlgrey_0_1                       UDC96W: 2147483647
+  Earlgrey_Verilator_01_05_21        K1C96: ADDR_MASK_PERI = {
+    32'h 0001ffff,
+    32'h 00420fff,
+
+  Earlgrey_Verilator_01_05_21        K1C96: ADDR_SPACE_PERI = {
+    32'h 40500000,
+    32'h 40000000,
+
+  Earlgrey_Verilator_01_05_21        K1C96: AST_ALERT_REQ_DEFAULT = '{
+    alerts_p: '0,
+    alerts_n: {NumA
+  Earlgrey_Verilator_01_05_21        K1C96: CLK_HINT_STATUS_DEFAULT = '{
+    idle: {4{1'b1}}
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ADD = { 7'b0000000, 10'h?, 3'b000, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ADDI = { 17'h?,             3'b000, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_AND = { 7'b0000000, 10'h?, 3'b111, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ANDI = { 17'h?,             3'b111, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ANDN = { 7'b0100000, 10'h?, 3'b111, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_AUIPC = { 25'h?,                           {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BALL = { 17'h?,             3'b010, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BDEP = {7'b0100100, 10'h?, 3'b110, 5'h?, {OPCOD
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BEQ = { 17'h?,             3'b000, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BEXT = {7'b0000100, 10'h?, 3'b110, 5'h?, {OPCOD
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BFP = {7'b0100100, 10'h?, 3'b111, 5'h?, {OPCOD
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BGE = { 17'h?,             3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BGEU = { 17'h?,             3'b111, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BLT = { 17'h?,             3'b100, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BLTU = { 17'h?,             3'b110, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_BNE = { 17'h?,             3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CADD = { 3'b100, 1'b1, 10'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CADDI = { 3'b000,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CADDI4SPN = { 3'b000,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CAND = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b11, 3'h?
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CANDI = { 3'b100, 1'h?, 2'b10, 8'h?,            
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CBEQZ = { 3'b110,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CBNEZ = { 3'b111,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CEBREAK = { 3'b100, 1'b1,        5'h0,  5'h0,     
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CJ = { 3'b101,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CJAL = { 3'b001,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CJALR = { 3'b100, 1'b1,        5'h?,  5'h0,     
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CJR = { 3'b100, 1'b0,        5'h0,  5'h0,     
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CLI = { 3'b010,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CLMUL = {7'b0000101, 10'h?, 3'b001, 5'h?, {OPCOD
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CLMULH = {7'b0000101, 10'h?, 3'b011, 5'h?, {OPCOD
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CLMULR = {7'b0000101, 10'h?, 3'b010, 5'h?, {OPCOD
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CLUI = { 3'b011,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CLW = { 3'b010,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CLWSP = { 3'b010,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CLZ = { 12'b011000000000, 5'h?,  3'b001, 5'h?,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CMIX = {5'h?, 2'b11, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CMOV = {5'h?, 2'b11, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CMV = { 3'b100, 1'b0, 10'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_COR = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b10, 3'h?
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CRC32C_B = {7'b0110000, 5'b11000, 5'h?, 3'b001, 5'h
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CRC32C_H = {7'b0110000, 5'b11001, 5'h?, 3'b001, 5'h
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CRC32C_W = {7'b0110000, 5'b11010, 5'h?, 3'b001, 5'h
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CRC32_B = {7'b0110000, 5'b10000, 5'h?, 3'b001, 5'h
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CRC32_H = {7'b0110000, 5'b10001, 5'h?, 3'b001, 5'h
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CRC32_W = {7'b0110000, 5'b10010, 5'h?, 3'b001, 5'h
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSLLI = { 3'b000,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSRAI = { 3'b100, 1'h?, 2'b01, 8'h?,            
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSRLI = { 3'b100, 1'h?, 2'b00, 8'h?,            
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSRRC = { 17'h?,             3'b011, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSRRCI = { 17'h?,             3'b111, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSRRS = { 17'h?,             3'b010, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSRRSI = { 17'h?,             3'b110, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSRRW = { 17'h?,             3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSRRWI = { 17'h?,             3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSUB = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b00, 3'h?
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CSW = { 3'b110,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CTZ = { 12'b011000000001, 5'h?,  3'b001, 5'h?,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_CXOR = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b01, 3'h?
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_DIV = { 7'b0000001, 10'h?, 3'b100, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_DIVU = { 7'b0000001, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_DRET = { 12'b011110110010,         13'b0, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_EBREAK = { 12'b000000000001,         13'b0, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ECALL = { 12'b000000000000,         13'b0, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_FENCE = { 17'h?,             3'b000, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_FENCEI = { 17'h0,             3'b001, 5'h0, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_FSL = {5'h?, 2'b10, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_FSR = {5'h?, 2'b10, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_FSRI = { 5'h?, 1'b1, 11'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_GORC = { 7'b0010100, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_GORCI = { 5'b00101, 12'h?, 3'b101, 5'h?, {OPCODE
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_GREV = { 7'b0110100, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_GREVI = { 5'b01101, 12'h?, 3'b101, 5'h?, {OPCODE
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_JAL = { 25'h?,                           {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_JALR = { 17'h?,             3'b000, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_LOAD = {25'h?,                            {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_LUI = { 25'h?,                           {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_MAX = { 7'b0000101, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_MAXU = { 7'b0000101, 10'h?, 3'b111, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_MIN = { 7'b0000101, 10'h?, 3'b100, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_MINU = { 7'b0000101, 10'h?, 3'b110, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_MRET = { 12'b001100000010,         13'b0, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_OR = { 7'b0000000, 10'h?, 3'b110, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC = { 5'b00101, 2'h?, 5'b11111, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC16 = { 5'b00101, 2'h?, 5'b01000, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC2 = { 5'b00101, 2'h?, 5'b11110, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC2_B = { 5'b00101, 2'h?, 5'b00110, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC2_H = { 5'b00101, 2'h?, 5'b01110, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC2_N = { 5'b00101, 2'h?, 5'b00010, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC4 = { 5'b00101, 2'h?, 5'b11100, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC4_B = { 5'b00101, 2'h?, 5'b00100, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC4_H = { 5'b00101, 2'h?, 5'b01100, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC8 = { 5'b00101, 2'h?, 5'b11000, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC8_H = { 5'b00101, 2'h?, 5'b01000, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC_B = { 5'b00101, 2'h?, 5'b00111, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC_H = { 5'b00101, 2'h?, 5'b01111, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC_N = { 5'b00101, 2'h?, 5'b00011, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORC_P = { 5'b00101, 2'h?, 5'b00001, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORI = { 17'h?,             3'b110, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ORN = { 7'b0100000, 10'h?, 3'b110, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_PACK = { 7'b0000100, 10'h?, 3'b100, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_PACKH = { 7'b0000100, 10'h?, 3'b111, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_PACKU = { 7'b0100100, 10'h?, 3'b100, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_PCNT = { 12'b011000000010, 5'h?,  3'b001, 5'h?,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_PMUH = { 7'b0000001, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_PMUL = { 7'b0000001, 10'h?, 3'b000, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_PMULHSU = { 7'b0000001, 10'h?, 3'b010, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_PMULHU = { 7'b0000001, 10'h?, 3'b011, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REM = { 7'b0000001, 10'h?, 3'b110, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REMU = { 7'b0000001, 10'h?, 3'b111, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV = { 5'b01101, 2'h?, 5'b11111, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV16 = { 5'b01101, 2'h?, 5'b01000, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV2 = { 5'b01101, 2'h?, 5'b11110, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV2_B = { 5'b01101, 2'h?, 5'b00110, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV2_H = { 5'b01101, 2'h?, 5'b01110, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV2_N = { 5'b01101, 2'h?, 5'b00010, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV4 = { 5'b01101, 2'h?, 5'b11100, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV4_B = { 5'b01101, 2'h?, 5'b00100, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV4_H = { 5'b01101, 2'h?, 5'b01100, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV8 = { 5'b01101, 2'h?, 5'b11000, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV8_H = { 5'b01101, 2'h?, 5'b01000, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV_B = { 5'b01101, 2'h?, 5'b00111, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV_H = { 5'b01101, 2'h?, 5'b01111, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV_N = { 5'b01101, 2'h?, 5'b00011, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_REV_P = { 5'b01101, 2'h?, 5'b00001, 5'h?, 3'b101
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ROL = { 7'b0110000, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ROR = { 7'b0110000, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_RORI = { 5'b01100        , 12'h?, 3'b101, 5'h?,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SBCLR = { 7'b0100100, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SBCLRI = { 5'b01001, 12'h?, 3'b001, 5'h?, {OPCODE
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SBEXT = { 7'b0100100, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SBEXTI = { 5'b01001, 12'h?, 3'b101, 5'h?, {OPCODE
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SBINV = { 7'b0110100, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SBINVI = { 5'b01101, 12'h?, 3'b001, 5'h?, {OPCODE
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SBSET = { 7'b0010100, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SBSETI = { 5'b00101, 12'h?, 3'b001, 5'h?, {OPCODE
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SEXTB = { 12'b011000000100, 5'h?, 3'b001, 5'h?, 
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SEXTH = { 12'b011000000101, 5'h?, 3'b001, 5'h?, 
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SHFL = { 7'b0000100, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SHFLI = { 6'b000010, 11'h?, 3'b001, 5'h?, {OPCOD
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SLL = { 7'b0000000, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SLLI = { 7'b0000000, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SLO = { 7'b0010000, 10'h?, 3'b001, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SLOI = { 5'b00100        , 12'h?, 3'b001, 5'h?,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SLT = { 7'b0000000, 10'h?, 3'b010, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SLTI = { 17'h?,             3'b010, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SLTIU = { 17'h?,             3'b011, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SLTU = { 7'b0000000, 10'h?, 3'b011, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SRA = { 7'b0100000, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SRAI = { 7'b0100000, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SRL = { 7'b0000000, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SRLI = { 7'b0000000, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SRO = { 7'b0010000, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SROI = { 5'b00100        , 12'h?, 3'b101, 5'h?,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_STORE = {25'h?,                            {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SUB = { 7'b0100000, 10'h?, 3'b000, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_SWSP = { 3'b110,       11'h?,                  
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNSHFL = { 7'b0000100, 10'h?, 3'b101, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNSHFLI = { 6'b000010, 11'h?, 3'b101, 5'h?, {OPCOD
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP = { 5'b00010, 3'h?, 4'b1111, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP2 = { 5'b00010, 3'h?, 4'b1110, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP2_B = { 5'b00010, 3'h?, 4'b0010, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP2_H = { 5'b00010, 3'h?, 4'b0110, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP4 = { 5'b00010, 3'h?, 4'b1100, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP4_H = { 5'b00010, 3'h?, 4'b0100, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP8 = { 5'b00010, 3'h?, 4'b1000, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP_B = { 5'b00010, 3'h?, 4'b0011, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP_H = { 5'b00010, 3'h?, 4'b0111, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_UNZIP_N = { 5'b00010, 3'h?, 4'b0001, 5'h?, 3'b101,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_WFI = { 12'b000100000101,         13'b0, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_XNOR = { 7'b0100000, 10'h?, 3'b100, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_XOR = { 7'b0000000, 10'h?, 3'b100, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_XORI = { 17'h?,             3'b100, 5'h?, {OPCO
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZEXTB = { 4'b0000, 8'b11111111, 5'h?, 3'b111, 5'
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZEXTH = { 7'b0000100, 5'b00000, 5'h?, 3'b100, 5'
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP = { 5'b00010, 3'h?, 4'b1111, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP2 = { 5'b00010, 3'h?, 4'b1110, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP2_B = { 5'b00010, 3'h?, 4'b0010, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP2_H = { 5'b00010, 3'h?, 4'b0110, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP4 = { 5'b00010, 3'h?, 4'b1100, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP4_H = { 5'b00010, 3'h?, 4'b0100, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP8 = { 5'b00010, 3'h?, 4'b1000, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP_B = { 5'b00010, 3'h?, 4'b0011, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP_H = { 5'b00010, 3'h?, 4'b0111, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: INSN_ZIP_N = { 5'b00010, 3'h?, 4'b0001, 5'h?, 3'b001,
+  Earlgrey_Verilator_01_05_21        K1C96: IsolatedPageSel = '{
+    sel:  SeedInfoSel,
+    addr: {See
+  Earlgrey_Verilator_01_05_21        K1C96: PRESENT_PERM32 = {5'd31, 5'd23, 5'd15, 5'd07,
+           
+  Earlgrey_Verilator_01_05_21        K1C96: PRESENT_PERM32_INV = {5'd31, 5'd27, 5'd23, 5'd19,
+           
+  Earlgrey_Verilator_01_05_21        K1C96: PRESENT_PERM64 = {6'd63, 6'd47, 6'd31, 6'd15,
+           
+  Earlgrey_Verilator_01_05_21        K1C96: PRESENT_PERM64_INV = {6'd63, 6'd59, 6'd55, 6'd51,
+           
+  Earlgrey_Verilator_01_05_21        K1C96: PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,
+               
+  Earlgrey_Verilator_01_05_21        K1C96: PRESENT_SBOX4_INV = {4'hA, 4'h9, 4'h7, 4'h0,
+               
+  Earlgrey_Verilator_01_05_21        K1C96: PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                 
+  Earlgrey_Verilator_01_05_21        K1C96: PRINCE_SBOX4 = {4'h4, 4'hD, 4'h5, 4'hE,
+               
+  Earlgrey_Verilator_01_05_21        K1C96: PRINCE_SBOX4_INV = {4'h1, 4'hC, 4'hE, 4'h5,
+               
+  Earlgrey_Verilator_01_05_21        K1C96: PWR_RST_RSP_DEFAULT = '{
+    rst_lc_src_n: {PowerDomains{1'b1}
+  Earlgrey_Verilator_01_05_21        K1C96: PartInvDefault = 16384'({
+    448'({
+      256'h0,
+      
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstAlertHandlerLfsrPerm = {
+    160'h5F00C4CAFD73FC4AC479A61068375
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstAlertHandlerLfsrSeed = {
+    32'h5DEF7861
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstClearingLfsrPermDefault = {
+  128'hb33fdfc81deb6292c21f8a310258506
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstDigestConstDefault = {
+    128'h9d40106e2dc2346ec96d61f0cc529
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstDigestIVDefault = {
+    64'ha5af72c1b813aec4,
+    64'h5d7a
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstFlashCtrlAddrKey = {
+    128'h83D0550B80E84EB1F4C3471C5DEF7
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstFlashCtrlDataKey = {
+    128'hFABD19450B238D4C2D73930D4CAC3
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstFlashCtrlLfsrPerm = {
+    160'h26FF203D990D87C5E8A98BAFEC750
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstFlashCtrlLfsrSeed = {
+    32'hD89F9DFC
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeyDefault = {
+    128'h047288e1a65c839dae610bbbdf8c4
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrAesSeed = {
+    256'hA917F063C414964E46CE0FE8DDB27
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrCreatorIdentitySeed = {
+    256'hDE094CA8F1435F85E0F7489A309CB
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrHardOutputSeed = {
+    256'h205AE5E5FEED81E0CB15451E21FFD
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrHmacSeed = {
+    256'h84B1A5A63AF5FA0AAF8C6A6B90F86
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrKmacSeed = {
+    256'h32949CC3635D1F47C8F05AFFC85F7
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrLfsrPerm = {
+    128'h26AC29E186C1F4DC6F959D6ED08DC
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrLfsrSeed = {
+    64'hF4C3471C5DEF7861
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrNoneSeed = {
+    256'hEEC5E43D4B16446726A27B8F0B30A
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrOwnerIdentitySeed = {
+    256'h738F30D9006289A1D7D9D0CE1DD7D
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrOwnerIntIdentitySeed = {
+    256'h12965C7DE10023EC699679EDD5369
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrRevisionSeed = {
+    256'h96466A983E5346826A43628219E5A
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstKeymgrSoftOutputSeed = {
+    256'h613E5324CBAC660746BCA7E0AE24A
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstLcCtrlLcKeymgrDivInvalid = {
+    64'hF4C3471C5DEF7861
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstLcCtrlLcKeymgrDivProduction = {
+    64'h2D73930D4CAC3785
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstLcCtrlLcKeymgrDivTestDevRma = {
+    64'h83D0550B80E84EB1
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstLfsrPermDefault = {
+    128'h16108c9f9008aa37e5118d1ec1df6
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstLfsrPermDefault = {
+    160'hd60bc7d86445da9347e0ccdd05b28
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstMaskingLfsrSeedDefault = {
+  180'h5ae9b31605f9077a6b758a442031e1c
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstOtpCtrlDigestConst = {
+    128'hCE7D846469A3B8E35A6BD38295BD2
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstOtpCtrlDigestIV = {
+    64'hB77F07FF3D729720,
+    256'h0D5
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstOtpCtrlKey = {
+    128'h79EE911CE801484BA8373086F9DD4
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstOtpCtrlLfsrPerm = {
+    240'h5D294061E29A7C404F4593035A190
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstOtpCtrlLfsrSeed = {
+    40'hF45DEF7861
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstOtpCtrlRawUnlockToken = {
+    128'hDE094CA8F1435F85E0F7489A309CB
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstSramCtrlMainSramKey = {
+    128'hB6D4B556D89F9DFCFABD19450B238
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstSramCtrlMainSramNonce = {
+    64'h160733E752CAD615
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstSramCtrlRetSramKey = {
+    128'h83D0550B80E84EB1F4C3471C5DEF7
+  Earlgrey_Verilator_01_05_21        K1C96: RndCnstSramCtrlRetSramNonce = {
+    64'h2D73930D4CAC3785
+  }
+  Earlgrey_Verilator_01_05_21        K1C96: TransTokenIdxMatrix = {
+    
+    {13{InvalidTokenIdx}}, 
+    
+
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: AddrBitsRemain = DataWidth % BusWidth
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: AdvDataWidth = SwBindingWidth + 2*KeyWidth + DevIdWidth
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: BaseWordsPerWLEN = WLEN / 32
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: BufferCycles = (Sha3Latency + RegLatency - 1)/RegLatenc
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: BufferSizeBits = RegIntfWidth * BufferCycles
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: BusBytes = BusWidth / 8
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: BusPgmRes = BusPgmResBytes / BusBytes
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: BusWordsPerPage = WordsPerPage * WidthMultiple
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: ChunkSizePRDMasking = WidthPRDMasking/10
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: GenDataWidth = 32 + 128 + KeyWidth*2
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: KeccakEntries = 1600/MsgWidth
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: LcCountWidth = NumLcCountValues * LcValueWidth
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: LcStateWidth = NumLcStateValues * LcValueWidth
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: MaxCsEncodeSize = ($clog2(CsWidth+1) + 8 - 1) / 8 + 1
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: MaxEncodedKeyLenByte = (MaxEncodedKeyLenW + 8 - 1) / 8
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: MaxEncodedKeyLenSize = MaxEncodedKeyLenByte * 8
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: MaxFnEncodeSize = ($clog2(FnWidth+1) + 8 - 1) / 8 + 1
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: MsgStrbW = MsgWidth / 8
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: NSRegisterSize = ((NSRegisterSizePre + 4 - 1 ) / 4) * 4
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: NSRegisterSizePre = FnWidth/8       + CsWidth/8
+            
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: OtpIfWidth = 2**OtpSizeWidth*OtpWidth
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: ScrmblBlockHalfWords = ScrmblBlockWidth / OtpWidth
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: WidthMultiple = DataWidth / BusWidth
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: WidthPRDData = 16*(8+WidthPRDSBox)
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: WidthPRDKey = 4*(8+WidthPRDSBox)
+  Earlgrey_Verilator_01_05_21        MDM96+MDMW96: WordByte = $bits(sha_word_t)/8
+  Earlgrey_Verilator_01_05_21        MDMW96: DataByteWidth = prim_util_pkg::vbits(DataWidth / 8)
+  Earlgrey_Verilator_01_05_21        MDMW96: MsgFifoDepth = 2 + ((BufferSizeBits + MsgWidth - 1)/Msg
+  Earlgrey_Verilator_01_05_21        MDMW96: OtpAddrWidth = OtpByteAddrWidth - $clog2(OtpWidth/8)
+  Earlgrey_Verilator_01_05_21        MDMW96: PrefixIndexW = $clog2(PrefixSize/64)
+  Earlgrey_Verilator_01_05_21        UDC96: 8000000000000080 8000000000008002 8000000000008003 8000000000008009 8000000000008080 8000000000008089
+  Earlgrey_Verilator_0_1             K1C96: ADDR_MASK_PERI = {
+    32'h 00020fff,
+    32'h 00000fff,
+
+  Earlgrey_Verilator_0_1             K1C96: ADDR_SPACE_PERI = {
+    32'h 40000000,
+    32'h 40080000,
+
+  Earlgrey_Verilator_0_1             K1C96: CLK_HINT_STATUS_DEFAULT = '{
+    idle: {2{1'b1}}
+  }
+  Earlgrey_Verilator_0_1             K1C96: INSN_ADD = { 7'b0000000, 10'b?, 3'b000, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_ADDI = { 17'b?,             3'b000, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_AND = { 7'b0000000, 10'b?, 3'b111, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_ANDI = { 17'b?,             3'b111, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_ANDN = { 7'b0100000, 10'b?, 3'b111, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_AUIPC = { 25'b?,                           {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_BALL = { 17'b?,             3'b010, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_BDEP = {7'b0100100, 10'b?, 3'b110, 5'b?, {OPCOD
+  Earlgrey_Verilator_0_1             K1C96: INSN_BEQ = { 17'b?,             3'b000, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_BEXT = {7'b0000100, 10'b?, 3'b110, 5'b?, {OPCOD
+  Earlgrey_Verilator_0_1             K1C96: INSN_BFP = {7'b0100100, 10'b?, 3'b111, 5'b?, {OPCOD
+  Earlgrey_Verilator_0_1             K1C96: INSN_BGE = { 17'b?,             3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_BGEU = { 17'b?,             3'b111, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_BLT = { 17'b?,             3'b100, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_BLTU = { 17'b?,             3'b110, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_BNE = { 17'b?,             3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CADD = { 3'b100, 1'b1, 10'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CADDI = { 3'b000,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CADDI4SPN = { 3'b000,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CAND = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b11, 3'b?
+  Earlgrey_Verilator_0_1             K1C96: INSN_CANDI = { 3'b100, 1'b?, 2'b10, 8'b?,            
+  Earlgrey_Verilator_0_1             K1C96: INSN_CBEQZ = { 3'b110,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CBNEZ = { 3'b111,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CEBREAK = { 3'b100, 1'b1,        5'b0,  5'b0,     
+  Earlgrey_Verilator_0_1             K1C96: INSN_CJ = { 3'b101,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CJAL = { 3'b001,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CJALR = { 3'b100, 1'b1,        5'b?,  5'b0,     
+  Earlgrey_Verilator_0_1             K1C96: INSN_CJR = { 3'b100, 1'b0,        5'b?,  5'b0,     
+  Earlgrey_Verilator_0_1             K1C96: INSN_CLI = { 3'b010,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CLMUL = {7'b0000101, 10'b?, 3'b001, 5'b?, {OPCOD
+  Earlgrey_Verilator_0_1             K1C96: INSN_CLMULH = {7'b0000101, 10'b?, 3'b011, 5'b?, {OPCOD
+  Earlgrey_Verilator_0_1             K1C96: INSN_CLMULR = {7'b0000101, 10'b?, 3'b010, 5'b?, {OPCOD
+  Earlgrey_Verilator_0_1             K1C96: INSN_CLUI = { 3'b011,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CLW = { 3'b010,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CLWSP = { 3'b010,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CLZ = { 12'b011000000000, 5'b?,  3'b001, 5'b?,
+  Earlgrey_Verilator_0_1             K1C96: INSN_CMIX = {5'b?, 2'b11, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CMOV = {5'b?, 2'b11, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CMV = { 3'b100, 1'b0, 10'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_COR = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b10, 3'b?
+  Earlgrey_Verilator_0_1             K1C96: INSN_CRC32C_B = {7'b0110000, 5'b11000, 5'b?, 3'b001, 5'b
+  Earlgrey_Verilator_0_1             K1C96: INSN_CRC32C_H = {7'b0110000, 5'b11001, 5'b?, 3'b001, 5'b
+  Earlgrey_Verilator_0_1             K1C96: INSN_CRC32C_W = {7'b0110000, 5'b11010, 5'b?, 3'b001, 5'b
+  Earlgrey_Verilator_0_1             K1C96: INSN_CRC32_B = {7'b0110000, 5'b10000, 5'b?, 3'b001, 5'b
+  Earlgrey_Verilator_0_1             K1C96: INSN_CRC32_H = {7'b0110000, 5'b10001, 5'b?, 3'b001, 5'b
+  Earlgrey_Verilator_0_1             K1C96: INSN_CRC32_W = {7'b0110000, 5'b10010, 5'b?, 3'b001, 5'b
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSLLI = { 3'b000,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSRAI = { 3'b100, 1'b?, 2'b01, 8'b?,            
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSRLI = { 3'b100, 1'b?, 2'b00, 8'b?,            
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSRRC = { 17'b?,             3'b011, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSRRCI = { 17'b?,             3'b111, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSRRS = { 17'b?,             3'b010, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSRRSI = { 17'b?,             3'b110, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSRRW = { 17'b?,             3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSRRWI = { 17'b?,             3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSUB = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b00, 3'b?
+  Earlgrey_Verilator_0_1             K1C96: INSN_CSW = { 3'b110,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_CTZ = { 12'b011000000001, 5'b?,  3'b001, 5'b?,
+  Earlgrey_Verilator_0_1             K1C96: INSN_CXOR = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b01, 3'b?
+  Earlgrey_Verilator_0_1             K1C96: INSN_DIV = { 7'b0000001, 10'b?, 3'b100, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_DIVU = { 7'b0000001, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_DRET = { 12'b011110110010,         13'b0, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_EBREAK = { 12'b000000000001,         13'b0, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_ECALL = { 12'b000000000000,         13'b0, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_FENCE = { 17'b?,             3'b000, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_FENCEI = { 17'b0,             3'b001, 5'b0, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_FSL = {5'b?, 2'b10, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_FSR = {5'b?, 2'b10, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_FSRI = { 5'b?, 1'b1, 11'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_GORC = { 7'b0010100, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_GORCI = { 5'b00101, 12'b?, 3'b101, 5'b?, {OPCODE
+  Earlgrey_Verilator_0_1             K1C96: INSN_GREV = { 7'b0110100, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_GREVI = { 5'b01101, 12'b?, 3'b101, 5'b?, {OPCODE
+  Earlgrey_Verilator_0_1             K1C96: INSN_JAL = { 25'b?,                           {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_JALR = { 17'b?,             3'b000, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_LOAD = {25'b?,                            {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_LUI = { 25'b?,                           {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_MAX = { 7'b0000101, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_MAXU = { 7'b0000101, 10'b?, 3'b111, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_MIN = { 7'b0000101, 10'b?, 3'b100, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_MINU = { 7'b0000101, 10'b?, 3'b110, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_MRET = { 12'b001100000010,         13'b0, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_OR = { 7'b0000000, 10'b?, 3'b110, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC = { 5'b00101, 2'b?, 5'b11111, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC16 = { 5'b00101, 2'b?, 5'b01000, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC2 = { 5'b00101, 2'b?, 5'b11110, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC2_B = { 5'b00101, 2'b?, 5'b00110, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC2_H = { 5'b00101, 2'b?, 5'b01110, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC2_N = { 5'b00101, 2'b?, 5'b00010, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC4 = { 5'b00101, 2'b?, 5'b11100, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC4_B = { 5'b00101, 2'b?, 5'b00100, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC4_H = { 5'b00101, 2'b?, 5'b01100, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC8 = { 5'b00101, 2'b?, 5'b11000, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC8_H = { 5'b00101, 2'b?, 5'b01000, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC_B = { 5'b00101, 2'b?, 5'b00111, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC_H = { 5'b00101, 2'b?, 5'b01111, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC_N = { 5'b00101, 2'b?, 5'b00011, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORC_P = { 5'b00101, 2'b?, 5'b00001, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORI = { 17'b?,             3'b110, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_ORN = { 7'b0100000, 10'b?, 3'b110, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_PACK = { 7'b0000100, 10'b?, 3'b100, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_PACKH = { 7'b0000100, 10'b?, 3'b111, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_PACKU = { 7'b0100100, 10'b?, 3'b100, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_PCNT = { 12'b011000000010, 5'b?,  3'b001, 5'b?,
+  Earlgrey_Verilator_0_1             K1C96: INSN_PMUH = { 7'b0000001, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_PMUL = { 7'b0000001, 10'b?, 3'b000, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_PMULHSU = { 7'b0000001, 10'b?, 3'b010, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_PMULHU = { 7'b0000001, 10'b?, 3'b011, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_REM = { 7'b0000001, 10'b?, 3'b110, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_REMU = { 7'b0000001, 10'b?, 3'b111, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV = { 5'b01101, 2'b?, 5'b11111, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV16 = { 5'b01101, 2'b?, 5'b01000, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV2 = { 5'b01101, 2'b?, 5'b11110, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV2_B = { 5'b01101, 2'b?, 5'b00110, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV2_H = { 5'b01101, 2'b?, 5'b01110, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV2_N = { 5'b01101, 2'b?, 5'b00010, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV4 = { 5'b01101, 2'b?, 5'b11100, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV4_B = { 5'b01101, 2'b?, 5'b00100, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV4_H = { 5'b01101, 2'b?, 5'b01100, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV8 = { 5'b01101, 2'b?, 5'b11000, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV8_H = { 5'b01101, 2'b?, 5'b01000, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV_B = { 5'b01101, 2'b?, 5'b00111, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV_H = { 5'b01101, 2'b?, 5'b01111, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV_N = { 5'b01101, 2'b?, 5'b00011, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_REV_P = { 5'b01101, 2'b?, 5'b00001, 5'b?, 3'b101
+  Earlgrey_Verilator_0_1             K1C96: INSN_ROL = { 7'b0110000, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_ROR = { 7'b0110000, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_RORI = { 5'b01100        , 12'b?, 3'b101, 5'b?,
+  Earlgrey_Verilator_0_1             K1C96: INSN_SBCLR = { 7'b0100100, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SBCLRI = { 5'b01001, 12'b?, 3'b001, 5'b?, {OPCODE
+  Earlgrey_Verilator_0_1             K1C96: INSN_SBEXT = { 7'b0100100, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SBEXTI = { 5'b01001, 12'b?, 3'b101, 5'b?, {OPCODE
+  Earlgrey_Verilator_0_1             K1C96: INSN_SBINV = { 7'b0110100, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SBINVI = { 5'b01101, 12'b?, 3'b001, 5'b?, {OPCODE
+  Earlgrey_Verilator_0_1             K1C96: INSN_SBSET = { 7'b0010100, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SBSETI = { 5'b00101, 12'b?, 3'b001, 5'b?, {OPCODE
+  Earlgrey_Verilator_0_1             K1C96: INSN_SEXTB = { 12'b011000000100, 5'b?, 3'b001, 5'b?, 
+  Earlgrey_Verilator_0_1             K1C96: INSN_SEXTH = { 12'b011000000101, 5'b?, 3'b001, 5'b?, 
+  Earlgrey_Verilator_0_1             K1C96: INSN_SHFL = { 7'b0000100, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SHFLI = { 6'b000010, 11'b?, 3'b001, 5'b?, {OPCOD
+  Earlgrey_Verilator_0_1             K1C96: INSN_SLL = { 7'b0000000, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SLLI = { 7'b0000000, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SLO = { 7'b0010000, 10'b?, 3'b001, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SLOI = { 5'b00100        , 12'b?, 3'b001, 5'b?,
+  Earlgrey_Verilator_0_1             K1C96: INSN_SLT = { 7'b0000000, 10'b?, 3'b010, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SLTI = { 17'b?,             3'b010, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SLTIU = { 17'b?,             3'b011, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SLTU = { 7'b0000000, 10'b?, 3'b011, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SRA = { 7'b0100000, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SRAI = { 7'b0100000, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SRL = { 7'b0000000, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SRLI = { 7'b0000000, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SRO = { 7'b0010000, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SROI = { 5'b00100        , 12'b?, 3'b101, 5'b?,
+  Earlgrey_Verilator_0_1             K1C96: INSN_STORE = {25'b?,                            {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SUB = { 7'b0100000, 10'b?, 3'b000, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_SWSP = { 3'b110,       11'b?,                  
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNSHFL = { 7'b0000100, 10'b?, 3'b101, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNSHFLI = { 6'b000010, 11'b?, 3'b101, 5'b?, {OPCOD
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP = { 5'b00010, 3'b?, 4'b1111, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP2 = { 5'b00010, 3'b?, 4'b1110, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP2_B = { 5'b00010, 3'b?, 4'b0010, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP2_H = { 5'b00010, 3'b?, 4'b0110, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP4 = { 5'b00010, 3'b?, 4'b1100, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP4_H = { 5'b00010, 3'b?, 4'b0100, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP8 = { 5'b00010, 3'b?, 4'b1000, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP_B = { 5'b00010, 3'b?, 4'b0011, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP_H = { 5'b00010, 3'b?, 4'b0111, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_UNZIP_N = { 5'b00010, 3'b?, 4'b0001, 5'b?, 3'b101,
+  Earlgrey_Verilator_0_1             K1C96: INSN_WFI = { 12'b000100000101,         13'b0, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_XNOR = { 7'b0100000, 10'b?, 3'b100, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_XOR = { 7'b0000000, 10'b?, 3'b100, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_XORI = { 17'b?,             3'b100, 5'b?, {OPCO
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZEXTB = { 4'b0000, 8'b11111111, 5'b?, 3'b111, 5'
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZEXTH = { 7'b0000100, 5'b00000, 5'b?, 3'b100, 5'
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP = { 5'b00010, 3'b?, 4'b1111, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP2 = { 5'b00010, 3'b?, 4'b1110, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP2_B = { 5'b00010, 3'b?, 4'b0010, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP2_H = { 5'b00010, 3'b?, 4'b0110, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP4 = { 5'b00010, 3'b?, 4'b1100, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP4_H = { 5'b00010, 3'b?, 4'b0100, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP8 = { 5'b00010, 3'b?, 4'b1000, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP_B = { 5'b00010, 3'b?, 4'b0011, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP_H = { 5'b00010, 3'b?, 4'b0111, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: INSN_ZIP_N = { 5'b00010, 3'b?, 4'b0001, 5'b?, 3'b001,
+  Earlgrey_Verilator_0_1             K1C96: PRESENT_PERM32 = {5'd31, 5'd23, 5'd15, 5'd07,
+           
+  Earlgrey_Verilator_0_1             K1C96: PRESENT_PERM32_INV = {5'd31, 5'd27, 5'd23, 5'd19,
+           
+  Earlgrey_Verilator_0_1             K1C96: PRESENT_PERM64 = {6'd63, 6'd47, 6'd31, 6'd15,
+           
+  Earlgrey_Verilator_0_1             K1C96: PRESENT_PERM64_INV = {6'd63, 6'd59, 6'd55, 6'd51,
+           
+  Earlgrey_Verilator_0_1             K1C96: PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,
+               
+  Earlgrey_Verilator_0_1             K1C96: PRESENT_SBOX4_INV = {4'hA, 4'h9, 4'h7, 4'h0,
+               
+  Earlgrey_Verilator_0_1             K1C96: PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                 
+  Earlgrey_Verilator_0_1             K1C96: PRINCE_SBOX4 = {4'h4, 4'hD, 4'h5, 4'hE,
+               
+  Earlgrey_Verilator_0_1             K1C96: PRINCE_SBOX4_INV = {4'h1, 4'hC, 4'hE, 4'h5,
+               
+  Earlgrey_Verilator_0_1             K1C96: PWR_RST_RSP_DEFAULT = '{
+    rst_lc_src_n: {PowerDomains{1'b1}
+  Earlgrey_Verilator_0_1             MDM96+MDMW96: AddrBitsRemain = DataWidth % BusWidth
+  Earlgrey_Verilator_0_1             MDM96+MDMW96: FlashTotalPages = NumBanks * PagesPerBank
+  Earlgrey_Verilator_0_1             MDM96+MDMW96: FlashWordsPerPage = WordsPerPage / WidthMultiple
+  Earlgrey_Verilator_0_1             MDM96+MDMW96: WidthMultiple = DataWidth / BusWidth
+  Earlgrey_Verilator_0_1             MDM96+MDMW96: WordByte = $bits(sha_word_t)/8
+  Earlgrey_Verilator_0_1             UDC96: 8000000000000080 8000000000008002 8000000000008003 8000000000008009 8000000000008080 8000000000008089
+  Earlgrey_Verilator_0_1             UDC96W: 2147483647
+  Earlgrey_nexysvideo                K1C96: ADDR_MASK_PERI = {
+    32'h 0001ffff,
+    32'h 00420fff,
+
+  Earlgrey_nexysvideo                K1C96: ADDR_SPACE_PERI = {
+    32'h 40500000,
+    32'h 40000000,
+
+  Earlgrey_nexysvideo                K1C96: AST_ALERT_REQ_DEFAULT = '{
+    alerts_p: '0,
+    alerts_n: {NumA
+  Earlgrey_nexysvideo                K1C96: CLK_HINT_STATUS_DEFAULT = '{
+    idle: {4{1'b1}}
+  }
+  Earlgrey_nexysvideo                K1C96: IsolatedPageSel = '{
+    sel:  SeedInfoSel,
+    addr: {See
+  Earlgrey_nexysvideo                K1C96: PRESENT_PERM32 = {5'd31, 5'd23, 5'd15, 5'd07,
+           
+  Earlgrey_nexysvideo                K1C96: PRESENT_PERM32_INV = {5'd31, 5'd27, 5'd23, 5'd19,
+           
+  Earlgrey_nexysvideo                K1C96: PRESENT_PERM64 = {6'd63, 6'd47, 6'd31, 6'd15,
+           
+  Earlgrey_nexysvideo                K1C96: PRESENT_PERM64_INV = {6'd63, 6'd59, 6'd55, 6'd51,
+           
+  Earlgrey_nexysvideo                K1C96: PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,
+               
+  Earlgrey_nexysvideo                K1C96: PRESENT_SBOX4_INV = {4'hA, 4'h9, 4'h7, 4'h0,
+               
+  Earlgrey_nexysvideo                K1C96: PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                 
+  Earlgrey_nexysvideo                K1C96: PRINCE_SBOX4 = {4'h4, 4'hD, 4'h5, 4'hE,
+               
+  Earlgrey_nexysvideo                K1C96: PRINCE_SBOX4_INV = {4'h1, 4'hC, 4'hE, 4'h5,
+               
+  Earlgrey_nexysvideo                K1C96: PWR_RST_RSP_DEFAULT = '{
+    rst_lc_src_n: {PowerDomains{1'b1}
+  Earlgrey_nexysvideo                K1C96: PartInvDefault = 16384'({
+    448'({
+      256'h0,
+      
+  Earlgrey_nexysvideo                K1C96: RndCnstAlertHandlerLfsrPerm = {
+    160'h5F00C4CAFD73FC4AC479A61068375
+  Earlgrey_nexysvideo                K1C96: RndCnstAlertHandlerLfsrSeed = {
+    32'h5DEF7861
+  }
+  Earlgrey_nexysvideo                K1C96: RndCnstClearingLfsrPermDefault = {
+  128'hb33fdfc81deb6292c21f8a310258506
+  Earlgrey_nexysvideo                K1C96: RndCnstDigestConstDefault = {
+    128'h9d40106e2dc2346ec96d61f0cc529
+  Earlgrey_nexysvideo                K1C96: RndCnstDigestIVDefault = {
+    64'ha5af72c1b813aec4,
+    64'h5d7a
+  Earlgrey_nexysvideo                K1C96: RndCnstFlashCtrlAddrKey = {
+    128'h83D0550B80E84EB1F4C3471C5DEF7
+  Earlgrey_nexysvideo                K1C96: RndCnstFlashCtrlDataKey = {
+    128'hFABD19450B238D4C2D73930D4CAC3
+  Earlgrey_nexysvideo                K1C96: RndCnstFlashCtrlLfsrPerm = {
+    160'h26FF203D990D87C5E8A98BAFEC750
+  Earlgrey_nexysvideo                K1C96: RndCnstFlashCtrlLfsrSeed = {
+    32'hD89F9DFC
+  }
+  Earlgrey_nexysvideo                K1C96: RndCnstKeyDefault = {
+    128'h047288e1a65c839dae610bbbdf8c4
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrAesSeed = {
+    256'hA917F063C414964E46CE0FE8DDB27
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrCreatorIdentitySeed = {
+    256'hDE094CA8F1435F85E0F7489A309CB
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrHardOutputSeed = {
+    256'h205AE5E5FEED81E0CB15451E21FFD
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrHmacSeed = {
+    256'h84B1A5A63AF5FA0AAF8C6A6B90F86
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrKmacSeed = {
+    256'h32949CC3635D1F47C8F05AFFC85F7
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrLfsrPerm = {
+    128'h26AC29E186C1F4DC6F959D6ED08DC
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrLfsrSeed = {
+    64'hF4C3471C5DEF7861
+  }
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrNoneSeed = {
+    256'hEEC5E43D4B16446726A27B8F0B30A
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrOwnerIdentitySeed = {
+    256'h738F30D9006289A1D7D9D0CE1DD7D
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrOwnerIntIdentitySeed = {
+    256'h12965C7DE10023EC699679EDD5369
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrRevisionSeed = {
+    256'h96466A983E5346826A43628219E5A
+  Earlgrey_nexysvideo                K1C96: RndCnstKeymgrSoftOutputSeed = {
+    256'h613E5324CBAC660746BCA7E0AE24A
+  Earlgrey_nexysvideo                K1C96: RndCnstLcCtrlLcKeymgrDivInvalid = {
+    64'hF4C3471C5DEF7861
+  }
+  Earlgrey_nexysvideo                K1C96: RndCnstLcCtrlLcKeymgrDivProduction = {
+    64'h2D73930D4CAC3785
+  }
+  Earlgrey_nexysvideo                K1C96: RndCnstLcCtrlLcKeymgrDivTestDevRma = {
+    64'h83D0550B80E84EB1
+  }
+  Earlgrey_nexysvideo                K1C96: RndCnstLfsrPermDefault = {
+    128'h16108c9f9008aa37e5118d1ec1df6
+  Earlgrey_nexysvideo                K1C96: RndCnstLfsrPermDefault = {
+    160'hd60bc7d86445da9347e0ccdd05b28
+  Earlgrey_nexysvideo                K1C96: RndCnstMaskingLfsrSeedDefault = {
+  180'h5ae9b31605f9077a6b758a442031e1c
+  Earlgrey_nexysvideo                K1C96: RndCnstOtpCtrlDigestConst = {
+    128'hCE7D846469A3B8E35A6BD38295BD2
+  Earlgrey_nexysvideo                K1C96: RndCnstOtpCtrlDigestIV = {
+    64'hB77F07FF3D729720,
+    256'h0D5
+  Earlgrey_nexysvideo                K1C96: RndCnstOtpCtrlKey = {
+    128'h79EE911CE801484BA8373086F9DD4
+  Earlgrey_nexysvideo                K1C96: RndCnstOtpCtrlLfsrPerm = {
+    240'h5D294061E29A7C404F4593035A190
+  Earlgrey_nexysvideo                K1C96: RndCnstOtpCtrlLfsrSeed = {
+    40'hF45DEF7861
+  }
+  Earlgrey_nexysvideo                K1C96: RndCnstOtpCtrlRawUnlockToken = {
+    128'hDE094CA8F1435F85E0F7489A309CB
+  Earlgrey_nexysvideo                K1C96: RndCnstSramCtrlMainSramKey = {
+    128'hB6D4B556D89F9DFCFABD19450B238
+  Earlgrey_nexysvideo                K1C96: RndCnstSramCtrlMainSramNonce = {
+    64'h160733E752CAD615
+  }
+  Earlgrey_nexysvideo                K1C96: RndCnstSramCtrlRetSramKey = {
+    128'h83D0550B80E84EB1F4C3471C5DEF7
+  Earlgrey_nexysvideo                K1C96: RndCnstSramCtrlRetSramNonce = {
+    64'h2D73930D4CAC3785
+  }
+  Earlgrey_nexysvideo                K1C96: TransTokenIdxMatrix = {
+    
+    {13{InvalidTokenIdx}}, 
+    
+
+  Earlgrey_nexysvideo                MDM96+MDMW96: AddrBitsRemain = DataWidth % BusWidth
+  Earlgrey_nexysvideo                MDM96+MDMW96: AdvDataWidth = SwBindingWidth + 2*KeyWidth + DevIdWidth
+  Earlgrey_nexysvideo                MDM96+MDMW96: BaseWordsPerWLEN = WLEN / 32
+  Earlgrey_nexysvideo                MDM96+MDMW96: BufferCycles = (Sha3Latency + RegLatency - 1)/RegLatenc
+  Earlgrey_nexysvideo                MDM96+MDMW96: BufferSizeBits = RegIntfWidth * BufferCycles
+  Earlgrey_nexysvideo                MDM96+MDMW96: BusBytes = BusWidth / 8
+  Earlgrey_nexysvideo                MDM96+MDMW96: BusPgmRes = BusPgmResBytes / BusBytes
+  Earlgrey_nexysvideo                MDM96+MDMW96: BusWordsPerPage = WordsPerPage * WidthMultiple
+  Earlgrey_nexysvideo                MDM96+MDMW96: ChunkSizePRDMasking = WidthPRDMasking/10
+  Earlgrey_nexysvideo                MDM96+MDMW96: GenDataWidth = 32 + 128 + KeyWidth*2
+  Earlgrey_nexysvideo                MDM96+MDMW96: KeccakEntries = 1600/MsgWidth
+  Earlgrey_nexysvideo                MDM96+MDMW96: LcCountWidth = NumLcCountValues * LcValueWidth
+  Earlgrey_nexysvideo                MDM96+MDMW96: LcStateWidth = NumLcStateValues * LcValueWidth
+  Earlgrey_nexysvideo                MDM96+MDMW96: MaxCsEncodeSize = ($clog2(CsWidth+1) + 8 - 1) / 8 + 1
+  Earlgrey_nexysvideo                MDM96+MDMW96: MaxEncodedKeyLenByte = (MaxEncodedKeyLenW + 8 - 1) / 8
+  Earlgrey_nexysvideo                MDM96+MDMW96: MaxEncodedKeyLenSize = MaxEncodedKeyLenByte * 8
+  Earlgrey_nexysvideo                MDM96+MDMW96: MaxFnEncodeSize = ($clog2(FnWidth+1) + 8 - 1) / 8 + 1
+  Earlgrey_nexysvideo                MDM96+MDMW96: MsgStrbW = MsgWidth / 8
+  Earlgrey_nexysvideo                MDM96+MDMW96: NSRegisterSize = ((NSRegisterSizePre + 4 - 1 ) / 4) * 4
+  Earlgrey_nexysvideo                MDM96+MDMW96: NSRegisterSizePre = FnWidth/8       + CsWidth/8
+            
+  Earlgrey_nexysvideo                MDM96+MDMW96: OtpIfWidth = 2**OtpSizeWidth*OtpWidth
+  Earlgrey_nexysvideo                MDM96+MDMW96: ScrmblBlockHalfWords = ScrmblBlockWidth / OtpWidth
+  Earlgrey_nexysvideo                MDM96+MDMW96: WidthMultiple = DataWidth / BusWidth
+  Earlgrey_nexysvideo                MDM96+MDMW96: WidthPRDData = 16*(8+WidthPRDSBox)
+  Earlgrey_nexysvideo                MDM96+MDMW96: WidthPRDKey = 4*(8+WidthPRDSBox)
+  Earlgrey_nexysvideo                MDM96+MDMW96: WordByte = $bits(sha_word_t)/8
+  Earlgrey_nexysvideo                MDMW96: DataByteWidth = prim_util_pkg::vbits(DataWidth / 8)
+  Earlgrey_nexysvideo                MDMW96: MsgFifoDepth = 2 + ((BufferSizeBits + MsgWidth - 1)/Msg
+  Earlgrey_nexysvideo                MDMW96: OtpAddrWidth = OtpByteAddrWidth - $clog2(OtpWidth/8)
+  Earlgrey_nexysvideo                MDMW96: PrefixIndexW = $clog2(PrefixSize/64)
+  Earlgrey_nexysvideo                UDC96: 8000000000000080 8000000000008002 8000000000008003 8000000000008009 8000000000008080 8000000000008089
+  FuncStructVal                      K1C96: cva6_cfg = '{
+      XLEN: unsigned'(CVA6ConfigXlen)
+  FuncStructValSimple                K1C96: cva6_cfg = '{
+      RVC: bit'(CVA6ConfigCExtEn),
+  
+  GenScopeHierPath                   K1C96: DefaultTargetCfg = '{
+      dio_pad_type: {NDioPads{B}}
+   
+  HierBitSlice                       UDC96: 10000000000 100000000000 1000000000000 10000000000000 100000000000000 1000000000000000
+  HierPathOverride                   K1C96: DefaultTargetCfg = '{
+      dio_pad_type: {NDioPads{B}}
+   
+  HierPathStructTypespec             MDM96+MDMW96: BufferCycles = (Sha3Latency + RegLatency - 1)/RegLatenc
+  HierPathStructTypespec             MDM96+MDMW96: BufferSizeBits = RegIntfWidth * BufferCycles
+  HierPathStructTypespec             MDMW96: MsgFifoDepth = 2 + ((BufferSizeBits + MsgWidth - 1)/Msg
+  Ibex                               K1C96: INSN_ADD = { 7'b0000000, 10'h?, 3'b000, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_ADDI = { 17'h?,             3'b000, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_AND = { 7'b0000000, 10'h?, 3'b111, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_ANDI = { 17'h?,             3'b111, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_ANDN = { 7'b0100000, 10'h?, 3'b111, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_AUIPC = { 25'h?,                           {OPCO
+  Ibex                               K1C96: INSN_BALL = { 17'h?,             3'b010, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_BDEP = {7'b0100100, 10'h?, 3'b110, 5'h?, {OPCOD
+  Ibex                               K1C96: INSN_BEQ = { 17'h?,             3'b000, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_BEXT = {7'b0000100, 10'h?, 3'b110, 5'h?, {OPCOD
+  Ibex                               K1C96: INSN_BFP = {7'b0100100, 10'h?, 3'b111, 5'h?, {OPCOD
+  Ibex                               K1C96: INSN_BGE = { 17'h?,             3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_BGEU = { 17'h?,             3'b111, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_BLT = { 17'h?,             3'b100, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_BLTU = { 17'h?,             3'b110, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_BNE = { 17'h?,             3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CADD = { 3'b100, 1'b1, 10'h?,                  
+  Ibex                               K1C96: INSN_CADDI = { 3'b000,       11'h?,                  
+  Ibex                               K1C96: INSN_CADDI4SPN = { 3'b000,       11'h?,                  
+  Ibex                               K1C96: INSN_CAND = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b11, 3'h?
+  Ibex                               K1C96: INSN_CANDI = { 3'b100, 1'h?, 2'b10, 8'h?,            
+  Ibex                               K1C96: INSN_CBEQZ = { 3'b110,       11'h?,                  
+  Ibex                               K1C96: INSN_CBNEZ = { 3'b111,       11'h?,                  
+  Ibex                               K1C96: INSN_CEBREAK = { 3'b100, 1'b1,        5'h0,  5'h0,     
+  Ibex                               K1C96: INSN_CJ = { 3'b101,       11'h?,                  
+  Ibex                               K1C96: INSN_CJAL = { 3'b001,       11'h?,                  
+  Ibex                               K1C96: INSN_CJALR = { 3'b100, 1'b1,        5'h?,  5'h0,     
+  Ibex                               K1C96: INSN_CJR = { 3'b100, 1'b0,        5'h0,  5'h0,     
+  Ibex                               K1C96: INSN_CLI = { 3'b010,       11'h?,                  
+  Ibex                               K1C96: INSN_CLMUL = {7'b0000101, 10'h?, 3'b001, 5'h?, {OPCOD
+  Ibex                               K1C96: INSN_CLMULH = {7'b0000101, 10'h?, 3'b011, 5'h?, {OPCOD
+  Ibex                               K1C96: INSN_CLMULR = {7'b0000101, 10'h?, 3'b010, 5'h?, {OPCOD
+  Ibex                               K1C96: INSN_CLUI = { 3'b011,       11'h?,                  
+  Ibex                               K1C96: INSN_CLW = { 3'b010,       11'h?,                  
+  Ibex                               K1C96: INSN_CLWSP = { 3'b010,       11'h?,                  
+  Ibex                               K1C96: INSN_CLZ = { 12'b011000000000, 5'h?,  3'b001, 5'h?,
+  Ibex                               K1C96: INSN_CMIX = {5'h?, 2'b11, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CMOV = {5'h?, 2'b11, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CMV = { 3'b100, 1'b0, 10'h?,                  
+  Ibex                               K1C96: INSN_COR = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b10, 3'h?
+  Ibex                               K1C96: INSN_CRC32C_B = {7'b0110000, 5'b11000, 5'h?, 3'b001, 5'h
+  Ibex                               K1C96: INSN_CRC32C_H = {7'b0110000, 5'b11001, 5'h?, 3'b001, 5'h
+  Ibex                               K1C96: INSN_CRC32C_W = {7'b0110000, 5'b11010, 5'h?, 3'b001, 5'h
+  Ibex                               K1C96: INSN_CRC32_B = {7'b0110000, 5'b10000, 5'h?, 3'b001, 5'h
+  Ibex                               K1C96: INSN_CRC32_H = {7'b0110000, 5'b10001, 5'h?, 3'b001, 5'h
+  Ibex                               K1C96: INSN_CRC32_W = {7'b0110000, 5'b10010, 5'h?, 3'b001, 5'h
+  Ibex                               K1C96: INSN_CSLLI = { 3'b000,       11'h?,                  
+  Ibex                               K1C96: INSN_CSRAI = { 3'b100, 1'h?, 2'b01, 8'h?,            
+  Ibex                               K1C96: INSN_CSRLI = { 3'b100, 1'h?, 2'b00, 8'h?,            
+  Ibex                               K1C96: INSN_CSRRC = { 17'h?,             3'b011, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CSRRCI = { 17'h?,             3'b111, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CSRRS = { 17'h?,             3'b010, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CSRRSI = { 17'h?,             3'b110, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CSRRW = { 17'h?,             3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CSRRWI = { 17'h?,             3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_CSUB = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b00, 3'h?
+  Ibex                               K1C96: INSN_CSW = { 3'b110,       11'h?,                  
+  Ibex                               K1C96: INSN_CTZ = { 12'b011000000001, 5'h?,  3'b001, 5'h?,
+  Ibex                               K1C96: INSN_CXOR = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b01, 3'h?
+  Ibex                               K1C96: INSN_DIV = { 7'b0000001, 10'h?, 3'b100, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_DIVU = { 7'b0000001, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_DRET = { 12'b011110110010,         13'b0, {OPCO
+  Ibex                               K1C96: INSN_EBREAK = { 12'b000000000001,         13'b0, {OPCO
+  Ibex                               K1C96: INSN_ECALL = { 12'b000000000000,         13'b0, {OPCO
+  Ibex                               K1C96: INSN_FENCE = { 17'h?,             3'b000, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_FENCEI = { 17'h0,             3'b001, 5'h0, {OPCO
+  Ibex                               K1C96: INSN_FSL = {5'h?, 2'b10, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_FSR = {5'h?, 2'b10, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_FSRI = { 5'h?, 1'b1, 11'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_GORC = { 7'b0010100, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_GORCI = { 5'b00101, 12'h?, 3'b101, 5'h?, {OPCODE
+  Ibex                               K1C96: INSN_GREV = { 7'b0110100, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_GREVI = { 5'b01101, 12'h?, 3'b101, 5'h?, {OPCODE
+  Ibex                               K1C96: INSN_JAL = { 25'h?,                           {OPCO
+  Ibex                               K1C96: INSN_JALR = { 17'h?,             3'b000, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_LOAD = {25'h?,                            {OPCO
+  Ibex                               K1C96: INSN_LUI = { 25'h?,                           {OPCO
+  Ibex                               K1C96: INSN_MAX = { 7'b0000101, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_MAXU = { 7'b0000101, 10'h?, 3'b111, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_MIN = { 7'b0000101, 10'h?, 3'b100, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_MINU = { 7'b0000101, 10'h?, 3'b110, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_MRET = { 12'b001100000010,         13'b0, {OPCO
+  Ibex                               K1C96: INSN_OR = { 7'b0000000, 10'h?, 3'b110, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_ORC = { 5'b00101, 2'h?, 5'b11111, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC16 = { 5'b00101, 2'h?, 5'b01000, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC2 = { 5'b00101, 2'h?, 5'b11110, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC2_B = { 5'b00101, 2'h?, 5'b00110, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC2_H = { 5'b00101, 2'h?, 5'b01110, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC2_N = { 5'b00101, 2'h?, 5'b00010, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC4 = { 5'b00101, 2'h?, 5'b11100, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC4_B = { 5'b00101, 2'h?, 5'b00100, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC4_H = { 5'b00101, 2'h?, 5'b01100, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC8 = { 5'b00101, 2'h?, 5'b11000, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC8_H = { 5'b00101, 2'h?, 5'b01000, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC_B = { 5'b00101, 2'h?, 5'b00111, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC_H = { 5'b00101, 2'h?, 5'b01111, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC_N = { 5'b00101, 2'h?, 5'b00011, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORC_P = { 5'b00101, 2'h?, 5'b00001, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ORI = { 17'h?,             3'b110, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_ORN = { 7'b0100000, 10'h?, 3'b110, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_PACK = { 7'b0000100, 10'h?, 3'b100, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_PACKH = { 7'b0000100, 10'h?, 3'b111, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_PACKU = { 7'b0100100, 10'h?, 3'b100, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_PCNT = { 12'b011000000010, 5'h?,  3'b001, 5'h?,
+  Ibex                               K1C96: INSN_PMUH = { 7'b0000001, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_PMUL = { 7'b0000001, 10'h?, 3'b000, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_PMULHSU = { 7'b0000001, 10'h?, 3'b010, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_PMULHU = { 7'b0000001, 10'h?, 3'b011, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_REM = { 7'b0000001, 10'h?, 3'b110, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_REMU = { 7'b0000001, 10'h?, 3'b111, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_REV = { 5'b01101, 2'h?, 5'b11111, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV16 = { 5'b01101, 2'h?, 5'b01000, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV2 = { 5'b01101, 2'h?, 5'b11110, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV2_B = { 5'b01101, 2'h?, 5'b00110, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV2_H = { 5'b01101, 2'h?, 5'b01110, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV2_N = { 5'b01101, 2'h?, 5'b00010, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV4 = { 5'b01101, 2'h?, 5'b11100, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV4_B = { 5'b01101, 2'h?, 5'b00100, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV4_H = { 5'b01101, 2'h?, 5'b01100, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV8 = { 5'b01101, 2'h?, 5'b11000, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV8_H = { 5'b01101, 2'h?, 5'b01000, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV_B = { 5'b01101, 2'h?, 5'b00111, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV_H = { 5'b01101, 2'h?, 5'b01111, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV_N = { 5'b01101, 2'h?, 5'b00011, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_REV_P = { 5'b01101, 2'h?, 5'b00001, 5'h?, 3'b101
+  Ibex                               K1C96: INSN_ROL = { 7'b0110000, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_ROR = { 7'b0110000, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_RORI = { 5'b01100        , 12'h?, 3'b101, 5'h?,
+  Ibex                               K1C96: INSN_SBCLR = { 7'b0100100, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SBCLRI = { 5'b01001, 12'h?, 3'b001, 5'h?, {OPCODE
+  Ibex                               K1C96: INSN_SBEXT = { 7'b0100100, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SBEXTI = { 5'b01001, 12'h?, 3'b101, 5'h?, {OPCODE
+  Ibex                               K1C96: INSN_SBINV = { 7'b0110100, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SBINVI = { 5'b01101, 12'h?, 3'b001, 5'h?, {OPCODE
+  Ibex                               K1C96: INSN_SBSET = { 7'b0010100, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SBSETI = { 5'b00101, 12'h?, 3'b001, 5'h?, {OPCODE
+  Ibex                               K1C96: INSN_SEXTB = { 12'b011000000100, 5'h?, 3'b001, 5'h?, 
+  Ibex                               K1C96: INSN_SEXTH = { 12'b011000000101, 5'h?, 3'b001, 5'h?, 
+  Ibex                               K1C96: INSN_SHFL = { 7'b0000100, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SHFLI = { 6'b000010, 11'h?, 3'b001, 5'h?, {OPCOD
+  Ibex                               K1C96: INSN_SLL = { 7'b0000000, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SLLI = { 7'b0000000, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SLO = { 7'b0010000, 10'h?, 3'b001, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SLOI = { 5'b00100        , 12'h?, 3'b001, 5'h?,
+  Ibex                               K1C96: INSN_SLT = { 7'b0000000, 10'h?, 3'b010, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SLTI = { 17'h?,             3'b010, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SLTIU = { 17'h?,             3'b011, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SLTU = { 7'b0000000, 10'h?, 3'b011, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SRA = { 7'b0100000, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SRAI = { 7'b0100000, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SRL = { 7'b0000000, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SRLI = { 7'b0000000, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SRO = { 7'b0010000, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SROI = { 5'b00100        , 12'h?, 3'b101, 5'h?,
+  Ibex                               K1C96: INSN_STORE = {25'h?,                            {OPCO
+  Ibex                               K1C96: INSN_SUB = { 7'b0100000, 10'h?, 3'b000, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_SWSP = { 3'b110,       11'h?,                  
+  Ibex                               K1C96: INSN_UNSHFL = { 7'b0000100, 10'h?, 3'b101, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_UNSHFLI = { 6'b000010, 11'h?, 3'b101, 5'h?, {OPCOD
+  Ibex                               K1C96: INSN_UNZIP = { 5'b00010, 3'h?, 4'b1111, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP2 = { 5'b00010, 3'h?, 4'b1110, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP2_B = { 5'b00010, 3'h?, 4'b0010, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP2_H = { 5'b00010, 3'h?, 4'b0110, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP4 = { 5'b00010, 3'h?, 4'b1100, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP4_H = { 5'b00010, 3'h?, 4'b0100, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP8 = { 5'b00010, 3'h?, 4'b1000, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP_B = { 5'b00010, 3'h?, 4'b0011, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP_H = { 5'b00010, 3'h?, 4'b0111, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_UNZIP_N = { 5'b00010, 3'h?, 4'b0001, 5'h?, 3'b101,
+  Ibex                               K1C96: INSN_WFI = { 12'b000100000101,         13'b0, {OPCO
+  Ibex                               K1C96: INSN_XNOR = { 7'b0100000, 10'h?, 3'b100, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_XOR = { 7'b0000000, 10'h?, 3'b100, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_XORI = { 17'h?,             3'b100, 5'h?, {OPCO
+  Ibex                               K1C96: INSN_ZEXTB = { 4'b0000, 8'b11111111, 5'h?, 3'b111, 5'
+  Ibex                               K1C96: INSN_ZEXTH = { 7'b0000100, 5'b00000, 5'h?, 3'b100, 5'
+  Ibex                               K1C96: INSN_ZIP = { 5'b00010, 3'h?, 4'b1111, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP2 = { 5'b00010, 3'h?, 4'b1110, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP2_B = { 5'b00010, 3'h?, 4'b0010, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP2_H = { 5'b00010, 3'h?, 4'b0110, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP4 = { 5'b00010, 3'h?, 4'b1100, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP4_H = { 5'b00010, 3'h?, 4'b0100, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP8 = { 5'b00010, 3'h?, 4'b1000, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP_B = { 5'b00010, 3'h?, 4'b0011, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP_H = { 5'b00010, 3'h?, 4'b0111, 5'h?, 3'b001,
+  Ibex                               K1C96: INSN_ZIP_N = { 5'b00010, 3'h?, 4'b0001, 5'h?, 3'b001,
+  Ibex                               K1C96: PRESENT_PERM32 = {5'd31, 5'd23, 5'd15, 5'd07,
+           
+  Ibex                               K1C96: PRESENT_PERM32_INV = {5'd31, 5'd27, 5'd23, 5'd19,
+           
+  Ibex                               K1C96: PRESENT_PERM64 = {6'd63, 6'd47, 6'd31, 6'd15,
+           
+  Ibex                               K1C96: PRESENT_PERM64_INV = {6'd63, 6'd59, 6'd55, 6'd51,
+           
+  Ibex                               K1C96: PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,
+               
+  Ibex                               K1C96: PRESENT_SBOX4_INV = {4'hA, 4'h9, 4'h7, 4'h0,
+               
+  Ibex                               K1C96: PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                 
+  Ibex                               K1C96: PRINCE_SBOX4 = {4'h4, 4'hD, 4'h5, 4'hE,
+               
+  Ibex                               K1C96: PRINCE_SBOX4_INV = {4'h1, 4'hC, 4'hE, 4'h5,
+               
+  Ibex                               UDC96: 8000000000000080 8000000000008002 8000000000008003 8000000000008009 8000000000008080 8000000000008089
+  Icarus                             UDC96: 17179869183 17179869185 34359738367 34359738369
+  Icarus                             UDC96: 55555555555555555
+  IncompTitan                        K1C96: ADDR_MASK_PERI = {
+    32'h 0001ffff,
+    32'h 00420fff,
+
+  IncompTitan                        K1C96: ADDR_SPACE_PERI = {
+    32'h 40500000,
+    32'h 40000000,
+
+  IncompTitan                        K1C96: AST_ALERT_REQ_DEFAULT = '{
+    alerts_p: '0,
+    alerts_n: {NumA
+  IncompTitan                        K1C96: CLK_HINT_STATUS_DEFAULT = '{
+    idle: {4{1'b1}}
+  }
+  IncompTitan                        K1C96: IsolatedPageSel = '{
+    sel:  SeedInfoSel,
+    addr: {See
+  IncompTitan                        K1C96: PRESENT_PERM32 = {5'd31, 5'd23, 5'd15, 5'd07,
+           
+  IncompTitan                        K1C96: PRESENT_PERM32_INV = {5'd31, 5'd27, 5'd23, 5'd19,
+           
+  IncompTitan                        K1C96: PRESENT_PERM64 = {6'd63, 6'd47, 6'd31, 6'd15,
+           
+  IncompTitan                        K1C96: PRESENT_PERM64_INV = {6'd63, 6'd59, 6'd55, 6'd51,
+           
+  IncompTitan                        K1C96: PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,
+               
+  IncompTitan                        K1C96: PRESENT_SBOX4_INV = {4'hA, 4'h9, 4'h7, 4'h0,
+               
+  IncompTitan                        K1C96: PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                 
+  IncompTitan                        K1C96: PRINCE_SBOX4 = {4'h4, 4'hD, 4'h5, 4'hE,
+               
+  IncompTitan                        K1C96: PRINCE_SBOX4_INV = {4'h1, 4'hC, 4'hE, 4'h5,
+               
+  IncompTitan                        K1C96: PWR_RST_RSP_DEFAULT = '{
+    rst_lc_src_n: {PowerDomains{1'b1}
+  IncompTitan                        K1C96: PartInvDefault = 16384'({
+    448'({
+      256'h0,
+      
+  IncompTitan                        K1C96: RndCnstAlertHandlerLfsrPerm = {
+    160'h5F00C4CAFD73FC4AC479A61068375
+  IncompTitan                        K1C96: RndCnstAlertHandlerLfsrSeed = {
+    32'h5DEF7861
+  }
+  IncompTitan                        K1C96: RndCnstClearingLfsrPermDefault = {
+  128'hb33fdfc81deb6292c21f8a310258506
+  IncompTitan                        K1C96: RndCnstDigestConstDefault = {
+    128'h9d40106e2dc2346ec96d61f0cc529
+  IncompTitan                        K1C96: RndCnstDigestIVDefault = {
+    64'ha5af72c1b813aec4,
+    64'h5d7a
+  IncompTitan                        K1C96: RndCnstFlashCtrlAddrKey = {
+    128'h83D0550B80E84EB1F4C3471C5DEF7
+  IncompTitan                        K1C96: RndCnstFlashCtrlDataKey = {
+    128'hFABD19450B238D4C2D73930D4CAC3
+  IncompTitan                        K1C96: RndCnstFlashCtrlLfsrPerm = {
+    160'h26FF203D990D87C5E8A98BAFEC750
+  IncompTitan                        K1C96: RndCnstFlashCtrlLfsrSeed = {
+    32'hD89F9DFC
+  }
+  IncompTitan                        K1C96: RndCnstKeyDefault = {
+    128'h047288e1a65c839dae610bbbdf8c4
+  IncompTitan                        K1C96: RndCnstKeymgrAesSeed = {
+    256'hA917F063C414964E46CE0FE8DDB27
+  IncompTitan                        K1C96: RndCnstKeymgrCreatorIdentitySeed = {
+    256'hDE094CA8F1435F85E0F7489A309CB
+  IncompTitan                        K1C96: RndCnstKeymgrHardOutputSeed = {
+    256'h205AE5E5FEED81E0CB15451E21FFD
+  IncompTitan                        K1C96: RndCnstKeymgrHmacSeed = {
+    256'h84B1A5A63AF5FA0AAF8C6A6B90F86
+  IncompTitan                        K1C96: RndCnstKeymgrKmacSeed = {
+    256'h32949CC3635D1F47C8F05AFFC85F7
+  IncompTitan                        K1C96: RndCnstKeymgrLfsrPerm = {
+    128'h26AC29E186C1F4DC6F959D6ED08DC
+  IncompTitan                        K1C96: RndCnstKeymgrLfsrSeed = {
+    64'hF4C3471C5DEF7861
+  }
+  IncompTitan                        K1C96: RndCnstKeymgrNoneSeed = {
+    256'hEEC5E43D4B16446726A27B8F0B30A
+  IncompTitan                        K1C96: RndCnstKeymgrOwnerIdentitySeed = {
+    256'h738F30D9006289A1D7D9D0CE1DD7D
+  IncompTitan                        K1C96: RndCnstKeymgrOwnerIntIdentitySeed = {
+    256'h12965C7DE10023EC699679EDD5369
+  IncompTitan                        K1C96: RndCnstKeymgrRevisionSeed = {
+    256'h96466A983E5346826A43628219E5A
+  IncompTitan                        K1C96: RndCnstKeymgrSoftOutputSeed = {
+    256'h613E5324CBAC660746BCA7E0AE24A
+  IncompTitan                        K1C96: RndCnstLcCtrlLcKeymgrDivInvalid = {
+    64'hF4C3471C5DEF7861
+  }
+  IncompTitan                        K1C96: RndCnstLcCtrlLcKeymgrDivProduction = {
+    64'h2D73930D4CAC3785
+  }
+  IncompTitan                        K1C96: RndCnstLcCtrlLcKeymgrDivTestDevRma = {
+    64'h83D0550B80E84EB1
+  }
+  IncompTitan                        K1C96: RndCnstLfsrPermDefault = {
+    128'h16108c9f9008aa37e5118d1ec1df6
+  IncompTitan                        K1C96: RndCnstLfsrPermDefault = {
+    160'hd60bc7d86445da9347e0ccdd05b28
+  IncompTitan                        K1C96: RndCnstMaskingLfsrSeedDefault = {
+  180'h5ae9b31605f9077a6b758a442031e1c
+  IncompTitan                        K1C96: RndCnstOtpCtrlDigestConst = {
+    128'hCE7D846469A3B8E35A6BD38295BD2
+  IncompTitan                        K1C96: RndCnstOtpCtrlDigestIV = {
+    64'hB77F07FF3D729720,
+    256'h0D5
+  IncompTitan                        K1C96: RndCnstOtpCtrlKey = {
+    128'h79EE911CE801484BA8373086F9DD4
+  IncompTitan                        K1C96: RndCnstOtpCtrlLfsrPerm = {
+    240'h5D294061E29A7C404F4593035A190
+  IncompTitan                        K1C96: RndCnstOtpCtrlLfsrSeed = {
+    40'hF45DEF7861
+  }
+  IncompTitan                        K1C96: RndCnstOtpCtrlRawUnlockToken = {
+    128'hDE094CA8F1435F85E0F7489A309CB
+  IncompTitan                        K1C96: RndCnstSramCtrlMainSramKey = {
+    128'hB6D4B556D89F9DFCFABD19450B238
+  IncompTitan                        K1C96: RndCnstSramCtrlMainSramNonce = {
+    64'h160733E752CAD615
+  }
+  IncompTitan                        K1C96: RndCnstSramCtrlRetSramKey = {
+    128'h83D0550B80E84EB1F4C3471C5DEF7
+  IncompTitan                        K1C96: RndCnstSramCtrlRetSramNonce = {
+    64'h2D73930D4CAC3785
+  }
+  IncompTitan                        K1C96: TransTokenIdxMatrix = {
+    
+    {13{InvalidTokenIdx}}, 
+    
+
+  IncompTitan                        MDM96+MDMW96: AddrBitsRemain = DataWidth % BusWidth
+  IncompTitan                        MDM96+MDMW96: AdvDataWidth = SwBindingWidth + 2*KeyWidth + DevIdWidth
+  IncompTitan                        MDM96+MDMW96: BaseWordsPerWLEN = WLEN / 32
+  IncompTitan                        MDM96+MDMW96: BufferCycles = (Sha3Latency + RegLatency - 1)/RegLatenc
+  IncompTitan                        MDM96+MDMW96: BufferSizeBits = RegIntfWidth * BufferCycles
+  IncompTitan                        MDM96+MDMW96: BusBytes = BusWidth / 8
+  IncompTitan                        MDM96+MDMW96: BusPgmRes = BusPgmResBytes / BusBytes
+  IncompTitan                        MDM96+MDMW96: BusWordsPerPage = WordsPerPage * WidthMultiple
+  IncompTitan                        MDM96+MDMW96: ChunkSizePRDMasking = WidthPRDMasking/10
+  IncompTitan                        MDM96+MDMW96: GenDataWidth = 32 + 128 + KeyWidth*2
+  IncompTitan                        MDM96+MDMW96: KeccakEntries = 1600/MsgWidth
+  IncompTitan                        MDM96+MDMW96: LcCountWidth = NumLcCountValues * LcValueWidth
+  IncompTitan                        MDM96+MDMW96: LcStateWidth = NumLcStateValues * LcValueWidth
+  IncompTitan                        MDM96+MDMW96: MaxCsEncodeSize = ($clog2(CsWidth+1) + 8 - 1) / 8 + 1
+  IncompTitan                        MDM96+MDMW96: MaxEncodedKeyLenByte = (MaxEncodedKeyLenW + 8 - 1) / 8
+  IncompTitan                        MDM96+MDMW96: MaxEncodedKeyLenSize = MaxEncodedKeyLenByte * 8
+  IncompTitan                        MDM96+MDMW96: MaxFnEncodeSize = ($clog2(FnWidth+1) + 8 - 1) / 8 + 1
+  IncompTitan                        MDM96+MDMW96: MsgStrbW = MsgWidth / 8
+  IncompTitan                        MDM96+MDMW96: NSRegisterSize = ((NSRegisterSizePre + 4 - 1 ) / 4) * 4
+  IncompTitan                        MDM96+MDMW96: NSRegisterSizePre = FnWidth/8       + CsWidth/8
+            
+  IncompTitan                        MDM96+MDMW96: OtpIfWidth = 2**OtpSizeWidth*OtpWidth
+  IncompTitan                        MDM96+MDMW96: ScrmblBlockHalfWords = ScrmblBlockWidth / OtpWidth
+  IncompTitan                        MDM96+MDMW96: WidthMultiple = DataWidth / BusWidth
+  IncompTitan                        MDM96+MDMW96: WidthPRDData = 16*(8+WidthPRDSBox)
+  IncompTitan                        MDM96+MDMW96: WidthPRDKey = 4*(8+WidthPRDSBox)
+  IncompTitan                        MDM96+MDMW96: WordByte = $bits(sha_word_t)/8
+  IncompTitan                        MDMW96: DataByteWidth = prim_util_pkg::vbits(DataWidth / 8)
+  IncompTitan                        MDMW96: MsgFifoDepth = 2 + ((BufferSizeBits + MsgWidth - 1)/Msg
+  IncompTitan                        MDMW96: OtpAddrWidth = OtpByteAddrWidth - $clog2(OtpWidth/8)
+  IncompTitan                        MDMW96: PrefixIndexW = $clog2(PrefixSize/64)
+  IncompTitan                        UDC96: 8000000000000080 8000000000008002 8000000000008003 8000000000008009 8000000000008080 8000000000008089
+  IndexedSelectHex                   K1C96: DefaultTargetCfg = '{
+      dio_pad_type: {NDioPads{B}}
+   
+  IntegerConcat                      K1C96: SeedInfoPageSel = {
+  CreatorInfoPage,
+  OwnerInfoPage
+}
+  Kmac                               MDM96+MDMW96: KeccakEntries = 1600/MsgWidth
+  LargeConst                         UDC96: 147573952589676412928 18446744073709551615 18446744073709551616
+  LargeModuleParameter               UDC96: 4294967295 4294967296 429496729600
+  MultiConcat                        K1C96: TransTokenIdxMatrix = {
+    
+    {21{InvalidTokenIdx}}, 
+    
+
+  MultiConcatValueSize               K1C96: DefaultTargetCfg = '{
+      dio_pad_type: {NDioPads{A}}
+   
+  NyuziProcessor                     MDM96+MDMW96: CACHE_LINE_BITS = CACHE_LINE_BYTES * 8
+  NyuziProcessor                     MDM96+MDMW96: CACHE_LINE_BYTES = NUM_VECTOR_LANES * 4
+  NyuziProcessor                     MDM96+MDMW96: CACHE_LINE_WORDS = CACHE_LINE_BYTES / 4
+  NyuziProcessor                     MDM96+MDMW96: TOTAL_THREADS = `THREADS_PER_CORE * `NUM_CORES
+  NyuziProcessor                     UDC96: 10000000000 100000000000 1000000000000 10000000000000 100000000000000 1000000000000000
+  Opentitan                          K1C96: ADDR_MASK_PERI = {
+    32'h 00020fff,
+    32'h 00000fff
+ 
+  Opentitan                          K1C96: ADDR_SPACE_PERI = {
+    32'h 40000000,
+    32'h 40080000
+ 
+  Opentitan                          K1C96: INSN_ADD = { 7'b0000000, 10'b?, 3'b000, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_ADDI = { 17'b?,             3'b000, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_AND = { 7'b0000000, 10'b?, 3'b111, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_ANDI = { 17'b?,             3'b111, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_AUIPC = { 25'b?,                           {OPCO
+  Opentitan                          K1C96: INSN_BALL = { 17'b?,             3'b010, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_BEQ = { 17'b?,             3'b000, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_BGE = { 17'b?,             3'b101, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_BGEU = { 17'b?,             3'b111, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_BLT = { 17'b?,             3'b100, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_BLTU = { 17'b?,             3'b110, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_BNE = { 17'b?,             3'b001, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_CADD = { 3'b100, 1'b1, 10'b?,                  
+  Opentitan                          K1C96: INSN_CADDI = { 3'b000,       11'b?,                  
+  Opentitan                          K1C96: INSN_CADDI4SPN = { 3'b000,       11'b?,                  
+  Opentitan                          K1C96: INSN_CAND = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b11, 3'b?
+  Opentitan                          K1C96: INSN_CANDI = { 3'b100, 1'b?, 2'b10, 8'b?,            
+  Opentitan                          K1C96: INSN_CBEQZ = { 3'b110,       11'b?,                  
+  Opentitan                          K1C96: INSN_CBNEZ = { 3'b111,       11'b?,                  
+  Opentitan                          K1C96: INSN_CEBREAK = { 3'b100, 1'b1,        5'b0,  5'b0,     
+  Opentitan                          K1C96: INSN_CJ = { 3'b101,       11'b?,                  
+  Opentitan                          K1C96: INSN_CJAL = { 3'b001,       11'b?,                  
+  Opentitan                          K1C96: INSN_CJALR = { 3'b100, 1'b1,        5'b?,  5'b0,     
+  Opentitan                          K1C96: INSN_CJR = { 3'b100, 1'b0,        5'b?,  5'b0,     
+  Opentitan                          K1C96: INSN_CLI = { 3'b010,       11'b?,                  
+  Opentitan                          K1C96: INSN_CLUI = { 3'b011,       11'b?,                  
+  Opentitan                          K1C96: INSN_CLW = { 3'b010,       11'b?,                  
+  Opentitan                          K1C96: INSN_CLWSP = { 3'b010,       11'b?,                  
+  Opentitan                          K1C96: INSN_CMV = { 3'b100, 1'b0, 10'b?,                  
+  Opentitan                          K1C96: INSN_COR = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b10, 3'b?
+  Opentitan                          K1C96: INSN_CSLLI = { 3'b000,       11'b?,                  
+  Opentitan                          K1C96: INSN_CSRAI = { 3'b100, 1'b?, 2'b01, 8'b?,            
+  Opentitan                          K1C96: INSN_CSRLI = { 3'b100, 1'b?, 2'b00, 8'b?,            
+  Opentitan                          K1C96: INSN_CSRRC = { 17'b?,             3'b011, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_CSRRCI = { 17'b?,             3'b111, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_CSRRS = { 17'b?,             3'b010, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_CSRRSI = { 17'b?,             3'b110, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_CSRRW = { 17'b?,             3'b001, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_CSRRWI = { 17'b?,             3'b101, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_CSUB = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b00, 3'b?
+  Opentitan                          K1C96: INSN_CSW = { 3'b110,       11'b?,                  
+  Opentitan                          K1C96: INSN_CXOR = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b01, 3'b?
+  Opentitan                          K1C96: INSN_DIV = { 7'b0000001, 10'b?, 3'b100, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_DIVU = { 7'b0000001, 10'b?, 3'b101, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_DRET = { 12'b011110110010,         13'b0, {OPCO
+  Opentitan                          K1C96: INSN_EBREAK = { 12'b000000000001,         13'b0, {OPCO
+  Opentitan                          K1C96: INSN_ECALL = { 12'b000000000000,         13'b0, {OPCO
+  Opentitan                          K1C96: INSN_FENCE = { 17'b?,             3'b000, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_FENCEI = { 17'b0,             3'b001, 5'b0, {OPCO
+  Opentitan                          K1C96: INSN_JAL = { 25'b?,                           {OPCO
+  Opentitan                          K1C96: INSN_JALR = { 17'b?,             3'b000, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_LOAD = {25'b?,                            {OPCO
+  Opentitan                          K1C96: INSN_LUI = { 25'b?,                           {OPCO
+  Opentitan                          K1C96: INSN_MRET = { 12'b001100000010,         13'b0, {OPCO
+  Opentitan                          K1C96: INSN_OR = { 7'b0000000, 10'b?, 3'b110, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_ORI = { 17'b?,             3'b110, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_PMUH = { 7'b0000001, 10'b?, 3'b001, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_PMUL = { 7'b0000001, 10'b?, 3'b000, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_PMULHSU = { 7'b0000001, 10'b?, 3'b010, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_PMULHU = { 7'b0000001, 10'b?, 3'b011, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_REM = { 7'b0000001, 10'b?, 3'b110, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_REMU = { 7'b0000001, 10'b?, 3'b111, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SLL = { 7'b0000000, 10'b?, 3'b001, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SLLI = { 7'b0000000, 10'b?, 3'b001, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SLT = { 7'b0000000, 10'b?, 3'b010, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SLTI = { 17'b?,             3'b010, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SLTIU = { 17'b?,             3'b011, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SLTU = { 7'b0000000, 10'b?, 3'b011, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SRA = { 7'b0100000, 10'b?, 3'b101, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SRAI = { 7'b0100000, 10'b?, 3'b101, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SRL = { 7'b0000000, 10'b?, 3'b101, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SRLI = { 7'b0000000, 10'b?, 3'b101, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_STORE = {25'b?,                            {OPCO
+  Opentitan                          K1C96: INSN_SUB = { 7'b0100000, 10'b?, 3'b000, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_SWSP = { 3'b110,       11'b?,                  
+  Opentitan                          K1C96: INSN_WFI = { 12'b000100000101,         13'b0, {OPCO
+  Opentitan                          K1C96: INSN_XOR = { 7'b0000000, 10'b?, 3'b100, 5'b?, {OPCO
+  Opentitan                          K1C96: INSN_XORI = { 17'b?,             3'b100, 5'b?, {OPCO
+  Opentitan                          MDM96+MDMW96: FLASH_DW = FLASH_BYTES_PER_WORD * 8
+  Opentitan                          MDM96+MDMW96: FlashTotalPages = top_pkg::FLASH_BANKS * top_pkg::FLASH_PA
+  Opentitan                          MDM96+MDMW96: HMAC_MSG_FIFO_DEPTH_BYTES = HMAC_MSG_FIFO_DEPTH * 4
+  Opentitan                          MDM96+MDMW96: WordByte = $bits(sha_word_t)/8
+  Opentitan                          UDC96W: 2147483647
+  PackImport                         K1C96: INSN_LUI = { 25'h?, {OPCODE_LUI  }}
+  PackageFuncCall                    K1C96: PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,
+               
+  PackageFuncCall                    K1C96: PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                 
+  PackageParam                       MDMW96: OtpAddrWidth = OtpByteAddrWidth - $clog2(OtpWidth/8)
+  PackageType                        K1C96: all_cfgs_gp = {
+   bp_inv_cfg_p
+  }
+  ParamElabMulti                     K1C96: DefaultTargetCfg = '{
+      dio_pad_type: {NDioPads{A}}
+   
+  ParamOverload2                     K1C96: RndCnstLfsrPermDefault = {
+      128'h16108c9f9008aa37e5118d1ec1d
+  ParamTypespec                      K1C96: PartInvDefault = 3'({
+                                   
+  ParameterRangeUsingDot             K1C96: PartInvDefault = 16384'({
+    704'({
+      320'hDAAF8720F
+  PkgParamAsFunctionArg              K1C96: P = {1'b1, 1'b0}
+  Rsd                                MDM96+MDMW96: ADDR_BYTE_WIDTH = ADDR_WIDTH / BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: ALL_DECODED_MICRO_OP_WIDTH = MICRO_OP_MAX_NUM * DECODE_WIDTH
+  Rsd                                MDM96+MDMW96: BR_SUB_INFO_BIT_WIDTH = $bits(OpOperandType) * 2 + $bits(BranchP
+  Rsd                                MDM96+MDMW96: DATA_BYTE_WIDTH = DATA_WIDTH / BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: DCACHE_LINE_BIT_WIDTH = DCACHE_LINE_BYTE_NUM * 8
+  Rsd                                MDM96+MDMW96: ICACHE_LINE_BIT_WIDTH = ICACHE_LINE_BYTE_NUM * 8
+  Rsd                                MDM96+MDMW96: ICACHE_LINE_INSN_NUM = ICACHE_LINE_BYTE_NUM / INSN_BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: INSN_BYTE_WIDTH = INSN_WIDTH / BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: INT_SUB_INFO_BIT_WIDTH = $bits(OpOperandType) * 2 + $bits(IntALU_
+  Rsd                                MDM96+MDMW96: ISSUE_QUEUE_RESET_CYCLE = (ISSUE_QUEUE_ENTRY_NUM-1) / (ISSUE_WIDTH
+  Rsd                                MDM96+MDMW96: ISSUE_QUEUE_RETURN_INDEX_CYCLE = (ISSUE_QUEUE_ENTRY_NUM-1) / ISSUE_QUEUE_
+  Rsd                                MDM96+MDMW96: LSQ_BLOCK_BYTE_WIDTH = LSQ_BLOCK_WIDTH / BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: LSQ_BLOCK_WORD_WIDTH = LSQ_BLOCK_WIDTH / DATA_WIDTH
+  Rsd                                MDM96+MDMW96: MEMORY_ENTRY_BYTE_NUM = MEMORY_ENTRY_BIT_NUM / BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: PHY_ADDR_BYTE_WIDTH = PHY_ADDR_WIDTH / BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: PHY_RAW_ADDR_BYTE_WIDTH = PHY_RAW_ADDR_WIDTH / BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: VEC_BYTE_WIDTH = VEC_WIDTH / BYTE_WIDTH
+  Rsd                                MDM96+MDMW96: VEC_WORD_WIDTH = VEC_WIDTH / DATA_WIDTH
+  Rsd                                UDC96W: 1987534242
+  StructParamFuncBodyFieldCompare    K1C96: Base = '{
+      XLEN: unsigned'(64),
+      NrRu
+  StructParameterInitializedWithPatternAndReferenced K1C96: SeedInfoPageSel = '{
+      addr: {SeedBank, 2'b11}
+   }
+  Tnoc                               MDMW96: TNOC_BFM_BYTE_END_WIDTH = `tnoc_bfm_calc_width(`TNOC_BFM_MAX_DATA_
+  Tnoc                               MDMW96: TNOC_BFM_BYTE_OFFSET_WIDTH = `tnoc_bfm_calc_width(`TNOC_BFM_MAX_DATA_
+  Tnoc                               MDMW96: TNOC_BFM_BYTE_SIZE_WIDTH = `tnoc_bfm_calc_width($clog2(`TNOC_BFM_MA
+  <FENCED>                           UDC96: 10376293541461622783
+  ValueSize                          K1C96: SeedInfoPageSel = '{
+      addr: {SeedBank, 2'b11}
+   }
+  Verilator                          UDC96: 10000000000 1000000000000 10000000000000 100000000000000 10000000000000000 100000000000000000
+  YosysBigSim                        UDC96: 10000000000 100000000000 1000000000000 10000000000000 100000000000000
+  YosysOldTests                      UDC96: 10000000000 100000000000 1000000000000 10000000000000 100000000000000 1000000000000000
+  ariane                             K1C96+MDMW96: ValidRule = {{NrRegion * NB_PERIPHERALS}{1'b1}}
+  ariane                             K1C96: ARIANE_MARCHID = {{riscv::XLEN-32{1'b0}}, 32'd3}
+  ariane                             K1C96: ArianeDefaultConfig = '{
+      RASDepth: 2,
+      BTBEntries: 
+  ariane                             K1C96: ArianeSocCfg = '{
+    RASDepth: 2,
+    BTBEntries: 32,
+
+  ariane                             K1C96: MSTATUS_SD = {IS_XLEN64, 31'h00000000, ~IS_XLEN64, 31
+  ariane                             K1C96: MSTATUS_SXL = {28'h0000000, IS_XLEN64, IS_XLEN64, 34'h
+  ariane                             K1C96: MSTATUS_UXL = {30'h0000000, IS_XLEN64, IS_XLEN64, 32'h
+  ariane                             K1C96: SSTATUS_SD = {IS_XLEN64, 31'h00000000, ~IS_XLEN64, 31
+  ariane                             MDM96+MDMW96: CONFIG_L1D_SIZE = 32*1024
+  ariane                             MDM96+MDMW96: CONFIG_L1I_SIZE = 16*1024
+  ariane                             MDM96+MDMW96: DCACHE_DIRTY_WIDTH = ariane_pkg::DCACHE_SET_ASSOC*2
+  ariane                             MDM96+MDMW96: DCACHE_NUM_BANKS = ariane_pkg::DCACHE_LINE_WIDTH/64
+  ariane                             MDM96+MDMW96: INSTR_PER_FETCH = FETCH_WIDTH / 16
+  ariane                             MDM96+MDMW96: MEM_BYTES = 512 * 1024
+    )
+  ariane                             MDM96+MDMW96: StrbWidth = DataWidth / 8
+  ariane                             MDMW96: DCACHE_BYTE_OFFSET = $clog2(ariane_pkg::DCACHE_LINE_WIDTH/8)
+  ariane                             MDMW96: DCACHE_INDEX_WIDTH = $clog2(CONFIG_L1D_SIZE / DCACHE_SET_ASSO
+  ariane                             MDMW96: DCACHE_INDEX_WIDTH = $clog2(`CONFIG_L1D_SIZE / DCACHE_SET_ASS
+  ariane                             MDMW96: DCACHE_OFFSET_WIDTH = $clog2(ariane_pkg::DCACHE_LINE_WIDTH/8)
+  ariane                             MDMW96: ICACHE_INDEX_WIDTH = $clog2(CONFIG_L1I_SIZE / ICACHE_SET_ASSO
+  ariane                             MDMW96: ICACHE_INDEX_WIDTH = $clog2(`CONFIG_L1I_SIZE / ICACHE_SET_ASS
+  ariane                             MDMW96: ICACHE_OFFSET_WIDTH = $clog2(ariane_pkg::ICACHE_LINE_WIDTH/8)
+  ariane                             UDC96: 1001000000000010
+  ariane                             UDC96W: 2147483587 2147483629
+  black-parrot                       K1C96: FullRuche_StrictXY = {
+    
+     9'b010001000  
+    ,9'b10001
+  black-parrot                       K1C96: FullRuche_StrictYX = {
+    
+     9'b010000001  
+    ,9'b10000
+  black-parrot                       K1C96: HalfRucheX_StrictXY = {
+    
+     7'b0100001  
+    ,7'b1000001
+  black-parrot                       K1C96: HalfRucheX_StrictYX = {
+    
+     7'b0100010  
+    ,7'b1000100
+  black-parrot                       K1C96: StrictX = {   
+                                {  
+  black-parrot                       K1C96: StrictXY = {
+    
+     5'b01111  
+    ,5'b10111  
+ 
+  black-parrot                       K1C96: StrictXY = {
+                               {
+     
+  black-parrot                       K1C96: StrictYX = {
+    
+     5'b01001  
+    ,5'b10001  
+ 
+  black-parrot                       K1C96: StrictYX = {
+                               {
+     
+  black-parrot                       K1C96: XY_Allow_N = {
+                               {
+     
+  black-parrot                       K1C96: XY_Allow_S = {
+                               {
+     
+  black-parrot                       K1C96: X_AllowLoopBack = {   
+                                {  
+  black-parrot                       K1C96: YX_Allow_E = {
+                               {
+     
+  black-parrot                       K1C96: YX_Allow_W = {
+                               {
+     
+  black-parrot                       UDC96: 10000000000 100000000000 1000000000000 10000000000000 100000000000000
+  cva6_equiv                         K1C96: cva6_cfg = '{
+      XLEN: unsigned'(CVA6ConfigXlen)
+  cva6_equiv                         K1C96: cva6_cfg = '{
+   XLEN: unsigned'(CVA6ConfigXlen),
+ 
+  cva6_equiv                         MDM96+MDMW96: L15_BE_WIDTH = L15_DATA_BUS_WIDTH / 8
+  cva6_equiv                         MDM96+MDMW96: L15_DATA_BUS_WORDS = L15_DATA_BUS_WIDTH / L15_WORD_WIDTH
+  cva6_equiv                         MDMW96: DCACHE_INDEX_WIDTH = $clog2(`CONFIG_L1D_SIZE / DCACHE_SET_ASS
+  cva6_equiv                         MDMW96: ICACHE_INDEX_WIDTH = $clog2(`CONFIG_L1I_SIZE / ICACHE_SET_ASS
+  cva6_equiv                         UDC96: 1001000000000010
+  cva6_equiv                         UDC96W: 2147483587 2147483629
+  ibex                               K1C96: CSR_MARCHID_VALUE = {1'b0, 31'd22}
+  ibex                               K1C96: INSN_ADD = { 7'b0000000, 10'h?, 3'b000, 5'h?, {OPCO
+  ibex                               K1C96: INSN_ADDI = { 17'h?,             3'b000, 5'h?, {OPCO
+  ibex                               K1C96: INSN_AND = { 7'b0000000, 10'h?, 3'b111, 5'h?, {OPCO
+  ibex                               K1C96: INSN_ANDI = { 17'h?,             3'b111, 5'h?, {OPCO
+  ibex                               K1C96: INSN_ANDN = { 7'b0100000, 10'h?, 3'b111, 5'h?, {OPCO
+  ibex                               K1C96: INSN_AUIPC = { 25'h?,                           {OPCO
+  ibex                               K1C96: INSN_BCLR = { 7'b0100100, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BCLRI = { 5'b01001, 12'h?, 3'b001, 5'h?, {OPCODE
+  ibex                               K1C96: INSN_BCOMPRESS = {7'b0000100, 10'h?, 3'b110, 5'h?, {OPCOD
+  ibex                               K1C96: INSN_BDECOMPRESS = {7'b0100100, 10'h?, 3'b110, 5'h?, {OPCOD
+  ibex                               K1C96: INSN_BEQ = { 17'h?,             3'b000, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BEXT = { 7'b0100100, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BEXTI = { 5'b01001, 1'b0, 11'h?, 3'b101, 5'h?, {
+  ibex                               K1C96: INSN_BFP = {7'b0100100, 10'h?, 3'b111, 5'h?, {OPCOD
+  ibex                               K1C96: INSN_BGE = { 17'h?,             3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BGEU = { 17'h?,             3'b111, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BINV = { 7'b0110100, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BINVI = { 5'b01101, 12'h?, 3'b001, 5'h?, {OPCODE
+  ibex                               K1C96: INSN_BLT = { 17'h?,             3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BLTU = { 17'h?,             3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BNE = { 17'h?,             3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BSET = { 7'b0010100, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_BSETI = { 5'b00101, 12'h?, 3'b001, 5'h?, {OPCODE
+  ibex                               K1C96: INSN_CADD = { 3'b100, 1'b1, 10'h?,                  
+  ibex                               K1C96: INSN_CADDI = { 3'b000,       11'h?,                  
+  ibex                               K1C96: INSN_CADDI4SPN = { 3'b000,       11'h?,                  
+  ibex                               K1C96: INSN_CAND = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b11, 3'h?
+  ibex                               K1C96: INSN_CANDI = { 3'b100, 1'h?, 2'b10, 8'h?,            
+  ibex                               K1C96: INSN_CBEQZ = { 3'b110,       11'h?,                  
+  ibex                               K1C96: INSN_CBNEZ = { 3'b111,       11'h?,                  
+  ibex                               K1C96: INSN_CEBREAK = { 3'b100, 1'b1,        5'h0,  5'h0,     
+  ibex                               K1C96: INSN_CJ = { 3'b101,       11'h?,                  
+  ibex                               K1C96: INSN_CJAL = { 3'b001,       11'h?,                  
+  ibex                               K1C96: INSN_CJALR = { 3'b100, 1'b1,        5'h?,  5'h0,     
+  ibex                               K1C96: INSN_CJR = { 3'b100, 1'b0,        5'h0,  5'h0,     
+  ibex                               K1C96: INSN_CLBU = { 3'b100, 3'b000, 8'h?,                 
+  ibex                               K1C96: INSN_CLH = { 3'b100, 3'b001, 3'h?, 1'b1, 4'h?,     
+  ibex                               K1C96: INSN_CLHU = { 3'b100, 3'b001, 3'h?, 1'b0, 4'h?,     
+  ibex                               K1C96: INSN_CLI = { 3'b010,       11'h?,                  
+  ibex                               K1C96: INSN_CLMUL = {7'b0000101, 10'h?, 3'b001, 5'h?, {OPCOD
+  ibex                               K1C96: INSN_CLMULH = {7'b0000101, 10'h?, 3'b011, 5'h?, {OPCOD
+  ibex                               K1C96: INSN_CLMULR = {7'b0000101, 10'h?, 3'b010, 5'h?, {OPCOD
+  ibex                               K1C96: INSN_CLUI = { 3'b011,       11'h?,                  
+  ibex                               K1C96: INSN_CLW = { 3'b010,       11'h?,                  
+  ibex                               K1C96: INSN_CLWSP = { 3'b010,       11'h?,                  
+  ibex                               K1C96: INSN_CLZ = { 12'b011000000000, 5'h?,  3'b001, 5'h?,
+  ibex                               K1C96: INSN_CMIX = {5'h?, 2'b11, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_CMMVA01S = { 3'b101, 3'b011, 3'h?, 2'b11, 3'h?,    
+  ibex                               K1C96: INSN_CMMVSA01 = { 3'b101, 3'b011, 3'h?, 2'b01, 3'h?,    
+  ibex                               K1C96: INSN_CMOV = {5'h?, 2'b11, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_CMPOP = { 3'b101, 3'b110, 2'b10, 4'h?, 2'b?,    
+  ibex                               K1C96: INSN_CMPOPRET = { 3'b101, 3'b111, 2'b10, 4'h?, 2'b?,    
+  ibex                               K1C96: INSN_CMPOPRETZ = { 3'b101, 3'b111, 2'b00, 4'h?, 2'b?,    
+  ibex                               K1C96: INSN_CMPUSH = { 3'b101, 3'b110, 2'b00, 4'h?, 2'b?,    
+  ibex                               K1C96: INSN_CMUL = { 3'b100, 3'b111, 3'h?, 2'b10, 3'h?,    
+  ibex                               K1C96: INSN_CMV = { 3'b100, 1'b0, 10'h?,                  
+  ibex                               K1C96: INSN_CNOT = { 3'b100, 3'b111, 3'h?, 2'b11, 3'b101,  
+  ibex                               K1C96: INSN_COR = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b10, 3'h?
+  ibex                               K1C96: INSN_CPOP = { 12'b011000000010, 5'h?,  3'b001, 5'h?,
+  ibex                               K1C96: INSN_CRC32C_B = {7'b0110000, 5'b11000, 5'h?, 3'b001, 5'h
+  ibex                               K1C96: INSN_CRC32C_H = {7'b0110000, 5'b11001, 5'h?, 3'b001, 5'h
+  ibex                               K1C96: INSN_CRC32C_W = {7'b0110000, 5'b11010, 5'h?, 3'b001, 5'h
+  ibex                               K1C96: INSN_CRC32_B = {7'b0110000, 5'b10000, 5'h?, 3'b001, 5'h
+  ibex                               K1C96: INSN_CRC32_H = {7'b0110000, 5'b10001, 5'h?, 3'b001, 5'h
+  ibex                               K1C96: INSN_CRC32_W = {7'b0110000, 5'b10010, 5'h?, 3'b001, 5'h
+  ibex                               K1C96: INSN_CSB = { 3'b100, 3'b010, 8'h?,                 
+  ibex                               K1C96: INSN_CSEXTB = { 3'b100, 3'b111, 3'h?, 2'b11, 3'b001,  
+  ibex                               K1C96: INSN_CSEXTH = { 3'b100, 3'b111, 3'h?, 2'b11, 3'b011,  
+  ibex                               K1C96: INSN_CSH = { 3'b100, 3'b011, 3'h?, 1'b0, 4'h?,     
+  ibex                               K1C96: INSN_CSLLI = { 3'b000,       11'h?,                  
+  ibex                               K1C96: INSN_CSRAI = { 3'b100, 1'h?, 2'b01, 8'h?,            
+  ibex                               K1C96: INSN_CSRLI = { 3'b100, 1'h?, 2'b00, 8'h?,            
+  ibex                               K1C96: INSN_CSRRC = { 17'h?,             3'b011, 5'h?, {OPCO
+  ibex                               K1C96: INSN_CSRRCI = { 17'h?,             3'b111, 5'h?, {OPCO
+  ibex                               K1C96: INSN_CSRRS = { 17'h?,             3'b010, 5'h?, {OPCO
+  ibex                               K1C96: INSN_CSRRSI = { 17'h?,             3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_CSRRW = { 17'h?,             3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_CSRRWI = { 17'h?,             3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_CSUB = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b00, 3'h?
+  ibex                               K1C96: INSN_CSW = { 3'b110,       11'h?,                  
+  ibex                               K1C96: INSN_CTZ = { 12'b011000000001, 5'h?,  3'b001, 5'h?,
+  ibex                               K1C96: INSN_CXOR = { 3'b100, 1'b0, 2'b11, 3'h?, 2'b01, 3'h?
+  ibex                               K1C96: INSN_CZEXTB = { 3'b100, 3'b111, 3'h?, 2'b11, 3'b000,  
+  ibex                               K1C96: INSN_CZEXTH = { 3'b100, 3'b111, 3'h?, 2'b11, 3'b010,  
+  ibex                               K1C96: INSN_DIV = { 7'b0000001, 10'h?, 3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_DIVU = { 7'b0000001, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_DRET = { 12'b011110110010,         13'b0, {OPCO
+  ibex                               K1C96: INSN_EBREAK = { 12'b000000000001,         13'b0, {OPCO
+  ibex                               K1C96: INSN_ECALL = { 12'b000000000000,         13'b0, {OPCO
+  ibex                               K1C96: INSN_FENCE = { 17'h?,             3'b000, 5'h?, {OPCO
+  ibex                               K1C96: INSN_FENCEI = { 17'h0,             3'b001, 5'h0, {OPCO
+  ibex                               K1C96: INSN_FSL = {5'h?, 2'b10, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_FSR = {5'h?, 2'b10, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_FSRI = { 5'h?, 1'b1, 11'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_GORC = { 7'b0010100, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_GORCI = { 5'b00101, 1'b0, 11'h?, 3'b101, 5'h?, {
+  ibex                               K1C96: INSN_GREV = { 7'b0110100, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_GREVI = { 5'b01101, 1'b0, 11'h?, 3'b101, 5'h?, {
+  ibex                               K1C96: INSN_JAL = { 25'h?,                           {OPCO
+  ibex                               K1C96: INSN_JALR = { 17'h?,             3'b000, 5'h?, {OPCO
+  ibex                               K1C96: INSN_LOAD = {25'h?,                            {OPCO
+  ibex                               K1C96: INSN_LUI = { 25'h?,                           {OPCO
+  ibex                               K1C96: INSN_MAX = { 7'b0000101, 10'h?, 3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_MAXU = { 7'b0000101, 10'h?, 3'b111, 5'h?, {OPCO
+  ibex                               K1C96: INSN_MIN = { 7'b0000101, 10'h?, 3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_MINU = { 7'b0000101, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_MRET = { 12'b001100000010,         13'b0, {OPCO
+  ibex                               K1C96: INSN_OR = { 7'b0000000, 10'h?, 3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_ORC = { 5'b00101, 1'b0, 1'b?, 5'b11111, 5'h?, 
+  ibex                               K1C96: INSN_ORC16 = { 5'b00101, 1'b0, 1'b?, 5'b10000, 5'h?, 
+  ibex                               K1C96: INSN_ORC2 = { 5'b00101, 1'b0, 1'b?, 5'b11110, 5'h?, 
+  ibex                               K1C96: INSN_ORC2_B = { 5'b00101, 1'b0, 1'b?, 5'b00110, 5'h?, 
+  ibex                               K1C96: INSN_ORC2_H = { 5'b00101, 1'b0, 1'b?, 5'b01110, 5'h?, 
+  ibex                               K1C96: INSN_ORC2_N = { 5'b00101, 1'b0, 1'b?, 5'b00010, 5'h?, 
+  ibex                               K1C96: INSN_ORC4 = { 5'b00101, 1'b0, 1'b?, 5'b11100, 5'h?, 
+  ibex                               K1C96: INSN_ORC4_B = { 5'b00101, 1'b0, 1'b?, 5'b00100, 5'h?, 
+  ibex                               K1C96: INSN_ORC4_H = { 5'b00101, 1'b0, 1'b?, 5'b01100, 5'h?, 
+  ibex                               K1C96: INSN_ORC8 = { 5'b00101, 1'b0, 1'b?, 5'b11000, 5'h?, 
+  ibex                               K1C96: INSN_ORC8_H = { 5'b00101, 1'b0, 1'b?, 5'b01000, 5'h?, 
+  ibex                               K1C96: INSN_ORC_B = { 5'b00101, 1'b0, 1'b?, 5'b00111, 5'h?, 
+  ibex                               K1C96: INSN_ORC_H = { 5'b00101, 1'b0, 1'b?, 5'b01111, 5'h?, 
+  ibex                               K1C96: INSN_ORC_N = { 5'b00101, 1'b0, 1'b?, 5'b00011, 5'h?, 
+  ibex                               K1C96: INSN_ORC_P = { 5'b00101, 1'b0, 1'b?, 5'b00001, 5'h?, 
+  ibex                               K1C96: INSN_ORI = { 17'h?,             3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_ORN = { 7'b0100000, 10'h?, 3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_PACK = { 7'b0000100, 10'h?, 3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_PACKH = { 7'b0000100, 10'h?, 3'b111, 5'h?, {OPCO
+  ibex                               K1C96: INSN_PACKU = { 7'b0100100, 10'h?, 3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_PMUH = { 7'b0000001, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_PMUL = { 7'b0000001, 10'h?, 3'b000, 5'h?, {OPCO
+  ibex                               K1C96: INSN_PMULHSU = { 7'b0000001, 10'h?, 3'b010, 5'h?, {OPCO
+  ibex                               K1C96: INSN_PMULHU = { 7'b0000001, 10'h?, 3'b011, 5'h?, {OPCO
+  ibex                               K1C96: INSN_REM = { 7'b0000001, 10'h?, 3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_REMU = { 7'b0000001, 10'h?, 3'b111, 5'h?, {OPCO
+  ibex                               K1C96: INSN_REV = { 5'b01101, 1'b0, 1'b?, 5'b11111, 5'h?, 
+  ibex                               K1C96: INSN_REV16 = { 5'b01101, 1'b0, 1'b?, 5'b10000, 5'h?, 
+  ibex                               K1C96: INSN_REV2 = { 5'b01101, 1'b0, 1'b?, 5'b11110, 5'h?, 
+  ibex                               K1C96: INSN_REV2_B = { 5'b01101, 1'b0, 1'b?, 5'b00110, 5'h?, 
+  ibex                               K1C96: INSN_REV2_H = { 5'b01101, 1'b0, 1'b?, 5'b01110, 5'h?, 
+  ibex                               K1C96: INSN_REV2_N = { 5'b01101, 1'b0, 1'b?, 5'b00010, 5'h?, 
+  ibex                               K1C96: INSN_REV4 = { 5'b01101, 1'b0, 1'b?, 5'b11100, 5'h?, 
+  ibex                               K1C96: INSN_REV4_B = { 5'b01101, 1'b0, 1'b?, 5'b00100, 5'h?, 
+  ibex                               K1C96: INSN_REV4_H = { 5'b01101, 1'b0, 1'b?, 5'b01100, 5'h?, 
+  ibex                               K1C96: INSN_REV8 = { 5'b01101, 1'b0, 1'b?, 5'b11000, 5'h?, 
+  ibex                               K1C96: INSN_REV8_H = { 5'b01101, 1'b0, 1'b?, 5'b01000, 5'h?, 
+  ibex                               K1C96: INSN_REV_B = { 5'b01101, 1'b0, 1'b?, 5'b00111, 5'h?, 
+  ibex                               K1C96: INSN_REV_H = { 5'b01101, 1'b0, 1'b?, 5'b01111, 5'h?, 
+  ibex                               K1C96: INSN_REV_N = { 5'b01101, 1'b0, 1'b?, 5'b00011, 5'h?, 
+  ibex                               K1C96: INSN_REV_P = { 5'b01101, 1'b0, 1'b?, 5'b00001, 5'h?, 
+  ibex                               K1C96: INSN_ROL = { 7'b0110000, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_ROR = { 7'b0110000, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_RORI = { 5'b01100  , 1'b0, 11'h?, 3'b101, 5'h?,
+  ibex                               K1C96: INSN_SEXTB = { 12'b011000000100, 5'h?, 3'b001, 5'h?, 
+  ibex                               K1C96: INSN_SEXTH = { 12'b011000000101, 5'h?, 3'b001, 5'h?, 
+  ibex                               K1C96: INSN_SH1ADD = { 7'b0010000, 10'h?, 3'b010, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SH2ADD = { 7'b0010000, 10'h?, 3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SH3ADD = { 7'b0010000, 10'h?, 3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SHFL = { 7'b0000100, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SHFLI = { 6'b000010, 11'h?, 3'b001, 5'h?, {OPCOD
+  ibex                               K1C96: INSN_SLL = { 7'b0000000, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SLLI = { 7'b0000000, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SLO = { 7'b0010000, 10'h?, 3'b001, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SLOI = { 5'b00100        , 12'h?, 3'b001, 5'h?,
+  ibex                               K1C96: INSN_SLT = { 7'b0000000, 10'h?, 3'b010, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SLTI = { 17'h?,             3'b010, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SLTIU = { 17'h?,             3'b011, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SLTU = { 7'b0000000, 10'h?, 3'b011, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SRA = { 7'b0100000, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SRAI = { 7'b0100000, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SRL = { 7'b0000000, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SRLI = { 7'b0000000, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SRO = { 7'b0010000, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SROI = { 5'b00100  , 1'b0, 11'h?, 3'b101, 5'h?,
+  ibex                               K1C96: INSN_STORE = {25'h?,                            {OPCO
+  ibex                               K1C96: INSN_SUB = { 7'b0100000, 10'h?, 3'b000, 5'h?, {OPCO
+  ibex                               K1C96: INSN_SWSP = { 3'b110,       11'h?,                  
+  ibex                               K1C96: INSN_UNSHFL = { 7'b0000100, 10'h?, 3'b101, 5'h?, {OPCO
+  ibex                               K1C96: INSN_UNSHFLI = { 6'b000010, 11'h?, 3'b101, 5'h?, {OPCOD
+  ibex                               K1C96: INSN_UNZIP = { 6'b000010, 2'h?, 4'b1111, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP2 = { 6'b000010, 2'h?, 4'b1110, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP2_B = { 6'b000010, 2'h?, 4'b0010, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP2_H = { 6'b000010, 2'h?, 4'b0110, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP4 = { 6'b000010, 2'h?, 4'b1100, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP4_H = { 6'b000010, 2'h?, 4'b0100, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP8 = { 6'b000010, 2'h?, 4'b1000, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP_B = { 6'b000010, 2'h?, 4'b0011, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP_H = { 6'b000010, 2'h?, 4'b0111, 5'h?, 3'b101
+  ibex                               K1C96: INSN_UNZIP_N = { 6'b000010, 2'h?, 4'b0001, 5'h?, 3'b101
+  ibex                               K1C96: INSN_WFI = { 12'b000100000101,         13'b0, {OPCO
+  ibex                               K1C96: INSN_XNOR = { 7'b0100000, 10'h?, 3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_XOR = { 7'b0000000, 10'h?, 3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_XORI = { 17'h?,             3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_XPERM_B = { 7'b0010100, 10'h?, 3'b100, 5'h?, {OPCO
+  ibex                               K1C96: INSN_XPERM_H = { 7'b0010100, 10'h?, 3'b110, 5'h?, {OPCO
+  ibex                               K1C96: INSN_XPERM_N = { 7'b0010100, 10'h?, 3'b010, 5'h?, {OPCO
+  ibex                               K1C96: INSN_ZIP = { 6'b000010, 2'h?, 4'b1111, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP2 = { 6'b000010, 2'h?, 4'b1110, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP2_B = { 6'b000010, 2'h?, 4'b0010, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP2_H = { 6'b000010, 2'h?, 4'b0110, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP4 = { 6'b000010, 2'h?, 4'b1100, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP4_H = { 6'b000010, 2'h?, 4'b0100, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP8 = { 6'b000010, 2'h?, 4'b1000, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP_B = { 6'b000010, 2'h?, 4'b0011, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP_H = { 6'b000010, 2'h?, 4'b0111, 5'h?, 3'b001
+  ibex                               K1C96: INSN_ZIP_N = { 6'b000010, 2'h?, 4'b0001, 5'h?, 3'b001
+  ibex                               K1C96: PRESENT_PERM32 = {5'd31, 5'd23, 5'd15, 5'd07,
+           
+  ibex                               K1C96: PRESENT_PERM32_INV = {5'd31, 5'd27, 5'd23, 5'd19,
+           
+  ibex                               K1C96: PRESENT_PERM64 = {6'd63, 6'd47, 6'd31, 6'd15,
+           
+  ibex                               K1C96: PRESENT_PERM64_INV = {6'd63, 6'd59, 6'd55, 6'd51,
+           
+  ibex                               K1C96: PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,
+               
+  ibex                               K1C96: PRESENT_SBOX4_INV = {4'hA, 4'h9, 4'h7, 4'h0,
+               
+  ibex                               K1C96: PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                 
+  ibex                               K1C96: PRINCE_SBOX4 = {4'h4, 4'hD, 4'h5, 4'hE,
+               
+  ibex                               K1C96: PRINCE_SBOX4_INV = {4'h1, 4'hC, 4'hE, 4'h5,
+               
+  ibex                               K1C96: RndCnstLfsrPermDefault = {
+    160'h1e35ecba467fd1b12e958152c04fa
+  ibex                               K1C96: RndCnstTriviumLfsrSeedDefault = {
+    32'h758a4420,
+    256'h31e1c461_6e
+  ibex                               MDM96+MDMW96: BUS_BYTES = BUS_SIZE/8
+  ibex                               MDM96+MDMW96: IC_LINE_BEATS = IC_LINE_BYTES / BUS_BYTES
+  ibex                               MDM96+MDMW96: IC_LINE_BYTES = IC_LINE_SIZE/8
+  ibex                               MDM96+MDMW96: IC_NUM_LINES = IC_SIZE_BYTES / IC_NUM_WAYS / IC_LINE_BY
+  ibex                               MDM96+MDMW96: WordByte32 = $bits(sha_word32_t)/8
+  ibex                               MDM96+MDMW96: WordByte64 = $bits(sha_word64_t)/8
+  ibex                               MDMW96: IC_OUTPUT_BEATS = (BUS_BYTES / 2)
+  ibex                               UDC96: 8000000000 800000000000 80000000000000 8000000000000000
+  ibex                               UDC96: 8000000000000080 8000000000008002 8000000000008003 8000000000008009 8000000000008080 8000000000008089
+  rp32                               K1C96: CSR_REN_S = '{
+  
+  mstatus    : '{
+    SD         :
+  stamped_gen_param                  K1C96: IMPL = '{
+    pad: 4'h9,
+    UnitTypes: {2'b01,

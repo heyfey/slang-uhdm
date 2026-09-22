@@ -1,0 +1,50 @@
+# NOTE: one predicted row name is one of the four slang-FENCED tests and is
+# written <FENCED> here per the ops rule.  It is a SOURCE-SCAN candidate only;
+# the measured surelog mover set is empty of it (and of every law shape).
+Ariane                                         K1C96+MDM96+UDC96
+Ariane2024                                     K1C96+MDM96+UDC96
+ArianeElab                                     K1C96+MDM96
+ArianeElab2                                    K1C96+MDM96
+BitsOp                                         MDM96
+BlackBePipeInt                                 K1C96
+BlackParrotConf                                K1C96
+BlackParrotMuteErrors                          K1C96+MDM96
+BlackParrotParam                               K1C96
+BlackParrotStructParam                         K1C96
+BuildUVMPkg                                    MDM96
+ClassParam                                     MDM96
+ConcatOrder                                    K1C96
+Earlgrey                                       K1C96+MDM96
+Earlgrey_0_1                                   K1C96+MDM96+UDC96
+Earlgrey_Verilator_0_1                         K1C96+MDM96+UDC96
+FuncStructVal                                  K1C96
+FuncStructValSimple                            K1C96
+GenScopeHierPath                               K1C96
+HierBitSlice                                   UDC96
+HierPathOverride                               K1C96
+HierPathStructTypespec                         MDM96
+Ibex                                           K1C96+UDC96
+Icarus                                         UDC96
+IncompTitan                                    K1C96+MDM96+UDC96
+IndexedSelectHex                               K1C96
+IntegerConcat                                  K1C96
+Kmac                                           MDM96
+LargeConst                                     UDC96
+MultiConcat                                    K1C96
+MultiConcatValueSize                           K1C96
+NyuziProcessor                                 MDM96+UDC96
+Opentitan                                      K1C96+MDM96
+PackImport                                     K1C96
+PackageFuncCall                                K1C96
+PackageType                                    K1C96
+ParamElabMulti                                 K1C96
+ParamOverload2                                 K1C96
+ParamTypespec                                  K1C96
+StructParamFuncBodyFieldCompare                K1C96
+<FENCED>                                       UDC96
+ValueSize                                      K1C96
+Verilator                                      UDC96
+YosysBigSimAmber23                             UDC96
+YosysOldOr                                     UDC96
+rp32                                           K1C96
+PREDICTED MOVER CANDIDATES: 46 rows

@@ -1,0 +1,30 @@
+# r11u96 WIDE BOUNDARY — 8302 arms, 8053 SAME / 21 DIFFERS / 220 NODB (every NODB prc==lrc: 216 x rc=3, 4 x rc=139)
+# NULL BOUNDARY (pristine vs itself over the 21): 21 SAME / 0 DIFFERS — none is a run-to-run coin
+# 16KB-PAD CONTROL (pristine vs pristine+16384 inert bytes over the 21): DIFFERS on exactly the three static-address arms
+
+CLASS 1 — LAWS A/B  (|UINT:<->|INT:, vpiConstType 9<->7, vpiDecompile)
+  r10earl71repro/d1_earl71.sv
+  r10earl71repro/d3_earl71.sv
+  r10earl76repro/g2_orig76.sv
+  r10earl_repro/we.sv
+  r10v75repro/a5_origin75.sv
+  r10v76repro/a4_val76.sv
+  r10vearl71repro/v3_enc71.sv
+  r11u66repro/grid/g7_add66.sv
+  r11u72repro/grid/t2_leaf72.sv
+  r11u94repro/grid/q5_negedge94.sv
+  r11v66repro/grid/a6_misc66.sv
+  r11v94repro/grid/x2_minusedge94v.sv
+  r11u96repro/grid/y1_muldiv96.sv
+  r11u96repro/grid/y2_unsized96.sv
+  r11u96repro/grid/y4_bail96.sv
+
+CLASS 2 — LAW C + the replication face (int_typespec / ref_typespec / vpiTypespec / vpiActual / vpiSigned / vpiFullName / vpiParent / constant)
+  r11u96repro/grid/y3_kind1cat96.sv
+  r11u96repro/grid/y5_replic96.sv
+  r11v94repro/grid/x6_concatvote94v.sv
+
+CLASS 3 — RV94-5 STATIC-ADDRESS FALSE MOVERS (|UINT: + |vpiDecompile: only, no vpiConstType), all three named by r11v94 and all three reproduced by the 16KB pad on PRISTINE SOURCE ALONE
+  r10buvm22repro/g22.sv
+  r10uvm154repro/l154_noenum.sv
+  r10uvm185repro/grid185/g185_e_kinds.sv

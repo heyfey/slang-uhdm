@@ -1,0 +1,19 @@
+# r11u96 CORPUS MOVERS
+## uhdm2rtlil  MOVERS 2/1608 (PATH_SETS_IDENTICAL, SELFCHECK 1607/1608)
+   ibex_icache default + testflags — PREDICTED BY NAME (predict96.py: K1C96+MDM96)
+   whole path-normalised dump diff = 40 lines per mode: 10 x |UINT:2 -> |INT:2 and 10 x |vpiConstType:9 -> :7, and nothing else
+   the cells are the module-side reads of ibex_pkg IC_LINE_BEATS (IC_LINE_BYTES / BUS_BYTES) and
+   IC_OUTPUT_BEATS ((BUS_BYTES / 2)) at ibex_icache.sv 942/1020/1044/1050/1171/1180 — LAW A's DIVIDE arm
+   GOLDEN AT EVERY ONE OF THOSE CELLS READS |INT:2 |vpiConstType:7 — the mover is TO GOLDEN
+   the row is ibex_icache,{default,testflags},CMP_NOTEQUAL,decompile: in the committed baseline and STAYS so
+
+## surelog  MOVERS 4/960 (PATH_SETS_IDENTICAL, SELFCHECK 959/960)
+   MiniAmiq and SeqDriver, both modes.  Attributed ORDER-BLIND on path-normalised, id-stripped, SORTED dumps:
+   each moves EXACTLY FOUR LINES, one |UINT: / |vpiDecompile: pair (825->1451, 866->0, 1132->740, 968->0).
+   |INT: 0   vpiConstType 0   vpiSize 0   Typespec 0   int_typespec 0 — none of the fields these laws write.
+   THE CELL IS THE SAME ONE IN ALL FOUR: the vpiRightRange constant of the types_t array_typespec at
+   uvm_pkg 642:23 — a DYNAMIC array whose bound our emitter prints from an uninitialized pointer-valued
+   UINT, r11v94's RV94-5, latent on every binary.
+   POSITIVE CONTROL: the 16KB-pad binary (PRISTINE SOURCE + an inert 16384-byte array, no behaviour change)
+   run on MiniAmiq/default's own invocation moves THAT SAME |UINT:825 / |vpiDecompile:825 pair
+   (and 120 class_defn lines the law does not touch at all).  An inert code-size change alone reproduces it.

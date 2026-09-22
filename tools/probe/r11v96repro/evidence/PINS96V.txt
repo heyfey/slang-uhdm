@@ -1,0 +1,24 @@
+# r11v96 CANARIES, PINS AND CONVERSION ROWS
+## protected databases, md5 (first 12), all three sweeps
+  SVSwitch default pris=4842211c4030 lawx=4842211c4030 fixd=4842211c4030
+  SVSwitch testflags pris=4842211c4030 lawx=4842211c4030 fixd=4842211c4030
+  YosysVerx default pris=6ccda350c24a lawx=6ccda350c24a fixd=6ccda350c24a
+  YosysVerx testflags pris=6ccda350c24a lawx=6ccda350c24a fixd=6ccda350c24a
+  InterfaceModPort default pris=59a365f3ce2c lawx=59a365f3ce2c fixd=59a365f3ce2c
+  InterfaceModPort testflags pris=59a365f3ce2c lawx=59a365f3ce2c fixd=59a365f3ce2c
+  BlackParrotComplex default pris=e3e354129d5a lawx=e3e354129d5a fixd=e3e354129d5a
+  BlackParrotComplex testflags pris=73a10e8217e5 lawx=73a10e8217e5 fixd=73a10e8217e5
+  YosysOldOr default pris=d68e0796d62c lawx=d68e0796d62c fixd=d68e0796d62c
+  YosysOldOr testflags pris=d68e0796d62c lawx=d68e0796d62c fixd=d68e0796d62c
+  Earlgrey_0_1 default pris=8bdf25272e08 lawx=8bdf25272e08 fixd=8bdf25272e08
+  Earlgrey_0_1 testflags pris=59d0ee6d10c3 lawx=59d0ee6d10c3 fixd=59d0ee6d10c3
+
+## canaries.sh / ctcan2.sh / canaudit.sh
+  surelog  pris ok=50 changed=2 (Earlgrey dump column, both modes)   lawx ok=50 changed=2 (same)   fixd ok=51 changed=1
+  u2r      ok=8 changed=0 absent=0 on all three
+  ctcan2   PASS on both corpora for all three
+  canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+## conversion rows, official uhdm-cmp, golden as LHS
+  lawx: measured=13 SKIP-NOFILE=1 UNKNOWN-NAME=0, every row 0 cmp lines / 0 heads / rc=0
+  fixd: measured=13 SKIP-NOFILE=1 UNKNOWN-NAME=0, every row 0 cmp lines / 0 heads / rc=0

@@ -1,0 +1,47 @@
+# r11v96 WIDE BOUNDARY — PRISTINE vs the VERIFIED law over every *.sv under tools/probe
+arms=8294  SAME=8053  DIFFERS=21  NODB=220
+NODB rc histogram (prc==lrc on every one):       4 prc=139     216 prc=3 
+
+## the 21 DIFFERS
+  r10buvm22repro/g22.sv
+  r10earl71repro/d1_earl71.sv
+  r10earl71repro/d3_earl71.sv
+  r10earl76repro/g2_orig76.sv
+  r10earl_repro/we.sv
+  r10uvm154repro/l154_noenum.sv
+  r10uvm185repro/grid185/g185_e_kinds.sv
+  r10v75repro/a5_origin75.sv
+  r10v76repro/a4_val76.sv
+  r10vearl71repro/v3_enc71.sv
+  r11u66repro/grid/g7_add66.sv
+  r11u72repro/grid/t2_leaf72.sv
+  r11u94repro/grid/q5_negedge94.sv
+  r11u96repro/grid/y1_muldiv96.sv
+  r11u96repro/grid/y4_bail96.sv
+  r11u96repro/grid/y2_unsized96.sv
+  r11u96repro/grid/y3_kind1cat96.sv
+  r11u96repro/grid/y5_replic96.sv
+  r11v66repro/grid/a6_misc66.sv
+  r11v94repro/grid/x2_minusedge94v.sv
+  r11v94repro/grid/x6_concatvote94v.sv
+
+## LOCATION-KEYED per-cell scoring of the 12 committed arms among them (golden, pristine, verified law)
+d1_earl71         LOC-KEYED  TO=20 AWAY=0 STILL=29 EQ=1091 MWRONG=0 keys=391
+d3_earl71         LOC-KEYED  TO=0 AWAY=0 STILL=0 EQ=420 MWRONG=0 keys=162
+q5_negedge94      LOC-KEYED  TO=4 AWAY=0 STILL=11 EQ=153 MWRONG=0 keys=84
+a4_val76          LOC-KEYED  TO=2 AWAY=0 STILL=5 EQ=377 MWRONG=0 keys=136
+g2_orig76         LOC-KEYED  TO=14 AWAY=0 STILL=4 EQ=582 MWRONG=0 keys=210
+g7_add66          LOC-KEYED  TO=0 AWAY=0 STILL=2 EQ=115 MWRONG=0 keys=78
+a5_origin75       LOC-KEYED  TO=4 AWAY=0 STILL=10 EQ=451 MWRONG=0 keys=163
+a6_misc66         LOC-KEYED  TO=0 AWAY=0 STILL=2 EQ=70 MWRONG=0 keys=46
+t2_leaf72         LOC-KEYED  TO=0 AWAY=0 STILL=2 EQ=79 MWRONG=0 keys=51
+we                LOC-KEYED  TO=2 AWAY=0 STILL=2 EQ=104 MWRONG=0 keys=37
+g185_e_kinds      LOC-KEYED  TO=0 AWAY=0 STILL=0 EQ=33 MWRONG=0 keys=14
+l154_noenum       LOC-KEYED  TO=0 AWAY=0 STILL=0 EQ=0 MWRONG=0 keys=0
+
+## THE THREE PAGE-BOUNDARY FALSE MOVERS — the cell value tracks the BINARY, by exactly 4096
+  g185_e_kinds  pris |UINT:23298809   lawx |UINT:23302905   fixd |UINT:23302905   delta=4096
+  and pristine-vs-pristine on all three arms is SAME (deterministic per binary)
+
+## NULL BOUNDARY — the PRISTINE binary against ITSELF over the same 21 arms
+  SAME=21  DIFFERS=0  NODB=0 — not one of the 21 is a run-to-run coin
