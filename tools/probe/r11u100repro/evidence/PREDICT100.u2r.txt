@@ -1,0 +1,2 @@
+OFF-FACE candidates (flags false, must move NOTHING): 0 rows
+PREDICTED MOVER CANDIDATES: 0 rows  (loose class union: 64 rows)

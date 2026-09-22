@@ -16066,16 +16066,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // `red97OperandMintsInt97`.  `add97` and `pow97` are their
                     // own flags so the parent face and its power child each
                     // drop alone.
+                    //
+                    // § powTopIsIntReduce100 (r11u100) — LAW A, r11u96's R1
+                    // and r11u97's R1.  `vpiPowerOp` at the TOP is the sixth
+                    // entry of that same flag table: it mints `INT:` in the
+                    // same three lines as `vpiMultOp`, and its VALUE is
+                    // `red72Int64`'s landed § patPowCastArtefact73 arm — the
+                    // `double` promotion and its out-of-range cast.  The two
+                    // faces are measured TOGETHER in the § block beside
+                    // `red100IntMintTop100`; `powTop100` is its own flag.
                     constexpr bool mul96 = true;   // § pkgParamMulDivModIsIntReduce96
                     constexpr bool div96 = true;   // § pkgParamMulDivModIsIntReduce96
                     constexpr bool mod96 = true;   // § pkgParamMulDivModIsIntReduce96
                     constexpr bool add97 = true;   // § addMintFollowsOperandMint97
                     constexpr bool pow97 = true;   // § addMintFollowsOperandMint97
+                    constexpr bool powTop100 = true;  // § powTopIsIntReduce100
                     int64_t mrv94 = 0;
                     bool minus94 = false;
+                    bool intTop100 = false;
                     if (const Expression* mi94 = psym.getInitializer()) {
-                        if (red97IntMintTop97(*mi94, mul96, div96, mod96,
-                                              add97, pow97)) {
+                        intTop100 = red100IntMintTop100(*mi94, mul96, div96,
+                                                        mod96, add97, pow97,
+                                                        powTop100);
+                        if (intTop100) {
                             ASTContext mctx94(comp.getRoot(),
                                               LookupLocation::max);
                             minus94 = red72Int64(*mi94, mctx94, 0, mrv94) ==
@@ -16084,10 +16097,100 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     const bool negRed94 = minus94 && mrv94 < 0;
                     const bool zpsRed94 = minus94 && mrv94 >= 0;
+                    // § uintArmWrittenDigitsMasked100 (r11u100) — LAW B,
+                    // r11u96's R3 / r11u97's R2 / r11v96's RV96-5 — and
+                    // § bareUnsizedDecIsMaskedDigits100 — LAW C, r11u96's R4.
+                    // THE DIGIT ROAD WITHOUT THE CONST-TYPE ROAD.  Five of the
+                    // producer's arms (`+`, `&`, `|`, `<<`, `>>`) and the BARE
+                    // decimal leaf all reach `CompileHelper::adjustSize`'s
+                    // `vpiUIntConst` branch, which MASKS the written digits to
+                    // the declaration's width and re-renders them UNSIGNED.
+                    // Both laws therefore write the SAME two fields — the value
+                    // and, by suppressing the landed `neg91` gate, the const
+                    // type — and neither touches the size, which is r11u91's R4
+                    // and stays fenced.  The decoded producer lines, the
+                    // measured tables and every decline are in the two § blocks
+                    // beside `red100UintArmTop100` and `red100BareDecDigits100`.
+                    // Each face is its own flag, and the `+`, `&`, `|` and the
+                    // two shift arms drop one at a time.
+                    //
+                    // BOTH ARE OFF, AND THE GRID IS WHY.  `adjustSize` runs a
+                    // SECOND time AT THE READ, with the READING TARGET's width
+                    // (`longint BLB = 9223372036854775807` read by a 32-bit net
+                    // is golden `UINT:4294967295` and by an 8-bit net
+                    // `UINT:255`, measured on `p4_fence100`), and this site can
+                    // see only the SOURCE parameter's width — slang models a
+                    // narrowing read with no node the emitter passes through,
+                    // and the reading net's type reaches the exporter only in
+                    // `ModuleEmit`'s `dt->getType()`, which is not this pass's
+                    // ground.  With the flags ON the grid reads AWAY=2 on
+                    // `p2_uintdig100` and AWAY=4 / MOVED-WRONG=10 on
+                    // `p4_fence100` — every one of them a read NARROWER than
+                    // the parameter, where slang's own 32-bit truncation had
+                    // made the pristine binary accidentally RIGHT.  The decode,
+                    // the producer lines and the whole measured grid stand in
+                    // the two § blocks; the flags are the switch, and R0 names
+                    // what has to reach this site first.  LAW A needs no such
+                    // width: `adjustSize` has NO branch for a `vpiIntConst`, so
+                    // the `INT:` road is never masked at any reader — measured,
+                    // `2 ** 3` is golden `INT:8` read by a 64-bit, a 32-bit and
+                    // an 8-bit net alike, and `logic [7:0] PU8 = 10 ** 3` is
+                    // golden `INT:1000`.
+                    constexpr bool add100 = false;  // § uintArmWrittenDigitsMasked100
+                    constexpr bool and100 = false;  // § uintArmWrittenDigitsMasked100
+                    constexpr bool or100 = false;   // § uintArmWrittenDigitsMasked100
+                    constexpr bool shl100 = false;  // § uintArmWrittenDigitsMasked100
+                    constexpr bool shr100 = false;  // § uintArmWrittenDigitsMasked100
+                    constexpr bool bare100 = false; // § bareUnsizedDecIsMaskedDigits100
+                    constexpr bool bname100 = false; // § bareUnsizedDecIsMaskedDigits100
+                    constexpr bool uarm100 =
+                        add100 || and100 || or100 || shl100 || shr100 || bare100;
+                    bool udig100 = false;
+                    std::string udg100;
+                    if (uarm100 && !intTop100) {
+                        if (const Expression* ui100 = psym.getInitializer()) {
+                            // A CONST FUNCTION CALL under the arm is declined:
+                            // its reduce is not this file's road.  Measured —
+                            // `int FADDS = fs(4) + 1` is golden `UINT:6` where
+                            // the landed `callSigned9` gate writes `INT:6`, and
+                            // the cell stays exactly as pristine wrote it.
+                            bool uc100 = false;
+                            ui100->visit(makeVisitor(
+                                [&](auto& v100, const CallExpression& cc100) {
+                                    if (!cc100.isSystemCall())
+                                        uc100 = true;
+                                    v100.visitDefault(cc100);
+                                }));
+                            if (!uc100) {
+                                ASTContext uctx100(comp.getRoot(),
+                                                   LookupLocation::max);
+                                int64_t uv100 = 0;
+                                if (red100UintArmTop100(*ui100, add100, and100,
+                                                        or100, shl100, shr100))
+                                    udig100 = red100UintDigits100(
+                                        *ui100, uctx100, 0, uv100);
+                                else if (bare100)
+                                    udig100 = red100BareDecDigits100(
+                                        *ui100, uctx100, 0, uv100, bname100);
+                                if (udig100) {
+                                    // THE MASK RUNS TWICE and this site can
+                                    // only see ONE of the two widths — which is
+                                    // why the flags above are OFF.  See the
+                                    // § block beside `red100UintArmTop100`.
+                                    udg100 = red100MaskedUnsigned100(
+                                        uv100,
+                                        (uint32_t)psym.getType().getBitWidth());
+                                }
+                            }
+                        }
+                    }
                     std::string digits =
-                        (negRed94 || zpsRed94)
-                            ? std::to_string(mrv94)
-                            : cv.integer().toString(LiteralBase::Decimal, false);
+                        udig100
+                            ? udg100
+                            : ((negRed94 || zpsRed94)
+                                   ? std::to_string(mrv94)
+                                   : cv.integer().toString(LiteralBase::Decimal,
+                                                           false));
                     c->VpiDecompile(digits);
                     bool typedPkgParam = false;
                     if (auto d0 = psym.getDeclaredType())
@@ -16158,8 +16261,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                        cv.integer().isNegative();
                     // § pkgParamMinusIsIntReduce94 (r11u94) — the two faces
                     // join the landed predicate as an OR; neither replaces it.
+                    // § uintArmWrittenDigitsMasked100 /
+                    // § bareUnsizedDecIsMaskedDigits100 (r11u100) — the digit
+                    // road's CONST TYPE.  `adjustSize`'s `vpiUIntConst` branch
+                    // re-renders UNSIGNED, so where those laws supply the
+                    // digits the landed `neg91` gate — which fires on the sign
+                    // of slang's TRUNCATED store — must not.  Measured: `int
+                    // IB31 = 2147483648` is golden `UINT:2147483648` where we
+                    // wrote `INT:-2147483648`, both fields off the one branch.
                     const bool int94 =
-                        callSigned9 || neg91 || negRed94 || zpsRed94;
+                        !udig100 &&
+                        (callSigned9 || neg91 || negRed94 || zpsRed94);
                     c->VpiValue((int94 ? "INT:" : "UINT:") + digits);
                     c->VpiConstType(int94 ? vpiIntConst : vpiUIntConst);
                     // § castDefaultPatternConcat — Surelog's

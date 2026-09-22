@@ -1,0 +1,65 @@
+r11u100 GATES — all mandatory, all green
+
+1. BUILD.  -j 2, md5 separately, chmod 555 before any sweep.
+   pristine 64699fe6f1399357c029e4962b07c84a — byte-identical to the main tree at
+   65981255 and to the ops-brief md5.   law 534e12a3f3fa8831c761c20f5a92c418.
+   0 errors, 0 new warnings.
+
+2. GOLDENS.  23 PASS / 0 FAIL on pristine AND on law.
+   NEGATIVE CONTROL  SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL.
+
+3. uhdm2rtlil, BOTH MODES, BOTH BINARIES.
+   788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT in all FOUR sweeps.
+   Both-mode 1742-row whole-row join vs results/golden_uhdm2rtlil.csv:
+       pris  rows base=1742 new=1742 DIFF=0
+       lawx  rows base=1742 new=1742 DIFF=0
+   testflags gate vs results/gate_uhdm2rtlil.csv:
+       PASS: every row byte-identical to the committed baseline   (both binaries)
+   3484 cmds.txt audited BY ABSOLUTE BINARY PATH:
+       1742 /tmp/wt_r11u100/build/slang-uhdm
+       1742 /tmp/wt_r11u100_pris/build/slang-uhdm
+          0 /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+
+4. Surelog --mode both, BOTH BINARIES.
+   474 / 9 default and 469 / 8 testflags on BOTH, every histogram cell identical to
+   the committed baseline (SLANG_REJECT 285/286, SURELOG_FAIL 25/23, DEFERRED 5/5,
+   NO_DATABASE 3, NO_UHDM 1, TIMEOUT 1, UNTRANSLATABLE 2).
+   Whole-row join vs results/golden_surelog.csv names, on the LAW binary, exactly
+   three rows and no fourth:
+     LowMemLib     testflags  SURELOG_FAIL, DETAIL = the sweep's OWN workdir path
+     LowMemPkg     testflags  SURELOG_FAIL, DETAIL = the sweep's OWN workdir path
+     Earlgrey_0_1  default    CMP_EQUAL, the DUMP COLUMN blank
+   and the PRISTINE sweep names the first two plus Earlgrey_0_1 in BOTH modes —
+   the documented uhdm-dump timeout draw, which lands on whichever sweep is
+   unlucky.  NO STATUS MOVED, in either direction, on any row of either corpus.
+
+5. byteverify, SELFCHECK=1, both corpora, law vs this pass's own pristine workdirs.
+   uhdm2rtlil: MOVERS 0 / 1608   PATH_SETS_IDENTICAL   SELFCHECK 1607/1608
+   Surelog   : MOVERS 4 / 960    PATH_SETS_IDENTICAL   SELFCHECK  959/960
+       MiniAmiq/default  SeqDriver/default  SimpleUVM/default  SeqDriver/testflags
+       — none of them this pass's, all four attributed ORDER-BLIND (see MOVERS100.txt).
+
+6. CANARIES AND PINS.
+   surelog  ok=51 changed=1 (law)   ok=50 changed=2 (pristine)
+       every "changed" row is Earlgrey_0_1's DUMP COLUMN alone,
+       CMP_EQUAL/differ -> CMP_EQUAL/ , the status untouched.
+   u2r      ok=8 changed=0 absent=0 on both binaries.
+   ctcan2   PASS on both corpora and both binaries.
+   canaudit canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0
+   Every protected database at its ops-brief pin AND byte-identical between
+   pristine and law in BOTH modes:
+       SVSwitch 4842211c4030   YosysVerx 6ccda350c24a   InterfaceModPort 59a365f3ce2c
+       BlackParrotComplex e3e354129d5a / 73a10e8217e5   YosysOldOr d68e0796d62c
+       Earlgrey_0_1 8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)
+
+7. THE CONVERSION ROWS, official uhdm-cmp, golden as LHS.
+   measured=13  SKIP-NOFILE=1  UNKNOWN-NAME=0 — every one 0 cmp lines / 0 heads,
+   cmp rc=0: BuildUVMPkg, MiniAmiq, SeqDriver, SimpleUVM, Scoreboard, Earlgrey_0_1
+   and ParamOverloading, both modes.  The one SKIP-NOFILE is the documented
+   Scoreboard/testflags.
+
+8. results/*.csv UNTOUCHED.  The patch's production surface is src/EmitHelpers.h and
+   src/ExprEmit.cpp and nothing else — ParamEmit.cpp, ModuleEmit.cpp,
+   UhdmExporter.cpp, include/ and results/ are ALL ABSENT.  A per-name awk over the
+   deliverable reads 0 for each of the four slang-fenced names, and no test of
+   theirs was ever dispatched as an arm.

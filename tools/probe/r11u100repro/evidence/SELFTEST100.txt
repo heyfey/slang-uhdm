@@ -1,0 +1,41 @@
+  p1_powtop100       BARE100 POW100 UAR100
+  p2_uintdig100      UAR100 UDC100 UNBO100
+  p3_bare100         BARE100 BNAM100 UDC100
+  p4_fence100        BARE100 BNAM100 POW100 UAR100 UDC100
+  y2_unsized96       BARE100 UAR100 UDC100
+  z1_unbased97       BARE100 UAR100 UDC100 UNBO100
+  z2_addmint97       POW100 UAR100
+  live A   -
+  live B   -
+  live C   -
+  live D   -
+  live E   -
+  live F   -
+  live G   -
+  live H   -
+  live I   -
+  live J   -
+  live K   POW100 POWW100
+  live L   UAR100 UARW100
+  live M   UAR100 UARW100
+  live N   UAR100 UARW100
+  live O   UAR100 UARW100
+  live P   UAR100 UARW100
+  live Q   UAR100 UARW100
+  live R   UAR100 UARW100
+  live S   BARE100
+  live T   -
+  live U   UARW100
+  live V   -
+  live W   POWW100 UAR100 UARW100
+  live X   BNAM100
+  live Y   -
+  live Z2  -
+  live digitsrc localparam longint A = 2147483648; {'UDC100': 1}
+  live digitsrc localparam longint B = 1073741824; -
+  live digitsrc wire x = '1 - 0;                   {'UNBO100': 1}
+  live digitsrc wire x = '0;                       -
+  live digitsrc localparam int C = 4'd20;          {'BWL100': 1}
+  live digitsrc localparam int D = 4'd12;          -
+  not sighted (2): k5_homes94v k7_cwidth94v
+SELFTEST PASS

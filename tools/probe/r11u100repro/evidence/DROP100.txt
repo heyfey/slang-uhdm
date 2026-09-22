@@ -1,0 +1,16 @@
+r11u100 DROPPABILITY — one flag, one face, and the two flags-off faces prove themselves
+
+  binary                              z p1  p4  k2  k4  y1  z2   AWAY  MWRONG
+  law (534e12a3f3fa8831c761c20f5a92c418)  58   6   4   4   2   2      0       0
+  powTop100 = false (0a54e8843f9b4e...)    0   0   0   0   0   0      0       0
+
+  (loc97v.py, five fields, view-keyed: p1_powtop100, p4_fence100, k2_chain94v,
+   k4_unbop94v, y1_muldiv96, z2_addmint97.  The other eighteen arms read
+   TO=0 AWAY=0 MOVED-WRONG=0 on every binary.)
+
+  § powTopIsIntReduce100 is worth 76 fields and drops on ONE `constexpr bool`.
+  The drop binary's dumps are BYTE-IDENTICAL (path-normalised) to the PRISTINE
+  binary's on all 14 arms re-run against it — 14 compared, 0 differ — which is
+  the direct proof that § uintArmWrittenDigitsMasked100 and
+  § bareUnsizedDecIsMaskedDigits100, whose flags are false, compile to nothing
+  and move nothing.

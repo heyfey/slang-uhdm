@@ -1,0 +1,144 @@
+===== p1_powtop100 (GOLDEN | PRISTINE | LAW), net-decl-assign road
+wAPOWL     G  INT:9 ct7 sz64 d[9]                                  A  INT:9 ct7 sz32 d[9]                                  B  INT:9 ct7 sz32 d[9]  <<<
+wCADD      G  UINT:3 ct9 sz64 d[3]                                 A  UINT:3 ct9 sz32 d[3]                                 B  UINT:3 ct9 sz32 d[3]  <<<
+wCLIT      G  UINT:6 ct9 sz64 d[6]                                 A  UINT:6 ct9 sz32 d[6]                                 B  UINT:6 ct9 sz32 d[6]  <<<
+wCMUL      G  INT:6 ct7 sz64 d[6]                                  A  INT:6 ct7 sz32 d[6]                                  B  INT:6 ct7 sz32 d[6]  <<<
+wCPOW      G  INT:8 ct7 sz64 d[8]                                  A  UINT:8 ct9 sz32 d[8]                                 B  INT:8 ct7 sz32 d[8]  <<<
+wCPOW0     G  INT:1 ct7 sz64 d[1]                                  A  UINT:1 ct9 sz32 d[1]                                 B  INT:1 ct7 sz32 d[1]  <<<
+wCPOW1     G  INT:7 ct7 sz64 d[7]                                  A  UINT:7 ct9 sz32 d[7]                                 B  INT:7 ct7 sz32 d[7]  <<<
+wCPOWC     G  UINT:8 ct9 sz64 d[8]                                 A  UINT:8 ct9 sz32 d[8]                                 B  UINT:8 ct9 sz32 d[8]  <<<
+wCPOWO     G  INT:1 ct7 sz64 d[1]                                  A  UINT:1 ct9 sz32 d[1]                                 B  INT:1 ct7 sz32 d[1]  <<<
+wCPOWZ     G  INT:0 ct7 sz64 d[0]                                  A  UINT:0 ct9 sz32 d[0]                                 B  INT:0 ct7 sz32 d[0]  <<<
+wNPOW      G  INT:8 ct7 sz32 d[8]                                  A  UINT:8 ct9 sz32 d[8]                                 B  INT:8 ct7 sz32 d[8]  <<<
+wP1019     G  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808] A  INT:-8446744073709551616 ct7 sz64 d[-8446744073709551616] B  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808]  <<<
+wP339      G  INT:4052555153018976256 ct7 sz64 d[4052555153018976256] A  UINT:4052555153018976267 ct9 sz64 d[4052555153018976267] B  INT:4052555153018976256 ct7 sz64 d[4052555153018976256]  <<<
+wP340      G  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808] A  INT:-6289078614652622815 ct7 sz64 d[-6289078614652622815] B  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808]  <<<
+wP527      G  INT:7450580596923828224 ct7 sz64 d[7450580596923828224] A  UINT:7450580596923828125 ct9 sz64 d[7450580596923828125] B  INT:7450580596923828224 ct7 sz64 d[7450580596923828224]  <<<
+wP723      G  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808] A  UINT:8922003266371364727 ct9 sz64 d[8922003266371364727] B  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808]  <<<
+wPB63      G  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808] A  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808] B  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808]
+wPB64      G  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808] A  UINT:0 ct9 sz64 d[0]                                 B  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808]  <<<
+wPB70      G  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808] A  UINT:0 ct9 sz64 d[0]                                 B  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808]  <<<
+wPBIG40    G  INT:1099511627776 ct7 sz64 d[1099511627776]          A  UINT:1099511627776 ct9 sz64 d[1099511627776]         B  INT:1099511627776 ct7 sz64 d[1099511627776]  <<<
+wPBIG62    G  INT:4611686018427387904 ct7 sz64 d[4611686018427387904] A  UINT:4611686018427387904 ct9 sz64 d[4611686018427387904] B  INT:4611686018427387904 ct7 sz64 d[4611686018427387904]  <<<
+wPBY       G  INT:125 ct7 sz64 d[125]                              A  UINT:125 ct9 sz8 d[125]                              B  INT:125 ct7 sz8 d[125]  <<<
+wPNAME     G  INT:64 ct7 sz64 d[64]                                A  UINT:64 ct9 sz64 d[64]                               B  INT:64 ct7 sz64 d[64]  <<<
+wPNARR     G  INT:1000000 ct7 sz64 d[1000000]                      A  UINT:1000000 ct9 sz32 d[1000000]                     B  INT:1000000 ct7 sz32 d[1000000]  <<<
+wPNEG      G  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808] A  UINT:420491770248316829 ct9 sz64 d[420491770248316829] B  INT:-9223372036854775808 ct7 sz64 d[-9223372036854775808]  <<<
+wPNEG2     G  INT:-8 ct7 sz64 d[-8]                                A  INT:-8 ct7 sz64 d[-8]                                B  INT:-8 ct7 sz64 d[-8]
+wPPAR      G  INT:8 ct7 sz64 d[8]                                  A  UINT:8 ct9 sz64 d[8]                                 B  INT:8 ct7 sz64 d[8]  <<<
+wPU8       G  INT:1000 ct7 sz64 d[1000]                            A  UINT:232 ct9 sz8 d[232]                              B  INT:1000 ct7 sz8 d[1000]  <<<
+wUPOW      G  INT:8 ct7 sz64 d[8]                                  A  UINT:8 ct9 sz32 d[8]                                 B  INT:8 ct7 sz32 d[8]  <<<
+
+===== p2_uintdig100 (GOLDEN | PRISTINE | LAW), net-decl-assign road
+wBADD31    G  UINT:2147483649 ct9 sz64 d[2147483649]               A  INT:-2147483647 ct7 sz64 d[-2147483647]              B  INT:-2147483647 ct7 sz64 d[-2147483647]  <<<
+wBADD63    G  UINT:4611686018427387905 ct9 sz64 d[4611686018427387905] A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wBADDR     G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wBADDS     G  UINT:9223372036854775808 ct9 sz64 d[9223372036854775808] A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBADDU     G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wBAND31    G  UINT:2147483648 ct9 sz64 d[2147483648]               A  INT:-2147483648 ct7 sz64 d[-2147483648]              B  INT:-2147483648 ct7 sz64 d[-2147483648]  <<<
+wBANDM     G  UINT:4294967296 ct9 sz64 d[4294967296]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBANDU     G  UINT:4294967296 ct9 sz64 d[4294967296]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBOR31     G  UINT:2147483649 ct9 sz64 d[2147483649]               A  INT:-2147483647 ct7 sz64 d[-2147483647]              B  INT:-2147483647 ct7 sz64 d[-2147483647]  <<<
+wBORU      G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wBSHL      G  UINT:4294967296 ct9 sz64 d[4294967296]               A  INT:-4294967296 ct7 sz64 d[-4294967296]              B  INT:-4294967296 ct7 sz64 d[-4294967296]  <<<
+wBSHL2     G  UINT:8589934592 ct9 sz64 d[8589934592]               A  UINT:8589934592 ct9 sz64 d[8589934592]               B  UINT:8589934592 ct9 sz64 d[8589934592]
+wBSHLA     G  UINT:4294967296 ct9 sz64 d[4294967296]               A  INT:-4294967296 ct7 sz64 d[-4294967296]              B  INT:-4294967296 ct7 sz64 d[-4294967296]  <<<
+wBSHR      G  UINT:2147483648 ct9 sz64 d[2147483648]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBSHRA     G  UINT:2147483648 ct9 sz64 d[2147483648]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wCADD      G  UINT:3 ct9 sz64 d[3]                                 A  UINT:3 ct9 sz32 d[3]                                 B  UINT:3 ct9 sz32 d[3]  <<<
+wCADDI     G  INT:11 ct7 sz64 d[11]                                A  INT:11 ct7 sz64 d[11]                                B  INT:11 ct7 sz64 d[11]
+wCAND      G  UINT:8 ct9 sz64 d[8]                                 A  UINT:8 ct9 sz32 d[8]                                 B  UINT:8 ct9 sz32 d[8]  <<<
+wCLAND     G  UINT:1 ct9 sz64 d[1]                                 A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wCLOR      G  UINT:1 ct9 sz64 d[1]                                 A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wCMULI     G  INT:8589934592 ct7 sz64 d[8589934592]                A  INT:8589934592 ct7 sz64 d[8589934592]                B  INT:8589934592 ct7 sz64 d[8589934592]
+wCNAME     G  UINT:4294967298 ct9 sz64 d[4294967298]               A  UINT:2 ct9 sz64 d[2]                                 B  UINT:2 ct9 sz64 d[2]  <<<
+wCNEST     G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wCOR       G  UINT:15 ct9 sz64 d[15]                               A  UINT:15 ct9 sz32 d[15]                               B  UINT:15 ct9 sz32 d[15]  <<<
+wCSHL      G  UINT:8 ct9 sz64 d[8]                                 A  UINT:8 ct9 sz32 d[8]                                 B  UINT:8 ct9 sz32 d[8]  <<<
+wCSHR      G  UINT:8 ct9 sz64 d[8]                                 A  UINT:8 ct9 sz32 d[8]                                 B  UINT:8 ct9 sz32 d[8]  <<<
+wCSUBI     G  INT:4294967296 ct7 sz64 d[4294967296]                A  INT:4294967296 ct7 sz64 d[4294967296]                B  INT:4294967296 ct7 sz64 d[4294967296]
+wCTERN     G  UINT:4294967296 ct9 sz64 d[4294967296]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wCXOR      G  NOFOLD/ref_obj                                       A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]
+wHADD      G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:4294967297 ct9 sz64 d[4294967297]               B  UINT:4294967297 ct9 sz64 d[4294967297]
+wHAND      G  UINT:4294967296 ct9 sz64 d[4294967296]               A  UINT:4294967296 ct9 sz64 d[4294967296]               B  UINT:4294967296 ct9 sz64 d[4294967296]
+wIADD31    G  UINT:2147483649 ct9 sz64 d[2147483649]               A  INT:-2147483647 ct7 sz32 d[-2147483647]              B  INT:-2147483647 ct7 sz32 d[-2147483647]  <<<
+wIADDU     G  UINT:1 ct9 sz64 d[1]                                 A  UINT:1 ct9 sz32 d[1]                                 B  UINT:1 ct9 sz32 d[1]  <<<
+wIANDU     G  UINT:0 ct9 sz64 d[0]                                 A  UINT:0 ct9 sz32 d[0]                                 B  UINT:0 ct9 sz32 d[0]  <<<
+wISHL      G  UINT:0 ct9 sz64 d[0]                                 A  UINT:0 ct9 sz32 d[0]                                 B  UINT:0 ct9 sz32 d[0]  <<<
+wNBADDU    G  UINT:1 ct9 sz32 d[1]                                 A  UINT:1 ct9 sz32 d[1]                                 B  UINT:1 ct9 sz32 d[1]
+wU16SHL    G  UINT:0 ct9 sz64 d[0]                                 A  UINT:0 ct9 sz16 d[0]                                 B  UINT:0 ct9 sz16 d[0]  <<<
+wU1ADD     G  UINT:1 ct9 sz64 d[1]                                 A  INT:-1 ct7 sz32 d[-1]                                B  INT:-1 ct7 sz32 d[-1]  <<<
+wU1ADDL    G  UINT:1 ct9 sz64 d[1]                                 A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wU1AND     G  UINT:1 ct9 sz64 d[1]                                 A  UINT:3 ct9 sz32 d[3]                                 B  UINT:3 ct9 sz32 d[3]  <<<
+wU1OR      G  UINT:1 ct9 sz64 d[1]                                 A  INT:-1 ct7 sz32 d[-1]                                B  INT:-1 ct7 sz32 d[-1]  <<<
+wU8ADD     G  UINT:44 ct9 sz64 d[44]                               A  UINT:44 ct9 sz8 d[44]                                B  UINT:44 ct9 sz8 d[44]  <<<
+wUBADDU    G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wYADD      G  UINT:44 ct9 sz64 d[44]                               A  UINT:44 ct9 sz8 d[44]                                B  UINT:44 ct9 sz8 d[44]  <<<
+
+===== p3_bare100 (GOLDEN | PRISTINE | LAW), net-decl-assign road
+wBBIN      G  BIN:1010 ct3 sz64 d[64'b1010]                        A  BIN:1010 ct3 sz64 d[4'b1010]                         B  BIN:1010 ct3 sz64 d[4'b1010]  <<<
+wBDEC      G  INT:10 ct7 sz64 d[10]                                A  DEC:10 ct1 sz64 d[8'd10]                             B  DEC:10 ct1 sz64 d[8'd10]  <<<
+wBHEX      G  HEX:7FFFFFFFFFFFFFFF ct5 sz64 d[64'h7FFFFFFFFFFFFFFF] A  HEX:7FFFFFFFFFFFFFFF ct5 sz64 d[64'h7FFFFFFFFFFFFFFF] B  HEX:7FFFFFFFFFFFFFFF ct5 sz64 d[64'h7FFFFFFFFFFFFFFF]
+wBL30      G  UINT:1073741824 ct9 sz64 d[1073741824]               A  UINT:1073741824 ct9 sz64 d[1073741824]               B  UINT:1073741824 ct9 sz64 d[1073741824]
+wBL31      G  UINT:2147483648 ct9 sz64 d[2147483648]               A  INT:-2147483648 ct7 sz64 d[-2147483648]              B  INT:-2147483648 ct7 sz64 d[-2147483648]  <<<
+wBL31M1    G  UINT:2147483647 ct9 sz64 d[2147483647]               A  UINT:2147483647 ct9 sz64 d[2147483647]               B  UINT:2147483647 ct9 sz64 d[2147483647]
+wBL32      G  UINT:4294967296 ct9 sz64 d[4294967296]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBL33      G  UINT:8589934592 ct9 sz64 d[8589934592]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBL62      G  UINT:4611686018427387904 ct9 sz64 d[4611686018427387904] A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBLBARE    G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wBLMAXU    G  UINT:18446744073709551615 ct9 sz64 d[18446744073709551615] A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wBOCT      G  UINT:10 ct9 sz64 d[10]                               A  OCT:12 ct4 sz64 d[8'o12]                             B  OCT:12 ct4 sz64 d[8'o12]  <<<
+wBPAR      G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wBSMALL    G  UINT:6 ct9 sz64 d[6]                                 A  UINT:6 ct9 sz64 d[6]                                 B  UINT:6 ct9 sz64 d[6]
+wBT64BIG   G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  UINT:18446744073709551615 ct9 sz64 d[18446744073709551615] B  UINT:18446744073709551615 ct9 sz64 d[18446744073709551615]  <<<
+wCLIT      G  UINT:6 ct9 sz64 d[6]                                 A  UINT:6 ct9 sz32 d[6]                                 B  UINT:6 ct9 sz32 d[6]  <<<
+wCNAME     G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wCNEG      G  INT:-2147483648 ct7 sz64 d[-2147483648]              A  INT:-2147483648 ct7 sz32 d[-2147483648]              B  INT:-2147483648 ct7 sz32 d[-2147483648]  <<<
+wCSUB      G  INT:9223372036854775807 ct7 sz64 d[9223372036854775807] A  INT:9223372036854775807 ct7 sz64 d[9223372036854775807] B  INT:9223372036854775807 ct7 sz64 d[9223372036854775807]
+wGB31      G  UINT:2147483648 ct9 sz64 d[2147483648]               A  INT:-2147483648 ct7 sz32 d[-2147483648]              B  INT:-2147483648 ct7 sz32 d[-2147483648]  <<<
+wIB30      G  UINT:1073741824 ct9 sz64 d[1073741824]               A  UINT:1073741824 ct9 sz32 d[1073741824]               B  UINT:1073741824 ct9 sz32 d[1073741824]  <<<
+wIB31      G  UINT:2147483648 ct9 sz64 d[2147483648]               A  INT:-2147483648 ct7 sz32 d[-2147483648]              B  INT:-2147483648 ct7 sz32 d[-2147483648]  <<<
+wIB32      G  UINT:0 ct9 sz64 d[0]                                 A  UINT:0 ct9 sz32 d[0]                                 B  UINT:0 ct9 sz32 d[0]  <<<
+wNBLBARE   G  UINT:4294967295 ct9 sz32 d[4294967295]               A  INT:-1 ct7 sz32 d[-1]                                B  INT:-1 ct7 sz32 d[-1]  <<<
+wPIMP      G  UINT:2147483648 ct9 sz64 d[2147483648]               A  INT:-2147483648 ct7 sz32 d[-2147483648]              B  INT:-2147483648 ct7 sz32 d[-2147483648]  <<<
+wPIMPR     G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  UINT:18446744073709551615 ct9 sz64 d[18446744073709551615] B  UINT:18446744073709551615 ct9 sz64 d[18446744073709551615]  <<<
+wS64BIG    G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wS8B200    G  UINT:200 ct9 sz64 d[200]                             A  INT:-56 ct7 sz8 d[-56]                               B  INT:-56 ct7 sz8 d[-56]  <<<
+wSB40K     G  UINT:40000 ct9 sz64 d[40000]                         A  INT:-25536 ct7 sz16 d[-25536]                        B  INT:-25536 ct7 sz16 d[-25536]  <<<
+wU64BIG    G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  UINT:18446744073709551615 ct9 sz64 d[18446744073709551615] B  UINT:18446744073709551615 ct9 sz64 d[18446744073709551615]  <<<
+wU8B200    G  UINT:200 ct9 sz64 d[200]                             A  UINT:200 ct9 sz8 d[200]                              B  UINT:200 ct9 sz8 d[200]  <<<
+wU8B300    G  UINT:44 ct9 sz64 d[44]                               A  UINT:44 ct9 sz8 d[44]                                B  UINT:44 ct9 sz8 d[44]  <<<
+wUBLBARE   G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wYB100     G  UINT:100 ct9 sz64 d[100]                             A  UINT:100 ct9 sz8 d[100]                              B  UINT:100 ct9 sz8 d[100]  <<<
+wYB200     G  UINT:200 ct9 sz64 d[200]                             A  INT:-56 ct7 sz8 d[-56]                               B  INT:-56 ct7 sz8 d[-56]  <<<
+
+===== p4_fence100 (GOLDEN | PRISTINE | LAW), net-decl-assign road
+w8BADD     G  UINT:1 ct9 sz8 d[1]                                  A  UINT:1 ct9 sz8 d[1]                                  B  UINT:1 ct9 sz8 d[1]
+w8BLB      G  UINT:255 ct9 sz8 d[255]                              A  INT:-1 ct7 sz8 d[-1]                                 B  INT:-1 ct7 sz8 d[-1]  <<<
+w8CPW      G  INT:8 ct7 sz8 d[8]                                   A  UINT:8 ct9 sz32 d[8]                                 B  INT:8 ct7 sz32 d[8]  <<<
+wBADD      G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wBADDN     G  INT:4294967295 ct7 sz64 d[4294967295]                A  INT:4294967295 ct7 sz64 d[4294967295]                B  INT:4294967295 ct7 sz64 d[4294967295]
+wBANDN     G  UINT:4294967296 ct9 sz64 d[4294967296]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBDEEP     G  UINT:4294967299 ct9 sz64 d[4294967299]               A  UINT:3 ct9 sz64 d[3]                                 B  UINT:3 ct9 sz64 d[3]  <<<
+wBLB       G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wBMIX      G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wBNEGA     G  INT:-4294967296 ct7 sz64 d[-4294967296]              A  INT:-4294967296 ct7 sz64 d[-4294967296]              B  INT:-4294967296 ct7 sz64 d[-4294967296]
+wBSHIFTC   G  UINT:4294967296 ct9 sz64 d[4294967296]               A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]  <<<
+wBSHLN     G  UINT:0 ct9 sz64 d[0]                                 A  UINT:0 ct9 sz64 d[0]                                 B  UINT:0 ct9 sz64 d[0]
+wBSUBA     G  INT:-4294967296 ct7 sz64 d[-4294967296]              A  INT:-4294967296 ct7 sz64 d[-4294967296]              B  INT:-4294967296 ct7 sz64 d[-4294967296]
+wCASTA     G  UINT:1 ct9 sz64 d[1]                                 A  UINT:1 ct9 sz32 d[1]                                 B  UINT:1 ct9 sz32 d[1]  <<<
+wCASTB     G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wCN32      G  UINT:4294967295 ct9 sz64 d[4294967295]               A  INT:-1 ct7 sz32 d[-1]                                B  INT:-1 ct7 sz32 d[-1]  <<<
+wCN64      G  UINT:9223372036854775807 ct9 sz64 d[9223372036854775807] A  INT:-1 ct7 sz64 d[-1]                                B  INT:-1 ct7 sz64 d[-1]  <<<
+wCN8       G  UINT:255 ct9 sz64 d[255]                             A  INT:-1 ct7 sz8 d[-1]                                 B  INT:-1 ct7 sz8 d[-1]  <<<
+wCNADD     G  UINT:4294967297 ct9 sz64 d[4294967297]               A  UINT:1 ct9 sz64 d[1]                                 B  UINT:1 ct9 sz64 d[1]  <<<
+wCPW       G  INT:8 ct7 sz64 d[8]                                  A  UINT:8 ct9 sz32 d[8]                                 B  INT:8 ct7 sz32 d[8]  <<<
+wCPWC      G  UINT:8 ct9 sz64 d[8]                                 A  UINT:8 ct9 sz32 d[8]                                 B  UINT:8 ct9 sz32 d[8]  <<<
+wFADDS     G  UINT:6 ct9 sz64 d[6]                                 A  INT:6 ct7 sz32 d[6]                                  B  INT:6 ct7 sz32 d[6]  <<<
+wFADDU     G  UINT:6 ct9 sz64 d[6]                                 A  INT:6 ct7 sz32 d[6]                                  B  INT:6 ct7 sz32 d[6]  <<<
+wFBARE     G  UINT:5 ct9 sz64 d[5]                                 A  INT:5 ct7 sz32 d[5]                                  B  INT:5 ct7 sz32 d[5]  <<<
+wNBADD     G  UINT:1 ct9 sz32 d[1]                                 A  UINT:1 ct9 sz32 d[1]                                 B  UINT:1 ct9 sz32 d[1]
+wNBLB      G  UINT:4294967295 ct9 sz32 d[4294967295]               A  INT:-1 ct7 sz32 d[-1]                                B  INT:-1 ct7 sz32 d[-1]  <<<
+wNCPW      G  INT:8 ct7 sz32 d[8]                                  A  UINT:8 ct9 sz32 d[8]                                 B  INT:8 ct7 sz32 d[8]  <<<
+wNUBLB     G  UINT:4294967295 ct9 sz32 d[4294967295]               A  INT:-1 ct7 sz32 d[-1]                                B  INT:-1 ct7 sz32 d[-1]  <<<
+

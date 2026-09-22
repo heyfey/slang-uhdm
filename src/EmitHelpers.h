@@ -10483,6 +10483,410 @@ inline bool red97IntMintTop97(const Expression& e097, bool mul96, bool div96,
            red97OperandMintsInt97(b97.right(), pow97);
 }
 
+/// § powTopIsIntReduce100 (r11u100) — LAW A, r11u96's R1 and r11u97's R1.
+/// THE POWER ARM AT THE TOP MINTS `INT:` LIKE THE OTHER FOUR, AND ITS VALUE IS
+/// THE `double` CAST'S OWN ANSWER.
+///
+/// `reduceExpr`'s `vpiPowerOp` arm (`~/git-repos/UHDM/templates/ExprEval.cpp:
+/// 3765-3785`) is `vpiMultOp`'s body with one operator swapped:
+///
+///     val = static_cast<int64_t>(std::pow<int64_t>(val0, val1));
+///     c->VpiValue("INT:" + std::to_string(val));
+///     c->VpiDecompile(std::to_string(val));
+///     c->VpiSize(64);   c->VpiConstType(vpiIntConst);
+///
+/// so it is exactly r11u96's landed mult/div/mod law one operator wider.  It
+/// was HELD BACK there and in r11u97 because its VALUE runs in `double`:
+/// `std::pow<int64_t>` promotes both operands to `double`
+/// (`__gnu_cxx::__promote_2<int64_t,int64_t>::__type` IS `double`), so the arm
+/// is double arithmetic with ONE narrowing at the end — § patPowCastArtefact73,
+/// which `red72Int64`'s own `Power` arm has carried since r11u73.  THE TWO
+/// FACES ARE MEASURED HERE TOGETHER, on one grid, and they agree cell for cell:
+///
+///   package declaration            golden                    ours (pristine)
+///   int     CPOW   = 2 ** 3        INT:8 ct7                 UINT:8 ct9
+///   int     CPOW0  = 2 ** 0        INT:1 ct7                 UINT:1 ct9
+///   int     CPOW1  = 7 ** 1        INT:7 ct7                 UINT:7 ct9
+///   int     CPOWZ  = 0 ** 3        INT:0 ct7                 UINT:0 ct9
+///   int     CPOWO  = 1 ** 31       INT:1 ct7                 UINT:1 ct9
+///   longint PBIG40 = 2 ** 40       INT:1099511627776         UINT: same digits
+///   longint PBIG62 = 2 ** 62       INT:4611686018427387904   UINT: same digits
+///   longint PNARR  = 100 ** 3      INT:1000000               UINT:1000000
+///   longint PNAME  = CPOW ** 2     INT:64                    UINT:64
+///   longint PPAR   = (2 ** 3)      INT:8                     UINT:8
+///   byte    PBY    = 5 ** 3        INT:125                   UINT:125
+///   AND THE CAST ARTEFACT'S TWO FACES, the whole reason it waited:
+///   longint P339   = 3 ** 39       INT:4052555153018976256   UINT:…267
+///   longint P527   = 5 ** 27       INT:7450580596923828224   UINT:…125
+///   longint PB63   = 2 ** 63       INT:-9223372036854775808  INT: same
+///   longint PB64   = 2 ** 64       INT:-9223372036854775808  UINT:0
+///   longint PB70   = 2 ** 70       INT:-9223372036854775808  UINT:0
+///   longint P340   = 3 ** 40       INT:-9223372036854775808  INT:-6289…815
+///   longint P723   = 7 ** 23       INT:-9223372036854775808  UINT:8922…727
+///   longint P1019  = 10 ** 19      INT:-9223372036854775808  INT:-8446…616
+///   longint PNEG   = (-3) ** 41    INT:-9223372036854775808  UINT:4204…829
+///   longint PNEG2  = (-2) ** 3     INT:-8                    INT:-8 (equal)
+///   AND THE DECLARED WIDTH NEVER MASKS THE `INT:` ROAD — the producer's
+///   `adjustSize` masks only a `vpiUIntConst`:
+///   logic [7:0] PU8 = 10 ** 3      INT:1000                  UINT:232
+///   AND THE LIVE CONTROLS, equal on both binaries before and after:
+///   int CPOWC = int'(2 ** 3)       UINT:8    an EXPLICIT cast at the TOP
+///   int APOWL = (2 ** 3) + 1       INT:9     the landed `pow97` CHILD face
+///   int CMUL / CADD / CLIT         INT:6 / UINT:3 / UINT:6
+///
+/// (arm `p1_powtop100`, real Surelog v1.87, every cell `slrc=0 ourrc=0
+/// slerr=0`, read through the net-decl-assign road, and the same value at a
+/// 32-bit and a 64-bit reader alike.)
+///
+/// ONE FLAG ON THE LANDED TABLE, NOT A SECOND PREDICATE: `red97IntMintTop97`
+/// already carries `mul96`, `div96`, `mod96`, `add97` and the `pow97` CHILD
+/// flag, and this is its sixth entry.
+inline bool red100IntMintTop100(const Expression& e0100, bool mul96, bool div96,
+                                bool mod96, bool add97, bool pow97,
+                                bool powTop100) {
+    if (red97IntMintTop97(e0100, mul96, div96, mod96, add97, pow97))
+        return true;
+    if (!powTop100)
+        return false;
+    const Expression& e100 = stripImplicitConv(e0100);
+    return e100.kind == ExpressionKind::BinaryOp &&
+           e100.as<BinaryExpression>().op == BinaryOperator::Power;
+}
+
+/// § uintArmWrittenDigitsMasked100 (r11u100) — LAW B, r11u96's R3, r11u97's R2
+/// and r11v96's RV96-5.  THE DIGITS ROAD WITHOUT THE CONST-TYPE ROAD.
+///
+/// Five of the producer's arms read the WRITTEN DIGITS exactly as the
+/// `INT:`-minting five do and then keep `UINT:`:
+///
+///   `vpiAddOp`/`vpiPlusOp` (`ExprEval.cpp:3284-3294`) in its `unsignedOperation`
+///        branch — `uint64_t val = get_uvalue(expr0) + get_uvalue(expr1)`;
+///   `vpiBitAndOp` (`:3350-3366`) and `vpiBitOrOp` (`:3329-3347`) —
+///        `((uint64_t)get_value(e0)) & / | ((uint64_t)get_value(e1))`, `VpiSize(64)`;
+///   `vpiLShiftOp`/`vpiArithLShiftOp` (`:3236-3255`) and `vpiRShiftOp`/
+///        `vpiArithRShiftOp` (`:3149-3171`) — the same read with
+///        § redShiftIsUnsignedSixtyFour78's host shift count.
+///
+/// `CompileHelper::adjustSize`'s FIRST branch
+/// (`~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:4107-4118`) then
+/// MASKS that answer to the declaration's width and re-renders it UNSIGNED:
+///
+///     uint64_t mask = NumUtils::getMask(size);  uval = (uint64_t)val & mask;
+///     c->VpiValue("UINT:" + std::to_string(uval));  c->VpiDecompile(same);
+///
+/// — and it runs AGAIN at the READ, with the READING net's width, which is why
+/// a narrow reader sees a narrower number.  There is no such branch for a
+/// `vpiIntConst`, which is why the landed `INT:` laws are never masked.
+///
+/// slang types an unsized decimal `int` and truncates at 2^31, so the two
+/// readings part at every magnitude past that; and `'1` / a based leaf carry
+/// their own digit laws (r11u97's LAW A, r11u76) into these arms too.
+///
+/// MEASURED (arms `p2_uintdig100` and `p4_fence100`, real Surelog v1.87, every
+/// cell `slrc=0 ourrc=0 slerr=0`, net-decl-assign road):
+///
+///   package declaration                      golden           ours (pristine)
+///   longint BADDU  = 4294967296 + 1          UINT:4294967297  UINT:1
+///   longint BADDR  = 1 + 4294967296          UINT:4294967297  UINT:1
+///   longint BADD31 = 2147483648 + 1          UINT:2147483649  INT:-2147483647
+///   longint BADD63 = 4611686018427387904+1   UINT:4611686018427387905  UINT:1
+///   longint BADDS  = 9223372036854775807+1   UINT:9223372036854775808  UINT:0
+///   longint BANDU  = 4294967296 & 4294967296 UINT:4294967296  UINT:0
+///   longint BANDM  = 4294967296 & 12884901888 UINT:4294967296 UINT:0
+///   longint BAND31 = 2147483648 & 2147483648 UINT:2147483648  INT:-2147483648
+///   longint BORU   = 4294967296 | 1          UINT:4294967297  UINT:1
+///   longint BOR31  = 2147483648 | 1          UINT:2147483649  INT:-2147483647
+///   longint BSHL   = 2147483648 << 1         UINT:4294967296  INT:-4294967296
+///   longint BSHLA  = 2147483648 <<< 1        UINT:4294967296  INT:-4294967296
+///   longint BSHR   = 4294967296 >> 1         UINT:2147483648  UINT:0
+///   longint BSHRA  = 4294967296 >>> 1        UINT:2147483648  UINT:0
+///   int     IADD31 = 2147483648 + 1          UINT:2147483649  INT:-2147483647
+///   int     U1ADD  = '1 + 0                  UINT:1           INT:-1
+///   int     U1AND  = '1 & 3                  UINT:1           UINT:3
+///   int     U1OR   = '1 | 0                  UINT:1           INT:-1
+///   longint U1ADDL = '1 + 0                  UINT:1           INT:-1
+///   longint BDEEP  = ((2^32+1)+1)+1          UINT:4294967299  UINT:3
+///   longint BMIX   = (2^32 & 2^32) | 1       UINT:4294967297  UINT:1
+///   longint CNEST  = (2^32 & 2^32) + 1       UINT:4294967297  UINT:1
+///   longint CNAME  = BADDU + 1               UINT:4294967298  UINT:2
+///   longint BANDN  = (0 - 1) & 4294967296    UINT:4294967296  UINT:0
+///   longint BSHIFTC= 4294967296 >> 64        UINT:4294967296  UINT:0
+///                     (the host's 6-bit shift count, § redShiftIsUnsignedSixtyFour78)
+///   AND THE MASK IS THE DECLARATION'S WIDTH, measured on both sides of it:
+///   int     IADDU  = 4294967296 + 1          UINT:1           UINT:1   (equal)
+///   int     IANDU  = 4294967296 & 4294967296 UINT:0           UINT:0   (equal)
+///   int     ISHL   = 2147483648 << 1         UINT:0           UINT:0   (equal)
+///   logic [15:0] U16SHL = 2147483648 << 1    UINT:0           UINT:0   (equal)
+///   byte/logic[7:0] YADD/U8ADD = 200 + 100   UINT:44          UINT:44  (equal)
+///   AND AT THE READ: `longint BADD` read by a 32-bit net is golden `UINT:1`
+///   and by an 8-bit net `UINT:1` — adjustSize runs a second time there.
+///
+/// THE LIVE NEGATIVE CONTROL — every one EQUAL on both binaries, before and
+/// after, and every one a DIFFERENT producer arm:
+///   int CADD=1+2, CAND=12&10, COR=12|3, CSHL=1<<3, CSHR=32>>2  (digits agree)
+///   longint CXOR  = 4294967296 ^ 1       GOLDEN WRITES NO CONSTANT — there is
+///        no `vpiBitXorOp` arm in `reduceExpr` at all (`grep -n 'case vpiBitXorOp'`
+///        finds it only in the DECOMPILE name table at `:1039`/`:1077`), so
+///        golden leaves a `ref_obj` and this law must never reach it.
+///   longint CMULI = 4294967296 * 2       INT:8589934592  the landed mult law
+///   longint CSUBI = 4294967296 - 0       INT:4294967296  the landed minus law
+///   longint CADDI = 8'd10 + 1            INT:11          the landed add97 law
+///   longint BADDN = 4294967296 + (-1)    INT:4294967295  add97 again
+///   longint BNEGA = -4294967296 + 0      INT:-4294967296
+///   int     CASTA = int'(4294967296 + 1) UINT:1          an EXPLICIT cast
+///
+/// TWO SHAPES THE GATE DECLINES ON PURPOSE, both measured and both recorded as
+/// residues rather than transcribed:
+///   * a CONST FUNCTION CALL under the arm (`int FADDS = fs(4) + 1` is golden
+///     `UINT:6` where the landed `callSigned9` gate writes `INT:6`): the call's
+///     own reduce is not this file's road and its value would come from
+///     slang's evaluator rather than the producer's, so the arm declines and
+///     the cell stays exactly as pristine wrote it — a STILL, never an AWAY.
+///   * `&&`, `||` and a TERNARY read the digits too (`4294967296 && 1` is
+///     golden `UINT:1` where we write `UINT:0`) but they mint at `VpiSize(64)`
+///     through a different body; they are not on this arm's list.
+/// **THIS LAW IS LANDED WITH ITS FLAGS OFF, AND THE GRID IS WHY.**
+/// `adjustSize` runs a SECOND time AT THE READ, with the READING TARGET's
+/// width — measured, `p4_fence100`:
+///
+///   `longint BLB = 9223372036854775807` read by a 64-bit net is golden
+///        `UINT:9223372036854775807`, by a 32-bit net `UINT:4294967295`, and
+///        by an 8-bit net `UINT:255`;
+///   `longint BADD = 4294967296 + 1` read by a 64-bit net is golden
+///        `UINT:4294967297` and by a 32-bit or 8-bit net `UINT:1`.
+///
+/// The emitter site that writes this constant knows only the SOURCE
+/// parameter's width.  slang gives the reading net's width to
+/// `ModuleEmit`'s `dt->getType()` and NOWHERE ELSE this side of it: the
+/// implicit `ConversionExpression` the read passes through carries the
+/// SOURCE type (measured — it reads 64 for a `longint` parameter at a
+/// 32-bit AND at an 8-bit net alike), and the `cont_assign`'s `Lhs` is not
+/// set until after the RHS is emitted.  With the flags ON the grid reads
+/// `AWAY=2` on `p2_uintdig100` and `AWAY=4 MOVED-WRONG=10` on
+/// `p4_fence100` — every cell a read NARROWER than the parameter, where
+/// slang's own 32-bit truncation of an unsized decimal had made the
+/// PRISTINE binary accidentally right.  Declining is a STILL, never an
+/// AWAY, so the faces ship OFF and R0 names the width that has to reach
+/// this site first.  § powTopIsIntReduce100 needs no such width:
+/// `adjustSize` has NO branch for a `vpiIntConst`, so the `INT:` road is
+/// never masked at any reader — `2 ** 3` is golden `INT:8` read by a
+/// 64-bit, a 32-bit and an 8-bit net alike.
+inline bool red100UintArmTop100(const Expression& e0100, bool add100,
+                                bool and100, bool or100, bool shl100,
+                                bool shr100) {
+    const Expression& e100 = stripImplicitConv(e0100);
+    if (e100.kind != ExpressionKind::BinaryOp)
+        return false;
+    switch (e100.as<BinaryExpression>().op) {
+        case BinaryOperator::Add:
+            return add100;
+        case BinaryOperator::BinaryAnd:
+            return and100;
+        case BinaryOperator::BinaryOr:
+            return or100;
+        case BinaryOperator::LogicalShiftLeft:
+        case BinaryOperator::ArithmeticShiftLeft:
+            return shl100;
+        case BinaryOperator::LogicalShiftRight:
+        case BinaryOperator::ArithmeticShiftRight:
+            return shr100;
+        default:
+            return false;
+    }
+}
+
+/// The value half of § uintArmWrittenDigitsMasked100.  The five arms above,
+/// computed here rather than added to `red72Int64`'s table for the reason the
+/// § block beside `red97CompValue97` gives: `red72Int64` is read by ParamEmit,
+/// ModuleEmit and ExprEmit for widths, ranges and selects, and `&` / `|`
+/// starting to answer a value THERE would move cells no census keyed on a
+/// parameter declaration could name in advance.  `+` and the shifts already
+/// have arms in `red72Int64` and are recomputed here identically so that ONE
+/// recursion covers a nest of all five (`(2^32 & 2^32) + 1`, measured).  Every
+/// leaf and every NAME hop goes through `red72Int64` WITH `inArm` set, which is
+/// what puts the based-leaf, unsized-decimal and `'0`/`'1` digit arms — and
+/// § chainStoreChecksTheInitializer97's widened name guard — under these arms
+/// exactly as they sit under the producer's.
+inline bool red100UintDigits100(const Expression& e0100, const ASTContext& ac100,
+                                int depth100, int64_t& out100) {
+    if (depth100 > 16)
+        return false;
+    const Expression& e100 = stripImplicitConv(e0100);
+    if (e100.kind == ExpressionKind::BinaryOp) {
+        auto& b100 = e100.as<BinaryExpression>();
+        bool arm100 = false;
+        switch (b100.op) {
+            case BinaryOperator::Add:
+            case BinaryOperator::BinaryAnd:
+            case BinaryOperator::BinaryOr:
+            case BinaryOperator::LogicalShiftLeft:
+            case BinaryOperator::ArithmeticShiftLeft:
+            case BinaryOperator::LogicalShiftRight:
+            case BinaryOperator::ArithmeticShiftRight:
+                arm100 = true;
+                break;
+            default:
+                break;
+        }
+        if (arm100) {
+            int64_t l100 = 0, r100 = 0;
+            if (!red100UintDigits100(b100.left(), ac100, depth100 + 1, l100))
+                return false;
+            if (!red100UintDigits100(b100.right(), ac100, depth100 + 1, r100))
+                return false;
+            switch (b100.op) {
+                case BinaryOperator::Add:
+                    out100 = (int64_t)((uint64_t)l100 + (uint64_t)r100);
+                    return true;
+                case BinaryOperator::BinaryAnd:
+                    out100 = (int64_t)(((uint64_t)l100) & ((uint64_t)r100));
+                    return true;
+                case BinaryOperator::BinaryOr:
+                    out100 = (int64_t)(((uint64_t)l100) | ((uint64_t)r100));
+                    return true;
+                case BinaryOperator::LogicalShiftLeft:
+                case BinaryOperator::ArithmeticShiftLeft:
+                    out100 = (int64_t)(((uint64_t)l100)
+                                       << red78ShiftCount(r100));
+                    return true;
+                default:
+                    out100 = (int64_t)(((uint64_t)l100) >>
+                                       red78ShiftCount(r100));
+                    return true;
+            }
+        }
+    }
+    return red72Int64(e100, ac100, depth100, out100, true) == Red72::Value;
+}
+
+/// § bareUnsizedDecIsMaskedDigits100 (r11u100) — LAW C, r11u96's R4.  THE LEAF
+/// WITH NO ARM AT ALL, AND TWO FIELDS PART ON IT AT ONCE.
+///
+/// A bare decimal is compiled to a `vpiUIntConst` carrying the digits AS
+/// WRITTEN, and with no operator above it the ONLY producer road it takes is
+/// `CompileHelper::adjustSize`'s FIRST branch (`CompileHelper.cpp:4107-4118`) —
+/// the same mask-and-re-render § uintArmWrittenDigitsMasked100 decodes.  slang
+/// types the literal `int` and truncates to 32 SIGNED bits, so past 2^31 the
+/// store goes NEGATIVE and the landed `neg91` gate writes `INT:` on top of an
+/// already-wrong value: the VALUE and the CONST TYPE are both wrong, and they
+/// are both this one branch's.
+///
+/// MEASURED (arms `p3_bare100` and `p4_fence100`, real Surelog v1.87, every
+/// cell `slrc=0 ourrc=0 slerr=0`, net-decl-assign road):
+///
+///   package declaration                     golden          ours (pristine)
+///   longint BLBARE = 9223372036854775807    UINT:9223372036854775807  INT:-1
+///   longint BLMAXU = 18446744073709551615   UINT:18446744073709551615 INT:-1
+///   longint BL62   = 4611686018427387904    UINT:4611686018427387904  UINT:0
+///   longint BL33   = 8589934592             UINT:8589934592           UINT:0
+///   longint BL32   = 4294967296             UINT:4294967296           UINT:0
+///   longint BL31   = 2147483648             UINT:2147483648  INT:-2147483648
+///   longint BPAR   = (9223372036854775807)  UINT:9223372036854775807  INT:-1
+///   int     IB31   = 2147483648             UINT:2147483648  INT:-2147483648
+///   integer GB31   = 2147483648             UINT:2147483648  INT:-2147483648
+///   (implicit) PIMP = 2147483648            UINT:2147483648  INT:-2147483648
+///   byte    YB200  = 200                    UINT:200         INT:-56
+///   shortint SB40K = 40000                  UINT:40000       INT:-25536
+///   logic signed [7:0] S8B200 = 200         UINT:200         INT:-56
+///   logic [63:0] U64BIG = 9223372036854775807  UINT:9223372036854775807
+///                                              ours UINT:18446744073709551615
+///   bit [63:0] BT64BIG / [63:0] PIMPR       the same pair
+///   logic signed [63:0] S64BIG              UINT:9223372036854775807  INT:-1
+///   AND THE MASK IS THE DECLARATION'S WIDTH, on both sides of it:
+///   int     IB32   = 4294967296             UINT:0           UINT:0   (equal)
+///   logic [7:0] U8B300 = 300                UINT:44          UINT:44  (equal)
+///   longint BL30 / BL31M1 / BSMALL          UINT: the digits, equal already
+///   AND AT THE READ, a second time: `longint BLB` read by a 32-bit net is
+///   golden `UINT:4294967295` and by an 8-bit net `UINT:255`.
+///
+/// A NAME HOP CARRIES IT, and the inner parameter's own width masks first —
+/// the producer ran `adjustSize` at that declaration too:
+///   int     CN32  = BLB    UINT:4294967295            ours INT:-1
+///   longint CN64  = BLB    UINT:9223372036854775807   ours INT:-1
+///   byte    CN8   = BLB    UINT:255                   ours INT:-1
+/// and the hop DECLINES where the name is not its initializer's value (an
+/// override, a defaulted port) — the same question `red72Int64`'s NAME guard
+/// asks, asked here with slang's two evaluations.
+///
+/// THE LIVE NEGATIVE CONTROL — every one EQUAL on both binaries, before and
+/// after, and every one a different leaf kind:
+///   longint BHEX = 64'h7FFF…  HEX:…    a BASED leaf keeps its base encoding
+///   longint BBIN = 4'b1010    BIN:1010 (the DECOMPILE face is r11u38's R)
+///   longint BDEC = 8'd10 / BOCT = 8'o12   the based DEC / OCT encodings
+///   int     CLIT = 6 / longint BSMALL = 6   the digits already agree
+///   int     CNEG = -2147483648            INT: — a unary minus, not a leaf
+///   longint CSUB = 9223372036854775807-0  INT: — the landed minus law
+///   real RB = 1.5 / string SB = "ab"      not integers at all
+/// **LANDED WITH ITS FLAG OFF, for § uintArmWrittenDigitsMasked100's reason
+/// exactly**: the second mask at the READ.  `longint BLB` read by a 32-bit
+/// net is golden `UINT:4294967295` and by an 8-bit net `UINT:255`, and this
+/// site sees only the parameter's own 64.  The decode and the grid stand;
+/// the flag is the switch.
+inline bool red100BareDecDigits100(const Expression& e0100,
+                                   const ASTContext& ac100, int depth100,
+                                   int64_t& out100, bool name100) {
+    if (depth100 > 16)
+        return false;
+    const Expression& e100 = stripImplicitConv(e0100);
+    if (red96UnsizedDecDigits96(e100, out100))
+        return true;
+    if (!name100)
+        return false;
+    if (e100.kind != ExpressionKind::NamedValue &&
+        e100.kind != ExpressionKind::HierarchicalValue)
+        return false;
+    auto& sy100 = e100.as<ValueExpressionBase>().symbol;
+    if (sy100.kind != SymbolKind::Parameter)
+        return false;
+    auto& ps100 = sy100.as<ParameterSymbol>();
+    const Expression* in100 = ps100.getInitializer();
+    if (!in100)
+        return false;
+    int64_t dv100 = 0;
+    if (!red100BareDecDigits100(*in100, ac100, depth100 + 1, dv100, name100))
+        return false;
+    // NOT AN OVERRIDE: slang's reading of the NAME and of its own INITIALIZER
+    // must agree at the name's width.  § chainStoreChecksTheInitializer97's
+    // question, asked with the two evaluations the producer itself compares.
+    ConstantValue nv100 = ac100.tryEval(e100);
+    ConstantValue iv100 = ac100.tryEval(*in100);
+    if (!nv100 || !iv100 || !nv100.isInteger() || !iv100.isInteger() ||
+        nv100.integer().hasUnknown() || iv100.integer().hasUnknown())
+        return false;
+    uint32_t w100 = e100.type ? (uint32_t)e100.type->getBitWidth() : 0;
+    if (!w100)
+        return false;
+    uint64_t m100 = w100 >= 64 ? ~(uint64_t)0 : ((((uint64_t)1) << w100) - 1);
+    uint64_t nu100 = 0, iu100 = 0;
+    if (auto s100 = nv100.integer().as<int64_t>())
+        nu100 = (uint64_t)*s100;
+    else if (auto u100 = nv100.integer().as<uint64_t>())
+        nu100 = *u100;
+    else
+        return false;
+    if (auto s2100 = iv100.integer().as<int64_t>())
+        iu100 = (uint64_t)*s2100;
+    else if (auto u2100 = iv100.integer().as<uint64_t>())
+        iu100 = *u2100;
+    else
+        return false;
+    if ((nu100 & m100) != (iu100 & m100))
+        return false;
+    // `adjustSize` ran at the INNER declaration too: its width masks first.
+    out100 = (int64_t)(((uint64_t)dv100) & m100);
+    return true;
+}
+
+/// The mask § uintArmWrittenDigitsMasked100 and § bareUnsizedDecIsMaskedDigits100
+/// both end in — `NumUtils::getMask(size)` — written once so the two laws
+/// cannot drift apart.  A width of 0 or 64-and-over is the identity, which is
+/// what `getMask` returns there.
+inline std::string red100MaskedUnsigned100(int64_t v100, uint32_t w100) {
+    uint64_t m100 = (w100 == 0 || w100 >= 64) ? ~(uint64_t)0
+                                              : ((((uint64_t)1) << w100) - 1);
+    return std::to_string(((uint64_t)v100) & m100);
+}
+
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {
     const Expression& e = stripImplicitConv(e0);
     if (e.kind != ExpressionKind::NamedValue &&

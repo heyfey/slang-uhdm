@@ -1,0 +1,96 @@
+ARM k1_ctype94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=7492 odump=6975
+ARM k2_chain94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=6072 odump=5785
+ARM k3_addop94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=5807 odump=5481
+ARM k4_unbop94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=5263 odump=5013
+ARM k5_homes94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=2515 odump=2947
+ARM k6_width94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=2373 odump=2664
+ARM k7_cwidth94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=4681 odump=4672
+ARM k8_portdf94v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=2421 odump=2847
+ARM p1_powtop100 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=7012 odump=6421
+ARM p2_uintdig100 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=10592 odump=9462
+ARM p3_bare100 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=8619 odump=7799
+ARM p4_fence100 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=7528 odump=6908
+ARM v1_amulbrk96v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=6772 odump=6430
+ARM v2_bdecbrk96v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=4478 odump=4303
+ARM v5_unbased96v tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=2335 odump=2502
+ARM y1_muldiv96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=7131 odump=6576
+ARM y2_unsized96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=3950 odump=3813
+ARM y4_bail96 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=861 odump=1289
+ARM z1_unbased97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=8400 odump=7619
+ARM z2_addmint97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=11847 odump=10619
+ARM z3_cmpfam97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=12483 odump=11149
+ARM z4_xz97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=1766 odump=2124
+ARM z5_chain97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=4033 odump=4049
+ARM z6_pahome97 tag=lawx slrc=0 ourrc=0 slerr=0
+  gdump=3102 odump=3252
+ARM k1_ctype94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=7492 odump=6975
+ARM k2_chain94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=6072 odump=5785
+ARM k3_addop94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=5807 odump=5481
+ARM k4_unbop94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=5263 odump=5013
+ARM k5_homes94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=2515 odump=2947
+ARM k6_width94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=2373 odump=2664
+ARM k7_cwidth94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=4681 odump=4672
+ARM k8_portdf94v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=2421 odump=2847
+ARM p1_powtop100 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=7012 odump=6421
+ARM p2_uintdig100 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=10592 odump=9462
+ARM p3_bare100 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=8619 odump=7799
+ARM p4_fence100 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=7528 odump=6908
+ARM v1_amulbrk96v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=6772 odump=6430
+ARM v2_bdecbrk96v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=4478 odump=4303
+ARM v5_unbased96v tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=2335 odump=2502
+ARM y1_muldiv96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=7131 odump=6576
+ARM y2_unsized96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=3950 odump=3813
+ARM y4_bail96 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=861 odump=1289
+ARM z1_unbased97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=8400 odump=7619
+ARM z2_addmint97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=11847 odump=10619
+ARM z3_cmpfam97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=12483 odump=11149
+ARM z4_xz97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=1766 odump=2124
+ARM z5_chain97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=4033 odump=4049
+ARM z6_pahome97 tag=pris slrc=0 ourrc=0 slerr=0
+  gdump=3102 odump=3252

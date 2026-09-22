@@ -1,0 +1,5 @@
+OFF-FACE candidates (flags false, must move NOTHING): 11 rows
+Ariane                                         BARE100+BNAM100+POW100+UAR100+UDC100+UNBO100
+BlackParrotMuteErrors                          BARE100+POW100
+IncompTitan                                    BARE100+BNAM100+POW100+UAR100+UDC100+UNBO100
+PREDICTED MOVER CANDIDATES: 3 rows  (loose class union: 107 rows)

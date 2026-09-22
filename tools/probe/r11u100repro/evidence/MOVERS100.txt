@@ -1,0 +1,45 @@
+r11u100 MOVERS — predicted BY NAME first, then measured, then attributed
+
+A PRIORI (predict100.py, keyed on the SWEEP'S OWN workdir roots)
+  uhdm2rtlil   PREDICTED MOVER CANDIDATES: 0 rows   (loose class union: 64 rows)
+  Surelog      PREDICTED MOVER CANDIDATES: 3 rows   (loose class union: 107 rows)
+                 Ariane  BlackParrotMuteErrors  IncompTitan
+               and all three produce NO DATABASE at this pin:
+                 Ariane                default/testflags  SURELOG_FAIL
+                 BlackParrotMuteErrors default/testflags  SLANG_REJECT
+                 IncompTitan           default/testflags  SLANG_REJECT
+               (the other four POW100 test dirs — Earlgrey_Verilator_01_05_21,
+                Earlgrey_nexysvideo are DEFERRED; ariane and black-parrot are
+                third_party dirs that no sweep row names).
+  So the predicted LAW-A mover set contains no row that can move, and the
+  measured LAW-A mover set is ZERO.  The prediction is a strict superset.
+
+MEASURED (byteverify, SELFCHECK=1, law vs pristine, this pass's own workdirs)
+  uhdm2rtlil   MOVERS 0 / 1608    PATH_SETS_IDENTICAL   SELFCHECK 1607/1608
+  Surelog      MOVERS 4 / 960     PATH_SETS_IDENTICAL   SELFCHECK  959/960
+       default/MiniAmiq-544c7f61    patched=27419f6011b4 pristine=487c228127e9
+       default/SeqDriver-32af76aa   patched=2fb39f8b4130 pristine=0c12159d9087
+       default/SimpleUVM-1dc93a62   patched=8bbcab79495a pristine=d4f8cd018f2d
+       testflags/SeqDriver-32af76aa patched=05df6c25a21b pristine=9c2542184700
+
+ATTRIBUTION — ORDER-BLIND, on path-normalised SORTED uhdm-dump output
+  Each of the four moves EXACTLY FOUR LINES, one |UINT: / |vpiDecompile: pair:
+       default/MiniAmiq-544c7f61    orderblind_lines=4   2 |UINT:  2 vpiDecompile:
+       default/SeqDriver-32af76aa   orderblind_lines=4   2 |UINT:  2 vpiDecompile:
+       default/SimpleUVM-1dc93a62   orderblind_lines=4   2 |UINT:  2 vpiDecompile:
+       testflags/SeqDriver-32af76aa orderblind_lines=4   2 |UINT:  2 vpiDecompile:
+  and across all four:  |INT: 0   vpiConstType 0   vpiSize 0   Typespec 0   |BIN: 0
+  — NONE of the fields this pass's law writes.  § powTopIsIntReduce100 writes
+  |INT: and vpiConstType 7 and nothing else, so it cannot be any of these.
+
+POSITIVE CONTROL — no pad binary needed
+  The PRISTINE binary run FOUR TIMES on MiniAmiq/default's OWN cmds.txt
+  invocation produced FOUR DIFFERENT DATABASES:
+       c18cc3882a26   d62aa6ff1801   9092c019b503   e388757e871d
+  and the ORDER-BLIND diff of two of them is the SAME single
+  |UINT: / |vpiDecompile: pair, with |INT: 0, vpiConstType 0, vpiSize 0 and
+  Typespec 0.  That is r11u96's R7 / r11v96's RV94-5 — the uvm_pkg 642:23
+  dynamic-array range bound our emitter prints from an uninitialized
+  pointer-valued UINT — latent on EVERY binary at this pin.
+  predict100.py does not name MiniAmiq, SeqDriver or SimpleUVM, and it is right
+  not to.

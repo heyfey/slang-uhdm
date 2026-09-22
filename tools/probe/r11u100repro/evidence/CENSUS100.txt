@@ -1,0 +1,163 @@
+AGREE100   8581
+BARE100    3829
+BNAM100    441
+BWL100     23
+POW100     22
+POWW100    22
+UAR100     264
+UARW100    327
+UDC100     310
+UNBO100    40
+--- candidate tests: 151
+  AllPackageSignal                             BARE100: ParameterIntEqual4 = 4; BARE100: ParameterIntInPkgA = 4
+  AmiqEth                                      BNAM100: UVM_ERROR = OVM_ERROR; BNAM100: UVM_EXPORT = OVM_EXPORT; BNAM100: UVM_FATAL = OVM_FATAL; BNAM100: UVM_FULL = OV
+  Ariane2024                                   BARE100: ADAPTER_REQ_FIFO_DEPTH = 2; BARE100: ADAPTER_RTRN_FIFO_DEPTH = 2; BARE100: BITS_SATURATION_COUNTER = 2; BARE100
+  ArianeElab                                   BARE100: BITS_SATURATION_COUNTER = 2; BARE100: BREAKPOINT = 3; BARE100: DCACHE_LINE_WIDTH = 128; BARE100: DCACHE_SET_ASS
+  ArianeElab2                                  BARE100: BITS_SATURATION_COUNTER = 2; BARE100: BREAKPOINT = 3; BARE100: DCACHE_LINE_WIDTH = 128; BARE100: DCACHE_SET_ASS
+  AssignPatternArray                           BARE100: HwDataRules = 2; BARE100: MuBi4Width = 4; BARE100: RegNumBanks = 2; BARE100: RegPagesPerBank = 64; BNAM100: Num
+  AssignmentPatternInAssignmentPattern         BARE100: HwDataRules = 2; BARE100: MuBi4Width = 4; BARE100: RegNumBanks = 2; BARE100: RegPagesPerBank = 64; BNAM100: Num
+  AzadiRTL                                     BARE100: BlockAw = 10; BARE100: BlockAw = 6; BARE100: BlockAw = 9; BARE100: CSR_MEIX_BIT = 11; BARE100: CSR_MFIX_BIT_HIG
+  Bindings                                     BARE100: TxWidth = 4; BNAM100: LC_TX_DEFAULT = Off
+  BitComplex                                   BARE100: KeyWidth = 16; BARE100: Shares = 2
+  BitSelectOfParameterPassedToSubmodule        BARE100: NDioPads = 24
+  BitSelectOfParameterPassedToSubmoduleInGenFor BARE100: NDioPads = 1
+  BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule BARE100: NDioPads = 1
+  BitsCallOnParametetrizedTypeFromPackage      BARE100: SramAw = 10
+  BitsCallOnSubArray                           BARE100: KeyWidth = 16; BARE100: Shares = 2
+  BitsOp                                       BARE100: FLASH_BANKS = 2; BARE100: FLASH_BYTES_PER_WORD = 4; BARE100: FLASH_PAGES_PER_BANK = 256; BARE100: FLASH_WORDS_P
+  BitsStructMember                             BARE100: KmacDataIfWidth = 64
+  BlackBePipeInt                               BARE100: byte_width_gp = 8; BARE100: cache_dev_gp = 4; BARE100: cfg_dev_gp = 2; BARE100: clint_dev_gp = 3; BARE100: csr_
+  BlackParrotConf                              BARE100: bp_data_cmd_num_flit_gp = 4; BARE100: bp_data_resp_num_flit_gp = 4; BARE100: bp_eaddr_width_gp = 64; BARE100: b
+  BlackParrotMuteErrors                        BARE100: CreatorRootKeyShare0Offset = 1888; BARE100: CreatorRootKeyShare0Size = 32; BARE100: CreatorRootKeyShare1Offset 
+  BlackParrotParam                             BARE100: bp_data_cmd_num_flit_gp = 4; BARE100: bp_data_resp_num_flit_gp = 4; BARE100: bp_eaddr_width_gp = 64; BARE100: b
+  BlackParrotStructParam                       BARE100: max_cfgs = 1; BNAM100: bp_unicore_cfg_p = bp_default_cfg_p
+  CastTypespec                                 BARE100: TL_AIW = 8; BARE100: TL_AW = 32; BARE100: TL_DIW = 1; BARE100: TL_DUW = 16; BARE100: TL_DW = 32; UAR100+UARW100
+  CastWidthFromPackage                         BARE100: Width = 4
+  ClassParam                                   BARE100: p1 = 10
+  ClassScope                                   BARE100: E = 2
+  ComplexBitSelect                             BARE100: InfoTypes = 3; BARE100: InfosPerBank = 10
+  ConcatOrder                                  BARE100: max_cfgs = 2; BNAM100: bp_unicore_cfg_p = bp_default_cfg_p
+  ConstSizes                                   UDC100: 1
+  CoresSweRV                                   BWL100: 2
+  CoresSweRVMP                                 BWL100: 2
+  DefaultPatternInt                            BARE100: CNT = 2
+  EarlgreyPackParam                            BARE100: NAlerts = 35
+  Earlgrey_0_1                                 BARE100: ALWAYS_ON_DOMAIN = 0; BARE100: AccuCntDw = 16; BARE100: AttrDw = 8; BARE100: CLASS_DW = 2; BARE100: CSR_MEIX_BI
+  Earlgrey_Verilator_01_05_21                  BARE100: ADC_CHANNELS = 2; BARE100: ADC_DATAW = 10; BARE100: ALWAYS_ON_DOMAIN = 0; BARE100: AccuCntDw = 16; BARE100: Add
+  Earlgrey_Verilator_0_1                       BARE100: ALWAYS_ON_DOMAIN = 0; BARE100: AccuCntDw = 16; BARE100: AttrDw = 8; BARE100: CLASS_DW = 2; BARE100: CSR_MEIX_BI
+  Earlgrey_nexysvideo                          BARE100: ADC_CHANNELS = 2; BARE100: ADC_DATAW = 10; BARE100: ALWAYS_ON_DOMAIN = 0; BARE100: AccuCntDw = 16; BARE100: Add
+  ElabParam                                    BARE100: PMP_CFG_W = 2
+  EnumConstConcat                              BARE100: MuBi4Width = 4
+  EvalFuncArray                                BARE100: InfoTypes = 5
+  EvalFuncNamed                                BARE100: MY_PARAM = 3
+  EvalFuncPack                                 BARE100: InfoTypes = 3
+  ExprEvalPartial                              UNBO100: 1
+  FuncDef2                                     BARE100: TNOC_PACKET_TYPE_NON_POSTED_BIT = 5; BARE100: TNOC_PACKET_TYPE_PAYLOAD_BIT = 6; BARE100: TNOC_PACKET_TYPE_RESPO
+  FuncStructVal                                BARE100: CVA6ConfigAExtEn = 1; BARE100: CVA6ConfigAxiAddrWidth = 64; BARE100: CVA6ConfigAxiDataWidth = 64; BARE100: CVA6
+  FuncStructValSimple                          BARE100: CVA6ConfigCExtEn = 1
+  GenScopeHierPath                             BARE100: NDioPads = 4
+  HierBitSlice                                 UDC100: 21
+  HierPathOverride                             BARE100: NDioPads = 24
+  HierPathPackedArrayNet                       BARE100: ILEN = 32; BARE100: NRET = 1
+  HierPathStructTypespec                       BARE100: MsgWidth = 64; BARE100: RegIntfWidth = 32; BARE100: RegLatency = 5; BARE100: Sha3Latency = 72; BNAM100: MsgWidt
+  HierPathUnpacked                             BARE100: KeyWidth = 16; BARE100: Shares = 2
+  HierPathUnpackedInPacked                     BARE100: KeyWidth = 16; BARE100: Shares = 2
+  Ibex                                         BARE100: ADDR_WIDTH = 32; BARE100: BUS_AIW = 8; BARE100: BUS_AW = 32; BARE100: BUS_DIW = 1; BARE100: BUS_DUW = 16; BARE1
+  IbexGoogle                                   BARE100: DATA_WIDTH = 32; BARE100: IMM12_WIDTH = 12; BARE100: IMM25_WIDTH = 25; BARE100: INSTR_WIDTH = 32; BARE100: LABE
+  Icarus                                       BWL100: 1; UDC100: 2; UDC100: 5
+  ImportBinding                                BARE100: TxWidth = 4; BNAM100: LC_TX_DEFAULT = Off
+  ImportPackage                                BARE100: TxWidth = 4
+  ImportParametrizedTypeAndDeclareParamWithTheSameName BARE100: TxWidth = 4
+  ImportTypeOfPort                             BARE100: TxWidth = 4
+  ImportedFunctionUsesAnotherFunction          BARE100: PARAM = 10
+  ImportedParameter                            BARE100: TxWidth = 4
+  ImportedTypespec                             BARE100: SramAw = 10
+  IncompTitan                                  BARE100: ADC_CHANNELS = 2; BARE100: ADC_DATAW = 10; BARE100: ALWAYS_ON_DOMAIN = 0; BARE100: AccuCntDw = 16; BARE100: Add
+  IndexedPartSelectInFor                       BARE100: KeyWidth = 64; BARE100: Shares = 2
+  IndexedSelectHex                             BARE100: NDioPads = 4
+  IntegerConcat                                BARE100: CreatorInfoPage = 1; BARE100: FLASH_INFO_PER_BANK = 4; BARE100: NumSeeds = 2; BARE100: OwnerInfoPage = 2; BNAM1
+  InterfImport                                 BARE100: TNOC_DEFAULT_PACKET_CONFIG = 1
+  Kmac                                         BARE100: MsgWidth = 64; UARW100: KeccakCountW = $clog2(KeccakEntries+1)
+  LargeConst                                   UDC100: 4
+  LargeModuleParameter                         UDC100: 3
+  LargeValue2Struct                            BARE100: SramKeyWidth = 128
+  LogicArrayParam                              BARE100: NAlerts = 20; BNAM100: AsyncOn = alert_handler_reg_pkg::AsyncOn; BNAM100: NAlerts = alert_handler_reg_pkg::NAle
+  ModuleUsingStuctInput                        BARE100: Banks = 2; BARE100: PagesPerBank = 64; BARE100: Width = 4; BNAM100: NumBanks = ctrl_pkg::Banks; BNAM100: PagesP
+  MultiConcat                                  BARE100: FsmStateWidth = 16; BARE100: LcKeymgrDivWidth = 128; BARE100: NumTokens = 6; BARE100: RmaSeedWidth = 32; BARE10
+  MultiConcatValueSize                         BARE100: NDioPads = 1
+  NyuziProcessor                               BARE100: ASID_WIDTH = 8; BARE100: AXI_ADDR_WIDTH = 32; BARE100: CORE_PERF_EVENTS = 14; BARE100: FLOAT32_EXP_WIDTH = 8; B
+  OneImport                                    BARE100: PMP_CFG_W = 2
+  OnePackage                                   BARE100: PMP_CFG_W = 2
+  Opentitan                                    BARE100: ADDR_WIDTH = 32; BARE100: AES_ADDR_MAP_SIZE = 128; BARE100: ALERT_HANDLER_ADDR_MAP_SIZE = 2048; BARE100: ASYNC_
+  PackDataType                                 BARE100: KeyWidth = 256
+  PackStructVar                                BARE100: FLASH_BANKS = 2; BARE100: FLASH_BYTES_PER_WORD = 4; BARE100: FLASH_PAGES_PER_BANK = 256; BARE100: FLASH_WORDS_P
+  PackageConst                                 BARE100: NumCmdInfo = 24
+  PackageEval                                  BARE100: NStraps = 2
+  PackageHierRef                               BARE100: package_para = 1; BARE100: package_param = 1
+  PackageNet                                   BARE100: p1 = 1; BARE100: p2 = 2
+  PackageParam                                 BARE100: NumErrorEntries = 9; BARE100: NumSramKeyReqSlots = 2; BARE100: OtpByteAddrWidth = 11; BARE100: OtpWidth = 16
+  PackageType                                  BARE100: max_cfgs = 128
+  PackageValue                                 UAR100+UARW100: SMODE_STATUS_READ_MASK = riscv::SSTATUS_UIE
+                     
+  PackedArrayHierPath                          BARE100: NUM_FP_FORMATS = 4
+  ParamArray                                   BARE100: NumPart = 7
+  ParamArraySelect                             BARE100: NumPart = 2
+  ParamConstPush                               BNAM100: FROM_USAGE = base_pkg::USAGE; UAR100+UARW100: USAGE = BASE | 2'b01
+  ParamElabMulti                               BARE100: NDioPads = 1
+  ParamOverload3                               BARE100: NUM_FP_FORMATS = 5
+  ParamRef                                     BARE100: ADDR_SPACE_DEBUG_MEM = 1; BARE100: HaltAddress = 10; UAR100+UARW100: ExceptionAddress = HaltAddress + 2
+  ParameterDoubleUnderscoreInSvFrontend        BARE100: A__B = 1
+  ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope BARE100: DataWidth = 64; BARE100: GfMultCycles = 2
+  ParameterRangeUsingDot                       BARE100: ConstSelWidth = 3; BARE100: NumPart = 2; BARE100: OtpByteAddrWidth = 11
+  PartSelectInFor                              BARE100: KeyWidth = 256; BARE100: NumRegsKey = 8; BARE100: Shares = 2
+  PartSelectNoParent                           BARE100: KeyWidth = 256; BARE100: NumRegsKey = 8; BARE100: Shares = 2
+  PreProcMacroFunc                             BARE100: ParameterIntEqual4 = 4; BARE100: ParameterIntInPkgA = 4
+  ReferencedPackageParameterInEnum             BARE100: NumCmdInfo = 24
+  Rp32                                         BNAM100: CSR_RST = CSR_RST_S; BNAM100: CSR_WEM = CSR_WEM_S
+  Rsd                                          BARE100: ADDR_OPERAND_IMM_WIDTH = 12; BARE100: ADDR_WIDTH = 32; BARE100: BR_DISP_WIDTH = 20; BARE100: BTB_CONTENTS_ADDR_
+  SimpleParserTest                             BWL100: 4
+  SplitFile                                    BNAM100: UVM_PACK = OVM_PACK; BNAM100: UVM_UNPACK = OVM_UNPACK
+  StructArrayNet                               BARE100: N = 32
+  StructPackedOutput                           BARE100: FullDataWidth = 10
+  StructParamFuncBodyFieldCompare              BARE100: NrMaxRules = 16
+  StructParameterInitializedWithPatternAndReferenced BARE100: SeedBank = 0
+  StructUnsizedVal                             BARE100: Width = 64
+  StructVarImp                                 BARE100: NBanks = 2; BARE100: NumRegions = 8
+  SumOfParameters                              BARE100: AddrSpace = 1; BARE100: HaltAddress = 10; UAR100+UARW100: ExceptionAddress = HaltAddress + 2
+  TestNoHash                                   BNAM100: P1 = pkg1::HERE
+  TestSepComp                                  BNAM100: P1 = pkg1::HERE
+  TestSepCompNoHash                            BNAM100: P1 = pkg1::HERE
+  Tnoc                                         BARE100: TNOC_BFM_NON_POSTED_BIT = 5; BARE100: TNOC_BFM_PAYLOAD_BIT = 6; BARE100: TNOC_BFM_RESPONSE_BIT = 7; BARE100: TN
+  TypedefInModulePort                          BARE100: X = 8
+  TypedefStructParamWithRangeInSubmodule       BARE100: MpRegions = 8
+  TypedefWithParameter                         BARE100: X = 8
+  UnelabPack                                   BARE100: X = 4; BNAM100: Y = pkg1::X
+  UnionCustomTypeMultirange                    BARE100: J = 3; BARE100: K = 2
+  <FENCED-NAME-1, redacted per OPS: the four slang-fenced test names are never spelled>   UDC100: 1
+  ValueSize                                    BARE100: SeedBank = 0
+  Verilator                                    BARE100: INPACK = 6; BARE100: LP_PACK = 512; BARE100: LP_PACK_AND_MOD = 19; BARE100: MY_PARAM = 3; BARE100: NUMBER = 8; 
+  Yosys                                        BWL100: 3
+  YosysBigSim                                  UDC100: 10
+  YosysOldTests                                UDC100: 16; UDC100: 17; UDC100: 37
+  YosysTestSuite                               BWL100: 3
+  YosysTests                                   BARE100: u = 0
+  Zachjs                                       BARE100: AW = 16; BARE100: BAR = 97; BARE100: FOO = 10; BARE100: FOO = 37
+  ariane                                       BARE100: ADAPTER_REQ_FIFO_DEPTH = 2; BARE100: ADAPTER_RTRN_FIFO_DEPTH = 2; BARE100: AW = 32; BARE100: AX_MAX_WAIT_CYCLES
+  black-parrot                                 BARE100: byte_width_gp = 8; BARE100: channel_addr_width_p = 29; BARE100: channel_addr_width_p = 30; BARE100: channel_add
+  cfg_func_width_loop                          BARE100: NF = 3
+  cs_registers                                 BARE100: CSR_MEIX_BIT = 11; BARE100: CSR_MFIX_BIT_HIGH = 30; BARE100: CSR_MFIX_BIT_LOW = 16; BARE100: CSR_MSIX_BIT = 3; 
+  cva6_equiv                                   BARE100: ACC_WB = 4; BARE100: ADAPTER_REQ_FIFO_DEPTH = 2; BARE100: ADAPTER_RTRN_FIFO_DEPTH = 2; BARE100: AXI_USER_WIDTH 
+  fail_detect_width                            BARE100: ORV64_CNTR_WIDTH = 48
+  fill_literal_compare                         UNBO100: 1
+  ibex                                         BARE100: ADDR_W = 32; BARE100: ASCON_WORD_MUX_WIDTH = 2; BARE100: AsconDuplexFSMStateWidth = 10; BARE100: AsconRoundCoun
+  package_task_func                            BARE100: Y = 2; UAR100+UARW100: X = Y + 1
+  param_struct_field_bitsel                    BARE100: N = 4
+  param_unpacked_struct_array                  BARE100: N = 4
+  portsel_struct_param                         BARE100: CVA6ConfigXlen = 64
+  rggen                                        BARE100: DLL_BIT_OFFSET = 0; BARE100: DLL_BIT_WIDTH = 8; BARE100: DLL_BYTE_SIZE = 4; BARE100: DLL_BYTE_WIDTH = 4; BARE10
+  rp32                                         BARE100: XLEN = 32; BARE100: XLEN = 64; BNAM100: CSR_RST = CSR_RST_S; BNAM100: CSR_WEM = CSR_WEM_S; BNAM100: MXLEN = XLE
+  simple_package                               BARE100: ADDR_WIDTH = 16; BARE100: DATA_WIDTH = 32; BARE100: DEPTH = 16; BARE100: WIDTH = 8
+  struct_member_expr_index                     BARE100: EXP_BITS = 8; BARE100: MAN_BITS = 23
+  typedef_package                              BNAM100: PCONST = cc; BNAM100: PCONST_COPY = PCONST
+  unbased_unsized_shift                        UNBO100: 4
+  wav-lpddr-hw                                 BARE100: CK2WCKRWIDTH = 2; BARE100: CSR_MEIX_BIT = 11; BARE100: CSR_MFIX_BIT_HIGH = 30; BARE100: CSR_MFIX_BIT_LOW = 16; 

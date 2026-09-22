@@ -1,0 +1,12 @@
+r11u100 BINARIES — all built -j 2, md5 taken separately, chmod 555 BEFORE any sweep
+
+64699fe6f1399357c029e4962b07c84a   pristine  /tmp/wt_r11u100_pris  at 65981255
+                                   BYTE-IDENTICAL to the main tree's own build at
+                                   65981255 and to the ops-brief md5.
+534e12a3f3fa8831c761c20f5a92c418   law       this patch
+0a54e8843f9b4eeb11b1159f8bef41ab   powTop100 = false  (§ powTopIsIntReduce100 DROPPED)
+                                   Its dumps are BYTE-IDENTICAL (path-normalised) to
+                                   the pristine binary's on all 14 arms re-run against
+                                   it, which is the proof that LAW A is the whole of
+                                   this patch's live behaviour and that the two
+                                   flags-off faces compile to nothing.
