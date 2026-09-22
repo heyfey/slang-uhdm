@@ -1,0 +1,105 @@
+r11u95 — THE GATES (every one re-run on the binaries this directory names)
+
+BINARIES (both built -j 2 in this pass's own worktree at 5a20468f, md5 taken
+separately, frozen chmod 555 at immutable paths before any sweep)
+  pristine 8b04ca25ae24cab79525249c4e5390a5   cmp-identical to the main tree's
+                                              build/slang-uhdm at 5a20468f and
+                                              to the OPS pin
+  law      e24c5248b9db1698182192bfe6f857ad   this patch
+
+1. GOLDENS       tests/check_goldens.sh, SLANG_UHDM = the law binary
+                 23 PASS / 0 FAIL
+                 negative control SLANG_UHDM=/bin/false: 0 PASS / 23 FAIL
+
+2. uhdm2rtlil, BOTH MODES (871 rows each)
+                 law      788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+                 pristine 788 / 16 / 67          (identical histograms)
+   row-join ct8rows.sh, whole row incl. the dump column:
+                 results/gate_uhdm2rtlil.csv        vs law/testflags   PASS
+                 results/golden_uhdm2rtlil.csv (testflags half) vs law PASS
+                 results/golden_uhdm2rtlil.csv (default half)   vs law PASS
+                 this pass's own pristine sweep, both modes       PASS
+                 NO ROW MOVED, so none is quoted.
+   cmds.txt audit by absolute binary PATH: 1742/1742 name the intended binary.
+   NOTE, recorded because a reader must not be told a clean number that was not
+   the first one measured: the law binary's FIRST uhdm2rtlil/testflags sweep was
+   run CONCURRENTLY with the surelog sweep and with the grid, the switch ledger
+   and the goldens gate on a 15 GB machine, and it read 782/18/1 SURELOG_FAIL/70
+   with `[Errno 2] No such file or directory: ... cmds.txt`,
+   `terminate called after throwing an instance of 'kj::ExceptionImpl'` and bare
+   `stack:` details — harness/resource failures, not database differences.  Re-run
+   ALONE it reads 788/16/67 and every row-join PASSes.  The numbers above are the
+   solo run.
+
+3. surelog, --mode both (798 rows each)
+                 law      474/9 default   469/8 testflags
+                 pristine 474/9 default   469/8 testflags   (identical)
+   law vs THIS PASS'S OWN PRISTINE SWEEP: exactly TWO rows differ, both
+   SURELOG_FAIL on both sides, and the difference is the WORKDIR PATH inside
+   the `detail` column:
+      LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file
+        ".../slpr/testflags/LowMemLib-f068a766/slpp_all/surelog.log".
+      vs ".../slla/testflags/LowMemLib-f068a766/slpp_all/surelog.log".
+      LowMemPkg,testflags — the same shape.
+   law vs results/golden_surelog.csv: those two rows plus Earlgrey_0_1's DUMP
+   COLUMN (CMP_EQUAL,,,differ -> CMP_EQUAL,,,) in BOTH modes — which reads the
+   same way on this pass's PRISTINE sweep, i.e. the documented uhdm-dump
+   timeout draw, not the patch.  Its DATABASE is the pin and is byte-identical
+   (below).
+   cmds.txt audit by absolute binary PATH: 1531/1581 name the intended binary
+   and 50 name none (the golden-side-only arms; identical count in both
+   sweeps).  0 name the main tree.
+
+4. BYTEVERIFY, SELFCHECK=1, law sweep vs THIS PASS'S OWN pristine sweep
+     uhdm2rtlil  PATH_SETS_IDENTICAL (1608)  MOVERS 0 / 1608  selfcheck 1607/1608
+     surelog     PATH_SETS_IDENTICAL (960)   MOVERS 4 / 960   selfcheck  959/960
+   The four, each named and attributed THREE independent ways:
+     default/MiniAmiq   default/SeqDriver   testflags/MiniAmiq   testflags/SeqDriver
+   (a) ORDER-BLIND whole-dump diff (ids stripped, paths normalised, both sides
+       sorted): exactly 4 payload lines on every one, and every one is a
+       UINT: / vpiDecompile: LINE-NUMBER pair —
+         MiniAmiq/default    UINT:0    vs UINT:1089
+         SeqDriver/default   UINT:1000 vs UINT:0
+         MiniAmiq/testflags  UINT:1265 vs UINT:1277
+         SeqDriver/testflags UINT:1146 vs UINT:0
+       No structural object, no vector size, no name.
+   (b) TRACE: R11U95_NETDBG=1 fires ZERO times on all four (and on SimpleUVM,
+       Scoreboard and BuildUVMPkg too).  Positive control: 4 lines on grid a3.
+   (c) THE PRISTINE BINARY IS ITSELF NONDETERMINISTIC THERE.  Three runs of
+       pris.bin on MiniAmiq/default drew 01343f60639d, 5b01c7cbb811 and
+       e1487c92f433 — THREE different md5s, and NONE equal to the md5 the same
+       binary wrote during its own sweep (920d7c8c4d45).  Three runs of the law
+       binary drew three more (d67a9f6da0bc, 41ee8d3edc7d, 6f7fb3a101bd), none
+       equal to its own sweep md5 (27419f6011b4).  Sharper still: MiniAmiq and
+       SeqDriver compile the IDENTICAL argv and sources in this corpus (their
+       three repeat runs give the same three md5s), and even so the PRISTINE
+       sweep wrote 920d7c8c4d45 for one and 2fb39f8b4130 for the other.  The
+       same binary on the same input does not write the same database.  A
+       "mover" both binaries draw at random is a coin, not a law.
+
+5. CANARIES
+     canaries.sh  surelog vs results/golden_surelog.csv   ok=50 changed=2 absent=0
+                  the two are Earlgrey_0_1's DUMP COLUMN, both modes — and
+                  against THIS PASS'S OWN pristine sweep the same script reads
+                  ok=52 changed=0 absent=0.
+     canaries.sh  uhdm2rtlil                              ok=8  changed=0 absent=0
+     ctcan2.sh    PASS on both corpora
+     canaudit.sh  audited=29  UNCOVERED=0  FENCE-BREACH=0
+   PROTECTED DATABASES, md5 law vs this pass's own pristine sweep, both modes:
+     SVSwitch            4842211c4030  SAME (the OPS hard byte pin)
+     YosysVerx           6ccda350c24a  SAME (the OPS hard byte pin)
+     InterfaceModPort    59a365f3ce2c  SAME (the OPS pin, watched byte-for-byte)
+     BlackParrotComplex  e3e354129d5a / 73a10e8217e5  SAME
+     YosysOldOr          d68e0796d62c  SAME
+     Earlgrey_0_1        8bdf25272e08 (default) / 59d0ee6d10c3 (testflags) SAME
+   CONVERSION ROWS (rowheads.sh on the law sweep): SeqDriver, SimpleUVM,
+   Scoreboard, MiniAmiq, BuildUVMPkg, Earlgrey_0_1 all `cmp rc=0`, 0 heads,
+   both modes; SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags as
+   expected; Rggen/default 64 lines (the committed NOTEQUAL row).
+
+6. FENCES
+   The four slang-fenced names: 0 occurrences in `git diff 5a20468f -- src
+   include` and 0 in this directory outside canaudit.sh's own FENCED= line; no
+   driver here dispatches one.  results/*.csv never written.
+   src/ParamEmit.cpp, src/EmitHelpers.h and src/ExprEmit.cpp UNTOUCHED (the
+   sister pass's ground).  The whole patch is src/ModuleEmit.cpp.

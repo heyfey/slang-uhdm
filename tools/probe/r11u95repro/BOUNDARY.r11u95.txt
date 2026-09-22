@@ -1,0 +1,151 @@
+r11u95 WIDE ARM BOUNDARY — every committed probe arm, both binaries, byte compare
+(bnd95.sh: one arm per directory holding a .sv/.v source, IDENTICAL argv for
+ both binaries, databases compared BYTE FOR BYTE; subdirectory arms included,
+ the file list read on fd 3 with every child on /dev/null, PROCESSED asserted
+ against LISTED.)
+
+BOUNDARY listed=4298 processed=4298 moved=100 rc-or-db-anomalies=0
+PROCESSED==LISTED
+
+THE 100 MOVERS, classified — 44 + 4 + 38 + 3 + 11 = 100, none unexplained:
+  44  this pass's OWN grid arms (22 arms, each also reached through its
+      slpp_all/lib/work copy) — the declared targets
+   4  the r11u93 VERIFIER's committed witnesses v4_proggeninit,
+      v5_proggentask, v7_progforzero, v11_progclass — r11u93's R0 and R1,
+      which is what this pass was dispatched to close
+  38  DETERMINISTIC and NAMED BY THE TRACE (R11U95PROGTFINST on 35,
+      R11U95PROGPROC on 3)
+   3  DETERMINISTIC, no trace line — residue R2, proved below
+  11  COIN — the PRISTINE binary disagrees WITH ITSELF across THREE
+      consecutive runs of the same arm (the UVM nondeterminism RESUME §9
+      names).  Several of these also carry a trace line; they are counted
+      here because the coin alone already explains them.
+
+--- the 11 COIN arms (pristine vs pristine, same argv, three runs)
+  r10uvm117repro
+  r10uvm130repro
+  r10uvm196repro/grid196
+  r10uvm218repro/grid218/a3_muststay
+  r10uvm220repro/grid220/a4_prog
+  r10uvm221repro/grid221/a3_muststay
+  r10uvm65repro
+  r10v109repro
+  r10v117repro
+  r10v130repro
+  r10v144repro
+
+--- the 41 DETERMINISTIC non-grid movers, and the trace line that names each
+  r10buvm16repro/verify16                       1 R11U95PROGTFINST 
+  r10buvm17repro                                1 R11U95PROGTFINST 
+  r10buvm22repro                               NO-TRACE
+  r10buvm9repro                                 1 R11U95PROGTFINST 
+  r10uvm108repro                                1 R11U95PROGTFINST 
+  r10uvm139repro                                1 R11U95PROGTFINST 
+  r10uvm143repro                                1 R11U95PROGTFINST 
+  r10uvm145repro                                2 R11U95PROGTFINST 
+  r10uvm148repro                                1 R11U95PROGTFINST 
+  r10uvm151repro                                1 R11U95PROGTFINST 
+  r10uvm154repro                               NO-TRACE
+  r10uvm156repro                                1 R11U95PROGTFINST 
+  r10uvm157repro                                1 R11U95PROGTFINST 
+  r10uvm166repro                                1 R11U95PROGTFINST 
+  r10uvm167repro                                1 R11U95PROGPROC 
+  r10uvm185repro/grid185                       NO-TRACE
+  r10uvm66repro                                 1 R11U95PROGTFINST 
+  r10uvm70repro                                 1 R11U95PROGTFINST 
+  r10uvm81repro                                 1 R11U95PROGTFINST 
+  r10v113repro                                  1 R11U95PROGTFINST 
+  r10v115repro                                  1 R11U95PROGTFINST 
+  r10v126repro                                  1 R11U95PROGTFINST 
+  r10v127repro/arms                             2 R11U95PROGTFINST 
+  r10v139repro                                  2 R11U95PROGTFINST 
+  r10v142repro                                  2 R11U95PROGTFINST 
+  r10v143repro                                  1 R11U95PROGTFINST 
+  r10v147repro                                  1 R11U95PROGTFINST 
+  r10v148repro                                  1 R11U95PROGTFINST 
+  r10v150repro                                  3 R11U95PROGTFINST 
+  r10v155repro                                  2 R11U95PROGTFINST 
+  r10v172repro                                  2 R11U95PROGTFINST 
+  r10v177repro                                  2 R11U95PROGTFINST 
+  r10v179repro                                  1 R11U95PROGTFINST 
+  r10v216repro/armsv216                         2 R11U95PROGTFINST 
+  r10v221repro/arms/v3_muststay                 1 R11U95PROGTFINST 
+  r10v75repro                                   1 R11U95PROGPROC 
+  r10v76repro                                   1 R11U95PROGPROC 
+  r10vbuvm21repro                               1 R11U95PROGTFINST 
+  r10vbuvm22repro                               2 R11U95PROGTFINST 
+  r10vbuvm25repro                               1 R11U95PROGTFINST 
+  r10vbuvm30repro                               1 R11U95PROGTFINST 
+
+--- THE THREE 'NO-TRACE' ARMS: a PRE-EXISTING, BINARY-LAYOUT-DEPENDENT value,
+    PROVED not to be any r11u95 law.
+  r10buvm22repro, r10uvm154repro and r10uvm185repro/grid185 all move by the
+  SAME two lines: an associative-array typedef's synthesized right range
+  (typedef C22 ka_cls_t[string];) carries |vpiDecompile:23298809 |UINT:23298809
+  on the pristine binary and 23339865 on the law binary.  GOLDEN writes
+  |vpiDecompile:associative |STRING:associative there (regenerated with the
+  pinned Surelog), so BOTH values are wrong and neither is closer.
+  THE PROOF that it is the BINARY and not the law: with R11U95_OFF=1 the law
+  binary's database on all three arms is BYTE-IDENTICAL to its own law-ON
+  database (OFFvsLAW=SAME) and still differs from pristine — the switch that
+  reproduces pristine on 35/35 grid arms cannot reach it.  The two values sit
+  just above each binary's own size (pris 23258064, law 23310776) and the
+  delta is a CONSTANT 41056 across all three arms and across two distinct
+  constants inside one arm: a relocated IMAGE ADDRESS leaking into the value,
+  not a computed number.  It reaches NEITHER CORPUS (byteverify 0/1608 plus
+  the four UVM coins).  Recorded as residue R2; the site is a typespec face
+  (TypeEmit's array_typespec range builder), not ModuleEmit's listing code.
+
+--- THE 41 MEASURED AGAINST GOLDEN (goldens regenerated per arm by the pinned
+    Surelog; 39 produce a golden AND two databases, and THE JUDGE READS THE
+    SAME CMP LINE COUNT ON PRISTINE AND LAW FOR ALL 39 — nothing got worse
+    on the judge):
+tools/probe/r10buvm16repro/verify16 golden_rc=0 pris=63 law=63
+tools/probe/r10buvm17repro golden_rc=4 pris=15 law=15
+tools/probe/r10buvm22repro golden_rc=0 pris=572 law=572
+tools/probe/r10buvm9repro golden_rc=4 pris=28 law=28
+tools/probe/r10uvm108repro golden_rc=0 pris=117 law=117
+tools/probe/r10uvm139repro golden_rc=4 pris=137 law=137
+tools/probe/r10uvm143repro golden_rc=4 pris=89 law=89
+tools/probe/r10uvm145repro golden_rc=0 pris=64 law=64
+tools/probe/r10uvm148repro golden_rc=4 pris=1168 law=1168
+tools/probe/r10uvm151repro golden_rc=4 pris=63 law=63
+tools/probe/r10uvm154repro golden_rc=0 pris=20 law=20
+tools/probe/r10uvm156repro golden_rc=0 pris=494 law=494
+tools/probe/r10uvm157repro golden_rc=4 pris=16 law=16
+tools/probe/r10uvm166repro golden_rc=0 pris=130 law=130
+tools/probe/r10uvm167repro golden_rc=4 pris=19 law=19
+tools/probe/r10uvm185repro/grid185 golden_rc=0 pris=28 law=28
+tools/probe/r10uvm66repro golden_rc=4 pris=46 law=46
+tools/probe/r10uvm70repro golden_rc=4 pris=75 law=75
+tools/probe/r10uvm81repro golden_rc=0 pris=8 law=8
+tools/probe/r10v113repro golden_rc=4 pris=28 law=28
+tools/probe/r10v115repro golden_rc=4 pris=28 law=28
+tools/probe/r10v126repro golden_rc=4 pris=90 law=90
+tools/probe/r10v127repro/arms golden_rc=0 pris=8 law=8
+tools/probe/r10v139repro golden_rc=0 pris=27 law=27
+tools/probe/r10v142repro golden_rc=0 pris=48 law=48
+tools/probe/r10v143repro golden_rc=4 pris=16 law=16
+tools/probe/r10v147repro golden_rc=4 pris=9 law=9
+tools/probe/r10v148repro golden_rc=0 pris=17 law=17
+tools/probe/r10v150repro golden_rc=3 NO-GOLDEN-OR-DB pris_rc=4 law_rc=4
+tools/probe/r10v155repro golden_rc=4 pris=28 law=28
+tools/probe/r10v172repro golden_rc=4 pris=68 law=68
+tools/probe/r10v177repro golden_rc=4 pris=412 law=412
+tools/probe/r10v179repro golden_rc=0 pris=14 law=14
+tools/probe/r10v216repro/armsv216 golden_rc=3 NO-GOLDEN-OR-DB pris_rc=0 law_rc=0
+tools/probe/r10v221repro/arms/v3_muststay golden_rc=0 pris=169 law=169
+tools/probe/r10v75repro golden_rc=0 pris=32 law=32
+tools/probe/r10v76repro golden_rc=4 pris=25 law=25
+tools/probe/r10vbuvm21repro golden_rc=0 pris=7 law=7
+tools/probe/r10vbuvm22repro golden_rc=4 pris=2158 law=2158
+tools/probe/r10vbuvm25repro golden_rc=0 pris=2219 law=2219
+tools/probe/r10vbuvm30repro golden_rc=0 pris=752 law=752
+
+--- and scored on the 19 arms whose golden regenerates cleanly (golden_rc=0):
+    SET-WISE arbiter (setaway95.py)  CONV=7  AWAY=0
+    SUBTREE arbiter (subtree95.py), summed:
+      pristine MATCH=1759 GOLD-ONLY=80 OURS-ONLY=116 ORDER-DIFF=10
+      law      MATCH=1779 GOLD-ONLY=60 OURS-ONLY=98  ORDER-DIFF=10
+    Every counter moves TOWARD golden or stands still; no arm regresses on
+    any of them.  MOVED-WRONG = 0.

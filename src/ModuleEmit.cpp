@@ -2004,6 +2004,49 @@ static bool progFlatOff93() {
                           getenv("R11U93_OFF") != nullptr;
     return v;
 }
+// r11u95's four faces, each droppable ALONE (see the § blocks below).
+static bool progProcFlatOff95() {
+    static const bool v = getenv("R11U95_PROGPROC_OFF") != nullptr ||
+                          getenv("R11U95_OFF") != nullptr;
+    return v;
+}
+static bool progTfFlatOff95() {
+    static const bool v = getenv("R11U95_PROGTF_OFF") != nullptr ||
+                          getenv("R11U95_OFF") != nullptr;
+    return v;
+}
+static bool progClassFlatOff95() {
+    static const bool v = getenv("R11U95_PROGCLASS_OFF") != nullptr ||
+                          getenv("R11U95_OFF") != nullptr;
+    return v;
+}
+static bool genZeroIterOff95() {
+    static const bool v = getenv("R11U95_GENZERO_OFF") != nullptr ||
+                          getenv("R11U95_OFF") != nullptr;
+    return v;
+}
+static bool progTfInstOff95() {
+    static const bool v = getenv("R11U95_PROGTFINST_OFF") != nullptr ||
+                          getenv("R11U95_OFF") != nullptr;
+    return v;
+}
+// The r11u95 VERIFIER's two fixes, each droppable ALONE (§ blocks below).
+static bool progTfDedupeOff95V() {
+    static const bool v = getenv("R11U95V_TFDEDUPE_OFF") != nullptr ||
+                          getenv("R11U95_OFF") != nullptr;
+    return v;
+}
+static bool progTfElabOrdOff95V() {
+    static const bool v = getenv("R11U95V_TFELABORD_OFF") != nullptr ||
+                          getenv("R11U95_OFF") != nullptr;
+    return v;
+}
+// THE TRACE sits OUTSIDE every r11u95 gate, so ONE traced run of ONE binary
+// predicts the mover set a priori.
+static bool netDbg95() {
+    static const bool v = getenv("R11U95_NETDBG") != nullptr;
+    return v;
+}
 // THE TRACE sits OUTSIDE every gate and names every site either law reaches,
 // so ONE traced run of ONE binary predicts both mover sets a priori.
 static bool netDbg93() {
@@ -2145,6 +2188,47 @@ static std::vector<const Symbol*> portOrder93(const InstanceBodySymbol& body,
 // GOLDEN WRITES NOTHING ON A MISS: this law only MOVES declarations we already
 // emit (out of a `gen_scope` we stop building) and DELETES the scope, its
 // array and its cells.  It mints no object golden lacks.
+// ===========================================================================
+// § caGenLoopZeroIterStillWritten95 (r11u95 LAW B) — A LOOP-GENERATE WHOSE
+// ENTRY LIST IS EMPTY STILL HAS ONE WRITTEN COPY.  r11u93's R1, closed here.
+//
+// THE DECODE, on both sides of the fence:
+//   * PRODUCER.  `CompileProgram::collectObjects_` walks the SYNTAX with one
+//     stop point (`paClass_declaration`, `CompileProgram.cpp:96-98`) and its
+//     switch has no generate case, so the loop body's `paNet_declaration` /
+//     `paData_declaration` / `paInitial_construct` are filed as PROGRAM
+//     members WITHOUT the bound ever being evaluated — a `for (genvar i = 0;
+//     i < 0; i++)` files exactly the same one copy an `i < 2` loop does
+//     (a13/a14/a15/a16 against a11/a12).
+//   * SLANG.  `GenerateBlockArraySymbol::fromSyntax` copies `entries` FIRST
+//     and only then, when that span came out empty, creates ONE
+//     `isUninstantiated` block and adds it to the ARRAY's own scope
+//     (`source/ast/symbols/BlockSymbols.cpp:914-921`: `result->entries =
+//     entries.copy(comp); if (entries.empty()) { createBlock(...);
+//     result->addMember(*entries[0]); }`).  So `arr.entries` is EMPTY while
+//     `arr.members()` holds the block — which is why reading `entries[0]`
+//     alone listed nothing.
+//
+// The block this returns is the SYNTAX the producer walked; the r11u93 walk
+// already declines to test `isUninstantiated` for exactly the same reason
+// (an untaken `if (0)` arm is listed too).  It mints no object golden lacks:
+// it only reaches declarations that are WRITTEN in the source.
+static const GenerateBlockSymbol* genArrayBody95(
+    const GenerateBlockArraySymbol& arr) {
+    if (!arr.entries.empty() && arr.entries[0])
+        return arr.entries[0];
+    const GenerateBlockSymbol* zero = nullptr;
+    for (auto& mm : arr.members())
+        if (mm.kind == SymbolKind::GenerateBlock) {
+            zero = &mm.as<GenerateBlockSymbol>();
+            break;
+        }
+    if (zero && netDbg95())
+        fprintf(stderr, "R11U95GENZERO name=%.*s\n", (int)arr.name.size(),
+                arr.name.data());
+    return genZeroIterOff95() ? nullptr : zero;
+}
+
 static void programGenDecls93(const Scope& scope,
                               std::vector<const Symbol*>& out) {
     for (auto& m : scope.members()) {
@@ -2153,10 +2237,11 @@ static void programGenDecls93(const Scope& scope,
         else if (m.kind == SymbolKind::GenerateBlock)
             programGenDecls93(m.as<GenerateBlockSymbol>(), out);
         else if (m.kind == SymbolKind::GenerateBlockArray) {
-            // One syntactic copy: the producer never unrolls (pa4_progfor).
-            auto& arr = m.as<GenerateBlockArraySymbol>();
-            if (!arr.entries.empty() && arr.entries[0])
-                programGenDecls93(*arr.entries[0], out);
+            // One syntactic copy: the producer never unrolls (pa4_progfor);
+            // § caGenLoopZeroIterStillWritten95 supplies that copy when the
+            // loop ran zero times.
+            if (auto* e0 = genArrayBody95(m.as<GenerateBlockArraySymbol>()))
+                programGenDecls93(*e0, out);
         }
     }
 }
@@ -2170,9 +2255,8 @@ static std::vector<const Symbol*> programFlatDecls93(
         if (m.kind == SymbolKind::GenerateBlock)
             programGenDecls93(m.as<GenerateBlockSymbol>(), out);
         else if (m.kind == SymbolKind::GenerateBlockArray) {
-            auto& arr = m.as<GenerateBlockArraySymbol>();
-            if (!arr.entries.empty() && arr.entries[0])
-                programGenDecls93(*arr.entries[0], out);
+            if (auto* e0 = genArrayBody95(m.as<GenerateBlockArraySymbol>()))
+                programGenDecls93(*e0, out);
         }
     }
     if (netDbg93())
@@ -2180,6 +2264,136 @@ static std::vector<const Symbol*> programFlatDecls93(
             fprintf(stderr, "R11U93PROGFLAT name=%.*s\n", (int)s9->name.size(),
                     s9->name.data());
     return out;
+}
+
+// ===========================================================================
+// § caProgramGenFlattensEveryKind95 (r11u95 LAW A) — THE PROGRAM FLATTENING IS
+// WIDER THAN NETS AND VARIABLES.  r11u93's R0 / the r11v93 verifier's R0.
+//
+// THE DECODE is one reading of ONE switch.  `CompileProgram::collectObjects_`
+// descends straight through every generate node (its ONLY stop point is
+// `paClass_declaration`, `CompileProgram.cpp:96-98`), and the switch it runs
+// on the way down has a case for EVERY member kind, not just the two r11u93
+// re-homed:
+//
+//     paInitial_construct       CompileProgram.cpp:313   -> m_program->getProcesses()
+//     paFinal_construct                           :326   -> m_program->getProcesses()
+//     paFunction_declaration                      :202   -> m_program->getTask_funcs()
+//     paTask_declaration                          :195   -> m_program->getTask_funcs()
+//     paClass_declaration                         :275   -> m_program->getClassDefinitions()
+//     paLocal_parameter_declaration               :257   -> the parameter vector
+//     paNet_declaration / paData_declaration      :292/:299  (r11u93's face)
+//
+// and `writeProgram` writes each of those vectors straight out
+// (`UhdmWriter.cpp`: `m->Class_defns`, `m->Process(mod->getProcesses())`,
+// `m->Task_funcs(mod->getTask_funcs())`).  Our landed drop of the program's
+// `gen_scope` therefore made the PROCESSES, TASK/FUNCS and CLASSES written
+// inside it VANISH: they were in the scope we stopped building and nothing
+// re-homed them.
+//
+// THE GRID (golden's own listing on `work@prg` / `work@dut.u_p`):
+//   a1_proggeninit    `initial`                 -> vpiProcess, begin named for
+//                                                  the ELAB home (work@dut.u_p)
+//   a2_progfinal      `final`                   -> vpiProcess (final_stmt)
+//   a3_proggentask    a function AND a task     -> vpiTaskFunc work@prg.f_gen,
+//                                                  work@prg.t_gen
+//   a4_progclass      a class                   -> vpiClassDefn work@prg::C,
+//                                                  DEF VIEW ONLY (the elab
+//                                                  program lists none)
+//   a5/a6             a body process ABOVE / BELOW the block's
+//                                               -> ONE vector in SOURCE ORDER
+//                                                  (4:3 then 9:7; 6:7 then 11:3)
+//   a7_progtaskorder  a body f, a gen f, a body t
+//                                               -> f_body@3:3, f_gen@6:7,
+//                                                  t_body@9:3 — SOURCE ORDER,
+//                                                  interleaved
+//   a8_proggeninit0   the UNTAKEN `if (0)` arm  -> STILL LISTED (unevaluated)
+//   a9_proginitelse   BOTH arms                 -> both, source order
+//   a10_proginitnest  nested blocks             -> both, source order
+//   a11/a12           loop bounds 1 and 2       -> ONE copy either way
+//   a18_proggenmixed  every kind in one block   -> all of them
+//   a19_progtopgeninit  a TOP-LEVEL (uninstantiated) program
+//                                               -> the DEF road, begin named
+//                                                  work@prg
+//   a20_proggenparam  a LOCALPARAM              -> flattened TOO.  NOT CLAIMED:
+//                                                  the program's parameter
+//                                                  vector is built in
+//                                                  src/ParamEmit.cpp, this
+//                                                  pass's SISTER's ground.  R0.
+//   c11/c12/a17       a net-decl-assign, a standalone `assign`
+//                                               -> the CONT_ASSIGN face is NOT
+//                                                  flattened: golden's program
+//                                                  carries no cont_assign for
+//                                                  either, and neither do we.
+//   c1/c2/c8/c9/c10   THE CONTROLS: the same blocks in a MODULE and an
+//                                                  INTERFACE home — untouched
+//                                                  here (they keep their
+//                                                  gen_scope).
+//
+// GOLDEN WRITES NOTHING ON A MISS: every face below only MOVES an object we
+// already build out of a scope we stopped building.  A kind golden does not
+// flatten (cont_assign) is not moved, and no object is minted.
+//
+// NO ALLOW-LIST: the r11v93 verifier recorded that gating the scope drop on
+// "blocks we can fully re-home" cannot be written, because slang models a loop
+// genvar as a `ParameterSymbol` and any kind allow-list would push the landed
+// `pa4_progfor` out.  These faces widen the RE-HOME instead, which needs no
+// such test.
+//
+// Every generate block a program home writes, in source order, recursing
+// through nested blocks and taking ONE syntactic copy of a loop.
+static void programGenBlocks95(const Scope& scope,
+                               std::vector<const GenerateBlockSymbol*>& out) {
+    for (auto& m : scope.members()) {
+        if (m.kind == SymbolKind::GenerateBlock) {
+            auto& blk = m.as<GenerateBlockSymbol>();
+            out.push_back(&blk);
+            programGenBlocks95(blk, out);
+        }
+        else if (m.kind == SymbolKind::GenerateBlockArray) {
+            if (auto* e0 = genArrayBody95(m.as<GenerateBlockArraySymbol>())) {
+                out.push_back(e0);
+                programGenBlocks95(*e0, out);
+            }
+        }
+    }
+}
+
+static std::vector<const GenerateBlockSymbol*> programGenBlocks95(
+    const InstanceBodySymbol& body) {
+    std::vector<const GenerateBlockSymbol*> out;
+    programGenBlocks95((const Scope&)body, out);
+    return out;
+}
+
+// The PROCEDURAL BLOCKS a program home flattens out of its generate blocks.
+static std::vector<const ProceduralBlockSymbol*> programFlatProcs95(
+    const InstanceBodySymbol& body) {
+    std::vector<const ProceduralBlockSymbol*> out;
+    for (auto* blk : programGenBlocks95(body))
+        for (auto& mm : blk->members())
+            if (mm.kind == SymbolKind::ProceduralBlock)
+                out.push_back(&mm.as<ProceduralBlockSymbol>());
+    if (netDbg95())
+        for (auto* p9 : out)
+            fprintf(stderr, "R11U95PROGPROC line=%u\n",
+                    (unsigned)p9->location.offset());
+    return out;
+}
+
+// Golden lists the flattened members in the SOURCE ORDER of the one walk that
+// collected them (a5/a6/a7), so the listing is re-sorted by span once — and
+// ONLY once something was flattened into it, which keeps every home the law
+// does not reach byte-identical.
+template <class V, class Loc>
+static void sortBySrc95(V& v, Loc loc) {
+    std::stable_sort(v.begin(), v.end(),
+                     [&](const auto& a, const auto& b) { return loc(a) < loc(b); });
+}
+static void sortUhdmBySrc95(std::vector<UHDM::task_func*>& v) {
+    sortBySrc95(v, [](UHDM::task_func* t) {
+        return std::pair<uint32_t, uint16_t>(t->VpiLineNo(), t->VpiColumnNo());
+    });
 }
 
 // The net listing both laws read: `collectNetOrder`'s answer (src/EmitHelpers.h
@@ -3622,14 +3836,58 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // vpiClassDefn (bare name, work@mod::name fullname).
     {
         auto* mclasses = s.MakeClass_defnVec();
-        for (auto& mem : body.members()) {
-            if (mem.kind != SymbolKind::ClassType)
-                continue;
-            auto& cls = mem.as<ClassType>();
-            mclasses->push_back(emitClassDefn(cls, std::string(cls.name),
-                                              prefix + "::" + std::string(cls.name),
-                                              m));
+        std::vector<const ClassType*> clist95;
+        for (auto& mem : body.members())
+            if (mem.kind == SymbolKind::ClassType)
+                clist95.push_back(&mem.as<ClassType>());
+        // § caProgramGenFlattensEveryKind95 — LAW A, the CLASS face: a class
+        // written inside a PROGRAM's generate block is the program's own
+        // (`CompileProgram.cpp:275`, the collect walk's one stop point is the
+        // class declaration ITSELF, reached only after it has been filed).
+        // Golden lists it on the DEFINITION view alone (a4_progclass: the
+        // elaborated `work@dut.u_p` carries no vpiClassDefn), which is exactly
+        // where this listing lives.
+        if (m->UhdmType() == UHDM::uhdmprogram && !progClassFlatOff95()) {
+            size_t own95 = clist95.size();
+            for (auto* blk : programGenBlocks95(body))
+                for (auto& mem : blk->members())
+                    if (mem.kind == SymbolKind::ClassType) {
+                        clist95.push_back(&mem.as<ClassType>());
+                        if (netDbg95())
+                            fprintf(stderr, "R11U95PROGCLASS name=%.*s\n",
+                                    (int)mem.name.size(), mem.name.data());
+                    }
+            // § caProgClassListNameKeyed95V (the r11u95 VERIFIER's fix) — THE
+            // CLASS LISTING IS A NAME-KEYED REGISTRY, NOT A SOURCE-ORDERED
+            // VECTOR.  Golden sorts a program's `vpiClassDefn` list BY NAME,
+            // not by span, and the two only look alike when the declarations
+            // happen to be alphabetical.  Measured on real v1.87 goldens:
+            //   x29_progclasstwogen  gen `Cg1`@5:7, body `Cbody`@8:3,
+            //                        gen `Cg2`@11:7
+            //                        -> golden [Cbody, Cg1, Cg2] (NAME), not
+            //                           [Cg1, Cbody, Cg2] (SPAN)
+            //   x25_proggenmixedorder gen `Ctwo`@9:7, body `Cthree`@15:3
+            //                        -> golden [Cthree, Ctwo]
+            //   x28_progclassorder   Ca@3, Cb@6(gen), Cc@9 -> [Ca, Cb, Cc],
+            //                        where the two orders AGREE — which is why
+            //                        a span sort passed the arms that had no
+            //                        out-of-alphabet pair.
+            // A SPAN sort put the gen-block class at element 0 where golden has
+            // the body's, i.e. it moved a cell the pristine listing had RIGHT.
+            // The same name-keying is visible with NO generate at all, on the
+            // program AND the module home (x30/x31, 46 cmp lines each on the
+            // PRISTINE binary) — that wider listing is NOT touched here, it is
+            // this verifier's ranked residue.
+            if (clist95.size() != own95)
+                std::stable_sort(clist95.begin(), clist95.end(),
+                                 [](const ClassType* a, const ClassType* b) {
+                                     return a->name < b->name;
+                                 });
         }
+        for (auto* cls95 : clist95)
+            mclasses->push_back(emitClassDefn(*cls95, std::string(cls95->name),
+                                              prefix + "::" + std::string(cls95->name),
+                                              m));
         if (!mclasses->empty())
             m->Class_defns(mclasses);
     }
@@ -4269,6 +4527,71 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // Tasks/functions are module items; their typespecs (return, io_decls)
     // precede cont_assign and port typespecs.
     emitTaskFuncs(body, m, prefix, &info);
+    // § caProgramGenFlattensEveryKind95 — LAW A, the TASK/FUNC face: a task or
+    // function written inside a PROGRAM's generate block is the program's own,
+    // at its own span and under the PROGRAM's name (`work@prg.f_gen`), and the
+    // one vector is in SOURCE ORDER across the two groups (a7_progtaskorder:
+    // f_body@3:3, f_gen@6:7, t_body@9:3).  The elaborated view SHARES these
+    // objects, as it already shares the body's own (see the taskFuncs share in
+    // emitInstance), so only this listing has to move.
+    if (m->UhdmType() == UHDM::uhdmprogram && !progTfFlatOff95()) {
+        size_t own95 = info.taskFuncs.size();
+        // § caProgFlatTfNameKeyed95V (the r11u95 VERIFIER's fix) — THE PROGRAM'S
+        // TASK/FUNC REGISTRY IS NAME-KEYED, AND THE NET LISTING IS NOT.
+        //
+        // A subroutine flattened out of a generate block whose NAME a
+        // program-level declaration already carries adds NO second entry:
+        // golden lists exactly ONE, and the survivor is the FIRST declaration
+        // in the walk's order.  Measured on both orders, on real v1.87
+        // goldens:
+        //   x8_proggendupname   body `f_dup`@3:3 then gen `f_dup`@6:7
+        //                       -> golden lists ONE, span 3:3  (the FIRST)
+        //   x27_proggendupfirst gen  `f_dup`@5:7 then body `f_dup`@8:3
+        //                       -> golden lists ONE, span 5:7  (the FIRST)
+        // (Golden's single object carries the FIRST declaration's SPAN and the
+        // LAST declaration's BODY — a name-keyed map that is recompiled in
+        // place.  The body half is not claimed here; see the verifier's R1.)
+        // The NET face is the OPPOSITE and stays as landed: the signal list is
+        // a VECTOR, so `pa13_progcollide` lists `w_dup` TWICE and
+        // `pa12_progsamearm` lists both arms' `w_both`.  The flattening is
+        // therefore PER KIND, which is why this dedupe is scoped to task/funcs
+        // alone.  Without it we WROTE AN OBJECT GOLDEN LACKS (x8 14 -> 113 cmp
+        // lines, OURS-ONLY 0 -> 2).
+        std::vector<std::string_view> tfSeen95V;
+        bool dedupe95V = !progTfDedupeOff95V();
+        if (dedupe95V)
+            for (auto* tf0 : info.taskFuncs)
+                tfSeen95V.push_back(tf0->VpiName());
+        for (auto* blk : programGenBlocks95(body)) {
+            if (!dedupe95V) {
+                emitTaskFuncs(*blk, m, prefix, &info);
+                continue;
+            }
+            for (auto& mem95 : blk->members()) {
+                if (mem95.kind != SymbolKind::Subroutine)
+                    continue;
+                if (std::find(tfSeen95V.begin(), tfSeen95V.end(), mem95.name) !=
+                    tfSeen95V.end()) {
+                    if (netDbg95())  // the trace sits OUTSIDE the gate
+                        fprintf(stderr, "R11U95VTFDUP name=%.*s\n",
+                                (int)mem95.name.size(), mem95.name.data());
+                    continue;
+                }
+                tfSeen95V.push_back(mem95.name);
+                emitTaskFuncs(*blk, m, prefix, &info, /*sharedScope=*/true,
+                              &mem95);
+            }
+        }
+        if (info.taskFuncs.size() != own95) {
+            if (netDbg95())
+                for (size_t k = own95; k < info.taskFuncs.size(); k++)
+                    fprintf(stderr, "R11U95PROGTF name=%s\n",
+                            std::string(info.taskFuncs[k]->VpiName()).c_str());
+            sortUhdmBySrc95(info.taskFuncs);
+            if (auto* tv95 = ((UHDM::instance*)m)->Task_funcs())
+                sortUhdmBySrc95(*tv95);
+        }
+    }
     // A function declared inside a covergroup `cross`'s bins block is NOT a
     // covergroup member for Surelog: UHDM has no covergroup object at all, so
     // CompileModule's task/function collection sees the declaration at MODULE
@@ -4294,6 +4617,41 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             }
         }
     }
+
+    // ===================================================================
+    // § caProgTaskFuncInstIsElab95 — A PROGRAM'S `task_func` CARRIES THE
+    // ELABORATED PROGRAM IN `vpiInstance`, NEVER THE DEFINITION.
+    //
+    // THE DECODE is one omission among five identical loops.  Every other
+    // definition-side writer stamps the instance as it lists the subroutines —
+    // `writeModule` (`~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp:1512`)
+    // and `writeInterface` (`:1765`) both run
+    // `if (tf->Instance() == nullptr) tf->Instance(m);` — but
+    // `writeProgram`'s loop (`:1870-1874`) sets `VpiParent` ALONE and no
+    // `Instance` at all.  The stamp is FIRST-WRITER-WINS, so the next writer to
+    // reach those objects is `writeElabProgram` (`:2030`), and the ELABORATED
+    // program is what lands in the field.
+    //
+    // THE GRID: `c4_progbodytask` (a function and a task in the program BODY,
+    // no generate anywhere) reads 133 cmp lines on the BASE binary with a
+    // set-wise diff of ZERO — the only difference is this field.  `a3`, `a7`
+    // and `a18` are the same face on the flattened subroutines (the LAW A
+    // faces above would otherwise have written a value golden does not have,
+    // which is why it is corrected in the same batch).  `a21_progtopgentask`
+    // is the other side of the decode: an UNINSTANTIATED top-level program is
+    // never elaborated, so nothing ever stamps the field and golden's
+    // `work@prg.f_gen` carries NO `vpiInstance`.
+    //
+    // The clear here is the omission; the stamp rides emitInstance's taskFuncs
+    // share, first-writer-wins exactly as the producer's is.
+    if (m->UhdmType() == UHDM::uhdmprogram)
+        for (auto* tf95 : info.taskFuncs) {
+            if (netDbg95())  // the trace sits OUTSIDE the gate
+                fprintf(stderr, "R11U95PROGTFINST name=%s home=%s\n",
+                        std::string(tf95->VpiName()).c_str(), prefix.c_str());
+            if (!progTfInstOff95())
+                tf95->Instance(nullptr);
+        }
 
     // Def-view cont_assigns come before ports (their typespecs precede the
     // port typespecs in Surelog's arena).
@@ -4512,6 +4870,31 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     procs->push_back(p);
                     info.processes.push_back(p);
                 }
+    }
+    // § caProgramGenFlattensEveryKind95 — LAW A, the PROCESS face on the DEF
+    // road.  An INSTANTIATED program's processes are compiled in the elab
+    // context (`progDef` above), and emitInstance's own loop flattens there; an
+    // UNINSTANTIATED file-scope program (a top-level `program`, `progTops` ->
+    // `uninstProgDefs`) has no elab instance, so its def pass is the only
+    // listing and flattens here (a19_progtopgeninit: golden's begin is named
+    // `work@prg`, the def prefix).
+    if (!progDef && m->UhdmType() == UHDM::uhdmprogram && !progProcFlatOff95()) {
+        if (auto gpbs95 = programFlatProcs95(body); !gpbs95.empty()) {
+            size_t ownP95 = procs->size();
+            for (auto* pb95 : gpbs95)
+                if (auto* p = emitProcess(*pb95, m, prefix, info.nets)) {
+                    procs->push_back(p);
+                    info.processes.push_back(p);
+                }
+            if (procs->size() != ownP95) {
+                auto k95 = [](const UHDM::process_stmt* p) {
+                    return std::pair<uint32_t, uint16_t>(p->VpiLineNo(),
+                                                         p->VpiColumnNo());
+                };
+                sortBySrc95(*procs, k95);
+                sortBySrc95(info.processes, k95);
+            }
+        }
     }
     defStmtImportScope9 = savedDSIS8;
     inProcessEmit = false;
@@ -15634,17 +16017,31 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 implicitNetPrefix = prefix;
                 bool savedIPE9 = inProcessEmit;
                 inProcessEmit = true;
-                for (auto& member : body.members()) {
-                    if (member.kind != SymbolKind::ProceduralBlock)
-                        continue;
+                // § caProgramGenFlattensEveryKind95 — LAW A, the PROCESS face
+                // on the ELAB road: the program's generate blocks contribute
+                // their `initial`/`final` constructs to the SAME vector, in
+                // SOURCE ORDER (a5_proginitorder 4:3 then 9:7,
+                // a6_proginitorder2 6:7 then 11:3).
+                std::vector<const ProceduralBlockSymbol*> pbOrd95;
+                for (auto& member : body.members())
+                    if (member.kind == SymbolKind::ProceduralBlock)
+                        pbOrd95.push_back(&member.as<ProceduralBlockSymbol>());
+                if (!progProcFlatOff95()) {
+                    size_t own95 = pbOrd95.size();
+                    for (auto* gp95 : programFlatProcs95(body))
+                        pbOrd95.push_back(gp95);
+                    if (pbOrd95.size() != own95)
+                        sortBySrc95(pbOrd95, [](const ProceduralBlockSymbol* p) {
+                            return p->location;
+                        });
+                }
+                for (auto* pbp95 : pbOrd95) {
                     // Concurrent assertions were claimed by the def pass.
-                    auto* pbs9 = member.as<ProceduralBlockSymbol>().getSyntax();
+                    auto* pbs9 = pbp95->getSyntax();
                     if (pbs9 && pbs9->kind ==
                                     syntax::SyntaxKind::ConcurrentAssertionMember)
                         continue;
-                    if (auto* p = emitProcess(
-                            member.as<ProceduralBlockSymbol>(), m, prefix,
-                            topNets))
+                    if (auto* p = emitProcess(*pbp95, m, prefix, topNets))
                         procs->push_back(p);
                 }
                 inProcessEmit = savedIPE9;
@@ -15723,8 +16120,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         }
         if (it != defMap.end() && !it->second.taskFuncs.empty()) {
             auto* tfs = s.MakeTask_funcVec();
-            for (auto* tf : it->second.taskFuncs)
+            bool progTf95 = m->UhdmType() == UHDM::uhdmprogram &&
+                            !progTfInstOff95();
+            for (auto* tf : it->second.taskFuncs) {
+                // § caProgTaskFuncInstIsElab95 — `writeElabProgram` is the
+                // FIRST writer to stamp a program subroutine's `vpiInstance`
+                // (UhdmWriter.cpp:2030), because `writeProgram` never does.
+                if (progTf95 && !tf->Instance())
+                    tf->Instance(m);
                 tfs->push_back(tf);
+            }
             m->Task_funcs(tfs);
         }
         // Imported functions called from THIS module's conns (queued during
@@ -15791,6 +16196,42 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     }
 
     emitImportArtifacts(body, m);
+    // § caProgElabTfSrcOrder95V (the r11u95 VERIFIER's fix) — A PROGRAM'S
+    // ELABORATED TASK/FUNC LISTING IS ONE SOURCE-ORDERED VECTOR ACROSS THE
+    // FLATTENED GROUP AND THE IMPORTED-PACKAGE GROUP.
+    //
+    // Golden's walk files the imported subroutine and the program's own in
+    // the one vector, in the order it met them
+    // (x26_progimportbodyfn: `pk::f_pkg`@3:3, `f_body`@7:3, `f_gen`@10:7).
+    // `emitImportArtifacts` (just above, the LAST writer of this vector) is
+    // what appends the imported subroutine, after the shared def listing that
+    // § caProgramGenFlattensEveryKind95 widened — which is why the sort sits
+    // here and not at the taskFuncs share, where the vector is still short one
+    // entry.  Before this fix the flattened subroutine jumped AHEAD of it
+    // (x12 118 -> 203 cmp lines, x26 208 -> 241, ORDER-DIFF 0 -> 1 on both
+    // holders).  The vector is re-sorted ONCE, and ONLY for a program that
+    // actually flattened a subroutine, so every other home — and every
+    // program without one — keeps its listing untouched.
+    if (m->UhdmType() == UHDM::uhdmprogram && !progTfFlatOff95()) {
+        bool flatTf95V = false;
+        for (auto* blk95 : programGenBlocks95(body))
+            for (auto& mm95 : blk95->members())
+                if (mm95.kind == SymbolKind::Subroutine)
+                    flatTf95V = true;
+        auto* tv95V = ((UHDM::instance*)m)->Task_funcs();
+        if (netDbg95()) {  // the trace sits OUTSIDE the gate
+            fprintf(stderr, "R11U95VTFORD home=%s flat=%d n=%zu\n",
+                    prefix.c_str(), (int)flatTf95V,
+                    tv95V ? tv95V->size() : (size_t)0);
+            if (tv95V)
+                for (auto* t95V : *tv95V)
+                    fprintf(stderr, "    tf=%s line=%u\n",
+                            std::string(t95V->VpiName()).c_str(),
+                            (unsigned)t95V->VpiLineNo());
+        }
+        if (flatTf95V && !progTfElabOrdOff95V() && tv95V && tv95V->size() > 1)
+            sortUhdmBySrc95(*tv95V);
+    }
 
     if (isTop) {
         topPendings.push_back({&inst, m, prefix, std::move(topNets), paramLo,

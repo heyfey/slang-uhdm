@@ -1,0 +1,9 @@
+pristine                         1936
+law, all switches ON             171
+R11U95_OFF=1                     1936
+R11U95_PROGPROC_OFF=1            1129
+R11U95_PROGTF_OFF=1              776
+R11U95_PROGCLASS_OFF=1           372
+R11U95_PROGTFINST_OFF=1          1147
+R11U95_GENZERO_OFF=1             487
+R11U95_OFF=1 vs pristine DATABASES: identical=35 differing=0 unbuilt=0

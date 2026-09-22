@@ -1,0 +1,21 @@
+r11u95 SOURCE-LEVEL CENSUS (srcscan95.py), both corpora + the positive control
+
+# /home/heyfey/git-repos/Surelog/tests: files_with_hits=4 programs_with_hits=4 LAWC=4
+# /home/heyfey/git-repos/Surelog/third_party/tests: files_with_hits=7 programs_with_hits=7 LAWC=7
+# /home/heyfey/git-repos/uhdm2rtlil/test: files_with_hits=0 programs_with_hits=0 NOTHING
+
+the LAWC rows the scanner flagged (a PROGRAM that mentions task/function at all):
+ClassCons/top.sv	top.sv@9	LAWC=1
+SimpleClass/top_1.sv	top_1.sv@2	LAWC=1
+SimpleClass/top_2.sv	top_2.sv@2	LAWC=1
+SimpleConstraint/top.sv	top.sv@4	LAWC=1
+ariane/src/common_cells/test/cb_filter_tb.sv	cb_filter_tb.sv@96	LAWC=1
+ariane/src/common_cells/test/sub_per_hash_tb.sv	sub_per_hash_tb.sv@62	LAWC=1
+ariane/tb/tb_wb_dcache/hdl/tb_amoport.sv	tb_amoport.sv@19	LAWC=1
+ariane/tb/common/tb_readport.sv	tb_readport.sv@22	LAWC=1
+ariane/tb/common/tb_writeport.sv	tb_writeport.sv@21	LAWC=1
+ariane/tb/tb_wt_dcache/hdl/tb_readport.sv	tb_readport.sv@24	LAWC=1
+ariane/tb/tb_wt_dcache/hdl/tb_writeport.sv	tb_writeport.sv@23	LAWC=1
+
+POSITIVE CONTROL on this pass's own grid:
+# tools/probe/r11u95repro/grid: files_with_hits=50 programs_with_hits=50 LAWA.class=4 LAWA.final=4 LAWA.function=10 LAWA.initial=24 LAWA.task=4 LAWB=14 LAWC=12 gen=48
