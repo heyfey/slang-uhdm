@@ -1,0 +1,20 @@
+r11u89 WIDE BOUNDARY — EVERY *.sv under tools/probe (not the grid glob)
+arms=7993 SAME=7769 DIFFERS=12 NODB=212
+NODB arms with prc != lrc: 0   (rc histogram: 208 x rc=3, 4 x rc=139, identical on both binaries)
+
+the twelve DIFFERS:
+ARM r10buvm22repro/g22.sv prc=4 lrc=4 DIFFERS
+ARM r10uvm154repro/l154_noenum.sv prc=0 lrc=0 DIFFERS
+ARM r10uvm185repro/grid185/g185_e_kinds.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y2_face87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y4_size87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y5_ovr87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y6_ovw87.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w3_chain87.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w4_chnn89.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w5_ovr87.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w6_dfp89.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w9_wide89.sv prc=0 lrc=0 DIFFERS
+
+nine are this pass's own cells, every one named a priori by the grid score;
+three are the documented ADDRESS-DERIVED UINT page class (delta exactly 4096).

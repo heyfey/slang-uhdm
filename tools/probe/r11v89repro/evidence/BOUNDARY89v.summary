@@ -1,0 +1,27 @@
+r11v89 WIDE BOUNDARY — EVERY *.sv under tools/probe of the PATCHED tree
+arms=7993 SAME=7769 DIFFERS=12 NODB=212
+NODB arms with prc != lrc: 0   (208 x rc=3, 4 x rc=139, identical on both binaries)
+
+the twelve DIFFERS (identical to r11u89's own list):
+ARM r10buvm22repro/g22.sv prc=4 lrc=4 DIFFERS
+ARM r10uvm154repro/l154_noenum.sv prc=0 lrc=0 DIFFERS
+ARM r10uvm185repro/grid185/g185_e_kinds.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y2_face87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y4_size87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y5_ovr87.sv prc=0 lrc=0 DIFFERS
+ARM r11u87repro/grid/y6_ovw87.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w3_chain87.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w4_chnn89.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w5_ovr87.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w6_dfp89.sv prc=0 lrc=0 DIFFERS
+ARM r11u89repro/grid/w9_wide89.sv prc=0 lrc=0 DIFFERS
+
+diff-line class check, per arm: every REMOVED line on all nine pass cells is
+a vpiSize, a vpiConstType, a vpiDecompile or a value line (|DEC:/|OCT:);
+UNEXPLAINED-REMOVALS=0 on all nine.  Everything else is ADD-only.
+
+the three page-class arms move an address-derived UINT by exactly 4096:
+  23237017 -> 23241113
+16 KB PAD POSITIVE CONTROL (pristine + volatile char v89pad[16384], NO law code):
+  23237017 -> 23253401  = +16384 EXACTLY, four times the law binary's page.
+  The value tracks the LOADED IMAGE, not the emitter's semantics.

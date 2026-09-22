@@ -1,0 +1,623 @@
+==== x1_ifgen89
+  TO  A[2]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  A[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  A[4]
+     G constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=96 ct=4 v=OCT:17 d=96'o17 ts=-
+     L constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+  TO  A[5]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  A[6]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[2]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[4]
+     G constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=96 ct=4 v=OCT:17 d=96'o17 ts=-
+     L constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+  TO  R[5]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[6]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[2]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[4]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[5]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[7]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+==== x2_wide89
+  TO  A[1]
+     G constant sz=96 ct=7 v=INT:9223372036854775807 d=9223372036854775807 ts=-
+     P constant sz=96 ct=1 v=DEC:9223372036854775807 d=96'd9223372036854775807 ts=-
+     L constant sz=96 ct=7 v=INT:9223372036854775807 d=9223372036854775807 ts=-
+  STILL A[2]
+     G constant sz=96 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=96 ct=1 v=DEC:9223372036854775808 d=96'd9223372036854775808 ts=-
+     L constant sz=96 ct=1 v=DEC:9223372036854775808 d=96'd9223372036854775808 ts=-
+  STILL A[3]
+     G constant sz=96 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=96 ct=1 v=DEC:18446744073709551615 d=96'd18446744073709551615 ts=-
+     L constant sz=96 ct=1 v=DEC:18446744073709551615 d=96'd18446744073709551615 ts=-
+  STILL A[4]
+     G constant sz=96 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=96 ct=1 v=DEC:18446744073709551616 d=96'd18446744073709551616 ts=-
+     L constant sz=96 ct=1 v=DEC:18446744073709551616 d=96'd18446744073709551616 ts=-
+  STILL A[5]
+     G constant sz=96 ct=9 v=UINT:0 d=0 ts=-
+     P constant sz=96 ct=4 v=OCT:7777777777777777777777 d=96'o7777777777777777777777 ts=-
+     L constant sz=96 ct=4 v=OCT:7777777777777777777777 d=96'o7777777777777777777777 ts=-
+  TO  A[6]
+     G constant sz=66 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=66 ct=1 v=DEC:0 d=66'd0 ts=-
+     L constant sz=66 ct=7 v=INT:0 d=0 ts=-
+  TO  A[7]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[1]
+     G constant sz=96 ct=7 v=INT:9223372036854775807 d=9223372036854775807 ts=-
+     P constant sz=96 ct=1 v=DEC:9223372036854775807 d=96'd9223372036854775807 ts=-
+     L constant sz=96 ct=7 v=INT:9223372036854775807 d=9223372036854775807 ts=-
+  STILL R[2]
+     G constant sz=96 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=96 ct=1 v=DEC:9223372036854775808 d=96'd9223372036854775808 ts=-
+     L constant sz=96 ct=1 v=DEC:9223372036854775808 d=96'd9223372036854775808 ts=-
+  STILL R[3]
+     G constant sz=96 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=96 ct=1 v=DEC:18446744073709551615 d=96'd18446744073709551615 ts=-
+     L constant sz=96 ct=1 v=DEC:18446744073709551615 d=96'd18446744073709551615 ts=-
+  STILL R[4]
+     G constant sz=96 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=96 ct=1 v=DEC:18446744073709551616 d=96'd18446744073709551616 ts=-
+     L constant sz=96 ct=1 v=DEC:18446744073709551616 d=96'd18446744073709551616 ts=-
+  STILL R[5]
+     G constant sz=96 ct=9 v=UINT:0 d=0 ts=-
+     P constant sz=96 ct=4 v=OCT:7777777777777777777777 d=96'o7777777777777777777777 ts=-
+     L constant sz=96 ct=4 v=OCT:7777777777777777777777 d=96'o7777777777777777777777 ts=-
+  TO  R[6]
+     G constant sz=66 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=66 ct=1 v=DEC:0 d=66'd0 ts=-
+     L constant sz=66 ct=7 v=INT:0 d=0 ts=-
+  TO  R[7]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  B[1]
+     G constant sz=96 ct=7 v=INT:21 d=21 ts=-
+     P constant sz=96 ct=1 v=DEC:21 d=96'd21 ts=-
+     L constant sz=96 ct=7 v=INT:21 d=21 ts=-
+  TO  B[2]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  B[3]
+     G constant sz=96 ct=7 v=INT:21 d=21 ts=-
+     P constant sz=96 ct=1 v=DEC:21 d=96'd21 ts=-
+     L constant sz=96 ct=7 v=INT:21 d=21 ts=-
+  TO  B[4]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  B[5]
+     G constant sz=96 ct=7 v=INT:21 d=21 ts=-
+     P constant sz=96 ct=1 v=DEC:21 d=96'd21 ts=-
+     L constant sz=96 ct=7 v=INT:21 d=21 ts=-
+  TO  B[6]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  B[7]
+     G constant sz=96 ct=7 v=INT:21 d=21 ts=-
+     P constant sz=96 ct=1 v=DEC:21 d=96'd21 ts=-
+     L constant sz=96 ct=7 v=INT:21 d=21 ts=-
+  TO  R[1]
+     G constant sz=96 ct=7 v=INT:21 d=21 ts=-
+     P constant sz=96 ct=1 v=DEC:21 d=96'd21 ts=-
+     L constant sz=96 ct=7 v=INT:21 d=21 ts=-
+  TO  R[2]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  R[3]
+     G constant sz=96 ct=7 v=INT:21 d=21 ts=-
+     P constant sz=96 ct=1 v=DEC:21 d=96'd21 ts=-
+     L constant sz=96 ct=7 v=INT:21 d=21 ts=-
+  TO  R[4]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  R[5]
+     G constant sz=96 ct=7 v=INT:21 d=21 ts=-
+     P constant sz=96 ct=1 v=DEC:21 d=96'd21 ts=-
+     L constant sz=96 ct=7 v=INT:21 d=21 ts=-
+  TO  R[6]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  R[7]
+     G constant sz=96 ct=7 v=INT:21 d=21 ts=-
+     P constant sz=96 ct=1 v=DEC:21 d=96'd21 ts=-
+     L constant sz=96 ct=7 v=INT:21 d=21 ts=-
+  TO  B[1]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  B[2]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  B[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  B[4]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  B[5]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  B[6]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  B[7]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[1]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[2]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  R[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[4]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  R[5]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[6]
+     G constant sz=96 ct=7 v=INT:33 d=33 ts=-
+     P constant sz=96 ct=1 v=DEC:33 d=96'd33 ts=-
+     L constant sz=96 ct=7 v=INT:33 d=33 ts=-
+  TO  R[7]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+==== x3_ovred89
+  TO  C[1]
+     G constant sz=96 ct=5 v=HEX:5 d=96'h5 ts=-
+     P constant sz=32 ct=5 v=HEX:5 d=96'h5 ts=-
+     L constant sz=96 ct=5 v=HEX:5 d=96'h5 ts=-
+  TO  C[2]
+     G constant sz=8 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=16 ct=7 v=INT:0 d=0 ts=-
+     L constant sz=8 ct=7 v=INT:0 d=0 ts=-
+  TO  C[3]
+     G constant sz=64 ct=9 v=UINT:0 d=0 ts=-
+     P constant sz=32 ct=9 v=UINT:0 d=0 ts=-
+     L constant sz=64 ct=9 v=UINT:0 d=0 ts=-
+  TO  C[4]
+     G constant sz=4 ct=9 v=UINT:7 d=7 ts=-
+     P constant sz=12 ct=9 v=UINT:7 d=7 ts=-
+     L constant sz=4 ct=9 v=UINT:7 d=7 ts=-
+  TO  C[5]
+     G constant sz=96 ct=5 v=HEX:5 d=96'h5 ts=-
+     P constant sz=32 ct=5 v=HEX:5 d=96'h5 ts=-
+     L constant sz=96 ct=5 v=HEX:5 d=96'h5 ts=-
+  TO  C[6]
+     G constant sz=8 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=16 ct=7 v=INT:0 d=0 ts=-
+     L constant sz=8 ct=7 v=INT:0 d=0 ts=-
+  TO  C[7]
+     G constant sz=64 ct=9 v=UINT:0 d=0 ts=-
+     P constant sz=32 ct=9 v=UINT:0 d=0 ts=-
+     L constant sz=64 ct=9 v=UINT:0 d=0 ts=-
+  TO  R[1]
+     G constant sz=96 ct=5 v=HEX:5 d=96'h5 ts=-
+     P constant sz=32 ct=5 v=HEX:5 d=96'h5 ts=-
+     L constant sz=96 ct=5 v=HEX:5 d=96'h5 ts=-
+  TO  R[2]
+     G constant sz=8 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=16 ct=7 v=INT:0 d=0 ts=-
+     L constant sz=8 ct=7 v=INT:0 d=0 ts=-
+  TO  R[3]
+     G constant sz=64 ct=9 v=UINT:0 d=0 ts=-
+     P constant sz=32 ct=9 v=UINT:0 d=0 ts=-
+     L constant sz=64 ct=9 v=UINT:0 d=0 ts=-
+  TO  R[4]
+     G constant sz=4 ct=9 v=UINT:7 d=7 ts=-
+     P constant sz=12 ct=9 v=UINT:7 d=7 ts=-
+     L constant sz=4 ct=9 v=UINT:7 d=7 ts=-
+  TO  R[5]
+     G constant sz=96 ct=5 v=HEX:5 d=96'h5 ts=-
+     P constant sz=32 ct=5 v=HEX:5 d=96'h5 ts=-
+     L constant sz=96 ct=5 v=HEX:5 d=96'h5 ts=-
+  TO  R[6]
+     G constant sz=8 ct=7 v=INT:0 d=0 ts=-
+     P constant sz=16 ct=7 v=INT:0 d=0 ts=-
+     L constant sz=8 ct=7 v=INT:0 d=0 ts=-
+  TO  R[7]
+     G constant sz=64 ct=9 v=UINT:0 d=0 ts=-
+     P constant sz=32 ct=9 v=UINT:0 d=0 ts=-
+     L constant sz=64 ct=9 v=UINT:0 d=0 ts=-
+  TO  D[1]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=-
+  TO  D[2]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=-
+  TO  D[3]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=-
+  TO  D[4]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=-
+  TO  D[5]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=-
+  TO  D[6]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=-
+  TO  D[7]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=-
+  TO  C[1]
+     G constant sz=20 ct=7 v=INT:7 d=7 ts=-
+     P constant sz=32 ct=7 v=INT:7 d=7 ts=-
+     L constant sz=20 ct=7 v=INT:7 d=7 ts=-
+  TO  C[2]
+     G constant sz=12 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=16 ct=9 v=UINT:15 d=15 ts=-
+     L constant sz=12 ct=9 v=UINT:15 d=15 ts=-
+  TO  C[3]
+     G constant sz=64 ct=9 v=UINT:9 d=9 ts=-
+     P constant sz=32 ct=9 v=UINT:9 d=9 ts=-
+     L constant sz=64 ct=9 v=UINT:9 d=9 ts=-
+  TO  C[4]
+     G constant sz=5 ct=5 v=HEX:3 d=5'h3 ts=-
+     P constant sz=12 ct=5 v=HEX:3 d=5'h3 ts=-
+     L constant sz=5 ct=5 v=HEX:3 d=5'h3 ts=-
+  TO  C[5]
+     G constant sz=20 ct=7 v=INT:7 d=7 ts=-
+     P constant sz=32 ct=7 v=INT:7 d=7 ts=-
+     L constant sz=20 ct=7 v=INT:7 d=7 ts=-
+  TO  C[6]
+     G constant sz=12 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=16 ct=9 v=UINT:15 d=15 ts=-
+     L constant sz=12 ct=9 v=UINT:15 d=15 ts=-
+  TO  C[7]
+     G constant sz=64 ct=9 v=UINT:9 d=9 ts=-
+     P constant sz=32 ct=9 v=UINT:9 d=9 ts=-
+     L constant sz=64 ct=9 v=UINT:9 d=9 ts=-
+  TO  R[1]
+     G constant sz=20 ct=7 v=INT:7 d=7 ts=-
+     P constant sz=32 ct=7 v=INT:7 d=7 ts=-
+     L constant sz=20 ct=7 v=INT:7 d=7 ts=-
+  TO  R[2]
+     G constant sz=12 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=16 ct=9 v=UINT:15 d=15 ts=-
+     L constant sz=12 ct=9 v=UINT:15 d=15 ts=-
+  TO  R[3]
+     G constant sz=64 ct=9 v=UINT:9 d=9 ts=-
+     P constant sz=32 ct=9 v=UINT:9 d=9 ts=-
+     L constant sz=64 ct=9 v=UINT:9 d=9 ts=-
+  TO  R[4]
+     G constant sz=5 ct=5 v=HEX:3 d=5'h3 ts=-
+     P constant sz=12 ct=5 v=HEX:3 d=5'h3 ts=-
+     L constant sz=5 ct=5 v=HEX:3 d=5'h3 ts=-
+  TO  R[5]
+     G constant sz=20 ct=7 v=INT:7 d=7 ts=-
+     P constant sz=32 ct=7 v=INT:7 d=7 ts=-
+     L constant sz=20 ct=7 v=INT:7 d=7 ts=-
+  TO  R[6]
+     G constant sz=12 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=16 ct=9 v=UINT:15 d=15 ts=-
+     L constant sz=12 ct=9 v=UINT:15 d=15 ts=-
+  TO  R[7]
+     G constant sz=64 ct=9 v=UINT:9 d=9 ts=-
+     P constant sz=32 ct=9 v=UINT:9 d=9 ts=-
+     L constant sz=64 ct=9 v=UINT:9 d=9 ts=-
+==== x4_chned89
+  TO  A[2]
+     G constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+     L constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+  TO  A[4]
+     G constant sz=8 ct=9 v=UINT:3 d=3 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:3 d=3 ts=-
+     L constant sz=8 ct=9 v=UINT:3 d=3 ts=int_typespec/S
+  TO  A[6]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  A[7]
+     G constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+     L constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+  TO  B[1]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  WRONG2 B[2]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+     L constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+  STILL B[3]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+     L constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+  STILL B[4]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+     L constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+  TO  B[5]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  B[6]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  STILL B[7]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+     L constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+  TO  R[2]
+     G constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+     L constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+  TO  R[4]
+     G constant sz=8 ct=9 v=UINT:3 d=3 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:3 d=3 ts=-
+     L constant sz=8 ct=9 v=UINT:3 d=3 ts=int_typespec/S
+  TO  R[6]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[7]
+     G constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:6 d=6 ts=-
+     L constant sz=8 ct=7 v=INT:6 d=6 ts=int_typespec/S
+  TO  R[1]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  WRONG2 R[2]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+     L constant sz=8 ct=9 v=UINT:5 d=5 ts=int_typespec/S
+  STILL R[3]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+     L constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+  STILL R[4]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+     L constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+  TO  R[5]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[6]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  STILL R[7]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+     L constant sz=8 ct=9 v=UINT:5 d=5 ts=-
+==== x5_pkgchn89
+  TO  A[1]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  A[2]
+     G constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=96 ct=4 v=OCT:17 d=96'o17 ts=-
+     L constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+  TO  A[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  A[4]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  A[5]
+     G constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=96 ct=4 v=OCT:17 d=96'o17 ts=-
+     L constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+  TO  A[6]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  A[7]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[1]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[2]
+     G constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=96 ct=4 v=OCT:17 d=96'o17 ts=-
+     L constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+  TO  R[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[4]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[5]
+     G constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=96 ct=4 v=OCT:17 d=96'o17 ts=-
+     L constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+  TO  R[6]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[7]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+==== x6_widecast89
+  WRONG2 A[1]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=logic_typespec/S
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  WRONG2 A[2]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=logic_typespec/S
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  A[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  STILL A[4]
+     G constant sz=96 ct=7 v=INT:15 d=15 ts=logic_typespec/S
+     P constant sz=64 ct=9 v=UINT:15 d= ts=-
+     L constant sz=64 ct=9 v=UINT:15 d= ts=-
+  STILL A[5]
+     G constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=64 ct=9 v=UINT:15 d=15 ts=-
+     L constant sz=64 ct=9 v=UINT:15 d=15 ts=-
+  WRONG2 A[6]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=int_typespec/S
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  A[7]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  WRONG2 R[1]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=logic_typespec/S
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  WRONG2 R[2]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=logic_typespec/S
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[3]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  STILL R[4]
+     G constant sz=96 ct=7 v=INT:15 d=15 ts=logic_typespec/S
+     P constant sz=64 ct=9 v=UINT:15 d= ts=-
+     L constant sz=64 ct=9 v=UINT:15 d= ts=-
+  STILL R[5]
+     G constant sz=96 ct=9 v=UINT:15 d=15 ts=-
+     P constant sz=64 ct=9 v=UINT:15 d=15 ts=-
+     L constant sz=64 ct=9 v=UINT:15 d=15 ts=-
+  WRONG2 R[6]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=int_typespec/S
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+  TO  R[7]
+     G constant sz=96 ct=7 v=INT:12 d=12 ts=-
+     P constant sz=96 ct=1 v=DEC:12 d=96'd12 ts=-
+     L constant sz=96 ct=7 v=INT:12 d=12 ts=-
+==== x7_outkind89
+  TO  A[1]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  A[2]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  A[3]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  A[4]
+     G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  A[5]
+     G constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=64 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  A[6]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[1]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[2]
+     G constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=8 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=8 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[3]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[4]
+     G constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=32 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=32 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[5]
+     G constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=64 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=64 ct=7 v=INT:5 d=5 ts=int_typespec/S
+  TO  R[6]
+     G constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S
+     P constant sz=16 ct=7 v=INT:5 d=5 ts=-
+     L constant sz=16 ct=7 v=INT:5 d=5 ts=int_typespec/S

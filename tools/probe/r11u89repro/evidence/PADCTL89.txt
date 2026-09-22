@@ -1,0 +1,23 @@
+=== r10buvm22repro/g22.sv
+  pris: |UINT:23236161 |UINT:23237017 
+  law: |UINT:23240257 |UINT:23241113 
+  pad: |UINT:23252577 |UINT:23253433 
+=== r10uvm154repro/l154_noenum.sv
+  pris: |UINT:23237017 
+  law: |UINT:23241113 
+  pad: |UINT:23253433 
+=== r10uvm185repro/grid185/g185_e_kinds.sv
+  pris: |UINT:23237017 
+  law: |UINT:23241113 
+  pad: |UINT:23253433 
+image sizes:
+   23189880 /tmp/r11u89_lawx.bin
+   23189824 /tmp/r11u89_padx.bin
+   23189784 /tmp/r11u89_pris.bin
+
+READING: the three arms' moved field is an unsupported-typedef `range` bound
+emitted as an ADDRESS-DERIVED `UINT:`.  pristine -> law is +4096 (one page);
+pristine -> PAD, a build carrying nothing but `volatile char pad[16384]` and
+NO law code, is +16416 — the pad's own 16384 bytes plus its 32-byte alignment.
+The value tracks the LOADED IMAGE, not the emitter's semantics.  It is
+r11v11u8's documented residue; no corpus row touches any of the three arms.

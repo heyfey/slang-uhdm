@@ -16530,11 +16530,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     //   in the pattern is golden its own `DEC:`/`OCT:`
                     //   (`m3_gate86` op1/op3, `m5_bnd86` op10) — the store is
                     //   only consulted for a NAME.
-                    // * 64 BITS.  `m5_bnd86` op5/op6: `96'd12` is golden
-                    //   `96@1 DEC:12 d=96'd12` and `65'd3` is golden
-                    //   `65@1 DEC:3 d=65'd3` — past 64 bits there is no simple
-                    //   Value and the clone answers, so the law stops at the
-                    //   word boundary.  An UNSIZED literal (`red81LitWrittenSize81`
+                    // * 64 BITS — PACKAGE ROAD ONLY.  `m5_bnd86` op5/op6:
+                    //   `96'd12` / `65'd3` are pkg-homed and golden `DEC:` —
+                    //   the PACKAGE setValue is capped at 64; the MODULE road
+                    //   has no guard and § r11u89's LAW B serves it (w9_wide89).
+                    //   An UNSIZED literal (`red81LitWrittenSize81`
                     //   -1) is inside it.
                     // * A NEGATIVE READ.  `m5_bnd86` op7,
                     //   `64'd18446744073709551614`, is golden `64@7 INT:0 d=0`:
@@ -16569,7 +16569,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             const int32_t have86 = c86->VpiConstType();
                             if (have86 != vpiDecConst && have86 != vpiOctConst)
                                 continue;
-                            if (!red86HopName86(*sx86, 0))
+                            const slang::ast::ParameterSymbol* hw86 =
+                                red86HopName86(*sx86, 0);
+                            if (!hw86)
                                 continue;
                             int64_t rv86 = 0;
                             if (patAstRefuses68(*sx86) ||
@@ -16581,7 +16583,55 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             bool mint86 = false;
                             const int32_t ct86 =
                                 red81StoreCt81(*sx86, 0, sz86, mint86);
-                            if (sz86 > 64)
+                            // § modWideModuleStoreEnc89 (r11u89) — THE WORD
+                            // FENCE IS THE PACKAGE ROAD'S, AND IT IS THE HOP'S
+                            // HOME THAT DECIDES.  r11u87's R2 and its own §4
+                            // correction: `CompileHelper.cpp:3770`'s
+                            // `if (size <= 64)` guards the PACKAGE/definition
+                            // road's `component->setValue`, and
+                            // `DesignElaboration.cpp:2645`'s
+                            // `instance->setValue` — the MODULE road — has no
+                            // such guard at all.  `fromVpiValue`
+                            // (`ExprBuilder.cpp:978-1010`) parses the digits
+                            // with `parseInt64`/`parseUint64` and calls
+                            // `set(v, Type, size)` with the CONSTANT's size,
+                            // whatever it is.
+                            //
+                            // MEASURED, arm `w9_wide89` (real Surelog v1.87,
+                            // `slrc=0 ourrc=0 slerr=0`), the same widths in a
+                            // MODULE and in a PACKAGE, read into ONE module
+                            // pattern:
+                            //
+                            //   hop (module-homed)   golden      ours (pris)
+                            //   logic [64:0] = 65'd3  65@7 INT:3  65@1 DEC:3
+                            //   logic [95:0] = 96'd12 96@7 INT:12 96@1 DEC:12
+                            //   logic[127:0] =128'd21 128@7 INT:21 128@1 DEC
+                            //   logic [95:0] = 96'o17 96@9 UINT:15 96@4 OCT:17
+                            //   int signed   = 96'd12 96@7 INT:12/S 96@1 DEC/S
+                            //   an OVERRIDDEN 96-bit hop  96@7 INT:7  96@1 DEC
+                            //   logic [95:0] = 96'h5  96@5 HEX:5   the same
+                            //
+                            //   hop (PACKAGE-homed)  golden           ours
+                            //   w9p::PW96 = 96'd12   96@1 DEC:96'd12  the same
+                            //   w9p::PW65 = 65'd3    65@1 DEC:65'd3   the same
+                            //   w9p::PW128 = 128'd21 128@1 DEC        the same
+                            //   w9p::PO96 = 96'o17   96@4 OCT:96'o17  the same
+                            //
+                            // The four package twins sit in the SAME pattern
+                            // as the module hops and are the gate's own
+                            // positive control: relaxing the fence for them
+                            // would be eight AWAY cells.
+                            //
+                            // THE OVERFLOW FACE IS ALREADY FENCED and stays
+                            // fenced: `logic [95:0] = 96'd79228162514264337593543950335`
+                            // is golden `96@7 INT:0 d=0` — the producer's own
+                            // `parseInt64` failed and the digits are LOST —
+                            // and `red72WideBasedLeaf` refuses that leaf
+                            // outright (`as<uint64_t>()` declines it), so this
+                            // law transcribes nothing there.  Recorded as R2;
+                            // golden writing zero is not a licence to invent
+                            // one.
+                            if (sz86 > 64 && !red87HopHomeIsInstance87(*hw86))
                                 continue;
                             if (ct86 != have86)
                                 continue;
@@ -16801,8 +16851,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                             bool dec87 = false;
                             int32_t sz87 = 0;
-                            if (!red87StoreSize87(*hq87, 0, dec87, sz87))
-                                continue;
+                            if (!red87StoreSize87(*hq87, 0, dec87, sz87)) {
+                                // § modOvrStoreSizeIsTheOverride89 (r11u89) —
+                                // r11u87's R3, the one shape the landed reader
+                                // declines BY NAME.  The override road sizes
+                                // the store off the OVERRIDE literal and never
+                                // calls `adjustSize`; the full decode, the
+                                // measured table and the four abstentions (a
+                                // BINARY override, an operation, a hop, a
+                                // DEFPARAM) are in the § block beside
+                                // `red89OvrStoreSize89`.  It rides the same
+                                // bail index, home and reduce gates as the
+                                // reader it follows, plus ONE of its own: the
+                                // operand must carry NO typespec, because the
+                                // only measured overridden cell that does —
+                                // `.U(16'sd7)`, where our literal path hung
+                                // the literal's own signed `int_typespec` and
+                                // golden's override road hung none — cannot
+                                // reach golden on the size alone.
+                                int32_t so89 = 0;
+                                if (c87->Typespec() ||
+                                    !red89OvrStoreSize89(*hq87, so89))
+                                    continue;
+                                sz87 = so89;
+                            }
                             if (sz87 != c87->VpiSize())
                                 c87->VpiSize(sz87);
                         }

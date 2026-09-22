@@ -1,0 +1,112 @@
+=== r11u87repro_grid_y2_face87_sv
+      7 >           |vpiSize
+      7 >             |vpiSize
+      7 <           |vpiSize
+      7 <             |vpiSize
+=== r11u87repro_grid_y4_size87_sv
+      1 <         |vpiDecompile:N'dN
+      1 <           |vpiDecompile:N'dN
+      1 >         |vpiDecompile
+      1 >           |vpiDecompile
+      1 >         |vpiConstType
+      1 >           |vpiConstType
+      1 <         |vpiConstType
+      1 <           |vpiConstType
+      1 >         |INT
+      1 >           |INT
+      1 <         |DEC
+      1 <           |DEC
+=== r11u87repro_grid_y5_ovr87_sv
+      7 >           |vpiSize
+      7 <           |vpiSize
+=== r11u87repro_grid_y6_ovw87_sv
+      3 >           |vpiSize
+      3 >             |vpiSize
+      3 <           |vpiSize
+      3 <             |vpiSize
+=== r11u89repro_grid_w3_chain87_sv
+     24 >   |vpiSigned
+     24 > \_int_typespec: 
+     12 >         |vpiTypespec
+     12 >           |vpiTypespec
+     12 >           |vpiParent
+     12 >             |vpiParent
+     12 >             |vpiFullName:work@wN_chainN.sN
+     12 >           |vpiFullName:work@wN_chainN
+     12 >           |vpiActual
+     12 >             |vpiActual
+     12 >           \_ref_typespec: (work@wN_chainN.sN)
+     12 >         \_ref_typespec: (work@wN_chainN)
+     12 >           \_int_typespec: 
+     12 >             \_int_typespec: 
+     12 >           \_constant: , line:N:N, endln:N
+     12 >             \_constant: , line:N:N, endln:N
+=== r11u89repro_grid_w4_chnn89_sv
+      2 >   |vpiSigned
+      2 > \_int_typespec: 
+      1 >         |vpiTypespec
+      1 >           |vpiTypespec
+      1 >           |vpiParent
+      1 >             |vpiParent
+      1 >             |vpiFullName:work@wN_chnnN.sN
+      1 >           |vpiFullName:work@wN_chnnN
+      1 >           |vpiActual
+      1 >             |vpiActual
+      1 >           \_ref_typespec: (work@wN_chnnN.sN)
+      1 >         \_ref_typespec: (work@wN_chnnN)
+      1 >           \_int_typespec: 
+      1 >             \_int_typespec: 
+      1 >           \_constant: , line:N:N, endln:N
+      1 >             \_constant: , line:N:N, endln:N
+=== r11u89repro_grid_w5_ovr87_sv
+     16 <           |vpiSize
+     16 <             |vpiSize
+     14 >           |vpiSize
+     14 >             |vpiSize
+      2 >           |vpiSize:-N
+      2 >             |vpiSize:-N
+=== r11u89repro_grid_w6_dfp89_sv
+      4 >   |vpiSigned
+      4 > \_int_typespec: 
+      2 >           |vpiTypespec
+      2 >             |vpiTypespec
+      2 >             |vpiParent
+      2 >               |vpiParent
+      2 >               |vpiFullName:work@wN_dfpN.mN.sN
+      2 >             |vpiFullName:work@wN_dfpN.mN
+      2 >             |vpiActual
+      2 >               |vpiActual
+      2 >             \_ref_typespec: (work@wN_dfpN.mN.sN)
+      2 >           \_ref_typespec: (work@wN_dfpN.mN)
+      2 >             \_int_typespec: 
+      2 >               \_int_typespec: 
+      2 >             \_constant: , line:N:N, endln:N
+      2 >               \_constant: , line:N:N, endln:N
+=== r11u89repro_grid_w9_wide89_sv
+     21 >           |vpiDecompile
+     21 >           |vpiConstType
+     21 <           |vpiConstType
+     14 <           |vpiDecompile:N'dN
+     14 >             |vpiDecompile
+     14 >             |vpiConstType
+     14 <             |vpiConstType
+     14 >           |INT
+     14 <           |DEC
+      8 <             |vpiDecompile:N'dN
+      8 >             |INT
+      8 <             |DEC
+      7 <           |vpiDecompile:N'oN
+      7 >         |vpiDecompile
+      7 >         |vpiConstType
+      7 <         |vpiConstType
+      7 >           |UINT
+      7 <           |OCT
+      6 <             |vpiDecompile:N'oN
+      6 <         |vpiDecompile:N'dN
+      6 >             |UINT
+      6 <             |OCT
+      6 >         |INT
+      6 <         |DEC
+      1 <         |vpiDecompile:N'oN
+      1 >         |UINT
+      1 <         |OCT

@@ -8712,13 +8712,83 @@ inline bool red87HopDeclaredType87(const slang::ast::ParameterSymbol& ps87) {
 }
 
 /// § modHopSignedStoreTs87 — the truth table above, read off the declaration.
-inline bool red87StoreSigned87(const slang::ast::ParameterSymbol& ps87) {
+/// § modHopSignedStoreChain89 (r11u89) — AND THE FLAG PROPAGATES THROUGH THE
+/// SUBSTITUTED MINT'S OWN TYPESPEC, PAST AN UNSIGNED DECLARATION.
+///
+/// `DesignElaboration.cpp:2578-2587` is
+///
+///   value = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
+///   const UHDM::typespec* cts = nullptr;
+///   if (const UHDM::ref_typespec* rt = c->Typespec()) cts = rt->Actual_typespec();
+///   value->setTypespec(cts ? cts : ts);
+///   if (ts) m_helper.valueRange(value, ts, cts ? cts : ts, …);
+///
+/// and `valueRange` reads `VpiSigned` off its THIRD argument — `cts` when the
+/// elaborated constant carries a typespec of its own, and only otherwise the
+/// declaration's `ts`.  When the initializer was a HOP whose own store is
+/// signed, `CompileExpression.cpp:3032-3040` has ALREADY hung a bare signed
+/// `int_typespec` on that constant, so `cts` is signed and the reader's own
+/// declaration never gets a vote.  (The `:2562` fill-in
+/// `if (c->Typespec() == nullptr) c->Typespec(ref(ts))` is what hands the
+/// declaration in for every other shape, and it cannot run here.)
+///
+/// MEASURED, arm `w3_chain87` (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`,
+/// 24-bit members, operand 0 a guaranteed bail), over `int C1 = 16'd5`:
+///
+///   reader declaration          golden        ours (pristine)
+///   logic [7:0]  C5 = C1        8   /S        8   ts=-
+///   logic [15:0] C2 = C1        16  /S        16  ts=-
+///   int unsigned C3 = C1        32  /S        32  ts=-
+///   bit [15:0]   C4 = C1        16  /S        16  ts=-
+///   logic [7:0]  E3 = C5        8   /S        8   ts=-   (depth 3)
+///   logic [3:0]  E4 = E3        4   /S        4   ts=-   (depth 4)
+///   logic [7:0]  S2 = S1  (bit signed [15:0] S1)  8  /S  8  ts=-
+///   logic [23:0] S3 = S2        24  /S        24  ts=-
+///   `localparam  I2 = C1`       16  ts=-      the same — EQUAL, and the
+///                                             control that keeps the
+///                                             `red87HopDeclaredType87` gate:
+///                                             `valueRange` runs only `if (ts)`
+///
+/// and the SIZE is golden ALREADY on every one of them — the mint's const type
+/// is `INT:` and never `DEC:`, so the reader's own `adjustSize` re-sizes it to
+/// the declaration, which is what our emission writes.  This is a pure
+/// typespec ADD.
+///
+/// THE NEGATIVE CONTROLS, arm `w4_chnn89`, each golden BARE:
+///
+///   logic [7:0] N3 = A1   over `shortint A1`     — an atom kind `valueRange`
+///                                                  does not name
+///   logic [7:0] M1 = O    over an OVERRIDDEN `O` — `:2510` skips the loop, so
+///                                                  `O`'s store is never signed
+///   logic [7:0] N5 = B1 + 0                      — an OPERATION, not a hop
+///   logic [7:0] D2 = U1   over `logic [15:0] U1` — an unsigned inner
+///
+/// so the recursion is the SAME reader applied to the inner hop, gates and
+/// all, and not a "the initializer mentions a signed name" test.  A
+/// PACKAGE-homed inner is declined here although golden reads it signed
+/// (`w4_chnn89` `N1`, golden `32 /S`): golden's SIZE there is 32 where ours is
+/// the declaration's 8, so the cell cannot reach golden on this field alone
+/// and the road that produces the 32 is undecoded — recorded as R1.
+inline bool red87StoreSigned87(const slang::ast::ParameterSymbol& ps87,
+                               int depth89 = 0) {
     if (ps87.isOverridden())
         return false;
     if (!red87HopHomeIsInstance87(ps87))
         return false;
     if (!red87HopDeclaredType87(ps87))
         return false;
+    if (depth89 < 8) {
+        if (const Expression* in89 = ps87.getInitializer()) {
+            const Expression& e89 = stripImplicitConv(*in89);
+            if (e89.kind == ExpressionKind::NamedValue) {
+                auto& sy89 = e89.as<ValueExpressionBase>().symbol;
+                if (sy89.kind == SymbolKind::Parameter &&
+                    red87StoreSigned87(sy89.as<slang::ast::ParameterSymbol>(),
+                                       depth89 + 1))
+                    return true;
+            }
+        }
+    }
     const slang::ast::Type& ty87 = ps87.getType().getCanonicalType();
     if (!ty87.isSigned())
         return false;
@@ -8809,6 +8879,96 @@ inline bool red87StoreSize87(const slang::ast::ParameterSymbol& ps87,
         return false;
     dec87 = true;
     sz87 = psz87;
+    return true;
+}
+
+/// § modOvrStoreSizeIsTheOverride89 (r11u89) — AN OVERRIDDEN HOP'S STORE IS
+/// SIZED BY THE OVERRIDE EXPRESSION, NOT BY ITS DECLARATION AND NOT BY ITS
+/// DEFAULT.
+///
+/// The `#()` override never enters `DesignElaboration.cpp:2505`'s loop
+/// (`overridenParams`, `:2510`).  Its store is built on the override road, and
+/// BOTH arms of it size the value off the override's OWN compiled constant
+/// with no `adjustSize` and no declared typespec in sight — the named arm at
+/// `:2185-2187`
+///
+///   const std::string_view v = c->VpiValue();
+///   value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
+///
+/// and the positional arm at `:2376-2378` identically.  `valueRange` is not
+/// called on either, which is why an overridden hop is golden BARE (the landed
+/// § modHopSignedStoreTs87 already declines it).
+///
+/// MEASURED, arm `w5_ovr87` (real Surelog v1.87, `slrc=0 ourrc=0 slerr=0`),
+/// one module instantiated six ways; every cell below differs from golden in
+/// the SIZE FIELD ALONE, with `ct`, `v`, `d` and `ts` already equal:
+///
+///   declaration              override    golden   ours (pristine)
+///   int            P = 32'd1   16'd5      16       32
+///   logic [15:0]   Q = 16'd2   8'd6       8        16
+///   int            S = 32'o3   24'o17     24       32
+///   logic [11:0]   T = 12'h4   4'h3       4        12
+///   logic signed [15:0] V      40'd9      40       16
+///   int            U = 32'd5   7          64       32
+///   logic [3:0]    W = 4'd1    7          64       4
+///   (positional)   12'd4/20'd6/9'o17/5'h3/8/33'd9  12/20/9/5/64/33 vs 32/16/32/12/32/16
+///   int            P = 32'd1   'd5        -1       32
+///   int            S = 32'o3   64'd5      64       32
+///   logic [95:0]   OW = 96'd1  96'd7      96       96  — EQUAL (`w9_wide89`)
+///
+/// THE UNSIZED PLAIN DECIMAL IS THE 64.  `7` and `8` are golden `64@9 UINT:`
+/// against a 32-bit AND a 4-bit declaration alike: the override compiles to no
+/// sized constant, the road falls through to `evalExpr`, and `Value::set(uint64_t)`
+/// hard-codes `m_size = 64` (`Value.h`).  An unsized BASED `'d5` is golden
+/// `-1`, the same answer `red81LitWrittenSize81` already gives the landed size
+/// law for `int YUN = 'd5`.
+///
+/// THE ABSTENTIONS, each with the golden cell that demands it:
+///
+/// * A BINARY override.  `8'b1010` is golden `8@3 BIN:1010` and ours is
+///   `24@3 BIN:000000000000000000001010` — the VALUE field is wrong on both
+///   binaries (our member stamp zero-pads the digit string), so moving the
+///   size alone would leave a half-golden cell.  Recorded as R3.
+/// * AN OPERATION or a HOP override.  `.P(w5p::PSRC)` is golden 32 and
+///   `.Q(16'd6 + 16'd0)` golden 16 — the REDUCED constant's width, which is
+///   already what our emission writes: both sections read golden EQUAL on
+///   every operand.  `.T(-5)` is golden 64, the reducer's unsized-arithmetic
+///   width, which this reader cannot name.
+/// * A DEFPARAM.  slang sets `DeclaredTypeFlags::InitializerOverridden` only
+///   for a `#()` / config override (`ParameterBuilder.cpp:249`); a defparam
+///   takes the early `param->setValue(...)` return at `:283-287`, so
+///   `isOverridden()` reads FALSE and this reader never sees it.  That is the
+///   FENCE, and it is deliberate: measured on `w6_dfp89`, golden keeps the
+///   DEFAULT value on a defparam'd hop where our pattern reaches the
+///   defparam'd one — a pre-existing VALUE bug on both binaries whose
+///   `sz`/`ct`/`ts` fields are golden ALREADY (`32/16/16` and `/S`,`-`,`/S`).
+///   Writing a size there would turn three equal fields into wrong ones.
+inline bool red89OvrStoreSize89(const slang::ast::ParameterSymbol& ps89,
+                                int32_t& sz89) {
+    if (!ps89.isOverridden())
+        return false;
+    if (!red87HopHomeIsInstance87(ps89))
+        return false;
+    const Expression* in89 = ps89.getInitializer();
+    if (!in89)
+        return false;
+    const Expression& e89 = stripImplicitConv(*in89);
+    if (e89.kind != ExpressionKind::IntegerLiteral)
+        return false;
+    if (e89.as<IntegerLiteral>().getValue().hasUnknown())
+        return false;
+    const auto* v89 = red76VecSyntax(e89);
+    if (!v89) {
+        sz89 = 64;
+        return true;
+    }
+    const char b89 = red72LitBase(v89->base.rawText());
+    if (b89 != 'd' && b89 != 'o' && b89 != 'h')
+        return false;
+    const int32_t w89 = red81LitWrittenSize81(e89);
+    if (w89 == 0)
+        return false;
+    sz89 = w89;
     return true;
 }
 

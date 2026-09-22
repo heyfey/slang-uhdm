@@ -1,0 +1,61 @@
+=== default/MiniAmiq-544c7f61  sorted-line-delta=6
+< lawx/default/MiniAmiq-544c7f61/slang.uhdm: Restored design Pre-Elab: 
+> pris/default/MiniAmiq-544c7f61/slang.uhdm: Restored design Pre-Elab: 
+<       |UINT:0
+>       |UINT:519
+<       |vpiDecompile:0
+>       |vpiDecompile:519
+  vpiSize lines: 0  Typespec lines: 0  vpiConstType lines: 0
+=== default/Scoreboard-59431470  sorted-line-delta=2
+< lawx/default/Scoreboard-59431470/slang.uhdm: Restored design Pre-Elab: 
+> pris/default/Scoreboard-59431470/slang.uhdm: Restored design Pre-Elab: 
+  vpiSize lines: 0  Typespec lines: 0  vpiConstType lines: 0
+=== default/SeqDriver-32af76aa  sorted-line-delta=6
+< lawx/default/SeqDriver-32af76aa/slang.uhdm: Restored design Pre-Elab: 
+> pris/default/SeqDriver-32af76aa/slang.uhdm: Restored design Pre-Elab: 
+<       |UINT:1209
+>       |UINT:1534
+<       |vpiDecompile:1209
+>       |vpiDecompile:1534
+  vpiSize lines: 0  Typespec lines: 0  vpiConstType lines: 0
+=== default/SimpleUVM-1dc93a62  sorted-line-delta=6
+< lawx/default/SimpleUVM-1dc93a62/slang.uhdm: Restored design Pre-Elab: 
+> pris/default/SimpleUVM-1dc93a62/slang.uhdm: Restored design Pre-Elab: 
+>       |UINT:1003
+<       |UINT:952
+>       |vpiDecompile:1003
+<       |vpiDecompile:952
+  vpiSize lines: 0  Typespec lines: 0  vpiConstType lines: 0
+=== testflags/MiniAmiq-544c7f61  sorted-line-delta=6
+< lawx/testflags/MiniAmiq-544c7f61/slang.uhdm: Restored design Pre-Elab: 
+> pris/testflags/MiniAmiq-544c7f61/slang.uhdm: Restored design Pre-Elab: 
+<       |UINT:1523
+>       |UINT:769
+<       |vpiDecompile:1523
+>       |vpiDecompile:769
+  vpiSize lines: 0  Typespec lines: 0  vpiConstType lines: 0
+=== testflags/SeqDriver-32af76aa  sorted-line-delta=6
+< lawx/testflags/SeqDriver-32af76aa/slang.uhdm: Restored design Pre-Elab: 
+> pris/testflags/SeqDriver-32af76aa/slang.uhdm: Restored design Pre-Elab: 
+>       |UINT:1185
+<       |UINT:740
+>       |vpiDecompile:1185
+<       |vpiDecompile:740
+  vpiSize lines: 0  Typespec lines: 0  vpiConstType lines: 0
+
+BYTEVERIFY: MOVERS 6 / 2568, SELFCHECK 2567/2568, PATH_SETS_IDENTICAL.
+The A-PRIORI prediction was the EMPTY set (census89: CHN89 0, WID89 0, and
+every OVR89/SGN87 name DEFERRED / SLANG_REJECT / SURELOG_FAIL in both modes).
+All six measured movers are the documented UVM COIN, attributed ORDER-BLIND on
+path-normalised SORTED dumps: five move exactly FOUR real sorted lines — one
+`UINT`/`vpiDecompile` PAIR holding a LINE NUMBER (0<->519, 1209<->1534,
+952<->1003, 1523<->769, 740<->1185) — and Scoreboard/default moves ZERO real
+lines (the order draw).  The two extra lines in each delta are the dump
+banner naming the file.  ZERO vpiSize, ZERO Typespec and ZERO vpiConstType
+lines in any of the six, and those are exactly the three fields this pass
+writes.
+
+COIN POSITIVE CONTROL: the PRISTINE binary ALONE, five runs of MiniAmiq's own
+invocation in ONE directory writing ONE name, gives FIVE DISTINCT DATABASES:
+  9ccb8777b4ae  8c6e49eedaf8  c09474787f40  0f596cbfce76  7e0c2d7ae554
+A mover COUNT is a draw; the CLASS is the measurement.
