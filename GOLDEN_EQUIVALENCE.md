@@ -283,11 +283,8 @@ error handler. It cannot change the database.
 
 ### 3.3 Measured baseline — GENERATED, do not hand-edit numbers
 
-> Regenerated 2026-09-23 (the v1.87 pass-108 landing: six rows converted in
-> both modes — anon_struct_packed_dim, cva6_struct_param_field and
-> type_param_unpacked_port in uhdm2rtlil; StructParamFieldRange,
-> StructParamFuncBodyFieldCompare and StructParamPatternInitCast in the
-> Surelog suite). For the live state and how to carry
+> Regenerated 2026-09-23 (the v1.87 pass-109 landing: type_param_override_elem_sel
+> converted in both uhdm2rtlil modes, on top of pass 108's six). For the live state and how to carry
 > the campaign on, read **RESUME.md** and run `scripts/resume_survey.sh`.
 
 The authoritative numbers come from the committed per-test CSVs via
@@ -300,8 +297,8 @@ exists.
 |---|---|---|---|---|---|
 | Surelog suite | default | 798 | CMP_EQUAL=477 SLANG_REJECT=285 SURELOG_FAIL=25 CMP_NOTEQUAL=6 DEFERRED=5 | 483 | 477 (98.8%) |
 | Surelog suite | testflags | 798 | CMP_EQUAL=472 SLANG_REJECT=286 SURELOG_FAIL=23 DEFERRED=5 CMP_NOTEQUAL=5 NO_DATABASE=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 477 | 472 (99.0%) |
-| uhdm2rtlil | default | 871 | CMP_EQUAL=794 SLANG_REJECT=67 CMP_NOTEQUAL=10 | 804 | 794 (98.8%) |
-| uhdm2rtlil | testflags | 871 | CMP_EQUAL=794 SLANG_REJECT=67 CMP_NOTEQUAL=10 | 804 | 794 (98.8%) |
+| uhdm2rtlil | default | 871 | CMP_EQUAL=795 SLANG_REJECT=67 CMP_NOTEQUAL=9 | 804 | 795 (98.9%) |
+| uhdm2rtlil | testflags | 871 | CMP_EQUAL=795 SLANG_REJECT=67 CMP_NOTEQUAL=9 | 804 | 795 (98.9%) |
 
 Denominator accounting (every excluded test is one of): `SLANG_REJECT`
 (out of scope, §2.5), `DEFERRED` (5 memory giants, §2.5b), `UNTRANSLATABLE`

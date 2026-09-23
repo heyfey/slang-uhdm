@@ -1,0 +1,15 @@
+r11u110 PREDICTION (written before the law sweep finished; binary lawx md5 53761406d096e3b700d440e9ca1fd67f (f3a517e3 + the R11U110_PORT_OFF switch only))
+Census (cen110, golden-first, positive control = the target row's golden and pristine):
+  the law-1 shape (elaborated port whose vpiTypedef is a packed_array_typespec with a NAMED element ref)
+  exists in exactly two rows, both modes: type_param_override_elem_sel (golden elem 32:17 override,
+  ours 15:31 default -> MOVES) and type_param_packed_dim (a TOP module, no override, law does not fire
+  -> STAYS byte-identical, stays CMP_EQUAL).
+Census (cenv110): face-2 variable shapes PAV_EXPR/PAV_IFACE/PAV_ATTR/AV_PAVREG: golden == ours count on every
+  row except Tnoc (SLANG_REJECT, no ours db). No face-2 corpus mover predicted.
+PREDICTED MOVERS:
+  uhdm2rtlil type_param_override_elem_sel default    47/1 -> 0/0  CMP_NOTEQUAL -> CMP_EQUAL (CONVERSION)
+  uhdm2rtlil type_param_override_elem_sel testflags  47/1 -> 0/0  CMP_NOTEQUAL -> CMP_EQUAL (CONVERSION)
+  surelog: none (law); UVM nondeterminism class (MiniAmiq/SeqDriver/SimpleUVM/Scoreboard/BuildUVMPkg) may move bytes, statuses unchanged.
+Census (cenm108 via cenmrun110, DEF package listing members): golden-only NAMED pkg::T bindings exist only in
+  stamped_gen_param (both modes) — the single-dim R0 elem residue of pass 107, not the multi-dim law's shape.
+  Multi-dim law (defPkgMemberTdOfNamedSharesMulti110): 0 corpus movers predicted.

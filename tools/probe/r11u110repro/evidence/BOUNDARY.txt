@@ -1,0 +1,39 @@
+LISTED=8982 PROCESSED=8982
+     31 MOVED
+    232 NOOUT
+   8719 SAME
+MOVED ./r10buvm22repro/g22.sv rc=4/4
+MOVED ./r10uvm154repro/l154_noenum.sv rc=0/0
+MOVED ./r10uvm185repro/grid185/g185_e_kinds.sv rc=0/0
+MOVED ./r11u107repro/grid/o01_ovr_elem/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o02_ovr_then_def/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o03_def_then_ovr/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o04_two_ovr/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o07_passthru/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o08_ovr_typedef/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o09_param_not_local/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/f5/f5a05_override/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/f5/f5a11_unpacked_ctl/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/f5/f5a16_ovr2state/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/f5/f5a18_init/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c13_multidim_member/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f5/b15_child_ports/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f5/b25_attr_wdims/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f5/b27_gen_loop_inst/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f5/b29_override_packed_elem/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r01_gen_first/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r02_gen_last/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r03_nested_first/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r04_nested_last/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r05_rt_ovr_samename/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r06_ovr_pkg_struct/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r07_inst_array/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r08_two_defs/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r09_gen_for/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r10_two_tops/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r11_nested_gen/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r12_gen_mid/dut.sv rc=0/0
+DONE
+(10 'Segmentation fault' lines on 5 arms: BOTH binaries crash on the same arms, NOOUT on both sides, no RCDIFF)
+31 MOVED = 28 arms of the four control grids (the same movers the grid scoring attributes: r11u107 7, r11u108 4, v11u108 5, v11u93b107 12) + 3 layout-tail arms (g22, l154_noenum, g185_e_kinds):
+  each differs ONLY in the weaklyReferenced tail constant UINT/vpiDecompile 23467673 -> 23480057; layoutproof154.sh (WD=own scratch): LAYOUTPROOF OK

@@ -1,0 +1,155 @@
+# GATES (v11u110). Base 751362a0. Binaries built -j 2 in fresh worktrees, frozen chmod 555 before any sweep.
+pristine md5 1dae94065a1ba3fe44c9b50007752e64 (= main tree pin); law (r11u110.patch) 53761406d096e3b700d440e9ca1fd67f (= implementer's claim);
+fixd (r11u110.verified.patch) 1fd10542f5e2b48dfbdc3f9a16daab0f, reproduced bit-for-bit from a FRESH 751362a0 + verified patch.
+cmds.txt audit: 3273 slang invocations per sweep, each naming its own frozen binary (50 dirs have no slang line: surelog-side fail/nodb, same set in every sweep).
+
+## goldens: law 23/0, fixd 23/0, SLANG_UHDM=/bin/false 0/23
+
+## lawx row joins vs committed baselines (whole row)
+# u2r default (vs the default rows of results/golden_uhdm2rtlil.csv)
+< type_param_override_elem_sel,default,CMP_NOTEQUAL,decompile:,,
+> type_param_override_elem_sel,default,CMP_EQUAL,,,differ
+# u2r testflags (vs results/gate_uhdm2rtlil.csv)
+< type_param_override_elem_sel,testflags,CMP_NOTEQUAL,decompile:,,
+> type_param_override_elem_sel,testflags,CMP_EQUAL,,,differ
+# surelog --mode both (vs results/golden_surelog.csv)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u110_wd_lawx/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u110_wd_lawx/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+
+## fixd row joins vs committed baselines (whole row)
+# u2r default (vs the default rows of results/golden_uhdm2rtlil.csv)
+< type_param_override_elem_sel,default,CMP_NOTEQUAL,decompile:,,
+> type_param_override_elem_sel,default,CMP_EQUAL,,,differ
+# u2r testflags (vs results/gate_uhdm2rtlil.csv)
+< type_param_override_elem_sel,testflags,CMP_NOTEQUAL,decompile:,,
+> type_param_override_elem_sel,testflags,CMP_EQUAL,,,differ
+# surelog --mode both (vs results/golden_surelog.csv)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u110_wd_fixd/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u110_wd_fixd/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+
+## byteverify SELFCHECK=1
+# lawx/u2r vs pris/u2r
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/type_param_override_elem_sel-212ed556/slang.uhdm  patched=357c4ac32e52 pristine=92b1071ab931
+MOVER ./testflags/type_param_override_elem_sel-212ed556/slang.uhdm  patched=2cb2e69a40aa pristine=7358f8217ec0
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+# lawx/sl vs pris/sl
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=3d93f0e9964d pristine=a05708ea84ee
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=d82c1c16df77
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=50f12e4884d7 pristine=fcd933f6d295
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=afda2f66ceeb pristine=05df6c25a21b
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+# fixd/u2r vs pris/u2r
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/type_param_override_elem_sel-212ed556/slang.uhdm  patched=357c4ac32e52 pristine=92b1071ab931
+MOVER ./testflags/type_param_override_elem_sel-212ed556/slang.uhdm  patched=2cb2e69a40aa pristine=7358f8217ec0
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+# fixd/sl vs pris/sl
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=a0424a93274e pristine=a05708ea84ee
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=d4759b303ddb pristine=2fb39f8b4130
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=d82c1c16df77
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=69be895bcf24 pristine=fcd933f6d295
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=7c0b15c643f3 pristine=05df6c25a21b
+MOVERS: 6 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+## UVM movers, order-blind uhdm-dump diff (path-normalised, sorted): lines / non-UINT-non-vpiDecompile lines
+lawx default_MiniAmiq-544c7f61 4 0
+lawx default_SimpleUVM-1dc93a62 4 0
+lawx testflags_MiniAmiq-544c7f61 4 0
+lawx testflags_SeqDriver-32af76aa 4 0
+fixd default_MiniAmiq-544c7f61 4 0
+fixd default_Scoreboard-59431470 0 0
+fixd default_SeqDriver-32af76aa 4 0
+fixd default_SimpleUVM-1dc93a62 4 0
+fixd testflags_MiniAmiq-544c7f61 4 0
+fixd testflags_SeqDriver-32af76aa 4 0
+
+## canaries (r10uvm221repro)
+# lawx
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+# fixd
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+# (lawx Earlgrey_0_1 CHANGED = blank dump column, uhdm-dump timeout draw; the pristine draw shows the same; database md5s below are the pin)
+
+## protected databases (md5 first 12)
+pris: SVSwitch/default=4842211c4030 SVSwitch/testflags=4842211c4030 YosysVerx/default=6ccda350c24a YosysVerx/testflags=6ccda350c24a InterfaceModPort/default=59a365f3ce2c InterfaceModPort/testflags=59a365f3ce2c Earlgrey_0_1/default=8bdf25272e08 Earlgrey_0_1/testflags=59d0ee6d10c3 BlackParrotComplex/default=e3e354129d5a BlackParrotComplex/testflags=73a10e8217e5 YosysOldOr/default=d68e0796d62c YosysOldOr/testflags=d68e0796d62c
+lawx: SVSwitch/default=4842211c4030 SVSwitch/testflags=4842211c4030 YosysVerx/default=6ccda350c24a YosysVerx/testflags=6ccda350c24a InterfaceModPort/default=59a365f3ce2c InterfaceModPort/testflags=59a365f3ce2c Earlgrey_0_1/default=8bdf25272e08 Earlgrey_0_1/testflags=59d0ee6d10c3 BlackParrotComplex/default=e3e354129d5a BlackParrotComplex/testflags=73a10e8217e5 YosysOldOr/default=d68e0796d62c YosysOldOr/testflags=d68e0796d62c
+fixd: SVSwitch/default=4842211c4030 SVSwitch/testflags=4842211c4030 YosysVerx/default=6ccda350c24a YosysVerx/testflags=6ccda350c24a InterfaceModPort/default=59a365f3ce2c InterfaceModPort/testflags=59a365f3ce2c Earlgrey_0_1/default=8bdf25272e08 Earlgrey_0_1/testflags=59d0ee6d10c3 BlackParrotComplex/default=e3e354129d5a BlackParrotComplex/testflags=73a10e8217e5 YosysOldOr/default=d68e0796d62c YosysOldOr/testflags=d68e0796d62c
+
+## conversion rows (both sweeps)
+lawx: mem_packed_2d_byte_write,default,CMP_EQUAL mem_packed_2d_byte_write,testflags,CMP_EQUAL port_chained_type_param,default,CMP_EQUAL port_chained_type_param,testflags,CMP_EQUAL type_param_override_elem_sel,default,CMP_EQUAL type_param_override_elem_sel,testflags,CMP_EQUAL type_param_packed_dim,default,CMP_EQUAL type_param_packed_dim,testflags,CMP_EQUAL
+lawx: BuildUVMPkg,default,CMP_EQUAL BuildUVMPkg,testflags,CMP_EQUAL MiniAmiq,default,CMP_EQUAL MiniAmiq,testflags,CMP_EQUAL Scoreboard,default,CMP_EQUAL Scoreboard,testflags,SLANG_REJECT SeqDriver,default,CMP_EQUAL SeqDriver,testflags,CMP_EQUAL SimpleUVM,default,CMP_EQUAL SimpleUVM,testflags,CMP_EQUAL
+fixd: mem_packed_2d_byte_write,default,CMP_EQUAL mem_packed_2d_byte_write,testflags,CMP_EQUAL port_chained_type_param,default,CMP_EQUAL port_chained_type_param,testflags,CMP_EQUAL type_param_override_elem_sel,default,CMP_EQUAL type_param_override_elem_sel,testflags,CMP_EQUAL type_param_packed_dim,default,CMP_EQUAL type_param_packed_dim,testflags,CMP_EQUAL
+fixd: BuildUVMPkg,default,CMP_EQUAL BuildUVMPkg,testflags,CMP_EQUAL MiniAmiq,default,CMP_EQUAL MiniAmiq,testflags,CMP_EQUAL Scoreboard,default,CMP_EQUAL Scoreboard,testflags,SLANG_REJECT SeqDriver,default,CMP_EQUAL SeqDriver,testflags,CMP_EQUAL SimpleUVM,default,CMP_EQUAL SimpleUVM,testflags,CMP_EQUAL
+
+## target uhdm-cmp (LHS golden): pristine 47 lines/1 head both modes; law 0/0 both; fixd 0/0 both; golden-vs-golden 0
+
+## wide boundary (bnd110.sh, pris vs fixd, the base tools/probe tree)
+LISTED=8982 PROCESSED=8982
+     31 MOVED
+    232 NOOUT
+   8719 SAME
+MOVED ./r10buvm22repro/g22.sv rc=4/4
+MOVED ./r10uvm154repro/l154_noenum.sv rc=0/0
+MOVED ./r10uvm185repro/grid185/g185_e_kinds.sv rc=0/0
+MOVED ./r11u107repro/grid/o01_ovr_elem/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o02_ovr_then_def/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o03_def_then_ovr/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o04_two_ovr/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o07_passthru/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o08_ovr_typedef/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o09_param_not_local/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/f5/f5a05_override/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/f5/f5a11_unpacked_ctl/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/f5/f5a16_ovr2state/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/f5/f5a18_init/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c13_multidim_member/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f5/b15_child_ports/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f5/b25_attr_wdims/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f5/b27_gen_loop_inst/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f5/b29_override_packed_elem/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r01_gen_first/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r02_gen_last/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r03_nested_first/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r04_nested_last/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r05_rt_ovr_samename/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r06_ovr_pkg_struct/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r07_inst_array/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r08_two_defs/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r09_gen_for/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r10_two_tops/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r11_nested_gen/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r12_gen_mid/dut.sv rc=0/0
+layoutproof154.sh PRI=pris PAT=fixd: LAYOUTPROOF OK; g22 and g185_e_kinds first diff below vpiWeaklyReferenced (dump line 4588 > 3846, 2354 > 2107)

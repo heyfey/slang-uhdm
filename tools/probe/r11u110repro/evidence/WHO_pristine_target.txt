@@ -1,0 +1,267 @@
+== type_parameter(id_t) id:12 15:20-15:24 parent=module_inst() id:2 14:1-25:10 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+== logic_typespec() id:14 15:31-15:36 parent=type_parameter(id_t) id:12 15:20-15:24 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(id_t) id:12 15:20-15:24
+   < ref_typespec() id:13 0:0-0:0
+   REF ref_typespec() id:13 0:0-0:0 fullname=work@child.id_t parent=type_parameter(id_t) id:12 15:20-15:24
+   REF ref_typespec(id_t) id:23 0:0-0:0 fullname=work@child.rt_t.id_t parent=packed_array_typespec() id:17 17:31-17:47
+   REF ref_typespec() id:136 0:0-0:0 fullname=work@dut.u.id_i parent=port(id_i) id:133 21:18-21:22
+   REF ref_typespec() id:89 0:0-0:0 fullname=work@child.id_i parent=port(id_i) id:87 21:18-21:22
+== int_typespec() id:11 16:16-16:19 parent=parameter(DEPTH) id:4 16:20-16:25 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < parameter(DEPTH) id:4 16:20-16:25
+   < ref_typespec() id:5 0:0-0:0
+   REF ref_typespec() id:5 0:0-0:0 fullname=work@child.DEPTH parent=parameter(DEPTH) id:4 16:20-16:25
+   REF ref_typespec() id:101 0:0-0:0 fullname=work@dut.u parent=operation() id:97 16:32-16:48
+== type_parameter(rt_t) id:15 17:21-17:25 parent=module_inst() id:2 14:1-25:10 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+== packed_array_typespec() id:160 17:31-17:47 parent=type_parameter(rt_t) id:15 17:21-17:25 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   REF ref_typespec() id:16 0:0-0:0 fullname=work@child.rt_t parent=type_parameter(rt_t) id:15 17:21-17:25
+== packed_array_typespec() id:17 17:31-17:47 parent=type_parameter(rt_t) id:15 17:21-17:25 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < range() id:18 0:0-0:0
+   REF ref_typespec() id:132 0:0-0:0 fullname=work@dut.u.rt_i parent=port(rt_i) id:129 20:18-20:22
+   REF ref_typespec() id:86 0:0-0:0 fullname=work@child.rt_i parent=port(rt_i) id:84 20:18-20:22
+== logic_typespec() id:104 32:17-32:28 parent=logic_var(id_i) id:126 21:18-21:22 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   REF ref_typespec(id_t) id:161 0:0-0:0 fullname=work@child.rt_t.id_t parent=packed_array_typespec() id:160 17:31-17:47
+   REF ref_typespec(id_t) id:116 0:0-0:0 fullname=work@dut.u.rt_t.id_t parent=packed_array_typespec() id:110 17:31-17:47
+   REF ref_typespec() id:103 0:0-0:0 fullname=work@dut.u.id_t parent=type_parameter(id_t) id:102 0:0-0:0
+   REF ref_typespec() id:125 0:0-0:0 fullname=work@dut.u.id_i parent=logic_var(id_i) id:126 21:18-21:22
+== logic_typespec() id:69 28:12-28:23 parent=logic_net(rt_i) id:74 28:24-28:28 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < module_inst(work@dut) id:68 27:1-37:10
+   < logic_net(rt_i) id:74 28:24-28:28
+   < ref_typespec() id:73 0:0-0:0
+   REF ref_typespec() id:73 0:0-0:0 fullname=work@dut.rt_i parent=logic_net(rt_i) id:74 28:24-28:28
+== logic_typespec() id:75 29:12-29:23 parent=logic_net(id_i) id:80 29:24-29:28 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < module_inst(work@dut) id:68 27:1-37:10
+   < logic_net(id_i) id:80 29:24-29:28
+   < ref_typespec() id:79 0:0-0:0
+   REF ref_typespec() id:79 0:0-0:0 fullname=work@dut.id_i parent=logic_net(id_i) id:80 29:24-29:28
+== logic_typespec() id:81 30:12-30:17 parent=logic_net(sel_o) id:83 30:24-30:29 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < module_inst(work@dut) id:68 27:1-37:10
+   < logic_net(sel_o) id:83 30:24-30:29
+   < ref_typespec() id:82 0:0-0:0
+   REF ref_typespec() id:82 0:0-0:0 fullname=work@dut.sel_o parent=logic_net(sel_o) id:83 30:24-30:29
+== logic_typespec() id:45 28:12-28:23 parent=<null> inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < module_inst(work@dut) id:68 27:1-37:10
+   < port(rt_i) id:141 28:24-28:28
+   < ref_typespec() id:147 0:0-0:0
+   REF ref_typespec() id:147 0:0-0:0 fullname=work@dut.rt_i parent=port(rt_i) id:141 28:24-28:28
+== logic_typespec() id:52 29:12-29:23 parent=<null> inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < module_inst(work@dut) id:68 27:1-37:10
+   < port(id_i) id:148 29:24-29:28
+   < ref_typespec() id:154 0:0-0:0
+   REF ref_typespec() id:154 0:0-0:0 fullname=work@dut.id_i parent=port(id_i) id:148 29:24-29:28
+== logic_typespec() id:59 30:12-30:17 parent=<null> inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < module_inst(work@dut) id:68 27:1-37:10
+   < port(sel_o) id:155 30:24-30:29
+   < ref_typespec() id:158 0:0-0:0
+   REF ref_typespec() id:158 0:0-0:0 fullname=work@dut.sel_o parent=port(sel_o) id:155 30:24-30:29
+== packed_array_typespec() id:110 17:31-17:47 parent=type_parameter(rt_t) id:108 0:0-0:0 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < packed_array_var(rt_i) id:123 20:18-20:22
+   < ref_typespec() id:124 0:0-0:0
+   REF ref_typespec() id:124 0:0-0:0 fullname=work@dut.u.rt_i parent=packed_array_var(rt_i) id:123 20:18-20:22
+   REF ref_typespec() id:109 0:0-0:0 fullname=work@dut.u.rt_t parent=type_parameter(rt_t) id:108 0:0-0:0
+== type_parameter(rt_t) id:108 0:0-0:0 parent=module_inst(u) id:93 32:3-36:5 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < packed_array_var(rt_i) id:123 20:18-20:22
+   < ref_typespec() id:124 0:0-0:0
+   < packed_array_typespec() id:110 17:31-17:47
+== logic_typespec() id:119 18:31-18:42 parent=<null> inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < logic_var(sel_o) id:128 22:18-22:23
+   < ref_typespec() id:127 0:0-0:0
+   REF ref_typespec() id:127 0:0-0:0 fullname=work@dut.u.sel_o parent=logic_var(sel_o) id:128 22:18-22:23
+   REF ref_typespec() id:118 0:0-0:0 fullname=work@dut.u.sel_t parent=type_parameter(sel_t) id:117 0:0-0:0
+== type_parameter(id_t) id:102 0:0-0:0 parent=module_inst(u) id:93 32:3-36:5 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+== int_typespec() id:159 16:16-16:19 parent=ref_typespec() id:95 0:0-0:0 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < parameter(DEPTH) id:94 16:20-16:25
+   < ref_typespec() id:95 0:0-0:0
+   REF ref_typespec() id:95 0:0-0:0 fullname=work@dut.u.DEPTH parent=parameter(DEPTH) id:94 16:20-16:25
+== type_parameter(sel_t) id:117 0:0-0:0 parent=module_inst(u) id:93 32:3-36:5 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+== logic_typespec() id:26 18:31-18:42 parent=type_parameter(sel_t) id:24 18:21-18:26 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < port(sel_o) id:137 22:18-22:23
+   < ref_typespec() id:140 0:0-0:0
+   REF ref_typespec() id:140 0:0-0:0 fullname=work@dut.u.sel_o parent=port(sel_o) id:137 22:18-22:23
+   REF ref_typespec() id:25 0:0-0:0 fullname=work@child.sel_t parent=type_parameter(sel_t) id:24 18:21-18:26
+   REF ref_typespec() id:92 0:0-0:0 fullname=work@child.sel_o parent=port(sel_o) id:90 22:18-22:23
+== type_parameter(sel_t) id:24 18:21-18:26 parent=module_inst() id:2 14:1-25:10 inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < port(sel_o) id:137 22:18-22:23
+   < ref_typespec() id:140 0:0-0:0
+   < logic_typespec() id:26 18:31-18:42
+== int_typespec() id:36 24:23-24:26 parent=<null> inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:2 14:1-25:10
+   < type_parameter(rt_t) id:15 17:21-17:25
+   < ref_typespec() id:16 0:0-0:0
+   < packed_array_typespec() id:160 17:31-17:47
+   < ref_typespec(id_t) id:161 0:0-0:0
+   < logic_typespec() id:104 32:17-32:28
+   < logic_var(id_i) id:126 21:18-21:22
+   < module_inst(u) id:93 32:3-36:5
+   < cont_assign() id:33 24:10-24:34
+   < bit_select(rt_i) id:34 24:23-24:33
+   < operation() id:35 24:23-24:33
+   < ref_typespec() id:37 0:0-0:0
+   REF ref_typespec() id:37 0:0-0:0 fullname=work@child.rt_i parent=operation() id:35 24:23-24:33
+== logic_typespec() id:143 28:12-28:23 parent=<null> inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:3 27:1-37:10
+   < port(rt_i) id:43 28:24-28:28
+   < ref_typespec() id:49 0:0-0:0
+   REF ref_typespec() id:49 0:0-0:0 fullname=work@dut.rt_i parent=port(rt_i) id:43 28:24-28:28
+== logic_typespec() id:150 29:12-29:23 parent=<null> inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:3 27:1-37:10
+   < port(id_i) id:50 29:24-29:28
+   < ref_typespec() id:56 0:0-0:0
+   REF ref_typespec() id:56 0:0-0:0 fullname=work@dut.id_i parent=port(id_i) id:50 29:24-29:28
+== logic_typespec() id:157 30:12-30:17 parent=<null> inst=<null>
+   < design(work@dut) id:1 0:0-0:0
+   < module_inst() id:3 27:1-37:10
+   < port(sel_o) id:57 30:24-30:29
+   < ref_typespec() id:60 0:0-0:0
+   REF ref_typespec() id:60 0:0-0:0 fullname=work@dut.sel_o parent=port(sel_o) id:57 30:24-30:29

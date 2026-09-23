@@ -1,0 +1,51 @@
+type_param_override_elem_sel (testflags form: dut.sv --single-unit --nobuiltin), golden = cache 350e63d13c25008cc106
+PRISTINE 751362a0 (md5 1dae9406): 47 lines / 1 head
+LHS:
+decompile:
+logic_typespec: , id:106, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:107, line:32:23, endln:32:28
+  |vpiParent:
+  \_logic_typespec: , id:106, line:32:17, endln:32:28
+  |vpiLeftRange:
+  \_constant: , id:108, line:32:24, endln:32:25
+    |vpiParent:
+    \_range: , id:107, line:32:23, endln:32:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:109, line:32:26, endln:32:27
+    |vpiParent:
+    \_range: , id:107, line:32:23, endln:32:28
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: , id:106, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:107, line:32:23, endln:32:28
+  |vpiParent:
+  \_logic_typespec: , id:106, line:32:17, endln:32:28
+  |vpiLeftRange:
+  \_constant: , id:108, line:32:24, endln:32:25
+    |vpiParent:
+    \_range: , id:107, line:32:23, endln:32:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:109, line:32:26, endln:32:27
+    |vpiParent:
+    \_range: , id:107, line:32:23, endln:32:28
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS: <null>
+
+LAW (md5 53761406): 0 lines / 0 heads

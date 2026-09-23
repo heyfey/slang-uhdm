@@ -5952,6 +5952,68 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     // NET through elaboration (vlogUnresolvedLogicNet).
     if (vlogUnresolvedLogicNet(internal))
         return nullptr;
+    // § tpPackedArrayTsVarInit110 — the declaration § tpPackedArrayTsVar108
+    // (emitTypeParamArrayVar) REFUSES because its fenced caller `continue`s
+    // past the initializer — an INITIALISED body declaration (`rt_t x =
+    // 8'h5a`, grid r11u108 f5a18) — falls through to this function, and
+    // Surelog decides it by the SAME `makeVar_` arm: the typespec kind is
+    // `packed_array_typespec`, so the `found == false && tps` dispatch
+    // (ElaborationStep.cpp:1964) mints a bare `packed_array_var` (:2018-2019)
+    // and attaches the initializer as its vpiExpr (:2027-2029).  Returning
+    // that KIND here lets the caller attach its name, typespec and
+    // initializer exactly as it did on the logic_var it used to get (the
+    // module road, ModuleEmit's `makeVar` call after the factory).  Gated
+    // like the factory's dimensionless cell: the declared type IS the
+    // type-parameter alias (no written dims), the parameter's elaborated
+    // typespec is a `packed_array_typespec`
+    // (`typeParamElabTs` — the def view has no entry, so a def-view caller
+    // never fires), and an explicit `wire` declaration is refused (the pinned
+    // Surelog crashes on it, grid f5a13).  `R11U110_INIT_OFF=1` drops it.
+    {
+        static const bool offInit110 = getenv("R11U110_OFF") != nullptr ||
+                                       getenv("R11U110_INIT_OFF") != nullptr;
+        auto& dt110 = declared->getType();
+        if (!offInit110 && dt110.kind == SymbolKind::TypeAlias) {
+            auto* syn110 = dt110.getSyntax();
+            bool wire110 = false;
+            if (internal.kind == SymbolKind::Net)
+                if (auto* dsy110 = internal.getSyntax();
+                    dsy110 && dsy110->parent &&
+                    dsy110->parent->kind == syntax::SyntaxKind::NetDeclaration)
+                    wire110 = true;
+            // Only a BODY declaration whose initializer is a LITERAL: a
+            // port's default (b23/b24, grid f2 i20) is re-folded by the
+            // fenced caller (`UINT:90` where golden keeps `8'h5a`), a
+            // non-literal initializer (grid f2 i22) is not attached by it at
+            // all, and the INTERFACE road (b03, f2 i04/i19) builds a flat
+            // logic_typespec for the variable — each would move the kind and
+            // leave the cell wrong, so each is refused (named residues).
+            bool lit110 = false;
+            if (auto* ini110 = declared->getInitializer()) {
+                auto& ic110 = stripImplicitConv(*ini110);
+                lit110 = ic110.kind == ExpressionKind::IntegerLiteral ||
+                         ic110.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral;
+            }
+            bool iface110 = false;
+            if (auto* ps110 = internal.getParentScope())
+                if (ps110->asSymbol().kind == SymbolKind::InstanceBody &&
+                    ps110->asSymbol().as<InstanceBodySymbol>()
+                            .getDefinition()
+                            .definitionKind == DefinitionKind::Interface)
+                    iface110 = true;
+            if (syn110 && syn110->kind == syntax::SyntaxKind::TypeAssignment &&
+                !wire110 && lit110 && !portBacked && !iface110)
+                if (auto* tp110 = typeParamOfAlias(dt110.as<TypeAliasType>()))
+                    if (auto it110 = typeParamElabTs.find(tp110);
+                        it110 != typeParamElabTs.end() && it110->second &&
+                        it110->second->UhdmType() ==
+                            UHDM::uhdmpacked_array_typespec) {
+                        auto* v = s.MakePacked_array_var();
+                        v->VpiVisibility(1);
+                        return v;
+                    }
+        }
+    }
     // Non-port `logic` variables become logic_vars in the elaborated view;
     // `reg` declarations stay logic_nets — and the `reg` keyword travels
     // through a typedef chain (`typedef reg [1:0] R; R y;` is a net with
@@ -13181,10 +13243,50 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             // (typedef of a built-in vector), m03/m07 (enum / 2-state leaf),
             // m05 (union), m06 (module struct), m10 (no member dims) do not
             // move.  `R11U108_PKGTDMEM_OFF=1` drops the law.
-            if (!fts && vtaMem && vtaMemBase && inPkgTypedefEmit && !pkgTopEmit) {
+            // § defPkgMemberTdOfNamedSharesMulti110 — the SAME binding for a
+            // member written with SEVERAL packed dims (`row_t [1:0][0:1] U`,
+            // grid v11u108 c13): golden's def listing binds the shared
+            // `pkg::T` just the same (the `TypeDef` arm returns the object;
+            // every written dim is dropped).  The pristine road never set
+            // `vtaMem` for it (its element is another packed array), so the
+            // law below reads a SEPARATE pair and, when it declines, the
+            // member keeps the road it had.  `R11U110_PKGTDMULTI_OFF=1`
+            // drops it.
+            const TypeAliasType* vtaMulti110 = nullptr;
+            UHDM::typespec* vtaMultiBase110 = nullptr;
+            {
+                static const bool offMulti110 =
+                    getenv("R11U110_OFF") != nullptr ||
+                    getenv("R11U110_PKGTDMULTI_OFF") != nullptr;
+                if (!offMulti110 && !fts && !vtaMem && inPkgTypedefEmit &&
+                    !pkgTopEmit && fm.getDeclaredType() &&
+                    fm.getDeclaredType()->getType().kind ==
+                        SymbolKind::PackedArrayType) {
+                    const Type* e110 = &fm.getDeclaredType()->getType();
+                    int n110 = 0;
+                    while (e110->kind == SymbolKind::PackedArrayType) {
+                        e110 = &e110->as<PackedArrayType>().elementType;
+                        n110++;
+                    }
+                    if (n110 >= 2 && e110->kind == SymbolKind::TypeAlias)
+                        if (auto t110 = typedefTs.find(e110);
+                            t110 != typedefTs.end() &&
+                            t110->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                            vtaMulti110 = &e110->as<TypeAliasType>();
+                            vtaMultiBase110 = t110->second;
+                        }
+                }
+            }
+            if (!fts && ((vtaMem && vtaMemBase) || vtaMulti110) &&
+                inPkgTypedefEmit && !pkgTopEmit) {
                 static const bool off108 =
                     getenv("R11U108_OFF") != nullptr ||
                     getenv("R11U108_PKGTDMEM_OFF") != nullptr;
+                const bool multi110 = !(vtaMem && vtaMemBase);
+                if (multi110) {
+                    vtaMem = vtaMulti110;
+                    vtaMemBase = vtaMultiBase110;
+                }
                 const syntax::SyntaxNode* tdSyn108 = vtaMem->getSyntax();
                 bool namedTgt108 =
                     tdSyn108 &&
@@ -13256,6 +13358,11 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     fts = shared108;
                     pkgTdMemShared108.insert(tm);
                     tfContext = savedTf;
+                    vtaMem = nullptr;
+                    vtaMemBase = nullptr;
+                }
+                else if (multi110) {
+                    // Declined: the multi-dim member keeps its pristine road.
                     vtaMem = nullptr;
                     vtaMemBase = nullptr;
                 }
@@ -21313,10 +21420,44 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
         }
     }
 
+    // § tpPackedArrayElemReg110 — an unpacked array whose ELEMENT is written
+    // as a type parameter resolved to a `packed_array_typespec` (`rt_t x
+    // [2]`, `localparam type rt_t = id_t [3:0]`; grid r11u108 f5a11) carries
+    // a typespec-only `packed_array_var` reg: Surelog builds the element var
+    // through the same `makeVar_` typespec-kind dispatch as the
+    // dimensionless cell (ElaborationStep.cpp:2018-2019), so the reg's KIND
+    // follows the typespec, whatever the leaf's state.  Gates as the
+    // dimensionless cell: the element's written type IS the type-parameter
+    // alias and `typeParamElabTs` holds a `packed_array_typespec` for it.
+    // `R11U110_ELEMREG_OFF=1` drops it.
+    bool tpPaReg110 = false;
+    {
+        static const bool offReg110 = getenv("R11U110_OFF") != nullptr ||
+                                      getenv("R11U110_ELEMREG_OFF") != nullptr;
+        const Type* ld110 = &declared->getType();
+        while (ld110->getCanonicalType().kind ==
+               SymbolKind::FixedSizeUnpackedArrayType)
+            ld110 = &ld110->getCanonicalType()
+                         .as<FixedSizeUnpackedArrayType>()
+                         .elementType;
+        if (!offReg110 && !aggElemTs && ld110->kind == SymbolKind::TypeAlias)
+            if (auto* sy110 = ld110->getSyntax();
+                sy110 && sy110->kind == syntax::SyntaxKind::TypeAssignment)
+                if (auto* tp110 = typeParamOfAlias(ld110->as<TypeAliasType>()))
+                    if (auto it110 = typeParamElabTs.find(tp110);
+                        it110 != typeParamElabTs.end() && it110->second &&
+                        it110->second->UhdmType() ==
+                            UHDM::uhdmpacked_array_typespec &&
+                        elemTs == it110->second)
+                        tpPaReg110 = true;
+    }
     // Inner reg: a var of the ELEMENT class (int/integer/logic) carrying the
     // element typespec (the shared net ts strips dims to the element span).
     UHDM::variables* reg;
-    if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
+    if (tpPaReg110) {
+        reg = s.MakePacked_array_var();
+    }
+    else if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
         auto& pit = leaf->getCanonicalType().as<PredefinedIntegerType>();
         if (pit.integerKind == PredefinedIntegerType::Integer)
             reg = s.MakeInteger_var();
@@ -22376,8 +22517,25 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
     rt->VpiParent(pav);
     rt->Actual_typespec(tit32->second);
     pav->Typespec(rt);
-    if (tsOnly108)
+    if (tsOnly108) {
+        // § tpPackedArrayTsVarAttr110 — the written-dims cell's BODY
+        // declaration carries its attributes on the variable exactly like
+        // the dimensionless cell (v11u108's fix above; Surelog `makeVar_`
+        // `obj->Attributes(sig->attributes())`): grid v11u108 b25
+        // `(* keep *) rt_t [1:0] x;`.  Same DataDeclaration gate.
+        static const bool offAttr110 = getenv("R11U110_OFF") != nullptr ||
+                                       getenv("R11U110_ATTR_OFF") != nullptr;
+        const syntax::SyntaxNode* dsx110 = sym.getSyntax();
+        if (!offAttr110 && dsx110 && dsx110->parent &&
+            dsx110->parent->kind == syntax::SyntaxKind::DataDeclaration)
+            if (auto* attrs110 = findAttrs(&sym)) {
+                auto* av110 = s.MakeAttributeVec();
+                for (auto* ua : *attrs110)
+                    av110->push_back(ua);
+                pav->Attributes(av110);
+            }
         return pav;
+    }
     // Dim spans scanned between the type-syntax start and the declarator, and
     // the bounds FOLDED with reduceExpr's value type and anchor — the same
     // reading emitVectorTypedefArrayVar makes of the same written text.  The

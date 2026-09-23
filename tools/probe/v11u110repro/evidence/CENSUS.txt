@@ -1,0 +1,14 @@
+# cen110v census (law-1 shape: elaborated port whose GOLDEN typedef is a packed_array_typespec parented at a type_parameter with a named element ref); calibNE = golden-vs-golden NE (all 0)
+## u2rpris: DBs=1608 calibNE-nonzero=0 shape-bearing:
+default/type_param_override_elem_sel-212ed556 calibNE=0 TOTAL gshape=1 oshape=1 ne=1 eq=0 miss=0
+default/type_param_packed_dim-2a08511b calibNE=0 TOTAL gshape=1 oshape=1 ne=0 eq=1 miss=0
+testflags/type_param_override_elem_sel-212ed556 calibNE=0 TOTAL gshape=1 oshape=1 ne=1 eq=0 miss=0
+testflags/type_param_packed_dim-2a08511b calibNE=0 TOTAL gshape=1 oshape=1 ne=0 eq=1 miss=0
+## u2rlawx: DBs=1608 calibNE-nonzero=0 shape-bearing:
+default/type_param_override_elem_sel-212ed556 calibNE=0 TOTAL gshape=1 oshape=1 ne=0 eq=1 miss=0
+default/type_param_packed_dim-2a08511b calibNE=0 TOTAL gshape=1 oshape=1 ne=0 eq=1 miss=0
+testflags/type_param_override_elem_sel-212ed556 calibNE=0 TOTAL gshape=1 oshape=1 ne=0 eq=1 miss=0
+testflags/type_param_packed_dim-2a08511b calibNE=0 TOTAL gshape=1 oshape=1 ne=0 eq=1 miss=0
+## slpris: DBs=960 calibNE-nonzero=0 shape-bearing:
+## sllawx: DBs=960 calibNE-nonzero=0 shape-bearing:
+## positive control: type_param_override_elem_sel NE at base (u2rpris) -> EQ with the law (u2rlawx)

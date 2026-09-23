@@ -790,7 +790,7 @@ TaskReturn,default,CMP_EQUAL,,,match
 tern_fill_literal,default,CMP_EQUAL,,,match
 ternary_not_cond,default,CMP_EQUAL,,,match
 top_module_type_param,default,CMP_EQUAL,,,differ
-type_param_override_elem_sel,default,CMP_NOTEQUAL,decompile:,,
+type_param_override_elem_sel,default,CMP_EQUAL,,,differ
 type_param_packed_dim,default,CMP_EQUAL,,,differ
 type_param_unpacked_port,default,CMP_EQUAL,,,differ
 typed_named_pattern,default,CMP_EQUAL,,,differ
@@ -1661,7 +1661,7 @@ TaskReturn,testflags,CMP_EQUAL,,,match
 tern_fill_literal,testflags,CMP_EQUAL,,,match
 ternary_not_cond,testflags,CMP_EQUAL,,,match
 top_module_type_param,testflags,CMP_EQUAL,,,differ
-type_param_override_elem_sel,testflags,CMP_NOTEQUAL,decompile:,,
+type_param_override_elem_sel,testflags,CMP_EQUAL,,,differ
 type_param_packed_dim,testflags,CMP_EQUAL,,,differ
 type_param_unpacked_port,testflags,CMP_EQUAL,,,differ
 typed_named_pattern,testflags,CMP_EQUAL,,,differ

@@ -1,0 +1,118 @@
+## e1
+e01_base PORT work@dut.u.rt_i TO-GOLDEN
+e02_two_diff_ovr PORT work@dut.u.rt_i TO-GOLDEN
+e02_two_diff_ovr PORT work@dut.v.rt_i TO-GOLDEN
+e03_ovr_then_def PORT work@dut.u.rt_i TO-GOLDEN
+e04_def_then_ovr PORT work@dut.u.rt_i TO-GOLDEN
+e05_gen_if PORT work@dut.g.u.rt_i TO-GOLDEN
+e06_gen_for PORT work@dut.g[0].u.rt_i TO-GOLDEN
+e06_gen_for PORT work@dut.g[1].u.rt_i TO-GOLDEN
+e07_passthru PORT work@dut.m.u.rt_i TO-GOLDEN
+e08_ovr_struct PORT work@dut.u.rt_i TO-GOLDEN
+e09_ovr_enum PORT work@dut.u.rt_i TO-GOLDEN
+e10_def_packed PORT work@dut.u.rt_i TO-GOLDEN
+e11_def_struct PORT work@dut.u.rt_i TO-GOLDEN
+e13_two_ports PORT work@dut.u.a_i TO-GOLDEN
+e13_two_ports PORT work@dut.u.b_i TO-GOLDEN
+e14_output_port PORT work@dut.u.r_o TO-GOLDEN
+e16_nonlocal_rt PORT work@dut.u.rt_i TO-GOLDEN
+e18_chain_rt PORT work@dut.u.r_i TO-GOLDEN
+e19_scalar_port_ctl PORT work@dut.u.rt_i TO-GOLDEN
+e22_nonansi PORT work@dut.u.rt_i TO-GOLDEN
+e23_inst_array PORT work@dut.u[0].rt_i TO-GOLDEN
+e23_inst_array PORT work@dut.u[1].rt_i TO-GOLDEN
+e24_ovr_2state PORT work@dut.u.rt_i TO-GOLDEN
+e27_ovr_signed PORT work@dut.u.rt_i TO-GOLDEN
+e28_nested_child PORT work@dut.m.l.rt_i TO-GOLDEN
+e29_two_same_ovr PORT work@dut.u.rt_i TO-GOLDEN
+e29_two_same_ovr PORT work@dut.v.rt_i TO-GOLDEN
+e32_typedef_elem_default PORT work@dut.u.rt_i TO-GOLDEN
+e35_ordered_then_named PORT work@dut.v.rt_i TO-GOLDEN
+e36_parent_same_name_ovr PORT work@dut.m.u.rt_i TO-GOLDEN
+e37_parent_ovr_child_def PORT work@dut.m.u.rt_i TO-GOLDEN
+e38_parent_same_name_def PORT work@dut.m.u.rt_i TO-GOLDEN
+e39_value_and_type_named PORT work@dut.u.rt_i TO-GOLDEN
+e42_three_level_outermost PORT work@dut.m.n.u.rt_i TO-GOLDEN
+e43_parent_ovr_gen_child PORT work@dut.m.g.u.rt_i TO-GOLDEN
+e44_parent_other_name_ovr PORT work@dut.m.u.rt_i TO-GOLDEN
+e45_pkg_enum_ovr PORT work@dut.u.rt_i TO-GOLDEN
+e47_pkg_struct_ovr PORT work@dut.u.rt_i TO-GOLDEN
+e49_mod_typedef_ovr PORT work@dut.u.rt_i TO-GOLDEN
+e50_unit_typedef_ovr PORT work@dut.u.rt_i TO-GOLDEN
+e53_pkg_union_ovr PORT work@dut.u.rt_i TO-GOLDEN
+ARMS=51 TO-GOLDEN=41 AWAY=0 MOVED-WRONG=0 OTHER=0
+## f2
+i02_init_child_ovr VAR  work@dut.u.x TO-GOLDEN
+i03_init_2state VAR  work@dut.x TO-GOLDEN
+i06_unpacked_2state VAR  work@dut.x TO-GOLDEN
+i08_unpacked_2dim VAR  work@dut.x TO-GOLDEN
+i09_unpacked_child_ovr VAR  work@dut.u.x TO-GOLDEN
+i11_attr_wdims_child VAR  work@dut.u.x TO-GOLDEN
+i16_var_kw_init VAR  work@dut.x TO-GOLDEN
+i18_out_port_child_ctl PORT work@dut.u.o TO-GOLDEN
+i20_port_default_child PORT work@dut.u.a TO-GOLDEN
+i21_two_decl_init VAR  work@dut.x TO-GOLDEN
+i21_two_decl_init VAR  work@dut.y TO-GOLDEN
+ARMS=19 TO-GOLDEN=11 AWAY=0 MOVED-WRONG=0 OTHER=0
+## m2
+ARMS=17 TO-GOLDEN=0 AWAY=0 MOVED-WRONG=0 OTHER=0
+## r11u107repro_grid
+o01_ovr_elem PORT work@dut.u.rt_i TO-GOLDEN
+o02_ovr_then_def PORT work@dut.u0.rt_i TO-GOLDEN
+o03_def_then_ovr PORT work@dut.u0.rt_i TO-GOLDEN
+o04_two_ovr PORT work@dut.u0.rt_i TO-GOLDEN
+o04_two_ovr PORT work@dut.u1.rt_i TO-GOLDEN
+o07_passthru PORT work@dut.m.u.rt_i TO-GOLDEN
+o08_ovr_typedef PORT work@dut.u.rt_i TO-GOLDEN
+o09_param_not_local PORT work@dut.u.rt_i TO-GOLDEN
+ARMS=55 TO-GOLDEN=8 AWAY=0 MOVED-WRONG=0 OTHER=0
+## r11u108repro_grid
+f5/f5a05_override PORT work@dut.u.r TO-GOLDEN
+f5/f5a11_unpacked_ctl VAR  work@dut.x TO-GOLDEN
+f5/f5a16_ovr2state PORT work@dut.u.r TO-GOLDEN
+f5/f5a18_init VAR  work@dut.x TO-GOLDEN
+ARMS=82 TO-GOLDEN=4 AWAY=0 MOVED-WRONG=0 OTHER=0
+## v11u108repro_brk
+f5/b15_child_ports PORT work@dut.u.rt_i TO-GOLDEN
+f5/b15_child_ports PORT work@dut.u.rt_o TO-GOLDEN
+f5/b25_attr_wdims VAR  work@dut.x TO-GOLDEN
+f5/b27_gen_loop_inst PORT work@dut.g[0].u.a TO-GOLDEN
+f5/b27_gen_loop_inst PORT work@dut.g[0].u.o TO-GOLDEN
+f5/b27_gen_loop_inst PORT work@dut.g[1].u.a TO-GOLDEN
+f5/b27_gen_loop_inst PORT work@dut.g[1].u.o TO-GOLDEN
+f5/b29_override_packed_elem PORT work@dut.u.a TO-GOLDEN
+ARMS=54 TO-GOLDEN=8 AWAY=0 MOVED-WRONG=0 OTHER=0
+## v11u93b107repro_brk
+r01_gen_first PORT work@dut.g.u1.rt_i TO-GOLDEN
+r01_gen_first PORT work@dut.u0.rt_i TO-GOLDEN
+r02_gen_last PORT work@dut.g.u1.rt_i TO-GOLDEN
+r02_gen_last PORT work@dut.u0.rt_i TO-GOLDEN
+r03_nested_first PORT work@dut.m.u1.rt_i TO-GOLDEN
+r03_nested_first PORT work@dut.u0.rt_i TO-GOLDEN
+r04_nested_last PORT work@dut.m.u1.rt_i TO-GOLDEN
+r04_nested_last PORT work@dut.u0.rt_i TO-GOLDEN
+r05_rt_ovr_samename PORT work@dut.u0.rt_i TO-GOLDEN
+r06_ovr_pkg_struct PORT work@dut.u.rt_i TO-GOLDEN
+r07_inst_array PORT work@dut.u[0].rt_i TO-GOLDEN
+r07_inst_array PORT work@dut.u[1].rt_i TO-GOLDEN
+r08_two_defs PORT work@dut.u0.rt_i TO-GOLDEN
+r08_two_defs PORT work@dut.u1.rt_i TO-GOLDEN
+r09_gen_for PORT work@dut.g[0].u1.rt_i TO-GOLDEN
+r09_gen_for PORT work@dut.g[1].u1.rt_i TO-GOLDEN
+r09_gen_for PORT work@dut.u0.rt_i TO-GOLDEN
+r10_two_tops PORT work@topa.u0.rt_i TO-GOLDEN
+r10_two_tops PORT work@topb.u1.rt_i TO-GOLDEN
+r11_nested_gen PORT work@dut.g.h.u1.rt_i TO-GOLDEN
+r11_nested_gen PORT work@dut.u0.rt_i TO-GOLDEN
+r12_gen_mid PORT work@dut.g.u1.rt_i TO-GOLDEN
+r12_gen_mid PORT work@dut.u0.rt_i TO-GOLDEN
+ARMS=47 TO-GOLDEN=23 AWAY=0 MOVED-WRONG=0 OTHER=0
+## m2 (cellm108)
+n01_multi2 q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=-'] law=['logic_typespec name=q2::row_t elem=-']
+n02_multi3 q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=-'] law=['logic_typespec name=q2::row_t elem=-']
+n06_multi_scoped_other_pkg q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=p1::row_t elem='] pris=['logic_typespec name= elem=-'] law=['logic_typespec name=p1::row_t elem=-']
+n08_multi_var_of_struct q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=-'] law=['logic_typespec name=q2::row_t elem=-']
+## v11u108repro_brk/f2 (cellm108)
+c13_multidim_member q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=-'] law=['logic_typespec name=q2::row_t elem=-']
+## r11u108repro_grid/pk (cellm108)
+## r11u108repro_grid/f2 (cellm108)

@@ -1,0 +1,28 @@
+## cen110 (law-1 shape) — pristine sweep workdir, golden first
+ROW u2r/default/type_param_override_elem_sel-212ed556 GOLD 1 OURS 1
+ROW u2r/default/type_param_packed_dim-2a08511b GOLD 1 OURS 1
+ROW u2r/testflags/type_param_override_elem_sel-212ed556 GOLD 1 OURS 1
+ROW u2r/testflags/type_param_packed_dim-2a08511b GOLD 1 OURS 1
+PROCESSED=3323
+## cen110 — law sweep workdir
+ROW u2r/default/type_param_override_elem_sel-212ed556 GOLD 1 OURS 1
+ROW u2r/default/type_param_packed_dim-2a08511b GOLD 1 OURS 1
+ROW u2r/testflags/type_param_override_elem_sel-212ed556 GOLD 1 OURS 1
+ROW u2r/testflags/type_param_packed_dim-2a08511b GOLD 1 OURS 1
+PROCESSED=3323
+## cenv110 (face-2 variable shapes) — pristine sweep workdir
+ROW sl/default/PackedArrayAssign-dfde39bd GOLD 1 OURS 1
+ROW sl/default/Tnoc-d856c17c GOLD 2994 OURS NA
+ROW sl/testflags/PackedArrayAssign-dfde39bd GOLD 1 OURS 1
+ROW sl/testflags/Tnoc-d856c17c GOLD 2994 OURS NA
+ROW u2r/default/EnumArray-4ef1e60e GOLD 1 OURS 1
+ROW u2r/default/EnumArrayListedElements-77dec373 GOLD 1 OURS 1
+ROW u2r/default/StructPackedArray-a40c820c GOLD 1 OURS 1
+ROW u2r/testflags/EnumArray-4ef1e60e GOLD 1 OURS 1
+ROW u2r/testflags/EnumArrayListedElements-77dec373 GOLD 1 OURS 1
+ROW u2r/testflags/StructPackedArray-a40c820c GOLD 1 OURS 1
+PROCESSED=3323
+## cenmrun110 (cenm108 DEF-listing member bindings) — pristine sweep workdir
+ROW u2r/default/stamped_gen_param-07e8f8ed GOLD-ONLY-NAMED-BINDINGS 1
+ROW u2r/testflags/stamped_gen_param-07e8f8ed GOLD-ONLY-NAMED-BINDINGS 1
+PROCESSED=3323

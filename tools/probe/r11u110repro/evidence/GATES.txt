@@ -1,0 +1,25 @@
+r11u110 GATES (law binary md5 53761406d096e3b700d440e9ca1fd67f; pristine 1dae94065a1ba3fe44c9b50007752e64 = the OPS pin)
+Both binaries frozen chmod 555 before any sweep; every cmds.txt audited by binary PATH:
+  pristine sweep: uhdm2rtlil 1742/1742 + surelog 1531/1531 cmds name the pristine copy
+  law sweep:      uhdm2rtlil 1742/1742 + surelog 1531/1531 cmds name the law copy
+(1) build: both -j 2, rc 0; pristine md5 = the pin.
+(2) tests/check_goldens.sh: law 23 PASS / 0 FAIL; SLANG_UHDM=/bin/false 0 PASS / 23 FAIL; pristine 23 PASS.
+(3) uhdm2rtlil --mode both (jobs 3): row-join vs results/golden_uhdm2rtlil.csv differs ONLY in
+      type_param_override_elem_sel,default   CMP_NOTEQUAL -> CMP_EQUAL
+      type_param_override_elem_sel,testflags CMP_NOTEQUAL -> CMP_EQUAL
+    testflags rows vs results/gate_uhdm2rtlil.csv: the same single row.
+    histograms: 791/13/67 -> 792/12/67 both modes.
+    pristine sweep vs committed baseline: PASS (every row byte-identical).
+(4) surelog --mode both (jobs 3): statuses identical to baseline and to pristine
+    (474/9 default, 469/8 testflags); row diffs are environment only (LowMemLib/LowMemPkg log
+    path; Earlgrey_0_1 dump column blank on the pristine draw, "differ" on the law draw — both CMP_EQUAL).
+(5) byteverify SELFCHECK=1 vs own pristine workdirs:
+    uhdm2rtlil 1608 dbs, PATH_SETS_IDENTICAL, MOVERS 2/1608 = type_param_override_elem_sel default+testflags (PREDICTED)
+    surelog     960 dbs, PATH_SETS_IDENTICAL, MOVERS 4/960 = MiniAmiq, SeqDriver x both modes:
+      order-blind uhdm-dump diff = 4 lines each, all UINT:<n>/vpiDecompile:<n> line-number values
+      (the documented UVM class); statuses stay CMP_EQUAL.
+    SELFCHECK positive control: 1607/1608 and 959/960 flagged.
+Canaries: canaries.sh surelog ok=52 changed=0; u2r ok=8 changed=0; ctcan2.sh PASS (EXPECT_UNKNOWN 1 / 6); canaudit.sh PASS.
+Protected dbs law == pristine: SVSwitch 4842211c4030 (both), YosysVerx 6ccda350c24a (both),
+  InterfaceModPort 59a365f3ce2c (both), BlackParrotComplex e3e354129d5a/73a10e8217e5,
+  YosysOldOr d68e0796d62c (both), Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3.
