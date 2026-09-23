@@ -1,0 +1,20 @@
+# v11u111 gates (verifier of r11u111).  Binaries built from fresh 1d7a03b8 worktrees, -j 2, frozen chmod 555.
+pristine md5 b3dc863277c4f1340e9058c8b78f2f01 (== OPS pin)
+lawx (r11u111.patch) md5 759b34baa3a764957a7605355ea0079b (== implementer's claim)
+lawz (r11u111.verified.patch) md5 0a1c2a019d7f06675705214db8097a42
+goldens: lawx 23/0, lawz 23/0, /bin/false 0/23
+u2r both modes: pris 794/10/67 (row-join vs results PASS, all three baselines); lawx = lawz 795/9/67;
+  only row moved: cfg_func_width_loop default+testflags CMP_NOTEQUAL -> CMP_EQUAL (golden_uhdm2rtlil.csv both modes, gate_uhdm2rtlil.csv)
+surelog both modes: pris 477/6 + 472/5 (statuses == results/golden_surelog.csv); lawx = lawz 478/5 + 473/4;
+  only status move: LargeValue2Struct default+testflags CMP_NOTEQUAL -> CMP_EQUAL; Earlgrey_0_1 dump column blank = uhdm-dump timeout draw (db md5 pinned)
+byteverify SELFCHECK=1 vs own pristine: u2r 6/1608 (cfg_func_width_loop, stamped_gen_param, ibex_tracer x2 modes);
+  surelog 8/960 = LargeValue2Struct x2 + MiniAmiq x2, SeqDriver x2, SimpleUVM/default (order-blind 2+2 UINT/vpiDecompile lines) + Scoreboard/default (order-blind 0 = coin)
+lawz vs lawx: u2r 0/1608 movers; surelog 5/960 = UVM nondeterminism class only
+canary db pins pris == lawz both modes: SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+  BlackParrotComplex e3e354129d5a/73a10e8217e5, YosysOldOr d68e0796d62c, Earlgrey_0_1 8bdf25272e08/59d0ee6d10c3
+battery (r10uvm221repro): canaries sl ok=51 changed=1 (Earlgrey default dump column, timeout draw), u2r ok=8 changed=0; ctcan2 PASS x2; canaudit PASS
+corpus ctxdist (gold, pris -> lawz), AWAY-KEYS: stamped_gen_param 307->282 0; ibex_tracer 3458->2050 0; cfg_func_width_loop 17->11 0; LargeValue2Struct 2->2 0 (judge 108->0)
+wide boundary pris vs lawz: LISTED=9137 PROCESSED=9137, MOVED 131 (58 = brk arms of this dir), NOOUT 232, SAME 8774, no RCDIFF/OUTDIFF;
+  73 non-brk movers (== r11u111's 73), lawx == lawz bytes on all 73; scored: 61 TO-GOLDEN, 12 LATERAL (8 F2 judge->0 with ctxdist-stripped fields,
+  k23e 108->64, k15 parent links, g22/l154_noenum/g185_e_kinds layout-derived tail constant; layoutproof154.sh LAYOUTPROOF OK), 0 AWAY
+switch check (sw111v.sh, lawz) on brk + r11u111repro/grid: ARMS=180, R11U111_OFF != pristine: 0

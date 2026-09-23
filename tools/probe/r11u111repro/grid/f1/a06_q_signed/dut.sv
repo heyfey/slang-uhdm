@@ -1,0 +1,9 @@
+package q;
+  typedef logic signed [7:0] sv_t;
+endpackage
+module sub #(parameter q::sv_t M = '0) (output logic [7:0] o);
+  assign o = M;
+endmodule
+module dut (output logic [7:0] o);
+  sub #(.M(-8'sd3)) u (.o(o));
+endmodule

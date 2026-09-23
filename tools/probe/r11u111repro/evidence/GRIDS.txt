@@ -1,0 +1,237 @@
+# r11u111 grids: arm | pristine cmp lines/heads | law cmp lines/heads | law head (L golden / R ours, first object line)
+# golden = pinned Surelog -parse -nobuiltin -nocache -sv; ours = --single-unit --nobuiltin; pristine b3dc863277c4, law 759b34baa3a7
+## grid/f1
+a01_q_lit_ovr | 126/1 | 0/0 | L:  | R:
+a02_q_sym_ovr | 148/1 | 0/0 | L:  | R:
+a03_q_sym_default | 148/1 | 0/0 | L:  | R:
+a04_q_scalar | 26/1 | 26/1 | L: logic_typespec: (q::s_t), id:54, line:2:11, endln:2:16 | R: logic_typespec: , id:54, line:4:24, endln:4:30
+a05_q_bitvec | 66/1 | 66/1 | L: bit_typespec: (q::b_t), id:94, line:2:11, endln:2:20 | R: int_typespec: , id:78, line:4:24, endln:4:30
+a06_q_signed | 130/1 | 0/0 | L:  | R:
+a07_q_localparam | 148/1 | 0/0 | L:  | R:
+a08_imp_wild_hdr | 58/1 | 58/1 | L: constant: , id:78, line:3:18, endln:3:20 | R: operation: , id:47, line:3:18, endln:3:22
+a09_imp_explicit | 0/0 | 0/0 | L:  | R:
+a10_q_chain | 0/0 | 0/0 | L:  | R:
+a11_modlocal_ctl | 142/1 | 142/1 | L: param_assign: , id:68, line:3:21, endln:3:31 | R: param_assign: , id:65, line:3:21, endln:3:31
+a12_q_multidim | 206/1 | 0/0 | L:  | R:
+a13_q_iface | 126/1 | 126/1 | L: logic_typespec: (q::mask_t), id:89, line:2:11, endln:2:22 | R: logic_typespec: (mask_t), id:69, line:2:11, endln:2:22
+a14_q_two_inst | 148/1 | 0/0 | L:  | R:
+a15_q_genblk | 126/1 | 0/0 | L:  | R:
+a16_pkgparam_q_otherpkg | 126/1 | 0/0 | L:  | R:
+a17_q_and_import | 148/1 | 0/0 | L:  | R:
+a18_q_localparam_top | 148/1 | 50/1 | L: operation: , id:129, line:8:14, endln:8:19 | R: constant: , id:82
+a19_q_ascending_sym | 148/1 | 0/0 | L:  | R:
+a20_q_struct_ctl | 0/0 | 0/0 | L:  | R:
+a21_q_enum_ctl | 0/0 | 0/0 | L:  | R:
+a22_cfg_copy | 148/1 | 0/0 | L:  | R:
+a23_func_in_pkg | 148/1 | 0/0 | L:  | R:
+a24_pkgparam_q_imported_to_mod | 126/1 | 17/1 | L: ref_typespec: (work@dut), id:78 | R: <null>
+a25_pkg_self_qualified | 148/1 | 0/0 | L:  | R:
+a26_q_port_ctl | 0/0 | 0/0 | L:  | R:
+a27_q_row_named_dims | 154/1 | 0/0 | L:  | R:
+## grid/f2
+b01_q_q_w16 | 108/1 | 0/0 | L:  | R:
+b02_imp_imp_w16 | 0/0 | 0/0 | L:  | R:
+b03_q_imp_w16 | 0/0 | 0/0 | L:  | R:
+b04_imp_q_w16 | 108/1 | 0/0 | L:  | R:
+b05_q_q_w80 | 108/1 | 0/0 | L:  | R:
+b06_imp_imp_w80 | 108/1 | 0/0 | L:  | R:
+b07_q_imp_w80 | 108/1 | 0/0 | L:  | R:
+b08_imp_q_w80 | 108/1 | 0/0 | L:  | R:
+b09_imp_imp_w64 | 0/0 | 0/0 | L:  | R:
+b10_q_q_w64 | 108/1 | 0/0 | L:  | R:
+b11_localparam_q_w16 | 108/1 | 0/0 | L:  | R:
+b12_sub_q_w16 | 108/1 | 0/0 | L:  | R:
+b13_sub_imp_w80 | 108/1 | 0/0 | L:  | R:
+b14_hdrimp_imp_w80 | 108/1 | 0/0 | L:  | R:
+b15_q_q_w16_bitmember | 112/1 | 112/1 | L: bit_typespec: (k_t), id:157, line:2:11, endln:2:20 | R: bit_typespec: (p::k_t), id:23, line:2:11, endln:2:20
+b16_q_q_w16_litmember | 112/1 | 112/1 | L: logic_typespec: (k_t), id:157, line:2:11, endln:2:22 | R: logic_typespec: (p::k_t), id:8, line:2:11, endln:2:22
+b17_q_q_w16_plainmember_ctl | 0/0 | 0/0 | L:  | R:
+b18_q_q_w16_pattern | 108/1 | 108/1 | L: logic_typespec: (k_t), id:326, line:3:11, endln:3:24 | R: logic_typespec: (p::k_t), id:124, line:3:11, endln:3:24
+b19_k10k | 0/0 | 0/0 | L:  | R:
+b20_k10l | 108/1 | 0/0 | L:  | R:
+b21_k10j | 108/1 | 0/0 | L:  | R:
+b22_lv2s | 108/1 | 0/0 | L:  | R:
+b23_k10e | 108/1 | 0/0 | L:  | R:
+b24_lv2s_corpus | 108/1 | 0/0 | L:  | R:
+## grid/f3
+c13_multidim_member | 84/1 | 84/1 | L: logic_typespec: (q2::row_t), id:39 | R: logic_typespec: , id:71, line:4:44, endln:4:60
+k05_param_a | 490/1 | 0/0 | L:  | R:
+k12_member_arr_dims | 658/1 | 96/1 | L: logic_typespec: (p::a_t), id:185 | R: logic_typespec: (a_t), id:79, line:6:11, endln:6:20
+k13_member_nested_stamp | 17/1 | 96/1 | L: constant: , id:292, line:5:44, endln:5:86 | R: operation: , id:12, line:5:44, endln:5:86
+k14_member_nested_nodim | 100/1 | 100/1 | L: logic_typespec: (q2::row_t), id:39, line:4:44, endln:4:49 | R: logic_typespec: (row_t), id:64, line:3:11, endln:3:21
+k15_member_vec_dim | 263/1 | 263/1 | L: package: q2 (q2::), id:1, file:/tmp/wt_r11u111/tools/probe/r11u111repro/grid/f3/k15_member_vec_dim/dut.sv, line:1:1, endln:5:11 | R: <null>
+n01_multi2 | 84/1 | 84/1 | L: logic_typespec: (q2::row_t), id:39 | R: logic_typespec: , id:71, line:4:44, endln:4:60
+n02_multi3 | 84/1 | 84/1 | L: logic_typespec: (q2::row_t), id:39 | R: logic_typespec: , id:65, line:4:38, endln:4:59
+s00_stamped_corpus | 17/1 | 96/1 | L: constant: , id:292, line:19:16, endln:19:58 | R: operation: , id:12, line:19:16, endln:19:58
+t01_listing_only | 154/1 | 0/0 | L:  | R:
+t02_var_use | 150/1 | 36/1 | L: constant: , id:57, line:7:14, endln:7:16 | R: constant: , id:47, line:7:14, endln:7:16
+t03_member_only | 100/1 | 100/1 | L: logic_typespec: (q2::row_t), id:39, line:4:27, endln:4:32 | R: logic_typespec: (row_t), id:44, line:3:11, endln:3:21
+t04_member_dim | 17/1 | 64/1 | L: constant: , id:107, line:5:23, endln:5:25 | R: constant: , id:52, line:5:23, endln:5:25
+t05_bit_base | 152/1 | 152/1 | L: packed_array_typespec: (q2::row_t), id:25, line:3:11, endln:3:21 | R: packed_array_typespec: , id:40, line:4:27, endln:4:38
+t06_scalar_base | 17/1 | 64/1 | L: constant: , id:79, line:5:23, endln:5:25 | R: constant: , id:40, line:5:23, endln:5:25
+t07_sym_range | 17/1 | 64/1 | L: constant: , id:130, line:6:23, endln:6:25 | R: constant: , id:64, line:6:23, endln:6:25
+t08_param_only | 154/1 | 0/0 | L:  | R:
+t09_pat_vec_member_ctl | 96/1 | 96/1 | L: constant: , id:207, line:3:44, endln:3:86 | R: operation: , id:12, line:3:44, endln:3:86
+t10_pat_row_member | 100/1 | 100/1 | L: logic_typespec: (q2::row_t), id:39, line:4:44, endln:4:49 | R: logic_typespec: (row_t), id:64, line:3:11, endln:3:21
+t11_pat_anon_named_member | 96/1 | 96/1 | L: constant: , id:255, line:4:44, endln:4:86 | R: operation: , id:12, line:4:44, endln:4:86
+t12_pat_row_dims_member | 17/1 | 96/1 | L: constant: , id:292, line:5:44, endln:5:86 | R: operation: , id:12, line:5:44, endln:5:86
+## grid/f5
+e01_q_enum | 19/1 | 0/0 | L:  | R:
+e02_noq_enum | 19/1 | 46/1 | L: ref_obj: (work@dut.X), id:171, line:11:20, endln:11:21 | R: constant: , id:109, line:11:20, endln:11:21
+e03_q_ownparam | 46/1 | 0/0 | L:  | R:
+e04_noq_ownparam | 46/1 | 46/1 | L: ref_obj: (work@dut.X), id:171, line:11:20, endln:11:21 | R: constant: , id:109, line:11:20, endln:11:21
+e05_q_enum_both_imports | 19/1 | 0/0 | L:  | R:
+e06_plain_enum | 0/0 | 0/0 | L:  | R:
+e07_q_norefs_ctl | 0/0 | 0/0 | L:  | R:
+e08_explicit_import | 19/1 | 0/0 | L:  | R:
+e09_q_enum_nobrace | 19/1 | 0/0 | L:  | R:
+e10_q_twoparams | 19/1 | 0/0 | L:  | R:
+e11_q_enum_samepkg | 19/1 | 0/0 | L:  | R:
+e12_q_ownparam_x | 46/1 | 0/0 | L:  | R:
+e13_unused_import | 19/1 | 0/0 | L:  | R:
+e14_repl_enum | 19/1 | 46/1 | L: ref_obj: (work@dut.X), id:171, line:11:20, endln:11:21 | R: constant: , id:109, line:11:20, endln:11:21
+e15_concat_plus | 108/1 | 108/1 | L: operation: , id:167, line:7:29, endln:7:50 | R: constant: , id:95, line:7:29, endln:7:43
+e16_concat_two_params | 110/1 | 46/1 | L: ref_obj: (work@dut.X), id:164, line:11:20, endln:11:21 | R: constant: , id:106, line:11:20, endln:11:21
+e17_tern_concat_branch | 62/1 | 62/1 | L: constant: , id:102, line:7:45, endln:7:54 | R: constant: , id:60, line:7:29, endln:7:61
+e18_mod_own_ctl | 0/0 | 0/0 | L:  | R:
+e19_reexport | 596/1 | 596/1 | L: package: p2 (p2::), id:188, file:/tmp/wt_r11u111/tools/probe/r11u111repro/grid/f5/e19_reexport/dut.sv, line:9:1, endln:12:11 | R: package: p1 (p1::), id:11, file:/tmp/wt_r11u111/tools/probe/r11u111repro/grid/f5/e19_reexport/dut.sv, line:4:1, endln:8:11
+e20_qual_enum | 28/1 | 28/1 | L: constant: , id:78, line:7:38, endln:7:42 | R: ref_obj: (p1::p0::A), id:59, line:7:38, endln:7:43
+e21_cast_concat | 46/1 | 46/1 | L: ref_obj: (work@dut.X), id:190, line:11:20, endln:11:21 | R: constant: , id:118, line:11:20, endln:11:21
+e22_int_concat | 19/1 | 46/1 | L: ref_obj: (work@dut.X), id:146, line:11:20, endln:11:21 | R: constant: , id:94, line:11:20, endln:11:21
+e23_sub_instance | 19/1 | 0/0 | L:  | R:
+## grid/f6
+a35_pkg_struct_packed_ovr | 140/1 | 140/1 | L: struct_typespec: (pk::s_t), id:136, line:2:11, endln:2:46 | R: packed_array_typespec: , id:112
+q01_local_struct_dims | 136/1 | 136/1 | L: struct_typespec: (s_t), id:136, line:13:11, endln:13:46 | R: packed_array_typespec: , id:103, line:14:17, endln:14:26
+q02_pkg_vec_dims | 116/1 | 108/1 | L: logic_typespec: (w_t), id:133, line:2:11, endln:2:22 | R: logic_typespec: (pk::w_t), id:8, line:2:11, endln:2:22
+q03_local_vec_dims | 112/1 | 58/1 | L: logic_typespec: (w_t), id:107, line:13:11, endln:13:22 | R: logic_typespec: , id:14, line:2:27, endln:2:32
+q04_pkg_struct_nodims_ctl | 92/1 | 92/1 | L: struct_typespec: (pk::s_t), id:109, line:2:11, endln:2:46 | R: logic_typespec: , id:30, line:5:27, endln:5:32
+q05_unit_td_dims | 112/1 | 58/1 | L: logic_typespec: (uw_t), id:108, line:1:9, endln:1:20 | R: logic_typespec: , id:18, line:3:27, endln:3:32
+## grid/f4 (FACE 4, fenced; pristine vs the ModuleEmit prototype, see F4PROTO.txt)
+d01_arr_elem_dep | 90/1 | proto 90/1
+d02_plain_pos_dep | 64/1 | proto 0/0
+d03_arr_elem_dep_recv_param | 90/1 | proto 90/1
+d04_arr_elem_lit_ctl | 90/1 | proto 90/1
+calibration golden-vs-golden: 105 arms, 0 nonzero
+## per-arm scoring (score111.sh: cen111 per-face distance + ctxdist111 per-object AWAY), pristine -> law, grids + landed-law controls r11u108repro/grid, v11u108repro/brk:
+grid/f1/a01_q_lit_ovr cmp 126/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a02_q_sym_ovr cmp 148/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a03_q_sym_default cmp 148/1->0/0 ctxwhole 6->0 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a06_q_signed cmp 130/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a07_q_localparam cmp 148/1->0/0 ctxwhole 6->0 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a12_q_multidim cmp 206/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a13_q_iface cmp 126/1->126/1 ctxwhole 13->9 awaykeys=0 F1:4->2 TO-GOLDEN
+grid/f1/a14_q_two_inst cmp 148/1->0/0 ctxwhole 12->4 awaykeys=0 F1:6->0 TO-GOLDEN
+grid/f1/a15_q_genblk cmp 126/1->0/0 ctxwhole 16->4 awaykeys=0 F1:6->0 TO-GOLDEN
+grid/f1/a16_pkgparam_q_otherpkg cmp 126/1->0/0 ctxwhole 16->8 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a17_q_and_import cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a18_q_localparam_top cmp 148/1->50/1 ctxwhole 25->13 awaykeys=0 F1:8->0 TO-GOLDEN
+grid/f1/a19_q_ascending_sym cmp 148/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a22_cfg_copy cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a23_func_in_pkg cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a24_pkgparam_q_imported_to_mod cmp 126/1->17/1 ctxwhole 14->6 awaykeys=0 F1:7->0 TO-GOLDEN
+grid/f1/a25_pkg_self_qualified cmp 148/1->0/0 ctxwhole 16->8 awaykeys=0 F1:4->0 TO-GOLDEN
+grid/f1/a27_q_row_named_dims cmp 154/1->0/0 ctxwhole 15->2 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+grid/f2/b01_q_q_w16 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+grid/f2/b04_imp_q_w16 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b05_q_q_w80 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+grid/f2/b06_imp_imp_w80 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b07_q_imp_w80 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+grid/f2/b08_imp_q_w80 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b10_q_q_w64 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+grid/f2/b11_localparam_q_w16 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+grid/f2/b12_sub_q_w16 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+grid/f2/b13_sub_imp_w80 cmp 108/1->0/0 ctxwhole 25->25 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b14_hdrimp_imp_w80 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b17_q_q_w16_plainmember_ctl cmp 0/0->0/0 ctxwhole 9->9 awaykeys=0  LATERAL
+grid/f2/b18_q_q_w16_pattern cmp 108/1->108/1 ctxwhole 15->15 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b20_k10l cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b21_k10j cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b22_lv2s cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f2/b23_k10e cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+grid/f2/b24_lv2s_corpus cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+grid/f3/c13_multidim_member cmp 84/1->84/1 ctxwhole 19->12 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/k05_param_a cmp 490/1->0/0 ctxwhole 15->2 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+grid/f3/k12_member_arr_dims cmp 658/1->96/1 ctxwhole 11->4 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/k13_member_nested_stamp cmp 17/1->96/1 ctxwhole 129->118 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+grid/f3/k14_member_nested_nodim cmp 100/1->100/1 ctxwhole 125->114 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+grid/f3/k15_member_vec_dim cmp 263/1->263/1 ctxwhole 15->15 awaykeys=0  LATERAL
+grid/f3/n01_multi2 cmp 84/1->84/1 ctxwhole 19->12 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/n02_multi3 cmp 84/1->84/1 ctxwhole 19->12 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/s00_stamped_corpus cmp 17/1->96/1 ctxwhole 307->282 awaykeys=0 F1:12->0 F3:3->0 TO-GOLDEN
+grid/f3/t01_listing_only cmp 154/1->0/0 ctxwhole 7->0 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/t02_var_use cmp 150/1->36/1 ctxwhole 11->4 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/t03_member_only cmp 100/1->100/1 ctxwhole 22->15 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/t04_member_dim cmp 17/1->64/1 ctxwhole 18->11 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/t06_scalar_base cmp 17/1->64/1 ctxwhole 18->11 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/t07_sym_range cmp 17/1->64/1 ctxwhole 36->11 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/t08_param_only cmp 154/1->0/0 ctxwhole 15->2 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+grid/f3/t10_pat_row_member cmp 100/1->100/1 ctxwhole 37->30 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f3/t12_pat_row_dims_member cmp 17/1->96/1 ctxwhole 51->44 awaykeys=0 F3:3->0 TO-GOLDEN
+grid/f5/e01_q_enum cmp 19/1->0/0 ctxwhole 12->8 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e02_noq_enum cmp 19/1->46/1 ctxwhole 26->22 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e03_q_ownparam cmp 46/1->0/0 ctxwhole 26->8 awaykeys=0 F5:2->0 TO-GOLDEN
+grid/f5/e04_noq_ownparam cmp 46/1->46/1 ctxwhole 40->22 awaykeys=0 F5:2->0 TO-GOLDEN
+grid/f5/e05_q_enum_both_imports cmp 19/1->0/0 ctxwhole 12->8 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e08_explicit_import cmp 19/1->0/0 ctxwhole 12->8 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e09_q_enum_nobrace cmp 19/1->0/0 ctxwhole 12->8 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e10_q_twoparams cmp 19/1->0/0 ctxwhole 24->16 awaykeys=0 F5:8->0 TO-GOLDEN
+grid/f5/e11_q_enum_samepkg cmp 19/1->0/0 ctxwhole 12->8 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e12_q_ownparam_x cmp 46/1->0/0 ctxwhole 26->8 awaykeys=0 F5:2->0 TO-GOLDEN
+grid/f5/e13_unused_import cmp 19/1->0/0 ctxwhole 4->0 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e14_repl_enum cmp 19/1->46/1 ctxwhole 30->28 awaykeys=0 F5:2->0 TO-GOLDEN
+grid/f5/e16_concat_two_params cmp 110/1->46/1 ctxwhole 60->22 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e19_reexport cmp 596/1->596/1 ctxwhole 69->61 awaykeys=0 F5:7->1 TO-GOLDEN
+grid/f5/e21_cast_concat cmp 46/1->46/1 ctxwhole 37->24 awaykeys=0 F5:3->0 TO-GOLDEN
+grid/f5/e22_int_concat cmp 19/1->46/1 ctxwhole 30->26 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f5/e23_sub_instance cmp 19/1->0/0 ctxwhole 12->8 awaykeys=0 F5:4->0 TO-GOLDEN
+grid/f6/q02_pkg_vec_dims cmp 116/1->108/1 ctxwhole 12->10 awaykeys=0 F6:3->1 TO-GOLDEN
+grid/f6/q03_local_vec_dims cmp 112/1->58/1 ctxwhole 12->8 awaykeys=0 F6:3->1 TO-GOLDEN
+grid/f6/q05_unit_td_dims cmp 112/1->58/1 ctxwhole 12->8 awaykeys=0 F6:3->1 TO-GOLDEN
+ctl/r11u108repro_grid/f2/m05_union_ctl cmp 138/1->138/1 ctxwhole 20->13 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/f2/m06_module_struct_ctl cmp 154/1->134/1 ctxwhole 13->6 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/f2/m08_two_members cmp 17/1->64/1 ctxwhole 17->10 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/f2/m09_nested_struct cmp 17/1->64/1 ctxwhole 18->11 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/f2/m10_td_named_nodims_member cmp 100/1->100/1 ctxwhole 22->15 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/f5/f5a20_ovr_pkgarr cmp 154/1->0/0 ctxwhole 11->4 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k01_param_v cmp 126/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k02_param_vn cmp 148/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k03_param_vn_default cmp 148/1->0/0 ctxwhole 6->0 awaykeys=0 F1:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k05_param_a cmp 490/1->0/0 ctxwhole 15->2 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k10e_member_child_sel_q cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k10j_wide cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k10l_w33 cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k11_member_v_qualified cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k12_member_arr_dims cmp 658/1->96/1 ctxwhole 11->4 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k13_member_nested_stamp cmp 17/1->96/1 ctxwhole 129->118 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k14_member_nested_nodim cmp 100/1->100/1 ctxwhole 125->114 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k15_member_vec_dim cmp 263/1->263/1 ctxwhole 15->15 awaykeys=0  LATERAL
+ctl/r11u108repro_grid/pk/k17_func_in_pkg cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k20_cfg_func_width cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k21_param_vn_nofunc cmp 148/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k22_param_v_literal cmp 126/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k23c_samekey cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k23d_nowidth cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k23e_nokeysel cmp 108/1->64/1 ctxwhole 8->8 awaykeys=0 F2:8->4 TO-GOLDEN
+ctl/r11u108repro_grid/pk/k23_lv2s_copy cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c01_var_of_struct cmp 17/1->96/1 ctxwhole 51->44 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c02_param_of_struct cmp 17/1->96/1 ctxwhole 104->97 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c03_port_of_struct cmp 17/1->96/1 ctxwhole 49->42 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c04_cast_struct cmp 130/1->96/1 ctxwhole 49->42 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c06_scalar_leaf cmp 17/1->64/1 ctxwhole 18->11 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c07_chain3 cmp 17/1->17/1 ctxwhole 24->17 awaykeys=0 F3:6->3 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c08_unpacked_struct cmp 318/1->58/1 ctxwhole 8->1 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c09_import_var cmp 17/1->96/1 ctxwhole 93->86 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c10_cross_pkg_member cmp 154/1->64/1 ctxwhole 20->15 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c12_param_range cmp 17/1->64/1 ctxwhole 36->11 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c13_multidim_member cmp 84/1->84/1 ctxwhole 19->12 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c14_union_member cmp 138/1->138/1 ctxwhole 20->13 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c16_pkg_func cmp 17/1->96/1 ctxwhole 62->55 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c22_gen_localparam_twice cmp 17/1->96/1 ctxwhole 184->173 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c23_two_structs_share cmp 17/1->64/1 ctxwhole 29->22 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c24_class_typedef cmp 17/1->64/1 ctxwhole 38->31 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c25_import_member cmp 154/1->96/1 ctxwhole 18->13 awaykeys=0 F3:7->6 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c26_class_struct cmp 17/1->64/1 ctxwhole 18->11 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c27_module_struct_pkg_td cmp 154/1->36/1 ctxwhole 11->4 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c28_named_import cmp 154/1->96/1 ctxwhole 35->30 awaykeys=0 F3:7->6 TO-GOLDEN
+ctl/v11u108repro_brk/f2/c29_self_qualified cmp 17/1->64/1 ctxwhole 20->13 awaykeys=0 F3:3->0 TO-GOLDEN
+ctl/v11u108repro_brk/f5/b13_pkg_arr cmp 154/1->0/0 ctxwhole 17->10 awaykeys=0 F3:3->0 TO-GOLDEN

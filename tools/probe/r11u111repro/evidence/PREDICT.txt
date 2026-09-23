@@ -1,0 +1,15 @@
+# PREDICT (a priori, written 2026-09-23T06:02:03-04:00 BEFORE the law sweep): predict111.py over cen111 golden vs PRISTINE (b3dc8632) census, both corpora both modes
+## u2r
+F1 4 default__cfg_func_width_loop default__stamped_gen_param testflags__cfg_func_width_loop testflags__stamped_gen_param
+F2 0
+F3 2 default__stamped_gen_param testflags__stamped_gen_param
+F5 8 default__ibex_register_file_ff default__ibex_tracer default__iface_scalar_localparam default__iface_struct_field_partsel testflags__ibex_register_file_ff testflags__ibex_tracer testflags__iface_scalar_localparam testflags__iface_struct_field_partsel
+F6 0
+## sl
+F1 0
+F2 4 default__LargeValue2Struct default__StructUnsizedVal testflags__LargeValue2Struct testflags__StructUnsizedVal
+F3 0
+F5 11 default__BlackBePipeInt default__Rggen default__Scr1SvTests default__StructParamFuncBodyFieldCompare default__StructParamPatternInitCast default__<slang-fenced> testflags__BlackBePipeInt testflags__Scr1SvTests testflags__StructParamFuncBodyFieldCompare testflags__StructParamPatternInitCast testflags__<slang-fenced>
+F6 0
+## positive control (grid arms, census golden!=pristine and law==golden): f1/a01 f2/b01 f3/t01 f5/e01 (cen111 md5 gold=law!=pris)
+# (redaction note: row names of the four slang-fenced tests are replaced by <slang-fenced>; no other edit)

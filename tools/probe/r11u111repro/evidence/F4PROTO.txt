@@ -1,0 +1,42 @@
+# FACE 4 prototype (NOT in the patch; ModuleEmit.cpp is fenced).  Built in the pass worktree, measured, reverted (git diff shows only ParamEmit.cpp + EmitHelpers.h; the rebuilt law binary md5 was unchanged, c8cf0810856f).
+# binary /tmp/r11u111_f4proto.bin md5 a1be7bf37830, gated by env R11U111_F4PROTO=1.  The edit, appended to ModuleEmit.cpp:41215 (base numbering):
+    std::string lv6(lhs6->VpiValue()); if (getenv("R11U111_F4PROTO") && lv6.compare(0, 5, "UINT:") != 0 && lv6.compare(0, 4, "INT:") != 0 && ifaceDefaultScope) if (auto* fs6 = ifaceDefaultScope->find(std::string_view(lhs6->VpiName())); fs6 && fs6->kind == SymbolKind::Parameter) { auto& cv6 = fs6->as<ParameterSymbol>().getValue(); if (cv6.isInteger() && !cv6.integer().hasUnknown() && !cv6.integer().isNegative()) lv6 = "UINT:" + cv6.integer().toString(LiteralBase::Decimal, false); }
+
+## grid/f4 (golden = pinned Surelog): arm tag cmp-lines heads
+d01_arr_elem_dep pris 90/1
+d01_arr_elem_dep f4pr 90/1
+d02_plain_pos_dep pris 64/1
+d02_plain_pos_dep f4pr 0/0
+d03_arr_elem_dep_recv_param pris 90/1
+d03_arr_elem_dep_recv_param f4pr 90/1
+d04_arr_elem_lit_ctl pris 90/1
+d04_arr_elem_lit_ctl f4pr 90/1
+
+## Rggen default with the prototype: Rggen,default,CMP_NOTEQUAL,decompile:,,  cmp lines=64 (base 64)
+## the NEXT head (a different face: the named-connection array-element modport view folds at the CONNECTED instance's 8; ours the declaration default 16):
+LHS:
+decompile:
+constant: , id:23838, line:2:33, endln:2:35
+|vpiParent:
+\_param_assign: , id:23837, line:2:17, endln:2:35
+|vpiDecompile:8
+|vpiSize:32
+|UINT:8
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.g_register_0.u_register.register_if), id:23839
+  |vpiParent:
+  \_constant: , id:23838, line:2:33, endln:2:35
+  |vpiFullName:work@rggen.u_block_0.g_register_0.u_register.register_if
+  |vpiActual:
+  \_int_typespec: , id:10773, line:2:13, endln:2:16
+|vpiConstType:9
+
+RHS:
+decompile:
+constant: , id:19490, line:2:33, endln:2:35
+|vpiParent:
+\_param_assign: , id:19489, line:2:17, endln:2:35
+|vpiDecompile:16
+|vpiSize:32
+|UINT:16
+|vpiTypespec:

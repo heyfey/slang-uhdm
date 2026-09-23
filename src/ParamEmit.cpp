@@ -18029,7 +18029,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // MULTIDIMENSIONAL parameter is the same road: nothing in the
                 // tree is reduced, so nothing in it is substituted.
                 if (inPackage && topView && concatBearing54(*init))
-                    pkgElabSymOperands = true;
+                    pkgElabSymOperands = true; if (impCopyConcat111On() && !inPackage && isImported && concatBearing54(*init) && !hasQualParamRef111(*init, ps.getParentScope())) pkgElabSymOperands = true;
                 // Same Reduce::No gate, MODULE scope: a multidimensional
                 // localparam's elab Rhs is copied from the def form, so the
                 // call arguments inside it are not reduced either (the
@@ -18266,7 +18266,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     paramRhsDefView = !topView && !inPackage;
                     rhs = emitExpr(*emitInit9, pa, prefix, netMap);
                     patSubstElab = savedPSE9;
-                    paramRhsDefView = savedPRD9;
+                    paramRhsDefView = savedPRD9; if (impCopyConcat111On() && !inPackage && isImported && rhs && concatBearing54(*init)) dropEnumActuals111(rhs);
                     // § shadowedImportParamFold — a DEF-view module parameter
                     // Rhs naming a module-scope parameter that a wildcard
                     // import ALSO declares reads the PACKAGE member's value in
@@ -20534,7 +20534,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     yStamp60 = yTyped60 ||
                                                isRangedUntypedParam(yps60);
                                 }
-                                auto* yts = makeParamTs(yps60, yTyped60);
+                                bool f2s111 = structCloneMemberRefParent, f2i111 = paramCloneImportedCopy; if (rhsStructBareCopy111(yps60, sref)) { structCloneMemberRefParent = true; paramCloneImportedCopy = true; } auto* yts = makeParamTs(yps60, yTyped60); structCloneMemberRefParent = f2s111; paramCloneImportedCopy = f2i111;
                                 if (yts && yStamp60 && ysym.getParentScope())
                                     if (auto pit = pkgDefMap.find(
                                             &ysym.getParentScope()
@@ -21652,11 +21652,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         else if (topView &&
-                 tps.targetType.getType().kind == SymbolKind::TypeAlias) {
+                 (tps.targetType.getType().kind == SymbolKind::TypeAlias || tpOvrNamedDimsAlias111(tps))) {
             // An elab type_parameter resolved to a TYPEDEF carries its OWN
             // bare-named CLONE of the typedef ts (parented at the type
             // param), not the shared module typedef object (Surelog).
-            auto& ta9 = tps.targetType.getType().as<TypeAliasType>();
+            auto& ta9 = tpOvrNamedDimsAlias111(tps) ? *tpOvrNamedDimsAlias111(tps) : tps.targetType.getType().as<TypeAliasType>();
             // ...unless the override names ANOTHER TYPE PARAMETER
             // (`mid #(.TP0(TPTOP))`, and the same one re-passed a level down).
             // slang models a `parameter type T` as a TypeAliasType of the same
@@ -24872,7 +24872,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                     cl->VpiName(taSym.name);
                     its = cl;
                     if (tgtSyn)
-                        tr = tgtSyn->sourceRange();
+                        tr = tgtSyn->sourceRange(); auto f1r111 = packedRanges111(taSym); bool f1imp111 = pkgTdQualImpCopy111On() && ps.getParentScope() && ps.getParentScope()->asSymbol().kind == SymbolKind::Package && syntaxRefPrefix.rfind("work@", 0) == 0; if (auto* q111 = (qualPkgVecTd111(ps) == &taSym && (f1imp111 || (!defViewParamTs && ps.getParentScope() && ps.getParentScope()->asSymbol().kind != SymbolKind::Package && !ifaceHome111(ps))) && sharedTd->VpiName().find("::") != std::string_view::npos) ? copyLogicTs111(s, sharedTd, (syntaxRefPrefix.empty() ? "work@" + ps.getHierarchicalPath() : syntaxRefPrefix) + "." + std::string(sharedTd->VpiName()), &f1r111) : nullptr) { f1ElabBare111()[q111] = cl; its = q111; if (f1imp111) q111->VpiName(std::string(taSym.name)); }
                 }
             }
         }
@@ -26370,7 +26370,7 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             }
         }
         prt->Actual_typespec(its);
-        elabParamOwnTs[ps] = its;
+        elabParamOwnTs[ps] = its; if (auto fb111 = f1ElabBare111().find(its); fb111 != f1ElabBare111().end()) elabParamOwnTs[ps] = fb111->second;
         // Bind (and drop) any op ts refs parked by an elab pattern SUBSTITUTION
         // of THIS parameter. Dropping matters: a second instance of the same
         // module parks its own refs and must not be handed this instance's
@@ -26380,7 +26380,7 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 keep9;
             for (auto& [sp9, rt9] : pendingSubstOpTs) {
                 if (sp9 == ps)
-                    rt9->Actual_typespec(its);
+                    rt9->Actual_typespec(elabParamOwnTs[ps]);
                 else
                     keep9.push_back({sp9, rt9});
             }
@@ -26507,7 +26507,7 @@ void UhdmExporter::drainShareDefParamTs() {
             if (dp->UhdmType() != UHDM::uhdmparameter || dp->VpiName() != e.name)
                 continue;
             auto* drt = ((UHDM::parameter*)dp)->Typespec();
-            UHDM::typespec* dts = drt ? drt->Actual_typespec() : nullptr;
+            UHDM::typespec* dts = drt ? drt->Actual_typespec() : nullptr; if (drt) if (auto fb111 = f1DefBare111().find(drt); fb111 != f1DefBare111().end()) dts = fb111->second;
             auto* cur = e.rt->Actual_typespec();
             if (dts && cur && dts != cur && dts->UhdmType() == cur->UhdmType())
                 e.rt->Actual_typespec(dts);
@@ -26586,7 +26586,7 @@ void UhdmExporter::drainUnsizedBasedRhs106() {
 
 void UhdmExporter::drainDefParamTs() {
     for (auto& pd : pendingDefParamTs) {
-        UHDM::typespec* its = nullptr;
+        UHDM::typespec* its = nullptr; UHDM::typespec* f1s111 = nullptr;
         bool sharedTs = false;
         bool bareAggPkgTd = false;
         // A MATERIALIZED IMPORT copy typed by an ENUM-TYPEDEF ALIAS never
@@ -26623,7 +26623,7 @@ void UhdmExporter::drainDefParamTs() {
                 // typedef ts instead — Surelog builds no usable param clone
                 // for it (typedef_param ch).
                 dt0.as<TypeAliasType>().targetType.getType().kind !=
-                    SymbolKind::TypeAlias;
+                    SymbolKind::TypeAlias; if (vectorAlias && !importCopy0 && pkgTdQualParamDefShare111On()) if (auto* qa111 = qualPkgVecTd111(*pd.ps); qa111 && qa111 == &dt0) if (auto t111 = pkgTopTypedefTs.find((const void*)qa111); t111 != pkgTopTypedefTs.end() && t111->second && t111->second->UhdmType() == UHDM::uhdmlogic_typespec) { if (pd.inPackage) { its = t111->second; sharedTs = true; } else f1s111 = t111->second; }
             // An aggregate param typed by a PACKAGE typedef named BARE (a
             // wildcard-imported target_cfg_t / flash_req_t) gets a FRESH clone
             // in the DEF view too — exactly the qualification rule the ELAB
@@ -26839,8 +26839,8 @@ void UhdmExporter::drainDefParamTs() {
         if (pd.di)
             pd.di->paramTs[pd.member] = its;
         if (pd.rhsRt)
-            pd.rhsRt->Actual_typespec(its);
-        pd.prt->Actual_typespec(its);
+            pd.rhsRt->Actual_typespec(f1s111 ? f1s111 : its);
+        pd.prt->Actual_typespec(f1s111 ? f1s111 : its); if (f1s111) f1DefBare111()[pd.prt] = its;
         if (!sharedTs && pd.typedParam && !importAliasEnum0)
             its->VpiParent(pd.up);
         // A bare-package-typedef aggregate param defers to SHARE its ELAB
@@ -28997,7 +28997,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         }
         else if ((ct.kind == SymbolKind::PackedArrayType ||
                   ct.kind == SymbolKind::ScalarType) &&
-                 ta.targetType.getType().kind == SymbolKind::TypeAlias) {
+                 (ta.targetType.getType().kind == SymbolKind::TypeAlias || tdOfNamedDims111(ta))) {
             // A packed ALIAS-of-typedef (typedef imm_i_t imm_l_t): ONE shared
             // object cloned from the TARGET's declaration form — target type
             // span, signed, range FOLDED to constants — carrying a
@@ -29014,7 +29014,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 }
                 continue;
             }
-            auto& tgt9 = ta.targetType.getType().as<TypeAliasType>();
+            if (auto* u111 = tdOfNamedDims111(ta)) { const UHDM::typespec* uDef111 = nullptr; if (auto uIt111 = typedefTs.find(u111); uIt111 != typedefTs.end()) uDef111 = uIt111->second; auto& isn111 = ta.getSyntax()->as<syntax::TypedefDeclarationSyntax>().type->as<syntax::NamedTypeSyntax>().name->as<syntax::IdentifierSelectNameSyntax>(); auto& rs111 = isn111.selectors[0]->selector->as<syntax::RangeSelectSyntax>(); auto cr111 = ta.targetType.getType().as<PackedArrayType>().range; auto lead111 = [](const syntax::ExpressionSyntax* e) { while (syntax::BinaryExpressionSyntax::isKind(e->kind)) e = e->as<syntax::BinaryExpressionSyntax>().left; return e->sourceRange(); }; auto b111 = buildTdOfNamedDims111(s, (UHDM::instance*)up, up, prefix + std::string(ta.name), prefix + prefix + std::string(ta.name), std::string(u111->name), uDef111, cr111.left, cr111.right, boundIsIntOp111(rs111.left), boundIsIntOp111(rs111.right), [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); }, ta.getSyntax()->as<syntax::TypedefDeclarationSyntax>().type->sourceRange(), isn111.selectors[0]->sourceRange(), lead111(rs111.left), lead111(rs111.right)); pendingAliasChainTgt.emplace_back(b111.u1Alias, (const Symbol*)u111); typedefTs[&ta] = b111.L; typedefClone[&ta] = nullptr; continue; }  auto& tgt9 = ta.targetType.getType().as<TypeAliasType>();
             const syntax::SyntaxNode* tgtTypeSyn9 = nullptr;
             if (auto asyn9 = tgt9.getSyntax();
                 asyn9 && asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)

@@ -1,0 +1,200 @@
+# five111.sh base: /tmp/pris_b3dc.bin
+LargeValue2Struct,default,CMP_NOTEQUAL,decompile:,,
+LargeValue2Struct,testflags,CMP_NOTEQUAL,decompile:,,
+Rggen,default,CMP_NOTEQUAL,decompile:,,
+Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
+cfg_func_width_loop,default,CMP_NOTEQUAL,decompile:,,
+cfg_func_width_loop,testflags,CMP_NOTEQUAL,decompile:,,
+ibex_tracer,default,CMP_NOTEQUAL,decompile:,,
+ibex_tracer,testflags,CMP_NOTEQUAL,decompile:,,
+stamped_gen_param,default,CMP_NOTEQUAL,decompile:,,
+stamped_gen_param,testflags,CMP_NOTEQUAL,decompile:,,
+=== sl/default/LargeValue2Struct-3de40a5e lines=108 heads=1
+LHS:
+decompile:
+logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:444
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:446, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:447, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:446, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:448, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:446, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+RHS:
+=== sl/default/Rggen-50ccbd70 lines=64 heads=1
+LHS:
+decompile:
+constant: , id:18367, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:18366, line:4:17, endln:4:42
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18368
+  |vpiParent:
+  \_constant: , id:18367, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:10785, line:4:13, endln:4:16
+|vpiConstType:9
+
+RHS:
+=== sl/testflags/LargeValue2Struct-3de40a5e lines=108 heads=1
+LHS:
+decompile:
+logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:360
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:362, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:363, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:362, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:364, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:362, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+RHS:
+=== u2r/default/cfg_func_width_loop-e717ba60 lines=148 heads=1
+LHS:
+decompile:
+logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1443
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1445, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+  |vpiLeftRange:
+  \_constant: , id:1446, line:16:18, endln:16:19
+    |vpiParent:
+    \_range: , id:1445, line:16:17, endln:16:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:1447, line:16:20, endln:16:22
+    |vpiParent:
+    \_range: , id:1445, line:16:17, endln:16:25
+    |vpiDecompile:2
+    |vpiSize:64
+    |INT:2
+    |vpiConstType:7
+
+RHS:
+=== u2r/default/ibex_tracer-573593b3 lines=19 heads=1
+LHS: <null>
+RHS:
+decompile:
+enum_const: (OPCODE_LUI), id:1046, line:73:5, endln:73:28
+|vpiParent:
+\_enum_typespec: (ibex_pkg::opcode_e), id:1034, line:66:3, endln:78:14
+|vpiName:OPCODE_LUI
+|HEX:37
+|vpiDecompile:7'h37
+|vpiSize:7
+
+=== u2r/default/stamped_gen_param-07e8f8ed lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (q2::q2::row_t), id:40
+|vpiParent:
+\_logic_typespec: (q2::row_t), id:39
+|vpiFullName:q2::q2::row_t
+|vpiActual:
+\_logic_typespec: , id:25, line:11:11, endln:11:21
+
+RHS: <null>
+=== u2r/testflags/cfg_func_width_loop-e717ba60 lines=148 heads=1
+LHS:
+decompile:
+logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1358
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1360, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+  |vpiLeftRange:
+  \_constant: , id:1361, line:16:18, endln:16:19
+    |vpiParent:
+    \_range: , id:1360, line:16:17, endln:16:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:1362, line:16:20, endln:16:22
+    |vpiParent:
+    \_range: , id:1360, line:16:17, endln:16:25
+    |vpiDecompile:2
+    |vpiSize:64
+    |INT:2
+    |vpiConstType:7
+
+RHS:
+=== u2r/testflags/ibex_tracer-573593b3 lines=19 heads=1
+LHS: <null>
+RHS:
+decompile:
+enum_const: (OPCODE_LUI), id:1046, line:73:5, endln:73:28
+|vpiParent:
+\_enum_typespec: (ibex_pkg::opcode_e), id:1034, line:66:3, endln:78:14
+|vpiName:OPCODE_LUI
+|HEX:37
+|vpiDecompile:7'h37
+|vpiSize:7
+
+=== u2r/testflags/stamped_gen_param-07e8f8ed lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (q2::q2::row_t), id:40
+|vpiParent:
+\_logic_typespec: (q2::row_t), id:39
+|vpiFullName:q2::q2::row_t
+|vpiActual:
+\_logic_typespec: , id:25, line:11:11, endln:11:21
+
+RHS: <null>

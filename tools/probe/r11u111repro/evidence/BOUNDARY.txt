@@ -1,0 +1,88 @@
+# BOUNDARY: bnd111.sh over every committed probe source (*.sv/*.v under tools/probe at the base, this pass's dir excluded), each compiled ALONE by pristine (b3dc8632) and law (759b34ba), rc recorded, bytes compared; movers then scored with bndscore111.sh (golden = pinned Surelog, same single-file form) + score111.sh
+LISTED=9062 PROCESSED=9062
+     73 MOVED
+    232 NOOUT
+   8757 SAME
+## rc anomalies (both binaries identical rc; rc=4 arms are compile-failure arms: error-recovery, not golden)
+./r10buvm18repro/grid18.sv gold=rc=0 pris=rc=4 lawf=rc=4 golddb=yes
+./r10buvm22repro/g22.sv gold=rc=0 pris=rc=4 lawf=rc=4 golddb=yes
+## per-arm scoring
+      4 LATERAL
+     69 TO-GOLDEN
+r10buvm18repro__grid18.sv cmp 44/1->44/1 ctxwhole 311->305 awaykeys=0 F1:6->2 TO-GOLDEN
+r10buvm22repro__g22.sv cmp 3438/1->3438/1 ctxwhole 547->547 awaykeys=0  LATERAL
+r10earl101repro__g3_site101.sv cmp 154/1->74/1 ctxwhole 51->44 awaykeys=0 F3:3->0 TO-GOLDEN
+r10earl111repro__g2_kind111.sv cmp 40/1->40/1 ctxwhole 80->74 awaykeys=0 F1:4->0 TO-GOLDEN
+r10earl55repro__v2_v55.sv cmp 126/1->82/1 ctxwhole 62->54 awaykeys=0 F1:8->0 TO-GOLDEN
+r10earl60repro__vfa_v60.sv cmp 50/1->50/1 ctxwhole 73->67 awaykeys=0 F1:4->0 TO-GOLDEN
+r10uvm154repro__l154_noenum.sv cmp 17/1->17/1 ctxwhole 4->4 awaykeys=0  LATERAL
+r10uvm185repro__grid185__g185_e_kinds.sv cmp 72/1->72/1 ctxwhole 215->215 awaykeys=0  LATERAL
+r10v64repro__v1_srcs64.sv cmp 64/1->64/1 ctxwhole 196->190 awaykeys=0 F1:4->0 TO-GOLDEN
+r10v64repro__v2_types64.sv cmp 64/1->64/1 ctxwhole 811->799 awaykeys=0 F1:10->0 TO-GOLDEN
+r10v87repro__arms__va6_typedefparam87.sv cmp 64/1->64/1 ctxwhole 81->73 awaykeys=0 F1:6->0 TO-GOLDEN
+r11u108repro__grid__f2__m05_union_ctl__dut.sv cmp 138/1->138/1 ctxwhole 20->13 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__f2__m06_module_struct_ctl__dut.sv cmp 154/1->134/1 ctxwhole 13->6 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__f2__m08_two_members__dut.sv cmp 17/1->64/1 ctxwhole 17->10 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__f2__m09_nested_struct__dut.sv cmp 17/1->64/1 ctxwhole 18->11 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__f2__m10_td_named_nodims_member__dut.sv cmp 100/1->100/1 ctxwhole 22->15 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__f5__f5a20_ovr_pkgarr__dut.sv cmp 154/1->0/0 ctxwhole 11->4 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__pk__k01_param_v__dut.sv cmp 126/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k02_param_vn__dut.sv cmp 148/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k03_param_vn_default__dut.sv cmp 148/1->0/0 ctxwhole 6->0 awaykeys=0 F1:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k05_param_a__dut.sv cmp 490/1->0/0 ctxwhole 15->2 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__pk__k10e_member_child_sel_q__dut.sv cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k10j_wide__dut.sv cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+r11u108repro__grid__pk__k10l_w33__dut.sv cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:8->4 TO-GOLDEN
+r11u108repro__grid__pk__k11_member_v_qualified__dut.sv cmp 108/1->0/0 ctxwhole 9->9 awaykeys=0 F2:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k12_member_arr_dims__dut.sv cmp 658/1->96/1 ctxwhole 11->4 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__pk__k13_member_nested_stamp__dut.sv cmp 17/1->96/1 ctxwhole 129->118 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__pk__k14_member_nested_nodim__dut.sv cmp 100/1->100/1 ctxwhole 125->114 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+r11u108repro__grid__pk__k15_member_vec_dim__dut.sv cmp 263/1->263/1 ctxwhole 15->15 awaykeys=0  LATERAL
+r11u108repro__grid__pk__k17_func_in_pkg__dut.sv cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k20_cfg_func_width__dut.sv cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k21_param_vn_nofunc__dut.sv cmp 148/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k22_param_v_literal__dut.sv cmp 126/1->0/0 ctxwhole 8->2 awaykeys=0 F1:4->0 TO-GOLDEN
+r11u108repro__grid__pk__k23c_samekey__dut.sv cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+r11u108repro__grid__pk__k23d_nowidth__dut.sv cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+r11u108repro__grid__pk__k23e_nokeysel__dut.sv cmp 108/1->64/1 ctxwhole 8->8 awaykeys=0 F2:8->4 TO-GOLDEN
+r11u108repro__grid__pk__k23_lv2s_copy__dut.sv cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+r11u31repro__g12.sv cmp 17/1->17/1 ctxwhole 6->2 awaykeys=0 F6:2->0 TO-GOLDEN
+r11u67repro__grid__g1_lawA__dut.sv cmp 154/1->86/1 ctxwhole 226->219 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u67repro__grid__g2_lawB__dut.sv cmp 262/1->71/1 ctxwhole 63->56 awaykeys=0 F3:3->0 TO-GOLDEN
+r11u87repro__grid__y1_sgnd87.sv cmp 59/1->59/1 ctxwhole 50->44 awaykeys=0 F1:4->0 TO-GOLDEN
+r11v26repro__v3__dut.sv cmp 17/1->17/1 ctxwhole 25->21 awaykeys=0 F1:4->0 TO-GOLDEN
+r11v54repro__grid__xb2__dut.sv cmp 32/1->32/1 ctxwhole 406->301 awaykeys=0 F5:15->4 TO-GOLDEN
+r11v54repro__grid__xb5__dut.sv cmp 64/1->64/1 ctxwhole 215->198 awaykeys=0 F5:6->3 TO-GOLDEN
+r11v65repro__grid__v2_aliaschain__dut.sv cmp 154/1->17/1 ctxwhole 61->54 awaykeys=0 F3:3->0 TO-GOLDEN
+r11v65repro__grid__v8_alias2__dut.sv cmp 154/1->56/1 ctxwhole 103->96 awaykeys=0 F3:3->0 TO-GOLDEN
+r11v67repro__grid__w7_guard__dut.sv cmp 262/1->17/1 ctxwhole 278->271 awaykeys=0 F3:3->0 TO-GOLDEN
+r11v67repro__grid__wb_scoped__dut.sv cmp 262/1->71/1 ctxwhole 213->206 awaykeys=0 F3:5->2 TO-GOLDEN
+r11v88repro__grid__v23_ndastrparam__dut.sv cmp 50/1->50/1 ctxwhole 35->31 awaykeys=0 F1:4->2 TO-GOLDEN
+r11v89repro__grid__x7_outkind89.sv cmp 46/1->46/1 ctxwhole 94->90 awaykeys=0 F1:4->0 TO-GOLDEN
+v11u108repro__brk__f2__c01_var_of_struct__dut.sv cmp 17/1->96/1 ctxwhole 51->44 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c02_param_of_struct__dut.sv cmp 17/1->96/1 ctxwhole 104->97 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c03_port_of_struct__dut.sv cmp 17/1->96/1 ctxwhole 49->42 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c04_cast_struct__dut.sv cmp 130/1->96/1 ctxwhole 49->42 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c06_scalar_leaf__dut.sv cmp 17/1->64/1 ctxwhole 18->11 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c07_chain3__dut.sv cmp 17/1->17/1 ctxwhole 24->17 awaykeys=0 F3:6->3 TO-GOLDEN
+v11u108repro__brk__f2__c08_unpacked_struct__dut.sv cmp 318/1->58/1 ctxwhole 8->1 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c09_import_var__dut.sv cmp 17/1->96/1 ctxwhole 93->86 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c10_cross_pkg_member__dut.sv cmp 154/1->64/1 ctxwhole 20->15 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c12_param_range__dut.sv cmp 17/1->64/1 ctxwhole 36->11 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c13_multidim_member__dut.sv cmp 84/1->84/1 ctxwhole 19->12 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c14_union_member__dut.sv cmp 138/1->138/1 ctxwhole 20->13 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c16_pkg_func__dut.sv cmp 17/1->96/1 ctxwhole 62->55 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c22_gen_localparam_twice__dut.sv cmp 17/1->96/1 ctxwhole 184->173 awaykeys=0 F1:4->0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c23_two_structs_share__dut.sv cmp 17/1->64/1 ctxwhole 29->22 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c24_class_typedef__dut.sv cmp 17/1->64/1 ctxwhole 38->31 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c25_import_member__dut.sv cmp 154/1->96/1 ctxwhole 18->13 awaykeys=0 F3:7->6 TO-GOLDEN
+v11u108repro__brk__f2__c26_class_struct__dut.sv cmp 17/1->64/1 ctxwhole 18->11 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c27_module_struct_pkg_td__dut.sv cmp 154/1->36/1 ctxwhole 11->4 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f2__c28_named_import__dut.sv cmp 154/1->96/1 ctxwhole 35->30 awaykeys=0 F3:7->6 TO-GOLDEN
+v11u108repro__brk__f2__c29_self_qualified__dut.sv cmp 17/1->64/1 ctxwhole 20->13 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u108repro__brk__f5__b13_pkg_arr__dut.sv cmp 154/1->0/0 ctxwhole 17->10 awaykeys=0 F3:3->0 TO-GOLDEN
+v11u93b107repro__brk__r05_rt_ovr_samename__dut.sv cmp 47/1->47/1 ctxwhole 18->14 awaykeys=0 F6:4->2 TO-GOLDEN
+## the 3 LATERAL non-grid arms move only the layout-derived tail constant (UINT:23508857 -> UINT:23529625, below weaklyReferenced): tools/probe/r10uvm154repro/layoutproof154.sh with PRI/PAT = these binaries -> LAYOUTPROOF OK
+## k15_member_vec_dim LATERAL: parent-only moves (member leaf typespecs re-parent at their ref: § pkgRhsStructBareCopy111 raises structCloneMemberRefParent), golden's parent lines agree with the law
+## segfaults seen in the log (both binaries, same arms, rc equal):
+10

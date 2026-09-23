@@ -795,8 +795,8 @@ LargeHexCast,default,CMP_EQUAL,,,differ
 LargeHexCast,testflags,CMP_EQUAL,,,differ
 LargeHexString,default,CMP_EQUAL,,,match
 LargeHexString,testflags,CMP_EQUAL,,,match
-LargeValue2Struct,default,CMP_NOTEQUAL,decompile:,,
-LargeValue2Struct,testflags,CMP_NOTEQUAL,decompile:,,
+LargeValue2Struct,default,CMP_EQUAL,,,differ
+LargeValue2Struct,testflags,CMP_EQUAL,,,differ
 LateBindingFuncArg,default,CMP_EQUAL,,,match
 LateBindingFuncArg,testflags,CMP_EQUAL,,,match
 LeftPadding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LeftPadding/dut.sv:8:5: error: unknown module 'GOOD',,

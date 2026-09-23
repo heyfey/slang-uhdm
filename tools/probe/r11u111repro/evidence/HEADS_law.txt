@@ -1,0 +1,72 @@
+# five111.sh lawz: /tmp/r11u111_lawz.bin md5 5bb5ec83b705
+cfg_func_width_loop,default,CMP_EQUAL,,,differ
+cfg_func_width_loop,testflags,CMP_EQUAL,,,differ
+ibex_tracer,default,CMP_NOTEQUAL,decompile:,,
+ibex_tracer,testflags,CMP_NOTEQUAL,decompile:,,
+stamped_gen_param,default,CMP_NOTEQUAL,decompile:,,
+stamped_gen_param,testflags,CMP_NOTEQUAL,decompile:,,
+LargeValue2Struct,default,CMP_EQUAL,,,differ
+LargeValue2Struct,testflags,CMP_EQUAL,,,differ
+Rggen,default,CMP_NOTEQUAL,decompile:,,
+Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
+=== sl/default/LargeValue2Struct-3de40a5e lines=0 heads=0
+=== sl/default/Rggen-50ccbd70 lines=64 heads=1
+LHS:
+decompile:
+constant: , id:18367, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:18366, line:4:17, endln:4:42
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18368
+  |vpiParent:
+  \_constant: , id:18367, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:10785, line:4:13, endln:4:16
+|vpiConstType:9
+
+RHS:
+=== sl/testflags/LargeValue2Struct-3de40a5e lines=0 heads=0
+=== u2r/default/cfg_func_width_loop-e717ba60 lines=0 heads=0
+=== u2r/default/ibex_tracer-573593b3 lines=28 heads=1
+LHS:
+decompile:
+ref_obj: (work@ibex_tracer.INSN_ECALL), id:36496, line:1035:9, endln:1035:19
+|vpiParent:
+\_begin: (work@ibex_tracer), id:36343, line:970:14, endln:1209:8
+|vpiName:INSN_ECALL
+|vpiFullName:work@ibex_tracer.INSN_ECALL
+
+RHS:
+=== u2r/default/stamped_gen_param-07e8f8ed lines=96 heads=1
+LHS:
+decompile:
+constant: , id:292, line:19:16, endln:19:58
+|vpiSize:12
+|BIN:010101101010
+|vpiConstType:3
+
+RHS:
+=== u2r/testflags/cfg_func_width_loop-e717ba60 lines=0 heads=0
+=== u2r/testflags/ibex_tracer-573593b3 lines=28 heads=1
+LHS:
+decompile:
+ref_obj: (work@ibex_tracer.INSN_ECALL), id:36496, line:1035:9, endln:1035:19
+|vpiParent:
+\_begin: (work@ibex_tracer), id:36343, line:970:14, endln:1209:8
+|vpiName:INSN_ECALL
+|vpiFullName:work@ibex_tracer.INSN_ECALL
+
+RHS:
+=== u2r/testflags/stamped_gen_param-07e8f8ed lines=96 heads=1
+LHS:
+decompile:
+constant: , id:292, line:19:16, endln:19:58
+|vpiSize:12
+|BIN:010101101010
+|vpiConstType:3
+
+RHS:

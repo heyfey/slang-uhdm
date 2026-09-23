@@ -1,0 +1,83 @@
+# v11u111 break arms (brk/<face>/<arm>/dut.sv).  Golden: pinned Surelog v1.87, -parse -nobuiltin -nocache -sv.
+# pris=b3dc8632 (1d7a03b8)  lawx=759b34ba (/tmp/r11u111.patch)  lawz=0a1c2a01 (r11u111.verified.patch)
+# cols: arm | uhdm-cmp lines pris lawx lawz | ctxdist(gold,pris) (gold,lawx) AWAY-KEYS(lawx) | ctxdist(gold,lawz) AWAY-KEYS(lawz) | goldERR
+f1/x01_class_param | 0 0 0 | bytes=pris | bytes=pris | 0
+f1/x02_pkgparam_qual_ref | 126 0 0 | 16 8 0 | 8 0 | 0
+f1/x03_pkgparam_explicit_imp | 126 17 17 | 30 14 0 | 14 0 | 0
+f1/x04_twodim | 228 0 0 | 8 2 0 | 2 0 | 0
+f1/x05_passthru | 148 0 0 | 24 8 0 | 8 0 | 0
+f1/x06_port_range_use | 148 54 54 | 22 16 0 | 16 0 | 0
+f1/x07_defparam | 126 64 64 | 22 16 0 | 16 0 | 0
+f1/x08_func_localparam | 195 195 195 | 53 53 0 | 53 0 | 0
+f1/x09_top_unused_params | 50 50 50 | 24 10 0 | 10 0 | 0
+f1/x10_pkg_localparam_chain | 126 76 76 | 72 60 0 | 60 0 | 0
+f1/x11_iface_port_param | 126 126 126 | 35 25 0 | 25 0 | 0
+f1/x12_unpacked_param | 122 122 122 | bytes=pris | bytes=pris | 0
+f1/x13_gen_loop | 50 50 50 | 32 10 0 | 10 0 | 0
+f1/y11_reg_typedef | 126 0 0 | 8 2 0 | 2 0 | 0
+f1/y12_iface_in_module_ctl | 126 126 126 | 13 9 0 | 9 0 | 0
+f1/y13_pkgparam_used_twice_mods | 148 17 17 | 47 39 0 | 39 0 | 0
+f1/y14_param_q_logic_signed_multi | 210 64 64 | 10 4 0 | 4 0 | 0
+f2/x21_samepkg_wide | 48 48 48 | bytes=pris | bytes=pris | 1
+f2/x22_explicit_imp_wide | 108 0 0 | 9 9 0 | 9 0 | 0
+f2/x23_nested_struct_q | 64 64 64 | 15 15 0 | 15 0 | 0
+f2/x24_otherpkg_member_q | 126 126 126 | 13 13 0 | 13 0 | 0
+f2/x25_union_ctl | 112 112 112 | bytes=pris | bytes=pris | 0
+f2/x26_q_twoinst_override | 108 0 0 | 17 17 0 | 17 0 | 0
+f2/x27_imp_narrow_sub | 112 112 112 | bytes=pris | bytes=pris | 0
+f2/x28_q_paren_rhs | 112 112 112 | bytes=pris | bytes=pris | 0
+f2/y21_imp_member_td_wide | 112 112 112 | bytes=pris | bytes=pris | 0
+f2/y22_q_rhs_in_pkg | 34 34 34 | bytes=pris | bytes=pris | 0
+f3/x31_port_net | 150 588 588 | 31 24 0 | 24 0 | 0
+f3/x32_func_cast | 442 96 96 | 45 38 0 | 38 0 | 0
+f3/x33_chain_mat | 164 150 150 | 40 33 0 | 33 0 | 0
+f3/x34_desc_wide_elem | 96 96 96 | 37 30 0 | 30 0 | 0
+f3/x35_unpacked_var_bits | 74 56 56 | 56 49 0 | 49 0 | 0
+f3/x36_iface_sig | 154 0 0 | 9 2 0 | 2 0 | 0
+f3/x37_import_into_pkg_struct | 154 100 100 | 29 24 0 | 24 0 | 0
+f3/x38_param_in_module_typed | 154 0 0 | 15 2 0 | 2 0 | 0
+f3/x39_two_rows_same_base | 100 100 100 | 52 38 0 | 38 0 | 0
+f3/x40_class_prop | 154 0 0 | 9 2 0 | 2 0 | 0
+f3/y31_two_pkgs_rows | 150 0 0 | 18 4 0 | 4 0 | 0
+f3/y32_func_local_var | 154 106 106 | 41 34 0 | 34 0 | 0
+f3/y33_param_pattern_default | 100 100 100 | 35 28 0 | 28 0 | 0
+f3/y34_scalar_base_one_dim | 100 100 100 | 27 20 0 | 20 0 | 0
+f5/x51_clog2_concat | 46 46 46 | 64 46 0 | 46 0 | 0
+f5/x52_otherpkg_bare_leaf | 104 104 104 | 72 88 4 | 68 0 | 0
+f5/x53_nested_param_concat | 19 46 46 | 38 22 0 | 22 0 | 0
+f5/x54_both_mod_and_pkg_import | 19 0 0 | 12 8 0 | 8 0 | 0
+f5/x55_iface_import | 19 42 42 | 18 14 0 | 14 0 | 0
+f5/x56_funcscope_import | 114 114 114 | bytes=pris | bytes=pris | 1
+f5/x57_case_item | 19 0 0 | 16 8 0 | 8 0 | 0
+f5/x58_unused_concat_param | 19 0 0 | 4 0 0 | 0 0 | 0
+f5/x59_localparam_concat_repl | 46 46 46 | 43 28 0 | 28 0 | 0
+f5/x60_hdr_import_sub | 96 46 46 | 75 41 0 | 41 0 | 0
+f5/y51_otherpkg_explicit_imp_leaf | 104 104 104 | 129 141 3 | 125 0 | 0
+f5/y52_mixed_own_other | 136 136 136 | 82 88 4 | 78 0 | 0
+f5/y53_func_call_leaf | 90 90 90 | 84 82 0 | 82 0 | 0
+f5/y54_sized_cast_enum | 19 46 46 | 30 22 0 | 22 0 | 0
+f5/y55_otherpkg_leaf_only | 118 118 118 | 112 150 5 | bytes=pris | 0
+f5/y56_otherpkg_enum_only | 19 46 46 | 30 22 0 | 22 0 | 0
+f6/x61_enum_dims | 60 110 60 | 18 32 5 | bytes=pris | 0
+f6/x62_tp_passthru_dims | 402 402 402 | 8 4 0 | 4 0 | 0
+f6/x63_class_spec | 88 88 88 | bytes=pris | bytes=pris | 0
+f6/x64_two_dims_positional | 0 0 0 | 22 24 1 | bytes=pris | 0
+f6/x65_chain_td_dims | 0 0 0 | 4 0 0 | 0 0 | 0
+f6/x66_union_dims_ctl | 60 60 60 | bytes=pris | bytes=pris | 0
+f6/x67_var_and_bits | 82 82 82 | 4 2 0 | 2 0 | 0
+f6/x68_two_inst_diff | 698 698 698 | 8 4 0 | 4 0 | 0
+f6/x69_scalar_td_dims | 0 0 0 | 4 0 0 | 0 0 | 0
+f6/y61_vec_dims_extra_port_dims | 0 0 0 | 4 2 0 | 2 0 | 0
+f6/y62_vec_dims_local_typedef_in_child | 0 0 0 | 2 0 0 | 0 0 | 0
+f6/y63_vec_dims_param_value | 20 20 20 | 10 8 0 | 8 0 | 0
+f6/y64_positional_vec_one_dim | 0 0 0 | 7 9 1 | bytes=pris | 0
+f6/y65_positional_nodims_ctl | 0 0 0 | bytes=pris | bytes=pris | 0
+f6/y66_enum_local_dims | 60 110 60 | 18 32 5 | bytes=pris | 0
+f6/y67_int_td_dims | 273 273 273 | 20 18 0 | 18 0 | 0
+f6/y68_bit_td_dims | 0 0 0 | 4 2 0 | 2 0 | 0
+f6/y69_vec_dims_two_inst_same | 0 0 0 | 16 12 0 | 12 0 | 0
+f1/z11_three_inst_gen | 148 - 0 | (lawx not run) | 6 0 | 0
+f3/z31_local_shadow_ut | 150 - 1142 | (lawx not run) | 25 0 | 0
+f3/z32_three_inst_param | 154 - 50 | (lawx not run) | 10 0 | 0
+f5/z51_three_mods_import | 19 - 46 | (lawx not run) | 66 0 | 0
+f6/z61_three_inst_vec | 60 - 60 | (lawx not run) | 22 0 | 0

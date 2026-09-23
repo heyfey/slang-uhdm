@@ -1,0 +1,143 @@
+# GATES (final law binary /tmp/r11u111_lawf.bin md5 759b34baa3a764957a7605355ea0079b; pristine /tmp/r11u111_pris.bin md5 b3dc863277c4f1340e9058c8b78f2f01)
+BIN=/tmp/r11u111_lawf.bin md5=759b34baa3a764957a7605355ea0079b  -
+## binary audit (every cmds.txt, by path):
+   3273 /tmp/r11u111_lawf.bin
+## row-joins vs committed baselines
+--- uhdm2rtlil def vs results/golden_uhdm2rtlil.csv (def rows)
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< cfg_func_width_loop,default,CMP_NOTEQUAL,decompile:,,
+> cfg_func_width_loop,default,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+--- uhdm2rtlil tf vs results/golden_uhdm2rtlil.csv (tf rows)
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< cfg_func_width_loop,testflags,CMP_NOTEQUAL,decompile:,,
+> cfg_func_width_loop,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+--- uhdm2rtlil testflags vs results/gate_uhdm2rtlil.csv
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< cfg_func_width_loop,testflags,CMP_NOTEQUAL,decompile:,,
+> cfg_func_width_loop,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+--- surelog both modes vs results/golden_surelog.csv
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< LargeValue2Struct,default,CMP_NOTEQUAL,decompile:,,
+< LargeValue2Struct,testflags,CMP_NOTEQUAL,decompile:,,
+> LargeValue2Struct,default,CMP_EQUAL,,,differ
+> LargeValue2Struct,testflags,CMP_EQUAL,,,differ
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u111_wd_lawf/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u111_wd_lawf/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+--- surelog vs own pristine sweep
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< LargeValue2Struct,default,CMP_NOTEQUAL,decompile:,,
+< LargeValue2Struct,testflags,CMP_NOTEQUAL,decompile:,,
+> LargeValue2Struct,default,CMP_EQUAL,,,differ
+> LargeValue2Struct,testflags,CMP_EQUAL,,,differ
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u111_wd_pris/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u111_wd_lawf/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u111_wd_pris/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u111_wd_lawf/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+## status tallies
+    478 surelog default CMP_EQUAL
+      5 surelog default CMP_NOTEQUAL
+      5 surelog default DEFERRED
+    285 surelog default SLANG_REJECT
+     25 surelog default SURELOG_FAIL
+    473 surelog testflags CMP_EQUAL
+      4 surelog testflags CMP_NOTEQUAL
+      5 surelog testflags DEFERRED
+      3 surelog testflags NO_DATABASE
+      1 surelog testflags NO_UHDM
+    286 surelog testflags SLANG_REJECT
+     23 surelog testflags SURELOG_FAIL
+      1 surelog testflags TIMEOUT
+      2 surelog testflags UNTRANSLATABLE
+    795 u2r default CMP_EQUAL
+      9 u2r default CMP_NOTEQUAL
+     67 u2r default SLANG_REJECT
+    795 u2r testflags CMP_EQUAL
+      9 u2r testflags CMP_NOTEQUAL
+     67 u2r testflags SLANG_REJECT
+## protected databases (md5, first 12), law vs own pristine sweep
+default Earlgrey_0_1 law=8bdf25272e08 pris=8bdf25272e08
+default SVSwitch law=4842211c4030 pris=4842211c4030
+default YosysVerx law=6ccda350c24a pris=6ccda350c24a
+default InterfaceModPort law=59a365f3ce2c pris=59a365f3ce2c
+default BlackParrotComplex law=e3e354129d5a pris=e3e354129d5a
+default YosysOldOr law=d68e0796d62c pris=d68e0796d62c
+testflags Earlgrey_0_1 law=59d0ee6d10c3 pris=59d0ee6d10c3
+testflags SVSwitch law=4842211c4030 pris=4842211c4030
+testflags YosysVerx law=6ccda350c24a pris=6ccda350c24a
+testflags InterfaceModPort law=59a365f3ce2c pris=59a365f3ce2c
+testflags BlackParrotComplex law=73a10e8217e5 pris=73a10e8217e5
+testflags YosysOldOr law=d68e0796d62c pris=d68e0796d62c
+## byteverify SELFCHECK=1 uhdm2rtlil (law vs own pristine, same-length workdirs)
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/cfg_func_width_loop-e717ba60/slang.uhdm  patched=6d1936046524 pristine=48ec18daaf70
+MOVER ./default/ibex_tracer-573593b3/slang.uhdm  patched=cd8a5958891e pristine=bf63956a0430
+MOVER ./default/stamped_gen_param-07e8f8ed/slang.uhdm  patched=bbe2fa1a2fd1 pristine=bf599d7d3120
+MOVER ./testflags/cfg_func_width_loop-e717ba60/slang.uhdm  patched=a34c67f03703 pristine=287f5f83e381
+MOVER ./testflags/ibex_tracer-573593b3/slang.uhdm  patched=c6733197aba7 pristine=6b699b340ded
+MOVER ./testflags/stamped_gen_param-07e8f8ed/slang.uhdm  patched=056c1820d03e pristine=b45b6cb88bc7
+MOVERS: 6 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## byteverify SELFCHECK=1 surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/LargeValue2Struct-3de40a5e/slang.uhdm  patched=bd3e3be55dc9 pristine=edfa13893273
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=40b255ba7ef4 pristine=f03ecd9dae83
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=eca1c20da482 pristine=38cc7f45a244
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=c63ee8fae5e9
+MOVER ./testflags/LargeValue2Struct-3de40a5e/slang.uhdm  patched=0f504e5ff935 pristine=bb40304ee4a1
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=589321c859f3 pristine=c524955139be
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=070107844699
+MOVERS: 7 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## canary battery (tools/probe/r10uvm221repro)
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+## UVM-family movers: order-blind (sorted, workdir-stripped) dump diff + cen111 census, pristine vs law
+default/MiniAmiq-544c7f61 size 18852279->18852279 delta=0 orderblind_lines=4 cen pris=9652026af9 law=9652026af9 :: < |UINT:1369;> |UINT:847;< |vpiDecompile:1369;> |vpiDecompile:847;
+default/SeqDriver-32af76aa size 18074291->18074292 delta=1 orderblind_lines=4 cen pris=757c5b4904 law=757c5b4904 :: > |UINT:1237;< |UINT:765;> |vpiDecompile:1237;< |vpiDecompile:765;
+default/SimpleUVM-1dc93a62 size 11240365->11240328 delta=-37 orderblind_lines=4 cen pris=a9befbd8fc law=a9befbd8fc :: > |UINT:0;< |UINT:1431;> |vpiDecompile:0;< |vpiDecompile:1431;
+testflags/MiniAmiq-544c7f61 size 18852279->18852322 delta=43 orderblind_lines=4 cen pris=9652026af9 law=9652026af9 :: > |UINT:1301;< |UINT:539;> |vpiDecompile:1301;< |vpiDecompile:539;
+testflags/SeqDriver-32af76aa size 18074706->18074701 delta=-5 orderblind_lines=4 cen pris=757c5b4904 law=757c5b4904 :: > |UINT:0;< |UINT:1441;> |vpiDecompile:0;< |vpiDecompile:1441;
+## corpus movers scored per cell (score111.sh: cmp lines/heads, context-keyed whole-dump distance with per-object AWAY count, cen111 per-face distance)
+u2r/default_cfg_func_width_loop-e717ba60 cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+u2r/default_ibex_tracer-573593b3 cmp 19/1->28/1 ctxwhole 3458->2050 awaykeys=0 F5:736->0 TO-GOLDEN
+u2r/default_stamped_gen_param-07e8f8ed cmp 17/1->96/1 ctxwhole 307->282 awaykeys=0 F1:12->0 F3:3->0 TO-GOLDEN
+u2r/testflags_cfg_func_width_loop-e717ba60 cmp 148/1->0/0 ctxwhole 17->11 awaykeys=0 F1:4->0 TO-GOLDEN
+u2r/testflags_ibex_tracer-573593b3 cmp 19/1->28/1 ctxwhole 3458->2050 awaykeys=0 F5:736->0 TO-GOLDEN
+u2r/testflags_stamped_gen_param-07e8f8ed cmp 17/1->96/1 ctxwhole 307->282 awaykeys=0 F1:12->0 F3:3->0 TO-GOLDEN
+sl/default_LargeValue2Struct-3de40a5e cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+sl/testflags_LargeValue2Struct-3de40a5e cmp 108/1->0/0 ctxwhole 2->2 awaykeys=0 F2:8->4 TO-GOLDEN
+## goldens (tests/check_goldens.sh, SLANG_UHDM exported per binary)
+law PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23

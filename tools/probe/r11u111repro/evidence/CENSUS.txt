@@ -1,0 +1,115 @@
+# CENSUS (cen111.cpp over every row's golden and ours, both corpora both modes; keyed by name/fullname, Compare-visible payload)
+## calibration golden-vs-golden: cen111 run twice on every golden database: 3273 golden censuses, 0 differ
+## positive control: grid arms f1/a01 f2/b01 f3/t01 f5/e01 -- census md5 golden != pristine, law == golden
+f1/a01_q_lit_ovr gold=12e5d4a2 pris=cbf26147 law=12e5d4a2
+f2/b01_q_q_w16 gold=7b9c51d6 pris=7aa2a296 law=7b9c51d6
+f3/t01_listing_only gold=3e8dbb9e pris=556d6856 law=3e8dbb9e
+f5/e01_q_enum gold=eb8ead69 pris=29a59090 law=eb8ead69
+## pristine vs golden, rows with a per-face census difference (censcore111.py <dir> pris)
+--- u2r
+default__TypeParameterAsPortTypeWithLogicAnonymous F6 pris=1
+default__arb_idx_cast F6 pris=1
+default__bits_of_type_param F6 pris=2
+default__cfg_func_width_loop F1 pris=4
+default__cva6_struct_param_field F5 pris=4
+default__cva6_struct_param_field F6 pris=1
+default__def_ctx_struct_param F2 pris=3
+default__gen_scope_numports F6 pris=4
+default__ibex_register_file_ff F5 pris=31
+default__ibex_tracer F5 pris=736
+default__iface_scalar_localparam F5 pris=2
+default__iface_struct_field_partsel F5 pris=2
+default__latch_decoder_partial F2 pris=3
+default__latch_tlb_napot F2 pris=3
+default__packed_array_reset_loop F6 pris=1
+default__packed_array_struct F6 pris=1
+default__packed_struct_array_fifo F6 pris=1
+default__param_name_collision_typeparam F6 pris=1
+default__param_nested_struct_field_width F6 pris=3
+default__port_chained_type_param F6 pris=2
+default__stamped_gen_param F1 pris=12
+default__stamped_gen_param F2 pris=3
+default__stamped_gen_param F3 pris=3
+default__top_module_type_param F6 pris=1
+default__type_param_override_elem_sel F6 pris=2
+default__type_param_packed_dim F6 pris=3
+default__type_param_unpacked_port F6 pris=2
+testflags__TypeParameterAsPortTypeWithLogicAnonymous F6 pris=1
+testflags__arb_idx_cast F6 pris=1
+testflags__bits_of_type_param F6 pris=2
+testflags__cfg_func_width_loop F1 pris=4
+testflags__cva6_struct_param_field F5 pris=4
+testflags__cva6_struct_param_field F6 pris=1
+testflags__def_ctx_struct_param F2 pris=3
+testflags__gen_scope_numports F6 pris=4
+testflags__ibex_register_file_ff F5 pris=31
+testflags__ibex_tracer F5 pris=736
+testflags__iface_scalar_localparam F5 pris=2
+testflags__iface_struct_field_partsel F5 pris=2
+testflags__latch_decoder_partial F2 pris=3
+testflags__latch_tlb_napot F2 pris=3
+testflags__packed_array_reset_loop F6 pris=1
+testflags__packed_array_struct F6 pris=1
+testflags__packed_struct_array_fifo F6 pris=1
+testflags__param_name_collision_typeparam F6 pris=1
+testflags__param_nested_struct_field_width F6 pris=3
+testflags__port_chained_type_param F6 pris=2
+testflags__stamped_gen_param F1 pris=12
+testflags__stamped_gen_param F2 pris=3
+testflags__stamped_gen_param F3 pris=3
+testflags__top_module_type_param F6 pris=1
+testflags__type_param_override_elem_sel F6 pris=2
+testflags__type_param_packed_dim F6 pris=3
+testflags__type_param_unpacked_port F6 pris=2
+TOTAL {'F6': 30, 'F1': 4, 'F5': 10, 'F2': 8, 'F3': 2}
+--- sl
+default__BlackBePipeInt F5 pris=41
+default__LargeValue2Struct F2 pris=8
+default__MiniAmiq F6 pris=138
+default__PackageTypeParam F6 pris=1
+default__Rggen F5 pris=250
+default__Scr1SvTests F5 pris=19
+default__SeqDriver F6 pris=124
+default__StructParamFieldRange F5 pris=4
+default__StructParamFieldRange F6 pris=1
+default__StructParamFuncBodyFieldCompare F5 pris=12
+default__StructParamFuncBodyFieldCompare F6 pris=1
+default__StructParamPatternInitCast F5 pris=12
+default__StructParamPatternInitCast F6 pris=1
+default__StructUnsizedVal F2 pris=4
+default__<slang-fenced> F5 pris=1
+default__TypeParam F6 pris=3
+testflags__BlackBePipeInt F5 pris=41
+testflags__<slang-fenced> F5 pris=1
+testflags__LargeValue2Struct F2 pris=8
+testflags__MiniAmiq F6 pris=138
+testflags__PackageTypeParam F6 pris=1
+testflags__Scr1SvTests F5 pris=19
+testflags__SeqDriver F6 pris=124
+testflags__StructParamFieldRange F5 pris=4
+testflags__StructParamFieldRange F6 pris=1
+testflags__StructParamFuncBodyFieldCompare F5 pris=12
+testflags__StructParamFuncBodyFieldCompare F6 pris=1
+testflags__StructParamPatternInitCast F5 pris=12
+testflags__StructParamPatternInitCast F6 pris=1
+testflags__StructUnsizedVal F2 pris=4
+testflags__<slang-fenced> F5 pris=1
+testflags__TypeParam F6 pris=3
+TOTAL {'F5': 14, 'F2': 4, 'F6': 14}
+## pristine -> law per face per row (only rows whose law census differs from pristine)
+## u2r
+default__cfg_func_width_loop F1 pris=4 lawf=0 TO-GOLDEN
+default__ibex_tracer F5 pris=736 lawf=0 TO-GOLDEN
+default__stamped_gen_param F1 pris=12 lawf=0 TO-GOLDEN
+default__stamped_gen_param F3 pris=3 lawf=0 TO-GOLDEN
+testflags__cfg_func_width_loop F1 pris=4 lawf=0 TO-GOLDEN
+testflags__ibex_tracer F5 pris=736 lawf=0 TO-GOLDEN
+testflags__stamped_gen_param F1 pris=12 lawf=0 TO-GOLDEN
+testflags__stamped_gen_param F3 pris=3 lawf=0 TO-GOLDEN
+TOTAL {('F1', 'TO-GOLDEN'): 4, ('F5', 'TO-GOLDEN'): 2, ('F3', 'TO-GOLDEN'): 2}
+## sl
+default__LargeValue2Struct F2 pris=8 lawf=4 TO-GOLDEN
+testflags__LargeValue2Struct F2 pris=8 lawf=4 TO-GOLDEN
+TOTAL {('F2', 'TO-GOLDEN'): 2}
+## prediction check: every law-moved face cell is in PREDICT.txt (written before the first law sweep); predicted-but-unmoved: F5 ibex_register_file_ff iface_scalar_localparam iface_struct_field_partsel + 10 surelog rows, F2 StructUnsizedVal (their census differences are other shapes the gates refuse)
+# (redaction note: row names of the four slang-fenced tests are replaced by <slang-fenced>)
