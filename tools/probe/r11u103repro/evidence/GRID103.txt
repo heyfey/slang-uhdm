@@ -1,0 +1,425 @@
+# GRID103 — every grid copy x every tag.  pris = pristine (md5 98cd461118148e66b6fa6083d6137034), lawx = this patch (e7f4bfcaa17a47d0ea25eab08a5e33b7); every other tag is lawx under ONE switch:
+#   off=R11U103_OFF akoff=R11U103_FILEKEY_OFF adoff=R11U103_FILEKEY_DEFONLY_OFF fof/niof/npof=R11U103_UNELAB_{F,NI,NP}_OFF lbof=R11U103_UNELAB_LIB_OFF ifof=R11U103_UNELAB_IFACE_OFF
+# per arm (rr103.sh): arm golden_rc o=ours_rc c=cmp_rc heads cmplines md5 | the same for lawx.  cmplines=NA: ours has no database (o=139 = SEGFAULT).
+
+=== r11u101repro (pris | lawx)
+x01_nestport 0 o=0 c=0 heads=0 cmplines=0 md5=0396b84e7343 o=0 c=0 heads=0 cmplines=0 md5=0396b84e7343
+x02_nestparam 0 o=0 c=0 heads=0 cmplines=0 md5=bf48f38b89e0 o=0 c=0 heads=0 cmplines=0 md5=bf48f38b89e0
+x03_nestportparam 0 o=0 c=0 heads=0 cmplines=0 md5=20c43a6e01e5 o=0 c=0 heads=0 cmplines=0 md5=20c43a6e01e5
+x04_nestparamnodef 0 o=0 c=255 heads=1 cmplines=430 md5=ba555ee0f11c o=0 c=255 heads=1 cmplines=430 md5=ba555ee0f11c
+x05_nestnonansi 0 o=0 c=0 heads=0 cmplines=0 md5=385316aba6e7 o=0 c=0 heads=0 cmplines=0 md5=385316aba6e7
+x06_nestportinst 0 o=0 c=0 heads=0 cmplines=0 md5=46c021cc8753 o=0 c=0 heads=0 cmplines=0 md5=46c021cc8753
+x07_nestportdeep 0 o=0 c=0 heads=0 cmplines=0 md5=b8baf9089cc5 o=0 c=0 heads=0 cmplines=0 md5=b8baf9089cc5
+x08_nestparaminmid 0 o=0 c=0 heads=0 cmplines=0 md5=d53d5c38c602 o=0 c=0 heads=0 cmplines=0 md5=d53d5c38c602
+x09_rv2twoouters 0 o=0 c=0 heads=0 cmplines=0 md5=8cc263aed5e0 o=0 c=0 heads=0 cmplines=0 md5=8cc263aed5e0
+x10_rv2threeouters 0 o=0 c=0 heads=0 cmplines=0 md5=d7c3110b6e20 o=0 c=0 heads=0 cmplines=0 md5=d7c3110b6e20
+x11_rv2ported 0 o=0 c=0 heads=0 cmplines=0 md5=cc62f5c14b4c o=0 c=0 heads=0 cmplines=0 md5=cc62f5c14b4c
+x12_rv2mixed 0 o=0 c=0 heads=0 cmplines=0 md5=8a29e9b41171 o=0 c=0 heads=0 cmplines=0 md5=8a29e9b41171
+x13_rv2outertwice 0 o=0 c=0 heads=0 cmplines=0 md5=72a6d15d0013 o=0 c=0 heads=0 cmplines=0 md5=72a6d15d0013
+x14_nestporttopouter 0 o=0 c=0 heads=0 cmplines=0 md5=37cb8aa9d428 o=0 c=0 heads=0 cmplines=0 md5=37cb8aa9d428
+x15_shadowinst 0 o=0 c=255 heads=1 cmplines=527 md5=6d12886274ee o=0 c=255 heads=1 cmplines=527 md5=6d12886274ee
+x16_shadowport 0 o=0 c=0 heads=0 cmplines=0 md5=3f57880fe049 o=0 c=0 heads=0 cmplines=0 md5=3f57880fe049
+x17_nestifaceport 0 o=0 c=255 heads=1 cmplines=490 md5=9b60fbcb5d4f o=0 c=255 heads=1 cmplines=490 md5=9b60fbcb5d4f
+x18_nestportclassouter 0 o=0 c=0 heads=0 cmplines=0 md5=0ba1c224955d o=0 c=0 heads=0 cmplines=0 md5=0ba1c224955d
+x19_nestportchild 0 o=0 c=255 heads=1 cmplines=55 md5=a7c15bb5db95 o=0 c=0 heads=0 cmplines=0 md5=06b70ebc44f4
+x20_rv2child 0 o=0 c=0 heads=0 cmplines=0 md5=c176a973760a o=0 c=0 heads=0 cmplines=0 md5=c176a973760a
+x21_outerparamported 0 o=0 c=0 heads=0 cmplines=0 md5=9642e8de0ad1 o=0 c=0 heads=0 cmplines=0 md5=9642e8de0ad1
+x22_nestportunused 0 o=0 c=0 heads=0 cmplines=0 md5=2eae3cd6ee1f o=0 c=0 heads=0 cmplines=0 md5=2eae3cd6ee1f
+x23_implchildport 0 o=0 c=255 heads=1 cmplines=55 md5=46c5d298de94 o=0 c=0 heads=0 cmplines=0 md5=f462f1757968
+x24_genchildport 0 o=0 c=255 heads=1 cmplines=55 md5=4ce3adc1c846 o=0 c=0 heads=0 cmplines=0 md5=da0896848189
+x25_rv2childport 0 o=0 c=255 heads=1 cmplines=55 md5=0e6ff547426e o=0 c=0 heads=0 cmplines=0 md5=3d8951393615
+
+=== r11u103repro (pris | lawx)
+a01_b12reverse 0 o=0 c=0 heads=0 cmplines=0 md5=f58dadefda79 o=0 c=0 heads=0 cmplines=0 md5=f58dadefda79
+a02_fileported 0 o=139 c=NA heads=NA cmplines=NA md5= o=0 c=0 heads=0 cmplines=0 md5=5ca77a4aa5dc
+a03_filetwice 0 o=139 c=NA heads=NA cmplines=NA md5= o=0 c=0 heads=0 cmplines=0 md5=bf23a619e293
+a04_filechild 0 o=139 c=NA heads=NA cmplines=NA md5= o=0 c=0 heads=0 cmplines=0 md5=c4dbbba12464
+a05_filegen 0 o=0 c=255 heads=1 cmplines=510 md5=811f4343d254 o=0 c=0 heads=0 cmplines=0 md5=3aabd85d0ef3
+a06_filearray 0 o=139 c=NA heads=NA cmplines=NA md5= o=0 c=0 heads=0 cmplines=0 md5=add118632a79
+a07_nestportedfile 0 o=0 c=0 heads=0 cmplines=0 md5=b06c31f2a86c o=0 c=0 heads=0 cmplines=0 md5=b06c31f2a86c
+a08_fileparam 0 o=139 c=NA heads=NA cmplines=NA md5= o=0 c=0 heads=0 cmplines=0 md5=f79c1c87b2a9
+a09_twoimplicit 0 o=0 c=255 heads=1 cmplines=548 md5=2150531aa5ef o=0 c=0 heads=0 cmplines=0 md5=ba145b79ae9a
+a10_filedeep 0 o=0 c=255 heads=1 cmplines=508 md5=31a49bfe30f3 o=0 c=0 heads=0 cmplines=0 md5=a7546d61d715
+a11_fileunref 0 o=0 c=255 heads=1 cmplines=340 md5=0bb659ef6066 o=0 c=0 heads=0 cmplines=0 md5=7f6eeaac9e77
+a12_filegenonly 0 o=0 c=255 heads=1 cmplines=388 md5=7e0c0dcdea65 o=0 c=0 heads=0 cmplines=0 md5=c70338d97844
+a13_sameouterinst 0 o=0 c=255 heads=1 cmplines=508 md5=9558ff29afba o=0 c=0 heads=0 cmplines=0 md5=c84b704ee088
+a14_nestexplicit 0 o=139 c=NA heads=NA cmplines=NA md5= o=0 c=255 heads=1 cmplines=55 md5=f076d21aec68
+a15_filelib 0 o=0 c=255 heads=1 cmplines=461 md5=f1603baf07aa o=0 c=0 heads=0 cmplines=0 md5=3878a4eaa9b9
+a16_fileviagenonly 0 o=0 c=255 heads=1 cmplines=502 md5=26da12adc930 o=0 c=0 heads=0 cmplines=0 md5=7d364e657e3e
+a17_nestdepth2 0 o=0 c=255 heads=1 cmplines=430 md5=6f3a6f0acc3d o=0 c=0 heads=0 cmplines=0 md5=41ec878c8fa4
+b01_F_inout 0 o=0 c=255 heads=1 cmplines=127 md5=40c3fc88dd3c o=0 c=0 heads=0 cmplines=0 md5=f3189e549520
+b02_F_nonansi 0 o=0 c=255 heads=1 cmplines=61 md5=88cb8960e42e o=0 c=0 heads=0 cmplines=0 md5=9c94c3d9db10
+b03_F_paramdef 0 o=0 c=255 heads=1 cmplines=91 md5=32118cb9b102 o=0 c=255 heads=1 cmplines=18 md5=3090a183b34b
+b04_F_paramnodef 0 o=0 c=255 heads=1 cmplines=75 md5=be2cec8409ee o=0 c=0 heads=0 cmplines=0 md5=44444e8387fd
+b05_F_chain 0 o=0 c=255 heads=1 cmplines=55 md5=85da16c8d326 o=0 c=0 heads=0 cmplines=0 md5=36b7dc2f967e
+b06_F_array 0 o=0 c=255 heads=1 cmplines=55 md5=502253a8b8ec o=0 c=0 heads=0 cmplines=0 md5=eca21a5cb2b5
+b07_F_alsoelab 0 o=0 c=0 heads=0 cmplines=0 md5=e45569b49c55 o=0 c=0 heads=0 cmplines=0 md5=e45569b49c55
+b08_F_unref_top 0 o=0 c=255 heads=1 cmplines=55 md5=80614167937d o=0 c=0 heads=0 cmplines=0 md5=8f4a6fda2939
+b09_F_pkgstruct 0 o=0 c=255 heads=1 cmplines=15 md5=fa99d96f09c9 o=0 c=255 heads=1 cmplines=15 md5=5ce0c2442141
+b10_F_ifaceport 0 o=0 c=255 heads=1 cmplines=90 md5=7b7ff93246e0 o=0 c=255 heads=1 cmplines=90 md5=7b7ff93246e0
+b11_F_unpackedport 0 o=0 c=255 heads=1 cmplines=87 md5=753e68d387a8 o=0 c=0 heads=0 cmplines=0 md5=3d642adbe71c
+b12_F_iface_child 0 o=0 c=255 heads=1 cmplines=55 md5=4653e73b22fa o=0 c=0 heads=0 cmplines=0 md5=791748b8ac43
+b13_F_lib 0 o=0 c=255 heads=1 cmplines=392 md5=a23d0b8cc5ad o=0 c=255 heads=1 cmplines=392 md5=a23d0b8cc5ad
+c01_NI_param 0 o=0 c=255 heads=1 cmplines=91 md5=766118cf3506 o=0 c=255 heads=1 cmplines=18 md5=189ec74ab3c9
+c02_NI_chain 0 o=0 c=255 heads=1 cmplines=55 md5=d173e217d53d o=0 c=0 heads=0 cmplines=0 md5=b3f8699e00b1
+c03_NI_alsoelab_after 0 o=0 c=255 heads=1 cmplines=8 md5=059aaf26e913 o=0 c=255 heads=1 cmplines=8 md5=059aaf26e913
+c04_NI_alsoelab_before 0 o=0 c=0 heads=0 cmplines=0 md5=fed7436e4f0b o=0 c=0 heads=0 cmplines=0 md5=fed7436e4f0b
+c05_NI_twoports 0 o=0 c=255 heads=1 cmplines=83 md5=e59f9739923f o=0 c=0 heads=0 cmplines=0 md5=ae323e5f2340
+d01_NP_param 0 o=0 c=255 heads=1 cmplines=91 md5=42f5069da724 o=0 c=255 heads=1 cmplines=18 md5=7ed0d77c0651
+d02_NP_chain 0 o=0 c=255 heads=1 cmplines=55 md5=63663dd967e7 o=0 c=0 heads=0 cmplines=0 md5=159d134b4c0d
+d03_NP_paramnested 0 o=0 c=255 heads=1 cmplines=91 md5=ed8a7fbeddfd o=0 c=255 heads=1 cmplines=18 md5=992f9d8af776
+e01_mix_AB 0 o=0 c=255 heads=1 cmplines=587 md5=35f0f460efdf o=0 c=0 heads=0 cmplines=0 md5=ce170510d19e
+
+=== r11u93repro (pris | lawx)
+i1_ifnda 0 o=0 c=0 heads=0 cmplines=0 md5=f4d811e6653c o=0 c=0 heads=0 cmplines=0 md5=f4d811e6653c
+m1_modnda 0 o=0 c=0 heads=0 cmplines=0 md5=aa3a39e594b8 o=0 c=0 heads=0 cmplines=0 md5=aa3a39e594b8
+n10_strnonansi_gen 0 o=0 c=0 heads=0 cmplines=0 md5=1df8a783c651 o=0 c=0 heads=0 cmplines=0 md5=1df8a783c651
+n11_ansistr 0 o=0 c=255 heads=1 cmplines=113 md5=a085f77b0da7 o=0 c=255 heads=1 cmplines=113 md5=a085f77b0da7
+n1_strnonansi 0 o=0 c=0 heads=0 cmplines=0 md5=f5e7d9d0a6c9 o=0 c=0 heads=0 cmplines=0 md5=f5e7d9d0a6c9
+n2_strrevorder 0 o=0 c=0 heads=0 cmplines=0 md5=d3bba7257f05 o=0 c=0 heads=0 cmplines=0 md5=d3bba7257f05
+n3_strnonansi_if 0 o=0 c=0 heads=0 cmplines=0 md5=9531bae28e98 o=0 c=0 heads=0 cmplines=0 md5=9531bae28e98
+n4_nonansi_plain_if 0 o=0 c=0 heads=0 cmplines=0 md5=4ceb61f6d4eb o=0 c=0 heads=0 cmplines=0 md5=4ceb61f6d4eb
+n5_nonansi_noredecl 0 o=0 c=0 heads=0 cmplines=0 md5=6953c4d70089 o=0 c=0 heads=0 cmplines=0 md5=6953c4d70089
+n6_nonansi_plain 0 o=0 c=0 heads=0 cmplines=0 md5=58fc8fbcceae o=0 c=0 heads=0 cmplines=0 md5=58fc8fbcceae
+n7_strnonansi_in 0 o=0 c=0 heads=0 cmplines=0 md5=f1fd70b8c12a o=0 c=0 heads=0 cmplines=0 md5=f1fd70b8c12a
+n8_strtwoports 0 o=0 c=0 heads=0 cmplines=0 md5=7db29bf228cb o=0 c=0 heads=0 cmplines=0 md5=7db29bf228cb
+n9_strnonansi_prog 3 o=0 c=NA heads=NA cmplines=NA md5=cd4b9f2baa5c o=0 c=NA heads=NA cmplines=NA md5=cd4b9f2baa5c
+p1_prognda 0 o=0 c=0 heads=0 cmplines=0 md5=e13da409dbef o=0 c=0 heads=0 cmplines=0 md5=e13da409dbef
+p2_progassign 0 o=0 c=0 heads=0 cmplines=0 md5=7ae360bcac0b o=0 c=0 heads=0 cmplines=0 md5=7ae360bcac0b
+p3_progboth 0 o=0 c=0 heads=0 cmplines=0 md5=5cbb5a47805a o=0 c=0 heads=0 cmplines=0 md5=5cbb5a47805a
+p4_progdefonly 0 o=0 c=0 heads=0 cmplines=0 md5=b28b4fb34790 o=0 c=0 heads=0 cmplines=0 md5=b28b4fb34790
+p5_progparam 0 o=0 c=0 heads=0 cmplines=0 md5=0d8b3a4763dd o=0 c=0 heads=0 cmplines=0 md5=0d8b3a4763dd
+p6_progtop 0 o=0 c=0 heads=0 cmplines=0 md5=73953c5c2150 o=0 c=0 heads=0 cmplines=0 md5=73953c5c2150
+p7_proggennda 0 o=0 c=0 heads=0 cmplines=0 md5=61a2a775f854 o=0 c=0 heads=0 cmplines=0 md5=61a2a775f854
+p8_progstr 0 o=0 c=0 heads=0 cmplines=0 md5=4ec25740e020 o=0 c=0 heads=0 cmplines=0 md5=4ec25740e020
+p9_progvarinit 0 o=0 c=0 heads=0 cmplines=0 md5=5126c4e6c45c o=0 c=0 heads=0 cmplines=0 md5=5126c4e6c45c
+pa10_proggenmod 0 o=3 c=NA heads=NA cmplines=NA md5= o=3 c=NA heads=NA cmplines=NA md5=
+pa11_proggenregion 139 o=0 c=0 heads=0 cmplines=0 md5=5129a8876ed0 o=0 c=0 heads=0 cmplines=0 md5=5129a8876ed0
+pa12_progsamearm 0 o=0 c=0 heads=0 cmplines=0 md5=c2d483b33247 o=0 c=0 heads=0 cmplines=0 md5=c2d483b33247
+pa13_progcollide 0 o=0 c=0 heads=0 cmplines=0 md5=3dd510b13211 o=0 c=0 heads=0 cmplines=0 md5=3dd510b13211
+pa14_progvarbody 0 o=0 c=0 heads=0 cmplines=0 md5=d834c1802ebc o=0 c=0 heads=0 cmplines=0 md5=d834c1802ebc
+pa15_modgennda 0 o=0 c=0 heads=0 cmplines=0 md5=8b9c715fbf7e o=0 c=0 heads=0 cmplines=0 md5=8b9c715fbf7e
+pa16_ifacegennda 0 o=0 c=0 heads=0 cmplines=0 md5=3a24bc0c7e38 o=0 c=0 heads=0 cmplines=0 md5=3a24bc0c7e38
+pa17_progtopgen 0 o=0 c=0 heads=0 cmplines=0 md5=e9a3704a0a0d o=0 c=0 heads=0 cmplines=0 md5=e9a3704a0a0d
+pa2_progif0 0 o=0 c=0 heads=0 cmplines=0 md5=6a2d1a6e544e o=0 c=0 heads=0 cmplines=0 md5=6a2d1a6e544e
+pa3_progifelse 0 o=0 c=0 heads=0 cmplines=0 md5=710e208d50b5 o=0 c=0 heads=0 cmplines=0 md5=710e208d50b5
+pa4_progfor 0 o=0 c=0 heads=0 cmplines=0 md5=57f9d184a320 o=0 c=0 heads=0 cmplines=0 md5=57f9d184a320
+pa5_progvar 0 o=0 c=0 heads=0 cmplines=0 md5=79ae243342f4 o=0 c=0 heads=0 cmplines=0 md5=79ae243342f4
+pa6_prognest 0 o=0 c=0 heads=0 cmplines=0 md5=c572013eb45b o=0 c=0 heads=0 cmplines=0 md5=c572013eb45b
+pa7_progbare 0 o=0 c=0 heads=0 cmplines=0 md5=ea32f5a85cca o=0 c=0 heads=0 cmplines=0 md5=ea32f5a85cca
+pa8_proggenonly 0 o=0 c=0 heads=0 cmplines=0 md5=b09420b06881 o=0 c=0 heads=0 cmplines=0 md5=b09420b06881
+pa9_proggenparam 0 o=0 c=255 heads=1 cmplines=72 md5=c44b68fd7263 o=0 c=255 heads=1 cmplines=72 md5=c44b68fd7263
+pb10_ifnetuse 0 o=0 c=0 heads=0 cmplines=0 md5=9ed8363745a5 o=0 c=0 heads=0 cmplines=0 md5=9ed8363745a5
+pb11_ifvarredecl 0 o=0 c=0 heads=0 cmplines=0 md5=a43c98fa8aaf o=0 c=0 heads=0 cmplines=0 md5=a43c98fa8aaf
+pb12_ifstrnonport 0 o=0 c=0 heads=0 cmplines=0 md5=83223cd7bcbb o=0 c=0 heads=0 cmplines=0 md5=83223cd7bcbb
+pb13_ifnoansiplainnouse 0 o=0 c=0 heads=0 cmplines=0 md5=27218640f3d0 o=0 c=0 heads=0 cmplines=0 md5=27218640f3d0
+pb14_ifbothstr 0 o=0 c=0 heads=0 cmplines=0 md5=2d8acb601bea o=0 c=0 heads=0 cmplines=0 md5=2d8acb601bea
+pb15_ifnodim 0 o=0 c=0 heads=0 cmplines=0 md5=fae1d04f82c6 o=0 c=0 heads=0 cmplines=0 md5=fae1d04f82c6
+pb16_ifdeclorder 0 o=0 c=0 heads=0 cmplines=0 md5=1b9f903a9bee o=0 c=0 heads=0 cmplines=0 md5=1b9f903a9bee
+pb17_ifonedecl 0 o=0 c=0 heads=0 cmplines=0 md5=bf2b194b5342 o=0 c=0 heads=0 cmplines=0 md5=bf2b194b5342
+pb18_ifnodecl 4 o=3 c=NA heads=NA cmplines=NA md5= o=3 c=NA heads=NA cmplines=NA md5=
+pb19_modportview 0 o=0 c=0 heads=0 cmplines=0 md5=d7e6e3e58d1b o=0 c=0 heads=0 cmplines=0 md5=d7e6e3e58d1b
+pb3_ifnoredecl 0 o=0 c=0 heads=0 cmplines=0 md5=c5fc84d82be2 o=0 c=0 heads=0 cmplines=0 md5=c5fc84d82be2
+pb4_ifrevorder 0 o=0 c=0 heads=0 cmplines=0 md5=ffc7538f1fa0 o=0 c=0 heads=0 cmplines=0 md5=ffc7538f1fa0
+pb5_ifinput 0 o=0 c=0 heads=0 cmplines=0 md5=6333a13bcae4 o=0 c=0 heads=0 cmplines=0 md5=6333a13bcae4
+pb6_ifansi 0 o=0 c=0 heads=0 cmplines=0 md5=dcc2d4ad0c68 o=0 c=0 heads=0 cmplines=0 md5=dcc2d4ad0c68
+pb7_iftwoports 0 o=0 c=0 heads=0 cmplines=0 md5=5b24cd20f006 o=0 c=0 heads=0 cmplines=0 md5=5b24cd20f006
+pb8_ifmodport 0 o=0 c=0 heads=0 cmplines=0 md5=c0d9b77e6844 o=0 c=0 heads=0 cmplines=0 md5=c0d9b77e6844
+pb9_ifgen 0 o=0 c=0 heads=0 cmplines=0 md5=531b36956417 o=0 c=0 heads=0 cmplines=0 md5=531b36956417
+
+=== r11u95repro (pris | lawx)
+a10_proginitnest 0 o=0 c=0 heads=0 cmplines=0 md5=afddb24ad73e o=0 c=0 heads=0 cmplines=0 md5=afddb24ad73e
+a11_proginitfor1 0 o=0 c=0 heads=0 cmplines=0 md5=354f28d3489c o=0 c=0 heads=0 cmplines=0 md5=354f28d3489c
+a12_proginitfor2 0 o=0 c=0 heads=0 cmplines=0 md5=186cc472df0e o=0 c=0 heads=0 cmplines=0 md5=186cc472df0e
+a13_progforzero 0 o=0 c=0 heads=0 cmplines=0 md5=87bbe62cf4fc o=0 c=0 heads=0 cmplines=0 md5=87bbe62cf4fc
+a14_progforzeroinit 0 o=0 c=0 heads=0 cmplines=0 md5=133e4200c86f o=0 c=0 heads=0 cmplines=0 md5=133e4200c86f
+a15_progforzerovar 0 o=0 c=0 heads=0 cmplines=0 md5=51222480cbc9 o=0 c=0 heads=0 cmplines=0 md5=51222480cbc9
+a16_progforzeronest 0 o=0 c=0 heads=0 cmplines=0 md5=a16052cff4d9 o=0 c=0 heads=0 cmplines=0 md5=a16052cff4d9
+a17_progforzeronda 0 o=0 c=0 heads=0 cmplines=0 md5=f1c15ffffb17 o=0 c=0 heads=0 cmplines=0 md5=f1c15ffffb17
+a18_proggenmixed 0 o=0 c=0 heads=0 cmplines=0 md5=3b6ba620ebca o=0 c=0 heads=0 cmplines=0 md5=3b6ba620ebca
+a19_progtopgeninit 0 o=0 c=0 heads=0 cmplines=0 md5=541768462603 o=0 c=0 heads=0 cmplines=0 md5=541768462603
+a1_proggeninit 0 o=0 c=0 heads=0 cmplines=0 md5=3255cb3f0b3d o=0 c=0 heads=0 cmplines=0 md5=3255cb3f0b3d
+a20_proggenparam 0 o=0 c=255 heads=1 cmplines=72 md5=cf4545d07fe8 o=0 c=255 heads=1 cmplines=72 md5=cf4545d07fe8
+a21_progtopgentask 0 o=0 c=0 heads=0 cmplines=0 md5=0d051693acfb o=0 c=0 heads=0 cmplines=0 md5=0d051693acfb
+a22_progtwoinsttask 0 o=0 c=0 heads=0 cmplines=0 md5=7472bd0a0aec o=0 c=0 heads=0 cmplines=0 md5=7472bd0a0aec
+a2_progfinal 0 o=0 c=0 heads=0 cmplines=0 md5=b16a7f829025 o=0 c=0 heads=0 cmplines=0 md5=b16a7f829025
+a3_proggentask 0 o=0 c=0 heads=0 cmplines=0 md5=6c2a1390ad56 o=0 c=0 heads=0 cmplines=0 md5=6c2a1390ad56
+a4_progclass 0 o=0 c=0 heads=0 cmplines=0 md5=96c7ae1891f6 o=0 c=0 heads=0 cmplines=0 md5=96c7ae1891f6
+a5_proginitorder 0 o=0 c=0 heads=0 cmplines=0 md5=89860c5b9636 o=0 c=0 heads=0 cmplines=0 md5=89860c5b9636
+a6_proginitorder2 0 o=0 c=0 heads=0 cmplines=0 md5=05fae65ffe8a o=0 c=0 heads=0 cmplines=0 md5=05fae65ffe8a
+a7_progtaskorder 0 o=0 c=0 heads=0 cmplines=0 md5=a6913faef454 o=0 c=0 heads=0 cmplines=0 md5=a6913faef454
+a8_proggeninit0 0 o=0 c=0 heads=0 cmplines=0 md5=0e5913088970 o=0 c=0 heads=0 cmplines=0 md5=0e5913088970
+a9_proginitelse 0 o=0 c=0 heads=0 cmplines=0 md5=c8f54fa87ecd o=0 c=0 heads=0 cmplines=0 md5=c8f54fa87ecd
+c10_modgenclass 0 o=0 c=0 heads=0 cmplines=0 md5=5b0b6d357bce o=0 c=0 heads=0 cmplines=0 md5=5b0b6d357bce
+c11_proggennda 0 o=0 c=0 heads=0 cmplines=0 md5=710ed742d801 o=0 c=0 heads=0 cmplines=0 md5=710ed742d801
+c12_proggenassign 0 o=0 c=0 heads=0 cmplines=0 md5=784a4b7f664b o=0 c=0 heads=0 cmplines=0 md5=784a4b7f664b
+c13_progtwoinstbody 0 o=0 c=0 heads=0 cmplines=0 md5=85afb0cf7ec9 o=0 c=0 heads=0 cmplines=0 md5=85afb0cf7ec9
+c1_modgeninit 0 o=0 c=0 heads=0 cmplines=0 md5=43dca886c4b6 o=0 c=0 heads=0 cmplines=0 md5=43dca886c4b6
+c2_ifacegeninit 0 o=0 c=0 heads=0 cmplines=0 md5=c96bda43ec18 o=0 c=0 heads=0 cmplines=0 md5=c96bda43ec18
+c3_progbodyinit 0 o=0 c=0 heads=0 cmplines=0 md5=593abdf9c806 o=0 c=0 heads=0 cmplines=0 md5=593abdf9c806
+c4_progbodytask 0 o=0 c=0 heads=0 cmplines=0 md5=b2adb556ab96 o=0 c=0 heads=0 cmplines=0 md5=b2adb556ab96
+c5_progbodyclass 0 o=0 c=0 heads=0 cmplines=0 md5=573519c7023e o=0 c=0 heads=0 cmplines=0 md5=573519c7023e
+c6_modforzero 0 o=0 c=0 heads=0 cmplines=0 md5=630b9c5f8606 o=0 c=0 heads=0 cmplines=0 md5=630b9c5f8606
+c7_ifaceforzero 0 o=0 c=0 heads=0 cmplines=0 md5=ef06199de40d o=0 c=0 heads=0 cmplines=0 md5=ef06199de40d
+c8_modfinalgen 0 o=0 c=0 heads=0 cmplines=0 md5=87698e718d3a o=0 c=0 heads=0 cmplines=0 md5=87698e718d3a
+c9_modgentask 0 o=0 c=0 heads=0 cmplines=0 md5=5baeae5e4b69 o=0 c=0 heads=0 cmplines=0 md5=5baeae5e4b69
+
+=== r11u98repro (pris | lawx)
+g1_progclassnames 0 o=0 c=0 heads=0 cmplines=0 md5=50750a8cca19 o=0 c=0 heads=0 cmplines=0 md5=50750a8cca19
+g2_modclassnames 0 o=0 c=0 heads=0 cmplines=0 md5=cc8673622e17 o=0 c=0 heads=0 cmplines=0 md5=cc8673622e17
+g3_ifaceclassnames 0 o=0 c=0 heads=0 cmplines=0 md5=c450da08df36 o=0 c=0 heads=0 cmplines=0 md5=c450da08df36
+g4_pkgclassnames 0 o=0 c=0 heads=0 cmplines=0 md5=7b524632938f o=0 c=0 heads=0 cmplines=0 md5=7b524632938f
+g5_modclassthree 0 o=0 c=0 heads=0 cmplines=0 md5=31e9f3485896 o=0 c=0 heads=0 cmplines=0 md5=31e9f3485896
+g6_modclasscase 0 o=0 c=0 heads=0 cmplines=0 md5=49ebffbd9259 o=0 c=0 heads=0 cmplines=0 md5=49ebffbd9259
+g7_modclassdigit 0 o=0 c=0 heads=0 cmplines=0 md5=818488842a96 o=0 c=0 heads=0 cmplines=0 md5=818488842a96
+g8_modclassprefix 0 o=0 c=0 heads=0 cmplines=0 md5=7d34dc3db81b o=0 c=0 heads=0 cmplines=0 md5=7d34dc3db81b
+g9_modclassparam 0 o=0 c=255 heads=1 cmplines=159 md5=35805324455e o=0 c=255 heads=1 cmplines=159 md5=35805324455e
+h10_modfinalbody 0 o=0 c=0 heads=0 cmplines=0 md5=3a1d6cae8d7e o=0 c=0 heads=0 cmplines=0 md5=3a1d6cae8d7e
+h11_modgeninitname 0 o=0 c=0 heads=0 cmplines=0 md5=4a0a8ee370af o=0 c=0 heads=0 cmplines=0 md5=4a0a8ee370af
+h1_modgenclass 0 o=0 c=0 heads=0 cmplines=0 md5=82c3a2e17082 o=0 c=0 heads=0 cmplines=0 md5=82c3a2e17082
+h2_ifacegenclass 0 o=0 c=0 heads=0 cmplines=0 md5=76be9c9fdd89 o=0 c=0 heads=0 cmplines=0 md5=76be9c9fdd89
+h3_ifacegentask 0 o=0 c=0 heads=0 cmplines=0 md5=baa3bad1bf5b o=0 c=0 heads=0 cmplines=0 md5=baa3bad1bf5b
+h4_modfinalgen 0 o=0 c=0 heads=0 cmplines=0 md5=306c95faa588 o=0 c=0 heads=0 cmplines=0 md5=306c95faa588
+h5_modgenclassorder 0 o=0 c=0 heads=0 cmplines=0 md5=545874631afd o=0 c=0 heads=0 cmplines=0 md5=545874631afd
+h6_modgenclassnest 0 o=0 c=0 heads=0 cmplines=0 md5=ffe64b424e75 o=0 c=0 heads=0 cmplines=0 md5=ffe64b424e75
+h7_modforclass 0 o=0 c=0 heads=0 cmplines=0 md5=b8a315e0e33d o=0 c=0 heads=0 cmplines=0 md5=b8a315e0e33d
+h8_modgenclass0 0 o=0 c=0 heads=0 cmplines=0 md5=747e154ccc69 o=0 c=0 heads=0 cmplines=0 md5=747e154ccc69
+h9_ifaceclassbody 0 o=0 c=0 heads=0 cmplines=0 md5=ec02bb5b810c o=0 c=0 heads=0 cmplines=0 md5=ec02bb5b810c
+
+=== r11u99repro (pris | lawx)
+w01_ifacenestinst 0 o=0 c=255 heads=1 cmplines=539 md5=2df6c794a999 o=0 c=255 heads=1 cmplines=539 md5=2df6c794a999
+w02_ifacenestbody 0 o=0 c=255 heads=1 cmplines=514 md5=1ca764c0f076 o=0 c=255 heads=1 cmplines=514 md5=1ca764c0f076
+w03_ifacenestmixed 0 o=0 c=255 heads=1 cmplines=623 md5=07d53c6c0509 o=0 c=255 heads=1 cmplines=623 md5=07d53c6c0509
+w04_ifacenestmodchild 0 o=3 c=NA heads=NA cmplines=NA md5= o=3 c=NA heads=NA cmplines=NA md5=
+w05_ifacesimplebody 0 o=0 c=0 heads=0 cmplines=0 md5=3cf993f4c95b o=0 c=0 heads=0 cmplines=0 md5=3cf993f4c95b
+w06_ifacenestnoclass 0 o=0 c=255 heads=1 cmplines=540 md5=86976cc4215e o=0 c=255 heads=1 cmplines=540 md5=86976cc4215e
+w07_twoifacenest 0 o=0 c=255 heads=1 cmplines=674 md5=b953fabc16b5 o=0 c=255 heads=1 cmplines=674 md5=b953fabc16b5
+w08_ifacenestarrclass 0 o=0 c=255 heads=1 cmplines=164 md5=d17c5ddac265 o=0 c=255 heads=1 cmplines=164 md5=d17c5ddac265
+w11_modinnerdecl 0 o=0 c=0 heads=0 cmplines=0 md5=e5d5cafeb912 o=0 c=0 heads=0 cmplines=0 md5=e5d5cafeb912
+w12_modinnernoclass 0 o=0 c=0 heads=0 cmplines=0 md5=276b1370cc0a o=0 c=0 heads=0 cmplines=0 md5=276b1370cc0a
+w13_modinnerinst 0 o=0 c=0 heads=0 cmplines=0 md5=d4367f72fe24 o=0 c=0 heads=0 cmplines=0 md5=d4367f72fe24
+w14_modinnerdeep 0 o=0 c=0 heads=0 cmplines=0 md5=42fb65d2a8f0 o=0 c=0 heads=0 cmplines=0 md5=42fb65d2a8f0
+w15_modinnercontent 0 o=0 c=0 heads=0 cmplines=0 md5=99c34bdec2d8 o=0 c=0 heads=0 cmplines=0 md5=99c34bdec2d8
+w16_modinnertwo 0 o=0 c=0 heads=0 cmplines=0 md5=c25bc571af8a o=0 c=0 heads=0 cmplines=0 md5=c25bc571af8a
+w17_ifaceinnerdecl 3 o=3 c=NA heads=NA cmplines=NA md5= o=3 c=NA heads=NA cmplines=NA md5=
+w18_modinnertop 0 o=0 c=0 heads=0 cmplines=0 md5=06344d8b8488 o=0 c=0 heads=0 cmplines=0 md5=06344d8b8488
+w19_modinnersame 0 o=0 c=0 heads=0 cmplines=0 md5=0ea2fc6fa7df o=0 c=0 heads=0 cmplines=0 md5=0ea2fc6fa7df
+w20_moddeclgen 0 o=0 c=0 heads=0 cmplines=0 md5=7d0dda487f86 o=0 c=0 heads=0 cmplines=0 md5=7d0dda487f86
+w21_moddeepinst 0 o=0 c=0 heads=0 cmplines=0 md5=99b7399de94d o=0 c=0 heads=0 cmplines=0 md5=99b7399de94d
+w22_modinneriface 3 o=0 c=NA heads=NA cmplines=NA md5=6461ae6adb95 o=0 c=NA heads=NA cmplines=NA md5=6461ae6adb95
+w23_modinnerport 0 o=0 c=0 heads=0 cmplines=0 md5=537e21f6e45a o=0 c=0 heads=0 cmplines=0 md5=537e21f6e45a
+w24_modinnerparam 0 o=0 c=0 heads=0 cmplines=0 md5=49b26b4a2740 o=0 c=0 heads=0 cmplines=0 md5=49b26b4a2740
+w25_modinnerclassonly 0 o=0 c=0 heads=0 cmplines=0 md5=3fc1a2cdf82f o=0 c=0 heads=0 cmplines=0 md5=3fc1a2cdf82f
+w26_modinnerifacereal 3 o=0 c=NA heads=NA cmplines=NA md5=aaa00519b112 o=0 c=NA heads=NA cmplines=NA md5=aaa00519b112
+w27_modinnerifaceinst 3 o=0 c=NA heads=NA cmplines=NA md5=f30b543baff2 o=0 c=NA heads=NA cmplines=NA md5=f30b543baff2
+w28_v196nested 0 o=0 c=255 heads=1 cmplines=25 md5=ea6225fb8b1b o=0 c=255 heads=1 cmplines=25 md5=ea6225fb8b1b
+w29_v216nested 0 o=0 c=255 heads=1 cmplines=127 md5=2bfdcf6522b7 o=0 c=255 heads=1 cmplines=127 md5=2bfdcf6522b7
+
+=== r11v95repro (pris | lawx)
+x10_progif0infor 0 o=0 c=0 heads=0 cmplines=0 md5=12b9558363d4 o=0 c=0 heads=0 cmplines=0 md5=12b9558363d4
+x11_progtaskcall 0 o=0 c=0 heads=0 cmplines=0 md5=8da303aa2380 o=0 c=0 heads=0 cmplines=0 md5=8da303aa2380
+x12_proggenimportfn 0 o=0 c=255 heads=1 cmplines=203 md5=db7d59728ee3 o=0 c=255 heads=1 cmplines=203 md5=db7d59728ee3
+x13_proggenclassext 0 o=0 c=0 heads=0 cmplines=0 md5=2d4955ebe9c8 o=0 c=0 heads=0 cmplines=0 md5=2d4955ebe9c8
+x14_proggentwoblocks 0 o=0 c=0 heads=0 cmplines=0 md5=adaa288f0218 o=0 c=0 heads=0 cmplines=0 md5=adaa288f0218
+x15_modgenprogram 0 o=0 c=0 heads=0 cmplines=0 md5=2cd0d06942f0 o=0 c=0 heads=0 cmplines=0 md5=2cd0d06942f0
+x16_progforzeronestinit 0 o=0 c=0 heads=0 cmplines=0 md5=9280a4e3b3c1 o=0 c=0 heads=0 cmplines=0 md5=9280a4e3b3c1
+x17_ifacegentask 0 o=0 c=0 heads=0 cmplines=0 md5=474f87f2a684 o=0 c=0 heads=0 cmplines=0 md5=474f87f2a684
+x18_modgenall 0 o=0 c=0 heads=0 cmplines=0 md5=917065201ea7 o=0 c=0 heads=0 cmplines=0 md5=917065201ea7
+x19_proggenfinalorder 0 o=0 c=0 heads=0 cmplines=0 md5=3341d0c2e054 o=0 c=0 heads=0 cmplines=0 md5=3341d0c2e054
+x1_proggenalways 0 o=3 c=NA heads=NA cmplines=NA md5= o=3 c=NA heads=NA cmplines=NA md5=
+x20_progtopgenclass 0 o=0 c=0 heads=0 cmplines=0 md5=3465de144aca o=0 c=0 heads=0 cmplines=0 md5=3465de144aca
+x21_proggennolabel 0 o=0 c=0 heads=0 cmplines=0 md5=4ad1056224df o=0 c=0 heads=0 cmplines=0 md5=4ad1056224df
+x22_progbaregen 0 o=0 c=0 heads=0 cmplines=0 md5=97fa19dfaa03 o=0 c=0 heads=0 cmplines=0 md5=97fa19dfaa03
+x23_progforzerofinal 0 o=0 c=0 heads=0 cmplines=0 md5=9858397fcc45 o=0 c=0 heads=0 cmplines=0 md5=9858397fcc45
+x24_proggenforvar 0 o=0 c=0 heads=0 cmplines=0 md5=45c15bb50f9c o=0 c=0 heads=0 cmplines=0 md5=45c15bb50f9c
+x25_proggenmixedorder 0 o=0 c=0 heads=0 cmplines=0 md5=58c2e28d223c o=0 c=0 heads=0 cmplines=0 md5=58c2e28d223c
+x26_progimportbodyfn 0 o=0 c=255 heads=1 cmplines=241 md5=7dea7fb5328d o=0 c=255 heads=1 cmplines=241 md5=7dea7fb5328d
+x27_proggendupfirst 0 o=0 c=0 heads=0 cmplines=0 md5=48eb29880336 o=0 c=0 heads=0 cmplines=0 md5=48eb29880336
+x28_progclassorder 0 o=0 c=0 heads=0 cmplines=0 md5=0676faf84620 o=0 c=0 heads=0 cmplines=0 md5=0676faf84620
+x29_progclasstwogen 0 o=0 c=0 heads=0 cmplines=0 md5=2430fa70e167 o=0 c=0 heads=0 cmplines=0 md5=2430fa70e167
+x2_proggenassert 0 o=0 c=255 heads=1 cmplines=64 md5=3d98bb3cc158 o=0 c=255 heads=1 cmplines=64 md5=3d98bb3cc158
+x30_progclassnames 0 o=0 c=0 heads=0 cmplines=0 md5=938b72996b94 o=0 c=0 heads=0 cmplines=0 md5=938b72996b94
+x31_modclassnames 0 o=0 c=0 heads=0 cmplines=0 md5=487a323df076 o=0 c=0 heads=0 cmplines=0 md5=487a323df076
+x3_proggendeep 0 o=0 c=0 heads=0 cmplines=0 md5=c0135d270dcb o=0 c=0 heads=0 cmplines=0 md5=c0135d270dcb
+x4_proggencase 0 o=0 c=0 heads=0 cmplines=0 md5=86c211247203 o=0 c=0 heads=0 cmplines=0 md5=86c211247203
+x5_progtwoinstgeninit 0 o=0 c=0 heads=0 cmplines=0 md5=bc84cfe7c5b4 o=0 c=0 heads=0 cmplines=0 md5=bc84cfe7c5b4
+x6_progforzerotask 0 o=0 c=0 heads=0 cmplines=0 md5=7d39d174d421 o=0 c=0 heads=0 cmplines=0 md5=7d39d174d421
+x7_progforzeroclass 0 o=0 c=0 heads=0 cmplines=0 md5=488040f25fb4 o=0 c=0 heads=0 cmplines=0 md5=488040f25fb4
+x8_proggendupname 0 o=0 c=255 heads=1 cmplines=14 md5=19fb9c51961f o=0 c=255 heads=1 cmplines=14 md5=19fb9c51961f
+x9_progzeroloopinif 0 o=0 c=0 heads=0 cmplines=0 md5=965a6b6cd933 o=0 c=0 heads=0 cmplines=0 md5=965a6b6cd933
+
+=== r11v98repro (pris | lawx)
+v01_ifacenoinst 0 o=0 c=0 heads=0 cmplines=0 md5=4afad05b0fdf o=0 c=0 heads=0 cmplines=0 md5=4afad05b0fdf
+v02_ifacechild 0 o=3 c=NA heads=NA cmplines=NA md5= o=3 c=NA heads=NA cmplines=NA md5=
+v03_moddupclass 0 o=0 c=0 heads=0 cmplines=0 md5=66badc45db1b o=0 c=0 heads=0 cmplines=0 md5=66badc45db1b
+v04_modifelse 0 o=0 c=0 heads=0 cmplines=0 md5=dbcf2b4270cd o=0 c=0 heads=0 cmplines=0 md5=dbcf2b4270cd
+v05_modcasegen 0 o=0 c=0 heads=0 cmplines=0 md5=e9a451487866 o=0 c=0 heads=0 cmplines=0 md5=e9a451487866
+v06_progthree 0 o=0 c=0 heads=0 cmplines=0 md5=9bc21d4e3e08 o=0 c=0 heads=0 cmplines=0 md5=9bc21d4e3e08
+v07_modgenparamclass 0 o=0 c=255 heads=1 cmplines=91 md5=a61b09d49bc0 o=0 c=255 heads=1 cmplines=91 md5=a61b09d49bc0
+v08_ifacefinalgen 0 o=0 c=0 heads=0 cmplines=0 md5=9585fec8f25b o=0 c=0 heads=0 cmplines=0 md5=9585fec8f25b
+v09_progfinalgen 0 o=0 c=0 heads=0 cmplines=0 md5=26d32126ef1d o=0 c=0 heads=0 cmplines=0 md5=26d32126ef1d
+v10_ifaceforclass 0 o=0 c=0 heads=0 cmplines=0 md5=dc107aa161a2 o=0 c=0 heads=0 cmplines=0 md5=dc107aa161a2
+v11_ifaceif0class 0 o=0 c=0 heads=0 cmplines=0 md5=6e3e381ae7ed o=0 c=0 heads=0 cmplines=0 md5=6e3e381ae7ed
+v12_modgenchild 0 o=0 c=0 heads=0 cmplines=0 md5=f329bfe011cc o=0 c=0 heads=0 cmplines=0 md5=f329bfe011cc
+v13_keyorder 0 o=0 c=0 heads=0 cmplines=0 md5=5c19a2e7fba5 o=0 c=0 heads=0 cmplines=0 md5=5c19a2e7fba5
+v14_twoiface 0 o=0 c=0 heads=0 cmplines=0 md5=17e4eee76791 o=0 c=0 heads=0 cmplines=0 md5=17e4eee76791
+v15_ifacemodportclass 0 o=0 c=0 heads=0 cmplines=0 md5=2b620fea3338 o=0 c=0 heads=0 cmplines=0 md5=2b620fea3338
+v16_modgenifaceinst 0 o=0 c=0 heads=0 cmplines=0 md5=d4cdefebcbe7 o=0 c=0 heads=0 cmplines=0 md5=d4cdefebcbe7
+v17_proggenclass 0 o=0 c=0 heads=0 cmplines=0 md5=521ebc9e3e71 o=0 c=0 heads=0 cmplines=0 md5=521ebc9e3e71
+v18_modclassmany 0 o=0 c=0 heads=0 cmplines=0 md5=9ee266913a56 o=0 c=0 heads=0 cmplines=0 md5=9ee266913a56
+v19_ifacenestclass 0 o=0 c=0 heads=0 cmplines=0 md5=8043454ced5c o=0 c=0 heads=0 cmplines=0 md5=8043454ced5c
+v20_modgenmixed 0 o=0 c=0 heads=0 cmplines=0 md5=6d742fc3596d o=0 c=0 heads=0 cmplines=0 md5=6d742fc3596d
+v21_modgentwoclass 0 o=0 c=0 heads=0 cmplines=0 md5=9dbf48606d52 o=0 c=0 heads=0 cmplines=0 md5=9dbf48606d52
+v22_ifacebodygen 0 o=0 c=0 heads=0 cmplines=0 md5=83def6e32648 o=0 c=0 heads=0 cmplines=0 md5=83def6e32648
+v23_modfinaltwo 0 o=0 c=0 heads=0 cmplines=0 md5=cdd0625fe658 o=0 c=0 heads=0 cmplines=0 md5=cdd0625fe658
+v24_topmodclass 0 o=0 c=0 heads=0 cmplines=0 md5=1e5cd2fd7494 o=0 c=0 heads=0 cmplines=0 md5=1e5cd2fd7494
+v25_ifacearrclass 0 o=0 c=0 heads=0 cmplines=0 md5=a3db01f079f9 o=0 c=0 heads=0 cmplines=0 md5=a3db01f079f9
+v26_modgenclassnodef 0 o=0 c=0 heads=0 cmplines=0 md5=8f53496dea00 o=0 c=0 heads=0 cmplines=0 md5=8f53496dea00
+v27_ifacenestinst 0 o=0 c=255 heads=1 cmplines=539 md5=59b1a8398555 o=0 c=255 heads=1 cmplines=539 md5=59b1a8398555
+v28_ifacenestbody 0 o=0 c=255 heads=1 cmplines=514 md5=9c0d98425520 o=0 c=255 heads=1 cmplines=514 md5=9c0d98425520
+v29_modinnerdecl 0 o=0 c=0 heads=0 cmplines=0 md5=b00c294266f2 o=0 c=0 heads=0 cmplines=0 md5=b00c294266f2
+v30_ifaceclassnamedup 0 o=0 c=0 heads=0 cmplines=0 md5=cb2ece8eb2d8 o=0 c=0 heads=0 cmplines=0 md5=cb2ece8eb2d8
+v31_ifacenestfinal 0 o=0 c=255 heads=1 cmplines=585 md5=2556eab41e11 o=0 c=255 heads=1 cmplines=585 md5=2556eab41e11
+
+=== v11u93repro (pris | lawx)
+b01_sibnested 0 o=0 c=0 heads=0 cmplines=0 md5=3ff57e7f7886 o=0 c=0 heads=0 cmplines=0 md5=3ff57e7f7886
+b02_outerparamwidth 0 o=0 c=0 heads=0 cmplines=0 md5=259ed758bcbc o=0 c=0 heads=0 cmplines=0 md5=259ed758bcbc
+b03_outertypedef 0 o=0 c=255 heads=1 cmplines=15 md5=0afb19332b20 o=0 c=255 heads=1 cmplines=15 md5=0afb19332b20
+b04_rv2explicit 0 o=0 c=0 heads=0 cmplines=0 md5=ed5929012049 o=0 c=0 heads=0 cmplines=0 md5=ed5929012049
+b05_rv2explicitported 0 o=0 c=0 heads=0 cmplines=0 md5=3d3c007f85b9 o=0 c=0 heads=0 cmplines=0 md5=3d3c007f85b9
+b06_rv2gen 0 o=0 c=255 heads=1 cmplines=94 md5=03a27aeb25d8 o=0 c=255 heads=1 cmplines=94 md5=03a27aeb25d8
+b07_rv2arr 0 o=0 c=0 heads=0 cmplines=0 md5=96817a089360 o=0 c=0 heads=0 cmplines=0 md5=96817a089360
+b08_outergenonly 0 o=0 c=0 heads=0 cmplines=0 md5=d3f15a373090 o=0 c=0 heads=0 cmplines=0 md5=d3f15a373090
+b09a_strength 0 o=0 c=0 heads=0 cmplines=0 md5=bb43ef99e7fd o=0 c=0 heads=0 cmplines=0 md5=bb43ef99e7fd
+b09b_netdecl 0 o=0 c=0 heads=0 cmplines=0 md5=9474af05843c o=0 c=0 heads=0 cmplines=0 md5=9474af05843c
+b09c_proc 0 o=0 c=0 heads=0 cmplines=0 md5=d926ec818d34 o=0 c=0 heads=0 cmplines=0 md5=d926ec818d34
+b09d_pkgstruct 0 o=0 c=255 heads=1 cmplines=15 md5=f5c85eac4046 o=0 c=255 heads=1 cmplines=15 md5=f5c85eac4046
+b09e_gen 0 o=0 c=0 heads=0 cmplines=0 md5=3aec0eb70611 o=0 c=0 heads=0 cmplines=0 md5=3aec0eb70611
+b10_inst1 0 o=0 c=0 heads=0 cmplines=0 md5=31ec950adb83 o=0 c=0 heads=0 cmplines=0 md5=31ec950adb83
+b10_inst2 0 o=0 c=0 heads=0 cmplines=0 md5=0b3a3957aed9 o=0 c=0 heads=0 cmplines=0 md5=0b3a3957aed9
+b10_inst3 0 o=0 c=0 heads=0 cmplines=0 md5=b862b76cdfad o=0 c=0 heads=0 cmplines=0 md5=b862b76cdfad
+b11_shadowtopinst 0 o=0 c=0 heads=0 cmplines=0 md5=0a3158097a62 o=0 c=0 heads=0 cmplines=0 md5=0a3158097a62
+b12_shadowtopportless 0 o=0 c=255 heads=1 cmplines=458 md5=4104d40b96ab o=0 c=0 heads=0 cmplines=0 md5=7a5286fd0036
+b13b_libouterportless 0 o=0 c=255 heads=1 cmplines=415 md5=c3fd9908c7fb o=0 c=255 heads=1 cmplines=415 md5=c3fd9908c7fb
+b13c_librv2implicit 0 o=0 c=255 heads=1 cmplines=359 md5=f1a76cb6800a o=0 c=255 heads=1 cmplines=359 md5=f1a76cb6800a
+b13d_librv2explicit 0 o=0 c=0 heads=0 cmplines=0 md5=74b916dd25b5 o=0 c=0 heads=0 cmplines=0 md5=74b916dd25b5
+b13e_libportedinst 0 o=0 c=0 heads=0 cmplines=0 md5=d2dc76ec82ff o=0 c=0 heads=0 cmplines=0 md5=d2dc76ec82ff
+b13f_libmixed 0 o=0 c=0 heads=0 cmplines=0 md5=16cd527df644 o=0 c=0 heads=0 cmplines=0 md5=16cd527df644
+b13_libouter 0 o=0 c=0 heads=0 cmplines=0 md5=2640c88e8892 o=0 c=0 heads=0 cmplines=0 md5=2640c88e8892
+b14_rv2shadow3 0 o=0 c=255 heads=1 cmplines=616 md5=58401ea5f776 o=0 c=0 heads=0 cmplines=0 md5=f3061c858f6e
+b15_bodyparamported 0 o=0 c=0 heads=0 cmplines=0 md5=9935eb9b7a19 o=0 c=0 heads=0 cmplines=0 md5=9935eb9b7a19
+b16_upref 0 o=0 c=0 heads=0 cmplines=0 md5=9b1892c5534d o=0 c=0 heads=0 cmplines=0 md5=9b1892c5534d
+b18_rv2deep 0 o=0 c=0 heads=0 cmplines=0 md5=8530425c0b6f o=0 c=0 heads=0 cmplines=0 md5=8530425c0b6f
+b19_rv2oneexplicit 0 o=0 c=0 heads=0 cmplines=0 md5=4f183af375bb o=0 c=0 heads=0 cmplines=0 md5=4f183af375bb
+b20_outerarray 0 o=0 c=0 heads=0 cmplines=0 md5=4452ed247714 o=0 c=0 heads=0 cmplines=0 md5=4452ed247714
+b21_portedusesportless 0 o=0 c=0 heads=0 cmplines=0 md5=abab286cc1dd o=0 c=0 heads=0 cmplines=0 md5=abab286cc1dd
+b22_ifaceinside 0 o=0 c=0 heads=0 cmplines=0 md5=a74970bb3f36 o=0 c=0 heads=0 cmplines=0 md5=a74970bb3f36
+b23_childparamnodef 0 o=0 c=255 heads=1 cmplines=75 md5=621a1aba51f7 o=0 c=0 heads=0 cmplines=0 md5=f163099ff637
+b24_leafshared 0 o=0 c=0 heads=0 cmplines=0 md5=d9e66773f8cc o=0 c=0 heads=0 cmplines=0 md5=d9e66773f8cc
+b25_rv2toptwo 0 o=0 c=0 heads=0 cmplines=0 md5=e9ed20b1c0d2 o=0 c=0 heads=0 cmplines=0 md5=e9ed20b1c0d2
+b26b_toponly_top 0 o=0 c=0 heads=0 cmplines=0 md5=af2eea92c56f o=0 c=0 heads=0 cmplines=0 md5=af2eea92c56f
+b26_toponly 0 o=0 c=0 heads=0 cmplines=0 md5=9a34bca91910 o=0 c=0 heads=0 cmplines=0 md5=9a34bca91910
+c09d_pkgstruct_genonly 0 o=0 c=255 heads=1 cmplines=15 md5=b04750603093 o=0 c=255 heads=1 cmplines=15 md5=b04750603093
+c09d_pkgstruct_inst 0 o=0 c=0 heads=0 cmplines=0 md5=81d3224ff969 o=0 c=0 heads=0 cmplines=0 md5=81d3224ff969
+
+=== totals (cmp lines over arms with a database), pris -> tag, per grid
+-- lawx
+r11u101repro arms=25 1667->1447 movers=4
+r11u103repro arms=39 6414->632 movers=32
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->913 movers=3
+-- off
+r11u101repro arms=25 1667->1667 movers=0
+r11u103repro arms=39 6414->6414 movers=0
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->2062 movers=0
+-- akoff
+r11u101repro arms=25 1667->1447 movers=4
+r11u103repro arms=39 6414->4652 movers=19
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->1987 movers=1
+-- adoff
+r11u101repro arms=25 1667->1447 movers=4
+r11u103repro arms=39 6414->1360 movers=30
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->913 movers=3
+-- fof
+r11u101repro arms=25 1667->1502 movers=3
+r11u103repro arms=39 6414->1330 movers=22
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->913 movers=3
+-- niof
+r11u101repro arms=25 1667->1557 movers=2
+r11u103repro arms=39 6414->898 movers=29
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->913 movers=3
+-- npof
+r11u101repro arms=25 1667->1502 movers=3
+r11u103repro arms=39 6414->833 movers=29
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->988 movers=2
+-- lbof
+r11u101repro arms=25 1667->1447 movers=4
+r11u103repro arms=39 6414->653 movers=33
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->913 movers=3
+-- ifof
+r11u101repro arms=25 1667->1447 movers=4
+r11u103repro arms=39 6414->546 movers=33
+r11u93repro arms=55 185->185 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+v11u93repro arms=39 2062->913 movers=3
+
+=== arms each switch MOVES vs lawx (= the face it drops), cmp lines lawx->tag
+-- off: r11u101repro/x19_nestportchild(0->55) r11u101repro/x23_implchildport(0->55) r11u101repro/x24_genchildport(0->55) r11u101repro/x25_rv2childport(0->55) r11u103repro/a02_fileported(0->NA) r11u103repro/a03_filetwice(0->NA) r11u103repro/a04_filechild(0->NA) r11u103repro/a05_filegen(0->510) r11u103repro/a06_filearray(0->NA) r11u103repro/a08_fileparam(0->NA) r11u103repro/a09_twoimplicit(0->548) r11u103repro/a10_filedeep(0->508) r11u103repro/a11_fileunref(0->340) r11u103repro/a12_filegenonly(0->388) r11u103repro/a13_sameouterinst(0->508) r11u103repro/a14_nestexplicit(55->NA) r11u103repro/a15_filelib(0->461) r11u103repro/a16_fileviagenonly(0->502) r11u103repro/a17_nestdepth2(0->430) r11u103repro/b01_F_inout(0->127) r11u103repro/b02_F_nonansi(0->61) r11u103repro/b03_F_paramdef(18->91) r11u103repro/b04_F_paramnodef(0->75) r11u103repro/b05_F_chain(0->55) r11u103repro/b06_F_array(0->55) r11u103repro/b08_F_unref_top(0->55) r11u103repro/b09_F_pkgstruct(15->15) r11u103repro/b11_F_unpackedport(0->87) r11u103repro/b12_F_iface_child(0->55) r11u103repro/c01_NI_param(18->91) r11u103repro/c02_NI_chain(0->55) r11u103repro/c05_NI_twoports(0->83) r11u103repro/d01_NP_param(18->91) r11u103repro/d02_NP_chain(0->55) r11u103repro/d03_NP_paramnested(18->91) r11u103repro/e01_mix_AB(0->587) v11u93repro/b12_shadowtopportless(0->458) v11u93repro/b14_rv2shadow3(0->616) v11u93repro/b23_childparamnodef(0->75)
+-- akoff: r11u103repro/a02_fileported(0->NA) r11u103repro/a03_filetwice(0->NA) r11u103repro/a04_filechild(0->NA) r11u103repro/a05_filegen(0->510) r11u103repro/a06_filearray(0->NA) r11u103repro/a08_fileparam(0->NA) r11u103repro/a09_twoimplicit(0->548) r11u103repro/a10_filedeep(0->508) r11u103repro/a13_sameouterinst(0->508) r11u103repro/a14_nestexplicit(55->NA) r11u103repro/a15_filelib(0->461) r11u103repro/a16_fileviagenonly(0->502) r11u103repro/a17_nestdepth2(0->430) r11u103repro/e01_mix_AB(0->608) v11u93repro/b12_shadowtopportless(0->458) v11u93repro/b14_rv2shadow3(0->616)
+-- adoff: r11u103repro/a11_fileunref(0->340) r11u103repro/a12_filegenonly(0->388)
+-- fof: r11u101repro/x24_genchildport(0->55) r11u103repro/a16_fileviagenonly(0->55) r11u103repro/b01_F_inout(0->127) r11u103repro/b02_F_nonansi(0->61) r11u103repro/b03_F_paramdef(18->91) r11u103repro/b04_F_paramnodef(0->75) r11u103repro/b05_F_chain(0->55) r11u103repro/b06_F_array(0->55) r11u103repro/b08_F_unref_top(0->55) r11u103repro/b09_F_pkgstruct(15->15) r11u103repro/b11_F_unpackedport(0->87) r11u103repro/b12_F_iface_child(0->55)
+-- niof: r11u101repro/x23_implchildport(0->55) r11u101repro/x25_rv2childport(0->55) r11u103repro/c01_NI_param(18->91) r11u103repro/c02_NI_chain(0->55) r11u103repro/c05_NI_twoports(0->83) r11u103repro/e01_mix_AB(0->55)
+-- npof: r11u101repro/x19_nestportchild(0->55) r11u103repro/d01_NP_param(18->91) r11u103repro/d02_NP_chain(0->55) r11u103repro/d03_NP_paramnested(18->91) v11u93repro/b23_childparamnodef(0->75)
+-- lbof: r11u103repro/b13_F_lib(392->413)
+-- ifof: r11u103repro/b10_F_ifaceport(90->4)

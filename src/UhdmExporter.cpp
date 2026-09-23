@@ -81,6 +81,48 @@ static bool nestLibOff101V() {
     static const bool v = getenv("R11U101_NESTLIB_OFF") != nullptr;
     return v;
 }
+// r11u103's gates (LAW A § caNestedModFileScopeKeyAtEntry103, LAW B
+// § caUnelabBodyChildPorts103 on three roads — the decode is at their sites
+// in exportDesign).  `R11U103_OFF=1` drops all; `R11U103_NETDBG=1` is the
+// trace, OUTSIDE every gate.
+static bool off103() {
+    static const bool v = getenv("R11U103_OFF") != nullptr;
+    return v;
+}
+static bool fileKeyOff103() {
+    static const bool v = off103() || getenv("R11U103_FILEKEY_OFF") != nullptr;
+    return v;
+}
+static bool fileKeyDefOnlyOff103() {
+    static const bool v = off103() || getenv("R11U103_FILEKEY_DEFONLY_OFF") != nullptr;
+    return v;
+}
+static bool unelabRoadOff103(const char* road) {
+    static const bool f = off103() || getenv("R11U103_UNELAB_F_OFF") != nullptr;
+    static const bool ni = off103() || getenv("R11U103_UNELAB_NI_OFF") != nullptr;
+    static const bool np = off103() || getenv("R11U103_UNELAB_NP_OFF") != nullptr;
+    return road[0] == 'F' ? f : (road[1] == 'I' ? ni : np);
+}
+static bool unelabLibOff103() {
+    static const bool v = getenv("R11U103_UNELAB_LIB_OFF") != nullptr;
+    return v;
+}
+static bool unelabIfaceOff103() {
+    static const bool v = getenv("R11U103_UNELAB_IFACE_OFF") != nullptr;
+    return v;
+}
+static bool netDbg103() {
+    static const bool v = getenv("R11U103_NETDBG") != nullptr;
+    return v;
+}
+// r11u99's LAW B2 switch (ModuleEmit.cpp's `nestImplOff99`, read from the
+// same variables): with B2 off the implicit nested instance IS elaborated,
+// so its subtree is not an unelaborated road.
+static bool nestImplOff103() {
+    static const bool v = getenv("R11U99_NESTIMPL_OFF") != nullptr ||
+                          getenv("R11U99_OFF") != nullptr;
+    return v;
+}
 // The outer's elaborated BODY a nested definition was declared in (the walk
 // `nestOuterDef99` makes, stopping at the same symbol), or null.
 static const InstanceBodySymbol* nestOuterBody101(const DefinitionSymbol& def) {
@@ -4812,7 +4854,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     // safely-instantiable ones: modules with all params defaulted and no
     // interface ports.
     std::set<const DefinitionSymbol*> unrefDefs;
-    auto addDefOnlyModule = [&](const DefinitionSymbol& udef) {
+    // `rekeyed103` — r11u103's LAW A calls this again AFTER r11u99's rekey
+    // (§ caNestedModFileScopeKeyAtEntry103): the subtree then enters under
+    // the rekeyed keys instead of the bare ones.  Every other caller passes
+    // false and runs the original body.
+    auto addDefOnlyModule = [&](const DefinitionSymbol& udef,
+                                bool rekeyed103 = false) {
         if (udef.definitionKind != DefinitionKind::Module)
             return;
         if (defs.count(std::string(udef.name)))
@@ -4855,7 +4902,19 @@ UHDM::design* UhdmExporter::exportDesign() {
             unrefDefs.insert(&udef);
             // § defOnlyNoArgTs — this listing is never elaborated.
             defOnlyDefs.insert(&udef);
-            collectDefs(uinst.body, defs, &uninstGenDefNames);
+            if (!rekeyed103) {
+                collectDefs(uinst.body, defs, &uninstGenDefNames);
+                return;
+            }
+            std::map<std::string, const InstanceSymbol*> sub103;
+            collectDefs(uinst.body, sub103);
+            for (auto& [n2, i2] : sub103) {
+                auto& d2 = i2->getDefinition();
+                int dp2 = nestDepth99(d2);
+                if (dp2 >= 2 && !nestDeepOff99())
+                    continue;
+                defs.emplace(dp2 == 0 ? n2 : defScopedName99(d2), i2);
+            }
         }
     };
     for (auto* udefSym : comp.getUnreferencedDefinitions())
@@ -5202,6 +5261,235 @@ UHDM::design* UhdmExporter::exportDesign() {
             // § defOnlyNoArgTs — this listing is never elaborated.
             defOnlyDefs.insert(&nd);
             mergeSub101(*ui);
+        }
+    }
+
+    // ===== r11u103 LAW A § caNestedModFileScopeKeyAtEntry103 — the bare key
+    // a nested definition took from a FILE-SCOPE one is re-keyed at ENTRY =====
+    //
+    // Golden's table is keyed on the SCOPED name from the start
+    // (`ResolveSymbols.cpp:168-201` files the nested one under
+    // `<outer>::<inner>`; `CompileDesign.cpp:203` moves every file's
+    // definitions into ONE name-keyed `std::map`, `Containers.h:26-27`), so a
+    // file-scope `work@innermod` and a nested `work@sub::innermod` never
+    // collide: golden lists BOTH (b12, b14).  Our collection is keyed on the
+    // BARE name (`collectDefs`) and re-keyed by r11u99's LAW B1 only AFTER it:
+    // when the walk reaches the nested one first (`sub`'s implicit instance
+    // before `dut`'s written `innermod u_f ()`), the file-scope definition
+    // finds its key taken and is dropped with its whole subtree.  r11u101's
+    // LAW B re-enters only the dropped NESTED half.  This replays the same
+    // walk in the same order (tops, bare tops last, then every definition-
+    // only root) keyed the way golden keys it, and enters every FILE-SCOPE
+    // module that an instance reaches and the table lacks — which after the
+    // rekey above happens ONLY when a nested definition of the same bare name
+    // held its key (the trace checks it).  The FIRST instance the replay
+    // meets is the representative, exactly as an entry-keyed collectDefs
+    // would pick it, so the instance walk that fills its port phase starts
+    // from the same body (§ dottedTopNameBareElab).  The shadow face
+    // (`R11U101_NESTSHADOW_OFF`), the library guard and the fenced RV1
+    // elaborated face (x15: golden elaborates the file-scope body under an
+    // instantiation written inside `sub`) are not touched: nothing here
+    // changes which body any instance elaborates.
+    {
+        std::set<std::string_view> nestedNames103;
+        for (auto* sym103 : comp.getDefinitions())
+            if (sym103->kind == SymbolKind::Definition &&
+                nestOuterBody101(sym103->as<DefinitionSymbol>()))
+                nestedNames103.insert(sym103->name);
+        // The entered definition's subtree, keyed the way the rekey above
+        // keys it (r11u101's `mergeSub101`, which is local to its block).
+        auto mergeSub103 = [&](const InstanceSymbol& root) {
+            std::map<std::string, const InstanceSymbol*> sub103;
+            collectDefs(root.body, sub103);
+            for (auto& [n2, i2] : sub103) {
+                auto& d2 = i2->getDefinition();
+                int dp2 = nestDepth99(d2);
+                if (dp2 >= 2 && !nestDeepOff99())
+                    continue;
+                defs.emplace(dp2 == 0 ? n2 : defScopedName99(d2), i2);
+            }
+        };
+        std::set<std::string> seen103;
+        auto key103 = [](const DefinitionSymbol& d) {
+            return nestDepth99(d) == 0 ? std::string(d.name) : defScopedName99(d);
+        };
+        std::function<void(const Symbol&)> visit103 = [&](const Symbol& m) {
+            if (m.kind == SymbolKind::Instance) {
+                auto& ch = m.as<InstanceSymbol>();
+                auto& cd = ch.getDefinition();
+                if (!seen103.insert(key103(cd)).second)
+                    return;
+                if (nestDepth99(cd) == 0 &&
+                    cd.definitionKind == DefinitionKind::Module &&
+                    !defs.count(std::string(cd.name)) &&
+                    nestedNames103.count(cd.name)) {
+                    if (netDbg103())
+                        fprintf(stderr, "R11U103FILEKEY key=%.*s\n",
+                                (int)cd.name.size(), cd.name.data());
+                    if (!fileKeyOff103()) {
+                        defs.emplace(std::string(cd.name), &ch);
+                        mergeSub103(ch);
+                    }
+                }
+                for (auto& cm : ch.body.members())
+                    visit103(cm);
+            }
+            else if (m.kind == SymbolKind::InstanceArray) {
+                for (auto* e : m.as<InstanceArraySymbol>().elements)
+                    visit103(*e);
+            }
+            else if ((m.kind == SymbolKind::GenerateBlock &&
+                      !m.as<GenerateBlockSymbol>().isUninstantiated) ||
+                     m.kind == SymbolKind::GenerateBlockArray) {
+                for (auto& gm : m.as<Scope>().members())
+                    visit103(gm);
+            }
+        };
+        auto root103 = [&](const InstanceSymbol& r) {
+            if (!seen103.insert(key103(r.getDefinition())).second)
+                return;
+            for (auto& cm : r.body.members())
+                visit103(cm);
+        };
+        for (int barePass = 0; barePass < 2; ++barePass)
+            for (auto inst : orderedTops)
+                if ((bareTops.count(inst) != 0) == (barePass == 1))
+                    root103(*inst);
+        std::vector<const InstanceSymbol*> dRoots103;
+        for (auto& [n103, i103] : defs)
+            if (!i103->getParentScope())
+                dRoots103.push_back(i103);
+        for (auto* r103 : dRoots103)
+            root103(*r103);
+        // The same collision on the DEFINITION-ONLY roads.  A file-scope
+        // module that no instance in the collected tree reaches (the replay
+        // never saw its key) is unreferenced under an explicit top, or is
+        // reached only from a non-taken generate branch, whose NAME the
+        // fixpoint above resolved to the FIRST definition of that name,
+        // possibly the nested one.  Either way `addDefOnlyModule` found the
+        // bare key held and declined it.  Golden lists it (a11, a12).  It is
+        // offered again, under the same admission rule, now that the rekey
+        // has freed the bare key.  THE SUPERSET TRACE (`NAMESAKE`) names
+        // every file-scope module that shares a bare name with a nested
+        // definition, before any filter: a census zero on it means neither
+        // half of this law can fire.
+        for (auto* sym103 : comp.getDefinitions()) {
+            if (sym103->kind != SymbolKind::Definition)
+                continue;
+            auto& fd = sym103->as<DefinitionSymbol>();
+            if (nestOuterBody101(fd) || nestDepth99(fd) != 0 ||
+                !nestedNames103.count(fd.name))
+                continue;
+            if (netDbg103())
+                fprintf(stderr, "R11U103NAMESAKE key=%.*s kind=%d\n",
+                        (int)fd.name.size(), fd.name.data(),
+                        (int)fd.definitionKind);
+            if (fd.definitionKind != DefinitionKind::Module ||
+                defs.count(std::string(fd.name)) ||
+                seen103.count(std::string(fd.name)))
+                continue;
+            if (netDbg103())
+                fprintf(stderr, "R11U103FILEKEY-DEFONLY key=%.*s\n",
+                        (int)fd.name.size(), fd.name.data());
+            if (!fileKeyDefOnlyOff103())
+                addDefOnlyModule(fd, true);
+        }
+    }
+
+    // ===== r11u103 LAW B § caUnelabBodyChildPorts103 — a module reached ONLY
+    // through a body no instance walk elaborates fills its def-view port phase
+    // in the write phase =====
+    //
+    // Golden compiles EVERY ModuleDefinition in the design
+    // (`CompileDesign.cpp:350-352`, `FunctorCompileModule`) whether or not
+    // an instance elaborates it, so the def view of `work@leaf` carries its
+    // `port`s with `vpiLowConn` → net and a `ref_typespec` exactly like any
+    // other definition (x19/x23/x24/x25/b23, golden dumps in the grid run).
+    // Our port phase runs the first time the instance walk reaches a
+    // definition (`emitInstance`'s `!filled` fill), or in the write-phase
+    // fallback for a definition in `unrefDefs`.  A definition whose
+    // REPRESENTATIVE sits under a body the walk never enters gets neither:
+    //   F  — under an `addDefOnlyModule` root (unreferenced, or reached only
+    //        from a non-taken generate branch): x24.
+    //   NI — under slang's implicit nested instance, which r11u99's LAW B2
+    //        declines to elaborate (`implicitNestedInst99`): x23, x25.
+    //   NP — under a nested definition r11u101's LAW A minted: x19, b23.
+    // Each road enters `unrefDefs` on its own switch; the write phase keeps
+    // its `!filled` guard, so a definition the walk also reaches is filled
+    // exactly where it was.  Interface definitions stay out (their shell has
+    // no DefInfo::mod; see the bare-top rule above).  The road is the
+    // NEAREST non-elaborating ancestor of the representative.
+    {
+        for (auto& [n103, i103] : defs) {
+            auto& d103 = i103->getDefinition();
+            if (unrefDefs.count(&d103) || useInterfacePath(*i103))
+                continue;
+            const char* road = nullptr;
+            for (const InstanceSymbol* cur = i103; cur && !road;) {
+                const Scope* sc = cur->getParentScope();
+                const InstanceSymbol* par = nullptr;
+                while (sc) {
+                    auto& ss = sc->asSymbol();
+                    if (ss.kind == SymbolKind::InstanceBody) {
+                        par = ss.as<InstanceBodySymbol>().parentInstance;
+                        break;
+                    }
+                    sc = ss.getParentScope();
+                }
+                if (!par)
+                    break;
+                // A definition-only ROOT first: r11u101's minted shell also
+                // sits at its definition's location under its definition's
+                // name, which is what `implicitNestedInst99` tests.
+                if (!par->getParentScope() &&
+                    unrefDefs.count(&par->getDefinition()))
+                    road = nestDepth99(par->getDefinition()) == 0 ? "F" : "NP";
+                else if (!nestImplOff103() && implicitNestedInst99(*par))
+                    road = "NI";
+                cur = par;
+            }
+            if (!road)
+                continue;
+            // A LIBRARY-unit definition (-v/-y) that only an unelaborated
+            // body reaches is one golden never writes at all
+            // (`UhdmWriter.cpp:5111-5116` drops every library definition the
+            // elaborated tree does not use; b13_F_lib).  The shell the base
+            // binary already writes for it is left exactly as it is: filling
+            // its ports would widen an entry golden lacks.
+            // `R11U103_UNELAB_LIB_OFF=1` drops this guard alone.
+            if (!unelabLibOff103() &&
+                (!d103.sourceLibrary.isDefault ||
+                 (d103.syntaxTree && d103.syntaxTree->isLibraryUnit))) {
+                if (netDbg103())
+                    fprintf(stderr, "R11U103UNELAB road=%s-LIBDECLINE key=%s\n",
+                            road, n103.c_str());
+                continue;
+            }
+            // The file-scope road's admission rule (`addDefOnlyModule`): an
+            // INTERFACE-ported definition stays out.  MEASURED (b10_F_ifaceport):
+            // filled here, its interface port's `vpiLowConn` binds to the
+            // `interface_inst` where golden's binds a `logic_net`, and its
+            // `vpiTypedef` carries no `interface_typespec` — a guessed value
+            // is not golden's, so the base shell is kept.
+            // `R11U103_UNELAB_IFACE_OFF=1` drops this refusal alone.
+            bool ifacePorted103 = false;
+            for (auto pb : i103->body.getPortList())
+                if (pb->kind == SymbolKind::InterfacePort) {
+                    ifacePorted103 = true;
+                    break;
+                }
+            if (ifacePorted103 && !unelabIfaceOff103()) {
+                if (netDbg103())
+                    fprintf(stderr, "R11U103UNELAB road=%s-IFACEDECLINE key=%s\n",
+                            road, n103.c_str());
+                continue;
+            }
+            if (netDbg103())
+                fprintf(stderr, "R11U103UNELAB road=%s key=%s\n", road,
+                        n103.c_str());
+            if (unelabRoadOff103(road))
+                continue;
+            unrefDefs.insert(&d103);
         }
     }
 

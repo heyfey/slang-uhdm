@@ -1,0 +1,105 @@
+# BOUNDARY103 — bnd103.sh (bnd101.sh verbatim) over ALL of tools/probe, pristine vs lawx, every arm compiled by both with identical argv
+MOVED r10buvm22repro
+MOVED r10uvm117repro
+MOVED r10uvm130repro
+MOVED r10uvm154repro
+MOVED r10uvm185repro/grid185
+MOVED r10uvm203repro/grid203
+MOVED r10v109repro
+MOVED r10v117repro
+MOVED r10v130repro
+MOVED r10v144repro
+MOVED r10v196repro/arms
+MOVED r10v209repro/arms
+r11u103repro/bnd103.sh: line 36: 3554252 Segmentation fault      $P $srcs --single-unit --nobuiltin -o $w/pris.uhdm > $w/pris.log 2>&1 < /dev/null
+r11u103repro/bnd103.sh: line 36: 3554270 Segmentation fault      $L $srcs --single-unit --nobuiltin -o $w/lawx.uhdm > $w/lawx.log 2>&1 < /dev/null
+MOVED r11u101repro/grid/x19_nestportchild
+MOVED r11u101repro/grid/x23_implchildport
+MOVED r11u101repro/grid/x24_genchildport
+MOVED r11u101repro/grid/x25_rv2childport
+r11u103repro/bnd103.sh: line 36: 3582262 Segmentation fault      $P $srcs --single-unit --nobuiltin -o $w/pris.uhdm > $w/pris.log 2>&1 < /dev/null
+RC-DIFF r11u103repro/grid/a02_fileported pris=139 law=0
+r11u103repro/bnd103.sh: line 36: 3582304 Segmentation fault      $P $srcs --single-unit --nobuiltin -o $w/pris.uhdm > $w/pris.log 2>&1 < /dev/null
+RC-DIFF r11u103repro/grid/a03_filetwice pris=139 law=0
+r11u103repro/bnd103.sh: line 36: 3582346 Segmentation fault      $P $srcs --single-unit --nobuiltin -o $w/pris.uhdm > $w/pris.log 2>&1 < /dev/null
+RC-DIFF r11u103repro/grid/a04_filechild pris=139 law=0
+MOVED r11u103repro/grid/a05_filegen
+r11u103repro/bnd103.sh: line 36: 3582431 Segmentation fault      $P $srcs --single-unit --nobuiltin -o $w/pris.uhdm > $w/pris.log 2>&1 < /dev/null
+RC-DIFF r11u103repro/grid/a06_filearray pris=139 law=0
+r11u103repro/bnd103.sh: line 36: 3582517 Segmentation fault      $P $srcs --single-unit --nobuiltin -o $w/pris.uhdm > $w/pris.log 2>&1 < /dev/null
+RC-DIFF r11u103repro/grid/a08_fileparam pris=139 law=0
+MOVED r11u103repro/grid/a09_twoimplicit
+MOVED r11u103repro/grid/a10_filedeep
+MOVED r11u103repro/grid/a12_filegenonly
+MOVED r11u103repro/grid/a13_sameouterinst
+r11u103repro/bnd103.sh: line 36: 3582775 Segmentation fault      $P $srcs --single-unit --nobuiltin -o $w/pris.uhdm > $w/pris.log 2>&1 < /dev/null
+RC-DIFF r11u103repro/grid/a14_nestexplicit pris=139 law=0
+MOVED r11u103repro/grid/a15_filelib
+MOVED r11u103repro/grid/a16_fileviagenonly
+MOVED r11u103repro/grid/a17_nestdepth2
+MOVED r11u103repro/grid/b01_F_inout
+MOVED r11u103repro/grid/b02_F_nonansi
+MOVED r11u103repro/grid/b03_F_paramdef
+MOVED r11u103repro/grid/b04_F_paramnodef
+MOVED r11u103repro/grid/b05_F_chain
+MOVED r11u103repro/grid/b06_F_array
+MOVED r11u103repro/grid/b09_F_pkgstruct
+MOVED r11u103repro/grid/b11_F_unpackedport
+MOVED r11u103repro/grid/b12_F_iface_child
+MOVED r11u103repro/grid/b13_F_lib
+MOVED r11u103repro/grid/c01_NI_param
+MOVED r11u103repro/grid/c02_NI_chain
+MOVED r11u103repro/grid/c05_NI_twoports
+MOVED r11u103repro/grid/d01_NP_param
+MOVED r11u103repro/grid/d02_NP_chain
+MOVED r11u103repro/grid/d03_NP_paramnested
+MOVED r11u103repro/grid/e01_mix_AB
+MOVED r11v58repro/grid/va22_deadnest
+MOVED v11u93repro/grid/b12_shadowtopportless
+MOVED v11u93repro/grid/b14_rv2shadow3
+MOVED v11u93repro/grid/b23_childparamnodef
+BOUNDARY listed=4480 processed=4480 moved=45 rc-or-db-anomalies=6
+PROCESSED==LISTED
+
+## attribution (attr103.sh: trace count on LAW, pristine self-repeat, R11U103_OFF=1 vs pristine, order-blind dump classes)
+r10buvm22repro trace=0 same off!=pris orderblind=12 [ 6 |UINT; 6 |vpiDecompile;]
+     <         |UINT:23380289
+     <         |UINT:23381145
+r10uvm117repro trace=0 SELF-NONDET off==pris2 orderblind=0 [ 1 ;]
+
+r10uvm130repro trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r10uvm154repro trace=0 same off!=pris orderblind=8 [ 4 |UINT; 4 |vpiDecompile;]
+     <         |UINT:23381145
+     <         |UINT:23381145
+r10uvm185repro/grid185 trace=0 same off!=pris orderblind=12 [ 6 |UINT; 6 |vpiDecompile;]
+     <         |UINT:23381145
+     <         |UINT:23381145
+r10uvm203repro/grid203 trace=0 SELF-NONDET off==pris orderblind=0 [ 1 ;]
+
+r10v109repro trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r10v117repro trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r10v130repro trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r10v144repro trace=0 same off!=pris orderblind=0 [ 1 ;]
+
+r10v196repro/arms trace=0 same off==pris orderblind=0 [ 1 ;]
+
+r10v209repro/arms trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r11v58repro/grid/va22_deadnest trace=1 same off==pris orderblind=42 [ 2 \_constant; 1 \_logic_net; 3 \_logic_typespec; 1 \_module_inst; 3 \_port; 3 \_range; 1 \_ref_obj; 1 \_ref_typespec; 2 |UINT; 2 |vpiActual; 2 |vpiConstType; 2 |vpiDecompile; 1 |vpiDirection; 2 |vpiFullName; 1 |vpiLeftRange; 1 |vpiLowConn; 2 |vpiName; 6 |vpiParent; 1 |vpiPort; 1 |vpiRange; 1 |vpiRightRange; 2 |vpiSize; 1 |vpiTypedef;]
+     >     \_constant: , line:18:71, endln:18:73
+     >     \_constant: , line:18:74, endln:18:75
+
+## r10v196repro/arms: the law-side coin, repeated 3x per binary: pris=e302b0ed9e77 lawx=4f65a6d93247 | lawrep 1-3: e302b0ed9e77 b01b9194ee2b e302b0ed9e77 | prisrep 1-3: 4f65a6d93247 1f8f9d3d2567 4f65a6d93247 (each binary draws the other's hash)
+
+## PAD CONTROL (address-derived UINT class): values pris / lawx (+12448, binary +10192 B) / padc (+16384)
+r10buvm22repro lawx:  6 |UINT; 6 |vpiDecompile; values 23380289 23381145 23392737 23393593  | padc:  6 |UINT; 6 |vpiDecompile; values 23380289 23381145 23396673 23397529
+r10uvm154repro lawx:  4 |UINT; 4 |vpiDecompile; values 23381145 23393593  | padc:  4 |UINT; 4 |vpiDecompile; values 23381145 23397529
+r10uvm185repro/grid185 lawx:  6 |UINT; 6 |vpiDecompile; values 23381145 23393593  | padc:  6 |UINT; 6 |vpiDecompile; values 23381145 23397529
+
+## r11v58repro/grid/va22_deadnest — a LAW arm (road F: deep <- mid <- non-taken generate), measured against the pinned golden:
+pris: uhdm-cmp 96 lines (1 head), slots {'OK': 564, 'GOLD-ONLY': 11}, distsec 23
+lawx: uhdm-cmp 0 (CMP_EQUAL), slots {'OK': 575}, distsec 4; SLOT MOVED-WRONG=0 GAINED=11

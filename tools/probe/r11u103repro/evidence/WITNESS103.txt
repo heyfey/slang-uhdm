@@ -1,0 +1,178 @@
+# WITNESS103 — the brief's six witnesses (+ the two controls x23/x24) at 04a01cc6, pristine vs law (lawx)
+# columns: arm | uhdm-cmp lines pris -> law (heads=1 per run; 0 = CMP_EQUAL) | slot scorer pris | slot scorer law | distsec pris -> law
+b12_shadowtopportless | 458 (heads=1) -> 0 (heads=0) | {'OK': 110, 'GOLD-ONLY': 18, 'WRONG': 5, 'OURS-ONLY': 7} | {'OK': 133} | 18 -> 0
+b14_rv2shadow3 | 616 (heads=1) -> 0 (heads=0) | {'OK': 167, 'GOLD-ONLY': 11} | {'OK': 178} | 18 -> 0
+x19_nestportchild | 55 (heads=1) -> 0 (heads=0) | {'OK': 157, 'GOLD-ONLY': 11} | {'OK': 168} | 19 -> 0
+x25_rv2childport | 55 (heads=1) -> 0 (heads=0) | {'OK': 144, 'GOLD-ONLY': 11} | {'OK': 155} | 19 -> 0
+b23_childparamnodef | 75 (heads=1) -> 0 (heads=0) | {'OK': 167, 'GOLD-ONLY': 11} | {'OK': 178} | 19 -> 0
+b15_bodyparamported | 0 (heads=0) -> 0 (heads=0) | {'OK': 178} | {'OK': 178} | 0 -> 0
+x15_shadowinst | 527 (heads=1) -> 527 (heads=1) | {'WRONG': 10, 'OK': 73, 'GOLD-ONLY': 50, 'OURS-ONLY': 78} | {'WRONG': 10, 'OK': 73, 'GOLD-ONLY': 50, 'OURS-ONLY': 78} | 84 -> 84
+x23_implchildport | 55 (heads=1) -> 0 (heads=0) | {'OK': 149, 'GOLD-ONLY': 11} | {'OK': 160} | 19 -> 0
+x24_genchildport | 55 (heads=1) -> 0 (heads=0) | {'OK': 119, 'GOLD-ONLY': 11} | {'OK': 130} | 19 -> 0
+
+# per-entry distsec rows (pristine), and the non-OK slots (pristine), per witness
+== b12_shadowtopportless pris
+     2 |uhdmallModules \_module_inst: work@dut, file:dut.sv, line:5:1, endln:9:10 #0
+    16 |uhdmallModules \_module_inst: work@innermod, file:dut.sv, line:1:1, endln:1:53 #0
+18
+  GOLD-ONLY uhdmallModules[0]/vpiRefModule[1]/vpiActual[0] gold=module_inst:work@innermod ours=None
+  WRONG uhdmallModules[1] gold=module_inst:work@innermod ours=module_inst:work@sub
+  WRONG uhdmallModules[1]/@vpiDefName[0] gold=work@innermod ours=work@sub
+  GOLD-ONLY uhdmallModules[1]/vpiNet[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiNet[0]/@vpiName[0] gold=f ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiNet[0]/@vpiNetType[0] gold=1 ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiNet[0]/vpiParent[0] gold=module_inst:work@innermod ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiNet[0]/vpiTypespec[0] gold=ref_typespec: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiNet[0]/vpiTypespec[0]/vpiActual[0] gold=logic_typespec: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiNet[0]/vpiTypespec[0]/vpiParent[0] gold=logic_net: ours=None
+  WRONG uhdmallModules[2] gold=module_inst:work@sub ours=module_inst:work@sub::innermod
+  WRONG uhdmallModules[2]/@vpiDefName[0] gold=work@sub ours=work@sub::innermod
+  OURS-ONLY uhdmallModules[2]/vpiNet[0] gold=None ours=logic_net:
+  OURS-ONLY uhdmallModules[2]/vpiNet[0]/@vpiName[0] gold=None ours=n
+  OURS-ONLY uhdmallModules[2]/vpiNet[0]/@vpiNetType[0] gold=None ours=1
+  OURS-ONLY uhdmallModules[2]/vpiNet[0]/vpiParent[0] gold=None ours=module_inst:work@sub::innermod
+  OURS-ONLY uhdmallModules[2]/vpiNet[0]/vpiTypespec[0] gold=None ours=ref_typespec:
+  OURS-ONLY uhdmallModules[2]/vpiNet[0]/vpiTypespec[0]/vpiActual[0] gold=None ours=logic_typespec:
+  OURS-ONLY uhdmallModules[2]/vpiNet[0]/vpiTypespec[0]/vpiParent[0] gold=None ours=logic_net:
+  WRONG uhdmallModules[2]/vpiParent[0] gold=design: ours=module_inst:work@sub
+  GOLD-ONLY uhdmallModules[3] gold=module_inst:work@sub::innermod ours=None
+  GOLD-ONLY uhdmallModules[3]/@vpiDefName[0] gold=work@sub::innermod ours=None
+  GOLD-ONLY uhdmallModules[3]/vpiNet[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallModules[3]/vpiNet[0]/@vpiName[0] gold=n ours=None
+  GOLD-ONLY uhdmallModules[3]/vpiNet[0]/@vpiNetType[0] gold=1 ours=None
+== b12_shadowtopportless law
+0
+{'OK': 133}
+== b14_rv2shadow3 pris
+     2 |uhdmallModules \_module_inst: work@dut, file:dut.sv, line:8:1, endln:13:10 #0
+    16 |uhdmallModules \_module_inst: work@innermod, file:dut.sv, line:1:1, endln:1:53 #0
+18
+  GOLD-ONLY uhdmallModules[4]/vpiRefModule[2]/vpiActual[0] gold=module_inst:work@innermod ours=None
+  GOLD-ONLY uhdmallModules[5] gold=module_inst:work@innermod ours=None
+  GOLD-ONLY uhdmallModules[5]/@vpiDefName[0] gold=work@innermod ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiNet[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiNet[0]/@vpiName[0] gold=f ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiNet[0]/@vpiNetType[0] gold=1 ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiNet[0]/vpiParent[0] gold=module_inst:work@innermod ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiNet[0]/vpiTypespec[0] gold=ref_typespec: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiNet[0]/vpiTypespec[0]/vpiActual[0] gold=logic_typespec: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiNet[0]/vpiTypespec[0]/vpiParent[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiParent[0] gold=design: ours=None
+{'OK': 167, 'GOLD-ONLY': 11}
+== b14_rv2shadow3 law
+0
+{'OK': 178}
+== x19_nestportchild pris
+    19 |uhdmallModules \_module_inst: work@leaf, file:dut.sv, line:2:1, endln:2:57 #0
+19
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0] gold=port: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/@vpiDirection[0] gold=2 ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/@vpiName[0] gold=l ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiLowConn[0] gold=ref_obj: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiLowConn[0]/@vpiName[0] gold=l ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiLowConn[0]/vpiActual[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiLowConn[0]/vpiParent[0] gold=port: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiParent[0] gold=module_inst:work@leaf ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiTypedef[0] gold=ref_typespec: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiTypedef[0]/vpiActual[0] gold=logic_typespec: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiTypedef[0]/vpiParent[0] gold=port: ours=None
+{'OK': 157, 'GOLD-ONLY': 11}
+== x19_nestportchild law
+0
+{'OK': 168}
+== x25_rv2childport pris
+    19 |uhdmallModules \_module_inst: work@leaf, file:dut.sv, line:2:1, endln:2:57 #0
+19
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0] gold=port: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/@vpiDirection[0] gold=2 ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/@vpiName[0] gold=l ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/vpiLowConn[0] gold=ref_obj: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/vpiLowConn[0]/@vpiName[0] gold=l ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/vpiLowConn[0]/vpiActual[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/vpiLowConn[0]/vpiParent[0] gold=port: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/vpiParent[0] gold=module_inst:work@leaf ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/vpiTypedef[0] gold=ref_typespec: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/vpiTypedef[0]/vpiActual[0] gold=logic_typespec: ours=None
+  GOLD-ONLY uhdmallModules[5]/vpiPort[0]/vpiTypedef[0]/vpiParent[0] gold=port: ours=None
+{'OK': 144, 'GOLD-ONLY': 11}
+== x25_rv2childport law
+0
+{'OK': 155}
+== b23_childparamnodef pris
+    19 |uhdmallModules \_module_inst: work@leafp, file:dut.sv, line:1:1, endln:1:83 #0
+19
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0] gold=port: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/@vpiDirection[0] gold=2 ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/@vpiName[0] gold=l ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiLowConn[0] gold=ref_obj: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiLowConn[0]/@vpiName[0] gold=l ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiLowConn[0]/vpiActual[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiLowConn[0]/vpiParent[0] gold=port: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiParent[0] gold=module_inst:work@leafp ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiTypedef[0] gold=ref_typespec: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiTypedef[0]/vpiActual[0] gold=logic_typespec: ours=None
+  GOLD-ONLY uhdmallModules[1]/vpiPort[0]/vpiTypedef[0]/vpiParent[0] gold=port: ours=None
+{'OK': 167, 'GOLD-ONLY': 11}
+== b23_childparamnodef law
+0
+{'OK': 178}
+== x15_shadowinst pris
+     2 |uhdmallModules \_module_inst: work@sub, file:dut.sv, line:3:1, endln:6:10 #0
+    38 |uhdmtopModules \_module_inst: work@dut, file:dut.sv, line:7:1, endln:10:10 #0
+    44 |uhdmtopModules \_module_inst: work@innermod, file:dut.sv, line:2:1, endln:2:53 #0
+84
+  WRONG @vpiName[0] gold=work@dut ours=work@innermod
+  GOLD-ONLY uhdmallModules[2]/vpiRefModule[0]/vpiActual[0] gold=module_inst:work@innermod ours=None
+  WRONG uhdmtopModules[0] gold=module_inst:work@dut ours=module_inst:work@innermod
+  WRONG uhdmtopModules[0]/@vpiDefName[0] gold=work@dut ours=work@innermod
+  WRONG uhdmtopModules[0]/@vpiName[0] gold=work@dut ours=work@innermod
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/@vpiNetDeclAssign[0] gold=None ours=1
+  WRONG uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0] gold=ref_obj: ours=logic_net:
+  WRONG uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/@vpiName[0] gold=o ours=f
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/@vpiNetType[0] gold=None ours=1
+  GOLD-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/vpiActual[0] gold=logic_net: ours=None
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/vpiTypespec[0] gold=None ours=ref_typespec:
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/vpiTypespec[0]/vpiActual[0] gold=None ours=logic_typespec:
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/vpiTypespec[0]/vpiParent[0] gold=None ours=logic_net:
+  WRONG uhdmtopModules[0]/vpiContAssign[0]/vpiParent[0] gold=module_inst:work@dut ours=module_inst:work@innermod
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/@DEC[0] gold=None ours=9
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/@vpiConstType[0] gold=None ours=1
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/@vpiDecompile[0] gold=None ours=32'd9
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/@vpiSize[0] gold=None ours=32
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/vpiParent[0] gold=None ours=cont_assign:
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0] gold=module_inst:work@sub ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/@vpiDefFile[0] gold=dut.sv ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/@vpiDefLineNo[0] gold=3 ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/@vpiDefName[0] gold=work@sub ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/@vpiName[0] gold=u_s ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/vpiInstance[0] gold=module_inst:work@dut ours=None
+== x15_shadowinst law
+     2 |uhdmallModules \_module_inst: work@sub, file:dut.sv, line:3:1, endln:6:10 #0
+    38 |uhdmtopModules \_module_inst: work@dut, file:dut.sv, line:7:1, endln:10:10 #0
+    44 |uhdmtopModules \_module_inst: work@innermod, file:dut.sv, line:2:1, endln:2:53 #0
+84
+  WRONG @vpiName[0] gold=work@dut ours=work@innermod
+  GOLD-ONLY uhdmallModules[2]/vpiRefModule[0]/vpiActual[0] gold=module_inst:work@innermod ours=None
+  WRONG uhdmtopModules[0] gold=module_inst:work@dut ours=module_inst:work@innermod
+  WRONG uhdmtopModules[0]/@vpiDefName[0] gold=work@dut ours=work@innermod
+  WRONG uhdmtopModules[0]/@vpiName[0] gold=work@dut ours=work@innermod
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/@vpiNetDeclAssign[0] gold=None ours=1
+  WRONG uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0] gold=ref_obj: ours=logic_net:
+  WRONG uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/@vpiName[0] gold=o ours=f
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/@vpiNetType[0] gold=None ours=1
+  GOLD-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/vpiActual[0] gold=logic_net: ours=None
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/vpiTypespec[0] gold=None ours=ref_typespec:
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/vpiTypespec[0]/vpiActual[0] gold=None ours=logic_typespec:
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiLhs[0]/vpiTypespec[0]/vpiParent[0] gold=None ours=logic_net:
+  WRONG uhdmtopModules[0]/vpiContAssign[0]/vpiParent[0] gold=module_inst:work@dut ours=module_inst:work@innermod
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/@DEC[0] gold=None ours=9
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/@vpiConstType[0] gold=None ours=1
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/@vpiDecompile[0] gold=None ours=32'd9
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/@vpiSize[0] gold=None ours=32
+  OURS-ONLY uhdmtopModules[0]/vpiContAssign[0]/vpiRhs[0]/vpiParent[0] gold=None ours=cont_assign:
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0] gold=module_inst:work@sub ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/@vpiDefFile[0] gold=dut.sv ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/@vpiDefLineNo[0] gold=3 ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/@vpiDefName[0] gold=work@sub ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/@vpiName[0] gold=u_s ours=None
+  GOLD-ONLY uhdmtopModules[0]/vpiModule[0]/vpiInstance[0] gold=module_inst:work@dut ours=None

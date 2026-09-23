@@ -1,0 +1,97 @@
+# CENSUS103 — GOLDEN FIRST, then the sweep roots, then the source trace.  Positive controls are dispatched exactly like corpus cells.
+
+## 1. DATABASE census (ct103cen + cen103.py) over the PRISTINE sweeps: every golden-cache database each cmds.txt names + every slang.uhdm
+### sl (pristine)
+# #DATABASES 2494 RESTORE_FAIL 0 WITH-NAMESAKE 2
+NAMESAKE-GOLD SEED/b12_shadowtopportless innermod
+ENTRY-GOLD-ONLY SEED/b12_shadowtopportless work@innermod g=0
+PORTS-GOLD-ONLY SEED/x24_genchildport work@leaf g=1
+PORTS-GOLD-ONLY SEED/x23_implchildport work@leaf g=1
+PORTS-GOLD-ONLY SEED/x19_nestportchild work@leaf g=1
+NAMESAKE-GOLD SEED/a11_fileunref innermod
+ENTRY-GOLD-ONLY SEED/a11_fileunref work@innermod g=0
+# CELLS 1586 gold=1536 ours=965 paired=965 NAMESAKE-GOLD=2 NAMESAKE-OURS=0 ENTRY-GOLD-ONLY=2 PORTS-GOLD-ONLY=3
+### u2r (pristine)
+# #DATABASES 3360 RESTORE_FAIL 0 WITH-NAMESAKE 2
+NAMESAKE-GOLD SEED/b12_shadowtopportless innermod
+ENTRY-GOLD-ONLY SEED/b12_shadowtopportless work@innermod g=0
+PORTS-GOLD-ONLY SEED/x24_genchildport work@leaf g=1
+PORTS-GOLD-ONLY SEED/x23_implchildport work@leaf g=1
+PORTS-GOLD-ONLY SEED/x19_nestportchild work@leaf g=1
+NAMESAKE-GOLD SEED/a11_fileunref innermod
+ENTRY-GOLD-ONLY SEED/a11_fileunref work@innermod g=0
+# CELLS 1747 gold=1747 ours=1613 paired=1613 NAMESAKE-GOLD=2 NAMESAKE-OURS=0 ENTRY-GOLD-ONLY=2 PORTS-GOLD-ONLY=3
+
+## 2. The same over the LAW sweeps (the seeds' cells must CLEAR)
+### sl (law)
+# #DATABASES 2490 RESTORE_FAIL 0 WITH-NAMESAKE 4
+NAMESAKE-GOLD SEED/b12_shadowtopportless innermod
+NAMESAKE-OURS SEED/b12_shadowtopportless innermod
+NAMESAKE-GOLD SEED/a11_fileunref innermod
+NAMESAKE-OURS SEED/a11_fileunref innermod
+# CELLS 1584 gold=1534 ours=963 paired=963 NAMESAKE-GOLD=2 NAMESAKE-OURS=2 ENTRY-GOLD-ONLY=0 PORTS-GOLD-ONLY=0
+### u2r (law)
+# #DATABASES 3356 RESTORE_FAIL 0 WITH-NAMESAKE 4
+NAMESAKE-GOLD SEED/b12_shadowtopportless innermod
+NAMESAKE-OURS SEED/b12_shadowtopportless innermod
+NAMESAKE-GOLD SEED/a11_fileunref innermod
+NAMESAKE-OURS SEED/a11_fileunref innermod
+# CELLS 1745 gold=1745 ours=1611 paired=1611 NAMESAKE-GOLD=2 NAMESAKE-OURS=2 ENTRY-GOLD-ONLY=0 PORTS-GOLD-ONLY=0
+
+## 3. SOURCE trace (cellcen103.py, LAW binary, R11U103_NETDBG=1 + R11U101_NETDBG=1, the harness's own argv, FENCED never dispatched)
+### sl
+#SEED:b12_shadowtopportless	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:b12_shadowtopportless	default	rc=0	R11U103FILEKEY key=innermod
+#SEED:b12_shadowtopportless	default	rc=0	R11U103NAMESAKE key=innermod kind=0
+#SEED:b12_shadowtopportless	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:b12_shadowtopportless	testflags	rc=0	R11U103FILEKEY key=innermod
+#SEED:b12_shadowtopportless	testflags	rc=0	R11U103NAMESAKE key=innermod kind=0
+#SEED:x19_nestportchild	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x19_nestportchild	default	rc=0	R11U103UNELAB road=NP key=leaf
+#SEED:x19_nestportchild	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x19_nestportchild	testflags	rc=0	R11U103UNELAB road=NP key=leaf
+#SEED:x23_implchildport	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x23_implchildport	default	rc=0	R11U103UNELAB road=NI key=leaf
+#SEED:x23_implchildport	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x23_implchildport	testflags	rc=0	R11U103UNELAB road=NI key=leaf
+#SEED:x24_genchildport	default	rc=0	R11U103UNELAB road=F key=leaf
+#SEED:x24_genchildport	testflags	rc=0	R11U103UNELAB road=F key=leaf
+#TOTALS	arms=1581	nestAny=6	namesake=2	fileKey=2	fileKeyDefOnly=0	unelab=6	libDecline=0	ifaceDecline=0
+#RC	rc=-11:3	rc=0:952	rc=1:4	rc=2:32	rc=3:578	rc=4:12
+#PREDICTED-MOVER	#SEED:b12_shadowtopportless	LAWA-FILEKEY
+#PREDICTED-MOVER	#SEED:x19_nestportchild	LAWB-NP
+#PREDICTED-MOVER	#SEED:x23_implchildport	LAWB-NI
+#PREDICTED-MOVER	#SEED:x24_genchildport	LAWB-F
+NO-SITE cells: 1573
+Rggen	testflags	rc=-11
+Tnoc	default	rc=-11
+Tnoc	testflags	rc=-11
+#RC	rc=-11:3	rc=0:952
+### u2r
+#SEED:b12_shadowtopportless	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:b12_shadowtopportless	default	rc=0	R11U103FILEKEY key=innermod
+#SEED:b12_shadowtopportless	default	rc=0	R11U103NAMESAKE key=innermod kind=0
+#SEED:b12_shadowtopportless	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:b12_shadowtopportless	testflags	rc=0	R11U103FILEKEY key=innermod
+#SEED:b12_shadowtopportless	testflags	rc=0	R11U103NAMESAKE key=innermod kind=0
+#SEED:x19_nestportchild	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x19_nestportchild	default	rc=0	R11U103UNELAB road=NP key=leaf
+#SEED:x19_nestportchild	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x19_nestportchild	testflags	rc=0	R11U103UNELAB road=NP key=leaf
+#SEED:x23_implchildport	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x23_implchildport	default	rc=0	R11U103UNELAB road=NI key=leaf
+#SEED:x23_implchildport	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:x23_implchildport	testflags	rc=0	R11U103UNELAB road=NI key=leaf
+#SEED:x24_genchildport	default	rc=0	R11U103UNELAB road=F key=leaf
+#SEED:x24_genchildport	testflags	rc=0	R11U103UNELAB road=F key=leaf
+#TOTALS	arms=1750	nestAny=6	namesake=2	fileKey=2	fileKeyDefOnly=0	unelab=6	libDecline=0	ifaceDecline=0
+#RC	rc=-11:3	rc=0:1608	rc=3:131	rc=4:8
+#PREDICTED-MOVER	#SEED:b12_shadowtopportless	LAWA-FILEKEY
+#PREDICTED-MOVER	#SEED:x19_nestportchild	LAWB-NP
+#PREDICTED-MOVER	#SEED:x23_implchildport	LAWB-NI
+#PREDICTED-MOVER	#SEED:x24_genchildport	LAWB-F
+NO-SITE cells: 1742
+rp32_r5p_degu_soc_top	testflags	rc=-11
+rp32_r5p_mouse_soc_top	testflags	rc=-11
+rp32_soc_vfriendly	testflags	rc=-11
+#RC	rc=-11:3	rc=0:1608

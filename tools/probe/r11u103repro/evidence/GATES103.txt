@@ -1,0 +1,116 @@
+# GATES103
+## 1. build (-j 2 each)
+pristine (this worktree at 04a01cc6) 98cd461118148e66b6fa6083d6137034 = the OPS pin
+law (this patch) e7f4bfcaa17a47d0ea25eab08a5e33b7; the patch applied to a FRESH 04a01cc6 worktree rebuilds to e7f4bfcaa17a47d0ea25eab08a5e33b7
+pad control (pristine + volatile char[16384], never committed) e00ff4aefb4576dfac12b0aaa1bada12
+binaries frozen chmod 555 at immutable scratch paths before every sweep
+
+## 2. goldens
+law: PASS=23 FAIL=0
+/bin/false: PASS=0 FAIL=23
+
+## cmds.txt audit (slang: lines per workdir, naming that workdir's frozen binary / naming the main tree)
+r11u103_wd_lawx/sl slang-lines=1531 own-binary=1531 main-tree=0
+r11u103_wd_lawx/u2r slang-lines=1742 own-binary=1742 main-tree=0
+r11u103_wd_pris/sl slang-lines=1531 own-binary=1531 main-tree=0
+r11u103_wd_pris/u2r slang-lines=1742 own-binary=1742 main-tree=0
+
+## 3. uhdm2rtlil --mode both
+law default:  788 CMP_EQUAL  16 CMP_NOTEQUAL  67 SLANG_REJECT
+law testflags:  788 CMP_EQUAL  16 CMP_NOTEQUAL  67 SLANG_REJECT
+law vs results/golden_uhdm2rtlil.csv: PASS: every row byte-identical to the committed baseline
+law testflags vs results/gate_uhdm2rtlil.csv: PASS: every row byte-identical to the committed baseline
+law vs pristine: PASS: every row byte-identical to the committed baseline
+byteverify SELFCHECK=1:
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+
+## 4. surelog --mode both
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u103_wd_lawx/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u103_wd_lawx/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  default  base:     324      248 differ     226 match
+  default  fresh:     325      247 differ     226 match
+  testflags  base:     329      303 differ     166 match
+  testflags  fresh:     330      302 differ     166 match
+ATTENTION: rows moved -- read them above, do not summarise them
+-- law vs pristine:
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u103_wd_pris/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u103_wd_lawx/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u103_wd_pris/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u103_wd_lawx/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  default  fresh:     474 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL
+  testflags  base:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  testflags  fresh:     469 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     325      247 differ     226 match
+  default  fresh:     325      247 differ     226 match
+  testflags  base:     330      302 differ     166 match
+  testflags  fresh:     330      302 differ     166 match
+-- pristine vs committed (the same Earlgrey dump-column blank + LowMem workdir text):
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u103_wd_pris/sl/testflags/LowMemLib-f068a766/
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u103_wd_pris/sl/testflags/LowMemPkg-ef3ec0d8/
+NO ROW CONVERTS.  results/*.csv untouched.
+
+## 5. byteverify surelog SELFCHECK=1
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=aebb18636bef pristine=39d710cb6cd3
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=e70775324004 pristine=1621aec6c9f3
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=7e1d3fc32004
+MOVERS: 3 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+## the seven conversion rows (law sweep)
+BuildUVMPkg,default,CMP_EQUAL BuildUVMPkg,testflags,CMP_EQUAL
+MiniAmiq,default,CMP_EQUAL MiniAmiq,testflags,CMP_EQUAL
+SeqDriver,default,CMP_EQUAL SeqDriver,testflags,CMP_EQUAL
+SimpleUVM,default,CMP_EQUAL SimpleUVM,testflags,CMP_EQUAL
+Earlgrey_0_1,default,CMP_EQUAL Earlgrey_0_1,testflags,CMP_EQUAL
+InterfaceModPort,default,CMP_EQUAL InterfaceModPort,testflags,CMP_EQUAL
+Scoreboard,default,CMP_EQUAL Scoreboard,testflags,SLANG_REJECT
+
+## canaries
+canaries surelog law: ---- canary rows: ok=50 changed=2 absent=0 unknown-names=7  (pristine: ---- canary rows: ok=50 changed=2 absent=0 unknown-names=7; the two changed are Earlgrey_0_1's dump-column blank on BOTH binaries)
+canaries u2r testflags: ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+canaries u2r both: ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+ctcan2 surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+ctcan2 u2r: PASS: every supplementary canary row is byte-identical to the baseline.
+canaudit: ---- audited=29  UNCOVERED=0  FENCE-BREACH=0 PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+## protected databases, law vs pristine
+SVSwitch default law=4842211c4030 pris=4842211c4030 SAME
+SVSwitch testflags law=4842211c4030 pris=4842211c4030 SAME
+YosysVerx default law=6ccda350c24a pris=6ccda350c24a SAME
+YosysVerx testflags law=6ccda350c24a pris=6ccda350c24a SAME
+InterfaceModPort default law=59a365f3ce2c pris=59a365f3ce2c SAME
+InterfaceModPort testflags law=59a365f3ce2c pris=59a365f3ce2c SAME
+Earlgrey_0_1 default law=8bdf25272e08 pris=8bdf25272e08 SAME
+Earlgrey_0_1 testflags law=59d0ee6d10c3 pris=59d0ee6d10c3 SAME
+BlackParrotComplex default law=e3e354129d5a pris=e3e354129d5a SAME
+BlackParrotComplex testflags law=73a10e8217e5 pris=73a10e8217e5 SAME
+YosysOldOr default law=d68e0796d62c pris=d68e0796d62c SAME
+YosysOldOr testflags law=d68e0796d62c pris=d68e0796d62c SAME

@@ -1,0 +1,110 @@
+# SLOTS103 — slot101.py move (per positional slot) and secmove101.py (display-free distance per top-level entry), pris -> tag, per grid.
+# Arms with no pristine database (6 pristine SEGFAULTS in r11u103repro: a02 a03 a04 a06 a08 a14) are outside the entry scorer; their law cells are in GRID103/CELLS below.
+
+=== pris -> lawx
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=44 (arms=25, pris -> lawx) | ENTRY AWAY=0 CLOSER=4 distsec 249 -> 173 (arms=25, pris -> lawx)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=593 (arms=39, pris -> lawx) | ENTRY AWAY=0 CLOSER=37 distsec 806 -> 84 (arms=33, pris -> lawx)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> lawx) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> lawx)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> lawx) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> lawx)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> lawx) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> lawx)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> lawx) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> lawx)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> lawx) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> lawx)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> lawx) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> lawx)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=45 (arms=39, pris -> lawx) | ENTRY AWAY=0 CLOSER=5 distsec 145 -> 90 (arms=39, pris -> lawx)
+
+=== pris -> off
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=25, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 249 -> 249 (arms=25, pris -> off)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=39, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 806 -> 806 (arms=33, pris -> off)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> off)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> off)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> off)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> off)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> off)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> off)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=39, pris -> off) | ENTRY AWAY=0 CLOSER=0 distsec 145 -> 145 (arms=39, pris -> off)
+
+=== pris -> akoff
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=44 (arms=25, pris -> akoff) | ENTRY AWAY=0 CLOSER=4 distsec 249 -> 173 (arms=25, pris -> akoff)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=332 (arms=39, pris -> akoff) | ENTRY AWAY=0 CLOSER=22 distsec 806 -> 259 (arms=33, pris -> akoff)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> akoff) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> akoff)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> akoff) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> akoff)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> akoff) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> akoff)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> akoff) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> akoff)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> akoff) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> akoff)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> akoff) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> akoff)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=11 (arms=39, pris -> akoff) | ENTRY AWAY=0 CLOSER=1 distsec 145 -> 126 (arms=39, pris -> akoff)
+
+=== pris -> adoff
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=44 (arms=25, pris -> adoff) | ENTRY AWAY=0 CLOSER=4 distsec 249 -> 173 (arms=25, pris -> adoff)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=549 (arms=39, pris -> adoff) | ENTRY AWAY=0 CLOSER=35 distsec 806 -> 116 (arms=33, pris -> adoff)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> adoff) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> adoff)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> adoff) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> adoff)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> adoff) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> adoff)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> adoff) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> adoff)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> adoff) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> adoff)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> adoff) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> adoff)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=45 (arms=39, pris -> adoff) | ENTRY AWAY=0 CLOSER=5 distsec 145 -> 90 (arms=39, pris -> adoff)
+
+=== pris -> fof
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=33 (arms=25, pris -> fof) | ENTRY AWAY=0 CLOSER=3 distsec 249 -> 192 (arms=25, pris -> fof)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=417 (arms=39, pris -> fof) | ENTRY AWAY=0 CLOSER=26 distsec 806 -> 388 (arms=33, pris -> fof)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> fof) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> fof)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> fof) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> fof)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> fof) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> fof)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> fof) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> fof)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> fof) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> fof)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> fof) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> fof)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=45 (arms=39, pris -> fof) | ENTRY AWAY=0 CLOSER=5 distsec 145 -> 90 (arms=39, pris -> fof)
+
+=== pris -> niof
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=22 (arms=25, pris -> niof) | ENTRY AWAY=0 CLOSER=2 distsec 249 -> 211 (arms=25, pris -> niof)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=515 (arms=39, pris -> niof) | ENTRY AWAY=0 CLOSER=32 distsec 806 -> 218 (arms=33, pris -> niof)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> niof) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> niof)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> niof) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> niof)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> niof) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> niof)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> niof) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> niof)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> niof) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> niof)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> niof) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> niof)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=45 (arms=39, pris -> niof) | ENTRY AWAY=0 CLOSER=5 distsec 145 -> 90 (arms=39, pris -> niof)
+
+=== pris -> npof
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=33 (arms=25, pris -> npof) | ENTRY AWAY=0 CLOSER=3 distsec 249 -> 192 (arms=25, pris -> npof)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=537 (arms=39, pris -> npof) | ENTRY AWAY=0 CLOSER=33 distsec 806 -> 180 (arms=33, pris -> npof)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> npof) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> npof)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> npof) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> npof)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> npof) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> npof)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> npof) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> npof)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> npof) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> npof)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> npof) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> npof)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=34 (arms=39, pris -> npof) | ENTRY AWAY=0 CLOSER=4 distsec 145 -> 109 (arms=39, pris -> npof)
+
+=== pris -> lbof
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=44 (arms=25, pris -> lbof) | ENTRY AWAY=0 CLOSER=4 distsec 249 -> 173 (arms=25, pris -> lbof)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=593 (arms=39, pris -> lbof) | ENTRY AWAY=1 CLOSER=37 distsec 806 -> 103 (arms=33, pris -> lbof)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> lbof) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> lbof)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> lbof) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> lbof)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> lbof) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> lbof)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> lbof) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> lbof)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> lbof) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> lbof)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> lbof) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> lbof)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=45 (arms=39, pris -> lbof) | ENTRY AWAY=0 CLOSER=5 distsec 145 -> 90 (arms=39, pris -> lbof)
+
+=== pris -> ifof
+r11u101repro | SLOT MOVED-WRONG=0 GAINED=44 (arms=25, pris -> ifof) | ENTRY AWAY=0 CLOSER=4 distsec 249 -> 173 (arms=25, pris -> ifof)
+r11u103repro | SLOT MOVED-WRONG=0 GAINED=613 (arms=39, pris -> ifof) | ENTRY AWAY=0 CLOSER=38 distsec 806 -> 50 (arms=33, pris -> ifof)
+r11u93repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> ifof) | ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> ifof)
+r11u95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> ifof) | ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> ifof)
+r11u98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> ifof) | ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> ifof)
+r11u99repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> ifof) | ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> ifof)
+r11v95repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> ifof) | ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> ifof)
+r11v98repro | SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> ifof) | ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> ifof)
+v11u93repro | SLOT MOVED-WRONG=0 GAINED=45 (arms=39, pris -> ifof) | ENTRY AWAY=0 CLOSER=5 distsec 145 -> 90 (arms=39, pris -> ifof)
+
+=== the ENTRY AWAY under lbof (the library guard dropped), named
+  AWAY b13_F_lib 30->49 |uhdmallModules \_module_inst: work@leaf, file:lib.sv, line:1:1, endln:1:57
+ENTRY AWAY=1 CLOSER=37 distsec 806 -> 103 (arms=33, pris -> lbof)
+
+=== POSITIVE CONTROL: lawx with R11U99_NESTNAME_OFF=1 (drops pass 98's LANDED scoped name) over the r11u99 grid
+SLOT MOVED-WRONG=597 GAINED=223 (arms=27, pris -> pctl) | ENTRY AWAY=31 CLOSER=0 distsec 1279 -> 2028 (arms=22, pris -> pctl)
+
+=== CALIBRATION golden vs golden: two independent pinned-Surelog regenerations of r11u103repro/grid + v11u93repro/grid: 78 paired arms, 0 non-OK slots, distsec 0 on all 78

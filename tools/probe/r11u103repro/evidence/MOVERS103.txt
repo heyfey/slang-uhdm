@@ -1,0 +1,26 @@
+# MOVERS103 — the surelog byteverify movers (law vs pristine, 3/960), attributed.  PREDICTED a priori: NONE from the laws (CENSUS103: 0 corpus trace sites, 0 golden NAMESAKE, 0 PORTS-GOLD-ONLY); the UVM family's documented nondeterminism only.
+== default_MiniAmiq-544c7f61: order-blind (sorted, workdir-normalised uhdm-dump) delta = 4 lines
+>       |UINT:1514
+<       |UINT:930
+>       |vpiDecompile:1514
+<       |vpiDecompile:930
+== default_Scoreboard-59431470: order-blind (sorted, workdir-normalised uhdm-dump) delta = 0 lines
+== testflags_MiniAmiq-544c7f61: order-blind (sorted, workdir-normalised uhdm-dump) delta = 4 lines
+>       |UINT:0
+<       |UINT:839
+>       |vpiDecompile:0
+<       |vpiDecompile:839
+
+trace sites on the three (cellcen103): MiniAmiq	default	rc=0	NO-SITE;MiniAmiq	testflags	rc=0	NO-SITE;Scoreboard	default	rc=0	NO-SITE;Scoreboard	testflags	rc=3	NO-SITE;
+
+== POSITIVE CONTROL: the PRISTINE binary re-run twice on the family (selfrep103.py; sweep = the pristine sweep's own database)
+MiniAmiq default sweep=39d710cb6cd3 rc=0:bf38b55193d5 rc=0:b048185e17a8
+MiniAmiq testflags sweep=7e1d3fc32004 rc=0:a47f97cb3810 rc=0:27419f6011b4   <- = the LAW sweep's hash
+Scoreboard default sweep=1621aec6c9f3 rc=0:e70775324004 rc=0:1621aec6c9f3   <- e70775324004 = the LAW sweep's hash
+SeqDriver default sweep=2fb39f8b4130 rc=0:4d7b1a048bea rc=0:d08969c5efe8
+SeqDriver testflags sweep=05df6c25a21b rc=0:05df6c25a21b rc=0:7ae825e48d5e
+SimpleUVM default sweep=d4f8cd018f2d rc=0:d4f8cd018f2d rc=0:09bff2f4e064
+SimpleUVM testflags sweep=5069002c5b65 rc=0:8232557cc9c1 rc=0:5069002c5b65
+BuildUVMPkg default sweep=429a14a60924 rc=0:429a14a60924 rc=0:429a14a60924
+BuildUVMPkg testflags sweep=429a14a60924 rc=0:429a14a60924 rc=0:429a14a60924
+All seven conversion rows stay CMP_EQUAL both modes (Scoreboard/testflags SLANG_REJECT as committed).
