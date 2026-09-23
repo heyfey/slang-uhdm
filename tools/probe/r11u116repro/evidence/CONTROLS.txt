@@ -1,0 +1,94 @@
+control grids (1325 arms): pristine vs law, byte-compare; law3 == law4 on every arm
+MOVER ./r11u111repro/grid/f5/e01_q_enum pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e02_noq_enum pris-lines=46 law-lines=0
+MOVER ./r11u111repro/grid/f5/e03_q_ownparam pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e04_noq_ownparam pris-lines=46 law-lines=0
+MOVER ./r11u111repro/grid/f5/e05_q_enum_both_imports pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e07_q_norefs_ctl pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e08_explicit_import pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e09_q_enum_nobrace pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e10_q_twoparams pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e11_q_enum_samepkg pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e12_q_ownparam_x pris-lines=0 law-lines=0
+MOVER ./r11u111repro/grid/f5/e14_repl_enum pris-lines=46 law-lines=50
+MOVER ./r11u111repro/grid/f5/e16_concat_two_params pris-lines=46 law-lines=0
+MOVER ./r11u111repro/grid/f5/e19_reexport pris-lines=596 law-lines=596
+MOVER ./r11u111repro/grid/f5/e20_qual_enum pris-lines=28 law-lines=28
+MOVER ./r11u111repro/grid/f5/e21_cast_concat pris-lines=46 law-lines=46
+MOVER ./r11u111repro/grid/f5/e22_int_concat pris-lines=46 law-lines=17
+MOVER ./r11u111repro/grid/f5/e23_sub_instance pris-lines=0 law-lines=0
+MOVER ./r11u114repro/grid/f2/b01 pris-lines=17 law-lines=0
+MOVER ./r11u114repro/grid/f2/b05 pris-lines=46 law-lines=30
+MOVER ./r11u114repro/grid/f2/b06 pris-lines=17 law-lines=0
+MOVER ./r11u114repro/grid/f2/b07 pris-lines=17 law-lines=0
+MOVER ./r11u114repro/grid/f2/b08 pris-lines=17 law-lines=17
+MOVER ./r11u114repro/grid/f2/b10 pris-lines=17 law-lines=0
+MOVER ./r11u114repro/grid/f3/c01 pris-lines=19 law-lines=19
+MOVER ./r11u114repro/grid/f3/c02 pris-lines=46 law-lines=0
+MOVER ./r11u114repro/grid/f3/c03 pris-lines=46 law-lines=0
+MOVER ./v11u111repro/brk/f5/x51_clog2_concat pris-lines=46 law-lines=0
+MOVER ./v11u111repro/brk/f5/x52_otherpkg_bare_leaf pris-lines=104 law-lines=104
+MOVER ./v11u111repro/brk/f5/x53_nested_param_concat pris-lines=46 law-lines=0
+MOVER ./v11u111repro/brk/f5/x54_both_mod_and_pkg_import pris-lines=0 law-lines=0
+MOVER ./v11u111repro/brk/f5/x59_localparam_concat_repl pris-lines=46 law-lines=50
+MOVER ./v11u111repro/brk/f5/x60_hdr_import_sub pris-lines=46 law-lines=0
+MOVER ./v11u111repro/brk/f5/y51_otherpkg_explicit_imp_leaf pris-lines=104 law-lines=104
+MOVER ./v11u111repro/brk/f5/y52_mixed_own_other pris-lines=136 law-lines=136
+MOVER ./v11u111repro/brk/f5/y53_func_call_leaf pris-lines=90 law-lines=90
+MOVER ./v11u111repro/brk/f5/y54_sized_cast_enum pris-lines=46 law-lines=0
+MOVER ./v11u111repro/brk/f5/y55_otherpkg_leaf_only pris-lines=118 law-lines=118
+MOVER ./v11u111repro/brk/f5/y56_otherpkg_enum_only pris-lines=46 law-lines=0
+MOVER ./v11u111repro/brk/f5/z51_three_mods_import pris-lines=46 law-lines=0
+MOVER ./v11u114repro/grid/set1/e05 pris-lines=46 law-lines=0
+MOVER ./v11u114repro/grid/set1/h02 pris-lines=42 law-lines=30
+MOVER ./v11u114repro/grid/set1/h07 pris-lines=326 law-lines=326
+MOVER ./v11u114repro/grid/set1/h08 pris-lines=42 law-lines=30
+MOVER ./v11u114repro/grid/set3/e06 pris-lines=466 law-lines=466
+MOVER ./v11u114repro/grid/set3/p01 pris-lines=56 law-lines=56
+per-arm cells114.py (golden, pristine, law):
+./r11u111repro/grid/f5/e01_q_enum CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e02_noq_enum CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e03_q_ownparam CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e04_noq_ownparam CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e05_q_enum_both_imports CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e07_q_norefs_ctl CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e08_explicit_import CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e09_q_enum_nobrace CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e10_q_twoparams CELLS gained=4 lost=4 TO=8 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e11_q_enum_samepkg CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e12_q_ownparam_x CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e14_repl_enum CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e16_concat_two_params CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e19_reexport CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e20_qual_enum CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e21_cast_concat CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e22_int_concat CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u111repro/grid/f5/e23_sub_instance CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f2/b01 CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f2/b05 CELLS gained=3 lost=3 TO=6 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f2/b06 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f2/b07 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f2/b08 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f2/b10 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f3/c01 CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f3/c02 CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./r11u114repro/grid/f3/c03 CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/x51_clog2_concat CELLS gained=4 lost=4 TO=8 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/x52_otherpkg_bare_leaf CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/x53_nested_param_concat CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/x54_both_mod_and_pkg_import CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/x59_localparam_concat_repl CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/x60_hdr_import_sub CELLS gained=3 lost=2 TO=5 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/y51_otherpkg_explicit_imp_leaf CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/y52_mixed_own_other CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/y53_func_call_leaf CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/y54_sized_cast_enum CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/y55_otherpkg_leaf_only CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/y56_otherpkg_enum_only CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0
+./v11u111repro/brk/f5/z51_three_mods_import CELLS gained=6 lost=6 TO=12 AWAY=0 WRONG-GAINED=0
+./v11u114repro/grid/set1/e05 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./v11u114repro/grid/set1/h02 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./v11u114repro/grid/set1/h07 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./v11u114repro/grid/set1/h08 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./v11u114repro/grid/set3/e06 CELLS gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+./v11u114repro/grid/set3/p01 CELLS gained=2 lost=2 TO=4 AWAY=0 WRONG-GAINED=0

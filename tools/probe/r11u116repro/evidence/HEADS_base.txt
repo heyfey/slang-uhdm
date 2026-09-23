@@ -1,0 +1,232 @@
+=== default/ibex_pmp-65816114  lines=64 heads=1
+LHS:
+decompile:
+constant: , id:17460, line:240:72, endln:240:82
+|vpiParent:
+\_param_assign: , id:10938, line:9:26, endln:9:55
+|vpiDecompile:32'h00000FFF
+|vpiSize:32
+|HEX:00000FFF
+|vpiTypespec:
+\_ref_typespec: (work@ibex_pmp), id:17461
+  |vpiParent:
+  \_constant: , id:17460, line:240:72, endln:240:82
+  |vpiFullName:work@ibex_pmp
+  |vpiActual:
+  \_int_typespec: , id:17462, line:9:13, endln:9:25
+|vpiConstType:5
+
+decompile:
+constant: , id:17460, line:240:72, endln:240:82
+|vpiParent:
+\_param_assign: , id:10938, line:9:26, endln:9:55
+|vpiDecompile:32'h00000FFF
+|vpiSize:32
+|HEX:00000FFF
+|vpiTypespec:
+\_ref_typespec: (work@ibex_pmp), id:17461
+  |vpiParent:
+  \_constant: , id:17460, line:240:72, endln:240:82
+  |vpiFullName:work@ibex_pmp
+  |vpiActual:
+  \_int_typespec: , id:17462, line:9:13, endln:9:25
+|vpiConstType:5
+RHS:
+decompile:
+constant: , id:9687, line:240:72, endln:240:82
+|vpiParent:
+\_param_assign: , id:5811, line:9:26, endln:9:55
+|vpiDecompile:4095
+|vpiSize:32
+|UINT:4095
+|vpiTypespec:
+\_ref_typespec: (work@ibex_pmp), id:9688
+  |vpiParent:
+  \_constant: , id:9687, line:240:72, endln:240:82
+  |vpiFullName:work@ibex_pmp
+  |vpiActual:
+  \_int_typespec: , id:9689, line:9:13, endln:9:25
+|vpiConstType:9
+
+decompile:
+constant: , id:9687, line:240:72, endln:240:82
+|vpiParent:
+\_param_assign: , id:5811, line:9:26, endln:9:55
+|vpiDecompile:4095
+|vpiSize:32
+|UINT:4095
+|vpiTypespec:
+\_ref_typespec: (work@ibex_pmp), id:9688
+  |vpiParent:
+  \_constant: , id:9687, line:240:72, endln:240:82
+  |vpiFullName:work@ibex_pmp
+  |vpiActual:
+  \_int_typespec: , id:9689, line:9:13, endln:9:25
+|vpiConstType:9
+=== testflags/ibex_pmp-65816114  lines=64 heads=1
+LHS:
+decompile:
+constant: , id:17376, line:240:72, endln:240:82
+|vpiParent:
+\_param_assign: , id:10854, line:9:26, endln:9:55
+|vpiDecompile:32'h00000FFF
+|vpiSize:32
+|HEX:00000FFF
+|vpiTypespec:
+\_ref_typespec: (work@ibex_pmp), id:17377
+  |vpiParent:
+  \_constant: , id:17376, line:240:72, endln:240:82
+  |vpiFullName:work@ibex_pmp
+  |vpiActual:
+  \_int_typespec: , id:17378, line:9:13, endln:9:25
+|vpiConstType:5
+
+decompile:
+constant: , id:17376, line:240:72, endln:240:82
+|vpiParent:
+\_param_assign: , id:10854, line:9:26, endln:9:55
+|vpiDecompile:32'h00000FFF
+|vpiSize:32
+|HEX:00000FFF
+|vpiTypespec:
+\_ref_typespec: (work@ibex_pmp), id:17377
+  |vpiParent:
+  \_constant: , id:17376, line:240:72, endln:240:82
+  |vpiFullName:work@ibex_pmp
+  |vpiActual:
+  \_int_typespec: , id:17378, line:9:13, endln:9:25
+|vpiConstType:5
+RHS:
+decompile:
+constant: , id:9603, line:240:72, endln:240:82
+|vpiParent:
+\_param_assign: , id:5727, line:9:26, endln:9:55
+|vpiDecompile:4095
+|vpiSize:32
+|UINT:4095
+|vpiTypespec:
+\_ref_typespec: (work@ibex_pmp), id:9604
+  |vpiParent:
+  \_constant: , id:9603, line:240:72, endln:240:82
+  |vpiFullName:work@ibex_pmp
+  |vpiActual:
+  \_int_typespec: , id:9605, line:9:13, endln:9:25
+|vpiConstType:9
+
+decompile:
+constant: , id:9603, line:240:72, endln:240:82
+|vpiParent:
+\_param_assign: , id:5727, line:9:26, endln:9:55
+|vpiDecompile:4095
+|vpiSize:32
+|UINT:4095
+|vpiTypespec:
+\_ref_typespec: (work@ibex_pmp), id:9604
+  |vpiParent:
+  \_constant: , id:9603, line:240:72, endln:240:82
+  |vpiFullName:work@ibex_pmp
+  |vpiActual:
+  \_int_typespec: , id:9605, line:9:13, endln:9:25
+|vpiConstType:9
+=== default/ibex_icache-e3714209  lines=50 heads=1
+LHS:
+decompile:
+ref_obj: (work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE), id:18472, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:18471, line:976:29, endln:976:39
+|vpiName:BUS_SIZE
+|vpiFullName:work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE
+|vpiActual:
+\_enum_const: (BUS_SIZE), id:24195
+
+decompile:
+ref_obj: (work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE), id:18472, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:18471, line:976:29, endln:976:39
+|vpiName:BUS_SIZE
+|vpiFullName:work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE
+|vpiActual:
+\_enum_const: (BUS_SIZE), id:24195
+RHS:
+decompile:
+constant: , id:11548, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:11545, line:976:29, endln:976:39
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@ibex_icache), id:11549
+  |vpiParent:
+  \_constant: , id:11548, line:976:31, endln:976:39
+  |vpiFullName:work@ibex_icache
+  |vpiActual:
+  \_int_typespec: , id:3358, line:383:13, endln:383:25
+|vpiConstType:9
+
+decompile:
+constant: , id:11548, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:11545, line:976:29, endln:976:39
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@ibex_icache), id:11549
+  |vpiParent:
+  \_constant: , id:11548, line:976:31, endln:976:39
+  |vpiFullName:work@ibex_icache
+  |vpiActual:
+  \_int_typespec: , id:3358, line:383:13, endln:383:25
+|vpiConstType:9
+=== testflags/ibex_icache-e3714209  lines=50 heads=1
+LHS:
+decompile:
+ref_obj: (work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE), id:18388, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:18387, line:976:29, endln:976:39
+|vpiName:BUS_SIZE
+|vpiFullName:work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE
+|vpiActual:
+\_enum_const: (BUS_SIZE), id:24110
+
+decompile:
+ref_obj: (work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE), id:18388, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:18387, line:976:29, endln:976:39
+|vpiName:BUS_SIZE
+|vpiFullName:work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE
+|vpiActual:
+\_enum_const: (BUS_SIZE), id:24110
+RHS:
+decompile:
+constant: , id:11464, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:11461, line:976:29, endln:976:39
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@ibex_icache), id:11465
+  |vpiParent:
+  \_constant: , id:11464, line:976:31, endln:976:39
+  |vpiFullName:work@ibex_icache
+  |vpiActual:
+  \_int_typespec: , id:3351, line:383:13, endln:383:25
+|vpiConstType:9
+
+decompile:
+constant: , id:11464, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:11461, line:976:29, endln:976:39
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@ibex_icache), id:11465
+  |vpiParent:
+  \_constant: , id:11464, line:976:31, endln:976:39
+  |vpiFullName:work@ibex_icache
+  |vpiActual:
+  \_int_typespec: , id:3351, line:383:13, endln:383:25
+|vpiConstType:9

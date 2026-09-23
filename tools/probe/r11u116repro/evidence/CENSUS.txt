@@ -1,0 +1,9 @@
+census116.py over every pristine sweep database (uhdm2rtlil + surelog, both modes), a priori
+databases=2568 errors=0
+nonzero rows:
+u2r/default/ibex_icache-e3714209/slang.uhdm C1=0 C2=16 C3=0 C4=0
+u2r/default/ibex_pmp-65816114/slang.uhdm C1=4 C2=0 C3=0 C4=0
+u2r/testflags/ibex_icache-e3714209/slang.uhdm C1=0 C2=16 C3=0 C4=0
+u2r/testflags/ibex_pmp-65816114/slang.uhdm C1=4 C2=0 C3=0 C4=0
+positive controls (grid / target pristine dbs):
+  f1/mh_h_lg C1=14; f2/g3_ff_w C2=20; f3/r1_ac_w C3=7; f3/r3_ac_w C4=4; u2r ibex_pmp C1=4; u2r ibex_icache C2=16

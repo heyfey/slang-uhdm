@@ -13887,4 +13887,135 @@ inline bool leakOnlyOcc114(const Occ* occ, const void* sym,
     return true;
 }
 
+// ============================================================================
+// r11u116 — PAIR A OF THE EXPRESSION GROUND.  Every law reads its own kill
+// switch; `R11U116_OFF=1` turns them all off.  Grids, cells and decodes:
+// tools/probe/r11u116repro/README.md.
+// ============================================================================
+inline bool r11u116On(const char* one) {
+    static const bool all = getenv("R11U116_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// § loopCaParamReadKeepsLiteral116 (FACE 1) — a module parameter read inside
+/// a TOP-LEVEL loop-generate body's continuous assignment is substituted by
+/// Surelog as `UHDM::clone_tree(param_ass->Rhs())` (CompileExpression.cpp
+/// 2918-2966: `result->VpiParent(param_ass)`, then the parameter's own
+/// declaration typespec is stamped on the clone), so the read carries the
+/// ELABORATED param_assign Rhs constant's own encoding: `32'h00000FFF` stays
+/// `HEX:00000FFF` ct 5, `32'b...` stays BIN, `32'd4095` is `INT:4095` ct 7,
+/// an unsized `'hFFF` is the adjusted `32'hFFF`; a plain decimal and an octal
+/// literal are already `UINT` there (Surelog folds octal).  We minted a fresh
+/// `UINT` decimal.  The always_comb twin (§ genProcParamFold's paSrc9) and the
+/// child-instance twin (§ genCaTopLoopParamPaCopy105's encSrc105) already copy
+/// that constant; this is the top-module CA window they left out.
+/// GATES: `genCaLoopParamFold` (the window), a parameter WRITTEN with the
+/// `int` keyword (`int`, `int signed`, `int unsigned` — the only kind whose
+/// clone typespec the mint beside it builds; byte/shortint/longint/integer
+/// and typedef-typed homes are residue R1k, v11u116; an untyped home carries no typespec for a
+/// decimal and size -1 for an unsized based literal, a `logic` vector home a
+/// `logic_typespec`: residues R1u/R1v), the copy must pass
+/// `adjustCopiedParamConst64` and `baseSpellingOk105`.  Positions: every one
+/// the mint serves (operand, bare, index, compare, arithmetic, part-select
+/// bounds).  Switch: R11U116_F1_OFF.
+inline bool loopCaLit116On() {
+    static const bool on = r11u116On("R11U116_F1_OFF");
+    return on;
+}
+inline bool loopCaLit116Typed(const slang::ast::ParameterSymbol& ps) {
+    auto dt = ps.getDeclaredType();
+    if (!dt)
+        return false;
+    auto ts = dt->getTypeSyntax();
+    if (!ts || ts->kind == slang::syntax::SyntaxKind::ImplicitType)
+        return false;
+    // v11u116 KEYWORD FENCE: only the written `int` keyword (`int`, `int
+    // signed`, `int unsigned`).  The mint beside the site builds an
+    // `int_typespec` for EVERY predefined kind, where golden's clone carries
+    // the declaration's own typespec: `byte_typespec`, `short_int_typespec`,
+    // `long_int_typespec`, `integer_typespec`, or the NAMED typedef object for
+    // `typedef int unsigned u32_t` (vpiName u32_t).  Copying the encoding
+    // there moved each cell from one wrong value to another (the typespec
+    // stays wrong) — verifier arms f1_{byteneg,shu,long,integ}_{hdr,body,lp},
+    // f1t_{byts,bytu,shs,lgu,intg,intgu,tdint,tdbyte,tdpkg}: residue R1k.
+    if (ts->kind != slang::syntax::SyntaxKind::IntType)
+        return false;
+    return ps.getType().getCanonicalType().kind ==
+           slang::ast::SymbolKind::PredefinedIntegerType;
+}
+
+/// § nestedGenProcLhsKeepsRef116 (FACE 2) — § genNestedScopePkgParamNoFold24's
+/// no-fold container, extended to the PROCESS LEFT-HAND SIDE.  A generate
+/// block is its own DesignComponent whose param_assigns hold only its own
+/// localparams, so an UNQUALIFIED package-parameter read in a NESTED generate
+/// scope's process finds no substitution (CompileExpression.cpp 2939-2966
+/// needs the component's param_assigns; the process is compiled against the
+/// block), the ref_obj is minted, `needLateBinding` is called, and
+/// `UhdmWriter::lateBinding` binds a fresh loc-less `enum_const` carrying the
+/// parameter's value (`mod->getValue(name)`), parented at the ref.  Nothing in
+/// that path reads the SIDE: golden keeps the ref + enum_const at every
+/// left-hand position measured (indexed-part-select base operand and width,
+/// bare bit-select index, part-select bounds, an index operation) exactly as
+/// on the right-hand side, in always_ff / always_comb / initial, at nesting
+/// depth 2 (for in for), 3 (if in for in for: ibex_icache.sv:976) and if-in-for
+/// (grid f2, g2/g3/gi x ff/cb/in x w/e).  Top-level bodies (g1) and QUALIFIED
+/// `p::P` reads fold (the law's `::` fence), module parameters/localparams keep
+/// an unbound ref (the law's package-scope branch) — all unchanged.
+/// Switch: R11U116_F2_OFF.
+inline bool nestedProcLhs116On() {
+    static const bool on = r11u116On("R11U116_F2_OFF");
+    return on;
+}
+
+/// § impCopyCatReadIsRef116 (FACE 3, pass 114's residue R1) — the producer
+/// rule § imppCopyOpReadIsRef114 decoded for case items holds at every
+/// position: CompileExpression.cpp 2939-2966 substitutes an imported
+/// parameter from the module's param_assigns only under `reduce == Yes ||
+/// (paramFromPackage && Rhs is a constant)`, and a concat-bearing
+/// initializer's module copy stays an OPERATION (§ impCopyConcatUnbound111),
+/// so an if-condition operand, an assignment Rhs and a continuous-assign Rhs
+/// all keep the module-scoped `ref_obj` with no actual (pass-114 grid b05;
+/// r11u116 grid f3).  Same three fences as the case-item law: unqualified,
+/// `concatBearing114` initializer, `impCopyRhsNonConst114 == 1` (a generate
+/// scope on the chain declines).  Case items stay with the StmtEmit arm; a
+/// subroutine body, a parameter initializer and a generate-scope window are
+/// declined (not measured).  Switch: R11U116_F3R1_OFF.
+inline bool impCopyCatRef116On() {
+    static const bool on = r11u116On("R11U116_F3R1_OFF");
+    return on;
+}
+
+/// § caseItemPkgFoldTs116 (FACE 3, pass 114's residue R3) — a case item that
+/// reads a TYPED literal-valued imported package parameter is the same
+/// substituted clone as an operand fold (the clone of the module copy's Rhs,
+/// stamped with the parameter's declaration typespec,
+/// CompileExpression.cpp 2939-2966), so it carries golden's
+/// `ref_typespec (<module>)` -> the parameter's typespec, exactly like the
+/// if-condition operand beside it (pass-114 grid b01/b06-b08/b10; b05 is the
+/// operand control).  The stamp is the existing materialized-import stamp
+/// (`importedParamDefTs`, unqualified reads only); a concat-bearing
+/// parameter is excluded because the case-item arm swaps its constant for a
+/// ref.  Only an INTEGER-LITERAL initializer (caseItemTs116Lit).  Switch:
+/// R11U116_F3R3_OFF.
+inline bool caseItemTs116On() {
+    static const bool on = r11u116On("R11U116_F3R3_OFF");
+    return on;
+}
+/// The LITERAL fence (convicted on the verifier's own pass-114 grid, set1
+/// d02/d07/d10/d17 and set2 m01): an initializer that is another parameter, a
+/// conditional, a concat or a member select reaches this site with an
+/// encoding that is ALREADY wrong (`UINT:5` where golden copies `8'h5`), so a
+/// stamp there only moves one wrong cell to another.  Only an integer literal
+/// initializer (a concat-bearing one is excluded by construction) is stamped.
+inline bool caseItemTs116Lit(const ParameterSymbol& ps) {
+    auto* init = ps.getInitializer();
+    if (!init)
+        return false;
+    const Expression* e = init;
+    while (e->kind == ExpressionKind::Conversion &&
+           e->as<ConversionExpression>().isImplicit())
+        e = &e->as<ConversionExpression>().operand();
+    return e->kind == ExpressionKind::IntegerLiteral;
+}
+
 } // namespace slang_uhdm

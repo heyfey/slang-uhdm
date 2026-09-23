@@ -1,0 +1,26 @@
+v11u116 gates (base 931a3c69)
+binaries (built -j 2 in /tmp/wt_v11u116pris and /tmp/wt_v11u116, frozen chmod 555 before any sweep):
+  pristine 59c4a296bbc892558b6d637d7eff020e (= OPS pin)
+  implementer law 56ef1b3c917aee93e512a35107614e20 (= implementer's claim)
+  verified (law + F1 keyword fence) ec0789f5e21ada64200d331a246ecc6a
+cmds.txt audit: pris 1742 u2r + 1531 sl lines all name the pristine binary; law same with the law binary; verified 3273 all name the verified binary; 0 foreign.
+goldens: law 23 PASS / 0 FAIL; verified 23/0; SLANG_UHDM=/bin/false 0/23.
+u2r: pris 801/3/67 both modes (= baseline); law 803/1/67 both modes; verified 803/1/67 both modes, csv identical to law.
+  row join vs results/golden_uhdm2rtlil.csv: only ibex_icache and ibex_pmp differ, both modes:
+    ibex_icache,default,CMP_NOTEQUAL,decompile:,,  ->  ibex_icache,default,CMP_EQUAL,,,differ
+    ibex_pmp,default,CMP_NOTEQUAL,decompile:,,     ->  ibex_pmp,default,CMP_EQUAL,,,differ
+    ibex_icache,testflags,CMP_NOTEQUAL,decompile:,, -> ibex_icache,testflags,CMP_EQUAL,,,differ
+    ibex_pmp,testflags,CMP_NOTEQUAL,decompile:,,    -> ibex_pmp,testflags,CMP_EQUAL,,,differ
+  stamped_gen_param stays CMP_NOTEQUAL both modes.
+surelog --mode both: histograms identical to baseline (480/3 default, 474/3 testflags) for pris, law and verified;
+  row join vs baseline differs only in LowMemLib/LowMemPkg SURELOG_FAIL message workdir path; Earlgrey_0_1 dump column blank on
+  uhdm-dump timeout draws (pris AND law both blank; verified default blank/testflags differ) -- databases byte-pinned.
+target rows uhdm-cmp (lines/heads): ibex_pmp 64/1 -> 0/0, ibex_icache 50/1 -> 0/0, both modes.
+  whole-dump order-blind distance (both modes identical): ibex_pmp 5800 -> 5776, ibex_icache 7120 -> 6784.
+protected DBs (law and verified, both modes): SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+  Earlgrey_0_1 def 8bdf25272e08 / tf 59d0ee6d10c3, BlackParrotComplex e3e354129d5a/73a10e8217e5, YosysOldOr d68e0796d62c -- = pristine.
+canaries: sl ok=50 changed=2 (law; pristine sweep reads the same 2: Earlgrey dump column), verified ok=51 changed=1; u2r ok=8 changed=0;
+  ctcan2 PASS both corpora; canaudit PASS.
+byteverify SELFCHECK=1: see BYTEVERIFY.txt (u2r 4/1608 = the predicted four; surelog UVM class only).
+census (golden vs pristine, law shapes C1..C4) predicted exactly ibex_pmp (C1) and ibex_icache (C2) both modes; stamped_gen_param 0;
+  positive controls fire (f1_und_body C1=3, f2_ips_d2ff C2=2, r1_bare C3=2, r3_lit C4=5); negative controls 0.

@@ -15601,8 +15601,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // counterexample: a part-select OF the parameter is a
                 // different shape entirely — golden emits a part_select NAMED
                 // after it, no fold and no ref.)
+                // § nestedGenProcLhsKeepsRef116 (r11u116 FACE 2) — the
+                // PROCESS left-hand side is inside the law too (§ block in
+                // EmitHelpers.h); the continuous-assignment Lhs is not
+                // reached from here (inGenScopeCaRhs is the Rhs window).
                 if (genNestedScopeEmit24 && !defGenProcessEmit &&
-                    (inGenScopeCaRhs || inGenScopeProc) && !inLhs &&
+                    (inGenScopeCaRhs || inGenScopeProc) &&
+                    (!inLhs || (inGenScopeProc && nestedProcLhs116On())) &&
                     !inParamInit && !currentTf &&
                     rawText(expr.sourceRange).find("::") ==
                         std::string::npos) {
@@ -16251,6 +16256,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(ref, expr.sourceRange);
                         return ref;
                     }
+                }
+                // § impCopyCatReadIsRef116 (r11u116 FACE 3 R1) — pass 114's
+                // case-item law at every other module-body position (§ block
+                // in EmitHelpers.h): the module's materialized copy of a
+                // concat-bearing imported parameter is an OPERATION, so the
+                // read is not substituted and stays the module-scoped ref_obj
+                // with no actual.
+                if (impCopyCatRef116On() && parent &&
+                    parent->UhdmType() != UHDM::uhdmcase_item &&
+                    !inParamInit && !currentTf && !inGenScopeProc &&
+                    !inGenScopeCaRhs &&
+                    !(expr.syntax
+                          ? expr.syntax->kind == syntax::SyntaxKind::ScopedName
+                          : rawText(expr.sourceRange).find("::") !=
+                                std::string::npos) &&
+                    psym.getInitializer() &&
+                    concatBearing114(*psym.getInitializer()) &&
+                    impCopyRhsNonConst114(parent, nv.symbol.name) == 1) {
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
                 }
                 auto& cv = psym.getValue();
                 // § unknownOperandDeclinesFold102 (r11u102) — LAW C, r11v100's
@@ -17341,7 +17368,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         ndaOpFold9 ||
                         ipsWidFold9 || caPsOpFold9 || caOpFold9 ||
                         rmConnOpFold9 || caSelIdxOp112 || caSysArg115 ||
-                        vsBare115)
+                        vsBare115 ||
+                        // § caseItemPkgFoldTs116 (r11u116 FACE 3 R3)
+                        (caseItemTs116On() && parent &&
+                         parent->UhdmType() == UHDM::uhdmcase_item &&
+                         !inParamInit && typedPkgParam &&
+                         caseItemTs116Lit(psym)))
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -18843,10 +18875,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* c9 = s.MakeConstant();
                         std::string dL9 = cvL9.integer().toString(
                             LiteralBase::Decimal, false);
+                        // § loopCaParamReadKeepsLiteral116 (r11u116 FACE 1) —
+                        // the TOP-LEVEL loop-generate window substitutes the
+                        // same clone of the parameter's elaborated
+                        // `param_assign` Rhs (see the § block in
+                        // EmitHelpers.h), so its encoding is copied here too.
+                        // Computed BEFORE the first write: each field is
+                        // written once (a second write leaves the discarded
+                        // string in the serializer's table).
+                        bool f1Hit116 = false;
+                        std::string evF1, edF1;
+                        int32_t ectF1 = 0, eszF1 = 0;
+                        if (!encSrc105 && loopCaLit116On() &&
+                            genCaLoopParamFold && loopCaLit116Typed(psL9))
+                            if (auto pitF1 = elabParamPa.find(&nv.symbol);
+                                pitF1 != elabParamPa.end() && pitF1->second)
+                                if (auto* prF1 = pitF1->second->Rhs();
+                                    prF1 &&
+                                    prF1->UhdmType() == UHDM::uhdmconstant)
+                                    f1Hit116 =
+                                        adjustCopiedParamConst64(
+                                            psL9, (const UHDM::constant*)prF1,
+                                            evF1, ectF1, eszF1, edF1) &&
+                                        baseSpellingOk105(ectF1, edF1);
+                        if (f1Hit116) {
+                            c9->VpiDecompile(edF1);
+                            c9->VpiSize(eszF1);
+                            c9->VpiValue(evF1);
+                            c9->VpiConstType(ectF1);
+                        }
+                        else {
                         c9->VpiDecompile(dL9);
                         c9->VpiSize((int32_t)psL9.getType().getBitWidth());
                         c9->VpiValue("UINT:" + dL9);
                         c9->VpiConstType(vpiUIntConst);
+                        }
                         if (encSrc105) {
                             c9->VpiDecompile(ed105);
                             c9->VpiSize(esz105);

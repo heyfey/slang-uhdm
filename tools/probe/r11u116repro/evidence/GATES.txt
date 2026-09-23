@@ -1,0 +1,118 @@
+== binaries
+pristine 59c4a296bbc892558b6d637d7eff020e  -
+law      56ef1b3c917aee93e512a35107614e20  -
+fresh-apply rebuild: 56ef1b3c917aee93e512a35107614e20  build/slang-uhdm
+main tree: 59c4a296bbc892558b6d637d7eff020e  -
+== cmds.txt audit
+sl:    1531 /tmp/r11u116_law4.bin 
+u2r:    1742 /tmp/r11u116_law4.bin 
+== goldens
+law: PASS=23 FAIL=0  (law3; rerun law4 below)
+== surelog histogram
+default:     480 CMP_EQUAL       3 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+testflags:     474 CMP_EQUAL       3 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+== surelog row-join vs results/golden_surelog.csv (status+detail+dump)
+  testflags  base:     474 CMP_EQUAL       3 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     474 CMP_EQUAL       3 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     318      254 differ     226 match 
+  default  fresh:     319      253 differ     226 match 
+  testflags  base:     324      308 differ     166 match 
+  testflags  fresh:     325      307 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+== surelog row-join vs own pristine sweep
+  testflags  base:     324      308 differ     166 match 
+  testflags  fresh:     325      307 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+== u2r row-join
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< ibex_icache,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_icache,testflags,CMP_EQUAL,,,differ
+< ibex_pmp,testflags,CMP_NOTEQUAL,decompile:,,
+> ibex_pmp,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     801 CMP_EQUAL       3 CMP_NOTEQUAL      67 SLANG_REJECT 
+  testflags  fresh:     803 CMP_EQUAL       1 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:      70      265 differ     536 match 
+  testflags  fresh:      68      267 differ     536 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+> ibex_pmp,default,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     801 CMP_EQUAL       3 CMP_NOTEQUAL      67 SLANG_REJECT 
+  default  fresh:     803 CMP_EQUAL       1 CMP_NOTEQUAL      67 SLANG_REJECT 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:      70      269 differ     532 match 
+  default  fresh:      68      271 differ     532 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+== byteverify surelog (law vs own pristine)
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=3b221a2fb37d
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=e70775324004 pristine=1621aec6c9f3
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=6510852b6009 pristine=d82a6fc78f26
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=396b874b1c26 pristine=d4f8cd018f2d
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=fdbc5b5fa75c
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=bcc588834116 pristine=05df6c25a21b
+MOVERS: 6 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== byteverify u2r (law vs own pristine)
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=557bbb5843f9 pristine=fc518cafa980
+MOVER ./default/ibex_pmp-65816114/slang.uhdm  patched=3b8b720b3614 pristine=2a155304568e
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=9abbbb37bbf0 pristine=ce3e0e4324a7
+MOVER ./testflags/ibex_pmp-65816114/slang.uhdm  patched=489785bc1531 pristine=7424e3006ae2
+MOVERS: 4 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== protected databases (law | pristine), md5 first 12
+Earlgrey_0_1 default sl law=8bdf25272e08 pris=8bdf25272e08
+Earlgrey_0_1 testflags sl law=59d0ee6d10c3 pris=59d0ee6d10c3
+SVSwitch default sl law=4842211c4030 pris=4842211c4030
+SVSwitch testflags sl law=4842211c4030 pris=4842211c4030
+YosysVerx default sl law=6ccda350c24a pris=6ccda350c24a
+YosysVerx testflags sl law=6ccda350c24a pris=6ccda350c24a
+InterfaceModPort default sl law=59a365f3ce2c pris=59a365f3ce2c
+InterfaceModPort testflags sl law=59a365f3ce2c pris=59a365f3ce2c
+BlackParrotComplex default sl law=e3e354129d5a pris=e3e354129d5a
+BlackParrotComplex testflags sl law=73a10e8217e5 pris=73a10e8217e5
+YosysOldOr default sl law=d68e0796d62c pris=d68e0796d62c
+YosysOldOr testflags sl law=d68e0796d62c pris=d68e0796d62c
+== goldens (law4)
+PASS=23 FAIL=0
+/bin/false: PASS=0 FAIL=23
+== canaries
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+== surelog movers, order-blind attribution (sorted dumps, ids stripped)
+default/MiniAmiq-544c7f61 lines law/pris=1893061/1893061 orderblind-diff-lines=4 status law=
+<       |UINT:0
+>       |UINT:645
+<       |vpiDecompile:0
+>       |vpiDecompile:645
+default/Scoreboard-59431470 lines law/pris=1100432/1100432 orderblind-diff-lines=0 status law=
+default/SeqDriver-32af76aa lines law/pris=1818750/1818750 orderblind-diff-lines=4 status law=
+<       |UINT:512
+>       |UINT:663
+<       |vpiDecompile:512
+>       |vpiDecompile:663
+default/SimpleUVM-1dc93a62 lines law/pris=1113010/1113010 orderblind-diff-lines=4 status law=
+>       |UINT:0
+<       |UINT:827
+>       |vpiDecompile:0
+<       |vpiDecompile:827
+testflags/MiniAmiq-544c7f61 lines law/pris=1893061/1893061 orderblind-diff-lines=4 status law=
+<       |UINT:0
+>       |UINT:679
+<       |vpiDecompile:0
+>       |vpiDecompile:679
+testflags/SeqDriver-32af76aa lines law/pris=1818810/1818810 orderblind-diff-lines=4 status law=
+>       |UINT:0
+<       |UINT:1145
+>       |vpiDecompile:0
+<       |vpiDecompile:1145

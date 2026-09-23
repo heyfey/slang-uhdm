@@ -1,0 +1,39 @@
+## bv_u2r (implementer law binary 56ef1b3c vs pristine 59c4a296)
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=557bbb5843f9 pristine=fc518cafa980
+MOVER ./default/ibex_pmp-65816114/slang.uhdm  patched=3b8b720b3614 pristine=2a155304568e
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=9abbbb37bbf0 pristine=ce3e0e4324a7
+MOVER ./testflags/ibex_pmp-65816114/slang.uhdm  patched=489785bc1531 pristine=7424e3006ae2
+MOVERS: 4 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## bv_sl (implementer law binary 56ef1b3c vs pristine 59c4a296)
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=80f16f741526 pristine=b048185e17a8
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=5a93b6df5665 pristine=2fb39f8b4130
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=0b434fbf73af pristine=d4f8cd018f2d
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=6b009bf8b81b pristine=27419f6011b4
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## bvfix_u2r (verified binary ec0789f5 vs pristine 59c4a296)
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=557bbb5843f9 pristine=fc518cafa980
+MOVER ./default/ibex_pmp-65816114/slang.uhdm  patched=3b8b720b3614 pristine=2a155304568e
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=9abbbb37bbf0 pristine=ce3e0e4324a7
+MOVER ./testflags/ibex_pmp-65816114/slang.uhdm  patched=489785bc1531 pristine=7424e3006ae2
+MOVERS: 4 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## bvfix_sl (verified binary ec0789f5 vs pristine 59c4a296)
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=f7a3b536978e pristine=b048185e17a8
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=555cec517ad5 pristine=27419f6011b4
+MOVERS: 3 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## UVM order-blind attribution (sorted, id/path-normalised dump lines)
+law: MiniAmiq/default 4, SeqDriver/default 4, SimpleUVM/default 4, MiniAmiq/testflags 4 (UINT/vpiDecompile line-number class), Scoreboard/default 0 (order coin)
+verified: MiniAmiq/default 4, MiniAmiq/testflags 4, Scoreboard/default 0

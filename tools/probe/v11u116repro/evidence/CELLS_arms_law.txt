@@ -1,0 +1,508 @@
+TO f1_allf_body TOP:8:27-8:28
+TO f1_allf_body TOP:9:28-9:29
+TO f1_allf_body TOP:10:20-10:21
+TO f1_allf_hdr TOP:7:27-7:28
+TO f1_allf_hdr TOP:8:28-8:29
+TO f1_allf_hdr TOP:9:20-9:21
+TO f1_allf_lp TOP:8:27-8:28
+TO f1_allf_lp TOP:9:28-9:29
+TO f1_allf_lp TOP:10:20-10:21
+TO f1_bin_body TOP:8:27-8:28
+TO f1_bin_body TOP:9:28-9:29
+TO f1_bin_body TOP:10:20-10:21
+TO f1_bin_hdr TOP:7:27-7:28
+TO f1_bin_hdr TOP:8:28-8:29
+TO f1_bin_hdr TOP:9:20-9:21
+TO f1_bin_lp TOP:8:27-8:28
+TO f1_bin_lp TOP:9:28-9:29
+TO f1_bin_lp TOP:10:20-10:21
+TO f1_bnd_body TOP:8:27-8:28
+TO f1_bnd_body TOP:9:28-9:29
+TO f1_bnd_body TOP:10:20-10:21
+TO f1_bnd_hdr TOP:7:27-7:28
+TO f1_bnd_hdr TOP:8:28-8:29
+TO f1_bnd_hdr TOP:9:20-9:21
+TO f1_bnd_lp TOP:8:27-8:28
+TO f1_bnd_lp TOP:9:28-9:29
+TO f1_bnd_lp TOP:10:20-10:21
+PARTIAL f1_byteneg_body TOP:8:27-8:28
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_byteneg_body TOP:9:28-9:29
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_byteneg_body TOP:10:20-10:21
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_byteneg_hdr TOP:7:27-7:28
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_byteneg_hdr TOP:8:28-8:29
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_byteneg_hdr TOP:9:20-9:21
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_byteneg_lp TOP:8:27-8:28
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_byteneg_lp TOP:9:28-9:29
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_byteneg_lp TOP:10:20-10:21
+    G: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-128 |vpiSize:8 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h80 |vpiSize:8 |HEX:80 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1_dsz_body TOP:8:27-8:28
+TO f1_dsz_body TOP:9:28-9:29
+TO f1_dsz_body TOP:10:20-10:21
+TO f1_dsz_hdr TOP:7:27-7:28
+TO f1_dsz_hdr TOP:8:28-8:29
+TO f1_dsz_hdr TOP:9:20-9:21
+TO f1_dsz_lp TOP:8:27-8:28
+TO f1_dsz_lp TOP:9:28-9:29
+TO f1_dsz_lp TOP:10:20-10:21
+PARTIAL f1_integ_body TOP:8:27-8:28
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_integ_body TOP:9:28-9:29
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_integ_body TOP:10:20-10:21
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_integ_hdr TOP:7:27-7:28
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_integ_hdr TOP:8:28-8:29
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_integ_hdr TOP:9:20-9:21
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_integ_lp TOP:8:27-8:28
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_integ_lp TOP:9:28-9:29
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_integ_lp TOP:10:20-10:21
+    G: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:2748 |vpiSize:32 |UINT:2748 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hABC |vpiSize:32 |HEX:ABC vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1_lhex_body TOP:8:27-8:28
+TO f1_lhex_body TOP:9:28-9:29
+TO f1_lhex_body TOP:10:20-10:21
+TO f1_lhex_hdr TOP:7:27-7:28
+TO f1_lhex_hdr TOP:8:28-8:29
+TO f1_lhex_hdr TOP:9:20-9:21
+TO f1_lhex_lp TOP:8:27-8:28
+TO f1_lhex_lp TOP:9:28-9:29
+TO f1_lhex_lp TOP:10:20-10:21
+PARTIAL f1_long_body TOP:8:27-8:28
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_long_body TOP:9:28-9:29
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_long_body TOP:10:20-10:21
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_long_hdr TOP:7:27-7:28
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_long_hdr TOP:8:28-8:29
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_long_hdr TOP:9:20-9:21
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_long_lp TOP:8:27-8:28
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_long_lp TOP:9:28-9:29
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_long_lp TOP:10:20-10:21
+    G: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:-4294967296 |vpiSize:64 |UINT:0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'hFFFFFFFF00000000 |vpiSize:64 |HEX:FFFFFFFF00000000 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1_nar8_body TOP:8:27-8:28
+TO f1_nar8_body TOP:9:28-9:29
+TO f1_nar8_body TOP:10:20-10:21
+TO f1_nar8_hdr TOP:7:27-7:28
+TO f1_nar8_hdr TOP:8:28-8:29
+TO f1_nar8_hdr TOP:9:20-9:21
+TO f1_nar8_lp TOP:8:27-8:28
+TO f1_nar8_lp TOP:9:28-9:29
+TO f1_nar8_lp TOP:10:20-10:21
+TO f1_neg1_body TOP:8:27-8:28
+TO f1_neg1_body TOP:9:28-9:29
+TO f1_neg1_body TOP:10:20-10:21
+TO f1_neg1_hdr TOP:7:27-7:28
+TO f1_neg1_hdr TOP:8:28-8:29
+TO f1_neg1_hdr TOP:9:20-9:21
+TO f1_neg1_lp TOP:8:27-8:28
+TO f1_neg1_lp TOP:9:28-9:29
+TO f1_neg1_lp TOP:10:20-10:21
+TO f1_shex_body TOP:8:27-8:28
+TO f1_shex_body TOP:9:28-9:29
+TO f1_shex_body TOP:10:20-10:21
+TO f1_shex_hdr TOP:7:27-7:28
+TO f1_shex_hdr TOP:8:28-8:29
+TO f1_shex_hdr TOP:9:20-9:21
+TO f1_shex_lp TOP:8:27-8:28
+TO f1_shex_lp TOP:9:28-9:29
+TO f1_shex_lp TOP:10:20-10:21
+PARTIAL f1_shu_body TOP:8:27-8:28
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_shu_body TOP:9:28-9:29
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_shu_body TOP:10:20-10:21
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_shu_hdr TOP:7:27-7:28
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_shu_hdr TOP:8:28-8:29
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_shu_hdr TOP:9:20-9:21
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_shu_lp TOP:8:27-8:28
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_shu_lp TOP:9:28-9:29
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1_shu_lp TOP:10:20-10:21
+    G: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:43981 |vpiSize:16 |UINT:43981 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'hABCD |vpiSize:16 |HEX:ABCD vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1_und_body TOP:8:27-8:28
+TO f1_und_body TOP:9:28-9:29
+TO f1_und_body TOP:10:20-10:21
+TO f1_und_hdr TOP:7:27-7:28
+TO f1_und_hdr TOP:8:28-8:29
+TO f1_und_hdr TOP:9:20-9:21
+TO f1_und_lp TOP:8:27-8:28
+TO f1_und_lp TOP:9:28-9:29
+TO f1_und_lp TOP:10:20-10:21
+TO f1_uns_body TOP:8:27-8:28
+TO f1_uns_body TOP:9:28-9:29
+TO f1_uns_body TOP:10:20-10:21
+TO f1_uns_hdr TOP:7:27-7:28
+TO f1_uns_hdr TOP:8:28-8:29
+TO f1_uns_hdr TOP:9:20-9:21
+TO f1_uns_lp TOP:8:27-8:28
+TO f1_uns_lp TOP:9:28-9:29
+TO f1_uns_lp TOP:10:20-10:21
+TO f1_wid40_body TOP:8:27-8:28
+TO f1_wid40_body TOP:9:28-9:29
+TO f1_wid40_body TOP:10:20-10:21
+TO f1_wid40_hdr TOP:7:27-7:28
+TO f1_wid40_hdr TOP:8:28-8:29
+TO f1_wid40_hdr TOP:9:20-9:21
+TO f1_wid40_lp TOP:8:27-8:28
+TO f1_wid40_lp TOP:9:28-9:29
+TO f1_wid40_lp TOP:10:20-10:21
+TO f1_xz_body TOP:8:27-8:28
+TO f1_xz_body TOP:9:28-9:29
+TO f1_xz_body TOP:10:20-10:21
+TO f1_xz_hdr TOP:7:27-7:28
+TO f1_xz_hdr TOP:8:28-8:29
+TO f1_xz_hdr TOP:9:20-9:21
+TO f1_xz_lp TOP:8:27-8:28
+TO f1_xz_lp TOP:9:28-9:29
+TO f1_xz_lp TOP:10:20-10:21
+PARTIAL f1s_cond TOP:6:30-6:31
+    G: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1s_gvar TOP:6:26-6:27
+TO f1s_ibexlike TOP:3:48-3:58
+TO f1s_ibexlike TOP:3:63-3:73
+TO f1s_ovr TOP:5:26-5:27
+TO f1s_twop TOP:8:30-8:31
+TO f2_bare_d2ff TOP:15:16-15:17
+TO f2_bare_d3cb TOP:16:16-16:17
+TO f2_cat_d2ff TOP:15:17-15:18
+TO f2_cat_d3cb TOP:16:17-16:18
+TO f2_cmpd_d2ff TOP:15:16-15:17
+TO f2_cmpd_d3cb TOP:16:16-16:17
+TO f2_idxop_d2ff TOP:15:16-15:17
+TO f2_idxop_d3cb TOP:16:16-16:17
+TO f2_ifl_d2ff TOP:15:29-15:30
+TO f2_ifl_d2ff TOP:15:51-15:52
+TO f2_ifl_d3cb TOP:16:29-16:30
+TO f2_ifl_d3cb TOP:16:50-16:51
+TO f2_ips_d2ff TOP:15:18-15:19
+TO f2_ips_d2ff TOP:15:21-15:22
+TO f2_ips_d3cb TOP:16:18-16:19
+TO f2_ips_d3cb TOP:16:21-16:22
+TO f2_loop_d2ff TOP:15:46-15:47
+TO f2_loop_d2ff TOP:15:49-15:50
+TO f2_loop_d3cb TOP:16:46-16:47
+TO f2_loop_d3cb TOP:16:49-16:50
+TO f2_nest2_d2ff TOP:15:13-15:14
+TO f2_nest2_d2ff TOP:15:19-15:20
+TO f2_nest2_d3cb TOP:16:13-16:14
+TO f2_nest2_d3cb TOP:16:19-16:20
+TO f2_ps_d2ff TOP:15:16-15:17
+TO f2_ps_d3cb TOP:16:16-16:17
+TO f2_strm_d2ff TOP:15:13-15:14
+TO f2_strm_d3cb TOP:16:13-16:14
+TO f2k_hex TOP:15:18-15:19
+TO f2k_hex TOP:15:21-15:22
+TO f2k_lg TOP:15:18-15:19
+TO f2k_lg TOP:15:21-15:22
+TO f2k_mixq TOP:15:24-15:25
+TO f2k_untp TOP:15:18-15:19
+TO f2k_untp TOP:15:21-15:22
+TO f2p_fin TOP:15:16-15:17
+TO f2p_ifif TOP:16:18-16:19
+TO f2p_ifif TOP:16:21-16:22
+TO f2p_init TOP:15:16-15:17
+TO f2p_latch TOP:15:25-15:26
+TO f2p_star TOP:15:16-15:17
+PARTIAL f2p_top1 TOP:16:18-16:19
+    G: ref_obj{|vpiName:P}
+    P: constant{|vpiDecompile:32 |vpiSize:32 |UINT:32 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: ref_obj{|vpiName:P vpiActual=enum_const()}
+PARTIAL f2p_top1 TOP:16:21-16:22
+    G: ref_obj{|vpiName:P}
+    P: constant{|vpiDecompile:32 |vpiSize:32 |UINT:32 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: ref_obj{|vpiName:P vpiActual=enum_const()}
+TO r1_bare DEF:14:14-14:19
+TO r1_bare DEF:15:14-15:18
+TO r1_bits DEF:14:20-14:25
+TO r1_bits DEF:14:29-14:34
+TO r1_bitsel DEF:14:16-14:20
+TO r1_bitsel DEF:15:19-15:23
+TO r1_bitsel TOP:15:19-15:23
+TO r1_cast DEF:14:18-14:23
+TO r1_cast DEF:14:37-14:42
+TO r1_cond DEF:14:20-14:25
+TO r1_cond DEF:14:29-14:34
+TO r1_cond DEF:14:37-14:42
+TO r1_cond TOP:14:20-14:25
+TO r1_cond TOP:14:29-14:34
+TO r1_cond TOP:14:37-14:42
+TO r1_conn DEF:16:18-16:23
+TO r1_disp DEF:14:26-14:31
+TO r1_dly DEF:15:17-15:22
+TO r1_expl DEF:14:14-14:19
+TO r1_expl TOP:14:14-14:19
+TO r1_ff DEF:15:10-15:15
+TO r1_ff DEF:16:14-16:19
+TO r1_ff DEF:17:24-17:28
+TO r1_imp2 DEF:15:18-15:23
+TO r1_imp2 TOP:15:18-15:23
+TO r1_insd DEF:14:31-14:36
+TO r1_insd DEF:14:38-14:43
+TO r1_insd TOP:14:31-14:36
+TO r1_insd TOP:14:38-14:43
+TO r1_loopb DEF:16:25-16:29
+TO r1_nda TOP:14:23-14:28
+TO r1_nsub DEF:14:18-14:23
+TO r1_nsub DEF:15:24-15:29
+TO r1_nsub TOP:14:18-14:23
+TO r1_psel DEF:15:16-15:20
+TO r1_repl DEF:14:15-14:19
+TO r1_rng DEF:15:16-15:20
+TO r1_while DEF:16:17-16:22
+TO r3_caseexpr DEF:18:7-18:12
+TO r3_casez DEF:17:7-17:12
+TO r3_casez DEF:18:7-18:12
+TO r3_expl DEF:17:7-17:12
+TO r3_expl DEF:18:7-18:12
+TO r3_ff DEF:16:7-16:12
+TO r3_ff DEF:17:7-17:12
+TO r3_fn DEF:16:7-16:12
+TO r3_fn DEF:17:7-17:12
+TO r3_gen TOP:17:9-17:14
+TO r3_gen TOP:18:9-18:14
+TO r3_lit DEF:17:7-17:12
+TO r3_lit DEF:18:7-18:12
+TO r3_lit DEF:19:7-19:12
+TO r3_lit DEF:21:7-21:12
+TO r3_modp DEF:20:7-20:12
+TO r3_multi DEF:17:7-17:12
+TO r3_multi DEF:17:14-17:19
+TO r3_multi DEF:18:7-18:12
+TO r3_neg DEF:21:7-21:11
+TO r3_neg DEF:22:7-22:11
+TOTAL {'TO': 213, 'AWAY': 0, 'OTHER': 0, 'PARTIAL': 39}
+TO g2_case TOP:13:22-13:23
+TO g2_case TOP:14:25-14:26
+TO g2_cast TOP:12:19-12:20
+TO g2_child TOP:10:39-10:40
+TO g2_child TOP:10:42-10:43
+TO g2_dly TOP:12:14-12:15
+TO g2_enump TOP:10:37-10:38
+TO g2_ev TOP:12:14-12:15
+TO g2_fcall TOP:13:17-13:18
+TO g2_fork TOP:13:16-13:17
+TO g2_ifc TOP:10:39-10:40
+TO g2_ifc TOP:10:42-10:43
+TO g2_named TOP:13:16-13:17
+TO g2_rep TOP:12:25-12:26
+TO g2_sys TOP:12:21-12:22
+TO h1_ff_lhsidx DEF:7:30-7:35
+TO h1_nested_cat DEF:8:18-8:21
+TO h1_nested_cat TOP:8:18-8:21
+TO h1_shadow DEF:8:19-8:24
+TO h1_shadow TOP:8:19-8:24
+TO h1_sva DEF:6:36-6:41
+TO h1_sva DEF:6:55-6:60
+OTHER h1_sva DEF:8:39-8:44
+    G: 
+    P: constant{|vpiDecompile:115 |vpiSize:32 |UINT:115 vpiTypespec=ref_typespec>logic_typespec |vpiConstType:9}
+    L: ref_obj{|vpiName:P_CAT}
+TO h1_two DEF:6:18-6:23
+TO h1_two DEF:10:19-10:24
+TO h1_two TOP:6:18-6:23
+TO h1_two TOP:10:19-10:24
+TO h1_unpk DEF:7:24-7:28
+TO h1_unpk TOP:7:24-7:28
+TO k3_child DEF:9:24-9:29
+TO k3_child DEF:9:38-9:43
+TO k3_child DEF:9:52-9:55
+TO k3_child DEF:9:64-9:67
+TO k3_child DEF:9:76-9:79
+TO k3_ifc PKGTOP:7:24-7:29
+TO k3_ifc PKGTOP:7:38-7:43
+TO k3_sized DEF:12:24-12:27
+TO k3_sized DEF:12:36-12:39
+TO k3_sized DEF:12:48-12:51
+TO k3_sized DEF:12:60-12:63
+TO k3_sized DEF:12:72-12:75
+TO k3_sized DEF:12:84-12:87
+TO k3_sized DEF:12:96-12:99
+TO k3_sized DEF:12:108-12:111
+TO k3_unq_ovr DEF:5:24-5:29
+TOTAL {'TO': 44, 'AWAY': 0, 'OTHER': 1, 'PARTIAL': 0}
+PARTIAL f1t_byts TOP:7:27-7:28
+    G: constant{|vpiDecompile:8'h70 |vpiSize:8 |HEX:70 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:112 |vpiSize:8 |UINT:112 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h70 |vpiSize:8 |HEX:70 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_byts TOP:8:25-8:26
+    G: constant{|vpiDecompile:8'h70 |vpiSize:8 |HEX:70 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:112 |vpiSize:8 |UINT:112 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h70 |vpiSize:8 |HEX:70 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_bytu TOP:7:27-7:28
+    G: constant{|vpiDecompile:8'hF0 |vpiSize:8 |HEX:F0 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:240 |vpiSize:8 |UINT:240 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'hF0 |vpiSize:8 |HEX:F0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_bytu TOP:8:25-8:26
+    G: constant{|vpiDecompile:8'hF0 |vpiSize:8 |HEX:F0 vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:240 |vpiSize:8 |UINT:240 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'hF0 |vpiSize:8 |HEX:F0 vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_intg TOP:7:27-7:28
+    G: constant{|vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_intg TOP:8:25-8:26
+    G: constant{|vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_intgu TOP:7:27-7:28
+    G: constant{|vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_intgu TOP:8:25-8:26
+    G: constant{|vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF vpiTypespec=ref_typespec>integer_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'hFFF |vpiSize:32 |HEX:FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1t_intnd TOP:7:27-7:28
+    G: constant{|vpiDecompile:4095 |vpiSize:32 |INT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:7}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:4095 |vpiSize:32 |INT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:7}
+TO f1t_intnd TOP:8:25-8:26
+    G: constant{|vpiDecompile:4095 |vpiSize:32 |INT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:7}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:4095 |vpiSize:32 |INT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:7}
+TO f1t_intsig TOP:7:27-7:28
+    G: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1t_intsig TOP:8:25-8:26
+    G: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_lgu TOP:7:27-7:28
+    G: constant{|vpiDecompile:64'h00000FFF |vpiSize:64 |HEX:00000FFF vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:64 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'h00000FFF |vpiSize:64 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_lgu TOP:8:25-8:26
+    G: constant{|vpiDecompile:64'h00000FFF |vpiSize:64 |HEX:00000FFF vpiTypespec=ref_typespec>long_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:64 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:64'h00000FFF |vpiSize:64 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_shs TOP:7:27-7:28
+    G: constant{|vpiDecompile:16'h0FFF |vpiSize:16 |HEX:0FFF vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:16 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'h0FFF |vpiSize:16 |HEX:0FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_shs TOP:8:25-8:26
+    G: constant{|vpiDecompile:16'h0FFF |vpiSize:16 |HEX:0FFF vpiTypespec=ref_typespec>short_int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:16 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:16'h0FFF |vpiSize:16 |HEX:0FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_tdbyte TOP:8:27-8:28
+    G: constant{|vpiDecompile:8'h0F |vpiSize:8 |HEX:0F vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:15 |vpiSize:8 |UINT:15 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h0F |vpiSize:8 |HEX:0F vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+PARTIAL f1t_tdbyte TOP:9:25-9:26
+    G: constant{|vpiDecompile:8'h0F |vpiSize:8 |HEX:0F vpiTypespec=ref_typespec>byte_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:15 |vpiSize:8 |UINT:15 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:8'h0F |vpiSize:8 |HEX:0F vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1t_tdint TOP:8:27-8:28
+    G: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1t_tdint TOP:9:25-9:26
+    G: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1t_tdpkg TOP:10:27-10:28
+    G: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TO f1t_tdpkg TOP:11:25-11:26
+    G: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+    P: constant{|vpiDecompile:4095 |vpiSize:32 |UINT:4095 vpiTypespec=ref_typespec>int_typespec |vpiConstType:9}
+    L: constant{|vpiDecompile:32'h00000FFF |vpiSize:32 |HEX:00000FFF vpiTypespec=ref_typespec>int_typespec |vpiConstType:5}
+TOTAL {'TO': 8, 'AWAY': 0, 'OTHER': 0, 'PARTIAL': 14}
