@@ -1,0 +1,32 @@
+# boundary movers attributed by the census binary (cen5 = law + fire logs), single-file form
+./r10buvm22repro/g22.sv :: NO-FIRE (layout tail class)
+./r10buvm33repro/g33a2.sv ::       1 R11U114FIRE F3       1 R11U114FIRE F3B
+./r10uvm154repro/l154_noenum.sv :: NO-FIRE (layout tail class)
+./r10uvm183repro/g183_f_param.sv ::       3 R11U114FIRE F3       3 R11U114FIRE F3B
+./r10uvm185repro/grid185/g185_e_kinds.sv :: NO-FIRE (layout tail class)
+./r10v183repro/v183_c_param.sv ::       3 R11U114FIRE F3       3 R11U114FIRE F3B
+./r10vearl102repro/v8_mix102.sv ::       1 R11U114FIRE F3       1 R11U114FIRE F3B
+./r11u108repro/grid/pk/k13_member_nested_stamp/dut.sv ::       1 R11U114FIRE F1
+./r11u108repro/grid/pk/k14_member_nested_nodim/dut.sv ::       1 R11U114FIRE F1
+./r11u111repro/grid/f3/k14_member_nested_nodim/dut.sv ::       1 R11U114FIRE F1
+./r11u111repro/grid/f3/k13_member_nested_stamp/dut.sv ::       1 R11U114FIRE F1
+./r11u111repro/grid/f3/s00_stamped_corpus/dut.sv ::       1 R11U114FIRE F1
+./r11u111repro/grid/f3/t10_pat_row_member/dut.sv ::       1 R11U114FIRE F1
+./r11u111repro/grid/f3/t09_pat_vec_member_ctl/dut.sv ::       1 R11U114FIRE F1
+./r11u111repro/grid/f3/t11_pat_anon_named_member/dut.sv ::       1 R11U114FIRE F1
+./r11u111repro/grid/f3/t12_pat_row_dims_member/dut.sv ::       1 R11U114FIRE F1
+./r11u66repro/grid/g5_width66.sv ::       2 R11U114FIRE F1
+./r11u66repro/grid/x1_optable.sv ::       2 R11U114FIRE F1
+./r11u68repro/grid/b1_refuse68.sv ::       1 R11U114FIRE F1
+./r11u68repro/grid/b4_postsz68.sv ::       2 R11U114FIRE F1
+./r11u68repro/grid/b5_redsz68.sv ::       2 R11U114FIRE F1
+./r11v54repro/grid/xb2/dut.sv ::       2 R11U114FIRE F1       1 R11U114FIRE F3
+./r11v56repro/grid/x1_optable/dut.sv ::       2 R11U114FIRE F1
+./r11v68repro/ca/v3_lawb68.sv ::       2 R11U114FIRE F1
+./v11u108repro/brk/f2/c03_port_of_struct/dut.sv ::       1 R11U114FIRE F1
+./v11u108repro/brk/f2/c01_var_of_struct/dut.sv ::       1 R11U114FIRE F1
+./v11u108repro/brk/f2/c02_param_of_struct/dut.sv ::       1 R11U114FIRE F1
+./v11u108repro/brk/f2/c04_cast_struct/dut.sv ::       1 R11U114FIRE F1
+./v11u108repro/brk/f2/c09_import_var/dut.sv ::       2 R11U114FIRE F1
+./v11u108repro/brk/f2/c16_pkg_func/dut.sv ::       1 R11U114FIRE F1
+./v11u108repro/brk/f2/c22_gen_localparam_twice/dut.sv ::       1 R11U114FIRE F1

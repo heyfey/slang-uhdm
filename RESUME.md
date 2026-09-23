@@ -175,6 +175,60 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign refresh (2026-09-23, HEAD = the pass-113 landing).** The
+> matrix-1.87 branch has landed 113 passes since the df23d880 rebaseline:
+> surelog 479/4 default + 474/3 testflags (of 798; 6 of the 7 NE row-modes
+> are the three slang-fenced tests), uhdm2rtlil 801 equal / 3 not-equal /
+> 67 reject in both modes (of 871). Passes 105-113 CONVERTED NINETEEN ROWS
+> after 33 dry groundwork passes (70-103): port_chained_type_param (105),
+> mem_packed_2d_byte_write (106), type_param_packed_dim (107),
+> anon_struct_packed_dim + cva6_struct_param_field + type_param_unpacked_port
+> + StructParamFieldRange + StructParamFuncBodyFieldCompare +
+> StructParamPatternInitCast (108), type_param_override_elem_sel (109),
+> SequenceInst + const_cast_signext + packed_array_struct +
+> unpacked_elem_partsel_comb (110), cfg_func_width_loop + LargeValue2Struct
+> (111), arb_idx_cast (112), ibex_tracer (113). The turn came from the
+> HEAD-ANCHORED SELECTION rule (user course-correction 2026-09-22, memory
+> head-anchored-selection): every brief names the open corpus tests it
+> targets and their measured uhdm-cmp head cluster, predicts each row's cmp
+> line-count movement by name, and refills come from the head clusters, not
+> from residue lists; batching EVERY located face on one ground converted six
+> rows in one pass (108). Since pass 108 two implement+verify pairs run
+> concurrently on DISJOINT FILE SETS: the parameter line owns ParamEmit.cpp +
+> EmitHelpers.h + StmtEmit.cpp (passes 111, 113), the typespec line owns
+> TypeEmit.cpp + UhdmExporter.cpp + ModuleEmit.cpp + ExprEmit.cpp (passes
+> 112, 114); each brief names the sister's files as FENCED, a face whose fix
+> sits in a fenced file stops at the decode and is reported as a located
+> residue for the other line. Every landing: apply the verifier's patch
+> stacked on the current head (a pair's base may be one or two commits back
+> when the sister landed first), build -j 2, goldens 23/0 + /bin/false 0/23,
+> three sweeps --jobs 3 into /tmp/intr11uNNN/{sl,u2r,u2r_def}, row-joins vs
+> results/*.csv and vs the controls, byteverify with a-priori movers by name,
+> canaries + ctcan2 + canaudit (tools/probe/r11u107repro ships the battery),
+> the ten hard db pins, then PROMOTE converted rows by surgical sed on the
+> exact row text (u2r: golden_uhdm2rtlil.csv both modes + gate_uhdm2rtlil.csv
+> testflags; surelog: golden_surelog.csv per converted mode), regenerate the
+> GOLDEN_EQUIVALENCE.md §3.3 rows from scripts/accounting.py --md and update
+> SUPPORT_MATRIX.md in the SAME commit; then rotate the controls to
+> /tmp/ctl_wd_{sl,u2r,u2r_def}_<head> + /tmp/ctl_*_<head>.csv +
+> /tmp/pris_<md5-4>.bin, prune the pair's worktrees and /tmp scratch, and
+> re-measure every open head on the new controls before refilling. Open
+> after 113 (+ the three slang-fenced): stamped_gen_param 11 (a module
+> variable typed q2::impl_t wants golden's bare ref_typespec — typespec line),
+> ibex_icache (a nested-generate always_ff left-hand index reading a package
+> parameter stays a ref_obj bound to an enum_const in golden — ExprEmit),
+> ibex_pmp 64 (a param_assign right-hand side written 32'h00000FFF keeps HEX
+> const type 5 in golden — parameter line), Rggen default (CONVERTED by the
+> queued r11u115 patch = pass 114; its testflags row is SURELOG_FAIL).
+> Instrument laws recorded this stretch: a package-homed declaration keeps a
+> parameter-read range bound UNFOLDED (ref_obj) in golden while module and
+> generate homes fold it to the declared width; the producer folds a range
+> bound to INT size 64 only for sub/mult/div/mod/power/conditional; a
+> parameter's typespec name comes from WHICH OBJECT IS COPIED (the package
+> listing object vs a bare clone), never from a qualifier rewrite; the
+> UVM-family databases move by a 0-or-4-line UINT/vpiDecompile coin on every
+> build and must be attributed order-blind.
+> The pass-103 paragraph below is HISTORY.
 > **v1.87 campaign refresh (2026-09-22, HEAD = the pass-103 landing).** The
 > matrix-1.87 branch has landed 103 passes since the df23d880 rebaseline:
 > surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes

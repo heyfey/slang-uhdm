@@ -1,0 +1,73 @@
+# the two target rows, per cell (cells114.py; golden x3 calibration = 0), pristine -> law, both modes
+== default ibex_tracer
+CELLS gained=10 lost=10 TO=20 AWAY=0 WRONG-GAINED=0
+  TO     DEF | constant |  | 1035:9-1035:19 | |vpiDecompile:115 |vpiSize:32 |UINT:115 |vpiConstType:9
+  TO     DEF | constant |  | 1036:9-1036:20 | |vpiDecompile:1048691 |vpiSize:32 |UINT:1048691 |vpiConstType:9
+  TO     DEF | constant |  | 1037:9-1037:18 | |vpiDecompile:807403635 |vpiSize:32 |UINT:807403635 |vpiConstType:9
+  TO     DEF | constant |  | 1038:9-1038:18 | |vpiDecompile:2065694835 |vpiSize:32 |UINT:2065694835 |vpiConstType:9
+  TO     DEF | constant |  | 1039:9-1039:17 | |vpiDecompile:273678451 |vpiSize:32 |UINT:273678451 |vpiConstType:9
+  TO     DEF | constant |  | 1054:9-1054:20 | |vpiDecompile:4111 |vpiSize:32 |UINT:4111 |vpiConstType:9
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_DRET) | 1038:9-1038:18 | |vpiName:INSN_DRET
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_EBREAK) | 1036:9-1036:20 | |vpiName:INSN_EBREAK
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_ECALL) | 1035:9-1035:19 | |vpiName:INSN_ECALL
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_FENCEI) | 1054:9-1054:20 | |vpiName:INSN_FENCEI
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_MRET) | 1037:9-1037:18 | |vpiName:INSN_MRET
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_WFI) | 1039:9-1039:17 | |vpiName:INSN_WFI
+  TO     TOP | operation |  | 710:47-710:61 | vpiTypespec=\_ref_typespec |vpiOpType:33
+  TO     TOP | operation |  | 710:47-710:61 | |vpiOpType:33
+  TO     TOP | operation |  | 723:50-725:4 | vpiTypespec=\_ref_typespec |vpiOpType:33
+  TO     TOP | operation |  | 723:50-725:4 | |vpiOpType:33
+  TO     TOP | operation |  | 750:52-767:4 | vpiTypespec=\_ref_typespec |vpiOpType:75
+  TO     TOP | operation |  | 750:52-767:4 | |vpiOpType:75
+  TO     TOP | operation |  | 772:66-789:4 | vpiTypespec=\_ref_typespec |vpiOpType:75
+  TO     TOP | operation |  | 772:66-789:4 | |vpiOpType:75
+== default stamped_gen_param
+CELLS gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+  TO     PKGDEF | constant |  | 19:16-19:58 | |vpiSize:12 |BIN:010101101010 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:17-19:22 | |vpiDecompile:2'b01 |vpiSize:2 |BIN:01 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:24-19:29 | |vpiDecompile:2'b01 |vpiSize:2 |BIN:01 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:31-19:36 | |vpiDecompile:2'b01 |vpiSize:2 |BIN:01 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:38-19:43 | |vpiDecompile:2'b10 |vpiSize:2 |BIN:10 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:45-19:50 | |vpiDecompile:2'b10 |vpiSize:2 |BIN:10 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:52-19:57 | |vpiDecompile:2'b10 |vpiSize:2 |BIN:10 |vpiConstType:3
+  TO     PKGDEF | operation |  | 19:16-19:58 | |vpiOpType:33
+== testflags ibex_tracer
+CELLS gained=10 lost=10 TO=20 AWAY=0 WRONG-GAINED=0
+  TO     DEF | constant |  | 1035:9-1035:19 | |vpiDecompile:115 |vpiSize:32 |UINT:115 |vpiConstType:9
+  TO     DEF | constant |  | 1036:9-1036:20 | |vpiDecompile:1048691 |vpiSize:32 |UINT:1048691 |vpiConstType:9
+  TO     DEF | constant |  | 1037:9-1037:18 | |vpiDecompile:807403635 |vpiSize:32 |UINT:807403635 |vpiConstType:9
+  TO     DEF | constant |  | 1038:9-1038:18 | |vpiDecompile:2065694835 |vpiSize:32 |UINT:2065694835 |vpiConstType:9
+  TO     DEF | constant |  | 1039:9-1039:17 | |vpiDecompile:273678451 |vpiSize:32 |UINT:273678451 |vpiConstType:9
+  TO     DEF | constant |  | 1054:9-1054:20 | |vpiDecompile:4111 |vpiSize:32 |UINT:4111 |vpiConstType:9
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_DRET) | 1038:9-1038:18 | |vpiName:INSN_DRET
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_EBREAK) | 1036:9-1036:20 | |vpiName:INSN_EBREAK
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_ECALL) | 1035:9-1035:19 | |vpiName:INSN_ECALL
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_FENCEI) | 1054:9-1054:20 | |vpiName:INSN_FENCEI
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_MRET) | 1037:9-1037:18 | |vpiName:INSN_MRET
+  TO     DEF | ref_obj | (work@ibex_tracer.INSN_WFI) | 1039:9-1039:17 | |vpiName:INSN_WFI
+  TO     TOP | operation |  | 710:47-710:61 | vpiTypespec=\_ref_typespec |vpiOpType:33
+  TO     TOP | operation |  | 710:47-710:61 | |vpiOpType:33
+  TO     TOP | operation |  | 723:50-725:4 | vpiTypespec=\_ref_typespec |vpiOpType:33
+  TO     TOP | operation |  | 723:50-725:4 | |vpiOpType:33
+  TO     TOP | operation |  | 750:52-767:4 | vpiTypespec=\_ref_typespec |vpiOpType:75
+  TO     TOP | operation |  | 750:52-767:4 | |vpiOpType:75
+  TO     TOP | operation |  | 772:66-789:4 | vpiTypespec=\_ref_typespec |vpiOpType:75
+  TO     TOP | operation |  | 772:66-789:4 | |vpiOpType:75
+== testflags stamped_gen_param
+CELLS gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+  TO     PKGDEF | constant |  | 19:16-19:58 | |vpiSize:12 |BIN:010101101010 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:17-19:22 | |vpiDecompile:2'b01 |vpiSize:2 |BIN:01 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:24-19:29 | |vpiDecompile:2'b01 |vpiSize:2 |BIN:01 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:31-19:36 | |vpiDecompile:2'b01 |vpiSize:2 |BIN:01 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:38-19:43 | |vpiDecompile:2'b10 |vpiSize:2 |BIN:10 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:45-19:50 | |vpiDecompile:2'b10 |vpiSize:2 |BIN:10 |vpiConstType:3
+  TO     PKGDEF | constant |  | 19:52-19:57 | |vpiDecompile:2'b10 |vpiSize:2 |BIN:10 |vpiConstType:3
+  TO     PKGDEF | operation |  | 19:16-19:58 | |vpiOpType:33
+
+# ibex_tracer default, SECTIONED order-blind whole-dump distance to golden (ids stripped), pristine -> law
+PKG 1234 -> 1234
+PKGTOP 1336 -> 1336
+DEF 994 -> 934
+TOP 301 -> 273
+TAIL 14394 -> 14440
+(TAIL is the weaklyReferenced section the judge cannot reach; it is the only section whose distance grows.)

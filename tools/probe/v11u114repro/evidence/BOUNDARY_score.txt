@@ -1,0 +1,47 @@
+r10buvm22repro/g22.sv dist pris=2164 law=2164 delta=0  removed=6(inGold 0) added=6(inGold 0)
+r10buvm33repro/g33a2.sv dist pris=1796 law=1837 delta=41  removed=55(inGold 50) added=0(inGold 0)
+r10uvm154repro/l154_noenum.sv dist pris=91 law=91 delta=0  removed=4(inGold 0) added=4(inGold 0)
+r10uvm183repro/g183_f_param.sv dist pris=2119 law=2176 delta=57  removed=109(inGold 86) added=0(inGold 0)
+r10uvm185repro/grid185/g185_e_kinds.sv dist pris=1078 law=1078 delta=0  removed=6(inGold 0) added=6(inGold 0)
+r10v183repro/v183_c_param.sv dist pris=4337 law=4400 delta=63  removed=109(inGold 86) added=0(inGold 0)
+r10vearl102repro/v8_mix102.sv dist pris=1137 law=1164 delta=27  removed=43(inGold 43) added=0(inGold 0)
+r11u108repro/grid/pk/k13_member_nested_stamp/dut.sv dist pris=326 law=290 delta=-36  removed=40(inGold 1) added=4(inGold 4)
+r11u108repro/grid/pk/k14_member_nested_nodim/dut.sv dist pris=354 law=336 delta=-18  removed=22(inGold 1) added=4(inGold 4)
+r11u111repro/grid/f3/k13_member_nested_stamp/dut.sv dist pris=326 law=290 delta=-36  removed=40(inGold 1) added=4(inGold 4)
+r11u111repro/grid/f3/k14_member_nested_nodim/dut.sv dist pris=354 law=336 delta=-18  removed=22(inGold 1) added=4(inGold 4)
+r11u111repro/grid/f3/s00_stamped_corpus/dut.sv dist pris=1100 law=1064 delta=-36  removed=40(inGold 9) added=4(inGold 4)
+r11u111repro/grid/f3/t09_pat_vec_member_ctl/dut.sv dist pris=49 law=5 delta=-44  removed=40(inGold 1) added=4(inGold 4)
+r11u111repro/grid/f3/t10_pat_row_member/dut.sv dist pris=72 law=46 delta=-26  removed=22(inGold 1) added=4(inGold 4)
+r11u111repro/grid/f3/t11_pat_anon_named_member/dut.sv dist pris=51 law=7 delta=-44  removed=40(inGold 1) added=4(inGold 4)
+r11u111repro/grid/f3/t12_pat_row_dims_member/dut.sv dist pris=67 law=23 delta=-44  removed=40(inGold 1) added=4(inGold 4)
+r11u66repro/grid/g5_width66.sv dist pris=1045 law=995 delta=-50  removed=44(inGold 2) added=8(inGold 8)
+r11u66repro/grid/x1_optable.sv dist pris=2692 law=2652 delta=-40  removed=32(inGold 8) added=8(inGold 8)
+r11u68repro/grid/b1_refuse68.sv dist pris=8691 law=8675 delta=-16  removed=16(inGold 3) added=4(inGold 4)
+r11u68repro/grid/b4_postsz68.sv dist pris=7352 law=7316 delta=-36  removed=32(inGold 6) added=8(inGold 8)
+r11u68repro/grid/b5_redsz68.sv dist pris=4388 law=4352 delta=-36  removed=32(inGold 6) added=8(inGold 8)
+r11v54repro/grid/xb2/dut.sv dist pris=833 law=782 delta=-51  removed=75(inGold 23) added=8(inGold 8)
+r11v56repro/grid/x1_optable/dut.sv dist pris=2692 law=2652 delta=-40  removed=32(inGold 8) added=8(inGold 8)
+r11v68repro/ca/v3_lawb68.sv dist pris=6622 law=6590 delta=-32  removed=32(inGold 2) added=8(inGold 8)
+v11u108repro/brk/f2/c01_var_of_struct/dut.sv dist pris=85 law=41 delta=-44  removed=40(inGold 1) added=4(inGold 4)
+v11u108repro/brk/f2/c02_param_of_struct/dut.sv dist pris=698 law=656 delta=-42  removed=40(inGold 1) added=4(inGold 4)
+v11u108repro/brk/f2/c03_port_of_struct/dut.sv dist pris=60 law=16 delta=-44  removed=40(inGold 1) added=4(inGold 4)
+v11u108repro/brk/f2/c04_cast_struct/dut.sv dist pris=428 law=384 delta=-44  removed=40(inGold 1) added=4(inGold 4)
+v11u108repro/brk/f2/c09_import_var/dut.sv dist pris=1010 law=912 delta=-98  removed=92(inGold 2) added=8(inGold 8)
+v11u108repro/brk/f2/c16_pkg_func/dut.sv dist pris=99 law=55 delta=-44  removed=40(inGold 1) added=4(inGold 4)
+v11u108repro/brk/f2/c22_gen_localparam_twice/dut.sv dist pris=964 law=922 delta=-42  removed=40(inGold 1) added=4(inGold 4)
+r10buvm33repro__g33a2.sv ('line:16:17, endln:16:35', 'operation', 'line:16:27, endln:16:35', False) pris 0 law 1 gold 1 gold_alt 0
+r10buvm33repro__g33a2.sv ('line:16:17, endln:16:35', 'operation', 'line:16:27, endln:16:35', True) pris 1 law 0 gold 0 gold_alt 1
+r10uvm183repro__g183_f_param.sv ('line:14:19, endln:14:52', 'operation', 'line:14:35, endln:14:52', False) pris 0 law 1 gold 1 gold_alt 0
+r10uvm183repro__g183_f_param.sv ('line:14:19, endln:14:52', 'operation', 'line:14:35, endln:14:52', True) pris 1 law 0 gold 0 gold_alt 1
+r10uvm183repro__g183_f_param.sv ('line:15:19, endln:15:45', 'operation', 'line:15:35, endln:15:45', False) pris 0 law 1 gold 1 gold_alt 0
+r10uvm183repro__g183_f_param.sv ('line:15:19, endln:15:45', 'operation', 'line:15:35, endln:15:45', True) pris 1 law 0 gold 0 gold_alt 1
+r10uvm183repro__g183_f_param.sv ('line:16:21, endln:16:46', 'operation', 'line:16:35, endln:16:46', False) pris 0 law 1 gold 1 gold_alt 0
+r10uvm183repro__g183_f_param.sv ('line:16:21, endln:16:46', 'operation', 'line:16:35, endln:16:46', True) pris 1 law 0 gold 0 gold_alt 1
+r10v183repro__v183_c_param.sv ('line:11:20, endln:11:40', 'operation', 'line:11:29, endln:11:40', False) pris 0 law 1 gold 2 gold_alt 0
+r10v183repro__v183_c_param.sv ('line:11:20, endln:11:40', 'operation', 'line:11:29, endln:11:40', True) pris 1 law 0 gold 0 gold_alt 2
+r10v183repro__v183_c_param.sv ('line:8:17, endln:8:43', 'operation', 'line:8:30, endln:8:43', False) pris 0 law 1 gold 2 gold_alt 0
+r10v183repro__v183_c_param.sv ('line:8:17, endln:8:43', 'operation', 'line:8:30, endln:8:43', True) pris 1 law 0 gold 0 gold_alt 2
+r10v183repro__v183_c_param.sv ('line:9:18, endln:9:42', 'operation', 'line:9:32, endln:9:42', False) pris 0 law 1 gold 2 gold_alt 0
+r10v183repro__v183_c_param.sv ('line:9:18, endln:9:42', 'operation', 'line:9:32, endln:9:42', True) pris 1 law 0 gold 0 gold_alt 2
+r10vearl102repro__v8_mix102.sv ('line:7:17, endln:7:41', 'operation', 'line:7:33, endln:7:41', False) pris 0 law 1 gold 1 gold_alt 2
+r10vearl102repro__v8_mix102.sv ('line:7:17, endln:7:41', 'operation', 'line:7:33, endln:7:41', True) pris 3 law 2 gold 2 gold_alt 1

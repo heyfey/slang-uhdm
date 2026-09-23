@@ -1,0 +1,152 @@
+# grid114.sh grid <out> pris=<pristine e2ae9bd5> lawg=<law e67a68ed>: arm tag cmp-lines heads rc (golden = pinned Surelog v1.87, testflags form)
+f1/a01   pris   96/1  law   11/1  rc=0
+f1/a02   pris   96/1  law    0/0  rc=0
+f1/a03   pris   48/1  law    0/0  rc=0
+f1/a04   pris    0/0  law    0/0  rc=0
+f1/a05   pris   70/1  law    0/0  rc=0
+f1/a06   pris   66/1  law    0/0  rc=0
+f1/a07   pris   60/1  law    0/0  rc=0
+f1/a08   pris   48/1  law    0/0  rc=0
+f1/a09   pris   36/1  law    0/0  rc=0
+f1/a10   pris    0/0  law    0/0  rc=0
+f1/a11   pris   48/1  law    0/0  rc=0
+f1/a12   pris   52/1  law    0/0  rc=0
+f1/a13   pris   48/1  law    0/0  rc=0
+f1/a14   pris   72/1  law    0/0  rc=0
+f1/a15   pris    0/0  law    0/0  rc=0
+f1/a16   pris   48/1  law   34/1  rc=0
+f1/a17   pris   48/1  law    0/0  rc=0
+f1/a18   pris   48/1  law    0/0  rc=0
+f1/a19   pris   48/1  law    0/0  rc=0
+f1/a20   pris   84/1  law    0/0  rc=0
+f1/a21   pris   48/1  law    0/0  rc=0
+f1/a22   pris   66/1  law    0/0  rc=0
+f1/a23   pris   48/1  law    0/0  rc=0
+f1/a24   pris    0/0  law    0/0  rc=0
+f1/a25   pris   48/1  law    0/0  rc=0
+f1/a26   pris   26/1  law   26/1  rc=0
+f1/a27   pris   48/1  law   48/1  rc=0
+f1/a28   pris   48/1  law    0/0  rc=0
+f1/a29   pris   48/1  law   11/1  rc=0
+f1/a30   pris   11/1  law   11/1  rc=0
+f2/b01   pris   28/1  law   17/1  rc=0
+f2/b02   pris   28/1  law    0/0  rc=0
+f2/b03   pris   30/1  law    0/0  rc=0
+f2/b04   pris    0/0  law    0/0  rc=0
+f2/b05   pris   46/1  law   46/1  rc=0
+f2/b06   pris   28/1  law   17/1  rc=0
+f2/b07   pris   28/1  law   17/1  rc=0
+f2/b08   pris   28/1  law   17/1  rc=0
+f2/b09   pris   28/1  law    0/0  rc=0
+f2/b10   pris   28/1  law   17/1  rc=0
+f2/b11   pris  102/1  law  102/1  rc=0
+f2/b12   pris   30/1  law    0/0  rc=0
+f2/b13   pris   28/1  law    0/0  rc=0
+f3/c01   pris   19/1  law   19/1  rc=0
+f3/c02   pris   46/1  law   46/1  rc=0
+f3/c03   pris   46/1  law   46/1  rc=0
+f3/c04   pris  180/1  law  180/1  rc=0
+f3/c05   pris    0/0  law    0/0  rc=0
+f3/c06   pris   28/1  law   28/1  rc=0
+PROCESSED=49 LISTED=49
+
+# heads (first object line of LHS golden / RHS ours), pristine then law
+f1/a01 | 96 | L: constant: , id:292, line:6:53, endln:6:95 | R: operation: , id:12, line:6:53, endln:6:95
+f1/a02 | 96 | L: constant: , id:292, line:6:53, endln:6:95 | R: operation: , id:12, line:6:53, endln:6:95
+f1/a03 | 48 | L: constant: , id:183, line:4:45, endln:4:58 | R: operation: , id:12, line:4:45, endln:4:58
+f1/a04 | 0 | L:  | R:
+f1/a05 | 70 | L: constant: , id:201, line:4:45, endln:4:65 | R: operation: , id:12, line:4:45, endln:4:65
+f1/a06 | 66 | L: constant: , id:251, line:5:45, endln:5:54 | R: operation: , id:21, line:5:45, endln:5:54
+f1/a07 | 60 | L: constant: , id:189, line:4:45, endln:4:67 | R: operation: , id:12, line:4:45, endln:4:67
+f1/a08 | 48 | L: constant: , id:219, line:5:45, endln:5:57 | R: operation: , id:12, line:5:45, endln:5:57
+f1/a09 | 36 | L: constant: , id:177, line:4:45, endln:4:52 | R: operation: , id:12, line:4:45, endln:4:52
+f1/a10 | 0 | L:  | R:
+f1/a11 | 48 | L: constant: , id:135, line:4:37, endln:4:50 | R: operation: , id:8, line:4:37, endln:4:50
+f1/a12 | 52 | L: constant: , id:213, line:5:45, endln:5:56 | R: operation: , id:12, line:5:45, endln:5:56
+f1/a13 | 48 | L: constant: , id:183, line:4:44, endln:4:57 | R: operation: , id:12, line:4:44, endln:4:57
+f1/a14 | 72 | L: constant: , id:207, line:4:45, endln:4:59 | R: operation: , id:12, line:4:45, endln:4:59
+f1/a15 | 0 | L:  | R:
+f1/a16 | 48 | L: constant: , id:183, line:4:45, endln:4:58 | R: operation: , id:12, line:4:45, endln:4:58
+f1/a17 | 48 | L: constant: , id:183, line:4:45, endln:4:58 | R: operation: , id:12, line:4:45, endln:4:58
+f1/a18 | 48 | L: constant: , id:183, line:4:45, endln:4:77 | R: operation: , id:12, line:4:45, endln:4:77
+f1/a19 | 48 | L: constant: , id:264, line:5:60, endln:5:72 | R: operation: , id:18, line:5:60, endln:5:72
+f1/a20 | 84 | L: constant: , id:225, line:4:45, endln:4:62 | R: operation: , id:12, line:4:45, endln:4:62
+f1/a21 | 48 | L: constant: , id:183, line:4:45, endln:4:60 | R: operation: , id:12, line:4:45, endln:4:60
+f1/a22 | 66 | L: constant: , id:251, line:5:45, endln:5:54 | R: operation: , id:21, line:5:45, endln:5:54
+f1/a23 | 48 | L: constant: , id:115, line:4:40, endln:4:52 | R: operation: , id:8, line:4:40, endln:4:52
+f1/a24 | 0 | L:  | R:
+f1/a25 | 48 | L: constant: , id:194, line:4:34, endln:4:46 | R: operation: , id:8, line:4:34, endln:4:46
+f1/a26 | 26 | L: constant: , id:107, line:3:39, endln:3:51 | R: constant: , id:22, line:3:39, endln:3:51
+f1/a27 | 48 | L: constant: , id:183, line:4:45, endln:4:57 | R: operation: , id:12, line:4:45, endln:4:57
+f1/a28 | 48 | L: constant: , id:183, line:4:45, endln:4:58 | R: operation: , id:12, line:4:45, endln:4:58
+f1/a29 | 48 | L: constant: , id:183, line:4:45, endln:4:58 | R: operation: , id:12, line:4:45, endln:4:58
+f1/a30 | 11 | L: ref_typespec: , id:312 | R: <null>
+f2/b01 | 28 | L: ref_obj: (work@top.P_CAT), id:423, line:15:7, endln:15:12 | R: constant: , id:250, line:15:7, endln:15:12
+f2/b02 | 28 | L: ref_obj: (work@top.P_CAT), id:428, line:16:7, endln:16:12 | R: constant: , id:255, line:16:7, endln:16:12
+f2/b03 | 30 | L: ref_obj: (pk::P_CAT), id:323, line:15:7, endln:15:11 | R: constant: , id:152, line:15:7, endln:15:16
+f2/b04 | 0 | L:  | R:
+f2/b05 | 46 | L: ref_obj: (work@top.P_CAT), id:422, line:14:14, endln:14:19 | R: constant: , id:261, line:14:14, endln:14:19
+f2/b06 | 28 | L: ref_obj: (work@top.P_CAT), id:364, line:17:7, endln:17:12 | R: constant: , id:189, line:17:7, endln:17:12
+f2/b07 | 28 | L: ref_obj: (work@top.dec.P_CAT), id:434, line:14:7, endln:14:12 | R: constant: , id:258, line:14:7, endln:14:12
+f2/b08 | 28 | L: ref_obj: (work@top.P_CAT), id:423, line:15:7, endln:15:12 | R: constant: , id:250, line:15:7, endln:15:12
+f2/b09 | 28 | L: ref_obj: (work@top.P_CAT), id:423, line:14:7, endln:14:12 | R: constant: , id:251, line:14:7, endln:14:12
+f2/b10 | 28 | L: ref_obj: (work@top.P_CAT), id:429, line:15:7, endln:15:12 | R: constant: , id:223, line:15:7, endln:15:12
+f2/b11 | 102 | L: operation: , id:198, line:4:35, endln:4:51 | R: constant: , id:91, line:4:35, endln:4:47
+f2/b12 | 30 | L: ref_obj: (pk::P_CADD), id:227, line:13:7, endln:13:11 | R: constant: , id:104, line:13:7, endln:13:17
+f2/b13 | 28 | L: ref_obj: (work@top.g.P_CAT), id:176, line:11:9, endln:11:14 | R: constant: , id:131, line:11:9, endln:11:14
+f3/c01 | 19 | L: <null> | R: enum_const: (OP_SYS), id:48, line:3:30, endln:3:44
+f3/c02 | 46 | L: ref_obj: (work@top.A_CAT), id:221, line:10:20, endln:10:25 | R: constant: , id:133, line:10:20, endln:10:25
+f3/c03 | 46 | L: ref_obj: (work@top.B_CAT), id:177, line:10:20, endln:10:25 | R: constant: , id:109, line:10:20, endln:10:25
+f3/c04 | 180 | L: parameter: (pa::CfgRst), id:28, line:5:19, endln:5:25 | R: parameter: (pa::CfgRst), id:3, line:5:19, endln:5:25
+f3/c05 | 0 | L:  | R:
+f3/c06 | 28 | L: constant: , id:350, line:3:37, endln:3:62 | R: constant: , id:214
+
+f1/a01 | 11 | L: ref_typespec: , id:354 | R: <null>
+f1/a02 | 0 | L:  | R:
+f1/a03 | 0 | L:  | R:
+f1/a04 | 0 | L:  | R:
+f1/a05 | 0 | L:  | R:
+f1/a06 | 0 | L:  | R:
+f1/a07 | 0 | L:  | R:
+f1/a08 | 0 | L:  | R:
+f1/a09 | 0 | L:  | R:
+f1/a10 | 0 | L:  | R:
+f1/a11 | 0 | L:  | R:
+f1/a12 | 0 | L:  | R:
+f1/a13 | 0 | L:  | R:
+f1/a14 | 0 | L:  | R:
+f1/a15 | 0 | L:  | R:
+f1/a16 | 34 | L: constant: , id:261, line:4:45, endln:4:58 | R: constant: , id:94, line:4:45, endln:4:58
+f1/a17 | 0 | L:  | R:
+f1/a18 | 0 | L:  | R:
+f1/a19 | 0 | L:  | R:
+f1/a20 | 0 | L:  | R:
+f1/a21 | 0 | L:  | R:
+f1/a22 | 0 | L:  | R:
+f1/a23 | 0 | L:  | R:
+f1/a24 | 0 | L:  | R:
+f1/a25 | 0 | L:  | R:
+f1/a26 | 26 | L: constant: , id:107, line:3:39, endln:3:51 | R: constant: , id:22, line:3:39, endln:3:51
+f1/a27 | 48 | L: constant: , id:183, line:4:45, endln:4:57 | R: operation: , id:12, line:4:45, endln:4:57
+f1/a28 | 0 | L:  | R:
+f1/a29 | 11 | L: ref_typespec: , id:247 | R: <null>
+f1/a30 | 11 | L: ref_typespec: , id:312 | R: <null>
+f2/b01 | 17 | L: ref_typespec: (work@top), id:429 | R: <null>
+f2/b02 | 0 | L:  | R:
+f2/b03 | 0 | L:  | R:
+f2/b04 | 0 | L:  | R:
+f2/b05 | 46 | L: ref_obj: (work@top.P_CAT), id:422, line:14:14, endln:14:19 | R: constant: , id:261, line:14:14, endln:14:19
+f2/b06 | 17 | L: ref_typespec: (work@top), id:370 | R: <null>
+f2/b07 | 17 | L: ref_typespec: (work@top), id:439 | R: <null>
+f2/b08 | 17 | L: ref_typespec: (work@top), id:425 | R: <null>
+f2/b09 | 0 | L:  | R:
+f2/b10 | 17 | L: ref_typespec: (work@top), id:435 | R: <null>
+f2/b11 | 102 | L: operation: , id:198, line:4:35, endln:4:51 | R: constant: , id:91, line:4:35, endln:4:47
+f2/b12 | 0 | L:  | R:
+f2/b13 | 0 | L:  | R:
+f3/c01 | 19 | L: <null> | R: enum_const: (OP_SYS), id:48, line:3:30, endln:3:44
+f3/c02 | 46 | L: ref_obj: (work@top.A_CAT), id:221, line:10:20, endln:10:25 | R: constant: , id:133, line:10:20, endln:10:25
+f3/c03 | 46 | L: ref_obj: (work@top.B_CAT), id:177, line:10:20, endln:10:25 | R: constant: , id:109, line:10:20, endln:10:25
+f3/c04 | 180 | L: parameter: (pa::CfgRst), id:28, line:5:19, endln:5:25 | R: parameter: (pa::CfgRst), id:3, line:5:19, endln:5:25
+f3/c05 | 0 | L:  | R:
+f3/c06 | 28 | L: constant: , id:350, line:3:37, endln:3:62 | R: constant: , id:214

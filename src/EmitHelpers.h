@@ -13452,4 +13452,439 @@ inline std::map<const void*, UHDM::typespec*>& f1DefBare111() {
     return m;
 }
 
+// ============================================================================
+// r11u114 — PAIR P OF THE FOLD GROUND, SECOND ROUND.  Every law reads its own
+// kill switch; `R11U114_OFF=1` turns them all off.  Grids, cells and decodes:
+// tools/probe/r11u114repro/README.md.
+// ============================================================================
+inline bool r11u114On(const char* one) {
+    static const bool all = getenv("R11U114_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// § pkgPatCatMemberFold114 (FACE 1) — a CONCATENATION written as an ELEMENT
+/// of an assignment pattern (a keyed member, a `default:` value, a positional
+/// element, at any pattern nesting depth) in a PACKAGE parameter's value is
+/// ONE binary constant in golden, in both package views and in an importing
+/// module's materialized copy.  Producer: `compileAssignmentPattern`
+/// (Surelog src/DesignCompile/CompileExpression.cpp:3709-3713) forces
+/// `Reduce::Yes` for a Package component, every element is compiled through
+/// `compileExpression(..., reduce)`, whose tail (:3671-3678) runs
+/// `reduceExpr`; UHDM's ExprEval `vpiConcatOp` arm
+/// (UHDM templates/ExprEval.cpp:3993-4183) concatenates each operand
+/// CONSTANT's bits (BIN verbatim, HEX via hexToBin, DEC/OCT/UINT/INT via
+/// toBinary(size)) into `BIN:<bits>`, size = the SUM of the operand sizes,
+/// no decompile — and gives up (`c1 = nullptr`) on an INT/UINT operand of
+/// size 64 in a multi-operand concat.  A parameter leaf is the substituted
+/// param_assign Rhs constant, so it contributes its LITERAL's size, not its
+/// declared width.  Golden grid tools/probe/r11u114repro/grid/f1.
+/// This walker computes the bits the producer computes, leaf by leaf, and
+/// DECLINES (returns false) on every leaf shape the grid did not measure or
+/// that the producer refuses: an unsized literal, a parameter whose
+/// initializer is not a sized literal (a15/a24: UINT size 64 — golden keeps
+/// the concat), an unknown digit outside a binary literal (a27: hexToBin
+/// maps it to zeros; not modelled), a decimal literal wider than 64 bits.
+/// The call site also declines an UNPACKED-ARRAY parameter (grid a26
+/// `logic [7:0] ARR [2] = '{ {4'h1, 4'h2}, 8'h3 }`): golden's element is
+/// `BIN:00010010` size 8, but a later pass re-sizes that listing's elements
+/// to 64, so the fold would move a wrong cell to another wrong cell.
+inline bool pkgPatCatFold114On() {
+    static const bool on = r11u114On("R11U114_F1_OFF");
+    return on;
+}
+inline bool cat114Lit(const Expression& e, std::string& out) {
+    if (e.kind != ExpressionKind::IntegerLiteral || !e.type)
+        return false;
+    auto& lit = e.as<IntegerLiteral>();
+    if (lit.isDeclaredUnsized || !lit.syntax)
+        return false;
+    int32_t w = (int32_t)e.type->getBitWidth();
+    if (w <= 0)
+        return false;
+    std::string txt = lit.syntax->toString();
+    auto q = txt.find('\'');
+    if (q == std::string::npos)
+        return false;
+    size_t bp = q + 1;
+    if (bp < txt.size() && (txt[bp] == 's' || txt[bp] == 'S'))
+        bp++;
+    if (bp >= txt.size())
+        return false;
+    char base = (char)std::tolower((unsigned char)txt[bp]);
+    SVInt v = lit.getValue();
+    if (base == 'd' && w > 64)
+        return false;
+    if (v.hasUnknown()) {
+        if (base != 'b')
+            return false;
+        std::string dg;
+        for (size_t i = bp + 1; i < txt.size(); i++) {
+            char c = txt[i];
+            if (c == '_' || c == ' ' || c == '\t')
+                continue;
+            if (c != '0' && c != '1' && c != 'x' && c != 'z')
+                return false;
+            dg += c;
+        }
+        if ((int32_t)dg.size() != w)
+            return false;
+        out += dg;
+        return true;
+    }
+    for (int32_t i = w - 1; i >= 0; i--)
+        out += (v[i] == slang::logic_t(1)) ? '1' : '0';
+    return true;
+}
+/// v11u114: true when `e` (through conversions, unary and binary operators)
+/// holds an integer literal declared without a size.
+inline bool unsizedLit114(const Expression& e0) {
+    auto& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral:
+            return e.as<IntegerLiteral>().isDeclaredUnsized;
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+            return true;
+        case ExpressionKind::Conversion:
+            return unsizedLit114(e.as<ConversionExpression>().operand());
+        case ExpressionKind::UnaryOp:
+            return unsizedLit114(e.as<UnaryExpression>().operand());
+        case ExpressionKind::BinaryOp:
+            return unsizedLit114(e.as<BinaryExpression>().left()) ||
+                   unsizedLit114(e.as<BinaryExpression>().right());
+        default:
+            return false;
+    }
+}
+inline bool cat114Bits(const Expression& e0, const Scope* home, std::string& out) {
+    auto& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral:
+            return cat114Lit(e, out);
+        case ExpressionKind::Concatenation: {
+            auto& ce = e.as<ConcatenationExpression>();
+            if (ce.operands().empty())
+                return false;
+            for (auto* op : ce.operands())
+                if (!op || !cat114Bits(*op, home, out))
+                    return false;
+            return true;
+        }
+        case ExpressionKind::Replication: {
+            auto& re = e.as<ReplicationExpression>();
+            auto& c = stripImplicitConv(re.count());
+            if (c.kind != ExpressionKind::IntegerLiteral)
+                return false;
+            SVInt cv = c.as<IntegerLiteral>().getValue();
+            if (cv.hasUnknown())
+                return false;
+            auto n = cv.as<uint32_t>();
+            if (!n || *n == 0 || *n > 4096)
+                return false;
+            std::string one;
+            if (!cat114Bits(re.concat(), home, one))
+                return false;
+            for (uint32_t i = 0; i < *n; i++)
+                out += one;
+            return true;
+        }
+        case ExpressionKind::NamedValue: {
+            auto& sym = e.as<NamedValueExpression>().symbol;
+            if (sym.kind == SymbolKind::EnumValue) {
+                auto& ev = sym.as<EnumValueSymbol>();
+                // v11u114 fence: an enum value whose initializer holds an
+                // UNSIZED literal (`EA = 3`, `EA = 'h3`) is a 64-bit UINT in
+                // the producer -- golden keeps the concat (multi-operand) or
+                // writes a 64-digit/sizeless BIN (single operand, based
+                // unsized); verifier grid k05-k07, g04.  Declines.
+                if (auto* ei114 = ev.getInitializer(); ei114 && unsizedLit114(*ei114))
+                    return false;
+                auto& cv = ev.getValue();
+                int32_t w = (int32_t)ev.getType().getBitWidth();
+                if (!cv.isInteger() || cv.integer().hasUnknown() || w <= 0)
+                    return false;
+                auto iv = cv.integer();
+                for (int32_t i = w - 1; i >= 0; i--)
+                    out += (i < (int32_t)iv.getBitWidth() &&
+                            iv[i] == slang::logic_t(1)) ? '1' : '0';
+                return true;
+            }
+            if (sym.kind == SymbolKind::Parameter && home &&
+                sym.getParentScope() == home) {
+                auto* in = sym.as<ParameterSymbol>().getInitializer();
+                return in && cat114Lit(stripImplicitConv(*in), out);
+            }
+            return false;
+        }
+        case ExpressionKind::Conversion: {
+            // An explicit SIZE cast of a literal, `4'(3)` (grid a14).
+            auto& cv = e.as<ConversionExpression>();
+            if (cv.isImplicit() || !cv.syntax ||
+                cv.syntax->kind != syntax::SyntaxKind::CastExpression || !e.type)
+                return false;
+            auto& cs = cv.syntax->as<syntax::CastExpressionSyntax>();
+            if (!cs.left || cs.left->kind != syntax::SyntaxKind::IntegerVectorExpression &&
+                                cs.left->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+                return false;
+            auto& op = stripImplicitConv(cv.operand());
+            if (op.kind != ExpressionKind::IntegerLiteral)
+                return false;
+            SVInt ov = op.as<IntegerLiteral>().getValue();
+            if (ov.hasUnknown() || ov.isNegative())
+                return false;
+            int32_t w = (int32_t)e.type->getBitWidth();
+            if (w <= 0 || w > 64)
+                return false;
+            for (int32_t i = w - 1; i >= 0; i--)
+                out += (i < (int32_t)ov.getBitWidth() &&
+                        ov[i] == slang::logic_t(1)) ? '1' : '0';
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+/// The pattern ELEMENTS (strip, recurse into nested patterns) that are
+/// concatenations, keyed by the five-field span the emitter stamps.
+template <class LC>
+inline void cat114Collect(const Expression& e0, LC&& lc,
+                          std::map<std::array<uint32_t, 4>, const Expression*>& m) {
+    auto& e = stripImplicitConv(e0);
+    auto one = [&](const Expression* x) {
+        if (!x)
+            return;
+        auto& xs = stripImplicitConv(*x);
+        if (xs.kind == ExpressionKind::Concatenation)
+            m[lc(xs.sourceRange)] = &xs;
+        else if (xs.kind == ExpressionKind::StructuredAssignmentPattern ||
+                 xs.kind == ExpressionKind::SimpleAssignmentPattern)
+            cat114Collect(xs, lc, m);
+    };
+    if (e.kind == ExpressionKind::StructuredAssignmentPattern) {
+        auto& ap = e.as<StructuredAssignmentPatternExpression>();
+        for (auto& ms : ap.memberSetters)
+            one(ms.expr);
+        one(ap.defaultSetter);
+    }
+    else if (e.kind == ExpressionKind::SimpleAssignmentPattern) {
+        for (auto* el : e.as<SimpleAssignmentPatternExpression>().elements())
+            one(el);
+    }
+}
+/// Replace, in the emitted op75 tree `rhs`, every concat operation that sits
+/// at a collected element position with the producer's folded constant.  `mk`
+/// mints the constant (ONE Make per replaced element, every field written
+/// once).  Returns the number replaced.
+template <class LC, class MK>
+inline int pkgPatCatFold114(UHDM::any* rhs, const Expression& init,
+                            const Scope* home, LC&& lc, MK&& mk) {
+    if (!rhs || rhs->UhdmType() != UHDM::uhdmoperation ||
+        ((UHDM::operation*)rhs)->VpiOpType() != vpiAssignmentPatternOp)
+        return 0;
+    std::map<std::array<uint32_t, 4>, const Expression*> m;
+    cat114Collect(init, lc, m);
+    if (m.empty())
+        return 0;
+    int n = 0;
+    auto fold = [&](UHDM::any* x) -> UHDM::any* {
+        if (!x || x->UhdmType() != UHDM::uhdmoperation ||
+            ((UHDM::operation*)x)->VpiOpType() != vpiConcatOp)
+            return nullptr;
+        std::array<uint32_t, 4> k{x->VpiLineNo(), x->VpiColumnNo(),
+                                  x->VpiEndLineNo(), x->VpiEndColumnNo()};
+        auto it = m.find(k);
+        if (it == m.end())
+            return nullptr;
+        std::string bits;
+        if (!cat114Bits(*it->second, home, bits) || bits.empty())
+            return nullptr;
+        return mk((UHDM::operation*)x, bits);
+    };
+    std::function<void(UHDM::operation*)> walk = [&](UHDM::operation* op) {
+        auto* ops = op->Operands();
+        if (!ops)
+            return;
+        for (size_t i = 0; i < ops->size(); i++) {
+            UHDM::any* o = (*ops)[i];
+            if (!o)
+                continue;
+            if (o->UhdmType() == UHDM::uhdmtagged_pattern) {
+                auto* tp = (UHDM::tagged_pattern*)o;
+                UHDM::any* pv = (UHDM::any*)tp->Pattern();
+                if (auto* c = fold(pv)) {
+                    tp->Pattern((UHDM::expr*)c);
+                    n++;
+                }
+                else if (pv && pv->UhdmType() == UHDM::uhdmoperation &&
+                         ((UHDM::operation*)pv)->VpiOpType() == vpiAssignmentPatternOp)
+                    walk((UHDM::operation*)pv);
+                continue;
+            }
+            if (auto* c = fold(o)) {
+                (*ops)[i] = c;
+                n++;
+            }
+            else if (o->UhdmType() == UHDM::uhdmoperation &&
+                     ((UHDM::operation*)o)->VpiOpType() == vpiAssignmentPatternOp)
+                walk((UHDM::operation*)o);
+        }
+    };
+    walk((UHDM::operation*)rhs);
+    return n;
+}
+
+/// § imppCopyOpReadIsRef114 (FACE 2) — a module's UNQUALIFIED read of an
+/// imported package parameter is substituted by the producer ONLY when the
+/// module's materialized copy (its param_assign, `VpiImported` set) has a
+/// CONSTANT Rhs: `compileExpression`'s component arm (Surelog
+/// src/DesignCompile/CompileExpression.cpp:2945-2966) takes `reduce ==
+/// Reduce::Yes || (paramFromPackage && Rhs is uhdmconstant)`, and a statement
+/// body compiles `Reduce::No`.  A concat-bearing initializer's copy is the
+/// cloned OPERATION (§ impCopyConcatUnbound111), so every read of it stays
+/// the module-scoped, actual-less `ref_obj` — in a case item, an `if`
+/// condition, an assignment Rhs, a continuous assign, a function's case item
+/// (grid tools/probe/r11u114repro/grid/f2 b01-b10).  THIS pass owns only the
+/// statement emitter, so the law lands for the CASE-ITEM expression (the
+/// position ibex_tracer's head sits in); every other position is the fold at
+/// ExprEmit.cpp's NamedValue parameter arm (`auto& cv = psym.getValue();`,
+/// ExprEmit.cpp:16161 at a81eb328), the sister pass's file — residue R1.
+/// The copy is found on the UHDM parent chain (the case item's enclosing
+/// scope up to its module_inst): no copy found, or a CONSTANT copy, declines;
+/// so does a chain that meets a gen_scope first (an elaborated generate
+/// block is its own component; not measured).  A DEF-view generate block's
+/// process reaches the module_inst directly and is covered (grid f2 b13).
+inline bool caseItemImpRef114On() {
+    static const bool on = r11u114On("R11U114_F2_OFF");
+    return on;
+}
+/// § pkgQualOpReadIsRef114 (FACE 2, qualified half) — `pkg::P` read in a
+/// module body: the producer's package-qualified arm folds a scalar value but
+/// not a concat/pattern-bearing one, so such a P stays `ref_obj (pkg::P)`, name
+/// `pkg::P`, bound to the package parameter, spanning the QUALIFIER `pkg::`
+/// (grid f2 b03).  Same case-item-only site.
+inline bool caseItemQualRef114On() {
+    static const bool on = r11u114On("R11U114_F2Q_OFF");
+    return on;
+}
+/// MEASURED rule: a package value whose tree holds a vpiConcatOp or a
+/// vpiAssignmentPatternOp anywhere keeps the qualified ref; every other package
+/// value (`100 + 100`, `8'hF0 | 8'h0F`) folds (grid f2 b03/b12; r11u104repro
+/// verifier a3_nonnda94 `a3p::YADD`).  The producer road is the package-scope
+/// arm of compileExpression (Surelog CompileExpression.cpp:2717-2765); the
+/// exact line that keeps a concat-valued read as a ref is not pinned (the
+/// default `parametersubstitution` is ON, so it is not substituteAssignedValue).
+inline bool subst114Refused(const UHDM::any* e) {
+    if (!e || e->UhdmType() != UHDM::uhdmoperation)
+        return false;
+    auto* op = (const UHDM::operation*)e;
+    if (op->VpiOpType() == vpiConcatOp || op->VpiOpType() == vpiAssignmentPatternOp)
+        return true;
+    // v11u114 fence: a conditional whose branch holds the concat is
+    // SUBSTITUTED by golden (`pk::P`, P = `C ? {..} : 8'h2` -> constant;
+    // verifier grid n01; the S5 selected-branch rule of concatBearing54).
+    if (op->VpiOpType() == vpiConditionOp)
+        return false;
+    if (auto* ops = op->Operands())
+        for (auto* o : *ops)
+            if (subst114Refused(o))
+                return true;
+    return false;
+}
+/// The imported package parameter an item expression reads, when the read is
+/// unqualified (`qualified` false) or `pkg::P` (`qualified` true).
+inline const ParameterSymbol* caseItemPkgParam114(const Expression& e0, bool& qualified) {
+    auto& e = stripImplicitConv(e0);
+    if (e.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& nv = e.as<NamedValueExpression>();
+    if (nv.symbol.kind != SymbolKind::Parameter || !nv.symbol.getParentScope() ||
+        nv.symbol.getParentScope()->asSymbol().kind != SymbolKind::Package)
+        return nullptr;
+    qualified = nv.syntax && nv.syntax->kind == syntax::SyntaxKind::ScopedName;
+    return &nv.symbol.as<ParameterSymbol>();
+}
+/// v11u114 fence: the producer's copy stays an OPERATION (and its reads stay
+/// refs) only for a CONCAT-BEARING initializer -- the concatBearing54 walk
+/// (ParamEmit.cpp; conversions, unary and binary operators; a conditional,
+/// select, call or leaf answers no).  Golden SUBSTITUTES `~8'h0F`, `OTHER`
+/// and `OTHER.a` (OTHER concat-valued) although our copy of each is not a
+/// constant (verifier grid d04/d10/d17; refs kept: d05/d11/d16, m02/m06/m07).
+inline bool concatBearing114(const Expression& e0) {
+    const Expression* e = &e0;
+    while (e->kind == ExpressionKind::Conversion)
+        e = &e->as<ConversionExpression>().operand();
+    switch (e->kind) {
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+            return true;
+        case ExpressionKind::UnaryOp:
+            return concatBearing114(e->as<UnaryExpression>().operand());
+        case ExpressionKind::BinaryOp:
+            return concatBearing114(e->as<BinaryExpression>().left()) ||
+                   concatBearing114(e->as<BinaryExpression>().right());
+        default:
+            return false;
+    }
+}
+/// The module's materialized copy's Rhs kind: 1 = found, NOT a constant;
+/// 0 = found, a constant; -1 = no copy on the chain.
+inline int impCopyRhsNonConst114(const UHDM::BaseClass* from, std::string_view name) {
+    const UHDM::BaseClass* p = from;
+    for (int d = 0; p && d < 64; d++, p = p->VpiParent()) {
+        // A generate block is its own component in the producer (the § law 76
+        // decode): its reads never reach the module's copy.  Not measured
+        // here, so it declines.
+        if (p->UhdmType() == UHDM::uhdmgen_scope ||
+            p->UhdmType() == UHDM::uhdmgen_scope_array)
+            return -1;
+        if (p->UhdmType() != UHDM::uhdmmodule_inst)
+            continue;
+        auto* pas = ((const UHDM::module_inst*)p)->Param_assigns();
+        if (!pas)
+            return -1;
+        for (auto* pa : *pas) {
+            if (!pa || !pa->Lhs() || pa->Lhs()->VpiName() != name)
+                continue;
+            if (pa->Lhs()->UhdmType() != UHDM::uhdmparameter ||
+                ((const UHDM::parameter*)pa->Lhs())->VpiImported().empty())
+                return -1;
+            if (!pa->Rhs())
+                return -1;
+            return pa->Rhs()->UhdmType() == UHDM::uhdmconstant ? 0 : 1;
+        }
+        return -1;
+    }
+    return -1;
+}
+
+/// § leakCopyOpNoTs114 (FACE 3, ibex_tracer's next head) — a package
+/// parameter that reaches a module ONLY through another package's wildcard
+/// import (the producer's transitive leak: `module ibex_tracer` imports
+/// ibex_tracer_pkg::*, which imports ibex_pkg::*) is materialized in the
+/// module's ELABORATED listing with its Rhs operation UNTYPED: golden's
+/// concat, packed-array-typedef concat and unpacked-array pattern copies carry
+/// NO ref_typespec, where a directly imported one carries the module-named
+/// ref (grid tools/probe/r11u114repro/grid/f3: c01/c03/c04 leak -> none,
+/// c02 one-hop -> ref; ibex_pkg CSR_MARCHID_VALUE, RndCnstLfsrPermDefault,
+/// PmpCfgRst, PmpAddrRst).  A packed-struct pattern keeps its flatten ref
+/// (c04 OneCfg) and an unpacked-struct op (`structOp`) is not measured, so
+/// both are left as they were.  A parameter that ALSO arrives one hop (a
+/// diamond, c05) declines: that shape is judge-equal at the base.
+/// `occ` is the occurrence's ImpOcc9 (src = the immediately imported
+/// package when the home is deeper); the predicate asks that NO occurrence of
+/// the same symbol arrives directly.
+inline bool leakCopyNoOpTs114On() {
+    static const bool on = r11u114On("R11U114_F3_OFF");
+    return on;
+}
+template <class Occ>
+inline bool leakOnlyOcc114(const Occ* occ, const void* sym,
+                           const std::vector<const Occ*>& all) {
+    if (!occ || occ->src.empty())
+        return false;
+    for (auto* o : all)
+        if (o && (const void*)o->sym == sym && o->src.empty())
+            return false;
+    return true;
+}
+
 } // namespace slang_uhdm

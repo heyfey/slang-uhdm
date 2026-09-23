@@ -1,0 +1,35 @@
+# heads with the LAW binary (md5 e67a68ed307cbe8efdeb4c5bef51a76e), from the law sweep's own databases
+== stamped_gen_param default: 11 lines, 1 head
+== stamped_gen_param testflags: 11 lines, 1 head
+== ibex_tracer default: 0 lines, 0 head
+== ibex_tracer testflags: 0 lines, 0 head
+--- stamped_gen_param default, full NEXT head:
+LHS:
+decompile:
+ref_typespec: , id:537
+|vpiActual:
+\_struct_typespec: (q2::impl_t), id:42, line:12:11, endln:16:4
+
+decompile:
+ref_typespec: , id:537
+|vpiActual:
+\_struct_typespec: (q2::impl_t), id:42, line:12:11, endln:16:4
+RHS: <null>
+--- intermediate (law1 = faces 1+2 only): ibex_tracer 17 lines, head:
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (work@ibex_tracer), id:21724
+|vpiParent:
+\_operation: , id:21721, line:710:47, endln:710:61
+|vpiFullName:work@ibex_tracer
+|vpiActual:
+\_logic_typespec: , id:25346, line:710:14, endln:710:26
+
+decompile:
+ref_typespec: (work@ibex_tracer), id:21724
+|vpiParent:
+\_operation: , id:21721, line:710:47, endln:710:61
+|vpiFullName:work@ibex_tracer
+|vpiActual:
+\_logic_typespec: , id:25346, line:710:14, endln:710:26

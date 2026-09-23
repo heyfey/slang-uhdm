@@ -1,0 +1,7 @@
+// verifier: enum leaf sized + auto after unsized, read in module import copy
+package q2;
+  typedef enum logic [5:0] {EA = 3, EB} e_t;
+  typedef struct packed { logic [3:0] pad; logic [11:0] v; logic [1:0] cfg; } s_t;
+  localparam s_t IMPL = '{ pad: 4'h9, v: {EB, 6'd2}, cfg: 2'b11 };
+endpackage
+module top import q2::*; (input logic [11:0] x, output logic y); always_comb case (x) IMPL.v: y = 1; default: y = 0; endcase endmodule

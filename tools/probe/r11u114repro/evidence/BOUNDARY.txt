@@ -1,0 +1,78 @@
+# WIDE BOUNDARY: bnd114.sh over every committed probe arm (tools/probe, this pass's dir excluded), pristine e2ae9bd5 vs law e67a68ed
+LISTED=9613 PROCESSED=9613
+     31 MOVED
+    236 NOOUT
+   9346 SAME
+MOVED ./r10buvm22repro/g22.sv rc=4/4
+MOVED ./r10buvm33repro/g33a2.sv rc=0/0
+MOVED ./r10uvm154repro/l154_noenum.sv rc=0/0
+MOVED ./r10uvm183repro/g183_f_param.sv rc=0/0
+MOVED ./r10uvm185repro/grid185/g185_e_kinds.sv rc=0/0
+MOVED ./r10v183repro/v183_c_param.sv rc=0/0
+MOVED ./r10vearl102repro/v8_mix102.sv rc=0/0
+MOVED ./r11u108repro/grid/pk/k13_member_nested_stamp/dut.sv rc=0/0
+MOVED ./r11u108repro/grid/pk/k14_member_nested_nodim/dut.sv rc=0/0
+MOVED ./r11u111repro/grid/f3/k13_member_nested_stamp/dut.sv rc=0/0
+MOVED ./r11u111repro/grid/f3/k14_member_nested_nodim/dut.sv rc=0/0
+MOVED ./r11u111repro/grid/f3/s00_stamped_corpus/dut.sv rc=0/0
+MOVED ./r11u111repro/grid/f3/t09_pat_vec_member_ctl/dut.sv rc=0/0
+MOVED ./r11u111repro/grid/f3/t10_pat_row_member/dut.sv rc=0/0
+MOVED ./r11u111repro/grid/f3/t11_pat_anon_named_member/dut.sv rc=0/0
+MOVED ./r11u111repro/grid/f3/t12_pat_row_dims_member/dut.sv rc=0/0
+MOVED ./r11u66repro/grid/g5_width66.sv rc=0/0
+MOVED ./r11u66repro/grid/x1_optable.sv rc=0/0
+MOVED ./r11u68repro/grid/b1_refuse68.sv rc=0/0
+MOVED ./r11u68repro/grid/b4_postsz68.sv rc=0/0
+MOVED ./r11u68repro/grid/b5_redsz68.sv rc=0/0
+MOVED ./r11v54repro/grid/xb2/dut.sv rc=0/0
+MOVED ./r11v56repro/grid/x1_optable/dut.sv rc=0/0
+MOVED ./r11v68repro/ca/v3_lawb68.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c01_var_of_struct/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c02_param_of_struct/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c03_port_of_struct/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c04_cast_struct/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c09_import_var/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c16_pkg_func/dut.sv rc=0/0
+MOVED ./v11u108repro/brk/f2/c22_gen_localparam_twice/dut.sv rc=0/0
+(the Segmentation-fault lines of the run are rc=139 on BOTH binaries alike: every mover row above has rc equal on both sides; NOOUT rows are arms neither binary writes)
+
+# per-arm score (bndscore114.sh: golden = pinned Surelog, single-file testflags form; cells114.py, calibration golden x3 = 0 on every arm)
+r10buvm22repro__g22.sv cmp=3438->3438 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0
+r10buvm33repro__g33a2.sv cmp=126->126 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=1 TO=2 AWAY=0 WRONG-GAINED=0
+r10uvm154repro__l154_noenum.sv cmp=17->17 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0
+r10uvm183repro__g183_f_param.sv cmp=1421->1421 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=3 lost=3 TO=6 AWAY=0 WRONG-GAINED=0
+r10uvm185repro__grid185__g185_e_kinds.sv cmp=72->72 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0
+r10v183repro__v183_c_param.sv cmp=1935->1935 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=3 lost=3 TO=6 AWAY=0 WRONG-GAINED=0
+r10vearl102repro__v8_mix102.sv cmp=58->58 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=0 TO=1 AWAY=0 WRONG-GAINED=0
+r11u108repro__grid__pk__k13_member_nested_stamp__dut.sv cmp=96->11 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+r11u108repro__grid__pk__k14_member_nested_nodim__dut.sv cmp=100->100 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=4 TO=5 AWAY=0 WRONG-GAINED=0
+r11u111repro__grid__f3__k13_member_nested_stamp__dut.sv cmp=96->11 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+r11u111repro__grid__f3__k14_member_nested_nodim__dut.sv cmp=100->100 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=4 TO=5 AWAY=0 WRONG-GAINED=0
+r11u111repro__grid__f3__s00_stamped_corpus__dut.sv cmp=96->11 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+r11u111repro__grid__f3__t09_pat_vec_member_ctl__dut.sv cmp=96->0 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+r11u111repro__grid__f3__t10_pat_row_member__dut.sv cmp=100->100 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=4 TO=5 AWAY=0 WRONG-GAINED=0
+r11u111repro__grid__f3__t11_pat_anon_named_member__dut.sv cmp=96->295 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+r11u111repro__grid__f3__t12_pat_row_dims_member__dut.sv cmp=96->32 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+r11u66repro__grid__g5_width66.sv cmp=28->28 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=2 lost=8 TO=10 AWAY=0 WRONG-GAINED=0
+r11u66repro__grid__x1_optable.sv cmp=28->28 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=2 lost=6 TO=8 AWAY=0 WRONG-GAINED=0
+r11u68repro__grid__b1_refuse68.sv cmp=72->72 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=3 TO=4 AWAY=0 WRONG-GAINED=0
+r11u68repro__grid__b4_postsz68.sv cmp=38->38 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=2 lost=6 TO=8 AWAY=0 WRONG-GAINED=0
+r11u68repro__grid__b5_redsz68.sv cmp=38->38 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=2 lost=6 TO=8 AWAY=0 WRONG-GAINED=0
+r11v54repro__grid__xb2__dut.sv cmp=32->32 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=3 lost=7 TO=10 AWAY=0 WRONG-GAINED=0
+r11v56repro__grid__x1_optable__dut.sv cmp=28->28 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=2 lost=6 TO=8 AWAY=0 WRONG-GAINED=0
+r11v68repro__ca__v3_lawb68.sv cmp=48->38 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=2 lost=6 TO=8 AWAY=0 WRONG-GAINED=0
+v11u108repro__brk__f2__c01_var_of_struct__dut.sv cmp=96->32 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+v11u108repro__brk__f2__c02_param_of_struct__dut.sv cmp=96->100 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+v11u108repro__brk__f2__c03_port_of_struct__dut.sv cmp=96->0 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+v11u108repro__brk__f2__c04_cast_struct__dut.sv cmp=96->96 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+v11u108repro__brk__f2__c09_import_var__dut.sv cmp=96->17 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=2 lost=14 TO=16 AWAY=0 WRONG-GAINED=0
+v11u108repro__brk__f2__c16_pkg_func__dut.sv cmp=96->32 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+v11u108repro__brk__f2__c22_gen_localparam_twice__dut.sv cmp=96->11 calib[gained=0 lost=0 TO=0 AWAY=0 WRONG-GAINED=0] :: gained=1 lost=7 TO=8 AWAY=0 WRONG-GAINED=0
+
+# the three zero-cell byte movers (g22, l154_noenum, g185_e_kinds) are the documented BINARY-LAYOUT tail constant (class-scoped typedef <T> name[string]; a UINT below weaklyReferenced). Positive control = r10uvm154repro/layoutproof154.sh on its NO-ENUM, law-free source:
+enum keywords in the source: 0  (must be 0)
+pris: tail value(s) = UINT:23562649
+pat: tail value(s) = UINT:23579097
+JUDGE-VISIBLE HEAD IDENTICAL (the two binaries agree on everything uhdm-cmp reads)
+TAIL DIFFERS with no enum in the source => LAYOUT-DERIVED, not this law
+LAYOUTPROOF OK

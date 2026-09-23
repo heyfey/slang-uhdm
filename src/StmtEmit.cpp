@@ -4932,6 +4932,52 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // (arm D cell 53:9, golden bare).
                     MethodWindow161 mw161(classMethodNoBind, methodWindowDepth161v);
                     if (auto* ue = emitExpr(*e, it, prefix, netMap)) {
+                        // § imppCopyOpReadIsRef114 / § pkgQualOpReadIsRef114
+                        // (EmitHelpers.h): an imported package parameter whose
+                        // copy is not a constant (or, qualified, whose package
+                        // Rhs holds a concat/pattern) is NOT substituted —
+                        // golden keeps the ref.
+                        bool q114 = false;
+                        if (ue->UhdmType() == UHDM::uhdmconstant)
+                            if (auto* pp114 = caseItemPkgParam114(*e, q114)) {
+                                if (!q114 && caseItemImpRef114On() &&
+                                    pp114->getInitializer() &&
+                                    concatBearing114(*pp114->getInitializer()) &&
+                                    impCopyRhsNonConst114(parent, pp114->name) == 1) {
+                                    auto* r114 = s.MakeRef_obj();
+                                    r114->VpiName(std::string(pp114->name));
+                                    r114->VpiFullName(joinRef(prefix, pp114->name));
+                                    setLoc(r114, e->sourceRange);
+                                    ue = r114;
+                                }
+                                else if (q114 && caseItemQualRef114On()) {
+                                    auto& pk114 = pp114->getParentScope()->asSymbol();
+                                    const UHDM::parameter* pd114 = nullptr;
+                                    bool nc114 = false;
+                                    if (auto pit114 = pkgDefMap.find(&pk114);
+                                        pit114 != pkgDefMap.end() && pit114->second->Param_assigns())
+                                        for (auto* pa114 : *pit114->second->Param_assigns())
+                                            if (pa114 && pa114->Lhs() && pa114->Rhs() &&
+                                                pa114->Lhs()->VpiName() == pp114->name &&
+                                                pa114->Lhs()->UhdmType() == UHDM::uhdmparameter) {
+                                                pd114 = (const UHDM::parameter*)pa114->Lhs();
+                                                nc114 = subst114Refused(pa114->Rhs());
+                                            }
+                                    if (pd114 && nc114) {
+                                        std::string pn114 = std::string(pk114.name) + "::" +
+                                                            std::string(pp114->name);
+                                        auto* r114 = s.MakeRef_obj();
+                                        r114->VpiName(pn114);
+                                        r114->VpiFullName(pn114);
+                                        r114->Actual_group((UHDM::any*)pd114);
+                                        auto& ex114 = stripImplicitConv(*e);
+                                        setLoc(r114, SourceRange(ex114.sourceRange.start(),
+                                                                 ex114.sourceRange.start() +
+                                                                     pk114.name.size() + 2));
+                                        ue = r114;
+                                    }
+                                }
+                            }
                         // Case-item expr refs and calls parent at the
                         // enclosing scope (constants stay at the case_item).
                         if (ue->UhdmType() == UHDM::uhdmref_obj ||

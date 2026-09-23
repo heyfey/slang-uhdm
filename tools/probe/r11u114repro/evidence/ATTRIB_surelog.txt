@@ -1,0 +1,24 @@
+# surelog byteverify movers (3/960): all three are the documented UVM-family pristine nondeterminism, order-blind 4-line UINT/vpiDecompile class; the census fired NOWHERE in the surelog corpus
+== default_MiniAmiq-544c7f61  dump lines pris/law 1893062/1893062; order-blind (sorted) diff:
+>       |UINT:1124
+<       |UINT:911
+>       |vpiDecompile:1124
+<       |vpiDecompile:911
+== default_SeqDriver-32af76aa  dump lines pris/law 1818751/1818751; order-blind (sorted) diff:
+<       |UINT:0
+>       |UINT:1103
+<       |vpiDecompile:0
+>       |vpiDecompile:1103
+== testflags_SeqDriver-32af76aa  dump lines pris/law 1818811/1818811; order-blind (sorted) diff:
+<       |UINT:0
+>       |UINT:1346
+<       |vpiDecompile:0
+>       |vpiDecompile:1346
+
+# POSITIVE CONTROL: the PRISTINE binary alone, SeqDriver default, four runs (md5 prefix): 2fb39f8b4130 x3, f0509f36e3fe x1; the pristine-vs-pristine order-blind diff:
+<       |UINT:0
+>       |UINT:1092
+<       |vpiDecompile:0
+>       |vpiDecompile:1092
+# the LAW binary, four runs: 2fb39f8b4130 x3 (== pristine's modal bytes), 62e66557add2 x1
+# statuses unchanged: MiniAmiq,default,CMP_EQUAL,,,differ MiniAmiq,testflags,CMP_EQUAL,,,differ SeqDriver,default,CMP_EQUAL,,,differ SeqDriver,testflags,CMP_EQUAL,,,differ

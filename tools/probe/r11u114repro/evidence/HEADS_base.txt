@@ -1,0 +1,131 @@
+# Q1 — uhdm-cmp heads at a81eb328 (pristine md5 e2ae9bd546d27ae8d37dd939675e9412), LHS golden; one head per row
+== stamped_gen_param default: 96 lines, 1 head
+== stamped_gen_param testflags: 96 lines, 1 head
+--- stamped_gen_param default, full head:
+LHS:
+decompile:
+constant: , id:292, line:19:16, endln:19:58
+|vpiSize:12
+|BIN:010101101010
+|vpiConstType:3
+
+decompile:
+constant: , id:292, line:19:16, endln:19:58
+|vpiSize:12
+|BIN:010101101010
+|vpiConstType:3
+RHS:
+decompile:
+operation: , id:12, line:19:16, endln:19:58
+|vpiParent:
+\_operation: , id:6, line:17:28, endln:21:4
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:13, line:19:17, endln:19:22
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:14, line:19:24, endln:19:29
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:15, line:19:31, endln:19:36
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:16, line:19:38, endln:19:43
+  |vpiDecompile:2'b10
+  |vpiSize:2
+  |BIN:10
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:17, line:19:45, endln:19:50
+  |vpiDecompile:2'b10
+  |vpiSize:2
+  |BIN:10
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:18, line:19:52, endln:19:57
+  |vpiDecompile:2'b10
+  |vpiSize:2
+  |BIN:10
+  |vpiConstType:3
+
+decompile:
+operation: , id:12, line:19:16, endln:19:58
+|vpiParent:
+\_operation: , id:6, line:17:28, endln:21:4
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:13, line:19:17, endln:19:22
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:14, line:19:24, endln:19:29
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:15, line:19:31, endln:19:36
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:16, line:19:38, endln:19:43
+  |vpiDecompile:2'b10
+  |vpiSize:2
+  |BIN:10
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:17, line:19:45, endln:19:50
+  |vpiDecompile:2'b10
+  |vpiSize:2
+  |BIN:10
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:18, line:19:52, endln:19:57
+  |vpiDecompile:2'b10
+  |vpiSize:2
+  |BIN:10
+  |vpiConstType:3
+== ibex_tracer default: 28 lines, 1 head
+== ibex_tracer testflags: 28 lines, 1 head
+--- ibex_tracer default, full head:
+LHS:
+decompile:
+ref_obj: (work@ibex_tracer.INSN_ECALL), id:36496, line:1035:9, endln:1035:19
+|vpiParent:
+\_begin: (work@ibex_tracer), id:36343, line:970:14, endln:1209:8
+|vpiName:INSN_ECALL
+|vpiFullName:work@ibex_tracer.INSN_ECALL
+
+decompile:
+ref_obj: (work@ibex_tracer.INSN_ECALL), id:36496, line:1035:9, endln:1035:19
+|vpiParent:
+\_begin: (work@ibex_tracer), id:36343, line:970:14, endln:1209:8
+|vpiName:INSN_ECALL
+|vpiFullName:work@ibex_tracer.INSN_ECALL
+RHS:
+decompile:
+constant: , id:19720, line:1035:9, endln:1035:19
+|vpiDecompile:115
+|vpiSize:32
+|UINT:115
+|vpiConstType:9
+
+decompile:
+constant: , id:19720, line:1035:9, endln:1035:19
+|vpiDecompile:115
+|vpiSize:32
+|UINT:115
+|vpiConstType:9

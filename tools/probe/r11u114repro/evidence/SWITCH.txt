@@ -1,0 +1,6 @@
+# kill switches, law binary e67a68ed on all 49 grid arms (--single-unit --nobuiltin); every output file is removed before its run and rc recorded
+R11U114_OFF=1 vs pristine: arms=49 byte-differ=0 nonzero-rc=0
+R11U114_F1_OFF=1 (nonzero-rc=0) reverts exactly: f1_a01 f1_a02 f1_a03 f1_a05 f1_a06 f1_a07 f1_a08 f1_a09 f1_a11 f1_a12 f1_a13 f1_a14 f1_a16 f1_a17 f1_a18 f1_a19 f1_a20 f1_a21 f1_a22 f1_a23 f1_a25 f1_a28 f1_a29
+R11U114_F2_OFF=1 (nonzero-rc=0) reverts exactly: f2_b01 f2_b02 f2_b06 f2_b07 f2_b08 f2_b09 f2_b10 f2_b13
+R11U114_F2Q_OFF=1 (nonzero-rc=0) reverts exactly: f2_b03 f2_b12
+R11U114_F3_OFF=1 (nonzero-rc=0) reverts exactly: f3_c01 f3_c03 f3_c04 f3_c06

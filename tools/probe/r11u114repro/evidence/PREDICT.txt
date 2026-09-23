@@ -1,0 +1,34 @@
+# PREDICTION written 2026-09-23T13:54:09Z BEFORE the law sweep, from the firing census (census binary cen5 = law binary + stderr fire logs; byte-identical output to the law binary on all 49 grid arms).
+# census sweep: 1742 u2r + 1531 surelog slang invocations through the census wrapper; positive controls = grid arms (f1 a01.., f2 b01.., f3 c01..) and the two target rows.
+PREDICTED BYTE MOVERS (law vs pristine), every other database byte-identical modulo the documented pristine-nondeterministic rows:
+  uhdm2rtlil/testflags ibex_tracer        F2 x6 (case items 1035:9 1036:9 1037:9 1038:9 1039:9 1054:9) + F3 x4 (CSR_MARCHID_VALUE RndCnstLfsrPermDefault PmpCfgRst PmpAddrRst) -> CONVERTS (0 cmp lines)
+  uhdm2rtlil/default   ibex_tracer        same -> CONVERTS
+  uhdm2rtlil/testflags stamped_gen_param  F1 x1 (19:16) -> 96 -> 11 cmp lines, next head = the TOP package flatten's bare struct ref (residue)
+  uhdm2rtlil/default   stamped_gen_param  same
+  surelog corpus (both modes): NO mover (zero fires; census covered 1531 invocations)
+
+# raw census fire log:
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F2 1035:9
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F2 1036:9
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F2 1037:9
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F2 1038:9
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F2 1039:9
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F2 1054:9
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F3 CSR_MARCHID_VALUE
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F3 RndCnstLfsrPermDefault
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F3B PmpCfgRst
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F3 PmpAddrRst
+u2r/testflags/ibex_tracer-573593b3 R11U114FIRE F3B PmpAddrRst
+u2r/testflags/stamped_gen_param-07e8f8ed R11U114FIRE F1 19:16
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F2 1035:9
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F2 1036:9
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F2 1037:9
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F2 1038:9
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F2 1039:9
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F2 1054:9
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F3 CSR_MARCHID_VALUE
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F3 RndCnstLfsrPermDefault
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F3B PmpCfgRst
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F3 PmpAddrRst
+u2r/default/ibex_tracer-573593b3 R11U114FIRE F3B PmpAddrRst
+u2r/default/stamped_gen_param-07e8f8ed R11U114FIRE F1 19:16

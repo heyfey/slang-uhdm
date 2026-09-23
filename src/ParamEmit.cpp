@@ -18266,7 +18266,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     paramRhsDefView = !topView && !inPackage;
                     rhs = emitExpr(*emitInit9, pa, prefix, netMap);
                     patSubstElab = savedPSE9;
-                    paramRhsDefView = savedPRD9; if (impCopyConcat111On() && !inPackage && isImported && rhs && concatBearing54(*init)) dropEnumActuals111(rhs);
+                    paramRhsDefView = savedPRD9; if (impCopyConcat111On() && !inPackage && isImported && rhs && concatBearing54(*init)) dropEnumActuals111(rhs); if (pkgPatCatFold114On() && (inPackage || isImported) && rhs && emitInit9 && !ps.getType().getCanonicalType().isUnpackedArray()) pkgPatCatFold114(rhs, *emitInit9, ps.getParentScope(), [&](SourceRange r114) { std::array<uint32_t, 4> k114{}; locLineCol(r114.start(), k114[0], k114[1]); locLineCol(r114.end(), k114[2], k114[3]); return k114; }, [&](UHDM::operation* o114, const std::string& b114) { auto* c114 = s.MakeConstant(); if (!o114->VpiFile().empty()) c114->VpiFile(std::string(o114->VpiFile())); c114->VpiLineNo(o114->VpiLineNo()); c114->VpiColumnNo(o114->VpiColumnNo()); c114->VpiEndLineNo(o114->VpiEndLineNo()); c114->VpiEndColumnNo(o114->VpiEndColumnNo()); c114->VpiSize((int32_t)b114.size()); c114->VpiValue("BIN:" + b114); c114->VpiConstType(vpiBinaryConst); return c114; }); // § pkgPatCatMemberFold114 (EmitHelpers.h)
                     // § shadowedImportParamFold — a DEF-view module parameter
                     // Rhs naming a module-scope parameter that a wildcard
                     // import ALSO declares reads the PACKAGE member's value in
@@ -19420,11 +19420,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                               SimpleAssignmentPattern) &&
                                    &rp9->getType().getCanonicalType() ==
                                        &ps.getType().getCanonicalType();
-                        }();
-                    if ((anyUnknown || packedArrayOp || unpackedArrayTs9 ||
-                         importedConcatOp || structOp || lazyTernary9 ||
-                         structRefSubstOp9 || mdimConcatOp9 ||
-                         unpArrConcatTs9) &&
+                        }(); const bool leak114 = leakCopyNoOpTs114On() && isImported && !inPackage && !structOp && leakOnlyOcc114(occ9, (const void*)&ps, paramImp9); // § leakCopyOpNoTs114 (EmitHelpers.h)
+                    if ((anyUnknown || packedArrayOp || (!leak114 && unpackedArrayTs9) ||
+                         (!leak114 && importedConcatOp) || structOp || lazyTernary9 ||
+                         structRefSubstOp9 || (!leak114 && mdimConcatOp9) ||
+                         (!leak114 && unpArrConcatTs9)) &&
                         !(opr->Typespec() &&
                           opr->Typespec()->Actual_typespec())) {
                         auto* rt = s.MakeRef_typespec();
@@ -19923,7 +19923,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // improves past pristine: the fold no longer runs at N>=2 and
                 // nothing else stamps, which is exactly golden's shape.
                 if (topView && !inPackage && !overridden && rhs && init &&
-                    hasParamArrTs &&
+                    hasParamArrTs && !(leakCopyNoOpTs114On() && isImported && leakOnlyOcc114(occ9, (const void*)&ps, paramImp9)) && // § leakCopyOpNoTs114 (EmitHelpers.h)
                     rhs->UhdmType() == UHDM::uhdmoperation &&
                     !((UHDM::operation*)rhs)->Typespec() &&
                     stripImplicitConv(*init).kind ==

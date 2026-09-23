@@ -1,0 +1,56 @@
+== u2r fixv vs lawx
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== u2r fixv vs pris
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_tracer-573593b3/slang.uhdm  patched=e4ba4de6dee0 pristine=cd8a5958891e
+MOVER ./default/stamped_gen_param-07e8f8ed/slang.uhdm  patched=a549e27dba4d pristine=bbe2fa1a2fd1
+MOVER ./testflags/ibex_tracer-573593b3/slang.uhdm  patched=fc073b2c4044 pristine=c6733197aba7
+MOVER ./testflags/stamped_gen_param-07e8f8ed/slang.uhdm  patched=799f7aba5392 pristine=056c1820d03e
+MOVERS: 4 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== u2r lawx vs pris
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_tracer-573593b3/slang.uhdm  patched=e4ba4de6dee0 pristine=cd8a5958891e
+MOVER ./default/stamped_gen_param-07e8f8ed/slang.uhdm  patched=a549e27dba4d pristine=bbe2fa1a2fd1
+MOVER ./testflags/ibex_tracer-573593b3/slang.uhdm  patched=fc073b2c4044 pristine=c6733197aba7
+MOVER ./testflags/stamped_gen_param-07e8f8ed/slang.uhdm  patched=799f7aba5392 pristine=056c1820d03e
+MOVERS: 4 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== sl fixv vs lawx
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=508392c7f1be pristine=9f3fa6cf1198
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=e70775324004 pristine=1621aec6c9f3
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=5afa421d0416 pristine=e1f0cc703a1c
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=ea7332380662
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== sl fixv vs pris
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=508392c7f1be pristine=1191688bd020
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=34bbfe54e821
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=5afa421d0416 pristine=20222b00c931
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=e0547ed8ccb9
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== sl lawx vs pris
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=9f3fa6cf1198 pristine=1191688bd020
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=34bbfe54e821
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=e1f0cc703a1c pristine=20222b00c931
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=ea7332380662 pristine=e0547ed8ccb9
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== order-blind attribution (lawx vs pris)
+default/MiniAmiq-544c7f61/slang.uhdm orderblind_difflines=4 sizeA=1893062 sizeB=1893062 bytes=18852322 18852279
+default/Scoreboard-59431470/slang.uhdm orderblind_difflines=0 sizeA=1100433 sizeB=1100433 bytes=11163535 11163535
+default/SimpleUVM-1dc93a62/slang.uhdm orderblind_difflines=4 sizeA=1113011 sizeB=1113011 bytes=11240328 11240365
+testflags/MiniAmiq-544c7f61/slang.uhdm orderblind_difflines=4 sizeA=1893062 sizeB=1893062 bytes=18852279 18852322
+testflags/SeqDriver-32af76aa/slang.uhdm orderblind_difflines=4 sizeA=1818811 sizeB=1818811 bytes=18074703 18074703
+== order-blind attribution (fixv vs pris)
+default/MiniAmiq-544c7f61/slang.uhdm orderblind_difflines=4 sizeA=1893062 sizeB=1893062 bytes=18852279 18852279
+default/SimpleUVM-1dc93a62/slang.uhdm orderblind_difflines=4 sizeA=1113011 sizeB=1113011 bytes=11240328 11240365
+testflags/MiniAmiq-544c7f61/slang.uhdm orderblind_difflines=4 sizeA=1893062 sizeB=1893062 bytes=18852273 18852322
+testflags/SeqDriver-32af76aa/slang.uhdm orderblind_difflines=4 sizeA=1818811 sizeB=1818811 bytes=18074701 18074703

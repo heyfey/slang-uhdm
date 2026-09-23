@@ -1,0 +1,63 @@
+diff --color -ru a/src/EmitHelpers.h b/src/EmitHelpers.h
+--- a/src/EmitHelpers.h	2026-09-23 10:15:26.613958615 -0400
++++ b/src/EmitHelpers.h	2026-09-23 10:15:26.637958607 -0400
+@@ -13685,7 +13685,7 @@
+                 UHDM::any* pv = (UHDM::any*)tp->Pattern();
+                 if (auto* c = fold(pv)) {
+                     tp->Pattern((UHDM::expr*)c);
+-                    n++;
++                    n++; fprintf(stderr, "R11U114FIRE F1 %u:%u\n", c->VpiLineNo(), c->VpiColumnNo());
+                 }
+                 else if (pv && pv->UhdmType() == UHDM::uhdmoperation &&
+                          ((UHDM::operation*)pv)->VpiOpType() == vpiAssignmentPatternOp)
+@@ -13694,7 +13694,7 @@
+             }
+             if (auto* c = fold(o)) {
+                 (*ops)[i] = c;
+-                n++;
++                n++; fprintf(stderr, "R11U114FIRE F1 %u:%u\n", c->VpiLineNo(), c->VpiColumnNo());
+             }
+             else if (o->UhdmType() == UHDM::uhdmoperation &&
+                      ((UHDM::operation*)o)->VpiOpType() == vpiAssignmentPatternOp)
+diff --color -ru a/src/ParamEmit.cpp b/src/ParamEmit.cpp
+--- a/src/ParamEmit.cpp	2026-09-23 10:15:26.617958613 -0400
++++ b/src/ParamEmit.cpp	2026-09-23 10:15:26.653958602 -0400
+@@ -19420,7 +19420,7 @@
+                                               SimpleAssignmentPattern) &&
+                                    &rp9->getType().getCanonicalType() ==
+                                        &ps.getType().getCanonicalType();
+-                        }(); const bool leak114 = leakCopyNoOpTs114On() && isImported && !inPackage && !structOp && leakOnlyOcc114(occ9, (const void*)&ps, paramImp9); // § leakCopyOpNoTs114 (EmitHelpers.h)
++                        }(); const bool leak114 = leakCopyNoOpTs114On() && isImported && !inPackage && !structOp && leakOnlyOcc114(occ9, (const void*)&ps, paramImp9); if (leak114 && (unpackedArrayTs9 || importedConcatOp || mdimConcatOp9 || unpArrConcatTs9) && !(opr->Typespec() && opr->Typespec()->Actual_typespec())) fprintf(stderr, "R11U114FIRE F3 %s\n", std::string(ps.name).c_str()); // § leakCopyOpNoTs114 (EmitHelpers.h)
+                     if ((anyUnknown || packedArrayOp || (!leak114 && unpackedArrayTs9) ||
+                          (!leak114 && importedConcatOp) || structOp || lazyTernary9 ||
+                          structRefSubstOp9 || (!leak114 && mdimConcatOp9) ||
+@@ -19923,7 +19923,7 @@
+                 // improves past pristine: the fold no longer runs at N>=2 and
+                 // nothing else stamps, which is exactly golden's shape.
+                 if (topView && !inPackage && !overridden && rhs && init &&
+-                    hasParamArrTs && !(leakCopyNoOpTs114On() && isImported && leakOnlyOcc114(occ9, (const void*)&ps, paramImp9)) && // § leakCopyOpNoTs114 (EmitHelpers.h)
++                    hasParamArrTs && !(leakCopyNoOpTs114On() && isImported && leakOnlyOcc114(occ9, (const void*)&ps, paramImp9) && (fprintf(stderr, "R11U114FIRE F3B %s\n", std::string(ps.name).c_str()), true)) && // § leakCopyOpNoTs114 (EmitHelpers.h)
+                     rhs->UhdmType() == UHDM::uhdmoperation &&
+                     !((UHDM::operation*)rhs)->Typespec() &&
+                     stripImplicitConv(*init).kind ==
+diff --color -ru a/src/StmtEmit.cpp b/src/StmtEmit.cpp
+--- a/src/StmtEmit.cpp	2026-09-23 10:15:26.625958611 -0400
++++ b/src/StmtEmit.cpp	2026-09-23 10:15:26.641958606 -0400
+@@ -4946,7 +4946,7 @@
+                                     r114->VpiName(std::string(pp114->name));
+                                     r114->VpiFullName(joinRef(prefix, pp114->name));
+                                     setLoc(r114, e->sourceRange);
+-                                    ue = r114;
++                                    ue = r114; fprintf(stderr, "R11U114FIRE F2 %u:%u\n", r114->VpiLineNo(), r114->VpiColumnNo());
+                                 }
+                                 else if (q114 && caseItemQualRef114On()) {
+                                     auto& pk114 = pp114->getParentScope()->asSymbol();
+@@ -4972,7 +4972,7 @@
+                                         setLoc(r114, SourceRange(ex114.sourceRange.start(),
+                                                                  ex114.sourceRange.start() +
+                                                                      pk114.name.size() + 2));
+-                                        ue = r114;
++                                        ue = r114; fprintf(stderr, "R11U114FIRE F2Q %u:%u\n", r114->VpiLineNo(), r114->VpiColumnNo());
+                                     }
+                                 }
+                             }
