@@ -1,0 +1,32 @@
+# r11u102 byteverify movers (SELFCHECK=1, law vs this pass's own pristine workdirs; same-length tags pris/lawx)
+uhdm2rtlil: databases 1608/1608 PATH_SETS_IDENTICAL  MOVERS 0/1608  SELFCHECK 1607/1608 flagged
+surelog:    databases 960/960   PATH_SETS_IDENTICAL  MOVERS 3/960   SELFCHECK 959/960 flagged
+  MOVER ./default/Scoreboard-59431470/slang.uhdm   patched=e70775324004 pristine=1621aec6c9f3
+  MOVER ./default/SeqDriver-32af76aa/slang.uhdm    patched=70f901aaef6a pristine=e165b55dc78b
+  MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=34377a76cdf1
+PREDICTED (CENSUS102.txt, from pristine databases, before the law sweep): 0 rows. None of the three is predicted; all three are attributed as the documented coin:
+
+== default_Scoreboard-59431470  order-blind (sorted, path-normalised) dump lines pris/law=1100433/1100433  diff lines=0
+== default_SeqDriver-32af76aa  order-blind (sorted, path-normalised) dump lines pris/law=1818751/1818751  diff lines=4
+<       |UINT:1067
+>       |UINT:1095
+<       |vpiDecompile:1067
+>       |vpiDecompile:1095
+== testflags_SeqDriver-32af76aa  order-blind (sorted, path-normalised) dump lines pris/law=1818811/1818811  diff lines=4
+>       |UINT:0
+<       |UINT:670
+>       |vpiDecompile:0
+<       |vpiDecompile:670
+
+fields this pass writes, over all three order-blind diffs: |INT: 0  vpiConstType 0  vpiSize 0  ref_obj 0
+
+POSITIVE CONTROL — the PRISTINE binary run THREE times on SeqDriver/default's own cmds.txt invocation, same output path:
+  run1 2fb39f8b4130   run2 38212e68e6f1   run3 5fd59b2cdef9   (three different databases)
+  order-blind diff run1 vs run2 (header line aside):
+<       |UINT:0
+>       |UINT:840
+<       |vpiDecompile:0
+>       |vpiDecompile:840
+  = the SAME single |UINT: / |vpiDecompile: pair class (r11u96 R7 / r11v96 RV94-5 / r11u100 R7: the uvm_pkg dynamic-array range bound printed from an uninitialized pointer-valued UINT).
+  Scoreboard/default: a 0-line order-blind diff = the documented svunit_pkg vpiTaskFunc ORDER coin.
+  Every conversion row reads 0 cmp lines / 0 heads on the law sweep (GATES102.txt).

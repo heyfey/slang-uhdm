@@ -1,0 +1,356 @@
+----- q1_cmppow102   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+topModules   nda w8CPC                    G[INT:1 ct7 sz8 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCAC                     G[UINT:2 ct9 sz64 d[2]] A[UINT:2 ct9 sz32 d[2]] B[UINT:2 ct9 sz32 d[2]]
+topModules   nda wCACR                    G[UINT:2 ct9 sz64 d[2]] A[UINT:2 ct9 sz32 d[2]] B[UINT:2 ct9 sz32 d[2]]
+topModules   nda wCADD                    G[UINT:3 ct9 sz64 d[3]] A[UINT:3 ct9 sz32 d[3]] B[UINT:3 ct9 sz32 d[3]]
+topModules   nda wCAMC                    G[INT:7 ct7 sz64 d[7]] A[UINT:7 ct9 sz32 d[7]] B[INT:7 ct7 sz32 d[7]] TO:vp TO:ct
+topModules   nda wCAMCR                   G[INT:7 ct7 sz64 d[7]] A[UINT:7 ct9 sz32 d[7]] B[INT:7 ct7 sz32 d[7]] TO:vp TO:ct
+topModules   nda wCAPC                    G[INT:9 ct7 sz64 d[9]] A[UINT:9 ct9 sz32 d[9]] B[INT:9 ct7 sz32 d[9]] TO:vp TO:ct
+topModules   nda wCDC                     G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCDCR                    G[INT:6 ct7 sz64 d[6]] A[UINT:6 ct9 sz32 d[6]] B[INT:6 ct7 sz32 d[6]] TO:vp TO:ct
+topModules   nda wCDEEP                   G[INT:8 ct7 sz64 d[8]] A[UINT:8 ct9 sz32 d[8]] B[UINT:8 ct9 sz32 d[8]]
+topModules   nda wCLT                     G[INT:-1 ct7 sz64 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCMC                     G[INT:3 ct7 sz64 d[3]] A[UINT:3 ct9 sz32 d[3]] B[INT:3 ct7 sz32 d[3]] TO:vp TO:ct
+topModules   nda wCMCF                    G[INT:0 ct7 sz64 d[0]] A[UINT:0 ct9 sz32 d[0]] B[INT:0 ct7 sz32 d[0]] TO:vp TO:ct
+topModules   nda wCMCL                    G[INT:4294967296 ct7 sz64 d[4294967296]] A[UINT:0 ct9 sz64 d[0]] B[INT:4294967296 ct7 sz64 d[4294967296]] TO:vp TO:vd TO:ct TO:d
+topModules   nda wCMCR                    G[INT:3 ct7 sz64 d[3]] A[UINT:3 ct9 sz32 d[3]] B[INT:3 ct7 sz32 d[3]] TO:vp TO:ct
+topModules   nda wCMOD                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCMODR                   G[INT:0 ct7 sz64 d[0]] A[UINT:0 ct9 sz32 d[0]] B[INT:0 ct7 sz32 d[0]] TO:vp TO:ct
+topModules   nda wCMUL                    G[INT:6 ct7 sz64 d[6]] A[INT:6 ct7 sz32 d[6]] B[INT:6 ct7 sz32 d[6]]
+topModules   nda wCNEG                    G[INT:-1 ct7 sz64 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCNEGF                   G[INT:0 ct7 sz64 d[0]] A[UINT:0 ct9 sz32 d[0]] B[INT:0 ct7 sz32 d[0]] TO:vp TO:ct
+topModules   nda wCPC                     G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPC2L                   G[INT:2 ct7 sz64 d[2]] A[UINT:2 ct9 sz64 d[2]] B[INT:2 ct7 sz64 d[2]] TO:vp TO:ct
+topModules   nda wCPC8                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz8 d[1]] B[INT:1 ct7 sz8 d[1]] TO:vp TO:ct
+topModules   nda wCPCBY                   G[INT:5 ct7 sz64 d[5]] A[UINT:5 ct9 sz8 d[5]] B[INT:5 ct7 sz8 d[5]] TO:vp TO:ct
+topModules   nda wCPCC                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPCE                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPCEQ                   G[ref_obj nm=q1p::CPCEQ act=parameter] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCPCF                    G[INT:0 ct7 sz64 d[0]] A[UINT:0 ct9 sz32 d[0]] B[INT:0 ct7 sz32 d[0]] TO:vp TO:ct
+topModules   nda wCPCF0                   G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPCG                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPCGE                   G[INT:0 ct7 sz64 d[0]] A[UINT:0 ct9 sz32 d[0]] B[INT:0 ct7 sz32 d[0]] TO:vp TO:ct
+topModules   nda wCPCL                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz64 d[1]] B[INT:1 ct7 sz64 d[1]] TO:vp TO:ct
+topModules   nda wCPCLE                   G[INT:2 ct7 sz64 d[2]] A[UINT:2 ct9 sz32 d[2]] B[INT:2 ct7 sz32 d[2]] TO:vp TO:ct
+topModules   nda wCPCN0                   G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPCP                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPCR                    G[INT:3 ct7 sz64 d[3]] A[UINT:3 ct9 sz32 d[3]] B[INT:3 ct7 sz32 d[3]] TO:vp TO:ct
+topModules   nda wCPCT                    G[INT:1 ct7 sz64 d[1]] A[UINT:0 ct9 sz32 d[0]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:vd TO:ct TO:d
+topModules   nda wCPCU                    G[INT:0 ct7 sz64 d[0]] A[UINT:1 ct9 sz32 d[1]] B[INT:0 ct7 sz32 d[0]] TO:vp TO:vd TO:ct TO:d
+topModules   nda wCPCUR                   G[INT:2 ct7 sz64 d[2]] A[UINT:1 ct9 sz32 d[1]] B[INT:2 ct7 sz32 d[2]] TO:vp TO:vd TO:ct TO:d
+topModules   nda wCPCX                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPLAND                  G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCPNAME                  G[INT:1 ct7 sz64 d[1]] A[INT:1 ct7 sz32 d[1]] B[INT:1 ct7 sz32 d[1]]
+topModules   nda wCPNOT                   G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCPOW                    G[INT:8 ct7 sz64 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+topModules   nda wCPTERN                  G[INT:8 ct7 sz64 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+topModules   nda wCSC                     G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCSCF                    G[INT:5 ct7 sz64 d[5]] A[UINT:5 ct9 sz32 d[5]] B[INT:5 ct7 sz32 d[5]] TO:vp TO:ct
+topModules   nda wCSCR                    G[INT:4 ct7 sz64 d[4]] A[UINT:4 ct9 sz32 d[4]] B[INT:4 ct7 sz32 d[4]] TO:vp TO:ct
+topModules   nda wNCMC                    G[INT:3 ct7 sz32 d[3]] A[UINT:3 ct9 sz32 d[3]] B[INT:3 ct7 sz32 d[3]] TO:vp TO:ct
+topModules   nda wNCPC                    G[INT:1 ct7 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+TO=82  AWAY=0  STILL=112  EQ=974  MWRONG=0  SKIP=0
+----- q2_callfold102   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+allModules   pa  work@q2_callfold102.ML   G[UINT:64 ct9 sz64 d[64]] A[UINT:64 ct9 sz64 d[64]] B[UINT:64 ct9 sz64 d[64]]
+allModules   pa  work@q2_callfold102.MP   G[UINT:512 ct9 sz64 d[512]] A[UINT:512 ct9 sz64 d[512]] B[UINT:512 ct9 sz64 d[512]]
+allModules   pa  work@q2_callfold102.P0   G[UINT:0 ct9 sz32 d[0]] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+allModules   pa  work@q2_callfold102.P1   G[UINT:1 ct9 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+allModules   pa  work@q2_callfold102.P5   G[UINT:5 ct9 sz32 d[5]] A[UINT:5 ct9 sz32 d[5]] B[UINT:5 ct9 sz32 d[5]]
+allModules   pa  work@q2_callfold102.P512 G[UINT:512 ct9 sz32 d[512]] A[UINT:512 ct9 sz32 d[512]] B[UINT:512 ct9 sz32 d[512]]
+allModules   pa  work@q2_callfold102.PL33 G[DEC:8589934593 ct1 sz64 d[64'd8589934593]] A[DEC:8589934593 ct1 sz64 d[64'd8589934593]] B[DEC:8589934593 ct1 sz64 d[64'd8589934593]]
+allModules   pa  work@q2_callfold102.PL40 G[DEC:1099511627776 ct1 sz64 d[64'd1099511627776]] A[DEC:1099511627776 ct1 sz64 d[64'd1099511627776]] B[DEC:1099511627776 ct1 sz64 d[64'd1099511627776]]
+topModules   nda w1FZ                     G[UINT:1 ct9 sz1 d[1]] A[func_call] B[UINT:1 ct9 sz1 d[1]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda w3CL                     G[UINT:1 ct9 sz3 d[1]] A[sys_func_call] B[UINT:1 ct9 sz3 d[1]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda w4FM                     G[INT:60 ct7 sz4 d[60]] A[func_call] B[INT:60 ct7 sz4 d[60]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda w4FS                     G[UINT:5 ct9 sz4 d[5]] A[func_call] B[UINT:5 ct9 sz4 d[5]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda w8CL                     G[UINT:9 ct9 sz8 d[9]] A[sys_func_call] B[UINT:9 ct9 sz8 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wBITS                    G[sys_func_call] A[sys_func_call] B[sys_func_call]
+topModules   nda wCL                      G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[UINT:9 ct9 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCL0                     G[UINT:0 ct9 sz64 d[0]] A[sys_func_call] B[UINT:0 ct9 sz64 d[0]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCL1                     G[UINT:0 ct9 sz64 d[0]] A[sys_func_call] B[UINT:0 ct9 sz64 d[0]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCLA                     G[operation] A[operation] B[operation]
+topModules   nda wCLB                     G[UINT:34 ct9 sz64 d[34]] A[sys_func_call] B[UINT:34 ct9 sz64 d[34]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCLH                     G[UINT:8 ct9 sz64 d[8]] A[sys_func_call] B[UINT:8 ct9 sz64 d[8]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCLI                     G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[UINT:9 ct9 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCLL                     G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[UINT:9 ct9 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCLM                     G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[UINT:9 ct9 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCLML                    G[UINT:6 ct9 sz64 d[6]] A[sys_func_call] B[UINT:6 ct9 sz64 d[6]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCLX                     G[UINT:10 ct9 sz64 d[10]] A[sys_func_call] B[UINT:10 ct9 sz64 d[10]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wF8                      G[UINT:5 ct9 sz64 d[5]] A[func_call] B[UINT:5 ct9 sz64 d[5]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wF8M                     G[UINT:12 ct9 sz64 d[12]] A[func_call] B[UINT:12 ct9 sz64 d[12]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wF8O                     G[UINT:144 ct9 sz64 d[144]] A[func_call] B[UINT:144 ct9 sz64 d[144]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFA2                     G[UINT:13 ct9 sz64 d[13]] A[func_call] B[UINT:13 ct9 sz64 d[13]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFASG                    G[INT:8 ct7 sz64 d[8]] A[func_call] B[func_call]
+topModules   nda wFBIG                    G[INT:10000000000 ct7 sz64 d[10000000000]] A[func_call] B[INT:10000000000 ct7 sz64 d[10000000000]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFBY                     G[INT:200 ct7 sz64 d[200]] A[func_call] B[INT:200 ct7 sz64 d[200]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFCL                     G[UINT:9 ct9 sz64 d[9]] A[func_call] B[func_call]
+topModules   nda wFCMP                    G[INT:5 ct7 sz64 d[5]] A[func_call] B[func_call]
+topModules   nda wFD                      G[INT:4 ct7 sz64 d[4]] A[func_call] B[INT:4 ct7 sz64 d[4]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFID                     G[UINT:4 ct9 sz64 d[4]] A[func_call] B[UINT:4 ct9 sz64 d[4]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFIF                     G[INT:8 ct7 sz64 d[8]] A[func_call] B[func_call]
+topModules   nda wFIG                     G[INT:8 ct7 sz64 d[8]] A[func_call] B[INT:8 ct7 sz64 d[8]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFL                      G[INT:1099511627775 ct7 sz64 d[1099511627775]] A[func_call] B[INT:1099511627775 ct7 sz64 d[1099511627775]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFLOC                    G[INT:8 ct7 sz64 d[8]] A[func_call] B[func_call]
+topModules   nda wFM                      G[INT:12 ct7 sz64 d[12]] A[func_call] B[INT:12 ct7 sz64 d[12]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFMO                     G[INT:2 ct7 sz64 d[2]] A[func_call] B[INT:2 ct7 sz64 d[2]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFNEG                    G[INT:-7 ct7 sz64 d[-7]] A[func_call] B[INT:-7 ct7 sz64 d[-7]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFP                      G[INT:9 ct7 sz64 d[9]] A[func_call] B[INT:9 ct7 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFPA                     G[operation] A[operation] B[operation]
+topModules   nda wFPAR                    G[INT:20 ct7 sz64 d[20]] A[func_call] B[INT:20 ct7 sz64 d[20]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFPC                     G[operation] A[operation] B[operation]
+topModules   nda wFPE                     G[INT:9 ct7 sz64 d[9]] A[func_call] B[INT:9 ct7 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFPI                     G[INT:9 ct7 sz64 d[9]] A[func_call] B[INT:9 ct7 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFPM                     G[INT:262144 ct7 sz64 d[262144]] A[func_call] B[INT:262144 ct7 sz64 d[262144]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFPN                     G[INT:25 ct7 sz64 d[25]] A[func_call] B[INT:25 ct7 sz64 d[25]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFPP                     G[INT:10 ct7 sz64 d[10]] A[func_call] B[INT:10 ct7 sz64 d[10]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFS                      G[UINT:5 ct9 sz64 d[5]] A[func_call] B[UINT:5 ct9 sz64 d[5]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFSH                     G[INT:8 ct7 sz64 d[8]] A[func_call] B[INT:8 ct7 sz64 d[8]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFST                     G[INT:8 ct7 sz64 d[8]] A[func_call] B[INT:8 ct7 sz64 d[8]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFSUB                    G[INT:5 ct7 sz64 d[5]] A[func_call] B[INT:5 ct7 sz64 d[5]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFU                      G[UINT:5 ct9 sz64 d[5]] A[func_call] B[UINT:5 ct9 sz64 d[5]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wFZ                      G[UINT:7 ct9 sz64 d[7]] A[func_call] B[UINT:7 ct9 sz64 d[7]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wMF                      G[INT:9 ct7 sz64 d[9]] A[func_call] B[INT:9 ct7 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wNFP                     G[INT:9 ct7 sz32 d[9]] A[func_call] B[INT:9 ct7 sz32 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wSIGN                    G[INT:-4294966784 ct7 sz64 d[-4294966784]] A[sys_func_call] B[sys_func_call]
+topModules   pa  work@q2_callfold102.ML   G[UINT:64 ct9 sz32 d[64]] A[UINT:64 ct9 sz32 d[64]] B[UINT:64 ct9 sz32 d[64]]
+topModules   pa  work@q2_callfold102.MP   G[UINT:512 ct9 sz32 d[512]] A[UINT:512 ct9 sz32 d[512]] B[UINT:512 ct9 sz32 d[512]]
+topModules   pa  work@q2_callfold102.P0   G[UINT:0 ct9 sz32 d[0]] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   pa  work@q2_callfold102.P1   G[UINT:1 ct9 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   pa  work@q2_callfold102.P5   G[UINT:5 ct9 sz32 d[5]] A[UINT:5 ct9 sz32 d[5]] B[UINT:5 ct9 sz32 d[5]]
+topModules   pa  work@q2_callfold102.P512 G[UINT:512 ct9 sz32 d[512]] A[UINT:512 ct9 sz32 d[512]] B[UINT:512 ct9 sz32 d[512]]
+topModules   pa  work@q2_callfold102.PL33 G[INT:8589934593 ct7 sz64 d[8589934593]] A[INT:8589934593 ct7 sz64 d[8589934593]] B[INT:8589934593 ct7 sz64 d[8589934593]]
+topModules   pa  work@q2_callfold102.PL40 G[INT:1099511627776 ct7 sz64 d[1099511627776]] A[INT:1099511627776 ct7 sz64 d[1099511627776]] B[INT:1099511627776 ct7 sz64 d[1099511627776]]
+TO=301  AWAY=0  STILL=42  EQ=321  MWRONG=0  SKIP=0
+----- q3_xpow102   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+topModules   nda wC0P                     G[INT:1 ct7 sz64 d[1]] A[INT:1 ct7 sz32 d[1]] B[INT:1 ct7 sz32 d[1]]
+topModules   nda wC1P                     G[INT:2 ct7 sz64 d[2]] A[INT:2 ct7 sz32 d[2]] B[INT:2 ct7 sz32 d[2]]
+topModules   nda wC1S                     G[INT:1 ct7 sz64 d[1]] A[INT:1 ct7 sz32 d[1]] B[INT:1 ct7 sz32 d[1]]
+topModules   nda wCANDX                   G[ref_obj nm=q3p::CANDX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CANDX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCAX                     G[ref_obj nm=q3p::CAX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CAX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCAXR                    G[ref_obj nm=q3p::CAXR act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CAXR act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCBX                     G[ref_obj nm=q3p::CBX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CBX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCBXH                    G[ref_obj nm=q3p::CBXH act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CBXH act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCDEEPX                  G[ref_obj nm=q3p::CDEEPX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CDEEPX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCDX                     G[ref_obj nm=q3p::CDX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CDX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCDXL                    G[ref_obj nm=q3p::CDXL act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CDXL act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCEQX                    G[ref_obj nm=q3p::CEQX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CEQX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCLANDX                  G[ref_obj nm=q3p::CLANDX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CLANDX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCLTX                    G[ref_obj nm=q3p::CLTX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CLTX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCMODX                   G[ref_obj nm=q3p::CMODX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CMODX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCMX                     G[ref_obj nm=q3p::CMX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CMX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCNEGX                   G[ref_obj nm=q3p::CNEGX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CNEGX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCNESTX                  G[ref_obj nm=q3p::CNESTX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CNESTX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCORX                    G[ref_obj nm=q3p::CORX act=parameter] A[UINT:1 ct9 sz32 d[1]] B[ref_obj nm=q3p::CORX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCPOW                    G[INT:8 ct7 sz64 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+topModules   nda wCPX                     G[ref_obj nm=q3p::CPX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CPX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCPX64                   G[ref_obj nm=q3p::CPX64 act=parameter] A[UINT:0 ct9 sz64 d[0]] B[ref_obj nm=q3p::CPX64 act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCPX8                    G[ref_obj nm=q3p::CPX8 act=parameter] A[ref_obj nm=CPX8 act=-] B[ref_obj nm=q3p::CPX8 act=parameter] TO:nm TO:act
+topModules   nda wCPXL                    G[ref_obj nm=q3p::CPXL act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CPXL act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCPXN                    G[ref_obj nm=q3p::CPXN act=parameter] A[INT:1 ct7 sz32 d[1]] B[ref_obj nm=q3p::CPXN act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCPZ                     G[ref_obj nm=q3p::CPZ act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CPZ act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCPZL                    G[ref_obj nm=q3p::CPZL act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CPZL act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCSHLX                   G[ref_obj nm=q3p::CSHLX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CSHLX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCSHRX                   G[ref_obj nm=q3p::CSHRX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CSHRX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCSX                     G[ref_obj nm=q3p::CSX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CSX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCSZ                     G[ref_obj nm=q3p::CSZ act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CSZ act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wCTERNX                  G[UINT:2 ct9 sz64 d[2]] A[UINT:2 ct9 sz32 d[2]] B[UINT:2 ct9 sz32 d[2]]
+topModules   nda wCUXB                    G[BIN:X ct3 sz32 d[32'bX]] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   nda wCUZB                    G[BIN:Z ct3 sz32 d[32'bZ]] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   nda wCXORX                   G[ref_obj nm=q3p::CXORX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CXORX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wNCPX                    G[ref_obj nm=q3p::CPX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q3p::CPX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+TO=226  AWAY=0  STILL=25  EQ=613  MWRONG=0  SKIP=0
+----- q4_homes102   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+allModules   ca  aCL                      G[sys_func_call] A[sys_func_call] B[sys_func_call]
+allModules   ca  aCPC                     G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+allModules   ca  aCPX                     G[ref_obj nm=q4p::CPX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q4p::CPX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+allModules   ca  aFP                      G[func_call] A[func_call] B[func_call]
+allModules   ca  aFS                      G[func_call] A[func_call] B[func_call]
+allModules   ca  vec                      G[HEX:A5 ct5 sz8 d[8'hA5]] A[HEX:A5 ct5 sz8 d[8'hA5]] B[HEX:A5 ct5 sz8 d[8'hA5]]
+allModules   pa  work@q4_homes102.CMC     G[INT:3 ct7 sz32 d[3]] A[INT:3 ct7 sz32 d[3]] B[INT:3 ct7 sz32 d[3]]
+allModules   pa  work@q4_homes102.CMX     G[operation] A[INT:0 ct7 sz32 d[0]] B[INT:0 ct7 sz32 d[0]]
+allModules   pa  work@q4_homes102.CPC     G[INT:1 ct7 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+allModules   pa  work@q4_homes102.CPX     G[operation] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+allModules   pa  work@q4_homes102.P512    G[UINT:512 ct9 sz32 d[512]] A[UINT:512 ct9 sz32 d[512]] B[UINT:512 ct9 sz32 d[512]]
+allModules   pa  work@q4_homes102.PFP     G[INT:9 ct7 sz32 d[9]] A[INT:9 ct7 sz32 d[9]] B[INT:9 ct7 sz32 d[9]]
+allModules   pa  work@q4_homes102.PFS     G[UINT:5 ct9 sz32 d[5]] A[INT:5 ct7 sz32 d[5]] B[INT:5 ct7 sz32 d[5]]
+allModules   pa  work@q4c.N               G[UINT:8 ct9 sz64 d[8]] A[UINT:8 ct9 sz64 d[8]] B[UINT:8 ct9 sz64 d[8]]
+allModules   pa  work@q4c.P_CL            G[sys_func_call] A[sys_func_call] B[sys_func_call]
+allModules   pa  work@q4c.P_CMX           G[operation] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+allModules   pa  work@q4c.P_CPC           G[INT:1 ct7 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+allModules   pa  work@q4c.P_CPX           G[operation] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+allModules   pa  work@q4c.P_FP            G[func_call] A[func_call] B[func_call]
+allModules   pa  work@q4c.P_PFP           G[INT:9 ct7 sz32 d[9]] A[INT:9 ct7 sz32 d[9]] B[INT:9 ct7 sz32 d[9]]
+allModules   pa  work@q4c.P_PFS           G[UINT:5 ct9 sz32 d[5]] A[INT:5 ct7 sz32 d[5]] B[INT:5 ct7 sz32 d[5]]
+topModules   ca  aCL                      G[UINT:9 ct9 sz64 d[9]] A[UINT:9 ct9 sz64 d[9]] B[UINT:9 ct9 sz64 d[9]]
+topModules   ca  aCPC                     G[-:- ct- sz- d[-]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   ca  aFP                      G[INT:9 ct7 sz64 d[9]] A[INT:9 ct7 sz64 d[9]] B[INT:9 ct7 sz64 d[9]]
+topModules   ca  aFS                      G[UINT:5 ct9 sz64 d[5]] A[INT:5 ct7 sz64 d[5]] B[INT:5 ct7 sz64 d[5]]
+topModules   ca  vec                      G[-:- ct- sz- d[-]] A[-:- ct- sz- d[-]] B[-:- ct- sz- d[-]]
+topModules   nda cCL                      G[UINT:3 ct9 sz64 d[3]] A[sys_func_call] B[UINT:3 ct9 sz64 d[3]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda cCLP                     G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[UINT:9 ct9 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda cCPC                     G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda cCPX                     G[ref_obj nm=q4p::CPX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q4p::CPX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda cFP                      G[INT:64 ct7 sz64 d[64]] A[func_call] B[INT:64 ct7 sz64 d[64]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda cFS                      G[UINT:9 ct9 sz64 d[9]] A[func_call] B[UINT:9 ct9 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda cCL                      G[UINT:6 ct9 sz64 d[6]] A[sys_func_call] B[UINT:6 ct9 sz64 d[6]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda cCLP                     G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[UINT:9 ct9 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda cCPC                     G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda cCPX                     G[ref_obj nm=q4p::CPX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q4p::CPX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda cFP                      G[INT:1089 ct7 sz64 d[1089]] A[func_call] B[INT:1089 ct7 sz64 d[1089]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda cFS                      G[UINT:34 ct9 sz64 d[34]] A[func_call] B[UINT:34 ct9 sz64 d[34]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCMXI                    G[ref_obj nm=CMX act=-] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=CMX act=-] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wCPCI                    G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda wCPXI                    G[ref_obj nm=CPX act=-] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=CPX act=-] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda wOPC                     G[operation] A[operation] B[operation]
+topModules   nda wOPX                     G[operation] A[operation] B[operation]
+topModules   nda wPFP                     G[INT:9 ct7 sz64 d[9]] A[INT:9 ct7 sz32 d[9]] B[INT:9 ct7 sz32 d[9]]
+topModules   nda wPFS                     G[UINT:5 ct9 sz64 d[5]] A[INT:5 ct7 sz32 d[5]] B[UINT:5 ct9 sz32 d[5]] TO:vp TO:ct
+topModules   nda wSELC                    G[bit_select] A[bit_select] B[bit_select]
+topModules   nda wSELX                    G[bit_select] A[bit_select] B[bit_select]
+topModules   pa  work@q4_homes102.CMC     G[INT:3 ct7 sz32 d[3]] A[INT:3 ct7 sz32 d[3]] B[INT:3 ct7 sz32 d[3]]
+topModules   pa  work@q4_homes102.CMX     G[operation] A[operation] B[operation]
+topModules   pa  work@q4_homes102.CPC     G[INT:1 ct7 sz32 d[1]] A[INT:1 ct7 sz32 d[1]] B[INT:1 ct7 sz32 d[1]]
+topModules   pa  work@q4_homes102.CPX     G[operation] A[operation] B[operation]
+topModules   pa  work@q4_homes102.P512    G[UINT:512 ct9 sz32 d[512]] A[UINT:512 ct9 sz32 d[512]] B[UINT:512 ct9 sz32 d[512]]
+topModules   pa  work@q4_homes102.PFP     G[INT:9 ct7 sz32 d[9]] A[INT:9 ct7 sz32 d[9]] B[INT:9 ct7 sz32 d[9]]
+topModules   pa  work@q4_homes102.PFS     G[UINT:5 ct9 sz32 d[5]] A[INT:5 ct7 sz32 d[5]] B[INT:5 ct7 sz32 d[5]]
+topModules   pa  work@q4_homes102.u0.N    G[UINT:8 ct9 sz32 d[8]] A[UINT:8 ct9 sz32 d[8]] B[UINT:8 ct9 sz32 d[8]]
+topModules   pa  work@q4_homes102.u0.P_CL G[UINT:9 ct9 sz32 d[9]] A[UINT:9 ct9 sz32 d[9]] B[UINT:9 ct9 sz32 d[9]]
+topModules   pa  work@q4_homes102.u0.P_CMX G[operation] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   pa  work@q4_homes102.u0.P_CPC G[INT:1 ct7 sz32 d[1]] A[INT:1 ct7 sz32 d[1]] B[INT:1 ct7 sz32 d[1]]
+topModules   pa  work@q4_homes102.u0.P_CPX G[operation] A[INT:0 ct7 sz32 d[0]] B[INT:0 ct7 sz32 d[0]]
+topModules   pa  work@q4_homes102.u0.P_FP G[INT:9 ct7 sz32 d[9]] A[UINT:9 ct9 sz32 d[9]] B[UINT:9 ct9 sz32 d[9]]
+topModules   pa  work@q4_homes102.u0.P_PFP G[INT:9 ct7 sz32 d[9]] A[INT:9 ct7 sz32 d[9]] B[INT:9 ct7 sz32 d[9]]
+topModules   pa  work@q4_homes102.u0.P_PFS G[UINT:5 ct9 sz32 d[5]] A[INT:5 ct7 sz32 d[5]] B[INT:5 ct7 sz32 d[5]]
+topModules   pa  work@q4_homes102.u1.N    G[UINT:33 ct9 sz32 d[33]] A[UINT:33 ct9 sz32 d[33]] B[UINT:33 ct9 sz32 d[33]]
+topModules   pa  work@q4_homes102.u1.P_CL G[UINT:9 ct9 sz32 d[9]] A[UINT:9 ct9 sz32 d[9]] B[UINT:9 ct9 sz32 d[9]]
+topModules   pa  work@q4_homes102.u1.P_CMX G[operation] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   pa  work@q4_homes102.u1.P_CPC G[INT:1 ct7 sz32 d[1]] A[INT:1 ct7 sz32 d[1]] B[INT:1 ct7 sz32 d[1]]
+topModules   pa  work@q4_homes102.u1.P_CPX G[operation] A[INT:0 ct7 sz32 d[0]] B[INT:0 ct7 sz32 d[0]]
+topModules   pa  work@q4_homes102.u1.P_FP G[INT:9 ct7 sz32 d[9]] A[UINT:9 ct9 sz32 d[9]] B[UINT:9 ct9 sz32 d[9]]
+topModules   pa  work@q4_homes102.u1.P_PFP G[INT:9 ct7 sz32 d[9]] A[INT:9 ct7 sz32 d[9]] B[INT:9 ct7 sz32 d[9]]
+topModules   pa  work@q4_homes102.u1.P_PFS G[UINT:5 ct9 sz32 d[5]] A[INT:5 ct7 sz32 d[5]] B[INT:5 ct7 sz32 d[5]]
+TO=106  AWAY=0  STILL=81  EQ=525  MWRONG=0  SKIP=0
+----- q5_homes2102   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+allModules   pa  work@q5_homes2102.G      G[UINT:1 ct9 sz64 d[1]] A[UINT:1 ct9 sz64 d[1]] B[UINT:1 ct9 sz64 d[1]]
+topModules   nda fCL                      G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[sys_func_call]
+topModules   nda fFP                      G[INT:4 ct7 sz64 d[4]] A[func_call] B[func_call]
+topModules   nda fCL                      G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[sys_func_call]
+topModules   nda fFP                      G[INT:9 ct7 sz64 d[9]] A[func_call] B[func_call]
+topModules   nda gCL                      G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[sys_func_call]
+topModules   nda gCPC                     G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[INT:1 ct7 sz32 d[1]] TO:vp TO:ct
+topModules   nda gCPX                     G[ref_obj nm=q5p::CPX act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=q5p::CPX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda gFP                      G[INT:9 ct7 sz64 d[9]] A[func_call] B[func_call]
+topModules   nda mFP                      G[INT:9 ct7 sz64 d[9]] A[func_call] B[INT:9 ct7 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda iCL                      G[UINT:9 ct9 sz64 d[9]] A[sys_func_call] B[UINT:9 ct9 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda iCPC                     G[INT:1 ct7 sz64 d[1]] A[UINT:1 ct9 sz64 d[1]] B[INT:1 ct7 sz64 d[1]] TO:vp TO:ct
+topModules   nda iCPX                     G[ref_obj nm=q5p::CPX act=parameter] A[UINT:0 ct9 sz64 d[0]] B[ref_obj nm=q5p::CPX act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda iFP                      G[INT:9 ct7 sz64 d[9]] A[func_call] B[INT:9 ct7 sz64 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   nda iFS                      G[UINT:5 ct9 sz64 d[5]] A[func_call] B[UINT:5 ct9 sz64 d[5]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+topModules   pa  work@q5_homes2102.G      G[UINT:1 ct9 sz1 d[1]] A[UINT:1 ct9 sz1 d[1]] B[UINT:1 ct9 sz1 d[1]]
+TO=48  AWAY=0  STILL=45  EQ=99  MWRONG=0  SKIP=0
+----- q6_varinit102   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+topModules   nda vCL                      G[UINT:9 ct9 sz8 d[9]] A[sys_func_call] B[UINT:9 ct9 sz8 d[9]] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm
+TO=7  AWAY=0  STILL=0  EQ=33  MWRONG=0  SKIP=0
+----- p4_fence100   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+allModules   pa  work@p4sub.L_BLB         G[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]] A[INT:-1 ct7 sz64 d[-1]] B[INT:-1 ct7 sz64 d[-1]]
+allModules   pa  work@p4sub.L_CPW         G[INT:8 ct7 sz32 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+allModules   pa  work@p4sub.P_BADD        G[UINT:4294967297 ct9 sz64 d[4294967297]] A[UINT:1 ct9 sz64 d[1]] B[UINT:1 ct9 sz64 d[1]]
+allModules   pa  work@p4sub.P_BLB         G[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]] A[INT:-1 ct7 sz64 d[-1]] B[INT:-1 ct7 sz64 d[-1]]
+allModules   pa  work@p4sub.P_CPW         G[INT:8 ct7 sz32 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+topModules   nda w8BADD                   G[UINT:1 ct9 sz8 d[1]] A[UINT:1 ct9 sz8 d[1]] B[UINT:1 ct9 sz8 d[1]]
+topModules   nda w8BLB                    G[UINT:255 ct9 sz8 d[255]] A[INT:-1 ct7 sz8 d[-1]] B[INT:-1 ct7 sz8 d[-1]]
+topModules   nda w8CPW                    G[INT:8 ct7 sz8 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+topModules   nda wBADD                    G[UINT:4294967297 ct9 sz64 d[4294967297]] A[UINT:1 ct9 sz64 d[1]] B[UINT:1 ct9 sz64 d[1]]
+topModules   nda wBADDN                   G[INT:4294967295 ct7 sz64 d[4294967295]] A[INT:4294967295 ct7 sz64 d[4294967295]] B[INT:4294967295 ct7 sz64 d[4294967295]]
+topModules   nda wBANDN                   G[UINT:4294967296 ct9 sz64 d[4294967296]] A[UINT:0 ct9 sz64 d[0]] B[UINT:0 ct9 sz64 d[0]]
+topModules   nda wBDEEP                   G[UINT:4294967299 ct9 sz64 d[4294967299]] A[UINT:3 ct9 sz64 d[3]] B[UINT:3 ct9 sz64 d[3]]
+topModules   nda wBLB                     G[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]] A[INT:-1 ct7 sz64 d[-1]] B[INT:-1 ct7 sz64 d[-1]]
+topModules   nda wBMIX                    G[UINT:4294967297 ct9 sz64 d[4294967297]] A[UINT:1 ct9 sz64 d[1]] B[UINT:1 ct9 sz64 d[1]]
+topModules   nda wBNEGA                   G[INT:-4294967296 ct7 sz64 d[-4294967296]] A[INT:-4294967296 ct7 sz64 d[-4294967296]] B[INT:-4294967296 ct7 sz64 d[-4294967296]]
+topModules   nda wBSHIFTC                 G[UINT:4294967296 ct9 sz64 d[4294967296]] A[UINT:0 ct9 sz64 d[0]] B[UINT:0 ct9 sz64 d[0]]
+topModules   nda wBSHLN                   G[UINT:0 ct9 sz64 d[0]] A[UINT:0 ct9 sz64 d[0]] B[UINT:0 ct9 sz64 d[0]]
+topModules   nda wBSUBA                   G[INT:-4294967296 ct7 sz64 d[-4294967296]] A[INT:-4294967296 ct7 sz64 d[-4294967296]] B[INT:-4294967296 ct7 sz64 d[-4294967296]]
+topModules   nda wCASTA                   G[UINT:1 ct9 sz64 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCASTB                   G[UINT:4294967297 ct9 sz64 d[4294967297]] A[UINT:1 ct9 sz64 d[1]] B[UINT:1 ct9 sz64 d[1]]
+topModules   nda wCN32                    G[UINT:4294967295 ct9 sz64 d[4294967295]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCN64                    G[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]] A[INT:-1 ct7 sz64 d[-1]] B[INT:-1 ct7 sz64 d[-1]]
+topModules   nda wCN8                     G[UINT:255 ct9 sz64 d[255]] A[INT:-1 ct7 sz8 d[-1]] B[INT:-1 ct7 sz8 d[-1]]
+topModules   nda wCNADD                   G[UINT:4294967297 ct9 sz64 d[4294967297]] A[UINT:1 ct9 sz64 d[1]] B[UINT:1 ct9 sz64 d[1]]
+topModules   nda wCPW                     G[INT:8 ct7 sz64 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+topModules   nda wCPWC                    G[UINT:8 ct9 sz64 d[8]] A[UINT:8 ct9 sz32 d[8]] B[UINT:8 ct9 sz32 d[8]]
+topModules   nda wFADDS                   G[UINT:6 ct9 sz64 d[6]] A[INT:6 ct7 sz32 d[6]] B[INT:6 ct7 sz32 d[6]]
+topModules   nda wFADDU                   G[UINT:6 ct9 sz64 d[6]] A[INT:6 ct7 sz32 d[6]] B[INT:6 ct7 sz32 d[6]]
+topModules   nda wFBARE                   G[UINT:5 ct9 sz64 d[5]] A[INT:5 ct7 sz32 d[5]] B[UINT:5 ct9 sz32 d[5]] TO:vp TO:ct
+topModules   nda wNBADD                   G[UINT:1 ct9 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wNBLB                    G[UINT:4294967295 ct9 sz32 d[4294967295]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wNCPW                    G[INT:8 ct7 sz32 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+topModules   nda wNUBLB                   G[UINT:4294967295 ct9 sz32 d[4294967295]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   pa  work@p4_fence100.u0.L_BLB G[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]] A[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]] B[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]]
+topModules   pa  work@p4_fence100.u0.L_CPW G[INT:8 ct7 sz32 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+topModules   pa  work@p4_fence100.u0.P_BADD G[UINT:4294967297 ct9 sz64 d[4294967297]] A[UINT:1 ct9 sz64 d[1]] B[UINT:1 ct9 sz64 d[1]]
+topModules   pa  work@p4_fence100.u0.P_BLB G[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]] A[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]] B[UINT:9223372036854775807 ct9 sz64 d[9223372036854775807]]
+topModules   pa  work@p4_fence100.u0.P_CPW G[INT:8 ct7 sz32 d[8]] A[INT:8 ct7 sz32 d[8]] B[INT:8 ct7 sz32 d[8]]
+TO=2  AWAY=0  STILL=99  EQ=571  MWRONG=0  SKIP=0
+----- z3_cmpfam97   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+topModules   nda wCADD                    G[UINT:3 ct9 sz32 d[3]] A[UINT:3 ct9 sz32 d[3]] B[UINT:3 ct9 sz32 d[3]]
+topModules   nda wCADDC                   G[UINT:2 ct9 sz32 d[2]] A[UINT:2 ct9 sz32 d[2]] B[UINT:2 ct9 sz32 d[2]]
+topModules   nda wCAND                    G[UINT:1 ct9 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCANDF                   G[UINT:0 ct9 sz32 d[0]] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   nda wCCEQ                    G[ref_obj nm=z3p::CCEQ act=parameter] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCCHN                    G[BIN:1 ct3 sz32 d[32'b1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCCNE                    G[ref_obj nm=z3p::CCNE act=parameter] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   nda wCEQ                     G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCEQF                    G[BIN:0 ct3 sz32 d[32'b0]] A[BIN:0 ct3 sz32 d[32'b0]] B[BIN:0 ct3 sz32 d[32'b0]]
+topModules   nda wCGE                     G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCGEF                    G[BIN:0 ct3 sz32 d[32'b0]] A[BIN:0 ct3 sz32 d[32'b0]] B[BIN:0 ct3 sz32 d[32'b0]]
+topModules   nda wCGT                     G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCGTF                    G[BIN:0 ct3 sz32 d[32'b0]] A[BIN:0 ct3 sz32 d[32'b0]] B[BIN:0 ct3 sz32 d[32'b0]]
+topModules   nda wCLE                     G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCLEF                    G[BIN:0 ct3 sz32 d[32'b0]] A[BIN:0 ct3 sz32 d[32'b0]] B[BIN:0 ct3 sz32 d[32'b0]]
+topModules   nda wCLT                     G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCLTC                    G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCLTF                    G[BIN:0 ct3 sz32 d[32'b0]] A[BIN:0 ct3 sz32 d[32'b0]] B[BIN:0 ct3 sz32 d[32'b0]]
+topModules   nda wCLTN                    G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCLTU                    G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCLTX                    G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCMUL                    G[INT:6 ct7 sz32 d[6]] A[INT:6 ct7 sz32 d[6]] B[INT:6 ct7 sz32 d[6]]
+topModules   nda wCNE                     G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wCNEF                    G[BIN:0 ct3 sz32 d[32'b0]] A[BIN:0 ct3 sz32 d[32'b0]] B[BIN:0 ct3 sz32 d[32'b0]]
+topModules   nda wCNOT                    G[UINT:1 ct9 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCNOTT                   G[UINT:0 ct9 sz32 d[0]] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   nda wCOR                     G[UINT:1 ct9 sz32 d[1]] A[UINT:1 ct9 sz32 d[1]] B[UINT:1 ct9 sz32 d[1]]
+topModules   nda wCSUB                    G[INT:7 ct7 sz32 d[7]] A[INT:7 ct7 sz32 d[7]] B[INT:7 ct7 sz32 d[7]]
+topModules   nda wCTERN                   G[UINT:5 ct9 sz32 d[5]] A[UINT:5 ct9 sz32 d[5]] B[UINT:5 ct9 sz32 d[5]]
+topModules   nda wDB32                    G[BIN:1 ct3 sz32 d[32'b1]] A[BIN:1 ct3 sz32 d[32'b1]] B[BIN:1 ct3 sz32 d[32'b1]]
+topModules   nda wDBS32                   G[BIN:1 ct3 sz32 d[32'b1]] A[BIN:1 ct3 sz32 d[32'b1]] B[BIN:1 ct3 sz32 d[32'b1]]
+topModules   nda wDIMP                    G[BIN:1 ct3 sz1 d[1'b1]] A[BIN:1 ct3 sz1 d[1'b1]] B[BIN:1 ct3 sz1 d[1'b1]]
+topModules   nda wDIMPF                   G[BIN:0 ct3 sz32 d[32'b0]] A[BIN:0 ct3 sz32 d[32'b0]] B[BIN:0 ct3 sz32 d[32'b0]]
+topModules   nda wDINTG                   G[BIN:1 ct3 sz32 d[32'b1]] A[BIN:1 ct3 sz32 d[32'b1]] B[BIN:1 ct3 sz32 d[32'b1]]
+topModules   nda wDIU                     G[BIN:1 ct3 sz32 d[32'b1]] A[BIN:1 ct3 sz32 d[32'b1]] B[BIN:1 ct3 sz32 d[32'b1]]
+topModules   nda wDL32                    G[BIN:1 ct3 sz32 d[32'b1]] A[BIN:1 ct3 sz32 d[32'b1]] B[BIN:1 ct3 sz32 d[32'b1]]
+topModules   nda wDLS32                   G[BIN:1 ct3 sz32 d[32'b1]] A[BIN:1 ct3 sz32 d[32'b1]] B[BIN:1 ct3 sz32 d[32'b1]]
+topModules   nda wDNAME                   G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wDTD                     G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wDU64                    G[BIN:0 ct3 sz32 d[32'b0]] A[BIN:0 ct3 sz32 d[32'b0]] B[BIN:0 ct3 sz32 d[32'b0]]
+topModules   nda wDU64E                   G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wEMUL                    G[INT:2 ct7 sz32 d[2]] A[UINT:2 ct9 sz32 d[2]] B[INT:2 ct7 sz32 d[2]] TO:vp TO:ct
+topModules   nda wENEG                    G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wESUB                    G[INT:0 ct7 sz32 d[0]] A[UINT:0 ct9 sz32 d[0]] B[INT:0 ct7 sz32 d[0]] TO:vp TO:ct
+topModules   nda wEU1                     G[INT:-1 ct7 sz32 d[-1]] A[INT:-1 ct7 sz32 d[-1]] B[INT:-1 ct7 sz32 d[-1]]
+topModules   nda wQLT64                   G[BIN:1 ct3 sz64 d[64'b1]] A[BIN:1 ct3 sz64 d[64'b1]] B[BIN:1 ct3 sz64 d[64'b1]]
+topModules   nda wQLTB1                   G[BIN:1 ct3 sz1 d[1'b1]] A[BIN:1 ct3 sz1 d[1'b1]] B[BIN:1 ct3 sz1 d[1'b1]]
+topModules   nda wQLTBY                   G[BIN:1 ct3 sz8 d[8'b1]] A[BIN:1 ct3 sz8 d[8'b1]] B[BIN:1 ct3 sz8 d[8'b1]]
+topModules   nda wQLTL1                   G[BIN:1 ct3 sz1 d[1'b1]] A[BIN:1 ct3 sz1 d[1'b1]] B[BIN:1 ct3 sz1 d[1'b1]]
+topModules   nda wQLTS8                   G[BIN:1 ct3 sz8 d[8'b1]] A[BIN:1 ct3 sz8 d[8'b1]] B[BIN:1 ct3 sz8 d[8'b1]]
+topModules   nda wQLTU8                   G[BIN:1 ct3 sz8 d[8'b1]] A[BIN:1 ct3 sz8 d[8'b1]] B[BIN:1 ct3 sz8 d[8'b1]]
+TO=4  AWAY=0  STILL=63  EQ=1157  MWRONG=0  SKIP=0
+----- z4_xz97   (G = golden Surelog v1.87 | A = pristine cea7806d | B = law)
+topModules   nda wC1S                     G[INT:1 ct7 sz32 d[1]] A[INT:1 ct7 sz32 d[1]] B[INT:1 ct7 sz32 d[1]]
+topModules   nda wCSUB                    G[INT:7 ct7 sz32 d[7]] A[INT:7 ct7 sz32 d[7]] B[INT:7 ct7 sz32 d[7]]
+topModules   nda wUXB                     G[BIN:X ct3 sz32 d[32'bX]] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   nda wUXM                     G[ref_obj nm=z4p::UXM act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=z4p::UXM act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wUXS                     G[ref_obj nm=z4p::UXS act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=z4p::UXS act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+topModules   nda wUZB                     G[BIN:Z ct3 sz32 d[32'bZ]] A[UINT:0 ct9 sz32 d[0]] B[UINT:0 ct9 sz32 d[0]]
+topModules   nda wUZS                     G[ref_obj nm=z4p::UZS act=parameter] A[UINT:0 ct9 sz32 d[0]] B[ref_obj nm=z4p::UZS act=parameter] TO:K TO:vp TO:vd TO:ct TO:sz TO:d TO:nm TO:act
+TO=24  AWAY=0  STILL=14  EQ=146  MWRONG=0  SKIP=0

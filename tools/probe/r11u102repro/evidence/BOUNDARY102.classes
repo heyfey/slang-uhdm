@@ -1,0 +1,21 @@
+# r11u102 WIDE BOUNDARY — every *.sv under tools/probe at f2e5ebc8 (8463 arms), pristine cea7806d vs law 9dc12cbb, bnd72.sh (same file name, same dir, one after the other)
+SAME 8231   DIFFERS 8   NODB 224 (220 x rc=3 / 4 x rc=139, every one prc == lrc)
+
+NULL BOUNDARY (pristine vs pristine over the 8 DIFFERS): 8 SAME / 0 DIFFERS
+ALL-FLAGS-OFF binary d_all (f953869f) over the 8: 3 DIFFERS (the page-boundary three, +4096) / 5 SAME
+16 KB-PAD binary (pristine + volatile char v102pad[16384], NO law code, a96996f1) over the 8: the SAME 3 DIFFERS (+16416) / 5 SAME
+
+PER ARM:
+  r10buvm22repro/g22.sv (both binaries rc=4), r10uvm154repro/l154_noenum.sv, r10uvm185repro/grid185/g185_e_kinds.sv
+      PAGE-BOUNDARY class (r11u91 sec 5.10 / r11v11u8): an address-derived UINT range bound. order-blind diff = |UINT:/|vpiDecompile: only.
+      law +16384 (23376985 -> 23393369), d_all +4096 (-> 23381081), 16KB pad +16416 (-> 23393401): the value tracks the LOADED IMAGE, not a law.
+  r11u100repro/grid/p4_fence100.sv   § pkgCallMintIsTheReturnMint102: wFBARE INT:5 ct7 -> UINT:5 ct9 = golden (GRID102.score)
+  r11u97repro/grid/z3_cmpfam97.sv    § cmpOperandUnderIntMint102: wEMUL UINT:2->INT:2, wESUB UINT:0->INT:0 = golden
+  r11u97repro/grid/z4_xz97.sv        § unknownOperandDeclinesFold102: wUXS/wUZS/wUXM constant -> ref_obj z4p::<P> bound to the parameter = golden
+  r10v133repro/v133_e_const.sv       § pkgCallMintIsTheReturnMint102: $bits(EP133) argument (EP133 = cfz133() returning literal 8) INT:8 ct7 -> UINT:8 ct9.
+      its golden does NOT compile (slrc=4, ERR:UH0700 on line 20, a DIFFERENT line); re-cut without line 20 (v133t.sv) golden compiles
+      slrc=0 and loc97v scores it TO=2 AWAY=0 MWRONG=0 — golden holds UINT:8 ct9 at 18:29.
+  r11v94repro/grid/x4_syncross94v.sv § pkgCallMintIsTheReturnMint102: KSF = fq(4) (fq returns a + 1) read as the pattern member of
+      'A' (33:25) INT:5 ct7 -> UINT:5 ct9 = golden; the two param_assign M6 cells at the same start location stay INT:5 (STILL,
+      golden UINT:5 — the param_assign home is not this site). loc97v's location multiset at 29:39 merges the three and prints
+      MOVED-WRONG=2 {INT,INT}->{INT,UINT} vs {UINT,UINT}; PER CELL it is 1 TO + 2 STILL, AWAY 0, MOVED-WRONG 0 (cells quoted in README sec 5.9).

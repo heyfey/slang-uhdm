@@ -10887,6 +10887,720 @@ inline std::string red100MaskedUnsigned100(int64_t v100, uint32_t w100) {
     return std::to_string(((uint64_t)v100) & m100);
 }
 
+/// § cmpOperandUnderIntMint102 (r11u102) — LAW A, r11v100's RV100-3.  A
+/// COMPARISON IS AN OPERAND LIKE ANY OTHER TO THE PRODUCER'S INT-MINTING ARMS.
+///
+/// `reduceExpr` reduces each operand of `vpiPowerOp` (`~/git-repos/UHDM/
+/// templates/ExprEval.cpp:3765-3785`), `vpiMultOp`, `vpiDivOp`, `vpiModOp`,
+/// `vpiSubOp` and `vpiMinusOp` FIRST and then reads it with `get_value`; a
+/// comparison operand reduces through `reduceCompOp` (`:1639-1746`) to
+/// `BIN:<0|1>`, and `get_value` of that string is the digit.  So `(3 < 4) ** 3`
+/// is `1 ** 3` and the arm mints `INT:1 vpiIntConst` exactly as `1 ** 3` does.
+/// Our shared `red72Int64` answers `Unknown` for a comparison — DELIBERATELY
+/// (§ intCompareIsMinusOne97: it is read by ParamEmit, ModuleEmit and ExprEmit
+/// for widths, ranges and selects, and a comparison arm there would move cells
+/// no declaration-keyed census could name in advance) — so the landed
+/// § powTopIsIntReduce100 / § pkgParamMulDivModIsIntReduce96 predicate fired
+/// and the value road declined, and the site wrote slang's store as `UINT:`.
+///
+/// This is pass 97's widening one call site over: the comparison is computed
+/// by `red97CompValue97` (the producer's SIGNED int64 compare, its operands on
+/// the digit roads) and the OTHER operand by `red72Int64` with `inArm` set, and
+/// the arithmetic is the producer's own, one level deep.  A comparison buried
+/// deeper (`((3 < 4) * 2) ** 3`) is DECLINED — a STILL cell, never an AWAY one.
+///
+/// MEASURED (arm `q1_cmppow102`, real Surelog v1.87, every cell `slrc=0
+/// ourrc=0 slerr=0`, net-decl-assign road, value / const type):
+///
+///   package declaration                     golden        ours (pristine)
+///   int CPC   = (3 < 4) ** 3                INT:1  ct7    UINT:1 ct9
+///   int CPCR  = 3 ** (3 < 4)                INT:3  ct7    UINT:3 ct9
+///   int CPCF  = (4 < 3) ** 3                INT:0  ct7    UINT:0 ct9
+///   int CPCF0 = 3 ** (4 < 3)                INT:1  ct7    UINT:1 ct9
+///   int CPCC  = (3 < 4) ** (3 < 4)          INT:1  ct7    UINT:1 ct9
+///   longint CPCL = (3 < 4) ** 40            INT:1  ct7    UINT:1 ct9
+///   logic [7:0] CPC8 = (3 < 4) ** 3         INT:1  ct7    UINT:1 ct9
+///   int CPCU  = (64'hFFFF_FFFF_FFFF_FFFF > 1) ** 3
+///                                           INT:0  ct7    UINT:1 ct9  (signed compare)
+///   int CPCT  = ('1 < 2) ** 3               INT:1  ct7    UINT:0 ct9  ('1 is the digit 1)
+///   int CMC   = (3 < 4) * 3                 INT:3  ct7    UINT:3 ct9
+///   int CMCL  = (3 < 4) * 4294967296        INT:4294967296 ct7   UINT:0 ct9
+///   int CDCR  = 6 / (3 < 4)                 INT:6  ct7    UINT:6 ct9
+///   int CMOD  = (3 < 4) % 2                 INT:1  ct7    UINT:1 ct9
+///   int CSCR  = 5 - (3 < 4)                 INT:4  ct7    UINT:4 ct9
+///   int CNEGF = -(4 < 3)                    INT:0  ct7    UINT:0 ct9
+///   int CAMC  = (3 < 4) + (2 * 3)           INT:7  ct7    UINT:7 ct9  (add97's operand mint)
+///   AND THE CONTROLS, equal on both binaries:
+///   int CAC   = (3 < 4) + 1                 UINT:2        UINT:2   (no INT operand)
+///   int CNEG  = -(3 < 4)                    INT:-1        INT:-1   (the landed neg91)
+///   int CPNAME = CLT ** 3                   INT:1         INT:1    (a NAME hop: slang's store)
+///   int CPTERN = (1 ? 2 : 3) ** 3           INT:8         INT:8
+///
+/// The size face is the READER's width on this road (r11u91's R4, fenced) and
+/// is not touched.  The flag is `cmpOp102` at the one call site.
+
+inline bool red102CmpOrInt64(const Expression& e0102, const ASTContext& actx102,
+                             int64_t& out102, bool& isCmp102) {
+    isCmp102 = red97CompTop97(e0102);
+    if (isCmp102) {
+        bool b102 = false;
+        if (!red97CompValue97(e0102, actx102, b102))
+            return false;
+        out102 = b102 ? 1 : 0;
+        return true;
+    }
+    return red72Int64(e0102, actx102, 0, out102, true) == Red72::Value;
+}
+
+inline bool red102CmpOperandInt64(const Expression& e0102,
+                                  const ASTContext& actx102, int64_t& out102) {
+    const Expression& e102 = stripImplicitConv(e0102);
+    if (e102.kind == ExpressionKind::UnaryOp) {
+        auto& u102 = e102.as<UnaryExpression>();
+        if (u102.op != UnaryOperator::Minus || !red97CompTop97(u102.operand()))
+            return false;
+        bool b102 = false;
+        if (!red97CompValue97(u102.operand(), actx102, b102))
+            return false;
+        out102 = b102 ? -1 : 0;
+        return true;
+    }
+    if (e102.kind != ExpressionKind::BinaryOp)
+        return false;
+    auto& b102 = e102.as<BinaryExpression>();
+    switch (b102.op) {
+        case BinaryOperator::Add:
+        case BinaryOperator::Subtract:
+        case BinaryOperator::Multiply:
+        case BinaryOperator::Divide:
+        case BinaryOperator::Mod:
+        case BinaryOperator::Power:
+            break;
+        default:
+            return false;
+    }
+    int64_t l102 = 0, r102 = 0;
+    bool lc102 = false, rc102 = false;
+    if (!red102CmpOrInt64(b102.left(), actx102, l102, lc102))
+        return false;
+    if (!red102CmpOrInt64(b102.right(), actx102, r102, rc102))
+        return false;
+    if (!lc102 && !rc102)
+        return false;
+    switch (b102.op) {
+        case BinaryOperator::Add:
+            out102 = (int64_t)((uint64_t)l102 + (uint64_t)r102);
+            return true;
+        case BinaryOperator::Subtract:
+            out102 = (int64_t)((uint64_t)l102 - (uint64_t)r102);
+            return true;
+        case BinaryOperator::Multiply:
+            out102 = (int64_t)((uint64_t)l102 * (uint64_t)r102);
+            return true;
+        case BinaryOperator::Divide:
+            if (r102 == 0 || (l102 == INT64_MIN && r102 == -1))
+                return false;
+            out102 = l102 / r102;
+            return true;
+        case BinaryOperator::Mod:
+            if (r102 == 0 || (l102 == INT64_MIN && r102 == -1))
+                return false;
+            out102 = l102 % r102;
+            return true;
+        case BinaryOperator::Power: {
+            // § patPowCastArtefact73's two faces, written as `red72Int64`'s
+            // own Power arm writes them (the copy is deliberate: RESUME §9's
+            // no-premature-extraction rule, and the shared function stays
+            // byte-identical).
+            double d102 = std::pow((double)l102, (double)r102);
+            if (!(d102 >= -9223372036854775808.0) ||
+                !(d102 < 9223372036854775808.0))
+                out102 = INT64_MIN;
+            else
+                out102 = (int64_t)d102;
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
+/// § unknownOperandDeclinesFold102 (r11u102) — LAW C, r11v100's RV100-5.  AN
+/// UNKNOWN LITERAL UNDER AN OPERATOR IS A MISS, AND GOLDEN WRITES NOTHING ON A
+/// MISS.
+///
+/// Surelog compiles `'x` / `'z` to `paX` / `paZ` constants (`BIN:X` /
+/// `BIN:Z`, `exitUnbased_unsized_literal`, `SV3_1aTreeShapeListener.cpp:874`)
+/// and a based `1'bx` / `4'hx` to `BIN:x` / `HEX:x`.  Every arithmetic,
+/// bitwise, shift, comparison and logical arm of `reduceExpr` reads its
+/// operands with `get_value`, which sets `invalidValue` on an x/z digit
+/// (`ExprEval.cpp:1947-2057`), so the operation is NOT reduced — and the
+/// unreduced operation is what the parameter holds, so a READ of that
+/// parameter has no value to substitute and stays a `ref_obj`.  The
+/// operation's own unreduced state propagates up: a parent operation over it
+/// and a NAME hop onto it are unreduced too.  slang instead converts the
+/// 4-state answer to the 2-state declared type (`int`), writing 0, and our
+/// fold site wrote that 0 as `UINT:0`.  The pass-97 tick law already declines
+/// `'x`/`'z` on the int64 LEAF road (§ unbasedUnsizedIsOneDigit97); this is
+/// the OPERATOR road.
+///
+/// MEASURED (arm `q3_xpow102`, real Surelog v1.87, every cell `slrc=0 ourrc=0
+/// slerr=0`, net-decl-assign road) — golden writes a `ref_obj` to the
+/// parameter and NO constant at every one of:
+///   `2 ** 'x`, `'x ** 2`, `2 ** 'z`, `'z ** 2`, `longint 2 ** 'x`,
+///   `2 * 'x`, `4 / 'x`, `'x / 4`, `4 % 'x`, `4 - 'x`, `'z - 4`, `'x + 1`,
+///   `1 + 'z`, `-'x`, `'x & 1`, `1 | 'z`, `'x << 1`, `4 >> 'x`, `'x ^ 1`,
+///   `'x < 1`, `1 == 'z`, `'x && 1`, `(2 ** 'x) + 1`, `(2 * 'x) * 3`,
+///   `CPX + 1` (a NAME hop onto `2 ** 'x`), `2 ** 1'bx`, `4'hx + 1`
+/// where every one of them was `UINT:0` (or `UINT:1` / `INT:1`) on ours.
+/// AND THE DECLINES OF THE DECLINE, measured and left alone:
+///   `1 ? 2 : 'x`  golden `UINT:2` — the untaken branch is never reduced, so
+///                 a CONDITIONAL is not walked;
+///   `'x` / `'z` bare  golden `BIN:X` / `BIN:Z` — the LEAF road, a different
+///                 value (recorded as a residue, not touched);
+///   `logic [7:0] CPX8 = 2 ** 'x`  already unfolded on both binaries (slang's
+///                 4-state store keeps the x).
+///
+/// `basedX102` carries the based-literal face as its own flag.
+/// V-FIX v11u94 (the verifier of r11u102) — TWO FACES OF THE DECLINE WERE
+/// WIDER THAN THE PRODUCER'S MISS, each measured on real Surelog v1.87 (arms
+/// `b3_xhomes94`, `b5_fixfaces94`) where the law turned golden's constant
+/// into a `ref_obj`:
+///   (a) `basedLead102v` — `get_value` parses a based value with
+///       `std::from_chars` (`NumUtils::strToInt`, `~/git-repos/UHDM/templates/
+///       NumUtils.h:57-80`), which reads the valid PREFIX and fails only when
+///       NO digit parses.  So a based literal is a miss only when its LEADING
+///       written digit is x/z/?: `4'b1x00 & 4'b0011` is golden `UINT:1`,
+///       `4'b0x00 | 4'b0001` `UINT:1`, `8'h1x + 1` `UINT:2`, `4'b1z00 + 0`
+///       `UINT:1`, `6'o1x + 1` `UINT:2`, `2 ** 4'b1x` `INT:2` — while
+///       `8'hx1 + 1`, `4'bx_100 & 1`, `2 ** 1'bx` and `4'hx + 1` stay refs.
+///   (b) `strCmp102v` — `reduceCompOp` (`ExprEval.cpp:1639-1737`) falls back
+///       to a STRING compare when both reduced operands are `BIN:`/`HEX:`/
+///       `OCT:`/`DEC:` constants (`getStringVal`, `:1610`), i.e. both are
+///       based or unbased LITERALS, and then reduces for every comparison op:
+///       `('x == 'x) ** 2` is golden `INT:1`, `('x != 'z) * 3` `INT:3`,
+///       `('x < 4'b0001) + 1` `UINT:1`, `(1'bx == 1'bx) * 2` `INT:2`,
+///       `('x == 4'd1) + 1` `UINT:1`, `('x >= 'z) + 1` `UINT:1` — while
+///       `('x == 1) + 1` (an unsized decimal is `UINT:`, not a string) and
+///       `((2 ** 'x) == 'x) + 1` stay refs.
+/// Both decline the DECLINE, so those cells stay exactly as the pristine
+/// binary wrote them; each drops alone.
+constexpr bool basedLead102v = true;  // § unknownOperandDeclinesFold102 V-FIX (a)
+constexpr bool strCmp102v = true;     // § unknownOperandDeclinesFold102 V-FIX (b)
+
+inline bool isComparisonOp102v(BinaryOperator op102v) {
+    switch (op102v) {
+        case BinaryOperator::Equality:
+        case BinaryOperator::Inequality:
+        case BinaryOperator::GreaterThanEqual:
+        case BinaryOperator::GreaterThan:
+        case BinaryOperator::LessThanEqual:
+        case BinaryOperator::LessThan:
+            return true;
+        default:
+            return false;
+    }
+}
+
+inline bool red102StrLit102v(const Expression& e0102v) {
+    const Expression& e102v = stripImplicitConv(e0102v);
+    if (e102v.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+        return true;
+    return e102v.kind == ExpressionKind::IntegerLiteral &&
+           red76VecSyntax(e102v) != nullptr;
+}
+
+inline bool red102LeadUnknown102v(const Expression& e102v) {
+    const auto* iv102v = red76VecSyntax(e102v);
+    if (!iv102v)
+        return true;
+    for (char ch102v : iv102v->value.rawText()) {
+        if (ch102v == '_' || ch102v == ' ' || ch102v == '\t')
+            continue;
+        return ch102v == 'x' || ch102v == 'X' || ch102v == 'z' ||
+               ch102v == 'Z' || ch102v == '?';
+    }
+    return true;
+}
+
+inline bool red102XzUnderOp102(const Expression& e0102, bool basedX102,
+                               bool underOp102, int depth102 = 0) {
+    if (depth102 > 16)
+        return false;
+    const Expression& e102 = stripImplicitConv(e0102);
+    switch (e102.kind) {
+        case ExpressionKind::UnaryOp:
+            return red102XzUnderOp102(e102.as<UnaryExpression>().operand(),
+                                      basedX102, true, depth102 + 1);
+        case ExpressionKind::BinaryOp: {
+            auto& b102 = e102.as<BinaryExpression>();
+            if (strCmp102v && isComparisonOp102v(b102.op) &&
+                red102StrLit102v(b102.left()) && red102StrLit102v(b102.right()))
+                return false;
+            return red102XzUnderOp102(b102.left(), basedX102, true,
+                                      depth102 + 1) ||
+                   red102XzUnderOp102(b102.right(), basedX102, true,
+                                      depth102 + 1);
+        }
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+            return underOp102 && e102.as<UnbasedUnsizedIntegerLiteral>()
+                                     .getLiteralValue()
+                                     .isUnknown();
+        case ExpressionKind::IntegerLiteral:
+            return underOp102 && basedX102 &&
+                   e102.as<IntegerLiteral>().getValue().hasUnknown() &&
+                   (!basedLead102v || red102LeadUnknown102v(e102));
+        case ExpressionKind::NamedValue:
+        case ExpressionKind::HierarchicalValue: {
+            // A NAME hop does not enter an arm: it PROPAGATES the position,
+            // exactly as § redWideLeafPositionNotDepth72v keys it.
+            auto& sy102 = e102.as<ValueExpressionBase>().symbol;
+            if (sy102.kind != SymbolKind::Parameter)
+                return false;
+            const Expression* in102 =
+                sy102.as<ParameterSymbol>().getInitializer();
+            return in102 && red102XzUnderOp102(*in102, basedX102, underOp102,
+                                               depth102 + 1);
+        }
+        default:
+            return false;
+    }
+}
+
+/// § ndaCallFoldIsEvalFunc102 (r11u102) — LAW B, r11v100's RV100-4.  THE
+/// WHOLE RIGHT-HAND SIDE OF A NET DECLARATION IS COMPILED WITH Reduce::Yes, SO
+/// A CONSTANT CALL THERE IS ITS OWN ANSWER, AND THE ANSWER HAS NO LOCATION.
+///
+/// Surelog's netlist elaboration compiles a net-declaration assignment's RHS
+/// with `Reduce::Yes`.  A USER call then goes through
+/// `CompileHelper::compileExpression`'s `paSubroutine_call` arm
+/// (`~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp:3257-3291`):
+/// `if (reduce == Reduce::Yes) result = EvalFunc(...)`, which runs
+/// `ExprEval::evalFunc` (`~/git-repos/UHDM/templates/ExprEval.cpp:6106`) and
+/// hands back the function's RESULT constant; only on `invalidValue` does the
+/// `func_call` survive.  A `$clog2` goes through `compileClog2`
+/// (`CompileExpression.cpp:5013-5058`): `reduceExpr` + `get_value` on the
+/// argument, the shift loop, and `UINT:<n>` at `VpiSize(64)`,
+/// `vpiUIntConst`.  NEITHER constant is ever given a source range — golden's
+/// cell reads `\_constant:` with no `line:` at all, which is why RV97-2
+/// applies and this law is scored BY NET NAME (`nda102.py`).  The net's width
+/// is then applied by `adjustSize`: a `vpiUIntConst` is MASKED to it
+/// (`CompileHelper.cpp:4107-4118`) and a `vpiIntConst` is not (no branch), and
+/// the size is the net's.
+///
+/// WHAT `evalFunc` HANDS BACK (`ExprEval.cpp:6319-6385`), the whole of the
+/// VALUE / CONST-TYPE rule:
+///   * a `logic_typespec` return (`logic [7:0] f`) — the result MASKED to the
+///     return width and re-rendered `UINT:`, whatever minted it;
+///   * any other return type (`int`, `int unsigned`, `shortint`, `longint`,
+///     `byte`, `integer`) — the return expression's REDUCED CONSTANT as the
+///     operator arms minted it: `INT:` for `**`, `*`, `/`, `%`, `-`, a unary
+///     minus; `UINT:` for a `+` over UINT operands, for a bare unsized
+///     literal, for a formal bound to one — and NEVER masked to the return
+///     type (`int fbig(10) = a ** 10` is golden `INT:10000000000`, `byte
+///     fby(100) = a * 2` golden `INT:200`).
+///
+/// MEASURED (arms `q2_callfold102` and `q4_homes102`, real Surelog v1.87,
+/// every cell `slrc=0 ourrc=0 slerr=0`; ours is a `func_call` /
+/// `sys_func_call` at every cell):
+///
+///   net declaration (64-bit unless noted)     golden
+///   = q2p::fp(3)        int, a ** 2           INT:9  ct7 sz64 (no location)
+///   = fp(3) / fp(q2p::P5) / fp(2 + 1) / fp(MP) INT:9 / INT:25 / INT:9 / INT:262144
+///   = q2p::fs(4)        int, a + 1            UINT:5 ct9
+///   = q2p::fm(4) / fd(9) / fmo(8)             INT:12 / INT:4 / INT:2
+///   = q2p::fsub(9, 4) / fadd2(9, 4)           INT:5 / UINT:13
+///   = q2p::fu(4)        int unsigned, a + 1   UINT:5
+///   = q2p::f8(4) / f8m(4) / f8o(4)  logic [7:0], a+1 / a*3 / a*100
+///                                             UINT:5 / UINT:12 / UINT:144 (masked)
+///   = q2p::fl(PL40)     longint, a - 1        INT:1099511627775
+///   = q2p::fsh(4) / fby(100) / fig(4)         INT:8 / INT:200 / INT:8
+///   = q2p::fbig(10)     int, a ** 10          INT:10000000000 (NOT masked)
+///   = q2p::fneg(3)      int, a - 10           INT:-7
+///   = q2p::fz()         int, return 7         UINT:7
+///   = q2p::fid(4)       int, return a         UINT:4
+///   = q2p::fpp(4) / fpar(4)  (a+1)*2 / a*P5   INT:10 / INT:20
+///   = mf(3)             a MODULE function     INT:9
+///   [31:0] = fp(3)                            INT:9  sz32
+///   [3:0]  = fs(20) / fm(20)                  UINT:5 sz4 (masked) / INT:60 sz4 (not)
+///   [0:0]  = fz()                             UINT:1 sz1 (masked)
+///   = $clog2(q2p::P512) / (P512) / (512) / (MP) / (ML)    UINT:9 / 9 / 9 / 9 / 6
+///   = $clog2(q2p::P512 + 1) / (P0) / (P1) / (PL33) / (32'h100)
+///                                             UINT:10 / 0 / 0 / 34 / 8
+///   [7:0] / [2:0] = $clog2(q2p::P512)         UINT:9 sz8 / UINT:1 sz3 (masked)
+///   CHILD instance, N=8 / N=33: fp(N)         INT:64 / INT:1089
+///                               fs(N)         UINT:9 / UINT:34
+///                               $clog2(N)     UINT:3 / UINT:6
+/// AND THE SHAPES GOLDEN KEEPS, equal on both binaries:
+///   = fp(3) + 1 / $clog2(P512) + 1   operation (the call is not the RHS)
+///   = int'(fp(3))                     operation (a written cast)
+///   = $bits(q2p::P512)                sys_func_call
+///
+/// THE GATE IS WHAT THIS FILE CAN COMPUTE EXACTLY, AND NOTHING WIDER.  The
+/// user-call face needs the producer's arithmetic over the BOUND formals —
+/// slang evaluates at the return type's width and the producer does not — so
+/// it is confined to a body that is ONE `return <expr>` whose expression is
+/// `+ - * / % **` / unary minus over formals, literals and parameters, a
+/// return type that is a `PredefinedIntegerType` other than `time` or an
+/// UNSIGNED one-dimensional `logic` vector, `input` formals of a
+/// `PredefinedIntegerType`, and actuals whose digit-road value matches
+/// slang's.  `fasg` (assignment to the function name), `floc` (a local),
+/// `fif` (an `if`), `fcl` (a `$clog2` inside) and `fcmp` (a comparison inside)
+/// fold in golden and are DECLINED here — STILL cells, never AWAY ones.
+/// V-FIX v11u94 (the verifier of r11u102) — FOUR SHAPES THE GATE ADMITTED
+/// WHERE GOLDEN DOES NOT FOLD, OR FOLDS ANOTHER VALUE, each measured on real
+/// Surelog v1.87 (arms `b1_callbrk94`, `b5_fixfaces94`) and each its own flag:
+///   `defArg102v`  — an argument slang bound from the formal's DEFAULT (an
+///       omitted trailing argument, an empty `f(3, )` slot, a named call that
+///       leaves `.b` out) is not the producer's: `fdef(3)` is golden
+///       `func_call`, `fdef(3, )` and `fdef(.a(3))` golden `INT:0`, where the
+///       law wrote `INT:6` (`fdef(3, 2)` and `fdef(.a(3), .b(4))` fold alike).
+///   `bodyPkg102v` — a parameter read in the BODY must be a PACKAGE one: a
+///       module function over a module parameter or localparam is evaluated
+///       by `evalFunc` against the DEFINITION's value or not at all —
+///       `mw(3) = a * W` is golden `INT:12` in an instance with `W = 9`
+///       (definition W = 4), `mws(3) = a + W` and `mlks(3) = a + LK` golden
+///       `func_call` — where a package parameter (`a + b5p::P5`) folds.
+///   `argDigits102v` — an actual (and a `$clog2` argument) is the producer's
+///       REDUCED operand, so it is read on the digit road with `inArm` set
+///       and must agree with slang's value too: `fm(8'sb11111111)` is golden
+///       `INT:765`, `flm(3000000000)` `INT:9000000000000000000`,
+///       `$clog2(4294967296)` `UINT:32`, where the law, reading slang's
+///       truncated store on both sides, wrote `INT:-3`, `INT:1676940297709551616`
+///       and `UINT:0`.  A disagreement DECLINES (a STILL cell).
+///   `clogNeg102v` — a `$clog2` whose argument is NEGATIVE stays a
+///       `sys_func_call` in golden at every spelling measured (`$clog2(-5)`,
+///       `(2 - 7)`, `(-1)`, a `-5` package parameter, a `-3` override), where
+///       `$clog2(PNEG + 10)` folds.
+constexpr bool defArg102v = true;     // § ndaCallFoldIsEvalFunc102 V-FIX
+constexpr bool bodyPkg102v = true;    // § ndaCallFoldIsEvalFunc102 V-FIX
+constexpr bool argDigits102v = true;  // § ndaCallFoldIsEvalFunc102 V-FIX
+constexpr bool clogNeg102v = true;    // § ndaCallFoldIsEvalFunc102 V-FIX
+
+inline bool red102ArgDigitsAgree102v(const Expression& ae102v,
+                                     const ASTContext& actx102v, int64_t v102v) {
+    if (!argDigits102v)
+        return true;
+    int64_t w102v = 0;
+    return red72Int64(ae102v, actx102v, 0, w102v, true) == Red72::Value &&
+           w102v == v102v;
+}
+
+struct Red102Formal {
+    const Symbol* sym;
+    int64_t val;
+    bool uintLit;  // bound to a `UINT:` leaf (red102UintLeaf102)
+};
+
+inline const Expression* red102SingleReturn102(const Statement& st102,
+                                               int depth102 = 0) {
+    if (depth102 > 4)
+        return nullptr;
+    switch (st102.kind) {
+        case StatementKind::Return:
+            return st102.as<ReturnStatement>().expr;
+        case StatementKind::Block:
+            return red102SingleReturn102(st102.as<BlockStatement>().body,
+                                         depth102 + 1);
+        case StatementKind::List: {
+            auto& l102 = st102.as<StatementList>().list;
+            if (l102.size() != 1)
+                return nullptr;
+            return red102SingleReturn102(*l102[0], depth102 + 1);
+        }
+        default:
+            return nullptr;
+    }
+}
+
+inline bool red102UnsizedDecLit102(const Expression& e0102) {
+    const Expression& e102 = stripImplicitConv(e0102);
+    if (e102.kind != ExpressionKind::IntegerLiteral)
+        return false;
+    if (red76VecSyntax(e102))
+        return false;
+    return e102.syntax &&
+           e102.syntax->kind == slang::syntax::SyntaxKind::IntegerLiteralExpression;
+}
+
+/// A leaf the producer reduces to a `UINT:` constant: an unsized decimal
+/// literal, or a NAME whose initializer is one (the parameter's own value
+/// constant is `UINT:` — `pa N UINT:8` in golden, and an override is written
+/// the same way).
+inline bool red102UintLeaf102(const Expression& e0102) {
+    if (red102UnsizedDecLit102(e0102))
+        return true;
+    const Expression& e102 = stripImplicitConv(e0102);
+    if (e102.kind != ExpressionKind::NamedValue &&
+        e102.kind != ExpressionKind::HierarchicalValue)
+        return false;
+    auto& sy102 = e102.as<ValueExpressionBase>().symbol;
+    if (sy102.kind != SymbolKind::Parameter)
+        return false;
+    const Expression* in102 = sy102.as<ParameterSymbol>().getInitializer();
+    return in102 && red102UnsizedDecLit102(*in102);
+}
+
+inline const Red102Formal* red102FindFormal102(
+    const Expression& e0102, const std::vector<Red102Formal>& fm102) {
+    const Expression& e102 = stripImplicitConv(e0102);
+    if (e102.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto* sy102 = &e102.as<NamedValueExpression>().symbol;
+    for (auto& f102 : fm102)
+        if (f102.sym == sy102)
+            return &f102;
+    return nullptr;
+}
+
+inline bool red102RetEval102(const Expression& e0102, const ASTContext& actx102,
+                             const std::vector<Red102Formal>& fm102,
+                             int depth102, int64_t& out102) {
+    if (depth102 > 16)
+        return false;
+    const Expression& e102 = stripImplicitConv(e0102);
+    if (auto* f102 = red102FindFormal102(e102, fm102)) {
+        out102 = f102->val;
+        return true;
+    }
+    if (e102.kind == ExpressionKind::UnaryOp) {
+        auto& u102 = e102.as<UnaryExpression>();
+        if (u102.op != UnaryOperator::Minus)
+            return false;
+        int64_t v102 = 0;
+        if (!red102RetEval102(u102.operand(), actx102, fm102, depth102 + 1, v102))
+            return false;
+        out102 = (int64_t)(0ULL - (uint64_t)v102);
+        return true;
+    }
+    if (e102.kind == ExpressionKind::BinaryOp) {
+        auto& b102 = e102.as<BinaryExpression>();
+        int64_t l102 = 0, r102 = 0;
+        switch (b102.op) {
+            case BinaryOperator::Add:
+            case BinaryOperator::Subtract:
+            case BinaryOperator::Multiply:
+            case BinaryOperator::Divide:
+            case BinaryOperator::Mod:
+            case BinaryOperator::Power:
+                break;
+            default:
+                return false;
+        }
+        if (!red102RetEval102(b102.left(), actx102, fm102, depth102 + 1, l102) ||
+            !red102RetEval102(b102.right(), actx102, fm102, depth102 + 1, r102))
+            return false;
+        switch (b102.op) {
+            case BinaryOperator::Add:
+                out102 = (int64_t)((uint64_t)l102 + (uint64_t)r102);
+                return true;
+            case BinaryOperator::Subtract:
+                out102 = (int64_t)((uint64_t)l102 - (uint64_t)r102);
+                return true;
+            case BinaryOperator::Multiply:
+                out102 = (int64_t)((uint64_t)l102 * (uint64_t)r102);
+                return true;
+            case BinaryOperator::Divide:
+                if (r102 == 0 || (l102 == INT64_MIN && r102 == -1))
+                    return false;
+                out102 = l102 / r102;
+                return true;
+            case BinaryOperator::Mod:
+                if (r102 == 0 || (l102 == INT64_MIN && r102 == -1))
+                    return false;
+                out102 = l102 % r102;
+                return true;
+            case BinaryOperator::Power: {
+                // § patPowCastArtefact73, `red72Int64`'s Power arm verbatim.
+                double d102 = std::pow((double)l102, (double)r102);
+                if (!(d102 >= -9223372036854775808.0) ||
+                    !(d102 < 9223372036854775808.0))
+                    out102 = INT64_MIN;
+                else
+                    out102 = (int64_t)d102;
+                return true;
+            }
+            default:
+                return false;
+        }
+    }
+    // A leaf that is neither a formal nor an operation: a literal or a
+    // parameter, on the producer's own digit roads (it IS an operand).
+    if (e102.kind != ExpressionKind::IntegerLiteral &&
+        e102.kind != ExpressionKind::NamedValue &&
+        e102.kind != ExpressionKind::HierarchicalValue)
+        return false;
+    if (e102.kind != ExpressionKind::IntegerLiteral &&
+        e102.as<ValueExpressionBase>().symbol.kind != SymbolKind::Parameter)
+        return false;
+    if (bodyPkg102v && e102.kind != ExpressionKind::IntegerLiteral) {
+        auto* ps102v = e102.as<ValueExpressionBase>().symbol.getParentScope();
+        if (!ps102v || ps102v->asSymbol().kind != SymbolKind::Package)
+            return false;
+    }
+    return red72Int64(e102, actx102, 0, out102, true) == Red72::Value;
+}
+
+/// The CONST TYPE of the reduced return expression: 1 = `INT:`, 2 = `UINT:`,
+/// 0 = not decided here (the law declines).
+inline int red102RetMint102(const Expression& e0102,
+                            const std::vector<Red102Formal>& fm102) {
+    const Expression& e102 = stripImplicitConv(e0102);
+    if (auto* f102 = red102FindFormal102(e102, fm102))
+        return f102->uintLit ? 2 : 0;
+    if (red102UintLeaf102(e102))
+        return 2;
+    if (e102.kind == ExpressionKind::UnaryOp)
+        return e102.as<UnaryExpression>().op == UnaryOperator::Minus ? 1 : 0;
+    if (e102.kind != ExpressionKind::BinaryOp)
+        return 0;
+    auto& b102 = e102.as<BinaryExpression>();
+    switch (b102.op) {
+        case BinaryOperator::Subtract:
+        case BinaryOperator::Multiply:
+        case BinaryOperator::Divide:
+        case BinaryOperator::Mod:
+        case BinaryOperator::Power:
+            return 1;
+        case BinaryOperator::Add:
+            // `vpiAddOp`'s unsignedOperation branch: UINT only where BOTH
+            // reduced operands are UINT leaves; anything else is not decided.
+            return (red102RetMint102(b102.left(), fm102) == 2 &&
+                    red102RetMint102(b102.right(), fm102) == 2)
+                       ? 2
+                       : 0;
+        default:
+            return 0;
+    }
+}
+
+/// THE USER-CALL FACE.  Returns true with the producer's value and mint
+/// (`isInt102`), already masked at the return width for a `logic` return.
+inline bool red102CallFold102(const CallExpression& call102,
+                              const ASTContext& actx102, int64_t& out102,
+                              bool& isInt102) {
+    if (call102.isSystemCall())
+        return false;
+    auto* sp102 = std::get_if<const SubroutineSymbol*>(&call102.subroutine);
+    if (!sp102 || !*sp102)
+        return false;
+    const SubroutineSymbol& sub102 = **sp102;
+    if (sub102.subroutineKind != SubroutineKind::Function)
+        return false;
+    // A CLASS method (static or not) is a different road — never measured.
+    if (call102.thisClass() || !sub102.getParentScope() ||
+        sub102.getParentScope()->asSymbol().kind == SymbolKind::ClassType)
+        return false;
+    auto fargs102 = sub102.getArguments();
+    auto aargs102 = call102.arguments();
+    if (fargs102.size() != aargs102.size())
+        return false;
+    // The return type: a plain integer type keeps the reduced constant; an
+    // UNSIGNED one-dimensional `logic` vector masks and re-renders UINT.
+    auto& rt102 = sub102.getReturnType().getCanonicalType();
+    bool logicRet102 = false;
+    if (rt102.kind == SymbolKind::PredefinedIntegerType) {
+        if (rt102.as<PredefinedIntegerType>().integerKind ==
+            PredefinedIntegerType::Time)
+            return false;
+    }
+    else if (rt102.kind == SymbolKind::PackedArrayType ||
+             rt102.kind == SymbolKind::ScalarType) {
+        if (rt102.isSigned() || !rt102.isFourState())
+            return false;
+        if (rt102.kind == SymbolKind::PackedArrayType &&
+            rt102.as<PackedArrayType>().elementType.getCanonicalType().kind !=
+                SymbolKind::ScalarType)
+            return false;
+        logicRet102 = true;
+    }
+    else
+        return false;
+    uint32_t rw102 = (uint32_t)rt102.getBitWidth();
+    if (rw102 == 0 || rw102 > 64)
+        return false;
+    // The bound formals.
+    std::vector<Red102Formal> fm102;
+    for (size_t i102 = 0; i102 < fargs102.size(); i102++) {
+        auto* fa102 = fargs102[i102];
+        if (fa102->direction != ArgumentDirection::In)
+            return false;
+        if (fa102->getType().getCanonicalType().kind !=
+            SymbolKind::PredefinedIntegerType)
+            return false;
+        if (defArg102v && aargs102[i102] == fa102->getDefaultValue())
+            return false;
+        const Expression& ae102 = *aargs102[i102];
+        int64_t v102 = 0;
+        if (red72Int64(ae102, actx102, 0, v102) != Red72::Value)
+            return false;
+        if (!red102ArgDigitsAgree102v(ae102, actx102, v102))
+            return false;
+        // slang's value of the (converted) actual must be the same number:
+        // no truncation and no digit-road disagreement is modelled here.
+        ConstantValue cv102 = actx102.tryEval(ae102);
+        if (!cv102 || !cv102.isInteger() || cv102.integer().hasUnknown())
+            return false;
+        auto s102 = cv102.integer().as<int64_t>();
+        if (!s102 || *s102 != v102)
+            return false;
+        fm102.push_back({fa102, v102, red102UintLeaf102(ae102)});
+    }
+    const Expression* re102 = red102SingleReturn102(sub102.getBody());
+    if (!re102)
+        return false;
+    int mint102 = red102RetMint102(*re102, fm102);
+    if (!logicRet102 && mint102 == 0)
+        return false;
+    int64_t v102 = 0;
+    if (!red102RetEval102(*re102, actx102, fm102, 0, v102))
+        return false;
+    // The call must be a constant call to slang too.
+    ConstantValue cc102 = actx102.tryEval(call102);
+    if (!cc102 || !cc102.isInteger() || cc102.integer().hasUnknown())
+        return false;
+    if (logicRet102) {
+        uint64_t m102 = rw102 >= 64 ? ~(uint64_t)0
+                                    : ((((uint64_t)1) << rw102) - 1);
+        out102 = (int64_t)(((uint64_t)v102) & m102);
+        isInt102 = false;
+        return true;
+    }
+    out102 = v102;
+    isInt102 = mint102 == 1;
+    return true;
+}
+
+/// THE `$clog2` FACE — `compileClog2`'s own loop over `get_value` of the
+/// reduced argument, `UINT:` at `VpiSize(64)`.
+inline bool red102Clog2Fold102(const CallExpression& call102,
+                               const ASTContext& actx102, int64_t& out102) {
+    if (!call102.isSystemCall() || call102.getSubroutineName() != "$clog2")
+        return false;
+    auto a102 = call102.arguments();
+    if (a102.size() != 1)
+        return false;
+    int64_t v102 = 0;
+    if (red72Int64(*a102[0], actx102, 0, v102) != Red72::Value)
+        return false;
+    if (!red102ArgDigitsAgree102v(*a102[0], actx102, v102))
+        return false;
+    if (clogNeg102v && v102 < 0)
+        return false;
+    ConstantValue cv102 = actx102.tryEval(*a102[0]);
+    if (!cv102 || !cv102.isInteger() || cv102.integer().hasUnknown())
+        return false;
+    auto s102 = cv102.integer().as<int64_t>();
+    if (!s102 || *s102 != v102)
+        return false;
+    int64_t val102 = v102 - 1;
+    uint64_t n102 = 0;
+    for (; val102 > 0; n102++)
+        val102 = val102 >> 1;
+    out102 = (int64_t)n102;
+    return true;
+}
+
 inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) {
     const Expression& e = stripImplicitConv(e0);
     if (e.kind != ExpressionKind::NamedValue &&

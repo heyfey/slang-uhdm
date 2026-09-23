@@ -309,6 +309,57 @@ static bool pkgParamValueIsUnsigned71(const slang::ast::ParameterSymbol& ps,
 // bit f=0)` fills the `a`/`b` STRING slots, the `e` slot whose default is 7,
 // and the `f` bit slot with the same `0`.  It carries NO vpiParent and NO
 // source span; both absences are read off the golden dump, not assumed.
+// § ndaCallFoldIsEvalFunc102 (r11u102) — LAW B's MINT, shared by the two
+// entries in emitExpr (the implicit conversion the net's type wraps around the
+// call, and the bare call where no conversion was needed).  `netW102` is the
+// NET's width: the producer's `adjustSize` masks a `vpiUIntConst` to it and
+// leaves a `vpiIntConst` alone, and the size is the net's.  The constant gets
+// NO source range — golden's has none — and parents at the cont_assign.  The
+// decode, the measured table and the gate are in the § block beside
+// `red102CallFold102`; each call kind is its own flag at the call site.
+static constexpr bool ndaUser102 = true;  // § ndaCallFoldIsEvalFunc102
+static constexpr bool ndaClog102 = true;  // § ndaCallFoldIsEvalFunc102
+// V-FIX v11u94 — a net WIDER than 64 bits folds too, at the net's width:
+// `wire [127:0] w = fs(4)` is golden `UINT:5 sz128`, `= fp(3)` `INT:9 sz128`,
+// `[95:0] = fp(3)` `INT:9 sz96`, `[127:0] = $clog2(P5)` `UINT:3 sz128`
+// (arm `b5_fixfaces94`).  Without it the conversion declined and the bare-call
+// entry below refolded the call at the CALL's own width (`sz32`).
+static constexpr bool wideNet102v = true;  // § ndaCallFoldIsEvalFunc102 V-FIX
+static UHDM::constant* ndaCallFold102(UHDM::Serializer& s, Compilation& comp,
+                                      const CallExpression& call102,
+                                      uint32_t netW102,
+                                      UHDM::BaseClass* parent102,
+                                      bool user102, bool clog102,
+                                      bool evalOk102) {
+    if (netW102 == 0 || (netW102 > 64 && !wideNet102v))
+        return nullptr;
+    ASTContext ctx102(comp.getRoot(), LookupLocation::max);
+    int64_t v102 = 0;
+    bool isInt102 = false;
+    if (call102.isSystemCall()) {
+        if (!clog102 || !red102Clog2Fold102(call102, ctx102, v102))
+            return nullptr;
+    }
+    else if (!user102 || !evalOk102 ||
+             !red102CallFold102(call102, ctx102, v102, isInt102))
+        return nullptr;
+    std::string dg102;
+    if (isInt102)
+        dg102 = std::to_string(v102);
+    else {
+        uint64_t m102 = netW102 >= 64 ? ~(uint64_t)0
+                                      : ((((uint64_t)1) << netW102) - 1);
+        dg102 = std::to_string(((uint64_t)v102) & m102);
+    }
+    auto* c102 = s.MakeConstant();
+    c102->VpiValue((isInt102 ? "INT:" : "UINT:") + dg102);
+    c102->VpiDecompile(dg102);
+    c102->VpiSize((int32_t)netW102);
+    c102->VpiConstType(isInt102 ? vpiIntConst : vpiUIntConst);
+    c102->VpiParent(parent102);
+    return c102;
+}
+
 static UHDM::constant* namedSlotFiller4(UHDM::Serializer& s) {
     auto* c4 = s.MakeConstant();
     c4->VpiValue("INT:0");
@@ -16017,7 +16068,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 auto& cv = psym.getValue();
-                if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                // § unknownOperandDeclinesFold102 (r11u102) — LAW C, r11v100's
+                // RV100-5.  An unbased `'x`/`'z` (and, its own flag, a based
+                // literal with an x/z digit) reached UNDER AN OPERATOR leaves
+                // the producer's operation UNREDUCED, so the parameter has no
+                // value to substitute and golden writes a `ref_obj` — where
+                // slang's 2-state store handed this site a 0.  The decode, the
+                // measured table and the declines are in the § block beside
+                // `red102XzUnderOp102`.  A `param_assign` home is NOT this
+                // road: golden copies the parameter's unreduced OPERATION
+                // there (`parameter int P_CPX = q4p::CPX`), so the law declines
+                // and that cell stays exactly as the pristine binary wrote it.
+                constexpr bool xDecl102 = true;   // § unknownOperandDeclinesFold102
+                constexpr bool basedX102 = true;  // § unknownOperandDeclinesFold102
+                constexpr bool xRef102 = true;    // § unknownOperandDeclinesFold102
+                const bool xz102 =
+                    xDecl102 &&
+                    !(parent && parent->UhdmType() == UHDM::uhdmparam_assign) &&
+                    psym.getInitializer() &&
+                    red102XzUnderOp102(*psym.getInitializer(), basedX102,
+                                       false);
+                if (cv.isInteger() && !cv.integer().hasUnknown() && !xz102) {
                     auto* c = s.MakeConstant();
                     // ===== § pkgParamMinusIsIntReduce94 (r11u94) — r11u91's
                     // R2 (LAW B) and R3 (LAW C), one decoded rule with two
@@ -16081,6 +16152,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     constexpr bool add97 = true;   // § addMintFollowsOperandMint97
                     constexpr bool pow97 = true;   // § addMintFollowsOperandMint97
                     constexpr bool powTop100 = true;  // § powTopIsIntReduce100
+                    // § cmpOperandUnderIntMint102 (r11u102) — LAW A, r11v100's
+                    // RV100-3.  The predicate above fires on `(3 < 4) ** 3`
+                    // and the shared int64 road declines the comparison BY
+                    // DESIGN (§ intCompareIsMinusOne97); this call site — and
+                    // no other — reads a comparison OPERAND through
+                    // `red97CompValue97`.  The decode and the measured table
+                    // are in the § block beside `red102CmpOperandInt64`.
+                    constexpr bool cmpOp102 = true;  // § cmpOperandUnderIntMint102
                     int64_t mrv94 = 0;
                     bool minus94 = false;
                     bool intTop100 = false;
@@ -16093,6 +16172,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                               LookupLocation::max);
                             minus94 = red72Int64(*mi94, mctx94, 0, mrv94) ==
                                       Red72::Value;
+                            if (!minus94 && cmpOp102)
+                                minus94 = red102CmpOperandInt64(*mi94, mctx94,
+                                                                mrv94);
                         }
                     }
                     const bool negRed94 = minus94 && mrv94 < 0;
@@ -16224,6 +16306,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }));
                         callSigned9 = hasCall9 && cv.integer().isSigned();
                     }
+                    // § pkgCallMintIsTheReturnMint102 (r11u102) — LAW B's
+                    // package-parameter face, r11u100's R4.  A parameter whose
+                    // initializer IS a user call holds `evalFunc`'s answer, and
+                    // that answer's const type is the RETURN EXPRESSION's mint
+                    // (`int fs(a) = a + 1` -> `UINT:`, `int fp(a) = a ** 2` ->
+                    // `INT:`), not the return type's signedness: `int PFS =
+                    // fs(4)` is golden `UINT:5` where `callSigned9` wrote
+                    // `INT:5` (arms `q4_homes102` wPFS, r11u100's
+                    // `p4_fence100` wFBARE).  The decode is the § block beside
+                    // `red102CallFold102`; where that gate declines, or the
+                    // store is negative, the landed `callSigned9` stands.
+                    constexpr bool pkgCall102 = true;  // § pkgCallMintIsTheReturnMint102
+                    if (pkgCall102 && !udig100 && !negRed94 && !zpsRed94)
+                        if (auto* pc102 = psym.getInitializer();
+                            pc102 && stripImplicitConv(*pc102).kind ==
+                                         ExpressionKind::Call) {
+                            auto& pcc102 =
+                                stripImplicitConv(*pc102).as<CallExpression>();
+                            auto* psp102 = std::get_if<const SubroutineSymbol*>(
+                                &pcc102.subroutine);
+                            ASTContext pctx102(comp.getRoot(),
+                                               LookupLocation::max);
+                            int64_t pv102 = 0;
+                            bool pint102 = false;
+                            if (!pcc102.isSystemCall() && psp102 && *psp102 &&
+                                srlgEvalFuncFolds(**psp102) &&
+                                red102CallFold102(pcc102, pctx102, pv102,
+                                                  pint102) &&
+                                !(cv.integer().isSigned() &&
+                                  cv.integer().isNegative())) {
+                                callSigned9 = pint102;
+                                if (pint102 && std::to_string(pv102) != digits) {
+                                    digits = std::to_string(pv102);
+                                    c->VpiDecompile(digits);
+                                }
+                            }
+                        }
                     // ===== § pkgParamNegFoldIsInt91 (r11u91) — LAW B, the
                     // pass-87 R3 head of `q12_ndaparamenc`.  A NEGATIVE value
                     // written here as `"UINT:" + digits` becomes `UINT:-3`,
@@ -17341,6 +17460,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                     return c;
+                }
+                // § unknownOperandDeclinesFold102 — THE REF GOLDEN WRITES, in
+                // the two written spellings § fcArgQual33 already measured for
+                // a call argument: `pkg::P` is named `pkg::P`, bound to the
+                // package parameter and spans the qualifier; a bare `P` after
+                // a wildcard import is named `P`, scoped to the reading module,
+                // bound to nothing and spans the identifier (arms
+                // `q3_xpow102` wCPX, `q4_homes102` wCPXI / cCPX / aCPX).
+                if (xz102 && xRef102) {
+                    const bool q102 =
+                        expr.syntax
+                            ? expr.syntax->kind == syntax::SyntaxKind::ScopedName
+                            : rawText(expr.sourceRange).find("::") !=
+                                  std::string::npos;
+                    ref->VpiParent(parent);
+                    if (!q102) {
+                        ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                        setLoc(ref, expr.sourceRange);
+                        return ref;
+                    }
+                    std::string pn102 = std::string(scope->asSymbol().name) +
+                                        "::" + std::string(nv.symbol.name);
+                    ref->VpiName(pn102);
+                    ref->VpiFullName(pn102);
+                    if (auto pit102 = pkgDefMap.find(&scope->asSymbol());
+                        pit102 != pkgDefMap.end() &&
+                        pit102->second->Parameters())
+                        for (auto* pp102 : *pit102->second->Parameters())
+                            if (pp102->VpiName() == nv.symbol.name)
+                                ref->Actual_group(pp102);
+                    setLoc(ref, SourceRange(expr.sourceRange.start(),
+                                            expr.sourceRange.start() +
+                                                scope->asSymbol().name.size() +
+                                                2));
+                    return ref;
                 }
                 ref->VpiFullName(std::string(scope->asSymbol().name) + "::" +
                                  std::string(nv.symbol.name));
@@ -20841,6 +20995,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::Conversion: {
             auto& conv = expr.as<ConversionExpression>();
+            // § ndaCallFoldIsEvalFunc102 (r11u102) — LAW B, r11v100's RV100-4.
+            // The OUTERMOST implicit conversion of a net declaration's RHS is
+            // the net's own type (slang wraps a narrowing assignment too), so
+            // its width is the width `adjustSize` applies.  A user call and a
+            // `$clog2` written as the WHOLE RHS fold to the producer's
+            // location-less answer; each call kind is its own flag
+            // (`ndaUser102`, `ndaClog102`, beside `ndaCallFold102`).
+            if (conv.isImplicit() && ndaRhsEmit && parent &&
+                parent->UhdmType() == UHDM::uhdmcont_assign && expr.type &&
+                stripImplicitConv(conv.operand()).kind ==
+                    ExpressionKind::Call) {
+                auto& cc102 =
+                    stripImplicitConv(conv.operand()).as<CallExpression>();
+                auto* sp102 =
+                    std::get_if<const SubroutineSymbol*>(&cc102.subroutine);
+                bool ev102 = !cc102.isSystemCall() && sp102 && *sp102 &&
+                             srlgEvalFuncFolds(**sp102);
+                if (auto* f102 = ndaCallFold102(
+                        s, comp, cc102, (uint32_t)expr.type->getBitWidth(),
+                        parent, ndaUser102, ndaClog102, ev102))
+                    return f102;
+            }
             if (conv.isImplicit())
                 return emitExpr(conv.operand(), parent, prefix, netMap);
             // Nested casts (int'($clog2(X)'(X))) lose the INNER conversion's
@@ -22503,6 +22679,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::Call: {
             auto& call = expr.as<CallExpression>();
+            // § ndaCallFoldIsEvalFunc102 — the same fold where the call's own
+            // type IS the net's and slang wrapped no conversion around it.
+            if (ndaRhsEmit && parent &&
+                parent->UhdmType() == UHDM::uhdmcont_assign && expr.type) {
+                auto* sp102 =
+                    std::get_if<const SubroutineSymbol*>(&call.subroutine);
+                bool ev102 = !call.isSystemCall() && sp102 && *sp102 &&
+                             srlgEvalFuncFolds(**sp102);
+                if (auto* f102 = ndaCallFold102(
+                        s, comp, call, (uint32_t)expr.type->getBitWidth(),
+                        parent, ndaUser102, ndaClog102, ev102))
+                    return f102;
+            }
             // § nestedParamActualTs6 needs to know whether the call being
             // emitted is the OUTERMOST one of the expression it sits in.  The
             // emitted object's vpiParent cannot answer that (the param_assign

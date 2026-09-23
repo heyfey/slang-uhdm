@@ -1,0 +1,16 @@
+# r11u102 binaries (all frozen chmod 555 before use)
+pris       cea7806d57a4afa1d21a15f5a938caa0
+law3       9dc12cbbe5c80a4ab754523b67d12a8b
+d_all      f953869f8551ff0f5e18211961b9b9b0
+d_cmp      3100d2dc8280c476fed9c4d7ee52d895
+d_xdecl    0a9cffa3e6cab9b62dcd7f797b09ea97
+d_basedx   31b96d81cd43ae7d8d3fcfd9f956a376
+d_xref     60ff4c1bc5dfe83240a101d87ba69c6c
+d_user     e6304ec389f6ba36c605cc03e61a58ec
+d_clog     550586c5b828641831445792d3adce4f
+d_pkgcall  e1e25c964215240b233eadb75e1f0c0c
+pad        a96996f144036d53e1d82e3c64b002b1
+pris   = f2e5ebc8, built in this pass's worktree (= ops-brief md5 cea7806d57a4afa1d21a15f5a938caa0)
+law3   = this patch (the shipped source; sweeps, grid and boundary ran on it)
+d_*    = the patch with the named flag(s) false (DROP102.txt); d_all = all seven false
+pad    = f2e5ebc8 + 'volatile char v102pad[16384];' appended to uhdm_main.cpp, NO law code (the page-boundary positive control)

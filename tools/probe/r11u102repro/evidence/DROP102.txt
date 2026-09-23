@@ -1,0 +1,29 @@
+# r11u102 DROPPABLE ALONE — each flag false in ExprEmit.cpp, rebuilt, re-run over all 30 grid arms
+all f953869f8551ff0f5e18211961b9b9b0 flags=cmpOp102 xDecl102 basedX102 xRef102 ndaUser102 ndaClog102 pkgCall102
+cmp 3100d2dc8280c476fed9c4d7ee52d895 flags=cmpOp102
+xdecl 0a9cffa3e6cab9b62dcd7f797b09ea97 flags=xDecl102
+basedx 31b96d81cd43ae7d8d3fcfd9f956a376 flags=basedX102
+xref 60ff4c1bc5dfe83240a101d87ba69c6c flags=xRef102
+user e6304ec389f6ba36c605cc03e61a58ec flags=ndaUser102
+clog 550586c5b828641831445792d3adce4f flags=ndaClog102
+pkgcall e1e25c964215240b233eadb75e1f0c0c flags=pkgCall102
+9dc12cbbe5c80a4ab754523b67d12a8b  /tmp/wt_r11u102/build/slang-uhdm
+(the last md5 is the worktree rebuilt from the restored law source = the law binary)
+
+dall vs PRISTINE (path-normalised dumps): same=30/30 differ:[ ]
+dcmp vs PRISTINE (path-normalised dumps): same=23/30 differ:[ p4_fence100 q2_callfold102 q3_xpow102 q4_homes102 q5_homes2102 q6_varinit102 z4_xz97 ]
+dxde vs PRISTINE (path-normalised dumps): same=23/30 differ:[ p4_fence100 q1_cmppow102 q2_callfold102 q4_homes102 q5_homes2102 q6_varinit102 z3_cmpfam97 ]
+dbas vs PRISTINE (path-normalised dumps): same=21/30 differ:[ p4_fence100 q1_cmppow102 q2_callfold102 q3_xpow102 q4_homes102 q5_homes2102 q6_varinit102 z3_cmpfam97 z4_xz97 ]
+dxre vs PRISTINE (path-normalised dumps): same=21/30 differ:[ p4_fence100 q1_cmppow102 q2_callfold102 q3_xpow102 q4_homes102 q5_homes2102 q6_varinit102 z3_cmpfam97 z4_xz97 ]
+duse vs PRISTINE (path-normalised dumps): same=21/30 differ:[ p4_fence100 q1_cmppow102 q2_callfold102 q3_xpow102 q4_homes102 q5_homes2102 q6_varinit102 z3_cmpfam97 z4_xz97 ]
+dclo vs PRISTINE (path-normalised dumps): same=22/30 differ:[ p4_fence100 q1_cmppow102 q2_callfold102 q3_xpow102 q4_homes102 q5_homes2102 z3_cmpfam97 z4_xz97 ]
+dpkg vs PRISTINE (path-normalised dumps): same=22/30 differ:[ q1_cmppow102 q2_callfold102 q3_xpow102 q4_homes102 q5_homes2102 q6_varinit102 z3_cmpfam97 z4_xz97 ]
+
+# each flag's OWN contribution: golden / drop binary / law binary, name-keyed (nda102.py), summed over 30 arms
+dcmp -> law: TO=100 AWAY=0 MWRONG=0 cells[ q1_cmppow102:37 q4_homes102:5 q5_homes2102:2 z3_cmpfam97:2 ]
+dxde -> law: TO=304 AWAY=0 MWRONG=0 cells[ q3_xpow102:29 q4_homes102:5 q5_homes2102:2 z4_xz97:3 ]
+dbas -> law: TO=16 AWAY=0 MWRONG=0 cells[ q3_xpow102:2 ]
+dxre -> law: TO=74 AWAY=0 MWRONG=0 cells[ q3_xpow102:29 q4_homes102:3 q5_homes2102:2 z4_xz97:3 ]
+duse -> law: TO=266 AWAY=0 MWRONG=0 cells[ q2_callfold102:31 q4_homes102:4 q5_homes2102:3 ]
+dclo -> law: TO=126 AWAY=0 MWRONG=0 cells[ q2_callfold102:12 q4_homes102:4 q5_homes2102:1 q6_varinit102:1 ]
+dpkg -> law: TO=4 AWAY=0 MWRONG=0 cells[ p4_fence100:1 q4_homes102:1 ]

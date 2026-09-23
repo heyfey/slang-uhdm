@@ -1,0 +1,35 @@
+# r11v102 MOVERS — byteverify SELFCHECK=1 vs this verifier's own pristine workdirs
+== lawx u2r
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== lawx sl
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=cc295bd947d7 pristine=4a97bd65e6e5
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2dda3b241763 pristine=62e66557add2
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=a8b3bc515398 pristine=1191688bd020
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=0dbb5f3a88a6
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== fixv u2r
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== fixv sl
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=10fb87813f3f pristine=4a97bd65e6e5
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=e70775324004 pristine=1621aec6c9f3
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=62e66557add2
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=d96d835bf0e6 pristine=1191688bd020
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=0dbb5f3a88a6
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+ORDER-BLIND attribution (path-normalised sorted uhdm-dump, pristine vs fixed):
+  default/MiniAmiq-544c7f61 lines=4       1 <|UINT       1 >|UINT       1 <|vpiDecompile       1 >|vpiDecompile
+  testflags/MiniAmiq-544c7f61 lines=4       1 <|UINT       1 >|UINT       1 <|vpiDecompile       1 >|vpiDecompile
+  default/SeqDriver-32af76aa lines=4       1 <|UINT       1 >|UINT       1 <|vpiDecompile       1 >|vpiDecompile
+  testflags/SeqDriver-32af76aa lines=4       1 <|UINT       1 >|UINT       1 <|vpiDecompile       1 >|vpiDecompile
+  default/Scoreboard-59431470 lines=0
+COIN CONTROL: pristine x3 on MiniAmiq/default cmds.txt -> f29d9f8d 243b5f00 08726c3e ; r1 vs r2 order-blind = one |UINT:/|vpiDecompile: pair
+LAW (9dc12cbb) movers, order-blind pristine vs law: MiniAmiq d/t, SeqDriver d/t — each 4 lines, one |UINT:/|vpiDecompile: pair (same class)

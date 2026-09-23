@@ -1,0 +1,85 @@
+# r11u102 GATES (all mandatory)
+
+## 1 BUILD (-j 2, md5 separately, frozen chmod 555 copies BEFORE any sweep)
+pristine  cea7806d57a4afa1d21a15f5a938caa0  (this worktree at f2e5ebc8; = the ops-brief md5 = the main tree)
+law       9dc12cbbe5c80a4ab754523b67d12a8b  (this patch)
+0 errors; warnings 20 = 20 on pristine, the same pre-existing -Wnarrowing lines, 0 new
+
+## 2 GOLDENS: pristine 23 PASS / 0 FAIL; law 23 PASS / 0 FAIL; SLANG_UHDM=/bin/false 0 PASS / 23 FAIL
+
+## 3 uhdm2rtlil BOTH MODES, BOTH BINARIES (verify_golden.py --jobs 3, own --out/--workdir)
+pris u2r_tf: [testflags] 871 tests  CMP_EQUAL: 788  SLANG_REJECT: 67  CMP_NOTEQUAL: 16
+pris u2r_def: [default] 871 tests  CMP_EQUAL: 788  SLANG_REJECT: 67  CMP_NOTEQUAL: 16
+lawx u2r_tf: [testflags] 871 tests  CMP_EQUAL: 788  SLANG_REJECT: 67  CMP_NOTEQUAL: 16
+lawx u2r_def: [default] 871 tests  CMP_EQUAL: 788  SLANG_REJECT: 67  CMP_NOTEQUAL: 16
+pris join87.py results/golden_uhdm2rtlil.csv tf+def: rows base=1742 new=1742 DIFF=0
+pris ct8rows results/gate_uhdm2rtlil.csv testflags: PASS: every row byte-identical to the committed baseline
+lawx join87.py results/golden_uhdm2rtlil.csv tf+def: rows base=1742 new=1742 DIFF=0
+lawx ct8rows results/gate_uhdm2rtlil.csv testflags: PASS: every row byte-identical to the committed baseline
+
+## 4 surelog --mode both, BOTH BINARIES
+pris: [default] 798 tests  CMP_EQUAL: 474  SLANG_REJECT: 285  SURELOG_FAIL: 25  CMP_NOTEQUAL: 9  DEFERRED: 5  [testflags] 798 tests  CMP_EQUAL: 469  SLANG_REJECT: 286  SURELOG_FAIL: 23  CMP_NOTEQUAL: 8  DEFERRED: 5  NO_DATABASE: 3  UNTRANSLATABLE: 2  TIMEOUT: 1  NO_UHDM: 1
+lawx: [default] 798 tests  CMP_EQUAL: 474  SLANG_REJECT: 285  SURELOG_FAIL: 25  CMP_NOTEQUAL: 9  DEFERRED: 5  [testflags] 798 tests  CMP_EQUAL: 469  SLANG_REJECT: 286  SURELOG_FAIL: 23  CMP_NOTEQUAL: 8  DEFERRED: 5  NO_DATABASE: 3  UNTRANSLATABLE: 2  TIMEOUT: 1  NO_UHDM: 1
+--- pris ct8rows results/golden_surelog.csv:
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u102_pris/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u102_pris/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+--- lawx ct8rows results/golden_surelog.csv:
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u102_lawx/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u102_lawx/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+(LowMemLib/LowMemPkg testflags: SURELOG_FAIL DETAIL = the sweep's OWN workdir path, on both; Earlgrey_0_1 law: CMP_EQUAL with the DUMP COLUMN blank = the documented uhdm-dump timeout draw — its DATABASE is at its pin, below. NO STATUS MOVED on any row of either corpus.)
+
+## cmds.txt AUDIT by absolute binary path
+pris: 3323 cmds.txt; slang lines by binary:  3273 /tmp/r11u102_bin/pris.bin  main-tree=0 (the other 50 are rows where Surelog failed and no slang ran)
+lawx: 3323 cmds.txt; slang lines by binary:  3273 /tmp/r11u102_bin/law3.bin  main-tree=0 (the other 50 are rows where Surelog failed and no slang ran)
+
+## 5 byteverify SELFCHECK=1 vs this pass's own pristine workdirs: see MOVERS102.txt (u2r 0/1608; surelog 3/960 = the documented UVM coin)
+
+## CANARIES
+law  surelog: ---- canary rows: ok=50 changed=2 absent=0 unknown-names=7  [changed = Earlgrey_0_1 default+testflags DUMP COLUMN only, CMP_EQUAL/differ -> CMP_EQUAL/]
+law  u2r:     ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+pris surelog: ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+ctcan2 law surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+ctcan2 law u2r:     PASS: every supplementary canary row is byte-identical to the baseline.
+canaudit (r11u102repro copies): PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+## PROTECTED DATABASES (md5 prefix), both modes, pristine = law
+SVSwitch default pris=4842211c4030 law=4842211c4030
+SVSwitch testflags pris=4842211c4030 law=4842211c4030
+YosysVerx default pris=6ccda350c24a law=6ccda350c24a
+YosysVerx testflags pris=6ccda350c24a law=6ccda350c24a
+InterfaceModPort default pris=59a365f3ce2c law=59a365f3ce2c
+InterfaceModPort testflags pris=59a365f3ce2c law=59a365f3ce2c
+BlackParrotComplex default pris=e3e354129d5a law=e3e354129d5a
+BlackParrotComplex testflags pris=73a10e8217e5 law=73a10e8217e5
+YosysOldOr default pris=d68e0796d62c law=d68e0796d62c
+YosysOldOr testflags pris=d68e0796d62c law=d68e0796d62c
+Earlgrey_0_1 default pris=8bdf25272e08 law=8bdf25272e08
+Earlgrey_0_1 testflags pris=59d0ee6d10c3 law=59d0ee6d10c3
+
+## CONVERSION ROWS, official uhdm-cmp, golden as LHS, LAW sweep (rowheads.sh)
+TEST           MODE      CMPLINES  HEADS NOTE
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+MiniAmiq       default          0      0 cmp rc=0
+MiniAmiq       testflags        0      0 cmp rc=0
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+ParamOverloading default          0      0 cmp rc=0
+ParamOverloading testflags        0      0 cmp rc=0
+-- measured=13  SKIP-NOFILE=1  UNKNOWN-NAME=0

@@ -1,0 +1,22 @@
+# r11v102 WIDE BOUNDARY — every *.sv under tools/probe at f2e5ebc8 (8463), pristine cea7806d vs FIXED 9f80984e, r11u91repro/bnd72.sh
+      8 DIFFERS
+    224 NODB
+   8231 SAME
+NODB: 220 x rc=3, 4 x rc=139, every one prc == lrc
+ARM r10buvm22repro/g22.sv prc=4 lrc=4 DIFFERS
+ARM r10uvm154repro/l154_noenum.sv prc=0 lrc=0 DIFFERS
+ARM r10uvm185repro/grid185/g185_e_kinds.sv prc=0 lrc=0 DIFFERS
+ARM r10v133repro/v133_e_const.sv prc=0 lrc=0 DIFFERS
+ARM r11u100repro/grid/p4_fence100.sv prc=0 lrc=0 DIFFERS
+ARM r11u97repro/grid/z4_xz97.sv prc=0 lrc=0 DIFFERS
+ARM r11u97repro/grid/z3_cmpfam97.sv prc=0 lrc=0 DIFFERS
+ARM r11v94repro/grid/x4_syncross94v.sv prc=0 lrc=0 DIFFERS
+
+NULL (pristine vs pristine) over the 8: 8 SAME
+LAW 9dc12cbb over the 8: 8 DIFFERS
+ALL-FLAGS-OFF 0070efd9 over the three page-boundary arms: 3 DIFFERS, g22 UINT 23376985 -> 23381081 (+4096); fixed -> 23393369 (+16384)
+order-blind field classes pristine vs fixed:
+  g22 / l154_noenum / g185_e_kinds: |UINT: + |vpiDecompile: pairs only (page-boundary class)
+  v133_e_const: one INT->UINT + vpiConstType 7->9 (re-cut v133t: golden slrc=0, loc97v TO=2 AWAY=0)
+  p4_fence100 / z3_cmpfam97 / z4_xz97: the scored grid
+  x4_syncross94v: 29:39 INT:5->UINT:5, golden UINT:5 in all 7 cells at 29:39 (per cell TO)

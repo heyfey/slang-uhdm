@@ -1,0 +1,67 @@
+# r11v102 GATES — pristine cea7806d / law 9dc12cbb / fixed 9f80984e, all built here -j 2, frozen chmod 555
+== pris md5=cea7806d57a4afa1d21a15f5a938caa0
+goldens PASS=23 FAIL=0
+u2r tf:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT       1 status
+u2r def:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT       1 status
+join87 u2r both modes: rows base=1742 new=1742 DIFF=0
+ct8rows gate_uhdm2rtlil: PASS: every row byte-identical to the committed baseline
+surelog:     474 default,CMP_EQUAL       9 default,CMP_NOTEQUAL       5 default,DEFERRED     285 default,SLANG_REJECT      25 default,SURELOG_FAIL       1 mode,status     469 testflags,CMP_EQUAL       8 testflags,CMP_NOTEQUAL       5 testflags,DEFERRED       3 testflags,NO_DATABASE       1 testflags,NO_UHDM     286 testflags,SLANG_REJECT      23 testflags,SURELOG_FAIL       1 testflags,TIMEOUT       2 testflags,UNTRANSLATABLE
+FIELD Earlgrey_0_1/default                     dump: 'differ' -> ''
+FIELD Earlgrey_0_1/testflags                   dump: 'differ' -> ''
+FIELD LowMemLib/testflags                      detail: '[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/te
+FIELD LowMemPkg/testflags                      detail: '[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/te
+rows base=1596 new=1596 DIFF=4
+cmds u2r: total=1742 frozen=1742 maintree=0
+cmds sl: total=1581 frozen=1531 maintree=0
+SVSwitch/default=4842211c4030 SVSwitch/testflags=4842211c4030 YosysVerx/default=6ccda350c24a YosysVerx/testflags=6ccda350c24a InterfaceModPort/default=59a365f3ce2c InterfaceModPort/testflags=59a365f3ce2c BlackParrotComplex/default=e3e354129d5a BlackParrotComplex/testflags=73a10e8217e5 YosysOldOr/default=d68e0796d62c YosysOldOr/testflags=d68e0796d62c Earlgrey_0_1/default=8bdf25272e08 Earlgrey_0_1/testflags=59d0ee6d10c3
+BuildUVMPkg,default,CMP_EQUAL BuildUVMPkg,testflags,CMP_EQUAL MiniAmiq,default,CMP_EQUAL MiniAmiq,testflags,CMP_EQUAL SeqDriver,default,CMP_EQUAL SeqDriver,testflags,CMP_EQUAL SimpleUVM,default,CMP_EQUAL SimpleUVM,testflags,CMP_EQUAL Scoreboard,default,CMP_EQUAL Scoreboard,testflags,SLANG_REJECT Earlgrey_0_1,default,CMP_EQUAL Earlgrey_0_1,testflags,CMP_EQUAL ParamOverloading,default,CMP_EQUAL ParamOverloading,testflags,CMP_EQUAL
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+== lawx md5=9dc12cbbe5c80a4ab754523b67d12a8b
+goldens PASS=23 FAIL=0
+u2r tf:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT       1 status
+u2r def:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT       1 status
+join87 u2r both modes: rows base=1742 new=1742 DIFF=0
+ct8rows gate_uhdm2rtlil: PASS: every row byte-identical to the committed baseline
+surelog:     474 default,CMP_EQUAL       9 default,CMP_NOTEQUAL       5 default,DEFERRED     285 default,SLANG_REJECT      25 default,SURELOG_FAIL       1 mode,status     469 testflags,CMP_EQUAL       8 testflags,CMP_NOTEQUAL       5 testflags,DEFERRED       3 testflags,NO_DATABASE       1 testflags,NO_UHDM     286 testflags,SLANG_REJECT      23 testflags,SURELOG_FAIL       1 testflags,TIMEOUT       2 testflags,UNTRANSLATABLE
+FIELD Earlgrey_0_1/default                     dump: 'differ' -> ''
+FIELD Earlgrey_0_1/testflags                   dump: 'differ' -> ''
+FIELD LowMemLib/testflags                      detail: '[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/te
+FIELD LowMemPkg/testflags                      detail: '[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/te
+rows base=1596 new=1596 DIFF=4
+cmds u2r: total=1742 frozen=1742 maintree=0
+cmds sl: total=1581 frozen=1531 maintree=0
+SVSwitch/default=4842211c4030 SVSwitch/testflags=4842211c4030 YosysVerx/default=6ccda350c24a YosysVerx/testflags=6ccda350c24a InterfaceModPort/default=59a365f3ce2c InterfaceModPort/testflags=59a365f3ce2c BlackParrotComplex/default=e3e354129d5a BlackParrotComplex/testflags=73a10e8217e5 YosysOldOr/default=d68e0796d62c YosysOldOr/testflags=d68e0796d62c Earlgrey_0_1/default=8bdf25272e08 Earlgrey_0_1/testflags=59d0ee6d10c3
+BuildUVMPkg,default,CMP_EQUAL BuildUVMPkg,testflags,CMP_EQUAL MiniAmiq,default,CMP_EQUAL MiniAmiq,testflags,CMP_EQUAL SeqDriver,default,CMP_EQUAL SeqDriver,testflags,CMP_EQUAL SimpleUVM,default,CMP_EQUAL SimpleUVM,testflags,CMP_EQUAL Scoreboard,default,CMP_EQUAL Scoreboard,testflags,SLANG_REJECT Earlgrey_0_1,default,CMP_EQUAL Earlgrey_0_1,testflags,CMP_EQUAL ParamOverloading,default,CMP_EQUAL ParamOverloading,testflags,CMP_EQUAL
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+== fixv md5=9f80984e2cec410c4ec6eafb0ab705c8
+goldens PASS=23 FAIL=0
+u2r tf:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT       1 status
+u2r def:     788 CMP_EQUAL      16 CMP_NOTEQUAL      67 SLANG_REJECT       1 status
+join87 u2r both modes: rows base=1742 new=1742 DIFF=0
+ct8rows gate_uhdm2rtlil: PASS: every row byte-identical to the committed baseline
+surelog:     474 default,CMP_EQUAL       9 default,CMP_NOTEQUAL       5 default,DEFERRED     285 default,SLANG_REJECT      25 default,SURELOG_FAIL       1 mode,status     469 testflags,CMP_EQUAL       8 testflags,CMP_NOTEQUAL       5 testflags,DEFERRED       3 testflags,NO_DATABASE       1 testflags,NO_UHDM     286 testflags,SLANG_REJECT      23 testflags,SURELOG_FAIL       1 testflags,TIMEOUT       2 testflags,UNTRANSLATABLE
+FIELD Earlgrey_0_1/testflags                   dump: 'differ' -> ''
+FIELD LowMemLib/testflags                      detail: '[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/te
+FIELD LowMemPkg/testflags                      detail: '[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/te
+rows base=1596 new=1596 DIFF=3
+cmds u2r: total=1742 frozen=1742 maintree=0
+cmds sl: total=1581 frozen=1531 maintree=0
+SVSwitch/default=4842211c4030 SVSwitch/testflags=4842211c4030 YosysVerx/default=6ccda350c24a YosysVerx/testflags=6ccda350c24a InterfaceModPort/default=59a365f3ce2c InterfaceModPort/testflags=59a365f3ce2c BlackParrotComplex/default=e3e354129d5a BlackParrotComplex/testflags=73a10e8217e5 YosysOldOr/default=d68e0796d62c YosysOldOr/testflags=d68e0796d62c Earlgrey_0_1/default=8bdf25272e08 Earlgrey_0_1/testflags=59d0ee6d10c3
+BuildUVMPkg,default,CMP_EQUAL BuildUVMPkg,testflags,CMP_EQUAL MiniAmiq,default,CMP_EQUAL MiniAmiq,testflags,CMP_EQUAL SeqDriver,default,CMP_EQUAL SeqDriver,testflags,CMP_EQUAL SimpleUVM,default,CMP_EQUAL SimpleUVM,testflags,CMP_EQUAL Scoreboard,default,CMP_EQUAL Scoreboard,testflags,SLANG_REJECT Earlgrey_0_1,default,CMP_EQUAL Earlgrey_0_1,testflags,CMP_EQUAL ParamOverloading,default,CMP_EQUAL ParamOverloading,testflags,CMP_EQUAL
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+/bin/false goldens: FAIL=23
+canaudit: PASS: every brief-protected name and family is carried by a script that RUNS here.
