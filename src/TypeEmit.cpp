@@ -732,6 +732,111 @@ bool UhdmExporter::pkgSubstIntEnc50(const ParameterSymbol& dp) {
     return ie50;
 }
 
+// § typedPkgBoundElabSize113 (r11u113) — THE ELABORATED COPY OF A PACKED
+// RANGE BOUND THAT IS A BARE READ OF A TYPED, NON-MODULE PARAMETER TAKES THE
+// PARAMETER'S DECLARED WIDTH, BARE.
+//
+// PRODUCER.  `CompileHelper::compileExpression`'s identifier arm
+// (`CompileExpression.cpp:3027-3045` in the pinned Surelog) mints the folded
+// read from the instance's stored `Value`: `c->VpiSize(sval->getSize())`,
+// `VpiConstType(sval->vpiValType())`, and a ts ref ONLY on the def-view
+// substitution road.  A package / $unit / generate-scope parameter's stored
+// value was `adjustSize`d against its DECLARED typespec, so the size is the
+// type's width (int, int unsigned, integer 32; shortint 16; byte, bit [7:0],
+// logic [7:0] 8; longint 64), never the unsized 64 this builder's fallback
+// writes.  MEASURED on real v1.87 goldens (tools/probe/r11u113repro/grid/b):
+// every explicitly typed kind, left / right / both bounds, net / var / port /
+// reg / 2-D inner and outer / packed+unpacked / child instance / body import /
+// package localparam / parameter-of-parameter homes: golden `UINT:<v>` ct 9
+// (`INT:<v>` ct 7 where the reduce table says INT, `int P = -1`), size = the
+// declared width, NO vpiTypespec — the signed `int` included.  Corpus:
+// ibex_pmp.sv:34 `logic [PMP_ADDR_MSB:0]`, ibex_icache.sv:138
+// `[IC_LINE_BEATS_W:0]`.
+//
+// FENCES, each a measured cell: a MODULE parameter is the existing arms'
+// (b10/b11 already golden); an UNTYPED parameter (64, b01_var_unt) and a
+// BASED-literal initializer (b20: golden `INT:5` ct 7, a third encoding)
+// abstain; a QUALIFIED `pk::P` (b14, golden carries a ts ref at `pk::`) and a
+// struct MEMBER (b06/b29, already golden through the member meta) are other
+// shapes.  A variable of a module TYPEDEF over such a range (b07) takes the
+// law's size (32, golden's) but golden's copies also carry a ts ref named
+// after the typedef, which this law does not write (residue R1c).
+// `R11U113_OFF=1` / `R11U113_RBND_OFF=1` drop it.
+// § structInlineEnumMemberTs113 — the enums the law built, for the
+// design-final base-instance mirror (`r11u113InlineEnumBaseInstance`).
+static std::vector<UHDM::enum_typespec*> inlineEnums113;
+
+// § structInlineEnumMemberTs113, the PACKAGE half: golden's base typespec of a
+// package typedef's inline enum member carries the same vpiInstance as the
+// enum itself (grid e03: both `pk`), and a module one carries none (e02).  The
+// member-actual Instance stamps run after `buildStructTs` (ParamEmit's
+// package typedef passes), so the mirror runs at design-final, from
+// UhdmExporter.cpp, and only onto a base that has none.
+void r11u113InlineEnumBaseInstance() {
+    for (auto* e113 : inlineEnums113) {
+        if (!e113->Instance() || !e113->Base_typespec())
+            continue;
+        auto* b113 = const_cast<UHDM::typespec*>(
+            e113->Base_typespec()->Actual_typespec());
+        if (b113 && !b113->Instance())
+            b113->Instance(e113->Instance());
+    }
+    inlineEnums113.clear();
+}
+
+static const ParameterSymbol* typedBoundParam113(
+    const syntax::ExpressionSyntax* bsyn, const Symbol& declSym) {
+    static const bool off113 = getenv("R11U113_OFF") != nullptr ||
+                               getenv("R11U113_RBND_OFF") != nullptr;
+    if (off113 || !bsyn || bsyn->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    if (declSym.kind != SymbolKind::Variable && declSym.kind != SymbolKind::Net &&
+        declSym.kind != SymbolKind::Port)
+        return nullptr;
+    auto* sc113 = declSym.getParentScope();
+    if (!sc113)
+        return nullptr;
+    // r11v113 — NOT a declaration homed in a PACKAGE or in `$unit`: golden
+    // keeps that range bound UNFOLDED (a `ref_obj` to the parameter, verifier
+    // arm f1/a04 `package pk; parameter int unsigned P = 5; logic [P:0] pv;`),
+    // so the law's width only moved one wrong answer (64) to another (32).
+    // Such a home abstains to the pristine arm.
+    if (sc113->asSymbol().kind == SymbolKind::Package ||
+        sc113->asSymbol().kind == SymbolKind::CompilationUnit)
+        return nullptr;
+    std::string nm113(
+        bsyn->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    auto* sy113 = Lookup::unqualified(*sc113, nm113);
+    if (!sy113 || sy113->kind != SymbolKind::Parameter)
+        return nullptr;
+    auto& p113 = sy113->as<ParameterSymbol>();
+    if (p113.isFromGenvar())
+        return nullptr;
+    auto* ps113 = p113.getParentScope();
+    if (!ps113)
+        return nullptr;
+    auto hk113 = ps113->asSymbol().kind;
+    if (hk113 != SymbolKind::Package && hk113 != SymbolKind::CompilationUnit &&
+        hk113 != SymbolKind::GenerateBlock)
+        return nullptr;
+    auto dt113 = p113.getDeclaredType();
+    if (!dt113)
+        return nullptr;
+    auto* ty113 = dt113->getTypeSyntax();
+    if (!ty113 || ty113->kind == syntax::SyntaxKind::ImplicitType)
+        return nullptr;
+    auto& t113 = p113.getType();
+    if (!t113.isIntegral() || t113.getBitWidth() == 0 || t113.getBitWidth() > 64)
+        return nullptr;
+    auto* in113 = p113.getInitializer();
+    if (!in113 || basedLitOrigin50(*in113, 0))
+        return nullptr;
+    auto& cv113 = p113.getValue();
+    if (!cv113.isInteger() || cv113.integer().hasUnknown())
+        return nullptr;
+    return &p113;
+}
+
 UHDM::constant* UhdmExporter::pkgBoundValueConst9(const ParameterSymbol& dp,
                                                   UHDM::BaseClass* parent) {
     auto& dcv = dp.getValue();
@@ -5874,6 +5979,24 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     (int32_t)elabModPar->getType().getBitWidth());
                                 c->VpiConstType(vpiUIntConst);
                                 c->VpiValue("UINT:" + digits);
+                            }
+                            // § typedPkgBoundElabSize113 (r11u113) — a bare
+                            // read of a typed package / $unit / generate
+                            // parameter: the declared width, bare (see the
+                            // law at `typedBoundParam113`).  Never in a struct
+                            // member typespec (the member meta owns it).
+                            else if (const ParameterSymbol* tb113 =
+                                         structMemberTsCtx
+                                             ? nullptr
+                                             : typedBoundParam113(bsyn,
+                                                                  declSymbol)) {
+                                bool ie113 = pkgSubstIntEnc50(*tb113);
+                                c->VpiSize(
+                                    (int32_t)tb113->getType().getBitWidth());
+                                c->VpiConstType(ie113 ? vpiIntConst
+                                                      : vpiUIntConst);
+                                c->VpiValue((ie113 ? "INT:" : "UINT:") +
+                                            digits);
                             }
                             else {
                                 c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);
@@ -13692,6 +13815,41 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         fts = ecl;
                         memberEnumClone = true;
                     }
+                }
+            }
+            // § structInlineEnumMemberTs113 (r11u113) — AN INLINE ANONYMOUS
+            // ENUM MEMBER (`struct packed { enum logic [1:0] {A,B,C} e; ...}`)
+            // IS AN `enum_typespec`.  Surelog's member compile
+            // (`compileStructUnionType` -> `compileTypespec`,
+            // CompileType.cpp:1052-1180, the `paEnum_base_type` arm) mints
+            // the enum_typespec with NO location and NO name, its
+            // vpiBaseTypespec a ref (fullname = the member ref's) to a
+            // located, unparented base typespec, and one located
+            // `enum_const` per name — exactly `buildEnumTs`.  We built it
+            // through `makeTypespec` with the member syntax as override, which
+            // skips its enum arm (`!typeSynOverride`) and lands on a flat
+            // `logic_typespec` spanning the whole `enum ... {...}` (grid e02
+            // and pass 110's V2, `grid/brk/k/b3b_enum_member`).  MEASURED
+            // (tools/probe/r11u113repro/grid/e): module / package typedef,
+            // anonymous struct variable, `localparam type`, nested struct,
+            // int-based enum.  Unions keep their own builder (not this law).
+            // `R11U113_OFF=1` / `R11U113_ENUM_OFF=1` drop it.
+            if (!fts && fm.getDeclaredType() && memberTypeSyn &&
+                memberTypeSyn->kind == syntax::SyntaxKind::EnumType &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::EnumType) {
+                static const bool off113e =
+                    getenv("R11U113_OFF") != nullptr ||
+                    getenv("R11U113_ENUM_OFF") != nullptr;
+                if (!off113e) {
+                    auto* e113 = buildEnumTs(
+                        fm.getDeclaredType()->getType().as<EnumType>(),
+                        memberTypeSyn,
+                        aliasName.empty()
+                            ? std::string(fm.name)
+                            : aliasName + memberSep + std::string(fm.name),
+                        /*implicitBaseRef=*/true);
+                    inlineEnums113.push_back(e113);
+                    fts = e113;
                 }
             }
             if (!fts) {

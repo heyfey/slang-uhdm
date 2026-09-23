@@ -1,0 +1,45 @@
+=== b
+R11U113_OFF moved=29: b01_var_bt8 b01_var_byt b01_var_intg b01_var_int b01_var_ius b01_var_lg8 b01_var_sint b02_right_ius b03_both_ius b04_net_ius b05_port_ius b07_typedef_ius b09_pk_unp_ius b12_genlp_ius b13_pk_in_gen_ius b15_exprinit_ius b16_inner2d_ius b17_outer2d_ius b18_pklp_ius b19_bodyimp_ius b21_outport_ius b22_reg_ius b23_pmp_shape b24_icache_shape b25_child_ius b26_unit_ius b27_pkpar_of_pkpar b28_var_int_signed_neg b30_logicvar_uint32
+R11U113_OFF not-pristine=0: 
+R11U113_RBND_OFF moved=29: b01_var_bt8 b01_var_byt b01_var_intg b01_var_int b01_var_ius b01_var_lg8 b01_var_sint b02_right_ius b03_both_ius b04_net_ius b05_port_ius b07_typedef_ius b09_pk_unp_ius b12_genlp_ius b13_pk_in_gen_ius b15_exprinit_ius b16_inner2d_ius b17_outer2d_ius b18_pklp_ius b19_bodyimp_ius b21_outport_ius b22_reg_ius b23_pmp_shape b24_icache_shape b25_child_ius b26_unit_ius b27_pkpar_of_pkpar b28_var_int_signed_neg b30_logicvar_uint32
+R11U113_TPCAST_OFF moved=0: 
+R11U113_ENUM_OFF moved=0: 
+R11U113_REPRNG_OFF moved=0: 
+R11U113_VSIDX_OFF moved=0: 
+R11U113_GSBS_OFF moved=0: 
+=== c
+R11U113_OFF moved=18: c01_arb c02_genif_ref c04_genfor_ref c05_genif_concat c07_genif_bodylp c08_genif_bodyparam c12_genif_override c14_genif_intdef c15_genif_structdef c17_genif_lit c19_genif_lhs_bitsel c20_nested_genif c21_genelse c22_genif_two c23_genfor_concat c24_genfor_gvop c26_genfor_gvsel c28_genfor_lp_sel
+R11U113_OFF not-pristine=6: c23_genfor_concat c24_genfor_gvop c25_genfor_ternary_gvcast c26_genfor_gvsel c27_genfor_ternary_plain c28_genfor_lp_sel
+R11U113_RBND_OFF moved=0: 
+R11U113_TPCAST_OFF moved=18: c01_arb c02_genif_ref c04_genfor_ref c05_genif_concat c07_genif_bodylp c08_genif_bodyparam c12_genif_override c14_genif_intdef c15_genif_structdef c17_genif_lit c19_genif_lhs_bitsel c20_nested_genif c21_genelse c22_genif_two c23_genfor_concat c24_genfor_gvop c26_genfor_gvsel c28_genfor_lp_sel
+R11U113_ENUM_OFF moved=0: 
+R11U113_REPRNG_OFF moved=0: 
+R11U113_VSIDX_OFF moved=0: 
+R11U113_GSBS_OFF moved=0: 
+=== e
+R11U113_OFF moved=9: e01_lptype_dims e02_modtd e03_pkgtd e04_modtd_intenum e05_nested e06_anon_var e07_lptype_scalar e08_modtd_dims e12_port
+R11U113_OFF not-pristine=0: 
+R11U113_RBND_OFF moved=0: 
+R11U113_TPCAST_OFF moved=0: 
+R11U113_ENUM_OFF moved=9: e01_lptype_dims e02_modtd e03_pkgtd e04_modtd_intenum e05_nested e06_anon_var e07_lptype_scalar e08_modtd_dims e12_port
+R11U113_REPRNG_OFF moved=0: 
+R11U113_VSIDX_OFF moved=0: 
+R11U113_GSBS_OFF moved=0: 
+=== q
+R11U113_OFF moved=9: q01_star13 q02_star02_ante q03_eq12 q04_goto12 q05_star1inf q08_star13_seq q09_star13_nonov q13_star13_dis q14_star13_noclk
+R11U113_OFF not-pristine=0: 
+R11U113_RBND_OFF moved=0: 
+R11U113_TPCAST_OFF moved=0: 
+R11U113_ENUM_OFF moved=0: 
+R11U113_REPRNG_OFF moved=9: q01_star13 q02_star02_ante q03_eq12 q04_goto12 q05_star1inf q08_star13_seq q09_star13_nonov q13_star13_dis q14_star13_noclk
+R11U113_VSIDX_OFF moved=0: 
+R11U113_GSBS_OFF moved=0: 
+=== v
+R11U113_OFF moved=14: v01_mod_not v02_genfor_not v03_genfor_bare_vs v04_genfor_int v08_genif_not v09_genfor_eq v10_genfor_add v11_icache_shape v13_genfor_bitsel v14_genif_bitsel v15_genfor_bitsel_add v16_genfor_bitsel_int v17_genfor_bitsel_and v18_genfor_bitsel_bare
+R11U113_OFF not-pristine=6: v13_genfor_bitsel v14_genif_bitsel v15_genfor_bitsel_add v16_genfor_bitsel_int v17_genfor_bitsel_and v18_genfor_bitsel_bare
+R11U113_RBND_OFF moved=0: 
+R11U113_TPCAST_OFF moved=0: 
+R11U113_ENUM_OFF moved=0: 
+R11U113_REPRNG_OFF moved=0: 
+R11U113_VSIDX_OFF moved=8: v01_mod_not v02_genfor_not v03_genfor_bare_vs v04_genfor_int v08_genif_not v09_genfor_eq v10_genfor_add v11_icache_shape
+R11U113_GSBS_OFF moved=6: v13_genfor_bitsel v14_genif_bitsel v15_genfor_bitsel_add v16_genfor_bitsel_int v17_genfor_bitsel_and v18_genfor_bitsel_bare

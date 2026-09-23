@@ -23,7 +23,7 @@ AnonymousEnum,testflags,CMP_EQUAL,,,match
 AnonymousUnion,testflags,CMP_EQUAL,,,match
 anyconst_attr,testflags,CMP_EQUAL,,,match
 anyseq_attr,testflags,CMP_EQUAL,,,match
-arb_idx_cast,testflags,CMP_NOTEQUAL,decompile:,,
+arb_idx_cast,testflags,CMP_EQUAL,,,differ
 ArithShiftTernary,testflags,CMP_EQUAL,,,match
 array-copy,testflags,CMP_EQUAL,,,match
 array_assign,testflags,CMP_EQUAL,,,differ

@@ -14,6 +14,9 @@
 
 namespace slang_uhdm {
 
+// § structInlineEnumMemberTs113 (r11u113) — defined in TypeEmit.cpp.
+void r11u113InlineEnumBaseInstance();
+
 // r11u98 LAW B2's gate, and the pass trace (defined in ModuleEmit.cpp, where
 // the other three r11u98 gates live).  See § caIfaceClassIsDesignRoot98 at
 // the AllClasses block below for the decode and the grid.
@@ -8688,6 +8691,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     lawSCopyHomeInstance36(d);
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
+    // § structInlineEnumMemberTs113 (r11u113) — the inline enum member's base
+    // typespec mirrors the enum's vpiInstance (TypeEmit.cpp).  After every
+    // instance stamp above, so it reads the final one.
+    r11u113InlineEnumBaseInstance();
     // § pkgCloneHierBind9 — bind the BASE of every dotted reference inside a
     // wildcard-import package CLONE body (see TaskFuncEmit): the first
     // Path_elems entry of a hier_path and a method_func_call's Prefix, when

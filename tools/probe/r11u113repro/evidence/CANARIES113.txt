@@ -1,0 +1,21 @@
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+## protected databases (md5 12)
+Earlgrey_0_1 default pris=8bdf25272e08 law=8bdf25272e08 SAME
+Earlgrey_0_1 testflags pris=59d0ee6d10c3 law=59d0ee6d10c3 SAME
+SVSwitch default pris=4842211c4030 law=4842211c4030 SAME
+SVSwitch testflags pris=4842211c4030 law=4842211c4030 SAME
+YosysVerx default pris=6ccda350c24a law=6ccda350c24a SAME
+YosysVerx testflags pris=6ccda350c24a law=6ccda350c24a SAME
+InterfaceModPort default pris=59a365f3ce2c law=59a365f3ce2c SAME
+InterfaceModPort testflags pris=59a365f3ce2c law=59a365f3ce2c SAME
+BlackParrotComplex default pris=e3e354129d5a law=e3e354129d5a SAME
+BlackParrotComplex testflags pris=73a10e8217e5 law=73a10e8217e5 SAME
+YosysOldOr default pris=d68e0796d62c law=d68e0796d62c SAME
+YosysOldOr testflags pris=d68e0796d62c law=d68e0796d62c SAME
+## goldens: law PASS=23 FAIL=0; pristine PASS=23; /bin/false PASS=0 FAIL=23

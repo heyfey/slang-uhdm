@@ -74,6 +74,28 @@ static bool caSelIdxOpFoldTs112() {
     return on;
 }
 
+/// § caVarSelIdxOpFoldTs113 (r11u113) — § caSelIdxOpFoldTs112'S SELECT MAY BE
+/// A `var_select`: a folded read of a typed, unqualified, imported package
+/// parameter under an operation in a VAR_SELECT's element index
+/// (`t[way][IC_TAG_SIZE-1]`) carries the parameter's declared typespec, named
+/// after the var_select, exactly as under a bit_select — the producer line is
+/// the same (CompileExpression.cpp:2918-2927: the substitution stamps the
+/// declaration typespec wherever the read is reached from).  MEASURED
+/// (tools/probe/r11u113repro/grid/v, real v1.87 goldens): module scope (v01),
+/// gen-for (v02, v04 `int`, v09 under `==`, v11 the ibex_icache shape),
+/// gen-if (v08) and a var_select that IS the Rhs (v03) — golden
+/// `ref_typespec (<var_select fullname>)` -> the parameter's typespec, ours
+/// <null>.  The pass-112 gates carry over unchanged: an UNTYPED parameter
+/// (v05, golden's typespec is an unsigned int ours is not) and a QUALIFIED
+/// `pk::P` (v06) are declined; always_comb (v07) is § procOpFold9's.  Corpus:
+/// ibex_icache.sv:500 `~tag_rdata_ic1[way][IC_TAG_SIZE-1]`.
+/// `R11U113_OFF=1` / `R11U113_VSIDX_OFF=1` drop it.
+static bool caVarSelIdxOpFoldTs113() {
+    static const bool on = getenv("R11U113_OFF") == nullptr &&
+                           getenv("R11U113_VSIDX_OFF") == nullptr;
+    return on;
+}
+
 /// § genLpIdxOpOperandFold112 (r11u112, face 1, the GEN-SCOPE half) — IN AN
 /// ELABORATED GEN-SCOPE CONTINUOUS ASSIGN, A ONE-HOP GEN-SCOPE LOCALPARAM READ
 /// AS AN OPERAND OF A BIT-SELECT INDEX OPERATION (`req_nodes[Idx1+1]`) IS
@@ -17108,9 +17130,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // materialised typespec is our signed int where golden's
                     // is unsigned (grid f05; the typespec object is built in
                     // ParamEmit, outside this pass — residue R1b).
+                    // § caVarSelIdxOpFoldTs113 — the ELABORATED gen-scope
+                    // cont_assign (`contAssignView` is 0 there,
+                    // `inGenScopeCaRhs` set) is a home for the VAR_SELECT
+                    // half only: golden stamps it in both forms (grid v02,
+                    // v03, v04, v08, v09, v11), while a gen-scope BIT_SELECT
+                    // index stamps in the parse-only form and not under
+                    // `-elabuhdm` (grid v13/v14) — the next law's.
+                    const bool gsVs113 = contAssignView == 0 &&
+                                         inGenScopeCaRhs &&
+                                         !defGenProcessEmit &&
+                                         caVarSelIdxOpFoldTs113();
+                    // § genCaBitSelIdxOpFoldTsParse113 (r11u113) — ...and the
+                    // gen-scope BIT_SELECT index IS stamped in the parse-only
+                    // form (no `-elabuhdm`): grid v13-v18 (gen-for and gen-if;
+                    // `-`, `+`, `int`, under `&`, a bare select Rhs), golden
+                    // `ref_typespec (<select fullname>)` -> the parameter's
+                    // typespec in every cell, ours <null>.  Under `-elabuhdm`
+                    // UHDM's elaborator re-derives these and golden keeps no
+                    // stamp on v13-v16/v18 (ours already agrees), so the arm is
+                    // gated to `!elabUhdmView121`.
+                    // `R11U113_OFF=1` / `R11U113_GSBS_OFF=1` drop it.
+                    static const bool gsBsOn113 =
+                        getenv("R11U113_OFF") == nullptr &&
+                        getenv("R11U113_GSBS_OFF") == nullptr;
+                    const bool gsBs113 = contAssignView == 0 &&
+                                         inGenScopeCaRhs &&
+                                         !defGenProcessEmit &&
+                                         !elabUhdmView121 && gsBsOn113;
                     if (!caOpFold9 && typedPkgParam && !inParamInit &&
                         !inProcessEmit &&
-                        !currentTf && !ndaRhsEmit && contAssignView != 0 &&
+                        !currentTf && !ndaRhsEmit &&
+                        (contAssignView != 0 || gsVs113 || gsBs113) &&
                         parent &&
                         parent->UhdmType() == UHDM::uhdmoperation &&
                         caSelIdxOpFoldTs112()) {
@@ -17120,8 +17171,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (up112->UhdmType() == UHDM::uhdmoperation)
                                 up112 = up112->VpiParent();
                             else if (!sel112 &&
-                                     up112->UhdmType() ==
-                                         UHDM::uhdmbit_select) {
+                                     ((up112->UhdmType() ==
+                                           UHDM::uhdmbit_select &&
+                                       (contAssignView != 0 || gsBs113)) ||
+                                      (up112->UhdmType() ==
+                                           UHDM::uhdmvar_select &&
+                                       (contAssignView != 0 || gsVs113) &&
+                                       caVarSelIdxOpFoldTs113()))) {
                                 sel112 = up112;
                                 up112 = up112->VpiParent();
                             }
@@ -17174,8 +17230,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ((UHDM::bit_select*)parent)->VpiFullName());
                             else if (caSelIdxOp112)
                                 rt->VpiFullName(
-                                    ((const UHDM::bit_select*)selIdx112)
-                                        ->VpiFullName());
+                                    selIdx112->UhdmType() ==
+                                            UHDM::uhdmvar_select
+                                        ? ((const UHDM::var_select*)selIdx112)
+                                              ->VpiFullName()
+                                        : ((const UHDM::bit_select*)selIdx112)
+                                              ->VpiFullName());
                             else if (caPsOpFold9) {
                                 // § caPartSelBoundFoldTs — named after the
                                 // SELECT.  A plain part_select already carries
@@ -21682,7 +21742,87 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // without them this law moved 4 cells AWAY from golden on
                     // legal SV that pristine already got right.
                     !dpiHomeStillResolves170(*expr.type);
-                if ((defGenProcessEmit || dpiOwnTdCast170) &&
+                // § genCaTypeParamCastUnsupported113 (r11u113) — THE
+                // ELABORATED GEN-SCOPE CONT_ASSIGN KEEPS THE DEF VIEW'S
+                // UNRESOLVED CAST TARGET WHEN THAT TARGET IS A TYPE PARAMETER.
+                // Surelog's `paCast` arm (CompileExpression.cpp:2659-2710)
+                // compiles the target through `compileTypespec`; inside a
+                // generate scope the type-parameter name is not a data type of
+                // the scope's component, so the catch-all
+                // (CompileType.cpp:1624-1634) files an `unsupported_typespec`
+                // NAMED as written at the name token and the operation is
+                // queued for `needLateTypedefBinding`, which never resolves a
+                // type parameter.  The elaborated gen-scope cont_assign is the
+                // def object carried over (`NetlistElaboration.cpp:765-772`),
+                // so the placeholder survives into every gen-scope copy.
+                // MEASURED (tools/probe/r11u113repro/grid/c, real v1.87
+                // goldens): header `parameter type` (logic / int / struct
+                // default, overridden or not), body `localparam type` and body
+                // `parameter type`, in gen-if, gen-else, nested gen-if and
+                // gen-for scopes, operand a name, a concat, a literal, a
+                // genvar select or a localparam select: golden
+                // `unsupported_typespec (idx_t)` under the `work@<scope>`
+                // ref_typespec in the elaborated copy, where we minted a
+                // value-less `integer_typespec`.  Corpus: arb_idx_cast.sv:26
+                // `assign index_nodes[Idx0] = idx_t'(sel)`.
+                // GATED to the cast that IS the cont_assign's Rhs: under a
+                // ternary golden RESOLVES in a loop generate (c25/c27, the
+                // default's `logic_typespec`) and keeps the placeholder in an
+                // if-generate (c06) — a different question, not this law's.
+                // The module scope (c03) and an always_comb (c13) resolve too.
+                // `R11U113_OFF=1` / `R11U113_TPCAST_OFF=1` drop it.
+                bool tpCast113 = false;
+                {
+                    static const bool off113 =
+                        getenv("R11U113_OFF") != nullptr ||
+                        getenv("R11U113_TPCAST_OFF") != nullptr;
+                    if (!off113 && inGenScopeCaRhs && !defGenProcessEmit &&
+                        !dpiOwnTdCast170 && castSiteScope57 && parent &&
+                        parent->UhdmType() == UHDM::uhdmcont_assign &&
+                        cesyn.left->kind == syntax::SyntaxKind::IdentifierName) {
+                        const syntax::SyntaxNode* up113 = effCastSyn->parent;
+                        while (up113 &&
+                               up113->kind ==
+                                   syntax::SyntaxKind::ParenthesizedExpression)
+                            up113 = up113->parent;
+                        bool direct113 =
+                            up113 &&
+                            up113->kind ==
+                                syntax::SyntaxKind::AssignmentExpression &&
+                            up113->as<syntax::BinaryExpressionSyntax>().right ==
+                                effCastSyn;
+                        if (direct113) {
+                            std::string nm113(
+                                cesyn.left->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                            auto* sy113 =
+                                Lookup::unqualified(*castSiteScope57, nm113);
+                            // A type parameter's name resolves to its
+                            // alias TYPE, whose syntax is the parameter's
+                            // `TypeAssignment` (a typedef's is a
+                            // `TypedefDeclaration`).
+                            // r11v113 — NOT a `localparam type` declared in a
+                            // GENERATE BLOCK: that name IS a data type of the
+                            // gen scope's own component, so golden RESOLVES
+                            // the cast (the default's `logic_typespec`) and
+                            // this law wrote the placeholder where golden has
+                            // none (verifier arms f2/t02 gen-if, f2/t05
+                            // gen-for: MOVED-WRONG).  Such a home abstains
+                            // to the pristine path.
+                            const Scope* tph113 =
+                                sy113 ? sy113->getParentScope() : nullptr;
+                            tpCast113 =
+                                sy113 && sy113->kind == SymbolKind::TypeAlias &&
+                                sy113->getSyntax() &&
+                                sy113->getSyntax()->kind ==
+                                    syntax::SyntaxKind::TypeAssignment &&
+                                tph113 &&
+                                tph113->asSymbol().kind !=
+                                    SymbolKind::GenerateBlock;
+                        }
+                    }
+                }
+                if ((defGenProcessEmit || dpiOwnTdCast170 || tpCast113) &&
                     cesyn.left->kind == syntax::SyntaxKind::IdentifierName) {
                     auto lrU = cesyn.left->sourceRange();
                     auto* utsU = s.MakeUnsupported_typespec();

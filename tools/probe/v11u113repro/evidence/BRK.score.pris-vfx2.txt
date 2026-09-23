@@ -1,0 +1,124 @@
+f1/a02_iface/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a02_iface/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a05_bit1/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a05_bit1/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a06_clog2/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=2 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a06_clog2/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=2 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a07_pow/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=8 TAILMOVED=1 cmpA=64 cmpB=64
+f1/a07_pow/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=8 TAILMOVED=1 cmpA=64 cmpB=64
+f1/a08_div/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a08_div/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a09_genfor_lp/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a09_genfor_lp/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a10_pkg_ref_other/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=4 cmpA=36 cmpB=0
+f1/a10_pkg_ref_other/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=4 cmpA=36 cmpB=0
+f1/a11_shortint/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a11_shortint/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a12_unsized_tick/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=7 TAILMOVED=1 cmpA=64 cmpB=64
+f1/a12_unsized_tick/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=7 TAILMOVED=1 cmpA=64 cmpB=64
+f1/a13_child_overridden_mod_uses_pkg/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=7 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a13_child_overridden_mod_uses_pkg/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=7 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a16_genif_localparam_int/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=50 cmpB=17
+f1/a16_genif_localparam_int/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=50 cmpB=17
+f1/a17_nested_gen_pkg/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a17_nested_gen_pkg/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a18_negative_bound/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=20 TAILMOVED=4 cmpA=56 cmpB=56
+f1/a18_negative_bound/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=20 TAILMOVED=4 cmpA=56 cmpB=56
+f1/a19_modport_ports/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f1/a19_modport_ports/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+f2/t01_pkg_lptype/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=9 TAILMOVED=3 cmpA=45 cmpB=45
+f2/t01_pkg_lptype/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=9 TAILMOVED=3 cmpA=45 cmpB=45
+f2/t03_iface_tp/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f2/t03_iface_tp/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=7 TAILMOVED=3 cmpA=18 cmpB=0
+f2/t07_casedgen/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=37 TAILMOVED=3 cmpA=18 cmpB=0
+f2/t07_casedgen/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=37 TAILMOVED=3 cmpA=18 cmpB=0
+f2/t08_unit_lptype/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=3 cmpA=503 cmpB=503
+f2/t08_unit_lptype/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=3 cmpA=493 cmpB=493
+f3/e01_explicit_vals/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=24 cmpA=66 cmpB=0
+f3/e01_explicit_vals/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=24 cmpA=66 cmpB=0
+f3/e04_two_enum_members/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=32 cmpA=66 cmpB=0
+f3/e04_two_enum_members/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=32 cmpA=66 cmpB=0
+f3/e06_enum_range_base/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=28 cmpA=82 cmpB=0
+f3/e06_enum_range_base/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=28 cmpA=82 cmpB=0
+f3/e07_class_member/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=26 cmpA=66 cmpB=0
+f3/e07_class_member/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=24 cmpA=66 cmpB=0
+f4/r02_formal/elab TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r02_formal/u2r TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r03_not/elab TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r03_not/u2r TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r04_or/elab TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=1 TAILMOVED=0 cmpA=184 cmpB=240
+f4/r04_or/u2r TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=1 TAILMOVED=0 cmpA=184 cmpB=240
+f4/r07_eq_inf/elab TO=10 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r07_eq_inf/u2r TO=10 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r08_goto_inf/elab TO=10 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r08_goto_inf/u2r TO=10 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r09_two_props/elab TO=18 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f4/r09_two_props/u2r TO=18 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+f5/v03_3d_gen/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=3 cmpA=17 cmpB=0
+f5/v03_3d_gen/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=3 cmpA=17 cmpB=0
+f5/v04_ternary_gen/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=3 cmpA=17 cmpB=0
+f5/v04_ternary_gen/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=3 cmpA=17 cmpB=0
+f5/v05_idx_mult/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=3 cmpA=17 cmpB=0
+f5/v05_idx_mult/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=3 cmpA=17 cmpB=0
+DIST f1/a02_iface/elab dist 7->5
+DIST f1/a02_iface/u2r dist 7->5
+DIST f1/a05_bit1/elab dist 7->5
+DIST f1/a05_bit1/u2r dist 7->5
+DIST f1/a06_clog2/elab dist 9->7
+DIST f1/a06_clog2/u2r dist 9->7
+DIST f1/a07_pow/elab dist 22->20
+DIST f1/a07_pow/u2r dist 22->20
+DIST f1/a08_div/elab dist 18->16
+DIST f1/a08_div/u2r dist 18->16
+DIST f1/a09_genfor_lp/elab dist 130->126
+DIST f1/a09_genfor_lp/u2r dist 82->78
+DIST f1/a10_pkg_ref_other/elab dist 21->15
+DIST f1/a10_pkg_ref_other/u2r dist 21->15
+DIST f1/a11_shortint/elab dist 8->6
+DIST f1/a11_shortint/u2r dist 8->6
+DIST f1/a12_unsized_tick/elab dist 37->35
+DIST f1/a12_unsized_tick/u2r dist 37->35
+DIST f1/a13_child_overridden_mod_uses_pkg/elab dist 41->39
+DIST f1/a13_child_overridden_mod_uses_pkg/u2r dist 29->27
+DIST f1/a16_genif_localparam_int/elab dist 131->129
+DIST f1/a16_genif_localparam_int/u2r dist 50->48
+DIST f1/a17_nested_gen_pkg/elab dist 2->0
+DIST f1/a17_nested_gen_pkg/u2r dist 2->0
+DIST f1/a18_negative_bound/elab dist 51->45
+DIST f1/a18_negative_bound/u2r dist 51->45
+DIST f1/a19_modport_ports/elab dist 47->39
+DIST f1/a19_modport_ports/u2r dist 22->14
+DIST f2/t01_pkg_lptype/elab dist 107->102
+DIST f2/t01_pkg_lptype/u2r dist 61->56
+DIST f2/t03_iface_tp/elab dist 43->38
+DIST f2/t03_iface_tp/u2r dist 45->40
+DIST f2/t07_casedgen/elab dist 110->105
+DIST f2/t07_casedgen/u2r dist 68->63
+DIST f2/t08_unit_lptype/elab dist 89->84
+DIST f2/t08_unit_lptype/u2r dist 43->38
+DIST f3/e01_explicit_vals/elab dist 61->13
+DIST f3/e01_explicit_vals/u2r dist 48->0
+DIST f3/e04_two_enum_members/elab dist 109->13
+DIST f3/e04_two_enum_members/u2r dist 96->0
+DIST f3/e06_enum_range_base/elab dist 69->13
+DIST f3/e06_enum_range_base/u2r dist 56->0
+DIST f3/e07_class_member/elab dist 79->33
+DIST f3/e07_class_member/u2r dist 56->12
+DIST f4/r02_formal/elab dist 32->10
+DIST f4/r02_formal/u2r dist 16->2
+DIST f4/r03_not/elab dist 24->2
+DIST f4/r03_not/u2r dist 16->2
+DIST f4/r04_or/elab dist 64->20
+DIST f4/r04_or/u2r dist 40->12
+DIST f4/r07_eq_inf/elab dist 24->2
+DIST f4/r07_eq_inf/u2r dist 16->2
+DIST f4/r08_goto_inf/elab dist 24->2
+DIST f4/r08_goto_inf/u2r dist 16->2
+DIST f4/r09_two_props/elab dist 48->4
+DIST f4/r09_two_props/u2r dist 32->4
+DIST f5/v03_3d_gen/elab dist 87->67
+DIST f5/v03_3d_gen/u2r dist 26->2
+DIST f5/v04_ternary_gen/elab dist 87->67
+DIST f5/v04_ternary_gen/u2r dist 26->2
+DIST f5/v05_idx_mult/elab dist 87->67
+DIST f5/v05_idx_mult/u2r dist 26->2

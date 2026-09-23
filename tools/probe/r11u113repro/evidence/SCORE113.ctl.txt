@@ -1,0 +1,54 @@
+r11u112repro_grid_f_g01_arb/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=7 TAILMOVED=7 cmpA=18 cmpB=0
+r11u112repro_grid_f_g01_arb/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=7 TAILMOVED=3 cmpA=18 cmpB=0
+r11u112repro_grid_f_r01_rng_unp/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=4 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r01_rng_unp/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=11 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r02_rng_plain/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r02_rng_plain/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r04_rng_int_unp/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=4 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r04_rng_int_unp/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=11 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r07_rng_port_unp/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r07_rng_port_unp/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r08_rng_unp_param_n/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=11 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r08_rng_unp_param_n/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=18 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r09_rng_lo_param_unp/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=4 TAILMOVED=1 cmpA=36 cmpB=0
+r11u112repro_grid_f_r09_rng_lo_param_unp/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=11 TAILMOVED=1 cmpA=36 cmpB=0
+v11u112repro_grid_brk2_k_m08_body_param_enum/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=46 TAILMOVED=26 cmpA=66 cmpB=36
+v11u112repro_grid_brk2_k_m08_body_param_enum/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=37 TAILMOVED=26 cmpA=66 cmpB=36
+v11u112repro_grid_brk4_p_q19/elab TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+v11u112repro_grid_brk4_p_q19/u2r TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+v11u112repro_grid_brk4_p_q20/elab TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+v11u112repro_grid_brk4_p_q20/u2r TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+v11u112repro_grid_brk6_f_b1p_param_lut/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=22 TAILMOVED=3 cmpA=17 cmpB=48
+v11u112repro_grid_brk6_f_b1p_param_lut/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=18 TAILMOVED=3 cmpA=17 cmpB=88
+v11u112repro_grid_brk_f_b1e_genfor_ca/u2r TO=16 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=3 cmpA=17 cmpB=0
+v11u112repro_grid_brk_k_b3b_enum_member/elab TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=49 TAILMOVED=30 cmpA=82 cmpB=36
+v11u112repro_grid_brk_k_b3b_enum_member/u2r TO=0 AWAY=0 MOVED-WRONG=0 SAME-WRONG=40 TAILMOVED=30 cmpA=82 cmpB=36
+v11u112repro_grid_brk_p_b5d_reps/elab TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+v11u112repro_grid_brk_p_b5d_reps/u2r TO=9 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0 cmpA=84 cmpB=0
+DIST r11u112repro_grid_f_g01_arb/elab dist 1394->1380
+DIST r11u112repro_grid_f_g01_arb/u2r dist 457->447
+DIST r11u112repro_grid_f_r01_rng_unp/elab dist 45->43
+DIST r11u112repro_grid_f_r01_rng_unp/u2r dist 43->41
+DIST r11u112repro_grid_f_r02_rng_plain/elab dist 7->5
+DIST r11u112repro_grid_f_r02_rng_plain/u2r dist 7->5
+DIST r11u112repro_grid_f_r04_rng_int_unp/elab dist 46->44
+DIST r11u112repro_grid_f_r04_rng_int_unp/u2r dist 44->42
+DIST r11u112repro_grid_f_r07_rng_port_unp/elab dist 27->23
+DIST r11u112repro_grid_f_r07_rng_port_unp/u2r dist 9->5
+DIST r11u112repro_grid_f_r08_rng_unp_param_n/elab dist 59->57
+DIST r11u112repro_grid_f_r08_rng_unp_param_n/u2r dist 57->55
+DIST r11u112repro_grid_f_r09_rng_lo_param_unp/elab dist 48->46
+DIST r11u112repro_grid_f_r09_rng_lo_param_unp/u2r dist 48->46
+DIST v11u112repro_grid_brk2_k_m08_body_param_enum/elab dist 162->188
+DIST v11u112repro_grid_brk2_k_m08_body_param_enum/u2r dist 137->167
+DIST v11u112repro_grid_brk4_p_q19/elab dist 22->0
+DIST v11u112repro_grid_brk4_p_q19/u2r dist 14->0
+DIST v11u112repro_grid_brk4_p_q20/elab dist 24->2
+DIST v11u112repro_grid_brk4_p_q20/u2r dist 16->2
+DIST v11u112repro_grid_brk6_f_b1p_param_lut/elab dist 59->47
+DIST v11u112repro_grid_brk6_f_b1p_param_lut/u2r dist 48->36
+DIST v11u112repro_grid_brk_f_b1e_genfor_ca/u2r dist 48->0
+DIST v11u112repro_grid_brk_k_b3b_enum_member/elab dist 185->209
+DIST v11u112repro_grid_brk_k_b3b_enum_member/u2r dist 153->183
+DIST v11u112repro_grid_brk_p_b5d_reps/elab dist 28->6
+DIST v11u112repro_grid_brk_p_b5d_reps/u2r dist 20->6

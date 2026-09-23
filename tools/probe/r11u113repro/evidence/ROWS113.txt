@@ -1,0 +1,68 @@
+#### ct8rows results/golden_uhdm2rtlil.csv /tmp/r11u113_swp/pris/u2r.csv
+baseline: 1743 lines = 1742 ROWS (the header is not a row)
+fresh   : 1743 lines = 1742 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+#### ct8rows results/golden_uhdm2rtlil.csv /tmp/r11u113_swp/lawx/u2r.csv
+baseline: 1743 lines = 1742 ROWS (the header is not a row)
+fresh   : 1743 lines = 1742 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< arb_idx_cast,default,CMP_NOTEQUAL,decompile:,,
+< arb_idx_cast,testflags,CMP_NOTEQUAL,decompile:,,
+> arb_idx_cast,default,CMP_EQUAL,,,differ
+> arb_idx_cast,testflags,CMP_EQUAL,,,differ
+ATTENTION: rows moved -- read them above, do not summarise them
+#### ct8rows results/gate_uhdm2rtlil.csv /tmp/r11u113_lawx_u2r_tf.csv
+baseline: 872 lines = 871 ROWS (the header is not a row)
+fresh   : 872 lines = 871 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< arb_idx_cast,testflags,CMP_NOTEQUAL,decompile:,,
+> arb_idx_cast,testflags,CMP_EQUAL,,,differ
+ATTENTION: rows moved -- read them above, do not summarise them
+#### ct8rows results/golden_surelog.csv /tmp/r11u113_swp/pris/sl.csv
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 4 differing ROWS (8 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u113_swp/pris/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u113_swp/pris/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+ATTENTION: rows moved -- read them above, do not summarise them
+#### ct8rows results/golden_surelog.csv /tmp/r11u113_swp/lawx/sl.csv
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u113_swp/lawx/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/m187base/sl/wd/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u113_swp/lawx/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+ATTENTION: rows moved -- read them above, do not summarise them
+#### ct8rows /tmp/r11u113_swp/pris/sl.csv /tmp/r11u113_swp/lawx/sl.csv
+baseline: 1597 lines = 1596 ROWS (the header is not a row)
+fresh   : 1597 lines = 1596 ROWS
+---- WHOLE-ROW diff (status AND dump column): 3 differing ROWS (6 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u113_swp/pris/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u113_swp/lawx/sl/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u113_swp/pris/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u113_swp/lawx/sl/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+ATTENTION: rows moved -- read them above, do not summarise them
+#### ct8rows /tmp/r11u113_swp/pris/u2r.csv /tmp/r11u113_swp/lawx/u2r.csv
+baseline: 1743 lines = 1742 ROWS (the header is not a row)
+fresh   : 1743 lines = 1742 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< arb_idx_cast,default,CMP_NOTEQUAL,decompile:,,
+< arb_idx_cast,testflags,CMP_NOTEQUAL,decompile:,,
+> arb_idx_cast,default,CMP_EQUAL,,,differ
+> arb_idx_cast,testflags,CMP_EQUAL,,,differ
+ATTENTION: rows moved -- read them above, do not summarise them
+#### binaries in cmds.txt
+   3273 /tmp/r11u113_pris.bin
+   3273 /tmp/r11u113_lawx.bin

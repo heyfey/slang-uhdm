@@ -1,0 +1,38 @@
+## u2r_calib
+ROWS_READ=1608 ROWS_WITH_DELTA=0
+## u2r_pris
+default/arb_idx_cast-dbf8cde6 C2U+4 
+default/ibex_icache-e3714209 R1S+6 V5T+2 
+default/ibex_pmp-65816114 R1S+6 
+testflags/arb_idx_cast-dbf8cde6 C2U+4 
+testflags/ibex_icache-e3714209 R1S+6 V5T+2 
+testflags/ibex_pmp-65816114 R1S+6 
+ROWS_READ=1608 ROWS_WITH_DELTA=6
+## u2r_lawx
+default/arb_idx_cast-dbf8cde6 C2U+2 
+testflags/arb_idx_cast-dbf8cde6 C2U+2 
+ROWS_READ=1608 ROWS_WITH_DELTA=2
+## sl_calib
+ROWS_READ=960 ROWS_WITH_DELTA=0
+## sl_pris
+default/MiniAmiq-544c7f61 R1S+100 
+default/Scr1SvTests-b87ba20c C2U+1 
+default/SeqDriver-32af76aa R1S+100 C2U-1 
+default/SimpleUVM-1dc93a62 C2U-1 
+testflags/BiasValue-b68a584b R1S-1 
+testflags/MiniAmiq-544c7f61 R1S+100 
+testflags/Scr1SvTests-b87ba20c C2U+1 
+testflags/SeqDriver-32af76aa R1S+100 C2U-1 
+testflags/SimpleUVM-1dc93a62 C2U-1 
+ROWS_READ=960 ROWS_WITH_DELTA=9
+## sl_lawx
+default/MiniAmiq-544c7f61 R1S+100 
+default/Scr1SvTests-b87ba20c C2U+1 
+default/SeqDriver-32af76aa R1S+100 C2U-1 
+default/SimpleUVM-1dc93a62 C2U-1 
+testflags/BiasValue-b68a584b R1S-1 
+testflags/MiniAmiq-544c7f61 R1S+100 
+testflags/Scr1SvTests-b87ba20c C2U+1 
+testflags/SeqDriver-32af76aa R1S+100 C2U-1 
+testflags/SimpleUVM-1dc93a62 C2U-1 
+ROWS_READ=960 ROWS_WITH_DELTA=9

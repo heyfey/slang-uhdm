@@ -38903,6 +38903,76 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
                     rep->selector->kind == syntax::SyntaxKind::BitSelect)
                     cntSyn = rep->selector->as<syntax::BitSelectSyntax>().expr;
             }
+            // § propDeclRangedRepRangeOperand113 (r11u113) — A RANGED
+            // REPETITION (`b[*1:3]`, `a[*0:2]`, `b[=1:2]`, `b[->1:2]`,
+            // `b[*1:$]`) IN A PROPERTY DECLARATION BODY CARRIES THE RANGE AS
+            // ITS SECOND OPERAND.  Surelog's sequence compile
+            // (CompileExpression.cpp, the `paConsecutive_repetition` /
+            // `paNon_consecutive_repetition` / `paGoto_repetition` arms)
+            // pushes a `range` whose bounds are the compiled constants; the
+            // range and both constants are UNPARENTED, located at the written
+            // `1:3` and its tokens, a literal bound `UINT:<n>` size 64 ct 9 and
+            // `$` the unbounded constant (`STRING:$`, size 1, ct 10).
+            // MEASURED on real v1.87 goldens (tools/probe/r11u113repro/grid/q
+            // q01-q05, q08, q09, q13, q14; pass 110's V1 arms under
+            // tools/probe/v11u112repro/grid/brk*/p).  We pushed the operand
+            // alone.  GATED to the property-declaration home
+            // (`propDeclScope`, pass 110's § propDeclDisableIffSkip112 body)
+            // and to literal / `$` bounds (a formal- or parameter-named bound
+            // is not measured).  `R11U113_OFF=1` / `R11U113_REPRNG_OFF=1`
+            // drop it.
+            const syntax::RangeSelectSyntax* rng113 = nullptr;
+            {
+                static const bool off113 =
+                    getenv("R11U113_OFF") != nullptr ||
+                    getenv("R11U113_REPRNG_OFF") != nullptr;
+                auto litOk113 = [](const syntax::ExpressionSyntax* b) {
+                    return b &&
+                           (b->kind ==
+                                syntax::SyntaxKind::IntegerLiteralExpression ||
+                            b->kind ==
+                                syntax::SyntaxKind::WildcardLiteralExpression);
+                };
+                if (!off113 && propDeclScope && !cntSyn && ae.syntax &&
+                    ae.syntax->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+                    if (auto* rep113 = ae.syntax->as<syntax::SimpleSequenceExprSyntax>()
+                                           .repetition;
+                        rep113 && rep113->selector &&
+                        rep113->selector->kind ==
+                            syntax::SyntaxKind::SimpleRangeSelect) {
+                        auto& rs113 =
+                            rep113->selector->as<syntax::RangeSelectSyntax>();
+                        if (litOk113(rs113.left) && litOk113(rs113.right))
+                            rng113 = &rs113;
+                    }
+            }
+            if (rng113) {
+                auto* r113 = s.MakeRange();
+                setLoc(r113, rng113->sourceRange());
+                auto bound113 = [&](const syntax::ExpressionSyntax* b)
+                    -> UHDM::expr* {
+                    if (b->kind == syntax::SyntaxKind::WildcardLiteralExpression) {
+                        auto* c113 = s.MakeConstant();
+                        c113->VpiValue("STRING:$");
+                        c113->VpiDecompile("$");
+                        c113->VpiSize(1);
+                        c113->VpiConstType(vpiUnboundedConst);
+                        setLoc(c113, b->sourceRange());
+                        return c113;
+                    }
+                    auto* e113 = emitSyntaxExpr(*b, r113);
+                    if (e113)
+                        e113->VpiParent(nullptr);
+                    return (UHDM::expr*)e113;
+                };
+                auto* l113 = bound113(rng113->left);
+                auto* rr113 = bound113(rng113->right);
+                if (l113 && rr113) {
+                    r113->Left_expr(l113);
+                    r113->Right_expr(rr113);
+                    operands->push_back(r113);
+                }
+            }
             if (cntSyn) {
                 UHDM::any* cnt = nullptr;
                 if (propDeclScope && cntSyn->kind == syntax::SyntaxKind::IdentifierName)

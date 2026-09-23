@@ -1,0 +1,22 @@
+## u2r lawx vs pris
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/arb_idx_cast-dbf8cde6/slang.uhdm  patched=bfc363537ff8 pristine=e7cd41049a62
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=6610975620ec pristine=1aeddf65afb1
+MOVER ./default/ibex_pmp-65816114/slang.uhdm  patched=2a155304568e pristine=617a924a8512
+MOVER ./testflags/arb_idx_cast-dbf8cde6/slang.uhdm  patched=cc613c0be43f pristine=730492becfdd
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=45e6fd63c0d1 pristine=751413acb66f
+MOVER ./testflags/ibex_pmp-65816114/slang.uhdm  patched=7424e3006ae2 pristine=5cd37571d974
+MOVERS: 6 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## surelog lawx vs pris
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=b0a418b3e9c6 pristine=27419f6011b4
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1621aec6c9f3 pristine=e70775324004
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=7bfadd06c357 pristine=14cbb1b1185e
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=91a8f410f5e0 pristine=8673cf1d1229
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## surelog movers, order-blind uhdm-dump diff (path-normalised)
+default/MiniAmiq 4 lines (UINT:0<->1335 + vpiDecompile), testflags/MiniAmiq 4 (UINT:1451<->1289), testflags/SeqDriver 4 (UINT:774<->1338), default/Scoreboard 0 (order coin)
