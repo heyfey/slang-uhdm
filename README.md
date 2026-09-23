@@ -42,6 +42,5 @@ are submodules, the producer is built from `third_party/Surelog`, and Surelog's
 golden databases are cached after the first run. See tests/README.md.
 
     tests/sweep.sh                                # both corpora x both modes vs results/golden_*.csv (the gate)
-    tests/check_goldens.sh                        # 23 byte-exact dump goldens
     ./scripts/converge.sh <dut.sv>                # one-test dump-diff + cmp
     ./scripts/triage.sh out.csv                   # per-round priorities

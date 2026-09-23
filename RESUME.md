@@ -102,7 +102,7 @@ official cmp to claim it is correct") and must never become a bottleneck
   build/slang-uhdm                the binary (cmake --build build -j 2)
   scripts/verify_golden.py        THE harness (one classification engine)
   scripts/accounting.py --md      regenerates the baseline table from results/*.csv
-  tests/check_goldens.sh          23 golden dump tests (SLANG_UHDM must be exported!)
+  tests/sweep.sh                  THE gate: both corpora x both modes vs results/golden_*.csv
   results/golden_surelog.csv      surelog baseline (1588 rows) — READ-ONLY
   results/gate_uhdm2rtlil.csv     u2r testflags baseline (731 rows) — READ-ONLY
   tools/probe/r10<pass>repro/     one dir per landed pass: README (the decoded law),
@@ -211,7 +211,7 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 > arm through the corpus harness in both modes on the HEAD binary
 > (scratchpad probe_census.py -> which arms read CMP_EQUAL and whether their
 > dumps match byte-for-byte), then a selection + layout proposal for
-> tests/golden, then STOP for the user's direction before editing tests/.
+> tests/, then STOP for the user's direction before editing tests/.
 > Method that converged the corpus: HEAD-ANCHORED SELECTION (memory
 > head-anchored-selection) — every brief names the open corpus tests it
 > targets and their measured uhdm-cmp head cluster, predicts each row's cmp
@@ -582,9 +582,8 @@ git reset -q; git status --short | grep -v '^??'; grep -c '<<<<<<<' $(git diff -
 timeout 590 cmake --build build -j 2 2>&1 | grep -E ' error |Built target slang_uhdm$'
 md5sum build/slang-uhdm
 export SLANG_UHDM=$PWD/build/slang-uhdm
-bash tests/check_goldens.sh | grep -c '^PASS'                 # 23
-bash tests/check_goldens.sh | grep -c '^FAIL'                 # 0
-SLANG_UHDM=/bin/false bash tests/check_goldens.sh | grep -c '^FAIL'   # 23 (negative control)
+tests/sweep.sh --filter '^Assign' | tail -3                  # regressions=0 (quick smoke; the full sweeps follow)
+SLANG_UHDM=/bin/false tests/sweep.sh --filter '^Assign' | tail -1   # must NOT read regressions=0 (negative control)
 W=/tmp/wd<pass>; mkdir -p $W/sl $W/u2r
 nohup bash -c "python3 scripts/verify_golden.py --corpus surelog --mode both --jobs 2 --out $W/sl.csv --workdir $W/sl > $W/sl.log 2>&1" >/dev/null 2>&1 &
 nohup bash -c "python3 scripts/verify_golden.py --corpus uhdm2rtlil --mode testflags --jobs 2 --out $W/u2r_tf.csv --workdir $W/u2r > $W/u2r_tf.log 2>&1; python3 scripts/verify_golden.py --corpus uhdm2rtlil --mode default --jobs 2 --out $W/u2r_def.csv --workdir $W/u2r > $W/u2r_def.log 2>&1" >/dev/null 2>&1 &
@@ -708,8 +707,8 @@ pairs; a null-sweep-clean read is luck. Earlgrey_0_1 both modes are
 byte-deterministic per binary. Size-delta nonzero proves a real mover; zero
 proves nothing.
 
-**Harness traps.** `verify_golden.py` AND `tests/check_goldens.sh` silently
-default `SLANG_UHDM` to the MAIN-TREE binary — export it per binary and audit
+**Harness traps.** `verify_golden.py` (and `tests/sweep.sh` over it) silently
+defaults `SLANG_UHDM` to the MAIN-TREE binary — export it per binary and audit
 every `cmds.txt` by binary PATH (not "slang-uhdm", which also matches
 `slang-uhdm-goldens/`). `verify_golden.py` records rc=139 SEGFAULTS as
 `SLANG_REJECT` wearing the last stderr warning (two hidden segfaults were

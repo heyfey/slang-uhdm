@@ -48,8 +48,8 @@ a time through the integration gate, measurements never guesses.
    pass looks like.
 4. Verify the environment: `~/git-repos/UHDM/build/bin/{uhdm-cmp,uhdm-dump}`
    exist; `~/.cache/slang-uhdm-goldens` exists (never delete it);
-   `cmake --build build -j 2` builds; `export SLANG_UHDM=$PWD/build/slang-uhdm
-   && bash tests/check_goldens.sh` gives 23 PASS; `python3
+   `cmake --build build -j 2` builds; `tests/sweep.sh --corpus uhdm2rtlil
+   --filter '^Assign'` reads 0 regressions; `python3
    scripts/verify_golden.py --corpus uhdm2rtlil --mode testflags --jobs 2
    --out /tmp/x.csv --workdir /tmp/xw` reproduces the committed baseline
    (`bash tools/probe/r10oth8repro/ct8rows.sh results/gate_uhdm2rtlil.csv

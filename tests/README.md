@@ -13,7 +13,6 @@ after the first run.
 | `third_party/uhdm2rtlil` | the pinned uhdm2rtlil checkout; `test/<name>/dut.sv` (or `dut.v`, or a `project.f`) per test | 871 tests |
 | `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,dump`) | 1596 + 1742 rows |
 | `results/gate_uhdm2rtlil.csv` | the uhdm2rtlil testflags rows alone (the older gate) | 871 rows |
-| `tests/golden/*.dump` | byte-exact `uhdm-dump` goldens for 23 uhdm2rtlil tests; the corpus path inside them is spelled `$CORPUS` | 23 |
 | `tools/probe/` | per-pass evidence (grid arms, scripts, measurements); not run by any check | |
 
 Two modes per test. In `default` mode both tools get only the sources. In
@@ -42,7 +41,6 @@ the other locations the same way.
 
     tests/sweep.sh                     # both corpora, both modes, compared to results/golden_*.csv
     tests/sweep.sh --corpus uhdm2rtlil --filter '^ibex'
-    tests/check_goldens.sh             # the 23 byte-exact dump goldens
 
 `tests/sweep.sh` exits 1 when any row's status moved away from `CMP_EQUAL`.
 It prints the status histogram per mode, every changed row, and how many

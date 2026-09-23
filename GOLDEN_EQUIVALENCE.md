@@ -139,7 +139,7 @@ driver source, 0 in the upstream binary's help; the only adjacent option is
 `--std`), so no rename was needed.
 
 **Flipping the default required a lockstep change to the gate scripts.**
-`converge.sh` and `check_goldens.sh` pass `-nobuiltin` to Surelog but were passing
+`converge.sh` and the (since removed) `check_goldens.sh` passed `-nobuiltin` to Surelog but were passing
 nothing to us; without adding `--nobuiltin` there, every corpus test would have
 regressed the moment the default flipped. Anything that changes a default must
 sweep the harness for the places that relied on the old one.
@@ -390,7 +390,7 @@ the other said "failing", for the same test. The division of labour now:
 | Tool | Role |
 |---|---|
 | `scripts/verify_golden.py` | THE harness: classification, both corpora, all modes, the `dump` column |
-| `tests/check_goldens.sh` | fast byte-identity microscope over 23 committed golden dumps |
+| `tests/sweep.sh` | the gate: both corpora, both modes, every row's status against the committed scoreboards (`scripts/compare_results.py`) |
 | `scripts/converge.sh` | single-test dev microscope; produces `dump.diff` for inspection; same artifact policy |
 | `scripts/run_corpus.sh` | **deprecated** — kept only to reproduce phase-1 CSVs |
 
@@ -402,7 +402,7 @@ visible now.
 
 Every change must clear, in the **main tree**:
 
-1. `bash tests/check_goldens.sh 2>&1 | grep -c '^PASS'` == **23**
+1. `tests/sweep.sh` reads `regressions=0` for both corpora (or, per corpus:)
 2. The uhdm2rtlil gate, against the committed baseline:
 
        python3 scripts/verify_golden.py --corpus uhdm2rtlil --mode testflags \
