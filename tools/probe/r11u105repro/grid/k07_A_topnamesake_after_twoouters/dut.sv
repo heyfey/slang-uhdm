@@ -1,0 +1,13 @@
+// LAW A: two outers each nest an innermod; the file-scope ported namesake is a late top
+module amod ();
+  module innermod (); wire ra; endmodule
+endmodule
+module bmod ();
+  module innermod (); wire [3:0] rb = 4'd3; endmodule
+endmodule
+module dut (output logic [31:0] o);
+  amod u_a ();
+  bmod u_b ();
+  assign o = 32'd0;
+endmodule
+module innermod (input logic [3:0] a, output logic [3:0] b); assign b = a; endmodule

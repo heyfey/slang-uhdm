@@ -1,0 +1,32 @@
+# r11u105 SWITCHES, law binary lawx, every tag over all ten grids (runall105.sh / switches105.sh)
+# 'vs law2' = arms the switch returns; 'other-grid' = movers vs law2 on the nine control grids
+off vs law2: k02 k03 k04 k05 k06 k07 k10 k11 k12 k14 k15 k16 k17 k19 k20 k22 k23 k27 k28 k29 k33 k37 k38 k39 k40 k41  | other-grid movers vs law2: 0 | vs pris (all 10 grids):
+tkof vs law2: k02 k03 k04 k05 k06 k07 k10 k11 k12 k33 k37 k38 k39 k41  | other-grid movers vs law2: 0 | vs pris (all 10 grids): k14 k15 k16 k17 k19 k20 k22 k23 k27 k28 k29 k40
+pkof vs law2: k14 k15 k16 k22 k23 k39  | other-grid movers vs law2: 0 | vs pris (all 10 grids): k02 k03 k04 k05 k06 k07 k10 k11 k12 k17 k19 k20 k27 k28 k29 k33 k37 k38 k39 k40 k41
+piof vs law2: k17 k40  | other-grid movers vs law2: 0 | vs pris (all 10 grids): k02 k03 k04 k05 k06 k07 k10 k11 k12 k14 k15 k16 k19 k20 k22 k23 k27 k28 k29 k33 k37 k38 k39 k41
+ikof vs law2: k19 k20 k27 k28 k29  | other-grid movers vs law2: 0 | vs pris (all 10 grids): k02 k03 k04 k05 k06 k07 k10 k11 k12 k14 k15 k16 k17 k22 k23 k33 k37 k38 k39 k40 k41
+
+# R11U105_OFF=1 vs pristine: every arm of all ten grids byte-identical (db md5 + rc):
+r11u105repro arms=36 2748->2748 movers=0
+r11u103repro arms=39 632->632 movers=0
+v11u93repro arms=39 913->913 movers=0
+r11u101repro arms=25 1447->1447 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11u93repro arms=55 185->185 movers=0
+
+# the LANDED switches still work, identically on both binaries (pass 102 eight tags; pass 98/100 master switches + the scoped-name switch)
+o103: pris+switch vs lawx+switch movers on r11u103/v11u93/r11u101: 0; arms the switch moves: pris 39 law 39
+akof: pris+switch vs lawx+switch movers on r11u103/v11u93/r11u101: 0; arms the switch moves: pris 16 law 16
+adof: pris+switch vs lawx+switch movers on r11u103/v11u93/r11u101: 0; arms the switch moves: pris 2 law 2
+fof: pris+switch vs lawx+switch movers on r11u103/v11u93/r11u101: 0; arms the switch moves: pris 12 law 12
+niof: pris+switch vs lawx+switch movers on r11u103/v11u93/r11u101: 0; arms the switch moves: pris 6 law 6
+npof: pris+switch vs lawx+switch movers on r11u103/v11u93/r11u101: 0; arms the switch moves: pris 5 law 5
+lbof: pris+switch vs lawx+switch movers on r11u103/v11u93/r11u101: 0; arms the switch moves: pris 1 law 1
+ifof: pris+switch vs lawx+switch movers on r11u103/v11u93/r11u101: 0; arms the switch moves: pris 1 law 1
+u99off: pris+switch vs lawx+switch movers on r11u101/r11u99: 0; arms the switch moves: pris 40 law 40
+u101off: pris+switch vs lawx+switch movers on r11u101/r11u99: 0; arms the switch moves: pris 22 law 22
+nnoff: pris+switch vs lawx+switch movers on r11u101/r11u99: 0; arms the switch moves: pris 36 law 36

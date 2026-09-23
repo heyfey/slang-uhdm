@@ -175,6 +175,49 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign refresh (2026-09-22, HEAD = the pass-103 landing).** The
+> matrix-1.87 branch has landed 103 passes since the df23d880 rebaseline:
+> surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes
+> are the three slang-fenced tests), uhdm2rtlil 788 equal / 16 not-equal /
+> 67 reject in both modes (of 871). Passes 94-103 are ALL GROUNDWORK — zero
+> conversions, zero regressions — with corpus bytes moving TO GOLDEN at 94
+> and 97 (ibex_icache, divide and add-mint arms). Since the pass-93 refresh
+> the master moved to Fable 5.1 and the subagent pin to claude-opus-5-5
+> (user directive 2026-09-22; a pair now lands in roughly 70-140 minutes).
+> Landed: the mult/div/mod INT mint + written-digit leaf + concat kind-1 +
+> bare replication (94), the complete program flattening per member kind +
+> the empty loop's copy + three verifier name/order fixes (95), the
+> name-keyed class registry + module-own gen-block class + interface classes
+> at the design root + def-view final block (96), the tick literal as one
+> digit + the add mint climbing the tree + the comparison's minus one + the
+> chain's initializer (97), every interface's classes at the root + six
+> nested-module laws (98), the power arm's INT mint with two digit laws
+> decoded-and-OFF pending the reader's width (99), the ported nested module's
+> shell + the scoped definition key + the library-unit guard (100), the
+> reduced comparison operand + the evaluated call fold with seven decline
+> gates + the unknown-literal decline (101), the file-scope namesake's key at
+> entry + the unreached definition's ports on three roads (102), and the
+> definition table's top-road, program and interface namesakes keyed at
+> entry (103). COURSE CORRECTION at 103: 33 groundwork passes had converted
+> nothing because briefs followed residue chains; every brief now names the
+> open corpus tests it targets and their measured head cluster (memory
+> head-anchored-selection; cluster A = one struct-member range-bound fold
+> head shared by four tests). Instrument laws recorded this stretch: censuses walk
+> GOLDEN databases first; slot scorers are blind to INVENTED entries (the
+> whole-dump distance and the judge arbitrate); location-keyed scorers are
+> blind to rangeless golden constants (net-name second key); a verifier once
+> applied into the MAIN tree (prove tree = base + patch before continuing).
+> The queue: the reader-width hand-off + size face (r11u104, in flight), the
+> definition table's top road + program namesake (r11u105, in flight), the
+> param_assign-site fold rules (pass-101 R0), the parameterized-class listing
+> (pass-96 R0, Heisenbug road), pass-95 R3/R4/R5, the interface module-shell
+> kind divergence, pass-100 R1/R3, pass-92 R0 parameter half, RV94-6, the
+> $unit ref_obj shape, the enum-hop const type, pass-91 R3+R4, pass-83 R4,
+> pass-85 R2/R3, pass-87 R1/R4, pass-86 defparam VALUE, pass-89 R2/R3,
+> pass-80 R2/R3, r11u67 R-KWDUMMY + pass-64 element-reach, BBPI 62 bare
+> cells, r11u70 R3, r11u68 R0, r11u73 R2, pass-79 R3, the kind-2/kind-0
+> call-wrapped hole, RV97-1, TRIAGE2 singletons.
+> The pass-93 paragraph below is HISTORY.
 > **v1.87 campaign refresh (2026-09-22, HEAD = the pass-93 landing).** The
 > matrix-1.87 branch has landed 93 passes since the df23d880 rebaseline:
 > surelog 474/9 default + 469/8 testflags (of 798; 6 of the 17 NE row-modes

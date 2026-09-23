@@ -1,0 +1,88 @@
+# r11u105 GRID (35+1 arms) — golden built once per arm by the pinned Surelog (rr103.sh); pris = 17b06e3d build, law2 = lawx (same md5 b8e8c23a6916473019f14f514584f349)
+# arm | golden_rc | ours_rc pris->law | cmplines pris->law | distsec pris->law | law cells vs golden
+k01_A_topnamesake_before golden_rc=0 ours_rc=0->0 cmp 0->0 distsec 0->0 {'OK':174}
+k02_A_topnamesake_after_portless golden_rc=0 ours_rc=0->0 cmp 438->0 distsec 16->0 {'OK':127}
+k03_A_topnamesake_after golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':174}
+k04_A_topnamesake_after_child golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':338}
+k05_A_topnamesake_after_param golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':214}
+k06_A_topnamesake_after_sharedchild golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':444}
+k07_A_topnamesake_after_twoouters golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':199}
+k08_A_topnamesake_after_nestported golden_rc=0 ours_rc=0->0 cmp 0->0 distsec 0->0 {'OK':194}
+k09_A_instantiated_after golden_rc=0 ours_rc=0->0 cmp 0->0 distsec 0->0 {'OK':230}
+k10_A_outertop_then_namesake golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':107}
+k11_A_topnamesake_after_deepchild golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':199}
+k12_A_twotops_after golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':235}
+k14_B_programnamesake golden_rc=0 ours_rc=0->0 cmp 179->0 distsec 15->0 {'OK':97}
+k15_B_programnamesake_ported golden_rc=0 ours_rc=0->0 cmp 222->8 distsec 54->4 {'OK':121,'OURS-ONLY':2}
+k16_B_programnamesake_after golden_rc=0 ours_rc=0->0 cmp 179->0 distsec 15->0 {'OK':97}
+k17_B_program_instantiated golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':187}
+k18_B_program_control golden_rc=0 ours_rc=0->0 cmp 0->0 distsec 0->0 {'OK':97}
+k19_B_ifacenamesake golden_rc=0 ours_rc=0->0 cmp 180->0 distsec 16->0 {'OK':98}
+k20_B_ifacenamesake_inst golden_rc=0 ours_rc=0->0 cmp 259->0 distsec 18->0 {'OK':145}
+k21_B_pkgnamesake golden_rc=0 ours_rc=0->0 cmp 8->8 distsec 8->8 {'OK':141,'GOLD-ONLY':1,'OURS-ONLY':3}
+k22_B_programnamesake_twoouters golden_rc=0 ours_rc=0->0 cmp 224->0 distsec 15->0 {'OK':122}
+k23_B_programnamesake_child golden_rc=0 ours_rc=0->0 cmp 100->8 distsec 54->4 {'OK':54,'OURS-ONLY':2}
+k24_C_pkg_control golden_rc=0 ours_rc=0->0 cmp 8->8 distsec 8->8 {'OK':161,'GOLD-ONLY':1,'OURS-ONLY':3}
+k25_C_iface_control golden_rc=0 ours_rc=0->0 cmp 0->0 distsec 0->0 {'OK':98}
+k26_C_program_ported_control golden_rc=0 ours_rc=0->0 cmp 8->8 distsec 4->4 {'OK':121,'OURS-ONLY':2}
+k27_C_ifacenamesake_after golden_rc=0 ours_rc=0->0 cmp 180->0 distsec 16->0 {'OK':98}
+k28_C_ifacenamesake_ported_modport golden_rc=0 ours_rc=0->0 cmp 218->0 distsec 52->0 {'OK':121}
+k29_C_ifacenamesake_asport golden_rc=0 ours_rc=0->0 cmp 545->0 distsec 31->0 {'OK':298}
+k33_A_topnamesake_after_instouter golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':186}
+k35_A_control_outer_genonly golden_rc=0 ours_rc=0->0 cmp 0->0 distsec 0->0 {'OK':177}
+k37_A_two_namesakes golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':245}
+k38_B_program_inst_in_latetop golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':279}
+k39_B_program_and_topnamesake golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':193}
+k40_B_program_inst_twice golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->24 {'OK':251,'OURS-ONLY':13}
+k41_C_iface_inst_in_latetop golden_rc=0 ours_rc=139->0 cmp NA->0 distsec SEGV->0 {'OK':246}
+k42_C_program_inst_twice_control golden_rc=0 ours_rc=0->0 cmp 0->0 distsec 24->24 {'OK':251,'OURS-ONLY':13}
+
+# control grids, per-arm ours md5 + rc + cmplines, pris vs law2 (cmpgrid103.sh)
+  MOVER r11u105repro/k02_A_topnamesake_after_portless 438->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k03_A_topnamesake_after NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k04_A_topnamesake_after_child NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k05_A_topnamesake_after_param NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k06_A_topnamesake_after_sharedchild NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k07_A_topnamesake_after_twoouters NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k10_A_outertop_then_namesake NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k11_A_topnamesake_after_deepchild NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k12_A_twotops_after NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k14_B_programnamesake 179->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k15_B_programnamesake_ported 222->8 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k16_B_programnamesake_after 179->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k17_B_program_instantiated NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k19_B_ifacenamesake 180->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k20_B_ifacenamesake_inst 259->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k22_B_programnamesake_twoouters 224->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k23_B_programnamesake_child 100->8 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k27_C_ifacenamesake_after 180->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k28_C_ifacenamesake_ported_modport 218->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k29_C_ifacenamesake_asport 545->0 ours_rc=0->ours_rc=0
+  MOVER r11u105repro/k33_A_topnamesake_after_instouter NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k37_A_two_namesakes NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k38_B_program_inst_in_latetop NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k39_B_program_and_topnamesake NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k40_B_program_inst_twice NA->0 ours_rc=139->ours_rc=0
+  MOVER r11u105repro/k41_C_iface_inst_in_latetop NA->0 ours_rc=139->ours_rc=0
+r11u105repro arms=36 2748->40 movers=26
+r11u103repro arms=39 632->632 movers=0
+v11u93repro arms=39 913->913 movers=0
+r11u101repro arms=25 1447->1447 movers=0
+r11u99repro arms=27 3206->3206 movers=0
+r11u98repro arms=20 159->159 movers=0
+r11v98repro arms=31 1729->1729 movers=0
+r11u95repro arms=35 72->72 movers=0
+r11v95repro arms=31 522->522 movers=0
+r11u93repro arms=55 185->185 movers=0
+
+# law repeat (determinism): law2 vs lawr
+r11u105repro arms=36 40->40 movers=0
+
+# golden_rc != 0 arms in the control grids (pre-existing, both binaries identical):
+n9_strnonansi_prog golden_rc=3
+pa11_proggenregion golden_rc=139
+pb18_ifnodecl golden_rc=4
+w17_ifaceinnerdecl golden_rc=3
+w22_modinneriface golden_rc=3
+w26_modinnerifacereal golden_rc=3
+w27_modinnerifaceinst golden_rc=3

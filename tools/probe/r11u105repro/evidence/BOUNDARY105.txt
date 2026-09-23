@@ -1,0 +1,82 @@
+# r11u105 WIDE BOUNDARY (bnd105.sh = bnd103.sh over ALL of tools/probe at 17b06e3d + this pass's grid; pris vs lawx, byte compare)
+BOUNDARY listed=4518 processed=4518 moved=23 rc-or-db-anomalies=15
+PROCESSED==LISTED
+
+== LAW ARMS (26 = exactly the grid's pris->law mover set; 15 RC-DIFF are pristine SEGFAULTS rc 139 -> 0)
+MOVED r11u105repro/grid/k02_A_topnamesake_after_portless
+RC-DIFF r11u105repro/grid/k03_A_topnamesake_after pris=139 law=0
+RC-DIFF r11u105repro/grid/k04_A_topnamesake_after_child pris=139 law=0
+RC-DIFF r11u105repro/grid/k05_A_topnamesake_after_param pris=139 law=0
+RC-DIFF r11u105repro/grid/k06_A_topnamesake_after_sharedchild pris=139 law=0
+RC-DIFF r11u105repro/grid/k07_A_topnamesake_after_twoouters pris=139 law=0
+RC-DIFF r11u105repro/grid/k10_A_outertop_then_namesake pris=139 law=0
+RC-DIFF r11u105repro/grid/k11_A_topnamesake_after_deepchild pris=139 law=0
+RC-DIFF r11u105repro/grid/k12_A_twotops_after pris=139 law=0
+MOVED r11u105repro/grid/k14_B_programnamesake
+MOVED r11u105repro/grid/k15_B_programnamesake_ported
+MOVED r11u105repro/grid/k16_B_programnamesake_after
+RC-DIFF r11u105repro/grid/k17_B_program_instantiated pris=139 law=0
+MOVED r11u105repro/grid/k19_B_ifacenamesake
+MOVED r11u105repro/grid/k20_B_ifacenamesake_inst
+MOVED r11u105repro/grid/k22_B_programnamesake_twoouters
+MOVED r11u105repro/grid/k23_B_programnamesake_child
+MOVED r11u105repro/grid/k27_C_ifacenamesake_after
+MOVED r11u105repro/grid/k28_C_ifacenamesake_ported_modport
+MOVED r11u105repro/grid/k29_C_ifacenamesake_asport
+RC-DIFF r11u105repro/grid/k33_A_topnamesake_after_instouter pris=139 law=0
+RC-DIFF r11u105repro/grid/k37_A_two_namesakes pris=139 law=0
+RC-DIFF r11u105repro/grid/k38_B_program_inst_in_latetop pris=139 law=0
+RC-DIFF r11u105repro/grid/k39_B_program_and_topnamesake pris=139 law=0
+RC-DIFF r11u105repro/grid/k40_B_program_inst_twice pris=139 law=0
+RC-DIFF r11u105repro/grid/k41_C_iface_inst_in_latetop pris=139 law=0
+
+== NON-LAW MOVERS (12), attr105.sh: R11U105 trace count, pristine self-repeat, R11U105_OFF vs pristine, order-blind class
+r10buvm22repro trace=0 same off!=pris orderblind=12 [ 6 |UINT; 6 |vpiDecompile;]
+     <         |UINT:23409121
+     <         |UINT:23409977
+     <         |UINT:23409977
+     >         |UINT:23413313
+r10uvm117repro trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r10uvm130repro trace=0 same off!=pris orderblind=0 [ 1 ;]
+
+r10uvm154repro trace=0 same off!=pris orderblind=8 [ 4 |UINT; 4 |vpiDecompile;]
+     <         |UINT:23409977
+     <         |UINT:23409977
+     >         |UINT:23414169
+     >         |UINT:23414169
+r10uvm185repro/grid185 trace=0 same off!=pris orderblind=12 [ 6 |UINT; 6 |vpiDecompile;]
+     <         |UINT:23409977
+     <         |UINT:23409977
+     <         |UINT:23409977
+     >         |UINT:23414169
+r10uvm196repro/grid196 trace=0 SELF-NONDET off==pris2 orderblind=0 [ 1 ;]
+
+r10v109repro trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r10v117repro trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r10v130repro trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+r10v144repro trace=0 same off!=pris orderblind=0 [ 1 ;]
+
+r10v196repro/arms trace=0 SELF-NONDET off==pris orderblind=0 [ 1 ;]
+
+r10v209repro/arms trace=0 SELF-NONDET off!=pris orderblind=0 [ 1 ;]
+
+
+== 16 KB-PAD POSITIVE CONTROL (pristine + volatile char[16384]) on the same 12 arms
+r10buvm22repro pad!=pris orderblind=12 [6 UINT; 6 vpiDecompile] UINT-deltas: 16384   (law: 4192)
+r10uvm154repro pad!=pris orderblind=8  [4 UINT; 4 vpiDecompile] UINT-deltas: 16384   (law: 4192)
+r10uvm185repro/grid185 pad!=pris orderblind=12 [6 UINT; 6 vpiDecompile] UINT-deltas: 16384   (law: 4192)
+the other nine: orderblind=0 on pad too; r10uvm130 and r10v144, repeated 5x per binary:
+  r10uvm130 pris: 8589ab61c52f 58527b5407e3 358d2153de28 45d5db41f986 358d2153de28
+            lawx: f8e38d6bdcdd 864ba49b5d90 f8e38d6bdcdd f8e38d6bdcdd ac7afbd1533a
+            off:  45d5db41f986 ec5a475cebec 223d06d8ae8e 45d5db41f986 45d5db41f986
+            pad:  ec5a475cebec 58527b5407e3 f8e38d6bdcdd 58527b5407e3 f8e38d6bdcdd
+  r10v144  pris: 7884a1d8c479 7884a1d8c479 264309d9a166 7884a1d8c479 7884a1d8c479
+            lawx: 7884a1d8c479 7884a1d8c479 264309d9a166 7884a1d8c479 7884a1d8c479
+            off:  7884a1d8c479 x5 ; pad: 264309d9a166 264309d9a166 7884a1d8c479 7884a1d8c479 7884a1d8c479
+  => every binary draws every other's hashes: NONDETERMINISM, 0 order-blind lines.
+
+== same rc on both binaries (not an anomaly): r10v226repro/arms/b13_modportproc rc 139 / 139

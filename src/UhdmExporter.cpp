@@ -115,6 +115,35 @@ static bool netDbg103() {
     static const bool v = getenv("R11U103_NETDBG") != nullptr;
     return v;
 }
+// r11u105's gates (LAW A § caTopNamesakeKeyAtEntry105, LAW B
+// § caProgramNamesakeKeyAtEntry105 on two roads, LAW C
+// § caIfaceNamesakeKeyAtEntry105 — the decode is at their sites in
+// exportDesign).  `R11U105_OFF=1` drops all; `R11U105_NETDBG=1` is the trace,
+// OUTSIDE every gate.
+static bool off105() {
+    static const bool v = getenv("R11U105_OFF") != nullptr;
+    return v;
+}
+static bool topKeyOff105() {
+    static const bool v = off105() || getenv("R11U105_TOPKEY_OFF") != nullptr;
+    return v;
+}
+static bool progKeyOff105() {
+    static const bool v = off105() || getenv("R11U105_PROGKEY_OFF") != nullptr;
+    return v;
+}
+static bool progInstOff105() {
+    static const bool v = off105() || getenv("R11U105_PROGINST_OFF") != nullptr;
+    return v;
+}
+static bool ifaceKeyOff105() {
+    static const bool v = off105() || getenv("R11U105_IFACEKEY_OFF") != nullptr;
+    return v;
+}
+static bool netDbg105() {
+    static const bool v = getenv("R11U105_NETDBG") != nullptr;
+    return v;
+}
 // r11u99's LAW B2 switch (ModuleEmit.cpp's `nestImplOff99`, read from the
 // same variables): with B2 off the implicit nested instance IS elaborated,
 // so its subtree is not an unelaborated road.
@@ -5331,6 +5360,36 @@ UHDM::design* UhdmExporter::exportDesign() {
                         mergeSub103(ch);
                     }
                 }
+                // r11u105 LAW B, the INSTANTIATED half
+                // (§ caProgramNamesakeKeyAtEntry105, decoded below): a
+                // file-scope PROGRAM an instance reaches, whose bare key the
+                // nested module held, is entered exactly like the module.
+                else if (nestDepth99(cd) == 0 &&
+                         cd.definitionKind == DefinitionKind::Program &&
+                         !defs.count(std::string(cd.name)) &&
+                         nestedNames103.count(cd.name)) {
+                    if (netDbg105())
+                        fprintf(stderr, "R11U105PROGKEY road=INST key=%.*s\n",
+                                (int)cd.name.size(), cd.name.data());
+                    if (!progInstOff105()) {
+                        defs.emplace(std::string(cd.name), &ch);
+                        mergeSub103(ch);
+                    }
+                }
+                // r11u105 LAW C, the INSTANTIATED half
+                // (§ caIfaceNamesakeKeyAtEntry105, decoded below).
+                else if (nestDepth99(cd) == 0 &&
+                         cd.definitionKind == DefinitionKind::Interface &&
+                         !defs.count(std::string(cd.name)) &&
+                         nestedNames103.count(cd.name)) {
+                    if (netDbg105())
+                        fprintf(stderr, "R11U105IFACEKEY road=INST key=%.*s\n",
+                                (int)cd.name.size(), cd.name.data());
+                    if (!ifaceKeyOff105()) {
+                        defs.emplace(std::string(cd.name), &ch);
+                        mergeSub103(ch);
+                    }
+                }
                 for (auto& cm : ch.body.members())
                     visit103(cm);
             }
@@ -5345,9 +5404,46 @@ UHDM::design* UhdmExporter::exportDesign() {
                     visit103(gm);
             }
         };
+        // ===== r11u105 LAW A § caTopNamesakeKeyAtEntry105 — the ROOT is
+        // entered the way every instance under it is =====
+        //
+        // The replay above enters a file-scope namesake only when an INSTANCE
+        // reaches it (`visit103`); a ROOT is only walked.  A file-scope module
+        // that is itself a TOP (nobody instantiates it) and is declared AFTER
+        // the module whose subtree holds the nested namesake comes later in
+        // `orderedTops` (source order), so collection's `defs.emplace` found
+        // the bare key held by the nested implicit instance and skipped it,
+        // body and all.  After r11u99's rekey the bare key is free, but no
+        // one re-enters it: the top has no `DefInfo`, and its elaboration's
+        // port phase (`emitInstance` → `emitModuleDefPorts`) reads the null
+        // `DefInfo::mod` — both binaries SEGFAULT whenever it has a port (k03)
+        // and publish no def view when it has none (k02).  Golden keys its
+        // table on the scoped name from the start (`ResolveSymbols.cpp:168-201`
+        // files the nested one under `<outer>::<inner>`), so `work@innermod`
+        // is listed in `uhdmallModules` beside `work@sub::innermod`, and the
+        // top in `uhdmtopModules` is the same definition's elaboration.  The
+        // root is entered as ITS OWN representative (a top is exactly what an
+        // entry-keyed collection would have picked: `defs.emplace(name, inst)`
+        // above) and its subtree merged under the rekeyed keys, so keys a
+        // previous top already holds keep their representative.  A root that
+        // precedes the nested one in source order took the key at collection
+        // (k01) and never reaches this.
         auto root103 = [&](const InstanceSymbol& r) {
             if (!seen103.insert(key103(r.getDefinition())).second)
                 return;
+            auto& rd105 = r.getDefinition();
+            if (nestDepth99(rd105) == 0 &&
+                rd105.definitionKind == DefinitionKind::Module &&
+                !defs.count(std::string(rd105.name)) &&
+                nestedNames103.count(rd105.name)) {
+                if (netDbg105())
+                    fprintf(stderr, "R11U105TOPKEY key=%.*s\n",
+                            (int)rd105.name.size(), rd105.name.data());
+                if (!topKeyOff105()) {
+                    defs.emplace(std::string(rd105.name), &r);
+                    mergeSub103(r);
+                }
+            }
             for (auto& cm : r.body.members())
                 visit103(cm);
         };
@@ -5361,6 +5457,78 @@ UHDM::design* UhdmExporter::exportDesign() {
                 dRoots103.push_back(i103);
         for (auto* r103 : dRoots103)
             root103(*r103);
+        // ===== r11u105 LAW B § caProgramNamesakeKeyAtEntry105 — a file-scope
+        // PROGRAM keeps its key beside a nested module of the same name =====
+        //
+        // Golden files a program in its OWN table: the
+        // `paProgram_declaration` case of `ResolveSymbols::createFastLookup`
+        // (`~/git-repos/Surelog/src/DesignCompile/ResolveSymbols.cpp:136-138`)
+        // calls `addProgramDefinition(fullName, ...)`, never
+        // `addModuleDefinition`; `CompileDesign.cpp:230-232` merges it into
+        // the design's PROGRAM map and `UhdmWriter.cpp:5043-5069` writes that
+        // map as `AllPrograms`.  The nested module is filed under
+        // `<outer>::<inner>` (`:168-201`), so a file-scope `program innermod`
+        // and a nested `module innermod` cannot collide: golden lists the
+        // program in `uhdmallPrograms` as `work@innermod` AND the nested
+        // module in `uhdmallModules` as `work@sub::innermod` (k14/k15/k16/
+        // k22/k23), and an instantiated program's elaboration under its
+        // parent (k17).  Our one `defs` table is keyed on the bare name, so
+        // the nested implicit instance (collected under the tops) took the
+        // key first and the program was dropped: an uninstantiated one
+        // (`progTops`, collected after every top) simply vanished from
+        // `uhdmallPrograms`; an instantiated one lost its `DefInfo` and
+        // SEGFAULTED in the port phase like LAW A's top.  After the rekey the
+        // bare key is free again, so the program is re-entered on its own
+        // road: the UNINSTANTIATED half here (exactly the `progTops` entry
+        // below the tops, with its body merged under the rekeyed keys), the
+        // INSTANTIATED half in `visit103` above (its own switch).
+        for (auto* pt : progTops) {
+            auto& pd105 = pt->getDefinition();
+            if (nestDepth99(pd105) != 0 ||
+                defs.count(std::string(pd105.name)) ||
+                !nestedNames103.count(pd105.name))
+                continue;
+            if (netDbg105())
+                fprintf(stderr, "R11U105PROGKEY road=UNINST key=%.*s\n",
+                        (int)pd105.name.size(), pd105.name.data());
+            if (progKeyOff105())
+                continue;
+            defs.emplace(std::string(pd105.name), pt);
+            unrefDefs.insert(&pd105);
+            uninstProgDefs.insert(&pd105);
+            mergeSub103(*pt);
+            root103(*pt);
+        }
+        // ===== r11u105 LAW C § caIfaceNamesakeKeyAtEntry105 — a file-scope
+        // INTERFACE keeps its key beside a nested module of the same name =====
+        //
+        // Golden files an interface through `createFastLookup`'s default case
+        // (`ResolveSymbols.cpp:205-212`, `addModuleDefinition(fullName, ...)`)
+        // under `work@innermod`, and the nested module under
+        // `work@sub::innermod` (`:168-201`): no collision, and golden lists
+        // `work@innermod` in `uhdmallInterfaces` (k19 uninstantiated, k20
+        // instantiated).  Ours dropped it at the same bare key: the
+        // uninstantiated-interface producer above (`if (defs.count(...))
+        // continue`) and `collectDefs` both ran before the rekey freed it.
+        // Re-entered here exactly as that producer enters it (a default
+        // parameterization), the instantiated half in `visit103`.
+        for (auto* sym105 : comp.getDefinitions()) {
+            if (sym105->kind != SymbolKind::Definition)
+                continue;
+            auto& idf = sym105->as<DefinitionSymbol>();
+            if (idf.definitionKind != DefinitionKind::Interface ||
+                nestOuterBody101(idf) || nestDepth99(idf) != 0 ||
+                defs.count(std::string(idf.name)) ||
+                !nestedNames103.count(idf.name))
+                continue;
+            if (netDbg105())
+                fprintf(stderr, "R11U105IFACEKEY road=UNINST key=%.*s\n",
+                        (int)idf.name.size(), idf.name.data());
+            if (ifaceKeyOff105())
+                continue;
+            auto& di105 = InstanceSymbol::createDefault(comp, idf);
+            defs.emplace(std::string(idf.name), &di105);
+        }
         // The same collision on the DEFINITION-ONLY roads.  A file-scope
         // module that no instance in the collected tree reaches (the replay
         // never saw its key) is unreferenced under an explicit top, or is

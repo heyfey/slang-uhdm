@@ -1,0 +1,71 @@
+--- a/src/UhdmExporter.cpp
++++ b/src/UhdmExporter.cpp
+@@ -5327,6 +5327,36 @@
+                 nestedNames103.insert(sym103->name);
+         // The entered definition's subtree, keyed the way the rekey above
+         // keys it (r11u101's `mergeSub101`, which is local to its block).
++        // V11U93 CANDIDATE (measurement only): walk rank of each design top.
++        static const bool repFixV93 = getenv("V11U93_REPFIX") != nullptr;
++        std::map<const InstanceSymbol*, int> rankV93;
++        {
++            int rk = 0;
++            for (int bp = 0; bp < 2; ++bp)
++                for (auto inst : orderedTops)
++                    if ((bareTops.count(inst) != 0) == (bp == 1))
++                        rankV93.emplace(inst, rk++);
++        }
++        auto topRankV93 = [&](const InstanceSymbol* cur) -> int {
++            while (cur) {
++                auto it = rankV93.find(cur);
++                if (it != rankV93.end())
++                    return it->second;
++                const Scope* sc = cur->getParentScope();
++                const InstanceSymbol* par = nullptr;
++                while (sc) {
++                    auto& ss = sc->asSymbol();
++                    if (ss.kind == SymbolKind::InstanceBody) {
++                        par = ss.as<InstanceBodySymbol>().parentInstance;
++                        break;
++                    }
++                    sc = ss.getParentScope();
++                }
++                cur = par;
++            }
++            return 1 << 30;
++        };
++        int curRankV93 = 1 << 30;
+         auto mergeSub103 = [&](const InstanceSymbol& root) {
+             std::map<std::string, const InstanceSymbol*> sub103;
+             collectDefs(root.body, sub103);
+@@ -5335,7 +5365,14 @@
+                 int dp2 = nestDepth99(d2);
+                 if (dp2 >= 2 && !nestDeepOff99())
+                     continue;
+-                defs.emplace(dp2 == 0 ? n2 : defScopedName99(d2), i2);
++                std::string k2 = dp2 == 0 ? n2 : defScopedName99(d2);
++                auto [it2, ins2] = defs.emplace(k2, i2);
++                if (!ins2 && repFixV93 && curRankV93 < (1 << 30) &&
++                    &it2->second->getDefinition() == &d2 &&
++                    topRankV93(it2->second) > curRankV93) {
++                    fprintf(stderr, "V11U93REPFIX key=%s\n", k2.c_str());
++                    it2->second = i2;
++                }
+             }
+         };
+         std::set<std::string> seen103;
+@@ -5431,6 +5468,7 @@
+         auto root103 = [&](const InstanceSymbol& r) {
+             if (!seen103.insert(key103(r.getDefinition())).second)
+                 return;
++            curRankV93 = topRankV93(&r);
+             auto& rd105 = r.getDefinition();
+             if (nestDepth99(rd105) == 0 &&
+                 rd105.definitionKind == DefinitionKind::Module &&
+@@ -5457,6 +5495,7 @@
+                 dRoots103.push_back(i103);
+         for (auto* r103 : dRoots103)
+             root103(*r103);
++        curRankV93 = 1 << 30;
+         // ===== r11u105 LAW B § caProgramNamesakeKeyAtEntry105 — a file-scope
+         // PROGRAM keeps its key beside a nested module of the same name =====
+         //

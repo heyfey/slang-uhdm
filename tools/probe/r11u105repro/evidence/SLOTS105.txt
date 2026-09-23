@@ -1,0 +1,65 @@
+# r11u105 PER-SLOT (slot101.py move) and PER-ENTRY (secmove101.py) movers, pris -> law2, every grid
+# SKIP-NOFILE = the pristine arm SEGFAULTED (no database): an invented entry has no slot to lose -- those arms are scored
+# by the judge and the whole-dump distance vs golden in GRID105.txt (every one: cmp 0, distsec 0 except k40 = its control k42)
+== r11u105repro
+  SKIP-NOFILE k03_A_topnamesake_after
+  SKIP-NOFILE k04_A_topnamesake_after_child
+  SKIP-NOFILE k05_A_topnamesake_after_param
+  SKIP-NOFILE k06_A_topnamesake_after_sharedchild
+  SKIP-NOFILE k07_A_topnamesake_after_twoouters
+  SKIP-NOFILE k10_A_outertop_then_namesake
+  SKIP-NOFILE k11_A_topnamesake_after_deepchild
+  SKIP-NOFILE k12_A_twotops_after
+  SKIP-NOFILE k17_B_program_instantiated
+  SKIP-NOFILE k33_A_topnamesake_after_instouter
+  SKIP-NOFILE k37_A_two_namesakes
+  SKIP-NOFILE k38_B_program_inst_in_latetop
+  SKIP-NOFILE k39_B_program_and_topnamesake
+  SKIP-NOFILE k40_B_program_inst_twice
+  SKIP-NOFILE k41_C_iface_inst_in_latetop
+SLOT MOVED-WRONG=0 GAINED=198 (arms=36, pris -> law2)
+ENTRY AWAY=0 CLOSER=14 distsec 346 -> 52 (arms=21, pris -> law2)
+== r11u103repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=39, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 149 -> 149 (arms=39, pris -> law2)
+== v11u93repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=39, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 90 -> 90 (arms=39, pris -> law2)
+== r11u101repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=25, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 173 -> 173 (arms=25, pris -> law2)
+== r11u99repro
+  SKIP-NOFILE w04_ifacenestmodchild
+  SKIP-NOFILE w17_ifaceinnerdecl
+  SKIP-NOFILE w22_modinneriface
+  SKIP-NOFILE w26_modinnerifacereal
+  SKIP-NOFILE w27_modinnerifaceinst
+SLOT MOVED-WRONG=0 GAINED=0 (arms=27, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 1279 -> 1279 (arms=22, pris -> law2)
+== r11u98repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=20, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 51 -> 51 (arms=20, pris -> law2)
+== r11v98repro
+  SKIP-NOFILE v02_ifacechild
+SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 265 -> 265 (arms=30, pris -> law2)
+== r11u95repro
+SLOT MOVED-WRONG=0 GAINED=0 (arms=35, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 76 -> 76 (arms=35, pris -> law2)
+== r11v95repro
+  SKIP-NOFILE x1_proggenalways
+SLOT MOVED-WRONG=0 GAINED=0 (arms=31, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 73 -> 73 (arms=30, pris -> law2)
+== r11u93repro
+  SKIP-NOFILE n9_strnonansi_prog
+  SKIP-NOFILE pa10_proggenmod
+  SKIP-NOFILE pb18_ifnodecl
+SLOT MOVED-WRONG=0 GAINED=0 (arms=55, pris -> law2)
+ENTRY AWAY=0 CLOSER=0 distsec 216 -> 216 (arms=52, pris -> law2)
+
+== POSITIVE CONTROL: law binary with R11U99_NESTNAME_OFF=1 (drops pass 98's LANDED scoped name), r11u99 grid
+SLOT MOVED-WRONG=597 GAINED=223 (arms=27, law2 -> lnnoff)
+ENTRY AWAY=31 CLOSER=0 distsec 1279 -> 2028 (arms=22, law2 -> lnnoff)
+
+== CALIBRATION golden vs golden, two independent pinned-Surelog regenerations of the r11u105 grid
+CALIBRATION gold-vs-gold arms=35 nonOKarms=0 distsec=0

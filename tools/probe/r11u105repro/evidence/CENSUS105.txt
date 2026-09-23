@@ -1,0 +1,138 @@
+# r11u105 CENSUS — GOLDEN FIRST (ct105cen.cpp + cen105.py), then ours, then the source trace (cellcen105.py)
+# seeds (POSITIVE CONTROL, dispatched exactly like corpus cells): k03 (LAW A), k14 + k17 (LAW B), k19 (LAW C); ours tag per seed as passed
+# NAMESAKE <kind> X = a nested module work@<outer>::X AND a file-scope X of kind MOD/TOP/PROG/IFACE in the same database
+# the fenced rows' ENTRY-GOLD-ONLY TOP lines (a documented slang-refused top, identical on both binaries) are elided here
+== sl_pris
+# #DATABASES 2492 RESTORE_FAIL 0 WITH-NAMESAKE 6
+NAMESAKE-GOLD SEED/k03_A_topnamesake_after MOD innermod
+NAMESAKE-GOLD SEED/k03_A_topnamesake_after TOP innermod
+NAMESAKE-OURS SEED/k03_A_topnamesake_after MOD innermod
+NAMESAKE-OURS SEED/k03_A_topnamesake_after TOP innermod
+NAMESAKE-GOLD SEED/k14_B_programnamesake PROG innermod
+ENTRY-GOLD-ONLY SEED/k14_B_programnamesake PROG:work@innermod g=0
+NAMESAKE-GOLD SEED/k19_B_ifacenamesake IFACE innermod
+ENTRY-GOLD-ONLY SEED/k19_B_ifacenamesake IFACE:work@innermod g=0
+NAMESAKE-GOLD SEED/k17_B_program_instantiated PROG innermod
+NAMESAKE-OURS SEED/k17_B_program_instantiated PROG innermod
+# CELLS 1585 gold=1535 ours=964 paired=964 NAMESAKE-GOLD=5 NAMESAKE-OURS=3 ENTRY-GOLD-ONLY=4 PORTS-GOLD-ONLY=0
+== sl_lawx
+# #DATABASES 2492 RESTORE_FAIL 0 WITH-NAMESAKE 6
+NAMESAKE-GOLD SEED/k03_A_topnamesake_after MOD innermod
+NAMESAKE-GOLD SEED/k03_A_topnamesake_after TOP innermod
+NAMESAKE-OURS SEED/k03_A_topnamesake_after MOD innermod
+NAMESAKE-OURS SEED/k03_A_topnamesake_after TOP innermod
+NAMESAKE-GOLD SEED/k14_B_programnamesake PROG innermod
+ENTRY-GOLD-ONLY SEED/k14_B_programnamesake PROG:work@innermod g=0
+NAMESAKE-GOLD SEED/k19_B_ifacenamesake IFACE innermod
+ENTRY-GOLD-ONLY SEED/k19_B_ifacenamesake IFACE:work@innermod g=0
+NAMESAKE-GOLD SEED/k17_B_program_instantiated PROG innermod
+NAMESAKE-OURS SEED/k17_B_program_instantiated PROG innermod
+# CELLS 1585 gold=1535 ours=964 paired=964 NAMESAKE-GOLD=5 NAMESAKE-OURS=3 ENTRY-GOLD-ONLY=4 PORTS-GOLD-ONLY=0
+== u2r_pris
+# #DATABASES 3358 RESTORE_FAIL 0 WITH-NAMESAKE 6
+NAMESAKE-GOLD SEED/k03_A_topnamesake_after MOD innermod
+NAMESAKE-GOLD SEED/k03_A_topnamesake_after TOP innermod
+NAMESAKE-OURS SEED/k03_A_topnamesake_after MOD innermod
+NAMESAKE-OURS SEED/k03_A_topnamesake_after TOP innermod
+NAMESAKE-GOLD SEED/k14_B_programnamesake PROG innermod
+ENTRY-GOLD-ONLY SEED/k14_B_programnamesake PROG:work@innermod g=0
+NAMESAKE-GOLD SEED/k19_B_ifacenamesake IFACE innermod
+ENTRY-GOLD-ONLY SEED/k19_B_ifacenamesake IFACE:work@innermod g=0
+NAMESAKE-GOLD SEED/k17_B_program_instantiated PROG innermod
+NAMESAKE-OURS SEED/k17_B_program_instantiated PROG innermod
+# CELLS 1746 gold=1746 ours=1612 paired=1612 NAMESAKE-GOLD=5 NAMESAKE-OURS=3 ENTRY-GOLD-ONLY=2 PORTS-GOLD-ONLY=0
+== u2r_lawx
+# #DATABASES 3358 RESTORE_FAIL 0 WITH-NAMESAKE 6
+NAMESAKE-GOLD SEED/k03_A_topnamesake_after MOD innermod
+NAMESAKE-GOLD SEED/k03_A_topnamesake_after TOP innermod
+NAMESAKE-OURS SEED/k03_A_topnamesake_after MOD innermod
+NAMESAKE-OURS SEED/k03_A_topnamesake_after TOP innermod
+NAMESAKE-GOLD SEED/k14_B_programnamesake PROG innermod
+ENTRY-GOLD-ONLY SEED/k14_B_programnamesake PROG:work@innermod g=0
+NAMESAKE-GOLD SEED/k19_B_ifacenamesake IFACE innermod
+ENTRY-GOLD-ONLY SEED/k19_B_ifacenamesake IFACE:work@innermod g=0
+NAMESAKE-GOLD SEED/k17_B_program_instantiated PROG innermod
+NAMESAKE-OURS SEED/k17_B_program_instantiated PROG innermod
+# CELLS 1746 gold=1746 ours=1612 paired=1612 NAMESAKE-GOLD=5 NAMESAKE-OURS=3 ENTRY-GOLD-ONLY=2 PORTS-GOLD-ONLY=0
+
+== SOURCE TRACE (LAW binary, R11U103_NETDBG + R11U105_NETDBG, harness argv, 3 workers, fenced never dispatched)
+-- sl
+#SEED:k03_A_topnamesake_after	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k03_A_topnamesake_after	default	rc=0	R11U105TOPKEY key=innermod
+#SEED:k03_A_topnamesake_after	default	rc=0	R11U103NAMESAKE key=innermod kind=0
+#SEED:k03_A_topnamesake_after	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k03_A_topnamesake_after	testflags	rc=0	R11U105TOPKEY key=innermod
+#SEED:k03_A_topnamesake_after	testflags	rc=0	R11U103NAMESAKE key=innermod kind=0
+#SEED:k14_B_programnamesake	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k14_B_programnamesake	default	rc=0	R11U105PROGKEY road=UNINST key=innermod
+#SEED:k14_B_programnamesake	default	rc=0	R11U103NAMESAKE key=innermod kind=2
+#SEED:k14_B_programnamesake	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k14_B_programnamesake	testflags	rc=0	R11U105PROGKEY road=UNINST key=innermod
+#SEED:k14_B_programnamesake	testflags	rc=0	R11U103NAMESAKE key=innermod kind=2
+#SEED:k17_B_program_instantiated	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k17_B_program_instantiated	default	rc=0	R11U105PROGKEY road=INST key=innermod
+#SEED:k17_B_program_instantiated	default	rc=0	R11U103NAMESAKE key=innermod kind=2
+#SEED:k17_B_program_instantiated	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k17_B_program_instantiated	testflags	rc=0	R11U105PROGKEY road=INST key=innermod
+#SEED:k17_B_program_instantiated	testflags	rc=0	R11U103NAMESAKE key=innermod kind=2
+#SEED:k19_B_ifacenamesake	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k19_B_ifacenamesake	default	rc=0	R11U105IFACEKEY road=UNINST key=innermod
+#SEED:k19_B_ifacenamesake	default	rc=0	R11U103NAMESAKE key=innermod kind=1
+#SEED:k19_B_ifacenamesake	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k19_B_ifacenamesake	testflags	rc=0	R11U105IFACEKEY road=UNINST key=innermod
+#SEED:k19_B_ifacenamesake	testflags	rc=0	R11U103NAMESAKE key=innermod kind=1
+#SEED:k20_B_ifacenamesake_inst	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k20_B_ifacenamesake_inst	default	rc=0	R11U105IFACEKEY road=INST key=innermod
+#SEED:k20_B_ifacenamesake_inst	default	rc=0	R11U103NAMESAKE key=innermod kind=1
+#SEED:k20_B_ifacenamesake_inst	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k20_B_ifacenamesake_inst	testflags	rc=0	R11U105IFACEKEY road=INST key=innermod
+#SEED:k20_B_ifacenamesake_inst	testflags	rc=0	R11U103NAMESAKE key=innermod kind=1
+#TOTALS	topKey=2	progKey=4	ifaceKey=4	arms=1583	nestAny=10	namesake=10	fileKey=0	fileKeyDefOnly=0	unelab=0	libDecline=0	ifaceDecline=0
+#RC	rc=-11:3	rc=0:954	rc=1:4	rc=2:32	rc=3:578	rc=4:12
+#PREDICTED-MOVER	#SEED:k03_A_topnamesake_after	LAWA-TOPKEY
+#PREDICTED-MOVER	#SEED:k14_B_programnamesake	LAWB-UNINST
+#PREDICTED-MOVER	#SEED:k17_B_program_instantiated	LAWB-INST
+#PREDICTED-MOVER	#SEED:k19_B_ifacenamesake	LAWC-UNINST
+#PREDICTED-MOVER	#SEED:k20_B_ifacenamesake_inst	LAWC-INST
+-- u2r
+#SEED:k03_A_topnamesake_after	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k03_A_topnamesake_after	default	rc=0	R11U105TOPKEY key=innermod
+#SEED:k03_A_topnamesake_after	default	rc=0	R11U103NAMESAKE key=innermod kind=0
+#SEED:k03_A_topnamesake_after	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k03_A_topnamesake_after	testflags	rc=0	R11U105TOPKEY key=innermod
+#SEED:k03_A_topnamesake_after	testflags	rc=0	R11U103NAMESAKE key=innermod kind=0
+#SEED:k14_B_programnamesake	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k14_B_programnamesake	default	rc=0	R11U105PROGKEY road=UNINST key=innermod
+#SEED:k14_B_programnamesake	default	rc=0	R11U103NAMESAKE key=innermod kind=2
+#SEED:k14_B_programnamesake	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k14_B_programnamesake	testflags	rc=0	R11U105PROGKEY road=UNINST key=innermod
+#SEED:k14_B_programnamesake	testflags	rc=0	R11U103NAMESAKE key=innermod kind=2
+#SEED:k17_B_program_instantiated	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k17_B_program_instantiated	default	rc=0	R11U105PROGKEY road=INST key=innermod
+#SEED:k17_B_program_instantiated	default	rc=0	R11U103NAMESAKE key=innermod kind=2
+#SEED:k17_B_program_instantiated	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k17_B_program_instantiated	testflags	rc=0	R11U105PROGKEY road=INST key=innermod
+#SEED:k17_B_program_instantiated	testflags	rc=0	R11U103NAMESAKE key=innermod kind=2
+#SEED:k19_B_ifacenamesake	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k19_B_ifacenamesake	default	rc=0	R11U105IFACEKEY road=UNINST key=innermod
+#SEED:k19_B_ifacenamesake	default	rc=0	R11U103NAMESAKE key=innermod kind=1
+#SEED:k19_B_ifacenamesake	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k19_B_ifacenamesake	testflags	rc=0	R11U105IFACEKEY road=UNINST key=innermod
+#SEED:k19_B_ifacenamesake	testflags	rc=0	R11U103NAMESAKE key=innermod kind=1
+#SEED:k20_B_ifacenamesake_inst	default	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k20_B_ifacenamesake_inst	default	rc=0	R11U105IFACEKEY road=INST key=innermod
+#SEED:k20_B_ifacenamesake_inst	default	rc=0	R11U103NAMESAKE key=innermod kind=1
+#SEED:k20_B_ifacenamesake_inst	testflags	rc=0	R11U101NESTANY name=innermod depth=1
+#SEED:k20_B_ifacenamesake_inst	testflags	rc=0	R11U105IFACEKEY road=INST key=innermod
+#SEED:k20_B_ifacenamesake_inst	testflags	rc=0	R11U103NAMESAKE key=innermod kind=1
+#TOTALS	topKey=2	progKey=4	ifaceKey=4	arms=1752	nestAny=10	namesake=10	fileKey=0	fileKeyDefOnly=0	unelab=0	libDecline=0	ifaceDecline=0
+#RC	rc=-11:3	rc=0:1610	rc=3:131	rc=4:8
+#PREDICTED-MOVER	#SEED:k03_A_topnamesake_after	LAWA-TOPKEY
+#PREDICTED-MOVER	#SEED:k14_B_programnamesake	LAWB-UNINST
+#PREDICTED-MOVER	#SEED:k17_B_program_instantiated	LAWB-INST
+#PREDICTED-MOVER	#SEED:k19_B_ifacenamesake	LAWC-UNINST
+#PREDICTED-MOVER	#SEED:k20_B_ifacenamesake_inst	LAWC-INST
+
+== the six rc=-11 replay arms, replayed on BOTH binaries (same rc=-11 on pristine; no database in any sweep)
+surelog Rggen/testflags pris=-11 lawx=-11; Tnoc/default pris=-11 lawx=-11; Tnoc/testflags pris=-11 lawx=-11
+uhdm2rtlil rp32_r5p_degu_soc_top/testflags pris=-11 lawx=-11; rp32_r5p_mouse_soc_top/testflags pris=-11 lawx=-11; rp32_soc_vfriendly/testflags pris=-11 lawx=-11

@@ -1,0 +1,34 @@
+# r11u105 SURELOG MOVERS, attributed ORDER-BLIND (sorted, workdir-normalised uhdm-dump diffs) — all four in the PREDICTED UVM family (PREDICT105.txt)
+== default_MiniAmiq-544c7f61 order-blind lines: 4
+<       |UINT:1090
+>       |UINT:1506
+<       |vpiDecompile:1090
+>       |vpiDecompile:1506
+== default_SeqDriver-32af76aa order-blind lines: 4
+<       |UINT:1167
+>       |UINT:681
+<       |vpiDecompile:1167
+>       |vpiDecompile:681
+== testflags_MiniAmiq-544c7f61 order-blind lines: 4
+<       |UINT:1018
+>       |UINT:1421
+<       |vpiDecompile:1018
+>       |vpiDecompile:1421
+== testflags_SeqDriver-32af76aa order-blind lines: 4
+>       |UINT:735
+<       |UINT:950
+>       |vpiDecompile:735
+<       |vpiDecompile:950
+
+== trace sites on these four tests (cellcen105.py, LAW binary): NO-SITE in both modes
+MiniAmiq	default	rc=0	NO-SITE
+MiniAmiq	testflags	rc=0	NO-SITE
+SeqDriver	default	rc=0	NO-SITE
+SeqDriver	testflags	rc=0	NO-SITE
+
+== POSITIVE CONTROL: the PRISTINE binary re-run 3x on the sweep's own argv (selfrep103.py) never repeats its own hash
+MiniAmiq default sweep=9946b90d9c24 rc=0:27419f6011b4 rc=0:6e133708ef74 rc=0:103fd85640c8
+MiniAmiq testflags sweep=bfcc9ed3240b rc=0:00ca8a9a2286 rc=0:5f266851d11c rc=0:27419f6011b4
+SeqDriver default sweep=b7b840aee9fd rc=0:da9b598af917 rc=0:b69830f584a7 rc=0:1c9b72cb1217
+SeqDriver testflags sweep=db7dcbb76c35 rc=0:05df6c25a21b rc=0:cd07b75cfd02 rc=0:78aaf7f6c7e7
+pristine sweep vs pristine rep0, order-blind: SeqDriver/default and MiniAmiq/default each = 1 UINT + 1 vpiDecompile pair (the same 4-line class)

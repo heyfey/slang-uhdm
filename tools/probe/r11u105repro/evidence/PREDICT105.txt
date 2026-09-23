@@ -1,0 +1,18 @@
+r11u105 A-PRIORI MOVER PREDICTION — written 2026-09-23T00:46:34Z, BEFORE the patched surelog sweep was read
+(the uhdm2rtlil byteverify was read before this file; its prediction is the same and is stated
+ in README §5 as read-after — MOVERS 0/1608 either way).
+
+SOURCE TRACE (cellcen105.py, LAW binary, harness argv, fenced never dispatched):
+  surelog     arms=1583 (1573 corpus + 10 seed)  TOPKEY=2 PROGKEY=4 IFACEKEY=4  NAMESAKE=10  -- every hit a SEED
+  uhdm2rtlil  arms=1752 (1742 corpus + 10 seed)  TOPKEY=2 PROGKEY=4 IFACEKEY=4  NAMESAKE=10  -- every hit a SEED
+  seeds: k03 (LAWA-TOPKEY) k14 (LAWB-UNINST) k17 (LAWB-INST) k19 (LAWC-UNINST) k20 (LAWC-INST), each flagged both modes
+  rc=-11 replays: Rggen/tf, Tnoc/def+tf, rp32_r5p_degu_soc_top/tf, rp32_r5p_mouse_soc_top/tf, rp32_soc_vfriendly/tf
+                  -- SAME rc=-11 on the pristine binary (replayed), no database in any sweep
+GOLDEN DB CENSUS (ct105cen + cen105.py): uhdm2rtlil NAMESAKE-GOLD 0 corpus (5 seed) -- surelog: see CENSUS105.txt
+
+PREDICTED LAW MOVERS, BY NAME: NONE (all three laws corpus-invisible).
+EXPECTED NON-LAW byte movers (documented pristine nondeterminism, status must not change):
+  MiniAmiq default/testflags   (0-or-4-line UINT/vpiDecompile line-number class)
+  Scoreboard/default           (order coin, 0 order-blind lines)
+  BuildUVMPkg, SeqDriver, SimpleUVM (UVM family; BuildUVMPkg class_defn/class_typespec presence flip)
+EXPECTED status movement: NONE (surelog 474/9 + 469/8).

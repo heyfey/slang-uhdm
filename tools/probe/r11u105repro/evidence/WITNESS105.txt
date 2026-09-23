@@ -1,0 +1,35 @@
+# r11u105 WITNESSES at 17b06e3d (pris = /tmp build, md5 4de902181d322e61e932d5a79eebd9c7 = the pin) and the law binary
+# cells = slot101.py score (gold vs ours), distsec = slot101.py distsec; rc = ours rc; heads = grep -c '^LHS:'
+r11u105repro/k03_A_topnamesake_after pris ours_rc=139 golden_golden_rc=0 NO-DATABASE (SEGFAULT)
+r11u105repro/k03_A_topnamesake_after law2 ours_rc=0 golden_golden_rc=0 cmplines=0 heads=0 cells={'OK':174} distsec=0 md5=6f49a4352f73
+r11u105repro/k14_B_programnamesake pris ours_rc=0 golden_golden_rc=0 cmplines=179 heads=1 cells={'OK':88,'GOLD-ONLY':9} distsec=15 md5=a5cc7fbb123d
+r11u105repro/k14_B_programnamesake law2 ours_rc=0 golden_golden_rc=0 cmplines=0 heads=0 cells={'OK':97} distsec=0 md5=31ea0a681c0d
+r11u101repro/x15_shadowinst pris ours_rc=0 golden_golden_rc=0 cmplines=527 heads=1 cells={'WRONG':10,'OK':73,'GOLD-ONLY':50,'OURS-ONLY':78} distsec=84 md5=f04ba3f80857
+r11u101repro/x15_shadowinst law2 ours_rc=0 golden_golden_rc=0 cmplines=527 heads=1 cells={'WRONG':10,'OK':73,'GOLD-ONLY':50,'OURS-ONLY':78} distsec=84 md5=f04ba3f80857
+v11u93repro/b15_bodyparamported pris ours_rc=0 golden_golden_rc=0 cmplines=0 heads=0 cells={'OK':178} distsec=0 md5=8ffdf153cca0
+v11u93repro/b15_bodyparamported law2 ours_rc=0 golden_golden_rc=0 cmplines=0 heads=0 cells={'OK':178} distsec=0 md5=8ffdf153cca0
+v11u93repro/b12_shadowtopportless pris ours_rc=0 golden_golden_rc=0 cmplines=0 heads=0 cells={'OK':133} distsec=0 md5=f21cfd07e39b
+v11u93repro/b12_shadowtopportless law2 ours_rc=0 golden_golden_rc=0 cmplines=0 heads=0 cells={'OK':133} distsec=0 md5=f21cfd07e39b
+v11u93repro/b14_rv2shadow3 pris ours_rc=0 golden_golden_rc=0 cmplines=0 heads=0 cells={'OK':178} distsec=0 md5=d096ae72ef12
+v11u93repro/b14_rv2shadow3 law2 ours_rc=0 golden_golden_rc=0 cmplines=0 heads=0 cells={'OK':178} distsec=0 md5=d096ae72ef12
+r11u103repro/a14_nestexplicit pris ours_rc=0 golden_golden_rc=0 cmplines=55 heads=1 cells={'OK':195,'GOLD-ONLY':13,'WRONG':9,'OURS-ONLY':10} distsec=65 md5=87b4e43b41ee
+r11u103repro/a14_nestexplicit law2 ours_rc=0 golden_golden_rc=0 cmplines=55 heads=1 cells={'OK':195,'GOLD-ONLY':13,'WRONG':9,'OURS-ONLY':10} distsec=65 md5=87b4e43b41ee
+
+# k14 pristine non-OK cells:
+  GOLD-ONLY uhdmallPrograms[0] gold=program:work@innermod ours=None
+  GOLD-ONLY uhdmallPrograms[0]/@vpiDefName[0] gold=work@innermod ours=None
+  GOLD-ONLY uhdmallPrograms[0]/vpiNet[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallPrograms[0]/vpiNet[0]/@vpiName[0] gold=f ours=None
+  GOLD-ONLY uhdmallPrograms[0]/vpiNet[0]/vpiParent[0] gold=program:work@innermod ours=None
+  GOLD-ONLY uhdmallPrograms[0]/vpiNet[0]/vpiTypespec[0] gold=ref_typespec: ours=None
+  GOLD-ONLY uhdmallPrograms[0]/vpiNet[0]/vpiTypespec[0]/vpiActual[0] gold=int_typespec: ours=None
+  GOLD-ONLY uhdmallPrograms[0]/vpiNet[0]/vpiTypespec[0]/vpiParent[0] gold=logic_net: ours=None
+  GOLD-ONLY uhdmallPrograms[0]/vpiParent[0] gold=design: ours=None
+{'OK': 88, 'GOLD-ONLY': 9}
+
+# k03 pristine backtrace (gdb, pristine binary):
+#0  0x0000000000601724 in slang_uhdm::UhdmExporter::emitPorts
+#1  0x000000000065d1ae in slang_uhdm::UhdmExporter::emitModuleDefPorts
+#2  0x00000000006621a4 in slang_uhdm::UhdmExporter::emitInstance
+#3  0x000000000053d63f in slang_uhdm::UhdmExporter::exportDesign() ()
+#4  0x00000000004661f5 in main ()

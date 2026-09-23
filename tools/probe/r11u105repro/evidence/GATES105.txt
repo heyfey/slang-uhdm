@@ -1,0 +1,64 @@
+# r11u105 GATES
+## (1) builds, -j 2, md5 separately
+pristine (worktree at 17b06e3d)  4de902181d322e61e932d5a79eebd9c7  23394848 B  (main tree build/slang-uhdm = 4de902181d322e61e932d5a79eebd9c7: BYTE-IDENTICAL)
+law (this patch)                 b8e8c23a6916473019f14f514584f349  23400800 B
+pad control (pristine + volatile char[16384], NEVER committed) b565165376d56607cb472fa6eb33fdea  23411288 B
+## (2) goldens: law PASS=23 FAIL=0; SLANG_UHDM=/bin/false PASS=0 FAIL=23
+## (3) uhdm2rtlil both modes (--jobs 3, own workdirs, SLANG_UHDM exported per binary)
+row-join vs results/golden_uhdm2rtlil.csv (both modes, 1742 rows): pris differ 0, lawx differ 0
+ct8rows gate_uhdm2rtlil.csv vs lawx testflags: PASS: every row byte-identical to the committed baseline
+ct8rows pris vs lawx testflags: PASS: every row byte-identical to the committed baseline
+ct8rows pris vs lawx default:   PASS: every row byte-identical to the committed baseline
+status both modes, both binaries: 788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT
+byteverify u2r SELFCHECK=1:
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## (4) surelog --mode both
+status, both binaries = results/golden_surelog.csv: default 474 EQ / 9 NE / 285 SLANG_REJECT / 25 SURELOG_FAIL / 5 DEFERRED; testflags 469 EQ / 8 NE / 286 SLANG_REJECT / 23 SURELOG_FAIL / 5 DEFERRED / 3 NO_DATABASE / 1 NO_UHDM / 1 TIMEOUT / 2 UNTRANSLATABLE
+rows differing from results/golden_surelog.csv, IDENTICAL SET on both binaries (no status change):
+  Earlgrey_0_1 default+testflags: dump column blank (documented uhdm-dump timeout draw; DATABASE pins hold below)
+  LowMemLib/LowMemPkg testflags: SURELOG_FAIL detail text only (embeds the workdir)
+pris vs lawx: only LowMemLib/LowMemPkg testflags detail text differs
+NO ROW CONVERTS.
+## (5) byteverify surelog SELFCHECK=1
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=0813bc970386 pristine=9946b90d9c24
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=a419da2e955e pristine=b7b840aee9fd
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=2df1b8b8cfd7 pristine=bfcc9ed3240b
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=4c03f6915a95 pristine=db7dcbb76c35
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## cmds.txt audit (slang: lines by binary PATH)
+pris: surelog 1531 lines, naming /tmp/r11u105_pris.bin: 1531, main tree: 0; uhdm2rtlil 1742 / 1742 / 0
+lawx: surelog 1531 lines, naming /tmp/r11u105_lawx.bin: 1531, main tree: 0; uhdm2rtlil 1742 / 1742 / 0
+## seven conversion rows (lawx):
+BuildUVMPkg,default,CMP_EQUAL BuildUVMPkg,testflags,CMP_EQUAL
+MiniAmiq,default,CMP_EQUAL MiniAmiq,testflags,CMP_EQUAL
+SeqDriver,default,CMP_EQUAL SeqDriver,testflags,CMP_EQUAL
+SimpleUVM,default,CMP_EQUAL SimpleUVM,testflags,CMP_EQUAL
+Earlgrey_0_1,default,CMP_EQUAL Earlgrey_0_1,testflags,CMP_EQUAL
+InterfaceModPort,default,CMP_EQUAL InterfaceModPort,testflags,CMP_EQUAL
+Scoreboard,default,CMP_EQUAL Scoreboard,testflags,SLANG_REJECT
+## canaries (battery copied from r10uvm221repro)
+canaries.sh surelog lawx: ---- canary rows: ok=50 changed=2 absent=0 unknown-names=7  (the 2 = Earlgrey_0_1 blank dump column; pristine reads the same: ---- canary rows: ok=50 changed=2 absent=0 unknown-names=7)
+canaries.sh u2r testflags lawx: ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+canaries.sh u2r BOTH modes lawx vs results/golden_uhdm2rtlil.csv: ---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+ctcan2.sh surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+ctcan2.sh u2r:     PASS: every supplementary canary row is byte-identical to the baseline.
+canaudit.sh: ---- audited=29  UNCOVERED=0  FENCE-BREACH=0 PASS: every brief-protected name and family is carried by a script that RUNS here.
+## protected databases (12-hex md5), pris vs lawx
+SVSwitch default pris=4842211c4030 lawx=4842211c4030 SAME
+SVSwitch testflags pris=4842211c4030 lawx=4842211c4030 SAME
+YosysVerx default pris=6ccda350c24a lawx=6ccda350c24a SAME
+YosysVerx testflags pris=6ccda350c24a lawx=6ccda350c24a SAME
+InterfaceModPort default pris=59a365f3ce2c lawx=59a365f3ce2c SAME
+InterfaceModPort testflags pris=59a365f3ce2c lawx=59a365f3ce2c SAME
+Earlgrey_0_1 default pris=8bdf25272e08 lawx=8bdf25272e08 SAME
+Earlgrey_0_1 testflags pris=59d0ee6d10c3 lawx=59d0ee6d10c3 SAME
+BlackParrotComplex default pris=e3e354129d5a lawx=e3e354129d5a SAME
+BlackParrotComplex testflags pris=73a10e8217e5 lawx=73a10e8217e5 SAME
+YosysOldOr default pris=d68e0796d62c lawx=d68e0796d62c SAME
+YosysOldOr testflags pris=d68e0796d62c lawx=d68e0796d62c SAME
