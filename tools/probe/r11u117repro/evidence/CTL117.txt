@@ -1,0 +1,21 @@
+ARMFORMS=1986 SAME=1966 DIFF=20 RCDIFF=0 LISTED=993
+DIFF r11u114repro_grid_f1_a01_dut.sv.tf
+DIFF r11u114repro_grid_f1_a01_dut.sv.def
+DIFF r11u114repro_grid_f1_a29_dut.sv.tf
+DIFF r11u114repro_grid_f1_a29_dut.sv.def
+DIFF r11u114repro_grid_f1_a30_dut.sv.tf
+DIFF r11u114repro_grid_f1_a30_dut.sv.def
+DIFF r11u111repro_grid_f3_k13_member_nested_stamp_dut.sv.tf
+DIFF r11u111repro_grid_f3_k13_member_nested_stamp_dut.sv.def
+DIFF r11u111repro_grid_f3_k14_member_nested_nodim_dut.sv.tf
+DIFF r11u111repro_grid_f3_k14_member_nested_nodim_dut.sv.def
+DIFF r11u111repro_grid_f3_s00_stamped_corpus_dut.sv.tf
+DIFF r11u111repro_grid_f3_s00_stamped_corpus_dut.sv.def
+DIFF r11u111repro_grid_f3_t10_pat_row_member_dut.sv.tf
+DIFF r11u111repro_grid_f3_t10_pat_row_member_dut.sv.def
+DIFF r11u111repro_grid_f3_t12_pat_row_dims_member_dut.sv.tf
+DIFF r11u111repro_grid_f3_t12_pat_row_dims_member_dut.sv.def
+DIFF r11u108repro_grid_pk_k13_member_nested_stamp_dut.sv.tf
+DIFF r11u108repro_grid_pk_k13_member_nested_stamp_dut.sv.def
+DIFF r11u108repro_grid_pk_k14_member_nested_nodim_dut.sv.tf
+DIFF r11u108repro_grid_pk_k14_member_nested_nodim_dut.sv.def

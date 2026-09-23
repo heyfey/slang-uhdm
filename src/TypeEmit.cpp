@@ -24096,4 +24096,325 @@ UHDM::VectorOftypespec* UhdmExporter::makeStmtScopeTdListing157(const Scope& sc)
     return tds157;
 }
 
+// § r11u117 kill switches: R11U117_OFF drops every law of the pass;
+// R11U117_<LAW>_OFF drops one.
+static bool r11u117On(const char* law) {
+    static const bool all = getenv("R11U117_OFF") != nullptr;
+    return !all && getenv(law) == nullptr;
+}
+
+// § pkgFlatSurelogBits117 (r11u117) — see the declaration.  Mirrors
+// `ExprEval::size` (UHDM v1.87 templates/ExprEval.cpp 1271-1480) over the
+// typespec tree Surelog BUILDS for the type: logic_typespec = Elem width x
+// product(Ranges), struct = sum, union = max, enum = base.  The one shape where
+// that tree differs from the type is the typedef of a packed array of a
+// typedef'd logic vector: Surelog's typedef logic_typespec keeps the dims in
+// its Ranges AND in an anonymous Elem_typespec that carries them again
+// (golden dump of `typedef ut_e [0:2] row_t`: logic_typespec row_t, Range
+// [0:2], Elem -> logic_typespec 4:11-4:21), so the dims count twice.
+// Measured (golden flat operand size, member written as `M m`):
+//   row_t [0:1] 36, row_t [0:3] 72 (bail), row_t 18, ut_e[0:1]-row [0:1] 16,
+//   ut_e=logic[2:0] 54, typedef ut_e [0:1][0:1] 32, tab_t=row_t[0:1] 72;
+//   NOT doubled: ut_e [0:2] 6, ut_e [0:1][0:2] 12, alias-of-alias al_t [0:2] 6,
+//   enum element 12, struct element 6, typedef logic [2:0][1:0] (no typedef
+//   element) 12.
+uint64_t UhdmExporter::surelogBits117(const Type& t, int depth) {
+    if (depth > 16)
+        return 0;
+    // Peel a packed-array chain (non-canonical: the element keeps its alias).
+    auto peel = [](const Type* a, uint64_t& prod) -> const Type* {
+        prod = 1;
+        while (a && a->kind == SymbolKind::PackedArrayType) {
+            auto& pa = a->as<PackedArrayType>();
+            prod *= pa.range.width();
+            a = &pa.elementType;
+        }
+        return a;
+    };
+    if (t.kind == SymbolKind::TypeAlias) {
+        const Type& tgt = t.as<TypeAliasType>().targetType.getType();
+        if (tgt.kind == SymbolKind::PackedArrayType) {
+            uint64_t prod = 1;
+            const Type* e = peel(&tgt, prod);
+            if (!e)
+                return 0;
+            const Type& ec = e->getCanonicalType();
+            bool logicElemAlias =
+                e->kind == SymbolKind::TypeAlias && ec.isIntegral() &&
+                ec.isFourState() && ec.kind != SymbolKind::EnumType &&
+                ec.kind != SymbolKind::PackedStructType &&
+                ec.kind != SymbolKind::PackedUnionType &&
+                (ec.kind == SymbolKind::PackedArrayType ||
+                 ec.kind == SymbolKind::ScalarType);
+            uint64_t eb = surelogBits117(*e, depth + 1);
+            if (!eb)
+                return 0;
+            // A 1-bit (unranged) logic element typedef is not measured.
+            if (logicElemAlias && ec.kind == SymbolKind::ScalarType)
+                return 0;
+            return (logicElemAlias ? prod * prod : prod) * eb;
+        }
+        return surelogBits117(tgt, depth + 1);
+    }
+    if (t.kind == SymbolKind::PackedArrayType) {
+        uint64_t prod = 1;
+        const Type* e = peel(&t, prod);
+        uint64_t eb = e ? surelogBits117(*e, depth + 1) : 0;
+        return eb ? prod * eb : 0;
+    }
+    if (t.kind == SymbolKind::PackedStructType) {
+        uint64_t sum = 0;
+        for (auto& f : t.as<Scope>().membersOfType<FieldSymbol>()) {
+            uint64_t b = surelogBits117(f.getType(), depth + 1);
+            if (!b)
+                return 0;
+            sum += b;
+        }
+        return sum;
+    }
+    if (t.kind == SymbolKind::EnumType)
+        return surelogBits117(t.as<EnumType>().baseType, depth + 1);
+    // `time` compiles to a time_typespec that `adjustOpSize` does not size
+    // (§ unpackedPkgPatFlat49's v16/v17): not modelled.
+    if (t.kind == SymbolKind::PredefinedIntegerType &&
+        t.as<PredefinedIntegerType>().integerKind == PredefinedIntegerType::Time)
+        return 0;
+    if (t.kind == SymbolKind::ScalarType || t.kind == SymbolKind::PredefinedIntegerType)
+        return t.getBitWidth();
+    // Anything else (unions, bit-typed element chains through an alias,
+    // unpacked aggregates) keeps the slang width only when no alias chain
+    // could double it.
+    if (t.isIntegral() && t.kind != SymbolKind::PackedUnionType)
+        return t.getBitWidth();
+    return 0;
+}
+
+// § pkgQualSelParamFlat117 (r11u117) — see the declaration.
+bool UhdmExporter::pkgQualSelParamFlat117(const Symbol& ps, const Type& structTy,
+                                          const Expression& init) {
+    if (!r11u117On("R11U117_QSEL_OFF"))
+        return false;
+    const Scope* home = ps.getParentScope();
+    if (!home || home->asSymbol().kind != SymbolKind::Package)
+        return false;
+    if (!pkgQualSel117Built) {
+        pkgQualSel117Built = true;
+        // LIVE parameter declarations only (grid g13: a dead generate
+        // branch's localparam is never compiled into the design and golden
+        // keeps the tags) — the same elaborated-hierarchy walk as
+        // § pkgElabPatMemberStamp58's liveness set.
+        std::set<const syntax::SyntaxNode*> live;
+        std::set<const syntax::SyntaxNode*> seenBody;
+        // § pkgQselOverride117v (v11u117) — an OVERRIDDEN parameter's default
+        // is never compiled by Surelog (grid b01/b44/b46/b49/b50/b52: golden
+        // keeps the tagged tree), so it is not a live read; and liveness is
+        // per BODY (b48: a localparam live only in the second parameterization
+        // of a module flattens in golden), so the walk dedupes on the body
+        // symbol, not the shared module syntax.  R11U117_OVR_OFF restores the
+        // syntax-keyed walk without the override filter.
+        const bool ovr117 = r11u117On("R11U117_OVR_OFF");
+        std::set<const void*> seenBodySym;
+        auto note = [&](const Symbol& sym) {
+            const syntax::SyntaxNode* sx = sym.getSyntax();
+            for (const syntax::SyntaxNode* p = sx; p; p = p->parent) {
+                if (p->kind == syntax::SyntaxKind::ParameterDeclaration ||
+                    p->kind == syntax::SyntaxKind::ParameterDeclarationStatement) {
+                    live.insert(p);
+                    break;
+                }
+                if (p->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                    p->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                    p->kind == syntax::SyntaxKind::PackageDeclaration)
+                    break;
+            }
+        };
+        auto walk = [&](auto&& self, const Scope& sc) -> void {
+            for (auto& m : sc.members()) {
+                if (m.kind == SymbolKind::Parameter) {
+                    if (!(ovr117 && m.as<ParameterSymbol>().isOverridden()))
+                        note(m);
+                }
+                else if (m.kind == SymbolKind::Instance) {
+                    auto& is = m.as<InstanceSymbol>();
+                    const syntax::SyntaxNode* bsx = is.body.getSyntax();
+                    if (ovr117 ? !seenBodySym.insert(&is.body).second
+                               : (bsx && !seenBody.insert(bsx).second))
+                        continue;
+                    self(self, is.body);
+                }
+                else if (m.kind == SymbolKind::InstanceArray)
+                    self(self, m.as<Scope>());
+                else if (m.kind == SymbolKind::GenerateBlock) {
+                    if (!m.as<GenerateBlockSymbol>().isUninstantiated)
+                        self(self, m.as<Scope>());
+                }
+                else if (m.kind == SymbolKind::GenerateBlockArray) {
+                    for (auto* gb : m.as<GenerateBlockArraySymbol>().entries)
+                        self(self, *gb);
+                }
+            }
+        };
+        for (auto* ti : comp.getRoot().topInstances) {
+            if (ti->body.getSyntax())
+                seenBody.insert(ti->body.getSyntax());
+            seenBodySym.insert(&ti->body);
+            walk(walk, ti->body);
+        }
+        auto ident = [](const syntax::SyntaxNode* n) -> std::string {
+            if (n && n->kind == syntax::SyntaxKind::IdentifierName)
+                return std::string(
+                    n->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+            return {};
+        };
+        auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
+                        bool inLive) -> void {
+            if ((node.kind == syntax::SyntaxKind::ParameterDeclaration ||
+                 node.kind == syntax::SyntaxKind::ParameterDeclarationStatement) &&
+                live.count(&node))
+                inLive = true;
+            if (inLive && node.kind == syntax::SyntaxKind::ScopedName) {
+                auto& sn = node.as<syntax::ScopedNameSyntax>();
+                // (pkg::NAME).member
+                if (sn.separator.kind == parsing::TokenKind::Dot && sn.left &&
+                    sn.left->kind == syntax::SyntaxKind::ScopedName) {
+                    auto& in = sn.left->as<syntax::ScopedNameSyntax>();
+                    std::string pk = ident(in.left), nm = ident(in.right);
+                    if (in.separator.kind == parsing::TokenKind::DoubleColon &&
+                        !pk.empty() && !nm.empty())
+                        pkgQualSel117.insert(pk + "::" + nm);
+                }
+                // pkg::(NAME.member)
+                if (sn.separator.kind == parsing::TokenKind::DoubleColon &&
+                    sn.right && sn.right->kind == syntax::SyntaxKind::ScopedName) {
+                    auto& in = sn.right->as<syntax::ScopedNameSyntax>();
+                    std::string pk = ident(sn.left), nm = ident(in.left);
+                    if (in.separator.kind == parsing::TokenKind::Dot &&
+                        !pk.empty() && !nm.empty())
+                        pkgQualSel117.insert(pk + "::" + nm);
+                }
+            }
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                if (auto* ch = node.childNode(i))
+                    self(self, *ch, inLive);
+        };
+        for (auto& tree : comp.getSyntaxTrees())
+            scan(scan, tree->root(), false);
+        if (getenv("R11U117_DBG"))
+            for (auto& k : pkgQualSel117)
+                fprintf(stderr, "QSEL117 %s\n", k.c_str());
+    }
+    if (!pkgQualSel117.count(std::string(home->asSymbol().name) + "::" +
+                             std::string(ps.name)))
+        return false;
+    // Fence 0: a POSITIONAL pattern is not this road's (grid t17): its
+    // elaborated op stays UNTYPED in golden (`flattenPatternAssignments`
+    // returns a constant-operand op unchanged) and the pristine walk already
+    // spells it.
+    if (stripImplicitConv(init).kind != ExpressionKind::StructuredAssignmentPattern)
+        return false;
+    // Fence 1: a pattern-valued member makes the untagged arm bail (g15).
+    if (patParamPatElem26v(stripImplicitConv(init)))
+        return false;
+    // Fence 2: a member whose Surelog Bits exceeds 64 trips the shift guard
+    // and `expandPatternAssignment` returns the TAGGED tree (s02, s12).
+    const Type& ct = structTy.getCanonicalType();
+    // Fence 3: PACKED only.  An unpacked struct (grid t22) flattens in golden
+    // too, but our unpacked walk also mints a parameter-parented struct
+    // typespec clone golden does not write (90 tail cells) — residue.
+    if (ct.kind != SymbolKind::PackedStructType)
+        return false;
+    for (auto& f : ct.as<Scope>().membersOfType<FieldSymbol>()) {
+        uint64_t b = surelogBits117(f.getType());
+        if (b == 0 || b > 64)
+            return false;
+    }
+    qselFired117.insert(&ps);
+    if (getenv("R11U117_DBG"))
+        fprintf(stderr, "QSELFIRE117 %s::%s\n",
+                std::string(home->asSymbol().name).c_str(),
+                std::string(ps.name).c_str());
+    return true;
+}
+
+// § pkgQselRefNoParent117 (r11u117) — the flat op's ref_typespec on the road
+// § pkgQualSelParamFlat117 opened is `flattenPatternAssignments`' own
+// (ExprEval.cpp 933-935): MakeRef_typespec + Actual_typespec, never a parent.
+bool UhdmExporter::pkgQselRefNoParent117(const Symbol& ps, bool topView) {
+    return topView && r11u117On("R11U117_QSELREF_OFF") && qselFired117.count(&ps);
+}
+
+// § pkgFlatSurelogBits117 — the deferred write (see the recorder below).
+void UhdmExporter::applyPkgFlatBits117() {
+    for (auto& [vec, i, c, b] : pendBits117) {
+        if (!vec || i >= vec->size() || (*vec)[i] != c)
+            continue;
+        auto* n = s.MakeConstant();
+        n->VpiFile(c->VpiFile());
+        n->VpiLineNo(c->VpiLineNo());
+        n->VpiColumnNo(c->VpiColumnNo());
+        n->VpiEndLineNo(c->VpiEndLineNo());
+        n->VpiEndColumnNo(c->VpiEndColumnNo());
+        if (!c->VpiDecompile().empty())
+            n->VpiDecompile(c->VpiDecompile());
+        n->VpiSize(b);
+        n->VpiValue(c->VpiValue());
+        n->VpiConstType(c->VpiConstType());
+        n->VpiParent(const_cast<UHDM::any*>(c->VpiParent()));
+        (*vec)[i] = n;
+    }
+    pendBits117.clear();
+}
+
+// § pkgFlatSurelogBits117 (r11u117) — see the declaration.
+void UhdmExporter::pkgFlatSurelogBits117(
+    UHDM::VectorOfany* opnds, const std::vector<const Expression*>& setters,
+    int bail, const Scope& fields, const Expression& pat) {
+    if (!r11u117On("R11U117_BITS_OFF") || !opnds)
+        return;
+    // setter -> field
+    std::map<const Expression*, const FieldSymbol*> fOf;
+    int fi = 0;
+    for (auto& f : fields.membersOfType<FieldSymbol>()) {
+        if (pat.kind == ExpressionKind::StructuredAssignmentPattern) {
+            for (auto& ms : pat.as<StructuredAssignmentPatternExpression>().memberSetters)
+                if (ms.member == &f)
+                    fOf[ms.expr] = &f;
+        }
+        else if (pat.kind == ExpressionKind::SimpleAssignmentPattern) {
+            auto els = pat.as<SimpleAssignmentPatternExpression>().elements();
+            if (fi < (int)els.size())
+                fOf[els[fi]] = &f;
+        }
+        fi++;
+    }
+    for (size_t i = 0; i < opnds->size(); i++) {
+        if (bail >= 0 && (int)i > bail)
+            break;
+        const Expression* sx = i < setters.size() ? setters[i] : nullptr;
+        auto* ob = (*opnds)[i];
+        if (!sx || !ob || ob->UhdmType() != UHDM::uhdmconstant)
+            continue;
+        auto it = fOf.find(sx);
+        if (it == fOf.end())
+            continue;
+        auto* c = (UHDM::constant*)ob;
+        uint64_t w = it->second->getType().getBitWidth();
+        if ((uint64_t)c->VpiSize() != w || c->Typespec())
+            continue;
+        uint64_t b = surelogBits117(it->second->getType());
+        if (b == 0 || b == w || b > 64)
+            continue;
+        // DEFERRED to the end of `exportDesign` (applyPkgFlatBits117): a
+        // module-side fold of the same member COPIES this operand when it is
+        // emitted (grid t20's interface `V = q2::IMPL.m`, golden 12 at the
+        // declared width), so the re-size must land after every reader ran —
+        // and on a CLONE, because a reader may share the object instead.
+        pendBits117.push_back({opnds, i, c, (int)b});
+        if (getenv("R11U117_DBG"))
+            fprintf(stderr, "BITS117 %s %d->%d\n",
+                    std::string(it->second->name).c_str(), (int)w, (int)b);
+    }
+}
+
+
 } // namespace slang_uhdm

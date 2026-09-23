@@ -1,0 +1,51 @@
+## binaries
+59c4a296bbc892558b6d637d7eff020e  pris.bin
+b49a4e60de5c8db4a9b4b65dcf693465  law5.bin
+59c4a296bbc892558b6d637d7eff020e  main-tree build (931a3c69)
+## cmds.txt audit (binary per sweep)
+pris/u2r:    1742 /tmp/r11u117_pris.bin 
+pris/sl:    1531 /tmp/r11u117_pris.bin 
+lawx/u2r:    1742 /tmp/r11u117_law5.bin 
+lawx/sl:    1531 /tmp/r11u117_law5.bin 
+## status tallies
+u2r default pris:     801 CMP_EQUAL       3 CMP_NOTEQUAL      67 SLANG_REJECT 
+u2r default lawx:     801 CMP_EQUAL       3 CMP_NOTEQUAL      67 SLANG_REJECT 
+u2r testflags pris:     801 CMP_EQUAL       3 CMP_NOTEQUAL      67 SLANG_REJECT 
+u2r testflags lawx:     801 CMP_EQUAL       3 CMP_NOTEQUAL      67 SLANG_REJECT 
+sl default pris:     480 CMP_EQUAL       3 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+sl default lawx:     480 CMP_EQUAL       3 CMP_NOTEQUAL       5 DEFERRED     285 SLANG_REJECT      25 SURELOG_FAIL 
+sl testflags pris:     474 CMP_EQUAL       3 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+sl testflags lawx:     474 CMP_EQUAL       3 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     286 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+## row joins
+u2r both modes vs results/golden_uhdm2rtlil.csv: PASS: every row byte-identical to the committed baseline
+u2r testflags vs results/gate_uhdm2rtlil.csv: PASS: every row byte-identical to the committed baseline
+u2r law vs own pristine: PASS: every row byte-identical to the committed baseline
+surelog law vs results/golden_surelog.csv:
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+surelog law vs own pristine:
+< Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/testflags/LowMemLib-f068a766/slpp_all/surelog.log".,,
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/testflags/LowMemPkg-ef3ec0d8/slpp_all/surelog.log".,,
+## database pins (md5 prefix, both sweeps)
+Earlgrey_0_1/default pris=8bdf25272e08 Earlgrey_0_1/default lawx=8bdf25272e08 
+SVSwitch/default pris=4842211c4030 SVSwitch/default lawx=4842211c4030 
+YosysVerx/default pris=6ccda350c24a YosysVerx/default lawx=6ccda350c24a 
+InterfaceModPort/default pris=59a365f3ce2c InterfaceModPort/default lawx=59a365f3ce2c 
+BlackParrotComplex/default pris=e3e354129d5a BlackParrotComplex/default lawx=e3e354129d5a 
+YosysOldOr/default pris=d68e0796d62c YosysOldOr/default lawx=d68e0796d62c 
+Earlgrey_0_1/testflags pris=59d0ee6d10c3 Earlgrey_0_1/testflags lawx=59d0ee6d10c3 
+SVSwitch/testflags pris=4842211c4030 SVSwitch/testflags lawx=4842211c4030 
+YosysVerx/testflags pris=6ccda350c24a YosysVerx/testflags lawx=6ccda350c24a 
+InterfaceModPort/testflags pris=59a365f3ce2c InterfaceModPort/testflags lawx=59a365f3ce2c 
+BlackParrotComplex/testflags pris=73a10e8217e5 BlackParrotComplex/testflags lawx=73a10e8217e5 
+YosysOldOr/testflags pris=d68e0796d62c YosysOldOr/testflags lawx=d68e0796d62c 
+## goldens (tests/check_goldens.sh)
+law PASS=23 FAIL=0; /bin/false PASS=0 FAIL=23; pristine PASS=23

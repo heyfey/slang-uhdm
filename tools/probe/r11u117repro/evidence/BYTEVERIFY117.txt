@@ -1,0 +1,22 @@
+## u2r
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/stamped_gen_param-07e8f8ed/slang.uhdm  patched=502a5f834311 pristine=a549e27dba4d
+MOVER ./testflags/stamped_gen_param-07e8f8ed/slang.uhdm  patched=5baa36529974 pristine=799f7aba5392
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=095e15d16542 pristine=5ddc9267c30b
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=b4c0d3fb29d8
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=a1cd5affbb15 pristine=836a6a4855e3
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=ddfb1814806b pristine=49868463680b
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## attribution (uhdm-dump, workdir-normalised, SORTED = order-blind)
+default/MiniAmiq    sorted-dump-diff=4  (UINT:1513/733 + vpiDecompile:1513/733)       line-number class, CMP_EQUAL both
+default/SeqDriver   sorted-dump-diff=4  (UINT:0/842 + vpiDecompile:0/842)             line-number class, CMP_EQUAL both
+testflags/MiniAmiq  sorted-dump-diff=4  (UINT:1351/579 + vpiDecompile:1351/579)       line-number class, CMP_EQUAL both
+testflags/SeqDriver sorted-dump-diff=4  (UINT:1436/581 + vpiDecompile:1436/581)       line-number class, CMP_EQUAL both
+u2r stamped_gen_param default/testflags: the predicted movers; 83 contextual cells each, all TO (cells117.py: TO=83 AWAY=0 per mode)

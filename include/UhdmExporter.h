@@ -3853,6 +3853,46 @@ private:
     bool hasMemberSelectOf(std::string_view name);
     std::set<std::string> memberSelectBases;
     bool memberSelectBasesBuilt = false;
+    /// § pkgQualSelParamFlat117 (r11u117) — THE FOURTH FLATTEN TRIGGER of a
+    /// package struct-pattern parameter's ELABORATED listing: a package-
+    /// QUALIFIED member select `pkg::NAME.member` written inside a LIVE
+    /// parameter declaration (module / interface / generate localparam or a
+    /// parameter-port default).  Surelog compiles that default through
+    /// `CompileHelper::getValue`'s `pkg::NAME` arm (CompileExpression.cpp
+    /// 870-947, the rebuild at 941), which rebuilds the package's own `param_assign` Rhs with
+    /// `expandPatternAssignment` (CompileHelper.cpp 5207-5498): UHDM's
+    /// `flattenPatternAssignments` mints the op's NAMELESS, PARENTLESS
+    /// ref_typespec (ExprEval.cpp 933-935) and `adjustOpSize` re-sizes every
+    /// operand to Surelog's `Bits` of its member typespec (CompileHelper.cpp
+    /// 5114-5171; the shift guard at 5433).  Fences: a POSITIONAL pattern
+    /// (golden keeps it untyped, grid t17), a pattern-valued member (the
+    /// untagged arm bails, grid g15), an UNPACKED struct (residue, grid t22)
+    /// and any member whose Surelog `Bits` exceeds 64 (the shift guard returns
+    /// the tagged tree, grid s02/s12).  Declared here, defined in TypeEmit.cpp.
+    bool pkgQualSelParamFlat117(const slang::ast::Symbol& ps,
+                                const slang::ast::Type& structTy,
+                                const slang::ast::Expression& init);
+    std::set<std::string> pkgQualSel117;
+    std::set<const void*> qselFired117;
+    std::vector<std::tuple<UHDM::VectorOfany*, size_t, UHDM::constant*, int>> pendBits117;
+    void applyPkgFlatBits117();
+    bool pkgQselRefNoParent117(const slang::ast::Symbol& ps, bool topView);
+    bool pkgQualSel117Built = false;
+    /// § pkgFlatSurelogBits117 (r11u117) — Surelog's `Bits` of a member type
+    /// as its OWN typespec tree spells it.  A typedef of a packed array whose
+    /// element is a typedef'd LOGIC vector (`typedef ut_e [0:2] row_t`) is a
+    /// logic_typespec that carries the dims TWICE (its own Ranges and an
+    /// anonymous Elem_typespec that repeats them), so its width is the dims'
+    /// product SQUARED times the element's (grid s01-s12, t06-t10).  Returns 0
+    /// when the shape is not one this models.
+    uint64_t surelogBits117(const slang::ast::Type& t, int depth = 0);
+    /// The size face: in the package ELABORATED flat op75 walk, an operand the
+    /// walk sized at its member's slang width takes the member's Surelog
+    /// `Bits` instead (adjustOpSize), up to and including a bailing operand.
+    void pkgFlatSurelogBits117(UHDM::VectorOfany* opnds,
+                               const std::vector<const slang::ast::Expression*>& setters,
+                               int bail, const slang::ast::Scope& fields,
+                               const slang::ast::Expression& pat);
     /// § importCopyDeclPkgSelect60v (r11v60) — the DECLARING-PACKAGE-RESOLVED
     /// sibling of `hasMemberSelectOf`, for the MATERIALIZED IMPORT COPY face.
     /// True when a member select that resolves to `<pkg>::<name>`'s OWN

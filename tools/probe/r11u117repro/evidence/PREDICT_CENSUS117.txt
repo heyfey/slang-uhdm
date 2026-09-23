@@ -1,0 +1,86 @@
+## source predictor (predict117.py), both corpora
+surelog Ariane QSEL=- DBL=fmt_unit_types_t,fmt_unsigned_t,traced_instr_t,unit_type_t
+surelog Ariane2024 QSEL=- DBL=fmt_unit_types_t,fmt_unsigned_t,hpdcache_mem_id_t,unit_type_t
+surelog ArianeElab QSEL=- DBL=fmt_unit_types_t,fmt_unsigned_t,unit_type_t
+surelog ArianeElab2 QSEL=- DBL=fmt_unit_types_t,fmt_unsigned_t,unit_type_t
+surelog AzadiRTL QSEL=- DBL=fmt_unit_types_t,fmt_unsigned_t,unit_type_t
+surelog HierBitSlice QSEL=- DBL=scalar_t
+surelog HierPathTypespec QSEL=- DBL=a
+surelog NyuziProcessor QSEL=- DBL=scalar_t
+surelog PackedArrayEnum QSEL=- DBL=dec_lc_state_e
+surelog PackedArrayTypespec QSEL=- DBL=fmt_unit_types_t,unit_type_t
+surelog Rsd QSEL=- DBL=InsnPath
+surelog TypedefRange QSEL=- DBL=a
+surelog UnpackedTypespec QSEL=- DBL=fmt_unit_types_t,unit_type_t
+surelog Verilator QSEL=- DBL=ab_t,arrp_t,enum,strp_t,type_t
+surelog Zachjs QSEL=- DBL=enum
+uhdm2rtlil CastStructArray QSEL=- DBL=my_struct
+uhdm2rtlil EnumMultirange QSEL=- DBL=dec_lc_state_e
+uhdm2rtlil TypedefPackedDimensions QSEL=- DBL=a
+uhdm2rtlil arrays03 QSEL=- DBL=reg8_t
+uhdm2rtlil stamped_gen_param QSEL=q2::IMPL DBL=ut_e
+uhdm2rtlil typedef_packed_enum_array QSEL=- DBL=u
+## law detector on every candidate (pred117.sh, R11U117_DBG=1), rc recorded
+Ariane default rc=2 
+Ariane testflags rc=2 
+Ariane2024 default rc=3 
+ArianeElab default rc=3 
+ArianeElab testflags rc=3 
+ArianeElab2 default rc=3 
+ArianeElab2 testflags rc=3 
+AzadiRTL default rc=3 
+AzadiRTL testflags rc=3 
+HierBitSlice default rc=3 
+HierBitSlice testflags rc=3 
+HierPathTypespec default rc=0 
+HierPathTypespec testflags rc=0 
+NyuziProcessor default rc=3 
+NyuziProcessor testflags rc=3 
+PackedArrayEnum default rc=0 
+PackedArrayEnum testflags rc=0 
+PackedArrayTypespec default rc=0 
+PackedArrayTypespec testflags rc=0 
+TypedefRange default rc=0 
+TypedefRange testflags rc=0 
+UnpackedTypespec default rc=0 
+UnpackedTypespec testflags rc=0 
+Verilator default rc=2 
+Verilator testflags rc=3 
+Zachjs default rc=2 
+Zachjs testflags rc=3 
+uhdm2rtlil:
+CastStructArray default/testflags rc=0 (no fire); EnumMultirange rc=3 both (baseline SLANG_REJECT); TypedefPackedDimensions rc=0 (no fire); arrays03 rc=0 (no fire); typedef_packed_enum_array rc=0 (no fire)
+stamped_gen_param default rc=0  BITS117 UnitTypes 12->36; QSELFIRE117 q2::IMPL
+stamped_gen_param testflags rc=0  BITS117 UnitTypes 12->36; QSELFIRE117 q2::IMPL
+## a-priori mover set: u2r stamped_gen_param x2; surelog none (plus the UVM pristine-nondeterminism class)
+## census on sweep roots (cen117.sh; golden-vs-golden calibration cal=0)
+stamped_gen_param default cells=2 cal=0 gold-pris=2 gold-law=0 pris-law=2
+stamped_gen_param testflags cells=2 cal=0 gold-pris=2 gold-law=0 pris-law=2
+CastStructArray default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+CastStructArray testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+TypedefPackedDimensions default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+TypedefPackedDimensions testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+arrays03 default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+arrays03 testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+typedef_packed_enum_array default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+typedef_packed_enum_array testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+HierPathTypespec default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+HierPathTypespec testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+PackedArrayEnum default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+PackedArrayEnum testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+PackedArrayTypespec default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+PackedArrayTypespec testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+TypedefRange default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+TypedefRange testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+UnpackedTypespec default cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+UnpackedTypespec testflags cells=1 cal=0 gold-pris=0 gold-law=0 pris-law=0
+## target-row census cells
+-- gold
+DEF q2::IMPL ts=none [tagged_pattern:  tagged_pattern:  tagged_pattern: ]
+ELAB q2::IMPL ts=NAMELESS [constant: @4 constant: @36 constant: @2]
+-- pris
+DEF q2::IMPL ts=none [tagged_pattern:  tagged_pattern:  tagged_pattern: ]
+ELAB q2::IMPL ts=none [tagged_pattern:  tagged_pattern:  tagged_pattern: ]
+-- law
+DEF q2::IMPL ts=none [tagged_pattern:  tagged_pattern:  tagged_pattern: ]
+ELAB q2::IMPL ts=NAMELESS [constant: @4 constant: @36 constant: @2]

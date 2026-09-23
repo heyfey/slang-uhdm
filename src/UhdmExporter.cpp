@@ -9751,6 +9751,9 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § tpElemRebindDefView107 — after every instance's type parameters are
     // settled (reads only; law and decode at the function).
     rebindTypeParamElem107(d, s);
+    // § pkgFlatSurelogBits117 (r11u117) — after every reader copied the
+    // package flat operands (law and decode at TypeEmit.cpp).
+    applyPkgFlatBits117();
     return d;
 }
 

@@ -1,0 +1,7 @@
+ARMFORMS=208 LISTED=104 RCBAD=0
+NONE  differs_from_PRIS=152 differs_from_LAW=14 differs_from_VFIX=0
+R11U117_OFF  differs_from_PRIS=0 differs_from_LAW=162 differs_from_VFIX=152
+R11U117_OVR_OFF  differs_from_PRIS=162 differs_from_LAW=0 differs_from_VFIX=14
+R11U117_QSEL_OFF  differs_from_PRIS=30 differs_from_LAW=136 differs_from_VFIX=126
+R11U117_BITS_OFF  differs_from_PRIS=126 differs_from_LAW=124 differs_from_VFIX=112
+R11U117_QSELREF_OFF  differs_from_PRIS=152 differs_from_LAW=138 differs_from_VFIX=126

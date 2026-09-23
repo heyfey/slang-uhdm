@@ -1,0 +1,124 @@
+## grid/g1 (cells117.py pris -> law5)
+g01 TO=83 AWAY=0
+g02 TO=83 AWAY=0
+g03 TO=85 AWAY=0
+g04 TO=120 AWAY=0
+g05 TO=122 AWAY=0
+g06 TO=120 AWAY=0
+g07 TO=120 AWAY=0
+g08 TO=120 AWAY=0
+g09 TO=2 AWAY=0
+g14 TO=120 AWAY=0
+g16 TO=83 AWAY=0
+g17 TO=83 AWAY=0
+g19 TO=2 AWAY=0
+s01 TO=122 AWAY=0
+s03 TO=122 AWAY=0
+s04 TO=122 AWAY=0
+s05 TO=122 AWAY=0
+s06 TO=122 AWAY=0
+s07 TO=122 AWAY=0
+s08 TO=122 AWAY=0
+s09 TO=122 AWAY=0
+s10 TO=122 AWAY=0
+s11 TO=122 AWAY=0
+t03 TO=2 AWAY=0
+t06 TO=85 AWAY=0
+t07 TO=122 AWAY=0
+t08 TO=122 AWAY=0
+t09 TO=122 AWAY=0
+t10 TO=122 AWAY=0
+t12 TO=2 AWAY=0
+t13 TO=2 AWAY=0
+t14 TO=87 AWAY=0
+t20 TO=110 AWAY=0
+t21 TO=95 AWAY=0
+t23 TO=103 AWAY=0
+t24 TO=121 AWAY=0
+TOTAL TO=3458 AWAY=0
+## grid/g1 (dist117.sh)
+g01 dist_pris=1440 dist_law5=1357 delta=83 TO 
+g02 dist_pris=386 dist_law5=303 delta=83 TO 
+g03 dist_pris=388 dist_law5=303 delta=85 TO 
+g04 dist_pris=168 dist_law5=48 delta=120 TO 
+g05 dist_pris=170 dist_law5=48 delta=122 TO 
+g06 dist_pris=186 dist_law5=66 delta=120 TO 
+g07 dist_pris=186 dist_law5=66 delta=120 TO 
+g08 dist_pris=168 dist_law5=48 delta=120 TO 
+g09 dist_pris=526 dist_law5=524 delta=2 TO 
+g10 dist_pris=233 dist_law5=233 delta=0  
+g11 dist_pris=14 dist_law5=14 delta=0  
+g12 dist_pris=109 dist_law5=109 delta=0  
+g13 dist_pris=27 dist_law5=27 delta=0  
+g14 dist_pris=168 dist_law5=48 delta=120 TO 
+g15 dist_pris=113 dist_law5=113 delta=0  
+g16 dist_pris=118 dist_law5=35 delta=83 TO 
+g17 dist_pris=386 dist_law5=303 delta=83 TO 
+g18 dist_pris=18 dist_law5=18 delta=0  
+g19 dist_pris=201 dist_law5=199 delta=2 TO 
+s01 dist_pris=188 dist_law5=66 delta=122 TO 
+s02 dist_pris=125 dist_law5=125 delta=0  
+s03 dist_pris=188 dist_law5=66 delta=122 TO 
+s04 dist_pris=188 dist_law5=66 delta=122 TO 
+s05 dist_pris=245 dist_law5=123 delta=122 TO 
+s06 dist_pris=172 dist_law5=50 delta=122 TO 
+s07 dist_pris=170 dist_law5=48 delta=122 TO 
+s08 dist_pris=326 dist_law5=204 delta=122 TO 
+s09 dist_pris=170 dist_law5=48 delta=122 TO 
+s10 dist_pris=170 dist_law5=48 delta=122 TO 
+s11 dist_pris=172 dist_law5=50 delta=122 TO 
+s12 dist_pris=480 dist_law5=480 delta=0  
+t01 dist_pris=193 dist_law5=193 delta=0  
+t02 dist_pris=128 dist_law5=128 delta=0  
+t03 dist_pris=29 dist_law5=27 delta=2 TO 
+t04 dist_pris=105 dist_law5=105 delta=0  
+t05 dist_pris=20 dist_law5=20 delta=0  
+t06 dist_pris=833 dist_law5=748 delta=85 TO 
+t07 dist_pris=172 dist_law5=50 delta=122 TO 
+t08 dist_pris=197 dist_law5=75 delta=122 TO 
+t09 dist_pris=465 dist_law5=343 delta=122 TO 
+t10 dist_pris=325 dist_law5=203 delta=122 TO 
+t12 dist_pris=77 dist_law5=75 delta=2 TO 
+t13 dist_pris=74 dist_law5=72 delta=2 TO 
+t14 dist_pris=1197 dist_law5=1110 delta=87 TO 
+t17 dist_pris=83 dist_law5=83 delta=0  
+t19 dist_pris=143 dist_law5=143 delta=0  
+t20 dist_pris=165 dist_law5=55 delta=110 TO 
+t21 dist_pris=161 dist_law5=66 delta=95 TO 
+t22 dist_pris=129 dist_law5=129 delta=0  
+t23 dist_pris=151 dist_law5=48 delta=103 TO 
+t24 dist_pris=234 dist_law5=113 delta=121 TO 
+## grid/g2 (cells117.py pris -> law5)
+r11u108_pk_k13_member_nested_stamp TO=83 AWAY=0
+r11u108_pk_k14_member_nested_nodim TO=119 AWAY=1
+   AWAY g=0 pris=0 law5=1  |uhdmtopModules: :: \_param_assign: , line:8:24, endln:8:39 / \_constant: , line:8:29, endln:8:39 >> |vpiDecompile:6'b010110
+r11u111_f3_k13_member_nested_stamp TO=83 AWAY=0
+r11u111_f3_k14_member_nested_nodim TO=119 AWAY=1
+   AWAY g=0 pris=0 law5=1  |uhdmtopModules: :: \_param_assign: , line:8:24, endln:8:39 / \_constant: , line:8:29, endln:8:39 >> |vpiDecompile:6'b010110
+r11u111_f3_s00_stamped_corpus TO=83 AWAY=0
+r11u111_f3_t10_pat_row_member TO=2 AWAY=0
+r11u111_f3_t12_pat_row_dims_member TO=2 AWAY=0
+r11u114_f1_a01 TO=83 AWAY=0
+r11u114_f1_a29 TO=120 AWAY=0
+r11u114_f1_a30 TO=85 AWAY=0
+TOTAL TO=779 AWAY=2
+## grid/g2 (dist117.sh)
+r11u108_pk_k13_member_nested_stamp dist_pris=386 dist_law5=303 delta=83 TO 
+r11u108_pk_k14_member_nested_nodim dist_pris=478 dist_law5=360 delta=120 TO 
+r11u111_f3_k13_member_nested_stamp dist_pris=386 dist_law5=303 delta=83 TO 
+r11u111_f3_k14_member_nested_nodim dist_pris=478 dist_law5=360 delta=120 TO 
+r11u111_f3_s00_stamped_corpus dist_pris=1440 dist_law5=1357 delta=83 TO 
+r11u111_f3_t10_pat_row_member dist_pris=86 dist_law5=84 delta=2 TO 
+r11u111_f3_t12_pat_row_dims_member dist_pris=29 dist_law5=27 delta=2 TO 
+r11u114_f1_a01 dist_pris=386 dist_law5=303 delta=83 TO 
+r11u114_f1_a29 dist_pris=168 dist_law5=48 delta=120 TO 
+r11u114_f1_a30 dist_pris=388 dist_law5=303 delta=85 TO 
+## grid/g3 (cells117.py pris -> law5)
+TOTAL TO=0 AWAY=0
+## grid/g3 (dist117.sh)
+b11 dist_pris=241 dist_law5=241 delta=0  
+r02 dist_pris=976 dist_law5=976 delta=0  
+r03 dist_pris=92 dist_law5=92 delta=0  
+r04 dist_pris=0 dist_law5=0 delta=0  
+r05 dist_pris=904 dist_law5=904 delta=0  
+r06 dist_pris=571 dist_law5=571 delta=0  

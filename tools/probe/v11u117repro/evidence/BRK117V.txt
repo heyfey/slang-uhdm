@@ -1,0 +1,148 @@
+# break arms: uhdm-cmp lines/heads  pristine  implementer-law(b49a4e60)  verified(d938af1f); all 111 runs rc=0; b05 golden rc=4 (Surelog EL0514) = error recovery, not golden
+b01  68/1   11/1   68/1
+b02  36/1   0/0    0/0
+b03  11/1   68/1   68/1
+b04  11/1   50/1   50/1
+b05  54/1   54/1   54/1
+b06  11/1   36/1   36/1
+b07  36/1   36/1   36/1
+b08  84/1   84/1   84/1
+b09  11/1   68/1   68/1
+b10  11/1   68/1   68/1
+b13  152/1  152/1  152/1
+b14  17/1   17/1   17/1
+b15  17/1   17/1   17/1
+b17  11/1   68/1   68/1
+b18  11/1   68/1   68/1
+b19  11/1   68/1   68/1
+b20  11/1   132/1  132/1
+b21  11/1   68/1   68/1
+b23  17/1   17/1   17/1
+b24  36/1   17/1   17/1
+b25  11/1   68/1   68/1
+b31  11/1   68/1   68/1
+b33  36/1   64/1   64/1
+b34  11/1   68/1   68/1
+b35  11/1   68/1   68/1
+b36  68/1   68/1   68/1
+b37  11/1   68/1   68/1
+b38  11/1   68/1   68/1
+b39  11/1   68/1   68/1
+b40  11/1   68/1   68/1
+b44  68/1   11/1   68/1
+b46  68/1   11/1   68/1
+b48  11/1   11/1   64/1
+b49  68/1   11/1   68/1
+b50  68/1   11/1   68/1
+b51  11/1   68/1   68/1
+b52  100/1  11/1   100/1
+
+# per-cell (cells117.py) pristine -> implementer law
+b01 TO=0 AWAY=85
+b02 TO=2 AWAY=0
+b03 TO=85 AWAY=0
+b04 TO=85 AWAY=0
+b05 TO=2 AWAY=0
+b06 TO=120 AWAY=2
+b07 TO=2 AWAY=0
+b08 TO=121 AWAY=0
+b09 TO=85 AWAY=0
+b10 TO=122 AWAY=0
+b13 TO=122 AWAY=0
+b14 TO=122 AWAY=0
+b15 TO=122 AWAY=0
+b17 TO=122 AWAY=0
+b18 TO=109 AWAY=1
+b19 TO=122 AWAY=0
+b20 TO=85 AWAY=0
+b21 TO=85 AWAY=0
+b23 TO=2 AWAY=0
+b24 TO=2 AWAY=0
+b25 TO=122 AWAY=0
+b31 TO=122 AWAY=0
+b33 TO=2 AWAY=0
+b34 TO=112 AWAY=0
+b35 TO=122 AWAY=0
+b37 TO=122 AWAY=0
+b38 TO=121 AWAY=1
+b39 TO=159 AWAY=0
+b40 TO=85 AWAY=0
+b44 TO=0 AWAY=85
+b46 TO=0 AWAY=85
+b49 TO=0 AWAY=85
+b50 TO=0 AWAY=85
+b51 TO=122 AWAY=0
+b52 TO=0 AWAY=85
+TOTAL TO=2606 AWAY=514
+
+# per-cell pristine -> verified
+b02 TO=2 AWAY=0
+b03 TO=85 AWAY=0
+b04 TO=85 AWAY=0
+b05 TO=2 AWAY=0
+b06 TO=120 AWAY=2
+b07 TO=2 AWAY=0
+b08 TO=121 AWAY=0
+b09 TO=85 AWAY=0
+b10 TO=122 AWAY=0
+b13 TO=122 AWAY=0
+b14 TO=122 AWAY=0
+b15 TO=122 AWAY=0
+b17 TO=122 AWAY=0
+b18 TO=109 AWAY=1
+b19 TO=122 AWAY=0
+b20 TO=85 AWAY=0
+b21 TO=85 AWAY=0
+b23 TO=2 AWAY=0
+b24 TO=2 AWAY=0
+b25 TO=122 AWAY=0
+b31 TO=122 AWAY=0
+b33 TO=2 AWAY=0
+b34 TO=112 AWAY=0
+b35 TO=122 AWAY=0
+b37 TO=122 AWAY=0
+b38 TO=121 AWAY=1
+b39 TO=159 AWAY=0
+b40 TO=85 AWAY=0
+b48 TO=85 AWAY=0
+b51 TO=122 AWAY=0
+TOTAL TO=2691 AWAY=4
+
+# whole-dump distance pristine -> verified
+b01  dist_pris=48    dist_vfix=48    delta=0    
+b02  dist_pris=38    dist_vfix=36    delta=2    TO
+b03  dist_pris=133   dist_vfix=48    delta=85   TO
+b04  dist_pris=145   dist_vfix=60    delta=85   TO
+b05  dist_pris=103   dist_vfix=101   delta=2    TO
+b06  dist_pris=188   dist_vfix=70    delta=122  TO
+b07  dist_pris=100   dist_vfix=98    delta=2    TO
+b08  dist_pris=516   dist_vfix=395   delta=121  TO
+b09  dist_pris=163   dist_vfix=78    delta=85   TO
+b10  dist_pris=188   dist_vfix=66    delta=122  TO
+b13  dist_pris=398   dist_vfix=276   delta=122  TO
+b14  dist_pris=396   dist_vfix=274   delta=122  TO
+b15  dist_pris=391   dist_vfix=269   delta=122  TO
+b17  dist_pris=188   dist_vfix=66    delta=122  TO
+b18  dist_pris=186   dist_vfix=78    delta=110  TO
+b19  dist_pris=188   dist_vfix=66    delta=122  TO
+b20  dist_pris=171   dist_vfix=86    delta=85   TO
+b21  dist_pris=133   dist_vfix=48    delta=85   TO
+b23  dist_pris=100   dist_vfix=98    delta=2    TO
+b24  dist_pris=84    dist_vfix=82    delta=2    TO
+b25  dist_pris=188   dist_vfix=66    delta=122  TO
+b31  dist_pris=188   dist_vfix=66    delta=122  TO
+b33  dist_pris=526   dist_vfix=524   delta=2    TO
+b34  dist_pris=187   dist_vfix=75    delta=112  TO
+b35  dist_pris=188   dist_vfix=66    delta=122  TO
+b36  dist_pris=101   dist_vfix=101   delta=0    
+b37  dist_pris=170   dist_vfix=48    delta=122  TO
+b38  dist_pris=420   dist_vfix=300   delta=122  TO
+b39  dist_pris=243   dist_vfix=84    delta=159  TO
+b40  dist_pris=259   dist_vfix=174   delta=85   TO
+b44  dist_pris=48    dist_vfix=48    delta=0    
+b46  dist_pris=48    dist_vfix=48    delta=0    
+b48  dist_pris=138   dist_vfix=53    delta=85   TO
+b49  dist_pris=48    dist_vfix=48    delta=0    
+b50  dist_pris=50    dist_vfix=50    delta=0    
+b51  dist_pris=188   dist_vfix=66    delta=122  TO
+b52  dist_pris=1033  dist_vfix=1033  delta=0    

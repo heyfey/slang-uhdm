@@ -1,0 +1,12 @@
+## surelog canaries (law sweep)
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+## surelog canaries (pristine sweep, same draw class)
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+## u2r canaries
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.

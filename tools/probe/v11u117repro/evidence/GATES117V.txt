@@ -1,0 +1,17 @@
+# v11u117 gates (own worktrees at 931a3c69, builds -j 2, binaries frozen chmod 555)
+binaries: pristine 59c4a296bbc892558b6d637d7eff020e (== main tree), implementer law b49a4e60de5c8db4a9b4b65dcf693465 (== claimed), verified d938af1fc0d52ac84650801993df6ee5
+goldens: law 23/0, verified 23/0, /bin/false 0/23
+sweeps (sweep117.sh, --jobs 3, workdirs .../{pris,lawx,vfix}; every cmds.txt audited: 1742 u2r + 1531 surelog commands per sweep, all on that sweep's frozen binary)
+  u2r both modes: 801 CMP_EQUAL / 3 CMP_NOTEQUAL / 67 SLANG_REJECT per mode, all three binaries
+  surelog: 480/3 default, 474/3 testflags, all three binaries
+row-join (ct8rows.sh):
+  u2r vs results/golden_uhdm2rtlil.csv, vs results/gate_uhdm2rtlil.csv (testflags), vs own pristine: PASS every row byte-identical (law and verified)
+  surelog vs results/golden_surelog.csv: statuses identical; row diffs = Earlgrey_0_1 dump column blank (uhdm-dump timeout draw, databases on the pins) + LowMemLib/LowMemPkg workdir paths
+byteverify SELFCHECK=1 (1607/1608 and 959/960 flagged):
+  u2r 2/1608: stamped_gen_param default + testflags (predicted; law == verified bytes)
+  surelog: law 5/960 (MiniAmiq x2, SeqDriver x2, SimpleUVM default), verified 4/960 (MiniAmiq x2, SeqDriver x2);
+    every one a 4-line sorted-dump UINT/vpiDecompile line-number diff (the UVM pristine-nondeterminism class), status CMP_EQUAL
+pins (both modes, all three sweeps): SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+  Earlgrey_0_1 testflags 59d0ee6d10c3 / default 8bdf25272e08, BlackParrotComplex e3e354129d5a/73a10e8217e5, YosysOldOr d68e0796d62c
+battery: canaries surelog ok=50 changed=2 (Earlgrey dump-column draw, both modes), u2r ok=8; ctcan2 PASS both; canaudit PASS
+target row uhdm-cmp (golden LHS): 11 lines / 1 head -> 64 lines / 1 head, both modes, law and verified alike

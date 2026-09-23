@@ -14407,7 +14407,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // pattern op untyped, so its flatten pass cannot run at all.
                     if (structPat && inPackage && structWidePkg &&
                         !structHasSymbolicMemberDim(pctS) &&
-                        hasMemberSelectOf(ps.name)) {
+                        (hasMemberSelectOf(ps.name) || pkgQualSelParamFlat117(ps, pctS, *init))) { // § pkgQualSelParamFlat117 (TypeEmit.cpp)
                         structWidePkg = false;
                         structNoScopedRefPkg = false;
                     }
@@ -15003,7 +15003,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (!(noParamSubst && isImported && paramSubstRefused(ps)) &&
                         !impNestedPat9) {
                         auto* rt = s.MakeRef_typespec();
-                        if (!ifaceArrayDefFold)
+                        if (!ifaceArrayDefFold && !pkgQselRefNoParent117(ps, topView && inPackage)) // § pkgQselRefNoParent117 (TypeEmit.cpp)
                             rt->VpiParent(op2);
                         op2->Typespec(rt);
                         rhsRt = rt; // -> elab param clone (patchParamTypespecs)
@@ -16229,7 +16229,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // from golden's 16 to the member's 24 — six AWAY cells).
                     // The SIZE is left as it stands here; `patRedSz68`'s own
                     // cast arm supplies it.
-                    if (!ifaceArrayDefFold)
+                    if (topView && (inPackage || isImported)) pkgFlatSurelogBits117(opnds, opSet68, bail68, fsc9, sinitK); /* § pkgFlatSurelogBits117 (TypeEmit.cpp) */ if (!ifaceArrayDefFold)
                         for (size_t i76 = 0; i76 < opnds->size(); i76++) {
                             const Expression* sx76 =
                                 i76 < opSet68.size() ? opSet68[i76] : nullptr;

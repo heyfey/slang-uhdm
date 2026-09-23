@@ -175,6 +175,64 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
 ### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
 
+> **v1.87 campaign CONVERGENCE snapshot (2026-09-23, HEAD = the pass-116
+> landing).** The matrix-1.87 branch has landed 116 passes since the
+> df23d880 rebaseline: surelog 480/3 default + 474/3 testflags (of 798; ALL
+> SIX NE row-modes are the three slang-fenced tests), uhdm2rtlil 803 equal /
+> 1 not-equal / 67 reject in both modes (of 871). Passes 105-115 CONVERTED
+> TWENTY-THREE ROWS after 33 dry groundwork passes (70-103):
+> port_chained_type_param (105), mem_packed_2d_byte_write (106),
+> type_param_packed_dim (107), anon_struct_packed_dim +
+> cva6_struct_param_field + type_param_unpacked_port + StructParamFieldRange
+> + StructParamFuncBodyFieldCompare + StructParamPatternInitCast (108),
+> type_param_override_elem_sel (109), SequenceInst + const_cast_signext +
+> packed_array_struct + unpacked_elem_partsel_comb (110), cfg_func_width_loop
+> + LargeValue2Struct (111), arb_idx_cast (112), ibex_tracer (113), Rggen
+> default (114), ibex_pmp + ibex_icache (115). The ONE open row,
+> stamped_gen_param, CANNOT CONVERT against the pinned Surelog v1.87: its
+> golden elaborates gen_grps[0].u.g[0..2] as `inv` where the source's
+> UT = {2'b01,2'b01,2'b01} requires `keep` (and gen_grps[1].u.g[0] as `keep`
+> where it requires `inv`) because Surelog's ExprEval bit-selected the
+> pre-folded pattern constant instead of element-selecting it — the defect
+> the test's own header comment names (fixed upstream after the pin). slang
+> elaborates the real value, so the generate structure differs on every
+> judged line after the value; pass 116 cleared the typespec head (11 -> 64
+> lines, every cell toward golden) and the next head is the garbage value
+> itself (golden 1'b0 vs ours 6'b010101 at 44:31). Fencing that row is the
+> USER'S decision (a producer-defect fence, the fourth after the three
+> slang-fenced tests); results/*.csv keep it CMP_NOTEQUAL until then. The
+> post-convergence task the user set (memory probe-arms-to-tests-after-
+> convergence) is IN PROGRESS: a census of every unique tools/probe dut.sv
+> arm through the corpus harness in both modes on the HEAD binary
+> (scratchpad probe_census.py -> which arms read CMP_EQUAL and whether their
+> dumps match byte-for-byte), then a selection + layout proposal for
+> tests/golden, then STOP for the user's direction before editing tests/.
+> Method that converged the corpus: HEAD-ANCHORED SELECTION (memory
+> head-anchored-selection) — every brief names the open corpus tests it
+> targets and their measured uhdm-cmp head cluster, predicts each row's cmp
+> line-count movement by name, batches EVERY located face on one ground, and
+> refills come from the head clusters; two implement+verify pairs on
+> DISJOINT FILE SETS (pair A: ExprEmit.cpp + EmitHelpers.h + StmtEmit.cpp;
+> pair B: TypeEmit.cpp + UhdmExporter.cpp + ModuleEmit.cpp + ParamEmit.cpp),
+> every agent() pinned model 'claude-opus-5-5' + effort 'high'; the §6
+> integration cycle unchanged (apply the verifier's patch stacked on the
+> current head, build -j 2, goldens 23/0 + /bin/false 0/23, three sweeps
+> --jobs 3, row-joins vs results/*.csv and the controls, byteverify with
+> a-priori movers by name, the canary battery from tools/probe/r11u107repro,
+> the ten hard db pins, promotion by surgical sed + accounting.py --md +
+> SUPPORT_MATRIX.md in the SAME commit, control rotation, family prune).
+> Instrument laws recorded at the end: a substituted parameter read keeps
+> its initializer literal's BASED encoding (the producer clones the
+> param_assign right-hand side); a generate block is its own design
+> component so a package-parameter read there is late-bound as a
+> per-reference enum_const clone on either side of an assignment; a
+> pkg::NAME.member read inside a live (non-overridden) parameter declaration
+> flattens the package pattern to a nameless, parentless op whose operands
+> carry Surelog's own Bits (a typedef of a packed array of a typedef'd
+> vector is counted twice: row_t [0:1] reads 36, not 12); the binary does
+> not truncate an existing -o file, so every database must be written to a
+> fresh path.
+> The pass-113 paragraph below is HISTORY.
 > **v1.87 campaign refresh (2026-09-23, HEAD = the pass-113 landing).** The
 > matrix-1.87 branch has landed 113 passes since the df23d880 rebaseline:
 > surelog 479/4 default + 474/3 testflags (of 798; 6 of the 7 NE row-modes
