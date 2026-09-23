@@ -1,0 +1,186 @@
+# face-2 cells (cenm108, key pkg|struct|member, DEF listing), brk/f2
+## pris -> lawx
+c01_var_of_struct q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c02_param_of_struct q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c03_port_of_struct q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c05_signed_leaf q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c06_scalar_leaf q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c07_chain3 q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::c_t elem='] pris=['logic_typespec name= elem=c_t'] lawx=['logic_typespec name=q2::c_t elem=-']
+c08_unpacked_struct q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c09_import_var q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c10_cross_pkg_member q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=p1::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=p1::row_t elem=-']
+c11_import_into_pkg q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c12_param_range q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c16_pkg_func q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c19_reg_leaf q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c21_rangeless_alias q2|q2::s_t|U TO-GOLDEN gold=['logic_typespec name=q2::row_t elem=-'] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c22_gen_localparam_twice q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c23_two_structs_share q2|q2::s1_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c23_two_structs_share q2|q2::s2_t|V STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c24_class_typedef q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c25_import_member q2|q2::s_t|U STILL-WRONG, BINDING AWAY gold=['logic_typespec name= elem=p1::row_t'] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=p1::row_t elem=-']
+c26_class_struct q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+c28_named_import q2|q2::s_t|U STILL-WRONG, BINDING AWAY gold=['logic_typespec name= elem=p1::row_t'] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=p1::row_t elem=-']
+c29_self_qualified q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] lawx=['logic_typespec name=q2::row_t elem=-']
+## pris -> fix2
+c01_var_of_struct q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c02_param_of_struct q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c03_port_of_struct q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c05_signed_leaf q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c06_scalar_leaf q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c07_chain3 q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::c_t elem='] pris=['logic_typespec name= elem=c_t'] fix2=['logic_typespec name=q2::c_t elem=-']
+c08_unpacked_struct q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c09_import_var q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c10_cross_pkg_member q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=p1::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=p1::row_t elem=-']
+c11_import_into_pkg q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c12_param_range q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c16_pkg_func q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c19_reg_leaf q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c21_rangeless_alias q2|q2::s_t|U TO-GOLDEN gold=['logic_typespec name=q2::row_t elem=-'] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c22_gen_localparam_twice q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c23_two_structs_share q2|q2::s1_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c23_two_structs_share q2|q2::s2_t|V STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c24_class_typedef q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c26_class_struct q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+c29_self_qualified q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] fix2=['logic_typespec name=q2::row_t elem=-']
+
+# face-5 kind cells (cen108, key variable name), brk/f5
+## pris -> lawx
+b01_signed_elem work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b02_attr work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b03_iface work@dut.i.x UNMOVED-WRONG gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None lawx=None
+b05_nonansi work@dut.a UNMOVED-WRONG gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None lawx=None
+b06_input_wire work@dut.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b08_two_inst_mixed work@dut.u1.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b08_two_inst_mixed work@dut.u3.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b09_structelem_member work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b10_out_always work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b11_selects work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b14_multi_decl work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b14_multi_decl work@dut.y TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b15_child_ports work@dut.u.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b15_child_ports work@dut.u.rt_o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b15_child_ports work@dut.v.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b15_child_ports work@dut.v.rt_o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b18_var_kw work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b19_output_var_port work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b20_bit_signed_param work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('bit_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b21_always_ff work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.l.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.l.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.l.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b23_port_default work@dut.u.a STILL-WRONG gold=[('packed_array_var', 'expr=1', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=1', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b24_output_init work@dut.o STILL-WRONG gold=[('packed_array_var', 'expr=1', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=1', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b25_attr_wdims work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('packed_array_var', 'expr=0', 'ranges=1', 'elems=1')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b26_attr_port work@dut.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[0].u.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[0].u.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[0].u.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[1].u.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[1].u.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[1].u.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b28_typedef_of_tp work@dut.x UNMOVED-WRONG gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None lawx=None
+b29_override_packed_elem work@dut.u.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b29_override_packed_elem work@dut.u.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b30_attr_two work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] lawx=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+TOTALS {'TO-GOLDEN': 34, 'UNMOVED-WRONG': 3, 'STILL-WRONG': 2}
+## pris -> fix2
+b01_signed_elem work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b02_attr work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b03_iface work@dut.i.x UNMOVED-WRONG gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None fix2=None
+b05_nonansi work@dut.a UNMOVED-WRONG gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None fix2=None
+b06_input_wire work@dut.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b08_two_inst_mixed work@dut.u1.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b08_two_inst_mixed work@dut.u3.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b09_structelem_member work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b10_out_always work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b11_selects work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b14_multi_decl work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b14_multi_decl work@dut.y TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b15_child_ports work@dut.u.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b15_child_ports work@dut.u.rt_o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b15_child_ports work@dut.v.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b15_child_ports work@dut.v.rt_o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b18_var_kw work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b19_output_var_port work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b20_bit_signed_param work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('bit_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b21_always_ff work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.l.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.l.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.l.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b22_nested_child work@dut.m.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b23_port_default work@dut.u.a UNMOVED-WRONG gold=[('packed_array_var', 'expr=1', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=1', 'ranges=0', 'elems=0')] fix2=[('logic_var', 'expr=1', 'ranges=0', 'elems=0')]
+b24_output_init work@dut.o UNMOVED-WRONG gold=[('packed_array_var', 'expr=1', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=1', 'ranges=0', 'elems=0')] fix2=[('logic_var', 'expr=1', 'ranges=0', 'elems=0')]
+b25_attr_wdims work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('packed_array_var', 'expr=0', 'ranges=1', 'elems=1')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b26_attr_port work@dut.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[0].u.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[0].u.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[0].u.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[1].u.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[1].u.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b27_gen_loop_inst work@dut.g[1].u.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b28_typedef_of_tp work@dut.x UNMOVED-WRONG gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None fix2=None
+b29_override_packed_elem work@dut.u.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b29_override_packed_elem work@dut.u.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+b30_attr_two work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] fix2=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+TOTALS {'TO-GOLDEN': 34, 'UNMOVED-WRONG': 5}
+
+# face-5 FIELD sub-cells (varfields108.py: direct fields of the ELAB var, by name) -- attribute / initializer
+b02_attr gold ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b02_attr gold ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b02_attr gold ELAB packed_array_var work@dut.x vpiAttribute:;vpiName:x;vpiTypespec:;vpiVisibility:1
+b02_attr pris ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b02_attr pris ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b02_attr pris ELAB logic_var work@dut.x vpiAttribute:;vpiName:x;vpiTypespec:;vpiVisibility:1
+b02_attr lawx ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b02_attr lawx ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b02_attr lawx ELAB packed_array_var work@dut.x vpiName:x;vpiTypespec:;vpiVisibility:1
+b02_attr fix2 ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b02_attr fix2 ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b02_attr fix2 ELAB packed_array_var work@dut.x vpiAttribute:;vpiName:x;vpiTypespec:;vpiVisibility:1
+b30_attr_two gold ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b30_attr_two gold ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b30_attr_two gold ELAB packed_array_var work@dut.x vpiAttribute:;vpiAttribute:;vpiName:x;vpiTypespec:;vpiVisibility:1
+b30_attr_two pris ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b30_attr_two pris ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b30_attr_two pris ELAB logic_var work@dut.x vpiAttribute:;vpiAttribute:;vpiName:x;vpiTypespec:;vpiVisibility:1
+b30_attr_two lawx ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b30_attr_two lawx ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b30_attr_two lawx ELAB packed_array_var work@dut.x vpiName:x;vpiTypespec:;vpiVisibility:1
+b30_attr_two fix2 ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b30_attr_two fix2 ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b30_attr_two fix2 ELAB packed_array_var work@dut.x vpiAttribute:;vpiAttribute:;vpiName:x;vpiTypespec:;vpiVisibility:1
+b26_attr_port gold ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b26_attr_port gold ELAB packed_array_var work@dut.a vpiName:a;vpiTypespec:;vpiVisibility:1
+b26_attr_port pris ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b26_attr_port pris ELAB logic_var work@dut.a vpiAttribute:;vpiName:a;vpiTypespec:;vpiVisibility:1
+b26_attr_port lawx ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b26_attr_port lawx ELAB packed_array_var work@dut.a vpiName:a;vpiTypespec:;vpiVisibility:1
+b26_attr_port fix2 ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b26_attr_port fix2 ELAB packed_array_var work@dut.a vpiName:a;vpiTypespec:;vpiVisibility:1
+b23_port_default gold ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b23_port_default gold ELAB logic_net work@dut.u.o vpiName:o;vpiNetType:36;vpiTypespec:
+b23_port_default gold ELAB packed_array_var work@dut.u.a vpiExpr:;vpiName:a;vpiTypespec:;vpiVisibility:1
+b23_port_default pris ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b23_port_default pris ELAB logic_net work@dut.u.a vpiName:a;vpiTypespec:
+b23_port_default pris ELAB logic_net work@dut.u.o vpiName:o;vpiNetType:36;vpiTypespec:
+b23_port_default pris ELAB logic_var work@dut.u.a vpiExpr:;vpiName:a;vpiTypespec:;vpiVisibility:1
+b23_port_default lawx ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b23_port_default lawx ELAB logic_net work@dut.u.a vpiName:a;vpiTypespec:
+b23_port_default lawx ELAB logic_net work@dut.u.o vpiName:o;vpiNetType:36;vpiTypespec:
+b23_port_default lawx ELAB packed_array_var work@dut.u.a vpiName:a;vpiTypespec:;vpiVisibility:1
+b23_port_default fix2 ELAB logic_net work@dut.o vpiName:o;vpiNetType:36;vpiTypespec:
+b23_port_default fix2 ELAB logic_net work@dut.u.a vpiName:a;vpiTypespec:
+b23_port_default fix2 ELAB logic_net work@dut.u.o vpiName:o;vpiNetType:36;vpiTypespec:
+b23_port_default fix2 ELAB logic_var work@dut.u.a vpiExpr:;vpiName:a;vpiTypespec:;vpiVisibility:1
+b24_output_init gold ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b24_output_init gold ELAB packed_array_var work@dut.o vpiExpr:;vpiName:o;vpiTypespec:;vpiVisibility:1
+b24_output_init pris ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b24_output_init pris ELAB logic_var work@dut.o vpiExpr:;vpiName:o;vpiTypespec:;vpiVisibility:1
+b24_output_init lawx ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b24_output_init lawx ELAB packed_array_var work@dut.o vpiName:o;vpiTypespec:;vpiVisibility:1
+b24_output_init fix2 ELAB logic_net work@dut.a vpiName:a;vpiNetType:36;vpiTypespec:
+b24_output_init fix2 ELAB logic_var work@dut.o vpiExpr:;vpiName:o;vpiTypespec:;vpiVisibility:1

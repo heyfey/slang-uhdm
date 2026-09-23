@@ -1,0 +1,23 @@
+# LAW 2 cells (cenm108: members of structs PARENTED at a DEF-listing package, keyed pkg|struct|member), pris -> law8
+# value = typespec kind + name (the BINDING) + elem name (a field INSIDE the bound object: '-' none, '' unnamed)
+## /tmp/r11u108_gpk
+k12_member_arr_dims p|p::sa_t|h STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=p::a_t elem='] pris=['logic_typespec name= elem=a_t'] law8=['logic_typespec name=p::a_t elem=-']
+k13_member_nested_stamp q2|q2::impl_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] law8=['logic_typespec name=q2::row_t elem=-']
+TOTALS {'UNMOVED-OK': 44, 'STILL-WRONG, BINDING TO-GOLDEN': 2, 'UNMOVED-WRONG': 1}
+## /tmp/r11u108_gf2
+m02_alias_of_td q2|q2::s_t|U TO-GOLDEN gold=['logic_typespec name=q2::row_t elem=-'] pris=['logic_typespec name= elem=row_t'] law8=['logic_typespec name=q2::row_t elem=-']
+m04_cross_pkg q2|q2::s_t|U TO-GOLDEN gold=['logic_typespec name=q2::r_t elem=-'] pris=['logic_typespec name= elem=r_t'] law8=['logic_typespec name=q2::r_t elem=-']
+m08_two_members q2|q2::s_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] law8=['logic_typespec name=q2::row_t elem=-']
+m08_two_members q2|q2::s_t|V STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] law8=['logic_typespec name=q2::row_t elem=-']
+m09_nested_struct q2|q2::in_t|U STILL-WRONG, BINDING TO-GOLDEN gold=['logic_typespec name=q2::row_t elem='] pris=['logic_typespec name= elem=row_t'] law8=['logic_typespec name=q2::row_t elem=-']
+TOTALS {'UNMOVED-OK': 11, 'TO-GOLDEN': 2, 'UNMOVED-WRONG': 4, 'STILL-WRONG, BINDING TO-GOLDEN': 3}
+## /tmp/r11u108_grid
+f5a13_wire SKIP (missing db)
+TOTALS {}
+## /tmp/r11u108_gf4
+TOTALS {}
+
+## corpus: uhdm2rtlil both modes (cenmrun108.sh over pristine and law sweeps)
+default/stamped_gen_param q2|q2::impl_t|UnitTypes STILL-WRONG, BINDING TO-GOLDEN gold= ['logic_typespec name=q2::row_t elem='] pris= ['logic_typespec name= elem=row_t'] law= ['logic_typespec name=q2::row_t elem=-']
+testflags/stamped_gen_param q2|q2::impl_t|UnitTypes STILL-WRONG, BINDING TO-GOLDEN gold= ['logic_typespec name=q2::row_t elem='] pris= ['logic_typespec name= elem=row_t'] law= ['logic_typespec name=q2::row_t elem=-']
+TOTALS {'UNMOVED-OK': 2032, 'UNMOVED-WRONG': 6284, 'STILL-WRONG, BINDING TO-GOLDEN': 2}

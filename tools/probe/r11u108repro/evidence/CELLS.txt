@@ -1,0 +1,35 @@
+# LAW 1 cells (cen108, keyed by variable name): grid f5, pris -> law8
+f5a01_tpq_body work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a02_tpq_in work@dut.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a03_tpq_out work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a05_override work@dut.u.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a05_override work@dut.u.y TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a06_bitelem work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('bit_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a07_enumelem work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a08_structelem work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a09_typedefelem work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a10_writtendims_ctl work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('packed_array_var', 'expr=0', 'ranges=1', 'elems=1')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a11_unpacked_ctl work@dut.x UNMOVED-WRONG gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a12_chain work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a13_wire SKIP (missing db)
+f5a15_scalarelem work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a16_ovr2state work@dut.u.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('bit_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a16_ovr2state work@dut.u.y TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('bit_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a17_funcvar work@dut.f.v UNMOVED-WRONG gold=[('ref_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None law8=None
+f5a18_init work@dut.x UNMOVED-WRONG gold=[('packed_array_var', 'expr=1', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=1', 'ranges=0', 'elems=0')] law8=[('logic_var', 'expr=1', 'ranges=0', 'elems=0')]
+f5a19_pkgtd_elem work@dut.x TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a21_wdims_in work@dut.a TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('packed_array_var', 'expr=0', 'ranges=1', 'elems=1')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a22_wdims_init work@dut.x STILL-WRONG gold=[('packed_array_var', 'expr=1', 'ranges=0', 'elems=0')] pris=[('packed_array_var', 'expr=0', 'ranges=1', 'elems=1')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a24_wdims_override work@dut.u.r TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('packed_array_var', 'expr=0', 'ranges=1', 'elems=1')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+f5a24_wdims_override work@dut.u.y TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('packed_array_var', 'expr=0', 'ranges=1', 'elems=1')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+TOTALS {'TO-GOLDEN': 18, 'UNMOVED-WRONG': 3, 'STILL-WRONG': 1}
+
+# LAW 1 cells, grids pk/f4/f2 (controls; nothing may move)
+## /tmp/r11u108_gpk
+TOTALS {}
+## /tmp/r11u108_gf4
+TOTALS {}
+## /tmp/r11u108_gf2
+TOTALS {}
+
+# LAW 1 cells over the 38 wide-boundary movers: see BOUNDARY.txt (55 TO-GOLDEN)

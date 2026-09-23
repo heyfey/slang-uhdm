@@ -1,0 +1,26 @@
+# v11u108 gates (verifier-built binaries, frozen chmod 555, every cmds.txt audited by binary PATH)
+## (1) builds (-j 2, Release, gcc-toolset-14; configured fresh in each worktree)
+pristine  /tmp/wt_v11u108pris (c4adbb58)                           b4f28467e6ce11fc70a1d0b66221cc69  (= the stated main-tree md5 at c4adbb58)
+law       /tmp/wt_v11u108 (c4adbb58 + /tmp/r11u108.patch)          81f13e490e460366e81cf289d01d853d  (= the implementer's law md5)
+fix2      law + v11u108 TypeEmit.cpp edits (the verified patch)    86604f20f4991cb49459cb371a70ed25
+cmds.txt audit: pris 3273/3273 u2r+sl rows name /tmp/v11u108_pris.bin; lawx u2r 1742 + sl 1531 name /tmp/v11u108_lawx.bin; fix2 3273/3273 name /tmp/v11u108_fix2.bin
+## (2) goldens (tests/check_goldens.sh, SLANG_UHDM exported)
+pris 23/0   lawx 23/0   fix2 23/0   /bin/false 0/23
+## (3) uhdm2rtlil, both modes (--jobs 3)
+pris: 789/15/67 both modes; row-join vs results/golden_uhdm2rtlil.csv (both modes) and gate_uhdm2rtlil.csv: byte-identical (ct8rows PASS)
+lawx: 790/14/67 both modes; row-join vs committed: ONLY
+  type_param_packed_dim,default,CMP_NOTEQUAL,decompile:,,     -> type_param_packed_dim,default,CMP_EQUAL,,,differ
+  type_param_packed_dim,testflags,CMP_NOTEQUAL,decompile:,,   -> type_param_packed_dim,testflags,CMP_EQUAL,,,differ
+fix2: identical rows to lawx (both modes)
+byteverify SELFCHECK=1: lawx vs pris MOVERS 6/1608 = {stamped_gen_param, type_param_override_elem_sel, type_param_packed_dim} x {default,testflags} (selfcheck 1607/1608)
+                        fix2 vs lawx MOVERS 0/1608 (predicted 0; selfcheck 1607/1608)
+## (4) surelog --mode both (--jobs 3)
+pris/lawx/fix2: default 474 EQ / 9 NE, testflags 469 EQ / 8 NE; row-join vs results/golden_surelog.csv: statuses identical; the only text deltas are the LowMem* workdir paths and the Earlgrey_0_1 dump column (blank on a uhdm-dump timeout draw: pris both modes, fix2 default) -- environment; the Earlgrey DATABASES are byte-pinned below
+byteverify SELFCHECK=1: lawx vs pris 5/960 (MiniAmiq d/t, Scoreboard d, SeqDriver d/t); fix2 vs lawx 4/960; fix2 vs pris 3/960 -- every one the documented UVM class: sorted, path-normalised dump diff = 4 UINT/vpiDecompile line-number lines, or 0 (Scoreboard/default order draw); all CMP_EQUAL, statuses unchanged
+## (5) canaries (tools/probe/r10uvm221repro)
+lawx: canaries sl ok=52 changed=0; u2r ok=8 changed=0; ctcan2 PASS x2; canaudit PASS
+fix2: canaries sl ok=51 changed=1 (Earlgrey_0_1 default dump column blank -- the timeout draw; DB md5 = pin); u2r ok=8; ctcan2 PASS x2
+DB pins, both modes, pris = lawx = fix2: SVSwitch 4842211c4030/4842211c4030, YosysVerx 6ccda350c24a/6ccda350c24a, InterfaceModPort 59a365f3ce2c/59a365f3ce2c,
+  BlackParrotComplex e3e354129d5a/73a10e8217e5, YosysOldOr d68e0796d62c/d68e0796d62c, Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3
+port_chained_type_param 0/0 both modes on all three binaries; UVM family CMP_EQUAL (Scoreboard/testflags SLANG_REJECT as committed)
+## (6) break-grid goldens: 54 arms, golden-vs-golden uhdm-cmp 0 lines on all 54; every golden rc=0, every ours rc=0 (tf and default forms agree arm-for-arm)

@@ -1,0 +1,38 @@
+r11u108 -- MOVER PREDICTION, written from the PRISTINE sweep databases before the
+final law sweep (law binary md5 0c0ea8311f60f95f2c8af4330c9699b6) finished.
+
+Instruments: cen108 (variables carrying a packed_array_typespec, elaborated view)
+and cenm108 (def-package-listing struct members), run over every row's golden
+(cache) database AND our pristine database: cenrun108.sh / cenmrun108.sh.
+Positive controls: cen108 sees grid f5a01/f5a05 (gold pav, pris logic_var) and
+cenm108 sees grid pk k13 (gold member -> q2::row_t, pris member-span).
+
+LAW 1  § tpPackedArrayTsVar108 (ours non-pav var + packed_array_typespec where
+golden has a typespec-only packed_array_var):
+  uhdm2rtlil  type_param_packed_dim         default+testflags  work@dut.rt_i
+  uhdm2rtlil  type_param_override_elem_sel  default+testflags  work@dut.u.rt_i
+  surelog     NONE (census: 0 candidate cells over 1581 row-dirs)
+LAW 2  § defPkgMemberTdOfNamedShares108 (golden def-listing member bound to a
+named pkg::T logic_typespec that ours lacks):
+  uhdm2rtlil  stamped_gen_param             default+testflags  q2::impl_t.UnitTypes
+  surelog     NONE (census: 0 rows)
+Expected judge effect: type_param_packed_dim 60 -> 0 (CONVERTS), override_elem_sel
+60 -> 47 (next head), stamped_gen_param 138 -> 17 (next head); the other three
+target rows (cfg_func_width_loop 148, const_cast_signext 17, LargeValue2Struct 108)
+do NOT move: their sites are fenced (README, residues).
+Expected byte-only movers that are NOT law cells: the UVM family's documented
+0-or-4-line UINT/vpiDecompile order class (statuses unchanged), and the
+layout-derived tail constant of class-scoped `typedef T name[string]`
+(r10uvm154 layoutproof154.sh).
+
+ADDENDA (kept separate so the prediction above stays as written)
+* The prediction above was written for law binary 0c0ea831 (both laws, dimensionless cell only), before its sweep
+  finished.  That sweep was then STOPPED (not scored) when the written-dims half of § tpPackedArrayTsVar108 was added
+  (grid f5a10: golden drops written dims on a packed_array_typespec-typed parameter).  Prediction for that half,
+  from the same census BEFORE the final sweep: zero corpus cells -- no row carries an elaborated variable whose
+  written dims hang on a type parameter resolved to a packed_array_typespec (cen108: the only ranged
+  packed_array_var cells in either corpus are ReturnEnumArray's function-return vars, which are not
+  type-parameter-typed).  Final binary 81f13e49: the u2r and surelog mover sets are exactly the ones above.
+* cenm108's first cut shared ONE listener across packages; UhdmListener keeps its visited set across listenAny
+  calls, so the `builtin` package (default mode) hid later packages' structs.  Fixed (fresh listener per
+  package) and re-run over the pristine surelog sweep: still 0 rows; uhdm2rtlil: stamped_gen_param both modes.

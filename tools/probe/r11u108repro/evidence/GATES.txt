@@ -1,0 +1,66 @@
+r11u108 GATES (all runs from this pass's own worktree, workdirs and frozen binaries)
+
+BINARIES (built -j 2, frozen chmod 555 before any sweep)
+  pristine  /tmp/r11u108_pris.bin  b4f28467e6ce11fc70a1d0b66221cc69  (= main tree at c4adbb58, the OPS pin)
+  law       /tmp/r11u108_law8.bin  81f13e490e460366e81cf289d01d853d
+  law, rebuilt from c4adbb58 + the production diff in a fresh tree: 81f13e490e460366e81cf289d01d853d (identical)
+  every cmds.txt audited by binary PATH: pristine sweep 1742 u2r + 1531 surelog -> /tmp/r11u108_pris.bin only;
+  law sweep 1742 u2r + 1531 surelog -> /tmp/r11u108_law8.bin only.
+
+(1) build both, md5s: above.
+(2) tests/check_goldens.sh: law 23 PASS / 0 FAIL; pristine 23 PASS; SLANG_UHDM=/bin/false 0 PASS / 23 FAIL.
+(3) uhdm2rtlil both modes (verify_golden.py --jobs 3, own workdirs /tmp/r11u108_{pris,law8}/u2r):
+    pristine sweep vs committed baselines (results/gate_uhdm2rtlil.csv; results/golden_uhdm2rtlil.csv split per mode): PASS, byte-identical rows.
+    law vs pristine AND law vs committed baselines: exactly ONE row per mode differs --
+      < type_param_packed_dim,testflags,CMP_NOTEQUAL,decompile:,,
+      > type_param_packed_dim,testflags,CMP_EQUAL,,,differ
+      < type_param_packed_dim,default,CMP_NOTEQUAL,decompile:,,
+      > type_param_packed_dim,default,CMP_EQUAL,,,differ
+    (law-named: § tpPackedArrayTsVar108.  results/*.csv NOT edited.)
+(4) surelog --mode both (own workdirs /tmp/r11u108_{pris,law8}/sl): law vs pristine -- 0 status/dump rows differ except the
+    workdir path embedded in LowMemLib/LowMemPkg testflags SURELOG_FAIL detail (environment).  law vs results/golden_surelog.csv:
+    the same two path rows plus Earlgrey_0_1 both modes CMP_EQUAL with a BLANK dump column (uhdm-dump timeout draw; the pristine
+    sweep reads the same blank), Earlgrey databases byte-identical to pristine (pins below).
+(5) byteverify SELFCHECK=1 vs own pristine workdirs:
+    uhdm2rtlil: PATH_SETS_IDENTICAL 1608, MOVERS 6/1608 = stamped_gen_param, type_param_override_elem_sel, type_param_packed_dim,
+      each default+testflags -- exactly the PREDICTED set (evidence/PREDICT.txt); SELFCHECK 1607/1608 flagged.
+    surelog: PATH_SETS_IDENTICAL 960, MOVERS 5/960 = MiniAmiq default+testflags, SeqDriver default+testflags, SimpleUVM default,
+      all the UVM family's documented order class: order-blind path-normalised sorted dump diff = 4 lines each, all
+      |UINT:<n> / |vpiDecompile:<n> pairs (below); statuses unchanged CMP_EQUAL; rowheads 0/0 for SeqDriver, SimpleUVM, Scoreboard
+      default, MiniAmiq, BuildUVMPkg, Earlgrey_0_1 both modes.  SELFCHECK 959/960 flagged.
+CANARIES (tools/probe/r10uvm221repro battery)
+    canaries.sh surelog: ok=50 changed=2 (Earlgrey_0_1 both modes: dump column blank = uhdm-dump timeout draw, identical reading on
+      the pristine sweep; database pins hold) ; u2r: ok=8 changed=0
+    ctcan2.sh EXPECT_UNKNOWN=1 surelog PASS ; EXPECT_UNKNOWN=6 u2r PASS ; canaudit.sh canaries.sh ctcan2.sh PASS
+    database pins (law == pristine, both modes): SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+      BlackParrotComplex e3e354129d5a/73a10e8217e5, YosysOldOr d68e0796d62c, Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3.
+    port_chained_type_param CMP_EQUAL both modes (0 lines).
+SWITCHES (sw108.sh, 185 arms: grids f5/f4/pk/f2 + r11u107repro/grid + v11u93b107repro/brk):
+    R11U108_OFF=1 byte-identical to pristine on 185/185; R11U108_TPPAV_OFF=1 drops exactly law 1's 42 moving arms;
+    R11U108_PKGTDMEM_OFF=1 drops exactly law 2's 6 moving arms; 137 arms move under neither.
+WIDE BOUNDARY: evidence/BOUNDARY.txt (8832 committed probe sources, 38 movers, 55 cells TO-GOLDEN, AWAY 0, 3 layout-class arms).
+## default/MiniAmiq-544c7f61 obl=4
+>       |UINT:1105
+<       |UINT:979
+>       |vpiDecompile:1105
+<       |vpiDecompile:979
+## default/SeqDriver-32af76aa obl=4
+<       |UINT:0
+>       |UINT:688
+<       |vpiDecompile:0
+>       |vpiDecompile:688
+## default/SimpleUVM-1dc93a62 obl=4
+>       |UINT:0
+<       |UINT:940
+>       |vpiDecompile:0
+<       |vpiDecompile:940
+## testflags/MiniAmiq-544c7f61 obl=4
+<       |UINT:0
+>       |UINT:1525
+<       |vpiDecompile:0
+>       |vpiDecompile:1525
+## testflags/SeqDriver-32af76aa obl=4
+<       |UINT:1424
+>       |UINT:866
+<       |vpiDecompile:1424
+>       |vpiDecompile:866

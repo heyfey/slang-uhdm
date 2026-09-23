@@ -1,0 +1,54 @@
+# SITES: which code mints the object each face's head names (gdbfind108.sh on a Release+g decode build of c4adbb58, byte-identical output to pristine)
+## FACE 1 (cfg_func_width_loop shape, grid pk/k22): the parameter's bare-named alias clone, alias ref 'work@dut.u.M.mask_t'
+#0  UHDM::ref_typespec::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  slang_uhdm::UhdmExporter::makeParamTs at /tmp/r11u108_dbgsrc/src/ParamEmit.cpp:24827
+#2  slang_uhdm::UhdmExporter::patchParamTypespecs at /tmp/r11u108_dbgsrc/src/ParamEmit.cpp:25906
+#3  slang_uhdm::UhdmExporter::emitTopPorts at /tmp/r11u108_dbgsrc/src/ModuleEmit.cpp:28618
+#4  slang_uhdm::UhdmExporter::exportDesign at /tmp/r11u108_dbgsrc/src/UhdmExporter.cpp:7724
+#5  main at /tmp/r11u108_dbgsrc/uhdm_main.cpp:479
+## FACE 2 (stamped_gen_param shape, grid pk/k13): the member refs 'q2::q2::impl_t::U' (DEF listing 5868, TOP listing 5873)
+#0  UHDM::ref_typespec::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  slang_uhdm::UhdmExporter::buildStructTs at /tmp/r11u108_dbgsrc/src/TypeEmit.cpp:13536
+#2  slang_uhdm::UhdmExporter::emitPackage at /tmp/r11u108_dbgsrc/src/ParamEmit.cpp:29360
+#3  slang_uhdm::UhdmExporter::exportDesign at /tmp/r11u108_dbgsrc/src/UhdmExporter.cpp:5868
+#4  main at /tmp/r11u108_dbgsrc/uhdm_main.cpp:479
+#0  UHDM::ref_typespec::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  slang_uhdm::UhdmExporter::buildStructTs at /tmp/r11u108_dbgsrc/src/TypeEmit.cpp:13536
+#2  slang_uhdm::UhdmExporter::emitPackage at /tmp/r11u108_dbgsrc/src/ParamEmit.cpp:29360
+#3  slang_uhdm::UhdmExporter::exportDesign at /tmp/r11u108_dbgsrc/src/UhdmExporter.cpp:5873
+#4  main at /tmp/r11u108_dbgsrc/uhdm_main.cpp:479
+## FACE 3 (LargeValue2Struct): the param_assign RHS struct clone's member alias ref 'pack::scrmbl_key_init_t.key.sram_key_t'
+#0  UHDM::ref_typespec::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  slang_uhdm::UhdmExporter::buildStructTs at /tmp/r11u108_dbgsrc/src/TypeEmit.cpp:13258
+#2  slang_uhdm::UhdmExporter::makeParamTs at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/allocator.h:161
+#3  operator() at /tmp/r11u108_dbgsrc/src/ParamEmit.cpp:20537
+#4  slang_uhdm::UhdmExporter::emitParameters at /tmp/r11u108_dbgsrc/src/ParamEmit.cpp:20555
+#5  slang_uhdm::UhdmExporter::emitInstance at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/stl_tree.h:269
+#6  slang_uhdm::UhdmExporter::exportDesign at /tmp/r11u108_dbgsrc/src/UhdmExporter.cpp:7661
+## FACE 3, qualified spelling (grid pk/k11): 'p::s_t.key.k_t'
+#0  UHDM::ref_typespec::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  slang_uhdm::UhdmExporter::buildStructTs at /tmp/r11u108_dbgsrc/src/TypeEmit.cpp:13258
+#2  slang_uhdm::UhdmExporter::makeParamTs at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/allocator.h:161
+#3  operator() at /tmp/r11u108_dbgsrc/src/ParamEmit.cpp:20537
+#4  slang_uhdm::UhdmExporter::emitParameters at /tmp/r11u108_dbgsrc/src/ParamEmit.cpp:20656
+#5  slang_uhdm::UhdmExporter::emitInstance at /opt/rh/gcc-toolset-14/root/usr/include/c++/14/bits/stl_tree.h:269
+#6  slang_uhdm::UhdmExporter::exportDesign at /tmp/r11u108_dbgsrc/src/UhdmExporter.cpp:7661
+## FACE 4a (grid f4/c01): the cast operation's typespec ref 'work@dut.f' (the second hit is the cast; the first the def-view return var)
+#0  UHDM::ref_typespec::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  slang_uhdm::UhdmExporter::emitTaskFuncs at /tmp/r11u108_dbgsrc/src/TaskFuncEmit.cpp:4387
+#2  slang_uhdm::UhdmExporter::emitModuleDef at /tmp/r11u108_dbgsrc/src/ModuleEmit.cpp:4969
+#3  slang_uhdm::UhdmExporter::exportDesign at /tmp/r11u108_dbgsrc/src/UhdmExporter.cpp:7409
+#4  main at /tmp/r11u108_dbgsrc/uhdm_main.cpp:479
+#0  UHDM::ref_typespec::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  slang_uhdm::UhdmExporter::emitExpr at /tmp/r11u108_dbgsrc/src/ExprEmit.cpp:22634
+#2  slang_uhdm::UhdmExporter::emitExpr at /tmp/r11u108_dbgsrc/src/ExprEmit.cpp:13934
+#3  slang_uhdm::UhdmExporter::emitStmt at /tmp/r11u108_dbgsrc/src/StmtEmit.cpp:1939
+#4  slang_uhdm::UhdmExporter::emitTaskFuncs at /tmp/r11u108_dbgsrc/src/TaskFuncEmit.cpp:7038
+#5  slang_uhdm::UhdmExporter::emitModuleDef at /tmp/r11u108_dbgsrc/src/ModuleEmit.cpp:4969
+#6  slang_uhdm::UhdmExporter::exportDesign at /tmp/r11u108_dbgsrc/src/UhdmExporter.cpp:7409
+## FACE 4b (grid f4/c02): the function-name ref_obj's return var ref 'work@dut.f.f'
+#0  UHDM::ref_typespec::VpiFullName(std::basic_string_view<char, std::char_traits<char> >) ()
+#1  slang_uhdm::UhdmExporter::drainFuncRet at /tmp/r11u108_dbgsrc/src/ModuleEmit.cpp:36573
+#2  slang_uhdm::UhdmExporter::emitTopPorts at /tmp/r11u108_dbgsrc/src/ModuleEmit.cpp:28497
+#3  slang_uhdm::UhdmExporter::exportDesign at /tmp/r11u108_dbgsrc/src/UhdmExporter.cpp:7724
+#4  main at /tmp/r11u108_dbgsrc/uhdm_main.cpp:479

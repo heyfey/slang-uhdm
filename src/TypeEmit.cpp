@@ -11851,6 +11851,13 @@ void UhdmExporter::modTdClonePkgTopInstance16(UHDM::design* d) {
     }
 }
 
+// § defPkgMemberTdOfNamedShares108 (buildStructTs, below): the DEF package
+// listing's struct members bound to the SHARED `pkg::T` object of a
+// typedef-of-a-named-type.  LAW S (bareScalarTypedefVarTs) skips them.  File
+// static because both of its readers live in this file (one exporter per
+// process; the header is shared ground).
+static std::set<const UHDM::typespec_member*> pkgTdMemShared108;
+
 // PASS-15's "MEASURED ZERO" NOTE, CORRECTED (r10earl16).  Pass 15 tried the
 // Elem_typespec descent, measured no change, and concluded the def->top MAP
 // had no entry for a STRUCT typedef.  That conclusion is REFUTED: an
@@ -12186,8 +12193,13 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         // variable, in every view (r9: `p1::st.a -> bt alias='p1::bt'`, two
         // copies for two members of one struct) — a typespec_member is not a
         // `variables`, so it needs its own arm.
-        else if (auto* tm = dynamic_cast<UHDM::typespec_member*>(o))
-            rebind(tm->Typespec(), true);
+        // § defPkgMemberTdOfNamedShares108 — a member that law bound to the
+        // shared `pkg::T` object of a typedef-of-a-named-type keeps it: that
+        // object is Surelog's `TypeDef` typespec itself, never a LAW-S copy.
+        else if (auto* tm = dynamic_cast<UHDM::typespec_member*>(o)) {
+            if (!pkgTdMemShared108.count(tm))
+                rebind(tm->Typespec(), true);
+        }
         // § portVecTdElemClone18 (r10earl18) — the PORT flavour of LAW S's
         // per-declaration clone, and the last two AllModules heads that share
         // one shape (work@sha2, work@hmac).  A port declared as a PACKED
@@ -13138,6 +13150,114 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         btaMem = &etm.as<TypeAliasType>();
                         btaMemBase = titm->second;
                     }
+                }
+            }
+            // § defPkgMemberTdOfNamedShares108 — THE DEF PACKAGE LISTING's
+            // member written `T [d] m`, where T is a PACKAGE typedef whose own
+            // written type is a NAMED type (`typedef ut_e [0:2] row_t;`),
+            // binds T's SHARED typedef object directly: no member-span
+            // typespec, the member's own [d] dropped.
+            //
+            // DECODED PRODUCER (Surelog v1.87).  A package typedef of a NAMED
+            // type is filed as a `TypeDef` + `DummyType` whose typespec is
+            // built AT PACKAGE COMPILE (CompileHelper.cpp:890-1030, "except
+            // for packages and FileContent", Reduce::Yes) and stored with
+            // `newTypeDef->setTypespec` (:929-1043).  A member naming it reaches
+            // `compileDatastructureTypespec` (CompileType.cpp:852-858), whose
+            // `TypeDef` arm returns `parent_tpd->getTypespec()` itself.  The
+            // ELABORATED listing then wraps it with the member's dims
+            // (CompileType.cpp:1934-1946: a logic_typespec whose Elem is that SAME
+            // object); the DEF listing's member carries no wrapper at all —
+            // MEASURED on golden (grid below); why the def pass hands no ranges to
+            // that wrapper is NOT decoded, the grid is the authority.  A typedef of a
+            // BUILT-IN vector is a `SimpleType` instead and takes the
+            // clone-with-alias arm (CompileType.cpp:882-895) — the pristine
+            // `vtaMem` road below, left untouched.  The ELABORATED (top)
+            // listing rebuilds the member with its dimension and is not this
+            // law's surface.
+            //
+            // GOLDEN GRID tools/probe/r11u108repro/grid/pk k13, k12 and grid/f2
+            // m02/m04/m08/m09 (def listing -> `pkg::T` itself); controls m01
+            // (typedef of a built-in vector), m03/m07 (enum / 2-state leaf),
+            // m05 (union), m06 (module struct), m10 (no member dims) do not
+            // move.  `R11U108_PKGTDMEM_OFF=1` drops the law.
+            if (!fts && vtaMem && vtaMemBase && inPkgTypedefEmit && !pkgTopEmit) {
+                static const bool off108 =
+                    getenv("R11U108_OFF") != nullptr ||
+                    getenv("R11U108_PKGTDMEM_OFF") != nullptr;
+                const syntax::SyntaxNode* tdSyn108 = vtaMem->getSyntax();
+                bool namedTgt108 =
+                    tdSyn108 &&
+                    tdSyn108->kind == syntax::SyntaxKind::TypedefDeclaration &&
+                    tdSyn108->as<syntax::TypedefDeclarationSyntax>().type->kind ==
+                        syntax::SyntaxKind::NamedType;
+                auto* home108 = vtaMem->getParentScope();
+                bool inPkg108 = home108 && home108->asSymbol().kind ==
+                                               SymbolKind::Package;
+                if (!inPkg108)
+                    home108 = nullptr;
+                // The share map may hold this build's bare-named alias clone
+                // of T (`row_t`, Typedef_alias -> the listing object); the
+                // object Surelog stores is the LISTING's `pkg::T` itself, so
+                // one alias hop is taken and the name is asserted.
+                std::string want108 =
+                    home108 ? std::string(home108->asSymbol().name) + "::" +
+                                  std::string(vtaMem->name)
+                            : std::string();
+                UHDM::typespec* shared108 = vtaMemBase;
+                if (shared108->VpiName() != want108)
+                    if (auto* al108 = ((UHDM::logic_typespec*)vtaMemBase)
+                                          ->Typedef_alias())
+                        if (al108->Actual_typespec())
+                            shared108 = al108->Actual_typespec();
+                // The typedef's LEAF must be a four-state scalar: an ENUM or
+                // aggregate element (`typedef e_t [0:2] ea_t`, grid f2 m03)
+                // is a packed_array_typespec in golden while our listing
+                // object is a logic_typespec, so binding it would trade a
+                // name miss for a kind miss.  Left on the pristine road.
+                const Type* leaf108 = &vtaMem->getCanonicalType();
+                while (leaf108->kind == SymbolKind::PackedArrayType)
+                    leaf108 = &leaf108->as<PackedArrayType>()
+                                   .elementType.getCanonicalType();
+                if (leaf108->kind != SymbolKind::ScalarType ||
+                    !leaf108->isFourState())
+                    namedTgt108 = false;
+                // v11u108 (verifier) — an UNQUALIFIED member type name that an
+                // import brings in from ANOTHER package (`import p1::*;` in q2,
+                // member `row_t [0:1] U`) keeps the pristine member-span
+                // wrapper in golden (brk c25: unnamed logic_typespec, elem ->
+                // p1::row_t), while the same typedef reached by a QUALIFIED name
+                // (`p1::row_t [0:1] U`, brk c10) or declared in the struct's own
+                // package binds the shared `pkg::T`.  So the law fires only
+                // for the struct's own package or a scoped name.
+                if (namedTgt108 && inPkg108) {
+                    static const bool offFix2_108 =
+                        getenv("V11U108_FIX_OFF") != nullptr ||
+                        getenv("V11U108_FIX2_OFF") != nullptr;
+                    const Symbol* spkg108 = nullptr;
+                    for (auto* sc108 = structScope.asSymbol().getParentScope();
+                         sc108; sc108 = sc108->asSymbol().getParentScope())
+                        if (sc108->asSymbol().kind == SymbolKind::Package) {
+                            spkg108 = &sc108->asSymbol();
+                            break;
+                        }
+                    bool scoped108 =
+                        memberTypeSyn &&
+                        memberTypeSyn->kind == syntax::SyntaxKind::NamedType &&
+                        memberTypeSyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                            syntax::SyntaxKind::ScopedName;
+                    if (!offFix2_108 && &home108->asSymbol() != spkg108 &&
+                        !scoped108)
+                        namedTgt108 = false;
+                }
+                if (!off108 && namedTgt108 && inPkg108 &&
+                    shared108->UhdmType() == UHDM::uhdmlogic_typespec &&
+                    shared108->VpiName() == want108) {
+                    fts = shared108;
+                    pkgTdMemShared108.insert(tm);
+                    tfContext = savedTf;
+                    vtaMem = nullptr;
+                    vtaMemBase = nullptr;
                 }
             }
             // A packed array over a BIT TYPEDEF member (bit8_t [3:0] a):
@@ -22089,6 +22209,104 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
     if (!tsyn32 || tsyn32->kind != syntax::SyntaxKind::NamedType)
         return nullptr;
     auto& dt = declared->getType();
+    // § tpPackedArrayTsVar108 — THE DIMENSIONLESS CELL.  A declaration typed
+    // by a bare type-parameter NAME (`rt_t rt_i`, no written dims) whose
+    // parameter resolved to a `packed_array_typespec` (`localparam type rt_t =
+    // id_t [DEPTH-1:0]`) elaborates in Surelog as a `packed_array_var` that
+    // carries ONLY its typespec ref — no vpiRange, no vpiElement.
+    //
+    // DECODED PRODUCER (Surelog v1.87 `ElaborationStep::makeVar_`).  The
+    // dtype walk's `Parameter` arm (ElaborationStep.cpp:1943-1958) hands the
+    // elaborated typespec to `CompileHelper::getSimpleVarFromTypespec`
+    // (CompileType.cpp:78-240), which has NO `uhdmpacked_array_typespec`
+    // case and returns null; the walk ends and the `found == false && tps`
+    // dispatch (ElaborationStep.cpp:1964-2024) mints a bare
+    // `packed_array_var` for `tpstype == uhdmpacked_array_typespec` (:2018)
+    // and hangs only the typespec ref on it (:2031-2038).  The dispatch reads
+    // the TYPESPEC KIND, not the element's state: a 2-state element (`bit
+    // [1:0]` default or override) takes the same arm (grid f5a06/f5a16), so
+    // the four-state gate of the written-dims cell below does NOT apply here.
+    //
+    // GOLDEN GRID tools/probe/r11u108repro/grid/f5: body var, input, output,
+    // instance override, 2-state element, scalar/enum/struct element, a type
+    // parameter chained to the localparam type — all `packed_array_var` with
+    // the typespec only (an initialised var is too, with its vpiExpr; it is
+    // refused below).
+    // The typespec object is the one the type parameter resolved to
+    // (`typeParamElabTs`), the SAME object the pristine `logic_var` pointed
+    // at, so only the variable's kind moves.  `R11U108_TPPAV_OFF=1` drops the
+    // law.
+    if (dt.kind == SymbolKind::TypeAlias) {
+        static const bool off108 = getenv("R11U108_OFF") != nullptr ||
+                                   getenv("R11U108_TPPAV_OFF") != nullptr;
+        if (off108)
+            return nullptr;
+        auto* syn108 = dt.getSyntax();
+        if (!syn108 || syn108->kind != syntax::SyntaxKind::TypeAssignment)
+            return nullptr;
+        // An INITIALISED declaration (`rt_t x = 8'h5a`, grid f5a18) is left
+        // on the road that attaches its vpiExpr: golden carries the constant
+        // on the packed_array_var, and this factory's caller `continue`s past
+        // the initializer emission (ModuleEmit.cpp, fenced) — firing here
+        // would DROP the expression.  Named residue.
+        if (auto* vs108 = sym.as_if<ValueSymbol>();
+            vs108 && vs108->getInitializer())
+            return nullptr;
+        // An EXPLICIT net declaration (`wire rt_t x`, grid f5a13) is refused:
+        // the decoded arm is `makeVar_`'s, and the pinned Surelog crashes on
+        // that arm (rc=139), so no golden says what a net becomes.
+        if (sym.kind == SymbolKind::Net)
+            if (auto* dsy108 = sym.getSyntax();
+                dsy108 && dsy108->parent &&
+                dsy108->parent->kind == syntax::SyntaxKind::NetDeclaration)
+                return nullptr;
+        // v11u108 (verifier) — A PORT's default / initializer (`input rt_t a
+        // = '0`, `output rt_t o = 8'h5a`) lives on the PortSymbol and on the
+        // declarator, not on the internal symbol, so the refusal above misses
+        // it; golden carries it as the packed_array_var's vpiExpr (brk
+        // b23/b24) and the pristine logic_var road attaches it.  Refused on
+        // the same terms as the initialised body declaration.
+        static const bool offFix108 = getenv("V11U108_FIX_OFF") != nullptr ||
+                                     getenv("V11U108_FIX5_OFF") != nullptr;
+        const syntax::SyntaxNode* dsx108 = sym.getSyntax();
+        if (!offFix108 && dsx108 &&
+            dsx108->kind == syntax::SyntaxKind::Declarator &&
+            dsx108->as<syntax::DeclaratorSyntax>().initializer)
+            return nullptr;
+        auto* tp108 = typeParamOfAlias(dt.as<TypeAliasType>());
+        if (!tp108)
+            return nullptr;
+        auto it108 = typeParamElabTs.find(tp108);
+        if (it108 == typeParamElabTs.end() || !it108->second ||
+            it108->second->UhdmType() != UHDM::uhdmpacked_array_typespec)
+            return nullptr;
+        auto* pav108 = s.MakePacked_array_var();
+        pav108->VpiName(name);
+        pav108->VpiFullName(fullName);
+        pav108->VpiParent(m);
+        setLoc(pav108, nameSpan(sym.location, sym.name));
+        pav108->VpiVisibility(1);
+        auto* rt108 = s.MakeRef_typespec();
+        rt108->VpiFullName(fullName);
+        rt108->VpiParent(pav108);
+        rt108->Actual_typespec(it108->second);
+        pav108->Typespec(rt108);
+        // v11u108 (verifier) — a BODY declaration's attributes ride on the
+        // variable (`(* keep *) rt_t x;`: golden packed_array_var carries
+        // vpiAttribute, Surelog makeVar_ `obj->Attributes(sig->attributes())`,
+        // ElaborationStep.cpp:2403; the pristine logic_var road attached them
+        // too).  A PORT's attributes do not (golden brk b26), so the gate is
+        // the DataDeclaration parent.
+        if (!offFix108 && dsx108 && dsx108->parent &&
+            dsx108->parent->kind == syntax::SyntaxKind::DataDeclaration)
+            if (auto* attrs108 = findAttrs(&sym)) {
+                auto* av108 = s.MakeAttributeVec();
+                for (auto* ua : *attrs108)
+                    av108->push_back(ua);
+                pav108->Attributes(av108);
+            }
+        return pav108;
+    }
     if (dt.kind != SymbolKind::PackedArrayType)
         return nullptr;
     std::vector<ConstantRange> arrRanges;
@@ -22133,6 +22351,20 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
     auto tit32 = typeParamElabTs.find(tpsym);
     if (tit32 == typeParamElabTs.end() || !tit32->second)
         return nullptr;
+    // § tpPackedArrayTsVar108, the WRITTEN-DIMS half.  The same `makeVar_`
+    // arm decides a declaration that writes dims on a type parameter which
+    // itself resolved to a `packed_array_typespec` (`rt_t [1:0] x`, grid
+    // f5a10): `getSimpleVarFromTypespec` still has no packed-array case, so
+    // the written dims are DROPPED and the `packed_array_var` carries only
+    // the parameter's typespec — no vpiRange, no vpiElement (golden f5a10).
+    // A logic/bit-typed parameter keeps the ranged form below (pass-32 grid).
+    bool tsOnly108 = false;
+    {
+        static const bool off108w = getenv("R11U108_OFF") != nullptr ||
+                                    getenv("R11U108_TPPAV_OFF") != nullptr;
+        tsOnly108 = !off108w && tit32->second->UhdmType() ==
+                                    UHDM::uhdmpacked_array_typespec;
+    }
     auto* pav = s.MakePacked_array_var();
     pav->VpiName(name);
     pav->VpiFullName(fullName);
@@ -22144,6 +22376,8 @@ UHDM::packed_array_var* UhdmExporter::emitTypeParamArrayVar(
     rt->VpiParent(pav);
     rt->Actual_typespec(tit32->second);
     pav->Typespec(rt);
+    if (tsOnly108)
+        return pav;
     // Dim spans scanned between the type-syntax start and the declarator, and
     // the bounds FOLDED with reduceExpr's value type and anchor — the same
     // reading emitVectorTypedefArrayVar makes of the same written text.  The

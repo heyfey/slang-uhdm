@@ -1,0 +1,90 @@
+# r11u108 grids: arm | pristine cmp lines/heads | law cmp lines/heads | law bytes vs pristine | law head (LHS golden / RHS ours, first object line)
+# golden = pinned Surelog -parse -nobuiltin -nocache -sv; ours = --single-unit --nobuiltin; law binary md5 81f13e490e460366e81cf289d01d853d
+# calibration: uhdm-cmp golden-vs-golden over 82 arms = 0 nonzero
+## grid/f5
+f5a01_tpq_body | 60/1 | 0/0 | MOVED | L:  | R:
+f5a02_tpq_in | 60/1 | 0/0 | MOVED | L:  | R:
+f5a03_tpq_out | 60/1 | 0/0 | MOVED | L:  | R:
+f5a04_ctl_plainvec | 0/0 | 0/0 | SAME | L:  | R:
+f5a05_override | 60/1 | 47/1 | MOVED | L: logic_typespec: , id:82, line:7:17, endln:7:28 | R: <null>
+f5a06_bitelem | 60/1 | 0/0 | MOVED | L:  | R:
+f5a07_enumelem | 17/1 | 0/0 | MOVED | L:  | R:
+f5a08_structelem | 17/1 | 0/0 | MOVED | L:  | R:
+f5a09_typedefelem | 537/1 | 537/1 | MOVED | L: RHS: | R: design: (work@dut), id:1
+f5a10_writtendims_ctl | 81/1 | 0/0 | MOVED | L:  | R:
+f5a11_unpacked_ctl | 52/1 | 52/1 | SAME | L: packed_array_var: (work@dut.x), id:88, line:2:8, endln:2:9 | R: logic_var: (work@dut.x), id:78, line:2:8, endln:2:9
+f5a12_chain | 60/1 | 0/0 | MOVED | L:  | R:
+f5a13_wire | NOGOLD(surelog rc=139) | NOGOLD | SAME |
+f5a14_multidim_ctl | 0/0 | 0/0 | SAME | L:  | R:
+f5a15_scalarelem | 60/1 | 0/0 | MOVED | L:  | R:
+f5a16_ovr2state | 60/1 | 56/1 | MOVED | L: bit_typespec: , id:62, line:7:17, endln:7:26 | R: logic_typespec: , id:6, line:1:38, endln:1:43
+f5a17_funcvar | 64/1 | 64/1 | SAME | L: packed_array_typespec: , id:13, line:1:72, endln:1:82 | R: logic_typespec: , id:31, line:3:5, endln:3:9
+f5a18_init | 92/1 | 92/1 | SAME | L: packed_array_var: (work@dut.x), id:60, line:2:8, endln:2:9 | R: logic_var: (work@dut.x), id:50, line:2:8, endln:2:17
+f5a19_pkgtd_elem | 108/1 | 108/1 | MOVED | L: logic_typespec: (w_t), id:88, line:2:11, endln:2:22 | R: logic_typespec: (p::w_t), id:8, line:2:11, endln:2:22
+f5a20_ovr_pkgarr | 154/1 | 154/1 | SAME | L: package: p (p::), id:42, id:2
+f5a21_wdims_in | 81/1 | 64/1 | MOVED | L: packed_array_typespec: , id:29, line:1:72, endln:1:82 | R: logic_typespec: , id:23, line:1:91, endln:1:101
+f5a22_wdims_init | 19/1 | 19/1 | MOVED | L: constant: , id:59, line:2:18, endln:2:26 | R: <null>
+f5a23_wdims_logicts_ctl | 0/0 | 0/0 | SAME | L:  | R:
+f5a24_wdims_override | 81/1 | 64/1 | MOVED | L: packed_array_typespec: , id:66, line:1:68, endln:1:78 | R: logic_typespec: , id:96, line:1:87, endln:1:97
+## grid/f4
+c01_modfunc_cast | 17/1 | 17/1 | SAME | L: ref_typespec: (imm_t), id:30 | R: <null>
+c02_modfunc_ret | 17/1 | 17/1 | SAME | L: ref_typespec: (work@dut.f.f.imm_t), id:80 | R: <null>
+c03_modfunc_ret_cast | 17/1 | 17/1 | SAME | L: ref_typespec: (imm_t), id:28 | R: <null>
+c04_modscope_cast | 0/0 | 0/0 | SAME | L:  | R:
+c05_always_cast | 0/0 | 0/0 | SAME | L:  | R:
+c06_modtask_cast | 17/1 | 17/1 | SAME | L: ref_typespec: (imm_t), id:27 | R: <null>
+c07_unsigned_td | 17/1 | 17/1 | SAME | L: ref_typespec: (w_t), id:33 | R: <null>
+c08_bit_td | 17/1 | 17/1 | SAME | L: ref_typespec: (w_t), id:33 | R: <null>
+c09_int_td | 17/1 | 17/1 | SAME | L: ref_typespec: (w_t), id:23 | R: <null>
+c10_struct_td | 0/0 | 0/0 | SAME | L:  | R:
+c11_twocasts | 17/1 | 17/1 | SAME | L: ref_typespec: (imm_t), id:31 | R: <null>
+c12_const_fold | 17/1 | 17/1 | SAME | L: ref_typespec: (imm_t), id:28 | R: <null>
+## grid/pk
+k01_param_v | 126/1 | 126/1 | SAME | L: logic_typespec: (p::v_t), id:153, line:3:11, endln:3:22 | R: logic_typespec: (v_t), id:106, line:3:11, endln:3:22
+k02_param_vn | 148/1 | 148/1 | SAME | L: logic_typespec: (p::vn_t), id:153, line:4:11, endln:4:24 | R: logic_typespec: (vn_t), id:108, line:4:11, endln:4:24
+k03_param_vn_default | 148/1 | 148/1 | SAME | L: logic_typespec: (p::vn_t), id:154, line:4:11, endln:4:24 | R: logic_typespec: (vn_t), id:109, line:4:11, endln:4:24
+k04_param_s | 26/1 | 26/1 | SAME | L: logic_typespec: (p::s_t), id:128, line:5:11, endln:5:16 | R: logic_typespec: , id:84, line:7:24, endln:7:30
+k05_param_a | 490/1 | 490/1 | SAME | L: package: p (p::), id:74, id:2
+k06_param_import | 58/1 | 58/1 | SAME | L: constant: , id:97, line:4:20, endln:4:21 | R: operation: , id:58, line:4:20, endln:4:23
+k07_port_vn | 0/0 | 0/0 | SAME | L:  | R:
+k08_var_vn | 0/0 | 0/0 | SAME | L:  | R:
+k09_member_v_toppar | 0/0 | 0/0 | SAME | L:  | R:
+k10b_member_child_sel | 0/0 | 0/0 | SAME | L:  | R:
+k10c_member_widthparam | 0/0 | 0/0 | SAME | L:  | R:
+k10d_member_child_nosel | 0/0 | 0/0 | SAME | L:  | R:
+k10e_member_child_sel_q | 108/1 | 108/1 | SAME | L: logic_typespec: (k_t), id:239, line:3:11, endln:3:24 | R: logic_typespec: (p::k_t), id:129, line:3:11, endln:3:24
+k10f_member_bodyimport | 0/0 | 0/0 | SAME | L:  | R:
+k10g_member_bodyimport_child | 0/0 | 0/0 | SAME | L:  | R:
+k10h_noassign | 0/0 | 0/0 | SAME | L:  | R:
+k10i_noassign_nochild | 0/0 | 0/0 | SAME | L:  | R:
+k10j_wide | 108/1 | 108/1 | SAME | L: logic_typespec: (k_t), id:309, line:3:11, endln:3:24 | R: logic_typespec: (p::k_t), id:113, line:3:11, endln:3:24
+k10k_w32 | 0/0 | 0/0 | SAME | L:  | R:
+k10l_w33 | 108/1 | 108/1 | SAME | L: logic_typespec: (k_t), id:309, line:3:11, endln:3:24 | R: logic_typespec: (p::k_t), id:113, line:3:11, endln:3:24
+k10_member_v_pkgparam | 0/0 | 0/0 | SAME | L:  | R:
+k11_member_v_qualified | 108/1 | 108/1 | SAME | L: logic_typespec: (k_t), id:221, line:3:11, endln:3:24 | R: logic_typespec: (p::k_t), id:110, line:3:11, endln:3:24
+k12_member_arr_dims | 658/1 | 658/1 | MOVED | L: package: p (p::), id:85, id:2
+k13_member_nested_stamp | 138/1 | 17/1 | MOVED | L: ref_typespec: (q2::q2::row_t), id:40 | R: <null>
+k14_member_nested_nodim | 100/1 | 100/1 | SAME | L: logic_typespec: (q2::row_t), id:39, line:4:44, endln:4:49 | R: logic_typespec: (row_t), id:35, line:3:11, endln:3:21
+k15_member_vec_dim | 263/1 | 263/1 | SAME | L: package: q2 (q2::), id:1
+k16_func_ret_pkg | 17/1 | 17/1 | SAME | L: ref_typespec: (work@dut), id:134 | R: <null>
+k17_func_in_pkg | 148/1 | 148/1 | SAME | L: logic_typespec: (p::vn_t), id:208, line:3:11, endln:3:24 | R: logic_typespec: (vn_t), id:172, line:3:11, endln:3:24
+k18_cast_pkg | 122/1 | 122/1 | SAME | L: logic_typespec: (p::v_t), id:140, line:3:11, endln:3:22 | R: logic_typespec: (v_t), id:78, line:3:11, endln:3:22
+k19_cross_pkg | 36/1 | 36/1 | SAME | L: constant: , id:83, line:4:20, endln:4:21 | R: constant: , id:26, line:4:20, endln:4:21
+k20_cfg_func_width | 148/1 | 148/1 | SAME | L: logic_typespec: (q::mask_t), id:214, line:3:11, endln:3:25 | R: logic_typespec: (mask_t), id:178, line:3:11, endln:3:25
+k21_param_vn_nofunc | 148/1 | 148/1 | SAME | L: logic_typespec: (q::mask_t), id:135, line:3:11, endln:3:25 | R: logic_typespec: (mask_t), id:98, line:3:11, endln:3:25
+k22_param_v_literal | 126/1 | 126/1 | SAME | L: logic_typespec: (q::mask_t), id:94, line:2:11, endln:2:22 | R: logic_typespec: (mask_t), id:82, line:2:11, endln:2:22
+k23c_samekey | 108/1 | 108/1 | SAME | L: logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35 | R: logic_typespec: (pack::sram_key_t), id:144, line:4:11, endln:4:35
+k23d_nowidth | 108/1 | 108/1 | SAME | L: logic_typespec: (sram_key_t), id:360, line:4:11, endln:4:35 | R: logic_typespec: (pack::sram_key_t), id:143, line:4:11, endln:4:35
+k23e_nokeysel | 108/1 | 108/1 | SAME | L: logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35 | R: logic_typespec: (pack::sram_key_t), id:144, line:4:11, endln:4:35
+k23_lv2s_copy | 108/1 | 108/1 | SAME | L: logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35 | R: logic_typespec: (pack::sram_key_t), id:144, line:4:11, endln:4:35
+## grid/f2
+m01_vec_td_ctl | 229/1 | 229/1 | SAME | L: package: q2 (q2::), id:1
+m02_alias_of_td | 138/1 | 34/1 | MOVED | L: constant: , id:125, line:8:14, endln:8:20 | R: ref_obj: (q2::P0), id:65, line:8:14, endln:8:18
+m03_enum_td_arr | 192/1 | 192/1 | SAME | L: packed_array_typespec: (q2::ea_t), id:21, line:3:11, endln:3:20 | R: packed_array_typespec: , id:60, line:4:44, endln:4:54
+m04_cross_pkg | 138/1 | 17/1 | MOVED | L: ref_typespec: (q2::q2::r_t), id:29 | R: <null>
+m05_union_ctl | 138/1 | 138/1 | SAME | L: logic_typespec: (q2::row_t), id:39 | R: logic_typespec: , id:51, line:4:26, endln:4:37
+m06_module_struct_ctl | 154/1 | 154/1 | SAME | L: package: q2 (q2::), id:42, id:2
+m07_bit_td_arr | 152/1 | 152/1 | SAME | L: packed_array_typespec: (q2::br_t), id:25, line:3:11, endln:3:20 | R: packed_array_typespec: , id:49, line:4:44, endln:4:54
+m08_two_members | 138/1 | 17/1 | MOVED | L: ref_typespec: (q2::q2::row_t), id:40 | R: <null>
+m09_nested_struct | 138/1 | 17/1 | MOVED | L: ref_typespec: (q2::q2::row_t), id:40 | R: <null>
+m10_td_named_nodims_member | 100/1 | 100/1 | SAME | L: logic_typespec: (q2::row_t), id:39, line:4:44, endln:4:49 | R: logic_typespec: (row_t), id:21, line:3:11, endln:3:21

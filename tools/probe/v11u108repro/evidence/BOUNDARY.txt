@@ -1,0 +1,54 @@
+# wide boundary (bndv108.sh = r11u108 bnd108.sh with both repro dirs excluded): every *.sv/*.v under tools/probe, compiled alone, --single-unit --nobuiltin
+## pris (b4f28467) vs lawx (81f13e49)
+LISTED=8832 PROCESSED=8832
+     38 MOVED
+    232 NOOUT
+   8562 SAME
+MOVED ./r10buvm22repro/g22.sv rc=4/4
+MOVED ./r10uvm154repro/l154_noenum.sv rc=0/0
+MOVED ./r10uvm185repro/grid185/g185_e_kinds.sv rc=0/0
+MOVED ./r11u107repro/grid/o01_ovr_elem/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o02_ovr_then_def/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o03_def_then_ovr/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o04_two_ovr/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o05_top_chain/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o06_nodef_ctl/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o07_passthru/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o08_ovr_typedef/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/o09_param_not_local/dut.sv rc=0/0
+MOVED ./r11u107repro/grid/t05_tp_struct_dim/dut.sv rc=0/0
+MOVED ./r11u31repro/g2.sv rc=0/0
+MOVED ./r11u31repro/g3.sv rc=0/0
+MOVED ./r11u31repro/g4.sv rc=0/0
+MOVED ./r11u31repro/g5.sv rc=0/0
+MOVED ./r11u45repro/g11.sv rc=0/0
+MOVED ./r11u57repro/grid/e2_holder57/dut.sv rc=0/0
+MOVED ./r11v35repro/grid/v6_dims35/dut.sv rc=0/0
+MOVED ./r11v45repro/v4.sv rc=0/0
+MOVED ./r11v45repro/v8.sv rc=0/0
+MOVED ./v11u93b107repro/brk/q01_dim_valparam/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/q05_union_dim/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/q06_two_dims/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/q12_dim_one_ovr_child/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r01_gen_first/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r02_gen_last/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r03_nested_first/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r04_nested_last/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r05_rt_ovr_samename/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r06_ovr_pkg_struct/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r07_inst_array/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r08_two_defs/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r09_gen_for/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r10_two_tops/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r11_nested_gen/dut.sv rc=0/0
+MOVED ./v11u93b107repro/brk/r12_gen_mid/dut.sv rc=0/0
+  -> the same 38-arm set r11u108 reports (diffed against its evidence/BOUNDARY.txt)
+## lawx (81f13e49) vs fix2 (86604f20)
+LISTED=8832 PROCESSED=8832
+      3 MOVED
+    232 NOOUT
+   8597 SAME
+MOVED ./r10buvm22repro/g22.sv rc=4/4
+MOVED ./r10uvm154repro/l154_noenum.sv rc=0/0
+MOVED ./r10uvm185repro/grid185/g185_e_kinds.sv rc=0/0
+  -> the three are the layout-derived tail constant only (order-blind dump diff = UINT/vpiDecompile pairs, delta 4128); layoutproof154.sh: LAYOUTPROOF OK for pris->lawx and lawx->fix2

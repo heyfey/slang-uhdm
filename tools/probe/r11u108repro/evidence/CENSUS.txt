@@ -1,0 +1,51 @@
+# CENSUS (golden databases first, then ours) -- the PREDICTION inputs, pristine sweep
+## cen108 (law 1 shape), uhdm2rtlil pristine sweep: every elaborated variable carrying a packed_array_typespec, golden vs ours
+default/anon_struct_packed_dim ours struct_var work@anon_struct_packed_dim.content_q expr=0 ranges=0 elems=0
+default/anon_struct_packed_dim ours struct_var work@anon_struct_packed_dim.q_n expr=0 ranges=0 elems=0
+default/anon_struct_packed_dim ours struct_var work@anon_struct_packed_dim.tq expr=0 ranges=0 elems=0
+default/EnumMultirange gold packed_array_var work@top.transition_target_d expr=0 ranges=0 elems=0
+default/ReturnEnumArray gold packed_array_var work@top.get_BA expr=0 ranges=1 elems=1
+default/ReturnEnumArray gold packed_array_var work@top.get_BA.out expr=0 ranges=1 elems=1
+default/ReturnEnumArray ours packed_array_var work@top.get_BA expr=0 ranges=1 elems=1
+default/ReturnEnumArray ours packed_array_var work@top.get_BA.out expr=0 ranges=1 elems=1
+default/TypedefPackedDimensions gold packed_array_var work@top.c expr=0 ranges=0 elems=0
+default/TypedefPackedDimensions ours packed_array_var work@top.c expr=0 ranges=0 elems=0
+default/typedef_packed_enum_array gold packed_array_var work@m.a expr=0 ranges=0 elems=0
+default/typedef_packed_enum_array gold packed_array_var work@m.b expr=0 ranges=0 elems=0
+default/typedef_packed_enum_array ours packed_array_var work@m.a expr=0 ranges=0 elems=0
+default/typedef_packed_enum_array ours packed_array_var work@m.b expr=0 ranges=0 elems=0
+default/TypedefStructArray gold struct_var work@top.a expr=1 ranges=0 elems=0
+default/TypedefStructArray ours struct_var work@top.a expr=1 ranges=0 elems=0
+default/type_param_override_elem_sel gold packed_array_var work@dut.u.rt_i expr=0 ranges=0 elems=0
+default/type_param_override_elem_sel ours logic_var work@dut.u.rt_i expr=0 ranges=0 elems=0
+default/type_param_packed_dim gold packed_array_var work@dut.rt_i expr=0 ranges=0 elems=0
+default/type_param_packed_dim ours logic_var work@dut.rt_i expr=0 ranges=0 elems=0
+testflags/anon_struct_packed_dim ours struct_var work@anon_struct_packed_dim.content_q expr=0 ranges=0 elems=0
+testflags/anon_struct_packed_dim ours struct_var work@anon_struct_packed_dim.q_n expr=0 ranges=0 elems=0
+testflags/anon_struct_packed_dim ours struct_var work@anon_struct_packed_dim.tq expr=0 ranges=0 elems=0
+testflags/EnumMultirange gold packed_array_var work@top.transition_target_d expr=0 ranges=0 elems=0
+testflags/ReturnEnumArray gold packed_array_var work@top.get_BA expr=0 ranges=1 elems=1
+testflags/ReturnEnumArray gold packed_array_var work@top.get_BA.out expr=0 ranges=1 elems=1
+testflags/ReturnEnumArray ours packed_array_var work@top.get_BA expr=0 ranges=1 elems=1
+testflags/ReturnEnumArray ours packed_array_var work@top.get_BA.out expr=0 ranges=1 elems=1
+testflags/TypedefPackedDimensions gold packed_array_var work@top.c expr=0 ranges=0 elems=0
+testflags/TypedefPackedDimensions ours packed_array_var work@top.c expr=0 ranges=0 elems=0
+testflags/typedef_packed_enum_array gold packed_array_var work@m.a expr=0 ranges=0 elems=0
+testflags/typedef_packed_enum_array gold packed_array_var work@m.b expr=0 ranges=0 elems=0
+testflags/typedef_packed_enum_array ours packed_array_var work@m.a expr=0 ranges=0 elems=0
+testflags/typedef_packed_enum_array ours packed_array_var work@m.b expr=0 ranges=0 elems=0
+testflags/TypedefStructArray gold struct_var work@top.a expr=1 ranges=0 elems=0
+testflags/TypedefStructArray ours struct_var work@top.a expr=1 ranges=0 elems=0
+testflags/type_param_override_elem_sel gold packed_array_var work@dut.u.rt_i expr=0 ranges=0 elems=0
+testflags/type_param_override_elem_sel ours logic_var work@dut.u.rt_i expr=0 ranges=0 elems=0
+testflags/type_param_packed_dim gold packed_array_var work@dut.rt_i expr=0 ranges=0 elems=0
+testflags/type_param_packed_dim ours logic_var work@dut.rt_i expr=0 ranges=0 elems=0
+
+## cen108, surelog pristine sweep: ROWS=1581 LINES=90
+  cells by class: {'golden-only (our row has no such variable: other head / not equal)': 28, 'SAME': 14}
+
+## cenm108 (law 2 shape), rows whose golden DEF-listing member binds a named pkg::T logic_typespec that ours lacks
+  uhdm2rtlil: stamped_gen_param default + testflags (q2|q2::impl_t|UnitTypes)
+  surelog: 0 rows (ROWS=1581 LINES=22979)
+
+## positive controls: cen108 on grid f5a01/f5a05 (gold pav, pris logic_var); cenm108 on grid pk k13 (gold q2::row_t, pris member-span)

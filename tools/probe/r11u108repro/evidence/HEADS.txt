@@ -1,0 +1,767 @@
+# six target rows: official uhdm-cmp (LHS golden) on the sweep databases, ONE head per run (grep -c ^LHS:)
+=== pris default cfg_func_width_loop rc=255 lines=148 heads=1
+LHS:
+decompile:
+logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1443
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1445, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+  |vpiLeftRange:
+  \_constant: , id:1446, line:16:18, endln:16:19
+    |vpiParent:
+    \_range: , id:1445, line:16:17, endln:16:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:1447, line:16:20, endln:16:22
+    |vpiParent:
+    \_range: , id:1445, line:16:17, endln:16:25
+    |vpiDecompile:2
+    |vpiSize:64
+    |INT:2
+    |vpiConstType:7
+
+decompile:
+logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1443
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1445, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+=== pris default const_cast_signext rc=255 lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+RHS: <null>
+=== pris default stamped_gen_param rc=255 lines=138 heads=1
+LHS:
+decompile:
+logic_typespec: (q2::row_t), id:39
+|vpiParent:
+\_package: q2 (q2::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiName:q2::row_t
+|vpiInstance:
+\_package: q2 (q2::), id:183, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiElemTypespec:
+\_ref_typespec: (q2::q2::row_t), id:40
+  |vpiParent:
+  \_logic_typespec: (q2::row_t), id:39
+  |vpiFullName:q2::q2::row_t
+  |vpiActual:
+  \_logic_typespec: , id:25, line:11:11, endln:11:21
+|vpiRange:
+\_range: , id:12, line:11:16, endln:11:21
+  |vpiParent:
+  \_packed_array_typespec: , id:11, line:11:11, endln:11:21
+  |vpiLeftRange:
+  \_constant: , id:13, line:11:17, endln:11:18
+    |vpiParent:
+    \_range: , id:12, line:11:16, endln:11:21
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:14, line:11:19, endln:11:20
+    |vpiParent:
+    \_range: , id:12, line:11:16, endln:11:21
+    |vpiDecompile:2
+    |vpiSize:64
+    |UINT:2
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (q2::row_t), id:39
+|vpiParent:
+\_package: q2 (q2::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+=== pris default type_param_override_elem_sel rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.u.rt_i), id:215, line:20:18, endln:20:22
+|vpiParent:
+\_module_inst: work@child (work@dut.u), id:265, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_override_elem_sel/dut.sv, line:32:3, endln:36:5
+|vpiTypespec:
+\_ref_typespec: (work@dut.u.rt_i), id:216
+  |vpiParent:
+  \_packed_array_var: (work@dut.u.rt_i), id:215, line:20:18, endln:20:22
+  |vpiFullName:work@dut.u.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:207, line:17:31, endln:17:47
+|vpiName:rt_i
+|vpiFullName:work@dut.u.rt_i
+|vpiVisibility:1
+
+decompile:
+packed_array_var: (work@dut.u.rt_i), id:215, line:20:18, endln:20:22
+|vpiParent:
+\_module_inst: work@child (work@dut.u), id:265, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_override_elem_sel/dut.sv, line:32:3, endln:36:5
+|vpiTypespec:
+\_ref_typespec: (work@dut.u.rt_i), id:216
+  |vpiParent:
+  \_packed_array_var: (work@dut.u.rt_i), id:215, line:20:18, endln:20:22
+  |vpiFullName:work@dut.u.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:207, line:17:31, endln:17:47
+|vpiName:rt_i
+|vpiFullName:work@dut.u.rt_i
+|vpiVisibility:1
+RHS:
+decompile:
+logic_var: (work@dut.u.rt_i), id:208, line:20:18, endln:20:22
+|vpiParent:
+\_module_inst: work@child (work@dut.u), id:177, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_override_elem_sel/dut.sv, line:32:3, endln:36:5
+|vpiTypespec:
+\_ref_typespec: (work@dut.u.rt_i), id:207
+  |vpiParent:
+  \_logic_var: (work@dut.u.rt_i), id:208, line:20:18, endln:20:22
+  |vpiFullName:work@dut.u.rt_i
+=== pris default type_param_packed_dim rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.rt_i), id:165, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:189, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:166
+  |vpiParent:
+  \_packed_array_var: (work@dut.rt_i), id:165, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:155, line:5:31, endln:5:52
+|vpiName:rt_i
+|vpiFullName:work@dut.rt_i
+|vpiVisibility:1
+
+decompile:
+packed_array_var: (work@dut.rt_i), id:165, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:189, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:166
+  |vpiParent:
+  \_packed_array_var: (work@dut.rt_i), id:165, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:155, line:5:31, endln:5:52
+|vpiName:rt_i
+|vpiFullName:work@dut.rt_i
+|vpiVisibility:1
+RHS:
+decompile:
+logic_var: (work@dut.rt_i), id:160, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:131, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:159
+  |vpiParent:
+  \_logic_var: (work@dut.rt_i), id:160, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+=== pris testflags cfg_func_width_loop rc=255 lines=148 heads=1
+LHS:
+decompile:
+logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1358
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1360, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+  |vpiLeftRange:
+  \_constant: , id:1361, line:16:18, endln:16:19
+    |vpiParent:
+    \_range: , id:1360, line:16:17, endln:16:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:1362, line:16:20, endln:16:22
+    |vpiParent:
+    \_range: , id:1360, line:16:17, endln:16:25
+    |vpiDecompile:2
+    |vpiSize:64
+    |INT:2
+    |vpiConstType:7
+
+decompile:
+logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1358
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1360, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+=== pris testflags const_cast_signext rc=255 lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+RHS: <null>
+=== pris testflags stamped_gen_param rc=255 lines=138 heads=1
+LHS:
+decompile:
+logic_typespec: (q2::row_t), id:39
+|vpiParent:
+\_package: q2 (q2::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiName:q2::row_t
+|vpiInstance:
+\_package: q2 (q2::), id:183, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+|vpiElemTypespec:
+\_ref_typespec: (q2::q2::row_t), id:40
+  |vpiParent:
+  \_logic_typespec: (q2::row_t), id:39
+  |vpiFullName:q2::q2::row_t
+  |vpiActual:
+  \_logic_typespec: , id:25, line:11:11, endln:11:21
+|vpiRange:
+\_range: , id:12, line:11:16, endln:11:21
+  |vpiParent:
+  \_packed_array_typespec: , id:11, line:11:11, endln:11:21
+  |vpiLeftRange:
+  \_constant: , id:13, line:11:17, endln:11:18
+    |vpiParent:
+    \_range: , id:12, line:11:16, endln:11:21
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:14, line:11:19, endln:11:20
+    |vpiParent:
+    \_range: , id:12, line:11:16, endln:11:21
+    |vpiDecompile:2
+    |vpiSize:64
+    |UINT:2
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (q2::row_t), id:39
+|vpiParent:
+\_package: q2 (q2::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/stamped_gen_param/dut.sv, line:9:1, endln:22:11
+=== pris testflags type_param_override_elem_sel rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.u.rt_i), id:131, line:20:18, endln:20:22
+|vpiParent:
+\_module_inst: work@child (work@dut.u), id:180, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_override_elem_sel/dut.sv, line:32:3, endln:36:5
+|vpiTypespec:
+\_ref_typespec: (work@dut.u.rt_i), id:132
+  |vpiParent:
+  \_packed_array_var: (work@dut.u.rt_i), id:131, line:20:18, endln:20:22
+  |vpiFullName:work@dut.u.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:123, line:17:31, endln:17:47
+|vpiName:rt_i
+|vpiFullName:work@dut.u.rt_i
+|vpiVisibility:1
+
+decompile:
+packed_array_var: (work@dut.u.rt_i), id:131, line:20:18, endln:20:22
+|vpiParent:
+\_module_inst: work@child (work@dut.u), id:180, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_override_elem_sel/dut.sv, line:32:3, endln:36:5
+|vpiTypespec:
+\_ref_typespec: (work@dut.u.rt_i), id:132
+  |vpiParent:
+  \_packed_array_var: (work@dut.u.rt_i), id:131, line:20:18, endln:20:22
+  |vpiFullName:work@dut.u.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:123, line:17:31, endln:17:47
+|vpiName:rt_i
+|vpiFullName:work@dut.u.rt_i
+|vpiVisibility:1
+RHS:
+decompile:
+logic_var: (work@dut.u.rt_i), id:124, line:20:18, endln:20:22
+|vpiParent:
+\_module_inst: work@child (work@dut.u), id:93, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_override_elem_sel/dut.sv, line:32:3, endln:36:5
+|vpiTypespec:
+\_ref_typespec: (work@dut.u.rt_i), id:123
+  |vpiParent:
+  \_logic_var: (work@dut.u.rt_i), id:124, line:20:18, endln:20:22
+  |vpiFullName:work@dut.u.rt_i
+=== pris testflags type_param_packed_dim rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.rt_i), id:81, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:104, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:82
+  |vpiParent:
+  \_packed_array_var: (work@dut.rt_i), id:81, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:71, line:5:31, endln:5:52
+|vpiName:rt_i
+|vpiFullName:work@dut.rt_i
+|vpiVisibility:1
+
+decompile:
+packed_array_var: (work@dut.rt_i), id:81, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:104, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:82
+  |vpiParent:
+  \_packed_array_var: (work@dut.rt_i), id:81, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+  |vpiActual:
+  \_packed_array_typespec: , id:71, line:5:31, endln:5:52
+|vpiName:rt_i
+|vpiFullName:work@dut.rt_i
+|vpiVisibility:1
+RHS:
+decompile:
+logic_var: (work@dut.rt_i), id:76, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:47, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+\_ref_typespec: (work@dut.rt_i), id:75
+  |vpiParent:
+  \_logic_var: (work@dut.rt_i), id:76, line:8:22, endln:8:26
+  |vpiFullName:work@dut.rt_i
+=== pris default LargeValue2Struct rc=255 lines=108 heads=1
+LHS:
+decompile:
+logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:444
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:446, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:447, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:446, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:448, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:446, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:444
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:446, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+=== pris testflags LargeValue2Struct rc=255 lines=108 heads=1
+LHS:
+decompile:
+logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:360
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:362, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:363, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:362, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:364, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:362, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:360
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:362, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+=== law8 default cfg_func_width_loop rc=255 lines=148 heads=1
+LHS:
+decompile:
+logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1443
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1445, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+  |vpiLeftRange:
+  \_constant: , id:1446, line:16:18, endln:16:19
+    |vpiParent:
+    \_range: , id:1445, line:16:17, endln:16:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:1447, line:16:20, endln:16:22
+    |vpiParent:
+    \_range: , id:1445, line:16:17, endln:16:25
+    |vpiDecompile:2
+    |vpiSize:64
+    |INT:2
+    |vpiConstType:7
+
+decompile:
+logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1443
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1445, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1444, line:16:11, endln:16:25
+=== law8 default const_cast_signext rc=255 lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+RHS: <null>
+=== law8 default stamped_gen_param rc=255 lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (q2::q2::row_t), id:40
+|vpiParent:
+\_logic_typespec: (q2::row_t), id:39
+|vpiFullName:q2::q2::row_t
+|vpiActual:
+\_logic_typespec: , id:25, line:11:11, endln:11:21
+
+decompile:
+ref_typespec: (q2::q2::row_t), id:40
+|vpiParent:
+\_logic_typespec: (q2::row_t), id:39
+|vpiFullName:q2::q2::row_t
+|vpiActual:
+\_logic_typespec: , id:25, line:11:11, endln:11:21
+RHS: <null>
+=== law8 default type_param_override_elem_sel rc=255 lines=47 heads=1
+LHS:
+decompile:
+logic_typespec: , id:190, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:191, line:32:23, endln:32:28
+  |vpiParent:
+  \_logic_typespec: , id:190, line:32:17, endln:32:28
+  |vpiLeftRange:
+  \_constant: , id:192, line:32:24, endln:32:25
+    |vpiParent:
+    \_range: , id:191, line:32:23, endln:32:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:193, line:32:26, endln:32:27
+    |vpiParent:
+    \_range: , id:191, line:32:23, endln:32:28
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: , id:190, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:191, line:32:23, endln:32:28
+  |vpiParent:
+  \_logic_typespec: , id:190, line:32:17, endln:32:28
+  |vpiLeftRange:
+  \_constant: , id:192, line:32:24, endln:32:25
+    |vpiParent:
+    \_range: , id:191, line:32:23, endln:32:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:193, line:32:26, endln:32:27
+=== law8 default type_param_packed_dim rc=0 lines=0 heads=0
+=== law8 testflags cfg_func_width_loop rc=255 lines=148 heads=1
+LHS:
+decompile:
+logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1358
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1360, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+  |vpiLeftRange:
+  \_constant: , id:1361, line:16:18, endln:16:19
+    |vpiParent:
+    \_range: , id:1360, line:16:17, endln:16:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:1362, line:16:20, endln:16:22
+    |vpiParent:
+    \_range: , id:1360, line:16:17, endln:16:25
+    |vpiDecompile:2
+    |vpiSize:64
+    |INT:2
+    |vpiConstType:7
+
+decompile:
+logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+|vpiParent:
+\_ref_typespec: (work@cfg_func_width_loop.u.M), id:1358
+|vpiName:q::mask_t
+|vpiInstance:
+\_package: q (q::), id:1, file:/home/heyfey/git-repos/uhdm2rtlil/test/cfg_func_width_loop/dut.sv, line:14:1, endln:34:11
+|vpiRange:
+\_range: , id:1360, line:16:17, endln:16:25
+  |vpiParent:
+  \_logic_typespec: (q::mask_t), id:1359, line:16:11, endln:16:25
+=== law8 testflags const_cast_signext rc=255 lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+RHS: <null>
+=== law8 testflags stamped_gen_param rc=255 lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (q2::q2::row_t), id:40
+|vpiParent:
+\_logic_typespec: (q2::row_t), id:39
+|vpiFullName:q2::q2::row_t
+|vpiActual:
+\_logic_typespec: , id:25, line:11:11, endln:11:21
+
+decompile:
+ref_typespec: (q2::q2::row_t), id:40
+|vpiParent:
+\_logic_typespec: (q2::row_t), id:39
+|vpiFullName:q2::q2::row_t
+|vpiActual:
+\_logic_typespec: , id:25, line:11:11, endln:11:21
+RHS: <null>
+=== law8 testflags type_param_override_elem_sel rc=255 lines=47 heads=1
+LHS:
+decompile:
+logic_typespec: , id:106, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:107, line:32:23, endln:32:28
+  |vpiParent:
+  \_logic_typespec: , id:106, line:32:17, endln:32:28
+  |vpiLeftRange:
+  \_constant: , id:108, line:32:24, endln:32:25
+    |vpiParent:
+    \_range: , id:107, line:32:23, endln:32:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:109, line:32:26, endln:32:27
+    |vpiParent:
+    \_range: , id:107, line:32:23, endln:32:28
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: , id:106, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:107, line:32:23, endln:32:28
+  |vpiParent:
+  \_logic_typespec: , id:106, line:32:17, endln:32:28
+  |vpiLeftRange:
+  \_constant: , id:108, line:32:24, endln:32:25
+    |vpiParent:
+    \_range: , id:107, line:32:23, endln:32:28
+    |vpiDecompile:1
+    |vpiSize:64
+    |UINT:1
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:109, line:32:26, endln:32:27
+=== law8 testflags type_param_packed_dim rc=0 lines=0 heads=0
+=== law8 default LargeValue2Struct rc=255 lines=108 heads=1
+LHS:
+decompile:
+logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:444
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:446, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:447, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:446, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:448, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:446, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:444
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:446, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:445, line:4:11, endln:4:35
+=== law8 testflags LargeValue2Struct rc=255 lines=108 heads=1
+LHS:
+decompile:
+logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:360
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:362, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+  |vpiLeftRange:
+  \_constant: , id:363, line:4:18, endln:4:30
+    |vpiParent:
+    \_range: , id:362, line:4:17, endln:4:35
+    |vpiDecompile:127
+    |vpiSize:64
+    |INT:127
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:364, line:4:33, endln:4:34
+    |vpiParent:
+    \_range: , id:362, line:4:17, endln:4:35
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35
+|vpiParent:
+\_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t), id:360
+|vpiName:sram_key_t
+|vpiInstance:
+\_package: pack (pack::), id:1, file:/home/heyfey/git-repos/Surelog/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+|vpiRange:
+\_range: , id:362, line:4:17, endln:4:35
+  |vpiParent:
+  \_logic_typespec: (sram_key_t), id:361, line:4:11, endln:4:35

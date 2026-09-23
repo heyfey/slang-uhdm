@@ -1,0 +1,160 @@
+# WIDE BOUNDARY (bnd108.sh): every *.sv/*.v under tools/probe (this pass's dir excluded), compiled alone, pristine b4f28467 vs law 81f13e49
+LISTED=8832 PROCESSED=8832
+     38 MOVED
+    232 NOOUT
+   8562 SAME
+
+# MOVED arms scored by mov108.sh: <arm> <pristine self-rerun> cmp:pris=lines/heads law=lines/heads obl=<order-blind dump diff lines> nonkind=<lines not explained by the logic_var/bit_var->packed_array_var flip>
+./r10buvm22repro/g22.sv det cmp:pris=3438/1 law8=3438/1 obl=12 nonkind=4
+./r10uvm154repro/l154_noenum.sv det cmp:pris=17/1 law8=17/1 obl=8 nonkind=0
+./r10uvm185repro/grid185/g185_e_kinds.sv det cmp:pris=72/1 law8=72/1 obl=12 nonkind=0
+./r11u107repro/grid/o01_ovr_elem/dut.sv det cmp:pris=60/1 law8=47/1 obl=12 nonkind=5
+./r11u107repro/grid/o02_ovr_then_def/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./r11u107repro/grid/o03_def_then_ovr/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./r11u107repro/grid/o04_two_ovr/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./r11u107repro/grid/o05_top_chain/dut.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=5
+./r11u107repro/grid/o06_nodef_ctl/dut.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=5
+./r11u107repro/grid/o07_passthru/dut.sv det cmp:pris=60/1 law8=47/1 obl=12 nonkind=5
+./r11u107repro/grid/o08_ovr_typedef/dut.sv det cmp:pris=566/1 law8=566/1 obl=12 nonkind=5
+./r11u107repro/grid/o09_param_not_local/dut.sv det cmp:pris=60/1 law8=47/1 obl=12 nonkind=5
+./r11u107repro/grid/t05_tp_struct_dim/dut.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=0
+./r11u31repro/g2.sv det cmp:pris=335/1 law8=335/1 obl=6 nonkind=0
+./r11u31repro/g3.sv det cmp:pris=335/1 law8=335/1 obl=6 nonkind=0
+./r11u31repro/g4.sv det cmp:pris=60/1 law8=0/0 obl=6 nonkind=0
+./r11u31repro/g5.sv det cmp:pris=60/1 law8=0/0 obl=6 nonkind=0
+./r11u45repro/g11.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=5
+./r11u57repro/grid/e2_holder57/dut.sv det cmp:pris=60/1 law8=48/1 obl=12 nonkind=5
+./r11v35repro/grid/v6_dims35/dut.sv det cmp:pris=17/1 law8=17/1 obl=9 nonkind=4
+./r11v45repro/v4.sv det cmp:pris=569/1 law8=569/1 obl=12 nonkind=5
+./r11v45repro/v8.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=5
+./v11u93b107repro/brk/q01_dim_valparam/dut.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=0
+./v11u93b107repro/brk/q05_union_dim/dut.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=0
+./v11u93b107repro/brk/q06_two_dims/dut.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=0
+./v11u93b107repro/brk/q12_dim_one_ovr_child/dut.sv det cmp:pris=60/1 law8=0/0 obl=12 nonkind=0
+./v11u93b107repro/brk/r01_gen_first/dut.sv det cmp:pris=15/1 law8=15/1 obl=24 nonkind=10
+./v11u93b107repro/brk/r02_gen_last/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./v11u93b107repro/brk/r03_nested_first/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./v11u93b107repro/brk/r04_nested_last/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./v11u93b107repro/brk/r05_rt_ovr_samename/dut.sv det cmp:pris=60/1 law8=47/1 obl=12 nonkind=5
+./v11u93b107repro/brk/r06_ovr_pkg_struct/dut.sv det cmp:pris=17/1 law8=92/1 obl=33 nonkind=12
+./v11u93b107repro/brk/r07_inst_array/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./v11u93b107repro/brk/r08_two_defs/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./v11u93b107repro/brk/r09_gen_for/dut.sv det cmp:pris=15/1 law8=15/1 obl=36 nonkind=15
+./v11u93b107repro/brk/r10_two_tops/dut.sv det cmp:pris=60/1 law8=47/1 obl=24 nonkind=10
+./v11u93b107repro/brk/r11_nested_gen/dut.sv det cmp:pris=15/1 law8=15/1 obl=24 nonkind=10
+./v11u93b107repro/brk/r12_gen_mid/dut.sv det cmp:pris=60/1 law8=47/1 obl=36 nonkind=15
+
+# per-cell (cell108.py, keyed by variable name, cen108 cells) over the 38 movers
+r11u107repro__grid__o02_ovr_then_def__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o02_ovr_then_def__dut.sv work@dut.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o01_ovr_elem__dut.sv work@dut.u.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o03_def_then_ovr__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o03_def_then_ovr__dut.sv work@dut.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o04_two_ovr__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o04_two_ovr__dut.sv work@dut.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o05_top_chain__dut.sv work@dut.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o07_passthru__dut.sv work@dut.m.u.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o06_nodef_ctl__dut.sv work@dut.u.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o08_ovr_typedef__dut.sv work@dut.u.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__o09_param_not_local__dut.sv work@dut.u.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__t05_tp_struct_dim__dut.sv work@dut.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u107repro__grid__t05_tp_struct_dim__dut.sv work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u31repro__g2.sv work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u31repro__g3.sv work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u31repro__g4.sv work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u31repro__g5.sv work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u45repro__g11.sv work@dut.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11u57repro__grid__e2_holder57__dut.sv work@dut.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11v35repro__grid__v6_dims35__dut.sv work@v6_dims35.dv TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11v45repro__v4.sv work@dut.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+r11v45repro__v8.sv work@dut.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__q01_dim_valparam__dut.sv work@dut.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__q01_dim_valparam__dut.sv work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__q05_union_dim__dut.sv work@dut.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__q05_union_dim__dut.sv work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__q06_two_dims__dut.sv work@dut.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__q06_two_dims__dut.sv work@dut.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__q12_dim_one_ovr_child__dut.sv work@dut.u.i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__q12_dim_one_ovr_child__dut.sv work@dut.u.o TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('struct_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r01_gen_first__dut.sv work@dut.g.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r01_gen_first__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r02_gen_last__dut.sv work@dut.g.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r02_gen_last__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r03_nested_first__dut.sv work@dut.m.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r03_nested_first__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r04_nested_last__dut.sv work@dut.m.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r04_nested_last__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r06_ovr_pkg_struct__dut.sv work@dut.u.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=None law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r05_rt_ovr_samename__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r07_inst_array__dut.sv work@dut.u[0].rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r07_inst_array__dut.sv work@dut.u[1].rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r08_two_defs__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r08_two_defs__dut.sv work@dut.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r09_gen_for__dut.sv work@dut.g[0].u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r09_gen_for__dut.sv work@dut.g[1].u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r09_gen_for__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r11_nested_gen__dut.sv work@dut.g.h.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r11_nested_gen__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r10_two_tops__dut.sv work@topa.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r10_two_tops__dut.sv work@topb.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r12_gen_mid__dut.sv work@dut.g.u1.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r12_gen_mid__dut.sv work@dut.u0.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+v11u93b107repro__brk__r12_gen_mid__dut.sv work@dut.u2.rt_i TO-GOLDEN gold=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')] pris=[('logic_var', 'expr=0', 'ranges=0', 'elems=0')] law8=[('packed_array_var', 'expr=0', 'ranges=0', 'elems=0')]
+TOTALS {'TO-GOLDEN': 55}
+
+# the three arms with no law cell (g22, l154_noenum, g185_e_kinds) move ONLY the layout-derived tail constant of a class-scoped typedef T name[string]:
+## r10buvm22repro__g22.sv
+2264,2266c2264,2266
+<         |UINT:23454369
+<         |UINT:23455225
+<         |UINT:23455225
+---
+>         |UINT:23458593
+>         |UINT:23459449
+>         |UINT:23459449
+2896,2898c2896,2898
+<         |vpiDecompile:23454369
+<         |vpiDecompile:23455225
+<         |vpiDecompile:23455225
+---
+>         |vpiDecompile:23458593
+>         |vpiDecompile:23459449
+>         |vpiDecompile:23459449
+## r10uvm154repro__l154_noenum.sv
+104,105c104,105
+<         |UINT:23455225
+<         |UINT:23455225
+---
+>         |UINT:23459449
+>         |UINT:23459449
+131,132c131,132
+<         |vpiDecompile:23455225
+<         |vpiDecompile:23455225
+---
+>         |vpiDecompile:23459449
+>         |vpiDecompile:23459449
+## r10uvm185repro__grid185__g185_e_kinds.sv
+1093,1095c1093,1095
+<         |UINT:23455225
+<         |UINT:23455225
+<         |UINT:23455225
+---
+>         |UINT:23459449
+>         |UINT:23459449
+>         |UINT:23459449
+1351,1353c1351,1353
+<         |vpiDecompile:23455225
+<         |vpiDecompile:23455225
+<         |vpiDecompile:23455225
+---
+>         |vpiDecompile:23459449
+>         |vpiDecompile:23459449
+>         |vpiDecompile:23459449
+
+# layoutproof154.sh (r10uvm154repro) on pristine vs law:
+enum keywords in the source: 0  (must be 0)
+pris: tail value(s) = UINT:23455225
+pat: tail value(s) = UINT:23459449
+JUDGE-VISIBLE HEAD IDENTICAL (the two binaries agree on everything uhdm-cmp reads)
+TAIL DIFFERS with no enum in the source => LAYOUT-DERIVED, not this law
+LAYOUTPROOF OK

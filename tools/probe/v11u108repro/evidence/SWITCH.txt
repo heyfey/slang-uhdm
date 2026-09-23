@@ -1,0 +1,22 @@
+# switch identities over 239 arms (r11u108 grid 83, r11u107 grid 55, v11u93b107 brk 47, v11u108 brk 54), byte-compared per arm
+# loff = lawx+R11U108_OFF ; f2loff = fix2+R11U108_OFF ; f2off = fix2+V11U108_FIX_OFF ; fx5off/fx2off = fix2+V11U108_FIX5_OFF/FIX2_OFF ; tpoff/pkoff = fix2+R11U108_TPPAV_OFF/PKGTDMEM_OFF
+r11u108repro_grid arms=83 loff==pris:83 f2loff==pris:83 f2off==lawx:83 tpoff-moves:16 pkoff-moves:6
+  law movers (22)
+  fix2 movers vs law (0):
+  FIX5_OFF moves (0):
+  FIX2_OFF moves (0):
+r11u107repro_grid arms=55 loff==pris:55 f2loff==pris:55 f2off==lawx:55 tpoff-moves:10 pkoff-moves:0
+  law movers (10)
+  fix2 movers vs law (0):
+  FIX5_OFF moves (0):
+  FIX2_OFF moves (0):
+v11u93b107repro_brk arms=47 loff==pris:47 f2loff==pris:47 f2off==lawx:47 tpoff-moves:16 pkoff-moves:0
+  law movers (16)
+  fix2 movers vs law (0):
+  FIX5_OFF moves (0):
+  FIX2_OFF moves (0):
+v11u108repro_brk arms=54 loff==pris:54 f2loff==pris:54 f2off==lawx:54 tpoff-moves:19 pkoff-moves:20
+  law movers (43)
+  fix2 movers vs law (6): f2/c25_import_member f2/c28_named_import f5/b02_attr f5/b23_port_default f5/b24_output_init f5/b30_attr_two
+  FIX5_OFF moves (4): f5/b02_attr f5/b23_port_default f5/b24_output_init f5/b30_attr_two
+  FIX2_OFF moves (2): f2/c25_import_member f2/c28_named_import
