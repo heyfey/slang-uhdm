@@ -1,0 +1,194 @@
+=== u2r/default/arb_idx_cast lines=18 heads=1
+LHS:
+decompile:
+unsupported_typespec: (idx_t), id:858, line:26:36, endln:26:41
+|vpiParent:
+\_ref_typespec: (work@dut.gen_levels[1].gen_level[0].gen_first_level), id:857
+|vpiName:idx_t
+
+decompile:
+unsupported_typespec: (idx_t), id:858, line:26:36, endln:26:41
+|vpiParent:
+\_ref_typespec: (work@dut.gen_levels[1].gen_level[0].gen_first_level), id:857
+|vpiName:idx_t
+RHS:
+decompile:
+integer_typespec: , id:371, line:26:36, endln:26:41
+
+decompile:
+integer_typespec: , id:371, line:26:36, endln:26:41
+=== u2r/default/const_cast_signext lines=0 heads=0
+=== u2r/default/ibex_icache lines=36 heads=1
+LHS:
+decompile:
+constant: , id:16424, line:138:22, endln:138:37
+|vpiParent:
+\_range: , id:16423, line:138:21, endln:138:40
+|vpiDecompile:1
+|vpiSize:32
+|UINT:1
+|vpiConstType:9
+
+decompile:
+constant: , id:16424, line:138:22, endln:138:37
+|vpiParent:
+\_range: , id:16423, line:138:21, endln:138:40
+|vpiDecompile:1
+|vpiSize:32
+|UINT:1
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:9583, line:138:22, endln:138:37
+|vpiParent:
+\_range: , id:9582, line:138:21, endln:138:40
+|vpiDecompile:1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9
+
+decompile:
+constant: , id:9583, line:138:22, endln:138:37
+|vpiParent:
+\_range: , id:9582, line:138:21, endln:138:40
+|vpiDecompile:1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9
+=== u2r/default/ibex_pmp lines=36 heads=1
+LHS:
+decompile:
+constant: , id:12627, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:12626, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:32
+|UINT:33
+|vpiConstType:9
+
+decompile:
+constant: , id:12627, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:12626, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:32
+|UINT:33
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:6065, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:6064, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:64
+|UINT:33
+|vpiConstType:9
+
+decompile:
+constant: , id:6065, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:6064, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:64
+|UINT:33
+|vpiConstType:9
+=== u2r/default/packed_array_struct lines=0 heads=0
+=== u2r/default/unpacked_elem_partsel_comb lines=0 heads=0
+=== u2r/testflags/arb_idx_cast lines=18 heads=1
+LHS:
+decompile:
+unsupported_typespec: (idx_t), id:773, line:26:36, endln:26:41
+|vpiParent:
+\_ref_typespec: (work@dut.gen_levels[1].gen_level[0].gen_first_level), id:772
+|vpiName:idx_t
+
+decompile:
+unsupported_typespec: (idx_t), id:773, line:26:36, endln:26:41
+|vpiParent:
+\_ref_typespec: (work@dut.gen_levels[1].gen_level[0].gen_first_level), id:772
+|vpiName:idx_t
+RHS:
+decompile:
+integer_typespec: , id:287, line:26:36, endln:26:41
+
+decompile:
+integer_typespec: , id:287, line:26:36, endln:26:41
+=== u2r/testflags/const_cast_signext lines=0 heads=0
+=== u2r/testflags/ibex_icache lines=36 heads=1
+LHS:
+decompile:
+constant: , id:16340, line:138:22, endln:138:37
+|vpiParent:
+\_range: , id:16339, line:138:21, endln:138:40
+|vpiDecompile:1
+|vpiSize:32
+|UINT:1
+|vpiConstType:9
+
+decompile:
+constant: , id:16340, line:138:22, endln:138:37
+|vpiParent:
+\_range: , id:16339, line:138:21, endln:138:40
+|vpiDecompile:1
+|vpiSize:32
+|UINT:1
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:9499, line:138:22, endln:138:37
+|vpiParent:
+\_range: , id:9498, line:138:21, endln:138:40
+|vpiDecompile:1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9
+
+decompile:
+constant: , id:9499, line:138:22, endln:138:37
+|vpiParent:
+\_range: , id:9498, line:138:21, endln:138:40
+|vpiDecompile:1
+|vpiSize:64
+|UINT:1
+|vpiConstType:9
+=== u2r/testflags/ibex_pmp lines=36 heads=1
+LHS:
+decompile:
+constant: , id:12543, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:12542, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:32
+|UINT:33
+|vpiConstType:9
+
+decompile:
+constant: , id:12543, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:12542, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:32
+|UINT:33
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:5981, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:5980, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:64
+|UINT:33
+|vpiConstType:9
+
+decompile:
+constant: , id:5981, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:5980, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:64
+|UINT:33
+|vpiConstType:9
+=== u2r/testflags/packed_array_struct lines=0 heads=0
+=== u2r/testflags/unpacked_elem_partsel_comb lines=0 heads=0
+=== sl/default/SequenceInst lines=0 heads=0
+=== sl/testflags/SequenceInst lines=0 heads=0

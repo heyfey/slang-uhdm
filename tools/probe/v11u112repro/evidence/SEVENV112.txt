@@ -1,0 +1,43 @@
+## pris
+default_arb_idx_cast-dbf8cde6 lines=46
+default_const_cast_signext-5e330eed lines=17
+default_ibex_icache-e3714209 lines=17
+default_ibex_pmp-65816114 lines=36
+default_packed_array_struct-a5048efa lines=499
+default_unpacked_elem_partsel_comb-8eac1e24 lines=91
+testflags_arb_idx_cast-dbf8cde6 lines=46
+testflags_const_cast_signext-5e330eed lines=17
+testflags_ibex_icache-e3714209 lines=17
+testflags_ibex_pmp-65816114 lines=36
+testflags_packed_array_struct-a5048efa lines=499
+testflags_unpacked_elem_partsel_comb-8eac1e24 lines=91
+## lawx
+default_arb_idx_cast-dbf8cde6 lines=18
+default_const_cast_signext-5e330eed lines=0
+default_ibex_icache-e3714209 lines=36
+default_ibex_pmp-65816114 lines=36
+default_packed_array_struct-a5048efa lines=0
+default_unpacked_elem_partsel_comb-8eac1e24 lines=0
+testflags_arb_idx_cast-dbf8cde6 lines=18
+testflags_const_cast_signext-5e330eed lines=0
+testflags_ibex_icache-e3714209 lines=36
+testflags_ibex_pmp-65816114 lines=36
+testflags_packed_array_struct-a5048efa lines=0
+testflags_unpacked_elem_partsel_comb-8eac1e24 lines=0
+## vfx2
+default_arb_idx_cast-dbf8cde6 lines=18
+default_const_cast_signext-5e330eed lines=0
+default_ibex_icache-e3714209 lines=36
+default_ibex_pmp-65816114 lines=36
+default_packed_array_struct-a5048efa lines=0
+default_unpacked_elem_partsel_comb-8eac1e24 lines=0
+testflags_arb_idx_cast-dbf8cde6 lines=18
+testflags_const_cast_signext-5e330eed lines=0
+testflags_ibex_icache-e3714209 lines=36
+testflags_ibex_pmp-65816114 lines=36
+testflags_packed_array_struct-a5048efa lines=0
+testflags_unpacked_elem_partsel_comb-8eac1e24 lines=0
+prissl default_SequenceInst-93ff2aad lines=122
+prissl testflags_SequenceInst-93ff2aad lines=122
+vfx2sl default_SequenceInst-93ff2aad lines=0
+vfx2sl testflags_SequenceInst-93ff2aad lines=0

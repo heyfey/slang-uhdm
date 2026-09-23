@@ -24,6 +24,89 @@
 
 namespace slang_uhdm {
 
+// r11u112 kill switches (tools/probe/r11u112repro/README.md): R11U112_OFF drops
+// every r11u112 law, R11U112_<X>_OFF drops one.  The ModuleEmit.cpp twin reads
+// the same environment.
+static bool r11u112On(const char* sw) {
+    return !getenv("R11U112_OFF") && !getenv(sw);
+}
+
+/// § modFnLocalTdCastClone112 (r11u112, face 2, the CAST half) — A CAST TO A
+/// MODULE-LOCAL SIMPLE TYPEDEF WRITTEN INSIDE A FUNCTION OR TASK OF THAT SAME
+/// MODULE MINTS A FRESH SELF-NAMED COPY WITH A Typedef_alias TO THE TYPEDEF.
+///
+/// THE PRODUCER.  Surelog compiles a module subroutine's body per
+/// (subroutine, view) and resolves a typedef-named cast target through
+/// `compileTypespec`'s TypeDef arm, which CLONES the typedef's typespec, names
+/// the clone after the typedef and points its Typedef_alias at the shared
+/// object — the same fresh copy the landed $UNIT-function and module-scope
+/// arms already mint (the `bypassTypedefShare` clone below).  Only the gate
+/// lacked the module-function home.  MEASURED on real Surelog v1.87 goldens,
+/// tools/probe/r11u112repro/grid/t (both forms): logic (unsigned, signed,
+/// parameter-bounded), bit and int typedefs; function assign-to-name,
+/// `return`, a task, two functions, a two-instance child.  The clone carries
+/// no vpiInstance.  A struct typedef (t12) is already golden and untouched.
+/// OUR SIDE: the cast site shared `typedefTs[type]` (no alias).
+/// Returns true when the gate holds: the subroutine's parent scope is a module
+/// body and the typedef is declared in that same body.
+/// § caSelIdxOpFoldTs112 (r11u112, face 1, the IMPORTED-PARAMETER half) — A
+/// FOLDED READ OF AN UNQUALIFIED IMPORTED PACKAGE PARAMETER UNDER AN OPERATION
+/// IN A CONTINUOUS ASSIGN'S BIT-SELECT INDEX (`a[P-1]`, `a[P+1] & b[0]`,
+/// `a[P*2]`) CARRIES THE PARAMETER'S DECLARED TYPESPEC, NAMED AFTER THE
+/// SELECT — the missing member of the landed stamp family.
+///
+/// THE PRODUCER.  `CompileHelper::compileExpression`'s identifier arm
+/// (`~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp:2885-2997`)
+/// substitutes the parameter by a clone of its `param_assign` Rhs and stamps
+/// the parameter's own declaration typespec on it (`res->Typespec(tps_rt)`)
+/// wherever the read is reached from; the select or the operation above it
+/// does not matter.  OUR SIDE: § selFold9 stamps only a DIRECT bit-select
+/// index and § caOpFoldTs only an operation chain that reaches the
+/// cont_assign; an operation under a bit_select fell between the two and the
+/// constant came out bare (ibex_icache.sv:519, `round_robin_way_q[IC_NUM_WAYS-1]`).
+/// MEASURED, tools/probe/r11u112repro/grid/f f01/f03/f04/f05/f06/f09/f11/f12
+/// (int unsigned, int, untyped, logic [3:0]; header and body import; nested
+/// under `&`; `-` `+` `*`): golden stamps, ref named after the select.  The
+/// controls: f02 (bare index, § selFold9), f07 (module parameter), f08
+/// (always_comb, § procOpFold9), f10 (qualified `pk::P`, bare in golden).
+static bool caSelIdxOpFoldTs112() {
+    static const bool on = r11u112On("R11U112_SELIDXTS_OFF");
+    return on;
+}
+
+/// § genLpIdxOpOperandFold112 (r11u112, face 1, the GEN-SCOPE half) — IN AN
+/// ELABORATED GEN-SCOPE CONTINUOUS ASSIGN, A ONE-HOP GEN-SCOPE LOCALPARAM READ
+/// AS AN OPERAND OF A BIT-SELECT INDEX OPERATION (`req_nodes[Idx1+1]`) IS
+/// SUBSTITUTED BY THE LOCALPARAM'S FOLD CONSTANT WITH ITS TYPESPEC; the
+/// operation is kept.  This is § genLpUseFoldParentScope47's "operation
+/// operand" position (measured there, never wired) — the same one-hop helper
+/// `genLpUseFoldBound47`, reached from the operand instead of the bare index
+/// (§ genLpBitSelIdxOneHopFold67).  MEASURED, grid f g11 (int unsigned), g13
+/// (int), g16 (else branch), g17 (untyped), g18 (Lhs), g01 (arb_idx_cast):
+/// golden `constant INT:<v> sz 32 ct 7` + ref_typespec -> the localparam's
+/// typespec; controls g02-g10 (distance 0, module localparam, nested for) and
+/// g15 (distance 2) keep the reference and are untouched by the helper's own
+/// one-hop test.  Fences copied from § 67: the gen-scope cont_assign, no
+/// genvar connection fold, no USER-call argument depth.
+static bool genLpIdxOpOperandFold112() {
+    static const bool on = r11u112On("R11U112_GENLPOP_OFF");
+    return on;
+}
+// The use-site prefix while a § genLpIdxOpOperandFold112 index is emitted
+// (null otherwise).
+static const std::string* genLpIdxOpPrefix112 = nullptr;
+
+static bool modFnLocalTdCastClone112(const slang::ast::SubroutineSymbol* sub,
+                                     const slang::ast::Type& td) {
+    static const bool on = r11u112On("R11U112_TDCAST_OFF");
+    if (!on || !sub || td.kind != slang::ast::SymbolKind::TypeAlias)
+        return false;
+    auto* ps = sub->getParentScope();
+    if (!ps || ps->asSymbol().kind != slang::ast::SymbolKind::InstanceBody)
+        return false;
+    return td.getParentScope() == ps;
+}
+
 // § pkgParamValueIsUnsigned71 (r10earl71) — WHICH package parameters this
 // pass may mint a locless `enum_const` for, decided by the ENCODING Surelog
 // stores for the parameter, not by the read site.
@@ -13603,6 +13686,14 @@ static bool condPredEarlyBound81(const slang::syntax::SyntaxNode* n) {
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
+    // § genLpIdxOpOperandFold112 — an operand of the index operation.
+    if (genLpIdxOpPrefix112 && parent &&
+        ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmoperation &&
+        callArgDepth - sysCallArgDepth22 == 0)
+        if (auto* f112 = genLpUseFoldBound47(expr, *genLpIdxOpPrefix112)) {
+            f112->VpiParent(parent);
+            return f112;
+        }
     // A `let` call, which slang already expanded in place: with substitution ON
     // it becomes the declaration's shared body object, with it OFF a let_expr.
     // Costs one empty-map test on designs that declare no `let`.
@@ -17009,6 +17100,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         !inParamInit && !inProcessEmit && !currentTf &&
                         !ndaRhsEmit && defRefModConn && parent &&
                         parent->UhdmType() == UHDM::uhdmoperation;
+                    // § caSelIdxOpFoldTs112 — an operation chain under a
+                    // cont-assign bit_select (itself possibly under
+                    // operations): the select names the ref.
+                    const UHDM::any* selIdx112 = nullptr;
+                    // An UNTYPED package parameter is declined: its
+                    // materialised typespec is our signed int where golden's
+                    // is unsigned (grid f05; the typespec object is built in
+                    // ParamEmit, outside this pass — residue R1b).
+                    if (!caOpFold9 && typedPkgParam && !inParamInit &&
+                        !inProcessEmit &&
+                        !currentTf && !ndaRhsEmit && contAssignView != 0 &&
+                        parent &&
+                        parent->UhdmType() == UHDM::uhdmoperation &&
+                        caSelIdxOpFoldTs112()) {
+                        const UHDM::any* up112 = parent;
+                        const UHDM::any* sel112 = nullptr;
+                        for (int g112 = 0; g112 < 64 && up112; ++g112) {
+                            if (up112->UhdmType() == UHDM::uhdmoperation)
+                                up112 = up112->VpiParent();
+                            else if (!sel112 &&
+                                     up112->UhdmType() ==
+                                         UHDM::uhdmbit_select) {
+                                sel112 = up112;
+                                up112 = up112->VpiParent();
+                            }
+                            else
+                                break;
+                        }
+                        if (sel112 && up112 &&
+                            up112->UhdmType() == UHDM::uhdmcont_assign)
+                            selIdx112 = sel112;
+                    }
+                    const bool caSelIdxOp112 = selIdx112 != nullptr;
                     if ((procOpFold9 || defParamInitOpFold9) && !typedPkgParam &&
                         psym.getType().getCanonicalType().isIntegral() &&
                         importedParamDefTs.count(&nv.symbol) &&
@@ -17028,7 +17152,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         procSelFold9 || procPsFold9 || selFoldTs21 ||
                         ndaOpFold9 ||
                         ipsWidFold9 || caPsOpFold9 || caOpFold9 ||
-                        rmConnOpFold9)
+                        rmConnOpFold9 || caSelIdxOp112)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -17048,6 +17172,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (procSelFold9 || selFold9)
                                 rt->VpiFullName(
                                     ((UHDM::bit_select*)parent)->VpiFullName());
+                            else if (caSelIdxOp112)
+                                rt->VpiFullName(
+                                    ((const UHDM::bit_select*)selIdx112)
+                                        ->VpiFullName());
                             else if (caPsOpFold9) {
                                 // § caPartSelBoundFoldTs — named after the
                                 // SELECT.  A plain part_select already carries
@@ -17090,7 +17218,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                  // § caOpFoldTs — a nested-operation fold is
                                  // the same cont-assign fold, so it takes the
                                  // same per-reference typespec clone.
-                                 caOpFold9) &&
+                                 caOpFold9 || caSelIdxOp112) &&
                                 nv.symbol.kind == SymbolKind::Parameter;
                             if (caFold9) {
                                 std::string savedPfx9 = syntaxRefPrefix;
@@ -17119,7 +17247,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // rather than implemented.
                             if ((sysFuncArgFold || (caFold9 && !caOpFold9) ||
                                  procPsFold9) &&
-                                !selFold9)
+                                !selFold9 && !caSelIdxOp112)
                                 if (auto cIt = pkgParamConst.find(&nv.symbol);
                                     cIt != pkgParamConst.end() &&
                                     cIt->second->VpiParent())
@@ -21634,7 +21762,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // function body, a VECTOR-typedef cast gets a FRESH
                     // clone with a Typedef_alias ref instead.
                     cts = typedefTs[expr.type];
-                    if (cts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    // § modFnLocalTdCastClone112 — a module-local logic / bit
+                    // / int typedef cast inside a function or task of the
+                    // same module: a fresh self-named copy aliased to the
+                    // shared typedef (no instance).
+                    if ((cts->UhdmType() == UHDM::uhdmlogic_typespec ||
+                         cts->UhdmType() == UHDM::uhdmbit_typespec ||
+                         cts->UhdmType() == UHDM::uhdmint_typespec) &&
+                        modFnLocalTdCastClone112(currentSubSym, *expr.type)) {
+                        auto& ta112 = expr.type->as<TypeAliasType>();
+                        const syntax::SyntaxNode* tSyn112 = nullptr;
+                        if (auto asyn112 = ta112.getSyntax())
+                            if (asyn112->kind ==
+                                syntax::SyntaxKind::TypedefDeclaration)
+                                tSyn112 = asyn112->as<
+                                              syntax::TypedefDeclarationSyntax>()
+                                              .type;
+                        bypassTypedefShare = true;
+                        bool savedTf112 = tfContext;
+                        tfContext = true;
+                        auto* cl112 = makeTypespec(ta112, tSyn112);
+                        tfContext = savedTf112;
+                        bypassTypedefShare = false;
+                        cl112->VpiName(ta112.name);
+                        auto* art112 = s.MakeRef_typespec();
+                        art112->VpiFullName(std::string(ta112.name));
+                        art112->VpiParent(cl112);
+                        art112->Actual_typespec(cts);
+                        cl112->Typedef_alias(art112);
+                        cts = cl112;
+                    }
+                    else if (cts->UhdmType() == UHDM::uhdmlogic_typespec) {
                         auto ps0 = currentSubSym ? currentSubSym->getParentScope()
                                                  : nullptr;
                         // A cast written inside a function of the typedef's OWN
@@ -29849,7 +30007,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             std::string savedSelB9 = genCaSelBasePfx;
             if (genCaLhsParamFold)
                 genCaSelBasePfx = joinRef(prefix, nv.symbol.name);
+            // § genLpIdxOpOperandFold112 — arm the operand fold for an
+            // OPERATION index (the bare index is § 67's, above).
+            const std::string* savedGl112 = genLpIdxOpPrefix112;
+            if (inGenScopeCa67 && !genvarConnFold &&
+                callArgDepth - sysCallArgDepth22 == 0 &&
+                stripImplicitConv(es.selector()).kind ==
+                    ExpressionKind::BinaryOp &&
+                genLpIdxOpOperandFold112())
+                genLpIdxOpPrefix112 = &prefix;
             auto* ix = emitExpr(es.selector(), bs, idxPrefix, netMap);
+            genLpIdxOpPrefix112 = savedGl112;
             genCaSelBasePfx = savedSelB9;
             if (idxRescoped)
                 selIdxScopeDepth--;
@@ -29970,7 +30138,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // Only literal indices force-parent; select indices
                         // (part_select) keep their own bound rules.
                         forceConstParent = isLiteralExpr(**it2);
-                        if (auto* ix = emitExpr(**it2, vs, baseFull, netMap))
+                        // § genLpIdxOpOperandFold112 — the var_select's
+                        // element INDEX, bare (§ 67's own rule at this
+                        // select kind) or an operation (its operands).
+                        const bool gl112 = inGenScopeCa67 && !genvarConnFold &&
+                                           callArgDepth - sysCallArgDepth22 ==
+                                               0 &&
+                                           genLpIdxOpOperandFold112();
+                        if (gl112)
+                            if (auto* bf112 =
+                                    genLpUseFoldBound47(**it2, prefix)) {
+                                bf112->VpiParent(vs);
+                                idxs->push_back(bf112);
+                                continue;
+                            }
+                        const std::string* savedGl112 = genLpIdxOpPrefix112;
+                        if (gl112 && stripImplicitConv(**it2).kind ==
+                                         ExpressionKind::BinaryOp)
+                            genLpIdxOpPrefix112 = &prefix;
+                        auto* ix = emitExpr(**it2, vs, baseFull, netMap);
+                        genLpIdxOpPrefix112 = savedGl112;
+                        if (ix)
                             idxs->push_back((UHDM::expr*)ix);
                     }
                     forceConstParent = savedFCP;

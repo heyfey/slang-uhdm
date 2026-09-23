@@ -143,7 +143,7 @@ conditional_if,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/con
 conditional_if_else,testflags,CMP_EQUAL,,,match
 const_arg_loop,testflags,CMP_EQUAL,,,differ
 const_ashift,testflags,CMP_EQUAL,,,match
-const_cast_signext,testflags,CMP_NOTEQUAL,decompile:,,
+const_cast_signext,testflags,CMP_EQUAL,,,differ
 const_fold_func,testflags,CMP_EQUAL,,,match
 const_func,testflags,CMP_EQUAL,,,differ
 const_func_block_var,testflags,CMP_EQUAL,,,match
@@ -543,7 +543,7 @@ package_task_func,testflags,CMP_EQUAL,,,differ
 PackageCast,testflags,CMP_EQUAL,,,differ
 packed_array_elem_select,testflags,CMP_EQUAL,,,match
 packed_array_reset_loop,testflags,CMP_EQUAL,,,differ
-packed_array_struct,testflags,CMP_NOTEQUAL,decompile:,,
+packed_array_struct,testflags,CMP_EQUAL,,,differ
 packed_array_struct_port_sel,testflags,CMP_EQUAL,,,differ
 packed_struct_array_fifo,testflags,CMP_EQUAL,,,differ
 packed_struct_array_net_elem,testflags,CMP_EQUAL,,,differ
@@ -839,7 +839,7 @@ unique_case_default,testflags,CMP_EQUAL,,,match
 UnitForLoop,testflags,CMP_EQUAL,,,match
 unnamed_block_decl,testflags,CMP_EQUAL,,,match
 unpacked_array_shift_ff,testflags,CMP_EQUAL,,,match
-unpacked_elem_partsel_comb,testflags,CMP_NOTEQUAL,decompile:,,
+unpacked_elem_partsel_comb,testflags,CMP_EQUAL,,,differ
 unpacked_elem_write_flat,testflags,CMP_EQUAL,,,match
 unpacked_struct_2d,testflags,CMP_EQUAL,,,differ
 unpacked_struct_array_typedef,testflags,CMP_EQUAL,,,match

@@ -27,6 +27,227 @@
 
 namespace slang_uhdm {
 
+// r11u112 kill switches (tools/probe/r11u112repro/README.md): R11U112_OFF drops
+// every r11u112 law, R11U112_<X>_OFF drops one.  The ExprEmit.cpp twin reads the
+// same environment.
+static bool r11u112On(const char* sw) {
+    return !getenv("R11U112_OFF") && !getenv(sw);
+}
+
+/// § propDeclDisableIffSkip112 (r11u112, face 5) — A PROPERTY DECLARATION'S
+/// `disable iff` CONDITION IS DROPPED AND ITS PROPERTY EXPRESSION KEPT.
+///
+/// THE PRODUCER.  `CompileHelper::compilePropertyDeclaration`
+/// (`~/git-repos/Surelog/src/DesignCompile/CompileAssertion.cpp:501-530`,
+/// Surelog v1.87, commit 486e98426a) selects the property_spec children BY
+/// NODE TYPE: a leading `paClocking_event` becomes vpiClockingEvent, a
+/// following `paExpression_or_dist` (the `disable iff` condition) is SKIPPED,
+/// and the next sibling is compiled as vpiPropertyExpr.  No vpiDisableCondition
+/// is written.  The v1.86 producer took the condition AS the property
+/// expression, which is what our `AssertionExprKind::DisableIff` arm
+/// (emitAssertionExpr) still models — and it stays right for the INLINE
+/// `assert property (@(..) disable iff (..) ..)` road
+/// (`compileConcurrentAssertion`, unchanged in v1.87; grid p08 is equal).
+/// Grid tools/probe/r11u112repro/grid/p (p01-p11, both forms).
+static bool propDeclDisableIffSkip112() {
+    static const bool on = r11u112On("R11U112_PROPDIS_OFF");
+    return on;
+}
+
+/// § propDeclDisableIffSkip112's BODY FENCE — the kept property expression
+/// goes through the same `emitAssertionExpr` the inline assertions use, and
+/// two of its sub-shapes are not golden there: a RANGED cycle delay
+/// (`##[1:2]`, grid p10: golden writes a range object where we write a
+/// constant) and a sequence/property INSTANCE (grid p11: golden a ref_obj to
+/// the sequence_decl, ours a property_inst).  Emitting such a body would move
+/// cells golden does not hold (AWAY in the per-cell scorer), so the law is
+/// admitted only for bodies built from simple expressions (repetitions
+/// included), fixed-delay concatenations, and unary / binary property
+/// operators; everything else keeps the pristine road.
+static bool propBodyFenced112(const AssertionExpr& ae) {
+    switch (ae.kind) {
+        case AssertionExprKind::Simple:
+            return ae.as<SimpleAssertionExpr>().expr.kind ==
+                   ExpressionKind::AssertionInstance;
+        case AssertionExprKind::SequenceConcat:
+            // v11u112 — a WRITTEN leading delay ahead of further elements
+            // (`##1 b ##2 c`): golden nests it (op53 [1, op54 [b, 2, c]]),
+            // emitAssertionExpr flattens it into one op54 (grid q10/b5j:
+            // AWAY 5, MOVED-WRONG 6 per form).
+            if (!getenv("V11U112_PROPFENCE_OFF") &&
+                ae.as<SequenceConcatExpr>().elements.size() > 1 &&
+                ae.as<SequenceConcatExpr>().elements[0].delay.min != 0)
+                return true;
+            for (auto& el : ae.as<SequenceConcatExpr>().elements) {
+                if (!el.delay.max || *el.delay.max != el.delay.min)
+                    return true;
+                if (!el.sequence || propBodyFenced112(*el.sequence))
+                    return true;
+            }
+            return false;
+        case AssertionExprKind::Unary: {
+            // v11u112 — only the operators measured golden in the
+            // property-declaration home (not, always, s_nexttime): golden
+            // writes `s_eventually` with NO vpiOpType where emitAssertionExpr
+            // writes 91 (grid q02: AWAY 1 per form).
+            auto& u112 = ae.as<UnaryAssertionExpr>();
+            if (!getenv("V11U112_PROPFENCE_OFF") &&
+                (u112.range ||
+                 (u112.op != UnaryAssertionOperator::Not &&
+                  u112.op != UnaryAssertionOperator::Always &&
+                  u112.op != UnaryAssertionOperator::SNextTime)))
+                return true;
+            return propBodyFenced112(u112.expr);
+        }
+        case AssertionExprKind::Binary: {
+            // v11u112 — only the operators measured golden in the
+            // property-declaration home (|->, |=>, intersect, throughout,
+            // within): golden writes a sequence `and` / `or` as 26 / 27
+            // where emitAssertionExpr writes 79 / 80 (grid q06, q14, q18:
+            // AWAY / MOVED-WRONG 1 per form).
+            auto& b112 = ae.as<BinaryAssertionExpr>();
+            if (!getenv("V11U112_PROPFENCE_OFF") &&
+                b112.op != BinaryAssertionOperator::OverlappedImplication &&
+                b112.op != BinaryAssertionOperator::NonOverlappedImplication &&
+                b112.op != BinaryAssertionOperator::Intersect &&
+                b112.op != BinaryAssertionOperator::Throughout &&
+                b112.op != BinaryAssertionOperator::Within)
+                return true;
+            return propBodyFenced112(b112.left) ||
+                   propBodyFenced112(b112.right);
+        }
+        default:
+            return true;
+    }
+}
+
+/// § modFnLocalTdRetClone112 (r11u112, face 2, the RETURN half) — THE BODY-LOCAL
+/// RETURN VARIABLE OF A MODULE FUNCTION WHOSE RETURN TYPE IS A TYPEDEF OF THAT
+/// SAME MODULE TAKES A FRESH SELF-NAMED COPY WHOSE Typedef_alias BINDS A SECOND,
+/// INSTANCED COPY — the $UNIT-typedef shape `drainFuncRet` already mints
+/// (`unitTd`), now for the module home.
+///
+/// MEASURED on real Surelog v1.87 goldens (tools/probe/r11u112repro/grid/t,
+/// the non-elab form, where the body reference binds the per-reference local):
+/// the local's typespec is `logic_typespec(t)` (no instance) with a
+/// Typedef_alias ref named `<local>.t` whose actual is a second
+/// `logic_typespec(t)` carrying vpiInstance = the module (bit and int alike).
+/// In the -elabuhdm form golden binds the reference to the function's own
+/// vpiReturn variable, which the judge reaches first, so the local is
+/// invisible there.  OUR SIDE: the fallback `makeTypespec` returned the
+/// SHARED typedef object (and re-parented it at the local's ref).
+/// § tpStructKindNet112 (r11u112, face 3) — A KEYWORD-LESS DECLARATION TYPED BY
+/// A TYPE PARAMETER THAT RESOLVES TO A LOOSE-NET PACKED STRUCT IS A NET: a
+/// `struct_net` without dims, a `packed_array_net` of `struct_net`s with them.
+///
+/// THE PRODUCER.  `NetlistElaboration::elabSignal`
+/// (`~/git-repos/Surelog/src/DesignCompile/NetlistElaboration.cpp:2050-2153`)
+/// clears `isNet` for a data-typed Signal with no net keyword, then the
+/// typespec dispatch's `uhdmstruct_typespec` arm re-asserts it and runs the
+/// LOOSE member scan (logic or struct members => net).  For a type-parameter
+/// NAME the typespec it scans is `compileTypespec` of the name, i.e. the
+/// parameter's DEFAULT struct — for a `localparam type`, or any type parameter
+/// this instance does NOT override (gate: isLocalParam || !isOverridden), the
+/// default IS the resolved type.  The written packed dims are a separate `compileRanges`, so the
+/// same scan decides the dims cell and the `struct_net` is wrapped in a
+/// `packed_array_net` (no net type, no typespec on the wrapper).
+///
+/// OUR SIDE.  § tpDefaultStructIsNet41 asks `typeParamDefaultTs`, which only
+/// the HEADER parameter-port list fills, so a body localparam type fell to the
+/// `parameter type` demotion (`typeParamTyped`) and became a `struct_var`; and
+/// the 41 PACKED half calls `emitPackedStructArrayNet`, which finds its
+/// element typespec only through `typedefTs` — an ANONYMOUS struct default
+/// has no entry there, so the header-parameter dims cell fell through too.
+///
+/// MEASURED (tools/probe/r11u112repro/grid/k, both forms): k01-k03, k07
+/// (nested struct member), k12 (two dims), k13 (alias of a typedef), k15
+/// (body `parameter type`), k16/k17 (always_comb / always_ff driven), k19
+/// (child instance), k20 (HEADER `parameter type` default, dims cell) ->
+/// struct_net / packed_array_net.  DECLINED, each a different golden shape:
+/// `wire` (k04: struct_net nt=1, dims DROPPED), `var` (k05: struct_net nt=0,
+/// dims dropped), a non-net member (k06 int, k11 bit: packed_array_var of
+/// struct_vars with a typespec), a union (k10), an initializer (k18), an
+/// unpacked dim (k14, already golden).
+/// Returns the type parameter when the declaration is a keyword-less,
+/// uninitialised Variable written as a type-parameter name (dims or none).
+static const TypeParameterSymbol* tpStructKindNet112(const Symbol& sym) {
+    static const bool on = r11u112On("R11U112_TPNET_OFF");
+    if (!on || sym.kind != SymbolKind::Variable || hasVarKeywordDecl(sym))
+        return nullptr;
+    auto* dt = sym.getDeclaredType();
+    if (!dt || dt->getInitializer() || dt->getInitializerSyntax())
+        return nullptr;
+    auto& ty = dt->getType();
+    if (ty.kind != SymbolKind::TypeAlias && ty.kind != SymbolKind::PackedArrayType)
+        return nullptr;
+    return tpAnyLeaf41(sym);
+}
+
+/// § defGenElemIpsVarSel112 (r11u112, face 4) — IN A GENERATE BLOCK'S DEF-VIEW
+/// STATEMENT LIST, AN ELEMENT SELECT FOLLOWED BY AN INDEXED PART-SELECT
+/// (`x[i][B +: W]`, `x[i][j][B -: W]`) IS ONE `var_select` WHOSE vpiIndex LIST
+/// HOLDS EVERY BIT INDEX AND THEN THE `indexed_part_select`.
+///
+/// GOLDEN (tools/probe/r11u112repro/grid/v, both forms): the var_select is
+/// named after the base and spans the whole select; each bit index is emitted
+/// scoped through the select (`<scope>.x.i`); the `indexed_part_select` is
+/// named `x` with fullname `<scope>.x.x`, vpiDefName `x`, vpiConstantSelect 1,
+/// vpiIndexedPartSelectType 1 (`+:`) / 2 (`-:`), spans the selector, and its
+/// BASE scopes through `<scope>.x.x` while its WIDTH scopes through
+/// `<scope>.x` (`...cl_rdata.cl_rdata.off_i` vs `...cl_rdata.FW`); a constant
+/// base or width is unparented.  v01 (the corpus row), v02 (`-:`), v03
+/// (constant base), v04 (two bit indexes), v05 (gen-if), v07 (packed 2-D),
+/// v10 (literal width).
+/// OUR SIDE.  TypeEmit's syntax var_select chain admits only bit and simple
+/// range selectors and ABSTAINS on `+:` / `-:`, so the def-view cont_assign
+/// had NO vpiRhs at all.  TypeEmit.cpp is outside this pass's fence, so the
+/// def gen-block cont_assign site builds the shape itself and hands every
+/// sub-expression to the same syntax emitter.
+/// § tpStructKindNet112's ENUM FENCE (v11u112, the verifier) — the DIMS cell's
+/// body-parameter disjunct scans OUR resolved struct typespec
+/// (`typeParamElabTs`), whose member for an inline anonymous enum
+/// (`struct packed { enum logic [1:0] {A, B} e; ... }`) is a logic_typespec,
+/// so the loose scan read "net" where Surelog's enum member demotes the
+/// declaration: golden `packed_array_var`, the law wrote a `packed_array_net`
+/// (tools/probe/v11u112repro grid k/b3b, k/m08: AWAY 20-22 cells per form).
+/// The fence declines the cell when the declared element struct has an enum
+/// field (directly or under packed dims), leaving the pristine road.
+static bool tpStructHasEnumField112(const Type& declared) {
+    if (getenv("V11U112_ENUMFENCE_OFF"))
+        return false;
+    const Type* el = &declared.getCanonicalType();
+    while (el->kind == SymbolKind::PackedArrayType)
+        el = &el->as<PackedArrayType>().elementType.getCanonicalType();
+    if (el->kind != SymbolKind::PackedStructType)
+        return false;
+    for (auto& f : el->as<PackedStructType>().membersOfType<FieldSymbol>()) {
+        const Type* ft = &f.getType().getCanonicalType();
+        while (ft->kind == SymbolKind::PackedArrayType)
+            ft = &ft->as<PackedArrayType>().elementType.getCanonicalType();
+        if (ft->kind == SymbolKind::EnumType)
+            return true;
+    }
+    return false;
+}
+
+static bool defGenElemIpsVarSel112() {
+    static const bool on = r11u112On("R11U112_GENIPS_OFF");
+    return on;
+}
+
+static bool modFnLocalTdRetClone112(const SubroutineSymbol& sub) {
+    static const bool on = r11u112On("R11U112_TDRET_OFF");
+    if (!on)
+        return false;
+    auto& rt = sub.getReturnType();
+    if (rt.kind != SymbolKind::TypeAlias)
+        return false;
+    auto* ps = sub.getParentScope();
+    if (!ps || ps->asSymbol().kind != SymbolKind::InstanceBody)
+        return false;
+    return rt.as<TypeAliasType>().getParentScope() == ps;
+}
+
 static bool subWritesNonLocal(const SubroutineSymbol& sub);
 
 // Surelog gives an UNTYPED parameter an int_typespec whose shape is decided by
@@ -5195,6 +5416,14 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     propSpecClockEvent = false;
                     pbody = &cae.expr;
                 }
+                // § propDeclDisableIffSkip112 — the declaration's `disable
+                // iff` condition is skipped; its property expression is the
+                // spec's vpiPropertyExpr (Surelog v1.87).
+                if (pbody->kind == AssertionExprKind::DisableIff &&
+                    propDeclDisableIffSkip112() &&
+                    !propBodyFenced112(
+                        pbody->as<DisableIffAssertionExpr>().expr))
+                    pbody = &pbody->as<DisableIffAssertionExpr>().expr;
                 if (auto* bodyE =
                         emitAssertionExpr(*pbody, psSpec,
                                           propPrefix + "." + std::string(prop.name),
@@ -12580,6 +12809,39 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 continue;
             }
         }
+        // § tpStructKindNet112 (the DIMS cell) — the type parameter's
+        // struct is anonymous, so `emitPackedStructArrayNet` cannot find it in
+        // `typedefTs`: lend it the parameter's resolved struct typespec for
+        // the one call.  Header parameters keep 41's DEFAULT-decides gate;
+        // an unoverridable body parameter is decided by its own struct.
+        if (!implicitNet && !realVar && !it.port &&
+            it.sym->getDeclaredType()->getType().kind ==
+                SymbolKind::PackedArrayType)
+            if (auto* tp112 = tpStructKindNet112(*it.sym))
+                if (auto te112 = typeParamElabTs.find(tp112);
+                    te112 != typeParamElabTs.end() && te112->second &&
+                    te112->second->UhdmType() == UHDM::uhdmstruct_typespec &&
+                    (tpDefaultStructIsNet41(*it.sym, &def) ||
+                     ((tp112->isLocalParam() || !tp112->isOverridden()) &&
+                      structTsIsNetLike(te112->second) &&
+                      !tpStructHasEnumField112(
+                          it.sym->getDeclaredType()->getType())))) {
+                    const Symbol* key112 = &tp112->getTypeAlias();
+                    bool lent112 = !typedefTs.count(key112);
+                    if (lent112)
+                        typedefTs[key112] = te112->second;
+                    auto* pan112 =
+                        emitPackedStructArrayNet(*it.sym, name, fullName, m);
+                    if (lent112)
+                        typedefTs.erase(key112);
+                    if (pan112) {
+                        pan112->VpiNetType(0);
+                        topNets[it.sym] = pan112;
+                        sigOrder.emplace_back(it.sym, pan112);
+                        nets->push_back(pan112);
+                        continue;
+                    }
+                }
         // Packed-array-of-struct: the elaborated view is a packed_array_var
         // (ranges + struct_var element), not a flat logic_var. A PORT stays a
         // net (packed_array_net, doubled element fullname).
@@ -13629,6 +13891,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // is `x_tpso_nod_net` and stays a `struct_var`.
             bool typeParamTyped = portTypeParam(*it.sym) != nullptr &&
                                   !tpDefaultStructIsNet41(*it.sym, &def);
+            // § tpStructKindNet112 (the SCALAR cell) — an unoverridable body
+            // type parameter resolving to a loose-net struct is not demoted.
+            if (typeParamTyped && !it.port)
+                if (auto* tp112 = tpStructKindNet112(*it.sym);
+                    tp112 && (tp112->isLocalParam() || !tp112->isOverridden()) &&
+                    ts && ts->UhdmType() == UHDM::uhdmstruct_typespec &&
+                    structTsIsNetLike(ts))
+                    typeParamTyped = false;
             // The member scan is NOT port-conditional in Surelog —
             // elab_signal_ runs the same `ttmp == uhdmstruct_typespec` arm on
             // a port signal (HierPathPackedStruct's `input foo_t a`, whose one
@@ -37420,6 +37690,47 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                     ts = cl0;
                 }
             }
+            // § modFnLocalTdRetClone112 — a module function's own-module
+            // logic / bit / int typedef return: the $UNIT-typedef clone pair.
+            if (!ts && modFnLocalTdRetClone112(sub))
+                if (auto tit112 = typedefTs.find(&sub.getReturnType());
+                    tit112 != typedefTs.end() && tit112->second &&
+                    (tit112->second->UhdmType() == UHDM::uhdmlogic_typespec ||
+                     tit112->second->UhdmType() == UHDM::uhdmbit_typespec ||
+                     tit112->second->UhdmType() == UHDM::uhdmint_typespec)) {
+                    auto& rta112 = sub.getReturnType().as<TypeAliasType>();
+                    const syntax::SyntaxNode* tgt112 = nullptr;
+                    if (auto asyn112 = rta112.getSyntax())
+                        if (asyn112->kind ==
+                            syntax::SyntaxKind::TypedefDeclaration)
+                            tgt112 =
+                                asyn112->as<syntax::TypedefDeclarationSyntax>()
+                                    .type;
+                    if (tgt112) {
+                        auto mk112 = [&]() -> UHDM::typespec* {
+                            bypassTypedefShare = true;
+                            bool savedTf112 = tfContext;
+                            tfContext = true;
+                            auto* c112 = makeTypespec(*sub.returnValVar, tgt112);
+                            tfContext = savedTf112;
+                            bypassTypedefShare = false;
+                            c112->VpiName(rta112.name);
+                            return c112;
+                        };
+                        auto* cl112 = mk112();
+                        auto* ar112 = s.MakeRef_typespec();
+                        ar112->VpiFullName(localFull + "." +
+                                           std::string(rta112.name));
+                        ar112->VpiParent(cl112);
+                        auto* tw112 = mk112();
+                        tw112->VpiParent(ar112);
+                        tw112->Instance(tit112->second->Instance());
+                        ar112->Actual_typespec(tw112);
+                        cl112->Typedef_alias(ar112);
+                        cl112->VpiParent(rt);
+                        ts = cl112;
+                    }
+                }
             if (!ts) {
                 tfContext = true;
                 syntaxRefPrefix = localFull;
@@ -45167,7 +45478,152 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             ca->Lhs((UHDM::expr*)l);
                         }
                         selBaseScopeIdx = true;
-                        auto* r = emitSyntaxExpr(*be.right, ca);
+                        // § defGenElemIpsVarSel112 — decided BEFORE any mint.
+                        UHDM::any* r = nullptr;
+                        // Measured home: a LOOP generate's body (grid v01-
+                        // v04, v07, v10).  An if-generate branch (v05) also
+                        // gets golden's var_select, but there the base
+                        // expression's `off_i` comes out BOUND on our side and
+                        // unbound in golden (a pre-existing def gen-if binder,
+                        // residue R4b) — declined until that is decoded.
+                        bool inLoopGen112 = false;
+                        for (const syntax::SyntaxNode* q112 = asyn->parent; q112; q112 = q112->parent)
+                            if (q112->kind == syntax::SyntaxKind::LoopGenerate ||
+                                q112->kind == syntax::SyntaxKind::IfGenerate ||
+                                q112->kind == syntax::SyntaxKind::CaseGenerate) {
+                                inLoopGen112 =
+                                    q112->kind == syntax::SyntaxKind::LoopGenerate;
+                                break;
+                            }
+                        if (inLoopGen112 && defGenElemIpsVarSel112() &&
+                            (be.right->kind ==
+                                 syntax::SyntaxKind::ElementSelectExpression ||
+                             be.right->kind ==
+                                 syntax::SyntaxKind::IdentifierSelectName)) {
+                            std::vector<const syntax::SelectorSyntax*> sc112;
+                            const syntax::SyntaxNode* w112 = be.right;
+                            bool ok112 = true;
+                            std::string base112;
+                            while (ok112 &&
+                                   w112->kind == syntax::SyntaxKind::
+                                                     ElementSelectExpression) {
+                                auto& e112 = w112->as<
+                                    syntax::ElementSelectExpressionSyntax>();
+                                if (!e112.select || !e112.select->selector)
+                                    ok112 = false;
+                                else {
+                                    sc112.insert(sc112.begin(),
+                                                 e112.select->selector);
+                                    w112 = e112.left;
+                                }
+                            }
+                            if (ok112 &&
+                                w112->kind ==
+                                    syntax::SyntaxKind::IdentifierName)
+                                base112 = std::string(
+                                    w112->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText());
+                            else if (ok112 &&
+                                     w112->kind == syntax::SyntaxKind::
+                                                       IdentifierSelectName) {
+                                // The written base's own selectors come
+                                // FIRST (`x[i]` is one IdentifierSelectName).
+                                auto& isn112 = w112->as<
+                                    syntax::IdentifierSelectNameSyntax>();
+                                base112 = std::string(
+                                    isn112.identifier.valueText());
+                                std::vector<const syntax::SelectorSyntax*> pre112;
+                                for (auto* es112 : isn112.selectors) {
+                                    if (!es112->selector)
+                                        ok112 = false;
+                                    else
+                                        pre112.push_back(es112->selector);
+                                }
+                                sc112.insert(sc112.begin(), pre112.begin(),
+                                             pre112.end());
+                            }
+                            else
+                                ok112 = false;
+                            if (ok112 && sc112.size() > 1) {
+                                for (size_t k112 = 0; k112 + 1 < sc112.size();
+                                     k112++)
+                                    if (sc112[k112]->kind !=
+                                        syntax::SyntaxKind::BitSelect)
+                                        ok112 = false;
+                                auto lk112 = sc112.back()->kind;
+                                if (lk112 != syntax::SyntaxKind::
+                                                 AscendingRangeSelect &&
+                                    lk112 != syntax::SyntaxKind::
+                                                 DescendingRangeSelect)
+                                    ok112 = false;
+                            }
+                            else
+                                ok112 = false;
+                            if (ok112) {
+                                auto* vs112 = s.MakeVar_select();
+                                vs112->VpiName(base112);
+                                std::string vsFull112;
+                                if (!syntaxRefPrefix.empty()) {
+                                    vsFull112 = syntaxRefPrefix + syntaxRefSep +
+                                                base112;
+                                    vs112->VpiFullName(vsFull112);
+                                }
+                                vs112->VpiParent(ca);
+                                setLoc(vs112, be.right->sourceRange());
+                                auto* ixs112 = s.MakeExprVec();
+                                std::string savedPfx112 = syntaxRefPrefix;
+                                if (!vsFull112.empty())
+                                    syntaxRefPrefix = vsFull112;
+                                for (size_t k112 = 0; k112 + 1 < sc112.size();
+                                     k112++)
+                                    if (auto* ix112 = emitSyntaxExpr(
+                                            *sc112[k112]
+                                                 ->as<syntax::BitSelectSyntax>()
+                                                 .expr,
+                                            vs112))
+                                        ixs112->push_back((UHDM::expr*)ix112);
+                                auto* sl112 = sc112.back();
+                                auto& rs112 =
+                                    sl112->as<syntax::RangeSelectSyntax>();
+                                auto* ips112 = s.MakeIndexed_part_select();
+                                ips112->VpiName(base112);
+                                if (!vsFull112.empty())
+                                    ips112->VpiFullName(vsFull112 + syntaxRefSep +
+                                                        base112);
+                                ips112->VpiDefName(base112);
+                                ips112->VpiConstantSelect(true);
+                                ips112->VpiIndexedPartSelectType(
+                                    sl112->kind == syntax::SyntaxKind::
+                                                       AscendingRangeSelect
+                                        ? 1
+                                        : 2);
+                                ips112->VpiParent(vs112);
+                                setLoc(ips112, sl112->sourceRange());
+                                if (!vsFull112.empty())
+                                    syntaxRefPrefix =
+                                        vsFull112 + syntaxRefSep + base112;
+                                if (auto* b112 = emitSyntaxExpr(*rs112.left,
+                                                                ips112)) {
+                                    if (b112->UhdmType() == UHDM::uhdmconstant)
+                                        ((UHDM::expr*)b112)->VpiParent(nullptr);
+                                    ips112->Base_expr((UHDM::expr*)b112);
+                                }
+                                if (!vsFull112.empty())
+                                    syntaxRefPrefix = vsFull112;
+                                if (auto* wd112 = emitSyntaxExpr(*rs112.right,
+                                                                 ips112)) {
+                                    if (wd112->UhdmType() == UHDM::uhdmconstant)
+                                        ((UHDM::expr*)wd112)->VpiParent(nullptr);
+                                    ips112->Width_expr((UHDM::expr*)wd112);
+                                }
+                                syntaxRefPrefix = savedPfx112;
+                                ixs112->push_back(ips112);
+                                vs112->Exprs(ixs112);
+                                r = vs112;
+                            }
+                        }
+                        if (!r)
+                            r = emitSyntaxExpr(*be.right, ca);
                         selBaseScopeIdx = false;
                         inDefGenCaExpr = savedDGC9;
                         noUnitParamActual = savedNUA2;

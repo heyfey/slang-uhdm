@@ -1,0 +1,38 @@
+## CALIBRATION (golden read as both sides), pristine sweep
+ROWS_READ=2568 ROWS_WITH_DELTA=0
+## PRISTINE sweep deltas (golden minus ours; + = golden has more)
+sl/default/BuildUVMPkg-bf853d43 F2R-46
+sl/default/MiniAmiq-544c7f61 F2R-138
+sl/default/Scoreboard-59431470 F2R-46
+sl/default/SeqDriver-32af76aa F2R-138
+sl/default/SequenceInst-93ff2aad F5P+1
+sl/default/SimpleUVM-1dc93a62 F2R-46
+sl/testflags/BuildUVMPkg-bf853d43 F2R-46
+sl/testflags/Earlgrey_0_1-71da2fd7 F2R-8 F4V-38
+sl/testflags/MiniAmiq-544c7f61 F2R-138
+sl/testflags/SeqDriver-32af76aa F2R-138
+sl/testflags/SequenceInst-93ff2aad F5P+2
+sl/testflags/SimpleUVM-1dc93a62 F2R-46
+u2r/default/arb_idx_cast-dbf8cde6 F1T+2
+u2r/default/const_cast_signext-5e330eed F2C+1 F2R+1
+u2r/default/ibex_icache-e3714209 F1T+1
+u2r/default/packed_array_struct-a5048efa F3N+2
+u2r/default/unpacked_elem_partsel_comb-8eac1e24 F4V+1
+u2r/testflags/arb_idx_cast-dbf8cde6 F1T+2
+u2r/testflags/const_cast_signext-5e330eed F2C+1 F2R+1
+u2r/testflags/ibex_icache-e3714209 F1T+1
+u2r/testflags/packed_array_struct-a5048efa F3N+2
+u2r/testflags/unpacked_elem_partsel_comb-8eac1e24 F4V+1
+ROWS_READ=2568 ROWS_WITH_DELTA=22
+## LAW (lawf) sweep deltas
+sl/default/BuildUVMPkg-bf853d43 F2R-46
+sl/default/MiniAmiq-544c7f61 F2R-138
+sl/default/Scoreboard-59431470 F2R-46
+sl/default/SeqDriver-32af76aa F2R-138
+sl/default/SimpleUVM-1dc93a62 F2R-46
+sl/testflags/BuildUVMPkg-bf853d43 F2R-46
+sl/testflags/Earlgrey_0_1-71da2fd7 F2R-8 F4V-38
+sl/testflags/MiniAmiq-544c7f61 F2R-138
+sl/testflags/SeqDriver-32af76aa F2R-138
+sl/testflags/SimpleUVM-1dc93a62 F2R-46
+ROWS_READ=2568 ROWS_WITH_DELTA=10

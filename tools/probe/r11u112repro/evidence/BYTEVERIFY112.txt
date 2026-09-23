@@ -1,0 +1,73 @@
+## u2r lawf vs pris
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/arb_idx_cast-dbf8cde6/slang.uhdm  patched=e7cd41049a62 pristine=d4b841436c0e
+MOVER ./default/const_cast_signext-5e330eed/slang.uhdm  patched=b4f5461a4610 pristine=f70e14a8b9b2
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=1aeddf65afb1 pristine=9c1ffd34e983
+MOVER ./default/packed_array_struct-a5048efa/slang.uhdm  patched=1732997c2df1 pristine=7c43acac79d2
+MOVER ./default/unpacked_elem_partsel_comb-8eac1e24/slang.uhdm  patched=00e5d3610b71 pristine=78950353e8f2
+MOVER ./testflags/arb_idx_cast-dbf8cde6/slang.uhdm  patched=730492becfdd pristine=ec7519c68222
+MOVER ./testflags/const_cast_signext-5e330eed/slang.uhdm  patched=961d3201c374 pristine=a0fe2cd28230
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=751413acb66f pristine=4440db2c6af1
+MOVER ./testflags/packed_array_struct-a5048efa/slang.uhdm  patched=cb382b506a39 pristine=dbf66d5e633e
+MOVER ./testflags/unpacked_elem_partsel_comb-8eac1e24/slang.uhdm  patched=a225b033f7ef pristine=1504c4491c50
+MOVERS: 10 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## surelog lawf vs pris
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=eb1a09dab2d0 pristine=4d92721a8aeb
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=9475d42b4f6d pristine=326d9d6cc0a8
+MOVER ./default/SequenceInst-93ff2aad/slang.uhdm  patched=dbf0263fdd73 pristine=28a3f8565abd
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=7aea1a3a2a52
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=df5ff597a7ec pristine=27419f6011b4
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=070107844699 pristine=05df6c25a21b
+MOVER ./testflags/SequenceInst-93ff2aad/slang.uhdm  patched=6ee23c33e981 pristine=4cf09343375d
+MOVERS: 7 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## UVM order-blind attribution (sorted uhdm-dump, workdir-normalised)
+--- ob_default_MiniAmiq-544c7f61.diff
+730529a730530
+>       |UINT:1426
+732731d732731
+<       |UINT:560
+981014a981015
+>       |vpiDecompile:1426
+983305d983305
+<       |vpiDecompile:560
+--- ob_default_SeqDriver-32af76aa.diff
+701125d701124
+<       |UINT:1465
+704330a704330
+>       |UINT:962
+945796d945795
+<       |vpiDecompile:1465
+949273a949273
+>       |vpiDecompile:962
+--- ob_default_SimpleUVM-1dc93a62.diff
+424261d424260
+<       |UINT:0
+428522a428522
+>       |UINT:1461
+568721d568720
+<       |vpiDecompile:0
+573014a573014
+>       |vpiDecompile:1461
+--- ob_testflags_MiniAmiq-544c7f61.diff
+723225a723226
+>       |UINT:0
+733883d733883
+<       |UINT:906
+973852a973853
+>       |vpiDecompile:0
+984489d984489
+<       |vpiDecompile:906
+--- ob_testflags_SeqDriver-32af76aa.diff
+694149a694150
+>       |UINT:0
+701118d701118
+<       |UINT:1441
+938749a938750
+>       |vpiDecompile:0
+945789d945789
+<       |vpiDecompile:1441

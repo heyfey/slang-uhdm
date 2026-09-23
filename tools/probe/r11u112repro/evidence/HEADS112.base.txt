@@ -1,0 +1,467 @@
+=== sl/default/SequenceInst-93ff2aad lines=122 heads=1
+LHS:
+decompile:
+operation: , id:24, line:9:28, endln:9:69
+|vpiParent:
+\_property_spec: , id:16, line:9:5, endln:9:69
+|vpiOpType:51
+|vpiOperand:
+\_operation: , id:19, line:9:29, endln:9:59
+  |vpiParent:
+  \_operation: , id:24, line:9:28, endln:9:69
+  |vpiOpType:54
+  |vpiOperand:
+  \_ref_obj: (work@m.p_triggers.start_event), id:18, line:9:29, endln:9:40
+    |vpiParent:
+    \_operation: , id:19, line:9:29, endln:9:59
+    |vpiName:start_event
+    |vpiFullName:work@m.p_triggers.start_event
+    |vpiActual:
+    \_logic_net: (work@m.start_event), id:267, line:9:29, endln:9:40
+  |vpiOperand:
+  \_constant: , id:20, line:9:41, endln:9:44
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:22, line:9:45, endln:9:59
+    |vpiParent:
+    \_operation: , id:19, line:9:29, endln:9:59
+    |vpiOpType:61
+    |vpiOperand:
+    \_ref_obj: (work@m.p_triggers.end_event), id:21, line:9:45, endln:9:54
+      |vpiParent:
+      \_operation: , id:19, line:9:29, endln:9:59
+      |vpiName:end_event
+      |vpiFullName:work@m.p_triggers.end_event
+      |vpiActual:
+      \_logic_net: (work@m.end_event), id:268, line:9:45, endln:9:54
+    |vpiOperand:
+    \_constant: , id:23, line:9:57, endln:9:58
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+|vpiOperand:
+\_ref_obj: (work@m.p_triggers.form), id:25, line:9:65, endln:9:69
+  |vpiParent:
+  \_operation: , id:24, line:9:28, endln:9:69
+  |vpiName:form
+  |vpiFullName:work@m.p_triggers.form
+  |vpiActual:
+  \_logic_net: (work@m.form), id:269, line:9:65, endln:9:69
+
+decompile:
+ref_obj: (work@m.p_triggers.rst), id:33, line:9:23, endln:9:26
+|vpiParent:
+\_property_spec: , id:30, line:9:5, endln:9:69
+|vpiName:rst
+|vpiFullName:work@m.p_triggers.rst
+|vpiActual:
+=== sl/testflags/SequenceInst-93ff2aad lines=122 heads=1
+LHS:
+decompile:
+operation: , id:24, line:9:28, endln:9:69
+|vpiParent:
+\_property_spec: , id:16, line:9:5, endln:9:69
+|vpiOpType:51
+|vpiOperand:
+\_operation: , id:19, line:9:29, endln:9:59
+  |vpiParent:
+  \_operation: , id:24, line:9:28, endln:9:69
+  |vpiOpType:54
+  |vpiOperand:
+  \_ref_obj: (work@m.p_triggers.start_event), id:18, line:9:29, endln:9:40
+    |vpiParent:
+    \_operation: , id:19, line:9:29, endln:9:59
+    |vpiName:start_event
+    |vpiFullName:work@m.p_triggers.start_event
+    |vpiActual:
+    \_logic_net: (work@m.start_event), id:182, line:9:29, endln:9:40
+  |vpiOperand:
+  \_constant: , id:20, line:9:41, endln:9:44
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:22, line:9:45, endln:9:59
+    |vpiParent:
+    \_operation: , id:19, line:9:29, endln:9:59
+    |vpiOpType:61
+    |vpiOperand:
+    \_ref_obj: (work@m.p_triggers.end_event), id:21, line:9:45, endln:9:54
+      |vpiParent:
+      \_operation: , id:19, line:9:29, endln:9:59
+      |vpiName:end_event
+      |vpiFullName:work@m.p_triggers.end_event
+      |vpiActual:
+      \_logic_net: (work@m.end_event), id:183, line:9:45, endln:9:54
+    |vpiOperand:
+    \_constant: , id:23, line:9:57, endln:9:58
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+|vpiOperand:
+\_ref_obj: (work@m.p_triggers.form), id:25, line:9:65, endln:9:69
+  |vpiParent:
+  \_operation: , id:24, line:9:28, endln:9:69
+  |vpiName:form
+  |vpiFullName:work@m.p_triggers.form
+  |vpiActual:
+  \_logic_net: (work@m.form), id:184, line:9:65, endln:9:69
+
+decompile:
+ref_obj: (work@m.p_triggers.rst), id:26, line:9:23, endln:9:26
+|vpiParent:
+\_property_spec: , id:23, line:9:5, endln:9:69
+|vpiName:rst
+|vpiFullName:work@m.p_triggers.rst
+|vpiActual:
+=== u2r/default/arb_idx_cast-dbf8cde6 lines=46 heads=1
+LHS:
+decompile:
+constant: , id:360, line:28:64, endln:28:68
+|vpiParent:
+\_operation: , id:363, line:28:64, endln:28:70
+|vpiDecompile:1
+|vpiSize:32
+|INT:1
+|vpiTypespec:
+\_ref_typespec: (work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes), id:361
+  |vpiParent:
+  \_constant: , id:360, line:28:64, endln:28:68
+  |vpiFullName:work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes
+  |vpiActual:
+  \_int_typespec: , id:362, line:22:18, endln:22:30
+|vpiConstType:7
+
+decompile:
+ref_obj: (work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes.Idx1), id:243, line:28:64, endln:28:68
+|vpiParent:
+\_operation: , id:242, line:28:64, endln:28:70
+|vpiName:Idx1
+|vpiFullName:work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes.Idx1
+
+=== u2r/default/const_cast_signext-5e330eed lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+
+=== u2r/default/ibex_icache-e3714209 lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (work@ibex_icache.round_robin_way_q), id:11006
+|vpiParent:
+\_constant: , id:11005, line:519:56, endln:519:67
+|vpiFullName:work@ibex_icache.round_robin_way_q
+|vpiActual:
+\_int_typespec: , id:11007, line:387:13, endln:387:25
+
+=== u2r/default/ibex_pmp-65816114 lines=36 heads=1
+LHS:
+decompile:
+constant: , id:12627, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:12626, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:32
+|UINT:33
+|vpiConstType:9
+
+decompile:
+constant: , id:6065, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:6064, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:64
+|UINT:33
+|vpiConstType:9
+
+=== u2r/default/packed_array_struct-a5048efa lines=499 heads=1
+LHS: <null>
+RHS:
+decompile:
+module_inst: work@packed_array_struct (work@packed_array_struct), id:146, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+|vpiParent:
+\_design: (work@packed_array_struct), id:1
+|vpiName:work@packed_array_struct
+|vpiVariables:
+\_struct_var: (work@packed_array_struct.scalar_sig), id:178, line:16:17, endln:16:27
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:146, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.scalar_sig), id:177
+    |vpiParent:
+    \_struct_var: (work@packed_array_struct.scalar_sig), id:178, line:16:17, endln:16:27
+    |vpiFullName:work@packed_array_struct.scalar_sig
+    |vpiActual:
+    \_struct_typespec: , id:149, line:10:28, endln:10:41
+  |vpiName:scalar_sig
+  |vpiFullName:work@packed_array_struct.scalar_sig
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (work@packed_array_struct.arr), id:181, line:17:17, endln:17:20
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:146, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.arr), id:180
+    |vpiParent:
+    \_struct_var: (work@packed_array_struct.arr), id:181, line:17:17, endln:17:20
+    |vpiFullName:work@packed_array_struct.arr
+    |vpiActual:
+    \_logic_typespec: , id:179, line:17:5, endln:17:15
+  |vpiName:arr
+  |vpiFullName:work@packed_array_struct.arr
+  |vpiVisibility:1
+|vpiParameter:
+\_type_parameter: (work@packed_array_struct.my_t), id:147
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:146, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiName:my_t
+  |vpiLocalParam:1
+  |vpiFullName:work@packed_array_struct.my_t
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.my_t), id:148
+    |vpiParent:
+    \_type_parameter: (work@packed_array_struct.my_t), id:147
+    |vpiFullName:work@packed_array_struct.my_t
+    |vpiActual:
+    \_struct_typespec: , id:149, line:10:28, endln:10:41
+|vpiDefName:work@packed_array_struct
+|vpiTop:1
+|vpiNet:
+\_logic_net: (work@packed_array_struct.clk), id:170, line:7:18, endln:7:21
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:146, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.clk), id:169
+    |vpiParent:
+    \_logic_net: (work@packed_array_struct.clk), id:170, line:7:18, endln:7:21
+    |vpiFullName:work@packed_array_struct.clk
+=== u2r/default/unpacked_elem_partsel_comb-8eac1e24 lines=91 heads=1
+LHS:
+decompile:
+var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:50, line:20:24, endln:20:56
+|vpiParent:
+\_cont_assign: , id:49, line:20:12, endln:20:56
+|vpiName:cl_rdata
+|vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata
+|vpiIndex:
+\_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i), id:51, line:20:33, endln:20:34
+  |vpiParent:
+  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:50, line:20:24, endln:20:56
+  |vpiName:i
+  |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i
+|vpiIndex:
+\_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:52, line:20:36, endln:20:55
+  |vpiParent:
+  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:50, line:20:24, endln:20:56
+  |vpiName:cl_rdata
+  |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata
+  |vpiDefName:cl_rdata
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_operation: , id:53, line:20:36, endln:20:49
+    |vpiParent:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:52, line:20:36, endln:20:55
+    |vpiOpType:33
+    |vpiOperand:
+    \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i), id:54, line:20:37, endln:20:42
+      |vpiParent:
+      \_operation: , id:53, line:20:36, endln:20:49
+      |vpiName:off_i
+      |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i
+    |vpiOperand:
+    \_constant: , id:55, line:20:44, endln:20:48
+      |vpiDecompile:3'b0
+      |vpiSize:3
+      |BIN:0
+      |vpiConstType:3
+  |vpiWidthExpr:
+  \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW), id:56, line:20:53, endln:20:55
+    |vpiParent:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:52, line:20:36, endln:20:55
+    |vpiName:FW
+    |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW
+
+=== u2r/testflags/arb_idx_cast-dbf8cde6 lines=46 heads=1
+LHS:
+decompile:
+constant: , id:276, line:28:64, endln:28:68
+|vpiParent:
+\_operation: , id:279, line:28:64, endln:28:70
+|vpiDecompile:1
+|vpiSize:32
+|INT:1
+|vpiTypespec:
+\_ref_typespec: (work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes), id:277
+  |vpiParent:
+  \_constant: , id:276, line:28:64, endln:28:68
+  |vpiFullName:work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes
+  |vpiActual:
+  \_int_typespec: , id:278, line:22:18, endln:22:30
+|vpiConstType:7
+
+decompile:
+ref_obj: (work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes.Idx1), id:159, line:28:64, endln:28:68
+|vpiParent:
+\_operation: , id:158, line:28:64, endln:28:70
+|vpiName:Idx1
+|vpiFullName:work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes.Idx1
+
+=== u2r/testflags/const_cast_signext-5e330eed lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (imm_t), id:42
+|vpiParent:
+\_logic_typespec: (imm_t), id:38, line:14:11, endln:14:30
+|vpiFullName:imm_t
+|vpiActual:
+\_logic_typespec: (imm_t), id:7, line:14:11, endln:14:30
+
+=== u2r/testflags/ibex_icache-e3714209 lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (work@ibex_icache.round_robin_way_q), id:11006
+|vpiParent:
+\_constant: , id:11005, line:519:56, endln:519:67
+|vpiFullName:work@ibex_icache.round_robin_way_q
+|vpiActual:
+\_int_typespec: , id:11007, line:387:13, endln:387:25
+
+=== u2r/testflags/ibex_pmp-65816114 lines=36 heads=1
+LHS:
+decompile:
+constant: , id:12543, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:12542, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:32
+|UINT:33
+|vpiConstType:9
+
+decompile:
+constant: , id:5981, line:34:10, endln:34:22
+|vpiParent:
+\_range: , id:5980, line:34:9, endln:34:25
+|vpiDecompile:33
+|vpiSize:64
+|UINT:33
+|vpiConstType:9
+
+=== u2r/testflags/packed_array_struct-a5048efa lines=499 heads=1
+LHS: <null>
+RHS:
+decompile:
+module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+|vpiParent:
+\_design: (work@packed_array_struct), id:1
+|vpiName:work@packed_array_struct
+|vpiVariables:
+\_struct_var: (work@packed_array_struct.scalar_sig), id:94, line:16:17, endln:16:27
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.scalar_sig), id:93
+    |vpiParent:
+    \_struct_var: (work@packed_array_struct.scalar_sig), id:94, line:16:17, endln:16:27
+    |vpiFullName:work@packed_array_struct.scalar_sig
+    |vpiActual:
+    \_struct_typespec: , id:65, line:10:28, endln:10:41
+  |vpiName:scalar_sig
+  |vpiFullName:work@packed_array_struct.scalar_sig
+  |vpiVisibility:1
+|vpiVariables:
+\_struct_var: (work@packed_array_struct.arr), id:97, line:17:17, endln:17:20
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.arr), id:96
+    |vpiParent:
+    \_struct_var: (work@packed_array_struct.arr), id:97, line:17:17, endln:17:20
+    |vpiFullName:work@packed_array_struct.arr
+    |vpiActual:
+    \_logic_typespec: , id:95, line:17:5, endln:17:15
+  |vpiName:arr
+  |vpiFullName:work@packed_array_struct.arr
+  |vpiVisibility:1
+|vpiParameter:
+\_type_parameter: (work@packed_array_struct.my_t), id:63
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiName:my_t
+  |vpiLocalParam:1
+  |vpiFullName:work@packed_array_struct.my_t
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.my_t), id:64
+    |vpiParent:
+    \_type_parameter: (work@packed_array_struct.my_t), id:63
+    |vpiFullName:work@packed_array_struct.my_t
+    |vpiActual:
+    \_struct_typespec: , id:65, line:10:28, endln:10:41
+|vpiDefName:work@packed_array_struct
+|vpiTop:1
+|vpiNet:
+\_logic_net: (work@packed_array_struct.clk), id:86, line:7:18, endln:7:21
+  |vpiParent:
+  \_module_inst: work@packed_array_struct (work@packed_array_struct), id:62, file:/home/heyfey/git-repos/uhdm2rtlil/test/packed_array_struct/dut.sv, line:6:1, endln:22:10
+  |vpiTypespec:
+  \_ref_typespec: (work@packed_array_struct.clk), id:85
+    |vpiParent:
+    \_logic_net: (work@packed_array_struct.clk), id:86, line:7:18, endln:7:21
+    |vpiFullName:work@packed_array_struct.clk
+=== u2r/testflags/unpacked_elem_partsel_comb-8eac1e24 lines=91 heads=1
+LHS:
+decompile:
+var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:50, line:20:24, endln:20:56
+|vpiParent:
+\_cont_assign: , id:49, line:20:12, endln:20:56
+|vpiName:cl_rdata
+|vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata
+|vpiIndex:
+\_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i), id:51, line:20:33, endln:20:34
+  |vpiParent:
+  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:50, line:20:24, endln:20:56
+  |vpiName:i
+  |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.i
+|vpiIndex:
+\_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:52, line:20:36, endln:20:55
+  |vpiParent:
+  \_var_select: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata), id:50, line:20:24, endln:20:56
+  |vpiName:cl_rdata
+  |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata
+  |vpiDefName:cl_rdata
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_operation: , id:53, line:20:36, endln:20:49
+    |vpiParent:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:52, line:20:36, endln:20:55
+    |vpiOpType:33
+    |vpiOperand:
+    \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i), id:54, line:20:37, endln:20:42
+      |vpiParent:
+      \_operation: , id:53, line:20:36, endln:20:49
+      |vpiName:off_i
+      |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata.off_i
+    |vpiOperand:
+    \_constant: , id:55, line:20:44, endln:20:48
+      |vpiDecompile:3'b0
+      |vpiSize:3
+      |BIN:0
+      |vpiConstType:3
+  |vpiWidthExpr:
+  \_ref_obj: (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW), id:56, line:20:53, endln:20:55
+    |vpiParent:
+    \_indexed_part_select: cl_rdata (work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.cl_rdata), id:52, line:20:36, endln:20:55
+    |vpiName:FW
+    |vpiFullName:work@unpacked_elem_partsel_comb.gen_cmpsel.cl_rdata.FW

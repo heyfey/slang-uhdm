@@ -1,0 +1,26 @@
+# lawx vs vfx2 on the 888 control compiles
+PROCESSED=888 LISTED=888 SAME=888 DIFF=0
+# pris vs lawx
+DIFF u2r tools/probe/r11u108repro/grid/f4/c01_modfunc_cast/dut.sv 0 0 orderblind=30
+DIFF elab tools/probe/r11u108repro/grid/f4/c01_modfunc_cast/dut.sv 0 0 orderblind=30
+DIFF u2r tools/probe/r11u108repro/grid/f4/c02_modfunc_ret/dut.sv 0 0 orderblind=61
+DIFF elab tools/probe/r11u108repro/grid/f4/c02_modfunc_ret/dut.sv 0 0 orderblind=15
+DIFF u2r tools/probe/r11u108repro/grid/f4/c03_modfunc_ret_cast/dut.sv 0 0 orderblind=91
+DIFF elab tools/probe/r11u108repro/grid/f4/c03_modfunc_ret_cast/dut.sv 0 0 orderblind=45
+DIFF u2r tools/probe/r11u108repro/grid/f4/c06_modtask_cast/dut.sv 0 0 orderblind=30
+DIFF elab tools/probe/r11u108repro/grid/f4/c06_modtask_cast/dut.sv 0 0 orderblind=30
+DIFF u2r tools/probe/r11u108repro/grid/f4/c07_unsigned_td/dut.sv 0 0 orderblind=29
+DIFF elab tools/probe/r11u108repro/grid/f4/c07_unsigned_td/dut.sv 0 0 orderblind=29
+DIFF u2r tools/probe/r11u108repro/grid/f4/c08_bit_td/dut.sv 0 0 orderblind=29
+DIFF elab tools/probe/r11u108repro/grid/f4/c08_bit_td/dut.sv 0 0 orderblind=29
+DIFF u2r tools/probe/r11u108repro/grid/f4/c09_int_td/dut.sv 0 0 orderblind=10
+DIFF elab tools/probe/r11u108repro/grid/f4/c09_int_td/dut.sv 0 0 orderblind=10
+DIFF u2r tools/probe/r11u108repro/grid/f4/c11_twocasts/dut.sv 0 0 orderblind=60
+DIFF elab tools/probe/r11u108repro/grid/f4/c11_twocasts/dut.sv 0 0 orderblind=60
+DIFF u2r tools/probe/r11u108repro/grid/f4/c12_const_fold/dut.sv 0 0 orderblind=91
+DIFF elab tools/probe/r11u108repro/grid/f4/c12_const_fold/dut.sv 0 0 orderblind=45
+DIFF u2r tools/probe/r11u107repro/grid/t08_tp_ustruct/dut.sv 0 0 orderblind=7
+DIFF elab tools/probe/r11u107repro/grid/t08_tp_ustruct/dut.sv 0 0 orderblind=7
+DIFF u2r tools/probe/r11u107repro/grid/t10_body_tp_struct/dut.sv 0 0 orderblind=7
+DIFF elab tools/probe/r11u107repro/grid/t10_body_tp_struct/dut.sv 0 0 orderblind=11
+PROCESSED=888 LISTED=888 SAME=866 DIFF=22
