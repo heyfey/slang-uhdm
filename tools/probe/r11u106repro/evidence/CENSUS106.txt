@@ -1,0 +1,49 @@
+# r11u106 CENSUS (census106.py) on the PRISTINE sweep databases, golden first.
+## golden-vs-golden calibration, uhdm2rtlil (1608 dbs)
+CELL	testflags/unpacked_struct_array_typedef-a7f4c872	M	GOLD-OTHER	Top/module_inst(work@top)/var(fb)/array_typespec(foobar_t)@25:13/range0@25:29 R	operation op11(constant,constant,) @25:29 || gold=operation op11(constant,constant,) @25:29
+CELL	default/unpacked_struct_array_typedef-a7f4c872	M	GOLD-OTHER	Top/module_inst(work@top)/var(fb)/array_typespec(foobar_t)@25:13/range0@25:29 R	operation op11(constant,constant,) @25:29 || gold=operation op11(constant,constant,) @25:29
+DATABASES 1608
+TOTAL	M	GOLD-OTHER	cells=2	rowdbs=2
+## golden-vs-golden calibration, Surelog (960 dbs)
+DATABASES 960
+## pristine, uhdm2rtlil
+CELL	testflags/mem_packed_2d_byte_write-8742967e	M	GOLD-FOLD	Top/module_inst(work@dut)/var(mem)/array_typespec(mem_t)@19:11/range0@19:51 R	operation op11(ref_obj:DEPTH,constant,) @19:51 || gold=constant INT:3 sz64 ct7 dc=3 @-
+CELL	testflags/cva6_struct_param_field-80aba5af	S	GOLD-FOLD	Top/module_inst(work@cva6_struct_param_field)/pa(I).rhs/operation75@29:23.ts/struct_typespec@25:26/m:x/logic_typespec@26:5/range0@26:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @26:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	testflags/cva6_struct_param_field-80aba5af	S	GOLD-FOLD	Top/module_inst(work@cva6_struct_param_field)/pa(I).rhs/operation75@29:23.ts/struct_typespec@25:26/m:y/logic_typespec@27:5/range0@27:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @27:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	testflags/unpacked_struct_array_typedef-a7f4c872	M	GOLD-OTHER	Top/module_inst(work@top)/var(fb)/array_typespec(foobar_t)@25:13/range0@25:29 R	operation op11(constant,constant,) @25:29 || gold=operation op11(constant,constant,) @25:29
+CELL	default/mem_packed_2d_byte_write-8742967e	M	GOLD-FOLD	Top/module_inst(work@dut)/var(mem)/array_typespec(mem_t)@19:11/range0@19:51 R	operation op11(ref_obj:DEPTH,constant,) @19:51 || gold=constant INT:3 sz64 ct7 dc=3 @-
+CELL	default/cva6_struct_param_field-80aba5af	S	GOLD-FOLD	Top/module_inst(work@cva6_struct_param_field)/pa(I).rhs/operation75@29:23.ts/struct_typespec@25:26/m:x/logic_typespec@26:5/range0@26:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @26:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	default/cva6_struct_param_field-80aba5af	S	GOLD-FOLD	Top/module_inst(work@cva6_struct_param_field)/pa(I).rhs/operation75@29:23.ts/struct_typespec@25:26/m:y/logic_typespec@27:5/range0@27:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @27:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	default/unpacked_struct_array_typedef-a7f4c872	M	GOLD-OTHER	Top/module_inst(work@top)/var(fb)/array_typespec(foobar_t)@25:13/range0@25:29 R	operation op11(constant,constant,) @25:29 || gold=operation op11(constant,constant,) @25:29
+DATABASES 1608
+TOTAL	M	GOLD-FOLD	cells=2	rowdbs=2
+TOTAL	M	GOLD-OTHER	cells=2	rowdbs=2
+TOTAL	S	GOLD-FOLD	cells=4	rowdbs=2
+## pristine, Surelog
+CELL	testflags/StructParamFieldRange-25c71671	S	GOLD-FOLD	Top/module_inst(work@StructParamFieldRange)/pa(I).rhs/operation75@27:23.ts/struct_typespec@23:26/m:x/logic_typespec@24:5/range0@24:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @24:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	testflags/StructParamFieldRange-25c71671	S	GOLD-FOLD	Top/module_inst(work@StructParamFieldRange)/pa(I).rhs/operation75@27:23.ts/struct_typespec@23:26/m:y/logic_typespec@25:5/range0@25:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @25:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	testflags/StructParamPatternInitCast-5f8c57d4	S	GOLD-FOLD	Top/module_inst(work@StructParamPatternInitCast)/pa(INT).rhs/operation75@34:25.ts/struct_typespec@30:26/m:S_SW/logic_typespec@31:5/range0@31:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @31:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	testflags/StructParamPatternInitCast-5f8c57d4	S	GOLD-FOLD	Top/module_inst(work@StructParamPatternInitCast)/pa(INT).rhs/operation75@34:25.ts/struct_typespec@30:26/m:M_SW/logic_typespec@32:5/range0@32:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @32:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	testflags/StructParamFuncBodyFieldCompare-dc918b36	S	GOLD-FOLD	Top/module_inst(work@StructParamFuncBodyFieldCompare)/pa(INT).rhs/operation75@46:25.ts/struct_typespec@42:26/m:S_SW/logic_typespec@43:5/range0@43:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @43:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	testflags/StructParamFuncBodyFieldCompare-dc918b36	S	GOLD-FOLD	Top/module_inst(work@StructParamFuncBodyFieldCompare)/pa(INT).rhs/operation75@46:25.ts/struct_typespec@42:26/m:M_SW/logic_typespec@44:5/range0@44:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @44:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	default/StructParamFieldRange-25c71671	S	GOLD-FOLD	Top/module_inst(work@StructParamFieldRange)/pa(I).rhs/operation75@27:23.ts/struct_typespec@23:26/m:x/logic_typespec@24:5/range0@24:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @24:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	default/StructParamFieldRange-25c71671	S	GOLD-FOLD	Top/module_inst(work@StructParamFieldRange)/pa(I).rhs/operation75@27:23.ts/struct_typespec@23:26/m:y/logic_typespec@25:5/range0@25:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @25:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	default/StructParamPatternInitCast-5f8c57d4	S	GOLD-FOLD	Top/module_inst(work@StructParamPatternInitCast)/pa(INT).rhs/operation75@34:25.ts/struct_typespec@30:26/m:S_SW/logic_typespec@31:5/range0@31:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @31:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	default/StructParamPatternInitCast-5f8c57d4	S	GOLD-FOLD	Top/module_inst(work@StructParamPatternInitCast)/pa(INT).rhs/operation75@34:25.ts/struct_typespec@30:26/m:M_SW/logic_typespec@32:5/range0@32:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @32:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	default/StructParamFuncBodyFieldCompare-dc918b36	S	GOLD-FOLD	Top/module_inst(work@StructParamFuncBodyFieldCompare)/pa(INT).rhs/operation75@46:25.ts/struct_typespec@42:26/m:S_SW/logic_typespec@43:5/range0@43:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @43:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+CELL	default/StructParamFuncBodyFieldCompare-dc918b36	S	GOLD-FOLD	Top/module_inst(work@StructParamFuncBodyFieldCompare)/pa(INT).rhs/operation75@46:25.ts/struct_typespec@42:26/m:M_SW/logic_typespec@44:5/range0@44:11 L	operation op11(hier_path:Cfg.XLEN,constant,) @44:12 || gold=constant INT:63 sz64 ct7 dc=63 @-
+DATABASES 960
+TOTAL	S	GOLD-FOLD	cells=12	rowdbs=6
+## positive controls (--pair on the grid arms, pristine)
+# s1_homes106
+     12 S	GOLD-FOLD
+# s2_edges106
+     10 S	GOLD-FOLD
+# s3_pkgunp106
+      7 S	GOLD-FOLD
+# m1_vars106
+      8 M	GOLD-FOLD
+# m2_homes106
+      2 M	GOLD-FOLD
+      1 M	GOLD-OTHER
+      1 M	NO-GOLD

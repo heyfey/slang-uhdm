@@ -11918,4 +11918,311 @@ inline bool red72UntypedMinusName(const Expression& e0, const ASTContext& actx) 
     return red72Int64(*in, actx, 0, rv73) != Red72::Refuses;
 }
 
+
+/// § structPatternOpTsBoundFold106 (r11u106) — THE STRUCT PATTERN'S OWN
+/// TYPESPEC CLONE CARRIES ITS MEMBER RANGE BOUNDS REDUCED.
+///
+/// THE PRODUCER.  `NetlistElaboration::elab_parameters_`
+/// (`~/git-repos/Surelog/src/DesignCompile/NetlistElaboration.cpp:250-431`)
+/// takes an instance's param_assign whose right-hand side is a
+/// `vpiAssignmentPatternOp` / `vpiMultiAssignmentPatternOp` (:250-252), clones
+/// it, and — when the LEFT-hand parameter's typespec is a `struct_typespec`
+/// (:404, a union never) — runs `reduceTypespecRanges` over the pattern
+/// operation's OWN typespec (:406-409).  That walk (:338-360) descends a
+/// struct's members only; at a `logic_typespec` / `packed_array_typespec` /
+/// `array_typespec` it reduces that typespec's OWN ranges (never an element
+/// typespec, never a `bit_typespec`), and `reduceBound` (:311-325) replaces a
+/// NON-constant bound by `reduceExpr`'s constant when the reduce succeeds.
+/// The reduced constant of an OPERATION bound is minted by the evaluator:
+/// `INT:<v>`, size 64, `vpiIntConst`, decompile `<v>`, NO location and NO
+/// parent (`Cfg.XLEN-1` -> `INT:63`); a bare `$clog2(...)` bound reduces to
+/// `UINT:<v>` size 64 the same location-less way.
+///
+/// OUR SIDE.  That typespec is the ELAB op clone `mintParamOpClones` /
+/// `patchParamTypespecs` mint (`paramOpClones`).  This folds, in place, only
+/// what the clone OWNS: a member's leaf typespec is folded only when its
+/// `VpiParent` is that member's own ref (a SHARED definition object — a named
+/// struct member, a nested pattern's def typespec — is left alone).  The value
+/// is slang's evaluated range of the same dimension (the canonical packed-array
+/// chain of the member's type, outermost range first).
+///
+/// DECLINED (the golden value is not an evaluator mint): a BARE parameter or
+/// struct-member read (`[W:0]`, `[Cfg.W2:0]`) — golden writes the value
+/// literal's own object, with its source location — and every bound of a
+/// shared member typespec.  MEASURED: arms `s1_homes106`, `s2_edges106`.
+constexpr bool spOpTsFoldOp106 = true;     // an OPERATION bound -> INT
+constexpr bool spOpTsFoldClog2106 = true;  // a bare `$clog2` bound -> UINT
+
+/// § evalIntOpOnly106v (verifier v11u94) — ONLY THE OPERATORS THE EVALUATOR
+/// ALWAYS MINTS AS `INT` SIZE 64 FOLD.  `ExprEval::reduceExpr`
+/// (`~/git-repos/UHDM/templates/ExprEval.cpp`, v1.87) mints `INT:<v>` size 64
+/// for `vpiSubOp` (:3443), `vpiMultOp` (:3479), `vpiModOp` (:3709),
+/// `vpiPowerOp` (:3765), `vpiDivOp` (:3803) and `vpiConditionOp` (:3863), but
+/// `UINT` for the shifts (:3149, :3236) and the bitwise / logical ops
+/// (:3331-3406), `UINT` or `INT` BY OPERAND CONST TYPE with the WIDER
+/// operand's size for `vpiAddOp` / `vpiPlusOp` (:3260), and the operand's size
+/// for a unary `vpiMinusOp` (:3407).  MEASURED (v11u94repro/grid b1_ops94,
+/// b2_cfg94): `[UW+1:0]` golden `UINT:17` (untyped, `int`, `int unsigned`
+/// params alike), `[UW+32'd1:0]` `INT:17` size 32, `[UW+IW:0]` `UINT:32` size
+/// 32, `[UW>>1:0]` `UINT:8`, `[UW|1:0]` `UINT:17`, `[Cfg.W2+1:0]` (`int` member
+/// valued `8`) `UINT:9` — every one of them a wrong `INT` size 64 under the
+/// law as landed.  Every other operator DECLINES (the operation stays, as at
+/// the base).
+constexpr bool evalIntOpOnly106v = true;
+
+inline bool evalIntOp106v(const UHDM::expr* b) {
+    if (!evalIntOpOnly106v)
+        return true;
+    switch (((const UHDM::operation*)b)->VpiOpType()) {
+        case vpiSubOp:
+        case vpiMultOp:
+        case vpiDivOp:
+        case vpiModOp:
+        case vpiPowerOp:
+        case vpiConditionOp:
+            return true;
+        default:
+            return false;
+    }
+}
+
+/// § bitsAnonVecDecline106v (verifier v11u94) — A BOUND THAT TAKES `$bits` OF
+/// AN ANONYMOUS VECTOR TYPE (`$bits(logic [W-1:0])`) DECLINES.  The producer's
+/// evaluator sizes that argument as ONE bit, so golden's reduced bound is
+/// `INT:0` where slang (and the law) read `W-1`: measured on v1.87,
+/// v11u94repro/grid b5_calls94 `c02_bits`, b6_bits94 `c03_bitsanon`,
+/// `c13_bitsint.y` (`$bits(logic [3:0][1:0])-1` -> `INT:0`) and `v12_bitsanon`
+/// (the M home: golden `INT:0`); `$bits(int)-1` (`INT:31`) and `$bits(w_t)-1`
+/// (a named type, `INT:7`) are right and still fold.  Declining keeps the base
+/// operation (a wrong constant never replaces it).
+constexpr bool bitsAnonVecDecline106v = true;
+
+inline bool bitsAnonVecSyn106v(const syntax::SyntaxNode* n, int d = 0,
+                               bool inBits = false) {
+    if (!bitsAnonVecDecline106v || !n || d > 64)
+        return false;
+    if (inBits && (n->kind == syntax::SyntaxKind::LogicType ||
+                   n->kind == syntax::SyntaxKind::BitType ||
+                   n->kind == syntax::SyntaxKind::RegType))
+        return true;
+    if (n->kind == syntax::SyntaxKind::InvocationExpression) {
+        auto& inv = n->as<syntax::InvocationExpressionSyntax>();
+        if (inv.left->kind == syntax::SyntaxKind::SystemName &&
+            inv.left->as<syntax::SystemNameSyntax>()
+                    .systemIdentifier.valueText() == "$bits")
+            inBits = true;
+    }
+    for (size_t i = 0, c = n->getChildCount(); i < c; ++i)
+        if (bitsAnonVecSyn106v(n->childNode(i), d + 1, inBits))
+            return true;
+    return false;
+}
+
+/// A packed struct field carries no declared-type syntax (slang sets its type
+/// directly); its declarator's enclosing `StructUnionMember` holds the type.
+inline const syntax::SyntaxNode* fieldMemberSyn106v(const FieldSymbol& f) {
+    for (auto p = f.getSyntax(); p; p = p->parent)
+        if (p->kind == syntax::SyntaxKind::StructUnionMember)
+            return p;
+    return nullptr;
+}
+
+inline UHDM::expr* spOpTsBound106(UHDM::Serializer& s, UHDM::expr* b,
+                                  int32_t v) {
+    if (!b)
+        return nullptr;
+    bool isInt = false;
+    if (b->UhdmType() == UHDM::uhdmoperation && spOpTsFoldOp106) {
+        if (!evalIntOp106v(b))
+            return nullptr;
+        isInt = true;
+    }
+    else if (b->UhdmType() == UHDM::uhdmsys_func_call && spOpTsFoldClog2106 &&
+             b->VpiName() == "$clog2" && v >= 0)
+        isInt = false;
+    else
+        return nullptr;
+    auto* c = s.MakeConstant();
+    std::string d = std::to_string(v);
+    c->VpiDecompile(d);
+    c->VpiSize(64);
+    c->VpiValue((isInt ? "INT:" : "UINT:") + d);
+    c->VpiConstType(isInt ? vpiIntConst : vpiUIntConst);
+    return c;
+}
+
+inline void spOpTsFold106(UHDM::Serializer& s, UHDM::typespec* ts,
+                          const Type& ty, int depth = 0) {
+    if (!ts || depth > 16)
+        return;
+    const Type& ct = ty.getCanonicalType();
+    switch (ts->UhdmType()) {
+        case UHDM::uhdmstruct_typespec: {
+            if (ct.kind != SymbolKind::PackedStructType)
+                return;
+            auto* mems = ((UHDM::struct_typespec*)ts)->Members();
+            if (!mems)
+                return;
+            std::vector<const FieldSymbol*> fs;
+            for (auto& f : ct.as<Scope>().membersOfType<FieldSymbol>())
+                fs.push_back(&f);
+            if (fs.size() != mems->size())
+                return;
+            for (size_t i = 0; i < fs.size(); i++) {
+                auto* rt = (*mems)[i]->Typespec();
+                auto* a = rt ? rt->Actual_typespec() : nullptr;
+                if (!a || a->VpiParent() != rt)
+                    continue;
+                if (bitsAnonVecSyn106v(fieldMemberSyn106v(*fs[i])))
+                    continue;
+                spOpTsFold106(s, a, fs[i]->getType(), depth + 1);
+            }
+            return;
+        }
+        case UHDM::uhdmlogic_typespec:
+        case UHDM::uhdmpacked_array_typespec: {
+            auto* rs = ts->UhdmType() == UHDM::uhdmlogic_typespec
+                           ? ((UHDM::logic_typespec*)ts)->Ranges()
+                           : ((UHDM::packed_array_typespec*)ts)->Ranges();
+            if (!rs)
+                return;
+            const Type* cur = &ct;
+            for (auto* r : *rs) {
+                const Type& cc = cur->getCanonicalType();
+                if (cc.kind != SymbolKind::PackedArrayType)
+                    return;
+                auto& pa = cc.as<PackedArrayType>();
+                if (auto* nl = spOpTsBound106(s, r->Left_expr(), pa.range.left))
+                    r->Left_expr(nl);
+                if (auto* nr = spOpTsBound106(s, r->Right_expr(), pa.range.right))
+                    r->Right_expr(nr);
+                cur = &pa.elementType;
+            }
+            return;
+        }
+        default:
+            return;
+    }
+}
+
+/// The call site's gate: the clone is a STRUCT typespec (the producer's
+/// :404) standing under an assignment-pattern operation (:250-252).
+/// § spOpTsTypedPatDecline106v (verifier v11u94) — a TYPED pattern
+/// (`h_t'{default: 1}`, the effective initializer — an instance override
+/// included, slang sets it as the initializer syntax) is golden's CAST
+/// (`vpiCastOp` 67), never the producer's :250 pattern road, so its typespec
+/// keeps the operation bound.  Our emitter writes some typed patterns as
+/// op 75 (the `default:` key form: a pre-existing opType difference); the
+/// fold must not reach inside them.  MEASURED: v11u94repro/grid b7_tparam94
+/// `HD` (golden `operation 67`, bound `operation 11`), b5_calls94 `c05_typedk`.
+constexpr bool spOpTsTypedPatDecline106v = true;
+
+inline bool spOpTsTypedPat106v(const ParameterSymbol& ps) {
+    if (!spOpTsTypedPatDecline106v)
+        return false;
+    const syntax::ExpressionSyntax* is =
+        ps.getDeclaredType()->getInitializerSyntax();
+    while (is && is->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        is = is->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    return is && is->kind == syntax::SyntaxKind::AssignmentPatternExpression &&
+           is->as<syntax::AssignmentPatternExpressionSyntax>().type;
+}
+
+inline void spOpTsFoldAt106(UHDM::Serializer& s, UHDM::ref_typespec* rhsRt,
+                            UHDM::typespec* opClone, const Type& ty,
+                            const ParameterSymbol& ps) {
+    if (!rhsRt || !opClone || opClone->UhdmType() != UHDM::uhdmstruct_typespec)
+        return;
+    if (spOpTsTypedPat106v(ps))
+        return;
+    auto* op = rhsRt->VpiParent();
+    if (!op || op->UhdmType() != UHDM::uhdmoperation)
+        return;
+    int ot = ((const UHDM::operation*)op)->VpiOpType();
+    if (ot != vpiAssignmentPatternOp && ot != vpiMultiAssignmentPatternOp)
+        return;
+    spOpTsFold106(s, opClone, ty);
+}
+
+/// § typedefArrayVarElabFold106 (r11u106) — AN ELABORATED VARIABLE DECLARED
+/// FROM A MODULE UNPACKED-ARRAY TYPEDEF CARRIES ITS OWN DIMENSIONS REDUCED.
+///
+/// THE PRODUCER.  `NetlistElaboration::elabSignal` hands a variable to
+/// `ElaborationStep::makeVar_` (`NetlistElaboration.cpp:2753`); a declared
+/// type that resolves to a `SimpleType` goes through
+/// `CompileHelper::elabTypespec` (`ElaborationStep.cpp:1901-1905`,
+/// `CompileType.cpp:2158-2238`), which CLONES a bit/logic/array/packed-array
+/// typespec that has ranges and `reduceExpr`s both bounds of each of its OWN
+/// ranges (never the element typespec's).  An OPERATION bound becomes the
+/// evaluator's location-less, parent-less `INT:<v>` size 64 (`[DEPTH]` is
+/// `[0:DEPTH-1]`, so its right bound is the operation `DEPTH-1`).
+///
+/// OUR SIDE.  `emitInstance` binds such a variable to a per-reference copy
+/// (`copyArrayTypedefTs`) when `unpackedArrayTypedefCopies` says so; that copy
+/// owns fresh ranges, so this folds the copy's operation bounds in place with
+/// slang's evaluated unpacked dimensions, outermost first.  The SHARED arm (a
+/// named-typedef element: the variable binds the typedef object itself) is
+/// never touched, and neither is a PORT's variable (a non-ANSI `input a_t ai`
+/// is golden's NET, r11u65repro/grid/n3_ports) nor a net.  A constant bound is
+/// left as it is.
+/// MEASURED: arms `m1_vars106` (v01 v04 v05 v09 v10 v11 v12 x2), `m2_homes106`.
+constexpr bool utdVarFoldOp106 = true;
+
+/// § utdVarKwDecline106v (verifier v11u94) — A `var`-KEYWORD DECLARATION
+/// (`var mem_t v;`) keeps the operation: golden's variable copy is NOT
+/// reduced there (measured, v11u94repro/grid b4_vars94 `v11_var`, b5_calls94
+/// `v06_var`: golden `operation 11 (D, 1)` where the bare `mem_t v;` of the
+/// same typedef reads `INT:3`).  Gated at the call site (ModuleEmit
+/// `emitInstance`, via `hasVarKeywordDecl`).
+constexpr bool utdVarKwDecline106v = true;
+
+/// The element gate: the typedef's own element, as WRITTEN (never the
+/// canonical type), is a `logic` scalar under zero or more packed dimensions.
+/// A NAMED element (`vec_t [3:0] nml_t [DEPTH]`, measured: golden keeps the
+/// operation, r11u52vrepro/grid/b3_namedelem), a `reg` element (golden's
+/// signal is a NET, r11u65repro/grid/n1_netkinds `r_t`), an alias of an array
+/// typedef and every other element kind (unmeasured) decline.
+inline bool utdVarElemIsLogic106(const TypeAliasType& ta) {
+    const Type* e = &ta.targetType.getType();
+    while (e->kind == SymbolKind::FixedSizeUnpackedArrayType)
+        e = &e->as<FixedSizeUnpackedArrayType>().elementType;
+    while (e->kind == SymbolKind::PackedArrayType)
+        e = &e->as<PackedArrayType>().elementType;
+    return e->kind == SymbolKind::ScalarType &&
+           e->as<ScalarType>().scalarKind == ScalarType::Logic;
+}
+
+inline void utdVarFold106(UHDM::Serializer& s, UHDM::array_typespec* cp,
+                          const TypeAliasType& ta) {
+    if (!cp || !cp->Ranges() || !utdVarFoldOp106 || !utdVarElemIsLogic106(ta))
+        return;
+    if (bitsAnonVecSyn106v(ta.getSyntax()))
+        return;
+    const Type* cur = &ta;
+    for (auto* r : *cp->Ranges()) {
+        const Type& cc = cur->getCanonicalType();
+        if (cc.kind != SymbolKind::FixedSizeUnpackedArrayType)
+            return;
+        auto& ua = cc.as<FixedSizeUnpackedArrayType>();
+        for (int side = 0; side < 2; side++) {
+            UHDM::expr* b = side ? r->Right_expr() : r->Left_expr();
+            if (!b || b->UhdmType() != UHDM::uhdmoperation ||
+                !evalIntOp106v(b))
+                continue;
+            int32_t v = side ? ua.range.right : ua.range.left;
+            auto* c = s.MakeConstant();
+            std::string d = std::to_string(v);
+            c->VpiDecompile(d);
+            c->VpiSize(64);
+            c->VpiValue("INT:" + d);
+            c->VpiConstType(vpiIntConst);
+            if (side)
+                r->Right_expr(c);
+            else
+                r->Left_expr(c);
+        }
+        cur = &ua.elementType;
+    }
+}
+
 } // namespace slang_uhdm

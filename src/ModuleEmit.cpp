@@ -11670,12 +11670,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         auto* rt9 = s.MakeRef_typespec();
                         rt9->VpiFullName(fullName);
                         rt9->VpiParent(av9);
-                        rt9->Actual_typespec(
-                            unpackedArrayTypedefCopies(tu9.as<TypeAliasType>())
-                                ? copyArrayTypedefTs(
-                                      (UHDM::array_typespec*)aliasTs9,
-                                      std::string(tu9.name), pkgHome9, false)
-                                : aliasTs9);
+                        UHDM::array_typespec* cp106 = nullptr;
+                        if (unpackedArrayTypedefCopies(tu9.as<TypeAliasType>())) {
+                            cp106 = copyArrayTypedefTs(
+                                (UHDM::array_typespec*)aliasTs9,
+                                std::string(tu9.name), pkgHome9, false);
+                            // § typedefArrayVarElabFold106 (EmitHelpers.h):
+                            // a body VARIABLE only (a net or a port never
+                            // reaches makeVar_); § utdVarKwDecline106v: a
+                            // `var` declaration keeps the operation.
+                            if (!pkgHome9 && !it.port &&
+                                it.sym->kind == SymbolKind::Variable &&
+                                !(utdVarKwDecline106v &&
+                                  hasVarKeywordDecl(*it.sym)))
+                                utdVarFold106(s, cp106,
+                                              tu9.as<TypeAliasType>());
+                        }
+                        rt9->Actual_typespec(cp106 ? (UHDM::typespec*)cp106
+                                                   : aliasTs9);
                         av9->Typespec(rt9);
                         topNets[it.sym] = av9;
                         sigOrder.emplace_back(it.sym, av9);

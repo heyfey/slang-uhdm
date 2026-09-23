@@ -459,7 +459,7 @@ mem_ff_partial_rsp,testflags,CMP_EQUAL,,,differ
 mem_iface_index,testflags,CMP_EQUAL,,,differ
 mem_init_for_param,testflags,CMP_EQUAL,,,match
 mem_multi_always_write,testflags,CMP_EQUAL,,,match
-mem_packed_2d_byte_write,testflags,CMP_NOTEQUAL,decompile:,,
+mem_packed_2d_byte_write,testflags,CMP_EQUAL,,,differ
 mem_read_reg,testflags,CMP_EQUAL,,,differ
 mem_sub_plain,testflags,CMP_EQUAL,,,match
 MemberSelectOf2DStructPackedArray,testflags,CMP_EQUAL,,,match

@@ -25693,7 +25693,7 @@ void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
         paramOpCloneCtx = false;
         structCloneMemberRefParent = false;
         rhsRt->Actual_typespec(opClone);
-        opClone->VpiParent(rhsRt);
+        opClone->VpiParent(rhsRt); spOpTsFoldAt106(s, rhsRt, opClone, tsPs->getType(), *ps);
         if (rhsRt->VpiFullName().empty())
             rhsRt->VpiFullName(syntaxRefPrefix);
         syntaxRefPrefix = savedPfx;
@@ -25825,7 +25825,7 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             paramOpCloneCtx = false;
             structCloneMemberRefParent = false;
             rhsRt->Actual_typespec(opClone);
-            opClone->VpiParent(rhsRt);
+            opClone->VpiParent(rhsRt); spOpTsFoldAt106(s, rhsRt, opClone, ps->getType(), *ps);
             if (rhsRt->VpiFullName().empty())
                 rhsRt->VpiFullName(syntaxRefPrefix);
         }

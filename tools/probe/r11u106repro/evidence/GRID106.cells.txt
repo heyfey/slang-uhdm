@@ -1,0 +1,47 @@
+## s1_homes106
+TO	Top/module_inst(work@s1)/pa(c01_lptype).rhs/operation75.ts/struct_typespec/m:x/logic_typespec/range0 L	gold=['constant INT:63 sz64 ct7 dc=63']	pris=['operation op11(hier_path:Cfg.XLEN,constant,)']	law=['constant INT:63 sz64 ct7 dc=63']
+TO	Top/module_inst(work@s1)/pa(c02_typedef).rhs/operation75.ts/struct_typespec(t02)/m:x/logic_typespec/range0 L	gold=['constant INT:63 sz64 ct7 dc=63']	pris=['operation op11(hier_path:Cfg.XLEN,constant,)']	law=['constant INT:63 sz64 ct7 dc=63']
+TO	Top/module_inst(work@s1)/pa(c03_plus).rhs/operation75.ts/struct_typespec(t03)/m:x/logic_typespec/range0 L	gold=['constant INT:9 sz64 ct7 dc=9']	pris=['operation op24(hier_path:Cfg.W2,constant,)']	law=['constant INT:9 sz64 ct7 dc=9']
+TO	Top/module_inst(work@s1)/pa(c04_mult).rhs/operation75.ts/struct_typespec(t04)/m:x/logic_typespec/range0 L	gold=['constant INT:15 sz64 ct7 dc=15']	pris=['operation op11(operation,constant,)']	law=['constant INT:15 sz64 ct7 dc=15']
+TO	Top/module_inst(work@s1)/pa(c05_clog2).rhs/operation75.ts/struct_typespec(t05)/m:x/logic_typespec/range0 L	gold=['constant INT:5 sz64 ct7 dc=5']	pris=['operation op11(sys_func_call:$clog2,constant,)']	law=['constant INT:5 sz64 ct7 dc=5']
+TO	Top/module_inst(work@s1)/pa(c07_plainW).rhs/operation75.ts/struct_typespec(t07)/m:x/logic_typespec/range0 L	gold=['constant INT:15 sz64 ct7 dc=15']	pris=['operation op11(ref_obj:W,constant,)']	law=['constant INT:15 sz64 ct7 dc=15']
+TO	Top/module_inst(work@s1)/pa(c09_rightnz).rhs/operation75.ts/struct_typespec(t09)/m:x/logic_typespec/range0 L	gold=['constant INT:63 sz64 ct7 dc=63']	pris=['operation op11(hier_path:Cfg.XLEN,constant,)']	law=['constant INT:63 sz64 ct7 dc=63']
+TO	Top/module_inst(work@s1)/pa(c10_packed2d).rhs/operation75.ts/struct_typespec(t10)/m:x/logic_typespec/range1 L	gold=['constant INT:7 sz64 ct7 dc=7']	pris=['operation op11(hier_path:Cfg.W2,constant,)']	law=['constant INT:7 sz64 ct7 dc=7']
+TO	Top/module_inst(work@s1)/pa(c11_nestst).rhs/operation75.ts/struct_typespec(t11)/m:y/logic_typespec/range0 L	gold=['constant INT:15 sz64 ct7 dc=15']	pris=['operation op11(ref_obj:W,constant,)']	law=['constant INT:15 sz64 ct7 dc=15']
+TO	Top/module_inst(work@s1)/pa(c14_default).rhs/operation75.ts/struct_typespec(t14)/m:x/logic_typespec/range0 L	gold=['constant INT:63 sz64 ct7 dc=63']	pris=['operation op11(hier_path:Cfg.XLEN,constant,)']	law=['constant INT:63 sz64 ct7 dc=63']
+TO	Top/module_inst(work@s1)/pa(c19_div).rhs/operation75.ts/struct_typespec(t19)/m:x/logic_typespec/range0 L	gold=['constant INT:7 sz64 ct7 dc=7']	pris=['operation op11(operation,constant,)']	law=['constant INT:7 sz64 ct7 dc=7']
+TOTAL TO=11 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=311
+## s2_edges106
+TO	Top/module_inst(work@s2)/interface_inst(u_if)/pa(IFL).rhs/operation75.ts/struct_typespec(it_t)/m:x/logic_typespec/range0 L	gold=['constant INT:15 sz64 ct7 dc=15']	pris=['operation op11(hier_path:Cfg.XLEN,constant,)']	law=['constant INT:15 sz64 ct7 dc=15']
+TO	Top/module_inst(work@s2)/module_inst(u_c1)/pa(CL).rhs/operation75.ts/struct_typespec(ct_t)/m:x/logic_typespec/range0 L	gold=['constant INT:3 sz64 ct7 dc=3']	pris=['operation op11(ref_obj:CW,constant,)']	law=['constant INT:3 sz64 ct7 dc=3']
+TO	Top/module_inst(work@s2)/module_inst(u_c2)/pa(CL).rhs/operation75.ts/struct_typespec(ct_t)/m:x/logic_typespec/range0 L	gold=['constant INT:5 sz64 ct7 dc=5']	pris=['operation op11(ref_obj:CW,constant,)']	law=['constant INT:5 sz64 ct7 dc=5']
+TO	Top/module_inst(work@s2)/pa(c22_bareclog2).rhs/operation75.ts/struct_typespec(t22)/m:x/logic_typespec/range0 L	gold=['constant UINT:4 sz64 ct9 dc=4']	pris=['sys_func_call:$clog2']	law=['constant UINT:4 sz64 ct9 dc=4']
+TO	Top/module_inst(work@s2)/pa(c23_localW).rhs/operation75.ts/struct_typespec(t23)/m:x/logic_typespec/range0 L	gold=['constant INT:19 sz64 ct7 dc=19']	pris=['operation op11(ref_obj:LW,constant,)']	law=['constant INT:19 sz64 ct7 dc=19']
+TO	Top/module_inst(work@s2)/pa(c25_wide).rhs/operation75.ts/struct_typespec(t25)/m:x/logic_typespec/range0 L	gold=['constant INT:127 sz64 ct7 dc=127']	pris=['operation op11(operation,constant,)']	law=['constant INT:127 sz64 ct7 dc=127']
+TO	Top/module_inst(work@s2)/pa(c26_pkgscoped).rhs/operation75.ts/struct_typespec(t26)/m:x/logic_typespec/range0 L	gold=['constant INT:7 sz64 ct7 dc=7']	pris=['operation op11(constant,constant,)']	law=['constant INT:7 sz64 ct7 dc=7']
+TO	Top/module_inst(work@s2)/pa(c27_threemem).rhs/operation75.ts/struct_typespec(t27)/m:x/logic_typespec/range0 L	gold=['constant INT:63 sz64 ct7 dc=63']	pris=['operation op11(hier_path:Cfg.XLEN,constant,)']	law=['constant INT:63 sz64 ct7 dc=63']
+TO	Top/module_inst(work@s2)/pa(c27_threemem).rhs/operation75.ts/struct_typespec(t27)/m:y/logic_typespec/range0 L	gold=['constant INT:15 sz64 ct7 dc=15']	pris=['operation op11(ref_obj:W,constant,)']	law=['constant INT:15 sz64 ct7 dc=15']
+TO	Top/module_inst(work@s2)/pa(c28_ascending).rhs/operation75.ts/struct_typespec(t28)/m:x/logic_typespec/range0 R	gold=['constant INT:7 sz64 ct7 dc=7']	pris=['operation op11(hier_path:Cfg.W2,constant,)']	law=['constant INT:7 sz64 ct7 dc=7']
+TOTAL TO=10 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=224
+## s3_pkgunp106
+TO	Top/module_inst(work@s3)/module_inst(u_a)/pa(NL).rhs/operation75.ts/struct_typespec(nt_t)/m:a/logic_typespec/range0 L	gold=['constant INT:5 sz64 ct7 dc=5']	pris=['operation op11(ref_obj:N,constant,)']	law=['constant INT:5 sz64 ct7 dc=5']
+TO	Top/module_inst(work@s3)/module_inst(u_a)/pa(NL).rhs/operation75.ts/struct_typespec(nt_t)/m:b/logic_typespec/range0 L	gold=['constant INT:11 sz64 ct7 dc=11']	pris=['operation op11(operation,constant,)']	law=['constant INT:11 sz64 ct7 dc=11']
+TO	Top/module_inst(work@s3)/module_inst(u_b)/pa(NL).rhs/operation75.ts/struct_typespec(nt_t)/m:a/logic_typespec/range0 L	gold=['constant INT:2 sz64 ct7 dc=2']	pris=['operation op11(ref_obj:N,constant,)']	law=['constant INT:2 sz64 ct7 dc=2']
+TO	Top/module_inst(work@s3)/module_inst(u_b)/pa(NL).rhs/operation75.ts/struct_typespec(nt_t)/m:b/logic_typespec/range0 L	gold=['constant INT:5 sz64 ct7 dc=5']	pris=['operation op11(operation,constant,)']	law=['constant INT:5 sz64 ct7 dc=5']
+TO	Top/module_inst(work@s3)/module_inst(u_c)/pa(NL).rhs/operation75.ts/struct_typespec(nt_t)/m:a/logic_typespec/range0 L	gold=['constant INT:9 sz64 ct7 dc=9']	pris=['operation op11(ref_obj:N,constant,)']	law=['constant INT:9 sz64 ct7 dc=9']
+TO	Top/module_inst(work@s3)/module_inst(u_c)/pa(NL).rhs/operation75.ts/struct_typespec(nt_t)/m:b/logic_typespec/range0 L	gold=['constant INT:19 sz64 ct7 dc=19']	pris=['operation op11(operation,constant,)']	law=['constant INT:19 sz64 ct7 dc=19']
+TOTAL TO=6 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=108
+## m1_vars106
+TO	Top/module_inst(work@m1)/var(v01_size)/array_typespec(a01_t)/range0 R	gold=['constant INT:3 sz64 ct7 dc=3']	pris=['operation op11(ref_obj:D,constant,)']	law=['constant INT:3 sz64 ct7 dc=3']
+TO	Top/module_inst(work@m1)/var(v04_pkdunp)/array_typespec(a04_t)/range0 R	gold=['constant INT:1 sz64 ct7 dc=1']	pris=['operation op11(constant,constant,)']	law=['constant INT:1 sz64 ct7 dc=1']
+TO	Top/module_inst(work@m1)/var(v05_mult)/array_typespec(a05_t)/range0 R	gold=['constant INT:7 sz64 ct7 dc=7']	pris=['operation op11(constant,constant,)']	law=['constant INT:7 sz64 ct7 dc=7']
+TO	Top/module_inst(work@m1)/var(v09_2unp)/array_typespec(a09_t)/range0 R	gold=['constant INT:3 sz64 ct7 dc=3']	pris=['operation op11(ref_obj:D,constant,)']	law=['constant INT:3 sz64 ct7 dc=3']
+TO	Top/module_inst(work@m1)/var(v10_constsz)/array_typespec(a10_t)/range0 R	gold=['constant INT:3 sz64 ct7 dc=3']	pris=['operation op11(constant,constant,)']	law=['constant INT:3 sz64 ct7 dc=3']
+TO	Top/module_inst(work@m1)/var(v11_clog2)/array_typespec(a11_t)/range0 R	gold=['constant INT:3 sz64 ct7 dc=3']	pris=['operation op11(constant,constant,)']	law=['constant INT:3 sz64 ct7 dc=3']
+TO	Top/module_inst(work@m1)/var(v12_x)/array_typespec(a12_t)/range0 R	gold=['constant INT:3 sz64 ct7 dc=3']	pris=['operation op11(ref_obj:D,constant,)']	law=['constant INT:3 sz64 ct7 dc=3']
+TO	Top/module_inst(work@m1)/var(v12_y)/array_typespec(a12_t)/range0 R	gold=['constant INT:3 sz64 ct7 dc=3']	pris=['operation op11(ref_obj:D,constant,)']	law=['constant INT:3 sz64 ct7 dc=3']
+TOTAL TO=8 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=166
+## m2_homes106
+TO	Top/module_inst(work@m2)/module_inst(u_c1)/var(cv)/array_typespec(ca_t)/range0 R	gold=['constant INT:1 sz64 ct7 dc=1']	pris=['operation op11(ref_obj:CD,constant,)']	law=['constant INT:1 sz64 ct7 dc=1']
+TO	Top/module_inst(work@m2)/var(v23_init)/array_typespec(a23_t)/range0 R	gold=['constant INT:3 sz64 ct7 dc=3']	pris=['operation op11(ref_obj:D,constant,)']	law=['constant INT:3 sz64 ct7 dc=3']
+TOTAL TO=2 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=144

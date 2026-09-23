@@ -1,0 +1,26 @@
+# r11u106 GATES — base 81f13b5f, LAW 77f1796144334e9e4355079e74980443, pristine 84adb8d34c76d136325c65a6aa2e4b22
+(1) build: pristine md5 == OPS pin 84adb8d3...; LAW rebuilt from the final source twice (after the exploration
+    build and on a FRESH 81f13b5f worktree with the patch applied) -> 77f17961... both times.
+(2) tests/check_goldens.sh with SLANG_UHDM=LAW: PASS=23 FAIL=0; SLANG_UHDM=/bin/false: PASS=0 FAIL=23.
+(3) uhdm2rtlil both modes (own workdirs, --jobs 3, SLANG_UHDM exported, cmds.txt audited: pristine 1742/1742 name
+    the pristine binary, law 1742/1742 name the LAW binary):
+      pristine tf vs results/gate_uhdm2rtlil.csv                 871 rows, 0 differ (788/16/67)
+      pristine tf/def vs results/golden_uhdm2rtlil.csv           871+871 rows, 0 differ
+      LAW tf vs gate / golden(tf), LAW def vs golden(def)        1 differ each, the law-named row:
+        mem_packed_2d_byte_write,testflags,CMP_NOTEQUAL -> CMP_EQUAL      (789/15/67)
+        mem_packed_2d_byte_write,default,CMP_NOTEQUAL   -> CMP_EQUAL      (789/15/67)
+(4) Surelog --mode both: pristine 0 differ, LAW 0 differ vs results/golden_surelog.csv (943 EQUAL / 17 NOTEQUAL
+    over 1596 rows); cmds.txt 1531/1531 per binary.
+(5) byteverify SELFCHECK=1 (LAW vs own pristine workdirs, identical path sets, selfcheck 1607/1608 and 959/960):
+      u2r 4/1608  cva6_struct_param_field x2, mem_packed_2d_byte_write x2   (PREDICTED by census106, S and M)
+      sl 12/960   StructParamFieldRange x2, StructParamFuncBodyFieldCompare x2, StructParamPatternInitCast x2
+                  (PREDICTED by census106, S) + the UVM family MiniAmiq x2, SeqDriver x2, SimpleUVM/default
+                  (order-blind dump diff = 4 lines each: 2 |UINT + 2 |vpiDecompile, the documented line-number
+                  class) + Scoreboard/default (order-blind 0 lines: the coin). Every UVM status CMP_EQUAL.
+    Every law mover scored per cell (score106.py): u2r TO 6 (cva6 2+2, mem_packed 1+1), sl TO 12, AWAY 0, MWRONG 0;
+    each mover's whole-dump diff is exactly those bound objects (cva6 66 lines, mem_packed 6, Struct* 66).
+Canaries: canaries.sh sl ok=50 changed=2 (Earlgrey_0_1 both modes: dump COLUMN blank, a uhdm-dump timeout draw —
+    the pristine sweep reads the SAME two; database pins hold), u2r ok=8 changed=0; ctcan2 PASS x2; canaudit PASS.
+    Database pins (pristine == LAW, both modes): SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort
+    59a365f3ce2c, BlackParrotComplex e3e354129d5a/73a10e8217e5, YosysOldOr d68e0796d62c,
+    Earlgrey_0_1 default 8bdf25272e08 / testflags 59d0ee6d10c3.

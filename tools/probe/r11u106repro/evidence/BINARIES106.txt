@@ -1,0 +1,5 @@
+# r11u106 binaries (all frozen chmod 555 before any sweep; every cmds.txt audited by absolute path)
+pristine   84adb8d34c76d136325c65a6aa2e4b22  own worktree at 81f13b5f; == the OPS pin (main tree build/slang-uhdm at 81f13b5f)
+LAW        77f1796144334e9e4355079e74980443  this patch (law4); rebuilt twice in the worktree (after the exploration build) -> identical
+explore    ee458dea6fc3607fa6950d9e4b949ccf  the shipped source with its three gates read from R106OFF (drops only); xall dumps == LAW on 5/5 arms, all-off == pristine on 5/5
+law3       cd86e6237d5c3d2821b4ecc23f7294a8  superseded draft (LAW M without the port / element gates) — its wide boundary convicted 2 AWAY (b3_namedelem) + 2 golden-net cells (n1 r, n3 ai); fixed in LAW

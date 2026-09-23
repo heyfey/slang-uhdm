@@ -1,0 +1,361 @@
+==== pris sl/default/StructParamFieldRange-25c71671 lines=74 heads=1
+LHS:
+decompile:
+constant: , id:464
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+
+decompile:
+constant: , id:464
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:280, line:24:12, endln:24:22
+|vpiParent:
+\_range: , id:279, line:24:11, endln:24:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:281, line:24:12, endln:24:20
+  |vpiParent:
+  \_operation: , id:280, line:24:12, endln:24:22
+==== pris sl/default/StructParamFuncBodyFieldCompare-dc918b36 lines=74 heads=1
+LHS:
+decompile:
+constant: , id:967
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+
+decompile:
+constant: , id:967
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:441, line:43:12, endln:43:22
+|vpiParent:
+\_range: , id:440, line:43:11, endln:43:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:442, line:43:12, endln:43:20
+  |vpiParent:
+  \_operation: , id:441, line:43:12, endln:43:22
+==== pris sl/testflags/StructParamFieldRange-25c71671 lines=74 heads=1
+LHS:
+decompile:
+constant: , id:464
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+
+decompile:
+constant: , id:464
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:280, line:24:12, endln:24:22
+|vpiParent:
+\_range: , id:279, line:24:11, endln:24:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:281, line:24:12, endln:24:20
+  |vpiParent:
+  \_operation: , id:280, line:24:12, endln:24:22
+==== pris sl/testflags/StructParamFuncBodyFieldCompare-dc918b36 lines=74 heads=1
+LHS:
+decompile:
+constant: , id:967
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+
+decompile:
+constant: , id:967
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:441, line:43:12, endln:43:22
+|vpiParent:
+\_range: , id:440, line:43:11, endln:43:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:442, line:43:12, endln:43:20
+  |vpiParent:
+  \_operation: , id:441, line:43:12, endln:43:22
+==== pris u2r/default/cva6_struct_param_field-80aba5af lines=74 heads=1
+LHS:
+decompile:
+constant: , id:464
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+
+decompile:
+constant: , id:464
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:280, line:26:12, endln:26:22
+|vpiParent:
+\_range: , id:279, line:26:11, endln:26:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:281, line:26:12, endln:26:20
+  |vpiParent:
+  \_operation: , id:280, line:26:12, endln:26:22
+==== pris u2r/default/mem_packed_2d_byte_write-8742967e lines=48 heads=1
+LHS:
+decompile:
+constant: , id:415
+|vpiDecompile:3
+|vpiSize:64
+|INT:3
+|vpiConstType:7
+
+decompile:
+constant: , id:415
+|vpiDecompile:3
+|vpiSize:64
+|INT:3
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:31, line:19:51, endln:19:56
+|vpiParent:
+\_range: , id:29, line:19:51, endln:19:56
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@dut.mem_t.DEPTH), id:32, line:19:51, endln:19:56
+  |vpiParent:
+  \_operation: , id:31, line:19:51, endln:19:56
+==== pris u2r/testflags/cva6_struct_param_field-80aba5af lines=74 heads=1
+LHS:
+decompile:
+constant: , id:380
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+
+decompile:
+constant: , id:380
+|vpiDecompile:63
+|vpiSize:64
+|INT:63
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:196, line:26:12, endln:26:22
+|vpiParent:
+\_range: , id:195, line:26:11, endln:26:25
+|vpiOpType:11
+|vpiOperand:
+\_hier_path: (Cfg.XLEN), id:197, line:26:12, endln:26:20
+  |vpiParent:
+  \_operation: , id:196, line:26:12, endln:26:22
+==== pris u2r/testflags/mem_packed_2d_byte_write-8742967e lines=48 heads=1
+LHS:
+decompile:
+constant: , id:331
+|vpiDecompile:3
+|vpiSize:64
+|INT:3
+|vpiConstType:7
+
+decompile:
+constant: , id:331
+|vpiDecompile:3
+|vpiSize:64
+|INT:3
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:24, line:19:51, endln:19:56
+|vpiParent:
+\_range: , id:22, line:19:51, endln:19:56
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@dut.mem_t.DEPTH), id:25, line:19:51, endln:19:56
+  |vpiParent:
+  \_operation: , id:24, line:19:51, endln:19:56
+==== law4 sl/default/StructParamFieldRange-25c71671 lines=60 heads=1
+LHS:
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiFullName:work@StructParamFieldRange
+  |vpiActual:
+  \_void_typespec: , id:412, line:27:28, endln:27:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:27:38, endln:27:39
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+==== law4 sl/default/StructParamFuncBodyFieldCompare-dc918b36 lines=164 heads=1
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+==== law4 sl/testflags/StructParamFieldRange-25c71671 lines=60 heads=1
+LHS:
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiFullName:work@StructParamFieldRange
+  |vpiActual:
+  \_void_typespec: , id:412, line:27:28, endln:27:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:27:38, endln:27:39
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+==== law4 sl/testflags/StructParamFuncBodyFieldCompare-dc918b36 lines=164 heads=1
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+==== law4 u2r/default/cva6_struct_param_field-80aba5af lines=60 heads=1
+LHS:
+decompile:
+operation: , id:410, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:466, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:411
+  |vpiParent:
+  \_operation: , id:410, line:29:28, endln:29:40
+  |vpiFullName:work@cva6_struct_param_field
+  |vpiActual:
+  \_void_typespec: , id:412, line:29:28, endln:29:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:29:38, endln:29:39
+  |vpiParent:
+  \_operation: , id:410, line:29:28, endln:29:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+==== law4 u2r/default/mem_packed_2d_byte_write-8742967e lines=0 heads=0
+==== law4 u2r/testflags/cva6_struct_param_field-80aba5af lines=60 heads=1
+LHS:
+decompile:
+operation: , id:326, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:382, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:327
+  |vpiParent:
+  \_operation: , id:326, line:29:28, endln:29:40
+  |vpiFullName:work@cva6_struct_param_field
+  |vpiActual:
+  \_void_typespec: , id:328, line:29:28, endln:29:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:329, line:29:38, endln:29:39
+  |vpiParent:
+  \_operation: , id:326, line:29:28, endln:29:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+==== law4 u2r/testflags/mem_packed_2d_byte_write-8742967e lines=0 heads=0
+== sl/default/StructParamFieldRange-25c71671
+  lhsPath: operation@27:28 < operation@27:23 < param_assign@27:19 < module_inst(work@StructParamFieldRange)@17:1 < design(work@StructParamFieldRange)
+  rhsPath: constant@27:28 < operation@27:23 < param_assign@27:19 < module_inst(work@StructParamFieldRange)@17:1 < design(work@StructParamFieldRange)
+== sl/default/StructParamFuncBodyFieldCompare-dc918b36
+  lhsPath: operation@47:13 < operation@46:25 < param_assign@46:19 < module_inst(work@StructParamFuncBodyFieldCompare)@35:1 < design(work@StructParamFuncBodyFieldCompare)
+  rhsPath: constant@47:13 < operation@46:25 < param_assign@46:19 < module_inst(work@StructParamFuncBodyFieldCompare)@35:1 < design(work@StructParamFuncBodyFieldCompare)
+== u2r/default/cva6_struct_param_field-80aba5af
+  lhsPath: operation@29:28 < operation@29:23 < param_assign@29:19 < module_inst(work@cva6_struct_param_field)@18:1 < design(work@cva6_struct_param_field)
+  rhsPath: constant@29:28 < operation@29:23 < param_assign@29:19 < module_inst(work@cva6_struct_param_field)@18:1 < design(work@cva6_struct_param_field)

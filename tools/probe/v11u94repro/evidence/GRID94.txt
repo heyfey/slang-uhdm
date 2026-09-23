@@ -1,0 +1,91 @@
+ARM b1_ops94 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=5401 heads=1
+ARM b1_ops94 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=5401 heads=1
+ARM b1_ops94 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=5401 heads=1
+SCORE b1_ops94 pris->lawx TOTAL TO=6 AWAY=0 MWRONG=9 NOGOLD=0 UNMOVED=207
+SCORE b1_ops94 pris->fixx TOTAL TO=5 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=217
+SCORE b1_ops94 lawx->fixx TOTAL TO=0 AWAY=1 MWRONG=9 NOGOLD=0 UNMOVED=212
+SWAP  b1_ops94 fixx->pris TOTAL TO=0 AWAY=5 MWRONG=0 NOGOLD=0 UNMOVED=217
+ARM b2_cfg94 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=8510 heads=1
+ARM b2_cfg94 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=8510 heads=1
+ARM b2_cfg94 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=8510 heads=1
+SCORE b2_cfg94 pris->lawx TOTAL TO=9 AWAY=0 MWRONG=3 NOGOLD=0 UNMOVED=172
+SCORE b2_cfg94 pris->fixx TOTAL TO=6 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=178
+SCORE b2_cfg94 lawx->fixx TOTAL TO=0 AWAY=3 MWRONG=3 NOGOLD=0 UNMOVED=178
+SWAP  b2_cfg94 fixx->pris TOTAL TO=0 AWAY=6 MWRONG=0 NOGOLD=0 UNMOVED=178
+ARM b3_homes94 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=12254 heads=1
+ARM b3_homes94 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=12254 heads=1
+ARM b3_homes94 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=12254 heads=1
+SCORE b3_homes94 pris->lawx TOTAL TO=9 AWAY=0 MWRONG=5 NOGOLD=0 UNMOVED=280
+SCORE b3_homes94 pris->fixx TOTAL TO=9 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=285
+SCORE b3_homes94 lawx->fixx TOTAL TO=0 AWAY=0 MWRONG=5 NOGOLD=0 UNMOVED=289
+SWAP  b3_homes94 fixx->pris TOTAL TO=0 AWAY=9 MWRONG=0 NOGOLD=0 UNMOVED=285
+ARM b4_vars94 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=5745 heads=1
+ARM b4_vars94 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=5745 heads=1
+ARM b4_vars94 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=5745 heads=1
+SCORE b4_vars94 pris->lawx TOTAL TO=12 AWAY=1 MWRONG=0 NOGOLD=0 UNMOVED=267
+SCORE b4_vars94 pris->fixx TOTAL TO=12 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=268
+SCORE b4_vars94 lawx->fixx TOTAL TO=1 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=279
+SWAP  b4_vars94 fixx->pris TOTAL TO=0 AWAY=12 MWRONG=0 NOGOLD=0 UNMOVED=268
+ARM b5_calls94 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=4003 heads=1
+ARM b5_calls94 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=4003 heads=1
+ARM b5_calls94 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=4003 heads=1
+SCORE b5_calls94 pris->lawx TOTAL TO=3 AWAY=1 MWRONG=1 NOGOLD=1 UNMOVED=102
+SCORE b5_calls94 pris->fixx TOTAL TO=2 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=106
+SCORE b5_calls94 lawx->fixx TOTAL TO=1 AWAY=1 MWRONG=1 NOGOLD=1 UNMOVED=104
+SWAP  b5_calls94 fixx->pris TOTAL TO=0 AWAY=2 MWRONG=0 NOGOLD=0 UNMOVED=106
+ARM b6_bits94 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=9416 heads=1
+ARM b6_bits94 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=9416 heads=1
+ARM b6_bits94 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=9416 heads=1
+SCORE b6_bits94 pris->lawx TOTAL TO=12 AWAY=0 MWRONG=3 NOGOLD=0 UNMOVED=213
+SCORE b6_bits94 pris->fixx TOTAL TO=12 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=216
+SCORE b6_bits94 lawx->fixx TOTAL TO=0 AWAY=0 MWRONG=3 NOGOLD=0 UNMOVED=225
+SWAP  b6_bits94 fixx->pris TOTAL TO=0 AWAY=12 MWRONG=0 NOGOLD=0 UNMOVED=216
+ARM b7_tparam94 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=10192 heads=1
+ARM b7_tparam94 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=10192 heads=1
+ARM b7_tparam94 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=10192 heads=1
+SCORE b7_tparam94 pris->lawx TOTAL TO=7 AWAY=0 MWRONG=0 NOGOLD=3 UNMOVED=102
+SCORE b7_tparam94 pris->fixx TOTAL TO=7 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=105
+SCORE b7_tparam94 lawx->fixx TOTAL TO=0 AWAY=0 MWRONG=0 NOGOLD=3 UNMOVED=109
+SWAP  b7_tparam94 fixx->pris TOTAL TO=0 AWAY=7 MWRONG=0 NOGOLD=0 UNMOVED=105
+ARM b8_more94 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=7924 heads=1
+ARM b8_more94 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=7924 heads=1
+ARM b8_more94 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=7924 heads=1
+SCORE b8_more94 pris->lawx TOTAL TO=6 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=104
+SCORE b8_more94 pris->fixx TOTAL TO=6 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=104
+SCORE b8_more94 lawx->fixx TOTAL TO=0 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=110
+SWAP  b8_more94 fixx->pris TOTAL TO=0 AWAY=6 MWRONG=0 NOGOLD=0 UNMOVED=104
+ARM m1_vars106 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=3943 heads=1
+ARM m1_vars106 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=3943 heads=1
+ARM m1_vars106 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=3943 heads=1
+SCORE m1_vars106 pris->lawx TOTAL TO=8 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=166
+SCORE m1_vars106 pris->fixx TOTAL TO=8 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=166
+SCORE m1_vars106 lawx->fixx TOTAL TO=0 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=174
+SWAP  m1_vars106 fixx->pris TOTAL TO=0 AWAY=8 MWRONG=0 NOGOLD=0 UNMOVED=166
+ARM m2_homes106 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=9692 heads=1
+ARM m2_homes106 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=9692 heads=1
+ARM m2_homes106 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=9692 heads=1
+SCORE m2_homes106 pris->lawx TOTAL TO=2 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=144
+SCORE m2_homes106 pris->fixx TOTAL TO=2 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=144
+SCORE m2_homes106 lawx->fixx TOTAL TO=0 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=146
+SWAP  m2_homes106 fixx->pris TOTAL TO=0 AWAY=2 MWRONG=0 NOGOLD=0 UNMOVED=144
+ARM s1_homes106 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=13758 heads=1
+ARM s1_homes106 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=13758 heads=1
+ARM s1_homes106 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=13758 heads=1
+SCORE s1_homes106 pris->lawx TOTAL TO=11 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=311
+SCORE s1_homes106 pris->fixx TOTAL TO=10 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=312
+SCORE s1_homes106 lawx->fixx TOTAL TO=0 AWAY=1 MWRONG=0 NOGOLD=0 UNMOVED=321
+SWAP  s1_homes106 fixx->pris TOTAL TO=0 AWAY=10 MWRONG=0 NOGOLD=0 UNMOVED=312
+ARM s2_edges106 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=15240 heads=1
+ARM s2_edges106 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=15240 heads=1
+ARM s2_edges106 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=15240 heads=1
+SCORE s2_edges106 pris->lawx TOTAL TO=10 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=224
+SCORE s2_edges106 pris->fixx TOTAL TO=10 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=224
+SCORE s2_edges106 lawx->fixx TOTAL TO=0 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=234
+SWAP  s2_edges106 fixx->pris TOTAL TO=0 AWAY=10 MWRONG=0 NOGOLD=0 UNMOVED=224
+ARM s3_pkgunp106 tag=pris slrc=0 ourrc=0 slerr=0 cmplines=10156 heads=1
+ARM s3_pkgunp106 tag=lawx slrc=0 ourrc=0 slerr=0 cmplines=10156 heads=1
+ARM s3_pkgunp106 tag=fixx slrc=0 ourrc=0 slerr=0 cmplines=10156 heads=1
+SCORE s3_pkgunp106 pris->lawx TOTAL TO=6 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=108
+SCORE s3_pkgunp106 pris->fixx TOTAL TO=6 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=108
+SCORE s3_pkgunp106 lawx->fixx TOTAL TO=0 AWAY=0 MWRONG=0 NOGOLD=0 UNMOVED=114
+SWAP  s3_pkgunp106 fixx->pris TOTAL TO=0 AWAY=6 MWRONG=0 NOGOLD=0 UNMOVED=108

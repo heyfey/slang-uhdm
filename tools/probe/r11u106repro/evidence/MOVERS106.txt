@@ -1,0 +1,14 @@
+# r11u106 MOVERS — predicted a priori by census106.py from the PRISTINE databases (golden first), then observed.
+PREDICTED (census, S = pattern-op typespec member bound, M = typedef'd unpacked-array variable bound):
+  uhdm2rtlil  S GOLD-FOLD 4 cells / cva6_struct_param_field (default, testflags)
+              M GOLD-FOLD 2 cells / mem_packed_2d_byte_write (default, testflags)
+              M GOLD-OTHER 2 cells / unpacked_struct_array_typedef (both modes): a NAMED (struct) element -> the SHARED
+                arm, golden keeps the operation; the law must NOT move it
+  Surelog     S GOLD-FOLD 12 cells / StructParamFieldRange, StructParamFuncBodyFieldCompare, StructParamPatternInitCast
+              (both modes); M 0
+  calibration golden-vs-golden: uhdm2rtlil 2 M GOLD-OTHER (the same unpacked_struct_array_typedef cells), Surelog 0
+OBSERVED (byteverify, LAW vs own pristine):
+  uhdm2rtlil 4/1608: cva6_struct_param_field x2, mem_packed_2d_byte_write x2 — unpacked_struct_array_typedef UNMOVED
+  Surelog 12/960: the six predicted Struct* databases + the UVM family (MiniAmiq x2, SeqDriver x2, SimpleUVM/default:
+    4-line |UINT/|vpiDecompile line-number class, order-blind) + Scoreboard/default (order-blind 0 lines: coin)
+STATUS MOVES: mem_packed_2d_byte_write CMP_NOTEQUAL -> CMP_EQUAL in BOTH modes. No other row changes status.
