@@ -40666,6 +40666,235 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
 // instance is consulted here, so n4's `lpm` stays at 16.  No corpus row and no
 // Rggen site has that shape (an interface localparam naming a parameter absent
 // from the receiving module but present above it).
+// § pvRecvShadow115 + § pvExprDefaultFold115 (r11u115, face 2) — THE PORT
+// VIEW'S param_assign VALUE, for the views that fold at the default scope
+// (the `ifaceDefaultScope` arm in emitInterfaceInstance: interface-ARRAY
+// element views and the single-parameterization non-named-modport views).
+//
+// THE PRODUCER.  Surelog v1.87 builds a port view as a FRESH ModuleInstance of
+// the interface definition whose PARENT is the receiving instance, and
+// `elab_interface_` elaborates its parameters from the definition when the
+// connected instance was not propagated (NetlistElaboration.cpp:1913-1934;
+// `getInterfaceInstance_` matches no `arr[i]` element and no actual outside
+// the receiver's parent, :817-970).  The value lookup of that fresh copy
+// reaches its parent — the RECEIVER — before the declaration default:
+// `ModuleInstance::getValue` (src/Design/ModuleInstance.cpp:143-192) climbs
+// the instance chain's param_assigns through non-module instances and stops
+// at the first MODULE instantiation, i.e. the receiver (never an ancestor,
+// grid s06).
+//
+// GOLDEN GRID (tools/probe/r11u115repro/grid/i, real v1.87, both forms;
+// `interface itf #(int A = 16, int B = 32, int C = B, int D = A * 2)`,
+// elements `#(8, 32, 64)`):
+//   receiver declares            A        B        C        D
+//   nothing (e01..e12, e15)      16       32       32       (2*A)
+//   int A = 5 (e02/e04/e07/e09)  5        32       32       10
+//   #(.A(6)) override (e05)      6        -        32       -
+//   localparam A = 5 (s01)       5        32       32       10
+//   bit [3:0] / longint A (s02/s15) 5     32       32       10
+//   int A = -3 (s07)             INT:-3   32       32       INT:-6
+//   type A (s05) / ancestor A (s06) 16    32       32       32
+//   int B = 40 (e13/n04)         16       40       32       -
+//   int C = 7 (s03)              16       32       7        32
+// So (1) § pvRecvShadow115: a parameter whose default is a LITERAL (our Lhs
+// carries it inline) or a BARE NAME takes the receiver's same-named VALUE
+// parameter (header or body, any integral type; UINT ct 9, a negative value
+// INT ct 7); a type parameter, a variable and an ancestor's parameter do not
+// shadow, and an interface LOCALPARAM is never shadowed (s20: F = 3 against
+// the receiver's F = 9).  (2) § pvExprDefaultFold115: an EXPRESSION default the receiver does
+// not shadow folds at the DECLARATION — a bare name, parenthesised or not,
+// reads the definition's value (C = B -> 32 even with the receiver's B = 40;
+// s18 `C = (B)` the same), an operation reads the receiver-substituted fold
+// scope (D = A * 2 -> 10; s17 `C = B + 0` -> 40; s19 the localparam
+// `E = A + 1` -> 6).  Ours wrote the
+// CONNECTED instance's value for every expression default (C 64, D 16) and the
+// declaration literal for every literal one (A 16 against 5).
+// DECLINED: an OPERATION default the receiver shadows (s10: golden gains a
+// typespec the (C) face below strips — its own face), a non-integer receiver
+// value (s16, a string — for the shadowed parameter AND for every operation
+// default, since the fold scope cannot substitute it) and anything not
+// already a plain UINT/INT constant.
+// Returns true when it wrote (or deliberately kept) the constant, so the
+// caller's literal restamp is skipped for that assign.
+static bool pvIntValue115(const ConstantValue& cv, int64_t& out) {
+    if (!cv.isInteger() || cv.integer().hasUnknown())
+        return false;
+    auto v = cv.integer().as<int64_t>();
+    if (!v)
+        return false;
+    out = *v;
+    return true;
+}
+static void pvWrite115(UHDM::constant* c, int64_t v, bool keepPrefix) {
+    std::string cur(c->VpiValue());
+    std::string pre;
+    int ct = 0;
+    if (keepPrefix && v >= 0) {
+        pre = cur.substr(0, cur.find(':') + 1);
+        ct = c->VpiConstType();
+    }
+    else if (v < 0) {
+        pre = "INT:";
+        ct = vpiIntConst;
+    }
+    else {
+        pre = "UINT:";
+        ct = vpiUIntConst;
+    }
+    c->VpiValue(pre + std::to_string(v));
+    c->VpiDecompile(std::to_string(v));
+    c->VpiConstType(ct);
+}
+// § pvRecvShadowForm115v (r11u115 VERIFIER, two droppable gates on
+// § pvRecvShadow115 / § pvExprDefaultFold115) — THE SHADOWING VALUE'S FORM.
+// MEASURED (tools/probe/v11u115repro/grid/f2, real v1.87, both forms):
+//  (a) the interface parameter's DECLARED width bounds the copied value:
+//      `bit [3:0] A = 4` shadowed by the receiver's `int A = 101` reads golden
+//      UINT:5 (p18), `bit [7:0]` with 300 reads 44 (p19), 100 into [3:0] reads
+//      4 (p02) — an UNSIGNED explicitly typed parameter takes the value modulo
+//      2^w; any other out-of-range value (a signed type, a negative into an
+//      unsigned one — p12 `int A` shadowed by 32'hFFFF_FFF0, golden
+//      HEX:FFFFFFF0 and D = INT:8589934560) abstains, and so does the
+//      operation-default fold whose substituted receiver value does not fit.
+//  (b) a receiver value written as a BASED literal keeps its based form in
+//      golden (`8'h0A` -> HEX:0A decompile 8'h0A, p15; `'hA`, p16; an override
+//      `#(.A(8'h07))` -> HEX:07 decompile 32'h07, p21; `4'd5` -> INT:5, p14):
+//      the shadow abstains rather than write UINT:<v>.
+// `R11U115V_OFF=1` drops both, `R11U115V_PVW_OFF=1` / `R11U115V_PVB_OFF=1`
+// one each.
+static bool pvDeclFits115v(const ParameterSymbol* dp, int64_t& v, bool trunc) {
+    static const bool on = getenv("R11U115V_OFF") == nullptr &&
+                           getenv("R11U115V_PVW_OFF") == nullptr;
+    if (!on || !dp)
+        return true;
+    // An untyped (implicit, no dimensions, no signing) parameter takes the
+    // value as written in Surelog; no bound applies.
+    if (auto* ts = dp->getDeclaredType()->getTypeSyntax();
+        !ts || ts->kind == syntax::SyntaxKind::ImplicitType)
+        return true;
+    auto& t = dp->getType().getCanonicalType();
+    if (!t.isIntegral())
+        return true;
+    const slang::bitwidth_t w = t.getBitWidth();
+    if (w >= 63)
+        return true;
+    if (!t.isSigned()) {
+        const int64_t lim = int64_t(1) << w;
+        if (v >= 0 && v < lim)
+            return true;
+        if (trunc && v >= 0) {
+            v &= lim - 1;
+            return true;
+        }
+        return false;
+    }
+    const int64_t lo = -(int64_t(1) << (w - 1)), hi = (int64_t(1) << (w - 1)) - 1;
+    return v >= lo && v <= hi;
+}
+static bool pvBasedInit115v(const ParameterSymbol& rp) {
+    static const bool on = getenv("R11U115V_OFF") == nullptr &&
+                           getenv("R11U115V_PVB_OFF") == nullptr;
+    if (!on)
+        return false;
+    const syntax::SyntaxNode* e = rp.getDeclaredType()->getInitializerSyntax();
+    if (!e)
+        return rp.isOverridden();   // an override with no syntax: unknown form
+    while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    return e && (e->kind == syntax::SyntaxKind::IntegerVectorExpression ||
+                 e->kind == syntax::SyntaxKind::UnbasedUnsizedLiteralExpression);
+}
+static bool pvFold115(const InstanceSymbol* portView, const Scope* declScope,
+                      const Scope* foldScope, bool recvOn, bool exprOn,
+                      const UHDM::parameter* lhs, UHDM::constant* c) {
+    if (!portView || !lhs || !c)
+        return false;
+    std::string cur(c->VpiValue());
+    if (cur.compare(0, 5, "UINT:") != 0 && cur.compare(0, 4, "INT:") != 0)
+        return false;
+    std::string lv(lhs->VpiValue());
+    const bool lit = lv.compare(0, 5, "UINT:") == 0 ||
+                     lv.compare(0, 4, "INT:") == 0;
+    std::string_view nm(lhs->VpiName());
+    if (nm.empty())
+        return false;
+    // The interface's own declaration: the default's SHAPE.
+    const ParameterSymbol* dp = nullptr;
+    if (declScope)
+        if (auto* f = declScope->find(nm); f && f->kind == SymbolKind::Parameter)
+            dp = &f->as<ParameterSymbol>();
+    bool bareName = false;
+    if (dp)
+        if (auto* ps = dp->getSyntax())
+            if (ps->kind == syntax::SyntaxKind::Declarator)
+                if (auto* ini = ps->as<syntax::DeclaratorSyntax>().initializer) {
+                    // s18: `C = (B)` reads as the bare name (32, not 40).
+                    const syntax::SyntaxNode* e = ini->expr;
+                    while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                    bareName = e && e->kind == syntax::SyntaxKind::IdentifierName;
+                }
+    // s20: an interface LOCALPARAM is never shadowed by the receiver.
+    const bool local = dp ? dp->isLocalParam() : lhs->VpiLocalParam();
+    const Symbol* shadow = local ? nullptr : portView->body.find(nm);
+    if (shadow && shadow->kind != SymbolKind::Parameter)
+        shadow = nullptr;
+    if (shadow && !lit && !bareName)
+        return false;               // s10: an OPERATION default shadowed
+    if (recvOn && (lit || bareName)) {
+        if (auto* f = shadow) {
+            auto& rp = f->as<ParameterSymbol>();
+            int64_t v = 0;
+            if (!rp.getType().getCanonicalType().isIntegral() ||
+                !pvIntValue115(rp.getValue(), v))
+                return false;       // shadowed by a non-integer: abstain
+            // § pvRecvShadowForm115v (b) and (a).
+            if (pvBasedInit115v(rp) || !pvDeclFits115v(dp, v, true))
+                return false;
+            pvWrite115(c, v, false);
+            return true;
+        }
+    }
+    if (!exprOn || lit || !dp)
+        return false;
+    // Not shadowed, expression default: bare name at the declaration, an
+    // operation in the receiver-substituted fold scope.
+    // s16: the fold scope substitutes only INTEGER receiver values; when the
+    // receiver shadows an interface parameter with anything else (a string:
+    // golden D = "x" * 2 = 240), the substituted fold is not golden's —
+    // abstain.
+    if (!bareName)
+        for (auto& mb : declScope->asSymbol().as<InstanceBodySymbol>().members()) {
+            if (mb.kind != SymbolKind::Parameter ||
+                mb.as<ParameterSymbol>().isLocalParam())
+                continue;
+            auto* rf = portView->body.find(mb.name);
+            if (!rf || rf->kind != SymbolKind::Parameter)
+                continue;
+            int64_t rv = 0;
+            if (!rf->as<ParameterSymbol>().getType().getCanonicalType().isIntegral() ||
+                !pvIntValue115(rf->as<ParameterSymbol>().getValue(), rv))
+                return false;
+            // § pvRecvShadowForm115v (a): a substituted value outside the
+            // interface parameter's declared type is not golden's fold.
+            if (!pvDeclFits115v(&mb.as<ParameterSymbol>(), rv, false))
+                return false;
+        }
+    const Scope* sc = bareName ? declScope : foldScope;
+    if (!sc)
+        return false;
+    auto* f = sc->find(nm);
+    if (!f || f->kind != SymbolKind::Parameter)
+        return false;
+    int64_t v = 0;
+    if (!pvIntValue115(f->as<ParameterSymbol>().getValue(), v))
+        return false;
+    if (v < 0 && cur.compare(0, 5, "UINT:") == 0)
+        return false;
+    pvWrite115(c, v, true);
+    return true;
+}
+
 const Scope* UhdmExporter::ifacePortViewFoldScope(const DefinitionSymbol& def,
                                                   const InstanceSymbol* recv) {
     // The plain default instance is both the fallback scope and the source of
@@ -41368,6 +41597,36 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             }
             break;
         }
+    // § namedModportOutOfScopeFresh115 (r11u115, face 2b) — A NAMED MODPORT
+    //   VIEW WHOSE ACTUAL IS NOT A MEMBER OF THE RECEIVER'S INSTANTIATING SCOPE
+    //   IS A FRESH COPY, NOT THE CONNECTED INSTANCE'S VIEW.
+    // `namedModportPortView9` models the ONE cell where Surelog copies the
+    // connected instance's parameters onto the port view:
+    // `propagateIfaceParams_` (NetlistElaboration.cpp:798-815), reached only
+    // when `getInterfaceInstance_` (:817-970) finds the actual among the
+    // sub-instances of the receiver's IMMEDIATE parent ModuleInstance — the
+    // same miss `actualOutOfScope16` decodes above (a generate block is a
+    // ModuleInstance of its own).  On the miss the view is elaborated from the
+    // definition (:1913-1934): declaration defaults, the receiver's shadowing
+    // parameters (§ pvRecvShadow115), and no `vpiOverriden`.
+    // GOLDEN GRID (tools/probe/r11u115repro/grid/i, real v1.87, both forms;
+    // `itf #(8, 32, 64) i`): receiver in a gen-if / gen-for / an inner gen
+    // block with the actual at module scope or in the outer block (n05, o01,
+    // o06, o07), the modport expression `i.m` (o08), and an ENCLOSING
+    // MODULE'S OWN interface port passed from inside a gen-if (o02, o03 —
+    // Rggen's `g_register_15.u_register.bus_if`): golden A = 16 (or the
+    // receiver's 5), C = 32, D = 32 (or 10), no stamp; ours the connected
+    // 8 / 64 / 16 with three stamps.  Controls: the same passthrough from the
+    // module body (o04) and an actual in the SAME gen block (o05) keep the
+    // connected instance's values and stamps in golden, and here.
+    // `R11U115_OFF=1` / `R11U115_NMPOOS_OFF=1` drop it.
+    {
+        static const bool nmpOosOn115 =
+            getenv("R11U115_OFF") == nullptr &&
+            getenv("R11U115_NMPOOS_OFF") == nullptr;
+        if (nmpOosOn115 && namedModportPortView9 && actualOutOfScope16)
+            namedModportPortView9 = false;
+    }
     // § ifaceArrayElemPortViewNoPa — REFUTED AT v1.87 AND REMOVED (r11u36);
     // kept here only as the history of the arm below.  An interface-ARRAY
     // ELEMENT port view now carries the SAME `par=0 pa=ALL` shape as every
@@ -41587,11 +41846,26 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         // A view that folds at the CONNECTED instance (the named-modport cell,
         // ifaceDefaultScope unset) never reaches this code and keeps its
         // override, matching golden's work@top.a0.q (W <- 32).
+        // § pvRecvShadow115 / § pvExprDefaultFold115 (r11u115, face 2) — see
+        // the block comment above `pvFold115`; both read here, per assign.
+        static const bool pvRecvOn115 =
+            getenv("R11U115_OFF") == nullptr &&
+            getenv("R11U115_PVRECV_OFF") == nullptr;
+        static const bool pvExprOn115 =
+            getenv("R11U115_OFF") == nullptr &&
+            getenv("R11U115_PVEXPR_OFF") == nullptr;
+        const Scope* declScope115 =
+            (pvRecvOn115 || pvExprOn115) ? ifacePortViewFoldScope(def, nullptr)
+                                         : nullptr;
         if (auto* pas6 = iface->Param_assigns())
             for (auto* pa6 : *pas6) {
                 auto* lhs6 = (const UHDM::parameter*)pa6->Lhs();
                 auto* rhs6 = pa6->Rhs();
                 if (!lhs6 || !rhs6 || rhs6->UhdmType() != UHDM::uhdmconstant)
+                    continue;
+                if (pvFold115(portView, declScope115, ifaceDefaultScope,
+                              pvRecvOn115, pvExprOn115, lhs6,
+                              (UHDM::constant*)rhs6))
                     continue;
                 std::string lv6(lhs6->VpiValue());
                 // Only the plain integer forms; a sized/based literal's

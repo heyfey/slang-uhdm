@@ -1,0 +1,137 @@
+# cen115.sh (cen115.cpp + censcore115.py): per row, golden minus ours. F1 <G|M> <OP|SYS|VS> <T|U>: constants reached from a cont_assign Rhs through operations (OP), one sys-func argument (SYS) or as a var_select index (VS), typed/untyped, gen-scope (G) or not (M). PV: interface_inst param_assign value multiset, gold_only/ours_only.
+## POSITIVE CONTROL (grid arms, golden vs golden / pristine / LAW)
+r/f/p01_ibex gold:
+r/f/p01_ibex pris: G_OP_T+4 G_OP_U-4
+r/f/p01_ibex law8:
+r/x/x01_icache_shape gold:
+r/x/x01_icache_shape pris: G_OP_T+8 G_OP_U-8
+r/x/x01_icache_shape law8:
+r/v/v02_genfor_bare gold:
+r/v/v02_genfor_bare pris: G_VS_T+2 G_VS_U-2
+r/v/v02_genfor_bare law8:
+r/m/p12_sysarg gold:
+r/m/p12_sysarg pris: M_SYS_T+1 M_SYS_U-2
+r/m/p12_sysarg law8: M_SYS_T-1
+i/e04_elem_mp_named_gen_recvA gold:
+i/e04_elem_mp_named_gen_recvA pris: PV:gold_only=2,ours_only=2
+i/e04_elem_mp_named_gen_recvA law8:
+i/o01_nmp_gen_recvA gold:
+i/o01_nmp_gen_recvA pris: PV:gold_only=7,ours_only=3
+i/o01_nmp_gen_recvA law8: PV:gold_only=4,ours_only=0
+i/s04_recv_A_D gold:
+i/s04_recv_A_D pris: PV:gold_only=3,ours_only=3
+i/s04_recv_A_D law8:
+r/n/p01_ibex gold:
+r/n/p01_ibex pris:
+r/n/p01_ibex law8:
+(r/m/p12 LAW M_SYS_T-1: our module-scope ELAB cont_assign is a separate copy where golden re-lists the DEF object (no clone: Lhs is a bit-select), so the stamped DEF constant is counted twice on our side; the judge reads 0 lines, and o01's residual PV gold_only=4 is golden's SECOND listing of the HOME view work@dut.i (A/B/C/D, the arm's pre-existing u2r structural head `LHS: <null>`), not a port-view value)
+## u2r_calib
+ROWS_READ=1608 ROWS_WITH_DELTA=0
+## u2r_pris
+default/ibex_icache-e3714209 G_OP_T+20 G_OP_U-20 G_VS_T+16 G_VS_U-16
+default/ibex_multdiv_fast-ed04630b M_OP_U-1
+default/ibex_multdiv_slow-d86a3bae M_OP_U-2
+default/multiplier-5b33e073 M_OP_U-1
+testflags/ibex_icache-e3714209 G_OP_T+20 G_OP_U-20 G_VS_T+16 G_VS_U-16
+testflags/ibex_multdiv_fast-ed04630b M_OP_U-1
+testflags/ibex_multdiv_slow-d86a3bae M_OP_U-2
+testflags/multiplier-5b33e073 M_OP_U-1
+ROWS_READ=1608 ROWS_WITH_DELTA=8
+## u2r_law4
+default/ibex_multdiv_fast-ed04630b M_OP_U-1
+default/ibex_multdiv_slow-d86a3bae M_OP_U-2
+default/multiplier-5b33e073 M_OP_U-1
+testflags/ibex_multdiv_fast-ed04630b M_OP_U-1
+testflags/ibex_multdiv_slow-d86a3bae M_OP_U-2
+testflags/multiplier-5b33e073 M_OP_U-1
+ROWS_READ=1608 ROWS_WITH_DELTA=6
+## u2r_lawy
+default/ibex_multdiv_fast-ed04630b M_OP_U-1
+default/ibex_multdiv_slow-d86a3bae M_OP_U-2
+default/multiplier-5b33e073 M_OP_U-1
+testflags/ibex_multdiv_fast-ed04630b M_OP_U-1
+testflags/ibex_multdiv_slow-d86a3bae M_OP_U-2
+testflags/multiplier-5b33e073 M_OP_U-1
+ROWS_READ=1608 ROWS_WITH_DELTA=6
+## sl_calib
+ROWS_READ=960 ROWS_WITH_DELTA=0
+## sl_pris
+default/Earlgrey_0_1-71da2fd7 M_OP_T+32 M_OP_U+347 M_VS_U-6
+default/LargeConst-c295e83f M_OP_U+1
+default/Rggen-50ccbd70 G_OP_U+43 M_OP_U+8 PV:gold_only=95,ours_only=95
+default/UnpackPort-98701e61 M_OP_U+7
+default/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/BasicOh-87b55f9d G_OP_T-24
+testflags/BiasValue-b68a584b M_OP_U-2
+testflags/BlackBePipeInt-2987e0d2 M_OP_T-2 M_OP_U-5
+testflags/BlackConst-043847d0 M_OP_T-2 M_OP_U-4
+testflags/ConstantWithElabUhdm-4b1c99b0 M_OP_U-1
+testflags/Earlgrey_0_1-71da2fd7 G_OP_T-300 G_OP_U-2083 G_VS_U-2 M_OP_T+32 M_OP_U+320 M_VS_U-6
+testflags/GenForIfaceLocalparamBound-fe9fe25d PV:gold_only=0,ours_only=2
+testflags/GenForIfaceLocalparamNestedGen-0374ca75 PV:gold_only=0,ours_only=1
+testflags/HierPathCont-cda669b0 M_OP_U-1
+testflags/InterfaceElab-e41049d0 PV:gold_only=0,ours_only=1
+testflags/InterfaceStructMemberPort-afa4a627 M_OP_U-1
+testflags/InterfType-54ee30ac PV:gold_only=0,ours_only=1
+testflags/OneNetRange-cf1f634a PV:gold_only=0,ours_only=1
+testflags/UnpackPort-98701e61 M_OP_U+7
+testflags/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/UnsizedLiteral2-69bc31b7 M_OP_U-1
+ROWS_READ=960 ROWS_WITH_DELTA=21
+## sl_law4
+default/Earlgrey_0_1-71da2fd7 M_OP_T+32 M_OP_U+347 M_VS_U-6
+default/LargeConst-c295e83f M_OP_U+1
+default/Rggen-50ccbd70 G_OP_U+43 M_OP_U+8
+default/UnpackPort-98701e61 M_OP_U+7
+default/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/BasicOh-87b55f9d G_OP_T-24
+testflags/BiasValue-b68a584b M_OP_U-2
+testflags/BlackBePipeInt-2987e0d2 M_OP_T-2 M_OP_U-5
+testflags/BlackConst-043847d0 M_OP_T-2 M_OP_U-4
+testflags/ConstantWithElabUhdm-4b1c99b0 M_OP_U-1
+testflags/Earlgrey_0_1-71da2fd7 G_OP_T-300 G_OP_U-2083 G_VS_U-2 M_OP_T+32 M_OP_U+320 M_VS_U-6
+testflags/GenForIfaceLocalparamBound-fe9fe25d PV:gold_only=0,ours_only=2
+testflags/GenForIfaceLocalparamNestedGen-0374ca75 PV:gold_only=0,ours_only=1
+testflags/HierPathCont-cda669b0 M_OP_U-1
+testflags/InterfaceElab-e41049d0 PV:gold_only=0,ours_only=1
+testflags/InterfaceStructMemberPort-afa4a627 M_OP_U-1
+testflags/InterfType-54ee30ac PV:gold_only=0,ours_only=1
+testflags/OneNetRange-cf1f634a PV:gold_only=0,ours_only=1
+testflags/UnpackPort-98701e61 M_OP_U+7
+testflags/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/UnsizedLiteral2-69bc31b7 M_OP_U-1
+ROWS_READ=960 ROWS_WITH_DELTA=21
+## sl_lawy
+default/Earlgrey_0_1-71da2fd7 M_OP_T+32 M_OP_U+347 M_VS_U-6
+default/LargeConst-c295e83f M_OP_U+1
+default/Rggen-50ccbd70 G_OP_U+43 M_OP_U+8
+default/UnpackPort-98701e61 M_OP_U+7
+default/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/BasicOh-87b55f9d G_OP_T-24
+testflags/BiasValue-b68a584b M_OP_U-2
+testflags/BlackBePipeInt-2987e0d2 M_OP_T-2 M_OP_U-5
+testflags/BlackConst-043847d0 M_OP_T-2 M_OP_U-4
+testflags/ConstantWithElabUhdm-4b1c99b0 M_OP_U-1
+testflags/Earlgrey_0_1-71da2fd7 G_OP_T-300 G_OP_U-2083 G_VS_U-2 M_OP_T+32 M_OP_U+320 M_VS_U-6
+testflags/GenForIfaceLocalparamBound-fe9fe25d PV:gold_only=0,ours_only=2
+testflags/GenForIfaceLocalparamNestedGen-0374ca75 PV:gold_only=0,ours_only=1
+testflags/HierPathCont-cda669b0 M_OP_U-1
+testflags/InterfaceElab-e41049d0 PV:gold_only=0,ours_only=1
+testflags/InterfaceStructMemberPort-afa4a627 M_OP_U-1
+testflags/InterfType-54ee30ac PV:gold_only=0,ours_only=1
+testflags/OneNetRange-cf1f634a PV:gold_only=0,ours_only=1
+testflags/UnpackPort-98701e61 M_OP_U+7
+testflags/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/UnsizedLiteral2-69bc31b7 M_OP_U-1
+ROWS_READ=960 ROWS_WITH_DELTA=21
+## pass 112's C2U signature (sig113.cpp via r11u113repro/cen113.sh), pristine sweep — face 3's shape
+/tmp/r11u115_c2u_u2r_pris.txt:default/arb_idx_cast-dbf8cde6 C2U+2
+/tmp/r11u115_c2u_u2r_pris.txt:testflags/arb_idx_cast-dbf8cde6 C2U+2
+/tmp/r11u115_c2u_u2r_pris.txt:ROWS_READ=1608 ROWS_WITH_DELTA=2
+/tmp/r11u115_c2u_sl_pris.txt:default/Scr1SvTests-b87ba20c C2U+1
+/tmp/r11u115_c2u_sl_pris.txt:default/SeqDriver-32af76aa R1S+100 C2U-1
+/tmp/r11u115_c2u_sl_pris.txt:default/SimpleUVM-1dc93a62 C2U-1
+/tmp/r11u115_c2u_sl_pris.txt:testflags/Scr1SvTests-b87ba20c C2U+1
+/tmp/r11u115_c2u_sl_pris.txt:testflags/SeqDriver-32af76aa R1S+100 C2U-1
+/tmp/r11u115_c2u_sl_pris.txt:testflags/SimpleUVM-1dc93a62 C2U-1
+/tmp/r11u115_c2u_sl_pris.txt:ROWS_READ=960 ROWS_WITH_DELTA=9

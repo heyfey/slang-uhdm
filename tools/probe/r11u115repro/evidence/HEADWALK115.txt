@@ -1,0 +1,81 @@
+# the head walk (intermediate binaries of this pass, each a subset of the LAW; uhdm-cmp LHS golden)
+## ibex_icache/default after § genCaOpFoldElabTs115 + § caSysArgOpFoldTs115 only (+ face 2), before § caVarSelBareIdxTs115:
+LHS:
+decompile:
+ref_typespec: (work@ibex_icache.gen_fbs[0].fill_ext_cnt_q), id:17786
+|vpiParent:
+\_constant: , id:17785, line:766:54, endln:766:69
+|vpiFullName:work@ibex_icache.gen_fbs[0].fill_ext_cnt_q
+|vpiActual:
+\_int_typespec: , id:17787, line:393:13, endln:393:25
+
+decompile:
+ref_typespec: (work@ibex_icache.gen_fbs[0].fill_ext_cnt_q), id:17786
+|vpiParent:
+\_constant: , id:17785, line:766:54, endln:766:69
+|vpiFullName:work@ibex_icache.gen_fbs[0].fill_ext_cnt_q
+|vpiActual:
+\_int_typespec: , id:17787, line:393:13, endln:393:25
+RHS: <null>
+
+## Rggen/default after § pvRecvShadow115 + § pvExprDefaultFold115, before § namedModportOutOfScopeFresh115 (142 lines, one head):
+LHS:
+decompile:
+param_assign: , id:230009, line:2:17, endln:2:35
+|vpiParent:
+\_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:229923, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+|vpiRhs:
+\_constant: , id:230010, line:2:33, endln:2:35
+  |vpiParent:
+  \_param_assign: , id:230009, line:2:17, endln:2:35
+  |vpiDecompile:8
+  |vpiSize:32
+  |UINT:8
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:230011
+    |vpiParent:
+    \_constant: , id:230010, line:2:33, endln:2:35
+    |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if
+    |vpiActual:
+    \_int_typespec: , id:9488, line:2:13, endln:2:16
+  |vpiConstType:9
+|vpiLhs:
+\_parameter: (work@rggen_bus_if.ADDRESS_WIDTH), id:9489, line:2:17, endln:2:30
+  |vpiParent:
+  \_interface_inst: work@rggen_bus_if (work@rggen_bus_if), id:347049, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sv-rtl/rggen_bus_if.sv, line:1:1, endln:48:13
+  |UINT:16
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen_bus_if.ADDRESS_WIDTH), id:9490
+    |vpiParent:
+    \_parameter: (work@rggen_bus_if.ADDRESS_WIDTH), id:9489, line:2:17, endln:2:30
+    |vpiFullName:work@rggen_bus_if.ADDRESS_WIDTH
+    |vpiActual:
+    \_int_typespec: , id:9488, line:2:13, endln:2:16
+  |vpiSigned:1
+  |vpiName:ADDRESS_WIDTH
+  |vpiFullName:work@rggen_bus_if.ADDRESS_WIDTH
+
+decompile:
+param_assign: , id:230009, line:2:17, endln:2:35
+|vpiParent:
+\_interface_inst: work@rggen_bus_if (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:229923, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sample/block_0.sv, line:2289:0
+|vpiRhs:
+\_constant: , id:230010, line:2:33, endln:2:35
+  |vpiParent:
+  \_param_assign: , id:230009, line:2:17, endln:2:35
+  |vpiDecompile:8
+  |vpiSize:32
+  |UINT:8
+  |vpiTypespec:
+  \_ref_typespec: (work@rggen.u_block_0.g_register_15.u_register.bus_if), id:230011
+    |vpiParent:
+    \_constant: , id:230010, line:2:33, endln:2:35
+    |vpiFullName:work@rggen.u_block_0.g_register_15.u_register.bus_if
+    |vpiActual:
+    \_int_typespec: , id:9488, line:2:13, endln:2:16
+  |vpiConstType:9
+|vpiLhs:
+\_parameter: (work@rggen_bus_if.ADDRESS_WIDTH), id:9489, line:2:17, endln:2:30
+  |vpiParent:
+  \_interface_inst: work@rggen_bus_if (work@rggen_bus_if), id:347049, file:/home/heyfey/git-repos/Surelog/third_party/tests/rggen/rggen-sv-rtl/rggen_bus_if.sv, line:1:1, endln:48:13
+  |UINT:16

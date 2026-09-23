@@ -1,0 +1,135 @@
+## ibex_icache @6158f101 (pristine), default (testflags byte-identical text up to ids)
+LHS:
+decompile:
+ref_typespec: (work@ibex_icache), id:17748
+|vpiParent:
+\_constant: , id:17747, line:759:38, endln:759:53
+|vpiFullName:work@ibex_icache
+|vpiActual:
+\_int_typespec: , id:17749, line:393:13, endln:393:25
+
+decompile:
+ref_typespec: (work@ibex_icache), id:17748
+|vpiParent:
+\_constant: , id:17747, line:759:38, endln:759:53
+|vpiFullName:work@ibex_icache
+|vpiActual:
+\_int_typespec: , id:17749, line:393:13, endln:393:25
+RHS: <null>
+## Rggen/default @6158f101 (pristine) — first 64 lines = whole cmp
+LHS:
+decompile:
+constant: , id:18367, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:18366, line:4:17, endln:4:42
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18368
+  |vpiParent:
+  \_constant: , id:18367, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:10785, line:4:13, endln:4:16
+|vpiConstType:9
+
+decompile:
+constant: , id:18367, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:18366, line:4:17, endln:4:42
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18368
+  |vpiParent:
+  \_constant: , id:18367, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:10785, line:4:13, endln:4:16
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:16402, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:16401, line:4:17, endln:4:42
+|vpiDecompile:64
+|vpiSize:32
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:16403
+  |vpiParent:
+  \_constant: , id:16402, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:230499, line:4:13, endln:4:16
+|vpiConstType:9
+
+decompile:
+constant: , id:16402, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:16401, line:4:17, endln:4:42
+|vpiDecompile:64
+|vpiSize:32
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:16403
+  |vpiParent:
+  \_constant: , id:16402, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:230499, line:4:13, endln:4:16
+|vpiConstType:9
+## ibex_icache LAW (= FIX), default: 50 lines
+LHS:
+decompile:
+ref_obj: (work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE), id:18472, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:18471, line:976:29, endln:976:39
+|vpiName:BUS_SIZE
+|vpiFullName:work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE
+|vpiActual:
+\_enum_const: (BUS_SIZE), id:24195
+
+decompile:
+ref_obj: (work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE), id:18472, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:18471, line:976:29, endln:976:39
+|vpiName:BUS_SIZE
+|vpiFullName:work@ibex_icache.gen_fbs[0].gen_data_buf[0].g_fill_data_nr.fill_data_q.fill_data_q.BUS_SIZE
+|vpiActual:
+\_enum_const: (BUS_SIZE), id:24195
+RHS:
+decompile:
+constant: , id:11548, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:11545, line:976:29, endln:976:39
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@ibex_icache), id:11549
+  |vpiParent:
+  \_constant: , id:11548, line:976:31, endln:976:39
+  |vpiFullName:work@ibex_icache
+  |vpiActual:
+  \_int_typespec: , id:3358, line:383:13, endln:383:25
+|vpiConstType:9
+
+decompile:
+constant: , id:11548, line:976:31, endln:976:39
+|vpiParent:
+\_operation: , id:11545, line:976:29, endln:976:39
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@ibex_icache), id:11549
+  |vpiParent:
+  \_constant: , id:11548, line:976:31, endln:976:39
+  |vpiFullName:work@ibex_icache
+  |vpiActual:
+  \_int_typespec: , id:3358, line:383:13, endln:383:25
+|vpiConstType:9
+## Rggen/default LAW and FIX: 0 lines

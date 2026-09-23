@@ -1,0 +1,25 @@
+## canaries.sh (r10uvm221 generation, copied here)
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+## ctcan2.sh
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+## canaudit.sh
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+## protected databases by name, md5 (12) LAW vs pristine
+sl/default/InterfaceModPort-a10293bb law=59a365f3ce2c pris=59a365f3ce2c SAME
+sl/testflags/InterfaceModPort-a10293bb law=59a365f3ce2c pris=59a365f3ce2c SAME
+sl/default/BlackParrotComplex-5bed297d law=e3e354129d5a pris=e3e354129d5a SAME
+sl/testflags/BlackParrotComplex-5bed297d law=73a10e8217e5 pris=73a10e8217e5 SAME
+sl/default/YosysOldOr-02449e06 law=d68e0796d62c pris=d68e0796d62c SAME
+sl/testflags/YosysOldOr-02449e06 law=d68e0796d62c pris=d68e0796d62c SAME
+sl/default/SVSwitch-db796243 law=4842211c4030 pris=4842211c4030 SAME
+sl/testflags/SVSwitch-db796243 law=4842211c4030 pris=4842211c4030 SAME
+sl/default/YosysVerx-3c02adf6 law=6ccda350c24a pris=6ccda350c24a SAME
+sl/testflags/YosysVerx-3c02adf6 law=6ccda350c24a pris=6ccda350c24a SAME
+sl/default/Earlgrey_0_1-71da2fd7 law=8bdf25272e08 pris=8bdf25272e08 SAME
+sl/testflags/Earlgrey_0_1-71da2fd7 law=59d0ee6d10c3 pris=59d0ee6d10c3 SAME
+## goldens (tests/check_goldens.sh)
+LAW (law8, 1d5daafa): PASS=23 FAIL=0   /bin/false: PASS=0 FAIL=23

@@ -1,0 +1,41 @@
+# status tallies (sweep CSVs, --jobs 3, SLANG_UHDM exported, every cmds.txt audited: pris 1742 u2r + 1531 sl runs of /tmp/<tag>.bin, same for lawv and vfix)
+pris u2r default:  800 CMP_EQUAL  4 CMP_NOTEQUAL  67 SLANG_REJECT
+pris sl default:  479 CMP_EQUAL  4 CMP_NOTEQUAL  5 DEFERRED  285 SLANG_REJECT  25 SURELOG_FAIL
+pris u2r testflags:  800 CMP_EQUAL  4 CMP_NOTEQUAL  67 SLANG_REJECT
+pris sl testflags:  474 CMP_EQUAL  3 CMP_NOTEQUAL  5 DEFERRED  3 NO_DATABASE  1 NO_UHDM  286 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+lawv u2r default:  800 CMP_EQUAL  4 CMP_NOTEQUAL  67 SLANG_REJECT
+lawv sl default:  480 CMP_EQUAL  3 CMP_NOTEQUAL  5 DEFERRED  285 SLANG_REJECT  25 SURELOG_FAIL
+lawv u2r testflags:  800 CMP_EQUAL  4 CMP_NOTEQUAL  67 SLANG_REJECT
+lawv sl testflags:  474 CMP_EQUAL  3 CMP_NOTEQUAL  5 DEFERRED  3 NO_DATABASE  1 NO_UHDM  286 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+vfix u2r default:  800 CMP_EQUAL  4 CMP_NOTEQUAL  67 SLANG_REJECT
+vfix sl default:  480 CMP_EQUAL  3 CMP_NOTEQUAL  5 DEFERRED  285 SLANG_REJECT  25 SURELOG_FAIL
+vfix u2r testflags:  800 CMP_EQUAL  4 CMP_NOTEQUAL  67 SLANG_REJECT
+vfix sl testflags:  474 CMP_EQUAL  3 CMP_NOTEQUAL  5 DEFERRED  3 NO_DATABASE  1 NO_UHDM  286 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+## committed results/golden_surelog.csv -> pris
+DIFF ('Earlgrey_0_1', 'default') [['Earlgrey_0_1', 'default', 'CMP_EQUAL', '', '', 'differ']] -> [['Earlgrey_0_1', 'default', 'CMP_EQUAL', '', '', '']]
+DIFF ('Earlgrey_0_1', 'testflags') [['Earlgrey_0_1', 'testflags', 'CMP_EQUAL', '', '', 'differ']] -> [['Earlgrey_0_1', 'testflags', 'CMP_EQUAL', '', '', '']]
+DIFF ('LowMemLib', 'testflags') [['LowMemLib', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']] -> [['LowMemLib', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']]
+DIFF ('LowMemPkg', 'testflags') [['LowMemPkg', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']] -> [['LowMemPkg', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']]
+ROWS-DIFFER 4 of 1596
+## committed results/golden_uhdm2rtlil.csv -> pris
+ROWS-DIFFER 0 of 1742
+## gate_uhdm2rtlil.csv -> pris testflags: PASS: every row byte-identical to the committed baseline
+## committed results/golden_surelog.csv -> lawv
+DIFF ('Earlgrey_0_1', 'default') [['Earlgrey_0_1', 'default', 'CMP_EQUAL', '', '', 'differ']] -> [['Earlgrey_0_1', 'default', 'CMP_EQUAL', '', '', '']]
+DIFF ('Earlgrey_0_1', 'testflags') [['Earlgrey_0_1', 'testflags', 'CMP_EQUAL', '', '', 'differ']] -> [['Earlgrey_0_1', 'testflags', 'CMP_EQUAL', '', '', '']]
+DIFF ('LowMemLib', 'testflags') [['LowMemLib', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']] -> [['LowMemLib', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']]
+DIFF ('LowMemPkg', 'testflags') [['LowMemPkg', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']] -> [['LowMemPkg', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']]
+DIFF ('Rggen', 'default') [['Rggen', 'default', 'CMP_NOTEQUAL', 'decompile:', '', '']] -> [['Rggen', 'default', 'CMP_EQUAL', '', '', 'differ']]
+ROWS-DIFFER 5 of 1596
+## committed results/golden_uhdm2rtlil.csv -> lawv
+ROWS-DIFFER 0 of 1742
+## gate_uhdm2rtlil.csv -> lawv testflags: PASS: every row byte-identical to the committed baseline
+## committed results/golden_surelog.csv -> vfix
+DIFF ('Earlgrey_0_1', 'testflags') [['Earlgrey_0_1', 'testflags', 'CMP_EQUAL', '', '', 'differ']] -> [['Earlgrey_0_1', 'testflags', 'CMP_EQUAL', '', '', '']]
+DIFF ('LowMemLib', 'testflags') [['LowMemLib', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']] -> [['LowMemLib', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']]
+DIFF ('LowMemPkg', 'testflags') [['LowMemPkg', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']] -> [['LowMemPkg', 'testflags', 'SURELOG_FAIL', '[INF:CM0023] Creating log file "<wd>/surelog.log".', '', '']]
+DIFF ('Rggen', 'default') [['Rggen', 'default', 'CMP_NOTEQUAL', 'decompile:', '', '']] -> [['Rggen', 'default', 'CMP_EQUAL', '', '', 'differ']]
+ROWS-DIFFER 4 of 1596
+## committed results/golden_uhdm2rtlil.csv -> vfix
+ROWS-DIFFER 0 of 1742
+## gate_uhdm2rtlil.csv -> vfix testflags: PASS: every row byte-identical to the committed baseline

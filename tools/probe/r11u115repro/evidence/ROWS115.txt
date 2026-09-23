@@ -1,0 +1,46 @@
+# row joins (rows115.py) — pristine sweep vs committed baselines, LAW sweep vs committed baselines and vs pristine; ct8rows gates
+/tmp/r11u115_swp/pris/u2r.csv vs results/golden_uhdm2rtlil.csv: rows 1742/1742 differing 0
+    {('default', 'CMP_EQUAL'): 800, ('testflags', 'CMP_EQUAL'): 800, ('default', 'SLANG_REJECT'): 67, ('testflags', 'SLANG_REJECT'): 67, ('default', 'CMP_NOTEQUAL'): 4, ('testflags', 'CMP_NOTEQUAL'): 4}
+/tmp/r11u115_swp/pris/sl.csv vs results/golden_surelog.csv: rows 1596/1596 differing 2
+   Earlgrey_0_1,default: base=('CMP_EQUAL', 'differ') mine=('CMP_EQUAL', '')
+   Earlgrey_0_1,testflags: base=('CMP_EQUAL', 'differ') mine=('CMP_EQUAL', '')
+    {('default', 'CMP_EQUAL'): 479, ('testflags', 'CMP_EQUAL'): 474, ('default', 'SLANG_REJECT'): 285, ('testflags', 'SLANG_REJECT'): 286, ('default', 'SURELOG_FAIL'): 25, ('testflags', 'SURELOG_FAIL'): 23, ('testflags', 'NO_DATABASE'): 3, ('testflags', 'UNTRANSLATABLE'): 2, ('default', 'DEFERRED'): 5, ('testflags', 'DEFERRED'): 5, ('default', 'CMP_NOTEQUAL'): 4, ('testflags', 'CMP_NOTEQUAL'): 3, ('testflags', 'TIMEOUT'): 1, ('testflags', 'NO_UHDM'): 1}
+/tmp/r11u115_swp/lawy/u2r.csv vs results/golden_uhdm2rtlil.csv: rows 1742/1742 differing 0
+    {('default', 'CMP_EQUAL'): 800, ('testflags', 'CMP_EQUAL'): 800, ('default', 'SLANG_REJECT'): 67, ('testflags', 'SLANG_REJECT'): 67, ('default', 'CMP_NOTEQUAL'): 4, ('testflags', 'CMP_NOTEQUAL'): 4}
+/tmp/r11u115_swp/lawy/sl.csv vs results/golden_surelog.csv: rows 1596/1596 differing 2
+   Earlgrey_0_1,testflags: base=('CMP_EQUAL', 'differ') mine=('CMP_EQUAL', '')
+   Rggen,default: base=('CMP_NOTEQUAL', '') mine=('CMP_EQUAL', 'differ')
+    {('default', 'CMP_EQUAL'): 480, ('testflags', 'CMP_EQUAL'): 474, ('default', 'SLANG_REJECT'): 285, ('testflags', 'SLANG_REJECT'): 286, ('default', 'SURELOG_FAIL'): 25, ('testflags', 'SURELOG_FAIL'): 23, ('testflags', 'NO_DATABASE'): 3, ('testflags', 'UNTRANSLATABLE'): 2, ('default', 'DEFERRED'): 5, ('testflags', 'DEFERRED'): 5, ('default', 'CMP_NOTEQUAL'): 3, ('testflags', 'CMP_NOTEQUAL'): 3, ('testflags', 'TIMEOUT'): 1, ('testflags', 'NO_UHDM'): 1}
+/tmp/r11u115_swp/lawy/u2r.csv vs /tmp/r11u115_swp/pris/u2r.csv: rows 1742/1742 differing 0
+    {('default', 'CMP_EQUAL'): 800, ('testflags', 'CMP_EQUAL'): 800, ('default', 'SLANG_REJECT'): 67, ('testflags', 'SLANG_REJECT'): 67, ('default', 'CMP_NOTEQUAL'): 4, ('testflags', 'CMP_NOTEQUAL'): 4}
+/tmp/r11u115_swp/lawy/sl.csv vs /tmp/r11u115_swp/pris/sl.csv: rows 1596/1596 differing 2
+   Earlgrey_0_1,default: base=('CMP_EQUAL', '') mine=('CMP_EQUAL', 'differ')
+   Rggen,default: base=('CMP_NOTEQUAL', '') mine=('CMP_EQUAL', 'differ')
+    {('default', 'CMP_EQUAL'): 480, ('testflags', 'CMP_EQUAL'): 474, ('default', 'SLANG_REJECT'): 285, ('testflags', 'SLANG_REJECT'): 286, ('default', 'SURELOG_FAIL'): 25, ('testflags', 'SURELOG_FAIL'): 23, ('testflags', 'NO_DATABASE'): 3, ('testflags', 'UNTRANSLATABLE'): 2, ('default', 'DEFERRED'): 5, ('testflags', 'DEFERRED'): 5, ('default', 'CMP_NOTEQUAL'): 3, ('testflags', 'CMP_NOTEQUAL'): 3, ('testflags', 'TIMEOUT'): 1, ('testflags', 'NO_UHDM'): 1}
+## ct8rows.sh results/gate_uhdm2rtlil.csv /tmp/r11u115_swp/lawy/u2r_tf.csv
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+PASS: every row byte-identical to the committed baseline
+## ct8rows.sh /tmp/r11u115_swp/pris/u2r_tf.csv /tmp/r11u115_swp/lawy/u2r_tf.csv
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+PASS: every row byte-identical to the committed baseline
+## ct8rows.sh /tmp/r11u115_swp/pris/u2r_def.csv /tmp/r11u115_swp/lawy/u2r_def.csv
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+PASS: every row byte-identical to the committed baseline
+## ct8rows.sh results/golden_uhdm2rtlil.csv /tmp/r11u115_swp/lawy/u2r.csv
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+PASS: every row byte-identical to the committed baseline
+## ct8rows.sh results/golden_surelog.csv /tmp/r11u115_swp/lawy/sl.csv
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+## ct8rows.sh /tmp/r11u115_swp/pris/sl.csv /tmp/r11u115_swp/lawy/sl.csv
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+## cmds.txt audit (binary path per slang run)
+   3273 /tmp/r11u115_bin/pris.bin
+   3273 /tmp/r11u115_bin/law8.bin

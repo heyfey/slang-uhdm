@@ -1,0 +1,102 @@
+# uhdm-cmp (LHS golden) at the base 6158f101 (pristine 792f69ec, own worktree) — sweep databases /tmp/r11u115_swp/pris
+=== default_ibex_icache-e3714209: lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (work@ibex_icache), id:17748
+|vpiParent:
+\_constant: , id:17747, line:759:38, endln:759:53
+|vpiFullName:work@ibex_icache
+|vpiActual:
+\_int_typespec: , id:17749, line:393:13, endln:393:25
+
+decompile:
+ref_typespec: (work@ibex_icache), id:17748
+|vpiParent:
+\_constant: , id:17747, line:759:38, endln:759:53
+|vpiFullName:work@ibex_icache
+|vpiActual:
+\_int_typespec: , id:17749, line:393:13, endln:393:25
+RHS: <null>
+=== default_Rggen-50ccbd70: lines=64 heads=1
+LHS:
+decompile:
+constant: , id:18367, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:18366, line:4:17, endln:4:42
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18368
+  |vpiParent:
+  \_constant: , id:18367, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:10785, line:4:13, endln:4:16
+|vpiConstType:9
+
+decompile:
+constant: , id:18367, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:18366, line:4:17, endln:4:42
+|vpiDecompile:32
+|vpiSize:32
+|UINT:32
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:18368
+  |vpiParent:
+  \_constant: , id:18367, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:10785, line:4:13, endln:4:16
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:16402, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:16401, line:4:17, endln:4:42
+|vpiDecompile:64
+|vpiSize:32
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:16403
+  |vpiParent:
+  \_constant: , id:16402, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:230499, line:4:13, endln:4:16
+|vpiConstType:9
+
+decompile:
+constant: , id:16402, line:4:33, endln:4:42
+|vpiParent:
+\_param_assign: , id:16401, line:4:17, endln:4:42
+|vpiDecompile:64
+|vpiSize:32
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (work@rggen.u_block_0.u_adapter.register_if[0]), id:16403
+  |vpiParent:
+  \_constant: , id:16402, line:4:33, endln:4:42
+  |vpiFullName:work@rggen.u_block_0.u_adapter.register_if[0]
+  |vpiActual:
+  \_int_typespec: , id:230499, line:4:13, endln:4:16
+|vpiConstType:9
+=== testflags_ibex_icache-e3714209: lines=17 heads=1
+LHS:
+decompile:
+ref_typespec: (work@ibex_icache), id:17664
+|vpiParent:
+\_constant: , id:17663, line:759:38, endln:759:53
+|vpiFullName:work@ibex_icache
+|vpiActual:
+\_int_typespec: , id:17665, line:393:13, endln:393:25
+
+decompile:
+ref_typespec: (work@ibex_icache), id:17664
+|vpiParent:
+\_constant: , id:17663, line:759:38, endln:759:53
+|vpiFullName:work@ibex_icache
+|vpiActual:
+\_int_typespec: , id:17665, line:393:13, endln:393:25
+RHS: <null>

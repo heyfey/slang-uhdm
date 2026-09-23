@@ -1,0 +1,29 @@
+## LAW vs pristine (u2r)
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=fc518cafa980 pristine=6610975620ec
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=ce3e0e4324a7 pristine=45e6fd63c0d1
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## FIX vs LAW (u2r)
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## LAW vs pristine (sl)
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=b4fd45906428 pristine=a4d2e7f27c32
+MOVER ./default/Rggen-50ccbd70/slang.uhdm  patched=01a13348c408 pristine=5e2d1b3925cf
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=bad3e10d517b
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=6caa72086397 pristine=d4f8cd018f2d
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=9f9c882ce569 pristine=80f16f741526
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=b73c0af31424 pristine=05df6c25a21b
+MOVERS: 6 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## FIX vs LAW (sl)
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=2d673f138b5c pristine=b4fd45906428
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=d4f8cd018f2d pristine=6caa72086397
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=8cfa39d58b89 pristine=9f9c882ce569
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=05df6c25a21b pristine=b73c0af31424
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+## UVM movers order-blind (path-normalised sorted dumps): every one = 4 lines UINT:<n>/vpiDecompile:<n> (the documented line-number class); statuses unchanged

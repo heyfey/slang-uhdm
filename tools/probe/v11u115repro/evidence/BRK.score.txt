@@ -1,0 +1,527 @@
+# pris -> lawv (implementer LAW), per cell vs golden (cells115.py) + order-blind distance
+f1/a01_gf_signed/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a01_gf_signed/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a02_gf_unsigned/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=4 cmpA=46 cmpB=46
+f1/a02_gf_unsigned/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=4 cmpA=46 cmpB=46
+f1/a03_gf_bits/elab TO=0 AWAY=8 MOVED-WRONG=0 SAME-WRONG=70 TAILMOVED=3 cmpA=42 cmpB=56
+f1/a03_gf_bits/u2r TO=0 AWAY=8 MOVED-WRONG=0 SAME-WRONG=70 TAILMOVED=3 cmpA=42 cmpB=56
+f1/a06_gf_repl_sys/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a06_gf_repl_sys/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a07_ms_signed/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=15 cmpA=17 cmpB=0
+f1/a07_ms_signed/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=15 cmpA=17 cmpB=0
+f1/a09_gi_sys_tern/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a09_gi_sys_tern/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a11_gf_bit/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a11_gf_bit/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a12_gf_byte/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/a12_gf_byte/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/a13_gcase/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=142 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a13_gcase/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=142 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a15_gf_neg_shift/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/a15_gf_neg_shift/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/a16_gf_mixed/elab TO=24 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=15 cmpA=17 cmpB=0
+f1/a16_gf_mixed/u2r TO=24 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=15 cmpA=17 cmpB=0
+f1/v03_gf_vs_cat/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/v03_gf_vs_cat/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/v04_gf_vs_bits/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=43 cmpA=17 cmpB=0
+f1/v04_gf_vs_bits/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=12 cmpA=17 cmpB=0
+f1/v05_gf_vs_idxof/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=42 cmpA=17 cmpB=0
+f1/v05_gf_vs_idxof/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/v06_gf_vs_psel/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=42 cmpA=17 cmpB=0
+f1/v06_gf_vs_psel/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/v08_gf_vs_neg/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=35 cmpA=17 cmpB=0
+f1/v08_gf_vs_neg/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f2b/q03_hier_into_gen/u2r TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=2 cmpA=36 cmpB=0
+f2b/q04_passport_genfor/elab TO=26 AWAY=0 MOVED-WRONG=0 SAME-WRONG=74 TAILMOVED=8 cmpA=36 cmpB=36
+f2b/q04_passport_genfor/u2r TO=26 AWAY=0 MOVED-WRONG=0 SAME-WRONG=54 TAILMOVED=2 cmpA=36 cmpB=36
+f2b/q05_multi_oos/elab TO=7 AWAY=0 MOVED-WRONG=0 SAME-WRONG=42 TAILMOVED=3 cmpA=36 cmpB=36
+f2b/q05_multi_oos/u2r TO=7 AWAY=0 MOVED-WRONG=0 SAME-WRONG=32 TAILMOVED=0 cmpA=449 cmpB=449
+f2b/q06_oos_recvA/elab TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=36 TAILMOVED=5 cmpA=36 cmpB=0
+f2b/q06_oos_recvA/u2r TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=2 cmpA=449 cmpB=449
+f2b/q07_genif_in_genif_samegen/elab TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=36 TAILMOVED=5 cmpA=36 cmpB=0
+f2b/q07_genif_in_genif_samegen/u2r TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=2 cmpA=445 cmpB=445
+f2b/q08_oos_default_iface/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=36 TAILMOVED=0 cmpA=17 cmpB=0
+f2b/q08_oos_default_iface/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=443 cmpB=443
+f2b/q09_gencase_oos/elab TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=58 TAILMOVED=5 cmpA=36 cmpB=0
+f2b/q09_gencase_oos/u2r TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=2 cmpA=449 cmpB=449
+f2/p02_recv_wide/elab TO=0 AWAY=2 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p02_recv_wide/u2r TO=0 AWAY=2 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p03_clog_recvB/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=17 TAILMOVED=0 cmpA=64 cmpB=17
+f2/p03_clog_recvB/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=17 TAILMOVED=0 cmpA=64 cmpB=17
+f2/p04_lp_bare_recvA/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p04_lp_bare_recvA/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p05_lp_bare_norecv/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p05_lp_bare_norecv/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p07_elem_ovB_only/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p07_elem_ovB_only/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p08_single_pl_named_recvA/elab TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p08_single_pl_named_recvA/u2r TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p10_recv_ov_expr/elab TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p10_recv_ov_expr/u2r TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p11_recv_D_lit/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=34 TAILMOVED=0 cmpA=64 cmpB=50
+f2/p11_recv_D_lit/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=34 TAILMOVED=0 cmpA=64 cmpB=50
+f2/p12_recv_unsigned/elab TO=2 AWAY=0 MOVED-WRONG=4 SAME-WRONG=28 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p12_recv_unsigned/u2r TO=2 AWAY=0 MOVED-WRONG=4 SAME-WRONG=28 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p13_two_elems_two_recv/elab TO=10 AWAY=0 MOVED-WRONG=0 SAME-WRONG=52 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p13_two_elems_two_recv/u2r TO=10 AWAY=0 MOVED-WRONG=0 SAME-WRONG=52 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p14_untyped_recv_lit/elab TO=2 AWAY=0 MOVED-WRONG=2 SAME-WRONG=11 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p14_untyped_recv_lit/u2r TO=2 AWAY=0 MOVED-WRONG=2 SAME-WRONG=11 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p15_recv_hex8/elab TO=4 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p15_recv_hex8/u2r TO=4 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p16_recv_hex_unsized/elab TO=4 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p16_recv_hex_unsized/u2r TO=4 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p17_recv_B_hex_single/elab TO=4 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p17_recv_B_hex_single/u2r TO=4 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f3/c01_dblparen/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=31 cmpB=31
+f3/c01_dblparen/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c02_paren_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=5 cmpA=31 cmpB=31
+f3/c02_paren_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c03_ifif_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=5 cmpA=31 cmpB=31
+f3/c03_ifif_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c04_gcase_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=47 TAILMOVED=3 cmpA=31 cmpB=31
+f3/c04_gcase_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=47 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c05_genif_concat/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=31 cmpB=31
+f3/c05_genif_concat/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c07_genif_paren_tern/elab TO=3 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=4 cmpA=31 cmpB=31
+f3/c07_genif_paren_tern/u2r TO=3 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=4 cmpA=18 cmpB=0
+f3/c08_genif_else_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=5 cmpA=31 cmpB=31
+f3/c08_genif_else_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/o01_outer_for_lptype/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=22 TAILMOVED=3 cmpA=258 cmpB=258
+f3/o01_outer_for_lptype/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=22 TAILMOVED=3 cmpA=258 cmpB=258
+f3/o02_outer_if_inner_for/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=37 cmpB=37
+f3/o02_outer_if_inner_for/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=37 cmpB=37
+f3/o03_three_level/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=306 cmpB=306
+f3/o03_three_level/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=306 cmpB=306
+f3/o06_outer_lptype_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=5 cmpA=286 cmpB=286
+f3/o06_outer_lptype_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=286 cmpB=286
+DIST f1/a01_gf_signed/elab dist 340->328
+DIST f1/a01_gf_signed/u2r dist 279->267
+DIST f1/a02_gf_unsigned/elab dist 347->339
+DIST f1/a02_gf_unsigned/u2r dist 286->278
+DIST f1/a03_gf_bits/elab dist 426->436
+DIST f1/a03_gf_bits/u2r dist 273->283
+DIST f1/a06_gf_repl_sys/elab dist 336->324
+DIST f1/a06_gf_repl_sys/u2r dist 275->263
+DIST f1/a07_ms_signed/elab dist 380->334
+DIST f1/a07_ms_signed/u2r dist 319->273
+DIST f1/a09_gi_sys_tern/elab dist 374->368
+DIST f1/a09_gi_sys_tern/u2r dist 261->255
+DIST f1/a11_gf_bit/elab dist 332->308
+DIST f1/a11_gf_bit/u2r dist 271->247
+DIST f1/a12_gf_byte/elab dist 334->308
+DIST f1/a12_gf_byte/u2r dist 273->247
+DIST f1/a13_gcase/elab dist 416->410
+DIST f1/a13_gcase/u2r dist 301->295
+DIST f1/a15_gf_neg_shift/elab dist 334->308
+DIST f1/a15_gf_neg_shift/u2r dist 273->247
+DIST f1/a16_gf_mixed/elab dist 562->464
+DIST f1/a16_gf_mixed/u2r dist 363->265
+DIST f1/v03_gf_vs_cat/elab dist 366->312
+DIST f1/v03_gf_vs_cat/u2r dist 305->251
+DIST f1/v04_gf_vs_bits/elab dist 458->308
+DIST f1/v04_gf_vs_bits/u2r dist 315->247
+DIST f1/v05_gf_vs_idxof/elab dist 466->312
+DIST f1/v05_gf_vs_idxof/u2r dist 275->251
+DIST f1/v06_gf_vs_psel/elab dist 468->334
+DIST f1/v06_gf_vs_psel/u2r dist 301->273
+DIST f1/v08_gf_vs_neg/elab dist 420->308
+DIST f1/v08_gf_vs_neg/u2r dist 277->247
+DIST f2b/q03_hier_into_gen/u2r dist 102->78
+DIST f2b/q04_passport_genfor/elab dist 365->303
+DIST f2b/q04_passport_genfor/u2r dist 220->172
+DIST f2b/q05_multi_oos/elab dist 188->175
+DIST f2b/q05_multi_oos/u2r dist 155->145
+DIST f2b/q06_oos_recvA/elab dist 377->340
+DIST f2b/q06_oos_recvA/u2r dist 161->129
+DIST f2b/q07_genif_in_genif_samegen/elab dist 446->415
+DIST f2b/q07_genif_in_genif_samegen/u2r dist 153->129
+DIST f2b/q08_oos_default_iface/elab dist 164->157
+DIST f2b/q08_oos_default_iface/u2r dist 138->131
+DIST f2b/q09_gencase_oos/elab dist 215->184
+DIST f2b/q09_gencase_oos/u2r dist 170->146
+DIST f2/p02_recv_wide/elab dist 41->43
+DIST f2/p02_recv_wide/u2r dist 41->43
+DIST f2/p03_clog_recvB/elab dist 54->46
+DIST f2/p03_clog_recvB/u2r dist 54->46
+DIST f2/p04_lp_bare_recvA/elab dist 42->38
+DIST f2/p04_lp_bare_recvA/u2r dist 42->38
+DIST f2/p05_lp_bare_norecv/elab dist 40->38
+DIST f2/p05_lp_bare_norecv/u2r dist 40->38
+DIST f2/p07_elem_ovB_only/elab dist 84->78
+DIST f2/p07_elem_ovB_only/u2r dist 84->78
+DIST f2/p08_single_pl_named_recvA/elab dist 88->78
+DIST f2/p08_single_pl_named_recvA/u2r dist 88->78
+DIST f2/p10_recv_ov_expr/elab dist 88->78
+DIST f2/p10_recv_ov_expr/u2r dist 88->78
+DIST f2/p11_recv_D_lit/elab dist 81->79
+DIST f2/p11_recv_D_lit/u2r dist 81->79
+DIST f2/p12_recv_unsigned/elab dist 98->96
+DIST f2/p12_recv_unsigned/u2r dist 98->96
+DIST f2/p13_two_elems_two_recv/elab dist 172->156
+DIST f2/p13_two_elems_two_recv/u2r dist 172->156
+DIST f2/p14_untyped_recv_lit/elab dist 39->35
+DIST f2/p14_untyped_recv_lit/u2r dist 39->35
+DIST f2/p15_recv_hex8/elab dist 90->84
+DIST f2/p15_recv_hex8/u2r dist 90->84
+DIST f2/p16_recv_hex_unsized/elab dist 90->84
+DIST f2/p16_recv_hex_unsized/u2r dist 90->84
+DIST f2/p17_recv_B_hex_single/elab dist 88->84
+DIST f2/p17_recv_B_hex_single/u2r dist 88->84
+DIST f3/c01_dblparen/elab dist 107->102
+DIST f3/c01_dblparen/u2r dist 52->47
+DIST f3/c02_paren_underop/elab dist 65->58
+DIST f3/c02_paren_underop/u2r dist 52->47
+DIST f3/c03_ifif_underop/elab dist 65->58
+DIST f3/c03_ifif_underop/u2r dist 52->47
+DIST f3/c04_gcase_underop/elab dist 175->165
+DIST f3/c04_gcase_underop/u2r dist 96->86
+DIST f3/c05_genif_concat/elab dist 113->108
+DIST f3/c05_genif_concat/u2r dist 52->47
+DIST f3/c07_genif_paren_tern/elab dist 138->128
+DIST f3/c07_genif_paren_tern/u2r dist 59->49
+DIST f3/c08_genif_else_underop/elab dist 65->58
+DIST f3/c08_genif_else_underop/u2r dist 52->47
+DIST f3/o01_outer_for_lptype/elab dist 287->277
+DIST f3/o01_outer_for_lptype/u2r dist 153->143
+DIST f3/o02_outer_if_inner_for/elab dist 232->222
+DIST f3/o02_outer_if_inner_for/u2r dist 119->109
+DIST f3/o03_three_level/elab dist 127->122
+DIST f3/o03_three_level/u2r dist 52->47
+DIST f3/o06_outer_lptype_underop/elab dist 59->52
+DIST f3/o06_outer_lptype_underop/u2r dist 52->47
+f1/a18_gf_countones/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a18_gf_countones/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a19_gf_signed_S/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=4 cmpA=46 cmpB=46
+f1/a19_gf_signed_S/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=4 cmpA=46 cmpB=46
+f1/a20_gf_unsigned_W/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a20_gf_unsigned_W/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a21_ms_bits/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a21_ms_bits/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a22_gf_bits_L/elab TO=0 AWAY=8 MOVED-WRONG=0 SAME-WRONG=81 TAILMOVED=12 cmpA=46 cmpB=46
+f1/a22_gf_bits_L/u2r TO=0 AWAY=8 MOVED-WRONG=0 SAME-WRONG=81 TAILMOVED=12 cmpA=46 cmpB=46
+f2/p18_recv_wide101/elab TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p18_recv_wide101/u2r TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p19_recv_wide300_b8/elab TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p19_recv_wide300_b8/u2r TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p20_recv_expr/elab TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p20_recv_expr/u2r TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p21_recv_ov_hex/elab TO=4 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p21_recv_ov_hex/u2r TO=4 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+DIST f1/a18_gf_countones/elab dist 336->324
+DIST f1/a18_gf_countones/u2r dist 275->263
+DIST f1/a19_gf_signed_S/elab dist 347->339
+DIST f1/a19_gf_signed_S/u2r dist 286->278
+DIST f1/a20_gf_unsigned_W/elab dist 340->328
+DIST f1/a20_gf_unsigned_W/u2r dist 279->267
+DIST f1/a21_ms_bits/elab dist 339->327
+DIST f1/a21_ms_bits/u2r dist 273->261
+DIST f1/a22_gf_bits_L/elab dist 441->427
+DIST f1/a22_gf_bits_L/u2r dist 288->274
+DIST f2/p18_recv_wide101/elab dist 45->45
+DIST f2/p18_recv_wide101/u2r dist 45->45
+DIST f2/p19_recv_wide300_b8/elab dist 45->45
+DIST f2/p19_recv_wide300_b8/u2r dist 45->45
+DIST f2/p20_recv_expr/elab dist 88->78
+DIST f2/p20_recv_expr/u2r dist 88->78
+DIST f2/p21_recv_ov_hex/elab dist 90->84
+DIST f2/p21_recv_ov_hex/u2r dist 90->84
+f1/a24_gf_delay/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=62 TAILMOVED=3 cmpA=19 cmpB=19
+f1/a24_gf_delay/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=62 TAILMOVED=3 cmpA=19 cmpB=19
+f1/a25_gf_strength/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=46 TAILMOVED=3 cmpA=208 cmpB=208
+f1/a25_gf_strength/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=46 TAILMOVED=3 cmpA=208 cmpB=208
+f1/a26_gf_twoinst/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a26_gf_twoinst/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a27_iface_genfor/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=32 TAILMOVED=3 cmpA=124 cmpB=124
+f1/a27_iface_genfor/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=32 TAILMOVED=3 cmpA=124 cmpB=124
+f1/a28_two_params/elab TO=20 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=3 cmpA=46 cmpB=46
+f1/a28_two_params/u2r TO=20 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=3 cmpA=46 cmpB=46
+DIST f1/a24_gf_delay/elab dist 436->426
+DIST f1/a24_gf_delay/u2r dist 299->289
+DIST f1/a25_gf_strength/elab dist 472->466
+DIST f1/a25_gf_strength/u2r dist 277->267
+DIST f1/a26_gf_twoinst/elab dist 426->420
+DIST f1/a26_gf_twoinst/u2r dist 275->265
+DIST f1/a27_iface_genfor/elab dist 147->135
+DIST f1/a27_iface_genfor/u2r dist 147->135
+DIST f1/a28_two_params/elab dist 704->684
+DIST f1/a28_two_params/u2r dist 457->427
+# lawv -> vfix (verifier FIX)
+f1/a03_gf_bits/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=70 TAILMOVED=3 cmpA=56 cmpB=42
+f1/a03_gf_bits/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=70 TAILMOVED=3 cmpA=56 cmpB=42
+f2/p02_recv_wide/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p02_recv_wide/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p12_recv_unsigned/elab TO=0 AWAY=0 MOVED-WRONG=4 SAME-WRONG=28 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p12_recv_unsigned/u2r TO=0 AWAY=0 MOVED-WRONG=4 SAME-WRONG=28 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p14_untyped_recv_lit/elab TO=0 AWAY=1 MOVED-WRONG=1 SAME-WRONG=12 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p14_untyped_recv_lit/u2r TO=0 AWAY=1 MOVED-WRONG=1 SAME-WRONG=12 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p15_recv_hex8/elab TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p15_recv_hex8/u2r TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p16_recv_hex_unsized/elab TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p16_recv_hex_unsized/u2r TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p17_recv_B_hex_single/elab TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p17_recv_B_hex_single/u2r TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+DIST f1/a03_gf_bits/elab dist 436->426
+DIST f1/a03_gf_bits/u2r dist 283->273
+DIST f2/p02_recv_wide/elab dist 43->41
+DIST f2/p02_recv_wide/u2r dist 43->41
+DIST f2/p12_recv_unsigned/elab dist 96->96
+DIST f2/p12_recv_unsigned/u2r dist 96->96
+DIST f2/p14_untyped_recv_lit/elab dist 35->37
+DIST f2/p14_untyped_recv_lit/u2r dist 35->37
+DIST f2/p15_recv_hex8/elab dist 84->84
+DIST f2/p15_recv_hex8/u2r dist 84->84
+DIST f2/p16_recv_hex_unsized/elab dist 84->84
+DIST f2/p16_recv_hex_unsized/u2r dist 84->84
+DIST f2/p17_recv_B_hex_single/elab dist 84->84
+DIST f2/p17_recv_B_hex_single/u2r dist 84->84
+f1/a22_gf_bits_L/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=81 TAILMOVED=12 cmpA=46 cmpB=46
+f1/a22_gf_bits_L/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=81 TAILMOVED=12 cmpA=46 cmpB=46
+f2/p18_recv_wide101/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p18_recv_wide101/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p19_recv_wide300_b8/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p19_recv_wide300_b8/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p21_recv_ov_hex/elab TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p21_recv_ov_hex/u2r TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=28 TAILMOVED=0 cmpA=64 cmpB=64
+DIST f1/a22_gf_bits_L/elab dist 427->441
+DIST f1/a22_gf_bits_L/u2r dist 274->288
+DIST f2/p18_recv_wide101/elab dist 45->41
+DIST f2/p18_recv_wide101/u2r dist 45->41
+DIST f2/p19_recv_wide300_b8/elab dist 45->41
+DIST f2/p19_recv_wide300_b8/u2r dist 45->41
+DIST f2/p21_recv_ov_hex/elab dist 84->84
+DIST f2/p21_recv_ov_hex/u2r dist 84->84
+# pris -> vfix
+f1/a01_gf_signed/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a01_gf_signed/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a02_gf_unsigned/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=4 cmpA=46 cmpB=46
+f1/a02_gf_unsigned/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=4 cmpA=46 cmpB=46
+f1/a06_gf_repl_sys/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a06_gf_repl_sys/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a07_ms_signed/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=15 cmpA=17 cmpB=0
+f1/a07_ms_signed/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=15 cmpA=17 cmpB=0
+f1/a09_gi_sys_tern/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a09_gi_sys_tern/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a11_gf_bit/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a11_gf_bit/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a12_gf_byte/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/a12_gf_byte/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/a13_gcase/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=142 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a13_gcase/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=142 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a15_gf_neg_shift/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/a15_gf_neg_shift/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/a16_gf_mixed/elab TO=24 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=15 cmpA=17 cmpB=0
+f1/a16_gf_mixed/u2r TO=24 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=15 cmpA=17 cmpB=0
+f1/v03_gf_vs_cat/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/v03_gf_vs_cat/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f1/v04_gf_vs_bits/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=43 cmpA=17 cmpB=0
+f1/v04_gf_vs_bits/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=12 cmpA=17 cmpB=0
+f1/v05_gf_vs_idxof/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=42 cmpA=17 cmpB=0
+f1/v05_gf_vs_idxof/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/v06_gf_vs_psel/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=42 cmpA=17 cmpB=0
+f1/v06_gf_vs_psel/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/v08_gf_vs_neg/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=35 cmpA=17 cmpB=0
+f1/v08_gf_vs_neg/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=4 cmpA=17 cmpB=0
+f2b/q03_hier_into_gen/u2r TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=2 cmpA=36 cmpB=0
+f2b/q04_passport_genfor/elab TO=26 AWAY=0 MOVED-WRONG=0 SAME-WRONG=74 TAILMOVED=8 cmpA=36 cmpB=36
+f2b/q04_passport_genfor/u2r TO=26 AWAY=0 MOVED-WRONG=0 SAME-WRONG=54 TAILMOVED=2 cmpA=36 cmpB=36
+f2b/q05_multi_oos/elab TO=7 AWAY=0 MOVED-WRONG=0 SAME-WRONG=42 TAILMOVED=3 cmpA=36 cmpB=36
+f2b/q05_multi_oos/u2r TO=7 AWAY=0 MOVED-WRONG=0 SAME-WRONG=32 TAILMOVED=0 cmpA=449 cmpB=449
+f2b/q06_oos_recvA/elab TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=36 TAILMOVED=5 cmpA=36 cmpB=0
+f2b/q06_oos_recvA/u2r TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=2 cmpA=449 cmpB=449
+f2b/q07_genif_in_genif_samegen/elab TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=36 TAILMOVED=5 cmpA=36 cmpB=0
+f2b/q07_genif_in_genif_samegen/u2r TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=2 cmpA=445 cmpB=445
+f2b/q08_oos_default_iface/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=36 TAILMOVED=0 cmpA=17 cmpB=0
+f2b/q08_oos_default_iface/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=443 cmpB=443
+f2b/q09_gencase_oos/elab TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=58 TAILMOVED=5 cmpA=36 cmpB=0
+f2b/q09_gencase_oos/u2r TO=13 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=2 cmpA=449 cmpB=449
+f2/p03_clog_recvB/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=17 TAILMOVED=0 cmpA=64 cmpB=17
+f2/p03_clog_recvB/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=17 TAILMOVED=0 cmpA=64 cmpB=17
+f2/p04_lp_bare_recvA/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p04_lp_bare_recvA/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p05_lp_bare_norecv/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p05_lp_bare_norecv/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p07_elem_ovB_only/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p07_elem_ovB_only/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p08_single_pl_named_recvA/elab TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p08_single_pl_named_recvA/u2r TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p10_recv_ov_expr/elab TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p10_recv_ov_expr/u2r TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p11_recv_D_lit/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=34 TAILMOVED=0 cmpA=64 cmpB=50
+f2/p11_recv_D_lit/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=34 TAILMOVED=0 cmpA=64 cmpB=50
+f2/p12_recv_unsigned/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=32 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p12_recv_unsigned/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=32 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p13_two_elems_two_recv/elab TO=10 AWAY=0 MOVED-WRONG=0 SAME-WRONG=52 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p13_two_elems_two_recv/u2r TO=10 AWAY=0 MOVED-WRONG=0 SAME-WRONG=52 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p14_untyped_recv_lit/elab TO=1 AWAY=0 MOVED-WRONG=1 SAME-WRONG=13 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p14_untyped_recv_lit/u2r TO=1 AWAY=0 MOVED-WRONG=1 SAME-WRONG=13 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p15_recv_hex8/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p15_recv_hex8/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p16_recv_hex_unsized/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p16_recv_hex_unsized/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p17_recv_B_hex_single/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p17_recv_B_hex_single/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30 TAILMOVED=0 cmpA=64 cmpB=64
+f3/c01_dblparen/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=31 cmpB=31
+f3/c01_dblparen/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c02_paren_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=5 cmpA=31 cmpB=31
+f3/c02_paren_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c03_ifif_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=5 cmpA=31 cmpB=31
+f3/c03_ifif_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c04_gcase_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=47 TAILMOVED=3 cmpA=31 cmpB=31
+f3/c04_gcase_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=47 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c05_genif_concat/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=31 cmpB=31
+f3/c05_genif_concat/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/c07_genif_paren_tern/elab TO=3 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=4 cmpA=31 cmpB=31
+f3/c07_genif_paren_tern/u2r TO=3 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=4 cmpA=18 cmpB=0
+f3/c08_genif_else_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=5 cmpA=31 cmpB=31
+f3/c08_genif_else_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=5 TAILMOVED=3 cmpA=18 cmpB=0
+f3/o01_outer_for_lptype/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=22 TAILMOVED=3 cmpA=258 cmpB=258
+f3/o01_outer_for_lptype/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=22 TAILMOVED=3 cmpA=258 cmpB=258
+f3/o02_outer_if_inner_for/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=37 cmpB=37
+f3/o02_outer_if_inner_for/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=37 cmpB=37
+f3/o03_three_level/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=306 cmpB=306
+f3/o03_three_level/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=306 cmpB=306
+f3/o06_outer_lptype_underop/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=5 cmpA=286 cmpB=286
+f3/o06_outer_lptype_underop/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=3 cmpA=286 cmpB=286
+DIST f1/a01_gf_signed/elab dist 340->328
+DIST f1/a01_gf_signed/u2r dist 279->267
+DIST f1/a02_gf_unsigned/elab dist 347->339
+DIST f1/a02_gf_unsigned/u2r dist 286->278
+DIST f1/a06_gf_repl_sys/elab dist 336->324
+DIST f1/a06_gf_repl_sys/u2r dist 275->263
+DIST f1/a07_ms_signed/elab dist 380->334
+DIST f1/a07_ms_signed/u2r dist 319->273
+DIST f1/a09_gi_sys_tern/elab dist 374->368
+DIST f1/a09_gi_sys_tern/u2r dist 261->255
+DIST f1/a11_gf_bit/elab dist 332->308
+DIST f1/a11_gf_bit/u2r dist 271->247
+DIST f1/a12_gf_byte/elab dist 334->308
+DIST f1/a12_gf_byte/u2r dist 273->247
+DIST f1/a13_gcase/elab dist 416->410
+DIST f1/a13_gcase/u2r dist 301->295
+DIST f1/a15_gf_neg_shift/elab dist 334->308
+DIST f1/a15_gf_neg_shift/u2r dist 273->247
+DIST f1/a16_gf_mixed/elab dist 562->464
+DIST f1/a16_gf_mixed/u2r dist 363->265
+DIST f1/v03_gf_vs_cat/elab dist 366->312
+DIST f1/v03_gf_vs_cat/u2r dist 305->251
+DIST f1/v04_gf_vs_bits/elab dist 458->308
+DIST f1/v04_gf_vs_bits/u2r dist 315->247
+DIST f1/v05_gf_vs_idxof/elab dist 466->312
+DIST f1/v05_gf_vs_idxof/u2r dist 275->251
+DIST f1/v06_gf_vs_psel/elab dist 468->334
+DIST f1/v06_gf_vs_psel/u2r dist 301->273
+DIST f1/v08_gf_vs_neg/elab dist 420->308
+DIST f1/v08_gf_vs_neg/u2r dist 277->247
+DIST f2b/q03_hier_into_gen/u2r dist 102->78
+DIST f2b/q04_passport_genfor/elab dist 365->303
+DIST f2b/q04_passport_genfor/u2r dist 220->172
+DIST f2b/q05_multi_oos/elab dist 188->175
+DIST f2b/q05_multi_oos/u2r dist 155->145
+DIST f2b/q06_oos_recvA/elab dist 377->340
+DIST f2b/q06_oos_recvA/u2r dist 161->129
+DIST f2b/q07_genif_in_genif_samegen/elab dist 446->415
+DIST f2b/q07_genif_in_genif_samegen/u2r dist 153->129
+DIST f2b/q08_oos_default_iface/elab dist 164->157
+DIST f2b/q08_oos_default_iface/u2r dist 138->131
+DIST f2b/q09_gencase_oos/elab dist 215->184
+DIST f2b/q09_gencase_oos/u2r dist 170->146
+DIST f2/p03_clog_recvB/elab dist 54->46
+DIST f2/p03_clog_recvB/u2r dist 54->46
+DIST f2/p04_lp_bare_recvA/elab dist 42->38
+DIST f2/p04_lp_bare_recvA/u2r dist 42->38
+DIST f2/p05_lp_bare_norecv/elab dist 40->38
+DIST f2/p05_lp_bare_norecv/u2r dist 40->38
+DIST f2/p07_elem_ovB_only/elab dist 84->78
+DIST f2/p07_elem_ovB_only/u2r dist 84->78
+DIST f2/p08_single_pl_named_recvA/elab dist 88->78
+DIST f2/p08_single_pl_named_recvA/u2r dist 88->78
+DIST f2/p10_recv_ov_expr/elab dist 88->78
+DIST f2/p10_recv_ov_expr/u2r dist 88->78
+DIST f2/p11_recv_D_lit/elab dist 81->79
+DIST f2/p11_recv_D_lit/u2r dist 81->79
+DIST f2/p12_recv_unsigned/elab dist 98->96
+DIST f2/p12_recv_unsigned/u2r dist 98->96
+DIST f2/p13_two_elems_two_recv/elab dist 172->156
+DIST f2/p13_two_elems_two_recv/u2r dist 172->156
+DIST f2/p14_untyped_recv_lit/elab dist 39->37
+DIST f2/p14_untyped_recv_lit/u2r dist 39->37
+DIST f2/p15_recv_hex8/elab dist 90->84
+DIST f2/p15_recv_hex8/u2r dist 90->84
+DIST f2/p16_recv_hex_unsized/elab dist 90->84
+DIST f2/p16_recv_hex_unsized/u2r dist 90->84
+DIST f2/p17_recv_B_hex_single/elab dist 88->84
+DIST f2/p17_recv_B_hex_single/u2r dist 88->84
+DIST f3/c01_dblparen/elab dist 107->102
+DIST f3/c01_dblparen/u2r dist 52->47
+DIST f3/c02_paren_underop/elab dist 65->58
+DIST f3/c02_paren_underop/u2r dist 52->47
+DIST f3/c03_ifif_underop/elab dist 65->58
+DIST f3/c03_ifif_underop/u2r dist 52->47
+DIST f3/c04_gcase_underop/elab dist 175->165
+DIST f3/c04_gcase_underop/u2r dist 96->86
+DIST f3/c05_genif_concat/elab dist 113->108
+DIST f3/c05_genif_concat/u2r dist 52->47
+DIST f3/c07_genif_paren_tern/elab dist 138->128
+DIST f3/c07_genif_paren_tern/u2r dist 59->49
+DIST f3/c08_genif_else_underop/elab dist 65->58
+DIST f3/c08_genif_else_underop/u2r dist 52->47
+DIST f3/o01_outer_for_lptype/elab dist 287->277
+DIST f3/o01_outer_for_lptype/u2r dist 153->143
+DIST f3/o02_outer_if_inner_for/elab dist 232->222
+DIST f3/o02_outer_if_inner_for/u2r dist 119->109
+DIST f3/o03_three_level/elab dist 127->122
+DIST f3/o03_three_level/u2r dist 52->47
+DIST f3/o06_outer_lptype_underop/elab dist 59->52
+DIST f3/o06_outer_lptype_underop/u2r dist 52->47
+f1/a18_gf_countones/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a18_gf_countones/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a19_gf_signed_S/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=4 cmpA=46 cmpB=46
+f1/a19_gf_signed_S/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=4 cmpA=46 cmpB=46
+f1/a20_gf_unsigned_W/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a20_gf_unsigned_W/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a21_ms_bits/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a21_ms_bits/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=55 TAILMOVED=3 cmpA=17 cmpB=0
+f2/p18_recv_wide101/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p18_recv_wide101/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p19_recv_wide300_b8/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p19_recv_wide300_b8/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=6 TAILMOVED=0 cmpA=36 cmpB=36
+f2/p20_recv_expr/elab TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p20_recv_expr/u2r TO=6 AWAY=0 MOVED-WRONG=0 SAME-WRONG=26 TAILMOVED=0 cmpA=64 cmpB=0
+f2/p21_recv_ov_hex/elab TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30 TAILMOVED=0 cmpA=64 cmpB=64
+f2/p21_recv_ov_hex/u2r TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30 TAILMOVED=0 cmpA=64 cmpB=64
+DIST f1/a18_gf_countones/elab dist 336->324
+DIST f1/a18_gf_countones/u2r dist 275->263
+DIST f1/a19_gf_signed_S/elab dist 347->339
+DIST f1/a19_gf_signed_S/u2r dist 286->278
+DIST f1/a20_gf_unsigned_W/elab dist 340->328
+DIST f1/a20_gf_unsigned_W/u2r dist 279->267
+DIST f1/a21_ms_bits/elab dist 339->327
+DIST f1/a21_ms_bits/u2r dist 273->261
+DIST f2/p18_recv_wide101/elab dist 45->41
+DIST f2/p18_recv_wide101/u2r dist 45->41
+DIST f2/p19_recv_wide300_b8/elab dist 45->41
+DIST f2/p19_recv_wide300_b8/u2r dist 45->41
+DIST f2/p20_recv_expr/elab dist 88->78
+DIST f2/p20_recv_expr/u2r dist 88->78
+DIST f2/p21_recv_ov_hex/elab dist 90->84
+DIST f2/p21_recv_ov_hex/u2r dist 90->84
+f1/a24_gf_delay/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=62 TAILMOVED=3 cmpA=19 cmpB=19
+f1/a24_gf_delay/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=62 TAILMOVED=3 cmpA=19 cmpB=19
+f1/a25_gf_strength/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=46 TAILMOVED=3 cmpA=208 cmpB=208
+f1/a25_gf_strength/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=46 TAILMOVED=3 cmpA=208 cmpB=208
+f1/a26_gf_twoinst/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a26_gf_twoinst/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=44 TAILMOVED=3 cmpA=17 cmpB=0
+f1/a27_iface_genfor/elab TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=32 TAILMOVED=3 cmpA=124 cmpB=124
+f1/a27_iface_genfor/u2r TO=8 AWAY=0 MOVED-WRONG=0 SAME-WRONG=32 TAILMOVED=3 cmpA=124 cmpB=124
+f1/a28_two_params/elab TO=20 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=3 cmpA=46 cmpB=46
+f1/a28_two_params/u2r TO=20 AWAY=0 MOVED-WRONG=0 SAME-WRONG=48 TAILMOVED=3 cmpA=46 cmpB=46
+DIST f1/a24_gf_delay/elab dist 436->426
+DIST f1/a24_gf_delay/u2r dist 299->289
+DIST f1/a25_gf_strength/elab dist 472->466
+DIST f1/a25_gf_strength/u2r dist 277->267
+DIST f1/a26_gf_twoinst/elab dist 426->420
+DIST f1/a26_gf_twoinst/u2r dist 275->265
+DIST f1/a27_iface_genfor/elab dist 147->135
+DIST f1/a27_iface_genfor/u2r dist 147->135
+DIST f1/a28_two_params/elab dist 704->684
+DIST f1/a28_two_params/u2r dist 457->427

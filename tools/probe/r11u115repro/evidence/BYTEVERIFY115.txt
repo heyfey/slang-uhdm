@@ -1,0 +1,52 @@
+## byteverify.sh (SELFCHECK=1) u2r LAW vs pristine
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/ibex_icache-e3714209/slang.uhdm  patched=fc518cafa980 pristine=6610975620ec
+MOVER ./testflags/ibex_icache-e3714209/slang.uhdm  patched=ce3e0e4324a7 pristine=45e6fd63c0d1
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## byteverify.sh (SELFCHECK=1) sl LAW vs pristine
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=fd59de963cc5 pristine=2896b85748fe
+MOVER ./default/Rggen-50ccbd70/slang.uhdm  patched=01a13348c408 pristine=5e2d1b3925cf
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=e70775324004 pristine=1621aec6c9f3
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2fb39f8b4130 pristine=2feebe773fd0
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=ae528d1f9791 pristine=d4f8cd018f2d
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=27419f6011b4 pristine=6c7a5f7d22f6
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=b1e84c518e6d pristine=70c897482c40
+MOVERS: 7 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+
+## UVM-family movers, order-blind path-normalised uhdm-dump diff (ob115.sh): the documented 0/4-line UINT/vpiDecompile line-number class; statuses unchanged (CMP_EQUAL)
+default/MiniAmiq-544c7f61/slang.uhdm orderblind_lines=4
+    <       |UINT:1220
+    >       |UINT:643
+    <       |vpiDecompile:1220
+    >       |vpiDecompile:643
+testflags/MiniAmiq-544c7f61/slang.uhdm orderblind_lines=4
+    <       |UINT:0
+    >       |UINT:1361
+    <       |vpiDecompile:0
+    >       |vpiDecompile:1361
+default/SeqDriver-32af76aa/slang.uhdm orderblind_lines=4
+    <       |UINT:0
+    >       |UINT:1238
+    <       |vpiDecompile:0
+    >       |vpiDecompile:1238
+testflags/SeqDriver-32af76aa/slang.uhdm orderblind_lines=4
+    <       |UINT:1049
+    >       |UINT:738
+    <       |vpiDecompile:1049
+    >       |vpiDecompile:738
+default/Scoreboard-59431470/slang.uhdm orderblind_lines=0
+default/SimpleUVM-1dc93a62/slang.uhdm orderblind_lines=4
+    >       |UINT:0
+    <       |UINT:952
+    >       |vpiDecompile:0
+    <       |vpiDecompile:952
+
+## target movers, per cell (cells115.py) + order-blind whole-dump distance (dist115.py), pristine -> LAW
+ibex_icache/default TO=80 AWAY=0 MOVED-WRONG=0 SAME-WRONG=766 TAILMOVED=3 dist 7472->7120
+ibex_icache/testflags TO=80 AWAY=0 MOVED-WRONG=0 SAME-WRONG=766 TAILMOVED=3 dist 7472->7120
+Rggen/default TO=188 AWAY=0 MOVED-WRONG=0 SAME-WRONG=30970 TAILMOVED=4 dist 76532->76158

@@ -1,0 +1,54 @@
+# ctl115.sh <out> pris.bin law8.bin <15 control dirs>: every .sv compiled alone, both forms, byte-compared (SAME|DIFF|RC form file rcA rcB)
+DIFF u2r r11u113repro/grid/c/c06_genif_ternary/dut.sv 4 0 orderblind=10
+DIFF elab r11u113repro/grid/c/c06_genif_ternary/dut.sv 4 0 orderblind=10
+DIFF u2r r11u113repro/grid/c/c18_genif_inop/dut.sv 4 0 orderblind=5
+DIFF elab r11u113repro/grid/c/c18_genif_inop/dut.sv 4 0 orderblind=7
+RC u2r r11u113repro/grid/e/e09_modtd_use/dut.sv 3 3
+RC elab r11u113repro/grid/e/e09_modtd_use/dut.sv 3 3
+RC u2r r11u113repro/grid/q/q10_star_inf0/dut.sv 3 3
+RC elab r11u113repro/grid/q/q10_star_inf0/dut.sv 3 3
+RC u2r r11u113repro/grid/q/q11_starplain/dut.sv 3 3
+RC elab r11u113repro/grid/q/q11_starplain/dut.sv 3 3
+RC u2r v11u113repro/grid/brk2/e11_struct_param_value/dut.sv 3 3
+RC elab v11u113repro/grid/brk2/e11_struct_param_value/dut.sv 3 3
+DIFF u2r v11u113repro/grid/brk2/t09_outer_gen_lptype/dut.sv 4 0 orderblind=5
+DIFF elab v11u113repro/grid/brk2/t09_outer_gen_lptype/dut.sv 4 0 orderblind=5
+DIFF u2r v11u113repro/grid/f2/t04_paren/dut.sv 0 0 orderblind=5
+DIFF elab v11u113repro/grid/f2/t04_paren/dut.sv 0 0 orderblind=5
+RC u2r v11u113repro/grid/f3/e02_unpacked_struct/dut.sv 3 3
+RC elab v11u113repro/grid/f3/e02_unpacked_struct/dut.sv 3 3
+RC u2r v11u113repro/grid/f3/e03_func_arg/dut.sv 3 3
+RC elab v11u113repro/grid/f3/e03_func_arg/dut.sv 3 3
+RC u2r v11u113repro/grid/f3/e05_pkg_used_in_two_mods/dut.sv 3 3
+RC elab v11u113repro/grid/f3/e05_pkg_used_in_two_mods/dut.sv 3 3
+RC u2r v11u113repro/grid/f5/v01_lhs_vs_mod/dut.sv 3 3
+RC elab v11u113repro/grid/f5/v01_lhs_vs_mod/dut.sv 3 3
+RC u2r v11u112repro/grid/brk2/k/m07_hdr_enum_default/dut.sv 139 139
+RC elab v11u112repro/grid/brk2/k/m07_hdr_enum_default/dut.sv 139 139
+RC u2r v11u112repro/grid/brk3/t/b2j_dpi/dut.sv 3 3
+RC elab v11u112repro/grid/brk3/t/b2j_dpi/dut.sv 3 3
+RC u2r v11u112repro/grid/brk6/f/b1q_intf_ca/dut.sv 3 3
+RC elab v11u112repro/grid/brk6/f/b1q_intf_ca/dut.sv 3 3
+RC u2r v11u112repro/grid/brk6/v/b4j_lhs_rhs_both/dut.sv 3 3
+RC elab v11u112repro/grid/brk6/v/b4j_lhs_rhs_both/dut.sv 3 3
+DIFF u2r r11u111repro/grid/f4/d01_arr_elem_dep/dut.sv 0 0 orderblind=4
+DIFF elab r11u111repro/grid/f4/d01_arr_elem_dep/dut.sv 0 0 orderblind=4
+DIFF u2r r11u111repro/grid/f4/d02_plain_pos_dep/dut.sv 0 0 orderblind=4
+DIFF elab r11u111repro/grid/f4/d02_plain_pos_dep/dut.sv 0 0 orderblind=4
+DIFF u2r r11u111repro/grid/f4/d03_arr_elem_dep_recv_param/dut.sv 0 0 orderblind=4
+DIFF elab r11u111repro/grid/f4/d03_arr_elem_dep_recv_param/dut.sv 0 0 orderblind=4
+PROCESSED=2096 LISTED=2096 SAME=2058 DIFF=14
+# (RC rows: no database on EITHER binary with the same rc: 3 = slang reject, 139 = the pre-existing v11u112 m07 segfault, both binaries)
+
+# the DIFF cells scored against real v1.87 goldens (grid115.sh + cells115.py + dist115.py):
+r11u111repro_grid_f4_d01_arr_elem_dep/u2r TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=157 TAILMOVED=0 cmp 90->90 dist 211->209
+r11u111repro_grid_f4_d01_arr_elem_dep/elab TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=145 TAILMOVED=0 cmp 90->90 dist 218->216
+r11u111repro_grid_f4_d02_plain_pos_dep/u2r TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=20 TAILMOVED=0 cmp 64->0 dist 58->56
+r11u111repro_grid_f4_d02_plain_pos_dep/elab TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=20 TAILMOVED=0 cmp 64->0 dist 76->74
+r11u111repro_grid_f4_d03_arr_elem_dep_recv_param/u2r TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=157 TAILMOVED=0 cmp 90->90 dist 211->209
+r11u111repro_grid_f4_d03_arr_elem_dep_recv_param/elab TO=0 AWAY=0 MOVED-WRONG=2 SAME-WRONG=145 TAILMOVED=0 cmp 90->90 dist 218->216
+r11u111repro_grid_f4_d01_arr_elem_dep/u2r element-name-normalised: TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=76 TAILMOVED=0
+r11u111repro_grid_f4_d01_arr_elem_dep/elab element-name-normalised: TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=64 TAILMOVED=0
+r11u111repro_grid_f4_d03_arr_elem_dep_recv_param/u2r element-name-normalised: TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=76 TAILMOVED=0
+r11u111repro_grid_f4_d03_arr_elem_dep_recv_param/elab element-name-normalised: TO=2 AWAY=0 MOVED-WRONG=0 SAME-WRONG=64 TAILMOVED=0
+# c06/c18/t04/t09 are this pass's grid/c3 copies (SCORE115.txt: TO, AWAY 0, MOVED-WRONG 0)

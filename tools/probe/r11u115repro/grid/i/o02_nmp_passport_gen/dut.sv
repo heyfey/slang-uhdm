@@ -1,0 +1,18 @@
+interface itf #(parameter int A = 16, parameter int B = 32, parameter int C = B, parameter int D = A * 2) ();
+  logic [A-1:0] a;
+  logic [C-1:0] v;
+  logic [D-1:0] d;
+  modport m (input a, d, output v);
+endinterface
+module leaf (itf.m p);
+  assign p.v = '0;
+endmodule
+module mid (itf.m bp);
+  if (1) begin : g
+    leaf u (.p(bp));
+  end
+endmodule
+module dut ();
+  itf #(8, 32, 64) i ();
+  mid m (.bp(i));
+endmodule

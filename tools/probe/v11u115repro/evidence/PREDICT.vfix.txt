@@ -1,0 +1,7 @@
+# written 2026-09-23T10:54:25-04:00, AFTER the vfix sweep had finished but BEFORE any of its results were read
+# A-PRIORI mover set, vfix (verifier FIX) vs lawv (implementer LAW), byte level:
+#   u2r  : 0 / 1608  (ibex_icache.sv has 0 $bits; no port-view shadow in the u2r LAW movers)
+#   surelog: 0 / 960 real movers (Rggen receivers shadow ADDRESS_WIDTH with DECIMAL overrides (7)/(8)
+#            or an identifier, all within the interface's int range: § pvRecvShadowForm115v never fires);
+#            the UVM 0/4-line UINT/vpiDecompile class and the Scoreboard coin may draw.
+#   Rggen/default stays CMP_EQUAL; ibex_icache stays 50 lines at 976:31.

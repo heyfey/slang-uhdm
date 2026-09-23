@@ -1,0 +1,105 @@
+# cen115 (r11u115repro/cen115.cpp built by the verifier; cen115v.sh) — golden minus ours per row
+## u2r_calib
+ROWS_READ=1608 ROWS_WITH_DELTA=0
+## u2r_pris
+default/ibex_icache-e3714209 G_OP_T+20 G_OP_U-20 G_VS_T+16 G_VS_U-16
+default/ibex_multdiv_fast-ed04630b M_OP_U-1
+default/ibex_multdiv_slow-d86a3bae M_OP_U-2
+default/multiplier-5b33e073 M_OP_U-1
+testflags/ibex_icache-e3714209 G_OP_T+20 G_OP_U-20 G_VS_T+16 G_VS_U-16
+testflags/ibex_multdiv_fast-ed04630b M_OP_U-1
+testflags/ibex_multdiv_slow-d86a3bae M_OP_U-2
+testflags/multiplier-5b33e073 M_OP_U-1
+ROWS_READ=1608 ROWS_WITH_DELTA=8
+## u2r_lawv
+default/ibex_multdiv_fast-ed04630b M_OP_U-1
+default/ibex_multdiv_slow-d86a3bae M_OP_U-2
+default/multiplier-5b33e073 M_OP_U-1
+testflags/ibex_multdiv_fast-ed04630b M_OP_U-1
+testflags/ibex_multdiv_slow-d86a3bae M_OP_U-2
+testflags/multiplier-5b33e073 M_OP_U-1
+ROWS_READ=1608 ROWS_WITH_DELTA=6
+## u2r_vfix
+default/ibex_multdiv_fast-ed04630b M_OP_U-1
+default/ibex_multdiv_slow-d86a3bae M_OP_U-2
+default/multiplier-5b33e073 M_OP_U-1
+testflags/ibex_multdiv_fast-ed04630b M_OP_U-1
+testflags/ibex_multdiv_slow-d86a3bae M_OP_U-2
+testflags/multiplier-5b33e073 M_OP_U-1
+ROWS_READ=1608 ROWS_WITH_DELTA=6
+## sl_calib
+ROWS_READ=960 ROWS_WITH_DELTA=0
+## sl_pris
+default/Earlgrey_0_1-71da2fd7 M_OP_T+32 M_OP_U+347 M_VS_U-6
+default/LargeConst-c295e83f M_OP_U+1
+default/Rggen-50ccbd70 G_OP_U+43 M_OP_U+8 PV:gold_only=95,ours_only=95
+default/UnpackPort-98701e61 M_OP_U+7
+default/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/BasicOh-87b55f9d G_OP_T-24
+testflags/BiasValue-b68a584b M_OP_U-2
+testflags/BlackBePipeInt-2987e0d2 M_OP_T-2 M_OP_U-5
+testflags/BlackConst-043847d0 M_OP_T-2 M_OP_U-4
+testflags/ConstantWithElabUhdm-4b1c99b0 M_OP_U-1
+testflags/Earlgrey_0_1-71da2fd7 G_OP_T-300 G_OP_U-2083 G_VS_U-2 M_OP_T+32 M_OP_U+320 M_VS_U-6
+testflags/GenForIfaceLocalparamBound-fe9fe25d PV:gold_only=0,ours_only=2
+testflags/GenForIfaceLocalparamNestedGen-0374ca75 PV:gold_only=0,ours_only=1
+testflags/HierPathCont-cda669b0 M_OP_U-1
+testflags/InterfaceElab-e41049d0 PV:gold_only=0,ours_only=1
+testflags/InterfaceStructMemberPort-afa4a627 M_OP_U-1
+testflags/InterfType-54ee30ac PV:gold_only=0,ours_only=1
+testflags/OneNetRange-cf1f634a PV:gold_only=0,ours_only=1
+testflags/UnpackPort-98701e61 M_OP_U+7
+testflags/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/UnsizedLiteral2-69bc31b7 M_OP_U-1
+ROWS_READ=960 ROWS_WITH_DELTA=21
+## sl_lawv
+default/Earlgrey_0_1-71da2fd7 M_OP_T+32 M_OP_U+347 M_VS_U-6
+default/LargeConst-c295e83f M_OP_U+1
+default/Rggen-50ccbd70 G_OP_U+43 M_OP_U+8
+default/UnpackPort-98701e61 M_OP_U+7
+default/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/BasicOh-87b55f9d G_OP_T-24
+testflags/BiasValue-b68a584b M_OP_U-2
+testflags/BlackBePipeInt-2987e0d2 M_OP_T-2 M_OP_U-5
+testflags/BlackConst-043847d0 M_OP_T-2 M_OP_U-4
+testflags/ConstantWithElabUhdm-4b1c99b0 M_OP_U-1
+testflags/Earlgrey_0_1-71da2fd7 G_OP_T-300 G_OP_U-2083 G_VS_U-2 M_OP_T+32 M_OP_U+320 M_VS_U-6
+testflags/GenForIfaceLocalparamBound-fe9fe25d PV:gold_only=0,ours_only=2
+testflags/GenForIfaceLocalparamNestedGen-0374ca75 PV:gold_only=0,ours_only=1
+testflags/HierPathCont-cda669b0 M_OP_U-1
+testflags/InterfaceElab-e41049d0 PV:gold_only=0,ours_only=1
+testflags/InterfaceStructMemberPort-afa4a627 M_OP_U-1
+testflags/InterfType-54ee30ac PV:gold_only=0,ours_only=1
+testflags/OneNetRange-cf1f634a PV:gold_only=0,ours_only=1
+testflags/UnpackPort-98701e61 M_OP_U+7
+testflags/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/UnsizedLiteral2-69bc31b7 M_OP_U-1
+ROWS_READ=960 ROWS_WITH_DELTA=21
+## sl_vfix
+default/Earlgrey_0_1-71da2fd7 M_OP_T+32 M_OP_U+347 M_VS_U-6
+default/LargeConst-c295e83f M_OP_U+1
+default/Rggen-50ccbd70 G_OP_U+43 M_OP_U+8
+default/UnpackPort-98701e61 M_OP_U+7
+default/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/BasicOh-87b55f9d G_OP_T-24
+testflags/BiasValue-b68a584b M_OP_U-2
+testflags/BlackBePipeInt-2987e0d2 M_OP_T-2 M_OP_U-5
+testflags/BlackConst-043847d0 M_OP_T-2 M_OP_U-4
+testflags/ConstantWithElabUhdm-4b1c99b0 M_OP_U-1
+testflags/Earlgrey_0_1-71da2fd7 G_OP_T-300 G_OP_U-2083 G_VS_U-2 M_OP_T+32 M_OP_U+320 M_VS_U-6
+testflags/GenForIfaceLocalparamBound-fe9fe25d PV:gold_only=0,ours_only=2
+testflags/GenForIfaceLocalparamNestedGen-0374ca75 PV:gold_only=0,ours_only=1
+testflags/HierPathCont-cda669b0 M_OP_U-1
+testflags/InterfaceElab-e41049d0 PV:gold_only=0,ours_only=1
+testflags/InterfaceStructMemberPort-afa4a627 M_OP_U-1
+testflags/InterfType-54ee30ac PV:gold_only=0,ours_only=1
+testflags/OneNetRange-cf1f634a PV:gold_only=0,ours_only=1
+testflags/UnpackPort-98701e61 M_OP_U+7
+testflags/UnsizeConstExpr-5d9300c4 M_OP_U+1
+testflags/UnsizedLiteral2-69bc31b7 M_OP_U-1
+ROWS_READ=960 ROWS_WITH_DELTA=21
+## POSITIVE CONTROLS (break arms, elab form)
+f1/a03_gf_bits pris: G_OP_U+4 G_SYS_U-4 | lawv: G_OP_U+4 G_SYS_T-4 (the invented stamp) | vfix: G_OP_U+4 G_SYS_U-4
+f1/a01_gf_signed pris: G_SYS_T+2 G_SYS_U-4 | lawv: G_SYS_T-2 | vfix: G_SYS_T-2
+f2/p15_recv_hex8 pris: PV 3/3 | lawv: PV 1/1 | vfix: PV 1/1
+f2/p18_recv_wide101 pris: PV 1/1 | lawv: PV 1/1 | vfix: (none)

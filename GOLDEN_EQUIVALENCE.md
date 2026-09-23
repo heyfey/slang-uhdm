@@ -283,8 +283,8 @@ error handler. It cannot change the database.
 
 ### 3.3 Measured baseline — GENERATED, do not hand-edit numbers
 
-> Regenerated 2026-09-23 (the v1.87 pass-113 landing: ibex_tracer converted in
-> both uhdm2rtlil modes). For the live state and how to carry
+> Regenerated 2026-09-23 (the v1.87 pass-114 landing: Rggen converted in the
+> Surelog suite's default mode; its testflags row is a producer failure). For the live state and how to carry
 > the campaign on, read **RESUME.md** and run `scripts/resume_survey.sh`.
 
 The authoritative numbers come from the committed per-test CSVs via
@@ -295,7 +295,7 @@ exists.
 
 | Corpus | Mode | Total | Status breakdown | Comparable | Equal |
 |---|---|---|---|---|---|
-| Surelog suite | default | 798 | CMP_EQUAL=479 SLANG_REJECT=285 SURELOG_FAIL=25 DEFERRED=5 CMP_NOTEQUAL=4 | 483 | 479 (99.2%) |
+| Surelog suite | default | 798 | CMP_EQUAL=480 SLANG_REJECT=285 SURELOG_FAIL=25 DEFERRED=5 CMP_NOTEQUAL=3 | 483 | 480 (99.4%) |
 | Surelog suite | testflags | 798 | CMP_EQUAL=474 SLANG_REJECT=286 SURELOG_FAIL=23 DEFERRED=5 NO_DATABASE=3 CMP_NOTEQUAL=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 477 | 474 (99.4%) |
 | uhdm2rtlil | default | 871 | CMP_EQUAL=801 SLANG_REJECT=67 CMP_NOTEQUAL=3 | 804 | 801 (99.6%) |
 | uhdm2rtlil | testflags | 871 | CMP_EQUAL=801 SLANG_REJECT=67 CMP_NOTEQUAL=3 | 804 | 801 (99.6%) |

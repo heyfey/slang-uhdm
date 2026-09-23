@@ -96,6 +96,78 @@ static bool caVarSelIdxOpFoldTs113() {
     return on;
 }
 
+/// § genCaOpFoldElabTs115 (r11u115, face 1) — § caOpFoldElabTs72'S
+/// GENERATE-SCOPE HALF.  A folded read of a TYPED, unqualified, imported
+/// package parameter reached from an ELABORATED GENERATE-SCOPE continuous
+/// assignment's Rhs through OPERATIONS only (a replication count, a concat
+/// element, a ternary arm, a shift amount, a compare / arithmetic operand)
+/// carries the parameter's declared typespec, exactly as the module-scope
+/// cont_assign does.  THE PRODUCER: `CompileHelper::compileExpression`'s
+/// identifier arm (Surelog v1.87 CompileExpression.cpp:2918-2927) swaps the
+/// parameter read for a copy of its value carrying the parameter's own
+/// declaration typespec wherever the read is reached from; a generate block
+/// is a scope, not a compilation mode (§ genScopeProcOpFoldTs75).  OUR SIDE:
+/// `caOpFold9` required `contAssignView != 0`, which the gen-scope elaborated
+/// assignment never sets (`inGenScopeCaRhs` marks it).  MEASURED
+/// (tools/probe/r11u115repro/grid/r, real v1.87 goldens, both forms): gen-for
+/// and gen-if x p01-p10/p13 (the ibex_icache shape, replication count in a
+/// concat / bare / under `+`, concat element, ternary arm, shift amount,
+/// `==`, `+`, `-`) x typed kinds (int unsigned with a $clog2 or a literal
+/// initializer, int, logic [3:0], a body import): golden
+/// `ref_typespec` -> the parameter's typespec, ours <null>.  Controls: a
+/// NESTED generate block (grid r/n, golden keeps the reference, no fold), a
+/// module parameter / localparam / gen localparam (k06-k08, never folded
+/// with a ts), module scope (r/m, the landed law).  Declined: an UNTYPED
+/// parameter (k03: golden's materialised typespec is unsigned, ours signed —
+/// residue R5b) and a QUALIFIED `pk::P` (k05: golden folds it BARE where we
+/// keep the reference — a fold-decision residue).
+/// `R11U115_OFF=1` / `R11U115_GSOP_OFF=1` drop it.
+static bool genCaOpFoldElabTs115() {
+    static const bool on = getenv("R11U115_OFF") == nullptr &&
+                           getenv("R11U115_GSOP_OFF") == nullptr;
+    return on;
+}
+
+/// § caSysArgOpFoldTs115 (r11u115, face 1, the CALL-ARGUMENT position) — the
+/// same stamp on a folded read that is a SYSTEM-FUNCTION ARGUMENT under an
+/// operation chain of a continuous assignment's Rhs (`q + $clog2(P)`), in the
+/// module-scope cont_assign and in the elaborated gen-scope one.  Golden
+/// re-parents the constant at the package param_assign (the sys-func-arg
+/// flavour of § caOpFoldTs, as § sysFuncArgFold does for a param init).
+/// MEASURED grid r/m/p12, r/f/p12, r/i/p12 (both forms): golden stamps, ours
+/// <null>.  A user FUNCTION argument (p11) is not this law: its head is the
+/// function's own return typespec.
+/// `R11U115_OFF=1` / `R11U115_SYSARG_OFF=1` drop it.
+static bool caSysArgOpFoldTs115() {
+    static const bool on = getenv("R11U115_OFF") == nullptr &&
+                           getenv("R11U115_SYSARG_OFF") == nullptr;
+    return on;
+}
+
+/// § caVarSelBareIdxTs115 (r11u115, face 1c) — THE BARE INDEX OF A
+/// VAR_SELECT.  A folded read of a typed, unqualified, imported package
+/// parameter that IS a var_select element index (`q[fb][P]`, no operation in
+/// between) in a continuous assignment's Rhs — module scope or the elaborated
+/// gen scope — is parented at the var_select and carries the parameter's
+/// declared typespec, the ref named after the var_select: the var_select twin
+/// of § selFold9 (a bare bit_select index), from the same producer line
+/// (CompileExpression.cpp:2918-2927).  MEASURED
+/// (tools/probe/r11u115repro/grid/r/v, real v1.87, both forms): module scope
+/// bare and under `|` (v01, v09), gen-for bare / under `|` / in a ternary arm
+/// (v02, v03, v11), gen-if (v04), `int` (v08): golden
+/// `ref_typespec (<var_select>)` -> the parameter's typespec, ours <null> and
+/// no parent.  Corpus: ibex_icache.sv:766 `fill_ext_cnt_q[fb][IC_LINE_BEATS_W]`
+/// (the row's next head once § genCaOpFoldElabTs115 lands).  Declined: untyped
+/// (v06, residue R5b), qualified (v07, a fold-decision residue), always_comb
+/// (v05) and a Lhs select (v13, v14) — golden stamps them, neither is this
+/// context's emission (residue R1v).  Control v10 (module localparam, no fold).
+/// `R11U115_OFF=1` / `R11U115_VSBARE_OFF=1` drop it.
+static bool caVarSelBareIdxTs115() {
+    static const bool on = getenv("R11U115_OFF") == nullptr &&
+                           getenv("R11U115_VSBARE_OFF") == nullptr;
+    return on;
+}
+
 /// § genLpIdxOpOperandFold112 (r11u112, face 1, the GEN-SCOPE half) — IN AN
 /// ELABORATED GEN-SCOPE CONTINUOUS ASSIGN, A ONE-HOP GEN-SCOPE LOCALPARAM READ
 /// AS AN OPERAND OF A BIT-SELECT INDEX OPERATION (`req_nodes[Idx1+1]`) IS
@@ -17089,8 +17161,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // before descending (or outside the moduleDefEmit guard).
                     // Find the emission site first; do not re-run the gate.
                     bool caOpFold9 = false;
+                    // § genCaOpFoldElabTs115 — the elaborated GEN-SCOPE
+                    // cont_assign is a home too (typed parameters only).
+                    const bool gsOp115 = contAssignView == 0 &&
+                                         inGenScopeCaRhs &&
+                                         !defGenProcessEmit &&
+                                         typedPkgParam &&
+                                         genCaOpFoldElabTs115();
                     if (!inParamInit && !inProcessEmit && !currentTf &&
-                        !ndaRhsEmit && contAssignView != 0 && parent &&
+                        !ndaRhsEmit && (contAssignView != 0 || gsOp115) &&
+                        parent &&
                         parent->UhdmType() == UHDM::uhdmoperation) {
                         const UHDM::any* up9 = parent;
                         for (int g9 = 0;
@@ -17100,6 +17180,58 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             up9 = up9->VpiParent();
                         caOpFold9 =
                             up9 && up9->UhdmType() == UHDM::uhdmcont_assign;
+                    }
+                    // § caVarSelBareIdxTs115 — the bare var_select index.
+                    const bool vsBare115 =
+                        !caOpFold9 && typedPkgParam && !inParamInit &&
+                        !inProcessEmit && !currentTf && !ndaRhsEmit &&
+                        (contAssignView != 0 ||
+                         (contAssignView == 0 && inGenScopeCaRhs &&
+                          !defGenProcessEmit)) &&
+                        parent &&
+                        parent->UhdmType() == UHDM::uhdmvar_select &&
+                        caVarSelBareIdxTs115();
+                    if (vsBare115 && importedParamDefTs.count(&nv.symbol) &&
+                        rawText(expr.sourceRange).find("::") ==
+                            std::string::npos)
+                        c->VpiParent(parent);
+                    // § caSysArgOpFoldTs115 — a system-function ARGUMENT
+                    // under an operation chain of the cont_assign's Rhs.
+                    bool caSysArg115 = false;
+                    if (!inParamInit && !inProcessEmit && !currentTf &&
+                        !ndaRhsEmit && typedPkgParam &&
+                        (contAssignView != 0 ||
+                         (contAssignView == 0 && inGenScopeCaRhs &&
+                          !defGenProcessEmit)) &&
+                        parent &&
+                        parent->UhdmType() == UHDM::uhdmsys_func_call &&
+                        caSysArgOpFoldTs115() &&
+                        // § caSysArgGenBitsFence115v (r11u115 VERIFIER) — in
+                        // the elaborated GEN-SCOPE assignment golden folds a
+                        // `$bits(P)` call WHOLE to a constant (grid
+                        // v11u115repro f1/a03, a22: no sys_func_call, no
+                        // argument), so the argument's stamp would invent a
+                        // binding golden lacks; the module-scope call keeps
+                        // its stamped argument (a21) and stays in the law.
+                        // `R11U115V_OFF=1` / `R11U115V_BITS_OFF=1` drop it.
+                        !(contAssignView == 0 &&
+                          getenv("R11U115V_OFF") == nullptr &&
+                          getenv("R11U115V_BITS_OFF") == nullptr &&
+                          std::string_view(
+                              ((const UHDM::sys_func_call*)parent)->VpiName()) ==
+                              "$bits")) {
+                        const UHDM::any* up115 = parent->VpiParent();
+                        bool sawOp115 = false;
+                        for (int g115 = 0;
+                             g115 < 32 && up115 &&
+                             up115->UhdmType() == UHDM::uhdmoperation;
+                             ++g115) {
+                            sawOp115 = true;
+                            up115 = up115->VpiParent();
+                        }
+                        caSysArg115 = sawOp115 && up115 &&
+                                      up115->UhdmType() ==
+                                          UHDM::uhdmcont_assign;
                     }
                     // § refModConnOpFoldTs (r10earl15) — THE PORT-CONNECTION
                     // HALF of § caOpFoldTs, and the answer to pass 14's
@@ -17208,7 +17340,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         procSelFold9 || procPsFold9 || selFoldTs21 ||
                         ndaOpFold9 ||
                         ipsWidFold9 || caPsOpFold9 || caOpFold9 ||
-                        rmConnOpFold9 || caSelIdxOp112)
+                        rmConnOpFold9 || caSelIdxOp112 || caSysArg115 ||
+                        vsBare115)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -17228,6 +17361,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (procSelFold9 || selFold9)
                                 rt->VpiFullName(
                                     ((UHDM::bit_select*)parent)->VpiFullName());
+                            else if (vsBare115)
+                                rt->VpiFullName(
+                                    ((const UHDM::var_select*)parent)
+                                        ->VpiFullName());
                             else if (caSelIdxOp112)
                                 rt->VpiFullName(
                                     selIdx112->UhdmType() ==
@@ -17278,7 +17415,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                  // § caOpFoldTs — a nested-operation fold is
                                  // the same cont-assign fold, so it takes the
                                  // same per-reference typespec clone.
-                                 caOpFold9 || caSelIdxOp112) &&
+                                 caOpFold9 || caSelIdxOp112 ||
+                                 caSysArg115 || vsBare115) &&
                                 nv.symbol.kind == SymbolKind::Parameter;
                             if (caFold9) {
                                 std::string savedPfx9 = syntaxRefPrefix;
@@ -17307,7 +17445,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // rather than implemented.
                             if ((sysFuncArgFold || (caFold9 && !caOpFold9) ||
                                  procPsFold9) &&
-                                !selFold9 && !caSelIdxOp112)
+                                !selFold9 && !caSelIdxOp112 && !vsBare115)
                                 if (auto cIt = pkgParamConst.find(&nv.symbol);
                                     cIt != pkgParamConst.end() &&
                                     cIt->second->VpiParent())
@@ -21671,6 +21809,56 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return sc9;
             }
             bool deferredCast = false;
+            // § genCaTypeParamCastParen115 (r11u115, face 3) — a PARENTHESISED
+            // cast to a type parameter in the elaborated gen-scope
+            // cont_assign (`y = (idx_t'(a))`, grid c3/t04): slang hands the
+            // conversion the PARENTHESIS as its syntax, so the written-cast
+            // arm below was skipped and the catch-all minted a loc-less
+            // `logic_typespec`; golden keeps § genCaTypeParamCastUnsupported113's
+            // `unsupported_typespec (idx_t)`.  Only that shape is unwrapped
+            // (target an identifier resolving, from the cast's own block, to a
+            // type parameter).  `R11U115_OFF=1` / `R11U115_TPPAREN_OFF=1`.
+            const syntax::SyntaxNode* parenBelow115 = nullptr;
+            {
+                static const bool parenOn115 =
+                    getenv("R11U115_OFF") == nullptr &&
+                    getenv("R11U115_TPPAREN_OFF") == nullptr;
+                if (parenOn115 && inGenScopeCaRhs && !defGenProcessEmit &&
+                    castSiteScope57 && effCastSyn &&
+                    effCastSyn->kind ==
+                        syntax::SyntaxKind::ParenthesizedExpression) {
+                    const syntax::SyntaxNode* in115 = effCastSyn;
+                    while (in115 &&
+                           in115->kind ==
+                               syntax::SyntaxKind::ParenthesizedExpression)
+                        in115 = in115->as<syntax::ParenthesizedExpressionSyntax>()
+                                    .expression;
+                    if (in115 &&
+                        in115->kind == syntax::SyntaxKind::CastExpression) {
+                        auto& ic115 = in115->as<syntax::CastExpressionSyntax>();
+                        if (ic115.left->kind ==
+                            syntax::SyntaxKind::IdentifierName) {
+                            std::string nm115(
+                                ic115.left->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                            auto* sy115 =
+                                Lookup::unqualified(*castSiteScope57, nm115);
+                            if (sy115 && sy115->kind == SymbolKind::TypeAlias &&
+                                sy115->getSyntax() &&
+                                sy115->getSyntax()->kind ==
+                                    syntax::SyntaxKind::TypeAssignment) {
+                                parenBelow115 = effCastSyn;
+                                while (parenBelow115->parent &&
+                                       parenBelow115->parent->kind ==
+                                           syntax::SyntaxKind::
+                                               ParenthesizedExpression)
+                                    parenBelow115 = parenBelow115->parent;
+                                effCastSyn = in115;
+                            }
+                        }
+                    }
+                }
+            }
             if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
                 auto& cesyn = effCastSyn->as<syntax::CastExpressionSyntax>();
                 // A DEF-view gen-block PROCEDURAL cast whose target is written
@@ -21771,14 +21959,72 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // if-generate (c06) — a different question, not this law's.
                 // The module scope (c03) and an always_comb (c13) resolve too.
                 // `R11U113_OFF=1` / `R11U113_TPCAST_OFF=1` drop it.
+                // r11u115 face 3 — two droppable extensions of this law (the
+                // third, § genCaTypeParamCastParen115, is at `parenBelow115`),
+                // each MEASURED on real v1.87 goldens
+                // (tools/probe/r11u115repro/grid/c3, copied from pass 112's
+                // r11u113repro/grid/c and v11u113repro/grid):
+                //  § genIfCaTypeParamCastUnderOp115 — in an IF-generate the
+                //    cast under a ternary arm or an operation keeps the
+                //    placeholder too (c06 `s ? idx_t'(a) : idx_t'(b)`, c18
+                //    `idx_t'(a) + 2'd1`); under a LOOP generate — the cast's
+                //    own or any enclosing one — golden resolves (c25/c27, and
+                //    the if-in-for `gen_other_levels` of arb_idx_cast, control
+                //    arms c01 / g01; residue R2b).  `R11U115_TPIFOP_OFF=1`.
+                //  § genCaTypeParamCastOuterBlock115 — r11v113's generate-home
+                //    fence narrowed to the cast's OWN block: a `localparam
+                //    type` of an OUTER generate block (t09, cast in the inner
+                //    `h`) is not a data type of the inner scope's component,
+                //    so golden keeps the placeholder there.
+                //    `R11U115_TPOUTER_OFF=1`.
+                // `R11U115_OFF=1` drops both.
                 bool tpCast113 = false;
                 {
                     static const bool off113 =
                         getenv("R11U113_OFF") != nullptr ||
                         getenv("R11U113_TPCAST_OFF") != nullptr;
+                    static const bool off115 = getenv("R11U115_OFF") != nullptr;
+                    static const bool ifOpOn115 =
+                        !off115 && getenv("R11U115_TPIFOP_OFF") == nullptr;
+                    static const bool outerOn115 =
+                        !off115 && getenv("R11U115_TPOUTER_OFF") == nullptr;
+                    // The cast's own generate block is an IF-generate's and NO
+                    // enclosing generate is a loop: arb_idx_cast's
+                    // `gen_other_levels` (an if-generate's else branch inside a
+                    // for-generate, control arms r11u113repro c01 / r11u112repro
+                    // g01) RESOLVES its ternary casts like c25/c27 do.
+                    bool ifGen115 =
+                        castSiteScope57 &&
+                        castSiteScope57->asSymbol().kind ==
+                            SymbolKind::GenerateBlock;
+                    for (const Scope* a115 =
+                             ifGen115
+                                 ? castSiteScope57->asSymbol().getParentScope()
+                                 : nullptr;
+                         a115 &&
+                         a115->asSymbol().kind != SymbolKind::InstanceBody;
+                         a115 = a115->asSymbol().getParentScope())
+                        if (a115->asSymbol().kind ==
+                            SymbolKind::GenerateBlockArray) {
+                            ifGen115 = false;
+                            break;
+                        }
+                    bool underOp115 = false;
+                    if (ifOpOn115 && ifGen115 && parent &&
+                        parent->UhdmType() == UHDM::uhdmoperation) {
+                        const UHDM::any* u115 = parent;
+                        for (int g115 = 0;
+                             g115 < 32 && u115 &&
+                             u115->UhdmType() == UHDM::uhdmoperation;
+                             ++g115)
+                            u115 = u115->VpiParent();
+                        underOp115 =
+                            u115 && u115->UhdmType() == UHDM::uhdmcont_assign;
+                    }
                     if (!off113 && inGenScopeCaRhs && !defGenProcessEmit &&
                         !dpiOwnTdCast170 && castSiteScope57 && parent &&
-                        parent->UhdmType() == UHDM::uhdmcont_assign &&
+                        (parent->UhdmType() == UHDM::uhdmcont_assign ||
+                         underOp115) &&
                         cesyn.left->kind == syntax::SyntaxKind::IdentifierName) {
                         const syntax::SyntaxNode* up113 = effCastSyn->parent;
                         while (up113 &&
@@ -21791,6 +22037,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 syntax::SyntaxKind::AssignmentExpression &&
                             up113->as<syntax::BinaryExpressionSyntax>().right ==
                                 effCastSyn;
+                        if (!direct113 && underOp115)
+                            direct113 = true;
+                        // § genCaTypeParamCastParen115 — the assignment's
+                        // `.right` is the outermost parenthesis.
+                        if (!direct113 && parenBelow115 && up113 &&
+                            up113->kind ==
+                                syntax::SyntaxKind::AssignmentExpression &&
+                            up113->as<syntax::BinaryExpressionSyntax>().right ==
+                                parenBelow115)
+                            direct113 = true;
                         if (direct113) {
                             std::string nm113(
                                 cesyn.left->as<syntax::IdentifierNameSyntax>()
@@ -21817,8 +22073,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 sy113->getSyntax()->kind ==
                                     syntax::SyntaxKind::TypeAssignment &&
                                 tph113 &&
-                                tph113->asSymbol().kind !=
-                                    SymbolKind::GenerateBlock;
+                                (outerOn115
+                                     ? tph113 != castSiteScope57
+                                     : tph113->asSymbol().kind !=
+                                           SymbolKind::GenerateBlock);
                         }
                     }
                 }
