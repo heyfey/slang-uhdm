@@ -1,0 +1,165 @@
+== a01_anon2dim
+-- pris: packed_array_typespec: , id:78, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:57, line:2:3, endln:2:44
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:27, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a01_anon2dim/
+== a02_anon1mem_dim
+-- pris: packed_array_typespec: , id:75, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:57, line:2:3, endln:2:35
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:27, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a02_anon1mem_
+== a03_anon_nodim_ctl
+-- pris:  || RHS
+-- law2:  || RHS
+== a04_anon_twodims
+-- pris: packed_array_typespec: , id:84, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:57, line:2:3, endln:2:49
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:27, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a04_anon_twod
+== a05_anon_paramdim
+-- pris: packed_array_typespec: , id:153, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:76, line:2:3, endln:2:46
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:33, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a05_anon_para
+== a06_anon_port
+-- pris: packed_array_typespec: , id:58, line:1:18, endln:1:31 || RHS RHS: logic_typespec: , id:31, line:1:18, endln:1:59
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:31, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a06_anon_port
+== a07_anon_func
+-- pris: packed_array_typespec: , id:23, line:3:5, endln:3:18 || RHS RHS: logic_typespec: , id:18, line:3:5, endln:3:46
+-- law2:  || RHS
+== a08_anon_member
+-- pris: packed_array_typespec: , id:8, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:4, line:2:3, endln:2:44
+-- law2:  || RHS
+== a09_anon_union_dim
+-- pris: packed_array_typespec: , id:84, line:2:3, endln:2:15 || RHS RHS: logic_typespec: , id:57, line:2:3, endln:2:55
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:27, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a09_anon_unio
+== a10_anon_signed_dim
+-- pris: struct_typespec: , id:68, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:57, line:2:3, endln:2:51
+-- law2: struct_typespec: , id:68, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:57, line:2:3, endln:2:51
+== a11_anon_child
+-- pris: packed_array_typespec: , id:118, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:94, line:2:3, endln:2:44
+-- law2: RHS: || RHS RHS: module_inst: work@child (work@dut.u), id:62, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a11_anon_
+== a12_anon_named_member
+-- pris: packed_array_typespec: , id:85, line:3:3, endln:3:16 || RHS RHS: logic_typespec: , id:67, line:3:3, endln:3:33
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:37, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a12_anon_name
+== a13_anon_var_kw
+-- pris: packed_array_typespec: , id:78, line:2:7, endln:2:20 || RHS RHS: logic_typespec: , id:57, line:2:7, endln:2:48
+-- law2: packed_array_var: (work@dut.x), id:50, line:2:49, endln:2:50 || RHS RHS: struct_var: (work@dut.x), id:54, line:2:49, endln:2:50
+== a14_anon_pkg
+-- pris: package: pk (pk::), id:2, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a14_anon_pkg/dut.sv, line:1:1, en || RHS RHS: <null>
+-- law2: package: pk (pk::), id:2, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a14_anon_pkg/dut.sv, line:1:1, en || RHS RHS: <null>
+== a15_anon_wire
+-- pris: packed_array_typespec: , id:78, line:2:8, endln:2:49 || RHS RHS: logic_typespec: , id:57, line:2:8, endln:2:49
+-- law2: logic_net: (work@dut.x), id:72, line:2:50, endln:2:51 || RHS RHS: logic_net: (work@dut.x), id:5, line:2:50, endln:2:51
+== a16_anon_param
+-- pris: packed_array_typespec: , id:6, line:2:14, endln:2:27 || RHS RHS: int_typespec: , id:8, line:2:14, endln:2:55
+-- law2: packed_array_typespec: , id:6, line:2:14, endln:2:27 || RHS RHS: int_typespec: , id:8, line:2:14, endln:2:55
+== a17_anon_unpacked_ctl
+-- pris: packed_array_typespec: , id:90, line:2:3, endln:2:50 || RHS RHS: logic_typespec: , id:77, line:2:3, endln:2:50
+-- law2: packed_array_typespec: , id:90, line:2:3, endln:2:50 || RHS RHS: logic_typespec: , id:77, line:2:3, endln:2:50
+== a18_anon_typedef
+-- pris: packed_array_typespec: (t_t), id:7, line:1:9, endln:1:50 || RHS RHS: logic_typespec: (t_t), id:2, line:1:9, endln:1:50
+-- law2:  || RHS
+== a19_anon_iface
+-- pris: packed_array_typespec: , id:69, line:2:3, endln:2:16 || RHS RHS: logic_typespec: , id:64, line:2:3, endln:2:44
+-- law2: RHS: || RHS RHS: interface_inst: work@ifc (work@dut.u), id:46, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a19_anon
+== a20_anon_class
+-- pris: packed_array_var: (work@C::m), id:51, line:2:45, endln:2:46 || RHS RHS: logic_var: (work@C::m), id:9, line:2:45, endln:2:46
+-- law2: packed_array_var: (work@C::m), id:51, line:2:45, endln:2:46 || RHS RHS: logic_var: (work@C::m), id:9, line:2:45, endln:2:46
+== a21_anon_gen
+-- pris: named_begin: (work@dut.gb), id:33 || RHS RHS: named_begin: (work@dut.gb), id:16
+-- law2: named_begin: (work@dut.gb), id:33 || RHS RHS: named_begin: (work@dut.gb), id:16
+== a22_anon_task_arg
+-- pris: packed_array_typespec: , id:17, line:2:42, endln:2:83 || RHS RHS: logic_typespec: , id:14, line:2:42, endln:2:83
+-- law2:  || RHS
+== a23_anon_always_var
+-- pris: packed_array_typespec: , id:8, line:3:5, endln:3:18 || RHS RHS: logic_typespec: , id:7, line:3:5, endln:3:46
+-- law2:  || RHS
+== a24_anon_pkg_typedef_member
+-- pris: packed_array_typespec: , id:25, line:3:5, endln:3:18 || RHS RHS: logic_typespec: , id:10, line:3:5, endln:3:46
+-- law2: package: pk (pk::), id:18, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a24_anon_pkg_typedef_member/dut. || RHS RHS: <null>
+== a25_anon_output_port
+-- pris: packed_array_typespec: , id:64, line:1:40, endln:1:53 || RHS RHS: logic_typespec: , id:38, line:1:40, endln:1:81
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:31, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/a25_anon_outp
+== o01_ovr_elem
+-- pris: logic_typespec: , id:121, line:9:17, endln:9:28 || RHS RHS: <null>
+-- law2: packed_array_var: (work@dut.u.rt_i), id:127, line:5:15, endln:5:19 || RHS RHS: logic_var: (work@dut.u.rt_i), id:114, line:5:15, endln:5:19
+== o02_ovr_then_def
+-- pris: packed_array_var: (work@dut.u0.rt_i), id:148, line:5:15, endln:5:19 || RHS RHS: logic_var: (work@dut.u0.rt_i), id:132, line:5:15, endln:5:19
+-- law2: packed_array_var: (work@dut.u0.rt_i), id:148, line:5:15, endln:5:19 || RHS RHS: logic_var: (work@dut.u0.rt_i), id:132, line:5:15, endln:5:19
+== o03_def_then_ovr
+-- pris: logic_typespec: , id:188, line:10:17, endln:10:28 || RHS RHS: <null>
+-- law2: packed_array_var: (work@dut.u1.rt_i), id:133, line:5:15, endln:5:19 || RHS RHS: logic_var: (work@dut.u1.rt_i), id:129, line:5:15, endln:5:19
+== o04_two_ovr
+-- pris: logic_typespec: , id:205, line:10:17, endln:10:28 || RHS RHS: <null>
+-- law2: packed_array_var: (work@dut.u0.rt_i), id:149, line:5:15, endln:5:19 || RHS RHS: logic_var: (work@dut.u0.rt_i), id:133, line:5:15, endln:5:19
+== o05_top_chain
+-- pris: packed_array_var: (work@dut.rt_i), id:81, line:6:37, endln:6:41 || RHS RHS: logic_var: (work@dut.rt_i), id:76, line:6:37, endln:6:41
+-- law2: packed_array_var: (work@dut.rt_i), id:81, line:6:37, endln:6:41 || RHS RHS: logic_var: (work@dut.rt_i), id:76, line:6:37, endln:6:41
+== o06_nodef_ctl
+-- pris: packed_array_var: (work@dut.u.rt_i), id:103, line:5:15, endln:5:19 || RHS RHS: logic_var: (work@dut.u.rt_i), id:105, line:5:15, endln:5:19
+-- law2: packed_array_var: (work@dut.u.rt_i), id:103, line:5:15, endln:5:19 || RHS RHS: logic_var: (work@dut.u.rt_i), id:105, line:5:15, endln:5:19
+== o07_passthru
+-- pris: logic_typespec: , id:167, line:8:33, endln:8:44 || RHS RHS: <null>
+-- law2: packed_array_var: (work@dut.m.u.rt_i), id:173, line:5:15, endln:5:19 || RHS RHS: logic_var: (work@dut.m.u.rt_i), id:159, line:5:15, endln:5:19
+== o08_ovr_typedef
+-- pris: logic_typespec: (w_t), id:109, line:1:9, endln:1:20 || RHS RHS: logic_typespec: , id:10, line:3:31, endln:3:36
+-- law2: module_inst: work@dut (work@dut), id:144, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/o08_ovr_typedef/d || RHS RHS: module_inst: work@dut (work@dut), id:7, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/o08_ovr_typede
+== o09_param_not_local
+-- pris: logic_typespec: , id:100, line:8:17, endln:8:28 || RHS RHS: <null>
+-- law2: packed_array_var: (work@dut.u.rt_i), id:106, line:4:15, endln:4:19 || RHS RHS: logic_var: (work@dut.u.rt_i), id:94, line:4:15, endln:4:19
+== o10_rt_overridden
+-- pris:  || RHS
+-- law2:  || RHS
+== t01_tp_struct
+-- pris: struct_typespec: , id:2, line:1:33, endln:1:39 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:74
+-- law2:  || RHS
+== t02_tp_struct_chain
+-- pris: struct_typespec: , id:2, line:2:24, endln:2:30 || RHS RHS: logic_typespec: , id:5, line:2:24, endln:2:82
+-- law2:  || RHS
+== t03_tp_struct_child_ovr
+-- pris: struct_typespec: , id:2, line:1:35, endln:1:41 || RHS RHS: logic_typespec: , id:6, line:1:35, endln:1:76
+-- law2: RHS: || RHS RHS: module_inst: work@child (work@dut.u), id:61, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/t03_tp_st
+== t04_tp_struct_child_def
+-- pris: struct_typespec: , id:2, line:1:35, endln:1:41 || RHS RHS: logic_typespec: , id:6, line:1:35, endln:1:76
+-- law2:  || RHS
+== t05_tp_struct_dim
+-- pris: packed_array_typespec: , id:7, line:1:33, endln:1:46 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:74
+-- law2: packed_array_var: (work@dut.i), id:22, line:1:85, endln:1:86 || RHS RHS: struct_var: (work@dut.i), id:45, line:1:85, endln:1:86
+== t06_tp_union
+-- pris: union_typespec: , id:2, line:1:33, endln:1:38 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:79
+-- law2:  || RHS
+== t07_tp_enum
+-- pris: enum_typespec: , id:7 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:61
+-- law2: enum_typespec: , id:7 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:61
+== t08_tp_ustruct
+-- pris: struct_typespec: , id:2, line:1:33, endln:1:39 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:67
+-- law2: struct_typespec: , id:2, line:1:33, endln:1:39 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:67
+== t09_localparam_type_struct
+-- pris: struct_typespec: , id:2, line:1:34, endln:1:40 || RHS RHS: logic_typespec: , id:5, line:1:34, endln:1:75
+-- law2:  || RHS
+== t10_body_tp_struct
+-- pris: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:39, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/t10_body_tp_s
+-- law2: RHS: || RHS RHS: module_inst: work@dut (work@dut), id:39, file:/tmp/wt_r11u107/tools/probe/r11u107repro/grid/t10_body_tp_s
+== t11_tp_struct_signed
+-- pris: struct_typespec: , id:2, line:1:33, endln:1:39 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:81
+-- law2:  || RHS
+== t12_tp_struct_nested
+-- pris: struct_typespec: , id:13, line:2:33, endln:2:39 || RHS RHS: logic_typespec: , id:15, line:2:33, endln:2:66
+-- law2:  || RHS
+== t13_iface_tp_struct
+-- pris: struct_typespec: , id:13, line:1:36, endln:1:42 || RHS RHS: logic_typespec: , id:18, line:1:36, endln:1:77
+-- law2:  || RHS
+== t14_tp_chain_child
+-- pris: struct_typespec: , id:2, line:2:24, endln:2:30 || RHS RHS: logic_typespec: , id:6, line:2:24, endln:2:65
+-- law2:  || RHS
+== t15_tp_struct_unused
+-- pris: struct_typespec: , id:2, line:1:33, endln:1:39 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:74
+-- law2:  || RHS
+== u01_top_tp_pkg_unp
+-- pris: array_typespec: , id:96, line:2:70, endln:2:81 || RHS RHS: struct_typespec: (pk::s_t), id:14, line:1:21, endln:1:62
+-- law2: array_typespec: , id:96, line:2:70, endln:2:81 || RHS RHS: struct_typespec: (pk::s_t), id:14, line:1:21, endln:1:62
+== u02_top_tp_chain_unp
+-- pris: array_typespec: , id:100, line:2:92, endln:2:103 || RHS RHS: struct_typespec: (pk::s_t), id:14, line:1:21, endln:1:62
+-- law2: array_typespec: , id:100, line:2:92, endln:2:103 || RHS RHS: struct_typespec: (pk::s_t), id:14, line:1:21, endln:1:62
+== u03_child_tp_chain_unp
+-- pris: logic_net: (work@dut.i), id:163, line:5:26, endln:5:27 || RHS RHS: logic_net: (work@dut.i), id:41, line:5:26, endln:5:27
+-- law2: logic_net: (work@dut.i), id:163, line:5:26, endln:5:27 || RHS RHS: logic_net: (work@dut.i), id:41, line:5:26, endln:5:27
+== u04_top_tp_logic_unp
+-- pris: array_typespec: , id:55, line:1:53, endln:1:59 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:44
+-- law2: array_typespec: , id:55, line:1:53, endln:1:59 || RHS RHS: logic_typespec: , id:5, line:1:33, endln:1:44
+== u05_top_tp_lit_unp
+-- pris: array_typespec: , id:63, line:2:49, endln:2:58 || RHS RHS: struct_typespec: (pk::s_t), id:14, line:1:21, endln:1:62
+-- law2: array_typespec: , id:63, line:2:49, endln:2:58 || RHS RHS: struct_typespec: (pk::s_t), id:14, line:1:21, endln:1:62

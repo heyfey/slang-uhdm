@@ -1,0 +1,12 @@
+# name-keyed VALUE cell scorer cell93.py, pris -> fixd
+## gridout listing
+CELL MOVED-WRONG=0 GAINED=92 CHANGED-STILL-WRONG=15 (arms=55, pris -> fixd)
+## gridout listing+tail (TAIL=1)
+CELL MOVED-WRONG=38 GAINED=479 CHANGED-STILL-WRONG=17 (arms=55, pris -> fixd)
+gold-present MOVED-WRONG: 0 (every other tail MOVED-WRONG has gold=None: an ours-only surplus tail copy, judge-invisible)
+## brkout listing
+CELL MOVED-WRONG=0 GAINED=98 CHANGED-STILL-WRONG=23 (arms=47, pris -> fixd)
+## brkout listing+tail (TAIL=1)
+CELL MOVED-WRONG=57 GAINED=498 CHANGED-STILL-WRONG=24 (arms=47, pris -> fixd)
+gold-present MOVED-WRONG: 0 (every other tail MOVED-WRONG has gold=None: an ours-only surplus tail copy, judge-invisible)
+## positive controls: listing kind flip (p02 logic_net->logic_var) -> MOVED-WRONG=1; tail value flip (vpiDecompile 4->49) -> MOVED-WRONG with TAIL=1

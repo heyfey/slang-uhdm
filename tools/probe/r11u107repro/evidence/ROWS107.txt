@@ -1,0 +1,141 @@
+## pris (772d5083)
+=== default anon_struct_packed_dim rc=255 lines=64 heads=1
+LHS:
+decompile:
+packed_array_typespec: , id:922, line:35:3, endln:35:16
+|vpiRange:
+\_range: , id:917, line:38:5, endln:38:10
+  |vpiParent:
+=== default port_chained_type_param rc=255 lines=120 heads=1
+LHS:
+decompile:
+struct_typespec: , id:2, line:2:32, endln:2:38
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (a), id:7, line:2:61, endln:2:62
+=== default type_param_override_elem_sel rc=255 lines=47 heads=1
+LHS:
+decompile:
+logic_typespec: , id:209, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:210, line:32:23, endln:32:28
+  |vpiParent:
+=== default type_param_packed_dim rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.rt_i), id:165, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:189, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+=== default type_param_unpacked_port rc=255 lines=208 heads=1
+LHS:
+decompile:
+array_typespec: , id:332, line:42:12, endln:42:32
+|vpiParent:
+\_port: (in_i), id:326, line:42:19, endln:42:23
+|vpiArrayType:1
+=== testflags anon_struct_packed_dim rc=255 lines=64 heads=1
+LHS:
+decompile:
+packed_array_typespec: , id:837, line:35:3, endln:35:16
+|vpiRange:
+\_range: , id:832, line:38:5, endln:38:10
+  |vpiParent:
+=== testflags port_chained_type_param rc=255 lines=120 heads=1
+LHS:
+decompile:
+struct_typespec: , id:2, line:2:32, endln:2:38
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (a), id:7, line:2:61, endln:2:62
+=== testflags type_param_override_elem_sel rc=255 lines=47 heads=1
+LHS:
+decompile:
+logic_typespec: , id:125, line:32:17, endln:32:28
+|vpiRange:
+\_range: , id:126, line:32:23, endln:32:28
+  |vpiParent:
+=== testflags type_param_packed_dim rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.rt_i), id:81, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:104, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+=== testflags type_param_unpacked_port rc=255 lines=208 heads=1
+LHS:
+decompile:
+array_typespec: , id:247, line:42:12, endln:42:32
+|vpiParent:
+\_port: (in_i), id:241, line:42:19, endln:42:23
+|vpiArrayType:1
+## law
+=== default anon_struct_packed_dim rc=255 lines=12216 heads=1
+LHS:
+decompile:
+module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:981, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+|vpiParent:
+\_design: (work@anon_struct_packed_dim), id:849
+|vpiName:work@anon_struct_packed_dim
+=== default port_chained_type_param rc=0 lines=0 heads=0
+=== default type_param_override_elem_sel rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.u.rt_i), id:215, line:20:18, endln:20:22
+|vpiParent:
+\_module_inst: work@child (work@dut.u), id:265, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_override_elem_sel/dut.sv, line:32:3, endln:36:5
+|vpiTypespec:
+=== default type_param_packed_dim rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.rt_i), id:165, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:189, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+=== default type_param_unpacked_port rc=255 lines=208 heads=1
+LHS:
+decompile:
+array_typespec: , id:332, line:42:12, endln:42:32
+|vpiParent:
+\_port: (in_i), id:326, line:42:19, endln:42:23
+|vpiArrayType:1
+=== testflags anon_struct_packed_dim rc=255 lines=12216 heads=1
+LHS:
+decompile:
+module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:896, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+|vpiParent:
+\_design: (work@anon_struct_packed_dim), id:765
+|vpiName:work@anon_struct_packed_dim
+=== testflags port_chained_type_param rc=0 lines=0 heads=0
+=== testflags type_param_override_elem_sel rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.u.rt_i), id:131, line:20:18, endln:20:22
+|vpiParent:
+\_module_inst: work@child (work@dut.u), id:180, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_override_elem_sel/dut.sv, line:32:3, endln:36:5
+|vpiTypespec:
+=== testflags type_param_packed_dim rc=255 lines=60 heads=1
+LHS:
+decompile:
+packed_array_var: (work@dut.rt_i), id:81, line:8:22, endln:8:26
+|vpiParent:
+\_module_inst: work@dut (work@dut), id:104, file:/home/heyfey/git-repos/uhdm2rtlil/test/type_param_packed_dim/dut.sv, line:1:1, endln:12:10
+|vpiTypespec:
+=== testflags type_param_unpacked_port rc=255 lines=208 heads=1
+LHS:
+decompile:
+array_typespec: , id:247, line:42:12, endln:42:32
+|vpiParent:
+\_port: (in_i), id:241, line:42:19, endln:42:23
+|vpiArrayType:1
+## whole-dump distance
+default anon_struct_packed_dim ordered 914 -> 376 sorted 860 -> 316
+default port_chained_type_param ordered 109 -> 134 sorted 51 -> 132
+default type_param_unpacked_port ordered 255 -> 255 sorted 231 -> 231
+default type_param_override_elem_sel ordered 187 -> 200 sorted 127 -> 114
+default type_param_packed_dim ordered 197 -> 197 sorted 115 -> 115
+testflags anon_struct_packed_dim ordered 914 -> 376 sorted 860 -> 316
+testflags port_chained_type_param ordered 55 -> 134 sorted 51 -> 132
+testflags type_param_unpacked_port ordered 255 -> 255 sorted 231 -> 231
+testflags type_param_override_elem_sel ordered 187 -> 200 sorted 127 -> 114
+testflags type_param_packed_dim ordered 143 -> 143 sorted 115 -> 115

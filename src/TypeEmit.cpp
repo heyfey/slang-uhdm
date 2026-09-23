@@ -3723,11 +3723,112 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // net still carries its packed element ranges on the element typespec).
     const Type* packedLeaf =
         unpackedLeaf0(declared ? &declared->getType().getCanonicalType() : nullptr);
+    // § anonPackedAggDimTs107 — AN ANONYMOUS PACKED STRUCT/UNION WRITTEN WITH
+    // OUTER PACKED DIMENSIONS IS A packed_array_typespec OVER THE AGGREGATE,
+    // NOT A logic_typespec.
+    //
+    // Producer: `CompileHelper::compileTypespec` (Surelog
+    // `src/DesignCompile/CompileType.cpp:1273-1296`) skips EVERY
+    // `Struct_union_member` sibling before looking for the
+    // `Packed_dimension`, compiles the ranges (the declaration's own reduce
+    // rule, the same one a vector's ranges take), and the `paStruct_union`
+    // arm (:1639-1689) then builds
+    //
+    //   packed_array_typespec   <- populateCoreMembers(type, last): the
+    //   |                          `struct` keyword .. the `packed` keyword
+    //   |vpiRange (one per written dimension, located at the dimension)
+    //   |vpiElemTypespec -> ref_typespec (unnamed) -> struct_typespec /
+    //                       union_typespec at the bare keyword
+    //
+    // and compiles the members AFTER `result` became the array, so every
+    // typespec_member's vpiParent is the ARRAY (:1690-1716, measured: grid
+    // a01 `typespec_member (a)` parent `packed_array_typespec`).
+    //
+    // The gates, each measured on tools/probe/r11u107repro grid a01-a15:
+    //   * the written type IS the StructUnionTypeSyntax (a typedef name with
+    //     dims is a different producer arm), `packed`, dims present;
+    //   * NOT `signed`: the Signing token sits between the keyword and the
+    //     members in the grammar, the Packed_dimension search stops at it and
+    //     golden drops the dims entirely (a10: a bare struct_typespec) — left
+    //     on the fallback it has always had;
+    //   * NO unpacked dimension on the declaration (never measured);
+    //   * the element is exactly one packed struct/union.
+    // `R11U107_ANONAGG_OFF=1` drops the law.
+    auto anonAggDim107 = [&](const syntax::SyntaxNode* tsyn107,
+                             const DeclaredType* dt107) -> bool {
+        static const bool off107 = getenv("R11U107_OFF") != nullptr ||
+                                   getenv("R11U107_ANONAGG_OFF") != nullptr;
+        if (off107 || !tsyn107 || !dt107)
+            return false;
+        auto* su107 = tsyn107->as_if<syntax::StructUnionTypeSyntax>();
+        if (!su107 || !su107->packed || su107->signing ||
+            su107->dimensions.empty())
+            return false;
+        const Type* t107 = &dt107->getType().getCanonicalType();
+        if (t107->kind != SymbolKind::PackedArrayType)
+            return false;
+        while (t107->kind == SymbolKind::PackedArrayType)
+            t107 = &t107->as<PackedArrayType>().elementType.getCanonicalType();
+        return t107->kind == SymbolKind::PackedStructType ||
+               t107->kind == SymbolKind::PackedUnionType;
+    };
+    auto wrapAnonAggDim107 = [&](const syntax::StructUnionTypeSyntax& su107,
+                                 const DeclaredType& dt107,
+                                 UHDM::typespec* lts107,
+                                 UHDM::VectorOfrange* rv107) -> UHDM::typespec* {
+        const Type* t107 = &dt107.getType().getCanonicalType();
+        while (t107->kind == SymbolKind::PackedArrayType)
+            t107 = &t107->as<PackedArrayType>().elementType.getCanonicalType();
+        auto* pat107 = s.MakePacked_array_typespec();
+        SourceLocation e107 = su107.keyword.range().end();
+        if (su107.packed && su107.packed.range().end() > e107)
+            e107 = su107.packed.range().end();
+        setLoc(pat107, SourceRange(su107.keyword.range().start(), e107));
+        UHDM::typespec* agg107 = nullptr;
+        UHDM::VectorOftypespec_member* mem107 = nullptr;
+        if (t107->kind == SymbolKind::PackedStructType) {
+            auto* st107 = buildStructTs(t107->as<PackedStructType>(), true, "");
+            mem107 = st107->Members();
+            agg107 = st107;
+        }
+        else {
+            auto* ut107 = buildUnionTs(t107->as<PackedUnionType>(), true, "");
+            mem107 = ut107->Members();
+            agg107 = ut107;
+        }
+        setLoc(agg107, su107.keyword.range());
+        if (mem107)
+            for (auto* m107 : *mem107)
+                m107->VpiParent(pat107);
+        if (rv107) {
+            for (auto* r107 : *rv107)
+                r107->VpiParent(pat107);
+            pat107->Ranges(rv107);
+        }
+        auto* er107 = s.MakeRef_typespec();
+        er107->VpiParent(pat107);
+        er107->Actual_typespec(agg107);
+        pat107->Elem_typespec(er107);
+        // The fallback's logic_typespec carried only the span and the
+        // ranges; nothing else reaches it.  Erase it so it does not survive
+        // as a stray unreferenced object in the database.
+        s.Erase(lts107);
+        return pat107;
+    };
+    const syntax::StructUnionTypeSyntax* anonAgg107 = nullptr;
     if (packedLeaf && packedLeaf->isPackedArray()) {
         auto tsyn = typeSynFor();
         const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
         if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind)) {
             dimSyns = &tsyn->as<syntax::IntegerTypeSyntax>().dimensions;
+        }
+        // § anonPackedAggDimTs107 — the anonymous packed aggregate's own
+        // outer dimensions (`struct packed {..} [1:0] x`) hang off the
+        // StructUnionTypeSyntax; admit them here so the SAME bound builder
+        // the vector arm uses folds them, and wrap below (law at the wrap).
+        else if (tsyn && anonAggDim107(tsyn, declared)) {
+            dimSyns = &tsyn->as<syntax::StructUnionTypeSyntax>().dimensions;
+            anonAgg107 = &tsyn->as<syntax::StructUnionTypeSyntax>();
         }
         else if (tsyn && tsyn->kind == syntax::SyntaxKind::ImplicitType) {
             auto& its = tsyn->as<syntax::ImplicitTypeSyntax>();
@@ -5824,6 +5925,9 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     r->Right_expr(emitBound(rsyn, dims[i].right));
                     ranges->push_back(r);
                 }
+                // § anonPackedAggDimTs107 — the ranges move to the wrapper.
+                if (anonAgg107)
+                    return wrapAnonAggDim107(*anonAgg107, *declared, ts0, ranges);
                 ts->Ranges(ranges);
             }
             else {
@@ -6462,6 +6566,110 @@ UHDM::typespec* UhdmExporter::makeTypeParamDefaultTs(
     // `tpBound20` rule the keyword arm below uses applies here unchanged.
     if (auto* pat31 = namedElemPackedDimTs31(defSyn, dt, body, false))
         return pat31;
+    // § typeParamAnonAggDefault107 — AN ANONYMOUS PACKED STRUCT/UNION WRITTEN
+    // AS THE DEFAULT IS ITS OWN struct_typespec / union_typespec, NOT THE
+    // logic_typespec FALLBACK.
+    //
+    // `CompileHelper::compileParameterDeclaration`'s `paTYPE` arm (Surelog
+    // `src/DesignCompile/CompileHelper.cpp:3508-3510`) hands the default's
+    // `Data_type` to `compileTypespec` with `Reduce::No` — the SAME
+    // `paStruct_union` arm a declaration takes (CompileType.cpp:1639-1716):
+    // the aggregate at the bare `struct`/`union` keyword, its members compiled
+    // under it, and, when outer packed dimensions follow the closing brace,
+    // the `packed_array_typespec` wrapper spanning keyword..`packed` whose
+    // members are parented at the ARRAY (§ anonPackedAggDimTs107).  The
+    // bounds are this declaration default's, so § typeParamDefaultBoundNoReduce20
+    // governs them exactly as for the keyword arm below.  Every port typed
+    // with the parameter shares this object through `typeParamDefaultTs`
+    // (golden port_chained_type_param: `work@dut.in_i` / `out_o` and the
+    // chained `req_t` all point at the one struct_typespec 2:32).
+    //
+    // Gates, each measured on grid t01-t15: PACKED only (an unpacked default,
+    // t08, is minted per use by the producer — a different shape); a `signed`
+    // default with dimensions is left alone (the Signing token stops the
+    // dimension search, § anonPackedAggDimTs107); an ENUM default (t07) is
+    // not touched.  `R11U107_TPAGG_OFF=1` drops the law.
+    auto typeParamAnonAggTs107 = [&]() -> UHDM::typespec* {
+        static const bool off107 = getenv("R11U107_OFF") != nullptr ||
+                                   getenv("R11U107_TPAGG_OFF") != nullptr;
+        if (off107)
+            return nullptr;
+        auto* su107 = defSyn.as_if<syntax::StructUnionTypeSyntax>();
+        if (!su107 || !su107->packed)
+            return nullptr;
+        if (su107->signing && !su107->dimensions.empty())
+            return nullptr;
+        const Type* leaf107 = &ct;
+        std::vector<ConstantRange> dims107;
+        while (leaf107->kind == SymbolKind::PackedArrayType) {
+            dims107.push_back(leaf107->as<PackedArrayType>().range);
+            leaf107 = &leaf107->as<PackedArrayType>().elementType.getCanonicalType();
+        }
+        if (dims107.size() != su107->dimensions.size())
+            return nullptr;
+        if (leaf107->kind != SymbolKind::PackedStructType &&
+            leaf107->kind != SymbolKind::PackedUnionType)
+            return nullptr;
+        // The dimension syntax must be plain `[l:r]` ranges.
+        for (auto* d107 : su107->dimensions)
+            if (!d107->specifier ||
+                d107->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier ||
+                d107->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                        .selector->kind != syntax::SyntaxKind::SimpleRangeSelect)
+                return nullptr;
+        UHDM::typespec* agg107 = nullptr;
+        UHDM::VectorOftypespec_member* mem107 = nullptr;
+        if (leaf107->kind == SymbolKind::PackedStructType) {
+            auto* st107 = buildStructTs(leaf107->as<PackedStructType>(), true, "");
+            mem107 = st107->Members();
+            agg107 = st107;
+        }
+        else {
+            auto* ut107 = buildUnionTs(leaf107->as<PackedUnionType>(), true, "");
+            mem107 = ut107->Members();
+            agg107 = ut107;
+        }
+        setLoc(agg107, su107->keyword.range());
+        if (dims107.empty())
+            return agg107;
+        auto* pat107 = s.MakePacked_array_typespec();
+        SourceLocation e107 = su107->keyword.range().end();
+        if (su107->packed.range().end() > e107)
+            e107 = su107->packed.range().end();
+        setLoc(pat107, SourceRange(su107->keyword.range().start(), e107));
+        if (mem107)
+            for (auto* m107 : *mem107)
+                m107->VpiParent(pat107);
+        auto* rv107 = s.MakeRangeVec();
+        for (size_t i = 0; i < dims107.size(); i++) {
+            auto* dsyn107 = su107->dimensions[i];
+            auto& sel107 = dsyn107->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                               .selector->as<syntax::RangeSelectSyntax>();
+            auto* r107 = s.MakeRange();
+            r107->VpiParent(pat107);
+            setLoc(r107, dsyn107->sourceRange());
+            // § typeParamDefaultBoundNoReduce20 — Reduce::No: a literal is a
+            // constant, anything else keeps its compiled tree.
+            auto bnd107 = [&](const syntax::ExpressionSyntax* b107,
+                              int64_t v107) -> UHDM::expr* {
+                if (b107 && b107->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+                    if (auto* e107 = typeParamDefaultBound20(b107, r107, &body))
+                        return e107;
+                return makeBoundConst(b107, v107, r107);
+            };
+            r107->Left_expr(bnd107(sel107.left, dims107[i].left));
+            r107->Right_expr(bnd107(sel107.right, dims107[i].right));
+            rv107->push_back(r107);
+        }
+        pat107->Ranges(rv107);
+        auto* er107 = s.MakeRef_typespec();
+        er107->VpiParent(pat107);
+        er107->Actual_typespec(agg107);
+        pat107->Elem_typespec(er107);
+        return pat107;
+    };
+    if (auto* ta107 = typeParamAnonAggTs107())
+        return ta107;
     // Surelog's CompileType mints the DEFAULT type's own typespec CLASS —
     // `int`/`byte`/`integer`/`shortint`/`longint`/`bit`/`real`/`string` each
     // get theirs, only `logic`/`reg` (and packed vectors of them) land on

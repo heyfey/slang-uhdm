@@ -1,0 +1,458 @@
+== p01_multidecl
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:44
+-- law
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:7:10
+-- fixd
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:7:10
+== p02_nested_member_dim
+-- pris
+L: packed_array_typespec: , line:2:19, endln:2:32
+R: logic_typespec: , line:2:19, endln:2:60
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== p03_func_ret
+-- pris
+L: packed_array_typespec: , line:3:5, endln:3:18
+R: logic_typespec: , line:3:5, endln:3:46
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== p04_enum_member
+-- pris
+L: packed_array_typespec: , line:3:3, endln:3:16
+R: logic_typespec: , line:3:3, endln:3:42
+-- law
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:6:10
+-- fixd
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:6:10
+== p05_param_member_dim
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:54
+-- law
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:5:10
+-- fixd
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:5:10
+== p06_child_port_var
+-- pris
+L: RHS:
+R: ref_typespec: (work@child.x), id:46
+-- law
+L: RHS:
+R: ref_typespec: (work@child.x), id:58
+-- fixd
+L: RHS:
+R: ref_typespec: (work@child.x), id:58
+== p07_init
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:56
+R: logic_typespec: , line:2:3, endln:2:56
+-- law
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:4:10
+-- fixd
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:4:10
+== p08_task_auto
+-- pris
+L: packed_array_typespec: , line:4:5, endln:4:18
+R: logic_typespec: , line:4:5, endln:4:46
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== p09_gen_for
+-- pris
+L: named_begin: (work@dut.g), id:41
+R: named_begin: (work@dut.g), id:16
+-- law
+L: named_begin: (work@dut.g), id:41
+R: named_begin: (work@dut.g), id:16
+-- fixd
+L: named_begin: (work@dut.g), id:41
+R: named_begin: (work@dut.g), id:16
+== p10_union_of_struct
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:15
+R: logic_typespec: , line:2:3, endln:2:79
+-- law
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:5:10
+-- fixd
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:5:10
+== p11_pkg_var
+-- pris
+L: package: pk (pk::), line:1:1, endln:3:11
+R: <null>
+-- law
+L: package: pk (pk::), line:1:1, endln:3:11
+R: <null>
+-- fixd
+L: package: pk (pk::), line:1:1, endln:3:11
+R: <null>
+== p12_dim01
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:44
+-- law
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:5:10
+-- fixd
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:5:10
+== p13_iface
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:44
+-- law
+L: RHS:
+R: interface_inst: work@ifc (work@dut.f), line:9:3, endln:9:11
+-- fixd
+L: RHS:
+R: interface_inst: work@ifc (work@dut.f), line:9:3, endln:9:11
+== p14_unsigned_kw
+-- pris
+L: struct_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:53
+-- law
+L: struct_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:53
+-- fixd
+L: struct_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:53
+== p15_output_reg_child
+-- pris
+L: packed_array_typespec: , line:1:42, endln:1:55
+R: logic_typespec: , line:1:42, endln:1:83
+-- law
+L: RHS:
+R: module_inst: work@child (work@dut.u), line:5:3, endln:5:25
+-- fixd
+L: RHS:
+R: module_inst: work@child (work@dut.u), line:5:3, endln:5:25
+== p16_localparam_val
+-- pris
+L: packed_array_typespec: , line:2:14, endln:2:27
+R: int_typespec: , line:2:14, endln:2:55
+-- law
+L: packed_array_typespec: , line:2:14, endln:2:27
+R: int_typespec: , line:2:14, endln:2:55
+-- fixd
+L: packed_array_typespec: , line:2:14, endln:2:27
+R: int_typespec: , line:2:14, endln:2:55
+== p17_bit_struct
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:16
+R: bit_typespec: , line:2:3, endln:2:40
+-- fixd
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:5:10
+== p18_func_arg
+-- pris
+L: packed_array_typespec: , line:2:42, endln:2:83
+R: logic_typespec: , line:2:42, endln:2:83
+-- fixd
+L:
+R:
+== p19_signed_member
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:57
+-- fixd
+L: RHS:
+R: module_inst: work@dut (work@dut), line:1:1, endln:5:10
+== p20_param_child_twice
+-- pris
+L: packed_array_typespec: , line:2:3, endln:2:16
+R: logic_typespec: , line:2:3, endln:2:46
+-- fixd
+L: RHS:
+R: module_inst: work@child (work@dut.u0), line:7:3, endln:7:45
+== q01_dim_valparam
+-- pris
+L: packed_array_typespec: , line:1:54, endln:1:67
+R: logic_typespec: , line:1:54, endln:1:97
+-- law
+L: packed_array_var: (work@dut.i), line:1:108, endln:1:109
+R: struct_var: (work@dut.i), line:1:108, endln:1:109
+-- fixd
+L: packed_array_var: (work@dut.i), line:1:108, endln:1:109
+R: struct_var: (work@dut.i), line:1:108, endln:1:109
+== q02_member_tparam
+-- pris
+L: struct_typespec: , line:1:65, endln:1:71
+R: logic_typespec: , line:1:65, endln:1:96
+-- law
+L: struct_typespec: , line:1:65, endln:1:71
+R: logic_typespec: , line:1:65, endln:1:96
+-- fixd
+L: struct_typespec: , line:1:65, endln:1:71
+R: logic_typespec: , line:1:65, endln:1:96
+== q03_ovr_and_def
+-- pris
+L: struct_typespec: , line:1:35, endln:1:41
+R: logic_typespec: , line:1:35, endln:1:76
+-- law
+L: RHS:
+R: module_inst: work@child (work@dut.u), line:5:3, endln:5:44
+-- fixd
+L: RHS:
+R: module_inst: work@child (work@dut.u), line:5:3, endln:5:44
+== q04_pkg_member
+-- pris
+L: struct_typespec: , line:2:33, endln:2:39
+R: logic_typespec: , line:2:33, endln:2:70
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== q05_union_dim
+-- pris
+L: packed_array_typespec: , line:1:33, endln:1:45
+R: logic_typespec: , line:1:33, endln:1:85
+-- law
+L: packed_array_var: (work@dut.i), line:1:96, endln:1:97
+R: logic_var: (work@dut.i), line:1:96, endln:1:97
+-- fixd
+L: packed_array_var: (work@dut.i), line:1:96, endln:1:97
+R: logic_var: (work@dut.i), line:1:96, endln:1:97
+== q06_two_dims
+-- pris
+L: packed_array_typespec: , line:1:33, endln:1:46
+R: logic_typespec: , line:1:33, endln:1:79
+-- law
+L: packed_array_var: (work@dut.i), line:1:90, endln:1:91
+R: struct_var: (work@dut.i), line:1:90, endln:1:91
+-- fixd
+L: packed_array_var: (work@dut.i), line:1:90, endln:1:91
+R: struct_var: (work@dut.i), line:1:90, endln:1:91
+== q07_bits_use
+-- pris
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:74
+-- law
+L: operation: , line:1:131, endln:1:134
+R: constant: , line:1:131, endln:1:132
+-- fixd
+L: operation: , line:1:131, endln:1:134
+R: constant: , line:1:131, endln:1:132
+== q08_class_tp
+-- pris
+L: struct_typespec: , line:2:22, endln:2:28
+R: logic_typespec: , line:3:5, endln:3:6
+-- law
+L: struct_typespec: , line:2:22, endln:2:28
+R: logic_typespec: , line:3:5, endln:3:6
+-- fixd
+L: struct_typespec: , line:2:22, endln:2:28
+R: logic_typespec: , line:3:5, endln:3:6
+== q09_two_tparams
+-- pris
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:68
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== q10_var_in_body
+-- pris
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:74
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== q11_member_access
+-- pris
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:74
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== q12_dim_one_ovr_child
+-- pris
+L: packed_array_typespec: , line:1:35, endln:1:48
+R: logic_typespec: , line:1:35, endln:1:76
+-- law
+L: packed_array_var: (work@dut.u.i), line:1:87, endln:1:88
+R: struct_var: (work@dut.u.i), line:1:87, endln:1:88
+-- fixd
+L: packed_array_var: (work@dut.u.i), line:1:87, endln:1:88
+R: struct_var: (work@dut.u.i), line:1:87, endln:1:88
+== q13_signed_nodim
+-- pris
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:75
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== q14_unsigned_dim
+-- pris
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:83
+-- law
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:83
+-- fixd
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:83
+== q15_chain3
+-- pris
+L: struct_typespec: , line:1:33, endln:1:39
+R: logic_typespec: , line:1:33, endln:1:68
+-- law
+L:
+R:
+-- fixd
+L:
+R:
+== r01_gen_first
+-- pris
+L: logic_typespec: , line:12:17, endln:12:28
+R: <null>
+-- law
+L: constant: , line:12:24, endln:12:25
+R: constant: , line:10:26, endln:10:27
+-- fixd
+L: logic_net: (work@child.rt_i), line:5:15, endln:5:19
+R: <null>
+== r02_gen_last
+-- pris
+L: logic_typespec: , line:11:19, endln:11:30
+R: <null>
+-- law
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+-- fixd
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+== r03_nested_first
+-- pris
+L: logic_typespec: , line:13:17, endln:13:28
+R: <null>
+-- law
+L: packed_array_var: (work@dut.m.u1.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.m.u1.rt_i), line:5:15, endln:5:19
+-- fixd
+L: packed_array_var: (work@dut.m.u1.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.m.u1.rt_i), line:5:15, endln:5:19
+== r04_nested_last
+-- pris
+L: logic_typespec: , line:9:17, endln:9:28
+R: <null>
+-- law
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+-- fixd
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+== r05_rt_ovr_samename
+-- pris
+L: logic_typespec: , line:10:17, endln:10:28
+R: <null>
+-- law
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+-- fixd
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+== r06_ovr_pkg_struct
+-- pris
+L: struct_typespec: (pk::s_t), line:1:21, endln:1:56
+R: logic_typespec: , line:3:31, endln:3:36
+-- law
+L: ref_typespec: (work@dut.u.rt_i), id:150
+R: <null>
+-- fixd
+L: ref_typespec: (work@dut.u.rt_i), id:150
+R: <null>
+== r07_inst_array
+-- pris
+L: logic_typespec: , line:9:17, endln:9:28
+R: <null>
+-- law
+L: packed_array_var: (work@dut.u[0].rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u[0].rt_i), line:5:15, endln:5:19
+-- fixd
+L: packed_array_var: (work@dut.u[0].rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u[0].rt_i), line:5:15, endln:5:19
+== r08_two_defs
+-- pris
+L: logic_typespec: , line:16:17, endln:16:28
+R: <null>
+-- law
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+-- fixd
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+== r09_gen_for
+-- pris
+L: logic_typespec: , line:12:17, endln:12:28
+R: <null>
+-- law
+L: constant: , line:12:24, endln:12:25
+R: constant: , line:10:26, endln:10:27
+-- fixd
+L: logic_net: (work@child.rt_i), line:5:15, endln:5:19
+R: <null>
+== r10_two_tops
+-- pris
+L: logic_typespec: , line:12:17, endln:12:28
+R: <null>
+-- law
+L: packed_array_var: (work@topb.u1.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@topb.u1.rt_i), line:5:15, endln:5:19
+-- fixd
+L: packed_array_var: (work@topb.u1.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@topb.u1.rt_i), line:5:15, endln:5:19
+== r11_nested_gen
+-- pris
+L: logic_typespec: , line:14:17, endln:14:28
+R: <null>
+-- law
+L: constant: , line:14:24, endln:14:25
+R: constant: , line:11:28, endln:11:29
+-- fixd
+L: logic_net: (work@child.rt_i), line:5:15, endln:5:19
+R: <null>
+== r12_gen_mid
+-- pris
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+-- law
+L: RHS:
+R: logic_typespec: , line:11:19, endln:11:30
+-- fixd
+L: packed_array_var: (work@dut.u0.rt_i), line:5:15, endln:5:19
+R: logic_var: (work@dut.u0.rt_i), line:5:15, endln:5:19

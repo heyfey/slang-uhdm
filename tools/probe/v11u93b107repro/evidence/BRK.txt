@@ -1,0 +1,48 @@
+# arm: cmp lines/heads per binary (pris b8e8c23a / law 2ceece03 / fixd = law + the v11u93 source-order walk); LHS golden, testflags-form golden
+p01_multidecl pris=64/1 law=455/1 fixd=455/1
+p02_nested_member_dim pris=74/1 law=0/0 fixd=0/0
+p03_func_ret pris=64/1 law=0/0 fixd=0/0
+p04_enum_member pris=64/1 law=343/1 fixd=343/1
+p05_param_member_dim pris=84/1 law=411/1 fixd=411/1
+p06_child_port_var pris=17/1 law=17/1 fixd=17/1
+p07_init pris=64/1 law=173/1 fixd=173/1
+p08_task_auto pris=64/1 law=0/0 fixd=0/0
+p09_gen_for pris=418/1 law=418/1 fixd=418/1
+p10_union_of_struct pris=64/1 law=267/1 fixd=267/1
+p11_pkg_var pris=47/1 law=47/1 fixd=47/1
+p12_dim01 pris=64/1 law=267/1 fixd=267/1
+p13_iface pris=64/1 law=79/1 fixd=79/1
+p14_unsigned_kw pris=82/1 law=82/1 fixd=82/1
+p15_output_reg_child pris=64/1 law=237/1 fixd=237/1
+p16_localparam_val pris=74/1 law=74/1 fixd=74/1
+p17_bit_struct pris=64/1 fixd=267/1
+p18_func_arg pris=64/1 fixd=0/0
+p19_signed_member pris=64/1 fixd=267/1
+p20_param_child_twice pris=84/1 fixd=427/1
+q01_dim_valparam pris=88/1 law=60/1 fixd=60/1
+q02_member_tparam pris=86/1 law=86/1 fixd=86/1
+q03_ovr_and_def pris=86/1 law=263/1 fixd=263/1
+q04_pkg_member pris=86/1 law=0/0 fixd=0/0
+q05_union_dim pris=68/1 law=60/1 fixd=60/1
+q06_two_dims pris=108/1 law=60/1 fixd=60/1
+q07_bits_use pris=90/1 law=78/1 fixd=78/1
+q08_class_tp pris=90/1 law=90/1 fixd=90/1
+q09_two_tparams pris=86/1 law=0/0 fixd=0/0
+q10_var_in_body pris=86/1 law=0/0 fixd=0/0
+q11_member_access pris=90/1 law=0/0 fixd=0/0
+q12_dim_one_ovr_child pris=68/1 law=60/1 fixd=60/1
+q13_signed_nodim pris=88/1 law=0/0 fixd=0/0
+q14_unsigned_dim pris=86/1 law=86/1 fixd=86/1
+q15_chain3 pris=86/1 law=0/0 fixd=0/0
+r01_gen_first pris=47/1 law=36/1 fixd=15/1
+r02_gen_last pris=47/1 law=60/1 fixd=60/1
+r03_nested_first pris=47/1 law=60/1 fixd=60/1
+r04_nested_last pris=47/1 law=60/1 fixd=60/1
+r05_rt_ovr_samename pris=47/1 law=60/1 fixd=60/1
+r06_ovr_pkg_struct pris=92/1 law=17/1 fixd=17/1
+r07_inst_array pris=47/1 law=60/1 fixd=60/1
+r08_two_defs pris=47/1 law=60/1 fixd=60/1
+r09_gen_for pris=47/1 law=36/1 fixd=15/1
+r10_two_tops pris=47/1 law=60/1 fixd=60/1
+r11_nested_gen pris=47/1 law=36/1 fixd=15/1
+r12_gen_mid pris=60/1 law=51/1 fixd=60/1

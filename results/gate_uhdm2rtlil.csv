@@ -616,7 +616,7 @@ pico_count_cycle,testflags,CMP_EQUAL,,,match
 pkg_localparam_partsel,testflags,CMP_EQUAL,,,differ
 pkg_nested_struct_param_width,testflags,CMP_EQUAL,,,differ
 PkgParamAsFunctionArg,testflags,CMP_EQUAL,,,match
-port_chained_type_param,testflags,CMP_NOTEQUAL,decompile:,,
+port_chained_type_param,testflags,CMP_EQUAL,,,differ
 port_int_types,testflags,CMP_EQUAL,,,match
 port_sign_extend,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
 portsel_struct_param,testflags,CMP_EQUAL,,,differ
