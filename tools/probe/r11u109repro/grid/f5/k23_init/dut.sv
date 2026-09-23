@@ -1,0 +1,4 @@
+module dut(input logic [3:0] i, output logic [3:0] o);
+  struct packed { logic a; logic b; } [1:0] x = '0;
+  assign o = x | i;
+endmodule

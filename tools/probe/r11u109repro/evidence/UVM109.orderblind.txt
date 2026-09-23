@@ -1,0 +1,6 @@
+default/MiniAmiq orderblind=4       2 |UINT       2 |vpiDecompile
+testflags/MiniAmiq orderblind=4       2 |UINT       2 |vpiDecompile
+default/SeqDriver orderblind=4       2 |UINT       2 |vpiDecompile
+testflags/SeqDriver orderblind=4       2 |UINT       2 |vpiDecompile
+default/SimpleUVM orderblind=4       2 |UINT       2 |vpiDecompile
+default/Scoreboard orderblind=0

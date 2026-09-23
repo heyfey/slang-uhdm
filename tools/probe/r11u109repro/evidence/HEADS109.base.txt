@@ -1,0 +1,442 @@
+==== base/sl/default/StructParamFieldRange-25c71671/
+LHS:
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiFullName:work@StructParamFieldRange
+  |vpiActual:
+  \_void_typespec: , id:412, line:27:28, endln:27:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:27:38, endln:27:39
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiFullName:work@StructParamFieldRange
+  |vpiActual:
+  \_void_typespec: , id:412, line:27:28, endln:27:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:27:38, endln:27:39
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+==== base/sl/default/StructParamFuncBodyFieldCompare-dc918b36/
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:874, line:47:24, endln:47:25
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:875, line:47:31, endln:47:43
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:686, line:30:23, endln:30:25
+      |vpiParent:
+==== base/sl/default/StructParamPatternInitCast-5f8c57d4/
+LHS: <null>
+RHS:
+decompile:
+constant: , id:42, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+
+decompile:
+constant: , id:42, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+==== base/sl/testflags/StructParamFieldRange-25c71671/
+LHS:
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiFullName:work@StructParamFieldRange
+  |vpiActual:
+  \_void_typespec: , id:412, line:27:28, endln:27:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:27:38, endln:27:39
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiFullName:work@StructParamFieldRange
+  |vpiActual:
+  \_void_typespec: , id:412, line:27:28, endln:27:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:27:38, endln:27:39
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+==== base/sl/testflags/StructParamFuncBodyFieldCompare-dc918b36/
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:874, line:47:24, endln:47:25
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:875, line:47:31, endln:47:43
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:686, line:30:23, endln:30:25
+      |vpiParent:
+==== base/sl/testflags/StructParamPatternInitCast-5f8c57d4/
+LHS: <null>
+RHS:
+decompile:
+constant: , id:42, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+
+decompile:
+constant: , id:42, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+==== base/u2r/default/anon_struct_packed_dim-3a682a50/
+LHS:
+decompile:
+module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:981, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+|vpiParent:
+\_design: (work@anon_struct_packed_dim), id:849
+|vpiName:work@anon_struct_packed_dim
+|vpiVariables:
+\_logic_var: (work@anon_struct_packed_dim.vvm), id:402, line:80:25, endln:80:28
+  |vpiParent:
+  \_module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:981, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+  |vpiTypespec:
+  \_ref_typespec: (work@anon_struct_packed_dim.vvm), id:403
+    |vpiParent:
+    \_logic_var: (work@anon_struct_packed_dim.vvm), id:402, line:80:25, endln:80:28
+    |vpiFullName:work@anon_struct_packed_dim.vvm
+    |vpiActual:
+    \_logic_typespec: , id:392, line:80:3, endln:80:24
+  |vpiName:vvm
+  |vpiFullName:work@anon_struct_packed_dim.vvm
+  |vpiVisibility:1
+|vpiDefName:work@anon_struct_packed_dim
+|vpiTop:1
+|vpiNet:
+\_logic_net: (work@anon_struct_packed_dim.din), id:275, line:26:23, endln:26:26
+  |vpiParent:
+  \_module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:981, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+  |vpiTypespec:
+  \_ref_typespec: (work@anon_struct_packed_dim.din), id:276
+    |vpiParent:
+    \_logic_net: (work@anon_struct_packed_dim.din), id:275, line:26:23, endln:26:26
+    |vpiFullName:work@anon_struct_packed_dim.din
+    |vpiActual:
+    \_logic_typespec: , id:271, line:26:10, endln:26:22
+  |vpiName:din
+  |vpiFullName:work@anon_struct_packed_dim.din
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@anon_struct_packed_dim.en), id:284, line:27:23, endln:27:25
+  |vpiParent:
+  \_module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:981, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+==== base/u2r/default/cva6_struct_param_field-80aba5af/
+LHS:
+decompile:
+operation: , id:410, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:466, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:411
+  |vpiParent:
+  \_operation: , id:410, line:29:28, endln:29:40
+  |vpiFullName:work@cva6_struct_param_field
+  |vpiActual:
+  \_void_typespec: , id:412, line:29:28, endln:29:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:29:38, endln:29:39
+  |vpiParent:
+  \_operation: , id:410, line:29:28, endln:29:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:410, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:466, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:411
+  |vpiParent:
+  \_operation: , id:410, line:29:28, endln:29:40
+  |vpiFullName:work@cva6_struct_param_field
+  |vpiActual:
+  \_void_typespec: , id:412, line:29:28, endln:29:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:29:38, endln:29:39
+  |vpiParent:
+  \_operation: , id:410, line:29:28, endln:29:40
+==== base/u2r/default/type_param_unpacked_port-f1f17800/
+LHS:
+decompile:
+array_typespec: , id:332, line:42:12, endln:42:32
+|vpiParent:
+\_port: (in_i), id:326, line:42:19, endln:42:23
+|vpiArrayType:1
+|vpiRange:
+\_range: , id:327, line:42:25, endln:42:32
+  |vpiParent:
+  \_array_typespec: , id:332, line:42:12, endln:42:32
+  |vpiLeftRange:
+  \_operation: , id:329, line:42:26, endln:42:29
+    |vpiParent:
+    \_range: , id:327, line:42:25, endln:42:32
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@dut.in_i.N), id:328, line:42:26, endln:42:27
+      |vpiParent:
+      \_operation: , id:329, line:42:26, endln:42:29
+      |vpiName:N
+      |vpiFullName:work@dut.in_i.N
+    |vpiOperand:
+    \_constant: , id:330, line:42:28, endln:42:29
+      |vpiParent:
+      \_operation: , id:329, line:42:26, endln:42:29
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:331, line:42:30, endln:42:31
+    |vpiParent:
+    \_range: , id:327, line:42:25, endln:42:32
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiElemTypespec:
+\_ref_typespec: (work@dut.in_i), id:334
+  |vpiParent:
+==== base/u2r/testflags/anon_struct_packed_dim-3a682a50/
+LHS:
+decompile:
+module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:896, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+|vpiParent:
+\_design: (work@anon_struct_packed_dim), id:765
+|vpiName:work@anon_struct_packed_dim
+|vpiVariables:
+\_logic_var: (work@anon_struct_packed_dim.vvm), id:318, line:80:25, endln:80:28
+  |vpiParent:
+  \_module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:896, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+  |vpiTypespec:
+  \_ref_typespec: (work@anon_struct_packed_dim.vvm), id:319
+    |vpiParent:
+    \_logic_var: (work@anon_struct_packed_dim.vvm), id:318, line:80:25, endln:80:28
+    |vpiFullName:work@anon_struct_packed_dim.vvm
+    |vpiActual:
+    \_logic_typespec: , id:308, line:80:3, endln:80:24
+  |vpiName:vvm
+  |vpiFullName:work@anon_struct_packed_dim.vvm
+  |vpiVisibility:1
+|vpiDefName:work@anon_struct_packed_dim
+|vpiTop:1
+|vpiNet:
+\_logic_net: (work@anon_struct_packed_dim.din), id:191, line:26:23, endln:26:26
+  |vpiParent:
+  \_module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:896, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+  |vpiTypespec:
+  \_ref_typespec: (work@anon_struct_packed_dim.din), id:192
+    |vpiParent:
+    \_logic_net: (work@anon_struct_packed_dim.din), id:191, line:26:23, endln:26:26
+    |vpiFullName:work@anon_struct_packed_dim.din
+    |vpiActual:
+    \_logic_typespec: , id:187, line:26:10, endln:26:22
+  |vpiName:din
+  |vpiFullName:work@anon_struct_packed_dim.din
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@anon_struct_packed_dim.en), id:200, line:27:23, endln:27:25
+  |vpiParent:
+  \_module_inst: work@anon_struct_packed_dim (work@anon_struct_packed_dim), id:896, file:/home/heyfey/git-repos/uhdm2rtlil/test/anon_struct_packed_dim/dut.sv, line:25:1, endln:87:10
+==== base/u2r/testflags/cva6_struct_param_field-80aba5af/
+LHS:
+decompile:
+operation: , id:326, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:382, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:327
+  |vpiParent:
+  \_operation: , id:326, line:29:28, endln:29:40
+  |vpiFullName:work@cva6_struct_param_field
+  |vpiActual:
+  \_void_typespec: , id:328, line:29:28, endln:29:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:329, line:29:38, endln:29:39
+  |vpiParent:
+  \_operation: , id:326, line:29:28, endln:29:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:326, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:382, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:327
+  |vpiParent:
+  \_operation: , id:326, line:29:28, endln:29:40
+  |vpiFullName:work@cva6_struct_param_field
+  |vpiActual:
+  \_void_typespec: , id:328, line:29:28, endln:29:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:329, line:29:38, endln:29:39
+  |vpiParent:
+  \_operation: , id:326, line:29:28, endln:29:40
+==== base/u2r/testflags/type_param_unpacked_port-f1f17800/
+LHS:
+decompile:
+array_typespec: , id:247, line:42:12, endln:42:32
+|vpiParent:
+\_port: (in_i), id:241, line:42:19, endln:42:23
+|vpiArrayType:1
+|vpiRange:
+\_range: , id:242, line:42:25, endln:42:32
+  |vpiParent:
+  \_array_typespec: , id:247, line:42:12, endln:42:32
+  |vpiLeftRange:
+  \_operation: , id:244, line:42:26, endln:42:29
+    |vpiParent:
+    \_range: , id:242, line:42:25, endln:42:32
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (work@dut.in_i.N), id:243, line:42:26, endln:42:27
+      |vpiParent:
+      \_operation: , id:244, line:42:26, endln:42:29
+      |vpiName:N
+      |vpiFullName:work@dut.in_i.N
+    |vpiOperand:
+    \_constant: , id:245, line:42:28, endln:42:29
+      |vpiParent:
+      \_operation: , id:244, line:42:26, endln:42:29
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:246, line:42:30, endln:42:31
+    |vpiParent:
+    \_range: , id:242, line:42:25, endln:42:32
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiElemTypespec:
+\_ref_typespec: (work@dut.in_i), id:249
+  |vpiParent:

@@ -17,7 +17,7 @@ AluOps,testflags,CMP_EQUAL,,,match
 always01,testflags,CMP_EQUAL,,,match
 always02,testflags,CMP_EQUAL,,,match
 always03,testflags,CMP_EQUAL,,,match
-anon_struct_packed_dim,testflags,CMP_NOTEQUAL,decompile:,,
+anon_struct_packed_dim,testflags,CMP_EQUAL,,,differ
 AnonStructs,testflags,CMP_EQUAL,,,match
 AnonymousEnum,testflags,CMP_EQUAL,,,match
 AnonymousUnion,testflags,CMP_EQUAL,,,match
@@ -163,7 +163,7 @@ counters_repeat,testflags,CMP_EQUAL,,,match
 CppMacroNameAsVariableName,testflags,CMP_EQUAL,,,match
 cs_registers,testflags,CMP_EQUAL,,,differ
 custom_map_incomp,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/custom_map_incomp/dut.sv:2:9: error: unknown module 'ALU',,
-cva6_struct_param_field,testflags,CMP_NOTEQUAL,decompile:,,
+cva6_struct_param_field,testflags,CMP_EQUAL,,,differ
 DeclarationInFor,testflags,CMP_EQUAL,,,match
 def_ctx_struct_param,testflags,CMP_EQUAL,,,differ
 defvalue,testflags,CMP_EQUAL,,,differ
@@ -792,7 +792,7 @@ ternary_not_cond,testflags,CMP_EQUAL,,,match
 top_module_type_param,testflags,CMP_EQUAL,,,differ
 type_param_override_elem_sel,testflags,CMP_NOTEQUAL,decompile:,,
 type_param_packed_dim,testflags,CMP_EQUAL,,,differ
-type_param_unpacked_port,testflags,CMP_NOTEQUAL,decompile:,,
+type_param_unpacked_port,testflags,CMP_EQUAL,,,differ
 typed_named_pattern,testflags,CMP_EQUAL,,,differ
 typedef_package,testflags,CMP_EQUAL,,,differ
 typedef_packed_enum_array,testflags,CMP_EQUAL,,,match

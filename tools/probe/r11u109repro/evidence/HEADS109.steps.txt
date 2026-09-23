@@ -1,0 +1,625 @@
+######## e2 — faces 4+5 (anon_struct_packed_dim next head)
+==== sl/default/StructParamFieldRange-25c71671/ lines=60
+LHS:
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiFullName:work@StructParamFieldRange
+  |vpiActual:
+  \_void_typespec: , id:412, line:27:28, endln:27:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:27:38, endln:27:39
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+==== sl/default/StructParamFuncBodyFieldCompare-dc918b36/ lines=164
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:874, line:47:24, endln:47:25
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiDecompile:1
+      |vpiSize:64
+==== sl/default/StructParamPatternInitCast-5f8c57d4/ lines=15
+LHS: <null>
+RHS:
+decompile:
+constant: , id:42, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+
+decompile:
+constant: , id:42, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+==== sl/testflags/StructParamFieldRange-25c71671/ lines=60
+LHS:
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiFullName:work@StructParamFieldRange
+  |vpiActual:
+  \_void_typespec: , id:412, line:27:28, endln:27:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:27:38, endln:27:39
+  |vpiParent:
+  \_operation: , id:410, line:27:28, endln:27:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:410, line:27:28, endln:27:40
+|vpiParent:
+\_operation: , id:466, line:27:23, endln:27:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@StructParamFieldRange), id:411
+==== sl/testflags/StructParamFuncBodyFieldCompare-dc918b36/ lines=164
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:874, line:47:24, endln:47:25
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiDecompile:1
+      |vpiSize:64
+==== sl/testflags/StructParamPatternInitCast-5f8c57d4/ lines=15
+LHS: <null>
+RHS:
+decompile:
+constant: , id:42, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+
+decompile:
+constant: , id:42, line:21:40, endln:21:46
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+==== u2r/default/anon_struct_packed_dim-3a682a50/ lines=200
+LHS:
+decompile:
+hier_path: (tq[gi].is_page[2 - gx][0:0]), id:435, line:75:34, endln:75:59
+|vpiParent:
+\_operation: , id:445, line:75:34, endln:75:70
+|vpiActual:
+\_bit_select: (tq[gi]), id:437, line:75:34, endln:75:36
+  |vpiParent:
+  \_hier_path: (tq[gi].is_page[2 - gx][0:0]), id:435, line:75:34, endln:75:59
+  |vpiName:tq
+  |vpiFullName:tq[gi]
+  |vpiIndex:
+  \_ref_obj: (work@anon_struct_packed_dim.g_i[0].g_x[1].gi), id:436, line:75:37, endln:75:39
+    |vpiParent:
+    \_hier_path: (tq[gi].is_page[2 - gx][0:0]), id:435, line:75:34, endln:75:59
+    |vpiName:gi
+    |vpiFullName:work@anon_struct_packed_dim.g_i[0].g_x[1].gi
+|vpiActual:
+\_var_select: (work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page), id:438, line:75:41, endln:75:59
+  |vpiParent:
+  \_hier_path: (tq[gi].is_page[2 - gx][0:0]), id:435, line:75:34, endln:75:59
+  |vpiName:is_page
+  |vpiFullName:work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page
+  |vpiIndex:
+  \_operation: , id:440, line:75:49, endln:75:53
+    |vpiParent:
+    \_var_select: (work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page), id:438, line:75:41, endln:75:59
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:439, line:75:49, endln:75:50
+==== u2r/default/cva6_struct_param_field-80aba5af/ lines=60
+LHS:
+decompile:
+operation: , id:410, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:466, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:411
+  |vpiParent:
+  \_operation: , id:410, line:29:28, endln:29:40
+  |vpiFullName:work@cva6_struct_param_field
+  |vpiActual:
+  \_void_typespec: , id:412, line:29:28, endln:29:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:413, line:29:38, endln:29:39
+  |vpiParent:
+  \_operation: , id:410, line:29:28, endln:29:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:410, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:466, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:411
+==== u2r/testflags/anon_struct_packed_dim-3a682a50/ lines=200
+LHS:
+decompile:
+hier_path: (tq[gi].is_page[2 - gx][0:0]), id:351, line:75:34, endln:75:59
+|vpiParent:
+\_operation: , id:361, line:75:34, endln:75:70
+|vpiActual:
+\_bit_select: (tq[gi]), id:353, line:75:34, endln:75:36
+  |vpiParent:
+  \_hier_path: (tq[gi].is_page[2 - gx][0:0]), id:351, line:75:34, endln:75:59
+  |vpiName:tq
+  |vpiFullName:tq[gi]
+  |vpiIndex:
+  \_ref_obj: (work@anon_struct_packed_dim.g_i[0].g_x[1].gi), id:352, line:75:37, endln:75:39
+    |vpiParent:
+    \_hier_path: (tq[gi].is_page[2 - gx][0:0]), id:351, line:75:34, endln:75:59
+    |vpiName:gi
+    |vpiFullName:work@anon_struct_packed_dim.g_i[0].g_x[1].gi
+|vpiActual:
+\_var_select: (work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page), id:354, line:75:41, endln:75:59
+  |vpiParent:
+  \_hier_path: (tq[gi].is_page[2 - gx][0:0]), id:351, line:75:34, endln:75:59
+  |vpiName:is_page
+  |vpiFullName:work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page
+  |vpiIndex:
+  \_operation: , id:356, line:75:49, endln:75:53
+    |vpiParent:
+    \_var_select: (work@anon_struct_packed_dim.g_i[0].g_x[1].tq[gi].is_page[2 - gx][0:0].is_page), id:354, line:75:41, endln:75:59
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:355, line:75:49, endln:75:50
+==== u2r/testflags/cva6_struct_param_field-80aba5af/ lines=60
+LHS:
+decompile:
+operation: , id:326, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:382, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:327
+  |vpiParent:
+  \_operation: , id:326, line:29:28, endln:29:40
+  |vpiFullName:work@cva6_struct_param_field
+  |vpiActual:
+  \_void_typespec: , id:328, line:29:28, endln:29:31
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:329, line:29:38, endln:29:39
+  |vpiParent:
+  \_operation: , id:326, line:29:28, endln:29:40
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:326, line:29:28, endln:29:40
+|vpiParent:
+\_operation: , id:382, line:29:23, endln:29:58
+|vpiSize:64
+|vpiTypespec:
+\_ref_typespec: (work@cva6_struct_param_field), id:327
+######## e5 — +face 1 case A, stamp type, pkg call flat (PatternInitCast next head)
+==== sl/default/StructParamFuncBodyFieldCompare-dc918b36/ lines=164
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:874, line:47:24, endln:47:25
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiDecompile:1
+      |vpiSize:64
+==== sl/default/StructParamPatternInitCast-5f8c57d4/ lines=32
+LHS:
+decompile:
+constant: , id:282, line:21:40, endln:21:46
+|vpiParent:
+\_operation: , id:276, line:21:32, endln:21:47
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+
+decompile:
+constant: , id:282, line:21:40, endln:21:46
+|vpiParent:
+\_operation: , id:276, line:21:32, endln:21:47
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+RHS:
+decompile:
+constant: , id:281, line:25:36, endln:25:72
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiConstType:9
+
+decompile:
+constant: , id:281, line:25:36, endln:25:72
+|vpiDecompile:64
+|vpiSize:64
+==== sl/testflags/StructParamFuncBodyFieldCompare-dc918b36/ lines=164
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:874, line:47:24, endln:47:25
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiDecompile:1
+      |vpiSize:64
+==== sl/testflags/StructParamPatternInitCast-5f8c57d4/ lines=32
+LHS:
+decompile:
+constant: , id:282, line:21:40, endln:21:46
+|vpiParent:
+\_operation: , id:276, line:21:32, endln:21:47
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+
+decompile:
+constant: , id:282, line:21:40, endln:21:46
+|vpiParent:
+\_operation: , id:276, line:21:32, endln:21:47
+|vpiDecompile:32'd64
+|vpiSize:32
+|DEC:64
+|vpiConstType:1
+RHS:
+decompile:
+constant: , id:281, line:25:36, endln:25:72
+|vpiDecompile:64
+|vpiSize:64
+|UINT:64
+|vpiConstType:9
+
+decompile:
+constant: , id:281, line:25:36, endln:25:72
+|vpiDecompile:64
+|vpiSize:64
+######## e6 — +flat element record (PatternInitCast next head)
+==== sl/default/StructParamFuncBodyFieldCompare-dc918b36/ lines=164
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:874, line:47:24, endln:47:25
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiDecompile:1
+      |vpiSize:64
+==== sl/default/StructParamPatternInitCast-5f8c57d4/ lines=120
+LHS:
+decompile:
+operation: , id:516, line:35:13, endln:35:60
+|vpiParent:
+\_operation: , id:557, line:34:25, endln:37:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:517, line:35:14, endln:35:44
+  |vpiParent:
+  \_operation: , id:516, line:35:13, endln:35:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_constant: , id:518, line:35:14, endln:35:26
+    |vpiParent:
+    \_operation: , id:517, line:35:14, endln:35:44
+    |vpiSize:1000000
+    |UINT:0
+    |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:519, line:35:31, endln:35:43
+    |vpiParent:
+    \_operation: , id:517, line:35:14, endln:35:44
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:688
+      |vpiDecompile:00000000000000000000000001000000
+      |vpiSize:32
+      |BIN:00000000000000000000000001000000
+      |vpiTypespec:
+==== sl/testflags/StructParamFuncBodyFieldCompare-dc918b36/ lines=164
+LHS:
+decompile:
+operation: , id:869, line:47:13, endln:47:60
+|vpiParent:
+\_operation: , id:969, line:46:25, endln:49:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:870, line:47:14, endln:47:44
+  |vpiParent:
+  \_operation: , id:869, line:47:13, endln:47:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_operation: , id:871, line:47:14, endln:47:26
+    |vpiParent:
+    \_operation: , id:870, line:47:14, endln:47:44
+    |vpiTypespec:
+    \_ref_typespec: (work@StructParamFuncBodyFieldCompare), id:872
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiFullName:work@StructParamFuncBodyFieldCompare
+      |vpiActual:
+      \_void_typespec: , id:873, line:47:14, endln:47:17
+    |vpiOpType:67
+    |vpiOperand:
+    \_constant: , id:874, line:47:24, endln:47:25
+      |vpiParent:
+      \_operation: , id:871, line:47:14, endln:47:26
+      |vpiDecompile:1
+      |vpiSize:64
+==== sl/testflags/StructParamPatternInitCast-5f8c57d4/ lines=120
+LHS:
+decompile:
+operation: , id:516, line:35:13, endln:35:60
+|vpiParent:
+\_operation: , id:557, line:34:25, endln:37:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:517, line:35:14, endln:35:44
+  |vpiParent:
+  \_operation: , id:516, line:35:13, endln:35:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_constant: , id:518, line:35:14, endln:35:26
+    |vpiParent:
+    \_operation: , id:517, line:35:14, endln:35:44
+    |vpiSize:1000000
+    |UINT:0
+    |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:519, line:35:31, endln:35:43
+    |vpiParent:
+    \_operation: , id:517, line:35:14, endln:35:44
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:688
+      |vpiDecompile:00000000000000000000000001000000
+      |vpiSize:32
+      |BIN:00000000000000000000000001000000
+      |vpiTypespec:
+######## e9 — +case B deferred (PatternInitCast next head)
+==== sl/default/StructParamPatternInitCast-5f8c57d4/ lines=202
+LHS:
+decompile:
+operation: , id:528, line:36:13, endln:36:60
+|vpiParent:
+\_operation: , id:557, line:34:25, endln:37:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:529, line:36:14, endln:36:44
+  |vpiParent:
+  \_operation: , id:528, line:36:13, endln:36:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_constant: , id:530, line:36:14, endln:36:26
+    |vpiParent:
+    \_operation: , id:529, line:36:14, endln:36:44
+    |vpiSize:1000000
+    |UINT:0
+    |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:531, line:36:31, endln:36:43
+    |vpiParent:
+    \_operation: , id:529, line:36:14, endln:36:44
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:697
+      |vpiDecompile:00000000000000000000000001000000
+      |vpiSize:32
+      |BIN:00000000000000000000000001000000
+      |vpiTypespec:
+==== sl/testflags/StructParamPatternInitCast-5f8c57d4/ lines=202
+LHS:
+decompile:
+operation: , id:528, line:36:13, endln:36:60
+|vpiParent:
+\_operation: , id:557, line:34:25, endln:37:4
+|vpiSize:64
+|vpiOpType:29
+|vpiOperand:
+\_operation: , id:529, line:36:14, endln:36:44
+  |vpiParent:
+  \_operation: , id:528, line:36:13, endln:36:60
+  |vpiOpType:22
+  |vpiOperand:
+  \_constant: , id:530, line:36:14, endln:36:26
+    |vpiParent:
+    \_operation: , id:529, line:36:14, endln:36:44
+    |vpiSize:1000000
+    |UINT:0
+    |vpiConstType:9
+  |vpiOperand:
+  \_operation: , id:531, line:36:31, endln:36:43
+    |vpiParent:
+    \_operation: , id:529, line:36:14, endln:36:44
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , id:697
+      |vpiDecompile:00000000000000000000000001000000
+      |vpiSize:32
+      |BIN:00000000000000000000000001000000
+      |vpiTypespec:
+######## e3 — +face 2 stamp-type gate only (StructParamPatternInitCast next head)
+==== sl/default/StructParamPatternInitCast-5f8c57d4/ lines=11
+LHS:
+decompile:
+ref_typespec: , id:275
+|vpiActual:
+\_struct_typespec: (cfg_pkg::user_cfg_t), id:3, line:16:41, endln:16:51
+
+decompile:
+ref_typespec: , id:275
+|vpiActual:
+\_struct_typespec: (cfg_pkg::user_cfg_t), id:3, line:16:41, endln:16:51
+RHS: <null>
+==== sl/testflags/StructParamPatternInitCast-5f8c57d4/ lines=11
+LHS:
+decompile:
+ref_typespec: , id:275
+|vpiActual:
+\_struct_typespec: (cfg_pkg::user_cfg_t), id:3, line:16:41, endln:16:51
+
+decompile:
+ref_typespec: , id:275
+|vpiActual:
+\_struct_typespec: (cfg_pkg::user_cfg_t), id:3, line:16:41, endln:16:51
+RHS: <null>
+######## e4 — +hier_path var_select law (anon_struct_packed_dim)
+==== u/default/anon_struct_packed_dim-3a682a50/ lines=0
+==== u/testflags/anon_struct_packed_dim-3a682a50/ lines=0
+######## e7 — +case B (StructParamFuncBodyFieldCompare)
+==== sl/default/StructParamFuncBodyFieldCompare-dc918b36/ lines=0
+==== sl/testflags/StructParamFuncBodyFieldCompare-dc918b36/ lines=0

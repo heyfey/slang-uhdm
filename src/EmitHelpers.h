@@ -12027,15 +12027,313 @@ inline const syntax::SyntaxNode* fieldMemberSyn106v(const FieldSymbol& f) {
     return nullptr;
 }
 
+/// § evalOpDigits109 (r11u109, face 3) — THE EVALUATOR'S OWN DIGITS FOR THE
+/// OPERATORS § evalIntOpOnly106v DECLINED.  `ExprEval::reduceExpr`
+/// (`~/git-repos/UHDM/templates/ExprEval.cpp`, v1.87) mints, for a reduced
+/// range bound:
+///   `vpiAddOp` / `vpiPlusOp` (:3260-3326) — `UINT` unless an operand's
+///     reduced constant is INT / STRING / REAL / DEC (then `INT`), at the
+///     WIDER operand's size;
+///   the shifts (:3149, :3236) and bitwise `&` / `|` (:3331-3366) — `UINT`
+///     size 64.
+/// Those are exactly § dimExprBoundFold79's operator table and
+/// § rangeBoundReduceEnc33's size model (the operand's own literal width, a
+/// parameter's STORED width), so the law asks `boundReduceEnc33` — published
+/// here as `boundEncHook109` by `emitInstance` — for the pair, on the bound's
+/// WRITTEN syntax, and declines whenever it abstains.  MEASURED on the
+/// verifier's committed grid (tools/probe/v11u94repro/grid b1..b8) and this
+/// pass's own arms (tools/probe/r11u109repro/grid/f3).
+/// § bitsAnonVecOne109 — and `$bits` of an ANONYMOUS vector type evaluates to
+/// ONE bit, so the written shape `$bits(<vector type>) - <literal>` (and the
+/// size form `[$bits(<vector type>)]`, whose right bound is the synthesized
+/// `$bits(..) - 1`) reduces to `INT:<1 - literal>` size 64 (golden `INT:0` on
+/// v11u94's `c03_bitsanon`, `c13_bitsint.y`, `v12_bitsanon`, `c02_bits`).
+/// Every other bound that reads such a `$bits` still declines.
+/// r11u109 — switches: every law reads its own kill switch; `R11U109_OFF=1`
+/// turns them all off (the binary then writes the pristine database).
+inline bool r11u109On(const char* one) {
+    static const bool all = getenv("R11U109_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+inline std::function<bool(const syntax::ExpressionSyntax&, const Scope*,
+                          int64_t, int32_t&, int32_t&)>
+    boundEncHook109;
+inline bool evalOpDigits109On() {
+    static const bool on = r11u109On("R11U109_OPDIGITS_OFF");
+    return on;
+}
+inline bool bitsAnonVecOne109On() {
+    static const bool on = r11u109On("R11U109_BITSONE_OFF");
+    return on;
+}
+/// `$bits(<logic|bit|reg vector type>)` as written.
+inline bool bitsAnonCall109(const syntax::ExpressionSyntax* e) {
+    while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!e || e->kind != syntax::SyntaxKind::InvocationExpression)
+        return false;
+    auto& inv = e->as<syntax::InvocationExpressionSyntax>();
+    if (inv.left->kind != syntax::SyntaxKind::SystemName ||
+        inv.left->as<syntax::SystemNameSyntax>().systemIdentifier.valueText() !=
+            "$bits" ||
+        !inv.arguments || inv.arguments->parameters.size() != 1)
+        return false;
+    return bitsAnonVecSyn106v(e);
+}
+/// `$bits(<vector type>) - <integer literal>` -> 1 - literal.
+inline bool bitsAnonMinusLit109(const syntax::ExpressionSyntax* e,
+                                 int64_t& v) {
+    while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!e || e->kind != syntax::SyntaxKind::SubtractExpression)
+        return false;
+    auto& be = e->as<syntax::BinaryExpressionSyntax>();
+    if (!bitsAnonCall109(be.left) ||
+        be.right->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+        return false;
+    auto lv = be.right->as<syntax::LiteralExpressionSyntax>()
+                  .literal.intValue()
+                  .as<int64_t>();
+    if (!lv)
+        return false;
+    v = 1 - *lv;
+    return true;
+}
+/// § evalOpDigits109's OVERRIDE FENCE — an ADD whose operands read a parameter
+/// OVERRIDDEN at this instance is refused unless one operand is an unsized
+/// decimal literal (then the size is 64 whatever the parameter stores):
+/// `boundReduceEnc33`'s stored-width model reads a bare-decimal override of
+/// an untyped parameter as 64 where golden stores 32 (grid f3 `u1` a08/a09:
+/// `UW + 8'd1` golden `INT:21` size 32).
+inline bool addOvRisk109(const syntax::ExpressionSyntax* e, const Scope* sc) {
+    while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!e || e->kind != syntax::SyntaxKind::AddExpression || !sc)
+        return false;
+    auto& be = e->as<syntax::BinaryExpressionSyntax>();
+    if (be.left->kind == syntax::SyntaxKind::IntegerLiteralExpression ||
+        be.right->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+        return false;
+    bool risk = false;
+    std::function<void(const syntax::SyntaxNode*)> walk =
+        [&](const syntax::SyntaxNode* n) {
+        if (!n || risk)
+            return;
+        if (n->kind == syntax::SyntaxKind::IdentifierName) {
+            auto nm = n->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            if (auto* sy = sc->lookupName(nm);
+                sy && sy->kind == SymbolKind::Parameter &&
+                sy->as<ParameterSymbol>().isOverridden())
+                risk = true;
+            return;
+        }
+        for (size_t i = 0, c = n->getChildCount(); i < c; ++i)
+            walk(n->childNode(i));
+    };
+    walk(e);
+    return risk;
+}
+/// § evalOpDigits109's LEAF TABLE for the operators whose answer depends on
+/// the operands (ADD) or that need every operand reducible (shift / bitwise):
+/// an unsized decimal is `UINT` 64; a based literal keeps its base's constant
+/// type at its written width (`'d` DEC, `'h` HEX, `'b` BIN, `'o` OCT; a
+/// signed literal declines); a STRUCT-PARAMETER MEMBER READ (`Cfg.W2`) is the
+/// member's own pattern setter literal (the evaluator slices the pattern's
+/// element: grid b2 `Cfg.B+1` -> `INT:5` from `B: 8'd4`, `Cfg.W2+1` ->
+/// `UINT:9` from `W2: 8`, s1 `Cfg.W2+1` -> `INT:9` from `W2: 32'd8`); every
+/// other operand asks `boundEncHook109` (names, nested operators).
+inline bool litEnc109(const syntax::ExpressionSyntax* e, int32_t& ct,
+                      int32_t& sz) {
+    if (!e)
+        return false;
+    if (e->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
+        ct = vpiUIntConst;
+        sz = 64;
+        return true;
+    }
+    if (e->kind != syntax::SyntaxKind::IntegerVectorExpression)
+        return false;
+    auto& iv = e->as<syntax::IntegerVectorExpressionSyntax>();
+    if (!iv.size.valid())
+        return false;
+    auto sv = iv.size.intValue().as<int32_t>();
+    std::string_view b = iv.base.rawText();
+    if (!sv || *sv <= 0 || *sv > 64 || b.size() != 2)
+        return false;
+    switch (b[1] | 0x20) {
+        case 'd': ct = vpiDecConst; break;
+        case 'h': ct = vpiHexConst; break;
+        case 'b': ct = vpiBinaryConst; break;
+        case 'o': ct = vpiOctConst; break;
+        default: return false;
+    }
+    sz = *sv;
+    return true;
+}
+inline bool memberReadEnc109(const syntax::ExpressionSyntax* e, const Scope* sc,
+                             int32_t& ct, int32_t& sz) {
+    if (!e || !sc || e->kind != syntax::SyntaxKind::ScopedName)
+        return false;
+    auto& sn = e->as<syntax::ScopedNameSyntax>();
+    if (sn.separator.kind != parsing::TokenKind::Dot ||
+        sn.left->kind != syntax::SyntaxKind::IdentifierName ||
+        sn.right->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    auto* sy = sc->lookupName(
+        sn.left->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    auto mn = sn.right->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    const Expression* x = nullptr;
+    for (int g = 0; g < 8 && sy && sy->kind == SymbolKind::Parameter; g++) {
+        auto* in = sy->as<ParameterSymbol>().getInitializer();
+        if (!in)
+            return false;
+        x = &stripImplicitConv(*in);
+        if (x->kind != ExpressionKind::NamedValue)
+            break;
+        sy = &x->as<NamedValueExpression>().symbol;
+        x = nullptr;
+    }
+    if (!x || x->kind != ExpressionKind::StructuredAssignmentPattern)
+        return false;
+    for (auto& ms : x->as<StructuredAssignmentPatternExpression>().memberSetters)
+        if (ms.member && ms.member->name == mn) {
+            auto& lit = stripImplicitConv(*ms.expr);
+            if (lit.kind != ExpressionKind::IntegerLiteral || !lit.syntax)
+                return false;
+            const syntax::SyntaxNode* ls = lit.syntax;
+            while (ls && ls->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                ls = ls->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            return ls && litEnc109((const syntax::ExpressionSyntax*)ls, ct, sz);
+        }
+    return false;
+}
+inline bool leafEnc109(const syntax::ExpressionSyntax* e, const Scope* sc,
+                       int32_t& ct, int32_t& sz) {
+    while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!e)
+        return false;
+    if (litEnc109(e, ct, sz) || memberReadEnc109(e, sc, ct, sz))
+        return true;
+    if (boundEncHook109 && boundEncHook109(*e, sc, 0, ct, sz))
+        return true;
+    // A nested operator over such leaves: the same operator table.
+    if (!syntax::BinaryExpressionSyntax::isKind(e->kind))
+        return false;
+    auto& be = e->as<syntax::BinaryExpressionSyntax>();
+    int32_t lc = 0, ls = 0, rc = 0, rs = 0;
+    if (!leafEnc109(be.left, sc, lc, ls) || !leafEnc109(be.right, sc, rc, rs))
+        return false;
+    switch (e->kind) {
+        case syntax::SyntaxKind::SubtractExpression:
+        case syntax::SyntaxKind::MultiplyExpression:
+        case syntax::SyntaxKind::DivideExpression:
+        case syntax::SyntaxKind::ModExpression:
+        case syntax::SyntaxKind::PowerExpression:
+            ct = vpiIntConst;
+            sz = 64;
+            return true;
+        case syntax::SyntaxKind::AddExpression: {
+            auto sg = [](int32_t c) {
+                return c == vpiIntConst || c == vpiStringConst ||
+                       c == vpiRealConst || c == vpiDecConst;
+            };
+            ct = (sg(lc) || sg(rc)) ? vpiIntConst : vpiUIntConst;
+            sz = ls > rs ? ls : rs;
+            return true;
+        }
+        case syntax::SyntaxKind::BinaryAndExpression:
+        case syntax::SyntaxKind::BinaryOrExpression:
+        case syntax::SyntaxKind::LogicalShiftLeftExpression:
+        case syntax::SyntaxKind::LogicalShiftRightExpression:
+        case syntax::SyntaxKind::ArithmeticShiftLeftExpression:
+        case syntax::SyntaxKind::ArithmeticShiftRightExpression:
+            ct = vpiUIntConst;
+            sz = 64;
+            return true;
+        default:
+            return false;
+    }
+}
+/// The whole-bound answer when the hook abstained (a member read somewhere).
+inline bool opEncFallback109(const syntax::ExpressionSyntax* e, const Scope* sc,
+                             int32_t ot, int64_t v, int32_t& ct, int32_t& sz) {
+    while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!e || !syntax::BinaryExpressionSyntax::isKind(e->kind))
+        return false;
+    auto& be = e->as<syntax::BinaryExpressionSyntax>();
+    int32_t lc = 0, ls = 0, rc = 0, rs = 0;
+    if (!leafEnc109(be.left, sc, lc, ls) || !leafEnc109(be.right, sc, rc, rs))
+        return false;
+    auto signedish = [](int32_t c) {
+        return c == vpiIntConst || c == vpiStringConst || c == vpiRealConst ||
+               c == vpiDecConst;
+    };
+    if (ot == vpiAddOp) {
+        ct = (signedish(lc) || signedish(rc)) ? vpiIntConst : vpiUIntConst;
+        sz = ls > rs ? ls : rs;
+    }
+    else {
+        ct = vpiUIntConst;
+        sz = 64;
+    }
+    return !(v < 0 && ct == vpiUIntConst);
+}
+/// The written bound of dimension `i` (outermost first), side 0 = left,
+/// 1 = right, of a `[l:r]` range dimension; null for any other form.
+inline const syntax::ExpressionSyntax*
+dimBoundSyn109(const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dims,
+               size_t i, int side) {
+    if (!dims || i >= dims->size())
+        return nullptr;
+    auto* sp = (*dims)[i]->specifier;
+    if (!sp || sp->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+        return nullptr;
+    const syntax::SelectorSyntax* sel =
+        sp->as<syntax::RangeDimensionSpecifierSyntax>().selector.get();
+    if (!sel || sel->kind != syntax::SyntaxKind::SimpleRangeSelect)
+        return nullptr;
+    auto& rs = sel->as<syntax::RangeSelectSyntax>();
+    return side ? rs.right : rs.left;
+}
+
 inline UHDM::expr* spOpTsBound106(UHDM::Serializer& s, UHDM::expr* b,
-                                  int32_t v) {
+                                  int32_t v,
+                                  const syntax::ExpressionSyntax* bs = nullptr,
+                                  const Scope* sc = nullptr,
+                                  bool bitsAnon = false) {
     if (!b)
         return nullptr;
     bool isInt = false;
+    int32_t size109 = 64;
     if (b->UhdmType() == UHDM::uhdmoperation && spOpTsFoldOp106) {
-        if (!evalIntOp106v(b))
-            return nullptr;
-        isInt = true;
+        // § bitsAnonVecOne109 — the ONLY bound of a `$bits`-of-a-vector-type
+        // member this law answers: `$bits(<vector>) - <literal>`.
+        if (bitsAnon) {
+            int64_t bv = 0;
+            if (!bitsAnonVecOne109On() || !bitsAnonMinusLit109(bs, bv))
+                return nullptr;
+            v = (int32_t)bv;
+            isInt = true;
+        }
+        else if (!evalIntOp106v(b)) {
+            // § evalOpDigits109 — the add / shift / bitwise digits.
+            int32_t ot = ((const UHDM::operation*)b)->VpiOpType();
+            int32_t ct = 0, sz = 0;
+            if (!evalOpDigits109On() || !bs || !sc || !boundEncHook109 ||
+                !(ot == vpiAddOp || ot == vpiLShiftOp || ot == vpiRShiftOp ||
+                  ot == vpiArithLShiftOp || ot == vpiArithRShiftOp ||
+                  ot == vpiBitAndOp || ot == vpiBitOrOp) ||
+                (ot == vpiAddOp && addOvRisk109(bs, sc)) ||
+                !(boundEncHook109(*bs, sc, v, ct, sz) ||
+                  opEncFallback109(bs, sc, ot, v, ct, sz)))
+                return nullptr;
+            isInt = ct == vpiIntConst;
+            size109 = sz;
+        }
+        else
+            isInt = true;
     }
     else if (b->UhdmType() == UHDM::uhdmsys_func_call && spOpTsFoldClog2106 &&
              b->VpiName() == "$clog2" && v >= 0)
@@ -12045,14 +12343,16 @@ inline UHDM::expr* spOpTsBound106(UHDM::Serializer& s, UHDM::expr* b,
     auto* c = s.MakeConstant();
     std::string d = std::to_string(v);
     c->VpiDecompile(d);
-    c->VpiSize(64);
+    c->VpiSize(size109);
     c->VpiValue((isInt ? "INT:" : "UINT:") + d);
     c->VpiConstType(isInt ? vpiIntConst : vpiUIntConst);
     return c;
 }
 
 inline void spOpTsFold106(UHDM::Serializer& s, UHDM::typespec* ts,
-                          const Type& ty, int depth = 0) {
+                          const Type& ty, int depth = 0,
+                          const syntax::SyntaxNode* memSyn = nullptr,
+                          const Scope* sc = nullptr, bool bitsAnon = false) {
     if (!ts || depth > 16)
         return;
     const Type& ct = ty.getCanonicalType();
@@ -12073,9 +12373,11 @@ inline void spOpTsFold106(UHDM::Serializer& s, UHDM::typespec* ts,
                 auto* a = rt ? rt->Actual_typespec() : nullptr;
                 if (!a || a->VpiParent() != rt)
                     continue;
-                if (bitsAnonVecSyn106v(fieldMemberSyn106v(*fs[i])))
+                bool ba109 = bitsAnonVecSyn106v(fieldMemberSyn106v(*fs[i]));
+                if (ba109 && !bitsAnonVecOne109On())
                     continue;
-                spOpTsFold106(s, a, fs[i]->getType(), depth + 1);
+                spOpTsFold106(s, a, fs[i]->getType(), depth + 1,
+                              fieldMemberSyn106v(*fs[i]), sc, ba109);
             }
             return;
         }
@@ -12086,17 +12388,34 @@ inline void spOpTsFold106(UHDM::Serializer& s, UHDM::typespec* ts,
                            : ((UHDM::packed_array_typespec*)ts)->Ranges();
             if (!rs)
                 return;
+            // The member's WRITTEN dimensions (a vector member's own type
+            // syntax), for § evalOpDigits109 / § bitsAnonVecOne109.
+            const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dims109 =
+                nullptr;
+            if (memSyn && memSyn->kind == syntax::SyntaxKind::StructUnionMember) {
+                auto* mt = memSyn->as<syntax::StructUnionMemberSyntax>().type.get();
+                if (mt && (mt->kind == syntax::SyntaxKind::LogicType ||
+                           mt->kind == syntax::SyntaxKind::BitType ||
+                           mt->kind == syntax::SyntaxKind::RegType))
+                    dims109 = &mt->as<syntax::IntegerTypeSyntax>().dimensions;
+            }
             const Type* cur = &ct;
+            size_t ri109 = 0;
             for (auto* r : *rs) {
                 const Type& cc = cur->getCanonicalType();
                 if (cc.kind != SymbolKind::PackedArrayType)
                     return;
                 auto& pa = cc.as<PackedArrayType>();
-                if (auto* nl = spOpTsBound106(s, r->Left_expr(), pa.range.left))
+                if (auto* nl = spOpTsBound106(s, r->Left_expr(), pa.range.left,
+                                              dimBoundSyn109(dims109, ri109, 0),
+                                              sc, bitsAnon))
                     r->Left_expr(nl);
-                if (auto* nr = spOpTsBound106(s, r->Right_expr(), pa.range.right))
+                if (auto* nr = spOpTsBound106(s, r->Right_expr(), pa.range.right,
+                                              dimBoundSyn109(dims109, ri109, 1),
+                                              sc, bitsAnon))
                     r->Right_expr(nr);
                 cur = &pa.elementType;
+                ri109++;
             }
             return;
         }
@@ -12141,7 +12460,7 @@ inline void spOpTsFoldAt106(UHDM::Serializer& s, UHDM::ref_typespec* rhsRt,
     int ot = ((const UHDM::operation*)op)->VpiOpType();
     if (ot != vpiAssignmentPatternOp && ot != vpiMultiAssignmentPatternOp)
         return;
-    spOpTsFold106(s, opClone, ty);
+    spOpTsFold106(s, opClone, ty, 0, nullptr, ps.getParentScope());
 }
 
 /// § typedefArrayVarElabFold106 (r11u106) — AN ELABORATED VARIABLE DECLARED
@@ -12196,8 +12515,28 @@ inline void utdVarFold106(UHDM::Serializer& s, UHDM::array_typespec* cp,
                           const TypeAliasType& ta) {
     if (!cp || !cp->Ranges() || !utdVarFoldOp106 || !utdVarElemIsLogic106(ta))
         return;
-    if (bitsAnonVecSyn106v(ta.getSyntax()))
-        return;
+    // § bitsAnonVecOne109 — the size form `[$bits(<vector type>)]` is
+    // `[0 : $bits(..) - 1]` and its right bound reduces to INT:0; any other
+    // `$bits`-of-a-vector dimension still declines the whole typedef.
+    const syntax::SyntaxList<syntax::VariableDimensionSyntax>* udims109 =
+        nullptr;
+    if (auto* tsyn = ta.getSyntax();
+        tsyn && tsyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+        udims109 = &tsyn->as<syntax::TypedefDeclarationSyntax>().dimensions;
+    bool bitsOne109 = false;
+    if (bitsAnonVecSyn106v(ta.getSyntax())) {
+        if (!bitsAnonVecOne109On() || !udims109 || udims109->size() != 1)
+            return;
+        auto* sp = (*udims109)[0]->specifier;
+        if (!sp || sp->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+            return;
+        const syntax::SelectorSyntax* sel =
+            sp->as<syntax::RangeDimensionSpecifierSyntax>().selector.get();
+        if (!sel || sel->kind != syntax::SyntaxKind::BitSelect ||
+            !bitsAnonCall109(sel->as<syntax::BitSelectSyntax>().expr))
+            return;
+        bitsOne109 = true;
+    }
     const Type* cur = &ta;
     for (auto* r : *cp->Ranges()) {
         const Type& cc = cur->getCanonicalType();
@@ -12210,6 +12549,11 @@ inline void utdVarFold106(UHDM::Serializer& s, UHDM::array_typespec* cp,
                 !evalIntOp106v(b))
                 continue;
             int32_t v = side ? ua.range.right : ua.range.left;
+            if (bitsOne109) {
+                if (!side)
+                    continue;
+                v = 0;
+            }
             auto* c = s.MakeConstant();
             std::string d = std::to_string(v);
             c->VpiDecompile(d);
@@ -12223,6 +12567,314 @@ inline void utdVarFold106(UHDM::Serializer& s, UHDM::array_typespec* cp,
         }
         cur = &ua.elementType;
     }
+}
+
+/// ---------------------------------------------------------------------------
+/// r11u109 — switches.  Every law of this pass reads its own kill switch;
+/// `R11U109_OFF=1` turns them all off (the binary then writes the pristine
+/// database byte for byte — the drop gate).
+
+/// § tpUnpPortKeepsWrapper109 (r11u109, face 4) — THE DEF PORT OF AN UNPACKED
+/// TYPE-PARAMETER PORT KEEPS ITS ARRAY WRAPPER.
+///
+/// THE PRODUCER (measured, golden v1.87).  A port written `input T p [N-1:0]`
+/// (`T` a `parameter type`) carries, in the DEFINITION listing, an
+/// `array_typespec` (`vpiArrayType 1`, one range per unpacked dimension,
+/// bounds UNREDUCED — `N-1` stays an operation over a port-scoped ref_obj)
+/// whose ELEMENT ref points at the type parameter's default object; the
+/// default is never the port typespec itself.  Same shape for a package
+/// struct default, a chained default (`resp_t = base_resp_t`), a literal
+/// range `[1:0]` and a `logic [7:0]` default (r11u107repro/grid u01-u05).
+///
+/// OUR SIDE.  `ModuleEmit`'s top-module port writer builds exactly that
+/// wrapper for the def port (`defPts = ats`) and then the type-parameter
+/// share (`defPts = <default ts>`) overwrote it for every such port — the
+/// child def view (emitPorts) already keeps it.  The law keeps the wrapper
+/// and re-points its element at the shared default.  The TOP port is
+/// unchanged (the bare default).  MEASURED: tools/probe/r11u109repro/grid.
+inline bool tpUnpPortKeepsWrapper109() {
+    static const bool on = r11u109On("R11U109_TPUNP_OFF");
+    return on;
+}
+
+/// § anonPackedAggDimNet109 (r11u109, face 5) — A BODY DECLARATION OF AN
+/// ANONYMOUS PACKED STRUCT/UNION WITH PACKED DIMENSIONS IS A `struct_net`
+/// (KEYWORD-LESS, `wire`, `tri`) OR A `packed_array_var` (`var`).
+///
+/// THE PRODUCER.  `NetlistElaboration::elabSignal`
+/// (`~/git-repos/Surelog/src/DesignCompile/NetlistElaboration.cpp:2050-2230`)
+/// starts from `isNet = true`; for an anonymous aggregate the signal has NO
+/// data-type object, so the leading "`dtype` and no sub-net type" test that
+/// makes a keyword-less typedef'd signal a variable never fires, and only
+/// `isVar()` (the `var` keyword) clears it.  The typespec is the pass-105
+/// `packed_array_typespec`, so the struct-member scan (`ttmp ==
+/// uhdmstruct_typespec`) never runs — no member kind, driver or direction
+/// enters.  The net arm then takes `subnettype == paStruct_union` (:2572) and
+/// mints a `struct_net` carrying the packed-array typespec, with NO net type.
+/// The `var` spelling goes to the variable road, whose packed-array arm makes
+/// a `packed_array_var` (vpiVisibility 1, no elements).
+///
+/// OUR SIDE.  `emitInstance` handed such a signal to `makeVar` (TypeEmit's
+/// anonymous-packed-array arm), which answers `struct_var` (a union:
+/// `logic_var`).  MEASURED on real Surelog v1.87 goldens
+/// (tools/probe/r11u109repro/grid/f5): keyword-less x {continuous assign,
+/// always_comb, always_ff, unread, member-selected} x {named-struct, int,
+/// bit, logic members} x {one/two dims, two declarators, child instance,
+/// parameterized dim, union} -> struct_net; `wire` / `tri` -> struct_net;
+/// `var` (struct, union, two declarators) -> packed_array_var.
+/// DECLINED (unmeasured or a different shape): a port, an initializer (the
+/// net loses the vpiExpr, the value moves to a net-decl assignment), a
+/// `signed` aggregate (a different typespec), an unpacked dimension on the
+/// declarator (golden array_net), a tagged union, every other net keyword.
+/// Returns 0 (decline), 1 (struct_net) or 2 (packed_array_var).
+inline int anonPackedAggDimKind109(const Symbol& sym) {
+    static const bool on = r11u109On("R11U109_ANONNET_OFF");
+    if (!on)
+        return 0;
+    if (sym.kind != SymbolKind::Variable && sym.kind != SymbolKind::Net)
+        return 0;
+    auto* dt = sym.getDeclaredType();
+    if (!dt || dt->getInitializer() || dt->getInitializerSyntax())
+        return 0;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || (tsyn->kind != syntax::SyntaxKind::StructType &&
+                  tsyn->kind != syntax::SyntaxKind::UnionType))
+        return 0;
+    auto& su = tsyn->as<syntax::StructUnionTypeSyntax>();
+    if (!su.packed.valid() || su.signing.valid() || su.taggedOrSoft.valid() ||
+        su.dimensions.empty())
+        return 0;
+    auto& ct = dt->getType().getCanonicalType();
+    if (ct.kind != SymbolKind::PackedArrayType)
+        return 0;
+    const Type* leaf = &ct;
+    while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType)
+        leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+    auto lk = leaf->getCanonicalType().kind;
+    if (lk != SymbolKind::PackedStructType && lk != SymbolKind::PackedUnionType)
+        return 0;
+    if (sym.kind == SymbolKind::Net) {
+        for (auto p = sym.getSyntax(); p; p = p->parent)
+            if (p->kind == syntax::SyntaxKind::NetDeclaration) {
+                auto nk = p->as<syntax::NetDeclarationSyntax>().netType.kind;
+                return (nk == parsing::TokenKind::WireKeyword ||
+                        nk == parsing::TokenKind::TriKeyword)
+                           ? 1
+                           : 0;
+            }
+        return 0;
+    }
+    return hasVarKeywordDecl(sym) ? 2 : 1;
+}
+
+/// § memLeftStampOwnType109 (r11u109, face 2) — THE EVALFUNC MEMBER STAMP
+/// LANDS ON THE BUILDER'S OWN STRUCT TYPE, NEVER ON A NAMESAKE.
+///
+/// THE PRODUCER.  `ExprEval::setValueInInstance`
+/// (`~/git-repos/UHDM/templates/ExprEval.cpp` ~5385, the hier_path arm)
+/// decodes `r.<member> = ...` to the `typespec_member` OBJECT of the local
+/// variable's struct typespec and calls `Actual_value(rhs)` on it.  Only that
+/// struct is written: the formal's struct (`c`'s `user_cfg_t`) is read, never
+/// stamped.
+///
+/// OUR SIDE.  `stampEvalFuncLeftovers` (ParamEmit) identifies the stamped
+/// struct by its MEMBER NAME LIST, so a second package struct that happens to
+/// carry the same member names received the leftovers too
+/// (StructParamPatternInitCast: `user_cfg_t {XLEN}` and `cfg_t {XLEN}`; golden
+/// stamps `cfg_t` only — its head was our `32'd64` on `user_cfg_t.XLEN`'s
+/// Actual_value where golden has none).  The law keeps the name-list match and
+/// adds the builder's own type: a NAMED package struct is stamped only when
+/// its name is the builder's return typedef (`<pkg>::<name>`).  Anonymous
+/// structs, non-package typedefs and non-alias return types keep the old
+/// match.
+inline bool memLeftStampTypeOk109(const UHDM::struct_typespec* sts,
+                                  const SubroutineSymbol* fn) {
+    static const bool on = r11u109On("R11U109_STAMPTYPE_OFF");
+    if (!on || !sts || !fn)
+        return true;
+    std::string_view nm = sts->VpiName();
+    if (nm.empty() || nm.find("::") == std::string_view::npos)
+        return true;
+    auto& rt = fn->getReturnType();
+    if (rt.kind != SymbolKind::TypeAlias)
+        return true;
+    auto& ta = rt.as<TypeAliasType>();
+    auto* sc = ta.getParentScope();
+    if (!sc || sc->asSymbol().kind != SymbolKind::Package)
+        return true;
+    std::string want =
+        std::string(sc->asSymbol().name) + "::" + std::string(ta.name);
+    return nm == want;
+}
+
+/// § hpElemSelBaseVarSel109 (r11u109, face 5's next head) — AN RVALUE
+/// `<var>[i].<member>[j]..[range]` IS A hier_path [bit_select(var, i),
+/// var_select(member, [j.., part_select(member)])].
+///
+/// THE PRODUCER.  `CompileHelper::compileSelectExpression`
+/// (Surelog `src/DesignCompile/CompileExpression.cpp:1258`) reads the SELECT
+/// GRAMMAR under each hier_path component and nothing else (ExprEmit's
+/// § selChainElemShapeIsSyntactic147 decodes it): more than one select step
+/// on the member mints a `var_select` named after the member whose Exprs take
+/// one entry per step, the trailing range a part_select carrying the member
+/// name; the indexed BASE component is a `bit_select`.  The path name is the
+/// decompiled text, arithmetic spaced (`is_page[2 - gx]`).
+///
+/// OUR SIDE.  The var_select arm (ExprEmit, § selChainElemShapeIsSyntactic147)
+/// accepted only a plain NAME base, so `tq[gi].is_page[2-gx][0:0]` fell to the
+/// dotted-text arm, which flattens the last component into ONE part_select
+/// named `is_page[2-gx]` and names the path with the unspaced text
+/// (anon_struct_packed_dim, four gen-scope instances).  The law admits a base
+/// that is ONE element select of a module variable or net, in an RVALUE only.
+/// DECLINED: an lvalue (its split shape is separately modelled), a base with
+/// two or more element selects, an interface / hierarchical / argument base.
+inline bool hpElemSelBaseVarSel109() {
+    static const bool on = r11u109On("R11U109_HPVS_OFF");
+    return on;
+}
+
+/// § spVoidCastValue109 (r11u109, face 1) — THE ELABORATED STRUCT-PATTERN
+/// VALUE KEEPS A SIZE CAST WHOSE TYPE IS A STRUCT-PARAMETER MEMBER READ.
+///
+/// THE PRODUCER.  The elaborated `param_assign` of a struct localparam whose
+/// Rhs is an assignment pattern is the INSTANCE's complex value, compiled with
+/// `Reduce::Yes` (`NetlistElaboration.cpp:233-271`).  A cast written
+/// `Cfg.XLEN'(1)` compiles its type through `CompileType.cpp:1795-1824`: the
+/// type NAME is `Cfg`, `getValue("Cfg")` answers the parameter's pattern
+/// OPERATION (not a constant), and the arm mints a `void_typespec` spanning
+/// that name.  An operation carrying a void typespec never reduces, so the
+/// cast survives as `vpiCastOp` over its written literal, every operation
+/// above it survives too, and a VOID-FREE subexpression under it IS folded by
+/// the compile-time reduce into the evaluator's own constant (`Cfg.XLEN - 1`
+/// -> `INT:63`, `Cfg.VLEN + 1` -> `INT:65` from the member's `32'd64`
+/// setter).  `reduceExprTree` + `flattenPatternAssignments`
+/// (`NetlistElaboration.cpp:369-431`) leave all of it in place, and
+/// `expandPatternAssignment`'s untagged walk (`CompileHelper.cpp:5404-5441`)
+/// calls `adjustOpSize` on each operand in member order and RETURNS at the
+/// first that does not reduce: that operand (the BAIL) is sized to its
+/// member's width, every earlier one too, every later one keeps its own.
+///
+/// OUR SIDE.  ParamEmit's struct-pattern walk folded the whole member value
+/// (§ patMemberCastNoDecomp's cast arm).  The law runs after it in
+/// `emitInstance` and rebuilds only the operands that read such a cast.
+/// MEASURED on real Surelog v1.87 goldens (tools/probe/r11u109repro/grid/f1):
+/// two/three members, 32/64-bit member widths, a constant member before /
+/// after, positional, child override, `+ - << | ~` over the cast, a folded
+/// `(Cfg.XLEN - 1)` / `(Cfg.VLEN + 1)` beside it, based literal operands.
+/// DECLINED: a parameter whose value is a CONSTANT (the cast is typed
+/// `integer_typespec` — StructParamPatternInitCast's face) or a `struct_var`
+/// (a bailed builder — StructParamFuncBodyFieldCompare's), a non-literal cast
+/// operand, a `default:` / type / index setter, a post-bail member that is not
+/// a plain literal, every operator the evaluator table does not own.
+inline bool spVoidCastValue109On() {
+    static const bool on = r11u109On("R11U109_VOIDCAST_OFF");
+    return on;
+}
+
+/// § pkgPatCallArgFlat109 (r11u109, face 2's next head) — ParamEmit's
+/// SCOPED-REFERENCE rule (the package's elaborated struct-pattern listing
+/// stays TAGGED unless something resolves `pkg::NAME`) excluded every read
+/// written inside a parameter declaration.  A read that is the ARGUMENT OF A
+/// CALL inside a parameter context is road D (`pkgPatCallArgParam58`):
+/// `CompileHelper::getValue`'s package arm reaches `ExprEval::getValue`'s
+/// in-place write-back (`templates/ExprEval.cpp:337-347`), and a NARROW
+/// (<= 64-bit, the width rule stays) pattern is typed and FLATTENED there.
+/// Witness: StructParamPatternInitCast's `cfg_pkg::Base` read as
+/// `cfg_pkg::build_config(cfg_pkg::Base)` in a parameter default — golden's
+/// uhdmtopPackages listing is the flat op75 with a bare ts ref; the whole read
+/// `cfg_pkg::DefaultCfg` in a parameter default (cva6_struct_param_field)
+/// keeps its tags.  Switch `R11U109_PKGCALLFLAT_OFF` (read in ParamEmit).
+
+/// § pkgPatCallArgFlat109's SHAPE FENCE — only a named pattern whose every
+/// setter is an INTEGER LITERAL (`'{XLEN: 32'd64}`, the witness) is flattened
+/// by the law: the flat walk's other element arms are not golden's for this
+/// listing (a signing cast `unsigned'(64)` loses its decompile, a parameter
+/// read loses the ts ref golden's substitution carries — boundary arm
+/// r11v59repro/grid/xv3_flat), so those patterns keep the tagged tree.
+inline bool pkgPatAllLit109(const Expression& init) {
+    auto& e = stripImplicitConv(init);
+    if (e.kind != ExpressionKind::StructuredAssignmentPattern)
+        return false;
+    auto& ap = e.as<StructuredAssignmentPatternExpression>();
+    if (ap.defaultSetter || !ap.typeSetters.empty() || !ap.indexSetters.empty() ||
+        ap.memberSetters.empty())
+        return false;
+    for (auto& ms : ap.memberSetters)
+        if (!ms.expr ||
+            stripImplicitConv(*ms.expr).kind != ExpressionKind::IntegerLiteral)
+            return false;
+    return true;
+}
+/// § pkgPatCallArgFlat109 — ...and the flattened listing's operands ARE the
+/// element objects an EvalFunc member leftover reuses (§ r10fsv2 L1: golden's
+/// `cfg_t.XLEN` Actual_value is the flat op's `32'd64`), so the flat walk
+/// records them exactly as the tagged walk records its tagged patterns.
+template <class Rec, class Ops>
+inline void pkgPatCallArgFlatRecord109(Rec& rec, const Expression& pat,
+                                       const std::vector<const Expression*>& set,
+                                       const Ops& ops) {
+    if (pat.kind != ExpressionKind::StructuredAssignmentPattern)
+        return;
+    auto& ap = pat.as<StructuredAssignmentPatternExpression>();
+    for (size_t i = 0; i < ops.size() && i < set.size(); i++) {
+        if (!set[i])
+            continue;
+        for (auto& ms : ap.memberSetters)
+            if (ms.expr == set[i] && ms.member)
+                rec[std::string(ms.member->name)] = ops[i];
+    }
+}
+
+/// § spVoidCastCaseB109 (r11u109, face 1 case B) — the same cast when the
+/// struct parameter's elaborated value is a `struct_var` (a const-function
+/// builder the assembler bailed on: StructParamFuncBodyFieldCompare's `Cfg`).
+/// `getValue("Cfg")` answers the struct_var — not a constant — so the cast is
+/// void-typed exactly as in case A; but a void-free subexpression that reads
+/// `Cfg.<member>` is NOT folded at compile time (the member is unreachable
+/// through a struct_var), so it stays an operation and `reduceExprTree`
+/// (`NetlistElaboration.cpp:369-394`) replaces each member read with
+/// `reduceBound`'s answer: the member's stamped leftover, i.e. the caller
+/// pattern's own element object (golden: `(Cfg.XLEN - 1)` is
+/// `op11[<Base's XLEN element 64 sz32 @30:23>, UINT:1]`).
+inline bool spVoidCastCaseB109On() {
+    static const bool on = r11u109On("R11U109_VOIDCASTB_OFF");
+    return on;
+}
+
+/// § spCastBinQuirk109 (r11u109, face 1 case C) — the same cast when the
+/// struct parameter's elaborated value is an ASSEMBLED constant (a builder
+/// whose leftovers all folded: StructParamPatternInitCast's `Cfg`, `BIN`
+/// 32 bits).  `CompileType.cpp:1810-1816` gives the cast an
+/// `integer_typespec` whose `VpiValue` IS that constant's `BIN:<digits>`, and
+/// the cast's reduce reads the WIDTH off it as a DECIMAL number: `...1000000`
+/// (XLEN 64) is a 1000000-bit cast, `...11` (XLEN 3) an 11-bit one — measured
+/// on tools/probe/r11u109repro/grid/f1 c01..c06.  The cast folds to a
+/// `UINT` constant at that width with no decompile (a width >= 64 masks the
+/// value to 0; `constant::Compare` reads the size, never the value).  A member
+/// read of such a parameter inside the member's tree is NOT folded where it
+/// stands: `reduceExprTree` swaps it for the member's BIN slice — no
+/// location, no parent, a ts ref to the member's own typespec — and the
+/// operation above it stays.  A bare folded cast is an ordinary constant
+/// operand (already golden), so only trees that hold such a member read are
+/// rebuilt.
+inline bool spCastBinQuirk109On() {
+    static const bool on = r11u109On("R11U109_CASTBIN_OFF");
+    return on;
+}
+
+/// r11u109 — post-passes that must read the DESIGN-FINAL elaborated values
+/// (§ spVoidCastValue109: the drain's assemble arms decide whether a struct
+/// parameter's value is a constant).  Queued by emitInstance, run once at the
+/// end of `stampEvalFuncLeftovers` (both of its exits).
+inline std::vector<std::function<void()>>& deferred109() {
+    static std::vector<std::function<void()>> q;
+    return q;
+}
+inline void runDeferred109() {
+    auto q = std::move(deferred109());
+    deferred109().clear();
+    for (auto& f : q)
+        f();
 }
 
 } // namespace slang_uhdm

@@ -1291,12 +1291,12 @@ StructArrayNet,default,CMP_EQUAL,,,differ
 StructArrayNet,testflags,CMP_EQUAL,,,differ
 StructNetUnionTypespec,default,CMP_EQUAL,,,match
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,match
-StructParamFieldRange,default,CMP_NOTEQUAL,decompile:,,
-StructParamFieldRange,testflags,CMP_NOTEQUAL,decompile:,,
-StructParamFuncBodyFieldCompare,default,CMP_NOTEQUAL,decompile:,,
-StructParamFuncBodyFieldCompare,testflags,CMP_NOTEQUAL,decompile:,,
-StructParamPatternInitCast,default,CMP_NOTEQUAL,decompile:,,
-StructParamPatternInitCast,testflags,CMP_NOTEQUAL,decompile:,,
+StructParamFieldRange,default,CMP_EQUAL,,,differ
+StructParamFieldRange,testflags,CMP_EQUAL,,,differ
+StructParamFuncBodyFieldCompare,default,CMP_EQUAL,,,differ
+StructParamFuncBodyFieldCompare,testflags,CMP_EQUAL,,,differ
+StructParamPatternInitCast,default,CMP_EQUAL,,,differ
+StructParamPatternInitCast,testflags,CMP_EQUAL,,,differ
 StructStructHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructStructHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructTypedef,default,CMP_EQUAL,,,differ

@@ -3530,7 +3530,7 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
             sv->Typespec()->Actual_typespec(
                 up->Typespec()->Actual_typespec());
     }
-    if (memLeftStamps.empty())
+    if (memLeftStamps.empty() && (runDeferred109(), true)) // § spVoidCastValue109: deferred post-passes
         return;
     // § r10fsv2 L1 RESOLVE.  A `Pat` member's leftover is the CALLER's own
     // ELABORATED pattern element OBJECT, shared — not a re-encoded slice.  An
@@ -3748,7 +3748,7 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
         if (!sts->Members() || !done.insert(sts).second)
             return;
         for (auto& st : memLeftStamps) {
-            if (sts->Members()->size() != st.names.size())
+            if (sts->Members()->size() != st.names.size() || !memLeftStampTypeOk109(sts, st.fnSym))
                 continue;
             bool match = true;
             for (size_t i = 0; i < st.names.size(); i++)
@@ -4081,7 +4081,7 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
         mo.c->VpiConstType(mo.ct);
         mo.c->VpiSize(mo.size);
         mo.c->VpiDecompile(mo.dec);
-    }
+    } runDeferred109(); // § spVoidCastValue109: deferred post-passes
 }
 
 // § caAsmMemberSliceFold (r11u16) — THE DRAIN.  Runs from `UhdmExporter.cpp`
@@ -14383,7 +14383,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (structPat && inPackage && !structWidePkg &&
                         ps.getParentScope() &&
                         !hasScopedPkgRef(ps.getParentScope()->asSymbol().name,
-                                         ps.name)) {
+                                         ps.name) && !(r11u109On("R11U109_PKGCALLFLAT_OFF") && pkgPatAllLit109(*init) && pkgPatCallArgParam58(ps.getParentScope()->asSymbol().name, ps.name))) { // § pkgPatCallArgFlat109 (EmitHelpers.h)
                         structWidePkg = true;
                         structNoScopedRefPkg = true;
                     }
@@ -16028,7 +16028,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // `tagged_pattern` TREE the producer never ran this walk,
                     // so there is no bail to model.
                     while (opSet68.size() < opnds->size())
-                        opSet68.push_back(pend68);
+                        opSet68.push_back(pend68); if (topView && inPackage && structPat && !structWidePkg && !structNoScopedRefPkg && ps.getParentScope() && !hasScopedPkgRef(ps.getParentScope()->asSymbol().name, ps.name) && r11u109On("R11U109_PKGCALLFLAT_OFF") && pkgPatAllLit109(*init) && pkgPatCallArgParam58(ps.getParentScope()->asSymbol().name, ps.name)) pkgPatCallArgFlatRecord109(patElabElems[&ps], sinitK, opSet68, *opnds); // § pkgPatCallArgFlat109
                     // HOISTED for § modHopStoreSizeIsTheLiteral87 (r11u87),
                     // which needs the SAME bail index: the operands the
                     // producer's stamp reached carry the MEMBER width, and

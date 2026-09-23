@@ -1,0 +1,32 @@
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+SVSwitch/default/pris=4842211c4030 SVSwitch/default/lawy=4842211c4030
+SVSwitch/testflags/pris=4842211c4030 SVSwitch/testflags/lawy=4842211c4030
+YosysVerx/default/pris=6ccda350c24a YosysVerx/default/lawy=6ccda350c24a
+YosysVerx/testflags/pris=6ccda350c24a YosysVerx/testflags/lawy=6ccda350c24a
+InterfaceModPort/default/pris=59a365f3ce2c InterfaceModPort/default/lawy=59a365f3ce2c
+InterfaceModPort/testflags/pris=59a365f3ce2c InterfaceModPort/testflags/lawy=59a365f3ce2c
+BlackParrotComplex/default/pris=e3e354129d5a BlackParrotComplex/default/lawy=e3e354129d5a
+BlackParrotComplex/testflags/pris=73a10e8217e5 BlackParrotComplex/testflags/lawy=73a10e8217e5
+YosysOldOr/default/pris=d68e0796d62c YosysOldOr/default/lawy=d68e0796d62c
+YosysOldOr/testflags/pris=d68e0796d62c YosysOldOr/testflags/lawy=d68e0796d62c
+Earlgrey_0_1/default/pris=8bdf25272e08 Earlgrey_0_1/default/lawy=8bdf25272e08
+Earlgrey_0_1/testflags/pris=59d0ee6d10c3 Earlgrey_0_1/testflags/lawy=59d0ee6d10c3
+SeqDriver      default          0      0 cmp rc=0
+SeqDriver      testflags        0      0 cmp rc=0
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/671b92157715a30e4d08/golden.uhdm)
+MiniAmiq       default          0      0 cmp rc=0
+MiniAmiq       testflags        0      0 cmp rc=0
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+-- measured=11  SKIP-NOFILE=1  UNKNOWN-NAME=0

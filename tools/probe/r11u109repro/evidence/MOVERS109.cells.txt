@@ -1,0 +1,12 @@
+sl_default_StructParamFieldRange TO=17 AWAY=0 MOVED-WRONG=0 SAME-WRONG=8 TAILMOVED=1
+sl_default_StructParamFuncBodyFieldCompare TO=33 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=1
+sl_default_StructParamPatternInitCast TO=55 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=2
+sl_testflags_StructParamFieldRange TO=17 AWAY=0 MOVED-WRONG=0 SAME-WRONG=8 TAILMOVED=1
+sl_testflags_StructParamFuncBodyFieldCompare TO=33 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=1
+sl_testflags_StructParamPatternInitCast TO=55 AWAY=0 MOVED-WRONG=0 SAME-WRONG=14 TAILMOVED=2
+u2r_default_anon_struct_packed_dim TO=177 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0
+u2r_default_cva6_struct_param_field TO=17 AWAY=0 MOVED-WRONG=0 SAME-WRONG=8 TAILMOVED=1
+u2r_default_type_param_unpacked_port TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=18 TAILMOVED=25
+u2r_testflags_anon_struct_packed_dim TO=177 AWAY=0 MOVED-WRONG=0 SAME-WRONG=0 TAILMOVED=0
+u2r_testflags_cva6_struct_param_field TO=17 AWAY=0 MOVED-WRONG=0 SAME-WRONG=8 TAILMOVED=1
+u2r_testflags_type_param_unpacked_port TO=4 AWAY=0 MOVED-WRONG=0 SAME-WRONG=18 TAILMOVED=25

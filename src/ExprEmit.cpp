@@ -30131,6 +30131,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // § hpConnElemIdxFold17) live there and have their own arms.
                 // Golden shapes those as var_selects too (arm C cells c06/c07)
                 // — that is README residue R1, not this pass.
+                // § hpElemSelBaseVarSel109 — ...and a base written as ONE
+                // element select of a plain variable/net (`tq[gi].is_page
+                // [2-gx][0:0]`) takes the same arm: the base becomes the
+                // bit_select the dotted arm already builds (EmitHelpers.h).
+                const ElementSelectExpression* mbSel109 = nullptr;
+                if (!mchain.empty() && !inLhs &&
+                    mb->kind == ExpressionKind::ElementSelect &&
+                    hpElemSelBaseVarSel109()) {
+                    auto& es109 = mb->as<ElementSelectExpression>();
+                    auto& ev109 = stripImplicitConv(es109.value());
+                    // An OPERATOR index that itself reads a select renders
+                    // in golden's path NAME through the decompiler's
+                    // select-less row (`k[0]+0` -> ` + 0`); that name is not
+                    // modelled, so such a path keeps the dotted arm.
+                    std::function<bool(const Expression&, bool)> selIn109 =
+                        [&](const Expression& x0, bool inOp) -> bool {
+                        auto& x = stripImplicitConv(x0);
+                        switch (x.kind) {
+                            case ExpressionKind::ElementSelect:
+                            case ExpressionKind::RangeSelect:
+                            case ExpressionKind::MemberAccess:
+                            case ExpressionKind::Call:
+                                return inOp;
+                            case ExpressionKind::BinaryOp:
+                                return selIn109(x.as<BinaryExpression>().left(), true) ||
+                                       selIn109(x.as<BinaryExpression>().right(), true);
+                            case ExpressionKind::UnaryOp:
+                                return selIn109(x.as<UnaryExpression>().operand(), true);
+                            default:
+                                return false;
+                        }
+                    };
+                    bool idxOk109 = !selIn109(es109.selector(), false);
+                    for (auto* sx109 : esels)
+                        idxOk109 = idxOk109 && !selIn109(*sx109, false);
+                    if (idxOk109 && ev109.kind == ExpressionKind::NamedValue &&
+                        (ev109.as<NamedValueExpression>().symbol.kind ==
+                             SymbolKind::Variable ||
+                         ev109.as<NamedValueExpression>().symbol.kind ==
+                             SymbolKind::Net ||
+                         ev109.as<NamedValueExpression>().symbol.kind ==
+                             SymbolKind::FormalArgument)) {
+                        mbSel109 = &es109;
+                        mb = &ev109;
+                    }
+                }
                 if (!mchain.empty() && mb->kind == ExpressionKind::NamedValue) {
                     auto& bnv = mb->as<NamedValueExpression>();
                     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
@@ -30142,7 +30188,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     hp->VpiParent(parent);
                     setLoc(hp, expr.sourceRange);
                     auto* elems = s.MakeAnyVec();
-                    {
+                    if (mbSel109) {
+                        auto* bs109 = s.MakeBit_select();
+                        bs109->VpiName(bnv.symbol.name);
+                        bs109->VpiFullName(
+                            selName(rawText(mbSel109->sourceRange)));
+                        bs109->VpiParent(hp);
+                        setLoc(bs109, mb->sourceRange);
+                        // The index parents at the HIER_PATH (the dotted arm's
+                        // own rule).
+                        if (auto* ix109 = emitExpr(mbSel109->selector(), hp,
+                                                   prefix, netMap))
+                            bs109->VpiIndex((UHDM::expr*)ix109);
+                        elems->push_back(bs109);
+                    }
+                    else {
                         auto* r = s.MakeRef_obj();
                         r->VpiName(bnv.symbol.name);
                         (void)r->VpiFullName();

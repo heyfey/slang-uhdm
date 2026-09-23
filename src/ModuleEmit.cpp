@@ -11386,6 +11386,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     TsCache elemPortTs;
     std::set<const Symbol*> instRefs;
     analyzeParamEnc(body);
+    // § evalOpDigits109 — publish the bound-encoding model to the free
+    // fold helpers (EmitHelpers.h) before the parameters are emitted.
+    if (!boundEncHook109)
+        boundEncHook109 = [this](const syntax::ExpressionSyntax& e,
+                                 const Scope* sc, int64_t v, int32_t& ct,
+                                 int32_t& sz) {
+            return boundReduceEnc33(e, sc, v, ct, sz);
+        };
     // An elaborated PROGRAM lists no parameters: Surelog's program writer
     // emits vpiParameter/vpiParamAssign in the DEF view only, even for an
     // overridden instance (OneNetRange `TESTBENCH #(width) tb` -- work@TOP.tb
@@ -11414,6 +11422,552 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         // The elab pattern-op typespec clones belong to the param-assign
         // elaboration, ahead of this instance's net/port typespecs.
         mintParamOpClones(opLo, pendingParamTs.size());
+        // § spVoidCastValue109 — the elaborated struct-pattern VALUE keeps a
+        // size cast whose type is a struct-parameter member read
+        // (`Cfg.XLEN'(1)`) as an operation over a void_typespec
+        // (EmitHelpers.h).  Runs after the param walk: it rebuilds only the
+        // operands whose setter reads such a cast and declines a whole
+        // parameter on any shape it does not model.
+        // Deferred to the design-final drain (ParamEmit's
+        // stampEvalFuncLeftovers): the parameter's FINAL elaborated value
+        // (an assembled constant, a bailed struct_var or a pattern) decides
+        // the cast's type, and the assemble arms run there.
+        if (spVoidCastValue109On())
+            deferred109().push_back([this, &body, m, prefix]() {
+            NetMap topNets;
+            if (!m->Param_assigns())
+                return;
+
+            auto rhsOf109 = [&](std::string_view nm) -> const UHDM::any* {
+                for (auto* pa : *m->Param_assigns())
+                    if (pa->Lhs() && pa->Lhs()->VpiName() == nm)
+                        return pa->Rhs();
+                return nullptr;
+            };
+            // 1 = a void cast (idr = the type name token), 0 = not one,
+            // -1 = a cast of the family this law does not model.
+            auto voidCast109 = [&](const Expression& e,
+                                   SourceRange& idr) -> int {
+                if (e.kind != ExpressionKind::Conversion ||
+                    e.as<ConversionExpression>().isImplicit() || !e.syntax ||
+                    e.syntax->kind != syntax::SyntaxKind::CastExpression)
+                    return 0;
+                const syntax::ExpressionSyntax* lf =
+                    e.syntax->as<syntax::CastExpressionSyntax>().left.get();
+                if (!lf || lf->kind != syntax::SyntaxKind::ScopedName)
+                    return 0;
+                auto& sn = lf->as<syntax::ScopedNameSyntax>();
+                if (sn.separator.kind != parsing::TokenKind::Dot ||
+                    sn.left->kind != syntax::SyntaxKind::IdentifierName ||
+                    sn.right->kind != syntax::SyntaxKind::IdentifierName)
+                    return -1;
+                auto tok = sn.left->as<syntax::IdentifierNameSyntax>().identifier;
+                auto* ps = body.find(tok.valueText());
+                if (!ps || ps->kind != SymbolKind::Parameter ||
+                    ps->as<ParameterSymbol>()
+                            .getType()
+                            .getCanonicalType()
+                            .kind != SymbolKind::PackedStructType)
+                    return -1;
+                auto* r = rhsOf109(tok.valueText());
+                // A constant value (an assembled struct) types the cast with
+                // an integer_typespec: not this law's.  A pattern OPERATION
+                // (case A) or a `struct_var` (case B: a builder the assembler
+                // bailed on) is not a constant, so the cast type is void.
+                // CASE C: a constant BIN value types the cast with an
+                // integer_typespec carrying that value (3 = a folded leaf).
+                if (r && r->UhdmType() == UHDM::uhdmconstant &&
+                    spCastBinQuirk109On() &&
+                    std::string_view(((const UHDM::constant*)r)->VpiValue())
+                            .rfind("BIN:", 0) == 0) {
+                    idr = tok.range();
+                    return 3;
+                }
+                if (!r || (r->UhdmType() != UHDM::uhdmoperation &&
+                           (r->UhdmType() != UHDM::uhdmstruct_var ||
+                            !spVoidCastCaseB109On())))
+                    return -1;
+                idr = tok.range();
+                return 1;
+            };
+            // CASE C member read: `Cfg.<m>` of a parameter whose elaborated
+            // value is a constant BIN.  Not folded where it stands; the tree
+            // walk swaps it for the member's bit slice (memberSelBinFold38).
+            auto cRead109 = [&](const Expression& e) -> bool {
+                if (!spCastBinQuirk109On() ||
+                    e.kind != ExpressionKind::MemberAccess)
+                    return false;
+                auto& b = stripImplicitConv(
+                    e.as<MemberAccessExpression>().value());
+                if (b.kind != ExpressionKind::NamedValue ||
+                    b.as<NamedValueExpression>().symbol.kind !=
+                        SymbolKind::Parameter)
+                    return false;
+                auto* r = rhsOf109(b.as<NamedValueExpression>().symbol.name);
+                return r && r->UhdmType() == UHDM::uhdmconstant &&
+                       std::string_view(((const UHDM::constant*)r)->VpiValue())
+                               .rfind("BIN:", 0) == 0;
+            };
+            // A case-C tree REDUCES (the evaluator computes it, only the
+            // write-back is refused), so it never ends the producer's
+            // adjustOpSize walk: only a void cast (case A/B) BAILS.
+            bool cCounts109 = true;
+            std::function<int(const Expression&)> hasVoid109 =
+                [&](const Expression& e0) -> int {
+                const Expression& e = stripImplicitConv(e0);
+                SourceRange d;
+                int v = voidCast109(e, d);
+                if (v == 3)
+                    return 0;
+                if (v)
+                    return v;
+                if (cCounts109 && cRead109(e))
+                    return 1;
+                if (e.kind == ExpressionKind::BinaryOp) {
+                    int a = hasVoid109(e.as<BinaryExpression>().left());
+                    int b = hasVoid109(e.as<BinaryExpression>().right());
+                    return (a < 0 || b < 0) ? -1 : (a || b);
+                }
+                if (e.kind == ExpressionKind::UnaryOp)
+                    return hasVoid109(e.as<UnaryExpression>().operand());
+                if (e.kind == ExpressionKind::Conversion)
+                    return hasVoid109(e.as<ConversionExpression>().operand());
+                return 0;
+            };
+            // The producer's own encoding of a VOID-FREE subexpression the
+            // compile-time reduce folded: ct / size, or false to decline.
+            auto signedish109 = [](int32_t ct) {
+                return ct == vpiIntConst || ct == vpiStringConst ||
+                       ct == vpiRealConst || ct == vpiDecConst;
+            };
+            std::function<bool(const Expression&, int32_t&, int32_t&)> enc109 =
+                [&](const Expression& e0, int32_t& ct, int32_t& sz) -> bool {
+                const Expression& e = stripImplicitConv(e0);
+                if (e.kind == ExpressionKind::IntegerLiteral) {
+                    ct = dimRedCtExpr79(e, 0);
+                    if (!ct)
+                        return false;
+                    sz = e.as<IntegerLiteral>().isDeclaredUnsized
+                             ? 64
+                             : (int32_t)e.type->getBitWidth();
+                    return sz > 0;
+                }
+                if (e.kind == ExpressionKind::MemberAccess) {
+                    // A member read of a pattern-valued struct parameter
+                    // reduces to that member's own setter literal.
+                    auto& ma = e.as<MemberAccessExpression>();
+                    const Expression* b = &stripImplicitConv(ma.value());
+                    for (int g = 0; g < 8 && b; g++) {
+                        if (b->kind != ExpressionKind::NamedValue)
+                            return false;
+                        auto& sy = b->as<NamedValueExpression>().symbol;
+                        if (sy.kind != SymbolKind::Parameter)
+                            return false;
+                        auto* in = sy.as<ParameterSymbol>().getInitializer();
+                        if (!in)
+                            return false;
+                        b = &stripImplicitConv(*in);
+                        if (b->kind ==
+                            ExpressionKind::StructuredAssignmentPattern)
+                            break;
+                    }
+                    if (!b || b->kind !=
+                                  ExpressionKind::StructuredAssignmentPattern)
+                        return false;
+                    for (auto& ms :
+                         b->as<StructuredAssignmentPatternExpression>()
+                             .memberSetters)
+                        if (ms.member == &ma.member) {
+                            auto& lit = stripImplicitConv(*ms.expr);
+                            if (lit.kind != ExpressionKind::IntegerLiteral)
+                                return false;
+                            return enc109(lit, ct, sz);
+                        }
+                    return false;
+                }
+                if (e.kind != ExpressionKind::BinaryOp)
+                    return false;
+                auto& be = e.as<BinaryExpression>();
+                int32_t lc = 0, ls = 0, rc = 0, rs = 0;
+                if (!enc109(be.left(), lc, ls) || !enc109(be.right(), rc, rs))
+                    return false;
+                switch (be.op) {
+                    case BinaryOperator::Subtract:
+                    case BinaryOperator::Multiply:
+                    case BinaryOperator::Divide:
+                    case BinaryOperator::Mod:
+                    case BinaryOperator::Power:
+                        ct = vpiIntConst;
+                        sz = 64;
+                        return true;
+                    case BinaryOperator::Add:
+                        ct = (signedish109(lc) || signedish109(rc))
+                                 ? vpiIntConst
+                                 : vpiUIntConst;
+                        sz = ls > rs ? ls : rs;
+                        return true;
+                    case BinaryOperator::BinaryAnd:
+                    case BinaryOperator::BinaryOr:
+                    case BinaryOperator::LogicalShiftLeft:
+                    case BinaryOperator::LogicalShiftRight:
+                        ct = vpiUIntConst;
+                        sz = 64;
+                        return true;
+                    default:
+                        return false;
+                }
+            };
+            // CASE B reads: 1 = the expression reads a member of a
+            // struct_var-valued parameter, 0 = none, -1 = a read this law
+            // cannot resolve.
+            auto caseBParam109 =
+                [&](const Expression& e) -> const ParameterSymbol* {
+                if (e.kind != ExpressionKind::MemberAccess)
+                    return nullptr;
+                auto& b = stripImplicitConv(
+                    e.as<MemberAccessExpression>().value());
+                if (b.kind != ExpressionKind::NamedValue ||
+                    b.as<NamedValueExpression>().symbol.kind !=
+                        SymbolKind::Parameter)
+                    return nullptr;
+                auto& p = b.as<NamedValueExpression>()
+                              .symbol.as<ParameterSymbol>();
+                auto* r = rhsOf109(p.name);
+                return (r && r->UhdmType() == UHDM::uhdmstruct_var) ? &p
+                                                                   : nullptr;
+            };
+            auto caseBElem109 = [&](const Expression& e) -> UHDM::expr* {
+                auto* p = caseBParam109(e);
+                if (!p)
+                    return nullptr;
+                std::string mn(e.as<MemberAccessExpression>().member.name);
+                for (auto& st : memLeftStamps) {
+                    if (st.owner != p)
+                        continue;
+                    for (size_t i = 0; i < st.names.size(); i++) {
+                        if (st.names[i] != mn || i >= st.srcParam.size() ||
+                            !st.srcParam[i] || i >= st.srcMember.size())
+                            continue;
+                        auto pit = patElabElems.find(st.srcParam[i]);
+                        if (pit == patElabElems.end())
+                            return nullptr;
+                        auto eit = pit->second.find(st.srcMember[i]);
+                        if (eit == pit->second.end() || !eit->second ||
+                            eit->second->UhdmType() != UHDM::uhdmconstant)
+                            return nullptr;
+                        return (UHDM::expr*)eit->second;
+                    }
+                }
+                return nullptr;
+            };
+            std::function<int(const Expression&)> caseB109 =
+                [&](const Expression& e0) -> int {
+                const Expression& e = stripImplicitConv(e0);
+                if (!spVoidCastCaseB109On())
+                    return 0;
+                if (caseBParam109(e))
+                    return 1;
+                if (e.kind == ExpressionKind::BinaryOp) {
+                    int a = caseB109(e.as<BinaryExpression>().left());
+                    int b = caseB109(e.as<BinaryExpression>().right());
+                    return (a < 0 || b < 0) ? -1 : (a || b);
+                }
+                if (e.kind == ExpressionKind::UnaryOp ||
+                    e.kind == ExpressionKind::Conversion ||
+                    e.kind == ExpressionKind::ElementSelect ||
+                    e.kind == ExpressionKind::RangeSelect ||
+                    e.kind == ExpressionKind::Call)
+                    return -1;
+                return 0;
+            };
+            ASTContext ctx109(comp.getRoot(), LookupLocation::max);
+            // Build the producer's tree for one setter; null declines.
+            std::function<UHDM::expr*(const Expression&, UHDM::any*)> build109 =
+                [&](const Expression& e0, UHDM::any* par) -> UHDM::expr* {
+                const Expression& e = stripImplicitConv(e0);
+                SourceRange idr;
+                int vk109 = voidCast109(e, idr);
+                if (vk109 == 3) {
+                    // The cast's WIDTH is the integer_typespec value read as a
+                    // DECIMAL string: the BIN digits of the parameter's value.
+                    auto& in = stripImplicitConv(
+                        e.as<ConversionExpression>().operand());
+                    if (in.kind != ExpressionKind::IntegerLiteral)
+                        return nullptr;
+                    auto& sy = *body.find(idr.start() == idr.end()
+                                              ? std::string_view()
+                                              : std::string_view(rawText(idr)));
+                    auto* r = (const UHDM::constant*)rhsOf109(sy.name);
+                    std::string dg(std::string_view(r->VpiValue()).substr(4));
+                    size_t nz = dg.find_first_not_of('0');
+                    dg = nz == std::string::npos ? std::string("0")
+                                                 : dg.substr(nz);
+                    if (dg.size() > 18)
+                        return nullptr;
+                    uint64_t w = std::stoull(dg);
+                    auto kv = in.as<IntegerLiteral>().getValue().as<uint64_t>();
+                    if (!kv || w == 0)
+                        return nullptr;
+                    uint64_t v = w >= 64 ? 0 : (*kv & ((1ULL << w) - 1));
+                    auto* c = s.MakeConstant();
+                    c->VpiValue("UINT:" + std::to_string(v));
+                    c->VpiSize((int32_t)w);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiParent(par);
+                    setLoc(c, e.sourceRange);
+                    return c;
+                }
+                if (cRead109(e)) {
+                    std::string bits;
+                    int32_t width = 0;
+                    UHDM::typespec* mts = nullptr;
+                    const Expression* be = nullptr;
+                    if (!memberSelBinFold38(e, bits, width, mts, be) ||
+                        bits.empty() || !mts)
+                        return nullptr;
+                    auto* c = s.MakeConstant();
+                    c->VpiValue("BIN:" + bits);
+                    c->VpiDecompile(bits);
+                    c->VpiSize(width);
+                    c->VpiConstType(vpiBinaryConst);
+                    auto* crt = s.MakeRef_typespec();
+                    crt->VpiParent(c);
+                    crt->Actual_typespec(mts);
+                    c->Typespec(crt);
+                    return c;
+                }
+                if (vk109 == 1) {
+                    auto& in = stripImplicitConv(
+                        e.as<ConversionExpression>().operand());
+                    if (in.kind != ExpressionKind::IntegerLiteral)
+                        return nullptr;
+                    auto* op = s.MakeOperation();
+                    op->VpiOpType(vpiCastOp);
+                    op->VpiParent(par);
+                    setLoc(op, e.sourceRange);
+                    auto* vt = s.MakeVoid_typespec();
+                    setLoc(vt, idr);
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiParent(op);
+                    rt->VpiFullName(prefix);
+                    rt->Actual_typespec(vt);
+                    op->Typespec(rt);
+                    auto* c = emitExpr(in, op, prefix, topNets);
+                    if (!c)
+                        return nullptr;
+                    ((UHDM::any*)c)->VpiParent(op);
+                    auto* ov = s.MakeAnyVec();
+                    ov->push_back(c);
+                    op->Operands(ov);
+                    return op;
+                }
+                int hv = hasVoid109(e);
+                if (hv < 0)
+                    return nullptr;
+                if (hv) {
+                    auto* op = s.MakeOperation();
+                    op->VpiParent(par);
+                    setLoc(op, e.sourceRange);
+                    auto* ov = s.MakeAnyVec();
+                    if (e.kind == ExpressionKind::BinaryOp) {
+                        auto& be = e.as<BinaryExpression>();
+                        int32_t ot = mapBinaryOp(be.op);
+                        if (!ot)
+                            return nullptr;
+                        op->VpiOpType(ot);
+                        auto* l = build109(be.left(), op);
+                        auto* r = l ? build109(be.right(), op) : nullptr;
+                        if (!l || !r)
+                            return nullptr;
+                        ov->push_back(l);
+                        ov->push_back(r);
+                    }
+                    else if (e.kind == ExpressionKind::UnaryOp) {
+                        auto& ue = e.as<UnaryExpression>();
+                        int32_t ot = mapUnaryOp(ue.op);
+                        if (!ot)
+                            return nullptr;
+                        op->VpiOpType(ot);
+                        auto* o = build109(ue.operand(), op);
+                        if (!o)
+                            return nullptr;
+                        ov->push_back(o);
+                    }
+                    else
+                        return nullptr;
+                    op->Operands(ov);
+                    return op;
+                }
+                // CASE B: a member read of a struct_var-valued parameter is
+                // not resolvable at compile time, so the subexpression stays
+                // an operation and `reduceExprTree` swaps each such read for
+                // the member's value — the builder's leftover element object
+                // (§ r10fsv2 L1), shared.
+                if (int cb = caseB109(e)) {
+                    if (cb < 0)
+                        return nullptr;
+                    if (e.kind == ExpressionKind::MemberAccess)
+                        return caseBElem109(e);
+                    if (e.kind != ExpressionKind::BinaryOp)
+                        return nullptr;
+                    auto& be = e.as<BinaryExpression>();
+                    int32_t ot = mapBinaryOp(be.op);
+                    if (!ot)
+                        return nullptr;
+                    auto* op = s.MakeOperation();
+                    op->VpiOpType(ot);
+                    op->VpiParent(par);
+                    setLoc(op, e.sourceRange);
+                    auto* l = build109(be.left(), op);
+                    auto* r = l ? build109(be.right(), op) : nullptr;
+                    if (!l || !r)
+                        return nullptr;
+                    auto* ov = s.MakeAnyVec();
+                    ov->push_back(l);
+                    ov->push_back(r);
+                    op->Operands(ov);
+                    return op;
+                }
+                // VOID-FREE: a literal keeps its written form; anything else
+                // is the compile-time reduce's evaluator constant.
+                if (e.kind == ExpressionKind::IntegerLiteral) {
+                    auto* c = emitExpr(e, par, prefix, topNets);
+                    if (c)
+                        ((UHDM::any*)c)->VpiParent(par);
+                    return (UHDM::expr*)c;
+                }
+                int32_t ct = 0, sz = 0;
+                if (!enc109(e, ct, sz))
+                    return nullptr;
+                ConstantValue cv = ctx109.tryEval(e);
+                if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
+                    return nullptr;
+                std::string d;
+                if (ct == vpiIntConst) {
+                    auto v = cv.integer().as<int64_t>();
+                    if (!v)
+                        return nullptr;
+                    d = std::to_string(*v);
+                }
+                else {
+                    auto v = cv.integer().as<uint64_t>();
+                    if (!v)
+                        return nullptr;
+                    d = std::to_string(*v);
+                }
+                auto* c = s.MakeConstant();
+                c->VpiValue((ct == vpiIntConst ? "INT:" : "UINT:") + d);
+                c->VpiDecompile(d);
+                c->VpiSize(sz);
+                c->VpiConstType(ct);
+                c->VpiParent(par);
+                setLoc(c, e.kind == ExpressionKind::BinaryOp
+                              ? e.as<BinaryExpression>().left().sourceRange
+                              : e.sourceRange);
+                return c;
+            };
+            for (auto* pa : *m->Param_assigns()) {
+                auto* lhs = pa->Lhs();
+                auto* rhs = (UHDM::any*)pa->Rhs();
+                if (!lhs || !rhs || rhs->UhdmType() != UHDM::uhdmoperation ||
+                    ((UHDM::operation*)rhs)->VpiOpType() !=
+                        vpiAssignmentPatternOp)
+                    continue;
+                auto* op75 = (UHDM::operation*)rhs;
+                auto* ops = op75->Operands();
+                auto* psym = body.find(lhs->VpiName());
+                if (!ops || !psym || psym->kind != SymbolKind::Parameter)
+                    continue;
+                auto& ps = psym->as<ParameterSymbol>();
+                auto& ct = ps.getType().getCanonicalType();
+                auto* init = ps.getInitializer();
+                if (ct.kind != SymbolKind::PackedStructType || !init)
+                    continue;
+                auto& si = stripImplicitConv(*init);
+                std::vector<const FieldSymbol*> flds;
+                for (auto& f : ct.as<PackedStructType>()
+                                   .membersOfType<FieldSymbol>())
+                    flds.push_back(&f);
+                std::vector<const Expression*> setters(flds.size(), nullptr);
+                if (si.kind == ExpressionKind::StructuredAssignmentPattern) {
+                    auto& ap = si.as<StructuredAssignmentPatternExpression>();
+                    if (ap.defaultSetter || !ap.typeSetters.empty() ||
+                        !ap.indexSetters.empty())
+                        continue;
+                    for (auto& ms : ap.memberSetters)
+                        for (size_t k = 0; k < flds.size(); k++)
+                            if (ms.member == flds[k])
+                                setters[k] = ms.expr;
+                }
+                else if (si.kind == ExpressionKind::SimpleAssignmentPattern) {
+                    auto els = si.as<SimpleAssignmentPatternExpression>()
+                                   .elements();
+                    if (els.size() != flds.size())
+                        continue;
+                    for (size_t k = 0; k < flds.size(); k++)
+                        setters[k] = els[k];
+                }
+                else
+                    continue;
+                if (ops->size() != flds.size())
+                    continue;
+                int bail = -1;
+                bool bad = false, any = false;
+                std::vector<int> hv(flds.size(), 0);
+                for (size_t k = 0; k < flds.size() && !bad; k++) {
+                    if (!setters[k]) {
+                        bad = true;
+                        break;
+                    }
+                    cCounts109 = true;
+                    hv[k] = hasVoid109(*setters[k]);
+                    cCounts109 = false;
+                    int ab = hv[k] > 0 ? hasVoid109(*setters[k]) : hv[k];
+                    cCounts109 = true;
+                    if (hv[k] < 0)
+                        bad = true;
+                    else if (hv[k])
+                        any = true;
+                    if (ab > 0 && bail < 0)
+                        bail = (int)k;
+                }
+                if (bad || !any)
+                    continue;
+                if (bail < 0)
+                    bail = (int)flds.size();
+                // Operands after the bail keep their OWN width: only a plain
+                // literal is modelled there.
+                for (size_t k = bail + 1; k < flds.size(); k++)
+                    if (!hv[k] && (stripImplicitConv(*setters[k]).kind !=
+                                       ExpressionKind::IntegerLiteral ||
+                                   (*ops)[k]->UhdmType() !=
+                                       UHDM::uhdmconstant))
+                        bad = true;
+                if (bad)
+                    continue;
+                std::vector<UHDM::expr*> nt(flds.size(), nullptr);
+                for (size_t k = 0; k < flds.size() && !bad; k++)
+                    if (hv[k] && !(nt[k] = build109(*setters[k], op75)))
+                        bad = true;
+                if (bad)
+                    continue;
+                for (size_t k = 0; k < flds.size(); k++) {
+                    if (nt[k]) {
+                        if ((int)k <= bail)
+                            nt[k]->VpiSize(
+                                (int32_t)flds[k]->getType().getBitWidth());
+                        (*ops)[k] = nt[k];
+                    }
+                    else if ((int)k > bail) {
+                        auto& lit = stripImplicitConv(*setters[k]);
+                        ((UHDM::constant*)(*ops)[k])
+                            ->VpiSize(lit.as<IntegerLiteral>().isDeclaredUnsized
+                                          ? 64
+                                          : (int32_t)lit.type->getBitWidth());
+                    }
+                }
+            }
+        });
     }
     std::vector<std::pair<const Symbol*, UHDM::any*>> sigOrder;
     auto* nets = s.MakeNetVec();
@@ -12290,6 +12844,45 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 rt->VpiFullName(fullName);
                 rt->Actual_typespec(realElabTs);
             }
+        }
+        // § anonPackedAggDimNet109 — a body declaration of an ANONYMOUS
+        // packed struct/union WITH packed dimensions: keyword-less / `wire` /
+        // `tri` is a struct_net, `var` a packed_array_var (EmitHelpers.h).
+        if (int ak109 = (!it.port && !implicitNet && !realVar &&
+                         !bareImplicit && rt)
+                            ? anonPackedAggDimKind109(*it.sym)
+                            : 0) {
+            UHDM::any* o109 = nullptr;
+            if (ak109 == 1) {
+                auto* sn109 = s.MakeStruct_net();
+                sn109->VpiName(name);
+                sn109->VpiFullName(fullName);
+                sn109->VpiParent(m);
+                setLoc(sn109, nameSpan(it.sym->location, it.sym->name));
+                rt->VpiParent(sn109);
+                sn109->Typespec(rt);
+                nets->push_back(sn109);
+                o109 = sn109;
+            }
+            else {
+                auto* pv109 = s.MakePacked_array_var();
+                pv109->VpiName(name);
+                pv109->VpiFullName(fullName);
+                pv109->VpiParent(m);
+                setLoc(pv109, nameSpan(it.sym->location, it.sym->name));
+                rt->VpiParent(pv109);
+                pv109->Typespec(rt);
+                pv109->VpiVisibility(1);
+                vars->push_back(pv109);
+                o109 = pv109;
+            }
+            // The elab typespec is reparented at the signal (Surelog's
+            // `tps->VpiParent(stv)`), as the variable road did.
+            if (auto* at109 = rt->Actual_typespec(); at109 && !at109->VpiParent())
+                at109->VpiParent(o109);
+            topNets[it.sym] = o109;
+            sigOrder.emplace_back(it.sym, o109);
+            continue;
         }
         if (auto* v = makeVar(*it.sym, /*portBacked=*/it.port != nullptr)) {
             v->VpiName(name);
@@ -28266,6 +28859,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         // the write phase (arena tail); the TOP port keeps the def's original
         // bare element ts via the swap below.
         UHDM::typespec* defPts = pts;
+        UHDM::ref_typespec* unpWrapElem109 = nullptr;
         if (internal && internal->getDeclaredType() &&
             internal->getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType) {
@@ -28298,6 +28892,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             ert->Actual_typespec(pts);
             ats->Elem_typespec(ert);
             defPts = ats;
+            unpWrapElem109 = ert;
         }
         // An IMPORTED-unqualified pkg-typedef port's TOP typespec is a fresh
         // NAMED clone (unqualified name, Typedef_alias ref to the shared pkg
@@ -28374,7 +28969,13 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                     {(const void*)&tp.inst->getDefinition(), std::string(tpp->name)});
                 if (tit != typeParamDefaultTs.end()) {
                     topActual = tit->second;
-                    defPts = tit->second;
+                    // § tpUnpPortKeepsWrapper109 — the def port of an
+                    // UNPACKED type-parameter port keeps its array wrapper;
+                    // the default is its ELEMENT (EmitHelpers.h).
+                    if (unpWrapElem109 && tpUnpPortKeepsWrapper109())
+                        unpWrapElem109->Actual_typespec(tit->second);
+                    else
+                        defPts = tit->second;
                 }
             }
             // § tpDimPortTsIsDefault41 — the dimensioned spelling of the same
