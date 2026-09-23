@@ -22188,7 +22188,17 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 setLoc(ca, nameSpan(gm.location, gm.name));
                 bool fcp = forceConstParent;
                 forceConstParent = true;
-                if (auto* rhs = emitExpr(*dt->getInitializer(), ca, fullName, netMap)) {
+                // § readerWidthIsTheSecondAdjust104 — the generate scope's
+                // cell reads its initializer at the net's width too
+                // (`r2_homes104` wBLB_gen8 / wCLIT_gen8 / wCPW_gen8).
+                const int savedRW104g = ndaReaderWidth104;
+                constexpr bool rdGen104 = true;  // § readerWidthIsTheSecondAdjust104
+                ndaReaderWidth104 =
+                    rdGen104 ? ndaReaderWidthFor104(dt->getType()) : 0;
+                UHDM::any* rhs104g =
+                    emitExpr(*dt->getInitializer(), ca, fullName, netMap);
+                ndaReaderWidth104 = savedRW104g;
+                if (auto* rhs = rhs104g) {
                     if (rhs->UhdmType() == UHDM::uhdmconstant) {
                         auto* c = (UHDM::constant*)rhs;
                         int32_t w = (int32_t)dt->getType().getBitWidth();
@@ -32014,9 +32024,25 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // onto the same net gets (SignedBinConst).
             int savedICT8 = implicitConvTargetSigned;
             implicitConvTargetSigned = dt->getType().isSigned() ? 1 : 0;
+            // § readerWidthIsTheSecondAdjust104 (r11u104) — the READING
+            // width, beside the signedness hand-off above.  Surelog's
+            // `writeCont_assign` hands the reduced initializer to
+            // `adjustSize` with THIS net's typespec, so the package-parameter
+            // fold at the top of the right-hand side is resized a second
+            // time at the net's width (the decode is the § block beside
+            // `red104ReaderResize104`).  Only a plain integral LOGIC net
+            // carries it: a struct, enum or array net keeps pristine's answer.
+            constexpr bool rdWidth104 = true;  // § readerWidthIsTheSecondAdjust104
+            const int savedRW104 = ndaReaderWidth104;
+            ndaReaderWidth104 =
+                (rdWidth104 &&
+                 nit->second->UhdmType() == UHDM::uhdmlogic_net)
+                    ? ndaReaderWidthFor104(dt->getType())
+                    : 0;
             ndaRhsEmit = true;
             rhs = emitExpr(*dt->getInitializer(), ca, prefix, *ndaNets);
             ndaRhsEmit = false;
+            ndaReaderWidth104 = savedRW104;
             implicitConvTargetSigned = savedICT8;
         }
         // An ARRAY-of-struct net-decl-assign pattern RHS keeps its element
@@ -41839,8 +41865,16 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             bool fcp88 = forceConstParent;
             forceConstParent = true;
             ndaRhsEmit = true;
+            // § readerWidthIsTheSecondAdjust104 — an interface's cell reads
+            // its initializer at the net's width too (`r3_otherhomes104`
+            // iBLB / iBADD / iIB31).
+            const int savedRW104i = ndaReaderWidth104;
+            constexpr bool rdIfc104 = true;  // § readerWidthIsTheSecondAdjust104
+            ndaReaderWidth104 =
+                rdIfc104 ? ndaReaderWidthFor104(dt88->getType()) : 0;
             UHDM::any* rhs88 =
                 emitExpr(*dt88->getInitializer(), ca88, prefix, netMap);
+            ndaReaderWidth104 = savedRW104i;
             ndaRhsEmit = false;
             forceConstParent = fcp88;
             // ===== § caIfaceNdaNameFoldsToParamValue88 (r11u88) — LAW C ===

@@ -1,0 +1,31 @@
+# r11u104 MOVERS — byteverify SELFCHECK=1 (r11u91repro/byteverify.sh), LAW 05698a59 vs this pass's OWN pristine
+# workdirs (3c74f9e4), the SAME-LENGTH workdir names /tmp/r11u104_pris and /tmp/r11u104_law2.
+
+## A PRIORI (before the law sweep), from the PRISTINE databases (CENSUS104.txt, PREDICT104.txt):
+##   LAW A/C (the reader resize): census104 over every pristine database, golden first:
+##     uhdm2rtlil 1608 databases, REACH 208 cells in 96 row-databases, CANDIDATES on the net-decl road 0
+##       (the 10 SIZE candidates are all written-assign @asn cells, which no hand-off reaches) -> PREDICTED 0 rows
+##     Surelog 960 databases, REACH 134 cells in 22 row-databases, CANDIDATES 0 -> PREDICTED 0 rows
+##   LAW B (the seven digit flags): predict104 SHAPE-meets-DIGIT: uhdm2rtlil 0 rows; Surelog 11 rows by name, of which
+##     ONE has a database at this pin (Earlgrey_0_1; the ten others are SLANG_REJECT / SURELOG_FAIL / NO_DATABASE)
+##   PREDICTED SEMANTIC MOVER SET: at most Earlgrey_0_1 (both modes); every other row byte-identical.
+
+## MEASURED
+uhdm2rtlil: databases 1608/1608, PATH_SETS_IDENTICAL, MOVERS 0 / 1608, SELFCHECK 1607 / 1608 flagged
+Surelog:    databases 960/960,  PATH_SETS_IDENTICAL, MOVERS 3 / 960,  SELFCHECK 959 / 960 flagged
+  MOVER ./default/MiniAmiq-544c7f61     patched=7f3192b7b8a0 pristine=27419f6011b4
+  MOVER ./testflags/MiniAmiq-544c7f61   patched=3a6cc372d0be pristine=444153ffe0e1
+  MOVER ./testflags/SeqDriver-32af76aa  patched=ae87346937cf pristine=05df6c25a21b
+  Earlgrey_0_1 (the one predicted row with a database): byte-identical, 8bdf25272e08 / 59d0ee6d10c3.
+  NONE of the three movers is in the prediction.  ATTRIBUTED ORDER-BLIND (path-normalised, sorted uhdm-dump):
+    default/MiniAmiq    4 lines: |UINT:0 -> |UINT:774,  |vpiDecompile:0 -> 774     |INT 0 vpiSize 0 vpiConstType 0 BIN 0 typespec 0
+    testflags/MiniAmiq  4 lines: |UINT:935 -> |UINT:523, |vpiDecompile:935 -> 523  |INT 0 vpiSize 0 vpiConstType 0 BIN 0 typespec 0
+    testflags/SeqDriver 4 lines: |UINT:0 -> |UINT:1173, |vpiDecompile:0 -> 1173    |INT 0 vpiSize 0 vpiConstType 0 BIN 0 typespec 0
+  = r11u100's R7 / RV94-5: the uvm_pkg dynamic-array range bound our emitter prints from an uninitialized
+    pointer-valued UINT — latent on every binary.
+  POSITIVE CONTROL (no pad binary needed): the PRISTINE binary run FOUR times on MiniAmiq/testflags' own cmds.txt
+  invocation wrote FOUR different databases (4391a4e5ae06, a73809a0ec68, c0079403f853, 8188819b0d63); the
+  order-blind diff of two of them is ONE |UINT: / |vpiDecompile: pair (598 vs 910) and the filename line.
+  The earlier law f1ffd6e4 (the same patch without the ubShift104 decline) drew Scoreboard/default (0 sorted lines —
+  the documented svunit order coin), MiniAmiq/testflags and SeqDriver/testflags (the same one-pair class) in the
+  same sweep pair: a different draw of the same two coins.

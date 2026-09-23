@@ -1,0 +1,52 @@
+# r11u104 DROPS — 468de9f5: the SHIPPED source with every one of its thirteen constexpr gates read from an env list (R104OFF), over the 51-arm grid.
+# x<gate> = that gate OFF alone, the rest ON; n<flag> = that digit flag ON alone (bname100 rides bare100); xf7_ = all seven digit flags OFF (the width faces alone).
+
+=== e7on (off: )
+TOTAL NAME TO=833 AWAY=0 MWRONG=0 | LOC TO=925 AWAY=0 MWRONG=0
+=== e7ze (off: add100,and100,or100,shl100,shr100,bare100,bname100,rdMask104,rdSize104,rdWidth104,rdGen104,rdIfc104,ubShift104)
+TOTAL NAME TO=0 AWAY=0 MWRONG=0 | LOC TO=0 AWAY=0 MWRONG=0
+=== xadd (off: add100)
+TOTAL NAME TO=783 AWAY=0 MWRONG=0 | LOC TO=857 AWAY=0 MWRONG=0
+=== xand (off: and100)
+TOTAL NAME TO=809 AWAY=0 MWRONG=0 | LOC TO=899 AWAY=0 MWRONG=0
+=== xor_ (off: or100)
+TOTAL NAME TO=811 AWAY=0 MWRONG=0 | LOC TO=893 AWAY=0 MWRONG=0
+=== xshl (off: shl100)
+TOTAL NAME TO=777 AWAY=0 MWRONG=0 | LOC TO=869 AWAY=0 MWRONG=0
+=== xshr (off: shr100)
+TOTAL NAME TO=821 AWAY=0 MWRONG=0 | LOC TO=905 AWAY=0 MWRONG=0
+=== xbar (off: bare100)
+TOTAL NAME TO=519 AWAY=0 MWRONG=0 | LOC TO=543 AWAY=0 MWRONG=0
+=== xbnm (off: bname100)
+TOTAL NAME TO=777 AWAY=0 MWRONG=0 | LOC TO=865 AWAY=0 MWRONG=0
+=== xmsk (off: rdMask104)
+TOTAL NAME TO=335 AWAY=0 MWRONG=0 | LOC TO=429 AWAY=0 MWRONG=0
+=== xsiz (off: rdSize104)
+TOTAL NAME TO=516 AWAY=0 MWRONG=0 | LOC TO=620 AWAY=0 MWRONG=0
+=== xwid (off: rdWidth104)
+TOTAL NAME TO=42 AWAY=0 MWRONG=0 | LOC TO=148 AWAY=0 MWRONG=0
+=== xgen (off: rdGen104)
+TOTAL NAME TO=823 AWAY=0 MWRONG=0 | LOC TO=915 AWAY=0 MWRONG=0
+=== xifc (off: rdIfc104)
+TOTAL NAME TO=819 AWAY=0 MWRONG=0 | LOC TO=911 AWAY=0 MWRONG=0
+=== xubs (off: ubShift104)
+TOTAL NAME TO=833 AWAY=0 MWRONG=0 | LOC TO=925 AWAY=0 MWRONG=0
+=== xf7_ (off: add100,and100,or100,shl100,shr100,bare100,bname100)
+TOTAL NAME TO=355 AWAY=0 MWRONG=0 | LOC TO=341 AWAY=0 MWRONG=0
+=== nadd (off: and100,or100,shl100,shr100,bare100,bname100)
+TOTAL NAME TO=405 AWAY=0 MWRONG=0 | LOC TO=409 AWAY=0 MWRONG=0
+=== nand (off: add100,or100,shl100,shr100,bare100,bname100)
+TOTAL NAME TO=379 AWAY=0 MWRONG=0 | LOC TO=367 AWAY=0 MWRONG=0
+=== nor_ (off: add100,and100,shl100,shr100,bare100,bname100)
+TOTAL NAME TO=377 AWAY=0 MWRONG=0 | LOC TO=373 AWAY=0 MWRONG=0
+=== nshl (off: add100,and100,or100,shr100,bare100,bname100)
+TOTAL NAME TO=411 AWAY=0 MWRONG=0 | LOC TO=397 AWAY=0 MWRONG=0
+=== nshr (off: add100,and100,or100,shl100,bare100,bname100)
+TOTAL NAME TO=367 AWAY=0 MWRONG=0 | LOC TO=361 AWAY=0 MWRONG=0
+=== nbar (off: add100,and100,or100,shl100,shr100,bname100)
+TOTAL NAME TO=613 AWAY=0 MWRONG=0 | LOC TO=663 AWAY=0 MWRONG=0
+=== nbnm (off: add100,and100,or100,shl100,shr100)
+TOTAL NAME TO=669 AWAY=0 MWRONG=0 | LOC TO=723 AWAY=0 MWRONG=0
+exp7-allON vs law 05698a59: differ=0 / 51 ; exp7-allOFF vs pristine: differ=0 / 51
+
+# the ubShift104 decline's effect is on UNSCOREABLE cells only (golden ref_obj): dropped, it is the earlier law f1ffd6e4, whose dumps differ from 05698a59 on exactly k4_unbop94v wA8 and z1_unbased97 wU1SHL (see GRID104.score), and which ran the full gate set too (MOVERS104.txt).

@@ -10887,6 +10887,297 @@ inline std::string red100MaskedUnsigned100(int64_t v100, uint32_t w100) {
     return std::to_string(((uint64_t)v100) & m100);
 }
 
+/// § readerWidthIsTheSecondAdjust104 (r11u104) — r11u100's R0 + R2, r11v100's
+/// RV100-2, r11v94's RV94-4, r11u91's R4.  THE READER'S WIDTH REACHES THE FOLD.
+///
+/// Surelog writes a net declaration's initializer as a `cont_assign` whose RHS
+/// is compiled UNREDUCED (`ElaborationStep::exprFromAssign_`,
+/// `~/git-repos/Surelog/src/DesignCompile/ElaborationStep.cpp:1623-1625`,
+/// `Reduce::No`), and `UhdmWriter::writeCont_assign`
+/// (`~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp:2090-2299`) then
+/// reduces it (`:2257-2264`) and hands the constant to `adjustSize` with the
+/// NET's typespec (`tps`, `:2099-2102`; the call at `:2274-2276`).  The package
+/// parameter's value object was already sized at its OWN declaration by the
+/// same function, so `CompileHelper::adjustSize`
+/// (`~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:4065-4249`) runs
+/// TWICE — once at the declaration, once at the READ:
+///
+///   size = Bits(net ts)                                     :4080-4089
+///   `vpiUIntConst`   value &= getMask(size); VpiSize(size)  :4106-4118
+///   `vpiBinaryConst` (logic ts) orig > size: keep the LOW `size` digits,
+///                    decompile = the bare digits, VpiSize(size) :4119-4146
+///   every OTHER const type (INT, HEX, OCT, …)  VpiSize(size)  :4243-4245
+///   and NOTHING at all when `get_value` refuses the constant (a HEX/OCT/BIN
+///   wider than 64 bits, `~/git-repos/UHDM/templates/ExprEval.cpp:1947-2010`).
+///
+/// MEASURED (arms `r1_readw104`, `r2_homes104`, 22 declaration shapes x ten
+/// readers of width 1/4/8/16/32/64/65/128 signed and unsigned, real Surelog
+/// v1.87, every arm `slrc=0 ourrc=0 slerr=0`):
+///   `longint BLB = 9223372036854775807`  n64 `UINT:9223372036854775807 sz64`
+///        n32 `UINT:4294967295 sz32`  n8 `UINT:255 sz8`  n1 `UINT:1 sz1`
+///   `int CLIT = 300`   n8 `UINT:44 sz8`  n4 `UINT:12 sz4`  n128 `UINT:300 sz128`
+///   `int CPW = 2 ** 3` `INT:8` at EVERY reader, size = the reader's width
+///   `logic [11:0] H12 = 12'hABC`  `HEX:ABC` decompile `12'hABC`, size = reader
+///   `logic [7:0] B8 = 8'b10101010`  n4 `BIN:1010 sz4 d1010`, n1 `BIN:0 sz1
+///        d0`, every reader >= 8 unchanged at `sz8 d8'b10101010`
+/// and the homes (`r2_homes104`): a range-less `wire`, a literal delay, a
+/// NAMED delay, an imported bare read, a parenthesized read and a read in a
+/// generate block ALL take the second resize.  The reading width is the
+/// NET's; `ModuleEmit` records it here for the one emission of the
+/// declaration's initializer, and the fold site reads it only when it is the
+/// WHOLE right-hand side (its parent is the `cont_assign` itself).
+inline int ndaReaderWidth104 = 0;
+
+/// The reading width `ModuleEmit` hands over: a plain integral vector or
+/// predefined integer net only — `Bits(ts)` of a packed struct, an enum or an
+/// array is not what this law measured, so those carry no width (0) and keep
+/// pristine's answer.
+inline int ndaReaderWidthFor104(const slang::ast::Type& t104) {
+    const auto& c104 = t104.getCanonicalType();
+    if (c104.kind != slang::ast::SymbolKind::ScalarType &&
+        c104.kind != slang::ast::SymbolKind::PackedArrayType &&
+        c104.kind != slang::ast::SymbolKind::PredefinedIntegerType)
+        return 0;
+    if (c104.kind == slang::ast::SymbolKind::PackedArrayType) {
+        const slang::ast::Type* e104 = &c104;
+        while (e104->getCanonicalType().kind ==
+               slang::ast::SymbolKind::PackedArrayType)
+            e104 = &e104->getCanonicalType()
+                        .as<slang::ast::PackedArrayType>()
+                        .elementType;
+        if (e104->getCanonicalType().kind != slang::ast::SymbolKind::ScalarType)
+            return 0;
+    }
+    return (int)c104.getBitWidth();
+}
+
+/// An initializer that IS an unknown LEAF (`'x`, `'z`, a based literal with an
+/// unknown digit), or a parameter NAME whose own initializer is one: golden's
+/// constant is a `BIN:` carrying the X/Z digits (`int CUXB = 'x` is golden
+/// `BIN:X sz32`), which the logic-typespec BIN branch leaves alone at a wider
+/// reader, where slang's 2-state declaration has already stored a 0 — our
+/// `UINT:0` stands in for a different object, so the resize declines
+/// (`q3_xpow102` wCUXB / wCUZB).  An unknown under an OPERATION is not one:
+/// the producer folds those to a valid digit and resizes them
+/// (`b5_fixfaces94` wXB* / wXC*, `q3_xpow102` wCTERNX).
+inline bool red104UnknownLeaf104(const Expression& e0104, int depth104 = 0) {
+    if (depth104 > 8)
+        return true;
+    const Expression& e104 = stripImplicitConv(e0104);
+    if (e104.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+        return e104.as<UnbasedUnsizedIntegerLiteral>()
+            .getLiteralValue()
+            .isUnknown();
+    if (e104.kind == ExpressionKind::IntegerLiteral)
+        return e104.as<IntegerLiteral>().getValue().hasUnknown();
+    if (e104.kind == ExpressionKind::NamedValue) {
+        const auto& sym104 = e104.as<NamedValueExpression>().symbol;
+        if (sym104.kind == SymbolKind::Parameter)
+            if (auto* pi104 = sym104.as<ParameterSymbol>().getInitializer())
+                return red104UnknownLeaf104(*pi104, depth104 + 1);
+    }
+    return false;
+}
+
+/// A SHIFT with an unbased-unsized operand anywhere under the initializer
+/// (`'1 << 1`, `'1 >> 1`): golden leaves that initializer UNREDUCED and writes
+/// a `ref_obj` at every read (`z1_unbased97` wU1SHL, `k4_unbop94v` wA8,
+/// `k1_ctype94v` wCSHLU), so the digit road has no golden value to write —
+/// declined, the cell stays exactly as pristine wrote it.
+inline bool red104ShiftOfUnbased104(const Expression& e104) {
+    bool hit104 = false;
+    e104.visit(makeVisitor([&](auto& v, const BinaryExpression& be) {
+        switch (be.op) {
+            case BinaryOperator::LogicalShiftLeft:
+            case BinaryOperator::ArithmeticShiftLeft:
+            case BinaryOperator::LogicalShiftRight:
+            case BinaryOperator::ArithmeticShiftRight:
+                if (stripImplicitConv(be.left()).kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral ||
+                    stripImplicitConv(be.right()).kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                    hit104 = true;
+                break;
+            default:
+                break;
+        }
+        v.visitDefault(be);
+    }));
+    return hit104;
+}
+
+/// The second `adjustSize`, on the folded constant the pkg-param site wrote.
+/// `mask104` is the `vpiUIntConst` value face, `size104` the size face of every
+/// branch; `binLogic104` says the declared type takes the logic-typespec BIN
+/// branch (a predefined integer declaration carries an `int_typespec` onto
+/// the constant, which `adjustSize` consults first — declined).  Each face is
+/// the caller's flag.
+inline void red104ReaderResize104(UHDM::constant* c104, int32_t w104,
+                                  bool mask104, bool size104,
+                                  bool binLogic104, bool asInt104 = false) {
+    if (!c104 || w104 <= 0)
+        return;
+    const std::string v104(c104->VpiValue());
+    const int ct104 = c104->VpiConstType();
+    auto after104 = [&](size_t n) { return std::string_view(v104).substr(n); };
+    auto parse104 = [&](std::string_view s, int base, bool lenient) -> bool {
+        if (s.empty())
+            return false;
+        int64_t sn = 0;
+        auto r = std::from_chars(s.data(), s.data() + s.size(), sn, base);
+        if (r.ec == std::errc() && r.ptr == s.data() + s.size())
+            return true;
+        if (!lenient || s.front() == '-' ||
+            r.ec != std::errc::result_out_of_range)
+            return false;
+        uint64_t un = 0;
+        r = std::from_chars(s.data(), s.data() + s.size(), un, base);
+        return r.ec == std::errc() && r.ptr == s.data() + s.size();
+    };
+    if (ct104 == vpiUIntConst && v104.rfind("UINT:", 0) == 0) {
+        std::string_view d104 = after104(5);
+        if (!parse104(d104, 10, true))
+            return;
+        if (mask104 && !asInt104) {
+            // `parseIntLenient`: the signed reading first, then unsigned.
+            uint64_t u104 = 0;
+            int64_t i104 = 0;
+            auto r104 = std::from_chars(d104.data(), d104.data() + d104.size(),
+                                        i104, 10);
+            if (r104.ec == std::errc())
+                u104 = (uint64_t)i104;
+            else
+                std::from_chars(d104.data(), d104.data() + d104.size(), u104,
+                                10);
+            const uint64_t m104 = w104 >= 64 ? ~(uint64_t)0
+                                             : ((((uint64_t)1) << w104) - 1);
+            const std::string s104 = std::to_string(u104 & m104);
+            c104->VpiValue("UINT:" + s104);
+            c104->VpiDecompile(s104);
+        }
+        if (size104)
+            c104->VpiSize(w104);
+        return;
+    }
+    if (ct104 == vpiBinaryConst && v104.rfind("BIN:", 0) == 0) {
+        if (!binLogic104 || c104->VpiSize() > 64)
+            return;
+        if (asInt104) {
+            if (size104)
+                c104->VpiSize(w104);
+            return;
+        }
+        const int32_t o104 = c104->VpiSize();
+        // v11u94: a literal WIDER than its declaration (`logic [3:0] W8 =
+        // 8'b10101010`) is truncated by golden's DECLARATION-level adjust
+        // (`BIN:1010 sz4`) where our digits stay the literal's eight, so the
+        // read's truncation would cut the wrong digits (`a10_binw94` wW8_n2
+        // golden `BIN:10`, r11u104 `BIN:101010`) — declined, pristine's cell.
+        constexpr bool binWide104v = true;  // § readerWidthIsTheSecondAdjust104
+        if (binWide104v && v104.size() - 4 > (size_t)o104)
+            return;
+        if (size104 && o104 > w104) {
+            std::string b104(after104(4));
+            if (b104.size() > (size_t)(o104 - w104))
+                b104.erase(0, (size_t)(o104 - w104));
+            c104->VpiValue("BIN:" + b104);
+            c104->VpiDecompile(b104);
+            c104->VpiSize(w104);
+        }
+        return;
+    }
+    bool ok104 = false;
+    if (ct104 == vpiIntConst && v104.rfind("INT:", 0) == 0)
+        ok104 = parse104(after104(4), 10, false);
+    // Our `DEC:` is golden's `INT:` on this road (a based-decimal package
+    // initializer — `r1_readw104` D8, `p3_bare100` wBDEC): golden takes the
+    // INT branch, so the size is the reader's.
+    else if (ct104 == vpiDecConst && v104.rfind("DEC:", 0) == 0)
+        ok104 = parse104(after104(4), 10, false);
+    else if (ct104 == vpiHexConst && v104.rfind("HEX:", 0) == 0)
+        ok104 = c104->VpiSize() <= 64 && parse104(after104(4), 16, true);
+    else if (ct104 == vpiOctConst && v104.rfind("OCT:", 0) == 0)
+        ok104 = c104->VpiSize() <= 64 && parse104(after104(4), 8, true);
+    if (ok104 && size104)
+        c104->VpiSize(w104);
+}
+
+/// § readerWidthIsTheSecondAdjust104 — the verifier's (v11u94) two
+/// BASED-LEAF faces.  Both are cells where our constant is a STAND-IN for a
+/// different golden encoding, so the second resize must not treat it as its
+/// own.
+///
+/// (1) A NAME HOP over a BASED literal leaf (`logic [7:0] TUB = UB`, `UB =
+/// 8'b10000001` / `8'hA5` / `8'd200` / `8'sb10101010`).  Golden carries the
+/// LEAF's encoding through the hop (`BIN:10000001`, `HEX:A5`, `INT:200`,
+/// `INT:170`) and resizes THAT at the read — BIN keeps its own size at a wider
+/// reader, INT and DEC-born INT keep their digits — where our fold writes
+/// `cv`'s `UINT:` stand-in.  Masking the stand-in moved golden-right digits
+/// wrong (`a9_hops94` wTUD_n4 `INT:200` -> ours `UINT:8`, `a8_fixctl94`
+/// hHN4 `INT:170` -> `UINT:10`) and sizing it moved golden-right sizes wrong
+/// (wTUB_n16 golden `sz8`, ours `sz16`), so the resize DECLINES and the cell
+/// stays exactly as pristine wrote it (`red104HopOverBasedLeaf104`).
+///
+/// (2) A DIRECT read of a SIGNED based BINARY literal whose top bit is set
+/// (`8'sb10101010`, `4'sb1010`, `1'sb1`) under a declaration that carries a
+/// type (anything but the bare implicit one: `logic`, `bit`, `[7:0]`,
+/// `signed`).  The literal carries an `int_typespec` onto its constant, and
+/// the declaration's `adjustSize` takes the int-typespec branch
+/// (`CompileHelper.cpp:4131-4213`): golden's value is `INT:`
+/// (`logic signed [7:0] SB8 = 8'sb10101010` is `INT:-86`, `logic [7:0] US8 =
+/// 8'sb10101010` `INT:170`, `logic [7:0] S1 = 1'sb1` `INT:255`).  A bare
+/// implicit declaration (`localparam IS8N = 8'sb10101010`) runs no
+/// `adjustSize` and stays `BIN:`, which the logic branch truncates.  Our `BIN:`
+/// is then the stand-in for golden's `INT:`, and the read is golden's INT
+/// branch: the SIZE only, never the BIN truncation (`a5_sgnbin94`,
+/// `a6_paramw94`, `a7_sgnhop94`; r11u104 moved those value/decompile fields
+/// wrong-to-wrong) — `red104SgnBinIsInt104`.
+inline bool red104TypedDecl104(const ParameterSymbol& p104) {
+    const slang::ast::DeclaredType* d104 = p104.getDeclaredType();
+    if (!d104)
+        return false;
+    const slang::syntax::DataTypeSyntax* t104 = d104->getTypeSyntax();
+    if (!t104)
+        return false;
+    if (t104->kind != slang::syntax::SyntaxKind::ImplicitType)
+        return true;
+    const auto& i104 = t104->as<slang::syntax::ImplicitTypeSyntax>();
+    return i104.signing.valid() || !i104.dimensions.empty();
+}
+inline bool red104HopOverBasedLeaf104(const ParameterSymbol& p0104) {
+    const ParameterSymbol* p104 = &p0104;
+    for (int d104 = 0; d104 < 9 && p104; d104++) {
+        const Expression* i104 = p104->getInitializer();
+        if (!i104)
+            return false;
+        const Expression& e104 = stripImplicitConv(*i104);
+        if (e104.kind != ExpressionKind::NamedValue)
+            return d104 > 0 && red76VecSyntax(e104) != nullptr;
+        const auto& s104 = e104.as<NamedValueExpression>().symbol;
+        if (s104.kind != SymbolKind::Parameter)
+            return false;
+        p104 = &s104.as<ParameterSymbol>();
+    }
+    return false;
+}
+inline bool red104SgnBinIsInt104(const ParameterSymbol& p104) {
+    const Expression* i104 = p104.getInitializer();
+    if (!i104)
+        return false;
+    const Expression& e104 = stripImplicitConv(*i104);
+    const auto* v104 = red76VecSyntax(e104);
+    if (!v104)
+        return false;
+    std::string_view b104 = v104->base.rawText();
+    const size_t q104 = b104.find('\'');
+    if (q104 == std::string_view::npos || q104 + 2 >= b104.size() ||
+        (b104[q104 + 1] != 's' && b104[q104 + 1] != 'S') ||
+        tolower((unsigned char)b104[q104 + 2]) != 'b')
+        return false;
+    const auto& l104 = e104.as<IntegerLiteral>().getValue();
+    return red104TypedDecl104(p104) && l104.isSigned() && l104.isNegative();
+}
+
 /// § cmpOperandUnderIntMint102 (r11u102) — LAW A, r11v100's RV100-3.  A
 /// COMPARISON IS AN OPERAND LIKE ANY OTHER TO THE PRODUCER'S INT-MINTING ARMS.
 ///

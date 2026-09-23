@@ -1,0 +1,21 @@
+# predict104.py (r11u100's predict100.py with the SHAPE-meets-DIGIT rows printed by name: the seven digit flags are ON now)
+## uhdm2rtlil pristine workdir
+DIGIT-FLAG candidates (SHAPE meets DIGIT; the seven flags are ON since r11u104): 0 rows
+PREDICTED MOVER CANDIDATES: 0 rows  (loose class union: 64 rows)
+## Surelog pristine workdir
+DIGIT-FLAG candidates (SHAPE meets DIGIT; the seven flags are ON since r11u104): 11 rows
+  DIGIT-FLAG Ariane                                   BARE100+BNAM100+POW100+UAR100+UDC100+UNBO100
+  DIGIT-FLAG Ariane2024                               BARE100+BNAM100+UAR100+UDC100+UNBO100
+  DIGIT-FLAG Earlgrey                                 BARE100+BNAM100+UAR100+UNBO100
+  DIGIT-FLAG Earlgrey_0_1                             BARE100+BNAM100+UAR100+UDC100
+  DIGIT-FLAG Earlgrey_Verilator_0_1                   BARE100+BNAM100+UAR100+UDC100
+  DIGIT-FLAG Ibex                                     BARE100+UAR100+UDC100+UNBO100
+  DIGIT-FLAG IbexGoogle                               BARE100+UAR100+UNBO100
+  DIGIT-FLAG IncompTitan                              BARE100+BNAM100+POW100+UAR100+UDC100+UNBO100
+  DIGIT-FLAG NyuziProcessor                           BARE100+UDC100
+  DIGIT-FLAG Opentitan                                BARE100+BNAM100+UAR100+UNBO100
+  DIGIT-FLAG Verilator                                BARE100+BNAM100+BWL100+UAR100+UDC100
+  POW100     Ariane                                   BARE100+BNAM100+POW100+UAR100+UDC100+UNBO100
+  POW100     BlackParrotMuteErrors                    BARE100+POW100
+  POW100     IncompTitan                              BARE100+BNAM100+POW100+UAR100+UDC100+UNBO100
+PREDICTED MOVER CANDIDATES: 3 rows  (loose class union: 107 rows)

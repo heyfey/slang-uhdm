@@ -1,0 +1,150 @@
+# r11u104 CENSUS — census104.py over the PRISTINE sweep workdirs (both modes), golden databases dumped FIRST (cached), then ours.
+# REACH = a net-decl/assign cell whose initializer TEXT is a NAME and whose RHS we write as a constant, with a golden cell under the same key.
+# CANDIDATE = golden constant differing from ours in SIZE, or in value where ours is UINT (the two faces the law writes).
+
+## GOLDEN-vs-GOLDEN CALIBRATION (--gg): golden read on both sides
+u2r: TOTAL ROWS=1608
+surelog: TOTAL ROWS=960
+
+## uhdm2rtlil (1608 row-databases)
+REACH default AdditionAsParameterInInstance 1
+REACH default CppMacroNameAsVariableName 1
+REACH default EnumConcatenatedConst 2
+REACH default EnumConstX 1
+REACH default EnumInPackage 6
+REACH default ImportParametrizedTypeAndDeclareParamWithTheSameName 1
+REACH default ImportedPackageEnumItemInInterface 1
+REACH default ImportedParameter 2
+REACH default LocalParamInNestedForLoops 1
+default LocalParamInNestedForLoops SIZE=1 | o@asn:UINT:1/32<-?/?
+REACH default ModuleInstantiationAndIndirectParams 1
+REACH default NegationOfParameterInInstance 1
+REACH default NegationOfPatternParameterInInstance 1
+REACH default NestedParamSubstitution 1
+REACH default ParameterDoubleUnderscoreInSvFrontend 2
+REACH default ParameterFromPkgInNestedModule 2
+default ParameterFromPkgInNestedModule SIZE=1 | a@asn#2:?/?<-UINT:43981/32
+REACH default ParameterFromPkgOnParameterPortList 2
+default ParameterFromPkgOnParameterPortList SIZE=1 | a@asn#2:?/?<-UINT:43981/32
+REACH default ParameterInGenScopeInitializedWithLongConstant 1
+REACH default ParameterInitializationWithNegation 1
+REACH default ParameterInitializedByPartSelectOfParameters 1
+REACH default ParameterInitializedByPartSelectOfParametersAssignedToVar 1
+REACH default ParameterInitializedInSubModuleOfTopOf5LevelHierarchy 1
+REACH default ParameterInitializedInTopOf5LevelHierarchy 1
+REACH default ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle 1
+REACH default ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle 1
+REACH default ParameterOfSizeOfParametrizedPort 1
+REACH default ParameterOfSizeOfParametrizedPortInSubmodule 3
+REACH default ParameterPassedTo3TimesNestedSubmodule 1
+REACH default ParameterPassedToSubmoduleInGenscopeOfSubmodule 1
+REACH default ParameterPassedToSubmoduleOfSubmodule 1
+REACH default ParameterUnsignedInt 1
+REACH default PatternAsParameterOfInstance 1
+REACH default ReferencedPackageParameterInEnum 2
+default ReferencedPackageParameterInEnum SIZE=1 | o@asn#2:UINT:24/32<-?/?
+REACH default StringLocalParamInitByConcatenation 1
+REACH default StructMemberAsModuleInput 2
+REACH default SumOfParameters 1
+REACH default SumOfParametersInNestedForLoops 1
+default SumOfParametersInNestedForLoops SIZE=1 | o@asn:UINT:3/32<-?/?
+REACH default TypedefEnum 2
+REACH default UnsizedConstantParameter 1
+REACH default UnsizedConstantParameterInInstance 1
+REACH default const_func 9
+REACH default hana_test_intermout 4
+REACH default hana_test_parse2synthtrans 6
+REACH default ibex_wb_stage 1
+REACH default iface_pkg_enum_item 1
+REACH default mriscv_bind_sva 4
+REACH default param_no_default 16
+REACH default setundef 1
+REACH default unbased_unsized_param 8
+REACH testflags AdditionAsParameterInInstance 1
+REACH testflags CppMacroNameAsVariableName 1
+REACH testflags EnumConcatenatedConst 2
+REACH testflags EnumConstX 1
+REACH testflags EnumInPackage 6
+REACH testflags ImportParametrizedTypeAndDeclareParamWithTheSameName 1
+REACH testflags ImportedPackageEnumItemInInterface 1
+REACH testflags ImportedParameter 2
+REACH testflags LocalParamInNestedForLoops 1
+testflags LocalParamInNestedForLoops SIZE=1 | o@asn:UINT:1/32<-?/?
+REACH testflags ModuleInstantiationAndIndirectParams 1
+REACH testflags NegationOfParameterInInstance 1
+REACH testflags NegationOfPatternParameterInInstance 1
+REACH testflags NestedParamSubstitution 1
+REACH testflags ParameterDoubleUnderscoreInSvFrontend 2
+REACH testflags ParameterFromPkgInNestedModule 2
+testflags ParameterFromPkgInNestedModule SIZE=1 | a@asn#2:?/?<-UINT:43981/32
+REACH testflags ParameterFromPkgOnParameterPortList 2
+testflags ParameterFromPkgOnParameterPortList SIZE=1 | a@asn#2:?/?<-UINT:43981/32
+REACH testflags ParameterInGenScopeInitializedWithLongConstant 1
+REACH testflags ParameterInitializationWithNegation 1
+REACH testflags ParameterInitializedByPartSelectOfParameters 1
+REACH testflags ParameterInitializedByPartSelectOfParametersAssignedToVar 1
+REACH testflags ParameterInitializedInSubModuleOfTopOf5LevelHierarchy 1
+REACH testflags ParameterInitializedInTopOf5LevelHierarchy 1
+REACH testflags ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle 1
+REACH testflags ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle 1
+REACH testflags ParameterOfSizeOfParametrizedPort 1
+REACH testflags ParameterOfSizeOfParametrizedPortInSubmodule 3
+REACH testflags ParameterPassedTo3TimesNestedSubmodule 1
+REACH testflags ParameterPassedToSubmoduleInGenscopeOfSubmodule 1
+REACH testflags ParameterPassedToSubmoduleOfSubmodule 1
+REACH testflags ParameterUnsignedInt 1
+REACH testflags PatternAsParameterOfInstance 1
+REACH testflags ReferencedPackageParameterInEnum 2
+testflags ReferencedPackageParameterInEnum SIZE=1 | o@asn#2:UINT:24/32<-?/?
+REACH testflags StringLocalParamInitByConcatenation 1
+REACH testflags StructMemberAsModuleInput 2
+REACH testflags SumOfParameters 1
+REACH testflags SumOfParametersInNestedForLoops 1
+testflags SumOfParametersInNestedForLoops SIZE=1 | o@asn:UINT:3/32<-?/?
+REACH testflags TypedefEnum 2
+REACH testflags UnsizedConstantParameter 1
+REACH testflags UnsizedConstantParameterInInstance 1
+REACH testflags const_func 9
+REACH testflags hana_test_intermout 4
+REACH testflags hana_test_parse2synthtrans 6
+REACH testflags ibex_wb_stage 1
+REACH testflags iface_pkg_enum_item 1
+REACH testflags mriscv_bind_sva 4
+REACH testflags param_no_default 16
+REACH testflags setundef 1
+REACH testflags unbased_unsized_param 8
+TOTAL CANDROWS=10 REACH=208 REACHROWS=96 ROWS=1608 SIZE=10
+
+## Surelog (960 row-databases)
+REACH default ComplexParamOverload2 1
+REACH default ImportPackage 1
+REACH default LogicSize 1
+REACH default NoParamSubs 1
+REACH default Rggen 6
+REACH default Scr1SvTests 6
+REACH default StringRange 9
+REACH default StructAccess 1
+REACH default XValue 1
+REACH default YosysBigSimReed 4
+REACH default YosysOldOr 32
+REACH default YosysVerx 1
+REACH testflags ComplexParamOverload2 2
+REACH testflags ImportPackage 2
+REACH testflags LogicSize 2
+REACH testflags Scr1SvTests 6
+REACH testflags StringRange 17
+REACH testflags StructAccess 2
+REACH testflags XValue 2
+REACH testflags YosysBigSimReed 4
+REACH testflags YosysOldOr 32
+REACH testflags YosysVerx 1
+TOTAL REACH=134 REACHROWS=22 ROWS=960
+
+## POSITIVE CONTROL (--pair on this pass's and earlier arms, pristine side):
+r1_readw104:  111 SIZE  14 VALUE
+r2_homes104:  14 SIZE  1 VALUE
+p4_fence100:  9 SIZE  7 VALUE
+p2_uintdig100:  1 NOFOLD  15 SIZE  15 VALUE
+x2_minusedge94v:  5 SIZE
+k7_cwidth94v:  6 SIZE
+z3_cmpfam97:  2 NOFOLD  1 VALUE

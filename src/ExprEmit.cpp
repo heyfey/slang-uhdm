@@ -16196,40 +16196,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Each face is its own flag, and the `+`, `&`, `|` and the
                     // two shift arms drop one at a time.
                     //
-                    // BOTH ARE OFF, AND THE GRID IS WHY.  `adjustSize` runs a
-                    // SECOND time AT THE READ, with the READING TARGET's width
-                    // (`longint BLB = 9223372036854775807` read by a 32-bit net
-                    // is golden `UINT:4294967295` and by an 8-bit net
-                    // `UINT:255`, measured on `p4_fence100`), and this site can
-                    // see only the SOURCE parameter's width — slang models a
-                    // narrowing read with no node the emitter passes through,
-                    // and the reading net's type reaches the exporter only in
-                    // `ModuleEmit`'s `dt->getType()`, which is not this pass's
-                    // ground.  With the flags ON the grid reads AWAY=2 on
-                    // `p2_uintdig100` and AWAY=4 / MOVED-WRONG=10 on
-                    // `p4_fence100` — every one of them a read NARROWER than
-                    // the parameter, where slang's own 32-bit truncation had
-                    // made the pristine binary accidentally RIGHT.  The decode,
-                    // the producer lines and the whole measured grid stand in
-                    // the two § blocks; the flags are the switch, and R0 names
-                    // what has to reach this site first.  LAW A needs no such
-                    // width: `adjustSize` has NO branch for a `vpiIntConst`, so
-                    // the `INT:` road is never masked at any reader — measured,
-                    // `2 ** 3` is golden `INT:8` read by a 64-bit, a 32-bit and
-                    // an 8-bit net alike, and `logic [7:0] PU8 = 10 ** 3` is
-                    // golden `INT:1000`.
-                    constexpr bool add100 = false;  // § uintArmWrittenDigitsMasked100
-                    constexpr bool and100 = false;  // § uintArmWrittenDigitsMasked100
-                    constexpr bool or100 = false;   // § uintArmWrittenDigitsMasked100
-                    constexpr bool shl100 = false;  // § uintArmWrittenDigitsMasked100
-                    constexpr bool shr100 = false;  // § uintArmWrittenDigitsMasked100
-                    constexpr bool bare100 = false; // § bareUnsizedDecIsMaskedDigits100
-                    constexpr bool bname100 = false; // § bareUnsizedDecIsMaskedDigits100
+                    // LANDED OFF BY r11u100, TURNED ON BY r11u104.
+                    // `adjustSize` runs a SECOND time AT THE READ, with the
+                    // READING TARGET's width (`longint BLB =
+                    // 9223372036854775807` read by a 32-bit net is golden
+                    // `UINT:4294967295` and by an 8-bit net `UINT:255`,
+                    // measured on `p4_fence100`), and with the flags ON and no
+                    // width the grid read AWAY=2 on `p2_uintdig100` and
+                    // AWAY=4 / MOVED-WRONG=10 on `p4_fence100` — every one a
+                    // read NARROWER than the parameter.  The reading net's
+                    // width now arrives (§ readerWidthIsTheSecondAdjust104)
+                    // from `ModuleEmit`'s `dt->getType()`, and the second
+                    // mask below applies it; with it every one of those cells is
+                    // golden, and where no width arrives at a net
+                    // declaration's right-hand side the digit road declines
+                    // (`udRoad104`).  LAW A needs no width: `adjustSize` has
+                    // NO branch for a `vpiIntConst` VALUE, so the `INT:` road
+                    // is never masked at any reader — measured, `2 ** 3` is
+                    // golden `INT:8` read by a 64-bit, a 32-bit and an 8-bit
+                    // net alike, and `logic [7:0] PU8 = 10 ** 3` is golden
+                    // `INT:1000`.
+                    constexpr bool add100 = true;   // § uintArmWrittenDigitsMasked100
+                    constexpr bool and100 = true;   // § uintArmWrittenDigitsMasked100
+                    constexpr bool or100 = true;    // § uintArmWrittenDigitsMasked100
+                    constexpr bool shl100 = true;   // § uintArmWrittenDigitsMasked100
+                    constexpr bool shr100 = true;   // § uintArmWrittenDigitsMasked100
+                    constexpr bool bare100 = true;  // § bareUnsizedDecIsMaskedDigits100
+                    constexpr bool bname100 = true; // § bareUnsizedDecIsMaskedDigits100
                     constexpr bool uarm100 =
                         add100 || and100 || or100 || shl100 || shr100 || bare100;
+                    // § readerWidthIsTheSecondAdjust104 (r11u104) — LAW B,
+                    // the seven flags above flipped ON.  At a net
+                    // declaration's WHOLE right-hand side the producer masks
+                    // these digits AGAIN at the reading net's width, so the
+                    // digit road runs there only when `ModuleEmit` handed
+                    // that width over and the value face below will apply it
+                    // (`rdMask104`); where it did not — a home no hand-off
+                    // reaches, or a gate dropped — the digit road declines
+                    // and the cell stays exactly as pristine wrote it.
+                    constexpr bool rdMask104 = true;  // § readerWidthIsTheSecondAdjust104
+                    constexpr bool rdSize104 = true;  // § readerWidthIsTheSecondAdjust104
+                    const bool ndaTop104 =
+                        parent &&
+                        parent->UhdmType() == UHDM::uhdmcont_assign &&
+                        ((const UHDM::cont_assign*)parent)->VpiNetDeclAssign();
+                    const bool udRoad104 =
+                        !ndaTop104 || (ndaReaderWidth104 > 0 && rdMask104);
                     bool udig100 = false;
                     std::string udg100;
-                    if (uarm100 && !intTop100) {
+                    if (uarm100 && !intTop100 && udRoad104) {
                         if (const Expression* ui100 = psym.getInitializer()) {
                             // A CONST FUNCTION CALL under the arm is declined:
                             // its reduce is not this file's road.  Measured —
@@ -16243,6 +16258,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         uc100 = true;
                                     v100.visitDefault(cc100);
                                 }));
+                            // § readerWidthIsTheSecondAdjust104 — and a
+                            // shift over an unbased-unsized operand, which
+                            // golden never reduces (the § block beside
+                            // `red104ShiftOfUnbased104`).
+                            constexpr bool ubShift104 = true;  // § readerWidthIsTheSecondAdjust104
+                            if (ubShift104 && red104ShiftOfUnbased104(*ui100))
+                                uc100 = true;
                             if (!uc100) {
                                 ASTContext uctx100(comp.getRoot(),
                                                    LookupLocation::max);
@@ -17458,6 +17480,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 stampFoldedPkgParamTs(c, nv.symbol, prefix,
                                                       /*declTsOnly=*/true);
                         }
+                    }
+                    // § readerWidthIsTheSecondAdjust104 (r11u104) — r11u100's
+                    // R0 and R2.  The READ runs `adjustSize` a second time,
+                    // with the reading NET's width; the decode and the
+                    // measured grid are the § block beside
+                    // `red104ReaderResize104`.  `rdMask104` is the UINT value
+                    // face, `rdSize104` the size face of every branch.
+                    if (ndaTop104 && ndaReaderWidth104 > 0 &&
+                        !inParamInit && !inProcessEmit && !currentTf &&
+                        !(cv.isInteger() && cv.integer().hasUnknown()) &&
+                        !(psym.getInitializer() &&
+                          red104UnknownLeaf104(*psym.getInitializer()))) {
+                        const bool binLogic104 =
+                            psym.getType().getCanonicalType().kind !=
+                            SymbolKind::PredefinedIntegerType;
+                        // v11u94: the two based-leaf faces (§ block beside
+                        // `red104HopOverBasedLeaf104`) — a name hop over a
+                        // based literal declines, a direct signed-binary
+                        // top-bit read is golden's INT branch (size only).
+                        constexpr bool hopLit104v = true;  // § readerWidthIsTheSecondAdjust104
+                        constexpr bool sgnBin104v = true;  // § readerWidthIsTheSecondAdjust104
+                        const bool asInt104v =
+                            sgnBin104v && red104SgnBinIsInt104(psym);
+                        if (!(hopLit104v && red104HopOverBasedLeaf104(psym)))
+                            red104ReaderResize104(c, ndaReaderWidth104,
+                                                  rdMask104, rdSize104,
+                                                  binLogic104, asInt104v);
                     }
                     return c;
                 }

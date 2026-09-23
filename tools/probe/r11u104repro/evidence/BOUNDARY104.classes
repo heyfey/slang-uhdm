@@ -1,0 +1,42 @@
+# r11u104 WIDE BOUNDARY — every *.sv under tools/probe (this pass's own arms excluded: they are the scored grid),
+# the arm list read from a FILE (xargs -a), children </dev/null, r11u91repro/bnd72.sh (path-neutral: both
+# binaries write the same file name in the same directory).  PRISTINE 3c74f9e4 vs LAW 05698a59.
+arms listed=8544 processed=8544
+     30 DIFFERS
+    230 NODB
+   8284 SAME
+NODB:  4 prc=139 lrc=139; 226 prc=3 lrc=3;  — every NODB arm has prc == lrc
+NULL BOUNDARY (pristine against ITSELF over the DIFFERS arms of the first law run, a superset of these):  31 SAME / 31 — none is a run-to-run coin
+
+## CLASS 1 — 23 arms of the SCORED GRID (AWAY 0 / MOVED-WRONG 0 on both keys, GRID104.score):
+r11u100repro/grid/p1_powtop100.sv r11u100repro/grid/p2_uintdig100.sv r11u100repro/grid/p3_bare100.sv r11u100repro/grid/p4_fence100.sv r11u102repro/grid/q1_cmppow102.sv r11u102repro/grid/q3_xpow102.sv r11u102repro/grid/q4_homes102.sv r11u102repro/grid/q5_homes2102.sv r11u96repro/grid/y1_muldiv96.sv r11u96repro/grid/y2_unsized96.sv r11u97repro/grid/z1_unbased97.sv r11v102repro/grid/b1_callbrk94.sv r11v102repro/grid/b2_cmpbrk94.sv r11v102repro/grid/b3_xhomes94.sv r11v102repro/grid/b4_pkgcall94.sv r11v102repro/grid/b5_fixfaces94.sv r11v94repro/grid/x2_minusedge94v.sv r11v94repro/grid/x3_roads94v.sv r11v96repro/grid/v1_amulbrk96v.sv r11v96repro/grid/v2_bdecbrk96v.sv r11v96repro/grid/v5_unbased96v.sv r11v96repro/grid/v7_bigpat96v.sv r11v97repro/grid/k2_chain94v.sv
+
+## CLASS 2 — 4 arms OUTSIDE the grid whose whole diff is |vpiSize (8/16/4 -> 32): scored against a FRESH Surelog v1.87 golden,
+## every arm slrc=0 ourrc=0 slerr=0 — TO GOLDEN, AWAY 0:
+q4_negpkg94 NAME[TO=7  AWAY=0  STILL=0  EQ=63  MWRONG=0 ] LOC[ VIEW-KEYED TO=7 AWAY=0 STILL=32 EQ=266 MWRONG=0 SKIP=28 keys=89]
+q5_negedge94 NAME[TO=8  AWAY=0  STILL=4  EQ=58  MWRONG=0 ] LOC[ VIEW-KEYED TO=8 AWAY=0 STILL=20 EQ=317 MWRONG=0 SKIP=28 keys=97]
+q6_negwid94 NAME[TO=8  AWAY=0  STILL=0  EQ=62  MWRONG=0 ] LOC[ VIEW-KEYED TO=8 AWAY=0 STILL=4 EQ=293 MWRONG=0 SKIP=28 keys=89]
+v3_negfold91 NAME[TO=5  AWAY=0  STILL=3  EQ=57  MWRONG=0 ] LOC[ VIEW-KEYED TO=5 AWAY=0 STILL=9 EQ=231 MWRONG=0 SKIP=27 keys=76]
+  (scored with the f1ffd6e4 law; the final law 05698a59 writes path-normalised-identical dumps on all four — re-run and cmp)
+
+## CLASS 3 — 3 STATIC-ADDRESS FALSE MOVERS (RV94-5 / r11u100 R7: the dynamic array's range bound printed from an
+## uninitialized pointer-valued UINT): |UINT + |vpiDecompile ONLY, and the 16 KB-PAD POSITIVE CONTROL (pristine source
+## + extern "C" volatile char r11u104_pad16k[16384] in uhdm_main.cpp, md5 0eaa22c55ffe, 23401080 bytes) moves THE SAME
+## cells by THE SAME 16384:
+  g22.sv        law: 23400769->23417153, 23401625->23418009   pad: 23400769->23417153, 23401625->23418009
+  l154_noenum   law: 23401625->23418009                      pad: 23401625->23418009
+  g185_e_kinds  law: 23401625->23418009                      pad: 23401625->23418009
+  (pristine 23384656 bytes, law 23404512, pad 23401080 — the law's page shift equals the pad's)
+
+## THE FINAL LAW'S WHOLE BYTE DIFF on the seven non-grid arms (order-blind, path-normalised):
+r10buvm22repro_g22_sv:  1 < |UINT:23400769; 2 < |UINT:23401625; 1 > |UINT:23417153; 2 > |UINT:23418009; 1 < |vpiDecompile:23400769; 2 < |vpiDecompile:23401625; 1 > |vpiDecompile:23417153; 2 > |vpiDecompile:23418009;
+r10uvm154repro_l154_noenum_sv:  2 < |UINT:23401625; 2 > |UINT:23418009; 2 < |vpiDecompile:23401625; 2 > |vpiDecompile:23418009;
+r10uvm185repro_grid185_g185_e_kinds_sv:  3 < |UINT:23401625; 3 > |UINT:23418009; 3 < |vpiDecompile:23401625; 3 > |vpiDecompile:23418009;
+r11u94repro_grid_q4_negpkg94_sv:  1 < |vpiSize:16; 7 > |vpiSize:32; 1 < |vpiSize:4; 5 < |vpiSize:8;
+r11u94repro_grid_q5_negedge94_sv:  8 > |vpiSize:32; 8 < |vpiSize:8;
+r11u94repro_grid_q6_negwid94_sv:  2 < |vpiSize:16; 8 > |vpiSize:32; 6 < |vpiSize:8;
+r11v91repro_v3_negfold91_sv:  5 > |vpiSize:32; 2 < |vpiSize:4; 3 < |vpiSize:8;
+
+## NOTE — b1_callbrk94 (class 1) carries the one byte move no scorer can read: the ARGUMENT of b1p::fs/fp/fm(b1p::PB200)
+## (byte PB200 = 200) moves INT:-56 -> UINT:200 (the producer's digits, golden p3_bare100 wYB200 = UINT:200) inside a
+## net-decl cell golden does NOT WRITE AT ALL (r11u102's call-home declines) — a pre-existing invented cell, unscoreable.

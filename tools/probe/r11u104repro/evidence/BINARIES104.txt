@@ -1,0 +1,5 @@
+pristine        3c74f9e404ec5a3d56b951c905e15069  23384656 B  63dfc6fc, own worktree (= brief)
+LAW (shipped)   05698a590b36ef354872669983ba99a8  23404512 B  this patch; fresh-apply rebuild identical
+law f1ffd6e4    f1ffd6e46e7107ed58108623654e1755  23399656 B  the patch WITHOUT the ubShift104 decline: full sweep pair measured too
+exploration     468de9f5e00e80c0f2455813e3b65de9               the shipped source, thirteen gates read from env (DROP104.txt only)
+pad16           0eaa22c55ffe0e7c5986d9d4484abe64  23401080 B  pristine + a 16 KB static pad (static-address positive control)

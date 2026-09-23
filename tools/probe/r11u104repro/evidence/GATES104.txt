@@ -1,0 +1,39 @@
+# r11u104 GATES — base 63dfc6fc, pins per SUPPORT_MATRIX.md.  Every binary frozen (chmod 555) at an immutable path
+# BEFORE any sweep; every sweep ran scripts/verify_golden.py --jobs 3 with SLANG_UHDM exported and its own --out/--workdir.
+
+(1) BUILD, -j 2, md5 separately
+  pristine  3c74f9e404ec5a3d56b951c905e15069  own worktree at 63dfc6fc — the brief's md5 exactly
+  LAW       05698a590b36ef354872669983ba99a8  this patch (0 errors; 20 warnings = pristine's 20, all pre-existing -Wnarrowing)
+  the patch applied with `git apply -3` to a FRESH 63dfc6fc worktree (rc 0, no conflict marker) and built there
+  independently -> 05698a590b36ef354872669983ba99a8, byte for byte.  A comment-only citation fix made after the
+  sweeps rebuilt to the same md5.
+(2) GOLDENS  tests/check_goldens.sh: pristine 23 PASS / 0 FAIL; LAW 23 PASS / 0 FAIL; SLANG_UHDM=/bin/false 0 PASS / 23 FAIL
+(3) uhdm2rtlil, BOTH MODES: pristine and LAW each 788 CMP_EQUAL / 16 CMP_NOTEQUAL / 67 SLANG_REJECT in testflags AND default.
+  join87.py vs results/golden_uhdm2rtlil.csv (1742 rows, both modes): pristine DIFF=0, LAW DIFF=0.
+  ct8rows.sh vs results/gate_uhdm2rtlil.csv (testflags): LAW "PASS: every row byte-identical to the committed baseline".
+  cmds.txt audit BY ABSOLUTE BINARY PATH: pristine 1742/1742 name /tmp/r11u104_bin/pris.bin, LAW 1742/1742 name
+  /tmp/r11u104_bin/law2.bin, 0 name anything else.  NO ROW DIFFERS: nothing converts, nothing regresses.
+(4) Surelog --mode both: pristine AND LAW 474/9 default, 469/8 testflags, every histogram cell equal to the baseline
+  (SLANG_REJECT 285/286, SURELOG_FAIL 25/23, DEFERRED 5/5, NO_DATABASE 3, NO_UHDM 1, TIMEOUT 1, UNTRANSLATABLE 2).
+  ct8rows.sh vs results/golden_surelog.csv, whole-row, LAW: exactly
+    LowMemLib testflags SURELOG_FAIL   DETAIL = the sweep's OWN workdir path
+    LowMemPkg testflags SURELOG_FAIL   DETAIL = the sweep's OWN workdir path
+    Earlgrey_0_1 default + testflags   CMP_EQUAL, the DUMP COLUMN blank (the documented uhdm-dump timeout draw)
+  and the PRISTINE sweep reads the same four rows.  NO STATUS MOVED on any row of either corpus.
+  cmds.txt audit: 1581 per sweep, 1531 carry a slang line and all name the sweep's own frozen binary, 0 other.
+(5) BYTEVERIFY SELFCHECK=1 vs this pass's own pristine workdirs: u2r MOVERS 0/1608 (predicted 0); Surelog 3/960,
+  every one the uvm_pkg one-pair coin, attributed order-blind with a four-run pristine positive control (MOVERS104.txt).
+CANARIES (battery copied from r10uvm221repro): Surelog ok=50 changed=2 on the LAW (the two changes = Earlgrey_0_1's
+  DUMP COLUMN alone, status untouched; pristine reads the same), u2r ok=8 changed=0; ctcan2 PASS both corpora
+  (EXPECT_UNKNOWN 1 / 6); canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0.
+HARD / STATUS PINS, LAW vs pristine, both modes — every one byte-identical AND at its brief value:
+  SVSwitch 4842211c4030  YosysVerx 6ccda350c24a  InterfaceModPort 59a365f3ce2c  BlackParrotComplex e3e354129d5a /
+  73a10e8217e5  YosysOldOr d68e0796d62c  Earlgrey_0_1 8bdf25272e08 (default) / 59d0ee6d10c3 (testflags)
+CONVERSION ROWS, official uhdm-cmp, golden LHS (r11u91repro/rowheads.sh): measured=13 SKIP-NOFILE=1 UNKNOWN-NAME=0,
+  every one 0 cmp lines / 0 heads, cmp rc=0 — BuildUVMPkg, MiniAmiq, SeqDriver, SimpleUVM, Scoreboard, Earlgrey_0_1,
+  ParamOverloading, both modes (the one SKIP-NOFILE is the documented Scoreboard/testflags).
+ibex_icache (both modes): database byte-identical pristine -> LAW (9c1ffd34e983 / 4440db2c6af1), 17 cmp lines /
+  1 head both: the folded bit-select index `round_robin_way_q[IC_NUM_WAYS-1]` (ibex_icache.sv:519) where golden
+  carries a ref_typespec and we carry none — a typespec face on a written assign, NOT the size face; predicted by name.
+results/*.csv UNTOUCHED.  No slang-fenced test was dispatched as an arm (the boundary list carries none of the four
+  names); UhdmExporter.cpp, ParamEmit.cpp, include/ ABSENT from the patch.
