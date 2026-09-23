@@ -77,9 +77,14 @@ def _tool(env, *candidates):
 SURELOG = _tool('SURELOG', os.path.join(SURELOG_ROOT, 'build', 'bin', 'surelog'),
                 shutil.which('surelog'))
 SLANG_UHDM = _tool('SLANG_UHDM', os.path.join(REPO_ROOT, 'build', 'slang-uhdm'))
-_UHDM_BIN = os.path.join(SURELOG_ROOT, 'build', 'third_party', 'UHDM', 'bin')
-UHDM_CMP = _tool('UHDM_CMP', os.path.join(_UHDM_BIN, 'uhdm-cmp'), shutil.which('uhdm-cmp'))
-UHDM_DUMP = _tool('UHDM_DUMP', os.path.join(_UHDM_BIN, 'uhdm-dump'), shutil.which('uhdm-dump'))
+# uhdm-cmp / uhdm-dump: the Surelog submodule's build tree first, then this
+# tree's own in-tree build of the same UHDM commit, then PATH.
+_UHDM_BINS = (os.path.join(SURELOG_ROOT, 'build', 'third_party', 'UHDM', 'bin'),
+              os.path.join(REPO_ROOT, 'build', 'third_party', 'Surelog', 'third_party', 'UHDM', 'bin'))
+UHDM_CMP = _tool('UHDM_CMP', *[os.path.join(d, 'uhdm-cmp') for d in _UHDM_BINS],
+                 shutil.which('uhdm-cmp'))
+UHDM_DUMP = _tool('UHDM_DUMP', *[os.path.join(d, 'uhdm-dump') for d in _UHDM_BINS],
+                  shutil.which('uhdm-dump'))
 
 # ---------------------------------------------------------------- golden cache
 #

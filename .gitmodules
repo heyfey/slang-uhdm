@@ -4,3 +4,6 @@
 [submodule "third_party/uhdm2rtlil"]
 	path = third_party/uhdm2rtlil
 	url = https://github.com/alainmarcel/uhdm2rtlil
+[submodule "third_party/slang"]
+	path = third_party/slang
+	url = https://github.com/heyfey/slang.git

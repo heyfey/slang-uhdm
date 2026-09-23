@@ -4,3 +4,4 @@ difsizes.csv
 *.o
 *.swp
 __pycache__/
+build-*/

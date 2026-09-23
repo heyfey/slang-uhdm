@@ -26,6 +26,7 @@
 #include "slang/syntax/AllSyntax.h"
 #include "slang/syntax/SyntaxTree.h"
 #include "slang/util/VersionInfo.h"
+#include "uhdm/uhdm-version.h"
 
 using namespace slang;
 using namespace slang::driver;
@@ -156,7 +157,11 @@ int main(int argc, char** argv) {
     }
 
     if (showVersion == true) {
+#define SLANG_UHDM_STR2(x) #x
+#define SLANG_UHDM_STR(x) SLANG_UHDM_STR2(x)
         printf("slang-uhdm using slang version %s\n", VersionInfo::getVersionString().c_str());
+        printf("slang-uhdm using UHDM version %d.%d (%s)\n", UHDM_VERSION_MAJOR,
+               UHDM_VERSION_MINOR, SLANG_UHDM_STR(UHDM_VERSION_COMMIT_SHA));
         return 0;
     }
 

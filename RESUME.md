@@ -120,7 +120,9 @@ official cmp to claim it is correct") and must never become a bottleneck
   PLAYBOOK.md GOLDEN_EQUIVALENCE.md HANDOFF.md NOTES.md PLAN.md   older docs (§11)
 
 third_party/Surelog/build/bin/surelog             the producer (built inside the submodule, or SURELOG=...)
-third_party/Surelog/build/third_party/UHDM/bin/{uhdm-cmp,uhdm-dump}   the judge and the dumper (or UHDM_CMP=/UHDM_DUMP=)
+third_party/Surelog/build/third_party/UHDM/bin/{uhdm-cmp,uhdm-dump}   the judge and the dumper (or UHDM_CMP=/UHDM_DUMP=;
+                                                  or build/third_party/Surelog/third_party/UHDM/bin from the in-tree build)
+third_party/slang + third_party/Surelog/third_party/UHDM   the PINNED frontend and library, built in-tree by cmake by default
 ~/git-repos/UHDM/build/bin/{uhdm-cmp,uhdm-dump}   the same tools from the standalone UHDM build on this machine
 ~/git-repos/UHDM/build/generated/src/*.cpp        generated <kind>::Compare bodies — READ THESE
 ~/.local/include/uhdm/BaseClass.h                 SafeCompare overloads (§9 head-decode)

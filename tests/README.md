@@ -23,11 +23,13 @@ also byte-identical (`match`) or not (`differ`).
 
 ## Setup
 
-    git submodule update --init                       # the two corpora (no recursion needed to run)
-    # the producer: build Surelog once inside the submodule (needs its own submodules)
-    git -C third_party/Surelog submodule update --init --recursive
-    make -C third_party/Surelog release               # -> build/bin/surelog, build/third_party/UHDM/bin/uhdm-{cmp,dump}
-    # slang-uhdm itself: see README.md "Build"
+    git submodule update --init --recursive           # the corpora, slang, and Surelog's UHDM + capnproto
+    cmake -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build -j 4   # slang-uhdm (slang + UHDM in-tree)
+    make -C third_party/Surelog release               # the producer: build/bin/surelog, build/third_party/UHDM/bin/uhdm-{cmp,dump}
+
+The judge (`uhdm-cmp`) and the dumper are taken from the Surelog submodule's
+build tree first, then from this tree's own build of the same UHDM commit
+(`build/third_party/Surelog/third_party/UHDM/bin`), then from `PATH`.
 
 If Surelog and UHDM are already built elsewhere, point at them instead of
 building the submodule:

@@ -10,23 +10,30 @@ as a drop-in replacement for `surelog -parse`.
 ## Compatibility contract
 
 A `.uhdm` file only interops with the exact UHDM commit that wrote it.
-This tree is pinned to:
+The pins are the submodules under `third_party/`:
 
-| Component | Commit | Role |
-|---|---|---|
-| UHDM | `5523dfc` (v1.86-31) | linked library + schema |
-| Surelog | `cbdbea458c` (v1.86-114) | reference producer (convergence oracle) |
-| slang | master 2026-07 (v11.0-dev) | frontend library |
+| Component | Where | Pin | Role |
+|---|---|---|---|
+| Surelog | `third_party/Surelog` | v1.87 (`0445655e`) | reference producer and test suites |
+| UHDM | `third_party/Surelog/third_party/UHDM` | as Surelog pins it (`c7562484`, 1.87) | linked library, schema, `uhdm-cmp` / `uhdm-dump` |
+| slang | `third_party/slang` | `7d61e0ad1` (11.0.473) | frontend library |
+
+`slang-uhdm --version` prints the slang and UHDM versions a binary was
+built with, including the UHDM commit.
 
 ## Build
 
-    git submodule update --init                       # third_party/Surelog + third_party/uhdm2rtlil (the test corpora)
-    # once: install slang and UHDM packages (UHDM = third_party/Surelog/third_party/UHDM, the same pin)
-    cmake --install <slang>/build   --prefix ~/.local
-    cmake --install <UHDM>/build    --prefix ~/.local   # UHDM configured with CMAKE_INSTALL_PREFIX=~/.local
-    # then
-    cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$HOME/.local
+    git submodule update --init --recursive       # slang, Surelog, and Surelog's UHDM + capnproto
+    cmake -B build -DCMAKE_BUILD_TYPE=Release
     cmake --build build -j 4
+
+That builds slang and UHDM in-tree from the submodules. To link installed
+packages instead (`cmake --install` of slang and UHDM to a prefix):
+
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DSLANG_UHDM_USE_SYSTEM_DEPS=ON -DCMAKE_PREFIX_PATH=$HOME/.local
+
+The producer for the test sweep is built separately inside the Surelog
+submodule; see tests/README.md.
 
 ## Status
 
