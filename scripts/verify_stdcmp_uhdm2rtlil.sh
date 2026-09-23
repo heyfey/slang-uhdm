@@ -1,8 +1,11 @@
 #!/bin/bash
 # Independent verification: run surelog + slang-uhdm, then the STANDARD uhdm-cmp directly.
-UHDM_CMP=$HOME/git-repos/UHDM/build/bin/uhdm-cmp
-SURELOG=$HOME/git-repos/Surelog/build/bin/surelog
-SLANG=$HOME/git-repos/slang-uhdm/build/slang-uhdm
+ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
+SURELOG_ROOT=${SURELOG_ROOT:-$ROOT/third_party/Surelog}
+UHDM_BIN=$SURELOG_ROOT/build/third_party/UHDM/bin
+UHDM_CMP=${UHDM_CMP:-$UHDM_BIN/uhdm-cmp}
+SURELOG=${SURELOG:-$SURELOG_ROOT/build/bin/surelog}
+SLANG=${SLANG_UHDM:-$ROOT/build/slang-uhdm}
 d="$1"; name=$(basename "$d"); dut="$d/dut.sv"
 [ -f "$dut" ] || exit 0
 w=$(mktemp -d /tmp/vcmp.XXXXXX); cd "$w" || exit 9

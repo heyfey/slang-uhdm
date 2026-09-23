@@ -1,7 +1,7 @@
 design: (work@dut)
 |vpiName:work@dut
 |uhdmallModules:
-\_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+\_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@dut)
   |vpiFullName:work@dut
@@ -9,35 +9,35 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.a), line:1:32, endln:1:33
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.b), line:1:54, endln:1:55
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.c), line:1:76, endln:1:77
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:c
     |vpiFullName:work@dut.c
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.d), line:1:98, endln:1:99
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:d
     |vpiFullName:work@dut.d
     |vpiNetType:36
   |vpiPort:
   \_port: (a), line:1:32, endln:1:33
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
@@ -58,7 +58,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (b), line:1:54, endln:1:55
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
@@ -79,7 +79,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (c), line:1:76, endln:1:77
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:c
     |vpiDirection:2
     |vpiLowConn:
@@ -100,7 +100,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (d), line:1:98, endln:1:99
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:d
     |vpiDirection:2
     |vpiLowConn:
@@ -121,7 +121,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:38
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:2:15, endln:2:38
       |vpiParent:
@@ -141,7 +141,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:3:11, endln:3:34
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:3:15, endln:3:34
       |vpiParent:
@@ -161,7 +161,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:4:11, endln:4:83
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:4:15, endln:4:83
       |vpiParent:
@@ -181,7 +181,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:5:11, endln:5:35
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:5:15, endln:5:35
       |vpiParent:
@@ -199,7 +199,7 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.d), line:1:98, endln:1:99
 |uhdmtopModules:
-\_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+\_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_design: (work@dut)
   |vpiName:work@dut
@@ -208,7 +208,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.a), line:1:32, endln:1:33
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_ref_typespec: (work@dut.a)
       |vpiParent:
@@ -222,7 +222,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.b), line:1:54, endln:1:55
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_ref_typespec: (work@dut.b)
       |vpiParent:
@@ -236,7 +236,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.c), line:1:76, endln:1:77
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_ref_typespec: (work@dut.c)
       |vpiParent:
@@ -250,7 +250,7 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.d), line:1:98, endln:1:99
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
     \_ref_typespec: (work@dut.d)
       |vpiParent:
@@ -265,7 +265,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (a), line:1:32, endln:1:33
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
@@ -286,7 +286,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (b), line:1:54, endln:1:55
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
@@ -307,7 +307,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (c), line:1:76, endln:1:77
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:c
     |vpiDirection:2
     |vpiLowConn:
@@ -328,7 +328,7 @@ design: (work@dut)
   |vpiPort:
   \_port: (d), line:1:98, endln:1:99
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiName:d
     |vpiDirection:2
     |vpiLowConn:
@@ -349,7 +349,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:38
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:2:15, endln:2:38
     |vpiLhs:
@@ -363,7 +363,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:3:11, endln:3:34
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:3:15, endln:3:34
       |vpiParent:
@@ -383,7 +383,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:4:11, endln:4:83
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:4:15, endln:4:83
     |vpiLhs:
@@ -397,7 +397,7 @@ design: (work@dut)
   |vpiContAssign:
   \_cont_assign: , line:5:11, endln:5:35
     |vpiParent:
-    \_module_inst: work@dut (work@dut), file:/home/heyfey/git-repos/uhdm2rtlil/test/ConstSizes/dut.sv, line:1:1, endln:6:10
+    \_module_inst: work@dut (work@dut), file:$CORPUS/ConstSizes/dut.sv, line:1:1, endln:6:10
     |vpiRhs:
     \_constant: , line:5:15, endln:5:35
     |vpiLhs:

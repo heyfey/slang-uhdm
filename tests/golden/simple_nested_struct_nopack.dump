@@ -1,17 +1,17 @@
 design: (work@simple_nested_struct_nopack)
 |vpiName:work@simple_nested_struct_nopack
 |uhdmallModules:
-\_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+\_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
   |vpiParent:
   \_design: (work@simple_nested_struct_nopack)
   |vpiFullName:work@simple_nested_struct_nopack
   |vpiTypedef:
   \_struct_typespec: (base_struct_t), line:8:13, endln:12:6
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiName:base_struct_t
     |vpiInstance:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (addr), line:9:22, endln:9:26
@@ -25,7 +25,7 @@ design: (work@simple_nested_struct_nopack)
         |vpiFullName:work@simple_nested_struct_nopack.base_struct_t.addr
         |vpiActual:
         \_logic_typespec: , line:9:9, endln:9:20
-      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefFile:$CORPUS/simple_nested_struct_nopack/dut.sv
       |vpiRefLineNo:9
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:9
@@ -42,7 +42,7 @@ design: (work@simple_nested_struct_nopack)
         |vpiFullName:work@simple_nested_struct_nopack.base_struct_t.data
         |vpiActual:
         \_logic_typespec: , line:10:9, endln:10:21
-      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefFile:$CORPUS/simple_nested_struct_nopack/dut.sv
       |vpiRefLineNo:10
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:10
@@ -59,7 +59,7 @@ design: (work@simple_nested_struct_nopack)
         |vpiFullName:work@simple_nested_struct_nopack.base_struct_t.valid
         |vpiActual:
         \_logic_typespec: , line:11:9, endln:11:14
-      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefFile:$CORPUS/simple_nested_struct_nopack/dut.sv
       |vpiRefLineNo:11
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:11
@@ -68,7 +68,7 @@ design: (work@simple_nested_struct_nopack)
   \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
     |vpiName:nested_struct_t
     |vpiInstance:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_typespec_member: (base), line:15:23, endln:15:27
@@ -82,7 +82,7 @@ design: (work@simple_nested_struct_nopack)
         |vpiFullName:nested_struct_t.base
         |vpiActual:
         \_struct_typespec: (base_struct_t), line:8:13, endln:12:6
-      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefFile:$CORPUS/simple_nested_struct_nopack/dut.sv
       |vpiRefLineNo:15
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:15
@@ -99,7 +99,7 @@ design: (work@simple_nested_struct_nopack)
         |vpiFullName:nested_struct_t.id
         |vpiActual:
         \_logic_typespec: , line:16:9, endln:16:21
-      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefFile:$CORPUS/simple_nested_struct_nopack/dut.sv
       |vpiRefLineNo:16
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:16
@@ -116,7 +116,7 @@ design: (work@simple_nested_struct_nopack)
         |vpiFullName:nested_struct_t.cmd
         |vpiActual:
         \_logic_typespec: , line:17:9, endln:17:20
-      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefFile:$CORPUS/simple_nested_struct_nopack/dut.sv
       |vpiRefLineNo:17
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:17
@@ -133,7 +133,7 @@ design: (work@simple_nested_struct_nopack)
         |vpiFullName:nested_struct_t.ready
         |vpiActual:
         \_logic_typespec: , line:18:9, endln:18:14
-      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefFile:$CORPUS/simple_nested_struct_nopack/dut.sv
       |vpiRefLineNo:18
       |vpiRefColumnNo:9
       |vpiRefEndLineNo:18
@@ -142,21 +142,21 @@ design: (work@simple_nested_struct_nopack)
   |vpiNet:
   \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiName:in_data
     |vpiFullName:work@simple_nested_struct_nopack.in_data
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiName:out_data
     |vpiFullName:work@simple_nested_struct_nopack.out_data
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@simple_nested_struct_nopack.in_struct), line:22:21, endln:22:30
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_nested_struct_nopack.in_struct)
       |vpiParent:
@@ -169,7 +169,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiNet:
   \_logic_net: (work@simple_nested_struct_nopack.out_struct), line:23:21, endln:23:31
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_nested_struct_nopack.out_struct)
       |vpiParent:
@@ -182,7 +182,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiPort:
   \_port: (in_data), line:3:25, endln:3:32
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiName:in_data
     |vpiDirection:1
     |vpiLowConn:
@@ -203,7 +203,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiPort:
   \_port: (out_data), line:4:25, endln:4:33
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiName:out_data
     |vpiDirection:2
     |vpiLowConn:
@@ -224,7 +224,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiProcess:
   \_always: , line:30:5, endln:41:8
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiStmt:
     \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
       |vpiParent:
@@ -586,7 +586,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiContAssign:
   \_cont_assign: , line:26:12, endln:26:31
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiRhs:
     \_ref_obj: (work@simple_nested_struct_nopack.in_data), line:26:24, endln:26:31
       |vpiParent:
@@ -606,7 +606,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiContAssign:
   \_cont_assign: , line:27:12, endln:27:33
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiRhs:
     \_ref_obj: (work@simple_nested_struct_nopack.out_struct), line:27:23, endln:27:33
       |vpiParent:
@@ -624,7 +624,7 @@ design: (work@simple_nested_struct_nopack)
       |vpiActual:
       \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
 |uhdmtopModules:
-\_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+\_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
   |vpiParent:
   \_design: (work@simple_nested_struct_nopack)
   |vpiName:work@simple_nested_struct_nopack
@@ -637,7 +637,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiNet:
   \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_nested_struct_nopack.in_data)
       |vpiParent:
@@ -651,7 +651,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiNet:
   \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_nested_struct_nopack.out_data)
       |vpiParent:
@@ -665,7 +665,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiNet:
   \_struct_net: (work@simple_nested_struct_nopack.in_struct), line:22:21, endln:22:30
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_nested_struct_nopack.in_struct)
       |vpiParent:
@@ -678,7 +678,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiNet:
   \_struct_net: (work@simple_nested_struct_nopack.out_struct), line:23:21, endln:23:31
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_nested_struct_nopack.out_struct)
       |vpiParent:
@@ -692,7 +692,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiPort:
   \_port: (in_data), line:3:25, endln:3:32
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiName:in_data
     |vpiDirection:1
     |vpiLowConn:
@@ -713,7 +713,7 @@ design: (work@simple_nested_struct_nopack)
   |vpiPort:
   \_port: (out_data), line:4:25, endln:4:33
     |vpiParent:
-    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:$CORPUS/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
     |vpiName:out_data
     |vpiDirection:2
     |vpiLowConn:

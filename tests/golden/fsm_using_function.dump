@@ -1,14 +1,14 @@
 design: (work@fsm_using_function)
 |vpiName:work@fsm_using_function
 |uhdmallModules:
-\_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+\_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
   |vpiParent:
   \_design: (work@fsm_using_function)
   |vpiFullName:work@fsm_using_function
   |vpiParameter:
   \_parameter: (work@fsm_using_function.SIZE), line:24:11, endln:24:15
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |UINT:3
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.SIZE)
@@ -22,7 +22,7 @@ design: (work@fsm_using_function)
   |vpiParameter:
   \_parameter: (work@fsm_using_function.IDLE), line:25:11, endln:25:15
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |BIN:001
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.IDLE)
@@ -36,7 +36,7 @@ design: (work@fsm_using_function)
   |vpiParameter:
   \_parameter: (work@fsm_using_function.GNT0), line:25:26, endln:25:30
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |BIN:010
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.GNT0)
@@ -50,7 +50,7 @@ design: (work@fsm_using_function)
   |vpiParameter:
   \_parameter: (work@fsm_using_function.GNT1), line:25:40, endln:25:44
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |BIN:100
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.GNT1)
@@ -64,7 +64,7 @@ design: (work@fsm_using_function)
   |vpiParamAssign:
   \_param_assign: , line:24:11, endln:24:19
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_constant: , line:24:18, endln:24:19
       |vpiParent:
@@ -85,7 +85,7 @@ design: (work@fsm_using_function)
   |vpiParamAssign:
   \_param_assign: , line:25:11, endln:25:25
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_constant: , line:25:19, endln:25:25
       |vpiParent:
@@ -106,7 +106,7 @@ design: (work@fsm_using_function)
   |vpiParamAssign:
   \_param_assign: , line:25:26, endln:25:39
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_constant: , line:25:33, endln:25:39
       |vpiParent:
@@ -127,7 +127,7 @@ design: (work@fsm_using_function)
   |vpiParamAssign:
   \_param_assign: , line:25:40, endln:25:53
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_constant: , line:25:47, endln:25:53
       |vpiParent:
@@ -149,7 +149,7 @@ design: (work@fsm_using_function)
   |vpiTaskFunc:
   \_function: (work@fsm_using_function.fsm_function), line:32:1, endln:56:12
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:fsm_function
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiVisibility:1
@@ -547,53 +547,53 @@ design: (work@fsm_using_function)
             |vpiActual:
             \_logic_var: (work@fsm_using_function.fsm_function.fsm_function), line:32:10, endln:32:20
     |vpiInstance:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
   |vpiNet:
   \_logic_net: (work@fsm_using_function.clock), line:20:9, endln:20:14
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:clock
     |vpiFullName:work@fsm_using_function.clock
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@fsm_using_function.reset), line:20:15, endln:20:20
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:reset
     |vpiFullName:work@fsm_using_function.reset
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@fsm_using_function.req_0), line:20:21, endln:20:26
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:req_0
     |vpiFullName:work@fsm_using_function.req_0
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@fsm_using_function.req_1), line:20:27, endln:20:32
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:req_1
     |vpiFullName:work@fsm_using_function.req_1
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@fsm_using_function.gnt_0), line:22:9, endln:22:14
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:gnt_0
     |vpiFullName:work@fsm_using_function.gnt_0
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@fsm_using_function.gnt_1), line:22:15, endln:22:20
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:gnt_1
     |vpiFullName:work@fsm_using_function.gnt_1
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@fsm_using_function.state), line:27:27, endln:27:32
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.state)
       |vpiParent:
@@ -607,7 +607,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.next_state), line:28:27, endln:28:37
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.next_state)
       |vpiParent:
@@ -621,7 +621,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (clock), line:8:1, endln:8:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
@@ -641,7 +641,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (reset), line:9:1, endln:9:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
@@ -661,7 +661,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (req_0), line:10:1, endln:10:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:req_0
     |vpiDirection:1
     |vpiLowConn:
@@ -681,7 +681,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (req_1), line:11:1, endln:11:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:req_1
     |vpiDirection:1
     |vpiLowConn:
@@ -701,7 +701,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (gnt_0), line:12:1, endln:12:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:gnt_0
     |vpiDirection:2
     |vpiLowConn:
@@ -721,7 +721,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (gnt_1), line:13:1, endln:13:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:gnt_1
     |vpiDirection:2
     |vpiLowConn:
@@ -741,7 +741,7 @@ design: (work@fsm_using_function)
   |vpiProcess:
   \_always: , line:58:1, endln:65:4
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiStmt:
     \_event_control: , line:58:8, endln:58:25
       |vpiParent:
@@ -854,7 +854,7 @@ design: (work@fsm_using_function)
   |vpiProcess:
   \_always: , line:67:1, endln:93:4
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiStmt:
     \_event_control: , line:67:8, endln:67:25
       |vpiParent:
@@ -1224,7 +1224,7 @@ design: (work@fsm_using_function)
   |vpiContAssign:
   \_cont_assign: , line:30:8, endln:30:54
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_func_call: (fsm_function), line:30:21, endln:30:54
       |vpiParent:
@@ -1286,14 +1286,14 @@ design: (work@fsm_using_function)
       |vpiActual:
       \_logic_net: (work@fsm_using_function.next_state), line:28:27, endln:28:37
 |uhdmtopModules:
-\_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+\_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
   |vpiParent:
   \_design: (work@fsm_using_function)
   |vpiName:work@fsm_using_function
   |vpiParameter:
   \_parameter: (work@fsm_using_function.SIZE), line:24:11, endln:24:15
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |UINT:3
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.SIZE)
@@ -1307,7 +1307,7 @@ design: (work@fsm_using_function)
   |vpiParameter:
   \_parameter: (work@fsm_using_function.IDLE), line:25:11, endln:25:15
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |BIN:001
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.IDLE)
@@ -1321,7 +1321,7 @@ design: (work@fsm_using_function)
   |vpiParameter:
   \_parameter: (work@fsm_using_function.GNT0), line:25:26, endln:25:30
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |BIN:010
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.GNT0)
@@ -1335,7 +1335,7 @@ design: (work@fsm_using_function)
   |vpiParameter:
   \_parameter: (work@fsm_using_function.GNT1), line:25:40, endln:25:44
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |BIN:100
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.GNT1)
@@ -1349,7 +1349,7 @@ design: (work@fsm_using_function)
   |vpiParamAssign:
   \_param_assign: , line:24:11, endln:24:19
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_constant: , line:24:18, endln:24:19
       |vpiParent:
@@ -1370,7 +1370,7 @@ design: (work@fsm_using_function)
   |vpiParamAssign:
   \_param_assign: , line:25:11, endln:25:25
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_constant: , line:25:19, endln:25:25
       |vpiParent:
@@ -1391,7 +1391,7 @@ design: (work@fsm_using_function)
   |vpiParamAssign:
   \_param_assign: , line:25:26, endln:25:39
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_constant: , line:25:33, endln:25:39
       |vpiParent:
@@ -1412,7 +1412,7 @@ design: (work@fsm_using_function)
   |vpiParamAssign:
   \_param_assign: , line:25:40, endln:25:53
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiRhs:
     \_constant: , line:25:47, endln:25:53
       |vpiParent:
@@ -1437,7 +1437,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.clock), line:20:9, endln:20:14
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.clock)
       |vpiParent:
@@ -1451,7 +1451,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.reset), line:20:15, endln:20:20
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.reset)
       |vpiParent:
@@ -1465,7 +1465,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.req_0), line:20:21, endln:20:26
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.req_0)
       |vpiParent:
@@ -1479,7 +1479,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.req_1), line:20:27, endln:20:32
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.req_1)
       |vpiParent:
@@ -1493,7 +1493,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.gnt_0), line:22:9, endln:22:14
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.gnt_0)
       |vpiParent:
@@ -1507,7 +1507,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.gnt_1), line:22:15, endln:22:20
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.gnt_1)
       |vpiParent:
@@ -1521,7 +1521,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.state), line:27:27, endln:27:32
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.state)
       |vpiParent:
@@ -1535,7 +1535,7 @@ design: (work@fsm_using_function)
   |vpiNet:
   \_logic_net: (work@fsm_using_function.next_state), line:28:27, endln:28:37
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiTypespec:
     \_ref_typespec: (work@fsm_using_function.next_state)
       |vpiParent:
@@ -1550,7 +1550,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (clock), line:8:1, endln:8:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
@@ -1571,7 +1571,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (reset), line:9:1, endln:9:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
@@ -1592,7 +1592,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (req_0), line:10:1, endln:10:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:req_0
     |vpiDirection:1
     |vpiLowConn:
@@ -1613,7 +1613,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (req_1), line:11:1, endln:11:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:req_1
     |vpiDirection:1
     |vpiLowConn:
@@ -1634,7 +1634,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (gnt_0), line:12:1, endln:12:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:gnt_0
     |vpiDirection:2
     |vpiLowConn:
@@ -1655,7 +1655,7 @@ design: (work@fsm_using_function)
   |vpiPort:
   \_port: (gnt_1), line:13:1, endln:13:6
     |vpiParent:
-    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:/home/heyfey/git-repos/uhdm2rtlil/test/fsm_using_function/dut.sv, line:7:1, endln:95:10
+    \_module_inst: work@fsm_using_function (work@fsm_using_function), file:$CORPUS/fsm_using_function/dut.sv, line:7:1, endln:95:10
     |vpiName:gnt_1
     |vpiDirection:2
     |vpiLowConn:

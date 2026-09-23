@@ -1,7 +1,7 @@
 design: (work@mux2)
 |vpiName:work@mux2
 |uhdmallModules:
-\_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+\_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_design: (work@mux2)
   |vpiFullName:work@mux2
@@ -9,32 +9,32 @@ design: (work@mux2)
   |vpiNet:
   \_logic_net: (work@mux2.S), line:1:14, endln:1:15
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:S
     |vpiFullName:work@mux2.S
   |vpiNet:
   \_logic_net: (work@mux2.A), line:1:16, endln:1:17
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:A
     |vpiFullName:work@mux2.A
   |vpiNet:
   \_logic_net: (work@mux2.B), line:1:18, endln:1:19
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:B
     |vpiFullName:work@mux2.B
   |vpiNet:
   \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:Y
     |vpiFullName:work@mux2.Y
     |vpiNetType:48
   |vpiPort:
   \_port: (S), line:1:14, endln:1:15
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:S
     |vpiDirection:1
     |vpiLowConn:
@@ -55,7 +55,7 @@ design: (work@mux2)
   |vpiPort:
   \_port: (A), line:1:16, endln:1:17
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:A
     |vpiDirection:1
     |vpiLowConn:
@@ -76,7 +76,7 @@ design: (work@mux2)
   |vpiPort:
   \_port: (B), line:1:18, endln:1:19
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:B
     |vpiDirection:1
     |vpiLowConn:
@@ -97,7 +97,7 @@ design: (work@mux2)
   |vpiPort:
   \_port: (Y), line:1:20, endln:1:21
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:Y
     |vpiDirection:2
     |vpiLowConn:
@@ -118,7 +118,7 @@ design: (work@mux2)
   |vpiProcess:
   \_always: , line:6:5, endln:7:18
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiStmt:
     \_event_control: , line:6:12, endln:6:16
       |vpiParent:
@@ -168,7 +168,7 @@ design: (work@mux2)
           \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
     |vpiAlwaysType:1
 |uhdmtopModules:
-\_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+\_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_design: (work@mux2)
   |vpiName:work@mux2
@@ -177,7 +177,7 @@ design: (work@mux2)
   |vpiNet:
   \_logic_net: (work@mux2.S), line:1:14, endln:1:15
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_ref_typespec: (work@mux2.S)
       |vpiParent:
@@ -190,7 +190,7 @@ design: (work@mux2)
   |vpiNet:
   \_logic_net: (work@mux2.A), line:1:16, endln:1:17
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_ref_typespec: (work@mux2.A)
       |vpiParent:
@@ -203,7 +203,7 @@ design: (work@mux2)
   |vpiNet:
   \_logic_net: (work@mux2.B), line:1:18, endln:1:19
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_ref_typespec: (work@mux2.B)
       |vpiParent:
@@ -216,7 +216,7 @@ design: (work@mux2)
   |vpiNet:
   \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_ref_typespec: (work@mux2.Y)
       |vpiParent:
@@ -231,7 +231,7 @@ design: (work@mux2)
   |vpiPort:
   \_port: (S), line:1:14, endln:1:15
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:S
     |vpiDirection:1
     |vpiLowConn:
@@ -252,7 +252,7 @@ design: (work@mux2)
   |vpiPort:
   \_port: (A), line:1:16, endln:1:17
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:A
     |vpiDirection:1
     |vpiLowConn:
@@ -273,7 +273,7 @@ design: (work@mux2)
   |vpiPort:
   \_port: (B), line:1:18, endln:1:19
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:B
     |vpiDirection:1
     |vpiLowConn:
@@ -294,7 +294,7 @@ design: (work@mux2)
   |vpiPort:
   \_port: (Y), line:1:20, endln:1:21
     |vpiParent:
-    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@mux2 (work@mux2), file:$CORPUS/mux2/dut.sv, line:1:1, endln:8:10
     |vpiName:Y
     |vpiDirection:2
     |vpiLowConn:

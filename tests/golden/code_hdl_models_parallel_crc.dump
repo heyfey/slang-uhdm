@@ -1,7 +1,7 @@
 design: (work@code_hdl_models_parallel_crc)
 |vpiName:work@code_hdl_models_parallel_crc
 |uhdmallModules:
-\_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+\_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
   |vpiParent:
   \_design: (work@code_hdl_models_parallel_crc)
   |vpiFullName:work@code_hdl_models_parallel_crc
@@ -9,7 +9,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.crc_reg), line:24:14, endln:24:21
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.crc_reg)
       |vpiParent:
@@ -23,7 +23,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.next_crc), line:25:14, endln:25:22
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.next_crc)
       |vpiParent:
@@ -37,43 +37,43 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.clk), line:8:1, endln:8:4
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:clk
     |vpiFullName:work@code_hdl_models_parallel_crc.clk
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.reset), line:9:1, endln:9:6
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:reset
     |vpiFullName:work@code_hdl_models_parallel_crc.reset
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.enable), line:10:1, endln:10:7
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:enable
     |vpiFullName:work@code_hdl_models_parallel_crc.enable
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.init), line:11:1, endln:11:5
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:init
     |vpiFullName:work@code_hdl_models_parallel_crc.init
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.data_in), line:12:1, endln:12:8
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:data_in
     |vpiFullName:work@code_hdl_models_parallel_crc.data_in
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.crc_out), line:13:1, endln:13:8
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:crc_out
     |vpiFullName:work@code_hdl_models_parallel_crc.crc_out
   |vpiPort:
   \_port: (clk), line:8:1, endln:8:4
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -94,7 +94,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (reset), line:9:1, endln:9:6
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
@@ -115,7 +115,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (enable), line:10:1, endln:10:7
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:enable
     |vpiDirection:1
     |vpiLowConn:
@@ -136,7 +136,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (init), line:11:1, endln:11:5
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:init
     |vpiDirection:1
     |vpiLowConn:
@@ -157,7 +157,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (data_in), line:12:1, endln:12:8
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:data_in
     |vpiDirection:1
     |vpiLowConn:
@@ -178,7 +178,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (crc_out), line:13:1, endln:13:8
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:crc_out
     |vpiDirection:2
     |vpiLowConn:
@@ -199,7 +199,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiProcess:
   \_always: , line:29:1, endln:38:4
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiStmt:
     \_event_control: , line:29:8, endln:29:23
       |vpiParent:
@@ -336,7 +336,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:27:8, endln:27:25
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_ref_obj: (work@code_hdl_models_parallel_crc.crc_reg), line:27:18, endln:27:25
       |vpiParent:
@@ -356,7 +356,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:40:8, endln:40:72
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:40:22, endln:40:72
       |vpiParent:
@@ -445,7 +445,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:41:8, endln:41:45
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:41:22, endln:41:45
       |vpiParent:
@@ -496,7 +496,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:42:8, endln:42:45
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:42:22, endln:42:45
       |vpiParent:
@@ -547,7 +547,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:43:8, endln:43:45
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:43:22, endln:43:45
       |vpiParent:
@@ -598,7 +598,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:44:8, endln:44:45
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:44:22, endln:44:45
       |vpiParent:
@@ -649,7 +649,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:45:8, endln:45:98
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:45:22, endln:45:98
       |vpiParent:
@@ -776,7 +776,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:46:8, endln:46:72
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:46:22, endln:46:72
       |vpiParent:
@@ -865,7 +865,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:47:8, endln:47:72
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:47:22, endln:47:72
       |vpiParent:
@@ -954,7 +954,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:48:8, endln:48:58
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:48:22, endln:48:58
       |vpiParent:
@@ -1024,7 +1024,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:49:8, endln:49:58
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:49:22, endln:49:58
       |vpiParent:
@@ -1094,7 +1094,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:50:8, endln:50:59
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:50:23, endln:50:59
       |vpiParent:
@@ -1164,7 +1164,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiContAssign:
   \_cont_assign: , line:51:8, endln:51:60
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiRhs:
     \_operation: , line:51:23, endln:51:60
       |vpiParent:
@@ -1232,7 +1232,7 @@ design: (work@code_hdl_models_parallel_crc)
         |UINT:11
         |vpiConstType:9
 |uhdmtopModules:
-\_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+\_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
   |vpiParent:
   \_design: (work@code_hdl_models_parallel_crc)
   |vpiName:work@code_hdl_models_parallel_crc
@@ -1241,7 +1241,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.crc_reg), line:24:14, endln:24:21
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.crc_reg)
       |vpiParent:
@@ -1255,7 +1255,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.next_crc), line:25:14, endln:25:22
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.next_crc)
       |vpiParent:
@@ -1269,7 +1269,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.clk), line:8:1, endln:8:4
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.clk)
       |vpiParent:
@@ -1282,7 +1282,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.reset), line:9:1, endln:9:6
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.reset)
       |vpiParent:
@@ -1295,7 +1295,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.enable), line:10:1, endln:10:7
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.enable)
       |vpiParent:
@@ -1308,7 +1308,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.init), line:11:1, endln:11:5
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.init)
       |vpiParent:
@@ -1321,7 +1321,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.data_in), line:12:1, endln:12:8
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.data_in)
       |vpiParent:
@@ -1334,7 +1334,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiNet:
   \_logic_net: (work@code_hdl_models_parallel_crc.crc_out), line:13:1, endln:13:8
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiTypespec:
     \_ref_typespec: (work@code_hdl_models_parallel_crc.crc_out)
       |vpiParent:
@@ -1348,7 +1348,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (clk), line:8:1, endln:8:4
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1369,7 +1369,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (reset), line:9:1, endln:9:6
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
@@ -1390,7 +1390,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (enable), line:10:1, endln:10:7
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:enable
     |vpiDirection:1
     |vpiLowConn:
@@ -1411,7 +1411,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (init), line:11:1, endln:11:5
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:init
     |vpiDirection:1
     |vpiLowConn:
@@ -1432,7 +1432,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (data_in), line:12:1, endln:12:8
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:data_in
     |vpiDirection:1
     |vpiLowConn:
@@ -1453,7 +1453,7 @@ design: (work@code_hdl_models_parallel_crc)
   |vpiPort:
   \_port: (crc_out), line:13:1, endln:13:8
     |vpiParent:
-    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:/home/heyfey/git-repos/uhdm2rtlil/test/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
+    \_module_inst: work@code_hdl_models_parallel_crc (work@code_hdl_models_parallel_crc), file:$CORPUS/code_hdl_models_parallel_crc/dut.sv, line:7:1, endln:53:10
     |vpiName:crc_out
     |vpiDirection:2
     |vpiLowConn:

@@ -1,17 +1,17 @@
 design: (work@enum_simple)
 |vpiName:work@enum_simple
 |uhdmallModules:
-\_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+\_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
   |vpiParent:
   \_design: (work@enum_simple)
   |vpiFullName:work@enum_simple
   |vpiTypedef:
   \_enum_typespec: (state_t), line:7:5, endln:12:15
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:state_t
     |vpiInstance:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiBaseTypespec:
     \_ref_typespec: (work@enum_simple.state_t)
       |vpiParent:
@@ -55,28 +55,28 @@ design: (work@enum_simple)
   |vpiNet:
   \_logic_net: (work@enum_simple.clk), line:2:16, endln:2:19
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:clk
     |vpiFullName:work@enum_simple.clk
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@enum_simple.reset), line:3:16, endln:3:21
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:reset
     |vpiFullName:work@enum_simple.reset
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@enum_simple.state_out), line:4:22, endln:4:31
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:state_out
     |vpiFullName:work@enum_simple.state_out
     |vpiNetType:48
   |vpiNet:
   \_logic_net: (work@enum_simple.current_state), line:14:13, endln:14:26
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiTypespec:
     \_ref_typespec: (work@enum_simple.current_state)
       |vpiParent:
@@ -89,7 +89,7 @@ design: (work@enum_simple)
   |vpiNet:
   \_logic_net: (work@enum_simple.next_state), line:14:28, endln:14:38
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiTypespec:
     \_ref_typespec: (work@enum_simple.next_state)
       |vpiParent:
@@ -102,7 +102,7 @@ design: (work@enum_simple)
   |vpiPort:
   \_port: (clk), line:2:16, endln:2:19
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -123,7 +123,7 @@ design: (work@enum_simple)
   |vpiPort:
   \_port: (reset), line:3:16, endln:3:21
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
@@ -144,7 +144,7 @@ design: (work@enum_simple)
   |vpiPort:
   \_port: (state_out), line:4:22, endln:4:31
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:state_out
     |vpiDirection:2
     |vpiLowConn:
@@ -165,7 +165,7 @@ design: (work@enum_simple)
   |vpiProcess:
   \_always: , line:17:5, endln:22:8
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiStmt:
     \_event_control: , line:17:12, endln:17:43
       |vpiParent:
@@ -264,7 +264,7 @@ design: (work@enum_simple)
   |vpiProcess:
   \_always: , line:25:5, endln:33:8
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiStmt:
     \_event_control: , line:25:12, endln:25:16
       |vpiParent:
@@ -453,7 +453,7 @@ design: (work@enum_simple)
   |vpiContAssign:
   \_cont_assign: , line:36:12, endln:36:37
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiRhs:
     \_ref_obj: (work@enum_simple.current_state), line:36:24, endln:36:37
       |vpiParent:
@@ -471,14 +471,14 @@ design: (work@enum_simple)
       |vpiActual:
       \_logic_net: (work@enum_simple.state_out), line:4:22, endln:4:31
 |uhdmtopModules:
-\_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+\_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
   |vpiParent:
   \_design: (work@enum_simple)
   |vpiName:work@enum_simple
   |vpiVariables:
   \_enum_var: (work@enum_simple.current_state), line:14:13, endln:14:26
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiTypespec:
     \_ref_typespec: (work@enum_simple.current_state)
       |vpiParent:
@@ -492,7 +492,7 @@ design: (work@enum_simple)
   |vpiVariables:
   \_enum_var: (work@enum_simple.next_state), line:14:28, endln:14:38
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiTypespec:
     \_ref_typespec: (work@enum_simple.next_state)
       |vpiParent:
@@ -510,7 +510,7 @@ design: (work@enum_simple)
   |vpiNet:
   \_logic_net: (work@enum_simple.clk), line:2:16, endln:2:19
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiTypespec:
     \_ref_typespec: (work@enum_simple.clk)
       |vpiParent:
@@ -524,7 +524,7 @@ design: (work@enum_simple)
   |vpiNet:
   \_logic_net: (work@enum_simple.reset), line:3:16, endln:3:21
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiTypespec:
     \_ref_typespec: (work@enum_simple.reset)
       |vpiParent:
@@ -538,7 +538,7 @@ design: (work@enum_simple)
   |vpiNet:
   \_logic_net: (work@enum_simple.state_out), line:4:22, endln:4:31
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiTypespec:
     \_ref_typespec: (work@enum_simple.state_out)
       |vpiParent:
@@ -553,7 +553,7 @@ design: (work@enum_simple)
   |vpiPort:
   \_port: (clk), line:2:16, endln:2:19
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -574,7 +574,7 @@ design: (work@enum_simple)
   |vpiPort:
   \_port: (reset), line:3:16, endln:3:21
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
@@ -595,7 +595,7 @@ design: (work@enum_simple)
   |vpiPort:
   \_port: (state_out), line:4:22, endln:4:31
     |vpiParent:
-    \_module_inst: work@enum_simple (work@enum_simple), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_simple/dut.sv, line:1:1, endln:38:10
+    \_module_inst: work@enum_simple (work@enum_simple), file:$CORPUS/enum_simple/dut.sv, line:1:1, endln:38:10
     |vpiName:state_out
     |vpiDirection:2
     |vpiLowConn:

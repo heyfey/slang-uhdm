@@ -1,14 +1,14 @@
 design: (work@counter)
 |vpiName:work@counter
 |uhdmallModules:
-\_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+\_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
   |vpiParent:
   \_design: (work@counter)
   |vpiFullName:work@counter
   |vpiParameter:
   \_parameter: (work@counter.WIDTH), line:3:15, endln:3:20
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |UINT:8
     |vpiTypespec:
     \_ref_typespec: (work@counter.WIDTH)
@@ -22,7 +22,7 @@ design: (work@counter)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:24
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiRhs:
     \_constant: , line:3:23, endln:3:24
       |vpiParent:
@@ -44,42 +44,42 @@ design: (work@counter)
   |vpiNet:
   \_logic_net: (work@counter.clk), line:5:18, endln:5:21
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:clk
     |vpiFullName:work@counter.clk
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:rst_n
     |vpiFullName:work@counter.rst_n
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@counter.enable), line:7:18, endln:7:24
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:enable
     |vpiFullName:work@counter.enable
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@counter.count), line:8:30, endln:8:35
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:count
     |vpiFullName:work@counter.count
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:overflow
     |vpiFullName:work@counter.overflow
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@counter.count_next), line:12:23, endln:12:33
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiTypespec:
     \_ref_typespec: (work@counter.count_next)
       |vpiParent:
@@ -93,7 +93,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (clk), line:5:18, endln:5:21
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -114,7 +114,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (rst_n), line:6:18, endln:6:23
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:rst_n
     |vpiDirection:1
     |vpiLowConn:
@@ -135,7 +135,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (enable), line:7:18, endln:7:24
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:enable
     |vpiDirection:1
     |vpiLowConn:
@@ -156,7 +156,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (count), line:8:30, endln:8:35
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:count
     |vpiDirection:2
     |vpiLowConn:
@@ -177,7 +177,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (overflow), line:9:18, endln:9:26
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:overflow
     |vpiDirection:2
     |vpiLowConn:
@@ -198,7 +198,7 @@ design: (work@counter)
   |vpiProcess:
   \_always: , line:14:5, endln:20:8
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiStmt:
     \_event_control: , line:14:15, endln:14:46
       |vpiParent:
@@ -322,7 +322,7 @@ design: (work@counter)
   |vpiProcess:
   \_always: , line:22:5, endln:25:8
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiStmt:
     \_begin: (work@counter), line:22:17, endln:25:8
       |vpiParent:
@@ -427,14 +427,14 @@ design: (work@counter)
           \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
     |vpiAlwaysType:2
 |uhdmtopModules:
-\_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+\_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
   |vpiParent:
   \_design: (work@counter)
   |vpiName:work@counter
   |vpiVariables:
   \_logic_var: (work@counter.count_next), line:12:23, endln:12:33
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiTypespec:
     \_ref_typespec: (work@counter.count_next)
       |vpiParent:
@@ -448,7 +448,7 @@ design: (work@counter)
   |vpiParameter:
   \_parameter: (work@counter.WIDTH), line:3:15, endln:3:20
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |UINT:8
     |vpiTypespec:
     \_ref_typespec: (work@counter.WIDTH)
@@ -462,7 +462,7 @@ design: (work@counter)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:24
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiRhs:
     \_constant: , line:3:23, endln:3:24
       |vpiParent:
@@ -485,7 +485,7 @@ design: (work@counter)
   |vpiNet:
   \_logic_net: (work@counter.clk), line:5:18, endln:5:21
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiTypespec:
     \_ref_typespec: (work@counter.clk)
       |vpiParent:
@@ -499,7 +499,7 @@ design: (work@counter)
   |vpiNet:
   \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiTypespec:
     \_ref_typespec: (work@counter.rst_n)
       |vpiParent:
@@ -513,7 +513,7 @@ design: (work@counter)
   |vpiNet:
   \_logic_net: (work@counter.enable), line:7:18, endln:7:24
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiTypespec:
     \_ref_typespec: (work@counter.enable)
       |vpiParent:
@@ -527,7 +527,7 @@ design: (work@counter)
   |vpiNet:
   \_logic_net: (work@counter.count), line:8:30, endln:8:35
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiTypespec:
     \_ref_typespec: (work@counter.count)
       |vpiParent:
@@ -541,7 +541,7 @@ design: (work@counter)
   |vpiNet:
   \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiTypespec:
     \_ref_typespec: (work@counter.overflow)
       |vpiParent:
@@ -556,7 +556,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (clk), line:5:18, endln:5:21
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -577,7 +577,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (rst_n), line:6:18, endln:6:23
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:rst_n
     |vpiDirection:1
     |vpiLowConn:
@@ -598,7 +598,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (enable), line:7:18, endln:7:24
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:enable
     |vpiDirection:1
     |vpiLowConn:
@@ -619,7 +619,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (count), line:8:30, endln:8:35
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:count
     |vpiDirection:2
     |vpiLowConn:
@@ -640,7 +640,7 @@ design: (work@counter)
   |vpiPort:
   \_port: (overflow), line:9:18, endln:9:26
     |vpiParent:
-    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    \_module_inst: work@counter (work@counter), file:$CORPUS/counter/dut.sv, line:2:1, endln:27:10
     |vpiName:overflow
     |vpiDirection:2
     |vpiLowConn:

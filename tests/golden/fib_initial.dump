@@ -1,7 +1,7 @@
 design: (work@fib_initial)
 |vpiName:work@fib_initial
 |uhdmallModules:
-\_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+\_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
   |vpiParent:
   \_design: (work@fib_initial)
   |vpiFullName:work@fib_initial
@@ -9,7 +9,7 @@ design: (work@fib_initial)
   |vpiTaskFunc:
   \_function: (work@fib_initial.double_it), line:4:5, endln:8:16
     |vpiParent:
-    \_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+    \_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
     |vpiName:double_it
     |vpiFullName:work@fib_initial.double_it
     |vpiVisibility:1
@@ -76,18 +76,18 @@ design: (work@fib_initial)
         |vpiActual:
         \_integer_var: (work@fib_initial.double_it.double_it), line:4:24, endln:4:31
     |vpiInstance:
-    \_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+    \_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
   |vpiNet:
   \_logic_net: (work@fib_initial.out), line:2:23, endln:2:26
     |vpiParent:
-    \_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+    \_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
     |vpiName:out
     |vpiFullName:work@fib_initial.out
     |vpiNetType:48
   |vpiPort:
   \_port: (out), line:2:23, endln:2:26
     |vpiParent:
-    \_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+    \_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -108,7 +108,7 @@ design: (work@fib_initial)
   |vpiProcess:
   \_initial: , line:10:5, endln:12:8
     |vpiParent:
-    \_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+    \_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
     |vpiStmt:
     \_begin: (work@fib_initial), line:10:13, endln:12:8
       |vpiParent:
@@ -144,7 +144,7 @@ design: (work@fib_initial)
           |vpiActual:
           \_logic_net: (work@fib_initial.out), line:2:23, endln:2:26
 |uhdmtopModules:
-\_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+\_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
   |vpiParent:
   \_design: (work@fib_initial)
   |vpiName:work@fib_initial
@@ -155,7 +155,7 @@ design: (work@fib_initial)
   |vpiNet:
   \_logic_net: (work@fib_initial.out), line:2:23, endln:2:26
     |vpiParent:
-    \_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+    \_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
     |vpiTypespec:
     \_ref_typespec: (work@fib_initial.out)
       |vpiParent:
@@ -170,7 +170,7 @@ design: (work@fib_initial)
   |vpiPort:
   \_port: (out), line:2:23, endln:2:26
     |vpiParent:
-    \_module_inst: work@fib_initial (work@fib_initial), file:/home/heyfey/git-repos/uhdm2rtlil/test/fib_initial/dut.sv, line:1:1, endln:13:10
+    \_module_inst: work@fib_initial (work@fib_initial), file:$CORPUS/fib_initial/dut.sv, line:1:1, endln:13:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:

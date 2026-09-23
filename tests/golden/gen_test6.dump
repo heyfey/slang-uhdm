@@ -1,7 +1,7 @@
 design: (work@gen_test6)
 |vpiName:work@gen_test6
 |uhdmallModules:
-\_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+\_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_design: (work@gen_test6)
   |vpiFullName:work@gen_test6
@@ -9,13 +9,13 @@ design: (work@gen_test6)
   |vpiNet:
   \_logic_net: (work@gen_test6.o), line:1:31, endln:1:32
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiName:o
     |vpiFullName:work@gen_test6.o
   |vpiPort:
   \_port: (o), line:1:31, endln:1:32
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -36,14 +36,14 @@ design: (work@gen_test6)
   |vpiGenStmt:
   \_gen_region: 
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiStmt:
     \_begin: (work@gen_test6)
       |vpiParent:
       \_gen_region: 
       |vpiFullName:work@gen_test6
 |uhdmtopModules:
-\_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+\_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_design: (work@gen_test6)
   |vpiName:work@gen_test6
@@ -52,7 +52,7 @@ design: (work@gen_test6)
   |vpiNet:
   \_logic_net: (work@gen_test6.o), line:1:31, endln:1:32
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
     \_ref_typespec: (work@gen_test6.o)
       |vpiParent:
@@ -66,7 +66,7 @@ design: (work@gen_test6)
   |vpiPort:
   \_port: (o), line:1:31, endln:1:32
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -87,7 +87,7 @@ design: (work@gen_test6)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@gen_test6.genblk1[3]), line:4:34, endln:6:8
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiName:genblk1[3]
     |vpiFullName:work@gen_test6.genblk1[3]
     |vpiGenScope:
@@ -137,7 +137,7 @@ design: (work@gen_test6)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@gen_test6.genblk1[2]), line:4:34, endln:6:8
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiName:genblk1[2]
     |vpiFullName:work@gen_test6.genblk1[2]
     |vpiGenScope:
@@ -187,7 +187,7 @@ design: (work@gen_test6)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@gen_test6.genblk1[1]), line:4:34, endln:6:8
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiName:genblk1[1]
     |vpiFullName:work@gen_test6.genblk1[1]
     |vpiGenScope:
@@ -237,7 +237,7 @@ design: (work@gen_test6)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@gen_test6.genblk1[0]), line:4:34, endln:6:8
     |vpiParent:
-    \_module_inst: work@gen_test6 (work@gen_test6), file:/home/heyfey/git-repos/uhdm2rtlil/test/gen_test6/dut.sv, line:1:1, endln:8:10
+    \_module_inst: work@gen_test6 (work@gen_test6), file:$CORPUS/gen_test6/dut.sv, line:1:1, endln:8:10
     |vpiName:genblk1[0]
     |vpiFullName:work@gen_test6.genblk1[0]
     |vpiGenScope:

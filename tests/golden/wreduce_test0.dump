@@ -1,7 +1,7 @@
 design: (work@wreduce_test0)
 |vpiName:work@wreduce_test0
 |uhdmallModules:
-\_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+\_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@wreduce_test0)
   |vpiFullName:work@wreduce_test0
@@ -9,37 +9,37 @@ design: (work@wreduce_test0)
   |vpiNet:
   \_logic_net: (work@wreduce_test0.a), line:1:34, endln:1:35
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiFullName:work@wreduce_test0.a
   |vpiNet:
   \_logic_net: (work@wreduce_test0.b), line:1:37, endln:1:38
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiFullName:work@wreduce_test0.b
   |vpiNet:
   \_logic_net: (work@wreduce_test0.x), line:1:54, endln:1:55
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:x
     |vpiFullName:work@wreduce_test0.x
   |vpiNet:
   \_logic_net: (work@wreduce_test0.y), line:1:57, endln:1:58
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:y
     |vpiFullName:work@wreduce_test0.y
   |vpiNet:
   \_logic_net: (work@wreduce_test0.z), line:1:60, endln:1:61
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:z
     |vpiFullName:work@wreduce_test0.z
   |vpiPort:
   \_port: (a), line:1:34, endln:1:35
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -60,7 +60,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (b), line:1:37, endln:1:38
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -81,7 +81,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (x), line:1:54, endln:1:55
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
@@ -102,7 +102,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (y), line:1:57, endln:1:58
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:y
     |vpiDirection:2
     |vpiLowConn:
@@ -123,7 +123,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (z), line:1:60, endln:1:61
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:z
     |vpiDirection:2
     |vpiLowConn:
@@ -144,7 +144,7 @@ design: (work@wreduce_test0)
   |vpiContAssign:
   \_cont_assign: , line:2:10, endln:2:33
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_operation: , line:2:14, endln:2:33
       |vpiParent:
@@ -185,7 +185,7 @@ design: (work@wreduce_test0)
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:53
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_operation: , line:3:14, endln:3:53
       |vpiParent:
@@ -250,7 +250,7 @@ design: (work@wreduce_test0)
   |vpiContAssign:
   \_cont_assign: , line:4:10, endln:4:19
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_operation: , line:4:14, endln:4:19
       |vpiParent:
@@ -281,7 +281,7 @@ design: (work@wreduce_test0)
       |vpiActual:
       \_logic_net: (work@wreduce_test0.z), line:1:60, endln:1:61
 |uhdmtopModules:
-\_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+\_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_design: (work@wreduce_test0)
   |vpiName:work@wreduce_test0
@@ -290,7 +290,7 @@ design: (work@wreduce_test0)
   |vpiNet:
   \_logic_net: (work@wreduce_test0.a), line:1:34, endln:1:35
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_ref_typespec: (work@wreduce_test0.a)
       |vpiParent:
@@ -303,7 +303,7 @@ design: (work@wreduce_test0)
   |vpiNet:
   \_logic_net: (work@wreduce_test0.b), line:1:37, endln:1:38
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_ref_typespec: (work@wreduce_test0.b)
       |vpiParent:
@@ -316,7 +316,7 @@ design: (work@wreduce_test0)
   |vpiNet:
   \_logic_net: (work@wreduce_test0.x), line:1:54, endln:1:55
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_ref_typespec: (work@wreduce_test0.x)
       |vpiParent:
@@ -329,7 +329,7 @@ design: (work@wreduce_test0)
   |vpiNet:
   \_logic_net: (work@wreduce_test0.y), line:1:57, endln:1:58
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_ref_typespec: (work@wreduce_test0.y)
       |vpiParent:
@@ -342,7 +342,7 @@ design: (work@wreduce_test0)
   |vpiNet:
   \_logic_net: (work@wreduce_test0.z), line:1:60, endln:1:61
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
     \_ref_typespec: (work@wreduce_test0.z)
       |vpiParent:
@@ -356,7 +356,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (a), line:1:34, endln:1:35
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -377,7 +377,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (b), line:1:37, endln:1:38
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -398,7 +398,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (x), line:1:54, endln:1:55
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:x
     |vpiDirection:2
     |vpiLowConn:
@@ -419,7 +419,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (y), line:1:57, endln:1:58
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:y
     |vpiDirection:2
     |vpiLowConn:
@@ -440,7 +440,7 @@ design: (work@wreduce_test0)
   |vpiPort:
   \_port: (z), line:1:60, endln:1:61
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiName:z
     |vpiDirection:2
     |vpiLowConn:
@@ -461,7 +461,7 @@ design: (work@wreduce_test0)
   |vpiContAssign:
   \_cont_assign: , line:2:10, endln:2:33
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_operation: , line:2:14, endln:2:33
       |vpiParent:
@@ -504,7 +504,7 @@ design: (work@wreduce_test0)
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:53
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_operation: , line:3:14, endln:3:53
       |vpiParent:
@@ -573,7 +573,7 @@ design: (work@wreduce_test0)
   |vpiContAssign:
   \_cont_assign: , line:4:10, endln:4:19
     |vpiParent:
-    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:/home/heyfey/git-repos/uhdm2rtlil/test/wreduce_test0/dut.sv, line:1:1, endln:5:10
+    \_module_inst: work@wreduce_test0 (work@wreduce_test0), file:$CORPUS/wreduce_test0/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
     \_operation: , line:4:14, endln:4:19
       |vpiParent:

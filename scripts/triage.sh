@@ -4,8 +4,9 @@
 # only) and DIFF tests by first-divergence dump line signature.
 set -u
 CSV=$1
-CORPUS=${2:-$HOME/git-repos/uhdm2rtlil/test}
-SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang-uhdm/build/slang-uhdm}
+ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
+CORPUS=${2:-${UHDM2RTLIL_TESTS:-$ROOT/third_party/uhdm2rtlil/test}}
+SLANG_UHDM=${SLANG_UHDM:-$ROOT/build/slang-uhdm}
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
 echo "=== UNSUPPORTED feature frequency (tests blocked) ==="

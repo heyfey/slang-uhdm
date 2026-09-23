@@ -1,0 +1,6 @@
+[submodule "third_party/Surelog"]
+	path = third_party/Surelog
+	url = https://github.com/chipsalliance/Surelog.git
+[submodule "third_party/uhdm2rtlil"]
+	path = third_party/uhdm2rtlil
+	url = https://github.com/alainmarcel/uhdm2rtlil

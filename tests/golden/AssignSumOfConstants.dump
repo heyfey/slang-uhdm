@@ -1,7 +1,7 @@
 design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
-\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
+\_module_inst: work@top (work@top), file:$CORPUS/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -9,13 +9,13 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@top (work@top), file:$CORPUS/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@top (work@top), file:$CORPUS/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -36,7 +36,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:20
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@top (work@top), file:$CORPUS/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_operation: , line:2:15, endln:2:20
       |vpiParent:
@@ -67,14 +67,14 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
 |uhdmtopModules:
-\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
+\_module_inst: work@top (work@top), file:$CORPUS/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_design: (work@top)
   |vpiName:work@top
   |vpiVariables:
   \_int_var: (work@top.o), line:1:23, endln:1:24
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@top (work@top), file:$CORPUS/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
     |vpiTypespec:
     \_ref_typespec: (work@top.o)
       |vpiParent:
@@ -92,7 +92,7 @@ design: (work@top)
   |vpiPort:
   \_port: (o), line:1:23, endln:1:24
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@top (work@top), file:$CORPUS/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
@@ -113,7 +113,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:20
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
+    \_module_inst: work@top (work@top), file:$CORPUS/AssignSumOfConstants/dut.sv, line:1:1, endln:3:10
     |vpiRhs:
     \_constant: 
       |vpiDecompile:3

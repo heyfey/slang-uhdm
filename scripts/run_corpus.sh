@@ -14,7 +14,8 @@
 # With prev-results.csv: exits 1 if any previously PASS/CMP_ONLY test regressed.
 set -u
 
-CORPUS=${1:-$HOME/git-repos/uhdm2rtlil/test}
+ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
+CORPUS=${1:-${UHDM2RTLIL_TESTS:-$ROOT/third_party/uhdm2rtlil/test}}
 OUT=${2:-results.csv}
 PREV=${3:-}
 SCRIPT_DIR=$(dirname "$(realpath "$0")")

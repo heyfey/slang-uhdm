@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # For each DIFF test in baseline, run converge.sh and record diff line count
 set -u
-BASE=/home/heyfey/git-repos/slang-uhdm/results/baseline_auto.csv
-CORPUS=$HOME/git-repos/uhdm2rtlil/test
-SCRIPT=/home/heyfey/git-repos/slang-uhdm/scripts/converge.sh
+ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
+BASE=$ROOT/results/baseline_auto.csv
+CORPUS=${UHDM2RTLIL_TESTS:-$ROOT/third_party/uhdm2rtlil/test}
+SCRIPT=$ROOT/scripts/converge.sh
 run_one() {
     name=$1
     work=$(mktemp -d /tmp/uhdm-difsize.XXXXXX)

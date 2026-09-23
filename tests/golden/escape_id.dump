@@ -1,7 +1,7 @@
 design: (work@1dff)
 |vpiName:work@1dff
 |uhdmallModules:
-\_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+\_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
   |vpiParent:
   \_design: (work@1dff)
   |vpiFullName:work@1dff
@@ -9,37 +9,37 @@ design: (work@1dff)
   |vpiNet:
   \_logic_net: (work@1dff.q), line:4:1, endln:4:2
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:q
     |vpiFullName:work@1dff.q
   |vpiNet:
   \_logic_net: (work@1dff.q~), line:5:1, endln:5:9
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:q~
     |vpiFullName:work@1dff.q~
   |vpiNet:
   \_logic_net: (work@1dff.d), line:6:1, endln:6:2
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:d
     |vpiFullName:work@1dff.d
   |vpiNet:
   \_logic_net: (work@1dff.cl$k), line:7:1, endln:7:5
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:cl$k
     |vpiFullName:work@1dff.cl$k
   |vpiNet:
   \_logic_net: (work@1dff.reset*), line:8:1, endln:8:13
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:reset*
     |vpiFullName:work@1dff.reset*
   |vpiPort:
   \_port: (q), line:4:1, endln:4:2
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:
@@ -60,7 +60,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (q~), line:5:1, endln:5:9
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:q~
     |vpiDirection:2
     |vpiLowConn:
@@ -81,7 +81,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (d), line:6:1, endln:6:2
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:d
     |vpiDirection:1
     |vpiLowConn:
@@ -102,7 +102,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (cl$k), line:7:1, endln:7:5
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:cl$k
     |vpiDirection:1
     |vpiLowConn:
@@ -123,7 +123,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (reset*), line:8:1, endln:8:13
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:reset*
     |vpiDirection:1
     |vpiLowConn:
@@ -142,7 +142,7 @@ design: (work@1dff)
       |vpiActual:
       \_logic_typespec: , line:11:7, endln:11:7
 |uhdmtopModules:
-\_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+\_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
   |vpiParent:
   \_design: (work@1dff)
   |vpiName:work@1dff
@@ -151,7 +151,7 @@ design: (work@1dff)
   |vpiNet:
   \_logic_net: (work@1dff.q), line:4:1, endln:4:2
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiTypespec:
     \_ref_typespec: (work@1dff.q)
       |vpiParent:
@@ -164,7 +164,7 @@ design: (work@1dff)
   |vpiNet:
   \_logic_net: (work@1dff.q~), line:5:1, endln:5:9
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiTypespec:
     \_ref_typespec: (work@1dff.q~)
       |vpiParent:
@@ -177,7 +177,7 @@ design: (work@1dff)
   |vpiNet:
   \_logic_net: (work@1dff.d), line:6:1, endln:6:2
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiTypespec:
     \_ref_typespec: (work@1dff.d)
       |vpiParent:
@@ -190,7 +190,7 @@ design: (work@1dff)
   |vpiNet:
   \_logic_net: (work@1dff.cl$k), line:7:1, endln:7:5
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiTypespec:
     \_ref_typespec: (work@1dff.cl$k)
       |vpiParent:
@@ -203,7 +203,7 @@ design: (work@1dff)
   |vpiNet:
   \_logic_net: (work@1dff.reset*), line:8:1, endln:8:13
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiTypespec:
     \_ref_typespec: (work@1dff.reset*)
       |vpiParent:
@@ -217,7 +217,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (q), line:4:1, endln:4:2
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:
@@ -238,7 +238,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (q~), line:5:1, endln:5:9
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:q~
     |vpiDirection:2
     |vpiLowConn:
@@ -259,7 +259,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (d), line:6:1, endln:6:2
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:d
     |vpiDirection:1
     |vpiLowConn:
@@ -280,7 +280,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (cl$k), line:7:1, endln:7:5
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:cl$k
     |vpiDirection:1
     |vpiLowConn:
@@ -301,7 +301,7 @@ design: (work@1dff)
   |vpiPort:
   \_port: (reset*), line:8:1, endln:8:13
     |vpiParent:
-    \_module_inst: work@1dff (work@1dff), file:/home/heyfey/git-repos/uhdm2rtlil/test/escape_id/dut.sv, line:3:1, endln:14:10
+    \_module_inst: work@1dff (work@1dff), file:$CORPUS/escape_id/dut.sv, line:3:1, endln:14:10
     |vpiName:reset*
     |vpiDirection:1
     |vpiLowConn:

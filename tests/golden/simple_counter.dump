@@ -1,7 +1,7 @@
 design: (work@simple_counter)
 |vpiName:work@simple_counter
 |uhdmallModules:
-\_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+\_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
   |vpiParent:
   \_design: (work@simple_counter)
   |vpiFullName:work@simple_counter
@@ -9,28 +9,28 @@ design: (work@simple_counter)
   |vpiNet:
   \_logic_net: (work@simple_counter.clk), line:3:18, endln:3:21
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:clk
     |vpiFullName:work@simple_counter.clk
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@simple_counter.rst_n), line:4:18, endln:4:23
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:rst_n
     |vpiFullName:work@simple_counter.rst_n
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@simple_counter.count), line:5:24, endln:5:29
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:count
     |vpiFullName:work@simple_counter.count
     |vpiNetType:36
   |vpiPort:
   \_port: (clk), line:3:18, endln:3:21
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -51,7 +51,7 @@ design: (work@simple_counter)
   |vpiPort:
   \_port: (rst_n), line:4:18, endln:4:23
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:rst_n
     |vpiDirection:1
     |vpiLowConn:
@@ -72,7 +72,7 @@ design: (work@simple_counter)
   |vpiPort:
   \_port: (count), line:5:24, endln:5:29
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:count
     |vpiDirection:2
     |vpiLowConn:
@@ -93,7 +93,7 @@ design: (work@simple_counter)
   |vpiProcess:
   \_always: , line:8:5, endln:14:8
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiStmt:
     \_event_control: , line:8:15, endln:8:46
       |vpiParent:
@@ -216,7 +216,7 @@ design: (work@simple_counter)
                 \_logic_net: (work@simple_counter.count), line:5:24, endln:5:29
     |vpiAlwaysType:3
 |uhdmtopModules:
-\_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+\_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
   |vpiParent:
   \_design: (work@simple_counter)
   |vpiName:work@simple_counter
@@ -225,7 +225,7 @@ design: (work@simple_counter)
   |vpiNet:
   \_logic_net: (work@simple_counter.clk), line:3:18, endln:3:21
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_counter.clk)
       |vpiParent:
@@ -239,7 +239,7 @@ design: (work@simple_counter)
   |vpiNet:
   \_logic_net: (work@simple_counter.rst_n), line:4:18, endln:4:23
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_counter.rst_n)
       |vpiParent:
@@ -253,7 +253,7 @@ design: (work@simple_counter)
   |vpiNet:
   \_logic_net: (work@simple_counter.count), line:5:24, endln:5:29
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiTypespec:
     \_ref_typespec: (work@simple_counter.count)
       |vpiParent:
@@ -268,7 +268,7 @@ design: (work@simple_counter)
   |vpiPort:
   \_port: (clk), line:3:18, endln:3:21
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -289,7 +289,7 @@ design: (work@simple_counter)
   |vpiPort:
   \_port: (rst_n), line:4:18, endln:4:23
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:rst_n
     |vpiDirection:1
     |vpiLowConn:
@@ -310,7 +310,7 @@ design: (work@simple_counter)
   |vpiPort:
   \_port: (count), line:5:24, endln:5:29
     |vpiParent:
-    \_module_inst: work@simple_counter (work@simple_counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_counter/dut.sv, line:2:1, endln:16:10
+    \_module_inst: work@simple_counter (work@simple_counter), file:$CORPUS/simple_counter/dut.sv, line:2:1, endln:16:10
     |vpiName:count
     |vpiDirection:2
     |vpiLowConn:

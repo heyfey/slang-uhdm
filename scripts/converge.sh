@@ -4,10 +4,13 @@
 # runs uhdm-cmp. Prints DUMP_MATCH/DUMP_DIFF and PASS_CMP/CMP_FAIL.
 set -u
 
-SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang-uhdm/build/slang-uhdm}
-SURELOG=${SURELOG:-$HOME/git-repos/Surelog/build/bin/surelog}
-UHDM_DUMP=${UHDM_DUMP:-$HOME/git-repos/UHDM/build/bin/uhdm-dump}
-UHDM_CMP=${UHDM_CMP:-$HOME/git-repos/UHDM/build/bin/uhdm-cmp}
+ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
+SURELOG_ROOT=${SURELOG_ROOT:-$ROOT/third_party/Surelog}
+UHDM_BIN=$SURELOG_ROOT/build/third_party/UHDM/bin
+SLANG_UHDM=${SLANG_UHDM:-$ROOT/build/slang-uhdm}
+SURELOG=${SURELOG:-$SURELOG_ROOT/build/bin/surelog}
+UHDM_DUMP=${UHDM_DUMP:-$UHDM_BIN/uhdm-dump}
+UHDM_CMP=${UHDM_CMP:-$UHDM_BIN/uhdm-cmp}
 
 SRC=$(realpath "$1")
 shift

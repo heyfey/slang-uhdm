@@ -20,7 +20,8 @@ This tree is pinned to:
 
 ## Build
 
-    # once: install slang and UHDM packages
+    git submodule update --init                       # third_party/Surelog + third_party/uhdm2rtlil (the test corpora)
+    # once: install slang and UHDM packages (UHDM = third_party/Surelog/third_party/UHDM, the same pin)
     cmake --install <slang>/build   --prefix ~/.local
     cmake --install <UHDM>/build    --prefix ~/.local   # UHDM configured with CMAKE_INSTALL_PREFIX=~/.local
     # then
@@ -36,7 +37,11 @@ the catalog of Surelog output quirks this tool replicates.
 
 ## Testing
 
-    ./tests/check_goldens.sh                      # committed golden dumps
+The reference corpora (Surelog's suites, 798 tests; uhdm2rtlil's, 871 tests)
+are submodules, the producer is built from `third_party/Surelog`, and Surelog's
+golden databases are cached after the first run. See tests/README.md.
+
+    tests/sweep.sh                                # both corpora x both modes vs results/golden_*.csv (the gate)
+    tests/check_goldens.sh                        # 23 byte-exact dump goldens
     ./scripts/converge.sh <dut.sv>                # one-test dump-diff + cmp
-    ./scripts/run_corpus.sh <corpus> out.csv results/baseline.csv   # scoreboard + regression gate
     ./scripts/triage.sh out.csv                   # per-round priorities

@@ -1,7 +1,7 @@
 design: (work@flipflop)
 |vpiName:work@flipflop
 |uhdmallModules:
-\_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+\_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
   |vpiParent:
   \_design: (work@flipflop)
   |vpiFullName:work@flipflop
@@ -9,35 +9,35 @@ design: (work@flipflop)
   |vpiNet:
   \_logic_net: (work@flipflop.clk), line:3:18, endln:3:21
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:clk
     |vpiFullName:work@flipflop.clk
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@flipflop.rst_n), line:4:18, endln:4:23
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:rst_n
     |vpiFullName:work@flipflop.rst_n
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@flipflop.d), line:5:18, endln:5:19
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:d
     |vpiFullName:work@flipflop.d
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@flipflop.q), line:6:18, endln:6:19
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:q
     |vpiFullName:work@flipflop.q
     |vpiNetType:36
   |vpiPort:
   \_port: (clk), line:3:18, endln:3:21
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -58,7 +58,7 @@ design: (work@flipflop)
   |vpiPort:
   \_port: (rst_n), line:4:18, endln:4:23
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:rst_n
     |vpiDirection:1
     |vpiLowConn:
@@ -79,7 +79,7 @@ design: (work@flipflop)
   |vpiPort:
   \_port: (d), line:5:18, endln:5:19
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:d
     |vpiDirection:1
     |vpiLowConn:
@@ -100,7 +100,7 @@ design: (work@flipflop)
   |vpiPort:
   \_port: (q), line:6:18, endln:6:19
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:
@@ -121,7 +121,7 @@ design: (work@flipflop)
   |vpiProcess:
   \_always: , line:9:5, endln:15:8
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiStmt:
     \_event_control: , line:9:15, endln:9:46
       |vpiParent:
@@ -231,7 +231,7 @@ design: (work@flipflop)
                 \_logic_net: (work@flipflop.q), line:6:18, endln:6:19
     |vpiAlwaysType:3
 |uhdmtopModules:
-\_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+\_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
   |vpiParent:
   \_design: (work@flipflop)
   |vpiName:work@flipflop
@@ -240,7 +240,7 @@ design: (work@flipflop)
   |vpiNet:
   \_logic_net: (work@flipflop.clk), line:3:18, endln:3:21
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiTypespec:
     \_ref_typespec: (work@flipflop.clk)
       |vpiParent:
@@ -254,7 +254,7 @@ design: (work@flipflop)
   |vpiNet:
   \_logic_net: (work@flipflop.rst_n), line:4:18, endln:4:23
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiTypespec:
     \_ref_typespec: (work@flipflop.rst_n)
       |vpiParent:
@@ -268,7 +268,7 @@ design: (work@flipflop)
   |vpiNet:
   \_logic_net: (work@flipflop.d), line:5:18, endln:5:19
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiTypespec:
     \_ref_typespec: (work@flipflop.d)
       |vpiParent:
@@ -282,7 +282,7 @@ design: (work@flipflop)
   |vpiNet:
   \_logic_net: (work@flipflop.q), line:6:18, endln:6:19
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiTypespec:
     \_ref_typespec: (work@flipflop.q)
       |vpiParent:
@@ -297,7 +297,7 @@ design: (work@flipflop)
   |vpiPort:
   \_port: (clk), line:3:18, endln:3:21
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -318,7 +318,7 @@ design: (work@flipflop)
   |vpiPort:
   \_port: (rst_n), line:4:18, endln:4:23
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:rst_n
     |vpiDirection:1
     |vpiLowConn:
@@ -339,7 +339,7 @@ design: (work@flipflop)
   |vpiPort:
   \_port: (d), line:5:18, endln:5:19
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:d
     |vpiDirection:1
     |vpiLowConn:
@@ -360,7 +360,7 @@ design: (work@flipflop)
   |vpiPort:
   \_port: (q), line:6:18, endln:6:19
     |vpiParent:
-    \_module_inst: work@flipflop (work@flipflop), file:/home/heyfey/git-repos/uhdm2rtlil/test/flipflop/dut.sv, line:2:1, endln:17:10
+    \_module_inst: work@flipflop (work@flipflop), file:$CORPUS/flipflop/dut.sv, line:2:1, endln:17:10
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:

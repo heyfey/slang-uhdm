@@ -1,7 +1,7 @@
 design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
-\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+\_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -9,63 +9,63 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.clk), line:2:24, endln:2:27
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:clk
     |vpiFullName:work@top.clk
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.rst), line:3:24, endln:3:27
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:rst
     |vpiFullName:work@top.rst
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.a), line:4:24, endln:4:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.b), line:5:24, endln:5:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.c), line:6:24, endln:6:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:c
     |vpiFullName:work@top.c
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.en), line:7:24, endln:7:26
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:en
     |vpiFullName:work@top.en
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.out1), line:8:24, endln:8:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:out1
     |vpiFullName:work@top.out1
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.out2), line:9:24, endln:9:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:out2
     |vpiFullName:work@top.out2
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@top.ab_sum), line:13:16, endln:13:22
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.ab_sum)
       |vpiParent:
@@ -79,7 +79,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone1_1), line:17:16, endln:17:23
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone1_1)
       |vpiParent:
@@ -93,7 +93,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone1_2), line:17:25, endln:17:32
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone1_2)
       |vpiParent:
@@ -107,7 +107,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.reg1), line:21:16, endln:21:20
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.reg1)
       |vpiParent:
@@ -121,7 +121,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.reg2), line:21:22, endln:21:26
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.reg2)
       |vpiParent:
@@ -135,7 +135,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone1_3), line:32:16, endln:32:23
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone1_3)
       |vpiParent:
@@ -149,7 +149,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone2_1), line:36:16, endln:36:23
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone2_1)
       |vpiParent:
@@ -163,7 +163,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone2_2), line:36:25, endln:36:32
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone2_2)
       |vpiParent:
@@ -177,7 +177,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.reg3), line:40:16, endln:40:20
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.reg3)
       |vpiParent:
@@ -191,7 +191,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone2_3), line:48:16, endln:48:23
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone2_3)
       |vpiParent:
@@ -205,7 +205,7 @@ design: (work@top)
   |vpiPort:
   \_port: (clk), line:2:24, endln:2:27
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -226,7 +226,7 @@ design: (work@top)
   |vpiPort:
   \_port: (rst), line:3:24, endln:3:27
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:rst
     |vpiDirection:1
     |vpiLowConn:
@@ -247,7 +247,7 @@ design: (work@top)
   |vpiPort:
   \_port: (a), line:4:24, endln:4:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -268,7 +268,7 @@ design: (work@top)
   |vpiPort:
   \_port: (b), line:5:24, endln:5:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -289,7 +289,7 @@ design: (work@top)
   |vpiPort:
   \_port: (c), line:6:24, endln:6:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
@@ -310,7 +310,7 @@ design: (work@top)
   |vpiPort:
   \_port: (en), line:7:24, endln:7:26
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:en
     |vpiDirection:1
     |vpiLowConn:
@@ -331,7 +331,7 @@ design: (work@top)
   |vpiPort:
   \_port: (out1), line:8:24, endln:8:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:out1
     |vpiDirection:2
     |vpiLowConn:
@@ -352,7 +352,7 @@ design: (work@top)
   |vpiPort:
   \_port: (out2), line:9:24, endln:9:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:out2
     |vpiDirection:2
     |vpiLowConn:
@@ -373,7 +373,7 @@ design: (work@top)
   |vpiProcess:
   \_always: , line:22:5, endln:30:8
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiStmt:
     \_event_control: , line:22:12, endln:22:41
       |vpiParent:
@@ -558,7 +558,7 @@ design: (work@top)
   |vpiProcess:
   \_always: , line:41:5, endln:46:8
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiStmt:
     \_event_control: , line:41:12, endln:41:41
       |vpiParent:
@@ -693,7 +693,7 @@ design: (work@top)
   |vpiProcess:
   \_always: , line:55:5, endln:57:8
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiStmt:
     \_event_control: , line:55:12, endln:55:26
       |vpiParent:
@@ -745,7 +745,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:14:12, endln:14:26
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:14:21, endln:14:26
       |vpiParent:
@@ -778,7 +778,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:18:12, endln:18:42
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:18:22, endln:18:42
       |vpiParent:
@@ -839,7 +839,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:19:12, endln:19:43
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:19:22, endln:19:43
       |vpiParent:
@@ -913,7 +913,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:33:12, endln:33:34
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:33:22, endln:33:34
       |vpiParent:
@@ -957,7 +957,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:37:12, endln:37:46
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:37:22, endln:37:46
       |vpiParent:
@@ -1016,7 +1016,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:38:12, endln:38:47
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:38:22, endln:38:47
       |vpiParent:
@@ -1090,7 +1090,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:49:12, endln:49:43
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:49:22, endln:49:43
       |vpiParent:
@@ -1136,7 +1136,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:52:12, endln:52:43
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:52:19, endln:52:43
       |vpiParent:
@@ -1182,7 +1182,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:53:12, endln:53:43
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:53:19, endln:53:43
       |vpiParent:
@@ -1226,7 +1226,7 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.out2), line:9:24, endln:9:28
 |uhdmtopModules:
-\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+\_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
   |vpiParent:
   \_design: (work@top)
   |vpiName:work@top
@@ -1235,7 +1235,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.clk), line:2:24, endln:2:27
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.clk)
       |vpiParent:
@@ -1249,7 +1249,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.rst), line:3:24, endln:3:27
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.rst)
       |vpiParent:
@@ -1263,7 +1263,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.a), line:4:24, endln:4:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.a)
       |vpiParent:
@@ -1277,7 +1277,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.b), line:5:24, endln:5:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.b)
       |vpiParent:
@@ -1291,7 +1291,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.c), line:6:24, endln:6:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.c)
       |vpiParent:
@@ -1305,7 +1305,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.en), line:7:24, endln:7:26
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.en)
       |vpiParent:
@@ -1319,7 +1319,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.out1), line:8:24, endln:8:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.out1)
       |vpiParent:
@@ -1333,7 +1333,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.out2), line:9:24, endln:9:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.out2)
       |vpiParent:
@@ -1347,7 +1347,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.ab_sum), line:13:16, endln:13:22
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.ab_sum)
       |vpiParent:
@@ -1361,7 +1361,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone1_1), line:17:16, endln:17:23
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone1_1)
       |vpiParent:
@@ -1375,7 +1375,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone1_2), line:17:25, endln:17:32
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone1_2)
       |vpiParent:
@@ -1389,7 +1389,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.reg1), line:21:16, endln:21:20
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.reg1)
       |vpiParent:
@@ -1403,7 +1403,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.reg2), line:21:22, endln:21:26
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.reg2)
       |vpiParent:
@@ -1417,7 +1417,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone1_3), line:32:16, endln:32:23
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone1_3)
       |vpiParent:
@@ -1431,7 +1431,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone2_1), line:36:16, endln:36:23
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone2_1)
       |vpiParent:
@@ -1445,7 +1445,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone2_2), line:36:25, endln:36:32
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone2_2)
       |vpiParent:
@@ -1459,7 +1459,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.reg3), line:40:16, endln:40:20
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.reg3)
       |vpiParent:
@@ -1473,7 +1473,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.cone2_3), line:48:16, endln:48:23
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiTypespec:
     \_ref_typespec: (work@top.cone2_3)
       |vpiParent:
@@ -1488,7 +1488,7 @@ design: (work@top)
   |vpiPort:
   \_port: (clk), line:2:24, endln:2:27
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -1509,7 +1509,7 @@ design: (work@top)
   |vpiPort:
   \_port: (rst), line:3:24, endln:3:27
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:rst
     |vpiDirection:1
     |vpiLowConn:
@@ -1530,7 +1530,7 @@ design: (work@top)
   |vpiPort:
   \_port: (a), line:4:24, endln:4:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
@@ -1551,7 +1551,7 @@ design: (work@top)
   |vpiPort:
   \_port: (b), line:5:24, endln:5:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
@@ -1572,7 +1572,7 @@ design: (work@top)
   |vpiPort:
   \_port: (c), line:6:24, endln:6:25
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
@@ -1593,7 +1593,7 @@ design: (work@top)
   |vpiPort:
   \_port: (en), line:7:24, endln:7:26
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:en
     |vpiDirection:1
     |vpiLowConn:
@@ -1614,7 +1614,7 @@ design: (work@top)
   |vpiPort:
   \_port: (out1), line:8:24, endln:8:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:out1
     |vpiDirection:2
     |vpiLowConn:
@@ -1635,7 +1635,7 @@ design: (work@top)
   |vpiPort:
   \_port: (out2), line:9:24, endln:9:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiName:out2
     |vpiDirection:2
     |vpiLowConn:
@@ -1662,7 +1662,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:14:12, endln:14:26
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:14:21, endln:14:26
       |vpiParent:
@@ -1695,7 +1695,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:18:12, endln:18:42
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:18:22, endln:18:42
       |vpiParent:
@@ -1762,7 +1762,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:19:12, endln:19:43
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:19:22, endln:19:43
       |vpiParent:
@@ -1842,7 +1842,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:33:12, endln:33:34
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:33:22, endln:33:34
       |vpiParent:
@@ -1886,7 +1886,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:37:12, endln:37:46
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:37:22, endln:37:46
       |vpiParent:
@@ -1945,7 +1945,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:38:12, endln:38:47
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:38:22, endln:38:47
       |vpiParent:
@@ -2025,7 +2025,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:49:12, endln:49:43
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:49:22, endln:49:43
       |vpiParent:
@@ -2071,7 +2071,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:52:12, endln:52:43
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:52:19, endln:52:43
       |vpiParent:
@@ -2117,7 +2117,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:53:12, endln:53:43
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/lcov/dut.sv, line:1:1, endln:59:10
+    \_module_inst: work@top (work@top), file:$CORPUS/lcov/dut.sv, line:1:1, endln:59:10
     |vpiRhs:
     \_operation: , line:53:19, endln:53:43
       |vpiParent:

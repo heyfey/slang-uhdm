@@ -1,7 +1,7 @@
 design: (work@dffs)
 |vpiName:work@dffs
 |uhdmallModules:
-\_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+\_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
   |vpiParent:
   \_design: (work@dffs)
   |vpiFullName:work@dffs
@@ -9,38 +9,38 @@ design: (work@dffs)
   |vpiNet:
   \_logic_net: (work@dffs.d), line:1:20, endln:1:21
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:d
     |vpiFullName:work@dffs.d
   |vpiNet:
   \_logic_net: (work@dffs.clk), line:1:23, endln:1:26
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:clk
     |vpiFullName:work@dffs.clk
   |vpiNet:
   \_logic_net: (work@dffs.pre), line:1:28, endln:1:31
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:pre
     |vpiFullName:work@dffs.pre
   |vpiNet:
   \_logic_net: (work@dffs.clr), line:1:33, endln:1:36
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:clr
     |vpiFullName:work@dffs.clr
   |vpiNet:
   \_logic_net: (work@dffs.q), line:1:49, endln:1:50
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:q
     |vpiFullName:work@dffs.q
     |vpiNetType:48
   |vpiPort:
   \_port: (d), line:1:20, endln:1:21
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:d
     |vpiDirection:1
     |vpiLowConn:
@@ -61,7 +61,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (clk), line:1:23, endln:1:26
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -82,7 +82,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (pre), line:1:28, endln:1:31
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:pre
     |vpiDirection:1
     |vpiLowConn:
@@ -103,7 +103,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (clr), line:1:33, endln:1:36
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:clr
     |vpiDirection:1
     |vpiLowConn:
@@ -124,7 +124,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (q), line:1:49, endln:1:50
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:
@@ -145,7 +145,7 @@ design: (work@dffs)
   |vpiProcess:
   \_initial: , line:3:5, endln:5:8
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiStmt:
     \_begin: (work@dffs), line:3:13, endln:5:8
       |vpiParent:
@@ -174,7 +174,7 @@ design: (work@dffs)
   |vpiProcess:
   \_always: , line:7:5, endln:11:16
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiStmt:
     \_event_control: , line:7:12, endln:7:28
       |vpiParent:
@@ -246,7 +246,7 @@ design: (work@dffs)
             \_logic_net: (work@dffs.q), line:1:49, endln:1:50
     |vpiAlwaysType:1
 |uhdmtopModules:
-\_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+\_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
   |vpiParent:
   \_design: (work@dffs)
   |vpiName:work@dffs
@@ -255,7 +255,7 @@ design: (work@dffs)
   |vpiNet:
   \_logic_net: (work@dffs.d), line:1:20, endln:1:21
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_ref_typespec: (work@dffs.d)
       |vpiParent:
@@ -268,7 +268,7 @@ design: (work@dffs)
   |vpiNet:
   \_logic_net: (work@dffs.clk), line:1:23, endln:1:26
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_ref_typespec: (work@dffs.clk)
       |vpiParent:
@@ -281,7 +281,7 @@ design: (work@dffs)
   |vpiNet:
   \_logic_net: (work@dffs.pre), line:1:28, endln:1:31
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_ref_typespec: (work@dffs.pre)
       |vpiParent:
@@ -294,7 +294,7 @@ design: (work@dffs)
   |vpiNet:
   \_logic_net: (work@dffs.clr), line:1:33, endln:1:36
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_ref_typespec: (work@dffs.clr)
       |vpiParent:
@@ -307,7 +307,7 @@ design: (work@dffs)
   |vpiNet:
   \_logic_net: (work@dffs.q), line:1:49, endln:1:50
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
     \_ref_typespec: (work@dffs.q)
       |vpiParent:
@@ -322,7 +322,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (d), line:1:20, endln:1:21
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:d
     |vpiDirection:1
     |vpiLowConn:
@@ -343,7 +343,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (clk), line:1:23, endln:1:26
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -364,7 +364,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (pre), line:1:28, endln:1:31
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:pre
     |vpiDirection:1
     |vpiLowConn:
@@ -385,7 +385,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (clr), line:1:33, endln:1:36
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:clr
     |vpiDirection:1
     |vpiLowConn:
@@ -406,7 +406,7 @@ design: (work@dffs)
   |vpiPort:
   \_port: (q), line:1:49, endln:1:50
     |vpiParent:
-    \_module_inst: work@dffs (work@dffs), file:/home/heyfey/git-repos/uhdm2rtlil/test/dffs/dut.sv, line:1:1, endln:12:10
+    \_module_inst: work@dffs (work@dffs), file:$CORPUS/dffs/dut.sv, line:1:1, endln:12:10
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:

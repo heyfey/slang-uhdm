@@ -1,7 +1,7 @@
 design: (work@top)
 |vpiName:work@top
 |uhdmallModules:
-\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+\_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
   |vpiParent:
   \_design: (work@top)
   |vpiFullName:work@top
@@ -9,19 +9,19 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.clk), line:9:18, endln:9:21
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiName:clk
     |vpiFullName:work@top.clk
   |vpiNet:
   \_logic_net: (work@top.z), line:9:30, endln:9:31
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiName:z
     |vpiFullName:work@top.z
   |vpiNet:
   \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiTypespec:
     \_ref_typespec: (work@top.wide_state)
       |vpiParent:
@@ -34,7 +34,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.state), line:24:13, endln:24:18
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiTypespec:
     \_ref_typespec: (work@top.state)
       |vpiParent:
@@ -52,7 +52,7 @@ design: (work@top)
   |vpiPort:
   \_port: (clk), line:9:18, endln:9:21
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -73,7 +73,7 @@ design: (work@top)
   |vpiPort:
   \_port: (z), line:9:30, endln:9:31
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiName:z
     |vpiDirection:2
     |vpiLowConn:
@@ -94,7 +94,7 @@ design: (work@top)
   |vpiProcess:
   \_always: , line:13:5, endln:20:8
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiStmt:
     \_event_control: , line:13:12, endln:13:26
       |vpiParent:
@@ -258,7 +258,7 @@ design: (work@top)
   |vpiProcess:
   \_always: , line:26:5, endln:33:8
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiStmt:
     \_event_control: , line:26:12, endln:26:26
       |vpiParent:
@@ -422,7 +422,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:35:12, endln:35:49
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiRhs:
     \_operation: , line:35:16, endln:35:49
       |vpiParent:
@@ -564,14 +564,14 @@ design: (work@top)
     |vpiDecompile:3
     |vpiSize:64
 |uhdmtopModules:
-\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+\_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
   |vpiParent:
   \_design: (work@top)
   |vpiName:work@top
   |vpiVariables:
   \_enum_var: (work@top.wide_state), line:11:18, endln:11:28
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiTypespec:
     \_ref_typespec: (work@top.wide_state)
       |vpiParent:
@@ -593,7 +593,7 @@ design: (work@top)
   |vpiVariables:
   \_enum_var: (work@top.state), line:24:13, endln:24:18
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiTypespec:
     \_ref_typespec: (work@top.state)
       |vpiParent:
@@ -619,7 +619,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.clk), line:9:18, endln:9:21
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiTypespec:
     \_ref_typespec: (work@top.clk)
       |vpiParent:
@@ -632,7 +632,7 @@ design: (work@top)
   |vpiNet:
   \_logic_net: (work@top.z), line:9:30, endln:9:31
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiTypespec:
     \_ref_typespec: (work@top.z)
       |vpiParent:
@@ -646,7 +646,7 @@ design: (work@top)
   |vpiPort:
   \_port: (clk), line:9:18, endln:9:21
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
@@ -667,7 +667,7 @@ design: (work@top)
   |vpiPort:
   \_port: (z), line:9:30, endln:9:31
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiName:z
     |vpiDirection:2
     |vpiLowConn:
@@ -692,7 +692,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:35:12, endln:35:49
     |vpiParent:
-    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    \_module_inst: work@top (work@top), file:$CORPUS/enum_values/dut.sv, line:9:1, endln:37:10
     |vpiRhs:
     \_operation: , line:35:16, endln:35:49
       |vpiParent:

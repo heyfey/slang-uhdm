@@ -3,3 +3,4 @@ results/latest.csv
 difsizes.csv
 *.o
 *.swp
+__pycache__/

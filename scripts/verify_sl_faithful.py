@@ -31,14 +31,11 @@ import shlex
 import subprocess
 import sys
 
-HOME = os.path.expanduser('~')
-SURELOG_ROOT = os.path.join(HOME, 'git-repos', 'Surelog')
+# Locations: the same repo-relative resolution as verify_golden.py.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from verify_golden import SURELOG_ROOT, SURELOG, SLANG_UHDM, UHDM_CMP  # noqa: E402
 DEFAULT_ROOTS = [os.path.join(SURELOG_ROOT, 'tests'),
                  os.path.join(SURELOG_ROOT, 'third_party', 'tests')]
-SURELOG = os.path.join(SURELOG_ROOT, 'build', 'bin', 'surelog')
-SLANG_UHDM = os.environ.get('SLANG_UHDM',
-                            os.path.join(HOME, 'git-repos', 'slang-uhdm', 'build', 'slang-uhdm'))
-UHDM_CMP = os.path.join(HOME, 'git-repos', 'UHDM', 'build', 'bin', 'uhdm-cmp')
 UVM_DIR = os.path.join(SURELOG_ROOT, 'third_party', 'UVM')
 
 

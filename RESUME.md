@@ -33,9 +33,12 @@ one wins — see §11 for which docs are stale and how.*
 **Target:** `slang-uhdm` (our SystemVerilog→UHDM emitter, built on slang)
 must produce a database that the OFFICIAL `uhdm-cmp` judges EQUAL to
 Surelog's golden database, for **both corpora × both modes**:
-- corpora: `uhdm2rtlil` (731 tests, `~/git-repos/uhdm2rtlil/test`) and the
-  Surelog suite (794 tests, `~/git-repos/Surelog/{tests,third_party/tests}`;
-  the UVM trees are under `~/git-repos/sv-tests/third_party/tools/Surelog/third_party/UVM`);
+- corpora: `uhdm2rtlil` (871 tests, submodule `third_party/uhdm2rtlil/test`)
+  and the Surelog suite (798 tests, submodule
+  `third_party/Surelog/{tests,third_party/tests}`; its UVM trees are under
+  `third_party/Surelog/third_party/UVM`). Since 2026-09-23 every location
+  resolves relative to this repo (tests/README.md); `tests/sweep.sh` is the
+  gate and the golden databases are cached after the first run;
 - modes: `default` (sources + where-to-find-them args only) and `testflags`
   (the test's own command line, UHDM-irrelevant parts removed).
 - **Done = 0 `CMP_NOTEQUAL` rows** among comparable rows in both corpora, both
@@ -116,10 +119,12 @@ official cmp to claim it is correct") and must never become a bottleneck
                                           re-runs the OFFICIAL Compare to name an RHS<null> owner
   PLAYBOOK.md GOLDEN_EQUIVALENCE.md HANDOFF.md NOTES.md PLAN.md   older docs (§11)
 
-~/git-repos/UHDM/build/bin/{uhdm-cmp,uhdm-dump}   the judge and the dumper
+third_party/Surelog/build/bin/surelog             the producer (built inside the submodule, or SURELOG=...)
+third_party/Surelog/build/third_party/UHDM/bin/{uhdm-cmp,uhdm-dump}   the judge and the dumper (or UHDM_CMP=/UHDM_DUMP=)
+~/git-repos/UHDM/build/bin/{uhdm-cmp,uhdm-dump}   the same tools from the standalone UHDM build on this machine
 ~/git-repos/UHDM/build/generated/src/*.cpp        generated <kind>::Compare bodies — READ THESE
 ~/.local/include/uhdm/BaseClass.h                 SafeCompare overloads (§9 head-decode)
-~/git-repos/Surelog/                              Surelog SOURCE (decode laws from it: CompileHelper.cpp,
+third_party/Surelog/ (= ~/git-repos/Surelog)      Surelog SOURCE (decode laws from it: CompileHelper.cpp,
                                                   CompileExpression.cpp, CompileStmt.cpp, UhdmWriter.cpp,
                                                   ElaborationStep.cpp, NetlistElaboration.cpp, ExprEval.cpp)
 ~/git-repos/Surelog/build/bin/surelog             the golden Surelog the harness runs (scripts/verify_golden.py) — NOT the sv-tests

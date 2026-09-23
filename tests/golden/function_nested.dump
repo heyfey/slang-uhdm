@@ -1,14 +1,14 @@
 design: (work@function_nested)
 |vpiName:work@function_nested
 |uhdmallModules:
-\_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+\_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
   |vpiParent:
   \_design: (work@function_nested)
   |vpiFullName:work@function_nested
   |vpiParameter:
   \_parameter: (work@function_nested.WIDTH), line:3:15, endln:3:20
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |UINT:8
     |vpiTypespec:
     \_ref_typespec: (work@function_nested.WIDTH)
@@ -22,7 +22,7 @@ design: (work@function_nested)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:24
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiRhs:
     \_constant: , line:3:23, endln:3:24
       |vpiParent:
@@ -44,7 +44,7 @@ design: (work@function_nested)
   |vpiTaskFunc:
   \_function: (work@function_nested.func_nested), line:12:5, endln:27:16
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:func_nested
     |vpiFullName:work@function_nested.func_nested
     |vpiVisibility:1
@@ -278,39 +278,39 @@ design: (work@function_nested)
                 |vpiActual:
                 \_logic_var: (work@function_nested.func_nested.func_nested), line:12:14, endln:12:25
     |vpiInstance:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
   |vpiNet:
   \_logic_net: (work@function_nested.x), line:5:30, endln:5:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:x
     |vpiFullName:work@function_nested.x
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@function_nested.y), line:6:30, endln:6:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:y
     |vpiFullName:work@function_nested.y
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@function_nested.z), line:7:30, endln:7:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:z
     |vpiFullName:work@function_nested.z
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@function_nested.out), line:8:30, endln:8:33
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:out
     |vpiFullName:work@function_nested.out
     |vpiNetType:36
   |vpiPort:
   \_port: (x), line:5:30, endln:5:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:x
     |vpiDirection:1
     |vpiLowConn:
@@ -331,7 +331,7 @@ design: (work@function_nested)
   |vpiPort:
   \_port: (y), line:6:30, endln:6:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:y
     |vpiDirection:1
     |vpiLowConn:
@@ -352,7 +352,7 @@ design: (work@function_nested)
   |vpiPort:
   \_port: (z), line:7:30, endln:7:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:z
     |vpiDirection:1
     |vpiLowConn:
@@ -373,7 +373,7 @@ design: (work@function_nested)
   |vpiPort:
   \_port: (out), line:8:30, endln:8:33
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
@@ -394,7 +394,7 @@ design: (work@function_nested)
   |vpiContAssign:
   \_cont_assign: , line:30:12, endln:30:38
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiRhs:
     \_func_call: (func_nested), line:30:18, endln:30:38
       |vpiParent:
@@ -456,14 +456,14 @@ design: (work@function_nested)
       |vpiActual:
       \_logic_net: (work@function_nested.out), line:8:30, endln:8:33
 |uhdmtopModules:
-\_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+\_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
   |vpiParent:
   \_design: (work@function_nested)
   |vpiName:work@function_nested
   |vpiParameter:
   \_parameter: (work@function_nested.WIDTH), line:3:15, endln:3:20
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |UINT:8
     |vpiTypespec:
     \_ref_typespec: (work@function_nested.WIDTH)
@@ -477,7 +477,7 @@ design: (work@function_nested)
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:24
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiRhs:
     \_constant: , line:3:23, endln:3:24
       |vpiParent:
@@ -502,7 +502,7 @@ design: (work@function_nested)
   |vpiNet:
   \_logic_net: (work@function_nested.x), line:5:30, endln:5:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiTypespec:
     \_ref_typespec: (work@function_nested.x)
       |vpiParent:
@@ -516,7 +516,7 @@ design: (work@function_nested)
   |vpiNet:
   \_logic_net: (work@function_nested.y), line:6:30, endln:6:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiTypespec:
     \_ref_typespec: (work@function_nested.y)
       |vpiParent:
@@ -530,7 +530,7 @@ design: (work@function_nested)
   |vpiNet:
   \_logic_net: (work@function_nested.z), line:7:30, endln:7:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiTypespec:
     \_ref_typespec: (work@function_nested.z)
       |vpiParent:
@@ -544,7 +544,7 @@ design: (work@function_nested)
   |vpiNet:
   \_logic_net: (work@function_nested.out), line:8:30, endln:8:33
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiTypespec:
     \_ref_typespec: (work@function_nested.out)
       |vpiParent:
@@ -559,7 +559,7 @@ design: (work@function_nested)
   |vpiPort:
   \_port: (x), line:5:30, endln:5:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:x
     |vpiDirection:1
     |vpiLowConn:
@@ -580,7 +580,7 @@ design: (work@function_nested)
   |vpiPort:
   \_port: (y), line:6:30, endln:6:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:y
     |vpiDirection:1
     |vpiLowConn:
@@ -601,7 +601,7 @@ design: (work@function_nested)
   |vpiPort:
   \_port: (z), line:7:30, endln:7:31
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:z
     |vpiDirection:1
     |vpiLowConn:
@@ -622,7 +622,7 @@ design: (work@function_nested)
   |vpiPort:
   \_port: (out), line:8:30, endln:8:33
     |vpiParent:
-    \_module_inst: work@function_nested (work@function_nested), file:/home/heyfey/git-repos/uhdm2rtlil/test/function_nested/dut.sv, line:2:1, endln:32:10
+    \_module_inst: work@function_nested (work@function_nested), file:$CORPUS/function_nested/dut.sv, line:2:1, endln:32:10
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
