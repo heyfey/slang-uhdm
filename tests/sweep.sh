@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-# The regression gate: (1) every tests/probe arm judged EQUAL against its committed
-# golden (scripts/check_probe.py), then (2) both corpora in both modes with
-# scripts/verify_golden.py compared against the committed scoreboards in results/.
+# The regression gate: (1) every tests/probe arm judged EQUAL against its cached
+# golden (scripts/check_probe.py); (2) both corpora in both modes with
+# scripts/verify_golden.py compared against the committed scoreboards in results/;
+# (3) the downstream gate: uhdm2rtlil's Yosys plugin must produce the same
+# result from slang-uhdm's database as from Surelog's on every uhdm2rtlil test
+# except the slang-rejected ones (scripts/downstream_uhdm2rtlil.py, verdicts
+# compared against results/downstream_uhdm2rtlil.csv).
 #
-#   tests/sweep.sh [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil]
+#   tests/sweep.sh [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil|downstream]
 #
 # First run on a machine: Surelog builds every golden database (about an hour
 # at --jobs 3) and the harness caches them under ~/.cache/slang-uhdm-goldens
@@ -15,14 +19,14 @@
 # corpus status regression: do not commit on a nonzero exit.
 set -u
 ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
-JOBS=3; WORKDIR=/tmp/slang-uhdm-sweep; FILTER=""; CORPORA="probe surelog uhdm2rtlil"
+JOBS=3; WORKDIR=/tmp/slang-uhdm-sweep; FILTER=""; CORPORA="probe surelog uhdm2rtlil downstream"
 while [ $# -gt 0 ]; do
     case "$1" in
         --jobs) JOBS=$2; shift 2 ;;
         --workdir) WORKDIR=$2; shift 2 ;;
         --filter) FILTER=$2; shift 2 ;;
         --corpus) CORPORA=$2; shift 2 ;;
-        *) echo "usage: $0 [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil]"; exit 2 ;;
+        *) echo "usage: $0 [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil|downstream]"; exit 2 ;;
     esac
 done
 mkdir -p "$WORKDIR"
@@ -31,6 +35,13 @@ for c in $CORPORA; do
     if [ "$c" = probe ]; then
         echo "== probe arms (tests/probe, committed goldens), jobs=$JOBS"
         python3 "$ROOT/scripts/check_probe.py" --jobs "$JOBS" --workdir "$WORKDIR/probe" ${FILTER:+--filter "$FILTER"} || rc=1
+        continue
+    fi
+    if [ "$c" = downstream ]; then
+        echo "== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=$JOBS"
+        python3 "$ROOT/scripts/downstream_uhdm2rtlil.py" --jobs "$JOBS" --workdir "$WORKDIR/downstream" \
+            --out "$WORKDIR/downstream.csv" --baseline "$ROOT/results/downstream_uhdm2rtlil.csv" \
+            ${FILTER:+--filter "$FILTER"} || rc=1
         continue
     fi
     out=$WORKDIR/$c.csv

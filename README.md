@@ -48,6 +48,6 @@ The reference corpora (Surelog's suites, 798 tests; uhdm2rtlil's, 871 tests)
 are submodules, the producer is built from `third_party/Surelog`, and Surelog's
 golden databases are cached after the first run. See tests/README.md.
 
-    tests/sweep.sh                                # both corpora x both modes vs results/golden_*.csv (the gate)
+    tests/sweep.sh                                # the gate: probe arms, both corpora x both modes, downstream uhdm2rtlil
     ./scripts/converge.sh <dut.sv>                # one-test dump-diff + cmp
     ./scripts/triage.sh out.csv                   # per-round priorities

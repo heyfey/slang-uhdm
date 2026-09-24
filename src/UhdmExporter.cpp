@@ -733,6 +733,12 @@ void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
     locLineCol(range.start(), l, c);
     obj->VpiLineNo(l);
     obj->VpiColumnNo(c);
+    // § vpiFileOnEveryLocated117: Surelog stamps VpiFile on every located
+    // object. uhdm-cmp never judges it, but uhdm2rtlil derives every RTLIL
+    // `src` attribute and process name from it, so a database without it
+    // drives the downstream tool to a different (if equivalent) netlist.
+    if (obj->VpiFile().empty())
+        obj->VpiFile(fullFilePath(range.start()));
     if (range.end() != SourceLocation::NoLocation) {
         locLineCol(range.end(), l, c);
         obj->VpiEndLineNo(l);

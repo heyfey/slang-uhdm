@@ -42,12 +42,14 @@ the other locations the same way.
 
 ## Running
 
-    tests/sweep.sh                     # probe arms + both corpora in both modes, compared to results/golden_*.csv
+    tests/sweep.sh                     # probe arms, both corpora in both modes, then the downstream gate
     tests/sweep.sh --corpus probe      # the 2833 probe arms alone (about 15 s once their goldens are cached)
     tests/sweep.sh --corpus uhdm2rtlil --filter '^ibex'
 
-`tests/sweep.sh` exits 1 when any probe arm is not EQUAL or any corpus row's
-status moved away from `CMP_EQUAL`. Do not commit on a nonzero exit.
+`tests/sweep.sh` exits 1 when any probe arm is not EQUAL, any corpus row's
+status moved away from `CMP_EQUAL`, or any downstream verdict is not IDENTICAL
+(or SLANG_REJECT, or the verdict recorded in `results/downstream_uhdm2rtlil.csv`).
+Do not commit on a nonzero exit.
 It prints the status histogram per mode, every changed row, and how many
 producer runs were served from the golden cache.
 
@@ -55,6 +57,34 @@ Direct harness use:
 
     python3 scripts/verify_golden.py --corpus surelog --mode both --jobs 3 --out out.csv --workdir /tmp/wd
     python3 scripts/compare_results.py out.csv results/golden_surelog.csv
+
+## The downstream gate (uhdm2rtlil)
+
+`scripts/downstream_uhdm2rtlil.py` proves that slang-uhdm's database drives
+the downstream consumer to the same result as Surelog's. For every
+uhdm2rtlil test two lanes run uhdm2rtlil's own flow (`read_uhdm` through the
+Yosys plugin, RTLIL before and after `hierarchy`/`proc`/`opt`, `synth`, the
+gate-level netlist): one from the database uhdm2rtlil's own Surelog writes
+(its flags, cached in the golden cache), one from slang-uhdm's. The verdict
+per test is IDENTICAL (same Yosys status and byte-identical RTLIL and
+netlist), EQUIVALENT (texts differ but uhdm2rtlil's `test_equivalence.sh`
+proves the netlists equivalent), DIVERGENT, STATUS_DIFF, SLANG_REJECT (the
+allowed exception) or SURELOG_FAIL (no reference). Every test must be
+IDENTICAL or SLANG_REJECT; `results/downstream_uhdm2rtlil.csv` records the
+verdicts and any reviewed exception.
+
+It needs the downstream toolchain built once inside the submodule:
+
+    cd third_party/uhdm2rtlil && git submodule update --init --recursive
+    make CPU_CORES=4          # its Yosys fork (out/current/bin/yosys), its Surelog, build/uhdm2rtlil.so
+
+(`YOSYS`, `UHDM2RTLIL_PLUGIN`, `UHDM2RTLIL_SURELOG` and `UHDM2RTLIL_ROOT`
+override the locations. The Yosys fork needs bison 3.6 or newer; without
+tcl, readline, libffi or zlib headers configure its build with the matching
+`-DYOSYS_WITHOUT_*=ON` options before running make.)
+
+    tests/sweep.sh --corpus downstream
+    python3 scripts/downstream_uhdm2rtlil.py --out out.csv --baseline results/downstream_uhdm2rtlil.csv
 
 ## The golden cache
 

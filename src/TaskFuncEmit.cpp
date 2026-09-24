@@ -1533,6 +1533,8 @@ const slang::ast::FormalArgumentSymbol* UhdmExporter::elabCallFormal(
 }
 
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
+    if (dst->VpiFile().empty())
+        dst->VpiFile(src->VpiFile());
     dst->VpiLineNo(src->VpiLineNo());
     dst->VpiColumnNo(src->VpiColumnNo());
     dst->VpiEndLineNo(src->VpiEndLineNo());

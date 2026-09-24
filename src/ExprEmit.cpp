@@ -4118,6 +4118,8 @@ static bool incDecBindSym21(const slang::ast::Symbol& sym) {
 }
 
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
+    if (dst->VpiFile().empty())
+        dst->VpiFile(src->VpiFile());
     dst->VpiLineNo(src->VpiLineNo());
     dst->VpiColumnNo(src->VpiColumnNo());
     dst->VpiEndLineNo(src->VpiEndLineNo());
