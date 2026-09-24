@@ -1,0 +1,47 @@
+== r11u118repro: 56 cases, 0 DIFF
+== r11u119repro: 78 cases, 0 DIFF
+== r11u120repro: 44 cases, 0 DIFF
+== r11u121repro: 83 cases, 0 DIFF
+== r11u124repro: 81 cases, 12 DIFF
+DIFF r11u124repro/c12/a01_int rcA=0 rcB=0
+DIFF r11u124repro/c12/a02_untyped rcA=0 rcB=0
+DIFF r11u124repro/c12/a03_vec rcA=0 rcB=0
+DIFF r11u124repro/c12/a04_packed2d rcA=0 rcB=0
+DIFF r11u124repro/c12/a05_struct rcA=0 rcB=0
+DIFF r11u124repro/c12/a06_enum rcA=0 rcB=0
+DIFF r11u124repro/c12/a07_tdvec rcA=0 rcB=0
+DIFF r11u124repro/c12/a08_bit2d rcA=0 rcB=0
+DIFF r11u124repro/c12/a11_string rcA=0 rcB=0
+DIFF r11u124repro/c12/a12_localparam2d rcA=0 rcB=0
+DIFF r11u124repro/c12/a13_unpacked rcA=0 rcB=0
+DIFF r11u124repro/c13/q04_default rcA=0 rcB=0
+== r11u125repro: 61 cases, 0 DIFF
+== r11u130repro: 98 cases, 1 DIFF
+DIFF r11u130repro/grid/g6/p11_struct_param rcA=0 rcB=0
+== r11u131repro: 121 cases, 9 DIFF
+DIFF r11u131repro/hpm/m01_param_init rcA=0 rcB=0
+DIFF r11u131repro/hpm/m02_param_init_op rcA=0 rcB=0
+DIFF r11u131repro/hpm/m03_range rcA=0 rcB=0
+DIFF r11u131repro/hpm/m04_ca_ctl rcA=0 rcB=0
+DIFF r11u131repro/hpm/m05_nested rcA=0 rcB=0
+DIFF r11u131repro/hpm/m06_sub_elab rcA=0 rcB=0
+DIFF r11u131repro/hpm/m07_genif rcA=0 rcB=0
+DIFF r11u131repro/hpm/m08_proc_ctl rcA=0 rcB=0
+DIFF r11u131repro/pat/t03_default_ctl rcA=0 rcB=0
+== r11v11u118repro: 56 cases, 0 DIFF
+== r11v120repro: 47 cases, 0 DIFF
+== r11v124repro: 109 cases, 9 DIFF
+DIFF r11v124repro/hx/x06_memberidx rcA=0 rcB=0
+DIFF r11v124repro/pv/v12_shadow rcA=0 rcB=0
+DIFF r11v124repro/pv/v24_pkgimp_override rcA=0 rcB=0
+DIFF r11v124repro/qf/f1_portlist_bodyimp rcA=0 rcB=0
+DIFF r11v124repro/qf/f2_portlist_hdrimp rcA=0 rcB=0
+DIFF r11v124repro/qf/f4_typeport rcA=0 rcB=0
+DIFF r11v124repro/qf/f5_vec_portlist rcA=0 rcB=0
+DIFF r11v124repro/qf/f6_explicit_portlist rcA=0 rcB=0
+DIFF r11v124repro/qx/q04_flipview rcA=0 rcB=0
+== r11v125repro: 48 cases, 0 DIFF
+== r11v130repro: 115 cases, 0 DIFF
+== r11v131repro: 128 cases, 1 DIFF
+DIFF r11v131repro/pat/k10_port_default rcA=0 rcB=0
+== v11u121repro: 41 cases, 0 DIFF

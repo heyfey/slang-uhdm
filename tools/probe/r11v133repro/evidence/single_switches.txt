@@ -1,0 +1,11 @@
+R11U133_LHSCLONE_OFF=1 reverts to pristine: lhs__c01_explicit_import lhs__c02_localparam_pkg lhs__c03_real_string lhs__c04_unpacked_expr_range lhs__c05_pkg_chain3 lhs__c06_two_instances_overridden lhs__c07_typed_logic_vec lhs__c08_program lhs__c09_unit_import lhs__c10_enum_typed pqs__d05_samename_unqual_import
+R11U133_LHSCLONE_OFF=1 partial (another law also fires): pqs__d07_samename_two_pkgs pqs__d08_iface_body_samename
+R11U133_HPMID_OFF=1 reverts to pristine: hpm__b01_depth3 hpm__b03_func_body hpm__b04_gen hpm__b05_lhs_assign hpm__b06_ff_lhs hpm__b07_unpacked hpm__b08_sub_inst hpm__b10_in_operation hpm__g01_pkg_func_mid hpm__g02_class_mid
+R11U133_HPMID_OFF=1 partial (another law also fires): tix__f03_pkg_func_arr
+R11U133_TRAILIDX_OFF=1 reverts to pristine: tix__a01_named_begin tix__a02_gen_for tix__a03_task tix__a04_func_arg tix__a05_for_loopvar tix__a06_two_refs tix__a08_interface tix__a09_ternary_ff tix__a10_port_conn tix__a11_gen_scope_decl tix__a12_nested_op tix__a13_display tix__a14_case tix__f01_pkg_func tix__f02_class_method tix__f05_ref_localvar tix__f06_gen_if tix__f07_nested_member_idx tix__f08_unpacked_member tix__f10_idx_cast tix__f11_unary_idx tix__f12_idx_concat
+R11U133_TRAILIDX_OFF=1 partial (another law also fires): tix__f03_pkg_func_arr
+R11U133_PATQUAL_OFF=1 reverts to pristine: pqs__d01_space_qual pqs__d02_gen_inst pqs__d04_localparam_body
+R11U133_PATQUAL_OFF=1 partial (another law also fires): pqs__d07_samename_two_pkgs pqs__d08_iface_body_samename
+R11U133_UNKFILE_OFF=1 reverts to pristine: unk__e01_mul_x_local
+R11U133_UNKFILE_OFF=1 partial (another law also fires):
+R11U133_OFF=1: grid1 44/44 and grid2 14/14 byte-identical to pristine (path-normalised)

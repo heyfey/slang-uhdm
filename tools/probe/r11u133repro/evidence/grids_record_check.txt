@@ -1,0 +1,45 @@
+OK	hpm/m01	new=0 gone=2 divP=None divL=None
+OK	hpm/m02	new=0 gone=2 divP=None divL=None
+OK	hpm/m03	new=0 gone=2 divP=None divL=None
+OK	hpm/m05	new=0 gone=2 divP=None divL=None
+OK	hpm/m06	new=0 gone=2 divP=None divL=None
+OK	lhs/l01_hdr_int	new=0 gone=0 divP=28 divL=None
+OK	lhs/l02_hdr_vec2d	new=0 gone=0 divP=70 divL=172
+OK	lhs/l03_hdr_struct	new=0 gone=0 divP=120 divL=None
+OK	lhs/l04_hdr_unpacked	new=0 gone=0 divP=90 divL=93
+OK	lhs/l05_pkgpkg_int	new=0 gone=0 divP=17 divL=None
+STAGE1	lhs/l06_pkgpkg_two	pristine law
+OK	lhs/l07_body_ctl	new=0 gone=0 divP=None divL=None
+OK	lhs/l08_hdr_noport_ctl	new=0 gone=0 divP=None divL=None
+OK	lhs/l09_iface_hdr	new=0 gone=0 divP=28 divL=None
+OK	lhs/l10_hdr_enum	new=0 gone=0 divP=85 divL=None
+OK	lhs/l11_hdr_two_inst	new=0 gone=0 divP=45 divL=None
+OK	lhs/l12_hdr_untyped	new=0 gone=0 divP=28 divL=None
+OK	pqs/q01_noimp	new=0 gone=1 divP=164 divL=164
+OK	pqs/q02_hdr_othername	new=0 gone=0 divP=131 divL=280
+OK	pqs/q03_hdr_samename	new=0 gone=0 divP=131 divL=280
+OK	pqs/q04_body_samename	new=0 gone=2 divP=280 divL=280
+OK	pqs/q05_unqual	new=0 gone=0 divP=131 divL=272
+OK	pqs/q06_override	new=0 gone=1 divP=217 divL=217
+OK	pqs/q07_localparam	new=0 gone=1 divP=164 divL=164
+OK	pqs/q08_iface	new=0 gone=1 divP=None divL=None
+STAGE1	pqs/q09_hdr_samename_other	pristine law
+OK	pqs/q10_twoinst	new=0 gone=1 divP=215 divL=215
+OK	tix/t01	new=0 gone=2 divP=None divL=None
+OK	tix/t02	new=0 gone=2 divP=None divL=None
+OK	tix/t03	new=0 gone=2 divP=None divL=None
+OK	tix/t04	new=0 gone=0 divP=None divL=None
+OK	tix/t05	new=0 gone=4 divP=None divL=None
+OK	tix/t06	new=0 gone=2 divP=None divL=None
+OK	tix/t07	new=0 gone=2 divP=None divL=None
+OK	tix/t08	new=0 gone=0 divP=None divL=None
+OK	tix/t09	new=0 gone=2 divP=None divL=None
+OK	tix/t11	new=0 gone=2 divP=None divL=None
+OK	tix/t13	new=0 gone=2 divP=None divL=None
+OK	tix/t14	new=0 gone=4 divP=None divL=None
+OK	tix/t15	new=0 gone=2 divP=None divL=None
+OK	unk/u01_div	new=0 gone=2 divP=None divL=None
+OK	unk/u02_z	new=0 gone=1 divP=None divL=None
+OK	unk/u03_known_ctl	new=0 gone=0 divP=None divL=None
+STAGE1	unk/u04_sub	pristine law
+STAGE1	unk/u05_bin	pristine law

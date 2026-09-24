@@ -1,0 +1,6 @@
+hpm/h01_collide_mid rc=0 cmp=0 STRICT_EQUAL 413 objects
+hpm/h02_collide_mid_lhs rc=0 cmp=0 STRICT_EQUAL 396 objects
+lhs/h05_downstream_hdr rc=0 cmp=0 STRICT_NOTEQUAL line
+pqs/h06_downstream_qual rc=0 cmp=0 STRICT_EQUAL 292 objects
+tix/h03_collide_idx rc=0 cmp=0 STRICT_EQUAL 313 objects
+tix/h04_idx_op_ff rc=0 cmp=0 STRICT_EQUAL 329 objects

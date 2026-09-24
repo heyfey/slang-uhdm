@@ -1,0 +1,44 @@
+hpm/b01_depth3 rc=0 cmp=0 STRICT_EQUAL 272 objects
+hpm/b02_mid_select rc=0 cmp=0 STRICT_EQUAL 227 objects
+hpm/b03_func_body rc=0 cmp=0 STRICT_EQUAL 297 objects
+hpm/b04_gen rc=0 cmp=0 STRICT_NOTEQUAL endcol
+hpm/b05_lhs_assign rc=0 cmp=0 STRICT_EQUAL 239 objects
+hpm/b06_ff_lhs rc=0 cmp=0 STRICT_EQUAL 291 objects
+hpm/b07_unpacked rc=0 cmp=0 STRICT_EQUAL 289 objects
+hpm/b08_sub_inst rc=0 cmp=0 STRICT_NOTEQUAL fullname
+hpm/b09_iface_array rc=0 cmp=0 STRICT_EQUAL 258 objects
+hpm/b10_in_operation rc=0 cmp=0 STRICT_NOTEQUAL fullname
+lhs/c01_explicit_import rc=0 cmp=0 STRICT_NOTEQUAL line
+lhs/c02_localparam_pkg rc=0 cmp=0 STRICT_NOTEQUAL fullname
+lhs/c03_real_string rc=0 cmp=64 NOT_EQUAL stage1
+lhs/c04_unpacked_expr_range rc=0 cmp=0 STRICT_NOTEQUAL type
+lhs/c05_pkg_chain3 rc=0 cmp=50 NOT_EQUAL stage1
+lhs/c06_two_instances_overridden rc=0 cmp=0 STRICT_NOTEQUAL line
+lhs/c07_typed_logic_vec rc=0 cmp=17 NOT_EQUAL stage1
+lhs/c08_program rc=0 cmp=0 STRICT_NOTEQUAL line
+lhs/c09_unit_import rc=0 cmp=0 STRICT_NOTEQUAL fullname
+lhs/c10_enum_typed rc=0 cmp=17 NOT_EQUAL stage1
+pqs/d01_space_qual rc=0 cmp=0 STRICT_NOTEQUAL endcol
+pqs/d02_gen_inst rc=0 cmp=0 STRICT_NOTEQUAL fullname
+pqs/d03_ovr_qual rc=0 cmp=0 STRICT_NOTEQUAL line
+pqs/d04_localparam_body rc=0 cmp=0 STRICT_EQUAL 168 objects
+pqs/d05_samename_unqual_import rc=0 cmp=36 NOT_EQUAL stage1
+pqs/d06_macro_qual rc=0 cmp=0 STRICT_NOTEQUAL endcol
+pqs/d07_samename_two_pkgs rc=0 cmp=36 NOT_EQUAL stage1
+pqs/d08_iface_body_samename rc=0 cmp=0 STRICT_NOTEQUAL col
+tix/a01_named_begin rc=0 cmp=0 STRICT_EQUAL 178 objects
+tix/a02_gen_for rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/a03_task rc=0 cmp=0 STRICT_EQUAL 188 objects
+tix/a04_func_arg rc=0 cmp=0 STRICT_EQUAL 196 objects
+tix/a05_for_loopvar rc=0 cmp=0 STRICT_EQUAL 188 objects
+tix/a06_two_refs rc=0 cmp=0 STRICT_EQUAL 200 objects
+tix/a07_hier_idx rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/a08_interface rc=0 cmp=17 NOT_EQUAL stage1
+tix/a09_ternary_ff rc=0 cmp=0 STRICT_EQUAL 242 objects
+tix/a10_port_conn rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/a11_gen_scope_decl rc=0 cmp=58 NOT_EQUAL stage1
+tix/a12_nested_op rc=0 cmp=0 STRICT_EQUAL 204 objects
+tix/a13_display rc=0 cmp=0 STRICT_EQUAL 163 objects
+tix/a14_case rc=0 cmp=0 STRICT_EQUAL 194 objects
+unk/e01_mul_x_local rc=0 cmp=32 NOT_EQUAL stage1
+unk/e02_include rc=0 cmp=48 NOT_EQUAL stage1

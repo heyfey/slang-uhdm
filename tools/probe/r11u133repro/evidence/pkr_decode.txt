@@ -1,0 +1,29 @@
+== pkr/p01 pkr__p01 rc=0 cmp=0 strict=STRICT_NOTEQUAL col
+  golden:
+    NULL^ref_typespec#0	[]	operation@4:24-4:39<param_assign@4:20-4:39<package(p)@2:1-6:11<design(work@top)
+    =walk^design#4	[work@top]	operation@4:24-4:39<param_assign@4:20-4:39<module_inst@7:1-9:10<design(work@top)
+    =walk^design#4	[work@top]	operation@4:24-4:39<param_assign@4:20-4:39<module_inst(work@top)@7:1-9:10<design(work@top)
+  ours (pristine = law, byte-identical):
+    =walk^design#4	[p]	operation@4:24-4:39<param_assign@4:20-4:39<package(p)@2:1-6:11<design(work@top)
+    =walk^design#4	[work@top]	operation@4:24-4:39<param_assign@4:20-4:39<module_inst@7:1-9:10<design(work@top)
+    NULL^ref_typespec#0	[]	operation@4:24-4:39<param_assign@4:20-4:39<module_inst(work@top)@7:1-9:10<design(work@top)
+== pkr/p03 pkr__p03 rc=0 cmp=0 strict=STRICT_NOTEQUAL count
+  golden:
+    NULL^ref_typespec#0	[]	operation@4:24-4:39<param_assign@4:20-4:39<package(p)@2:1-5:11<design(work@top)
+  ours (pristine = law, byte-identical):
+    NULL^ref_typespec#0	[]	operation@4:24-4:39<param_assign@4:20-4:39<package(p)@2:1-5:11<design(work@top)
+== pkr/p04 pkr__p04 rc=0 cmp=0 strict=STRICT_EQUAL 109 objects
+  golden:
+  ours (pristine = law, byte-identical):
+== pkr/u01 pkr__u01 rc=0 cmp=0 strict=STRICT_NOTEQUAL col
+  golden:
+    NULL^ref_typespec#0	[]	operation@4:24-4:39<param_assign@4:20-4:39<package(p)@2:1-6:11<design(work@top)
+    =walk^design#4	[work@top]	operation@4:24-4:39<param_assign@4:20-4:39<module_inst@7:1-9:10<design(work@top)
+    =walk^design#4	[work@top]	operation@4:24-4:39<param_assign@4:20-4:39<module_inst(work@top)@7:1-9:10<design(work@top)
+  ours (pristine = law, byte-identical):
+    =walk^design#4	[p]	operation@4:24-4:39<param_assign@4:20-4:39<package(p)@2:1-6:11<design(work@top)
+    =walk^design#4	[work@top]	operation@4:24-4:39<param_assign@4:20-4:39<module_inst@7:1-9:10<design(work@top)
+    =walk^design#4	[work@top]	operation@4:24-4:39<param_assign@4:20-4:39<module_inst(work@top)@7:1-9:10<design(work@top)
+== pkr/u04 pkr__u04 rc=0 cmp=0 strict=STRICT_EQUAL 85 objects
+  golden:
+  ours (pristine = law, byte-identical):

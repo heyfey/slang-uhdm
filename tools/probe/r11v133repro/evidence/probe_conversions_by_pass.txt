@@ -1,0 +1,15 @@
+      1 r10earl29repro
+      1 r10earl92repro
+      5 r10earl_repro
+      1 r10v201repro
+      1 r10v75repro
+      1 r10v99repro
+      1 r11u112repro
+      2 r11u113repro
+      2 r11u114repro
+     50 r11u115repro
+      1 r11u74repro
+      1 r11v42repro
+      2 r11v69repro
+      1 v11u112repro
+     11 v11u115repro

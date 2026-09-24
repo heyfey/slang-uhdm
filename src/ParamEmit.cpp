@@ -6052,6 +6052,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         bool v;
         ~EpdRestore() { f = v; }
     } epdRestore{elabParamDim, savedEpd};
+    // § elabPatQualRefQualSpan133 — the QUALIFIER span (`pkg::`, colons
+    // included) of a written `pkg::NAME` reference to a package parameter, or
+    // an invalid range for any other expression (an unqualified name, a
+    // macro-born token, the law switched off).  The law is stated at the op75
+    // site below.
+    auto pkgQualSpan133 = [&](const Expression& e) -> SourceRange {
+        static const bool on = r11u133On("R11U133_PATQUAL_OFF");
+        auto& se = stripImplicitConv(e);
+        if (!on || se.kind != ExpressionKind::NamedValue)
+            return SourceRange();
+        auto& sym = se.as<NamedValueExpression>().symbol;
+        if (sym.kind != SymbolKind::Parameter || !sym.getParentScope() ||
+            sym.getParentScope()->asSymbol().kind != SymbolKind::Package ||
+            sm->isMacroLoc(se.sourceRange.start()) ||
+            sm->isMacroLoc(se.sourceRange.end()))
+            return SourceRange();
+        std::string rq(rawText(se.sourceRange));
+        auto qp = rq.rfind("::");
+        if (qp == std::string::npos)
+            return SourceRange();
+        auto st = se.sourceRange.start();
+        return SourceRange(st, st + qp + 2);
+    };
     // § castNamedPatternConcat70 — a parameter initialiser is the only holder
     // the law is scoped to, so the binding home is opened here and closed on
     // the way out.  The DEFINITION listing's net list carries the minted
@@ -8576,6 +8599,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             si7.kind == ExpressionKind::SimpleAssignmentPattern) {
                             structOvPat = &si7;
                             structOvLoc = bi7.sourceRange;
+                            // § elabPatQualRefQualSpan133 — a QUALIFIED
+                            // reference (`cfg_pkg::DefaultCfg`) lists the
+                            // pattern at the QUALIFIER span `cfg_pkg::`
+                            // (the law's statement is at the op75 site).
+                            if (auto q133 = pkgQualSpan133(bi7);
+                                q133.start().valid())
+                                structOvLoc = q133;
                         }
                     }
             }
@@ -15103,6 +15133,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 : (structRefPat9 && !inPackage)
                                     ? structRefPat9->sourceRange
                                     : init->sourceRange);
+                    // § elabPatQualRefQualSpan133 — an ELABORATED module's
+                    // pattern parameter written as a QUALIFIED reference to a
+                    // package pattern parameter (`parameter cfg_t Cfg =
+                    // cfg_pkg::DefaultCfg`) lists the flattened pattern at the
+                    // QUALIFIER span `cfg_pkg::` — the qualified arm of
+                    // CompileHelper::getValue (CompileExpression.cpp:921-952)
+                    // expands the package pattern for the reference and
+                    // Surelog locates that copy at the reference's
+                    // paPackage_scope node, the span the definition listing
+                    // already carries (golden assert_wide_const_cond
+                    // 11:36-45, ours the whole reference 11:36-55; set in the
+                    // default-reference block above, `structOvLoc`).  An
+                    // unqualified reference keeps the whole name (BSOPPS
+                    // `DefaultTargetCfg`).  And the elaborated IMPORT copy of
+                    // that same package parameter under the SAME NAME
+                    // (ff_dead_both_branches `parameter cfg_t Cfg =
+                    // cfg_pkg::Cfg` with `import cfg_pkg::*`), which Surelog's
+                    // elaboration updates by name, takes the same span (golden
+                    // 12:73-82, ours the package's own 9:26-48); a
+                    // differently named reader leaves the import copy alone
+                    // (struct_param_repl_count `CVA6Cfg`).  Grid
+                    // tools/probe/r11u133repro/pqs.  Switch: R11U133_PATQUAL_OFF.
+                    if (topView && !inPackage && !structOvPat && isImported &&
+                        r11u133On("R11U133_PATQUAL_OFF"))
+                        for (auto& mb133 : body.members())
+                            if (mb133.kind == SymbolKind::Parameter &&
+                                &mb133 != &ps && mb133.name == ps.name)
+                                if (auto* mi133 =
+                                        mb133.as<ParameterSymbol>().getInitializer()) {
+                                    auto& mr133 = stripImplicitConv(*mi133);
+                                    if (mr133.kind == ExpressionKind::NamedValue &&
+                                        &mr133.as<NamedValueExpression>().symbol == &ps)
+                                        if (auto q133 = pkgQualSpan133(mr133);
+                                            q133.start().valid()) {
+                                            setLoc(op2, q133);
+                                            break;
+                                        }
+                                }
                     // --disable-feature=parametersubstitution: an IMPORTED
                     // aggregate param's elab Rhs is Surelog's clone of the
                     // PACKAGE assign, which carries no typespec; the
@@ -19250,6 +19318,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     c2->VpiValue(std::string(pv));
                                     c2->VpiConstType(vpiBinaryConst);
                                     c2->VpiParent(opr);
+                                    // § unknownParamOperandFile133 — the
+                                    // folded X/Z value is located at the
+                                    // reference it replaces, and like every
+                                    // located object Surelog writes (§
+                                    // vpiFileOnEveryLocated117) it carries
+                                    // that reference's file (golden DecValue
+                                    // `A / B` over `A = 'x`: `dut.sv 4:23-24`;
+                                    // ours had the span with no file).
+                                    // Switch: R11U133_UNKFILE_OFF.
+                                    if (r11u133On("R11U133_UNKFILE_OFF"))
+                                        c2->VpiFile(std::string(r2->VpiFile()));
                                     c2->VpiLineNo(r2->VpiLineNo());
                                     c2->VpiColumnNo(r2->VpiColumnNo());
                                     c2->VpiEndLineNo(r2->VpiEndLineNo());
@@ -27108,6 +27187,228 @@ static void ovrMultiDimConstUnparented131(UHDM::design* d) {
             walk(t);
 }
 
+// § impPaLhsDisjointClone133 — AN IMPORTED PARAMETER'S `param_assign` LHS
+// IS NEVER ITS SCOPE'S `vpiParameter` ENTRY.  Surelog materializes an import
+// (CompileHelper::importPackage, CompileHelper.cpp:199-277) in two disjoint
+// blocks: the first clones each package `parameter` onto the importing
+// scope's Parameters(), the second clones each package `param_assign` (its
+// Lhs with it) onto the scope's Param_assigns() — two object sets, so the
+// Lhs is a second copy of the listed parameter, parented at its
+// param_assign (golden ParamFromPackage: `vpiLhs: parameter
+// work@aes_cipher_core.X`, printed in full under the definition's
+// param_assign, `vpiParent: param_assign`).  Ours shares one object between
+// the two listings wherever the import-copy law (§ modDefImportShape) flips
+// the definition listing to the elaborated shape — a module WITH a
+// parameter port list, and a package that imports a package (pass 124's
+// § impLhsCloneFlippedDefView124 measured the gap and did not land it: an
+// emission-time clone left the flipped view's deferred typespec chain bound
+// to the shared object).  THE LAW runs here, after every deferred
+// typespec binding: in each DEFINITION module / interface listing and each
+// package listing (both views), an imported parameter that stands both in
+// the scope's Parameters() and as a param_assign Lhs gets a Lhs of its own —
+// every field copied, a reference of its own to the same typespec, parented
+// at the param_assign.  Golden's ELABORATED module listing shares the two
+// (ParamFromPackage u_aes_cipher_core prints its Lhs `X` bare): elaborated
+// module instances are left alone, and so is a parameter carrying an
+// expression, ranges or bounds (none measured; a copy would share them).
+// Switch: R11U133_LHSCLONE_OFF (R11U133_OFF for the whole pass).
+// A copy of an expression subtree of the kinds a parameter's unpacked range
+// holds (constant, operation, ref_obj — bound as the source is); null when
+// any node is of another kind.
+static UHDM::any* lhsCloneNode133(UHDM::Serializer& s, const UHDM::any* n,
+                                  UHDM::any* parent, bool& ok) {
+    if (!n || !ok)
+        return nullptr;
+    auto loc = [](const UHDM::any* a, UHDM::any* b) {
+        b->VpiFile(a->VpiFile());
+        b->VpiLineNo(a->VpiLineNo());
+        b->VpiColumnNo(a->VpiColumnNo());
+        b->VpiEndLineNo(a->VpiEndLineNo());
+        b->VpiEndColumnNo(a->VpiEndColumnNo());
+    };
+    auto ex = [&](const UHDM::expr* a, UHDM::expr* b) {
+        b->VpiDecompile(a->VpiDecompile());
+        b->VpiSize(a->VpiSize());
+        b->VpiValue(a->VpiValue());
+        if (auto* rt0 = a->Typespec()) {
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiName(rt0->VpiName());
+            rt->VpiFullName(rt0->VpiFullName());
+            loc(rt0, rt);
+            rt->Actual_typespec((UHDM::typespec*)rt0->Actual_typespec());
+            rt->VpiParent(rt0->VpiParent() == a ? (UHDM::any*)b
+                                                : (UHDM::any*)rt0->VpiParent());
+            b->Typespec(rt);
+        }
+    };
+    switch (n->UhdmType()) {
+    case UHDM::uhdmconstant: {
+        auto* a = (const UHDM::constant*)n;
+        auto* b = s.MakeConstant();
+        loc(a, b);
+        ex(a, b);
+        b->VpiConstType(a->VpiConstType());
+        b->VpiParent(a->VpiParent() ? parent : nullptr);
+        return b;
+    }
+    case UHDM::uhdmref_obj: {
+        auto* a = (const UHDM::ref_obj*)n;
+        auto* b = s.MakeRef_obj();
+        loc(a, b);
+        ex(a, b);
+        b->VpiName(a->VpiName());
+        b->VpiDefName(a->VpiDefName());
+        b->VpiFullName(a->VpiFullName());
+        b->Actual_group((UHDM::any*)a->Actual_group());
+        b->VpiParent(a->VpiParent() ? parent : nullptr);
+        return b;
+    }
+    case UHDM::uhdmoperation: {
+        auto* a = (const UHDM::operation*)n;
+        if (a->Attributes()) {
+            ok = false;
+            return nullptr;
+        }
+        auto* b = s.MakeOperation();
+        loc(a, b);
+        ex(a, b);
+        b->VpiOpType(a->VpiOpType());
+        b->VpiReordered(a->VpiReordered());
+        b->VpiFlattened(a->VpiFlattened());
+        b->VpiOpStrong(a->VpiOpStrong());
+        b->VpiParent(a->VpiParent() ? parent : nullptr);
+        if (auto* os = a->Operands()) {
+            auto* v = s.MakeAnyVec();
+            for (auto* o : *os)
+                v->push_back(lhsCloneNode133(s, o, b, ok));
+            b->Operands(v);
+        }
+        return b;
+    }
+    default:
+        ok = false;
+        return nullptr;
+    }
+}
+
+static bool lhsCloneable133(const UHDM::any* n) {
+    if (!n)
+        return true;
+    switch (n->UhdmType()) {
+    case UHDM::uhdmconstant:
+    case UHDM::uhdmref_obj:
+        return true;
+    case UHDM::uhdmoperation: {
+        auto* a = (const UHDM::operation*)n;
+        if (a->Attributes())
+            return false;
+        if (auto* os = a->Operands())
+            for (auto* o : *os)
+                if (!lhsCloneable133(o))
+                    return false;
+        return true;
+    }
+    default:
+        return false;
+    }
+}
+
+static void impPaLhsDisjointClone133(UHDM::Serializer& s, UHDM::design* d) {
+    static const bool on = r11u133On("R11U133_LHSCLONE_OFF");
+    if (!on || !d)
+        return;
+    auto scope = [&](UHDM::BaseClass* sc, UHDM::VectorOfparam_assign* pas,
+                     UHDM::VectorOfany* params) {
+        if (!sc || !pas || !params)
+            return;
+        std::set<const UHDM::any*> listed(params->begin(), params->end());
+        for (auto* pa : *pas) {
+            auto* l = pa ? pa->Lhs() : nullptr;
+            if (!l || l->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            auto* p = (UHDM::parameter*)l;
+            if (p->VpiImported().empty() || !listed.count(p) || p->VpiParent() != sc ||
+                p->Expr() || p->Left_range() || p->Right_range() || p->VpiUses())
+                continue;
+            if (auto* rv0 = p->Ranges()) {
+                bool cp = true;
+                for (auto* r0 : *rv0)
+                    cp = cp && r0 && lhsCloneable133(r0->Left_expr()) &&
+                         lhsCloneable133(r0->Right_expr());
+                if (!cp)
+                    continue;
+            }
+            auto* c = s.MakeParameter();
+            // An unpacked-array parameter's own ranges are copied with it.
+            if (auto* rv0 = p->Ranges()) {
+                bool ok = true;
+                auto* rv = s.MakeRangeVec();
+                for (auto* r0 : *rv0) {
+                    if (!r0) {
+                        ok = false;
+                        break;
+                    }
+                    auto* r = s.MakeRange();
+                    r->VpiFile(r0->VpiFile());
+                    r->VpiLineNo(r0->VpiLineNo());
+                    r->VpiColumnNo(r0->VpiColumnNo());
+                    r->VpiEndLineNo(r0->VpiEndLineNo());
+                    r->VpiEndColumnNo(r0->VpiEndColumnNo());
+                    r->VpiSize(r0->VpiSize());
+                    r->VpiParent(c);
+                    r->Left_expr((UHDM::expr*)lhsCloneNode133(s, r0->Left_expr(), r, ok));
+                    r->Right_expr((UHDM::expr*)lhsCloneNode133(s, r0->Right_expr(), r, ok));
+                    rv->push_back(r);
+                }
+                (void)ok;  // lhsCloneable133 admitted every node
+                c->Ranges(rv);
+            }
+            c->VpiName(std::string(p->VpiName()));
+            c->VpiFullName(std::string(p->VpiFullName()));
+            c->VpiFile(std::string(p->VpiFile()));
+            c->VpiLineNo(p->VpiLineNo());
+            c->VpiColumnNo(p->VpiColumnNo());
+            c->VpiEndLineNo(p->VpiEndLineNo());
+            c->VpiEndColumnNo(p->VpiEndColumnNo());
+            c->VpiValue(std::string(p->VpiValue()));
+            c->VpiDecompile(std::string(p->VpiDecompile()));
+            c->VpiSize(p->VpiSize());
+            c->VpiConstType(p->VpiConstType());
+            c->VpiSigned(p->VpiSigned());
+            c->VpiLocalParam(p->VpiLocalParam());
+            c->VpiImported(std::string(p->VpiImported()));
+            if (auto* rt = p->Typespec()) {
+                auto* nrt = s.MakeRef_typespec();
+                nrt->VpiName(std::string(rt->VpiName()));
+                nrt->VpiFullName(std::string(rt->VpiFullName()));
+                nrt->VpiFile(std::string(rt->VpiFile()));
+                nrt->VpiLineNo(rt->VpiLineNo());
+                nrt->VpiColumnNo(rt->VpiColumnNo());
+                nrt->VpiEndLineNo(rt->VpiEndLineNo());
+                nrt->VpiEndColumnNo(rt->VpiEndColumnNo());
+                nrt->Actual_typespec(rt->Actual_typespec());
+                nrt->VpiParent(c);
+                c->Typespec(nrt);
+            }
+            c->VpiParent(pa);
+            pa->Lhs(c);
+        }
+    };
+    for (auto* pv : {d->AllPackages(), d->TopPackages()})
+        if (pv)
+            for (auto* pk : *pv)
+                if (pk)
+                    scope(pk, pk->Param_assigns(), pk->Parameters());
+    if (d->AllModules())
+        for (auto* m : *d->AllModules())
+            if (m)
+                scope(m, m->Param_assigns(), m->Parameters());
+    if (d->AllInterfaces())
+        for (auto* m : *d->AllInterfaces())
+            if (m)
+                scope(m, m->Param_assigns(), m->Parameters());
+}
+
 void UhdmExporter::drainShareDefParamTs() {
     paramValueIsDefRhs124(d);
     paramFoldParenSpan131(d);  // § paramFoldParenSpan131
@@ -27384,6 +27685,7 @@ void UhdmExporter::drainShareDefParamTs() {
         }
     }
     pendingShareDefParamTs.clear();
+    impPaLhsDisjointClone133(s, d);  // § impPaLhsDisjointClone133
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef

@@ -1,0 +1,5 @@
+R11U133_LHSCLONE_OFF moves (vs the law binary): lhs/l01_hdr_int lhs/l02_hdr_vec2d lhs/l03_hdr_struct lhs/l04_hdr_unpacked lhs/l05_pkgpkg_int lhs/l06_pkgpkg_two lhs/l09_iface_hdr lhs/l10_hdr_enum lhs/l11_hdr_two_inst lhs/l12_hdr_untyped pqs/q02_hdr_othername pqs/q03_hdr_samename pqs/q05_unqual pqs/q09_hdr_samename_other
+R11U133_HPMID_OFF moves (vs the law binary): hpm/m01 hpm/m02 hpm/m03 hpm/m05 hpm/m06 tix/t05
+R11U133_TRAILIDX_OFF moves (vs the law binary): tix/t01 tix/t02 tix/t03 tix/t05 tix/t06 tix/t07 tix/t09 tix/t11 tix/t13 tix/t14 tix/t15
+R11U133_PATQUAL_OFF moves (vs the law binary): pqs/q01_noimp pqs/q02_hdr_othername pqs/q03_hdr_samename pqs/q04_body_samename pqs/q06_override pqs/q07_localparam pqs/q08_iface pqs/q09_hdr_samename_other pqs/q10_twoinst
+R11U133_UNKFILE_OFF moves (vs the law binary): unk/u01_div unk/u02_z unk/u04_sub unk/u05_bin

@@ -1,0 +1,8 @@
+OK	r11u124repro/c12/a11_string	P=30 L=23 newbad=3 fixed=0
+OK	r11u131repro/hpm/m01_param_init	P=93 L=85 newbad=0 fixed=4
+OK	r11u131repro/hpm/m02_param_init_op	P=74 L=66 newbad=0 fixed=4
+OK	r11u131repro/hpm/m05_nested	P=227 L=219 newbad=0 fixed=4
+OK	r11u131repro/hpm/m06_sub_elab	P=93 L=85 newbad=0 fixed=4
+OK	r11v124repro/hx/x06_memberidx	P=27 L=23 newbad=0 fixed=2
+OK	r11v124repro/pv/v12_shadow	P=40 L=26 newbad=0 fixed=0
+OK	r11v124repro/qf/f5_vec_portlist	P=45 L=37 newbad=3 fixed=0

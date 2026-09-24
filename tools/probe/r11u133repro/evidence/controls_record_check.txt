@@ -1,0 +1,32 @@
+OK	r11u124repro/c12/a01_int	new=0 gone=0 divP=28 divL=None
+OK	r11u124repro/c12/a02_untyped	new=0 gone=0 divP=28 divL=None
+OK	r11u124repro/c12/a03_vec	new=0 gone=0 divP=49 divL=None
+OK	r11u124repro/c12/a04_packed2d	new=0 gone=0 divP=70 divL=None
+OK	r11u124repro/c12/a05_struct	new=0 gone=0 divP=120 divL=None
+OK	r11u124repro/c12/a06_enum	new=0 gone=0 divP=93 divL=None
+OK	r11u124repro/c12/a07_tdvec	new=0 gone=0 divP=92 divL=None
+OK	r11u124repro/c12/a08_bit2d	new=0 gone=0 divP=70 divL=None
+STAGE1	r11u124repro/c12/a11_string	pristine law
+OK	r11u124repro/c12/a12_localparam2d	new=0 gone=0 divP=70 divL=None
+OK	r11u124repro/c12/a13_unpacked	new=0 gone=0 divP=70 divL=73
+OK	r11u124repro/c13/q04_default	new=0 gone=1 divP=138 divL=138
+OK	r11u130repro/grid/g6/p11_struct_param	new=0 gone=2 divP=None divL=None
+STAGE1	r11u131repro/hpm/m01_param_init	pristine law
+STAGE1	r11u131repro/hpm/m02_param_init_op	pristine law
+OK	r11u131repro/hpm/m03_range	new=0 gone=1 divP=None divL=None
+OK	r11u131repro/hpm/m04_ca_ctl	new=0 gone=1 divP=117 divL=117
+STAGE1	r11u131repro/hpm/m05_nested	pristine law
+STAGE1	r11u131repro/hpm/m06_sub_elab	pristine law
+OK	r11u131repro/hpm/m07_genif	new=0 gone=1 divP=None divL=None
+OK	r11u131repro/hpm/m08_proc_ctl	new=0 gone=1 divP=None divL=None
+OK	r11u131repro/pat/t03_default_ctl	new=0 gone=1 divP=138 divL=138
+STAGE1	r11v124repro/hx/x06_memberidx	pristine law
+STAGE1	r11v124repro/pv/v12_shadow	pristine law
+OK	r11v124repro/pv/v24_pkgimp_override	new=0 gone=0 divP=28 divL=None
+OK	r11v124repro/qf/f1_portlist_bodyimp	new=0 gone=0 divP=45 divL=None
+OK	r11v124repro/qf/f2_portlist_hdrimp	new=0 gone=0 divP=45 divL=None
+OK	r11v124repro/qf/f4_typeport	new=0 gone=0 divP=45 divL=None
+STAGE1	r11v124repro/qf/f5_vec_portlist	pristine law
+OK	r11v124repro/qf/f6_explicit_portlist	new=0 gone=0 divP=59 divL=None
+OK	r11v124repro/qx/q04_flipview	new=0 gone=0 divP=31 divL=None
+OK	r11v131repro/pat/k10_port_default	new=0 gone=1 divP=None divL=None

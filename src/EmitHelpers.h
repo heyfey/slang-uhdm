@@ -14117,6 +14117,13 @@ inline bool r11u131On(const char* one) {
     return !all && getenv(one) == nullptr;
 }
 
+/// Pass r11u133's switches: `R11U133_OFF=1` turns every law of the pass off,
+/// `one` (its own `R11U133_<X>_OFF`) turns off one law alone.
+inline bool r11u133On(const char* one) {
+    static const bool all = getenv("R11U133_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
 /// § paramIdxPartSelWholeSpan131 — an INDEXED part-select written in a
 /// CONSTANT-EXPRESSION context (a parameter's initializer, an instance's
 /// parameter override) spans the WHOLE select, `A[8*4+:4]`, where the same

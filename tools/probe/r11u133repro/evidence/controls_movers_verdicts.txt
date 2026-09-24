@@ -1,0 +1,32 @@
+r11u124repro/c12/a01_int | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | MOVED
+r11u124repro/c12/a02_untyped | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 57 objects | MOVED
+r11u124repro/c12/a03_vec | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | MOVED
+r11u124repro/c12/a04_packed2d | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | MOVED
+r11u124repro/c12/a05_struct | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 237 objects | MOVED
+r11u124repro/c12/a06_enum | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | MOVED
+r11u124repro/c12/a07_tdvec | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | MOVED
+r11u124repro/c12/a08_bit2d | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | MOVED
+r11u124repro/c12/a11_string | P: rc=0 cmp=46 strict=NOT_EQUAL stage1 | L: rc=0 cmp=46 strict=NOT_EQUAL stage1 | SAME
+r11u124repro/c12/a12_localparam2d | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | MOVED
+r11u124repro/c12/a13_unpacked | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+r11u124repro/c13/q04_default | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11u130repro/grid/g6/p11_struct_param | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | MOVED
+r11u131repro/hpm/m01_param_init | P: rc=0 cmp=92 strict=NOT_EQUAL stage1 | L: rc=0 cmp=92 strict=NOT_EQUAL stage1 | SAME
+r11u131repro/hpm/m02_param_init_op | P: rc=0 cmp=50 strict=NOT_EQUAL stage1 | L: rc=0 cmp=50 strict=NOT_EQUAL stage1 | SAME
+r11u131repro/hpm/m03_range | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | SAME
+r11u131repro/hpm/m04_ca_ctl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11u131repro/hpm/m05_nested | P: rc=0 cmp=94 strict=NOT_EQUAL stage1 | L: rc=0 cmp=94 strict=NOT_EQUAL stage1 | SAME
+r11u131repro/hpm/m06_sub_elab | P: rc=0 cmp=92 strict=NOT_EQUAL stage1 | L: rc=0 cmp=92 strict=NOT_EQUAL stage1 | SAME
+r11u131repro/hpm/m07_genif | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | SAME
+r11u131repro/hpm/m08_proc_ctl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 122 objects | MOVED
+r11u131repro/pat/t03_default_ctl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11v124repro/hx/x06_memberidx | P: rc=0 cmp=24 strict=NOT_EQUAL stage1 | L: rc=0 cmp=24 strict=NOT_EQUAL stage1 | SAME
+r11v124repro/pv/v12_shadow | P: rc=0 cmp=64 strict=NOT_EQUAL stage1 | L: rc=0 cmp=64 strict=NOT_EQUAL stage1 | SAME
+r11v124repro/pv/v24_pkgimp_override | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 113 objects | MOVED
+r11v124repro/qf/f1_portlist_bodyimp | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 111 objects | MOVED
+r11v124repro/qf/f2_portlist_hdrimp | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 111 objects | MOVED
+r11v124repro/qf/f4_typeport | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 104 objects | MOVED
+r11v124repro/qf/f5_vec_portlist | P: rc=0 cmp=60 strict=NOT_EQUAL stage1 | L: rc=0 cmp=60 strict=NOT_EQUAL stage1 | SAME
+r11v124repro/qf/f6_explicit_portlist | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 125 objects | MOVED
+r11v124repro/qx/q04_flipview | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 88 objects | MOVED
+r11v131repro/pat/k10_port_default | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_EQUAL 194 objects | MOVED

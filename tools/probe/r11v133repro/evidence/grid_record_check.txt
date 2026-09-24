@@ -1,0 +1,64 @@
+OK	hpm__b01_depth3	new=0 gone=4 divP=None divL=None
+OK	hpm__b02_mid_select	new=0 gone=0 divP=None divL=None
+OK	hpm__b03_func_body	new=0 gone=2 divP=None divL=None
+OK	hpm__b04_gen	new=0 gone=2 divP=None divL=None
+OK	hpm__b05_lhs_assign	new=0 gone=2 divP=None divL=None
+OK	hpm__b06_ff_lhs	new=0 gone=2 divP=None divL=None
+OK	hpm__b07_unpacked	new=0 gone=2 divP=None divL=None
+OK	hpm__b08_sub_inst	new=0 gone=2 divP=370 divL=370
+OK	hpm__b09_iface_array	new=0 gone=0 divP=None divL=None
+OK	hpm__b10_in_operation	new=0 gone=4 divP=None divL=None
+OK	lhs__c01_explicit_import	new=0 gone=0 divP=42 divL=None
+OK	lhs__c02_localparam_pkg	new=0 gone=0 divP=60 divL=None
+STAGE1	lhs__c03_real_string	pristine law
+OK	lhs__c04_unpacked_expr_range	new=0 gone=0 divP=78 divL=89
+STAGE1	lhs__c05_pkg_chain3	pristine law
+OK	lhs__c06_two_instances_overridden	new=0 gone=0 divP=28 divL=None
+STAGE1	lhs__c07_typed_logic_vec	pristine law
+OK	lhs__c08_program	new=0 gone=0 divP=28 divL=None
+OK	lhs__c09_unit_import	new=0 gone=0 divP=31 divL=90
+STAGE1	lhs__c10_enum_typed	pristine law
+OK	pqs__d01_space_qual	new=0 gone=1 divP=164 divL=164
+OK	pqs__d02_gen_inst	new=0 gone=1 divP=223 divL=223
+OK	pqs__d03_ovr_qual	new=0 gone=0 divP=193 divL=193
+OK	pqs__d04_localparam_body	new=0 gone=1 divP=None divL=None
+STAGE1	pqs__d05_samename_unqual_import	pristine law
+OK	pqs__d06_macro_qual	new=0 gone=0 divP=164 divL=164
+STAGE1	pqs__d07_samename_two_pkgs	pristine law
+OK	pqs__d08_iface_body_samename	new=0 gone=0 divP=131 divL=None
+OK	tix__a01_named_begin	new=0 gone=2 divP=None divL=None
+OK	tix__a02_gen_for	new=0 gone=2 divP=None divL=None
+OK	tix__a03_task	new=0 gone=2 divP=None divL=None
+OK	tix__a04_func_arg	new=0 gone=2 divP=None divL=None
+OK	tix__a05_for_loopvar	new=0 gone=2 divP=None divL=None
+OK	tix__a06_two_refs	new=0 gone=4 divP=None divL=None
+OK	tix__a07_hier_idx	new=0 gone=0 divP=None divL=None
+STAGE1	tix__a08_interface	pristine law
+OK	tix__a09_ternary_ff	new=0 gone=4 divP=None divL=None
+OK	tix__a10_port_conn	new=0 gone=1 divP=189 divL=189
+STAGE1	tix__a11_gen_scope_decl	pristine law
+OK	tix__a12_nested_op	new=0 gone=4 divP=None divL=None
+OK	tix__a13_display	new=0 gone=2 divP=None divL=None
+OK	tix__a14_case	new=0 gone=2 divP=None divL=None
+STAGE1	unk__e01_mul_x_local	pristine law
+STAGE1	unk__e02_include	pristine law
+STAGE1	hpm__g01_pkg_func_mid	pristine law
+OK	hpm__g02_class_mid	new=0 gone=1 divP=None divL=None
+OK	tix__f01_pkg_func	new=0 gone=2 divP=None divL=None
+OK	tix__f02_class_method	new=0 gone=1 divP=None divL=None
+STAGE1	tix__f03_pkg_func_arr	pristine law
+STAGE1	tix__f04_modport_iface	pristine law
+OK	tix__f05_ref_localvar	new=0 gone=2 divP=None divL=None
+OK	tix__f06_gen_if	new=0 gone=1 divP=None divL=None
+OK	tix__f07_nested_member_idx	new=0 gone=2 divP=None divL=None
+OK	tix__f08_unpacked_member	new=0 gone=2 divP=None divL=None
+OK	tix__f09_lhs_nonblocking_idx	new=0 gone=0 divP=None divL=None
+OK	tix__f10_idx_cast	new=0 gone=2 divP=None divL=None
+OK	tix__f11_unary_idx	new=0 gone=2 divP=None divL=None
+OK	tix__f12_idx_concat	new=0 gone=4 divP=None divL=None
+OK	hpm__h01_collide_mid	new=0 gone=4 divP=None divL=None
+OK	hpm__h02_collide_mid_lhs	new=0 gone=6 divP=None divL=None
+OK	lhs__h05_downstream_hdr	new=0 gone=0 divP=68 divL=None
+OK	pqs__h06_downstream_qual	new=0 gone=0 divP=102 divL=None
+OK	tix__h03_collide_idx	new=0 gone=2 divP=None divL=None
+OK	tix__h04_idx_op_ff	new=0 gone=10 divP=None divL=None

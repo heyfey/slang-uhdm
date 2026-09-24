@@ -8775,6 +8775,43 @@ UHDM::constant* UhdmExporter::patCaGenIdxFold112(const Expression& sel) {
     return c112;
 }
 
+// § hpTrailSelIdxNamesByPath133 — THE INDEX OF A PATH'S TRAILING SELECT IS
+// NAMED BY ITS PARENT CHAIN.  An rvalue `tbl[r].sat[i]` / `s.sat[i]` (a
+// continuous assignment or a process) keeps its index objects parented at the
+// trailing bit_select, and Surelog stores no full name on them, so UHDM
+// ComputeFullName (BaseClass.cpp:100) derives it: the bit_select is skipped
+// above a ref_obj (and kept above anything else), the hier_path's name is kept
+// (golden dyn_field_select `work@dut.tbl[row_i][col_i].sat[sel_i].sel_i`; grid
+// t07 `tbl[r].sat[i+1]`: `work@dut.tbl[r].sat[i + 1].sat.i`).  Ours stored the
+// scope's plain `work@dut.i`.  Refs directly under the bit_select or under
+// unnamed operations below it are renamed; anything else is left alone.
+// Grid tools/probe/r11u133repro/tix.  Switch: R11U133_TRAILIDX_OFF.
+static void trailSelIdxNames133(UHDM::bit_select* bs, const std::string& prefix,
+                                const UHDM::hier_path* hp) {
+    static const bool on = r11u133On("R11U133_TRAILIDX_OFF");
+    if (!on || !bs || !hp || !bs->VpiIndex() || hp->VpiName().empty())
+        return;
+    const std::string base = joinRef(prefix, hp->VpiName());
+    std::function<void(UHDM::any*, bool)> nm = [&](UHDM::any* e, bool direct) {
+        if (!e)
+            return;
+        if (e->UhdmType() == UHDM::uhdmref_obj) {
+            auto* r = (UHDM::ref_obj*)e;
+            r->VpiFullName(direct ? joinRef(base, r->VpiName())
+                                  : joinRef(joinRef(base, bs->VpiName()), r->VpiName()));
+        }
+        else if (e->UhdmType() == UHDM::uhdmoperation) {
+            if (auto* os = ((UHDM::operation*)e)->Operands())
+                for (auto* o : *os)
+                    if (o && o->VpiParent() == e)
+                        nm(o, false);
+        }
+    };
+    auto* ix = (UHDM::any*)bs->VpiIndex();
+    if (ix->VpiParent() == bs)
+        nm(ix, true);
+}
+
 UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                                                  UHDM::BaseClass* parent,
                                                  const std::string& prefix, NetMap& netMap) {
@@ -9120,6 +9157,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     SourceRange firstMemberSpan =
         comps.size() > 1 ? comps[1].nameSpan : comps[0].nameSpan;
     std::string dottedAt;
+    UHDM::bit_select* trailIdx133 = nullptr;  // § hpTrailSelIdxNamesByPath133
     for (size_t i = 0; i < comps.size(); ++i) {
         auto& comp = comps[i];
         bool lastMember = i + 1 == comps.size();
@@ -9533,6 +9571,10 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 if (auto* ix = emitExpr(*sel.sel, bs, idxPfx79b, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
+            // § hpTrailSelIdxNamesByPath133 — SITE 1 of 2 (named after the
+            // path's final name, below).
+            if (!inLhs && lastMember && !selIdx79b && bs->VpiIndex())
+                trailIdx133 = bs;
             // § hpMidSelIdxAtPath79 — SITE 2 of 2, the post-pass half: the
             // SELECT index hangs off the HIER_PATH and spans its own whole
             // source text, whichever branch above emitted it.
@@ -9614,6 +9656,20 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // side has ZERO — while in all ELEVEN databases where our side has
             // one, GOLDEN HAS ZERO.  The two populations are disjoint, by
             // measurement, before the build.
+            // § hpBaseSelMidMemberBare133 — a MIDDLE member of a base-select
+            // path (`pipeReg[1].brResult.nextAddr`: `brResult`) carries no
+            // full name.  Surelog's hier_path element loop
+            // (CompileExpression.cpp, the Hierarchical path arm) names only the
+            // path's first select and its leaf; a member between them is
+            // the bare `ref_obj` of its name token.  Golden SelectHierPath
+            // `brResult`: no vpiFullName; ours `pipeReg[1].brResult`.  The
+            // same holds for an lvalue (anon_struct_packed_dim `q_n[i].pte.v`,
+            // golden `pte` bare) and inside a class method (BuildUVMPkg
+            // `overrides[index].ovrd.m_type`).  Switch: R11U133_HPMID_OFF.
+            else if (baseSelMode && !comp.isBase && !lastMember &&
+                     r11u133On("R11U133_HPMID_OFF")) {
+                // nothing: a middle member stays bare
+            }
             else if (baseSelMode && !comp.isBase) {
                 // Trailing member of a base-select path: an RVALUE resolves to
                 // the struct member's own fullname (work@top.min_v); an LVALUE
@@ -9638,6 +9694,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // § hpNameBareIdxFold69 — decompileHelper renders a select bound
     // the compiler REDUCED by its VALUE, not by its spelling.
     hpNameBareIdxFold69(hp);
+    trailSelIdxNames133(trailIdx133, prefix, hp);  // § hpTrailSelIdxNamesByPath133
     return hp;
 }
 
@@ -30313,6 +30370,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto e = chain.back()->sourceRange.end();
                     firstMemTok = SourceRange(e - fm.member.name.size(), e);
                 }
+                UHDM::bit_select* trailIdx133b = nullptr;  // § hpTrailSelIdxNamesByPath133
                 auto* elems = s.MakeAnyVec();
                 {
                     auto* r = s.MakeRef_obj();
@@ -30350,6 +30408,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (void)bs2->VpiFullName();
                         if (auto* ix = emitExpr(es.selector(), bs2, prefix, netMap))
                             bs2->VpiIndex((UHDM::expr*)ix);
+                        // § hpTrailSelIdxNamesByPath133 — SITE 2 of 2 (named
+                        // after the path's final name, below).
+                        if (!inLhs)
+                            trailIdx133b = bs2;
                         // § hpIdxClassBodyNeverLateBinds143 — a path-element index
                         // compiled inside a CLASS BODY is handed a parentless
                         // hier_path and can only reach the class's never-drained
@@ -30362,6 +30424,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // § hpNameBareIdxFold69 — decompileHelper renders a select bound
                 // the compiler REDUCED by its VALUE, not by its spelling.
                 hpNameBareIdxFold69(hp);
+                trailSelIdxNames133(trailIdx133b, prefix, hp);  // § hpTrailSelIdxNamesByPath133
                 return hp;
             }
             // Nested element selects (unpacked arrays) flatten to a

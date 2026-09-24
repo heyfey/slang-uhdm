@@ -1,0 +1,11 @@
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 0 of 0 runs served from the cache
+SWEEP_RC=1
+join vs results/downstream_uhdm2rtlil.csv on every column: 0 of 871 rows changed
+assert_wide_const_cond,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+BitSelectOfParameterPassedToSubmodule,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+dyn_field_select,IDENTICAL,OK,OK,151,151,,
+ff_dead_both_branches,IDENTICAL,OK,OK,8,8,,
+ff_dead_guarded_reset,IDENTICAL,OK,OK,16,16,,
+ParameterWithUnderscoreValueDividedPassedFromCommandLine,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+struct_param_func_loop,IDENTICAL,OK,OK,70,70,,

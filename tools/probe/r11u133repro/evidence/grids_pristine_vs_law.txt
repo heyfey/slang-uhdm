@@ -1,0 +1,45 @@
+r11u133repro/hpm/m01 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 187 objects | MOVED
+r11u133repro/hpm/m02 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 189 objects | MOVED
+r11u133repro/hpm/m03 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 184 objects | MOVED
+r11u133repro/hpm/m05 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 186 objects | MOVED
+r11u133repro/hpm/m06 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 196 objects | MOVED
+r11u133repro/lhs/l01_hdr_int | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | MOVED
+r11u133repro/lhs/l02_hdr_vec2d | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | MOVED
+r11u133repro/lhs/l03_hdr_struct | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 289 objects | MOVED
+r11u133repro/lhs/l04_hdr_unpacked | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL type | MOVED
+r11u133repro/lhs/l05_pkgpkg_int | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 115 objects | MOVED
+r11u133repro/lhs/l06_pkgpkg_two | P: rc=0 cmp=50 strict=NOT_EQUAL stage1 | L: rc=0 cmp=50 strict=NOT_EQUAL stage1 | SAME
+r11u133repro/lhs/l07_body_ctl | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | SAME
+r11u133repro/lhs/l08_hdr_noport_ctl | P: rc=0 cmp=0 strict=STRICT_EQUAL 81 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 81 objects | SAME
+r11u133repro/lhs/l09_iface_hdr | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | MOVED
+r11u133repro/lhs/l10_hdr_enum | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | MOVED
+r11u133repro/lhs/l11_hdr_two_inst | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | MOVED
+r11u133repro/lhs/l12_hdr_untyped | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_EQUAL 93 objects | MOVED
+r11u133repro/pqs/q01_noimp | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11u133repro/pqs/q02_hdr_othername | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11u133repro/pqs/q03_hdr_samename | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11u133repro/pqs/q04_body_samename | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL line | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11u133repro/pqs/q05_unqual | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11u133repro/pqs/q06_override | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | MOVED
+r11u133repro/pqs/q07_localparam | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL count | MOVED
+r11u133repro/pqs/q08_iface | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL col | SAME
+r11u133repro/pqs/q09_hdr_samename_other | P: rc=0 cmp=36 strict=NOT_EQUAL stage1 | L: rc=0 cmp=36 strict=NOT_EQUAL stage1 | SAME
+r11u133repro/pqs/q10_twoinst | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL endcol | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL depth | MOVED
+r11u133repro/tix/t01 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 200 objects | MOVED
+r11u133repro/tix/t02 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 162 objects | MOVED
+r11u133repro/tix/t03 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 202 objects | MOVED
+r11u133repro/tix/t04 | P: rc=0 cmp=0 strict=STRICT_EQUAL 178 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 178 objects | SAME
+r11u133repro/tix/t05 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 211 objects | MOVED
+r11u133repro/tix/t06 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 217 objects | MOVED
+r11u133repro/tix/t07 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 204 objects | MOVED
+r11u133repro/tix/t08 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | SAME
+r11u133repro/tix/t09 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 290 objects | MOVED
+r11u133repro/tix/t11 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 164 objects | MOVED
+r11u133repro/tix/t13 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 260 objects | MOVED
+r11u133repro/tix/t14 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | SAME
+r11u133repro/tix/t15 | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname | L: rc=0 cmp=0 strict=STRICT_EQUAL 173 objects | MOVED
+r11u133repro/unk/u01_div | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_EQUAL 57 objects | MOVED
+r11u133repro/unk/u02_z | P: rc=0 cmp=0 strict=STRICT_NOTEQUAL file | L: rc=0 cmp=0 strict=STRICT_EQUAL 50 objects | MOVED
+r11u133repro/unk/u03_known_ctl | P: rc=0 cmp=0 strict=STRICT_EQUAL 52 objects | L: rc=0 cmp=0 strict=STRICT_EQUAL 52 objects | SAME
+r11u133repro/unk/u04_sub | P: rc=0 cmp=52 strict=NOT_EQUAL stage1 | L: rc=0 cmp=52 strict=NOT_EQUAL stage1 | SAME
+r11u133repro/unk/u05_bin | P: rc=0 cmp=90 strict=NOT_EQUAL stage1 | L: rc=0 cmp=90 strict=NOT_EQUAL stage1 | SAME

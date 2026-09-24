@@ -1,0 +1,6 @@
+hpm/h01_collide_mid rc=0 cmp=0 STRICT_NOTEQUAL fullname
+hpm/h02_collide_mid_lhs rc=0 cmp=0 STRICT_NOTEQUAL fullname
+lhs/h05_downstream_hdr rc=0 cmp=0 STRICT_NOTEQUAL depth
+pqs/h06_downstream_qual rc=0 cmp=0 STRICT_NOTEQUAL depth
+tix/h03_collide_idx rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/h04_idx_op_ff rc=0 cmp=0 STRICT_NOTEQUAL fullname

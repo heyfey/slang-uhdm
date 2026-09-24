@@ -1,0 +1,16 @@
+r11u133repro: movers 40/50
+r11u124repro: movers 12/81
+r11v124repro: movers 9/107
+r11u131repro: movers 9/121
+r11v131repro: movers 1/128
+r11u130repro: movers 1/98
+r11u118repro: movers 0/56
+r11v11u118repro: movers 0/56
+r11u119repro: movers 0/78
+r11u120repro: movers 0/44
+r11v120repro: movers 0/47
+r11u121repro: movers 0/83
+v11u121repro: movers 0/41
+r11u125repro: movers 0/61
+r11v125repro: movers 0/48
+r11v130repro: movers 0/115

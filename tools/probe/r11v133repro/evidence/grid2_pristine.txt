@@ -1,0 +1,14 @@
+hpm/g01_pkg_func_mid rc=0 cmp=370 NOT_EQUAL stage1
+hpm/g02_class_mid rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f01_pkg_func rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f02_class_method rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f03_pkg_func_arr rc=0 cmp=370 NOT_EQUAL stage1
+tix/f04_modport_iface rc=0 cmp=152 NOT_EQUAL stage1
+tix/f05_ref_localvar rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f06_gen_if rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f07_nested_member_idx rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f08_unpacked_member rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f09_lhs_nonblocking_idx rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f10_idx_cast rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f11_unary_idx rc=0 cmp=0 STRICT_NOTEQUAL fullname
+tix/f12_idx_concat rc=0 cmp=0 STRICT_NOTEQUAL fullname

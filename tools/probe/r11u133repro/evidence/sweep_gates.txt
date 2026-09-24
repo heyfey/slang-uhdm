@@ -1,0 +1,298 @@
+### pristine sweep (/tmp/r11u133_wdP, binary md5 c7b333fcf978...) vs committed baselines
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u133_wdP/probe.csv
+probe cases: EQUAL=2112 STRICT_NOTEQUAL=1975 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2112 differ:fullname=738 differ:endcol=351 differ:depth=236 differ:line=213 differ:file=135 differ:type=105 differ:endline=78 differ:col=77 differ:name=31 differ:value=5 differ:count=3 differ:decompile=3
+[probe] EQUAL=2112 STRICT_NOTEQUAL=1975
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=354 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=126 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=330 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=144 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=643 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=160
+[testflags] CMP_EQUAL=643 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=160
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+
+### law sweep (/tmp/r11u133_wdC, law binary md5 47c5a369...) vs committed baselines
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u133_wdC/probe.csv
+probe cases: EQUAL=2193 STRICT_NOTEQUAL=1894 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2193 differ:fullname=775 differ:endcol=333 differ:line=217 differ:file=136 differ:type=124 differ:depth=110 differ:col=78 differ:endline=78 differ:name=32 differ:value=5 differ:count=3 differ:decompile=3
+[probe] EQUAL=2193 STRICT_NOTEQUAL=1894
+regressions=0 conversions=81 changes=112 only-fresh=0 only-committed=0
+[default] 798 tests
+[testflags] 798 tests
+[default] CMP_EQUAL=357 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=123 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=332 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=142 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=5 changes=22 only-fresh=0 only-committed=0
+[default] 871 tests
+[testflags] 871 tests
+[default] CMP_EQUAL=650 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=153
+[testflags] CMP_EQUAL=650 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=153
+regressions=0 conversions=14 changes=18 only-fresh=0 only-committed=0
+
+### surelog: law vs committed
+CONVERSION DecValue default STRICT_NOTEQUAL differ:file(2) -> CMP_EQUAL
+CONVERSION HierPathOverride default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION HierPathOverride testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION SelectHierPath default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION SelectHierPath testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CHANGE BuildUVMPkg default STRICT_NOTEQUAL differ:fullname(270) -> differ:fullname(241) [fullname -29]
+CHANGE BuildUVMPkg testflags STRICT_NOTEQUAL differ:fullname(270) -> differ:fullname(241) [fullname -29]
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:line(5086) -> differ:line(5109) [line +23]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:line(5086) -> differ:line(5109) [line +23]
+CHANGE FuncStructVal default STRICT_NOTEQUAL differ:endcol(171) -> differ:endcol(165) [endcol -6]
+CHANGE FuncStructVal testflags STRICT_NOTEQUAL differ:endcol(383) -> differ:endcol(377) [endcol -6]
+CHANGE Kmac default STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE Kmac testflags STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE MiniAmiq default STRICT_NOTEQUAL differ:line(199) -> differ:line(191) [line -8]
+CHANGE MiniAmiq testflags STRICT_NOTEQUAL differ:line(199) -> differ:line(191) [line -8]
+CHANGE ParamFromPackage default STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE ParamFromPackage testflags STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE Rggen default STRICT_NOTEQUAL differ:file(7) -> differ:file(12) [file +5]
+CHANGE SVSwitch default STRICT_NOTEQUAL differ:endcol(38) -> differ:endcol(37) [endcol -1]
+CHANGE SVSwitch testflags STRICT_NOTEQUAL differ:endcol(38) -> differ:endcol(37) [endcol -1]
+CHANGE Scoreboard default STRICT_NOTEQUAL differ:line(199) -> differ:line(195) [line -4]
+CHANGE SeqDriver default STRICT_NOTEQUAL differ:line(182) -> differ:line(175) [line -7]
+CHANGE SeqDriver testflags STRICT_NOTEQUAL differ:line(182) -> differ:line(175) [line -7]
+CHANGE SimpleUVM default STRICT_NOTEQUAL differ:line(195) -> differ:line(191) [line -4]
+CHANGE SimpleUVM testflags STRICT_NOTEQUAL differ:line(195) -> differ:line(191) [line -4]
+CHANGE StructUnsizedVal default STRICT_NOTEQUAL differ:fullname(3) -> differ:endcol(3)
+CHANGE StructUnsizedVal testflags STRICT_NOTEQUAL differ:fullname(3) -> differ:endcol(3)
+regressions=0 conversions=5 changes=22 only-fresh=0 only-committed=0
+### surelog: law vs pristine sweep
+regressions=0 conversions=5 changes=22 only-fresh=0 only-committed=0
+
+### uhdm2rtlil: law vs committed
+CONVERSION BitSelectOfParameterPassedToSubmodule default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION BitSelectOfParameterPassedToSubmodule testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION ParameterWithUnderscoreValueDividedPassedFromCommandLine default STRICT_NOTEQUAL differ:file(2) -> CMP_EQUAL
+CONVERSION ParameterWithUnderscoreValueDividedPassedFromCommandLine testflags STRICT_NOTEQUAL differ:file(2) -> CMP_EQUAL
+CONVERSION assert_wide_const_cond default STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CONVERSION assert_wide_const_cond testflags STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CONVERSION dyn_field_select default STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION dyn_field_select testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION ff_dead_both_branches default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION ff_dead_both_branches testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION ff_dead_guarded_reset default STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION ff_dead_guarded_reset testflags STRICT_NOTEQUAL differ:depth(1) -> CMP_EQUAL
+CONVERSION struct_param_func_loop default STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL
+CONVERSION struct_param_func_loop testflags STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL
+CHANGE ParameterFromPkgOnParameterPortList default STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(8)
+CHANGE ParameterFromPkgOnParameterPortList testflags STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(8)
+CHANGE StructArrayParameterInitializedByPatternPassedAsPort default STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE StructArrayParameterInitializedByPatternPassedAsPort testflags STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE anon_struct_packed_dim default STRICT_NOTEQUAL differ:fullname(49) -> differ:fullname(43) [fullname -6]
+CHANGE anon_struct_packed_dim testflags STRICT_NOTEQUAL differ:fullname(49) -> differ:fullname(43) [fullname -6]
+CHANGE ibex_tracer default STRICT_NOTEQUAL differ:fullname(51) -> differ:fullname(94) [fullname +43]
+CHANGE ibex_tracer testflags STRICT_NOTEQUAL differ:fullname(51) -> differ:fullname(94) [fullname +43]
+CHANGE param_struct_field_bitsel default STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE param_struct_field_bitsel testflags STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE param_unpacked_struct_array default STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE param_unpacked_struct_array testflags STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE struct_dynamic_range default STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(4) [fullname -4]
+CHANGE struct_dynamic_range testflags STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(4) [fullname -4]
+CHANGE struct_param_pattern_packing default STRICT_NOTEQUAL differ:endcol(4) -> differ:line(2)
+CHANGE struct_param_pattern_packing testflags STRICT_NOTEQUAL differ:endcol(4) -> differ:line(2)
+CHANGE struct_param_repl_count default STRICT_NOTEQUAL differ:fullname(3) -> differ:col(1)
+CHANGE struct_param_repl_count testflags STRICT_NOTEQUAL differ:fullname(3) -> differ:col(1)
+regressions=0 conversions=14 changes=18 only-fresh=0 only-committed=0
+### uhdm2rtlil: law vs pristine sweep
+regressions=0 conversions=14 changes=18 only-fresh=0 only-committed=0
+
+### probe: law vs committed
+CONVERSION r10earl29repro/a5_three STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10earl92repro/g2_cond92 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl_repro/e STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl_repro/hh STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl_repro/r STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl_repro/vp STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10earl_repro/wb24 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v201repro/v201_n_genarr STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v75repro/a4_nest75 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r10v99repro/v99_b4_deep STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u112repro/grid/f/r08_rng_unp_param_n STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u113repro/grid/b/b23_pmp_shape STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u113repro/grid/b/b24_icache_shape STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u114repro/grid/f2/b10 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u114repro/grid/f3/c03 STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/f/p06_ternarm STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/f/p07_shift STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/f/p08_cmp STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/f/p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/f/p10_sub STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p06_ternarm STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p07_shift STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p08_cmp STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/i/p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/k/k01_ius_lit_p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/k/k02_int_p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/k/k04_logic4_p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/k/k06_modhdr_p01_ibex STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/k/k06_modhdr_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/k/k07_modlp_p01_ibex STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/k/k08_genlp_p01_ibex STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p01_ibex STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p02_replcat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p03_replbare STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p05_catelem STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p06_ternarm STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p07_shift STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p08_cmp STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p12_sysarg STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/m/p13_ternrepl STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k01_ius_lit_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k01_ius_lit_p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k02_int_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k02_int_p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k04_logic4_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k04_logic4_p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k05_qual_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k05_qual_p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k06_modhdr_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/mk/k06_modhdr_p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/n/p01_ibex STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/n/p02_replcat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/n/p03_replbare STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/n/p05_catelem STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/n/p06_ternarm STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/n/p09_add STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/v/v01_mod_bare STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/v/v02_genfor_bare STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/v/v03_genfor_underop STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/v/v04_genif_underop STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/v/v08_genfor_int STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/v/v09_mod_underop STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/v/v11_genfor_ternary STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u115repro/grid/r/v/v12_genfor_1d_bitsel_ctl STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION r11u74repro/grid/b3_rhskind STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r11v42repro/grid42v/v6 STRICT_NOTEQUAL differ:fullname(6) -> EQUAL
+CONVERSION r11v69repro/grid/v1_namesake STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r11v69repro/grid/v2_ancnamesake STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION v11u112repro/grid/brk/f/b1g_child_inst STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a07_ms_signed STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a11_gf_bit STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a12_gf_byte STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a15_gf_neg_shift STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a17_gfgf_nested STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/a21_ms_bits STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/v03_gf_vs_cat STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/v04_gf_vs_bits STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/v05_gf_vs_idxof STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/v07_ms_vs_qual STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CONVERSION v11u115repro/grid/f1/v08_gf_vs_neg STRICT_NOTEQUAL differ:depth(1) -> EQUAL
+CHANGE r10buvm21repro/g21c STRICT_NOTEQUAL differ:line(25) -> differ:line(24) [line -1]
+CHANGE r10buvm27repro/g27_a0_head STRICT_NOTEQUAL differ:line(4) -> differ:line(3) [line -1]
+CHANGE r10earl106repro/h1_head106 STRICT_NOTEQUAL differ:depth(1) -> differ:endcol(1)
+CHANGE r10earl115repro/p1_pos115 STRICT_NOTEQUAL differ:endcol(30) -> differ:endcol(18) [endcol -12]
+CHANGE r10earl29repro/a1_hp2 STRICT_NOTEQUAL differ:fullname(10) -> differ:fullname(8) [fullname -2]
+CHANGE r10earl29repro/a2_hp1 STRICT_NOTEQUAL differ:fullname(10) -> differ:fullname(8) [fullname -2]
+CHANGE r10earl29repro/a6_noconcat STRICT_NOTEQUAL differ:fullname(6) -> differ:fullname(2) [fullname -4]
+CHANGE r10earl29repro/b2_kinds STRICT_NOTEQUAL differ:fullname(14) -> differ:fullname(8) [fullname -6]
+CHANGE r10earl29repro/b3_edges STRICT_NOTEQUAL differ:fullname(10) -> differ:fullname(8) [fullname -2]
+CHANGE r10earl29repro/v10_str STRICT_NOTEQUAL differ:endcol(6) -> differ:endcol(4) [endcol -2]
+CHANGE r10earl29repro/v5_gen STRICT_NOTEQUAL differ:fullname(6) -> differ:fullname(4) [fullname -2]
+CHANGE r10earl34repro/v1_view STRICT_NOTEQUAL differ:fullname(16) -> differ:fullname(8) [fullname -8]
+CHANGE r10earl52repro/v3_earl52 STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(10)
+CHANGE r10earl76repro/g2_orig76 STRICT_NOTEQUAL differ:col(2) -> differ:col(32) [col +30]
+CHANGE r10earl85repro/g4_shadow85 STRICT_NOTEQUAL differ:depth(1) -> differ:line(2)
+CHANGE r10earl85repro/g5_noshadow85 STRICT_NOTEQUAL differ:depth(1) -> differ:line(1)
+CHANGE r10earl_repro/qj27 STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(29) [fullname +22]
+CHANGE r10earl_repro/vf STRICT_NOTEQUAL differ:fullname(13) -> differ:fullname(102) [fullname +89]
+CHANGE r10earl_repro/vo STRICT_NOTEQUAL differ:depth(1) -> differ:endcol(8)
+CHANGE r10earl_repro/wc24 STRICT_NOTEQUAL differ:depth(1) -> differ:endcol(1)
+CHANGE r10earl_repro/wd24 STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r10rgg9repro/cells/p_pkgimport STRICT_NOTEQUAL differ:depth(1) -> differ:file(1)
+CHANGE r10svs4repro/g1_thisidx STRICT_NOTEQUAL differ:fullname(15) -> differ:fullname(6) [fullname -9]
+CHANGE r10uvm114repro/g114_f_twopkg STRICT_NOTEQUAL differ:depth(1) -> differ:line(3)
+CHANGE r10uvm134repro/g134_d_bodies STRICT_NOTEQUAL differ:file(18) -> differ:file(17) [file -1]
+CHANGE r10uvm147repro/g147_a STRICT_NOTEQUAL differ:fullname(119) -> differ:fullname(118) [fullname -1]
+CHANGE r10uvm210repro/g210_c_pkgimp STRICT_NOTEQUAL differ:depth(1) -> differ:col(6)
+CHANGE r10uvm21repro/t32g_t STRICT_NOTEQUAL differ:endcol(46) -> differ:endcol(40) [endcol -6]
+CHANGE r10uvm48repro/t67b STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE r10uvm79repro/c2_idxkind STRICT_NOTEQUAL differ:file(12) -> differ:file(11) [file -1]
+CHANGE r10uvm82repro/v82v_arm36_chain2hop STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(3)
+CHANGE r10uvm92repro/v92_b2_varsel STRICT_NOTEQUAL differ:file(45) -> differ:file(25) [file -20]
+CHANGE r10uvm94repro/g94_a0_head STRICT_NOTEQUAL differ:fullname(7) -> differ:fullname(6) [fullname -1]
+CHANGE r10v134repro/v134_4bodies STRICT_NOTEQUAL differ:file(29) -> differ:file(28) [file -1]
+CHANGE r10v169repro/v169_g_control STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(3)
+CHANGE r10v200repro/v200_5_modmat STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r10v201repro/v201_j_nested STRICT_NOTEQUAL differ:fullname(2) -> differ:fullname(5) [fullname +3]
+CHANGE r10vearl115repro/w4_selmem STRICT_NOTEQUAL differ:fullname(4) -> differ:endcol(2)
+CHANGE r11u109repro/grid/f1/p07_litcast STRICT_NOTEQUAL differ:endcol(29) -> differ:endcol(28) [endcol -1]
+CHANGE r11u111repro/grid/f1/a17_q_and_import STRICT_NOTEQUAL differ:depth(1) -> differ:name(2)
+CHANGE r11u111repro/grid/f2/b13_sub_imp_w80 STRICT_NOTEQUAL differ:fullname(5) -> differ:endcol(7)
+CHANGE r11u114repro/grid/f3/c05 STRICT_NOTEQUAL differ:depth(1) -> differ:type(1)
+CHANGE r11u115repro/grid/r/f/p01_ibex STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(4)
+CHANGE r11u115repro/grid/r/f/p02_replcat STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/f/p03_replbare STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/f/p04_repladd STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/f/p05_catelem STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/f/p12_sysarg STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/f/p13_ternrepl STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/i/p01_ibex STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/i/p02_replcat STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE r11u115repro/grid/r/i/p03_replbare STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE r11u115repro/grid/r/i/p05_catelem STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE r11u115repro/grid/r/i/p12_sysarg STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE r11u115repro/grid/r/i/p13_ternrepl STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE r11u115repro/grid/r/k/k01_ius_lit_p01_ibex STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(4)
+CHANGE r11u115repro/grid/r/k/k01_ius_lit_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/k/k02_int_p01_ibex STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(4)
+CHANGE r11u115repro/grid/r/k/k02_int_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/k/k04_logic4_p01_ibex STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(4)
+CHANGE r11u115repro/grid/r/k/k04_logic4_p02_replcat STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/k/k06_modhdr_p09_add STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/k/k09_bodyimp_p01_ibex STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(4)
+CHANGE r11u115repro/grid/r/v/v10_genfor_modparam_ctl STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE r11u115repro/grid/r/x/x01_icache_shape STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(8)
+CHANGE r11u20repro/b4 STRICT_NOTEQUAL differ:col(37) -> differ:col(96) [col +59]
+CHANGE r11u20repro/b7 STRICT_NOTEQUAL differ:col(2) -> differ:col(1) [col -1]
+CHANGE r11u35repro/grid/g3_shape35 STRICT_NOTEQUAL differ:endcol(252) -> differ:endcol(250) [endcol -2]
+CHANGE r11u39repro/a1 STRICT_NOTEQUAL differ:col(18) -> differ:col(6) [col -12]
+CHANGE r11u46repro/grid2 STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE r11u51repro/grid/e1_ca_rhskind STRICT_NOTEQUAL differ:endcol(2) -> differ:depth(1)
+CHANGE r11u69repro/grid/g10_lhsbind STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11u69repro/grid/g11_iface STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11u69repro/grid/g1_genkind STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(7) [fullname -1]
+CHANGE r11u69repro/grid/g2_iter STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11u69repro/grid/g4_lhskind STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11u69repro/grid/g5_nest STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11u71repro/grid/n3_ifacegrid STRICT_NOTEQUAL differ:endcol(3) -> differ:type(1)
+CHANGE r11u71repro/grid/n5_declkind STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11u74repro/grid/b4_nonamesake STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11u75repro/grid/w8_unitname STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11u88repro/grid/j3_ifcaselect STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11v46repro/grid7 STRICT_NOTEQUAL differ:depth(1) -> differ:endcol(2)
+CHANGE r11v4repro/v5 STRICT_NOTEQUAL differ:endcol(4) -> differ:fullname(2)
+CHANGE r11v55repro/grid/vv4_singleread STRICT_NOTEQUAL differ:endcol(2) -> differ:depth(1)
+CHANGE r11v55repro/grid/vv6_edge STRICT_NOTEQUAL differ:endcol(2) -> differ:depth(1)
+CHANGE r11v55repro/grid/vv8_sharemut STRICT_NOTEQUAL differ:endcol(2) -> differ:depth(1)
+CHANGE r11v69repro/grid/v10_arraysel STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11v69repro/grid/v5_deadarm STRICT_NOTEQUAL differ:fullname(11) -> differ:fullname(10) [fullname -1]
+CHANGE r11v69repro/grid/v7_ifacemix STRICT_NOTEQUAL differ:endcol(3) -> differ:type(1)
+CHANGE r11v69repro/grid/w10_sharesize STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11v69repro/grid/w1_netlhs STRICT_NOTEQUAL differ:endcol(2) -> differ:depth(1)
+CHANGE r11v69repro/grid/w5_ovr STRICT_NOTEQUAL differ:line(4) -> differ:line(3) [line -1]
+CHANGE r11v69repro/grid/w9_sharehead STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11v71repro/grid/x4_genarray STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE r11v71repro/grid/x6_ifacedeep STRICT_NOTEQUAL differ:endcol(3) -> differ:type(1)
+CHANGE r11v71repro/grid/x7_oddhomes STRICT_NOTEQUAL differ:endcol(2) -> differ:type(1)
+CHANGE v11u113repro/grid/f1/a13_child_overridden_mod_uses_pkg STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE v11u114repro/grid/set1/e04 STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE v11u114repro/grid/set1/g25 STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(3)
+CHANGE v11u115repro/grid/f1/a01_gf_signed STRICT_NOTEQUAL differ:depth(1) -> differ:endcol(3)
+CHANGE v11u115repro/grid/f1/a06_gf_repl_sys STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE v11u115repro/grid/f1/a09_gi_sys_tern STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(1)
+CHANGE v11u115repro/grid/f1/a13_gcase STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(9)
+CHANGE v11u115repro/grid/f1/a16_gf_mixed STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE v11u115repro/grid/f1/a18_gf_countones STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE v11u115repro/grid/f1/a20_gf_unsigned_W STRICT_NOTEQUAL differ:depth(1) -> differ:endcol(3)
+CHANGE v11u115repro/grid/f1/a26_gf_twoinst STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(2)
+CHANGE v11u115repro/grid/f1/v06_gf_vs_psel STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(3)
+CHANGE v11u115repro/grid/f2/p06_pkgbare STRICT_NOTEQUAL differ:depth(1) -> differ:fullname(6)
+CHANGE v11u116repro/arms/k3_unq_ovr STRICT_NOTEQUAL differ:depth(1) -> differ:line(4)
+CHANGE v11u94repro/b2_cfg94 STRICT_NOTEQUAL differ:col(105) -> differ:col(104) [col -1]
+regressions=0 conversions=81 changes=112 only-fresh=0 only-committed=0

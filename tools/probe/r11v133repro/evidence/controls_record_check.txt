@@ -1,0 +1,178 @@
+== v11u133_cmov_worse.txt
+OK	surelog/./default/BlackBePipeInt-1fcd9dad	new=0 gone=0 divP=67 divL=67
+OK	surelog/./default/BuildUVMPkg-fc55bd0c	new=0 gone=29 divP=11992 divL=11992
+OK	surelog/./default/DecValue-0d1bdf2e	new=0 gone=2 divP=None divL=None
+OK	surelog/./default/DefaultPatternInt-f18dcc46	new=0 gone=0 divP=70 divL=70
+OK	surelog/./default/Earlgrey_0_1-a898def8	new=0 gone=0 divP=50756 divL=51100
+OK	surelog/./default/FuncStructVal-9244d8c4	new=0 gone=6 divP=7595 divL=7595
+OK	surelog/./default/HierPathOverride-2fa13a4d	new=0 gone=0 divP=48 divL=None
+OK	surelog/./default/Kmac-a415505d	new=0 gone=0 divP=268 divL=281
+OK	surelog/./default/MiniAmiq-055eab74	new=0 gone=4 divP=2450 divL=2450
+OK	surelog/./default/ParamFromPackage-976f196a	new=0 gone=0 divP=163 divL=None
+OK	surelog/./default/Rggen-ee9ac8af	new=0 gone=0 divP=439 divL=469
+OK	surelog/./default/Scoreboard-72aa0ba8	new=0 gone=4 divP=2492 divL=2492
+OK	surelog/./default/SelectHierPath-4cc2d6e1	new=0 gone=2 divP=None divL=None
+OK	surelog/./default/SeqDriver-65178d3a	new=0 gone=4 divP=2433 divL=2433
+OK	surelog/./default/SimpleUVM-267de3ff	new=0 gone=4 divP=2484 divL=2484
+OK	surelog/./default/StructParamFieldRange-2f684d9b	new=0 gone=0 divP=216 divL=216
+OK	surelog/./default/StructUnsizedVal-86891aa7	new=0 gone=0 divP=250 divL=None
+OK	surelog/./default/SVSwitch-07f2b6b3	new=0 gone=1 divP=3314 divL=3314
+OK	surelog/./testflags/BlackBePipeInt-1fcd9dad	new=0 gone=0 divP=66 divL=66
+OK	surelog/./testflags/BuildUVMPkg-fc55bd0c	new=0 gone=29 divP=11992 divL=11992
+OK	surelog/./testflags/DefaultPatternInt-f18dcc46	new=0 gone=0 divP=60 divL=60
+OK	surelog/./testflags/Earlgrey_0_1-a898def8	new=0 gone=0 divP=52002 divL=52346
+OK	surelog/./testflags/FuncStructVal-9244d8c4	new=0 gone=6 divP=14385 divL=14385
+OK	surelog/./testflags/HierPathOverride-2fa13a4d	new=0 gone=0 divP=47 divL=None
+OK	surelog/./testflags/Kmac-a415505d	new=0 gone=0 divP=178 divL=191
+OK	surelog/./testflags/MiniAmiq-055eab74	new=0 gone=4 divP=2450 divL=2450
+OK	surelog/./testflags/ParamFromPackage-976f196a	new=0 gone=0 divP=73 divL=None
+OK	surelog/./testflags/SelectHierPath-4cc2d6e1	new=0 gone=2 divP=None divL=None
+OK	surelog/./testflags/SeqDriver-65178d3a	new=0 gone=4 divP=2445 divL=2445
+OK	surelog/./testflags/SimpleUVM-267de3ff	new=0 gone=4 divP=2496 divL=2496
+OK	surelog/./testflags/StructParamFieldRange-2f684d9b	new=0 gone=0 divP=216 divL=216
+OK	surelog/./testflags/StructUnsizedVal-86891aa7	new=0 gone=0 divP=157 divL=None
+OK	surelog/./testflags/SVSwitch-07f2b6b3	new=0 gone=1 divP=3314 divL=3314
+OK	uhdm2rtlil/./default/anon_struct_packed_dim-031e610c	new=0 gone=6 divP=None divL=None
+OK	uhdm2rtlil/./default/assert_wide_const_cond-f6d0c51f	new=0 gone=1 divP=None divL=None
+OK	uhdm2rtlil/./default/BitSelectOfParameterPassedToSubmodule-a5ea6428	new=0 gone=0 divP=48 divL=None
+OK	uhdm2rtlil/./default/cva6_struct_param_field-7cd1ec7b	new=0 gone=0 divP=216 divL=216
+OK	uhdm2rtlil/./default/dyn_field_select-254c3c60	new=0 gone=2 divP=None divL=None
+OK	uhdm2rtlil/./default/ff_dead_both_branches-8ff43a18	new=0 gone=0 divP=174 divL=None
+OK	uhdm2rtlil/./default/ff_dead_guarded_reset-ccaa1279	new=0 gone=0 divP=174 divL=None
+OK	uhdm2rtlil/./default/ibex_alu-7f02a7e3	new=0 gone=0 divP=4487 divL=5640
+OK	uhdm2rtlil/./default/ibex_branch_predict-d5a3346b	new=0 gone=0 divP=5632 divL=5635
+OK	uhdm2rtlil/./default/ibex_compressed_decoder-3a107494	new=0 gone=0 divP=4494 divL=5647
+OK	uhdm2rtlil/./default/ibex_decoder-a147b711	new=0 gone=0 divP=4506 divL=5659
+OK	uhdm2rtlil/./default/ibex_icache-2cbf116a	new=0 gone=0 divP=4509 divL=5662
+OK	uhdm2rtlil/./default/ibex_multdiv_fast-9a0db78a	new=0 gone=0 divP=4491 divL=5644
+OK	uhdm2rtlil/./default/ibex_multdiv_slow-ade5eff9	new=0 gone=0 divP=5632 divL=5635
+OK	uhdm2rtlil/./default/ibex_pmp-f78ab5fc	new=0 gone=0 divP=4494 divL=5647
+OK	uhdm2rtlil/./default/ibex_tracer-5e24e441	new=0 gone=0 divP=3727 divL=4880
+OK	uhdm2rtlil/./default/ibex_wb_stage-498bd791	new=0 gone=0 divP=4492 divL=5645
+OK	uhdm2rtlil/./default/NestedStructArrayParameterInitializedByPatternPassedAsPort-e14d8143	new=0 gone=0 divP=233 divL=236
+OK	uhdm2rtlil/./default/ParameterFromPkgOnParameterPortList-21c67dca	new=0 gone=0 divP=160 divL=262
+OK	uhdm2rtlil/./default/ParameterWithUnderscoreValueDividedPassedFromCommandLine-6a9603da	new=0 gone=2 divP=None divL=None
+OK	uhdm2rtlil/./default/param_struct_field_bitsel-c5afd2ec	new=0 gone=0 divP=350 divL=353
+OK	uhdm2rtlil/./default/param_unpacked_struct_array-e425e53c	new=0 gone=0 divP=413 divL=416
+OK	uhdm2rtlil/./default/StructArrayParameterInitializedByPatternPassedAsPort-0d936620	new=0 gone=0 divP=177 divL=180
+OK	uhdm2rtlil/./default/struct_dynamic_range-d91e5794	new=0 gone=4 divP=None divL=None
+OK	uhdm2rtlil/./default/struct_param_func_config-121ce6d3	new=0 gone=0 divP=301 divL=301
+OK	uhdm2rtlil/./default/struct_param_func_loop-3a50c32a	new=0 gone=6 divP=None divL=None
+OK	uhdm2rtlil/./default/struct_param_pattern_packing-65f665ea	new=0 gone=2 divP=627 divL=627
+OK	uhdm2rtlil/./default/struct_param_repl_count-ce255105	new=0 gone=0 divP=174 divL=None
+OK	uhdm2rtlil/./testflags/anon_struct_packed_dim-031e610c	new=0 gone=6 divP=None divL=None
+OK	uhdm2rtlil/./testflags/assert_wide_const_cond-f6d0c51f	new=0 gone=1 divP=None divL=None
+OK	uhdm2rtlil/./testflags/BitSelectOfParameterPassedToSubmodule-a5ea6428	new=0 gone=0 divP=47 divL=None
+OK	uhdm2rtlil/./testflags/cva6_struct_param_field-7cd1ec7b	new=0 gone=0 divP=126 divL=126
+OK	uhdm2rtlil/./testflags/dyn_field_select-254c3c60	new=0 gone=2 divP=None divL=None
+OK	uhdm2rtlil/./testflags/ff_dead_both_branches-8ff43a18	new=0 gone=0 divP=84 divL=None
+OK	uhdm2rtlil/./testflags/ff_dead_guarded_reset-ccaa1279	new=0 gone=0 divP=84 divL=None
+OK	uhdm2rtlil/./testflags/ibex_alu-7f02a7e3	new=0 gone=0 divP=4397 divL=5550
+OK	uhdm2rtlil/./testflags/ibex_branch_predict-d5a3346b	new=0 gone=0 divP=5542 divL=5545
+OK	uhdm2rtlil/./testflags/ibex_compressed_decoder-3a107494	new=0 gone=0 divP=4404 divL=5557
+OK	uhdm2rtlil/./testflags/ibex_decoder-a147b711	new=0 gone=0 divP=4416 divL=5569
+OK	uhdm2rtlil/./testflags/ibex_icache-2cbf116a	new=0 gone=0 divP=4419 divL=5572
+OK	uhdm2rtlil/./testflags/ibex_multdiv_fast-9a0db78a	new=0 gone=0 divP=4401 divL=5554
+OK	uhdm2rtlil/./testflags/ibex_multdiv_slow-ade5eff9	new=0 gone=0 divP=5542 divL=5545
+OK	uhdm2rtlil/./testflags/ibex_pmp-f78ab5fc	new=0 gone=0 divP=4404 divL=5557
+OK	uhdm2rtlil/./testflags/ibex_tracer-5e24e441	new=0 gone=0 divP=3726 divL=4879
+OK	uhdm2rtlil/./testflags/ibex_wb_stage-498bd791	new=0 gone=0 divP=4402 divL=5555
+OK	uhdm2rtlil/./testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort-e14d8143	new=0 gone=0 divP=143 divL=146
+OK	uhdm2rtlil/./testflags/ParameterFromPkgOnParameterPortList-21c67dca	new=0 gone=0 divP=70 divL=172
+OK	uhdm2rtlil/./testflags/ParameterWithUnderscoreValueDividedPassedFromCommandLine-6a9603da	new=0 gone=2 divP=None divL=None
+OK	uhdm2rtlil/./testflags/param_struct_field_bitsel-c5afd2ec	new=0 gone=0 divP=260 divL=263
+OK	uhdm2rtlil/./testflags/param_unpacked_struct_array-e425e53c	new=0 gone=0 divP=323 divL=326
+OK	uhdm2rtlil/./testflags/StructArrayParameterInitializedByPatternPassedAsPort-0d936620	new=0 gone=0 divP=87 divL=90
+OK	uhdm2rtlil/./testflags/struct_dynamic_range-d91e5794	new=0 gone=4 divP=None divL=None
+OK	uhdm2rtlil/./testflags/struct_param_func_config-121ce6d3	new=0 gone=0 divP=294 divL=294
+OK	uhdm2rtlil/./testflags/struct_param_func_loop-3a50c32a	new=0 gone=6 divP=None divL=None
+OK	uhdm2rtlil/./testflags/struct_param_pattern_packing-65f665ea	new=0 gone=2 divP=537 divL=537
+OK	uhdm2rtlil/./testflags/struct_param_repl_count-ce255105	new=0 gone=0 divP=84 divL=None
+== v11u133_cr11u118repro_worse.txt
+== v11u133_cr11u119repro_worse.txt
+== v11u133_cr11u120repro_worse.txt
+== v11u133_cr11u121repro_worse.txt
+== v11u133_cr11u124repro_worse.txt
+OK	c12__a01_int	new=0 gone=0 divP=28 divL=None
+OK	c12__a02_untyped	new=0 gone=0 divP=28 divL=None
+OK	c12__a03_vec	new=0 gone=0 divP=49 divL=None
+OK	c12__a04_packed2d	new=0 gone=0 divP=70 divL=None
+OK	c12__a05_struct	new=0 gone=0 divP=120 divL=None
+OK	c12__a06_enum	new=0 gone=0 divP=93 divL=None
+OK	c12__a07_tdvec	new=0 gone=0 divP=92 divL=None
+OK	c12__a08_bit2d	new=0 gone=0 divP=70 divL=None
+STAGE1	c12__a11_string	pristine law
+OK	c12__a12_localparam2d	new=0 gone=0 divP=70 divL=None
+OK	c12__a13_unpacked	new=0 gone=0 divP=70 divL=73
+OK	c13__q04_default	new=0 gone=1 divP=138 divL=138
+== v11u133_cr11u125repro_worse.txt
+== v11u133_cr11u130repro_worse.txt
+OK	grid__g6__p11_struct_param	new=0 gone=2 divP=None divL=None
+== v11u133_cr11u131repro_worse.txt
+STAGE1	hpm__m01_param_init	pristine law
+STAGE1	hpm__m02_param_init_op	pristine law
+OK	hpm__m03_range	new=0 gone=1 divP=None divL=None
+OK	hpm__m04_ca_ctl	new=0 gone=1 divP=117 divL=117
+STAGE1	hpm__m05_nested	pristine law
+STAGE1	hpm__m06_sub_elab	pristine law
+OK	hpm__m07_genif	new=0 gone=1 divP=None divL=None
+OK	hpm__m08_proc_ctl	new=0 gone=1 divP=None divL=None
+OK	pat__t03_default_ctl	new=0 gone=1 divP=138 divL=138
+== v11u133_cr11u133repro_worse.txt
+OK	hpm__m01	new=0 gone=2 divP=None divL=None
+OK	hpm__m02	new=0 gone=2 divP=None divL=None
+OK	hpm__m03	new=0 gone=2 divP=None divL=None
+OK	hpm__m05	new=0 gone=2 divP=None divL=None
+OK	hpm__m06	new=0 gone=2 divP=None divL=None
+OK	lhs__l01_hdr_int	new=0 gone=0 divP=28 divL=None
+OK	lhs__l02_hdr_vec2d	new=0 gone=0 divP=70 divL=172
+OK	lhs__l03_hdr_struct	new=0 gone=0 divP=120 divL=None
+OK	lhs__l04_hdr_unpacked	new=0 gone=0 divP=90 divL=93
+OK	lhs__l05_pkgpkg_int	new=0 gone=0 divP=17 divL=None
+STAGE1	lhs__l06_pkgpkg_two	pristine law
+OK	lhs__l09_iface_hdr	new=0 gone=0 divP=28 divL=None
+OK	lhs__l10_hdr_enum	new=0 gone=0 divP=85 divL=None
+OK	lhs__l11_hdr_two_inst	new=0 gone=0 divP=45 divL=None
+OK	lhs__l12_hdr_untyped	new=0 gone=0 divP=28 divL=None
+OK	pqs__q01_noimp	new=0 gone=1 divP=164 divL=164
+OK	pqs__q02_hdr_othername	new=0 gone=0 divP=131 divL=280
+OK	pqs__q03_hdr_samename	new=0 gone=0 divP=131 divL=280
+OK	pqs__q04_body_samename	new=0 gone=2 divP=280 divL=280
+OK	pqs__q05_unqual	new=0 gone=0 divP=131 divL=272
+OK	pqs__q06_override	new=0 gone=1 divP=217 divL=217
+OK	pqs__q07_localparam	new=0 gone=1 divP=164 divL=164
+OK	pqs__q08_iface	new=0 gone=1 divP=None divL=None
+STAGE1	pqs__q09_hdr_samename_other	pristine law
+OK	pqs__q10_twoinst	new=0 gone=1 divP=215 divL=215
+OK	tix__t01	new=0 gone=2 divP=None divL=None
+OK	tix__t02	new=0 gone=2 divP=None divL=None
+OK	tix__t03	new=0 gone=2 divP=None divL=None
+OK	tix__t05	new=0 gone=4 divP=None divL=None
+OK	tix__t06	new=0 gone=2 divP=None divL=None
+OK	tix__t07	new=0 gone=2 divP=None divL=None
+OK	tix__t09	new=0 gone=2 divP=None divL=None
+OK	tix__t11	new=0 gone=2 divP=None divL=None
+OK	tix__t13	new=0 gone=2 divP=None divL=None
+OK	tix__t14	new=0 gone=4 divP=None divL=None
+OK	tix__t15	new=0 gone=2 divP=None divL=None
+OK	unk__u01_div	new=0 gone=2 divP=None divL=None
+OK	unk__u02_z	new=0 gone=1 divP=None divL=None
+STAGE1	unk__u04_sub	pristine law
+STAGE1	unk__u05_bin	pristine law
+== v11u133_cr11v11u118repro_worse.txt
+== v11u133_cr11v120repro_worse.txt
+== v11u133_cr11v124repro_worse.txt
+STAGE1	hx__x06_memberidx	pristine law
+STAGE1	pv__v12_shadow	pristine law
+OK	pv__v24_pkgimp_override	new=0 gone=0 divP=28 divL=None
+OK	qf__f1_portlist_bodyimp	new=0 gone=0 divP=45 divL=None
+OK	qf__f2_portlist_hdrimp	new=0 gone=0 divP=45 divL=None
+OK	qf__f4_typeport	new=0 gone=0 divP=45 divL=None
+STAGE1	qf__f5_vec_portlist	pristine law
+OK	qf__f6_explicit_portlist	new=0 gone=0 divP=59 divL=None
+OK	qx__q04_flipview	new=0 gone=0 divP=31 divL=None
+== v11u133_cr11v125repro_worse.txt
+== v11u133_cr11v130repro_worse.txt
+== v11u133_cr11v131repro_worse.txt
+OK	pat__k10_port_default	new=0 gone=1 divP=None divL=None
+== v11u133_cv11u121repro_worse.txt

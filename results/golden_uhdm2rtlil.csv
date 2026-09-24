@@ -17,7 +17,7 @@ AluOps,default,CMP_EQUAL,,,equal
 always01,default,CMP_EQUAL,,,equal
 always02,default,CMP_EQUAL,,,equal
 always03,default,CMP_EQUAL,,,equal
-anon_struct_packed_dim,default,STRICT_NOTEQUAL,differ:fullname(49),,differ:fullname(49)
+anon_struct_packed_dim,default,STRICT_NOTEQUAL,differ:fullname(43),,differ:fullname(43)
 AnonStructs,default,CMP_EQUAL,,,equal
 AnonymousEnum,default,CMP_EQUAL,,,equal
 AnonymousUnion,default,CMP_EQUAL,,,equal
@@ -40,7 +40,7 @@ asgn_expr2,default,CMP_EQUAL,,,equal
 asgn_expr_sv,default,CMP_EQUAL,,,equal
 asicworld_clk_div_45,default,CMP_EQUAL,,,equal
 asicworld_serial_crc,default,CMP_EQUAL,,,equal
-assert_wide_const_cond,default,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
+assert_wide_const_cond,default,CMP_EQUAL,,,equal
 AssignArraySelPlus,default,CMP_EQUAL,,,equal
 AssignBitsCallToSubmoduleParameter,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 AssignBitSelectPartSelect,default,CMP_EQUAL,,,equal
@@ -76,7 +76,7 @@ BitsCallOnType,default,CMP_EQUAL,,,equal
 BitsCallOnVar,default,CMP_EQUAL,,,equal
 BitSelect,default,CMP_EQUAL,,,equal
 BitSelect2ndBitOfPattern,default,CMP_EQUAL,,,equal
-BitSelectOfParameterPassedToSubmodule,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+BitSelectOfParameterPassedToSubmodule,default,CMP_EQUAL,,,equal
 BitSelectOfParameterPassedToSubmoduleInGenFor,default,CMP_EQUAL,,,equal
 BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,default,CMP_EQUAL,,,equal
 BitSelectPartSelectInFunction,default,CMP_EQUAL,,,equal
@@ -179,7 +179,7 @@ DivisionOfSize,default,CMP_EQUAL,,,equal
 DotMultirange,default,CMP_EQUAL,,,equal
 DotRange,default,CMP_EQUAL,,,equal
 DpiChandle,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/DpiChandle/dut.sv:12:11: error: invalid operands to binary expression ('chandle' and 'int'),,
-dyn_field_select,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+dyn_field_select,default,CMP_EQUAL,,,equal
 dyn_packed_multidim,default,CMP_EQUAL,,,equal
 dynslice,default,CMP_EQUAL,,,equal
 empty_port_connection,default,STRICT_NOTEQUAL,differ:line(1),,differ:line(1)
@@ -206,8 +206,8 @@ expr_width_cast,default,STRICT_NOTEQUAL,differ:col(12),,differ:col(12)
 ExpressionInIndex,default,CMP_EQUAL,,,equal
 fail_detect_width,default,CMP_EQUAL,,,equal
 ff_conditional_reset,default,CMP_EQUAL,,,equal
-ff_dead_both_branches,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
-ff_dead_guarded_reset,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+ff_dead_both_branches,default,CMP_EQUAL,,,equal
+ff_dead_guarded_reset,default,CMP_EQUAL,,,equal
 fib,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/fib/dut.sv:55:27: error: reference to non-constant variable 'off' is not allowed in a constant expres,,
 fib_initial,default,CMP_EQUAL,,,equal
 fib_recursion,default,CMP_EQUAL,,,equal
@@ -326,7 +326,7 @@ ibex_register_file_fpga,default,CMP_EQUAL,,,equal
 ibex_register_file_latch,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_register_file_latch.sv:71:3: error: unknown module 'prim_clock_gating',,
 ibex_top,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,
 ibex_top_tracing,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top_tracing.sv:47:10: error: unknown class or package 'prim_ram_1p_pkg',,
-ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(44),,differ:fullname(44)
+ibex_tracer,default,STRICT_NOTEQUAL,differ:fullname(87),,differ:fullname(87)
 ibex_wb_stage,default,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 iface_arr_struct_field_partsel,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 iface_arr_struct_whole_field,default,CMP_EQUAL,,,equal
@@ -520,7 +520,7 @@ NestedParamSubstitution,default,CMP_EQUAL,,,equal
 NestedPatternPassedAsPort,default,CMP_EQUAL,,,equal
 NestedSelectOnInputPortInGenscope,default,CMP_EQUAL,,,equal
 NestedSelectOnVarInGenscope,default,CMP_EQUAL,,,equal
-NestedStructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+NestedStructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 net_types,default,CMP_EQUAL,,,equal
 OneAlwaysComb,default,CMP_EQUAL,,,equal
 OneArithShift,default,CMP_EQUAL,,,equal
@@ -557,16 +557,16 @@ param_name_collision_typeparam,default,STRICT_NOTEQUAL,differ:fullname(8),,diffe
 param_nested_struct_field_width,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 param_no_default,default,CMP_EQUAL,,,equal
 param_packed_array_subst,default,CMP_EQUAL,,,equal
-param_struct_field_bitsel,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+param_struct_field_bitsel,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 param_test,default,CMP_EQUAL,,,equal
 param_type_logic_width,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
-param_unpacked_struct_array,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+param_unpacked_struct_array,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 param_x_default,default,CMP_EQUAL,,,equal
 ParameterColonReference,default,STRICT_NOTEQUAL,differ:count(0),,differ:count(0)
 ParameterConditionalAssignment,default,CMP_EQUAL,,,equal
 ParameterDoubleUnderscoreInSvFrontend,default,CMP_EQUAL,,,equal
 ParameterFromPkgInNestedModule,default,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
-ParameterFromPkgOnParameterPortList,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+ParameterFromPkgOnParameterPortList,default,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
 ParameterInGenScopeInitializedWithLongConstant,default,CMP_EQUAL,,,equal
 ParameterInitializationWithNegation,default,CMP_EQUAL,,,equal
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,default,CMP_EQUAL,,,equal
@@ -593,7 +593,7 @@ ParameterUnpackedLogicArray,default,CMP_EQUAL,,,equal
 ParameterUnsignedInt,default,CMP_EQUAL,,,equal
 ParameterWithUnderscoreValue,default,CMP_EQUAL,,,equal
 ParameterWithUnderscoreValueDivided,default,CMP_EQUAL,,,equal
-ParameterWithUnderscoreValueDividedPassedFromCommandLine,default,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+ParameterWithUnderscoreValueDividedPassedFromCommandLine,default,CMP_EQUAL,,,equal
 paramod_genscope_child,default,CMP_EQUAL,,,equal
 paramod_struct_param,default,CMP_EQUAL,,,equal
 partsel_simple,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
@@ -727,7 +727,7 @@ struct_access,default,CMP_EQUAL,,,equal
 struct_array,default,CMP_EQUAL,,,equal
 struct_array_indexed_write,default,CMP_EQUAL,,,equal
 struct_array_member_partsel,default,CMP_EQUAL,,,equal
-struct_dynamic_range,default,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
+struct_dynamic_range,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 struct_field_self_guard,default,CMP_EQUAL,,,equal
 struct_init_partial_write,default,CMP_EQUAL,,,equal
 struct_little_endian_bit_array,default,CMP_EQUAL,,,equal
@@ -739,9 +739,9 @@ struct_param_dim,default,CMP_EQUAL,,,equal
 struct_param_field_shift,default,STRICT_NOTEQUAL,differ:col(43),,differ:col(43)
 struct_param_func_arg,default,CMP_EQUAL,,,equal
 struct_param_func_config,default,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
-struct_param_func_loop,default,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
-struct_param_pattern_packing,default,STRICT_NOTEQUAL,differ:endcol(4),,differ:endcol(4)
-struct_param_repl_count,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+struct_param_func_loop,default,CMP_EQUAL,,,equal
+struct_param_pattern_packing,default,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+struct_param_repl_count,default,STRICT_NOTEQUAL,differ:col(1),,differ:col(1)
 struct_part_select_write,default,CMP_EQUAL,,,equal
 struct_pat_fill,default,CMP_EQUAL,,,equal
 struct_pattern_loop,default,CMP_EQUAL,,,equal
@@ -750,7 +750,7 @@ struct_pattern_procedural,default,CMP_EQUAL,,,equal
 struct_sizebits,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_sizebits/dut.sv:40:35: error: invalid argument type 'logic' to system function,,
 struct_typedef_packed_array,default,CMP_EQUAL,,,equal
 struct_unpacked_array_member,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_unpacked_array_member/dut.sv:9:19: error: packed members must be of integral type (not 'bit[7:,,
-StructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+StructArrayParameterInitializedByPatternPassedAsPort,default,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 StructInPackage,default,CMP_EQUAL,,,equal
 StructLocalParam,default,STRICT_NOTEQUAL,differ:count(0),,differ:count(0)
 StructMemberAsModuleInput,default,CMP_EQUAL,,,equal
@@ -888,7 +888,7 @@ AluOps,testflags,CMP_EQUAL,,,equal
 always01,testflags,CMP_EQUAL,,,equal
 always02,testflags,CMP_EQUAL,,,equal
 always03,testflags,CMP_EQUAL,,,equal
-anon_struct_packed_dim,testflags,STRICT_NOTEQUAL,differ:fullname(49),,differ:fullname(49)
+anon_struct_packed_dim,testflags,STRICT_NOTEQUAL,differ:fullname(43),,differ:fullname(43)
 AnonStructs,testflags,CMP_EQUAL,,,equal
 AnonymousEnum,testflags,CMP_EQUAL,,,equal
 AnonymousUnion,testflags,CMP_EQUAL,,,equal
@@ -911,7 +911,7 @@ asgn_expr2,testflags,CMP_EQUAL,,,equal
 asgn_expr_sv,testflags,CMP_EQUAL,,,equal
 asicworld_clk_div_45,testflags,CMP_EQUAL,,,equal
 asicworld_serial_crc,testflags,CMP_EQUAL,,,equal
-assert_wide_const_cond,testflags,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
+assert_wide_const_cond,testflags,CMP_EQUAL,,,equal
 AssignArraySelPlus,testflags,CMP_EQUAL,,,equal
 AssignBitsCallToSubmoduleParameter,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 AssignBitSelectPartSelect,testflags,CMP_EQUAL,,,equal
@@ -947,7 +947,7 @@ BitsCallOnType,testflags,CMP_EQUAL,,,equal
 BitsCallOnVar,testflags,CMP_EQUAL,,,equal
 BitSelect,testflags,CMP_EQUAL,,,equal
 BitSelect2ndBitOfPattern,testflags,CMP_EQUAL,,,equal
-BitSelectOfParameterPassedToSubmodule,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+BitSelectOfParameterPassedToSubmodule,testflags,CMP_EQUAL,,,equal
 BitSelectOfParameterPassedToSubmoduleInGenFor,testflags,CMP_EQUAL,,,equal
 BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,testflags,CMP_EQUAL,,,equal
 BitSelectPartSelectInFunction,testflags,CMP_EQUAL,,,equal
@@ -1050,7 +1050,7 @@ DivisionOfSize,testflags,CMP_EQUAL,,,equal
 DotMultirange,testflags,CMP_EQUAL,,,equal
 DotRange,testflags,CMP_EQUAL,,,equal
 DpiChandle,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/DpiChandle/dut.sv:12:11: error: invalid operands to binary expression ('chandle' and 'int'),,
-dyn_field_select,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
+dyn_field_select,testflags,CMP_EQUAL,,,equal
 dyn_packed_multidim,testflags,CMP_EQUAL,,,equal
 dynslice,testflags,CMP_EQUAL,,,equal
 empty_port_connection,testflags,STRICT_NOTEQUAL,differ:line(1),,differ:line(1)
@@ -1077,8 +1077,8 @@ expr_width_cast,testflags,STRICT_NOTEQUAL,differ:col(12),,differ:col(12)
 ExpressionInIndex,testflags,CMP_EQUAL,,,equal
 fail_detect_width,testflags,CMP_EQUAL,,,equal
 ff_conditional_reset,testflags,CMP_EQUAL,,,equal
-ff_dead_both_branches,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
-ff_dead_guarded_reset,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+ff_dead_both_branches,testflags,CMP_EQUAL,,,equal
+ff_dead_guarded_reset,testflags,CMP_EQUAL,,,equal
 fib,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/fib/dut.sv:55:27: error: reference to non-constant variable 'off' is not allowed in a constant expres,,
 fib_initial,testflags,CMP_EQUAL,,,equal
 fib_recursion,testflags,CMP_EQUAL,,,equal
@@ -1197,7 +1197,7 @@ ibex_register_file_fpga,testflags,CMP_EQUAL,,,equal
 ibex_register_file_latch,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_register_file_latch.sv:71:3: error: unknown module 'prim_clock_gating',,
 ibex_top,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top.sv:68:10: error: unknown class or package 'prim_ram_1p_pkg',,
 ibex_top_tracing,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/ibex/rtl/ibex_top_tracing.sv:47:10: error: unknown class or package 'prim_ram_1p_pkg',,
-ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(44),,differ:fullname(44)
+ibex_tracer,testflags,STRICT_NOTEQUAL,differ:fullname(87),,differ:fullname(87)
 ibex_wb_stage,testflags,STRICT_NOTEQUAL,differ:fullname(2),,differ:fullname(2)
 iface_arr_struct_field_partsel,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 iface_arr_struct_whole_field,testflags,CMP_EQUAL,,,equal
@@ -1391,7 +1391,7 @@ NestedParamSubstitution,testflags,CMP_EQUAL,,,equal
 NestedPatternPassedAsPort,testflags,CMP_EQUAL,,,equal
 NestedSelectOnInputPortInGenscope,testflags,CMP_EQUAL,,,equal
 NestedSelectOnVarInGenscope,testflags,CMP_EQUAL,,,equal
-NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+NestedStructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 net_types,testflags,CMP_EQUAL,,,equal
 OneAlwaysComb,testflags,CMP_EQUAL,,,equal
 OneArithShift,testflags,CMP_EQUAL,,,equal
@@ -1428,16 +1428,16 @@ param_name_collision_typeparam,testflags,STRICT_NOTEQUAL,differ:fullname(8),,dif
 param_nested_struct_field_width,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
 param_no_default,testflags,CMP_EQUAL,,,equal
 param_packed_array_subst,testflags,CMP_EQUAL,,,equal
-param_struct_field_bitsel,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+param_struct_field_bitsel,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 param_test,testflags,CMP_EQUAL,,,equal
 param_type_logic_width,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
-param_unpacked_struct_array,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+param_unpacked_struct_array,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 param_x_default,testflags,CMP_EQUAL,,,equal
 ParameterColonReference,testflags,STRICT_NOTEQUAL,differ:count(0),,differ:count(0)
 ParameterConditionalAssignment,testflags,CMP_EQUAL,,,equal
 ParameterDoubleUnderscoreInSvFrontend,testflags,CMP_EQUAL,,,equal
 ParameterFromPkgInNestedModule,testflags,STRICT_NOTEQUAL,differ:fullname(7),,differ:fullname(7)
-ParameterFromPkgOnParameterPortList,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+ParameterFromPkgOnParameterPortList,testflags,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
 ParameterInGenScopeInitializedWithLongConstant,testflags,CMP_EQUAL,,,equal
 ParameterInitializationWithNegation,testflags,CMP_EQUAL,,,equal
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,testflags,CMP_EQUAL,,,equal
@@ -1464,7 +1464,7 @@ ParameterUnpackedLogicArray,testflags,CMP_EQUAL,,,equal
 ParameterUnsignedInt,testflags,CMP_EQUAL,,,equal
 ParameterWithUnderscoreValue,testflags,CMP_EQUAL,,,equal
 ParameterWithUnderscoreValueDivided,testflags,CMP_EQUAL,,,equal
-ParameterWithUnderscoreValueDividedPassedFromCommandLine,testflags,STRICT_NOTEQUAL,differ:file(2),,differ:file(2)
+ParameterWithUnderscoreValueDividedPassedFromCommandLine,testflags,CMP_EQUAL,,,equal
 paramod_genscope_child,testflags,CMP_EQUAL,,,equal
 paramod_struct_param,testflags,CMP_EQUAL,,,equal
 partsel_simple,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
@@ -1598,7 +1598,7 @@ struct_access,testflags,CMP_EQUAL,,,equal
 struct_array,testflags,CMP_EQUAL,,,equal
 struct_array_indexed_write,testflags,CMP_EQUAL,,,equal
 struct_array_member_partsel,testflags,CMP_EQUAL,,,equal
-struct_dynamic_range,testflags,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
+struct_dynamic_range,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 struct_field_self_guard,testflags,CMP_EQUAL,,,equal
 struct_init_partial_write,testflags,CMP_EQUAL,,,equal
 struct_little_endian_bit_array,testflags,CMP_EQUAL,,,equal
@@ -1610,9 +1610,9 @@ struct_param_dim,testflags,CMP_EQUAL,,,equal
 struct_param_field_shift,testflags,STRICT_NOTEQUAL,differ:col(43),,differ:col(43)
 struct_param_func_arg,testflags,CMP_EQUAL,,,equal
 struct_param_func_config,testflags,STRICT_NOTEQUAL,differ:line(5),,differ:line(5)
-struct_param_func_loop,testflags,STRICT_NOTEQUAL,differ:fullname(6),,differ:fullname(6)
-struct_param_pattern_packing,testflags,STRICT_NOTEQUAL,differ:endcol(4),,differ:endcol(4)
-struct_param_repl_count,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
+struct_param_func_loop,testflags,CMP_EQUAL,,,equal
+struct_param_pattern_packing,testflags,STRICT_NOTEQUAL,differ:line(2),,differ:line(2)
+struct_param_repl_count,testflags,STRICT_NOTEQUAL,differ:col(1),,differ:col(1)
 struct_part_select_write,testflags,CMP_EQUAL,,,equal
 struct_pat_fill,testflags,CMP_EQUAL,,,equal
 struct_pattern_loop,testflags,CMP_EQUAL,,,equal
@@ -1621,7 +1621,7 @@ struct_pattern_procedural,testflags,CMP_EQUAL,,,equal
 struct_sizebits,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_sizebits/dut.sv:40:35: error: invalid argument type 'logic' to system function,,
 struct_typedef_packed_array,testflags,CMP_EQUAL,,,equal
 struct_unpacked_array_member,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/struct_unpacked_array_member/dut.sv:9:19: error: packed members must be of integral type (not 'bit[7:,,
-StructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:depth(1),,differ:depth(1)
+StructArrayParameterInitializedByPatternPassedAsPort,testflags,STRICT_NOTEQUAL,differ:type(1),,differ:type(1)
 StructInPackage,testflags,CMP_EQUAL,,,equal
 StructLocalParam,testflags,STRICT_NOTEQUAL,differ:count(0),,differ:count(0)
 StructMemberAsModuleInput,testflags,CMP_EQUAL,,,equal
