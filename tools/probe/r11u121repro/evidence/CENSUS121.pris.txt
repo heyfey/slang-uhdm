@@ -1,0 +1,18 @@
+# r11u121 census (cen121.cpp) over the PRISTINE sweep databases: 2568 databases (surelog + uhdm2rtlil, both modes); all-zero rows omitted
+surelog/default/ApbSlave-d7e70938 TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=15
+surelog/default/PackStructField-9b438ed7 TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=2 PVR=0
+surelog/default/Scoreboard-72aa0ba8 TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=9
+surelog/testflags/ApbSlave-d7e70938 TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=15
+surelog/testflags/PackStructField-9b438ed7 TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=2 PVR=0
+uhdm2rtlil/default/arb_idx_cast-d091b554 TPI_G=2 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=0
+uhdm2rtlil/default/def_ctx_struct_param-b2c44da7 TPI_G=0 TPI_M=1 TPR=0 QSEL=0 QHP=0 PVR=0
+uhdm2rtlil/default/latch_decoder_partial-a91a0d0e TPI_G=0 TPI_M=1 TPR=0 QSEL=0 QHP=0 PVR=0
+uhdm2rtlil/default/latch_tlb_napot-58807a5d TPI_G=0 TPI_M=1 TPR=0 QSEL=0 QHP=0 PVR=0
+uhdm2rtlil/default/stamped_gen_param-63c47340 TPI_G=0 TPI_M=0 TPR=0 QSEL=1 QHP=0 PVR=0
+uhdm2rtlil/default/UnionParameter-35208a6d TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=2 PVR=0
+uhdm2rtlil/testflags/arb_idx_cast-d091b554 TPI_G=2 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=0
+uhdm2rtlil/testflags/def_ctx_struct_param-b2c44da7 TPI_G=0 TPI_M=1 TPR=0 QSEL=0 QHP=0 PVR=0
+uhdm2rtlil/testflags/latch_decoder_partial-a91a0d0e TPI_G=0 TPI_M=1 TPR=0 QSEL=0 QHP=0 PVR=0
+uhdm2rtlil/testflags/latch_tlb_napot-58807a5d TPI_G=0 TPI_M=1 TPR=0 QSEL=0 QHP=0 PVR=0
+uhdm2rtlil/testflags/stamped_gen_param-63c47340 TPI_G=0 TPI_M=0 TPR=0 QSEL=1 QHP=0 PVR=0
+uhdm2rtlil/testflags/UnionParameter-35208a6d TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=2 PVR=0

@@ -1,0 +1,16 @@
+=== can_sl (pristine vs LAW output diff)
+34c34
+<   Earlgrey_0_1                   default   OK      CMP_EQUAL/differ
+---
+>   Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+60c60
+< ---- canary rows: ok=42 changed=10 absent=0 unknown-names=7
+---
+> ---- canary rows: ok=41 changed=11 absent=0 unknown-names=7
+---- canary rows: ok=41 changed=11 absent=0 unknown-names=7
+=== can_u2r (pristine vs LAW output diff)
+---- canary rows: ok=12 changed=4 absent=0 unknown-names=25
+=== ct_sl (pristine vs LAW output diff)
+---- ctcan2 rows: ok=40 changed=18 absent=0 unknown-patterns=1
+=== ct_u2r (pristine vs LAW output diff)
+---- ctcan2 rows: ok=0 changed=2 absent=0 unknown-patterns=6

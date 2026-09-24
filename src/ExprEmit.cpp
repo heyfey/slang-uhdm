@@ -1927,6 +1927,21 @@ bool UhdmExporter::isPkgQualifiedVarRef(const Expression& e) {
     if (pkgViewVarObjs9.count(&nv0.symbol))
         return false;
     std::string pn0(psc0->asSymbol().name);
+    // § pkgQualVarRefSpacedName121 (r11u121) — the WRITTEN qualifier is the
+    // gate, whatever whitespace the author put around `::`: golden names
+    // `p :: longer_name` `p::longer_name` exactly like the unspaced spelling
+    // (tools/probe/r11u121repro/grid/v/v11_longname, both producers), where
+    // the raw-prefix test fell through to a bare `longer_name` ref.
+    // `R11U121_OFF=1` / `R11U121_PVSP_OFF=1` drop it.
+    static const bool offSp121 = getenv("R11U121_OFF") != nullptr ||
+                                 getenv("R11U121_PVSP_OFF") != nullptr;
+    if (!offSp121) {
+        std::string w121;
+        for (char c121 : rawText(e.sourceRange))
+            if (!isspace((unsigned char)c121))
+                w121 += c121;
+        return w121.rfind(pn0 + "::", 0) == 0;
+    }
     return rawText(e.sourceRange).rfind(pn0 + "::", 0) == 0;
 }
 
@@ -14450,6 +14465,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 qr9->VpiFullName(joinPath(prefix, nm9));
                 qr9->VpiParent(parent);
                 setLoc(qr9, expr.sourceRange);
+                // § pkgQualVarRefScopeSpan121 (r11u121, residue R5 of pass
+                // 118) — the READ spans the PACKAGE SCOPE alone: from the
+                // package name through the `::` separator, never the variable
+                // name.  Surelog's package-scope arm populates the ref from
+                // the `Package_scope` node (CompileExpression.cpp:2717-2830,
+                // `populateCoreMembers(child, child, ...)`).  MEASURED
+                // (tools/probe/r11u121repro/grid/v, both producers):
+                // `mask_pkg::v` 6:14-6:24, `p::longer_name` 5:14-5:17,
+                // `p :: longer_name` 6:14-6:18, in a ternary, direct, under
+                // a select (erased), `+`, always_comb, an unpacked element.
+                // The one-character name `v` made the old whole-name span look
+                // "off by one".  An assignment TARGET keeps the whole name
+                // (the `@@BAD_SYMBOL@@` placeholder, unmeasured here).
+                // `R11U121_OFF=1` / `R11U121_PVSPAN_OFF=1` drop it.
+                {
+                    static const bool offSpan121 =
+                        getenv("R11U121_OFF") != nullptr ||
+                        getenv("R11U121_PVSPAN_OFF") != nullptr;
+                    // The written text is read (a select's base NamedValue
+                    // carries no ScopedName syntax of its own): the span ends
+                    // right after the FIRST `::`.
+                    if (!offSpan121 && !inLhs) {
+                        std::string t121 = rawText(expr.sourceRange);
+                        auto c121 = t121.find("::");
+                        if (c121 != std::string::npos)
+                            setLoc(qr9, SourceRange(expr.sourceRange.start(),
+                                                    expr.sourceRange.start() +
+                                                        (c121 + 2)));
+                    }
+                }
                 if (!inLhs)
                     if (auto pa9 = pkgVarObjsAll9.find(&nv.symbol);
                         pa9 != pkgVarObjsAll9.end())
@@ -21855,6 +21900,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return (UHDM::any*)sc0;
             };
             UHDM::typespec* cts = nullptr;
+            // § genScopeTypeParamCastTs121 — set when the cast target is the
+            // enclosing instance's type-parameter typespec (a SHARED object):
+            // the wrap below must not re-parent it at this cast's ref.
+            bool tpShared121 = false;
             // Size casts ("4'(x)") carry an integer_typespec at the size
             // literal; type casts use the target type's typespec.
             if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::SignedCastExpression) {
@@ -22179,6 +22228,72 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             utsU->Instance(hi170);
                     }
                     cts = utsU;
+                }
+                // § genScopeTypeParamCastTs121 (r11u121) — IN AN ELABORATED
+                // GENERATE SCOPE, A CAST TO THE INSTANCE'S TYPE PARAMETER THAT
+                // KEEPS NO PLACEHOLDER TAKES THE PARAMETER'S OWN TYPESPEC.
+                // Surelog: the `paCast` arm (CompileExpression.cpp:2659-2710)
+                // files the gen-scope target as an `unsupported_typespec` and
+                // queues the operation for late binding; the elaborated
+                // copies that golden RESOLVES carry, as their ref_typespec's
+                // actual, the SAME object the instance's `type_parameter`
+                // (and every declaration typed by it: the port, the
+                // variables) points at — per instance, so an override
+                // `#(.idx_t(logic [3:0]))` gives that instance's override
+                // object.  MEASURED on real goldens of both producers (v1.87
+                // pin and uhdm2rtlil's v1.87-5 with -DSYNTHESIS,
+                // tools/probe/r11u121repro/grid/t): a loop generate's
+                // cont_assign under a ternary (t07, t10, t16, t18, t19), an
+                // operation (t08, t17), a concat (t09), as a ternary
+                // condition (t20); the if-in-for else branch (t13 = the
+                // corpus row arb_idx_cast.sv:31-32); every gen-scope PROCESS
+                // (t11, t12 loop; t15 if-generate); target types logic
+                // [W-1:0] / [0:0] / [3:0] / [W+1:0] / signed / 2-D packed,
+                // bit [2:0], byte, int (t2x).  Where golden keeps the
+                // placeholder (§ genCaTypeParamCastUnsupported113 and its
+                // 115 extensions) `cts` is already bound and this law does
+                // not run.  We minted a value-less `integer_typespec` at the
+                // name token (the name bound as an EXPRESSION fails), which
+                // the judge never sees here (golden's object is compared
+                // first through the port / type_parameter and the visit set
+                // keys on it) but uhdm2rtlil reads: its cast import
+                // (expression.cpp ~6060-6230, `get_width_from_typespec`)
+                // sizes an empty integer_typespec at 32 bits and wraps the
+                // operand in a `$pos` (`$auto$expression.cpp:6227:
+                // import_operation`) plus a 32-bit mux where golden's
+                // 2-bit logic_typespec yields a 2-bit mux (arb_idx_cast
+                // downstream EQUIVALENT -> IDENTICAL).
+                // `R11U121_OFF=1` / `R11U121_TPGS_OFF=1` drop it.
+                {
+                    static const bool offGs121 =
+                        getenv("R11U121_OFF") != nullptr ||
+                        getenv("R11U121_TPGS_OFF") != nullptr;
+                    if (!offGs121 && !cts && !defGenProcessEmit &&
+                        !dpiOwnTdCast170 && castSiteScope57 &&
+                        (inGenScopeCaRhs || inGenScopeProc) &&
+                        cesyn.left->kind ==
+                            syntax::SyntaxKind::IdentifierName) {
+                        std::string nm121(
+                            cesyn.left->as<syntax::IdentifierNameSyntax>()
+                                .identifier.valueText());
+                        auto* sy121 =
+                            Lookup::unqualified(*castSiteScope57, nm121);
+                        const TypeParameterSymbol* tp121 =
+                            sy121 && sy121->kind == SymbolKind::TypeAlias
+                                ? typeParamOfAlias(sy121->as<TypeAliasType>())
+                                : nullptr;
+                        const Scope* tph121 =
+                            tp121 ? tp121->getParentScope() : nullptr;
+                        if (tph121 &&
+                            tph121->asSymbol().kind ==
+                                SymbolKind::InstanceBody)
+                            if (auto it121 = typeParamElabTs.find(tp121);
+                                it121 != typeParamElabTs.end() &&
+                                it121->second) {
+                                cts = it121->second;
+                                tpShared121 = true;
+                            }
+                    }
                 }
                 if (cts) {
                     // Bound above; the shared ref_typespec wrap emits it.
@@ -23336,9 +23451,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             for (auto& [ct9, cu9] : castUnionClone)
                 if (cu9 == cts)
                     castUnion9 = true;
-            if (reemitting || castUnion9 ||
+            if (!tpShared121 && (reemitting || castUnion9 ||
                 (importedInitPkgInst &&
-                 cts->UhdmType() == UHDM::uhdminteger_typespec))
+                 cts->UhdmType() == UHDM::uhdminteger_typespec)))
                 cts->VpiParent(rt);
             op->Typespec(rt);
             auto* operands = s.MakeAnyVec();
@@ -29640,6 +29755,75 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // var_select elements carrying the index).
             if (auto* thp = emitThisPathSelectErased(expr, parent, prefix))
                 return thp;
+            // § pkgQualParamMemberSelErased121 (r11u121, residue R3 of pass
+            // 118) — A SELECT ON A MEMBER OF A QUALIFIED PACKAGE PARAMETER IS
+            // ERASED: `pkg::CFG.f[3:0]`, `pkg::CFG.f[2]`, `pkg::CFG.f[k]`,
+            // `pkg::CFG.f[k +: 2]` all read as the bare member `pkg::CFG.f`.
+            // Surelog compiles the qualified name through the dotted-name
+            // builder (`compileComplexFuncCall`, CompileExpression.cpp
+            // ~5500-5620: a `pkg::` scope hands the select node to the
+            // package-scope arm, :2717-2760, which substitutes only in
+            // elaboration mode), so the DEFINITION view is the hier_path
+            // [ref_obj `pkg::CFG` bound to the package parameter, ref_obj `f`
+            // (fullname `<scope>.f`)] with an EMPTY name, the scope's
+            // fullname and the WHOLE written span, and the ELABORATED view
+            // is the member's value constant -- exactly what the no-select
+            // spelling already emits.  MEASURED (tools/probe/r11u121repro/
+            // grid/s, both producers): s01-s03, s05-s07, s10-s12 (ternary,
+            // direct, bit / variable / indexed / part select, always_comb,
+            // under `+`, in a generate loop).  The IMPORTED spelling (s08)
+            // keeps the select in golden and is not touched (the WRITTEN
+            // qualifier is the gate, § pkgWrittenQualSelBase41); a module
+            // localparam (s09) is not a package parameter.  We named the path
+            // `CFG.f[3:0]`, left the base unbound and kept the select, which
+            // uhdm2rtlil evaluated as `000x` (downstream DIVERGENT; golden
+            // reads the whole member).  `R11U121_OFF=1` /
+            // `R11U121_QMSEL_OFF=1` drop it.
+            {
+                static const bool offQm121 =
+                    getenv("R11U121_OFF") != nullptr ||
+                    getenv("R11U121_QMSEL_OFF") != nullptr;
+                // Every select step is erased: peel the whole select run
+                // (`pkg::IMPL.UnitTypes[0][2]`, grid s13) down to the member.
+                const Expression* qv121 = &stripImplicitConv(es.value());
+                for (int g121 = 0; g121 < 16; ++g121) {
+                    if (qv121->kind == ExpressionKind::ElementSelect)
+                        qv121 = &stripImplicitConv(
+                            qv121->as<ElementSelectExpression>().value());
+                    else if (qv121->kind == ExpressionKind::RangeSelect)
+                        qv121 = &stripImplicitConv(
+                            qv121->as<RangeSelectExpression>().value());
+                    else
+                        break;
+                }
+                const Expression* qb121 = qv121;
+                while (qb121->kind == ExpressionKind::MemberAccess)
+                    qb121 = &stripImplicitConv(
+                        qb121->as<MemberAccessExpression>().value());
+                // § pkgQualParamMemberSelParamInitKeeps121v (verifier
+                // v11u121) — a PARAMETER INITIALIZER keeps the select:
+                // golden's module `localparam L = cp::CFG.f[3:0]` /
+                // `parameter P = cp::CFG.f[3:0]` / `cp::CFG.f[3:0] + 1`
+                // param_assign Rhs is the hier_path `cp::CFG.f[3:0]`
+                // holding a part_select `f` (tools/probe/v11u121repro, arms
+                // b1, b10, b16), which the erasure moved away from.
+                // `R11U121_OFF=1` / `R11U121_QMSELPI_OFF=1` drop it.
+                static const bool offQmPi121 =
+                    getenv("R11U121_OFF") != nullptr ||
+                    getenv("R11U121_QMSELPI_OFF") != nullptr;
+                if (!offQm121 && !inLhs && (offQmPi121 || !inParamInit) &&
+                    qv121->kind == ExpressionKind::MemberAccess &&
+                    qb121->kind == ExpressionKind::NamedValue &&
+                    qb121->as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter &&
+                    !pkgWrittenQualSelBase41(*qb121).empty()) {
+                    UHDM::any* r121 = emitExpr(*qv121, parent, prefix, netMap);
+                    if (r121 && r121->UhdmType() == UHDM::uhdmhier_path)
+                        setLoc(r121, expr.sourceRange);
+                    if (r121)
+                        return r121;
+                }
+            }
             // Selects on member access become hier_paths whose last element
             // is the select object (lazily-frozen fullname).
             const Expression* esBottom = &es.value();
@@ -31090,6 +31274,75 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // the compiler REDUCED by its VALUE, not by its spelling.
                     hpNameBareIdxFold69(hp);
                     return hp;
+                }
+            }
+            // § pkgQualParamMemberSelErased121 (r11u121, residue R3 of pass
+            // 118) — A SELECT ON A MEMBER OF A QUALIFIED PACKAGE PARAMETER IS
+            // ERASED: `pkg::CFG.f[3:0]`, `pkg::CFG.f[2]`, `pkg::CFG.f[k]`,
+            // `pkg::CFG.f[k +: 2]` all read as the bare member `pkg::CFG.f`.
+            // Surelog compiles the qualified name through the dotted-name
+            // builder (`compileComplexFuncCall`, CompileExpression.cpp
+            // ~5500-5620: a `pkg::` scope hands the select node to the
+            // package-scope arm, :2717-2760, which substitutes only in
+            // elaboration mode), so the DEFINITION view is the hier_path
+            // [ref_obj `pkg::CFG` bound to the package parameter, ref_obj `f`
+            // (fullname `<scope>.f`)] with an EMPTY name, the scope's
+            // fullname and the WHOLE written span, and the ELABORATED view
+            // is the member's value constant -- exactly what the no-select
+            // spelling already emits.  MEASURED (tools/probe/r11u121repro/
+            // grid/s, both producers): s01-s03, s05-s07, s10-s12 (ternary,
+            // direct, bit / variable / indexed / part select, always_comb,
+            // under `+`, in a generate loop).  The IMPORTED spelling (s08)
+            // keeps the select in golden and is not touched (the WRITTEN
+            // qualifier is the gate, § pkgWrittenQualSelBase41); a module
+            // localparam (s09) is not a package parameter.  We named the path
+            // `CFG.f[3:0]`, left the base unbound and kept the select, which
+            // uhdm2rtlil evaluated as `000x` (downstream DIVERGENT; golden
+            // reads the whole member).  `R11U121_OFF=1` /
+            // `R11U121_QMSEL_OFF=1` drop it.
+            {
+                static const bool offQm121 =
+                    getenv("R11U121_OFF") != nullptr ||
+                    getenv("R11U121_QMSEL_OFF") != nullptr;
+                // Every select step is erased: peel the whole select run
+                // (`pkg::IMPL.UnitTypes[0][2]`, grid s13) down to the member.
+                const Expression* qv121 = &stripImplicitConv(rs.value());
+                for (int g121 = 0; g121 < 16; ++g121) {
+                    if (qv121->kind == ExpressionKind::ElementSelect)
+                        qv121 = &stripImplicitConv(
+                            qv121->as<ElementSelectExpression>().value());
+                    else if (qv121->kind == ExpressionKind::RangeSelect)
+                        qv121 = &stripImplicitConv(
+                            qv121->as<RangeSelectExpression>().value());
+                    else
+                        break;
+                }
+                const Expression* qb121 = qv121;
+                while (qb121->kind == ExpressionKind::MemberAccess)
+                    qb121 = &stripImplicitConv(
+                        qb121->as<MemberAccessExpression>().value());
+                // § pkgQualParamMemberSelParamInitKeeps121v (verifier
+                // v11u121) — a PARAMETER INITIALIZER keeps the select:
+                // golden's module `localparam L = cp::CFG.f[3:0]` /
+                // `parameter P = cp::CFG.f[3:0]` / `cp::CFG.f[3:0] + 1`
+                // param_assign Rhs is the hier_path `cp::CFG.f[3:0]`
+                // holding a part_select `f` (tools/probe/v11u121repro, arms
+                // b1, b10, b16), which the erasure moved away from.
+                // `R11U121_OFF=1` / `R11U121_QMSELPI_OFF=1` drop it.
+                static const bool offQmPi121 =
+                    getenv("R11U121_OFF") != nullptr ||
+                    getenv("R11U121_QMSELPI_OFF") != nullptr;
+                if (!offQm121 && !inLhs && (offQmPi121 || !inParamInit) &&
+                    qv121->kind == ExpressionKind::MemberAccess &&
+                    qb121->kind == ExpressionKind::NamedValue &&
+                    qb121->as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter &&
+                    !pkgWrittenQualSelBase41(*qb121).empty()) {
+                    UHDM::any* r121 = emitExpr(*qv121, parent, prefix, netMap);
+                    if (r121 && r121->UhdmType() == UHDM::uhdmhier_path)
+                        setLoc(r121, expr.sourceRange);
+                    if (r121)
+                        return r121;
                 }
             }
             // Range select of a member access (a.b[0+:8]) becomes a hier_path

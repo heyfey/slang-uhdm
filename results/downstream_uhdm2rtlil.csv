@@ -23,7 +23,7 @@ AnonymousEnum,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 AnonymousUnion,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 anyconst_attr,IDENTICAL,OK,OK,32,32,,
 anyseq_attr,IDENTICAL,OK,OK,32,32,,
-arb_idx_cast,EQUIVALENT,OK,OK,11,11,nohier il synth,✅ Formal equivalence check PASSED for /tmp/ds_rebase/arb_idx_cast/equiv/arb_idx_cast
+arb_idx_cast,IDENTICAL,OK,OK,11,11,,
 ArithShiftTernary,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 array-copy,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 array_assign,IDENTICAL,NO_GATES,NO_GATES,0,0,,

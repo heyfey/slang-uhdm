@@ -1,0 +1,10 @@
+# switch drops on the FIX binary (bytecmp.sh, both forms, rc + bytes)
+R11U121_OFF=1 (FIX) vs pristine binary, 178 arm dirs (this dir's 41 arms, r11u121's 83 grid arms, the 51 boundary movers, 3 copies): PROCESSED=356 SAME=356 DIFF=0
+R11U121_QMSELPI_OFF=1 (FIX) vs the submitted LAW binary, same 178: PROCESSED=356 SAME=356 DIFF=0
+FIX vs LAW with no switch, r11u121 grid (83) + this dir's arms: only B/b1, E/b10, E/b15, E/b16, E/b17 move (the parameter-initializer arms); every r11u121 grid arm byte-identical
+per switch on the FIX binary, this dir's 41 arms (+3 copies), movers:
+  R11U121_TPGS_OFF:    A/a2 a3 a4 a5 a7, F/a9 a10 a11 a12 a13, G/a14 a15 a16 (+ copy of t07)
+  R11U121_QMSEL_OFF:   B/b2 b3 b4 b5 b6 b7 b9, E/b17
+  R11U121_PVSPAN_OFF:  C/c1 c2 c3 c4 c5, D/d1 d2 d3
+  R11U121_PVSP_OFF:    D/d1 d2 d3
+  R11U121_QMSELPI_OFF: B/b1, E/b10 b15 b16 b17 (+ copies of k13, b20)

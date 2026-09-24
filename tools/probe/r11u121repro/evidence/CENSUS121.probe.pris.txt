@@ -1,0 +1,5 @@
+r10uvm26repro__t36a.uhdm TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=1
+r10uvm26repro__t36d.uhdm TPI_G=0 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=1
+r11u113repro__grid__c__c13_genif_comb.uhdm TPI_G=1 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=0
+r11u113repro__grid__c__c25_genfor_ternary_gvcast.uhdm TPI_G=4 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=0
+r11u113repro__grid__c__c27_genfor_ternary_plain.uhdm TPI_G=4 TPI_M=0 TPR=0 QSEL=0 QHP=0 PVR=0

@@ -1,0 +1,17 @@
+LISTED=5896 PROCESSED_FORMS=11792 SAME=11718 DIFF=74
+law movers (implementer BOUNDARY121.attr, 51) minus FIX movers (37) = the 14 parameter-initializer arms the fix restores to pristine bytes (both forms, checked 28/28 byte-identical to pristine):
+tools/probe/r11u108repro/grid/pk/k13_member_nested_stamp
+tools/probe/r11u111repro/grid/f3/k13_member_nested_stamp
+tools/probe/r11u114repro/grid/f1/a01
+tools/probe/r11u114repro/grid/f1/a30
+tools/probe/r11u117repro/grid/g1/g02
+tools/probe/r11u117repro/grid/g1/g03
+tools/probe/r11u117repro/grid/g1/g17
+tools/probe/r11u117repro/grid/g2/r11u108_pk_k13_member_nested_stamp
+tools/probe/r11u117repro/grid/g2/r11u111_f3_k13_member_nested_stamp
+tools/probe/r11u117repro/grid/g2/r11u114_f1_a01
+tools/probe/r11u117repro/grid/g2/r11u114_f1_a30
+tools/probe/v11u108repro/brk/f2/c22_gen_localparam_twice
+tools/probe/v11u117repro/grid/b20
+tools/probe/v11u117repro/grid/b52
+FIX movers not among the law's 51: 0

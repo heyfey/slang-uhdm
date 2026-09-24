@@ -1,0 +1,146 @@
+2c2
+< autoidx 27
+---
+> autoidx 31
+30c30,34
+<   wire width 2 $auto$rtlil.cc:3402:Mux$10
+---
+>   attribute \src "dut.sv:31.13-31.80"
+>   wire width 32 $auto$expression.cpp:6227:import_operation$9
+>   attribute \src "dut.sv:32.13-32.78"
+>   wire width 32 $auto$expression.cpp:6227:import_operation$11
+>   wire width 32 $auto$rtlil.cc:3402:Mux$14
+32,35c36,39
+<   wire $auto$rtlil.cc:3315:Or$12
+<   wire $auto$rtlil.cc:3267:Not$14
+<   wire $auto$rtlil.cc:3314:And$16
+<   wire $auto$rtlil.cc:3315:Or$18
+---
+>   wire $auto$rtlil.cc:3315:Or$16
+>   wire $auto$rtlil.cc:3267:Not$18
+>   wire $auto$rtlil.cc:3314:And$20
+>   wire $auto$rtlil.cc:3315:Or$22
+37,40c41,44
+<   wire $auto$rtlil.cc:3315:Or$20
+<   wire $auto$rtlil.cc:3267:Not$22
+<   wire $auto$rtlil.cc:3314:And$24
+<   wire $auto$rtlil.cc:3315:Or$26
+---
+>   wire $auto$rtlil.cc:3315:Or$24
+>   wire $auto$rtlil.cc:3267:Not$26
+>   wire $auto$rtlil.cc:3314:And$28
+>   wire $auto$rtlil.cc:3315:Or$30
+82,83c86,96
+<   cell $mux $mux$dut.sv:30$9
+<     parameter \WIDTH 2
+---
+>   cell $pos $auto$expression.cpp:6230:import_operation$10
+>     parameter \A_SIGNED 0
+>     parameter \A_WIDTH 2
+>     parameter \Y_WIDTH 32
+>     connect \A { 1'1 \index_nodes [4] }
+>     connect \Y $auto$expression.cpp:6227:import_operation$9
+>   end
+>   cell $pos $auto$expression.cpp:6230:import_operation$12
+>     parameter \A_SIGNED 0
+>     parameter \A_WIDTH 2
+>     parameter \Y_WIDTH 32
+85c98,103
+<     connect \B { 1'1 \index_nodes [4] }
+---
+>     connect \Y $auto$expression.cpp:6227:import_operation$11
+>   end
+>   cell $mux $mux$dut.sv:30$13
+>     parameter \WIDTH 32
+>     connect \A $auto$expression.cpp:6227:import_operation$11
+>     connect \B $auto$expression.cpp:6227:import_operation$9
+87c105
+<     connect \Y $auto$rtlil.cc:3402:Mux$10
+---
+>     connect \Y $auto$rtlil.cc:3402:Mux$14
+90c108
+<   cell $or $or$dut.sv:24$11
+---
+>   cell $or $or$dut.sv:24$15
+98c116
+<     connect \Y $auto$rtlil.cc:3315:Or$12
+---
+>     connect \Y $auto$rtlil.cc:3315:Or$16
+101c119
+<   cell $not $not$dut.sv:25$13
+---
+>   cell $not $not$dut.sv:25$17
+106c124
+<     connect \Y $auto$rtlil.cc:3267:Not$14
+---
+>     connect \Y $auto$rtlil.cc:3267:Not$18
+109c127
+<   cell $and $and$dut.sv:25$15
+---
+>   cell $and $and$dut.sv:25$19
+117c135
+<     connect \Y $auto$rtlil.cc:3314:And$16
+---
+>     connect \Y $auto$rtlil.cc:3314:And$20
+120c138
+<   cell $or $or$dut.sv:25$17
+---
+>   cell $or $or$dut.sv:25$21
+126,128c144,146
+<     connect \A $auto$rtlil.cc:3267:Not$14
+<     connect \B $auto$rtlil.cc:3314:And$16
+<     connect \Y $auto$rtlil.cc:3315:Or$18
+---
+>     connect \A $auto$rtlil.cc:3267:Not$18
+>     connect \B $auto$rtlil.cc:3314:And$20
+>     connect \Y $auto$rtlil.cc:3315:Or$22
+131c149
+<   cell $or $or$dut.sv:24$19
+---
+>   cell $or $or$dut.sv:24$23
+139c157
+<     connect \Y $auto$rtlil.cc:3315:Or$20
+---
+>     connect \Y $auto$rtlil.cc:3315:Or$24
+142c160
+<   cell $not $not$dut.sv:25$21
+---
+>   cell $not $not$dut.sv:25$25
+147c165
+<     connect \Y $auto$rtlil.cc:3267:Not$22
+---
+>     connect \Y $auto$rtlil.cc:3267:Not$26
+150c168
+<   cell $and $and$dut.sv:25$23
+---
+>   cell $and $and$dut.sv:25$27
+158c176
+<     connect \Y $auto$rtlil.cc:3314:And$24
+---
+>     connect \Y $auto$rtlil.cc:3314:And$28
+161c179
+<   cell $or $or$dut.sv:25$25
+---
+>   cell $or $or$dut.sv:25$29
+167,169c185,187
+<     connect \A $auto$rtlil.cc:3267:Not$22
+<     connect \B $auto$rtlil.cc:3314:And$24
+<     connect \Y $auto$rtlil.cc:3315:Or$26
+---
+>     connect \A $auto$rtlil.cc:3267:Not$26
+>     connect \B $auto$rtlil.cc:3314:And$28
+>     connect \Y $auto$rtlil.cc:3315:Or$30
+173,175c191,193
+<   connect \index_nodes [1:0] $auto$rtlil.cc:3402:Mux$10
+<   connect \req_nodes [1] $auto$rtlil.cc:3315:Or$12
+<   connect \gen_levels[1].gen_level[0].sel $auto$rtlil.cc:3315:Or$18
+---
+>   connect \index_nodes [1:0] $auto$rtlil.cc:3402:Mux$14 [1:0]
+>   connect \req_nodes [1] $auto$rtlil.cc:3315:Or$16
+>   connect \gen_levels[1].gen_level[0].sel $auto$rtlil.cc:3315:Or$22
+177,178c195,196
+<   connect \req_nodes [2] $auto$rtlil.cc:3315:Or$20
+<   connect \gen_levels[1].gen_level[1].sel $auto$rtlil.cc:3315:Or$26
+---
+>   connect \req_nodes [2] $auto$rtlil.cc:3315:Or$24
+>   connect \gen_levels[1].gen_level[1].sel $auto$rtlil.cc:3315:Or$30

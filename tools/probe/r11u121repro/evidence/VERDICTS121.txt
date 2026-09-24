@@ -1,0 +1,83 @@
+t01_mod_direct rc=0/0/4/4 cmp=82 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=82 ds=EQUIVALENT nohier il
+t02_mod_tern rc=0/0/4/4 cmp=82 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=82 ds=EQUIVALENT nohier il
+t03_mod_op rc=0/0/4/4 cmp=82 ds=EQUIVALENT nohier   => rc=0/0/4/4 cmp=82 ds=EQUIVALENT nohier
+t04_mod_comb rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier   => rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier
+t05_mod_combtern rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il
+t06_for_direct rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t07_for_tern rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t08_for_op rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier   => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t09_for_concat rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t10_for_ternconcat rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t11_for_comb rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier   => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t12_for_combtern rc=0/0/4/4 cmp=31 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=31 ds=IDENTICAL
+t13_ifinfor_tern rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t14_if_tern rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t15_if_comb rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier   => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t16_forfor_tern rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t17_for_opnest rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t18_for_ternnest rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t19_for_ternop rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t20_for_condonly rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier   => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t2x_for_tern_bit3 rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t2x_for_tern_byte rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t2x_for_tern_int rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t2x_for_tern_pk rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t2x_for_tern_sgn rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t2x_for_tern_w1 rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t2x_for_tern_w4 rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t2x_for_tern_wW4 rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t3x_mod_direct_bit3 rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il
+t3x_mod_direct_byte rc=0/0/4/4 cmp=22 ds=EQUIVALENT nohier   => rc=0/0/4/4 cmp=22 ds=EQUIVALENT nohier
+t3x_mod_direct_int rc=0/0/4/4 cmp=22 ds=EQUIVALENT nohier   => rc=0/0/4/4 cmp=22 ds=EQUIVALENT nohier
+t3x_mod_direct_pk rc=0/0/4/4 cmp=100 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=100 ds=EQUIVALENT nohier il
+t3x_mod_direct_sgn rc=0/0/4/4 cmp=84 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=84 ds=EQUIVALENT nohier il
+t3x_mod_direct_w1 rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il
+t3x_mod_direct_w4 rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il
+t3x_mod_direct_wW4 rc=0/0/4/4 cmp=82 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=82 ds=EQUIVALENT nohier il
+t40_tddefault_for_tern rc=0/0/4/4 cmp=17 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=17 ds=IDENTICAL
+t41_bodylp_for_tern rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t42_bodylp_mod_direct rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il
+t43_override_for_tern rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il  => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+t44_override_mod_direct rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il  => rc=0/0/4/4 cmp=60 ds=EQUIVALENT nohier il
+t45_arb rc=0/0/4/4 cmp=0 ds=EQUIVALENT nohier il synth => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+s01_q_ps_tern rc=0/0/0/0 cmp=17 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=17 ds=IDENTICAL
+s02_q_ps_direct rc=0/0/0/0 cmp=98 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=56 ds=IDENTICAL
+s03_q_bs_direct rc=0/0/0/0 cmp=88 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=56 ds=IDENTICAL
+s04_q_nosel rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+s05_q_ps_g rc=0/0/0/0 cmp=98 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=56 ds=IDENTICAL
+s06_q_ips rc=0/0/0/0 cmp=104 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=56 ds=IDENTICAL
+s07_q_ps_comb rc=0/0/0/0 cmp=17 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=17 ds=IDENTICAL
+s08_imp_ps rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+s09_loc_ps rc=0/0/0/0 cmp=78 ds=IDENTICAL    => rc=0/0/0/0 cmp=78 ds=IDENTICAL
+s10_q_ps_op rc=0/0/0/0 cmp=98 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=28 ds=DIVERGENT nohier il synth
+s11_q_ps_gen rc=0/0/0/0 cmp=98 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=98 ds=IDENTICAL
+s12_q_bs_var rc=0/0/0/0 cmp=88 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=56 ds=IDENTICAL
+s13_q_2d_member rc=0/0/0/0 cmp=88 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=56 ds=DIVERGENT nohier il synth
+s14_q_unpacked rc=0/0/0/0 cmp=82 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=82 ds=DIVERGENT nohier il synth
+s15_q_nested rc=0/0/0/0 cmp=17 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=17 ds=IDENTICAL
+v01_ps_tern rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v02_ps_direct rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v03_bare_direct rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v04_bare_tern rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v05_bs_direct rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v06_ips rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v07_ps_comb rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v08_unp_elem rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v09_ps_op rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v10_imp_ps rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+v11_longname rc=0/0/0/0 cmp=32 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+m07_plain_vecsel rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+p13_pkgbound rc=0/0/0/0 cmp=102 ds=IDENTICAL    => rc=0/0/0/0 cmp=102 ds=IDENTICAL
+p17_pkgvar rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+p22_pkgbound_op rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+p28_structmember rc=0/0/0/0 cmp=17 ds=DIVERGENT nohier il synth => rc=0/0/0/0 cmp=17 ds=IDENTICAL
+q01_direct rc=0/0/0/0 cmp=17 ds=IDENTICAL    => rc=0/0/0/0 cmp=17 ds=IDENTICAL
+q02_op rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+q03_selbound rc=0/0/0/0 cmp=102 ds=IDENTICAL    => rc=0/0/0/0 cmp=102 ds=IDENTICAL
+q04_selbound_bare rc=0/0/0/0 cmp=72 ds=IDENTICAL    => rc=0/0/0/0 cmp=72 ds=IDENTICAL
+q05_tern rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+q06_idx rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+q07_comb rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+q08_decl rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+q09_param rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL
+q10_tern_selbound rc=0/0/0/0 cmp=0 ds=IDENTICAL    => rc=0/0/0/0 cmp=0 ds=IDENTICAL

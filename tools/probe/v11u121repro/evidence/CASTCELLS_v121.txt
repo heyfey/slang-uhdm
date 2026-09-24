@@ -1,0 +1,45 @@
+# cast target typespec per generate scope (castts.py over uhdm-dump), v1.87 golden vs FIX
+== F/a13_t13_single_loop
+-- g187
+2 work@dut.g.gi -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[0].gi -> \_unsupported_typespec: (idx_t)
+-- ours
+2 work@dut.g.gi -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[0].gi -> \_logic_typespec:
+== G/a14_else_single
+-- g187
+2 work@dut.g.ge -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[0].ge -> \_unsupported_typespec: (idx_t)
+-- ours
+2 work@dut.g.ge -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[0].ge -> \_logic_typespec:
+== G/a15_iftrue_k1
+-- g187
+2 work@dut.g.gi -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[1].gi -> \_logic_typespec:
+-- ours
+2 work@dut.g.gi -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[1].gi -> \_logic_typespec:
+== G/a16_for_tern_k1
+-- g187
+2 work@dut.g -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[0] -> \_unsupported_typespec: (idx_t)
+-- ours
+2 work@dut.g -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[0] -> \_logic_typespec:
+== A/a4_for_ff
+-- g187
+2 work@dut.g -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[0] -> \_logic_typespec:
+2 work@dut.g[1] -> \_logic_typespec:
+-- ours
+2 work@dut.g -> \_unsupported_typespec: (idx_t)
+2 work@dut.g[0] -> \_logic_typespec:
+2 work@dut.g[1] -> \_logic_typespec:
+== A/a3_ifif_comb_case
+-- g187
+3 work@dut.g1.g2 -> \_logic_typespec:
+3 work@dut.g1.g2 -> \_unsupported_typespec: (idx_t)
+-- ours
+3 work@dut.g1.g2 -> \_logic_typespec:
+3 work@dut.g1.g2 -> \_unsupported_typespec: (idx_t)

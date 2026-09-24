@@ -1,0 +1,9 @@
+surelog fix vs pris: MOVERS 6/960 = ApbSlave default+testflags (30 order-blind lines each, all svunit_pkg::current_tc ref spans; distance to golden 777 -> 747), Scoreboard/default (18 lines, 120139 -> 120121), MiniAmiq default+testflags and SeqDriver/default (4-line UINT/vpiDecompile coin); SELFCHECK 959/960
+surelog fix vs law: MOVERS 4/960 = MiniAmiq x2, SeqDriver/default (4-line coin each), Scoreboard/default (0 order-blind lines = order coin)
+uhdm2rtlil fix vs pris: 2/1608 arb_idx_cast x2; fix vs law 0/1608
+downstream fix vs pris: 1/805 arb_idx_cast; fix vs law 0/805
+law vs pris (reproducing the implementer): surelog 5/960 ApbSlave x2, Scoreboard/default, MiniAmiq/default, SeqDriver/default; u2r 2/1608 arb_idx_cast x2; downstream 1/805 arb_idx_cast
+probe arms (boundary, same worktree, both binaries): tests/probe movers r10uvm26 t36a/t36d, r11u113 c13/c25/c27 -- all EQUAL in the fix probe sweep (2833/2833)
+protected databases fix == pristine md5: Earlgrey_0_1 x2, SVSwitch x2, YosysVerx x2, InterfaceModPort x2, BlackParrotComplex x2, YosysOldOr x2
+canaries (r11u107 canaries.sh, ctcan2.sh both corpora): fix output == pristine output except Earlgrey_0_1/testflags dump column differ -> blank (the dump-timeout draw; its database is byte-identical)
+uhdm-cmp arb_idx_cast (fix): default 0, testflags 0, downstream lane 0 lines (positive control: golden vs another row 5068 lines)

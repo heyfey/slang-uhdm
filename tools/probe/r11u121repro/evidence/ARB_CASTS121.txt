@@ -1,0 +1,21 @@
+== pristine
+CAST 26.36-26.47 in cont_assign<gen_scope<gen_scope_array<gen_scope<gen_scope_array -> unsupported_typespec(idx_t)@26.36-26.41 refs=1 users=operation(),
+CAST 26.36-26.47 in cont_assign<gen_scope<gen_scope_array<gen_scope<gen_scope_array -> unsupported_typespec(idx_t)@26.36-26.41 refs=1 users=operation(),
+CAST 31.13-31.80 in operation<cont_assign<gen_scope<gen_scope_array<gen_scope -> integer_typespec()@31.13-31.18 refs=1 val= users=operation(),
+CAST 31.57-31.73 in operation<operation<part_select<var_select<operation -> <none>
+CAST 32.13-32.78 in operation<cont_assign<gen_scope<gen_scope_array<gen_scope -> integer_typespec()@32.13-32.18 refs=1 val= users=operation(),
+CAST 32.55-32.71 in operation<operation<part_select<var_select<operation -> <none>
+== law
+CAST 26.36-26.47 in cont_assign<gen_scope<gen_scope_array<gen_scope<gen_scope_array -> unsupported_typespec(idx_t)@26.36-26.41 refs=1 users=operation(),
+CAST 26.36-26.47 in cont_assign<gen_scope<gen_scope_array<gen_scope<gen_scope_array -> unsupported_typespec(idx_t)@26.36-26.41 refs=1 users=operation(),
+CAST 31.13-31.80 in operation<cont_assign<gen_scope<gen_scope_array<gen_scope -> logic_typespec()@8.40-8.60 refs=5 ranges=1 users=logic_var(idx_o),operation(),packed_array_var(index_nodes),type_parameter(idx_t),
+CAST 31.57-31.73 in operation<operation<part_select<var_select<operation -> <none>
+CAST 32.13-32.78 in operation<cont_assign<gen_scope<gen_scope_array<gen_scope -> logic_typespec()@8.40-8.60 refs=5 ranges=1 users=logic_var(idx_o),operation(),packed_array_var(index_nodes),type_parameter(idx_t),
+CAST 32.55-32.71 in operation<operation<part_select<var_select<operation -> <none>
+== golden (uhdm2rtlil's Surelog, -DSYNTHESIS)
+CAST 26.36-26.47 in cont_assign -> unsupported_typespec(idx_t)@26.36-26.41 refs=1 users=operation(),
+CAST 26.36-26.47 in cont_assign -> unsupported_typespec(idx_t)@26.36-26.41 refs=1 users=operation(),
+CAST 26.36-26.47 in cont_assign<gen_scope<gen_scope_array<gen_scope<gen_scope_array -> unsupported_typespec(idx_t)@26.36-26.41 refs=1 users=operation(),
+CAST 26.36-26.47 in cont_assign<gen_scope<gen_scope_array<gen_scope<gen_scope_array -> unsupported_typespec(idx_t)@26.36-26.41 refs=1 users=operation(),
+CAST 31.13-31.80 in operation<cont_assign<gen_scope<gen_scope_array<gen_scope -> logic_typespec()@8.40-15.27 refs=8 ranges=1 users=logic_net(index_nodes),logic_var(idx_o),operation(),packed_array_var(index_nodes),port(idx_o),type_parameter(idx_t),
+CAST 32.13-32.78 in operation<cont_assign<gen_scope<gen_scope_array<gen_scope -> logic_typespec()@8.40-15.27 refs=8 ranges=1 users=logic_net(index_nodes),logic_var(idx_o),operation(),packed_array_var(index_nodes),port(idx_o),type_parameter(idx_t),

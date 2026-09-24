@@ -1,0 +1,108 @@
+# b1 param_assign Rhs: golden (v1.87) vs pristine vs LAW (as submitted)
+## golden
+  \_param_assign: , line:8:26, endln:8:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:F, line:7:1, endln:10:10
+    |vpiRhs:
+    \_hier_path: (cp::CFG.f[3:0]), line:8:30, endln:8:34
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:8:44
+      |vpiActual:
+      \_ref_obj: (cp::CFG), line:8:38, endln:8:39
+        |vpiParent:
+        \_hier_path: (cp::CFG.f[3:0]), line:8:30, endln:8:34
+        |vpiName:cp::CFG
+      |vpiActual:
+      \_part_select: f (work@top.cp::CFG.f[3:0].f), line:8:38, endln:8:43
+        |vpiParent:
+        \_hier_path: (cp::CFG.f[3:0]), line:8:30, endln:8:34
+        |vpiName:f
+        |vpiFullName:work@top.cp::CFG.f[3:0].f
+        |vpiDefName:f
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_constant: , line:8:40, endln:8:41
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:8:42, endln:8:43
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiName:cp::CFG.f[3:0]
+    |vpiLhs:
+## pristine
+  \_param_assign: , line:8:26, endln:8:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:F, line:7:1, endln:10:10
+    |vpiRhs:
+    \_hier_path: (CFG.f[3:0]), line:8:30, endln:8:44
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:8:44
+      |vpiActual:
+      \_ref_obj: (CFG), line:8:30, endln:8:37
+        |vpiParent:
+        \_hier_path: (CFG.f[3:0]), line:8:30, endln:8:44
+        |vpiName:CFG
+      |vpiActual:
+      \_part_select: (CFG.f[3:0]), line:8:38, endln:8:43
+        |vpiParent:
+        \_hier_path: (CFG.f[3:0]), line:8:30, endln:8:44
+        |vpiName:f
+        |vpiFullName:CFG.f[3:0]
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_constant: , line:8:40, endln:8:41
+          |vpiParent:
+          \_part_select: (CFG.f[3:0]), line:8:38, endln:8:43
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:8:42, endln:8:43
+          |vpiParent:
+          \_part_select: (CFG.f[3:0]), line:8:38, endln:8:43
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiName:CFG.f[3:0]
+    |vpiLhs:
+  \_param_assign: , line:8:26, endln:8:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:F, line:7:1, endln:10:10
+## LAW
+  \_param_assign: , line:8:26, endln:8:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:F, line:7:1, endln:10:10
+    |vpiRhs:
+    \_hier_path: (work@top), line:8:30, endln:8:44
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:8:44
+      |vpiActual:
+      \_ref_obj: (cp::CFG), line:8:30, endln:8:34
+        |vpiParent:
+        \_hier_path: (work@top), line:8:30, endln:8:44
+        |vpiName:cp::CFG
+        |vpiActual:
+        \_parameter: (cp::CFG), line:4:18, endln:4:21
+      |vpiActual:
+      \_ref_obj: (f), line:8:38, endln:8:39
+        |vpiParent:
+        \_hier_path: (work@top), line:8:30, endln:8:44
+        |vpiName:f
+      |vpiFullName:work@top
+    |vpiLhs:
+  \_param_assign: , line:8:26, endln:8:44
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:F, line:7:1, endln:10:10
+    |vpiRhs:
+    \_constant: , line:8:30, endln:8:44
+      |vpiParent:
+      \_param_assign: , line:8:26, endln:8:44
+      |vpiDecompile:4'b0101
+      |vpiSize:4

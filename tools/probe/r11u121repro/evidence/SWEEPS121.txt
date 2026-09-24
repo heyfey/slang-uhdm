@@ -1,0 +1,20 @@
+PRIS  probe arms: EQUAL=2833 (of 2833); goldens built now=0, from cache=2833
+PRIS  == surelog vs golden_surelog.csv
+PRIS  [default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+PRIS  [testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+PRIS  regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+PRIS  == uhdm2rtlil vs golden_uhdm2rtlil.csv
+PRIS  [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+PRIS  [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+PRIS  regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+PRIS  downstream: DIVERGENT=4 EQUIVALENT=7 IDENTICAL=794 SLANG_REJECT=66 (of 871); not identical and not excused=0
+LAW   probe arms: EQUAL=2833 (of 2833); goldens built now=0, from cache=2833
+LAW   == surelog vs golden_surelog.csv
+LAW   [default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+LAW   [testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+LAW   regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+LAW   == uhdm2rtlil vs golden_uhdm2rtlil.csv
+LAW   [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+LAW   [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+LAW   regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+LAW   downstream: DIVERGENT=4 EQUIVALENT=6 IDENTICAL=795 SLANG_REJECT=66 (of 871); not identical and not excused=0
