@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# The regression gate: run both corpora in both modes with scripts/verify_golden.py
-# and compare every row's status against the committed scoreboards in results/.
+# The regression gate: (1) every tests/probe arm judged EQUAL against its committed
+# golden (scripts/check_probe.py), then (2) both corpora in both modes with
+# scripts/verify_golden.py compared against the committed scoreboards in results/.
 #
-#   tests/sweep.sh [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus surelog|uhdm2rtlil]
+#   tests/sweep.sh [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil]
 #
 # First run on a machine: Surelog builds every golden database (about an hour
 # at --jobs 3) and the harness caches them under ~/.cache/slang-uhdm-goldens
@@ -10,22 +11,28 @@
 # takes a few minutes per corpus. Tool and corpus locations resolve relative to
 # this repository (third_party/Surelog, third_party/uhdm2rtlil, build/); the
 # variables SURELOG, UHDM_CMP, UHDM_DUMP, SLANG_UHDM, SURELOG_ROOT and
-# UHDM2RTLIL_TESTS override them. Exit status 1 on any status regression.
+# UHDM2RTLIL_TESTS override them. Exit status 1 on any probe arm not EQUAL or any
+# corpus status regression: do not commit on a nonzero exit.
 set -u
 ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
-JOBS=3; WORKDIR=/tmp/slang-uhdm-sweep; FILTER=""; CORPORA="surelog uhdm2rtlil"
+JOBS=3; WORKDIR=/tmp/slang-uhdm-sweep; FILTER=""; CORPORA="probe surelog uhdm2rtlil"
 while [ $# -gt 0 ]; do
     case "$1" in
         --jobs) JOBS=$2; shift 2 ;;
         --workdir) WORKDIR=$2; shift 2 ;;
         --filter) FILTER=$2; shift 2 ;;
         --corpus) CORPORA=$2; shift 2 ;;
-        *) echo "usage: $0 [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus surelog|uhdm2rtlil]"; exit 2 ;;
+        *) echo "usage: $0 [--jobs N] [--workdir DIR] [--filter REGEX] [--corpus probe|surelog|uhdm2rtlil]"; exit 2 ;;
     esac
 done
 mkdir -p "$WORKDIR"
 rc=0
 for c in $CORPORA; do
+    if [ "$c" = probe ]; then
+        echo "== probe arms (tests/probe, committed goldens), jobs=$JOBS"
+        python3 "$ROOT/scripts/check_probe.py" --jobs "$JOBS" --workdir "$WORKDIR/probe" ${FILTER:+--filter "$FILTER"} || rc=1
+        continue
+    fi
     out=$WORKDIR/$c.csv
     echo "== $c: both modes, jobs=$JOBS, out=$out"
     python3 "$ROOT/scripts/verify_golden.py" --corpus "$c" --mode both --jobs "$JOBS" \

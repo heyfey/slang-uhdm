@@ -13,7 +13,8 @@ after the first run.
 | `third_party/uhdm2rtlil` | the pinned uhdm2rtlil checkout; `test/<name>/dut.sv` (or `dut.v`, or a `project.f`) per test | 871 tests |
 | `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,dump`) | 1596 + 1742 rows |
 | `results/gate_uhdm2rtlil.csv` | the uhdm2rtlil testflags rows alone (the older gate) | 871 rows |
-| `tools/probe/` | per-pass evidence (grid arms, scripts, measurements); not run by any check | |
+| `tests/probe/<pass>/<grid>/<arm>/dut.sv` | the probe-arm regression set, judged by uhdm-cmp against cached Surelog goldens (see tests/probe/README.md) | 2833 arms |
+| `tools/probe/` | per-pass evidence (READMEs, scripts, measurements, and the arms that still judge NOT_EQUAL) | |
 
 Two modes per test. In `default` mode both tools get only the sources. In
 `testflags` mode Surelog gets the test's own command line and slang-uhdm gets
@@ -41,10 +42,12 @@ the other locations the same way.
 
 ## Running
 
-    tests/sweep.sh                     # both corpora, both modes, compared to results/golden_*.csv
+    tests/sweep.sh                     # probe arms + both corpora in both modes, compared to results/golden_*.csv
+    tests/sweep.sh --corpus probe      # the 2833 probe arms alone (about 15 s once their goldens are cached)
     tests/sweep.sh --corpus uhdm2rtlil --filter '^ibex'
 
-`tests/sweep.sh` exits 1 when any row's status moved away from `CMP_EQUAL`.
+`tests/sweep.sh` exits 1 when any probe arm is not EQUAL or any corpus row's
+status moved away from `CMP_EQUAL`. Do not commit on a nonzero exit.
 It prints the status histogram per mode, every changed row, and how many
 producer runs were served from the golden cache.
 
