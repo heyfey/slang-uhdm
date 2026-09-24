@@ -61,7 +61,7 @@ def pass_number(pdir):
 
 
 def readme_of(pdir):
-    for name in ('README.md', 'README.txt'):
+    for name in ('README.md', 'README.txt', 'README'):
         p = f'tools/probe/{pdir}/{name}'
         if os.path.exists(p):
             return p
