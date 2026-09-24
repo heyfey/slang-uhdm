@@ -1,0 +1,6 @@
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+iface_array_elem_cfg_param,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for <scratch>/ds1/iface_array_elem_cfg_param/equiv/iface_arra
+IndexedPartSelectOfMember,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import
+PartSelectOfMember,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import
+pkg_localparam_partsel,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+SelectOnMemberSelectedFrom2DArray,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,   This indicates a serious bug in UHDM import

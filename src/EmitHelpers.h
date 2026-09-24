@@ -14018,4 +14018,93 @@ inline bool caseItemTs116Lit(const ParameterSymbol& ps) {
     return e->kind == ExpressionKind::IntegerLiteral;
 }
 
+
+// ============================================================================
+// r11u118 — PAIR A, THE VALUE-AND-NAME GROUND (the downstream-lane fields the
+// judge never reads).  Every law reads its own kill switch; `R11U118_OFF=1`
+// turns them all off.  Grids, cells and decodes:
+// tools/probe/r11u118repro/README.md.
+// ============================================================================
+inline bool r11u118On(const char* one) {
+    static const bool all = getenv("R11U118_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// § pkgQualParamPartSelName118 (FACE 1) — a part-select written on a
+/// PACKAGE-QUALIFIED parameter (`mask_pkg::MASK[XLEN-1:0]`) is compiled by
+/// Surelog's `paPackage_scope` arm (CompileExpression.cpp:2719-2763): it
+/// finds the package's param_assign and hands the select to
+/// `compileSelectExpression` with `name = "pkg::NAME"`, and — unlike the
+/// unqualified arm (:2828-2837, `populateCoreMembers(rhsbackup, rhs, …)`) —
+/// never re-locates the result.  `compilePartSelectRange` (:4250-4277)
+/// therefore leaves the part_select named AND def-named `pkg::NAME`, with
+/// `VpiFullName("pkg::NAME")` set explicitly (the `::` gate at :4259) and
+/// the span of the RANGE alone (`populateCoreMembers(Constant_expression,
+/// Sibling(Constant_expression))`); the indexed twin is named the same way
+/// with no explicit fullname (its lazy one is `<scope>.pkg::NAME`).  The
+/// judge cannot see any of it: `part_select::Compare` (and every ref_obj
+/// subclass's) inserts `this` into m_visited before calling
+/// `ref_obj::Compare`, whose own visited check then returns 0 before the
+/// name is read.  uhdm2rtlil's `import_part_select` resolves the base by
+/// VpiDefName against its package parameter map (`pkg::NAME`), so the bare
+/// name fell through to a 0 constant (row pkg_localparam_partsel).
+/// GATES: the written spelling is qualified (§ pkgWrittenQualSelBase41 — an
+/// import-reached bare `MASK[7:0]` stays bare, grid p08) and the base is a
+/// PARAMETER (a package VARIABLE takes another arm, grid p17).
+/// Switch: R11U118_PKGPS_OFF.
+inline bool pkgQualPsName118On() {
+    static const bool on = r11u118On("R11U118_PKGPS_OFF");
+    return on;
+}
+
+/// § pkgQualParamVarSelFull118 (FACE 1, the multi-select twin) — the same
+/// `paPackage_scope` arm hands a SELECT CHAIN (`pkg::A[k][W-1:0]`,
+/// `pkg::A[i][0]`) to `compileSelectExpression` with `name = "pkg::NAME"`,
+/// and its `::` gates stamp `VpiFullName(name)` explicitly on the var_select
+/// (CompileExpression.cpp:1320-1324) and on the trailing part_select
+/// (`compilePartSelectRange`, :4259).  § pkgWrittenQualSelBase41 already
+/// names both `pkg::NAME`; their FULLNAMES were the scope-prefixed
+/// (`work@m.pkg::A`) and doubled (`work@m.pkg::A.pkg::A`) strings, which
+/// golden keeps only for the BOUND refs' lazily computed names (measured
+/// equal on Earlgrey prim_prince 106:68 / 142:86 and grid p27/p34-p39; the
+/// refs are untouched).  The indexed twin already matched (grid p34).
+/// Judge-invisible like the name (var_select/part_select Compare never
+/// reads a fullname).  GATE: the qualified spelling AND a PARAMETER base.
+/// Switch: R11U118_PKGVS_OFF.
+inline bool pkgQualVsFull118On() {
+    static const bool on = r11u118On("R11U118_PKGVS_OFF");
+    return on;
+}
+
+/// § pkgQualPsParenSpan118v (verifier r11v11u118) — the range-only span that
+/// § pkgQualParamPartSelName118 writes takes a PARENTHESIZED bound's written
+/// parentheses too: `compilePartSelectRange` spans from the two
+/// Constant_expression nodes (CompileExpression.cpp:4262), and a written
+/// `(cfgp::N-1)` is one such node from its `(`.  slang keeps the inner
+/// expression's sourceRange and records the ParenthesizedExpression only as
+/// the expression's `syntax`.  Grid r11v11u118repro v1/v01_paren,
+/// v2/w08_paren_right.  Switch: R11U118_PSPAREN_OFF.
+inline bool pkgQualPsParen118On() {
+    static const bool on = r11u118On("R11U118_PSPAREN_OFF");
+    return on;
+}
+
+/// § pkgQualPsRtFull118v (verifier r11v11u118) — the folded-bound
+/// ref_typespec rule (ExprEmit.cpp, "the ref_typespec is named after THE
+/// SELECT") reads the enclosing part_select's fullname VERBATIM, because a
+/// plain select used to carry its whole SCOPED name.  The explicit
+/// `pkg::NAME` that § pkgQualParamPartSelName118 / § pkgQualParamVarSelFull118
+/// stamp broke that premise: the ref_typespec came out `cfgp::K` where golden
+/// computes it through the parent chain (`work@top.blk.cfgp::K`,
+/// `work@top.f.cfgp::K`, `work@top::C::get::cfgp::K`; grid r11v11u118repro
+/// w11/w12/x07/x09, g1 p13/p22).  The select keeps golden's explicit name;
+/// the ref_typespec reads the scoped spelling: `joinRef(prefix, pkg::NAME)`
+/// for the plain part_select, and the pre-law `psFull` for a var_select's
+/// trailing part_select (whose ref_typespec bytes are then pristine).
+/// Switch: R11U118_PSRTFULL_OFF.
+inline bool pkgQualPsRtFull118On() {
+    static const bool on = r11u118On("R11U118_PSRTFULL_OFF");
+    return on;
+}
+
 } // namespace slang_uhdm

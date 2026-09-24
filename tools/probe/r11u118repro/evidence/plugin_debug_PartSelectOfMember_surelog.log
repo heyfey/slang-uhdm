@@ -1,0 +1,967 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.68+ (git sha1 bbc149ed5, Release, GNU /opt/rh/gcc-toolset-14/root/usr/bin/c++ 14.2.1) [github.com/alainmarcel/yosys at HEAD]
+
+-- Running command `plugin -i /home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/build/uhdm2rtlil.so; read_uhdm -debug /home/heyfey/.cache/slang-uhdm-goldens/0f42d36d058cb7c95c07/golden.uhdm' --
+
+1. Executing UHDM frontend.
+Reading UHDM file: /home/heyfey/.cache/slang-uhdm-goldens/0f42d36d058cb7c95c07/golden.uhdm
+UHDM Elaboration...
+Module: work@top () Flat:1, Top:0
+Module: work@top () Flat:1, Top:0
+Module: work@top (work@top) Flat:0, Top:1
+Module: work@top (work@top) Flat:0, Top:1
+design: (work@top), id:52
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@top (work@top), id:53, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+  |vpiParent:
+  \_design: (work@top), id:52
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), id:60, line:1:31, endln:1:32
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:53, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.a), id:62, line:4:6, endln:4:7
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:53, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.a), id:70
+      |vpiParent:
+      \_logic_net: (work@top.a), id:62, line:4:6, endln:4:7
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_struct_typespec: , id:63, line:2:4, endln:2:17
+    |vpiName:a
+    |vpiFullName:work@top.a
+  |vpiPort:
+  \_port: (o), id:54, line:1:31, endln:1:32
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:53, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.o.o), id:61, line:1:31, endln:1:32
+      |vpiParent:
+      \_port: (o), id:54, line:1:31, endln:1:32
+      |vpiName:o
+      |vpiFullName:work@top.o.o
+      |vpiActual:
+      \_logic_net: (work@top.o), id:60, line:1:31, endln:1:32
+    |vpiTypedef:
+    \_ref_typespec: (work@top.o), id:59
+      |vpiParent:
+      \_port: (o), id:54, line:1:31, endln:1:32
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , id:58, line:1:19, endln:1:30
+  |vpiContAssign:
+  \_cont_assign: , id:5, line:6:11, endln:6:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:53, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiRhs:
+    \_constant: , id:6, line:6:20, endln:6:21
+      |vpiParent:
+      \_cont_assign: , id:73, line:6:11, endln:6:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_hier_path: (a.b[0]), id:1, line:6:11, endln:6:17
+      |vpiParent:
+      \_cont_assign: , id:5, line:6:11, endln:6:21
+      |vpiActual:
+      \_ref_obj: (a), id:2, line:6:13, endln:6:14
+        |vpiParent:
+        \_hier_path: (a.b[0]), id:1, line:6:11, endln:6:17
+        |vpiName:a
+      |vpiActual:
+      \_bit_select: (work@top.a.b[0].b), id:3, line:6:13, endln:6:17
+        |vpiParent:
+        \_hier_path: (a.b[0]), id:1, line:6:11, endln:6:17
+        |vpiName:b
+        |vpiFullName:work@top.a.b[0].b
+        |vpiIndex:
+        \_constant: , id:4, line:6:15, endln:6:16
+          |vpiParent:
+          \_bit_select: (work@top.a.b[0].b), id:3, line:6:13, endln:6:17
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiName:a.b[0]
+  |vpiContAssign:
+  \_cont_assign: , id:11, line:7:11, endln:7:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:53, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiRhs:
+    \_constant: , id:12, line:7:20, endln:7:21
+      |vpiParent:
+      \_cont_assign: , id:79, line:7:11, endln:7:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_hier_path: (a.b[7]), id:7, line:7:11, endln:7:17
+      |vpiParent:
+      \_cont_assign: , id:11, line:7:11, endln:7:21
+      |vpiActual:
+      \_ref_obj: (a), id:8, line:7:13, endln:7:14
+        |vpiParent:
+        \_hier_path: (a.b[7]), id:7, line:7:11, endln:7:17
+        |vpiName:a
+      |vpiActual:
+      \_bit_select: (work@top.a.b[7].b), id:9, line:7:13, endln:7:17
+        |vpiParent:
+        \_hier_path: (a.b[7]), id:7, line:7:11, endln:7:17
+        |vpiName:b
+        |vpiFullName:work@top.a.b[7].b
+        |vpiIndex:
+        \_constant: , id:10, line:7:15, endln:7:16
+          |vpiParent:
+          \_bit_select: (work@top.a.b[7].b), id:9, line:7:13, endln:7:17
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+      |vpiName:a.b[7]
+  |vpiContAssign:
+  \_cont_assign: , id:17, line:8:11, endln:8:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:53, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiRhs:
+    \_constant: , id:18, line:8:20, endln:8:21
+      |vpiParent:
+      \_cont_assign: , id:85, line:8:11, endln:8:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_hier_path: (a.b[8]), id:13, line:8:11, endln:8:17
+      |vpiParent:
+      \_cont_assign: , id:17, line:8:11, endln:8:21
+      |vpiActual:
+      \_ref_obj: (a), id:14, line:8:13, endln:8:14
+        |vpiParent:
+        \_hier_path: (a.b[8]), id:13, line:8:11, endln:8:17
+        |vpiName:a
+      |vpiActual:
+      \_bit_select: (work@top.a.b[8].b), id:15, line:8:13, endln:8:17
+        |vpiParent:
+        \_hier_path: (a.b[8]), id:13, line:8:11, endln:8:17
+        |vpiName:b
+        |vpiFullName:work@top.a.b[8].b
+        |vpiIndex:
+        \_constant: , id:16, line:8:15, endln:8:16
+          |vpiParent:
+          \_bit_select: (work@top.a.b[8].b), id:15, line:8:13, endln:8:17
+          |vpiDecompile:8
+          |vpiSize:64
+          |UINT:8
+          |vpiConstType:9
+      |vpiName:a.b[8]
+  |vpiContAssign:
+  \_cont_assign: , id:20, line:10:11, endln:10:23
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:53, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiRhs:
+    \_hier_path: (a.b[7:0]), id:21, line:10:15, endln:10:23
+      |vpiParent:
+      \_cont_assign: , id:20, line:10:11, endln:10:23
+      |vpiActual:
+      \_ref_obj: (a), id:22, line:10:15, endln:10:16
+        |vpiParent:
+        \_hier_path: (a.b[7:0]), id:21, line:10:15, endln:10:23
+        |vpiName:a
+      |vpiActual:
+      \_part_select: (a.b[7:0]), id:23, line:10:17, endln:10:22
+        |vpiParent:
+        \_hier_path: (a.b[7:0]), id:21, line:10:15, endln:10:23
+        |vpiName:b
+        |vpiFullName:a.b[7:0]
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_constant: , id:24, line:10:19, endln:10:20
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , id:25, line:10:21, endln:10:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiName:a.b[7:0]
+    |vpiLhs:
+    \_ref_obj: (work@top.o), id:19, line:10:11, endln:10:12
+      |vpiParent:
+      \_cont_assign: , id:20, line:10:11, endln:10:23
+      |vpiName:o
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_net: (work@top.o), id:60, line:1:31, endln:1:32
+|uhdmtopModules:
+\_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+  |vpiParent:
+  \_design: (work@top), id:52
+  |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.o), id:40, line:1:31, endln:1:32
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.o), id:41
+      |vpiParent:
+      \_logic_net: (work@top.o), id:40, line:1:31, endln:1:32
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , id:36, line:1:19, endln:1:30
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
+  |vpiNet:
+  \_struct_net: (work@top.a), id:49, line:4:6, endln:4:7
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.a), id:50
+      |vpiParent:
+      \_struct_net: (work@top.a), id:49, line:4:6, endln:4:7
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_struct_typespec: , id:42, line:2:4, endln:2:10
+    |vpiName:a
+    |vpiFullName:work@top.a
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (o), id:91, line:1:31, endln:1:32
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.o), id:92, line:1:31, endln:1:32
+      |vpiParent:
+      \_port: (o), id:91, line:1:31, endln:1:32
+      |vpiName:o
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_net: (work@top.o), id:40, line:1:31, endln:1:32
+    |vpiTypedef:
+    \_ref_typespec: (work@top.o), id:93
+      |vpiParent:
+      \_port: (o), id:91, line:1:31, endln:1:32
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , id:94, line:1:19, endln:1:30
+    |vpiInstance:
+    \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+  |vpiContAssign:
+  \_cont_assign: , id:98, line:6:11, endln:6:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiRhs:
+    \_constant: , id:103, line:6:20, endln:6:21
+      |vpiParent:
+      \_cont_assign: , id:98, line:6:11, endln:6:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_hier_path: (a.b[0]), id:99, line:6:11, endln:6:17
+      |vpiParent:
+      \_cont_assign: , id:98, line:6:11, endln:6:21
+      |vpiActual:
+      \_ref_obj: (a), id:100, line:6:13, endln:6:14
+        |vpiParent:
+        \_hier_path: (a.b[0]), id:99, line:6:11, endln:6:17
+        |vpiName:a
+        |vpiActual:
+        \_struct_net: (work@top.a), id:49, line:4:6, endln:4:7
+      |vpiActual:
+      \_bit_select: (work@top.a.b[0].b), id:101, line:6:13, endln:6:17
+        |vpiParent:
+        \_hier_path: (a.b[0]), id:99, line:6:11, endln:6:17
+        |vpiName:b
+        |vpiFullName:work@top.a.b[0].b
+        |vpiActual:
+        \_typespec_member: (b), id:47, line:3:20, endln:3:21
+        |vpiIndex:
+        \_constant: , id:102, line:6:15, endln:6:16
+          |vpiParent:
+          \_bit_select: (work@top.a.b[0].b), id:101, line:6:13, endln:6:17
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiName:a.b[0]
+  |vpiContAssign:
+  \_cont_assign: , id:104, line:7:11, endln:7:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiRhs:
+    \_constant: , id:109, line:7:20, endln:7:21
+      |vpiParent:
+      \_cont_assign: , id:104, line:7:11, endln:7:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_hier_path: (a.b[7]), id:105, line:7:11, endln:7:17
+      |vpiParent:
+      \_cont_assign: , id:104, line:7:11, endln:7:21
+      |vpiActual:
+      \_ref_obj: (a), id:106, line:7:13, endln:7:14
+        |vpiParent:
+        \_hier_path: (a.b[7]), id:105, line:7:11, endln:7:17
+        |vpiName:a
+        |vpiActual:
+        \_struct_net: (work@top.a), id:49, line:4:6, endln:4:7
+      |vpiActual:
+      \_bit_select: (work@top.a.b[7].b), id:107, line:7:13, endln:7:17
+        |vpiParent:
+        \_hier_path: (a.b[7]), id:105, line:7:11, endln:7:17
+        |vpiName:b
+        |vpiFullName:work@top.a.b[7].b
+        |vpiActual:
+        \_typespec_member: (b), id:47, line:3:20, endln:3:21
+        |vpiIndex:
+        \_constant: , id:108, line:7:15, endln:7:16
+          |vpiParent:
+          \_bit_select: (work@top.a.b[7].b), id:107, line:7:13, endln:7:17
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+      |vpiName:a.b[7]
+  |vpiContAssign:
+  \_cont_assign: , id:110, line:8:11, endln:8:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiRhs:
+    \_constant: , id:115, line:8:20, endln:8:21
+      |vpiParent:
+      \_cont_assign: , id:110, line:8:11, endln:8:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_hier_path: (a.b[8]), id:111, line:8:11, endln:8:17
+      |vpiParent:
+      \_cont_assign: , id:110, line:8:11, endln:8:21
+      |vpiActual:
+      \_ref_obj: (a), id:112, line:8:13, endln:8:14
+        |vpiParent:
+        \_hier_path: (a.b[8]), id:111, line:8:11, endln:8:17
+        |vpiName:a
+        |vpiActual:
+        \_struct_net: (work@top.a), id:49, line:4:6, endln:4:7
+      |vpiActual:
+      \_bit_select: (work@top.a.b[8].b), id:113, line:8:13, endln:8:17
+        |vpiParent:
+        \_hier_path: (a.b[8]), id:111, line:8:11, endln:8:17
+        |vpiName:b
+        |vpiFullName:work@top.a.b[8].b
+        |vpiActual:
+        \_typespec_member: (b), id:47, line:3:20, endln:3:21
+        |vpiIndex:
+        \_constant: , id:114, line:8:15, endln:8:16
+          |vpiParent:
+          \_bit_select: (work@top.a.b[8].b), id:113, line:8:13, endln:8:17
+          |vpiDecompile:8
+          |vpiSize:64
+          |UINT:8
+          |vpiConstType:9
+      |vpiName:a.b[8]
+  |vpiContAssign:
+  \_cont_assign: , id:116, line:10:11, endln:10:23
+    |vpiParent:
+    \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+    |vpiRhs:
+    \_hier_path: (a.b[7:0]), id:118, line:10:15, endln:10:23
+      |vpiParent:
+      \_cont_assign: , id:116, line:10:11, endln:10:23
+      |vpiActual:
+      \_ref_obj: (a), id:119, line:10:15, endln:10:16
+        |vpiParent:
+        \_hier_path: (a.b[7:0]), id:118, line:10:15, endln:10:23
+        |vpiName:a
+        |vpiActual:
+        \_struct_net: (work@top.a), id:49, line:4:6, endln:4:7
+      |vpiActual:
+      \_part_select: (a.b[7:0]), id:120, line:10:17, endln:10:22
+        |vpiParent:
+        \_hier_path: (a.b[7:0]), id:118, line:10:15, endln:10:23
+        |vpiName:b
+        |vpiFullName:a.b[7:0]
+        |vpiActual:
+        \_typespec_member: (b), id:47, line:3:20, endln:3:21
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_constant: , id:121, line:10:19, endln:10:20
+          |vpiParent:
+          \_part_select: (a.b[7:0]), id:120, line:10:17, endln:10:22
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , id:122, line:10:21, endln:10:22
+          |vpiParent:
+          \_part_select: (a.b[7:0]), id:120, line:10:17, endln:10:22
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiName:a.b[7:0]
+    |vpiLhs:
+    \_ref_obj: (work@top.o), id:117, line:10:11, endln:10:12
+      |vpiParent:
+      \_cont_assign: , id:116, line:10:11, endln:10:23
+      |vpiName:o
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_net: (work@top.o), id:40, line:1:31, endln:1:32
+\_weaklyReferenced:
+\_logic_typespec: , id:36, line:1:19, endln:1:30
+  |vpiRange:
+  \_range: , id:33, line:1:25, endln:1:30
+    |vpiParent:
+    \_logic_typespec: , id:36, line:1:19, endln:1:30
+    |vpiLeftRange:
+    \_constant: , id:34, line:1:26, endln:1:27
+      |vpiParent:
+      \_range: , id:33, line:1:25, endln:1:30
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:35, line:1:28, endln:1:29
+      |vpiParent:
+      \_range: , id:33, line:1:25, endln:1:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: , id:42, line:2:4, endln:2:10
+  |vpiParent:
+  \_struct_net: (work@top.a), id:49, line:4:6, endln:4:7
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:47, line:3:20, endln:3:21
+    |vpiParent:
+    \_struct_typespec: , id:42, line:2:4, endln:2:10
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (work@top.a.b), id:48
+      |vpiParent:
+      \_typespec_member: (b), id:47, line:3:20, endln:3:21
+      |vpiFullName:work@top.a.b
+      |vpiActual:
+      \_logic_typespec: , id:46, line:3:7, endln:3:19
+    |vpiRefFile:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:19
+\_logic_typespec: , id:46, line:3:7, endln:3:19
+  |vpiParent:
+  \_typespec_member: (b), id:47, line:3:20, endln:3:21
+  |vpiRange:
+  \_range: , id:43, line:3:13, endln:3:19
+    |vpiParent:
+    \_logic_typespec: , id:46, line:3:7, endln:3:19
+    |vpiLeftRange:
+    \_constant: , id:44, line:3:14, endln:3:16
+      |vpiParent:
+      \_range: , id:43, line:3:13, endln:3:19
+      |vpiDecompile:16
+      |vpiSize:64
+      |UINT:16
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:45, line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , id:43, line:3:13, endln:3:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , id:58, line:1:19, endln:1:30
+  |vpiRange:
+  \_range: , id:55, line:1:25, endln:1:30
+    |vpiParent:
+    \_logic_typespec: , id:58, line:1:19, endln:1:30
+    |vpiLeftRange:
+    \_constant: , id:56, line:1:26, endln:1:27
+      |vpiParent:
+      \_range: , id:55, line:1:25, endln:1:30
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:57, line:1:28, endln:1:29
+      |vpiParent:
+      \_range: , id:55, line:1:25, endln:1:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: , id:63, line:2:4, endln:2:17
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (b), id:68, line:3:20, endln:3:21
+    |vpiParent:
+    \_struct_typespec: , id:63, line:2:4, endln:2:17
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_typespec: (b), id:69
+      |vpiParent:
+      \_typespec_member: (b), id:68, line:3:20, endln:3:21
+      |vpiFullName:b
+      |vpiActual:
+      \_logic_typespec: , id:67, line:3:7, endln:3:19
+    |vpiRefFile:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:19
+\_logic_typespec: , id:67, line:3:7, endln:3:19
+  |vpiParent:
+  \_typespec_member: (b), id:68, line:3:20, endln:3:21
+  |vpiRange:
+  \_range: , id:64, line:3:13, endln:3:19
+    |vpiParent:
+    \_logic_typespec: , id:67, line:3:7, endln:3:19
+    |vpiLeftRange:
+    \_constant: , id:65, line:3:14, endln:3:16
+      |vpiParent:
+      \_range: , id:64, line:3:13, endln:3:19
+      |vpiDecompile:16
+      |vpiSize:64
+      |UINT:16
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:66, line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , id:64, line:3:13, endln:3:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_cont_assign: , id:73, line:6:11, endln:6:21
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+  |vpiRhs:
+  \_constant: , id:6, line:6:20, endln:6:21
+  |vpiLhs:
+  \_hier_path: (a.b[0]), id:74, line:6:11, endln:6:17
+    |vpiParent:
+    \_cont_assign: , id:73, line:6:11, endln:6:21
+    |vpiActual:
+    \_ref_obj: (a), id:75, line:6:13, endln:6:14
+      |vpiParent:
+      \_hier_path: (a.b[0]), id:74, line:6:11, endln:6:17
+      |vpiName:a
+    |vpiActual:
+    \_bit_select: (work@top.a.b[0].b), id:76, line:6:13, endln:6:17
+      |vpiParent:
+      \_hier_path: (a.b[0]), id:74, line:6:11, endln:6:17
+      |vpiName:b
+      |vpiFullName:work@top.a.b[0].b
+      |vpiIndex:
+      \_constant: , id:77, line:6:15, endln:6:16
+        |vpiParent:
+        \_bit_select: (work@top.a.b[0].b), id:76, line:6:13, endln:6:17
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiName:a.b[0]
+\_cont_assign: , id:79, line:7:11, endln:7:21
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+  |vpiRhs:
+  \_constant: , id:12, line:7:20, endln:7:21
+  |vpiLhs:
+  \_hier_path: (a.b[7]), id:80, line:7:11, endln:7:17
+    |vpiParent:
+    \_cont_assign: , id:79, line:7:11, endln:7:21
+    |vpiActual:
+    \_ref_obj: (a), id:81, line:7:13, endln:7:14
+      |vpiParent:
+      \_hier_path: (a.b[7]), id:80, line:7:11, endln:7:17
+      |vpiName:a
+    |vpiActual:
+    \_bit_select: (work@top.a.b[7].b), id:82, line:7:13, endln:7:17
+      |vpiParent:
+      \_hier_path: (a.b[7]), id:80, line:7:11, endln:7:17
+      |vpiName:b
+      |vpiFullName:work@top.a.b[7].b
+      |vpiIndex:
+      \_constant: , id:83, line:7:15, endln:7:16
+        |vpiParent:
+        \_bit_select: (work@top.a.b[7].b), id:82, line:7:13, endln:7:17
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+    |vpiName:a.b[7]
+\_cont_assign: , id:85, line:8:11, endln:8:21
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:71, file:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/PartSelectOfMember/dut.sv, line:1:1, endln:12:10
+  |vpiRhs:
+  \_constant: , id:18, line:8:20, endln:8:21
+  |vpiLhs:
+  \_hier_path: (a.b[8]), id:86, line:8:11, endln:8:17
+    |vpiParent:
+    \_cont_assign: , id:85, line:8:11, endln:8:21
+    |vpiActual:
+    \_ref_obj: (a), id:87, line:8:13, endln:8:14
+      |vpiParent:
+      \_hier_path: (a.b[8]), id:86, line:8:11, endln:8:17
+      |vpiName:a
+    |vpiActual:
+    \_bit_select: (work@top.a.b[8].b), id:88, line:8:13, endln:8:17
+      |vpiParent:
+      \_hier_path: (a.b[8]), id:86, line:8:11, endln:8:17
+      |vpiName:b
+      |vpiFullName:work@top.a.b[8].b
+      |vpiIndex:
+      \_constant: , id:89, line:8:15, endln:8:16
+        |vpiParent:
+        \_bit_select: (work@top.a.b[8].b), id:88, line:8:13, endln:8:17
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+    |vpiName:a.b[8]
+\_logic_typespec: , id:94, line:1:19, endln:1:30
+  |vpiParent:
+  \_ref_typespec: (work@top.o), id:93
+  |vpiRange:
+  \_range: , id:95, line:1:25, endln:1:30
+    |vpiParent:
+    \_logic_typespec: , id:94, line:1:19, endln:1:30
+    |vpiLeftRange:
+    \_constant: , id:96, line:1:26, endln:1:27
+      |vpiParent:
+      \_range: , id:95, line:1:25, endln:1:30
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:97, line:1:28, endln:1:29
+      |vpiParent:
+      \_range: , id:95, line:1:25, endln:1:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+UHDM: Starting import_design
+UHDM: Identified top-level module: top
+UHDM: Found 1 module definitions in AllModules
+UHDM: Skipping top module top from AllModules (will import from hierarchy)
+UHDM: Found 1 top modules in design
+UHDM: Importing top module hierarchy starting from: work@top
+UHDM: No param_assigns found for top
+UHDM: Final param_signature: top
+UHDM: Importing module from hierarchy: top
+UHDM: Processing module, VpiDefName() returns: 'work@top', VpiName() returns: 'work@top'
+UHDM: Stripped work@ prefix, using: 'top'
+Importing module: top (ID: \top)
+UHDM: Found 1 ports to import
+UHDM: About to import port: 'o'
+  Importing port: o (dir=2)
+UHDM: get_width analyzing object type
+UHDM: Found port object
+UHDM: Port has typespec, calling get_width_from_typespec
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2304
+UHDM: Found ref_typespec, following reference
+UHDM: Following to actual typespec (UhdmType = logic_typespec)
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2212
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:7 (type=9, size=64)
+    vpiUIntConst: value='UINT:7', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: logic_typespec simple range width = 8
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:7 (type=9, size=64)
+    vpiUIntConst: value='UINT:7', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: Port 'o' has normal bit ordering [7:0]
+UHDM: Creating wire 'o' (width=8, upto=0, start_offset=0, mode_keep_names=false)
+UHDM: About to call module->addWire('\o', 8)
+UHDM: Successfully created wire '\o' (upto=0, start_offset=0)
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:7 (type=9, size=64)
+    vpiUIntConst: value='UINT:7', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: Found 2 nets to import
+UHDM: About to import net 1/2: 'o'
+  Importing net: o
+UHDM: About to import net 2/2: 'a'
+  Importing net: a
+UHDM: get_width analyzing object type
+UHDM: Found net object
+UHDM: Net has typespec, calling get_width_from_typespec
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2304
+UHDM: Found ref_typespec, following reference
+UHDM: Following to actual typespec (UhdmType = struct_typespec)
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2349
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2212
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: logic_typespec simple range width = 17
+UHDM: struct_typespec width = 17 (sum of members)
+UHDM: Creating wire 'a' (width=17, upto=0, start_offset=0, mode_keep_names=false)
+UHDM: About to call module->addWire('\a', 17)
+UHDM: Successfully created wire '\a' (upto=0, start_offset=0)
+UHDM: Checking signed attribute for net 'a'
+UHDM: Found Actual_typespec, UhdmType=2349
+UHDM: Unknown typespec type 2349
+UHDM: Checking for struct type on net 'a' (UhdmType=2347)
+UHDM: Net has typespec
+UHDM: Found ref_typespec for net 'a'
+UHDM: Found actual_typespec (UhdmType=2349) for net 'a'
+UHDM: typespec is a struct_typespec
+UHDM: Could not get type name for struct
+UHDM: Finished importing all nets
+UHDM: About to import interface instances for module top
+UHDM: Starting import_interface_instances
+UHDM: Module has no interfaces
+UHDM: Finished import_interface_instances
+UHDM: Finished importing interface instances
+UHDM: About to import generate scopes for module top
+UHDM: No generate scope arrays found in module
+UHDM: Finished importing generate scopes
+Starting memory analysis for module
+Memory analysis complete. Found 0 memories, 0 accesses
+UHDM: Found 4 continuous assignments to import
+UHDM: About to import continuous assignment 0 (line:6-6)
+UHDM:   LHS type: hier_path (VpiType=5000)
+UHDM:   LHS is hier_path: a.b[0]
+  Importing continuous assignment
+  LHS type: hier_path, VpiType: 5000, NetDeclAssign: 0
+  About to import LHS expression (type=5000, UhdmType=hier_path)
+  import_expression: VpiType=5000, UhdmType=hier_path
+  import_expression: Processing vpiHierPath
+    Importing hier_path
+    hier_path: VpiName='a.b[0]', VpiFullName='a.b[0]', using='a.b[0]'
+    Nidx probe: nsel=0 total=2 tail_ok=0 run_base=''
+    hier_path has 2 path elements
+      Path elem type: ref_obj
+        ref_obj: name=a, full_name=a
+        ref_obj has Actual_group of type struct_net
+      Path elem type: bit_select
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2212
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: logic_typespec simple range width = 17
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+    Struct field bit-select: a.b[0] → \a[0+:1]
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:1 (type=9, size=64)
+    vpiUIntConst: value='UINT:1', size=64
+  Continuous assignment: LHS size=1, RHS size=64, is_net_decl=0
+    LHS signal: \a [0]
+    LHS is hier_path: a.b[0]
+    RHS constant: 0000000000000000000000000000000000000000000000000000000000000001
+UHDM: Successfully imported continuous assignment
+UHDM: About to import continuous assignment 1 (line:7-7)
+UHDM:   LHS type: hier_path (VpiType=5000)
+UHDM:   LHS is hier_path: a.b[7]
+  Importing continuous assignment
+  LHS type: hier_path, VpiType: 5000, NetDeclAssign: 0
+  About to import LHS expression (type=5000, UhdmType=hier_path)
+  import_expression: VpiType=5000, UhdmType=hier_path
+  import_expression: Processing vpiHierPath
+    Importing hier_path
+    hier_path: VpiName='a.b[7]', VpiFullName='a.b[7]', using='a.b[7]'
+    Nidx probe: nsel=0 total=2 tail_ok=0 run_base=''
+    hier_path has 2 path elements
+      Path elem type: ref_obj
+        ref_obj: name=a, full_name=a
+        ref_obj has Actual_group of type struct_net
+      Path elem type: bit_select
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2212
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: logic_typespec simple range width = 17
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:7 (type=9, size=64)
+    vpiUIntConst: value='UINT:7', size=64
+    Struct field bit-select: a.b[7] → \a[7+:1]
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:1 (type=9, size=64)
+    vpiUIntConst: value='UINT:1', size=64
+  Continuous assignment: LHS size=1, RHS size=64, is_net_decl=0
+    LHS signal: \a [7]
+    LHS is hier_path: a.b[7]
+    RHS constant: 0000000000000000000000000000000000000000000000000000000000000001
+UHDM: Successfully imported continuous assignment
+UHDM: About to import continuous assignment 2 (line:8-8)
+UHDM:   LHS type: hier_path (VpiType=5000)
+UHDM:   LHS is hier_path: a.b[8]
+  Importing continuous assignment
+  LHS type: hier_path, VpiType: 5000, NetDeclAssign: 0
+  About to import LHS expression (type=5000, UhdmType=hier_path)
+  import_expression: VpiType=5000, UhdmType=hier_path
+  import_expression: Processing vpiHierPath
+    Importing hier_path
+    hier_path: VpiName='a.b[8]', VpiFullName='a.b[8]', using='a.b[8]'
+    Nidx probe: nsel=0 total=2 tail_ok=0 run_base=''
+    hier_path has 2 path elements
+      Path elem type: ref_obj
+        ref_obj: name=a, full_name=a
+        ref_obj has Actual_group of type struct_net
+      Path elem type: bit_select
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2212
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: logic_typespec simple range width = 17
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:8 (type=9, size=64)
+    vpiUIntConst: value='UINT:8', size=64
+    Struct field bit-select: a.b[8] → \a[8+:1]
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:1 (type=9, size=64)
+    vpiUIntConst: value='UINT:1', size=64
+  Continuous assignment: LHS size=1, RHS size=64, is_net_decl=0
+    LHS signal: \a [8]
+    LHS is hier_path: a.b[8]
+    RHS constant: 0000000000000000000000000000000000000000000000000000000000000001
+UHDM: Successfully imported continuous assignment
+UHDM: About to import continuous assignment 3 (line:10-10)
+UHDM:   LHS type: ref_obj (VpiType=608)
+UHDM:   LHS is ref_obj: o
+  Importing continuous assignment
+  LHS type: ref_obj, VpiType: 608, NetDeclAssign: 0
+  About to import LHS expression (type=608, UhdmType=ref_obj)
+  import_expression: VpiType=608, UhdmType=ref_obj
+    Importing ref_obj: o (current_gen_scope: )
+    ref_obj has Actual_group() pointing to logic_net: o
+    Using actual signal: o
+  import_expression: VpiType=5000, UhdmType=hier_path
+  import_expression: Processing vpiHierPath
+    Importing hier_path
+    hier_path: VpiName='a.b[7:0]', VpiFullName='a.b[7:0]', using='a.b[7:0]'
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:7 (type=9, size=64)
+    vpiUIntConst: value='UINT:7', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: Analyzing typespec for width determination
+UHDM: Typespec UhdmType = 2212
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+UHDM: logic_typespec simple range width = 17
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:16 (type=9, size=64)
+    vpiUIntConst: value='UINT:16', size=64
+  import_expression: VpiType=7, UhdmType=constant
+UHDM: Importing constant: UINT:0 (type=9, size=64)
+    vpiUIntConst: value='UINT:0', size=64
+    hier_path: packed-struct a.b[7:0] (elem_w=1) -> \a[0+:8]
+  Continuous assignment: LHS size=8, RHS size=8, is_net_decl=0
+    LHS signal: \o
+UHDM: Successfully imported continuous assignment
+UHDM: Checking for processes...
+UHDM: No processes found
+UHDM: No child modules found in top
+UHDM: Checking if we should create cell: module=0x620872c41420, has_parent=1, create_instances=1
+UHDM: Post-processing to mark interface connection wires
+UHDM: Starting interface expansion
+UHDM: Expanding interfaces in design
+UHDM: Processing module \top for interface expansion
+UHDM: Finished expanding interfaces
+UHDM: Removing \reg from wires driven by cell outputs
+UHDM: Detecting blackbox modules
+UHDM: Finished import_design
+UHDM: Final debug - listing all created objects
+  Module: top
+    Wire: a (width=17) [raw name: \a]
+    Wire: o (width=8) [raw name: \o]
+UHDM: End of debug listing
+Successfully imported 1 modules from UHDM.
+
+End of script. Logfile hash: 8122395e68, time: 0.01s, user: 0.01s, system: 0.00s, MEM: 30.38 MB peak
+Yosys 0.68+ (git sha1 bbc149ed5, Release, GNU /opt/rh/gcc-toolset-14/root/usr/bin/c++ 14.2.1) [github.com/alainmarcel/yosys at HEAD]
+Time spent: 71% 1x plugin (0 sec), 28% 2x read_uhdm (0 sec), ...

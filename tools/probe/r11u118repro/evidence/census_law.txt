@@ -1,0 +1,8 @@
+ROWS=4128
+surelog/default/EarlgreyPackParam  G=1  X=1  O=1
+surelog/default/Earlgrey_0_1  G=32  X=28  O=32
+surelog/testflags/EarlgreyPackParam  G=1  X=1  O=1
+surelog/testflags/Earlgrey_0_1  G=59  X=55  O=59
+uhdm2rtlil/default/pkg_localparam_partsel  G=2  X=2  O=2
+uhdm2rtlil/testflags/pkg_localparam_partsel  G=2  X=2  O=2
+downstream/pkg_localparam_partsel  G=2  X=2  O=2

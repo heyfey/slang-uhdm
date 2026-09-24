@@ -1956,6 +1956,18 @@ bool UhdmExporter::isPkgQualifiedVarRef(const Expression& e) {
 // ONLY to answer the yes/no question, with whitespace removed first for the
 // same reason.  Empty return == not a qualified-written package base == every
 // caller keeps its previous behaviour byte for byte.
+// § pkgQualPsRtFull118v (verifier r11v11u118) — the SCOPED fullname a
+// § pkgQualParam*118 select would have carried had its explicit `pkg::NAME`
+// not been stamped, keyed by the select.  § the folded-bound ref_typespec rule
+// below ("the ref_typespec is named after THE SELECT", read VERBATIM from the
+// select's fullname) needs the scoped spelling: golden computes that
+// ref_typespec's name through the parent chain (`work@top.blk.cfgp::K`,
+// `work@top::C::get::cfgp::K`), never from the select's explicit `cfgp::K`.
+static std::unordered_map<const UHDM::BaseClass*, std::string>& selRtFull118v() {
+    static std::unordered_map<const UHDM::BaseClass*, std::string> m;
+    return m;
+}
+
 std::string UhdmExporter::pkgWrittenQualSelBase41(const Expression& base) {
     if (base.kind != ExpressionKind::NamedValue)
         return {};
@@ -17750,6 +17762,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             auto* ps31 = (const UHDM::part_select*)up31;
                             std::string nm31(ps31->VpiName());
                             std::string fn31(ps31->VpiFullName());
+                            // § pkgQualPsRtFull118v — the scoped spelling of
+                            // a § pkgQualParam*118 select (EmitHelpers.h).
+                            if (auto it118 = selRtFull118v().find(ps31);
+                                it118 != selRtFull118v().end())
+                                fn31 = it118->second;
                             bool hier31 =
                                 ps31->VpiParent() &&
                                 ps31->VpiParent()->UhdmType() ==
@@ -29989,11 +30006,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* vs = s.MakeVar_select();
                     vs->VpiName(bnm41);
                     std::string baseFull = joinRef(prefix, bnm41);
+                    // § pkgQualParamVarSelFull118 — SITE 2: the explicit
+                    // `pkg::NAME` (compileSelectExpression's `::` gate is
+                    // unconditional, so it holds under a port parent too).
+                    if (!qb41.empty() && pkgQualVsFull118On() &&
+                        nv2.symbol.kind == SymbolKind::Parameter)
+                        vs->VpiFullName(qb41);
                     // A port HIGH-CONN select carries no written fullname:
                     // UHDM computes it through the port and the instance
                     // (<inst>.<port>.<sig>), and only skips the port name for
                     // a bit_select child.
-                    if (!parent || parent->UhdmType() != UHDM::uhdmport)
+                    else if (!parent || parent->UhdmType() != UHDM::uhdmport)
                         vs->VpiFullName(baseFull);
                     vs->VpiParent(parent);
                     setLoc(vs, expr.sourceRange);
@@ -30589,10 +30612,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::string qb41 = pkgWrittenQualSelBase41(*base);
                     std::string bnm41 =
                         qb41.empty() ? std::string(nvb.symbol.name) : qb41;
+                    // § pkgQualParamVarSelFull118 — the qualified PARAMETER
+                    // base's var_select and trailing part_select carry the
+                    // explicit `pkg::NAME` fullname (EmitHelpers.h); the
+                    // bound refs below keep scoping through baseFull/psFull.
+                    const bool vsq118 = !qb41.empty() && pkgQualVsFull118On() &&
+                                        nvb.symbol.kind == SymbolKind::Parameter;
                     auto* vs = s.MakeVar_select();
                     vs->VpiName(bnm41);
                     std::string baseFull = joinRef(prefix, bnm41);
-                    vs->VpiFullName(baseFull);
+                    vs->VpiFullName(vsq118 ? qb41 : baseFull);
                     vs->VpiParent(parent);
                     setLoc(vs, expr.sourceRange);
                     auto* idxs = s.MakeExprVec();
@@ -30637,7 +30666,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // scope through THAT (UHDM ComputeFullName only skips
                         // a bit_select/indexed_part_select/hier_path parent).
                         std::string psFull = baseFull + "." + bnm41;
-                        ps->VpiFullName(psFull);
+                        ps->VpiFullName(vsq118 ? qb41 : psFull);
+                        // § pkgQualPsRtFull118v — the bound ref_typespec
+                        // keeps the pre-law scoped spelling (EmitHelpers.h).
+                        if (vsq118 && pkgQualPsRtFull118On())
+                            selRtFull118v()[ps] = psFull;
                         ps->VpiParent(vs);
                         setLoc(ps, selRange);
                         ps->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
@@ -32276,11 +32309,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = rs.value().as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // § pkgQualParamPartSelName118 — a QUALIFIED package parameter
+            // base names the select `pkg::NAME` (EmitHelpers.h).  Empty ==
+            // every other base, byte for byte as before.
+            std::string q118;
+            if (pkgQualPsName118On() &&
+                nv.symbol.kind == SymbolKind::Parameter)
+                q118 = pkgWrittenQualSelBase41(rs.value());
+            const std::string nm118 =
+                q118.empty() ? std::string(nv.symbol.name) : q118;
             if (rs.getSelectionKind() != RangeSelectionKind::Simple) {
                 auto* ips = s.MakeIndexed_part_select();
-                ips->VpiName(nv.symbol.name);
-                ips->VpiDefName(nv.symbol.name);
-                ips->VpiFullName(joinRef(prefix, nv.symbol.name));
+                ips->VpiName(nm118);
+                ips->VpiDefName(nm118);
+                ips->VpiFullName(joinRef(prefix, nm118));
                 ips->VpiParent(parent);
                 // § retNameSelBindsHomeReturnInCloneOnly171 — SITE 3 of 4.
                 // The INDEXED PART-SELECT spelling of the same law, placed
@@ -32313,7 +32355,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // joinRef decides.  A hard `.` was right for every module and
                 // gen-scope prefix (they have no `::`, so joinRef returns the
                 // same string) and wrong for every class/package one.
-                std::string basePfx = joinRef(prefix, nv.symbol.name);
+                std::string basePfx = joinRef(prefix, nm118);
                 auto boundPfx = [&](const Expression& e) -> const std::string& {
                     return stripImplicitConv(e).kind == ExpressionKind::NamedValue ? prefix
                                                                                    : basePfx;
@@ -32445,8 +32487,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return ips;
             }
             auto* psel = s.MakePart_select();
-            psel->VpiName(nv.symbol.name);
-            psel->VpiDefName(nv.symbol.name);
+            psel->VpiName(nm118);
+            psel->VpiDefName(nm118);
             psel->VpiParent(parent);
             // § retNameSelBindsHomeReturnInCloneOnly171 — SITE 4 of 4, the
             // SIMPLE PART-SELECT (`pv_shape[7:4]` @39:5 of arm
@@ -32458,7 +32500,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // lazily-computed values, incl. the doubled name under a
             // bit_select index). A PARAM-init part-select of a param
             // (WidthRatio[DepthW:0]) scopes explicitly by the module prefix.
-            if (inParamInit)
+            if (!q118.empty()) {
+                // § pkgQualParamPartSelName118 — the explicit `pkg::NAME`
+                // (compilePartSelectRange's `::` gate), in every home.
+                psel->VpiFullName(q118);
+                // § pkgQualPsRtFull118v — the scoped name for the bound
+                // ref_typespec rule (EmitHelpers.h).
+                if (pkgQualPsRtFull118On())
+                    selRtFull118v()[psel] = joinRef(prefix, nm118);
+            }
+            else if (inParamInit)
                 psel->VpiFullName(joinRef(prefix, nv.symbol.name));
             else if (prefix.find('[') != std::string::npos)
                 // Under a gen-scope-array path the lazy parent-chain walk
@@ -32471,7 +32522,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 psel->VpiFullName(joinRef(prefix, nv.symbol.name));
             else
                 (void)psel->VpiFullName();
-            setLoc(psel, expr.sourceRange);
+            // § pkgQualParamPartSelName118 — the RANGE's span alone (the
+            // package-scope arm never re-locates the select).
+            if (!q118.empty()) {
+                // § pkgQualPsParenSpan118v (verifier r11v11u118) — Surelog
+                // spans the RANGE from its Constant_expression nodes, which
+                // include a bound's written parentheses (`[(W-1):0]` starts
+                // at the `(`); slang keeps the INNER sourceRange and parks
+                // the ParenthesizedExpression on `syntax`.  Switch
+                // R11U118_PSPAREN_OFF.
+                auto bnd118 = [&](const Expression& e) -> SourceRange {
+                    const Expression& se = stripImplicitConv(e);
+                    if (pkgQualPsParen118On() && se.syntax &&
+                        se.syntax->kind ==
+                            syntax::SyntaxKind::ParenthesizedExpression)
+                        return se.syntax->sourceRange();
+                    return e.sourceRange;
+                };
+                setLoc(psel, SourceRange(bnd118(rs.left()).start(),
+                                         bnd118(rs.right()).end()));
+            }
+            else
+                setLoc(psel, expr.sourceRange);
             // § everyPartSelIsConstSel78 — THE HEAD's own site.
             // `arb_sequence_q[0:b-1]` (uvm_sequencer_base.svh:681) has a
             // NON-constant right end, the old both-ends gate read false, and
@@ -32504,7 +32576,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // § partSelBoundPrefixJoinsByScope78 — SITE 2 of 2, and THE HEAD's
             // own site: `arb_sequence_q[0:b-1]` in a CLASS method wants
             // `…grant_queued_locks::arb_sequence_q::b`, not `…locks.arb…`.
-            std::string basePfx = joinRef(prefix, nv.symbol.name);
+            std::string basePfx = joinRef(prefix, nm118);
             auto boundPfx = [&](const Expression& e) -> const std::string& {
                 // Function/task bodies AND param inits scope EVERY bound ref
                 // by the base name (Surelog's doubled part-select fullname);

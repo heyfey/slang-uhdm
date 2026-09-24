@@ -1,0 +1,102 @@
+=== sweep P
+probe arms: EQUAL=2833 (of 2833); goldens built now=0, from cache=2833
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+EQUIVALENT gen_test7 surelog=NO_GATES slang=NO_GATES differs=[nohier] ✅ All 8 common constant assignments match
+downstream: DIVERGENT=5 EQUIVALENT=20 IDENTICAL=780 SLANG_REJECT=66 (of 871); not identical and not excused=1
+rc=1
+=== sweep L
+probe arms: EQUAL=2833 (of 2833); goldens built now=0, from cache=2833
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+EQUIVALENT gen_test7 surelog=NO_GATES slang=NO_GATES differs=[nohier] ✅ All 8 common constant assignments match
+downstream: DIVERGENT=4 EQUIVALENT=20 IDENTICAL=781 SLANG_REJECT=66 (of 871); not identical and not excused=1
+rc=1
+=== sweep G
+probe arms: EQUAL=2833 (of 2833); goldens built now=0, from cache=2833
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+EQUIVALENT gen_test7 surelog=NO_GATES slang=NO_GATES differs=[nohier] ✅ All 8 common constant assignments match
+downstream: DIVERGENT=4 EQUIVALENT=20 IDENTICAL=781 SLANG_REJECT=66 (of 871); not identical and not excused=1
+rc=1
+=== byteverify surelog L vs P
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=3feabe5bd02d pristine=d0376d8f7d7b
+MOVER ./default/EarlgreyPackParam-df1bb3d2/slang.uhdm  patched=ced4a56fb40d pristine=431b8693c708
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=9fd8cd41a2a8 pristine=7e0c4ac1c6ed
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=d570834912af pristine=3808d89b90d9
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=d216b1b48faf pristine=e413597dc69b
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=a8eb55bca2ab pristine=6b872dd5c8f3
+MOVER ./testflags/EarlgreyPackParam-df1bb3d2/slang.uhdm  patched=4161e00c84ff pristine=cca5828191dc
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=75021cb5d15e pristine=aca0fb5d57c0
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=35a9b19bcc2f pristine=d53437332d16
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=0a9039608706 pristine=51411b7476c6
+MOVERS: 10 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+=== byteverify surelog G vs L
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=7e0c4ac1c6ed pristine=9fd8cd41a2a8
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=e0390fefc476 pristine=d570834912af
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=08e8f5bc2d5b pristine=75021cb5d15e
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=1a7bf40a8985 pristine=35a9b19bcc2f
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=ae33cf015637 pristine=0a9039608706
+MOVERS: 5 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+=== byteverify surelog G vs P
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=3feabe5bd02d pristine=d0376d8f7d7b
+MOVER ./default/EarlgreyPackParam-df1bb3d2/slang.uhdm  patched=ced4a56fb40d pristine=431b8693c708
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=e0390fefc476 pristine=3808d89b90d9
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=d216b1b48faf pristine=e413597dc69b
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=a8eb55bca2ab pristine=6b872dd5c8f3
+MOVER ./testflags/EarlgreyPackParam-df1bb3d2/slang.uhdm  patched=4161e00c84ff pristine=cca5828191dc
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=08e8f5bc2d5b pristine=aca0fb5d57c0
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=1a7bf40a8985 pristine=d53437332d16
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=ae33cf015637 pristine=51411b7476c6
+MOVERS: 9 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+=== byteverify uhdm2rtlil L vs P
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/pkg_localparam_partsel-13b9afe0/slang.uhdm  patched=cda579bdfa76 pristine=48639d20a9cd
+MOVER ./testflags/pkg_localparam_partsel-13b9afe0/slang.uhdm  patched=c467a0d05636 pristine=384e1822a77a
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+=== byteverify uhdm2rtlil G vs L
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+=== byteverify uhdm2rtlil G vs P
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/pkg_localparam_partsel-13b9afe0/slang.uhdm  patched=cda579bdfa76 pristine=48639d20a9cd
+MOVER ./testflags/pkg_localparam_partsel-13b9afe0/slang.uhdm  patched=c467a0d05636 pristine=384e1822a77a
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+=== byteverify downstream L vs P
+PATH_SETS_IDENTICAL (805 paths)
+MOVER ./pkg_localparam_partsel/slang.uhdm  patched=c467a0d05636 pristine=384e1822a77a
+MOVERS: 1 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+=== byteverify downstream G vs L
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+=== byteverify downstream G vs P
+PATH_SETS_IDENTICAL (805 paths)
+MOVER ./pkg_localparam_partsel/slang.uhdm  patched=c467a0d05636 pristine=384e1822a77a
+MOVERS: 1 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

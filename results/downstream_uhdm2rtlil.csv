@@ -613,7 +613,7 @@ PatternParameterInSubmodule,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 PatternStruct,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 PatternType,SLANG_REJECT,,,,,,
 pico_count_cycle,IDENTICAL,OK,OK,380,380,,
-pkg_localparam_partsel,DIVERGENT,NO_GATES,NO_GATES,0,0,nohier il synth,❌ Constant value mismatch — circuits are NOT equivalent for /tmp/ds_rebase/pkg_localparam_partsel/equiv/pkg_localparam_p
+pkg_localparam_partsel,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 pkg_nested_struct_param_width,IDENTICAL,OK,OK,66,66,,
 PkgParamAsFunctionArg,IDENTICAL,NO_GATES,NO_GATES,0,0,,
 port_chained_type_param,IDENTICAL,NO_GATES,NO_GATES,0,0,,

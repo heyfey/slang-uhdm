@@ -1,0 +1,109 @@
+# Earlgrey_0_1 order-blind dump diff, pristine < LAW > (workdir path normalised), classified
+== default: 192 lines
+     36 > \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST)
+     24 > \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (prim_cipher_pkg::PRINCE_ROUND_CONST)
+     15 < \_var_select: (work@prim_prince.gen_fwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST)
+     15 < \_var_select: (work@prim_prince.gen_bwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST)
+     10 < \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (work@prim_prince.gen_fwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST)
+     10 < \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (work@prim_prince.gen_bwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      5 < |vpiFullName:work@prim_prince.gen_fwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+      5 < |vpiFullName:work@prim_prince.gen_fwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST
+      5 < |vpiFullName:work@prim_prince.gen_bwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+      5 < |vpiFullName:work@prim_prince.gen_bwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST
+      5 > \_part_select: dm::HaltAddress (dm::HaltAddress)
+      3 < \_var_select: (work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      3 < \_var_select: (work@prim_prince.p_post_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      3 < \_part_select: HaltAddress (work@top_earlgrey.u_dm_top.i_dm_mem.HaltAddress)
+      2 < |vpiName:HaltAddress
+      2 > |vpiName:dm::HaltAddress
+      2 < |vpiDefName:HaltAddress
+      2 > |vpiDefName:dm::HaltAddress
+      2 < \_part_select: PRINCE_ALPHA_CONST (work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST)
+      2 < \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      2 < \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (work@prim_prince.p_post_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      2 > \_part_select: prim_cipher_pkg::PRINCE_ALPHA_CONST (prim_cipher_pkg::PRINCE_ALPHA_CONST)
+      2 < \_part_select: HaltAddress (work@dm_mem.HaltAddress)
+      1 < |vpiName:ResumeAddress
+      1 < |vpiName:PRINCE_ALPHA_CONST
+      1 > |vpiName:prim_cipher_pkg::PRINCE_ALPHA_CONST
+      1 > |vpiName:dm::ResumeAddress
+      1 < |vpiFullName:work@top_earlgrey.u_dm_top.i_dm_mem.HaltAddress.DbgAddressBits
+      1 < |vpiFullName:work@top_earlgrey.u_dm_top.i_dm_mem.HaltAddress
+      1 > |vpiFullName:work@top_earlgrey.u_dm_top.i_dm_mem.dm::HaltAddress.DbgAddressBits
+      1 < |vpiFullName:work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+      1 < |vpiFullName:work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST
+      1 < |vpiFullName:work@prim_prince.p_post_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+      1 < |vpiFullName:work@prim_prince.p_post_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST
+      1 < |vpiFullName:work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST.DataWidth
+      1 < |vpiFullName:work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST
+      1 > |vpiFullName:work@prim_prince.p_key_expansion.prim_cipher_pkg::PRINCE_ALPHA_CONST.DataWidth
+      1 < |vpiFullName:work@dm_mem.p_rw_logic.ResumeAddress
+      1 < |vpiFullName:work@dm_mem.HaltAddress.DbgAddressBits
+      1 < |vpiFullName:work@dm_mem.HaltAddress
+      1 > |vpiFullName:work@dm_mem.dm::HaltAddress.DbgAddressBits
+      1 < |vpiDefName:ResumeAddress
+      1 < |vpiDefName:PRINCE_ALPHA_CONST
+      1 > |vpiDefName:prim_cipher_pkg::PRINCE_ALPHA_CONST
+      1 > |vpiDefName:dm::ResumeAddress
+      1 < \_ref_obj: (work@top_earlgrey.u_dm_top.i_dm_mem.HaltAddress.DbgAddressBits)
+      1 > \_ref_obj: (work@top_earlgrey.u_dm_top.i_dm_mem.dm::HaltAddress.DbgAddressBits)
+      1 < \_ref_obj: (work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST.DataWidth)
+      1 > \_ref_obj: (work@prim_prince.p_key_expansion.prim_cipher_pkg::PRINCE_ALPHA_CONST.DataWidth)
+      1 < \_ref_obj: (work@dm_mem.HaltAddress.DbgAddressBits)
+      1 > \_ref_obj: (work@dm_mem.dm::HaltAddress.DbgAddressBits)
+      1 < \_part_select: ResumeAddress (work@dm_mem.p_rw_logic.ResumeAddress)
+      1 > \_part_select: dm::ResumeAddress (dm::ResumeAddress)
+== testflags: 335 lines
+     70 > \_var_select: (prim_cipher_pkg::PRINCE_ROUND_CONST)
+     36 > \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (prim_cipher_pkg::PRINCE_ROUND_CONST)
+     30 < \_var_select: (work@prim_prince.gen_fwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST)
+     30 < \_var_select: (work@prim_prince.gen_bwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST)
+     15 < \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (work@prim_prince.gen_fwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST)
+     15 < \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (work@prim_prince.gen_bwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST)
+     10 < |vpiFullName:work@prim_prince.gen_fwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+     10 < |vpiFullName:work@prim_prince.gen_fwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST
+     10 < |vpiFullName:work@prim_prince.gen_bwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+     10 < |vpiFullName:work@prim_prince.gen_bwd_pass[k].prim_cipher_pkg::PRINCE_ROUND_CONST
+      7 > \_part_select: dm::HaltAddress (dm::HaltAddress)
+      5 < \_var_select: (work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      5 < \_var_select: (work@prim_prince.p_post_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      5 < \_part_select: HaltAddress (work@top_earlgrey.u_dm_top.i_dm_mem.HaltAddress)
+      3 < |vpiName:HaltAddress
+      3 > |vpiName:dm::HaltAddress
+      3 < |vpiDefName:HaltAddress
+      3 > |vpiDefName:dm::HaltAddress
+      3 < \_part_select: PRINCE_ALPHA_CONST (work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST)
+      3 < \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      3 < \_part_select: prim_cipher_pkg::PRINCE_ROUND_CONST (work@prim_prince.p_post_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST)
+      3 > \_part_select: prim_cipher_pkg::PRINCE_ALPHA_CONST (prim_cipher_pkg::PRINCE_ALPHA_CONST)
+      2 < |vpiName:ResumeAddress
+      2 < |vpiName:PRINCE_ALPHA_CONST
+      2 > |vpiName:prim_cipher_pkg::PRINCE_ALPHA_CONST
+      2 > |vpiName:dm::ResumeAddress
+      2 < |vpiFullName:work@top_earlgrey.u_dm_top.i_dm_mem.HaltAddress.DbgAddressBits
+      2 < |vpiFullName:work@top_earlgrey.u_dm_top.i_dm_mem.HaltAddress
+      2 > |vpiFullName:work@top_earlgrey.u_dm_top.i_dm_mem.dm::HaltAddress.DbgAddressBits
+      2 < |vpiFullName:work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+      2 < |vpiFullName:work@prim_prince.p_pre_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST
+      2 < |vpiFullName:work@prim_prince.p_post_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST.prim_cipher_pkg::PRINCE_ROUND_CONST
+      2 < |vpiFullName:work@prim_prince.p_post_round_xor.prim_cipher_pkg::PRINCE_ROUND_CONST
+      2 < |vpiFullName:work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST
+      2 < |vpiFullName:work@dm_mem.p_rw_logic.ResumeAddress
+      2 < |vpiDefName:ResumeAddress
+      2 < |vpiDefName:PRINCE_ALPHA_CONST
+      2 > |vpiDefName:prim_cipher_pkg::PRINCE_ALPHA_CONST
+      2 > |vpiDefName:dm::ResumeAddress
+      2 < \_ref_obj: (work@top_earlgrey.u_dm_top.i_dm_mem.HaltAddress.DbgAddressBits)
+      2 > \_ref_obj: (work@top_earlgrey.u_dm_top.i_dm_mem.dm::HaltAddress.DbgAddressBits)
+      2 < \_part_select: ResumeAddress (work@dm_mem.p_rw_logic.ResumeAddress)
+      2 < \_part_select: HaltAddress (work@dm_mem.HaltAddress)
+      2 > \_part_select: dm::ResumeAddress (dm::ResumeAddress)
+      1 < |vpiFullName:work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST.DataWidth
+      1 > |vpiFullName:work@prim_prince.p_key_expansion.prim_cipher_pkg::PRINCE_ALPHA_CONST.DataWidth
+      1 < |vpiFullName:work@dm_mem.HaltAddress.DbgAddressBits
+      1 < |vpiFullName:work@dm_mem.HaltAddress
+      1 > |vpiFullName:work@dm_mem.dm::HaltAddress.DbgAddressBits
+      1 < \_ref_obj: (work@prim_prince.p_key_expansion.PRINCE_ALPHA_CONST.DataWidth)
+      1 > \_ref_obj: (work@prim_prince.p_key_expansion.prim_cipher_pkg::PRINCE_ALPHA_CONST.DataWidth)
+      1 < \_ref_obj: (work@dm_mem.HaltAddress.DbgAddressBits)
+      1 > \_ref_obj: (work@dm_mem.dm::HaltAddress.DbgAddressBits)

@@ -1,0 +1,26 @@
+== surelog
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=3feabe5bd02d pristine=d0376d8f7d7b
+MOVER ./default/EarlgreyPackParam-df1bb3d2/slang.uhdm  patched=ced4a56fb40d pristine=431b8693c708
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=320fb2bff2f6 pristine=cd799c14f5ef
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=e9bba8308ad3 pristine=d0cff778f07c
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=a8eb55bca2ab pristine=6b872dd5c8f3
+MOVER ./testflags/EarlgreyPackParam-df1bb3d2/slang.uhdm  patched=4161e00c84ff pristine=cca5828191dc
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=b70383b6f477 pristine=9b03f72c5e0c
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=03781e9ba11a pristine=e05fc563ddb4
+MOVERS: 8 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/pkg_localparam_partsel-13b9afe0/slang.uhdm  patched=cda579bdfa76 pristine=48639d20a9cd
+MOVER ./testflags/pkg_localparam_partsel-13b9afe0/slang.uhdm  patched=c467a0d05636 pristine=384e1822a77a
+MOVERS: 2 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVER ./pkg_localparam_partsel/slang.uhdm  patched=c467a0d05636 pristine=384e1822a77a
+MOVERS: 1 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

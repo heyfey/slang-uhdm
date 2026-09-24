@@ -1,0 +1,33 @@
+=== pkg_localparam_partsel (surelog lane < > slang lane), base 849800d1
+16c16
+<     connect \B 305419896
+---
+>     connect \B 0
+=== IndexedPartSelectOfMember (surelog lane < > slang lane), base 849800d1
+10,12c10,12
+<   connect \a [0] 1'1
+<   connect \a [7] 1'1
+<   connect \a [8] 1'1
+---
+>   connect \a [0] 1'x
+>   connect \a [7] 1'x
+>   connect \a [8] 1'x
+=== PartSelectOfMember (surelog lane < > slang lane), base 849800d1
+10,12c10,12
+<   connect \a [0] 1'1
+<   connect \a [7] 1'1
+<   connect \a [8] 1'1
+---
+>   connect \a [0] 1'x
+>   connect \a [7] 1'x
+>   connect \a [8] 1'x
+=== SelectOnMemberSelectedFrom2DArray (surelog lane < > slang lane), base 849800d1
+13c13
+<   connect \a [2] 1'1
+---
+>   connect \a [2] 1'x
+=== iface_array_elem_cfg_param (surelog lane < > slang lane), base 849800d1
+21c21
+<     connect \A 8
+---
+>     connect \A 16

@@ -1,0 +1,9 @@
+# downstream sweep (871 rows): verdict histogram and every row whose verdict/differs moved (pristine -> LAW)
+pristine:  5 DIVERGENT  20 EQUIVALENT  780 IDENTICAL  66 SLANG_REJECT
+LAW:       4 DIVERGENT  20 EQUIVALENT  781 IDENTICAL  66 SLANG_REJECT
+row join (name,pristine verdict,differs,LAW verdict,differs):
+pkg_localparam_partsel,DIVERGENT,nohier il synth,IDENTICAL,
+vs results/downstream_uhdm2rtlil.csv (name,baseline,LAW):
+gen_test7,IDENTICAL,EQUIVALENT
+pkg_localparam_partsel,DIVERGENT,IDENTICAL
+gen_test7: slang.uhdm md5 93600fca92167ec72ddc34be08d1d909 on BOTH binaries (plugin-side coin; serial reruns read IDENTICAL 4/4 then EQUIVALENT 3/3 on pristine, EQUIVALENT 3/3 on LAW)
