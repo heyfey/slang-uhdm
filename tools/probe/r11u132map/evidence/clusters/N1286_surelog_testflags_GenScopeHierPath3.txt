@@ -1,0 +1,64 @@
+cluster N1286 (r11u128map K1499; OPEN): fullname|ref_obj|tok:id[id].id[id].id[id - n].id.->|under:bit_select
+row: surelog/testflags/GenScopeHierPath3  strict=differ:fullname(164)  records golden=3394 ours=3394
+object: #1432 (golden) / #1432 (ours)  type=ref_obj name=step OUT
+  golden: work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.step
+  ours:   work@gen_test.steps[1].outer[0].step
+  walk parents: bit_select(steps) < hier_path(steps[step].outer[i].inner[CHUNK - 1].temp) < cont_assign < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1426..1438 ('>' = the object)
+  #1426	14	gen_scope_array	genblk1		work@gen_test.steps[1].outer[15].inner[3].genblk1	dut.sv	23	11	23	39					work@gen_test.steps[1].outer[15].inner[3].genblk1	000
+  #1427	15	gen_scope			work@gen_test.steps[1].outer[15].inner[3].genblk1	dut.sv	23	11	23	39					work@gen_test.steps[1].outer[15].inner[3].genblk1	000
+  #1428	16	cont_assign				dut.sv	23	18	23	38						000
+  #1429	17	bit_select	input_bits		work@gen_test.steps[1].outer[15].inner[3].genblk1.input_bits	dut.sv	23	36	23	37		0			work@gen_test.steps[1].outer[15].inner[3].genblk1.input_bits	000
+  #1430	18	ref_obj	i		work@gen_test.steps[1].outer[15].inner[3].genblk1.i	dut.sv	23	36	23	37		0			work@gen_test.steps[1].outer[15].inner[3].genblk1.i	000
+  #1431	17	ref_obj	temp		work@gen_test.steps[1].outer[15].inner[3].genblk1.temp	dut.sv	23	18	23	22		0			work@gen_test.steps[1].outer[15].inner[3].genblk1.temp	000
+> #1432	9	ref_obj	step		work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.step	dut.sv	32	26	32	30		0			work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.step	000
+  #1433	8	bit_select	outer		steps[step].outer[i]	dut.sv	32	32	32	37		0			steps[step].outer[i]	000
+  #1434	9	ref_obj	i		work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.i	dut.sv	32	38	32	39		0			work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.i	000
+  #1435	8	bit_select	inner		steps[step].outer[i].inner[CHUNK - 1]	dut.sv	32	41	32	46		0			steps[step].outer[i].inner[CHUNK - 1]	000
+  #1436	9	operation				dut.sv	32	47	32	56		0				000
+  #1437	10	ref_obj	CHUNK		work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.inner.CHUNK	dut.sv	32	47	32	52		0			work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.inner.CHUNK	000
+  #1438	8	ref_obj	temp		work@gen_test.steps[1].outer[0].temp	dut.sv	32	58	32	62		0			work@gen_test.steps[1].outer[0].temp	000
+
+--- OURS (B) records 1426..1438 ('>' = the object)
+  #1426	14	gen_scope_array	genblk1		work@gen_test.steps[1].outer[15].inner[3].genblk1	dut.sv	23	11	23	39					work@gen_test.steps[1].outer[15].inner[3].genblk1	000
+  #1427	15	gen_scope			work@gen_test.steps[1].outer[15].inner[3].genblk1	dut.sv	23	11	23	39					work@gen_test.steps[1].outer[15].inner[3].genblk1	000
+  #1428	16	cont_assign				dut.sv	23	18	23	38						000
+  #1429	17	bit_select	input_bits		work@gen_test.steps[1].outer[15].inner[3].genblk1.input_bits	dut.sv	23	36	23	37		0			work@gen_test.steps[1].outer[15].inner[3].genblk1.input_bits	000
+  #1430	18	ref_obj	i		work@gen_test.steps[1].outer[15].inner[3].genblk1.i	dut.sv	23	36	23	37		0			work@gen_test.steps[1].outer[15].inner[3].genblk1.i	000
+  #1431	17	ref_obj	temp		work@gen_test.steps[1].outer[15].inner[3].genblk1.temp	dut.sv	23	18	23	22		0			work@gen_test.steps[1].outer[15].inner[3].genblk1.temp	000
+> #1432	9	ref_obj	step		work@gen_test.steps[1].outer[0].step	dut.sv	32	26	32	30		0			work@gen_test.steps[1].outer[0].step	000
+  #1433	8	bit_select	outer		steps[step].outer[i]	dut.sv	32	32	32	37		0			steps[step].outer[i]	000
+  #1434	9	ref_obj	i		work@gen_test.steps[1].outer[0].i	dut.sv	32	38	32	39		0			work@gen_test.steps[1].outer[0].i	000
+  #1435	8	bit_select	inner		steps[step].outer[i].inner[CHUNK - 1]	dut.sv	32	41	32	46		0			steps[step].outer[i].inner[CHUNK - 1]	000
+  #1436	9	operation				dut.sv	32	47	32	56		0				000
+  #1437	10	ref_obj	CHUNK		work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK	dut.sv	32	47	32	52		0			work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK	000
+  #1438	8	ref_obj	temp		work@gen_test.steps[1].outer[0].temp	dut.sv	32	58	32	62		0			work@gen_test.steps[1].outer[0].temp	000
+
+facets of this row (164, first 25):
+  N1286 #1432/1432 ref_obj step G[work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[0].step]
+  N1286 #1434/1434 ref_obj i G[work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.i] O[work@gen_test.steps[1].outer[0].i]
+  N0030 #1437/1437 ref_obj CHUNK G[work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.inner] O[work@gen_test.steps[1].outer[0].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK]
+  N1286 #1478/1478 ref_obj step G[work@gen_test.steps[1].outer[1].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[1].step]
+  N1286 #1480/1480 ref_obj i G[work@gen_test.steps[1].outer[1].steps[step].outer[i].inner[CHUNK - 1].temp.i] O[work@gen_test.steps[1].outer[1].i]
+  N0030 #1483/1483 ref_obj CHUNK G[work@gen_test.steps[1].outer[1].steps[step].outer[i].inner[CHUNK - 1].temp.inner] O[work@gen_test.steps[1].outer[1].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK]
+  N1286 #1524/1524 ref_obj step G[work@gen_test.steps[1].outer[2].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[2].step]
+  N1286 #1526/1526 ref_obj i G[work@gen_test.steps[1].outer[2].steps[step].outer[i].inner[CHUNK - 1].temp.i] O[work@gen_test.steps[1].outer[2].i]
+  N0030 #1529/1529 ref_obj CHUNK G[work@gen_test.steps[1].outer[2].steps[step].outer[i].inner[CHUNK - 1].temp.inner] O[work@gen_test.steps[1].outer[2].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK]
+  N1286 #1570/1570 ref_obj step G[work@gen_test.steps[1].outer[3].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[3].step]
+  N1286 #1572/1572 ref_obj i G[work@gen_test.steps[1].outer[3].steps[step].outer[i].inner[CHUNK - 1].temp.i] O[work@gen_test.steps[1].outer[3].i]
+  N0030 #1575/1575 ref_obj CHUNK G[work@gen_test.steps[1].outer[3].steps[step].outer[i].inner[CHUNK - 1].temp.inner] O[work@gen_test.steps[1].outer[3].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK]
+  N1286 #1616/1616 ref_obj step G[work@gen_test.steps[1].outer[4].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[4].step]
+  N1286 #1618/1618 ref_obj i G[work@gen_test.steps[1].outer[4].steps[step].outer[i].inner[CHUNK - 1].temp.i] O[work@gen_test.steps[1].outer[4].i]
+  N0030 #1621/1621 ref_obj CHUNK G[work@gen_test.steps[1].outer[4].steps[step].outer[i].inner[CHUNK - 1].temp.inner] O[work@gen_test.steps[1].outer[4].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK]
+  N1286 #1662/1662 ref_obj step G[work@gen_test.steps[1].outer[5].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[5].step]
+  N1286 #1664/1664 ref_obj i G[work@gen_test.steps[1].outer[5].steps[step].outer[i].inner[CHUNK - 1].temp.i] O[work@gen_test.steps[1].outer[5].i]
+  N0030 #1667/1667 ref_obj CHUNK G[work@gen_test.steps[1].outer[5].steps[step].outer[i].inner[CHUNK - 1].temp.inner] O[work@gen_test.steps[1].outer[5].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK]
+  N1286 #1708/1708 ref_obj step G[work@gen_test.steps[1].outer[6].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[6].step]
+  N1286 #1710/1710 ref_obj i G[work@gen_test.steps[1].outer[6].steps[step].outer[i].inner[CHUNK - 1].temp.i] O[work@gen_test.steps[1].outer[6].i]
+  N0030 #1713/1713 ref_obj CHUNK G[work@gen_test.steps[1].outer[6].steps[step].outer[i].inner[CHUNK - 1].temp.inner] O[work@gen_test.steps[1].outer[6].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK]
+  N1286 #1754/1754 ref_obj step G[work@gen_test.steps[1].outer[7].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[7].step]
+  N1286 #1756/1756 ref_obj i G[work@gen_test.steps[1].outer[7].steps[step].outer[i].inner[CHUNK - 1].temp.i] O[work@gen_test.steps[1].outer[7].i]
+  N0030 #1759/1759 ref_obj CHUNK G[work@gen_test.steps[1].outer[7].steps[step].outer[i].inner[CHUNK - 1].temp.inner] O[work@gen_test.steps[1].outer[7].steps[step].outer[i].inner[CHUNK - 1].temp.CHUNK]
+  N1286 #1800/1800 ref_obj step G[work@gen_test.steps[1].outer[8].steps[step].outer[i].inner[CHUNK - 1].temp.step] O[work@gen_test.steps[1].outer[8].step]

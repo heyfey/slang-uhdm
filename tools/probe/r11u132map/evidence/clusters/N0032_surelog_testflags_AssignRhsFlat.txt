@@ -1,0 +1,58 @@
+cluster N0032 (r11u128map K0033; OPEN (residue of landed r11u124)): fullname|ref_typespec|tok:->id@id.|under:typespec_member
+row: surelog/testflags/AssignRhsFlat  strict=differ:fullname(23)  records golden=111 ours=111
+object: #4 (golden) / #4 (ours)  type=ref_typespec name= STABLE
+  golden: ABC.A
+  ours:   work@dut.ABC.A
+  walk parents: typespec_member(A) < struct_typespec(ABC) < module_inst < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..10 ('>' = the object)
+  #0	0	design	work@dut				0	0	0	0						000
+  #1	1	module_inst		work@dut	work@dut	dut.sv	1	1	13	10					work@dut	000
+  #2	2	struct_typespec	ABC			dut.sv	2	9	8	2						010
+  #3	3	typespec_member	A			dut.sv	3	7	3	8						001
+> #4	4	ref_typespec			<in>ABC.A		0	0	0	0		0			ABC.A	001
+  #5	5	int_typespec				dut.sv	3	3	3	6						001
+  #6	3	typespec_member	BC1			dut.sv	7	5	7	8						001
+  #7	4	ref_typespec			<in>ABC.BC1		0	0	0	0		0			ABC.BC1	001
+  #8	5	struct_typespec				dut.sv	4	3	4	9						001
+  #9	6	typespec_member	B			dut.sv	5	11	5	12						001
+  #10	7	ref_typespec			<in>ABC.BC1.B		0	0	0	0		0			ABC.BC1.B	001
+
+--- OURS (B) records 0..10 ('>' = the object)
+  #0	0	design	work@dut				0	0	0	0						000
+  #1	1	module_inst		work@dut	work@dut	dut.sv	1	1	13	10					work@dut	000
+  #2	2	struct_typespec	ABC			dut.sv	2	9	8	2						010
+  #3	3	typespec_member	A			dut.sv	3	7	3	8						001
+> #4	4	ref_typespec			<in>ABC.A		0	0	0	0		0			work@dut.ABC.A	001
+  #5	5	int_typespec				dut.sv	3	3	3	6						001
+  #6	3	typespec_member	BC1			dut.sv	7	5	7	8						001
+  #7	4	ref_typespec			<in>ABC.BC1		0	0	0	0		0			work@dut.ABC.BC1	001
+  #8	5	struct_typespec				dut.sv	4	3	4	9						001
+  #9	6	typespec_member	B			dut.sv	5	11	5	12						001
+  #10	7	ref_typespec			B		0	0	0	0		0			B	001
+
+facets of this row (23, first 25):
+  N0032 #4/4 ref_typespec  G[ABC.A] O[work@dut.ABC.A]
+  N0032 #7/7 ref_typespec  G[ABC.BC1] O[work@dut.ABC.BC1]
+  N0755 #10/10 ref_typespec  G[ABC.BC1.B] O[B]
+  N0755 #13/13 ref_typespec  G[ABC.BC1.C] O[C]
+  N0032 #16/16 ref_typespec  G[ABC.BC2] O[work@dut.ABC.BC2]
+  N0755 #19/19 ref_typespec  G[ABC.BC2.B] O[B]
+  N0755 #22/22 ref_typespec  G[ABC.BC2.C] O[C]
+  N0032 #51/51 ref_typespec  G[ABC.A] O[work@dut.ABC.A]
+  N0032 #54/54 ref_typespec  G[ABC.BC1] O[work@dut.ABC.BC1]
+  N0755 #57/57 ref_typespec  G[ABC.BC1.B] O[B]
+  N0755 #60/60 ref_typespec  G[ABC.BC1.C] O[C]
+  N0032 #63/63 ref_typespec  G[ABC.BC2] O[work@dut.ABC.BC2]
+  N0755 #66/66 ref_typespec  G[ABC.BC2.B] O[B]
+  N0755 #69/69 ref_typespec  G[ABC.BC2.C] O[C]
+  N0032 #73/73 ref_typespec  G[ABC.A] O[work@dut.ABC.A]
+  N0032 #76/76 ref_typespec  G[ABC.BC1] O[work@dut.ABC.BC1]
+  N0755 #79/79 ref_typespec  G[ABC.BC1.B] O[B]
+  N0755 #82/82 ref_typespec  G[ABC.BC1.C] O[C]
+  N0032 #85/85 ref_typespec  G[ABC.BC2] O[work@dut.ABC.BC2]
+  N0755 #88/88 ref_typespec  G[ABC.BC2.B] O[B]
+  N0755 #91/91 ref_typespec  G[ABC.BC2.C] O[C]
+  N0755 #103/103 ref_typespec  G[ABC.BC2.B] O[B]
+  N0755 #106/106 ref_typespec  G[ABC.BC2.C] O[C]

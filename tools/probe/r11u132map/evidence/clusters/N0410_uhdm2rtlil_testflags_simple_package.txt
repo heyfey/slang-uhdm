@@ -1,0 +1,64 @@
+cluster N0410 (r11u128map K0541; OPEN (residue of landed r11u124)): fullname|ref_typespec|tok:id->id|under:typespec_member
+row: uhdm2rtlil/testflags/simple_package  strict=differ:fullname(5)  records golden=969 ours=975
+object: #77 (golden) / #77 (ours)  type=ref_typespec name= STABLE
+  golden: work@sub_module.my_pkg::bus_transaction_t.data
+  ours:   work@simple_package.my_pkg::bus_transaction_t.data
+  walk parents: typespec_member(data) < struct_typespec(my_pkg::bus_transaction_t) < package(my_pkg) < design(work@simple_package)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 71..83 ('>' = the object)
+  #71	2	param_assign				dut.sv	7	19	7	34						000
+  #72	3	constant				dut.sv	7	32	7	34	16	32	UINT:16	9		000
+  #73	4	ref_typespec			my_pkg		0	0	0	0		0			my_pkg	000
+  #74	5	int_typespec				dut.sv	7	15	7	18						000
+  #75	2	struct_typespec	my_pkg::bus_transaction_t			dut.sv	10	13	15	6						010
+  #76	3	typespec_member	data			dut.sv	11	32	11	36						001
+> #77	4	ref_typespec			<in>my_pkg::bus_transaction_t.data		0	0	0	0		0			work@sub_module.my_pkg::bus_transaction_t.data	001
+  #78	5	logic_typespec				dut.sv	11	9	11	31						001
+  #79	6	range				dut.sv	11	15	11	31						001
+  #80	7	constant				dut.sv	11	16	11	26	31	64	INT:31	7		001
+  #81	7	constant				dut.sv	11	29	11	30	0	64	UINT:0	9		001
+  #82	3	typespec_member	addr			dut.sv	12	32	12	36						001
+  #83	4	ref_typespec			<in>my_pkg::bus_transaction_t.addr		0	0	0	0		0			work@sub_module.my_pkg::bus_transaction_t.addr	001
+
+--- OURS (B) records 71..83 ('>' = the object)
+  #71	2	param_assign				dut.sv	7	19	7	34						000
+  #72	3	constant				dut.sv	7	32	7	34	16	32	UINT:16	9		000
+  #73	4	ref_typespec			my_pkg		0	0	0	0		0			my_pkg	000
+  #74	5	int_typespec				dut.sv	7	15	7	18						000
+  #75	2	struct_typespec	my_pkg::bus_transaction_t			dut.sv	10	13	15	6						010
+  #76	3	typespec_member	data			dut.sv	11	32	11	36						001
+> #77	4	ref_typespec			<in>my_pkg::bus_transaction_t.data		0	0	0	0		0			work@simple_package.my_pkg::bus_transaction_t.data	001
+  #78	5	logic_typespec				dut.sv	11	9	11	31						001
+  #79	6	range				dut.sv	11	15	11	31						001
+  #80	7	constant				dut.sv	11	16	11	26	31	64	INT:31	7		001
+  #81	7	constant				dut.sv	11	29	11	30	0	64	UINT:0	9		001
+  #82	3	typespec_member	addr			dut.sv	12	32	12	36						001
+  #83	4	ref_typespec			<in>my_pkg::bus_transaction_t.addr		0	0	0	0		0			work@simple_package.my_pkg::bus_transaction_t.addr	001
+
+facets of this row (86, first 25):
+  N0764 #-1/101 constant  G[] O[3 objs]
+  N0764 #-1/112 constant  G[] O[3 objs]
+  N0410 #77/77 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.data] O[work@simple_package.my_pkg::bus_transaction_t.data]
+  N0410 #83/83 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.addr] O[work@simple_package.my_pkg::bus_transaction_t.addr]
+  N0410 #89/89 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.valid] O[work@simple_package.my_pkg::bus_transaction_t.valid]
+  N0410 #92/92 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.ready] O[work@simple_package.my_pkg::bus_transaction_t.ready]
+  N0410 #138/144 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.data] O[work@simple_package.my_pkg::bus_transaction_t.data]
+  N0410 #144/150 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.addr] O[work@simple_package.my_pkg::bus_transaction_t.addr]
+  N0410 #150/156 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.valid] O[work@simple_package.my_pkg::bus_transaction_t.valid]
+  N0410 #153/159 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.ready] O[work@simple_package.my_pkg::bus_transaction_t.ready]
+  N0826 #164/170 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]
+  N0826 #175/181 constant  G[32|32|UINT:32|9] O[32|64|UINT:32|9]
+  N0410 #192/198 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.data] O[work@simple_package.my_pkg::bus_transaction_t.data]
+  N0410 #198/204 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.addr] O[work@simple_package.my_pkg::bus_transaction_t.addr]
+  N0410 #204/210 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.valid] O[work@simple_package.my_pkg::bus_transaction_t.valid]
+  N0410 #207/213 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.ready] O[work@simple_package.my_pkg::bus_transaction_t.ready]
+  N0410 #222/228 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.data] O[work@simple_package.my_pkg::bus_transaction_t.data]
+  N0410 #228/234 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.addr] O[work@simple_package.my_pkg::bus_transaction_t.addr]
+  N0410 #234/240 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.valid] O[work@simple_package.my_pkg::bus_transaction_t.valid]
+  N0410 #237/243 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.ready] O[work@simple_package.my_pkg::bus_transaction_t.ready]
+  N0410 #244/250 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.data] O[work@simple_package.my_pkg::bus_transaction_t.data]
+  N0410 #250/256 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.addr] O[work@simple_package.my_pkg::bus_transaction_t.addr]
+  N0410 #256/262 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.valid] O[work@simple_package.my_pkg::bus_transaction_t.valid]
+  N0410 #259/265 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.ready] O[work@simple_package.my_pkg::bus_transaction_t.ready]
+  N0410 #337/343 ref_typespec  G[work@sub_module.my_pkg::bus_transaction_t.data] O[work@simple_package.my_pkg::bus_transaction_t.data]

@@ -1,0 +1,64 @@
+cluster N0164 (r11u128map K0231; OPEN (residue of landed r11u124)): fullname|ref_typespec|tok:id::id::id::id::->|under:bit_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(315)  records golden=201533 ours=201486
+object: #1135 (golden) / #1135 (ours)  type=ref_typespec name= STABLE
+  golden: uvm_pkg::uvm_pkg::uvm_reg_bus_op::byte_en::uvm_reg_byte_en_t
+  ours:   uvm_reg_byte_en_t
+  walk parents: bit_typespec(uvm_reg_byte_en_t) < ref_typespec < typespec_member(byte_en) < struct_typespec(uvm_pkg::uvm_reg_bus_op)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1129..1141 ('>' = the object)
+  #1129	3	typespec_member	n_bits			uvm_pkg.sv	61366	7	61366	13						001
+  #1130	4	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.n_bits		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_reg_bus_op::n_bits	001
+  #1131	5	int_typespec				uvm_pkg.sv	61366	3	61366	6						001
+  #1132	3	typespec_member	byte_en			uvm_pkg.sv	61377	21	61377	28						001
+  #1133	4	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.byte_en		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_reg_bus_op::byte_en	001
+  #1134	5	bit_typespec	uvm_reg_byte_en_t			uvm_pkg.sv	60739	10	60739	42						001
+> #1135	6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_reg_bus_op::byte_en::uvm_reg_byte_en_t	001
+  #1136	7	bit_typespec	uvm_pkg::uvm_reg_byte_en_t			uvm_pkg.sv	60739	10	60739	42						001
+  #1137	8	range				uvm_pkg.sv	60739	23	60739	42						001
+  #1138	9	operation				uvm_pkg.sv	60739	24	60739	39		0				001
+  #1139	10	operation				uvm_pkg.sv	60739	25	60739	35		0				001
+  #1140	11	operation				uvm_pkg.sv	60739	25	60739	33		0				001
+  #1141	12	operation				uvm_pkg.sv	60739	26	60739	30		0				001
+
+--- OURS (B) records 1129..1141 ('>' = the object)
+  #1129	3	typespec_member	n_bits			uvm_pkg.sv	61366	7	61366	13						001
+  #1130	4	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.n_bits		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_reg_bus_op::n_bits	001
+  #1131	5	int_typespec				uvm_pkg.sv	61366	3	61366	6						001
+  #1132	3	typespec_member	byte_en			uvm_pkg.sv	61377	21	61377	28						001
+  #1133	4	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.byte_en		0	0	0	0		0			uvm_pkg::uvm_pkg::uvm_reg_bus_op::byte_en	001
+  #1134	5	bit_typespec	uvm_reg_byte_en_t			uvm_pkg.sv	60739	10	60739	42						001
+> #1135	6	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0			uvm_reg_byte_en_t	001
+  #1136	7	bit_typespec	uvm_pkg::uvm_reg_byte_en_t			uvm_pkg.sv	60739	10	60739	42						001
+  #1137	8	range				uvm_pkg.sv	60739	23	60739	42						001
+  #1138	9	operation				uvm_pkg.sv	60739	24	60739	39		0				001
+  #1139	10	operation				uvm_pkg.sv	60739	25	60739	35		0				001
+  #1140	11	operation				uvm_pkg.sv	60739	25	60739	33		0				001
+  #1141	12	operation				uvm_pkg.sv	60739	26	60739	30		0				001
+
+facets of this row (11121, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

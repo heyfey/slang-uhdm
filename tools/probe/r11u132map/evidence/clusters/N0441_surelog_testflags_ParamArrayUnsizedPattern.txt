@@ -1,0 +1,41 @@
+cluster N0441 (r11u128map K0590; OPEN): struct|ours-only:fewer-copies|constant|under:array_expr
+row: surelog/testflags/ParamArrayUnsizedPattern  strict=differ:depth(1)  records golden=169 ours=170
+object: #-1 (golden) / #140 (ours)  type=constant name= 
+  golden: 
+  ours:   1 objs
+  walk parents: array_expr < param_assign < module_inst(work@test) < design(work@test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 134..146 ('>' = the object)
+  #134	7	operation				dut.sv	4	49	4	58		0				001
+  #135	8	ref_obj	BobaCount		work@test.NumBobaDrinkersDefault.BobaCount	dut.sv	4	49	4	58		0			work@test.NumBobaDrinkersDefault.BobaCount	001
+  #136	8	constant					0	0	0	0		64	INT:1	7		001
+  #137	6	ref_typespec			<in>		0	0	0	0		0			work@test.NumBobaDrinkersDefault	001
+  #138	7	int_typespec				dut.sv	4	13	4	25						001
+  #139	4	constant				dut.sv	4	73	4	75	4294967295	32	UINT:4294967295	9		000
+> #140	4	constant				dut.sv	4	73	4	75	4294967295	32	UINT:4294967295	9		000
+  #141	2	param_assign				dut.sv	5	26	5	64						000
+  #142	3	operation				dut.sv	5	55	5	64		0				000
+  #143	4	ref_typespec			work@test		0	0	0	0		0			work@test	000
+  #144	5	array_typespec				dut.sv	5	13	5	52						000
+  #145	6	range				dut.sv	5	42	5	51						001
+  #146	7	constant					0	0	0	0	0	64	UINT:0	9		001
+
+--- the holder #129 on the other side: exact-record matches at [129]
+  #126	4	ref_typespec			work@test		0	0	0	0		0			work@test	000
+  #127	5	int_typespec				dut.sv	3	13	3	16						000
+  #128	2	param_assign				dut.sv	4	26	4	76						000
+> #129	3	array_expr					0	0	0	0		0				000
+  #130	4	ref_typespec			work@test		0	0	0	0		0			work@test	000
+  #131	5	array_typespec				dut.sv	4	13	4	59						000
+  #132	6	range				dut.sv	4	49	4	58						001
+  #133	7	constant					0	0	0	0	0	64	UINT:0	9		001
+  #134	7	operation				dut.sv	4	49	4	58		0				001
+  #135	8	ref_obj	BobaCount		work@test.NumBobaDrinkersDefault.BobaCount	dut.sv	4	49	4	58		0			work@test.NumBobaDrinkersDefault.BobaCount	001
+  #136	8	constant					0	0	0	0		64	INT:1	7		001
+  #137	6	ref_typespec			<in>		0	0	0	0		0			work@test.NumBobaDrinkersDefault	001
+  #138	7	int_typespec				dut.sv	4	13	4	25						001
+
+facets of this row (2, first 25):
+  N0441 #-1/140 constant  G[] O[1 objs]
+  N0394 #164/165 constant  G[dut.sv 6:62:6:71] O[ 6:62:6:71]

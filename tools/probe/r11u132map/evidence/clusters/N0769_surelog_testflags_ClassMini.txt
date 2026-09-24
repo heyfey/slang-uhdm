@@ -1,0 +1,40 @@
+cluster N0769 (r11u128map K0949; OPEN): span|task|endcol|under:class_defn
+row: surelog/testflags/ClassMini  strict=differ:endcol(1)  records golden=92 ours=92
+object: #58 (golden) / #58 (ours)  type=task name=door_fsm 
+  golden: 10:5:10:33
+  ours:   10:5:10:34
+  walk parents: class_defn(door) < package(pack) < design(work@door_mod)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 52..64 ('>' = the object)
+  #52	4	constant				dut.sv	9	20	9	25	2'b10	2	BIN:10	3		000
+  #53	5	ref_typespec			pack::door		0	0	0	0		0			pack::door	000
+  #54	6	int_typespec				dut.sv	7	5	9	25						000
+  #55	7	range					0	0	0	0						001
+  #56	8	constant					0	0	0	0		0	INT:1	0		001
+  #57	8	constant					0	0	0	0		0	INT:0	0		001
+> #58	3	task	door_fsm		pack::door::door_fsm	dut.sv	10	5	10	33					pack::door::door_fsm	000
+  #59	3	class_defn	doorOpen		pack::doorOpen	dut.sv	13	1	17	9					pack::doorOpen	000
+  #60	4	extends				dut.sv	13	24	13	28						000
+  #61	5	ref_typespec			pack::doorOpen		0	0	0	0		0			pack::doorOpen	000
+  #62	6	class_typespec	door			dut.sv	13	24	13	28						110
+  #63	4	task	door_fsm		pack::doorOpen::door_fsm	dut.sv	14	5	16	12					pack::doorOpen::door_fsm	000
+  #64	5	if_stmt				dut.sv	15	9	15	35						000
+
+--- OURS (B) records 52..64 ('>' = the object)
+  #52	4	constant				dut.sv	9	20	9	25	2'b10	2	BIN:10	3		000
+  #53	5	ref_typespec			pack::door		0	0	0	0		0			pack::door	000
+  #54	6	int_typespec				dut.sv	7	5	9	25						000
+  #55	7	range					0	0	0	0						001
+  #56	8	constant					0	0	0	0		0	INT:1	0		001
+  #57	8	constant					0	0	0	0		0	INT:0	0		001
+> #58	3	task	door_fsm		pack::door::door_fsm	dut.sv	10	5	10	34					pack::door::door_fsm	000
+  #59	3	class_defn	doorOpen		pack::doorOpen	dut.sv	13	1	17	9					pack::doorOpen	000
+  #60	4	extends				dut.sv	13	24	13	28						000
+  #61	5	ref_typespec			pack::doorOpen		0	0	0	0		0			pack::doorOpen	000
+  #62	6	class_typespec	door			dut.sv	13	24	13	28						110
+  #63	4	task	door_fsm		pack::doorOpen::door_fsm	dut.sv	14	5	16	12					pack::doorOpen::door_fsm	000
+  #64	5	if_stmt				dut.sv	15	9	15	35						000
+
+facets of this row (1, first 25):
+  N0769 #58/58 task door_fsm G[10:5:10:33] O[10:5:10:34]

@@ -1,0 +1,64 @@
+cluster N0105 (r11u128map K0163; OPEN): span|string_var|line+col+endline+endcol|under:function
+row: surelog/default/ApbSlave  strict=differ:line(30)  records golden=3678 ours=3682
+object: #449 (golden) / #453 (ours)  type=string_var name= 
+  golden: 44:19:44:25
+  ours:   68:10:68:16
+  walk parents: function(get_name) < class_defn(svunit_base) < package(svunit_pkg) < design(work@apb_slave_unit_test)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 443..455 ('>' = the object)
+  #443	5	ref_typespec			svunit_pkg::svunit_base::new		0	0	0	0		0			svunit_pkg::svunit_base::new	000
+  #444	6	class_typespec	svunit_pkg::svunit_base				0	0	0	0						110
+  #445	4	io_decl	name			svunit_base.sv	43	30	43	34						000
+  #446	5	ref_typespec			svunit_pkg::svunit_base::new::name		0	0	0	0		0			svunit_pkg::svunit_base::new::name	000
+  #447	6	string_typespec				svunit_base.sv	43	23	43	29						000
+  #448	3	function	get_name		svunit_pkg::svunit_base::get_name	svunit_base.sv	44	3	44	9					svunit_pkg::svunit_base::get_name	000
+> #449	4	string_var			svunit_pkg::svunit_base::get_name	svunit_base.sv	44	19	44	25		0			svunit_pkg::svunit_base::get_name	000
+  #450	5	ref_typespec			svunit_pkg::svunit_base::get_name		0	0	0	0		0			svunit_pkg::svunit_base::get_name	000
+  #451	6	string_typespec				svunit_base.sv	44	19	44	25						000
+  #452	3	function	get_results		svunit_pkg::svunit_base::get_results	svunit_base.sv	45	3	45	9					svunit_pkg::svunit_base::get_results	000
+  #453	4	enum_var			svunit_pkg::svunit_base::get_results	svunit_base.sv	45	19	45	28		0			svunit_pkg::svunit_base::get_results	000
+  #454	5	ref_typespec			svunit_pkg::svunit_base::get_results		0	0	0	0		0			svunit_pkg::svunit_base::get_results	000
+  #455	6	enum_typespec	svunit_pkg::results_t			svunit_types.svh	29	3	29	44						110
+
+--- OURS (B) records 447..459 ('>' = the object)
+  #447	5	ref_typespec			svunit_pkg::svunit_base::new		0	0	0	0		0			svunit_pkg::svunit_base::new	000
+  #448	6	class_typespec	svunit_pkg::svunit_base				0	0	0	0						110
+  #449	4	io_decl	name			svunit_base.sv	59	34	59	38						000
+  #450	5	ref_typespec			svunit_pkg::svunit_base::new::name		0	0	0	0		0			svunit_pkg::svunit_base::new::name	000
+  #451	6	string_typespec				svunit_base.sv	59	27	59	33						000
+  #452	3	function	get_name		svunit_pkg::svunit_base::get_name	svunit_base.sv	44	3	44	9					svunit_pkg::svunit_base::get_name	000
+> #453	4	string_var			svunit_pkg::svunit_base::get_name	svunit_base.sv	68	10	68	16		0			svunit_pkg::svunit_base::get_name	000
+  #454	5	ref_typespec			svunit_pkg::svunit_base::get_name		0	0	0	0		0			svunit_pkg::svunit_base::get_name	000
+  #455	6	string_typespec				svunit_base.sv	68	10	68	16						000
+  #456	3	function	get_results		svunit_pkg::svunit_base::get_results	svunit_base.sv	45	3	45	9					svunit_pkg::svunit_base::get_results	000
+  #457	4	enum_var			svunit_pkg::svunit_base::get_results	svunit_base.sv	87	10	87	19		0			svunit_pkg::svunit_base::get_results	000
+  #458	5	ref_typespec			svunit_pkg::svunit_base::get_results		0	0	0	0		0			svunit_pkg::svunit_base::get_results	000
+  #459	6	enum_typespec	svunit_pkg::results_t			svunit_types.svh	29	3	29	44						110
+
+facets of this row (267, first 25):
+  N0289 #-1/372 string_var svunit_version G[] O[4 objs]
+  N0064 #4/4 include_file_info  G[375:12:375:32] O[373:12:373:32]
+  N0064 #5/5 include_file_info  G[593:12:593:33] O[587:12:587:33]
+  N0064 #6/6 include_file_info  G[710:12:710:34] O[698:12:698:34]
+  N0064 #7/7 include_file_info  G[813:12:813:32] O[797:12:797:32]
+  N0714 #34/34 begin  G[103:3:79:2] O[103:3:79:43]
+  N0714 #163/163 begin  G[103:3:195:2] O[103:3:195:18]
+  N0710 #169/169 sys_func_call $display G[103:3:106:17] O[103:3:103:155]
+  N0711 #173/173 sys_func_call $sformatf G[103:50:106:16] O[103:50:195:16]
+  N0705 #175/175 ref_obj success_str G[104:5:104:16] O[193:5:193:16]
+  N0726 #176/176 operation  G[105:5:105:27] O[194:5:194:27]
+  N0055 #177/177 ref_obj test_count G[105:5:105:15] O[194:5:194:15]
+  N0055 #178/178 ref_obj error_count G[105:16:105:27] O[194:16:194:27]
+  N0705 #179/179 ref_obj test_count G[106:5:106:15] O[195:5:195:15]
+  N0041 #216/216 unsupported_typespec list_of_testcases G[svunit_testsuite.sv 89:11:89:28] O[ 89:11:89:28]
+  N0710 #273/273 sys_func_call $display G[103:3:106:31] O[103:3:103:159]
+  N0711 #277/277 sys_func_call $sformatf G[103:50:106:30] O[103:50:109:30]
+  N0705 #279/279 ref_obj success_str G[104:5:104:16] O[107:5:107:16]
+  N0705 #280/280 ref_obj pass_cnt G[105:5:105:13] O[108:5:108:13]
+  N0715 #281/281 hier_path list_of_testcases.size G[106:5:106:29] O[109:5:109:29]
+  N0718 #282/282 ref_obj list_of_testcases G[106:5:106:22] O[109:5:109:22]
+  N0717 #283/283 method_func_call size G[106:23:106:27] O[109:23:109:27]
+  N0710 #360/360 sys_func_call $display G[103:3:107:21] O[103:3:103:178]
+  N0711 #364/364 sys_func_call $sformatf G[103:50:107:20] O[103:50:97:20]
+  N0705 #366/366 ref_obj success_str G[104:5:104:16] O[94:5:94:16]

@@ -1,0 +1,43 @@
+cluster N0748 (r11u128map K0931; OPEN): fullname|parameter|tok:id->id.id.id.id|under:param_assign
+row: surelog/testflags/OneNetRange  strict=differ:fullname(4)  records golden=591 ours=591
+object: #516 (golden) / #516 (ours)  type=parameter name=width OUT
+  golden: work@ConnectTB.width
+  ours:   work@TOP.dut1.middle1.conn.width
+  walk parents: param_assign < interface_inst(conn) < ref_obj < port(conn)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 510..522 ('>' = the object)
+  #510	5	ref_obj			work@TOP.dut1.middle1.conn	dut.v	4	35	4	41		0			work@TOP.dut1.middle1.conn	000
+  #511	6	interface_inst	conn	work@ConnectTB	work@TOP.dut1.middle1.conn	dut.v	4	0	0	0					work@TOP.dut1.middle1.conn	000
+  #512	7	param_assign				dut.v	8	33	8	42						000
+  #513	8	constant				dut.v	8	41	8	42	16	32	UINT:16	9		000
+  #514	9	ref_typespec			work@TOP.dut1.middle1.conn		0	0	0	0		0			work@TOP.dut1.middle1.conn	000
+  #515	10	int_typespec				dut.v	8	23	8	42						000
+> #516	8	parameter	width		work@ConnectTB.width	dut.v	8	33	8	38		0	UINT:1		work@ConnectTB.width	000
+  #517	9	ref_typespec			work@ConnectTB.width		0	0	0	0		0			work@ConnectTB.width	000
+  #518	10	int_typespec				dut.v	8	23	8	42						000
+  #519	7	port	con_i			dut.v	8	68	8	73						000
+  #520	8	ref_obj	con_i		work@TOP.dut1.middle1.conn.con_i	dut.v	8	68	8	73		0			work@TOP.dut1.middle1.conn.con_i	000
+  #521	9	logic_net	con_i			dut.v	8	68	8	73		0				000
+  #522	10	ref_typespec			con_i		0	0	0	0		0			con_i	000
+
+--- OURS (B) records 510..522 ('>' = the object)
+  #510	5	ref_obj			work@TOP.dut1.middle1.conn	dut.v	4	35	4	41		0			work@TOP.dut1.middle1.conn	000
+  #511	6	interface_inst	conn	work@ConnectTB	work@TOP.dut1.middle1.conn	dut.v	4	0	0	0					work@TOP.dut1.middle1.conn	000
+  #512	7	param_assign				dut.v	8	33	8	42						000
+  #513	8	constant				dut.v	8	41	8	42	16	32	UINT:16	9		000
+  #514	9	ref_typespec			work@TOP.dut1.middle1.conn		0	0	0	0		0			work@TOP.dut1.middle1.conn	000
+  #515	10	int_typespec				dut.v	8	23	8	42						000
+> #516	8	parameter	width		work@TOP.dut1.middle1.conn.width	dut.v	8	33	8	38		0	UINT:1		work@TOP.dut1.middle1.conn.width	000
+  #517	9	ref_typespec			work@TOP.dut1.middle1.conn.width		0	0	0	0		0			work@TOP.dut1.middle1.conn.width	000
+  #518	10	int_typespec				dut.v	8	23	8	42						000
+  #519	7	port	con_i			dut.v	8	68	8	73						000
+  #520	8	ref_obj	con_i		work@TOP.dut1.middle1.conn.con_i	dut.v	8	68	8	73		0			work@TOP.dut1.middle1.conn.con_i	000
+  #521	9	logic_net	con_i			dut.v	8	68	8	73		0				000
+  #522	10	ref_typespec			con_i		0	0	0	0		0			con_i	000
+
+facets of this row (4, first 25):
+  N0748 #516/516 parameter width G[work@ConnectTB.width] O[work@TOP.dut1.middle1.conn.width]
+  N0749 #517/517 ref_typespec  G[work@ConnectTB.width] O[work@TOP.dut1.middle1.conn.width]
+  N0869 #589/589 ref_obj inp G[work@TOP.dut1.middle1.sub1.inp] O[work@SUB.inp]
+  N0869 #590/590 ref_obj out G[work@TOP.dut1.middle1.sub1.out] O[work@SUB.out]

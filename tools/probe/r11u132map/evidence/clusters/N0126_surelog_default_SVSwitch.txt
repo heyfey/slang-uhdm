@@ -1,0 +1,64 @@
+cluster N0126 (r11u128map K0188; OPEN): span|begin|line+endline+endcol|under:task
+row: surelog/default/SVSwitch  strict=differ:endcol(38)  records golden=5787 ours=5808
+object: #740 (golden) / #740 (ours)  type=begin name= 
+  golden: 26:3:38:6
+  ours:   25:3:25:26
+  walk parents: task(start) < class_defn(work@Scoreboard) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 734..746 ('>' = the object)
+  #734	3	class_var	pkt_rcv		work@Scoreboard::start::pkt_rcv	Scoreboard.sv	25	10	25	17		0			work@Scoreboard::start::pkt_rcv	000
+  #735	4	ref_typespec			work@Scoreboard::start::pkt_rcv		0	0	0	0		0			work@Scoreboard::start::pkt_rcv	000
+  #736	5	class_typespec	packet			Scoreboard.sv	25	3	25	9						110
+  #737	3	class_var	pkt_exp		work@Scoreboard::start::pkt_exp	Scoreboard.sv	25	18	25	25		0			work@Scoreboard::start::pkt_exp	000
+  #738	4	ref_typespec			work@Scoreboard::start::pkt_exp		0	0	0	0		0			work@Scoreboard::start::pkt_exp	000
+  #739	5	class_typespec	packet			Scoreboard.sv	25	3	25	9						110
+> #740	3	begin			work@Scoreboard::start	Scoreboard.sv	26	3	38	6					work@Scoreboard::start	000
+  #741	4	forever_stmt				Scoreboard.sv	26	3	26	10						000
+  #742	5	begin			work@Scoreboard::start	Scoreboard.sv	27	3	38	6					work@Scoreboard::start	000
+  #743	6	method_func_call	get			Scoreboard.sv	28	13	28	16		0				000
+  #744	7	ref_obj	pkt_rcv		work@Scoreboard::start::pkt_rcv	Scoreboard.sv	28	17	28	24		0			work@Scoreboard::start::pkt_rcv	000
+  #745	7	ref_obj	rcvr2sb		work@Scoreboard::start::rcvr2sb	Scoreboard.sv	28	5	28	12		0			work@Scoreboard::start::rcvr2sb	000
+  #746	6	sys_func_call	$display			Scoreboard.sv	29	5	29	87		0				000
+
+--- OURS (B) records 734..746 ('>' = the object)
+  #734	3	class_var	pkt_rcv		work@Scoreboard::start::pkt_rcv	Scoreboard.sv	25	10	25	17		0			work@Scoreboard::start::pkt_rcv	000
+  #735	4	ref_typespec			work@Scoreboard::start::pkt_rcv		0	0	0	0		0			work@Scoreboard::start::pkt_rcv	000
+  #736	5	class_typespec	packet			Scoreboard.sv	25	3	25	9						110
+  #737	3	class_var	pkt_exp		work@Scoreboard::start::pkt_exp	Scoreboard.sv	25	18	25	25		0			work@Scoreboard::start::pkt_exp	000
+  #738	4	ref_typespec			work@Scoreboard::start::pkt_exp		0	0	0	0		0			work@Scoreboard::start::pkt_exp	000
+  #739	5	class_typespec	packet			Scoreboard.sv	25	3	25	9						110
+> #740	3	begin			work@Scoreboard::start	Scoreboard.sv	25	3	25	26					work@Scoreboard::start	000
+  #741	4	forever_stmt				Scoreboard.sv	26	3	26	10						000
+  #742	5	begin			work@Scoreboard::start	Scoreboard.sv	27	3	38	6					work@Scoreboard::start	000
+  #743	6	method_func_call	get			Scoreboard.sv	28	13	28	16		0				000
+  #744	7	ref_obj	pkt_rcv		work@Scoreboard::start::pkt_rcv	Scoreboard.sv	28	17	28	24		0			work@Scoreboard::start::pkt_rcv	000
+  #745	7	ref_obj	rcvr2sb		work@Scoreboard::start::rcvr2sb	Scoreboard.sv	28	5	28	12		0			work@Scoreboard::start::rcvr2sb	000
+  #746	6	sys_func_call	$display			Scoreboard.sv	29	5	29	87		0				000
+
+facets of this row (101, first 25):
+  N0526 #-1/3314 logic_net clock G[] O[3 objs]
+  N0268 #-1/3348 logic_var reset G[] O[3 objs]
+  N0526 #-1/3352 logic_net clock G[] O[3 objs]
+  N0526 #-1/3407 logic_net clock G[] O[3 objs]
+  N0526 #-1/3432 logic_net clock G[] O[3 objs]
+  N0526 #-1/3457 logic_net clock G[] O[3 objs]
+  N0526 #-1/3482 logic_net clock G[] O[3 objs]
+  N1144 #88/88 hier_path pkt.randomize G[40:10:40:25] O[40:10:40:23]
+  N0095 #101/101 ref_obj bytes G[work@Driver::start::pkt.byte_pack::bytes] O[work@Driver::start::bytes]
+  N0041 #106/106 unsupported_typespec bytes G[Driver.sv 50:16:50:21] O[ 50:16:50:21]
+  N0067 #184/184 class_typespec Receiver G[Environemnt.sv 20:3:20:11] O[ 0:0:0:0]
+  N0068 #184/184 class_typespec Receiver G[20:3:20:11] O[0:0:0:0]
+  N0041 #255/255 unsupported_typespec rcvr G[Environemnt.sv 42:12:42:16] O[ 42:12:42:16]
+  N0119 #264/264 bit_select rcvr G[43:11:43:12] O[43:6:43:13]
+  N0007 #651/651 ref_obj size G[] O[work@Receiver::start::size]
+  N0126 #740/740 begin  G[26:3:38:6] O[25:3:25:26]
+  N0095 #756/756 ref_obj pkt_exp G[work@Scoreboard::start::pkt_rcv.compare::pkt_exp] O[work@Scoreboard::start::pkt_exp]
+  N0070 #912/912 function display G[55:1:55:8] O[55:1:67:22]
+  N0041 #940/940 unsupported_typespec data G[Packet.sv 63:11:63:15] O[ 63:11:63:15]
+  N0070 #961/961 function byte_pack G[70:1:70:8] O[70:1:79:24]
+  N0007 #980/980 ref_obj size G[] O[work@packet::byte_pack::size]
+  N0041 #998/998 unsupported_typespec data G[Packet.sv 75:11:75:15] O[ 75:11:75:15]
+  N0070 #1022/1022 function byte_unpack G[82:1:82:8] O[82:1:93:26]
+  N0041 #1064/1064 unsupported_typespec data G[Packet.sv 88:11:88:15] O[ 88:11:88:15]
+  N0070 #1094/1094 function compare G[96:1:96:8] O[96:1:134:22]

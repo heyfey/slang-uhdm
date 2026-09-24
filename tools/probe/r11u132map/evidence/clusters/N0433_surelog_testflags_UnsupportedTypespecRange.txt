@@ -1,0 +1,42 @@
+cluster N0433 (r11u128map K0576; OPEN): file|packed_array_typespec|golden-empty|under:ref_typespec
+row: surelog/testflags/UnsupportedTypespecRange  strict=differ:file(2)  records golden=26 ours=26
+object: #14 (golden) / #14 (ours)  type=packed_array_typespec name= 
+  golden:  0:0:0:0
+  ours:   dut.sv 10:5:10:46
+  walk parents: ref_typespec < typespec_member(atype_t) < union_typespec(top_flag_t) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 8..20 ('>' = the object)
+  #8	3	typespec_member	a			dut.sv	3	11	3	12						001
+  #9	4	ref_typespec			<in>foo_flags_pkg::common_flags_t.a		0	0	0	0		0			foo_flags_pkg::foo_flags_pkg::common_flags_t::a	001
+  #10	5	logic_typespec				dut.sv	3	5	3	10						001
+  #11	1	union_typespec	top_flag_t			dut.sv	9	9	11	2						010
+  #12	2	typespec_member	atype_t			dut.sv	10	47	10	54						001
+  #13	3	ref_typespec			<in>top_flag_t.atype_t		0	0	0	0		0			top_flag_t.atype_t	001
+> #14	4	packed_array_typespec					0	0	0	0						001
+  #15	5	range				dut.sv	10	36	10	41						001
+  #16	6	constant				dut.sv	10	37	10	38	3	64	UINT:3	9		001
+  #17	6	constant				dut.sv	10	39	10	40	0	64	UINT:0	9		001
+  #18	5	range				dut.sv	10	41	10	46						001
+  #19	6	constant				dut.sv	10	42	10	43	7	64	UINT:7	9		001
+  #20	6	constant				dut.sv	10	44	10	45	0	64	UINT:0	9		001
+
+--- OURS (B) records 8..20 ('>' = the object)
+  #8	3	typespec_member	a			dut.sv	3	11	3	12						001
+  #9	4	ref_typespec			<in>foo_flags_pkg::common_flags_t.a		0	0	0	0		0			foo_flags_pkg::foo_flags_pkg::common_flags_t::a	001
+  #10	5	logic_typespec				dut.sv	3	5	3	10						001
+  #11	1	union_typespec	top_flag_t			dut.sv	9	9	11	2						010
+  #12	2	typespec_member	atype_t			dut.sv	10	47	10	54						001
+  #13	3	ref_typespec			<in>top_flag_t.atype_t		0	0	0	0		0			top_flag_t.atype_t	001
+> #14	4	packed_array_typespec				dut.sv	10	5	10	46						001
+  #15	5	range				dut.sv	10	36	10	41						001
+  #16	6	constant				dut.sv	10	37	10	38	3	64	UINT:3	9		001
+  #17	6	constant				dut.sv	10	39	10	40	0	64	UINT:0	9		001
+  #18	5	range				dut.sv	10	41	10	46						001
+  #19	6	constant				dut.sv	10	42	10	43	7	64	UINT:7	9		001
+  #20	6	constant				dut.sv	10	44	10	45	0	64	UINT:0	9		001
+
+facets of this row (3, first 25):
+  N0433 #14/14 packed_array_typespec  G[ 0:0:0:0] O[dut.sv 10:5:10:46]
+  N0436 #14/14 packed_array_typespec  G[0:0:0:0] O[10:5:10:46]
+  N0494 #21/21 ref_typespec  G[] O[top_flag_t.atype_t]

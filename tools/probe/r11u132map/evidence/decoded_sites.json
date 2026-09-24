@@ -1,0 +1,65 @@
+{
+ "N0124": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0280": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0282": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0652": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0695": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1124": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1286": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1837": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1849": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0002": {
+  "note": "DECODED: golden's elaborated param_assign Lhs for an imported package parameter is a module-scoped CLONE (the r11u122 C0012 shape); ours points at the package parameter, listed once. The definition-view clone exists (law impLhsCloneFile124); the elaborated view lacks it. HOLDER pinned"
+ },
+ "N0003": {
+  "note": "DECODED: golden's ref_typespec of an assignment-pattern/cast operation carries NO VpiParent (uhdm-dump: no vpiParent line), so its synthesised full name is empty; ours is parented"
+ },
+ "N0008": {
+  "note": "DECODED: the same as N0003 on a constant's typespec ref: golden unparented"
+ },
+ "N0554": {
+  "note": "DECODED: SHARING: ours's elaborated cont_assign Rhs is the param_assign's constant object (listed once); golden holds a copy. HOLDER pinned"
+ },
+ "N0133": {
+  "note": "DECODED: SHARING: ours's elaborated cont_assign Rhs func_call is the definition's object (listed once); golden holds a copy (r11u128map's 'fold' reading was wrong: stage 1 compares a func_call on both sides). HOLDER pinned"
+ },
+ "N0045": {
+  "note": "DECODED: golden lists the member default constant twice (a copy under typespec_member); ours shares one object. HOLDER pinned"
+ },
+ "N0441": {
+  "note": "DECODED: ours lists two constants where golden shares one (array_expr default pattern)"
+ },
+ "N0006": {
+  "note": "DECODED (r11u128map class A): golden's ref_obj Actual is the DEFINITION net re-listed; ours binds the elaborated net. HOLDER pinned"
+ },
+ "N0022": {
+  "note": "DECODED (class A): the clocking event operand binds golden's definition net. HOLDER pinned"
+ }
+}

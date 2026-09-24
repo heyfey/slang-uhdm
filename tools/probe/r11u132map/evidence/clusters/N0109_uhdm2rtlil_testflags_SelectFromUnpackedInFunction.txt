@@ -1,0 +1,43 @@
+cluster N0109 (r11u128map K0166; OPEN): file|string_typespec|ours-empty|under:ref_typespec
+row: uhdm2rtlil/testflags/SelectFromUnpackedInFunction  strict=differ:file(2)  records golden=124 ours=124
+object: #59 (golden) / #59 (ours)  type=string_typespec name=default 
+  golden: dut.sv 6:39:6:46
+  ours:    0:0:0:0
+  walk parents: ref_typespec < tagged_pattern < operation < tagged_pattern
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 53..65 ('>' = the object)
+  #53	3	operation				dut.sv	6	26	6	51		0				000
+  #54	4	tagged_pattern				dut.sv	6	37	6	50						000
+  #55	5	operation				dut.sv	6	37	6	50		0				000
+  #56	6	tagged_pattern				dut.sv	6	48	6	49						000
+  #57	7	constant				dut.sv	6	48	6	49	0	64	UINT:0	9		000
+  #58	7	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+> #59	8	string_typespec	default			dut.sv	6	39	6	46						110
+  #60	5	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #61	6	string_typespec	default			dut.sv	6	28	6	35						110
+  #62	3	range				dut.sv	6	18	6	23						000
+  #63	4	constant				dut.sv	6	19	6	20	3	64	UINT:3	9		000
+  #64	4	constant				dut.sv	6	21	6	22	0	64	UINT:0	9		000
+  #65	3	logic_var			work@top.a	dut.sv	6	16	6	17		0			work@top.a	000
+
+--- OURS (B) records 53..65 ('>' = the object)
+  #53	3	operation				dut.sv	6	26	6	51		0				000
+  #54	4	tagged_pattern					0	0	0	0						000
+  #55	5	operation				dut.sv	6	37	6	50		0				000
+  #56	6	tagged_pattern				dut.sv	6	48	6	49						000
+  #57	7	constant				dut.sv	6	48	6	49	0	64	UINT:0	9		000
+  #58	7	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+> #59	8	string_typespec	default				0	0	0	0						110
+  #60	5	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #61	6	string_typespec	default			dut.sv	6	28	6	35						110
+  #62	3	range				dut.sv	6	18	6	23						000
+  #63	4	constant				dut.sv	6	19	6	20	3	64	UINT:3	9		000
+  #64	4	constant				dut.sv	6	21	6	22	0	64	UINT:0	9		000
+  #65	3	logic_var			work@top.a	dut.sv	6	16	6	17		0			work@top.a	000
+
+facets of this row (4, first 25):
+  N1114 #54/54 tagged_pattern  G[dut.sv 6:37:6:50] O[ 0:0:0:0]
+  N1159 #54/54 tagged_pattern  G[6:37:6:50] O[0:0:0:0]
+  N0109 #59/59 string_typespec default G[dut.sv 6:39:6:46] O[ 0:0:0:0]
+  N0110 #59/59 string_typespec default G[6:39:6:46] O[0:0:0:0]

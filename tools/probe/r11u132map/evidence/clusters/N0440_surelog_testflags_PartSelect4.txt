@@ -1,0 +1,40 @@
+cluster N0440 (r11u128map K0587; OPEN): span|indexed_part_select|col+endcol|under:param_assign
+row: surelog/testflags/PartSelect4  strict=differ:col(1)  records golden=203 ours=203
+object: #49 (golden) / #49 (ours)  type=indexed_part_select name=A 
+  golden: 19:16:19:25
+  ours:   19:18:19:24
+  walk parents: param_assign < module_inst < design(work@xbar_main)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 43..55 ('>' = the object)
+  #43	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #44	5	int_typespec				dut.sv	18	2	18	35						000
+  #45	6	range					0	0	0	0						001
+  #46	7	constant					0	0	0	0		0	INT:67	0		001
+  #47	7	constant					0	0	0	0		0	INT:0	0		001
+  #48	2	param_assign				dut.sv	19	12	19	25						000
+> #49	3	indexed_part_select	A	A	work@top.A	dut.sv	19	16	19	25		0			work@top.A	000
+  #50	4	operation				dut.sv	19	18	19	21		0				000
+  #51	5	constant				dut.sv	19	18	19	19	8	64	UINT:8	9		000
+  #52	5	constant				dut.sv	19	20	19	21	4	64	UINT:4	9		000
+  #53	4	constant				dut.sv	19	23	19	24	4	64	UINT:4	9		000
+  #54	1	module_inst		work@xbar_main	work@xbar_main	dut.sv	11	1	13	10					work@xbar_main	000
+  #55	2	ref_module	u_s1n_25	work@tlul_socket_1n		dut.sv	12	61	12	69						000
+
+--- OURS (B) records 43..55 ('>' = the object)
+  #43	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #44	5	int_typespec				dut.sv	18	2	18	35						000
+  #45	6	range					0	0	0	0						001
+  #46	7	constant					0	0	0	0		0	INT:67	0		001
+  #47	7	constant					0	0	0	0		0	INT:0	0		001
+  #48	2	param_assign				dut.sv	19	12	19	25						000
+> #49	3	indexed_part_select	A	A	work@top.A	dut.sv	19	18	19	24		0			work@top.A	000
+  #50	4	operation				dut.sv	19	18	19	21		0				000
+  #51	5	constant				dut.sv	19	18	19	19	8	64	UINT:8	9		000
+  #52	5	constant				dut.sv	19	20	19	21	4	64	UINT:4	9		000
+  #53	4	constant				dut.sv	19	23	19	24	4	64	UINT:4	9		000
+  #54	1	module_inst		work@xbar_main	work@xbar_main	dut.sv	11	1	13	10					work@xbar_main	000
+  #55	2	ref_module	u_s1n_25	work@tlul_socket_1n		dut.sv	12	61	12	69						000
+
+facets of this row (1, first 25):
+  N0440 #49/49 indexed_part_select A G[19:16:19:25] O[19:18:19:24]

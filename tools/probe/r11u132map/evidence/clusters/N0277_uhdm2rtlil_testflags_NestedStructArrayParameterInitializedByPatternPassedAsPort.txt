@@ -1,0 +1,64 @@
+cluster N0277 (r11u128map K0356; OPEN (residue of landed r11u124)): fullname|ref_typespec|tok:id@id.id::id.id.->|under:typespec_member
+row: uhdm2rtlil/testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort  strict=differ:fullname(13)  records golden=537 ours=489
+object: #72 (golden) / #72 (ours)  type=ref_typespec name= TAIL
+  golden: work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en.q
+  ours:   q
+  walk parents: typespec_member(q) < struct_typespec < ref_typespec < typespec_member(he_en)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 66..78 ('>' = the object)
+  #66	8	ref_typespec			<in>flash_ctrl_pkg::data_region_attr_t.cfg		0	0	0	0		0			work@top.flash_ctrl_pkg::data_region_attr_t.cfg	001
+  #67	9	struct_typespec	flash_ctrl_pkg::mp_region_cfg_t			dut.sv	2	12	6	5						001
+  #68	10	typespec_member	he_en			dut.sv	5	9	5	14						001
+  #69	11	ref_typespec			<in>flash_ctrl_pkg::mp_region_cfg_t.he_en		0	0	0	0		0			work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en	001
+  #70	12	struct_typespec				dut.sv	3	7	3	13						001
+  #71	13	typespec_member	q			dut.sv	4	16	4	17						001
+> #72	14	ref_typespec			<in>flash_ctrl_pkg::mp_region_cfg_t.he_en.q		0	0	0	0		0			work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en.q	001
+  #73	15	logic_typespec				dut.sv	4	10	4	15						001
+  #74	3	range				dut.sv	12	44	12	45						000
+  #75	4	constant					0	0	0	0	0	64	UINT:0	9		000
+  #76	4	operation				dut.sv	12	44	12	45		0				000
+  #77	5	constant				dut.sv	12	44	12	45	1	64	UINT:1	9		000
+  #78	5	constant					0	0	0	0		64	INT:1	7		000
+
+--- OURS (B) records 66..78 ('>' = the object)
+  #66	8	ref_typespec			<in>flash_ctrl_pkg::data_region_attr_t.cfg		0	0	0	0		0			flash_ctrl_pkg::flash_ctrl_pkg::data_region_attr_t::cfg	001
+  #67	9	struct_typespec	flash_ctrl_pkg::mp_region_cfg_t			dut.sv	2	12	6	5						001
+  #68	10	typespec_member	he_en			dut.sv	5	9	5	14						001
+  #69	11	ref_typespec			<in>flash_ctrl_pkg::mp_region_cfg_t.he_en		0	0	0	0		0			flash_ctrl_pkg::flash_ctrl_pkg::mp_region_cfg_t::he_en	001
+  #70	12	struct_typespec				dut.sv	3	7	3	13						001
+  #71	13	typespec_member	q			dut.sv	4	16	4	17						001
+> #72	14	ref_typespec			q		0	0	0	0		0			q	001
+  #73	15	logic_typespec				dut.sv	4	10	4	15						001
+  #74	3	range				dut.sv	12	44	12	45						000
+  #75	4	constant					0	0	0	0	0	64	UINT:0	9		000
+  #76	4	operation				dut.sv	12	44	12	45		0				000
+  #77	5	constant				dut.sv	12	44	12	45	1	64	UINT:1	9		000
+  #78	5	constant					0	0	0	0		64	INT:1	7		000
+
+facets of this row (71, first 25):
+  N0002 #143/-1 parameter HwDataAttr G[24 objs] O[]
+  N0002 #254/-1 parameter HwDataAttr G[24 objs] O[]
+  N0137 #19/19 ref_typespec  G[flash_ctrl_pkg::flash_ctrl_pkg::mp_region_cfg_t::he_en::q] O[q]
+  N0137 #45/45 ref_typespec  G[flash_ctrl_pkg::flash_ctrl_pkg::mp_region_cfg_t::he_en::q] O[q]
+  N0137 #52/52 ref_typespec  G[flash_ctrl_pkg::flash_ctrl_pkg::mp_region_cfg_t::he_en::q] O[q]
+  N0277 #72/72 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en.q] O[q]
+  N0004 #92/92 ref_typespec  G[work@top.flash_ctrl_pkg::data_region_attr_t.cfg] O[flash_ctrl_pkg::data_region_attr_t.cfg]
+  N0004 #95/95 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en] O[flash_ctrl_pkg::mp_region_cfg_t.he_en]
+  N0277 #98/98 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en.q] O[q]
+  N0004 #102/102 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en] O[flash_ctrl_pkg::mp_region_cfg_t.he_en]
+  N0277 #105/105 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en.q] O[q]
+  N0084 #119/119 ref_typespec  G[work@flash_mp_data_region_sel.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.cfg] O[flash_ctrl_pkg::data_region_attr_t.cfg]
+  N1006 #122/122 ref_typespec  G[work@flash_mp_data_region_sel.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.cfg.] O[flash_ctrl_pkg::mp_region_cfg_t.he_en]
+  N1007 #125/125 ref_typespec  G[work@flash_mp_data_region_sel.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.cfg.] O[q]
+  N0004 #169/145 ref_typespec  G[work@top.flash_ctrl_pkg::data_region_attr_t.cfg] O[flash_ctrl_pkg::data_region_attr_t.cfg]
+  N0004 #172/148 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en] O[flash_ctrl_pkg::mp_region_cfg_t.he_en]
+  N0277 #175/151 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en.q] O[q]
+  N0004 #179/155 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en] O[flash_ctrl_pkg::mp_region_cfg_t.he_en]
+  N0277 #182/158 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en.q] O[q]
+  N0004 #200/176 ref_typespec  G[work@top.flash_ctrl_pkg::data_region_attr_t.cfg] O[flash_ctrl_pkg::data_region_attr_t.cfg]
+  N0004 #203/179 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en] O[flash_ctrl_pkg::mp_region_cfg_t.he_en]
+  N0277 #206/182 ref_typespec  G[work@top.flash_ctrl_pkg::mp_region_cfg_t.he_en.q] O[q]
+  N0084 #230/206 ref_typespec  G[work@top.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.cfg] O[flash_ctrl_pkg::data_region_attr_t.cfg]
+  N1006 #233/209 ref_typespec  G[work@top.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.cfg.flash_ctrl_pkg::mp_re] O[flash_ctrl_pkg::mp_region_cfg_t.he_en]
+  N1007 #236/212 ref_typespec  G[work@top.HwDataAttr.flash_ctrl_pkg::data_region_attr_t.cfg.flash_ctrl_pkg::mp_re] O[q]

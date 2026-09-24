@@ -1,0 +1,41 @@
+cluster N0455 (r11u128map K0606; OPEN): span|assignment|line+col+endline+endcol|under:initial
+row: surelog/testflags/PortInitVal2  strict=differ:line(2)  records golden=37 ours=37
+object: #28 (golden) / #28 (ours)  type=assignment name= 
+  golden: 1:13:1:14
+  ours:   3:20:3:21
+  walk parents: initial < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 22..34 ('>' = the object)
+  #22	2	port	b			dut.sv	1	13	1	14						000
+  #23	3	constant				dut.sv	3	24	3	25	0	64	UINT:0	9		000
+  #24	3	ref_obj	b		work@dut.b	dut.sv	1	13	1	14		0			work@dut.b	000
+  #25	3	ref_typespec			work@dut.b		0	0	0	0		0			work@dut.b	000
+  #26	4	logic_typespec				dut.sv	3	16	3	19						000
+  #27	2	initial					0	0	0	0						000
+> #28	3	assignment				dut.sv	1	13	1	14						000
+  #29	4	constant				dut.sv	3	24	3	25	0	64	UINT:0	9		000
+  #30	4	ref_obj	b			dut.sv	1	13	1	14		0				000
+  #31	2	cont_assign				dut.sv	2	14	2	15						000
+  #32	3	constant				dut.sv	2	18	2	19	0	1	UINT:0	9		000
+  #33	2	cont_assign				dut.sv	5	11	5	16						000
+  #34	3	ref_obj	a		work@dut.a	dut.sv	5	15	5	16		0			work@dut.a	000
+
+--- OURS (B) records 22..34 ('>' = the object)
+  #22	2	port	b			dut.sv	1	13	1	14						000
+  #23	3	constant				dut.sv	3	24	3	25	0	64	UINT:0	9		000
+  #24	3	ref_obj	b		work@dut.b	dut.sv	1	13	1	14		0			work@dut.b	000
+  #25	3	ref_typespec			work@dut.b		0	0	0	0		0			work@dut.b	000
+  #26	4	logic_typespec				dut.sv	3	16	3	19						000
+  #27	2	initial					0	0	0	0						000
+> #28	3	assignment				dut.sv	3	20	3	21						000
+  #29	4	constant				dut.sv	3	24	3	25	0	64	UINT:0	9		000
+  #30	4	ref_obj	b			dut.sv	3	20	3	21		0				000
+  #31	2	cont_assign				dut.sv	2	14	2	15						000
+  #32	3	constant				dut.sv	2	18	2	19	0	1	UINT:0	9		000
+  #33	2	cont_assign				dut.sv	5	11	5	16						000
+  #34	3	ref_obj	a		work@dut.a	dut.sv	5	15	5	16		0			work@dut.a	000
+
+facets of this row (2, first 25):
+  N0455 #28/28 assignment  G[1:13:1:14] O[3:20:3:21]
+  N0456 #30/30 ref_obj b G[1:13:1:14] O[3:20:3:21]

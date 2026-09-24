@@ -1,0 +1,41 @@
+cluster N0048 (r11u128map K0086; OPEN (residue of landed r11u124)): fullname|ref_typespec|tok:id->id.id.id|under:parameter
+row: surelog/testflags/InterfType  strict=differ:fullname(2)  records golden=54 ours=54
+object: #47 (golden) / #47 (ours)  type=ref_typespec name= OUT
+  golden: work@tnoc_types.PACKET_CONFIG
+  ours:   work@dut.tnoc.types.PACKET_CONFIG
+  walk parents: parameter(PACKET_CONFIG) < param_assign < interface_inst(types) < interface_inst(tnoc)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 41..53 ('>' = the object)
+  #41	3	interface_inst	types	work@tnoc_types	work@dut.tnoc.types	dut.sv	13	0	0	0					work@dut.tnoc.types	000
+  #42	4	param_assign				dut.sv	2	18	2	35						000
+  #43	5	constant				dut.sv	2	34	2	35	1	32	UINT:1	9		000
+  #44	6	ref_typespec			work@dut.tnoc.types		0	0	0	0		0			work@dut.tnoc.types	000
+  #45	7	int_typespec				dut.sv	2	13	2	16						000
+  #46	5	parameter	PACKET_CONFIG		work@tnoc_types.PACKET_CONFIG	dut.sv	2	18	2	31		0	UINT:1		work@tnoc_types.PACKET_CONFIG	000
+> #47	6	ref_typespec			work@tnoc_types.PACKET_CONFIG		0	0	0	0		0			work@tnoc_types.PACKET_CONFIG	000
+  #48	7	int_typespec				dut.sv	2	13	2	16						000
+  #49	3	port	types			dut.sv	7	15	7	20						000
+  #50	4	ref_obj	i_types		work@dut.i_types	dut.sv	16	20	16	27		0			work@dut.i_types	000
+  #51	4	ref_obj			work@dut.types	dut.sv	16	20	16	27		0			work@dut.types	000
+  #52	4	ref_typespec			work@dut.tnoc.types		0	0	0	0		0			work@dut.tnoc.types	000
+  #53	5	interface_typespec	tnoc_types			dut.sv	7	3	7	13						110
+
+--- OURS (B) records 41..53 ('>' = the object)
+  #41	3	interface_inst	types	work@tnoc_types	work@dut.tnoc.types	dut.sv	13	0	0	0					work@dut.tnoc.types	000
+  #42	4	param_assign				dut.sv	2	18	2	35						000
+  #43	5	constant				dut.sv	2	34	2	35	1	32	UINT:1	9		000
+  #44	6	ref_typespec			work@dut.tnoc.types		0	0	0	0		0			work@dut.tnoc.types	000
+  #45	7	int_typespec				dut.sv	2	13	2	16						000
+  #46	5	parameter	PACKET_CONFIG		work@dut.tnoc.types.PACKET_CONFIG	dut.sv	2	18	2	31		0	UINT:1		work@dut.tnoc.types.PACKET_CONFIG	000
+> #47	6	ref_typespec			work@dut.tnoc.types.PACKET_CONFIG		0	0	0	0		0			work@dut.tnoc.types.PACKET_CONFIG	000
+  #48	7	int_typespec				dut.sv	2	13	2	16						000
+  #49	3	port	types			dut.sv	7	15	7	20						000
+  #50	4	ref_obj	i_types		work@dut.i_types	dut.sv	16	20	16	27		0			work@dut.i_types	000
+  #51	4	ref_obj			work@dut.types	dut.sv	16	20	16	27		0			work@dut.types	000
+  #52	4	ref_typespec			work@dut.tnoc.types		0	0	0	0		0			work@dut.tnoc.types	000
+  #53	5	interface_typespec	tnoc_types			dut.sv	7	3	7	13						110
+
+facets of this row (2, first 25):
+  N0047 #46/46 parameter PACKET_CONFIG G[work@tnoc_types.PACKET_CONFIG] O[work@dut.tnoc.types.PACKET_CONFIG]
+  N0048 #47/47 ref_typespec  G[work@tnoc_types.PACKET_CONFIG] O[work@dut.tnoc.types.PACKET_CONFIG]

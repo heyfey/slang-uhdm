@@ -1,0 +1,37 @@
+cluster N1097 (r11u128map K1295; OPEN): span|sys_func_call|endcol|under:param_assign
+row: surelog/testflags/NonSynthError  strict=differ:endcol(2)  records golden=17 ours=17
+object: #4 (golden) / #4 (ours)  type=sys_func_call name=$size 
+  golden: 4:15:4:20
+  ours:   4:15:4:25
+  walk parents: param_assign < module_inst < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..10 ('>' = the object)
+  #0	0	design	work@dut				0	0	0	0						000
+  #1	1	module_inst		work@dut	work@dut	dut.sv	2	1	13	10					work@dut	000
+  #2	2	parameter	S		work@dut.S	dut.sv	4	11	4	12		0			work@dut.S	000
+  #3	2	param_assign				dut.sv	4	11	4	25						000
+> #4	3	sys_func_call	$size			dut.sv	4	15	4	20		0				000
+  #5	4	int_var			work@dut	dut.sv	4	21	4	24		0			work@dut	000
+  #6	2	class_defn	A		work@dut::A	dut.sv	10	1	11	9					work@dut::A	000
+  #7	2	initial				dut.sv	6	1	8	4						000
+  #8	3	begin			work@dut	dut.sv	6	9	8	4					work@dut	000
+  #9	1	module_inst	work@dut	work@dut		dut.sv	2	1	13	10						000
+  #10	2	parameter	S		work@dut.S	dut.sv	4	11	4	12		0			work@dut.S	000
+
+--- OURS (B) records 0..10 ('>' = the object)
+  #0	0	design	work@dut				0	0	0	0						000
+  #1	1	module_inst		work@dut	work@dut	dut.sv	2	1	13	10					work@dut	000
+  #2	2	parameter	S		work@dut.S	dut.sv	4	11	4	12		0			work@dut.S	000
+  #3	2	param_assign				dut.sv	4	11	4	25						000
+> #4	3	sys_func_call	$size			dut.sv	4	15	4	25		0				000
+  #5	4	int_var			work@dut	dut.sv	4	21	4	24		0			work@dut	000
+  #6	2	class_defn	A		work@dut::A	dut.sv	10	1	11	9					work@dut::A	000
+  #7	2	initial				dut.sv	6	1	8	4						000
+  #8	3	begin			work@dut	dut.sv	6	9	8	4					work@dut	000
+  #9	1	module_inst	work@dut	work@dut		dut.sv	2	1	13	10						000
+  #10	2	parameter	S		work@dut.S	dut.sv	4	11	4	12		0			work@dut.S	000
+
+facets of this row (2, first 25):
+  N1097 #4/4 sys_func_call $size G[4:15:4:20] O[4:15:4:25]
+  N1097 #12/12 sys_func_call $size G[4:15:4:20] O[4:15:4:25]

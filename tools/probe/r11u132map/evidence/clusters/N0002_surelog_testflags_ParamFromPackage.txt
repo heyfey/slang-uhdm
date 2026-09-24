@@ -1,0 +1,41 @@
+cluster N0002 (r11u128map K0005; OPEN (residue of landed r11u124)): struct|golden-only:fewer-copies|parameter|under:param_assign
+row: surelog/testflags/ParamFromPackage  strict=differ:depth(1)  records golden=141 ours=132
+object: #73 (golden) / #-1 (ours)  type=parameter name=X 
+  golden: 9 objs
+  ours:   
+  walk parents: param_assign < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 67..79 ('>' = the object)
+  #67	6	range				dut.sv	2	20	2	25						001
+  #68	7	constant				dut.sv	2	21	2	22	7	64	UINT:7	9		001
+  #69	7	constant				dut.sv	2	23	2	24	0	64	UINT:0	9		001
+  #70	6	range				dut.sv	2	25	2	30						001
+  #71	7	constant				dut.sv	2	26	2	27	3	64	UINT:3	9		001
+  #72	7	constant				dut.sv	2	28	2	29	0	64	UINT:0	9		001
+> #73	3	parameter	X		work@aes_cipher_core.X	dut.sv	2	31	2	32		0	HEX:abcd		work@aes_cipher_core.X	000
+  #74	4	ref_typespec			work@aes_cipher_core.X		0	0	0	0		0			work@aes_cipher_core.X	000
+  #75	5	logic_typespec				dut.sv	2	14	2	30						000
+  #76	6	range				dut.sv	2	20	2	25						001
+  #77	7	constant				dut.sv	2	21	2	22	7	64	UINT:7	9		001
+  #78	7	constant				dut.sv	2	23	2	24	0	64	UINT:0	9		001
+  #79	6	range				dut.sv	2	25	2	30						001
+
+--- the holder #63 on the other side: exact-record matches at [11, 31, 63]
+  #8	5	range				dut.sv	2	25	2	30						001
+  #9	6	constant				dut.sv	2	26	2	27	3	64	UINT:3	9		001
+  #10	6	constant				dut.sv	2	28	2	29	0	64	UINT:0	9		001
+> #11	2	param_assign				dut.sv	2	31	2	43						000
+  #12	3	constant				dut.sv	2	35	2	43	32'habcd	32	HEX:abcd	5		000
+  #13	4	ref_typespec			aes_pkg		0	0	0	0		0			aes_pkg	000
+  #14	5	logic_typespec				dut.sv	2	14	2	30						000
+  #15	6	range				dut.sv	2	20	2	25						001
+  #16	7	constant				dut.sv	2	21	2	22	7	64	UINT:7	9		001
+  #17	7	constant				dut.sv	2	23	2	24	0	64	UINT:0	9		001
+  #18	6	range				dut.sv	2	25	2	30						001
+  #19	7	constant				dut.sv	2	26	2	27	3	64	UINT:3	9		001
+  #20	7	constant				dut.sv	2	28	2	29	0	64	UINT:0	9		001
+
+facets of this row (2, first 25):
+  N0002 #73/-1 parameter X G[9 objs] O[]
+  N0675 #125/116 ref_typespec  G[work@aes_cipher_core] O[work@top.u_aes_cipher_core]

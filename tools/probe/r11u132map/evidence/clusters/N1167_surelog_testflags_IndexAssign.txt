@@ -1,0 +1,32 @@
+cluster N1167 (r11u128map K1374; OPEN): value|constant|value:UINT->UINT+decompile+size|under:cont_assign
+row: surelog/testflags/IndexAssign  strict=differ:decompile(1)  records golden=41 ours=41
+object: #38 (golden) / #38 (ours)  type=constant name= 
+  golden: 3|64|UINT:3|9
+  ours:   1|1|UINT:1|9
+  walk parents: cont_assign < module_inst(work@t) < design(work@t)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 32..40 ('>' = the object)
+  #32	4	int_typespec				dut.sv	2	14	2	26						000
+  #33	2	param_assign				dut.sv	2	27	2	32						000
+  #34	3	constant				dut.sv	2	31	2	32	9	32	UINT:9	9		000
+  #35	4	ref_typespec			work@t		0	0	0	0		0			work@t	000
+  #36	5	int_typespec				dut.sv	2	14	2	26						000
+  #37	2	cont_assign				dut.sv	4	10	4	22						000
+> #38	3	constant				dut.sv	4	21	4	22	3	64	UINT:3	9		000
+  #39	3	bit_select	sig		work@t.sig	dut.sv	4	10	4	18		0			work@t.sig	000
+  #40	4	constant				dut.sv	4	14	4	17	2	64	INT:2	7		000
+
+--- OURS (B) records 32..40 ('>' = the object)
+  #32	4	int_typespec				dut.sv	2	14	2	26						000
+  #33	2	param_assign				dut.sv	2	27	2	32						000
+  #34	3	constant				dut.sv	2	31	2	32	9	32	UINT:9	9		000
+  #35	4	ref_typespec			work@t		0	0	0	0		0			work@t	000
+  #36	5	int_typespec				dut.sv	2	14	2	26						000
+  #37	2	cont_assign				dut.sv	4	10	4	22						000
+> #38	3	constant				dut.sv	4	21	4	22	1	1	UINT:1	9		000
+  #39	3	bit_select	sig		work@t.sig	dut.sv	4	10	4	18		0			work@t.sig	000
+  #40	4	constant				dut.sv	4	14	4	17	2	64	INT:2	7		000
+
+facets of this row (1, first 25):
+  N1167 #38/38 constant  G[3|64|UINT:3|9] O[1|1|UINT:1|9]

@@ -1,0 +1,64 @@
+cluster N0045 (r11u128map K0075; OPEN): struct|golden-only:fewer-copies|constant|under:typespec_member
+row: surelog/default/StructParamPatternInitCast  strict=differ:fullname(2)  records golden=477 ours=463
+object: #77 (golden) / #-1 (ours)  type=constant name= 
+  golden: 1 objs
+  ours:   
+  walk parents: typespec_member(XLEN) < struct_typespec(cfg_pkg::cfg_t) < package(cfg_pkg) < design(work@StructParamPatternInitCast)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 71..83 ('>' = the object)
+  #71	8	int_typespec				dut.sv	11	5	11	17						001
+  #72	4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1		000
+  #73	2	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4						010
+  #74	3	typespec_member	XLEN			dut.sv	14	18	14	22						001
+  #75	4	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN	001
+  #76	5	int_typespec				dut.sv	14	5	14	17						001
+> #77	4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1		001
+  #78	4	constant				dut.sv	21	40	21	46	32'd64	32	DEC:64	1		001
+  #79	2	struct_typespec	cfg_pkg::user_cfg_t			dut.sv	16	41	16	51						010
+  #80	3	typespec_member	XLEN			dut.sv	11	18	11	22						001
+  #81	4	ref_typespec			<in>cfg_pkg::user_cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::user_cfg_t::XLEN	001
+  #82	5	int_typespec				dut.sv	11	5	11	17						001
+  #83	2	function	build_config		cfg_pkg::build_config	dut.sv	16	3	20	14					cfg_pkg::build_config	000
+
+--- the holder #74 on the other side: exact-record matches at [16, 74]
+  #13	5	ref_typespec			cfg_pkg		0	0	0	0		0			cfg_pkg	000
+  #14	6	string_typespec	XLEN			dut.sv	21	34	21	38						110
+  #15	2	struct_typespec	cfg_pkg::cfg_t			dut.sv	13	11	15	4						010
+> #16	3	typespec_member	XLEN			dut.sv	14	18	14	22						001
+  #17	4	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN	001
+  #18	5	int_typespec				dut.sv	14	5	14	17						001
+  #19	2	struct_typespec	cfg_pkg::user_cfg_t			dut.sv	16	41	16	51						010
+  #20	3	typespec_member	XLEN			dut.sv	11	18	11	22						001
+  #21	4	ref_typespec			<in>cfg_pkg::user_cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::user_cfg_t::XLEN	001
+  #22	5	int_typespec				dut.sv	11	5	11	17						001
+  #23	2	function	build_config		cfg_pkg::build_config	dut.sv	16	3	20	14					cfg_pkg::build_config	000
+  #24	3	struct_var	r		cfg_pkg::build_config::r	dut.sv	17	11	17	12		0			cfg_pkg::build_config::r	000
+  #25	4	ref_typespec			cfg_pkg::build_config::r		0	0	0	0		0			cfg_pkg::build_config::r	000
+
+facets of this row (49, first 25):
+  N0045 #77/-1 constant  G[1 objs] O[]
+  N0045 #78/-1 constant  G[1 objs] O[]
+  N0045 #90/-1 constant  G[1 objs] O[]
+  N0045 #91/-1 constant  G[1 objs] O[]
+  N0045 #98/-1 constant  G[1 objs] O[]
+  N0045 #99/-1 constant  G[1 objs] O[]
+  N0024 #270/-1 struct_typespec cfg_pkg::cfg_t G[6 objs] O[]
+  N0059 #-1/264 integer_typespec  G[] O[4 objs]
+  N0024 #284/-1 struct_typespec cfg_pkg::cfg_t G[6 objs] O[]
+  N0059 #-1/276 integer_typespec  G[] O[4 objs]
+  N0024 #298/-1 struct_typespec cfg_pkg::cfg_t G[6 objs] O[]
+  N0059 #-1/288 integer_typespec  G[] O[4 objs]
+  N0024 #312/-1 struct_typespec cfg_pkg::cfg_t G[6 objs] O[]
+  N0059 #-1/300 integer_typespec  G[] O[4 objs]
+  N0003 #67/67 ref_typespec  G[] O[cfg_pkg]
+  N0044 #210/204 struct_typespec  G[30:26:30:32] O[30:26:30:39]
+  N0084 #212/206 ref_typespec  G[work@StructParamPatternInitCast.INT.S_SW] O[S_SW]
+  N0001 #217/211 ref_obj Cfg G[31:16:31:20] O[31:12:31:15]
+  N0019 #218/212 ref_obj XLEN G[] O[work@StructParamPatternInitCast.it_t.XLEN]
+  N0084 #222/216 ref_typespec  G[work@StructParamPatternInitCast.INT.M_SW] O[M_SW]
+  N0001 #227/221 ref_obj Cfg G[32:16:32:20] O[32:12:32:15]
+  N0019 #228/222 ref_obj XLEN G[] O[work@StructParamPatternInitCast.it_t.XLEN]
+  N0009 #233/227 struct_typespec  G[30:26:30:32] O[30:26:33:4]
+  N0001 #240/234 ref_obj Cfg G[31:16:31:20] O[31:12:31:15]
+  N0019 #241/235 ref_obj XLEN G[] O[work@StructParamPatternInitCast.INT.S_SW.XLEN]

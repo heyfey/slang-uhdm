@@ -1,0 +1,37 @@
+cluster N0284 (r11u128map K0374; OPEN): struct|ours-only:fewer-copies|constant|under:cont_assign
+row: uhdm2rtlil/testflags/FunctionParam  strict=differ:type(1)  records golden=73 ours=73
+object: #-1 (golden) / #70 (ours)  type=constant name= 
+  golden: 
+  ours:   1 objs
+  walk parents: cont_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 64..72 ('>' = the object)
+  #64	5	constant				dut.sv	5	16	5	17	0	64	UINT:0	9		000
+  #65	2	port	o			dut.sv	1	23	1	24						000
+  #66	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0			work@top.o	000
+  #67	3	ref_typespec			work@top.o		0	0	0	0		0			work@top.o	000
+  #68	4	int_typespec				dut.sv	1	19	1	22						000
+  #69	2	cont_assign				dut.sv	8	11	8	22						000
+> #70	3	constant				dut.sv	2	30	2	31	1	32	UINT:1	9		000
+  #71	3	ref_obj	o		work@top.o	dut.sv	8	11	8	12		0			work@top.o	000
+  #72	4	logic_net	o		work@top.o	dut.sv	1	23	1	24		0			work@top.o	000
+
+--- the holder #69 on the other side: exact-record matches at [29, 69]
+  #26	3	ref_obj	o		work@top.o.o	dut.sv	1	23	1	24		0			work@top.o.o	000
+  #27	3	ref_typespec			work@top.o		0	0	0	0		0			work@top.o	000
+  #28	4	int_typespec				dut.sv	1	19	1	22						000
+> #29	2	cont_assign				dut.sv	8	11	8	22						000
+  #30	3	func_call	theta			dut.sv	8	15	8	22		0				000
+  #31	3	ref_obj	o		work@top.o	dut.sv	8	11	8	12		0			work@top.o	000
+  #32	1	module_inst	work@top	work@top		dut.sv	1	1	9	10						000
+  #33	2	int_var	o		work@top.o	dut.sv	1	23	1	24		0			work@top.o	000
+  #34	3	ref_typespec			work@top.o		0	0	0	0		0			work@top.o	000
+  #35	4	int_typespec				dut.sv	1	19	1	22						000
+  #36	2	parameter	X		work@top.X	dut.sv	2	18	2	19		1			work@top.X	000
+  #37	3	ref_typespec			work@top.X		0	0	0	0		0			work@top.X	000
+  #38	4	array_typespec				dut.sv	2	14	2	25						000
+
+facets of this row (2, first 25):
+  N0133 #70/-1 func_call theta G[1 objs] O[]
+  N0284 #-1/70 constant  G[] O[1 objs]

@@ -1,0 +1,43 @@
+cluster N0076 (r11u128map K0118; OPEN): fullname|ref_obj|tok:id.->|under:part_select
+row: uhdm2rtlil/testflags/comb_dyn_2d_packed_sel  strict=differ:fullname(3)  records golden=668 ours=670
+object: #240 (golden) / #240 (ours)  type=ref_obj name=ALIGN OUT
+  golden: work@dut.wr_off_i.ALIGN
+  ours:   work@dut.ALIGN
+  walk parents: part_select(wr_off_i) < operation < assignment < for_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 234..246 ('>' = the object)
+  #234	10	constant				dut.sv	43	45	43	46	1	64	UINT:1	9		000
+  #235	9	ref_obj	ALIGN		work@dut.rd_off_i.rd_off_i.ALIGN	dut.sv	43	47	43	52		0			work@dut.rd_off_i.rd_off_i.ALIGN	000
+  #236	7	part_select	wr_off_i	wr_off_i	work@dut.wr_off_i	dut.sv	43	57	43	80		0			work@dut.wr_off_i	000
+  #237	8	operation				dut.sv	43	66	43	73		0				000
+  #238	9	ref_obj	OFF_W		work@dut.wr_off_i.OFF_W	dut.sv	43	66	43	71		0			work@dut.wr_off_i.OFF_W	000
+  #239	9	constant				dut.sv	43	72	43	73	1	64	UINT:1	9		000
+> #240	8	ref_obj	ALIGN		work@dut.wr_off_i.ALIGN	dut.sv	43	74	43	79		0			work@dut.wr_off_i.ALIGN	000
+  #241	6	bit_select	bank_collision		work@dut.bank_collision	dut.sv	43	7	43	24		0			work@dut.bank_collision	000
+  #242	7	ref_obj	k		work@dut.k	dut.sv	43	22	43	23		0			work@dut.k	000
+  #243	4	if_stmt				dut.sv	45	5	49	8						000
+  #244	5	operation				dut.sv	45	9	45	18		0				000
+  #245	6	ref_obj	rd_req_i		work@dut.rd_req_i	dut.sv	45	10	45	18		0			work@dut.rd_req_i	000
+  #246	5	begin			work@dut	dut.sv	45	20	49	8					work@dut	000
+
+--- OURS (B) records 234..246 ('>' = the object)
+  #234	10	constant				dut.sv	43	45	43	46	1	64	UINT:1	9		000
+  #235	9	ref_obj	ALIGN		work@dut.rd_off_i.rd_off_i.ALIGN	dut.sv	43	47	43	52		0			work@dut.rd_off_i.rd_off_i.ALIGN	000
+  #236	7	part_select	wr_off_i	wr_off_i	work@dut.wr_off_i	dut.sv	43	57	43	80		0			work@dut.wr_off_i	000
+  #237	8	operation				dut.sv	43	66	43	73		0				000
+  #238	9	ref_obj	OFF_W		work@dut.wr_off_i.OFF_W	dut.sv	43	66	43	71		0			work@dut.wr_off_i.OFF_W	000
+  #239	9	constant				dut.sv	43	72	43	73	1	64	UINT:1	9		000
+> #240	8	ref_obj	ALIGN		work@dut.ALIGN	dut.sv	43	74	43	79		0			work@dut.ALIGN	000
+  #241	6	bit_select	bank_collision		work@dut.bank_collision	dut.sv	43	7	43	24		0			work@dut.bank_collision	000
+  #242	7	ref_obj	k		work@dut.k	dut.sv	43	22	43	23		0			work@dut.k	000
+  #243	4	if_stmt				dut.sv	45	5	49	8						000
+  #244	5	operation				dut.sv	45	9	45	18		0				000
+  #245	6	ref_obj	rd_req_i		work@dut.rd_req_i	dut.sv	45	10	45	18		0			work@dut.rd_req_i	000
+  #246	5	begin			work@dut	dut.sv	45	20	49	8					work@dut	000
+
+facets of this row (4, first 25):
+  N0286 #-1/653 ref_obj SEL_W G[] O[1 objs]
+  N0286 #-1/662 ref_obj SEL_W G[] O[1 objs]
+  N0076 #240/240 ref_obj ALIGN G[work@dut.wr_off_i.ALIGN] O[work@dut.ALIGN]
+  N0076 #601/601 ref_obj ALIGN G[work@dut.wr_off_i.ALIGN] O[work@dut.ALIGN]

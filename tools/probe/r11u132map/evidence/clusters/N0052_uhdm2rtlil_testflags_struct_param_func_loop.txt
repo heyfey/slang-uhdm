@@ -1,0 +1,46 @@
+cluster N0052 (r11u128map K0091; OPEN): fullname|ref_obj|tok:id.id[id]::->|under:bit_select
+row: uhdm2rtlil/testflags/struct_param_func_loop  strict=differ:fullname(7)  records golden=561 ours=561
+object: #162 (golden) / #162 (ours)  type=ref_obj name=k OUT
+  golden: p::inside_regions::C.base[k]::k
+  ours:   p::inside_regions::k
+  walk parents: bit_select(base) < hier_path(C.base[k]) < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 156..168 ('>' = the object)
+  #156	7	operation				dut.sv	42	17	42	65		0				000
+  #157	8	operation				dut.sv	42	18	42	32		0				000
+  #158	9	ref_obj	a		p::inside_regions::a	dut.sv	42	18	42	19		0			p::inside_regions::a	000
+  #159	9	hier_path	C.base[k]			dut.sv	42	23	42	32		0				000
+  #160	10	ref_obj	C			dut.sv	42	23	42	24		0				000
+  #161	10	bit_select	base		p::inside_regions::C.base[k]::base	dut.sv	42	30	42	31		0			p::inside_regions::C.base[k]::base	000
+> #162	11	ref_obj	k		p::inside_regions::C.base[k]::k	dut.sv	42	30	42	31		0			p::inside_regions::C.base[k]::k	000
+  #163	8	operation				dut.sv	42	38	42	64		0				000
+  #164	9	ref_obj	a		p::inside_regions::a	dut.sv	42	38	42	39		0			p::inside_regions::a	000
+  #165	9	operation				dut.sv	42	43	42	63		0				000
+  #166	10	hier_path	C.base[k]			dut.sv	42	43	42	52		0				000
+  #167	11	ref_obj	C			dut.sv	42	43	42	44		0				000
+  #168	11	bit_select	base		p::inside_regions::C.base[k]::base	dut.sv	42	50	42	51		0			p::inside_regions::C.base[k]::base	000
+
+--- OURS (B) records 156..168 ('>' = the object)
+  #156	7	operation				dut.sv	42	17	42	65		0				000
+  #157	8	operation				dut.sv	42	18	42	32		0				000
+  #158	9	ref_obj	a		p::inside_regions::a	dut.sv	42	18	42	19		0			p::inside_regions::a	000
+  #159	9	hier_path	C.base[k]			dut.sv	42	23	42	32		0				000
+  #160	10	ref_obj	C			dut.sv	42	23	42	24		0				000
+  #161	10	bit_select	base		p::inside_regions::C.base[k]::base	dut.sv	42	30	42	31		0			p::inside_regions::C.base[k]::base	000
+> #162	11	ref_obj	k		p::inside_regions::k	dut.sv	42	30	42	31		0			p::inside_regions::k	000
+  #163	8	operation				dut.sv	42	38	42	64		0				000
+  #164	9	ref_obj	a		p::inside_regions::a	dut.sv	42	38	42	39		0			p::inside_regions::a	000
+  #165	9	operation				dut.sv	42	43	42	63		0				000
+  #166	10	hier_path	C.base[k]			dut.sv	42	43	42	52		0				000
+  #167	11	ref_obj	C			dut.sv	42	43	42	44		0				000
+  #168	11	bit_select	base		p::inside_regions::C.base[k]::base	dut.sv	42	50	42	51		0			p::inside_regions::C.base[k]::base	000
+
+facets of this row (7, first 25):
+  N0052 #162/162 ref_obj k G[p::inside_regions::C.base[k]::k] O[p::inside_regions::k]
+  N0052 #169/169 ref_obj k G[p::inside_regions::C.base[k]::k] O[p::inside_regions::k]
+  N0052 #173/173 ref_obj k G[p::inside_regions::C.len[k]::k] O[p::inside_regions::k]
+  N0052 #362/362 ref_obj k G[p::inside_regions::C.base[k]::k] O[p::inside_regions::k]
+  N0052 #369/369 ref_obj k G[p::inside_regions::C.base[k]::k] O[p::inside_regions::k]
+  N0052 #373/373 ref_obj k G[p::inside_regions::C.len[k]::k] O[p::inside_regions::k]
+  N0035 #411/411 func_call p::build G[53:29:53:32] O[53:29:53:30]

@@ -1,0 +1,64 @@
+cluster N0147 (r11u128map K0213; OPEN): span|begin|line+endline|under:assert_stmt
+row: uhdm2rtlil/testflags/ibex_load_store_unit  strict=differ:endline(240)  records golden=3630 ours=3630
+object: #317 (golden) / #317 (ours)  type=begin name= 
+  golden: 81:10:83:8
+  ours:   79:10:81:8
+  walk parents: assert_stmt(IbexLsuStateValid) < module_inst < design(work@ibex_load_store_unit)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 311..323 ('>' = the object)
+  #311	5	constant				prim_assert.sv	29	158	29	161	613	64	UINT:613	9		000
+  #312	5	constant				prim_assert.sv	33	10	33	30	"IbexDataTypeQKnown"	144	STRING:IbexDataTypeQKnown	6		000
+  #313	3	property_spec				prim_assert_standard_macros.svh	78	40	78	114						000
+  #314	4	operation				prim_assert_standard_macros.svh	78	42	78	55		0				000
+  #315	5	ref_obj	clk_i		work@ibex_load_store_unit.IbexDataTypeQKnown.clk_i	prim_assert_standard_macros.svh	78	50	78	55		0			work@ibex_load_store_unit.IbexDataTypeQKnown.clk_i	000
+  #316	2	assert_stmt	IbexLsuStateValid		work@ibex_load_store_unit.IbexLsuStateValid	prim_assert_standard_macros.svh	78	3	83	8					work@ibex_load_store_unit.IbexLsuStateValid	000
+> #317	3	begin			work@ibex_load_store_unit.IbexLsuStateValid	prim_assert_standard_macros.svh	81	10	83	8					work@ibex_load_store_unit.IbexLsuStateValid	000
+  #318	4	sys_func_call	$error			prim_assert.sv	29	3	33	30		0				000
+  #319	5	constant				prim_assert.sv	29	10	29	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6		000
+  #320	5	sys_func_call	$time			prim_assert.sv	29	53	29	58		0				000
+  #321	5	constant				prim_assert.sv	29	60	29	156	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_load_store_unit.sv"	752	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_load_store_unit.sv	6		000
+  #322	5	constant				prim_assert.sv	29	158	29	161	614	64	UINT:614	9		000
+  #323	5	constant				prim_assert.sv	33	10	33	29	"IbexLsuStateValid"	136	STRING:IbexLsuStateValid	6		000
+
+--- OURS (B) records 311..323 ('>' = the object)
+  #311	5	constant				prim_assert.sv	32	92	32	95	613	64	UINT:613	9		000
+  #312	5	constant				prim_assert.sv	33	10	23	12	"IbexDataTypeQKnown"	144	STRING:IbexDataTypeQKnown	6		000
+  #313	3	property_spec				prim_assert_standard_macros.svh	78	40	78	114						000
+  #314	4	operation				prim_assert_standard_macros.svh	78	42	78	55		0				000
+  #315	5	ref_obj	clk_i		work@ibex_load_store_unit.IbexDataTypeQKnown.clk_i	prim_assert_standard_macros.svh	78	50	78	55		0			work@ibex_load_store_unit.IbexDataTypeQKnown.clk_i	000
+  #316	2	assert_stmt	IbexLsuStateValid		work@ibex_load_store_unit.IbexLsuStateValid	prim_assert_standard_macros.svh	78	3	81	8					work@ibex_load_store_unit.IbexLsuStateValid	000
+> #317	3	begin			work@ibex_load_store_unit.IbexLsuStateValid	prim_assert_standard_macros.svh	79	10	81	8					work@ibex_load_store_unit.IbexLsuStateValid	000
+  #318	4	sys_func_call	$error			prim_assert.sv	32	3	33	18		0				000
+  #319	5	constant				prim_assert.sv	32	10	32	51	"%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s"	312	STRING:%0t: (%0s:%0d) [%m] [ASSERT FAILED] %0s	6		000
+  #320	5	sys_func_call	$time			prim_assert.sv	32	53	32	58		0				000
+  #321	5	constant				prim_assert.sv	32	92	33	65	"/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_load_store_unit.sv"	752	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/test/ibex/rtl/ibex_load_store_unit.sv	6		000
+  #322	5	constant				prim_assert.sv	32	92	32	95	614	64	UINT:614	9		000
+  #323	5	constant				prim_assert.sv	33	10	23	11	"IbexLsuStateValid"	136	STRING:IbexLsuStateValid	6		000
+
+facets of this row (240, first 25):
+  N0515 #236/236 logic_net fcov_ls_error_exception G[91:11:91:34] O[91:11:92:8]
+  N0515 #239/239 logic_net unused_fcov_ls_error_exception G[81:11:81:41] O[81:11:82:8]
+  N0515 #242/242 logic_net fcov_ls_pmp_exception G[91:11:91:32] O[91:11:92:6]
+  N0515 #245/245 logic_net unused_fcov_ls_pmp_exception G[81:11:81:39] O[81:11:82:6]
+  N0515 #248/248 logic_net fcov_ls_first_req G[91:11:91:28] O[91:11:92:2]
+  N0515 #251/251 logic_net unused_fcov_ls_first_req G[81:11:81:35] O[81:11:82:2]
+  N0515 #254/254 logic_net fcov_ls_second_req G[91:11:91:29] O[91:11:92:3]
+  N0515 #257/257 logic_net unused_fcov_ls_second_req G[81:11:81:36] O[81:11:82:3]
+  N0515 #260/260 logic_net fcov_ls_mis_pmp_err_1 G[91:11:91:32] O[91:11:92:6]
+  N0515 #263/263 logic_net unused_fcov_ls_mis_pmp_err_1 G[81:11:81:39] O[81:11:82:6]
+  N0515 #266/266 logic_net fcov_ls_mis_pmp_err_2 G[91:11:91:32] O[91:11:92:6]
+  N0515 #269/269 logic_net unused_fcov_ls_mis_pmp_err_2 G[81:11:81:39] O[81:11:82:6]
+  N0027 #274/274 sys_func_call $error G[29:3:33:30] O[32:3:33:18]
+  N0026 #275/275 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #276/276 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #277/277 constant  G[29:60:29:156] O[32:92:33:65]
+  N0015 #278/278 constant  G[29:158:29:161] O[32:92:32:95]
+  N0017 #279/279 constant  G[33:10:33:29] O[33:10:23:11]
+  N0027 #285/285 sys_func_call $error G[29:3:33:32] O[32:3:33:18]
+  N0026 #286/286 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #287/287 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #288/288 constant  G[29:60:29:156] O[32:92:33:65]
+  N0015 #289/289 constant  G[29:158:29:161] O[32:92:32:95]
+  N0017 #290/290 constant  G[33:10:33:31] O[33:10:23:13]
+  N0027 #296/296 sys_func_call $error G[29:3:33:34] O[32:3:33:18]

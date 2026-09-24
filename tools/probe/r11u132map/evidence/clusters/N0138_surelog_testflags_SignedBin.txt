@@ -1,0 +1,36 @@
+cluster N0138 (r11u128map K0202; OPEN (residue of landed r11u124)): fullname|ref_typespec|tok:id.->|under:constant
+row: surelog/testflags/SignedBin  strict=differ:fullname(1)  records golden=28 ours=28
+object: #23 (golden) / #23 (ours)  type=ref_typespec name= OUT
+  golden: work@dut.s.test
+  ours:   work@dut.test
+  walk parents: constant < port(test) < module_inst(s) < module_inst(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 17..27 ('>' = the object)
+  #17	2	module_inst	s	work@prim_subreg	work@dut.s	dut.sv	9	1	9	36					work@dut.s	000
+  #18	3	logic_net	test		work@dut.s.test	dut.sv	2	13	2	17		0			work@dut.s.test	000
+  #19	4	ref_typespec			work@dut.s.test		0	0	0	0		0			work@dut.s.test	000
+  #20	5	logic_typespec				dut.sv	2	7	2	12						000
+  #21	3	port	test			dut.sv	2	13	2	17						000
+  #22	4	constant				dut.sv	9	21	9	33	000000000000000000000000	24	BIN:000000000000000000000000	3		000
+> #23	5	ref_typespec			work@dut.s.test		0	0	0	0		0			work@dut.s.test	000
+  #24	6	int_typespec					0	0	0	0						000
+  #25	4	ref_obj	test		work@dut.s.test	dut.sv	9	16	9	20		0			work@dut.s.test	000
+  #26	4	ref_typespec			work@dut.s.test		0	0	0	0		0			work@dut.s.test	000
+  #27	5	logic_typespec				dut.sv	2	7	2	12						000
+
+--- OURS (B) records 17..27 ('>' = the object)
+  #17	2	module_inst	s	work@prim_subreg	work@dut.s	dut.sv	9	1	9	36					work@dut.s	000
+  #18	3	logic_net	test		work@dut.s.test	dut.sv	2	13	2	17		0			work@dut.s.test	000
+  #19	4	ref_typespec			work@dut.s.test		0	0	0	0		0			work@dut.s.test	000
+  #20	5	logic_typespec				dut.sv	2	7	2	12						000
+  #21	3	port	test			dut.sv	2	13	2	17						000
+  #22	4	constant				dut.sv	9	21	9	33	000000000000000000000000	24	BIN:000000000000000000000000	3		000
+> #23	5	ref_typespec			work@dut.test		0	0	0	0		0			work@dut.test	000
+  #24	6	int_typespec					0	0	0	0						000
+  #25	4	ref_obj	test		work@dut.s.test	dut.sv	9	16	9	20		0			work@dut.s.test	000
+  #26	4	ref_typespec			work@dut.s.test		0	0	0	0		0			work@dut.s.test	000
+  #27	5	logic_typespec				dut.sv	2	7	2	12						000
+
+facets of this row (1, first 25):
+  N0138 #23/23 ref_typespec  G[work@dut.s.test] O[work@dut.test]

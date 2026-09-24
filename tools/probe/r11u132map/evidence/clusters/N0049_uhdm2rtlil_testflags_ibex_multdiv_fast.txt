@@ -1,0 +1,64 @@
+cluster N0049 (r11u128map K0089; OPEN): span|sys_func_call|endcol|under:operation
+row: uhdm2rtlil/testflags/ibex_multdiv_fast  strict=differ:fullname(13)  records golden=11748 ours=11268
+object: #7435 (golden) / #6955 (ours)  type=sys_func_call name=$signed 
+  golden: 158:24:158:31
+  ours:   158:24:158:59
+  walk parents: operation < cont_assign < named_begin(gen_mult_single_cycle) < gen_if_else
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 7429..7441 ('>' = the object)
+  #7429	7	logic_typespec				ibex_multdiv_fast.sv	156	5	156	17						000
+  #7430	8	range				ibex_multdiv_fast.sv	156	11	156	17						001
+  #7431	9	constant				ibex_multdiv_fast.sv	156	12	156	14	33	64	UINT:33	9		001
+  #7432	9	constant				ibex_multdiv_fast.sv	156	15	156	16	0	64	UINT:0	9		001
+  #7433	4	cont_assign				ibex_multdiv_fast.sv	158	12	158	97						000
+  #7434	5	operation				ibex_multdiv_fast.sv	158	24	158	97		0				000
+> #7435	6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	24	158	31		0				000
+  #7436	7	operation				ibex_multdiv_fast.sv	158	32	158	58		0				000
+  #7437	8	ref_obj	mult1_sign_a		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_a	ibex_multdiv_fast.sv	158	33	158	45		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_a	000
+  #7438	8	ref_obj	mult1_op_a		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_op_a	ibex_multdiv_fast.sv	158	47	158	57		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_op_a	000
+  #7439	6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	62	158	69		0				000
+  #7440	7	operation				ibex_multdiv_fast.sv	158	70	158	96		0				000
+  #7441	8	ref_obj	mult1_sign_b		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_b	ibex_multdiv_fast.sv	158	71	158	83		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_b	000
+
+--- OURS (B) records 6949..6961 ('>' = the object)
+  #6949	7	logic_typespec				ibex_multdiv_fast.sv	156	5	156	17						000
+  #6950	8	range				ibex_multdiv_fast.sv	156	11	156	17						001
+  #6951	9	constant				ibex_multdiv_fast.sv	156	12	156	14	33	64	UINT:33	9		001
+  #6952	9	constant				ibex_multdiv_fast.sv	156	15	156	16	0	64	UINT:0	9		001
+  #6953	4	cont_assign				ibex_multdiv_fast.sv	158	12	158	97						000
+  #6954	5	operation				ibex_multdiv_fast.sv	158	24	158	97		0				000
+> #6955	6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	24	158	59		0				000
+  #6956	7	operation				ibex_multdiv_fast.sv	158	32	158	58		0				000
+  #6957	8	ref_obj	mult1_sign_a		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_a	ibex_multdiv_fast.sv	158	33	158	45		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_a	000
+  #6958	8	ref_obj	mult1_op_a		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_op_a	ibex_multdiv_fast.sv	158	47	158	57		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_op_a	000
+  #6959	6	sys_func_call	$signed			ibex_multdiv_fast.sv	158	62	158	97		0				000
+  #6960	7	operation				ibex_multdiv_fast.sv	158	70	158	96		0				000
+  #6961	8	ref_obj	mult1_sign_b		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_b	ibex_multdiv_fast.sv	158	71	158	83		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_sign_b	000
+
+facets of this row (213, first 25):
+  N0002 #4401/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #4430/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #4459/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #4488/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #4517/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #4546/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #4575/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #4604/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #4633/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #4662/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4691/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4720/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4739/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4746/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4753/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4760/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4767/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4774/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4781/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4788/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4795/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4802/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4809/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4816/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4823/-1 parameter IC_INDEX_W G[3 objs] O[]

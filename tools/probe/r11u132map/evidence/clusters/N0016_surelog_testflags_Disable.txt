@@ -1,0 +1,32 @@
+cluster N0016 (r11u128map K0034; COVERED r11u130 (K0034)): file|logic_net|golden-empty|under:module_inst
+row: surelog/testflags/Disable  strict=differ:file(1)  records golden=19 ours=19
+object: #2 (golden) / #2 (ours)  type=logic_net name=loop 
+  golden:  4:18:4:22
+  ours:   dut.sv 4:18:4:22
+  walk parents: module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 0..8 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	8	10					work@top	000
+> #2	2	logic_net	loop		work@top.loop		4	18	4	22		0			work@top.loop	000
+  #3	2	initial				dut.sv	2	4	7	7						000
+  #4	3	begin			work@top	dut.sv	2	12	7	7					work@top	000
+  #5	4	forever_stmt				dut.sv	3	7	3	14						000
+  #6	5	named_begin	loop		work@top.loop	dut.sv	3	23	3	27					work@top.loop	000
+  #7	6	disable				dut.sv	4	10	4	23						000
+  #8	6	disable_fork				dut.sv	5	10	5	23						000
+
+--- OURS (B) records 0..8 ('>' = the object)
+  #0	0	design	work@top				0	0	0	0						000
+  #1	1	module_inst		work@top	work@top	dut.sv	1	1	8	10					work@top	000
+> #2	2	logic_net	loop		work@top.loop	dut.sv	4	18	4	22		0			work@top.loop	000
+  #3	2	initial				dut.sv	2	4	7	7						000
+  #4	3	begin			work@top	dut.sv	2	12	7	7					work@top	000
+  #5	4	forever_stmt				dut.sv	3	7	3	14						000
+  #6	5	named_begin	loop		work@top.loop	dut.sv	3	23	3	27					work@top.loop	000
+  #7	6	disable				dut.sv	4	10	4	23						000
+  #8	6	disable_fork				dut.sv	5	10	5	23						000
+
+facets of this row (1, first 25):
+  N0016 #2/2 logic_net loop G[ 4:18:4:22] O[dut.sv 4:18:4:22]

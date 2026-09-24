@@ -1,0 +1,64 @@
+cluster N0240 (r11u128map K0318; OPEN): fullname|ref_obj|tok:id.id[id].id::->|under:method_func_call
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(315)  records golden=201533 ours=201486
+object: #20252 (golden) / #20265 (ours)  type=ref_obj name=remainder OUT
+  golden: uvm_pkg::uvm_component::lookup::comp.m_children[leaf].lookup::remainder
+  ours:   uvm_pkg::uvm_component::lookup::remainder
+  walk parents: method_func_call(lookup) < hier_path(comp.m_children[leaf].lookup) < return_stmt < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 20246..20258 ('>' = the object)
+  #20246	5	return_stmt				uvm_pkg.sv	39905	5	39905	11						000
+  #20247	6	hier_path	comp.m_children[leaf].lookup			uvm_pkg.sv	39905	12	39905	51		0				000
+  #20248	7	ref_obj	comp			uvm_pkg.sv	39905	12	39905	16		0				000
+  #20249	7	bit_select	m_children		comp.m_children[leaf]	uvm_pkg.sv	39905	17	39905	27		0			comp.m_children[leaf]	000
+  #20250	8	ref_obj	leaf		uvm_pkg::uvm_component::lookup::leaf	uvm_pkg.sv	39905	28	39905	32		0			uvm_pkg::uvm_component::lookup::leaf	000
+  #20251	7	method_func_call	lookup			uvm_pkg.sv	39905	34	39905	40		0				000
+> #20252	8	ref_obj	remainder		uvm_pkg::uvm_component::lookup::comp.m_children[leaf].lookup::remainder	uvm_pkg.sv	39905	41	39905	50		0			uvm_pkg::uvm_component::lookup::comp.m_children[leaf].lookup::remainder	000
+  #20253	4	return_stmt				uvm_pkg.sv	39907	3	39907	9						000
+  #20254	5	hier_path	comp.m_children[leaf]			uvm_pkg.sv	39907	10	39907	31		0				000
+  #20255	6	ref_obj	comp			uvm_pkg.sv	39907	10	39907	14		0				000
+  #20256	6	bit_select	m_children		uvm_pkg::uvm_component::lookup::comp.m_children[leaf]::m_children	uvm_pkg.sv	39907	26	39907	30		0			uvm_pkg::uvm_component::lookup::comp.m_children[leaf]::m_children	000
+  #20257	7	ref_obj	leaf		uvm_pkg::uvm_component::lookup::comp.m_children[leaf]::leaf	uvm_pkg.sv	39907	26	39907	30		0			uvm_pkg::uvm_component::lookup::comp.m_children[leaf]::leaf	000
+  #20258	2	function	uvm_component::get_depth		uvm_pkg::uvm_component::get_depth	uvm_pkg.sv	39915	1	39920	12					uvm_pkg::uvm_component::get_depth	000
+
+--- OURS (B) records 20259..20271 ('>' = the object)
+  #20259	5	return_stmt				uvm_pkg.sv	39905	5	39905	11						000
+  #20260	6	hier_path	comp.m_children[leaf].lookup			uvm_pkg.sv	39905	12	39905	51		0				000
+  #20261	7	ref_obj	comp			uvm_pkg.sv	39905	12	39905	16		0				000
+  #20262	7	bit_select	m_children		comp.m_children[leaf]	uvm_pkg.sv	39905	17	39905	27		0			comp.m_children[leaf]	000
+  #20263	8	ref_obj	leaf		uvm_pkg::uvm_component::lookup::leaf	uvm_pkg.sv	39905	28	39905	32		0			uvm_pkg::uvm_component::lookup::leaf	000
+  #20264	7	method_func_call	lookup			uvm_pkg.sv	39905	34	39905	40		0				000
+> #20265	8	ref_obj	remainder		uvm_pkg::uvm_component::lookup::remainder	uvm_pkg.sv	39905	41	39905	50		0			uvm_pkg::uvm_component::lookup::remainder	000
+  #20266	4	return_stmt				uvm_pkg.sv	39907	3	39907	9						000
+  #20267	5	hier_path	comp.m_children[leaf]			uvm_pkg.sv	39907	10	39907	31		0				000
+  #20268	6	ref_obj	comp			uvm_pkg.sv	39907	10	39907	14		0				000
+  #20269	6	bit_select	m_children		uvm_pkg::uvm_component::lookup::comp.m_children[leaf]::m_children	uvm_pkg.sv	39907	26	39907	30		0			uvm_pkg::uvm_component::lookup::comp.m_children[leaf]::m_children	000
+  #20270	7	ref_obj	leaf		uvm_pkg::uvm_component::lookup::leaf	uvm_pkg.sv	39907	26	39907	30		0			uvm_pkg::uvm_component::lookup::leaf	000
+  #20271	2	function	uvm_component::get_depth		uvm_pkg::uvm_component::get_depth	uvm_pkg.sv	39915	1	39920	12					uvm_pkg::uvm_component::get_depth	000
+
+facets of this row (11121, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

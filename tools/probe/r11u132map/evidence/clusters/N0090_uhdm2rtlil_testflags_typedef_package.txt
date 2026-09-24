@@ -1,0 +1,46 @@
+cluster N0090 (r11u128map K0100; OPEN): span|logic_typespec|endline+endcol|under:ref_typespec
+row: uhdm2rtlil/testflags/typedef_package  strict=differ:endline(6)  records golden=196 ours=206
+object: #46 (golden) / #46 (ours)  type=logic_typespec name=pkg::uint8_t 
+  golden: 2:10:11:35
+  ours:   2:10:2:21
+  walk parents: ref_typespec < logic_typespec(uint8_t) < ref_typespec < parameter(PCONST)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 40..52 ('>' = the object)
+  #40	4	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+  #41	1	package	pkg	pkg	pkg::	dut.sv	1	1	7	11					pkg::	000
+  #42	2	parameter	PCONST		pkg::PCONST	dut.sv	5	21	5	27		0	HEX:CC		pkg::PCONST	000
+  #43	3	ref_typespec			pkg::PCONST		0	0	0	0		0			pkg::PCONST	000
+  #44	4	logic_typespec	uint8_t			dut.sv	2	10	2	21						110
+  #45	5	ref_typespec			<in>uint8_t		0	0	0	0		0			pkg::PCONST::uint8_t	001
+> #46	6	logic_typespec	pkg::uint8_t			dut.sv	2	10	11	35						001
+  #47	7	range				dut.sv	2	16	2	21						001
+  #48	8	constant				dut.sv	2	17	2	18	7	64	UINT:7	9		001
+  #49	8	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+  #50	5	range				dut.sv	2	16	2	21						001
+  #51	6	constant				dut.sv	2	17	2	18	7	64	UINT:7	9		001
+  #52	6	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+
+--- OURS (B) records 40..52 ('>' = the object)
+  #40	4	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+  #41	1	package	pkg	pkg	pkg::	dut.sv	1	1	7	11					pkg::	000
+  #42	2	parameter	PCONST		pkg::PCONST	dut.sv	5	21	5	27		0	HEX:CC		pkg::PCONST	000
+  #43	3	ref_typespec			pkg::PCONST		0	0	0	0		0			pkg::PCONST	000
+  #44	4	logic_typespec	uint8_t			dut.sv	2	10	2	21						110
+  #45	5	ref_typespec			<in>uint8_t		0	0	0	0		0			pkg::PCONST::uint8_t	001
+> #46	6	logic_typespec	pkg::uint8_t			dut.sv	2	10	2	21						001
+  #47	7	range				dut.sv	2	16	2	21						001
+  #48	8	constant				dut.sv	2	17	2	18	7	64	UINT:7	9		001
+  #49	8	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+  #50	5	range				dut.sv	2	16	2	21						001
+  #51	6	constant				dut.sv	2	17	2	18	7	64	UINT:7	9		001
+  #52	6	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+
+facets of this row (7, first 25):
+  N0085 #-1/104 ref_typespec  G[] O[5 objs]
+  N0085 #-1/172 ref_typespec  G[] O[5 objs]
+  N0090 #46/46 logic_typespec pkg::uint8_t G[2:10:11:35] O[2:10:2:21]
+  N0090 #57/57 logic_typespec pkg::uint8_t G[2:10:11:35] O[2:10:2:21]
+  N0090 #69/69 logic_typespec pkg::uint8_t G[2:10:11:35] O[2:10:2:21]
+  N0090 #81/81 logic_typespec pkg::uint8_t G[2:10:11:35] O[2:10:2:21]
+  N0422 #96/96 logic_typespec pkg::uint8_t G[2:10:11:35] O[2:10:2:21]

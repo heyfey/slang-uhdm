@@ -1,0 +1,41 @@
+cluster N0023 (r11u128map K0045; COVERED r11u131 (K0045)): struct|ours-only:elsewhere|logic_net|under:ref_obj
+row: uhdm2rtlil/testflags/sva_value_change_changed  strict=differ:depth(1)  records golden=151 ours=151
+object: #-1 (golden) / #131 (ours)  type=logic_net name=clk 
+  golden: 
+  ours:   1 objs
+  walk parents: ref_obj(clk) < operation < event_control < always
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 125..137 ('>' = the object)
+  #125	3	ref_typespec			work@top.b_prev_o		0	0	0	0		0			work@top.b_prev_o	000
+  #126	4	logic_typespec				dut.sv	9	9	9	14						000
+  #127	2	always				dut.sv	14	2	14	36						000
+  #128	3	event_control				dut.sv	14	9	14	23						000
+  #129	4	operation				dut.sv	14	11	14	22		0				000
+  #130	5	ref_obj	clk		work@top.clk	dut.sv	14	19	14	22		0			work@top.clk	000
+> #131	6	logic_net	clk		work@top.clk	dut.sv	2	9	2	12		0			work@top.clk	000
+  #132	4	assignment				dut.sv	14	24	14	35						000
+  #133	5	ref_obj	b		work@top.b	dut.sv	14	34	14	35		0			work@top.b	000
+  #134	5	ref_obj	b_prev		work@top.b_prev	dut.sv	14	24	14	30		0			work@top.b_prev	000
+  #135	6	logic_net	b_prev		work@top.b_prev	dut.sv	13	8	13	14		0			work@top.b_prev	000
+  #136	7	ref_typespec			work@top.b_prev		0	0	0	0		0			work@top.b_prev	000
+  #137	8	logic_typespec				dut.sv	13	2	13	18						000
+
+--- the holder #130 on the other side: exact-record matches at [53, 131]
+  #50	2	always				dut.sv	14	2	14	36						000
+  #51	3	event_control				dut.sv	14	9	14	23						000
+  #52	4	operation				dut.sv	14	11	14	22		0				000
+> #53	5	ref_obj	clk		work@top.clk	dut.sv	14	19	14	22		0			work@top.clk	000
+  #54	4	assignment				dut.sv	14	24	14	35						000
+  #55	5	ref_obj	b		work@top.b	dut.sv	14	34	14	35		0			work@top.b	000
+  #56	5	ref_obj	b_prev		work@top.b_prev	dut.sv	14	24	14	30		0			work@top.b_prev	000
+  #57	2	cont_assign				dut.sv	16	9	16	21						000
+  #58	3	ref_obj	b		work@top.b	dut.sv	16	20	16	21		0			work@top.b	000
+  #59	3	ref_obj	b_o		work@top.b_o	dut.sv	16	9	16	12		0			work@top.b_o	000
+  #60	2	cont_assign				dut.sv	17	9	17	26						000
+  #61	3	ref_obj	b_prev		work@top.b_prev	dut.sv	17	20	17	26		0			work@top.b_prev	000
+  #62	3	ref_obj	b_prev_o		work@top.b_prev_o	dut.sv	17	9	17	17		0			work@top.b_prev_o	000
+
+facets of this row (2, first 25):
+  N0022 #107/-1 logic_net clk G[1 objs] O[]
+  N0023 #-1/131 logic_net clk G[] O[1 objs]

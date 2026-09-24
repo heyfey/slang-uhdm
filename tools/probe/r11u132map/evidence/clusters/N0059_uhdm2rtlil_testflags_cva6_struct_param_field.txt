@@ -1,0 +1,64 @@
+cluster N0059 (r11u128map K0099; COVERED r11u131 (K0099)): struct|ours-only:absent|integer_typespec|under:ref_typespec
+row: uhdm2rtlil/testflags/cva6_struct_param_field  strict=differ:endcol(13)  records golden=299 ours=293
+object: #-1 (golden) / #126 (ours)  type=integer_typespec name= 
+  golden: 
+  ours:   4 objs
+  walk parents: ref_typespec < operation < tagged_pattern < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 120..132 ('>' = the object)
+  #120	6	string_typespec	VLEN			dut.sv	15	49	15	53						110
+  #121	2	param_assign				dut.sv	29	19	29	58						000
+  #122	3	operation				dut.sv	29	23	29	58		0				000
+  #123	4	tagged_pattern				dut.sv	29	28	29	40						000
+  #124	5	operation				dut.sv	29	28	29	40		0				000
+  #125	6	ref_typespec			work@cva6_struct_param_field		0	0	0	0		0			work@cva6_struct_param_field	000
+> #126	7	integer_typespec				dut.sv	29	28	29	36						000
+  #127	8	hier_path	Cfg.XLEN			dut.sv	29	28	29	36		0				001
+  #128	9	ref_obj	Cfg			dut.sv	29	32	29	36		0				001
+  #129	9	ref_obj	XLEN			dut.sv	29	32	29	36		0				001
+  #130	6	constant				dut.sv	29	38	29	39	1	64	UINT:1	9		000
+  #131	5	ref_typespec			work@cva6_struct_param_field		0	0	0	0		0			work@cva6_struct_param_field	000
+  #132	6	string_typespec	x			dut.sv	29	25	29	26						110
+
+--- the holder #125 on the other side: exact-record matches at [125, 138]
+  #122	3	operation				dut.sv	29	23	29	58		0				000
+  #123	4	tagged_pattern				dut.sv	29	28	29	40						000
+  #124	5	operation				dut.sv	29	28	29	40		0				000
+> #125	6	ref_typespec			work@cva6_struct_param_field		0	0	0	0		0			work@cva6_struct_param_field	000
+  #126	7	struct_typespec	cfg_pkg::cfg_t			dut.sv	11	11	14	4						110
+  #127	8	typespec_member	XLEN			dut.sv	12	18	12	22						001
+  #128	9	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::XLEN	001
+  #129	10	int_typespec				dut.sv	12	5	12	17						001
+  #130	8	typespec_member	VLEN			dut.sv	13	18	13	22						001
+  #131	9	ref_typespec			<in>cfg_pkg::cfg_t.VLEN		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::VLEN	001
+  #132	10	int_typespec				dut.sv	13	5	13	17						001
+  #133	6	constant				dut.sv	29	38	29	39	1	64	UINT:1	9		000
+  #134	5	ref_typespec			work@cva6_struct_param_field		0	0	0	0		0			work@cva6_struct_param_field	000
+
+facets of this row (31, first 25):
+  N0024 #126/-1 struct_typespec cfg_pkg::cfg_t G[7 objs] O[]
+  N0059 #-1/126 integer_typespec  G[] O[4 objs]
+  N0024 #139/-1 struct_typespec cfg_pkg::cfg_t G[7 objs] O[]
+  N0059 #-1/136 integer_typespec  G[] O[4 objs]
+  N0044 #67/67 struct_typespec  G[25:26:25:32] O[25:26:25:39]
+  N0084 #69/69 ref_typespec  G[work@cva6_struct_param_field.I.x] O[x]
+  N0001 #74/74 ref_obj Cfg G[26:16:26:20] O[26:12:26:15]
+  N0019 #75/75 ref_obj XLEN G[] O[work@cva6_struct_param_field.it_t.XLEN]
+  N0084 #79/79 ref_typespec  G[work@cva6_struct_param_field.I.y] O[y]
+  N0001 #84/84 ref_obj Cfg G[27:16:27:20] O[27:12:27:15]
+  N0019 #85/85 ref_obj XLEN G[] O[work@cva6_struct_param_field.it_t.XLEN]
+  N0009 #90/90 struct_typespec  G[25:26:25:32] O[25:26:28:4]
+  N0001 #97/97 ref_obj Cfg G[26:16:26:20] O[26:12:26:15]
+  N0019 #98/98 ref_obj XLEN G[] O[work@cva6_struct_param_field.I.x.XLEN]
+  N0001 #107/107 ref_obj Cfg G[27:16:27:20] O[27:12:27:15]
+  N0019 #108/108 ref_obj XLEN G[] O[work@cva6_struct_param_field.I.y.XLEN]
+  N0001 #162/156 ref_obj Cfg G[22:23:22:27] O[22:19:22:22]
+  N0044 #188/182 struct_typespec  G[25:26:25:32] O[25:26:25:39]
+  N0084 #190/184 ref_typespec  G[work@cva6_struct_param_field.I.x] O[x]
+  N0001 #195/189 ref_obj Cfg G[26:16:26:20] O[26:12:26:15]
+  N0019 #196/190 ref_obj XLEN G[] O[work@cva6_struct_param_field.it_t.XLEN]
+  N0084 #200/194 ref_typespec  G[work@cva6_struct_param_field.I.y] O[y]
+  N0001 #205/199 ref_obj Cfg G[27:16:27:20] O[27:12:27:15]
+  N0019 #206/200 ref_obj XLEN G[] O[work@cva6_struct_param_field.it_t.XLEN]
+  N0009 #211/205 struct_typespec  G[25:26:25:32] O[25:26:28:4]

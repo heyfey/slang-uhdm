@@ -1,0 +1,107 @@
+# the structural row-modes (first field depth/type/count) at 4f73d52f, mode 4: class, row-mode, strict cell, first cluster, coverage, clears with the pairs
+
+## A NET-BINDING: 34 row-modes, 18 tests, clear with pairs A+B: 34
+  surelog/default/Moves  differ:depth(1)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  surelog/default/PackageParamConst  differ:count(0)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/Clog2OfSumWithParameterIn2InstancesOfSubmodule  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/ParameterColonReference  differ:count(0)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/StructLocalParam  differ:count(0)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/StructParameter  differ:count(0)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/array_assign  differ:depth(1)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  uhdm2rtlil/default/cdc_static_basic  differ:count(0)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  uhdm2rtlil/default/param_type_logic_width  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/partsel_simple  differ:depth(1)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  uhdm2rtlil/default/sva_range  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/sva_throughout  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/sva_value_change_changed  differ:depth(1)  N0022  COVERED r11u131 (K0044)  open_clusters=0  A+B A
+  uhdm2rtlil/default/sva_value_change_changed_wide  differ:depth(1)  N0022  COVERED r11u131 (K0044)  open_clusters=0  A+B A
+  uhdm2rtlil/default/sva_value_change_rose  differ:depth(1)  N0022  COVERED r11u131 (K0044)  open_clusters=0  A+B A
+  uhdm2rtlil/default/unbased_unsized_param  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/default/vector_index  differ:depth(1)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  uhdm2rtlil/default/wandwor  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/Clog2OfSumWithParameterIn2InstancesOfSubmodule  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/ParameterColonReference  differ:count(0)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/StructLocalParam  differ:count(0)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/StructParameter  differ:count(0)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/array_assign  differ:depth(1)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/cdc_static_basic  differ:count(0)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/param_type_logic_width  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/partsel_simple  differ:depth(1)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/sva_range  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/sva_throughout  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/sva_value_change_changed  differ:depth(1)  N0022  COVERED r11u131 (K0044)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/sva_value_change_changed_wide  differ:depth(1)  N0022  COVERED r11u131 (K0044)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/sva_value_change_rose  differ:depth(1)  N0022  COVERED r11u131 (K0044)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/unbased_unsized_param  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/vector_index  differ:depth(1)  N0046  COVERED r11u131 (K0080)  open_clusters=0  A+B A
+  uhdm2rtlil/testflags/wandwor  differ:depth(1)  N0006  COVERED r11u131 (K0017)  open_clusters=0  A+B A
+
+## B TYPEDEF-ALIAS on the net typespec: 6 row-modes, 3 tests, clear with pairs A+B: 0
+  surelog/default/LogicTypedef  differ:type(1)  N0085  OPEN (residue of landed r11u125)  open_clusters=1  
+  surelog/default/WireType  differ:type(1)  N0085  OPEN (residue of landed r11u125)  open_clusters=1  
+  surelog/testflags/LogicTypedef  differ:type(1)  N0085  OPEN (residue of landed r11u125)  open_clusters=1  
+  surelog/testflags/WireType  differ:type(1)  N0085  OPEN (residue of landed r11u125)  open_clusters=1  
+  uhdm2rtlil/default/net_types  differ:type(1)  N0085  OPEN (residue of landed r11u125)  open_clusters=1  
+  uhdm2rtlil/testflags/net_types  differ:type(1)  N0085  OPEN (residue of landed r11u125)  open_clusters=1  
+
+## C IMPORTED-PARAMETER CLONE (elaborated view): 20 row-modes, 10 tests, clear with pairs A+B: 0
+  surelog/default/HierPathOverride  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=7  
+  surelog/default/Kmac  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=1  
+  surelog/default/ParamFromPackage  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=2  
+  surelog/testflags/HierPathOverride  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=7  
+  surelog/testflags/Kmac  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=7  
+  surelog/testflags/ParamFromPackage  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=2  
+  uhdm2rtlil/default/BitSelectOfParameterPassedToSubmodule  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=7  
+  uhdm2rtlil/default/ParameterFromPkgOnParameterPortList  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=13  
+  uhdm2rtlil/default/StructArrayParameterInitializedByPatternPassedAsPort  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=4  
+  uhdm2rtlil/default/ff_dead_both_branches  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=3  
+  uhdm2rtlil/default/ff_dead_guarded_reset  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=3  
+  uhdm2rtlil/default/param_struct_field_bitsel  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=2  
+  uhdm2rtlil/default/param_unpacked_struct_array  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=1  
+  uhdm2rtlil/testflags/BitSelectOfParameterPassedToSubmodule  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=7  
+  uhdm2rtlil/testflags/ParameterFromPkgOnParameterPortList  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=13  
+  uhdm2rtlil/testflags/StructArrayParameterInitializedByPatternPassedAsPort  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=4  
+  uhdm2rtlil/testflags/ff_dead_both_branches  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=3  
+  uhdm2rtlil/testflags/ff_dead_guarded_reset  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=3  
+  uhdm2rtlil/testflags/param_struct_field_bitsel  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=2  
+  uhdm2rtlil/testflags/param_unpacked_struct_array  differ:depth(1)  N0002  OPEN (residue of landed r11u124)  open_clusters=1  
+
+## C2 CONSTANT COPIED (ours two, golden one): 6 row-modes, 3 tests, clear with pairs A+B: 0
+  surelog/default/DefaultPatternInt  differ:depth(1)  N0441  OPEN  open_clusters=2  
+  surelog/default/DefaultPatternModule  differ:depth(1)  N0441  OPEN  open_clusters=1  
+  surelog/default/ParamArrayUnsizedPattern  differ:depth(1)  N0441  OPEN  open_clusters=2  
+  surelog/testflags/DefaultPatternInt  differ:depth(1)  N0441  OPEN  open_clusters=10  
+  surelog/testflags/DefaultPatternModule  differ:depth(1)  N0441  OPEN  open_clusters=9  
+  surelog/testflags/ParamArrayUnsizedPattern  differ:depth(1)  N0441  OPEN  open_clusters=2  
+
+## D MEMBER-DEFAULT CONSTANT COPY (golden two, ours one): 2 row-modes, 1 tests, clear with pairs A+B: 0
+  surelog/default/StructParamFuncBodyFieldCompare  differ:depth(1)  N0045  OPEN  open_clusters=7  
+  surelog/testflags/StructParamFuncBodyFieldCompare  differ:depth(1)  N0045  OPEN  open_clusters=7  
+
+## D2 CAST TARGET typespec: 6 row-modes, 3 tests, clear with pairs A+B: 0
+  uhdm2rtlil/default/def_ctx_struct_param  differ:type(1)  N0024  COVERED r11u131 (K0047)  open_clusters=1  
+  uhdm2rtlil/default/latch_decoder_partial  differ:type(1)  N0024  COVERED r11u131 (K0047)  open_clusters=1  
+  uhdm2rtlil/default/latch_tlb_napot  differ:type(1)  N0024  COVERED r11u131 (K0047)  open_clusters=1  
+  uhdm2rtlil/testflags/def_ctx_struct_param  differ:type(1)  N0024  COVERED r11u131 (K0047)  open_clusters=1  
+  uhdm2rtlil/testflags/latch_decoder_partial  differ:type(1)  N0024  COVERED r11u131 (K0047)  open_clusters=1  
+  uhdm2rtlil/testflags/latch_tlb_napot  differ:type(1)  N0024  COVERED r11u131 (K0047)  open_clusters=1  
+
+## E SHARED func_call (elab cont_assign Rhs): 6 row-modes, 3 tests, clear with pairs A+B: 0
+  uhdm2rtlil/default/FunctionParam  differ:type(1)  N0133  OPEN  open_clusters=2  
+  uhdm2rtlil/default/SelectGivenBySelectOnParameterInFunction  differ:type(1)  N0133  OPEN  open_clusters=2  
+  uhdm2rtlil/default/func_local_array  differ:type(1)  N0133  OPEN  open_clusters=3  
+  uhdm2rtlil/testflags/FunctionParam  differ:type(1)  N0133  OPEN  open_clusters=2  
+  uhdm2rtlil/testflags/SelectGivenBySelectOnParameterInFunction  differ:type(1)  N0133  OPEN  open_clusters=2  
+  uhdm2rtlil/testflags/func_local_array  differ:type(1)  N0133  OPEN  open_clusters=3  
+
+## E2 SHARED constant (elab cont_assign Rhs): 2 row-modes, 1 tests, clear with pairs A+B: 0
+  uhdm2rtlil/default/SumOfParametersInNestedForLoops  differ:type(1)  N0554  OPEN  open_clusters=1  
+  uhdm2rtlil/testflags/SumOfParametersInNestedForLoops  differ:type(1)  N0554  OPEN  open_clusters=1  
+
+## F TYPE-PARAMETER DEF NET typespec: 2 row-modes, 1 tests, clear with pairs A+B: 0
+  surelog/default/TypeParam  differ:type(1)  N0770  OPEN  open_clusters=2  
+  surelog/testflags/TypeParam  differ:type(1)  N0770  OPEN  open_clusters=2  
+
+## G EXTRA FOLDED CONSTANT: 2 row-modes, 1 tests, clear with pairs A+B: 0
+  surelog/default/BlackParrotComplex  differ:depth(1)  N0724  OPEN  open_clusters=2  
+  surelog/testflags/BlackParrotComplex  differ:depth(1)  N0724  OPEN  open_clusters=2  

@@ -1,0 +1,41 @@
+cluster N0007 (r11u128map K0016; OPEN (residue of landed r11u124)): fullname|ref_obj|golden-empty|under:hier_path
+row: surelog/testflags/SelectHierPath  strict=differ:fullname(2)  records golden=55 ours=55
+object: #8 (golden) / #8 (ours)  type=ref_obj name=brResult OUT
+  golden: 
+  ours:   pipeReg[1].brResult
+  walk parents: hier_path(pipeReg[1].brResult.nextAddr) < cont_assign < module_inst < design(work@IntegerRegisterWriteStage)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2..14 ('>' = the object)
+  #2	2	logic_net	pipeReg		work@IntegerRegisterWriteStage.pipeReg	dut.sv	12	34	12	41		0			work@IntegerRegisterWriteStage.pipeReg	000
+  #3	2	logic_net	o		work@IntegerRegisterWriteStage.o		14	8	14	9		0			work@IntegerRegisterWriteStage.o	000
+  #4	2	cont_assign				dut.sv	14	8	14	40						000
+  #5	3	hier_path	pipeReg[1].brResult.nextAddr			dut.sv	14	12	14	40		0				000
+  #6	4	bit_select	pipeReg		pipeReg[1]	dut.sv	14	12	14	19		0			pipeReg[1]	000
+  #7	5	constant				dut.sv	14	20	14	21	1	64	UINT:1	9		000
+> #8	4	ref_obj	brResult			dut.sv	14	23	14	31		0				000
+  #9	4	ref_obj	nextAddr		work@IntegerRegisterWriteStage.nextAddr	dut.sv	14	32	14	40		0			work@IntegerRegisterWriteStage.nextAddr	000
+  #10	3	ref_obj	o		work@IntegerRegisterWriteStage.o	dut.sv	14	8	14	9		0			work@IntegerRegisterWriteStage.o	000
+  #11	1	struct_typespec	BranchResult			dut.sv	1	9	3	2						010
+  #12	2	typespec_member	nextAddr			dut.sv	2	9	2	17						001
+  #13	3	ref_typespec			<in>BranchResult.nextAddr		0	0	0	0		0			BranchResult.nextAddr	001
+  #14	4	int_typespec				dut.sv	2	5	2	8						001
+
+--- OURS (B) records 2..14 ('>' = the object)
+  #2	2	logic_net	pipeReg		work@IntegerRegisterWriteStage.pipeReg	dut.sv	12	34	12	41		0			work@IntegerRegisterWriteStage.pipeReg	000
+  #3	2	logic_net	o		work@IntegerRegisterWriteStage.o		14	8	14	9		0			work@IntegerRegisterWriteStage.o	000
+  #4	2	cont_assign				dut.sv	14	8	14	40						000
+  #5	3	hier_path	pipeReg[1].brResult.nextAddr			dut.sv	14	12	14	40		0				000
+  #6	4	bit_select	pipeReg		pipeReg[1]	dut.sv	14	12	14	19		0			pipeReg[1]	000
+  #7	5	constant				dut.sv	14	20	14	21	1	64	UINT:1	9		000
+> #8	4	ref_obj	brResult		pipeReg[1].brResult	dut.sv	14	23	14	31		0			pipeReg[1].brResult	000
+  #9	4	ref_obj	nextAddr		work@IntegerRegisterWriteStage.nextAddr	dut.sv	14	32	14	40		0			work@IntegerRegisterWriteStage.nextAddr	000
+  #10	3	ref_obj	o		work@IntegerRegisterWriteStage.o	dut.sv	14	8	14	9		0			work@IntegerRegisterWriteStage.o	000
+  #11	1	struct_typespec	BranchResult			dut.sv	1	9	3	2						010
+  #12	2	typespec_member	nextAddr			dut.sv	2	9	2	17						001
+  #13	3	ref_typespec			<in>BranchResult.nextAddr		0	0	0	0		0			BranchResult.nextAddr	001
+  #14	4	int_typespec				dut.sv	2	5	2	8						001
+
+facets of this row (2, first 25):
+  N0007 #8/8 ref_obj brResult G[] O[pipeReg[1].brResult]
+  N0007 #42/42 ref_obj brResult G[] O[pipeReg[1].brResult]

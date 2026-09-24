@@ -1,0 +1,64 @@
+cluster N0199 (r11u128map K0270; OPEN): fullname|bit_select|tok:id.id::->|under:method_func_call
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(315)  records golden=201533 ours=201486
+object: #18520 (golden) / #18533 (ours)  type=bit_select name=split_vals OUT
+  golden: uvm_pkg::uvm_root::m_do_verbosity_settings::clp.m_convert_verb::split_vals
+  ours:   uvm_pkg::uvm_root::m_do_verbosity_settings::split_vals
+  walk parents: method_func_call(m_convert_verb) < hier_path(clp.m_convert_verb) < operation < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 18514..18526 ('>' = the object)
+  #18514	9	constant				uvm_pkg.sv	39147	48	39147	50	""	0	STRING:	6		000
+  #18515	6	if_stmt				uvm_pkg.sv	39150	3	39154	6						000
+  #18516	7	operation				uvm_pkg.sv	39150	6	39150	50		0				000
+  #18517	8	hier_path	clp.m_convert_verb			uvm_pkg.sv	39150	7	39150	50		0				000
+  #18518	9	ref_obj	clp			uvm_pkg.sv	39150	7	39150	10		0				000
+  #18519	9	method_func_call	m_convert_verb			uvm_pkg.sv	39150	11	39150	25		0				000
+> #18520	10	bit_select	split_vals		uvm_pkg::uvm_root::m_do_verbosity_settings::clp.m_convert_verb::split_vals	uvm_pkg.sv	39150	37	39150	38		0			uvm_pkg::uvm_root::m_do_verbosity_settings::clp.m_convert_verb::split_vals	000
+  #18521	11	constant				uvm_pkg.sv	39150	37	39150	38	2	64	UINT:2	9		000
+  #18522	10	ref_obj	tmp_verb		uvm_pkg::uvm_root::m_do_verbosity_settings::clp.m_convert_verb::tmp_verb	uvm_pkg.sv	39150	41	39150	49		0			uvm_pkg::uvm_root::m_do_verbosity_settings::clp.m_convert_verb::tmp_verb	000
+  #18523	7	begin			uvm_pkg::uvm_root::m_do_verbosity_settings	uvm_pkg.sv	39150	52	39154	6					uvm_pkg::uvm_root::m_do_verbosity_settings	000
+  #18524	8	func_call	uvm_report_warning			uvm_pkg.sv	39151	4	39153	51		0				000
+  #18525	9	constant				uvm_pkg.sv	39151	23	39151	36	"INVLCMDVERB"	88	STRING:INVLCMDVERB	6		000
+  #18526	9	sys_func_call	$sformatf			uvm_pkg.sv	39152	5	39153	32		0				000
+
+--- OURS (B) records 18527..18539 ('>' = the object)
+  #18527	9	constant				uvm_pkg.sv	39147	48	39147	50	""	0	STRING:	6		000
+  #18528	6	if_stmt				uvm_pkg.sv	39150	3	39154	6						000
+  #18529	7	operation				uvm_pkg.sv	39150	6	39150	50		0				000
+  #18530	8	hier_path	clp.m_convert_verb			uvm_pkg.sv	39150	7	39150	50		0				000
+  #18531	9	ref_obj	clp			uvm_pkg.sv	39150	7	39150	10		0				000
+  #18532	9	method_func_call	m_convert_verb			uvm_pkg.sv	39150	11	39150	25		0				000
+> #18533	10	bit_select	split_vals		uvm_pkg::uvm_root::m_do_verbosity_settings::split_vals	uvm_pkg.sv	39150	37	39150	38		0			uvm_pkg::uvm_root::m_do_verbosity_settings::split_vals	000
+  #18534	11	constant				uvm_pkg.sv	39150	37	39150	38	2	64	UINT:2	9		000
+  #18535	10	ref_obj	tmp_verb		uvm_pkg::uvm_root::m_do_verbosity_settings::tmp_verb	uvm_pkg.sv	39150	41	39150	49		0			uvm_pkg::uvm_root::m_do_verbosity_settings::tmp_verb	000
+  #18536	7	begin			uvm_pkg::uvm_root::m_do_verbosity_settings	uvm_pkg.sv	39150	52	39154	6					uvm_pkg::uvm_root::m_do_verbosity_settings	000
+  #18537	8	func_call	uvm_report_warning			uvm_pkg.sv	39151	4	39153	51		0				000
+  #18538	9	constant				uvm_pkg.sv	39151	23	39151	36	"INVLCMDVERB"	88	STRING:INVLCMDVERB	6		000
+  #18539	9	sys_func_call	$sformatf			uvm_pkg.sv	39152	5	39153	32		0				000
+
+facets of this row (11121, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

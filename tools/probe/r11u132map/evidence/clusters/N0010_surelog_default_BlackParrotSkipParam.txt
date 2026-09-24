@@ -1,0 +1,36 @@
+cluster N0010 (r11u128map K0025; COVERED r11u131 (K0025)): span|constant|col+endcol|under:param_assign
+row: surelog/default/BlackParrotSkipParam  strict=differ:col(1)  records golden=133 ours=133
+object: #128 (golden) / #128 (ours)  type=constant name= 
+  golden: 4:31:4:52
+  ours:   4:32:4:51
+  walk parents: param_assign < module_inst(mtime_counter) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 122..132 ('>' = the object)
+  #122	5	int_typespec				dut.sv	5	7	5	30						000
+  #123	3	param_assign				dut.sv	3	15	3	30						000
+  #124	4	constant				dut.sv	3	25	3	30	inv	24	STRING:inv	6		000
+  #125	5	ref_typespec			work@top.mtime_counter		0	0	0	0		0			work@top.mtime_counter	000
+  #126	6	string_typespec					0	0	0	0						000
+  #127	3	param_assign				dut.sv	4	17	4	52						000
+> #128	4	constant				dut.sv	4	31	4	52	10	64	UINT:10	9		000
+  #129	3	param_assign				dut.sv	5	17	5	30						000
+  #130	4	constant				dut.sv	5	29	5	30	0	32	UINT:0	9		000
+  #131	5	ref_typespec			work@top.mtime_counter		0	0	0	0		0			work@top.mtime_counter	000
+  #132	6	int_typespec				dut.sv	5	7	5	30						000
+
+--- OURS (B) records 122..132 ('>' = the object)
+  #122	5	int_typespec				dut.sv	5	7	5	30						000
+  #123	3	param_assign				dut.sv	3	15	3	30						000
+  #124	4	constant				dut.sv	3	25	3	30	inv	24	STRING:inv	6		000
+  #125	5	ref_typespec			work@top.mtime_counter		0	0	0	0		0			work@top.mtime_counter	000
+  #126	6	string_typespec					0	0	0	0						000
+  #127	3	param_assign				dut.sv	4	17	4	52						000
+> #128	4	constant				dut.sv	4	32	4	51	10	64	UINT:10	9		000
+  #129	3	param_assign				dut.sv	5	17	5	30						000
+  #130	4	constant				dut.sv	5	29	5	30	0	32	UINT:0	9		000
+  #131	5	ref_typespec			work@top.mtime_counter		0	0	0	0		0			work@top.mtime_counter	000
+  #132	6	int_typespec				dut.sv	5	7	5	30						000
+
+facets of this row (1, first 25):
+  N0010 #128/128 constant  G[4:31:4:52] O[4:32:4:51]

@@ -1,0 +1,44 @@
+cluster N0280 (r11u128map K0370; OPEN): fullname|ref_obj|tok:id.id->id|under:bit_select
+row: surelog/testflags/FuncRetArray  strict=differ:fullname(9)  records golden=150 ours=150
+object: #145 (golden) / #145 (ours)  type=ref_obj name=i OUT
+  golden: work@main.top1.ASSIGN_VADDR.i
+  ours:   work@top.ASSIGN_VADDR.i
+  walk parents: bit_select(ASSIGN_VADDR) < assignment < begin < for_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 139..149 ('>' = the object)
+  #139	6	ref_obj	i		work@main.top1.ASSIGN_VADDR.i	dut.sv	4	25	4	26		0			work@main.top1.ASSIGN_VADDR.i	000
+  #140	6	constant				dut.sv	4	29	4	30	2	64	UINT:2	9		000
+  #141	5	begin			work@main.top1.ASSIGN_VADDR	dut.sv	4	37	6	12					work@main.top1.ASSIGN_VADDR	000
+  #142	6	assignment				dut.sv	5	14	5	33						000
+  #143	7	constant				dut.sv	5	32	5	33	5	64	UINT:5	9		000
+  #144	7	bit_select	ASSIGN_VADDR		work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR	dut.sv	5	14	5	29		0			work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR	000
+> #145	8	ref_obj	i		work@main.top1.ASSIGN_VADDR.i	dut.sv	5	27	5	28		0			work@main.top1.ASSIGN_VADDR.i	000
+  #146	3	gen_scope_array	genblk3		work@main.top1.genblk3	dut.sv	18	3	18	40					work@main.top1.genblk3	000
+  #147	4	gen_scope			work@main.top1.genblk3	dut.sv	18	3	18	40					work@main.top1.genblk3	000
+  #148	5	sys_task_call	info			dut.sv	18	3	18	40		0				000
+  #149	6	constant					0	0	0	0	"--[1] (%d) is 5!!!"	0	STRING:"--[1] (%d) is 5!!!"	6		000
+
+--- OURS (B) records 139..149 ('>' = the object)
+  #139	6	ref_obj	i		work@top.ASSIGN_VADDR.i	dut.sv	4	25	4	26		0			work@top.ASSIGN_VADDR.i	000
+  #140	6	constant				dut.sv	4	29	4	30	2	64	UINT:2	9		000
+  #141	5	begin			work@top.ASSIGN_VADDR	dut.sv	4	37	6	12					work@top.ASSIGN_VADDR	000
+  #142	6	assignment				dut.sv	5	14	5	33						000
+  #143	7	constant				dut.sv	5	32	5	33	5	64	UINT:5	9		000
+  #144	7	bit_select	ASSIGN_VADDR		work@top.ASSIGN_VADDR.ASSIGN_VADDR	dut.sv	5	14	5	29		0			work@top.ASSIGN_VADDR.ASSIGN_VADDR	000
+> #145	8	ref_obj	i		work@top.ASSIGN_VADDR.i	dut.sv	5	27	5	28		0			work@top.ASSIGN_VADDR.i	000
+  #146	3	gen_scope_array	genblk3		work@main.top1.genblk3	dut.sv	18	3	18	40					work@main.top1.genblk3	000
+  #147	4	gen_scope			work@main.top1.genblk3	dut.sv	18	3	18	40					work@main.top1.genblk3	000
+  #148	5	sys_task_call	info			dut.sv	18	3	18	40		0				000
+  #149	6	constant					0	0	0	0	"--[1] (%d) is 5!!!"	0	STRING:"--[1] (%d) is 5!!!"	6		000
+
+facets of this row (9, first 25):
+  N0282 #110/110 function ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0673 #130/130 for_stmt  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0464 #133/133 int_var i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0465 #134/134 ref_typespec  G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #137/137 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #139/139 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0463 #141/141 begin  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0432 #144/144 bit_select ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR.ASSIGN_VADDR]
+  N0280 #145/145 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]

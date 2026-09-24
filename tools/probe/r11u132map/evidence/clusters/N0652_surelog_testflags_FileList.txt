@@ -1,0 +1,42 @@
+cluster N0652 (r11u128map K0825; OPEN (residue of landed r11u124)): fullname|ref_typespec|tok:id@id.id.->id::id::|under:io_decl
+row: surelog/testflags/FileList  strict=differ:fullname(3)  records golden=136 ours=136
+object: #98 (golden) / #98 (ours)  type=ref_typespec name= OUT
+  golden: work@foo.vbits.value
+  ours:   prim_util_pkg::vbits::value
+  walk parents: io_decl(value) < function(vbits) < module_inst(work@foo) < design(work@foo)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 92..104 ('>' = the object)
+  #92	3	constant				dut.sv	5	23	5	28	vbits	40	STRING:vbits	8		001
+  #93	2	function	vbits		prim_util_pkg::vbits	pack.sv	3	2	5	14					prim_util_pkg::vbits	000
+  #94	3	integer_var			prim_util_pkg::vbits	pack.sv	3	21	3	28		0			prim_util_pkg::vbits	000
+  #95	4	ref_typespec			prim_util_pkg::vbits		0	0	0	0		0			prim_util_pkg::vbits	000
+  #96	5	integer_typespec				pack.sv	3	21	3	28						000
+  #97	3	io_decl	value			pack.sv	3	43	3	48						000
+> #98	4	ref_typespec			work@foo.vbits.value		0	0	0	0		0			work@foo.vbits.value	000
+  #99	5	integer_typespec				pack.sv	3	35	3	42						000
+  #100	3	return_stmt				pack.sv	4	5	4	11						000
+  #101	4	operation				pack.sv	4	12	4	44		0				000
+  #102	5	operation				pack.sv	4	13	4	23		0				000
+  #103	6	ref_obj	value		work@foo.vbits.value	pack.sv	4	13	4	18		0			work@foo.vbits.value	000
+  #104	6	constant				pack.sv	4	22	4	23	1	64	UINT:1	9		000
+
+--- OURS (B) records 92..104 ('>' = the object)
+  #92	3	constant				dut.sv	5	23	5	28	vbits	40	STRING:vbits	8		001
+  #93	2	function	vbits		prim_util_pkg::vbits	pack.sv	3	2	5	14					prim_util_pkg::vbits	000
+  #94	3	integer_var			prim_util_pkg::vbits	pack.sv	3	21	3	28		0			prim_util_pkg::vbits	000
+  #95	4	ref_typespec			prim_util_pkg::vbits		0	0	0	0		0			prim_util_pkg::vbits	000
+  #96	5	integer_typespec				pack.sv	3	21	3	28						000
+  #97	3	io_decl	value			pack.sv	3	43	3	48						000
+> #98	4	ref_typespec			prim_util_pkg::vbits::value		0	0	0	0		0			prim_util_pkg::vbits::value	000
+  #99	5	integer_typespec				pack.sv	3	35	3	42						000
+  #100	3	return_stmt				pack.sv	4	5	4	11						000
+  #101	4	operation				pack.sv	4	12	4	44		0				000
+  #102	5	operation				pack.sv	4	13	4	23		0				000
+  #103	6	ref_obj	value		prim_util_pkg::vbits::value	pack.sv	4	13	4	18		0			prim_util_pkg::vbits::value	000
+  #104	6	constant				pack.sv	4	22	4	23	1	64	UINT:1	9		000
+
+facets of this row (3, first 25):
+  N0652 #98/98 ref_typespec  G[work@foo.vbits.value] O[prim_util_pkg::vbits::value]
+  N1105 #103/103 ref_obj value G[work@foo.vbits.value] O[prim_util_pkg::vbits::value]
+  N1869 #107/107 ref_obj value G[work@foo.vbits.value] O[prim_util_pkg::vbits::value]

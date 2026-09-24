@@ -1,0 +1,43 @@
+== full-name facets by class (objects / row-modes)
+OUT 151700 294
+TAIL 99237 128
+STABLE 333693 170
+== rows after the pairs: open clusters per row (histogram: n_open -> row-modes)
+[(0, 102), (1, 202), (2, 109), (3, 67), (4, 38), (5, 31), (6, 21), (7, 24), (8, 9), (9, 11), (10, 10), (11, 2), (12, 3), (13, 9), (14, 3)] ... max 743
+== clusters that are the ONLY open cluster of a row (row-modes they would clear on top of the pairs), top 30
+N0003 21 OPEN (residue of landed r11u124) fullname|ref_typespec|golden-empty|under:operation
+N0004 12 OPEN (residue of landed r11u124) fullname|ref_typespec|tok:id@id.->|under:typespec_member
+N0013 6 OPEN (residue of landed r11u124) fullname|ref_obj|tok:::->.@in-typespec|under:operation
+N0440 6 OPEN span|indexed_part_select|col+endcol|under:param_assign
+N0048 6 OPEN (residue of landed r11u124) fullname|ref_typespec|tok:id->id.id.id|under:parameter
+N0085 6 OPEN (residue of landed r11u125) struct|ours-only:fewer-copies|ref_typespec|under:logic_typespec
+N0271 6 OPEN (residue of landed r11u124) fullname|ref_typespec|tok:id@id.->|under:packed_array_typespec
+N0138 6 OPEN (residue of landed r11u124) fullname|ref_typespec|tok:id.->|under:constant
+N0008 6 OPEN (residue of landed r11u124) fullname|ref_typespec|golden-empty|under:constant
+N0045 6 OPEN struct|golden-only:fewer-copies|constant|under:typespec_member
+N0001 6 OPEN (residue of landed r11u124) span|ref_obj|col+endcol|under:hier_path
+N0270 6 OPEN span|struct_typespec|endline+endcol|under:design
+N0281 5 OPEN (residue of landed r11u124) fullname|ref_obj|tok:id.->@in-typespec|under:operation
+N0272 4 OPEN fullname|bit_select|tok:id.id.->|under:operation
+N0088 4 OPEN span|ref_obj|line+col+endline+endcol|under:port
+N0078 4 OPEN (residue of landed r11u124) fullname|ref_obj|ours-empty@in-typespec|under:operation
+N0074 4 OPEN (residue of landed r11u124) fullname|ref_typespec|tok:->id@id.|under:enum_typespec
+N0058 4 OPEN span|operation|endcol|under:param_assign
+N0394 3 OPEN (residue of landed r11u125) file|constant|ours-empty|under:operation
+N0427 3 OPEN fullname|ref_obj|tok:id[id].id.->|under:bit_select
+N0002 3 OPEN (residue of landed r11u124) struct|golden-only:fewer-copies|parameter|under:param_assign
+N0412 3 OPEN span|func_call|endcol|under:operation
+N1124 2 OPEN (residue of landed r11u124) fullname|ref_typespec|tok:->.id|under:int_var
+N0769 2 OPEN span|task|endcol|under:class_defn
+N0245 2 OPEN span|operation|endcol|under:sys_func_call
+N0528 2 OPEN value|constant|value:UINT->UINT|under:cont_assign
+N1167 2 OPEN value|constant|value:UINT->UINT+decompile+size|under:cont_assign
+N0523 2 OPEN fullname|ref_obj|tok:id.id->id|under:hier_path
+N0096 2 OPEN (residue of landed r11u124) fullname|ref_typespec|tok:id::->|under:typespec_member
+N1097 2 OPEN span|sys_func_call|endcol|under:param_assign
+== family-extended pairs (UPPER bound: every cluster of a family the pair touches):
+  A families ['FILE-EXTRA|logic_net', 'FULLNAME|ref_obj|ours-empty', 'FULLNAME|ref_obj|tok', 'SPAN|constant', 'SPAN|func_call', 'SPAN|sys_func_call', 'STRUCT-ABSENT|ours|integer_typespec', 'STRUCT-SHARE|golden|logic_net', 'STRUCT-SHARE|ours|logic_net', 'STRUCT-TSCOPY|golden', 'VALUE|parameter|value:INT->empty']
+  B families ['FILE-EMPTY|enum_typespec', 'FILE-EMPTY|packed_array_typespec', 'FILE-EXTRA|logic_net', 'FULLNAME|parameter|tok', 'SPAN|enum_typespec', 'SPAN|int_typespec', 'SPAN|logic_typespec', 'SPAN|ref_obj', 'SPAN|struct_typespec', 'STRUCT-SHARE|ours|operation', 'WALK-DEPTH-ORDER']
+  A: clusters 574 rows cleared 103 probe 199
+  B: clusters 169 rows cleared 60 probe 105
+  A+B: clusters 741 rows cleared 147 probe 318

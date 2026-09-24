@@ -1,0 +1,1840 @@
+{
+ "N0001": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__g84_a2_parens object #22 ref_obj 'this' dut.sv 9:11:9:15 id=22"
+ },
+ "N0002": {
+  "site": "emitParameters (ParamEmit.cpp, law replFoldTs) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10uvm82repro__v82v_arm36_chain2hop holder #13 param_assign '' dut.sv 2:17:2:24 id=12",
+  "note": "DECODED: golden's elaborated param_assign Lhs for an imported package parameter is a module-scoped CLONE (the r11u122 C0012 shape); ours points at the package parameter, listed once. The definition-view clone exists (law impLhsCloneFile124); the elaborated view lacks it. HOLDER pinned"
+ },
+ "N0003": {
+  "site": "emitParameters (ParamEmit.cpp, law elabUnpStructOperandWidth61) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11v4repro__v6 object #98 ref_typespec ''  0:0:0:0 id=67",
+  "note": "DECODED: golden's ref_typespec of an assignment-pattern/cast operation carries NO VpiParent (uhdm-dump: no vpiParent line), so its synthesised full name is empty; ours is parented"
+ },
+ "N0004": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v17repro__grid__va20_structnet_unpacked_array_lhs object #21 ref_typespec ''  0:0:0:0 id=94"
+ },
+ "N0005": {
+  "site": "emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10v104repro__v3_ifdef object #9 constant '' dut.sv 18:26:18:35 id=6"
+ },
+ "N0006": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitContAssigns (ModuleEmit.cpp, law caUnbasedFillPackedAggregateKeepsRaw43) < emitInstance (ModuleEmit.cpp, law elabPortBoundIntParamTs109)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11v17repro__grid__va11_arraynet_lhs_modscope_notgen holder #68 ref_obj 'arr' dut.sv 4:10:4:13 id=54",
+  "note": "DECODED (r11u128map class A): golden's ref_obj Actual is the DEFINITION net re-listed; ours binds the elaborated net. HOLDER pinned"
+ },
+ "N0007": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__g84_a2_parens object #23 ref_obj 'n'  0:0:0:0 id=23"
+ },
+ "N0008": {
+  "site": "emitParameters (ParamEmit.cpp, law timeLitParamIntTs) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10v146repro__v05_second_pkg object #87 ref_typespec ''  0:0:0:0 id=28",
+  "note": "DECODED: the same as N0003 on a constant's typespec ref: golden unparented"
+ },
+ "N0009": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u112repro__grid__k__k03_dims object #4 struct_typespec '' dut.sv 2:26:2:39 id=5"
+ },
+ "N0010": {
+  "site": "emitParameters (ParamEmit.cpp, law patOpMemberAsmSplit28) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11u115repro__grid__i__s18_recv_B_paren object #132 constant '' dut.sv 1:80:1:81 id=79"
+ },
+ "N0011": {
+  "site": "emitExpr (ExprEmit.cpp, law oobCtorLocalsRideTheImport203) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm219repro__g219_e_nothis object #76 logic_net 'ge_nothis' dut.sv 20:24:20:33 id=41"
+ },
+ "N0012": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v160repro__x10_enum object #100 enum_typespec ''  0:0:0:0 id=70"
+ },
+ "N0013": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10earl_repro__tf object #13 ref_obj 'NumAlerts' dut.sv 15:21:15:30 id=25"
+ },
+ "N0014": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypespec (TypeEmit.cpp, law anonPackedAggDimTs107)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u107repro__grid__a18_anon_typedef object #13 ref_typespec ''  0:0:0:0 id=10"
+ },
+ "N0015": {
+  "site": "emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11v11u8repro__v10 object #8 constant '' dut.sv 5:64:5:71 id=9"
+ },
+ "N0016": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law implicitNetNoFile119) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10sd1repro__b9_inline object #32 logic_net 'itemb' dut.sv 6:35:6:40 id=19"
+ },
+ "N0017": {
+  "site": "emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11u8repro__b8 object #6 constant '' dut.sv 7:19:2:3 id=7"
+ },
+ "N0018": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__v84x2_incdec object #26 ref_obj 'h' dut.sv 14:12:14:13 id=24"
+ },
+ "N0019": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u49repro__a7 object #48 ref_obj 'DAT' dut.sv 7:37:7:40 id=63"
+ },
+ "N0020": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u5repro__g2 object #20 ref_obj 'LfsrWidth' dut.sv 3:18:3:27 id=74"
+ },
+ "N0021": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitInstance (ModuleEmit.cpp, law elabPortConnUnitEnumNet)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/v11u111repro__brk__f6__y69_vec_dims_two_inst_same object #136 ref_obj 'a' dut.sv 9:37:9:38 id=104"
+ },
+ "N0022": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitEventExpr (StmtEmit.cpp, law evCtrlOperandBinds108) < emitScopeClocking (ModuleEmit.cpp, law clockingSkewDelayControl)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/sva_value_change_changed holder #196 ref_obj 'clk' dut.sv 11:29:11:32 id=174",
+  "note": "DECODED (class A): the clocking event operand binds golden's definition net. HOLDER pinned"
+ },
+ "N0023": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law caNetDeclStrengthDropped90) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "uhdm2rtlil/default/sva_value_change_changed object #221 logic_net 'clk' dut.sv 2:9:2:12 id=10"
+ },
+ "N0024": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law ifaceDefNetTypespecIsTheModuleRule224) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/v11u93b107repro__brk__q10_var_in_body holder #17 ref_typespec ''  0:0:0:0 id=18"
+ },
+ "N0025": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law fnLocalParamRangeNet) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u108repro__grid__pk__k21_param_vn_nofunc object #98 constant '' dut.sv 3:23:3:24 id=43"
+ },
+ "N0026": {
+  "site": "emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11v11u8repro__v12 object #5 constant '' dut.sv 5:36:5:43 id=6"
+ },
+ "N0027": {
+  "site": "emitExpr (ExprEmit.cpp, law enumNoBaseTypespecZeroBits28) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11v11u8repro__v12 object #4 sys_func_call '$display' dut.sv 5:27:4:22 id=5"
+ },
+ "N0028": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < patchParamTypespecs (ParamEmit.cpp, law paramCloneImportedCopy)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/ParameterPassedToSubmoduleOfSubmodule object #188 ref_typespec ''  0:0:0:0 id=220"
+ },
+ "N0029": {
+  "site": "emitExpr (ExprEmit.cpp, law enumNoBaseTypespecZeroBits28) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_csr object #145 sys_func_call '$time' prim_assert.sv 32:53:32:58 id=73"
+ },
+ "N0030": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/v11u112repro__grid__brk__v__b4a_opbase object #103 ref_obj 'i' dut.sv 3:25:3:26 id=89"
+ },
+ "N0031": {
+  "site": "operator() (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassParameters (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/v11u111repro__brk__f1__x01_class_param object #23 constant ''  0:0:0:0 id=28"
+ },
+ "N0032": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/IndexedPartSelectInFor object #54 ref_typespec ''  0:0:0:0 id=51"
+ },
+ "N0033": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u108repro__grid__pk__k21_param_vn_nofunc object #96 operation '' dut.sv 3:20:3:24 id=41"
+ },
+ "N0034": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v160repro__x10_enum object #100 enum_typespec ''  0:0:0:0 id=70"
+ },
+ "N0035": {
+  "site": "emitExpr (ExprEmit.cpp, law defGenQualPkgCallBinds18) < emitParameters (ParamEmit.cpp, law foldSigned9) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11v16repro__v1c object #129 func_call 'p::build' dut.sv 11:39:11:40 id=64"
+ },
+ "N0036": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm79repro__c2_idxkind object #99 bit_select 'midx' dut.sv 24:19:24:20 id=121"
+ },
+ "N0037": {
+  "site": "makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v32repro__h03_enum_alwaysff object #34 packed_array_typespec ''  0:0:0:0 id=96"
+ },
+ "N0038": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitInstance (ModuleEmit.cpp, law elabPortConnUnitEnumNet) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/sva_basic02 object #276 ref_obj 'clock' dut.sv 30:42:30:44 id=200"
+ },
+ "N0039": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm59repro__g01_innerbound object #20 int_typespec '' dut.sv 11:7:11:8 id=18"
+ },
+ "N0040": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitInterfaceDef (ModuleEmit.cpp, law interfaceDefViewNeverLateBinds223v)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v223repro__arms__v5_escaped object #33 logic_typespec '' dut.sv 4:3:4:14 id=31"
+ },
+ "N0041": {
+  "site": "emitStmt (StmtEmit.cpp, law foreachArraySelfSelectAssignDropsTs19) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law invalidChild14)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10v160repro__y13_foreach object #108 unsupported_typespec 'qa'  19:49:19:51 id=83"
+ },
+ "N0042": {
+  "site": "operator() (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassParameters (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/v11u111repro__brk__f1__x01_class_param object #23 constant ''  0:0:0:0 id=28"
+ },
+ "N0043": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v47repro__arms__v28 object #7 struct_typespec '' dut.sv 3:26:3:39 id=23"
+ },
+ "N0044": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTopPorts (ModuleEmit.cpp, law defNetTsScope)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u19repro__grid__q02_mod_packedstruct_defzero object #14 struct_typespec '' dut.sv 1:41:1:54 id=65"
+ },
+ "N0045": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v21repro__v15 holder #47 typespec_member 'aa' dut.sv 4:16:4:18 id=3",
+  "note": "DECODED: golden lists the member default constant twice (a copy under typespec_member); ours shares one object. HOLDER pinned"
+ },
+ "N0046": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law caNetDeclStrengthDropped90) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10vbuvm24repro__gv24b object #82 logic_net 'a' dut.sv 4:23:4:24 id=4"
+ },
+ "N0047": {
+  "site": "emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10itype_repro__t5 object #66 parameter 'PA' dut.sv 2:17:2:19 id=45"
+ },
+ "N0048": {
+  "site": "emitParameters (ParamEmit.cpp, law modDefImportShape) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10itype_repro__t5 object #67 ref_typespec ''  0:0:0:0 id=46"
+ },
+ "N0049": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law syntaxMultiConcat) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (ModuleEmit.cpp, law defGenElemIpsVarSel112)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v17repro__grid__w04_syscall_barearg_op object #47 sys_func_call '$signed' dut.sv 6:16:6:30 id=25"
+ },
+ "N0050": {
+  "site": "emitExpr (ExprEmit.cpp, law insideOpenRangeMemberIsOneListOp30) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm93repro__v93_crash_min object #15 operation '' dut.sv 10:16:10:19 id=12"
+ },
+ "N0051": {
+  "site": "buildClassTypedefTs (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < emitClassTypedefs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/r10v112repro__g4_qualified object #24 class_typespec 't4' dut.sv 9:23:9:45 id=19"
+ },
+ "N0052": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm94repro__g94_a0_head object #80 ref_obj 'lo' dut.sv 22:23:22:25 id=86"
+ },
+ "N0053": {
+  "site": "emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitPackageClassMethodClones (ParamEmit.cpp, law pkgFreeSubRefVarHoistNet117)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm213repro__g213_i_scopedtd object #23 begin '' dut.sv 22:5:22:21 id=50"
+ },
+ "N0054": {
+  "site": "emitStmt (StmtEmit.cpp, law declInitWrittenNewNoStmt66) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm59repro__h03_escspan object #15 assignment '' dut.sv 7:11:7:26 id=15"
+ },
+ "N0055": {
+  "site": "emitBadConcatOperand160 (ExprEmit.cpp, law badConcatCompoundOperands162) < emitBadConcatFromSyntax160 (ExprEmit.cpp, law classArgBind12) < emitExpr (ExprEmit.cpp, law droppedIdxRecvCall26)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm160repro__g160_f_witness object #125 ref_obj 'TYPE::type_name' dut.sv 59:60:59:66 id=119"
+ },
+ "N0056": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law pkgTdCloneRefNoBind18) < emitModuleDef (ModuleEmit.cpp, law thisImplicitNetBoth38)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm70repro__a1_ret object #115 bit_typespec '' dut.sv 41:12:41:24 id=78"
+ },
+ "N0057": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp, law importCopyAggFormalOwnCopy32) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/ParameterPassedToSubmoduleOfSubmodule holder #38 enum_typespec 'prim_pad_wrapper_pkg::pad_type_e' dut.sv 2:4:4:17 id=8"
+ },
+ "N0058": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitParameters (ParamEmit.cpp, law foldSigned9) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10earl_repro__a object #44 operation '' dut.sv 7:34:7:52 id=35"
+ },
+ "N0059": {
+  "site": "emitExpr (ExprEmit.cpp, law castTgtDefaultIsLiteral) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11u113repro__grid__c__c16_mod_comb object #52 integer_typespec '' dut.sv 2:19:2:24 id=29"
+ },
+ "N0060": {
+  "site": "emitExpr (ExprEmit.cpp, law insideOpenRangeMemberIsOneListOp30) < operator() (ExprEmit.cpp, law pkgTdCloneRefNoBind18) < emitExpr (ExprEmit.cpp, law pkgTdCloneRefNoBind18)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10buvm29repro__g29_f_head object #24 operation '' dut.sv 14:42:14:51 id=52"
+ },
+ "N0061": {
+  "site": "emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxDecompiled79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10buvm6repro__v5_hierpathparent object #120 bit_select 't' dut.sv 22:12:22:13 id=104"
+ },
+ "N0062": {
+  "site": "makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v32repro__h03_enum_alwaysff object #34 packed_array_typespec ''  0:0:0:0 id=96"
+ },
+ "N0063": {
+  "site": "emitExpr (ExprEmit.cpp, law caTernaryArmPatternFlatten99) < emitExpr (ExprEmit.cpp, law patCaGenIdxValueRender112) < emitExpr (ExprEmit.cpp, law concatRefNoSubst)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/iface_nested_param_field object #416 ref_typespec ''  0:0:0:0 id=283"
+ },
+ "N0064": {
+  "site": "emitIncludeFileInfos (UhdmExporter.cpp, law emptyRedefineBareLine125v) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "UhdmExporter.cpp",
+  "example": "surelog/default/ApbSlave object #4 include_file_info '' svunit_pkg.sv 373:12:373:32 id=5"
+ },
+ "N0065": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/TypedefVariableDimensions object #121 typespec_member 'x' dut.sv 3:16:3:17 id=9"
+ },
+ "N0066": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/TypedefVariableDimensions object #122 ref_typespec ''  0:0:0:0 id=11"
+ },
+ "N0067": {
+  "site": "classElemVar (UhdmExporter.cpp, law sharedAliasNoStamp41) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/r10sd10repro__g3_class_own_assoc_control object #11 class_typespec 'k3'  0:0:0:0 id=6"
+ },
+ "N0068": {
+  "site": "classElemVar (UhdmExporter.cpp, law sharedAliasNoStamp41) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/r10sd10repro__g3_class_own_assoc_control object #11 class_typespec 'k3'  0:0:0:0 id=6"
+ },
+ "N0069": {
+  "site": "makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm195repro__g195_d_control object #42 string_typespec '' dut.sv 7:29:7:35 id=36"
+ },
+ "N0070": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm158repro__g158_f_witness object #23 function 'get_name158' dut.sv 21:5:28:16 id=20"
+ },
+ "N0071": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__g84_a2_parens object #27 hier_path 'this.n' dut.sv 10:11:10:15 id=27"
+ },
+ "N0072": {
+  "site": "makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm66repro__v3_unbound object #18 class_typespec '' dut.sv 59:10:59:11 id=15"
+ },
+ "N0073": {
+  "site": "fillSizeDimRange (ModuleEmit.cpp, law sizeDimOvrChain4) < emitInstance (ModuleEmit.cpp, law progPortIfaceArrayUnowned13) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10rgg4repro__c9_litarith_noovr object #210 constant '' dut.sv 9:18:9:21 id=264"
+ },
+ "N0074": {
+  "site": "buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/EnumInPackage object #55 ref_typespec ''  0:0:0:0 id=53"
+ },
+ "N0075": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10buvm27repro__g27_a0_head object #7 enum_typespec 'h27_pkg::h27_radix_e' dut.sv 11:3:11:49 id=8"
+ },
+ "N0076": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < operator() (ModuleEmit.cpp, law genCaTernaryFoldGenScope22)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/v11u113repro__grid__f1__a09_genfor_lp object #113 ref_obj 'P' dut.sv 5:18:5:19 id=98"
+ },
+ "N0077": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10svs4repro__g1_thisidx object #234 ref_obj 'kk' dut.sv 65:20:65:22 id=16"
+ },
+ "N0078": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law qualSelBaseNoWhitespace41) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10earl_repro__l object #23 ref_obj 'top_p::TL_AW' dut.sv 8:12:8:24 id=48"
+ },
+ "N0079": {
+  "site": "emitBadConcatOperand160 (ExprEmit.cpp, law typeParamScopedCallRef59) < emitBadConcatFromSyntax160 (ExprEmit.cpp, law classArgBind12) < emitExpr (ExprEmit.cpp, law droppedIdxRecvCall26)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm160repro__g160_f_witness object #124 constant '' dut.sv 59:38:59:58 id=118"
+ },
+ "N0080": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/v11u108repro__brk__f2__c16_pkg_func object #241 struct_typespec 'q2::impl_t' dut.sv 4:11:4:77 id=88"
+ },
+ "N0081": {
+  "site": "emitPortExprPort (ModuleEmit.cpp, law importedPkgVecPortClone) < emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitModuleDefPorts (ModuleEmit.cpp, law caNestedModDefNameScoped99)",
+  "owner": "ModuleEmit.cpp",
+  "example": "surelog/default/PortExpr object #97 ref_obj 'op[79]' dut.sv 4:11:5:3 id=92"
+ },
+ "N0082": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/TypedefVariableDimensions object #120 struct_typespec 'pkg::a' dut.sv 2:12:4:5 id=8"
+ },
+ "N0083": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u45repro__g13 holder #56 logic_typespec '' dut.sv 3:26:3:37 id=32"
+ },
+ "N0084": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u113repro__grid__c__c15_genif_structdef object #6 ref_typespec ''  0:0:0:0 id=8"
+ },
+ "N0085": {
+  "site": "bareScalarTdCopyOf (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < bareScalarTypedefVarTs (TypeEmit.cpp, law unpackedElemVecTypedef) < exportDesign (UhdmExporter.cpp, law pkgParamTsTopInstance16)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u90repro__grid.verifier__vx14_strtypedef object #26 ref_typespec ''  0:0:0:0 id=80"
+ },
+ "N0086": {
+  "site": "makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11u20repro__b2 object #75 constant '' dut.sv 8:33:8:49 id=44"
+ },
+ "N0087": {
+  "site": "makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11u20repro__b2 object #75 constant '' dut.sv 8:33:8:49 id=44"
+ },
+ "N0088": {
+  "site": "emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInterfaceDef (ModuleEmit.cpp, law modportExprPort) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r11v93repro__grid__v15_ifdeclafterbody object #7 ref_obj 'o' dut.sv 5:17:5:18 id=12"
+ },
+ "N0089": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law memberActualLeak) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10rgg9repro__cells__l_vecbit object #67 ref_obj 'P' dut.sv 8:20:8:21 id=18"
+ },
+ "N0090": {
+  "site": "makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u108repro__grid__f5__f5a23_wdims_logicts_ctl object #4 logic_typespec '' dut.sv 1:33:1:44 id=5"
+ },
+ "N0091": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10earl54repro__v3_v54 object #59 ref_obj 'w2' dut.sv 12:24:12:26 id=20"
+ },
+ "N0092": {
+  "site": "makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < buildStructTs (TypeEmit.cpp, law pkgTdRangeViewFold18)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/jeras_union object #813 constant '' riscv_isa_pkg.sv 108:34:108:36 id=1489"
+ },
+ "N0093": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law classScopedTdDeclTsUnsupported11) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm12repro__t12_t object #24 io_decl 'f' dut.sv 13:28:13:29 id=12"
+ },
+ "N0094": {
+  "site": "makeBoundConst (TypeEmit.cpp, law crossPkgRangeBoundFold) < makeTypespec (TypeEmit.cpp, law typedPkgBoundElabSize113) < emitInterfaceInstance (ModuleEmit.cpp, law ifacePortViewAggregateFlattens)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u93repro__grid__pb14_ifbothstr object #60 constant '' dut.sv 5:26:5:28 id=41"
+ },
+ "N0095": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10svs8repro__v3_refargs object #30 ref_obj 'cb8' dut.sv 32:30:32:33 id=28"
+ },
+ "N0096": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildClassTypedefTs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) < classElemVar (UhdmExporter.cpp, law classPropElemTsFollowsScalarTd9)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10sd10repro__q7_cls_member_dynarray object #11 ref_typespec ''  0:0:0:0 id=8"
+ },
+ "N0097": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__g84_a2_parens object #21 hier_path 'this.n' dut.sv 9:11:9:15 id=21"
+ },
+ "N0098": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__g84_a2_parens object #23 ref_obj 'n'  0:0:0:0 id=23"
+ },
+ "N0099": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__g84_a2_parens object #23 ref_obj 'n'  0:0:0:0 id=23"
+ },
+ "N0100": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10buvm11repro__w5v_param11 object #14 bit_typespec '' dut.sv 8:5:8:6 id=55"
+ },
+ "N0101": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__v84x2_incdec object #26 ref_obj 'h' dut.sv 14:12:14:13 id=24"
+ },
+ "N0102": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm84repro__v84x2_incdec object #26 ref_obj 'h' dut.sv 14:12:14:13 id=24"
+ },
+ "N0103": {
+  "site": "makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm66repro__v3_unbound object #18 class_typespec '' dut.sv 59:10:59:11 id=15"
+ },
+ "N0104": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10sd3repro__g1_pkg_oob object #24 bit_var '' dut.sv 8:12:8:15 id=6"
+ },
+ "N0105": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm194repro__g194_c_clone object #122 string_var '' dut.sv 10:12:10:18 id=97"
+ },
+ "N0106": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10v153repro__v153_c_order object #92 class_var '' dut.sv 9:29:9:30 id=50"
+ },
+ "N0107": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10v153repro__v153_c_order object #92 class_var '' dut.sv 9:29:9:30 id=50"
+ },
+ "N0108": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < operator() (TypeEmit.cpp, law anonPackedAggDimTs107) < makeTypeParamDefaultTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u107repro__grid__t13_iface_tp_struct object #6 ref_typespec ''  0:0:0:0 id=24"
+ },
+ "N0109": {
+  "site": "operator() (StmtEmit.cpp, law classPropUnitImport21) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm22repro__t33e_t object #92 string_typespec ''  0:0:0:0 id=50"
+ },
+ "N0110": {
+  "site": "operator() (StmtEmit.cpp, law classPropUnitImport21) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm22repro__t33e_t object #92 string_typespec ''  0:0:0:0 id=50"
+ },
+ "N0111": {
+  "site": "emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm195repro__g195_d_control object #40 constant '' dut.sv 7:46:7:48 id=34"
+ },
+ "N0112": {
+  "site": "emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm151repro__g151_a_body object #76 hier_path 'iq' dut.sv 47:16:47:37 id=77"
+ },
+ "N0113": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law genLpIdxOpOperandFold112) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm134repro__g134_d_bodies object #77 bit_select 'twigs' dut.sv 24:59:24:68 id=77"
+ },
+ "N0114": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law dottedForeachLoopVarBaseMustDrill137) < emitStmt (StmtEmit.cpp, law invalidChild14)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm143repro__g143_d_foreach object #58 hier_path '' dut.sv 26:18:26:31 id=46"
+ },
+ "N0115": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law dottedForeachLoopVarBaseMustDrill137) < emitStmt (StmtEmit.cpp, law invalidChild14)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm143repro__g143_d_foreach object #58 hier_path '' dut.sv 26:18:26:31 id=46"
+ },
+ "N0116": {
+  "site": "emitClassTsParams (UhdmExporter.cpp, law builtinClassLocalUnsupportedBeforeClassPhase115) < makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/r10sd1repro__b9_inline object #27 class_typespec 'itemb' dut.sv 6:35:6:40 id=39"
+ },
+ "N0117": {
+  "site": "makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10svs8repro__a4_context object #44 unsupported_typespec 'cgm8' dut.sv 20:3:20:18 id=63"
+ },
+ "N0118": {
+  "site": "emitBadConcatOperand160 (ExprEmit.cpp, law typeParamScopedCallRef59) < emitBadConcatFromSyntax160 (ExprEmit.cpp, law classArgBind12) < emitExpr (ExprEmit.cpp, law droppedIdxRecvCall26)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm160repro__g160_f_witness object #126 constant '' dut.sv 60:28:60:77 id=120"
+ },
+ "N0119": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitExpr (ExprEmit.cpp, law shellCallKeepsItsSyntax167)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm55repro__a1 object #190 bit_select 'c11_pool' dut.sv 140:13:140:26 id=235"
+ },
+ "N0120": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm138repro__g138_d_inst object #33 enum_var '' dut.sv 14:12:14:16 id=24"
+ },
+ "N0121": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_pmp object #6532 enum_typespec 'ibex_pkg::priv_lvl_e' ibex_pkg.sv 216:3:221:16 id=2710"
+ },
+ "N0122": {
+  "site": "makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #76754 string_typespec '' uvm_pkg.sv 40044:49:40044:55 id=12859"
+ },
+ "N0123": {
+  "site": "makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < operator() (ParamEmit.cpp, law pkgUntypedYNoStamp60) < emitParameters (ParamEmit.cpp, law pkgUntypedYNoStamp60)",
+  "owner": "ParamEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_icache object #11818 int_typespec '' ibex_pkg.sv 383:13:383:25 id=8918"
+ },
+ "N0124": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/UnsizedFunc object #128 ref_obj 'o' dut.sv 11:7:11:8 id=89",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0125": {
+  "site": "emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "StmtEmit.cpp",
+  "example": "surelog/default/YosysRiscv object #205 case_item '' shifter64.v 60:5:60:31 id=86"
+ },
+ "N0126": {
+  "site": "emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "StmtEmit.cpp",
+  "example": "surelog/default/SVSwitch object #740 begin '' Scoreboard.sv 25:3:25:26 id=2202"
+ },
+ "N0127": {
+  "site": "makeIfaceArrayPortTs (ModuleEmit.cpp, law sizeDimOvrChain4) < emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitModuleDefPorts (ModuleEmit.cpp, law caNestedModDefNameScoped99)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10vrgg4repro__v5n_noovr_bit1 object #38 array_typespec '' dut.sv 9:3:9:20 id=63"
+ },
+ "N0128": {
+  "site": "operator() (ModuleEmit.cpp, law sizeDimOvrChain4) < makeIfaceArrayPortTs (ModuleEmit.cpp, law sizeDimOvrChain4) < emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10vrgg4repro__v5n_noovr_bit1 object #39 range '' dut.sv 9:17:9:20 id=64"
+ },
+ "N0129": {
+  "site": "emitExpr (ExprEmit.cpp, law elabCaPortParamPaCopy64) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitExpr (ExprEmit.cpp, law psBoundPkgParamTs31)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11v23repro__adv__x09_concat_64bit_param_small object #110 ref_typespec ''  0:0:0:0 id=86"
+ },
+ "N0130": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u108repro__grid__f5__f5a18_init object #22 logic_typespec '' dut.sv 2:3:2:17 id=59"
+ },
+ "N0131": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law negLitPkgRetFoldNested30) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10rgg8repro__cells__L_8sd3_bt object #47 ref_typespec ''  0:0:0:0 id=34"
+ },
+ "N0132": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitClassParameters (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm58repro__a5_spec object #6 int_typespec '' dut.sv 10:32:10:35 id=7"
+ },
+ "N0133": {
+  "site": "emitContAssigns (ModuleEmit.cpp, law caAsmMemberSliceFold) < emitInstance (ModuleEmit.cpp, law elabPortBoundIntParamTs109) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r11u108repro__grid__f4__c12_const_fold holder #150 cont_assign '' dut.sv 5:10:5:21 id=65",
+  "note": "DECODED: SHARING: ours's elaborated cont_assign Rhs func_call is the definition's object (listed once); golden holds a copy (r11u128map's 'fold' reading was wrong: stage 1 compares a func_call on both sides). HOLDER pinned"
+ },
+ "N0134": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law ifaceDefNetTypespecIsTheModuleRule224) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "uhdm2rtlil/default/TypedefVariableDimensions holder #119 ref_typespec ''  0:0:0:0 id=33"
+ },
+ "N0135": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitTypedefs (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < emitModuleDef (ModuleEmit.cpp, law endBlockLabelAllOwners62)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v17repro__grid__va20_structnet_unpacked_array_lhs object #2 struct_typespec 'st_t' dut.sv 3:11:3:62 id=3"
+ },
+ "N0136": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitContAssigns (ModuleEmit.cpp, law caUnbasedFillPackedAggregateKeepsRaw43) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11u111repro__grid__f2__b12_sub_q_w16 object #362 ref_obj 'o' dut.sv 8:10:8:11 id=90"
+ },
+ "N0137": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm198repro__g198_a_homes object #124 ref_typespec ''  0:0:0:0 id=15"
+ },
+ "N0138": {
+  "site": "emitInstance (ModuleEmit.cpp, law patFlatUnsizedMemberWidth61) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "ModuleEmit.cpp",
+  "example": "uhdm2rtlil/default/ReplicationPassedToInstance object #188 ref_typespec ''  0:0:0:0 id=166"
+ },
+ "N0139": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < emitParameters (ParamEmit.cpp, law modDefImportShape)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/iface_nested_param_field object #178 ref_typespec ''  0:0:0:0 id=112"
+ },
+ "N0140": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/rp32_r5p_mdu object #3638 struct_typespec 'riscv_isa_pkg::isa_t' riscv_isa_pkg.sv 417:34:417:39 id=373"
+ },
+ "N0141": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law modTdRetCloneSymbolic20) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/Scoreboard object #75137 logic_typespec 'uvm_bitstream_t' uvm_object_globals.svh 3012:44:3012:59 id=12457"
+ },
+ "N0143": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/rp32_r5p_mdu object #26945 struct_typespec 'riscv_isa_pkg::isa_t' riscv_isa_pkg.sv 417:34:417:39 id=373"
+ },
+ "N0144": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_pmp object #3832 enum_typespec 'ibex_pkg::pmp_req_e' ibex_pkg.sv 419:3:423:15 id=2871"
+ },
+ "N0145": {
+  "site": "emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #139504 indexed_part_select 'data' uvm_pkg.sv 61686:10:61686:21 id=86176"
+ },
+ "N0146": {
+  "site": "emitAssertion (ModuleEmit.cpp, law genProcParamFold) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ModuleEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_load_store_unit object #406 assert_stmt 'IbexLsuStateValid' prim_assert_standard_macros.svh 78:3:81:8 id=1310"
+ },
+ "N0147": {
+  "site": "emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitAssertion (ModuleEmit.cpp, law genProcParamFold) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold)",
+  "owner": "StmtEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_load_store_unit object #407 begin '' prim_assert_standard_macros.svh 79:10:81:8 id=1311"
+ },
+ "N0148": {
+  "site": "emitAssertion (ModuleEmit.cpp, law genProcParamFold) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ModuleEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_load_store_unit object #414 property_spec '' prim_assert_standard_macros.svh 78:39:78:193 id=1318"
+ },
+ "N0149": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/rp32_r5p_mdu object #1157 struct_typespec 'riscv_isa_pkg::isa_t' riscv_isa_pkg.sv 417:34:417:39 id=373"
+ },
+ "N0150": {
+  "site": "buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < buildStructTs (TypeEmit.cpp, law paramCloneImportedCopy) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/ParameterPassedToSubmoduleOfSubmodule object #190 ref_typespec ''  0:0:0:0 id=218"
+ },
+ "N0151": {
+  "site": "importParamCopy82 (ModuleEmit.cpp, law impOcc) < classInheritsContainerImports23 (ModuleEmit.cpp, law classImportParamStamped82) < exportDesign (UhdmExporter.cpp, law classInheritsContainerImports23)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10uvm82repro__v82v_arm37_extends_imported holder #25 parameter 'P37' dut.sv 2:17:2:20 id=55"
+ },
+ "N0152": {
+  "site": "emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10v160repro__z04_compunit object #24 begin ''  0:0:0:0 id=25"
+ },
+ "N0153": {
+  "site": "emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10v160repro__z04_compunit object #24 begin ''  0:0:0:0 id=25"
+ },
+ "N0154": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10sd10repro__q3_oob_method_queue object #46 int_var '' dut.sv 8:12:8:15 id=14"
+ },
+ "N0155": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law sharedAliasNoStamp41) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm58repro__a7_formal object #7 function 'f' dut.sv 5:7:5:38 id=8"
+ },
+ "N0156": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law classScopedTdDeclTsUnsupported11) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm195repro__g195_d_control object #39 io_decl 'chisel195' dut.sv 7:36:7:45 id=33"
+ },
+ "N0157": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10v150repro__v150_f1 object #15 class_var '' dut.sv 5:12:5:14 id=6"
+ },
+ "N0158": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u110repro__grid__f2__i03_init_2state object #22 bit_typespec '' dut.sv 2:3:2:17 id=59"
+ },
+ "N0159": {
+  "site": "emitStmt (StmtEmit.cpp, law genScopeProcLoopCtrlNoFold76) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm85repro__v85x4_pos object #37 do_while '' dut.sv 20:7:20:9 id=37"
+ },
+ "N0160": {
+  "site": "emitStmt (StmtEmit.cpp, law foreachScopedArrayWrittenClassVar33) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm84repro__g84_c1_lvalue object #66 ref_var 'q' dut.sv 22:16:22:17 id=64"
+ },
+ "N0161": {
+  "site": "buildClassTypedefTs (UhdmExporter.cpp, law sharedAliasNoStamp41) < makeTypespec (TypeEmit.cpp, law classTdLocalVarKindFollowsCompileOrder10) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/r10v97repro__v97_c9_pkganchor object #19 ref_typespec ''  0:0:0:0 id=16"
+ },
+ "N0162": {
+  "site": "makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitInterfaceDef (ModuleEmit.cpp, law interfaceDefViewNeverLateBinds223v)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v223repro__arms__v7_filescope_noimport_iface object #27 string_typespec '' dut.sv 6:3:6:9 id=27"
+ },
+ "N0163": {
+  "site": "buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/VarPassedTo2Submodules object #164 ref_typespec ''  0:0:0:0 id=24"
+ },
+ "N0164": {
+  "site": "bareScalarTdCopyOf (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < operator() (TypeEmit.cpp, law modScalarTdTopInstance) < bareScalarTypedefVarTs (TypeEmit.cpp, law defPkgMemberTdOfNamedShares108)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm211repro__g211_d_noimport object #10 ref_typespec ''  0:0:0:0 id=71"
+ },
+ "N0165": {
+  "site": "operator() (TaskFuncEmit.cpp, law assocIdxNameHoistNet135) < emitTaskFuncs (TaskFuncEmit.cpp, law classTypeParamTdGroupLastWins33c) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm22repro__t33e_t object #67 range '' dut.sv 17:36:17:37 id=27"
+ },
+ "N0166": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law classScopedTdDeclTsUnsupported11) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10v153repro__v153_c_order object #95 io_decl 'q' dut.sv 9:29:9:30 id=53"
+ },
+ "N0167": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitInterfaceInstance (ModuleEmit.cpp, law caIfaceElabNetDeclAssignListing88)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u18repro__t4 object #66 byte_typespec '' dut.sv 3:9:3:12 id=55"
+ },
+ "N0168": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitClassParameters (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm59repro__h03_escspan object #9 int_typespec '' dut.sv 4:30:4:33 id=9"
+ },
+ "N0169": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm12repro__t object #21 task 'settv' dut.sv 6:5:6:11 id=28"
+ },
+ "N0170": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitPackageClassMethodClones (ParamEmit.cpp, law pkgFreeSubRefVarHoistNet117) < emitPackage (ParamEmit.cpp, law LAW)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10v223repro__arms__v16_oobctor object #20 class_var '' dut.sv 10:32:10:33 id=75"
+ },
+ "N0172": {
+  "site": "emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10v160repro__h01_task object #93 begin ''  0:0:0:0 id=68"
+ },
+ "N0173": {
+  "site": "emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10v160repro__h01_task object #93 begin ''  0:0:0:0 id=68"
+ },
+ "N0174": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm88repro__v88_b4_nonsub object #51 ref_obj 'n4' dut.sv 15:34:15:36 id=46"
+ },
+ "N0175": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10v181repro__v181_e_idxbase object #85 ref_obj 'wickyard' dut.sv 28:39:28:47 id=147"
+ },
+ "N0176": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law thisRecvCallArgBind38) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm85repro__g85_a1_builtin object #37 hier_path 'this.n' dut.sv 16:25:16:29 id=37"
+ },
+ "N0177": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v160repro__x09_struct object #112 bit_typespec '' dut.sv 19:24:19:25 id=78"
+ },
+ "N0178": {
+  "site": "emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10v165repro__v165_e_assert object #52 begin ''  0:0:0:0 id=50"
+ },
+ "N0179": {
+  "site": "emitStmt (StmtEmit.cpp, law parBlockJoinTailAfterFirstItem131) < emitStmt (StmtEmit.cpp, law invalidChild14) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10v165repro__v165_e_assert object #52 begin ''  0:0:0:0 id=50"
+ },
+ "N0180": {
+  "site": "buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < emitParameters (ParamEmit.cpp, law typeParamChainBorrow45)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/v11u110repro__brk__v5__k13_anon_enum object #117 ref_typespec ''  0:0:0:0 id=71"
+ },
+ "N0181": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitStmt (StmtEmit.cpp, law incDecOpaqueCarrier21) < emitTaskFuncs (TaskFuncEmit.cpp, law qualifiedLifetimeMethodLosesNamePortsBody46)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10svs9repro__v3_esc object #11 ref_obj 'esc.h' dut.sv 31:19:31:25 id=26"
+ },
+ "N0182": {
+  "site": "operator() (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < importCloneBareTdAlias16 (TypeEmit.cpp, law cloneStructMemberBareTdAlias207) < exportDesign (UhdmExporter.cpp, law importCloneBareTdAlias16)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm207repro__g207_c_share holder #227 struct_typespec 'p207a_h::sh207' dut.sv 8:11:8:72 id=182"
+ },
+ "N0183": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm79repro__c2_idxkind object #91 ref_obj 'i' dut.sv 23:14:23:15 id=113"
+ },
+ "N0184": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law assocLocalArrayVar40) < emitPackage (ParamEmit.cpp, law LAW) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10v145repro__v145_e_oob object #89 bit_var 'k1' dut.sv 73:17:73:19 id=23"
+ },
+ "N0185": {
+  "site": "emitExpr (ExprEmit.cpp, law srlgTimeLitVal) < operator() (StmtEmit.cpp, law declInitWrittenNewNoStmt66) < emitStmt (StmtEmit.cpp, law foreachArraySelfSelectAssignDropsTs19)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm226repro__grid226__a11_nested object #63 constant '' dut.sv 24:33:24:55 id=59"
+ },
+ "N0186": {
+  "site": "makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u45repro__g12 object #20 real_typespec '' dut.sv 8:10:8:13 id=64"
+ },
+ "N0187": {
+  "site": "emitExpr (ExprEmit.cpp, law defGenQualPkgCallBinds18) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm79repro__c2_idxkind object #122 func_call 'fn' dut.sv 27:14:27:19 id=144"
+ },
+ "N0188": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v160repro__x10_enum object #100 enum_typespec ''  0:0:0:0 id=70"
+ },
+ "N0189": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law namedTfArgsFormalSlots4) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm60repro__b7_multiline object #89 constant '' dut.sv 15:94:15:95 id=125"
+ },
+ "N0190": {
+  "site": "emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3) < emitProcess (StmtEmit.cpp, law classPropUnitImport21)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm104repro__g104_a5_fence object #34 if_stmt '' dut.sv 12:5:12:28 id=31"
+ },
+ "N0191": {
+  "site": "emitDroppedCall14 (StmtEmit.cpp, law classArgBind12) < emitBadConcatFromSyntax160 (ExprEmit.cpp, law classArgBind12) < emitExpr (ExprEmit.cpp, law droppedIdxRecvCall26)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm160repro__g160_f_witness object #127 hier_path 'start.get_name160' dut.sv 60:79:60:98 id=121"
+ },
+ "N0192": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm193repro__g193_c_argface object #166 ref_obj 'kink193' dut.sv 65:26:65:33 id=159"
+ },
+ "N0193": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law shellCallKeepsItsSyntax167) < emitStmt (StmtEmit.cpp, law negLitPkgRetFoldNested30)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm167repro__g167_b_spell object #224 hier_path 'r.mf167' dut.sv 71:14:71:21 id=254"
+ },
+ "N0195": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm193repro__g193_c_argface object #320 ref_obj 'kink193' dut.sv 100:48:100:55 id=309"
+ },
+ "N0196": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm193repro__g193_c_argface object #214 ref_obj 'm_girth193' dut.sv 76:33:76:43 id=206"
+ },
+ "N0197": {
+  "site": "operator() (StmtEmit.cpp, law foreachAssocIdxAliasTs22) < emitStmt (StmtEmit.cpp, law foreachLoopVarObjs9) < emitStmt (StmtEmit.cpp, law invalidChild14)",
+  "owner": "StmtEmit.cpp",
+  "example": "probe/default/r10uvm21repro__t32d_t holder #229 ref_typespec ''  0:0:0:0 id=91"
+ },
+ "N0198": {
+  "site": "emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm151repro__g151_e_ctx object #111 hier_path 'iq' dut.sv 48:11:48:32 id=112"
+ },
+ "N0199": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10uvm193repro__g193_c_argface object #270 bit_select 'shelf193' dut.sv 87:35:87:36 id=259"
+ },
+ "N0200": {
+  "site": "exportDesign (UhdmExporter.cpp, law enumNoBind13) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/r10uvm220repro__grid220__a1_uninst_if object #104 array_typespec ''  0:0:0:0 id=143"
+ },
+ "N0201": {
+  "site": "exportDesign (UhdmExporter.cpp, law enumNoBind13) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/r10uvm220repro__grid220__a1_uninst_if object #104 array_typespec ''  0:0:0:0 id=143"
+ },
+ "N0202": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u18repro__t9 object #38 long_int_typespec '' dut.sv 10:33:10:35 id=131"
+ },
+ "N0203": {
+  "site": "bareScalarTdCopyOf (TypeEmit.cpp, law bodyTypedefElemBoundSymbolic52) < operator() (TypeEmit.cpp, law modScalarTdTopInstance) < bareScalarTypedefVarTs (TypeEmit.cpp, law elabVecPortTdElemBare101)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm207repro__g207_g_class object #67 ref_typespec ''  0:0:0:0 id=133"
+ },
+ "N0204": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law hpMidGenvarSelect) < operator() (ModuleEmit.cpp, law genConnReplCastActual) < emitDefGenStmts (ModuleEmit.cpp, law genForInitPkgParamFold)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10earl_repro__tj object #197 bit_select 'cause' dut.sv 40:18:40:23 id=77"
+ },
+ "N0205": {
+  "site": "makeTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitTaskFuncs (TaskFuncEmit.cpp, law pkgTdCloneRefNoBind18) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10v111repro__v111_b1 object #217 range '' dut.sv 33:16:33:21 id=118"
+ },
+ "N0206": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law classScopedTdDeclTsUnsupported11) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10v145repro__v145_e_oob object #345 io_decl 'p' dut.sv 57:35:57:36 id=406"
+ },
+ "N0207": {
+  "site": "emitExpr (ExprEmit.cpp, law genCaSysCallArgBinds22) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10v174repro__v174_b_sysfns object #49 ref_obj 'spindleWord' dut.sv 29:41:29:52 id=250"
+ },
+ "N0208": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10vbuvm20repro__v7_multiinst object #48 logic_var '' dut.sv 6:12:6:16 id=28"
+ },
+ "N0209": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10uvm162repro__g162_e_context object #375 int_typespec '' dut.sv 48:29:48:30 id=368"
+ },
+ "N0210": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/Scr1SvTests object #576 typespec_member 'except' scr1_hdu.svh 76:41:76:47 id=1876"
+ },
+ "N0211": {
+  "site": "emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)",
+  "owner": "ModuleEmit.cpp",
+  "example": "surelog/default/YosysBigSimReed object #22388 ref_obj 'S_Ready' input_syndromes.v 357:2:357:9 id=13470"
+ },
+ "N0212": {
+  "site": "emitExpr (ExprEmit.cpp, law caTernaryArmPatternFlatten99) < emitExpr (ExprEmit.cpp, law argWrittenQualIsSyntaxKind33) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/ParamScope object #193 operation '' dut.sv 2:30:2:43 id=178"
+ },
+ "N0213": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildClassTypedefTs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) < classElemVar (UhdmExporter.cpp, law classPropElemTsFollowsScalarTd9)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg holder #22518 ref_typespec ''  0:0:0:0 id=12517"
+ },
+ "N0214": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #1851 ref_obj 'type_id' uvm_pkg.sv 8683:34:8683:41 id=1147"
+ },
+ "N0215": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law memberActualLeak)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #2834 ref_obj 'severity' uvm_pkg.sv 9563:44:9563:52 id=1964"
+ },
+ "N0216": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #101010 ref_obj 'UVM_NO_COVERAGE' uvm_pkg.sv 73029:56:73029:71 id=27750"
+ },
+ "N0217": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #6270 ref_obj 'j' uvm_pkg.sv 13183:53:13183:54 id=127020"
+ },
+ "N0218": {
+  "site": "emitExpr (ExprEmit.cpp, law connIpsPkgParamBoundNoTs65) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #85209 operation '' uvm_pkg.sv 53120:61:53120:63 id=101847"
+ },
+ "N0219": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_pmp object #2404 struct_typespec 'ibex_pkg::pmp_cfg_t' ibex_pkg.sv 433:11:439:4 id=1323"
+ },
+ "N0220": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #37703 ref_obj 'lsb' uvm_pkg.sv 67846:66:67846:69 id=155588"
+ },
+ "N0221": {
+  "site": "emitStmt (StmtEmit.cpp, law genScopeProcLoopCtrlNoFold76) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3)",
+  "owner": "StmtEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #8522 do_while '' uvm_pkg.sv 20267:9:20267:11 id=128928"
+ },
+ "N0222": {
+  "site": "emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #31525 bit_select 'fields' uvm_pkg.sv 64845:22:64845:28 id=150359"
+ },
+ "N0223": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #76920 time_typespec '' uvm_pkg.sv 40493:41:40493:45 id=12954"
+ },
+ "N0224": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #19925 ref_obj 'child' uvm_pkg.sv 39721:41:39721:46 id=137744"
+ },
+ "N0225": {
+  "site": "emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92) < emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #31550 bit_select 'fields' uvm_pkg.sv 64850:22:64850:28 id=150384"
+ },
+ "N0226": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitTaskFuncs (TaskFuncEmit.cpp, law pkgTdCloneRefNoBind18) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/ApbSlave object #538 integer_typespec '' svunit_testcase.sv 99:10:99:17 id=120"
+ },
+ "N0227": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #31527 ref_obj 'fld_idx' uvm_pkg.sv 64845:29:64845:36 id=150361"
+ },
+ "N0228": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #19924 hier_path 'child.get_name' uvm_pkg.sv 39721:41:39721:57 id=137743"
+ },
+ "N0229": {
+  "site": "emitExpr (ExprEmit.cpp, law packageVarAutomaticIsDataDeclShape26) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law memberActualLeak)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #2836 ref_typespec ''  0:0:0:0 id=1966"
+ },
+ "N0230": {
+  "site": "makeTypespec (TypeEmit.cpp, law arrayElemTdClone42) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #82680 class_typespec 'uvm_component' uvm_pkg.sv 39002:9:39002:22 id=94773"
+ },
+ "N0231": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitTaskFuncs (TaskFuncEmit.cpp, law classArgBind12) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #76759 constant '' uvm_pkg.sv 40046:64:40046:65 id=12864"
+ },
+ "N0232": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law modTdRetCloneSymbolic20) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #162397 ref_typespec ''  0:0:0:0 id=90141"
+ },
+ "N0233": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/ApbSlave object #536 integer_var '' svunit_testcase.sv 99:10:99:17 id=119"
+ },
+ "N0234": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #30678 ref_obj 'local_map' uvm_pkg.sv 64545:37:64545:46 id=149569"
+ },
+ "N0235": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #43921 ref_obj 'n' uvm_pkg.sv 71739:43:71739:44 id=161028"
+ },
+ "N0236": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92) < emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #51984 ref_obj 'i' uvm_pkg.sv 75445:57:75445:58 id=167988"
+ },
+ "N0237": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #19901 bit_select 'm_children' uvm_pkg.sv 39715:18:39715:32 id=137722"
+ },
+ "N0238": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #192914 bit_select 'maps' uvm_pkg.sv 81831:46:81831:47 id=84635"
+ },
+ "N0239": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_pmp object #3797 struct_typespec 'ibex_pkg::pmp_cfg_t' ibex_pkg.sv 433:11:439:4 id=2890"
+ },
+ "N0240": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitStmt (StmtEmit.cpp, law negLitPkgRetFoldNested30)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #20265 ref_obj 'remainder' uvm_pkg.sv 39905:41:39905:50 id=138071"
+ },
+ "N0241": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #51971 ref_obj 'i' uvm_pkg.sv 75441:65:75441:66 id=167975"
+ },
+ "N0242": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92) < emitExpr (ExprEmit.cpp, law hpIdxOpPrettyPrint92)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #52001 ref_obj 'i' uvm_pkg.sv 75446:56:75446:57 id=167998"
+ },
+ "N0243": {
+  "site": "buildDottedHierPath (ExprEmit.cpp, law hpIdxClassBodyNeverLateBinds143) < emitExpr (ExprEmit.cpp, law oobCtorLocalsRideTheImport203) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/CovMacro object #106 hier_path '$root.top' dut.sv 12:76:12:85 id=23"
+ },
+ "N0244": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #121813 time_var '' uvm_pkg.sv 22782:10:22782:14 id=42070"
+ },
+ "N0245": {
+  "site": "emitExpr (ExprEmit.cpp, law connIpsPkgParamBoundNoTs65) < emitExpr (ExprEmit.cpp, law elabMisevalArgNoFold) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/ComplexExprSize object #110 operation '' dut.sv 4:41:4:42 id=16"
+ },
+ "N0246": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/ibex_pmp object #6702 ref_obj 'c' dv_fcov_macros.svh 92:42:92:43 id=4597"
+ },
+ "N0247": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #139313 ref_obj 'i' uvm_pkg.sv 61638:32:61638:33 id=86044"
+ },
+ "N0248": {
+  "site": "emitPackage (ParamEmit.cpp, law atomTdListing44) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg holder #76326 class_typespec 'uvm_pkg::uvm_event_pool' uvm_pkg.sv 14624:9:14624:31 id=3130"
+ },
+ "N0249": {
+  "site": "operator() (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildUnpackedArrayTypedefTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitTaskFuncs (TaskFuncEmit.cpp, law modTdRetCloneSymbolic20)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #162404 constant ''  0:0:0:0 id=90140"
+ },
+ "N0250": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitTaskFuncs (TaskFuncEmit.cpp, law impCloneDeclRangeNoBind200)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #76761 bit_typespec '' uvm_pkg.sv 40046:49:40046:52 id=12866"
+ },
+ "N0251": {
+  "site": "emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78) < emitExpr (ExprEmit.cpp, law dynArrayNewLvalueBaseOnly110) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #139504 indexed_part_select 'data' uvm_pkg.sv 61686:10:61686:21 id=86176"
+ },
+ "N0252": {
+  "site": "emitExpr (ExprEmit.cpp, law vifClockingPathComponent5) < emitExpr (ExprEmit.cpp, law cloneBuiltinMethodArgBindsReceiver184) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #82214 ref_obj 'addr' uvm_pkg.sv 61900:40:61900:44 id=82974"
+ },
+ "N0253": {
+  "site": "emitExpr (ExprEmit.cpp, law packageVarAutomaticIsDataDeclShape26) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #160699 ref_typespec ''  0:0:0:0 id=88667"
+ },
+ "N0254": {
+  "site": "buildEnumTs (TypeEmit.cpp, law bareScalarTdCopyOf) < buildClassTypedefTs (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < makeTypespec (TypeEmit.cpp, law classTdLocalVarKindFollowsCompileOrder10)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #197882 ref_typespec ''  0:0:0:0 id=5941"
+ },
+ "N0255": {
+  "site": "buildClassTypedefTs (UhdmExporter.cpp, law classTpTdGroupNonClsRootShared91) < classElemVar (UhdmExporter.cpp, law classPropElemTsFollowsScalarTd9) < emitClassDefn (UhdmExporter.cpp, law fixedClassPropIsArrayVar6)",
+  "owner": "UhdmExporter.cpp",
+  "example": "surelog/default/BuildUVMPkg object #87877 class_typespec 'rsp_type' uvm_pkg.sv 53759:11:53759:14 id=104337"
+ },
+ "N0256": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law implicitRetSigningIsIntVar70) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #91478 class_var '' uvm_pkg.sv 9111:24:9111:35 id=18173"
+ },
+ "N0257": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #101113 long_int_var '' uvm_pkg.sv 73516:10:73516:26 id=27844"
+ },
+ "N0258": {
+  "site": "operator() (TaskFuncEmit.cpp, law assocIoRange9) < emitTaskFuncs (TaskFuncEmit.cpp, law classTypeParamTdGroupLastWins33c) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #114568 operation '' uvm_pkg.sv 34602:82:34602:91 id=44510"
+ },
+ "N0259": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #121817 real_var '' uvm_pkg.sv 22772:10:22772:14 id=42074"
+ },
+ "N0260": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law ownNamedAliasRetIsRefVar177) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < emitPackageClasses (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/BuildUVMPkg object #168977 ref_var '' uvm_pkg.sv 32177:10:32177:24 id=116257"
+ },
+ "N0261": {
+  "site": "tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTargetKinds) < emitParameters (ParamEmit.cpp, law castElabFoldTargetKinds)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10v201repro__v201_n_genarr holder #42 constant '' dut.sv 5:19:5:22 id=37"
+ },
+ "N0262": {
+  "site": "importPaCopy82 (ModuleEmit.cpp, law classImportParamStamped82) < classInheritsContainerImports23 (ModuleEmit.cpp, law classImportParamStamped82) < exportDesign (UhdmExporter.cpp, law classInheritsContainerImports23)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10uvm82repro__v82v_arm37_extends_imported holder #26 param_assign '' dut.sv 2:17:2:24 id=56"
+ },
+ "N0263": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitInterfaceInstance (ModuleEmit.cpp, law caIfaceElabNetDeclAssignListing88)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u45repro__g13 object #53 logic_typespec '' dut.sv 6:3:6:6 id=39"
+ },
+ "N0264": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitImportedPkgVarNets (ModuleEmit.cpp, law oobCtorLocalsRideTheImport203) < emitModuleDef (ModuleEmit.cpp, law wildcardImportCopiesPkgVarsToDefNets223)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10sd5repro__v5_class_in_module object #24 int_typespec '' dut.sv 5:3:5:6 id=17"
+ },
+ "N0265": {
+  "site": "buildStructTs (TypeEmit.cpp, law defPkgMemberTdOfNamedSharesMulti110) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < operator() (ParamEmit.cpp, law pkgUntypedYNoStamp60)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/v11u111repro__brk__f2__x22_explicit_imp_wide object #430 ref_typespec ''  0:0:0:0 id=161"
+ },
+ "N0266": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10buvm21repro__g21c object #14 enum_typespec 'cp21::ce21' dut.sv 6:3:6:32 id=7"
+ },
+ "N0267": {
+  "site": "stampEvalFuncLeftovers (ParamEmit.cpp, law memLeftFormalReadTs18) < exportDesign (UhdmExporter.cpp, law r10fsv2) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11u18repro__b4 object #234 ref_typespec ''  0:0:0:0 id=146"
+ },
+ "N0268": {
+  "site": "makeVar (TypeEmit.cpp, law pkgScopedPortAnyDirVar77) < emitInterfaceInstance (ModuleEmit.cpp, law caIfacePortDeclNetMint93) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10svs9repro__b2_progdef object #115 logic_var 'sig' dut.sv 26:9:26:12 id=97"
+ },
+ "N0269": {
+  "site": "emitInterfaceInstance (ModuleEmit.cpp, law caIfaceElabNetDeclAssignListing88) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)",
+  "owner": "ModuleEmit.cpp",
+  "example": "uhdm2rtlil/default/OneNetModport object #214 ref_typespec ''  0:0:0:0 id=180"
+ },
+ "N0270": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u109repro__grid__hp__h08_unpacked_base object #62 struct_typespec 'e_t' dut.sv 1:9:1:72 id=2"
+ },
+ "N0271": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < buildStructTs (TypeEmit.cpp, law pkgTdRangeViewFold18) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10earl_repro__tj object #48 ref_typespec ''  0:0:0:0 id=16"
+ },
+ "N0272": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitInstance (ModuleEmit.cpp, law elabPortConnUnitEnumNet)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/AssignBitsCallToSubmoduleParameter object #186 bit_select 'key_init_we' dut.sv 17:26:17:27 id=165"
+ },
+ "N0273": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41) < emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41) < emitSyntaxExpr (TypeEmit.cpp, law selChainDecideBeforeMint41)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10earl56repro__v2_nestedsel56 object #194 part_select 'PN' dut.sv 26:42:26:49 id=152"
+ },
+ "N0274": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < typeParamDefaultBound20 (TypeEmit.cpp, law crossPkgRangeBoundFold)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/v11u93b107repro__brk__q01_dim_valparam object #10 ref_obj 'N' dut.sv 1:91:1:92 id=21"
+ },
+ "N0275": {
+  "site": "emitContAssigns (ModuleEmit.cpp, law caAsmMemberSliceFold) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10earl54repro__v3_v54 object #18 cont_assign '' dut.sv 6:10:6:28 id=6"
+ },
+ "N0276": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law genScopePkgParamRefTop18) < operator() (ModuleEmit.cpp, law genConnReplCastActual) < emitDefGenStmts (ModuleEmit.cpp, law genForInitPkgParamFold)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/iface_array_modport_drive object #163 hier_path 'man[i].vld' dut.sv 11:12:11:22 id=34"
+ },
+ "N0277": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < buildStructTs (TypeEmit.cpp, law pkgTdRangeViewFold18)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/NestedStructArrayParameterInitializedByPatternPassedAsPort object #79 ref_typespec ''  0:0:0:0 id=29"
+ },
+ "N0278": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79) < emitExpr (ExprEmit.cpp, law thisPathSelectErased4)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/Scoreboard object #4727 ref_obj 'index' uvm_factory.svh 1373:19:1373:24 id=127878"
+ },
+ "N0279": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < emitPackage (ParamEmit.cpp, law a7) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/rp32_r5p_mdu object #1083 ref_typespec ''  0:0:0:0 id=347"
+ },
+ "N0280": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/FuncRetArray object #145 ref_obj 'i' dut.sv 5:27:5:28 id=109",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0281": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law bareScalarTdCopyOf)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/TypeParameterAsPortTypeWithEnumOfParametrizedWidth object #157 ref_obj 'StateWidth' dut.sv 12:23:12:33 id=129"
+ },
+ "N0282": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/UnsizedFunc object #78 function 'get_1s' dut.sv 5:4:8:15 id=90",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0283": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/TypedefVariableDimensions object #23 struct_typespec 'pkg::a'  2:12:4:5 id=16"
+ },
+ "N0284": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitCaStructParamSubst55 (ModuleEmit.cpp, law caStructParamPatternSubst55) < operator() (ModuleEmit.cpp, law genCaConstRhsLhsNoBind25)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11v69repro__grid__w9_sharehead object #123 constant '' dut.sv 7:31:7:34 id=99"
+ },
+ "N0340": {
+  "site": "makeQueueDynArrayVar (TaskFuncEmit.cpp, law declArrayElemKindIsDeclKind12) < emitStmt (StmtEmit.cpp, law blockDeclAutomaticIsWrittenKw80) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "surelog/default/MiniAmiq object #77766 class_var '' uvm_phase.svh 1897:15:1897:20 id=204911"
+ },
+ "N0357": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitExpr (ExprEmit.cpp, law everyPartSelIsConstSel78)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/jeras_tcb_gpio object #498 ref_obj 'GW' tcb_gpio.sv 77:36:77:38 id=182"
+ },
+ "N0394": {
+  "site": "emitParameters (ParamEmit.cpp, law elabLazyTernaryArithFold) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "ParamEmit.cpp",
+  "example": "uhdm2rtlil/default/ParameterWithUnderscoreValueDividedPassedFromCommandLine object #135 constant ''  4:23:4:24 id=126"
+ },
+ "N0407": {
+  "site": "makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11v21repro__v15 object #8 constant '' dut.sv 16:26:16:33 id=65"
+ },
+ "N0410": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < drainDefParamTs (ParamEmit.cpp, law paramCloneImportedCopy)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v47repro__arms__v30 object #26 ref_typespec ''  0:0:0:0 id=58"
+ },
+ "N0412": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law pkgParamOwnDefRange) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < operator() (TypeEmit.cpp, law elabVarRangeCallScopeDecl12)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v48repro__vc5 object #81 func_call 'vc5p::g' dut.sv 11:27:11:34 id=100"
+ },
+ "N0415": {
+  "site": "emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitModuleDefPorts (ModuleEmit.cpp, law structParamBareImportRef)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10v65repro__a8_orphan object #100 ref_typespec ''  0:0:0:0 id=81"
+ },
+ "N0418": {
+  "site": "emitPorts (ModuleEmit.cpp, law caIfacePortDeclNetMint93) < emitModuleDefPorts (ModuleEmit.cpp, law caNestedModDefNameScoped99) < emitInstance (ModuleEmit.cpp, law importedFreeCallTakesFirstListingImport227)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10svs9repro__b2_progdef object #35 ref_obj 'mp' dut.sv 32:19:32:21 id=81"
+ },
+ "N0422": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u90repro__grid.verifier__vx14_strtypedef object #7 logic_typespec 'pk::w32_t' dut.sv 3:11:3:23 id=8"
+ },
+ "N0427": {
+  "site": "emitExpr (ExprEmit.cpp) < operator() (ModuleEmit.cpp, law genCaParamFoldOneHopPool95) < emitGenScopes (ModuleEmit.cpp, law genLoopUnitMiseval)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/InterfArrayBind object #166 ref_obj 'io_idx' dut.sv 22:38:22:44 id=145"
+ },
+ "N0433": {
+  "site": "makeTypespec (TypeEmit.cpp, law classPkgGenericSpecListing53) < buildUnionTs (TypeEmit.cpp, law pkgTdRangeViewFold18) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/FileLevelUnionWithMultirange object #144 packed_array_typespec '' dut.sv 28:3:28:44 id=61"
+ },
+ "N0440": {
+  "site": "emitExpr (ExprEmit.cpp, law pkgQualParamPartSelName118) < emitParameters (ParamEmit.cpp, law foldSigned9) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/LargeHex object #128 indexed_part_select 'DReqDepth' dut.sv 8:52:8:58 id=29"
+ },
+ "N0441": {
+  "site": "emitParameters (ParamEmit.cpp, law patOpMemberAsmSplit28) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/default/ParamArrayUnsizedPattern object #224 constant '' dut.sv 4:73:4:75 id=154",
+  "note": "DECODED: ours lists two constants where golden shares one (array_expr default pattern)"
+ },
+ "N0442": {
+  "site": "emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10vrgg3repro__v3_recv_aw_huge object #158 parameter 'AW' dut.sv 1:31:1:33 id=125"
+ },
+ "N0450": {
+  "site": "makeVar (TypeEmit.cpp, law pkgScopedPortAnyDirVar77) < emitInterfaceInstance (ModuleEmit.cpp, law caIfacePortDeclNetMint93) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/OneNetModport object #213 logic_var 'drive' dut.sv 14:9:14:14 id=178"
+ },
+ "N0452": {
+  "site": "makeQueueDynArrayVar (TaskFuncEmit.cpp, law declArrayElemKindIsDeclKind12) < emitStmt (StmtEmit.cpp, law blockDeclAutomaticIsWrittenKw80) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10uvm208repro__g208_e_head object #87 ref_typespec ''  0:0:0:0 id=172"
+ },
+ "N0455": {
+  "site": "emitExpr (ExprEmit.cpp, law outArgConvLvalue125) < emitStmt (StmtEmit.cpp, law recvNamesSubroutineCollapsesStmtCall172) < emitProcess (StmtEmit.cpp, law classPropUnitImport21)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11v11u8repro__v9 object #11 assignment '' dut.sv 12:11:4:3 id=11"
+ },
+ "N0469": {
+  "site": "emitParameters (ParamEmit.cpp, law unpElemSelKeeps64) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10v201repro__v201_n_genarr object #43 ref_typespec ''  0:0:0:0 id=38"
+ },
+ "N0470": {
+  "site": "namedElemPackedDimTs31 (TypeEmit.cpp, law crossPkgRangeBoundFold) < emitParameters (ParamEmit.cpp, law typeParamNamedElemPackedDim31) < emitInstance (ModuleEmit.cpp, law elabParamTsRebind)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u110repro__grid__e1__e17_top_shape object #39 ref_typespec 'id_t'  0:0:0:0 id=36"
+ },
+ "N0471": {
+  "site": "emitExpr (ExprEmit.cpp, law loopCaParamReadKeepsLiteral116) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < operator() (ModuleEmit.cpp, law genCaTernaryFoldGenScope22)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/v11u116repro__arms__f1s_ovr object #98 ref_typespec ''  0:0:0:0 id=86"
+ },
+ "N0472": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < emitSyntaxExpr (TypeEmit.cpp, law hpSymbolicSelect) < typeParamDefaultBound20 (TypeEmit.cpp, law crossPkgRangeBoundFold)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u110repro__grid__e1__e39_value_and_type_named object #95 ref_obj 'W' dut.sv 4:34:4:35 id=80"
+ },
+ "N0482": {
+  "site": "operator() (ModuleEmit.cpp, law caIfacePortDeclNetMint93) < operator() (ModuleEmit.cpp, law caDefGenBlockKeepsFinal98) < emitDefGenStmts (ModuleEmit.cpp, law genRegionCondNoEnumBind)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r11v22repro__adv__v39 object #22 named_begin 'gb'  0:0:0:0 id=9"
+ },
+ "N0515": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law caNetDeclStrengthDropped90) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10uvm101repro__g101_a3_tokens object #22 logic_net 'h.dot' dut.sv 23:14:24:3 id=16"
+ },
+ "N0523": {
+  "site": "emitExpr (ExprEmit.cpp) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10rgg9repro__cells__c_headshape object #177 ref_obj 'write_data' dut.sv 10:58:10:68 id=28"
+ },
+ "N0528": {
+  "site": "operator() (ModuleEmit.cpp, law caDelayParamRefSpelling90) < emitAssignDelay (ModuleEmit.cpp, law caDelayParamRefSpelling90) < emitContAssigns (ModuleEmit.cpp, law contAssignDriveStrength19)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r11u90repro__grid__w11_dlyctl object #25 constant '' dut.sv 7:10:7:14 id=23"
+ },
+ "N0536": {
+  "site": "emitExpr (ExprEmit.cpp, law caPartSelBoundFoldTs) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/ParameterFromPkgOnParameterPortList object #179 ref_typespec ''  0:0:0:0 id=73"
+ },
+ "N0554": {
+  "site": "operator() (ModuleEmit.cpp, law genvarWholeCaRhsFold68) < operator() (ModuleEmit.cpp, law elseArmFirstItemReplaces48) < operator() (ModuleEmit.cpp, law genNestedScopePkgParamNoFold24)",
+  "owner": "ModuleEmit.cpp",
+  "example": "uhdm2rtlil/default/SumOfParametersInNestedForLoops holder #162 cont_assign '' dut.sv 7:17:7:27 id=143",
+  "note": "DECODED: SHARING: ours's elaborated cont_assign Rhs is the param_assign's constant object (listed once); golden holds a copy. HOLDER pinned"
+ },
+ "N0568": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitInstance (ModuleEmit.cpp, law elabPortConnUnitEnumNet) < operator() (ModuleEmit.cpp, law genScopeIface)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/multiplier object #629 bit_select 'A' dut.sv 124:22:124:23 id=434"
+ },
+ "N0627": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "surelog/default/AssertDelayError object #92 property_decl 'p_valid_rotation' left_rotate_assertions.sv 18:12:18:28 id=17"
+ },
+ "N0652": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/FileList object #98 ref_typespec ''  0:0:0:0 id=131",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0655": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/VarPassedTo2Submodules object #163 enum_typespec 'lc_ctrl_pkg::lc_tx_e' dut.sv 2:4:4:14 id=19"
+ },
+ "N0661": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < materializeDefNetTs (ModuleEmit.cpp, law mergedPortDefRangeSymbolic) < emitTopPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/BlackConst object #390 logic_typespec '' dut.sv 154:1:154:26 id=511"
+ },
+ "N0680": {
+  "site": "operator() (ModuleEmit.cpp, law sizeDimOvrChain4) < makeIfaceArrayPortTs (ModuleEmit.cpp, law sizeDimOvrChain4) < emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10vrgg4repro__v5n_noovr_bit1 object #47 range '' dut.sv 9:17:9:20 id=71"
+ },
+ "N0681": {
+  "site": "emitContAssigns (ModuleEmit.cpp, law srlgCondOpInstValueTernFold9) < emitInstance (ModuleEmit.cpp, law elabPortBoundIntParamTs109) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r10rgg9repro__cells__p_expr_not object #67 constant ''  0:0:0:0 id=56"
+ },
+ "N0695": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/InterfaceParamOverrideProp object #384 ref_obj 'o' dut.sv 14:10:14:11 id=297",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0722": {
+  "site": "emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/default/BlackConst object #114 parameter 'easy' dut.sv 156:11:156:15 id=81"
+ },
+ "N0724": {
+  "site": "tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTargetKinds) < emitParameters (ParamEmit.cpp, law castElabFoldTargetKinds)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/BlackParrotComplex object #878 constant '' dut.sv 40:68:40:102 id=806"
+ },
+ "N0736": {
+  "site": "emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10vrgg4repro__v5n_noovr_bit1 object #125 parameter 'W' dut.sv 1:32:1:33 id=92"
+ },
+ "N0737": {
+  "site": "emitParameters (ParamEmit.cpp, law modDefImportShape) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10vrgg4repro__v5n_noovr_bit1 object #126 ref_typespec ''  0:0:0:0 id=93"
+ },
+ "N0738": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < makeParamTs (ParamEmit.cpp, law pkgParamOwnDefRange) < drainDefParamTs (ParamEmit.cpp, law paramCloneImportedCopy)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u108repro__grid__pk__k22_param_v_literal object #72 logic_typespec 'mask_t' dut.sv 2:11:2:22 id=24"
+ },
+ "N0739": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r10rgg9repro__cells__c_paraminit object #78 ref_obj 'Z' dut.sv 9:19:9:20 id=25"
+ },
+ "N0745": {
+  "site": "makeMemLeftConst (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitParameters (ParamEmit.cpp, law pkgStructFuncAssembleNested24) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11u20repro__b2 object #66 constant '' dut.sv 8:33:8:49 id=43"
+ },
+ "N0748": {
+  "site": "emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < emitInterfaceInstance (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r11u115repro__grid__i__e03_elem_mp_named_gen object #174 parameter 'A' dut.sv 1:31:1:32 id=129"
+ },
+ "N0751": {
+  "site": "makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10yos1repro__v3_bind_outside object #7 logic_typespec '' dut.sv 5:22:5:26 id=17"
+ },
+ "N0762": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u88repro__grid__i6_ifarray object #20 struct_typespec 'pk::st_t' dut.sv 5:11:5:58 id=3"
+ },
+ "N0765": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law emptyArgSlotIntZero24) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/v11u112repro__grid__brk__t__b2c_iface_fn object #65 ref_obj 'x' dut.sv 8:19:8:20 id=40"
+ },
+ "N0769": {
+  "site": "emitTaskFuncs (TaskFuncEmit.cpp, law dpiExportListedAtExportItem216) < emitClassDefn (UhdmExporter.cpp, law externProtoInBodyCallBinds12) < operator() (UhdmExporter.cpp, law caIfaceClassRootAnyIface99)",
+  "owner": "TaskFuncEmit.cpp",
+  "example": "probe/default/r10svs9repro__v3_esc object #5 task 'e1' dut.sv 30:5:30:40 id=20"
+ },
+ "N0770": {
+  "site": "emitClassParameters (UhdmExporter.cpp, law classNestedClassTdGroupNoAnchor54) < emitClassDefn (UhdmExporter.cpp, law classDefnVirtualFromVirtualIfaceDecl6) < operator() (UhdmExporter.cpp, law caIfaceClassRootAnyIface99)",
+  "owner": "UhdmExporter.cpp",
+  "example": "probe/default/v11u111repro__brk__f1__x01_class_param holder #20 ref_typespec ''  0:0:0:0 id=30"
+ },
+ "N0805": {
+  "site": "buildStructTs (TypeEmit.cpp, law typeParamAnonAggMemberNoReduce35) < emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u88repro__grid__i1_ifkinds object #249 struct_typespec 'pk::si_t' dut.sv 7:11:7:59 id=89"
+ },
+ "N0822": {
+  "site": "tryFoldConst (ExprEmit.cpp, law srlgSizeCastUbShiftMask93) < operator() (ParamEmit.cpp, law castElabFoldTargetKinds) < emitParameters (ParamEmit.cpp, law castElabFoldTargetKinds)",
+  "owner": "ExprEmit.cpp",
+  "example": "probe/default/r11u26repro__m12 object #214 constant '' dut.sv 15:32:15:36 id=76"
+ },
+ "N0827": {
+  "site": "emitParameters (ParamEmit.cpp, law unsizedBasedParamRhsSize106) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ParamEmit.cpp",
+  "example": "probe/default/r10uvm67repro__c5_clone object #56 parameter 'C5_W' dut.sv 7:13:7:17 id=47"
+ },
+ "N0831": {
+  "site": "buildEnumTs (TypeEmit.cpp, law unitArith) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u23repro__grid__e05_untaken_bare_partsel object #161 enum_const 'PNone' dut.sv 2:26:2:31 id=6"
+ },
+ "N0833": {
+  "site": "emitExpr (ExprEmit.cpp, law hpConnElemIdxFold17) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/iface_arr_struct_field_partsel object #254 bit_select 'req_dly' dut.sv 18:18:18:25 id=47"
+ },
+ "N0840": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < makeParamTs (ParamEmit.cpp, law tpAnonAggParamTsNoStamp47) < patchParamTypespecs (ParamEmit.cpp, law paramCloneImportedCopy)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u111repro__grid__f2__b13_sub_imp_w80 object #248 ref_typespec ''  0:0:0:0 id=247"
+ },
+ "N0851": {
+  "site": "buildEnumTs (TypeEmit.cpp, law pkgTdCloneRefNoBind18) < emitPackage (ParamEmit.cpp) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11v77repro__grid__vh_arrelem object #273 enum_typespec 'pv::en_t' dut.sv 9:3:9:44 id=142"
+ },
+ "N0912": {
+  "site": "emitSyntaxExpr (TypeEmit.cpp, law modStructMemberPkgFold) < operator() (ModuleEmit.cpp, law genSyntaxSizeDim) < emitDefGenStmts (ModuleEmit.cpp, law genRegionCondNoEnumBind)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/int_types object #108 ref_obj 'x' dut.sv 5:27:5:28 id=28"
+ },
+ "N0923": {
+  "site": "stampParenCastWidthTs (ParamEmit.cpp, law parenCastWidthRefModuleCopy) < emitParameters (ParamEmit.cpp, law modDefImportShape) < emitPackage (ParamEmit.cpp, law caPkgListingNetTypeIsPerView79)",
+  "owner": "ParamEmit.cpp",
+  "example": "surelog/default/BlackBePipeInt object #66 ref_obj 'dev_addr_width_gp'  0:0:0:0 id=102"
+ },
+ "N0938": {
+  "site": "emitPackage (ParamEmit.cpp, law aggRngSkipInlineBody124v) < exportDesign (UhdmExporter.cpp, law caUnelabBodyChildPorts103) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ParamEmit.cpp",
+  "example": "uhdm2rtlil/default/jeras_union object #168 ref_typespec ''  0:0:0:0 id=393"
+ },
+ "N1017": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitMixedHierPath (ExprEmit.cpp, law hpMidSelIdxAtPath79)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/packed_struct_array_shift object #234 ref_obj 'DEPTH' dut.sv 29:15:29:20 id=90"
+ },
+ "N1041": {
+  "site": "buildUnionTs (TypeEmit.cpp, law modStructMemberBoundMeta) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "TypeEmit.cpp",
+  "example": "uhdm2rtlil/default/union_param_repro object #135 union_typespec 'u_t' dut.sv 5:9:5:50 id=46"
+ },
+ "N1053": {
+  "site": "emitExpr (ExprEmit.cpp, law hpNameBareIdxFold69) < emitExpr (ExprEmit.cpp, law negLitPkgRetFoldNested30) < emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/latch_packed_dyn_write object #284 bit_select 'bit_i' dut.sv 47:26:47:34 id=113"
+ },
+ "N1059": {
+  "site": "emitInterfaceInstance (ModuleEmit.cpp, law modportExprPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)",
+  "owner": "ModuleEmit.cpp",
+  "example": "uhdm2rtlil/default/iface_sig_in_child_port object #265 logic_net 'clk' dut.sv 4:29:4:32 id=229"
+ },
+ "N1075": {
+  "site": "emitProcess (StmtEmit.cpp, law classPropUnitImport21) < emitModuleDef (ModuleEmit.cpp, law shadowedImportParamFold) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "StmtEmit.cpp",
+  "example": "surelog/default/MacroArgMismatch object #100 always '' dut.sv 4:1:5:18 id=13"
+ },
+ "N1096": {
+  "site": "emitExpr (ExprEmit.cpp, law staticScopedLvalueBad48) < emitExpr (ExprEmit.cpp, law r10fsv2) < emitParameters (ParamEmit.cpp, law foldSigned9)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/FuncStructVal object #747 ref_obj 'config_pkg::NOC_TYPE_AXI4_ATOP' dut.sv 106:16:106:46 id=486"
+ },
+ "N1097": {
+  "site": "emitExpr (ExprEmit.cpp, law enumNoBaseTypespecZeroBits28) < emitParameters (ParamEmit.cpp, law foldSigned9) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/NonSynthError object #94 sys_func_call '$size' dut.sv 4:15:4:25 id=12"
+ },
+ "N1114": {
+  "site": "emitExpr (ExprEmit.cpp, law r10fsv2) < emitArrayVar (TypeEmit.cpp, law tpPackedArrayElemReg110) < emitInstance (ModuleEmit.cpp, law utdVarKwDecline106v)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/SelectFromUnpackedInFunction object #144 tagged_pattern ''  0:0:0:0 id=144"
+ },
+ "N1118": {
+  "site": "emitExpr (ExprEmit.cpp, law genLpUseFoldParentScope47) < emitInstance (ModuleEmit.cpp, law elabPortConnUnitEnumNet) < operator() (ModuleEmit.cpp, law genScopeIface)",
+  "owner": "ExprEmit.cpp",
+  "example": "uhdm2rtlil/default/genscope_module_ctx_reset object #274 part_select 'in_i' dut.sv 30:30:30:39 id=260"
+ },
+ "N1124": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/ArrayVarName object #58 ref_typespec ''  0:0:0:0 id=58",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1134": {
+  "site": "emitInterfaceInstance (ModuleEmit.cpp, law modportExprPort) < emitInstance (ModuleEmit.cpp, law modportNeedsSimplePortNoGenericFallback215v) < emitInstance (ModuleEmit.cpp, law bindIfaceTwinInParent46)",
+  "owner": "ModuleEmit.cpp",
+  "example": "surelog/default/InterfaceStructMemberPort object #336 struct_net 'req' dut.sv 12:12:12:15 id=257"
+ },
+ "N1135": {
+  "site": "emitArrayNet (TypeEmit.cpp, law sharedAliasNoStamp41) < emitInstance (ModuleEmit.cpp, law utdVarKwDecline106v) < exportDesign (UhdmExporter.cpp, law dottedTopNameBareElab)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/UnpackPort object #144 array_net 'var3' dut.sv 6:18:6:22 id=125"
+ },
+ "N1144": {
+  "site": "emitExpr (ExprEmit.cpp, law dottedIdxRecvFromSyntax23) < emitStmt (StmtEmit.cpp, law castOperandNeverBindsInCondWindow164) < emitStmt (StmtEmit.cpp, law thisSuperNewAssignNoStmt3)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/SVSwitch object #88 hier_path 'pkt.randomize' Driver.sv 40:10:40:23 id=1933"
+ },
+ "N1160": {
+  "site": "buildUnionTs (TypeEmit.cpp, law modStructMemberBoundMeta) < makeTypespec (TypeEmit.cpp, law shadowedImportBoundFold) < sharedTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20)",
+  "owner": "TypeEmit.cpp",
+  "example": "surelog/default/TaggedPattern object #123 union_typespec '' dut.sv 3:2:3:7 id=103"
+ },
+ "N1167": {
+  "site": "emitExpr (ExprEmit.cpp, law incDecMemberPathIsLvalue124) < emitContAssigns (ModuleEmit.cpp, law elabCaTernaryArmInstall92) < emitInstance (ModuleEmit.cpp, law elabPortBoundIntParamTs109)",
+  "owner": "ExprEmit.cpp",
+  "example": "surelog/default/IndexAssign object #128 constant '' dut.sv 4:21:4:22 id=114"
+ },
+ "N1174": {
+  "site": "buildStructTs (TypeEmit.cpp, law structMemberWrittenQueueArrayTs149) < buildClassTypedefTs (UhdmExporter.cpp, law typedefAliasSharesTypespec25) < emitClassTypedefs (UhdmExporter.cpp, law typedefAliasSharesTypespec25)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r10sd10repro__v13_root_lookup object #12 ref_typespec ''  0:0:0:0 id=14"
+ },
+ "N1286": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/GenScopeHierPath3 object #1432 ref_obj 'step' dut.sv 32:26:32:30 id=2173",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1599": {
+  "site": "emitClassTsParams (UhdmExporter.cpp, law builtinClassLocalUnsupportedBeforeClassPhase115) < exportDesign (UhdmExporter.cpp, law unitImportHoistsPkgParams146v) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "UhdmExporter.cpp",
+  "example": "surelog/testflags/ClassTypeParam object #9 type_parameter 'T' dut.sv 16:27:16:28 id=3"
+ },
+ "N1837": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/EmptyAssign object #64 begin '' dut.sv 3:9:9:4 id=59",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1849": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "owner": "?",
+  "example": "surelog/testflags/FuncStruct object #361 logic_var 'sigma_0' dut.sv 4:24:4:31 id=249",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1897": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law caNetDeclStrengthDropped90) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r11u101repro__grid__x22_nestportunused object #15 logic_net 'i' dut.sv 3:32:3:33 id=9"
+ },
+ "N1898": {
+  "site": "emitModuleDef (ModuleEmit.cpp, law ifaceDefNetTypespecIsTheModuleRule224) < exportDesign (UhdmExporter.cpp, law importedClassTsRideTheFileUnit206) < main (uhdm_main.cpp, law genCaPatKeepTagDefView121)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r11u101repro__grid__x22_nestportunused object #17 ref_typespec ''  0:0:0:0 id=11"
+ },
+ "N1899": {
+  "site": "makeTypespec (TypeEmit.cpp, law typeParamDefaultBoundNoReduce20) < emitInterfaceInstance (ModuleEmit.cpp, law ifacePortViewAggregateFlattens) < emitInstance (ModuleEmit.cpp, law caNestedModDeclNoRefNoInst99)",
+  "owner": "TypeEmit.cpp",
+  "example": "probe/default/r11u93repro__grid__pb14_ifbothstr object #59 range '' dut.sv 5:25:5:31 id=40"
+ },
+ "N1900": {
+  "site": "emitPorts (ModuleEmit.cpp, law ifaceIfaceTypedPort) < emitModuleDefPorts (ModuleEmit.cpp, law caNestedModDefNameScoped99) < exportDesign (UhdmExporter.cpp, law classTdTopOnlyShare50)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r11u101repro__grid__x22_nestportunused object #20 ref_obj 'i' dut.sv 3:32:3:33 id=37"
+ },
+ "N1901": {
+  "site": "emitPorts (ModuleEmit.cpp, law tpDimVecPortTsIsDefault120) < emitModuleDefPorts (ModuleEmit.cpp, law caNestedModDefNameScoped99) < exportDesign (UhdmExporter.cpp, law classTdTopOnlyShare50)",
+  "owner": "ModuleEmit.cpp",
+  "example": "probe/default/r11u101repro__grid__x22_nestportunused object #21 ref_typespec ''  0:0:0:0 id=39"
+ }
+}

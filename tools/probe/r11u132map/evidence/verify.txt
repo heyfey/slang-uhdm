@@ -1,0 +1,5 @@
+python mode-4 rule (drivers/analyze.py fd/pairctx/verify) vs the tool's own stdout (fields: tally, objects_differing, first field): 2694 of 2694 rows agree (676 corpus row-modes, 2018 probe cases)
+variant comparator (strictcmp_x, dccc8967e61b55e88ae0af2760848526) stdout vs the committed uhdm-strictcmp (5d4617d0458f), --max 50: 38 of 38 sampled NE rows byte-identical (2 sampled rows over 3 MB skipped)
+strictcmp_x2 (the same source with --dump-ids, db96066ac072748e8d5b05cf675242f8): records equal to strictcmp_x's once the id field is stripped (ParamNoImport/testflags), stdout identical to the committed tool; pinprep2 asserts record equality on every pinned example (364)
+variant first field + objects_differing = committed strict cell on 676 of 676 corpus row-modes (final.txt prints no CELL-MISMATCH)
+probe: rc histogram 2069 rc=0 / 2018 rc=2; first-field histogram identical to check_probe's (fullname 768 endcol 365 depth 234 line 208 file 147 type 101 endline 78 col 75 name 31 value 5 count 3 decompile 3); vs /tmp/canon_mode4_probe.csv 4074 of 4074 listed cases agree (13 r10rgg1x cases absent from that csv read equal)

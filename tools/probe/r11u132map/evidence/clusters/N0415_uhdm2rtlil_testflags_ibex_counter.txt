@@ -1,0 +1,40 @@
+cluster N0415 (r11u128map K0550; OPEN (residue of landed r11u124)): fullname|ref_typespec|tok:->.id.id|under:constant
+row: uhdm2rtlil/testflags/ibex_counter  strict=differ:fullname(1)  records golden=601 ours=601
+object: #563 (golden) / #563 (ours)  type=ref_typespec name= OUT
+  golden: work@ibex_counter
+  ours:   work@ibex_counter.g_counter_narrow.counter_load
+  walk parents: constant < part_select(counter_load) < cont_assign < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 557..569 ('>' = the object)
+  #557	7	ref_typespec			work@ibex_counter.g_counter_narrow.counter_val_upd_o		0	0	0	0		0			work@ibex_counter.g_counter_narrow.counter_val_upd_o	000
+  #558	8	int_typespec				ibex_counter.sv	6	13	6	16						000
+  #559	4	cont_assign				ibex_counter.sv	98	12	98	79						000
+  #560	5	part_select	counter_load	counter_load	work@ibex_counter.g_counter_narrow.counter_load	ibex_counter.sv	98	50	98	79		0			work@ibex_counter.g_counter_narrow.counter_load	000
+  #561	6	constant				ibex_counter.sv	98	63	98	65	63	64	UINT:63	9		000
+  #562	6	constant				ibex_counter.sv	98	66	98	78	32	32	UINT:32	9		000
+> #563	7	ref_typespec			work@ibex_counter		0	0	0	0		0			work@ibex_counter	000
+  #564	8	int_typespec				ibex_counter.sv	6	13	6	16						000
+  #565	5	ref_obj	unused_counter_load		work@ibex_counter.g_counter_narrow.unused_counter_load	ibex_counter.sv	98	12	98	31		0			work@ibex_counter.g_counter_narrow.unused_counter_load	000
+  #566	4	gen_scope_array	g_no_counter_val_upd_o		work@ibex_counter.g_counter_narrow.g_no_counter_val_upd_o	ibex_counter.sv	94	14	96	8					work@ibex_counter.g_counter_narrow.g_no_counter_val_upd_o	000
+  #567	5	gen_scope			work@ibex_counter.g_counter_narrow.g_no_counter_val_upd_o	ibex_counter.sv	94	14	96	8					work@ibex_counter.g_counter_narrow.g_no_counter_val_upd_o	000
+  #568	6	cont_assign				ibex_counter.sv	95	14	95	54						000
+  #569	7	constant				ibex_counter.sv	95	52	95	54	'0	-1	BIN:0	3		000
+
+--- OURS (B) records 557..569 ('>' = the object)
+  #557	7	ref_typespec			work@ibex_counter.g_counter_narrow.counter_val_upd_o		0	0	0	0		0			work@ibex_counter.g_counter_narrow.counter_val_upd_o	000
+  #558	8	int_typespec				ibex_counter.sv	6	13	6	16						000
+  #559	4	cont_assign				ibex_counter.sv	98	12	98	79						000
+  #560	5	part_select	counter_load	counter_load	work@ibex_counter.g_counter_narrow.counter_load	ibex_counter.sv	98	50	98	79		0			work@ibex_counter.g_counter_narrow.counter_load	000
+  #561	6	constant				ibex_counter.sv	98	63	98	65	63	64	UINT:63	9		000
+  #562	6	constant				ibex_counter.sv	98	66	98	78	32	32	UINT:32	9		000
+> #563	7	ref_typespec			work@ibex_counter.g_counter_narrow.counter_load		0	0	0	0		0			work@ibex_counter.g_counter_narrow.counter_load	000
+  #564	8	int_typespec				ibex_counter.sv	6	13	6	16						000
+  #565	5	ref_obj	unused_counter_load		work@ibex_counter.g_counter_narrow.unused_counter_load	ibex_counter.sv	98	12	98	31		0			work@ibex_counter.g_counter_narrow.unused_counter_load	000
+  #566	4	gen_scope_array	g_no_counter_val_upd_o		work@ibex_counter.g_counter_narrow.g_no_counter_val_upd_o	ibex_counter.sv	94	14	96	8					work@ibex_counter.g_counter_narrow.g_no_counter_val_upd_o	000
+  #567	5	gen_scope			work@ibex_counter.g_counter_narrow.g_no_counter_val_upd_o	ibex_counter.sv	94	14	96	8					work@ibex_counter.g_counter_narrow.g_no_counter_val_upd_o	000
+  #568	6	cont_assign				ibex_counter.sv	95	14	95	54						000
+  #569	7	constant				ibex_counter.sv	95	52	95	54	'0	-1	BIN:0	3		000
+
+facets of this row (1, first 25):
+  N0415 #563/563 ref_typespec  G[work@ibex_counter] O[work@ibex_counter.g_counter_narrow.counter_load]

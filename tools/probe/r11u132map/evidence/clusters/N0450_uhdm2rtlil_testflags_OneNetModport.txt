@@ -1,0 +1,43 @@
+cluster N0450 (r11u128map K0601; OPEN): fullname|logic_var|tok:id.id->id|under:io_decl
+row: uhdm2rtlil/testflags/OneNetModport  strict=differ:fullname(4)  records golden=165 ours=165
+object: #123 (golden) / #123 (ours)  type=logic_var name=drive OUT
+  golden: work@top.dut.sub1.inp.drive
+  ours:   work@top.dut.intf.drive
+  walk parents: io_decl(drive) < modport(dut) < ref_obj < port(intf)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 117..129 ('>' = the object)
+  #117	6	modport	tb			dut.sv	20	11	20	13						000
+  #118	7	io_decl	drive			dut.sv	21	12	21	17						000
+  #119	7	io_decl	observe			dut.sv	22	11	22	18						000
+  #120	4	ref_obj			work@top.dut.intf	dut.sv	38	11	38	17		0			work@top.dut.intf	000
+  #121	5	modport	dut			dut.sv	16	11	16	14						000
+  #122	6	io_decl	drive			dut.sv	17	11	17	16						000
+> #123	7	logic_var	drive		work@top.dut.sub1.inp.drive	dut.sv	14	9	14	14		0			work@top.dut.sub1.inp.drive	000
+  #124	8	ref_typespec			work@top.dut.sub1.inp.drive		0	0	0	0		0			work@top.dut.sub1.inp.drive	000
+  #125	9	logic_typespec				dut.sv	14	3	14	8						000
+  #126	6	io_decl	observe			dut.sv	18	12	18	19						000
+  #127	7	logic_var	observe		work@top.dut.sub1.out.observe	dut.sv	15	9	15	16		0			work@top.dut.sub1.out.observe	000
+  #128	8	ref_typespec			work@top.dut.sub1.out.observe		0	0	0	0		0			work@top.dut.sub1.out.observe	000
+  #129	9	logic_typespec				dut.sv	15	3	15	8						000
+
+--- OURS (B) records 117..129 ('>' = the object)
+  #117	6	modport	tb			dut.sv	20	11	20	13						000
+  #118	7	io_decl	drive			dut.sv	21	12	21	17						000
+  #119	7	io_decl	observe			dut.sv	22	11	22	18						000
+  #120	4	ref_obj			work@top.dut.intf	dut.sv	38	11	38	17		0			work@top.dut.intf	000
+  #121	5	modport	dut			dut.sv	16	11	16	14						000
+  #122	6	io_decl	drive			dut.sv	17	11	17	16						000
+> #123	7	logic_var	drive		work@top.dut.intf.drive	dut.sv	14	9	14	14		0			work@top.dut.intf.drive	000
+  #124	8	ref_typespec			work@top.dut.intf.drive		0	0	0	0		0			work@top.dut.intf.drive	000
+  #125	9	logic_typespec				dut.sv	14	3	14	8						000
+  #126	6	io_decl	observe			dut.sv	18	12	18	19						000
+  #127	7	logic_var	observe		work@top.dut.intf.observe	dut.sv	15	9	15	16		0			work@top.dut.intf.observe	000
+  #128	8	ref_typespec			work@top.dut.intf.observe		0	0	0	0		0			work@top.dut.intf.observe	000
+  #129	9	logic_typespec				dut.sv	15	3	15	8						000
+
+facets of this row (4, first 25):
+  N0450 #123/123 logic_var drive G[work@top.dut.sub1.inp.drive] O[work@top.dut.intf.drive]
+  N0269 #124/124 ref_typespec  G[work@top.dut.sub1.inp.drive] O[work@top.dut.intf.drive]
+  N0450 #127/127 logic_var observe G[work@top.dut.sub1.out.observe] O[work@top.dut.intf.observe]
+  N0269 #128/128 ref_typespec  G[work@top.dut.sub1.out.observe] O[work@top.dut.intf.observe]

@@ -1,0 +1,64 @@
+cluster N0121 (r11u128map K0143; OPEN (residue of landed r11u125)): file|enum_typespec|other-file+span|under:ref_typespec
+row: uhdm2rtlil/testflags/ibex_pmp  strict=differ:fullname(17)  records golden=15947 ours=15451
+object: #6922 (golden) / #6442 (ours)  type=enum_typespec name=ibex_pkg::priv_lvl_e 
+  golden: ibex_pmp.sv 132:48:132:58
+  ours:   ibex_pkg.sv 216:3:221:16
+  walk parents: ref_typespec < array_typespec < ref_typespec < port(priv_mode_i)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 6916..6928 ('>' = the object)
+  #6916	5	range				ibex_pmp.sv	25	50	25	60						001
+  #6917	6	constant					0	0	0	0	0	64	UINT:0	9		001
+  #6918	6	operation				ibex_pmp.sv	25	50	25	60		0				001
+  #6919	7	ref_obj	PMPNumChan		<in>PMPNumChan	ibex_pmp.sv	25	50	25	60		0			work@ibex_pmp.priv_mode_i.PMPNumChan	001
+  #6920	7	constant					0	0	0	0		64	INT:1	7		001
+  #6921	5	ref_typespec			<in>		0	0	0	0		0			work@ibex_pmp.priv_mode_i	001
+> #6922	6	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pmp.sv	132	48	132	58						001
+  #6923	7	ref_typespec			<in>ibex_pkg::priv_lvl_e		0	0	0	0		0			work@ibex_pmp.ibex_pkg::priv_lvl_e	001
+  #6924	8	logic_typespec				ibex_pkg.sv	216	16	216	26						001
+  #6925	9	range				ibex_pkg.sv	216	21	216	26						001
+  #6926	10	constant				ibex_pkg.sv	216	22	216	23	1	64	UINT:1	9		001
+  #6927	10	constant				ibex_pkg.sv	216	24	216	25	0	64	UINT:0	9		001
+  #6928	7	enum_const	PRIV_LVL_M			ibex_pkg.sv	217	5	217	23						001
+
+--- OURS (B) records 6436..6448 ('>' = the object)
+  #6436	5	range				ibex_pmp.sv	25	50	25	60						001
+  #6437	6	constant					0	0	0	0	0	64	UINT:0	9		001
+  #6438	6	operation				ibex_pmp.sv	25	50	25	60		0				001
+  #6439	7	ref_obj	PMPNumChan		<in>PMPNumChan	ibex_pmp.sv	25	50	25	60		0			work@ibex_pmp.priv_mode_i.PMPNumChan	001
+  #6440	7	constant					0	0	0	0		64	INT:1	7		001
+  #6441	5	ref_typespec			<in>		0	0	0	0		0			work@ibex_pmp.priv_mode_i	001
+> #6442	6	enum_typespec	ibex_pkg::priv_lvl_e			ibex_pkg.sv	216	3	221	16						001
+  #6443	7	ref_typespec			<in>ibex_pkg::priv_lvl_e		0	0	0	0		0			work@ibex_pmp.ibex_pkg::priv_lvl_e	001
+  #6444	8	logic_typespec				ibex_pkg.sv	216	16	216	26						001
+  #6445	9	range				ibex_pkg.sv	216	21	216	26						001
+  #6446	10	constant				ibex_pkg.sv	216	22	216	23	1	64	UINT:1	9		001
+  #6447	10	constant				ibex_pkg.sv	216	24	216	25	0	64	UINT:0	9		001
+  #6448	7	enum_const	PRIV_LVL_M			ibex_pkg.sv	217	5	217	23						001
+
+facets of this row (178, first 25):
+  N0002 #4404/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #4433/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #4462/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #4491/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #4520/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #4549/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #4578/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #4607/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #4636/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #4665/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4694/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4723/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4742/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4749/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4756/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4763/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4770/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4777/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4784/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4791/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4798/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4805/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4812/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4819/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4826/-1 parameter IC_INDEX_W G[3 objs] O[]

@@ -1,0 +1,44 @@
+cluster N0078 (r11u128map K0121; OPEN (residue of landed r11u124)): fullname|ref_obj|ours-empty@in-typespec|under:operation
+row: surelog/testflags/PackStructVar  strict=differ:fullname(5)  records golden=440 ours=440
+object: #115 (golden) / #115 (ours)  type=ref_obj name=top_pkg::TL_SZW TAIL
+  golden: tlul_pkg::tlul_pkg::tl_h2d_t::d_size::top_pkg::TL_SZW
+  ours:   
+  walk parents: operation < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 109..121 ('>' = the object)
+  #109	7	constant				dut.sv	27	30	27	31	0	64	UINT:0	9		001
+  #110	3	typespec_member	d_size			dut.sv	28	34	28	40						001
+  #111	4	ref_typespec			<in>tlul_pkg::tl_h2d_t.d_size		0	0	0	0		0			tlul_pkg::tlul_pkg::tl_h2d_t::d_size	001
+  #112	5	logic_typespec				dut.sv	28	4	28	32						001
+  #113	6	range				dut.sv	28	11	28	32						001
+  #114	7	operation				dut.sv	28	12	28	29		0				001
+> #115	8	ref_obj	top_pkg::TL_SZW		<in>tlul_pkg::tl_h2d_t.d_size.top_pkg::TL_SZW	dut.sv	28	12	28	27		0			tlul_pkg::tlul_pkg::tl_h2d_t::d_size::top_pkg::TL_SZW	001
+  #116	9	parameter	TL_SZW		top_pkg::TL_SZW	dut.sv	8	17	8	23		0	UINT:2		top_pkg::TL_SZW	001
+  #117	10	ref_typespec			top_pkg::TL_SZW		0	0	0	0		0			top_pkg::TL_SZW	001
+  #118	11	int_typespec				dut.sv	8	13	8	16						001
+  #119	8	constant				dut.sv	28	28	28	29	1	64	UINT:1	9		001
+  #120	7	constant				dut.sv	28	30	28	31	0	64	UINT:0	9		001
+  #121	3	typespec_member	d_source			dut.sv	29	34	29	42						001
+
+--- OURS (B) records 109..121 ('>' = the object)
+  #109	7	constant				dut.sv	27	30	27	31	0	64	UINT:0	9		001
+  #110	3	typespec_member	d_size			dut.sv	28	34	28	40						001
+  #111	4	ref_typespec			<in>tlul_pkg::tl_h2d_t.d_size		0	0	0	0		0			tlul_pkg::tlul_pkg::tl_h2d_t::d_size	001
+  #112	5	logic_typespec				dut.sv	28	4	28	32						001
+  #113	6	range				dut.sv	28	11	28	32						001
+  #114	7	operation				dut.sv	28	12	28	29		0				001
+> #115	8	ref_obj	top_pkg::TL_SZW			dut.sv	28	12	28	27		0				001
+  #116	9	parameter	TL_SZW		top_pkg::TL_SZW	dut.sv	8	17	8	23		0	UINT:2		top_pkg::TL_SZW	001
+  #117	10	ref_typespec			top_pkg::TL_SZW		0	0	0	0		0			top_pkg::TL_SZW	001
+  #118	11	int_typespec				dut.sv	8	13	8	16						001
+  #119	8	constant				dut.sv	28	28	28	29	1	64	UINT:1	9		001
+  #120	7	constant				dut.sv	28	30	28	31	0	64	UINT:0	9		001
+  #121	3	typespec_member	d_source			dut.sv	29	34	29	42						001
+
+facets of this row (5, first 25):
+  N0078 #115/115 ref_obj top_pkg::TL_SZW G[tlul_pkg::tlul_pkg::tl_h2d_t::d_size::top_pkg::TL_SZW] O[]
+  N0078 #126/126 ref_obj top_pkg::TL_AIW G[tlul_pkg::tlul_pkg::tl_h2d_t::d_source::top_pkg::TL_AIW] O[]
+  N0078 #137/137 ref_obj top_pkg::TL_DIW G[tlul_pkg::tlul_pkg::tl_h2d_t::d_sink::top_pkg::TL_DIW] O[]
+  N0078 #148/148 ref_obj top_pkg::TL_DW G[tlul_pkg::tlul_pkg::tl_h2d_t::d_data::top_pkg::TL_DW] O[]
+  N0078 #159/159 ref_obj top_pkg::TL_DUW G[tlul_pkg::tlul_pkg::tl_h2d_t::d_user::top_pkg::TL_DUW] O[]

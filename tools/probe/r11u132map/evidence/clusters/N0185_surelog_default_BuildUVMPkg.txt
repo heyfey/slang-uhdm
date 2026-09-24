@@ -1,0 +1,64 @@
+cluster N0185 (r11u128map K0258; OPEN): span|constant|endcol|under:assignment
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(315)  records golden=201533 ours=201486
+object: #42261 (golden) / #42256 (ours)  type=constant name= 
+  golden: 70758:21:70758:50
+  ours:   70758:21:70758:52
+  walk parents: assignment < begin < function(uvm_mem_mam::convert2string) < package(uvm_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 42255..42267 ('>' = the object)
+  #42255	2	function	uvm_mem_mam::convert2string		uvm_pkg::uvm_mem_mam::convert2string	uvm_pkg.sv	70757	1	70763	28					uvm_pkg::uvm_mem_mam::convert2string	000
+  #42256	3	string_var			uvm_pkg::uvm_mem_mam::convert2string	uvm_pkg.sv	70757	10	70757	16		0			uvm_pkg::uvm_mem_mam::convert2string	000
+  #42257	4	ref_typespec			uvm_pkg::uvm_mem_mam::convert2string		0	0	0	0		0			uvm_pkg::uvm_mem_mam::convert2string	000
+  #42258	5	string_typespec				uvm_pkg.sv	70757	10	70757	16						000
+  #42259	3	begin			uvm_pkg::uvm_mem_mam::convert2string	uvm_pkg.sv	70759	4	70762	7					uvm_pkg::uvm_mem_mam::convert2string	000
+  #42260	4	assignment				uvm_pkg.sv	70758	4	70758	50						000
+> #42261	5	constant				uvm_pkg.sv	70758	21	70758	50	"Allocated memory regions:\\n"	216	STRING:Allocated memory regions:\\n	6		000
+  #42262	5	ref_obj	convert2string		uvm_pkg::uvm_mem_mam::convert2string::convert2string	uvm_pkg.sv	70758	4	70758	18		0			uvm_pkg::uvm_mem_mam::convert2string::convert2string	000
+  #42263	4	foreach_stmt			uvm_pkg::uvm_mem_mam::convert2string	uvm_pkg.sv	70759	4	70759	11					uvm_pkg::uvm_mem_mam::convert2string	000
+  #42264	5	ref_var	in_use		uvm_pkg::uvm_mem_mam::convert2string::in_use	uvm_pkg.sv	70759	13	70759	17		0			uvm_pkg::uvm_mem_mam::convert2string::in_use	000
+  #42265	5	ref_var	i		uvm_pkg::uvm_mem_mam::convert2string::i	uvm_pkg.sv	70759	25	70759	26		0			uvm_pkg::uvm_mem_mam::convert2string::i	000
+  #42266	6	ref_typespec			uvm_pkg::uvm_mem_mam::convert2string::i		0	0	0	0		0			uvm_pkg::uvm_mem_mam::convert2string::i	000
+  #42267	7	unsupported_typespec	i			uvm_pkg.sv	70759	25	70759	26						110
+
+--- OURS (B) records 42250..42262 ('>' = the object)
+  #42250	2	function	uvm_mem_mam::convert2string		uvm_pkg::uvm_mem_mam::convert2string	uvm_pkg.sv	70757	1	70763	28					uvm_pkg::uvm_mem_mam::convert2string	000
+  #42251	3	string_var			uvm_pkg::uvm_mem_mam::convert2string	uvm_pkg.sv	70757	10	70757	16		0			uvm_pkg::uvm_mem_mam::convert2string	000
+  #42252	4	ref_typespec			uvm_pkg::uvm_mem_mam::convert2string		0	0	0	0		0			uvm_pkg::uvm_mem_mam::convert2string	000
+  #42253	5	string_typespec				uvm_pkg.sv	70757	10	70757	16						000
+  #42254	3	begin			uvm_pkg::uvm_mem_mam::convert2string	uvm_pkg.sv	70759	4	70762	7					uvm_pkg::uvm_mem_mam::convert2string	000
+  #42255	4	assignment				uvm_pkg.sv	70758	4	70758	52						000
+> #42256	5	constant				uvm_pkg.sv	70758	21	70758	52	"Allocated memory regions:\\n"	216	STRING:Allocated memory regions:\\n	6		000
+  #42257	5	ref_obj	convert2string		uvm_pkg::uvm_mem_mam::convert2string::convert2string	uvm_pkg.sv	70758	4	70758	18		0			uvm_pkg::uvm_mem_mam::convert2string::convert2string	000
+  #42258	4	foreach_stmt			uvm_pkg::uvm_mem_mam::convert2string	uvm_pkg.sv	70759	4	70759	11					uvm_pkg::uvm_mem_mam::convert2string	000
+  #42259	5	ref_var	in_use		uvm_pkg::uvm_mem_mam::convert2string::in_use	uvm_pkg.sv	70759	13	70759	19		0			uvm_pkg::uvm_mem_mam::convert2string::in_use	000
+  #42260	5	ref_var	i		uvm_pkg::uvm_mem_mam::convert2string::i	uvm_pkg.sv	70759	25	70759	26		0			uvm_pkg::uvm_mem_mam::convert2string::i	000
+  #42261	6	ref_typespec			uvm_pkg::uvm_mem_mam::convert2string::i		0	0	0	0		0			uvm_pkg::uvm_mem_mam::convert2string::i	000
+  #42262	7	unsupported_typespec	i			uvm_pkg.sv	70759	25	70759	26						110
+
+facets of this row (11121, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

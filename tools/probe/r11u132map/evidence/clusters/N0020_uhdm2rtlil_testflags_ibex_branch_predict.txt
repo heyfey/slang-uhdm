@@ -1,0 +1,64 @@
+cluster N0020 (r11u128map K0042; OPEN (residue of landed r11u124)): fullname|ref_obj|tok:::id::->.@in-typespec|under:operation
+row: uhdm2rtlil/testflags/ibex_branch_predict  strict=differ:fullname(13)  records golden=9091 ours=9024
+object: #357 (golden) / #357 (ours)  type=ref_obj name=LfsrWidth TAIL
+  golden: ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth
+  ours:   ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth
+  walk parents: operation < range < logic_typespec(lfsr_seed_t) < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 351..363 ('>' = the object)
+  #351	11	ref_typespec			ibex_pkg		0	0	0	0		0			ibex_pkg	001
+  #352	12	int_typespec				ibex_pkg.sv	719	13	719	16						001
+  #353	9	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9		001
+  #354	8	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9		001
+  #355	5	range				ibex_pkg.sv	720	17	720	32						001
+  #356	6	operation				ibex_pkg.sv	720	18	720	29		0				001
+> #357	7	ref_obj	LfsrWidth		<in>lfsr_seed_t.LfsrWidth	ibex_pkg.sv	720	18	720	27		0			ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth	001
+  #358	7	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9		001
+  #359	6	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9		001
+  #360	2	parameter	RndCnstLfsrPermDefault		ibex_pkg::RndCnstLfsrPermDefault	ibex_pkg.sv	723	25	723	47		0			ibex_pkg::RndCnstLfsrPermDefault	000
+  #361	3	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault		0	0	0	0		0			ibex_pkg::RndCnstLfsrPermDefault	000
+  #362	4	logic_typespec	lfsr_perm_t			ibex_pkg.sv	721	11	721	55						110
+  #363	5	ref_typespec			<in>lfsr_perm_t		0	0	0	0		0			ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t	001
+
+--- OURS (B) records 351..363 ('>' = the object)
+  #351	11	ref_typespec			ibex_pkg		0	0	0	0		0			ibex_pkg	001
+  #352	12	int_typespec				ibex_pkg.sv	719	13	719	16						001
+  #353	9	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9		001
+  #354	8	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9		001
+  #355	5	range				ibex_pkg.sv	720	17	720	32						001
+  #356	6	operation				ibex_pkg.sv	720	18	720	29		0				001
+> #357	7	ref_obj	LfsrWidth		ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth	ibex_pkg.sv	720	18	720	27		0			ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth	001
+  #358	7	constant				ibex_pkg.sv	720	28	720	29	1	64	UINT:1	9		001
+  #359	6	constant				ibex_pkg.sv	720	30	720	31	0	64	UINT:0	9		001
+  #360	2	parameter	RndCnstLfsrPermDefault		ibex_pkg::RndCnstLfsrPermDefault	ibex_pkg.sv	723	25	723	47		0			ibex_pkg::RndCnstLfsrPermDefault	000
+  #361	3	ref_typespec			ibex_pkg::RndCnstLfsrPermDefault		0	0	0	0		0			ibex_pkg::RndCnstLfsrPermDefault	000
+  #362	4	logic_typespec	lfsr_perm_t			ibex_pkg.sv	721	11	721	55						110
+  #363	5	ref_typespec			<in>lfsr_perm_t		0	0	0	0		0			ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t	001
+
+facets of this row (46, first 25):
+  N0002 #5542/-1 parameter PmpCfgRst G[43 objs] O[]
+  N0002 #5603/-1 parameter PmpAddrRst G[24 objs] O[]
+  N0020 #357/357 ref_obj LfsrWidth G[ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth] O[ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth]
+  N0020 #384/384 ref_obj LfsrWidth G[ibex_pkg::RndCnstLfsrPermDefault::lfsr_perm_t::LfsrWidth] O[ibex_pkg::RndCnstLfsrPermDefault.LfsrWidth]
+  N0013 #398/398 ref_obj SCRAMBLE_KEY_W G[ibex_pkg::RndCnstIbexKeyDefault::SCRAMBLE_KEY_W] O[ibex_pkg::RndCnstIbexKeyDefault.SCRAMBLE_KEY_W]
+  N0013 #409/409 ref_obj SCRAMBLE_NONCE_W G[ibex_pkg::RndCnstIbexNonceDefault::SCRAMBLE_NONCE_W] O[ibex_pkg::RndCnstIbexNonceDefault.SCRAMBLE_NONCE_W]
+  N0020 #433/433 ref_obj IbexMuBiWidth G[ibex_pkg::IbexMuBiOn::ibex_mubi_t::IbexMuBiWidth] O[ibex_pkg::IbexMuBiOn.IbexMuBiWidth]
+  N0020 #451/451 ref_obj IbexMuBiWidth G[ibex_pkg::IbexMuBiOff::ibex_mubi_t::IbexMuBiWidth] O[ibex_pkg::IbexMuBiOff.IbexMuBiWidth]
+  N0020 #914/914 ref_obj LfsrWidth G[ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth] O[ibex_pkg::RndCnstLfsrSeedDefault.LfsrWidth]
+  N0013 #926/926 ref_obj SCRAMBLE_KEY_W G[ibex_pkg::RndCnstIbexKeyDefault::SCRAMBLE_KEY_W] O[ibex_pkg::RndCnstIbexKeyDefault.SCRAMBLE_KEY_W]
+  N0013 #935/935 ref_obj SCRAMBLE_NONCE_W G[ibex_pkg::RndCnstIbexNonceDefault::SCRAMBLE_NONCE_W] O[ibex_pkg::RndCnstIbexNonceDefault.SCRAMBLE_NONCE_W]
+  N0020 #955/955 ref_obj IbexMuBiWidth G[ibex_pkg::IbexMuBiOn::ibex_mubi_t::IbexMuBiWidth] O[ibex_pkg::IbexMuBiOn.IbexMuBiWidth]
+  N0020 #971/971 ref_obj IbexMuBiWidth G[ibex_pkg::IbexMuBiOff::ibex_mubi_t::IbexMuBiWidth] O[ibex_pkg::IbexMuBiOff.IbexMuBiWidth]
+  N0008 #2446/2446 ref_typespec  G[] O[ibex_pkg::PmpAddrRst]
+  N0027 #6349/6282 sys_func_call $error G[29:3:33:32] O[32:3:33:18]
+  N0026 #6350/6283 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #6351/6284 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #6352/6285 constant  G[29:60:29:155] O[32:92:33:64]
+  N0015 #6353/6286 constant  G[29:157:29:159] O[32:92:32:94]
+  N0017 #6354/6287 constant  G[33:10:33:31] O[33:10:23:13]
+  N0003 #7162/7095 ref_typespec  G[] O[work@ibex_branch_predict]
+  N0003 #7181/7114 ref_typespec  G[] O[work@ibex_branch_predict]
+  N0003 #7200/7133 ref_typespec  G[] O[work@ibex_branch_predict]
+  N0003 #7219/7152 ref_typespec  G[] O[work@ibex_branch_predict]
+  N0003 #7238/7171 ref_typespec  G[] O[work@ibex_branch_predict]
