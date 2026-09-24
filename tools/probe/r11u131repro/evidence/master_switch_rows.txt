@@ -1,0 +1,10 @@
+BlackParrotSkipParam off-vs-pristine=SAME law-vs-pristine=differs
+CheckerInst off-vs-pristine=SAME law-vs-pristine=differs
+ElabCParam off-vs-pristine=SAME law-vs-pristine=differs
+EvalFunc off-vs-pristine=SAME law-vs-pristine=differs
+NonSynthError off-vs-pristine=SAME law-vs-pristine=differs
+LogicArrayParam off-vs-pristine=SAME law-vs-pristine=differs
+ParamOverload2 off-vs-pristine=SAME law-vs-pristine=differs
+PackStructField off-vs-pristine=SAME law-vs-pristine=differs
+IndexedSelectHex off-vs-pristine=SAME law-vs-pristine=differs
+Disable off-vs-pristine=SAME law-vs-pristine=differs

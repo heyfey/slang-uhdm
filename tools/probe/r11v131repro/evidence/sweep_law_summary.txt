@@ -1,0 +1,9 @@
+== probe cases (tests/probe, committed goldens), jobs=3
+probe cases: EQUAL=4087 (of 4087); goldens built now=0, from cache=4087
+probe strict (measurement): equal=2104 differ:fullname=722 differ:endcol=359 differ:depth=238 differ:line=223 differ:file=138 differ:type=105 differ:endline=80 differ:col=77 differ:name=30 differ:value=5 differ:count=3 differ:decompile=3
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

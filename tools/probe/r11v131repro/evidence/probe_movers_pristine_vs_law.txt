@@ -1,0 +1,89 @@
+r10buvm2repro/v3_sys :: OK better=1 worse=0 len=64,64,64 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 64 objects
+r10earl107repro/g1_home107 :: OK better=4 worse=0 len=816,816,816 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL line
+r10earl108repro/g1_home108 :: OK better=1 worse=0 len=612,612,612 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 612 objects
+r10earl_repro/ii :: OK better=1 worse=0 len=524,524,524 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 524 objects
+r10earl_repro/jj :: OK better=8 worse=0 len=1399,1399,1399 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 1399 objects
+r10earl_repro/tf :: OK better=6 worse=0 len=476,476,476 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 476 objects
+r10earl_repro/vf :: OK better=0 worse=0 len=1096,1060,1060 | STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL depth
+r10uvm131repro/g131_c_nest :: OK better=1 worse=0 len=129,129,129 | STRICT_NOTEQUAL file -> STRICT_EQUAL 129 objects
+r10uvm134repro/g134_e_mult :: OK better=8 worse=0 len=306,306,306 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10uvm20repro/t31_t :: OK better=18 worse=0 len=457,457,457 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL type
+r10uvm219repro/g219_a_order :: OK better=2 worse=0 len=125,125,125 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10uvm219repro/g219_b_interleave :: OK better=2 worse=0 len=158,158,158 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10uvm219repro/g219_c_thisfirst :: OK better=2 worse=0 len=119,119,119 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10uvm219repro/g219_d_ownmulti :: OK better=4 worse=0 len=99,99,99 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10uvm219repro/g219_e_nothis :: OK better=2 worse=0 len=77,77,77 | STRICT_NOTEQUAL file -> STRICT_EQUAL 77 objects
+r10uvm219repro/g219_f_muststay :: OK better=2 worse=0 len=103,103,103 | STRICT_NOTEQUAL file -> STRICT_EQUAL 103 objects
+r10uvm57repro/v2_loopvar :: OK better=2 worse=0 len=509,509,509 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10uvm79repro/v79v6_ca :: OK better=2 worse=0 len=430,430,430 | STRICT_NOTEQUAL endline -> STRICT_NOTEQUAL endline
+r10uvm8repro/q3 :: OK better=2 worse=0 len=193,193,193 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10uvm93repro/v93_a9b_sysfn :: OK better=4 worse=0 len=303,303,303 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL col
+r10v131repro/v131_c_nest :: OK better=1 worse=0 len=224,224,224 | STRICT_NOTEQUAL file -> STRICT_EQUAL 224 objects
+r10v174repro/v174_b_sysfns :: OK better=4 worse=0 len=340,340,340 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r10v175repro/v175_scope :: OK better=2 worse=0 len=217,217,217 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r10vbuvm24repro/gv24e :: OK better=4 worse=0 len=89,89,89 | STRICT_NOTEQUAL file -> STRICT_EQUAL 89 objects
+r10vbuvm29repro/gv29_b_positions :: OK better=2 worse=0 len=491,491,491 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r10vearl108repro/m_arr108 :: OK better=1 worse=0 len=1060,1060,1060 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 1060 objects
+r10vearl108repro/m_gen108 :: OK better=1 worse=0 len=1063,1063,1063 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL line
+r10vearl108repro/m_ifs108 :: OK better=1 worse=0 len=1070,1070,1070 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 1070 objects
+r10vearl108repro/m_multi108 :: OK better=1 worse=0 len=1018,1018,1018 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 1018 objects
+r10vearl108repro/m_nest108 :: OK better=1 worse=0 len=972,972,972 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 972 objects
+r10vearl108repro/m_wide108 :: OK better=1 worse=0 len=972,972,972 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 972 objects
+r10vrgg7repro/cells/w_override_val :: OK better=1 worse=0 len=211,211,211 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 211 objects
+r11u109repro/grid/f1/b01_casts :: OK better=0 worse=0 len=734,674,674 | STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL depth
+r11u109repro/grid/f1/b02_shl :: OK better=0 worse=0 len=744,684,684 | STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL depth
+r11u109repro/grid/f1/b03_x32 :: OK better=0 worse=0 len=784,697,697 | STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL depth
+r11u109repro/grid/f1/b04_dec :: OK better=0 worse=0 len=748,688,688 | STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL depth
+r11u109repro/grid/f1/c01_x64 :: OK better=0 worse=0 len=387,373,373 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/c02_x3 :: OK better=0 worse=0 len=339,329,329 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/c03_x8 :: OK better=0 worse=0 len=339,329,329 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/c04_x64cast :: OK better=0 worse=0 len=339,329,329 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/c05_x3sub :: OK better=0 worse=0 len=351,341,341 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u109repro/grid/f1/c06_x64plain :: OK better=0 worse=0 len=339,329,329 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u111repro/grid/f3/t09_pat_vec_member_ctl :: OK better=1 worse=0 len=194,194,194 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 194 objects
+r11u111repro/grid/f3/t12_pat_row_dims_member :: OK better=0 worse=0 len=471,481,481 | STRICT_NOTEQUAL name -> STRICT_NOTEQUAL name
+r11u112repro/grid/p/p01_seqinst :: OK better=8 worse=0 len=123,122,122 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL depth
+r11u112repro/grid/p/p07_formals_dis :: OK better=4 worse=0 len=97,97,97 | STRICT_NOTEQUAL file -> STRICT_EQUAL 97 objects
+r11u114repro/grid/f1/a17 :: OK better=1 worse=0 len=285,285,285 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 285 objects
+r11u114repro/grid/f1/a25 :: OK better=1 worse=0 len=286,286,286 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL type
+r11u114repro/grid/f1/a28 :: OK better=1 worse=0 len=248,248,248 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL type
+r11u115repro/grid/i/s18_recv_B_paren :: OK better=3 worse=0 len=262,262,262 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL fullname
+r11u117repro/grid/g1/t03 :: OK better=0 worse=0 len=417,424,424 | STRICT_NOTEQUAL name -> STRICT_NOTEQUAL name
+r11u117repro/grid/g1/t12 :: OK better=0 worse=0 len=493,503,503 | STRICT_NOTEQUAL name -> STRICT_NOTEQUAL name
+r11u11repro/a3 :: OK better=1 worse=0 len=237,237,237 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r11u11repro/a5 :: OK better=1 worse=0 len=321,321,321 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+r11u14repro/c10 :: OK better=1 worse=0 len=897,897,897 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL line
+r11u14repro/c3 :: OK better=1 worse=0 len=374,374,374 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 374 objects
+r11u14repro/c5 :: OK better=1 worse=0 len=371,371,371 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL fullname
+r11u20repro/b3 :: OK better=1 worse=0 len=319,319,319 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL col
+r11u20repro/b6 :: OK better=1 worse=0 len=257,257,257 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+r11u26repro/m7 :: OK better=2 worse=0 len=623,623,623 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL fullname
+r11u69repro/grid/g9_child :: OK better=2 worse=0 len=356,355,355 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL line
+r11u82repro/grid/s1_modform :: OK better=1 worse=0 len=361,361,361 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+r11u82repro/grid/s2_childpath :: OK better=1 worse=0 len=336,336,336 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+r11u82repro/grid/v2_aliaschain :: OK better=1 worse=0 len=347,347,347 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+r11u82repro/grid/v3_rootpath :: OK better=1 worse=0 len=286,286,286 | STRICT_NOTEQUAL col -> STRICT_NOTEQUAL col
+r11v11u9repro/g7 :: OK better=1 worse=0 len=281,281,281 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 281 objects
+r11v16repro/v1 :: OK better=1 worse=0 len=283,283,283 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 283 objects
+r11v16repro/v10 :: OK better=1 worse=0 len=257,257,257 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 257 objects
+r11v16repro/v13 :: OK better=1 worse=0 len=348,348,348 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 348 objects
+r11v16repro/v1b :: OK better=1 worse=0 len=262,262,262 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 262 objects
+r11v16repro/v1c :: OK better=1 worse=0 len=196,196,196 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 196 objects
+r11v16repro/v1d :: OK better=1 worse=0 len=198,198,198 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 198 objects
+r11v16repro/v2 :: OK better=1 worse=0 len=320,330,330 | STRICT_NOTEQUAL endcol -> STRICT_NOTEQUAL type
+r11v16repro/v4 :: OK better=2 worse=0 len=460,460,460 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 460 objects
+r11v16repro/v8 :: OK better=1 worse=0 len=295,295,295 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 295 objects
+r11v58repro/grid/va22_deadnest :: OK better=1 worse=0 len=308,308,308 | STRICT_NOTEQUAL endcol -> STRICT_EQUAL 308 objects
+r11v69repro/grid/v4_nestinst :: OK better=2 worse=0 len=372,372,372 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL line
+r11v69repro/grid/w5_ovr :: OK better=3 worse=0 len=476,476,476 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL line
+r11vu3repro/vK :: OK better=1 worse=0 len=344,344,344 | STRICT_NOTEQUAL file -> STRICT_NOTEQUAL file
+v11u108repro/brk/f2/c01_var_of_struct :: OK better=0 worse=0 len=645,661,661 | STRICT_NOTEQUAL name -> STRICT_NOTEQUAL name
+v11u108repro/brk/f2/c16_pkg_func :: OK better=0 worse=0 len=609,564,564 | STRICT_NOTEQUAL line -> STRICT_NOTEQUAL line
+v11u112repro/grid/brk/p/b5f_not_seq :: OK better=4 worse=0 len=124,124,124 | STRICT_NOTEQUAL file -> STRICT_EQUAL 124 objects
+v11u113repro/grid/f4/r02_formal :: OK better=4 worse=0 len=110,110,110 | STRICT_NOTEQUAL file -> STRICT_EQUAL 110 objects
+v11u114repro/grid/set1/d15 :: OK better=1 worse=0 len=270,270,270 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 270 objects
+v11u114repro/grid/set1/g11 :: OK better=1 worse=0 len=320,320,320 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 320 objects
+v11u114repro/grid/set1/g12 :: OK better=1 worse=0 len=361,361,361 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 361 objects
+v11u114repro/grid/set1/g25 :: OK better=0 worse=0 len=256,241,241 | STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL depth
+v11u114repro/grid/set3/g13 :: OK better=1 worse=0 len=260,238,238 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL type
+v11u114repro/grid/set3/k12 :: OK better=1 worse=0 len=352,352,352 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 352 objects

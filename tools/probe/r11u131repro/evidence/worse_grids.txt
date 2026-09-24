@@ -1,0 +1,131 @@
+STAGE1 r11u124repro__c13__q07_positional/grid pristine law
+OK	X	r11u124repro__c13__q06_noread/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__par__p09_typed/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u124repro__c13__q05_import/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__pat__t18_unpacked_struct/grid pristine law
+OK	X	r11u131repro__inet__n05_dumpvars/grid	new=0 gone=2 divP=None divL=None
+OK	X	r11u124repro__c13__q09_default_kw/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__pat__t13_own_param_noread/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ips__i04_top_bs/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ips__i06_sub_ips_ovr/grid	new=0 gone=1 divP=None divL=None
+STAGE1 r11u131repro__qc__q02_param_noarg/grid pristine law
+OK	X	r11u131repro__pat__t03_default_ctl/grid	new=0 gone=0 divP=138 divL=138
+OK	X	r11u131repro__hcc__h02_literal/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__hcc__h06_nested/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__par__p08_partial_paren/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ovr__o05_untyped/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__inet__n07_sub_foreach/grid pristine law
+OK	X	r11u131repro__qc__q04_localparam/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__hpm__m04_ca_ctl/grid	new=0 gone=0 divP=117 divL=117
+STAGE1 r11u131repro__ips__i12_range/grid pristine law
+OK	X	r11u131repro__sfc__s07_sub_size/grid	new=0 gone=2 divP=None divL=None
+OK	X	r11u131repro__pat__t17_iface_body_import/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__sfc__s11_bits_shortint/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__pat__t10_import_noread/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__inet__n06_sub_propformal/grid	new=0 gone=4 divP=None divL=None
+OK	X	r11u131repro__sfc__s02_bits_int/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__qc__q06_proc/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__pat__t01_ca_member/grid	new=0 gone=1 divP=106 divL=106
+OK	X	r11u131repro__ovr__o03_typedef/grid	new=0 gone=0 divP=39 divL=39
+OK	X	r11u131repro__ovr__o04_typedef_imp/grid	new=0 gone=1 divP=None divL=None
+STAGE1 r11u131repro__qc__q10_ca_const/grid pristine law
+OK	X	r11u131repro__ovr__o07_pkgtd_noimp/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__par__p02_override_clog/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__pts__p06_unused/grid	new=0 gone=2 divP=None divL=None
+OK	X	r11u131repro__ovr__o10_pkg2d_qual/grid	new=0 gone=1 divP=54 divL=54
+OK	X	r11u131repro__inet__n01_propformal/grid	new=0 gone=4 divP=None divL=None
+OK	X	r11u131repro__hcc__h03_param/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__pts__p04_module_ctl/grid pristine law
+OK	X	r11u131repro__sfc__s13_ca_size_int/grid	new=0 gone=1 divP=22 divL=22
+OK	X	r11u131repro__ovr__o06_localtd/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ctp__c04_plain_ctl/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__ips__i08_pkg_ips/grid pristine law
+STAGE1 r11u131repro__par__p05_pkg/grid pristine law
+OK	X	r11u124repro__c13__q01_override/grid	new=0 gone=0 divP=164 divL=164
+OK	X	r11u131repro__pat__t12_own_param/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u124repro__c13__q10_twice/grid	new=0 gone=0 divP=164 divL=164
+STAGE1 r11u131repro__pts__p02_two_bounds/grid pristine law
+OK	X	r11u131repro__hpm__m08_proc_ctl/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__hcc__h07_concat/grid pristine law
+OK	X	r11u124repro__c13__q03_member/grid	new=0 gone=0 divP=106 divL=106
+OK	X	r11u131repro__pat__t07_override/grid	new=0 gone=1 divP=164 divL=164
+OK	X	r11u131repro__ips__i11_nested_op/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__ips__i14_proc/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ctp__c02_inc_second/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ips__i01_top_ips/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__ovr__o08_pkg1d_imp/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__pts__p03_other_pkg/grid	new=0 gone=2 divP=89 divL=89
+STAGE1 r11u131repro__inet__n09_task_param/grid pristine law
+OK	X	r11u131repro__ovr__o09_local2d/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__ips__i10_var_ips/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__par__p07_ctl_noparen/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__pts__p05_import/grid	new=0 gone=2 divP=124 divL=124
+OK	X	r11u131repro__sfc__s10_bits_logic/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__par__p11_str/grid	new=0 gone=2 divP=None divL=None
+OK	X	r11u131repro__qc__q03_sub_elab/grid	new=0 gone=1 divP=None divL=None
+STAGE1 r11u131repro__hpm__m01_param_init/grid pristine law
+OK	X	r11u131repro__hcc__h05_repl_param/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u124repro__c13__q02_ca/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ovr__o14_read_ctl/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__qc__q08_pkgparam/grid pristine law
+OK	X	r11u131repro__qc__q01_param_def/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__ovr__o12_local2d_nooverride/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__sfc__s09_size_integer/grid	new=0 gone=2 divP=None divL=None
+OK	X	r11u131repro__ips__i03_top_ps/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__ips__i07_local_ips/grid pristine law
+STAGE1 r11u131repro__par__p10_gen/grid pristine law
+STAGE1 r11u131repro__pat__t06_proc/grid pristine law
+OK	X	r11u131repro__ovr__o02_logicvec/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__pat__t02_ca_whole/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__ctp__c03_macro_before/grid	new=0 gone=2 divP=None divL=None
+OK	X	r11u131repro__par__p06_override_expr/grid	new=0 gone=1 divP=None divL=None
+STAGE1 r11u131repro__inet__n08_func_blockparam/grid pristine law
+OK	X	r11u131repro__sfc__s08_bits_var/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u124repro__c13__q08_localparam/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__par__p04_local_name/grid pristine law
+OK	X	r11u131repro__sfc__s04_bits_td/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__sfc__s01_size_int/grid	new=0 gone=2 divP=None divL=None
+OK	X	r11u131repro__par__p01_def_arith/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__hcc__h08_gen/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__pat__t14_import_sub/grid	new=0 gone=1 divP=None divL=None
+STAGE1 r11u131repro__pat__t08_localparam/grid pristine law
+OK	X	r11u131repro__pat__t05_noread_ctl/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ctp__c01_inc_first/grid	new=0 gone=2 divP=None divL=None
+OK	X	r11u131repro__hcc__h01_repl/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__sfc__s05_size_byte/grid	new=0 gone=2 divP=None divL=None
+STAGE1 r11u131repro__inet__n02_blocklocalparam/grid pristine law
+OK	X	r11u131repro__ips__i05_sub_ips/grid	new=0 gone=1 divP=40 divL=40
+OK	X	r11u131repro__pat__t11_import_member/grid	new=0 gone=1 divP=172 divL=172
+OK	X	r11u131repro__hpm__m03_range/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__ips__i09_ca_ips/grid pristine law
+STAGE1 r11u131repro__hpm__m02_param_init_op/grid pristine law
+OK	X	r11u131repro__pat__t16_header_import_noread/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__sfc__s14_local_bits_int/grid	new=0 gone=1 divP=None divL=None
+STAGE1 r11u131repro__qc__q09_nested/grid pristine law
+OK	X	r11u131repro__inet__n04_disable/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__qc__q05_ca/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ovr__o13_struct/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__inet__n10_sub_disable/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__par__p03_dep_noover/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__sfc__s12_bits_logicvec/grid pristine law
+OK	X	r11u131repro__pat__t15_header_import/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__pat__t04_import/grid	new=0 gone=1 divP=None divL=None
+STAGE1 r11u131repro__hcc__h04_arith/grid pristine law
+STAGE1 r11u131repro__pat__t09_positional/grid pristine law
+STAGE1 r11u131repro__sfc__s06_high_int/grid pristine law
+OK	X	r11u124repro__c13__q04_default/grid	new=0 gone=0 divP=138 divL=138
+OK	X	r11u131repro__ips__i13_genif/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__hpm__m06_sub_elab/grid pristine law
+OK	X	r11u131repro__ips__i02_top_minus/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__ips__i15_concat/grid	new=0 gone=2 divP=45 divL=45
+STAGE1 r11u131repro__pts__p01_vec/grid pristine law
+OK	X	r11u131repro__ips__i16_gen_local/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__hpm__m07_genif/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__inet__n03_foreach/grid pristine law
+OK	X	r11u131repro__par__p12_cond/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__sfc__s03_clog2/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ctp__c05_inc_indent4/grid	new=0 gone=1 divP=None divL=None
+OK	X	r11u131repro__qc__q07_override/grid	new=0 gone=0 divP=None divL=None
+OK	X	r11u131repro__ovr__o01_int/grid	new=0 gone=0 divP=None divL=None
+STAGE1 r11u131repro__hpm__m05_nested/grid pristine law
+OK	X	r11u131repro__ovr__o11_inline2d/grid	new=0 gone=1 divP=None divL=None

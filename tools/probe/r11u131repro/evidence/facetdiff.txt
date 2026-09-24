@@ -1,0 +1,1 @@
+SUMMARY rows=656 rows-with-a-gain=0 rows-with-fewer-facets=127

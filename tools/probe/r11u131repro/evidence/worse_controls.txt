@@ -1,0 +1,37 @@
+STAGE1 r11u121repro__grid__s__s01_q_ps_tern/ctl pristine law
+STAGE1 r11u124repro__c13__q07_positional/ctl pristine law
+OK	X	r11u124repro__c13__q05_import/ctl	new=0 gone=1 divP=None divL=None
+OK	X	r11u124repro__c13__q09_default_kw/ctl	new=0 gone=1 divP=None divL=None
+STAGE1 v11u121repro__arms__E__b13_gen_cond/ctl pristine law
+STAGE1 v11u121repro__arms__B__b6_parameter_kw/ctl pristine law
+STAGE1 r11u118repro__grid__g1__p28_structmember/ctl pristine law
+STAGE1 v11u121repro__arms__B__b8_nosel_ctl/ctl pristine law
+STAGE1 r11u121repro__grid__s__s15_q_nested/ctl pristine law
+STAGE1 v11u121repro__arms__E__b17_lp_and_ca/ctl pristine law
+STAGE1 r11u121repro__grid__s__s12_q_bs_var/ctl pristine law
+STAGE1 v11u121repro__arms__B__b3_portconn/ctl pristine law
+STAGE1 r11u121repro__grid__r__p28_structmember/ctl pristine law
+STAGE1 r11u121repro__grid__s__s06_q_ips/ctl pristine law
+OK	X	r11u124repro__c13__q01_override/ctl	new=0 gone=1 divP=164 divL=164
+OK	X	r11u124repro__c13__q10_twice/ctl	new=0 gone=1 divP=164 divL=164
+STAGE1 r11u121repro__grid__s__s13_q_2d_member/ctl pristine law
+STAGE1 v11u121repro__arms__B__b9_cmp_add/ctl pristine law
+STAGE1 r11u121repro__grid__s__s03_q_bs_direct/ctl pristine law
+OK	X	r11u124repro__c13__q03_member/ctl	new=0 gone=1 divP=106 divL=106
+STAGE1 v11u121repro__arms__B__b5_nested_member/ctl pristine law
+OK	X	r11u124repro__c13__q02_ca/ctl	new=0 gone=1 divP=None divL=None
+OK	X	r11u121repro__grid__s__s04_q_nosel/ctl	new=0 gone=1 divP=166 divL=166
+STAGE1 r11u121repro__grid__s__s11_q_ps_gen/ctl pristine law
+STAGE1 v11u121repro__arms__E__b12_range_bound/ctl pristine law
+STAGE1 r11u121repro__grid__s__s07_q_ps_comb/ctl pristine law
+STAGE1 v11u121repro__arms__B__b4_case_concat/ctl pristine law
+OK	X	r11u124repro__c13__q08_localparam/ctl	new=0 gone=1 divP=None divL=None
+STAGE1 r11u121repro__grid__s__s05_q_ps_g/ctl pristine law
+STAGE1 v11u121repro__arms__E__b11_override/ctl pristine law
+OK	X	r11u121repro__grid__s__s08_imp_ps/ctl	new=0 gone=1 divP=246 divL=246
+OK	X	r11u124repro__c12__a05_struct/ctl	new=0 gone=0 divP=120 divL=120
+OK	X	r11v125repro__grid__ct__t03/ctl	new=0 gone=2 divP=None divL=None
+STAGE1 v11u121repro__arms__B__b2_ff_cond/ctl pristine law
+STAGE1 v11u121repro__arms__B__b7_as_index/ctl pristine law
+STAGE1 r11u121repro__grid__s__s10_q_ps_op/ctl pristine law
+STAGE1 r11u121repro__grid__s__s02_q_ps_direct/ctl pristine law

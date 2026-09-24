@@ -4167,6 +4167,21 @@ static const slang::ast::Expression*& incDecOperand124() {
     return p;
 }
 
+/// § castTsPushLaidOut131 — the deferred cast-target typespec's span
+/// (the `pendingCastTs` record the end-of-write-phase drain writes verbatim)
+/// is laid out with `locLineCol`, the arithmetic every setLoc uses, for every
+/// cast and not only a macro-expanded one: a cast on the FIRST line of an
+/// included file reads shifted by the `include directive's column
+/// (§ includeFirstLineColShift125), and a cast after a macro invocation on
+/// the same line reads the macro's column shift.  Pass r11v125's residue
+/// R11 (grid ctp c01: `include at column 3, golden `6'(a)` integer_typespec
+/// body.svh 1:14-15, ours 1:12-13).  Grid tools/probe/r11u131repro/ctp.
+/// Switch: R11U131_CASTLOC_OFF.
+static bool castTsPushLaidOut131On() {
+    static const bool on = r11u131On("R11U131_CASTLOC_OFF");
+    return on;
+}
+
 std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles() {
     static std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>> v;
     return v;
@@ -10009,6 +10024,7 @@ UHDM::ref_obj* UhdmExporter::emitPropFormalRef(std::string_view nm, SourceRange 
         inet->VpiParent(implicitNetModule);
         inet->VpiNetType(1);
         setLoc(inet, nr);
+        noteImplicitNetMint131(inet);  // § implicitNetMintNoFile131
         auto* nets = implicitNetModule->Nets();
         if (!nets) {
             nets = s.MakeNetVec();
@@ -20472,6 +20488,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         inet->VpiParent(implicitNetModule);
                         inet->VpiNetType(1);
                         setLoc(inet, expr.sourceRange);
+                        noteImplicitNetMint131(inet);  // § implicitNetMintNoFile131
                         auto* nets = implicitNetModule->Nets();
                         if (!nets) {
                             nets = s.MakeNetVec();
@@ -22395,7 +22412,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 getenv("R11U124_CASTFILE_OFF") != nullptr;
                             if (!offCf124) {
                                 auto& pc124 = pendingCastTs.back();
-                                if (sm->isMacroLoc(lr.start())) {
+                                // § castTsPushLaidOut131 — every push
+                                // lays its columns out as setLoc does
+                                // (include first-line shift, same-line
+                                // macro shifts), not only a macro's.
+                                if (sm->isMacroLoc(lr.start()) ||
+                                    castTsPushLaidOut131On()) {
                                     locLineCol(lr.start(), pc124.line, pc124.col);
                                     locLineCol(lr.end(), pc124.endLine,
                                                pc124.endCol);
@@ -22450,7 +22472,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 getenv("R11U124_CASTFILE_OFF") != nullptr;
                             if (!offCf124) {
                                 auto& pc124 = pendingCastTs.back();
-                                if (sm->isMacroLoc(lr.start())) {
+                                // § castTsPushLaidOut131 — every push
+                                // lays its columns out as setLoc does
+                                // (include first-line shift, same-line
+                                // macro shifts), not only a macro's.
+                                if (sm->isMacroLoc(lr.start()) ||
+                                    castTsPushLaidOut131On()) {
                                     locLineCol(lr.start(), pc124.line, pc124.col);
                                     locLineCol(lr.end(), pc124.endLine,
                                                pc124.endCol);
@@ -23050,7 +23077,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 getenv("R11U124_CASTFILE_OFF") != nullptr;
                             if (!offCf124) {
                                 auto& pc124 = pendingCastTs.back();
-                                if (sm->isMacroLoc(lr.start())) {
+                                // § castTsPushLaidOut131 — every push
+                                // lays its columns out as setLoc does
+                                // (include first-line shift, same-line
+                                // macro shifts), not only a macro's.
+                                if (sm->isMacroLoc(lr.start()) ||
+                                    castTsPushLaidOut131On()) {
                                     locLineCol(lr.start(), pc124.line, pc124.col);
                                     locLineCol(lr.end(), pc124.endLine,
                                                pc124.endCol);
@@ -26037,14 +26069,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // `::` branch before it ever reaches the import scan.
                     if (!qpkg && isFunc && wqual.empty())
                         listClone227 = firstImportListingClone227(sub);
+                    // § pkgQualCallQualSpan131 — in a PARAMETER initializer
+                    // the qualified call spans the qualifier WITH its `::`
+                    // (`p::` of `p::build()`): Surelog's Constant_primary
+                    // arm locates the call from the package-scope node,
+                    // which ends after the `::`; elsewhere it is the
+                    // package-name token alone.
+                    auto qualSpan131 = [&](const std::string& q) {
+                        SourceLocation st = expr.sourceRange.start();
+                        if (inParamInit && pkgQualCallQualSpan131On() &&
+                            raw.rfind(q + "::", 0) == 0 &&
+                            constCtxWholeNode131(expr.syntax))  // § constCtxCallArgInner131v
+                            return nameSpan(st, q + "::");
+                        return nameSpan(st, q);
+                    };
                     if (raw.rfind(pkgName + "::", 0) == 0) {
                         fc->VpiName(pkgName + "::" + std::string(sub.name));
-                        setLoc(fc, nameSpan(expr.sourceRange.start(), pkgName));
+                        setLoc(fc, qualSpan131(pkgName));
                         qualPkgCall18 = true;
                     }
                     else if (boundClone) {
                         fc->VpiName(wqual + "::" + std::string(sub.name));
-                        setLoc(fc, nameSpan(expr.sourceRange.start(), wqual));
+                        setLoc(fc, qualSpan131(wqual));
                         qualPkgCall18 = true;
                     }
                     else if (currentScope && siTf &&
@@ -27437,6 +27483,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bool stmtCtx = callStmtContext;
             callStmtContext = false;
             std::string name = std::string(call.getSubroutineName());
+            // § sysCallKwTypeArgNameSpan131 — a system call whose argument
+            // is a built-in KEYWORD type (`$size(int)`, `$bits(byte)`,
+            // `$bits(logic)`) spans its NAME token alone, and so does the
+            // constant a `$bits` of one folds to (golden NonSynthError
+            // `$size(int)` 4:15-20; grid sfc).  A typedef name or a variable
+            // argument keeps the whole call (s04, s08).
+            SourceRange kwSpan131 = expr.sourceRange;
+            if (!name.empty() && name[0] == '$' &&
+                sysCallKwTypeArgNameSpan131On()) {
+                for (auto* a131 : call.arguments()) {
+                    auto& as131 = stripImplicitConv(*a131);
+                    if (as131.kind != ExpressionKind::DataType || !as131.type)
+                        continue;
+                    auto k131 = as131.type->kind;
+                    if (k131 == SymbolKind::PredefinedIntegerType ||
+                        k131 == SymbolKind::ScalarType) {
+                        kwSpan131 = SourceRange(expr.sourceRange.start(),
+                                                expr.sourceRange.start() +
+                                                    name.size());
+                        break;
+                    }
+                }
+            }
             // Built-in METHOD calls (e.first(), arr.size(): no leading $)
             // become hier_path shapes - not yet supported.
             if (name.empty() || name[0] != '$') {
@@ -29551,7 +29620,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     c->VpiValue("UINT:" + digits);
                     c->VpiConstType(vpiUIntConst);
                     if (!localParamArg)
-                        setLoc(c, expr.sourceRange);
+                        setLoc(c, kwSpan131);  // § sysCallKwTypeArgNameSpan131
                     if (forceConstParent ||
                         (!suppressConstParent && parent &&
                          (parent->UhdmType() == UHDM::uhdmoperation ||
@@ -29569,7 +29638,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     c->VpiConstType(vpiUIntConst);
                     // The elab localparam-$bits fold is loc-less.
                     if (!localParamArg)
-                        setLoc(c, expr.sourceRange);
+                        setLoc(c, kwSpan131);  // § sysCallKwTypeArgNameSpan131
                     if (forceConstParent ||
                         (!suppressConstParent && parent &&
                          (parent->UhdmType() == UHDM::uhdmoperation ||
@@ -29593,7 +29662,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (clockingArg)
                 setLoc(sc, nameSpan(expr.sourceRange.start(), name));
             else if (stmtCtx || (!kNameOnlyFuncs.count(name) && !inCastSize))
-                setLoc(sc, expr.sourceRange);
+                setLoc(sc, kwSpan131);  // § sysCallKwTypeArgNameSpan131
             else
                 setLoc(sc, SourceRange(expr.sourceRange.start(),
                                        expr.sourceRange.start() + name.size()));
@@ -32723,7 +32792,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     nit != netMap.end() && nit->second->UhdmType() == UHDM::uhdmlogic_net)
                     noteSelectObj(&nv.symbol, ips);
                 // Lvalue selects span the whole expression.
-                if (inLhs)
+                // § paramIdxPartSelWholeSpan131 — and so does a select in a
+                // parameter initializer or override (the Constant_primary
+                // arm populates it from the whole node).
+                if (inLhs || (inParamInit && paramIdxPartSelWholeSpan131On() &&
+                              constCtxWholeNode131(expr.syntax)))  // § constCtxCallArgInner131v
                     setLoc(ips, expr.sourceRange);
                 else
                     setLoc(ips, rangeSelectorSpan(rs));
@@ -36527,6 +36600,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         inet->VpiParent(implicitNetModule);
                         inet->VpiNetType(1);
                         setLoc(inet, expr.sourceRange);
+                        noteImplicitNetMint131(inet);  // § implicitNetMintNoFile131
                         auto* nets9 = implicitNetModule->Nets();
                         if (!nets9) {
                             nets9 = s.MakeNetVec();

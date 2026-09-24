@@ -1,0 +1,4 @@
+// § castTsPushLaidOut131
+module top (input logic [7:0] a, output logic [5:0] o);
+	assign o = 6'(a);
+endmodule

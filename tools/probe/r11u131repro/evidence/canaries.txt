@@ -1,0 +1,186 @@
+  InterfaceModPort               default   OK      CMP_EQUAL/differ:endcol(17)
+  InterfaceModPort               testflags OK      CMP_EQUAL/differ:endcol(17)
+  BlackParrotComplex             default   OK      CMP_EQUAL/differ:depth(1)
+  BlackParrotComplex             testflags OK      CMP_EQUAL/differ:depth(1)
+  InterfaceBinding               default   OK      CMP_EQUAL/equal
+  InterfaceBinding               testflags OK      CMP_EQUAL/equal
+  InterfaceModExp                default   OK      CMP_EQUAL/equal
+  InterfaceModExp                testflags OK      CMP_EQUAL/equal
+  BindHierPath                   default   OK      CMP_EQUAL/equal
+  BindHierPath                   testflags OK      CMP_EQUAL/equal
+  EnumConcat                     default   OK      CMP_EQUAL/equal
+  EnumConcat                     testflags OK      CMP_EQUAL/equal
+  LowMemPkg                      default   OK      CMP_EQUAL/equal
+  LowMemPkg                      testflags OK      SURELOG_FAIL/
+  paramod_genscope_child         -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  issue326_packed_mem            -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  assignment-pattern             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  hier_path                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  MultirangesStartNotFromZero    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  genscope_cells                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  genvar_loop_decl_3             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassExtends                   default   OK      CMP_EQUAL/equal
+  ClassExtends                   testflags OK      CMP_EQUAL/equal
+  FuncStruct                     default   OK      CMP_EQUAL/equal
+  FuncStruct                     testflags OK      CMP_EQUAL/differ:fullname(10)
+  FuncStructVal                  default   OK      CMP_EQUAL/differ:line(174)
+  FuncStructVal                  testflags OK      CMP_EQUAL/differ:line(387)
+  FuncIoTypespec                 default   OK      CMP_EQUAL/differ:file(9)
+  FuncIoTypespec                 testflags OK      CMP_EQUAL/differ:file(107)
+  Scr1SvTests                    default   OK      CMP_EQUAL/differ:line(238)
+  Scr1SvTests                    testflags OK      CMP_EQUAL/differ:line(238)
+  BasicOh                        default   OK      CMP_EQUAL/differ:fullname(52)
+  BasicOh                        testflags OK      CMP_EQUAL/differ:fullname(41)
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ:line(1055) -> CMP_EQUAL/differ:line(1041)
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ:line(1055) -> CMP_EQUAL/differ:line(1041)
+  YosysOldOr                     default   OK      CMP_EQUAL/differ:line(78)
+  YosysOldOr                     testflags OK      CMP_EQUAL/differ:line(78)
+  YosysBigSimReed                default   OK      CMP_EQUAL/differ:fullname(3)
+  YosysBigSimReed                testflags OK      CMP_EQUAL/differ:fullname(3)
+  YosysOldOpen                   default   OK      CMP_EQUAL/differ:line(19)
+  YosysOldOpen                   testflags OK      CMP_EQUAL/differ:endcol(6)
+  ClassParamAsParam              default   OK      CMP_EQUAL/differ:endcol(9)
+  ClassParamAsParam              testflags OK      CMP_EQUAL/differ:endcol(13)
+  ClassTypeParam                 default   OK      CMP_EQUAL/differ:endline(27)
+  ClassTypeParam                 testflags OK      CMP_EQUAL/differ:file(40)
+  SVSwitch                       default   OK      CMP_EQUAL/differ:endcol(38)
+  SVSwitch                       testflags OK      CMP_EQUAL/differ:endcol(38)
+  SimpleConstraint               default   OK      CMP_EQUAL/differ:line(7)
+  SimpleConstraint               testflags OK      CMP_EQUAL/differ:line(7)
+  ApbSlave                       default   OK      CMP_EQUAL/differ:line(30)
+  ApbSlave                       testflags OK      CMP_EQUAL/differ:line(30)
+  SimpleUVM                      default   OK      CMP_EQUAL/differ:line(189)
+  SimpleUVM                      testflags OK      CMP_EQUAL/differ:line(189)
+  SeqDriver                      default   OK      CMP_EQUAL/differ:line(179)
+  SeqDriver                      testflags OK      CMP_EQUAL/differ:line(179)
+  BuildUVMPkg                    default   CHANGED CMP_EQUAL/differ:fullname(328) -> CMP_EQUAL/differ:fullname(283)
+  BuildUVMPkg                    testflags CHANGED CMP_EQUAL/differ:fullname(328) -> CMP_EQUAL/differ:fullname(283)
+  Scoreboard                     default   OK      CMP_EQUAL/differ:line(193)
+  Scoreboard                     testflags OK      SLANG_REJECT/
+---- canary rows: ok=48 changed=4 absent=0 unknown-names=7
+NOTE: 7 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+  InterfaceModPort               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BlackParrotComplex             -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  InterfaceBinding               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  InterfaceModExp                -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BindHierPath                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  EnumConcat                     default   OK      CMP_EQUAL/equal
+  EnumConcat                     testflags OK      CMP_EQUAL/equal
+  LowMemPkg                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  paramod_genscope_child         default   OK      CMP_EQUAL/equal
+  paramod_genscope_child         testflags OK      CMP_EQUAL/equal
+  issue326_packed_mem            default   OK      CMP_EQUAL/equal
+  issue326_packed_mem            testflags OK      CMP_EQUAL/equal
+  assignment-pattern             default   OK      CMP_EQUAL/equal
+  assignment-pattern             testflags OK      CMP_EQUAL/equal
+  hier_path                      default   OK      CMP_EQUAL/equal
+  hier_path                      testflags OK      CMP_EQUAL/equal
+  MultirangesStartNotFromZero    default   OK      CMP_EQUAL/differ:file(2)
+  MultirangesStartNotFromZero    testflags OK      CMP_EQUAL/differ:file(2)
+  genscope_cells                 default   OK      CMP_EQUAL/equal
+  genscope_cells                 testflags OK      CMP_EQUAL/equal
+  genvar_loop_decl_3             default   OK      CMP_EQUAL/equal
+  genvar_loop_decl_3             testflags OK      CMP_EQUAL/equal
+  ClassExtends                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncStruct                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncStructVal                  -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  FuncIoTypespec                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Scr1SvTests                    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BasicOh                        -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Earlgrey_0_1                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysOldOr                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysBigSimReed                -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  YosysOldOpen                   -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassParamAsParam              -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ClassTypeParam                 -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SVSwitch                       -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SimpleConstraint               -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  ApbSlave                       -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SimpleUVM                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  SeqDriver                      -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  BuildUVMPkg                    -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+  Scoreboard                     -         UNKNOWN-NAME (matched NO row in either csv, either mode)
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+NOTE: 25 canary NAME(S) matched no row in this CSV. Expect 7 when
+      checking a SURELOG csv (the u2r-only canaries) and the rest when
+      checking a u2r csv. ANY OTHER NAME HERE IS A TYPO -- read the list.
+== exact names canaries.sh does NOT carry ==
+  TypespecExpr                       default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  TypespecExpr                       testflags CHANGED  CMP_EQUAL/differ:fullname(2) -> CMP_EQUAL/differ:fullname(2)
+  ClogCast                           default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  ClogCast                           testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  2DFunctionArg                      -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+  PartSelect4                        default   CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/equal
+  PartSelect4                        testflags CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/equal
+== families canaries.sh does NOT carry (prefix match) ==
+  -- EvalFunc* : 5 name(s)
+  EvalFunc                           default   CHANGED  CMP_EQUAL/differ:endcol(1) -> CMP_EQUAL/equal
+  EvalFunc                           testflags CHANGED  CMP_EQUAL/differ:endcol(1) -> CMP_EQUAL/equal
+  EvalFuncArray                      default   CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  EvalFuncArray                      testflags CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  EvalFuncCont                       default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  EvalFuncCont                       testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  EvalFuncNamed                      default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  EvalFuncNamed                      testflags CHANGED  CMP_EQUAL/differ:fullname(12) -> CMP_EQUAL/differ:fullname(12)
+  EvalFuncPack                       default   CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  EvalFuncPack                       testflags CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  -- ParamFile* : 4 name(s)
+  ParamFile                          default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  ParamFile                          testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  ParamFileMacro                     default   CHANGED  SURELOG_FAIL/ -> SURELOG_FAIL/
+  ParamFileMacro                     testflags CHANGED  SURELOG_FAIL/ -> SURELOG_FAIL/
+  ParamFileNoTop                     default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  ParamFileNoTop                     testflags CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  ParamFileOverr                     default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  ParamFileOverr                     testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  -- Black* : 17 name(s)
+  BlackBePipeInt                     default   CHANGED  CMP_EQUAL/differ:fullname(2) -> CMP_EQUAL/differ:fullname(2)
+  BlackBePipeInt                     testflags CHANGED  CMP_EQUAL/differ:fullname(2) -> CMP_EQUAL/differ:fullname(2)
+  BlackBox                           default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackBox                           testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackBoxInst                       default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackBoxInst                       testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackBoxInstTop                    default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackBoxInstTop                    testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackboxMissingDef                 default   CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackboxMissingDef                 testflags CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackBoxMod                        default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackBoxMod                        testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackBoxSubMod                     default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackBoxSubMod                     testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  BlackConst                         default   CHANGED  CMP_EQUAL/differ:line(29) -> CMP_EQUAL/differ:line(29)
+  BlackConst                         testflags CHANGED  CMP_EQUAL/differ:line(19) -> CMP_EQUAL/differ:line(19)
+  BlackParrot                        default   CHANGED  SURELOG_FAIL/ -> SURELOG_FAIL/
+  BlackParrot                        testflags CHANGED  SURELOG_FAIL/ -> SURELOG_FAIL/
+  BlackParrotComplex                 default   CHANGED  CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:depth(1)
+  BlackParrotComplex                 testflags CHANGED  CMP_EQUAL/differ:depth(1) -> CMP_EQUAL/differ:depth(1)
+  BlackParrotConf                    default   CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackParrotConf                    testflags CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackParrotMuteErrors              default   CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackParrotMuteErrors              testflags CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackParrotParam                   default   CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackParrotParam                   testflags CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackParrotSkipParam               default   CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/equal
+  BlackParrotSkipParam               testflags CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/equal
+  BlackParrotStructParam             default   CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackParrotStructParam             testflags CHANGED  SLANG_REJECT/ -> SLANG_REJECT/
+  BlackUcode                         default   CHANGED  SURELOG_FAIL/ -> SURELOG_FAIL/
+  BlackUcode                         testflags CHANGED  SURELOG_FAIL/ -> SURELOG_FAIL/
+  BlackUnicore                       default   CHANGED  SURELOG_FAIL/ -> SURELOG_FAIL/
+  BlackUnicore                       testflags CHANGED  SURELOG_FAIL/ -> SURELOG_FAIL/
+---- ctcan2 rows: ok=0 changed=58 absent=0 unknown-patterns=1
+FAIL: a supplementary canary moved.
+== exact names canaries.sh does NOT carry ==
+  TypespecExpr                       -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+  ClogCast                           -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+  2DFunctionArg                      default   CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  2DFunctionArg                      testflags CHANGED  CMP_EQUAL/equal -> CMP_EQUAL/equal
+  PartSelect4                        -         UNKNOWN-PATTERN (no row in EITHER csv, either mode)
+== families canaries.sh does NOT carry (prefix match) ==
+  EvalFunc*                          -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+  ParamFile*                         -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+  Black*                             -         UNKNOWN-PATTERN (prefix matched NOTHING in either csv)
+---- ctcan2 rows: ok=0 changed=2 absent=0 unknown-patterns=6
+FAIL: a supplementary canary moved.

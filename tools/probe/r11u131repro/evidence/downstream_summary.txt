@@ -1,0 +1,23 @@
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+row join vs results/downstream_uhdm2rtlil.csv (drivers/dsdiff.py): changed 0 of 871
+rows of the u2r row-modes this pass converts or touches:
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+Disable,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+const_func_block_var,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+struct_param_func_arg,IDENTICAL,OK,OK,51,51,,
+2DParameterOfInstance,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+BitSelectOfParameterPassedToSubmoduleInGenFor,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+PatternAssignmentOfStructParam,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+StructParameterInitializedWithPatternAndReferenced,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+mriscv_bind_sva,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+portsel_struct_param,IDENTICAL,OK,OK,1,1,,
+struct_member_cfg_width,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+struct_param_func_loop,IDENTICAL,OK,OK,70,70,,
+sva_counter,IDENTICAL,OK,OK,45,45,,
+ibex_alu,IDENTICAL,OK,OK,1028,1028,,
+typed_named_pattern,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+sva_range,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+sva_value_change_changed,IDENTICAL,OK,OK,1,1,,
+ParameterColonReference,IDENTICAL,NO_GATES,NO_GATES,0,0,,

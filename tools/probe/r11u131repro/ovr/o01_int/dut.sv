@@ -1,0 +1,6 @@
+// § ovrMultiDimConstUnparented131
+module sub #(parameter int P = 1) ();
+endmodule
+module top ();
+  sub #(.P(5)) u();
+endmodule

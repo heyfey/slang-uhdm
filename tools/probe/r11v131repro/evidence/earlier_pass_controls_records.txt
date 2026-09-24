@@ -1,0 +1,37 @@
+r11u118repro/grid/g1/p28_structmember: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=25 L=28 newbad=4 fixed=1
+r11u121repro/grid/r/p28_structmember: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=25 L=28 newbad=4 fixed=1
+r11u121repro/grid/s/s01_q_ps_tern: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=25 L=28 newbad=4 fixed=1
+r11u121repro/grid/s/s02_q_ps_direct: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=23 L=20 newbad=1 fixed=4
+r11u121repro/grid/s/s03_q_bs_direct: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=23 L=20 newbad=1 fixed=4
+r11u121repro/grid/s/s04_q_nosel: OK LEN(167, 166, 166) better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL count :: FIELDOK 0 []
+r11u121repro/grid/s/s05_q_ps_g: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=23 L=20 newbad=1 fixed=4
+r11u121repro/grid/s/s06_q_ips: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=23 L=20 newbad=1 fixed=4
+r11u121repro/grid/s/s07_q_ps_comb: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=35 L=38 newbad=4 fixed=1
+r11u121repro/grid/s/s08_imp_ps: OK LEN(248, 253, 253) better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL type :: FIELDOK 0 []
+r11u121repro/grid/s/s10_q_ps_op: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=13 L=8 newbad=0 fixed=5
+r11u121repro/grid/s/s11_q_ps_gen: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=52 L=47 newbad=0 fixed=5
+r11u121repro/grid/s/s12_q_bs_var: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=23 L=20 newbad=1 fixed=4
+r11u121repro/grid/s/s13_q_2d_member: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=53 L=50 newbad=1 fixed=4
+r11u121repro/grid/s/s15_q_nested: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=80 L=83 newbad=4 fixed=1
+v11u121repro/arms/B/b2_ff_cond: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=66 L=71 newbad=5 fixed=0
+v11u121repro/arms/B/b3_portconn: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=111 L=114 newbad=4 fixed=1
+v11u121repro/arms/B/b4_case_concat: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=74 L=79 newbad=5 fixed=0
+v11u121repro/arms/B/b5_nested_member: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=112 L=115 newbad=4 fixed=1
+v11u121repro/arms/B/b6_parameter_kw: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=111 L=114 newbad=4 fixed=1
+v11u121repro/arms/B/b7_as_index: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=93 L=96 newbad=4 fixed=1
+v11u121repro/arms/B/b8_nosel_ctl: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=64 L=69 newbad=5 fixed=0
+v11u121repro/arms/B/b9_cmp_add: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=64 L=69 newbad=5 fixed=0
+v11u121repro/arms/E/b11_override: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=99 L=102 newbad=4 fixed=1
+v11u121repro/arms/E/b12_range_bound: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=121 L=124 newbad=4 fixed=1
+v11u121repro/arms/E/b13_gen_cond: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=107 L=110 newbad=4 fixed=1
+v11u121repro/arms/E/b17_lp_and_ca: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=198 L=201 newbad=4 fixed=1
+r11u124repro/c12/a05_struct: OK LEN(237, 222, 222) better=0 worse=0 | STRICT_NOTEQUAL depth -> STRICT_NOTEQUAL depth :: FIELDOK 0 []
+r11u124repro/c13/q01_override: OK LEN(165, 164, 164) better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL line :: FIELDOK 0 []
+r11u124repro/c13/q02_ca: OK better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 144 objects :: FIELDOK 0 []
+r11u124repro/c13/q03_member: OK LEN(107, 106, 106) better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL count :: FIELDOK 0 []
+r11u124repro/c13/q05_import: OK better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 200 objects :: FIELDOK 0 []
+r11u124repro/c13/q07_positional: STAGE1 NOT_EQUAL stage1 | NOT_EQUAL stage1 :: offgolden P=23 L=20 newbad=1 fixed=4
+r11u124repro/c13/q08_localparam: OK better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 144 objects :: FIELDOK 0 []
+r11u124repro/c13/q09_default_kw: OK better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_EQUAL 140 objects :: FIELDOK 0 []
+r11u124repro/c13/q10_twice: OK LEN(165, 164, 164) better=1 worse=0 | STRICT_NOTEQUAL fullname -> STRICT_NOTEQUAL count :: FIELDOK 0 []
+r11v125repro/grid/ct/t03: OK better=2 worse=0 | STRICT_NOTEQUAL col -> STRICT_EQUAL 73 objects :: FIELDOK 0 []

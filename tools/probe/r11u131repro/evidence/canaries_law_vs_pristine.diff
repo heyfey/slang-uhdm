@@ -1,0 +1,34 @@
+34,35c34,35
+<   Earlgrey_0_1                   default   OK      CMP_EQUAL/differ:line(1055)
+<   Earlgrey_0_1                   testflags OK      CMP_EQUAL/differ:line(1055)
+---
+>   Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ:line(1055) -> CMP_EQUAL/differ:line(1041)
+>   Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ:line(1055) -> CMP_EQUAL/differ:line(1041)
+56,57c56,57
+<   BuildUVMPkg                    default   OK      CMP_EQUAL/differ:fullname(328)
+<   BuildUVMPkg                    testflags OK      CMP_EQUAL/differ:fullname(328)
+---
+>   BuildUVMPkg                    default   CHANGED CMP_EQUAL/differ:fullname(328) -> CMP_EQUAL/differ:fullname(283)
+>   BuildUVMPkg                    testflags CHANGED CMP_EQUAL/differ:fullname(328) -> CMP_EQUAL/differ:fullname(283)
+60c60
+< ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---
+> ---- canary rows: ok=48 changed=4 absent=0 unknown-names=7
+115,116c115,116
+<   PartSelect4                        default   CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/differ:col(1)
+<   PartSelect4                        testflags CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/differ:col(1)
+---
+>   PartSelect4                        default   CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/equal
+>   PartSelect4                        testflags CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/equal
+119,120c119,120
+<   EvalFunc                           default   CHANGED  CMP_EQUAL/differ:endcol(1) -> CMP_EQUAL/differ:endcol(1)
+<   EvalFunc                           testflags CHANGED  CMP_EQUAL/differ:endcol(1) -> CMP_EQUAL/differ:endcol(1)
+---
+>   EvalFunc                           default   CHANGED  CMP_EQUAL/differ:endcol(1) -> CMP_EQUAL/equal
+>   EvalFunc                           testflags CHANGED  CMP_EQUAL/differ:endcol(1) -> CMP_EQUAL/equal
+165,166c165,166
+<   BlackParrotSkipParam               default   CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/differ:col(1)
+<   BlackParrotSkipParam               testflags CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/differ:col(1)
+---
+>   BlackParrotSkipParam               default   CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/equal
+>   BlackParrotSkipParam               testflags CHANGED  CMP_EQUAL/differ:col(1) -> CMP_EQUAL/equal

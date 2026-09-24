@@ -1,0 +1,124 @@
+== uhdm2rtlil/default/ParameterColonReference  (< golden, > ours; DEF = the Actual is a definition-listing object)
+2c2
+< a	6:11-6:12	work@top.a	logic_net DEF par=module_inst()	module_inst(work@top)<design(work@top)
+---
+> a	6:11-6:12	work@top.a	logic_net ELAB par=module_inst(work@top)	module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/StructLocalParam  (< golden, > ours; DEF = the Actual is a definition-listing object)
+2c2
+< o	8:11-8:12	work@top.o	logic_net DEF par=module_inst()	module_inst(work@top)<design(work@top)
+---
+> o	8:11-8:12	work@top.o	logic_net ELAB par=module_inst(work@top)	module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/Clog2OfSumWithParameterIn2InstancesOfSubmodule  (< golden, > ours; DEF = the Actual is a definition-listing object)
+5c5
+< a	6:11-6:12	work@top.u_sub1.a	logic_net DEF par=module_inst()	module_inst(u_sub1)<module_inst(work@top)<design(work@top)
+---
+> a	6:11-6:12	work@top.u_sub1.a	int_var ELAB par=module_inst(u_sub1)	module_inst(u_sub1)<module_inst(work@top)<design(work@top)
+8c8
+< a	6:11-6:12	work@top.u_sub3.a	logic_net DEF par=module_inst()	module_inst(u_sub3)<module_inst(work@top)<design(work@top)
+---
+> a	6:11-6:12	work@top.u_sub3.a	int_var ELAB par=module_inst(u_sub3)	module_inst(u_sub3)<module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/array_assign  (< golden, > ours; DEF = the Actual is a definition-listing object)
+1c1
+< pa	61:14-61:16	work@top.pa	var_select DEF par=assignment()	begin<always<module_inst(work@top)<design(work@top)
+---
+> pa	61:14-61:16	work@top.pa	logic_net DEF par=module_inst()	begin<always<module_inst(work@top)<design(work@top)
+11c11
+< out1	12:12-12:16	work@top.out1	logic_net DEF par=module_inst()	module_inst(work@top)<design(work@top)
+---
+> out1	12:12-12:16	work@top.out1	array_net ELAB par=module_inst(work@top)	module_inst(work@top)<design(work@top)
+15c15
+< out2	20:12-20:16	work@top.out2	logic_net DEF par=module_inst()	module_inst(work@top)<design(work@top)
+---
+> out2	20:12-20:16	work@top.out2	array_net ELAB par=module_inst(work@top)	module_inst(work@top)<design(work@top)
+19c19
+< out3	28:12-28:16	work@top.out3	logic_net DEF par=module_inst()	module_inst(work@top)<design(work@top)
+---
+> out3	28:12-28:16	work@top.out3	array_net ELAB par=module_inst(work@top)	module_inst(work@top)<design(work@top)
+23c23
+< out4	36:12-36:16	work@top.out4	logic_net DEF par=module_inst()	module_inst(work@top)<design(work@top)
+---
+> out4	36:12-36:16	work@top.out4	array_net ELAB par=module_inst(work@top)	module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/cdc_static_basic  (< golden, > ours; DEF = the Actual is a definition-listing object)
+7c7
+< src_data	7:29-7:37	work@cdc_static_basic.src_data	logic_net ELAB par=module_inst(work@cdc_static_basic)	module_inst(work@cdc_static_basic)<design(work@cdc_static_basic)
+---
+> src_data	7:29-7:37	work@cdc_static_basic.src_data	logic_net DEF par=module_inst()	module_inst(work@cdc_static_basic)<design(work@cdc_static_basic)
+== uhdm2rtlil/default/partsel_simple  (< golden, > ours; DEF = the Actual is a definition-listing object)
+5c5
+< idx	2:21-2:24	work@partsel_simple.idx	logic_net ELAB par=module_inst(work@partsel_simple)	cont_assign<module_inst(work@partsel_simple)<design(work@partsel_simple)
+---
+> idx	2:21-2:24	work@partsel_simple.idx	logic_net DEF par=module_inst()	cont_assign<module_inst(work@partsel_simple)<design(work@partsel_simple)
+== uhdm2rtlil/default/vector_index  (< golden, > ours; DEF = the Actual is a definition-listing object)
+6c6
+< Move_N	28:20-28:26	work@vector_index.Move_N	logic_net ELAB par=module_inst(work@vector_index)	operation<operation<cont_assign<module_inst(work@vector_index)<design(work@vector_index)
+---
+> Move_N	28:20-28:26	work@vector_index.Move_N	logic_net DEF par=module_inst()	operation<operation<cont_assign<module_inst(work@vector_index)<design(work@vector_index)
+== uhdm2rtlil/default/sva_range  (< golden, > ours; DEF = the Actual is a definition-listing object)
+11c11
+< clk	5:29-5:32	work@top.unnamed_clocking_block.clk	logic_net DEF par=module_inst()	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+---
+> clk	5:29-5:32	work@top.unnamed_clocking_block.clk	logic_net ELAB par=module_inst(work@top)	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/sva_throughout  (< golden, > ours; DEF = the Actual is a definition-listing object)
+12c12
+< clk	5:29-5:32	work@top.unnamed_clocking_block.clk	logic_net DEF par=module_inst()	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+---
+> clk	5:29-5:32	work@top.unnamed_clocking_block.clk	logic_net ELAB par=module_inst(work@top)	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/sva_value_change_changed  (< golden, > ours; DEF = the Actual is a definition-listing object)
+5c5
+< clk	11:29-11:32	work@top.unnamed_clocking_block.clk	logic_net DEF par=module_inst()	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+---
+> clk	11:29-11:32	work@top.unnamed_clocking_block.clk	logic_net ELAB par=module_inst(work@top)	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/sva_value_change_changed_wide  (< golden, > ours; DEF = the Actual is a definition-listing object)
+5c5
+< clk	11:29-11:32	work@top.unnamed_clocking_block.clk	logic_net DEF par=module_inst()	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+---
+> clk	11:29-11:32	work@top.unnamed_clocking_block.clk	logic_net ELAB par=module_inst(work@top)	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/sva_value_change_rose  (< golden, > ours; DEF = the Actual is a definition-listing object)
+5c5
+< clk	10:29-10:32	work@top.unnamed_clocking_block.clk	logic_net DEF par=module_inst()	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+---
+> clk	10:29-10:32	work@top.unnamed_clocking_block.clk	logic_net ELAB par=module_inst(work@top)	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/sva_counter  (< golden, > ours; DEF = the Actual is a definition-listing object)
+26c26
+< clk	16:29-16:32	work@top.unnamed_clocking_block.clk	logic_net DEF par=module_inst()	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+---
+> clk	16:29-16:32	work@top.unnamed_clocking_block.clk	logic_net ELAB par=module_inst(work@top)	event_control<clocking_block(unnamed_clocking_block)<module_inst(work@top)<design(work@top)
+== uhdm2rtlil/default/param_type_logic_width  (< golden, > ours; DEF = the Actual is a definition-listing object)
+7,8c7,8
+< a	18:15-18:16	work@tb.t.u.d_i.a	logic_net DEF par=module_inst()	port(d_i)<module_inst(u)<module_inst(t)<module_inst(work@tb)<design(work@tb)
+< b	18:18-18:19	work@tb.t.u.d_i.b	logic_net DEF par=module_inst()	port(d_i)<module_inst(u)<module_inst(t)<module_inst(work@tb)<design(work@tb)
+---
+> a	18:15-18:16	work@tb.t.u.d_i.a	logic_net ELAB par=module_inst(t)	port(d_i)<module_inst(u)<module_inst(t)<module_inst(work@tb)<design(work@tb)
+> b	18:18-18:19	work@tb.t.u.d_i.b	logic_net ELAB par=module_inst(t)	port(d_i)<module_inst(u)<module_inst(t)<module_inst(work@tb)<design(work@tb)
+== uhdm2rtlil/default/wandwor  (< golden, > ours; DEF = the Actual is a definition-listing object)
+50,51c50,51
+< A	20:8-20:9	work@wandwor_test1.bar_inst.I0.A	logic_net DEF par=module_inst()	port(I0)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+< B	20:11-20:12	work@wandwor_test1.bar_inst.I0.B	logic_net DEF par=module_inst()	port(I0)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+---
+> A	20:8-20:9	work@wandwor_test1.bar_inst.I0.A	logic_net ELAB par=module_inst(work@wandwor_test1)	port(I0)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+> B	20:11-20:12	work@wandwor_test1.bar_inst.I0.B	logic_net ELAB par=module_inst(work@wandwor_test1)	port(I0)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+53,54c53,54
+< B	21:8-21:9	work@wandwor_test1.bar_inst.I1.B	logic_net DEF par=module_inst()	port(I1)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+< A	21:11-21:12	work@wandwor_test1.bar_inst.I1.A	logic_net DEF par=module_inst()	port(I1)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+---
+> B	21:8-21:9	work@wandwor_test1.bar_inst.I1.B	logic_net ELAB par=module_inst(work@wandwor_test1)	port(I1)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+> A	21:11-21:12	work@wandwor_test1.bar_inst.I1.A	logic_net ELAB par=module_inst(work@wandwor_test1)	port(I1)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+56,57c56,57
+< X	22:7-22:8	work@wandwor_test1.bar_inst.O.X	logic_net DEF par=module_inst()	port(O)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+< Y	22:10-22:11	work@wandwor_test1.bar_inst.O.Y	logic_net DEF par=module_inst()	port(O)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+---
+> X	22:7-22:8	work@wandwor_test1.bar_inst.O.X	logic_net ELAB par=module_inst(work@wandwor_test1)	port(O)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+> Y	22:10-22:11	work@wandwor_test1.bar_inst.O.Y	logic_net ELAB par=module_inst(work@wandwor_test1)	port(O)<module_inst(bar_inst)<module_inst(work@wandwor_test1)<design(work@wandwor_test0)
+== uhdm2rtlil/default/dff_different_styles  (< golden, > ours; DEF = the Actual is a definition-listing object)
+84,85c84,85
+< preset	88:22-88:28	work@dffsr2.uut.preset.preset	logic_net DEF par=module_inst()	port(preset)<module_inst(uut)<module_inst(work@dffsr2)<design(work@dff)
+< clear	88:33-88:38	work@dffsr2.uut.preset.clear	logic_net DEF par=module_inst()	operation<port(preset)<module_inst(uut)<module_inst(work@dffsr2)<design(work@dff)
+---
+> preset	88:22-88:28	work@dffsr2.preset	logic_net ELAB par=module_inst(work@dffsr2)	port(preset)<module_inst(uut)<module_inst(work@dffsr2)<design(work@dff)
+> clear	88:33-88:38	work@dffsr2.clear	logic_net ELAB par=module_inst(work@dffsr2)	operation<port(preset)<module_inst(uut)<module_inst(work@dffsr2)<design(work@dff)
+87,88c87,88
+< preset	88:41-88:47	work@dffsr2.uut.clear.preset	logic_net DEF par=module_inst()	operation<port(clear)<module_inst(uut)<module_inst(work@dffsr2)<design(work@dff)
+< clear	88:51-88:56	work@dffsr2.uut.clear.clear	logic_net DEF par=module_inst()	port(clear)<module_inst(uut)<module_inst(work@dffsr2)<design(work@dff)
+---
+> preset	88:41-88:47	work@dffsr2.preset	logic_net ELAB par=module_inst(work@dffsr2)	operation<port(clear)<module_inst(uut)<module_inst(work@dffsr2)<design(work@dff)
+> clear	88:51-88:56	work@dffsr2.clear	logic_net ELAB par=module_inst(work@dffsr2)	port(clear)<module_inst(uut)<module_inst(work@dffsr2)<design(work@dff)

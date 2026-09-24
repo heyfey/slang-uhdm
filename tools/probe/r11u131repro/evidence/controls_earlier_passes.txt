@@ -1,0 +1,63 @@
+### r11u118repro
+DIFF grid/g1/p28_structmember
+SAME 55 / DIFF 1
+### r11v11u118repro
+SAME 56 / DIFF 0
+### r11u119repro
+SAME 78 / DIFF 0
+### r11u120repro
+SAME 44 / DIFF 0
+### r11v120repro
+SAME 47 / DIFF 0
+### r11u121repro
+DIFF grid/r/p28_structmember
+DIFF grid/s/s01_q_ps_tern
+DIFF grid/s/s02_q_ps_direct
+DIFF grid/s/s03_q_bs_direct
+DIFF grid/s/s04_q_nosel
+DIFF grid/s/s05_q_ps_g
+DIFF grid/s/s06_q_ips
+DIFF grid/s/s07_q_ps_comb
+DIFF grid/s/s08_imp_ps
+DIFF grid/s/s10_q_ps_op
+DIFF grid/s/s11_q_ps_gen
+DIFF grid/s/s12_q_bs_var
+DIFF grid/s/s13_q_2d_member
+DIFF grid/s/s15_q_nested
+SAME 69 / DIFF 14
+### v11u121repro
+DIFF arms/B/b2_ff_cond
+DIFF arms/B/b3_portconn
+DIFF arms/B/b4_case_concat
+DIFF arms/B/b5_nested_member
+DIFF arms/B/b6_parameter_kw
+DIFF arms/B/b7_as_index
+DIFF arms/B/b8_nosel_ctl
+DIFF arms/B/b9_cmp_add
+DIFF arms/E/b11_override
+DIFF arms/E/b12_range_bound
+DIFF arms/E/b13_gen_cond
+DIFF arms/E/b17_lp_and_ca
+SAME 29 / DIFF 12
+### r11u123canon
+SAME 22 / DIFF 0
+### r11u124repro
+DIFF c12/a05_struct
+DIFF c13/q01_override
+DIFF c13/q02_ca
+DIFF c13/q03_member
+DIFF c13/q05_import
+DIFF c13/q07_positional
+DIFF c13/q08_localparam
+DIFF c13/q09_default_kw
+DIFF c13/q10_twice
+SAME 72 / DIFF 9
+### r11v124repro
+DIFF pv/v14_string
+DIFF qx/q08_string
+SAME 107 / DIFF 2
+### r11u125repro
+SAME 61 / DIFF 0
+### r11v125repro
+DIFF grid/ct/t03
+SAME 47 / DIFF 1

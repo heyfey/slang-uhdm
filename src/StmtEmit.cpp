@@ -2818,6 +2818,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     inet->VpiNetType(1);
                     auto tl = ds.target.sourceRange;
                     setLoc(inet, tl);
+                    noteImplicitNetMint131(inet);  // § implicitNetMintNoFile131
                     auto* nets2 = implicitNetModule->Nets();
                     if (!nets2) {
                         nets2 = s.MakeNetVec();

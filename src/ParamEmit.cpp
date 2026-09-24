@@ -16,6 +16,26 @@
 
 namespace slang_uhdm {
 
+// § paramFoldParenSpan131 — the registry (the law and its post-pass are at
+// paramFoldParenSpan131, near drainShareDefParamTs).
+namespace {
+struct ParenInit131 {
+    uint32_t ol, oc, oel, oec;
+    bool literal;  // the inner expression is a literal (never reduced)
+};
+using ParenKey131 = std::tuple<std::string, std::string, uint32_t, uint32_t, uint32_t, uint32_t>;
+std::map<ParenKey131, ParenInit131>& parenInits131() {
+    static std::map<ParenKey131, ParenInit131> m;
+    return m;
+}
+// § pkgPatReadTsNoParent131 — the package parameters whose initializer is
+// WRITTEN as an assignment pattern (`pkg::NAME`).
+std::set<std::string>& pkgPatInit131() {
+    static std::set<std::string> s;
+    return s;
+}
+} // namespace
+
 // § paOvFoldedRangeNoStamp85 (r10earl85) — THE KILL SWITCH for this file's
 // half of the pass (the ExprEmit half has its own, same variable name/value).
 // Default is the LAW BEING ON; `R10E85_OFF=1` restores the pre-pass-85 path.
@@ -6313,6 +6333,68 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         const ImpOcc9* occ9 = paramImp9[occIx9];
         const Symbol& member = *psPtr;
         auto& ps = *psPtr;
+        // § paramFoldParenSpan131 — record a PARENTHESIZED initializer's
+        // written span (the post-pass is at the law, near
+        // drainShareDefParamTs).
+        // § pkgPatReadTsNoParent131 — note a package parameter written as
+        // an assignment pattern (the law is at drainShareDefParamTs).
+        if (auto* sc131 = ps.getParentScope();
+            sc131 && sc131->asSymbol().kind == SymbolKind::Package)
+            if (auto* sy131 = ps.getSyntax();
+                sy131 && sy131->kind == syntax::SyntaxKind::Declarator)
+                if (auto& d131 = sy131->as<syntax::DeclaratorSyntax>();
+                    d131.initializer && d131.initializer->expr) {
+                    const syntax::ExpressionSyntax* e131 = d131.initializer->expr;
+                    while (e131->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        e131 = e131->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                    if (e131->kind == syntax::SyntaxKind::AssignmentPatternExpression)
+                        pkgPatInit131().insert(std::string(sc131->asSymbol().name) +
+                                               "::" + std::string(ps.name));
+                }
+        (void)[&](const ParameterSymbol& ps) -> bool {
+            static const bool on = r11u131On("R11U131_PAREN_OFF");
+            if (!on)
+                return false;
+            auto* syn = ps.getSyntax();
+            if (!syn || syn->kind != syntax::SyntaxKind::Declarator)
+                return false;
+            auto& dsyn = syn->as<syntax::DeclaratorSyntax>();
+            if (!dsyn.initializer || !dsyn.initializer->expr)
+                return false;
+            const syntax::ExpressionSyntax* outer = dsyn.initializer->expr;
+            if (outer->kind != syntax::SyntaxKind::ParenthesizedExpression)
+                return false;
+            const syntax::ExpressionSyntax* inner = outer;
+            while (inner->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                inner = inner->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            SourceRange ir = inner->sourceRange(), orr = outer->sourceRange();
+            if (ir.start() == SourceLocation::NoLocation || orr.start() == SourceLocation::NoLocation ||
+                sm->isMacroLoc(ir.start()) || sm->isMacroLoc(orr.start()) ||
+                sm->isMacroLoc(ir.end()) || sm->isMacroLoc(orr.end()))
+                return false;
+            uint32_t l, c, el, ec, ol, oc, oel, oec;
+            locLineCol(ir.start(), l, c);
+            locLineCol(ir.end(), el, ec);
+            locLineCol(orr.start(), ol, oc);
+            locLineCol(orr.end(), oel, oec);
+            bool lit131 = false;
+            switch (inner->kind) {
+            case syntax::SyntaxKind::IntegerLiteralExpression:
+            case syntax::SyntaxKind::IntegerVectorExpression:
+            case syntax::SyntaxKind::RealLiteralExpression:
+            case syntax::SyntaxKind::StringLiteralExpression:
+            case syntax::SyntaxKind::UnbasedUnsizedLiteralExpression:
+            case syntax::SyntaxKind::TimeLiteralExpression:
+            case syntax::SyntaxKind::NullLiteralExpression:
+                lit131 = true;
+                break;
+            default:
+                break;
+            }
+            parenInits131()[{fullFilePath(ir.start()), std::string(ps.name), l, c, el, ec}] =
+                {ol, oc, oel, oec, lit131};
+            return true;
+        }(ps);
         // Imported = the param belongs to ANOTHER scope (a package), not the
         // body being emitted (a package emitting its own params is NOT that).
         bool isImported = ps.getParentScope() != &body;
@@ -21151,9 +21233,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 std::string savedPfx2 = syntaxRefPrefix;
                 const Scope* savedCS = currentScope;
                 syntaxRefPrefix = joinPath(prefix, ps.name);
+                // § pkgParamTsRefColons131 — a PACKAGE parameter's typespec
+                // lives in the package: every name under it computes with
+                // `::` separators (UHDM ComputeFullName switches to `::` for
+                // the whole path once a package is on the parent chain), so
+                // the bound ref of `parameter logic [NAlerts-1:0] AsyncOn`
+                // is `alert_handler_reg_pkg::AsyncOn::NAlerts` (golden
+                // LogicArrayParam), not `...::AsyncOn.NAlerts`.  The
+                // packed-array-of-typedef branch of makeParamTs already set
+                // this separator for its own bounds.  Grid
+                // tools/probe/r11u131repro/pts.  Switch: R11U131_PTSSEP_OFF.
+                std::string savedSep131 = syntaxRefSep;
+                if (inPackage && r11u131On("R11U131_PTSSEP_OFF"))
+                    syntaxRefSep = "::";
                 if (!currentScope)
                     currentScope = ps.getParentScope();
                 auto* its = makeParamTs(ps, typedParam);
+                syntaxRefSep = savedSep131;
                 stampCastSizeParamTs(ps, up, its);
                 currentScope = savedCS;
                 syntaxRefPrefix = savedPfx2;
@@ -26735,8 +26831,528 @@ static void paramValueIsDefRhs124(UHDM::design* d) {
 // § castTsFile124 (the registry lives in ExprEmit.cpp at its push sites).
 std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles();
 
+// § paramFoldParenSpan131 — THE ELABORATED PARAMETER'S FOLDED VALUE SPANS
+// THE WRITTEN INITIALIZER WITH ITS PARENTHESES.  Surelog elaborates a
+// parameter by reducing the Constant_param_expression node of its
+// declaration and populating the reduced constant from THAT node
+// (NetlistElaboration's param_assign fold), and a written `($clog2(n+1))` is
+// one such node from its `(` to its `)`.  slang keeps the INNER expression's
+// sourceRange and parks the ParenthesizedExpression on `syntax` only (the
+// rule § pkgQualPsParenSpan118v measured on a part-select bound).  So an
+// elaborated param_assign whose Rhs is a constant we located at the inner
+// span takes the outer one.  A package listing takes it only for a REDUCED
+// expression (a package's `(A*2)` folded to its value, HierPathStructTypespec
+// kmac_pkg 10:34-64), and so do a definition's IMPORT copies of it
+// (BlackBePipeInt): a written LITERAL there is compiled directly, at its own
+// token (golden `(8)` def 2:29-30, elab 2:28-31); a definition's own folded
+// parameter anchors elsewhere (Earlgrey dm_mem `(DmBaseAddress != 0)`: golden
+// 64:64-68, residue R8) and an Rhs that stays an operation keeps the inner
+// span everywhere (the def-view `(3+4)`: 2:29-32).  The OVERRIDDEN value is
+// located at the DEFAULT's written span too (BlackParrotSkipParam
+// `.lg_max_val_lp(10)`: golden 4:31-52, the default's parentheses), which
+// the key below covers because both carry the inner default span.
+// Grid tools/probe/r11u131repro/par.  Switch: R11U131_PAREN_OFF.
+static void paramFoldParenSpan131(UHDM::design* d) {
+    auto& reg = parenInits131();
+    if (!d || reg.empty()) {
+        reg.clear();
+        return;
+    }
+    bool elabView = true;
+    bool defListing131 = false;
+    auto pas = [&](const UHDM::VectorOfparam_assign* v) {
+        if (!v)
+            return;
+        for (auto* pa : *v) {
+            auto* r = pa ? pa->Rhs() : nullptr;
+            auto* l = pa ? pa->Lhs() : nullptr;
+            if (!r || !l || r->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* c = (UHDM::constant*)r;
+            auto it = reg.find({std::string(c->VpiFile()), std::string(l->VpiName()),
+                                c->VpiLineNo(), c->VpiColumnNo(), c->VpiEndLineNo(),
+                                c->VpiEndColumnNo()});
+            if (it == reg.end())
+                continue;
+            // A definition or package listing reduces a written EXPRESSION
+            // (the fold spans the whole node) but compiles a literal
+            // directly (the literal's own token): only the elaborated
+            // listing re-populates every value from the whole node.
+            if (!elabView && it->second.literal)
+                continue;
+            // A module DEFINITION's own parameter folds elsewhere (at its
+            // leftmost leaf, Earlgrey dm_mem `(DmBaseAddress != 0)`): only
+            // its import copies of a package parameter take the package's
+            // written span.
+            if (defListing131 && !(l->UhdmType() == UHDM::uhdmparameter &&
+                                   !((const UHDM::parameter*)l)->VpiImported().empty()))
+                continue;
+            c->VpiLineNo(it->second.ol);
+            c->VpiColumnNo(it->second.oc);
+            c->VpiEndLineNo(it->second.oel);
+            c->VpiEndColumnNo(it->second.oec);
+        }
+    };
+    std::set<const UHDM::any*> seen;
+    std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* o) {
+        if (!o || !seen.insert(o).second)
+            return;
+        auto gens = [&](const UHDM::VectorOfgen_scope_array* ga) {
+            if (ga)
+                for (auto* a : *ga)
+                    if (a && a->Gen_scopes())
+                        for (auto* g : *a->Gen_scopes())
+                            walk(g);
+        };
+        switch (o->UhdmType()) {
+        case UHDM::uhdmmodule_inst: {
+            auto* m = (const UHDM::module_inst*)o;
+            pas(m->Param_assigns());
+            if (m->Modules())
+                for (auto* c : *m->Modules())
+                    walk(c);
+            if (m->Interfaces())
+                for (auto* c : *m->Interfaces())
+                    walk(c);
+            gens(m->Gen_scope_arrays());
+            break;
+        }
+        case UHDM::uhdminterface_inst: {
+            auto* m = (const UHDM::interface_inst*)o;
+            pas(m->Param_assigns());
+            gens(m->Gen_scope_arrays());
+            break;
+        }
+        case UHDM::uhdmgen_scope: {
+            auto* g = (const UHDM::gen_scope*)o;
+            pas(g->Param_assigns());
+            if (g->Modules())
+                for (auto* c : *g->Modules())
+                    walk(c);
+            if (g->Interfaces())
+                for (auto* c : *g->Interfaces())
+                    walk(c);
+            gens(g->Gen_scope_arrays());
+            break;
+        }
+        default:
+            break;
+        }
+    };
+    // The ELABORATED tree: every constant takes the written span.
+    if (d->TopModules())
+        for (auto* t : *d->TopModules())
+            walk(t);
+    // The definition and package listings (and a definition's materialized
+    // import copies): a folded expression only.
+    elabView = false;
+    defListing131 = true;
+    if (d->AllModules())
+        for (auto* m : *d->AllModules())
+            pas(m->Param_assigns());
+    if (d->AllInterfaces())
+        for (auto* m : *d->AllInterfaces())
+            pas(m->Param_assigns());
+    defListing131 = false;
+    std::set<const UHDM::any*> pk131;
+    for (auto* pv : {d->AllPackages(), d->TopPackages()})
+        if (pv)
+            for (auto* pk : *pv)
+                if (pk131.insert(pk).second)
+                    pas(pk->Param_assigns());
+    reg.clear();
+}
+
+// § ovrMultiDimConstUnparented131 — AN OVERRIDDEN MULTI-DIMENSIONAL
+// PARAMETER'S VALUE IS AN UNPARENTED CONSTANT.  Surelog's netlist
+// elaboration carries a per-assign `isMultidimensional` flag
+// (NetlistElaboration.cpp, from CompileHelper::isMultidimensional: a logic /
+// bit / array typespec with more than one range, a packed array of a struct
+// or of more than one range) that keeps such a parameter off the scalar road
+// (`(overriden == false) && (!isMultidimensional)`), the one road that
+// parents the elaborated constant (`c->VpiParent(inst_assign)`).  MEASURED
+// (grid tools/probe/r11u131repro/ovr): an overridden 2-D packed parameter's
+// Rhs constant has no parent in golden — local typedef, package typedef
+// (imported or qualified), inline `logic [3:0][5:0]` — so its ref_typespec
+// (parented at the constant) computes an empty full name (golden
+// ParamOverload2 `.RndCnstLfsrPerm(384'b1)`: unnamed; ours
+// `work@top.u_keymgr`); a 1-D vector, a struct, an int and a non-overridden
+// 2-D parameter keep the parent (o01 o02 o05 o06 o08 o12 o13 equal at the
+// base).  Elaborated listings only, overridden param_assigns only, a
+// constant Rhs only.  Switch: R11U131_OVRMD_OFF.
+static bool multiDim131(const UHDM::typespec* ts) {
+    if (!ts)
+        return false;
+    auto many = [](const UHDM::VectorOfrange* r) { return r && r->size() > 1; };
+    switch (ts->UhdmType()) {
+    case UHDM::uhdmlogic_typespec:
+        return many(((const UHDM::logic_typespec*)ts)->Ranges());
+    case UHDM::uhdmbit_typespec:
+        return many(((const UHDM::bit_typespec*)ts)->Ranges());
+    case UHDM::uhdmarray_typespec:
+        return many(((const UHDM::array_typespec*)ts)->Ranges());
+    case UHDM::uhdmpacked_array_typespec: {
+        auto* pa = (const UHDM::packed_array_typespec*)ts;
+        if (auto* et = pa->Elem_typespec())
+            if (auto* ea = et->Actual_typespec();
+                ea && ea->UhdmType() == UHDM::uhdmstruct_typespec)
+                return true;
+        return many(pa->Ranges());
+    }
+    default:
+        return false;
+    }
+}
+static void ovrMultiDimConstUnparented131(UHDM::design* d) {
+    static const bool on = r11u131On("R11U131_OVRMD_OFF");
+    if (!on || !d)
+        return;
+    // A value the instance also READS (our elaborated `assign o = M;`
+    // shares the constant, as Surelog's substitution does) is reparented
+    // at that use in golden, whose name then computes to the instance
+    // (probe r11u111repro a12_q_multidim: `work@dut.u`): left alone.
+    std::set<const UHDM::any*> used131;
+    std::function<void(const UHDM::any*)> use131 = [&](const UHDM::any* e) {
+        if (!e || !used131.insert(e).second)
+            return;
+        if (e->UhdmType() == UHDM::uhdmoperation)
+            if (auto* os = ((const UHDM::operation*)e)->Operands())
+                for (auto* o : *os)
+                    use131(o);
+    };
+    auto pas = [&](const UHDM::VectorOfparam_assign* v) {
+        if (!v)
+            return;
+        for (auto* pa : *v) {
+            if (!pa || !pa->VpiOverriden())
+                continue;
+            if (used131.count(pa->Rhs()))
+                continue;
+            auto* r = pa->Rhs();
+            auto* l = pa->Lhs();
+            if (!r || !l || r->UhdmType() != UHDM::uhdmconstant ||
+                l->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            auto* c = (UHDM::constant*)r;
+            const UHDM::typespec* ts = nullptr;
+            if (auto* crt = c->Typespec())
+                ts = crt->Actual_typespec();
+            if (!ts)
+                if (auto* lrt = ((const UHDM::parameter*)l)->Typespec())
+                    ts = lrt->Actual_typespec();
+            if (!multiDim131(ts))
+                continue;
+            c->VpiParent(nullptr);
+            if (auto* crt = c->Typespec()) {
+                crt->VpiParent(c);
+                crt->VpiFullName("");
+            }
+        }
+    };
+    std::set<const UHDM::any*> seen;
+    std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* o) {
+        if (!o || !seen.insert(o).second)
+            return;
+        auto gens = [&](const UHDM::VectorOfgen_scope_array* ga) {
+            if (ga)
+                for (auto* a : *ga)
+                    if (a && a->Gen_scopes())
+                        for (auto* g : *a->Gen_scopes())
+                            walk(g);
+        };
+        if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+            auto* m = (const UHDM::module_inst*)o;
+            used131.clear();
+            if (m->Cont_assigns())
+                for (auto* ca : *m->Cont_assigns())
+                    if (ca)
+                        use131(ca->Rhs());
+            pas(m->Param_assigns());
+            if (m->Modules())
+                for (auto* c : *m->Modules())
+                    walk(c);
+            if (m->Interfaces())
+                for (auto* c : *m->Interfaces())
+                    walk(c);
+            gens(m->Gen_scope_arrays());
+        }
+        else if (o->UhdmType() == UHDM::uhdminterface_inst) {
+            auto* m = (const UHDM::interface_inst*)o;
+            used131.clear();
+            if (m->Cont_assigns())
+                for (auto* ca : *m->Cont_assigns())
+                    if (ca)
+                        use131(ca->Rhs());
+            pas(m->Param_assigns());
+            gens(m->Gen_scope_arrays());
+        }
+        else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+            auto* g = (const UHDM::gen_scope*)o;
+            used131.clear();
+            if (g->Cont_assigns())
+                for (auto* ca : *g->Cont_assigns())
+                    if (ca)
+                        use131(ca->Rhs());
+            pas(g->Param_assigns());
+            if (g->Modules())
+                for (auto* c : *g->Modules())
+                    walk(c);
+            if (g->Interfaces())
+                for (auto* c : *g->Interfaces())
+                    walk(c);
+            gens(g->Gen_scope_arrays());
+        }
+    };
+    if (d->TopModules())
+        for (auto* t : *d->TopModules())
+            walk(t);
+}
+
 void UhdmExporter::drainShareDefParamTs() {
     paramValueIsDefRhs124(d);
+    paramFoldParenSpan131(d);  // § paramFoldParenSpan131
+    ovrMultiDimConstUnparented131(d);  // § ovrMultiDimConstUnparented131
+    // § pkgPatReadTsNoParent131 — A PACKAGE PATTERN PARAMETER READ THROUGH
+    // `pkg::NAME` LISTS ITS REORDERED COPY, WHOSE TYPESPEC REFERENCE HAS NO
+    // PARENT.  Surelog's qualified-name arm of CompileHelper::getValue
+    // (CompileExpression.cpp:921-952), reached whenever an expression that
+    // reads `pkg::NAME` is REDUCED, runs expandPatternAssignment on the
+    // package param_assign's own assignment-pattern Rhs and writes the
+    // result back (`param->Rhs(rhs)`); the copy's ref_typespec is the one
+    // ExprEval::flattenPatternAssignments mints and never parents (UHDM
+    // ExprEval.cpp:931-934), so its full name computes to nothing (golden
+    // PackStructField `my_package::my_parameter.a`: the package listing's
+    // pattern op carries an unnamed ref_typespec; ours `my_package`).  The
+    // read set is § pkgNestedPatElabNoExpandSize34's (a scoped reference
+    // anywhere outside a parameter declaration: a qualified parameter
+    // DEFAULT keeps the parent, pass-124 grid c13 q04).  Two listings: the
+    // package's own (on a qualified read) and, below, every ELABORATED
+    // listing's copy of an imported packed pattern parameter.  Grid
+    // tools/probe/r11u131repro/pat (+ r11u124repro/c13).
+    // Switch: R11U131_PATTS_OFF.
+    {
+        static const bool on131 = r11u131On("R11U131_PATTS_OFF");
+        // Pattern objects that ALSO stand in a module or interface listing
+        // (a port connection, a parameter Rhs, a continuous assignment: our
+        // substitution of `pkg::P` shares the package's own operation;
+        // golden's use keeps the ORIGINAL, parented one while only the
+        // package listing takes the flattened copy — ParamTypespec2
+        // `.a({3{prim_esc_pkg::ESC_TX_DEFAULT}})`, ParamNoImport
+        // `#(.PWR_AST_RSP(pkg::PWR_AST_RSP_DEFAULT))`): left alone.
+        std::set<const UHDM::any*> hiConnOps131;
+        if (on131) {
+            std::function<void(const UHDM::any*)> ex131 = [&](const UHDM::any* e) {
+                if (!e || e->UhdmType() != UHDM::uhdmoperation ||
+                    !hiConnOps131.insert(e).second)
+                    return;
+                if (auto* os = ((const UHDM::operation*)e)->Operands())
+                    for (auto* o : *os)
+                        ex131(o);
+            };
+            std::set<const UHDM::any*> seenM131;
+            std::function<void(const UHDM::any*)> mod131 = [&](const UHDM::any* m) {
+                if (!m || !seenM131.insert(m).second)
+                    return;
+                auto rhs131 = [&](const UHDM::VectorOfparam_assign* pv,
+                                  const UHDM::VectorOfcont_assign* cv) {
+                    if (pv)
+                        for (auto* pa : *pv)
+                            if (pa)
+                                ex131(pa->Rhs());
+                    if (cv)
+                        for (auto* ca : *cv)
+                            if (ca)
+                                ex131(ca->Rhs());
+                };
+                if (m->UhdmType() == UHDM::uhdminterface_inst) {
+                    auto* ii = (const UHDM::interface_inst*)m;
+                    rhs131(ii->Param_assigns(), ii->Cont_assigns());
+                    if (ii->Ports())
+                        for (auto* pt : *ii->Ports())
+                            ex131(pt->High_conn());
+                }
+                if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+                    auto* mi = (const UHDM::module_inst*)m;
+                    rhs131(mi->Param_assigns(), mi->Cont_assigns());
+                    if (mi->Interfaces())
+                        for (auto* c : *mi->Interfaces())
+                            mod131(c);
+                    if (mi->Ports())
+                        for (auto* pt : *mi->Ports())
+                            ex131(pt->High_conn());
+                    if (mi->Modules())
+                        for (auto* c : *mi->Modules())
+                            mod131(c);
+                    if (mi->Gen_scope_arrays())
+                        for (auto* ga : *mi->Gen_scope_arrays())
+                            if (ga && ga->Gen_scopes())
+                                for (auto* g : *ga->Gen_scopes())
+                                    mod131(g);
+                }
+                else if (m->UhdmType() == UHDM::uhdmgen_scope) {
+                    auto* g = (const UHDM::gen_scope*)m;
+                    rhs131(g->Param_assigns(), g->Cont_assigns());
+                    if (g->Modules())
+                        for (auto* c : *g->Modules())
+                            mod131(c);
+                    if (g->Gen_scope_arrays())
+                        for (auto* ga : *g->Gen_scope_arrays())
+                            if (ga && ga->Gen_scopes())
+                                for (auto* gg : *ga->Gen_scopes())
+                                    mod131(gg);
+                }
+            };
+            for (auto* v : {d->AllModules(), d->TopModules()})
+                if (v)
+                    for (auto* m : *v)
+                        mod131(m);
+            if (d->AllInterfaces())
+                for (auto* m : *d->AllInterfaces())
+                    mod131(m);
+        }
+        std::set<const UHDM::any*> pk131;
+        if (on131)
+            for (auto* pv : {d->AllPackages(), d->TopPackages()})
+                if (pv)
+                    for (auto* pk : *pv) {
+                        if (!pk || !pk131.insert(pk).second || !pk->Param_assigns())
+                            continue;
+                        std::string pn(pk->VpiName());
+                        if (auto at = pn.find('@'); at != std::string::npos)
+                            pn = pn.substr(at + 1);
+                        for (auto* pa : *pk->Param_assigns()) {
+                            auto* r = pa ? pa->Rhs() : nullptr;
+                            auto* l = pa ? pa->Lhs() : nullptr;
+                            if (!r || !l || r->UhdmType() != UHDM::uhdmoperation ||
+                                ((UHDM::operation*)r)->VpiOpType() != vpiAssignmentPatternOp)
+                                continue;
+                            auto* rt = ((UHDM::operation*)r)->Typespec();
+                            if (!rt || hiConnOps131.count(r) ||
+                                !pkgPatInit131().count(pn + "::" + std::string(l->VpiName())) ||
+                                !pkgPatScopedRef34(pn, l->VpiName()))
+                                continue;
+                            // A FRESH reference: the old one may be shared
+                            // by a copy of the pattern elsewhere (a
+                            // high-conn replication of `pkg::P`,
+                            // ParamTypespec2), which keeps its parent.
+                            auto* nrt = s.MakeRef_typespec();
+                            nrt->Actual_typespec(rt->Actual_typespec());
+                            ((UHDM::operation*)r)->Typespec(nrt);
+                        }
+                    }
+        // The ELABORATED listing's copy of an IMPORTED package pattern
+        // parameter is the package's complex value, flattened the same way
+        // (every import, read or not: grid pat t04 t10 t11 t14; a module's
+        // own pattern parameter keeps its parent, t12 t13).
+        // A name the DEFINITION declares itself is its own parameter (a
+        // module parameter shadowing the import, ff_dead_both_branches
+        // `Cfg`; an override actual `pkg::P` on a module's own parameter,
+        // ParamNoImport): its value is not the package's complex value.
+        std::map<std::string, std::set<std::string>> own131;
+        auto noteOwn131 = [&](const UHDM::BaseClass* m,
+                              const UHDM::VectorOfparam_assign* v) {
+            if (!v)
+                return;
+            auto& st = own131[std::string(m->VpiDefName())];
+            for (auto* pa : *v)
+                if (auto* l = pa ? pa->Lhs() : nullptr;
+                    l && !(l->UhdmType() == UHDM::uhdmparameter &&
+                           !((const UHDM::parameter*)l)->VpiImported().empty()))
+                    st.insert(std::string(l->VpiName()));
+        };
+        if (on131 && d->AllModules())
+            for (auto* m : *d->AllModules())
+                noteOwn131(m, m->Param_assigns());
+        if (on131 && d->AllInterfaces())
+            for (auto* m : *d->AllInterfaces())
+                noteOwn131(m, m->Param_assigns());
+        std::set<const UHDM::any*> seen131;
+        std::function<void(const UHDM::any*)> walk131 = [&](const UHDM::any* o) {
+            if (!on131 || !o || !seen131.insert(o).second)
+                return;
+            const std::set<std::string>* ownHere = nullptr;
+            if (auto oit = own131.find(std::string(o->VpiDefName())); oit != own131.end())
+                ownHere = &oit->second;
+            const UHDM::VectorOfparam_assign* pas = nullptr;
+            const UHDM::VectorOfmodule_inst* mods = nullptr;
+            const UHDM::VectorOfinterface_inst* ifs = nullptr;
+            const UHDM::VectorOfgen_scope_array* gas = nullptr;
+            if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+                auto* m = (const UHDM::module_inst*)o;
+                pas = m->Param_assigns(); mods = m->Modules();
+                ifs = m->Interfaces(); gas = m->Gen_scope_arrays();
+            }
+            else if (o->UhdmType() == UHDM::uhdminterface_inst) {
+                auto* m = (const UHDM::interface_inst*)o;
+                pas = m->Param_assigns(); gas = m->Gen_scope_arrays();
+            }
+            else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+                auto* g = (const UHDM::gen_scope*)o;
+                pas = g->Param_assigns(); mods = g->Modules();
+                ifs = g->Interfaces(); gas = g->Gen_scope_arrays();
+            }
+            if (pas)
+                for (auto* pa : *pas) {
+                    auto* r = pa ? pa->Rhs() : nullptr;
+                    auto* l = pa ? pa->Lhs() : nullptr;
+                    if (!r || !l || r->UhdmType() != UHDM::uhdmoperation ||
+                        ((UHDM::operation*)r)->VpiOpType() != vpiAssignmentPatternOp ||
+                        l->UhdmType() != UHDM::uhdmparameter ||
+                        ((const UHDM::parameter*)l)->VpiImported().empty() ||
+                        (ownHere && ownHere->count(std::string(l->VpiName()))) ||
+                        // written as a pattern in its package, not a
+                        // reference to another pattern parameter
+                        // (BlackBePipeInt `bp_unicore_cfg_p =
+                        // bp_default_cfg_p` keeps its parent)
+                        !pkgPatInit131().count(
+                            std::string(((const UHDM::parameter*)l)->VpiImported()) +
+                            "::" + std::string(l->VpiName())))
+                        continue;
+                    auto* rt = ((UHDM::operation*)r)->Typespec();
+                    auto* at = rt ? rt->Actual_typespec() : nullptr;
+                    // Packed targets only: the flatten runs on a packed
+                    // struct / vector (an UNPACKED struct's copy keeps its
+                    // parent, iface_zero_width_field `B`).
+                    bool packed131 =
+                        at && ((at->UhdmType() == UHDM::uhdmstruct_typespec &&
+                                ((UHDM::struct_typespec*)at)->VpiPacked()) ||
+                               at->UhdmType() == UHDM::uhdmpacked_array_typespec ||
+                               at->UhdmType() == UHDM::uhdmlogic_typespec ||
+                               at->UhdmType() == UHDM::uhdmbit_typespec);
+                    if (!packed131)
+                        continue;
+                    auto* nrt = s.MakeRef_typespec();
+                    nrt->Actual_typespec(at);
+                    ((UHDM::operation*)r)->Typespec(nrt);
+                }
+            if (mods)
+                for (auto* c : *mods)
+                    walk131(c);
+            if (ifs)
+                for (auto* c : *ifs)
+                    walk131(c);
+            if (gas)
+                for (auto* a : *gas)
+                    if (a && a->Gen_scopes())
+                        for (auto* g : *a->Gen_scopes())
+                            walk131(g);
+        };
+        if (d->TopModules())
+            for (auto* t : *d->TopModules())
+                walk131(t);
+    }
+    // § implicitNetMintNoFile131 — the late-binding mints of the expression
+    // and statement emitters: no file on a DEFINITION's wire (law at
+    // EmitHelpers.h).  Every setLoc on these nets is behind us here.
+    for (auto* o : implicitNetMints131()) {
+        auto* p = o->VpiParent();
+        if (p && (p->UhdmType() == UHDM::uhdmmodule_inst ||
+                  p->UhdmType() == UHDM::uhdminterface_inst ||
+                  p->UhdmType() == UHDM::uhdmprogram) &&
+            p->VpiName().empty())
+            o->VpiFile("");
+    }
+    implicitNetMints131().clear();
     {
         static const bool offCf124 = getenv("R11U124_OFF") != nullptr ||
                                      getenv("R11U124_CASTFILE_OFF") != nullptr;

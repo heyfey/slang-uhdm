@@ -1,0 +1,9 @@
+// § pkgPatReadTsNoParent131
+package pk;
+  typedef struct packed { logic [3:0] a; logic [3:0] b; } s_t;
+  parameter s_t P = '{a: 4'h1, b: 4'h2};
+endpackage
+module top (output logic [7:0] o);
+  logic [7:0] v = pk::P;
+  assign o = v;
+endmodule

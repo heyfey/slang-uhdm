@@ -14107,4 +14107,118 @@ inline bool pkgQualPsRtFull118On() {
     return on;
 }
 
+// ============================================================================
+// r11u131 — PAIR A, THE EXPRESSION/PARAMETER GROUND OF THE STRICT AXIS.
+// Every law reads its own kill switch; `R11U131_OFF=1` turns them all off.
+// Grids, cells and decodes: tools/probe/r11u131repro/README.md.
+// ============================================================================
+inline bool r11u131On(const char* one) {
+    static const bool all = getenv("R11U131_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+
+/// § paramIdxPartSelWholeSpan131 — an INDEXED part-select written in a
+/// CONSTANT-EXPRESSION context (a parameter's initializer, an instance's
+/// parameter override) spans the WHOLE select, `A[8*4+:4]`, where the same
+/// select in an ordinary expression spans the range alone.  Surelog compiles
+/// a parameter initializer through the Constant_primary arm
+/// (`ps_parameter_identifier constant_select`) and populates the select from
+/// that whole node; the Primary arm of an ordinary expression populates it
+/// from the Select node, which starts at the `[`.  Grid
+/// tools/probe/r11u131repro/ips.  Switch: R11U131_IPSSPAN_OFF.
+inline bool paramIdxPartSelWholeSpan131On() {
+    static const bool on = r11u131On("R11U131_IPSSPAN_OFF");
+    return on;
+}
+
+/// § constCtxCallArgInner131v (adversarial verification of r11u131) — the
+/// whole-node population of § paramIdxPartSelWholeSpan131 and
+/// § pkgQualCallQualSpan131 stops at a CALL ARGUMENT and at a conditional's
+/// THEN operand: golden `$clog2(p::f(5))` 7:29-30, `lf(p::f(1))`,
+/// `$countones(A[8 +: 8])` 4:35-41, `f(A[8 +: 8])` 5:26-32, `(W > 0) ?
+/// A[8 +: 8] : 0` 5:42-48 keep the token / range span, where a binary or
+/// unary operand, a concatenation or replication element, a cast operand, a
+/// conditional's predicate and its ELSE operand take the whole node (grid
+/// tools/probe/r11v131repro qc/ ips/).  Walks the syntax parents from the
+/// expression up to the initializer.  Switch: R11V131_ARGCTX_OFF.
+inline bool constCtxWholeNode131(const slang::syntax::SyntaxNode* n) {
+    static const bool on = getenv("R11U131_OFF") == nullptr &&
+                           getenv("R11V131_ARGCTX_OFF") == nullptr;
+    if (!on || !n)
+        return true;
+    using SK = slang::syntax::SyntaxKind;
+    for (const slang::syntax::SyntaxNode* c = n; c && c->parent; c = c->parent) {
+        const slang::syntax::SyntaxNode* p = c->parent;
+        switch (p->kind) {
+        case SK::ArgumentList:
+            return false;
+        case SK::ConditionalExpression:
+            if ((const slang::syntax::SyntaxNode*)p->as<slang::syntax::ConditionalExpressionSyntax>()
+                    .left.get() == c)
+                return false;
+            break;
+        case SK::EqualsValueClause:
+        case SK::Declarator:
+        case SK::ParameterDeclaration:
+        case SK::ParameterValueAssignment:
+        case SK::OrderedParamAssignment:
+        case SK::NamedParamAssignment:
+            return true;
+        default:
+            break;
+        }
+    }
+    return true;
+}
+
+/// § pkgQualCallQualSpan131 — a package-qualified function call written in
+/// a parameter initializer (`parameter p::cfg_t CFG = p::build()`, a
+/// localparam's `p::f(4)`) spans the qualifier WITH its `::` (`p::`,
+/// 16:39-42), where the same call in a continuous assignment or a process
+/// spans the package-name token.  Grid tools/probe/r11u131repro/qc.
+/// Switch: R11U131_QCALL_OFF.
+inline bool pkgQualCallQualSpan131On() {
+    static const bool on = r11u131On("R11U131_QCALL_OFF");
+    return on;
+}
+
+/// § implicitNetMintNoFile131 — the implicit WIRE the expression and
+/// statement emitters mint for a name nothing declares (a property formal,
+/// a block-scoped localparam, a foreach loop variable, a task-scope
+/// parameter, a scope name handed to a system task, an unresolvable
+/// `disable` label) is Surelog's late-binding mint (UhdmWriter.cpp:3987-4005,
+/// the lookup-miss arm of lateBinding): it copies the reference's four span
+/// fields and NO VpiFile.  § implicitNetNoFile119 cleared the definition-net
+/// loops' twins; these are its "NOT noted" roads (CheckerInst `req`: golden
+/// ` 6:22:6:25`, ours `dut.sv 6:22:6:25`).  Definition view only, as the
+/// pass-119 law: an elaborated twin keeps its file.  The mint sites note the
+/// net; ParamEmit's end-of-export pass clears the file (after every setLoc).
+/// Grid tools/probe/r11u131repro/inet.  Switch: R11U131_INETFILE_OFF.
+inline std::vector<UHDM::BaseClass*>& implicitNetMints131() {
+    static std::vector<UHDM::BaseClass*> v;
+    return v;
+}
+inline void noteImplicitNetMint131(UHDM::BaseClass* n) {
+    static const bool on = r11u131On("R11U131_INETFILE_OFF");
+    if (on && n)
+        implicitNetMints131().push_back(n);
+}
+
+/// § sysCallKwTypeArgNameSpan131 — a system call whose argument is a
+/// built-in keyword data type spans the system-function NAME token alone, in
+/// any context, and a `$bits` of one folds to a constant at that span
+/// (golden NonSynthError `$size(int)` 4:15-20).  MEASURED on `int`, `byte`,
+/// `shortint`, `integer` and a scalar `logic`, in a parameter default, a
+/// localparam operand, an overridable port parameter and a continuous
+/// assignment (grid tools/probe/r11u131repro/sfc); a typedef name and a
+/// variable keep the whole call.  The gate is slang's predefined-integer
+/// and scalar kinds.  Surelog's call node is the `System_task_names` name
+/// node (CompileExpression.cpp paSystem_task_names) — the keyword argument
+/// leaves no expression the span could extend to.  Switch:
+/// R11U131_KWSYS_OFF.
+inline bool sysCallKwTypeArgNameSpan131On() {
+    static const bool on = r11u131On("R11U131_KWSYS_OFF");
+    return on;
+}
+
 } // namespace slang_uhdm
