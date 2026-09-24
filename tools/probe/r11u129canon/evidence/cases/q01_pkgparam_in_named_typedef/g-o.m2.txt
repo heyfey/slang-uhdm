@@ -1,0 +1,20 @@
+#24 fullname
+  A: 8	ref_obj	pa::W		p::p::s_t::m::pa::W	dut.sv	4	34	4	39		0		
+  B: 8	ref_obj	pa::W			dut.sv	4	34	4	39		0		
+#52 fullname
+  A: 4	ref_typespec			p::s_t.m		0	0	0	0		0		
+  B: 4	ref_typespec			p::p::s_t::m		0	0	0	0		0		
+#58 fullname
+  A: 4	ref_typespec			p::s_t.n		0	0	0	0		0		
+  B: 4	ref_typespec			p::p::s_t::n		0	0	0	0		0		
+#68 fullname
+  A: 6	ref_typespec			p::s_t.m		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::s_t::m		0	0	0	0		0		
+#74 fullname
+  A: 6	ref_typespec			p::s_t.n		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::s_t::n		0	0	0	0		0		
+#81 fullname
+  A: 6	ref_typespec			p::s_t.m		0	0	0	0		0		
+  B: 6	ref_typespec			p::p::s_t::m		0	0	0	0		0		
+fields: fullname=15 objects_differing=15
+STRICT_NOTEQUAL fullname

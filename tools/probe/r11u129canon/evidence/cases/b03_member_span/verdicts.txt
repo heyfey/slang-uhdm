@@ -1,0 +1,4 @@
+g-o: uhdm-cmp rc=0 | m2 rc=2 STRICT_NOTEQUAL fullname | m3 rc=0 STRICT_EQUAL 111 objects | m4 rc=0 STRICT_EQUAL 111 objects | base rc=0 STRICT_EQUAL 111 objects
+g-gv: uhdm-cmp rc=0 | m2 rc=2 STRICT_NOTEQUAL endcol | m3 rc=2 STRICT_NOTEQUAL endcol | m4 rc=2 STRICT_NOTEQUAL endcol | base rc=2 STRICT_NOTEQUAL endcol
+g-ov: uhdm-cmp rc=0 | m2 rc=2 STRICT_NOTEQUAL endcol | m3 rc=2 STRICT_NOTEQUAL endcol | m4 rc=2 STRICT_NOTEQUAL endcol | base rc=2 STRICT_NOTEQUAL endcol
+o-ov: uhdm-cmp rc=0 | m2 rc=2 STRICT_NOTEQUAL endcol | m3 rc=2 STRICT_NOTEQUAL endcol | m4 rc=2 STRICT_NOTEQUAL endcol | base rc=2 STRICT_NOTEQUAL endcol

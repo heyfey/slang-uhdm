@@ -1,0 +1,211 @@
+0	design	work@top	0		-1
+1	package	builtin	0	builtin::	0
+2	package	my_pkg	0	my_pkg::	0
+3	enum_typespec	my_pkg::get_e	1		2
+4	ref_typespec		1	my_pkg::my_pkg::get_e	3
+5	int_typespec		1		-1
+6	enum_const	Get0	1		3
+7	enum_const	Get1	1		3
+8	enum_const	Get2	1		3
+9	enum_const	Get3	1		3
+10	enum_const	Get4	1		3
+11	enum_const	GetDefault	1		3
+12	package	builtin	0	builtin::	0
+13	class_defn	any_sverilog_class	0	builtin::any_sverilog_class	12
+14	class_defn	array	0	builtin::array	12
+15	class_defn	queue	0	builtin::queue	12
+16	class_defn	string	0	builtin::string	12
+17	class_defn	system	0	builtin::system	12
+18	package	my_pkg	0	my_pkg::	0
+19	enum_typespec	my_pkg::get_e	1		172
+20	ref_typespec		1	work@top.my_pkg::get_e	190
+21	int_typespec		1		-1
+22	enum_const	Get0	1		190
+23	enum_const	Get1	1		190
+24	enum_const	Get2	1		190
+25	enum_const	Get3	1		190
+26	enum_const	Get4	1		190
+27	enum_const	GetDefault	1		190
+28	class_defn	work@mailbox	0		0
+29	function	new	0	work@mailbox::new	28
+30	class_var		0	work@mailbox::new	29
+31	ref_typespec		0	work@mailbox::new	30
+32	class_typespec		1		-1
+33	io_decl	bound	0		29
+34	constant		0		-1
+35	ref_typespec		0	work@mailbox::new::bound	33
+36	int_typespec		1		-1
+37	function	num	0	work@mailbox::num	28
+38	int_var		0	work@mailbox::num	37
+39	ref_typespec		0	work@mailbox::num	38
+40	int_typespec		1		-1
+41	task	put	0	work@mailbox::put	28
+42	io_decl	message	0		41
+43	function	try_put	0	work@mailbox::try_put	28
+44	logic_var		0	work@mailbox::try_put	43
+45	io_decl	message	0		43
+46	task	get	0	work@mailbox::get	28
+47	io_decl	message	0		46
+48	function	try_get	0	work@mailbox::try_get	28
+49	int_var		0	work@mailbox::try_get	48
+50	ref_typespec		0	work@mailbox::try_get	49
+51	int_typespec		1		-1
+52	io_decl	message	0		48
+53	task	peek	0	work@mailbox::peek	28
+54	io_decl	message	0		53
+55	function	try_peek	0	work@mailbox::try_peek	28
+56	int_var		0	work@mailbox::try_peek	55
+57	ref_typespec		0	work@mailbox::try_peek	56
+58	int_typespec		1		-1
+59	io_decl	message	0		55
+60	class_defn	work@process	0		0
+61	enum_typespec	state	1		60
+62	enum_const	FINISHED	1		61
+63	enum_const	RUNNING	1		61
+64	enum_const	WAITING	1		61
+65	enum_const	SUSPENDED	1		61
+66	enum_const	KILLED	1		61
+67	function	self	0	work@process::self	60
+68	class_var		0	work@process::self	67
+69	ref_typespec		0	work@process::self	68
+70	class_typespec		1		-1
+71	function	status	0	work@process::status	60
+72	enum_var		0	work@process::status	71
+73	ref_typespec		0	work@process::status	72
+74	task	kill	0	work@process::kill	60
+75	task	await	0	work@process::await	60
+76	task	suspend	0	work@process::suspend	60
+77	task	resume	0	work@process::resume	60
+78	class_defn	work@semaphore	0		0
+79	function	new	0	work@semaphore::new	78
+80	class_var		0	work@semaphore::new	79
+81	ref_typespec		0	work@semaphore::new	80
+82	class_typespec		1		-1
+83	io_decl	keyCount	0		79
+84	constant		0		-1
+85	ref_typespec		0	work@semaphore::new::keyCount	83
+86	int_typespec		1		-1
+87	task	put	0	work@semaphore::put	78
+88	io_decl	keyCount	0		87
+89	constant		0		-1
+90	ref_typespec		0	work@semaphore::put::keyCount	88
+91	int_typespec		1		-1
+92	task	get	0	work@semaphore::get	78
+93	io_decl	keyCount	0		92
+94	constant		0		-1
+95	ref_typespec		0	work@semaphore::get::keyCount	93
+96	int_typespec		1		-1
+97	function	try_get	0	work@semaphore::try_get	78
+98	int_var		0	work@semaphore::try_get	97
+99	ref_typespec		0	work@semaphore::try_get	98
+100	int_typespec		1		-1
+101	io_decl	keyCount	0		97
+102	constant		0		-1
+103	ref_typespec		0	work@semaphore::try_get::keyCount	101
+104	int_typespec		1		-1
+105	module_inst		0	work@GOOD	0
+106	module_inst		0	work@top	0
+107	parameter	GetWhat	0	work@top.GetWhat	106
+108	ref_typespec		0	work@top.GetWhat	107
+109	enum_typespec	my_pkg::get_e	1		172
+110	ref_typespec		1	work@top.my_pkg::get_e	190
+111	int_typespec		1		-1
+112	enum_const	Get0	1		190
+113	enum_const	Get1	1		190
+114	enum_const	Get2	1		190
+115	enum_const	Get3	1		190
+116	enum_const	Get4	1		190
+117	enum_const	GetDefault	1		190
+118	param_assign		0		106
+119	ref_obj	Get3	0	work@top.Get3	118
+120	enum_const	Get3	1		3
+121	import_typespec	my_pkg	1		106
+122	constant		1		-1
+123	logic_net	out	0	work@top.out	106
+124	port	out	0		106
+125	ref_obj	out	0	work@top.out.out	124
+126	ref_typespec		0	work@top.out	124
+127	int_typespec		1		-1
+128	gen_if_else		0		106
+129	operation		0		128
+130	ref_obj	GetWhat	0	work@top.GetWhat	129
+131	ref_obj	Get0	0	work@top.Get0	129
+132	enum_const	Get0	1		3
+133	ref_obj	GetDefault	0	work@top.GetDefault	129
+134	enum_const	GetDefault	1		3
+135	named_begin	gen_zero	0	work@top.gen_zero	128
+136	cont_assign		0		135
+137	constant		0		136
+138	ref_obj	out	0	work@top.gen_zero.out	136
+139	begin		0	work@top	128
+140	gen_if_else		0		139
+141	operation		0		140
+142	ref_obj	GetWhat	0	work@top.GetWhat	141
+143	ref_obj	Get1	0	work@top.Get1	141
+144	named_begin	gen_one	0	work@top.gen_one	140
+145	cont_assign		0		144
+146	constant		0		145
+147	ref_obj	out	0	work@top.gen_one.out	145
+148	begin		0	work@top	140
+149	gen_if_else		0		148
+150	operation		0		149
+151	ref_obj	GetWhat	0	work@top.GetWhat	150
+152	ref_obj	Get2	0	work@top.Get2	150
+153	ref_obj	Get3	0	work@top.Get3	150
+154	named_begin	gen_two	0	work@top.gen_two	149
+155	cont_assign		0		154
+156	constant		0		155
+157	ref_obj	out	0	work@top.gen_two.out	155
+158	ref_module	good	0		154
+159	begin		0	work@top	149
+160	gen_if_else		0		159
+161	operation		0		160
+162	ref_obj	GetWhat	0	work@top.GetWhat	161
+163	ref_obj	Get4	0	work@top.Get4	161
+164	named_begin	gen_three	0	work@top.gen_three	160
+165	cont_assign		0		164
+166	constant		0		165
+167	ref_obj	out	0	work@top.gen_three.out	165
+168	named_begin	gen_invalid	0	work@top.gen_invalid	160
+169	cont_assign		0		168
+170	constant		0		169
+171	ref_obj	out	0	work@top.gen_invalid.out	169
+172	module_inst	work@top	0		0
+173	int_var	out	0	work@top.out	172
+174	ref_typespec		0	work@top.out	173
+175	int_typespec		1		-1
+176	parameter	GetWhat	0	work@top.GetWhat	172
+177	ref_typespec		0	work@top.GetWhat	176
+178	enum_typespec	my_pkg::get_e	1		177
+179	ref_typespec		1	work@top.GetWhat.my_pkg::get_e	178
+180	int_typespec		1		179
+181	enum_const	Get0	1		178
+182	enum_const	Get1	1		178
+183	enum_const	Get2	1		178
+184	enum_const	Get3	1		178
+185	enum_const	Get4	1		178
+186	enum_const	GetDefault	1		178
+187	param_assign		0		172
+188	constant		0		187
+189	ref_typespec		0	work@top	188
+190	enum_typespec	my_pkg::get_e	1		172
+191	ref_typespec		1	work@top.my_pkg::get_e	190
+192	int_typespec		1		-1
+193	enum_const	Get0	1		190
+194	enum_const	Get1	1		190
+195	enum_const	Get2	1		190
+196	enum_const	Get3	1		190
+197	enum_const	Get4	1		190
+198	enum_const	GetDefault	1		190
+199	import_typespec	my_pkg	1		172
+200	constant		1		-1
+201	port	out	0		172
+202	ref_obj	out	0	work@top.out	201
+203	ref_typespec		0	work@top.out	201
+204	int_typespec		1		-1
+205	gen_scope_array	gen_two	0	work@top.gen_two	172
+206	gen_scope		0	work@top.gen_two	205
+207	cont_assign		0		206
+208	constant		0		207
+209	ref_obj	out	0	work@top.gen_two.out	207
+210	module_inst	good	0	work@top.gen_two.good	206

@@ -1,0 +1,6 @@
+stamped_gen_param/default: NOT_EQUAL stage1 (rc=0)
+stamped_gen_param/testflags: NOT_EQUAL stage1 (rc=0)
+surelog/1364_2005/default: m4 STRICT_EQUAL 159 objects
+surelog/AllBinding/testflags: m4 STRICT_EQUAL 70 objects
+uhdm2rtlil/xor_assignment/default: m4 STRICT_EQUAL 122 objects
+uhdm2rtlil/typedef_param/default: m4 STRICT_EQUAL 310 objects

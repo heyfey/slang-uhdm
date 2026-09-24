@@ -1,0 +1,14 @@
+#14 line
+  A: 3	typespec_member	c			dut.sv	2	39	2	40				
+  B: 3	typespec_member	c			dut.sv	9	39	2	40				
+#30 line
+  A: 5	typespec_member	c			dut.sv	2	39	2	40				
+  B: 5	typespec_member	c			dut.sv	9	39	2	40				
+#43 line
+  A: 5	typespec_member	c			dut.sv	2	39	2	40				
+  B: 5	typespec_member	c			dut.sv	9	39	2	40				
+#59 line
+  A: 5	typespec_member	c			dut.sv	2	39	2	40				
+  B: 5	typespec_member	c			dut.sv	9	39	2	40				
+fields: line=7 objects_differing=7
+STRICT_NOTEQUAL line

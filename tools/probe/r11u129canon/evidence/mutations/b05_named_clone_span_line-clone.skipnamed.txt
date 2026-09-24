@@ -1,0 +1,5 @@
+#13 line
+  A: 2	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 2	struct_typespec	p::s_t			dut.sv	9	11	2	52				
+fields: line=1 objects_differing=1
+STRICT_NOTEQUAL line

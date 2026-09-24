@@ -1,0 +1,14 @@
+#13 file
+  A: 2	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 2	struct_typespec	p::s_t				2	11	2	52				
+#29 file
+  A: 4	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 4	struct_typespec	p::s_t				2	11	2	52				
+#42 file
+  A: 4	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 4	struct_typespec	p::s_t				2	11	2	52				
+#58 file
+  A: 4	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 4	struct_typespec	p::s_t				2	11	2	52				
+fields: file=7 objects_differing=7
+STRICT_NOTEQUAL file

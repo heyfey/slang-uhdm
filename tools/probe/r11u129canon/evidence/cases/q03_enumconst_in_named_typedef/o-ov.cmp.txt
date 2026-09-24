@@ -1,0 +1,24 @@
+LHS:
+decompile:
+ref_obj: (pa::RUN), id:54, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:53, line:4:33, endln:4:44
+|vpiName:pa::RUN
+
+decompile:
+ref_obj: (pa::RUN), id:54, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:53, line:4:33, endln:4:44
+|vpiName:pa::RUN
+RHS:
+decompile:
+ref_obj: (pb::RUN), id:54, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:53, line:4:33, endln:4:44
+|vpiName:pb::RUN
+
+decompile:
+ref_obj: (pb::RUN), id:54, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:53, line:4:33, endln:4:44
+|vpiName:pb::RUN

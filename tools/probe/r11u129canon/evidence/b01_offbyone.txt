@@ -1,0 +1,15 @@
+# r11u129 H3: the committed (b) never fires. Case a01_nested_struct, record dumps (depth type name defname fullname file line col endline endcol).
+# committed binary (base, mode 3), ours side: records whose span is blanked ('-'):
+0
+# the named root p::out_t reached through a ref_typespec (the record after a ref_typespec), committed binary:
+3	ref_typespec			work@top.r		0	0	0	0
+4	struct_typespec	p::out_t			dut.sv	3	11	3	44
+--
+3	ref_typespec			work@top.i		0	0	0	0
+4	struct_typespec	p::out_t			dut.sv	3	11	3	44
+--
+# the same with mode 4 (this patch): marked as a ref-reached named root; the span stays in the record, and the comparison applies the USE-SITE span test
+a01	6	0	0	0
+# (label refroot_positions span_differs excused kept)
+# why: VpiListener::listenAny calls enterAny(object) BEFORE the kind's listen function pushes the object;
+# generated VpiListener.cpp: listenRef_typespec: callstack.push_back(object); enterRef_typespec(...) -- the push happens inside listen<Kind>, after listenAny's enterAny.

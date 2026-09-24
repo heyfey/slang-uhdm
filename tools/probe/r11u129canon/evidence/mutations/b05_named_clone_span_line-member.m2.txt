@@ -1,0 +1,14 @@
+#14 line
+  A: 3	typespec_member	c			dut.sv	2	39	2	40				
+  B: 3	typespec_member	c			dut.sv	9	39	2	40				
+#15 fullname
+  A: 4	ref_typespec			p::s_t.c		0	0	0	0		0		
+  B: 4	ref_typespec			p::p::s_t::c		0	0	0	0		0		
+#21 fullname
+  A: 4	ref_typespec			p::s_t.d		0	0	0	0		0		
+  B: 4	ref_typespec			p::p::s_t::d		0	0	0	0		0		
+#30 line
+  A: 5	typespec_member	c			dut.sv	2	39	2	40				
+  B: 5	typespec_member	c			dut.sv	9	39	2	40				
+fields: fullname=14 line=7 objects_differing=21
+STRICT_NOTEQUAL line

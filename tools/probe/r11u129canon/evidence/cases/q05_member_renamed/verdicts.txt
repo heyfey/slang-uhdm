@@ -1,0 +1,4 @@
+g-o: uhdm-cmp rc=0 | m2 rc=2 STRICT_NOTEQUAL fullname | m3 rc=0 STRICT_EQUAL 179 objects | m4 rc=0 STRICT_EQUAL 179 objects | base rc=0 STRICT_EQUAL 179 objects
+g-gv: uhdm-cmp rc=255 | m2 rc=1 NOT_EQUAL stage1 | m3 rc=1 NOT_EQUAL stage1 | m4 rc=1 NOT_EQUAL stage1 | base rc=1 NOT_EQUAL stage1
+g-ov: uhdm-cmp rc=255 | m2 rc=1 NOT_EQUAL stage1 | m3 rc=1 NOT_EQUAL stage1 | m4 rc=1 NOT_EQUAL stage1 | base rc=1 NOT_EQUAL stage1
+o-ov: uhdm-cmp rc=255 | m2 rc=1 NOT_EQUAL stage1 | m3 rc=1 NOT_EQUAL stage1 | m4 rc=1 NOT_EQUAL stage1 | base rc=1 NOT_EQUAL stage1

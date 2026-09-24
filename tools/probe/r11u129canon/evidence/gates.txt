@@ -1,0 +1,138 @@
+# gates (worktree /tmp/wt_r11u129, SLANG_UHDM=/tmp/r11u129_bin/slang-uhdm cb7b39bd1fa8, STRICT_CMP=/tmp/r11u129_bin/sc_final 5d4617d0458f, workdir /tmp/r11u129_swep, --jobs 3)
+## probe
+probe cases: EQUAL=4087 (of 4087); goldens built now=0, from cache=4087
+probe strict (measurement): equal=1761 differ:file=640 differ:fullname=600 differ:endcol=335 differ:depth=227 differ:line=206 differ:type=96 differ:col=70 differ:endline=60 differ:value=58 differ:name=29 differ:decompile=3 differ:count=2
+## surelog + uhdm2rtlil
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+## downstream
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+## every rc=1 above is the law index check alone (identical on the clean main tree at 9c839593):
+      3 law index STALE: tests/LAWS.md (run scripts/law_index.py)
+## cmds.txt audit: files naming the frozen binary / files with a slang line
+3273 / 3273
+## byteverify vs /tmp/strict_sweep (SELFCHECK=1)
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVERS: 24 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 56 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+## movers (all 80 = /tmp/strict_sweep was written at 03:27 by the main-tree binary of that hour, before pass 121 (c49278b7, 05:42) changed src; 9c839593's source builds cb7b39bd1fa8. Three reruns with the frozen binary reproduce the fresh bytes, not strict_sweep's:)
+bits_of_type_param/default rerun=2a2e47502ff5 fresh=2a2e47502ff5 strict_sweep=92eba82e025c
+MultiPartSelect/default rerun=56a5b29de7ac fresh=56a5b29de7ac strict_sweep=aafac934d829
+ApbSlave/default rerun=6215921fe727 fresh=6215921fe727 strict_sweep=62cf15918585
+surelog MOVER ./default/ApbSlave-d7e70938/slang.uhdm  patched=6215921fe727 pristine=62cf15918585
+surelog MOVER ./default/GenForIfaceLocalparamNestedGen-20dde232/slang.uhdm  patched=c86f5b294e7f pristine=3c451d8859d6
+surelog MOVER ./default/GenIfIfaceParamStructField-defc4948/slang.uhdm  patched=0dfaa835608d pristine=a4a98c8d3dd5
+surelog MOVER ./default/InterfaceParamOverrideProp-6e27b174/slang.uhdm  patched=5f3c587e2c87 pristine=b205f94e7a5b
+surelog MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=10645a18af8d pristine=47571db00c83
+surelog MOVER ./default/MultiPartSelect-b6fd8141/slang.uhdm  patched=56a5b29de7ac pristine=aafac934d829
+surelog MOVER ./default/PackageTypeParam-7564d5e0/slang.uhdm  patched=2161bb0cbde3 pristine=7f53664f6a80
+surelog MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=6257dcb4d470 pristine=364d81a438a1
+surelog MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=7c8e95dcf2fe pristine=0dba47ed5aad
+surelog MOVER ./default/StructParamFieldRange-2f684d9b/slang.uhdm  patched=90b515b3f3bf pristine=0870540b338f
+surelog MOVER ./default/StructParamFuncBodyFieldCompare-8bdad600/slang.uhdm  patched=befad3a20721 pristine=0164ce39b08a
+surelog MOVER ./default/StructParamPatternInitCast-cec842a1/slang.uhdm  patched=72734f4a002c pristine=35539f9d4bd3
+surelog MOVER ./default/TypeParam-1a539dcb/slang.uhdm  patched=7da35f4d631c pristine=254644ecb3ac
+surelog MOVER ./testflags/ApbSlave-d7e70938/slang.uhdm  patched=6215921fe727 pristine=62cf15918585
+surelog MOVER ./testflags/GenForIfaceLocalparamNestedGen-20dde232/slang.uhdm  patched=73063d1f2d02 pristine=14cb276f08d7
+surelog MOVER ./testflags/GenIfIfaceParamStructField-defc4948/slang.uhdm  patched=fd3cf531efb4 pristine=374d2ac646de
+surelog MOVER ./testflags/InterfaceParamOverrideProp-6e27b174/slang.uhdm  patched=34e786139691 pristine=c943198d04e3
+surelog MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=a77ed0b761c4 pristine=64f41e48817c
+surelog MOVER ./testflags/MultiPartSelect-b6fd8141/slang.uhdm  patched=2dc0d0a21ad3 pristine=019dd62b1616
+surelog MOVER ./testflags/PackageTypeParam-7564d5e0/slang.uhdm  patched=c03f8520363f pristine=1aec10bbfaaf
+surelog MOVER ./testflags/StructParamFieldRange-2f684d9b/slang.uhdm  patched=90b515b3f3bf pristine=0870540b338f
+surelog MOVER ./testflags/StructParamFuncBodyFieldCompare-8bdad600/slang.uhdm  patched=befad3a20721 pristine=0164ce39b08a
+surelog MOVER ./testflags/StructParamPatternInitCast-cec842a1/slang.uhdm  patched=72734f4a002c pristine=35539f9d4bd3
+surelog MOVER ./testflags/TypeParam-1a539dcb/slang.uhdm  patched=334c292223fb pristine=dfd375d3a142
+surelog MOVERS: 24 / 960
+uhdm2rtlil MOVER ./default/arb_idx_cast-d091b554/slang.uhdm  patched=f92105e1f0bc pristine=7cfe07809e38
+uhdm2rtlil MOVER ./default/bits_of_type_param-e5e1e6bf/slang.uhdm  patched=2a2e47502ff5 pristine=92eba82e025c
+uhdm2rtlil MOVER ./default/cva6_struct_param_field-7cd1ec7b/slang.uhdm  patched=4c2d5c32a850 pristine=2f219cb4adc3
+uhdm2rtlil MOVER ./default/gen_scope_numports-3f4035e6/slang.uhdm  patched=bfafedf493f2 pristine=e398a7885e0e
+uhdm2rtlil MOVER ./default/iface_array_elem_cfg_param-ed894f29/slang.uhdm  patched=076da4c9c779 pristine=83962633d9e4
+uhdm2rtlil MOVER ./default/iface_cfg_mem-611eace5/slang.uhdm  patched=1171f2b45727 pristine=e90545f28cea
+uhdm2rtlil MOVER ./default/iface_cfg_param_def_pass-eb6d6de5/slang.uhdm  patched=b85bcd3a146a pristine=c2854c4d5632
+uhdm2rtlil MOVER ./default/iface_nested_param_field-f4e56e1c/slang.uhdm  patched=6534c269b4d8 pristine=6455502425f2
+uhdm2rtlil MOVER ./default/iface_param_2level-532b31fa/slang.uhdm  patched=5583ac3d0543 pristine=d9fe9c15dd1b
+uhdm2rtlil MOVER ./default/iface_scalar_localparam-b6ec8563/slang.uhdm  patched=c0557c2c1aef pristine=d1a52c2d3862
+uhdm2rtlil MOVER ./default/iface_struct_field_param_width-8a3d916b/slang.uhdm  patched=2e78961ea663 pristine=e06ad5871216
+uhdm2rtlil MOVER ./default/iface_struct_field_partsel-be3e813f/slang.uhdm  patched=8d2dc909a018 pristine=1621b8b7d853
+uhdm2rtlil MOVER ./default/iface_wholestruct_param-10c43af6/slang.uhdm  patched=95fc01e6ef60 pristine=8e99776f802a
+uhdm2rtlil MOVER ./default/iface_zero_width_field-9966c829/slang.uhdm  patched=8bfbed0f7466 pristine=0a53f7861fbb
+uhdm2rtlil MOVER ./default/IndexedPartSelectOfMember-51377c22/slang.uhdm  patched=9e510b608d13 pristine=945f36b1868d
+uhdm2rtlil MOVER ./default/packed_array_reset_loop-f162ef20/slang.uhdm  patched=e6acc124dd9a pristine=fd8e1b385f0f
+uhdm2rtlil MOVER ./default/packed_array_struct-f082df79/slang.uhdm  patched=6e4ff21409c4 pristine=a048130f3b1f
+uhdm2rtlil MOVER ./default/packed_struct_array_fifo-9bb270f2/slang.uhdm  patched=b54dc5510dbd pristine=addae86c5090
+uhdm2rtlil MOVER ./default/param_name_collision_typeparam-1d3c31fb/slang.uhdm  patched=da90c0440df8 pristine=a9752b755b7e
+uhdm2rtlil MOVER ./default/param_nested_struct_field_width-5f0b6d8d/slang.uhdm  patched=bf58106b25d9 pristine=43fdd97aca22
+uhdm2rtlil MOVER ./default/PartSelectOfMember-94099dcd/slang.uhdm  patched=5a84c09c841b pristine=4fedc4f16c17
+uhdm2rtlil MOVER ./default/port_chained_type_param-fceec37f/slang.uhdm  patched=729ebbcbefae pristine=ca47bf7f8511
+uhdm2rtlil MOVER ./default/SelectOnMemberSelectedFrom2DArray-d8ffafab/slang.uhdm  patched=a09dd15e77d8 pristine=904367d9df2d
+uhdm2rtlil MOVER ./default/top_module_type_param-16aabff7/slang.uhdm  patched=b980a28a2ca1 pristine=dcbc155c5662
+uhdm2rtlil MOVER ./default/TypeParameterAsPortTypeWithLogicAnonymous-87290b5b/slang.uhdm  patched=c17a7bcf5ae7 pristine=2dc3c19a0923
+uhdm2rtlil MOVER ./default/type_param_override_elem_sel-3e4a6423/slang.uhdm  patched=14664e1f9568 pristine=943e2bb1bbc3
+uhdm2rtlil MOVER ./default/type_param_packed_dim-13639729/slang.uhdm  patched=583671c25d64 pristine=3094ef998a1a
+uhdm2rtlil MOVER ./default/type_param_unpacked_port-b9fee377/slang.uhdm  patched=1911f39ecd75 pristine=9c7be5d7c4c0
+uhdm2rtlil MOVER ./testflags/arb_idx_cast-d091b554/slang.uhdm  patched=26855be4a576 pristine=18c37775181d
+uhdm2rtlil MOVER ./testflags/bits_of_type_param-e5e1e6bf/slang.uhdm  patched=e705dbf2b63d pristine=53699b4babcd
+uhdm2rtlil MOVER ./testflags/cva6_struct_param_field-7cd1ec7b/slang.uhdm  patched=519e988eb024 pristine=222252973a88
+uhdm2rtlil MOVER ./testflags/gen_scope_numports-3f4035e6/slang.uhdm  patched=f5795fd48346 pristine=a469531df1b1
+uhdm2rtlil MOVER ./testflags/iface_array_elem_cfg_param-ed894f29/slang.uhdm  patched=64382fc5f767 pristine=4a2dc6b75ca2
+uhdm2rtlil MOVER ./testflags/iface_cfg_mem-611eace5/slang.uhdm  patched=cc2972dff640 pristine=05ecca74a2e6
+uhdm2rtlil MOVER ./testflags/iface_cfg_param_def_pass-eb6d6de5/slang.uhdm  patched=de96e4364b29 pristine=d0e192a59d0a
+uhdm2rtlil MOVER ./testflags/iface_nested_param_field-f4e56e1c/slang.uhdm  patched=ddf86691ea8b pristine=1d3f4244f3c9
+uhdm2rtlil MOVER ./testflags/iface_param_2level-532b31fa/slang.uhdm  patched=8723d7b85e26 pristine=65c8dde71042
+uhdm2rtlil MOVER ./testflags/iface_scalar_localparam-b6ec8563/slang.uhdm  patched=45556b57cfd7 pristine=749c7bfd21ec
+uhdm2rtlil MOVER ./testflags/iface_struct_field_param_width-8a3d916b/slang.uhdm  patched=8ca5d77e82a4 pristine=10dc691b2ac9
+uhdm2rtlil MOVER ./testflags/iface_struct_field_partsel-be3e813f/slang.uhdm  patched=ce287c549275 pristine=6d8d01a82698
+uhdm2rtlil MOVER ./testflags/iface_wholestruct_param-10c43af6/slang.uhdm  patched=a005ca116530 pristine=bc2e2cc1fdb6
+uhdm2rtlil MOVER ./testflags/iface_zero_width_field-9966c829/slang.uhdm  patched=1bbeb4432f2f pristine=7a6ba46b6133
+uhdm2rtlil MOVER ./testflags/IndexedPartSelectOfMember-51377c22/slang.uhdm  patched=10a30e15dc70 pristine=73df8f13d1d3
+uhdm2rtlil MOVER ./testflags/packed_array_reset_loop-f162ef20/slang.uhdm  patched=9d30b8cc0b44 pristine=8438fbb329e5
+uhdm2rtlil MOVER ./testflags/packed_array_struct-f082df79/slang.uhdm  patched=0e5bda56de87 pristine=fbcda203a860
+uhdm2rtlil MOVER ./testflags/packed_struct_array_fifo-9bb270f2/slang.uhdm  patched=d9b41843c197 pristine=fd47acdd9423
+uhdm2rtlil MOVER ./testflags/param_name_collision_typeparam-1d3c31fb/slang.uhdm  patched=e6939b9448b9 pristine=bf5e582427cf
+uhdm2rtlil MOVER ./testflags/param_nested_struct_field_width-5f0b6d8d/slang.uhdm  patched=bb1cc28b5ba5 pristine=0e6db8cb71e6
+uhdm2rtlil MOVER ./testflags/PartSelectOfMember-94099dcd/slang.uhdm  patched=f935e1a0be2b pristine=619f51ee0a33
+uhdm2rtlil MOVER ./testflags/port_chained_type_param-fceec37f/slang.uhdm  patched=796d135f1bdb pristine=68e25e656fbe
+uhdm2rtlil MOVER ./testflags/SelectOnMemberSelectedFrom2DArray-d8ffafab/slang.uhdm  patched=3217286d4ad9 pristine=7c49b98eb155
+uhdm2rtlil MOVER ./testflags/top_module_type_param-16aabff7/slang.uhdm  patched=f795963efa76 pristine=3afc1b2920cb
+uhdm2rtlil MOVER ./testflags/TypeParameterAsPortTypeWithLogicAnonymous-87290b5b/slang.uhdm  patched=540e77387cf6 pristine=11945c8389a5
+uhdm2rtlil MOVER ./testflags/type_param_override_elem_sel-3e4a6423/slang.uhdm  patched=228ca3391114 pristine=f6144c8c29f6
+uhdm2rtlil MOVER ./testflags/type_param_packed_dim-13639729/slang.uhdm  patched=898f0f50a41f pristine=a7544a972400
+uhdm2rtlil MOVER ./testflags/type_param_unpacked_port-b9fee377/slang.uhdm  patched=5edc554e8ed0 pristine=6b5fdd77cd52
+uhdm2rtlil MOVERS: 56 / 1608
+## strict column (col 6) of the fresh sweep against results/golden_*.csv col 6 (measurement only; status columns: 0 changes)
+surelog: status changes 0; strict cells changed 65: committed column already stale against the committed comparator (fresh m3 differs from it) 0, moved by mode 4 alone 65, rows outside the stage-1-equal set 0
+   moved by mode 4 alone: ['AssignRhsFlat/default', 'AssignRhsFlat/testflags', 'AssignmentPatternInAssignmentPattern/default', 'AssignmentPatternInAssignmentPattern/testflags', 'BuildUVMPkg/default', 'BuildUVMPkg/testflags', 'Earlgrey_0_1/default', 'Earlgrey_0_1/testflags', 'FuncStructVal/default', 'FuncStructVal/testflags', 'FuncStructValSimple/default', 'FuncStructValSimple/testflags', 'GenForIfaceLocalparamNestedGen/default', 'GenForIfaceLocalparamNestedGen/testflags', 'GenForStructParamBound/default', 'GenForStructParamBound/testflags', 'GenIfIfaceParamStructField/default', 'GenIfIfaceParamStructField/testflags', 'HierPathStruct/default', 'HierPathStruct/testflags', 'HierPathStructTypespec/default', 'HierPathStructTypespec/testflags', 'IOClassStruct/default', 'IOClassStruct/testflags', 'ImportBinding/default', 'ImportBinding/testflags', 'InterfaceParamOverrideProp/default', 'InterfaceParamOverrideProp/testflags', 'LargeValue2Struct/default', 'LargeValue2Struct/testflags', 'MiniAmiq/default', 'MiniAmiq/testflags', 'PackedArrayTypespec/default', 'PackedArrayTypespec/testflags', 'ParamTypespec2/default', 'ParamTypespec2/testflags', 'PartSelectNoParent/default', 'PartSelectNoParent/testflags', 'PatternOrder/default', 'PatternOrder/testflags', 'RangeSelect/default', 'RangeSelect/testflags', 'Scoreboard/default', 'Scr1SvTests/default', 'Scr1SvTests/testflags', 'SeqDriver/default', 'SeqDriver/testflags', 'SimpleUVM/default', 'SimpleUVM/testflags', 'StructAccess/default', 'StructAccess/testflags', 'StructParamFieldRange/default', 'StructParamFieldRange/testflags', 'StructTypedef/default', 'StructTypedef/testflags', 'StructUnsizedVal/default', 'StructUnsizedVal/testflags', 'TypeParamElab/default', 'TypeParamElab/testflags', 'TypedefPack/default', 'TypedefPack/testflags', 'UnpackedTypespec/default', 'UnpackedTypespec/testflags', 'UnsizedParam/default', 'UnsizedParam/testflags']
+uhdm2rtlil: status changes 0; strict cells changed 96: committed column already stale against the committed comparator (fresh m3 differs from it) 0, moved by mode 4 alone 96, rows outside the stage-1-equal set 0
+   moved by mode 4 alone: ['EnumInPackage/default', 'EnumInPackage/testflags', 'IndexedPartSelectInFor/default', 'IndexedPartSelectInFor/testflags', 'IndexedPartSelectOfArrayElement/default', 'IndexedPartSelectOfArrayElement/testflags', 'NestedStructArrayParameterInitializedByPatternPassedAsPort/default', 'NestedStructArrayParameterInitializedByPatternPassedAsPort/testflags', 'OutputSizeWithParameterOfInstanceInitializedByStructMember/default', 'OutputSizeWithParameterOfInstanceInitializedByStructMember/testflags', 'PackageCast/default', 'PackageCast/testflags', 'ParameterOfParametrizedType/default', 'ParameterOfParametrizedType/testflags', 'ParameterOfParametrizedTypeInSubmodule/default', 'ParameterOfParametrizedTypeInSubmodule/testflags', 'PartSelectInFor/default', 'PartSelectInFor/testflags', 'TypeParameterAsPortTypeWithEnum/default', 'TypeParameterAsPortTypeWithEnum/testflags', 'TypeParameterAsPortTypeWithEnumOfParametrizedWidth/default', 'TypeParameterAsPortTypeWithEnumOfParametrizedWidth/testflags', 'TypedefWithParameter/default', 'TypedefWithParameter/testflags', 'anon_struct_packed_dim/default', 'anon_struct_packed_dim/testflags', 'cva6_struct_param_field/default', 'cva6_struct_param_field/testflags', 'gen_scope_typaram/default', 'gen_scope_typaram/testflags', 'ibex_branch_predict/default', 'ibex_branch_predict/testflags', 'ibex_multdiv_slow/default', 'ibex_multdiv_slow/testflags', 'ibex_register_file_ff/default', 'ibex_register_file_ff/testflags', 'ibex_tracer/default', 'ibex_tracer/testflags', 'iface_nested_param_field/default', 'iface_nested_param_field/testflags', 'iface_scalar_localparam/default', 'iface_scalar_localparam/testflags', 'iface_struct_field_param_width/default', 'iface_struct_field_param_width/testflags', 'iface_struct_field_partsel/default', 'iface_struct_field_partsel/testflags', 'iface_zero_width_field/default', 'iface_zero_width_field/testflags', 'indexed_partsel_array/default', 'indexed_partsel_array/testflags', 'jeras_union/default', 'jeras_union/testflags', 'latch_fifo_dynfield/default', 'latch_fifo_dynfield/testflags', 'latch_nested_ex_field/default', 'latch_nested_ex_field/testflags', 'mem_packed_2d_byte_write/default', 'mem_packed_2d_byte_write/testflags', 'packed_array_struct_port_sel/default', 'packed_array_struct_port_sel/testflags', 'param_array_wildcard/default', 'param_array_wildcard/testflags', 'rp32_r5p_alu/default', 'rp32_r5p_alu/testflags', 'rp32_r5p_bru/default', 'rp32_r5p_bru/testflags', 'rp32_r5p_mdu/default', 'rp32_r5p_mdu/testflags', 'rp32_r5p_wbu/default', 'rp32_r5p_wbu/testflags', 'rsp_gen_minimal/default', 'rsp_gen_minimal/testflags', 'simple_package/default', 'simple_package/testflags', 'struct_access/default', 'struct_access/testflags', 'struct_member_cfg_width/default', 'struct_member_cfg_width/testflags', 'struct_member_trailing_index/default', 'struct_member_trailing_index/testflags', 'struct_param_func_config/default', 'struct_param_func_config/testflags', 'struct_param_repl_count/default', 'struct_param_repl_count/testflags', 'struct_pattern_named_default/default', 'struct_pattern_named_default/testflags', 'svtypes_struct_simple/default', 'svtypes_struct_simple/testflags', 'typed_named_pattern/default', 'typed_named_pattern/testflags', 'typedef_package/default', 'typedef_package/testflags', 'typedef_param/default', 'typedef_param/testflags', 'union_simple/default', 'union_simple/testflags']
+## canaries (the committed results/*.csv are CRLF; a CR-stripped copy is the baseline, else every row reads CHANGED)
+  FuncStructVal                  default   CHANGED CMP_EQUAL/differ:line(174) -> CMP_EQUAL/differ:endcol(171)
+  FuncStructVal                  testflags CHANGED CMP_EQUAL/differ:line(387) -> CMP_EQUAL/differ:endcol(383)
+  Scr1SvTests                    default   CHANGED CMP_EQUAL/differ:line(668) -> CMP_EQUAL/differ:line(674)
+  Scr1SvTests                    testflags CHANGED CMP_EQUAL/differ:line(668) -> CMP_EQUAL/differ:line(674)
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ:line(1063) -> CMP_EQUAL/differ:line(5108)
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ:line(1063) -> CMP_EQUAL/differ:line(5108)
+  SimpleUVM                      default   CHANGED CMP_EQUAL/differ:line(261) -> CMP_EQUAL/differ:line(267)
+  SimpleUVM                      testflags CHANGED CMP_EQUAL/differ:line(261) -> CMP_EQUAL/differ:line(267)
+  SeqDriver                      default   CHANGED CMP_EQUAL/differ:line(251) -> CMP_EQUAL/differ:line(254)
+  SeqDriver                      testflags CHANGED CMP_EQUAL/differ:line(251) -> CMP_EQUAL/differ:line(254)
+  BuildUVMPkg                    default   CHANGED CMP_EQUAL/differ:fullname(332) -> CMP_EQUAL/differ:fullname(319)
+  BuildUVMPkg                    testflags CHANGED CMP_EQUAL/differ:fullname(332) -> CMP_EQUAL/differ:fullname(319)
+  Scoreboard                     default   CHANGED CMP_EQUAL/differ:line(265) -> CMP_EQUAL/differ:line(271)
+---- canary rows: ok=39 changed=13 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+(every CHANGED canary row above: status unchanged, strict cell moved by mode 4; each is in the 'moved by mode 4 alone' list)
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.

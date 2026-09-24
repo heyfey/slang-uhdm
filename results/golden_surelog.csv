@@ -45,8 +45,8 @@ Assertions,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assertions/
 Assertions,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assertions/dut.sv:16:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
 AssertTempError,default,CMP_EQUAL,,,differ:fullname(30)
 AssertTempError,testflags,CMP_EQUAL,,,differ:fullname(100)
-AssignmentPatternInAssignmentPattern,default,CMP_EQUAL,,,equal
-AssignmentPatternInAssignmentPattern,testflags,CMP_EQUAL,,,equal
+AssignmentPatternInAssignmentPattern,default,CMP_EQUAL,,,differ:fullname(20)
+AssignmentPatternInAssignmentPattern,testflags,CMP_EQUAL,,,differ:fullname(20)
 Assignments,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assignments/dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
 Assignments,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assignments/dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
 AssignPattern,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPattern/dut.sv:2:16: error: invalid target type 'logic' for assignment pattern,,
@@ -55,8 +55,8 @@ AssignPatternArray,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Ass
 AssignPatternArray,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPatternArray/dut.sv:48:17: error: value of type 'data_region_attr_t$[2]' cannot be assigned to ty,,
 AssignPlus,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPlus/dut.sv:7:14: error: use of undeclared identifier 'w_data_li',,
 AssignPlus,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPlus/dut.sv:7:14: error: use of undeclared identifier 'w_data_li',,
-AssignRhsFlat,default,CMP_EQUAL,,,equal
-AssignRhsFlat,testflags,CMP_EQUAL,,,equal
+AssignRhsFlat,default,CMP_EQUAL,,,differ:fullname(23)
+AssignRhsFlat,testflags,CMP_EQUAL,,,differ:fullname(23)
 AssignSubs,default,CMP_EQUAL,,,equal
 AssignSubs,testflags,CMP_EQUAL,,,equal
 AssociativeArray,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssociativeArray/dut.sv:3:11: error: cannot refer to an element or member of a dynamic type outside of ,,
@@ -167,8 +167,8 @@ BlockingAssignRewrite,default,CMP_EQUAL,,,equal
 BlockingAssignRewrite,testflags,CMP_EQUAL,,,equal
 BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
 BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
-BuildUVMPkg,default,CMP_EQUAL,,,differ:fullname(328)
-BuildUVMPkg,testflags,CMP_EQUAL,,,differ:fullname(328)
+BuildUVMPkg,default,CMP_EQUAL,,,differ:fullname(315)
+BuildUVMPkg,testflags,CMP_EQUAL,,,differ:fullname(315)
 BuiltInMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 BuiltInMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,equal
@@ -379,8 +379,8 @@ DynArrayKind,default,CMP_EQUAL,,,equal
 DynArrayKind,testflags,CMP_EQUAL,,,equal
 Earlgrey,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Earlgrey,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
-Earlgrey_0_1,default,CMP_EQUAL,,,differ:line(1055)
-Earlgrey_0_1,testflags,CMP_EQUAL,,,differ:line(1055)
+Earlgrey_0_1,default,CMP_EQUAL,,,differ:line(5100)
+Earlgrey_0_1,testflags,CMP_EQUAL,,,differ:line(5100)
 Earlgrey_nexysvideo,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Earlgrey_nexysvideo,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 Earlgrey_Verilator_01_05_21,default,DEFERRED,late-phase: golden uncacheable on this machine,,
@@ -539,10 +539,10 @@ FuncStatic,default,CMP_EQUAL,,,equal
 FuncStatic,testflags,CMP_EQUAL,,,equal
 FuncStruct,default,CMP_EQUAL,,,equal
 FuncStruct,testflags,CMP_EQUAL,,,differ:fullname(10)
-FuncStructVal,default,CMP_EQUAL,,,differ:line(174)
-FuncStructVal,testflags,CMP_EQUAL,,,differ:line(387)
-FuncStructValSimple,default,CMP_EQUAL,,,differ:line(28)
-FuncStructValSimple,testflags,CMP_EQUAL,,,differ:line(39)
+FuncStructVal,default,CMP_EQUAL,,,differ:endcol(171)
+FuncStructVal,testflags,CMP_EQUAL,,,differ:endcol(383)
+FuncStructValSimple,default,CMP_EQUAL,,,differ:file(25)
+FuncStructValSimple,testflags,CMP_EQUAL,,,differ:file(35)
 FuncWidthScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
 FuncWidthScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
 FuncWidthScopeOverride,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScopeOverride/dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed i,,
@@ -579,16 +579,16 @@ GenForDec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/du
 GenForDec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForIfaceLocalparamBound,default,CMP_EQUAL,,,differ:fullname(9)
 GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,differ:fullname(9)
-GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ:endcol(7)
-GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ:endcol(7)
-GenForStructParamBound,default,CMP_EQUAL,,,differ:fullname(13)
-GenForStructParamBound,testflags,CMP_EQUAL,,,differ:fullname(13)
+GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ:fullname(13)
+GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ:fullname(13)
+GenForStructParamBound,default,CMP_EQUAL,,,differ:fullname(25)
+GenForStructParamBound,testflags,CMP_EQUAL,,,differ:fullname(25)
 GenIf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIf,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIfElse,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfElse/dut.sv:4:16: error: use of undeclared identifier 'b',,
 GenIfElse,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfElse/dut.sv:4:16: error: use of undeclared identifier 'b',,
-GenIfIfaceParamStructField,default,CMP_EQUAL,,,differ:col(6)
-GenIfIfaceParamStructField,testflags,CMP_EQUAL,,,differ:col(6)
+GenIfIfaceParamStructField,default,CMP_EQUAL,,,differ:fullname(12)
+GenIfIfaceParamStructField,testflags,CMP_EQUAL,,,differ:fullname(12)
 GenIfNamed,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfNamed/dut.sv:4:8: error: use of undeclared identifier 'i',,
 GenIfNamed,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfNamed/dut.sv:4:8: error: use of undeclared identifier 'i',,
 GenModHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenModHierPath/dut.sv:17:5: error: too few arguments for '$readmemh'; expected 2 but 1 were provided,,
@@ -645,10 +645,10 @@ HierPathPackedVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Hier
 HierPathPackedVar,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathPackedVar/dut.sv:4:5: error: unknown class or package 'ariane_axi',,
 HierPathSelect,default,CMP_EQUAL,,,equal
 HierPathSelect,testflags,CMP_EQUAL,,,equal
-HierPathStruct,default,CMP_EQUAL,,,equal
-HierPathStruct,testflags,CMP_EQUAL,,,differ:fullname(1)
-HierPathStructTypespec,default,CMP_EQUAL,,,differ:col(4)
-HierPathStructTypespec,testflags,CMP_EQUAL,,,differ:col(4)
+HierPathStruct,default,CMP_EQUAL,,,differ:fullname(4)
+HierPathStruct,testflags,CMP_EQUAL,,,differ:fullname(5)
+HierPathStructTypespec,default,CMP_EQUAL,,,differ:fullname(62)
+HierPathStructTypespec,testflags,CMP_EQUAL,,,differ:fullname(62)
 HierPathTfArg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathTfArg/dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTfArg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathTfArg/dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTypespec,default,CMP_EQUAL,,,equal
@@ -711,8 +711,8 @@ ImplicitPorts2,default,CMP_EQUAL,,,equal
 ImplicitPorts2,testflags,CMP_EQUAL,,,equal
 ImplicitVarType,default,CMP_EQUAL,,,equal
 ImplicitVarType,testflags,CMP_EQUAL,,,equal
-ImportBinding,default,CMP_EQUAL,,,differ:fullname(2)
-ImportBinding,testflags,CMP_EQUAL,,,differ:fullname(2)
+ImportBinding,default,CMP_EQUAL,,,equal
+ImportBinding,testflags,CMP_EQUAL,,,equal
 ImportedTypespec,default,CMP_EQUAL,,,equal
 ImportedTypespec,testflags,CMP_EQUAL,,,equal
 ImportPackage,default,CMP_EQUAL,,,equal
@@ -749,8 +749,8 @@ InterfaceModExp,default,CMP_EQUAL,,,equal
 InterfaceModExp,testflags,CMP_EQUAL,,,equal
 InterfaceModPort,default,CMP_EQUAL,,,differ:endcol(17)
 InterfaceModPort,testflags,CMP_EQUAL,,,differ:endcol(17)
-InterfaceParamOverrideProp,default,CMP_EQUAL,,,equal
-InterfaceParamOverrideProp,testflags,CMP_EQUAL,,,differ:fullname(2)
+InterfaceParamOverrideProp,default,CMP_EQUAL,,,differ:fullname(2)
+InterfaceParamOverrideProp,testflags,CMP_EQUAL,,,differ:fullname(4)
 InterfaceProcess,default,CMP_EQUAL,,,equal
 InterfaceProcess,testflags,CMP_EQUAL,,,equal
 InterfaceStructMemberPort,default,CMP_EQUAL,,,differ:fullname(6)
@@ -779,8 +779,8 @@ InvalidTypeParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Inval
 InvalidTypeParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InvalidTypeParam/dut.sv:2:20: error: parameter declaration is missing an initializer,,
 Inverter,default,CMP_EQUAL,,,equal
 Inverter,testflags,CMP_EQUAL,,,equal
-IOClassStruct,default,CMP_EQUAL,,,equal
-IOClassStruct,testflags,CMP_EQUAL,,,differ:fullname(1)
+IOClassStruct,default,CMP_EQUAL,,,differ:fullname(3)
+IOClassStruct,testflags,CMP_EQUAL,,,differ:fullname(5)
 IODataTypes,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IODataTypes/dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
 IODataTypes,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IODataTypes/dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
 JKFlipflop,default,CMP_EQUAL,,,equal
@@ -795,8 +795,8 @@ LargeHexCast,default,CMP_EQUAL,,,equal
 LargeHexCast,testflags,CMP_EQUAL,,,equal
 LargeHexString,default,CMP_EQUAL,,,equal
 LargeHexString,testflags,CMP_EQUAL,,,equal
-LargeValue2Struct,default,CMP_EQUAL,,,differ:endcol(1)
-LargeValue2Struct,testflags,CMP_EQUAL,,,differ:endcol(1)
+LargeValue2Struct,default,CMP_EQUAL,,,differ:endcol(5)
+LargeValue2Struct,testflags,CMP_EQUAL,,,differ:endcol(5)
 LateBindingFuncArg,default,CMP_EQUAL,,,equal
 LateBindingFuncArg,testflags,CMP_EQUAL,,,equal
 LeftPadding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LeftPadding/dut.sv:8:5: error: unknown module 'GOOD',,
@@ -855,8 +855,8 @@ MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv
 MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,equal
 MBadder,testflags,CMP_EQUAL,,,equal
-MiniAmiq,default,CMP_EQUAL,,,differ:line(195)
-MiniAmiq,testflags,CMP_EQUAL,,,differ:line(195)
+MiniAmiq,default,CMP_EQUAL,,,differ:line(199)
+MiniAmiq,testflags,CMP_EQUAL,,,differ:line(199)
 MinTypMax,default,CMP_EQUAL,,,equal
 MinTypMax,testflags,CMP_EQUAL,,,equal
 ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
@@ -987,8 +987,8 @@ PackedArrayHighConn,default,CMP_EQUAL,,,differ:fullname(6)
 PackedArrayHighConn,testflags,CMP_EQUAL,,,differ:fullname(6)
 PackedArrayStruct,default,CMP_EQUAL,,,equal
 PackedArrayStruct,testflags,CMP_EQUAL,,,equal
-PackedArrayTypespec,default,CMP_EQUAL,,,differ:fullname(2)
-PackedArrayTypespec,testflags,CMP_EQUAL,,,differ:fullname(2)
+PackedArrayTypespec,default,CMP_EQUAL,,,differ:fullname(4)
+PackedArrayTypespec,testflags,CMP_EQUAL,,,differ:fullname(4)
 PackedEnum,default,CMP_EQUAL,,,equal
 PackedEnum,testflags,CMP_EQUAL,,,equal
 PackedEnumPort,default,CMP_EQUAL,,,differ:file(4)
@@ -1083,8 +1083,8 @@ ParamSubstituteComplex,default,CMP_EQUAL,,,equal
 ParamSubstituteComplex,testflags,CMP_EQUAL,,,equal
 ParamTypespec,default,CMP_EQUAL,,,equal
 ParamTypespec,testflags,CMP_EQUAL,,,equal
-ParamTypespec2,default,CMP_EQUAL,,,differ:fullname(4)
-ParamTypespec2,testflags,CMP_EQUAL,,,differ:fullname(4)
+ParamTypespec2,default,CMP_EQUAL,,,differ:fullname(6)
+ParamTypespec2,testflags,CMP_EQUAL,,,differ:fullname(6)
 PartSelect3,default,CMP_EQUAL,,,equal
 PartSelect3,testflags,CMP_EQUAL,,,equal
 PartSelect4,default,CMP_EQUAL,,,differ:col(1)
@@ -1095,8 +1095,8 @@ PartSelectHier,default,CMP_EQUAL,,,equal
 PartSelectHier,testflags,CMP_EQUAL,,,equal
 PartSelectHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PartSelectHierPath/dut.sv:13:10: error: use of undeclared identifier 'trace_rv_i_insn_ip',,
 PartSelectHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PartSelectHierPath/dut.sv:13:10: error: use of undeclared identifier 'trace_rv_i_insn_ip',,
-PartSelectNoParent,default,CMP_EQUAL,,,equal
-PartSelectNoParent,testflags,CMP_EQUAL,,,differ:fullname(1)
+PartSelectNoParent,default,CMP_EQUAL,,,differ:fullname(6)
+PartSelectNoParent,testflags,CMP_EQUAL,,,differ:fullname(6)
 PartSelectParent,default,CMP_EQUAL,,,equal
 PartSelectParent,testflags,CMP_EQUAL,,,equal
 PartSelectRange,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PartSelectRange/dut.sv:11:14: error: unknown module 'foo',,
@@ -1111,8 +1111,8 @@ PatternAssignLogic,default,CMP_EQUAL,,,equal
 PatternAssignLogic,testflags,CMP_EQUAL,,,equal
 PatternAssignment,default,CMP_EQUAL,,,equal
 PatternAssignment,testflags,CMP_EQUAL,,,equal
-PatternOrder,default,CMP_EQUAL,,,equal
-PatternOrder,testflags,CMP_EQUAL,,,equal
+PatternOrder,default,CMP_EQUAL,,,differ:fullname(14)
+PatternOrder,testflags,CMP_EQUAL,,,differ:fullname(14)
 PkgImportFunc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PkgImportFunc/dut.sv:13:32: error: no member named 'get_5' in package 'lc_ctrl_state_pkg',,
 PkgImportFunc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PkgImportFunc/dut.sv:13:32: error: no member named 'get_5' in package 'lc_ctrl_state_pkg',,
 PkgImportPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PkgImportPkg/dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_r,,
@@ -1177,8 +1177,8 @@ PropBinding,default,CMP_EQUAL,,,equal
 PropBinding,testflags,CMP_EQUAL,,,equal
 RangeInf,default,CMP_EQUAL,,,equal
 RangeInf,testflags,CMP_EQUAL,,,equal
-RangeSelect,default,CMP_EQUAL,,,differ:endline(6)
-RangeSelect,testflags,CMP_EQUAL,,,differ:endline(6)
+RangeSelect,default,CMP_EQUAL,,,differ:endline(7)
+RangeSelect,testflags,CMP_EQUAL,,,differ:endline(7)
 ReorderPatt,default,CMP_EQUAL,,,equal
 ReorderPatt,testflags,CMP_EQUAL,,,equal
 RepeatStmt,default,CMP_EQUAL,,,equal
@@ -1199,20 +1199,20 @@ Rsd,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Rsd,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 ScalarParam,default,CMP_EQUAL,,,equal
 ScalarParam,testflags,CMP_EQUAL,,,equal
-Scoreboard,default,CMP_EQUAL,,,differ:line(193)
+Scoreboard,default,CMP_EQUAL,,,differ:line(199)
 Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
-Scr1SvTests,default,CMP_EQUAL,,,differ:line(238)
-Scr1SvTests,testflags,CMP_EQUAL,,,differ:line(238)
+Scr1SvTests,default,CMP_EQUAL,,,differ:line(244)
+Scr1SvTests,testflags,CMP_EQUAL,,,differ:line(244)
 SelectHierPath,default,CMP_EQUAL,,,differ:fullname(2)
 SelectHierPath,testflags,CMP_EQUAL,,,differ:fullname(2)
 Selects,default,CMP_EQUAL,,,equal
 Selects,testflags,CMP_EQUAL,,,equal
 SelectSelect,default,CMP_EQUAL,,,equal
 SelectSelect,testflags,CMP_EQUAL,,,equal
-SeqDriver,default,CMP_EQUAL,,,differ:line(179)
-SeqDriver,testflags,CMP_EQUAL,,,differ:line(179)
+SeqDriver,default,CMP_EQUAL,,,differ:line(182)
+SeqDriver,testflags,CMP_EQUAL,,,differ:line(182)
 SequenceInst,default,CMP_EQUAL,,,differ:file(22)
 SequenceInst,testflags,CMP_EQUAL,,,differ:file(28)
 SeqUseNonTemp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
@@ -1255,8 +1255,8 @@ SimpleParserTestCache,default,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleParserTestCache,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleTask,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
 SimpleTask,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
-SimpleUVM,default,CMP_EQUAL,,,differ:line(189)
-SimpleUVM,testflags,CMP_EQUAL,,,differ:line(189)
+SimpleUVM,default,CMP_EQUAL,,,differ:line(195)
+SimpleUVM,testflags,CMP_EQUAL,,,differ:line(195)
 SimpleVMM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimpleVMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimplifyHierPath,default,CMP_EQUAL,,,equal
@@ -1285,24 +1285,24 @@ StringPort,default,CMP_EQUAL,,,equal
 StringPort,testflags,CMP_EQUAL,,,equal
 StringRange,default,CMP_EQUAL,,,differ:endcol(2)
 StringRange,testflags,CMP_EQUAL,,,differ:endcol(74)
-StructAccess,default,CMP_EQUAL,,,differ:fullname(5)
-StructAccess,testflags,CMP_EQUAL,,,differ:fullname(6)
+StructAccess,default,CMP_EQUAL,,,differ:fullname(9)
+StructAccess,testflags,CMP_EQUAL,,,differ:fullname(10)
 StructArrayNet,default,CMP_EQUAL,,,differ:file(3)
 StructArrayNet,testflags,CMP_EQUAL,,,differ:file(3)
 StructNetUnionTypespec,default,CMP_EQUAL,,,equal
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,equal
-StructParamFieldRange,default,CMP_EQUAL,,,differ:endcol(11)
-StructParamFieldRange,testflags,CMP_EQUAL,,,differ:endcol(11)
+StructParamFieldRange,default,CMP_EQUAL,,,differ:endcol(13)
+StructParamFieldRange,testflags,CMP_EQUAL,,,differ:endcol(13)
 StructParamFuncBodyFieldCompare,default,CMP_EQUAL,,,differ:depth(1)
 StructParamFuncBodyFieldCompare,testflags,CMP_EQUAL,,,differ:depth(1)
 StructParamPatternInitCast,default,CMP_EQUAL,,,differ:fullname(2)
 StructParamPatternInitCast,testflags,CMP_EQUAL,,,differ:fullname(2)
 StructStructHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructStructHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
-StructTypedef,default,CMP_EQUAL,,,equal
-StructTypedef,testflags,CMP_EQUAL,,,equal
-StructUnsizedVal,default,CMP_EQUAL,,,differ:depth(1)
-StructUnsizedVal,testflags,CMP_EQUAL,,,differ:depth(1)
+StructTypedef,default,CMP_EQUAL,,,differ:fullname(12)
+StructTypedef,testflags,CMP_EQUAL,,,differ:fullname(12)
+StructUnsizedVal,default,CMP_EQUAL,,,differ:fullname(3)
+StructUnsizedVal,testflags,CMP_EQUAL,,,differ:fullname(3)
 StructVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVar,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVarImp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
@@ -1377,8 +1377,8 @@ TypedefAlias,default,CMP_EQUAL,,,equal
 TypedefAlias,testflags,CMP_EQUAL,,,equal
 TypeDefGenScope,default,CMP_EQUAL,,,equal
 TypeDefGenScope,testflags,CMP_EQUAL,,,equal
-TypedefPack,default,CMP_EQUAL,,,differ:fullname(2)
-TypedefPack,testflags,CMP_EQUAL,,,differ:fullname(2)
+TypedefPack,default,CMP_EQUAL,,,equal
+TypedefPack,testflags,CMP_EQUAL,,,equal
 TypedefRange,default,CMP_EQUAL,,,equal
 TypedefRange,testflags,CMP_EQUAL,,,equal
 TypedefRangedFunctionReturn,default,CMP_EQUAL,,,equal
@@ -1393,8 +1393,8 @@ TypeParam,default,CMP_EQUAL,,,differ:type(1)
 TypeParam,testflags,CMP_EQUAL,,,differ:type(1)
 TypeParam2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypeParam2/dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
 TypeParam2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypeParam2/dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
-TypeParamElab,default,CMP_EQUAL,,,differ:endline(9)
-TypeParamElab,testflags,CMP_EQUAL,,,differ:endline(9)
+TypeParamElab,default,CMP_EQUAL,,,differ:endline(15)
+TypeParamElab,testflags,CMP_EQUAL,,,differ:endline(15)
 TypeParamOverride,default,CMP_EQUAL,,,differ:line(1)
 TypeParamOverride,testflags,CMP_EQUAL,,,differ:line(2)
 TypespecBits,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypespecBits/dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
@@ -1457,8 +1457,8 @@ UnitTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitTest/top.
 UnitTest,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitTest/top.v:11:5: error: cannot assign to a net within a procedural context,,
 UnitThisNew,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitThisNew/dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
 UnitThisNew,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitThisNew/dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
-UnpackedTypespec,default,CMP_EQUAL,,,differ:fullname(2)
-UnpackedTypespec,testflags,CMP_EQUAL,,,differ:fullname(2)
+UnpackedTypespec,default,CMP_EQUAL,,,differ:fullname(4)
+UnpackedTypespec,testflags,CMP_EQUAL,,,differ:fullname(4)
 UnpackPort,default,CMP_EQUAL,,,differ:line(2)
 UnpackPort,testflags,CMP_EQUAL,,,differ:line(2)
 UnsignedParam,default,CMP_NOTEQUAL,decompile:,,
@@ -1481,8 +1481,8 @@ UnsizedLiteral2,default,CMP_EQUAL,,,equal
 UnsizedLiteral2,testflags,CMP_EQUAL,,,equal
 UnsizedPacked,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnsizedPacked/dut.sv:5:5: error: dimension requires a constant range,,
 UnsizedPacked,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnsizedPacked/dut.sv:5:5: error: dimension requires a constant range,,
-UnsizedParam,default,CMP_EQUAL,,,differ:fullname(10)
-UnsizedParam,testflags,CMP_EQUAL,,,differ:fullname(10)
+UnsizedParam,default,CMP_EQUAL,,,differ:fullname(8)
+UnsizedParam,testflags,CMP_EQUAL,,,differ:fullname(8)
 UnsupportedTypespecRange,default,CMP_EQUAL,,,differ:file(2)
 UnsupportedTypespecRange,testflags,CMP_EQUAL,,,differ:file(2)
 UtdSV,default,SLANG_REJECT,error: no input files,,

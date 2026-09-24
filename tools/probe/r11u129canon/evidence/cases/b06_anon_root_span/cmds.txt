@@ -1,0 +1,2 @@
+strictcmp: /tmp/r11u129_bin/sc_m4g 5d4617d0458f
+: surelog /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nobuiltin -nocache -sv dut.sv -mt 0 -mp 0 (in /tmp/wt_r11u129/tools/probe/r11u129canon/cases/b06_anon_root_span); slang /tmp/r11u129_bin/slang-uhdm dut.sv --single-unit --nobuiltin rc=0

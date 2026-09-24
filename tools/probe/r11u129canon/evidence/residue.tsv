@@ -1,0 +1,928 @@
+surelog/AllPackageSignal/testflags	6	FN-OUT=6
+surelog/ApbSlave/default	59	FN-OUT=1	OTHER=1	SP-OUT=58	SP-ROOT-FOREIGN=1	STRUCT=2
+surelog/ApbSlave/testflags	59	FN-OUT=1	OTHER=1	SP-OUT=58	SP-ROOT-FOREIGN=1	STRUCT=2
+surelog/ArrayExprFuncArg/testflags	32	FN-OUT=32
+surelog/ArrayMethodIterator/default	6	OTHER=5	SP-COPY-STABLE=2	SP-OUT=4
+surelog/ArrayMethodIterator/testflags	23	FN-OUT=7	OTHER=15	SP-COPY-STABLE=5	SP-OUT=11
+surelog/ArrayVarName/testflags	1	FN-OUT=1
+surelog/AssertDelayError/default	51	FN-OUT=48	SP-OUT=3
+surelog/AssertDelayError/testflags	83	FN-OUT=81	SP-OUT=2
+surelog/AssertTempError/default	30	FN-OUT=28	SP-OUT=2
+surelog/AssertTempError/testflags	100	FN-OUT=99	SP-OUT=1
+surelog/AssignmentPatternInAssignmentPattern/default	38	FN-FOREIGN=20	SP-OUT=18
+surelog/AssignmentPatternInAssignmentPattern/testflags	38	FN-FOREIGN=20	SP-OUT=18
+surelog/AssignRhsFlat/default	23	FN-STABLE=9	FN-TAIL=14
+surelog/AssignRhsFlat/testflags	23	FN-STABLE=9	FN-TAIL=14
+surelog/AssignSubs/default	1	SP-OUT=1
+surelog/AssignSubs/testflags	1	SP-OUT=1
+surelog/BasicOh/default	89	FN-OUT=52	SP-OUT=37
+surelog/BasicOh/testflags	71	FN-OUT=41	SP-OUT=30
+surelog/BiasValue/default	1	SP-OUT=1
+surelog/BitComplex/default	2	OTHER=2
+surelog/BitComplex/testflags	2	OTHER=2
+surelog/BitsArray/default	4	FN-OUT=2	OTHER=2
+surelog/BitsArray/testflags	4	FN-OUT=2	OTHER=2
+surelog/BitSelect/default	3	SP-OUT=3
+surelog/BitSelect/testflags	3	SP-OUT=3
+surelog/BitSelectPartSelectInFunction/default	1	SP-OUT=1
+surelog/BitSelectPartSelectInFunction/testflags	1	SP-OUT=1
+surelog/BitsHierPath/default	2	OTHER=2
+surelog/BitsHierPath/testflags	2	OTHER=2
+surelog/BitsLogic/default	2	OTHER=2
+surelog/BitsLogic/testflags	2	OTHER=2
+surelog/BlackBePipeInt/default	2	FN-TAIL=2	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+surelog/BlackBePipeInt/testflags	2	FN-TAIL=2	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+surelog/BlackBox/default	1	SP-OUT=1
+surelog/BlackBox/testflags	1	SP-OUT=1
+surelog/BlackBoxInst/default	1	SP-OUT=1
+surelog/BlackBoxInstTop/default	1	SP-OUT=1
+surelog/BlackBoxMod/default	1	SP-OUT=1
+surelog/BlackBoxSubMod/default	1	SP-OUT=1
+surelog/BlackConst/default	31	SP-COPY-STABLE=11	SP-OUT=20
+surelog/BlackConst/testflags	19	SP-COPY-STABLE=8	SP-OUT=11
+surelog/BlackParrotComplex/default	1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/BlackParrotComplex/testflags	1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/BlackParrotSkipParam/default	1	SP-OUT=1
+surelog/BlackParrotSkipParam/testflags	1	SP-OUT=1
+surelog/BuildUVMPkg/default	319	FN-FOREIGN=10	FN-OUT=141	FN-TAIL=31	OTHER=2	SP-COPY-STABLE=4	SP-OUT=62	SP-ROOT-FOREIGN=41	SP-ROOT-STABLE=16	SP-ROOTDECL-STABLE=15	STRUCT=2
+surelog/BuildUVMPkg/testflags	319	FN-FOREIGN=10	FN-OUT=141	FN-TAIL=31	OTHER=2	SP-COPY-STABLE=4	SP-OUT=62	SP-ROOT-FOREIGN=41	SP-ROOT-STABLE=16	SP-ROOTDECL-STABLE=15	STRUCT=2
+surelog/CarryAdd/default	2	SP-OUT=2
+surelog/CarryAdd/testflags	4	FN-OUT=2	SP-OUT=2
+surelog/CaseDefault/default	4	SP-OUT=4
+surelog/CaseDefault/testflags	4	SP-OUT=4
+surelog/CheckerInst/default	6	SP-OUT=6
+surelog/CheckerInst/testflags	6	SP-OUT=6
+surelog/ClassMini/default	1	SP-OUT=1
+surelog/ClassMini/testflags	1	SP-OUT=1
+surelog/ClassParamAsParam/default	9	SP-COPY-STABLE=6	SP-OUT=1	SP-ROOT-FOREIGN=2
+surelog/ClassParamAsParam/testflags	13	SP-COPY-STABLE=10	SP-OUT=1	SP-ROOT-FOREIGN=2
+surelog/ClassTypeParam/default	27	SP-COPY-STABLE=12	SP-COPY-USESITE=6	SP-OUT=4	SP-ROOT-FOREIGN=2	SP-ROOT-STABLE=2	SP-ROOTDECL-STABLE=1
+surelog/ClassTypeParam/testflags	40	SP-COPY-STABLE=18	SP-COPY-USESITE=7	SP-OUT=4	SP-ROOT-FOREIGN=2	SP-ROOT-STABLE=2	SP-ROOTDECL-STABLE=1	SP-ROOTDECL-USESITE=6
+surelog/ClassVar/default	1	SP-ROOT-STABLE=1
+surelog/ClassVar/testflags	3	FN-OUT=2	SP-ROOT-STABLE=1
+surelog/ClogParam/testflags	2	FN-OUT=2
+surelog/ComplexExprSize/default	1	SP-OUT=1
+surelog/ComplexExprSize/testflags	1	SP-OUT=1
+surelog/ComplexHierPath/default	10	FN-OUT=6	OTHER=1	SP-OUT=5	STRUCT=2
+surelog/ComplexHierPath/testflags	8	FN-OUT=4	OTHER=1	SP-OUT=5	STRUCT=2
+surelog/ComplexParamOverload/default	2	FN-OUT=1	OTHER=1	SP-OUT=2	STRUCT=2
+surelog/ComplexParamOverload/testflags	2	FN-OUT=1	OTHER=1	SP-OUT=2	STRUCT=2
+surelog/Connection/default	1	SP-OUT=1
+surelog/Connection/testflags	1	SP-OUT=1
+surelog/ConstantRange/default	8	SP-OUT=8
+surelog/ConstantRange/testflags	8	SP-OUT=8
+surelog/CovMacro/default	118	FN-OUT=16	SP-OUT=118
+surelog/CovMacro/testflags	118	FN-OUT=16	SP-OUT=118
+surelog/CrossFunc/default	2	SP-OUT=1	SP-ROOT-STABLE=1
+surelog/CrossFunc/testflags	2	SP-OUT=1	SP-ROOT-STABLE=1
+surelog/DecValue/default	3	SP-OUT=3
+surelog/DefaultPatternAssign/default	4	OTHER=4	SP-OUT=1
+surelog/DefaultPatternAssign/testflags	4	OTHER=4	SP-OUT=1
+surelog/DefaultPatternInt/default	1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/DefaultPatternInt/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/DefaultPatternModule/default	1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/DefaultPatternModule/testflags	1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/DefParamIndex/default	2	SP-OUT=2
+surelog/DefParamIndex/testflags	2	SP-OUT=2
+surelog/DelayAssign/default	8	FN-OUT=1	OTHER=8	SP-OUT=1	STRUCT=2
+surelog/DelayAssign/testflags	16	OTHER=16
+surelog/Disable/default	1	SP-OUT=1
+surelog/Disable/testflags	1	SP-OUT=1
+surelog/DollarBits/testflags	2	FN-OUT=2
+surelog/DoubleLoop/default	30	SP-OUT=30
+surelog/DoubleLoop/testflags	30	SP-OUT=30
+surelog/Earlgrey_0_1/default	5108	FN-FOREIGN=1823	FN-OUT=11	FN-STABLE=4	FN-TAIL=2302	OTHER=9	SP-OUT=951	SP-ROOT-FOREIGN=4	SP-ROOTDECL-STABLE=6	STRUCT=2
+surelog/Earlgrey_0_1/testflags	5108	FN-FOREIGN=1823	FN-OUT=11	FN-STABLE=4	FN-TAIL=2302	OTHER=9	SP-OUT=951	SP-ROOT-FOREIGN=4	SP-ROOTDECL-STABLE=6	STRUCT=2
+surelog/EarlgreyPackParam/default	6	FN-STABLE=2	SP-OUT=4
+surelog/EarlgreyPackParam/testflags	6	FN-STABLE=2	SP-OUT=4
+surelog/ElabCParam/default	6	SP-OUT=6
+surelog/ElabCParam/testflags	6	SP-OUT=6
+surelog/ElabParam/default	2	SP-OUT=2
+surelog/ElabParam/testflags	1	SP-OUT=1
+surelog/EmptyAssign/testflags	5	FN-OUT=5
+surelog/EnumVar/default	3	SP-ROOT-STABLE=2	SP-ROOTDECL-STABLE=1
+surelog/EnumVar/testflags	3	SP-ROOT-STABLE=2	SP-ROOTDECL-STABLE=1
+surelog/EvalFunc/default	1	SP-OUT=1
+surelog/EvalFunc/testflags	1	SP-OUT=1
+surelog/EvalFuncNamed/default	2	SP-OUT=2
+surelog/EvalFuncNamed/testflags	14	FN-OUT=12	SP-OUT=2
+surelog/ExplictiPorts/default	8	FN-OUT=1	OTHER=1	SP-OUT=8	STRUCT=2
+surelog/ExplictiPorts/testflags	17	SP-OUT=17
+surelog/FileList/testflags	3	FN-OUT=3
+surelog/ForeachArray/default	2	SP-OUT=2
+surelog/ForeachArray/testflags	1	SP-OUT=1
+surelog/ForeachFunction/testflags	1	FN-OUT=1
+surelog/ForeachSquare/default	4	SP-OUT=4
+surelog/ForeachSquare/testflags	2	SP-OUT=2
+surelog/FuncCase/default	8	SP-ROOT-STABLE=4	SP-ROOTDECL-STABLE=4
+surelog/FuncCase/testflags	8	SP-ROOT-STABLE=4	SP-ROOTDECL-STABLE=4
+surelog/FuncIoTypespec/default	9	SP-COPY-STABLE=8	SP-OUT=1
+surelog/FuncIoTypespec/testflags	107	FN-OUT=98	SP-COPY-STABLE=8	SP-OUT=1
+surelog/FuncParam/testflags	14	FN-OUT=14
+surelog/FuncRetArray/testflags	9	FN-OUT=9
+surelog/FuncStruct/testflags	10	FN-OUT=10
+surelog/FuncStructVal/default	171	FN-OUT=8	FN-TAIL=8	OTHER=1	SP-COPY-STABLE=152	SP-COPY-USESITE=1	SP-OUT=2	STRUCT=2
+surelog/FuncStructVal/testflags	383	FN-OUT=10	FN-TAIL=16	OTHER=1	SP-COPY-STABLE=316	SP-COPY-USESITE=1	SP-OUT=40	STRUCT=2
+surelog/FuncStructValSimple/default	25	FN-OUT=2	FN-TAIL=10	OTHER=1	SP-COPY-USESITE=12	SP-OUT=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+surelog/FuncStructValSimple/testflags	35	FN-OUT=3	FN-TAIL=14	OTHER=1	SP-COPY-STABLE=16	SP-OUT=2	SP-ROOTDECL-USESITE=1	STRUCT=2
+surelog/GenCase/default	8	FN-OUT=2	SP-OUT=6
+surelog/GenCase/testflags	8	FN-OUT=2	SP-OUT=6
+surelog/GenCaseStmt/default	8	FN-OUT=4	SP-OUT=4
+surelog/GenCaseStmt/testflags	8	FN-OUT=4	SP-OUT=4
+surelog/GenerateBlock2/default	2	SP-OUT=2
+surelog/GenerateBlock2/testflags	2	SP-OUT=2
+surelog/GenerateUnnamed/default	15	FN-OUT=11	SP-OUT=4
+surelog/GenerateUnnamed/testflags	15	FN-OUT=11	SP-OUT=4
+surelog/GenForIfaceLocalparamBound/default	13	FN-OUT=8	SP-OUT=5
+surelog/GenForIfaceLocalparamBound/testflags	13	FN-OUT=8	SP-OUT=5
+surelog/GenForIfaceLocalparamNestedGen/default	18	FN-OUT=6	FN-STABLE=6	SP-OUT=6
+surelog/GenForIfaceLocalparamNestedGen/testflags	18	FN-OUT=6	FN-STABLE=6	SP-OUT=6
+surelog/GenForStructParamBound/default	29	FN-OUT=10	FN-STABLE=12	SP-OUT=7
+surelog/GenForStructParamBound/testflags	29	FN-OUT=10	FN-STABLE=12	SP-OUT=7
+surelog/GenIfIfaceParamStructField/default	13	FN-OUT=3	FN-STABLE=6	SP-OUT=4
+surelog/GenIfIfaceParamStructField/testflags	13	FN-OUT=3	FN-STABLE=6	SP-OUT=4
+surelog/GenScopeFullName/default	1	SP-OUT=1
+surelog/GenScopeFullName/testflags	1	SP-OUT=1
+surelog/GenScopeHierPath/default	7	FN-OUT=1	SP-OUT=6
+surelog/GenScopeHierPath/testflags	7	FN-OUT=1	SP-OUT=6
+surelog/GenScopeHierPath3/default	108	SP-OUT=108
+surelog/GenScopeHierPath3/testflags	272	FN-OUT=164	SP-OUT=108
+surelog/HierPathOverride/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/HierPathOverride/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/HierPathStruct/default	4	FN-STABLE=4
+surelog/HierPathStruct/testflags	5	FN-OUT=1	FN-STABLE=4
+surelog/HierPathStructTypespec/default	82	FN-STABLE=30	FN-TAIL=28	OTHER=14	SP-OUT=14
+surelog/HierPathStructTypespec/testflags	82	FN-STABLE=30	FN-TAIL=28	OTHER=14	SP-OUT=14
+surelog/HierPathTypespec/default	9	SP-COPY-STABLE=9
+surelog/HierPathTypespec/testflags	10	FN-OUT=1	SP-COPY-STABLE=9
+surelog/HierPathUnpacked/default	4	OTHER=4
+surelog/HierPathUnpacked/testflags	4	OTHER=4
+surelog/HierPathVarArray/default	2	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+surelog/HierPathVarArray/testflags	2	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+surelog/HighLow/default	7	OTHER=3	SP-OUT=4
+surelog/HighLow/testflags	7	OTHER=3	SP-OUT=4
+surelog/IfGen1/default	16	SP-OUT=16
+surelog/IfGen1/testflags	16	SP-OUT=16
+surelog/IfGen2/default	16	SP-OUT=16
+surelog/IfGen2/testflags	16	SP-OUT=16
+surelog/IfGen3/default	16	SP-OUT=16
+surelog/IfGen3/testflags	16	SP-OUT=16
+surelog/IfGenTypeBinding/default	5	SP-ROOT-STABLE=2	SP-ROOTDECL-STABLE=3
+surelog/IfGenTypeBinding/testflags	5	SP-ROOT-STABLE=2	SP-ROOTDECL-STABLE=3
+surelog/ImplicitArg/default	4	SP-COPY-STABLE=2	SP-OUT=2
+surelog/ImplicitArg/testflags	4	SP-COPY-STABLE=2	SP-OUT=2
+surelog/ImplicitPackedStructNet/testflags	2	FN-OUT=2
+surelog/ImportBinding/default	5	OTHER=4	SP-OUT=2
+surelog/ImportBinding/testflags	5	OTHER=4	SP-OUT=2
+surelog/ImportedTypespec/default	1	SP-OUT=1
+surelog/ImportedTypespec/testflags	1	SP-OUT=1
+surelog/IncompFunc/default	1	SP-OUT=1
+surelog/IncompFunc/testflags	1	SP-OUT=1
+surelog/IndexAssign/default	1	OTHER=1
+surelog/IndexAssign/testflags	1	OTHER=1
+surelog/IndexedSelectHex/default	7	FN-OUT=1	SP-OUT=6
+surelog/IndexedSelectHex/testflags	7	FN-OUT=1	SP-OUT=6
+surelog/IntegerConcat/default	11	FN-STABLE=2	OTHER=2	SP-OUT=8
+surelog/IntegerConcat/testflags	11	FN-STABLE=2	OTHER=2	SP-OUT=8
+surelog/InterfaceModPort/default	17	FN-OUT=2	OTHER=1	SP-OUT=16	STRUCT=2
+surelog/InterfaceModPort/testflags	17	FN-OUT=2	OTHER=1	SP-OUT=16	STRUCT=2
+surelog/InterfaceParamOverrideProp/default	2	FN-STABLE=2
+surelog/InterfaceParamOverrideProp/testflags	4	FN-OUT=2	FN-STABLE=2
+surelog/InterfaceProcess/default	2	SP-OUT=2
+surelog/InterfaceProcess/testflags	2	SP-OUT=2
+surelog/InterfaceStructMemberPort/default	6	FN-OUT=6
+surelog/InterfaceStructMemberPort/testflags	6	FN-OUT=6
+surelog/InterfaceUnpackedStructArrayDim/testflags	2	FN-OUT=2
+surelog/InterfArrayBind/default	7	FN-OUT=4	SP-OUT=3
+surelog/InterfArrayBind/testflags	7	FN-OUT=4	SP-OUT=3
+surelog/InterfInst/testflags	2	FN-OUT=2
+surelog/InterfType/default	2	FN-OUT=2
+surelog/InterfType/testflags	2	FN-OUT=2
+surelog/IOClassStruct/default	5	FN-OUT=1	FN-STABLE=3	SP-OUT=1
+surelog/IOClassStruct/testflags	7	FN-OUT=2	FN-STABLE=4	SP-OUT=1
+surelog/JKFlipflop/testflags	6	FN-OUT=6
+surelog/Kmac/default	2	FN-OUT=1	OTHER=2	SP-OUT=1	STRUCT=2
+surelog/Kmac/testflags	2	FN-OUT=1	OTHER=2	SP-OUT=1	STRUCT=2
+surelog/LargeHex/default	2	SP-OUT=2
+surelog/LargeHex/testflags	2	SP-OUT=2
+surelog/LargeHexCast/default	3	SP-OUT=3
+surelog/LargeHexCast/testflags	3	SP-OUT=3
+surelog/LargeValue2Struct/default	101	FN-STABLE=4	OTHER=2	SP-COPY-STABLE=92	SP-OUT=3
+surelog/LargeValue2Struct/testflags	101	FN-STABLE=4	OTHER=2	SP-COPY-STABLE=92	SP-OUT=3
+surelog/LocalScopeHierPath/default	4	FN-OUT=1	SP-OUT=2	SP-ROOT-STABLE=1
+surelog/LocalScopeHierPath/testflags	7	FN-OUT=4	SP-OUT=2	SP-ROOT-STABLE=1
+surelog/LogicArrayParam/default	29	FN-STABLE=3	SP-OUT=26
+surelog/LogicArrayParam/testflags	29	FN-STABLE=3	SP-OUT=26
+surelog/LogicTypedef/default	1	FN-TAIL=1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+surelog/LogicTypedef/testflags	1	FN-TAIL=1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+surelog/LogicTypespec/default	3	OTHER=2	SP-OUT=2	SP-ROOTDECL-USESITE=1	STRUCT=2
+surelog/LogicTypespec/testflags	3	OTHER=2	SP-OUT=2	SP-ROOTDECL-USESITE=1	STRUCT=2
+surelog/LongHex/default	2	SP-OUT=2
+surelog/LongHex/testflags	2	SP-OUT=2
+surelog/LoopVar/default	2	SP-OUT=2
+surelog/LoopVar/testflags	1	SP-OUT=1
+surelog/MacroArgMismatch/default	8	SP-OUT=8
+surelog/MacroArgMismatch/testflags	8	SP-OUT=8
+surelog/MiniAmiq/default	271	FN-FOREIGN=5	FN-OUT=15	OTHER=1	SP-COPY-STABLE=85	SP-OUT=145	SP-ROOT-FOREIGN=8	SP-ROOTDECL-STABLE=14	STRUCT=2
+surelog/MiniAmiq/testflags	271	FN-FOREIGN=5	FN-OUT=15	OTHER=1	SP-COPY-STABLE=85	SP-OUT=145	SP-ROOT-FOREIGN=8	SP-ROOTDECL-STABLE=14	STRUCT=2
+surelog/Moves/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/MultiConcatValueSize/default	4	FN-OUT=1	SP-OUT=3
+surelog/MultiConcatValueSize/testflags	4	FN-OUT=1	SP-OUT=3
+surelog/NonSynthError/default	2	SP-OUT=2
+surelog/NonSynthError/testflags	2	SP-OUT=2
+surelog/NoParamSubs/testflags	2	FN-OUT=2
+surelog/NoReducTypespec/default	13	FN-TAIL=6	SP-COPY-STABLE=6	SP-OUT=1
+surelog/NoReducTypespec/testflags	13	FN-TAIL=6	SP-COPY-STABLE=6	SP-OUT=1
+surelog/OneDivider/default	4	SP-OUT=4
+surelog/OneDivider/testflags	4	SP-OUT=4
+surelog/OneImport/default	3	SP-OUT=3
+surelog/OneImport/testflags	2	SP-OUT=2
+surelog/OneNetInterf/testflags	4	FN-OUT=4
+surelog/OneNetModPort/default	3	FN-OUT=1	OTHER=1	SP-OUT=3	STRUCT=2
+surelog/OneNetModPort/testflags	3	FN-OUT=1	OTHER=1	SP-OUT=3	STRUCT=2
+surelog/OneNetModPortGeneric/default	2	FN-OUT=1	OTHER=1	SP-OUT=2	STRUCT=2
+surelog/OneNetModPortGeneric/testflags	2	FN-OUT=1	OTHER=1	SP-OUT=2	STRUCT=2
+surelog/OneNetRange/default	2	FN-OUT=2
+surelog/OneNetRange/testflags	4	FN-OUT=4
+surelog/PackageMemberTypespec/default	2	SP-COPY-STABLE=2
+surelog/PackageMemberTypespec/testflags	2	SP-COPY-STABLE=2
+surelog/PackageNet/default	2	SP-OUT=2
+surelog/PackageNet/testflags	2	SP-OUT=2
+surelog/PackageParamConst/default	0	STRUCT=1
+surelog/PackDataType/default	2	OTHER=2
+surelog/PackDataType/testflags	2	OTHER=2
+surelog/PackedArrayEnum/default	3	FN-STABLE=3
+surelog/PackedArrayEnum/testflags	3	FN-STABLE=3
+surelog/PackedArrayHighConn/default	6	FN-OUT=1	FN-STABLE=5
+surelog/PackedArrayHighConn/testflags	6	FN-OUT=1	FN-STABLE=5
+surelog/PackedArrayTypespec/default	4	FN-STABLE=4
+surelog/PackedArrayTypespec/testflags	4	FN-STABLE=4
+surelog/PackedEnumPort/default	4	FN-TAIL=1	OTHER=2	SP-COPY-USESITE=1	SP-OUT=1	STRUCT=2
+surelog/PackedEnumPort/testflags	4	FN-TAIL=1	OTHER=2	SP-COPY-USESITE=1	SP-OUT=1	STRUCT=2
+surelog/PackStructField/default	2	FN-OUT=2	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/PackStructField/testflags	1	FN-OUT=1
+surelog/PackStructVar/default	5	FN-TAIL=5
+surelog/PackStructVar/testflags	5	FN-TAIL=5
+surelog/ParamArrayUnsizedPattern/default	1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/ParamArrayUnsizedPattern/testflags	1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/ParamByValue/default	2	SP-OUT=2
+surelog/ParamByValue/testflags	2	SP-OUT=2
+surelog/ParamCast/default	1	SP-OUT=1
+surelog/ParamCast/testflags	1	SP-OUT=1
+surelog/ParamConst/default	2	SP-OUT=2
+surelog/ParamConst/testflags	2	SP-OUT=2
+surelog/ParamConstPush/default	3	SP-OUT=3
+surelog/ParamConstPush/testflags	3	SP-OUT=3
+surelog/ParamElabMulti/default	4	FN-OUT=1	SP-OUT=3
+surelog/ParamElabMulti/testflags	4	FN-OUT=1	SP-OUT=3
+surelog/ParamFromPackage/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/ParamFromPackage/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/ParamMultiConcat/default	1	FN-OUT=1
+surelog/ParamMultiConcat/testflags	1	FN-OUT=1
+surelog/ParamNoImport/default	2	FN-OUT=2
+surelog/ParamNoImport/testflags	2	FN-OUT=2
+surelog/ParamNoSubst/default	2	FN-OUT=1	SP-OUT=1
+surelog/ParamNoSubst/testflags	1	SP-OUT=1
+surelog/ParamOverload2/default	4	FN-OUT=1	OTHER=2	SP-OUT=1
+surelog/ParamOverload2/testflags	4	FN-OUT=1	OTHER=2	SP-OUT=1
+surelog/ParamOverload4/default	132	SP-OUT=132
+surelog/ParamOverload4/testflags	132	SP-OUT=132
+surelog/ParamRef/default	1	SP-OUT=1
+surelog/ParamRef/testflags	1	SP-OUT=1
+surelog/ParamScope/default	3	SP-OUT=3
+surelog/ParamScope/testflags	3	SP-OUT=3
+surelog/ParamTypespec/default	6	OTHER=4	SP-OUT=2
+surelog/ParamTypespec/testflags	6	OTHER=4	SP-OUT=2
+surelog/ParamTypespec2/default	8	FN-OUT=2	FN-STABLE=2	SP-OUT=4
+surelog/ParamTypespec2/testflags	8	FN-OUT=2	FN-STABLE=2	SP-OUT=4
+surelog/PartSelect4/default	9	SP-OUT=9
+surelog/PartSelect4/testflags	9	SP-OUT=9
+surelog/PartSelectNoParent/default	9	FN-FOREIGN=6	SP-OUT=3
+surelog/PartSelectNoParent/testflags	9	FN-OUT=1	FN-STABLE=5	SP-OUT=3
+surelog/PAssignType/default	2	FN-OUT=1	SP-OUT=1
+surelog/PAssignType/testflags	2	FN-OUT=1	SP-OUT=1
+surelog/PatternOrder/default	15	FN-TAIL=14	OTHER=1
+surelog/PatternOrder/testflags	15	FN-TAIL=14	OTHER=1
+surelog/PortByName/testflags	2	FN-OUT=2
+surelog/PortExpr/default	14	FN-OUT=1	OTHER=1	SP-OUT=14	STRUCT=2
+surelog/PortExpr/testflags	14	FN-OUT=1	OTHER=1	SP-OUT=14	STRUCT=2
+surelog/PortInitVal/default	2	SP-OUT=2
+surelog/PortInitVal2/default	2	SP-OUT=2
+surelog/PortInitVal2/testflags	2	SP-OUT=2
+surelog/PreprocFunc/default	4	SP-OUT=4
+surelog/PreprocFunc/testflags	4	SP-OUT=4
+surelog/PreprocTest/default	2	SP-COPY-STABLE=2
+surelog/PreprocTest/testflags	2	SP-COPY-STABLE=2
+surelog/RangeSelect/default	7	FN-STABLE=1	SP-ROOT-STABLE=4	SP-ROOTDECL-STABLE=2
+surelog/RangeSelect/testflags	7	FN-STABLE=1	SP-ROOT-STABLE=4	SP-ROOTDECL-STABLE=2
+surelog/Rggen/default	7	FN-FOREIGN=5	FN-OUT=1	OTHER=1	SP-OUT=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+surelog/Scoreboard/default	271	FN-FOREIGN=1	FN-OUT=25	FN-TAIL=6	OTHER=1	SP-COPY-STABLE=85	SP-OUT=133	SP-ROOT-FOREIGN=7	SP-ROOT-STABLE=1	SP-ROOTDECL-STABLE=14	STRUCT=2
+surelog/Scr1SvTests/default	674	FN-FOREIGN=16	FN-OUT=6	SP-COPY-STABLE=446	SP-OUT=203	SP-ROOT-FOREIGN=4	STRUCT=2
+surelog/Scr1SvTests/testflags	674	FN-FOREIGN=16	FN-OUT=6	SP-COPY-STABLE=446	SP-OUT=203	SP-ROOT-FOREIGN=4	STRUCT=2
+surelog/SelectHierPath/default	2	FN-OUT=2
+surelog/SelectHierPath/testflags	2	FN-OUT=2
+surelog/SeqDriver/default	254	FN-FOREIGN=4	FN-OUT=15	OTHER=1	SP-COPY-STABLE=85	SP-OUT=129	SP-ROOT-FOREIGN=8	SP-ROOTDECL-STABLE=14	STRUCT=2
+surelog/SeqDriver/testflags	254	FN-FOREIGN=4	FN-OUT=15	OTHER=1	SP-COPY-STABLE=85	SP-OUT=129	SP-ROOT-FOREIGN=8	SP-ROOTDECL-STABLE=14	STRUCT=2
+surelog/SequenceInst/default	22	SP-OUT=22
+surelog/SequenceInst/testflags	28	FN-OUT=6	SP-OUT=22
+surelog/SignedBin/default	1	FN-OUT=1
+surelog/SignedBin/testflags	1	FN-OUT=1
+surelog/SignedWire/default	1	SP-OUT=1
+surelog/SignedWire/testflags	1	SP-OUT=1
+surelog/SimpleConstraint/default	7	SP-OUT=3	SP-ROOT-STABLE=3	SP-ROOTDECL-STABLE=1
+surelog/SimpleConstraint/testflags	7	SP-OUT=3	SP-ROOT-STABLE=3	SP-ROOTDECL-STABLE=1
+surelog/SimpleUVM/default	267	FN-FOREIGN=1	FN-OUT=25	FN-TAIL=6	OTHER=1	SP-COPY-STABLE=85	SP-OUT=129	SP-ROOT-FOREIGN=7	SP-ROOT-STABLE=1	SP-ROOTDECL-STABLE=14	STRUCT=2
+surelog/SimpleUVM/testflags	267	FN-FOREIGN=1	FN-OUT=25	FN-TAIL=6	OTHER=1	SP-COPY-STABLE=85	SP-OUT=129	SP-ROOT-FOREIGN=7	SP-ROOT-STABLE=1	SP-ROOTDECL-STABLE=14	STRUCT=2
+surelog/StandardBlock/default	2	SP-OUT=2
+surelog/StandardBlock/testflags	2	SP-OUT=2
+surelog/StringMethod/default	2	FN-OUT=2	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/StringMethod/testflags	2	FN-OUT=2	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/StringRange/default	290	SP-OUT=290
+surelog/StringRange/testflags	362	FN-OUT=72	SP-OUT=290
+surelog/StructAccess/default	9	FN-STABLE=9
+surelog/StructAccess/testflags	10	FN-STABLE=10
+surelog/StructArrayNet/default	3	FN-OUT=2	SP-OUT=1
+surelog/StructArrayNet/testflags	3	FN-OUT=2	SP-OUT=1
+surelog/StructParamFieldRange/default	13	FN-FOREIGN=2	FN-TAIL=4	OTHER=1	SP-COPY-STABLE=5	SP-OUT=2	STRUCT=2
+surelog/StructParamFieldRange/testflags	13	FN-FOREIGN=2	FN-TAIL=4	OTHER=1	SP-COPY-STABLE=5	SP-OUT=2	STRUCT=2
+surelog/StructParamFuncBodyFieldCompare/default	1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+surelog/StructParamFuncBodyFieldCompare/testflags	1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+surelog/StructParamPatternInitCast/default	2	FN-OUT=1	OTHER=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+surelog/StructParamPatternInitCast/testflags	2	FN-OUT=1	OTHER=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+surelog/StructTypedef/default	12	FN-TAIL=12
+surelog/StructTypedef/testflags	12	FN-TAIL=12
+surelog/StructUnsizedVal/default	20	FN-FOREIGN=2	FN-OUT=1	OTHER=4	SP-COPY-STABLE=14	SP-OUT=1	STRUCT=2
+surelog/StructUnsizedVal/testflags	20	FN-FOREIGN=2	FN-OUT=1	OTHER=4	SP-COPY-STABLE=14	SP-OUT=1	STRUCT=2
+surelog/SVSwitch/default	46	FN-OUT=11	OTHER=1	SP-OUT=35	SP-ROOT-STABLE=6	STRUCT=2
+surelog/SVSwitch/testflags	46	FN-OUT=11	OTHER=1	SP-OUT=35	SP-ROOT-STABLE=6	STRUCT=2
+surelog/SynthForeach/default	10	SP-OUT=10
+surelog/SynthForeach/testflags	5	SP-OUT=5
+surelog/SystemCallSize/default	2	SP-OUT=2
+surelog/SystemCallSize/testflags	2	SP-OUT=2
+surelog/TaggedPattern/default	1	SP-OUT=1
+surelog/TaggedPattern/testflags	1	SP-OUT=1
+surelog/TypedefRange/default	3	SP-COPY-STABLE=3
+surelog/TypedefRange/testflags	3	SP-COPY-STABLE=3
+surelog/TypedefUnpacked/default	2	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+surelog/TypedefUnpacked/testflags	2	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+surelog/TypeParam/default	1	SP-OUT=1	STRUCT=1
+surelog/TypeParam/testflags	1	SP-OUT=1	STRUCT=1
+surelog/TypeParamElab/default	15	FN-TAIL=12	SP-COPY-STABLE=2	SP-ROOT-STABLE=1
+surelog/TypeParamElab/testflags	15	FN-TAIL=12	SP-COPY-STABLE=2	SP-ROOT-STABLE=1
+surelog/TypeParamOverride/default	1	SP-OUT=1
+surelog/TypeParamOverride/testflags	2	FN-OUT=1	SP-OUT=1
+surelog/TypespecExpr/testflags	2	FN-OUT=2
+surelog/UnaryPlus/default	8	SP-OUT=8
+surelog/UnaryPlus/testflags	8	SP-OUT=8
+surelog/UnionCast/default	134	OTHER=24	SP-COPY-STABLE=108	SP-ROOT-STABLE=2
+surelog/UnionCast/testflags	146	FN-OUT=6	OTHER=26	SP-COPY-STABLE=112	SP-ROOT-STABLE=2
+surelog/UnitElabBlock/default	13	SP-OUT=13
+surelog/UnitElabBlock/testflags	24	FN-OUT=12	SP-OUT=12
+surelog/UnpackedTypespec/default	4	FN-STABLE=4
+surelog/UnpackedTypespec/testflags	4	FN-STABLE=4
+surelog/UnpackPort/default	9	SP-OUT=9
+surelog/UnpackPort/testflags	9	SP-OUT=9
+surelog/UnsizedFunc/testflags	12	FN-OUT=12
+surelog/UnsizedParam/default	8	FN-OUT=2	FN-TAIL=6	STRUCT=1
+surelog/UnsizedParam/testflags	8	FN-OUT=2	FN-TAIL=6
+surelog/UnsupportedTypespecRange/default	2	FN-TAIL=1	SP-COPY-STABLE=1
+surelog/UnsupportedTypespecRange/testflags	2	FN-TAIL=1	SP-COPY-STABLE=1
+surelog/VarRangeTypedef/default	1	SP-COPY-STABLE=1
+surelog/VarRangeTypedef/testflags	1	SP-COPY-STABLE=1
+surelog/VarSelectGenStmt/default	6	SP-OUT=6
+surelog/VarSelectGenStmt/testflags	6	SP-OUT=6
+surelog/VarType/default	2	OTHER=2
+surelog/VarType/testflags	2	OTHER=2
+surelog/WildConn/default	2	SP-OUT=2
+surelog/WildConn/testflags	2	SP-OUT=2
+surelog/WireType/default	1	FN-TAIL=1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+surelog/WireType/testflags	1	FN-TAIL=1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+surelog/YosysBigSimEllip/default	6876	FN-OUT=3438	OTHER=2	SP-COPY-STABLE=1717	SP-OUT=1721	STRUCT=2
+surelog/YosysBigSimReed/default	3	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=1
+surelog/YosysBigSimReed/testflags	3	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=1
+surelog/YosysBigSimSoft/default	8	SP-OUT=8
+surelog/YosysBigSimSoft/testflags	8	SP-OUT=8
+surelog/YosysMarlann/default	26	FN-OUT=1	SP-OUT=25
+surelog/YosysMarlann/testflags	26	FN-OUT=1	SP-OUT=25
+surelog/YosysOldI2c/default	49	SP-OUT=49
+surelog/YosysOldI2c/testflags	49	SP-OUT=49
+surelog/YosysOldOpen/default	186	FN-OUT=1	OTHER=1	SP-COPY-STABLE=21	SP-OUT=165	STRUCT=2
+surelog/YosysOldOpen/testflags	173	FN-OUT=1	OTHER=1	SP-COPY-STABLE=21	SP-OUT=152	STRUCT=2
+surelog/YosysOldOr/default	2589	FN-OUT=1	OTHER=1	SP-COPY-STABLE=387	SP-OUT=2202	STRUCT=2
+surelog/YosysOldOr/testflags	2589	FN-OUT=1	OTHER=1	SP-COPY-STABLE=387	SP-OUT=2202	STRUCT=2
+surelog/YosysOldSimpleSpi/default	3	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/YosysOldSimpleSpi/testflags	3	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=2
+surelog/YosysOldSpi/default	525	FN-OUT=1	SP-COPY-STABLE=119	SP-OUT=405
+surelog/YosysOldSpi/testflags	523	FN-OUT=1	SP-COPY-STABLE=119	SP-OUT=403
+surelog/YosysRiscv/default	67	FN-OUT=1	OTHER=1	SP-OUT=67	STRUCT=2
+surelog/YosysRiscv/testflags	67	FN-OUT=1	OTHER=1	SP-OUT=67	STRUCT=2
+uhdm2rtlil/2DParameterOfInstance/default	5	FN-OUT=1	OTHER=2	SP-OUT=2
+uhdm2rtlil/2DParameterOfInstance/testflags	5	FN-OUT=1	OTHER=2	SP-OUT=2
+uhdm2rtlil/anon_struct_packed_dim/default	71	FN-OUT=10	FN-STABLE=39	SP-OUT=22
+uhdm2rtlil/anon_struct_packed_dim/testflags	71	FN-OUT=10	FN-STABLE=39	SP-OUT=22
+uhdm2rtlil/AnonymousEnum/default	6	SP-OUT=6
+uhdm2rtlil/AnonymousEnum/testflags	6	SP-OUT=6
+uhdm2rtlil/arb_idx_cast/default	4	FN-OUT=1	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-OUT=2	STRUCT=2
+uhdm2rtlil/arb_idx_cast/testflags	4	FN-OUT=1	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-OUT=2	STRUCT=2
+uhdm2rtlil/array_assign/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/array_assign/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/assert_wide_const_cond/default	1	SP-OUT=1
+uhdm2rtlil/assert_wide_const_cond/testflags	1	SP-OUT=1
+uhdm2rtlil/AssignBitsCallToSubmoduleParameter/default	3	FN-OUT=2	SP-OUT=1
+uhdm2rtlil/AssignBitsCallToSubmoduleParameter/testflags	3	FN-OUT=2	SP-OUT=1
+uhdm2rtlil/AssignGeneratedWireInAlways/default	1	SP-OUT=1
+uhdm2rtlil/AssignGeneratedWireInAlways/testflags	1	SP-OUT=1
+uhdm2rtlil/async_reset_partsel/default	4	SP-OUT=4
+uhdm2rtlil/async_reset_partsel/testflags	4	SP-OUT=4
+uhdm2rtlil/bits_of_type_param/default	2	OTHER=2
+uhdm2rtlil/bits_of_type_param/testflags	2	OTHER=2
+uhdm2rtlil/BitsCallOnParametetrizedTypeFromPackage/default	1	SP-OUT=1
+uhdm2rtlil/BitsCallOnParametetrizedTypeFromPackage/testflags	1	SP-OUT=1
+uhdm2rtlil/BitSelectOfParameterPassedToSubmodule/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/BitSelectOfParameterPassedToSubmodule/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/BitSelectOfParameterPassedToSubmoduleInGenFor/default	4	FN-OUT=1	SP-OUT=3
+uhdm2rtlil/BitSelectOfParameterPassedToSubmoduleInGenFor/testflags	4	FN-OUT=1	SP-OUT=3
+uhdm2rtlil/BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule/default	4	FN-OUT=1	SP-OUT=3
+uhdm2rtlil/BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule/testflags	4	FN-OUT=1	SP-OUT=3
+uhdm2rtlil/BitSelectPartSelectInFunction/default	1	SP-OUT=1
+uhdm2rtlil/BitSelectPartSelectInFunction/testflags	1	SP-OUT=1
+uhdm2rtlil/carryadd/default	8	SP-OUT=8
+uhdm2rtlil/carryadd/testflags	8	SP-OUT=8
+uhdm2rtlil/CaseWithGeneratedWire/default	1	SP-OUT=1
+uhdm2rtlil/CaseWithGeneratedWire/testflags	1	SP-OUT=1
+uhdm2rtlil/CastExpression/default	1	SP-OUT=1
+uhdm2rtlil/CastExpression/testflags	1	SP-OUT=1
+uhdm2rtlil/CastLogic/default	1	SP-OUT=1
+uhdm2rtlil/CastLogic/testflags	1	SP-OUT=1
+uhdm2rtlil/CastSize/default	1	SP-OUT=1
+uhdm2rtlil/CastSize/testflags	1	SP-OUT=1
+uhdm2rtlil/CastStructArray/default	5	SP-COPY-STABLE=4	SP-ROOT-STABLE=1
+uhdm2rtlil/CastStructArray/testflags	5	SP-COPY-STABLE=4	SP-ROOT-STABLE=1
+uhdm2rtlil/cdc_static_basic/default	0	STRUCT=1
+uhdm2rtlil/cdc_static_basic/testflags	0	STRUCT=1
+uhdm2rtlil/cfg_func_width_loop/default	5	FN-STABLE=1	OTHER=1	SP-COPY-STABLE=2	SP-COPY-USESITE=1	SP-ROOT-STABLE=1	STRUCT=2
+uhdm2rtlil/cfg_func_width_loop/testflags	5	FN-STABLE=1	OTHER=1	SP-COPY-STABLE=2	SP-COPY-USESITE=1	SP-ROOT-STABLE=1	STRUCT=2
+uhdm2rtlil/Clog2OfSumWithParameterIn2InstancesOfSubmodule/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/Clog2OfSumWithParameterIn2InstancesOfSubmodule/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/comb_dyn_2d_packed_sel/default	3	FN-OUT=2	FN-TAIL=1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/comb_dyn_2d_packed_sel/testflags	3	FN-OUT=2	FN-TAIL=1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/const_cast_signext/default	15	OTHER=1	SP-OUT=1	SP-ROOT-STABLE=12	SP-ROOTDECL-STABLE=2	STRUCT=2
+uhdm2rtlil/const_cast_signext/testflags	15	OTHER=1	SP-OUT=1	SP-ROOT-STABLE=12	SP-ROOTDECL-STABLE=2	STRUCT=2
+uhdm2rtlil/const_func/default	290	SP-OUT=290
+uhdm2rtlil/const_func/testflags	290	SP-OUT=290
+uhdm2rtlil/const_func_block_var/default	2	SP-OUT=2
+uhdm2rtlil/const_func_block_var/testflags	2	SP-OUT=2
+uhdm2rtlil/cs_registers/default	14	SP-OUT=14
+uhdm2rtlil/cs_registers/testflags	14	SP-OUT=14
+uhdm2rtlil/cva6_struct_param_field/default	13	FN-FOREIGN=2	FN-TAIL=4	OTHER=1	SP-COPY-STABLE=5	SP-OUT=2	STRUCT=2
+uhdm2rtlil/cva6_struct_param_field/testflags	13	FN-FOREIGN=2	FN-TAIL=4	OTHER=1	SP-COPY-STABLE=5	SP-OUT=2	STRUCT=2
+uhdm2rtlil/def_ctx_struct_param/default	1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/def_ctx_struct_param/testflags	1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/dff_different_styles/default	2	FN-OUT=2	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/dff_different_styles/testflags	2	FN-OUT=2	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/Disable/default	1	SP-OUT=1
+uhdm2rtlil/Disable/testflags	1	SP-OUT=1
+uhdm2rtlil/DivisionOfSize/default	4	OTHER=2	SP-OUT=2
+uhdm2rtlil/DivisionOfSize/testflags	4	OTHER=2	SP-OUT=2
+uhdm2rtlil/dyn_field_select/default	4	FN-OUT=2	SP-OUT=2
+uhdm2rtlil/dyn_field_select/testflags	4	FN-OUT=2	SP-OUT=2
+uhdm2rtlil/empty_port_connection/default	1	SP-OUT=1
+uhdm2rtlil/empty_port_connection/testflags	1	SP-OUT=1
+uhdm2rtlil/EnumArray/default	2	SP-OUT=2
+uhdm2rtlil/EnumArray/testflags	2	SP-OUT=2
+uhdm2rtlil/EnumArrayListedElements/default	3	SP-OUT=3
+uhdm2rtlil/EnumArrayListedElements/testflags	3	SP-OUT=3
+uhdm2rtlil/EnumConcat/default	4	SP-OUT=4
+uhdm2rtlil/EnumConcat/testflags	4	SP-OUT=4
+uhdm2rtlil/EnumInPackage/default	11	FN-STABLE=11
+uhdm2rtlil/EnumInPackage/testflags	11	FN-STABLE=11
+uhdm2rtlil/expr_width_cast/default	12	FN-TAIL=6	SP-COPY-STABLE=6
+uhdm2rtlil/expr_width_cast/testflags	12	FN-TAIL=6	SP-COPY-STABLE=6
+uhdm2rtlil/fail_detect_width/default	1	SP-OUT=1
+uhdm2rtlil/fail_detect_width/testflags	1	SP-OUT=1
+uhdm2rtlil/ff_dead_both_branches/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ff_dead_both_branches/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ff_dead_guarded_reset/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ff_dead_guarded_reset/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/FileLevelUnionWithMultirange/default	14	FN-TAIL=7	SP-COPY-STABLE=7
+uhdm2rtlil/FileLevelUnionWithMultirange/testflags	14	FN-TAIL=7	SP-COPY-STABLE=7
+uhdm2rtlil/forgen02/default	8	SP-OUT=8
+uhdm2rtlil/forgen02/testflags	8	SP-OUT=8
+uhdm2rtlil/func_local_array/default	1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/func_local_array/testflags	1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/func_local_compound_xor/default	2	SP-OUT=2
+uhdm2rtlil/func_local_compound_xor/testflags	2	SP-OUT=2
+uhdm2rtlil/func_typename_ret/default	2	FN-TAIL=1	OTHER=2	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/func_typename_ret/testflags	2	FN-TAIL=1	OTHER=2	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/func_upto/default	2477	SP-OUT=2477
+uhdm2rtlil/func_upto/testflags	2477	SP-OUT=2477
+uhdm2rtlil/FunctionParam/default	1	OTHER=1	SP-OUT=1	STRUCT=1
+uhdm2rtlil/FunctionParam/testflags	1	OTHER=1	SP-OUT=1	STRUCT=1
+uhdm2rtlil/FunctionReturnEnum/default	1	SP-OUT=1
+uhdm2rtlil/FunctionReturnEnum/testflags	1	SP-OUT=1
+uhdm2rtlil/gen_scope_numports/default	23	FN-TAIL=17	SP-OUT=6
+uhdm2rtlil/gen_scope_numports/testflags	23	FN-TAIL=17	SP-OUT=6
+uhdm2rtlil/gen_scope_typaram/default	10	FN-TAIL=6	SP-COPY-STABLE=1	SP-OUT=1	SP-ROOT-STABLE=2
+uhdm2rtlil/gen_scope_typaram/testflags	10	FN-TAIL=6	SP-COPY-STABLE=1	SP-OUT=1	SP-ROOT-STABLE=2
+uhdm2rtlil/gen_test1/default	56	SP-OUT=56
+uhdm2rtlil/gen_test1/testflags	56	SP-OUT=56
+uhdm2rtlil/gen_test3/default	4	SP-OUT=4
+uhdm2rtlil/gen_test3/testflags	4	SP-OUT=4
+uhdm2rtlil/gen_test4/default	3	SP-OUT=3
+uhdm2rtlil/gen_test4/testflags	3	SP-OUT=3
+uhdm2rtlil/gen_test5/default	1710	SP-OUT=1710
+uhdm2rtlil/gen_test5/testflags	1710	SP-OUT=1710
+uhdm2rtlil/gen_test6/default	4	SP-OUT=4
+uhdm2rtlil/gen_test6/testflags	4	SP-OUT=4
+uhdm2rtlil/gen_test7/default	3	SP-OUT=3
+uhdm2rtlil/gen_test7/testflags	3	SP-OUT=3
+uhdm2rtlil/generate_test/default	4	SP-OUT=4
+uhdm2rtlil/generate_test/testflags	4	SP-OUT=4
+uhdm2rtlil/genscope_cells/default	2	SP-OUT=2
+uhdm2rtlil/genscope_cells/testflags	2	SP-OUT=2
+uhdm2rtlil/genscope_module_ctx_reset/default	1	FN-OUT=1
+uhdm2rtlil/genscope_module_ctx_reset/testflags	1	FN-OUT=1
+uhdm2rtlil/genscope_struct_member/default	1	SP-OUT=1
+uhdm2rtlil/genscope_struct_member/testflags	1	SP-OUT=1
+uhdm2rtlil/genvar_async_reset_array/default	2	SP-OUT=2
+uhdm2rtlil/genvar_async_reset_array/testflags	2	SP-OUT=2
+uhdm2rtlil/genvar_iface_struct/default	5	FN-OUT=2	SP-OUT=3
+uhdm2rtlil/genvar_iface_struct/testflags	5	FN-OUT=2	SP-OUT=3
+uhdm2rtlil/genvar_loop_decl_2/default	2	SP-OUT=2
+uhdm2rtlil/genvar_loop_decl_2/testflags	2	SP-OUT=2
+uhdm2rtlil/genvar_loop_decl_3/default	4	SP-OUT=4
+uhdm2rtlil/genvar_loop_decl_3/testflags	4	SP-OUT=4
+uhdm2rtlil/genvar_pow_index/default	10	SP-OUT=10
+uhdm2rtlil/genvar_pow_index/testflags	10	SP-OUT=10
+uhdm2rtlil/hier_path/default	146	SP-OUT=146
+uhdm2rtlil/hier_path/testflags	146	SP-OUT=146
+uhdm2rtlil/hierdefparam/default	2	SP-OUT=2
+uhdm2rtlil/hierdefparam/testflags	2	SP-OUT=2
+uhdm2rtlil/ibex_alu/default	28	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=16	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_alu/testflags	28	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=16	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_branch_predict/default	97	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=30	SP-OUT=67	STRUCT=2
+uhdm2rtlil/ibex_branch_predict/testflags	97	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=30	SP-OUT=67	STRUCT=2
+uhdm2rtlil/ibex_compressed_decoder/default	29	FN-FOREIGN=1	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=16	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_compressed_decoder/testflags	29	FN-FOREIGN=1	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=16	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_counter/default	1	FN-OUT=1
+uhdm2rtlil/ibex_counter/testflags	1	FN-OUT=1
+uhdm2rtlil/ibex_csr/default	16	SP-OUT=16
+uhdm2rtlil/ibex_csr/testflags	16	SP-OUT=16
+uhdm2rtlil/ibex_decoder/default	30	FN-FOREIGN=1	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=17	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_decoder/testflags	30	FN-FOREIGN=1	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=17	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_fetch_fifo/default	37	SP-OUT=37
+uhdm2rtlil/ibex_fetch_fifo/testflags	37	SP-OUT=37
+uhdm2rtlil/ibex_icache/default	28	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=16	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_icache/testflags	28	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=16	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_load_store_unit/default	302	SP-OUT=302
+uhdm2rtlil/ibex_load_store_unit/testflags	302	SP-OUT=302
+uhdm2rtlil/ibex_multdiv_fast/default	28	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=16	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_multdiv_fast/testflags	28	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=16	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_multdiv_slow/default	97	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=30	SP-OUT=67	STRUCT=2
+uhdm2rtlil/ibex_multdiv_slow/testflags	97	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=30	SP-OUT=67	STRUCT=2
+uhdm2rtlil/ibex_pmp/default	31	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=15	SP-COPY-USESITE=1	SP-OUT=1	SP-ROOTDECL-USESITE=3	STRUCT=2
+uhdm2rtlil/ibex_pmp/testflags	31	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=15	SP-COPY-USESITE=1	SP-OUT=1	SP-ROOTDECL-USESITE=3	STRUCT=2
+uhdm2rtlil/ibex_register_file_ff/default	62	FN-TAIL=31	SP-OUT=31
+uhdm2rtlil/ibex_register_file_ff/testflags	62	FN-TAIL=31	SP-OUT=31
+uhdm2rtlil/ibex_tracer/default	62	FN-FOREIGN=43	FN-OUT=1	FN-STABLE=4	FN-TAIL=7	OTHER=8	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_tracer/testflags	62	FN-FOREIGN=43	FN-OUT=1	FN-STABLE=4	FN-TAIL=7	OTHER=8	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_wb_stage/default	27	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=15	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ibex_wb_stage/testflags	27	FN-OUT=1	FN-STABLE=4	FN-TAIL=8	OTHER=15	SP-OUT=1	STRUCT=2
+uhdm2rtlil/iface_arr_struct_field_partsel/default	4	FN-OUT=4
+uhdm2rtlil/iface_arr_struct_field_partsel/testflags	4	FN-OUT=4
+uhdm2rtlil/iface_array_elem_cfg_param/default	2	SP-COPY-STABLE=1	SP-OUT=1
+uhdm2rtlil/iface_array_elem_cfg_param/testflags	2	SP-COPY-STABLE=1	SP-OUT=1
+uhdm2rtlil/iface_array_modport_drive/default	4	FN-OUT=1	SP-OUT=3
+uhdm2rtlil/iface_array_modport_drive/testflags	4	FN-OUT=1	SP-OUT=3
+uhdm2rtlil/iface_cfg_mem/default	6	FN-OUT=1	SP-COPY-STABLE=5
+uhdm2rtlil/iface_cfg_mem/testflags	6	FN-OUT=1	SP-COPY-STABLE=5
+uhdm2rtlil/iface_cfg_param_def_pass/default	3	SP-COPY-STABLE=2	SP-OUT=1
+uhdm2rtlil/iface_cfg_param_def_pass/testflags	3	SP-COPY-STABLE=2	SP-OUT=1
+uhdm2rtlil/iface_ff_genvar_partsel/default	6	FN-OUT=2	SP-OUT=4
+uhdm2rtlil/iface_ff_genvar_partsel/testflags	6	FN-OUT=2	SP-OUT=4
+uhdm2rtlil/iface_gen_delay/default	2	SP-OUT=2
+uhdm2rtlil/iface_gen_delay/testflags	2	SP-OUT=2
+uhdm2rtlil/iface_gen_delay_struct/default	2	SP-OUT=2
+uhdm2rtlil/iface_gen_delay_struct/testflags	2	SP-OUT=2
+uhdm2rtlil/iface_nested_param_field/default	7	FN-OUT=1	FN-STABLE=4	SP-COPY-STABLE=2
+uhdm2rtlil/iface_nested_param_field/testflags	7	FN-OUT=1	FN-STABLE=4	SP-COPY-STABLE=2
+uhdm2rtlil/iface_param_2level/default	3	FN-OUT=1	SP-COPY-STABLE=2
+uhdm2rtlil/iface_param_2level/testflags	3	FN-OUT=1	SP-COPY-STABLE=2
+uhdm2rtlil/iface_param_port_width/default	3	FN-OUT=2	SP-COPY-STABLE=1
+uhdm2rtlil/iface_param_port_width/testflags	3	FN-OUT=2	SP-COPY-STABLE=1
+uhdm2rtlil/iface_param_set_value/default	1	SP-OUT=1
+uhdm2rtlil/iface_param_set_value/testflags	1	SP-OUT=1
+uhdm2rtlil/iface_param_width_per_inst/default	2	FN-OUT=2
+uhdm2rtlil/iface_param_width_per_inst/testflags	2	FN-OUT=2
+uhdm2rtlil/iface_pkg_enum_item/default	2	SP-OUT=2
+uhdm2rtlil/iface_pkg_enum_item/testflags	2	SP-OUT=2
+uhdm2rtlil/iface_scalar_localparam/default	16	FN-OUT=7	FN-STABLE=2	SP-COPY-STABLE=2	SP-OUT=5
+uhdm2rtlil/iface_scalar_localparam/testflags	16	FN-OUT=7	FN-STABLE=2	SP-COPY-STABLE=2	SP-OUT=5
+uhdm2rtlil/iface_sig_in_child_port/default	4	FN-OUT=4
+uhdm2rtlil/iface_sig_in_child_port/testflags	4	FN-OUT=4
+uhdm2rtlil/iface_struct_field_param_width/default	31	FN-OUT=1	FN-STABLE=2	FN-TAIL=14	SP-COPY-STABLE=14
+uhdm2rtlil/iface_struct_field_param_width/testflags	31	FN-OUT=1	FN-STABLE=2	FN-TAIL=14	SP-COPY-STABLE=14
+uhdm2rtlil/iface_struct_field_partsel/default	16	FN-OUT=7	FN-STABLE=2	SP-COPY-STABLE=2	SP-OUT=5
+uhdm2rtlil/iface_struct_field_partsel/testflags	16	FN-OUT=7	FN-STABLE=2	SP-COPY-STABLE=2	SP-OUT=5
+uhdm2rtlil/iface_unpacked_struct_array/default	1	SP-OUT=1
+uhdm2rtlil/iface_unpacked_struct_array/testflags	1	SP-OUT=1
+uhdm2rtlil/iface_zero_width_field/default	16	FN-OUT=1	FN-STABLE=3	FN-TAIL=4	SP-COPY-STABLE=4	SP-OUT=4
+uhdm2rtlil/iface_zero_width_field/testflags	16	FN-OUT=1	FN-STABLE=3	FN-TAIL=4	SP-COPY-STABLE=4	SP-OUT=4
+uhdm2rtlil/ImportedDoubleCastedParameter/default	3	SP-OUT=3
+uhdm2rtlil/ImportedDoubleCastedParameter/testflags	3	SP-OUT=3
+uhdm2rtlil/ImportedEnumCast/default	2	SP-OUT=2
+uhdm2rtlil/ImportedEnumCast/testflags	2	SP-OUT=2
+uhdm2rtlil/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor/default	2	SP-OUT=2
+uhdm2rtlil/ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor/testflags	2	SP-OUT=2
+uhdm2rtlil/ImportedPackageEnumItemInInterface/default	2	SP-OUT=2
+uhdm2rtlil/ImportedPackageEnumItemInInterface/testflags	2	SP-OUT=2
+uhdm2rtlil/ImportedParameter/default	1	SP-OUT=1
+uhdm2rtlil/ImportedParameter/testflags	1	SP-OUT=1
+uhdm2rtlil/indexed_partsel_array/default	2	FN-STABLE=1	SP-ROOT-STABLE=1
+uhdm2rtlil/indexed_partsel_array/testflags	2	FN-STABLE=1	SP-ROOT-STABLE=1
+uhdm2rtlil/IndexedPartSelectInFor/default	8	FN-FOREIGN=6	SP-OUT=2
+uhdm2rtlil/IndexedPartSelectInFor/testflags	8	FN-FOREIGN=6	SP-OUT=2
+uhdm2rtlil/IndexedPartSelectOfArrayElement/default	2	FN-STABLE=1	SP-ROOT-STABLE=1
+uhdm2rtlil/IndexedPartSelectOfArrayElement/testflags	2	FN-STABLE=1	SP-ROOT-STABLE=1
+uhdm2rtlil/int_port_signed/default	1	SP-OUT=1
+uhdm2rtlil/int_port_signed/testflags	1	SP-OUT=1
+uhdm2rtlil/int_types/default	96	FN-OUT=66	SP-OUT=30
+uhdm2rtlil/int_types/testflags	96	FN-OUT=66	SP-OUT=30
+uhdm2rtlil/interface_array/default	3	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/interface_array/testflags	3	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/interface_array_fanout/default	3	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/interface_array_fanout/testflags	3	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/InterfaceAssign/default	2	SP-OUT=2
+uhdm2rtlil/InterfaceAssign/testflags	2	SP-OUT=2
+uhdm2rtlil/InterfaceParameter/default	1	SP-OUT=1
+uhdm2rtlil/InterfaceParameter/testflags	1	SP-OUT=1
+uhdm2rtlil/InterfaceParameterSetValue/default	1	SP-OUT=1
+uhdm2rtlil/InterfaceParameterSetValue/testflags	1	SP-OUT=1
+uhdm2rtlil/jeras_tcb_gpio/default	6	FN-OUT=5	SP-OUT=1
+uhdm2rtlil/jeras_tcb_gpio/testflags	6	FN-OUT=5	SP-OUT=1
+uhdm2rtlil/jeras_union/default	162	FN-FOREIGN=47	OTHER=19	SP-COPY-STABLE=96	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/jeras_union/testflags	162	FN-FOREIGN=47	OTHER=19	SP-COPY-STABLE=96	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/latch_decoder_partial/default	1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/latch_decoder_partial/testflags	1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/latch_fifo_dynfield/default	20	FN-STABLE=12	SP-ROOT-STABLE=6	SP-ROOTDECL-STABLE=2
+uhdm2rtlil/latch_fifo_dynfield/testflags	20	FN-STABLE=12	SP-ROOT-STABLE=6	SP-ROOTDECL-STABLE=2
+uhdm2rtlil/latch_nested_ex_field/default	25	FN-STABLE=25
+uhdm2rtlil/latch_nested_ex_field/testflags	25	FN-STABLE=25
+uhdm2rtlil/latch_packed_dyn_write/default	2	FN-OUT=2	SP-OUT=2
+uhdm2rtlil/latch_packed_dyn_write/testflags	2	FN-OUT=2	SP-OUT=2
+uhdm2rtlil/latch_tlb_napot/default	1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/latch_tlb_napot/testflags	1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/LocalParamInNestedForLoops/default	4	FN-OUT=2	OTHER=1	SP-OUT=3	STRUCT=2
+uhdm2rtlil/LocalParamInNestedForLoops/testflags	4	FN-OUT=2	OTHER=1	SP-OUT=3	STRUCT=2
+uhdm2rtlil/mem_ff_partial_rsp/default	16	FN-OUT=8	SP-OUT=8
+uhdm2rtlil/mem_ff_partial_rsp/testflags	16	FN-OUT=8	SP-OUT=8
+uhdm2rtlil/mem_multi_always_write/default	4	SP-OUT=4
+uhdm2rtlil/mem_multi_always_write/testflags	4	SP-OUT=4
+uhdm2rtlil/mem_packed_2d_byte_write/default	4	FN-OUT=4
+uhdm2rtlil/mem_packed_2d_byte_write/testflags	4	FN-OUT=4
+uhdm2rtlil/mem_read_reg/default	5	FN-TAIL=1	OTHER=3	SP-COPY-USESITE=3	SP-ROOTDECL-USESITE=1	STRUCT=1
+uhdm2rtlil/mem_read_reg/testflags	5	FN-TAIL=1	OTHER=3	SP-COPY-USESITE=3	SP-ROOTDECL-USESITE=1	STRUCT=1
+uhdm2rtlil/MemberSelectOf2DStructPackedArray/default	1	SP-OUT=1
+uhdm2rtlil/MemberSelectOf2DStructPackedArray/testflags	1	SP-OUT=1
+uhdm2rtlil/MemoryInGenblock/default	28	SP-OUT=28
+uhdm2rtlil/MemoryInGenblock/testflags	28	SP-OUT=28
+uhdm2rtlil/MemoryPort/default	10	SP-OUT=10
+uhdm2rtlil/MemoryPort/testflags	10	SP-OUT=10
+uhdm2rtlil/mriscv_bind_sva/default	112	FN-OUT=34	SP-OUT=78
+uhdm2rtlil/mriscv_bind_sva/testflags	112	FN-OUT=34	SP-OUT=78
+uhdm2rtlil/multiplier/default	84	FN-OUT=6	SP-OUT=78
+uhdm2rtlil/multiplier/testflags	84	FN-OUT=6	SP-OUT=78
+uhdm2rtlil/MultirangesStartNotFromZero/default	3	SP-OUT=1	SP-ROOTDECL-USESITE=2
+uhdm2rtlil/MultirangesStartNotFromZero/testflags	3	SP-OUT=1	SP-ROOTDECL-USESITE=2
+uhdm2rtlil/NestedForLoops/default	2	SP-OUT=2
+uhdm2rtlil/NestedForLoops/testflags	2	SP-OUT=2
+uhdm2rtlil/NestedGenscopesInModuleWithMultidimensionalPorts/default	20	SP-OUT=20
+uhdm2rtlil/NestedGenscopesInModuleWithMultidimensionalPorts/testflags	20	SP-OUT=20
+uhdm2rtlil/NestedSelectOnInputPortInGenscope/default	4	SP-OUT=4
+uhdm2rtlil/NestedSelectOnInputPortInGenscope/testflags	4	SP-OUT=4
+uhdm2rtlil/NestedSelectOnVarInGenscope/default	4	SP-OUT=4
+uhdm2rtlil/NestedSelectOnVarInGenscope/testflags	4	SP-OUT=4
+uhdm2rtlil/NestedStructArrayParameterInitializedByPatternPassedAsPort/default	13	FN-FOREIGN=5	FN-OUT=1	FN-TAIL=7	OTHER=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/NestedStructArrayParameterInitializedByPatternPassedAsPort/testflags	13	FN-FOREIGN=5	FN-OUT=1	FN-TAIL=7	OTHER=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/net_types/default	1	FN-TAIL=1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/net_types/testflags	1	FN-TAIL=1	OTHER=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/OneCast/default	2	SP-OUT=2
+uhdm2rtlil/OneCast/testflags	2	SP-OUT=2
+uhdm2rtlil/OneImport/default	3	SP-OUT=3
+uhdm2rtlil/OneImport/testflags	3	SP-OUT=3
+uhdm2rtlil/OneNetModport/default	4	FN-OUT=4
+uhdm2rtlil/OneNetModport/testflags	4	FN-OUT=4
+uhdm2rtlil/OnePackage/default	2	SP-OUT=2
+uhdm2rtlil/OnePackage/testflags	2	SP-OUT=2
+uhdm2rtlil/OutputSizeWithParameterOfInstanceInitializedByStructMember/default	12	FN-STABLE=1	FN-TAIL=3	OTHER=1	SP-COPY-STABLE=6	SP-OUT=1
+uhdm2rtlil/OutputSizeWithParameterOfInstanceInitializedByStructMember/testflags	12	FN-STABLE=1	FN-TAIL=3	OTHER=1	SP-COPY-STABLE=6	SP-OUT=1
+uhdm2rtlil/packed_array_reset_loop/default	4	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-OUT=2	STRUCT=2
+uhdm2rtlil/packed_array_reset_loop/testflags	4	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-OUT=2	STRUCT=2
+uhdm2rtlil/packed_array_struct/default	2	SP-COPY-STABLE=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/packed_array_struct/testflags	2	SP-COPY-STABLE=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/packed_array_struct_port_sel/default	9	FN-TAIL=6	SP-COPY-STABLE=1	SP-ROOT-STABLE=2
+uhdm2rtlil/packed_array_struct_port_sel/testflags	9	FN-TAIL=6	SP-COPY-STABLE=1	SP-ROOT-STABLE=2
+uhdm2rtlil/packed_struct_array_fifo/default	2	OTHER=1	SP-COPY-STABLE=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/packed_struct_array_fifo/testflags	2	OTHER=1	SP-COPY-STABLE=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/packed_struct_array_net_elem/default	2	SP-OUT=2
+uhdm2rtlil/packed_struct_array_net_elem/testflags	2	SP-OUT=2
+uhdm2rtlil/packed_struct_array_shift/default	4	FN-OUT=4
+uhdm2rtlil/packed_struct_array_shift/testflags	4	FN-OUT=4
+uhdm2rtlil/param_array_wildcard/default	3	FN-TAIL=1	SP-OUT=2
+uhdm2rtlil/param_array_wildcard/testflags	3	FN-TAIL=1	SP-OUT=2
+uhdm2rtlil/param_name_collision_typeparam/default	9	FN-TAIL=8	SP-OUT=1
+uhdm2rtlil/param_name_collision_typeparam/testflags	9	FN-TAIL=8	SP-OUT=1
+uhdm2rtlil/param_nested_struct_field_width/default	5	OTHER=1	SP-COPY-STABLE=4	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/param_nested_struct_field_width/testflags	5	OTHER=1	SP-COPY-STABLE=4	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/param_struct_field_bitsel/default	2	FN-OUT=1	OTHER=1	SP-OUT=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/param_struct_field_bitsel/testflags	2	FN-OUT=1	OTHER=1	SP-OUT=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/param_type_logic_width/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/param_type_logic_width/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/param_unpacked_struct_array/default	2	FN-OUT=1	OTHER=1	SP-OUT=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/param_unpacked_struct_array/testflags	2	FN-OUT=1	OTHER=1	SP-OUT=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/ParameterColonReference/default	0	STRUCT=1
+uhdm2rtlil/ParameterColonReference/testflags	0	STRUCT=1
+uhdm2rtlil/ParameterDoubleUnderscoreInSvFrontend/default	1	SP-OUT=1
+uhdm2rtlil/ParameterDoubleUnderscoreInSvFrontend/testflags	1	SP-OUT=1
+uhdm2rtlil/ParameterFromPkgInNestedModule/default	8	FN-OUT=2	OTHER=4	SP-COPY-STABLE=1	SP-COPY-USESITE=2	SP-OUT=3	STRUCT=2
+uhdm2rtlil/ParameterFromPkgInNestedModule/testflags	8	FN-OUT=2	OTHER=4	SP-COPY-STABLE=1	SP-COPY-USESITE=2	SP-OUT=3	STRUCT=2
+uhdm2rtlil/ParameterFromPkgOnParameterPortList/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ParameterFromPkgOnParameterPortList/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/ParameterInGenScopeInitializedWithLongConstant/default	1	SP-OUT=1
+uhdm2rtlil/ParameterInGenScopeInitializedWithLongConstant/testflags	1	SP-OUT=1
+uhdm2rtlil/ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope/default	2	SP-OUT=2
+uhdm2rtlil/ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope/testflags	2	SP-OUT=2
+uhdm2rtlil/ParameterInitializedByPartSelectOfParametersAssignedToVar/default	1	FN-TAIL=1
+uhdm2rtlil/ParameterInitializedByPartSelectOfParametersAssignedToVar/testflags	1	FN-TAIL=1
+uhdm2rtlil/ParameterOfParametrizedType/default	3	FN-TAIL=3
+uhdm2rtlil/ParameterOfParametrizedType/testflags	3	FN-TAIL=3
+uhdm2rtlil/ParameterOfParametrizedTypeInSubmodule/default	5	FN-TAIL=5
+uhdm2rtlil/ParameterOfParametrizedTypeInSubmodule/testflags	5	FN-TAIL=5
+uhdm2rtlil/ParameterPassedTo3TimesNestedSubmodule/default	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/ParameterPassedTo3TimesNestedSubmodule/testflags	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/ParameterPassedToSubmoduleInGenscopeOfSubmodule/default	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/ParameterPassedToSubmoduleInGenscopeOfSubmodule/testflags	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/ParameterPassedToSubmoduleOfSubmodule/default	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/ParameterPassedToSubmoduleOfSubmodule/testflags	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/ParameterSizeOfInstance/default	2	SP-OUT=2
+uhdm2rtlil/ParameterSizeOfInstance/testflags	2	SP-OUT=2
+uhdm2rtlil/ParameterWithUnderscoreValueDividedPassedFromCommandLine/default	3	SP-OUT=3
+uhdm2rtlil/ParameterWithUnderscoreValueDividedPassedFromCommandLine/testflags	3	SP-OUT=3
+uhdm2rtlil/partsel_simple/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/partsel_simple/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/PartSelectInFor/default	9	FN-FOREIGN=6	SP-OUT=3
+uhdm2rtlil/PartSelectInFor/testflags	9	FN-FOREIGN=6	SP-OUT=3
+uhdm2rtlil/PatternAssignmentOfStructParam/default	1	FN-OUT=1
+uhdm2rtlil/PatternAssignmentOfStructParam/testflags	1	FN-OUT=1
+uhdm2rtlil/PatternStruct/default	1	SP-OUT=1
+uhdm2rtlil/PatternStruct/testflags	1	SP-OUT=1
+uhdm2rtlil/pkg_nested_struct_param_width/default	9	FN-TAIL=2	OTHER=1	SP-COPY-STABLE=6	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/pkg_nested_struct_param_width/testflags	9	FN-TAIL=2	OTHER=1	SP-COPY-STABLE=6	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/PkgParamAsFunctionArg/default	1	SP-OUT=1
+uhdm2rtlil/PkgParamAsFunctionArg/testflags	1	SP-OUT=1
+uhdm2rtlil/port_chained_type_param/default	2	SP-OUT=2
+uhdm2rtlil/port_chained_type_param/testflags	2	SP-OUT=2
+uhdm2rtlil/portsel_struct_param/default	5	FN-OUT=2	SP-OUT=3
+uhdm2rtlil/portsel_struct_param/testflags	5	FN-OUT=2	SP-OUT=3
+uhdm2rtlil/prefix/default	6	SP-OUT=6
+uhdm2rtlil/prefix/testflags	6	SP-OUT=6
+uhdm2rtlil/read_remux/default	4	SP-OUT=4
+uhdm2rtlil/read_remux/testflags	4	SP-OUT=4
+uhdm2rtlil/realexpr/default	17	OTHER=17
+uhdm2rtlil/realexpr/testflags	17	OTHER=17
+uhdm2rtlil/RealValue/default	2	OTHER=2
+uhdm2rtlil/RealValue/testflags	2	OTHER=2
+uhdm2rtlil/ReplicationPassedToInstance/default	2	FN-OUT=1	SP-OUT=1
+uhdm2rtlil/ReplicationPassedToInstance/testflags	2	FN-OUT=1	SP-OUT=1
+uhdm2rtlil/ReturnEnumArray/default	1	SP-OUT=1
+uhdm2rtlil/ReturnEnumArray/testflags	1	SP-OUT=1
+uhdm2rtlil/rotate/default	169	SP-OUT=169
+uhdm2rtlil/rotate/testflags	169	SP-OUT=169
+uhdm2rtlil/rp32_r5p_alu/default	112	FN-FOREIGN=16	OTHER=41	SP-COPY-STABLE=50	SP-COPY-USESITE=1	SP-ROOT-FOREIGN=2	SP-ROOTDECL-STABLE=3	STRUCT=2
+uhdm2rtlil/rp32_r5p_alu/testflags	112	FN-FOREIGN=16	OTHER=41	SP-COPY-STABLE=50	SP-COPY-USESITE=1	SP-ROOT-FOREIGN=2	SP-ROOTDECL-STABLE=3	STRUCT=2
+uhdm2rtlil/rp32_r5p_bru/default	141	FN-FOREIGN=45	OTHER=41	SP-COPY-STABLE=50	SP-COPY-USESITE=1	SP-ROOT-FOREIGN=2	SP-ROOTDECL-STABLE=3	STRUCT=2
+uhdm2rtlil/rp32_r5p_bru/testflags	141	FN-FOREIGN=45	OTHER=41	SP-COPY-STABLE=50	SP-COPY-USESITE=1	SP-ROOT-FOREIGN=2	SP-ROOTDECL-STABLE=3	STRUCT=2
+uhdm2rtlil/rp32_r5p_mdu/default	141	FN-FOREIGN=45	OTHER=41	SP-COPY-STABLE=50	SP-COPY-USESITE=1	SP-ROOT-FOREIGN=2	SP-ROOTDECL-STABLE=3	STRUCT=2
+uhdm2rtlil/rp32_r5p_mdu/testflags	141	FN-FOREIGN=45	OTHER=41	SP-COPY-STABLE=50	SP-COPY-USESITE=1	SP-ROOT-FOREIGN=2	SP-ROOTDECL-STABLE=3	STRUCT=2
+uhdm2rtlil/rp32_r5p_wbu/default	112	FN-FOREIGN=16	OTHER=41	SP-COPY-STABLE=50	SP-COPY-USESITE=1	SP-ROOT-FOREIGN=2	SP-ROOTDECL-STABLE=3	STRUCT=2
+uhdm2rtlil/rp32_r5p_wbu/testflags	112	FN-FOREIGN=16	OTHER=41	SP-COPY-STABLE=50	SP-COPY-USESITE=1	SP-ROOT-FOREIGN=2	SP-ROOTDECL-STABLE=3	STRUCT=2
+uhdm2rtlil/rsp_gen_minimal/default	166	FN-FOREIGN=163	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=1
+uhdm2rtlil/rsp_gen_minimal/testflags	166	FN-FOREIGN=163	FN-OUT=3	OTHER=1	SP-OUT=1	STRUCT=1
+uhdm2rtlil/sat_asserts_seq/default	18	SP-OUT=18
+uhdm2rtlil/sat_asserts_seq/testflags	18	SP-OUT=18
+uhdm2rtlil/SelectFromUnpackedInFunction/default	2	SP-OUT=1	SP-ROOT-STABLE=1
+uhdm2rtlil/SelectFromUnpackedInFunction/testflags	2	SP-OUT=1	SP-ROOT-STABLE=1
+uhdm2rtlil/SelectGivenBySelectOnParameterInFunction/default	1	OTHER=1	SP-OUT=1	STRUCT=1
+uhdm2rtlil/SelectGivenBySelectOnParameterInFunction/testflags	1	OTHER=1	SP-OUT=1	STRUCT=1
+uhdm2rtlil/Shortreal/default	2	OTHER=1	SP-OUT=1
+uhdm2rtlil/Shortreal/testflags	2	OTHER=1	SP-OUT=1
+uhdm2rtlil/simple_always_ifelse/default	4	SP-OUT=4
+uhdm2rtlil/simple_always_ifelse/testflags	4	SP-OUT=4
+uhdm2rtlil/simple_enum/default	2	SP-OUT=2
+uhdm2rtlil/simple_enum/testflags	2	SP-OUT=2
+uhdm2rtlil/simple_generate/default	4	SP-OUT=4
+uhdm2rtlil/simple_generate/testflags	4	SP-OUT=4
+uhdm2rtlil/simple_package/default	5	FN-FOREIGN=4	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+uhdm2rtlil/simple_package/testflags	5	FN-FOREIGN=4	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+uhdm2rtlil/SizeOfGeneratedWireArray/default	1	SP-OUT=1
+uhdm2rtlil/SizeOfGeneratedWireArray/testflags	1	SP-OUT=1
+uhdm2rtlil/static_cast_simple/default	23	SP-OUT=23
+uhdm2rtlil/static_cast_simple/testflags	23	SP-OUT=23
+uhdm2rtlil/struct_access/default	16	FN-TAIL=16
+uhdm2rtlil/struct_access/testflags	16	FN-TAIL=16
+uhdm2rtlil/struct_dynamic_range/default	8	FN-OUT=8
+uhdm2rtlil/struct_dynamic_range/testflags	8	FN-OUT=8
+uhdm2rtlil/struct_member_cfg_width/default	55	FN-TAIL=30	SP-COPY-STABLE=22	SP-OUT=1	SP-ROOT-STABLE=2
+uhdm2rtlil/struct_member_cfg_width/testflags	55	FN-TAIL=30	SP-COPY-STABLE=22	SP-OUT=1	SP-ROOT-STABLE=2
+uhdm2rtlil/struct_member_trailing_index/default	32	FN-OUT=4	FN-STABLE=21	SP-OUT=2	SP-ROOT-STABLE=5	SP-ROOTDECL-STABLE=2
+uhdm2rtlil/struct_member_trailing_index/testflags	32	FN-OUT=4	FN-STABLE=21	SP-OUT=2	SP-ROOT-STABLE=5	SP-ROOTDECL-STABLE=2
+uhdm2rtlil/struct_param_field_shift/default	45	FN-TAIL=4	SP-COPY-STABLE=38	SP-OUT=3
+uhdm2rtlil/struct_param_field_shift/testflags	45	FN-TAIL=4	SP-COPY-STABLE=38	SP-OUT=3
+uhdm2rtlil/struct_param_func_arg/default	1	SP-OUT=1
+uhdm2rtlil/struct_param_func_arg/testflags	1	SP-OUT=1
+uhdm2rtlil/struct_param_func_config/default	8	FN-FOREIGN=3	OTHER=1	SP-COPY-STABLE=4	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/struct_param_func_config/testflags	8	FN-FOREIGN=3	OTHER=1	SP-COPY-STABLE=4	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/struct_param_func_loop/default	7	FN-OUT=6	SP-OUT=1
+uhdm2rtlil/struct_param_func_loop/testflags	7	FN-OUT=6	SP-OUT=1
+uhdm2rtlil/struct_param_pattern_packing/default	4	FN-OUT=1	OTHER=1	SP-OUT=3	SP-ROOT-STABLE=1	STRUCT=2
+uhdm2rtlil/struct_param_pattern_packing/testflags	4	FN-OUT=1	OTHER=1	SP-OUT=3	SP-ROOT-STABLE=1	STRUCT=2
+uhdm2rtlil/struct_param_repl_count/default	3	FN-FOREIGN=2	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/struct_param_repl_count/testflags	3	FN-FOREIGN=2	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/struct_pattern_named_default/default	30	FN-STABLE=30
+uhdm2rtlil/struct_pattern_named_default/testflags	30	FN-STABLE=30
+uhdm2rtlil/StructArrayParameterInitializedByPatternPassedAsPort/default	1	FN-OUT=1	OTHER=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/StructArrayParameterInitializedByPatternPassedAsPort/testflags	1	FN-OUT=1	OTHER=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/StructLocalParam/default	0	STRUCT=1
+uhdm2rtlil/StructLocalParam/testflags	0	STRUCT=1
+uhdm2rtlil/StructParameter/default	0	STRUCT=1
+uhdm2rtlil/StructParameter/testflags	0	STRUCT=1
+uhdm2rtlil/StructParameterInitializedWithPatternAndReferenced/default	2	FN-OUT=1	SP-OUT=1
+uhdm2rtlil/StructParameterInitializedWithPatternAndReferenced/testflags	2	FN-OUT=1	SP-OUT=1
+uhdm2rtlil/SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule/default	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule/testflags	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/SumOfParameters/default	1	SP-OUT=1
+uhdm2rtlil/SumOfParameters/testflags	1	SP-OUT=1
+uhdm2rtlil/SumOfParametersInNestedForLoops/default	3	FN-OUT=1	OTHER=1	SP-OUT=3	STRUCT=2
+uhdm2rtlil/SumOfParametersInNestedForLoops/testflags	3	FN-OUT=1	OTHER=1	SP-OUT=3	STRUCT=2
+uhdm2rtlil/sva_basic02/default	4	SP-OUT=4
+uhdm2rtlil/sva_basic02/testflags	4	SP-OUT=4
+uhdm2rtlil/sva_counter/default	3	FN-OUT=1	OTHER=1	SP-OUT=2	STRUCT=1
+uhdm2rtlil/sva_counter/testflags	3	FN-OUT=1	OTHER=1	SP-OUT=2	STRUCT=1
+uhdm2rtlil/sva_range/default	1	FN-OUT=1	OTHER=1	STRUCT=2
+uhdm2rtlil/sva_range/testflags	1	FN-OUT=1	OTHER=1	STRUCT=2
+uhdm2rtlil/sva_throughout/default	1	FN-OUT=1	OTHER=1	STRUCT=2
+uhdm2rtlil/sva_throughout/testflags	1	FN-OUT=1	OTHER=1	STRUCT=2
+uhdm2rtlil/sva_value_change_changed/default	1	FN-OUT=1	OTHER=1	STRUCT=1
+uhdm2rtlil/sva_value_change_changed/testflags	1	FN-OUT=1	OTHER=1	STRUCT=1
+uhdm2rtlil/sva_value_change_changed_wide/default	1	FN-OUT=1	OTHER=1	STRUCT=1
+uhdm2rtlil/sva_value_change_changed_wide/testflags	1	FN-OUT=1	OTHER=1	STRUCT=1
+uhdm2rtlil/sva_value_change_rose/default	1	FN-OUT=1	OTHER=1	STRUCT=1
+uhdm2rtlil/sva_value_change_rose/testflags	1	FN-OUT=1	OTHER=1	STRUCT=1
+uhdm2rtlil/svtypes_struct_simple/default	5	FN-TAIL=4	SP-OUT=1
+uhdm2rtlil/svtypes_struct_simple/testflags	5	FN-TAIL=4	SP-OUT=1
+uhdm2rtlil/type_param_override_elem_sel/default	2	FN-STABLE=1	FN-TAIL=1
+uhdm2rtlil/type_param_override_elem_sel/testflags	2	FN-STABLE=1	FN-TAIL=1
+uhdm2rtlil/type_param_packed_dim/default	1	FN-TAIL=1
+uhdm2rtlil/type_param_packed_dim/testflags	1	FN-TAIL=1
+uhdm2rtlil/typed_named_pattern/default	30	FN-STABLE=25	SP-OUT=5
+uhdm2rtlil/typed_named_pattern/testflags	30	FN-STABLE=25	SP-OUT=5
+uhdm2rtlil/typedef_package/default	8	FN-TAIL=1	OTHER=3	SP-COPY-USESITE=5	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/typedef_package/testflags	8	FN-TAIL=1	OTHER=3	SP-COPY-USESITE=5	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/TypedefPackedDimensions/default	9	SP-COPY-STABLE=9
+uhdm2rtlil/TypedefPackedDimensions/testflags	9	SP-COPY-STABLE=9
+uhdm2rtlil/TypedefStructParamWithRangeInSubmodule/default	4	SP-OUT=4
+uhdm2rtlil/TypedefStructParamWithRangeInSubmodule/testflags	4	SP-OUT=4
+uhdm2rtlil/TypedefVariableDimensions/default	2	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+uhdm2rtlil/TypedefVariableDimensions/testflags	2	OTHER=1	SP-COPY-STABLE=1	STRUCT=2
+uhdm2rtlil/TypedefWithParameter/default	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/TypedefWithParameter/testflags	2	FN-TAIL=1	OTHER=1	SP-COPY-STABLE=1	SP-ROOTDECL-USESITE=1	STRUCT=2
+uhdm2rtlil/TypeParameterAsPortTypeWithEnum/default	8	FN-STABLE=4	SP-COPY-STABLE=2	SP-ROOT-STABLE=2
+uhdm2rtlil/TypeParameterAsPortTypeWithEnum/testflags	8	FN-STABLE=4	SP-COPY-STABLE=2	SP-ROOT-STABLE=2
+uhdm2rtlil/TypeParameterAsPortTypeWithEnumOfParametrizedWidth/default	6	FN-STABLE=2	FN-TAIL=2	SP-COPY-STABLE=1	SP-ROOT-STABLE=1
+uhdm2rtlil/TypeParameterAsPortTypeWithEnumOfParametrizedWidth/testflags	6	FN-STABLE=2	FN-TAIL=2	SP-COPY-STABLE=1	SP-ROOT-STABLE=1
+uhdm2rtlil/unbased_unsized/default	2	SP-OUT=2
+uhdm2rtlil/unbased_unsized/testflags	2	SP-OUT=2
+uhdm2rtlil/unbased_unsized_param/default	3	FN-OUT=1	OTHER=1	SP-OUT=3	STRUCT=2
+uhdm2rtlil/unbased_unsized_param/testflags	3	FN-OUT=1	OTHER=1	SP-OUT=3	STRUCT=2
+uhdm2rtlil/union_param_repro/default	4	SP-ROOT-STABLE=3	SP-ROOTDECL-STABLE=1
+uhdm2rtlil/union_param_repro/testflags	4	SP-ROOT-STABLE=3	SP-ROOTDECL-STABLE=1
+uhdm2rtlil/union_simple/default	8	FN-TAIL=8
+uhdm2rtlil/union_simple/testflags	8	FN-TAIL=8
+uhdm2rtlil/UnionCustomTypeMultirange/default	2	SP-OUT=2
+uhdm2rtlil/UnionCustomTypeMultirange/testflags	2	SP-OUT=2
+uhdm2rtlil/unpacked_elem_partsel_comb/default	12	FN-OUT=4	SP-OUT=8
+uhdm2rtlil/unpacked_elem_partsel_comb/testflags	12	FN-OUT=4	SP-OUT=8
+uhdm2rtlil/unpacked_struct_2d/default	13	SP-ROOT-STABLE=12	SP-ROOTDECL-STABLE=1
+uhdm2rtlil/unpacked_struct_2d/testflags	13	SP-ROOT-STABLE=12	SP-ROOTDECL-STABLE=1
+uhdm2rtlil/unpacked_struct_array_typedef/default	4	SP-COPY-STABLE=4
+uhdm2rtlil/unpacked_struct_array_typedef/testflags	4	SP-COPY-STABLE=4
+uhdm2rtlil/unpacked_struct_dyn_read/default	13	SP-ROOT-STABLE=12	SP-ROOTDECL-STABLE=1
+uhdm2rtlil/unpacked_struct_dyn_read/testflags	13	SP-ROOT-STABLE=12	SP-ROOTDECL-STABLE=1
+uhdm2rtlil/unpacked_struct_mixed/default	13	SP-ROOT-STABLE=12	SP-ROOTDECL-STABLE=1
+uhdm2rtlil/unpacked_struct_mixed/testflags	13	SP-ROOT-STABLE=12	SP-ROOTDECL-STABLE=1
+uhdm2rtlil/VarPassedTo2Submodules/default	3	FN-TAIL=1	OTHER=2	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/VarPassedTo2Submodules/testflags	3	FN-TAIL=1	OTHER=2	SP-COPY-USESITE=1	STRUCT=2
+uhdm2rtlil/vector_index/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/vector_index/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/wandwor/default	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2
+uhdm2rtlil/wandwor/testflags	1	FN-OUT=1	OTHER=1	SP-OUT=1	STRUCT=2

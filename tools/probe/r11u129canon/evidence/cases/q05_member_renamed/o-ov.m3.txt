@@ -1,0 +1,75 @@
+LHS:
+decompile:
+typespec_member: (c), id:4, line:2:39, endln:2:40
+|vpiParent:
+\_struct_typespec: (p::in_t), id:3, line:2:11, endln:2:52
+|vpiName:c
+|vpiTypespec:
+\_ref_typespec: (p::p::in_t::c), id:9
+  |vpiParent:
+  \_typespec_member: (c), id:4, line:2:39, endln:2:40
+  |vpiFullName:p::p::in_t::c
+  |vpiActual:
+  \_logic_typespec: , id:22, line:2:27, endln:2:38
+|vpiRefFile:/tmp/wt_r11u129/tools/probe/r11u129canon/cases/q05_member_renamed/dut.sv
+|vpiRefLineNo:2
+|vpiRefColumnNo:27
+|vpiRefEndLineNo:2
+|vpiRefEndColumnNo:38
+
+decompile:
+typespec_member: (c), id:4, line:2:39, endln:2:40
+|vpiParent:
+\_struct_typespec: (p::in_t), id:3, line:2:11, endln:2:52
+|vpiName:c
+|vpiTypespec:
+\_ref_typespec: (p::p::in_t::c), id:9
+  |vpiParent:
+  \_typespec_member: (c), id:4, line:2:39, endln:2:40
+  |vpiFullName:p::p::in_t::c
+  |vpiActual:
+  \_logic_typespec: , id:22, line:2:27, endln:2:38
+|vpiRefFile:/tmp/wt_r11u129/tools/probe/r11u129canon/cases/q05_member_renamed/dut.sv
+|vpiRefLineNo:2
+|vpiRefColumnNo:27
+|vpiRefEndLineNo:2
+|vpiRefEndColumnNo:38
+RHS:
+decompile:
+typespec_member: (e), id:4, line:2:39, endln:2:40
+|vpiParent:
+\_struct_typespec: (p::in_t), id:3, line:2:11, endln:2:52
+|vpiName:e
+|vpiTypespec:
+\_ref_typespec: (p::p::in_t::e), id:9
+  |vpiParent:
+  \_typespec_member: (e), id:4, line:2:39, endln:2:40
+  |vpiFullName:p::p::in_t::e
+  |vpiActual:
+  \_logic_typespec: , id:22, line:2:27, endln:2:38
+|vpiRefFile:/tmp/wt_r11u129/tools/probe/r11u129canon/cases/q05_member_renamed/v/dut.sv
+|vpiRefLineNo:2
+|vpiRefColumnNo:27
+|vpiRefEndLineNo:2
+|vpiRefEndColumnNo:38
+
+decompile:
+typespec_member: (e), id:4, line:2:39, endln:2:40
+|vpiParent:
+\_struct_typespec: (p::in_t), id:3, line:2:11, endln:2:52
+|vpiName:e
+|vpiTypespec:
+\_ref_typespec: (p::p::in_t::e), id:9
+  |vpiParent:
+  \_typespec_member: (e), id:4, line:2:39, endln:2:40
+  |vpiFullName:p::p::in_t::e
+  |vpiActual:
+  \_logic_typespec: , id:22, line:2:27, endln:2:38
+|vpiRefFile:/tmp/wt_r11u129/tools/probe/r11u129canon/cases/q05_member_renamed/v/dut.sv
+|vpiRefLineNo:2
+|vpiRefColumnNo:27
+|vpiRefEndLineNo:2
+|vpiRefEndColumnNo:38
+lhsPath: design(work@top) > package(p) > struct_typespec(p::in_t) > typespec_member(c)
+rhsPath: design(work@top) > package(p) > struct_typespec(p::in_t) > typespec_member(e)
+NOT_EQUAL stage1

@@ -1,0 +1,140 @@
+LHS:
+decompile:
+logic_typespec: (ta_t), id:48, line:2:11, endln:2:22
+|vpiParent:
+\_typespec_member: (m), id:53, line:4:32, endln:4:33
+|vpiName:ta_t
+|vpiTypedefAlias:
+\_ref_typespec: (p::p::s_t::m::ta_t), id:52
+  |vpiParent:
+  \_logic_typespec: (ta_t), id:48, line:2:11, endln:2:22
+  |vpiFullName:p::p::s_t::m::ta_t
+  |vpiActual:
+  \_logic_typespec: (p::ta_t), id:38, line:2:11, endln:2:22
+|vpiInstance:
+\_package: p (p::), id:30, file:/tmp/wt_r11u129/tools/probe/r11u129canon/cases/q04_member_typedef_differs/dut.sv, line:1:1, endln:5:11
+|vpiRange:
+\_range: , id:49, line:2:17, endln:2:22
+  |vpiParent:
+  \_logic_typespec: (ta_t), id:48, line:2:11, endln:2:22
+  |vpiLeftRange:
+  \_constant: , id:50, line:2:18, endln:2:19
+    |vpiParent:
+    \_range: , id:49, line:2:17, endln:2:22
+    |vpiDecompile:3
+    |vpiSize:64
+    |UINT:3
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:51, line:2:20, endln:2:21
+    |vpiParent:
+    \_range: , id:49, line:2:17, endln:2:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (ta_t), id:48, line:2:11, endln:2:22
+|vpiParent:
+\_typespec_member: (m), id:53, line:4:32, endln:4:33
+|vpiName:ta_t
+|vpiTypedefAlias:
+\_ref_typespec: (p::p::s_t::m::ta_t), id:52
+  |vpiParent:
+  \_logic_typespec: (ta_t), id:48, line:2:11, endln:2:22
+  |vpiFullName:p::p::s_t::m::ta_t
+  |vpiActual:
+  \_logic_typespec: (p::ta_t), id:38, line:2:11, endln:2:22
+|vpiInstance:
+\_package: p (p::), id:30, file:/tmp/wt_r11u129/tools/probe/r11u129canon/cases/q04_member_typedef_differs/dut.sv, line:1:1, endln:5:11
+|vpiRange:
+\_range: , id:49, line:2:17, endln:2:22
+  |vpiParent:
+  \_logic_typespec: (ta_t), id:48, line:2:11, endln:2:22
+  |vpiLeftRange:
+  \_constant: , id:50, line:2:18, endln:2:19
+    |vpiParent:
+    \_range: , id:49, line:2:17, endln:2:22
+    |vpiDecompile:3
+    |vpiSize:64
+    |UINT:3
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:51, line:2:20, endln:2:21
+    |vpiParent:
+    \_range: , id:49, line:2:17, endln:2:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+logic_typespec: (tb_t), id:13, line:3:11, endln:3:22
+|vpiParent:
+\_typespec_member: (m), id:12, line:4:32, endln:4:33
+|vpiName:tb_t
+|vpiTypedefAlias:
+\_ref_typespec: (p::p::s_t::m::tb_t), id:17
+  |vpiParent:
+  \_logic_typespec: (tb_t), id:13, line:3:11, endln:3:22
+  |vpiFullName:p::p::s_t::m::tb_t
+  |vpiActual:
+  \_logic_typespec: (p::tb_t), id:7, line:3:11, endln:3:22
+|vpiInstance:
+\_package: p (p::), id:2, file:/tmp/wt_r11u129/tools/probe/r11u129canon/cases/q04_member_typedef_differs/v/dut.sv, line:1:1, endln:5:11
+|vpiRange:
+\_range: , id:14, line:3:17, endln:3:22
+  |vpiParent:
+  \_logic_typespec: (tb_t), id:13, line:3:11, endln:3:22
+  |vpiLeftRange:
+  \_constant: , id:15, line:3:18, endln:3:19
+    |vpiParent:
+    \_range: , id:14, line:3:17, endln:3:22
+    |vpiDecompile:3
+    |vpiSize:64
+    |UINT:3
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:16, line:3:20, endln:3:21
+    |vpiParent:
+    \_range: , id:14, line:3:17, endln:3:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (tb_t), id:13, line:3:11, endln:3:22
+|vpiParent:
+\_typespec_member: (m), id:12, line:4:32, endln:4:33
+|vpiName:tb_t
+|vpiTypedefAlias:
+\_ref_typespec: (p::p::s_t::m::tb_t), id:17
+  |vpiParent:
+  \_logic_typespec: (tb_t), id:13, line:3:11, endln:3:22
+  |vpiFullName:p::p::s_t::m::tb_t
+  |vpiActual:
+  \_logic_typespec: (p::tb_t), id:7, line:3:11, endln:3:22
+|vpiInstance:
+\_package: p (p::), id:2, file:/tmp/wt_r11u129/tools/probe/r11u129canon/cases/q04_member_typedef_differs/v/dut.sv, line:1:1, endln:5:11
+|vpiRange:
+\_range: , id:14, line:3:17, endln:3:22
+  |vpiParent:
+  \_logic_typespec: (tb_t), id:13, line:3:11, endln:3:22
+  |vpiLeftRange:
+  \_constant: , id:15, line:3:18, endln:3:19
+    |vpiParent:
+    \_range: , id:14, line:3:17, endln:3:22
+    |vpiDecompile:3
+    |vpiSize:64
+    |UINT:3
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:16, line:3:20, endln:3:21
+    |vpiParent:
+    \_range: , id:14, line:3:17, endln:3:22
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

@@ -1,0 +1,14 @@
+#13 line
+  A: 2	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 2	struct_typespec	p::s_t			dut.sv	9	11	2	52				
+#15 fullname
+  A: 4	ref_typespec			p::s_t.c		0	0	0	0		0		
+  B: 4	ref_typespec			p::p::s_t::c		0	0	0	0		0		
+#21 fullname
+  A: 4	ref_typespec			p::s_t.d		0	0	0	0		0		
+  B: 4	ref_typespec			p::p::s_t::d		0	0	0	0		0		
+#29 line
+  A: 4	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 4	struct_typespec	p::s_t			dut.sv	9	11	2	52				
+fields: fullname=14 line=7 objects_differing=21
+STRICT_NOTEQUAL line

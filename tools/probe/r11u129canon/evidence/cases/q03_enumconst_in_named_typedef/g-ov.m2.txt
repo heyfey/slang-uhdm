@@ -1,0 +1,29 @@
+LHS:
+decompile:
+ref_obj: (p::p::s_t::m::pa::RUN), id:56, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:55, line:4:33, endln:4:44
+|vpiName:pa::RUN
+|vpiFullName:p::p::s_t::m::pa::RUN
+
+decompile:
+ref_obj: (p::p::s_t::m::pa::RUN), id:56, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:55, line:4:33, endln:4:44
+|vpiName:pa::RUN
+|vpiFullName:p::p::s_t::m::pa::RUN
+RHS:
+decompile:
+ref_obj: (pb::RUN), id:54, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:53, line:4:33, endln:4:44
+|vpiName:pb::RUN
+
+decompile:
+ref_obj: (pb::RUN), id:54, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:53, line:4:33, endln:4:44
+|vpiName:pb::RUN
+lhsPath: design(work@top) > package(p) > struct_typespec(p::s_t) > typespec_member(m) > logic_typespec > range > ref_obj(pa::RUN)
+rhsPath: design(work@top) > package(p) > struct_typespec(p::s_t) > typespec_member(m) > logic_typespec > range > ref_obj(pb::RUN)
+NOT_EQUAL stage1

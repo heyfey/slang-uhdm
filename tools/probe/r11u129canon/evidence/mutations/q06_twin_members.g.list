@@ -1,0 +1,131 @@
+0	design	work@top	0		-1
+1	package	p	0	p::	0
+2	struct_typespec	p::in_t	1		1
+3	typespec_member	c	1		2
+4	ref_typespec		1	p::p::in_t::c	3
+5	logic_typespec		1		3
+6	range		1		5
+7	constant		1		6
+8	constant		1		6
+9	typespec_member	d	1		2
+10	ref_typespec		1	p::p::in_t::d	9
+11	logic_typespec		1		9
+12	struct_typespec	p::oth_t	1		1
+13	typespec_member	c	1		12
+14	ref_typespec		1	p::p::oth_t::c	13
+15	logic_typespec		1		13
+16	range		1		15
+17	constant		1		16
+18	constant		1		16
+19	typespec_member	e	1		12
+20	ref_typespec		1	p::p::oth_t::e	19
+21	logic_typespec		1		19
+22	struct_typespec	p::out_t	1		1
+23	typespec_member	b	1		22
+24	ref_typespec		1	p::p::out_t::b	23
+25	typespec_member	x	1		22
+26	ref_typespec		1	p::p::out_t::x	25
+27	package	p	0	p::	0
+28	struct_typespec	p::in_t	1		27
+29	typespec_member	c	1		96
+30	ref_typespec		1	p::p::in_t::c	97
+31	logic_typespec		1		97
+32	range		1		99
+33	constant		1		100
+34	constant		1		100
+35	typespec_member	d	1		96
+36	ref_typespec		1	p::p::in_t::d	103
+37	logic_typespec		1		103
+38	struct_typespec	p::oth_t	1		27
+39	typespec_member	c	1		108
+40	ref_typespec		1	p::p::oth_t::c	109
+41	logic_typespec		1		109
+42	range		1		111
+43	constant		1		112
+44	constant		1		112
+45	typespec_member	e	1		108
+46	ref_typespec		1	p::p::oth_t::e	115
+47	logic_typespec		1		115
+48	struct_typespec	p::out_t	1		-1
+49	typespec_member	b	1		93
+50	ref_typespec		1	p::out_t.b	94
+51	typespec_member	x	1		93
+52	ref_typespec		1	p::out_t.x	106
+53	module_inst		0	work@top	0
+54	logic_net	i	0	work@top.i	53
+55	logic_net	o	0	work@top.o	53
+56	port	i	0		53
+57	ref_obj	i	0	work@top.i.i	56
+58	ref_typespec		0	work@top.i	56
+59	struct_typespec	p::out_t	1		-1
+60	typespec_member	b	1		93
+61	ref_typespec		1	p::out_t.b	94
+62	struct_typespec	p::in_t	1		27
+63	typespec_member	c	1		96
+64	ref_typespec		1	p::p::in_t::c	97
+65	logic_typespec		1		97
+66	range		1		99
+67	constant		1		100
+68	constant		1		100
+69	typespec_member	d	1		96
+70	ref_typespec		1	p::p::in_t::d	103
+71	logic_typespec		1		103
+72	typespec_member	x	1		93
+73	ref_typespec		1	p::out_t.x	106
+74	struct_typespec	p::oth_t	1		27
+75	typespec_member	c	1		108
+76	ref_typespec		1	p::p::oth_t::c	109
+77	logic_typespec		1		109
+78	range		1		111
+79	constant		1		112
+80	constant		1		112
+81	typespec_member	e	1		108
+82	ref_typespec		1	p::p::oth_t::e	115
+83	logic_typespec		1		115
+84	port	o	0		53
+85	ref_obj	o	0	work@top.o.o	84
+86	ref_typespec		0	work@top.o	84
+87	cont_assign		0		53
+88	ref_obj	i	0	work@top.i	126
+89	ref_obj	o	0	work@top.o	126
+90	module_inst	work@top	0		0
+91	struct_net	i	0	work@top.i	90
+92	ref_typespec		0	work@top.i	91
+93	struct_typespec	p::out_t	1		-1
+94	typespec_member	b	1		93
+95	ref_typespec		1	p::out_t.b	94
+96	struct_typespec	p::in_t	1		27
+97	typespec_member	c	1		96
+98	ref_typespec		1	p::p::in_t::c	97
+99	logic_typespec		1		97
+100	range		1		99
+101	constant		1		100
+102	constant		1		100
+103	typespec_member	d	1		96
+104	ref_typespec		1	p::p::in_t::d	103
+105	logic_typespec		1		103
+106	typespec_member	x	1		93
+107	ref_typespec		1	p::out_t.x	106
+108	struct_typespec	p::oth_t	1		27
+109	typespec_member	c	1		108
+110	ref_typespec		1	p::p::oth_t::c	109
+111	logic_typespec		1		109
+112	range		1		111
+113	constant		1		112
+114	constant		1		112
+115	typespec_member	e	1		108
+116	ref_typespec		1	p::p::oth_t::e	115
+117	logic_typespec		1		115
+118	struct_net	o	0	work@top.o	90
+119	ref_typespec		0	work@top.o	118
+120	port	i	0		90
+121	ref_obj	i	0	work@top.i	120
+122	ref_typespec		0	work@top.i	120
+123	port	o	0		90
+124	ref_obj	o	0	work@top.o	123
+125	ref_typespec		0	work@top.o	123
+126	cont_assign		0		53
+127	ref_obj	i	0	work@top.i	126
+128	logic_net	i	0	work@top.i	53
+129	ref_obj	o	0	work@top.o	126
+130	logic_net	o	0	work@top.o	53

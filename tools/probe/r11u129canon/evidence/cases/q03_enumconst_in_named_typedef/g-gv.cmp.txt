@@ -1,0 +1,28 @@
+LHS:
+decompile:
+ref_obj: (p::p::s_t::m::pa::RUN), id:56, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:55, line:4:33, endln:4:44
+|vpiName:pa::RUN
+|vpiFullName:p::p::s_t::m::pa::RUN
+
+decompile:
+ref_obj: (p::p::s_t::m::pa::RUN), id:56, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:55, line:4:33, endln:4:44
+|vpiName:pa::RUN
+|vpiFullName:p::p::s_t::m::pa::RUN
+RHS:
+decompile:
+ref_obj: (p::p::s_t::m::pb::RUN), id:56, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:55, line:4:33, endln:4:44
+|vpiName:pb::RUN
+|vpiFullName:p::p::s_t::m::pb::RUN
+
+decompile:
+ref_obj: (p::p::s_t::m::pb::RUN), id:56, line:4:34, endln:4:41
+|vpiParent:
+\_range: , id:55, line:4:33, endln:4:44
+|vpiName:pb::RUN
+|vpiFullName:p::p::s_t::m::pb::RUN

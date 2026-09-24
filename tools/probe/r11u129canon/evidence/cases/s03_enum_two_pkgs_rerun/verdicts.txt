@@ -1,0 +1,1 @@
+g-o: uhdm-cmp rc=0 | m2 rc=2 STRICT_NOTEQUAL fullname | m3 rc=2 STRICT_NOTEQUAL fullname | m4 rc=0 STRICT_EQUAL 355 objects | base rc=2 STRICT_NOTEQUAL fullname

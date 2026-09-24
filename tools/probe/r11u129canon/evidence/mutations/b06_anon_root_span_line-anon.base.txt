@@ -1,0 +1,5 @@
+#7 line
+  A: 4	logic_typespec				dut.sv	1	18	1	29				
+  B: 4	logic_typespec				dut.sv	9	18	1	29				
+fields: line=1 objects_differing=1
+STRICT_NOTEQUAL line

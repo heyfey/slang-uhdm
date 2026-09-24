@@ -1,0 +1,20 @@
+#2 endcol
+  A: 2	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 2	struct_typespec	p::s_t			dut.sv	2	11	2	53				
+#3 col
+  A: 3	typespec_member	c			dut.sv	2	39	2	40				
+  B: 3	typespec_member	c			dut.sv	2	40	2	41				
+#9 col
+  A: 3	typespec_member	d			dut.sv	2	48	2	49				
+  B: 3	typespec_member	d			dut.sv	2	49	2	50				
+#11 col
+  A: 5	logic_typespec				dut.sv	2	42	2	47				
+  B: 5	logic_typespec				dut.sv	2	43	2	48				
+#13 endcol
+  A: 2	struct_typespec	p::s_t			dut.sv	2	11	2	52				
+  B: 2	struct_typespec	p::s_t			dut.sv	2	11	2	53				
+#14 col
+  A: 3	typespec_member	c			dut.sv	2	39	2	40				
+  B: 3	typespec_member	c			dut.sv	2	40	2	41				
+fields: fullname=14 col=24 endcol=32 objects_differing=46
+STRICT_NOTEQUAL endcol

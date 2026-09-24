@@ -1,0 +1,5 @@
+#193 line
+  A: 4	enum_typespec	my_pkg::get_e			dut.sv	3	3	10	11				
+  B: 4	enum_typespec	my_pkg::get_e			dut.sv	9	3	10	11				
+fields: line=1 objects_differing=1
+STRICT_NOTEQUAL line

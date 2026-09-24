@@ -1,0 +1,32 @@
+LHS:
+decompile:
+ref_obj: (pa::W), id:116, line:3:25, endln:3:30
+|vpiParent:
+\_operation: , id:117, line:3:25, endln:3:32
+|vpiName:pa::W
+|vpiActual:
+\_parameter: (pa::W), id:4, line:1:27, endln:1:28
+
+decompile:
+ref_obj: (pa::W), id:116, line:3:25, endln:3:30
+|vpiParent:
+\_operation: , id:117, line:3:25, endln:3:32
+|vpiName:pa::W
+|vpiActual:
+\_parameter: (pa::W), id:4, line:1:27, endln:1:28
+RHS:
+decompile:
+ref_obj: (pb::W), id:116, line:3:25, endln:3:30
+|vpiParent:
+\_operation: , id:117, line:3:25, endln:3:32
+|vpiName:pb::W
+|vpiActual:
+\_parameter: (pb::W), id:33, line:2:27, endln:2:28
+
+decompile:
+ref_obj: (pb::W), id:116, line:3:25, endln:3:30
+|vpiParent:
+\_operation: , id:117, line:3:25, endln:3:32
+|vpiName:pb::W
+|vpiActual:
+\_parameter: (pb::W), id:33, line:2:27, endln:2:28

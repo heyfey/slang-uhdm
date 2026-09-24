@@ -1,0 +1,20 @@
+#2 col
+  A: 2	struct_typespec	p::s_t			dut.sv	2	11	5	4				
+  B: 2	struct_typespec	p::s_t			dut.sv	2	12	5	4				
+#13 col
+  A: 2	struct_typespec	p::s_t			dut.sv	2	11	5	4				
+  B: 2	struct_typespec	p::s_t			dut.sv	2	12	5	4				
+#29 col
+  A: 4	struct_typespec	p::s_t			dut.sv	2	11	5	4				
+  B: 4	struct_typespec	p::s_t			dut.sv	2	12	5	4				
+#42 col
+  A: 4	struct_typespec	p::s_t			dut.sv	2	11	5	4				
+  B: 4	struct_typespec	p::s_t			dut.sv	2	12	5	4				
+#58 col
+  A: 4	struct_typespec	p::s_t			dut.sv	2	11	5	4				
+  B: 4	struct_typespec	p::s_t			dut.sv	2	12	5	4				
+#70 col
+  A: 4	struct_typespec	p::s_t			dut.sv	2	11	5	4				
+  B: 4	struct_typespec	p::s_t			dut.sv	2	12	5	4				
+fields: col=8 objects_differing=8
+STRICT_NOTEQUAL col
