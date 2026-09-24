@@ -8,7 +8,7 @@
 // expressions decompile, size, value and constant type. Child order is part
 // of the walk, so a reordering is a difference too.
 //
-//   uhdm-strictcmp [--max N] [--no-canon] [--canon-fullname 0|1|2] [--dump-a FILE --dump-b FILE] <a.uhdm> <b.uhdm>
+//   uhdm-strictcmp [--max N] [--no-canon] [--canon-fullname 0|1|2|3] [--dump-a FILE --dump-b FILE] <a.uhdm> <b.uhdm>
 //
 // Identity canonicalisation (default on, --no-canon for the raw walk): the
 // producer clones every typespec it reaches during elaboration, so golden
@@ -38,6 +38,7 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
+#include <cctype>
 #include <cstring>
 #include <filesystem>
 #include <fstream>
@@ -82,13 +83,27 @@ class Lister : public UHDM::VpiListener {
   // contract: a full name is content, and a wrong parent chain is a naming
   // defect even on an unnamed reference — r11u123 s03: pa::pa::st_t), 1 =
   // compared on named objects only, 0 = never (measurement knobs).
-  int fullnameMode = 2;
+  int fullnameMode = 3;
   int canonDepth = 0;    // enclosing canon roots on the path
   int barrierDepth = 0;  // enclosing class typespecs on the path
+  // Mode 3, the contract: the outermost canon root on the path is the copy
+  // boundary. Golden holds a copy per use, parented and located at the use
+  // site; we hold one object at its declaration. So (a) an object inside the
+  // subtree whose full name is its path inside the copy is compared by that
+  // path (the names below the root), and a full name that points elsewhere
+  // (a reference out of the subtree) is compared whole;
+  // (b) the root itself, when reached through a ref_typespec, carries the
+  // reference's own full name and span on golden's side, so those fields are
+  // left out of its record; reached from its declaring scope it is compared
+  // whole.
+  const UHDM::any* rootObj = nullptr;
+  std::string rootFull;  // kept for --dump readers
+  bool rootViaRef = false;
   void leaveAny(const UHDM::any* o, vpiHandle) override {
     if (!canon) return;
     bool isClass = o->UhdmType() == UHDM::uhdmclass_typespec;
     if (isClass) --barrierDepth;
+    if (o == rootObj) { rootObj = nullptr; rootFull.clear(); rootViaRef = false; }
     if (canonDepth > 0 && barrierDepth == 0 && !overflow) {
       // The listener pops the object after leaveAny, so an object elsewhere
       // on the path is an enclosing expansion of itself (measured never to
@@ -102,7 +117,18 @@ class Lister : public UHDM::VpiListener {
   }
   void enterAny(const UHDM::any* o, vpiHandle h) override {
     if (canon) {
-      if (canonRoot(o)) ++canonDepth;
+      if (canonRoot(o)) {
+        ++canonDepth;
+        if (canonDepth == 1) {
+          rootObj = o;
+          const char* rf = vpi_get_str(vpiFullName, h);
+          rootFull = rf ? rf : "";
+          // The listener pushes the object before enterAny: its parent on
+          // the path is the previous entry.
+          rootViaRef = callstack.size() >= 2 &&
+                       callstack[callstack.size() - 2]->UhdmType() == UHDM::uhdmref_typespec;
+        }
+      }
       if (o->UhdmType() == UHDM::uhdmclass_typespec) ++barrierDepth;
       if (recs.size() >= cap) overflow = true;
     }
@@ -113,17 +139,45 @@ class Lister : public UHDM::VpiListener {
     r.fields[2] = std::string(o->VpiName());
     r.fields[3] = std::string(o->VpiDefName());
     bool inCanon = canon && canonDepth > 0;
+    bool isRoot = inCanon && o == rootObj;
     bool wantFull = !inCanon || fullnameMode == 2 ||
-                    (fullnameMode == 1 && !o->VpiName().empty());
-    if (wantFull)
-      if (const char* fn = vpi_get_str(vpiFullName, h)) r.fields[4] = fn;
+                    (fullnameMode == 1 && !o->VpiName().empty()) ||
+                    (fullnameMode == 3 && !(isRoot && rootViaRef));
+    if (wantFull) {
+      if (const char* fn = vpi_get_str(vpiFullName, h)) {
+        std::string full = fn;
+        if (fullnameMode == 3 && inCanon && !isRoot) {
+          // The path inside the copy: the names on the walk's path below the
+          // root, down to this object. A full name that is that path (it ends
+          // with the path's last name) is compared as the path; one that
+          // points elsewhere (a reference out of the subtree) is compared
+          // whole, so a wrong target name still reads as a difference.
+          std::string chain, last;
+          bool below = false;
+          for (const UHDM::any* a : callstack) {
+            if (a == rootObj) { below = true; continue; }
+            if (!below) continue;
+            std::string nm(a->VpiName());
+            if (nm.empty()) continue;
+            chain += (chain.empty() ? "" : ".") + nm;
+            last = nm;
+          }
+          if (!last.empty() && full.size() >= last.size() &&
+              full.compare(full.size() - last.size(), last.size(), last) == 0 &&
+              (full.size() == last.size() || !isalnum((unsigned char)full[full.size() - last.size() - 1])))
+            full = "<in>" + chain;
+        }
+        r.fields[4] = full;
+      }
+    }
+    bool skipSpan = fullnameMode == 3 && isRoot && rootViaRef;
     std::string f(o->VpiFile());
     auto pos = f.find_last_of("/\\");
-    r.fields[5] = pos == std::string::npos ? f : f.substr(pos + 1);
-    r.fields[6] = std::to_string(o->VpiLineNo());
-    r.fields[7] = std::to_string(o->VpiColumnNo());
-    r.fields[8] = std::to_string(o->VpiEndLineNo());
-    r.fields[9] = std::to_string(o->VpiEndColumnNo());
+    r.fields[5] = skipSpan ? "-" : (pos == std::string::npos ? f : f.substr(pos + 1));
+    r.fields[6] = skipSpan ? "-" : std::to_string(o->VpiLineNo());
+    r.fields[7] = skipSpan ? "-" : std::to_string(o->VpiColumnNo());
+    r.fields[8] = skipSpan ? "-" : std::to_string(o->VpiEndLineNo());
+    r.fields[9] = skipSpan ? "-" : std::to_string(o->VpiEndColumnNo());
     if (const UHDM::expr* e = dynamic_cast<const UHDM::expr*>(o)) {
       r.fields[10] = std::string(e->VpiDecompile());
       r.fields[11] = std::to_string(e->VpiSize());
@@ -155,7 +209,7 @@ std::string parentChain(const UHDM::BaseClass* o) {
 
 int usage(const char* prog) {
   std::cerr << "Usage: " << prog
-            << " [--max N] [--no-canon] [--canon-fullname 0|1|2] [--dump-a FILE --dump-b FILE] <a.uhdm> <b.uhdm>\n";
+            << " [--max N] [--no-canon] [--canon-fullname 0|1|2|3] [--dump-a FILE --dump-b FILE] <a.uhdm> <b.uhdm>\n";
   return 3;
 }
 
@@ -169,7 +223,7 @@ void dump(const std::vector<Record>& recs, const std::string& path) {
 int main(int argc, char** argv) {
   int maxDiffs = 20;
   bool canon = true;
-  int fullnameMode = 2;
+  int fullnameMode = 3;
   std::string dumpA, dumpB;
   std::vector<std::string> files;
   for (int i = 1; i < argc; ++i) {

@@ -427,22 +427,29 @@ with the class-typespec barrier. Whether an object is shared or copied is
 NOT part of the strict contract: the downstream consumer reads content, not
 identity.
 
-**Full names are compared everywhere, including inside a canonicalised
-subtree.** A full name there is synthesised from the parent chain, which is
-the copy's use site on golden's side and the declaration on ours, so most
-of them read differently; leaving them out of the record turned 67 corpus
-row-modes equal but also hid a defect (ours `pa::pa::st_t` against golden
-`pa::st_t`), so the decision is to compare them and to land the exporter's
-parent policy for objects inside a shared typespec per shape: where
-golden's chain is the same at every use, the parent link is a law; where
-two uses give two names, it is the identity residue above. Measured on
-the pass-120 sweep: strict-equal surelog 550 / 548 / 521 and uhdm2rtlil
-1116 / 1108 / 1072 of 954 and 1606 with full names inside a subtree
-skipped / compared on named objects / compared everywhere, and probe cases
-1712 of 4087 strict-equal with full names compared everywhere; the remaining
-`depth`, `count` and `type` first fields are content (a second net copy
-lacking our typespec, an extra typedef-alias reference, shared constants),
-not identity. Whether an object
+**Full names and spans on a typespec copy are compared by what is inside
+the copy.** Golden's copy of a typespec is parented and located at its use
+site; our one object is parented and located at its declaration. So the
+full name of an object inside a copy carries the use site's path on
+golden's side and the declaration's on ours (`BC1.B` against `B` on a
+member's reference, `work@top.p::cfg_t.BUS` against `p::cfg_t.BUS`), and
+the copy's own span is the reference's span on golden's side. The
+comparator (the `--canon-fullname 3` rule, the default) compares an
+object inside a copy by its path inside the copy (the names on the walk
+below the copy's root) when its full name is that path, compares a full
+name that points elsewhere whole (a wrong target name such as ours
+`pa::pa::st_t` against golden `pa::st_t` still reads as a difference), and
+leaves the root's own full name and span out of its record when the root
+is reached through a reference (reached from its declaring scope it is
+compared whole). The two weaker readings (0: no full name inside a copy;
+1: named objects only) and the strict one (2: everything, which the
+second-edition map showed leaves 271 row-modes that need a copy per use)
+stay as measurement knobs. Measured at the switch, strict-equal
+row-modes: surelog 521 -> 538 of 954, uhdm2rtlil 1072 -> 1100 of
+1606, probe cases 1712 -> 1760 of 4087. The remaining `depth`, `count`
+and `type` first fields are content (a net binding, a typedef-alias
+reference, shared constants: tools/probe/r11u128map section 5), not
+identity. Whether an object
 is shared or copied is NOT part of the strict contract: the downstream
 consumer reads content, not identity.
 
