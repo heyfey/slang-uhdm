@@ -1,0 +1,51 @@
+cluster N0137 (r11u128map N0137; OPEN): fullname|ref_typespec|tok:id::id::id::id::->|under:typespec_member
+row: surelog/default/StructTypedef  strict=differ:fullname(12)  records golden=238 ours=238
+object: #8 (golden) / #8 (ours)  type=ref_typespec name= TAIL
+  golden: flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::en::q
+  ours:   q
+  walk parents: typespec_member(q) < struct_typespec < ref_typespec < typespec_member(en)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2..14 ('>' = the object)
+  #2	1	package	flash_ctrl_reg_pkg	flash_ctrl_reg_pkg	flash_ctrl_reg_pkg::	dut.sv	1	1	12	11					flash_ctrl_reg_pkg::	000
+  #3	2	struct_typespec	flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t			dut.sv	3	9	10	4						010
+  #4	3	typespec_member	en			dut.sv	6	7	6	9						001
+  #5	4	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en		0	0	0	0		0			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::en	001
+  #6	5	struct_typespec				dut.sv	4	5	4	11						001
+  #7	6	typespec_member	q			dut.sv	5	20	5	21						001
+> #8	7	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en.q		0	0	0	0		0			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::en::q	001
+  #9	8	logic_typespec				dut.sv	5	7	5	12						001
+  #10	3	typespec_member	rd_en			dut.sv	9	7	9	12						001
+  #11	4	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.rd_en		0	0	0	0		0			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::rd_en	001
+  #12	5	struct_typespec				dut.sv	7	5	7	11						001
+  #13	6	typespec_member	q			dut.sv	8	20	8	21						001
+  #14	7	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.rd_en.q		0	0	0	0		0			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::rd_en::q	001
+
+--- OURS (B) records 2..14 ('>' = the object)
+  #2	1	package	flash_ctrl_reg_pkg	flash_ctrl_reg_pkg	flash_ctrl_reg_pkg::	dut.sv	1	1	12	11					flash_ctrl_reg_pkg::	000
+  #3	2	struct_typespec	flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t			dut.sv	3	9	10	4						010
+  #4	3	typespec_member	en			dut.sv	6	7	6	9						001
+  #5	4	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.en		0	0	0	0		0			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::en	001
+  #6	5	struct_typespec				dut.sv	4	5	4	11						001
+  #7	6	typespec_member	q			dut.sv	5	20	5	21						001
+> #8	7	ref_typespec			q		0	0	0	0		0			q	001
+  #9	8	logic_typespec				dut.sv	5	7	5	12						001
+  #10	3	typespec_member	rd_en			dut.sv	9	7	9	12						001
+  #11	4	ref_typespec			<in>flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t.rd_en		0	0	0	0		0			flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::rd_en	001
+  #12	5	struct_typespec				dut.sv	7	5	7	11						001
+  #13	6	typespec_member	q			dut.sv	8	20	8	21						001
+  #14	7	ref_typespec			q		0	0	0	0		0			q	001
+
+facets of this row (12, first 25):
+  N0137 #8/8 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #14/14 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #29/29 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #35/35 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #45/45 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #51/51 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #156/156 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #162/162 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #187/187 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #193/193 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #218/218 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]
+  N0137 #224/224 ref_typespec  G[flash_ctrl_reg_pkg::flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t::] O[q]

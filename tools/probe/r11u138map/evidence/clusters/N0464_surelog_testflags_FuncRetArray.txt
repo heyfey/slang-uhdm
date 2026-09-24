@@ -1,0 +1,48 @@
+cluster N0464 (r11u128map N0464; OPEN): fullname|int_var|tok:id.id->id|under:assignment
+row: surelog/testflags/FuncRetArray  strict=differ:fullname(9)  records golden=150 ours=150
+object: #133 (golden) / #133 (ours)  type=int_var name=i OUT
+  golden: work@main.top1.ASSIGN_VADDR.i
+  ours:   work@top.ASSIGN_VADDR.i
+  walk parents: assignment < for_stmt < function(ASSIGN_VADDR) < module_inst(top1)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 127..139 ('>' = the object)
+  #127	9	constant					0	0	0	0		64	INT:1	7		001
+  #128	7	ref_typespec			<in>ASSIGN_VADDR_RET_T		0	0	0	0		0			ASSIGN_VADDR_RET_T	001
+  #129	8	int_typespec				dut.sv	2	13	2	25						001
+  #130	4	for_stmt			work@main.top1.ASSIGN_VADDR	dut.sv	4	9	4	12					work@main.top1.ASSIGN_VADDR	000
+  #131	5	assignment				dut.sv	4	14	4	23						000
+  #132	6	constant				dut.sv	4	22	4	23	0	64	UINT:0	9		000
+> #133	6	int_var	i		work@main.top1.ASSIGN_VADDR.i	dut.sv	4	18	4	19		0			work@main.top1.ASSIGN_VADDR.i	000
+  #134	7	ref_typespec			work@main.top1.ASSIGN_VADDR.i		0	0	0	0		0			work@main.top1.ASSIGN_VADDR.i	000
+  #135	8	int_typespec				dut.sv	4	14	4	17						000
+  #136	5	operation				dut.sv	4	32	4	35		0				000
+  #137	6	ref_obj	i		work@main.top1.ASSIGN_VADDR.i	dut.sv	4	32	4	33		0			work@main.top1.ASSIGN_VADDR.i	000
+  #138	5	operation				dut.sv	4	25	4	30		0				000
+  #139	6	ref_obj	i		work@main.top1.ASSIGN_VADDR.i	dut.sv	4	25	4	26		0			work@main.top1.ASSIGN_VADDR.i	000
+
+--- OURS (B) records 127..139 ('>' = the object)
+  #127	9	constant					0	0	0	0		64	INT:1	7		001
+  #128	7	ref_typespec			<in>ASSIGN_VADDR_RET_T		0	0	0	0		0			ASSIGN_VADDR_RET_T	001
+  #129	8	int_typespec				dut.sv	2	13	2	25						001
+  #130	4	for_stmt			work@top.ASSIGN_VADDR	dut.sv	4	9	4	12					work@top.ASSIGN_VADDR	000
+  #131	5	assignment				dut.sv	4	14	4	23						000
+  #132	6	constant				dut.sv	4	22	4	23	0	64	UINT:0	9		000
+> #133	6	int_var	i		work@top.ASSIGN_VADDR.i	dut.sv	4	18	4	19		0			work@top.ASSIGN_VADDR.i	000
+  #134	7	ref_typespec			work@top.ASSIGN_VADDR.i		0	0	0	0		0			work@top.ASSIGN_VADDR.i	000
+  #135	8	int_typespec				dut.sv	4	14	4	17						000
+  #136	5	operation				dut.sv	4	32	4	35		0				000
+  #137	6	ref_obj	i		work@top.ASSIGN_VADDR.i	dut.sv	4	32	4	33		0			work@top.ASSIGN_VADDR.i	000
+  #138	5	operation				dut.sv	4	25	4	30		0				000
+  #139	6	ref_obj	i		work@top.ASSIGN_VADDR.i	dut.sv	4	25	4	26		0			work@top.ASSIGN_VADDR.i	000
+
+facets of this row (9, first 25):
+  N0282 #110/110 function ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0673 #130/130 for_stmt  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0464 #133/133 int_var i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0465 #134/134 ref_typespec  G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #137/137 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #139/139 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0463 #141/141 begin  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0432 #144/144 bit_select ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR.ASSIGN_VADDR]
+  N0280 #145/145 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]

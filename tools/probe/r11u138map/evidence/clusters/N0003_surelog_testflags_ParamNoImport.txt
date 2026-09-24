@@ -1,0 +1,41 @@
+cluster N0003 (r11u128map N0003; COVERED r11u133 (N0003)): fullname|ref_typespec|golden-empty|under:operation
+row: surelog/testflags/ParamNoImport  strict=differ:fullname(2)  records golden=73 ours=73
+object: #36 (golden) / #36 (ours)  type=ref_typespec name= OUT
+  golden: 
+  ours:   pkg
+  walk parents: operation < param_assign < package(pkg) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 30..42 ('>' = the object)
+  #30	7	logic_typespec				dut.sv	7	3	7	14						001
+  #31	8	range				dut.sv	7	9	7	14						001
+  #32	9	constant				dut.sv	7	10	7	11	1	64	UINT:1	9		001
+  #33	9	constant				dut.sv	7	12	7	13	0	64	UINT:0	9		001
+  #34	2	param_assign				dut.sv	9	25	11	2						000
+  #35	3	operation				dut.sv	9	47	11	2		0				000
+> #36	4	ref_typespec					0	0	0	0		0				000
+  #37	5	struct_typespec	pkg::pwr_ast_rsp_t			dut.sv	6	9	8	2						110
+  #38	6	typespec_member	slow_clk_val			dut.sv	7	15	7	27						001
+  #39	7	ref_typespec			<in>pkg::pwr_ast_rsp_t.slow_clk_val		0	0	0	0		0			pkg::pkg::pwr_ast_rsp_t::slow_clk_val	001
+  #40	8	logic_typespec				dut.sv	7	3	7	14						001
+  #41	9	range				dut.sv	7	9	7	14						001
+  #42	10	constant				dut.sv	7	10	7	11	1	64	UINT:1	9		001
+
+--- OURS (B) records 30..42 ('>' = the object)
+  #30	7	logic_typespec				dut.sv	7	3	7	14						001
+  #31	8	range				dut.sv	7	9	7	14						001
+  #32	9	constant				dut.sv	7	10	7	11	1	64	UINT:1	9		001
+  #33	9	constant				dut.sv	7	12	7	13	0	64	UINT:0	9		001
+  #34	2	param_assign				dut.sv	9	25	11	2						000
+  #35	3	operation				dut.sv	9	47	11	2		0				000
+> #36	4	ref_typespec			pkg		0	0	0	0		0			pkg	000
+  #37	5	struct_typespec	pkg::pwr_ast_rsp_t			dut.sv	6	9	8	2						110
+  #38	6	typespec_member	slow_clk_val			dut.sv	7	15	7	27						001
+  #39	7	ref_typespec			<in>pkg::pwr_ast_rsp_t.slow_clk_val		0	0	0	0		0			pkg::pkg::pwr_ast_rsp_t::slow_clk_val	001
+  #40	8	logic_typespec				dut.sv	7	3	7	14						001
+  #41	9	range				dut.sv	7	9	7	14						001
+  #42	10	constant				dut.sv	7	10	7	11	1	64	UINT:1	9		001
+
+facets of this row (2, first 25):
+  N0003 #36/36 ref_typespec  G[] O[pkg]
+  N1132 #64/64 ref_typespec  G[work@dut.t] O[pkg]

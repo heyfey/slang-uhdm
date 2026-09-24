@@ -1,0 +1,42 @@
+cluster N0851 (r11u128map N0851; OPEN): span|enum_typespec|endline+endcol|under:package
+row: surelog/testflags/EnumVar  strict=differ:endline(3)  records golden=106 ours=106
+object: #12 (golden) / #12 (ours)  type=enum_typespec name=pkg::alias_t 
+  golden: 2:3:6:12
+  ours:   2:3:13:17
+  walk parents: package(pkg) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 6..18 ('>' = the object)
+  #6	6	constant				dut.sv	2	22	2	23	7	64	UINT:7	9		001
+  #7	6	constant				dut.sv	2	24	2	25	0	64	UINT:0	9		001
+  #8	3	enum_const	ONE			dut.sv	3	5	3	8						001
+  #9	3	enum_const	TWO			dut.sv	4	5	4	8						001
+  #10	3	enum_const	THREE			dut.sv	5	5	5	10						001
+  #11	1	package	pkg	pkg	pkg::	dut.sv	1	1	9	11					pkg::	000
+> #12	2	enum_typespec	pkg::alias_t			dut.sv	2	3	6	12						010
+  #13	3	ref_typespec			<in>pkg::alias_t		0	0	0	0		0			pkg::pkg::alias_t	001
+  #14	4	enum_typespec	pkg::enum_t			dut.sv	2	3	6	12						001
+  #15	5	ref_typespec			<in>pkg::enum_t		0	0	0	0		0			pkg::pkg::enum_t	001
+  #16	6	logic_typespec				dut.sv	2	16	2	26						001
+  #17	7	range				dut.sv	2	21	2	26						001
+  #18	8	constant				dut.sv	2	22	2	23	7	64	UINT:7	9		001
+
+--- OURS (B) records 6..18 ('>' = the object)
+  #6	6	constant				dut.sv	2	22	2	23	7	64	UINT:7	9		001
+  #7	6	constant				dut.sv	2	24	2	25	0	64	UINT:0	9		001
+  #8	3	enum_const	ONE			dut.sv	3	5	3	8						001
+  #9	3	enum_const	TWO			dut.sv	4	5	4	8						001
+  #10	3	enum_const	THREE			dut.sv	5	5	5	10						001
+  #11	1	package	pkg	pkg	pkg::	dut.sv	1	1	9	11					pkg::	000
+> #12	2	enum_typespec	pkg::alias_t			dut.sv	2	3	13	17						010
+  #13	3	ref_typespec			<in>pkg::alias_t		0	0	0	0		0			pkg::pkg::alias_t	001
+  #14	4	enum_typespec	pkg::enum_t			dut.sv	2	3	6	12						001
+  #15	5	ref_typespec			<in>pkg::enum_t		0	0	0	0		0			pkg::pkg::enum_t	001
+  #16	6	logic_typespec				dut.sv	2	16	2	26						001
+  #17	7	range				dut.sv	2	21	2	26						001
+  #18	8	constant				dut.sv	2	22	2	23	7	64	UINT:7	9		001
+
+facets of this row (3, first 25):
+  N0851 #12/12 enum_typespec pkg::alias_t G[2:3:6:12] O[2:3:13:17]
+  N0844 #54/54 enum_typespec pkg::alias_t G[2:3:6:12] O[2:3:13:17]
+  N0844 #87/87 enum_typespec pkg::alias_t G[2:3:6:12] O[2:3:13:17]

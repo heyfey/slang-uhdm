@@ -1,0 +1,41 @@
+cluster N0425 (r11u128map N0425; OPEN): fullname|ref_obj|tok:id[id]->id@id.id|under:hier_path
+row: uhdm2rtlil/testflags/iface_array_modport_drive  strict=differ:endcol(2)  records golden=392 ours=392
+object: #76 (golden) / #76 (ours)  type=ref_obj name=vld OUT
+  golden: man[i].vld
+  ours:   work@driver.g.vld
+  walk parents: hier_path(man[i].vld) < cont_assign < named_begin(g) < gen_for
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 70..82 ('>' = the object)
+  #70	4	cont_assign				dut.sv	11	12	11	29						000
+  #71	5	bit_select	v		work@driver.g.v	dut.sv	11	27	11	28		0			work@driver.g.v	000
+  #72	6	ref_obj	i		work@driver.g.i	dut.sv	11	27	11	28		0			work@driver.g.i	000
+  #73	5	hier_path	man[i].vld			dut.sv	11	12	11	15		0				000
+  #74	6	bit_select	man		man[i]	dut.sv	11	12	11	15		0			man[i]	000
+  #75	7	ref_obj	i		work@driver.g.i	dut.sv	11	16	11	17		0			work@driver.g.i	000
+> #76	6	ref_obj	vld		man[i].vld	dut.sv	11	19	11	22		0			man[i].vld	000
+  #77	1	module_inst		work@dut	work@dut	dut.sv	17	1	22	10					work@dut	000
+  #78	2	logic_net	clk		work@dut.clk	dut.sv	17	25	17	28		0			work@dut.clk	000
+  #79	2	logic_net	v		work@dut.v	dut.sv	17	48	17	49		0			work@dut.v	000
+  #80	2	logic_net	o		work@dut.o	dut.sv	17	70	17	71		0			work@dut.o	000
+  #81	2	logic_net	arr		work@dut.arr		19	25	19	28		0			work@dut.arr	000
+  #82	2	port	clk			dut.sv	17	25	17	28						000
+
+--- OURS (B) records 70..82 ('>' = the object)
+  #70	4	cont_assign				dut.sv	11	12	11	29						000
+  #71	5	bit_select	v		work@driver.g.v	dut.sv	11	27	11	28		0			work@driver.g.v	000
+  #72	6	ref_obj	i		work@driver.g.i	dut.sv	11	27	11	28		0			work@driver.g.i	000
+  #73	5	hier_path	man[i].vld			dut.sv	11	12	11	22		0				000
+  #74	6	bit_select	man		man[i]	dut.sv	11	12	11	15		0			man[i]	000
+  #75	7	ref_obj	i		work@driver.g.i	dut.sv	11	16	11	17		0			work@driver.g.i	000
+> #76	6	ref_obj	vld		work@driver.g.vld	dut.sv	11	19	11	22		0			work@driver.g.vld	000
+  #77	1	module_inst		work@dut	work@dut	dut.sv	17	1	22	10					work@dut	000
+  #78	2	logic_net	clk		work@dut.clk	dut.sv	17	25	17	28		0			work@dut.clk	000
+  #79	2	logic_net	v		work@dut.v	dut.sv	17	48	17	49		0			work@dut.v	000
+  #80	2	logic_net	o		work@dut.o	dut.sv	17	70	17	71		0			work@dut.o	000
+  #81	2	logic_net	arr		work@dut.arr		19	25	19	28		0			work@dut.arr	000
+  #82	2	port	clk			dut.sv	17	25	17	28						000
+
+facets of this row (2, first 25):
+  N0276 #73/73 hier_path man[i].vld G[11:12:11:15] O[11:12:11:22]
+  N0425 #76/76 ref_obj vld G[man[i].vld] O[work@driver.g.vld]

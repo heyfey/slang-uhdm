@@ -1,0 +1,53 @@
+cluster N0108 (r11u128map N0108; OPEN): fullname|ref_typespec|tok:id@id.id.id.->|under:typespec_member
+row: surelog/testflags/PatternOrder  strict=differ:fullname(14)  records golden=90 ours=90
+object: #37 (golden) / #37 (ours)  type=ref_typespec name= TAIL
+  golden: work@top.ABC.BC1.B
+  ours:   B
+  walk parents: typespec_member(B) < struct_typespec < ref_typespec < typespec_member(BC1)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 31..43 ('>' = the object)
+  #31	6	ref_typespec			<in>A		0	0	0	0		0			work@top.ABC.A	001
+  #32	7	int_typespec				dut.sv	3	3	3	6						001
+  #33	5	typespec_member	BC1			dut.sv	7	5	7	8						001
+  #34	6	ref_typespec			<in>BC1		0	0	0	0		0			work@top.ABC.BC1	001
+  #35	7	struct_typespec				dut.sv	4	3	4	9						001
+  #36	8	typespec_member	B			dut.sv	5	11	5	12						001
+> #37	9	ref_typespec			<in>BC1.B		0	0	0	0		0			work@top.ABC.BC1.B	001
+  #38	10	logic_typespec				dut.sv	5	5	5	10						001
+  #39	8	typespec_member	C			dut.sv	6	10	6	11						001
+  #40	9	ref_typespec			<in>BC1.C		0	0	0	0		0			work@top.ABC.BC1.C	001
+  #41	10	real_typespec				dut.sv	6	5	6	9						001
+  #42	5	typespec_member	BC2			dut.sv	7	10	7	13						001
+  #43	6	ref_typespec			<in>BC2		0	0	0	0		0			work@top.ABC.BC2	001
+
+--- OURS (B) records 31..43 ('>' = the object)
+  #31	6	ref_typespec			<in>A		0	0	0	0		0			A	001
+  #32	7	int_typespec				dut.sv	3	3	3	6						001
+  #33	5	typespec_member	BC1			dut.sv	7	5	7	8						001
+  #34	6	ref_typespec			<in>BC1		0	0	0	0		0			BC1	001
+  #35	7	struct_typespec				dut.sv	4	3	4	9						001
+  #36	8	typespec_member	B			dut.sv	5	11	5	12						001
+> #37	9	ref_typespec			B		0	0	0	0		0			B	001
+  #38	10	logic_typespec				dut.sv	5	5	5	10						001
+  #39	8	typespec_member	C			dut.sv	6	10	6	11						001
+  #40	9	ref_typespec			C		0	0	0	0		0			C	001
+  #41	10	real_typespec				dut.sv	6	5	6	9						001
+  #42	5	typespec_member	BC2			dut.sv	7	10	7	13						001
+  #43	6	ref_typespec			<in>BC2		0	0	0	0		0			BC2	001
+
+facets of this row (14, first 25):
+  N0014 #12/12 ref_typespec  G[BC1.B] O[B]
+  N0014 #15/15 ref_typespec  G[BC1.C] O[C]
+  N0014 #21/21 ref_typespec  G[BC2.B] O[B]
+  N0014 #24/24 ref_typespec  G[BC2.C] O[C]
+  N0108 #37/37 ref_typespec  G[work@top.ABC.BC1.B] O[B]
+  N0108 #40/40 ref_typespec  G[work@top.ABC.BC1.C] O[C]
+  N0108 #46/46 ref_typespec  G[work@top.ABC.BC2.B] O[B]
+  N0108 #49/49 ref_typespec  G[work@top.ABC.BC2.C] O[C]
+  N0108 #61/61 ref_typespec  G[work@top.ABC.BC1.B] O[B]
+  N0108 #64/64 ref_typespec  G[work@top.ABC.BC1.C] O[C]
+  N0108 #70/70 ref_typespec  G[work@top.ABC.BC2.B] O[B]
+  N0108 #73/73 ref_typespec  G[work@top.ABC.BC2.C] O[C]
+  N0108 #83/83 ref_typespec  G[work@top.ABC.BC2.B] O[B]
+  N0108 #86/86 ref_typespec  G[work@top.ABC.BC2.C] O[C]

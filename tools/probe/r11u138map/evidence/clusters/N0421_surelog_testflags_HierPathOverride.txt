@@ -1,0 +1,50 @@
+cluster N0421 (r11u128map N0421; OPEN): fullname|ref_typespec|tok:::id->|under:parameter
+row: surelog/testflags/HierPathOverride  strict=differ:depth(1)  records golden=532 ours=526
+object: #131 (golden) / #125 (ours)  type=ref_typespec name= OUT
+  golden: pinmux_pkg::NDioPads
+  ours:   pinmux_pkg
+  walk parents: parameter(NDioPads) < param_assign < package(pinmux_pkg) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 125..137 ('>' = the object)
+  #125	10	enum_const	B			dut.sv	6	7	6	15						001
+  #126	2	param_assign				dut.sv	2	18	2	31						000
+  #127	3	constant				dut.sv	2	29	2	31	24	32	UINT:24	9		000
+  #128	4	ref_typespec			pinmux_pkg		0	0	0	0		0			pinmux_pkg	000
+  #129	5	int_typespec				dut.sv	2	14	2	17						000
+  #130	3	parameter	NDioPads		pinmux_pkg::NDioPads	dut.sv	2	18	2	26		0	UINT:24		pinmux_pkg::NDioPads	000
+> #131	4	ref_typespec			pinmux_pkg::NDioPads		0	0	0	0		0			pinmux_pkg::NDioPads	000
+  #132	5	int_typespec				dut.sv	2	14	2	17						000
+  #133	2	param_assign				dut.sv	17	27	19	5						000
+  #134	3	operation				dut.sv	17	46	19	5		0				000
+  #135	4	tagged_pattern				dut.sv	18	21	18	34						000
+  #136	5	constant				dut.sv	18	21	18	34	001001001001001001001001001001001001001001001001001001001001001001001001	72	BIN:001001001001001001001001001001001001001001001001001001001001001001001001	3		000
+  #137	6	ref_typespec					0	0	0	0		0				000
+
+--- OURS (B) records 119..131 ('>' = the object)
+  #119	13	constant				dut.sv	4	25	4	26	2	64	UINT:2	9		001
+  #120	13	constant				dut.sv	4	27	4	28	0	64	UINT:0	9		001
+  #121	10	enum_const	A			dut.sv	5	7	5	15						001
+  #122	10	enum_const	B			dut.sv	6	7	6	15						001
+  #123	2	param_assign				dut.sv	2	18	2	31						000
+  #124	3	constant				dut.sv	2	29	2	31	24	32	UINT:24	9		000
+> #125	4	ref_typespec			pinmux_pkg		0	0	0	0		0			pinmux_pkg	000
+  #126	5	int_typespec				dut.sv	2	14	2	17						000
+  #127	2	param_assign				dut.sv	17	27	19	5						000
+  #128	3	operation				dut.sv	17	46	19	5		0				000
+  #129	4	tagged_pattern				dut.sv	18	21	18	34						000
+  #130	5	constant				dut.sv	18	21	18	34	001001001001001001001001001001001001001001001001001001001001001001001001	72	BIN:001001001001001001001001001001001001001001001001001001001001001001001001	3		000
+  #131	6	ref_typespec					0	0	0	0		0				000
+
+facets of this row (11, first 25):
+  N0002 #47/-1 parameter NDioPads G[3 objs] O[]
+  N0261 #128/-1 ref_typespec  G[2 objs] O[]
+  N0002 #130/-1 parameter NDioPads G[1 objs] O[]
+  N0421 #131/125 ref_typespec  G[pinmux_pkg::NDioPads] O[pinmux_pkg]
+  N0435 #260/254 ref_typespec  G[work@top.DefaultTargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper] O[work@top.prim_pad_wrapper_pkg::pad_type_e]
+  N0028 #274/268 ref_typespec  G[work@top.pinmux_pkg::target_cfg_t.dio_pad_type] O[work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type]
+  N0674 #279/273 ref_typespec  G[work@top.pinmux_pkg::target_cfg_t.dio_pad_type] O[work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type]
+  N0435 #314/308 ref_typespec  G[work@top.DefaultTargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper] O[work@top.prim_pad_wrapper_pkg::pad_type_e]
+  N0435 #362/356 ref_typespec  G[work@top.DefaultTargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper] O[work@top.prim_pad_wrapper_pkg::pad_type_e]
+  N0435 #383/377 ref_typespec  G[work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper_pkg::p] O[work@top.prim_pad_wrapper_pkg::pad_type_e]
+  N0676 #411/405 ref_typespec  G[work@top.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper_pkg::pad_type_e] O[work@top.prim_pad_wrapper_pkg::pad_type_e]

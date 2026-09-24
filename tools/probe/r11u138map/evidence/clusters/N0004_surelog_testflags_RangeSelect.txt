@@ -1,0 +1,46 @@
+cluster N0004 (r11u128map N0004; COVERED r11u134 (N0004)): fullname|ref_typespec|tok:id@id.->|under:typespec_member
+row: surelog/testflags/RangeSelect  strict=differ:endline(7)  records golden=88 ours=88
+object: #13 (golden) / #13 (ours)  type=ref_typespec name= STABLE
+  golden: work@top.tl_h2d_t.source
+  ours:   tl_h2d_t.source
+  walk parents: typespec_member(source) < struct_typespec(tl_h2d_t) < ref_typespec < logic_net(a)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 7..19 ('>' = the object)
+  #7	7	constant				dut.sv	3	14	3	15	7	64	UINT:7	9		001
+  #8	7	constant				dut.sv	3	16	3	17	0	64	UINT:0	9		001
+  #9	2	logic_net	a		work@top.a	dut.sv	6	13	6	14		0			work@top.a	000
+  #10	3	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #11	4	struct_typespec	tl_h2d_t			dut.sv	2	12	6	17						110
+  #12	5	typespec_member	source			dut.sv	3	19	3	25						001
+> #13	6	ref_typespec			<in>tl_h2d_t.source		0	0	0	0		0			work@top.tl_h2d_t.source	001
+  #14	7	logic_typespec				dut.sv	3	7	3	18						001
+  #15	8	range				dut.sv	3	13	3	18						001
+  #16	9	constant				dut.sv	3	14	3	15	7	64	UINT:7	9		001
+  #17	9	constant				dut.sv	3	16	3	17	0	64	UINT:0	9		001
+  #18	2	logic_net	b		work@top.b	dut.sv	7	13	7	14		0			work@top.b	000
+  #19	3	ref_typespec			work@top.b		0	0	0	0		0			work@top.b	000
+
+--- OURS (B) records 7..19 ('>' = the object)
+  #7	7	constant				dut.sv	3	14	3	15	7	64	UINT:7	9		001
+  #8	7	constant				dut.sv	3	16	3	17	0	64	UINT:0	9		001
+  #9	2	logic_net	a		work@top.a	dut.sv	6	13	6	14		0			work@top.a	000
+  #10	3	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #11	4	struct_typespec	tl_h2d_t			dut.sv	2	12	4	5						110
+  #12	5	typespec_member	source			dut.sv	3	19	3	25						001
+> #13	6	ref_typespec			<in>tl_h2d_t.source		0	0	0	0		0			tl_h2d_t.source	001
+  #14	7	logic_typespec				dut.sv	3	7	3	18						001
+  #15	8	range				dut.sv	3	13	3	18						001
+  #16	9	constant				dut.sv	3	14	3	15	7	64	UINT:7	9		001
+  #17	9	constant				dut.sv	3	16	3	17	0	64	UINT:0	9		001
+  #18	2	logic_net	b		work@top.b	dut.sv	7	13	7	14		0			work@top.b	000
+  #19	3	ref_typespec			work@top.b		0	0	0	0		0			work@top.b	000
+
+facets of this row (7, first 25):
+  N0135 #2/2 struct_typespec tl_h2d_t G[2:12:6:17] O[2:12:4:5]
+  N0009 #11/11 struct_typespec tl_h2d_t G[2:12:6:17] O[2:12:4:5]
+  N0004 #13/13 ref_typespec  G[work@top.tl_h2d_t.source] O[tl_h2d_t.source]
+  N0009 #20/20 struct_typespec tl_h2d_t G[2:12:6:17] O[2:12:4:5]
+  N0009 #50/50 struct_typespec tl_h2d_t G[2:12:6:17] O[2:12:4:5]
+  N0009 #71/71 struct_typespec tl_h2d_t G[2:12:6:17] O[2:12:4:5]
+  N0135 #81/81 struct_typespec tl_h2d_t G[2:12:6:17] O[2:12:4:5]

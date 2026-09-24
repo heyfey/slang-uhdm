@@ -1,0 +1,64 @@
+cluster N0563 (r11u128map N0563; OPEN): fullname|ref_typespec|tok:::id::id::->.id::id.|under:typespec_member
+row: uhdm2rtlil/testflags/ibex_tracer  strict=differ:fullname(51)  records golden=35832 ours=34805
+object: #2072 (golden) / #2072 (ours)  type=ref_typespec name= STABLE
+  golden: ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int
+  ours:   ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int
+  walk parents: typespec_member(irq_int) < struct_typespec(ibex_pkg::exc_cause_t) < ref_typespec < parameter(ExcCauseBreakpoint)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2066..2078 ('>' = the object)
+  #2066	6	constant				ibex_pkg.sv	680	20	680	22	11	64	UINT:11	9		001
+  #2067	6	constant				ibex_pkg.sv	680	23	680	24	0	64	UINT:0	9		001
+  #2068	2	parameter	ExcCauseBreakpoint		ibex_tracer_pkg::ExcCauseBreakpoint	ibex_pkg.sv	356	26	356	44		0			ibex_tracer_pkg::ExcCauseBreakpoint	000
+  #2069	3	ref_typespec			ibex_tracer_pkg::ExcCauseBreakpoint		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint	000
+  #2070	4	struct_typespec	ibex_pkg::exc_cause_t			ibex_pkg.sv	335	11	339	4						110
+  #2071	5	typespec_member	irq_int			ibex_pkg.sv	336	17	336	24						001
+> #2072	6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_int	001
+  #2073	7	logic_typespec				ibex_pkg.sv	336	5	336	10						001
+  #2074	5	typespec_member	irq_ext			ibex_pkg.sv	337	17	337	24						001
+  #2075	6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::irq_ext	001
+  #2076	7	logic_typespec				ibex_pkg.sv	337	5	337	10						001
+  #2077	5	typespec_member	lower_cause			ibex_pkg.sv	338	17	338	28						001
+  #2078	6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint::ibex_pkg::exc_cause_t::lower_cause	001
+
+--- OURS (B) records 2066..2078 ('>' = the object)
+  #2066	6	constant				ibex_pkg.sv	680	20	680	22	11	64	UINT:11	9		001
+  #2067	6	constant				ibex_pkg.sv	680	23	680	24	0	64	UINT:0	9		001
+  #2068	2	parameter	ExcCauseBreakpoint		ibex_tracer_pkg::ExcCauseBreakpoint	ibex_pkg.sv	356	26	356	44		0			ibex_tracer_pkg::ExcCauseBreakpoint	000
+  #2069	3	ref_typespec			ibex_tracer_pkg::ExcCauseBreakpoint		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint	000
+  #2070	4	struct_typespec	ibex_pkg::exc_cause_t			ibex_pkg.sv	335	11	339	4						110
+  #2071	5	typespec_member	irq_int			ibex_pkg.sv	336	17	336	24						001
+> #2072	6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_int		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_int	001
+  #2073	7	logic_typespec				ibex_pkg.sv	336	5	336	10						001
+  #2074	5	typespec_member	irq_ext			ibex_pkg.sv	337	17	337	24						001
+  #2075	6	ref_typespec			<in>ibex_pkg::exc_cause_t.irq_ext		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.irq_ext	001
+  #2076	7	logic_typespec				ibex_pkg.sv	337	5	337	10						001
+  #2077	5	typespec_member	lower_cause			ibex_pkg.sv	338	17	338	28						001
+  #2078	6	ref_typespec			<in>ibex_pkg::exc_cause_t.lower_cause		0	0	0	0		0			ibex_tracer_pkg::ExcCauseBreakpoint.ibex_pkg::exc_cause_t.lower_cause	001
+
+facets of this row (702, first 25):
+  N0002 #3726/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #3755/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #3784/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #3813/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #3842/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #3871/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #3900/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #3929/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #3958/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #3987/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4016/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4045/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4064/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4071/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4078/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4085/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4092/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4099/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4106/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4113/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4120/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4127/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4134/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4141/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4148/-1 parameter IC_INDEX_W G[3 objs] O[]

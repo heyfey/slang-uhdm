@@ -1,0 +1,64 @@
+cluster N0549 (r11u128map N0549; OPEN): fullname|ref_typespec|tok:->.id[n].id|under:constant
+row: uhdm2rtlil/testflags/ibex_icache  strict=differ:fullname(9)  records golden=20047 ours=19567
+object: #15601 (golden) / #15121 (ours)  type=ref_typespec name= OUT
+  golden: work@ibex_icache
+  ours:   work@ibex_icache.gen_fbs[0].lookup_addr_ic0
+  walk parents: constant < part_select(lookup_addr_ic0) < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15595..15607 ('>' = the object)
+  #15595	8	operation				ibex_icache.sv	803	73	803	84		0				000
+  #15596	9	constant				ibex_icache.sv	803	73	803	82	3	32	UINT:3	9		000
+  #15597	10	ref_typespec			work@ibex_icache.gen_fbs[0].lookup_addr_ic0		0	0	0	0		0			work@ibex_icache.gen_fbs[0].lookup_addr_ic0	000
+  #15598	11	int_typespec				ibex_pkg.sv	390	13	390	25						000
+  #15599	9	constant				ibex_icache.sv	803	83	803	84	1	64	UINT:1	9		000
+  #15600	8	constant				ibex_icache.sv	803	85	803	90	2	32	UINT:2	9		000
+> #15601	9	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #15602	10	int_typespec				ibex_pkg.sv	385	13	385	25						000
+  #15603	6	operation				ibex_icache.sv	804	52	805	96		0				000
+  #15604	7	bit_select	fill_out_cnt_q		work@ibex_icache.gen_fbs[0].fill_out_cnt_q	ibex_icache.sv	804	67	804	69		0			work@ibex_icache.gen_fbs[0].fill_out_cnt_q	000
+  #15605	8	ref_obj	fb		work@ibex_icache.gen_fbs[0].fb	ibex_icache.sv	804	67	804	69		0			work@ibex_icache.gen_fbs[0].fb	000
+  #15606	7	operation				ibex_icache.sv	805	52	805	96		0				000
+  #15607	8	operation				ibex_icache.sv	805	53	805	76		0				000
+
+--- OURS (B) records 15115..15127 ('>' = the object)
+  #15115	8	operation				ibex_icache.sv	803	73	803	84		0				000
+  #15116	9	constant				ibex_icache.sv	803	73	803	82	3	32	UINT:3	9		000
+  #15117	10	ref_typespec			work@ibex_icache.gen_fbs[0].lookup_addr_ic0		0	0	0	0		0			work@ibex_icache.gen_fbs[0].lookup_addr_ic0	000
+  #15118	11	int_typespec				ibex_pkg.sv	390	13	390	25						000
+  #15119	9	constant				ibex_icache.sv	803	83	803	84	1	64	UINT:1	9		000
+  #15120	8	constant				ibex_icache.sv	803	85	803	90	2	32	UINT:2	9		000
+> #15121	9	ref_typespec			work@ibex_icache.gen_fbs[0].lookup_addr_ic0		0	0	0	0		0			work@ibex_icache.gen_fbs[0].lookup_addr_ic0	000
+  #15122	10	int_typespec				ibex_pkg.sv	385	13	385	25						000
+  #15123	6	operation				ibex_icache.sv	804	52	805	96		0				000
+  #15124	7	bit_select	fill_out_cnt_q		work@ibex_icache.gen_fbs[0].fill_out_cnt_q	ibex_icache.sv	804	67	804	69		0			work@ibex_icache.gen_fbs[0].fill_out_cnt_q	000
+  #15125	8	ref_obj	fb		work@ibex_icache.gen_fbs[0].fb	ibex_icache.sv	804	67	804	69		0			work@ibex_icache.gen_fbs[0].fb	000
+  #15126	7	operation				ibex_icache.sv	805	52	805	96		0				000
+  #15127	8	operation				ibex_icache.sv	805	53	805	76		0				000
+
+facets of this row (279, first 25):
+  N0002 #4419/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #4448/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #4477/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #4506/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #4535/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #4564/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #4593/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #4622/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #4651/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #4680/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4709/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4738/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4757/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4764/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4771/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4778/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4785/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4792/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4799/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4806/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4813/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4820/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4827/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4834/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4841/-1 parameter IC_INDEX_W G[3 objs] O[]

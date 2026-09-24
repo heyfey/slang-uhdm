@@ -1,0 +1,41 @@
+cluster N0212 (r11u128map N0212; OPEN): span|operation|line+col+endline+endcol|under:operation
+row: surelog/testflags/ParamScope  strict=differ:line(2)  records golden=129 ours=129
+object: #103 (golden) / #103 (ours)  type=operation name= 
+  golden: 11:25:11:35
+  ours:   2:30:2:43
+  walk parents: operation < param_assign < module_inst(lower_u) < module_inst(upper_u)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 97..109 ('>' = the object)
+  #97	7	ref_typespec			work@top.upper_u.lower_u		0	0	0	0		0			work@top.upper_u.lower_u	000
+  #98	8	string_typespec	default			dut.sv	2	32	2	39						110
+  #99	4	param_assign				dut.sv	11	17	11	39						000
+  #100	5	operation				dut.sv	11	25	11	39		0				000
+  #101	6	ref_typespec			work@top.upper_u.lower_u		0	0	0	0		0			work@top.upper_u.lower_u	000
+  #102	7	int_typespec				dut.sv	11	13	11	16						000
+> #103	6	operation				dut.sv	11	25	11	35		0				000
+  #104	7	ref_typespec			work@top.upper_u.lower_u		0	0	0	0		0			work@top.upper_u.lower_u	000
+  #105	8	int_typespec				dut.sv	2	13	2	16						000
+  #106	7	tagged_pattern				dut.sv	2	41	2	42						000
+  #107	8	constant				dut.sv	2	41	2	42	1	32	UINT:1	9		000
+  #108	8	ref_typespec			work@top.upper_u.lower_u		0	0	0	0		0			work@top.upper_u.lower_u	000
+  #109	9	string_typespec	default			dut.sv	2	32	2	39						110
+
+--- OURS (B) records 97..109 ('>' = the object)
+  #97	7	ref_typespec			work@top.upper_u.lower_u		0	0	0	0		0			work@top.upper_u.lower_u	000
+  #98	8	string_typespec	default			dut.sv	2	32	2	39						110
+  #99	4	param_assign				dut.sv	11	17	11	39						000
+  #100	5	operation				dut.sv	11	25	11	39		0				000
+  #101	6	ref_typespec			work@top.upper_u.lower_u		0	0	0	0		0			work@top.upper_u.lower_u	000
+  #102	7	int_typespec				dut.sv	11	13	11	16						000
+> #103	6	operation				dut.sv	2	30	2	43		0				000
+  #104	7	ref_typespec			work@top.upper_u.lower_u		0	0	0	0		0			work@top.upper_u.lower_u	000
+  #105	8	int_typespec				dut.sv	2	13	2	16						000
+  #106	7	tagged_pattern				dut.sv	2	41	2	42						000
+  #107	8	constant				dut.sv	2	41	2	42	1	32	UINT:1	9		000
+  #108	8	ref_typespec			work@top.upper_u.lower_u		0	0	0	0		0			work@top.upper_u.lower_u	000
+  #109	9	string_typespec	default			dut.sv	2	32	2	39						110
+
+facets of this row (2, first 25):
+  N0212 #103/103 operation  G[11:25:11:35] O[2:30:2:43]
+  N0212 #121/121 operation  G[11:25:11:35] O[2:30:2:43]

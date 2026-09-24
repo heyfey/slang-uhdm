@@ -1,0 +1,64 @@
+cluster N0256 (r11u128map N0256; OPEN): span|class_var|endcol|under:function
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(270)  records golden=201533 ours=201486
+object: #91523 (golden) / #91478 (ours)  type=class_var name= 
+  golden: 9111:24:9111:51
+  ours:   9111:24:9111:35
+  walk parents: function(get_component_visitor) < class_defn(uvm_coreservice_t) < package(uvm_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 91517..91529 ('>' = the object)
+  #91517	6	class_typespec	uvm_tr_database			uvm_pkg.sv	9105	53	9105	68						110
+  #91518	3	function	set_component_visitor		uvm_pkg::uvm_coreservice_t::set_component_visitor	uvm_pkg.sv	9109	2	9109	14					uvm_pkg::uvm_coreservice_t::set_component_visitor	000
+  #91519	4	io_decl	v			uvm_pkg.sv	9109	79	9109	80						000
+  #91520	5	ref_typespec			uvm_pkg::uvm_coreservice_t::set_component_visitor::v		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::set_component_visitor::v	000
+  #91521	6	class_typespec	uvm_visitor			uvm_pkg.sv	9109	51	9109	62						110
+  #91522	3	function	get_component_visitor		uvm_pkg::uvm_coreservice_t::get_component_visitor	uvm_pkg.sv	9111	2	9111	14					uvm_pkg::uvm_coreservice_t::get_component_visitor	000
+> #91523	4	class_var			uvm_pkg::uvm_coreservice_t::get_component_visitor	uvm_pkg.sv	9111	24	9111	51		0			uvm_pkg::uvm_coreservice_t::get_component_visitor	000
+  #91524	5	ref_typespec			uvm_pkg::uvm_coreservice_t::get_component_visitor		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::get_component_visitor	000
+  #91525	6	class_typespec				uvm_pkg.sv	9111	24	9111	51						000
+  #91526	3	function	get_root		uvm_pkg::uvm_coreservice_t::get_root	uvm_pkg.sv	9115	2	9115	14					uvm_pkg::uvm_coreservice_t::get_root	000
+  #91527	4	class_var			uvm_pkg::uvm_coreservice_t::get_root	uvm_pkg.sv	9115	24	9115	32		0			uvm_pkg::uvm_coreservice_t::get_root	000
+  #91528	5	ref_typespec			uvm_pkg::uvm_coreservice_t::get_root		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::get_root	000
+  #91529	6	class_typespec				uvm_pkg.sv	9115	24	9115	32						000
+
+--- OURS (B) records 91472..91484 ('>' = the object)
+  #91472	6	class_typespec	uvm_tr_database			uvm_pkg.sv	9105	53	9105	68						110
+  #91473	3	function	set_component_visitor		uvm_pkg::uvm_coreservice_t::set_component_visitor	uvm_pkg.sv	9109	2	9109	82					uvm_pkg::uvm_coreservice_t::set_component_visitor	000
+  #91474	4	io_decl	v			uvm_pkg.sv	9109	79	9109	80						000
+  #91475	5	ref_typespec			uvm_pkg::uvm_coreservice_t::set_component_visitor::v		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::set_component_visitor::v	000
+  #91476	6	class_typespec	uvm_visitor			uvm_pkg.sv	9109	51	9109	78						110
+  #91477	3	function	get_component_visitor		uvm_pkg::uvm_coreservice_t::get_component_visitor	uvm_pkg.sv	9111	2	9111	76					uvm_pkg::uvm_coreservice_t::get_component_visitor	000
+> #91478	4	class_var			uvm_pkg::uvm_coreservice_t::get_component_visitor	uvm_pkg.sv	9111	24	9111	35		0			uvm_pkg::uvm_coreservice_t::get_component_visitor	000
+  #91479	5	ref_typespec			uvm_pkg::uvm_coreservice_t::get_component_visitor		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::get_component_visitor	000
+  #91480	6	class_typespec				uvm_pkg.sv	9111	24	9111	35						000
+  #91481	3	function	get_root		uvm_pkg::uvm_coreservice_t::get_root	uvm_pkg.sv	9115	2	9115	44					uvm_pkg::uvm_coreservice_t::get_root	000
+  #91482	4	class_var			uvm_pkg::uvm_coreservice_t::get_root	uvm_pkg.sv	9115	24	9115	32		0			uvm_pkg::uvm_coreservice_t::get_root	000
+  #91483	5	ref_typespec			uvm_pkg::uvm_coreservice_t::get_root		0	0	0	0		0			uvm_pkg::uvm_coreservice_t::get_root	000
+  #91484	6	class_typespec				uvm_pkg.sv	9115	24	9115	32						000
+
+facets of this row (11031, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

@@ -1,0 +1,35 @@
+cluster N0085 (r11u128map N0085; COVERED r11u134 (N0085)): struct|ours-only:fewer-copies|ref_typespec|under:logic_typespec
+row: uhdm2rtlil/testflags/TypedefWithParameter  strict=differ:endline(2)  records golden=76 ours=90
+object: #-1 (golden) / #32 (ours)  type=ref_typespec name= 
+  golden: 
+  ours:   5 objs
+  walk parents: logic_typespec(my_pkg::word) < ref_typespec < logic_net(w) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 26..38 ('>' = the object)
+  #26	4	constant				dut.sv	3	23	3	24	0	64	UINT:0	9		001
+  #27	1	module_inst		work@top	work@top	dut.sv	6	1	9	10					work@top	000
+  #28	2	logic_net	o		work@top.o	dut.sv	6	31	6	32		0			work@top.o	000
+  #29	2	logic_net	w		work@top.w	dut.sv	7	17	7	18		0			work@top.w	000
+  #30	3	ref_typespec			work@top.w		0	0	0	0		0			work@top.w	000
+  #31	4	logic_typespec	my_pkg::word			dut.sv	3	12	3	25						110
+> #32	5	ref_typespec			<in>my_pkg::word		0	0	0	0		0			my_pkg::word	001
+  #33	6	logic_typespec	my_pkg::word			dut.sv	3	12	3	25						001
+  #34	7	range				dut.sv	3	18	3	25						001
+  #35	8	constant				dut.sv	3	19	3	20	7	64	INT:7	7		001
+  #36	8	constant				dut.sv	3	23	3	24	0	64	UINT:0	9		001
+  #37	5	range				dut.sv	3	18	3	25						001
+  #38	6	operation				dut.sv	3	19	3	22		0				001
+
+--- the holder #31 on the other side: exact-record matches at []
+
+facets of this row (9, first 25):
+  N0085 #-1/32 ref_typespec  G[] O[5 objs]
+  N0025 #33/40 constant  G[6 range < logic_typespec(my_pkg::word)] O[7 operation < range]
+  N0033 #-1/38 operation  G[] O[2 objs]
+  N0085 #-1/78 ref_typespec  G[] O[5 objs]
+  N0025 #72/86 constant  G[8 range < logic_typespec(my_pkg::word)] O[9 operation < range]
+  N0033 #-1/84 operation  G[] O[2 objs]
+  N0422 #23/23 logic_typespec my_pkg::word G[3:12:7:26] O[3:12:3:25]
+  N0031 #50/57 constant  G[dut.sv 3:19:3:20] O[ 0:0:0:0]
+  N0042 #50/57 constant  G[3:19:3:20] O[0:0:0:0]

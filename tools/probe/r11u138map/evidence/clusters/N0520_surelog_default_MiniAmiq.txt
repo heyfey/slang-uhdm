@@ -1,0 +1,64 @@
+cluster N0520 (r11u128map N0520; OPEN): struct|ours-only:fewer-copies|bit_var|under:function
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #-1 (golden) / #288079 (ours)  type=bit_var name= 
+  golden: 
+  ours:   3 objs
+  walk parents: function(uvm_object::compare) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 288073..288085 ('>' = the object)
+  #288073	3	int_var	style		svaunit_pkg::uvm_object::compare::style	uvm_object.svh	1050	14	1050	19		0			svaunit_pkg::uvm_object::compare::style	000
+  #288074	4	ref_typespec			svaunit_pkg::uvm_object::compare::style		0	0	0	0		0			svaunit_pkg::uvm_object::compare::style	000
+  #288075	5	int_typespec				uvm_object.svh	1050	10	1050	13						000
+  #288076	3	bit_var	done		svaunit_pkg::uvm_object::compare::done	uvm_object.svh	1051	7	1051	11		0			svaunit_pkg::uvm_object::compare::done	000
+  #288077	4	ref_typespec			svaunit_pkg::uvm_object::compare::done		0	0	0	0		0			svaunit_pkg::uvm_object::compare::done	000
+  #288078	5	bit_typespec				uvm_object.svh	1051	3	1051	6						000
+> #288079	3	bit_var			svaunit_pkg::uvm_object::compare	uvm_object.svh	1047	10	1047	13		0			svaunit_pkg::uvm_object::compare	000
+  #288080	4	ref_typespec			svaunit_pkg::uvm_object::compare		0	0	0	0		0			svaunit_pkg::uvm_object::compare	000
+  #288081	5	bit_typespec				uvm_object.svh	1047	10	1047	13						000
+  #288082	3	io_decl	rhs			uvm_object.svh	1047	47	1047	50						000
+  #288083	4	ref_typespec			svaunit_pkg::uvm_object::compare::rhs		0	0	0	0		0			svaunit_pkg::uvm_object::compare::rhs	000
+  #288084	5	class_typespec	uvm_object			uvm_object.svh	1047	36	1047	46						110
+  #288085	3	io_decl	comparer			uvm_object.svh	1048	49	1048	57						000
+
+--- the holder #288066 on the other side: exact-record matches at [66145, 298824, 364813]
+  #66142	4	ref_typespec			svaunit_pkg::uvm_object::do_copy::rhs		0	0	0	0		0			svaunit_pkg::uvm_object::do_copy::rhs	000
+  #66143	5	class_typespec	uvm_object			uvm_object.svh	1039	36	1039	46						110
+  #66144	3	return_stmt				uvm_object.svh	1040	3	1040	9						000
+> #66145	2	function	uvm_object::compare		svaunit_pkg::uvm_object::compare	uvm_object.svh	1047	1	1111	12					svaunit_pkg::uvm_object::compare	000
+  #66146	3	bit_var	t		svaunit_pkg::uvm_object::compare::t	uvm_object.svh	1049	7	1049	8		0			svaunit_pkg::uvm_object::compare::t	000
+  #66147	4	ref_typespec			svaunit_pkg::uvm_object::compare::t		0	0	0	0		0			svaunit_pkg::uvm_object::compare::t	000
+  #66148	5	bit_typespec				uvm_object.svh	1049	3	1049	6						000
+  #66149	3	bit_var	dc		svaunit_pkg::uvm_object::compare::dc	uvm_object.svh	1049	10	1049	12		0			svaunit_pkg::uvm_object::compare::dc	000
+  #66150	4	ref_typespec			svaunit_pkg::uvm_object::compare::dc		0	0	0	0		0			svaunit_pkg::uvm_object::compare::dc	000
+  #66151	5	bit_typespec				uvm_object.svh	1049	3	1049	6						000
+  #66152	3	int_var	style		svaunit_pkg::uvm_object::compare::style	uvm_object.svh	1050	14	1050	19		0			svaunit_pkg::uvm_object::compare::style	000
+  #66153	4	ref_typespec			svaunit_pkg::uvm_object::compare::style		0	0	0	0		0			svaunit_pkg::uvm_object::compare::style	000
+  #66154	5	int_typespec				uvm_object.svh	1050	10	1050	13						000
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

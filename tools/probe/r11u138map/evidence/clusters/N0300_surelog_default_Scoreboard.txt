@@ -1,0 +1,64 @@
+cluster N0300 (r11u128map N0300; OPEN): span|func_call|line+col+endline+endcol|under:sys_func_call
+row: surelog/default/Scoreboard  strict=differ:line(199)  records golden=269656 ours=268952
+object: #13145 (golden) / #13159 (ours)  type=func_call name=get_name 
+  golden: 116:16:116:26
+  ours:   1554:23:1554:33
+  walk parents: sys_func_call($sformatf) < func_call(uvm_report_info) < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 13139..13151 ('>' = the object)
+  #13139	14	enum_const	UVM_INFO			uvm_object_globals.svh	244	3	244	11						010
+  #13140	13	constant				uvm_message_defines.svh	114	49	114	58	"PH_JUMP"	56	STRING:PH_JUMP	6		000
+  #13141	12	func_call	uvm_report_info			uvm_message_defines.svh	115	8	116	222		0				000
+  #13142	13	constant				uvm_message_defines.svh	115	25	115	34	"PH_JUMP"	56	STRING:PH_JUMP	6		000
+  #13143	13	sys_func_call	$sformatf			uvm_message_defines.svh	115	36	116	92		0				000
+  #13144	14	constant				uvm_message_defines.svh	115	46	115	104	"phase %s (schedule %s, domain %s) is jumping to phase %s"	448	STRING:phase %s (schedule %s, domain %s) is jumping to phase %s	6		000
+> #13145	14	func_call	get_name			uvm_message_defines.svh	116	16	116	26		0				000
+  #13146	14	func_call	get_schedule_name			uvm_message_defines.svh	116	28	116	47		0				000
+  #13147	14	func_call	get_domain_name			uvm_message_defines.svh	116	49	116	66		0				000
+  #13148	14	hier_path	m_jump_phase.get_name			uvm_message_defines.svh	116	68	116	91		0				000
+  #13149	15	ref_obj	m_jump_phase			uvm_message_defines.svh	116	68	116	80		0				000
+  #13150	15	method_func_call	get_name			uvm_message_defines.svh	116	81	116	89		0				000
+  #13151	13	ref_obj	UVM_MEDIUM		uvm_pkg::uvm_phase::execute_phase::UVM_MEDIUM	uvm_message_defines.svh	116	94	116	104		0			uvm_pkg::uvm_phase::execute_phase::UVM_MEDIUM	000
+
+--- OURS (B) records 13153..13165 ('>' = the object)
+  #13153	14	enum_const	UVM_INFO			uvm_object_globals.svh	244	3	244	11						010
+  #13154	13	constant				uvm_message_defines.svh	114	49	114	58	"PH_JUMP"	56	STRING:PH_JUMP	6		000
+  #13155	12	func_call	uvm_report_info			uvm_message_defines.svh	115	8	115	347		0				000
+  #13156	13	constant				uvm_message_defines.svh	115	25	115	34	"PH_JUMP"	56	STRING:PH_JUMP	6		000
+  #13157	13	sys_func_call	$sformatf			uvm_message_defines.svh	115	36	1554	99		0				000
+  #13158	14	constant				uvm_message_defines.svh	115	46	115	104	"phase %s (schedule %s, domain %s) is jumping to phase %s"	448	STRING:phase %s (schedule %s, domain %s) is jumping to phase %s	6		000
+> #13159	14	func_call	get_name			uvm_message_defines.svh	1554	23	1554	33		0				000
+  #13160	14	func_call	get_schedule_name			uvm_message_defines.svh	1554	35	1554	54		0				000
+  #13161	14	func_call	get_domain_name			uvm_message_defines.svh	1554	56	1554	73		0				000
+  #13162	14	hier_path	m_jump_phase.get_name			uvm_message_defines.svh	1554	75	1554	98		0				000
+  #13163	15	ref_obj	m_jump_phase			uvm_message_defines.svh	1554	75	1554	87		0				000
+  #13164	15	method_func_call	get_name			uvm_message_defines.svh	1554	88	1554	96		0				000
+  #13165	13	ref_obj	UVM_MEDIUM		uvm_pkg::uvm_phase::execute_phase::UVM_MEDIUM	uvm_message_defines.svh	115	199	115	209		0			uvm_pkg::uvm_phase::execute_phase::UVM_MEDIUM	000
+
+facets of this row (31106, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

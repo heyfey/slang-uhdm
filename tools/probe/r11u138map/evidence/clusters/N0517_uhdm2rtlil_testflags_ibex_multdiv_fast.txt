@@ -1,0 +1,64 @@
+cluster N0517 (r11u128map N0517; OPEN): span|sys_func_call|endcol|under:cont_assign
+row: uhdm2rtlil/testflags/ibex_multdiv_fast  strict=differ:fullname(9)  records golden=11748 ours=11268
+object: #7477 (golden) / #6997 (ours)  type=sys_func_call name=$unsigned 
+  golden: 164:29:164:38
+  ours:   164:29:164:49
+  walk parents: cont_assign < named_begin(gen_mult_single_cycle) < gen_if_else < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 7471..7483 ('>' = the object)
+  #7471	7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	49	162	56		0				000
+  #7472	8	ref_obj	summand2		work@ibex_multdiv_fast.gen_mult_single_cycle.summand2	ibex_multdiv_fast.sv	162	57	162	65		0			work@ibex_multdiv_fast.gen_mult_single_cycle.summand2	000
+  #7473	6	sys_func_call	$signed			ibex_multdiv_fast.sv	162	69	162	76		0				000
+  #7474	7	ref_obj	summand3		work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	ibex_multdiv_fast.sv	162	77	162	85		0			work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	000
+  #7475	5	ref_obj	mac_res_signed		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	ibex_multdiv_fast.sv	162	12	162	26		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	000
+  #7476	4	cont_assign				ibex_multdiv_fast.sv	164	12	164	49						000
+> #7477	5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	164	29	164	38		0				000
+  #7478	6	ref_obj	mult1_res		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	ibex_multdiv_fast.sv	164	39	164	48		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	000
+  #7479	5	ref_obj	mult1_res_uns		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res_uns	ibex_multdiv_fast.sv	164	12	164	25		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res_uns	000
+  #7480	4	cont_assign				ibex_multdiv_fast.sv	165	12	165	54						000
+  #7481	5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	165	29	165	38		0				000
+  #7482	6	ref_obj	mac_res_signed		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	ibex_multdiv_fast.sv	165	39	165	53		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	000
+  #7483	5	ref_obj	mac_res_ext		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_ext	ibex_multdiv_fast.sv	165	12	165	23		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_ext	000
+
+--- OURS (B) records 6991..7003 ('>' = the object)
+  #6991	7	sys_func_call	$signed			ibex_multdiv_fast.sv	162	49	162	66		0				000
+  #6992	8	ref_obj	summand2		work@ibex_multdiv_fast.gen_mult_single_cycle.summand2	ibex_multdiv_fast.sv	162	57	162	65		0			work@ibex_multdiv_fast.gen_mult_single_cycle.summand2	000
+  #6993	6	sys_func_call	$signed			ibex_multdiv_fast.sv	162	69	162	86		0				000
+  #6994	7	ref_obj	summand3		work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	ibex_multdiv_fast.sv	162	77	162	85		0			work@ibex_multdiv_fast.gen_mult_single_cycle.summand3	000
+  #6995	5	ref_obj	mac_res_signed		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	ibex_multdiv_fast.sv	162	12	162	26		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	000
+  #6996	4	cont_assign				ibex_multdiv_fast.sv	164	12	164	49						000
+> #6997	5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	164	29	164	49		0				000
+  #6998	6	ref_obj	mult1_res		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	ibex_multdiv_fast.sv	164	39	164	48		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res	000
+  #6999	5	ref_obj	mult1_res_uns		work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res_uns	ibex_multdiv_fast.sv	164	12	164	25		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mult1_res_uns	000
+  #7000	4	cont_assign				ibex_multdiv_fast.sv	165	12	165	54						000
+  #7001	5	sys_func_call	$unsigned			ibex_multdiv_fast.sv	165	29	165	54		0				000
+  #7002	6	ref_obj	mac_res_signed		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	ibex_multdiv_fast.sv	165	39	165	53		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_signed	000
+  #7003	5	ref_obj	mac_res_ext		work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_ext	ibex_multdiv_fast.sv	165	12	165	23		0			work@ibex_multdiv_fast.gen_mult_single_cycle.mac_res_ext	000
+
+facets of this row (196, first 25):
+  N0002 #4401/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #4430/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #4459/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #4488/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #4517/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #4546/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #4575/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #4604/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #4633/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #4662/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4691/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4720/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4739/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4746/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4753/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4760/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4767/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4774/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4781/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4788/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4795/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4802/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4809/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4816/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4823/-1 parameter IC_INDEX_W G[3 objs] O[]

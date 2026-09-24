@@ -1,0 +1,45 @@
+cluster N0457 (r11u128map N0457; OPEN): fullname|ref_typespec|tok:id.id->id|under:operation
+row: surelog/testflags/UnsizedFunc  strict=differ:fullname(12)  records golden=129 ours=129
+object: #125 (golden) / #125 (ours)  type=ref_typespec name= OUT
+  golden: work@top.u_lfsr
+  ours:   work@prim_lfsr
+  walk parents: operation < assignment < begin < initial
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 119..128 ('>' = the object)
+  #119	4	ref_typespec			work@top.u_lfsr.o		0	0	0	0		0			work@top.u_lfsr.o	000
+  #120	5	int_typespec				dut.sv	3	25	3	28						000
+  #121	3	initial				dut.sv	10	4	12	7						000
+  #122	4	begin			work@top.u_lfsr	dut.sv	10	12	12	7					work@top.u_lfsr	000
+  #123	5	assignment				dut.sv	11	7	11	25						000
+  #124	6	operation				dut.sv	11	11	11	25		0				000
+> #125	7	ref_typespec			work@top.u_lfsr		0	0	0	0		0			work@top.u_lfsr	000
+  #126	8	int_typespec				dut.sv	11	11	11	14						000
+  #127	7	func_call	get_1s			dut.sv	11	16	11	24		0				000
+  #128	6	ref_obj	o		work@top.u_lfsr.o	dut.sv	11	7	11	8		0			work@top.u_lfsr.o	000
+
+--- OURS (B) records 119..128 ('>' = the object)
+  #119	4	ref_typespec			work@top.u_lfsr.o		0	0	0	0		0			work@top.u_lfsr.o	000
+  #120	5	int_typespec				dut.sv	3	25	3	28						000
+  #121	3	initial				dut.sv	10	4	12	7						000
+  #122	4	begin			work@prim_lfsr	dut.sv	10	12	12	7					work@prim_lfsr	000
+  #123	5	assignment				dut.sv	11	7	11	25						000
+  #124	6	operation				dut.sv	11	11	11	25		0				000
+> #125	7	ref_typespec			work@prim_lfsr		0	0	0	0		0			work@prim_lfsr	000
+  #126	8	int_typespec				dut.sv	11	11	11	14						000
+  #127	7	func_call	get_1s			dut.sv	11	16	11	24		0				000
+  #128	6	ref_obj	o		work@prim_lfsr.o	dut.sv	11	7	11	8		0			work@prim_lfsr.o	000
+
+facets of this row (12, first 25):
+  N0282 #78/78 function get_1s G[work@top.u_lfsr.get_1s] O[work@prim_lfsr.get_1s]
+  N0728 #79/79 logic_var a G[work@top.u_lfsr.get_1s.a] O[work@prim_lfsr.get_1s.a]
+  N0269 #80/80 ref_typespec  G[work@top.u_lfsr.get_1s.a] O[work@prim_lfsr.get_1s.a]
+  N0660 #95/95 begin  G[work@top.u_lfsr.get_1s] O[work@prim_lfsr.get_1s]
+  N1101 #96/96 logic_var a G[work@top.u_lfsr.get_1s.a] O[work@prim_lfsr.get_1s.a]
+  N0269 #97/97 ref_typespec  G[work@top.u_lfsr.get_1s.a] O[work@prim_lfsr.get_1s.a]
+  N1847 #106/106 logic_var a G[work@top.u_lfsr.get_1s.a] O[work@prim_lfsr.get_1s.a]
+  N0269 #107/107 ref_typespec  G[work@top.u_lfsr.get_1s.a] O[work@prim_lfsr.get_1s.a]
+  N1102 #115/115 ref_obj a G[work@top.u_lfsr.get_1s.a] O[work@prim_lfsr.get_1s.a]
+  N0731 #122/122 begin  G[work@top.u_lfsr] O[work@prim_lfsr]
+  N0457 #125/125 ref_typespec  G[work@top.u_lfsr] O[work@prim_lfsr]
+  N0124 #128/128 ref_obj o G[work@top.u_lfsr.o] O[work@prim_lfsr.o]

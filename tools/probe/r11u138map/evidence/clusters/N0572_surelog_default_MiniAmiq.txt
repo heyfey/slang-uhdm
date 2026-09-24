@@ -1,0 +1,64 @@
+cluster N0572 (r11u128map N0572; OPEN): struct|golden-only:fewer-copies|enum_var|under:assignment
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #74619 (golden) / #-1 (ours)  type=enum_var name=p 
+  golden: 7 objs
+  ours:   
+  walk parents: assignment < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 74613..74625 ('>' = the object)
+  #74613	9	enum_const	UVM_SHALLOW			uvm_object_globals.svh	135	3	135	29						001
+  #74614	9	enum_const	UVM_REFERENCE			uvm_object_globals.svh	136	3	136	30						001
+  #74615	6	assignment				uvm_transaction.svh	623	31	623	50						000
+  #74616	7	hier_path	recorder.policy			uvm_transaction.svh	623	35	623	50		0				000
+  #74617	8	ref_obj	recorder			uvm_transaction.svh	623	35	623	43		0				000
+  #74618	8	ref_obj	policy		svaunit_pkg::uvm_transaction::do_record::policy	uvm_transaction.svh	623	44	623	50		0			svaunit_pkg::uvm_transaction::do_record::policy	000
+> #74619	7	enum_var	p		svaunit_pkg::uvm_transaction::do_record::p	uvm_transaction.svh	623	31	623	32		0			svaunit_pkg::uvm_transaction::do_record::p	000
+  #74620	8	ref_typespec			svaunit_pkg::uvm_transaction::do_record::p		0	0	0	0		0			svaunit_pkg::uvm_transaction::do_record::p	000
+  #74621	9	enum_typespec	uvm_pkg::uvm_recursion_policy_enum			uvm_object_globals.svh	132	1	137	30						110
+  #74622	10	enum_const	UVM_DEFAULT_POLICY			uvm_object_globals.svh	133	3	133	25						001
+  #74623	10	enum_const	UVM_DEEP			uvm_object_globals.svh	134	3	134	29						001
+  #74624	10	enum_const	UVM_SHALLOW			uvm_object_globals.svh	135	3	135	29						001
+  #74625	10	enum_const	UVM_REFERENCE			uvm_object_globals.svh	136	3	136	30						001
+
+--- the holder #74615 on the other side: exact-record matches at [10310, 73675, 295394, 356894]
+  #10307	9	enum_const	UVM_DEEP			uvm_object_globals.svh	134	3	134	29						001
+  #10308	9	enum_const	UVM_SHALLOW			uvm_object_globals.svh	135	3	135	29						001
+  #10309	9	enum_const	UVM_REFERENCE			uvm_object_globals.svh	136	3	136	30						001
+> #10310	6	assignment				uvm_transaction.svh	623	31	623	50						000
+  #10311	7	hier_path	recorder.policy			uvm_transaction.svh	623	35	623	50		0				000
+  #10312	8	ref_obj	recorder			uvm_transaction.svh	623	35	623	43		0				000
+  #10313	8	ref_obj	policy		uvm_pkg::uvm_transaction::do_record::policy	uvm_transaction.svh	623	44	623	50		0			uvm_pkg::uvm_transaction::do_record::policy	000
+  #10314	6	assignment				uvm_transaction.svh	624	5	624	36						000
+  #10315	7	ref_obj	UVM_REFERENCE		uvm_pkg::uvm_transaction::do_record::UVM_REFERENCE	uvm_transaction.svh	624	23	624	36		0			uvm_pkg::uvm_transaction::do_record::UVM_REFERENCE	000
+  #10316	8	enum_const	UVM_REFERENCE			uvm_object_globals.svh	136	3	136	30						010
+  #10317	7	hier_path	recorder.policy			uvm_transaction.svh	624	5	624	20		0				000
+  #10318	8	ref_obj	recorder			uvm_transaction.svh	624	14	624	20		0				000
+  #10319	8	ref_obj	policy			uvm_transaction.svh	624	14	624	20		0				000
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

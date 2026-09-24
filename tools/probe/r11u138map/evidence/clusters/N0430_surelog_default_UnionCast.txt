@@ -1,0 +1,64 @@
+cluster N0430 (r11u128map N0430; OPEN): file|union_typespec|ours-empty|under:ref_typespec
+row: surelog/default/UnionCast  strict=differ:value(26)  records golden=8079 ours=8079
+object: #4825 (golden) / #4825 (ours)  type=union_typespec name=riscv_isa_pkg::op32_t 
+  golden: dut.sv 115:9:123:2
+  ours:    115:9:123:2
+  walk parents: ref_typespec < operation < cont_assign < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 4819..4831 ('>' = the object)
+  #4819	7	constant				dut.sv	154	17	154	19	12	64	UINT:12	9		001
+  #4820	7	constant				dut.sv	154	20	154	21	1	64	UINT:1	9		001
+  #4821	6	constant				dut.sv	154	22	154	23	0	64	UINT:0	9		001
+  #4822	2	cont_assign				dut.sv	159	8	159	26						000
+  #4823	3	operation				dut.sv	159	14	159	26		0				000
+  #4824	4	ref_typespec			work@r5p_lsu		0	0	0	0		0			work@r5p_lsu	000
+> #4825	5	union_typespec	riscv_isa_pkg::op32_t			dut.sv	115	9	123	2						110
+  #4826	6	typespec_member	r4			dut.sv	116	13	116	15						001
+  #4827	7	ref_typespec			<in>riscv_isa_pkg::op32_t.r4		0	0	0	0		0			riscv_isa_pkg::op32_t.r4	001
+  #4828	8	struct_typespec	riscv_isa_pkg::op32_r4_t			dut.sv	106	9	106	181						001
+  #4829	9	typespec_member	rs3			dut.sv	106	36	106	39						001
+  #4830	10	ref_typespec			<in>riscv_isa_pkg::op32_r4_t.rs3		0	0	0	0		0			work@r5p_lsu.riscv_isa_pkg::op32_r4_t.rs3	001
+  #4831	11	logic_typespec				dut.sv	106	24	106	35						001
+
+--- OURS (B) records 4819..4831 ('>' = the object)
+  #4819	7	constant				dut.sv	154	17	154	19	12	64	UINT:12	9		001
+  #4820	7	constant				dut.sv	154	20	154	21	1	64	UINT:1	9		001
+  #4821	6	constant				dut.sv	154	22	154	23	0	64	UINT:0	9		001
+  #4822	2	cont_assign				dut.sv	159	8	159	26						000
+  #4823	3	operation				dut.sv	159	14	159	26		0				000
+  #4824	4	ref_typespec			work@r5p_lsu		0	0	0	0		0			work@r5p_lsu	000
+> #4825	5	union_typespec	riscv_isa_pkg::op32_t				115	9	123	2						110
+  #4826	6	typespec_member	r4			dut.sv	116	13	116	15						001
+  #4827	7	ref_typespec			<in>riscv_isa_pkg::op32_t.r4		0	0	0	0		0			work@r5p_lsu.riscv_isa_pkg::op32_t.r4	001
+  #4828	8	struct_typespec	riscv_isa_pkg::op32_r4_t			dut.sv	106	9	106	181						001
+  #4829	9	typespec_member	rs3			dut.sv	106	36	106	39						001
+  #4830	10	ref_typespec			<in>riscv_isa_pkg::op32_r4_t.rs3		0	0	0	0		0			work@r5p_lsu.riscv_isa_pkg::op32_t.r4.riscv_isa_pkg::op32_r4_t.rs3	001
+  #4831	11	logic_typespec				dut.sv	106	24	106	35						001
+
+facets of this row (26, first 25):
+  N0092 #179/179 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #611/611 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #891/891 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #976/976 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #1564/1564 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #1984/1984 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #2252/2252 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #2333/2333 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #2990/2990 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #3410/3410 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #3678/3678 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #3759/3759 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #4372/4372 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #4453/4453 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0430 #4825/4825 union_typespec riscv_isa_pkg::op32_t G[dut.sv 115:9:123:2] O[ 115:9:123:2]
+  N0092 #5014/5014 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #5095/5095 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #5637/5637 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #5718/5718 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #6200/6200 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #6620/6620 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0092 #6888/6888 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]
+  N0092 #6969/6969 constant  G[05|64|UINT:05|9] O[05|64|UINT:5|9]
+  N0430 #7454/7454 union_typespec riscv_isa_pkg::op32_t G[dut.sv 115:9:123:2] O[ 115:9:123:2]
+  N0092 #7643/7643 constant  G[00|64|UINT:00|9] O[00|64|UINT:0|9]

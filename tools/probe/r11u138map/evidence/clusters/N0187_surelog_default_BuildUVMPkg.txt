@@ -1,0 +1,64 @@
+cluster N0187 (r11u128map N0187; OPEN): span|func_call|endcol|under:bit_select
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(270)  records golden=201533 ours=201486
+object: #183781 (golden) / #183726 (ours)  type=func_call name=get_full_name 
+  golden: 45525:28:45525:43
+  ours:   45525:28:45525:41
+  walk parents: bit_select(m_provided_to) < hier_path(provider.m_provided_to[]) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 183775..183787 ('>' = the object)
+  #183775	8	method_func_call	get_full_name			uvm_pkg.sv	45524	28	45524	41		0				000
+  #183776	5	assignment				uvm_pkg.sv	45525	5	45525	51						000
+  #183777	6	ref_obj	this		uvm_pkg::uvm_port_base::connect::this	uvm_pkg.sv	45525	47	45525	51		0			uvm_pkg::uvm_port_base::connect::this	000
+  #183778	6	hier_path	provider.m_provided_to[]			uvm_pkg.sv	45525	5	45525	44		0				000
+  #183779	7	ref_obj	provider			uvm_pkg.sv	45525	14	45525	27		0				000
+  #183780	7	bit_select	m_provided_to		uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to	uvm_pkg.sv	45525	14	45525	44		0			uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to	000
+> #183781	8	func_call	get_full_name			uvm_pkg.sv	45525	28	45525	43		0				000
+  #183782	3	function	debug_connected_to		uvm_pkg::uvm_port_base::debug_connected_to	uvm_pkg.sv	45542	3	45595	14					uvm_pkg::uvm_port_base::debug_connected_to	000
+  #183783	4	int_var	sz		uvm_pkg::uvm_port_base::debug_connected_to::sz	uvm_pkg.sv	45543	9	45543	11		0			uvm_pkg::uvm_port_base::debug_connected_to::sz	000
+  #183784	5	ref_typespec			uvm_pkg::uvm_port_base::debug_connected_to::sz		0	0	0	0		0			uvm_pkg::uvm_port_base::debug_connected_to::sz	000
+  #183785	6	int_typespec				uvm_pkg.sv	45543	5	45543	8						000
+  #183786	4	int_var	num		uvm_pkg::uvm_port_base::debug_connected_to::num	uvm_pkg.sv	45543	13	45543	16		0			uvm_pkg::uvm_port_base::debug_connected_to::num	000
+  #183787	5	ref_typespec			uvm_pkg::uvm_port_base::debug_connected_to::num		0	0	0	0		0			uvm_pkg::uvm_port_base::debug_connected_to::num	000
+
+--- OURS (B) records 183720..183732 ('>' = the object)
+  #183720	8	method_func_call	get_full_name			uvm_pkg.sv	45524	28	45524	41		0				000
+  #183721	5	assignment				uvm_pkg.sv	45525	5	45525	51						000
+  #183722	6	ref_obj	this		uvm_pkg::uvm_port_base::connect::this	uvm_pkg.sv	45525	47	45525	51		0			uvm_pkg::uvm_port_base::connect::this	000
+  #183723	6	hier_path	provider.m_provided_to[]			uvm_pkg.sv	45525	5	45525	44		0				000
+  #183724	7	ref_obj	provider			uvm_pkg.sv	45525	14	45525	27		0				000
+  #183725	7	bit_select	m_provided_to		uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to	uvm_pkg.sv	45525	14	45525	44		0			uvm_pkg::uvm_port_base::connect::provider.m_provided_to[]::m_provided_to	000
+> #183726	8	func_call	get_full_name			uvm_pkg.sv	45525	28	45525	41		0				000
+  #183727	3	function	debug_connected_to		uvm_pkg::uvm_port_base::debug_connected_to	uvm_pkg.sv	45542	3	45595	14					uvm_pkg::uvm_port_base::debug_connected_to	000
+  #183728	4	int_var	sz		uvm_pkg::uvm_port_base::debug_connected_to::sz	uvm_pkg.sv	45543	9	45543	11		0			uvm_pkg::uvm_port_base::debug_connected_to::sz	000
+  #183729	5	ref_typespec			uvm_pkg::uvm_port_base::debug_connected_to::sz		0	0	0	0		0			uvm_pkg::uvm_port_base::debug_connected_to::sz	000
+  #183730	6	int_typespec				uvm_pkg.sv	45543	5	45543	8						000
+  #183731	4	int_var	num		uvm_pkg::uvm_port_base::debug_connected_to::num	uvm_pkg.sv	45543	13	45543	16		0			uvm_pkg::uvm_port_base::debug_connected_to::num	000
+  #183732	5	ref_typespec			uvm_pkg::uvm_port_base::debug_connected_to::num		0	0	0	0		0			uvm_pkg::uvm_port_base::debug_connected_to::num	000
+
+facets of this row (11031, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

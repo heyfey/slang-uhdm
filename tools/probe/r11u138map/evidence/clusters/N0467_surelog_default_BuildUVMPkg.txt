@@ -1,0 +1,64 @@
+cluster N0467 (r11u128map N0467; OPEN): struct|ours-only:fewer-copies|array_typespec|under:ref_typespec
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(270)  records golden=201533 ours=201486
+object: #-1 (golden) / #79803 (ours)  type=array_typespec name= 
+  golden: 
+  ours:   1 objs
+  walk parents: ref_typespec < ref_var(values) < foreach_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 79797..79809 ('>' = the object)
+  #79797	8	constant				uvm_pkg.sv	41182	32	41182	53	"+uvm_set_verbosity="	152	STRING:+uvm_set_verbosity=	6		000
+  #79798	8	ref_obj	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_pkg.sv	41182	54	41182	60		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #79799	8	ref_obj	clp		uvm_pkg::uvm_component::m_set_cl_verb::clp	uvm_pkg.sv	41182	13	41182	16		0			uvm_pkg::uvm_component::m_set_cl_verb::clp	000
+  #79800	7	foreach_stmt			uvm_pkg::uvm_component::m_set_cl_verb	uvm_pkg.sv	41183	7	41183	14					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #79801	8	ref_var	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_pkg.sv	41183	15	41183	21		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #79802	9	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::values		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+> #79803	10	array_typespec					0	0	0	0						000
+  #79804	8	string_var	i		uvm_pkg::uvm_component::m_set_cl_verb::i	uvm_pkg.sv	41183	22	41183	23		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #79805	9	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::i		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #79806	10	string_typespec				uvm_pkg.sv	41169	10	41169	16						000
+  #79807	8	begin			uvm_pkg::uvm_component::m_set_cl_verb	uvm_pkg.sv	41183	26	41190	10					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #79808	9	method_func_call	delete			uvm_pkg.sv	41184	11	41184	17		0				000
+  #79809	10	ref_obj	args		uvm_pkg::uvm_component::m_set_cl_verb::args	uvm_pkg.sv	41184	6	41184	10		0			uvm_pkg::uvm_component::m_set_cl_verb::args	000
+
+--- the holder #79802 on the other side: exact-record matches at [79835]
+  #79832	8	ref_obj	clp		uvm_pkg::uvm_component::m_set_cl_verb::clp	uvm_pkg.sv	41182	13	41182	16		0			uvm_pkg::uvm_component::m_set_cl_verb::clp	000
+  #79833	7	foreach_stmt			uvm_pkg::uvm_component::m_set_cl_verb	uvm_pkg.sv	41183	7	41183	14					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #79834	8	ref_var	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_pkg.sv	41183	15	41183	21		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+> #79835	9	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::values		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+  #79836	10	string_typespec				uvm_pkg.sv	41169	10	41169	16						000
+  #79837	8	string_var	i		uvm_pkg::uvm_component::m_set_cl_verb::i	uvm_pkg.sv	41183	22	41183	23		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #79838	9	ref_typespec			uvm_pkg::uvm_component::m_set_cl_verb::i		0	0	0	0		0			uvm_pkg::uvm_component::m_set_cl_verb::i	000
+  #79839	10	string_typespec				uvm_pkg.sv	41169	10	41169	16						000
+  #79840	8	begin			uvm_pkg::uvm_component::m_set_cl_verb	uvm_pkg.sv	41183	26	41190	10					uvm_pkg::uvm_component::m_set_cl_verb	000
+  #79841	9	method_func_call	delete			uvm_pkg.sv	41184	11	41184	17		0				000
+  #79842	10	ref_obj	args		uvm_pkg::uvm_component::m_set_cl_verb::args	uvm_pkg.sv	41184	6	41184	10		0			uvm_pkg::uvm_component::m_set_cl_verb::args	000
+  #79843	9	func_call	uvm_split_string			uvm_pkg.sv	41185	6	41185	44		0				000
+  #79844	10	bit_select	values		uvm_pkg::uvm_component::m_set_cl_verb::values	uvm_pkg.sv	41185	30	41185	31		0			uvm_pkg::uvm_component::m_set_cl_verb::values	000
+
+facets of this row (11031, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

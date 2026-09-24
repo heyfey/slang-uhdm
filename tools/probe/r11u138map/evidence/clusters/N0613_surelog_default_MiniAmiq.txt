@@ -1,0 +1,64 @@
+cluster N0613 (r11u128map N0613; OPEN): struct|ours-only:elsewhere|class_var|under:function
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #-1 (golden) / #344838 (ours)  type=class_var name= 
+  golden: 
+  ours:   3 objs
+  walk parents: function(uvm_table_printer::new) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 344832..344844 ('>' = the object)
+  #344832	6	ref_obj	m_inst_count		svaunit_pkg::uvm_object::new::m_inst_count	uvm_object.svh	799	15	799	27		0			svaunit_pkg::uvm_object::new::m_inst_count	000
+  #344833	5	ref_obj	m_inst_id		svaunit_pkg::uvm_object::new::m_inst_id	uvm_object.svh	799	3	799	12		0			svaunit_pkg::uvm_object::new::m_inst_id	000
+  #344834	4	assignment				uvm_object.svh	800	3	800	21						000
+  #344835	5	ref_obj	name		svaunit_pkg::uvm_object::new::name	uvm_object.svh	800	17	800	21		0			svaunit_pkg::uvm_object::new::name	000
+  #344836	5	ref_obj	m_leaf_name		svaunit_pkg::uvm_object::new::m_leaf_name	uvm_object.svh	800	3	800	14		0			svaunit_pkg::uvm_object::new::m_leaf_name	000
+  #344837	2	function	uvm_table_printer::new		svaunit_pkg::uvm_table_printer::new	uvm_printer.svh	1005	1	1007	12					svaunit_pkg::uvm_table_printer::new	000
+> #344838	3	class_var			svaunit_pkg::uvm_table_printer::new		0	0	0	0		0			svaunit_pkg::uvm_table_printer::new	000
+  #344839	4	ref_typespec			svaunit_pkg::uvm_table_printer::new		0	0	0	0		0			svaunit_pkg::uvm_table_printer::new	000
+  #344840	5	class_typespec					0	0	0	0						000
+  #344841	2	function	uvm_tree_printer::new		svaunit_pkg::uvm_tree_printer::new	uvm_printer.svh	1130	1	1136	12					svaunit_pkg::uvm_tree_printer::new	000
+  #344842	3	class_var			svaunit_pkg::uvm_tree_printer::new		0	0	0	0		0			svaunit_pkg::uvm_tree_printer::new	000
+  #344843	4	ref_typespec			svaunit_pkg::uvm_tree_printer::new		0	0	0	0		0			svaunit_pkg::uvm_tree_printer::new	000
+  #344844	5	class_typespec					0	0	0	0						000
+
+--- the holder #344837 on the other side: exact-record matches at [134436, 360466, 433104]
+  #134433	4	assignment				uvm_object.svh	800	3	800	21						000
+  #134434	5	ref_obj	name		svaunit_pkg::uvm_object::new::name	uvm_object.svh	800	17	800	21		0			svaunit_pkg::uvm_object::new::name	000
+  #134435	5	ref_obj	m_leaf_name		svaunit_pkg::uvm_object::new::m_leaf_name	uvm_object.svh	800	3	800	14		0			svaunit_pkg::uvm_object::new::m_leaf_name	000
+> #134436	2	function	uvm_table_printer::new		svaunit_pkg::uvm_table_printer::new	uvm_printer.svh	1005	1	1007	12					svaunit_pkg::uvm_table_printer::new	000
+  #134437	3	class_var			uvm_pkg::uvm_table_printer::new		0	0	0	0		0			uvm_pkg::uvm_table_printer::new	000
+  #134438	4	ref_typespec			uvm_pkg::uvm_table_printer::new		0	0	0	0		0			uvm_pkg::uvm_table_printer::new	000
+  #134439	5	class_typespec					0	0	0	0						000
+  #134440	2	function	uvm_tree_printer::new		svaunit_pkg::uvm_tree_printer::new	uvm_printer.svh	1130	1	1136	12					svaunit_pkg::uvm_tree_printer::new	000
+  #134441	3	class_var			uvm_pkg::uvm_tree_printer::new		0	0	0	0		0			uvm_pkg::uvm_tree_printer::new	000
+  #134442	4	ref_typespec			uvm_pkg::uvm_tree_printer::new		0	0	0	0		0			uvm_pkg::uvm_tree_printer::new	000
+  #134443	5	class_typespec					0	0	0	0						000
+  #134444	3	begin			svaunit_pkg::uvm_tree_printer::new		0	0	0	0					svaunit_pkg::uvm_tree_printer::new	000
+  #134445	4	assignment				uvm_printer.svh	1132	3	1132	17						000
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

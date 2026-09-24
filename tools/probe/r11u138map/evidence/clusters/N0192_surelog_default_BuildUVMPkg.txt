@@ -1,0 +1,64 @@
+cluster N0192 (r11u128map N0192; OPEN): fullname|ref_obj|tok:id.id::->|under:operation
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(270)  records golden=201533 ours=201486
+object: #2048 (golden) / #2048 (ours)  type=ref_obj name=pos OUT
+  golden: uvm_pkg::uvm_leaf_scope::full_name.substr::pos
+  ours:   uvm_pkg::uvm_leaf_scope::pos
+  walk parents: operation < method_func_call(substr) < hier_path(full_name.substr) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2042..2054 ('>' = the object)
+  #2042	8	ref_obj	pos		uvm_pkg::uvm_leaf_scope::pos	uvm_pkg.sv	8740	32	8740	35		0			uvm_pkg::uvm_leaf_scope::pos	000
+  #2043	6	assignment				uvm_pkg.sv	8741	5	8741	63						000
+  #2044	7	hier_path	full_name.substr			uvm_pkg.sv	8741	22	8741	63		0				000
+  #2045	8	ref_obj	full_name			uvm_pkg.sv	8741	22	8741	31		0				000
+  #2046	8	method_func_call	substr			uvm_pkg.sv	8741	32	8741	38		0				000
+  #2047	9	operation				uvm_pkg.sv	8741	39	8741	44		0				000
+> #2048	10	ref_obj	pos		uvm_pkg::uvm_leaf_scope::full_name.substr::pos	uvm_pkg.sv	8741	39	8741	42		0			uvm_pkg::uvm_leaf_scope::full_name.substr::pos	000
+  #2049	10	constant				uvm_pkg.sv	8741	43	8741	44	1	64	UINT:1	9		000
+  #2050	9	operation				uvm_pkg.sv	8741	45	8741	62		0				000
+  #2051	10	hier_path	full_name.len			uvm_pkg.sv	8741	45	8741	60		0				000
+  #2052	11	ref_obj	full_name			uvm_pkg.sv	8741	45	8741	54		0				000
+  #2053	11	method_func_call	len			uvm_pkg.sv	8741	55	8741	58		0				000
+  #2054	10	constant				uvm_pkg.sv	8741	61	8741	62	1	64	UINT:1	9		000
+
+--- OURS (B) records 2042..2054 ('>' = the object)
+  #2042	8	ref_obj	pos		uvm_pkg::uvm_leaf_scope::pos	uvm_pkg.sv	8740	32	8740	35		0			uvm_pkg::uvm_leaf_scope::pos	000
+  #2043	6	assignment				uvm_pkg.sv	8741	5	8741	63						000
+  #2044	7	hier_path	full_name.substr			uvm_pkg.sv	8741	22	8741	63		0				000
+  #2045	8	ref_obj	full_name			uvm_pkg.sv	8741	22	8741	31		0				000
+  #2046	8	method_func_call	substr			uvm_pkg.sv	8741	32	8741	38		0				000
+  #2047	9	operation				uvm_pkg.sv	8741	39	8741	44		0				000
+> #2048	10	ref_obj	pos		uvm_pkg::uvm_leaf_scope::pos	uvm_pkg.sv	8741	39	8741	42		0			uvm_pkg::uvm_leaf_scope::pos	000
+  #2049	10	constant				uvm_pkg.sv	8741	43	8741	44	1	64	UINT:1	9		000
+  #2050	9	operation				uvm_pkg.sv	8741	45	8741	62		0				000
+  #2051	10	hier_path	full_name.len			uvm_pkg.sv	8741	45	8741	60		0				000
+  #2052	11	ref_obj	full_name			uvm_pkg.sv	8741	45	8741	54		0				000
+  #2053	11	method_func_call	len			uvm_pkg.sv	8741	55	8741	58		0				000
+  #2054	10	constant				uvm_pkg.sv	8741	61	8741	62	1	64	UINT:1	9		000
+
+facets of this row (11031, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

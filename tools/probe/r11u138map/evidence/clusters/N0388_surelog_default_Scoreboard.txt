@@ -1,0 +1,64 @@
+cluster N0388 (r11u128map N0388; OPEN): file|ref_obj|other-file+span|under:case_item
+row: surelog/default/Scoreboard  strict=differ:line(199)  records golden=269656 ours=268952
+object: #183546 (golden) / #182909 (ours)  type=ref_obj name=UVM_WARNING 
+  golden: uvm_message_defines.svh 129:9:129:20
+  ours:   uvm_tlm2_generic_payload.svh 497:9:497:20
+  walk parents: case_item < case_stmt < begin < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 183540..183552 ('>' = the object)
+  #183540	13	method_func_call	convert2string			uvm_tlm2_generic_payload.svh	495	76	495	90		0				000
+  #183541	10	case_stmt				uvm_tlm2_generic_payload.svh	496	7	500	14						000
+  #183542	11	hier_path	comparer.sev			uvm_tlm2_generic_payload.svh	496	13	496	25		0				000
+  #183543	12	ref_obj	comparer			uvm_tlm2_generic_payload.svh	496	13	496	21		0				000
+  #183544	12	ref_obj	sev		uvm_pkg::uvm_tlm_generic_payload::do_compare::sev	uvm_tlm2_generic_payload.svh	496	22	496	25		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::sev	000
+  #183545	11	case_item				uvm_message_defines.svh	129	9	133	7						000
+> #183546	12	ref_obj	UVM_WARNING		uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_WARNING	uvm_message_defines.svh	129	9	129	20		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_WARNING	000
+  #183547	12	begin			uvm_pkg::uvm_tlm_generic_payload::do_compare	uvm_message_defines.svh	130	4	133	7					uvm_pkg::uvm_tlm_generic_payload::do_compare	000
+  #183548	13	if_stmt				uvm_message_defines.svh	131	6	132	184						000
+  #183549	14	func_call	uvm_report_enabled			uvm_message_defines.svh	131	10	131	59		0				000
+  #183550	15	ref_obj	UVM_NONE		uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_NONE	uvm_message_defines.svh	131	29	131	37		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_NONE	000
+  #183551	15	ref_obj	UVM_WARNING		uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_WARNING	uvm_message_defines.svh	131	38	131	49		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_WARNING	000
+  #183552	15	constant				uvm_message_defines.svh	131	50	131	58	"MISCMP"	48	STRING:MISCMP	6		000
+
+--- OURS (B) records 182903..182915 ('>' = the object)
+  #182903	13	method_func_call	convert2string			uvm_tlm2_generic_payload.svh	495	76	495	90		0				000
+  #182904	10	case_stmt				uvm_tlm2_generic_payload.svh	496	7	500	14						000
+  #182905	11	hier_path	comparer.sev			uvm_tlm2_generic_payload.svh	496	13	496	25		0				000
+  #182906	12	ref_obj	comparer			uvm_tlm2_generic_payload.svh	496	13	496	21		0				000
+  #182907	12	ref_obj	sev		uvm_pkg::uvm_tlm_generic_payload::do_compare::sev	uvm_tlm2_generic_payload.svh	496	22	496	25		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::sev	000
+  #182908	11	case_item				uvm_tlm2_generic_payload.svh	497	9	133	7						000
+> #182909	12	ref_obj	UVM_WARNING		uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_WARNING	uvm_tlm2_generic_payload.svh	497	9	497	20		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_WARNING	000
+  #182910	12	begin			uvm_pkg::uvm_tlm_generic_payload::do_compare	uvm_message_defines.svh	130	4	133	7					uvm_pkg::uvm_tlm_generic_payload::do_compare	000
+  #182911	13	if_stmt				uvm_message_defines.svh	131	6	132	204						000
+  #182912	14	func_call	uvm_report_enabled			uvm_message_defines.svh	131	10	131	59		0				000
+  #182913	15	ref_obj	UVM_NONE		uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_NONE	uvm_message_defines.svh	131	29	131	37		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_NONE	000
+  #182914	15	ref_obj	UVM_WARNING		uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_WARNING	uvm_message_defines.svh	131	38	131	49		0			uvm_pkg::uvm_tlm_generic_payload::do_compare::UVM_WARNING	000
+  #182915	15	constant				uvm_message_defines.svh	131	50	131	58	"MISCMP"	48	STRING:MISCMP	6		000
+
+facets of this row (31106, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

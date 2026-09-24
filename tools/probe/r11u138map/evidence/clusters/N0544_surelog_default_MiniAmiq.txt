@@ -1,0 +1,64 @@
+cluster N0544 (r11u128map N0544; OPEN): fullname|bit_var|tok:->::id|under:begin
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #120928 (golden) / #116574 (ours)  type=bit_var name= OUT
+  golden: svaunit_pkg::uvm_reg_map::m_set_reg_offset
+  ours:   svaunit_pkg::uvm_reg_map::m_set_reg_offset::addrs
+  walk parents: begin < begin < function(uvm_reg_map::m_set_reg_offset) < package(svaunit_pkg)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 120922..120934 ('>' = the object)
+  #120922	5	class_var	blk		svaunit_pkg::uvm_reg_map::m_set_reg_offset::blk	uvm_reg_map.svh	756	24	756	27		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::blk	000
+  #120923	6	ref_typespec			svaunit_pkg::uvm_reg_map::m_set_reg_offset::blk		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::blk	000
+  #120924	7	class_typespec				uvm_reg_map.svh	756	7	756	20						000
+  #120925	5	class_var	top_map		svaunit_pkg::uvm_reg_map::m_set_reg_offset::top_map	uvm_reg_map.svh	757	24	757	31		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::top_map	000
+  #120926	6	ref_typespec			svaunit_pkg::uvm_reg_map::m_set_reg_offset::top_map		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::top_map	000
+  #120927	7	class_typespec				uvm_reg_map.svh	757	7	757	18						000
+> #120928	5	bit_var			svaunit_pkg::uvm_reg_map::m_set_reg_offset	uvm_reg_map.svh	758	24	758	29		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset	000
+  #120929	6	ref_typespec			svaunit_pkg::uvm_reg_map::m_set_reg_offset		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset	000
+  #120930	7	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						110
+  #120931	8	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::uvm_reg_addr_t	001
+  #120932	9	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #120933	10	range				uvm_reg_model.svh	73	23	73	31						001
+  #120934	11	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+
+--- OURS (B) records 116568..116580 ('>' = the object)
+  #116568	5	class_var	blk		svaunit_pkg::uvm_reg_map::m_set_reg_offset::blk	uvm_reg_map.svh	756	24	756	27		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::blk	000
+  #116569	6	ref_typespec			svaunit_pkg::uvm_reg_map::m_set_reg_offset::blk		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::blk	000
+  #116570	7	class_typespec				uvm_reg_map.svh	756	7	756	20						000
+  #116571	5	class_var	top_map		svaunit_pkg::uvm_reg_map::m_set_reg_offset::top_map	uvm_reg_map.svh	757	24	757	31		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::top_map	000
+  #116572	6	ref_typespec			svaunit_pkg::uvm_reg_map::m_set_reg_offset::top_map		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::top_map	000
+  #116573	7	class_typespec				uvm_reg_map.svh	757	7	757	18						000
+> #116574	5	bit_var			svaunit_pkg::uvm_reg_map::m_set_reg_offset::addrs	uvm_reg_map.svh	758	24	758	29		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::addrs	000
+  #116575	6	ref_typespec			svaunit_pkg::uvm_reg_map::m_set_reg_offset::addrs		0	0	0	0		0			svaunit_pkg::uvm_reg_map::m_set_reg_offset::addrs	000
+  #116576	7	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						110
+  #116577	8	ref_typespec			<in>uvm_reg_addr_t		0	0	0	0		0			uvm_reg_addr_t	001
+  #116578	9	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	73	10	73	31						001
+  #116579	10	range				uvm_reg_model.svh	73	23	73	31						001
+  #116580	11	constant				uvm_reg_model.svh	73	24	73	26	63	64	INT:63	7		001
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

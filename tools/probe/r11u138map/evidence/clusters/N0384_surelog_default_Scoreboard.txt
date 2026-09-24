@@ -1,0 +1,64 @@
+cluster N0384 (r11u128map N0384; OPEN): span|method_func_call|col+endcol|under:hier_path
+row: surelog/default/Scoreboard  strict=differ:line(199)  records golden=269656 ours=268952
+object: #197638 (golden) / #197001 (ours)  type=method_func_call name=name 
+  golden: 150:48:150:52
+  ours:   150:73:150:77
+  walk parents: hier_path(status.name) < sys_func_call($sformatf) < func_call(uvm_report_error) < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 197632..197644 ('>' = the object)
+  #197632	12	func_call	uvm_report_error			uvm_message_defines.svh	149	8	150	256		0				000
+  #197633	13	constant				uvm_message_defines.svh	149	26	149	53	"uvm_reg_shared_access_seq"	200	STRING:uvm_reg_shared_access_seq	6		000
+  #197634	13	sys_func_call	$sformatf			uvm_message_defines.svh	149	55	150	100		0				000
+  #197635	14	constant				uvm_message_defines.svh	149	65	149	129	"Status was %s when writing register \\"%s\\" through map \\"%s\\"."	496	STRING:Status was %s when writing register \\"%s\\" through map \\"%s\\".	6		000
+  #197636	14	hier_path	status.name			uvm_message_defines.svh	150	41	150	54		0				000
+  #197637	15	ref_obj	status			uvm_message_defines.svh	150	41	150	47		0				000
+> #197638	15	method_func_call	name			uvm_message_defines.svh	150	48	150	52		0				000
+  #197639	14	hier_path	rg.get_full_name			uvm_message_defines.svh	150	56	150	74		0				000
+  #197640	15	ref_obj	rg			uvm_message_defines.svh	150	56	150	58		0				000
+  #197641	15	method_func_call	get_full_name			uvm_message_defines.svh	150	59	150	72		0				000
+  #197642	14	hier_path	maps[j].get_full_name			uvm_message_defines.svh	150	76	150	99		0				000
+  #197643	15	bit_select	maps		maps[j]	uvm_message_defines.svh	150	76	150	80		0			maps[j]	000
+  #197644	16	ref_obj	j		uvm_pkg::uvm_reg_shared_access_seq::body::j	uvm_message_defines.svh	150	81	150	82		0			uvm_pkg::uvm_reg_shared_access_seq::body::j	000
+
+--- OURS (B) records 196995..197007 ('>' = the object)
+  #196995	12	func_call	uvm_report_error			uvm_message_defines.svh	149	8	149	406		0				000
+  #196996	13	constant				uvm_message_defines.svh	149	26	149	53	"uvm_reg_shared_access_seq"	200	STRING:uvm_reg_shared_access_seq	6		000
+  #196997	13	sys_func_call	$sformatf			uvm_message_defines.svh	149	55	150	125		0				000
+  #196998	14	constant				uvm_message_defines.svh	149	65	149	129	"Status was %s when writing register \\"%s\\" through map \\"%s\\"."	496	STRING:Status was %s when writing register \\"%s\\" through map \\"%s\\".	6		000
+  #196999	14	hier_path	status.name			uvm_message_defines.svh	150	66	150	79		0				000
+  #197000	15	ref_obj	status			uvm_message_defines.svh	150	66	150	72		0				000
+> #197001	15	method_func_call	name			uvm_message_defines.svh	150	73	150	77		0				000
+  #197002	14	hier_path	rg.get_full_name			uvm_message_defines.svh	150	81	150	99		0				000
+  #197003	15	ref_obj	rg			uvm_message_defines.svh	150	81	150	83		0				000
+  #197004	15	method_func_call	get_full_name			uvm_message_defines.svh	150	84	150	97		0				000
+  #197005	14	hier_path	maps[j].get_full_name			uvm_message_defines.svh	150	101	150	124		0				000
+  #197006	15	bit_select	maps		maps[j]	uvm_message_defines.svh	150	101	150	105		0			maps[j]	000
+  #197007	16	ref_obj	j		uvm_pkg::uvm_reg_shared_access_seq::body::j	uvm_message_defines.svh	150	106	150	107		0			uvm_pkg::uvm_reg_shared_access_seq::body::j	000
+
+facets of this row (31106, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

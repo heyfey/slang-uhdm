@@ -1,0 +1,41 @@
+cluster N0263 (r11u128map N0263; OPEN): span|logic_typespec|line+col+endline+endcol|under:ref_typespec
+row: surelog/testflags/TypeParamOverride  strict=differ:line(2)  records golden=63 ours=63
+object: #25 (golden) / #25 (ours)  type=logic_typespec name= 
+  golden: 11:33:11:38
+  ours:   14:3:14:9
+  walk parents: ref_typespec < logic_net(err_resp) < module_inst < ref_module(i_gpio_err_slv)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 19..31 ('>' = the object)
+  #19	3	module_inst		work@axi_err_slv	work@axi_err_slv	dut.sv	10	1	20	10					work@axi_err_slv	000
+  #20	4	type_parameter	resp_t		work@axi_err_slv.resp_t	dut.sv	11	19	11	25					work@axi_err_slv.resp_t	010
+  #21	5	ref_typespec			<in>resp_t		0	0	0	0		0			work@axi_err_slv.resp_t	001
+  #22	6	logic_typespec				dut.sv	11	33	11	38						001
+  #23	4	logic_net	err_resp		work@axi_err_slv.err_resp	dut.sv	14	11	14	19		0			work@axi_err_slv.err_resp	000
+  #24	5	ref_typespec			work@axi_err_slv.err_resp		0	0	0	0		0			work@axi_err_slv.err_resp	000
+> #25	6	logic_typespec				dut.sv	11	33	11	38						000
+  #26	4	always				dut.sv	16	3	19	6						000
+  #27	5	named_begin	proc_w_channel		work@axi_err_slv.proc_w_channel	dut.sv	16	23	16	37					work@axi_err_slv.proc_w_channel	000
+  #28	6	assignment				dut.sv	17	5	17	29						000
+  #29	7	constant				dut.sv	17	25	17	29	1'b0	1	BIN:0	3		000
+  #30	7	hier_path	err_resp.w_ready			dut.sv	17	5	17	21		0				000
+  #31	8	ref_obj	err_resp			dut.sv	17	14	17	21		0				000
+
+--- OURS (B) records 19..31 ('>' = the object)
+  #19	3	module_inst		work@axi_err_slv	work@axi_err_slv	dut.sv	10	1	20	10					work@axi_err_slv	000
+  #20	4	type_parameter	resp_t		work@axi_err_slv.resp_t	dut.sv	11	19	11	25					work@axi_err_slv.resp_t	010
+  #21	5	ref_typespec			<in>resp_t		0	0	0	0		0			work@axi_err_slv.resp_t	001
+  #22	6	logic_typespec				dut.sv	11	33	11	38						001
+  #23	4	logic_net	err_resp		work@axi_err_slv.err_resp	dut.sv	14	11	14	19		0			work@axi_err_slv.err_resp	000
+  #24	5	ref_typespec			work@axi_err_slv.err_resp		0	0	0	0		0			work@axi_err_slv.err_resp	000
+> #25	6	logic_typespec				dut.sv	14	3	14	9						000
+  #26	4	always				dut.sv	16	3	19	6						000
+  #27	5	named_begin	proc_w_channel		work@axi_err_slv.proc_w_channel	dut.sv	16	23	16	37					work@axi_err_slv.proc_w_channel	000
+  #28	6	assignment				dut.sv	17	5	17	29						000
+  #29	7	constant				dut.sv	17	25	17	29	1'b0	1	BIN:0	3		000
+  #30	7	hier_path	err_resp.w_ready			dut.sv	17	5	17	21		0				000
+  #31	8	ref_obj	err_resp			dut.sv	17	14	17	21		0				000
+
+facets of this row (2, first 25):
+  N0263 #25/25 logic_typespec  G[11:33:11:38] O[14:3:14:9]
+  N0990 #54/54 named_begin proc_w_channel G[work@ariane_testharness.i_gpio_err_slv.proc_w_channel] O[work@axi_err_slv.proc_w_channel]

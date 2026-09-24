@@ -1,0 +1,64 @@
+cluster N0365 (r11u128map N0365; OPEN): file|ref_obj|other-file+span|under:operation
+row: surelog/default/Scoreboard  strict=differ:line(199)  records golden=269656 ours=268952
+object: #34531 (golden) / #34540 (ours)  type=ref_obj name=field 
+  golden: uvm_message_defines.svh 163:8:163:13
+  ours:   uvm_reg.svh 1220:8:1220:13
+  walk parents: operation < if_stmt < begin < function(uvm_reg::add_field)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 34525..34537 ('>' = the object)
+  #34525	9	constant				uvm_message_defines.svh	149	194	149	198	1216	64	UINT:1216	9		000
+  #34526	9	constant				uvm_message_defines.svh	149	200	149	202	""	0	STRING:	6		000
+  #34527	9	constant				uvm_message_defines.svh	149	204	149	205	1	64	UINT:1	9		000
+  #34528	6	return_stmt				uvm_reg.svh	1217	7	1217	13						000
+  #34529	4	if_stmt				uvm_message_defines.svh	163	4	167	7						000
+  #34530	5	operation				uvm_message_defines.svh	163	8	163	21		0				000
+> #34531	6	ref_obj	field		uvm_pkg::uvm_reg::add_field::field	uvm_message_defines.svh	163	8	163	13		0			uvm_pkg::uvm_reg::add_field::field	000
+  #34532	6	constant				uvm_message_defines.svh	163	17	163	21	0	64	UINT:0	11		000
+  #34533	5	begin			uvm_pkg::uvm_reg::add_field	uvm_message_defines.svh	164	4	167	7					uvm_pkg::uvm_reg::add_field	000
+  #34534	6	if_stmt				uvm_message_defines.svh	165	6	166	199						000
+  #34535	7	func_call	uvm_report_enabled			uvm_message_defines.svh	165	10	165	59		0				000
+  #34536	8	ref_obj	UVM_NONE		uvm_pkg::uvm_reg::add_field::UVM_NONE	uvm_message_defines.svh	165	29	165	37		0			uvm_pkg::uvm_reg::add_field::UVM_NONE	000
+  #34537	9	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+
+--- OURS (B) records 34534..34546 ('>' = the object)
+  #34534	9	constant				uvm_message_defines.svh	149	66	149	70	1216	64	UINT:1216	9		000
+  #34535	9	constant				uvm_message_defines.svh	149	220	149	222	""	0	STRING:	6		000
+  #34536	9	constant				uvm_message_defines.svh	149	224	149	225	1	64	UINT:1	9		000
+  #34537	6	return_stmt				uvm_reg.svh	1217	7	1217	13						000
+  #34538	4	if_stmt				uvm_reg.svh	1220	4	167	7						000
+  #34539	5	operation				uvm_reg.svh	1220	8	1220	21		0				000
+> #34540	6	ref_obj	field		uvm_pkg::uvm_reg::add_field::field	uvm_reg.svh	1220	8	1220	13		0			uvm_pkg::uvm_reg::add_field::field	000
+  #34541	6	constant				uvm_reg.svh	1220	17	1220	21	0	64	UINT:0	11		000
+  #34542	5	begin			uvm_pkg::uvm_reg::add_field	uvm_message_defines.svh	164	4	167	7					uvm_pkg::uvm_reg::add_field	000
+  #34543	6	if_stmt				uvm_message_defines.svh	165	6	166	219						000
+  #34544	7	func_call	uvm_report_enabled			uvm_message_defines.svh	165	10	165	59		0				000
+  #34545	8	ref_obj	UVM_NONE		uvm_pkg::uvm_reg::add_field::UVM_NONE	uvm_message_defines.svh	165	29	165	37		0			uvm_pkg::uvm_reg::add_field::UVM_NONE	000
+  #34546	9	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+
+facets of this row (31106, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

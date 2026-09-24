@@ -1,0 +1,40 @@
+cluster N0058 (r11u128map N0058; OPEN): span|operation|endcol|under:param_assign
+row: uhdm2rtlil/testflags/assert_wide_const_cond  strict=differ:endcol(1)  records golden=123 ours=123
+object: #82 (golden) / #82 (ours)  type=operation name= 
+  golden: 11:36:11:45
+  ours:   11:36:11:55
+  walk parents: param_assign < module_inst(work@assert_wide_const_cond) < design(work@assert_wide_const_cond)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 76..88 ('>' = the object)
+  #76	3	ref_typespec			work@assert_wide_const_cond.Cfg		0	0	0	0		0			work@assert_wide_const_cond.Cfg	000
+  #77	4	struct_typespec	cfg_pkg::cfg_t			dut.sv	6	11	6	44						110
+  #78	5	typespec_member	W			dut.sv	6	40	6	41						001
+  #79	6	ref_typespec			<in>cfg_pkg::cfg_t.W		0	0	0	0		0			work@assert_wide_const_cond.Cfg.cfg_pkg::cfg_t.W	001
+  #80	7	int_typespec				dut.sv	6	27	6	39						001
+  #81	2	param_assign				dut.sv	11	30	11	55						000
+> #82	3	operation				dut.sv	11	36	11	45		0				000
+  #83	4	ref_typespec			work@assert_wide_const_cond		0	0	0	0		0			work@assert_wide_const_cond	000
+  #84	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	6	11	6	44						110
+  #85	6	typespec_member	W			dut.sv	6	40	6	41						001
+  #86	7	ref_typespec			<in>cfg_pkg::cfg_t.W		0	0	0	0		0			work@assert_wide_const_cond.cfg_pkg::cfg_t.W	001
+  #87	8	int_typespec				dut.sv	6	27	6	39						001
+  #88	4	constant				dut.sv	7	38	7	43	32'd4	32	DEC:4	1		000
+
+--- OURS (B) records 76..88 ('>' = the object)
+  #76	3	ref_typespec			work@assert_wide_const_cond.Cfg		0	0	0	0		0			work@assert_wide_const_cond.Cfg	000
+  #77	4	struct_typespec	cfg_pkg::cfg_t			dut.sv	6	11	6	44						110
+  #78	5	typespec_member	W			dut.sv	6	40	6	41						001
+  #79	6	ref_typespec			<in>cfg_pkg::cfg_t.W		0	0	0	0		0			cfg_pkg::cfg_pkg::cfg_t::W	001
+  #80	7	int_typespec				dut.sv	6	27	6	39						001
+  #81	2	param_assign				dut.sv	11	30	11	55						000
+> #82	3	operation				dut.sv	11	36	11	55		0				000
+  #83	4	ref_typespec			work@assert_wide_const_cond		0	0	0	0		0			work@assert_wide_const_cond	000
+  #84	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	6	11	6	44						110
+  #85	6	typespec_member	W			dut.sv	6	40	6	41						001
+  #86	7	ref_typespec			<in>cfg_pkg::cfg_t.W		0	0	0	0		0			work@assert_wide_const_cond.cfg_pkg::cfg_t.W	001
+  #87	8	int_typespec				dut.sv	6	27	6	39						001
+  #88	4	constant				dut.sv	7	38	7	43	32'd4	32	DEC:4	1		000
+
+facets of this row (1, first 25):
+  N0058 #82/82 operation  G[11:36:11:45] O[11:36:11:55]

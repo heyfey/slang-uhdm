@@ -1,0 +1,64 @@
+cluster N0239 (r11u128map N0239; OPEN): file|struct_typespec|other-file+span|under:package
+row: uhdm2rtlil/testflags/ibex_pmp  strict=differ:fullname(13)  records golden=15947 ours=15451
+object: #3790 (golden) / #3790 (ours)  type=struct_typespec name=ibex_pkg::pmp_cfg_t 
+  golden: ibex_pmp.sv 114:47:114:57
+  ours:   ibex_pkg.sv 433:11:439:4
+  walk parents: package(ibex_pkg) < design(work@ibex_pmp)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 3784..3796 ('>' = the object)
+  #3784	6	constant				ibex_pkg.sv	426	23	426	24	1	64	UINT:1	9		001
+  #3785	6	constant				ibex_pkg.sv	426	25	426	26	0	64	UINT:0	9		001
+  #3786	3	enum_const	PMP_MODE_OFF			ibex_pkg.sv	427	5	427	27						001
+  #3787	3	enum_const	PMP_MODE_TOR			ibex_pkg.sv	428	5	428	27						001
+  #3788	3	enum_const	PMP_MODE_NA4			ibex_pkg.sv	429	5	429	27						001
+  #3789	3	enum_const	PMP_MODE_NAPOT			ibex_pkg.sv	430	5	430	27						001
+> #3790	2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pmp.sv	114	47	114	57						010
+  #3791	3	typespec_member	lock			ibex_pkg.sv	434	20	434	24						001
+  #3792	4	ref_typespec			<in>ibex_pkg::pmp_cfg_t.lock		0	0	0	0		0			work@ibex_pmp.ibex_pkg::pmp_cfg_t.lock	001
+  #3793	5	logic_typespec				ibex_pkg.sv	434	5	434	10						001
+  #3794	3	typespec_member	mode			ibex_pkg.sv	435	20	435	24						001
+  #3795	4	ref_typespec			<in>ibex_pkg::pmp_cfg_t.mode		0	0	0	0		0			work@ibex_pmp.ibex_pkg::pmp_cfg_t.mode	001
+  #3796	5	enum_typespec	ibex_pkg::pmp_cfg_mode_e			ibex_pkg.sv	426	3	431	20						001
+
+--- OURS (B) records 3784..3796 ('>' = the object)
+  #3784	6	constant				ibex_pkg.sv	426	23	426	24	1	64	UINT:1	9		001
+  #3785	6	constant				ibex_pkg.sv	426	25	426	26	0	64	UINT:0	9		001
+  #3786	3	enum_const	PMP_MODE_OFF			ibex_pkg.sv	427	5	427	27						001
+  #3787	3	enum_const	PMP_MODE_TOR			ibex_pkg.sv	428	5	428	27						001
+  #3788	3	enum_const	PMP_MODE_NA4			ibex_pkg.sv	429	5	429	27						001
+  #3789	3	enum_const	PMP_MODE_NAPOT			ibex_pkg.sv	430	5	430	27						001
+> #3790	2	struct_typespec	ibex_pkg::pmp_cfg_t			ibex_pkg.sv	433	11	439	4						010
+  #3791	3	typespec_member	lock			ibex_pkg.sv	434	20	434	24						001
+  #3792	4	ref_typespec			<in>ibex_pkg::pmp_cfg_t.lock		0	0	0	0		0			work@ibex_pmp.ibex_pkg::pmp_cfg_t.lock	001
+  #3793	5	logic_typespec				ibex_pkg.sv	434	5	434	10						001
+  #3794	3	typespec_member	mode			ibex_pkg.sv	435	20	435	24						001
+  #3795	4	ref_typespec			<in>ibex_pkg::pmp_cfg_t.mode		0	0	0	0		0			work@ibex_pmp.ibex_pkg::pmp_cfg_t.mode	001
+  #3796	5	enum_typespec	ibex_pkg::pmp_cfg_mode_e			ibex_pkg.sv	426	3	431	20						001
+
+facets of this row (161, first 25):
+  N0002 #4404/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #4433/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #4462/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #4491/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #4520/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #4549/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #4578/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #4607/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #4636/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #4665/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4694/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4723/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4742/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4749/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4756/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4763/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4770/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4777/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4784/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4791/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4798/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4805/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4812/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4819/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4826/-1 parameter IC_INDEX_W G[3 objs] O[]

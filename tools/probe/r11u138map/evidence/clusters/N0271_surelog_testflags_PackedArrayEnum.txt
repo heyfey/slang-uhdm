@@ -1,0 +1,42 @@
+cluster N0271 (r11u128map N0271; OPEN): fullname|ref_typespec|tok:id@id.->|under:packed_array_typespec
+row: surelog/testflags/PackedArrayEnum  strict=differ:fullname(3)  records golden=61 ours=61
+object: #14 (golden) / #14 (ours)  type=ref_typespec name= STABLE
+  golden: work@top.ext_dec_lc_state_t
+  ours:   ext_dec_lc_state_t
+  walk parents: packed_array_typespec(ext_dec_lc_state_t) < module_inst < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 8..20 ('>' = the object)
+  #8	3	enum_const	DecLcStTestUnlocked0			dut.sv	5	5	5	29						001
+  #9	3	enum_const	DecLcStTestLocked0			dut.sv	6	5	6	27						001
+  #10	2	packed_array_typespec	ext_dec_lc_state_t			dut.sv	8	11	8	32						010
+  #11	3	range				dut.sv	8	26	8	32						001
+  #12	4	constant				dut.sv	8	27	8	29	17	64	UINT:17	9		001
+  #13	4	constant				dut.sv	8	30	8	31	0	64	UINT:0	9		001
+> #14	3	ref_typespec			<in>ext_dec_lc_state_t		0	0	0	0		0			work@top.ext_dec_lc_state_t	001
+  #15	4	enum_typespec	dec_lc_state_e			dut.sv	4	3	7	20						001
+  #16	5	ref_typespec			<in>dec_lc_state_e		0	0	0	0		0			work@top.dec_lc_state_e	001
+  #17	6	logic_typespec				dut.sv	4	16	4	28						001
+  #18	7	range				dut.sv	4	22	4	28						001
+  #19	8	constant				dut.sv	4	23	4	25	13	64	UINT:13	9		001
+  #20	8	constant				dut.sv	4	26	4	27	0	64	UINT:0	9		001
+
+--- OURS (B) records 8..20 ('>' = the object)
+  #8	3	enum_const	DecLcStTestUnlocked0			dut.sv	5	5	5	29						001
+  #9	3	enum_const	DecLcStTestLocked0			dut.sv	6	5	6	27						001
+  #10	2	packed_array_typespec	ext_dec_lc_state_t			dut.sv	8	11	8	32						010
+  #11	3	range				dut.sv	8	26	8	32						001
+  #12	4	constant				dut.sv	8	27	8	29	17	64	UINT:17	9		001
+  #13	4	constant				dut.sv	8	30	8	31	0	64	UINT:0	9		001
+> #14	3	ref_typespec			<in>ext_dec_lc_state_t		0	0	0	0		0			ext_dec_lc_state_t	001
+  #15	4	enum_typespec	dec_lc_state_e			dut.sv	4	3	7	20						001
+  #16	5	ref_typespec			<in>dec_lc_state_e		0	0	0	0		0			work@top.dec_lc_state_e	001
+  #17	6	logic_typespec				dut.sv	4	16	4	28						001
+  #18	7	range				dut.sv	4	22	4	28						001
+  #19	8	constant				dut.sv	4	23	4	25	13	64	UINT:13	9		001
+  #20	8	constant				dut.sv	4	26	4	27	0	64	UINT:0	9		001
+
+facets of this row (3, first 25):
+  N0271 #14/14 ref_typespec  G[work@top.ext_dec_lc_state_t] O[ext_dec_lc_state_t]
+  N0271 #31/31 ref_typespec  G[work@top.ext_dec_lc_state_t] O[ext_dec_lc_state_t]
+  N0271 #52/52 ref_typespec  G[work@top.ext_dec_lc_state_t] O[ext_dec_lc_state_t]

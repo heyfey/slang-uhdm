@@ -1,0 +1,50 @@
+cluster N0074 (r11u128map N0074; OPEN): fullname|ref_typespec|tok:->id@id.|under:enum_typespec
+row: uhdm2rtlil/testflags/EnumInPackage  strict=differ:fullname(11)  records golden=255 ours=255
+object: #48 (golden) / #48 (ours)  type=ref_typespec name= STABLE
+  golden: pkg3::enum2
+  ours:   work@dut.pkg3::enum2
+  walk parents: enum_typespec(pkg3::enum2) < package(pkg3) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 42..54 ('>' = the object)
+  #42	6	constant				dut.sv	9	24	9	25	5	64	UINT:5	9		001
+  #43	6	constant				dut.sv	9	26	9	27	0	64	UINT:0	9		001
+  #44	3	enum_const	THIRD			dut.sv	10	9	10	27						001
+  #45	3	enum_const	FOURTH			dut.sv	11	9	11	27						001
+  #46	1	package	pkg3	pkg3	pkg3::	dut.sv	15	1	20	11					pkg3::	000
+  #47	2	enum_typespec	pkg3::enum2			dut.sv	16	5	19	13						010
+> #48	3	ref_typespec			<in>pkg3::enum2		0	0	0	0		0			pkg3::enum2	001
+  #49	4	logic_typespec				dut.sv	16	18	16	28						001
+  #50	5	range				dut.sv	16	23	16	28						001
+  #51	6	constant				dut.sv	16	24	16	25	6	64	UINT:6	9		001
+  #52	6	constant				dut.sv	16	26	16	27	0	64	UINT:0	9		001
+  #53	3	enum_const	FIFTH			dut.sv	17	9	17	27						001
+  #54	3	enum_const	SIXTH			dut.sv	18	9	18	27						001
+
+--- OURS (B) records 42..54 ('>' = the object)
+  #42	6	constant				dut.sv	9	24	9	25	5	64	UINT:5	9		001
+  #43	6	constant				dut.sv	9	26	9	27	0	64	UINT:0	9		001
+  #44	3	enum_const	THIRD			dut.sv	10	9	10	27						001
+  #45	3	enum_const	FOURTH			dut.sv	11	9	11	27						001
+  #46	1	package	pkg3	pkg3	pkg3::	dut.sv	15	1	20	11					pkg3::	000
+  #47	2	enum_typespec	pkg3::enum2			dut.sv	16	5	19	13						010
+> #48	3	ref_typespec			<in>pkg3::enum2		0	0	0	0		0			work@dut.pkg3::enum2	001
+  #49	4	logic_typespec				dut.sv	16	18	16	28						001
+  #50	5	range				dut.sv	16	23	16	28						001
+  #51	6	constant				dut.sv	16	24	16	25	6	64	UINT:6	9		001
+  #52	6	constant				dut.sv	16	26	16	27	0	64	UINT:0	9		001
+  #53	3	enum_const	FIFTH			dut.sv	17	9	17	27						001
+  #54	3	enum_const	SIXTH			dut.sv	18	9	18	27						001
+
+facets of this row (11, first 25):
+  N0074 #48/48 ref_typespec  G[pkg3::enum2] O[work@dut.pkg3::enum2]
+  N0074 #57/57 ref_typespec  G[pkg3::enum2] O[work@dut.pkg3::enum2]
+  N0074 #65/65 ref_typespec  G[enum3] O[work@dut.enum3]
+  N0074 #104/104 ref_typespec  G[pkg3::enum2] O[work@dut.pkg3::enum2]
+  N0074 #115/115 ref_typespec  G[enum3] O[work@dut.enum3]
+  N0074 #160/160 ref_typespec  G[pkg3::enum2] O[work@dut.pkg3::enum2]
+  N0074 #170/170 ref_typespec  G[enum3] O[work@dut.enum3]
+  N0074 #178/178 ref_typespec  G[pkg3::enum2] O[work@dut.pkg3::enum2]
+  N0074 #186/186 ref_typespec  G[enum3] O[work@dut.enum3]
+  N0074 #221/221 ref_typespec  G[pkg3::enum2] O[work@dut.pkg3::enum2]
+  N0074 #232/232 ref_typespec  G[enum3] O[work@dut.enum3]

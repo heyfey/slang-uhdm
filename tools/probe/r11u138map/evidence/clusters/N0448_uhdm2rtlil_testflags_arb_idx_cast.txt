@@ -1,0 +1,64 @@
+cluster N0448 (r11u128map N0448; OPEN): span|constant|endcol|under:range
+row: uhdm2rtlil/testflags/arb_idx_cast  strict=differ:endline(4)  records golden=468 ours=463
+object: #119 (golden) / #114 (ours)  type=constant name= 
+  golden: 15:10:15:22
+  ours:   15:10:15:11
+  walk parents: range < packed_array_var(index_nodes) < module_inst(work@dut) < design(work@dut)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 113..125 ('>' = the object)
+  #113	5	range				dut.sv	8	46	8	60						001
+  #114	6	operation				dut.sv	8	47	8	57		0				001
+  #115	7	ref_obj	IdxWidth			dut.sv	8	47	8	55		0				001
+  #116	7	constant				dut.sv	8	56	8	57	1	64	UINT:1	9		001
+  #117	6	constant				dut.sv	8	58	8	59	0	64	UINT:0	9		001
+  #118	3	range				dut.sv	15	9	15	27						000
+> #119	4	constant				dut.sv	15	10	15	22	2	64	INT:2	7		000
+  #120	4	constant				dut.sv	15	25	15	26	0	64	UINT:0	9		000
+  #121	3	logic_var			work@dut.index_nodes		0	0	0	0		0			work@dut.index_nodes	000
+  #122	2	logic_var	req_nodes		work@dut.req_nodes	dut.sv	16	28	16	37		0			work@dut.req_nodes	000
+  #123	3	ref_typespec			work@dut.req_nodes		0	0	0	0		0			work@dut.req_nodes	000
+  #124	4	logic_typespec				dut.sv	16	3	16	27						000
+  #125	5	range				dut.sv	16	9	16	27						001
+
+--- OURS (B) records 108..120 ('>' = the object)
+  #108	5	range				dut.sv	8	46	8	60						001
+  #109	6	operation				dut.sv	8	47	8	57		0				001
+  #110	7	ref_obj	IdxWidth		<in>IdxWidth	dut.sv	8	47	8	55		0			work@dut.idx_t.IdxWidth	001
+  #111	7	constant				dut.sv	8	56	8	57	1	64	UINT:1	9		001
+  #112	6	constant				dut.sv	8	58	8	59	0	64	UINT:0	9		001
+  #113	3	range				dut.sv	15	9	15	27						000
+> #114	4	constant				dut.sv	15	10	15	11	2	64	INT:2	7		000
+  #115	4	constant				dut.sv	15	25	15	26	0	64	UINT:0	9		000
+  #116	3	logic_var			work@dut.index_nodes		0	0	0	0		0			work@dut.index_nodes	000
+  #117	2	logic_var	req_nodes		work@dut.req_nodes	dut.sv	16	28	16	37		0			work@dut.req_nodes	000
+  #118	3	ref_typespec			work@dut.req_nodes		0	0	0	0		0			work@dut.req_nodes	000
+  #119	4	logic_typespec				dut.sv	16	3	16	27						000
+  #120	5	range				dut.sv	16	9	16	27						001
+
+facets of this row (33, first 25):
+  N0083 #38/-1 range  G[5 objs] O[]
+  N0090 #13/13 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0274 #16/16 ref_obj IdxWidth G[] O[work@dut.idx_t.IdxWidth]
+  N0533 #37/37 logic_typespec  G[8:40:15:27] O[15:3:15:27]
+  N0090 #78/73 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0274 #81/76 ref_obj IdxWidth G[] O[work@dut.idx_t.IdxWidth]
+  N0090 #104/99 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0274 #107/102 ref_obj IdxWidth G[] O[work@dut.idx_t.IdxWidth]
+  N0090 #112/107 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0274 #115/110 ref_obj IdxWidth G[] O[work@dut.idx_t.IdxWidth]
+  N0448 #119/114 constant  G[15:10:15:22] O[15:10:15:11]
+  N0090 #139/134 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0274 #142/137 ref_obj IdxWidth G[] O[work@dut.idx_t.IdxWidth]
+  N0090 #193/188 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0274 #196/191 ref_obj IdxWidth G[] O[work@dut.idx_t.IdxWidth]
+  N0443 #232/227 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #237/232 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #242/237 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #249/244 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0443 #255/250 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.req_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0090 #270/265 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0274 #273/268 ref_obj IdxWidth G[] O[work@dut.idx_t.IdxWidth]
+  N0443 #281/276 ref_typespec  G[work@dut.gen_levels[0].gen_level[0].gen_other_levels.index_nodes] O[work@dut.gen_levels[0].gen_level[0]]
+  N0090 #294/289 logic_typespec  G[8:40:15:27] O[8:40:8:60]
+  N0274 #297/292 ref_obj IdxWidth G[] O[work@dut.idx_t.IdxWidth]

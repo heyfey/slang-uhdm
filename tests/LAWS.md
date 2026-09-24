@@ -12667,6 +12667,7 @@ lists it under the law).
 | r11u132map |  |  | 0 | 0 |
 | r11u135flip |  |  | 0 | 0 |
 | r11u136gate |  |  | 0 | 0 |
+| r11u138map |  |  | 0 | 0 |
 | r11u13repro |  |  | 2 | 7 |
 | r11u14repro |  |  | 6 | 4 |
 | r11u15repro |  |  | 40 | 4 |

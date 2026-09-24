@@ -1,0 +1,64 @@
+cluster N0112 (r11u128map N0112; OPEN): span|hier_path|endcol|under:sys_func_call
+row: surelog/default/SVSwitch  strict=differ:endcol(38)  records golden=5787 ours=5808
+object: #1193 (golden) / #1193 (ours)  type=hier_path name=this.fcs 
+  golden: 130:83:130:91
+  ours:   130:83:130:87
+  walk parents: sys_func_call($display) < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1187..1199 ('>' = the object)
+  #1187	7	begin			work@packet::compare	Packet.sv	129	10	132	13					work@packet::compare	000
+  #1188	8	sys_func_call	$display			Packet.sv	130	13	130	92		0				000
+  #1189	9	constant				Packet.sv	130	22	130	73	" ** ERROR **: pkt : fcs field did not match %h %h"	392	STRING: ** ERROR **: pkt : fcs field did not match %h %h	6		000
+  #1190	9	hier_path	pkt.fcs			Packet.sv	130	74	130	81		0				000
+  #1191	10	ref_obj	pkt			Packet.sv	130	74	130	77		0				000
+  #1192	10	ref_obj	fcs		work@packet::compare::fcs	Packet.sv	130	78	130	81		0			work@packet::compare::fcs	000
+> #1193	9	hier_path	this.fcs			Packet.sv	130	83	130	91		0				000
+  #1194	10	ref_obj	this			Packet.sv	130	88	130	91		0				000
+  #1195	10	ref_obj	fcs			Packet.sv	130	88	130	91		0				000
+  #1196	8	assignment				Packet.sv	131	13	131	24						000
+  #1197	9	constant				Packet.sv	131	23	131	24	0	64	UINT:0	9		000
+  #1198	9	ref_obj	compare		work@packet::compare::compare	Packet.sv	131	13	131	20		0			work@packet::compare::compare	000
+  #1199	2	class_defn	work@small_packet			testcase.sv	12	1	16	9						000
+
+--- OURS (B) records 1187..1199 ('>' = the object)
+  #1187	7	begin			work@packet::compare	Packet.sv	129	10	132	13					work@packet::compare	000
+  #1188	8	sys_func_call	$display			Packet.sv	130	13	130	92		0				000
+  #1189	9	constant				Packet.sv	130	22	130	73	" ** ERROR **: pkt : fcs field did not match %h %h"	392	STRING: ** ERROR **: pkt : fcs field did not match %h %h	6		000
+  #1190	9	hier_path	pkt.fcs			Packet.sv	130	74	130	81		0				000
+  #1191	10	ref_obj	pkt			Packet.sv	130	74	130	77		0				000
+  #1192	10	ref_obj	fcs		work@packet::compare::fcs	Packet.sv	130	78	130	81		0			work@packet::compare::fcs	000
+> #1193	9	hier_path	this.fcs			Packet.sv	130	83	130	87		0				000
+  #1194	10	ref_obj	this			Packet.sv	130	83	130	87		0				000
+  #1195	10	ref_obj	fcs		work@packet::compare::fcs		0	0	0	0		0			work@packet::compare::fcs	000
+  #1196	8	assignment				Packet.sv	131	13	131	24						000
+  #1197	9	constant				Packet.sv	131	23	131	24	0	64	UINT:0	9		000
+  #1198	9	ref_obj	compare		work@packet::compare::compare	Packet.sv	131	13	131	20		0			work@packet::compare::compare	000
+  #1199	2	class_defn	work@small_packet			testcase.sv	12	1	16	9						000
+
+facets of this row (101, first 25):
+  N0526 #-1/3314 logic_net clock G[] O[3 objs]
+  N0268 #-1/3348 logic_var reset G[] O[3 objs]
+  N0526 #-1/3352 logic_net clock G[] O[3 objs]
+  N0526 #-1/3407 logic_net clock G[] O[3 objs]
+  N0526 #-1/3432 logic_net clock G[] O[3 objs]
+  N0526 #-1/3457 logic_net clock G[] O[3 objs]
+  N0526 #-1/3482 logic_net clock G[] O[3 objs]
+  N1144 #88/88 hier_path pkt.randomize G[40:10:40:25] O[40:10:40:23]
+  N0095 #101/101 ref_obj bytes G[work@Driver::start::pkt.byte_pack::bytes] O[work@Driver::start::bytes]
+  N0041 #106/106 unsupported_typespec bytes G[Driver.sv 50:16:50:21] O[ 50:16:50:21]
+  N0067 #184/184 class_typespec Receiver G[Environemnt.sv 20:3:20:11] O[ 0:0:0:0]
+  N0068 #184/184 class_typespec Receiver G[20:3:20:11] O[0:0:0:0]
+  N0041 #255/255 unsupported_typespec rcvr G[Environemnt.sv 42:12:42:16] O[ 42:12:42:16]
+  N0119 #264/264 bit_select rcvr G[43:11:43:12] O[43:6:43:13]
+  N0007 #651/651 ref_obj size G[] O[work@Receiver::start::size]
+  N0126 #740/740 begin  G[26:3:38:6] O[25:3:25:26]
+  N0095 #756/756 ref_obj pkt_exp G[work@Scoreboard::start::pkt_rcv.compare::pkt_exp] O[work@Scoreboard::start::pkt_exp]
+  N0070 #912/912 function display G[55:1:55:8] O[55:1:67:22]
+  N0041 #940/940 unsupported_typespec data G[Packet.sv 63:11:63:15] O[ 63:11:63:15]
+  N0070 #961/961 function byte_pack G[70:1:70:8] O[70:1:79:24]
+  N0007 #980/980 ref_obj size G[] O[work@packet::byte_pack::size]
+  N0041 #998/998 unsupported_typespec data G[Packet.sv 75:11:75:15] O[ 75:11:75:15]
+  N0070 #1022/1022 function byte_unpack G[82:1:82:8] O[82:1:93:26]
+  N0041 #1064/1064 unsupported_typespec data G[Packet.sv 88:11:88:15] O[ 88:11:88:15]
+  N0070 #1094/1094 function compare G[96:1:96:8] O[96:1:134:22]

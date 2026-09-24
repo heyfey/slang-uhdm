@@ -1,0 +1,43 @@
+== full-name facets by class (objects / row-modes)
+OUT 151252 248
+TAIL 99237 128
+STABLE 333591 150
+== rows after the pairs: open clusters per row (histogram: n_open -> row-modes)
+[(0, 97), (1, 179), (2, 118), (3, 37), (4, 30), (5, 30), (6, 26), (7, 10), (8, 10), (9, 6), (10, 2), (11, 3), (12, 7), (13, 5), (14, 1)] ... max 728
+== clusters that are the ONLY open cluster of a row (row-modes they would clear on top of the pairs), top 30
+N0006 18 OPEN (net binding, module ground: ModuleEmit) struct|golden-only:fewer-copies|logic_net|under:ref_obj
+N0108 8 OPEN fullname|ref_typespec|tok:id@id.id.id.->|under:typespec_member
+N0046 7 OPEN (net binding, module ground: ModuleEmit) struct|ours-only:fewer-copies|logic_net|under:ref_obj
+N0271 6 OPEN fullname|ref_typespec|tok:id@id.->|under:packed_array_typespec
+N0270 6 OPEN span|struct_typespec|endline+endcol|under:design
+N0394 5 OPEN file|constant|ours-empty|under:operation
+N0281 5 OPEN fullname|ref_obj|tok:id.->@in-typespec|under:operation
+N0084 4 OPEN fullname|ref_typespec|tok:id@id.id.->|under:typespec_member
+N0272 4 OPEN fullname|bit_select|tok:id.id.->|under:operation
+N0088 4 OPEN span|ref_obj|line+col+endline+endcol|under:port
+N0078 4 OPEN fullname|ref_obj|ours-empty@in-typespec|under:operation
+N0074 4 OPEN fullname|ref_typespec|tok:->id@id.|under:enum_typespec
+N0058 4 OPEN span|operation|endcol|under:param_assign
+N0284 4 OPEN struct|ours-only:fewer-copies|constant|under:cont_assign
+N0063 4 OPEN fullname|ref_typespec|ours-empty|under:operation
+N0427 3 OPEN fullname|ref_obj|tok:id[id].id.->|under:bit_select
+N0412 3 OPEN span|func_call|endcol|under:operation
+N0755 2 OPEN fullname|ref_typespec|tok:id.id.->|under:typespec_member
+N0769 2 OPEN span|task|endcol|under:class_defn
+N0245 2 OPEN span|operation|endcol|under:sys_func_call
+N1167 2 OPEN value|constant|value:UINT->UINT+decompile+size|under:cont_assign
+N0523 2 OPEN fullname|ref_obj|tok:id.id->id|under:hier_path
+N0096 2 OPEN fullname|ref_typespec|tok:id::->|under:typespec_member
+N0265 2 OPEN fullname|ref_typespec|tok:id@id.->|under:logic_typespec
+N0675 2 OPEN fullname|ref_typespec|tok:id->id.id|under:constant
+N1132 2 OPEN fullname|ref_typespec|tok:id@id.id->id|under:operation
+N0212 2 OPEN span|operation|line+col+endline+endcol|under:operation
+N0062 2 OPEN span|packed_array_typespec|ours-zero|under:ref_typespec
+N0056 2 OPEN span|bit_typespec|endcol|under:ref_typespec
+N0135 2 OPEN span|struct_typespec|endline+endcol|under:module_inst
+== family-extended pairs (UPPER bound: every cluster of a family the pair touches):
+  A families ['FILE-EMPTY|enum_typespec', 'FILE-EXTRA|logic_net', 'FULLNAME-IN-TYPESPEC-SUBTREE', 'FULLNAME|ref_obj|golden-empty', 'FULLNAME|ref_obj|ours-empty', 'FULLNAME|ref_obj|tok', 'SPAN|bit_select', 'SPAN|constant', 'SPAN|enum_typespec', 'SPAN|ref_obj', 'STRUCT-ABSENT|ours|integer_typespec', 'STRUCT-IMPPARAM-CLONE|golden', 'STRUCT-SHARE|golden|constant', 'STRUCT-SHARE|golden|func_call', 'STRUCT-SHARE|ours|constant', 'VALUE|parameter|value:INT->empty']
+  B families ['FILE-EMPTY|constant', 'FILE-EMPTY|packed_array_typespec', 'FILE-EXTRA|logic_net', 'FULLNAME-IN-TYPESPEC-SUBTREE', 'FULLNAME|begin|tok', 'FULLNAME|function|tok', 'FULLNAME|logic_var|tok', 'FULLNAME|parameter|tok', 'FULLNAME|ref_obj|tok', 'SPAN|constant', 'SPAN|int_typespec', 'SPAN|logic_typespec', 'SPAN|struct_typespec', 'SPAN|sys_func_call', 'STRUCT-SHARE|golden|constant', 'STRUCT-SHARE|ours|operation', 'STRUCT-TSCOPY|golden', 'STRUCT-TSCOPY|ours', 'WALK-DEPTH-ORDER']
+  A: clusters 968 rows cleared 193 probe 498
+  B: clusters 1245 rows cleared 180 probe 652
+  A+B: clusters 1346 rows cleared 285 probe 871

@@ -1,0 +1,23 @@
+# r11u138map verification of the instruments
+
+## binaries (frozen, chmod 555, /tmp/r11u138_bin)
+87f0a607ef941a44e4d7a2487fae7016  objrank
+c7b333fcf978012efd649d7383f77730  slang-uhdm
+4049435634d65f99c89611ca46d5cefd  slang-uhdm.g1
+db96066ac072748e8d5b05cf675242f8  strictcmp_x
+5d4617d0458f34aa79e0b91009d5d1fc  uhdm-strictcmp
+main tree build/slang-uhdm: c7b333fcf978012efd649d7383f77730
+main tree build/uhdm-strictcmp: 5d4617d0458f34aa79e0b91009d5d1fc
+
+## the reference sweep /tmp/intr11u136 (read-only input)
+cmds.txt: 3273 slang lines, every one naming the main-tree binary (md5 c7b333fcf978 = e562f4d4); the other 50 of 3323 cmds.txt hold no slang line (rows with no slang run)
+status+strict columns vs results/golden_surelog.csv: 1596/1596 rows equal; vs results/golden_uhdm2rtlil.csv: 1742/1742 rows equal
+
+## strictcmp_x (drivers/strictcmp_x.cpp, r11u132map's variant; the committed tool is unchanged since 4f73d52f) vs the committed uhdm-strictcmp, stdout + rc, --max 50
+40 / 40 sampled STRICT_NOTEQUAL row-modes byte-identical:
+uhdm2rtlil/default/ibex_fetch_fifo uhdm2rtlil/testflags/iface_array_elem_cfg_param uhdm2rtlil/default/packed_array_reset_loop surelog/default/GenCaseStmt uhdm2rtlil/testflags/func_local_array uhdm2rtlil/default/rp32_r5p_bru uhdm2rtlil/default/OutputSizeWithParameterOfInstanceInitializedByStructMember uhdm2rtlil/testflags/genscope_module_ctx_reset uhdm2rtlil/default/rsp_gen_minimal surelog/default/BlackBePipeInt surelog/testflags/LargeValue2Struct surelog/default/BlackConst uhdm2rtlil/default/ParameterFromPkgInNestedModule uhdm2rtlil/testflags/arb_idx_cast surelog/default/PackageMemberTypespec uhdm2rtlil/default/struct_param_func_loop surelog/default/ApbSlave uhdm2rtlil/default/struct_param_field_shift uhdm2rtlil/default/svtypes_struct_simple uhdm2rtlil/testflags/iface_param_port_width uhdm2rtlil/default/struct_param_pattern_packing surelog/testflags/ClassParamAsParam surelog/testflags/NoParamSubs surelog/testflags/ClassTypeParam uhdm2rtlil/testflags/empty_port_connection uhdm2rtlil/default/sva_value_change_rose uhdm2rtlil/testflags/ReplicationPassedToInstance uhdm2rtlil/testflags/gen_scope_numports uhdm2rtlil/testflags/latch_tlb_napot uhdm2rtlil/default/sva_range uhdm2rtlil/testflags/ibex_pmp uhdm2rtlil/testflags/multiplier uhdm2rtlil/default/sva_value_change_changed_wide surelog/default/Connection surelog/default/PackedArrayEnum surelog/default/CovMacro uhdm2rtlil/testflags/struct_member_cfg_width uhdm2rtlil/default/type_param_packed_dim uhdm2rtlil/default/pkg_nested_struct_param_width surelog/default/StructTypedef
+
+## per-row checks
+verify (python mode-4 rule vs tool stdout, per row): {True: 2565}
+corpus: 590 jobs = the 270 + 320 STRICT_NOTEQUAL row-modes of results/golden_*.csv; every run rc=2 (STRICT_NOTEQUAL); CELL-MISMATCH (tool first field / objects differing vs the csv's strict cell) 0
+probe: 4087 cases run, 2112 rc=0 STRICT_EQUAL + 1975 rc=2; the NE set equals results/golden_probe.csv's STRICT_NOTEQUAL set; differ:<field>(<n>) equal on 1975/1975

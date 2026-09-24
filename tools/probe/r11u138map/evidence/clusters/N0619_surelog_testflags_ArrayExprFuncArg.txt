@@ -1,0 +1,64 @@
+cluster N0619 (r11u128map N0619; OPEN): fullname|bit_select|tok:id.id->id|under:operation
+row: surelog/testflags/ArrayExprFuncArg  strict=differ:fullname(32)  records golden=341 ours=341
+object: #317 (golden) / #317 (ours)  type=bit_select name=SRC OUT
+  golden: work@main.top1.MAX_VADDR_CNT.SRC
+  ours:   work@top.MAX_VADDR_CNT.SRC
+  walk parents: operation < if_stmt < begin < for_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 311..323 ('>' = the object)
+  #311	6	operation				dut.sv	27	21	27	29		0				000
+  #312	7	ref_obj	i		work@main.top1.MAX_VADDR_CNT.i	dut.sv	27	21	27	22		0			work@main.top1.MAX_VADDR_CNT.i	000
+  #313	7	ref_obj	ICNT		work@main.top1.MAX_VADDR_CNT.ICNT	dut.sv	27	25	27	29		0			work@main.top1.MAX_VADDR_CNT.ICNT	000
+  #314	6	begin			work@main.top1.MAX_VADDR_CNT	dut.sv	27	36	31	8					work@main.top1.MAX_VADDR_CNT	000
+  #315	7	if_stmt				dut.sv	28	9	30	12						000
+  #316	8	operation				dut.sv	28	13	28	35		0				000
+> #317	9	bit_select	SRC		work@main.top1.MAX_VADDR_CNT.SRC	dut.sv	28	17	28	18		0			work@main.top1.MAX_VADDR_CNT.SRC	000
+  #318	10	ref_obj	i		work@main.top1.MAX_VADDR_CNT.i	dut.sv	28	17	28	18		0			work@main.top1.MAX_VADDR_CNT.i	000
+  #319	9	ref_obj	MAX_VADDR_CNT		work@main.top1.MAX_VADDR_CNT.MAX_VADDR_CNT	dut.sv	28	22	28	35		0			work@main.top1.MAX_VADDR_CNT.MAX_VADDR_CNT	000
+  #320	8	begin			work@main.top1.MAX_VADDR_CNT	dut.sv	28	37	30	12					work@main.top1.MAX_VADDR_CNT	000
+  #321	9	assignment				dut.sv	29	13	29	35						000
+  #322	10	bit_select	SRC		work@main.top1.MAX_VADDR_CNT.SRC	dut.sv	29	33	29	34		0			work@main.top1.MAX_VADDR_CNT.SRC	000
+  #323	11	ref_obj	i		work@main.top1.MAX_VADDR_CNT.i	dut.sv	29	33	29	34		0			work@main.top1.MAX_VADDR_CNT.i	000
+
+--- OURS (B) records 311..323 ('>' = the object)
+  #311	6	operation				dut.sv	27	21	27	29		0				000
+  #312	7	ref_obj	i		work@top.MAX_VADDR_CNT.i	dut.sv	27	21	27	22		0			work@top.MAX_VADDR_CNT.i	000
+  #313	7	ref_obj	ICNT		work@top.MAX_VADDR_CNT.ICNT	dut.sv	27	25	27	29		0			work@top.MAX_VADDR_CNT.ICNT	000
+  #314	6	begin			work@top.MAX_VADDR_CNT	dut.sv	27	36	31	8					work@top.MAX_VADDR_CNT	000
+  #315	7	if_stmt				dut.sv	28	9	30	12						000
+  #316	8	operation				dut.sv	28	13	28	35		0				000
+> #317	9	bit_select	SRC		work@top.MAX_VADDR_CNT.SRC	dut.sv	28	17	28	18		0			work@top.MAX_VADDR_CNT.SRC	000
+  #318	10	ref_obj	i		work@top.MAX_VADDR_CNT.i	dut.sv	28	17	28	18		0			work@top.MAX_VADDR_CNT.i	000
+  #319	9	ref_obj	MAX_VADDR_CNT		work@top.MAX_VADDR_CNT.MAX_VADDR_CNT	dut.sv	28	22	28	35		0			work@top.MAX_VADDR_CNT.MAX_VADDR_CNT	000
+  #320	8	begin			work@top.MAX_VADDR_CNT	dut.sv	28	37	30	12					work@top.MAX_VADDR_CNT	000
+  #321	9	assignment				dut.sv	29	13	29	35						000
+  #322	10	bit_select	SRC		work@top.MAX_VADDR_CNT.SRC	dut.sv	29	33	29	34		0			work@top.MAX_VADDR_CNT.SRC	000
+  #323	11	ref_obj	i		work@top.MAX_VADDR_CNT.i	dut.sv	29	33	29	34		0			work@top.MAX_VADDR_CNT.i	000
+
+facets of this row (32, first 25):
+  N0282 #247/247 function ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0673 #267/267 for_stmt  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0464 #270/270 int_var i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0465 #271/271 ref_typespec  G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #274/274 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #276/276 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0089 #277/277 ref_obj CNT G[work@main.top1.ASSIGN_VADDR.CNT] O[work@top.ASSIGN_VADDR.CNT]
+  N0463 #278/278 begin  G[work@main.top1.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR]
+  N0432 #280/280 bit_select V G[work@main.top1.ASSIGN_VADDR.V] O[work@top.ASSIGN_VADDR.V]
+  N0280 #281/281 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0432 #282/282 bit_select ASSIGN_VADDR G[work@main.top1.ASSIGN_VADDR.ASSIGN_VADDR] O[work@top.ASSIGN_VADDR.ASSIGN_VADDR]
+  N0280 #283/283 ref_obj i G[work@main.top1.ASSIGN_VADDR.i] O[work@top.ASSIGN_VADDR.i]
+  N0282 #284/284 function MAX_VADDR_CNT G[work@main.top1.MAX_VADDR_CNT] O[work@top.MAX_VADDR_CNT]
+  N0089 #292/292 ref_obj CNT G[work@main.top1.MAX_VADDR_CNT.SRC.CNT] O[work@top.MAX_VADDR_CNT.SRC.CNT]
+  N0721 #294/294 ref_typespec  G[work@main.top1.MAX_VADDR_CNT.SRC] O[work@top.MAX_VADDR_CNT.SRC]
+  N0721 #297/297 ref_typespec  G[work@main.top1.MAX_VADDR_CNT.ICNT] O[work@top.MAX_VADDR_CNT.ICNT]
+  N0660 #299/299 begin  G[work@main.top1.MAX_VADDR_CNT] O[work@top.MAX_VADDR_CNT]
+  N0124 #302/302 ref_obj MAX_VADDR_CNT G[work@main.top1.MAX_VADDR_CNT.MAX_VADDR_CNT] O[work@top.MAX_VADDR_CNT.MAX_VADDR_CNT]
+  N0635 #303/303 for_stmt  G[work@main.top1.MAX_VADDR_CNT] O[work@top.MAX_VADDR_CNT]
+  N0464 #306/306 int_var i G[work@main.top1.MAX_VADDR_CNT.i] O[work@top.MAX_VADDR_CNT.i]
+  N0465 #307/307 ref_typespec  G[work@main.top1.MAX_VADDR_CNT.i] O[work@top.MAX_VADDR_CNT.i]
+  N0089 #310/310 ref_obj i G[work@main.top1.MAX_VADDR_CNT.i] O[work@top.MAX_VADDR_CNT.i]
+  N0089 #312/312 ref_obj i G[work@main.top1.MAX_VADDR_CNT.i] O[work@top.MAX_VADDR_CNT.i]
+  N0089 #313/313 ref_obj ICNT G[work@main.top1.MAX_VADDR_CNT.ICNT] O[work@top.MAX_VADDR_CNT.ICNT]
+  N0463 #314/314 begin  G[work@main.top1.MAX_VADDR_CNT] O[work@top.MAX_VADDR_CNT]

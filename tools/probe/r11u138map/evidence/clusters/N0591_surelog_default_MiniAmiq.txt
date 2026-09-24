@@ -1,0 +1,64 @@
+cluster N0591 (r11u128map N0591; OPEN): struct|golden-only:fewer-copies|time_var|under:begin
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #74774 (golden) / #-1 (ours)  type=time_var name=tmp_time 
+  golden: 3 objs
+  ours:   
+  walk parents: begin < function(uvm_transaction::m_begin_tr) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 74768..74780 ('>' = the object)
+  #74768	5	time_typespec				uvm_transaction.svh	701	47	701	51						000
+  #74769	3	io_decl	parent_handle			uvm_transaction.svh	702	55	702	68						000
+  #74770	4	constant				uvm_transaction.svh	702	69	702	70	0	64	UINT:0	9		000
+  #74771	4	ref_typespec			svaunit_pkg::uvm_transaction::m_begin_tr::parent_handle		0	0	0	0		0			svaunit_pkg::uvm_transaction::m_begin_tr::parent_handle	000
+  #74772	5	integer_typespec				uvm_transaction.svh	702	47	702	54						000
+  #74773	3	begin			svaunit_pkg::uvm_transaction::m_begin_tr	uvm_transaction.svh	704	4	704	33					svaunit_pkg::uvm_transaction::m_begin_tr	000
+> #74774	4	time_var	tmp_time		svaunit_pkg::uvm_transaction::m_begin_tr::tmp_time	uvm_transaction.svh	703	9	703	17		0			svaunit_pkg::uvm_transaction::m_begin_tr::tmp_time	000
+  #74775	5	ref_typespec			svaunit_pkg::uvm_transaction::m_begin_tr::tmp_time		0	0	0	0		0			svaunit_pkg::uvm_transaction::m_begin_tr::tmp_time	000
+  #74776	6	time_typespec				uvm_transaction.svh	703	4	703	8						000
+  #74777	4	class_var	parent_recorder		svaunit_pkg::uvm_transaction::m_begin_tr::parent_recorder	uvm_transaction.svh	704	17	704	32		0			svaunit_pkg::uvm_transaction::m_begin_tr::parent_recorder	000
+  #74778	5	ref_typespec			svaunit_pkg::uvm_transaction::m_begin_tr::parent_recorder		0	0	0	0		0			svaunit_pkg::uvm_transaction::m_begin_tr::parent_recorder	000
+  #74779	6	class_typespec				uvm_transaction.svh	704	4	704	16						000
+  #74780	4	assignment				uvm_transaction.svh	703	9	703	62						000
+
+--- the holder #74773 on the other side: exact-record matches at [73823, 295532, 357042]
+  #73820	4	constant				uvm_transaction.svh	702	69	702	70	0	64	UINT:0	9		000
+  #73821	4	ref_typespec			svaunit_pkg::uvm_transaction::m_begin_tr::parent_handle		0	0	0	0		0			svaunit_pkg::uvm_transaction::m_begin_tr::parent_handle	000
+  #73822	5	integer_typespec				uvm_transaction.svh	702	47	702	54						000
+> #73823	3	begin			svaunit_pkg::uvm_transaction::m_begin_tr	uvm_transaction.svh	704	4	704	33					svaunit_pkg::uvm_transaction::m_begin_tr	000
+  #73824	4	assignment				uvm_transaction.svh	703	9	703	62						000
+  #73825	5	operation				uvm_transaction.svh	703	20	703	62		0				000
+  #73826	6	operation				uvm_transaction.svh	703	21	703	36		0				000
+  #73827	7	ref_obj	begin_time		svaunit_pkg::uvm_transaction::m_begin_tr::begin_time	uvm_transaction.svh	703	21	703	31		0			svaunit_pkg::uvm_transaction::m_begin_tr::begin_time	000
+  #73828	7	constant				uvm_transaction.svh	703	35	703	36	0	64	UINT:0	9		000
+  #73829	6	sys_func_call	$realtime			uvm_transaction.svh	703	40	703	49		0				000
+  #73830	6	ref_obj	begin_time		svaunit_pkg::uvm_transaction::m_begin_tr::begin_time	uvm_transaction.svh	703	52	703	62		0			svaunit_pkg::uvm_transaction::m_begin_tr::begin_time	000
+  #73831	4	if_stmt				uvm_transaction.svh	706	4	707	78						000
+  #73832	5	operation				uvm_transaction.svh	706	8	706	26		0				000
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

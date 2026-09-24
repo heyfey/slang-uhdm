@@ -1,0 +1,140 @@
+{
+ "N0124": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0280": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0282": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0652": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0695": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1124": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1286": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1837": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N1849": {
+  "site": "UHDM ElaboratorListener::elabModule_inst DeepClone (UHDM library, out of scope) run from main (uhdm_main.cpp, the --elabuhdm block); the clone copies our definition object",
+  "note": "DECODED: testflags --elabuhdm clone; fix on our definition object or in the uhdm_main post-elaboration pass"
+ },
+ "N0002": {
+  "note": "DECODED: golden's elaborated param_assign Lhs for an imported package parameter is a module-scoped CLONE (the r11u122 C0012 shape); ours points at the package parameter, listed once. The definition-view clone exists (law impLhsCloneFile124); the elaborated view lacks it. HOLDER pinned"
+ },
+ "N0003": {
+  "note": "DECODED: golden's ref_typespec of an assignment-pattern/cast operation carries NO VpiParent (uhdm-dump: no vpiParent line), so its synthesised full name is empty; ours is parented"
+ },
+ "N0008": {
+  "note": "DECODED: the same as N0003 on a constant's typespec ref: golden unparented"
+ },
+ "N0554": {
+  "note": "DECODED: SHARING: ours's elaborated cont_assign Rhs is the param_assign's constant object (listed once); golden holds a copy. HOLDER pinned"
+ },
+ "N0133": {
+  "note": "DECODED: SHARING: ours's elaborated cont_assign Rhs func_call is the definition's object (listed once); golden holds a copy (r11u128map's 'fold' reading was wrong: stage 1 compares a func_call on both sides). HOLDER pinned"
+ },
+ "N0045": {
+  "note": "DECODED: golden lists the member default constant twice (a copy under typespec_member); ours shares one object. HOLDER pinned"
+ },
+ "N0441": {
+  "note": "DECODED: ours lists two constants where golden shares one (array_expr default pattern)"
+ },
+ "N0006": {
+  "note": "DECODED (r11u131 R1, class A net binding): a continuous assignment whose right-hand side Surelog REDUCES to a constant (UhdmWriter writeCont_assign's simplified==false reduce clones the assign with a context-free ElaboratorContext, so the LHS ref_obj keeps the DEFINITION net); ours binds the elaborated net. Fix site: ModuleEmit.cpp emitContAssigns, the COMPUTED-RHS fold rule beside law caStrengthAndDelayDeclined88 (an element select of a parameter is the missing kind). HOLDER pinned"
+ },
+ "N0022": {
+  "note": "DECODED (r11u131 R1, class A): the default clocking block's event binds golden's DEFINITION net; the elaborated listing calls emitScopeClocking(body, ..., topNets, false) where the global clocking block passes the definition nets (ModuleEmit.cpp, beside law caProgramGenFlattensEveryKind95); StmtEmit emitEventExpr only reads the map it is given. HOLDER pinned"
+ },
+ "N0046": {
+  "note": "DECODED (r11u131 R1, class A mirror): a continuous-assignment RHS operand: golden binds the ELABORATED net, ours the definition net; the same function (ModuleEmit.cpp emitContAssigns)"
+ },
+ "N0023": {
+  "note": "DECODED (r11u131 R1, class A): the ours-side twin of N0022 (the elaborated net listed where golden lists the definition net), ModuleEmit.cpp emitScopeClocking's caller"
+ },
+ "N0021": {
+  "note": "DECODED (r11u131 R1, class A names): port connection operands: golden binds the DEFINITION net and names the ref through the port (work@dffsr2.uut.preset.preset: ComputeFullName over ref_obj -> port -> instance); ModuleEmit.cpp emitInstance chooses the map and the name"
+ },
+ "N0001": {
+  "note": "NOTE: r11u131 R2 pinned one shape of this cluster (the base ref of a struct-parameter member path in a constant context, located at the MEMBER token in golden; grid hpm m03) to TypeEmit.cpp emitSyntaxExpr beside law hpSymbolicSelect; the example mint here is ExprEmit.cpp emitExpr: the cluster spans both grounds"
+ },
+ "N0138": {
+  "note": "NOTE: r11u131 R3: a port connection written as a replication folds to a constant whose ref_typespec golden names through <instance>.<port>; ModuleEmit.cpp emitInstance, the ELAB conn REPLICATION actual-fold block beside law patFlatUnsizedMemberWidth61 (pair B's file, named in pair A's brief)"
+ },
+ "N0012": {
+  "note": "DECODED (r11u130 R1): the type-parameter override by a module-local enum typedef; ParamEmit.cpp emitParameters after law typeParamChainBorrow45 (buildEnumTs(..., ta9.name)): golden locates it at the typedef declaration and names its base ref <type_parameter full name>.<enum name>"
+ },
+ "N0034": {
+  "note": "DECODED (r11u130 R1): the span face of N0012, same site"
+ },
+ "N0015": {
+  "note": "DECODED (r11u131 R7): macro-argument spans (ibex prim_assert $error/$time lines): the multi-line macro line model, UhdmExporter.cpp locLineCol / fullFilePath (pass 125 R4)"
+ },
+ "N0017": {
+  "note": "DECODED (r11u131 R7): CovMacro's predefined SV_COV_* constants end at 0:0; the macro line model, UhdmExporter.cpp locLineCol"
+ },
+ "N0026": {
+  "note": "DECODED (r11u131 R7): the macro line model, UhdmExporter.cpp locLineCol"
+ },
+ "N0027": {
+  "note": "DECODED (r11u131 R7): the macro line model, UhdmExporter.cpp locLineCol"
+ },
+ "N0029": {
+  "note": "DECODED (r11u131 R7): the macro line model, UhdmExporter.cpp locLineCol"
+ },
+ "N0030": {
+  "note": "DECODED (r11u131 R10): the elaborated process / continuous assignment named by the definition (work@dut.b for work@top.dut.b): shared def-view objects in ModuleEmit's process and cont_assign emission"
+ },
+ "N0136": {
+  "note": "DECODED (r11u131 R10): as N0030 (InterfInst), ModuleEmit.cpp"
+ },
+ "N0047": {
+  "note": "DECODED (r11u130 residue): the port-view parameter full name faces law portViewParamDefName130 did not reach (iface_param_port_width, interface_array(_fanout)); ModuleEmit.cpp emitInterfaceInstance"
+ },
+ "N0009": {
+  "note": "DECODED (r11u130 R2): struct typespec spans taken at the use (one shared object where golden holds a copy per use)"
+ },
+ "N0043": {
+  "note": "DECODED (r11u130 R2): as N0009"
+ },
+ "N0044": {
+  "note": "DECODED (r11u130 R2): as N0009"
+ },
+ "N0039": {
+  "note": "DECODED (r11u130 R3 + K0070): the int_typespec declaration-vs-use span; its corpus head TypeParam is the type-parameter definition net (materializeDefNetTs -> makeTypespec)"
+ },
+ "N0025": {
+  "note": "DECODED (r11u130 R5): TypedefWithParameter: our net typespec carries a Typedef_alias clone golden lacks (class B), so the walk diverges before the range"
+ },
+ "N0033": {
+  "note": "DECODED (r11u130 R5): as N0025"
+ },
+ "N0024": {
+  "note": "NOTE (r11u131 R6): the tagged-pattern key's cast typespec (golden struct, ours integer_typespec); not decoded"
+ },
+ "N0059": {
+  "note": "NOTE (r11u131 R6): the ours-side twin of N0024 (integer_typespec golden lacks)"
+ },
+ "N0270": {
+  "note": "DECODED (this map, uhdm2rtlil/unpacked_struct_mixed): golden's $unit typedef c_t spans 1:9-16:29, its end is the LAST net declarator's unpacked dimension (`c_t mem_n[1:0], mem_q[1:0];` -> mem_q's [1:0]): UhdmWriter writeNets' end-only populateCoreMembers(InvalidNodeId, dimensions, ts) lands on the SHARED typedef typespec when the net's typespec is the typedef itself (the mechanism of law defNetEndOnlyLoc130 and r11u130 R5); ours keeps the typedef's own span 1:9-5:2. Site: ModuleEmit.cpp materializeDefNetTs (the slot law) would have to write the shared typedef"
+ },
+ "N0394": {
+  "note": "DECODED (this map, uhdm2rtlil/ParameterWithUnderscoreValueDividedPassedFromCommandLine `localparam int C = A / B;`): an operand of an elaborated localparam operation substituted by the parameter's constant: golden's constant carries the file and the reference's span (dut.sv 4:23-24); ours the span with an EMPTY VpiFile"
+ }
+}

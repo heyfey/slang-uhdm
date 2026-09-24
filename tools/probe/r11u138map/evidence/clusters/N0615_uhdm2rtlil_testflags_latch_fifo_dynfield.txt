@@ -1,0 +1,59 @@
+cluster N0615 (r11u128map N0615; OPEN): fullname|ref_obj|tok:id@id.->@in-typespec|under:operation
+row: uhdm2rtlil/testflags/latch_fifo_dynfield  strict=differ:endline(20)  records golden=478 ours=478
+object: #43 (golden) / #43 (ours)  type=ref_obj name=W STABLE
+  golden: work@latch_fifo_dynfield.entry_t.data.W
+  ours:   entry_t.data.W
+  walk parents: operation < range < logic_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 37..49 ('>' = the object)
+  #37	4	struct_typespec	entry_t			dut.sv	21	11	27	19						110
+  #38	5	typespec_member	data			dut.sv	22	19	22	23						001
+  #39	6	ref_typespec			<in>entry_t.data		0	0	0	0		0			work@latch_fifo_dynfield.entry_t.data	001
+  #40	7	logic_typespec				dut.sv	22	5	22	18						001
+  #41	8	range				dut.sv	22	11	22	18						001
+  #42	9	operation				dut.sv	22	12	22	15		0				001
+> #43	10	ref_obj	W		<in>entry_t.data.W	dut.sv	22	12	22	13		0			work@latch_fifo_dynfield.entry_t.data.W	001
+  #44	10	constant				dut.sv	22	14	22	15	1	64	UINT:1	9		001
+  #45	9	constant				dut.sv	22	16	22	17	0	64	UINT:0	9		001
+  #46	5	typespec_member	valid			dut.sv	23	19	23	24						001
+  #47	6	ref_typespec			<in>entry_t.valid		0	0	0	0		0			work@latch_fifo_dynfield.entry_t.valid	001
+  #48	7	logic_typespec				dut.sv	23	5	23	10						001
+  #49	2	logic_net	mem_n		work@latch_fifo_dynfield.mem_n	dut.sv	27	11	27	16		0			work@latch_fifo_dynfield.mem_n	000
+
+--- OURS (B) records 37..49 ('>' = the object)
+  #37	4	struct_typespec	entry_t			dut.sv	21	11	24	4						110
+  #38	5	typespec_member	data			dut.sv	22	19	22	23						001
+  #39	6	ref_typespec			<in>entry_t.data		0	0	0	0		0			entry_t.data	001
+  #40	7	logic_typespec				dut.sv	22	5	22	18						001
+  #41	8	range				dut.sv	22	11	22	18						001
+  #42	9	operation				dut.sv	22	12	22	15		0				001
+> #43	10	ref_obj	W		<in>entry_t.data.W	dut.sv	22	12	22	13		0			entry_t.data.W	001
+  #44	10	constant				dut.sv	22	14	22	15	1	64	UINT:1	9		001
+  #45	9	constant				dut.sv	22	16	22	17	0	64	UINT:0	9		001
+  #46	5	typespec_member	valid			dut.sv	23	19	23	24						001
+  #47	6	ref_typespec			<in>entry_t.valid		0	0	0	0		0			entry_t.valid	001
+  #48	7	logic_typespec				dut.sv	23	5	23	10						001
+  #49	2	logic_net	mem_n		work@latch_fifo_dynfield.mem_n	dut.sv	27	11	27	16		0			work@latch_fifo_dynfield.mem_n	000
+
+facets of this row (20, first 25):
+  N0135 #16/16 struct_typespec entry_t G[21:11:27:19] O[21:11:24:4]
+  N0009 #37/37 struct_typespec entry_t G[21:11:27:19] O[21:11:24:4]
+  N0004 #39/39 ref_typespec  G[work@latch_fifo_dynfield.entry_t.data] O[entry_t.data]
+  N0615 #43/43 ref_obj W G[work@latch_fifo_dynfield.entry_t.data.W] O[entry_t.data.W]
+  N0004 #47/47 ref_typespec  G[work@latch_fifo_dynfield.entry_t.valid] O[entry_t.valid]
+  N0009 #51/51 struct_typespec entry_t G[21:11:27:19] O[21:11:24:4]
+  N0004 #53/53 ref_typespec  G[work@latch_fifo_dynfield.entry_t.data] O[entry_t.data]
+  N0615 #57/57 ref_obj W G[work@latch_fifo_dynfield.entry_t.data.W] O[entry_t.data.W]
+  N0004 #61/61 ref_typespec  G[work@latch_fifo_dynfield.entry_t.valid] O[entry_t.valid]
+  N0135 #220/220 struct_typespec entry_t G[21:11:27:19] O[21:11:24:4]
+  N0009 #279/279 struct_typespec entry_t G[21:11:27:19] O[21:11:24:4]
+  N0009 #299/299 struct_typespec entry_t G[21:11:27:19] O[21:11:24:4]
+  N0009 #396/396 struct_typespec entry_t G[21:11:27:19] O[21:11:24:4]
+  N0004 #398/398 ref_typespec  G[work@latch_fifo_dynfield.entry_t.data] O[entry_t.data]
+  N0615 #402/402 ref_obj W G[work@latch_fifo_dynfield.entry_t.data.W] O[entry_t.data.W]
+  N0004 #406/406 ref_typespec  G[work@latch_fifo_dynfield.entry_t.valid] O[entry_t.valid]
+  N0009 #411/411 struct_typespec entry_t G[21:11:27:19] O[21:11:24:4]
+  N0004 #413/413 ref_typespec  G[work@latch_fifo_dynfield.entry_t.data] O[entry_t.data]
+  N0615 #417/417 ref_obj W G[work@latch_fifo_dynfield.entry_t.data.W] O[entry_t.data.W]
+  N0004 #421/421 ref_typespec  G[work@latch_fifo_dynfield.entry_t.valid] O[entry_t.valid]

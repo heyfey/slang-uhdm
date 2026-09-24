@@ -1,0 +1,50 @@
+cluster N0211 (r11u128map N0211; OPEN): file|ref_obj|other-file+span|under:port
+row: surelog/testflags/YosysBigSimReed  strict=differ:fullname(3)  records golden=32979 ours=32979
+object: #22299 (golden) / #22298 (ours)  type=ref_obj name=S_Ready 
+  golden: GF_mult_add_syndromes.v 36:12:36:19
+  ours:   input_syndromes.v 357:2:357:9
+  walk parents: port(S_Ready) < module_inst(unit1) < module_inst(input_syndromes_unit) < module_inst(DUT)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 22293..22305 ('>' = the object)
+  #22293	7	logic_typespec				GF_mult_add_syndromes.v	34	7	34	12						000
+  #22294	8	range				GF_mult_add_syndromes.v	34	7	34	12						001
+  #22295	9	constant				GF_mult_add_syndromes.v	34	8	34	9	2	64	UINT:2	9		001
+  #22296	9	constant				GF_mult_add_syndromes.v	34	10	34	11	0	64	UINT:0	9		001
+  #22297	5	port	S_Ready			GF_mult_add_syndromes.v	36	12	36	19						000
+  #22298	6	operation				input_syndromes.v	357	10	357	11		0				000
+> #22299	6	ref_obj	S_Ready		work@testbench.DUT.input_syndromes_unit.unit1.S_Ready	GF_mult_add_syndromes.v	36	12	36	19		0			work@testbench.DUT.input_syndromes_unit.unit1.S_Ready	000
+  #22300	6	ref_typespec			work@testbench.DUT.input_syndromes_unit.unit1.S_Ready		0	0	0	0		0			work@testbench.DUT.input_syndromes_unit.unit1.S_Ready	000
+  #22301	7	logic_typespec				GF_mult_add_syndromes.v	36	8	36	11						000
+  #22302	5	port	S			GF_mult_add_syndromes.v	37	18	37	19						000
+  #22303	6	ref_obj	s_unit1		work@testbench.DUT.input_syndromes_unit.s_unit1	input_syndromes.v	359	4	359	11		0			work@testbench.DUT.input_syndromes_unit.s_unit1	000
+  #22304	6	ref_obj	S		work@testbench.DUT.input_syndromes_unit.unit1.S	input_syndromes.v	359	2	359	3		0			work@testbench.DUT.input_syndromes_unit.unit1.S	000
+  #22305	6	ref_typespec			work@testbench.DUT.input_syndromes_unit.unit1.S		0	0	0	0		0			work@testbench.DUT.input_syndromes_unit.unit1.S	000
+
+--- OURS (B) records 22292..22304 ('>' = the object)
+  #22292	7	logic_typespec				GF_mult_add_syndromes.v	34	7	34	12						000
+  #22293	8	range				GF_mult_add_syndromes.v	34	7	34	12						001
+  #22294	9	constant				GF_mult_add_syndromes.v	34	8	34	9	2	64	UINT:2	9		001
+  #22295	9	constant				GF_mult_add_syndromes.v	34	10	34	11	0	64	UINT:0	9		001
+  #22296	5	port	S_Ready			GF_mult_add_syndromes.v	36	12	36	19						000
+  #22297	6	operation				input_syndromes.v	357	10	357	11		0				000
+> #22298	6	ref_obj	S_Ready		work@testbench.DUT.input_syndromes_unit.unit1.S_Ready	input_syndromes.v	357	2	357	9		0			work@testbench.DUT.input_syndromes_unit.unit1.S_Ready	000
+  #22299	6	ref_typespec			work@testbench.DUT.input_syndromes_unit.unit1.S_Ready		0	0	0	0		0			work@testbench.DUT.input_syndromes_unit.unit1.S_Ready	000
+  #22300	7	logic_typespec				GF_mult_add_syndromes.v	36	8	36	11						000
+  #22301	5	port	S			GF_mult_add_syndromes.v	37	18	37	19						000
+  #22302	6	ref_obj	s_unit1		work@testbench.DUT.input_syndromes_unit.s_unit1	input_syndromes.v	359	4	359	11		0			work@testbench.DUT.input_syndromes_unit.s_unit1	000
+  #22303	6	ref_obj	S		work@testbench.DUT.input_syndromes_unit.unit1.S	input_syndromes.v	359	2	359	3		0			work@testbench.DUT.input_syndromes_unit.unit1.S	000
+  #22304	6	ref_typespec			work@testbench.DUT.input_syndromes_unit.unit1.S		0	0	0	0		0			work@testbench.DUT.input_syndromes_unit.unit1.S	000
+
+facets of this row (11, first 25):
+  N0022 #18984/-1 logic_net RE G[1 objs] O[]
+  N0023 #-1/22390 logic_net RE G[] O[1 objs]
+  N0021 #18977/18977 ref_obj WE G[work@testbench.DUT.input_syndromes_unit.mem_in_1.we.WE] O[work@testbench.DUT.input_syndromes_unit.WE]
+  N0021 #18983/18983 ref_obj RE G[work@testbench.DUT.input_syndromes_unit.mem_in_1.re.RE] O[work@testbench.DUT.input_syndromes_unit.RE]
+  N0021 #21000/20999 ref_obj CE G[work@testbench.DUT.input_syndromes_unit.unit0.rom_instant.re.CE] O[work@testbench.DUT.input_syndromes_unit.unit0.CE]
+  N0021 #21001/21000 ref_obj CE1 G[work@testbench.DUT.input_syndromes_unit.unit0.rom_instant.re.CE1] O[work@testbench.DUT.input_syndromes_unit.unit0.CE1]
+  N0211 #22299/22298 ref_obj S_Ready G[GF_mult_add_syndromes.v 36:12:36:19] O[input_syndromes.v 357:2:357:9]
+  N0021 #22367/22366 ref_obj CE G[work@testbench.DUT.input_syndromes_unit.unit1.rom_instant.re.CE] O[work@testbench.DUT.input_syndromes_unit.unit1.CE]
+  N0021 #22368/22367 ref_obj CE1 G[work@testbench.DUT.input_syndromes_unit.unit1.rom_instant.re.CE1] O[work@testbench.DUT.input_syndromes_unit.unit1.CE1]
+  N0021 #31899/31899 ref_obj DONE G[work@testbench.DUT.out_stage_unit.DONE.DONE] O[work@testbench.DUT.DONE]
+  N0021 #31900/31900 ref_obj DONE_ext G[work@testbench.DUT.out_stage_unit.DONE.DONE_ext] O[work@testbench.DUT.DONE_ext]

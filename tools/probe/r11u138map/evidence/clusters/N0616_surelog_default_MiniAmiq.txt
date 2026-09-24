@@ -1,0 +1,64 @@
+cluster N0616 (r11u128map N0616; OPEN): fullname|ref_typespec|tok:id::id::id::->id@id.|under:enum_typespec
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #88375 (golden) / #86238 (ours)  type=ref_typespec name= STABLE
+  golden: svaunit_pkg::uvm_report_enabled::severity::uvm_pkg::uvm_severity
+  ours:   work@svaunit_vpi_interface.uvm_pkg::uvm_severity
+  walk parents: enum_typespec(uvm_pkg::uvm_severity) < ref_typespec < io_decl(severity) < function(uvm_report_enabled)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 88369..88381 ('>' = the object)
+  #88369	3	io_decl	verbosity			uvm_globals.svh	133	38	133	47						000
+  #88370	4	ref_typespec			svaunit_pkg::uvm_report_enabled::verbosity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::verbosity	000
+  #88371	5	int_typespec				uvm_globals.svh	133	34	133	37						000
+  #88372	3	io_decl	severity			uvm_globals.svh	134	47	134	55						000
+  #88373	4	ref_typespec			svaunit_pkg::uvm_report_enabled::severity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::severity	000
+  #88374	5	enum_typespec	uvm_pkg::uvm_severity			uvm_globals.svh	271	61	271	73						110
+> #88375	6	ref_typespec			<in>uvm_pkg::uvm_severity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::severity::uvm_pkg::uvm_severity	001
+  #88376	7	bit_typespec				uvm_object_globals.svh	242	14	242	23						001
+  #88377	8	range				uvm_object_globals.svh	242	18	242	23						001
+  #88378	9	constant				uvm_object_globals.svh	242	19	242	20	1	64	UINT:1	9		001
+  #88379	9	constant				uvm_object_globals.svh	242	21	242	22	0	64	UINT:0	9		001
+  #88380	6	enum_const	UVM_INFO			uvm_object_globals.svh	244	3	244	11						001
+  #88381	6	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+
+--- OURS (B) records 86232..86244 ('>' = the object)
+  #86232	3	io_decl	verbosity			uvm_globals.svh	133	38	133	47						000
+  #86233	4	ref_typespec			svaunit_pkg::uvm_report_enabled::verbosity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::verbosity	000
+  #86234	5	int_typespec				uvm_globals.svh	133	34	133	37						000
+  #86235	3	io_decl	severity			uvm_globals.svh	134	47	134	55						000
+  #86236	4	ref_typespec			svaunit_pkg::uvm_report_enabled::severity		0	0	0	0		0			svaunit_pkg::uvm_report_enabled::severity	000
+  #86237	5	enum_typespec	uvm_pkg::uvm_severity			uvm_object_globals.svh	242	1	248	16						110
+> #86238	6	ref_typespec			<in>uvm_pkg::uvm_severity		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_severity	001
+  #86239	7	bit_typespec				uvm_object_globals.svh	242	14	242	23						001
+  #86240	8	range				uvm_object_globals.svh	242	18	242	23						001
+  #86241	9	constant				uvm_object_globals.svh	242	19	242	20	1	64	UINT:1	9		001
+  #86242	9	constant				uvm_object_globals.svh	242	21	242	22	0	64	UINT:0	9		001
+  #86243	6	enum_const	UVM_INFO			uvm_object_globals.svh	244	3	244	11						001
+  #86244	6	enum_const	UVM_WARNING			uvm_object_globals.svh	245	3	245	14						001
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

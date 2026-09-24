@@ -1,0 +1,64 @@
+cluster N0238 (r11u128map N0238; OPEN): fullname|bit_select|tok:id[id].id::->|under:method_func_call
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(270)  records golden=201533 ours=201486
+object: #192961 (golden) / #192914 (ours)  type=bit_select name=maps OUT
+  golden: uvm_pkg::uvm_reg_shared_access_seq::body::fields[k].is_known_access::maps
+  ours:   uvm_pkg::uvm_reg_shared_access_seq::body::maps
+  walk parents: method_func_call(is_known_access) < hier_path(fields[k].is_known_access) < operation < if_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 192955..192967 ('>' = the object)
+  #192955	8	if_stmt				uvm_pkg.sv	81831	10	81835	13						000
+  #192956	9	operation				uvm_pkg.sv	81831	14	81831	49		0				000
+  #192957	10	hier_path	fields[k].is_known_access			uvm_pkg.sv	81831	15	81831	49		0				000
+  #192958	11	bit_select	fields		fields[k]	uvm_pkg.sv	81831	15	81831	21		0			fields[k]	000
+  #192959	12	ref_obj	k		uvm_pkg::uvm_reg_shared_access_seq::body::k	uvm_pkg.sv	81831	22	81831	23		0			uvm_pkg::uvm_reg_shared_access_seq::body::k	000
+  #192960	11	method_func_call	is_known_access			uvm_pkg.sv	81831	25	81831	40		0				000
+> #192961	12	bit_select	maps		uvm_pkg::uvm_reg_shared_access_seq::body::fields[k].is_known_access::maps	uvm_pkg.sv	81831	46	81831	47		0			uvm_pkg::uvm_reg_shared_access_seq::body::fields[k].is_known_access::maps	000
+  #192962	13	constant				uvm_pkg.sv	81831	46	81831	47	0	64	UINT:0	9		000
+  #192963	9	begin			uvm_pkg::uvm_reg_shared_access_seq::body	uvm_pkg.sv	81831	51	81835	13					uvm_pkg::uvm_reg_shared_access_seq::body	000
+  #192964	10	repeat				uvm_pkg.sv	81832	13	81832	19						000
+  #192965	11	ref_obj	w		uvm_pkg::uvm_reg_shared_access_seq::body::w	uvm_pkg.sv	81832	21	81832	22		0			uvm_pkg::uvm_reg_shared_access_seq::body::w	000
+  #192966	11	begin			uvm_pkg::uvm_reg_shared_access_seq::body	uvm_pkg.sv	81832	24	81834	16					uvm_pkg::uvm_reg_shared_access_seq::body	000
+  #192967	12	assignment				uvm_pkg.sv	81833	16	81833	40						000
+
+--- OURS (B) records 192908..192920 ('>' = the object)
+  #192908	8	if_stmt				uvm_pkg.sv	81831	10	81835	13						000
+  #192909	9	operation				uvm_pkg.sv	81831	14	81831	49		0				000
+  #192910	10	hier_path	fields[k].is_known_access			uvm_pkg.sv	81831	15	81831	49		0				000
+  #192911	11	bit_select	fields		fields[k]	uvm_pkg.sv	81831	15	81831	21		0			fields[k]	000
+  #192912	12	ref_obj	k		uvm_pkg::uvm_reg_shared_access_seq::body::k	uvm_pkg.sv	81831	22	81831	23		0			uvm_pkg::uvm_reg_shared_access_seq::body::k	000
+  #192913	11	method_func_call	is_known_access			uvm_pkg.sv	81831	25	81831	40		0				000
+> #192914	12	bit_select	maps		uvm_pkg::uvm_reg_shared_access_seq::body::maps	uvm_pkg.sv	81831	46	81831	47		0			uvm_pkg::uvm_reg_shared_access_seq::body::maps	000
+  #192915	13	constant				uvm_pkg.sv	81831	46	81831	47	0	64	UINT:0	9		000
+  #192916	9	begin			uvm_pkg::uvm_reg_shared_access_seq::body	uvm_pkg.sv	81831	51	81835	13					uvm_pkg::uvm_reg_shared_access_seq::body	000
+  #192917	10	repeat				uvm_pkg.sv	81832	13	81832	19						000
+  #192918	11	ref_obj	w		uvm_pkg::uvm_reg_shared_access_seq::body::w	uvm_pkg.sv	81832	21	81832	22		0			uvm_pkg::uvm_reg_shared_access_seq::body::w	000
+  #192919	11	begin			uvm_pkg::uvm_reg_shared_access_seq::body	uvm_pkg.sv	81832	24	81834	16					uvm_pkg::uvm_reg_shared_access_seq::body	000
+  #192920	12	assignment				uvm_pkg.sv	81833	16	81833	40						000
+
+facets of this row (11031, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

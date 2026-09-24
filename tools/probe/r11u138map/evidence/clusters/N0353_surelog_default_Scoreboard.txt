@@ -1,0 +1,64 @@
+cluster N0353 (r11u128map N0353; OPEN): span|constant|line+col+endline+endcol|under:bit_select
+row: surelog/default/Scoreboard  strict=differ:line(199)  records golden=269656 ours=268952
+object: #39576 (golden) / #39585 (ours)  type=constant name= 
+  golden: 151:25:151:26
+  ours:   2749:33:2749:34
+  walk parents: bit_select(value) < hier_path(rw.value[0]) < sys_func_call($sformatf) < func_call(uvm_report_error)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 39570..39582 ('>' = the object)
+  #39570	11	sys_func_call	$sformatf			uvm_message_defines.svh	149	38	152	53		0				000
+  #39571	12	constant				uvm_message_defines.svh	149	48	149	192	"Backdoor read of register %s with multiple HDL copies: values are not the same: %0h at path '%s', and %0h at path '%s'. Returning first value."	1136	STRING:Backdoor read of register %s with multiple HDL copies: values are not the same: %0h at path '%s', and %0h at path '%s'. Returning first value.	6		000
+  #39572	12	func_call	get_full_name			uvm_message_defines.svh	150	16	150	31		0				000
+  #39573	12	hier_path	rw.value[0]			uvm_message_defines.svh	151	16	151	27		0				000
+  #39574	13	ref_obj	rw			uvm_message_defines.svh	151	16	151	18		0				000
+  #39575	13	bit_select	value		uvm_pkg::uvm_reg::backdoor_read_func::rw.value[0]::value	uvm_message_defines.svh	151	25	151	26		0			uvm_pkg::uvm_reg::backdoor_read_func::rw.value[0]::value	000
+> #39576	14	constant				uvm_message_defines.svh	151	25	151	26	0	64	UINT:0	9		000
+  #39577	12	func_call	uvm_hdl_concat2string			uvm_message_defines.svh	151	29	151	60		0				000
+  #39578	13	bit_select	paths		uvm_pkg::uvm_reg::backdoor_read_func::paths	uvm_message_defines.svh	151	57	151	58		0			uvm_pkg::uvm_reg::backdoor_read_func::paths	000
+  #39579	14	constant				uvm_message_defines.svh	151	57	151	58	0	64	UINT:0	9		000
+  #39580	12	ref_obj	val		uvm_pkg::uvm_reg::backdoor_read_func::val	uvm_message_defines.svh	152	16	152	19		0			uvm_pkg::uvm_reg::backdoor_read_func::val	000
+  #39581	12	func_call	uvm_hdl_concat2string			uvm_message_defines.svh	152	21	152	52		0				000
+  #39582	13	bit_select	paths		uvm_pkg::uvm_reg::backdoor_read_func::paths	uvm_message_defines.svh	152	49	152	50		0			uvm_pkg::uvm_reg::backdoor_read_func::paths	000
+
+--- OURS (B) records 39579..39591 ('>' = the object)
+  #39579	11	sys_func_call	$sformatf			uvm_message_defines.svh	149	38	2750	61		0				000
+  #39580	12	constant				uvm_message_defines.svh	149	48	149	192	"Backdoor read of register %s with multiple HDL copies: values are not the same: %0h at path '%s', and %0h at path '%s'. Returning first value."	1136	STRING:Backdoor read of register %s with multiple HDL copies: values are not the same: %0h at path '%s', and %0h at path '%s'. Returning first value.	6		000
+  #39581	12	func_call	get_full_name			uvm_message_defines.svh	2748	24	2748	39		0				000
+  #39582	12	hier_path	rw.value[0]			uvm_message_defines.svh	2749	24	2749	35		0				000
+  #39583	13	ref_obj	rw			uvm_message_defines.svh	2749	24	2749	26		0				000
+  #39584	13	bit_select	value		uvm_pkg::uvm_reg::backdoor_read_func::rw.value[0]::value	uvm_message_defines.svh	2749	33	2749	34		0			uvm_pkg::uvm_reg::backdoor_read_func::rw.value[0]::value	000
+> #39585	14	constant				uvm_message_defines.svh	2749	33	2749	34	0	64	UINT:0	9		000
+  #39586	12	func_call	uvm_hdl_concat2string			uvm_message_defines.svh	2749	37	2749	68		0				000
+  #39587	13	bit_select	paths		uvm_pkg::uvm_reg::backdoor_read_func::paths	uvm_message_defines.svh	2749	65	2749	66		0			uvm_pkg::uvm_reg::backdoor_read_func::paths	000
+  #39588	14	constant				uvm_message_defines.svh	2749	65	2749	66	0	64	UINT:0	9		000
+  #39589	12	ref_obj	val		uvm_pkg::uvm_reg::backdoor_read_func::val	uvm_message_defines.svh	2750	24	2750	27		0			uvm_pkg::uvm_reg::backdoor_read_func::val	000
+  #39590	12	func_call	uvm_hdl_concat2string			uvm_message_defines.svh	2750	29	2750	60		0				000
+  #39591	13	bit_select	paths		uvm_pkg::uvm_reg::backdoor_read_func::paths	uvm_message_defines.svh	2750	57	2750	58		0			uvm_pkg::uvm_reg::backdoor_read_func::paths	000
+
+facets of this row (31106, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

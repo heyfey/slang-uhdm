@@ -1,0 +1,50 @@
+cluster N0676 (r11u128map N0676; OPEN): fullname|ref_typespec|tok:id::id.id.->|under:enum_typespec
+row: surelog/testflags/HierPathOverride  strict=differ:depth(1)  records golden=532 ours=526
+object: #411 (golden) / #405 (ours)  type=ref_typespec name= STABLE
+  golden: work@top.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper_pkg::pad_type_e
+  ours:   work@top.prim_pad_wrapper_pkg::pad_type_e
+  walk parents: enum_typespec(prim_pad_wrapper_pkg::pad_type_e) < ref_typespec < packed_array_typespec < ref_typespec
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 405..417 ('>' = the object)
+  #405	8	packed_array_typespec				dut.sv	14	7	14	32						001
+  #406	9	range				dut.sv	14	18	14	32						001
+  #407	10	constant				dut.sv	14	19	14	27	23	64	INT:23	7		001
+  #408	10	constant				dut.sv	14	30	14	31	0	64	UINT:0	9		001
+  #409	9	ref_typespec			<in>pinmux_pkg::target_cfg_t.dio_pad_type		0	0	0	0		0			work@top.pinmux_pkg::target_cfg_t.dio_pad_type	001
+  #410	10	enum_typespec	prim_pad_wrapper_pkg::pad_type_e			dut.sv	4	4	7	17						001
+> #411	11	ref_typespec			<in>prim_pad_wrapper_pkg::pad_type_e		0	0	0	0		0			work@top.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper_pkg::pad_type_e	001
+  #412	12	logic_typespec				dut.sv	4	18	4	29						001
+  #413	13	range				dut.sv	4	24	4	29						001
+  #414	14	constant				dut.sv	4	25	4	26	2	64	UINT:2	9		001
+  #415	14	constant				dut.sv	4	27	4	28	0	64	UINT:0	9		001
+  #416	11	enum_const	A			dut.sv	5	7	5	15						001
+  #417	11	enum_const	B			dut.sv	6	7	6	15						001
+
+--- OURS (B) records 399..411 ('>' = the object)
+  #399	8	packed_array_typespec				dut.sv	14	7	14	32						001
+  #400	9	range				dut.sv	14	18	14	32						001
+  #401	10	constant				dut.sv	14	19	14	27	23	64	INT:23	7		001
+  #402	10	constant				dut.sv	14	30	14	31	0	64	UINT:0	9		001
+  #403	9	ref_typespec			<in>pinmux_pkg::target_cfg_t.dio_pad_type		0	0	0	0		0			work@top.pinmux_pkg::target_cfg_t.dio_pad_type	001
+  #404	10	enum_typespec	prim_pad_wrapper_pkg::pad_type_e			dut.sv	4	4	7	17						001
+> #405	11	ref_typespec			<in>prim_pad_wrapper_pkg::pad_type_e		0	0	0	0		0			work@top.prim_pad_wrapper_pkg::pad_type_e	001
+  #406	12	logic_typespec				dut.sv	4	18	4	29						001
+  #407	13	range				dut.sv	4	24	4	29						001
+  #408	14	constant				dut.sv	4	25	4	26	2	64	UINT:2	9		001
+  #409	14	constant				dut.sv	4	27	4	28	0	64	UINT:0	9		001
+  #410	11	enum_const	A			dut.sv	5	7	5	15						001
+  #411	11	enum_const	B			dut.sv	6	7	6	15						001
+
+facets of this row (11, first 25):
+  N0002 #47/-1 parameter NDioPads G[3 objs] O[]
+  N0261 #128/-1 ref_typespec  G[2 objs] O[]
+  N0002 #130/-1 parameter NDioPads G[1 objs] O[]
+  N0421 #131/125 ref_typespec  G[pinmux_pkg::NDioPads] O[pinmux_pkg]
+  N0435 #260/254 ref_typespec  G[work@top.DefaultTargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper] O[work@top.prim_pad_wrapper_pkg::pad_type_e]
+  N0028 #274/268 ref_typespec  G[work@top.pinmux_pkg::target_cfg_t.dio_pad_type] O[work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type]
+  N0674 #279/273 ref_typespec  G[work@top.pinmux_pkg::target_cfg_t.dio_pad_type] O[work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type]
+  N0435 #314/308 ref_typespec  G[work@top.DefaultTargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper] O[work@top.prim_pad_wrapper_pkg::pad_type_e]
+  N0435 #362/356 ref_typespec  G[work@top.DefaultTargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper] O[work@top.prim_pad_wrapper_pkg::pad_type_e]
+  N0435 #383/377 ref_typespec  G[work@top.TargetCfg.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper_pkg::p] O[work@top.prim_pad_wrapper_pkg::pad_type_e]
+  N0676 #411/405 ref_typespec  G[work@top.pinmux_pkg::target_cfg_t.dio_pad_type.prim_pad_wrapper_pkg::pad_type_e] O[work@top.prim_pad_wrapper_pkg::pad_type_e]

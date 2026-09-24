@@ -1,0 +1,64 @@
+cluster N0584 (r11u128map N0584; OPEN): struct|golden-only:fewer-copies|typespec_member|under:bit_select
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #127418 (golden) / #-1 (ours)  type=typespec_member name=byte_en 
+  golden: 11 objs
+  ours:   
+  walk parents: bit_select(byte_en) < hier_path(rw_access.byte_en[z]) < assignment < for_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 127412..127424 ('>' = the object)
+  #127412	18	ref_typespec			<in>uvm_pkg::uvm_reg_bus_op.status		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_bus_op.status	001
+  #127413	19	enum_typespec	uvm_pkg::uvm_status_e			uvm_vreg_field.svh	462	31	462	43						001
+  #127414	20	enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16						001
+  #127415	20	enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17						001
+  #127416	20	enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16						001
+  #127417	13	bit_select	byte_en		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::byte_en	uvm_reg_map.svh	1903	21	1903	31		0			svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::byte_en	000
+> #127418	14	typespec_member	byte_en			uvm_pkg.sv	303	21	303	28						000
+  #127419	15	ref_typespec			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_bus_op.byte_en		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_bus_op.byte_en	000
+  #127420	16	bit_typespec	uvm_reg_byte_en_t			uvm_reg_model.svh	87	10	87	42						110
+  #127421	17	ref_typespec			<in>uvm_reg_byte_en_t		0	0	0	0		0			work@svaunit_vpi_interface.uvm_pkg::uvm_reg_bus_op.byte_en.uvm_reg_byte_en_t	001
+  #127422	18	bit_typespec	uvm_pkg::uvm_reg_byte_en_t			uvm_reg_model.svh	87	10	87	42						001
+  #127423	19	range				uvm_reg_model.svh	87	23	87	42						001
+  #127424	20	constant				uvm_reg_model.svh	87	24	87	36	7	64	INT:7	7		001
+
+--- the holder #127417 on the other side: exact-record matches at [122050, 339610, 405251]
+  #122047	20	enum_const	UVM_IS_OK			uvm_reg_model.svh	149	7	149	16						001
+  #122048	20	enum_const	UVM_NOT_OK			uvm_reg_model.svh	150	7	150	17						001
+  #122049	20	enum_const	UVM_HAS_X			uvm_reg_model.svh	151	7	151	16						001
+> #122050	13	bit_select	byte_en		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::byte_en	uvm_reg_map.svh	1903	21	1903	31		0			svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::rw_access.byte_en[z]::byte_en	000
+  #122051	14	ref_obj	z		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::z	uvm_reg_map.svh	1903	29	1903	30		0			svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::z	000
+  #122052	8	assignment				uvm_reg_map.svh	1906	7	1906	34						000
+  #122053	9	hier_path	rw.kind			uvm_reg_map.svh	1906	27	1906	34		0				000
+  #122054	10	ref_obj	rw			uvm_reg_map.svh	1906	27	1906	29		0				000
+  #122055	10	ref_obj	kind		svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::kind	uvm_reg_map.svh	1906	30	1906	34		0			svaunit_pkg::uvm_reg_map::do_bus_write::foreach_value::foreach_addr::kind	000
+  #122056	9	hier_path	rw_access.kind			uvm_reg_map.svh	1906	7	1906	21		0				000
+  #122057	10	ref_obj	rw_access			uvm_reg_map.svh	1906	17	1906	21		0				000
+  #122058	10	ref_obj	kind			uvm_reg_map.svh	1906	17	1906	21		0				000
+  #122059	11	typespec_member	kind			uvm_reg_item.svh	263	16	263	20						000
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

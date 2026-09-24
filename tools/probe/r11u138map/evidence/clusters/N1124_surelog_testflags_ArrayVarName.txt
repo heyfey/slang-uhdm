@@ -1,0 +1,40 @@
+cluster N1124 (r11u128map N1124; COVERED r11u134 (N1124)): fullname|ref_typespec|tok:->.id|under:int_var
+row: surelog/testflags/ArrayVarName  strict=differ:fullname(1)  records golden=100 ours=100
+object: #58 (golden) / #58 (ours)  type=ref_typespec name= OUT
+  golden: work@top.get_a1
+  ours:   work@top.get_a1.a
+  walk parents: int_var < begin < function(get_a1) < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 52..64 ('>' = the object)
+  #52	6	int_typespec				dut.sv	5	7	5	10						000
+  #53	3	int_var			work@top.get_a1	dut.sv	4	23	4	26		0			work@top.get_a1	000
+  #54	4	ref_typespec			work@top.get_a1		0	0	0	0		0			work@top.get_a1	000
+  #55	5	int_typespec				dut.sv	4	23	4	26						000
+  #56	3	begin			work@top.get_a1	dut.sv	6	7	6	19					work@top.get_a1	000
+  #57	4	int_var			work@top.get_a1	dut.sv	5	11	5	12		0			work@top.get_a1	000
+> #58	5	ref_typespec			work@top.get_a1		0	0	0	0		0			work@top.get_a1	000
+  #59	6	int_typespec				dut.sv	5	7	5	10						000
+  #60	4	array_var	a		work@top.get_a1.a	dut.sv	5	11	5	12		0			work@top.get_a1.a	000
+  #61	5	ref_typespec			work@top.get_a1.a		0	0	0	0		0			work@top.get_a1.a	000
+  #62	6	array_typespec				dut.sv	5	11	5	15						000
+  #63	7	range				dut.sv	5	14	5	15						001
+  #64	8	constant					0	0	0	0	0	64	UINT:0	9		001
+
+--- OURS (B) records 52..64 ('>' = the object)
+  #52	6	int_typespec				dut.sv	5	7	5	10						000
+  #53	3	int_var			work@top.get_a1	dut.sv	4	23	4	26		0			work@top.get_a1	000
+  #54	4	ref_typespec			work@top.get_a1		0	0	0	0		0			work@top.get_a1	000
+  #55	5	int_typespec				dut.sv	4	23	4	26						000
+  #56	3	begin			work@top.get_a1	dut.sv	6	7	6	19					work@top.get_a1	000
+  #57	4	int_var			work@top.get_a1	dut.sv	5	11	5	12		0			work@top.get_a1	000
+> #58	5	ref_typespec			work@top.get_a1.a		0	0	0	0		0			work@top.get_a1.a	000
+  #59	6	int_typespec				dut.sv	5	7	5	10						000
+  #60	4	array_var	a		work@top.get_a1.a	dut.sv	5	11	5	12		0			work@top.get_a1.a	000
+  #61	5	ref_typespec			work@top.get_a1.a		0	0	0	0		0			work@top.get_a1.a	000
+  #62	6	array_typespec				dut.sv	5	11	5	15						000
+  #63	7	range				dut.sv	5	14	5	15						001
+  #64	8	constant					0	0	0	0	0	64	UINT:0	9		001
+
+facets of this row (1, first 25):
+  N1124 #58/58 ref_typespec  G[work@top.get_a1] O[work@top.get_a1.a]

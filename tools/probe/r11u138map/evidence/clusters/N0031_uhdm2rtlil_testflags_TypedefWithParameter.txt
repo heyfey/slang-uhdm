@@ -1,0 +1,48 @@
+cluster N0031 (r11u128map N0031; COVERED r11u134 (N0031)): file|constant|ours-empty|under:range
+row: uhdm2rtlil/testflags/TypedefWithParameter  strict=differ:endline(2)  records golden=76 ours=90
+object: #50 (golden) / #57 (ours)  type=constant name= 
+  golden: dut.sv 3:19:3:20
+  ours:    0:0:0:0
+  walk parents: range < logic_typespec(word) < ref_typespec < logic_var(w)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 44..56 ('>' = the object)
+  #44	3	ref_obj	o		work@top.o	dut.sv	8	11	8	12		0			work@top.o	000
+  #45	1	module_inst	work@top	work@top		dut.sv	6	1	9	10						000
+  #46	2	logic_var	w		work@top.w	dut.sv	7	17	7	26		0			work@top.w	000
+  #47	3	ref_typespec			work@top.w		0	0	0	0		0			work@top.w	000
+  #48	4	logic_typespec	word			dut.sv	3	12	3	25						110
+  #49	5	range				dut.sv	3	18	3	25						001
+> #50	6	constant				dut.sv	3	19	3	20	7	64	INT:7	7		001
+  #51	6	constant				dut.sv	3	23	3	24	0	64	UINT:0	9		001
+  #52	3	constant				dut.sv	7	21	7	26	8'h5C	8	HEX:5C	5		000
+  #53	2	logic_net	o		work@top.o	dut.sv	6	31	6	32		0			work@top.o	000
+  #54	3	ref_typespec			work@top.o		0	0	0	0		0			work@top.o	000
+  #55	4	logic_typespec				dut.sv	6	19	6	30						000
+  #56	5	range				dut.sv	6	25	6	30						001
+
+--- OURS (B) records 51..63 ('>' = the object)
+  #51	3	ref_obj	o		work@top.o	dut.sv	8	11	8	12		0			work@top.o	000
+  #52	1	module_inst	work@top	work@top		dut.sv	6	1	9	10						000
+  #53	2	logic_var	w		work@top.w	dut.sv	7	17	7	26		0			work@top.w	000
+  #54	3	ref_typespec			work@top.w		0	0	0	0		0			work@top.w	000
+  #55	4	logic_typespec	word			dut.sv	3	12	3	25						110
+  #56	5	range				dut.sv	3	18	3	25						001
+> #57	6	constant					0	0	0	0	7	64	INT:7	7		001
+  #58	6	constant				dut.sv	3	23	3	24	0	64	UINT:0	9		001
+  #59	3	constant				dut.sv	7	21	7	26	8'h5C	8	HEX:5C	5		000
+  #60	2	logic_net	o		work@top.o	dut.sv	6	31	6	32		0			work@top.o	000
+  #61	3	ref_typespec			work@top.o		0	0	0	0		0			work@top.o	000
+  #62	4	logic_typespec				dut.sv	6	19	6	30						000
+  #63	5	range				dut.sv	6	25	6	30						001
+
+facets of this row (9, first 25):
+  N0085 #-1/32 ref_typespec  G[] O[5 objs]
+  N0025 #33/40 constant  G[6 range < logic_typespec(my_pkg::word)] O[7 operation < range]
+  N0033 #-1/38 operation  G[] O[2 objs]
+  N0085 #-1/78 ref_typespec  G[] O[5 objs]
+  N0025 #72/86 constant  G[8 range < logic_typespec(my_pkg::word)] O[9 operation < range]
+  N0033 #-1/84 operation  G[] O[2 objs]
+  N0422 #23/23 logic_typespec my_pkg::word G[3:12:7:26] O[3:12:3:25]
+  N0031 #50/57 constant  G[dut.sv 3:19:3:20] O[ 0:0:0:0]
+  N0042 #50/57 constant  G[3:19:3:20] O[0:0:0:0]

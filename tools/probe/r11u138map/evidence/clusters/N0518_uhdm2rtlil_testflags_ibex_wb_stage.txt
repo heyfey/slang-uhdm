@@ -1,0 +1,64 @@
+cluster N0518 (r11u128map N0518; OPEN): span|cont_assign|endcol|under:named_begin
+row: uhdm2rtlil/testflags/ibex_wb_stage  strict=differ:fullname(9)  records golden=9505 ours=9025
+object: #6966 (golden) / #6486 (ours)  type=cont_assign name= 
+  golden: 106:14:106:58
+  ours:   106:14:106:57
+  walk parents: named_begin(g_fcov_wb_valid) < gen_if_else < module_inst < design(work@ibex_wb_stage)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 6960..6972 ('>' = the object)
+  #6960	4	cont_assign				ibex_wb_stage.sv	238	12	238	41						000
+  #6961	5	constant				ibex_wb_stage.sv	238	37	238	41	1'b0	1	BIN:0	3		000
+  #6962	5	ref_obj	instr_done_wb_o		work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	ibex_wb_stage.sv	238	12	238	27		0			work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	000
+  #6963	2	gen_if_else					0	0	0	0						000
+  #6964	3	ref_obj	WritebackStage		work@ibex_wb_stage.WritebackStage	dv_fcov_macros.svh	105	9	105	23		0			work@ibex_wb_stage.WritebackStage	000
+  #6965	3	named_begin	g_fcov_wb_valid		work@ibex_wb_stage.g_fcov_wb_valid		0	0	0	0					work@ibex_wb_stage.g_fcov_wb_valid	000
+> #6966	4	cont_assign				dv_fcov_macros.svh	106	14	106	58						000
+  #6967	5	hier_path	g_writeback_stage.wb_valid_q			dv_fcov_macros.svh	106	30	106	58		0				000
+  #6968	6	ref_obj	g_writeback_stage			dv_fcov_macros.svh	106	30	106	47		0				000
+  #6969	6	ref_obj	wb_valid_q		work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	dv_fcov_macros.svh	106	48	106	58		0			work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	000
+  #6970	5	ref_obj	fcov_wb_valid		work@ibex_wb_stage.g_fcov_wb_valid.fcov_wb_valid	dv_fcov_macros.svh	106	14	106	27		0			work@ibex_wb_stage.g_fcov_wb_valid.fcov_wb_valid	000
+  #6971	3	named_begin	g_no_fcov_wb_valid		work@ibex_wb_stage.g_no_fcov_wb_valid		0	0	0	0					work@ibex_wb_stage.g_no_fcov_wb_valid	000
+  #6972	4	cont_assign				dv_fcov_macros.svh	108	14	108	32						000
+
+--- OURS (B) records 6480..6492 ('>' = the object)
+  #6480	4	cont_assign				ibex_wb_stage.sv	238	12	238	41						000
+  #6481	5	constant				ibex_wb_stage.sv	238	37	238	41	1'b0	1	BIN:0	3		000
+  #6482	5	ref_obj	instr_done_wb_o		work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	ibex_wb_stage.sv	238	12	238	27		0			work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	000
+  #6483	2	gen_if_else					0	0	0	0						000
+  #6484	3	ref_obj	WritebackStage		work@ibex_wb_stage.WritebackStage	dv_fcov_macros.svh	105	9	105	23		0			work@ibex_wb_stage.WritebackStage	000
+  #6485	3	named_begin	g_fcov_wb_valid		work@ibex_wb_stage.g_fcov_wb_valid		0	0	0	0					work@ibex_wb_stage.g_fcov_wb_valid	000
+> #6486	4	cont_assign				dv_fcov_macros.svh	106	14	106	57						000
+  #6487	5	hier_path	g_writeback_stage.wb_valid_q			dv_fcov_macros.svh	106	29	106	57		0				000
+  #6488	6	ref_obj	g_writeback_stage			dv_fcov_macros.svh	106	29	106	46		0				000
+  #6489	6	ref_obj	wb_valid_q		work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	dv_fcov_macros.svh	106	47	106	57		0			work@ibex_wb_stage.g_fcov_wb_valid.wb_valid_q	000
+  #6490	5	ref_obj	fcov_wb_valid		work@ibex_wb_stage.g_fcov_wb_valid.fcov_wb_valid	dv_fcov_macros.svh	106	14	106	27		0			work@ibex_wb_stage.g_fcov_wb_valid.fcov_wb_valid	000
+  #6491	3	named_begin	g_no_fcov_wb_valid		work@ibex_wb_stage.g_no_fcov_wb_valid		0	0	0	0					work@ibex_wb_stage.g_no_fcov_wb_valid	000
+  #6492	4	cont_assign				dv_fcov_macros.svh	108	14	108	31						000
+
+facets of this row (108, first 25):
+  N0002 #4402/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #4431/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #4460/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #4489/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #4518/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #4547/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #4576/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #4605/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #4634/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #4663/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4692/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4721/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4740/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4747/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4754/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4761/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4768/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4775/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4782/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4789/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4796/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4803/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4810/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4817/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4824/-1 parameter IC_INDEX_W G[3 objs] O[]

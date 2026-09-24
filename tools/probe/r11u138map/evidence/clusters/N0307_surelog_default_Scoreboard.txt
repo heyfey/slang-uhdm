@@ -1,0 +1,64 @@
+cluster N0307 (r11u128map N0307; OPEN): span|ref_obj|line+col+endline+endcol|under:func_call
+row: surelog/default/Scoreboard  strict=differ:line(199)  records golden=269656 ours=268952
+object: #9147 (golden) / #9163 (ours)  type=ref_obj name=UVM_NONE 
+  golden: 151:43:151:51
+  ours:   149:212:149:220
+  walk parents: func_call(uvm_report_error) < if_stmt < begin < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 9141..9153 ('>' = the object)
+  #9141	9	sys_func_call	$sformatf			uvm_message_defines.svh	149	54	151	41		0				000
+  #9142	10	constant				uvm_message_defines.svh	149	64	149	135	"pack_bits called with size '%0d', which exceeds value.size() of '%0d'"	552	STRING:pack_bits called with size '%0d', which exceeds value.size() of '%0d'	6		000
+  #9143	10	ref_obj	size		uvm_pkg::uvm_packer::pack_bits::size	uvm_message_defines.svh	150	28	150	32		0			uvm_pkg::uvm_packer::pack_bits::size	000
+  #9144	10	hier_path	value.size			uvm_message_defines.svh	151	28	151	40		0				000
+  #9145	11	ref_obj	value			uvm_message_defines.svh	151	28	151	33		0				000
+  #9146	11	method_func_call	size			uvm_message_defines.svh	151	34	151	38		0				000
+> #9147	9	ref_obj	UVM_NONE		uvm_pkg::uvm_packer::pack_bits::UVM_NONE	uvm_message_defines.svh	151	43	151	51		0			uvm_pkg::uvm_packer::pack_bits::UVM_NONE	000
+  #9148	10	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #9149	9	constant				uvm_message_defines.svh	151	53	151	156	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_packer.svh"	808	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_packer.svh	6		000
+  #9150	9	constant				uvm_message_defines.svh	151	158	151	161	712	64	UINT:712	9		000
+  #9151	9	constant				uvm_message_defines.svh	151	163	151	165	""	0	STRING:	6		000
+  #9152	9	constant				uvm_message_defines.svh	151	167	151	168	1	64	UINT:1	9		000
+  #9153	6	return_stmt				uvm_packer.svh	716	7	716	13						000
+
+--- OURS (B) records 9157..9169 ('>' = the object)
+  #9157	9	sys_func_call	$sformatf			uvm_message_defines.svh	149	54	715	65		0				000
+  #9158	10	constant				uvm_message_defines.svh	149	64	149	135	"pack_bits called with size '%0d', which exceeds value.size() of '%0d'"	552	STRING:pack_bits called with size '%0d', which exceeds value.size() of '%0d'	6		000
+  #9159	10	ref_obj	size		uvm_pkg::uvm_packer::pack_bits::size	uvm_message_defines.svh	714	52	714	56		0			uvm_pkg::uvm_packer::pack_bits::size	000
+  #9160	10	hier_path	value.size			uvm_message_defines.svh	715	52	715	64		0				000
+  #9161	11	ref_obj	value			uvm_message_defines.svh	715	52	715	57		0				000
+  #9162	11	method_func_call	size			uvm_message_defines.svh	715	58	715	62		0				000
+> #9163	9	ref_obj	UVM_NONE		uvm_pkg::uvm_packer::pack_bits::UVM_NONE	uvm_message_defines.svh	149	212	149	220		0			uvm_pkg::uvm_packer::pack_bits::UVM_NONE	000
+  #9164	10	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #9165	9	constant				uvm_message_defines.svh	149	55	52	3	"/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_packer.svh"	808	STRING:/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_packer.svh	6		000
+  #9166	9	constant				uvm_message_defines.svh	149	66	149	69	712	64	UINT:712	9		000
+  #9167	9	constant				uvm_message_defines.svh	149	352	149	354	""	0	STRING:	6		000
+  #9168	9	constant				uvm_message_defines.svh	149	356	149	357	1	64	UINT:1	9		000
+  #9169	6	return_stmt				uvm_packer.svh	716	7	716	13						000
+
+facets of this row (31106, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

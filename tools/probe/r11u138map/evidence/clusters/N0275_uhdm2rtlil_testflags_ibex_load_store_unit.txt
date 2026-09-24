@@ -1,0 +1,64 @@
+cluster N0275 (r11u128map N0275; OPEN): span|cont_assign|endcol|under:module_inst
+row: uhdm2rtlil/testflags/ibex_load_store_unit  strict=differ:endline(240)  records golden=3630 ours=3630
+object: #1561 (golden) / #1561 (ours)  type=cont_assign name= 
+  golden: 92:12:92:77
+  ours:   92:12:92:66
+  walk parents: module_inst < design(work@ibex_load_store_unit)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 1555..1567 ('>' = the object)
+  #1555	5	operation				ibex_load_store_unit.sv	581	33	581	68		0				000
+  #1556	6	ref_obj	fcov_mis_rvalid_1		work@ibex_load_store_unit.fcov_mis_rvalid_1	ibex_load_store_unit.sv	581	33	581	50		0			work@ibex_load_store_unit.fcov_mis_rvalid_1	000
+  #1557	6	ref_obj	data_bus_err_i		work@ibex_load_store_unit.data_bus_err_i	ibex_load_store_unit.sv	581	54	581	68		0			work@ibex_load_store_unit.data_bus_err_i	000
+  #1558	5	constant				ibex_load_store_unit.sv	581	71	581	75	1'b1	1	BIN:1	3		000
+  #1559	5	ref_obj	fcov_mis_bus_err_1_q		work@ibex_load_store_unit.fcov_mis_bus_err_1_q	ibex_load_store_unit.sv	582	71	582	91		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #1560	3	ref_obj	fcov_mis_bus_err_1_d		work@ibex_load_store_unit.fcov_mis_bus_err_1_d	ibex_load_store_unit.sv	580	10	580	30		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+> #1561	2	cont_assign				dv_fcov_macros.svh	92	12	92	77						000
+  #1562	3	operation				dv_fcov_macros.svh	92	38	92	77		0				000
+  #1563	4	operation				dv_fcov_macros.svh	92	39	92	63		0				000
+  #1564	5	ref_obj	load_err_o		work@ibex_load_store_unit.load_err_o	dv_fcov_macros.svh	92	39	92	49		0			work@ibex_load_store_unit.load_err_o	000
+  #1565	5	ref_obj	store_err_o		work@ibex_load_store_unit.store_err_o	dv_fcov_macros.svh	92	52	92	63		0			work@ibex_load_store_unit.store_err_o	000
+  #1566	4	operation				dv_fcov_macros.svh	92	67	92	77		0				000
+  #1567	5	ref_obj	pmp_err_q		work@ibex_load_store_unit.pmp_err_q	dv_fcov_macros.svh	92	68	92	77		0			work@ibex_load_store_unit.pmp_err_q	000
+
+--- OURS (B) records 1555..1567 ('>' = the object)
+  #1555	5	operation				ibex_load_store_unit.sv	581	33	581	68		0				000
+  #1556	6	ref_obj	fcov_mis_rvalid_1		work@ibex_load_store_unit.fcov_mis_rvalid_1	ibex_load_store_unit.sv	581	33	581	50		0			work@ibex_load_store_unit.fcov_mis_rvalid_1	000
+  #1557	6	ref_obj	data_bus_err_i		work@ibex_load_store_unit.data_bus_err_i	ibex_load_store_unit.sv	581	54	581	68		0			work@ibex_load_store_unit.data_bus_err_i	000
+  #1558	5	constant				ibex_load_store_unit.sv	581	71	581	75	1'b1	1	BIN:1	3		000
+  #1559	5	ref_obj	fcov_mis_bus_err_1_q		work@ibex_load_store_unit.fcov_mis_bus_err_1_q	ibex_load_store_unit.sv	582	71	582	91		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_q	000
+  #1560	3	ref_obj	fcov_mis_bus_err_1_d		work@ibex_load_store_unit.fcov_mis_bus_err_1_d	ibex_load_store_unit.sv	580	10	580	30		0			work@ibex_load_store_unit.fcov_mis_bus_err_1_d	000
+> #1561	2	cont_assign				dv_fcov_macros.svh	92	12	92	66						000
+  #1562	3	operation				dv_fcov_macros.svh	92	27	92	66		0				000
+  #1563	4	operation				dv_fcov_macros.svh	92	28	92	52		0				000
+  #1564	5	ref_obj	load_err_o		work@ibex_load_store_unit.load_err_o	dv_fcov_macros.svh	92	28	92	38		0			work@ibex_load_store_unit.load_err_o	000
+  #1565	5	ref_obj	store_err_o		work@ibex_load_store_unit.store_err_o	dv_fcov_macros.svh	92	41	92	52		0			work@ibex_load_store_unit.store_err_o	000
+  #1566	4	operation				dv_fcov_macros.svh	92	56	92	66		0				000
+  #1567	5	ref_obj	pmp_err_q		work@ibex_load_store_unit.pmp_err_q	dv_fcov_macros.svh	92	57	92	66		0			work@ibex_load_store_unit.pmp_err_q	000
+
+facets of this row (240, first 25):
+  N0515 #236/236 logic_net fcov_ls_error_exception G[91:11:91:34] O[91:11:92:8]
+  N0515 #239/239 logic_net unused_fcov_ls_error_exception G[81:11:81:41] O[81:11:82:8]
+  N0515 #242/242 logic_net fcov_ls_pmp_exception G[91:11:91:32] O[91:11:92:6]
+  N0515 #245/245 logic_net unused_fcov_ls_pmp_exception G[81:11:81:39] O[81:11:82:6]
+  N0515 #248/248 logic_net fcov_ls_first_req G[91:11:91:28] O[91:11:92:2]
+  N0515 #251/251 logic_net unused_fcov_ls_first_req G[81:11:81:35] O[81:11:82:2]
+  N0515 #254/254 logic_net fcov_ls_second_req G[91:11:91:29] O[91:11:92:3]
+  N0515 #257/257 logic_net unused_fcov_ls_second_req G[81:11:81:36] O[81:11:82:3]
+  N0515 #260/260 logic_net fcov_ls_mis_pmp_err_1 G[91:11:91:32] O[91:11:92:6]
+  N0515 #263/263 logic_net unused_fcov_ls_mis_pmp_err_1 G[81:11:81:39] O[81:11:82:6]
+  N0515 #266/266 logic_net fcov_ls_mis_pmp_err_2 G[91:11:91:32] O[91:11:92:6]
+  N0515 #269/269 logic_net unused_fcov_ls_mis_pmp_err_2 G[81:11:81:39] O[81:11:82:6]
+  N0027 #274/274 sys_func_call $error G[29:3:33:30] O[32:3:33:18]
+  N0026 #275/275 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #276/276 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #277/277 constant  G[29:60:29:156] O[32:92:33:65]
+  N0015 #278/278 constant  G[29:158:29:161] O[32:92:32:95]
+  N0017 #279/279 constant  G[33:10:33:29] O[33:10:23:11]
+  N0027 #285/285 sys_func_call $error G[29:3:33:32] O[32:3:33:18]
+  N0026 #286/286 constant  G[29:10:29:51] O[32:10:32:51]
+  N0029 #287/287 sys_func_call $time G[29:53:29:58] O[32:53:32:58]
+  N0015 #288/288 constant  G[29:60:29:156] O[32:92:33:65]
+  N0015 #289/289 constant  G[29:158:29:161] O[32:92:32:95]
+  N0017 #290/290 constant  G[33:10:33:31] O[33:10:23:13]
+  N0027 #296/296 sys_func_call $error G[29:3:33:34] O[32:3:33:18]

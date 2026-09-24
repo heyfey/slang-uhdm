@@ -1,0 +1,64 @@
+cluster N0672 (r11u128map N0672; OPEN): span|cont_assign|endcol|under:gen_scope
+row: uhdm2rtlil/testflags/ibex_wb_stage  strict=differ:fullname(9)  records golden=9505 ours=9025
+object: #9459 (golden) / #8979 (ours)  type=cont_assign name= 
+  golden: 108:14:108:32
+  ours:   108:14:108:31
+  walk parents: gen_scope < gen_scope_array(g_no_fcov_wb_valid) < module_inst(work@ibex_wb_stage) < design(work@ibex_wb_stage)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 9453..9465 ('>' = the object)
+  #9453	5	ref_obj	rf_wdata_fwd_wb_o		work@ibex_wb_stage.g_bypass_wb.rf_wdata_fwd_wb_o	ibex_wb_stage.sv	237	12	237	29		0			work@ibex_wb_stage.g_bypass_wb.rf_wdata_fwd_wb_o	000
+  #9454	4	cont_assign				ibex_wb_stage.sv	238	12	238	41						000
+  #9455	5	constant				ibex_wb_stage.sv	238	37	238	41	1'b0	1	BIN:0	3		000
+  #9456	5	ref_obj	instr_done_wb_o		work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	ibex_wb_stage.sv	238	12	238	27		0			work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	000
+  #9457	2	gen_scope_array	g_no_fcov_wb_valid		work@ibex_wb_stage.g_no_fcov_wb_valid	dv_fcov_macros.svh	107	14	109	8					work@ibex_wb_stage.g_no_fcov_wb_valid	000
+  #9458	3	gen_scope			work@ibex_wb_stage.g_no_fcov_wb_valid	dv_fcov_macros.svh	107	14	109	8					work@ibex_wb_stage.g_no_fcov_wb_valid	000
+> #9459	4	cont_assign				dv_fcov_macros.svh	108	14	108	32						000
+  #9460	5	constant				dv_fcov_macros.svh	108	30	108	32	'0	1	BIN:0	3		000
+  #9461	5	ref_obj	fcov_wb_valid		work@ibex_wb_stage.g_no_fcov_wb_valid.fcov_wb_valid	dv_fcov_macros.svh	108	14	108	27		0			work@ibex_wb_stage.g_no_fcov_wb_valid.fcov_wb_valid	000
+  #9462	2	cont_assign				ibex_wb_stage.sv	241	10	241	45						000
+  #9463	3	ref_obj	rf_wdata_lsu_i		work@ibex_wb_stage.rf_wdata_lsu_i	ibex_wb_stage.sv	241	31	241	45		0			work@ibex_wb_stage.rf_wdata_lsu_i	000
+  #9464	4	logic_net	rf_wdata_lsu_i		work@ibex_wb_stage.rf_wdata_lsu_i	ibex_wb_stage.sv	47	36	47	50		0			work@ibex_wb_stage.rf_wdata_lsu_i	000
+  #9465	3	bit_select	rf_wdata_wb_mux		work@ibex_wb_stage.rf_wdata_wb_mux	ibex_wb_stage.sv	241	10	241	28		0			work@ibex_wb_stage.rf_wdata_wb_mux	000
+
+--- OURS (B) records 8973..8985 ('>' = the object)
+  #8973	5	ref_obj	rf_wdata_fwd_wb_o		work@ibex_wb_stage.g_bypass_wb.rf_wdata_fwd_wb_o	ibex_wb_stage.sv	237	12	237	29		0			work@ibex_wb_stage.g_bypass_wb.rf_wdata_fwd_wb_o	000
+  #8974	4	cont_assign				ibex_wb_stage.sv	238	12	238	41						000
+  #8975	5	constant				ibex_wb_stage.sv	238	37	238	41	1'b0	1	BIN:0	3		000
+  #8976	5	ref_obj	instr_done_wb_o		work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	ibex_wb_stage.sv	238	12	238	27		0			work@ibex_wb_stage.g_bypass_wb.instr_done_wb_o	000
+  #8977	2	gen_scope_array	g_no_fcov_wb_valid		work@ibex_wb_stage.g_no_fcov_wb_valid	dv_fcov_macros.svh	107	14	109	8					work@ibex_wb_stage.g_no_fcov_wb_valid	000
+  #8978	3	gen_scope			work@ibex_wb_stage.g_no_fcov_wb_valid	dv_fcov_macros.svh	107	14	109	8					work@ibex_wb_stage.g_no_fcov_wb_valid	000
+> #8979	4	cont_assign				dv_fcov_macros.svh	108	14	108	31						000
+  #8980	5	constant				dv_fcov_macros.svh	108	29	108	31	'0	1	BIN:0	3		000
+  #8981	5	ref_obj	fcov_wb_valid		work@ibex_wb_stage.g_no_fcov_wb_valid.fcov_wb_valid	dv_fcov_macros.svh	108	14	108	27		0			work@ibex_wb_stage.g_no_fcov_wb_valid.fcov_wb_valid	000
+  #8982	2	cont_assign				ibex_wb_stage.sv	241	10	241	45						000
+  #8983	3	ref_obj	rf_wdata_lsu_i		work@ibex_wb_stage.rf_wdata_lsu_i	ibex_wb_stage.sv	241	31	241	45		0			work@ibex_wb_stage.rf_wdata_lsu_i	000
+  #8984	4	logic_net	rf_wdata_lsu_i		work@ibex_wb_stage.rf_wdata_lsu_i	ibex_wb_stage.sv	47	36	47	50		0			work@ibex_wb_stage.rf_wdata_lsu_i	000
+  #8985	3	bit_select	rf_wdata_wb_mux		work@ibex_wb_stage.rf_wdata_wb_mux	ibex_wb_stage.sv	241	10	241	28		0			work@ibex_wb_stage.rf_wdata_wb_mux	000
+
+facets of this row (108, first 25):
+  N0002 #4402/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #4431/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #4460/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #4489/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #4518/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #4547/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #4576/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #4605/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #4634/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #4663/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4692/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4721/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4740/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4747/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4754/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4761/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4768/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4775/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4782/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4789/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4796/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4803/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4810/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4817/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4824/-1 parameter IC_INDEX_W G[3 objs] O[]

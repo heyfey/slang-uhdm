@@ -1,0 +1,40 @@
+cluster N1160 (r11u128map N1160; OPEN): span|union_typespec|endcol|under:ref_typespec
+row: surelog/testflags/TaggedPattern  strict=differ:endcol(1)  records golden=149 ours=149
+object: #123 (golden) / #123 (ours)  type=union_typespec name= 
+  golden: 3:2:3:14
+  ours:   3:2:3:7
+  walk parents: ref_typespec < struct_net(un) < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 117..129 ('>' = the object)
+  #117	4	sys_func_call	$display			dut.sv	11	3	11	49		0				000
+  #118	5	constant				dut.sv	11	12	11	44	":assert: ('%b' == 'v1:1010101'"	240	STRING::assert: ('%b' == 'v1:1010101'	6		000
+  #119	5	ref_obj	un		work@top.un	dut.sv	11	46	11	48		0			work@top.un	000
+  #120	1	module_inst	work@top	work@top		dut.sv	1	1	14	11						000
+  #121	2	struct_net	un		work@top.un	dut.sv	6	4	6	6		0			work@top.un	000
+  #122	3	ref_typespec			work@top.un		0	0	0	0		0			work@top.un	000
+> #123	4	union_typespec				dut.sv	3	2	3	14						000
+  #124	5	typespec_member	v1			dut.sv	4	13	4	15						001
+  #125	6	ref_typespec			<in>v1		0	0	0	0		0			work@top.un.v1	001
+  #126	7	bit_typespec				dut.sv	4	3	4	12						001
+  #127	8	range				dut.sv	4	7	4	12						001
+  #128	9	constant				dut.sv	4	8	4	9	6	64	UINT:6	9		001
+  #129	9	constant				dut.sv	4	10	4	11	0	64	UINT:0	9		001
+
+--- OURS (B) records 117..129 ('>' = the object)
+  #117	4	sys_func_call	$display			dut.sv	11	3	11	49		0				000
+  #118	5	constant				dut.sv	11	12	11	44	":assert: ('%b' == 'v1:1010101'"	240	STRING::assert: ('%b' == 'v1:1010101'	6		000
+  #119	5	ref_obj	un		work@top.un	dut.sv	11	46	11	48		0			work@top.un	000
+  #120	1	module_inst	work@top	work@top		dut.sv	1	1	14	11						000
+  #121	2	struct_net	un		work@top.un	dut.sv	6	4	6	6		0			work@top.un	000
+  #122	3	ref_typespec			work@top.un		0	0	0	0		0			work@top.un	000
+> #123	4	union_typespec				dut.sv	3	2	3	7						000
+  #124	5	typespec_member	v1			dut.sv	4	13	4	15						001
+  #125	6	ref_typespec			<in>v1		0	0	0	0		0			work@top.un.v1	001
+  #126	7	bit_typespec				dut.sv	4	3	4	12						001
+  #127	8	range				dut.sv	4	7	4	12						001
+  #128	9	constant				dut.sv	4	8	4	9	6	64	UINT:6	9		001
+  #129	9	constant				dut.sv	4	10	4	11	0	64	UINT:0	9		001
+
+facets of this row (1, first 25):
+  N1160 #123/123 union_typespec  G[3:2:3:14] O[3:2:3:7]

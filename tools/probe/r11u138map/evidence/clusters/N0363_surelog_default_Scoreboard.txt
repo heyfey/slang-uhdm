@@ -1,0 +1,64 @@
+cluster N0363 (r11u128map N0363; OPEN): file|constant|other-file+span|under:case_item
+row: surelog/default/Scoreboard  strict=differ:line(199)  records golden=269656 ours=268952
+object: #47107 (golden) / #47116 (ours)  type=constant name= 
+  golden: uvm_message_defines.svh 146:10:146:14
+  ours:   uvm_mem.svh 1161:10:1161:14
+  walk parents: case_item < case_stmt < case_item < case_stmt
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 47101..47113 ('>' = the object)
+  #47101	8	constant				uvm_mem.svh	1159	10	1159	14	"RW"	16	STRING:RW	6		000
+  #47102	8	constant				uvm_mem.svh	1159	16	1159	20	"RO"	16	STRING:RO	6		000
+  #47103	8	assignment				uvm_mem.svh	1159	22	1159	39						000
+  #47104	9	constant				uvm_mem.svh	1159	35	1159	39	"RO"	16	STRING:RO	6		000
+  #47105	9	ref_obj	get_access		uvm_pkg::uvm_mem::get_access::get_access	uvm_mem.svh	1159	22	1159	32		0			uvm_pkg::uvm_mem::get_access::get_access	000
+  #47106	7	case_item				uvm_message_defines.svh	146	10	151	7						000
+> #47107	8	constant				uvm_message_defines.svh	146	10	146	14	"WO"	16	STRING:WO	6		000
+  #47108	8	begin			uvm_pkg::uvm_mem::get_access	uvm_message_defines.svh	147	4	151	7					uvm_pkg::uvm_mem::get_access	000
+  #47109	9	if_stmt				uvm_message_defines.svh	148	6	150	204						000
+  #47110	10	func_call	uvm_report_enabled			uvm_message_defines.svh	148	10	148	59		0				000
+  #47111	11	ref_obj	UVM_NONE		uvm_pkg::uvm_mem::get_access::UVM_NONE	uvm_message_defines.svh	148	29	148	37		0			uvm_pkg::uvm_mem::get_access::UVM_NONE	000
+  #47112	12	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #47113	11	ref_obj	UVM_ERROR		uvm_pkg::uvm_mem::get_access::UVM_ERROR	uvm_message_defines.svh	148	38	148	47		0			uvm_pkg::uvm_mem::get_access::UVM_ERROR	000
+
+--- OURS (B) records 47110..47122 ('>' = the object)
+  #47110	8	constant				uvm_mem.svh	1159	10	1159	14	"RW"	16	STRING:RW	6		000
+  #47111	8	constant				uvm_mem.svh	1159	16	1159	20	"RO"	16	STRING:RO	6		000
+  #47112	8	assignment				uvm_mem.svh	1159	22	1159	39						000
+  #47113	9	constant				uvm_mem.svh	1159	35	1159	39	"RO"	16	STRING:RO	6		000
+  #47114	9	ref_obj	get_access		uvm_pkg::uvm_mem::get_access::get_access	uvm_mem.svh	1159	22	1159	32		0			uvm_pkg::uvm_mem::get_access::get_access	000
+  #47115	7	case_item				uvm_mem.svh	1161	10	150	7						000
+> #47116	8	constant				uvm_mem.svh	1161	10	1161	14	"WO"	16	STRING:WO	6		000
+  #47117	8	begin			uvm_pkg::uvm_mem::get_access	uvm_message_defines.svh	147	4	150	7					uvm_pkg::uvm_mem::get_access	000
+  #47118	9	if_stmt				uvm_message_defines.svh	148	6	149	293						000
+  #47119	10	func_call	uvm_report_enabled			uvm_message_defines.svh	148	10	148	59		0				000
+  #47120	11	ref_obj	UVM_NONE		uvm_pkg::uvm_mem::get_access::UVM_NONE	uvm_message_defines.svh	148	29	148	37		0			uvm_pkg::uvm_mem::get_access::UVM_NONE	000
+  #47121	12	enum_const	UVM_NONE			uvm_object_globals.svh	304	3	304	17						010
+  #47122	11	ref_obj	UVM_ERROR		uvm_pkg::uvm_mem::get_access::UVM_ERROR	uvm_message_defines.svh	148	38	148	47		0			uvm_pkg::uvm_mem::get_access::UVM_ERROR	000
+
+facets of this row (31106, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

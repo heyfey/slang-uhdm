@@ -1,0 +1,43 @@
+cluster N0751 (r11u128map N0751; OPEN): span|logic_typespec|col+endcol|under:ref_typespec
+row: surelog/testflags/ImplicitArg  strict=differ:col(4)  records golden=27 ours=27
+object: #8 (golden) / #8 (ours)  type=logic_typespec name= 
+  golden: 5:4:5:7
+  ours:   5:3:5:8
+  walk parents: ref_typespec < io_decl(sdn) < function(bsg_mul_booth) < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 2..14 ('>' = the object)
+  #2	2	function	bsg_mul_booth		work@top.bsg_mul_booth	dut.sv	3	1	7	12					work@top.bsg_mul_booth	000
+  #3	3	logic_var			work@top.bsg_mul_booth	dut.sv	3	20	3	25		0			work@top.bsg_mul_booth	000
+  #4	4	ref_typespec			work@top.bsg_mul_booth		0	0	0	0		0			work@top.bsg_mul_booth	000
+  #5	5	logic_typespec				dut.sv	3	20	3	25						000
+  #6	3	io_decl	sdn			dut.sv	5	9	5	12						000
+  #7	4	ref_typespec			work@top.bsg_mul_booth.sdn		0	0	0	0		0			work@top.bsg_mul_booth.sdn	000
+> #8	5	logic_typespec				dut.sv	5	4	5	7						000
+  #9	6	range				dut.sv	5	4	5	7						001
+  #10	7	constant				dut.sv	5	4	5	5	2	64	UINT:2	9		001
+  #11	7	constant				dut.sv	5	6	5	7	0	64	UINT:0	9		001
+  #12	3	return_stmt				dut.sv	6	3	6	9						000
+  #13	4	constant				dut.sv	6	10	6	11	1	64	UINT:1	9		000
+  #14	1	module_inst	work@top	work@top		dut.sv	1	1	9	10						000
+
+--- OURS (B) records 2..14 ('>' = the object)
+  #2	2	function	bsg_mul_booth		work@top.bsg_mul_booth	dut.sv	3	1	7	12					work@top.bsg_mul_booth	000
+  #3	3	logic_var			work@top.bsg_mul_booth	dut.sv	3	20	3	25		0			work@top.bsg_mul_booth	000
+  #4	4	ref_typespec			work@top.bsg_mul_booth		0	0	0	0		0			work@top.bsg_mul_booth	000
+  #5	5	logic_typespec				dut.sv	3	20	3	25						000
+  #6	3	io_decl	sdn			dut.sv	5	9	5	12						000
+  #7	4	ref_typespec			work@top.bsg_mul_booth.sdn		0	0	0	0		0			work@top.bsg_mul_booth.sdn	000
+> #8	5	logic_typespec				dut.sv	5	3	5	8						000
+  #9	6	range				dut.sv	5	3	5	8						001
+  #10	7	constant				dut.sv	5	4	5	5	2	64	UINT:2	9		001
+  #11	7	constant				dut.sv	5	6	5	7	0	64	UINT:0	9		001
+  #12	3	return_stmt				dut.sv	6	3	6	9						000
+  #13	4	constant				dut.sv	6	10	6	11	1	64	UINT:1	9		000
+  #14	1	module_inst	work@top	work@top		dut.sv	1	1	9	10						000
+
+facets of this row (4, first 25):
+  N0751 #8/8 logic_typespec  G[5:4:5:7] O[5:3:5:8]
+  N0767 #9/9 range  G[5:4:5:7] O[5:3:5:8]
+  N0751 #21/21 logic_typespec  G[5:4:5:7] O[5:3:5:8]
+  N0767 #22/22 range  G[5:4:5:7] O[5:3:5:8]

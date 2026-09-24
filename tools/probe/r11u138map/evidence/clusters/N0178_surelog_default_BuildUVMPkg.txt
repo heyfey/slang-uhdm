@@ -1,0 +1,64 @@
+cluster N0178 (r11u128map N0178; OPEN): file|begin|ours-empty|under:if_stmt
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(270)  records golden=201533 ours=201486
+object: #194631 (golden) / #194584 (ours)  type=begin name= 
+  golden: uvm_pkg.sv 14097:48:14099:12
+  ours:    0:0:0:0
+  walk parents: if_stmt < begin < if_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 194625..194637 ('>' = the object)
+  #194625	8	ref_obj	Tregistry::get		uvm_pkg::uvm_registry_common::set_type_alias::Tregistry::get	uvm_pkg.sv	14096	27	14096	38		0			uvm_pkg::uvm_registry_common::set_type_alias::Tregistry::get	000
+  #194626	7	if_stmt				uvm_pkg.sv	14097	9	14099	12						000
+  #194627	8	hier_path	factory.is_type_registered			uvm_pkg.sv	14097	13	14097	46		0				000
+  #194628	9	ref_obj	factory			uvm_pkg.sv	14097	13	14097	20		0				000
+  #194629	9	method_func_call	is_type_registered			uvm_pkg.sv	14097	21	14097	39		0				000
+  #194630	10	ref_obj	rgtry		uvm_pkg::uvm_registry_common::set_type_alias::factory.is_type_registered::rgtry	uvm_pkg.sv	14097	40	14097	45		0			uvm_pkg::uvm_registry_common::set_type_alias::factory.is_type_registered::rgtry	000
+> #194631	8	begin			uvm_pkg::uvm_registry_common::set_type_alias	uvm_pkg.sv	14097	48	14099	12					uvm_pkg::uvm_registry_common::set_type_alias	000
+  #194632	9	method_func_call	set_type_alias			uvm_pkg.sv	14098	20	14098	34		0				000
+  #194633	10	ref_obj	alias_name		uvm_pkg::uvm_registry_common::set_type_alias::alias_name	uvm_pkg.sv	14098	35	14098	45		0			uvm_pkg::uvm_registry_common::set_type_alias::alias_name	000
+  #194634	10	ref_obj	rgtry		uvm_pkg::uvm_registry_common::set_type_alias::rgtry	uvm_pkg.sv	14098	46	14098	51		0			uvm_pkg::uvm_registry_common::set_type_alias::rgtry	000
+  #194635	10	ref_obj	factory		uvm_pkg::uvm_registry_common::set_type_alias::factory	uvm_pkg.sv	14098	12	14098	19		0			uvm_pkg::uvm_registry_common::set_type_alias::factory	000
+  #194636	3	function	__deferred_init		uvm_pkg::uvm_registry_common::__deferred_init	uvm_pkg.sv	14103	3	14103	9					uvm_pkg::uvm_registry_common::__deferred_init	000
+  #194637	4	ref_var	rgtry		uvm_pkg::uvm_registry_common::__deferred_init::rgtry	uvm_pkg.sv	14104	16	14104	21		0			uvm_pkg::uvm_registry_common::__deferred_init::rgtry	000
+
+--- OURS (B) records 194578..194590 ('>' = the object)
+  #194578	8	ref_obj	Tregistry::get		uvm_pkg::uvm_registry_common::set_type_alias::Tregistry::get	uvm_pkg.sv	14096	27	14096	38		0			uvm_pkg::uvm_registry_common::set_type_alias::Tregistry::get	000
+  #194579	7	if_stmt				uvm_pkg.sv	14097	9	14099	12						000
+  #194580	8	hier_path	factory.is_type_registered			uvm_pkg.sv	14097	13	14097	39		0				000
+  #194581	9	ref_obj	factory			uvm_pkg.sv	14097	13	14097	20		0				000
+  #194582	9	method_func_call	is_type_registered			uvm_pkg.sv	14097	21	14097	39		0				000
+  #194583	10	ref_obj	rgtry		uvm_pkg::uvm_registry_common::set_type_alias::rgtry	uvm_pkg.sv	14097	40	14097	45		0			uvm_pkg::uvm_registry_common::set_type_alias::rgtry	000
+> #194584	8	begin			uvm_pkg::uvm_registry_common::set_type_alias		0	0	0	0					uvm_pkg::uvm_registry_common::set_type_alias	000
+  #194585	9	method_func_call	set_type_alias			uvm_pkg.sv	14098	20	14098	34		0				000
+  #194586	10	ref_obj	alias_name		uvm_pkg::uvm_registry_common::set_type_alias::alias_name	uvm_pkg.sv	14098	35	14098	45		0			uvm_pkg::uvm_registry_common::set_type_alias::alias_name	000
+  #194587	10	ref_obj	rgtry		uvm_pkg::uvm_registry_common::set_type_alias::rgtry	uvm_pkg.sv	14098	46	14098	51		0			uvm_pkg::uvm_registry_common::set_type_alias::rgtry	000
+  #194588	10	ref_obj	factory		uvm_pkg::uvm_registry_common::set_type_alias::factory	uvm_pkg.sv	14098	12	14098	19		0			uvm_pkg::uvm_registry_common::set_type_alias::factory	000
+  #194589	3	function	__deferred_init		uvm_pkg::uvm_registry_common::__deferred_init	uvm_pkg.sv	14103	3	14103	9					uvm_pkg::uvm_registry_common::__deferred_init	000
+  #194590	4	ref_var	rgtry		uvm_pkg::uvm_registry_common::__deferred_init::rgtry	uvm_pkg.sv	14104	16	14104	21		0			uvm_pkg::uvm_registry_common::__deferred_init::rgtry	000
+
+facets of this row (11031, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

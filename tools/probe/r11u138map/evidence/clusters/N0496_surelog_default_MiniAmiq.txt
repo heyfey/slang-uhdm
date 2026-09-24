@@ -1,0 +1,64 @@
+cluster N0496 (r11u128map N0496; OPEN): struct|golden-only:fewer-copies|class_var|under:ref_obj
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #76762 (golden) / #-1 (ours)  type=class_var name=iter 
+  golden: 3 objs
+  ours:   
+  walk parents: ref_obj(iter) < hier_path(iter.first) < assignment < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 76756..76768 ('>' = the object)
+  #76756	5	class_var	cb		svaunit_pkg::uvm_phase::execute_phase::cb	uvm_callback_defines.svh	165	19	165	21		0			svaunit_pkg::uvm_phase::execute_phase::cb	000
+  #76757	6	ref_typespec			svaunit_pkg::uvm_phase::execute_phase::cb		0	0	0	0		0			svaunit_pkg::uvm_phase::execute_phase::cb	000
+  #76758	7	class_typespec				uvm_callback_defines.svh	165	6	165	18						000
+  #76759	5	assignment				uvm_callback_defines.svh	165	19	165	36						000
+  #76760	6	hier_path	iter.first			uvm_callback_defines.svh	165	24	165	36		0				000
+  #76761	7	ref_obj	iter			uvm_callback_defines.svh	165	24	165	28		0				000
+> #76762	8	class_var	iter		uvm_pkg::uvm_phase::execute_phase::iter	uvm_callback_defines.svh	164	49	164	53		0			uvm_pkg::uvm_phase::execute_phase::iter	000
+  #76763	9	ref_typespec			uvm_pkg::uvm_phase::execute_phase::iter		0	0	0	0		0			uvm_pkg::uvm_phase::execute_phase::iter	000
+  #76764	10	class_typespec				uvm_callback_defines.svh	164	6	164	48						000
+  #76765	7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0				000
+  #76766	6	class_var	cb		svaunit_pkg::uvm_phase::execute_phase::cb	uvm_callback_defines.svh	165	19	165	21		0			svaunit_pkg::uvm_phase::execute_phase::cb	000
+  #76767	7	ref_typespec			svaunit_pkg::uvm_phase::execute_phase::cb		0	0	0	0		0			svaunit_pkg::uvm_phase::execute_phase::cb	000
+  #76768	8	class_typespec				uvm_callback_defines.svh	165	6	165	18						000
+
+--- the holder #76761 on the other side: exact-record matches at [11313, 12243, 74714, 75706, 296378]
+  #11310	7	class_typespec				uvm_callback_defines.svh	165	6	165	18						000
+  #11311	5	assignment				uvm_callback_defines.svh	165	19	165	36						000
+  #11312	6	hier_path	iter.first			uvm_callback_defines.svh	165	24	165	36		0				000
+> #11313	7	ref_obj	iter			uvm_callback_defines.svh	165	24	165	28		0				000
+  #11314	7	method_func_call	first			uvm_callback_defines.svh	165	29	165	34		0				000
+  #11315	5	while_stmt				uvm_callback_defines.svh	166	6	166	11						000
+  #11316	6	operation				uvm_callback_defines.svh	166	12	166	22		0				000
+  #11317	7	ref_obj	cb		uvm_pkg::uvm_phase::add::cb	uvm_callback_defines.svh	166	12	166	14		0			uvm_pkg::uvm_phase::add::cb	000
+  #11318	7	constant				uvm_callback_defines.svh	166	18	166	22	0	64	UINT:0	11		000
+  #11319	6	begin			uvm_pkg::uvm_phase::add	uvm_callback_defines.svh	166	24	170	9					uvm_pkg::uvm_phase::add	000
+  #11320	7	method_func_call	phase_state_change			uvm_callback_defines.svh	168	11	169	9		0				000
+  #11321	8	ref_obj	tmp_node		uvm_pkg::uvm_phase::add::tmp_node	uvm_callback_defines.svh	168	30	168	38		0			uvm_pkg::uvm_phase::add::tmp_node	000
+  #11322	8	ref_obj	state_chg		uvm_pkg::uvm_phase::add::state_chg	uvm_callback_defines.svh	168	40	168	49		0			uvm_pkg::uvm_phase::add::state_chg	000
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

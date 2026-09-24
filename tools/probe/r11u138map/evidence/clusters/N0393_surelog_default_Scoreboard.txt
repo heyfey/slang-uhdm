@@ -1,0 +1,64 @@
+cluster N0393 (r11u128map N0393; OPEN): span|ref_obj|col+endcol|under:method_func_call
+row: surelog/default/Scoreboard  strict=differ:line(199)  records golden=269656 ours=268952
+object: #194651 (golden) / #194014 (ours)  type=ref_obj name=this 
+  golden: 1962:65:1962:69
+  ours:   1962:58:1962:62
+  walk parents: method_func_call(do_field_check) < case_item < case_stmt < begin
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 194645..194657 ('>' = the object)
+  #194645	6	case_stmt				uvm_object_defines.svh	1960	5	2073	12						000
+  #194646	7	ref_obj	what__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::what__	uvm_object_defines.svh	1960	11	1960	17		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::what__	000
+  #194647	7	case_item				uvm_object_defines.svh	1961	7	1962	71						000
+  #194648	8	ref_obj	UVM_CHECK_FIELDS		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::UVM_CHECK_FIELDS	uvm_object_defines.svh	1961	7	1961	23		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::UVM_CHECK_FIELDS	000
+  #194649	8	method_func_call	do_field_check			uvm_object_defines.svh	1962	34	1962	48		0				000
+  #194650	9	constant				uvm_object_defines.svh	1962	49	1962	63	"abstractions"	96	STRING:abstractions	6		000
+> #194651	9	ref_obj	this		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::this	uvm_object_defines.svh	1962	65	1962	69		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::this	000
+  #194652	9	ref_obj	__m_uvm_status_container		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::__m_uvm_status_container	uvm_object_defines.svh	1962	9	1962	33		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::__m_uvm_status_container	000
+  #194653	7	case_item				uvm_object_defines.svh	1963	7	1967	12						000
+  #194654	8	ref_obj	UVM_COPY		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::UVM_COPY	uvm_object_defines.svh	1963	7	1963	15		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::UVM_COPY	000
+  #194655	8	begin			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation	uvm_object_defines.svh	1964	9	1967	12					uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation	000
+  #194656	9	if_stmt				uvm_object_defines.svh	1965	11	1965	43						000
+  #194657	10	operation				uvm_object_defines.svh	1965	14	1965	34		0				000
+
+--- OURS (B) records 194008..194020 ('>' = the object)
+  #194008	6	case_stmt				uvm_object_defines.svh	1960	5	2073	12						000
+  #194009	7	ref_obj	what__		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::what__	uvm_object_defines.svh	1960	11	1960	17		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::what__	000
+  #194010	7	case_item				uvm_object_defines.svh	1961	7	1962	64						000
+  #194011	8	ref_obj	UVM_CHECK_FIELDS		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::UVM_CHECK_FIELDS	uvm_object_defines.svh	1961	7	1961	23		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::UVM_CHECK_FIELDS	000
+  #194012	8	method_func_call	do_field_check			uvm_object_defines.svh	1962	34	1962	48		0				000
+  #194013	9	constant				uvm_object_defines.svh	1962	49	1962	63	"abstractions"	96	STRING:abstractions	6		000
+> #194014	9	ref_obj	this		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::this	uvm_object_defines.svh	1962	58	1962	62		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::this	000
+  #194015	9	ref_obj	__m_uvm_status_container		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::__m_uvm_status_container	uvm_object_defines.svh	1962	9	1962	33		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::__m_uvm_status_container	000
+  #194016	7	case_item				uvm_object_defines.svh	1963	7	1967	12						000
+  #194017	8	ref_obj	UVM_COPY		uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::UVM_COPY	uvm_object_defines.svh	1963	7	1963	15		0			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation::UVM_COPY	000
+  #194018	8	begin			uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation	uvm_object_defines.svh	1964	9	1967	12					uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation	000
+  #194019	9	if_stmt				uvm_object_defines.svh	1965	11	1965	43						000
+  #194020	10	operation				uvm_object_defines.svh	1965	14	1965	34		0				000
+
+facets of this row (31106, first 25):
+  N0343 #-1/2492 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2922 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3168 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10185/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17766 class_var uvm_top G[] O[4 objs]
+  N0213 #20913/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20931 bit_typespec  G[] O[1 objs]
+  N0213 #21855/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21867 bit_typespec  G[] O[1 objs]
+  N0343 #-1/25781 class_var run_ph G[] O[3 objs]
+  N0289 #-1/63592 string_var svunit_version G[] O[4 objs]
+  N0213 #74789/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74802 bit_typespec  G[] O[1 objs]
+  N0213 #74816/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74823 bit_typespec  G[] O[1 objs]
+  N0213 #74878/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/74879 bit_typespec  G[] O[1 objs]
+  N0151 #78641/-1 ref_typespec  G[2 objs] O[]
+  N0197 #79148/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79141 array_typespec  G[] O[1 objs]
+  N0213 #79167/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79160 bit_typespec  G[] O[1 objs]
+  N0213 #80149/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/80136 bit_typespec  G[] O[1 objs]
+  N0151 #82230/-1 ref_typespec  G[2 objs] O[]

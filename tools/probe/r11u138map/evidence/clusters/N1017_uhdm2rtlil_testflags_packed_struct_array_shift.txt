@@ -1,0 +1,43 @@
+cluster N1017 (r11u128map N1017; OPEN): fullname|ref_obj|tok:id[id - n].id.->|under:operation
+row: uhdm2rtlil/testflags/packed_struct_array_shift  strict=differ:fullname(4)  records golden=482 ours=482
+object: #144 (golden) / #144 (ours)  type=ref_obj name=DEPTH OUT
+  golden: work@packed_struct_array_shift.stack_d[DEPTH - 1].valid.DEPTH
+  ours:   work@packed_struct_array_shift.DEPTH
+  walk parents: operation < bit_select(stack_d) < hier_path(stack_d[DEPTH - 1].valid) < assignment
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 138..150 ('>' = the object)
+  #138	8	constant				dut.sv	28	23	28	24	0	64	UINT:0	9		000
+  #139	6	assignment				dut.sv	29	7	29	36						000
+  #140	7	constant				dut.sv	29	32	29	36	1'b0	1	BIN:0	3		000
+  #141	7	hier_path	stack_d[DEPTH - 1].valid			dut.sv	29	7	29	14		0				000
+  #142	8	bit_select	stack_d		stack_d[DEPTH - 1]	dut.sv	29	7	29	14		0			stack_d[DEPTH - 1]	000
+  #143	9	operation				dut.sv	29	15	29	22		0				000
+> #144	10	ref_obj	DEPTH		work@packed_struct_array_shift.stack_d[DEPTH - 1].valid.DEPTH	dut.sv	29	15	29	20		0			work@packed_struct_array_shift.stack_d[DEPTH - 1].valid.DEPTH	000
+  #145	10	constant				dut.sv	29	21	29	22	1	64	UINT:1	9		000
+  #146	8	ref_obj	valid		stack_d[DEPTH - 1].valid	dut.sv	29	24	29	29		0			stack_d[DEPTH - 1].valid	000
+  #147	6	assignment				dut.sv	30	7	30	32						000
+  #148	7	constant				dut.sv	30	29	30	32	'b0	0	BIN:0	3		000
+  #149	7	hier_path	stack_d[DEPTH - 1].ra			dut.sv	30	7	30	14		0				000
+  #150	8	bit_select	stack_d		stack_d[DEPTH - 1]	dut.sv	30	7	30	14		0			stack_d[DEPTH - 1]	000
+
+--- OURS (B) records 138..150 ('>' = the object)
+  #138	8	constant				dut.sv	28	23	28	24	0	64	UINT:0	9		000
+  #139	6	assignment				dut.sv	29	7	29	36						000
+  #140	7	constant				dut.sv	29	32	29	36	1'b0	1	BIN:0	3		000
+  #141	7	hier_path	stack_d[DEPTH - 1].valid			dut.sv	29	7	29	14		0				000
+  #142	8	bit_select	stack_d		stack_d[DEPTH - 1]	dut.sv	29	7	29	14		0			stack_d[DEPTH - 1]	000
+  #143	9	operation				dut.sv	29	15	29	22		0				000
+> #144	10	ref_obj	DEPTH		work@packed_struct_array_shift.DEPTH	dut.sv	29	15	29	20		0			work@packed_struct_array_shift.DEPTH	000
+  #145	10	constant				dut.sv	29	21	29	22	1	64	UINT:1	9		000
+  #146	8	ref_obj	valid		stack_d[DEPTH - 1].valid	dut.sv	29	24	29	29		0			stack_d[DEPTH - 1].valid	000
+  #147	6	assignment				dut.sv	30	7	30	32						000
+  #148	7	constant				dut.sv	30	29	30	32	'b0	0	BIN:0	3		000
+  #149	7	hier_path	stack_d[DEPTH - 1].ra			dut.sv	30	7	30	14		0				000
+  #150	8	bit_select	stack_d		stack_d[DEPTH - 1]	dut.sv	30	7	30	14		0			stack_d[DEPTH - 1]	000
+
+facets of this row (4, first 25):
+  N1017 #144/144 ref_obj DEPTH G[work@packed_struct_array_shift.stack_d[DEPTH - 1].valid.DEPTH] O[work@packed_struct_array_shift.DEPTH]
+  N1017 #152/152 ref_obj DEPTH G[work@packed_struct_array_shift.stack_d[DEPTH - 1].ra.DEPTH] O[work@packed_struct_array_shift.DEPTH]
+  N1017 #418/418 ref_obj DEPTH G[work@packed_struct_array_shift.stack_d[DEPTH - 1].valid.DEPTH] O[work@packed_struct_array_shift.DEPTH]
+  N1017 #426/426 ref_obj DEPTH G[work@packed_struct_array_shift.stack_d[DEPTH - 1].ra.DEPTH] O[work@packed_struct_array_shift.DEPTH]

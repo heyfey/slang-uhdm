@@ -1,0 +1,64 @@
+cluster N0154 (r11u128map N0154; OPEN): span|int_var|line+col+endline+endcol|under:function
+row: surelog/default/BuildUVMPkg  strict=differ:fullname(270)  records golden=201533 ours=201486
+object: #74947 (golden) / #74938 (ours)  type=int_var name= 
+  golden: 20992:27:20992:39
+  ours:   21576:10:21576:22
+  walk parents: function(get_result) < class_defn(uvm_comparer) < package(uvm_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 74941..74953 ('>' = the object)
+  #74941	6	bit_typespec				uvm_pkg.sv	20986	13	20986	16						000
+  #74942	3	function	get_miscompares		uvm_pkg::uvm_comparer::get_miscompares	uvm_pkg.sv	20990	3	20990	9					uvm_pkg::uvm_comparer::get_miscompares	000
+  #74943	4	string_var			uvm_pkg::uvm_comparer::get_miscompares	uvm_pkg.sv	20990	27	20990	33		0			uvm_pkg::uvm_comparer::get_miscompares	000
+  #74944	5	ref_typespec			uvm_pkg::uvm_comparer::get_miscompares		0	0	0	0		0			uvm_pkg::uvm_comparer::get_miscompares	000
+  #74945	6	string_typespec				uvm_pkg.sv	20990	27	20990	33						000
+  #74946	3	function	get_result		uvm_pkg::uvm_comparer::get_result	uvm_pkg.sv	20992	3	20992	9					uvm_pkg::uvm_comparer::get_result	000
+> #74947	4	int_var			uvm_pkg::uvm_comparer::get_result	uvm_pkg.sv	20992	27	20992	39		0			uvm_pkg::uvm_comparer::get_result	000
+  #74948	5	ref_typespec			uvm_pkg::uvm_comparer::get_result		0	0	0	0		0			uvm_pkg::uvm_comparer::get_result	000
+  #74949	6	int_typespec				uvm_pkg.sv	20992	27	20992	39						000
+  #74950	3	function	set_result		uvm_pkg::uvm_comparer::set_result	uvm_pkg.sv	20994	3	20994	9					uvm_pkg::uvm_comparer::set_result	000
+  #74951	4	io_decl	result			uvm_pkg.sv	20994	56	20994	62						000
+  #74952	5	ref_typespec			uvm_pkg::uvm_comparer::set_result::result		0	0	0	0		0			uvm_pkg::uvm_comparer::set_result::result	000
+  #74953	6	int_typespec				uvm_pkg.sv	20994	43	20994	46						000
+
+--- OURS (B) records 74932..74944 ('>' = the object)
+  #74932	6	bit_typespec				uvm_pkg.sv	21560	10	21560	13						000
+  #74933	3	function	get_miscompares		uvm_pkg::uvm_comparer::get_miscompares	uvm_pkg.sv	20990	3	20990	9					uvm_pkg::uvm_comparer::get_miscompares	000
+  #74934	4	string_var			uvm_pkg::uvm_comparer::get_miscompares	uvm_pkg.sv	21572	10	21572	16		0			uvm_pkg::uvm_comparer::get_miscompares	000
+  #74935	5	ref_typespec			uvm_pkg::uvm_comparer::get_miscompares		0	0	0	0		0			uvm_pkg::uvm_comparer::get_miscompares	000
+  #74936	6	string_typespec				uvm_pkg.sv	21572	10	21572	16						000
+  #74937	3	function	get_result		uvm_pkg::uvm_comparer::get_result	uvm_pkg.sv	20992	3	20992	9					uvm_pkg::uvm_comparer::get_result	000
+> #74938	4	int_var			uvm_pkg::uvm_comparer::get_result	uvm_pkg.sv	21576	10	21576	22		0			uvm_pkg::uvm_comparer::get_result	000
+  #74939	5	ref_typespec			uvm_pkg::uvm_comparer::get_result		0	0	0	0		0			uvm_pkg::uvm_comparer::get_result	000
+  #74940	6	int_typespec				uvm_pkg.sv	21576	10	21576	22						000
+  #74941	3	function	set_result		uvm_pkg::uvm_comparer::set_result	uvm_pkg.sv	20994	3	20994	9					uvm_pkg::uvm_comparer::set_result	000
+  #74942	4	io_decl	result			uvm_pkg.sv	21580	53	21580	59						000
+  #74943	5	ref_typespec			uvm_pkg::uvm_comparer::set_result::result		0	0	0	0		0			uvm_pkg::uvm_comparer::set_result::result	000
+  #74944	6	int_typespec				uvm_pkg.sv	21580	40	21580	43						000
+
+facets of this row (11031, first 25):
+  N0248 #11992/-1 ref_typespec  G[2 objs] O[]
+  N0428 #-1/17540 enum_var m_uvm_core_state G[] O[15 objs]
+  N0213 #22506/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22519 bit_typespec  G[] O[1 objs]
+  N0213 #22596/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/22603 bit_typespec  G[] O[1 objs]
+  N0213 #23515/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/23516 bit_typespec  G[] O[1 objs]
+  N0439 #-1/56203 ref_typespec  G[] O[2 objs]
+  N0423 #74761/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74758 bit_typespec  G[] O[1 objs]
+  N0423 #74847/-1 enum_typespec recursion_state_e G[4 objs] O[]
+  N0177 #-1/74841 bit_typespec  G[] O[1 objs]
+  N0213 #76357/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76348 bit_typespec  G[] O[1 objs]
+  N0213 #76384/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76369 bit_typespec  G[] O[1 objs]
+  N0213 #76450/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/76429 bit_typespec  G[] O[1 objs]
+  N0213 #79819/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/79792 bit_typespec  G[] O[1 objs]
+  N0197 #79836/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79803 array_typespec  G[] O[1 objs]
+  N0197 #79890/-1 string_typespec  G[1 objs] O[]
+  N0467 #-1/79857 array_typespec  G[] O[1 objs]

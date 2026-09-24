@@ -1,0 +1,25 @@
+cluster N0046 (r11u128map N0046; OPEN (net binding, module ground: ModuleEmit)): struct|ours-only:fewer-copies|logic_net|under:ref_obj
+row: uhdm2rtlil/testflags/cdc_static_basic  strict=differ:count(0)  records golden=101 ours=102
+object: #-1 (golden) / #101 (ours)  type=logic_net name=src_data 
+  golden: 
+  ours:   1 objs
+  walk parents: ref_obj(src_data) < cont_assign < module_inst(work@cdc_static_basic) < design(work@cdc_static_basic)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- OURS (B) records 95..101 ('>' = the object)
+  #95	11	constant				dut.sv	7	11	7	12	3	64	UINT:3	9		001
+  #96	11	constant				dut.sv	7	13	7	14	0	64	UINT:0	9		001
+  #97	6	ref_obj	gated_data_out		work@cdc_static_basic.gated_data_out	dut.sv	10	9	10	23		0			work@cdc_static_basic.gated_data_out	000
+  #98	7	logic_net	gated_data_out		work@cdc_static_basic.gated_data_out	dut.sv	4	22	4	36		0			work@cdc_static_basic.gated_data_out	000
+  #99	2	cont_assign				dut.sv	7	16	7	26						000
+  #100	3	ref_obj	src_data		work@cdc_static_basic.src_data	dut.sv	7	29	7	37		0			work@cdc_static_basic.src_data	000
+> #101	4	logic_net	src_data		work@cdc_static_basic.src_data	dut.sv	3	17	3	25		0			work@cdc_static_basic.src_data	000
+
+--- the holder #100 on the other side: exact-record matches at [100]
+  #97	6	ref_obj	gated_data_out		work@cdc_static_basic.gated_data_out	dut.sv	10	9	10	23		0			work@cdc_static_basic.gated_data_out	000
+  #98	7	logic_net	gated_data_out		work@cdc_static_basic.gated_data_out	dut.sv	4	22	4	36		0			work@cdc_static_basic.gated_data_out	000
+  #99	2	cont_assign				dut.sv	7	16	7	26						000
+> #100	3	ref_obj	src_data		work@cdc_static_basic.src_data	dut.sv	7	29	7	37		0			work@cdc_static_basic.src_data	000
+
+facets of this row (1, first 25):
+  N0046 #-1/101 logic_net src_data G[] O[1 objs]

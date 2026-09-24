@@ -1,0 +1,41 @@
+cluster N0022 (r11u128map N0022; OPEN (net binding, module ground: ModuleEmit)): struct|golden-only:elsewhere|logic_net|under:ref_obj
+row: uhdm2rtlil/testflags/sva_value_change_changed  strict=differ:depth(1)  records golden=151 ours=151
+object: #107 (golden) / #-1 (ours)  type=logic_net name=clk 
+  golden: 1 objs
+  ours:   
+  walk parents: ref_obj(clk) < operation < event_control < clocking_block(unnamed_clocking_block)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 101..113 ('>' = the object)
+  #101	5	sys_func_call	$changed			dut.sv	38	15	38	26		0				000
+  #102	6	ref_obj	b		work@top.b	dut.sv	38	24	38	25		0			work@top.b	000
+  #103	2	clocking_block	unnamed_clocking_block		work@top.unnamed_clocking_block	dut.sv	11	2	11	46					work@top.unnamed_clocking_block	000
+  #104	3	event_control				dut.sv	11	19	11	33						000
+  #105	4	operation				dut.sv	11	21	11	32		0				000
+  #106	5	ref_obj	clk		work@top.unnamed_clocking_block.clk	dut.sv	11	29	11	32		0			work@top.unnamed_clocking_block.clk	000
+> #107	6	logic_net	clk		work@top.clk	dut.sv	2	9	2	12		0			work@top.clk	000
+  #108	2	port	clk			dut.sv	2	9	2	12						000
+  #109	3	ref_obj	clk		work@top.clk	dut.sv	2	9	2	12		0			work@top.clk	000
+  #110	3	ref_typespec			work@top.clk		0	0	0	0		0			work@top.clk	000
+  #111	4	logic_typespec				dut.sv	2	9	2	9						000
+  #112	2	port	a			dut.sv	3	9	3	10						000
+  #113	3	ref_obj	a		work@top.a	dut.sv	3	9	3	10		0			work@top.a	000
+
+--- the holder #106 on the other side: exact-record matches at [29, 106]
+  #26	2	clocking_block	unnamed_clocking_block		work@top.unnamed_clocking_block	dut.sv	11	2	11	46					work@top.unnamed_clocking_block	000
+  #27	3	event_control				dut.sv	11	19	11	33						000
+  #28	4	operation				dut.sv	11	21	11	32		0				000
+> #29	5	ref_obj	clk		work@top.unnamed_clocking_block.clk	dut.sv	11	29	11	32		0			work@top.unnamed_clocking_block.clk	000
+  #30	2	port	clk			dut.sv	2	9	2	12						000
+  #31	3	ref_obj	clk		work@top.clk.clk	dut.sv	2	9	2	12		0			work@top.clk.clk	000
+  #32	3	ref_typespec			work@top.clk		0	0	0	0		0			work@top.clk	000
+  #33	4	logic_typespec				dut.sv	2	9	2	9						000
+  #34	2	port	a			dut.sv	3	9	3	10						000
+  #35	3	ref_obj	a		work@top.a.a	dut.sv	3	9	3	10		0			work@top.a.a	000
+  #36	3	ref_typespec			work@top.a		0	0	0	0		0			work@top.a	000
+  #37	4	logic_typespec				dut.sv	3	9	3	9						000
+  #38	2	port	b			dut.sv	3	12	3	13						000
+
+facets of this row (2, first 25):
+  N0022 #107/-1 logic_net clk G[1 objs] O[]
+  N0023 #-1/131 logic_net clk G[] O[1 objs]

@@ -1,0 +1,45 @@
+cluster N0534 (r11u128map N0534; OPEN): fullname|ref_typespec|tok:->id.|under:operation
+row: uhdm2rtlil/testflags/StructArrayParameterInitializedByPatternPassedAsPort  strict=differ:depth(1)  records golden=332 ours=296
+object: #301 (golden) / #265 (ours)  type=ref_typespec name= OUT
+  golden: work@top.u_hw_sel.region_attrs_i
+  ours:   work@top.u_hw_sel.u_hw_sel.region_attrs_i
+  walk parents: operation < port(region_attrs_i) < module_inst(u_hw_sel) < module_inst(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 295..307 ('>' = the object)
+  #295	6	struct_typespec	flash_ctrl_pkg::data_region_attr_t			dut.sv	2	12	4	5						110
+  #296	7	typespec_member	phase			dut.sv	3	13	3	18						001
+  #297	8	ref_typespec			<in>flash_ctrl_pkg::data_region_attr_t.phase		0	0	0	0		0			work@top.flash_ctrl_pkg::data_region_attr_t.phase	001
+  #298	9	logic_typespec				dut.sv	3	7	3	12						001
+  #299	3	port	region_attrs_i			dut.sv	14	29	14	43						000
+  #300	4	operation				dut.sv	23	23	23	33		0				000
+> #301	5	ref_typespec			work@top.u_hw_sel.region_attrs_i		0	0	0	0		0			work@top.u_hw_sel.region_attrs_i	000
+  #302	6	array_typespec				dut.sv	6	14	6	46						000
+  #303	7	range				dut.sv	6	44	6	45						001
+  #304	8	constant					0	0	0	0	0	64	UINT:0	9		001
+  #305	8	operation				dut.sv	6	44	6	45		0				001
+  #306	9	constant				dut.sv	6	44	6	45	1	64	UINT:1	9		001
+  #307	9	constant					0	0	0	0		64	INT:1	7		001
+
+--- OURS (B) records 259..271 ('>' = the object)
+  #259	6	struct_typespec	flash_ctrl_pkg::data_region_attr_t			dut.sv	2	12	4	5						110
+  #260	7	typespec_member	phase			dut.sv	3	13	3	18						001
+  #261	8	ref_typespec			<in>flash_ctrl_pkg::data_region_attr_t.phase		0	0	0	0		0			work@top.flash_ctrl_pkg::data_region_attr_t.phase	001
+  #262	9	logic_typespec				dut.sv	3	7	3	12						001
+  #263	3	port	region_attrs_i			dut.sv	14	29	14	43						000
+  #264	4	operation				dut.sv	6	49	10	5		0				000
+> #265	5	ref_typespec			work@top.u_hw_sel.u_hw_sel.region_attrs_i		0	0	0	0		0			work@top.u_hw_sel.u_hw_sel.region_attrs_i	000
+  #266	6	array_typespec				dut.sv	6	14	6	46						000
+  #267	7	range				dut.sv	6	44	6	45						001
+  #268	8	constant					0	0	0	0	0	64	UINT:0	9		001
+  #269	8	operation				dut.sv	6	44	6	45		0				001
+  #270	9	constant				dut.sv	6	44	6	45	1	64	UINT:1	9		001
+  #271	9	constant					0	0	0	0		64	INT:1	7		001
+
+facets of this row (6, first 25):
+  N0002 #87/-1 parameter HwDataAttr G[18 objs] O[]
+  N0002 #163/-1 parameter HwDataAttr G[18 objs] O[]
+  N0451 #225/189 ref_typespec  G[work@top] O[work@top.HwDataAttr]
+  N0451 #272/236 ref_typespec  G[work@top.u_hw_sel] O[work@top.u_hw_sel.HwDataAttr]
+  N0417 #300/264 operation  G[23:23:23:33] O[6:49:10:5]
+  N0534 #301/265 ref_typespec  G[work@top.u_hw_sel.region_attrs_i] O[work@top.u_hw_sel.u_hw_sel.region_attrs_i]

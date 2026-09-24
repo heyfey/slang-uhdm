@@ -1,0 +1,45 @@
+cluster N0452 (r11u128map N0452; OPEN): fullname|ref_typespec|tok:->::id|under:bit_var
+row: surelog/testflags/AllPackageSignal  strict=differ:fullname(6)  records golden=441 ours=441
+object: #43 (golden) / #43 (ours)  type=ref_typespec name= OUT
+  golden: pkg_a::assert_static_in_package_ThisNameDoesNotMatter1
+  ours:   pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit
+  walk parents: bit_var < begin < function(assert_static_in_package_ThisNameDoesNotMatter1) < package(pkg_a)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 37..49 ('>' = the object)
+  #37	6	bit_typespec				dut.sv	7	5	7	8						000
+  #38	3	bit_var			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	dut.sv	6	22	6	25		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+  #39	4	ref_typespec			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1		0	0	0	0		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+  #40	5	bit_typespec				dut.sv	6	22	6	25						000
+  #41	3	begin			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	dut.sv	8	5	8	35					pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+  #42	4	bit_var			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	dut.sv	7	9	7	19		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+> #43	5	ref_typespec			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1		0	0	0	0		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+  #44	6	bit_typespec				dut.sv	7	5	7	8						000
+  #45	4	array_var	unused_bit		pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit	dut.sv	7	9	7	19		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit	000
+  #46	5	ref_typespec			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit		0	0	0	0		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit	000
+  #47	6	array_typespec				dut.sv	7	9	7	72						000
+  #48	7	range				dut.sv	7	21	7	72						001
+  #49	8	constant					0	0	0	0	0	64	UINT:0	9		001
+
+--- OURS (B) records 37..49 ('>' = the object)
+  #37	6	bit_typespec				dut.sv	7	5	7	8						000
+  #38	3	bit_var			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	dut.sv	6	22	6	25		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+  #39	4	ref_typespec			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1		0	0	0	0		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+  #40	5	bit_typespec				dut.sv	6	22	6	25						000
+  #41	3	begin			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	dut.sv	8	5	8	35					pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+  #42	4	bit_var			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	dut.sv	7	9	7	19		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1	000
+> #43	5	ref_typespec			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit		0	0	0	0		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit	000
+  #44	6	bit_typespec				dut.sv	7	5	7	8						000
+  #45	4	array_var	unused_bit		pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit	dut.sv	7	9	7	19		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit	000
+  #46	5	ref_typespec			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit		0	0	0	0		0			pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit	000
+  #47	6	array_typespec				dut.sv	7	9	7	72						000
+  #48	7	range				dut.sv	7	21	7	72						001
+  #49	8	constant					0	0	0	0	0	64	UINT:0	9		001
+
+facets of this row (6, first 25):
+  N0452 #43/43 ref_typespec  G[pkg_a::assert_static_in_package_ThisNameDoesNotMatter1] O[pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit]
+  N0452 #121/121 ref_typespec  G[pkg_a::assert_static_in_package_ThisNameDoesNotMatter2] O[pkg_a::assert_static_in_package_ThisNameDoesNotMatter2::unused_bit]
+  N0452 #200/200 ref_typespec  G[pkg_a::assert_static_in_package_ThisNameDoesNotMatter3] O[pkg_a::assert_static_in_package_ThisNameDoesNotMatter3::unused_bit]
+  N0452 #289/289 ref_typespec  G[pkg_a::assert_static_in_package_ThisNameDoesNotMatter1] O[pkg_a::assert_static_in_package_ThisNameDoesNotMatter1::unused_bit]
+  N0452 #346/346 ref_typespec  G[pkg_a::assert_static_in_package_ThisNameDoesNotMatter2] O[pkg_a::assert_static_in_package_ThisNameDoesNotMatter2::unused_bit]
+  N0452 #403/403 ref_typespec  G[pkg_a::assert_static_in_package_ThisNameDoesNotMatter3] O[pkg_a::assert_static_in_package_ThisNameDoesNotMatter3::unused_bit]

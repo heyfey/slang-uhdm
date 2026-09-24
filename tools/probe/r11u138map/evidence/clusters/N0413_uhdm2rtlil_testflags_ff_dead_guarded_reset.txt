@@ -1,0 +1,42 @@
+cluster N0413 (r11u128map N0413; OPEN): span|operation|line+col+endline+endcol|under:param_assign
+row: uhdm2rtlil/testflags/ff_dead_guarded_reset  strict=differ:depth(1)  records golden=316 ours=307
+object: #208 (golden) / #199 (ours)  type=operation name= 
+  golden: 26:27:26:36
+  ours:   20:26:20:48
+  walk parents: param_assign < module_inst(work@ff_dead_guarded_reset) < design(work@ff_dead_guarded_reset)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 202..214 ('>' = the object)
+  #202	6	typespec_member	RVH			dut.sv	18	18	18	21						001
+  #203	7	ref_typespec			<in>cfg_pkg::cfg_t.RVH		0	0	0	0		0			work@ff_dead_guarded_reset.cfg_pkg::cfg_t.RVH	001
+  #204	8	bit_typespec				dut.sv	18	5	18	8						001
+  #205	4	constant				dut.sv	20	34	20	36	64	32	UINT:64	9		000
+  #206	4	constant				dut.sv	20	43	20	47	1'b0	1	BIN:0	3		000
+  #207	2	param_assign				dut.sv	20	20	20	48						000
+> #208	3	operation				dut.sv	26	27	26	36		0				000
+  #209	4	ref_typespec			work@ff_dead_guarded_reset		0	0	0	0		0			work@ff_dead_guarded_reset	000
+  #210	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	16	11	19	4						110
+  #211	6	typespec_member	XLEN			dut.sv	17	18	17	22						001
+  #212	7	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			work@ff_dead_guarded_reset.cfg_pkg::cfg_t.XLEN	001
+  #213	8	int_typespec				dut.sv	17	5	17	17						001
+  #214	6	typespec_member	RVH			dut.sv	18	18	18	21						001
+
+--- OURS (B) records 193..205 ('>' = the object)
+  #193	6	typespec_member	RVH			dut.sv	18	18	18	21						001
+  #194	7	ref_typespec			<in>cfg_pkg::cfg_t.RVH		0	0	0	0		0			work@ff_dead_guarded_reset.cfg_pkg::cfg_t.RVH	001
+  #195	8	bit_typespec				dut.sv	18	5	18	8						001
+  #196	4	constant				dut.sv	20	34	20	36	64	32	UINT:64	9		000
+  #197	4	constant				dut.sv	20	43	20	47	1'b0	1	BIN:0	3		000
+  #198	2	param_assign				dut.sv	20	20	20	48						000
+> #199	3	operation				dut.sv	20	26	20	48		0				000
+  #200	4	ref_typespec			work@ff_dead_guarded_reset		0	0	0	0		0			work@ff_dead_guarded_reset	000
+  #201	5	struct_typespec	cfg_pkg::cfg_t			dut.sv	16	11	19	4						110
+  #202	6	typespec_member	XLEN			dut.sv	17	18	17	22						001
+  #203	7	ref_typespec			<in>cfg_pkg::cfg_t.XLEN		0	0	0	0		0			work@ff_dead_guarded_reset.cfg_pkg::cfg_t.XLEN	001
+  #204	8	int_typespec				dut.sv	17	5	17	17						001
+  #205	6	typespec_member	RVH			dut.sv	18	18	18	21						001
+
+facets of this row (3, first 25):
+  N0002 #84/-1 parameter Cfg G[9 objs] O[]
+  N0058 #196/187 operation  G[26:27:26:36] O[26:27:26:39]
+  N0413 #208/199 operation  G[26:27:26:36] O[20:26:20:48]

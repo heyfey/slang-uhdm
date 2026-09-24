@@ -1,0 +1,40 @@
+cluster N0245 (r11u128map N0245; OPEN): span|operation|endcol|under:sys_func_call
+row: surelog/testflags/ComplexExprSize  strict=differ:endcol(1)  records golden=40 ours=40
+object: #20 (golden) / #20 (ours)  type=operation name= 
+  golden: 4:41:4:50
+  ours:   4:41:4:42
+  walk parents: sys_func_call($unsigned) < operation < operation < sys_func_call($unsigned)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 14..26 ('>' = the object)
+  #14	6	range				dut.sv	2	15	2	21						001
+  #15	7	constant				dut.sv	2	16	2	18	31	64	UINT:31	9		001
+  #16	7	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+  #17	4	operation				dut.sv	4	26	4	54		0				000
+  #18	5	operation				dut.sv	4	28	4	52		0				000
+  #19	6	sys_func_call	$unsigned			dut.sv	4	30	4	39		0				000
+> #20	7	operation				dut.sv	4	41	4	50		0				000
+  #21	8	constant				dut.sv	4	44	4	49	8'ha4	8	HEX:a4	5		000
+  #22	3	ref_obj	out		work@top.out	dut.sv	4	10	4	13		0			work@top.out	000
+  #23	1	module_inst	work@top	work@top		dut.sv	1	1	5	10						000
+  #24	2	logic_net	out		work@top.out	dut.sv	1	13	1	16		0			work@top.out	000
+  #25	3	ref_typespec			work@top.out		0	0	0	0		0			work@top.out	000
+  #26	4	logic_typespec				dut.sv	2	10	2	21						000
+
+--- OURS (B) records 14..26 ('>' = the object)
+  #14	6	range				dut.sv	2	15	2	21						001
+  #15	7	constant				dut.sv	2	16	2	18	31	64	UINT:31	9		001
+  #16	7	constant				dut.sv	2	19	2	20	0	64	UINT:0	9		001
+  #17	4	operation				dut.sv	4	26	4	54		0				000
+  #18	5	operation				dut.sv	4	28	4	52		0				000
+  #19	6	sys_func_call	$unsigned			dut.sv	4	30	4	39		0				000
+> #20	7	operation				dut.sv	4	41	4	42		0				000
+  #21	8	constant				dut.sv	4	44	4	49	8'ha4	8	HEX:a4	5		000
+  #22	3	ref_obj	out		work@top.out	dut.sv	4	10	4	13		0			work@top.out	000
+  #23	1	module_inst	work@top	work@top		dut.sv	1	1	5	10						000
+  #24	2	logic_net	out		work@top.out	dut.sv	1	13	1	16		0			work@top.out	000
+  #25	3	ref_typespec			work@top.out		0	0	0	0		0			work@top.out	000
+  #26	4	logic_typespec				dut.sv	2	10	2	21						000
+
+facets of this row (1, first 25):
+  N0245 #20/20 operation  G[4:41:4:50] O[4:41:4:42]

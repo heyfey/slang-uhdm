@@ -1,0 +1,64 @@
+cluster N0474 (r11u128map N0474; OPEN): fullname|ref_typespec|tok:->.id[n]|under:constant
+row: uhdm2rtlil/testflags/ibex_icache  strict=differ:fullname(9)  records golden=20047 ours=19567
+object: #15440 (golden) / #14960 (ours)  type=ref_typespec name= OUT
+  golden: work@ibex_icache
+  ours:   work@ibex_icache.gen_fbs[0]
+  walk parents: constant < operation < operation < operation
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 15434..15446 ('>' = the object)
+  #15434	5	operation				ibex_icache.sv	758	34	761	91		0				000
+  #15435	6	bit_select	fill_alloc		work@ibex_icache.gen_fbs[0].fill_alloc	ibex_icache.sv	758	45	758	47		0			work@ibex_icache.gen_fbs[0].fill_alloc	000
+  #15436	7	ref_obj	fb		work@ibex_icache.gen_fbs[0].fb	ibex_icache.sv	758	45	758	47		0			work@ibex_icache.gen_fbs[0].fb	000
+  #15437	6	operation				ibex_icache.sv	759	36	759	76		0				000
+  #15438	7	operation				ibex_icache.sv	759	37	759	60		0				000
+  #15439	8	constant				ibex_icache.sv	759	38	759	53	1	32	UINT:1	9		000
+> #15440	9	ref_typespec			work@ibex_icache		0	0	0	0		0			work@ibex_icache	000
+  #15441	10	int_typespec				ibex_pkg.sv	393	13	393	25						000
+  #15442	8	operation				ibex_icache.sv	759	53	759	59		0				000
+  #15443	9	constant				ibex_icache.sv	759	54	759	58	1'b0	1	BIN:0	3		000
+  #15444	7	ref_obj	fill_spec_done		work@ibex_icache.gen_fbs[0].fill_spec_done	ibex_icache.sv	759	61	759	75		0			work@ibex_icache.gen_fbs[0].fill_spec_done	000
+  #15445	6	operation				ibex_icache.sv	760	37	761	90		0				000
+  #15446	7	bit_select	fill_ext_cnt_q		work@ibex_icache.gen_fbs[0].fill_ext_cnt_q	ibex_icache.sv	760	52	760	54		0			work@ibex_icache.gen_fbs[0].fill_ext_cnt_q	000
+
+--- OURS (B) records 14954..14966 ('>' = the object)
+  #14954	5	operation				ibex_icache.sv	758	34	761	91		0				000
+  #14955	6	bit_select	fill_alloc		work@ibex_icache.gen_fbs[0].fill_alloc	ibex_icache.sv	758	45	758	47		0			work@ibex_icache.gen_fbs[0].fill_alloc	000
+  #14956	7	ref_obj	fb		work@ibex_icache.gen_fbs[0].fb	ibex_icache.sv	758	45	758	47		0			work@ibex_icache.gen_fbs[0].fb	000
+  #14957	6	operation				ibex_icache.sv	759	36	759	76		0				000
+  #14958	7	operation				ibex_icache.sv	759	37	759	60		0				000
+  #14959	8	constant				ibex_icache.sv	759	38	759	53	1	32	UINT:1	9		000
+> #14960	9	ref_typespec			work@ibex_icache.gen_fbs[0]		0	0	0	0		0			work@ibex_icache.gen_fbs[0]	000
+  #14961	10	int_typespec				ibex_pkg.sv	393	13	393	25						000
+  #14962	8	operation				ibex_icache.sv	759	53	759	59		0				000
+  #14963	9	constant				ibex_icache.sv	759	54	759	58	1'b0	1	BIN:0	3		000
+  #14964	7	ref_obj	fill_spec_done		work@ibex_icache.gen_fbs[0].fill_spec_done	ibex_icache.sv	759	61	759	75		0			work@ibex_icache.gen_fbs[0].fill_spec_done	000
+  #14965	6	operation				ibex_icache.sv	760	37	761	90		0				000
+  #14966	7	bit_select	fill_ext_cnt_q		work@ibex_icache.gen_fbs[0].fill_ext_cnt_q	ibex_icache.sv	760	52	760	54		0			work@ibex_icache.gen_fbs[0].fill_ext_cnt_q	000
+
+facets of this row (279, first 25):
+  N0002 #4419/-1 parameter ExcCauseIrqSoftwareM G[15 objs] O[]
+  N0002 #4448/-1 parameter ExcCauseIrqTimerM G[15 objs] O[]
+  N0002 #4477/-1 parameter ExcCauseIrqExternalM G[15 objs] O[]
+  N0002 #4506/-1 parameter ExcCauseIrqNm G[15 objs] O[]
+  N0002 #4535/-1 parameter ExcCauseInsnAddrMisa G[15 objs] O[]
+  N0002 #4564/-1 parameter ExcCauseInstrAccessFault G[15 objs] O[]
+  N0002 #4593/-1 parameter ExcCauseIllegalInsn G[15 objs] O[]
+  N0002 #4622/-1 parameter ExcCauseBreakpoint G[15 objs] O[]
+  N0002 #4651/-1 parameter ExcCauseLoadAccessFault G[15 objs] O[]
+  N0002 #4680/-1 parameter ExcCauseStoreAccessFault G[15 objs] O[]
+  N0002 #4709/-1 parameter ExcCauseEcallUMode G[15 objs] O[]
+  N0002 #4738/-1 parameter ExcCauseEcallMMode G[15 objs] O[]
+  N0002 #4757/-1 parameter ADDR_W G[3 objs] O[]
+  N0002 #4764/-1 parameter BUS_SIZE G[3 objs] O[]
+  N0002 #4771/-1 parameter BUS_BYTES G[3 objs] O[]
+  N0002 #4778/-1 parameter BUS_W G[3 objs] O[]
+  N0002 #4785/-1 parameter IC_SIZE_BYTES G[3 objs] O[]
+  N0002 #4792/-1 parameter IC_NUM_WAYS G[3 objs] O[]
+  N0002 #4799/-1 parameter IC_LINE_SIZE G[3 objs] O[]
+  N0002 #4806/-1 parameter IC_LINE_BYTES G[3 objs] O[]
+  N0002 #4813/-1 parameter IC_LINE_W G[3 objs] O[]
+  N0002 #4820/-1 parameter IC_NUM_LINES G[3 objs] O[]
+  N0002 #4827/-1 parameter IC_LINE_BEATS G[3 objs] O[]
+  N0002 #4834/-1 parameter IC_LINE_BEATS_W G[3 objs] O[]
+  N0002 #4841/-1 parameter IC_INDEX_W G[3 objs] O[]

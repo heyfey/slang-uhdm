@@ -1,0 +1,41 @@
+cluster N0394 (r11u128map N0394; OPEN): file|constant|ours-empty|under:operation
+row: uhdm2rtlil/testflags/ParameterWithUnderscoreValueDividedPassedFromCommandLine  strict=differ:file(2)  records golden=57 ours=57
+object: #45 (golden) / #45 (ours)  type=constant name= 
+  golden: dut.sv 4:23:4:24
+  ours:    4:23:4:24
+  walk parents: operation < param_assign < module_inst(work@top) < design(work@top)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 39..51 ('>' = the object)
+  #39	2	param_assign				dut.sv	3	14	3	20						000
+  #40	3	constant				dut.sv	3	18	3	20	'bX	-1	BIN:X	3		000
+  #41	2	param_assign				dut.sv	4	19	4	28						000
+  #42	3	operation				dut.sv	4	23	4	28		0				000
+  #43	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #44	5	int_typespec				dut.sv	4	15	4	18						000
+> #45	4	constant				dut.sv	4	23	4	24	'bX	-1	BIN:X	3		000
+  #46	4	constant				dut.sv	4	27	4	28	'bX	-1	BIN:X	3		000
+  #47	2	port	o			dut.sv	1	23	1	24						000
+  #48	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0			work@top.o	000
+  #49	3	ref_typespec			work@top.o		0	0	0	0		0			work@top.o	000
+  #50	4	int_typespec				dut.sv	1	19	1	22						000
+  #51	2	cont_assign				dut.sv	6	11	6	22						000
+
+--- OURS (B) records 39..51 ('>' = the object)
+  #39	2	param_assign				dut.sv	3	14	3	20						000
+  #40	3	constant				dut.sv	3	18	3	20	'bX	-1	BIN:X	3		000
+  #41	2	param_assign				dut.sv	4	19	4	28						000
+  #42	3	operation				dut.sv	4	23	4	28		0				000
+  #43	4	ref_typespec			work@top		0	0	0	0		0			work@top	000
+  #44	5	int_typespec				dut.sv	4	15	4	18						000
+> #45	4	constant					4	23	4	24	'bX	-1	BIN:X	3		000
+  #46	4	constant					4	27	4	28	'bX	-1	BIN:X	3		000
+  #47	2	port	o			dut.sv	1	23	1	24						000
+  #48	3	ref_obj	o		work@top.o	dut.sv	1	23	1	24		0			work@top.o	000
+  #49	3	ref_typespec			work@top.o		0	0	0	0		0			work@top.o	000
+  #50	4	int_typespec				dut.sv	1	19	1	22						000
+  #51	2	cont_assign				dut.sv	6	11	6	22						000
+
+facets of this row (2, first 25):
+  N0394 #45/45 constant  G[dut.sv 4:23:4:24] O[ 4:23:4:24]
+  N0394 #46/46 constant  G[dut.sv 4:27:4:28] O[ 4:27:4:28]

@@ -1,0 +1,41 @@
+cluster N0838 (r11u128map N0838; OPEN): fullname|ref_obj|tok:id[id][id].id[id].->|under:bit_select
+row: uhdm2rtlil/testflags/dyn_field_select  strict=differ:fullname(2)  records golden=340 ours=340
+object: #140 (golden) / #140 (ours)  type=ref_obj name=sel_i OUT
+  golden: work@dut.tbl[row_i][col_i].sat[sel_i].sel_i
+  ours:   work@dut.sel_i
+  walk parents: bit_select(sat) < hier_path(tbl[row_i][col_i].sat[sel_i]) < cont_assign < module_inst
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 134..146 ('>' = the object)
+  #134	3	hier_path	tbl[row_i][col_i].sat[sel_i]			dut.sv	28	20	28	48		0				000
+  #135	4	bit_select	tbl		tbl[row_i]	dut.sv	28	20	28	23		0			tbl[row_i]	000
+  #136	5	ref_obj	row_i		work@dut.row_i	dut.sv	28	24	28	29		0			work@dut.row_i	000
+  #137	4	bit_select			tbl[row_i][col_i]	dut.sv	28	24	28	29		0			tbl[row_i][col_i]	000
+  #138	5	ref_obj	col_i		work@dut.col_i	dut.sv	28	31	28	36		0			work@dut.col_i	000
+  #139	4	bit_select	sat		work@dut.tbl[row_i][col_i].sat[sel_i].sat	dut.sv	28	42	28	47		0			work@dut.tbl[row_i][col_i].sat[sel_i].sat	000
+> #140	5	ref_obj	sel_i		work@dut.tbl[row_i][col_i].sat[sel_i].sel_i	dut.sv	28	42	28	47		0			work@dut.tbl[row_i][col_i].sat[sel_i].sel_i	000
+  #141	3	ref_obj	cnt_o		work@dut.cnt_o	dut.sv	28	10	28	15		0			work@dut.cnt_o	000
+  #142	2	cont_assign				dut.sv	29	10	29	43						000
+  #143	3	hier_path	tbl[row_i][col_i].valid			dut.sv	29	20	29	43		0				000
+  #144	4	bit_select	tbl		tbl[row_i]	dut.sv	29	20	29	23		0			tbl[row_i]	000
+  #145	5	ref_obj	row_i		work@dut.row_i	dut.sv	29	24	29	29		0			work@dut.row_i	000
+  #146	4	bit_select			tbl[row_i][col_i]	dut.sv	29	24	29	29		0			tbl[row_i][col_i]	000
+
+--- OURS (B) records 134..146 ('>' = the object)
+  #134	3	hier_path	tbl[row_i][col_i].sat[sel_i]			dut.sv	28	20	28	48		0				000
+  #135	4	bit_select	tbl		tbl[row_i]	dut.sv	28	20	28	23		0			tbl[row_i]	000
+  #136	5	ref_obj	row_i		work@dut.row_i	dut.sv	28	24	28	29		0			work@dut.row_i	000
+  #137	4	bit_select			tbl[row_i][col_i]	dut.sv	28	24	28	29		0			tbl[row_i][col_i]	000
+  #138	5	ref_obj	col_i		work@dut.col_i	dut.sv	28	31	28	36		0			work@dut.col_i	000
+  #139	4	bit_select	sat		work@dut.tbl[row_i][col_i].sat[sel_i].sat	dut.sv	28	42	28	47		0			work@dut.tbl[row_i][col_i].sat[sel_i].sat	000
+> #140	5	ref_obj	sel_i		work@dut.sel_i	dut.sv	28	42	28	47		0			work@dut.sel_i	000
+  #141	3	ref_obj	cnt_o		work@dut.cnt_o	dut.sv	28	10	28	15		0			work@dut.cnt_o	000
+  #142	2	cont_assign				dut.sv	29	10	29	43						000
+  #143	3	hier_path	tbl[row_i][col_i].valid			dut.sv	29	20	29	43		0				000
+  #144	4	bit_select	tbl		tbl[row_i]	dut.sv	29	20	29	23		0			tbl[row_i]	000
+  #145	5	ref_obj	row_i		work@dut.row_i	dut.sv	29	24	29	29		0			work@dut.row_i	000
+  #146	4	bit_select			tbl[row_i][col_i]	dut.sv	29	24	29	29		0			tbl[row_i][col_i]	000
+
+facets of this row (2, first 25):
+  N0838 #140/140 ref_obj sel_i G[work@dut.tbl[row_i][col_i].sat[sel_i].sel_i] O[work@dut.sel_i]
+  N0838 #317/317 ref_obj sel_i G[work@dut.tbl[row_i][col_i].sat[sel_i].sel_i] O[work@dut.sel_i]

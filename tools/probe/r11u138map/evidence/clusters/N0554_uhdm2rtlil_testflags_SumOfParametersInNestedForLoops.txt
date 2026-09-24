@@ -1,0 +1,29 @@
+cluster N0554 (r11u128map N0554; COVERED r11u133 (N0554)): struct|golden-only:fewer-copies|constant|under:cont_assign
+row: uhdm2rtlil/testflags/SumOfParametersInNestedForLoops  strict=differ:type(1)  records golden=77 ours=74
+object: #73 (golden) / #-1 (ours)  type=constant name= 
+  golden: 3 objs
+  ours:   
+  walk parents: cont_assign < gen_scope < gen_scope_array(genblk1[0]) < gen_scope
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 67..76 ('>' = the object)
+  #67	8	int_typespec					0	0	0	0						000
+  #68	6	param_assign				dut.sv	6	25	6	39						000
+  #69	7	constant				dut.sv	6	34	6	39	3	32	UINT:3	9		000
+  #70	8	ref_typespec			work@top.genblk1[0].genblk1[0]		0	0	0	0		0			work@top.genblk1[0].genblk1[0]	000
+  #71	9	int_typespec				dut.sv	6	21	6	24						000
+  #72	6	cont_assign				dut.sv	7	17	7	27						000
+> #73	7	constant				dut.sv	6	34	6	39	3	32	UINT:3	9		000
+  #74	8	ref_typespec			work@top.genblk1[0].genblk1[0]		0	0	0	0		0			work@top.genblk1[0].genblk1[0]	000
+  #75	9	int_typespec				dut.sv	6	21	6	24						000
+  #76	7	ref_obj	o		work@top.genblk1[0].genblk1[0].o	dut.sv	7	17	7	18		0			work@top.genblk1[0].genblk1[0].o	000
+
+--- the holder #72 on the other side: exact-record matches at [72]
+  #69	7	constant				dut.sv	6	34	6	39	3	32	UINT:3	9		000
+  #70	8	ref_typespec			work@top.genblk1[0].genblk1[0]		0	0	0	0		0			work@top.genblk1[0].genblk1[0]	000
+  #71	9	int_typespec				dut.sv	6	21	6	24						000
+> #72	6	cont_assign				dut.sv	7	17	7	27						000
+  #73	7	ref_obj	o		work@top.genblk1[0].genblk1[0].o	dut.sv	7	17	7	18		0			work@top.genblk1[0].genblk1[0].o	000
+
+facets of this row (1, first 25):
+  N0554 #73/-1 constant  G[3 objs] O[]

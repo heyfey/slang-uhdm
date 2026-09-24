@@ -1,0 +1,64 @@
+cluster N0497 (r11u128map N0497; OPEN): struct|golden-only:fewer-copies|logic_var|under:begin
+row: surelog/default/MiniAmiq  strict=differ:line(199)  records golden=435559 ours=413722
+object: #81903 (golden) / #-1 (ours)  type=logic_var name=v 
+  golden: 11 objs
+  ours:   
+  walk parents: begin < function(uvm_root::m_process_config) < package(svaunit_pkg) < design(unnamed)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 81897..81909 ('>' = the object)
+  #81897	4	ref_typespec			svaunit_pkg::uvm_root::m_process_config::cfg		0	0	0	0		0			svaunit_pkg::uvm_root::m_process_config::cfg	000
+  #81898	5	string_typespec				uvm_root.svh	796	42	796	48						000
+  #81899	3	io_decl	is_int			uvm_root.svh	796	58	796	64						000
+  #81900	4	ref_typespec			svaunit_pkg::uvm_root::m_process_config::is_int		0	0	0	0		0			svaunit_pkg::uvm_root::m_process_config::is_int	000
+  #81901	5	bit_typespec				uvm_root.svh	796	54	796	57						000
+  #81902	3	begin			svaunit_pkg::uvm_root::m_process_config	uvm_root.svh	798	3	798	23					svaunit_pkg::uvm_root::m_process_config	000
+> #81903	4	logic_var	v		svaunit_pkg::uvm_root::m_process_config::v	uvm_root.svh	797	19	797	20		0			svaunit_pkg::uvm_root::m_process_config::v	000
+  #81904	5	ref_typespec			svaunit_pkg::uvm_root::m_process_config::v		0	0	0	0		0			svaunit_pkg::uvm_root::m_process_config::v	000
+  #81905	6	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	49	9	49	42						110
+  #81906	7	ref_typespec			<in>uvm_bitstream_t		0	0	0	0		0			svaunit_pkg::uvm_root::m_process_config::v::uvm_bitstream_t	001
+  #81907	8	logic_typespec	uvm_bitstream_t			uvm_object_globals.svh	49	9	49	42						001
+  #81908	9	range				uvm_object_globals.svh	49	22	49	42						001
+  #81909	10	constant				uvm_object_globals.svh	49	23	49	37	4095	64	INT:4095	7		001
+
+--- the holder #81902 on the other side: exact-record matches at [80285, 301447, 363504]
+  #80282	3	io_decl	is_int			uvm_root.svh	796	58	796	64						000
+  #80283	4	ref_typespec			svaunit_pkg::uvm_root::m_process_config::is_int		0	0	0	0		0			svaunit_pkg::uvm_root::m_process_config::is_int	000
+  #80284	5	bit_typespec				uvm_root.svh	796	54	796	57						000
+> #80285	3	begin			svaunit_pkg::uvm_root::m_process_config	uvm_root.svh	798	3	798	23					svaunit_pkg::uvm_root::m_process_config	000
+  #80286	4	assignment				uvm_root.svh	801	3	801	32						000
+  #80287	5	ref_obj	uvm_coreservice_t::get		svaunit_pkg::uvm_root::m_process_config::uvm_coreservice_t::get	uvm_root.svh	801	8	801	27		0			svaunit_pkg::uvm_root::m_process_config::uvm_coreservice_t::get	000
+  #80288	5	ref_obj	cs		svaunit_pkg::uvm_root::m_process_config::cs	uvm_root.svh	801	3	801	5		0			svaunit_pkg::uvm_root::m_process_config::cs	000
+  #80289	6	class_var	cs		uvm_pkg::uvm_root::m_process_config::cs	uvm_root.svh	800	21	800	23		0			uvm_pkg::uvm_root::m_process_config::cs	000
+  #80290	7	ref_typespec			uvm_pkg::uvm_root::m_process_config::cs		0	0	0	0		0			uvm_pkg::uvm_root::m_process_config::cs	000
+  #80291	8	class_typespec				uvm_root.svh	800	3	800	20						000
+  #80292	4	assignment				uvm_root.svh	802	3	802	28						000
+  #80293	5	hier_path	cs.get_root			uvm_root.svh	802	15	802	28		0				000
+  #80294	6	ref_obj	cs			uvm_root.svh	802	15	802	17		0				000
+
+facets of this row (58888, first 25):
+  N0343 #-1/2450 class_var uvm_default_printer G[] O[8 objs]
+  N0343 #-1/2865 class_var uvm_default_comparer G[] O[4 objs]
+  N0343 #-1/3108 class_var uvm_default_packer G[] O[4 objs]
+  N0248 #10107/-1 ref_typespec  G[2 objs] O[]
+  N0343 #-1/17670 class_var uvm_top G[] O[4 objs]
+  N0213 #20805/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/20823 bit_typespec  G[] O[1 objs]
+  N0213 #21747/-1 enum_typespec uvm_pkg::uvm_verbosity G[7 objs] O[]
+  N0177 #-1/21759 bit_typespec  G[] O[1 objs]
+  N0423 #24917/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0423 #24938/-1 enum_typespec uvm_pkg::uvm_sequencer_arb_mode G[7 objs] O[]
+  N0343 #-1/25656 class_var run_ph G[] O[3 objs]
+  N0002 #63364/-1 parameter UVM_HDL_MAX_WIDTH G[3 objs] O[]
+  N0002 #63371/-1 parameter uvm_mgc_copyright G[3 objs] O[]
+  N0002 #63378/-1 parameter uvm_cdn_copyright G[3 objs] O[]
+  N0002 #63385/-1 parameter uvm_snps_copyright G[3 objs] O[]
+  N0002 #63392/-1 parameter uvm_cy_copyright G[3 objs] O[]
+  N0002 #63399/-1 parameter uvm_nv_copyright G[3 objs] O[]
+  N0002 #63406/-1 parameter uvm_revision G[3 objs] O[]
+  N0002 #63413/-1 parameter UVM_STREAMBITS G[3 objs] O[]
+  N0002 #63419/-1 parameter UVM_RADIX G[1 objs] O[]
+  N0002 #63424/-1 parameter UVM_MACRO_NUMFLAGS G[3 objs] O[]
+  N0002 #63430/-1 parameter UVM_DEFAULT G[1 objs] O[]
+  N0002 #63434/-1 parameter UVM_ALL_ON G[1 objs] O[]
+  N0002 #63438/-1 parameter UVM_FLAGS_ON G[1 objs] O[]

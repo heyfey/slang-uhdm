@@ -1,0 +1,45 @@
+cluster N1625 (r11u128map N1625; OPEN): fullname|ref_obj|tok:id@id.id.->|under:property_inst
+row: surelog/testflags/SequenceInst  strict=differ:fullname(6)  records golden=303 ours=303
+object: #235 (golden) / #235 (ours)  type=ref_obj name=a OUT
+  golden: work@m.a1.p_triggers.a
+  ours:   p_triggers.a
+  walk parents: property_inst(p_triggers) < property_spec < assert_stmt(a1) < module_inst(work@m)
+record fields: depth type name defname fullname(<in>tail inside a copy) file line col endline endcol decompile size value consttype rawFull flags(refRoot root inCopy)
+
+--- GOLDEN (A) records 229..241 ('>' = the object)
+  #229	2	logic_var	a		work@m.a	dut.sv	1	16	1	17		0			work@m.a	000
+  #230	3	ref_typespec			work@m.a		0	0	0	0		0			work@m.a	000
+  #231	4	logic_typespec				dut.sv	1	16	1	17						000
+  #232	2	assert_stmt	a1		work@m.a1	dut.sv	16	3	16	45					work@m.a1	000
+  #233	3	property_spec				dut.sv	16	24	16	43						000
+  #234	4	property_inst	p_triggers			dut.sv	16	24	16	43						000
+> #235	5	ref_obj	a		work@m.a1.p_triggers.a	dut.sv	16	35	16	36		0			work@m.a1.p_triggers.a	000
+  #236	5	ref_obj	b		work@m.a1.p_triggers.b	dut.sv	16	38	16	39		0			work@m.a1.p_triggers.b	000
+  #237	5	ref_obj	c		work@m.a1.p_triggers.c	dut.sv	16	41	16	42		0			work@m.a1.p_triggers.c	000
+  #238	2	assert_stmt	a2		work@m.a2	dut.sv	18	3	18	66					work@m.a2	000
+  #239	3	property_spec				dut.sv	18	24	18	63						000
+  #240	4	sequence_inst	p_triggers			dut.sv	18	24	18	63						000
+  #241	5	operation				dut.sv	18	35	18	62		0				000
+
+--- OURS (B) records 229..241 ('>' = the object)
+  #229	2	logic_var	a		work@m.a	dut.sv	1	16	1	17		0			work@m.a	000
+  #230	3	ref_typespec			work@m.a		0	0	0	0		0			work@m.a	000
+  #231	4	logic_typespec				dut.sv	1	16	1	17						000
+  #232	2	assert_stmt	a1		work@m.a1	dut.sv	16	3	16	45					work@m.a1	000
+  #233	3	property_spec				dut.sv	16	24	16	43						000
+  #234	4	property_inst	p_triggers			dut.sv	16	24	16	43						000
+> #235	5	ref_obj	a		p_triggers.a	dut.sv	16	35	16	36		0			p_triggers.a	000
+  #236	5	ref_obj	b		p_triggers.b	dut.sv	16	38	16	39		0			p_triggers.b	000
+  #237	5	ref_obj	c		p_triggers.c	dut.sv	16	41	16	42		0			p_triggers.c	000
+  #238	2	assert_stmt	a2		work@m.a2	dut.sv	18	3	18	66					work@m.a2	000
+  #239	3	property_spec				dut.sv	18	24	18	63						000
+  #240	4	sequence_inst	p_triggers			dut.sv	18	24	18	63						000
+  #241	5	operation				dut.sv	18	35	18	62		0				000
+
+facets of this row (6, first 25):
+  N1625 #235/235 ref_obj a G[work@m.a1.p_triggers.a] O[p_triggers.a]
+  N1625 #236/236 ref_obj b G[work@m.a1.p_triggers.b] O[p_triggers.b]
+  N1625 #237/237 ref_obj c G[work@m.a1.p_triggers.c] O[p_triggers.c]
+  N1625 #300/300 ref_obj a G[work@m.a3.p_triggers.a] O[p_triggers.a]
+  N1625 #301/301 ref_obj b G[work@m.a3.p_triggers.b] O[p_triggers.b]
+  N1625 #302/302 ref_obj c G[work@m.a3.p_triggers.c] O[p_triggers.c]
