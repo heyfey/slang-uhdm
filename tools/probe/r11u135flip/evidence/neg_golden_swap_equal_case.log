@@ -1,0 +1,13 @@
+# condensed: the first 10 REGRESSION/CHANGE lines per stage, then the count per transition
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u135_ngG/probe.csv
+NOT_EQUAL r10earl59repro/a1_earl59 decompile:
+probe cases: EQUAL=2 NOT_EQUAL=1 STRICT_NOTEQUAL=1 (of 4); goldens built now=0, from cache=4
+probe strict: equal=2 differ:endcol=1
+== probe vs golden_probe.csv
+[probe] EQUAL=2 NOT_EQUAL=1 STRICT_NOTEQUAL=1
+REGRESSION r10earl59repro/a1_earl59 EQUAL -> NOT_EQUAL
+   [REGRESSION EQUAL -> NOT_EQUAL: 1 rows]
+   [ONLY-COMMITTED lines: 4083 (a --filter run), omitted here]
+regressions=1 conversions=0 changes=0 only-fresh=0 only-committed=4083
+golden cache: 0 of 0 runs served from the cache

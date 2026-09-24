@@ -134,6 +134,10 @@ hard constraints: goldens 23/23, no PASS→anything, no CMP_ONLY→DIFF.
 timeout 280 ~/.local/bin/cmake --build build -j 4 2>&1 | grep -iE "error:|Built target slang_uhdm$" & wait
 # quick gate (a few tests, both corpora, both modes)
 tests/sweep.sh --filter '^Assign' | tail -3      # regressions=0
+# probe cases vs their baseline (strict since 2026-09-24: EQUAL = uhdm-cmp AND
+# uhdm-strictcmp equal; STRICT_NOTEQUAL cases are the recorded residue)
+python3 scripts/check_probe.py --jobs 3 --workdir /tmp/pw --out /tmp/pw/probe.csv
+python3 scripts/compare_results.py /tmp/pw/probe.csv results/golden_probe.csv   # regressions=0
 # full corpus (background while probing the next item)
 ./scripts/run_corpus.sh ~/git-repos/uhdm2rtlil/test results/<x>.csv results/baseline_auto.csv
 # class changes — THE verdict:

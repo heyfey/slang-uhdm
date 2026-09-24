@@ -1,0 +1,17 @@
+ok   unchanged (rc=0): regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+ok   CMP_EQUAL -> STRICT_NOTEQUAL (rc=1): REGRESSION eq default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+ok   CMP_EQUAL -> CMP_NOTEQUAL (rc=1): REGRESSION eq default CMP_EQUAL -> CMP_NOTEQUAL
+ok   STRICT_NOTEQUAL -> CMP_NOTEQUAL (rc=1): REGRESSION sne default STRICT_NOTEQUAL -> CMP_NOTEQUAL
+ok   STRICT_NOTEQUAL -> SLANG_REJECT (rc=1): REGRESSION sne default STRICT_NOTEQUAL -> SLANG_REJECT
+ok   STRICT_NOTEQUAL -> CMP_EQUAL (conversion) (rc=0): CONVERSION sne default STRICT_NOTEQUAL differ:line(3) -> CMP_EQUAL
+ok   CMP_NOTEQUAL -> CMP_EQUAL (conversion) (rc=0): CONVERSION ne default CMP_NOTEQUAL -> CMP_EQUAL
+ok   verdict grows, same field (rc=0): CHANGE sne default STRICT_NOTEQUAL differ:line(3) -> differ:line(5) [line +2]
+ok   verdict shrinks, same field (rc=0): CHANGE sne default STRICT_NOTEQUAL differ:line(3) -> differ:line(1) [line -2]
+ok   verdict changes field (rc=0): CHANGE sne default STRICT_NOTEQUAL differ:line(3) -> differ:fullname(2)
+ok   CMP_NOTEQUAL -> STRICT_NOTEQUAL (change) (rc=0): CHANGE ne default CMP_NOTEQUAL -> STRICT_NOTEQUAL differ:type(1)
+ok   only-fresh CMP_EQUAL passes (rc=0): ONLY-FRESH new default CMP_EQUAL equal
+ok   only-fresh STRICT_NOTEQUAL fails (rc=1): REGRESSION ONLY-FRESH (not equal) new default STRICT_NOTEQUAL differ:col(1)
+ok   only-fresh SLANG_REJECT fails (rc=1): regressions=1 conversions=0 changes=0 only-fresh=1 only-committed=0
+ok   only-committed (filter) passes (rc=0): ONLY-COMMITTED rej default SLANG_REJECT
+ok   probe shape (rc=1): regression, change with delta, only-fresh EQUAL
+SELFTEST PASS

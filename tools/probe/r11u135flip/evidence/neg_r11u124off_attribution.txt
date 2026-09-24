@@ -1,0 +1,466 @@
+# R11U124_OFF=1 negative control: prediction, observation, attribution
+# PREDICTION (written before the run, from the committed pass-124 census tools/probe/r11u124repro/evidence/to_equal_rows.txt + strictdiff_probe.txt TO-EQUAL, restricted to rows CMP_EQUAL/EQUAL in the new baselines): 106 corpus row-modes + 134 probe cases
+# OBSERVED: 81 corpus row-modes (surelog 43, uhdm2rtlil 38) + 180 probe cases, every one CMP_EQUAL/EQUAL -> STRICT_NOTEQUAL (first field file 203, value 51, endcol 7)
+# predicted and observed: 205; predicted, not observed: 35; observed, not predicted: 56
+
+## byte attribution (every row's database, R11U124_OFF sweep vs sweep B, same frozen binary)
+probe mover changed 162
+probe mover regressed 180
+probe mover unchanged 16
+probe same unchanged 3729
+surelog mover changed 55
+surelog mover regressed 43
+surelog mover unchanged 16
+surelog same unchanged 1467
+uhdm2rtlil mover changed 40
+uhdm2rtlil mover regressed 38
+uhdm2rtlil mover unchanged 4
+uhdm2rtlil same unchanged 1660
+verdict change without a byte move: 0 []
+
+## the 35 predicted, not observed: pass 125's cast-file law (landed before pass 124 on a base pass 124 never measured) also sets the file; with R11U125_CASTFILE_OFF=1 added every one regresses
+CORPUS surelog BitSelectPartSelectInFunction default
+CORPUS surelog BitSelectPartSelectInFunction testflags
+CORPUS surelog ElabParam default
+CORPUS surelog ElabParam testflags
+CORPUS surelog IncompFunc default
+CORPUS surelog IncompFunc testflags
+CORPUS uhdm2rtlil BitSelectPartSelectInFunction default
+CORPUS uhdm2rtlil BitSelectPartSelectInFunction testflags
+CORPUS uhdm2rtlil CastExpression default
+CORPUS uhdm2rtlil CastExpression testflags
+CORPUS uhdm2rtlil CastLogic default
+CORPUS uhdm2rtlil CastLogic testflags
+CORPUS uhdm2rtlil CastSize default
+CORPUS uhdm2rtlil CastSize testflags
+CORPUS uhdm2rtlil FunctionReturnEnum default
+CORPUS uhdm2rtlil FunctionReturnEnum testflags
+CORPUS uhdm2rtlil InterfaceParameter default
+CORPUS uhdm2rtlil InterfaceParameter testflags
+CORPUS uhdm2rtlil InterfaceParameterSetValue default
+CORPUS uhdm2rtlil InterfaceParameterSetValue testflags
+CORPUS uhdm2rtlil MemberSelectOf2DStructPackedArray default
+CORPUS uhdm2rtlil MemberSelectOf2DStructPackedArray testflags
+CORPUS uhdm2rtlil OneCast default
+CORPUS uhdm2rtlil OneCast testflags
+CORPUS uhdm2rtlil OnePackage default
+CORPUS uhdm2rtlil OnePackage testflags
+CORPUS uhdm2rtlil ReturnEnumArray default
+CORPUS uhdm2rtlil ReturnEnumArray testflags
+CORPUS uhdm2rtlil iface_param_set_value default
+CORPUS uhdm2rtlil iface_param_set_value testflags
+CORPUS uhdm2rtlil int_port_signed default
+CORPUS uhdm2rtlil int_port_signed testflags
+CORPUS uhdm2rtlil unbased_unsized default
+CORPUS uhdm2rtlil unbased_unsized testflags
+PROBE r10earl50repro/h6_earl50
+
+== R11U124_OFF=1
+[default] CMP_EQUAL=3
+[testflags] CMP_EQUAL=3
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1590
+[default] CMP_EQUAL=12
+[testflags] CMP_EQUAL=12
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1718
+probe strict: equal=1
+r10earl50repro/h6_earl50,EQUAL,,equal
+== R11U124_OFF=1 R11U125_CASTFILE_OFF=1
+[default] STRICT_NOTEQUAL=3
+[testflags] STRICT_NOTEQUAL=3
+REGRESSION BitSelectPartSelectInFunction default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION BitSelectPartSelectInFunction testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION ElabParam default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION ElabParam testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION IncompFunc default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION IncompFunc testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+regressions=6 conversions=0 changes=0 only-fresh=0 only-committed=1590
+[default] STRICT_NOTEQUAL=12
+[testflags] STRICT_NOTEQUAL=12
+REGRESSION BitSelectPartSelectInFunction default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION BitSelectPartSelectInFunction testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastExpression default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastExpression testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastLogic default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastLogic testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastSize default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastSize testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION FunctionReturnEnum default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION FunctionReturnEnum testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION InterfaceParameter default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION InterfaceParameter testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION InterfaceParameterSetValue default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION InterfaceParameterSetValue testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION MemberSelectOf2DStructPackedArray default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION MemberSelectOf2DStructPackedArray testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION OneCast default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION OneCast testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION OnePackage default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION OnePackage testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION ReturnEnumArray default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION ReturnEnumArray testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION iface_param_set_value default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION iface_param_set_value testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+regressions=24 conversions=0 changes=0 only-fresh=0 only-committed=1718
+probe strict: differ:file=1
+r10earl50repro/h6_earl50,STRICT_NOTEQUAL,differ:file(1),differ:file(1)
+== R11U124_OFF=1 R11U125_OFF=1
+[default] STRICT_NOTEQUAL=3
+[testflags] STRICT_NOTEQUAL=3
+REGRESSION BitSelectPartSelectInFunction default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION BitSelectPartSelectInFunction testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION ElabParam default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION ElabParam testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION IncompFunc default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION IncompFunc testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+regressions=6 conversions=0 changes=0 only-fresh=0 only-committed=1590
+[default] STRICT_NOTEQUAL=12
+[testflags] STRICT_NOTEQUAL=12
+REGRESSION BitSelectPartSelectInFunction default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION BitSelectPartSelectInFunction testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastExpression default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastExpression testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastLogic default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastLogic testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastSize default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION CastSize testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION FunctionReturnEnum default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION FunctionReturnEnum testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION InterfaceParameter default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION InterfaceParameter testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION InterfaceParameterSetValue default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION InterfaceParameterSetValue testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION MemberSelectOf2DStructPackedArray default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION MemberSelectOf2DStructPackedArray testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION OneCast default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION OneCast testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION OnePackage default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION OnePackage testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION ReturnEnumArray default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION ReturnEnumArray testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION iface_param_set_value default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION iface_param_set_value testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+regressions=24 conversions=0 changes=0 only-fresh=0 only-committed=1718
+probe strict: differ:file=1
+r10earl50repro/h6_earl50,STRICT_NOTEQUAL,differ:file(1),differ:file(1)
+
+## (the two remaining uhdm2rtlil tests of the 35, run separately)
+== R11U124_OFF=1
+[default] CMP_EQUAL=2
+[testflags] CMP_EQUAL=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=1738
+== R11U124_OFF=1 R11U125_CASTFILE_OFF=1
+[default] STRICT_NOTEQUAL=2
+[testflags] STRICT_NOTEQUAL=2
+REGRESSION int_port_signed default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION int_port_signed testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION unbased_unsized default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION unbased_unsized testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+regressions=4 conversions=0 changes=0 only-fresh=0 only-committed=1738
+== R11U124_OFF=1 R11U125_OFF=1
+[default] STRICT_NOTEQUAL=2
+[testflags] STRICT_NOTEQUAL=2
+REGRESSION int_port_signed default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION int_port_signed testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(1)
+REGRESSION unbased_unsized default CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+REGRESSION unbased_unsized testflags CMP_EQUAL -> STRICT_NOTEQUAL differ:file(2)
+regressions=4 conversions=0 changes=0 only-fresh=0 only-committed=1738
+
+## the 56 observed, not predicted: each is a row pass 124's census moved without converting (BETTER 48, FIELD-CHANGE 8 in r11u124repro/evidence/strictdiff_*.txt); pass 125 and the comparator commits 9c839593/4f73d52f removed the rest of its difference, so at b3886a1c it is equal only with pass 124's laws
+CORPUS surelog HierPathTypespec default
+CORPUS surelog ImportBinding default
+CORPUS surelog ImportBinding testflags
+CORPUS surelog TypedefRange default
+CORPUS surelog TypedefRange testflags
+CORPUS uhdm2rtlil TypedefPackedDimensions default
+CORPUS uhdm2rtlil TypedefPackedDimensions testflags
+CORPUS uhdm2rtlil TypedefStructParamWithRangeInSubmodule default
+CORPUS uhdm2rtlil TypedefStructParamWithRangeInSubmodule testflags
+PROBE r10uvm47repro/t66a
+PROBE r11u113repro/grid/v/v02_genfor_not
+PROBE r11u113repro/grid/v/v03_genfor_bare_vs
+PROBE r11u113repro/grid/v/v04_genfor_int
+PROBE r11u113repro/grid/v/v09_genfor_eq
+PROBE r11u113repro/grid/v/v10_genfor_add
+PROBE r11u113repro/grid/v/v13_genfor_bitsel
+PROBE r11u113repro/grid/v/v15_genfor_bitsel_add
+PROBE r11u113repro/grid/v/v16_genfor_bitsel_int
+PROBE r11u113repro/grid/v/v17_genfor_bitsel_and
+PROBE r11u113repro/grid/v/v18_genfor_bitsel_bare
+PROBE v11u112repro/grid/brk/f/b1e_genfor_ca
+PROBE v11u113repro/grid/brk2/a24_gen_in_child_pkg
+PROBE v11u113repro/grid/f1/a17_nested_gen_pkg
+PROBE v11u113repro/grid/f5/v03_3d_gen
+PROBE v11u113repro/grid/f5/v04_ternary_gen
+PROBE v11u113repro/grid/f5/v05_idx_mult
+PROBE v11u114repro/grid/set1/e03
+PROBE v11u116repro/arms/f2_bare_d2ff
+PROBE v11u116repro/arms/f2_bare_d3cb
+PROBE v11u116repro/arms/f2_cat_d2ff
+PROBE v11u116repro/arms/f2_cat_d3cb
+PROBE v11u116repro/arms/f2_cmpd_d2ff
+PROBE v11u116repro/arms/f2_cmpd_d3cb
+PROBE v11u116repro/arms/f2_idxop_d2ff
+PROBE v11u116repro/arms/f2_idxop_d3cb
+PROBE v11u116repro/arms/f2_ifl_d2ff
+PROBE v11u116repro/arms/f2_ifl_d3cb
+PROBE v11u116repro/arms/f2_nest2_d2ff
+PROBE v11u116repro/arms/f2_nest2_d3cb
+PROBE v11u116repro/arms/f2_ps_d2ff
+PROBE v11u116repro/arms/f2_ps_d3cb
+PROBE v11u116repro/arms/f2p_fin
+PROBE v11u116repro/arms/f2p_init
+PROBE v11u116repro/arms/f2p_latch
+PROBE v11u116repro/arms/f2p_star
+PROBE v11u116repro/arms/f2p_tfout
+PROBE v11u116repro/arms/g2_case
+PROBE v11u116repro/arms/g2_cast
+PROBE v11u116repro/arms/g2_dly
+PROBE v11u116repro/arms/g2_enump
+PROBE v11u116repro/arms/g2_fork
+PROBE v11u116repro/arms/g2_forstep
+PROBE v11u116repro/arms/g2_named
+PROBE v11u116repro/arms/g2_rep
+PROBE v11u116repro/arms/g2_sys
+PROBE v11u116repro/arms/k3_nested
+
+## the prediction list
+CORPUS surelog BitComplex default
+CORPUS surelog BitComplex testflags
+CORPUS surelog BitSelectPartSelectInFunction default
+CORPUS surelog BitSelectPartSelectInFunction testflags
+CORPUS surelog BitsHierPath default
+CORPUS surelog BitsHierPath testflags
+CORPUS surelog BitsLogic default
+CORPUS surelog BitsLogic testflags
+CORPUS surelog DefaultPatternAssign default
+CORPUS surelog DefaultPatternAssign testflags
+CORPUS surelog ElabParam default
+CORPUS surelog ElabParam testflags
+CORPUS surelog EvalFuncNamed default
+CORPUS surelog HierPathUnpacked default
+CORPUS surelog HierPathUnpacked testflags
+CORPUS surelog ImportedTypespec default
+CORPUS surelog ImportedTypespec testflags
+CORPUS surelog IncompFunc default
+CORPUS surelog IncompFunc testflags
+CORPUS surelog LargeHexCast default
+CORPUS surelog LargeHexCast testflags
+CORPUS surelog LongHex default
+CORPUS surelog LongHex testflags
+CORPUS surelog OneImport default
+CORPUS surelog OneImport testflags
+CORPUS surelog PackDataType default
+CORPUS surelog PackDataType testflags
+CORPUS surelog PackageNet default
+CORPUS surelog PackageNet testflags
+CORPUS surelog ParamByValue default
+CORPUS surelog ParamByValue testflags
+CORPUS surelog ParamCast default
+CORPUS surelog ParamCast testflags
+CORPUS surelog ParamConst default
+CORPUS surelog ParamConst testflags
+CORPUS surelog ParamConstPush default
+CORPUS surelog ParamConstPush testflags
+CORPUS surelog ParamNoSubst testflags
+CORPUS surelog ParamRef default
+CORPUS surelog ParamRef testflags
+CORPUS surelog ParamTypespec default
+CORPUS surelog ParamTypespec testflags
+CORPUS surelog VarType default
+CORPUS surelog VarType testflags
+CORPUS uhdm2rtlil BitSelectPartSelectInFunction default
+CORPUS uhdm2rtlil BitSelectPartSelectInFunction testflags
+CORPUS uhdm2rtlil BitsCallOnParametetrizedTypeFromPackage default
+CORPUS uhdm2rtlil BitsCallOnParametetrizedTypeFromPackage testflags
+CORPUS uhdm2rtlil CastExpression default
+CORPUS uhdm2rtlil CastExpression testflags
+CORPUS uhdm2rtlil CastLogic default
+CORPUS uhdm2rtlil CastLogic testflags
+CORPUS uhdm2rtlil CastSize default
+CORPUS uhdm2rtlil CastSize testflags
+CORPUS uhdm2rtlil DivisionOfSize default
+CORPUS uhdm2rtlil DivisionOfSize testflags
+CORPUS uhdm2rtlil FunctionReturnEnum default
+CORPUS uhdm2rtlil FunctionReturnEnum testflags
+CORPUS uhdm2rtlil ImportedDoubleCastedParameter default
+CORPUS uhdm2rtlil ImportedDoubleCastedParameter testflags
+CORPUS uhdm2rtlil ImportedEnumCast default
+CORPUS uhdm2rtlil ImportedEnumCast testflags
+CORPUS uhdm2rtlil ImportedParameter default
+CORPUS uhdm2rtlil ImportedParameter testflags
+CORPUS uhdm2rtlil InterfaceParameter default
+CORPUS uhdm2rtlil InterfaceParameter testflags
+CORPUS uhdm2rtlil InterfaceParameterSetValue default
+CORPUS uhdm2rtlil InterfaceParameterSetValue testflags
+CORPUS uhdm2rtlil MemberSelectOf2DStructPackedArray default
+CORPUS uhdm2rtlil MemberSelectOf2DStructPackedArray testflags
+CORPUS uhdm2rtlil OneCast default
+CORPUS uhdm2rtlil OneCast testflags
+CORPUS uhdm2rtlil OneImport default
+CORPUS uhdm2rtlil OneImport testflags
+CORPUS uhdm2rtlil OnePackage default
+CORPUS uhdm2rtlil OnePackage testflags
+CORPUS uhdm2rtlil ParameterDoubleUnderscoreInSvFrontend default
+CORPUS uhdm2rtlil ParameterDoubleUnderscoreInSvFrontend testflags
+CORPUS uhdm2rtlil ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope default
+CORPUS uhdm2rtlil ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope testflags
+CORPUS uhdm2rtlil ParameterSizeOfInstance default
+CORPUS uhdm2rtlil ParameterSizeOfInstance testflags
+CORPUS uhdm2rtlil RealValue default
+CORPUS uhdm2rtlil RealValue testflags
+CORPUS uhdm2rtlil ReturnEnumArray default
+CORPUS uhdm2rtlil ReturnEnumArray testflags
+CORPUS uhdm2rtlil Shortreal default
+CORPUS uhdm2rtlil Shortreal testflags
+CORPUS uhdm2rtlil SumOfParameters default
+CORPUS uhdm2rtlil SumOfParameters testflags
+CORPUS uhdm2rtlil UnionCustomTypeMultirange default
+CORPUS uhdm2rtlil UnionCustomTypeMultirange testflags
+CORPUS uhdm2rtlil bits_of_type_param default
+CORPUS uhdm2rtlil bits_of_type_param testflags
+CORPUS uhdm2rtlil cs_registers default
+CORPUS uhdm2rtlil cs_registers testflags
+CORPUS uhdm2rtlil fail_detect_width default
+CORPUS uhdm2rtlil fail_detect_width testflags
+CORPUS uhdm2rtlil iface_param_set_value default
+CORPUS uhdm2rtlil iface_param_set_value testflags
+CORPUS uhdm2rtlil int_port_signed default
+CORPUS uhdm2rtlil int_port_signed testflags
+CORPUS uhdm2rtlil realexpr default
+CORPUS uhdm2rtlil realexpr testflags
+CORPUS uhdm2rtlil unbased_unsized default
+CORPUS uhdm2rtlil unbased_unsized testflags
+PROBE r10earl50repro/h6_earl50
+PROBE r10earl60repro/v60d_earl60
+PROBE r10earl82repro/g0_min82
+PROBE r10earl85repro/g2_earl85
+PROBE r10earl85repro/g6_parentimp85
+PROBE r10earl_repro/gg
+PROBE r10earl_repro/vd
+PROBE r10rgg7repro/cells/c_pkg_n2
+PROBE r10rgg7repro/cells/c_pkg_n25
+PROBE r10rgg7repro/cells/c_pkg_n8
+PROBE r10sd2repro/p2_imported_only
+PROBE r10sd2repro/p3_imported_used
+PROBE r10uvm114repro/g114_g_split
+PROBE r10uvm96repro/g96_a3_operands
+PROBE r10v100repro/v100_b1_expr_shapes
+PROBE r10v116repro/v116_r
+PROBE r10v149repro/arms/neg2
+PROBE r10v199repro/v199_c_body1
+PROBE r10v201repro/v201_m_multi
+PROBE r10v99repro/v99_b1_shapes
+PROBE r10v99repro/v99_b6_paren
+PROBE r10vrgg9repro/cells/v_pred_xz
+PROBE r10vrgg9repro/cells/w_pkg_import_wild
+PROBE r10vrgg9repro/cells4/y_ceil
+PROBE r10vrgg9repro/cells4/y_rtoi
+PROBE r10vrgg9repro/cells4/y_sqrt
+PROBE r11u111repro/grid/f5/e01_q_enum
+PROBE r11u111repro/grid/f5/e02_noq_enum
+PROBE r11u111repro/grid/f5/e03_q_ownparam
+PROBE r11u111repro/grid/f5/e04_noq_ownparam
+PROBE r11u111repro/grid/f5/e05_q_enum_both_imports
+PROBE r11u111repro/grid/f5/e06_plain_enum
+PROBE r11u111repro/grid/f5/e07_q_norefs_ctl
+PROBE r11u111repro/grid/f5/e09_q_enum_nobrace
+PROBE r11u111repro/grid/f5/e10_q_twoparams
+PROBE r11u111repro/grid/f5/e11_q_enum_samepkg
+PROBE r11u111repro/grid/f5/e12_q_ownparam_x
+PROBE r11u111repro/grid/f5/e13_unused_import
+PROBE r11u111repro/grid/f5/e16_concat_two_params
+PROBE r11u111repro/grid/f5/e23_sub_instance
+PROBE r11u112repro/grid/f/f01_idx_sub
+PROBE r11u112repro/grid/f/f02_idx_bare_ctl
+PROBE r11u112repro/grid/f/f03_idx_add
+PROBE r11u112repro/grid/f/f04_idx_int
+PROBE r11u112repro/grid/f/f06_idx_logic
+PROBE r11u112repro/grid/f/f08_idx_proc
+PROBE r11u112repro/grid/f/f09_idx_bodyimport
+PROBE r11u112repro/grid/f/f11_idx_in_op
+PROBE r11u112repro/grid/f/f12_idx_mul
+PROBE r11u112repro/grid/f/r01_rng_unp
+PROBE r11u112repro/grid/f/r02_rng_plain
+PROBE r11u112repro/grid/f/r03_rng_sub_unp
+PROBE r11u112repro/grid/f/r04_rng_int_unp
+PROBE r11u112repro/grid/f/r06_rng_untyped_unp
+PROBE r11u112repro/grid/f/r07_rng_port_unp
+PROBE r11u112repro/grid/f/r09_rng_lo_param_unp
+PROBE r11u113repro/grid/b/b01_var_bt8
+PROBE r11u113repro/grid/b/b01_var_byt
+PROBE r11u113repro/grid/b/b01_var_int
+PROBE r11u113repro/grid/b/b01_var_intg
+PROBE r11u113repro/grid/b/b01_var_ius
+PROBE r11u113repro/grid/b/b01_var_lg8
+PROBE r11u113repro/grid/b/b01_var_lint
+PROBE r11u113repro/grid/b/b01_var_sint
+PROBE r11u113repro/grid/b/b01_var_unt
+PROBE r11u113repro/grid/b/b02_right_ius
+PROBE r11u113repro/grid/b/b03_both_ius
+PROBE r11u113repro/grid/b/b04_net_ius
+PROBE r11u113repro/grid/b/b05_port_ius
+PROBE r11u113repro/grid/b/b06_member_ius
+PROBE r11u113repro/grid/b/b08_unpacked_ius
+PROBE r11u113repro/grid/b/b09_pk_unp_ius
+PROBE r11u113repro/grid/b/b13_pk_in_gen_ius
+PROBE r11u113repro/grid/b/b16_inner2d_ius
+PROBE r11u113repro/grid/b/b17_outer2d_ius
+PROBE r11u113repro/grid/b/b18_pklp_ius
+PROBE r11u113repro/grid/b/b19_bodyimp_ius
+PROBE r11u113repro/grid/b/b21_outport_ius
+PROBE r11u113repro/grid/b/b22_reg_ius
+PROBE r11u113repro/grid/b/b25_child_ius
+PROBE r11u113repro/grid/b/b29_member_int
+PROBE r11u113repro/grid/b/b30_logicvar_uint32
+PROBE r11u113repro/grid/v/v01_mod_not
+PROBE r11u113repro/grid/v/v08_genif_not
+PROBE r11u113repro/grid/v/v12_mod_bitsel_ctl
+PROBE r11u113repro/grid/v/v14_genif_bitsel
+PROBE r11u114repro/grid/f2/b01
+PROBE r11u114repro/grid/f2/b06
+PROBE r11u114repro/grid/f2/b09
+PROBE r11u114repro/grid/f2/b12
+PROBE r11u114repro/grid/f2/b13
+PROBE r11u114repro/grid/f3/c02
+PROBE r11u20repro/b9
+PROBE r11u51repro/grid/va1_bits_signal
+PROBE r11u51repro/grid/vb2_concat_bound
+PROBE r11u90repro/grid.verifier/vy7_dlyparamreal
+PROBE r11v48repro/vd1
+PROBE r11v53repro/grid/x11_realistic_cva6
+PROBE r11v53repro/grid/x15_import_chain
+PROBE r11v53repro/grid/x1_import_shadow_same
+PROBE r11v53repro/grid/x9_unit_import_shadow
+PROBE v11u111repro/brk/f5/x51_clog2_concat
+PROBE v11u111repro/brk/f5/x53_nested_param_concat
+PROBE v11u111repro/brk/f5/x54_both_mod_and_pkg_import
+PROBE v11u111repro/brk/f5/x58_unused_concat_param
+PROBE v11u111repro/brk/f5/y54_sized_cast_enum
+PROBE v11u111repro/brk/f5/y56_otherpkg_enum_only
+PROBE v11u112repro/grid/brk/f/b1c_cond_concat
+PROBE v11u112repro/grid/brk6/f/b1r_hdr_import_both
+PROBE v11u113repro/grid/brk2/v08_mod_rhs_vs_packed2d
+PROBE v11u113repro/grid/f1/a02_iface
+PROBE v11u113repro/grid/f1/a05_bit1
+PROBE v11u113repro/grid/f1/a06_clog2
+PROBE v11u113repro/grid/f1/a11_shortint
+PROBE v11u113repro/grid/f1/a19_modport_ports
+PROBE v11u113repro/grid/f1/a20_long
+PROBE v11u114repro/grid/set1/d11
+PROBE v11u114repro/grid/set1/d16
+PROBE v11u114repro/grid/set1/e01
+PROBE v11u114repro/grid/set1/e05
+PROBE v11u114repro/grid/set1/e09
+PROBE v11u114repro/grid/set1/e12
+PROBE v11u114repro/grid/set1/q09
+PROBE v11u114repro/grid/set1/q12
+PROBE v11u114repro/grid/set2/m02
+PROBE v11u114repro/grid/set2/m07
+PROBE v11u114repro/grid/set2/n02
+PROBE v11u114repro/grid/set2/n05
+PROBE v11u116repro/arms/h1_ff_lhsidx
+PROBE v11u116repro/arms/h1_two
+PROBE v11u116repro/arms/k3_ifc
+PROBE v11u116repro/arms/r1_expl
+PROBE v11u116repro/arms/r1_imp2
+PROBE v11u116repro/arms/r3_expl

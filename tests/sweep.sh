@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# The regression gate: (1) every tests/probe case judged EQUAL against its cached
-# golden (scripts/check_probe.py); (2) both corpora in both modes with
+# The regression gate: (1) every tests/probe case judged against its cached
+# golden (scripts/check_probe.py) and compared against the committed baseline
+# results/golden_probe.csv; (2) both corpora in both modes with
 # scripts/verify_golden.py compared against the committed scoreboards in results/;
 # (3) the downstream gate: uhdm2rtlil's Yosys plugin must produce the same
 # result from slang-uhdm's database as from Surelog's on every uhdm2rtlil test
@@ -15,8 +16,12 @@
 # takes a few minutes per corpus. Tool and corpus locations resolve relative to
 # this repository (third_party/Surelog, third_party/uhdm2rtlil, build/); the
 # variables SURELOG, UHDM_CMP, UHDM_DUMP, SLANG_UHDM, SURELOG_ROOT and
-# UHDM2RTLIL_TESTS override them. Exit status 1 on any probe case not EQUAL or any
-# corpus status regression: do not commit on a nonzero exit.
+# UHDM2RTLIL_TESTS override them. Since the strict flip (2026-09-24) a row or
+# case is equal only when uhdm-cmp AND tools/uhdm-strictcmp read it equal; the
+# rows that are judge-equal but not strict-equal are STRICT_NOTEQUAL in the
+# baselines (the explicit residue). Exit status 1 on any probe case uhdm-cmp
+# does not read equal, or any regression against a baseline in any stage
+# (scripts/compare_results.py): do not commit on a nonzero exit.
 set -u
 ROOT=$(cd "$(dirname "$(realpath "$0")")/.." && pwd)
 JOBS=3; WORKDIR=/tmp/slang-uhdm-sweep; FILTER=""; CORPORA="probe surelog uhdm2rtlil downstream"
@@ -36,8 +41,16 @@ rc=0
 python3 "$ROOT/scripts/law_index.py" --check || rc=1
 for c in $CORPORA; do
     if [ "$c" = probe ]; then
-        echo "== probe cases (tests/probe, committed goldens), jobs=$JOBS"
-        python3 "$ROOT/scripts/check_probe.py" --jobs "$JOBS" --workdir "$WORKDIR/probe" ${FILTER:+--filter "$FILTER"} || rc=1
+        echo "== probe cases (tests/probe, cached goldens), jobs=$JOBS, out=$WORKDIR/probe.csv"
+        rm -f "$WORKDIR/probe.csv"
+        python3 "$ROOT/scripts/check_probe.py" --jobs "$JOBS" --workdir "$WORKDIR/probe" \
+            --out "$WORKDIR/probe.csv" ${FILTER:+--filter "$FILTER"} || rc=1
+        if [ -f "$WORKDIR/probe.csv" ]; then
+            echo "== probe vs golden_probe.csv"
+            python3 "$ROOT/scripts/compare_results.py" "$WORKDIR/probe.csv" "$ROOT/results/golden_probe.csv" || rc=1
+        else
+            echo "== probe: no csv written"; rc=1
+        fi
         continue
     fi
     if [ "$c" = downstream ]; then

@@ -1,0 +1,13 @@
+# check_probe.py stale-database defect (pre-flip, b3886a1c) and its fix
+# workdir /tmp/r11u135_oldprobe had just been populated by a real run of the same cases
+$ SLANG_UHDM=/bin/false python3 scripts/check_probe.py --jobs 3 --workdir /tmp/r11u135_oldprobe --filter '^r10earl59repro/'   # b3886a1c script
+probe cases: EQUAL=4 (of 4); goldens built now=0, from cache=4
+probe strict (measurement): equal=3 differ:endcol=1
+rc=0     <- a failed export judged the previous run's database
+$ SLANG_UHDM=/bin/false python3 scripts/check_probe.py --jobs 3 --workdir /tmp/r11u135_oldprobe --filter '^r10earl59repro/'   # this patch (unlinks the output first)
+SLANG_FAIL r10earl59repro/a1_earl59 rc=1
+SLANG_FAIL r10earl59repro/v59v1_earl59 rc=1
+SLANG_FAIL r10earl59repro/v59v2_earl59 rc=1
+SLANG_FAIL r10earl59repro/v59v3_earl59 rc=1
+probe cases: SLANG_FAIL=4 (of 4); goldens built now=0, from cache=4
+rc=1

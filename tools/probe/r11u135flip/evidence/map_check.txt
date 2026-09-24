@@ -1,0 +1,5 @@
+$ map_check.py results/golden_surelog.csv results/golden_uhdm2rtlil.csv results/golden_probe.csv
+corpus STRICT_NOTEQUAL row-modes: {('surelog', 'default'): 153, ('surelog', 'testflags'): 169, ('uhdm2rtlil', 'default'): 177, ('uhdm2rtlil', 'testflags'): 177} total=676 tests=354; map rows=676 (fenced rows matched by mode and verdict: 2)
+probe STRICT_NOTEQUAL cases: 2018; map cases: 2018
+MAP CHECK PASS mismatches=0
+rc=0

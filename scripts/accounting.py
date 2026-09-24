@@ -15,13 +15,17 @@ for f, label in FILES:
         c = collections.Counter(r['status'] for r in csv.DictReader(open(f))
                                 if r['mode'] == mode)
         tot = sum(c.values())
-        comp = c['CMP_EQUAL'] + c['CMP_NOTEQUAL']
+        # Since the strict flip (2026-09-24) CMP_EQUAL is strict-equal and
+        # STRICT_NOTEQUAL is judge-equal only: both are judge-equal.
+        judge = c['CMP_EQUAL'] + c['STRICT_NOTEQUAL']
+        comp = judge + c['CMP_NOTEQUAL']
+        jpct = 100 * judge / comp if comp else 0
         pct = 100 * c['CMP_EQUAL'] / comp if comp else 0
         body = ' '.join(f'{k}={v}' for k, v in
                         sorted(c.items(), key=lambda x: -x[1]))
         if md:
             print(f'| {label} | {mode} | {tot} | {body} | {comp} | '
-                  f'{c["CMP_EQUAL"]} ({pct:.1f}%) |')
+                  f'{judge} ({jpct:.1f}%) | {c["CMP_EQUAL"]} ({pct:.1f}%) |')
         else:
             print(f'{label}/{mode}: total={tot} {body} | '
-                  f'comparable={comp} equal={pct:.1f}%')
+                  f'comparable={comp} judge-equal={jpct:.1f}% strict-equal={pct:.1f}%')

@@ -1,0 +1,28 @@
+== sweep B vs sweep A (same frozen binary; new scripts)
+== surelog swB vs swA
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=4b43e8752d2d pristine=40b11466786e
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=536d26043b34 pristine=b0fc2f6d7cb3
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=fbb36608a153 pristine=f515f4bed4a3
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=de71cfcd0a5b pristine=5b2ea9f51ccb
+MOVERS: 4 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil swB vs swA
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== surelog sweep C vs sweep A
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=c0d5cb9e436d pristine=40b11466786e
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=8113b2077b8e pristine=f515f4bed4a3
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=d86187d84ba1 pristine=5b2ea9f51ccb
+MOVERS: 3 / 960
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged
+== uhdm2rtlil sweep C vs sweep A
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

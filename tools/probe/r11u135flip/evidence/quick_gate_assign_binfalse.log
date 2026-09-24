@@ -1,0 +1,132 @@
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u135_qf/probe.csv
+probe cases:  (of 0); goldens built now=0, from cache=0
+== probe vs golden_probe.csv
+[probe] 
+ONLY-COMMITTED r10buvm11repro/w5v_param11 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm13repro/a7_dpi13 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm13repro/v3_clone13 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm15repro/a1_collargs15 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm15repro/v3_clones15 EQUAL
+ONLY-COMMITTED r10buvm15repro/v5_named15 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm1repro/a5_unbound STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm21repro/g21b STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm21repro/g21c STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm27repro/ast27 EQUAL
+ONLY-COMMITTED r10buvm27repro/g27_a0_head STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm28repro/g28_a0_head STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm28repro/g28_c_castr0 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_b_targets STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_c_carriers STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_d_fence STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_e_homes STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_f_head STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm2repro/a4_macro EQUAL
+ONLY-COMMITTED r10buvm2repro/v3_sys STRICT_NOTEQUAL
+ONLY-COMMITTED ... and 4067 more
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=4087
+== surelog: both modes, jobs=3, out=/tmp/r11u135_qf/surelog.csv
+7 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u135_bin/uhdm-strictcmp
+
+[default] 7 tests
+  SLANG_REJECT: 7
+
+[testflags] 7 tests
+  SLANG_REJECT: 7
+== surelog vs golden_surelog.csv
+[default] SLANG_REJECT=7
+[testflags] SLANG_REJECT=7
+REGRESSION AssignRhsFlat default STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION AssignRhsFlat testflags STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION AssignSubs default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSubs testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentPatternInAssignmentPattern default STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION AssignmentPatternInAssignmentPattern testflags STRICT_NOTEQUAL -> SLANG_REJECT
+ONLY-COMMITTED 1364_2005 default CMP_EQUAL
+ONLY-COMMITTED 1364_2005 testflags CMP_EQUAL
+ONLY-COMMITTED 3SigsSensList default SLANG_REJECT
+ONLY-COMMITTED 3SigsSensList testflags SLANG_REJECT
+ONLY-COMMITTED AVLMM default SLANG_REJECT
+ONLY-COMMITTED AVLMM testflags SLANG_REJECT
+ONLY-COMMITTED AaFirstTest default SLANG_REJECT
+ONLY-COMMITTED AaFirstTest testflags SLANG_REJECT
+ONLY-COMMITTED AllBinding default CMP_EQUAL
+ONLY-COMMITTED AllBinding testflags CMP_EQUAL
+ONLY-COMMITTED AllPackageSignal default CMP_EQUAL
+ONLY-COMMITTED AllPackageSignal testflags STRICT_NOTEQUAL
+ONLY-COMMITTED AlwaysNoElab default CMP_EQUAL
+ONLY-COMMITTED AlwaysNoElab testflags CMP_EQUAL
+ONLY-COMMITTED AmiqEth default SLANG_REJECT
+ONLY-COMMITTED AmiqEth testflags SLANG_REJECT
+ONLY-COMMITTED AmiqSimpleTestSuite default SLANG_REJECT
+ONLY-COMMITTED AmiqSimpleTestSuite testflags SLANG_REJECT
+ONLY-COMMITTED ApbSlave default STRICT_NOTEQUAL
+ONLY-COMMITTED ApbSlave testflags STRICT_NOTEQUAL
+ONLY-COMMITTED ... and 1562 more
+regressions=6 conversions=0 changes=0 only-fresh=0 only-committed=1582
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u135_qf/uhdm2rtlil.csv
+16 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u135_bin/uhdm-strictcmp
+
+[default] 16 tests
+  SLANG_REJECT: 16
+
+[testflags] 16 tests
+  SLANG_REJECT: 16
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] SLANG_REJECT=16
+[testflags] SLANG_REJECT=16
+REGRESSION AssignArraySelPlus default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignArraySelPlus testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignBitSelectPartSelect default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignBitSelectPartSelect testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignBitsCallToSubmoduleParameter default STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION AssignBitsCallToSubmoduleParameter testflags STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION AssignGeneratedWireInAlways default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignGeneratedWireInAlways testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSizeOfVar default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSizeOfVar testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSumOfConstants default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSumOfConstants testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSumOfConstantsInSubmodule default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSumOfConstantsInSubmodule testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSumWithParameter default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSumWithParameter testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSumWithParameterInSubmodule default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignSumWithParameterInSubmodule testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignToUnionAndReadField default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignToUnionAndReadField testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignToUnpackedUnionFieldAndReadOtherField default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignToUnpackedUnionFieldAndReadOtherField testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignTypedefedFunctionCall default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignTypedefedFunctionCall testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentPattern default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentPattern testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentPatternArrayPort default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentPatternArrayPort testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentToConcatenation default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentToConcatenation testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentToConcatenationWithSelect default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AssignmentToConcatenationWithSelect testflags CMP_EQUAL -> SLANG_REJECT
+ONLY-COMMITTED 1DUnpackedArray default CMP_EQUAL
+ONLY-COMMITTED 1DUnpackedArray testflags CMP_EQUAL
+ONLY-COMMITTED 2DFunctionArg default CMP_EQUAL
+ONLY-COMMITTED 2DFunctionArg testflags CMP_EQUAL
+ONLY-COMMITTED 2DParameterOfInstance default STRICT_NOTEQUAL
+ONLY-COMMITTED 2DParameterOfInstance testflags STRICT_NOTEQUAL
+ONLY-COMMITTED 2DUnpackedArray default CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedArray testflags CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedFunctionArgument default CMP_EQUAL
+ONLY-COMMITTED 2DUnpackedFunctionArgument testflags CMP_EQUAL
+ONLY-COMMITTED 2DeclarationsInFor default CMP_EQUAL
+ONLY-COMMITTED 2DeclarationsInFor testflags CMP_EQUAL
+ONLY-COMMITTED AdditionAsParameterInInstance default CMP_EQUAL
+ONLY-COMMITTED AdditionAsParameterInInstance testflags CMP_EQUAL
+ONLY-COMMITTED AluOps default CMP_EQUAL
+ONLY-COMMITTED AluOps testflags CMP_EQUAL
+ONLY-COMMITTED AnonStructs default CMP_EQUAL
+ONLY-COMMITTED AnonStructs testflags CMP_EQUAL
+ONLY-COMMITTED AnonymousEnum default STRICT_NOTEQUAL
+ONLY-COMMITTED AnonymousEnum testflags STRICT_NOTEQUAL
+ONLY-COMMITTED ... and 1690 more
+regressions=32 conversions=0 changes=0 only-fresh=0 only-committed=1710
+golden cache: 46 of 46 runs served from the cache

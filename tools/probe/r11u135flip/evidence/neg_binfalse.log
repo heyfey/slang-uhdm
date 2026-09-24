@@ -1,0 +1,89 @@
+# condensed: the first 10 REGRESSION/CHANGE lines per stage, then the count per transition
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u135_ngF/probe.csv
+SLANG_FAIL r10buvm11repro/w5v_param11 rc=1
+SLANG_FAIL r10buvm13repro/a7_dpi13 rc=1
+SLANG_FAIL r10buvm13repro/v3_clone13 rc=1
+SLANG_FAIL r10buvm15repro/a1_collargs15 rc=1
+SLANG_FAIL r10buvm15repro/v3_clones15 rc=1
+SLANG_FAIL r10buvm15repro/v5_named15 rc=1
+SLANG_FAIL r10buvm1repro/a5_unbound rc=1
+SLANG_FAIL r10buvm21repro/g21b rc=1
+SLANG_FAIL r10buvm21repro/g21c rc=1
+SLANG_FAIL r10buvm27repro/ast27 rc=1
+   [... the check prints every SLANG_FAIL case: 4087 lines in all, the rest omitted here]
+probe cases: SLANG_FAIL=4087 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] SLANG_FAIL=4087
+REGRESSION r10buvm11repro/w5v_param11 STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10buvm13repro/a7_dpi13 STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10buvm13repro/v3_clone13 STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10buvm15repro/a1_collargs15 STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10buvm15repro/v3_clones15 EQUAL -> SLANG_FAIL
+REGRESSION r10buvm15repro/v5_named15 STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10buvm1repro/a5_unbound STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10buvm21repro/g21b STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10buvm21repro/g21c STRICT_NOTEQUAL -> SLANG_FAIL
+REGRESSION r10buvm27repro/ast27 EQUAL -> SLANG_FAIL
+   [REGRESSION EQUAL -> SLANG_FAIL: 2069 rows]
+   [REGRESSION STRICT_NOTEQUAL -> SLANG_FAIL: 2018 rows]
+regressions=4087 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u135_ngF/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/r11u135_bin/uhdm-strictcmp
+
+[default] 798 tests
+  SLANG_REJECT: 768
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+
+[testflags] 798 tests
+  SLANG_REJECT: 763
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] DEFERRED=5 SLANG_REJECT=768 SURELOG_FAIL=25
+[testflags] DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=763 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+REGRESSION 1364_2005 default CMP_EQUAL -> SLANG_REJECT
+REGRESSION 1364_2005 testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AllBinding default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AllBinding testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION AllPackageSignal default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AllPackageSignal testflags STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION AlwaysNoElab default CMP_EQUAL -> SLANG_REJECT
+REGRESSION AlwaysNoElab testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION ApbSlave default STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION ApbSlave testflags STRICT_NOTEQUAL -> SLANG_REJECT
+   [CHANGE CMP_NOTEQUAL -> SLANG_REJECT: 6 rows]
+   [REGRESSION CMP_EQUAL -> SLANG_REJECT: 632 rows]
+   [REGRESSION STRICT_NOTEQUAL -> SLANG_REJECT: 322 rows]
+regressions=954 conversions=0 changes=6 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u135_ngF/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/r11u135_bin/uhdm-strictcmp
+
+[default] 871 tests
+  SLANG_REJECT: 871
+
+[testflags] 871 tests
+  SLANG_REJECT: 871
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] SLANG_REJECT=871
+[testflags] SLANG_REJECT=871
+REGRESSION 1DUnpackedArray default CMP_EQUAL -> SLANG_REJECT
+REGRESSION 1DUnpackedArray testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION 2DFunctionArg default CMP_EQUAL -> SLANG_REJECT
+REGRESSION 2DFunctionArg testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION 2DParameterOfInstance default STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION 2DParameterOfInstance testflags STRICT_NOTEQUAL -> SLANG_REJECT
+REGRESSION 2DUnpackedArray default CMP_EQUAL -> SLANG_REJECT
+REGRESSION 2DUnpackedArray testflags CMP_EQUAL -> SLANG_REJECT
+REGRESSION 2DUnpackedFunctionArgument default CMP_EQUAL -> SLANG_REJECT
+REGRESSION 2DUnpackedFunctionArgument testflags CMP_EQUAL -> SLANG_REJECT
+   [CHANGE CMP_NOTEQUAL -> SLANG_REJECT: 2 rows]
+   [REGRESSION CMP_EQUAL -> SLANG_REJECT: 1252 rows]
+   [REGRESSION STRICT_NOTEQUAL -> SLANG_REJECT: 354 rows]
+regressions=1606 conversions=0 changes=2 only-fresh=0 only-committed=0
+golden cache: 3273 of 3323 runs served from the cache

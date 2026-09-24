@@ -1,0 +1,2 @@
+probe cases: EQUAL=4087 (of 4087); goldens built now=0, from cache=4087
+probe strict (measurement): equal=2069 differ:fullname=768 differ:endcol=365 differ:depth=234 differ:line=208 differ:file=147 differ:type=101 differ:endline=78 differ:col=75 differ:name=31 differ:value=5 differ:count=3 differ:decompile=3

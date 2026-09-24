@@ -1,0 +1,16 @@
+# worktree build (system-deps config, -j 2 then -j 1 after an OOM kill under machine load) vs the main tree and the frozen copies
+9767e18b4753a0562f90d27f919b01d8  /tmp/wt_r11u135/build/slang-uhdm
+5d4617d0458f34aa79e0b91009d5d1fc  /tmp/wt_r11u135/build/uhdm-strictcmp
+9767e18b4753a0562f90d27f919b01d8  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+5d4617d0458f34aa79e0b91009d5d1fc  /home/heyfey/git-repos/slang-uhdm/build/uhdm-strictcmp
+9767e18b4753a0562f90d27f919b01d8  /tmp/r11u135_bin/slang-uhdm
+5d4617d0458f34aa79e0b91009d5d1fc  /tmp/r11u135_bin/uhdm-strictcmp
+total 29444
+-r-xr-xr-x 1 heyfey heyfey 23828472 Sep 24 10:53 slang-uhdm
+-r-xr-xr-x 1 heyfey heyfey  6317496 Sep 24 10:53 uhdm-strictcmp
+# every cmds.txt slang line, per sweep
+swA:  3273 /tmp/r11u135_bin/slang-uhdm
+swB:  3273 /tmp/r11u135_bin/slang-uhdm
+swC:  3273 /tmp/r11u135_bin/slang-uhdm
+ng4:  3273 /tmp/r11u135_bin/slang-uhdm
+ngF:  3273 /bin/false

@@ -283,9 +283,11 @@ error handler. It cannot change the database.
 
 ### 3.3 Measured baseline — GENERATED, do not hand-edit numbers
 
-> Regenerated 2026-09-23 (the v1.87 pass-115 landing: ibex_pmp and ibex_icache
-> converted in both uhdm2rtlil modes). For the live state and how to carry
-> the campaign on, read **RESUME.md** and run `scripts/resume_survey.sh`.
+> Regenerated 2026-09-24 (the strict flip: `CMP_EQUAL` is strict-equal, the
+> judge-equal rows the strict comparator does not read equal are
+> `STRICT_NOTEQUAL`; no row changed its uhdm-cmp verdict). For the live state
+> and how to carry the campaign on, read **RESUME.md** and run
+> `scripts/resume_survey.sh`.
 
 The authoritative numbers come from the committed per-test CSVs via
 `python3 scripts/accounting.py` (`--md` for this table). Prose and commit
@@ -293,12 +295,15 @@ messages are narrative; when they disagree with this table, the table wins —
 a hand-arithmetic drift of +2 in two block-2 commit messages is why this rule
 exists.
 
-| Corpus | Mode | Total | Status breakdown | Comparable | Equal |
-|---|---|---|---|---|---|
-| Surelog suite | default | 798 | CMP_EQUAL=480 SLANG_REJECT=285 SURELOG_FAIL=25 DEFERRED=5 CMP_NOTEQUAL=3 | 483 | 480 (99.4%) |
-| Surelog suite | testflags | 798 | CMP_EQUAL=474 SLANG_REJECT=286 SURELOG_FAIL=23 DEFERRED=5 NO_DATABASE=3 CMP_NOTEQUAL=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 477 | 474 (99.4%) |
-| uhdm2rtlil | default | 871 | CMP_EQUAL=803 SLANG_REJECT=67 CMP_NOTEQUAL=1 | 804 | 803 (99.9%) |
-| uhdm2rtlil | testflags | 871 | CMP_EQUAL=803 SLANG_REJECT=67 CMP_NOTEQUAL=1 | 804 | 803 (99.9%) |
+| Corpus | Mode | Total | Status breakdown | Comparable | Judge-equal | Strict-equal (`CMP_EQUAL`) |
+|---|---|---|---|---|---|---|
+| Surelog suite | default | 798 | CMP_EQUAL=327 SLANG_REJECT=285 STRICT_NOTEQUAL=153 SURELOG_FAIL=25 DEFERRED=5 CMP_NOTEQUAL=3 | 483 | 480 (99.4%) | 327 (67.7%) |
+| Surelog suite | testflags | 798 | CMP_EQUAL=305 SLANG_REJECT=286 STRICT_NOTEQUAL=169 SURELOG_FAIL=23 DEFERRED=5 NO_DATABASE=3 CMP_NOTEQUAL=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 477 | 474 (99.4%) | 305 (63.9%) |
+| uhdm2rtlil | default | 871 | CMP_EQUAL=626 STRICT_NOTEQUAL=177 SLANG_REJECT=67 CMP_NOTEQUAL=1 | 804 | 803 (99.9%) | 626 (77.9%) |
+| uhdm2rtlil | testflags | 871 | CMP_EQUAL=626 STRICT_NOTEQUAL=177 SLANG_REJECT=67 CMP_NOTEQUAL=1 | 804 | 803 (99.9%) | 626 (77.9%) |
+
+Comparable = `CMP_EQUAL` + `STRICT_NOTEQUAL` + `CMP_NOTEQUAL`; judge-equal =
+`CMP_EQUAL` + `STRICT_NOTEQUAL` (uhdm-cmp equal); strict-equal = `CMP_EQUAL`.
 
 Denominator accounting (every excluded test is one of): `SLANG_REJECT`
 (out of scope, §2.5), `DEFERRED` (5 memory giants, §2.5b), `UNTRANSLATABLE`
@@ -391,14 +396,15 @@ the other said "failing", for the same test. The division of labour now:
 |---|---|
 | `scripts/verify_golden.py` | THE harness: classification, both corpora, all modes, the `strict` column (uhdm-strictcmp; the `dump` column until 2026-09-24) |
 | `tools/uhdm-strictcmp` | uhdm-cmp's own Compare first (so nothing it rejects can pass), then every judge-blind field per object in walk order: name, def name, full name, file basename, spans, decompile, size, value, const type, child order |
-| `tests/sweep.sh` | the gate: both corpora, both modes, every row's status against the committed scoreboards (`scripts/compare_results.py`) |
+| `tests/sweep.sh` | the gate: the probe cases and both corpora in both modes, every row's status against the committed baselines `results/golden_{probe,surelog,uhdm2rtlil}.csv` (`scripts/compare_results.py`), then the downstream gate |
 | `scripts/converge.sh` | single-test dev microscope; produces `dump.diff` for inspection; same artifact policy |
 | `scripts/run_corpus.sh` | **deprecated** — kept only to reproduce phase-1 CSVs |
 
 **Since 2026-09-24 the sixth column is `strict`**: `equal` when uhdm-strictcmp
 finds no judge-blind difference, else `differ:<first field>(<objects>)`; it
-supersedes the dump-text identity below and is the intended equality of the
-gate once the corpus reaches zero strict differences (measured at the switch:
+supersedes the dump-text identity below and, since the strict flip (below),
+is the gate's equality, with the remaining strict differences recorded as
+`STRICT_NOTEQUAL` rows (measured at the switch:
 surelog 471 of 954 CMP_EQUAL row-modes strict-equal, uhdm2rtlil 1026 of 1606,
 probe cases 1117 of 2833; the first field is `file` on most default-mode rows
 because Surelog stamps builtin.sv on the builtin classes).
@@ -455,6 +461,33 @@ under anonymous aggregates, a chain that skips the typespec level, a
 missing or extra reference full name). The remaining `depth`, `count` and
 `type` first fields are content (a net binding, a typedef-alias reference,
 shared constants: tools/probe/r11u128map section 5), not identity.
+
+**The strict flip (2026-09-24, r11u135).** The gate's equality is strict: a
+corpus row is `CMP_EQUAL`, and a probe case `EQUAL`, only when uhdm-cmp reads
+the pair equal AND uhdm-strictcmp reads it `STRICT_EQUAL`
+(`scripts/verify_golden.py`, `scripts/check_probe.py`). A pair uhdm-cmp reads
+equal that the strict comparator does not is `STRICT_NOTEQUAL`, with the
+strict verdict in the detail column; a missing comparator binary stops the
+sweep. The baselines record the explicit residue: the `STRICT_NOTEQUAL` rows
+are exactly the fail lists of the third-edition strict map
+(`tools/probe/r11u132map/fail_list.csv` and `probe_fail_list.csv`, which name
+each row's first differing object, its cluster and the emitter site that
+writes it): surelog 153 + 169 row-modes (632 of 954 judge-equal row-modes
+strict-equal), uhdm2rtlil 177 + 177 (1252 of 1606), 676 corpus row-modes in
+354 tests, and 2018 of 4087 probe cases (2069 `EQUAL`), committed as
+`results/golden_probe.csv`. `scripts/compare_results.py` reads the order
+`CMP_EQUAL` > `STRICT_NOTEQUAL` > every other status: leaving `CMP_EQUAL`, or
+leaving judge-equality from `STRICT_NOTEQUAL`, is a regression; entering
+`CMP_EQUAL` is a conversion the landing commits by re-baselining the row; a
+changed strict verdict on a `STRICT_NOTEQUAL` row is a change (printed with
+its count delta). So the gate stays red only on a regression against the
+residue, as the uhdm-cmp gate always worked. Identity means whether golden
+holds a private copy of a typespec where we hold one shared object, with the
+full names and spans such a copy explains (the two paragraphs above); it is
+canonicalised by the comparator and is not part of the contract, and the
+identity residue is zero: every `STRICT_NOTEQUAL` row names an emitter site.
+The relabelling changed no uhdm-cmp verdict and no strict verdict (proof and
+gates: `tools/probe/r11u135flip`).
 
 Historical: the `dump` column carried run_corpus's byte-identity distinction forward:
 phase-1 `PASS` ≡ `CMP_EQUAL`+`match`, `CMP_ONLY` ≡ `CMP_EQUAL`+`differ`,

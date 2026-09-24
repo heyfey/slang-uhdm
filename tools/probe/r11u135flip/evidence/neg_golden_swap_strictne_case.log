@@ -1,0 +1,31 @@
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u135_ngG/probe.csv
+NOT_EQUAL r10earl59repro/v59v2_earl59 decompile:
+probe cases: EQUAL=3 NOT_EQUAL=1 (of 4); goldens built now=0, from cache=4
+probe strict: equal=3
+== probe vs golden_probe.csv
+[probe] EQUAL=3 NOT_EQUAL=1
+REGRESSION r10earl59repro/v59v2_earl59 STRICT_NOTEQUAL -> NOT_EQUAL
+ONLY-COMMITTED r10buvm11repro/w5v_param11 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm13repro/a7_dpi13 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm13repro/v3_clone13 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm15repro/a1_collargs15 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm15repro/v3_clones15 EQUAL
+ONLY-COMMITTED r10buvm15repro/v5_named15 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm1repro/a5_unbound STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm21repro/g21b STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm21repro/g21c STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm27repro/ast27 EQUAL
+ONLY-COMMITTED r10buvm27repro/g27_a0_head STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm28repro/g28_a0_head STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm28repro/g28_c_castr0 STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_b_targets STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_c_carriers STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_d_fence STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_e_homes STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm29repro/g29_f_head STRICT_NOTEQUAL
+ONLY-COMMITTED r10buvm2repro/a4_macro EQUAL
+ONLY-COMMITTED r10buvm2repro/v3_sys STRICT_NOTEQUAL
+ONLY-COMMITTED ... and 4063 more
+regressions=1 conversions=0 changes=0 only-fresh=0 only-committed=4083
+golden cache: 0 of 0 runs served from the cache

@@ -5,12 +5,19 @@ golden the pinned Surelog writes for it. Goldens are not committed: the
 first use builds each one with Surelog and stores it in the same golden
 cache the corpus sweep uses (~/.cache/slang-uhdm-goldens, GOLDEN_CACHE=
 relocates), keyed by Surelog's version line and the case's repo-relative
-path, so a Surelog pin bump simply rebuilds them. Every case must judge
-EQUAL; exit 1 otherwise.
+path, so a Surelog pin bump simply rebuilds them.
 
-    check_probe.py [--jobs N] [--filter REGEX] [--workdir DIR]
+Since the strict flip (2026-09-24) a case is EQUAL only when uhdm-cmp reads it
+equal AND uhdm-strictcmp reads it STRICT_EQUAL; a case uhdm-cmp reads equal
+that the strict comparator does not is STRICT_NOTEQUAL (the strict verdict is
+its detail). --out writes `case,status,detail,strict`; tests/sweep.sh compares
+it against results/golden_probe.csv with compare_results.py, which fails on a
+regression against that baseline. Exit 1 when any case is not judge-equal
+(neither EQUAL nor STRICT_NOTEQUAL): every case must stay uhdm-cmp equal.
 
-Tools resolve as in verify_golden.py (SLANG_UHDM, UHDM_CMP, SURELOG env).
+    check_probe.py [--jobs N] [--filter REGEX] [--workdir DIR] [--out CSV]
+
+Tools resolve as in verify_golden.py (SLANG_UHDM, UHDM_CMP, STRICT_CMP, SURELOG env).
 """
 import argparse
 import concurrent.futures
@@ -80,31 +87,41 @@ def golden(rel, workdir, timeout):
 
 
 def check(rel, workdir, timeout):
+    """-> (case, status, detail, strict, golden built now)."""
     d = os.path.join(ROOT, rel)
     g, gdet = golden(rel, workdir, timeout)
+    built = gdet == 'built'
     if not g:
-        return rel, 'SURELOG_FAIL', gdet
+        return rel, 'SURELOG_FAIL', gdet, '', built
     out = os.path.join(workdir, rel.replace('/', '__') + '.uhdm')
+    # A database left by an earlier run in a reused workdir would be judged
+    # in place of a failed export (and -o does not truncate a larger file).
+    try:
+        os.unlink(out)
+    except FileNotFoundError:
+        pass
     try:
         su = subprocess.run([vg.SLANG_UHDM] + SU_ARGS + ['-o', out], cwd=d,
                             capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
-        return rel, 'TIMEOUT', 'slang-uhdm'
+        return rel, 'TIMEOUT', 'slang-uhdm', '', built
     # As in verify_golden.py: a rejection is the ABSENCE of the database. An
     # "unsupported constructs" exit (4) with a written database is judged.
     if not os.path.isfile(out) or os.path.getsize(out) == 0:
-        return rel, 'SLANG_FAIL', (su.stderr.strip().splitlines() or [f'rc={su.returncode}'])[-1][:120]
+        return rel, 'SLANG_FAIL', (su.stderr.strip().splitlines() or [f'rc={su.returncode}'])[-1][:120], '', built
     try:
         cp = subprocess.run([vg.UHDM_CMP, g, out],
                             capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
-        return rel, 'TIMEOUT', 'uhdm-cmp'
+        return rel, 'TIMEOUT', 'uhdm-cmp', '', built
     if cp.returncode != 0:
         head = (cp.stdout.strip().splitlines() or [''])[0]
-        return rel, 'NOT_EQUAL', head[:120]
-    # Measurement only (not the verdict yet): the strict comparator's field.
-    strict = vg.strict_verdict(g, out, timeout) if os.path.exists(vg.STRICT_CMP) else ''
-    return rel, 'EQUAL', (gdet + ' ' if gdet else '') + ('strict=' + strict if strict else '')
+        return rel, 'NOT_EQUAL', head[:120], '', built
+    # The strict flip: EQUAL needs the strict comparator's equality too.
+    strict = vg.strict_verdict(g, out, timeout)
+    if strict != 'equal':
+        return rel, 'STRICT_NOTEQUAL', strict, strict, built
+    return rel, 'EQUAL', '', strict, built
 
 
 def main():
@@ -113,28 +130,38 @@ def main():
     ap.add_argument('--filter', default=None)
     ap.add_argument('--workdir', default='/tmp/slang-uhdm-probe')
     ap.add_argument('--timeout', type=int, default=120)
+    ap.add_argument('--out', default=None,
+                    help='write case,status,detail,strict (the golden_probe.csv shape)')
     a = ap.parse_args()
-    for env, tool in (('SLANG_UHDM', vg.SLANG_UHDM), ('UHDM_CMP', vg.UHDM_CMP)):
+    for env, tool in (('SLANG_UHDM', vg.SLANG_UHDM), ('UHDM_CMP', vg.UHDM_CMP),
+                      ('STRICT_CMP', vg.STRICT_CMP)):
         if not os.path.exists(tool):
             sys.exit(f'missing tool: {tool} (set ${env}; see tests/README.md)')
     todo = cases(a.filter)
     os.makedirs(a.workdir, exist_ok=True)
-    counts, bad, built, strict = {}, [], 0, {}
+    counts, bad, built, strict, rows = {}, [], 0, {}, []
     with concurrent.futures.ThreadPoolExecutor(max_workers=a.jobs) as pool:
-        for rel, st, det in pool.map(lambda r: check(r, a.workdir, a.timeout), todo):
+        for rel, st, det, sv, b in pool.map(lambda r: check(r, a.workdir, a.timeout), todo):
+            rows.append((rel, st, det, sv))
             counts[st] = counts.get(st, 0) + 1
-            built += det.startswith('built')
-            if 'strict=' in det:
-                s = det.split('strict=')[1].split('(')[0]
+            built += b
+            if sv:
+                s = sv.split('(')[0]
                 strict[s] = strict.get(s, 0) + 1
-            if st != 'EQUAL':
+            if st not in ('EQUAL', 'STRICT_NOTEQUAL'):
                 bad.append((rel, st, det))
+    if a.out:
+        with open(a.out, 'wt', newline='\n') as f:
+            f.write('case,status,detail,strict\n')
+            for rel, st, det, sv in rows:
+                det = det.replace(',', ';').replace('\n', ' ')
+                f.write(f'{rel},{st},{det},{sv}\n')
     for rel, st, det in bad:
         print(f'{st} {rel} {det}')
     print('probe cases: ' + ' '.join(f'{k}={v}' for k, v in sorted(counts.items())) +
           f' (of {len(todo)}); goldens built now={built}, from cache={len(todo) - built}')
     if strict:
-        print('probe strict (measurement): ' + ' '.join(f'{k}={v}' for k, v in sorted(strict.items(), key=lambda kv: -kv[1])))
+        print('probe strict: ' + ' '.join(f'{k}={v}' for k, v in sorted(strict.items(), key=lambda kv: -kv[1])))
     sys.exit(1 if bad else 0)
 
 

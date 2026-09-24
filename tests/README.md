@@ -12,24 +12,43 @@ after the first run.
 | `third_party/Surelog` | the pinned Surelog (v1.87): the producer binary once built, its `tests/` and `third_party/tests/` suites (one `<Name>.sl` command line per test) and `third_party/UVM` | 798 tests |
 | `third_party/uhdm2rtlil` | the pinned uhdm2rtlil checkout; `test/<name>/dut.sv` (or `dut.v`, or a `project.f`) per test | 871 tests |
 | `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,strict`) | 1596 + 1742 rows |
+| `results/golden_probe.csv` | the committed probe baseline: one row per probe case (`case,status,detail,strict`) | 4087 rows |
 | `results/gate_uhdm2rtlil.csv` | the uhdm2rtlil testflags rows alone (the older gate) | 871 rows |
-| `tests/probe/<pass>/<grid>/<case>/dut.sv` | the probe-case regression set, judged by uhdm-cmp against cached Surelog goldens (see tests/probe/README.md) | 2833 cases |
+| `tests/probe/<pass>/<grid>/<case>/dut.sv` | the probe-case regression set, judged by uhdm-cmp and uhdm-strictcmp against cached Surelog goldens (see tests/probe/README.md) | 4087 cases |
 | `tools/probe/` | per-pass evidence (READMEs, scripts, measurements, and the cases that still judge NOT_EQUAL) | |
 
 Two modes per test. In `default` mode both tools get only the sources. In
 `testflags` mode Surelog gets the test's own command line and slang-uhdm gets
-its translation. A row is `CMP_EQUAL` when `uhdm-cmp` finds no difference
-between the two databases. The `strict` column then reports
-`tools/uhdm-strictcmp`'s verdict on that pair: it runs uhdm-cmp's own
-comparison first (so nothing uhdm-cmp rejects can pass) and then walks both
-databases in the same order comparing the fields uhdm-cmp never reads (name,
-definition name, full name, file basename, the four span fields, decompile,
-size, value, constant type, child order); `equal`, or
-`differ:<first differing field>(<objects differing>)`. It is a measurement
-today and the intended equality of the gate once the corpus reaches zero.
-Typespec identity (Surelog copies a typespec per use where we share one
-object) is canonicalised by the walk, together with the full names inside
-such a copy, and is outside the strict contract, see GOLDEN_EQUIVALENCE.md.
+its translation.
+
+**The gate's equality is strict (since 2026-09-24).** A row is `CMP_EQUAL`
+only when `uhdm-cmp` finds no difference between the two databases AND
+`tools/uhdm-strictcmp` reads them `STRICT_EQUAL`. The strict comparator runs
+uhdm-cmp's own comparison first (so nothing uhdm-cmp rejects can pass) and
+then walks both databases in the same order comparing the fields uhdm-cmp
+never reads (name, definition name, full name, file basename, the four span
+fields, decompile, size, value, constant type, child order). The `strict`
+column holds its verdict on every pair uhdm-cmp reads equal: `equal`, or
+`differ:<first differing field>(<objects differing>)` (`differ:stage1`,
+`timeout`). Typespec identity (Surelog copies a typespec per use where we
+share one object) is canonicalised by the walk, together with the full names
+and spans inside such a copy, and is outside the strict contract (the
+identity residue is zero), see GOLDEN_EQUIVALENCE.md.
+
+The statuses, best first:
+
+| status | meaning |
+|---|---|
+| `CMP_EQUAL` (probe: `EQUAL`) | uhdm-cmp equal and strict-equal |
+| `STRICT_NOTEQUAL` | uhdm-cmp equal, not strict-equal; the strict verdict is in `detail` and `strict` |
+| `CMP_NOTEQUAL` (probe: `NOT_EQUAL`) | uhdm-cmp reads a difference |
+| `SLANG_REJECT`, `SURELOG_FAIL`, `NO_UHDM`, `NO_DATABASE`, `UNTRANSLATABLE`, `TIMEOUT`, `DEFERRED` (probe: `SLANG_FAIL`, `SURELOG_FAIL`, `TIMEOUT`) | no comparison |
+
+The `STRICT_NOTEQUAL` rows of the baselines are the explicit residue of the
+strict gate: the fail list of `tools/probe/r11u132map` (`fail_list.csv`,
+`probe_fail_list.csv`) names each one's first differing object and the
+emitter site that writes it. The gate stays red only on a regression
+against them, exactly as the uhdm-cmp gate works.
 
 ## The law index
 
@@ -79,12 +98,27 @@ the other locations the same way.
 ## Running
 
     tests/sweep.sh                     # probe cases, both corpora in both modes, then the downstream gate
-    tests/sweep.sh --corpus probe      # the 2833 probe cases alone (about 15 s once their goldens are cached)
+    tests/sweep.sh --corpus probe      # the 4087 probe cases alone (under a minute once their goldens are cached)
     tests/sweep.sh --corpus uhdm2rtlil --filter '^ibex'
 
-`tests/sweep.sh` exits 1 when any probe case is not EQUAL, any corpus row's
-status moved away from `CMP_EQUAL`, or any downstream verdict is not IDENTICAL
-(or SLANG_REJECT, or the verdict recorded in `results/downstream_uhdm2rtlil.csv`).
+`tests/sweep.sh` exits 1 on a regression in any stage, or when any downstream
+verdict is not IDENTICAL (or SLANG_REJECT, or the verdict recorded in
+`results/downstream_uhdm2rtlil.csv`). The probe stage writes
+`<workdir>/probe.csv` and each corpus stage `<workdir>/<corpus>.csv`;
+`scripts/compare_results.py` joins each against its baseline
+(`results/golden_probe.csv`, `results/golden_surelog.csv`,
+`results/golden_uhdm2rtlil.csv`) and reads, per row:
+
+- REGRESSION (exit 1): a row that leaves `CMP_EQUAL`; a `STRICT_NOTEQUAL` row
+  whose status is no longer judge-equal; a row absent from the baseline (a
+  new case or test) that is not `CMP_EQUAL` / `EQUAL`; and in the probe stage
+  any case uhdm-cmp does not read equal.
+- CONVERSION: a row that enters `CMP_EQUAL`.
+- CHANGE: any other status change, and a `STRICT_NOTEQUAL` row whose strict
+  verdict changed, printed `old -> new` with the count delta when the first
+  field is the same (`differ:line(30) -> differ:line(31) [line +1]`), so a
+  larger residue on the same field is visible.
+
 Do not commit on a nonzero exit.
 It prints the status histogram per mode, every changed row, and how many
 producer runs were served from the golden cache.
@@ -93,6 +127,8 @@ Direct harness use:
 
     python3 scripts/verify_golden.py --corpus surelog --mode both --jobs 3 --out out.csv --workdir /tmp/wd
     python3 scripts/compare_results.py out.csv results/golden_surelog.csv
+    python3 scripts/check_probe.py --jobs 3 --out probe.csv --workdir /tmp/pw
+    python3 scripts/compare_results.py probe.csv results/golden_probe.csv
 
 ## The downstream gate (uhdm2rtlil)
 
@@ -147,3 +183,12 @@ golden generation exceeds this machine's memory or the timeout;
 conversion or a deliberate fence). Edit the exact row, then regenerate the
 `GOLDEN_EQUIVALENCE.md` table with `python3 scripts/accounting.py --md` in the
 same commit.
+
+A landing promotes a row by re-baselining it: a `STRICT_NOTEQUAL` row that
+the landing's sweep reads `CMP_EQUAL` is a CONVERSION, and the landing commits
+the row as `CMP_EQUAL` (empty detail, strict `equal`) in the same commit,
+likewise a probe case in `results/golden_probe.csv`. A `STRICT_NOTEQUAL` row
+whose strict verdict changed (a CHANGE) is re-baselined with its new verdict
+when the landing explains it. The baselines are written with LF line endings
+(the scoreboards were CRLF before 2026-09-24, which broke the canary scripts'
+last-column reads).

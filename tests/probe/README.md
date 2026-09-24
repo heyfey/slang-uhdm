@@ -34,4 +34,9 @@ Check (part of `tests/sweep.sh`):
 Each case is exported with `dut.sv --single-unit --nobuiltin` and compared
 with `uhdm-cmp <golden> <out>`; an "unsupported constructs" exit with a
 written database is judged like any other, as the corpus harness does.
-Any case not EQUAL fails the gate.
+A case is EQUAL only when `uhdm-cmp` and `uhdm-strictcmp` both read
+equal; a judge-equal case the strict comparator rejects reads
+STRICT_NOTEQUAL. The gate compares the run's csv against the committed
+baseline `results/golden_probe.csv`: a case leaving EQUAL is a regression
+and fails the gate; a case entering EQUAL is a conversion the landing
+commits by re-baselining.

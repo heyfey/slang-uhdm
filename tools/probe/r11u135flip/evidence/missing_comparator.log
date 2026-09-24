@@ -1,0 +1,10 @@
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u135_qs/probe.csv
+missing tool: /tmp/r11u135_nonexistent (set $STRICT_CMP; see tests/README.md)
+== probe: no csv written
+== surelog: both modes, jobs=3, out=/tmp/r11u135_qs/surelog.csv
+missing tool: /tmp/r11u135_nonexistent (set $STRICT_CMP, or build the third_party/Surelog submodule / this tree; see tests/README.md)
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u135_qs/uhdm2rtlil.csv
+missing tool: /tmp/r11u135_nonexistent (set $STRICT_CMP, or build the third_party/Surelog submodule / this tree; see tests/README.md)
+golden cache: 0 of 0 runs served from the cache
+rc=1 (quick gate, missing comparator)

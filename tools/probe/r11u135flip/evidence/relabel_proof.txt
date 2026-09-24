@@ -1,0 +1,39 @@
+$ relabel_proof.py <(git show b3886a1c:results/golden_surelog.csv) results/golden_surelog.csv
+results/golden_surelog.csv: 1596 rows (1596 old)
+        CMP_EQUAL -> CMP_EQUAL        632
+        CMP_EQUAL -> STRICT_NOTEQUAL  322
+     CMP_NOTEQUAL -> CMP_NOTEQUAL     6
+         DEFERRED -> DEFERRED         10
+      NO_DATABASE -> NO_DATABASE      3
+          NO_UHDM -> NO_UHDM          1
+     SLANG_REJECT -> SLANG_REJECT     571
+     SURELOG_FAIL -> SURELOG_FAIL     48
+          TIMEOUT -> TIMEOUT          1
+   UNTRANSLATABLE -> UNTRANSLATABLE   2
+  detail text differs only in the checkout/workdir path it spells on 545 SLANG_REJECT rows
+  detail text differs only in the checkout/workdir path it spells on 2 SURELOG_FAIL rows
+RELABEL PROOF PASS violations=0
+rc=0
+$ relabel_proof.py <(git show b3886a1c:results/golden_uhdm2rtlil.csv) results/golden_uhdm2rtlil.csv
+results/golden_uhdm2rtlil.csv: 1742 rows (1742 old)
+        CMP_EQUAL -> CMP_EQUAL        1252
+        CMP_EQUAL -> STRICT_NOTEQUAL  354
+     CMP_NOTEQUAL -> CMP_NOTEQUAL     2
+     SLANG_REJECT -> SLANG_REJECT     134
+  detail text differs only in the checkout/workdir path it spells on 131 SLANG_REJECT rows
+RELABEL PROOF PASS violations=0
+rc=0
+$ relabel_proof.py --probe evidence/probe_old_script_b3886a1c.log results/golden_probe.csv
+results/golden_probe.csv: 4087 cases; old gate: {'EQUAL': '4087'} of 4087
+  new statuses {'STRICT_NOTEQUAL': 2018, 'EQUAL': 2069}
+  strict tally old {'equal': 2069, 'differ:fullname': 768, 'differ:endcol': 365, 'differ:depth': 234, 'differ:line': 208, 'differ:file': 147, 'differ:type': 101, 'differ:endline': 78, 'differ:col': 75, 'differ:name': 31, 'differ:value': 5, 'differ:count': 3, 'differ:decompile': 3}
+  strict tally new {'differ:line': 208, 'differ:fullname': 768, 'equal': 2069, 'differ:col': 75, 'differ:endcol': 365, 'differ:file': 147, 'differ:type': 101, 'differ:depth': 234, 'differ:endline': 78, 'differ:value': 5, 'differ:name': 31, 'differ:count': 3, 'differ:decompile': 3}
+RELABEL PROOF PASS violations=0
+rc=0
+$ file results/golden_*.csv (b3886a1c: CRLF)
+/dev/stdin: ASCII text, with CRLF line terminators
+results/golden_surelog.csv:    ASCII text
+results/golden_uhdm2rtlil.csv: ASCII text
+results/golden_probe.csv:      ASCII text
+$ cmp sweep C csvs vs the baselines
+probe.csv byte-identical

@@ -180,7 +180,46 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-09, HEAD = the uvm227 landing — MiniAmiq CONVERTED; the workable corpus at ZERO, only the four fenced tests remain) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-24, HEAD = the strict flip landing) — EXAMPLE ONLY
+
+> **v1.87 campaign, THE STRICT AXIS (2026-09-24, HEAD = the strict flip).**
+> The gate's equality is STRICT since this landing: a row-mode is CMP_EQUAL
+> only when uhdm-cmp AND tools/uhdm-strictcmp read equal; a judge-equal
+> row-mode the strict comparator rejects reads STRICT_NOTEQUAL (its detail =
+> the strict verdict `differ:<field>(<objects>)`); a probe case reads EQUAL or
+> STRICT_NOTEQUAL and tests/sweep.sh compares the probe csv against
+> results/golden_probe.csv like the two corpora. Regressions=0 is the gate;
+> a STRICT_NOTEQUAL -> CMP_EQUAL row is a conversion a landing commits by
+> re-baselining the three LF csvs. Baselines at this head: surelog 639
+> CMP_EQUAL + 315 STRICT_NOTEQUAL of 954 judge-equal row-modes (480/3 +
+> 474/3 judge, the 6 NE = the three fenced tests), uhdm2rtlil 1270 + 336 of
+> 1606 (803/1/67 judge; stamped_gen_param stays NOT_EQUAL by user decision),
+> probe 2081 EQUAL + 2006 STRICT_NOTEQUAL of 4087 (all judge-equal);
+> downstream 803 IDENTICAL / 66 SLANG_REJECT / 2 EQUIVALENT (func_upto,
+> matching_end_labels = the plugin's pointer order, not a database field) / 0
+> DIVERGENT of 871. THE COMPARATOR: stage 1 = uhdm-cmp's own Compare; stage 2
+> = a listener walk comparing name, defname, fullname, file basename, the
+> four span fields, decompile, size, value, const type in walk order, with
+> typespec IDENTITY canonicalised (every typespec subtree and enum_const
+> re-expands at each reference; verified sound by r11u123) and a copy's full
+> name or span excused ONLY where golden itself gives that object more than
+> one name or span (mode 4, verified by r11u129): the identity residue is
+> ZERO row-modes; every remaining difference names an emitter site. THE
+> RESIDUE is explicit: tools/probe/r11u132map (third-edition map)
+> fail_list.csv + probe_fail_list.csv, ranked OPEN clusters with sites
+> (largest: full names inside a typespec subtree 334 row-modes; the
+> unparented golden ref_typespec on pattern ops/constants; hier_path element
+> spans and names; object-sharing classes outside typespecs; operation and
+> constant spans; the --elabuhdm clones). Landed on this axis: passes 117-121
+> (downstream identity), 124/125/130 (file, value, span, name laws; 25-177
+> row-modes each), the comparator (fc313b50, canon d3cdef19-era, mode 4
+> 4f73d52f), the law index (tests/LAWS.md by scripts/law_index.py, a LAW
+> file per case dir, --check in the sweep; the term is "probe case"), the
+> probe set at 4087 cases (the other-named cases judged and moved). Live
+> pairs work the map's OPEN clusters per ground (expression:
+> ExprEmit/EmitHelpers/StmtEmit/ParamEmit; module: TypeEmit/ModuleEmit/
+> UhdmExporter/TaskFuncEmit/uhdm_main); every landing re-baselines the
+> three csvs from its own sweep and regenerates tests/LAWS.md.
 
 > **v1.87 campaign CONVERGENCE snapshot (2026-09-23, HEAD = the pass-116
 > landing).** The matrix-1.87 branch has landed 116 passes since the

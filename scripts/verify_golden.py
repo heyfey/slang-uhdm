@@ -32,8 +32,12 @@ Corpora:
   uhdm2rtlil  third_party/uhdm2rtlil/test -- `dut.sv`/`dut.v` per dir, or a
               `project.f` filelist naming several sources plus directives.
 
-Statuses: CMP_EQUAL, CMP_NOTEQUAL, SLANG_REJECT, SURELOG_FAIL, NO_UHDM,
-UNTRANSLATABLE, NO_DATABASE, TIMEOUT, DEFERRED.
+Statuses: CMP_EQUAL, STRICT_NOTEQUAL, CMP_NOTEQUAL, SLANG_REJECT,
+SURELOG_FAIL, NO_UHDM, UNTRANSLATABLE, NO_DATABASE, TIMEOUT, DEFERRED.
+Since the strict flip (2026-09-24) a row is CMP_EQUAL only when uhdm-cmp reads
+the pair equal AND uhdm-strictcmp reads it STRICT_EQUAL; a pair uhdm-cmp reads
+equal that the strict comparator does not is STRICT_NOTEQUAL, with the strict
+verdict in the detail column (and, as on every judge-equal row, in `strict`).
 """
 
 import argparse
@@ -86,7 +90,9 @@ UHDM_CMP = _tool('UHDM_CMP', *[os.path.join(d, 'uhdm-cmp') for d in _UHDM_BINS],
 UHDM_DUMP = _tool('UHDM_DUMP', *[os.path.join(d, 'uhdm-dump') for d in _UHDM_BINS],
                   shutil.which('uhdm-dump'))
 # uhdm-strictcmp (tools/uhdm-strictcmp): uhdm-cmp's verdict first, then the
-# judge-blind fields; fills the sweep's `strict` column on CMP_EQUAL rows.
+# judge-blind fields; fills the sweep's `strict` column on every row uhdm-cmp
+# reads equal, and decides CMP_EQUAL against STRICT_NOTEQUAL. REQUIRED: a
+# missing binary stops the sweep (the gate must not pass without its equality).
 STRICT_CMP = _tool('STRICT_CMP', os.path.join(REPO_ROOT, 'build', 'uhdm-strictcmp'),
                    os.path.join(REPO_ROOT, 'build-intree', 'uhdm-strictcmp'),
                    shutil.which('uhdm-strictcmp'))
@@ -598,8 +604,6 @@ def strict_verdict(golden, ours, timeout):
     every walked object matches on name, definition name, full name, file
     basename, span, decompile, size, value and constant type in the same
     order; else 'differ:<first differing field>(<objects differing>)'."""
-    if not os.path.exists(STRICT_CMP):
-        return ''
     try:
         r = subprocess.run([STRICT_CMP, '--max', '0', golden, ours], capture_output=True,
                            text=True, timeout=timeout)
@@ -700,7 +704,11 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
         # bought nothing; skipped, recorded as ''.
         tail = (cp.stdout or cp.stderr or '').strip().splitlines()
         return (name, mode, 'CMP_NOTEQUAL', tail[0][:140] if tail else '', '', '')
-    return (name, mode, 'CMP_EQUAL', '', '', strict_verdict(golden_uhdm, slang_out, timeout))
+    strict = strict_verdict(golden_uhdm, slang_out, timeout)
+    if strict != 'equal':
+        # The strict flip: judge-equal but not strict-equal.
+        return (name, mode, 'STRICT_NOTEQUAL', strict, '', strict)
+    return (name, mode, 'CMP_EQUAL', '', '', strict)
 
 
 def run_one(name, dirpath, parts, modes, workroot, timeout):
@@ -767,7 +775,8 @@ def main():
     args = ap.parse_args()
 
     for env, tool in (('SURELOG', SURELOG), ('SLANG_UHDM', SLANG_UHDM),
-                      ('UHDM_CMP', UHDM_CMP), ('UHDM_DUMP', UHDM_DUMP)):
+                      ('UHDM_CMP', UHDM_CMP), ('UHDM_DUMP', UHDM_DUMP),
+                      ('STRICT_CMP', STRICT_CMP)):
         if not os.path.exists(tool):
             sys.exit(f'missing tool: {tool} (set ${env}, or build the '
                      f'third_party/Surelog submodule / this tree; see tests/README.md)')
@@ -781,7 +790,8 @@ def main():
     modes = mode_sets.get(args.mode, [args.mode])
     tests = (discover_surelog(args.filter) if args.corpus == 'surelog'
              else discover_uhdm2rtlil(args.filter))
-    print(f'{len(tests)} tests in {args.corpus}; modes={",".join(modes)}', flush=True)
+    print(f'{len(tests)} tests in {args.corpus}; modes={",".join(modes)}; '
+          f'strict comparator {STRICT_CMP}', flush=True)
     os.makedirs(args.workdir, exist_ok=True)
 
     rows = []
