@@ -1,0 +1,10 @@
+c13__q01_override cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c13__q02_ca cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c13__q03_member cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c13__q04_default cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c13__q05_import cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c13__q06_noread cmp=0 strict=STRICT_EQUAL 88 -> cmp=0 strict=STRICT_EQUAL 88
+c13__q07_positional cmp=17 strict=NOT_EQUAL stage1 -> cmp=17 strict=NOT_EQUAL stage1
+c13__q08_localparam cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c13__q09_default_kw cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c13__q10_twice cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname

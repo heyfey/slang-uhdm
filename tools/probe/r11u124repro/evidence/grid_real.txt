@@ -1,0 +1,10 @@
+real__r01_ca cmp=0 strict=STRICT_NOTEQUAL value -> cmp=0 strict=STRICT_EQUAL 39
+real__r02_param cmp=0 strict=STRICT_NOTEQUAL value -> cmp=0 strict=STRICT_NOTEQUAL count
+real__r03_exp cmp=64 strict=NOT_EQUAL stage1 -> cmp=64 strict=NOT_EQUAL stage1
+real__r04_under cmp=0 strict=STRICT_NOTEQUAL value -> cmp=0 strict=STRICT_NOTEQUAL name
+real__r05_trail cmp=58 strict=NOT_EQUAL stage1 -> cmp=58 strict=NOT_EQUAL stage1
+real__r06_pkg cmp=64 strict=NOT_EQUAL stage1 -> cmp=64 strict=NOT_EQUAL stage1
+real__r07_intparam_real cmp=64 strict=NOT_EQUAL stage1 -> cmp=64 strict=NOT_EQUAL stage1
+real__r08_override cmp=64 strict=NOT_EQUAL stage1 -> cmp=64 strict=NOT_EQUAL stage1
+real__r09_proc cmp=0 strict=STRICT_NOTEQUAL value -> cmp=0 strict=STRICT_EQUAL 51
+real__r10_E cmp=58 strict=NOT_EQUAL stage1 -> cmp=58 strict=NOT_EQUAL stage1

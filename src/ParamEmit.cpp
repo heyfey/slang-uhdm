@@ -7987,6 +7987,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 upLhs9->VpiColumnNo(up->VpiColumnNo());
                 upLhs9->VpiEndLineNo(up->VpiEndLineNo());
                 upLhs9->VpiEndColumnNo(up->VpiEndColumnNo());
+                // § impLhsCloneFile124: Surelog's Lhs is a clone_tree copy of
+                // the package's own parameter (CompileHelper::importPackage),
+                // so it carries the declaration's VpiFile with its span; the
+                // clone here copied the span alone.  `R11U124_OFF=1` /
+                // `R11U124_LHSFILE_OFF=1` drop it.
+                static const bool offLf124 =
+                    getenv("R11U124_OFF") != nullptr ||
+                    getenv("R11U124_LHSFILE_OFF") != nullptr;
+                if (!offLf124 && upLhs9->VpiFile().empty())
+                    upLhs9->VpiFile(std::string(up->VpiFile()));
                 upLhs9->VpiImported(std::string(up->VpiImported()));
                 upLhs9->VpiValue(std::string(up->VpiValue()));
                 if (up->VpiSigned())
@@ -13295,8 +13305,52 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                         // A QUALIFIED pkg-param ref init folds at the
                         // QUALIFIER span (pkg:: incl. colons) — Surelog.
-                        else if (pkgElabComputed &&
-                                 se9->kind == ExpressionKind::NamedValue) {
+                        //
+                        // § pkgQualFoldSpanByView124 — ...in the views that
+                        // COMPILE the reference: the package's own listing and
+                        // every module DEFINITION listing (the reference's
+                        // `paPackage_scope` node populates the fold,
+                        // CompileExpression.cpp:2717-2830, and a def-module
+                        // import copy is a `clone_tree` of the package's
+                        // param_assign, CompileHelper.cpp:265).  The
+                        // ELABORATED module listing re-evaluates the
+                        // parameter per instance and spans the whole written
+                        // reference (golden ParamConstPush base_pkg::USAGE:
+                        // package 7:38-48, def module 7:38-48, instance
+                        // 7:38-53; grid tools/probe/r11u124repro/c14).
+                        // `R11U124_OFF=1` / `R11U124_QSPAN_OFF=1` drop it.
+                        else if (se9->kind == ExpressionKind::NamedValue &&
+                                 [&] {
+                                     static const bool offQs124 =
+                                         getenv("R11U124_OFF") != nullptr ||
+                                         getenv("R11U124_QSPAN_OFF") != nullptr;
+                                     if (offQs124)
+                                         return pkgElabComputed;
+                                     if (inPackage)
+                                         return pkgElabComputed;
+                                     // § qspanPhysDefView124v (r11v124) —
+                                     // the DEFINITION listing is the
+                                     // PHYSICAL def view (defViewOrig9),
+                                     // never the flipped topView:
+                                     // § modDefImportShape flips topView to
+                                     // true on every import copy of a module
+                                     // with a parameter port list, and
+                                     // golden's def-module copy of a
+                                     // package parameter written `q::QC`
+                                     // still spans the qualifier there
+                                     // (probe r10earl76repro/g2_orig76
+                                     // g76p::NX = g76q::QC: def 23:26-32,
+                                     // instance 23:26-34; grid
+                                     // tools/probe/r11v124repro/qf).
+                                     // `R11V124_QSPANPHYS_OFF=1` restores
+                                     // the flipped read.
+                                     static const bool offQp124v =
+                                         getenv("R11V124_QSPANPHYS_OFF") !=
+                                         nullptr;
+                                     if (!offQp124v)
+                                         return defViewOrig9;
+                                     return !topView;
+                                 }()) {
                             std::string rq9(rawText(se9->sourceRange));
                             auto qp9 = rq9.rfind("::");
                             if (qp9 != std::string::npos) {
@@ -26494,7 +26548,206 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
 // a ref parked here keeps the elab clone it already has whenever the def view
 // ends up with no object, or with one of a different kind (a shape change
 // means the elab value was retyped and owns its typespec).
+// § paramValueIsDefRhs124 — THE PARAMETER'S VALUE IS ITS DEFINITION'S
+// REDUCED RHS.  Surelog writes a parameter's VpiValue in exactly one place,
+// `CompileHelper::compileParameterDeclaration`
+// (Surelog/src/DesignCompile/CompileHelper.cpp:4028-4034):
+//
+//     param_assign->Rhs(rhs);
+//     if (rhs->UhdmType() == uhdmconstant) param->VpiValue(c->VpiValue());
+//
+// — the definition-compile Rhs, AFTER its reduce, so the value carries the
+// Rhs constant's own mint (`INT:15` for `(72 + 5 - 1) / 5`, the `$bits(T)`
+// fold `UINT:12`), and a parameter whose Rhs stays an operation / ref_obj /
+// call gets none.  The elaborated instance `clone_tree`s that parameter and
+// deliberately keeps "the value of the parameter used during definition"
+// (UhdmWriter.cpp:497-520, the commented-out override), so every elaborated
+// copy reads its DEFINITION's value, never its own (possibly overridden)
+// Rhs.  Measured on every judge-equal row of both corpora at 7bd06f52
+// (tools/probe/r11u124repro, drivers/pvcensus.cpp): golden def views
+// 11888/11888 and packages 10253/10253 obey the first half, elaborated
+// instances 97777/97777 the second.  Written as a post-pass because our
+// parameter objects take their value from a separate fold predicate at
+// emission and the Rhs is finalised by later drains.  Only param_assigns
+// listed DIRECTLY by a def module / interface, a package or a class are
+// the definition's (a generate-scope localparam is not on this road).
+// `R11U124_OFF=1` / `R11U124_PVAL_OFF=1` drop it; `R11U124_PVALNEG_OFF=1`
+// drops the clearing half alone.
+static void paramValueIsDefRhs124(UHDM::design* d) {
+    static const bool off124 = getenv("R11U124_OFF") != nullptr ||
+                               getenv("R11U124_PVAL_OFF") != nullptr;
+    static const bool offNeg124 = getenv("R11U124_PVALNEG_OFF") != nullptr;
+    if (off124 || !d)
+        return;
+    // The definition's value for one param_assign: its reduced Rhs
+    // constant's, or none (the clearing half) when the Rhs is not a
+    // constant.  nullopt = leave the object alone.
+    auto defValue = [&](const UHDM::param_assign* pa) -> std::optional<std::string> {
+        const UHDM::any* r = pa->Rhs();
+        if (r && r->UhdmType() == UHDM::uhdmconstant &&
+            !((const UHDM::constant*)r)->VpiValue().empty())
+            return std::string(((const UHDM::constant*)r)->VpiValue());
+        if (offNeg124)
+            return std::nullopt;
+        return std::string();
+    };
+    // One scope: its param_assigns' Lhs parameters and the same-named
+    // entries of its own Parameters() listing take the value.  An object
+    // is written only when this scope OWNS it (its vpiParent is the scope
+    // or the param_assign): we share some parameter objects between views
+    // where Surelog holds one clone per view, and a shared object belongs to
+    // the view that parented it.
+    auto key = [](const UHDM::parameter* p) {
+        return std::string(p->VpiName()) + '\x01' + std::string(p->VpiImported());
+    };
+    auto scope = [&](const UHDM::BaseClass* sc, const UHDM::VectorOfparam_assign* pas,
+                     const UHDM::VectorOfany* params,
+                     const std::function<std::optional<std::string>(
+                         const UHDM::param_assign*, std::string_view)>& valueOf,
+                     std::map<std::string, std::string>* rec) {
+        if (!pas)
+            return;
+        // Keyed by name AND vpiImported: a module parameter and the
+        // package parameter it shadows are two entries of one listing.
+        std::map<std::string, std::string> vals;
+        std::map<std::string, int> seen;
+        std::set<const UHDM::any*> lhsObjs;
+        for (auto* pa : *pas) {
+            auto* l = pa ? pa->Lhs() : nullptr;
+            if (!l || l->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            lhsObjs.insert(l);
+            auto* p = (UHDM::parameter*)l;
+            auto v = valueOf(pa, key(p));
+            if (!v)
+                continue;
+            if ((p->VpiParent() == pa || p->VpiParent() == sc) &&
+                p->VpiValue() != *v)
+                p->VpiValue(*v);
+            if (seen[key(p)]++ == 0)
+                vals.emplace(key(p), *v);
+            else
+                vals.erase(key(p));  // ambiguous: leave the listing alone
+            if (rec)
+                rec->emplace(key(p), *v);
+        }
+        if (params)
+            for (auto* a : *params) {
+                if (!a || a->UhdmType() != UHDM::uhdmparameter ||
+                    a->VpiParent() != sc || lhsObjs.count(a))
+                    continue;
+                auto k = key((const UHDM::parameter*)a);
+                auto vit = vals.find(k);
+                std::optional<std::string> ev;
+                if (vit == vals.end() && !rec)
+                    ev = valueOf(nullptr, k);  // elab: the definition's own
+                else if (vit != vals.end())
+                    ev = vit->second;
+                if (ev &&
+                    ((UHDM::parameter*)a)->VpiValue() != *ev)
+                    ((UHDM::parameter*)a)->VpiValue(*ev);
+            }
+    };
+    auto own = [&](const UHDM::param_assign* pa,
+                   std::string_view) -> std::optional<std::string> {
+        if (!pa)
+            return std::nullopt;
+        return defValue(pa);
+    };
+    auto defName = [](const UHDM::BaseClass* m) {
+        return std::string(m->VpiDefName().empty() ? m->VpiName() : m->VpiDefName());
+    };
+    // Definition side, recorded per definition name.
+    std::map<std::string, std::map<std::string, std::string>> defVals;
+    if (d->AllModules())
+        for (auto* m : *d->AllModules())
+            scope(m, m->Param_assigns(), m->Parameters(), own, &defVals[defName(m)]);
+    if (d->AllInterfaces())
+        for (auto* m : *d->AllInterfaces())
+            scope(m, m->Param_assigns(), m->Parameters(), own, &defVals[defName(m)]);
+    std::set<const UHDM::any*> doneCls;
+    auto classes = [&](const UHDM::VectorOfclass_defn* cs) {
+        if (cs)
+            for (auto* c : *cs)
+                if (doneCls.insert(c).second)
+                    scope(c, c->Param_assigns(), c->Parameters(), own, nullptr);
+    };
+    for (auto* pv : {d->AllPackages(), d->TopPackages()})
+        if (pv)
+            for (auto* pk : *pv) {
+                scope(pk, pk->Param_assigns(), pk->Parameters(), own, nullptr);
+                classes(pk->Class_defns());
+            }
+    classes(d->AllClasses());
+    // Elaborated side: each instance's own param_assigns read the
+    // definition's value.
+    std::function<void(const UHDM::any*)> elab = [&](const UHDM::any* o) {
+        if (!o)
+            return;
+        auto inst = [&](const auto* m) {
+            auto dit = defVals.find(defName(m));
+            if (dit == defVals.end())
+                return;
+            scope(m, m->Param_assigns(), m->Parameters(),
+                  [&](const UHDM::param_assign*, std::string_view n)
+                      -> std::optional<std::string> {
+                      auto vit = dit->second.find(std::string(n));
+                      if (vit == dit->second.end())
+                          return std::nullopt;
+                      return vit->second;
+                  },
+                  nullptr);
+        };
+        auto mods = [&](const UHDM::VectorOfmodule_inst* ms) {
+            if (ms)
+                for (auto* c : *ms)
+                    elab(c);
+        };
+        auto kids = [&](auto* in) {
+            if (in->Interfaces())
+                for (auto* c : *in->Interfaces())
+                    elab(c);
+            if (in->Gen_scope_arrays())
+                for (auto* ga : *in->Gen_scope_arrays())
+                    if (ga->Gen_scopes())
+                        for (auto* gs : *ga->Gen_scopes())
+                            elab(gs);
+        };
+        if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+            inst((const UHDM::module_inst*)o);
+            mods(((const UHDM::module_inst*)o)->Modules());
+            kids((const UHDM::module_inst*)o);
+        }
+        else if (o->UhdmType() == UHDM::uhdminterface_inst) {
+            inst((const UHDM::interface_inst*)o);
+            kids((const UHDM::interface_inst*)o);
+        }
+        else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+            mods(((const UHDM::gen_scope*)o)->Modules());
+            kids((const UHDM::gen_scope*)o);
+        }
+    };
+    if (d->TopModules())
+        for (auto* t : *d->TopModules())
+            elab(t);
+}
+
+// § castTsFile124 (the registry lives in ExprEmit.cpp at its push sites).
+std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles();
+
 void UhdmExporter::drainShareDefParamTs() {
+    paramValueIsDefRhs124(d);
+    {
+        static const bool offCf124 = getenv("R11U124_OFF") != nullptr ||
+                                     getenv("R11U124_CASTFILE_OFF") != nullptr;
+        if (!offCf124)
+            for (auto& [rt124, f124, l124] : r11u124CastTsFiles())
+                if (auto* ts124 = rt124 ? rt124->Actual_typespec() : nullptr;
+                    ts124 && !f124.empty() && ts124->VpiFile().empty() &&
+                    ts124->VpiLineNo() == l124)
+                    ts124->VpiFile(f124);
+        r11u124CastTsFiles().clear();
+    }
     for (auto& e : pendingShareDefParamTs) {
         auto dit = defMap.find(e.def);
         if (dit == defMap.end() || !dit->second.mod ||
@@ -28806,7 +29059,42 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             auto* rvec = s.MakeRangeVec();
             auto* r = s.MakeRange();
             r->VpiParent(outer);
-            auto mkB2 = [&](int64_t v) -> UHDM::expr* {
+            // § aggArrayOuterRangeLoc124: the outer typedef's own [5:0]
+            // range and its two bounds are located at the dimension tokens,
+            // exactly as the alias-actual twin's (golden TypedefRange: range
+            // dut.sv 5:13-18, bounds 5:14-15 and 5:16-17); they were minted
+            // with no location at all.  `R11U124_OFF=1` /
+            // `R11U124_AGGRNG_OFF=1` drop it.
+            static const bool offAr124 =
+                getenv("R11U124_OFF") != nullptr ||
+                getenv("R11U124_AGGRNG_OFF") != nullptr;
+            std::vector<DimSpan> oSp124;
+            if (!offAr124 && typeSyn) {
+                auto full124 = typeSyn->sourceRange();
+                std::string raw124(rawText(full124));
+                // § aggRngSkipInlineBody124v (r11v124) — an INLINE
+                // struct/union (`typedef struct packed { logic [1:0] x; }
+                // [3:0] b;`) carries its members' brackets in the same text:
+                // the outer dimension is the first bracket group AFTER the
+                // closing brace (golden 2:55-60, not the member's 2:44-49;
+                // grid tools/probe/r11v124repro/gx).
+                // `R11V124_AGGRNGBRACE_OFF=1` restores the plain scan.
+                static const bool offArb124v =
+                    getenv("R11V124_AGGRNGBRACE_OFF") != nullptr;
+                size_t skip124 = 0;
+                if (!offArb124v &&
+                    (typeSyn->kind == syntax::SyntaxKind::StructType ||
+                     typeSyn->kind == syntax::SyntaxKind::UnionType))
+                    if (auto rb124 = raw124.rfind('}');
+                        rb124 != std::string::npos)
+                        skip124 = rb124 + 1;
+                oSp124 = scanDimSpans(raw124.substr(skip124),
+                                      full124.start() + skip124);
+            }
+            const DimSpan* ods124 = oSp124.empty() ? nullptr : &oSp124[0];
+            if (ods124)
+                setLoc(r, ods124->range);
+            auto mkB2 = [&](int64_t v, const SourceRange* lc) -> UHDM::expr* {
                 auto* c = s.MakeConstant();
                 std::string d = std::to_string(v);
                 c->VpiDecompile(d);
@@ -28814,10 +29102,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 c->VpiValue("UINT:" + d);
                 c->VpiConstType(vpiUIntConst);
                 c->VpiParent(r);
+                if (lc)
+                    setLoc(c, *lc);
                 return c;
             };
-            r->Left_expr(mkB2(pat.range.left));
-            r->Right_expr(mkB2(pat.range.right));
+            r->Left_expr(mkB2(pat.range.left, ods124 ? &ods124->left : nullptr));
+            r->Right_expr(
+                mkB2(pat.range.right, ods124 ? &ods124->right : nullptr));
             rvec->push_back(r);
             outer->Ranges(rvec);
             // Element ref -> the shared element typedef ts (by alias Type, or

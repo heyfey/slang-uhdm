@@ -1,0 +1,285 @@
+surelog/default/AssignmentPatternInAssignmentPattern-b16388bd/slang.uhdm LHSFILE=10 QSPAN-def=4 QSPAN-elab=4
+surelog/default/BitComplex-a7031feb/slang.uhdm PVAL=2
+surelog/default/BitsArray-bcfa08c1/slang.uhdm PVAL=2
+surelog/default/BitSelectPartSelectInFunction-7d601b9c/slang.uhdm CASTFILE=1
+surelog/default/BitsHierPath-eca76bda/slang.uhdm PVAL=2
+surelog/default/BitsLogic-3fe59a67/slang.uhdm PVAL=2
+surelog/default/BlackBePipeInt-1fcd9dad/slang.uhdm LHSCLONE=380 PVAL=8
+surelog/default/DecValue-0d1bdf2e/slang.uhdm CASTFILE=1
+surelog/default/DefaultPatternAssign-3f181482/slang.uhdm LHSFILE=1 PVAL=4
+surelog/default/DefaultPatternInt-f18dcc46/slang.uhdm LHSCLONE=1 LHSFILE=1
+surelog/default/BuildUVMPkg-fc55bd0c/slang.uhdm INCDEC=18 PVAL=3 REALTXT=3
+surelog/default/ElabParam-1a33ceb8/slang.uhdm CASTFILE=2
+surelog/default/EvalFuncNamed-ac7ef961/slang.uhdm LHSFILE=2
+surelog/default/GenForIfaceLocalparamNestedGen-20dde232/slang.uhdm LHSFILE=1
+surelog/default/GenForStructParamBound-1a61c8d8/slang.uhdm LHSFILE=1
+surelog/default/GenIfIfaceParamStructField-defc4948/slang.uhdm LHSFILE=1
+surelog/default/GenScopeHierPath-39985ad7/slang.uhdm LHSFILE=2
+surelog/default/HierPathOverride-2fa13a4d/slang.uhdm LHSFILE=4
+surelog/default/HierPathTypespec-8695be14/slang.uhdm AGGRNG=3
+surelog/default/HierPathStructTypespec-f0bedc40/slang.uhdm LHSFILE=8 PVAL=14 QSPAN-def=1 QSPAN-elab=1
+surelog/default/HierPathUnpacked-bbbf3d41/slang.uhdm PVAL=4
+surelog/default/HighLow-68eb0b3d/slang.uhdm PVAL=2
+surelog/default/ImportBinding-9d40bc6b/slang.uhdm LHSFILE=2 PVAL=4
+surelog/default/ImportedTypespec-a443c737/slang.uhdm LHSFILE=1
+surelog/default/IncompFunc-357367c2/slang.uhdm CASTFILE=1
+surelog/default/IndexedSelectHex-19463cab/slang.uhdm LHSFILE=2
+surelog/default/IntegerConcat-e60b5928/slang.uhdm LHSFILE=7 PVAL=2
+surelog/default/IOClassStruct-e5d00e62/slang.uhdm INCDEC=1
+surelog/default/Kmac-a415505d/slang.uhdm LHSCLONE=2 PVAL=1
+surelog/default/LargeHexCast-12b24b59/slang.uhdm CASTFILE=1 LHSFILE=2
+surelog/default/LargeValue2Struct-557e5899/slang.uhdm LHSFILE=2 PVAL=2
+surelog/default/LogicArrayParam-e8a7f879/slang.uhdm LHSFILE=2 QSPAN-def=2 QSPAN-elab=2
+surelog/default/LongHex-289e5aae/slang.uhdm LHSFILE=2
+surelog/default/MultiConcatValueSize-6d3b144c/slang.uhdm LHSFILE=2
+surelog/default/NoReducTypespec-168324f1/slang.uhdm LHSFILE=1
+surelog/default/OneImport-83de17b2/slang.uhdm CASTFILE=2 LHSFILE=1
+surelog/default/PackageNet-f9de4c2d/slang.uhdm LHSFILE=2
+surelog/default/PackDataType-064b199f/slang.uhdm PVAL=2
+surelog/default/ParamByValue-721d2025/slang.uhdm LHSFILE=2
+surelog/default/ParamCast-b6977770/slang.uhdm LHSFILE=1
+surelog/default/ParamConst-d0268302/slang.uhdm LHSFILE=2
+surelog/default/ParamConstPush-13ddd13d/slang.uhdm LHSFILE=1 QSPAN-def=1 QSPAN-elab=1
+surelog/default/ParamElabMulti-ffef7a64/slang.uhdm LHSFILE=2
+surelog/default/MiniAmiq-055eab74/slang.uhdm INCDEC=60 LHSFILE=90 PVAL=154 REALTXT=3
+surelog/default/ParamFromPackage-976f196a/slang.uhdm LHSCLONE=1
+surelog/default/ParamNoSubst-92c3f19e/slang.uhdm LHSFILE=1
+surelog/default/ParamOverload2-c9458b7b/slang.uhdm LHSFILE=1 PVAL=2
+surelog/default/ParamRef-b630a795/slang.uhdm LHSFILE=1
+surelog/default/ParamScope-4e02452f/slang.uhdm LHSFILE=1
+surelog/default/ParamTypespec2-b5096893/slang.uhdm CASTFILE=1 LHSFILE=1
+surelog/default/ParamTypespec-53621f8f/slang.uhdm CASTFILE=1 LHSFILE=1 PVAL=4
+surelog/default/PartSelectNoParent-634b77c1/slang.uhdm LHSFILE=3
+surelog/default/PAssignType-41fe98ec/slang.uhdm LHSFILE=1
+surelog/default/PatternOrder-defd582b/slang.uhdm REALTXT=1
+surelog/default/Earlgrey_0_1-a898def8/slang.uhdm CASTFILE=14 LHSCLONE=618 LHSFILE=945 PVAL=412 QSPAN-def=96 QSPAN-elab=293
+surelog/default/Scr1SvTests-fa4609ad/slang.uhdm CASTFILE=9
+surelog/default/Scoreboard-72aa0ba8/slang.uhdm INCDEC=40 PVAL=6 REALTXT=3
+surelog/default/Rggen-ee9ac8af/slang.uhdm LHSCLONE=18 LHSFILE=2 PVAL=3
+surelog/default/StructUnsizedVal-86891aa7/slang.uhdm LHSCLONE=2 PVAL=5
+surelog/default/TypedefRange-c9c0f946/slang.uhdm AGGRNG=1
+surelog/default/SimpleUVM-267de3ff/slang.uhdm INCDEC=50 LHSFILE=90 PVAL=62 REALTXT=3
+surelog/default/UnionCast-b72b5775/slang.uhdm CASTFILE=2
+surelog/default/SeqDriver-65178d3a/slang.uhdm INCDEC=70 LHSFILE=90 PVAL=132 REALTXT=3
+surelog/default/VarType-68a5e313/slang.uhdm REALTXT=2
+surelog/testflags/AssignmentPatternInAssignmentPattern-b16388bd/slang.uhdm LHSFILE=10 QSPAN-def=4 QSPAN-elab=4
+surelog/testflags/BitComplex-a7031feb/slang.uhdm PVAL=2
+surelog/testflags/BitsArray-bcfa08c1/slang.uhdm PVAL=2
+surelog/testflags/BitSelectPartSelectInFunction-7d601b9c/slang.uhdm CASTFILE=1
+surelog/testflags/BitsHierPath-eca76bda/slang.uhdm PVAL=2
+surelog/testflags/BitsLogic-3fe59a67/slang.uhdm PVAL=2
+surelog/testflags/BlackBePipeInt-1fcd9dad/slang.uhdm LHSCLONE=380 PVAL=8
+surelog/testflags/BuildUVMPkg-fc55bd0c/slang.uhdm INCDEC=18 PVAL=3 REALTXT=3
+surelog/testflags/DefaultPatternAssign-3f181482/slang.uhdm LHSFILE=1 PVAL=4
+surelog/testflags/DefaultPatternInt-f18dcc46/slang.uhdm LHSCLONE=1 LHSFILE=1
+surelog/testflags/ElabParam-1a33ceb8/slang.uhdm CASTFILE=1
+surelog/testflags/EvalFuncNamed-ac7ef961/slang.uhdm LHSFILE=2
+surelog/testflags/GenForIfaceLocalparamNestedGen-20dde232/slang.uhdm LHSFILE=1
+surelog/testflags/GenForStructParamBound-1a61c8d8/slang.uhdm LHSFILE=1
+surelog/testflags/GenIfIfaceParamStructField-defc4948/slang.uhdm LHSFILE=1
+surelog/testflags/GenScopeHierPath-39985ad7/slang.uhdm LHSFILE=2
+surelog/testflags/HierPathOverride-2fa13a4d/slang.uhdm LHSFILE=4
+surelog/testflags/HierPathStructTypespec-f0bedc40/slang.uhdm LHSFILE=8 PVAL=14 QSPAN-def=1 QSPAN-elab=1
+surelog/testflags/HierPathTypespec-8695be14/slang.uhdm AGGRNG=3
+surelog/testflags/HierPathUnpacked-bbbf3d41/slang.uhdm PVAL=4
+surelog/testflags/HighLow-68eb0b3d/slang.uhdm PVAL=2
+surelog/testflags/ImportBinding-9d40bc6b/slang.uhdm LHSFILE=2 PVAL=4
+surelog/testflags/ImportedTypespec-a443c737/slang.uhdm LHSFILE=1
+surelog/testflags/IncompFunc-357367c2/slang.uhdm CASTFILE=1
+surelog/testflags/IndexedSelectHex-19463cab/slang.uhdm LHSFILE=2
+surelog/testflags/IntegerConcat-e60b5928/slang.uhdm LHSFILE=7 PVAL=2
+surelog/testflags/IOClassStruct-e5d00e62/slang.uhdm INCDEC=1
+surelog/testflags/Kmac-a415505d/slang.uhdm LHSCLONE=2 PVAL=1
+surelog/testflags/LargeHexCast-12b24b59/slang.uhdm CASTFILE=1 LHSFILE=2
+surelog/testflags/LargeValue2Struct-557e5899/slang.uhdm LHSFILE=2 PVAL=2
+surelog/testflags/LogicArrayParam-e8a7f879/slang.uhdm LHSFILE=2 QSPAN-def=2 QSPAN-elab=2
+surelog/testflags/LongHex-289e5aae/slang.uhdm LHSFILE=2
+surelog/testflags/MultiConcatValueSize-6d3b144c/slang.uhdm LHSFILE=2
+surelog/testflags/NoReducTypespec-168324f1/slang.uhdm LHSFILE=1
+surelog/testflags/OneImport-83de17b2/slang.uhdm CASTFILE=1 LHSFILE=1
+surelog/testflags/PackageNet-f9de4c2d/slang.uhdm LHSFILE=2
+surelog/testflags/PackDataType-064b199f/slang.uhdm PVAL=2
+surelog/testflags/ParamByValue-721d2025/slang.uhdm LHSFILE=2
+surelog/testflags/ParamCast-b6977770/slang.uhdm LHSFILE=1
+surelog/testflags/ParamConst-d0268302/slang.uhdm LHSFILE=2
+surelog/testflags/ParamConstPush-13ddd13d/slang.uhdm LHSFILE=1 QSPAN-def=1 QSPAN-elab=1
+surelog/testflags/ParamElabMulti-ffef7a64/slang.uhdm LHSFILE=2
+surelog/testflags/ParamFromPackage-976f196a/slang.uhdm LHSCLONE=1
+surelog/testflags/MiniAmiq-055eab74/slang.uhdm INCDEC=60 LHSFILE=90 PVAL=154 REALTXT=3
+surelog/testflags/ParamNoSubst-92c3f19e/slang.uhdm LHSFILE=1
+surelog/testflags/ParamOverload2-c9458b7b/slang.uhdm LHSFILE=1 PVAL=2
+surelog/testflags/ParamRef-b630a795/slang.uhdm LHSFILE=1
+surelog/testflags/ParamScope-4e02452f/slang.uhdm LHSFILE=1
+surelog/testflags/ParamTypespec2-b5096893/slang.uhdm CASTFILE=1 LHSFILE=1
+surelog/testflags/ParamTypespec-53621f8f/slang.uhdm CASTFILE=1 LHSFILE=1 PVAL=4
+surelog/testflags/PartSelectNoParent-634b77c1/slang.uhdm LHSFILE=3
+surelog/testflags/PAssignType-41fe98ec/slang.uhdm LHSFILE=1
+surelog/testflags/PatternOrder-defd582b/slang.uhdm REALTXT=1
+surelog/testflags/Scr1SvTests-fa4609ad/slang.uhdm CASTFILE=9
+surelog/testflags/SimpleUVM-267de3ff/slang.uhdm INCDEC=50 LHSFILE=90 PVAL=62 REALTXT=3
+surelog/testflags/SeqDriver-65178d3a/slang.uhdm INCDEC=70 LHSFILE=90 PVAL=132 REALTXT=3
+surelog/testflags/StructUnsizedVal-86891aa7/slang.uhdm LHSCLONE=2 PVAL=5
+surelog/testflags/TypedefRange-c9c0f946/slang.uhdm AGGRNG=1
+surelog/testflags/UnionCast-b72b5775/slang.uhdm CASTFILE=2
+surelog/testflags/VarType-68a5e313/slang.uhdm REALTXT=2
+surelog/testflags/Earlgrey_0_1-a898def8/slang.uhdm CASTFILE=14 LHSCLONE=618 LHSFILE=945 PVAL=412 QSPAN-def=96 QSPAN-elab=293
+uhdm2rtlil/default/2DParameterOfInstance-cedf18f8/slang.uhdm CASTFILE=1 LHSFILE=1 PVAL=2
+uhdm2rtlil/default/AssignBitsCallToSubmoduleParameter-77c27c1a/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/BitsCallOnParametetrizedTypeFromPackage-e7c4959f/slang.uhdm LHSFILE=1
+uhdm2rtlil/default/BitSelectOfParameterPassedToSubmodule-a5ea6428/slang.uhdm LHSFILE=4
+uhdm2rtlil/default/BitSelectOfParameterPassedToSubmoduleInGenFor-0e2559af/slang.uhdm LHSFILE=2
+uhdm2rtlil/default/BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule-eae92b3e/slang.uhdm LHSFILE=2
+uhdm2rtlil/default/BitSelectPartSelectInFunction-e6c026e2/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/bits_of_type_param-e5e1e6bf/slang.uhdm PVAL=2 QSPAN-def=1
+uhdm2rtlil/default/CastExpression-6ff266df/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/CastLogic-9828f84c/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/CastSize-966e1e8e/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/CastStructArray-0ed9e415/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/cs_registers-f64ae006/slang.uhdm LHSFILE=14
+uhdm2rtlil/default/DivisionOfSize-6f8d8011/slang.uhdm CASTFILE=1 LHSFILE=1 PVAL=2
+uhdm2rtlil/default/EnumArrayListedElements-c5447eb0/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/fail_detect_width-5b00edbc/slang.uhdm LHSFILE=1
+uhdm2rtlil/default/ff_dead_both_branches-8ff43a18/slang.uhdm LHSCLONE=1
+uhdm2rtlil/default/ff_dead_guarded_reset-ccaa1279/slang.uhdm LHSCLONE=1
+uhdm2rtlil/default/FunctionReturnEnum-1914f625/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/ibex_alu-7f02a7e3/slang.uhdm LHSCLONE=69 PVAL=23 QSPAN-def=1
+uhdm2rtlil/default/ibex_branch_predict-d5a3346b/slang.uhdm LHSCLONE=2 LHSFILE=67 PVAL=36
+uhdm2rtlil/default/ibex_compressed_decoder-3a107494/slang.uhdm LHSCLONE=69 PVAL=23 QSPAN-def=1
+uhdm2rtlil/default/ibex_decoder-a147b711/slang.uhdm LHSCLONE=69 PVAL=25 QSPAN-def=2
+uhdm2rtlil/default/ibex_icache-2cbf116a/slang.uhdm LHSCLONE=69 PVAL=23
+uhdm2rtlil/default/ibex_multdiv_fast-9a0db78a/slang.uhdm LHSCLONE=69 PVAL=23 QSPAN-def=1
+uhdm2rtlil/default/ibex_multdiv_slow-ade5eff9/slang.uhdm LHSCLONE=2 LHSFILE=67 PVAL=36
+uhdm2rtlil/default/ibex_pmp-f78ab5fc/slang.uhdm LHSCLONE=69 PVAL=21
+uhdm2rtlil/default/ibex_wb_stage-498bd791/slang.uhdm LHSCLONE=69 PVAL=21
+uhdm2rtlil/default/iface_array_elem_cfg_param-ed894f29/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/ibex_tracer-5e24e441/slang.uhdm LHSCLONE=2 LHSFILE=275 PVAL=50
+uhdm2rtlil/default/iface_cfg_param_def_pass-eb6d6de5/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/iface_param_set_value-136b3eba/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/iface_scalar_localparam-b6ec8563/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/iface_struct_field_partsel-be3e813f/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/iface_zero_width_field-9966c829/slang.uhdm LHSFILE=4
+uhdm2rtlil/default/ImportedDoubleCastedParameter-d2348c1b/slang.uhdm CASTFILE=2 LHSFILE=1
+uhdm2rtlil/default/ImportedEnumCast-d1164c3b/slang.uhdm LHSFILE=2
+uhdm2rtlil/default/ImportedParameter-8018942c/slang.uhdm LHSFILE=1
+uhdm2rtlil/default/IndexedPartSelectInFor-b59c7c12/slang.uhdm LHSFILE=2
+uhdm2rtlil/default/InterfaceParameter-e1b4d361/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/InterfaceParameterSetValue-530e8d07/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/int_port_signed-b759833c/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/jeras_union-394df907/slang.uhdm CASTFILE=2
+uhdm2rtlil/default/MemberSelectOf2DStructPackedArray-e49c829e/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/NestedStructArrayParameterInitializedByPatternPassedAsPort-e14d8143/slang.uhdm LHSCLONE=2
+uhdm2rtlil/default/OneCast-cd41aa6d/slang.uhdm CASTFILE=2
+uhdm2rtlil/default/OneImport-59e6376d/slang.uhdm CASTFILE=2 LHSFILE=1
+uhdm2rtlil/default/OnePackage-95b0136e/slang.uhdm CASTFILE=2
+uhdm2rtlil/default/OutputSizeWithParameterOfInstanceInitializedByStructMember-ebb7cf91/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/ParameterDoubleUnderscoreInSvFrontend-aa536c60/slang.uhdm LHSFILE=1
+uhdm2rtlil/default/ParameterFromPkgInNestedModule-98c7b498/slang.uhdm LHSFILE=1
+uhdm2rtlil/default/ParameterFromPkgOnParameterPortList-21c67dca/slang.uhdm LHSCLONE=1
+uhdm2rtlil/default/ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope-081aaa54/slang.uhdm LHSFILE=2
+uhdm2rtlil/default/ParameterSizeOfInstance-7a7b55be/slang.uhdm LHSFILE=2
+uhdm2rtlil/default/ParameterWithUnderscoreValueDividedPassedFromCommandLine-6a9603da/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/param_nested_struct_field_width-5f0b6d8d/slang.uhdm QSPAN-elab=1
+uhdm2rtlil/default/param_struct_field_bitsel-c5afd2ec/slang.uhdm LHSCLONE=1 LHSFILE=1
+uhdm2rtlil/default/param_unpacked_struct_array-e425e53c/slang.uhdm LHSCLONE=1 LHSFILE=1
+uhdm2rtlil/default/PartSelectInFor-fd00518c/slang.uhdm LHSFILE=3
+uhdm2rtlil/default/RealValue-7f483013/slang.uhdm REALTXT=2
+uhdm2rtlil/default/realexpr-17dfb02b/slang.uhdm REALTXT=11
+uhdm2rtlil/default/ReplicationPassedToInstance-8a0ceaf8/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/ReturnEnumArray-3ce2dbc5/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/rp32_r5p_alu-5dbac76d/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/Shortreal-a07008e1/slang.uhdm CASTFILE=1 REALTXT=1
+uhdm2rtlil/default/simple_package-edf4630d/slang.uhdm LHSFILE=4
+uhdm2rtlil/default/static_cast_simple-557a7ef3/slang.uhdm CASTFILE=17
+uhdm2rtlil/default/StructArrayParameterInitializedByPatternPassedAsPort-0d936620/slang.uhdm LHSCLONE=2
+uhdm2rtlil/default/StructParameterInitializedWithPatternAndReferenced-049feaa1/slang.uhdm CASTFILE=1
+uhdm2rtlil/default/struct_param_field_shift-8eed4a85/slang.uhdm QSPAN-elab=1
+uhdm2rtlil/default/struct_param_func_config-121ce6d3/slang.uhdm LHSCLONE=4 QSPAN-elab=1
+uhdm2rtlil/default/struct_param_repl_count-ce255105/slang.uhdm LHSCLONE=1
+uhdm2rtlil/default/SumOfParameters-11640ce7/slang.uhdm LHSFILE=1
+uhdm2rtlil/default/typedef_package-313ee56d/slang.uhdm PVAL=2
+uhdm2rtlil/default/TypedefPackedDimensions-5f58a006/slang.uhdm AGGRNG=3
+uhdm2rtlil/default/TypedefStructParamWithRangeInSubmodule-bfe405c5/slang.uhdm LHSFILE=4
+uhdm2rtlil/default/unbased_unsized-9991eccf/slang.uhdm CASTFILE=2
+uhdm2rtlil/default/UnionCustomTypeMultirange-0acbfc30/slang.uhdm LHSFILE=2
+uhdm2rtlil/default/unbased_unsized_param-bb715653/slang.uhdm CASTFILE=2
+uhdm2rtlil/default/VarPassedTo2Submodules-f4e87b74/slang.uhdm CASTFILE=2
+uhdm2rtlil/testflags/2DParameterOfInstance-cedf18f8/slang.uhdm CASTFILE=1 LHSFILE=1 PVAL=2
+uhdm2rtlil/testflags/AssignBitsCallToSubmoduleParameter-77c27c1a/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/BitsCallOnParametetrizedTypeFromPackage-e7c4959f/slang.uhdm LHSFILE=1
+uhdm2rtlil/testflags/BitSelectOfParameterPassedToSubmodule-a5ea6428/slang.uhdm LHSFILE=4
+uhdm2rtlil/testflags/BitSelectOfParameterPassedToSubmoduleInGenFor-0e2559af/slang.uhdm LHSFILE=2
+uhdm2rtlil/testflags/BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule-eae92b3e/slang.uhdm LHSFILE=2
+uhdm2rtlil/testflags/BitSelectPartSelectInFunction-e6c026e2/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/bits_of_type_param-e5e1e6bf/slang.uhdm PVAL=2 QSPAN-def=1
+uhdm2rtlil/testflags/CastExpression-6ff266df/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/CastLogic-9828f84c/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/CastSize-966e1e8e/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/CastStructArray-0ed9e415/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/cs_registers-f64ae006/slang.uhdm LHSFILE=14
+uhdm2rtlil/testflags/DivisionOfSize-6f8d8011/slang.uhdm CASTFILE=1 LHSFILE=1 PVAL=2
+uhdm2rtlil/testflags/EnumArrayListedElements-c5447eb0/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/fail_detect_width-5b00edbc/slang.uhdm LHSFILE=1
+uhdm2rtlil/testflags/ff_dead_both_branches-8ff43a18/slang.uhdm LHSCLONE=1
+uhdm2rtlil/testflags/ff_dead_guarded_reset-ccaa1279/slang.uhdm LHSCLONE=1
+uhdm2rtlil/testflags/FunctionReturnEnum-1914f625/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/ibex_branch_predict-d5a3346b/slang.uhdm LHSCLONE=2 LHSFILE=67 PVAL=36
+uhdm2rtlil/testflags/ibex_alu-7f02a7e3/slang.uhdm LHSCLONE=69 PVAL=23 QSPAN-def=1
+uhdm2rtlil/testflags/ibex_compressed_decoder-3a107494/slang.uhdm LHSCLONE=69 PVAL=23 QSPAN-def=1
+uhdm2rtlil/testflags/ibex_decoder-a147b711/slang.uhdm LHSCLONE=69 PVAL=25 QSPAN-def=2
+uhdm2rtlil/testflags/ibex_icache-2cbf116a/slang.uhdm LHSCLONE=69 PVAL=23
+uhdm2rtlil/testflags/ibex_multdiv_fast-9a0db78a/slang.uhdm LHSCLONE=69 PVAL=23 QSPAN-def=1
+uhdm2rtlil/testflags/ibex_multdiv_slow-ade5eff9/slang.uhdm LHSCLONE=2 LHSFILE=67 PVAL=36
+uhdm2rtlil/testflags/ibex_pmp-f78ab5fc/slang.uhdm LHSCLONE=69 PVAL=21
+uhdm2rtlil/testflags/ibex_wb_stage-498bd791/slang.uhdm LHSCLONE=69 PVAL=21
+uhdm2rtlil/testflags/iface_array_elem_cfg_param-ed894f29/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/ibex_tracer-5e24e441/slang.uhdm LHSCLONE=2 LHSFILE=275 PVAL=50
+uhdm2rtlil/testflags/iface_cfg_param_def_pass-eb6d6de5/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/iface_param_set_value-136b3eba/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/iface_scalar_localparam-b6ec8563/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/iface_struct_field_partsel-be3e813f/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/ImportedDoubleCastedParameter-d2348c1b/slang.uhdm CASTFILE=2 LHSFILE=1
+uhdm2rtlil/testflags/iface_zero_width_field-9966c829/slang.uhdm LHSFILE=4
+uhdm2rtlil/testflags/ImportedEnumCast-d1164c3b/slang.uhdm LHSFILE=2
+uhdm2rtlil/testflags/ImportedParameter-8018942c/slang.uhdm LHSFILE=1
+uhdm2rtlil/testflags/IndexedPartSelectInFor-b59c7c12/slang.uhdm LHSFILE=2
+uhdm2rtlil/testflags/InterfaceParameter-e1b4d361/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/InterfaceParameterSetValue-530e8d07/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/int_port_signed-b759833c/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/jeras_union-394df907/slang.uhdm CASTFILE=2
+uhdm2rtlil/testflags/MemberSelectOf2DStructPackedArray-e49c829e/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/NestedStructArrayParameterInitializedByPatternPassedAsPort-e14d8143/slang.uhdm LHSCLONE=2
+uhdm2rtlil/testflags/OneCast-cd41aa6d/slang.uhdm CASTFILE=2
+uhdm2rtlil/testflags/OneImport-59e6376d/slang.uhdm CASTFILE=2 LHSFILE=1
+uhdm2rtlil/testflags/OnePackage-95b0136e/slang.uhdm CASTFILE=2
+uhdm2rtlil/testflags/OutputSizeWithParameterOfInstanceInitializedByStructMember-ebb7cf91/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/ParameterDoubleUnderscoreInSvFrontend-aa536c60/slang.uhdm LHSFILE=1
+uhdm2rtlil/testflags/ParameterFromPkgInNestedModule-98c7b498/slang.uhdm LHSFILE=1
+uhdm2rtlil/testflags/ParameterFromPkgOnParameterPortList-21c67dca/slang.uhdm LHSCLONE=1
+uhdm2rtlil/testflags/ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope-081aaa54/slang.uhdm LHSFILE=2
+uhdm2rtlil/testflags/ParameterSizeOfInstance-7a7b55be/slang.uhdm LHSFILE=2
+uhdm2rtlil/testflags/ParameterWithUnderscoreValueDividedPassedFromCommandLine-6a9603da/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/param_nested_struct_field_width-5f0b6d8d/slang.uhdm QSPAN-elab=1
+uhdm2rtlil/testflags/param_struct_field_bitsel-c5afd2ec/slang.uhdm LHSCLONE=1 LHSFILE=1
+uhdm2rtlil/testflags/param_unpacked_struct_array-e425e53c/slang.uhdm LHSCLONE=1 LHSFILE=1
+uhdm2rtlil/testflags/PartSelectInFor-fd00518c/slang.uhdm LHSFILE=3
+uhdm2rtlil/testflags/RealValue-7f483013/slang.uhdm REALTXT=2
+uhdm2rtlil/testflags/realexpr-17dfb02b/slang.uhdm REALTXT=11
+uhdm2rtlil/testflags/ReplicationPassedToInstance-8a0ceaf8/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/ReturnEnumArray-3ce2dbc5/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/rp32_r5p_alu-5dbac76d/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/Shortreal-a07008e1/slang.uhdm CASTFILE=1 REALTXT=1
+uhdm2rtlil/testflags/simple_package-edf4630d/slang.uhdm LHSFILE=4
+uhdm2rtlil/testflags/static_cast_simple-557a7ef3/slang.uhdm CASTFILE=17
+uhdm2rtlil/testflags/StructArrayParameterInitializedByPatternPassedAsPort-0d936620/slang.uhdm LHSCLONE=2
+uhdm2rtlil/testflags/StructParameterInitializedWithPatternAndReferenced-049feaa1/slang.uhdm CASTFILE=1
+uhdm2rtlil/testflags/struct_param_field_shift-8eed4a85/slang.uhdm QSPAN-elab=1
+uhdm2rtlil/testflags/struct_param_func_config-121ce6d3/slang.uhdm LHSCLONE=4 QSPAN-elab=1
+uhdm2rtlil/testflags/struct_param_repl_count-ce255105/slang.uhdm LHSCLONE=1
+uhdm2rtlil/testflags/SumOfParameters-11640ce7/slang.uhdm LHSFILE=1
+uhdm2rtlil/testflags/typedef_package-313ee56d/slang.uhdm PVAL=2
+uhdm2rtlil/testflags/TypedefPackedDimensions-5f58a006/slang.uhdm AGGRNG=3
+uhdm2rtlil/testflags/TypedefStructParamWithRangeInSubmodule-bfe405c5/slang.uhdm LHSFILE=4
+uhdm2rtlil/testflags/unbased_unsized-9991eccf/slang.uhdm CASTFILE=2
+uhdm2rtlil/testflags/unbased_unsized_param-bb715653/slang.uhdm CASTFILE=2
+uhdm2rtlil/testflags/UnionCustomTypeMultirange-0acbfc30/slang.uhdm LHSFILE=2
+uhdm2rtlil/testflags/VarPassedTo2Submodules-f4e87b74/slang.uhdm CASTFILE=2

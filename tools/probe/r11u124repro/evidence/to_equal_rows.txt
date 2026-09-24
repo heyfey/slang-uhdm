@@ -1,0 +1,106 @@
+surelog	BitComplex/default	differ:value(2)	PVAL
+surelog	BitComplex/testflags	differ:value(2)	PVAL
+surelog	BitSelectPartSelectInFunction/default	differ:file(1)	CASTFILE
+surelog	BitSelectPartSelectInFunction/testflags	differ:file(1)	CASTFILE
+surelog	BitsHierPath/default	differ:value(2)	PVAL
+surelog	BitsHierPath/testflags	differ:value(2)	PVAL
+surelog	BitsLogic/default	differ:value(2)	PVAL
+surelog	BitsLogic/testflags	differ:value(2)	PVAL
+surelog	DefaultPatternAssign/default	differ:value(4)	LHSFILE + PVAL
+surelog	DefaultPatternAssign/testflags	differ:value(4)	LHSFILE + PVAL
+surelog	ElabParam/default	differ:file(2)	CASTFILE
+surelog	ElabParam/testflags	differ:file(1)	CASTFILE
+surelog	EvalFuncNamed/default	differ:file(2)	LHSFILE
+surelog	HierPathUnpacked/default	differ:value(4)	PVAL
+surelog	HierPathUnpacked/testflags	differ:value(4)	PVAL
+surelog	ImportedTypespec/default	differ:file(1)	LHSFILE
+surelog	ImportedTypespec/testflags	differ:file(1)	LHSFILE
+surelog	IncompFunc/default	differ:file(1)	CASTFILE
+surelog	IncompFunc/testflags	differ:file(1)	CASTFILE
+surelog	LargeHexCast/default	differ:file(3)	CASTFILE + LHSFILE
+surelog	LargeHexCast/testflags	differ:file(3)	CASTFILE + LHSFILE
+surelog	LongHex/default	differ:file(2)	LHSFILE
+surelog	LongHex/testflags	differ:file(2)	LHSFILE
+surelog	OneImport/default	differ:file(3)	CASTFILE + LHSFILE
+surelog	OneImport/testflags	differ:file(2)	CASTFILE + LHSFILE
+surelog	PackDataType/default	differ:value(2)	PVAL
+surelog	PackDataType/testflags	differ:value(2)	PVAL
+surelog	PackageNet/default	differ:file(2)	LHSFILE
+surelog	PackageNet/testflags	differ:file(2)	LHSFILE
+surelog	ParamByValue/default	differ:file(2)	LHSFILE
+surelog	ParamByValue/testflags	differ:file(2)	LHSFILE
+surelog	ParamCast/default	differ:file(1)	LHSFILE
+surelog	ParamCast/testflags	differ:file(1)	LHSFILE
+surelog	ParamConst/default	differ:file(2)	LHSFILE
+surelog	ParamConst/testflags	differ:file(2)	LHSFILE
+surelog	ParamConstPush/default	differ:endcol(3)	LHSFILE + QSPAN-def + QSPAN-elab
+surelog	ParamConstPush/testflags	differ:endcol(3)	LHSFILE + QSPAN-def + QSPAN-elab
+surelog	ParamNoSubst/testflags	differ:file(1)	LHSFILE
+surelog	ParamRef/default	differ:file(1)	LHSFILE
+surelog	ParamRef/testflags	differ:file(1)	LHSFILE
+surelog	ParamTypespec/default	differ:value(6)	CASTFILE + LHSFILE + PVAL
+surelog	ParamTypespec/testflags	differ:value(6)	CASTFILE + LHSFILE + PVAL
+surelog	VarType/default	differ:value(2)	REALTXT
+surelog	VarType/testflags	differ:value(2)	REALTXT
+uhdm2rtlil	BitSelectPartSelectInFunction/default	differ:file(1)	CASTFILE
+uhdm2rtlil	BitSelectPartSelectInFunction/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	BitsCallOnParametetrizedTypeFromPackage/default	differ:file(1)	LHSFILE
+uhdm2rtlil	BitsCallOnParametetrizedTypeFromPackage/testflags	differ:file(1)	LHSFILE
+uhdm2rtlil	CastExpression/default	differ:file(1)	CASTFILE
+uhdm2rtlil	CastExpression/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	CastLogic/default	differ:file(1)	CASTFILE
+uhdm2rtlil	CastLogic/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	CastSize/default	differ:file(1)	CASTFILE
+uhdm2rtlil	CastSize/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	DivisionOfSize/default	differ:value(4)	CASTFILE + LHSFILE + PVAL
+uhdm2rtlil	DivisionOfSize/testflags	differ:value(4)	CASTFILE + LHSFILE + PVAL
+uhdm2rtlil	FunctionReturnEnum/default	differ:file(1)	CASTFILE
+uhdm2rtlil	FunctionReturnEnum/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	ImportedDoubleCastedParameter/default	differ:file(3)	CASTFILE + LHSFILE
+uhdm2rtlil	ImportedDoubleCastedParameter/testflags	differ:file(3)	CASTFILE + LHSFILE
+uhdm2rtlil	ImportedEnumCast/default	differ:file(2)	LHSFILE
+uhdm2rtlil	ImportedEnumCast/testflags	differ:file(2)	LHSFILE
+uhdm2rtlil	ImportedParameter/default	differ:file(1)	LHSFILE
+uhdm2rtlil	ImportedParameter/testflags	differ:file(1)	LHSFILE
+uhdm2rtlil	InterfaceParameter/default	differ:file(1)	CASTFILE
+uhdm2rtlil	InterfaceParameter/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	InterfaceParameterSetValue/default	differ:file(1)	CASTFILE
+uhdm2rtlil	InterfaceParameterSetValue/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	MemberSelectOf2DStructPackedArray/default	differ:file(1)	CASTFILE
+uhdm2rtlil	MemberSelectOf2DStructPackedArray/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	OneCast/default	differ:file(2)	CASTFILE
+uhdm2rtlil	OneCast/testflags	differ:file(2)	CASTFILE
+uhdm2rtlil	OneImport/default	differ:file(3)	CASTFILE + LHSFILE
+uhdm2rtlil	OneImport/testflags	differ:file(3)	CASTFILE + LHSFILE
+uhdm2rtlil	OnePackage/default	differ:file(2)	CASTFILE
+uhdm2rtlil	OnePackage/testflags	differ:file(2)	CASTFILE
+uhdm2rtlil	ParameterDoubleUnderscoreInSvFrontend/default	differ:file(1)	LHSFILE
+uhdm2rtlil	ParameterDoubleUnderscoreInSvFrontend/testflags	differ:file(1)	LHSFILE
+uhdm2rtlil	ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope/default	differ:file(2)	LHSFILE
+uhdm2rtlil	ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope/testflags	differ:file(2)	LHSFILE
+uhdm2rtlil	ParameterSizeOfInstance/default	differ:file(2)	LHSFILE
+uhdm2rtlil	ParameterSizeOfInstance/testflags	differ:file(2)	LHSFILE
+uhdm2rtlil	RealValue/default	differ:value(2)	REALTXT
+uhdm2rtlil	RealValue/testflags	differ:value(2)	REALTXT
+uhdm2rtlil	ReturnEnumArray/default	differ:file(1)	CASTFILE
+uhdm2rtlil	ReturnEnumArray/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	Shortreal/default	differ:value(2)	CASTFILE + REALTXT
+uhdm2rtlil	Shortreal/testflags	differ:value(2)	CASTFILE + REALTXT
+uhdm2rtlil	SumOfParameters/default	differ:file(1)	LHSFILE
+uhdm2rtlil	SumOfParameters/testflags	differ:file(1)	LHSFILE
+uhdm2rtlil	UnionCustomTypeMultirange/default	differ:file(2)	LHSFILE
+uhdm2rtlil	UnionCustomTypeMultirange/testflags	differ:file(2)	LHSFILE
+uhdm2rtlil	bits_of_type_param/default	differ:value(2)	PVAL + QSPAN-def
+uhdm2rtlil	bits_of_type_param/testflags	differ:value(2)	PVAL + QSPAN-def
+uhdm2rtlil	cs_registers/default	differ:file(14)	LHSFILE
+uhdm2rtlil	cs_registers/testflags	differ:file(14)	LHSFILE
+uhdm2rtlil	fail_detect_width/default	differ:file(1)	LHSFILE
+uhdm2rtlil	fail_detect_width/testflags	differ:file(1)	LHSFILE
+uhdm2rtlil	iface_param_set_value/default	differ:file(1)	CASTFILE
+uhdm2rtlil	iface_param_set_value/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	int_port_signed/default	differ:file(1)	CASTFILE
+uhdm2rtlil	int_port_signed/testflags	differ:file(1)	CASTFILE
+uhdm2rtlil	realexpr/default	differ:value(17)	REALTXT
+uhdm2rtlil	realexpr/testflags	differ:value(17)	REALTXT
+uhdm2rtlil	unbased_unsized/default	differ:file(2)	CASTFILE
+uhdm2rtlil	unbased_unsized/testflags	differ:file(2)	CASTFILE

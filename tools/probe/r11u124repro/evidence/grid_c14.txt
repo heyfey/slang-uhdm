@@ -1,0 +1,8 @@
+c14__p01_hdr cmp=0 strict=STRICT_NOTEQUAL endcol -> cmp=0 strict=STRICT_EQUAL 119
+c14__p02_body cmp=0 strict=STRICT_NOTEQUAL endcol -> cmp=0 strict=STRICT_EQUAL 119
+c14__p03_lit cmp=0 strict=STRICT_NOTEQUAL endcol -> cmp=0 strict=STRICT_EQUAL 119
+c14__p04_read cmp=91 strict=NOT_EQUAL stage1 -> cmp=91 strict=NOT_EQUAL stage1
+c14__p05_untyped cmp=64 strict=NOT_EQUAL stage1 -> cmp=64 strict=NOT_EQUAL stage1
+c14__p06_int cmp=0 strict=STRICT_NOTEQUAL endcol -> cmp=0 strict=STRICT_EQUAL 71
+c14__p07_modparam cmp=0 strict=STRICT_NOTEQUAL endcol -> cmp=0 strict=STRICT_EQUAL 80
+c14__p08_modlocal cmp=0 strict=STRICT_NOTEQUAL endcol -> cmp=0 strict=STRICT_EQUAL 80

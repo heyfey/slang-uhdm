@@ -4144,6 +4144,34 @@ static bool incDecBindSym21(const slang::ast::Symbol& sym) {
     return false;
 }
 
+// § castTsFile124 — the deferred cast typespecs (`pendingCastTs`) are
+// minted at the end of the write phase with the cast's line and columns
+// copied in but no VpiFile (the drain in ModuleEmit writes the four span
+// fields directly, never through setLoc).  Golden's copy carries dut.sv like
+// every other located object (§ vpiFileOnEveryLocated117; CastSize
+// integer_typespec 4:15-16, Shortreal int_typespec 3:15-18).  Each push
+// records its ref_typespec and the file the span belongs to; ParamEmit's
+// end-of-export post-pass (§ paramValueIsDefRhs124's caller) stamps the
+// drained typespec.  `R11U124_OFF=1` / `R11U124_CASTFILE_OFF=1` drop it.
+// § incDecMemberPathIsLvalue124 — the operand of a pre/post increment or
+// decrement currently being emitted (null outside one).  Surelog compiles
+// that operand through its Variable_lvalue arm, so a member path there takes
+// the LVALUE convention: the base ref_obj on the first member's token and the
+// leaf ref_obj with a name-only full name (golden IOClassStruct
+// `access_record.read_count++`: both refs 18:20-30, leaf full name bare;
+// BuildUVMPkg `lindex.used++`, `req_s.sequence_ptr.m_wait_for_grant_semaphore--`,
+// `f(sequence_ptr.m_next_transaction_id++)`).  Pointer identity keeps an
+// index or argument INSIDE the operand on the rvalue convention.
+static const slang::ast::Expression*& incDecOperand124() {
+    static thread_local const slang::ast::Expression* p = nullptr;
+    return p;
+}
+
+std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>>& r11u124CastTsFiles() {
+    static std::vector<std::tuple<UHDM::ref_typespec*, std::string, uint32_t>> v;
+    return v;
+}
+
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     if (dst->VpiFile().empty())
         dst->VpiFile(src->VpiFile());
@@ -16900,6 +16928,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                     setLoc(c, expr.sourceRange);
+                    // § pkgQualFoldSpanByView124 — the DEFINITION listing's
+                    // fold of a written `pkg::P` that IS the parameter's whole
+                    // initializer spans the qualifier alone (the package-scope
+                    // node Surelog populates it from; ParamEmit's elaborated
+                    // arm carries the other half of the law).
+                    {
+                        static const bool offQs124 =
+                            getenv("R11U124_OFF") != nullptr ||
+                            getenv("R11U124_QSPAN_OFF") != nullptr;
+                        if (!offQs124 && inParamInit && paramInitDef &&
+                            parent &&
+                            parent->UhdmType() == UHDM::uhdmparam_assign &&
+                            expr.syntax &&
+                            expr.syntax->kind == syntax::SyntaxKind::ScopedName) {
+                            std::string rq124(rawText(expr.sourceRange));
+                            auto qp124 = rq124.rfind("::");
+                            if (qp124 != std::string::npos)
+                                setLoc(c, SourceRange(expr.sourceRange.start(),
+                                                      expr.sourceRange.start() +
+                                                          (qp124 + 2)));
+                        }
+                    }
                     // A PROCEDURAL bit-select INDEX fold reading an imported
                     // param parents at the select and carries a ts ref to the
                     // param's def typespec, named by the SELECT (Surelog;
@@ -21164,8 +21214,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!armed21)
                     incDecBindElig21.clear();
             }
+            // § incDecMemberPathIsLvalue124 — name the inc/dec operand for
+            // the MemberAccess hier_path builder (see there).
+            const Expression* idSaved124 = incDecOperand124();
+            if (opType == vpiPostIncOp || opType == vpiPreIncOp ||
+                opType == vpiPostDecOp || opType == vpiPreDecOp)
+                incDecOperand124() = &stripImplicitConv(ue.operand());
             if (auto* e = emitExpr(ue.operand(), op, prefix, netMap))
                 operands->push_back(e);
+            incDecOperand124() = idSaved124;
             if (armed21)
                 incDecBindElig21.clear();
             lvIncDecTarget84 = lvSaved84;
@@ -21380,6 +21437,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // literals keep the source text.
             if (inParamInit && !paramInitDef)
                 c->VpiDecompile(buf);
+            // § realLitValueIsText124 — and so does their VALUE: Surelog's
+            // `slRealConst` arm writes `StrCat("REAL:", SymName(token))`
+            // (CompileExpression.cpp:569-577), the literal as written
+            // (`REAL:0.5`, `REAL:1_000.5`, `REAL:4.0`); only the elaborated
+            // parameter fold goes through `Value::uhdmValue`'s
+            // `std::to_string` (`REAL:123.450000`).  `R11U124_OFF=1` /
+            // `R11U124_REALTXT_OFF=1` drop it.
+            else {
+                static const bool offRt124 =
+                    getenv("R11U124_OFF") != nullptr ||
+                    getenv("R11U124_REALTXT_OFF") != nullptr;
+                if (!offRt124)
+                    c->VpiValue("REAL:" +
+                                std::string(rawText(expr.sourceRange)));
+            }
             c->VpiConstType(vpiRealConst);
             setLoc(c, expr.sourceRange);
             if (forceConstParent ||
@@ -22312,6 +22384,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                              "INT:" + rawText(lr), nullptr, "", nullptr,
                              pkgScopeInst ? pkgScopeInst : importedInitPkgInst});
                         op->Typespec(rt0);
+                        // § castTsFile124 — the drained typespec's file, and
+                        // a MACRO-expanded cast's virtual line/column (the
+                        // raw line/column of a macro location is 0-based
+                        // garbage; Surelog lays a single-line body out at the
+                        // invocation, as locLineCol does for setLoc).
+                        {
+                            static const bool offCf124 =
+                                getenv("R11U124_OFF") != nullptr ||
+                                getenv("R11U124_CASTFILE_OFF") != nullptr;
+                            if (!offCf124) {
+                                auto& pc124 = pendingCastTs.back();
+                                if (sm->isMacroLoc(lr.start())) {
+                                    locLineCol(lr.start(), pc124.line, pc124.col);
+                                    locLineCol(lr.end(), pc124.endLine,
+                                               pc124.endCol);
+                                }
+                                r11u124CastTsFiles().emplace_back(
+                                    rt0, fullFilePath(lr.start()), pc124.line);
+                            }
+                        }
                         deferredCast = true;
                     }
                     else {
@@ -22347,6 +22439,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // `time'` from `int'`, nor `realtime'` from `real'`).
                         pendingCastTs.back().castLeftSyn = cesyn.left;
                         op->Typespec(rt0);
+                        // § castTsFile124 — the drained typespec's file, and
+                        // a MACRO-expanded cast's virtual line/column (the
+                        // raw line/column of a macro location is 0-based
+                        // garbage; Surelog lays a single-line body out at the
+                        // invocation, as locLineCol does for setLoc).
+                        {
+                            static const bool offCf124 =
+                                getenv("R11U124_OFF") != nullptr ||
+                                getenv("R11U124_CASTFILE_OFF") != nullptr;
+                            if (!offCf124) {
+                                auto& pc124 = pendingCastTs.back();
+                                if (sm->isMacroLoc(lr.start())) {
+                                    locLineCol(lr.start(), pc124.line, pc124.col);
+                                    locLineCol(lr.end(), pc124.endLine,
+                                               pc124.endCol);
+                                }
+                                r11u124CastTsFiles().emplace_back(
+                                    rt0, fullFilePath(lr.start()), pc124.line);
+                            }
+                        }
                         deferredCast = true;
                     }
                 }
@@ -22927,6 +23039,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                  sm->getColumnNumber(lr.end()), "",
                                                  &sizeExpr, prefix});
                         op->Typespec(rt0);
+                        // § castTsFile124 — the drained typespec's file, and
+                        // a MACRO-expanded cast's virtual line/column (the
+                        // raw line/column of a macro location is 0-based
+                        // garbage; Surelog lays a single-line body out at the
+                        // invocation, as locLineCol does for setLoc).
+                        {
+                            static const bool offCf124 =
+                                getenv("R11U124_OFF") != nullptr ||
+                                getenv("R11U124_CASTFILE_OFF") != nullptr;
+                            if (!offCf124) {
+                                auto& pc124 = pendingCastTs.back();
+                                if (sm->isMacroLoc(lr.start())) {
+                                    locLineCol(lr.start(), pc124.line, pc124.col);
+                                    locLineCol(lr.end(), pc124.endLine,
+                                               pc124.endCol);
+                                }
+                                r11u124CastTsFiles().emplace_back(
+                                    rt0, fullFilePath(lr.start()), pc124.line);
+                            }
+                        }
                         // Nested size casts (8'(4'(x))): the inner
                         // conversion lost its syntax — pass it down.
                         {
@@ -32976,6 +33108,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (chain.size() == 1)
                 vifCollapsedComponents5(chain.front()->as<MemberAccessExpression>(),
                                         vifComps5);
+            // § incDecMemberPathIsLvalue124 (the flag's decode is beside
+            // incDecOperand124).  `R11U124_OFF=1` / `R11U124_INCDEC_OFF=1`
+            // drop it.
+            static const bool offId124 = getenv("R11U124_OFF") != nullptr ||
+                                         getenv("R11U124_INCDEC_OFF") != nullptr;
+            const bool incDecLv124 = !offId124 && incDecOperand124() == &expr &&
+                                     !inLhs && nv.symbol.name != "this";
             auto* hp = s.MakeHier_path();
             std::string dotted(nv.symbol.name);
             for (auto& vc5 : vifComps5)
@@ -33030,7 +33169,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else {
                 // Lvalue paths (and param-init struct-member reads) anchor the
                 // base ref at the FIRST member's token span.
-                if ((inLhs || paramInitStructMember) && !chain.empty()) {
+                if ((inLhs || paramInitStructMember || incDecLv124) &&
+                    !chain.empty()) {
                     // § vifClockingPathComponent5 — SITE 1 of 3.  With a
                     // recovered component spliced in, the FIRST member is that
                     // component, not the leaf: golden puts BOTH the base ref and
@@ -33072,7 +33212,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 (void)r->VpiFullName();
                 // Only the last member of an rvalue path gets a fullname; a
                 // param-init struct-member read leaves the leaf BARE (lvalue).
-                if (!inLhs && !paramInitStructMember && *it2 == chain.front())
+                if (!inLhs && !paramInitStructMember && !incDecLv124 &&
+                    *it2 == chain.front())
                     // A PACKAGE-scope prefix keeps :: down to the leaf
                     // (riscv_isa_i_pkg::enc32::opc — Surelog).
                     r->VpiFullName(joinRef(prefix, ma.member.name));

@@ -1,0 +1,10 @@
+hp__h01_post cmp=0 strict=STRICT_NOTEQUAL col -> cmp=0 strict=STRICT_EQUAL 37
+hp__h02_pre cmp=0 strict=STRICT_NOTEQUAL col -> cmp=0 strict=STRICT_EQUAL 37
+hp__h03_dec cmp=0 strict=STRICT_NOTEQUAL col -> cmp=0 strict=STRICT_EQUAL 37
+hp__h04_deep cmp=0 strict=STRICT_NOTEQUAL col -> cmp=0 strict=STRICT_EQUAL 44
+hp__h05_arg cmp=0 strict=STRICT_NOTEQUAL col -> cmp=0 strict=STRICT_EQUAL 47
+hp__h06_rv cmp=0 strict=STRICT_EQUAL 42 -> cmp=0 strict=STRICT_EQUAL 42
+hp__h07_mod cmp=0 strict=STRICT_NOTEQUAL col -> cmp=0 strict=STRICT_EQUAL 70
+hp__h08_classprop cmp=0 strict=STRICT_NOTEQUAL col -> cmp=0 strict=STRICT_EQUAL 14
+hp__h09_this cmp=0 strict=STRICT_NOTEQUAL endcol -> cmp=0 strict=STRICT_NOTEQUAL endcol
+hp__h10_task cmp=0 strict=STRICT_NOTEQUAL col -> cmp=0 strict=STRICT_EQUAL 51

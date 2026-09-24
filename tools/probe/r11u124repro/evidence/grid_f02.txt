@@ -1,0 +1,6 @@
+f02__t1_one cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+f02__t2_same cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+f02__t3_diff cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+f02__t4_struct cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+f02__t5_same_onlya cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+f02__t6_same_vec cmp=0 strict=STRICT_EQUAL 123 -> cmp=0 strict=STRICT_EQUAL 123

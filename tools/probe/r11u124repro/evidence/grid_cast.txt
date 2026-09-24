@@ -1,0 +1,17 @@
+cast__k01_int cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 46
+cast__k02_size cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 55
+cast__k03_psize cmp=0 strict=STRICT_EQUAL 71 -> cmp=0 strict=STRICT_EQUAL 71
+cast__k04_byte cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 46
+cast__k05_logic cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 42
+cast__k06_bit cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 37
+cast__k07_signed cmp=17 strict=NOT_EQUAL stage1 -> cmp=17 strict=NOT_EQUAL stage1
+cast__k08_shortint cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 46
+cast__k09_integer cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 46
+cast__k10_typedef cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+cast__k11_always cmp=0 strict=STRICT_EQUAL 61 -> cmp=0 strict=STRICT_EQUAL 61
+cast__k12_func cmp=0 strict=STRICT_EQUAL 101 -> cmp=0 strict=STRICT_EQUAL 101
+cast__k13_gen cmp=0 strict=STRICT_EQUAL 62 -> cmp=0 strict=STRICT_EQUAL 62
+cast__k14_pkgparam cmp=161 strict=NOT_EQUAL stage1 -> cmp=161 strict=NOT_EQUAL stage1
+cast__k15_macro cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 58
+cast__k16_nested cmp=60 strict=NOT_EQUAL stage1 -> cmp=60 strict=NOT_EQUAL stage1
+cast__k17_sub cmp=0 strict=STRICT_EQUAL 125 -> cmp=0 strict=STRICT_EQUAL 125

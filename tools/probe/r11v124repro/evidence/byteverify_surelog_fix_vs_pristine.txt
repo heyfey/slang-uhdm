@@ -1,0 +1,3 @@
+databases: patched=960 pristine=960
+PATH_SETS_IDENTICAL (960 paths)
+SELFCHECK (every file vs one fixed file): 959 / 960 flagged

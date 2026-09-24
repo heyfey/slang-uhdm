@@ -1,0 +1,14 @@
+c12__a01_int cmp=0 strict=STRICT_NOTEQUAL depth -> cmp=0 strict=STRICT_NOTEQUAL depth
+c12__a02_untyped cmp=0 strict=STRICT_NOTEQUAL depth -> cmp=0 strict=STRICT_NOTEQUAL depth
+c12__a03_vec cmp=0 strict=STRICT_NOTEQUAL depth -> cmp=0 strict=STRICT_NOTEQUAL depth
+c12__a04_packed2d cmp=0 strict=STRICT_NOTEQUAL depth -> cmp=0 strict=STRICT_NOTEQUAL depth
+c12__a05_struct cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c12__a06_enum cmp=0 strict=STRICT_NOTEQUAL value -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c12__a07_tdvec cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+c12__a08_bit2d cmp=0 strict=STRICT_NOTEQUAL depth -> cmp=0 strict=STRICT_NOTEQUAL depth
+c12__a09_explicit cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 127
+c12__a10_body cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 127
+c12__a11_string cmp=46 strict=NOT_EQUAL stage1 -> cmp=46 strict=NOT_EQUAL stage1
+c12__a12_localparam2d cmp=0 strict=STRICT_NOTEQUAL depth -> cmp=0 strict=STRICT_NOTEQUAL depth
+c12__a13_unpacked cmp=0 strict=STRICT_NOTEQUAL depth -> cmp=0 strict=STRICT_NOTEQUAL depth
+c12__a14_2d_noread cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_EQUAL 89

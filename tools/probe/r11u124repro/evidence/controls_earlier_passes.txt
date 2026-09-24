@@ -1,0 +1,18 @@
+r11u118repro changed=0 of 56
+r11v11u118repro changed=0 of 56
+r11u119repro changed=2 of 78
+< r11u119repro__grid__g3__n_dir_real rc=0 cmp=0 strict=STRICT_NOTEQUAL value
+> r11u119repro__grid__g3__n_dir_real rc=0 cmp=0 strict=STRICT_EQUAL 60
+< r11u119repro__grid__g3__n_nodir_real rc=0 cmp=0 strict=STRICT_NOTEQUAL value
+> r11u119repro__grid__g3__n_nodir_real rc=0 cmp=0 strict=STRICT_EQUAL 60
+r11u120repro changed=0 of 44
+r11v120repro changed=2 of 47
+< r11v120repro__grid__D__d08_top_ports_inout rc=0 cmp=0 strict=STRICT_NOTEQUAL file
+> r11v120repro__grid__D__d08_top_ports_inout rc=0 cmp=0 strict=STRICT_EQUAL 127
+< r11v120repro__grid__T__t02_nested_named rc=0 cmp=0 strict=STRICT_NOTEQUAL file
+> r11v120repro__grid__T__t02_nested_named rc=0 cmp=0 strict=STRICT_EQUAL 288
+r11u121repro changed=1 of 83
+< r11u121repro__grid__s__s08_imp_ps rc=0 cmp=0 strict=STRICT_NOTEQUAL file
+> r11u121repro__grid__s__s08_imp_ps rc=0 cmp=0 strict=STRICT_NOTEQUAL fullname
+v11u121repro changed=0 of 41
+r11u123canon changed=0 of 22

@@ -1,0 +1,220 @@
+cx__c01_incl L IDENTICAL  NO_GATES
+cx__c01_incl P IDENTICAL  NO_GATES
+cx__c02_inclmacro L EQUIVALENT nohier NO_GATES
+cx__c02_inclmacro P EQUIVALENT nohier NO_GATES
+cx__c03_multiline_macro L IDENTICAL  OK
+cx__c03_multiline_macro P IDENTICAL  OK
+cx__c04_nested_macro L EQUIVALENT nohier NO_GATES
+cx__c04_nested_macro P EQUIVALENT nohier NO_GATES
+cx__c05_sameline L IDENTICAL  OK
+cx__c05_sameline P IDENTICAL  OK
+cx__c06_pkgfunc L IDENTICAL  NO_GATES
+cx__c06_pkgfunc P IDENTICAL  NO_GATES
+cx__c07_class L IDENTICAL  READ_FAIL
+cx__c07_class P IDENTICAL  READ_FAIL
+cx__c08_localparam L IDENTICAL  NO_GATES
+cx__c08_localparam P IDENTICAL  NO_GATES
+cx__c09_twolines L IDENTICAL  NO_GATES
+cx__c09_twolines P IDENTICAL  NO_GATES
+cx__c10_macro_width L IDENTICAL  NO_GATES
+cx__c10_macro_width P IDENTICAL  NO_GATES
+cx__c11_always_ff L IDENTICAL  OK
+cx__c11_always_ff P IDENTICAL  OK
+cx__c12_pkgtype L IDENTICAL  NO_GATES
+cx__c12_pkgtype P IDENTICAL  NO_GATES
+cx__c13_genfor L IDENTICAL  OK
+cx__c13_genfor P IDENTICAL  OK
+cx__c14_macro_twice L IDENTICAL  OK
+cx__c14_macro_twice P IDENTICAL  OK
+cx__c15_macro_body_arg L IDENTICAL  NO_GATES
+cx__c15_macro_body_arg P IDENTICAL  NO_GATES
+cx__c16_shortint_mac L IDENTICAL  NO_GATES
+cx__c16_shortint_mac P IDENTICAL  NO_GATES
+gx__g01_inline L DIVERGENT nohier il synth NO_GATES
+gx__g01_inline P DIVERGENT nohier il synth NO_GATES
+gx__g02_parambound L IDENTICAL  NO_GATES
+gx__g02_parambound P IDENTICAL  NO_GATES
+gx__g03_asc L IDENTICAL  NO_GATES
+gx__g03_asc P IDENTICAL  NO_GATES
+gx__g04_spaces L IDENTICAL  NO_GATES
+gx__g04_spaces P IDENTICAL  NO_GATES
+gx__g05_macro L IDENTICAL  NO_GATES
+gx__g05_macro P IDENTICAL  NO_GATES
+gx__g06_crosspkg L IDENTICAL  NO_GATES
+gx__g06_crosspkg P IDENTICAL  NO_GATES
+gx__g07_union2d L DIVERGENT nohier il synth NO_GATES
+gx__g07_union2d P DIVERGENT nohier il synth NO_GATES
+gx__g08_multiline L IDENTICAL  NO_GATES
+gx__g08_multiline P IDENTICAL  NO_GATES
+hx__x01_arrelem L IDENTICAL  NO_GATES
+hx__x01_arrelem P IDENTICAL  NO_GATES
+hx__x02_forstep L STATUS_DIFF  CRASH
+hx__x02_forstep P STATUS_DIFF  CRASH
+hx__x03_rhsexpr L IDENTICAL  READ_FAIL
+hx__x03_rhsexpr P IDENTICAL  READ_FAIL
+hx__x04_classchain L IDENTICAL  READ_FAIL
+hx__x04_classchain P IDENTICAL  READ_FAIL
+hx__x05_compound L IDENTICAL  READ_FAIL
+hx__x05_compound P IDENTICAL  READ_FAIL
+hx__x06_memberidx L IDENTICAL  READ_FAIL
+hx__x06_memberidx P IDENTICAL  READ_FAIL
+hx__x07_idxinside L IDENTICAL  READ_FAIL
+hx__x07_idxinside P IDENTICAL  READ_FAIL
+hx__x08_predec L IDENTICAL  READ_FAIL
+hx__x08_predec P IDENTICAL  READ_FAIL
+hx__x09_while L IDENTICAL  READ_FAIL
+hx__x09_while P IDENTICAL  READ_FAIL
+hx__x10_static L IDENTICAL  NO_GATES
+hx__x10_static P IDENTICAL  NO_GATES
+hx__x11_union L IDENTICAL  OK
+hx__x11_union P IDENTICAL  OK
+hx__x12_pkgtype L IDENTICAL  OK
+hx__x12_pkgtype P IDENTICAL  OK
+hx__x13_classprop_member L IDENTICAL  READ_FAIL
+hx__x13_classprop_member P IDENTICAL  READ_FAIL
+hx__x14_nested3 L IDENTICAL  READ_FAIL
+hx__x14_nested3 P IDENTICAL  READ_FAIL
+hx__x15_twice L IDENTICAL  READ_FAIL
+hx__x15_twice P IDENTICAL  READ_FAIL
+lx__l01_inclpkg L IDENTICAL  NO_GATES
+lx__l01_inclpkg P IDENTICAL  NO_GATES
+lx__l02_explicit L IDENTICAL  NO_GATES
+lx__l02_explicit P IDENTICAL  NO_GATES
+lx__l03_twopkg L IDENTICAL  NO_GATES
+lx__l03_twopkg P IDENTICAL  NO_GATES
+lx__l04_macro_param L IDENTICAL  NO_GATES
+lx__l04_macro_param P IDENTICAL  NO_GATES
+lx__l05_iface_import L IDENTICAL  NO_GATES
+lx__l05_iface_import P IDENTICAL  NO_GATES
+probe_ctl__g2_orig76 L IDENTICAL  NO_GATES
+probe_ctl__g2_orig76 P IDENTICAL  NO_GATES
+pv__v01_override L IDENTICAL  NO_GATES
+pv__v01_override P IDENTICAL  NO_GATES
+pv__v02_derived L IDENTICAL  NO_GATES
+pv__v02_derived P IDENTICAL  NO_GATES
+pv__v03_twoinst L IDENTICAL  NO_GATES
+pv__v03_twoinst P IDENTICAL  NO_GATES
+pv__v04_clog2 L IDENTICAL  NO_GATES
+pv__v04_clog2 P IDENTICAL  NO_GATES
+pv__v05_passthru L IDENTICAL  NO_GATES
+pv__v05_passthru P IDENTICAL  NO_GATES
+pv__v06_iface L IDENTICAL  NO_GATES
+pv__v06_iface P IDENTICAL  NO_GATES
+pv__v07_class L IDENTICAL  NO_GATES
+pv__v07_class P IDENTICAL  NO_GATES
+pv__v08_trunc L IDENTICAL  NO_GATES
+pv__v08_trunc P IDENTICAL  NO_GATES
+pv__v09_gen L IDENTICAL  NO_GATES
+pv__v09_gen P IDENTICAL  NO_GATES
+pv__v10_defparam L IDENTICAL  NO_GATES
+pv__v10_defparam P IDENTICAL  NO_GATES
+pv__v11_pkgderived L IDENTICAL  NO_GATES
+pv__v11_pkgderived P IDENTICAL  NO_GATES
+pv__v12_shadow L DIVERGENT nohier il synth NO_GATES
+pv__v12_shadow P DIVERGENT nohier il synth NO_GATES
+pv__v13_enum L IDENTICAL  NO_GATES
+pv__v13_enum P IDENTICAL  NO_GATES
+pv__v14_string L SLANG_REJECT  
+pv__v14_string P SLANG_REJECT  
+pv__v15_positional L IDENTICAL  NO_GATES
+pv__v15_positional P IDENTICAL  NO_GATES
+pv__v16_struct L EQUIVALENT nohier il synth NO_GATES
+pv__v16_struct P EQUIVALENT nohier il synth NO_GATES
+pv__v17_bits L DIVERGENT nohier il synth NO_GATES
+pv__v17_bits P DIVERGENT nohier il synth NO_GATES
+pv__v18_typeparam L EQUIVALENT nohier il NO_GATES
+pv__v18_typeparam P EQUIVALENT nohier il NO_GATES
+pv__v19_neg L DIVERGENT nohier il synth NO_GATES
+pv__v19_neg P DIVERGENT nohier il synth NO_GATES
+pv__v20_fill L EQUIVALENT nohier il synth NO_GATES
+pv__v20_fill P EQUIVALENT nohier il synth NO_GATES
+pv__v21_genlocal L IDENTICAL  NO_GATES
+pv__v21_genlocal P IDENTICAL  NO_GATES
+pv__v22_mixed_gen L IDENTICAL  NO_GATES
+pv__v22_mixed_gen P IDENTICAL  NO_GATES
+pv__v23_ternary L IDENTICAL  NO_GATES
+pv__v23_ternary P IDENTICAL  NO_GATES
+pv__v24_pkgimp_override L IDENTICAL  NO_GATES
+pv__v24_pkgimp_override P IDENTICAL  NO_GATES
+pv__v25_real_override L EQUIVALENT nohier il NO_GATES
+pv__v25_real_override P EQUIVALENT nohier il NO_GATES
+pv__v26_ifaceport L IDENTICAL  NO_GATES
+pv__v26_ifaceport P IDENTICAL  NO_GATES
+qf__f1_portlist_bodyimp L IDENTICAL  NO_GATES
+qf__f1_portlist_bodyimp P IDENTICAL  NO_GATES
+qf__f2_portlist_hdrimp L IDENTICAL  NO_GATES
+qf__f2_portlist_hdrimp P IDENTICAL  NO_GATES
+qf__f3_noportlist L IDENTICAL  NO_GATES
+qf__f3_noportlist P IDENTICAL  NO_GATES
+qf__f4_typeport L IDENTICAL  NO_GATES
+qf__f4_typeport P IDENTICAL  NO_GATES
+qf__f5_vec_portlist L IDENTICAL  NO_GATES
+qf__f5_vec_portlist P IDENTICAL  NO_GATES
+qf__f6_explicit_portlist L IDENTICAL  NO_GATES
+qf__f6_explicit_portlist P IDENTICAL  NO_GATES
+qx__q01_modport_int L IDENTICAL  NO_GATES
+qx__q01_modport_int P IDENTICAL  NO_GATES
+qx__q02_notbare L IDENTICAL  NO_GATES
+qx__q02_notbare P IDENTICAL  NO_GATES
+qx__q03_chain L IDENTICAL  NO_GATES
+qx__q03_chain P IDENTICAL  NO_GATES
+qx__q04_flipview L IDENTICAL  NO_GATES
+qx__q04_flipview P IDENTICAL  NO_GATES
+qx__q05_iface L IDENTICAL  NO_GATES
+qx__q05_iface P IDENTICAL  NO_GATES
+qx__q06_paren L IDENTICAL  NO_GATES
+qx__q06_paren P IDENTICAL  NO_GATES
+qx__q07_enumconst L IDENTICAL  NO_GATES
+qx__q07_enumconst P IDENTICAL  NO_GATES
+qx__q08_string L SLANG_REJECT  
+qx__q08_string P SLANG_REJECT  
+qx__q09_override L IDENTICAL  NO_GATES
+qx__q09_override P IDENTICAL  NO_GATES
+qx__q10_genlocal L IDENTICAL  NO_GATES
+qx__q10_genlocal P IDENTICAL  NO_GATES
+qx__q11_classparam L DIVERGENT nohier il synth NO_GATES
+qx__q11_classparam P DIVERGENT nohier il synth NO_GATES
+qx__q12_localparam_expr_src L IDENTICAL  NO_GATES
+qx__q12_localparam_expr_src P IDENTICAL  NO_GATES
+qx__q13_vecparam_inst L IDENTICAL  NO_GATES
+qx__q13_vecparam_inst P IDENTICAL  NO_GATES
+qx__q14_spaces L IDENTICAL  NO_GATES
+qx__q14_spaces P IDENTICAL  NO_GATES
+rx__r01_macro L DIVERGENT nohier il synth NO_GATES
+rx__r01_macro P DIVERGENT nohier il synth NO_GATES
+rx__r02_cmp L IDENTICAL  OK
+rx__r02_cmp P IDENTICAL  OK
+rx__r03_neg L DIVERGENT nohier il synth NO_GATES
+rx__r03_neg P DIVERGENT nohier il synth NO_GATES
+rx__r04_delay L IDENTICAL  NO_GATES
+rx__r04_delay P IDENTICAL  NO_GATES
+rx__r05_class L IDENTICAL  READ_FAIL
+rx__r05_class P IDENTICAL  READ_FAIL
+rx__r06_pkgqual L EQUIVALENT nohier NO_GATES
+rx__r06_pkgqual P EQUIVALENT nohier NO_GATES
+rx__r07_genparam L DIVERGENT nohier il synth NO_GATES
+rx__r07_genparam P DIVERGENT nohier il synth NO_GATES
+rx__r08_macroarg L DIVERGENT nohier il synth NO_GATES
+rx__r08_macroarg P DIVERGENT nohier il synth NO_GATES
+rx__r09_func L IDENTICAL  NO_GATES
+rx__r09_func P IDENTICAL  NO_GATES
+rx__r10_exp_under L DIVERGENT nohier il synth NO_GATES
+rx__r10_exp_under P DIVERGENT nohier il synth NO_GATES
+rx__r11_override_real L DIVERGENT nohier il synth NO_GATES
+rx__r11_override_real P DIVERGENT nohier il synth NO_GATES
+rx__r12_localparam_expr L IDENTICAL  NO_GATES
+rx__r12_localparam_expr P IDENTICAL  NO_GATES
+rx__r13_ca_under L IDENTICAL  OK
+rx__r13_ca_under P EQUIVALENT nohier il synth OK
+rx__r14_ca_exp L IDENTICAL  OK
+rx__r14_ca_exp P IDENTICAL  OK
+rx__r15_proc L IDENTICAL  NO_GATES
+rx__r15_proc P IDENTICAL  NO_GATES
+rx__r16_class_exp L IDENTICAL  READ_FAIL
+rx__r16_class_exp P IDENTICAL  READ_FAIL
+rx__r17_macro_ca L IDENTICAL  OK
+rx__r17_macro_ca P IDENTICAL  OK
+rx__r18_gen_ca L IDENTICAL  OK
+rx__r18_gen_ca P IDENTICAL  OK
+rx__r19_fn_arg L IDENTICAL  NO_GATES
+rx__r19_fn_arg P IDENTICAL  NO_GATES

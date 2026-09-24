@@ -1,0 +1,427 @@
+r11u118repro__grid__g1__p03_pkgparam | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p02_plain | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p01_ternary | P rc=0 cmp=0 STRICT_EQUAL 141 objects | L rc=0 cmp=0 STRICT_EQUAL 141 objects | SAMEBYTES
+r11u118repro__grid__g1__p05_comb | P rc=0 cmp=0 STRICT_EQUAL 105 objects | L rc=0 cmp=0 STRICT_EQUAL 105 objects | SAMEBYTES
+r11u118repro__grid__g1__p04_modlocal | P rc=0 cmp=60 NOT_EQUAL stage1 | L rc=0 cmp=60 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p06_indexed | P rc=0 cmp=62 NOT_EQUAL stage1 | L rc=0 cmp=62 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p07_bitsel | P rc=0 cmp=0 STRICT_NOTEQUAL count | L rc=0 cmp=0 STRICT_NOTEQUAL count | SAMEBYTES
+r11u118repro__grid__g1__p08_import | P rc=0 cmp=60 NOT_EQUAL stage1 | L rc=0 cmp=60 NOT_EQUAL stage1 | MOVED
+r11u118repro__grid__g1__p09_lpinit | P rc=0 cmp=0 STRICT_EQUAL 121 objects | L rc=0 cmp=0 STRICT_EQUAL 121 objects | SAMEBYTES
+r11u118repro__grid__g1__p10_func | P rc=0 cmp=36 NOT_EQUAL stage1 | L rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p11_parambound | P rc=0 cmp=84 NOT_EQUAL stage1 | L rc=0 cmp=84 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p12_gen | P rc=0 cmp=52 NOT_EQUAL stage1 | L rc=0 cmp=52 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p13_pkgbound | P rc=0 cmp=102 NOT_EQUAL stage1 | L rc=0 cmp=102 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p14_concat | P rc=0 cmp=0 STRICT_EQUAL 110 objects | L rc=0 cmp=0 STRICT_EQUAL 110 objects | SAMEBYTES
+r11u118repro__grid__g1__p15_sigsel | P rc=0 cmp=0 STRICT_EQUAL 56 objects | L rc=0 cmp=0 STRICT_EQUAL 56 objects | SAMEBYTES
+r11u118repro__grid__g1__p16_arith | P rc=0 cmp=0 STRICT_EQUAL 128 objects | L rc=0 cmp=0 STRICT_EQUAL 128 objects | SAMEBYTES
+r11u118repro__grid__g1__p17_pkgvar | P rc=0 cmp=0 STRICT_EQUAL 141 objects | L rc=0 cmp=0 STRICT_EQUAL 141 objects | SAMEBYTES
+r11u118repro__grid__g1__p18_idxcomb | P rc=0 cmp=0 STRICT_EQUAL 136 objects | L rc=0 cmp=0 STRICT_EQUAL 136 objects | SAMEBYTES
+r11u118repro__grid__g1__p19_ws | P rc=0 cmp=0 STRICT_EQUAL 133 objects | L rc=0 cmp=0 STRICT_EQUAL 133 objects | SAMEBYTES
+r11u118repro__grid__g1__p20_idxparam | P rc=0 cmp=0 STRICT_EQUAL 147 objects | L rc=0 cmp=0 STRICT_EQUAL 147 objects | SAMEBYTES
+r11u118repro__grid__g1__p21_ff | P rc=0 cmp=0 STRICT_EQUAL 155 objects | L rc=0 cmp=0 STRICT_EQUAL 155 objects | SAMEBYTES
+r11u118repro__grid__g1__p22_pkgbound_op | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11u118repro__grid__g1__p23_downto | P rc=0 cmp=0 STRICT_EQUAL 133 objects | L rc=0 cmp=0 STRICT_EQUAL 133 objects | SAMEBYTES
+r11u118repro__grid__g1__p24_casecond | P rc=0 cmp=0 STRICT_EQUAL 146 objects | L rc=0 cmp=0 STRICT_EQUAL 146 objects | SAMEBYTES
+r11u118repro__grid__g1__p25_modparam_ternary | P rc=0 cmp=0 STRICT_EQUAL 79 objects | L rc=0 cmp=0 STRICT_EQUAL 79 objects | SAMEBYTES
+r11u118repro__grid__g1__p26_idxopbase | P rc=0 cmp=0 STRICT_EQUAL 213 objects | L rc=0 cmp=0 STRICT_EQUAL 213 objects | SAMEBYTES
+r11u118repro__grid__g1__p27_twod | P rc=0 cmp=0 STRICT_EQUAL 199 objects | L rc=0 cmp=0 STRICT_EQUAL 199 objects | SAMEBYTES
+r11u118repro__grid__g1__p28_structmember | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p29_iface | P rc=0 cmp=31 NOT_EQUAL stage1 | L rc=0 cmp=31 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p30_genfor | P rc=0 cmp=82 NOT_EQUAL stage1 | L rc=0 cmp=82 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p31_portconn | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g1__p33_idxinside | P rc=0 cmp=0 STRICT_EQUAL 191 objects | L rc=0 cmp=0 STRICT_EQUAL 191 objects | SAMEBYTES
+r11u118repro__grid__g1__p32_funcarg | P rc=0 cmp=0 STRICT_EQUAL 229 objects | L rc=0 cmp=0 STRICT_EQUAL 229 objects | SAMEBYTES
+r11u118repro__grid__g1__p34_twod_idx | P rc=0 cmp=0 STRICT_EQUAL 97 objects | L rc=0 cmp=0 STRICT_EQUAL 97 objects | SAMEBYTES
+r11u118repro__grid__g1__p35_twod_elem | P rc=0 cmp=0 STRICT_EQUAL 118 objects | L rc=0 cmp=0 STRICT_EQUAL 118 objects | SAMEBYTES
+r11u118repro__grid__g1__p36_twod_port | P rc=0 cmp=0 STRICT_EQUAL 131 objects | L rc=0 cmp=0 STRICT_EQUAL 131 objects | SAMEBYTES
+r11u118repro__grid__g1__p37_twod_elem_port | P rc=0 cmp=0 STRICT_EQUAL 139 objects | L rc=0 cmp=0 STRICT_EQUAL 139 objects | SAMEBYTES
+r11u118repro__grid__g1__p38_twod_bound | P rc=0 cmp=0 STRICT_EQUAL 117 objects | L rc=0 cmp=0 STRICT_EQUAL 117 objects | SAMEBYTES
+r11u118repro__grid__g2__m01_member_bit | P rc=0 cmp=0 STRICT_EQUAL 83 objects | L rc=0 cmp=0 STRICT_EQUAL 83 objects | SAMEBYTES
+r11u118repro__grid__g1__p39_twod_comb | P rc=0 cmp=0 STRICT_EQUAL 100 objects | L rc=0 cmp=0 STRICT_EQUAL 100 objects | SAMEBYTES
+r11u118repro__grid__g2__m02_member_part | P rc=0 cmp=0 STRICT_EQUAL 85 objects | L rc=0 cmp=0 STRICT_EQUAL 85 objects | SAMEBYTES
+r11u118repro__grid__g2__m03_member_idx | P rc=0 cmp=0 STRICT_NOTEQUAL defname | L rc=0 cmp=0 STRICT_NOTEQUAL defname | SAMEBYTES
+r11u118repro__grid__g2__m04_2d_member | P rc=0 cmp=180 NOT_EQUAL stage1 | L rc=0 cmp=180 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g2__m05_nested_member | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u118repro__grid__g2__m06_sized_literal | P rc=0 cmp=0 STRICT_EQUAL 105 objects | L rc=0 cmp=0 STRICT_EQUAL 105 objects | SAMEBYTES
+r11u118repro__grid__g2__m07_plain_vecsel | P rc=0 cmp=0 STRICT_NOTEQUAL size | L rc=0 cmp=0 STRICT_NOTEQUAL size | SAMEBYTES
+r11u118repro__grid__g2__m08_member_whole | P rc=0 cmp=0 STRICT_EQUAL 79 objects | L rc=0 cmp=0 STRICT_EQUAL 79 objects | SAMEBYTES
+r11u118repro__grid__g2__m10_hex_unsized | P rc=0 cmp=0 STRICT_EQUAL 85 objects | L rc=0 cmp=0 STRICT_EQUAL 85 objects | SAMEBYTES
+r11u118repro__grid__g2__m09_unpacked_elem_member | P rc=0 cmp=158 NOT_EQUAL stage1 | L rc=0 cmp=158 NOT_EQUAL stage1 | SAMEBYTES
+r11u118repro__grid__g3__i01_arrelem | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11u118repro__grid__g3__i02_single_ov | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11u118repro__grid__g3__i03_single_default | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11u118repro__grid__g3__i04_named_modport | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11u118repro__grid__g3__i05_arrelem1 | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11u118repro__grid__g3__i06_twomember | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11u118repro__grid__g3__i07_scalar | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED
+r11u119repro__grid__g1__a01_pkgalias_init | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a03_localalias_init | P rc=0 cmp=0 STRICT_EQUAL 68 objects | L rc=0 cmp=0 STRICT_EQUAL 68 objects | SAMEBYTES
+r11u119repro__grid__g1__a02_pkgenum_init | P rc=0 cmp=0 STRICT_EQUAL 80 objects | L rc=0 cmp=0 STRICT_EQUAL 80 objects | SAMEBYTES
+r11u119repro__grid__g1__a04_plainlogic_init | P rc=0 cmp=0 STRICT_EQUAL 50 objects | L rc=0 cmp=0 STRICT_EQUAL 50 objects | SAMEBYTES
+r11u119repro__grid__g1__a05_int_init | P rc=0 cmp=0 STRICT_EQUAL 29 objects | L rc=0 cmp=0 STRICT_EQUAL 29 objects | SAMEBYTES
+r11u119repro__grid__g1__a06_bit_init | P rc=0 cmp=0 STRICT_EQUAL 50 objects | L rc=0 cmp=0 STRICT_EQUAL 50 objects | SAMEBYTES
+r11u119repro__grid__g1__a07_pkgalias_noinit | P rc=0 cmp=0 STRICT_NOTEQUAL type | L rc=0 cmp=0 STRICT_NOTEQUAL type | SAMEBYTES
+r11u119repro__grid__g1__a08_pkgalias_two | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a09_pkgstruct_init | P rc=0 cmp=207 NOT_EQUAL stage1 | L rc=0 cmp=207 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__a10_pkgstruct_lit | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__a11_param_alias | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a12_localenum_init | P rc=0 cmp=0 STRICT_EQUAL 84 objects | L rc=0 cmp=0 STRICT_EQUAL 84 objects | SAMEBYTES
+r11u119repro__grid__g1__a14_gen_alias_init | P rc=0 cmp=15 NOT_EQUAL stage1 | L rc=0 cmp=15 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__a15_import_alias_init | P rc=0 cmp=0 STRICT_EQUAL 82 objects | L rc=0 cmp=0 STRICT_EQUAL 82 objects | SAMEBYTES
+r11u119repro__grid__g1__a13_child_alias_init | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a16_alias_unpacked_init | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__a17_var_kw_init | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__a18_pkgalias_expr_init | P rc=0 cmp=45 NOT_EQUAL stage1 | L rc=0 cmp=45 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__a19_multiline_init | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a20_iface_alias_init | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a21_bitalias_init | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a22_intalias_init | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a23_alias_alias_init | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__a24_alias_twice_use | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__b01_import_aliasalias | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u119repro__grid__g1__b02_unit_alias | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__b03_local_aliasalias | P rc=0 cmp=0 STRICT_EQUAL 91 objects | L rc=0 cmp=0 STRICT_EQUAL 91 objects | SAMEBYTES
+r11u119repro__grid__g1__b05_import_enum | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__b04_scoped_enum_local_use | P rc=0 cmp=0 STRICT_EQUAL 85 objects | L rc=0 cmp=0 STRICT_EQUAL 85 objects | SAMEBYTES
+r11u119repro__grid__g1__b07_scoped_packedstruct_pattern | P rc=0 cmp=0 STRICT_EQUAL 103 objects | L rc=0 cmp=0 STRICT_EQUAL 103 objects | SAMEBYTES
+r11u119repro__grid__g1__b08_scoped_signed | P rc=0 cmp=40 NOT_EQUAL stage1 | L rc=0 cmp=40 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__b06_scoped_child_two | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__b09_scoped_alias_ws | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__b11_scoped_alias_pkgparam_type | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__b10_scoped_alias_concat | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__c_import_enum_lit | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__c_import_struct_concat | P rc=0 cmp=357 NOT_EQUAL stage1 | L rc=0 cmp=357 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__b12_scoped_alias_always | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__c_import_struct_fill | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u119repro__grid__g1__c_import_struct_lit | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u119repro__grid__g1__c_import_struct_pat | P rc=0 cmp=295 NOT_EQUAL stage1 | L rc=0 cmp=295 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__c_import_structvar_lit | P rc=0 cmp=261 NOT_EQUAL stage1 | L rc=0 cmp=261 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__c_import_structvar_pat | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u119repro__grid__g1__c_scoped_enum_lit | P rc=0 cmp=0 STRICT_EQUAL 85 objects | L rc=0 cmp=0 STRICT_EQUAL 85 objects | SAMEBYTES
+r11u119repro__grid__g1__c_scoped_struct_concat | P rc=0 cmp=269 NOT_EQUAL stage1 | L rc=0 cmp=269 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__c_scoped_struct_fill | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__c_scoped_struct_lit | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__c_scoped_struct_pat | P rc=0 cmp=207 NOT_EQUAL stage1 | L rc=0 cmp=207 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__c_scoped_structvar_lit | P rc=0 cmp=173 NOT_EQUAL stage1 | L rc=0 cmp=173 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g1__c_scoped_structvar_pat | P rc=0 cmp=0 STRICT_EQUAL 103 objects | L rc=0 cmp=0 STRICT_EQUAL 103 objects | SAMEBYTES
+r11u119repro__grid__g2__i02_assign_lhs | P rc=0 cmp=0 STRICT_EQUAL 43 objects | L rc=0 cmp=0 STRICT_EQUAL 43 objects | SAMEBYTES
+r11u119repro__grid__g2__i01_portconn | P rc=0 cmp=0 STRICT_EQUAL 84 objects | L rc=0 cmp=0 STRICT_EQUAL 84 objects | SAMEBYTES
+r11u119repro__grid__g2__i03_portconn_top | P rc=0 cmp=0 STRICT_EQUAL 92 objects | L rc=0 cmp=0 STRICT_EQUAL 92 objects | SAMEBYTES
+r11u119repro__grid__g2__i05_gate_out | P rc=0 cmp=0 STRICT_EQUAL 63 objects | L rc=0 cmp=0 STRICT_EQUAL 63 objects | SAMEBYTES
+r11u119repro__grid__g2__i04_bits_typeparam | P rc=0 cmp=0 STRICT_NOTEQUAL depth | L rc=0 cmp=0 STRICT_NOTEQUAL depth | SAMEBYTES
+r11u119repro__grid__g2__i06_child_twice | P rc=0 cmp=0 STRICT_EQUAL 194 objects | L rc=0 cmp=0 STRICT_EQUAL 194 objects | SAMEBYTES
+r11u119repro__grid__g2__i07_gen_portconn | P rc=0 cmp=451 NOT_EQUAL stage1 | L rc=0 cmp=451 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g2__i08_verilog_style | P rc=0 cmp=0 STRICT_EQUAL 92 objects | L rc=0 cmp=0 STRICT_EQUAL 92 objects | SAMEBYTES
+r11u119repro__grid__g2__i09_explicit_control | P rc=0 cmp=0 STRICT_EQUAL 96 objects | L rc=0 cmp=0 STRICT_EQUAL 96 objects | SAMEBYTES
+r11u119repro__grid__g3__n_blockcomment_multiline | P rc=0 cmp=0 STRICT_EQUAL 84 objects | L rc=0 cmp=0 STRICT_EQUAL 84 objects | SAMEBYTES
+r11u119repro__grid__g2__i10_ordered_portconn | P rc=0 cmp=0 STRICT_EQUAL 81 objects | L rc=0 cmp=0 STRICT_EQUAL 81 objects | SAMEBYTES
+r11u119repro__grid__g3__n_dir_delay | P rc=0 cmp=0 STRICT_EQUAL 58 objects | L rc=0 cmp=0 STRICT_EQUAL 58 objects | SAMEBYTES
+r11u119repro__grid__g3__n_dir_casedef | P rc=0 cmp=0 STRICT_EQUAL 111 objects | L rc=0 cmp=0 STRICT_EQUAL 111 objects | SAMEBYTES
+r11u119repro__grid__g3__n_comment_string | P rc=0 cmp=0 STRICT_EQUAL 92 objects | L rc=0 cmp=0 STRICT_EQUAL 92 objects | SAMEBYTES
+r11u119repro__grid__g3__n_dir_index | P rc=0 cmp=0 STRICT_EQUAL 76 objects | L rc=0 cmp=0 STRICT_EQUAL 76 objects | SAMEBYTES
+r11u119repro__grid__g3__n_dir_real | P rc=0 cmp=0 STRICT_NOTEQUAL value | L rc=0 cmp=0 STRICT_EQUAL 60 objects | MOVED
+r11u119repro__grid__g3__n_dir_lits | P rc=0 cmp=36 NOT_EQUAL stage1 | L rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g3__n_ident_digits | P rc=0 cmp=0 STRICT_EQUAL 119 objects | L rc=0 cmp=0 STRICT_EQUAL 119 objects | SAMEBYTES
+r11u119repro__grid__g3__n_macro_args | P rc=0 cmp=0 STRICT_EQUAL 126 objects | L rc=0 cmp=0 STRICT_EQUAL 126 objects | SAMEBYTES
+r11u119repro__grid__g3__n_nodir_casedef | P rc=0 cmp=0 STRICT_EQUAL 111 objects | L rc=0 cmp=0 STRICT_EQUAL 111 objects | SAMEBYTES
+r11u119repro__grid__g3__n_nodir_delay | P rc=0 cmp=0 STRICT_EQUAL 58 objects | L rc=0 cmp=0 STRICT_EQUAL 58 objects | SAMEBYTES
+r11u119repro__grid__g3__n_nodir_index | P rc=0 cmp=0 STRICT_EQUAL 76 objects | L rc=0 cmp=0 STRICT_EQUAL 76 objects | SAMEBYTES
+r11u119repro__grid__g3__n_nodir_real | P rc=0 cmp=0 STRICT_NOTEQUAL value | L rc=0 cmp=0 STRICT_EQUAL 60 objects | MOVED
+r11u119repro__grid__g3__n_nodir_lits | P rc=0 cmp=36 NOT_EQUAL stage1 | L rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES
+r11u119repro__grid__g3__n_param_ws | P rc=0 cmp=0 STRICT_EQUAL 118 objects | L rc=0 cmp=0 STRICT_EQUAL 118 objects | SAMEBYTES
+r11u119repro__grid__g4__r01_net_real | P rc=0 cmp=0 STRICT_NOTEQUAL depth | L rc=0 cmp=0 STRICT_NOTEQUAL depth | SAMEBYTES
+r11u119repro__grid__g4__r02_reg_real | P rc=0 cmp=0 STRICT_EQUAL 108 objects | L rc=0 cmp=0 STRICT_EQUAL 108 objects | SAMEBYTES
+r11u119repro__grid__g4__r03_port_real | P rc=0 cmp=29 NOT_EQUAL stage1 | L rc=0 cmp=29 NOT_EQUAL stage1 | SAMEBYTES
+r11u120repro__grid__gA__a03_sized_idxpart | P rc=0 cmp=0 STRICT_NOTEQUAL defname | L rc=0 cmp=0 STRICT_NOTEQUAL defname | SAMEBYTES
+r11u120repro__grid__gA__a02_genif | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | SAMEBYTES
+r11u120repro__grid__gA__a01_two_inst | P rc=0 cmp=0 STRICT_EQUAL 169 objects | L rc=0 cmp=0 STRICT_EQUAL 169 objects | SAMEBYTES
+r11u120repro__grid__gA__a04_param_rhs | P rc=0 cmp=0 STRICT_NOTEQUAL type | L rc=0 cmp=0 STRICT_NOTEQUAL type | SAMEBYTES
+r11u120repro__grid__gA__a05_nested | P rc=0 cmp=0 STRICT_EQUAL 161 objects | L rc=0 cmp=0 STRICT_EQUAL 161 objects | SAMEBYTES
+r11u120repro__grid__gA__a06_union | P rc=0 cmp=0 STRICT_EQUAL 91 objects | L rc=0 cmp=0 STRICT_EQUAL 91 objects | SAMEBYTES
+r11u120repro__grid__gA__a07_dec_multibit | P rc=0 cmp=0 STRICT_EQUAL 81 objects | L rc=0 cmp=0 STRICT_EQUAL 81 objects | SAMEBYTES
+r11u120repro__grid__gA__a09_genfor | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | SAMEBYTES
+r11u120repro__grid__gA__a08_param_child | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gA__a10_arr_elem_member | P rc=0 cmp=158 NOT_EQUAL stage1 | L rc=0 cmp=158 NOT_EQUAL stage1 | SAMEBYTES
+r11u120repro__grid__gB__b02_twomember_B | P rc=0 cmp=84 NOT_EQUAL stage1 | L rc=0 cmp=84 NOT_EQUAL stage1 | MOVED
+r11u120repro__grid__gB__b01_arr1_two_readers | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11u120repro__grid__gB__b03_generic_port | P rc=0 cmp=68 NOT_EQUAL stage1 | L rc=0 cmp=68 NOT_EQUAL stage1 | MOVED
+r11u120repro__grid__gB__b04_genfor_arr | P rc=0 cmp=68 NOT_EQUAL stage1 | L rc=0 cmp=68 NOT_EQUAL stage1 | MOVED
+r11u120repro__grid__gB__b05_scalar_and_agg | P rc=0 cmp=11 NOT_EQUAL stage1 | L rc=0 cmp=11 NOT_EQUAL stage1 | MOVED
+r11u120repro__grid__gB__b06_single_default | P rc=0 cmp=68 NOT_EQUAL stage1 | L rc=0 cmp=68 NOT_EQUAL stage1 | MOVED
+r11u120repro__grid__gD__d02_vec_default_top | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gD__d01_vec_default_child | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gD__d03_scalar_default | P rc=0 cmp=0 STRICT_EQUAL 101 objects | L rc=0 cmp=0 STRICT_EQUAL 101 objects | SAMEBYTES
+r11u120repro__grid__gD__d04_vec_overridden | P rc=0 cmp=0 STRICT_EQUAL 126 objects | L rc=0 cmp=0 STRICT_EQUAL 126 objects | SAMEBYTES
+r11u120repro__grid__gD__d05_bit_vec | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | SAMEBYTES
+r11u120repro__grid__gD__d06_gen_scope | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gD__d07_two_dims | P rc=0 cmp=0 STRICT_EQUAL 126 objects | L rc=0 cmp=0 STRICT_EQUAL 126 objects | SAMEBYTES
+r11u120repro__grid__gD__d08_output_port | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gF__f01_inactive_on | P rc=0 cmp=0 STRICT_EQUAL 79 objects | L rc=0 cmp=0 STRICT_EQUAL 79 objects | SAMEBYTES
+r11u120repro__grid__gF__f03_stray_on | P rc=0 cmp=0 STRICT_EQUAL 73 objects | L rc=0 cmp=0 STRICT_EQUAL 73 objects | SAMEBYTES
+r11u120repro__grid__gF__f04_active_pair | P rc=0 cmp=0 STRICT_EQUAL 79 objects | L rc=0 cmp=0 STRICT_EQUAL 79 objects | SAMEBYTES
+r11u120repro__grid__gF__f02_inactive_on_macro | P rc=0 cmp=0 STRICT_EQUAL 87 objects | L rc=0 cmp=0 STRICT_EQUAL 87 objects | SAMEBYTES
+r11u120repro__grid__gF__f05_two_inactive | P rc=0 cmp=0 STRICT_EQUAL 85 objects | L rc=0 cmp=0 STRICT_EQUAL 85 objects | SAMEBYTES
+r11u120repro__grid__gF__f06_active_ifdef_pair | P rc=0 cmp=0 STRICT_EQUAL 65 objects | L rc=0 cmp=0 STRICT_EQUAL 65 objects | SAMEBYTES
+r11u120repro__grid__gF__f07_inactive_else | P rc=0 cmp=0 STRICT_EQUAL 69 objects | L rc=0 cmp=0 STRICT_EQUAL 69 objects | SAMEBYTES
+r11u120repro__grid__gF__f08_macro_noarg_resync | P rc=0 cmp=0 STRICT_EQUAL 77 objects | L rc=0 cmp=0 STRICT_EQUAL 77 objects | SAMEBYTES
+r11u120repro__grid__gF__f09_on_then_macro_same_line | P rc=0 cmp=0 STRICT_EQUAL 73 objects | L rc=0 cmp=0 STRICT_EQUAL 73 objects | SAMEBYTES
+r11u120repro__grid__gF__f10_second_module | P rc=0 cmp=0 STRICT_EQUAL 99 objects | L rc=0 cmp=0 STRICT_EQUAL 99 objects | SAMEBYTES
+r11u120repro__grid__gF__f11_region_inside_module_inst | P rc=0 cmp=0 STRICT_EQUAL 98 objects | L rc=0 cmp=0 STRICT_EQUAL 98 objects | SAMEBYTES
+r11u120repro__grid__gF__f12_multiline_macro_resync | P rc=0 cmp=0 STRICT_NOTEQUAL line | L rc=0 cmp=0 STRICT_NOTEQUAL line | SAMEBYTES
+r11u120repro__grid__gT__t01_row_shape | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gT__t02_nonlocal_default | P rc=0 cmp=0 STRICT_EQUAL 117 objects | L rc=0 cmp=0 STRICT_EQUAL 117 objects | SAMEBYTES
+r11u120repro__grid__gT__t03_ordered_override | P rc=0 cmp=47 NOT_EQUAL stage1 | L rc=0 cmp=47 NOT_EQUAL stage1 | SAMEBYTES
+r11u120repro__grid__gT__t04_two_inst | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gT__t05_local_plain | P rc=0 cmp=0 STRICT_EQUAL 139 objects | L rc=0 cmp=0 STRICT_EQUAL 139 objects | SAMEBYTES
+r11u120repro__grid__gT__t06_gen_inst | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gT__t07_local_dep_value | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u120repro__grid__gT__t08_body_localparam_type | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u121repro__grid__q__q02_op | P rc=0 cmp=0 STRICT_EQUAL 121 objects | L rc=0 cmp=0 STRICT_EQUAL 121 objects | SAMEBYTES
+r11u121repro__grid__q__q03_selbound | P rc=0 cmp=102 NOT_EQUAL stage1 | L rc=0 cmp=102 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__q__q01_direct | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__q__q04_selbound_bare | P rc=0 cmp=72 NOT_EQUAL stage1 | L rc=0 cmp=72 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__q__q06_idx | P rc=0 cmp=0 STRICT_EQUAL 126 objects | L rc=0 cmp=0 STRICT_EQUAL 126 objects | SAMEBYTES
+r11u121repro__grid__q__q05_tern | P rc=0 cmp=0 STRICT_EQUAL 126 objects | L rc=0 cmp=0 STRICT_EQUAL 126 objects | SAMEBYTES
+r11u121repro__grid__q__q07_comb | P rc=0 cmp=0 STRICT_EQUAL 126 objects | L rc=0 cmp=0 STRICT_EQUAL 126 objects | SAMEBYTES
+r11u121repro__grid__q__q09_param | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11u121repro__grid__q__q08_decl | P rc=0 cmp=0 STRICT_EQUAL 155 objects | L rc=0 cmp=0 STRICT_EQUAL 155 objects | SAMEBYTES
+r11u121repro__grid__r__m07_plain_vecsel | P rc=0 cmp=0 STRICT_NOTEQUAL size | L rc=0 cmp=0 STRICT_NOTEQUAL size | SAMEBYTES
+r11u121repro__grid__r__p13_pkgbound | P rc=0 cmp=102 NOT_EQUAL stage1 | L rc=0 cmp=102 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__r__p22_pkgbound_op | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11u121repro__grid__r__p17_pkgvar | P rc=0 cmp=0 STRICT_EQUAL 141 objects | L rc=0 cmp=0 STRICT_EQUAL 141 objects | SAMEBYTES
+r11u121repro__grid__q__q10_tern_selbound | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11u121repro__grid__r__p28_structmember | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s03_q_bs_direct | P rc=0 cmp=56 NOT_EQUAL stage1 | L rc=0 cmp=56 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s02_q_ps_direct | P rc=0 cmp=56 NOT_EQUAL stage1 | L rc=0 cmp=56 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s01_q_ps_tern | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s05_q_ps_g | P rc=0 cmp=56 NOT_EQUAL stage1 | L rc=0 cmp=56 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s06_q_ips | P rc=0 cmp=56 NOT_EQUAL stage1 | L rc=0 cmp=56 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s04_q_nosel | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u121repro__grid__s__s09_loc_ps | P rc=0 cmp=78 NOT_EQUAL stage1 | L rc=0 cmp=78 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s08_imp_ps | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED
+r11u121repro__grid__s__s07_q_ps_comb | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s11_q_ps_gen | P rc=0 cmp=98 NOT_EQUAL stage1 | L rc=0 cmp=98 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s10_q_ps_op | P rc=0 cmp=28 NOT_EQUAL stage1 | L rc=0 cmp=28 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s12_q_bs_var | P rc=0 cmp=56 NOT_EQUAL stage1 | L rc=0 cmp=56 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s13_q_2d_member | P rc=0 cmp=56 NOT_EQUAL stage1 | L rc=0 cmp=56 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s15_q_nested | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__s__s14_q_unpacked | P rc=0 cmp=82 NOT_EQUAL stage1 | L rc=0 cmp=82 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__t__t03_mod_op | P rc=4 cmp=82 NOT_EQUAL stage1 | L rc=4 cmp=82 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t01_mod_direct | P rc=4 cmp=82 NOT_EQUAL stage1 | L rc=4 cmp=82 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t02_mod_tern | P rc=4 cmp=82 NOT_EQUAL stage1 | L rc=4 cmp=82 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t04_mod_comb | P rc=4 cmp=0 STRICT_NOTEQUAL type | L rc=4 cmp=0 STRICT_NOTEQUAL type | SAMEBYTES
+r11u121repro__grid__t__t06_for_direct | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t05_mod_combtern | P rc=4 cmp=0 STRICT_NOTEQUAL type | L rc=4 cmp=0 STRICT_NOTEQUAL type | SAMEBYTES
+r11u121repro__grid__t__t08_for_op | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t09_for_concat | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t07_for_tern | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t11_for_comb | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t10_for_ternconcat | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t12_for_combtern | P rc=0 cmp=31 NOT_EQUAL stage1 | L rc=0 cmp=31 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__t__t13_ifinfor_tern | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t14_if_tern | P rc=0 cmp=0 STRICT_EQUAL 192 objects | L rc=0 cmp=0 STRICT_EQUAL 192 objects | SAMEBYTES
+r11u121repro__grid__t__t15_if_comb | P rc=0 cmp=0 STRICT_EQUAL 187 objects | L rc=0 cmp=0 STRICT_EQUAL 187 objects | SAMEBYTES
+r11u121repro__grid__t__t17_for_opnest | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t16_forfor_tern | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t18_for_ternnest | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t19_for_ternop | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t20_for_condonly | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t2x_for_tern_bit3 | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t2x_for_tern_byte | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t2x_for_tern_int | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t2x_for_tern_pk | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t2x_for_tern_sgn | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t2x_for_tern_w1 | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t2x_for_tern_w4 | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t3x_mod_direct_bit3 | P rc=4 cmp=60 NOT_EQUAL stage1 | L rc=4 cmp=60 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t2x_for_tern_wW4 | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t3x_mod_direct_byte | P rc=4 cmp=22 NOT_EQUAL stage1 | L rc=4 cmp=22 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t3x_mod_direct_int | P rc=4 cmp=22 NOT_EQUAL stage1 | L rc=4 cmp=22 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t3x_mod_direct_pk | P rc=4 cmp=100 NOT_EQUAL stage1 | L rc=4 cmp=100 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t3x_mod_direct_sgn | P rc=4 cmp=84 NOT_EQUAL stage1 | L rc=4 cmp=84 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t3x_mod_direct_w1 | P rc=4 cmp=60 NOT_EQUAL stage1 | L rc=4 cmp=60 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t3x_mod_direct_w4 | P rc=4 cmp=60 NOT_EQUAL stage1 | L rc=4 cmp=60 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t3x_mod_direct_wW4 | P rc=4 cmp=82 NOT_EQUAL stage1 | L rc=4 cmp=82 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t40_tddefault_for_tern | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+r11u121repro__grid__t__t42_bodylp_mod_direct | P rc=4 cmp=60 NOT_EQUAL stage1 | L rc=4 cmp=60 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t41_bodylp_for_tern | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__t__t44_override_mod_direct | P rc=4 cmp=60 NOT_EQUAL stage1 | L rc=4 cmp=60 NOT_EQUAL stage1 | MOVED
+r11u121repro__grid__t__t43_override_for_tern | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+r11u121repro__grid__v__v02_ps_direct | P rc=0 cmp=0 STRICT_EQUAL 118 objects | L rc=0 cmp=0 STRICT_EQUAL 118 objects | SAMEBYTES
+r11u121repro__grid__v__v01_ps_tern | P rc=0 cmp=0 STRICT_EQUAL 124 objects | L rc=0 cmp=0 STRICT_EQUAL 124 objects | SAMEBYTES
+r11u121repro__grid__v__v03_bare_direct | P rc=0 cmp=0 STRICT_EQUAL 118 objects | L rc=0 cmp=0 STRICT_EQUAL 118 objects | SAMEBYTES
+r11u121repro__grid__t__t45_arb | P rc=0 cmp=0 STRICT_NOTEQUAL endline | L rc=0 cmp=0 STRICT_NOTEQUAL endline | SAMEBYTES
+r11u121repro__grid__v__v04_bare_tern | P rc=0 cmp=0 STRICT_EQUAL 124 objects | L rc=0 cmp=0 STRICT_EQUAL 124 objects | SAMEBYTES
+r11u121repro__grid__v__v05_bs_direct | P rc=0 cmp=0 STRICT_EQUAL 118 objects | L rc=0 cmp=0 STRICT_EQUAL 118 objects | SAMEBYTES
+r11u121repro__grid__v__v06_ips | P rc=0 cmp=0 STRICT_EQUAL 118 objects | L rc=0 cmp=0 STRICT_EQUAL 118 objects | SAMEBYTES
+r11u121repro__grid__v__v07_ps_comb | P rc=0 cmp=0 STRICT_EQUAL 120 objects | L rc=0 cmp=0 STRICT_EQUAL 120 objects | SAMEBYTES
+r11u121repro__grid__v__v08_unp_elem | P rc=0 cmp=0 STRICT_EQUAL 134 objects | L rc=0 cmp=0 STRICT_EQUAL 134 objects | SAMEBYTES
+r11u121repro__grid__v__v09_ps_op | P rc=0 cmp=0 STRICT_EQUAL 121 objects | L rc=0 cmp=0 STRICT_EQUAL 121 objects | SAMEBYTES
+r11u121repro__grid__v__v10_imp_ps | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11u121repro__grid__v__v11_longname | P rc=0 cmp=0 STRICT_EQUAL 85 objects | L rc=0 cmp=0 STRICT_EQUAL 85 objects | SAMEBYTES
+r11u123canon__arms__e02_explicit_port_x3 | P rc=0 cmp=0 STRICT_EQUAL 39 objects | L rc=0 cmp=0 STRICT_EQUAL 39 objects | SAMEBYTES
+r11u123canon__arms__e02_explicit_port_x3__v | P rc=0 cmp=0 STRICT_EQUAL 39 objects | L rc=0 cmp=0 STRICT_EQUAL 39 objects | SAMEBYTES
+r11u123canon__arms__e01_bits_param_x3__v | P rc=0 cmp=0 STRICT_EQUAL 83 objects | L rc=0 cmp=0 STRICT_EQUAL 83 objects | SAMEBYTES
+r11u123canon__arms__e01_bits_param_x3 | P rc=0 cmp=0 STRICT_EQUAL 83 objects | L rc=0 cmp=0 STRICT_EQUAL 83 objects | SAMEBYTES
+r11u123canon__arms__e03_enum_const_x3 | P rc=0 cmp=0 STRICT_EQUAL 126 objects | L rc=0 cmp=0 STRICT_EQUAL 126 objects | SAMEBYTES
+r11u123canon__arms__e03_enum_const_x3__v | P rc=0 cmp=0 STRICT_EQUAL 126 objects | L rc=0 cmp=0 STRICT_EQUAL 126 objects | SAMEBYTES
+r11u123canon__arms__e04_sysfunc_x3 | P rc=0 cmp=0 STRICT_EQUAL 91 objects | L rc=0 cmp=0 STRICT_EQUAL 91 objects | SAMEBYTES
+r11u123canon__arms__e04_sysfunc_x3__v | P rc=0 cmp=0 STRICT_EQUAL 91 objects | L rc=0 cmp=0 STRICT_EQUAL 91 objects | SAMEBYTES
+r11u123canon__arms__s01_struct_param_widths | P rc=0 cmp=0 STRICT_EQUAL 332 objects | L rc=0 cmp=0 STRICT_EQUAL 332 objects | SAMEBYTES
+r11u123canon__arms__s01_struct_param_widths__v | P rc=0 cmp=0 STRICT_EQUAL 332 objects | L rc=0 cmp=0 STRICT_EQUAL 332 objects | SAMEBYTES
+r11u123canon__arms__s02_typedef_casts | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u123canon__arms__s02_typedef_casts__v | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u123canon__arms__s03_enum_two_pkgs | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u123canon__arms__s03_enum_two_pkgs__v | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u123canon__arms__t01_class_self_member | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11u123canon__arms__t02_classes_mutual | P rc=0 cmp=0 STRICT_EQUAL 67 objects | L rc=0 cmp=0 STRICT_EQUAL 67 objects | SAMEBYTES
+r11u123canon__arms__t03_struct_enum_param_cycle | P rc=0 cmp=36 NOT_EQUAL stage1 | L rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES
+r11u123canon__arms__t05_param_class_many_refs | P rc=0 cmp=18 NOT_EQUAL stage1 | L rc=0 cmp=18 NOT_EQUAL stage1 | SAMEBYTES
+r11u123canon__arms__t04_virtual_interface | P rc=0 cmp=462 NOT_EQUAL stage1 | L rc=0 cmp=462 NOT_EQUAL stage1 | SAMEBYTES
+r11u123canon__arms__t08_class_spec_typedef | P rc=0 cmp=18 NOT_EQUAL stage1 | L rc=0 cmp=18 NOT_EQUAL stage1 | SAMEBYTES
+r11u123canon__arms__t06_nested_struct_dag | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11u123canon__arms__t07_nested_struct_dag16 | P rc=0 cmp=0 canon overflow: the re-expanded walk passed 4000000 objects; the walk is not comparable | L rc=0 cmp=0 canon overflow: the re-expanded walk passed 4000000 objects; the walk is not comparable | SAMEBYTES
+r11v11u118repro__grid__v1__v02_shadow | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v01_paren | P rc=0 cmp=102 NOT_EQUAL stage1 | L rc=0 cmp=102 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v03_task | P rc=0 cmp=0 STRICT_EQUAL 250 objects | L rc=0 cmp=0 STRICT_EQUAL 250 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v04_portdef | P rc=0 cmp=0 STRICT_EQUAL 256 objects | L rc=0 cmp=0 STRICT_EQUAL 256 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v05_ovr | P rc=0 cmp=0 STRICT_EQUAL 259 objects | L rc=0 cmp=0 STRICT_EQUAL 259 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v06_pkg2 | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | MOVED
+r11v11u118repro__grid__v1__v08_idxdown | P rc=0 cmp=62 NOT_EQUAL stage1 | L rc=0 cmp=62 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v07_idxvar | P rc=0 cmp=0 STRICT_EQUAL 237 objects | L rc=0 cmp=0 STRICT_EQUAL 237 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v09_vsvar | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11v11u118repro__grid__v1__v11_concat_param | P rc=0 cmp=56 NOT_EQUAL stage1 | L rc=0 cmp=56 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v10_3d | P rc=0 cmp=0 STRICT_EQUAL 217 objects | L rc=0 cmp=0 STRICT_EQUAL 217 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v14_genfor_plain | P rc=0 cmp=52 NOT_EQUAL stage1 | L rc=0 cmp=52 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v13_genif | P rc=0 cmp=52 NOT_EQUAL stage1 | L rc=0 cmp=52 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v12_ifsel | P rc=0 cmp=0 STRICT_EQUAL 246 objects | L rc=0 cmp=0 STRICT_EQUAL 246 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v15_class | P rc=0 cmp=0 STRICT_EQUAL 219 objects | L rc=0 cmp=0 STRICT_EQUAL 219 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v16_bitselbnd | P rc=0 cmp=0 STRICT_NOTEQUAL count | L rc=0 cmp=0 STRICT_NOTEQUAL count | SAMEBYTES
+r11v11u118repro__grid__v1__v18_cmp | P rc=0 cmp=0 STRICT_EQUAL 239 objects | L rc=0 cmp=0 STRICT_EQUAL 239 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v19_pkgfunc | P rc=0 cmp=54 NOT_EQUAL stage1 | L rc=0 cmp=54 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v21_modparam_in_bound | P rc=0 cmp=84 NOT_EQUAL stage1 | L rc=0 cmp=84 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v20_program_like_seq | P rc=0 cmp=0 STRICT_EQUAL 265 objects | L rc=0 cmp=0 STRICT_EQUAL 265 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v22_twod_elem | P rc=0 cmp=36 NOT_EQUAL stage1 | L rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v23_twod_range | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v24_iface_port | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v26_vs_ff | P rc=0 cmp=0 STRICT_EQUAL 236 objects | L rc=0 cmp=0 STRICT_EQUAL 236 objects | SAMEBYTES
+r11v11u118repro__grid__v1__v25_vs_func | P rc=0 cmp=44 NOT_EQUAL stage1 | L rc=0 cmp=44 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v27_vs_bit | P rc=0 cmp=0 STRICT_NOTEQUAL type | L rc=0 cmp=0 STRICT_NOTEQUAL type | SAMEBYTES
+r11v11u118repro__grid__v1__v28_vs_idx | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11v11u118repro__grid__v1__v29_ps_inparaminit_mod | P rc=0 cmp=60 NOT_EQUAL stage1 | L rc=0 cmp=60 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v1__v30_vs_genfor | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11v11u118repro__grid__v2__w01_selfpkg | P rc=0 cmp=54 NOT_EQUAL stage1 | L rc=0 cmp=54 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v2__w03_initial | P rc=0 cmp=0 STRICT_EQUAL 237 objects | L rc=0 cmp=0 STRICT_EQUAL 237 objects | SAMEBYTES
+r11v11u118repro__grid__v2__w02_idx_pkgfunc | P rc=0 cmp=0 STRICT_EQUAL 281 objects | L rc=0 cmp=0 STRICT_EQUAL 281 objects | SAMEBYTES
+r11v11u118repro__grid__v2__w04_unpacked | P rc=0 cmp=0 STRICT_NOTEQUAL type | L rc=0 cmp=0 STRICT_NOTEQUAL type | SAMEBYTES
+r11v11u118repro__grid__v2__w06_genifcond | P rc=0 cmp=40 NOT_EQUAL stage1 | L rc=0 cmp=40 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v2__w05_typedim | P rc=0 cmp=28 NOT_EQUAL stage1 | L rc=0 cmp=28 NOT_EQUAL stage1 | MOVED
+r11v11u118repro__grid__v2__w08_paren_right | P rc=0 cmp=72 NOT_EQUAL stage1 | L rc=0 cmp=72 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v2__w07_ovr_idx | P rc=0 cmp=0 STRICT_EQUAL 259 objects | L rc=0 cmp=0 STRICT_EQUAL 259 objects | SAMEBYTES
+r11v11u118repro__grid__v2__w09_latch | P rc=0 cmp=0 STRICT_EQUAL 230 objects | L rc=0 cmp=0 STRICT_EQUAL 230 objects | SAMEBYTES
+r11v11u118repro__grid__v2__w11_pkgbound_func | P rc=0 cmp=36 NOT_EQUAL stage1 | L rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v2__w10_casex | P rc=0 cmp=0 STRICT_EQUAL 244 objects | L rc=0 cmp=0 STRICT_EQUAL 244 objects | SAMEBYTES
+r11v11u118repro__grid__v3__x01_vs_pkgbound | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11v11u118repro__grid__v2__w12_nb_blk | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11v11u118repro__grid__v3__x02_vs_pkgbound_ff | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11v11u118repro__grid__v3__x04_vs_paren | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | SAMEBYTES
+r11v11u118repro__grid__v3__x03_vs_pkgbound_func | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11v11u118repro__grid__v3__x06_ps_pkgbound_genfor | P rc=0 cmp=96 NOT_EQUAL stage1 | L rc=0 cmp=96 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v3__x05_ps_pkgbound_lpinit | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11v11u118repro__grid__v3__x07_ps_pkgbound_class | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11v11u118repro__grid__v4__y01_macro_base | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v3__x08_ps_pkgbound_bare | P rc=0 cmp=72 NOT_EQUAL stage1 | L rc=0 cmp=72 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v4__y02_macro_whole | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v4__y03_macro_bound | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v3__x09_ps_pkgbound_task | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11v11u118repro__grid__v4__y04_macro_arg | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v4__y06_multiline | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v11u118repro__grid__v4__y05_comment_ws | P rc=0 cmp=58 NOT_EQUAL stage1 | L rc=0 cmp=58 NOT_EQUAL stage1 | SAMEBYTES
+r11v120repro__grid__D__d03_int_control | P rc=0 cmp=385 NOT_EQUAL stage1 | L rc=0 cmp=385 NOT_EQUAL stage1 | MOVED
+r11v120repro__grid__D__d01_typedef_chain | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | MOVED
+r11v120repro__grid__D__d02_signed_vec | P rc=0 cmp=0 STRICT_EQUAL 148 objects | L rc=0 cmp=0 STRICT_EQUAL 148 objects | SAMEBYTES
+r11v120repro__grid__D__d04_two_inst_W | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED
+r11v120repro__grid__D__d05_nonansi | P rc=0 cmp=0 STRICT_NOTEQUAL line | L rc=0 cmp=0 STRICT_NOTEQUAL line | MOVED
+r11v120repro__grid__D__d06_ordered_type_override | P rc=0 cmp=0 STRICT_NOTEQUAL line | L rc=0 cmp=0 STRICT_NOTEQUAL line | MOVED
+r11v120repro__grid__F__x01_trailing_off | P rc=0 cmp=0 STRICT_EQUAL 55 objects | L rc=0 cmp=0 STRICT_EQUAL 55 objects | SAMEBYTES
+r11v120repro__grid__D__d08_top_ports_inout | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_EQUAL 127 objects | MOVED
+r11v120repro__grid__D__d07_header_localparam_type | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED
+r11v120repro__grid__F__x02_block_comment | P rc=0 cmp=0 STRICT_EQUAL 55 objects | L rc=0 cmp=0 STRICT_EQUAL 55 objects | SAMEBYTES
+r11v120repro__grid__F__x03_comma_off | P rc=0 cmp=0 STRICT_EQUAL 55 objects | L rc=0 cmp=0 STRICT_EQUAL 55 objects | SAMEBYTES
+r11v120repro__grid__F__x04_mixed_prefix | P rc=0 cmp=0 STRICT_EQUAL 61 objects | L rc=0 cmp=0 STRICT_EQUAL 61 objects | SAMEBYTES
+r11v120repro__grid__F__x05_off_inactive_on_active | P rc=0 cmp=0 STRICT_EQUAL 61 objects | L rc=0 cmp=0 STRICT_EQUAL 61 objects | SAMEBYTES
+r11v120repro__grid__F__x06_inactive_on_then_include | P rc=0 cmp=0 STRICT_EQUAL 80 objects | L rc=0 cmp=0 STRICT_EQUAL 80 objects | SAMEBYTES
+r11v120repro__grid__F__x07_inactive_on_in_header | P rc=0 cmp=0 STRICT_EQUAL 127 objects | L rc=0 cmp=0 STRICT_EQUAL 127 objects | SAMEBYTES
+r11v120repro__grid__F__x08_elsif_inactive | P rc=0 cmp=0 STRICT_EQUAL 75 objects | L rc=0 cmp=0 STRICT_EQUAL 75 objects | SAMEBYTES
+r11v120repro__grid__F__x09_stray_on_eol | P rc=0 cmp=0 STRICT_EQUAL 79 objects | L rc=0 cmp=0 STRICT_EQUAL 79 objects | SAMEBYTES
+r11v120repro__grid__F__x12_upper_case | P rc=0 cmp=0 STRICT_EQUAL 55 objects | L rc=0 cmp=0 STRICT_EQUAL 55 objects | SAMEBYTES
+r11v120repro__grid__F__x10_two_on_inactive_no_off | P rc=0 cmp=0 STRICT_EQUAL 77 objects | L rc=0 cmp=0 STRICT_EQUAL 77 objects | SAMEBYTES
+r11v120repro__grid__F__x11_macro_def_then_inactive | P rc=0 cmp=0 STRICT_EQUAL 79 objects | L rc=0 cmp=0 STRICT_EQUAL 79 objects | SAMEBYTES
+r11v120repro__grid__F__x13_nested_ifdef_inactive | P rc=0 cmp=0 STRICT_EQUAL 73 objects | L rc=0 cmp=0 STRICT_EQUAL 73 objects | SAMEBYTES
+r11v120repro__grid__F__x14_include_resync_ops | P rc=0 cmp=0 STRICT_EQUAL 191 objects | L rc=0 cmp=0 STRICT_EQUAL 191 objects | SAMEBYTES
+r11v120repro__grid__F__x15_inc_has_inactive_region | P rc=0 cmp=0 STRICT_EQUAL 191 objects | L rc=0 cmp=0 STRICT_EQUAL 191 objects | SAMEBYTES
+r11v120repro__grid__F__x17_ifdef_synth_active_region | P rc=0 cmp=0 STRICT_EQUAL 127 objects | L rc=0 cmp=0 STRICT_EQUAL 127 objects | SAMEBYTES
+r11v120repro__grid__F__x16_ops_two_modules_macro | P rc=0 cmp=0 STRICT_EQUAL 233 objects | L rc=0 cmp=0 STRICT_EQUAL 233 objects | SAMEBYTES
+r11v120repro__grid__F__x18_stray_on_active_ops | P rc=0 cmp=0 STRICT_EQUAL 121 objects | L rc=0 cmp=0 STRICT_EQUAL 121 objects | SAMEBYTES
+r11v120repro__grid__F__x19_balanced_ifdef_in_region | P rc=0 cmp=0 STRICT_EQUAL 127 objects | L rc=0 cmp=0 STRICT_EQUAL 127 objects | SAMEBYTES
+r11v120repro__grid__F__x20_define_in_region | P rc=0 cmp=0 STRICT_EQUAL 127 objects | L rc=0 cmp=0 STRICT_EQUAL 127 objects | SAMEBYTES
+r11v120repro__grid__F__x21_inactive_region_balanced_inner | P rc=0 cmp=0 STRICT_EQUAL 127 objects | L rc=0 cmp=0 STRICT_EQUAL 127 objects | SAMEBYTES
+r11v120repro__grid__I__i03_array_pattern_param | P rc=0 cmp=28 NOT_EQUAL stage1 | L rc=0 cmp=28 NOT_EQUAL stage1 | SAMEBYTES
+r11v120repro__grid__I__i01_named_modport_two_fields | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11v120repro__grid__I__i02_generic_iface_port | P rc=0 cmp=11 NOT_EQUAL stage1 | L rc=0 cmp=11 NOT_EQUAL stage1 | MOVED
+r11v120repro__grid__M__m02_netdecl_before | P rc=0 cmp=0 STRICT_EQUAL 146 objects | L rc=0 cmp=0 STRICT_EQUAL 146 objects | SAMEBYTES
+r11v120repro__grid__M__m01_genif_else_diff_lits | P rc=0 cmp=36 NOT_EQUAL stage1 | L rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES
+r11v120repro__grid__I__i04_scalar_and_agg | P rc=0 cmp=0 STRICT_NOTEQUAL col | L rc=0 cmp=0 STRICT_NOTEQUAL col | MOVED
+r11v120repro__grid__M__m03_casegen_lits | P rc=0 cmp=36 NOT_EQUAL stage1 | L rc=0 cmp=36 NOT_EQUAL stage1 | SAMEBYTES
+r11v120repro__grid__M__m05_genfor_member_lit | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+r11v120repro__grid__M__m04_param_width_ones | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+r11v120repro__grid__M__m06_hex_and_neg | P rc=0 cmp=54 NOT_EQUAL stage1 | L rc=0 cmp=54 NOT_EQUAL stage1 | SAMEBYTES
+r11v120repro__grid__T__t01_genfor_named | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | MOVED
+r11v120repro__grid__T__t02_nested_named | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_EQUAL 288 objects | MOVED
+r11v120repro__grid__T__t03_dependent_typeparam | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED
+r11v120repro__grid__T__t04_valuedep_typeparam | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED
+r11v120repro__grid__T__t05_escaped_inst | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | MOVED
+r11v120repro__grid__T__t06_genif_named | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | MOVED
+r11v120repro__grid__T__t07_ordered_and_default_mix | P rc=0 cmp=0 STRICT_NOTEQUAL line | L rc=0 cmp=0 STRICT_NOTEQUAL line | MOVED
+r11v120repro__grid__T__t08_elem_sel_row_two_levels | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+v11u121repro__arms__A__a1_casegen_tern | P rc=0 cmp=0 STRICT_NOTEQUAL fullname | L rc=0 cmp=0 STRICT_NOTEQUAL fullname | SAMEBYTES
+v11u121repro__arms__A__a3_ifif_comb_case | P rc=0 cmp=31 NOT_EQUAL stage1 | L rc=0 cmp=31 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__A__a2_child_twice | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+v11u121repro__arms__A__a4_for_ff | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+v11u121repro__arms__A__a5_struct_tp | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+v11u121repro__arms__A__a6_shadow_ctl | P rc=4 cmp=70 NOT_EQUAL stage1 | L rc=4 cmp=70 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__A__a7_nested_child_gen | P rc=0 cmp=88 NOT_EQUAL stage1 | L rc=0 cmp=88 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b1_localparam_init | P rc=0 cmp=130 NOT_EQUAL stage1 | L rc=0 cmp=130 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__A__a8_func_in_gen | P rc=4 cmp=17 NOT_EQUAL stage1 | L rc=4 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b3_portconn | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b2_ff_cond | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b4_case_concat | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b5_nested_member | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b6_parameter_kw | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b7_as_index | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b9_cmp_add | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__B__b8_nosel_ctl | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__C__c2_struct_member | P rc=0 cmp=29 NOT_EQUAL stage1 | L rc=0 cmp=29 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__C__c1_ff_cond | P rc=0 cmp=0 STRICT_EQUAL 204 objects | L rc=0 cmp=0 STRICT_EQUAL 204 objects | SAMEBYTES
+v11u121repro__arms__C__c3_portconn_concat | P rc=0 cmp=32 NOT_EQUAL stage1 | L rc=0 cmp=32 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__C__c4_funcarg | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__C__c5_lhs_and_read | P rc=0 cmp=0 STRICT_EQUAL 183 objects | L rc=0 cmp=0 STRICT_EQUAL 183 objects | SAMEBYTES
+v11u121repro__arms__D__d1_spacings | P rc=0 cmp=0 STRICT_EQUAL 203 objects | L rc=0 cmp=0 STRICT_EQUAL 203 objects | SAMEBYTES
+v11u121repro__arms__D__d2_spaced_member_elem | P rc=0 cmp=29 NOT_EQUAL stage1 | L rc=0 cmp=29 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__E__b10_param_default | P rc=0 cmp=130 NOT_EQUAL stage1 | L rc=0 cmp=130 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__D__d3_spaced_ff | P rc=0 cmp=0 STRICT_EQUAL 178 objects | L rc=0 cmp=0 STRICT_EQUAL 178 objects | SAMEBYTES
+v11u121repro__arms__E__b11_override | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__E__b13_gen_cond | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__E__b12_range_bound | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | MOVED
+v11u121repro__arms__E__b16_lp_op_bit | P rc=0 cmp=130 NOT_EQUAL stage1 | L rc=0 cmp=130 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__E__b15_pkg_localparam | P rc=0 cmp=86 NOT_EQUAL stage1 | L rc=0 cmp=86 NOT_EQUAL stage1 | MOVED
+v11u121repro__arms__E__b14_genblk_localparam | P rc=0 cmp=64 NOT_EQUAL stage1 | L rc=0 cmp=64 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__E__b17_lp_and_ca | P rc=0 cmp=17 NOT_EQUAL stage1 | L rc=0 cmp=17 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__F__a10_t13_under_top | P rc=0 cmp=0 STRICT_NOTEQUAL endcol | L rc=0 cmp=0 STRICT_NOTEQUAL endcol | SAMEBYTES
+v11u121repro__arms__F__a11_leaf_nonconst | P rc=0 cmp=88 NOT_EQUAL stage1 | L rc=0 cmp=88 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__F__a13_t13_single_loop | P rc=0 cmp=80 NOT_EQUAL stage1 | L rc=0 cmp=80 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__F__a12_t13_clog | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+v11u121repro__arms__F__a9_leaf_top | P rc=0 cmp=88 NOT_EQUAL stage1 | L rc=0 cmp=88 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__G__a14_else_single | P rc=0 cmp=80 NOT_EQUAL stage1 | L rc=0 cmp=80 NOT_EQUAL stage1 | SAMEBYTES
+v11u121repro__arms__G__a15_iftrue_k1 | P rc=0 cmp=0 STRICT_NOTEQUAL file | L rc=0 cmp=0 STRICT_NOTEQUAL file | SAMEBYTES
+v11u121repro__arms__G__a16_for_tern_k1 | P rc=0 cmp=80 NOT_EQUAL stage1 | L rc=0 cmp=80 NOT_EQUAL stage1 | SAMEBYTES

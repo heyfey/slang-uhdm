@@ -1,0 +1,20 @@
+cx__c04_nested_macro dumpdiff_vs_golden P=115 L=108 
+gx__g01_inline dumpdiff_vs_golden P=171 L=151 
+gx__g02_parambound dumpdiff_vs_golden P=262 L=246 
+gx__g05_macro dumpdiff_vs_golden P=230 L=214 
+gx__g07_union2d dumpdiff_vs_golden P=337 L=317 
+hx__x02_forstep dumpdiff_vs_golden P=61 L=51 
+pv__v17_bits dumpdiff_vs_golden P=132 L=134 MORE
+pv__v25_real_override dumpdiff_vs_golden P=160 L=160 
+qf__f5_vec_portlist dumpdiff_vs_golden P=155 L=147 
+qx__q01_modport_int dumpdiff_vs_golden P=123 L=115 
+qx__q03_chain dumpdiff_vs_golden P=171 L=163 
+qx__q13_vecparam_inst dumpdiff_vs_golden P=172 L=164 
+qx__q14_spaces dumpdiff_vs_golden P=123 L=115 
+rx__r06_pkgqual dumpdiff_vs_golden P=153 L=155 MORE
+rx__r08_macroarg dumpdiff_vs_golden P=70 L=70 
+rx__r09_func dumpdiff_vs_golden P=58 L=58 
+rx__r10_exp_under dumpdiff_vs_golden P=85 L=81 
+rx__r11_override_real dumpdiff_vs_golden P=148 L=148 
+rx__r12_localparam_expr dumpdiff_vs_golden P=100 L=98 
+rx__r18_gen_ca dumpdiff_vs_golden P=57 L=57 

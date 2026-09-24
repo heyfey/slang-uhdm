@@ -1,0 +1,6 @@
+rng__g01_struct cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_NOTEQUAL fullname
+rng__g02_union cmp=0 strict=STRICT_NOTEQUAL file -> cmp=0 strict=STRICT_NOTEQUAL fullname
+rng__g03_2d cmp=152 strict=NOT_EQUAL stage1 -> cmp=152 strict=NOT_EQUAL stage1
+rng__g04_used cmp=0 strict=STRICT_NOTEQUAL fullname -> cmp=0 strict=STRICT_NOTEQUAL fullname
+rng__g05_param cmp=94 strict=NOT_EQUAL stage1 -> cmp=94 strict=NOT_EQUAL stage1
+rng__g06_vec_ctl cmp=0 strict=STRICT_EQUAL 45 -> cmp=0 strict=STRICT_EQUAL 45
