@@ -31,6 +31,18 @@ Typespec identity (Surelog copies a typespec per use where we share one
 object) is canonicalised by the walk, together with the full names inside
 such a copy, and is outside the strict contract, see GOLDEN_EQUIVALENCE.md.
 
+## The law index
+
+Every exporter rule is a law, `§ name` with the name ending in its pass
+number, named in the source at its sites, in the pass README under
+`tools/probe/<pass>/` and in the landing commit. `tests/LAWS.csv` and
+`tests/LAWS.md` map every law back to its pass, its commits on this
+branch, its source sites and switches, its arms under `tests/probe/` and
+`tools/probe/`, and the corpus tests its title and commits name. The
+reverse table (pass -> laws) says which laws an arm under a pass dir
+belongs to. `scripts/law_index.py` generates both files, and the sweep
+fails when they are stale, so every landing regenerates them.
+
 ## Setup
 
     git submodule update --init --recursive           # the corpora, slang, and Surelog's UHDM + capnproto

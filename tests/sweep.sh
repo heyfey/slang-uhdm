@@ -31,6 +31,9 @@ while [ $# -gt 0 ]; do
 done
 mkdir -p "$WORKDIR"
 rc=0
+# The law index (tests/LAWS.csv + tests/LAWS.md) must be regenerated with
+# every landing that adds or renames a law, an arm or a pass README.
+python3 "$ROOT/scripts/law_index.py" --check || rc=1
 for c in $CORPORA; do
     if [ "$c" = probe ]; then
         echo "== probe arms (tests/probe, committed goldens), jobs=$JOBS"

@@ -146,6 +146,12 @@ Demotions (PASS→x, CMP_ONLY→DIFF) = refine or revert+refine. Everything else
 is acceptable. After committing, ALWAYS `cp results/<x>.csv
 results/baseline_auto.csv` and commit it with the change.
 
+Every landing that names a law (`§ name`), adds an arm or a pass README
+regenerates the law index and commits it with the landing:
+`python3 scripts/law_index.py` (tests/LAWS.csv + tests/LAWS.md; the sweep
+fails on a stale index). The index is how a law maps back to its arms, its
+commits and its corpus tests once the arms have left `tools/probe/`.
+
 ## Rotation policy (per-LAYER, never per-session)
 
 If one layer of one test resists after ~3–4 attempts **without new evidence
