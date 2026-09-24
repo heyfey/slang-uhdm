@@ -414,12 +414,17 @@ subtree (and an enum constant reached through a reference) at every
 reference, so the two shapes list identically, while a content difference
 inside any copy still reads as a difference. Objects on the walk's own path
 are never re-expanded (cycles) and the members under a class typespec stay
-visited once (a class body is shared on both sides). `--no-canon` gives the
-raw walk. Measured at the switch: surelog 471 -> 517 of 954 strict-equal,
-uhdm2rtlil 1026 -> 1062 of 1606, probe arms 1117 -> 1260 of 2833, no row
-worse; the remaining `depth`,
-`count` and `type` first fields (surelog 20, uhdm2rtlil 46 row-modes) are the
-shared kinds outside the canonical set, under measurement. Whether an object
+visited once (a class body is shared on both sides). The full name of an
+object inside such a subtree is synthesised from its parent chain, which is
+the use site on the copy's side and the declaration on the shared side, so
+it is left out of the record there (the object's own name is still
+compared; the downstream consumer reads full names only on scopes,
+instances, parameters and references outside typespecs). `--no-canon` gives
+the raw walk. Measured at the switch: surelog 471 -> 546 of 954
+strict-equal, uhdm2rtlil 1026 -> 1100 of 1606, probe arms 1117 -> 1311 of
+2833, no row worse; the remaining `depth`, `count` and `type` first fields
+(surelog 24, uhdm2rtlil 60 row-modes) are the shared kinds outside the
+canonical set, under measurement. Whether an object
 is shared or copied is NOT part of the strict contract: the downstream
 consumer reads content, not identity.
 

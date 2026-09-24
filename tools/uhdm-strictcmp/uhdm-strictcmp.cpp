@@ -21,7 +21,12 @@
 // still on the walk's own path are never re-expanded (cycles), and the
 // members, methods and constraints under a class typespec stay visited
 // once (a class body is shared on both sides and reached from every
-// class-typed reference).
+// class-typed reference). The full name of an object inside a canonicalised
+// subtree is synthesised from its parent chain, which is the copy's use site
+// on one side and the declaration on the other; it is left out of the record
+// there (the object's own name is still compared, and the downstream consumer
+// reads full names only on scopes, instances, parameters and references
+// outside typespecs).
 //
 // Exit 0: STRICT_EQUAL. Exit 1: NOT_EQUAL at stage 1 (uhdm-cmp's verdict,
 // LHS/RHS printed as uhdm-cmp prints them). Exit 2: STRICT_NOTEQUAL (the
@@ -95,7 +100,8 @@ class Lister : public UHDM::VpiListener {
     r.fields[1] = UHDM::UhdmName(o->UhdmType());
     r.fields[2] = std::string(o->VpiName());
     r.fields[3] = std::string(o->VpiDefName());
-    if (const char* fn = vpi_get_str(vpiFullName, h)) r.fields[4] = fn;
+    if (!(canon && canonDepth > 0))
+      if (const char* fn = vpi_get_str(vpiFullName, h)) r.fields[4] = fn;
     std::string f(o->VpiFile());
     auto pos = f.find_last_of("/\\");
     r.fields[5] = pos == std::string::npos ? f : f.substr(pos + 1);
