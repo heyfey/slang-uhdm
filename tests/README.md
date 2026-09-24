@@ -27,6 +27,9 @@ definition name, full name, file basename, the four span fields, decompile,
 size, value, constant type, child order); `equal`, or
 `differ:<first differing field>(<objects differing>)`. It is a measurement
 today and the intended equality of the gate once the corpus reaches zero.
+Typespec identity (Surelog copies a typespec per use where we share one
+object) is canonicalised by the walk and is outside the strict contract, see
+GOLDEN_EQUIVALENCE.md.
 
 ## Setup
 

@@ -403,6 +403,26 @@ surelog 471 of 954 CMP_EQUAL row-modes strict-equal, uhdm2rtlil 1026 of 1606,
 probe arms 1117 of 2833; the first field is `file` on most default-mode rows
 because Surelog stamps builtin.sv on the builtin classes).
 
+**Typespec identity is canonicalised, and is the one explicit residue of the
+strict contract.** Surelog clones every typespec it reaches during
+elaboration (`uniquifyTypespec_` is set on every `clone_tree` before the
+final elaboration), so golden holds a private copy of a typespec where we
+hold one shared object. A shared object's children list once in a listener
+walk, a copy's children at every copy: that is an identity difference, not a
+content difference. Since 2026-09-24 the comparator re-expands a typespec
+subtree (and an enum constant reached through a reference) at every
+reference, so the two shapes list identically, while a content difference
+inside any copy still reads as a difference. Objects on the walk's own path
+are never re-expanded (cycles) and the members under a class typespec stay
+visited once (a class body is shared on both sides). `--no-canon` gives the
+raw walk. Measured at the switch: surelog 471 -> 517 of 954 strict-equal,
+uhdm2rtlil 1026 -> 1062 of 1606, probe arms 1117 -> 1260 of 2833, no row
+worse; the remaining `depth`,
+`count` and `type` first fields (surelog 20, uhdm2rtlil 46 row-modes) are the
+shared kinds outside the canonical set, under measurement. Whether an object
+is shared or copied is NOT part of the strict contract: the downstream
+consumer reads content, not identity.
+
 Historical: the `dump` column carried run_corpus's byte-identity distinction forward:
 phase-1 `PASS` ≡ `CMP_EQUAL`+`match`, `CMP_ONLY` ≡ `CMP_EQUAL`+`differ`,
 `DIFF` ≡ `CMP_NOTEQUAL`. `CMP_EQUAL` is the phase-2 bar; the `dump` column is
