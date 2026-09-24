@@ -113,8 +113,7 @@ def build():
     own = {}
     for p in title:
         s = set(LAW.findall(title[p]))
-        if p not in verifies:
-            s |= {l for l in body_laws[p] if law_number(l) == pass_number(p)}
+        s |= {l for l in body_laws[p] if law_number(l) == pass_number(p)}
         own[p] = s
     for p, impl in verifies.items():
         own[p] |= own.get(impl, set())
@@ -201,13 +200,20 @@ def render(ix):
     by_law = collections.defaultdict(lambda: {'tests': 0, 'tools': 0})
     by_pass = collections.defaultdict(lambda: {'tests': 0, 'tools': 0})
     exact = collections.defaultdict(lambda: collections.defaultdict(list))  # pass -> law -> [case names]
+    loose = collections.defaultdict(list)   # pass -> [case names] whose law is one of several
     for path, pdir, tree, ls, how in cases:
         by_pass[pdir][tree] += 1
         for law in ls:
             by_law[law][tree] += 1
-        if how in ('text', 'row', 'heading') and tree == 'tests':
+        if tree != 'tests':
+            continue
+        name = path.split('/', 3)[3]
+        # A single candidate law is an exact attribution, whatever the level.
+        if how in ('text', 'row', 'heading') or len(ls) == 1:
             for law in ls:
-                exact[pdir][law].append(path.split('/', 3)[3])
+                exact[pdir][law].append(name)
+        else:
+            loose[pdir].append(name)
     how_count = collections.Counter(c[4] for c in cases if c[2] == 'tests')
     n_tests_cases = sum(1 for c in cases if c[2] == 'tests')
     n = dict(src=sum(1 for l in laws if l in files), commit=sum(1 for l in laws if l in commits),
@@ -253,10 +259,18 @@ def render(ix):
         out.append('')
         rd = ix['readme'](p)
         out.append(f"README: {rd if rd else 'none'}. Laws: " +
-                   (' '.join(f'`{l}`' for l in own) if own else 'none named') +
+                   (' '.join(f"`{l}` (commits: {' '.join(commits.get(l, [])) or 'none'})" for l in own) if own else 'none named') +
                    f". Cases: {by_pass[p]['tests']} in tests/probe, {by_pass[p]['tools']} in tools/probe.")
+        if by_pass[p]['tests']:
+            out.append(f"Cases under `tests/probe/{p}/`:")
         for law in sorted(exact.get(p, {})):
-            out.append(f"- `{law}`: " + ' '.join(sorted(exact[p][law])))
+            c = ' '.join(commits.get(law, [])) or 'no commit names it'
+            out.append(f"- `{law}` (commits: {c}): " + ' '.join(sorted(exact[p][law])))
+        if loose.get(p):
+            out.append(f"- one of the laws above (the README does not say which): " + ' '.join(sorted(loose[p])))
+        if by_pass[p]['tests'] and not exact.get(p) and not loose.get(p):
+            out.append("- no law named (no README, or a README naming no law): " +
+                       ' '.join(sorted(c[0].split('/', 3)[3] for c in cases if c[1] == p and c[2] == 'tests')))
         out.append('')
     return '\n'.join(out).rstrip('\n') + '\n'
 
