@@ -625,6 +625,46 @@ bool r11u119Law(const char* sw);
 // r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
 bool r11u130Law(const char* sw);
 bool r11u134Law(const char* sw);
+bool r11u137Law(const char* sw);
+// ============================================================================
+// r11u139 — NET BINDING (the analyst pass's law.patch, landed by r11u137 on
+// the module ground): which net object an elaborated reference names.  Every
+// law reads its own kill switch; `R11U139_OFF=1` turns them all off.
+//   R11U139_CA_OFF    § caLhsDefNetUnlessOpRhs139   (emitContAssigns)
+//   R11U139_NDA_OFF   § ndaLeftmostLeafElab139      (emitContAssigns)
+//   R11U139_CLK_OFF   § clockingEventDefNet139      (the elab clocking listing)
+//   R11U139_PORT_OFF  § connLeftmostLeafElab139     (emitInstance)
+// Decodes and grids: tools/probe/r11u139netbind/README.md; the landing's
+// measurements: tools/probe/r11u137repro/README.md.
+// ============================================================================
+static bool r11u139On(const char* one) {
+    // R11U137_OFF (the landing pass's master switch) drops these too.
+    static const bool all =
+        getenv("R11U139_OFF") != nullptr || getenv("R11U137_OFF") != nullptr;
+    return !all && getenv(one) == nullptr;
+}
+static bool caLhs139On() {
+    static const bool on = r11u139On("R11U139_CA_OFF");
+    return on;
+}
+static bool nda139On() {
+    static const bool on = r11u139On("R11U139_NDA_OFF");
+    return on;
+}
+static bool clk139On() {
+    static const bool on = r11u139On("R11U139_CLK_OFF");
+    return on;
+}
+static bool port139On() {
+    static const bool on = r11u139On("R11U139_PORT_OFF");
+    return on;
+}
+static bool trace139() {
+    static const bool on = getenv("R11U139_TRACE") != nullptr;
+    return on;
+}
+using NetMap139 = std::map<const slang::ast::Symbol*, UHDM::any*>;
+static NetMap139 defView139(const NetMap139& elab, const NetMap139& def);
 
 // ===== § implicitNetNoFile119 (r11u119, LAW L2) =============================
 // THE PRODUCER.  An IMPLICIT net of a definition is not a declaration Surelog
@@ -15698,7 +15738,22 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // child of a udp-shaped instantiation anchors at the formal too,
             // and UnitElabBlock's non-ANSI `mod (in)` under the ordinary
             // one-terminal `mod amod(stim1)` anchors at the ACTUAL.)
-            if (auto npc = findConnSyntax(connInst, ps.name))
+            // § emptyNamedConnLowConnAtDecl137 (r11u137) — an EXPLICITLY
+            // EMPTY named connection (`.rd_disconn()`) never reaches the
+            // formal-name relocation: NetlistElaboration's named-connection
+            // loop gives the port its vpiNullOp HighConn and `continue`s
+            // before `fC->populateCoreMembers(formalId, formalId, rf)`, so
+            // the LowConn is the one UhdmWriter::writeNets builds from the
+            // definition net's node (`populateCoreMembers(nodeId, nodeId,
+            // ref)`): the port declaration, golden 15:49-15:59 where ours
+            // read the connection's `.rd_disconn` token (Connection,
+            // empty_port_connection).  Grid tools/probe/r11u137repro/grid/ec.
+            // Switch: R11U137_EMPTYCONN_OFF.
+            auto npc = findConnSyntax(connInst, ps.name);
+            if (npc && npc->openParen && !npc->expr && npc->closeParen &&
+                r11u137Law("R11U137_EMPTYCONN_OFF"))
+                setLocNamed(lc, ps);
+            else if (npc)
                 setLoc(lc, SourceRange(npc->name.location(),
                                        npc->name.location() + ps.name.size()));
             else if (hasOrderedConns(connInst) && conn &&
@@ -16339,9 +16394,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 c9->VpiConstType(vpiBinaryConst);
                                 setLoc(c9, re9.sourceRange);
                                 auto* rt9 = s.MakeRef_typespec();
+                                // § connReplTsRefThroughPort137 (r11u137) —
+                                // Surelog stores no full name on this ref:
+                                // ComputeFullName reads its chain constant ->
+                                // port -> the CHILD instance, `work@top.u_dut.
+                                // wmask_i` (ReplicationPassedToInstance,
+                                // ParamMultiConcat), where ours wrote the
+                                // parent scope's `work@top.wmask_i` (pass-131
+                                // residue 3).  Grid tools/probe/r11u137repro/
+                                // grid/rc.  Switch: R11U137_REPLTSNAME_OFF.
                                 rt9->VpiFullName(
-                                    hcPrefix + "." +
-                                    std::string(p->VpiName()));
+                                    (r11u137Law("R11U137_REPLTSNAME_OFF")
+                                         ? prefix
+                                         : hcPrefix) +
+                                    "." + std::string(p->VpiName()));
                                 rt9->VpiParent(c9);
                                 auto* it9 = s.MakeInt_typespec();
                                 rt9->Actual_typespec(it9);
@@ -16953,6 +17019,148 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     r9->VpiFullName(
                                         opPfx + std::string(r9->VpiName()));
                                 }
+                    }
+                    // § connLeftmostLeafElab139 (r11u139) — WHICH net a
+                    // reference inside an OPERATION actual names, and its
+                    // name.  Surelog compiles a named or ordered actual in
+                    // NetlistElaboration's port-connection loop with no parent
+                    // expression and the PARENT instance
+                    // (`compileExpression(parent_comp, fC, Expression, ...,
+                    // Reduce::Yes, nullptr, parent)`): the one leaf reached
+                    // through left operands and a ternary's condition resolves
+                    // in the parent's netlist (`bindVariable(component,
+                    // instance, name)`), every other reference goes to the
+                    // parent DEFINITION's late binding and names its net (the
+                    // same compile rule as § ndaLeftmostLeafElab139).  A
+                    // udp-shaped instantiation (udpShapedInstantiation) takes
+                    // the Net_lvalue loop instead, which compiles every
+                    // non-identifier terminal UNDER the port (`pexpr = p`):
+                    // there no leaf resolves in the instance.  Nothing on
+                    // those paths names the reference, so its full name is
+                    // the parent chain's: `<parent>.<instance>.<formal>.<name>`
+                    // at any depth (the concatenation rule above is the
+                    // depth-1 case of this).  Module scope only: inside a
+                    // generate block § connOperandOwnScopeBind61 leaves the
+                    // outer names unbound.  Grid
+                    // tools/probe/r11u139netbind/cases/pc.  Switch
+                    // R11U139_PORT_OFF.
+                    if (port139On() && h &&
+                        h->UhdmType() == UHDM::uhdmoperation && parentNets &&
+                        bindPath.empty()) {
+                        const bool bind139 = !connGenScope61 && !genvarConnFold;
+                        const DefInfo* pdi139 = nullptr;
+                        if (auto* ps139 = inst.getParentScope())
+                            if (ps139->asSymbol().kind ==
+                                SymbolKind::InstanceBody)
+                                if (auto pd139 = defMap.find(
+                                        &ps139->asSymbol()
+                                             .as<InstanceBodySymbol>()
+                                             .getDefinition());
+                                    pd139 != defMap.end())
+                                    pdi139 = &pd139->second;
+                        if (!bind139 || (pdi139 && &pdi139->nets == parentNets))
+                            pdi139 = nullptr;
+                        {
+                            auto binLike139 = [](int32_t t) {
+                                return (t >= vpiSubOp && t <= vpiConditionOp) ||
+                                       t == vpiArithLShiftOp ||
+                                       t == vpiArithRShiftOp ||
+                                       t == vpiPowerOp || t == vpiWildEqOp ||
+                                       t == vpiWildNeqOp || t == vpiInsideOp;
+                            };
+                            const UHDM::any* leaf139 = nullptr;
+                            if (!udpShapedInstantiation(inst)) {
+                                const UHDM::any* c139 = h;
+                                while (c139 &&
+                                       (c139->UhdmType() == UHDM::uhdmoperation ||
+                                        c139->UhdmType() == UHDM::uhdmbit_select)) {
+                                    if (c139->UhdmType() == UHDM::uhdmbit_select) {
+                                        c139 = ((const UHDM::bit_select*)c139)
+                                                   ->VpiIndex();
+                                        continue;
+                                    }
+                                    auto* op139 = (const UHDM::operation*)c139;
+                                    if (!binLike139(op139->VpiOpType()) ||
+                                        !op139->Operands() ||
+                                        op139->Operands()->empty())
+                                        break;
+                                    c139 = (*op139->Operands())[0];
+                                }
+                                if (c139 &&
+                                    c139->UhdmType() == UHDM::uhdmref_obj)
+                                    leaf139 = c139;
+                            }
+                            NetMap dv139;
+                            if (pdi139)
+                                dv139 = defView139(*parentNets, pdi139->nets);
+                            std::map<const UHDM::any*, UHDM::any*> e2d139;
+                            if (pdi139)
+                            for (auto& [s139, o139] : *parentNets) {
+                                if (!s139 || !o139 ||
+                                    (s139->kind != SymbolKind::Net &&
+                                     s139->kind != SymbolKind::Variable))
+                                    continue;
+                                auto d139 = dv139.find(s139);
+                                if (d139 != dv139.end() && d139->second &&
+                                    d139->second != o139)
+                                    e2d139.emplace(o139, d139->second);
+                            }
+                            const std::string& dbl139 =
+                                (genvarConnFold && !genConnPrefix.empty())
+                                    ? genConnPrefix
+                                    : hcPrefix;
+                            std::string pfx139 = dbl139 + "." +
+                                                 std::string(inst.name) + "." +
+                                                 std::string(ps.name) + ".";
+                            std::function<void(UHDM::any*)> walk139 =
+                                [&](UHDM::any* n139) {
+                                    if (!n139)
+                                        return;
+                                    if (n139->UhdmType() == UHDM::uhdmoperation) {
+                                        if (auto* os139 =
+                                                ((UHDM::operation*)n139)
+                                                    ->Operands())
+                                            for (auto* o139 : *os139)
+                                                walk139(o139);
+                                        return;
+                                    }
+                                    const auto t139 = n139->UhdmType();
+                                    if (t139 != UHDM::uhdmref_obj &&
+                                        t139 != UHDM::uhdmbit_select &&
+                                        t139 != UHDM::uhdmpart_select &&
+                                        t139 != UHDM::uhdmindexed_part_select)
+                                        return;
+                                    auto* r139 = (UHDM::ref_obj*)n139;
+                                    r139->VpiFullName(
+                                        pfx139 + std::string(r139->VpiName()));
+                                    // The index of a bit-select inside the
+                                    // actual is compiled the same way (grid
+                                    // pc32).
+                                    if (t139 == UHDM::uhdmbit_select)
+                                        walk139(((UHDM::bit_select*)n139)
+                                                    ->VpiIndex());
+                                    if (t139 != UHDM::uhdmref_obj)
+                                        return;
+                                    UHDM::any* a139 = r139->Actual_group();
+                                    auto ed139 = a139 ? e2d139.find(a139)
+                                                      : e2d139.end();
+                                    bool isElab139 = ed139 != e2d139.end();
+                                    if (isElab139 && n139 != leaf139)
+                                        r139->Actual_group(ed139->second);
+                                    if (trace139())
+                                        fprintf(stderr,
+                                                "R11U139PORT %s%s leaf=%d "
+                                                "udp=%d rebind=%d\n",
+                                                pfx139.c_str(),
+                                                std::string(r139->VpiName())
+                                                    .c_str(),
+                                                (int)(n139 == leaf139),
+                                                (int)udpShapedInstantiation(inst),
+                                                (int)(isElab139 &&
+                                                      n139 != leaf139));
+                                };
+                            walk139(h);
+                        }
                     }
                     if (h) {
                         // Elab-view literal HighConns parent at the port.
@@ -17761,8 +17969,26 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         }
         // Each view gets its own clocking_block object (not shared).
         if (it != defMap.end() && it->second.defaultClocking) {
-            if (auto* mm9 = asModuleInst(m))
-                emitScopeClocking(body, mm9, prefix, topNets, /*global=*/false);
+            if (auto* mm9 = asModuleInst(m)) {
+                // § clockingEventDefNet139 (r11u139) — Surelog's writeInstance
+                // CLONES the definition's clocking block into every
+                // elaborated instance (UhdmWriter.cpp writeInstance, the
+                // getClockingBlockMap loop: `clone_tree(cblock.getActual(),
+                // ElaboratorContext(&s, false, true))`).  The context-free
+                // clone has no instance on its elaborator stack, so
+                // ref_obj::DeepCopy keeps the definition's Actual: the event
+                // names the DEFINITION's net in every instance, exactly as the
+                // global clocking block below already does.  Grid
+                // tools/probe/r11u139netbind/cases/clk.  Switch R11U139_CLK_OFF.
+                if (clk139On() && bindPath.empty()) {
+                    NetMap cbDef139 = defView139(topNets, it->second.nets);
+                    emitScopeClocking(body, mm9, prefix, cbDef139,
+                                      /*global=*/false);
+                }
+                else
+                    emitScopeClocking(body, mm9, prefix, topNets,
+                                      /*global=*/false);
+            }
         }
         // A GLOBAL clocking block's elab view is a CLONE of the def's: a
         // distinct object whose event ref still points at the DEF net, no
@@ -28770,6 +28996,75 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 DefinitionKind::Interface)
             ifaceHome = true;
     }
+    // § defNetTypeParamDefault137 (r11u137) — a DEFINITION net typed by a
+    // bare type-parameter name (`TP1 DATA1;`) binds the type parameter's ONE
+    // default typespec object, as the definition PORT already does
+    // (§ tpDimPortTsIsDefault41's plain spelling): golden's work@bottom
+    // DATA1 reads TP1's `logic` 17:38-17:43 where ours built the resolved
+    // type at the use (`int` 18:5-18:8, TypeParam; `logic` 14:3-14:9,
+    // TypeParamOverride) — the map's structural class F (pass-130 R3).
+    // Grid tools/probe/r11u137repro/grid/tn.  Switch:
+    // R11U137_DEFNETTP_OFF.
+    if (pn.rt->VpiParent() && pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+        r11u137Law("R11U137_DEFNETTP_OFF"))
+        if (auto* tpp137 = portTypeParam(*pn.sym))
+            if (auto ps137 = pn.sym->getParentScope();
+                ps137 && ps137->asSymbol().kind == SymbolKind::InstanceBody) {
+                auto& def137 =
+                    ps137->asSymbol().as<InstanceBodySymbol>().getDefinition();
+                auto tit137 = typeParamDefaultTs.find(
+                    {(const void*)&def137, std::string(tpp137->name)});
+                if (tit137 != typeParamDefaultTs.end()) {
+                    // writeNets' end-only populate lands on the shared
+                    // default object too: an unpacked dimension moves its
+                    // end (grid tn04: `TP1 DATA1 [3:0];` -> 2:38-3:18).
+                    if (auto dsyn = pn.sym->getSyntax();
+                        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
+                        auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+                        if (!dd.dimensions.empty()) {
+                            auto e137 = dd.dimensions[0]->sourceRange().end();
+                            uint32_t l137 = 0, c137 = 0;
+                            locLineCol(e137, l137, c137);
+                            tit137->second->VpiEndLineNo(l137);
+                            tit137->second->VpiEndColumnNo(c137);
+                            tit137->second->VpiFile(fullFilePath(e137));
+                        }
+                    }
+                    pn.rt->Actual_typespec(tit137->second);
+                    return;
+                }
+            }
+    // § defNetScopedPkgArrTdShares137 (r11u137) — the same scoped-name arm
+    // for a package typedef of an UNPACKED ARRAY (`typedef a b[5:0];` in
+    // pkg, `pkg::b c;`): compileTypespec's scoped-name arm returns the
+    // package DataType's own array_typespec, so golden's definition net
+    // binds `pkg::b` (TypedefUnpacked, HierPathVarArray,
+    // TypedefVariableDimensions) where ours bound the element struct.
+    // Grid tools/probe/r11u137repro/grid/sa.  Switch:
+    // R11U137_SCOPEDARRTD_OFF.
+    if (auto dt137 = pn.sym->getDeclaredType();
+        dt137 && pn.rt->VpiParent() &&
+        pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+        r11u137Law("R11U137_SCOPEDARRTD_OFF")) {
+        auto& t137 = dt137->getType();
+        auto tsyn137 = dt137->getTypeSyntax();
+        if (t137.kind == SymbolKind::TypeAlias && tsyn137 &&
+            tsyn137->kind == syntax::SyntaxKind::NamedType &&
+            tsyn137->as<syntax::NamedTypeSyntax>().name->kind ==
+                syntax::SyntaxKind::ScopedName &&
+            t137.getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+            if (auto sc137 = t137.as<TypeAliasType>().getParentScope();
+                sc137 && sc137->asSymbol().kind == SymbolKind::Package) {
+                UHDM::typespec* sh137 = nullptr;
+                if (auto i137 = pkgTopTypedefTs.find(&t137);
+                    i137 != pkgTopTypedefTs.end())
+                    sh137 = i137->second;
+                if (sh137 && sh137->UhdmType() == UHDM::uhdmarray_typespec) {
+                    pn.rt->Actual_typespec(sh137);
+                    return;
+                }
+            }
+    }
     // § defNetScopedPkgVecTdShares134 (r11u134) — a DEFINITION net typed
     // by a PACKAGE-SCOPED name of a vector typedef (`p::t v;`) binds the
     // package's own typedef object: compileTypespec's scoped-name arm
@@ -33367,6 +33662,140 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 ndaRhsNets[dn9.first] = dn9.second;
         ndaNets = &ndaRhsNets;
     }
+    // § ndaLeftmostLeafElab139 (r11u139) — WHICH net a net-declaration
+    // initializer's reference names.  Surelog builds the cell in
+    // NetlistElaboration::elabSignal: `exprFromAssign_` compiles the
+    // initializer with NO parent expression and the instance
+    // (`compileExpression(comp, fC, id, ..., pexpr = nullptr, child)`).  A
+    // reference compiled with no parent resolves through
+    // `bindVariable(component, instance, name)` — the instance netlist's
+    // nets() and variables() as elaborated SO FAR (never its array_nets);
+    // every other reference is queued for late binding and ends on the
+    // DEFINITION's object (UhdmWriter::lateBinding over the definition).
+    // CompileExpression's binary arm compiles the LEFT operand with the
+    // caller's parent (`opL = compileExpression(..., pexpr, instance)`) and
+    // the rest under the new operation, so exactly one leaf binds the
+    // instance: the one reached through left operands and a ternary's
+    // condition — never through a unary operator, a concatenation, a call or
+    // a cast.  "Elaborated so far" is the signal walk's order: the ANSI ports,
+    // then the body's net and variable declarations in source order; a
+    // non-ANSI port declared by its port declaration alone is not there yet.
+    // Grid tools/probe/r11u139netbind/cases/nda.  Switch R11U139_NDA_OFF.
+    NetMap ndaDef139;
+    const bool nda139 = nda139On() && topView && defInfo &&
+                        !defInfo->nets.empty() && &netMap != &defInfo->nets;
+    if (nda139) {
+        ndaDef139 = defView139(netMap, defInfo->nets);
+        for (auto& [s139, o139] : ndaDef139)
+            if (s139 && s139->kind != SymbolKind::Net &&
+                s139->kind != SymbolKind::Variable)
+                if (auto e139 = netMap.find(s139); e139 != netMap.end())
+                    o139 = e139->second;
+        ndaNets = &ndaDef139;
+    }
+    auto ndaLeaf139 = [&](const Expression& init,
+                          const Symbol& lhs) -> const Expression* {
+        const Expression* e = &stripImplicitConv(init);
+        for (int g = 0; g < 256; ++g) {
+            if (e->kind == ExpressionKind::BinaryOp)
+                e = &stripImplicitConv(e->as<BinaryExpression>().left());
+            else if (e->kind == ExpressionKind::ConditionalOp) {
+                auto& co = e->as<ConditionalExpression>();
+                if (co.conditions.size() != 1 || co.conditions[0].pattern)
+                    return nullptr;
+                e = &stripImplicitConv(*co.conditions[0].expr);
+            }
+            // A bit-select's index is compiled with the select's own
+            // (absent) parent too (grid n28/n29/n32/n33): the leaf chain
+            // continues into it.
+            else if (e->kind == ExpressionKind::ElementSelect &&
+                     stripImplicitConv(e->as<ElementSelectExpression>().value())
+                             .kind == ExpressionKind::NamedValue)
+                e = &stripImplicitConv(
+                    e->as<ElementSelectExpression>().selector());
+            else
+                break;
+        }
+        if (e->kind != ExpressionKind::NamedValue)
+            return nullptr;
+        auto& sym = e->as<NamedValueExpression>().symbol;
+        if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
+            return nullptr;
+        auto ei = netMap.find(&sym);
+        if (ei == netMap.end() || !ei->second ||
+            ei->second->UhdmType() == UHDM::uhdmarray_net)
+            return nullptr;
+        int kind = 0;  // 1 = ANSI port, 2 = body declaration
+        for (auto q = sym.getSyntax(); q && !kind; q = q->parent) {
+            switch (q->kind) {
+            case syntax::SyntaxKind::ImplicitAnsiPort:
+            case syntax::SyntaxKind::ExplicitAnsiPort:
+                kind = 1;
+                break;
+            case syntax::SyntaxKind::NetDeclaration:
+            case syntax::SyntaxKind::DataDeclaration:
+                kind = 2;
+                break;
+            case syntax::SyntaxKind::PortDeclaration:
+            case syntax::SyntaxKind::ModuleDeclaration:
+            case syntax::SyntaxKind::InterfaceDeclaration:
+            case syntax::SyntaxKind::ProgramDeclaration:
+                kind = -1;
+                break;
+            default:
+                break;
+            }
+        }
+        bool ok = kind == 1 ||
+                  (kind == 2 && sym.location.valid() && lhs.location.valid() &&
+                   sym.location.buffer() == lhs.location.buffer() &&
+                   sym.location.offset() < lhs.location.offset());
+        if (trace139())
+            fprintf(stderr, "R11U139NDA %s.%s leaf=%s kind=%d elab=%d\n",
+                    prefix.c_str(), std::string(lhs.name).c_str(),
+                    std::string(sym.name).c_str(), kind, (int)ok);
+        return ok ? e : nullptr;
+    };
+    // The one leaf binds the INSTANCE's object: the initializer is emitted
+    // over the definition view (`ndaNets`), then the reference found along
+    // the same left-operand / condition / bit-select-index chain of the
+    // emitted tree is re-pointed at the instance's object (the analyst
+    // pass's law re-dispatched that leaf inside emitExpr; r11u137 lands it
+    // on the module ground as this post-fix, which touches only the leaf's
+    // Actual).
+    auto ndaFixLeaf139 = [&](UHDM::any* rhs139, const Expression* leaf) {
+        if (!rhs139 || !leaf || leaf->kind != ExpressionKind::NamedValue)
+            return;
+        auto& sym = leaf->as<NamedValueExpression>().symbol;
+        auto di = ndaDef139.find(&sym);
+        auto ei = netMap.find(&sym);
+        if (di == ndaDef139.end() || ei == netMap.end() || !ei->second ||
+            di->second == ei->second)
+            return;
+        auto binLike139 = [](int32_t t) {
+            return (t >= vpiSubOp && t <= vpiConditionOp) ||
+                   t == vpiArithLShiftOp || t == vpiArithRShiftOp ||
+                   t == vpiPowerOp || t == vpiWildEqOp || t == vpiWildNeqOp ||
+                   t == vpiInsideOp;
+        };
+        UHDM::any* c139 = rhs139;
+        while (c139 && (c139->UhdmType() == UHDM::uhdmoperation ||
+                        c139->UhdmType() == UHDM::uhdmbit_select)) {
+            if (c139->UhdmType() == UHDM::uhdmbit_select) {
+                c139 = (UHDM::any*)((UHDM::bit_select*)c139)->VpiIndex();
+                continue;
+            }
+            auto* op139 = (UHDM::operation*)c139;
+            if (!binLike139(op139->VpiOpType()) || !op139->Operands() ||
+                op139->Operands()->empty())
+                break;
+            c139 = (*op139->Operands())[0];
+        }
+        if (c139 && c139->UhdmType() == UHDM::uhdmref_obj &&
+            ((UHDM::ref_obj*)c139)->VpiName() == sym.name &&
+            ((UHDM::ref_obj*)c139)->Actual_group() == di->second)
+            ((UHDM::ref_obj*)c139)->Actual_group(ei->second);
+    };
     // Net-declaration assignments (wire x = expr;) become cont_assigns with
     // vpiNetDeclAssign, before the explicit continuous assigns (top view only).
     for (auto& it : collectNetOrder(body)) {
@@ -33487,6 +33916,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 suppressConstParent = true;
                 ndaRhsEmit = true;
                 rhs = emitExpr(*dt->getInitializer(), ca, prefix, *ndaNets);
+                if (nda139)
+                    ndaFixLeaf139(rhs, ndaLeaf139(*dt->getInitializer(), *it.sym));
                 ndaRhsEmit = false;
                 suppressConstParent = savedSc9;
                 forceConstParent = true;
@@ -33533,6 +33964,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     : 0;
             ndaRhsEmit = true;
             rhs = emitExpr(*dt->getInitializer(), ca, prefix, *ndaNets);
+            if (nda139)
+                ndaFixLeaf139(rhs, ndaLeaf139(*dt->getInitializer(), *it.sym));
             ndaRhsEmit = false;
             ndaReaderWidth104 = savedRW104;
             implicitConvTargetSigned = savedICT8;
@@ -37850,7 +38283,47 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                           defInfo)
                              ? defInfo->nets
                              : netMap;
-        if (auto* l = emitExpr(ae.left(), ca, prefix, lhsMap))
+        // § caLhsDefNetUnlessOpRhs139 (r11u139) — Surelog's
+        // UhdmWriter::writeCont_assign re-points a plain-name Lhs at the
+        // INSTANCE's variable (`bindVariable(mod, m, name)` over the written
+        // module_inst's Variables and Nets, never its Array_nets) ONLY inside
+        // its `rhs->UhdmType() == uhdmoperation` arm.  Every other right-hand
+        // side keeps the definition's cont_assign object, or a context-free
+        // clone of it (the reduce-to-constant arm, the unsized arm), whose
+        // Lhs still names the DEFINITION's net: a literal, a reference, a
+        // parameter, an element/member select of a parameter, a function or
+        // system call.  An operation onto an unpacked array net (or a dropped
+        // implicit net) finds nothing in the instance and keeps the
+        // definition's net too.  The DEFINITION listing's own right-hand side
+        // is the discriminator (the def views are judge-equal).  Grid
+        // tools/probe/r11u139netbind/cases/ca.  Switch R11U139_CA_OFF.
+        NetMap caLhsDef139;
+        NetMap* lhsMapP139 = &lhsMap;
+        if (caLhs139On() && topView && shareWithDef && defInfo &&
+            &lhsMap == &netMap && &netMap != &defInfo->nets &&
+            myIdx < defInfo->contAssigns.size() &&
+            defInfo->contAssigns[myIdx] &&
+            defInfo->contAssigns[myIdx]->Rhs() &&
+            stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue) {
+            auto& lsym139 =
+                stripImplicitConv(ae.left()).as<NamedValueExpression>().symbol;
+            bool defRhsOp139 = defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
+                               UHDM::uhdmoperation;
+            auto le139 = netMap.find(&lsym139);
+            bool elabFound139 =
+                le139 != netMap.end() && le139->second &&
+                le139->second->UhdmType() != UHDM::uhdmarray_net;
+            if (!(defRhsOp139 && elabFound139)) {
+                caLhsDef139 = defView139(netMap, defInfo->nets);
+                lhsMapP139 = &caLhsDef139;
+            }
+            if (trace139())
+                fprintf(stderr, "R11U139CA %s.%s defRhsOp=%d found=%d def=%d\n",
+                        prefix.c_str(), std::string(lsym139.name).c_str(),
+                        (int)defRhsOp139, (int)elabFound139,
+                        (int)(lhsMapP139 != &lhsMap));
+        }
+        if (auto* l = emitExpr(ae.left(), ca, prefix, *lhsMapP139))
             ca->Lhs((UHDM::expr*)l);
         elabContAssignLhs = false;
         elabLhsReelab = false;
@@ -39251,6 +39724,36 @@ UHDM::delay_control* UhdmExporter::emitClockingSkew(const ClockingSkew& sk,
             dc->VpiDelay(raw.substr(0, n));
     }
     return dc;
+}
+
+// § r11u139 — the DEFINITION listing's object for every symbol of an
+// elaborated net map.  A parameterized instance owns its body, so its symbols
+// are not the definition's: match those by name + declaration location.
+static NetMap139 defView139(const NetMap139& elab, const NetMap139& def) {
+    NetMap139 out = elab;
+    std::map<std::string, UHDM::any*> byLoc;
+    for (auto& [ds, dobj] : def)
+        if (ds && ds->location.valid())
+            byLoc.emplace(std::string(ds->name) + "@" +
+                              std::to_string(ds->location.buffer().getId()) +
+                              ":" + std::to_string(ds->location.offset()),
+                          dobj);
+    for (auto& [es, eobj] : out) {
+        if (!es)
+            continue;
+        if (auto d = def.find(es); d != def.end()) {
+            eobj = d->second;
+            continue;
+        }
+        if (!es->location.valid())
+            continue;
+        if (auto d = byLoc.find(std::string(es->name) + "@" +
+                                std::to_string(es->location.buffer().getId()) +
+                                ":" + std::to_string(es->location.offset()));
+            d != byLoc.end())
+            eobj = d->second;
+    }
+    return out;
 }
 
 UHDM::clocking_block* UhdmExporter::emitScopeClocking(const InstanceBodySymbol& body,

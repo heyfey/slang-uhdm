@@ -1,0 +1,8 @@
+// § emptyNamedConnLowConnAtDecl137
+module sub(input logic a, output logic b, output logic c);
+  assign b = a; assign c = a;
+endmodule
+module top(input logic x, output logic y, output logic z);
+  sub u1(.a(x), .b(y), .c());
+  sub u2(.a(x), .b(z), .c());
+endmodule

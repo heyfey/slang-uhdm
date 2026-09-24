@@ -1,0 +1,2568 @@
+surelog	1364_2005	default	
+surelog	1364_2005	testflags	
+surelog	AllBinding	default	ALIASFILE
+surelog	AllBinding	testflags	ALIASFILE
+surelog	AllPackageSignal	default	
+surelog	AllPackageSignal	testflags	ELABCLONE
+surelog	AlwaysNoElab	default	
+surelog	AlwaysNoElab	testflags	ELABCLONE
+surelog	ApbSlave	default	
+surelog	ApbSlave	testflags	ELABCLONE
+surelog	ArrayExprFuncArg	default	
+surelog	ArrayExprFuncArg	testflags	ELABCLONE
+surelog	ArrayInst	default	
+surelog	ArrayInst	testflags	
+surelog	ArrayMethodIterator	default	
+surelog	ArrayMethodIterator	testflags	ELABCLONE
+surelog	ArrayNet	default	
+surelog	ArrayNet	testflags	ELABCLONE
+surelog	ArrayTypespec	default	
+surelog	ArrayTypespec	testflags	
+surelog	ArrayVarName	default	CA
+surelog	ArrayVarName	testflags	CA,ELABCLONE
+surelog	AssertDelayError	default	EMPTYCONN,PORT
+surelog	AssertDelayError	testflags	ELABCLONE,EMPTYCONN,PORT
+surelog	AssertTempError	default	
+surelog	AssertTempError	testflags	ELABCLONE
+surelog	AssignRhsFlat	default	CA
+surelog	AssignRhsFlat	testflags	CA,ELABCLONE
+surelog	AssignSubs	default	ALIASFILE
+surelog	AssignSubs	testflags	ALIASFILE,ELABCLONE
+surelog	AssignmentPatternInAssignmentPattern	default	ALIASFILE,PORT
+surelog	AssignmentPatternInAssignmentPattern	testflags	ALIASFILE,PORT
+surelog	Attributes2	default	
+surelog	Attributes2	testflags	ELABCLONE
+surelog	BasicOh	default	CA,PORT,REPLTSNAME
+surelog	BasicOh	testflags	CA,ELABCLONE,PORT,REPLTSNAME
+surelog	BeginKeywords	default	
+surelog	BeginKeywords	testflags	
+surelog	BiasValue	default	CA,NDA
+surelog	BiasValue	testflags	CA,ELABCLONE,NDA
+surelog	BinarySize	default	CA
+surelog	BinarySize	testflags	CA,ELABCLONE
+surelog	BindHierPath	default	CA
+surelog	BindHierPath	testflags	CA,ELABCLONE
+surelog	BindVarsAndEnum	default	ALIASFILE
+surelog	BindVarsAndEnum	testflags	ALIASFILE,ELABCLONE
+surelog	BitComplex	default	CA
+surelog	BitComplex	testflags	CA,ELABCLONE
+surelog	BitPartSelect	default	CA
+surelog	BitPartSelect	testflags	CA,ELABCLONE
+surelog	BitRanges	default	
+surelog	BitRanges	testflags	
+surelog	BitSelect	default	
+surelog	BitSelect	testflags	
+surelog	BitSelectExpr	default	CA
+surelog	BitSelectExpr	testflags	CA,ELABCLONE
+surelog	BitSelectPartSelectInFunction	default	CA
+surelog	BitSelectPartSelectInFunction	testflags	CA,ELABCLONE
+surelog	BitSelectSelect	default	CA
+surelog	BitSelectSelect	testflags	CA,ELABCLONE
+surelog	BitsArray	default	PORT
+surelog	BitsArray	testflags	PORT
+surelog	BitsHierPath	default	
+surelog	BitsHierPath	testflags	
+surelog	BitsInGenBlock	default	
+surelog	BitsInGenBlock	testflags	
+surelog	BitsLogic	default	
+surelog	BitsLogic	testflags	
+surelog	BlackBePipeInt	default	ALIASFILE,CA,NDA
+surelog	BlackBePipeInt	testflags	ALIASFILE,CA,ELABCLONE,NDA
+surelog	BlackBox	default	CA
+surelog	BlackBox	testflags	CA,ELABCLONE
+surelog	BlackBoxInst	default	CA
+surelog	BlackBoxInst	testflags	CA,ELABCLONE
+surelog	BlackBoxInstTop	default	CA
+surelog	BlackBoxInstTop	testflags	
+surelog	BlackBoxMod	default	CA
+surelog	BlackBoxMod	testflags	
+surelog	BlackBoxSubMod	default	CA
+surelog	BlackBoxSubMod	testflags	CA,ELABCLONE
+surelog	BlackConst	default	ALIASFILE,CA,NDA
+surelog	BlackConst	testflags	ALIASFILE,CA,ELABCLONE,NDA
+surelog	BlackParrotComplex	default	
+surelog	BlackParrotComplex	testflags	ELABCLONE
+surelog	BlackParrotSkipParam	default	
+surelog	BlackParrotSkipParam	testflags	ELABCLONE
+surelog	BlockingAssignRewrite	default	CA
+surelog	BlockingAssignRewrite	testflags	CA,ELABCLONE
+surelog	BuildUVMPkg	default	PUREVIRTSPAN
+surelog	BuildUVMPkg	testflags	ELABCLONE,PUREVIRTSPAN
+surelog	CarryAdd	default	CA,NDA
+surelog	CarryAdd	testflags	CA,ELABCLONE,NDA
+surelog	CarryTrans	default	CA,NDA
+surelog	CarryTrans	testflags	CA,ELABCLONE,NDA
+surelog	CaseDefault	default	CA
+surelog	CaseDefault	testflags	CA,ELABCLONE
+surelog	CaseExpression	default	CA,NDA
+surelog	CaseExpression	testflags	CA,ELABCLONE,NDA
+surelog	CaseFullElab	default	
+surelog	CaseFullElab	testflags	ELABCLONE
+surelog	CastToParam	default	
+surelog	CastToParam	testflags	ELABCLONE
+surelog	CastUnsized	default	CA
+surelog	CastUnsized	testflags	CA,ELABCLONE
+surelog	Chandle	default	
+surelog	Chandle	testflags	
+surelog	CheckerInst	default	CLK
+surelog	CheckerInst	testflags	CLK
+surelog	ClassExtends	default	
+surelog	ClassExtends	testflags	
+surelog	ClassFsm	default	
+surelog	ClassFsm	testflags	ELABCLONE
+surelog	ClassMini	default	PUREVIRTSPAN
+surelog	ClassMini	testflags	ELABCLONE,PUREVIRTSPAN
+surelog	ClassParam	default	
+surelog	ClassParam	testflags	ELABCLONE
+surelog	ClassParamAsParam	default	
+surelog	ClassParamAsParam	testflags	
+surelog	ClassTypeParam	default	
+surelog	ClassTypeParam	testflags	ELABCLONE
+surelog	ClassVar	default	
+surelog	ClassVar	testflags	ELABCLONE
+surelog	ClassVirtual	default	
+surelog	ClassVirtual	testflags	
+surelog	ClogCast	default	
+surelog	ClogCast	testflags	ELABCLONE
+surelog	ClogParam	default	CA
+surelog	ClogParam	testflags	CA,ELABCLONE
+surelog	CmdLineOverride	default	
+surelog	CmdLineOverride	testflags	
+surelog	Compl1001	default	
+surelog	Compl1001	testflags	ELABCLONE
+surelog	ComplexExprSize	default	CA
+surelog	ComplexExprSize	testflags	CA,ELABCLONE
+surelog	ComplexHierPath	default	CA,NDA
+surelog	ComplexHierPath	testflags	CA,ELABCLONE,NDA
+surelog	ComplexParamOverload	default	CA
+surelog	ComplexParamOverload	testflags	CA,ELABCLONE
+surelog	ComplexParamOverload2	default	CA
+surelog	ComplexParamOverload2	testflags	CA,ELABCLONE
+surelog	ComplexVarSelect	default	
+surelog	ComplexVarSelect	testflags	
+surelog	ConcatWidth	default	CA
+surelog	ConcatWidth	testflags	CA,ELABCLONE
+surelog	CondOpLazyEval	default	
+surelog	CondOpLazyEval	testflags	
+surelog	CondOpPattern	default	CA
+surelog	CondOpPattern	testflags	CA,ELABCLONE
+surelog	CondOpPred	default	
+surelog	CondOpPred	testflags	
+surelog	ConditionalOp	default	
+surelog	ConditionalOp	testflags	ELABCLONE
+surelog	Connection	default	EMPTYCONN,PORT
+surelog	Connection	testflags	ELABCLONE,EMPTYCONN,PORT
+surelog	ConstCapital	default	
+surelog	ConstCapital	testflags	
+surelog	ConstExpand	default	
+surelog	ConstExpand	testflags	ELABCLONE
+surelog	ConstPort	default	
+surelog	ConstPort	testflags	
+surelog	ConstantBits	default	CA
+surelog	ConstantBits	testflags	CA,ELABCLONE
+surelog	ConstantNoElabUhdm	default	CA
+surelog	ConstantNoElabUhdm	testflags	CA,ELABCLONE
+surelog	ConstantRange	default	
+surelog	ConstantRange	testflags	
+surelog	ConstantWithElabUhdm	default	CA
+surelog	ConstantWithElabUhdm	testflags	CA,ELABCLONE
+surelog	ContAssignConst	default	CA
+surelog	ContAssignConst	testflags	CA,ELABCLONE
+surelog	Context	default	
+surelog	Context	testflags	ELABCLONE
+surelog	CovMacro	default	
+surelog	CovMacro	testflags	ELABCLONE
+surelog	CrossFunc	default	
+surelog	CrossFunc	testflags	ELABCLONE
+surelog	DashYTest	default	
+surelog	DashYTest	testflags	
+surelog	DataAttrib	default	
+surelog	DataAttrib	testflags	
+surelog	DecValue	default	CA
+surelog	DecValue	testflags	CA,ELABCLONE
+surelog	DefParamFromParam	default	
+surelog	DefParamFromParam	testflags	
+surelog	DefParamIndex	default	
+surelog	DefParamIndex	testflags	
+surelog	DefaultPatternAssign	default	
+surelog	DefaultPatternAssign	testflags	
+surelog	DefaultPatternInt	default	
+surelog	DefaultPatternInt	testflags	ELABCLONE
+surelog	DefaultPatternModule	default	
+surelog	DefaultPatternModule	testflags	ELABCLONE
+surelog	DefaultTag	default	
+surelog	DefaultTag	testflags	
+surelog	DeferAssert	default	
+surelog	DeferAssert	testflags	ELABCLONE
+surelog	DelayAssign	default	CA,NDA
+surelog	DelayAssign	testflags	CA,ELABCLONE,NDA
+surelog	Disable	default	
+surelog	Disable	testflags	ELABCLONE
+surelog	DollarBits	default	CA
+surelog	DollarBits	testflags	CA,ELABCLONE
+surelog	DoubleLoop	default	CA
+surelog	DoubleLoop	testflags	CA,ELABCLONE
+surelog	DpiChandle	default	
+surelog	DpiChandle	testflags	ELABCLONE
+surelog	DpiFunc	default	
+surelog	DpiFunc	testflags	ELABCLONE
+surelog	DpiTask	default	
+surelog	DpiTask	testflags	ELABCLONE
+surelog	DynArrayKind	default	
+surelog	DynArrayKind	testflags	
+surelog	EarlgreyPackParam	default	
+surelog	EarlgreyPackParam	testflags	
+surelog	Earlgrey_0_1	default	CA,EMPTYCONN,PATHBASE,PORT
+surelog	Earlgrey_0_1	testflags	CA,ELABCLONE,EMPTYCONN,PATHBASE,PORT
+surelog	ElabCParam	default	CA
+surelog	ElabCParam	testflags	CA,ELABCLONE
+surelog	ElabParam	default	ALIASFILE,CA
+surelog	ElabParam	testflags	ALIASFILE,CA,ELABCLONE
+surelog	EmptyAssign	default	
+surelog	EmptyAssign	testflags	ELABCLONE
+surelog	EnumConcat	default	ALIASFILE
+surelog	EnumConcat	testflags	ALIASFILE
+surelog	EnumConst	default	ALIASFILE
+surelog	EnumConst	testflags	ALIASFILE
+surelog	EnumConstConcat	default	ALIASFILE
+surelog	EnumConstConcat	testflags	ALIASFILE
+surelog	EnumConstElab	default	ALIASFILE
+surelog	EnumConstElab	testflags	ALIASFILE
+surelog	EnumImplicitVal	default	ALIASFILE
+surelog	EnumImplicitVal	testflags	ALIASFILE
+surelog	EnumVal	default	ALIASFILE
+surelog	EnumVal	testflags	ALIASFILE
+surelog	EnumVar	default	ALIASFILE
+surelog	EnumVar	testflags	ALIASFILE
+surelog	EvalFunc	default	
+surelog	EvalFunc	testflags	ELABCLONE
+surelog	EvalFuncCont	default	
+surelog	EvalFuncCont	testflags	ELABCLONE
+surelog	EvalFuncNamed	default	
+surelog	EvalFuncNamed	testflags	ELABCLONE
+surelog	Event	default	
+surelog	Event	testflags	
+surelog	ExpectStmt	default	
+surelog	ExpectStmt	testflags	ELABCLONE
+surelog	ExplicitPort	default	
+surelog	ExplicitPort	testflags	
+surelog	ExplictiPorts	default	PORT
+surelog	ExplictiPorts	testflags	ELABCLONE,PORT
+surelog	ExprEvalBits	default	ALIASFILE
+surelog	ExprEvalBits	testflags	ALIASFILE
+surelog	ExprReductionBits	default	ALIASFILE
+surelog	ExprReductionBits	testflags	ALIASFILE
+surelog	FSM2Always	default	
+surelog	FSM2Always	testflags	ELABCLONE
+surelog	FSMFunction	default	CA
+surelog	FSMFunction	testflags	CA,ELABCLONE
+surelog	FSMSingleAlways	default	
+surelog	FSMSingleAlways	testflags	ELABCLONE
+surelog	FileList	default	CA,CALLSPAN
+surelog	FileList	testflags	CA,CALLSPAN,ELABCLONE
+surelog	FENCED_3	default	
+surelog	FENCED_3	testflags	
+surelog	FileParam	default	
+surelog	FileParam	testflags	
+surelog	FileResolutionFunction	default	
+surelog	FileResolutionFunction	testflags	ELABCLONE
+surelog	ForLoop	default	
+surelog	ForLoop	testflags	ELABCLONE
+surelog	ForeachArray	default	
+surelog	ForeachArray	testflags	ELABCLONE
+surelog	ForeachFunction	default	
+surelog	ForeachFunction	testflags	ELABCLONE
+surelog	ForeachSquare	default	
+surelog	ForeachSquare	testflags	ELABCLONE
+surelog	Func128Bits	default	
+surelog	Func128Bits	testflags	ELABCLONE
+surelog	FuncAlias	default	CA
+surelog	FuncAlias	testflags	CA,ELABCLONE
+surelog	FuncArgDirection	default	CA
+surelog	FuncArgDirection	testflags	CA,ELABCLONE
+surelog	FuncArgs	default	CA
+surelog	FuncArgs	testflags	CA,ELABCLONE
+surelog	FuncArgsByName	default	
+surelog	FuncArgsByName	testflags	ELABCLONE
+surelog	FuncAttrib	default	
+surelog	FuncAttrib	testflags	ELABCLONE
+surelog	FuncBindGen	default	CA
+surelog	FuncBindGen	testflags	CA,ELABCLONE
+surelog	FuncCase	default	ALIASFILE
+surelog	FuncCase	testflags	ALIASFILE,ELABCLONE
+surelog	FuncDeclScope	default	CA
+surelog	FuncDeclScope	testflags	CA,ELABCLONE
+surelog	FuncInModule	default	CALLSPAN
+surelog	FuncInModule	testflags	CALLSPAN,ELABCLONE
+surelog	FuncIoTypespec	default	CA
+surelog	FuncIoTypespec	testflags	CA,ELABCLONE
+surelog	FuncNoArgs	default	CALLSPAN
+surelog	FuncNoArgs	testflags	CALLSPAN,ELABCLONE
+surelog	FuncParam	default	
+surelog	FuncParam	testflags	ELABCLONE
+surelog	FuncParam2	default	
+surelog	FuncParam2	testflags	ELABCLONE
+surelog	FuncRetArray	default	
+surelog	FuncRetArray	testflags	ELABCLONE
+surelog	FuncReturnRange	default	CA,CALLSPAN
+surelog	FuncReturnRange	testflags	CA,CALLSPAN,ELABCLONE
+surelog	FuncSideEffect	default	CA
+surelog	FuncSideEffect	testflags	CA,ELABCLONE
+surelog	FuncStatic	default	
+surelog	FuncStatic	testflags	ELABCLONE
+surelog	FuncStruct	default	CA
+surelog	FuncStruct	testflags	CA,ELABCLONE
+surelog	FuncStructVal	default	ALIASFILE,CA
+surelog	FuncStructVal	testflags	ALIASFILE,CA,ELABCLONE
+surelog	FuncStructValSimple	default	
+surelog	FuncStructValSimple	testflags	ELABCLONE
+surelog	Gates	default	
+surelog	Gates	testflags	ELABCLONE
+surelog	GenBlock	default	
+surelog	GenBlock	testflags	
+surelog	GenBlockVar	default	
+surelog	GenBlockVar	testflags	ELABCLONE
+surelog	GenCase	default	UNSIGNEDSPAN
+surelog	GenCase	testflags	UNSIGNEDSPAN
+surelog	GenCaseStmt	default	UNSIGNEDSPAN
+surelog	GenCaseStmt	testflags	UNSIGNEDSPAN
+surelog	GenForIfaceLocalparamBound	default	CA
+surelog	GenForIfaceLocalparamBound	testflags	CA,ELABCLONE
+surelog	GenForIfaceLocalparamNestedGen	default	CA
+surelog	GenForIfaceLocalparamNestedGen	testflags	CA,ELABCLONE
+surelog	GenForStructParamBound	default	CA,PATHBASE
+surelog	GenForStructParamBound	testflags	CA,ELABCLONE,PATHBASE
+surelog	GenIfIfaceParamStructField	default	CA
+surelog	GenIfIfaceParamStructField	testflags	CA,ELABCLONE
+surelog	GenNet	default	CA
+surelog	GenNet	testflags	CA,ELABCLONE
+surelog	GenScopeFullName	default	
+surelog	GenScopeFullName	testflags	
+surelog	GenScopeHierPath	default	ALIASFILE,CA
+surelog	GenScopeHierPath	testflags	ALIASFILE,CA,ELABCLONE
+surelog	GenScopeHierPath2	default	CA
+surelog	GenScopeHierPath2	testflags	CA,ELABCLONE
+surelog	GenScopeHierPath3	default	CA
+surelog	GenScopeHierPath3	testflags	CA,ELABCLONE
+surelog	GenStructAccess	default	CA
+surelog	GenStructAccess	testflags	CA,ELABCLONE
+surelog	GenerateBlock2	default	
+surelog	GenerateBlock2	testflags	
+surelog	GenerateUnnamed	default	
+surelog	GenerateUnnamed	testflags	ELABCLONE
+surelog	Guards	default	
+surelog	Guards	testflags	ELABCLONE
+surelog	HierPathBeginBlock	default	CA
+surelog	HierPathBeginBlock	testflags	CA,ELABCLONE
+surelog	HierPathBind	default	CA
+surelog	HierPathBind	testflags	CA,ELABCLONE
+surelog	HierPathCont	default	CA
+surelog	HierPathCont	testflags	CA,ELABCLONE
+surelog	FENCED_2	default	
+surelog	FENCED_2	testflags	
+surelog	HierPathInterfBlock	default	
+surelog	HierPathInterfBlock	testflags	ELABCLONE
+surelog	HierPathOverride	default	ALIASFILE,CA
+surelog	HierPathOverride	testflags	ALIASFILE,CA,ELABCLONE
+surelog	HierPathPackedStruct	default	
+surelog	HierPathPackedStruct	testflags	
+surelog	HierPathSelect	default	CA
+surelog	HierPathSelect	testflags	CA,ELABCLONE
+surelog	HierPathStruct	default	CA
+surelog	HierPathStruct	testflags	CA,ELABCLONE
+surelog	HierPathStructTypespec	default	
+surelog	HierPathStructTypespec	testflags	
+surelog	HierPathTypespec	default	CA,PATD
+surelog	HierPathTypespec	testflags	CA,ELABCLONE,PATD
+surelog	HierPathUnpacked	default	
+surelog	HierPathUnpacked	testflags	
+surelog	HierPathVarArray	default	ALIASFILE,CA,SCOPEDARRTD
+surelog	HierPathVarArray	testflags	ALIASFILE,CA,ELABCLONE,SCOPEDARRTD
+surelog	HighConnPart	default	CA
+surelog	HighConnPart	testflags	CA,ELABCLONE
+surelog	HighLow	default	CA
+surelog	HighLow	testflags	CA,ELABCLONE
+surelog	IOClassStruct	default	
+surelog	IOClassStruct	testflags	ELABCLONE
+surelog	IfElseGen	default	
+surelog	IfElseGen	testflags	
+surelog	IfElseIf1	default	
+surelog	IfElseIf1	testflags	
+surelog	IfElseIf2	default	
+surelog	IfElseIf2	testflags	
+surelog	IfElseIf3	default	
+surelog	IfElseIf3	testflags	
+surelog	IfGen1	default	
+surelog	IfGen1	testflags	
+surelog	IfGen2	default	
+surelog	IfGen2	testflags	
+surelog	IfGen3	default	
+surelog	IfGen3	testflags	
+surelog	IfGenTypeBinding	default	
+surelog	IfGenTypeBinding	testflags	ELABCLONE
+surelog	Iff	default	CA,NDA
+surelog	Iff	testflags	CA,ELABCLONE,NDA
+surelog	ImplFuncArg	default	
+surelog	ImplFuncArg	testflags	ELABCLONE
+surelog	Implicit	default	
+surelog	Implicit	testflags	
+surelog	ImplicitArg	default	
+surelog	ImplicitArg	testflags	ELABCLONE
+surelog	ImplicitFunc	default	
+surelog	ImplicitFunc	testflags	ELABCLONE
+surelog	ImplicitFuncArgAndReturn	default	
+surelog	ImplicitFuncArgAndReturn	testflags	ELABCLONE
+surelog	ImplicitPackedStructNet	default	CA
+surelog	ImplicitPackedStructNet	testflags	CA,ELABCLONE
+surelog	ImplicitParam	default	
+surelog	ImplicitParam	testflags	
+surelog	ImplicitPort	default	CA
+surelog	ImplicitPort	testflags	CA,ELABCLONE
+surelog	ImplicitPorts2	default	
+surelog	ImplicitPorts2	testflags	
+surelog	ImplicitVarType	default	
+surelog	ImplicitVarType	testflags	ELABCLONE
+surelog	ImportBinding	default	ALIASFILE
+surelog	ImportBinding	testflags	ALIASFILE
+surelog	ImportPackage	default	CA
+surelog	ImportPackage	testflags	CA,ELABCLONE
+surelog	ImportedTypespec	default	CA
+surelog	ImportedTypespec	testflags	CA,ELABCLONE
+surelog	IncompFunc	default	ALIASFILE,CA
+surelog	IncompFunc	testflags	ALIASFILE,CA,ELABCLONE
+surelog	IndexAssign	default	CA
+surelog	IndexAssign	testflags	CA,ELABCLONE
+surelog	IndexPartSel	default	CA
+surelog	IndexPartSel	testflags	CA,ELABCLONE
+surelog	IndexedSelectHex	default	ALIASFILE,CA
+surelog	IndexedSelectHex	testflags	ALIASFILE,CA,ELABCLONE
+surelog	InsideOp	default	CA
+surelog	InsideOp	testflags	CA,ELABCLONE
+surelog	InstArray	default	CA,NDA
+surelog	InstArray	testflags	CA,ELABCLONE,NDA
+surelog	IntegerConcat	default	
+surelog	IntegerConcat	testflags	
+surelog	InterfAlways	default	
+surelog	InterfAlways	testflags	ELABCLONE
+surelog	InterfArrayBind	default	CA
+surelog	InterfArrayBind	testflags	CA,ELABCLONE
+surelog	InterfHierPath	default	CA
+surelog	InterfHierPath	testflags	CA,ELABCLONE
+surelog	InterfInst	default	CA
+surelog	InterfInst	testflags	CA,ELABCLONE
+surelog	InterfType	default	
+surelog	InterfType	testflags	
+surelog	InterfaceBinding	default	CLK
+surelog	InterfaceBinding	testflags	CLK,ELABCLONE
+surelog	InterfaceElab	default	
+surelog	InterfaceElab	testflags	
+surelog	InterfaceFuncCall	default	
+surelog	InterfaceFuncCall	testflags	ELABCLONE
+surelog	InterfaceModExp	default	
+surelog	InterfaceModExp	testflags	ELABCLONE
+surelog	InterfaceModPort	default	CLK
+surelog	InterfaceModPort	testflags	CLK,ELABCLONE
+surelog	InterfaceParamOverrideProp	default	CA
+surelog	InterfaceParamOverrideProp	testflags	CA,ELABCLONE
+surelog	InterfaceProcess	default	CA
+surelog	InterfaceProcess	testflags	CA,ELABCLONE
+surelog	InterfaceStructMemberPort	default	CA,PORT
+surelog	InterfaceStructMemberPort	testflags	CA,ELABCLONE,PORT
+surelog	InterfaceUnpackedStructArrayDim	default	CA
+surelog	InterfaceUnpackedStructArrayDim	testflags	CA,ELABCLONE
+surelog	InterpElab1	default	ALIASFILE
+surelog	InterpElab1	testflags	ALIASFILE,ELABCLONE
+surelog	Inverter	default	CA
+surelog	Inverter	testflags	CA,ELABCLONE
+surelog	JKFlipflop	default	CA
+surelog	JKFlipflop	testflags	CA,ELABCLONE
+surelog	Kmac	default	ALIASFILE
+surelog	Kmac	testflags	ALIASFILE,ELABCLONE
+surelog	LargeConst	default	CA
+surelog	LargeConst	testflags	CA,ELABCLONE
+surelog	LargeHex	default	
+surelog	LargeHex	testflags	ELABCLONE
+surelog	LargeHexCast	default	
+surelog	LargeHexCast	testflags	ELABCLONE
+surelog	LargeHexString	default	
+surelog	LargeHexString	testflags	ELABCLONE
+surelog	LargeValue2Struct	default	
+surelog	LargeValue2Struct	testflags	
+surelog	LateBindingFuncArg	default	
+surelog	LateBindingFuncArg	testflags	ELABCLONE
+surelog	LhsHierPath	default	CA
+surelog	LhsHierPath	testflags	CA,ELABCLONE
+surelog	LhsOp	default	CA
+surelog	LhsOp	testflags	CA,ELABCLONE
+surelog	LocalParam	default	CA
+surelog	LocalParam	testflags	CA,ELABCLONE
+surelog	LocalScopeHierPath	default	
+surelog	LocalScopeHierPath	testflags	ELABCLONE
+surelog	LocalVarTypespec	default	
+surelog	LocalVarTypespec	testflags	ELABCLONE
+surelog	LogicArrayParam	default	
+surelog	LogicArrayParam	testflags	
+surelog	LogicSize	default	CA
+surelog	LogicSize	testflags	CA,ELABCLONE
+surelog	LogicTypedef	default	
+surelog	LogicTypedef	testflags	
+surelog	LogicTypespec	default	
+surelog	LogicTypespec	testflags	
+surelog	LongHex	default	CA
+surelog	LongHex	testflags	CA,ELABCLONE
+surelog	LoopVar	default	
+surelog	LoopVar	testflags	ELABCLONE
+surelog	LowMemLib	default	
+surelog	LowMemPkg	default	
+surelog	MBadder	default	CA
+surelog	MBadder	testflags	CA,ELABCLONE
+surelog	MacroArgDefaultSpaces	default	CA
+surelog	MacroArgDefaultSpaces	testflags	CA,ELABCLONE
+surelog	MacroArgMismatch	default	
+surelog	MacroArgMismatch	testflags	ELABCLONE
+surelog	MinTypMax	default	
+surelog	MinTypMax	testflags	ELABCLONE
+surelog	MiniAmiq	default	PUREVIRTSPAN
+surelog	MiniAmiq	testflags	ELABCLONE,PUREVIRTSPAN
+surelog	Moves	default	CA,NDA
+surelog	Moves	testflags	CA,ELABCLONE,NDA
+surelog	MultiConcatValueSize	default	ALIASFILE,CA
+surelog	MultiConcatValueSize	testflags	ALIASFILE,CA,ELABCLONE
+surelog	MultiPartSelect	default	CA
+surelog	MultiPartSelect	testflags	CA,ELABCLONE
+surelog	MultiPort	default	
+surelog	MultiPort	testflags	
+surelog	MultiSelect	default	CA
+surelog	MultiSelect	testflags	CA,ELABCLONE
+surelog	NegInt	default	CA
+surelog	NegInt	testflags	CA,ELABCLONE
+surelog	NoParamSubs	default	CA
+surelog	NoParamSubs	testflags	CA,ELABCLONE
+surelog	NoReducTypespec	default	PATHBASE
+surelog	NoReducTypespec	testflags	PATHBASE
+surelog	NonAnsiPort	default	CA
+surelog	NonAnsiPort	testflags	CA,ELABCLONE
+surelog	NonSynthError	default	
+surelog	NonSynthError	testflags	ELABCLONE
+surelog	NonSynthUnusedMod	default	
+surelog	NonSynthUnusedMod	testflags	
+surelog	OneAnd	default	CA
+surelog	OneAnd	testflags	CA,ELABCLONE
+surelog	OneClock	default	
+surelog	OneClock	testflags	ELABCLONE
+surelog	OneDivider	default	
+surelog	OneDivider	testflags	ELABCLONE
+surelog	OneFF	default	
+surelog	OneFF	testflags	ELABCLONE
+surelog	OneImport	default	ALIASFILE,CA
+surelog	OneImport	testflags	ALIASFILE,CA,ELABCLONE
+surelog	OneNet	default	CA
+surelog	OneNet	testflags	CA,ELABCLONE
+surelog	OneNetInterf	default	CA
+surelog	OneNetInterf	testflags	CA,ELABCLONE
+surelog	OneNetModPort	default	CA
+surelog	OneNetModPort	testflags	CA,ELABCLONE
+surelog	OneNetModPortGeneric	default	CA
+surelog	OneNetModPortGeneric	testflags	CA,ELABCLONE
+surelog	OneNetNonAnsi	default	CA
+surelog	OneNetNonAnsi	testflags	CA,ELABCLONE
+surelog	OneNetRange	default	CA
+surelog	OneNetRange	testflags	CA,ELABCLONE
+surelog	PAssignType	default	
+surelog	PAssignType	testflags	
+surelog	PPMacro	default	CA
+surelog	PPMacro	testflags	CA,ELABCLONE
+surelog	PackDataType	default	
+surelog	PackDataType	testflags	ELABCLONE
+surelog	PackFunc	default	
+surelog	PackFunc	testflags	ELABCLONE
+surelog	PackFuncParent	default	CA
+surelog	PackFuncParent	testflags	CA,ELABCLONE
+surelog	PackImport	default	ALIASFILE
+surelog	PackImport	testflags	ALIASFILE
+surelog	PackStructField	default	CA
+surelog	PackStructField	testflags	CA,ELABCLONE
+surelog	PackStructVar	default	ALIASFILE
+surelog	PackStructVar	testflags	ALIASFILE
+surelog	PackageBind	default	CA
+surelog	PackageBind	testflags	CA,ELABCLONE
+surelog	PackageConst	default	
+surelog	PackageConst	testflags	
+surelog	PackageEval	default	
+surelog	PackageEval	testflags	
+surelog	PackageMemberTypespec	default	ALIASFILE
+surelog	PackageMemberTypespec	testflags	ALIASFILE
+surelog	PackageNet	default	
+surelog	PackageNet	testflags	ELABCLONE
+surelog	PackageOrder	default	
+surelog	PackageOrder	testflags	
+surelog	PackageParamConst	default	CA
+surelog	PackageParamConst	testflags	CA,ELABCLONE
+surelog	PackageType	default	
+surelog	PackageType	testflags	ELABCLONE
+surelog	PackageTypeParam	default	DEFNETTP
+surelog	PackageTypeParam	testflags	DEFNETTP,ELABCLONE
+surelog	PackedArrayAssign	default	CA
+surelog	PackedArrayAssign	testflags	CA,ELABCLONE
+surelog	PackedArrayBind	default	CA
+surelog	PackedArrayBind	testflags	CA,ELABCLONE
+surelog	PackedArrayEnum	default	ALIASFILE,PATD
+surelog	PackedArrayEnum	testflags	ALIASFILE,PATD
+surelog	PackedArrayHighConn	default	ALIASFILE
+surelog	PackedArrayHighConn	testflags	ALIASFILE
+surelog	PackedArrayStruct	default	CA,PATD
+surelog	PackedArrayStruct	testflags	CA,ELABCLONE,PATD
+surelog	PackedArrayTypespec	default	ALIASFILE,PATD
+surelog	PackedArrayTypespec	testflags	ALIASFILE,PATD
+surelog	PackedEnum	default	
+surelog	PackedEnum	testflags	
+surelog	PackedEnumPort	default	ALIASFILE
+surelog	PackedEnumPort	testflags	ALIASFILE
+surelog	PackedEnumVar	default	ALIASFILE,CA
+surelog	PackedEnumVar	testflags	ALIASFILE,CA,ELABCLONE
+surelog	PackedUnpackedIo	default	
+surelog	PackedUnpackedIo	testflags	ELABCLONE
+surelog	ParamArrayUnsizedPattern	default	
+surelog	ParamArrayUnsizedPattern	testflags	
+surelog	ParamByValue	default	ALIASFILE
+surelog	ParamByValue	testflags	ALIASFILE
+surelog	ParamCast	default	
+surelog	ParamCast	testflags	ELABCLONE
+surelog	ParamComplex	default	
+surelog	ParamComplex	testflags	ELABCLONE
+surelog	ParamComplexVerilator	default	
+surelog	ParamComplexVerilator	testflags	ELABCLONE
+surelog	ParamConcat	default	
+surelog	ParamConcat	testflags	ELABCLONE
+surelog	ParamConst	default	ALIASFILE
+surelog	ParamConst	testflags	ALIASFILE,ELABCLONE
+surelog	ParamConstPush	default	
+surelog	ParamConstPush	testflags	
+surelog	ParamElabMulti	default	ALIASFILE,CA
+surelog	ParamElabMulti	testflags	ALIASFILE,CA,ELABCLONE
+surelog	ParamEquivOp	default	
+surelog	ParamEquivOp	testflags	
+surelog	ParamFile	default	
+surelog	ParamFile	testflags	ELABCLONE
+surelog	ParamFileNoTop	default	
+surelog	ParamFileOverr	default	
+surelog	ParamFileOverr	testflags	ELABCLONE
+surelog	ParamFromPackage	default	
+surelog	ParamFromPackage	testflags	
+surelog	ParamList	default	
+surelog	ParamList	testflags	
+surelog	ParamMultiConcat	default	PORT
+surelog	ParamMultiConcat	testflags	PORT
+surelog	ParamNoImport	default	
+surelog	ParamNoImport	testflags	
+surelog	ParamNoSubst	default	
+surelog	ParamNoSubst	testflags	
+surelog	ParamOverload2	default	
+surelog	ParamOverload2	testflags	
+surelog	ParamOverload4	default	
+surelog	ParamOverload4	testflags	
+surelog	ParamOverloadProp	default	
+surelog	ParamOverloadProp	testflags	
+surelog	ParamOverloading	default	
+surelog	ParamOverloading	testflags	
+surelog	ParamRef	default	
+surelog	ParamRef	testflags	
+surelog	ParamScope	default	
+surelog	ParamScope	testflags	
+surelog	ParamSubstituteComplex	default	
+surelog	ParamSubstituteComplex	testflags	
+surelog	ParamTypespec	default	CA
+surelog	ParamTypespec	testflags	CA,ELABCLONE
+surelog	ParamTypespec2	default	CA,PORT
+surelog	ParamTypespec2	testflags	CA,ELABCLONE,PORT
+surelog	PartSelect3	default	CA
+surelog	PartSelect3	testflags	CA,ELABCLONE
+surelog	PartSelect4	default	
+surelog	PartSelect4	testflags	
+surelog	PartSelectElab	default	
+surelog	PartSelectElab	testflags	ELABCLONE
+surelog	PartSelectHier	default	CA
+surelog	PartSelectHier	testflags	CA,ELABCLONE
+surelog	PartSelectNoParent	default	CA,NDA
+surelog	PartSelectNoParent	testflags	CA,ELABCLONE,NDA
+surelog	PartSelectParent	default	CA
+surelog	PartSelectParent	testflags	CA,ELABCLONE
+surelog	PatternAssignInteger	default	CA
+surelog	PatternAssignInteger	testflags	CA,ELABCLONE
+surelog	PatternAssignLogic	default	
+surelog	PatternAssignLogic	testflags	
+surelog	PatternAssignment	default	CA
+surelog	PatternAssignment	testflags	CA,ELABCLONE
+surelog	PatternOrder	default	
+surelog	PatternOrder	testflags	
+surelog	PortByName	default	CA
+surelog	PortByName	testflags	CA,ELABCLONE
+surelog	PortComplex	default	
+surelog	PortComplex	testflags	
+surelog	PortDefaultValue	default	CA,NDA
+surelog	PortDefaultValue	testflags	CA,ELABCLONE,NDA
+surelog	PortExpr	default	
+surelog	PortExpr	testflags	
+surelog	PortInitVal	default	CA,NDA
+surelog	PortInitVal	testflags	CA,ELABCLONE,NDA
+surelog	PortInitVal2	default	CA,NDA
+surelog	PortInitVal2	testflags	CA,ELABCLONE,NDA
+surelog	PortInterface	default	CA
+surelog	PortInterface	testflags	CA,ELABCLONE
+surelog	PortMultiDim	default	CA
+surelog	PortMultiDim	testflags	CA,ELABCLONE
+surelog	PortPackage	default	
+surelog	PortPackage	testflags	
+surelog	PortRanges	default	
+surelog	PortRanges	testflags	ELABCLONE
+surelog	PoundDelayTask	default	
+surelog	PoundDelayTask	testflags	ELABCLONE
+surelog	PreProcDefine	default	CA
+surelog	PreProcDefine	testflags	CA,ELABCLONE
+surelog	PreprocFunc	default	
+surelog	PreprocFunc	testflags	ELABCLONE
+surelog	PreprocTest	default	ALIASFILE
+surelog	PreprocTest	testflags	ALIASFILE,ELABCLONE
+surelog	PrimTermExpr	default	
+surelog	PrimTermExpr	testflags	
+surelog	PropBinding	default	
+surelog	PropBinding	testflags	
+surelog	RangeInf	default	CA
+surelog	RangeInf	testflags	CA,ELABCLONE
+surelog	RangeSelect	default	
+surelog	RangeSelect	testflags	
+surelog	ReorderPatt	default	CA
+surelog	ReorderPatt	testflags	CA,ELABCLONE
+surelog	RepeatStmt	default	
+surelog	RepeatStmt	testflags	ELABCLONE
+surelog	ReturnVal	default	
+surelog	ReturnVal	testflags	ELABCLONE
+surelog	Rggen	default	ALIASFILE,CA,CALLSPAN,EMPTYCONN,PORT,REPLTSNAME
+surelog	SVSwitch	default	CA,CLK
+surelog	SVSwitch	testflags	CA,CLK,ELABCLONE
+surelog	ScalarParam	default	
+surelog	ScalarParam	testflags	
+surelog	Scoreboard	default	PUREVIRTSPAN
+surelog	Scr1SvTests	default	ALIASFILE,CA,EMPTYCONN,PORT,REPLTSNAME
+surelog	Scr1SvTests	testflags	ALIASFILE,CA,ELABCLONE,EMPTYCONN,PORT,REPLTSNAME
+surelog	SelectHierPath	default	CA
+surelog	SelectHierPath	testflags	CA,ELABCLONE
+surelog	SelectSelect	default	
+surelog	SelectSelect	testflags	ELABCLONE
+surelog	Selects	default	
+surelog	Selects	testflags	
+surelog	SeqDriver	default	CLK,PUREVIRTSPAN
+surelog	SeqDriver	testflags	CLK,ELABCLONE,PUREVIRTSPAN
+surelog	SequenceInst	default	CLK
+surelog	SequenceInst	testflags	CLK,ELABCLONE
+surelog	ShiftX	default	CA
+surelog	ShiftX	testflags	CA,ELABCLONE
+surelog	SignedBin	default	PORT,REPLTSNAME
+surelog	SignedBin	testflags	PORT,REPLTSNAME
+surelog	SignedBinConst	default	CA,NDA
+surelog	SignedBinConst	testflags	CA,ELABCLONE,NDA
+surelog	SignedParam	default	
+surelog	SignedParam	testflags	ELABCLONE
+surelog	SignedPort	default	CA
+surelog	SignedPort	testflags	CA,ELABCLONE
+surelog	SignedPort2	default	CA
+surelog	SignedPort2	testflags	CA,ELABCLONE
+surelog	SignedVsUnsignedPort	default	
+surelog	SignedVsUnsignedPort	testflags	
+surelog	SignedWire	default	
+surelog	SignedWire	testflags	
+surelog	SimpleConstraint	default	
+surelog	SimpleConstraint	testflags	ELABCLONE
+surelog	SimpleUVM	default	CLK,PUREVIRTSPAN
+surelog	SimpleUVM	testflags	CLK,ELABCLONE,PUREVIRTSPAN
+surelog	SimplifyHierPath	default	CA
+surelog	SimplifyHierPath	testflags	CA,ELABCLONE
+surelog	StandardBlock	default	
+surelog	StandardBlock	testflags	
+surelog	StandardNetVar	default	
+surelog	StandardNetVar	testflags	
+surelog	StaticTask	default	
+surelog	StaticTask	testflags	ELABCLONE
+surelog	StringConcat	default	
+surelog	StringConcat	testflags	
+surelog	StringMethod	default	
+surelog	StringMethod	testflags	ELABCLONE
+surelog	StringParameter	default	
+surelog	StringParameter	testflags	
+surelog	StringPort	default	
+surelog	StringPort	testflags	ELABCLONE
+surelog	StringRange	default	CA
+surelog	StringRange	testflags	CA,ELABCLONE
+surelog	StructAccess	default	ALIASFILE,CA
+surelog	StructAccess	testflags	ALIASFILE,CA,ELABCLONE
+surelog	StructArrayNet	default	
+surelog	StructArrayNet	testflags	
+surelog	StructNetUnionTypespec	default	
+surelog	StructNetUnionTypespec	testflags	ELABCLONE
+surelog	StructParamFieldRange	default	CA,DEFNETTP,PATHBASE
+surelog	StructParamFieldRange	testflags	CA,DEFNETTP,ELABCLONE,PATHBASE
+surelog	StructParamFuncBodyFieldCompare	default	CA,DEFNETTP,PATHBASE
+surelog	StructParamFuncBodyFieldCompare	testflags	CA,DEFNETTP,ELABCLONE,PATHBASE
+surelog	StructParamPatternInitCast	default	CA,DEFNETTP,PATHBASE
+surelog	StructParamPatternInitCast	testflags	CA,DEFNETTP,ELABCLONE,PATHBASE
+surelog	StructTypedef	default	
+surelog	StructTypedef	testflags	ELABCLONE
+surelog	StructUnsizedVal	default	
+surelog	StructUnsizedVal	testflags	
+surelog	SurelogMacro	default	
+surelog	SurelogMacro	testflags	ELABCLONE
+surelog	SynthForeach	default	EMPTYCONN
+surelog	SynthForeach	testflags	ELABCLONE,EMPTYCONN
+surelog	SystemCallSize	default	CA
+surelog	SystemCallSize	testflags	CA,ELABCLONE
+surelog	TaggedPattern	default	TAGGEDSPAN
+surelog	TaggedPattern	testflags	ELABCLONE,TAGGEDSPAN
+surelog	TaggedPatternLogic	default	
+surelog	TaggedPatternLogic	testflags	
+surelog	TaskBind	default	
+surelog	TaskBind	testflags	ELABCLONE
+surelog	TaskDeclTypes	default	
+surelog	TaskDeclTypes	testflags	ELABCLONE
+surelog	TaskDecls	default	
+surelog	TaskDecls	testflags	ELABCLONE
+surelog	TaskProto	default	
+surelog	TaskProto	testflags	ELABCLONE
+surelog	TaskProtoDef	default	
+surelog	TaskProtoDef	testflags	ELABCLONE
+surelog	Ternary	default	
+surelog	Ternary	testflags	ELABCLONE
+surelog	TernaryAssoc	default	CA
+surelog	TernaryAssoc	testflags	CA,ELABCLONE
+surelog	TfCalls	default	
+surelog	TfCalls	testflags	ELABCLONE
+surelog	TopFunc	default	CA
+surelog	TopFunc	testflags	CA,ELABCLONE
+surelog	FENCED_4	default	
+surelog	FENCED_4	testflags	
+surelog	TypeDefGenScope	default	
+surelog	TypeDefGenScope	testflags	
+surelog	TypeParam	default	DEFNETTP
+surelog	TypeParam	testflags	DEFNETTP
+surelog	TypeParamElab	default	DEFNETTP
+surelog	TypeParamElab	testflags	DEFNETTP
+surelog	TypeParamOverride	default	DEFNETTP
+surelog	TypeParamOverride	testflags	DEFNETTP,ELABCLONE
+surelog	TypedefAlias	default	
+surelog	TypedefAlias	testflags	
+surelog	TypedefPack	default	ALIASFILE,CA
+surelog	TypedefPack	testflags	ALIASFILE,CA,ELABCLONE
+surelog	TypedefRange	default	PATD
+surelog	TypedefRange	testflags	PATD
+surelog	TypedefRangedFunctionReturn	default	CA
+surelog	TypedefRangedFunctionReturn	testflags	CA,ELABCLONE
+surelog	TypedefUnpacked	default	ALIASFILE,CA,SCOPEDARRTD
+surelog	TypedefUnpacked	testflags	ALIASFILE,CA,ELABCLONE,SCOPEDARRTD
+surelog	TypespecExpr	default	CA
+surelog	TypespecExpr	testflags	CA,ELABCLONE
+surelog	TypespecMask	default	
+surelog	TypespecMask	testflags	
+surelog	Udp	default	
+surelog	Udp	testflags	ELABCLONE
+surelog	UnaryPlus	default	
+surelog	UnaryPlus	testflags	
+surelog	UnboundForLoop	default	
+surelog	UnboundForLoop	testflags	ELABCLONE
+surelog	UndersVal	default	ALIASFILE
+surelog	UndersVal	testflags	ALIASFILE,ELABCLONE
+surelog	UnelabPack	default	
+surelog	UnelabPack	testflags	
+surelog	UnionCast	default	ALIASFILE,CA
+surelog	UnionCast	testflags	ALIASFILE,CA,ELABCLONE
+surelog	UnitElabBlock	default	
+surelog	UnitElabBlock	testflags	ELABCLONE
+surelog	UnpackPort	default	CA
+surelog	UnpackPort	testflags	CA,ELABCLONE
+surelog	UnpackedTypespec	default	ALIASFILE,PATD
+surelog	UnpackedTypespec	testflags	ALIASFILE,PATD
+surelog	FENCED_1	default	
+surelog	FENCED_1	testflags	
+surelog	UnsizeConstExpr	default	CA
+surelog	UnsizeConstExpr	testflags	CA,ELABCLONE
+surelog	Unsized	default	
+surelog	Unsized	testflags	
+surelog	UnsizedArray	default	
+surelog	UnsizedArray	testflags	
+surelog	UnsizedElabComp	default	
+surelog	UnsizedElabComp	testflags	
+surelog	UnsizedFunc	default	
+surelog	UnsizedFunc	testflags	ELABCLONE
+surelog	UnsizedLiteral1	default	CA
+surelog	UnsizedLiteral1	testflags	CA,ELABCLONE
+surelog	UnsizedLiteral2	default	CA
+surelog	UnsizedLiteral2	testflags	CA,ELABCLONE
+surelog	UnsizedParam	default	CA
+surelog	UnsizedParam	testflags	CA,ELABCLONE
+surelog	UnsupportedTypespecRange	default	
+surelog	UnsupportedTypespecRange	testflags	
+surelog	Value4States	default	
+surelog	Value4States	testflags	
+surelog	ValueSize	default	
+surelog	ValueSize	testflags	
+surelog	Values	default	
+surelog	Values	testflags	ELABCLONE
+surelog	VarDecl	default	
+surelog	VarDecl	testflags	ELABCLONE
+surelog	VarDecl2	default	
+surelog	VarDecl2	testflags	ELABCLONE
+surelog	VarRangeTypedef	default	ALIASFILE,SCOPEDARRTD
+surelog	VarRangeTypedef	testflags	ALIASFILE,SCOPEDARRTD
+surelog	VarSelectGenStmt	default	
+surelog	VarSelectGenStmt	testflags	
+surelog	VarType	default	
+surelog	VarType	testflags	
+surelog	VirtualClass	default	ALIASFILE,DEFNETTP
+surelog	VirtualClass	testflags	ALIASFILE,DEFNETTP
+surelog	Wand	default	CA
+surelog	Wand	testflags	CA,ELABCLONE
+surelog	WildConn	default	
+surelog	WildConn	testflags	ELABCLONE
+surelog	WireLogicSize	default	
+surelog	WireLogicSize	testflags	
+surelog	WireType	default	CA
+surelog	WireType	testflags	CA,ELABCLONE
+surelog	WireUnpacked	default	CA
+surelog	WireUnpacked	testflags	CA,ELABCLONE
+surelog	XValue	default	ALIASFILE,CA
+surelog	XValue	testflags	ALIASFILE,CA,ELABCLONE
+surelog	YosysBigSimAes	default	CA
+surelog	YosysBigSimAes	testflags	CA,ELABCLONE
+surelog	YosysBigSimEllip	default	CA,PORT
+surelog	YosysBigSimReed	default	CA,EMPTYCONN,NDA,PORT
+surelog	YosysBigSimReed	testflags	CA,ELABCLONE,EMPTYCONN,NDA,PORT
+surelog	YosysBigSimSoft	default	CA,NDA
+surelog	YosysBigSimSoft	testflags	CA,ELABCLONE,NDA
+surelog	YosysMarlann	default	CA,NDA
+surelog	YosysMarlann	testflags	CA,ELABCLONE,NDA
+surelog	YosysOldI2c	default	CA,NDA
+surelog	YosysOldI2c	testflags	CA,ELABCLONE,NDA
+surelog	YosysOldOpen	default	CA,NDA,PORT
+surelog	YosysOldOpen	testflags	CA,ELABCLONE,NDA,PORT
+surelog	YosysOldOr	default	CA,EMPTYCONN,NDA,PORT,REPLTSNAME
+surelog	YosysOldOr	testflags	CA,ELABCLONE,EMPTYCONN,NDA,PORT,REPLTSNAME
+surelog	YosysOldSimpleSpi	default	CA,NDA,PORT
+surelog	YosysOldSimpleSpi	testflags	CA,ELABCLONE,NDA,PORT
+surelog	YosysOldSpi	default	CA,PORT
+surelog	YosysOldSpi	testflags	CA,ELABCLONE,PORT
+surelog	YosysOldSsPcm	default	CA
+surelog	YosysOldSsPcm	testflags	CA,ELABCLONE
+surelog	YosysOldSystem	default	
+surelog	YosysOldSystem	testflags	ELABCLONE
+surelog	YosysOldUsb	default	CA
+surelog	YosysOldUsb	testflags	CA,ELABCLONE
+surelog	YosysRiscv	default	CA,NDA,PORT
+surelog	YosysRiscv	testflags	CA,ELABCLONE,NDA,PORT
+surelog	YosysVerx	default	CA
+surelog	YosysVerx	testflags	CA,ELABCLONE
+uhdm2rtlil	1DUnpackedArray	default	CA
+uhdm2rtlil	1DUnpackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	2DFunctionArg	default	CA
+uhdm2rtlil	2DFunctionArg	testflags	CA,ELABCLONE
+uhdm2rtlil	2DParameterOfInstance	default	CA
+uhdm2rtlil	2DParameterOfInstance	testflags	CA,ELABCLONE
+uhdm2rtlil	2DUnpackedArray	default	CA
+uhdm2rtlil	2DUnpackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	2DUnpackedFunctionArgument	default	CA
+uhdm2rtlil	2DUnpackedFunctionArgument	testflags	CA,ELABCLONE
+uhdm2rtlil	2DeclarationsInFor	default	CA
+uhdm2rtlil	2DeclarationsInFor	testflags	CA,ELABCLONE
+uhdm2rtlil	AdditionAsParameterInInstance	default	CA
+uhdm2rtlil	AdditionAsParameterInInstance	testflags	CA,ELABCLONE
+uhdm2rtlil	AluOps	default	CA
+uhdm2rtlil	AluOps	testflags	CA,ELABCLONE
+uhdm2rtlil	AnonStructs	default	CA
+uhdm2rtlil	AnonStructs	testflags	CA,ELABCLONE
+uhdm2rtlil	AnonymousEnum	default	
+uhdm2rtlil	AnonymousEnum	testflags	
+uhdm2rtlil	AnonymousUnion	default	
+uhdm2rtlil	AnonymousUnion	testflags	ELABCLONE
+uhdm2rtlil	ArithShiftTernary	default	CA
+uhdm2rtlil	ArithShiftTernary	testflags	CA,ELABCLONE
+uhdm2rtlil	ArrayInit	default	
+uhdm2rtlil	ArrayInit	testflags	ELABCLONE
+uhdm2rtlil	ArraySize	default	CA
+uhdm2rtlil	ArraySize	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignArraySelPlus	default	
+uhdm2rtlil	AssignArraySelPlus	testflags	ELABCLONE
+uhdm2rtlil	AssignBitSelectPartSelect	default	CA
+uhdm2rtlil	AssignBitSelectPartSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignBitsCallToSubmoduleParameter	default	CA,PORT
+uhdm2rtlil	AssignBitsCallToSubmoduleParameter	testflags	CA,ELABCLONE,PORT
+uhdm2rtlil	AssignGeneratedWireInAlways	default	CA,NDA
+uhdm2rtlil	AssignGeneratedWireInAlways	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	AssignSizeOfVar	default	CA
+uhdm2rtlil	AssignSizeOfVar	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignSumOfConstants	default	CA
+uhdm2rtlil	AssignSumOfConstants	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignSumOfConstantsInSubmodule	default	CA
+uhdm2rtlil	AssignSumOfConstantsInSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignSumWithParameter	default	CA
+uhdm2rtlil	AssignSumWithParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignSumWithParameterInSubmodule	default	CA
+uhdm2rtlil	AssignSumWithParameterInSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignToUnionAndReadField	default	
+uhdm2rtlil	AssignToUnionAndReadField	testflags	ELABCLONE
+uhdm2rtlil	AssignToUnpackedUnionFieldAndReadOtherField	default	
+uhdm2rtlil	AssignToUnpackedUnionFieldAndReadOtherField	testflags	ELABCLONE
+uhdm2rtlil	AssignTypedefedFunctionCall	default	CA
+uhdm2rtlil	AssignTypedefedFunctionCall	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignmentPattern	default	CA
+uhdm2rtlil	AssignmentPattern	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignmentPatternArrayPort	default	PORT
+uhdm2rtlil	AssignmentPatternArrayPort	testflags	PORT
+uhdm2rtlil	AssignmentToConcatenation	default	CA
+uhdm2rtlil	AssignmentToConcatenation	testflags	CA,ELABCLONE
+uhdm2rtlil	AssignmentToConcatenationWithSelect	default	
+uhdm2rtlil	AssignmentToConcatenationWithSelect	testflags	ELABCLONE
+uhdm2rtlil	BindModule	default	CA
+uhdm2rtlil	BindModule	testflags	CA,ELABCLONE
+uhdm2rtlil	BindModuleWithInputPorts	default	CA
+uhdm2rtlil	BindModuleWithInputPorts	testflags	CA,ELABCLONE
+uhdm2rtlil	BindModuleWithInputPortsInGenScope	default	CA
+uhdm2rtlil	BindModuleWithInputPortsInGenScope	testflags	CA,ELABCLONE
+uhdm2rtlil	BindModuleWithOutputPorts	default	CA
+uhdm2rtlil	BindModuleWithOutputPorts	testflags	CA,ELABCLONE
+uhdm2rtlil	BitSelect	default	CA
+uhdm2rtlil	BitSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	BitSelect2ndBitOfPattern	default	CA
+uhdm2rtlil	BitSelect2ndBitOfPattern	testflags	CA,ELABCLONE
+uhdm2rtlil	BitSelectOfParameterPassedToSubmodule	default	ALIASFILE,CA
+uhdm2rtlil	BitSelectOfParameterPassedToSubmodule	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	BitSelectOfParameterPassedToSubmoduleInGenFor	default	ALIASFILE,CA
+uhdm2rtlil	BitSelectOfParameterPassedToSubmoduleInGenFor	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	default	ALIASFILE,CA
+uhdm2rtlil	BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	BitSelectPartSelectInFunction	default	CA
+uhdm2rtlil	BitSelectPartSelectInFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	BitsCallOnExpression	default	CA
+uhdm2rtlil	BitsCallOnExpression	testflags	CA,ELABCLONE
+uhdm2rtlil	BitsCallOnParametetrizedTypeFromPackage	default	CA
+uhdm2rtlil	BitsCallOnParametetrizedTypeFromPackage	testflags	CA,ELABCLONE
+uhdm2rtlil	BitsCallOnStructMember	default	CA
+uhdm2rtlil	BitsCallOnStructMember	testflags	CA,ELABCLONE
+uhdm2rtlil	BitsCallOnSubArray	default	CA
+uhdm2rtlil	BitsCallOnSubArray	testflags	CA,ELABCLONE
+uhdm2rtlil	BitsCallOnType	default	CA
+uhdm2rtlil	BitsCallOnType	testflags	CA,ELABCLONE
+uhdm2rtlil	BitsCallOnVar	default	CA
+uhdm2rtlil	BitsCallOnVar	testflags	CA,ELABCLONE
+uhdm2rtlil	Break	default	
+uhdm2rtlil	Break	testflags	ELABCLONE
+uhdm2rtlil	BreakContinue	default	
+uhdm2rtlil	BreakContinue	testflags	ELABCLONE
+uhdm2rtlil	BreakContinueWhile	default	
+uhdm2rtlil	BreakContinueWhile	testflags	ELABCLONE
+uhdm2rtlil	BreakNested	default	
+uhdm2rtlil	BreakNested	testflags	ELABCLONE
+uhdm2rtlil	BreakWhile	default	
+uhdm2rtlil	BreakWhile	testflags	ELABCLONE
+uhdm2rtlil	CaseInside	default	
+uhdm2rtlil	CaseInside	testflags	ELABCLONE
+uhdm2rtlil	CaseWithGeneratedWire	default	CA,NDA
+uhdm2rtlil	CaseWithGeneratedWire	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	Casezx	default	
+uhdm2rtlil	Casezx	testflags	ELABCLONE
+uhdm2rtlil	CastClog2	default	CA
+uhdm2rtlil	CastClog2	testflags	CA,ELABCLONE
+uhdm2rtlil	CastClog2ToMinimalSizeOfParamValue	default	CA
+uhdm2rtlil	CastClog2ToMinimalSizeOfParamValue	testflags	CA,ELABCLONE
+uhdm2rtlil	CastClog2ToMinimalSizeOfParamValueFromCommandLine	default	CA
+uhdm2rtlil	CastClog2ToMinimalSizeOfParamValueFromCommandLine	testflags	CA,ELABCLONE
+uhdm2rtlil	CastExpression	default	CA
+uhdm2rtlil	CastExpression	testflags	CA,ELABCLONE
+uhdm2rtlil	CastInFunctionInGenBlock	default	CA
+uhdm2rtlil	CastInFunctionInGenBlock	testflags	CA,ELABCLONE
+uhdm2rtlil	CastInFunctionToParameterWidth	default	CA
+uhdm2rtlil	CastInFunctionToParameterWidth	testflags	CA,ELABCLONE
+uhdm2rtlil	CastLogic	default	CA
+uhdm2rtlil	CastLogic	testflags	CA,ELABCLONE
+uhdm2rtlil	CastSize	default	CA
+uhdm2rtlil	CastSize	testflags	CA,ELABCLONE
+uhdm2rtlil	CastStruct	default	CA
+uhdm2rtlil	CastStruct	testflags	CA,ELABCLONE
+uhdm2rtlil	CastStructArray	default	CA,PATD
+uhdm2rtlil	CastStructArray	testflags	CA,ELABCLONE,PATD
+uhdm2rtlil	CastToSumOfConstants	default	CA
+uhdm2rtlil	CastToSumOfConstants	testflags	CA,ELABCLONE
+uhdm2rtlil	CastToSumWithParameterIn2InstancesOfSubmodule	default	CA
+uhdm2rtlil	CastToSumWithParameterIn2InstancesOfSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	CastToSumWithParameterInSubmodule	default	CA
+uhdm2rtlil	CastToSumWithParameterInSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	CastWidthFromPackage	default	CA
+uhdm2rtlil	CastWidthFromPackage	testflags	CA,ELABCLONE
+uhdm2rtlil	CellNamedLikeModule	default	CA
+uhdm2rtlil	CellNamedLikeModule	testflags	CA,ELABCLONE
+uhdm2rtlil	Clog2OfSumWithParameterIn2InstancesOfSubmodule	default	CA
+uhdm2rtlil	Clog2OfSumWithParameterIn2InstancesOfSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	ClogOfParamOfInstanceInitializedByStructMember	default	CA
+uhdm2rtlil	ClogOfParamOfInstanceInitializedByStructMember	testflags	CA,ELABCLONE
+uhdm2rtlil	ConcatWidth	default	CA
+uhdm2rtlil	ConcatWidth	testflags	CA,ELABCLONE
+uhdm2rtlil	ConstSizes	default	CA
+uhdm2rtlil	ConstSizes	testflags	CA,ELABCLONE
+uhdm2rtlil	Continue	default	
+uhdm2rtlil	Continue	testflags	ELABCLONE
+uhdm2rtlil	ContinueNested	default	
+uhdm2rtlil	ContinueNested	testflags	ELABCLONE
+uhdm2rtlil	ContinueWhile	default	
+uhdm2rtlil	ContinueWhile	testflags	ELABCLONE
+uhdm2rtlil	CppMacroNameAsVariableName	default	CA
+uhdm2rtlil	CppMacroNameAsVariableName	testflags	CA,ELABCLONE
+uhdm2rtlil	DeclarationInFor	default	CA
+uhdm2rtlil	DeclarationInFor	testflags	CA,ELABCLONE
+uhdm2rtlil	Disable	default	
+uhdm2rtlil	Disable	testflags	ELABCLONE
+uhdm2rtlil	DisplayWithBinFormatSpecifier	default	
+uhdm2rtlil	DisplayWithBinFormatSpecifier	testflags	ELABCLONE
+uhdm2rtlil	DisplayWithHexFormatSpecifier	default	
+uhdm2rtlil	DisplayWithHexFormatSpecifier	testflags	ELABCLONE
+uhdm2rtlil	DivisionOfSize	default	CA
+uhdm2rtlil	DivisionOfSize	testflags	CA,ELABCLONE
+uhdm2rtlil	DotMultirange	default	CA
+uhdm2rtlil	DotMultirange	testflags	CA,ELABCLONE
+uhdm2rtlil	DotRange	default	CA
+uhdm2rtlil	DotRange	testflags	CA,ELABCLONE
+uhdm2rtlil	EmptyTask	default	CA
+uhdm2rtlil	EmptyTask	testflags	CA,ELABCLONE
+uhdm2rtlil	EnumArray	default	ALIASFILE,CA
+uhdm2rtlil	EnumArray	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	EnumArrayListedElements	default	ALIASFILE,CA
+uhdm2rtlil	EnumArrayListedElements	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	EnumConcat	default	ALIASFILE
+uhdm2rtlil	EnumConcat	testflags	ALIASFILE,ELABCLONE
+uhdm2rtlil	EnumConcatenatedConst	default	ALIASFILE,CA
+uhdm2rtlil	EnumConcatenatedConst	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	EnumConstX	default	ALIASFILE,CA
+uhdm2rtlil	EnumConstX	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	EnumFirst	default	CA
+uhdm2rtlil	EnumFirst	testflags	CA,ELABCLONE
+uhdm2rtlil	EnumFirstInInitial	default	
+uhdm2rtlil	EnumFirstInInitial	testflags	ELABCLONE
+uhdm2rtlil	EnumInPackage	default	ALIASFILE,CA
+uhdm2rtlil	EnumInPackage	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	EnumWidth	default	ALIASFILE,CA
+uhdm2rtlil	EnumWidth	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	ExpressionInIndex	default	CA
+uhdm2rtlil	ExpressionInIndex	testflags	CA,ELABCLONE
+uhdm2rtlil	FileLevelParameter	default	
+uhdm2rtlil	FileLevelParameter	testflags	ELABCLONE
+uhdm2rtlil	FileLevelUnionWithMultirange	default	ALIASFILE,CA
+uhdm2rtlil	FileLevelUnionWithMultirange	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	Forever	default	
+uhdm2rtlil	Forever	testflags	ELABCLONE
+uhdm2rtlil	Fork	default	
+uhdm2rtlil	Fork	testflags	ELABCLONE
+uhdm2rtlil	ForkJoinTypes	default	
+uhdm2rtlil	ForkJoinTypes	testflags	ELABCLONE
+uhdm2rtlil	Function2Returns	default	CA
+uhdm2rtlil	Function2Returns	testflags	CA,ELABCLONE
+uhdm2rtlil	FunctionCallsFunctionWithIndexedPartSelectAsArgument	default	CA
+uhdm2rtlil	FunctionCallsFunctionWithIndexedPartSelectAsArgument	testflags	CA,ELABCLONE
+uhdm2rtlil	FunctionColonReference	default	CA
+uhdm2rtlil	FunctionColonReference	testflags	CA,ELABCLONE
+uhdm2rtlil	FunctionExportDPI	default	CA
+uhdm2rtlil	FunctionExportDPI	testflags	CA,ELABCLONE
+uhdm2rtlil	FunctionOnDesignLevel	default	CA
+uhdm2rtlil	FunctionOnDesignLevel	testflags	CA,ELABCLONE
+uhdm2rtlil	FunctionParam	default	CA
+uhdm2rtlil	FunctionParam	testflags	CA,ELABCLONE
+uhdm2rtlil	FunctionReturnEnum	default	ALIASFILE,CA
+uhdm2rtlil	FunctionReturnEnum	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	FunctionWireAssignmentOnDeclaration	default	CA
+uhdm2rtlil	FunctionWireAssignmentOnDeclaration	testflags	CA,ELABCLONE
+uhdm2rtlil	FunctionWithOverriddenParameter	default	
+uhdm2rtlil	FunctionWithOverriddenParameter	testflags	ELABCLONE
+uhdm2rtlil	FunctionWithoutReturn	default	CA
+uhdm2rtlil	FunctionWithoutReturn	testflags	CA,ELABCLONE
+uhdm2rtlil	GenIfInside	default	CA
+uhdm2rtlil	GenIfInside	testflags	CA,ELABCLONE
+uhdm2rtlil	GenScopeFunction	default	CA
+uhdm2rtlil	GenScopeFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	GetC	default	CA
+uhdm2rtlil	GetC	testflags	CA,ELABCLONE
+uhdm2rtlil	ImportParametrizedTypeAndDeclareParamWithTheSameName	default	CA
+uhdm2rtlil	ImportParametrizedTypeAndDeclareParamWithTheSameName	testflags	CA,ELABCLONE
+uhdm2rtlil	ImportTypeOfPort	default	CA
+uhdm2rtlil	ImportTypeOfPort	testflags	CA,ELABCLONE
+uhdm2rtlil	ImportedDoubleCastedParameter	default	CA
+uhdm2rtlil	ImportedDoubleCastedParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	ImportedEnumCast	default	ALIASFILE
+uhdm2rtlil	ImportedEnumCast	testflags	ALIASFILE
+uhdm2rtlil	ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor	default	
+uhdm2rtlil	ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor	testflags	ELABCLONE
+uhdm2rtlil	ImportedFunctionCallInModuleAndSubmodule	default	CA
+uhdm2rtlil	ImportedFunctionCallInModuleAndSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	ImportedFunctionUsesAnotherFunction	default	CA
+uhdm2rtlil	ImportedFunctionUsesAnotherFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	ImportedPackageEnumItemInInterface	default	CA
+uhdm2rtlil	ImportedPackageEnumItemInInterface	testflags	CA,ELABCLONE
+uhdm2rtlil	ImportedParameter	default	CA
+uhdm2rtlil	ImportedParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	IndexedPartSelect	default	CA
+uhdm2rtlil	IndexedPartSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	IndexedPartSelectInFor	default	CA,NDA
+uhdm2rtlil	IndexedPartSelectInFor	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	IndexedPartSelectInUniqueCase	default	
+uhdm2rtlil	IndexedPartSelectInUniqueCase	testflags	ELABCLONE
+uhdm2rtlil	IndexedPartSelectOfArrayElement	default	CA,NDA
+uhdm2rtlil	IndexedPartSelectOfArrayElement	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	IndexedPartSelectOfMember	default	CA
+uhdm2rtlil	IndexedPartSelectOfMember	testflags	CA,ELABCLONE
+uhdm2rtlil	InterfaceAlways	default	
+uhdm2rtlil	InterfaceAlways	testflags	ELABCLONE
+uhdm2rtlil	InterfaceAsPort	default	CA
+uhdm2rtlil	InterfaceAsPort	testflags	CA,ELABCLONE
+uhdm2rtlil	InterfaceAsPortAssignValueInSubmodule	default	CA
+uhdm2rtlil	InterfaceAsPortAssignValueInSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	InterfaceAssign	default	CA
+uhdm2rtlil	InterfaceAssign	testflags	CA,ELABCLONE
+uhdm2rtlil	InterfaceInitial	default	
+uhdm2rtlil	InterfaceInitial	testflags	ELABCLONE
+uhdm2rtlil	InterfaceParameter	default	CA
+uhdm2rtlil	InterfaceParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	InterfaceParameterSetValue	default	CA
+uhdm2rtlil	InterfaceParameterSetValue	testflags	CA,ELABCLONE
+uhdm2rtlil	InterfaceVariable	default	CA
+uhdm2rtlil	InterfaceVariable	testflags	CA,ELABCLONE
+uhdm2rtlil	InterfaceWithPort	default	CA
+uhdm2rtlil	InterfaceWithPort	testflags	CA,ELABCLONE
+uhdm2rtlil	LocalParamInNestedForLoops	default	CA
+uhdm2rtlil	LocalParamInNestedForLoops	testflags	CA,ELABCLONE
+uhdm2rtlil	LocalParamSelect	default	CA
+uhdm2rtlil	LocalParamSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	LogicPackedArray	default	CA
+uhdm2rtlil	LogicPackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	Longint	default	CA
+uhdm2rtlil	Longint	testflags	CA,ELABCLONE
+uhdm2rtlil	MemberSelectOf2DStructPackedArray	default	CA
+uhdm2rtlil	MemberSelectOf2DStructPackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	MemoryInGenblock	default	CA
+uhdm2rtlil	MemoryInGenblock	testflags	CA,ELABCLONE
+uhdm2rtlil	MemoryPort	default	CA
+uhdm2rtlil	MemoryPort	testflags	CA,ELABCLONE
+uhdm2rtlil	MemorySlice	default	CA
+uhdm2rtlil	MemorySlice	testflags	CA,ELABCLONE
+uhdm2rtlil	MixedPatterns	default	CA
+uhdm2rtlil	MixedPatterns	testflags	CA,ELABCLONE
+uhdm2rtlil	ModuleAlways	default	
+uhdm2rtlil	ModuleAlways	testflags	ELABCLONE
+uhdm2rtlil	ModuleInstantiationAndIndirectParams	default	ALIASFILE,CA
+uhdm2rtlil	ModuleInstantiationAndIndirectParams	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	ModuleUsingStuctInput	default	ALIASFILE
+uhdm2rtlil	ModuleUsingStuctInput	testflags	ALIASFILE
+uhdm2rtlil	MonitorInputPort	default	
+uhdm2rtlil	MonitorInputPort	testflags	ELABCLONE
+uhdm2rtlil	MultiAssignmentPatternOfConcat	default	CA
+uhdm2rtlil	MultiAssignmentPatternOfConcat	testflags	CA,ELABCLONE
+uhdm2rtlil	MultipleAssignments	default	CA
+uhdm2rtlil	MultipleAssignments	testflags	CA,ELABCLONE
+uhdm2rtlil	MultipleCells	default	CA
+uhdm2rtlil	MultipleCells	testflags	CA,ELABCLONE
+uhdm2rtlil	MultipleNets	default	
+uhdm2rtlil	MultipleNets	testflags	
+uhdm2rtlil	MultiplePrints	default	
+uhdm2rtlil	MultiplePrints	testflags	ELABCLONE
+uhdm2rtlil	MultirangesStartNotFromZero	default	ALIASFILE,CA
+uhdm2rtlil	MultirangesStartNotFromZero	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	NegationOfParameterInInstance	default	CA
+uhdm2rtlil	NegationOfParameterInInstance	testflags	CA,ELABCLONE
+uhdm2rtlil	NegationOfPatternParameter	default	CA
+uhdm2rtlil	NegationOfPatternParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	NegationOfPatternParameterInInstance	default	CA
+uhdm2rtlil	NegationOfPatternParameterInInstance	testflags	CA,ELABCLONE
+uhdm2rtlil	NestedCallsOfTheSameFunction	default	CA
+uhdm2rtlil	NestedCallsOfTheSameFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	NestedForLoops	default	CA
+uhdm2rtlil	NestedForLoops	testflags	CA,ELABCLONE
+uhdm2rtlil	NestedGenscopesInModuleWithMultidimensionalPorts	default	CA
+uhdm2rtlil	NestedGenscopesInModuleWithMultidimensionalPorts	testflags	CA,ELABCLONE
+uhdm2rtlil	NestedParamSubstitution	default	CA
+uhdm2rtlil	NestedParamSubstitution	testflags	CA,ELABCLONE
+uhdm2rtlil	NestedPatternPassedAsPort	default	CA,PORT
+uhdm2rtlil	NestedPatternPassedAsPort	testflags	CA,ELABCLONE,PORT
+uhdm2rtlil	NestedSelectOnInputPortInGenscope	default	CA
+uhdm2rtlil	NestedSelectOnInputPortInGenscope	testflags	CA,ELABCLONE
+uhdm2rtlil	NestedSelectOnVarInGenscope	default	CA
+uhdm2rtlil	NestedSelectOnVarInGenscope	testflags	CA,ELABCLONE
+uhdm2rtlil	NestedStructArrayParameterInitializedByPatternPassedAsPort	default	CA,PORT
+uhdm2rtlil	NestedStructArrayParameterInitializedByPatternPassedAsPort	testflags	CA,ELABCLONE,PORT
+uhdm2rtlil	OneAlwaysComb	default	
+uhdm2rtlil	OneAlwaysComb	testflags	ELABCLONE
+uhdm2rtlil	OneArithShift	default	CA
+uhdm2rtlil	OneArithShift	testflags	CA,ELABCLONE
+uhdm2rtlil	OneCast	default	CA
+uhdm2rtlil	OneCast	testflags	CA,ELABCLONE
+uhdm2rtlil	OneClass	default	
+uhdm2rtlil	OneClass	testflags	ELABCLONE
+uhdm2rtlil	OneConcat	default	CA
+uhdm2rtlil	OneConcat	testflags	CA,ELABCLONE
+uhdm2rtlil	OneImport	default	ALIASFILE,CA
+uhdm2rtlil	OneImport	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	OneInside	default	CA
+uhdm2rtlil	OneInside	testflags	CA,ELABCLONE
+uhdm2rtlil	OneNetModport	default	CA
+uhdm2rtlil	OneNetModport	testflags	CA,ELABCLONE
+uhdm2rtlil	OnePackage	default	ALIASFILE,CA
+uhdm2rtlil	OnePackage	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	OneReplicate	default	CA
+uhdm2rtlil	OneReplicate	testflags	CA,ELABCLONE
+uhdm2rtlil	OneShift	default	CA
+uhdm2rtlil	OneShift	testflags	CA,ELABCLONE
+uhdm2rtlil	OneStruct	default	CA
+uhdm2rtlil	OneStruct	testflags	CA,ELABCLONE
+uhdm2rtlil	OneSysFunc	default	CA
+uhdm2rtlil	OneSysFunc	testflags	CA,ELABCLONE
+uhdm2rtlil	OneThis	default	CA
+uhdm2rtlil	OneThis	testflags	CA,ELABCLONE
+uhdm2rtlil	OutputSizeWithParameterOfInstanceInitializedByStructMember	default	CA,PATHBASE
+uhdm2rtlil	OutputSizeWithParameterOfInstanceInitializedByStructMember	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	PackageCast	default	ALIASFILE,CA
+uhdm2rtlil	PackageCast	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	PackedArray	default	CA
+uhdm2rtlil	PackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterColonReference	default	CA
+uhdm2rtlil	ParameterColonReference	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterConditionalAssignment	default	CA
+uhdm2rtlil	ParameterConditionalAssignment	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterDoubleUnderscoreInSvFrontend	default	CA
+uhdm2rtlil	ParameterDoubleUnderscoreInSvFrontend	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterFromPkgInNestedModule	default	CA
+uhdm2rtlil	ParameterFromPkgInNestedModule	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterFromPkgOnParameterPortList	default	CA
+uhdm2rtlil	ParameterFromPkgOnParameterPortList	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInGenScopeInitializedWithLongConstant	default	CA
+uhdm2rtlil	ParameterInGenScopeInitializedWithLongConstant	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInitializationWithNegation	default	CA
+uhdm2rtlil	ParameterInitializationWithNegation	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope	default	CA
+uhdm2rtlil	ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInitializedByPartSelectOfParameters	default	CA
+uhdm2rtlil	ParameterInitializedByPartSelectOfParameters	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInitializedByPartSelectOfParametersAssignedToVar	default	CA
+uhdm2rtlil	ParameterInitializedByPartSelectOfParametersAssignedToVar	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInitializedInSubModuleOfTopOf5LevelHierarchy	default	CA
+uhdm2rtlil	ParameterInitializedInSubModuleOfTopOf5LevelHierarchy	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInitializedInTopOf5LevelHierarchy	default	CA
+uhdm2rtlil	ParameterInitializedInTopOf5LevelHierarchy	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle	default	CA
+uhdm2rtlil	ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle	default	CA
+uhdm2rtlil	ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterOfParametrizedType	default	CA
+uhdm2rtlil	ParameterOfParametrizedType	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterOfParametrizedTypeInSubmodule	default	CA
+uhdm2rtlil	ParameterOfParametrizedTypeInSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterOfSizeOfParametrizedPort	default	CA
+uhdm2rtlil	ParameterOfSizeOfParametrizedPort	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterOfSizeOfParametrizedPortInSubmodule	default	CA
+uhdm2rtlil	ParameterOfSizeOfParametrizedPortInSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterOfSizeOfPort	default	CA
+uhdm2rtlil	ParameterOfSizeOfPort	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterPackedArray	default	CA
+uhdm2rtlil	ParameterPackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterPackedArraySurelogSubstitution	default	CA
+uhdm2rtlil	ParameterPackedArraySurelogSubstitution	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterPassedTo3TimesNestedSubmodule	default	CA
+uhdm2rtlil	ParameterPassedTo3TimesNestedSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterPassedToSubmoduleInGenscopeOfSubmodule	default	CA
+uhdm2rtlil	ParameterPassedToSubmoduleInGenscopeOfSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterPassedToSubmoduleOfSubmodule	default	CA
+uhdm2rtlil	ParameterPassedToSubmoduleOfSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterSizeOfInstance	default	CA
+uhdm2rtlil	ParameterSizeOfInstance	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterUnpackedArray	default	CA
+uhdm2rtlil	ParameterUnpackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterUnpackedLogicArray	default	CA
+uhdm2rtlil	ParameterUnpackedLogicArray	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterUnsignedInt	default	CA
+uhdm2rtlil	ParameterUnsignedInt	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterWithUnderscoreValue	default	CA
+uhdm2rtlil	ParameterWithUnderscoreValue	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterWithUnderscoreValueDivided	default	CA
+uhdm2rtlil	ParameterWithUnderscoreValueDivided	testflags	CA,ELABCLONE
+uhdm2rtlil	ParameterWithUnderscoreValueDividedPassedFromCommandLine	default	CA
+uhdm2rtlil	ParameterWithUnderscoreValueDividedPassedFromCommandLine	testflags	CA,ELABCLONE
+uhdm2rtlil	PartSelect	default	CA
+uhdm2rtlil	PartSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	PartSelectInFor	default	CA,NDA
+uhdm2rtlil	PartSelectInFor	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	PartSelectOfMember	default	CA
+uhdm2rtlil	PartSelectOfMember	testflags	CA,ELABCLONE
+uhdm2rtlil	PartSelectOfPartSelectedBitSelect	default	CA
+uhdm2rtlil	PartSelectOfPartSelectedBitSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	PatternAsFunctionArgument	default	CA
+uhdm2rtlil	PatternAsFunctionArgument	testflags	CA,ELABCLONE
+uhdm2rtlil	PatternAsParameterOfInstance	default	CA
+uhdm2rtlil	PatternAsParameterOfInstance	testflags	CA,ELABCLONE
+uhdm2rtlil	PatternAssignmentOfStructParam	default	CA
+uhdm2rtlil	PatternAssignmentOfStructParam	testflags	CA,ELABCLONE
+uhdm2rtlil	PatternDefault	default	CA
+uhdm2rtlil	PatternDefault	testflags	CA,ELABCLONE
+uhdm2rtlil	PatternInFunction	default	CA
+uhdm2rtlil	PatternInFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	PatternIndexes	default	CA
+uhdm2rtlil	PatternIndexes	testflags	CA,ELABCLONE
+uhdm2rtlil	PatternParameterInSubmodule	default	CA
+uhdm2rtlil	PatternParameterInSubmodule	testflags	CA,ELABCLONE
+uhdm2rtlil	PatternStruct	default	CA,NDA
+uhdm2rtlil	PatternStruct	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	PkgParamAsFunctionArg	default	CA
+uhdm2rtlil	PkgParamAsFunctionArg	testflags	CA,ELABCLONE
+uhdm2rtlil	PutC	default	
+uhdm2rtlil	PutC	testflags	ELABCLONE
+uhdm2rtlil	RealValue	default	
+uhdm2rtlil	RealValue	testflags	ELABCLONE
+uhdm2rtlil	ReferencedPackageParameterInEnum	default	CA
+uhdm2rtlil	ReferencedPackageParameterInEnum	testflags	CA,ELABCLONE
+uhdm2rtlil	Repeat	default	
+uhdm2rtlil	Repeat	testflags	ELABCLONE
+uhdm2rtlil	Replication	default	CA
+uhdm2rtlil	Replication	testflags	CA,ELABCLONE
+uhdm2rtlil	ReplicationPassedToInstance	default	CA,PORT
+uhdm2rtlil	ReplicationPassedToInstance	testflags	CA,ELABCLONE,PORT
+uhdm2rtlil	ReturnEnumArray	default	ALIASFILE,CA
+uhdm2rtlil	ReturnEnumArray	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	ReturnFunctionCall	default	CA
+uhdm2rtlil	ReturnFunctionCall	testflags	CA,ELABCLONE
+uhdm2rtlil	SelectFromUnpackedInFunction	default	CA
+uhdm2rtlil	SelectFromUnpackedInFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	SelectGivenBySelectOnParameterInFunction	default	CA
+uhdm2rtlil	SelectGivenBySelectOnParameterInFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	SelectOnMemberSelectedFrom2DArray	default	CA
+uhdm2rtlil	SelectOnMemberSelectedFrom2DArray	testflags	CA,ELABCLONE
+uhdm2rtlil	SelfPartSelectInBitSelect	default	CA
+uhdm2rtlil	SelfPartSelectInBitSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	SelfSelectsInBitSelectAfterBitSelect	default	CA
+uhdm2rtlil	SelfSelectsInBitSelectAfterBitSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	ShiftTernary	default	CA
+uhdm2rtlil	ShiftTernary	testflags	CA,ELABCLONE
+uhdm2rtlil	Shortint	default	CA
+uhdm2rtlil	Shortint	testflags	CA,ELABCLONE
+uhdm2rtlil	Shortreal	default	CA
+uhdm2rtlil	Shortreal	testflags	CA,ELABCLONE
+uhdm2rtlil	SignedWire	default	CA
+uhdm2rtlil	SignedWire	testflags	CA,ELABCLONE
+uhdm2rtlil	SizeOfGeneratedWireArray	default	CA,NDA
+uhdm2rtlil	SizeOfGeneratedWireArray	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	SizeOfUnsignedParameter	default	CA
+uhdm2rtlil	SizeOfUnsignedParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	StreamOp	default	CA
+uhdm2rtlil	StreamOp	testflags	CA,ELABCLONE
+uhdm2rtlil	StreamOpImplicitSliceSize	default	CA
+uhdm2rtlil	StreamOpImplicitSliceSize	testflags	CA,ELABCLONE
+uhdm2rtlil	StreamOperatorBitReverseFunction	default	CA
+uhdm2rtlil	StreamOperatorBitReverseFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	StringAssignConcatenation	default	CA
+uhdm2rtlil	StringAssignConcatenation	testflags	CA,ELABCLONE
+uhdm2rtlil	StringAssignment	default	
+uhdm2rtlil	StringAssignment	testflags	ELABCLONE
+uhdm2rtlil	StringLocalParamInitByConcatenation	default	CA
+uhdm2rtlil	StringLocalParamInitByConcatenation	testflags	CA,ELABCLONE
+uhdm2rtlil	StringWithBackslash	default	
+uhdm2rtlil	StringWithBackslash	testflags	ELABCLONE
+uhdm2rtlil	StructArrayParameterInitializedByPatternPassedAsPort	default	CA,PORT
+uhdm2rtlil	StructArrayParameterInitializedByPatternPassedAsPort	testflags	CA,ELABCLONE,PORT
+uhdm2rtlil	StructInPackage	default	CA
+uhdm2rtlil	StructInPackage	testflags	CA,ELABCLONE
+uhdm2rtlil	StructLocalParam	default	CA
+uhdm2rtlil	StructLocalParam	testflags	CA,ELABCLONE
+uhdm2rtlil	StructMemberAsModuleInput	default	CA
+uhdm2rtlil	StructMemberAsModuleInput	testflags	CA,ELABCLONE
+uhdm2rtlil	StructOfArrayOfStructs	default	CA
+uhdm2rtlil	StructOfArrayOfStructs	testflags	CA,ELABCLONE
+uhdm2rtlil	StructPackedArray	default	CA
+uhdm2rtlil	StructPackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	StructPackedOutput	default	CA
+uhdm2rtlil	StructPackedOutput	testflags	CA,ELABCLONE
+uhdm2rtlil	StructParameter	default	CA
+uhdm2rtlil	StructParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	StructParameterInitializedWithPatternAndReferenced	default	CA
+uhdm2rtlil	StructParameterInitializedWithPatternAndReferenced	testflags	CA,ELABCLONE
+uhdm2rtlil	SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule	default	CA
+uhdm2rtlil	SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule	testflags	CA,ELABCLONE
+uhdm2rtlil	SumOfParameters	default	CA
+uhdm2rtlil	SumOfParameters	testflags	CA,ELABCLONE
+uhdm2rtlil	SumOfParametersInNestedForLoops	default	CA
+uhdm2rtlil	SumOfParametersInNestedForLoops	testflags	CA,ELABCLONE
+uhdm2rtlil	SystemFunctions	default	
+uhdm2rtlil	SystemFunctions	testflags	ELABCLONE
+uhdm2rtlil	TaskExportDPI	default	
+uhdm2rtlil	TaskExportDPI	testflags	ELABCLONE
+uhdm2rtlil	TaskImportDPI	default	
+uhdm2rtlil	TaskImportDPI	testflags	ELABCLONE
+uhdm2rtlil	TaskReturn	default	
+uhdm2rtlil	TaskReturn	testflags	ELABCLONE
+uhdm2rtlil	TypeParameterAsPortTypeWithEnum	default	ALIASFILE,DEFNETTP
+uhdm2rtlil	TypeParameterAsPortTypeWithEnum	testflags	ALIASFILE,DEFNETTP
+uhdm2rtlil	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	default	ALIASFILE,DEFNETTP
+uhdm2rtlil	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	testflags	ALIASFILE,DEFNETTP
+uhdm2rtlil	TypeParameterAsPortTypeWithLogic	default	DEFNETTP
+uhdm2rtlil	TypeParameterAsPortTypeWithLogic	testflags	DEFNETTP
+uhdm2rtlil	TypeParameterAsPortTypeWithLogicAnonymous	default	CA,DEFNETTP
+uhdm2rtlil	TypeParameterAsPortTypeWithLogicAnonymous	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	TypeParameterAsPortTypeWithStruct	default	CA,DEFNETTP
+uhdm2rtlil	TypeParameterAsPortTypeWithStruct	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	TypedefAliasInPackage	default	ALIASFILE,CA
+uhdm2rtlil	TypedefAliasInPackage	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	TypedefEnum	default	ALIASFILE,CA
+uhdm2rtlil	TypedefEnum	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	TypedefInModule	default	CA
+uhdm2rtlil	TypedefInModule	testflags	CA,ELABCLONE
+uhdm2rtlil	TypedefInModulePort	default	CA
+uhdm2rtlil	TypedefInModulePort	testflags	CA,ELABCLONE
+uhdm2rtlil	TypedefOnFileLevel	default	CA
+uhdm2rtlil	TypedefOnFileLevel	testflags	CA,ELABCLONE
+uhdm2rtlil	TypedefPackedDimensions	default	CA,PATD
+uhdm2rtlil	TypedefPackedDimensions	testflags	CA,ELABCLONE,PATD
+uhdm2rtlil	TypedefStructArray	default	CA,PATD
+uhdm2rtlil	TypedefStructArray	testflags	CA,ELABCLONE,PATD
+uhdm2rtlil	TypedefStructParamWithRangeInSubmodule	default	
+uhdm2rtlil	TypedefStructParamWithRangeInSubmodule	testflags	
+uhdm2rtlil	TypedefVariableDimensions	default	ALIASFILE,CA,SCOPEDARRTD
+uhdm2rtlil	TypedefVariableDimensions	testflags	ALIASFILE,CA,ELABCLONE,SCOPEDARRTD
+uhdm2rtlil	TypedefWithParameter	default	CA
+uhdm2rtlil	TypedefWithParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	TypedefedFunctionArgument	default	CA
+uhdm2rtlil	TypedefedFunctionArgument	testflags	CA,ELABCLONE
+uhdm2rtlil	TypedefedFunctionReturn	default	CA
+uhdm2rtlil	TypedefedFunctionReturn	testflags	CA,ELABCLONE
+uhdm2rtlil	TypedefedRangedFunctionArgument	default	CA
+uhdm2rtlil	TypedefedRangedFunctionArgument	testflags	CA,ELABCLONE
+uhdm2rtlil	TypedefedRangedFunctionReturn	default	CA
+uhdm2rtlil	TypedefedRangedFunctionReturn	testflags	CA,ELABCLONE
+uhdm2rtlil	UnionCustomTypeMultirange	default	CA
+uhdm2rtlil	UnionCustomTypeMultirange	testflags	CA,ELABCLONE
+uhdm2rtlil	UnionInsideStruct	default	CA
+uhdm2rtlil	UnionInsideStruct	testflags	CA,ELABCLONE
+uhdm2rtlil	UnionParameter	default	CA
+uhdm2rtlil	UnionParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	UnitForLoop	default	CA
+uhdm2rtlil	UnitForLoop	testflags	CA,ELABCLONE
+uhdm2rtlil	UnpackedArray	default	CA
+uhdm2rtlil	UnpackedArray	testflags	CA,ELABCLONE
+uhdm2rtlil	UnsizedConst	default	CA
+uhdm2rtlil	UnsizedConst	testflags	CA,ELABCLONE
+uhdm2rtlil	UnsizedConstant	default	CA
+uhdm2rtlil	UnsizedConstant	testflags	CA,ELABCLONE
+uhdm2rtlil	UnsizedConstantParameter	default	CA
+uhdm2rtlil	UnsizedConstantParameter	testflags	CA,ELABCLONE
+uhdm2rtlil	UnsizedConstantParameterInInstance	default	CA
+uhdm2rtlil	UnsizedConstantParameterInInstance	testflags	CA,ELABCLONE
+uhdm2rtlil	UnsizedConstantsParameterParsing	default	
+uhdm2rtlil	UnsizedConstantsParameterParsing	testflags	
+uhdm2rtlil	UnsizedConstantsParsing	default	
+uhdm2rtlil	UnsizedConstantsParsing	testflags	
+uhdm2rtlil	VarInFor	default	CA
+uhdm2rtlil	VarInFor	testflags	CA,ELABCLONE
+uhdm2rtlil	VarPassedTo2Submodules	default	ALIASFILE,CA
+uhdm2rtlil	VarPassedTo2Submodules	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	VarSelect	default	CA
+uhdm2rtlil	VarSelect	testflags	CA,ELABCLONE
+uhdm2rtlil	VoidFunction	default	CA
+uhdm2rtlil	VoidFunction	testflags	CA,ELABCLONE
+uhdm2rtlil	VoidFunctionWithoutReturn	default	CA
+uhdm2rtlil	VoidFunctionWithoutReturn	testflags	CA,ELABCLONE
+uhdm2rtlil	WireNotStartingFromZero	default	CA
+uhdm2rtlil	WireNotStartingFromZero	testflags	CA,ELABCLONE
+uhdm2rtlil	add_sub_bind_if	default	CLK
+uhdm2rtlil	add_sub_bind_if	testflags	CLK,ELABCLONE
+uhdm2rtlil	adff	default	
+uhdm2rtlil	adff	testflags	ELABCLONE
+uhdm2rtlil	adffn	default	
+uhdm2rtlil	adffn	testflags	ELABCLONE
+uhdm2rtlil	aes_kexp128	default	CA
+uhdm2rtlil	aes_kexp128	testflags	CA,ELABCLONE
+uhdm2rtlil	allconst_attr	default	
+uhdm2rtlil	allconst_attr	testflags	ELABCLONE
+uhdm2rtlil	allseq_attr	default	
+uhdm2rtlil	allseq_attr	testflags	ELABCLONE
+uhdm2rtlil	alu_sub	default	CA
+uhdm2rtlil	alu_sub	testflags	CA,ELABCLONE
+uhdm2rtlil	always01	default	
+uhdm2rtlil	always01	testflags	ELABCLONE
+uhdm2rtlil	always02	default	
+uhdm2rtlil	always02	testflags	ELABCLONE
+uhdm2rtlil	always03	default	
+uhdm2rtlil	always03	testflags	ELABCLONE
+uhdm2rtlil	anon_struct_packed_dim	default	CA
+uhdm2rtlil	anon_struct_packed_dim	testflags	CA,ELABCLONE
+uhdm2rtlil	anyconst_attr	default	
+uhdm2rtlil	anyconst_attr	testflags	ELABCLONE
+uhdm2rtlil	anyseq_attr	default	
+uhdm2rtlil	anyseq_attr	testflags	ELABCLONE
+uhdm2rtlil	arb_idx_cast	default	CA,DEFNETTP
+uhdm2rtlil	arb_idx_cast	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	array-copy	default	CA
+uhdm2rtlil	array-copy	testflags	CA,ELABCLONE
+uhdm2rtlil	array_assign	default	CA
+uhdm2rtlil	array_assign	testflags	CA,ELABCLONE
+uhdm2rtlil	array_default_init	default	CA
+uhdm2rtlil	array_default_init	testflags	CA,ELABCLONE
+uhdm2rtlil	array_init_2d	default	
+uhdm2rtlil	array_init_2d	testflags	ELABCLONE
+uhdm2rtlil	arraycells	default	CA
+uhdm2rtlil	arraycells	testflags	CA,ELABCLONE
+uhdm2rtlil	arrays01	default	
+uhdm2rtlil	arrays01	testflags	ELABCLONE
+uhdm2rtlil	arrays03	default	
+uhdm2rtlil	arrays03	testflags	ELABCLONE
+uhdm2rtlil	asgn_binop	default	
+uhdm2rtlil	asgn_binop	testflags	ELABCLONE
+uhdm2rtlil	asgn_expr	default	
+uhdm2rtlil	asgn_expr	testflags	ELABCLONE
+uhdm2rtlil	asgn_expr2	default	
+uhdm2rtlil	asgn_expr2	testflags	ELABCLONE
+uhdm2rtlil	asgn_expr_sv	default	
+uhdm2rtlil	asgn_expr_sv	testflags	ELABCLONE
+uhdm2rtlil	asicworld_clk_div_45	default	CA
+uhdm2rtlil	asicworld_clk_div_45	testflags	CA,ELABCLONE
+uhdm2rtlil	asicworld_serial_crc	default	CA
+uhdm2rtlil	asicworld_serial_crc	testflags	CA,ELABCLONE
+uhdm2rtlil	assert_wide_const_cond	default	CA
+uhdm2rtlil	assert_wide_const_cond	testflags	CA,ELABCLONE
+uhdm2rtlil	assignment-pattern	default	CA,NDA
+uhdm2rtlil	assignment-pattern	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	asym_ram_sdp_read_wider	default	CA
+uhdm2rtlil	asym_ram_sdp_read_wider	testflags	CA,ELABCLONE
+uhdm2rtlil	asym_ram_sdp_write_wider	default	CA
+uhdm2rtlil	asym_ram_sdp_write_wider	testflags	CA,ELABCLONE
+uhdm2rtlil	async_reset_partsel	default	
+uhdm2rtlil	async_reset_partsel	testflags	ELABCLONE
+uhdm2rtlil	bind_hier	default	CA
+uhdm2rtlil	bind_hier	testflags	CA,ELABCLONE
+uhdm2rtlil	bind_toplevel	default	CA
+uhdm2rtlil	bind_toplevel	testflags	CA,ELABCLONE
+uhdm2rtlil	bits_of_type_param	default	CA,DEFNETTP
+uhdm2rtlil	bits_of_type_param	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	blocking_temp_ff	default	
+uhdm2rtlil	blocking_temp_ff	testflags	ELABCLONE
+uhdm2rtlil	blocking_temp_select	default	
+uhdm2rtlil	blocking_temp_select	testflags	ELABCLONE
+uhdm2rtlil	blocklocal_struct_width	default	
+uhdm2rtlil	blocklocal_struct_width	testflags	ELABCLONE
+uhdm2rtlil	blockrom	default	CA
+uhdm2rtlil	blockrom	testflags	CA,ELABCLONE
+uhdm2rtlil	carryadd	default	CA,NDA
+uhdm2rtlil	carryadd	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	case_default_first	default	
+uhdm2rtlil	case_default_first	testflags	ELABCLONE
+uhdm2rtlil	case_expr_const	default	
+uhdm2rtlil	case_expr_const	testflags	ELABCLONE
+uhdm2rtlil	case_expr_extend	default	
+uhdm2rtlil	case_expr_extend	testflags	ELABCLONE
+uhdm2rtlil	case_expr_non_const	default	CA,NDA
+uhdm2rtlil	case_expr_non_const	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	case_expr_query	default	
+uhdm2rtlil	case_expr_query	testflags	ELABCLONE
+uhdm2rtlil	cdc_static_basic	default	CA,NDA
+uhdm2rtlil	cdc_static_basic	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	cfg_func_width_loop	default	CA,CALLSPAN
+uhdm2rtlil	cfg_func_width_loop	testflags	CA,CALLSPAN,ELABCLONE
+uhdm2rtlil	clk2fflogic_effects	default	CA,NDA
+uhdm2rtlil	clk2fflogic_effects	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	code_hdl_models_decoder_2to4_gates	default	
+uhdm2rtlil	code_hdl_models_decoder_2to4_gates	testflags	
+uhdm2rtlil	code_hdl_models_parallel_crc	default	CA
+uhdm2rtlil	code_hdl_models_parallel_crc	testflags	CA,ELABCLONE
+uhdm2rtlil	code_tidbits_fsm_using_function	default	CA
+uhdm2rtlil	code_tidbits_fsm_using_function	testflags	CA,ELABCLONE
+uhdm2rtlil	comb_2d_bitsel	default	CA
+uhdm2rtlil	comb_2d_bitsel	testflags	CA,ELABCLONE
+uhdm2rtlil	comb_array_next_state	default	
+uhdm2rtlil	comb_array_next_state	testflags	ELABCLONE
+uhdm2rtlil	comb_dead_guard_latch	default	
+uhdm2rtlil	comb_dead_guard_latch	testflags	ELABCLONE
+uhdm2rtlil	comb_dyn_2d_packed_sel	default	CA
+uhdm2rtlil	comb_dyn_2d_packed_sel	testflags	CA,ELABCLONE
+uhdm2rtlil	comb_flag_after_case	default	
+uhdm2rtlil	comb_flag_after_case	testflags	ELABCLONE
+uhdm2rtlil	comb_if_both_arms_value	default	
+uhdm2rtlil	comb_if_both_arms_value	testflags	ELABCLONE
+uhdm2rtlil	comb_local_index_fold	default	CA
+uhdm2rtlil	comb_local_index_fold	testflags	CA,ELABCLONE
+uhdm2rtlil	comb_local_init_latch	default	
+uhdm2rtlil	comb_local_init_latch	testflags	ELABCLONE
+uhdm2rtlil	comb_loop_compound_incr	default	CA
+uhdm2rtlil	comb_loop_compound_incr	testflags	CA,ELABCLONE
+uhdm2rtlil	comb_loop_local_latch	default	CA
+uhdm2rtlil	comb_loop_local_latch	testflags	CA,ELABCLONE
+uhdm2rtlil	comb_partial_struct_write	default	CA
+uhdm2rtlil	comb_partial_struct_write	testflags	CA,ELABCLONE
+uhdm2rtlil	comb_partsel_after_struct_assign	default	ALIASFILE
+uhdm2rtlil	comb_partsel_after_struct_assign	testflags	ALIASFILE,ELABCLONE
+uhdm2rtlil	comb_reduction_accumulator	default	
+uhdm2rtlil	comb_reduction_accumulator	testflags	ELABCLONE
+uhdm2rtlil	compound_assignments	default	
+uhdm2rtlil	compound_assignments	testflags	ELABCLONE
+uhdm2rtlil	concat_lhs_signext	default	
+uhdm2rtlil	concat_lhs_signext	testflags	ELABCLONE
+uhdm2rtlil	conditional_if_else	default	CA,NDA
+uhdm2rtlil	conditional_if_else	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	const_arg_loop	default	CA
+uhdm2rtlil	const_arg_loop	testflags	CA,ELABCLONE
+uhdm2rtlil	const_ashift	default	CA
+uhdm2rtlil	const_ashift	testflags	CA,ELABCLONE
+uhdm2rtlil	const_cast_signext	default	ALIASFILE,CA
+uhdm2rtlil	const_cast_signext	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	const_fold_func	default	CA
+uhdm2rtlil	const_fold_func	testflags	CA,ELABCLONE
+uhdm2rtlil	const_func	default	CA
+uhdm2rtlil	const_func	testflags	CA,ELABCLONE
+uhdm2rtlil	const_func_block_var	default	CA
+uhdm2rtlil	const_func_block_var	testflags	CA,ELABCLONE
+uhdm2rtlil	const_func_shadow	default	CA,CALLSPAN
+uhdm2rtlil	const_func_shadow	testflags	CA,CALLSPAN,ELABCLONE
+uhdm2rtlil	constmsk_test	default	CA
+uhdm2rtlil	constmsk_test	testflags	CA,ELABCLONE
+uhdm2rtlil	counter	default	
+uhdm2rtlil	counter	testflags	ELABCLONE
+uhdm2rtlil	counter_dual_xbranch	default	
+uhdm2rtlil	counter_dual_xbranch	testflags	ELABCLONE
+uhdm2rtlil	counter_ifelse_chain	default	
+uhdm2rtlil	counter_ifelse_chain	testflags	ELABCLONE
+uhdm2rtlil	counter_in_cpu_state	default	
+uhdm2rtlil	counter_in_cpu_state	testflags	ELABCLONE
+uhdm2rtlil	counter_unbased	default	
+uhdm2rtlil	counter_unbased	testflags	ELABCLONE
+uhdm2rtlil	counter_xpath	default	
+uhdm2rtlil	counter_xpath	testflags	ELABCLONE
+uhdm2rtlil	counters_repeat	default	CA
+uhdm2rtlil	counters_repeat	testflags	CA,ELABCLONE
+uhdm2rtlil	cs_registers	default	ALIASFILE,CA
+uhdm2rtlil	cs_registers	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	cva6_struct_param_field	default	CA,DEFNETTP,PATHBASE
+uhdm2rtlil	cva6_struct_param_field	testflags	CA,DEFNETTP,ELABCLONE,PATHBASE
+uhdm2rtlil	def_ctx_struct_param	default	
+uhdm2rtlil	def_ctx_struct_param	testflags	ELABCLONE
+uhdm2rtlil	defvalue	default	CA,NDA
+uhdm2rtlil	defvalue	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	dff_different_styles	default	PORT
+uhdm2rtlil	dff_different_styles	testflags	ELABCLONE,PORT
+uhdm2rtlil	dff_styles	default	
+uhdm2rtlil	dff_styles	testflags	ELABCLONE
+uhdm2rtlil	dffs	default	
+uhdm2rtlil	dffs	testflags	ELABCLONE
+uhdm2rtlil	dffsr	default	
+uhdm2rtlil	dffsr	testflags	ELABCLONE
+uhdm2rtlil	display_lm	default	
+uhdm2rtlil	display_lm	testflags	ELABCLONE
+uhdm2rtlil	dyn_field_select	default	CA
+uhdm2rtlil	dyn_field_select	testflags	CA,ELABCLONE
+uhdm2rtlil	dyn_packed_multidim	default	CA
+uhdm2rtlil	dyn_packed_multidim	testflags	CA,ELABCLONE
+uhdm2rtlil	dynslice	default	
+uhdm2rtlil	dynslice	testflags	ELABCLONE
+uhdm2rtlil	empty_port_connection	default	CA,EMPTYCONN,PORT
+uhdm2rtlil	empty_port_connection	testflags	CA,ELABCLONE,EMPTYCONN,PORT
+uhdm2rtlil	enum_simple	default	ALIASFILE,CA
+uhdm2rtlil	enum_simple	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	enum_values	default	ALIASFILE,CA
+uhdm2rtlil	enum_values	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	escape_id	default	
+uhdm2rtlil	escape_id	testflags	
+uhdm2rtlil	event_implicit_expression_list	default	CA,NDA
+uhdm2rtlil	event_implicit_expression_list	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	expr_width_cast	default	
+uhdm2rtlil	expr_width_cast	testflags	ELABCLONE
+uhdm2rtlil	fail_detect_width	default	CA
+uhdm2rtlil	fail_detect_width	testflags	CA,ELABCLONE
+uhdm2rtlil	ff_conditional_reset	default	CA
+uhdm2rtlil	ff_conditional_reset	testflags	CA,ELABCLONE
+uhdm2rtlil	ff_dead_both_branches	default	
+uhdm2rtlil	ff_dead_both_branches	testflags	ELABCLONE
+uhdm2rtlil	ff_dead_guarded_reset	default	
+uhdm2rtlil	ff_dead_guarded_reset	testflags	ELABCLONE
+uhdm2rtlil	fib_initial	default	
+uhdm2rtlil	fib_initial	testflags	ELABCLONE
+uhdm2rtlil	fib_recursion	default	
+uhdm2rtlil	fib_recursion	testflags	ELABCLONE
+uhdm2rtlil	fib_simple	default	
+uhdm2rtlil	fib_simple	testflags	ELABCLONE
+uhdm2rtlil	fill_literal_compare	default	CA
+uhdm2rtlil	fill_literal_compare	testflags	CA,ELABCLONE
+uhdm2rtlil	flipflop	default	
+uhdm2rtlil	flipflop	testflags	ELABCLONE
+uhdm2rtlil	fmt_always_comb	default	CA,NDA
+uhdm2rtlil	fmt_always_comb	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	for_break	default	
+uhdm2rtlil	for_break	testflags	ELABCLONE
+uhdm2rtlil	for_decl_shadow	default	
+uhdm2rtlil	for_decl_shadow	testflags	ELABCLONE
+uhdm2rtlil	for_loop_nonconst_bound	default	UNSIGNEDSPAN
+uhdm2rtlil	for_loop_nonconst_bound	testflags	ELABCLONE,UNSIGNEDSPAN
+uhdm2rtlil	forgen01	default	CA
+uhdm2rtlil	forgen01	testflags	CA,ELABCLONE
+uhdm2rtlil	forgen02	default	CA
+uhdm2rtlil	forgen02	testflags	CA,ELABCLONE
+uhdm2rtlil	forloops	default	
+uhdm2rtlil	forloops	testflags	ELABCLONE
+uhdm2rtlil	fsm	default	
+uhdm2rtlil	fsm	testflags	ELABCLONE
+uhdm2rtlil	fsm2	default	
+uhdm2rtlil	fsm2	testflags	ELABCLONE
+uhdm2rtlil	fsm_single_always	default	
+uhdm2rtlil	fsm_single_always	testflags	ELABCLONE
+uhdm2rtlil	fsm_using_always	default	
+uhdm2rtlil	fsm_using_always	testflags	ELABCLONE
+uhdm2rtlil	fsm_using_function	default	CA
+uhdm2rtlil	fsm_using_function	testflags	CA,ELABCLONE
+uhdm2rtlil	full_case_latch	default	
+uhdm2rtlil	full_case_latch	testflags	ELABCLONE
+uhdm2rtlil	func_arg_partsel_loop	default	CA
+uhdm2rtlil	func_arg_partsel_loop	testflags	CA,ELABCLONE
+uhdm2rtlil	func_block	default	CA
+uhdm2rtlil	func_block	testflags	CA,ELABCLONE
+uhdm2rtlil	func_clog2_partsel	default	CA
+uhdm2rtlil	func_clog2_partsel	testflags	CA,ELABCLONE
+uhdm2rtlil	func_forloop_onehot	default	CA
+uhdm2rtlil	func_forloop_onehot	testflags	CA,ELABCLONE
+uhdm2rtlil	func_local_array	default	CA
+uhdm2rtlil	func_local_array	testflags	CA,ELABCLONE
+uhdm2rtlil	func_local_compound_xor	default	CA
+uhdm2rtlil	func_local_compound_xor	testflags	CA,ELABCLONE
+uhdm2rtlil	func_local_decl_init	default	CA
+uhdm2rtlil	func_local_decl_init	testflags	CA,ELABCLONE
+uhdm2rtlil	func_output_arg	default	
+uhdm2rtlil	func_output_arg	testflags	ELABCLONE
+uhdm2rtlil	func_port_implied_dir	default	
+uhdm2rtlil	func_port_implied_dir	testflags	ELABCLONE
+uhdm2rtlil	func_struct_repro	default	CA
+uhdm2rtlil	func_struct_repro	testflags	CA,ELABCLONE
+uhdm2rtlil	func_tern_hint	default	
+uhdm2rtlil	func_tern_hint	testflags	ELABCLONE
+uhdm2rtlil	func_typename_ret	default	CA
+uhdm2rtlil	func_typename_ret	testflags	CA,ELABCLONE
+uhdm2rtlil	func_upto	default	
+uhdm2rtlil	func_upto	testflags	ELABCLONE
+uhdm2rtlil	function_arith	default	CA
+uhdm2rtlil	function_arith	testflags	CA,ELABCLONE
+uhdm2rtlil	function_bool	default	CA
+uhdm2rtlil	function_bool	testflags	CA,ELABCLONE
+uhdm2rtlil	function_case	default	CA
+uhdm2rtlil	function_case	testflags	CA,ELABCLONE
+uhdm2rtlil	function_loop	default	CA
+uhdm2rtlil	function_loop	testflags	CA,ELABCLONE
+uhdm2rtlil	function_mixed	default	CA
+uhdm2rtlil	function_mixed	testflags	CA,ELABCLONE
+uhdm2rtlil	function_nested	default	CA
+uhdm2rtlil	function_nested	testflags	CA,ELABCLONE
+uhdm2rtlil	function_output	default	
+uhdm2rtlil	function_output	testflags	ELABCLONE
+uhdm2rtlil	gen_scope_numports	default	CA,DEFNETTP
+uhdm2rtlil	gen_scope_numports	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	gen_scope_typaram	default	CA,DEFNETTP
+uhdm2rtlil	gen_scope_typaram	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	gen_struct_access	default	CA
+uhdm2rtlil	gen_struct_access	testflags	CA,ELABCLONE
+uhdm2rtlil	gen_test1	default	CA
+uhdm2rtlil	gen_test1	testflags	CA,ELABCLONE
+uhdm2rtlil	gen_test2	default	
+uhdm2rtlil	gen_test2	testflags	ELABCLONE
+uhdm2rtlil	gen_test3	default	CA
+uhdm2rtlil	gen_test3	testflags	CA,ELABCLONE
+uhdm2rtlil	gen_test4	default	CA
+uhdm2rtlil	gen_test4	testflags	CA,ELABCLONE
+uhdm2rtlil	gen_test5	default	CA
+uhdm2rtlil	gen_test5	testflags	CA,ELABCLONE
+uhdm2rtlil	gen_test6	default	CA
+uhdm2rtlil	gen_test6	testflags	CA,ELABCLONE
+uhdm2rtlil	gen_test7	default	CA
+uhdm2rtlil	gen_test7	testflags	CA,ELABCLONE
+uhdm2rtlil	gen_test8	default	CA,NDA
+uhdm2rtlil	gen_test8	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	gen_test9	default	CA,NDA
+uhdm2rtlil	gen_test9	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	genblk_order	default	CA,NDA
+uhdm2rtlil	genblk_order	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	generate_scope_implicit_net	default	CA
+uhdm2rtlil	generate_scope_implicit_net	testflags	CA,ELABCLONE
+uhdm2rtlil	generate_test	default	CA
+uhdm2rtlil	generate_test	testflags	CA,ELABCLONE
+uhdm2rtlil	genscope_async_ff_signal	default	CA
+uhdm2rtlil	genscope_async_ff_signal	testflags	CA,ELABCLONE
+uhdm2rtlil	genscope_cells	default	CA
+uhdm2rtlil	genscope_cells	testflags	CA,ELABCLONE
+uhdm2rtlil	genscope_module_ctx_reset	default	CA
+uhdm2rtlil	genscope_module_ctx_reset	testflags	CA,ELABCLONE
+uhdm2rtlil	genscope_outer_reg_inner_ff	default	CA
+uhdm2rtlil	genscope_outer_reg_inner_ff	testflags	CA,ELABCLONE
+uhdm2rtlil	genscope_struct_member	default	
+uhdm2rtlil	genscope_struct_member	testflags	ELABCLONE
+uhdm2rtlil	genvar_async_reset_array	default	CA
+uhdm2rtlil	genvar_async_reset_array	testflags	CA,ELABCLONE
+uhdm2rtlil	genvar_iface_struct	default	CA
+uhdm2rtlil	genvar_iface_struct	testflags	CA,ELABCLONE
+uhdm2rtlil	genvar_loop_decl_2	default	CA
+uhdm2rtlil	genvar_loop_decl_2	testflags	CA,ELABCLONE
+uhdm2rtlil	genvar_loop_decl_3	default	CA
+uhdm2rtlil	genvar_loop_decl_3	testflags	CA,ELABCLONE
+uhdm2rtlil	genvar_pow_index	default	CA
+uhdm2rtlil	genvar_pow_index	testflags	CA,ELABCLONE
+uhdm2rtlil	gpr_genscope_repro	default	CA
+uhdm2rtlil	gpr_genscope_repro	testflags	CA,ELABCLONE
+uhdm2rtlil	hana_test_intermout	default	CA
+uhdm2rtlil	hana_test_intermout	testflags	CA,ELABCLONE
+uhdm2rtlil	hana_test_parse2synthtrans	default	CA
+uhdm2rtlil	hana_test_parse2synthtrans	testflags	CA,ELABCLONE
+uhdm2rtlil	hier_path	default	ALIASFILE,CA
+uhdm2rtlil	hier_path	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	hier_undriven_port	default	CA
+uhdm2rtlil	hier_undriven_port	testflags	CA,ELABCLONE
+uhdm2rtlil	hierdefparam	default	CA
+uhdm2rtlil	hierdefparam	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_alu	default	CA
+uhdm2rtlil	ibex_alu	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_branch_predict	default	CA
+uhdm2rtlil	ibex_branch_predict	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_compressed_decoder	default	CA
+uhdm2rtlil	ibex_compressed_decoder	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_counter	default	CA
+uhdm2rtlil	ibex_counter	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_csr	default	CA
+uhdm2rtlil	ibex_csr	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_decoder	default	CA
+uhdm2rtlil	ibex_decoder	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_fetch_fifo	default	CA
+uhdm2rtlil	ibex_fetch_fifo	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_icache	default	CA
+uhdm2rtlil	ibex_icache	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_load_store_unit	default	CA
+uhdm2rtlil	ibex_load_store_unit	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_multdiv_fast	default	CA
+uhdm2rtlil	ibex_multdiv_fast	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_multdiv_slow	default	CA
+uhdm2rtlil	ibex_multdiv_slow	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_pmp	default	CA
+uhdm2rtlil	ibex_pmp	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_register_file_ff	default	CA
+uhdm2rtlil	ibex_register_file_ff	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_register_file_fpga	default	CA
+uhdm2rtlil	ibex_register_file_fpga	testflags	CA,ELABCLONE
+uhdm2rtlil	ibex_tracer	default	
+uhdm2rtlil	ibex_tracer	testflags	ELABCLONE
+uhdm2rtlil	ibex_wb_stage	default	CA
+uhdm2rtlil	ibex_wb_stage	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_arr_struct_field_partsel	default	CA
+uhdm2rtlil	iface_arr_struct_field_partsel	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_arr_struct_whole_field	default	CA
+uhdm2rtlil	iface_arr_struct_whole_field	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_array_count	default	CA
+uhdm2rtlil	iface_array_count	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_array_elem_cfg_param	default	CA,PATHBASE
+uhdm2rtlil	iface_array_elem_cfg_param	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_array_internal_assign	default	CA
+uhdm2rtlil	iface_array_internal_assign	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_array_modport_drive	default	CA
+uhdm2rtlil	iface_array_modport_drive	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_array_port	default	CA
+uhdm2rtlil	iface_array_port	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_array_struct	default	CA
+uhdm2rtlil	iface_array_struct	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_array_struct_field	default	CA
+uhdm2rtlil	iface_array_struct_field	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_array_struct_whole	default	CA
+uhdm2rtlil	iface_array_struct_whole	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_cfg_mem	default	CA,PATHBASE
+uhdm2rtlil	iface_cfg_mem	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_cfg_param_def_pass	default	CA,PATHBASE
+uhdm2rtlil	iface_cfg_param_def_pass	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_ff_genvar_partsel	default	CA
+uhdm2rtlil	iface_ff_genvar_partsel	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_field_assign	default	CA
+uhdm2rtlil	iface_field_assign	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_field_assign_nocol	default	CA
+uhdm2rtlil	iface_field_assign_nocol	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_field_partsel	default	CA
+uhdm2rtlil	iface_field_partsel	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_gen_delay	default	CA
+uhdm2rtlil	iface_gen_delay	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_gen_delay_struct	default	CA
+uhdm2rtlil	iface_gen_delay_struct	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_internal_assign	default	CA
+uhdm2rtlil	iface_internal_assign	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_local_in_sub	default	CA
+uhdm2rtlil	iface_local_in_sub	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_member_port	default	CA
+uhdm2rtlil	iface_member_port	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_member_read_assign	default	CA
+uhdm2rtlil	iface_member_read_assign	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_method_call	default	CA
+uhdm2rtlil	iface_method_call	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_modport	default	CA
+uhdm2rtlil	iface_modport	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_modport_conn	default	CA
+uhdm2rtlil	iface_modport_conn	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_modport_out	default	CA
+uhdm2rtlil	iface_modport_out	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_nested_param_field	default	CA,PATHBASE
+uhdm2rtlil	iface_nested_param_field	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_param_2level	default	CA,PATHBASE
+uhdm2rtlil	iface_param_2level	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_param_port_width	default	CA,PATHBASE
+uhdm2rtlil	iface_param_port_width	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_param_set_value	default	CA
+uhdm2rtlil	iface_param_set_value	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_param_width_per_inst	default	CA
+uhdm2rtlil	iface_param_width_per_inst	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_passthrough	default	CA
+uhdm2rtlil	iface_passthrough	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_pkg_enum_item	default	CA
+uhdm2rtlil	iface_pkg_enum_item	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_samename_port	default	CA
+uhdm2rtlil	iface_samename_port	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_scalar_localparam	default	CA,PATHBASE
+uhdm2rtlil	iface_scalar_localparam	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_sig_in_child_port	default	CA
+uhdm2rtlil	iface_sig_in_child_port	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_struct_field	default	CA
+uhdm2rtlil	iface_struct_field	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_struct_field_bitselect	default	CA
+uhdm2rtlil	iface_struct_field_bitselect	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_struct_field_param_width	default	CA,PATHBASE
+uhdm2rtlil	iface_struct_field_param_width	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_struct_field_partsel	default	CA,PATHBASE
+uhdm2rtlil	iface_struct_field_partsel	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	iface_struct_field_slice_read	default	CA
+uhdm2rtlil	iface_struct_field_slice_read	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_unpacked_signal	default	CA
+uhdm2rtlil	iface_unpacked_signal	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_unpacked_struct_array	default	CA
+uhdm2rtlil	iface_unpacked_struct_array	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_wholestruct_param	default	CA
+uhdm2rtlil	iface_wholestruct_param	testflags	CA,ELABCLONE
+uhdm2rtlil	iface_zero_width_field	default	CA,PATHBASE
+uhdm2rtlil	iface_zero_width_field	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	indexed_partsel_array	default	CA,NDA
+uhdm2rtlil	indexed_partsel_array	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	int_port_signed	default	CA
+uhdm2rtlil	int_port_signed	testflags	CA,ELABCLONE
+uhdm2rtlil	int_types	default	CA,NDA
+uhdm2rtlil	int_types	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	int_types_blk1	default	CA,NDA
+uhdm2rtlil	int_types_blk1	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	interface_array	default	CA
+uhdm2rtlil	interface_array	testflags	CA,ELABCLONE
+uhdm2rtlil	interface_array_fanout	default	CA
+uhdm2rtlil	interface_array_fanout	testflags	CA,ELABCLONE
+uhdm2rtlil	issue326_packed_mem	default	CA
+uhdm2rtlil	issue326_packed_mem	testflags	CA,ELABCLONE
+uhdm2rtlil	jeras_gpr	default	CA
+uhdm2rtlil	jeras_gpr	testflags	CA,ELABCLONE
+uhdm2rtlil	jeras_reverse	default	CA
+uhdm2rtlil	jeras_reverse	testflags	CA,ELABCLONE
+uhdm2rtlil	jeras_tcb_gpio	default	CA
+uhdm2rtlil	jeras_tcb_gpio	testflags	CA,ELABCLONE
+uhdm2rtlil	jeras_union	default	ALIASFILE,CA
+uhdm2rtlil	jeras_union	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	latch_002	default	
+uhdm2rtlil	latch_002	testflags	ELABCLONE
+uhdm2rtlil	latch_axi_adapter	default	
+uhdm2rtlil	latch_axi_adapter	testflags	ELABCLONE
+uhdm2rtlil	latch_case_arm_mask	default	
+uhdm2rtlil	latch_case_arm_mask	testflags	ELABCLONE
+uhdm2rtlil	latch_csr_armlocal	default	
+uhdm2rtlil	latch_csr_armlocal	testflags	ELABCLONE
+uhdm2rtlil	latch_decoder_partial	default	CA
+uhdm2rtlil	latch_decoder_partial	testflags	CA,ELABCLONE
+uhdm2rtlil	latch_fifo_dynfield	default	
+uhdm2rtlil	latch_fifo_dynfield	testflags	ELABCLONE
+uhdm2rtlil	latch_nested_ex_field	default	CA
+uhdm2rtlil	latch_nested_ex_field	testflags	CA,ELABCLONE
+uhdm2rtlil	latch_packed_dyn_write	default	CA
+uhdm2rtlil	latch_packed_dyn_write	testflags	CA,ELABCLONE
+uhdm2rtlil	latch_packed_enum_loop	default	ALIASFILE,CA
+uhdm2rtlil	latch_packed_enum_loop	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	latch_perf_counters	default	CA
+uhdm2rtlil	latch_perf_counters	testflags	CA,ELABCLONE
+uhdm2rtlil	latch_tlb_napot	default	
+uhdm2rtlil	latch_tlb_napot	testflags	ELABCLONE
+uhdm2rtlil	latchn	default	
+uhdm2rtlil	latchn	testflags	ELABCLONE
+uhdm2rtlil	latchp	default	
+uhdm2rtlil	latchp	testflags	ELABCLONE
+uhdm2rtlil	latchsr	default	
+uhdm2rtlil	latchsr	testflags	ELABCLONE
+uhdm2rtlil	lcov	default	CA
+uhdm2rtlil	lcov	testflags	CA,ELABCLONE
+uhdm2rtlil	led_blink_counter	default	CA,NDA
+uhdm2rtlil	led_blink_counter	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	load_and_derive	default	CA
+uhdm2rtlil	load_and_derive	testflags	CA,ELABCLONE
+uhdm2rtlil	local_nested_struct_field	default	CA
+uhdm2rtlil	local_nested_struct_field	testflags	CA,ELABCLONE
+uhdm2rtlil	local_var_in_always	default	
+uhdm2rtlil	local_var_in_always	testflags	ELABCLONE
+uhdm2rtlil	loop_break_index	default	
+uhdm2rtlil	loop_break_index	testflags	ELABCLONE
+uhdm2rtlil	loopvar_eq_fold	default	
+uhdm2rtlil	loopvar_eq_fold	testflags	ELABCLONE
+uhdm2rtlil	lut_map_and	default	CA
+uhdm2rtlil	lut_map_and	testflags	CA,ELABCLONE
+uhdm2rtlil	lut_map_cmp	default	CA
+uhdm2rtlil	lut_map_cmp	testflags	CA,ELABCLONE
+uhdm2rtlil	lut_map_mux	default	CA
+uhdm2rtlil	lut_map_mux	testflags	CA,ELABCLONE
+uhdm2rtlil	lut_map_not	default	CA
+uhdm2rtlil	lut_map_not	testflags	CA,ELABCLONE
+uhdm2rtlil	lut_map_or	default	CA
+uhdm2rtlil	lut_map_or	testflags	CA,ELABCLONE
+uhdm2rtlil	lut_map_xor	default	CA
+uhdm2rtlil	lut_map_xor	testflags	CA,ELABCLONE
+uhdm2rtlil	macc	default	CA,NDA
+uhdm2rtlil	macc	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	macro_arg_spaces	default	CA
+uhdm2rtlil	macro_arg_spaces	testflags	CA,ELABCLONE
+uhdm2rtlil	many_functions	default	CA
+uhdm2rtlil	many_functions	testflags	CA,ELABCLONE
+uhdm2rtlil	matching_end_labels	default	CA
+uhdm2rtlil	matching_end_labels	testflags	CA,ELABCLONE
+uhdm2rtlil	mem2reg_test1	default	
+uhdm2rtlil	mem2reg_test1	testflags	ELABCLONE
+uhdm2rtlil	mem2reg_test2	default	CA
+uhdm2rtlil	mem2reg_test2	testflags	CA,ELABCLONE
+uhdm2rtlil	mem2reg_test3	default	CA
+uhdm2rtlil	mem2reg_test3	testflags	CA,ELABCLONE
+uhdm2rtlil	mem2reg_test4	default	CA
+uhdm2rtlil	mem2reg_test4	testflags	CA,ELABCLONE
+uhdm2rtlil	mem2reg_test5	default	CA
+uhdm2rtlil	mem2reg_test5	testflags	CA,ELABCLONE
+uhdm2rtlil	mem2reg_test6	default	
+uhdm2rtlil	mem2reg_test6	testflags	ELABCLONE
+uhdm2rtlil	mem_ff_partial_rsp	default	CA
+uhdm2rtlil	mem_ff_partial_rsp	testflags	CA,ELABCLONE
+uhdm2rtlil	mem_iface_index	default	CA
+uhdm2rtlil	mem_iface_index	testflags	CA,ELABCLONE
+uhdm2rtlil	mem_init_for_param	default	CA
+uhdm2rtlil	mem_init_for_param	testflags	CA,ELABCLONE
+uhdm2rtlil	mem_multi_always_write	default	CA
+uhdm2rtlil	mem_multi_always_write	testflags	CA,ELABCLONE
+uhdm2rtlil	mem_packed_2d_byte_write	default	
+uhdm2rtlil	mem_packed_2d_byte_write	testflags	ELABCLONE
+uhdm2rtlil	mem_read_reg	default	CA
+uhdm2rtlil	mem_read_reg	testflags	CA,ELABCLONE
+uhdm2rtlil	mem_sub_plain	default	
+uhdm2rtlil	mem_sub_plain	testflags	ELABCLONE
+uhdm2rtlil	mixed_sign_ops	default	
+uhdm2rtlil	mixed_sign_ops	testflags	ELABCLONE
+uhdm2rtlil	mriscv_bind_sva	default	CA,NDA,REPLTSNAME
+uhdm2rtlil	mriscv_bind_sva	testflags	CA,ELABCLONE,NDA,REPLTSNAME
+uhdm2rtlil	mul	default	CA
+uhdm2rtlil	mul	testflags	CA,ELABCLONE
+uhdm2rtlil	mul_plain	default	CA
+uhdm2rtlil	mul_plain	testflags	CA,ELABCLONE
+uhdm2rtlil	mul_signed_async	default	
+uhdm2rtlil	mul_signed_async	testflags	ELABCLONE
+uhdm2rtlil	mul_sync_enable_test	default	
+uhdm2rtlil	mul_sync_enable_test	testflags	ELABCLONE
+uhdm2rtlil	mul_sync_reset_test	default	
+uhdm2rtlil	mul_sync_reset_test	testflags	ELABCLONE
+uhdm2rtlil	mul_unsigned	default	CA
+uhdm2rtlil	mul_unsigned	testflags	CA,ELABCLONE
+uhdm2rtlil	mul_unsigned_sync	default	
+uhdm2rtlil	mul_unsigned_sync	testflags	ELABCLONE
+uhdm2rtlil	mul_unsigned_sync_simple	default	
+uhdm2rtlil	mul_unsigned_sync_simple	testflags	ELABCLONE
+uhdm2rtlil	multi_ff_slice	default	
+uhdm2rtlil	multi_ff_slice	testflags	ELABCLONE
+uhdm2rtlil	multi_input_gates	default	
+uhdm2rtlil	multi_input_gates	testflags	
+uhdm2rtlil	multidim_hier_path7	default	CA
+uhdm2rtlil	multidim_hier_path7	testflags	CA,ELABCLONE
+uhdm2rtlil	multidim_hier_path8	default	CA
+uhdm2rtlil	multidim_hier_path8	testflags	CA,ELABCLONE
+uhdm2rtlil	multidim_hier_path9	default	CA
+uhdm2rtlil	multidim_hier_path9	testflags	CA,ELABCLONE
+uhdm2rtlil	multiple_blocking	default	
+uhdm2rtlil	multiple_blocking	testflags	ELABCLONE
+uhdm2rtlil	multiple_blocking_gate	default	
+uhdm2rtlil	multiple_blocking_gate	testflags	ELABCLONE
+uhdm2rtlil	multiplier	default	CA,REPLTSNAME
+uhdm2rtlil	multiplier	testflags	CA,ELABCLONE,REPLTSNAME
+uhdm2rtlil	mux16	default	CA
+uhdm2rtlil	mux16	testflags	CA,ELABCLONE
+uhdm2rtlil	mux2	default	
+uhdm2rtlil	mux2	testflags	ELABCLONE
+uhdm2rtlil	mux4	default	
+uhdm2rtlil	mux4	testflags	ELABCLONE
+uhdm2rtlil	mux8	default	
+uhdm2rtlil	mux8	testflags	ELABCLONE
+uhdm2rtlil	named_begin_local_collision	default	
+uhdm2rtlil	named_begin_local_collision	testflags	ELABCLONE
+uhdm2rtlil	named_cover_assert	default	CA
+uhdm2rtlil	named_cover_assert	testflags	CA,ELABCLONE
+uhdm2rtlil	named_genblk_cascade	default	CA
+uhdm2rtlil	named_genblk_cascade	testflags	CA,ELABCLONE
+uhdm2rtlil	ndffnr	default	
+uhdm2rtlil	ndffnr	testflags	ELABCLONE
+uhdm2rtlil	nested_case_concat	default	
+uhdm2rtlil	nested_case_concat	testflags	ELABCLONE
+uhdm2rtlil	nested_cast_repro	default	ALIASFILE,CA
+uhdm2rtlil	nested_cast_repro	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	nested_full_case	default	
+uhdm2rtlil	nested_full_case	testflags	ELABCLONE
+uhdm2rtlil	nested_struct	default	CA
+uhdm2rtlil	nested_struct	testflags	CA,ELABCLONE
+uhdm2rtlil	nested_struct_nopack	default	CA
+uhdm2rtlil	nested_struct_nopack	testflags	CA,ELABCLONE
+uhdm2rtlil	net_types	default	CA
+uhdm2rtlil	net_types	testflags	CA,ELABCLONE
+uhdm2rtlil	onenet	default	CA
+uhdm2rtlil	onenet	testflags	CA,ELABCLONE
+uhdm2rtlil	opt_share_add_sub	default	CA
+uhdm2rtlil	opt_share_add_sub	testflags	CA,ELABCLONE
+uhdm2rtlil	package_task_func	default	
+uhdm2rtlil	package_task_func	testflags	ELABCLONE
+uhdm2rtlil	packed_array_elem_select	default	CA
+uhdm2rtlil	packed_array_elem_select	testflags	CA,ELABCLONE
+uhdm2rtlil	packed_array_reset_loop	default	CA,DEFNETTP
+uhdm2rtlil	packed_array_reset_loop	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	packed_array_struct	default	CA,DEFNETTP
+uhdm2rtlil	packed_array_struct	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	packed_array_struct_port_sel	default	CA,DEFNETTP
+uhdm2rtlil	packed_array_struct_port_sel	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	packed_struct_array_fifo	default	CA,DEFNETTP
+uhdm2rtlil	packed_struct_array_fifo	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	packed_struct_array_net_elem	default	CA
+uhdm2rtlil	packed_struct_array_net_elem	testflags	CA,ELABCLONE
+uhdm2rtlil	packed_struct_array_shift	default	CA
+uhdm2rtlil	packed_struct_array_shift	testflags	CA,ELABCLONE
+uhdm2rtlil	packed_struct_elem_field	default	CA
+uhdm2rtlil	packed_struct_elem_field	testflags	CA,ELABCLONE
+uhdm2rtlil	param_array_wildcard	default	CA
+uhdm2rtlil	param_array_wildcard	testflags	CA,ELABCLONE
+uhdm2rtlil	param_fill_default_paramod	default	CA
+uhdm2rtlil	param_fill_default_paramod	testflags	CA,ELABCLONE
+uhdm2rtlil	param_int_types	default	CA
+uhdm2rtlil	param_int_types	testflags	CA,ELABCLONE
+uhdm2rtlil	param_name_collision_typeparam	default	CA,DEFNETTP
+uhdm2rtlil	param_name_collision_typeparam	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	param_nested_struct_field_width	default	CA,DEFNETTP
+uhdm2rtlil	param_nested_struct_field_width	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	param_no_default	default	CA
+uhdm2rtlil	param_no_default	testflags	CA,ELABCLONE
+uhdm2rtlil	param_packed_array_subst	default	CA
+uhdm2rtlil	param_packed_array_subst	testflags	CA,ELABCLONE
+uhdm2rtlil	param_struct_field_bitsel	default	CA
+uhdm2rtlil	param_struct_field_bitsel	testflags	CA,ELABCLONE
+uhdm2rtlil	param_test	default	
+uhdm2rtlil	param_test	testflags	ELABCLONE
+uhdm2rtlil	param_type_logic_width	default	CA,DEFNETTP,PORT
+uhdm2rtlil	param_type_logic_width	testflags	CA,DEFNETTP,ELABCLONE,PORT
+uhdm2rtlil	param_unpacked_struct_array	default	CA
+uhdm2rtlil	param_unpacked_struct_array	testflags	CA,ELABCLONE
+uhdm2rtlil	param_x_default	default	CA
+uhdm2rtlil	param_x_default	testflags	CA,ELABCLONE
+uhdm2rtlil	paramod_genscope_child	default	CA
+uhdm2rtlil	paramod_genscope_child	testflags	CA,ELABCLONE
+uhdm2rtlil	paramod_struct_param	default	CA
+uhdm2rtlil	paramod_struct_param	testflags	CA,ELABCLONE
+uhdm2rtlil	partsel_simple	default	CA,NDA
+uhdm2rtlil	partsel_simple	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	past_assert	default	CA
+uhdm2rtlil	past_assert	testflags	CA,ELABCLONE
+uhdm2rtlil	pattern_default_packed	default	
+uhdm2rtlil	pattern_default_packed	testflags	ELABCLONE
+uhdm2rtlil	pico_count_cycle	default	
+uhdm2rtlil	pico_count_cycle	testflags	ELABCLONE
+uhdm2rtlil	pkg_localparam_partsel	default	CA
+uhdm2rtlil	pkg_localparam_partsel	testflags	CA,ELABCLONE
+uhdm2rtlil	pkg_nested_struct_param_width	default	CA,PATHBASE
+uhdm2rtlil	pkg_nested_struct_param_width	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	port_chained_type_param	default	CA,DEFNETTP
+uhdm2rtlil	port_chained_type_param	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	port_int_types	default	CA
+uhdm2rtlil	port_int_types	testflags	CA,ELABCLONE
+uhdm2rtlil	portsel_struct_param	default	CA
+uhdm2rtlil	portsel_struct_param	testflags	CA,ELABCLONE
+uhdm2rtlil	power_state	default	
+uhdm2rtlil	power_state	testflags	ELABCLONE
+uhdm2rtlil	prefix	default	
+uhdm2rtlil	prefix	testflags	ELABCLONE
+uhdm2rtlil	print_trg_mixed_edges	default	
+uhdm2rtlil	print_trg_mixed_edges	testflags	ELABCLONE
+uhdm2rtlil	print_trg_multi_edge	default	
+uhdm2rtlil	print_trg_multi_edge	testflags	ELABCLONE
+uhdm2rtlil	print_trg_single_edge	default	
+uhdm2rtlil	print_trg_single_edge	testflags	ELABCLONE
+uhdm2rtlil	priority_case	default	
+uhdm2rtlil	priority_case	testflags	ELABCLONE
+uhdm2rtlil	priority_if	default	
+uhdm2rtlil	priority_if	testflags	ELABCLONE
+uhdm2rtlil	priority_memory	default	
+uhdm2rtlil	priority_memory	testflags	ELABCLONE
+uhdm2rtlil	r5p_gpr_cosim	default	CA,PORT
+uhdm2rtlil	r5p_gpr_cosim	testflags	CA,ELABCLONE,PORT
+uhdm2rtlil	read_remux	default	CA
+uhdm2rtlil	read_remux	testflags	CA,ELABCLONE
+uhdm2rtlil	readmemh_param	default	
+uhdm2rtlil	readmemh_param	testflags	ELABCLONE
+uhdm2rtlil	readmemh_rom	default	
+uhdm2rtlil	readmemh_rom	testflags	ELABCLONE
+uhdm2rtlil	realexpr	default	CA
+uhdm2rtlil	realexpr	testflags	CA,ELABCLONE
+uhdm2rtlil	recursive_map	default	
+uhdm2rtlil	recursive_map	testflags	
+uhdm2rtlil	repwhile	default	CA
+uhdm2rtlil	repwhile	testflags	CA,ELABCLONE
+uhdm2rtlil	resolve_types	default	CA
+uhdm2rtlil	resolve_types	testflags	CA,ELABCLONE
+uhdm2rtlil	rmw_comb_var	default	CA
+uhdm2rtlil	rmw_comb_var	testflags	CA,ELABCLONE
+uhdm2rtlil	rotate	default	CA
+uhdm2rtlil	rotate	testflags	CA,ELABCLONE
+uhdm2rtlil	rp32_r5p_alu	default	CA
+uhdm2rtlil	rp32_r5p_alu	testflags	CA,ELABCLONE
+uhdm2rtlil	rp32_r5p_bru	default	CA
+uhdm2rtlil	rp32_r5p_bru	testflags	CA,ELABCLONE
+uhdm2rtlil	rp32_r5p_gpr_1r1w	default	CA
+uhdm2rtlil	rp32_r5p_gpr_1r1w	testflags	CA,ELABCLONE
+uhdm2rtlil	rp32_r5p_mdu	default	
+uhdm2rtlil	rp32_r5p_mdu	testflags	ELABCLONE
+uhdm2rtlil	rp32_r5p_mouse	default	CA
+uhdm2rtlil	rp32_r5p_mouse	testflags	CA,ELABCLONE
+uhdm2rtlil	rp32_r5p_mouse_soc_simple_top	default	CA
+uhdm2rtlil	rp32_r5p_mouse_soc_simple_top	testflags	CA,ELABCLONE
+uhdm2rtlil	rp32_r5p_wbu	default	CA
+uhdm2rtlil	rp32_r5p_wbu	testflags	CA,ELABCLONE
+uhdm2rtlil	rsp_gen_minimal	default	ALIASFILE,CA,PORT
+uhdm2rtlil	rsp_gen_minimal	testflags	ALIASFILE,CA,ELABCLONE,PORT
+uhdm2rtlil	sat_asserts_seq	default	CA,NDA
+uhdm2rtlil	sat_asserts_seq	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	scope_func	default	
+uhdm2rtlil	scope_func	testflags	ELABCLONE
+uhdm2rtlil	scope_task	default	
+uhdm2rtlil	scope_task	testflags	ELABCLONE
+uhdm2rtlil	scopes	default	
+uhdm2rtlil	scopes	testflags	ELABCLONE
+uhdm2rtlil	setundef	default	CA
+uhdm2rtlil	setundef	testflags	CA,ELABCLONE
+uhdm2rtlil	sign_part_assign	default	
+uhdm2rtlil	sign_part_assign	testflags	ELABCLONE
+uhdm2rtlil	signed_compare	default	CA
+uhdm2rtlil	signed_compare	testflags	CA,ELABCLONE
+uhdm2rtlil	signed_ext_case	default	
+uhdm2rtlil	signed_ext_case	testflags	ELABCLONE
+uhdm2rtlil	signed_interm_cmp	default	CA
+uhdm2rtlil	signed_interm_cmp	testflags	CA,ELABCLONE
+uhdm2rtlil	signed_partsel_ext	default	CA,NDA
+uhdm2rtlil	signed_partsel_ext	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	simple_always_ff	default	
+uhdm2rtlil	simple_always_ff	testflags	ELABCLONE
+uhdm2rtlil	simple_always_ifelse	default	
+uhdm2rtlil	simple_always_ifelse	testflags	ELABCLONE
+uhdm2rtlil	simple_assign	default	CA
+uhdm2rtlil	simple_assign	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_counter	default	
+uhdm2rtlil	simple_counter	testflags	ELABCLONE
+uhdm2rtlil	simple_enum	default	ALIASFILE
+uhdm2rtlil	simple_enum	testflags	ALIASFILE,ELABCLONE
+uhdm2rtlil	simple_forloops	default	CA
+uhdm2rtlil	simple_forloops	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_fsm	default	
+uhdm2rtlil	simple_fsm	testflags	ELABCLONE
+uhdm2rtlil	simple_function	default	CA
+uhdm2rtlil	simple_function	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_generate	default	CA
+uhdm2rtlil	simple_generate	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_hierarchy	default	CA
+uhdm2rtlil	simple_hierarchy	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_instance_array	default	
+uhdm2rtlil	simple_instance_array	testflags	
+uhdm2rtlil	simple_interface	default	CA
+uhdm2rtlil	simple_interface	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_memory	default	
+uhdm2rtlil	simple_memory	testflags	ELABCLONE
+uhdm2rtlil	simple_memory_noreset	default	
+uhdm2rtlil	simple_memory_noreset	testflags	ELABCLONE
+uhdm2rtlil	simple_nested_struct_nopack	default	CA
+uhdm2rtlil	simple_nested_struct_nopack	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_package	default	
+uhdm2rtlil	simple_package	testflags	ELABCLONE
+uhdm2rtlil	simple_struct	default	CA
+uhdm2rtlil	simple_struct	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_unary_op_minus	default	CA
+uhdm2rtlil	simple_unary_op_minus	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_unary_op_not_log	default	CA
+uhdm2rtlil	simple_unary_op_not_log	testflags	CA,ELABCLONE
+uhdm2rtlil	simple_unary_op_plus	default	CA
+uhdm2rtlil	simple_unary_op_plus	testflags	CA,ELABCLONE
+uhdm2rtlil	sincos	default	
+uhdm2rtlil	sincos	testflags	ELABCLONE
+uhdm2rtlil	size_cast	default	ALIASFILE
+uhdm2rtlil	size_cast	testflags	ALIASFILE,ELABCLONE
+uhdm2rtlil	size_cast_param	default	
+uhdm2rtlil	size_cast_param	testflags	ELABCLONE
+uhdm2rtlil	sp_read_first	default	
+uhdm2rtlil	sp_read_first	testflags	ELABCLONE
+uhdm2rtlil	sp_read_or_write	default	
+uhdm2rtlil	sp_read_or_write	testflags	ELABCLONE
+uhdm2rtlil	sp_write_first	default	
+uhdm2rtlil	sp_write_first	testflags	ELABCLONE
+uhdm2rtlil	stamped_gen_param	default	CA
+uhdm2rtlil	stamped_gen_param	testflags	CA,ELABCLONE
+uhdm2rtlil	static_cast_simple	default	CA
+uhdm2rtlil	static_cast_simple	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_3d_packed_array	default	
+uhdm2rtlil	struct_3d_packed_array	testflags	ELABCLONE
+uhdm2rtlil	struct_access	default	
+uhdm2rtlil	struct_access	testflags	ELABCLONE
+uhdm2rtlil	struct_array	default	
+uhdm2rtlil	struct_array	testflags	ELABCLONE
+uhdm2rtlil	struct_array_indexed_write	default	
+uhdm2rtlil	struct_array_indexed_write	testflags	ELABCLONE
+uhdm2rtlil	struct_array_member_partsel	default	CA
+uhdm2rtlil	struct_array_member_partsel	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_dynamic_range	default	
+uhdm2rtlil	struct_dynamic_range	testflags	ELABCLONE
+uhdm2rtlil	struct_field_self_guard	default	CA
+uhdm2rtlil	struct_field_self_guard	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_init_partial_write	default	
+uhdm2rtlil	struct_init_partial_write	testflags	ELABCLONE
+uhdm2rtlil	struct_little_endian_bit_array	default	
+uhdm2rtlil	struct_little_endian_bit_array	testflags	ELABCLONE
+uhdm2rtlil	struct_member_cfg_width	default	CA,DEFNETTP,PATHBASE
+uhdm2rtlil	struct_member_cfg_width	testflags	CA,DEFNETTP,ELABCLONE,PATHBASE
+uhdm2rtlil	struct_member_expr_index	default	CA
+uhdm2rtlil	struct_member_expr_index	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_member_trailing_index	default	CA
+uhdm2rtlil	struct_member_trailing_index	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_param_dim	default	CA
+uhdm2rtlil	struct_param_dim	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_param_field_shift	default	CA,PATHBASE
+uhdm2rtlil	struct_param_field_shift	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	struct_param_func_arg	default	CA
+uhdm2rtlil	struct_param_func_arg	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_param_func_config	default	CA,PATHBASE
+uhdm2rtlil	struct_param_func_config	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	struct_param_func_loop	default	CA
+uhdm2rtlil	struct_param_func_loop	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_param_pattern_packing	default	CA
+uhdm2rtlil	struct_param_pattern_packing	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_param_repl_count	default	CA,PATHBASE
+uhdm2rtlil	struct_param_repl_count	testflags	CA,ELABCLONE,PATHBASE
+uhdm2rtlil	struct_part_select_write	default	
+uhdm2rtlil	struct_part_select_write	testflags	ELABCLONE
+uhdm2rtlil	struct_pat_fill	default	CA
+uhdm2rtlil	struct_pat_fill	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_pattern_loop	default	CA
+uhdm2rtlil	struct_pattern_loop	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_pattern_named_default	default	CA
+uhdm2rtlil	struct_pattern_named_default	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_pattern_procedural	default	CA
+uhdm2rtlil	struct_pattern_procedural	testflags	CA,ELABCLONE
+uhdm2rtlil	struct_typedef_packed_array	default	
+uhdm2rtlil	struct_typedef_packed_array	testflags	ELABCLONE
+uhdm2rtlil	subbytes	default	
+uhdm2rtlil	subbytes	testflags	ELABCLONE
+uhdm2rtlil	sva_basic00	default	
+uhdm2rtlil	sva_basic00	testflags	ELABCLONE
+uhdm2rtlil	sva_basic01	default	CA
+uhdm2rtlil	sva_basic01	testflags	CA,ELABCLONE
+uhdm2rtlil	sva_basic02	default	CA
+uhdm2rtlil	sva_basic02	testflags	CA,ELABCLONE
+uhdm2rtlil	sva_basic03	default	
+uhdm2rtlil	sva_basic03	testflags	ELABCLONE
+uhdm2rtlil	sva_counter	default	CLK
+uhdm2rtlil	sva_counter	testflags	CLK,ELABCLONE
+uhdm2rtlil	sva_not	default	CA
+uhdm2rtlil	sva_not	testflags	CA,ELABCLONE
+uhdm2rtlil	sva_range	default	CLK
+uhdm2rtlil	sva_range	testflags	CLK
+uhdm2rtlil	sva_throughout	default	CLK
+uhdm2rtlil	sva_throughout	testflags	CLK
+uhdm2rtlil	sva_value_change_changed	default	CA,CLK,NDA
+uhdm2rtlil	sva_value_change_changed	testflags	CA,CLK,ELABCLONE,NDA
+uhdm2rtlil	sva_value_change_changed_wide	default	CA,CLK
+uhdm2rtlil	sva_value_change_changed_wide	testflags	CA,CLK,ELABCLONE
+uhdm2rtlil	sva_value_change_rose	default	CA,CLK
+uhdm2rtlil	sva_value_change_rose	testflags	CA,CLK,ELABCLONE
+uhdm2rtlil	sva_value_change_sim	default	CA,NDA
+uhdm2rtlil	sva_value_change_sim	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	svtypes_struct_simple	default	CA
+uhdm2rtlil	svtypes_struct_simple	testflags	CA,ELABCLONE
+uhdm2rtlil	tern_fill_literal	default	CA
+uhdm2rtlil	tern_fill_literal	testflags	CA,ELABCLONE
+uhdm2rtlil	ternary_not_cond	default	CA
+uhdm2rtlil	ternary_not_cond	testflags	CA,ELABCLONE
+uhdm2rtlil	top_module_type_param	default	CA,DEFNETTP
+uhdm2rtlil	top_module_type_param	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	type_param_override_elem_sel	default	CA,DEFNETTP
+uhdm2rtlil	type_param_override_elem_sel	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	type_param_packed_dim	default	CA,DEFNETTP
+uhdm2rtlil	type_param_packed_dim	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	type_param_unpacked_port	default	CA,DEFNETTP
+uhdm2rtlil	type_param_unpacked_port	testflags	CA,DEFNETTP,ELABCLONE
+uhdm2rtlil	typed_named_pattern	default	CA
+uhdm2rtlil	typed_named_pattern	testflags	CA,ELABCLONE
+uhdm2rtlil	typedef_package	default	ALIASFILE
+uhdm2rtlil	typedef_package	testflags	ALIASFILE,ELABCLONE
+uhdm2rtlil	typedef_packed_enum_array	default	CA,PATD
+uhdm2rtlil	typedef_packed_enum_array	testflags	CA,ELABCLONE,PATD
+uhdm2rtlil	typedef_param	default	ALIASFILE
+uhdm2rtlil	typedef_param	testflags	ALIASFILE
+uhdm2rtlil	typedef_simple	default	ALIASFILE
+uhdm2rtlil	typedef_simple	testflags	ALIASFILE,ELABCLONE
+uhdm2rtlil	typedef_unpacked_input	default	CA
+uhdm2rtlil	typedef_unpacked_input	testflags	CA,ELABCLONE
+uhdm2rtlil	ucsbece154b_victim_cache	default	CA
+uhdm2rtlil	ucsbece154b_victim_cache	testflags	CA,ELABCLONE
+uhdm2rtlil	unary_op_minus	default	
+uhdm2rtlil	unary_op_minus	testflags	ELABCLONE
+uhdm2rtlil	unary_op_not_log	default	CA
+uhdm2rtlil	unary_op_not_log	testflags	CA,ELABCLONE
+uhdm2rtlil	unary_op_plus	default	CA
+uhdm2rtlil	unary_op_plus	testflags	CA,ELABCLONE
+uhdm2rtlil	unbased_unsized	default	CA,REPLTSNAME
+uhdm2rtlil	unbased_unsized	testflags	CA,ELABCLONE,REPLTSNAME
+uhdm2rtlil	unbased_unsized_param	default	CA,REPLTSNAME
+uhdm2rtlil	unbased_unsized_param	testflags	CA,ELABCLONE,REPLTSNAME
+uhdm2rtlil	unbased_unsized_shift	default	CA
+uhdm2rtlil	unbased_unsized_shift	testflags	CA,ELABCLONE
+uhdm2rtlil	union_field_partsel	default	CA
+uhdm2rtlil	union_field_partsel	testflags	CA,ELABCLONE
+uhdm2rtlil	union_param_repro	default	CA
+uhdm2rtlil	union_param_repro	testflags	CA,ELABCLONE
+uhdm2rtlil	union_simple	default	CA
+uhdm2rtlil	union_simple	testflags	CA,ELABCLONE
+uhdm2rtlil	unique_case	default	
+uhdm2rtlil	unique_case	testflags	ELABCLONE
+uhdm2rtlil	unique_case_default	default	
+uhdm2rtlil	unique_case_default	testflags	ELABCLONE
+uhdm2rtlil	unnamed_block_decl	default	
+uhdm2rtlil	unnamed_block_decl	testflags	ELABCLONE
+uhdm2rtlil	unpacked_array_shift_ff	default	CA
+uhdm2rtlil	unpacked_array_shift_ff	testflags	CA,ELABCLONE
+uhdm2rtlil	unpacked_elem_partsel_comb	default	CA
+uhdm2rtlil	unpacked_elem_partsel_comb	testflags	CA,ELABCLONE
+uhdm2rtlil	unpacked_elem_write_flat	default	CA
+uhdm2rtlil	unpacked_elem_write_flat	testflags	CA,ELABCLONE
+uhdm2rtlil	unpacked_struct_2d	default	CA
+uhdm2rtlil	unpacked_struct_2d	testflags	CA,ELABCLONE
+uhdm2rtlil	unpacked_struct_array_typedef	default	ALIASFILE,CA
+uhdm2rtlil	unpacked_struct_array_typedef	testflags	ALIASFILE,CA,ELABCLONE
+uhdm2rtlil	unpacked_struct_dyn_read	default	CA
+uhdm2rtlil	unpacked_struct_dyn_read	testflags	CA,ELABCLONE
+uhdm2rtlil	unpacked_struct_mixed	default	CA
+uhdm2rtlil	unpacked_struct_mixed	testflags	CA,ELABCLONE
+uhdm2rtlil	various_abc9	default	
+uhdm2rtlil	various_abc9	testflags	ELABCLONE
+uhdm2rtlil	vector_index	default	CA,NDA
+uhdm2rtlil	vector_index	testflags	CA,ELABCLONE,NDA
+uhdm2rtlil	verilog_primitives	default	
+uhdm2rtlil	verilog_primitives	testflags	
+uhdm2rtlil	wandwor	default	CA,PORT
+uhdm2rtlil	wandwor	testflags	CA,ELABCLONE,PORT
+uhdm2rtlil	wildcard_eq	default	CA
+uhdm2rtlil	wildcard_eq	testflags	CA,ELABCLONE
+uhdm2rtlil	wreduce_test0	default	CA
+uhdm2rtlil	wreduce_test0	testflags	CA,ELABCLONE
+uhdm2rtlil	wreduce_test1	default	CA
+uhdm2rtlil	wreduce_test1	testflags	CA,ELABCLONE
+uhdm2rtlil	xmr_read	default	CA
+uhdm2rtlil	xmr_read	testflags	CA,ELABCLONE
+uhdm2rtlil	xor_assignment	default	
+uhdm2rtlil	xor_assignment	testflags	ELABCLONE

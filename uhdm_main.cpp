@@ -32,6 +32,179 @@
 using namespace slang;
 using namespace slang::driver;
 
+namespace slang_uhdm {
+bool r11u137Law(const char* sw);
+}
+
+// § elabCloneFullNameUnstored137 (r11u137) — THE --elabuhdm CLONES READ THE
+// INSTANCE PATH.  UHDM::ElaboratorListener::elabModule_inst DeepClones the
+// definition's processes (defMod->Process()), the instance's task/function
+// list (our instance lists share the definition's objects) and the other
+// definition lists into every elaborated instance; each generated DeepClone
+// starts with `*clone = *this`, so a full name STORED on the definition
+// object is copied verbatim, while an unstored one is recomputed from the
+// clone's own parent chain (BaseClass::ComputeFullName, the generated getter
+// computes when nothing is stored).  Surelog leaves those names unstored, so
+// golden's clones read the instance path (`work@top.u_dut.a`, `work@top.dut`,
+// `work@top.get_a1`) where ours copied the definition's (`work@dut.a`,
+// `work@dut`, `work@top.get_a1.a`): InterfInst, NoParamSubs, EmptyAssign,
+// PortByName, ArrayVarName ... (the testflags-only fullname rows; map
+// clusters N0124 N0280 N0282 N0652 N0695 N1124 N1286 N1837 N1849).  The law
+// runs only when the listener runs, before listenDesigns: every object of a
+// DEFINITION module/interface/program subtree whose stored full name EQUALS
+// the name its own chain computes is left unstored (the definition view reads
+// the same name either way; the clone now computes its own).  A name that
+// differs from its chain is a modelled deviation and stays.  Grid
+// tools/probe/r11u137repro/grid/eb.  Switch: R11U137_ELABCLONE_OFF.
+namespace {
+struct FullNameAcc137 {
+    std::string_view (*get)(UHDM::BaseClass*);
+    void (*set)(UHDM::BaseClass*, std::string_view);
+};
+template <class T>
+FullNameAcc137 fnAcc137() {
+    return {[](UHDM::BaseClass* o) { return ((T*)o)->VpiFullName(); },
+            [](UHDM::BaseClass* o, std::string_view v) { ((T*)o)->VpiFullName(v); }};
+}
+bool fullNameAccess137(UHDM::BaseClass* o, FullNameAcc137& acc) {
+#define ACC137(T)                                  \
+    if (dynamic_cast<UHDM::T*>(o)) {               \
+        acc = fnAcc137<UHDM::T>();                 \
+        return true;                               \
+    }
+    ACC137(ref_obj)
+    ACC137(ref_typespec)
+    ACC137(scope)
+    ACC137(nets)
+    ACC137(variables)
+    ACC137(hier_path)
+    ACC137(parameter)
+    ACC137(type_parameter)
+    ACC137(concurrent_assertions)
+    ACC137(property_decl)
+    ACC137(sequence_decl)
+    ACC137(named_event)
+    ACC137(primitive)
+    ACC137(instance_array)
+    ACC137(gen_scope_array)
+    ACC137(gen_var)
+    ACC137(constraint)
+#undef ACC137
+    return false;
+}
+// BaseClass::ComputeFullName, reimplemented (it is protected).
+std::string chainFullName137(const UHDM::BaseClass* self) {
+    if (self->UhdmType() == UHDM::uhdmmodule_inst && self->VpiParent() &&
+        self->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst)
+        return std::string(self->VpiDefName());
+    std::vector<std::string_view> names;
+    const UHDM::BaseClass* parent = self;
+    const UHDM::BaseClass* child = nullptr;
+    bool column = false;
+    while (parent) {
+        const UHDM::BaseClass* ap = parent->VpiParent();
+        auto pt = parent->UhdmType();
+        if (pt == UHDM::uhdmdesign)
+            break;
+        if (pt == UHDM::uhdmpackage || pt == UHDM::uhdmclass_defn)
+            column = true;
+        std::string_view name =
+            parent->VpiName().empty() ? parent->VpiDefName() : parent->VpiName();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    pt == UHDM::uhdmmethod_func_call || pt == UHDM::uhdmmethod_task_call ||
+                    pt == UHDM::uhdmfunc_call || pt == UHDM::uhdmtask_call ||
+                    pt == UHDM::uhdmsys_func_call || pt == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && pt == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (pt == UHDM::uhdmbit_select || pt == UHDM::uhdmindexed_part_select ||
+                 pt == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (!name.empty() && !skip)
+            names.push_back(name);
+        child = parent;
+        parent = parent->VpiParent();
+    }
+    std::string out;
+    for (auto it = names.rbegin(); it != names.rend(); ++it) {
+        if (!out.empty())
+            out += column ? "::" : ".";
+        out += *it;
+    }
+    return out;
+}
+void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
+    if (!d || !slang_uhdm::r11u137Law("R11U137_ELABCLONE_OFF"))
+        return;
+    std::set<const UHDM::BaseClass*> defs;
+    if (auto* v = d->AllModules())
+        for (auto* m : *v)
+            defs.insert(m);
+    if (auto* v = d->AllInterfaces())
+        for (auto* m : *v)
+            defs.insert(m);
+    if (auto* v = d->AllPrograms())
+        for (auto* m : *v)
+            defs.insert(m);
+    // A package's subroutines are cloned into the calling instance by the
+    // listener's scheduled task-function binding (golden
+    // `work@t.simple_minus.value1` where ours kept the package's
+    // `my_module_types::simple_minus::value1`: EvalFuncNamed, FileList,
+    // FuncStruct).
+    if (!getenv("R11U137_ELABCLONE_PKG_OFF")) {  // sub-switch of the law
+        if (auto* v = d->AllPackages())
+            for (auto* m : *v)
+                defs.insert(m);
+        if (auto* v = d->TopPackages())
+            for (auto* m : *v)
+                defs.insert(m);
+    }
+    if (defs.empty())
+        return;
+    std::vector<UHDM::BaseClass*> all;
+    for (auto& kv : s.AllObjects())
+        all.push_back((UHDM::BaseClass*)kv.first);
+    std::sort(all.begin(), all.end(),
+              [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    std::vector<std::pair<UHDM::BaseClass*, FullNameAcc137>> clear;
+    for (auto* o : all) {
+        if (defs.count(o))
+            continue;
+        bool inDef = false;
+        for (auto* a = o->VpiParent(); a; a = a->VpiParent()) {
+            if (defs.count(a)) {
+                inDef = true;
+                break;
+            }
+            if (a->UhdmType() == UHDM::uhdmdesign)
+                break;
+        }
+        if (!inDef)
+            continue;
+        // A PACKAGE subroutine keeps its stored `pkg::f` name in the clone
+        // (golden `my_module_types::simple_minus` under work@t, EvalFuncNamed);
+        // only its contents read the calling instance's path.
+        if ((o->UhdmType() == UHDM::uhdmfunction || o->UhdmType() == UHDM::uhdmtask) &&
+            o->VpiParent() && o->VpiParent()->UhdmType() == UHDM::uhdmpackage)
+            continue;
+        FullNameAcc137 acc;
+        if (!fullNameAccess137(o, acc))
+            continue;
+        std::string cur(acc.get(o));
+        if (cur.empty() || cur != chainFullName137(o))
+            continue;
+        clear.push_back({o, acc});
+    }
+    for (auto& [o, acc] : clear)
+        acc.set(o, std::string_view());
+}
+}  // namespace
+
 int main(int argc, char** argv) {
     Driver driver;
     // § fileMacroAbs15 — `__FILE__` must expand to the file's ABSOLUTE path.
@@ -910,6 +1083,9 @@ int main(int argc, char** argv) {
             // UHDM elaborates its own model, then UhdmAdjuster rewrites the
             // elaborated tree. uniquifyTypespec(false) is Surelog's non-default
             // choice (the listener defaults it to true).
+            // § elabCloneFullNameUnstored137 — before the listener clones
+            // (law and decode at the function).
+            elabCloneFullNameUnstored137(design, serializer);
             UHDM::ElaboratorContext elaboratorContext(&serializer, false, false);
             elaboratorContext.m_elaborator.uniquifyTypespec(false);
             elaboratorContext.m_elaborator.listenDesigns(designs);

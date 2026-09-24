@@ -1,3 +1,4 @@
+// § ndaLeftmostLeafElab139
 module top(input p, output y);
   wire a [1:0];
   assign a[0] = p;

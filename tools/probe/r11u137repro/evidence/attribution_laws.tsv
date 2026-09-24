@@ -1,0 +1,243 @@
+surelog	default/AllPackageSignal-e4fea9b7	-
+surelog	default/ArrayExprFuncArg-b95c5b05	-
+surelog	default/ArrayMethodIterator-4d30a494	-
+surelog	default/ArrayVarName-d817acd5	-
+surelog	default/AssertDelayError-c31d1347	EMPTYCONN
+surelog	default/AssertTempError-ad56aa5b	-
+surelog	default/AssignSubs-671d24a8	-
+surelog	default/BasicOh-3ea47b5a	REPLTSNAME
+surelog	default/BitsArray-bcfa08c1	PORT
+surelog	default/BlackBePipeInt-1fcd9dad	NDA
+surelog	default/BuildUVMPkg-fc55bd0c	PUREVIRTSPAN
+surelog	default/ClassMini-7e9ac72b	PUREVIRTSPAN
+surelog	default/ClassVar-cd3f7a80	-
+surelog	default/ClogParam-c20b3228	-
+surelog	default/ComplexParamOverload-f8c4d9d2	-
+surelog	default/Connection-b73d9d40	EMPTYCONN
+surelog	default/DefaultPatternInt-f18dcc46	-
+surelog	default/DefaultPatternModule-cbb77274	-
+surelog	default/DelayAssign-d78dca8a	NDA
+surelog	default/DollarBits-6ef25869	-
+surelog	default/EmptyAssign-22a8f698	-
+surelog	default/EvalFuncNamed-ac7ef961	-
+surelog	default/ExplictiPorts-0e27c0e9	PORT
+surelog	default/FileList-b1849fd4	-
+surelog	default/ForeachFunction-8ae8e971	-
+surelog	default/FuncIoTypespec-79cb0854	-
+surelog	default/FuncParam-57830088	-
+surelog	default/FuncRetArray-14a47d74	-
+surelog	default/FuncStruct-31bc2ae5	-
+surelog	default/FuncStructVal-9244d8c4	-
+surelog	default/GenForStructParamBound-1a61c8d8	-
+surelog	default/GenScopeHierPath3-caa0b54e	-
+surelog	default/HierPathVarArray-d6631b65	ALIASFILE SCOPEDARRTD
+surelog	default/ImplicitPackedStructNet-4e21b792	-
+surelog	default/InterfArrayBind-a617199d	-
+surelog	default/InterfInst-312b5e8e	-
+surelog	default/InterfaceParamOverrideProp-6e27b174	-
+surelog	default/InterfaceUnpackedStructArrayDim-88aa9627	-
+surelog	default/JKFlipflop-8b0711ee	-
+surelog	default/Kmac-a415505d	-
+surelog	default/LocalScopeHierPath-d34532d7	-
+surelog	default/MiniAmiq-055eab74	PATD EMPTYCONN UNSIGNEDSPAN CALLSPAN REPLTSNAME ELABCLONE PUREVIRTSPAN TAGGEDSPAN DEFNETTP ALIASFILE SCOPEDARRTD PATHBASE CA NDA CLK PORT
+surelog	default/Moves-9676c034	NDA
+surelog	default/NoParamSubs-b0487a46	-
+surelog	default/NoReducTypespec-168324f1	PATHBASE
+surelog	default/OneNetInterf-21367662	-
+surelog	default/OneNetRange-1900349e	-
+surelog	default/PackStructField-9b438ed7	CA
+surelog	default/PackageParamConst-4974315e	CA
+surelog	default/PackedArrayEnum-003997b6	PATD
+surelog	default/PackedArrayTypespec-e9ff4e97	PATD
+surelog	default/ParamMultiConcat-55169edb	REPLTSNAME
+surelog	default/PortByName-3420ab2b	-
+surelog	default/Rggen-ee9ac8af	EMPTYCONN
+surelog	default/Scoreboard-72aa0ba8	PATD EMPTYCONN CALLSPAN PUREVIRTSPAN
+surelog	default/Scr1SvTests-fa4609ad	EMPTYCONN PORT
+surelog	default/SeqDriver-65178d3a	PATD EMPTYCONN UNSIGNEDSPAN CALLSPAN REPLTSNAME ELABCLONE PUREVIRTSPAN TAGGEDSPAN DEFNETTP ALIASFILE SCOPEDARRTD PATHBASE CA NDA CLK PORT
+surelog	default/SequenceInst-78f5c2f9	CLK
+surelog	default/SignedBin-988aebc7	REPLTSNAME
+surelog	default/SimpleUVM-267de3ff	PATD EMPTYCONN UNSIGNEDSPAN CALLSPAN REPLTSNAME ELABCLONE PUREVIRTSPAN TAGGEDSPAN DEFNETTP ALIASFILE SCOPEDARRTD PATHBASE CA NDA CLK PORT
+surelog	default/SimplifyHierPath-51173264	-
+surelog	default/StringRange-029a76c3	CALLSPAN
+surelog	default/StructParamFieldRange-2f684d9b	PATHBASE
+surelog	default/StructParamFuncBodyFieldCompare-8bdad600	PATHBASE
+surelog	default/StructParamPatternInitCast-cec842a1	PATHBASE
+surelog	default/TaggedPattern-af4dc720	TAGGEDSPAN
+surelog	default/TypeParam-1a539dcb	DEFNETTP
+surelog	default/TypeParamOverride-c0a84fee	DEFNETTP
+surelog	default/TypedefUnpacked-a4942611	ALIASFILE SCOPEDARRTD
+surelog	default/TypespecExpr-b8bb0277	-
+surelog	default/UnionCast-b72b5775	-
+surelog	default/UnitElabBlock-b76c1b32	-
+surelog	default/UnpackedTypespec-06264492	PATD
+surelog	default/UnsizedFunc-c05fb8c3	-
+surelog	default/UnsizedParam-0e760a16	-
+surelog	default/VarRangeTypedef-2d2699bf	ALIASFILE
+surelog	default/YosysBigSimEllip-816522c7	PORT
+surelog	default/YosysBigSimReed-85cba002	EMPTYCONN PORT
+surelog	default/YosysBigSimSoft-258834db	NDA
+surelog	default/YosysMarlann-3ea8d091	NDA
+surelog	default/YosysOldOpen-eb819af1	NDA PORT
+surelog	default/YosysOldOr-31ade310	EMPTYCONN NDA PORT
+surelog	default/YosysOldSimpleSpi-5a054804	NDA PORT
+surelog	default/YosysOldSpi-d6c354f8	PORT
+surelog	default/YosysRiscv-feee3eb7	NDA PORT
+surelog	testflags/AllPackageSignal-e4fea9b7	ELABCLONE
+surelog	testflags/ArrayExprFuncArg-b95c5b05	ELABCLONE
+surelog	testflags/ArrayMethodIterator-4d30a494	ELABCLONE
+surelog	testflags/ArrayVarName-d817acd5	ELABCLONE
+surelog	testflags/AssertDelayError-c31d1347	EMPTYCONN ELABCLONE
+surelog	testflags/AssertTempError-ad56aa5b	ELABCLONE
+surelog	testflags/AssignSubs-671d24a8	ELABCLONE
+surelog	testflags/BasicOh-3ea47b5a	REPLTSNAME ELABCLONE
+surelog	testflags/BitsArray-bcfa08c1	PORT
+surelog	testflags/BlackBePipeInt-1fcd9dad	NDA
+surelog	testflags/BuildUVMPkg-fc55bd0c	PUREVIRTSPAN
+surelog	testflags/ClassMini-7e9ac72b	PUREVIRTSPAN
+surelog	testflags/ClassVar-cd3f7a80	ELABCLONE
+surelog	testflags/ClogParam-c20b3228	ELABCLONE
+surelog	testflags/ComplexParamOverload-f8c4d9d2	ELABCLONE
+surelog	testflags/Connection-b73d9d40	EMPTYCONN
+surelog	testflags/DefaultPatternInt-f18dcc46	ELABCLONE
+surelog	testflags/DefaultPatternModule-cbb77274	ELABCLONE
+surelog	testflags/DelayAssign-d78dca8a	NDA
+surelog	testflags/DollarBits-6ef25869	ELABCLONE
+surelog	testflags/EmptyAssign-22a8f698	ELABCLONE
+surelog	testflags/EvalFuncNamed-ac7ef961	ELABCLONE
+surelog	testflags/ExplictiPorts-0e27c0e9	PORT
+surelog	testflags/FileList-b1849fd4	ELABCLONE
+surelog	testflags/ForeachFunction-8ae8e971	ELABCLONE
+surelog	testflags/FuncIoTypespec-79cb0854	ELABCLONE
+surelog	testflags/FuncParam-57830088	ELABCLONE
+surelog	testflags/FuncRetArray-14a47d74	ELABCLONE
+surelog	testflags/FuncStruct-31bc2ae5	ELABCLONE
+surelog	testflags/FuncStructVal-9244d8c4	ELABCLONE
+surelog	testflags/GenForStructParamBound-1a61c8d8	ELABCLONE
+surelog	testflags/GenScopeHierPath3-caa0b54e	ELABCLONE
+surelog	testflags/HierPathVarArray-d6631b65	ALIASFILE SCOPEDARRTD
+surelog	testflags/ImplicitPackedStructNet-4e21b792	ELABCLONE
+surelog	testflags/InterfArrayBind-a617199d	ELABCLONE
+surelog	testflags/InterfInst-312b5e8e	ELABCLONE
+surelog	testflags/InterfaceParamOverrideProp-6e27b174	ELABCLONE
+surelog	testflags/InterfaceUnpackedStructArrayDim-88aa9627	ELABCLONE
+surelog	testflags/JKFlipflop-8b0711ee	ELABCLONE
+surelog	testflags/Kmac-a415505d	ELABCLONE
+surelog	testflags/LocalScopeHierPath-d34532d7	ELABCLONE
+surelog	testflags/MiniAmiq-055eab74	PATD EMPTYCONN UNSIGNEDSPAN CALLSPAN REPLTSNAME ELABCLONE PUREVIRTSPAN TAGGEDSPAN DEFNETTP ALIASFILE SCOPEDARRTD PATHBASE CA NDA CLK PORT
+surelog	testflags/Moves-9676c034	NDA
+surelog	testflags/NoParamSubs-b0487a46	ELABCLONE
+surelog	testflags/NoReducTypespec-168324f1	PATHBASE
+surelog	testflags/OneNetInterf-21367662	ELABCLONE
+surelog	testflags/OneNetRange-1900349e	ELABCLONE
+surelog	testflags/PackStructField-9b438ed7	CA
+surelog	testflags/PackageParamConst-4974315e	CA
+surelog	testflags/PackedArrayEnum-003997b6	PATD
+surelog	testflags/PackedArrayTypespec-e9ff4e97	PATD
+surelog	testflags/ParamMultiConcat-55169edb	REPLTSNAME
+surelog	testflags/PortByName-3420ab2b	ELABCLONE
+surelog	testflags/Scr1SvTests-fa4609ad	EMPTYCONN PORT
+surelog	testflags/SeqDriver-65178d3a	PATD EMPTYCONN UNSIGNEDSPAN CALLSPAN REPLTSNAME ELABCLONE PUREVIRTSPAN TAGGEDSPAN DEFNETTP ALIASFILE SCOPEDARRTD PATHBASE CA NDA CLK PORT
+surelog	testflags/SequenceInst-78f5c2f9	CLK
+surelog	testflags/SignedBin-988aebc7	REPLTSNAME
+surelog	testflags/SimpleUVM-267de3ff	PATD EMPTYCONN UNSIGNEDSPAN CALLSPAN REPLTSNAME ELABCLONE PUREVIRTSPAN TAGGEDSPAN DEFNETTP ALIASFILE SCOPEDARRTD PATHBASE CA NDA CLK PORT
+surelog	testflags/SimplifyHierPath-51173264	ELABCLONE
+surelog	testflags/StringRange-029a76c3	CALLSPAN ELABCLONE
+surelog	testflags/StructParamFieldRange-2f684d9b	PATHBASE
+surelog	testflags/StructParamFuncBodyFieldCompare-8bdad600	PATHBASE
+surelog	testflags/StructParamPatternInitCast-cec842a1	PATHBASE
+surelog	testflags/TaggedPattern-af4dc720	TAGGEDSPAN
+surelog	testflags/TypeParam-1a539dcb	DEFNETTP
+surelog	testflags/TypeParamOverride-c0a84fee	ELABCLONE DEFNETTP
+surelog	testflags/TypedefUnpacked-a4942611	ALIASFILE SCOPEDARRTD
+surelog	testflags/TypespecExpr-b8bb0277	ELABCLONE
+surelog	testflags/UnionCast-b72b5775	ELABCLONE
+surelog	testflags/UnitElabBlock-b76c1b32	ELABCLONE
+surelog	testflags/UnpackedTypespec-06264492	PATD
+surelog	testflags/UnsizedFunc-c05fb8c3	ELABCLONE
+surelog	testflags/UnsizedParam-0e760a16	ELABCLONE
+surelog	testflags/VarRangeTypedef-2d2699bf	ALIASFILE
+surelog	testflags/YosysBigSimReed-85cba002	EMPTYCONN PORT
+surelog	testflags/YosysBigSimSoft-258834db	NDA
+surelog	testflags/YosysMarlann-3ea8d091	NDA
+surelog	testflags/YosysOldOpen-eb819af1	NDA PORT
+surelog	testflags/YosysOldOr-31ade310	EMPTYCONN NDA PORT
+surelog	testflags/YosysOldSimpleSpi-5a054804	NDA PORT
+surelog	testflags/YosysOldSpi-d6c354f8	PORT
+surelog	testflags/YosysRiscv-feee3eb7	NDA PORT
+uhdm2rtlil	default/AssignBitsCallToSubmoduleParameter-77c27c1a	PORT
+uhdm2rtlil	default/Clog2OfSumWithParameterIn2InstancesOfSubmodule-85e9f04e	CA
+uhdm2rtlil	default/ParameterColonReference-cbaefd4a	CA
+uhdm2rtlil	default/ReplicationPassedToInstance-8a0ceaf8	REPLTSNAME
+uhdm2rtlil	default/StructLocalParam-b3825289	CA
+uhdm2rtlil	default/StructParameter-ce053ead	CA
+uhdm2rtlil	default/TypedefVariableDimensions-a24472af	ALIASFILE SCOPEDARRTD
+uhdm2rtlil	default/array_assign-1c62b8e6	CA
+uhdm2rtlil	default/cdc_static_basic-c5392686	NDA
+uhdm2rtlil	default/cfg_func_width_loop-47633533	CALLSPAN
+uhdm2rtlil	default/const_func-83457085	CALLSPAN
+uhdm2rtlil	default/cva6_struct_param_field-7cd1ec7b	PATHBASE
+uhdm2rtlil	default/dff_different_styles-9cfc617b	PORT
+uhdm2rtlil	default/empty_port_connection-3f040a83	EMPTYCONN
+uhdm2rtlil	default/iface_array_elem_cfg_param-ed894f29	PATHBASE
+uhdm2rtlil	default/iface_cfg_mem-611eace5	PATHBASE
+uhdm2rtlil	default/iface_cfg_param_def_pass-eb6d6de5	PATHBASE
+uhdm2rtlil	default/iface_nested_param_field-f4e56e1c	PATHBASE
+uhdm2rtlil	default/iface_struct_field_param_width-8a3d916b	PATHBASE
+uhdm2rtlil	default/int_types-f7f4fc2b	UNSIGNEDSPAN
+uhdm2rtlil	default/param_type_logic_width-d43c5dcf	PORT
+uhdm2rtlil	default/partsel_simple-ce07b80c	NDA
+uhdm2rtlil	default/rsp_gen_minimal-7aea9937	PORT
+uhdm2rtlil	default/sat_asserts_seq-4c6db18e	NDA
+uhdm2rtlil	default/struct_member_cfg_width-1a008f7e	PATHBASE
+uhdm2rtlil	default/struct_param_field_shift-8eed4a85	PATHBASE
+uhdm2rtlil	default/struct_param_func_config-121ce6d3	PATHBASE
+uhdm2rtlil	default/struct_param_pattern_packing-65f665ea	CA
+uhdm2rtlil	default/struct_param_repl_count-ce255105	PATHBASE
+uhdm2rtlil	default/sva_counter-ad32697a	CLK
+uhdm2rtlil	default/sva_range-788c171f	CLK
+uhdm2rtlil	default/sva_throughout-ff6a7019	CLK
+uhdm2rtlil	default/sva_value_change_changed-95a47a47	CLK
+uhdm2rtlil	default/sva_value_change_changed_wide-5f5b3371	CLK
+uhdm2rtlil	default/sva_value_change_rose-b19edf5c	CLK
+uhdm2rtlil	default/unbased_unsized_param-bb715653	CA
+uhdm2rtlil	default/vector_index-473ee77b	NDA
+uhdm2rtlil	default/wandwor-16fa68ea	PORT
+uhdm2rtlil	testflags/AssignBitsCallToSubmoduleParameter-77c27c1a	PORT
+uhdm2rtlil	testflags/Clog2OfSumWithParameterIn2InstancesOfSubmodule-85e9f04e	CA
+uhdm2rtlil	testflags/ParameterColonReference-cbaefd4a	CA
+uhdm2rtlil	testflags/ReplicationPassedToInstance-8a0ceaf8	REPLTSNAME
+uhdm2rtlil	testflags/StructLocalParam-b3825289	CA
+uhdm2rtlil	testflags/StructParameter-ce053ead	CA
+uhdm2rtlil	testflags/TypedefVariableDimensions-a24472af	ALIASFILE SCOPEDARRTD
+uhdm2rtlil	testflags/array_assign-1c62b8e6	CA
+uhdm2rtlil	testflags/cdc_static_basic-c5392686	NDA
+uhdm2rtlil	testflags/cfg_func_width_loop-47633533	CALLSPAN
+uhdm2rtlil	testflags/const_func-83457085	CALLSPAN
+uhdm2rtlil	testflags/cva6_struct_param_field-7cd1ec7b	PATHBASE
+uhdm2rtlil	testflags/dff_different_styles-9cfc617b	PORT
+uhdm2rtlil	testflags/empty_port_connection-3f040a83	EMPTYCONN
+uhdm2rtlil	testflags/iface_array_elem_cfg_param-ed894f29	PATHBASE
+uhdm2rtlil	testflags/iface_cfg_mem-611eace5	PATHBASE
+uhdm2rtlil	testflags/iface_cfg_param_def_pass-eb6d6de5	PATHBASE
+uhdm2rtlil	testflags/iface_nested_param_field-f4e56e1c	PATHBASE
+uhdm2rtlil	testflags/iface_struct_field_param_width-8a3d916b	PATHBASE
+uhdm2rtlil	testflags/int_types-f7f4fc2b	UNSIGNEDSPAN
+uhdm2rtlil	testflags/param_type_logic_width-d43c5dcf	PORT
+uhdm2rtlil	testflags/partsel_simple-ce07b80c	NDA
+uhdm2rtlil	testflags/rsp_gen_minimal-7aea9937	PORT
+uhdm2rtlil	testflags/sat_asserts_seq-4c6db18e	NDA
+uhdm2rtlil	testflags/struct_member_cfg_width-1a008f7e	PATHBASE
+uhdm2rtlil	testflags/struct_param_field_shift-8eed4a85	PATHBASE
+uhdm2rtlil	testflags/struct_param_func_config-121ce6d3	PATHBASE
+uhdm2rtlil	testflags/struct_param_pattern_packing-65f665ea	CA
+uhdm2rtlil	testflags/struct_param_repl_count-ce255105	PATHBASE
+uhdm2rtlil	testflags/sva_counter-ad32697a	CLK
+uhdm2rtlil	testflags/sva_range-788c171f	CLK
+uhdm2rtlil	testflags/sva_throughout-ff6a7019	CLK
+uhdm2rtlil	testflags/sva_value_change_changed-95a47a47	CLK
+uhdm2rtlil	testflags/sva_value_change_changed_wide-5f5b3371	CLK
+uhdm2rtlil	testflags/sva_value_change_rose-b19edf5c	CLK
+uhdm2rtlil	testflags/unbased_unsized_param-bb715653	CA
+uhdm2rtlil	testflags/vector_index-473ee77b	NDA
+uhdm2rtlil	testflags/wandwor-16fa68ea	PORT

@@ -17,6 +17,7 @@
 #include <vector>
 
 namespace slang_uhdm {
+bool r11u137Law(const char* sw);
 
 // § classHandleRetTsNameUnlessSameHomeComponent156 — the HOME DESIGN COMPONENT
 // of a scope, keyed the way Surelog's class REGISTRY keys it
@@ -3216,6 +3217,48 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                                syntax::SyntaxKind::ClassMethodPrototype
                                ? psyn->parent->sourceRange()
                                : psyn->sourceRange());
+            // § pureVirtProtoSpan137 (r11u137) — golden's pure virtual
+            // TASK ends at its prototype (the `;` is not in it: 10:5-10:33
+            // for `pure virtual task door_fsm();`, ClassMini), and a pure
+            // virtual FUNCTION ends at its last qualifier (`pure virtual`,
+            // 3:5-3:17 for `pure virtual function int f();`), where ours
+            // spanned the whole ClassMethodPrototype with its `;`.  Grid
+            // tools/probe/r11u137repro/grid/pv.  Switch:
+            // R11U137_PUREVIRTSPAN_OFF.
+            if (auto psyn = mp.getSyntax(); psyn && r11u137Law("R11U137_PUREVIRTSPAN_OFF")) {
+                const syntax::ClassMethodPrototypeSyntax* cmp137 = nullptr;
+                if (psyn->kind == syntax::SyntaxKind::ClassMethodPrototype)
+                    cmp137 = &psyn->as<syntax::ClassMethodPrototypeSyntax>();
+                else if (psyn->parent &&
+                         psyn->parent->kind == syntax::SyntaxKind::ClassMethodPrototype)
+                    cmp137 = &psyn->parent->as<syntax::ClassMethodPrototypeSyntax>();
+                if (cmp137) {
+                    auto st137 = cmp137->sourceRange().start();
+                    if (mp.subroutineKind == SubroutineKind::Function) {
+                        // § pureVirtProtoSpan137, v11u137 refinement: the
+                        // end is the `virtual` keyword of
+                        // `pure virtual`, not a later qualifier (golden
+                        // 3:3-3:15 for `pure virtual protected function int
+                        // f();`, where the last qualifier read 3:25).
+                        // Switch: R11V137_PVQUAL_OFF.
+                        bool end137 = false;
+                        if (!getenv("R11V137_PVQUAL_OFF") && !getenv("R11V137_OFF"))
+                            for (auto q137 : cmp137->qualifiers)
+                                if (q137.kind == parsing::TokenKind::VirtualKeyword) {
+                                    end137 = true;
+                                    setLoc(pt, SourceRange(st137, q137.range().end()));
+                                    break;
+                                }
+                        if (!end137 && !cmp137->qualifiers.empty())
+                            setLoc(pt, SourceRange(st137, cmp137->qualifiers.back()
+                                                              .range()
+                                                              .end()));
+                    }
+                    else
+                        setLoc(pt, SourceRange(st137,
+                                               cmp137->prototype->sourceRange().end()));
+                }
+            }
             // § pureVirtRet10 — a PURE VIRTUAL function prototype still
             // carries its Return variable, anchored at the return-type token
             // with a ref_typespec to that type, exactly as a defined function

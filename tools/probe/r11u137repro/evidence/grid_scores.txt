@@ -1,0 +1,232 @@
+## grid/pa
+P pa01_mod_enum rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+P pa02_mod_struct rc=0 cmp=0 STRICT_EQUAL 71 objects |
+P pa03_mod_arr_of_arr rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=4 objects_differing=4
+P pa04_pkg_enum rc=0 cmp=166 NOT_EQUAL stage1 |
+P pa05_pkg_struct rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=8 objects_differing=8
+P pa06_mod_unused rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=2 objects_differing=2
+P pa07_iface rc=0 cmp=30 NOT_EQUAL stage1 |
+P pa08_sub_two_inst rc=0 cmp=17 NOT_EQUAL stage1 |
+P pa10_mod_2dim rc=0 cmp=30 NOT_EQUAL stage1 |
+P pa11_mod_assign rc=0 cmp=0 STRICT_EQUAL 124 objects |
+P pa12_pkg_two_importers rc=0 cmp=166 NOT_EQUAL stage1 |
+P pa13_pkg_no_import rc=0 cmp=74 NOT_EQUAL stage1 |
+P pa14_assign_other rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=5 objects_differing=5
+P pa15_pkg_assign rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=12 objects_differing=12
+P pa16_struct_anon_leaf rc=0 cmp=0 STRICT_NOTEQUAL col | fields: col=9 endcol=9 objects_differing=9
+P pa17_param_bound rc=0 cmp=36 NOT_EQUAL stage1 |
+L pa01_mod_enum rc=0 cmp=0 STRICT_EQUAL 61 objects |
+L pa02_mod_struct rc=0 cmp=0 STRICT_EQUAL 71 objects |
+L pa03_mod_arr_of_arr rc=0 cmp=0 STRICT_EQUAL 87 objects |
+L pa04_pkg_enum rc=0 cmp=166 NOT_EQUAL stage1 |
+L pa05_pkg_struct rc=0 cmp=0 STRICT_EQUAL 176 objects |
+L pa06_mod_unused rc=0 cmp=0 STRICT_EQUAL 45 objects |
+L pa07_iface rc=0 cmp=30 NOT_EQUAL stage1 |
+L pa08_sub_two_inst rc=0 cmp=17 NOT_EQUAL stage1 |
+L pa10_mod_2dim rc=0 cmp=30 NOT_EQUAL stage1 |
+L pa11_mod_assign rc=0 cmp=0 STRICT_EQUAL 124 objects |
+L pa12_pkg_two_importers rc=0 cmp=166 NOT_EQUAL stage1 |
+L pa13_pkg_no_import rc=0 cmp=74 NOT_EQUAL stage1 |
+L pa14_assign_other rc=0 cmp=0 STRICT_EQUAL 145 objects |
+L pa15_pkg_assign rc=0 cmp=0 STRICT_EQUAL 275 objects |
+L pa16_struct_anon_leaf rc=0 cmp=0 STRICT_NOTEQUAL col | fields: col=9 endcol=9 objects_differing=9
+L pa17_param_bound rc=0 cmp=36 NOT_EQUAL stage1 |
+## grid/bt
+P bt01_enum_bit_range rc=0 cmp=0 STRICT_EQUAL 30 objects |
+P bt02_enum_logic_range rc=0 cmp=0 STRICT_EQUAL 30 objects |
+P bt03_param_bit_unsigned rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=4 objects_differing=4
+P bt04_var_bit_unsigned_range rc=0 cmp=62 NOT_EQUAL stage1 |
+P bt05_enum_bit_unsigned rc=0 cmp=0 STRICT_EQUAL 30 objects |
+P bt06_enum_bit_noRange rc=0 cmp=0 STRICT_EQUAL 21 objects |
+P bt07_pkg_enum_bit rc=0 cmp=0 STRICT_EQUAL 52 objects |
+P bt08_logic_unsigned rc=0 cmp=0 STRICT_EQUAL 68 objects |
+P bt09_port_bit_unsigned rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=3 objects_differing=3
+P bt10_scalars_var rc=0 cmp=62 NOT_EQUAL stage1 |
+P bt11_scalars_param rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=8 objects_differing=8
+P bt12_struct_members rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=6 objects_differing=6
+P bt13_func_args rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+P bt14_pkg_enum_bit_nl rc=0 cmp=0 STRICT_EQUAL 52 objects |
+P bt15_pkg_enum_bit_incl rc=0 cmp=0 STRICT_EQUAL 56 objects |
+P bt16_two_pkgs_same_enum rc=0 cmp=0 STRICT_EQUAL 70 objects |
+P bt17_pkg_enum_bit_unused rc=0 cmp=0 STRICT_EQUAL 21 objects |
+P bt18_pkg_enum_logic_unused rc=0 cmp=0 STRICT_EQUAL 21 objects |
+P bt19_pkg_only_nomodule rc=0 cmp=0 STRICT_EQUAL 19 objects |
+P bt20_func_local rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=5 objects_differing=5 (walk diverged)
+P bt21_class_prop rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=2 objects_differing=2
+P bt22_iface_var rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=6 objects_differing=6
+P bt23_pkg_var rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=8 objects_differing=8
+P bt24_initial_local rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=4 objects_differing=4
+P bt25_task_args rc=0 cmp=0 STRICT_EQUAL 23 objects |
+L bt01_enum_bit_range rc=0 cmp=0 STRICT_EQUAL 30 objects |
+L bt02_enum_logic_range rc=0 cmp=0 STRICT_EQUAL 30 objects |
+L bt03_param_bit_unsigned rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=4 objects_differing=4
+L bt04_var_bit_unsigned_range rc=0 cmp=62 NOT_EQUAL stage1 |
+L bt05_enum_bit_unsigned rc=0 cmp=0 STRICT_EQUAL 30 objects |
+L bt06_enum_bit_noRange rc=0 cmp=0 STRICT_EQUAL 21 objects |
+L bt07_pkg_enum_bit rc=0 cmp=0 STRICT_EQUAL 52 objects |
+L bt08_logic_unsigned rc=0 cmp=0 STRICT_EQUAL 68 objects |
+L bt09_port_bit_unsigned rc=0 cmp=0 STRICT_EQUAL 45 objects |
+L bt10_scalars_var rc=0 cmp=62 NOT_EQUAL stage1 |
+L bt11_scalars_param rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=8 objects_differing=8
+L bt12_struct_members rc=0 cmp=0 STRICT_EQUAL 45 objects |
+L bt13_func_args rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: type=1 name=1 file=1 line=1 col=1 endline=1 endcol=3 decompile=1 size=1 value=1 consttype=1 objects_differing=3 (walk diverged)
+L bt14_pkg_enum_bit_nl rc=0 cmp=0 STRICT_EQUAL 52 objects |
+L bt15_pkg_enum_bit_incl rc=0 cmp=0 STRICT_EQUAL 56 objects |
+L bt16_two_pkgs_same_enum rc=0 cmp=0 STRICT_EQUAL 70 objects |
+L bt17_pkg_enum_bit_unused rc=0 cmp=0 STRICT_EQUAL 21 objects |
+L bt18_pkg_enum_logic_unused rc=0 cmp=0 STRICT_EQUAL 21 objects |
+L bt19_pkg_only_nomodule rc=0 cmp=0 STRICT_EQUAL 19 objects |
+L bt20_func_local rc=0 cmp=0 STRICT_NOTEQUAL depth | fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+L bt21_class_prop rc=0 cmp=0 STRICT_EQUAL 14 objects |
+L bt22_iface_var rc=0 cmp=0 STRICT_EQUAL 25 objects |
+L bt23_pkg_var rc=0 cmp=0 STRICT_EQUAL 33 objects |
+L bt24_initial_local rc=0 cmp=0 STRICT_EQUAL 31 objects |
+L bt25_task_args rc=0 cmp=0 STRICT_EQUAL 23 objects |
+## grid/ec
+P ec01_ansi_output rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+P ec02_ansi_input rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+P ec03_nonansi rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+P ec04_vector rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+P ec05_two_inst rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=2 col=2 endline=2 endcol=2 objects_differing=2
+P ec06_multi_decl rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=2 col=2 endline=2 endcol=2 objects_differing=2
+P ec07_omitted_control rc=0 cmp=0 STRICT_EQUAL 87 objects |
+P ec08_positional_empty rc=0 cmp=0 STRICT_EQUAL 87 objects |
+L ec01_ansi_output rc=0 cmp=0 STRICT_EQUAL 89 objects |
+L ec02_ansi_input rc=0 cmp=0 STRICT_EQUAL 82 objects |
+L ec03_nonansi rc=0 cmp=0 STRICT_EQUAL 89 objects |
+L ec04_vector rc=0 cmp=0 STRICT_EQUAL 134 objects |
+L ec05_two_inst rc=0 cmp=0 STRICT_EQUAL 132 objects |
+L ec06_multi_decl rc=0 cmp=0 STRICT_EQUAL 110 objects |
+L ec07_omitted_control rc=0 cmp=0 STRICT_EQUAL 87 objects |
+L ec08_positional_empty rc=0 cmp=0 STRICT_EQUAL 87 objects |
+## grid/fc
+P fc01_genif_cond rc=0 cmp=125 NOT_EQUAL stage1 |
+P fc02_port_range_pkg rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=2 objects_differing=2
+P fc03_port_range_local rc=0 cmp=0 STRICT_EQUAL 95 objects |
+P fc04_net_range rc=0 cmp=0 STRICT_EQUAL 55 objects |
+P fc05_ca_rhs rc=0 cmp=0 STRICT_EQUAL 56 objects |
+P fc06_localparam rc=0 cmp=0 STRICT_EQUAL 68 objects |
+P fc07_genfor_cond rc=0 cmp=125 NOT_EQUAL stage1 |
+P fc08_gencase rc=0 cmp=125 NOT_EQUAL stage1 |
+P fc09_genif_pkg rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P fc10_genif_param_cond rc=0 cmp=125 NOT_EQUAL stage1 |
+P fc11_genif_nested rc=0 cmp=125 NOT_EQUAL stage1 |
+P fc12_genif_elseif rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P fc13_genif_import rc=0 cmp=125 NOT_EQUAL stage1 |
+P fc14_genif_pkg_param rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P fc15_genif_in_genfor rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P fc16_var_range_pkg rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: file=1 line=1 col=1 endline=1 endcol=5 objects_differing=5
+L fc01_genif_cond rc=0 cmp=125 NOT_EQUAL stage1 |
+L fc02_port_range_pkg rc=0 cmp=0 STRICT_EQUAL 83 objects |
+L fc03_port_range_local rc=0 cmp=0 STRICT_EQUAL 95 objects |
+L fc04_net_range rc=0 cmp=0 STRICT_EQUAL 55 objects |
+L fc05_ca_rhs rc=0 cmp=0 STRICT_EQUAL 56 objects |
+L fc06_localparam rc=0 cmp=0 STRICT_EQUAL 68 objects |
+L fc07_genfor_cond rc=0 cmp=125 NOT_EQUAL stage1 |
+L fc08_gencase rc=0 cmp=125 NOT_EQUAL stage1 |
+L fc09_genif_pkg rc=0 cmp=0 STRICT_EQUAL 66 objects |
+L fc10_genif_param_cond rc=0 cmp=125 NOT_EQUAL stage1 |
+L fc11_genif_nested rc=0 cmp=125 NOT_EQUAL stage1 |
+L fc12_genif_elseif rc=0 cmp=0 STRICT_EQUAL 87 objects |
+L fc13_genif_import rc=0 cmp=125 NOT_EQUAL stage1 |
+L fc14_genif_pkg_param rc=0 cmp=0 STRICT_EQUAL 76 objects |
+L fc15_genif_in_genfor rc=0 cmp=0 STRICT_EQUAL 95 objects |
+L fc16_var_range_pkg rc=0 cmp=0 STRICT_NOTEQUAL file | fields: file=1 line=1 col=1 endline=1 endcol=1 objects_differing=1
+## grid/rc
+P rc01_repl rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=1 objects_differing=1
+P rc02_repl_concat rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=1 objects_differing=1
+P rc03_repl_nested rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=1 objects_differing=1
+P rc04_repl_positional rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=1 objects_differing=1
+L rc01_repl rc=0 cmp=0 STRICT_EQUAL 88 objects |
+L rc02_repl_concat rc=0 cmp=0 STRICT_EQUAL 88 objects |
+L rc03_repl_nested rc=0 cmp=0 STRICT_EQUAL 115 objects |
+L rc04_repl_positional rc=0 cmp=0 STRICT_EQUAL 88 objects |
+## grid/pv
+P pv01_task_noargs rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P pv02_task_args rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P pv03_func_noargs rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P pv04_func_args rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P pv05_task_noparen rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P pv06_pkg_task rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+L pv01_task_noargs rc=0 cmp=0 STRICT_EQUAL 5 objects |
+L pv02_task_args rc=0 cmp=0 STRICT_EQUAL 11 objects |
+L pv03_func_noargs rc=0 cmp=0 STRICT_EQUAL 8 objects |
+L pv04_func_args rc=0 cmp=0 STRICT_EQUAL 8 objects |
+L pv05_task_noparen rc=0 cmp=0 STRICT_EQUAL 5 objects |
+L pv06_pkg_task rc=0 cmp=0 STRICT_EQUAL 7 objects |
+## grid/tg
+P tg01_top rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=1 objects_differing=1
+P tg02_sub rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=3 objects_differing=3
+P tg03_plain_union_ctl rc=0 cmp=0 STRICT_EQUAL 45 objects |
+P tg04_tagged_void rc=0 cmp=20 NOT_EQUAL stage1 |
+L tg01_top rc=0 cmp=0 STRICT_EQUAL 58 objects |
+L tg02_sub rc=0 cmp=0 STRICT_NOTEQUAL endcol | fields: endcol=2 objects_differing=2
+L tg03_plain_union_ctl rc=0 cmp=0 STRICT_EQUAL 45 objects |
+L tg04_tagged_void rc=0 cmp=20 NOT_EQUAL stage1 |
+## grid/tn
+P tn01_int_override rc=0 cmp=0 STRICT_NOTEQUAL type | fields: type=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+P tn02_no_override rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+P tn03_struct_override rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=2 col=2 endline=2 endcol=2 objects_differing=2
+P tn04_unpacked_dim rc=0 cmp=0 STRICT_NOTEQUAL endline | fields: type=1 line=1 col=1 endline=1 endcol=1 objects_differing=2 (walk diverged)
+P tn05_two_nets rc=0 cmp=0 STRICT_NOTEQUAL type | fields: type=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+P tn06_top_tp rc=0 cmp=0 STRICT_EQUAL 13 objects |
+P tn07_init rc=0 cmp=36 NOT_EQUAL stage1 |
+P tn08_iface rc=0 cmp=0 STRICT_NOTEQUAL type | fields: type=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)
+L tn01_int_override rc=0 cmp=0 STRICT_EQUAL 32 objects |
+L tn02_no_override rc=0 cmp=0 STRICT_EQUAL 18 objects |
+L tn03_struct_override rc=0 cmp=0 STRICT_EQUAL 57 objects |
+L tn04_unpacked_dim rc=0 cmp=0 STRICT_EQUAL 24 objects |
+L tn05_two_nets rc=0 cmp=0 STRICT_EQUAL 53 objects |
+L tn06_top_tp rc=0 cmp=0 STRICT_EQUAL 13 objects |
+L tn07_init rc=0 cmp=36 NOT_EQUAL stage1 |
+L tn08_iface rc=0 cmp=0 STRICT_NOTEQUAL line | fields: line=1 col=1 endline=1 endcol=1 objects_differing=1
+## grid/af
+P af01_pkg rc=0 cmp=0 STRICT_NOTEQUAL file | fields: type=1 name=1 file=1 objects_differing=2 (walk diverged)
+P af02_pkg_unused rc=0 cmp=0 STRICT_NOTEQUAL file | fields: file=1 objects_differing=1
+P af03_module rc=0 cmp=0 STRICT_EQUAL 56 objects |
+P af04_pkg_import rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=4 file=4 objects_differing=8
+L af01_pkg rc=0 cmp=0 STRICT_EQUAL 59 objects |
+L af02_pkg_unused rc=0 cmp=0 STRICT_EQUAL 27 objects |
+L af03_module rc=0 cmp=0 STRICT_EQUAL 56 objects |
+L af04_pkg_import rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=4 objects_differing=4
+## grid/sa
+P sa01_struct_elem rc=0 cmp=0 STRICT_NOTEQUAL file | fields: type=1 name=1 file=1 objects_differing=2 (walk diverged)
+P sa02_logic_elem rc=0 cmp=85 NOT_EQUAL stage1 |
+P sa03_import_ctl rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: type=1 name=1 fullname=2 file=2 objects_differing=5 (walk diverged)
+P sa04_unused_net rc=0 cmp=0 STRICT_NOTEQUAL file | fields: type=1 name=1 file=1 objects_differing=2 (walk diverged)
+P sa05_sub rc=0 cmp=0 STRICT_NOTEQUAL file | fields: type=1 name=1 file=1 objects_differing=2 (walk diverged)
+L sa01_struct_elem rc=0 cmp=0 STRICT_EQUAL 96 objects |
+L sa02_logic_elem rc=0 cmp=85 NOT_EQUAL stage1 |
+L sa03_import_ctl rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: type=1 name=1 fullname=2 objects_differing=3 (walk diverged)
+L sa04_unused_net rc=0 cmp=0 STRICT_EQUAL 59 objects |
+L sa05_sub rc=0 cmp=0 STRICT_EQUAL 114 objects |
+## grid/hb
+P hb01_mod_range rc=0 cmp=0 STRICT_NOTEQUAL col | fields: col=1 endcol=1 objects_differing=1
+P hb02_iface_range rc=0 cmp=0 STRICT_NOTEQUAL col | fields: col=2 endcol=2 objects_differing=2
+P hb03_three_level rc=0 cmp=0 STRICT_NOTEQUAL col | fields: col=1 endcol=1 objects_differing=1
+P hb04_genif rc=0 cmp=0 STRICT_NOTEQUAL col | fields: fullname=1 col=1 endcol=1 objects_differing=2
+P hb05_plain_member_rhs_ctl rc=0 cmp=0 STRICT_NOTEQUAL count | fields: objects_differing=0
+P hb06_localparam rc=0 cmp=0 STRICT_EQUAL 93 objects |
+P hb07_port_range rc=0 cmp=0 STRICT_NOTEQUAL col | fields: fullname=2 col=4 endcol=4 objects_differing=6
+L hb01_mod_range rc=0 cmp=0 STRICT_EQUAL 75 objects |
+L hb02_iface_range rc=0 cmp=0 STRICT_EQUAL 108 objects |
+L hb03_three_level rc=0 cmp=0 STRICT_EQUAL 109 objects |
+L hb04_genif rc=0 cmp=0 STRICT_EQUAL 90 objects |
+L hb05_plain_member_rhs_ctl rc=0 cmp=0 STRICT_EQUAL 80 objects |
+L hb06_localparam rc=0 cmp=0 STRICT_EQUAL 93 objects |
+L hb07_port_range rc=0 cmp=0 STRICT_NOTEQUAL col | fields: fullname=2 col=2 endcol=2 objects_differing=4
+## grid/eb (--elabuhdm on both sides)
+P eb01_sub_process rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=3 objects_differing=3
+P eb02_func_local_array rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=1 objects_differing=1
+P eb03_pkg_func rc=0 cmp=0 STRICT_EQUAL 61 objects |
+P eb04_sub_func rc=0 cmp=36 NOT_EQUAL stage1 |
+P eb05_two_inst_ca rc=0 cmp=0 STRICT_EQUAL 106 objects |
+P eb06_named_begin rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=7 objects_differing=7
+P eb07_task_sub rc=0 cmp=0 STRICT_NOTEQUAL fullname | fields: fullname=7 objects_differing=7
+L eb01_sub_process rc=0 cmp=0 STRICT_EQUAL 70 objects |
+L eb02_func_local_array rc=0 cmp=0 STRICT_EQUAL 100 objects |
+L eb03_pkg_func rc=0 cmp=0 STRICT_EQUAL 61 objects |
+L eb04_sub_func rc=0 cmp=36 NOT_EQUAL stage1 |
+L eb05_two_inst_ca rc=0 cmp=0 STRICT_EQUAL 106 objects |
+L eb06_named_begin rc=0 cmp=0 STRICT_EQUAL 82 objects |
+L eb07_task_sub rc=0 cmp=0 STRICT_EQUAL 88 objects |

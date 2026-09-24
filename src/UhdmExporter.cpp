@@ -79,6 +79,16 @@ bool r11u134Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// ===== r11u137 — the module/type ground on the strict axis, third round =====
+// Every r11u137 law sits behind its own switch; R11U137_OFF drops them all
+// and restores the pristine bytes.  Switch names (each droppable alone) are
+// listed at each law's site; the table is tools/probe/r11u137repro/README.md.
+bool r11u137Law(const char* sw) {
+    if (getenv("R11U137_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 
@@ -380,12 +390,19 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s) {
     const bool caUnparent = r11u134Law("R11U134_CAUNPARENT_OFF");
     if (!d || (!lastWriter && !caUnparent))
         return;
+    // § packedArrTdElemRefName137 — writeDataTypes (setParent) and
+    // writeCont_assign's unparenting act on EVERY typespec kind: a named
+    // packed-array typedef (`typedef e_t [3:0] ea_t;`) follows the same
+    // last-writer / unparent model (law and decode at
+    // packedArrTdElemRefName137 below).  Switch: R11U137_PATD_OFF.
+    static const bool pa137 = r11u137Law("R11U137_PATD_OFF");
     auto named = [](const UHDM::BaseClass* t) {
         if (!t)
             return false;
         auto k = t->UhdmType();
         return (k == UHDM::uhdmstruct_typespec || k == UHDM::uhdmunion_typespec ||
-                k == UHDM::uhdmenum_typespec) &&
+                k == UHDM::uhdmenum_typespec ||
+                (pa137 && k == UHDM::uhdmpacked_array_typespec)) &&
                !t->VpiName().empty();
     };
     auto key = [](const UHDM::BaseClass* t) {
@@ -722,6 +739,194 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s) {
     }
     for (auto& [t, p] : moving)
         const_cast<UHDM::BaseClass*>(t)->VpiParent(p);
+}
+
+// § packedArrTdElemRefName137 (r11u137) — a NAMED packed-array typedef over
+// a typedef (`typedef dec_lc_state_e [17:0] ext_dec_lc_state_t;`,
+// PackedArrayEnum / PackedArrayTypespec / UnpackedTypespec) holds its element
+// as a ref_typespec on which Surelog stores no full name: the name is
+// BaseClass::ComputeFullName over the typedef's FINAL parent chain, and the
+// typedef object's parent is set by UhdmWriter::writeDataTypes (setParent) for
+// every typespec kind of every package, program, interface and module map,
+// and cleared by writeCont_assign when an assignment's LHS is typed by it
+// (§ typedefParentLastWriter134 / § contAssignLhsTsUnparented134, extended to
+// packed arrays in typedefParentModel134).  Golden: `work@top.ea_t` in a
+// module (ours stored the bare `ea_t`), `work@top.p::sa_t` for a package
+// typedef its importer wrote last (ours `p::p::sa_t`), the bare `ea_t` when a
+// continuous assignment unparents it.  The law renames every ref_typespec /
+// ref_obj below a named packed-array typedef whose current full name ends
+// with its chain tail to the name its final chain gives.  Grid
+// tools/probe/r11u137repro/grid/pa.  Switch: R11U137_PATD_OFF.
+static void packedArrTdElemRefName137(UHDM::design* d, UHDM::Serializer& s) {
+    if (!d || !r11u137Law("R11U137_PATD_OFF"))
+        return;
+    std::set<const UHDM::BaseClass*> tds;
+    auto listOf = [&](const UHDM::VectorOftypespec* v) {
+        if (v)
+            for (auto* t : *v)
+                if (t->UhdmType() == UHDM::uhdmpacked_array_typespec &&
+                    !t->VpiName().empty())
+                    tds.insert(t);
+    };
+    if (auto* v = d->AllPackages())
+        for (auto* p : *v)
+            listOf(p->Typespecs());
+    if (auto* v = d->TopPackages())
+        for (auto* p : *v)
+            listOf(p->Typespecs());
+    if (auto* v = d->AllPrograms())
+        for (auto* p : *v)
+            listOf(p->Typespecs());
+    if (auto* v = d->AllInterfaces())
+        for (auto* p : *v)
+            listOf(p->Typespecs());
+    if (auto* v = d->AllModules())
+        for (auto* p : *v)
+            listOf(p->Typespecs());
+    if (tds.empty())
+        return;
+    auto linkName = [](const UHDM::BaseClass* a,
+                       const UHDM::BaseClass* child) -> std::string_view {
+        const UHDM::BaseClass* ap = a->VpiParent();
+        auto t = a->UhdmType();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    t == UHDM::uhdmmethod_func_call ||
+                    t == UHDM::uhdmmethod_task_call || t == UHDM::uhdmfunc_call ||
+                    t == UHDM::uhdmtask_call || t == UHDM::uhdmsys_func_call ||
+                    t == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && t == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (t == UHDM::uhdmbit_select || t == UHDM::uhdmindexed_part_select ||
+                 t == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (skip)
+            return {};
+        return a->VpiName().empty() ? a->VpiDefName() : a->VpiName();
+    };
+    // ComputeFullName (the module_inst-under-module_inst case aside, which a
+    // typespec chain never starts with), optionally stopping at `own`.
+    auto chain = [&](const UHDM::BaseClass* x, const UHDM::BaseClass* own,
+                     bool tailOnly, const char* tailSep) {
+        std::vector<std::string_view> names;
+        bool column = false;
+        const UHDM::BaseClass* child = nullptr;
+        for (const UHDM::BaseClass* a = x; a; child = a, a = a->VpiParent()) {
+            auto t = a->UhdmType();
+            if (t == UHDM::uhdmdesign)
+                break;
+            if (t == UHDM::uhdmpackage || t == UHDM::uhdmclass_defn)
+                column = true;
+            auto nm = linkName(a, child);
+            if (!nm.empty())
+                names.push_back(nm);
+            if (tailOnly && a == own)
+                break;
+        }
+        const char* sep = tailOnly ? tailSep : (column ? "::" : ".");
+        std::string out;
+        for (auto it = names.rbegin(); it != names.rend(); ++it) {
+            if (!out.empty())
+                out += sep;
+            out += *it;
+        }
+        return out;
+    };
+    auto endsAt = [](const std::string& full, const std::string& tail) {
+        if (tail.empty())
+            return false;
+        if (full == tail)
+            return true;
+        if (full.size() <= tail.size() ||
+            full.compare(full.size() - tail.size(), tail.size(), tail) != 0)
+            return false;
+        char c = full[full.size() - tail.size() - 1];
+        return c == '.' || c == ':';
+    };
+    std::vector<UHDM::BaseClass*> all;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o->UhdmType() == UHDM::uhdmref_typespec ||
+            o->UhdmType() == UHDM::uhdmref_obj)
+            all.push_back(o);
+    }
+    std::sort(all.begin(), all.end(),
+              [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    std::vector<std::pair<UHDM::BaseClass*, std::string>> renames;
+    for (auto* o : all) {
+        // The nearest typespec ancestor that is a named packed-array
+        // typedef, with no other named typespec in between.
+        const UHDM::BaseClass* own = nullptr;
+        for (auto* a = o->VpiParent(); a; a = a->VpiParent()) {
+            if (tds.count(a)) {
+                own = a;
+                break;
+            }
+            auto k = a->UhdmType();
+            if (k == UHDM::uhdmdesign || k == UHDM::uhdmmodule_inst ||
+                k == UHDM::uhdmpackage || k == UHDM::uhdminterface_inst ||
+                ((k == UHDM::uhdmstruct_typespec || k == UHDM::uhdmunion_typespec ||
+                  k == UHDM::uhdmenum_typespec) &&
+                 !a->VpiName().empty()))
+                break;
+        }
+        if (!own)
+            continue;
+        std::string cur = o->UhdmType() == UHDM::uhdmref_typespec
+                              ? std::string(((UHDM::ref_typespec*)o)->VpiFullName())
+                              : std::string(((UHDM::ref_obj*)o)->VpiFullName());
+        if (!endsAt(cur, chain(o, own, true, ".")) &&
+            !endsAt(cur, chain(o, own, true, "::")))
+            continue;
+        std::string nf = chain(o, nullptr, false, ".");
+        if (!nf.empty() && nf != cur)
+            renames.push_back({o, nf});
+    }
+    for (auto& [o, nm] : renames) {
+        if (o->UhdmType() == UHDM::uhdmref_typespec)
+            ((UHDM::ref_typespec*)o)->VpiFullName(nm);
+        else
+            ((UHDM::ref_obj*)o)->VpiFullName(nm);
+    }
+}
+
+// § aliasCloneTakesTargetFile137 (r11u137) — a typedef-alias CLONE of a
+// struct/union/enum typedef (the named copy an array typedef's element
+// points at, `typedef a b[5:0];`) copies its span from the shared typedef
+// before that object is stamped with its file, so it read 2:12-4:5 without
+// a file where golden's copy reads dut.sv (VarRangeTypedef).  At the end of
+// the export the clone takes the file of its Typedef_alias target when its
+// span is the target's.  Grid tools/probe/r11u137repro/grid/af.  Switch:
+// R11U137_ALIASFILE_OFF.
+static void aliasCloneTakesTargetFile137(UHDM::Serializer& s) {
+    if (!r11u137Law("R11U137_ALIASFILE_OFF"))
+        return;
+    std::vector<UHDM::typespec*> fix;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        auto k = o->UhdmType();
+        if (k != UHDM::uhdmstruct_typespec && k != UHDM::uhdmunion_typespec &&
+            k != UHDM::uhdmenum_typespec)
+            continue;
+        auto* t = (UHDM::typespec*)o;
+        if (!t->VpiFile().empty() || t->VpiLineNo() == 0 || t->VpiName().empty())
+            continue;
+        auto* al = t->Typedef_alias();
+        if (!al || !al->Actual_typespec())
+            continue;
+        auto* tg = al->Actual_typespec();
+        if (tg->VpiFile().empty() || tg->VpiLineNo() != t->VpiLineNo() ||
+            tg->VpiColumnNo() != t->VpiColumnNo())
+            continue;
+        fix.push_back(t);
+    }
+    for (auto* t : fix)
+        t->VpiFile(t->Typedef_alias()->Actual_typespec()->VpiFile());
 }
 
 static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s) {
@@ -10828,6 +11033,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § typedefParentLastWriter134 / § contAssignLhsTsUnparented134 — after
     // every typespec and name exists (law and decode at the function).
     typedefParentModel134(d, s);
+    // § packedArrTdElemRefName137 — after the parent model (law and decode
+    // at the function).
+    packedArrTdElemRefName137(d, s);
+    // § aliasCloneTakesTargetFile137 (law and decode at the function).
+    aliasCloneTakesTargetFile137(s);
     // § pkgTsRefObjChainName134 (law and decode at the function).
     pkgTsRefObjChainName134(s);
     // § tsHierPathElemNoName134 (law and decode at the function).

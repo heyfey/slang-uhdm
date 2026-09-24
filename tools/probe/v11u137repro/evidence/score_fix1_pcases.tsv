@@ -1,0 +1,6 @@
+p01_protected_func	L:rc=0 cmp=0 STRICT_EQUAL 8 objects 
+p02_local_func	L:rc=0 cmp=61 NOT_EQUAL stage1 
+p03_plain_func	L:rc=0 cmp=0 STRICT_EQUAL 8 objects 
+p04_protected_task	L:rc=0 cmp=0 STRICT_EQUAL 5 objects 
+p05_protected_void_args	L:rc=0 cmp=0 STRICT_EQUAL 11 objects 
+p06_spaced	L:rc=0 cmp=0 STRICT_EQUAL 8 objects 

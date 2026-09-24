@@ -16,6 +16,7 @@ namespace slang_uhdm {
 // r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
 bool r11u130Law(const char* sw);
 bool r11u134Law(const char* sw);
+bool r11u137Law(const char* sw);
 
 // § suSigningNotInSpan130 (r11u130) — AN INLINE PACKED STRUCT/UNION'S
 // DEFINITION-VIEW TYPESPEC ENDS AT `packed`, NEVER AT A SIGNING KEYWORD.
@@ -2730,6 +2731,58 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     range = sr;
                     explicitType = true;
                 }
+                // § unsignedScalarVecTsAtKeyword137 (r11u137) — a SCALAR
+                // `bit unsigned` / `logic unsigned` / `reg unsigned` typespec
+                // ends at its KEYWORD.  CompileType's builtin arms populate
+                // (type, isSigned ? sign : type): the bit arm spans the
+                // `signed` keyword only, and the logic/reg default arm the
+                // keyword alone; only packed dimensions extend the end (the
+                // "Include the ranges in the location information" populate).
+                // Golden 6:13-6:16 for `parameter bit unsigned x_1b0` where
+                // ours read the whole `bit unsigned` (GenCase, GenCaseStmt,
+                // PreprocTest).  The `int unsigned` family ends at the
+                // signing (its arm is reversed) and stays.  Grid
+                // tools/probe/r11u137repro/grid/bt.  Switch:
+                // R11U137_UNSIGNEDSPAN_OFF.  A subroutine FORMAL and the
+                // function's return type take the whole `bit unsigned`
+                // (compileTfCallArgs / the return-type path populate the data
+                // type node: grid bt13, bt25), so they keep the old span;
+                // function and block locals take the keyword (bt20, bt24).
+                bool tfSig137 = declSymbol.kind == SymbolKind::FormalArgument ||
+                                declSymbol.kind == SymbolKind::Subroutine;
+                if (!tfSig137 && declSymbol.kind == SymbolKind::Variable)
+                    if (auto* ps137 = declSymbol.getParentScope();
+                        ps137 && ps137->asSymbol().kind == SymbolKind::Subroutine &&
+                        ps137->asSymbol().as<SubroutineSymbol>().returnValVar ==
+                            &declSymbol)
+                        tfSig137 = true;
+                // § unsignedScalarVecTsAtKeyword137, v11u137 refinement: a
+                // BODY NET declaration with an explicit net type
+                // (`wire logic unsigned w;`, `tri logic unsigned t;`) keeps
+                // the whole `logic unsigned` in the DEFINITION view (golden
+                // 3:8-3:22 under the definition module, 3:8-3:13 under the
+                // elaborated one); a port and a variable take the keyword in
+                // both.  defNetTsScope is set only while the definition
+                // view's net typespec is built.  Switch:
+                // R11V137_DEFWIRE_OFF.
+                bool defBodyNet137 = false;
+                if (defNetTsScope && !portCtx && declSymbol.kind == SymbolKind::Net &&
+                    !getenv("R11V137_DEFWIRE_OFF") && !getenv("R11V137_OFF"))
+                    if (auto ds137 = declSymbol.getSyntax();
+                        ds137 && ds137->parent &&
+                        ds137->parent->kind == syntax::SyntaxKind::NetDeclaration)
+                        defBodyNet137 = true;
+                if (explicitType && !tfSig137 && !defBodyNet137 &&
+                    syntax::IntegerTypeSyntax::isKind(tsyn->kind) &&
+                    r11u137Law("R11U137_UNSIGNEDSPAN_OFF")) {
+                    auto& its137 = tsyn->as<syntax::IntegerTypeSyntax>();
+                    if ((tsyn->kind == syntax::SyntaxKind::BitType ||
+                         tsyn->kind == syntax::SyntaxKind::LogicType ||
+                         tsyn->kind == syntax::SyntaxKind::RegType) &&
+                        its137.signing.kind == parsing::TokenKind::UnsignedKeyword &&
+                        its137.dimensions.empty())
+                        range = its137.keyword.range();
+                }
             }
         }
     }
@@ -3731,6 +3784,17 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         e = su->signing.range().end();
                     setLoc(uts, SourceRange(su->keyword.range().start(), e));
                 }
+                // § taggedUnionElabSpan137 (r11u137) — the ELAB (net-bound)
+                // object of a `union tagged packed` spans `union tagged`
+                // (golden 3:2-3:14, TaggedPattern; ours the `union` keyword):
+                // the node after the keyword is `tagged`.  Grid
+                // tools/probe/r11u137repro/grid/tg.  Switch:
+                // R11U137_TAGGEDSPAN_OFF.
+                else if (su->taggedOrSoft &&
+                         su->taggedOrSoft.kind == parsing::TokenKind::TaggedKeyword &&
+                         r11u137Law("R11U137_TAGGEDSPAN_OFF"))
+                    setLoc(uts, SourceRange(su->keyword.range().start(),
+                                            su->taggedOrSoft.range().end()));
                 else
                     setLoc(uts, su->keyword.range());
             }
@@ -17583,7 +17647,30 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // TYPE-BOUND contexts anchor at the callee NAME token; expression
             // contexts keep the full call span (Surelog) — except the
             // qualified package call above, which anchors at its qualifier.
-            if (boundCallNameSpan)
+            // § constCallNameSpan137 (r11u137) — a call compiled as a
+            // CONSTANT expression (a typespec range bound, and an if-generate
+            // CONDITION) is located at its callee node: the NAME for a plain
+            // call (golden `flip` 12:13-12:17 in `if (flip(OUTPUT) == ...)`,
+            // const_func / StringRange, where ours spanned the whole call),
+            // and the PACKAGE SCOPE node `q::` for a qualified one (golden
+            // 39:19-39:22 for `[q::maxw(M)-1:0]`, cfg_func_width_loop, where
+            // ours read `q::maxw`; and `q::` in a condition where ours read
+            // `q`).  A statement inside a generate block keeps the qualifier
+            // alone (§ defGenQualPkgCallBinds18, fc18).  Grid
+            // tools/probe/r11u137repro/grid/fc.  Switch: R11U137_CALLSPAN_OFF.
+            static const bool cc137 = r11u137Law("R11U137_CALLSPAN_OFF");
+            const syntax::ScopedNameSyntax* qsn137 =
+                inv.left->kind == syntax::SyntaxKind::ScopedName
+                    ? &inv.left->as<syntax::ScopedNameSyntax>()
+                    : nullptr;
+            if (cc137 && (boundCallNameSpan || genCondImportFold9)) {
+                if (qsn137 && qsn137->left && qsn137->separator)
+                    setLoc(fc, SourceRange(qsn137->left->sourceRange().start(),
+                                           qsn137->separator.range().end()));
+                else
+                    setLoc(fc, inv.left->sourceRange());
+            }
+            else if (boundCallNameSpan)
                 setLoc(fc, inv.left->sourceRange());
             else if (qualPkgTok18)
                 setLoc(fc, qualPkgTok18->sourceRange());
@@ -18388,6 +18475,33 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     nameParts9.clear();
             }
             bool genVarBaseEmitted = false;
+            // § structParamPathBaseAtMember137 (r11u137) — is the BASE of
+            // this member path a value PARAMETER (`CFG.DAT`, CFG a struct
+            // parameter)?  Law and grid at the element loop below.  Switch:
+            // R11U137_PATHBASE_OFF.
+            // Only a CONSTANT context places it so: a typespec range bound
+            // (the path's parent chain reaches a `range` through its
+            // operations) or an if-generate condition; a statement inside a
+            // generate block keeps the base at its own token (probe
+            // r11v22repro/adv/v03 `assign o = (PS.x == 8'd1) ? ...` stays).
+            bool constCtx137 = genCondImportFold9;
+            for (auto* a137 = (const UHDM::BaseClass*)parent; a137 && !constCtx137;
+                 a137 = a137->VpiParent()) {
+                auto k137 = a137->UhdmType();
+                if (k137 == UHDM::uhdmrange)
+                    constCtx137 = true;
+                else if (k137 != UHDM::uhdmoperation)
+                    break;
+            }
+            bool paramBase137 = false;
+            if (constCtx137 && parts.size() >= 2 &&
+                parts[0].first.find('[') == std::string::npos &&
+                r11u137Law("R11U137_PATHBASE_OFF")) {
+                const Scope* sc137 = currentScope ? currentScope : defNetTsScope;
+                if (sc137)
+                    if (auto* bs137 = sc137->lookupName(parts[0].first))
+                        paramBase137 = bs137->kind == SymbolKind::Parameter;
+            }
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, off] = parts[i];
                 dottedSoFar += (i == 0 ? pname : "." + pname);
@@ -18706,6 +18820,13 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     // A gen-scope modport-array member path gives the LEAF the
                     // RAW dotted fullname (Surelog).
                     r->VpiFullName(raw);
+                // § structParamPathBaseAtMember137 — ...and the LEAF of a
+                // member path over a value parameter carries no scoped name
+                // (golden bare `ADR` where ours wrote `work@top.i.ADR` in the
+                // part-select bound `i[CFG.ADR-1:0]`, and `work@top.DAT` in an
+                // if-generate condition; grid hb04, hb07).
+                else if (i + 1 == parts.size() && paramBase137)
+                    r->VpiFullName(pname);
                 else if (i + 1 == parts.size() && !syntaxRefPrefix.empty())
                     r->VpiFullName(syntaxRefPrefix + "." + pname);
                 else
@@ -18714,6 +18835,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     r->VpiFullName(pname);
                 r->VpiParent(hp);
                 setLoc(r, SourceRange(exprStart + off, exprStart + off + pname.size()));
+                // § structParamPathBaseAtMember137 (r11u137) — the BASE of a
+                // member path over a value PARAMETER (`CFG.DAT` with CFG a
+                // struct parameter) in a typespec range or an if-generate
+                // condition is located at the NEXT component's token: golden
+                // 14:14-14:17 (`DAT`) for the `CFG` element of
+                // `logic [CFG.DAT-1:0] data;` where ours read `CFG` 14:10
+                // (iface_cfg_param_def_pass, iface_array_elem_cfg_param;
+                // pass-131 residue 2).  Three levels take the second
+                // component (`CFG.I.W` -> `I`).  Grid
+                // tools/probe/r11u137repro/grid/hb.  Switch:
+                // R11U137_PATHBASE_OFF.
+                if (i == 0 && paramBase137 &&
+                    parts[1].first.find('[') == std::string::npos) {
+                    auto& [p1n, p1off] = parts[1];
+                    setLoc(r, SourceRange(exprStart + p1off,
+                                          exprStart + p1off + p1n.size()));
+                }
                 elems->push_back(r);
             }
             // A gen-scope modport-array member path anchors the hier_path at the

@@ -1,0 +1,7 @@
+eb01_sub_process	L:rc=0 cmp=0 STRICT_EQUAL 70 objects 
+eb02_func_local_array	L:rc=0 cmp=0 STRICT_EQUAL 100 objects 
+eb03_pkg_func	L:rc=0 cmp=0 STRICT_EQUAL 61 objects 
+eb04_sub_func	L:rc=0 cmp=36 NOT_EQUAL stage1 
+eb05_two_inst_ca	L:rc=0 cmp=0 STRICT_EQUAL 106 objects 
+eb06_named_begin	L:rc=0 cmp=0 STRICT_EQUAL 82 objects 
+eb07_task_sub	L:rc=0 cmp=0 STRICT_EQUAL 88 objects 

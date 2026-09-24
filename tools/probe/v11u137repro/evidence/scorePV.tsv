@@ -1,0 +1,6 @@
+p01_protected_func	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1
+p02_local_func	P:rc=0 cmp=61 NOT_EQUAL stage1 	L:rc=0 cmp=61 NOT_EQUAL stage1 
+p03_plain_func	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 8 objects 
+p04_protected_task	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 5 objects 
+p05_protected_void_args	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1
+p06_spaced	P:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: endline=1 endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: endline=1 endcol=1 objects_differing=1

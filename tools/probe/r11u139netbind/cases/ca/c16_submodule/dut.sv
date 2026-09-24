@@ -1,3 +1,4 @@
+// § caLhsDefNetUnlessOpRhs139
 module sub #(parameter P = 1) (input p, output a, output b, output c);
   assign a = P;
   assign b = p & P;

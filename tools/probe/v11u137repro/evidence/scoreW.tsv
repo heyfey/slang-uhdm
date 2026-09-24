@@ -1,0 +1,10 @@
+w01_top_wire	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2
+w02_sub_wire	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2
+w03_ansi_wire_port	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=6 objects_differing=6	L:rc=0 cmp=0 STRICT_EQUAL 68 objects 
+w04_tri	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2
+w05_wire_init	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2
+w06_nonansi_wire	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 68 objects 
+w07_iface_wire	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2
+w08_wire_unsigned_implicit	P:rc=0 cmp=0 STRICT_EQUAL 55 objects 	L:rc=0 cmp=0 STRICT_EQUAL 55 objects 
+w09_var_logic_unsigned_sub	P:rc=0 cmp=58 NOT_EQUAL stage1 	L:rc=0 cmp=58 NOT_EQUAL stage1 
+w10_two_decls	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=4 objects_differing=4

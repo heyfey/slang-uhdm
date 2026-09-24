@@ -1,0 +1,6 @@
+l08_for_loop_var	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=12 objects_differing=12	L:rc=0 cmp=0 STRICT_EQUAL 152 objects 
+l09_iface_modport_task	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 79 objects 
+l10_param_in_always	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=6 objects_differing=6	L:rc=0 cmp=0 STRICT_EQUAL 219 objects 
+l11_static_func_var	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=12 objects_differing=12	L:rc=0 cmp=0 STRICT_EQUAL 108 objects 
+l12_gen_named_func	P:rc=0 cmp=0 STRICT_EQUAL 176 objects 	L:rc=0 cmp=0 STRICT_EQUAL 176 objects 
+l13_program	P:rc=0 cmp=58 NOT_EQUAL stage1 	L:rc=0 cmp=58 NOT_EQUAL stage1 

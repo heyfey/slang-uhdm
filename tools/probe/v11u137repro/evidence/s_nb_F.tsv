@@ -1,0 +1,98 @@
+c01_literal	L:rc=0 cmp=0 STRICT_EQUAL 34 objects 
+c02_ref	L:rc=0 cmp=0 STRICT_EQUAL 35 objects 
+c03_binop	L:rc=0 cmp=0 STRICT_EQUAL 51 objects 
+c04_param	L:rc=0 cmp=0 STRICT_EQUAL 38 objects 
+c05_pkgparam_sel	L:rc=0 cmp=0 STRICT_EQUAL 51 objects 
+c06_structparam_member	L:rc=0 cmp=0 STRICT_EQUAL 58 objects 
+c07_clog2	L:rc=0 cmp=0 STRICT_EQUAL 41 objects 
+c08_unary	L:rc=0 cmp=0 STRICT_EQUAL 36 objects 
+c09_concat	L:rc=0 cmp=0 STRICT_EQUAL 60 objects 
+c10_ternary	L:rc=0 cmp=0 STRICT_EQUAL 66 objects 
+c11_bitsel	L:rc=0 cmp=0 STRICT_EQUAL 45 objects 
+c12_funccall	L:rc=0 cmp=0 STRICT_EQUAL 61 objects 
+c13_cast	L:rc=0 cmp=0 STRICT_EQUAL 58 objects 
+c14_logicvar_op	L:rc=0 cmp=0 STRICT_EQUAL 67 objects 
+c15_outint_op	L:rc=0 cmp=0 STRICT_EQUAL 38 objects 
+c16_submodule	L:rc=0 cmp=0 STRICT_EQUAL 155 objects 
+c17_paramop	L:rc=0 cmp=0 STRICT_EQUAL 46 objects 
+c18_unbased	L:rc=0 cmp=0 STRICT_EQUAL 31 objects 
+c19_signed	L:rc=0 cmp=0 STRICT_EQUAL 65 objects 
+c20_lhs_bitsel	L:rc=0 cmp=0 STRICT_EQUAL 70 objects 
+c21_localparam_elem	L:rc=0 cmp=48 NOT_EQUAL stage1 
+c22_body_wire_lhs	L:rc=0 cmp=0 STRICT_EQUAL 72 objects 
+c23_implicit_lhs	L:rc=0 cmp=0 STRICT_EQUAL 60 objects 
+k01_default_unnamed	L:rc=0 cmp=0 STRICT_EQUAL 64 objects 
+k02_default_named	L:rc=0 cmp=0 STRICT_EQUAL 64 objects 
+k03_named_regular	L:rc=0 cmp=323 NOT_EQUAL stage1 
+k04_global	L:rc=0 cmp=0 STRICT_EQUAL 64 objects 
+k05_sub_param_override	L:rc=0 cmp=0 STRICT_EQUAL 246 objects 
+k06_logic_var_clk	L:rc=0 cmp=0 STRICT_EQUAL 79 objects 
+k07_body_wire_clk	L:rc=0 cmp=0 STRICT_EQUAL 74 objects 
+k08_default_with_io	L:rc=0 cmp=61 NOT_EQUAL stage1 
+k09_event_or	L:rc=0 cmp=0 STRICT_EQUAL 83 objects 
+k10_sva_prop	L:rc=0 cmp=0 STRICT_EQUAL 60 objects 
+n01_ref	L:rc=0 cmp=0 STRICT_EQUAL 45 objects 
+n02_binop	L:rc=0 cmp=0 STRICT_EQUAL 63 objects 
+n03_unary	L:rc=0 cmp=0 STRICT_EQUAL 50 objects 
+n04_concat	L:rc=0 cmp=0 STRICT_EQUAL 85 objects 
+n05_ternary	L:rc=0 cmp=0 STRICT_EQUAL 77 objects 
+n06_bodywire_before	L:rc=0 cmp=0 STRICT_EQUAL 66 objects 
+n08_bitsel	L:rc=0 cmp=0 STRICT_EQUAL 88 objects 
+n09_paren	L:rc=0 cmp=0 STRICT_EQUAL 78 objects 
+n10_logicvar	L:rc=0 cmp=0 STRICT_EQUAL 85 objects 
+n11_nonansi_port	L:rc=0 cmp=0 STRICT_EQUAL 64 objects 
+n12_three_leaf	L:rc=0 cmp=0 STRICT_EQUAL 99 objects 
+n13_repl	L:rc=0 cmp=0 STRICT_EQUAL 73 objects 
+n14_param_first	L:rc=0 cmp=0 STRICT_EQUAL 130 objects 
+n15_delay	L:rc=0 cmp=0 STRICT_EQUAL 79 objects 
+n16_unpacked	L:rc=0 cmp=0 STRICT_EQUAL 73 objects 
+n17_reg_driven	L:rc=0 cmp=0 STRICT_EQUAL 84 objects 
+n18_reg_undriven	L:rc=0 cmp=0 STRICT_EQUAL 55 objects 
+n19_submodule	L:rc=0 cmp=0 STRICT_EQUAL 111 objects 
+n20_self_later_port	L:rc=0 cmp=0 STRICT_EQUAL 63 objects 
+n21_selfref_chain	L:rc=0 cmp=0 STRICT_EQUAL 69 objects 
+n22_reg_before_driven_seq	L:rc=0 cmp=0 STRICT_EQUAL 82 objects 
+n23_nonansi_wire_before	L:rc=0 cmp=0 STRICT_EQUAL 63 objects 
+n24_nonansi_wire_after	L:rc=0 cmp=0 STRICT_EQUAL 62 objects 
+n25_nonansi_inputwire	L:rc=0 cmp=0 STRICT_EQUAL 73 objects 
+n26_nonansi_reg_port	L:rc=0 cmp=0 STRICT_EQUAL 82 objects 
+n27_iface_member_skip	L:rc=0 cmp=0 STRICT_EQUAL 77 objects 
+n28_sel_index_top	L:rc=0 cmp=0 STRICT_EQUAL 90 objects 
+n29_sel_index_leftmost	L:rc=0 cmp=0 STRICT_EQUAL 94 objects 
+n30_sel_index_right	L:rc=0 cmp=0 STRICT_EQUAL 94 objects 
+n31_partsel_index	L:rc=0 cmp=0 STRICT_EQUAL 98 objects 
+n32_mem_index	L:rc=0 cmp=0 STRICT_EQUAL 123 objects 
+n33_sel_index_op	L:rc=0 cmp=0 STRICT_EQUAL 100 objects 
+pc01_named_op_ansi	L:rc=0 cmp=0 STRICT_EQUAL 104 objects 
+pc02_named_op_nonansi	L:rc=0 cmp=0 STRICT_EQUAL 104 objects 
+pc03_pos_op_ansi	L:rc=0 cmp=291 NOT_EQUAL stage1 
+pc04_pos_op_nonansi	L:rc=0 cmp=337 NOT_EQUAL stage1 
+pc05_named_concat	L:rc=0 cmp=0 STRICT_EQUAL 113 objects 
+pc06_named_ref	L:rc=0 cmp=0 STRICT_EQUAL 99 objects 
+pc07_named_bitsel	L:rc=0 cmp=0 STRICT_EQUAL 117 objects 
+pc08_named_unary	L:rc=0 cmp=0 STRICT_EQUAL 105 objects 
+pc09_wildcard	L:rc=0 cmp=0 STRICT_EQUAL 95 objects 
+pc10_implicit_named	L:rc=0 cmp=0 STRICT_EQUAL 96 objects 
+pc11_named_ternary	L:rc=0 cmp=0 STRICT_EQUAL 119 objects 
+pc12_nested_mid	L:rc=0 cmp=0 STRICT_EQUAL 157 objects 
+pc13_body_wire	L:rc=0 cmp=0 STRICT_EQUAL 107 objects 
+pc14_logic_var	L:rc=0 cmp=0 STRICT_EQUAL 111 objects 
+pc15_three_leaf	L:rc=0 cmp=0 STRICT_EQUAL 129 objects 
+pc16_samename_named	L:rc=0 cmp=0 STRICT_EQUAL 109 objects 
+pc17_samename_pos_nonansi	L:rc=0 cmp=337 NOT_EQUAL stage1 
+pc18_crossname_named	L:rc=0 cmp=0 STRICT_EQUAL 109 objects 
+pc19_dffsr2_alone	L:rc=0 cmp=0 STRICT_EQUAL 194 objects 
+pc20_dffsr2_noattr	L:rc=0 cmp=0 STRICT_EQUAL 192 objects 
+pc21_nonansi_child_named	L:rc=0 cmp=0 STRICT_EQUAL 109 objects 
+pc22_nonansi_child_pos	L:rc=0 cmp=317 NOT_EQUAL stage1 
+pc23_ansi_child_pos_first_ref	L:rc=0 cmp=0 STRICT_EQUAL 128 objects 
+pc24_nonansi_child_pos_first_ref	L:rc=0 cmp=0 STRICT_EQUAL 128 objects 
+pc25_nonansi_parent_nowire	L:rc=0 cmp=0 STRICT_EQUAL 109 objects 
+pc26_parent_array_net	L:rc=0 cmp=0 STRICT_EQUAL 120 objects 
+pc27_gen_scope	L:rc=0 cmp=0 STRICT_EQUAL 112 objects 
+pc28_udp_shape_concat_first	L:rc=0 cmp=62 NOT_EQUAL stage1 
+pc29_param_inst_pos	L:rc=0 cmp=0 STRICT_EQUAL 122 objects 
+pc30_param_inst_named_param_pos	L:rc=0 cmp=345 NOT_EQUAL stage1 
+pc31_bitsel_first_pos	L:rc=0 cmp=0 STRICT_NOTEQUAL col fields: col=1 endcol=1 objects_differing=1
+pc32_sel_index_leftmost	L:rc=0 cmp=0 STRICT_EQUAL 143 objects 
+pc33_sel_index_whole	L:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=2 objects_differing=2

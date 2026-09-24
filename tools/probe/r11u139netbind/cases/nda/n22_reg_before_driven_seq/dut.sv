@@ -1,3 +1,4 @@
+// § ndaLeftmostLeafElab139
 module top(input clk, input p, output y);
   reg r;
   always @(posedge clk) r <= p;

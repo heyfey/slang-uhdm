@@ -1,0 +1,2 @@
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+verdict and differs identical to results/downstream_uhdm2rtlil.csv on 871 of 871 rows

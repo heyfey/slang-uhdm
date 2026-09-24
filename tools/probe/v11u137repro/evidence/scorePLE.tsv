@@ -1,0 +1,7 @@
+l01_sub_genblock_always	P:rc=0 cmp=0 STRICT_EQUAL 135 objects 	L:rc=0 cmp=0 STRICT_EQUAL 135 objects 
+l02_iface_proc_func	P:rc=0 cmp=17 NOT_EQUAL stage1 	L:rc=0 cmp=17 NOT_EQUAL stage1 
+l03_three_levels	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=12 objects_differing=12	L:rc=0 cmp=0 STRICT_EQUAL 138 objects 
+l04_pkg_func_two_mods	P:rc=0 cmp=36 NOT_EQUAL stage1 	L:rc=0 cmp=36 NOT_EQUAL stage1 
+l05_named_block_task	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=19 objects_differing=19	L:rc=0 cmp=0 STRICT_EQUAL 119 objects 
+l06_cont_assign_hier	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 122 objects 
+l07_gen_for_sub	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=4 objects_differing=4	L:rc=0 cmp=0 STRICT_EQUAL 135 objects 

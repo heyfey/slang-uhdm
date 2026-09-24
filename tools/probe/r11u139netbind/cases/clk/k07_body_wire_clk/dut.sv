@@ -1,3 +1,4 @@
+// § clockingEventDefNet139
 module top(input c, input a, output logic y);
   wire clk = c;
   default clocking @(posedge clk); endclocking

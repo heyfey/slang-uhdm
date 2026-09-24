@@ -1,3 +1,4 @@
+// § clockingEventDefNet139
 module top(input c, input a, output logic y);
   logic clk;
   assign clk = c;

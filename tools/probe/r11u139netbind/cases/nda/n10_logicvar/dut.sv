@@ -1,3 +1,4 @@
+// § ndaLeftmostLeafElab139
 module top(input p, output y);
   logic l;
   assign l = p;

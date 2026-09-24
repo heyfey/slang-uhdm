@@ -1,0 +1,4 @@
+k10_top_net_named_cfg	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: col=2 endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 125 objects 
+k11_pkg_param_path	P:rc=0 cmp=48 NOT_EQUAL stage1 	L:rc=0 cmp=48 NOT_EQUAL stage1 
+k12_imported_param_path	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: fullname=1 col=2 endcol=2 objects_differing=3	L:rc=0 cmp=0 STRICT_EQUAL 133 objects 
+k13_sub_default_two	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: col=4 endcol=4 objects_differing=4	L:rc=0 cmp=0 STRICT_EQUAL 236 objects 

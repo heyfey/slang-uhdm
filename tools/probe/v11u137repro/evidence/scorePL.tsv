@@ -1,0 +1,98 @@
+a01_mod_scalars	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=9 objects_differing=9	L:rc=0 cmp=0 STRICT_EQUAL 56 objects 
+a02_typedef	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=14 objects_differing=14	L:rc=0 cmp=0 STRICT_EQUAL 55 objects 
+a03_unpacked_dim	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 55 objects 
+a04_var_wire	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=4 objects_differing=4	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2
+a05_init	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 45 objects 
+a06_typeparam_default	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: line=2 col=2 endline=2 endcol=5 objects_differing=5	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=4 objects_differing=4
+a07_func_ret_and_local	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=7 objects_differing=7 (walk diverged)	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=3 objects_differing=3 (walk diverged)
+a08_struct_member_union	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=20 objects_differing=20	L:rc=0 cmp=0 STRICT_EQUAL 109 objects 
+a09_nonansi_port	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=6 objects_differing=6	L:rc=0 cmp=0 STRICT_EQUAL 68 objects 
+a10_ansi_ports_sub	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=9 objects_differing=9	L:rc=0 cmp=0 STRICT_EQUAL 87 objects 
+a11_signed_ctl	P:rc=0 cmp=62 NOT_EQUAL stage1 	L:rc=0 cmp=62 NOT_EQUAL stage1 
+a12_task_args_locals	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 73 objects 
+a13_gen_block	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2
+a14_pkg_var_and_typedef	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: name=1 endcol=9 objects_differing=9	L:rc=0 cmp=0 STRICT_NOTEQUAL name fields: name=1 objects_differing=1
+b01_iface	P:rc=0 cmp=58 NOT_EQUAL stage1 	L:rc=0 cmp=58 NOT_EQUAL stage1 
+b02_arr_of_arr	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=6 objects_differing=6	L:rc=0 cmp=0 STRICT_EQUAL 154 objects 
+b03_pkg_explicit_import	P:rc=0 cmp=166 NOT_EQUAL stage1 	L:rc=0 cmp=166 NOT_EQUAL stage1 
+b04_scoped_elem	P:rc=0 cmp=146 NOT_EQUAL stage1 	L:rc=0 cmp=146 NOT_EQUAL stage1 
+b05_param_of_type	P:rc=0 cmp=80 NOT_EQUAL stage1 	L:rc=0 cmp=80 NOT_EQUAL stage1 
+b06_sub_two_inst_struct	P:rc=0 cmp=17 NOT_EQUAL stage1 	L:rc=0 cmp=17 NOT_EQUAL stage1 
+b07_func_arg	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=9 objects_differing=9	L:rc=0 cmp=0 STRICT_EQUAL 150 objects 
+b08_pkg_wild_import_two_mods	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=18 line=1 col=1 endline=1 endcol=1 objects_differing=19	L:rc=0 cmp=0 STRICT_EQUAL 271 objects 
+c01_nonansi_vec	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=1 col=1 endline=1 endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 134 objects 
+c02_comment_inside	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=1 col=1 endline=1 endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 89 objects 
+c03_in_genblock	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=1 col=1 endline=1 endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 94 objects 
+c04_inst_array	P:rc=0 cmp=248 NOT_EQUAL stage1 	L:rc=0 cmp=248 NOT_EQUAL stage1 
+c05_shared_decl	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=2 col=2 endline=2 endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 107 objects 
+c06_two_levels	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=1 col=1 endline=1 endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 122 objects 
+c07_explicit_port_expr	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=1 col=1 endline=1 endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 91 objects 
+c08_param_sub	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=1 col=1 endline=1 endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 154 objects 
+d01_mod_range_plain	P:rc=0 cmp=0 STRICT_EQUAL 81 objects 	L:rc=0 cmp=0 STRICT_EQUAL 81 objects 
+d02_genif_two_qual	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 69 objects 
+d03_genif_nested_call	P:rc=0 cmp=125 NOT_EQUAL stage1 	L:rc=0 cmp=125 NOT_EQUAL stage1 
+d04_gencase	P:rc=0 cmp=125 NOT_EQUAL stage1 	L:rc=0 cmp=125 NOT_EQUAL stage1 
+d05_genfor_bound	P:rc=0 cmp=125 NOT_EQUAL stage1 	L:rc=0 cmp=125 NOT_EQUAL stage1 
+d06_param_default	P:rc=0 cmp=0 STRICT_EQUAL 96 objects 	L:rc=0 cmp=0 STRICT_EQUAL 96 objects 
+d07_typedef_range_unpacked	P:rc=0 cmp=125 NOT_EQUAL stage1 	L:rc=0 cmp=125 NOT_EQUAL stage1 
+d08_sub_genif_param	P:rc=0 cmp=125 NOT_EQUAL stage1 	L:rc=0 cmp=125 NOT_EQUAL stage1 
+d09_genif_call_in_genfor	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 119 objects 
+d10_stmt_ctl	P:rc=0 cmp=17 NOT_EQUAL stage1 	L:rc=0 cmp=17 NOT_EQUAL stage1 
+e01_repl_in_concat	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: depth=1 type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=1 objects_differing=2 (walk diverged)	L:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 objects_differing=1
+e02_genblock	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 93 objects 
+e03_param_count	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 120 objects 
+e04_two_levels	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 115 objects 
+e05_positional_two	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 121 objects 
+f01_protected	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1
+f02_iface_class	P:rc=0 cmp=139 NOT_EQUAL stage1 	L:rc=0 cmp=139 NOT_EQUAL stage1 
+f03_multiline	P:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: endline=1 endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 18 objects 
+f04_attr_and_noparens	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: col=1 endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_NOTEQUAL col fields: col=1 objects_differing=1
+f05_pkg_class_extends	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1
+f06_ret_class_type	P:rc=0 cmp=17 NOT_EQUAL stage1 	L:rc=0 cmp=17 NOT_EQUAL stage1 
+g01_pkg_typedef	P:rc=0 cmp=0 STRICT_EQUAL 82 objects 	L:rc=0 cmp=0 STRICT_EQUAL 82 objects 
+g02_member	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=4 objects_differing=4	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=4 objects_differing=4
+g03_two_vars_typedef	P:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_EQUAL 151 objects 
+h01_two_nets_dims	P:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: type=1 line=1 col=1 endline=2 endcol=1 objects_differing=2 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 36 objects 
+h02_net_and_port	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=2 col=2 endline=2 endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 89 objects 
+h03_packed_default	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: depth=1 type=1 name=1 line=1 col=2 endline=1 endcol=2 objects_differing=2 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 102 objects 
+h04_struct_default	P:rc=0 cmp=0 STRICT_NOTEQUAL type fields: type=1 name=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 96 objects 
+h05_genblock_net	P:rc=0 cmp=138 NOT_EQUAL stage1 	L:rc=0 cmp=138 NOT_EQUAL stage1 
+h06_init_and_var	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=4 col=4 endline=4 endcol=5 objects_differing=5	L:rc=0 cmp=0 STRICT_NOTEQUAL endcol fields: endcol=1 objects_differing=1
+h07_two_insts_overrides	P:rc=3 cmp=10  File does not exist! 	L:rc=3 cmp=10  File does not exist! 
+h08_wire_kw	P:rc=0 cmp=58 NOT_EQUAL stage1 	L:rc=0 cmp=58 NOT_EQUAL stage1 
+i01_two_aliases	P:rc=0 cmp=0 STRICT_NOTEQUAL file fields: type=1 name=1 file=2 objects_differing=3 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 163 objects 
+i02_enum_union	P:rc=0 cmp=17 NOT_EQUAL stage1 	L:rc=0 cmp=17 NOT_EQUAL stage1 
+i03_include_target	P:rc=0 cmp=0 STRICT_NOTEQUAL file fields: type=1 name=1 file=3 line=1 col=1 endline=1 endcol=1 objects_differing=3 (walk diverged)	L:rc=0 cmp=0 STRICT_NOTEQUAL file fields: type=1 name=1 file=3 line=1 col=1 endline=1 endcol=1 objects_differing=3 (walk diverged)
+j01_two_nets	P:rc=0 cmp=0 STRICT_NOTEQUAL file fields: type=1 name=1 file=1 objects_differing=2 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 149 objects 
+j02_logic_vec_elem	P:rc=0 cmp=105 NOT_EQUAL stage1 	L:rc=0 cmp=105 NOT_EQUAL stage1 
+j03_2d	P:rc=0 cmp=202 NOT_EQUAL stage1 	L:rc=0 cmp=202 NOT_EQUAL stage1 
+j04_arr_of_arr_td	P:rc=0 cmp=56 NOT_EQUAL stage1 	L:rc=0 cmp=56 NOT_EQUAL stage1 
+j05_iface	P:rc=0 cmp=58 NOT_EQUAL stage1 	L:rc=0 cmp=58 NOT_EQUAL stage1 
+j06_genblock	P:rc=0 cmp=206 NOT_EQUAL stage1 	L:rc=0 cmp=206 NOT_EQUAL stage1 
+j07_sub_two_inst	P:rc=0 cmp=0 STRICT_NOTEQUAL file fields: type=1 name=1 file=1 objects_differing=2 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 159 objects 
+j08_queue_ctl	P:rc=0 cmp=151 NOT_EQUAL stage1 	L:rc=0 cmp=151 NOT_EQUAL stage1 
+k01_gencase	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: fullname=5 col=3 endcol=3 objects_differing=8	L:rc=0 cmp=0 STRICT_NOTEQUAL col fields: fullname=5 col=3 endcol=3 objects_differing=8
+k02_genfor_bound	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: fullname=1 col=1 endcol=1 objects_differing=2	L:rc=0 cmp=0 STRICT_NOTEQUAL col fields: fullname=1 col=1 endcol=1 objects_differing=2
+k03_sub_override	P:rc=0 cmp=84 NOT_EQUAL stage1 	L:rc=0 cmp=84 NOT_EQUAL stage1 
+k04_localparam_struct	P:rc=0 cmp=50 NOT_EQUAL stage1 	L:rc=0 cmp=50 NOT_EQUAL stage1 
+k05_two_paths_in_range	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: col=2 endcol=2 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 100 objects 
+k06_nested_genif_in_genfor	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: fullname=1 col=1 endcol=1 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 130 objects 
+k07_sys_call_in_range	P:rc=0 cmp=0 STRICT_EQUAL 97 objects 	L:rc=0 cmp=0 STRICT_EQUAL 97 objects 
+k08_port_named_like_param_elsewhere	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: col=1 endcol=1 objects_differing=1	L:rc=0 cmp=0 STRICT_NOTEQUAL col fields: col=1 endcol=1 objects_differing=1
+k09_three_level_genif	P:rc=0 cmp=0 STRICT_NOTEQUAL col fields: fullname=1 col=1 endcol=1 objects_differing=2	L:rc=0 cmp=0 STRICT_EQUAL 124 objects 
+l01_sub_genblock_always	P:rc=0 cmp=0 STRICT_EQUAL 135 objects 	L:rc=0 cmp=0 STRICT_EQUAL 135 objects 
+l02_iface_proc_func	P:rc=0 cmp=17 NOT_EQUAL stage1 	L:rc=0 cmp=17 NOT_EQUAL stage1 
+l03_three_levels	P:rc=0 cmp=0 STRICT_EQUAL 137 objects 	L:rc=0 cmp=0 STRICT_EQUAL 137 objects 
+l04_pkg_func_two_mods	P:rc=0 cmp=36 NOT_EQUAL stage1 	L:rc=0 cmp=36 NOT_EQUAL stage1 
+l05_named_block_task	P:rc=0 cmp=0 STRICT_EQUAL 118 objects 	L:rc=0 cmp=0 STRICT_EQUAL 118 objects 
+l06_cont_assign_hier	P:rc=0 cmp=0 STRICT_NOTEQUAL depth fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 129 objects 
+l07_gen_for_sub	P:rc=0 cmp=0 STRICT_EQUAL 133 objects 	L:rc=0 cmp=0 STRICT_EQUAL 133 objects 
+m01_param_rhs_two_inst	P:rc=0 cmp=0 STRICT_EQUAL 137 objects 	L:rc=0 cmp=0 STRICT_EQUAL 137 objects 
+m02_func_rhs	P:rc=0 cmp=0 STRICT_EQUAL 200 objects 	L:rc=0 cmp=0 STRICT_EQUAL 200 objects 
+m03_concat_lhs_and_select	P:rc=0 cmp=0 STRICT_EQUAL 227 objects 	L:rc=0 cmp=0 STRICT_EQUAL 227 objects 
+m04_nda_ternary_unary	P:rc=0 cmp=0 STRICT_NOTEQUAL depth fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 191 objects 
+m05_nda_bitsel_idx	P:rc=0 cmp=0 STRICT_NOTEQUAL depth fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 148 objects 
+m06_conn_ops_genblock	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: depth=1 type=1 name=1 fullname=3 line=1 col=1 endline=1 endcol=1 objects_differing=3 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 145 objects 
+m07_conn_ternary_select	P:rc=0 cmp=0 STRICT_NOTEQUAL fullname fields: fullname=6 objects_differing=6	L:rc=0 cmp=0 STRICT_EQUAL 141 objects 
+m08_clk_two_inst_param	P:rc=0 cmp=0 STRICT_NOTEQUAL depth fields: depth=1 type=1 fullname=1 size=1 objects_differing=1 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 235 objects 
+m09_clk_negedge_iff	P:rc=0 cmp=0 STRICT_NOTEQUAL depth fields: depth=1 type=1 name=1 fullname=1 line=1 col=1 endline=1 endcol=1 objects_differing=1 (walk diverged)	L:rc=0 cmp=0 STRICT_EQUAL 83 objects 

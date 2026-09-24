@@ -1,3 +1,4 @@
+// § clockingEventDefNet139
 module sub #(parameter W = 1) (input clk, input [W-1:0] a, output logic [W-1:0] y);
   default clocking @(posedge clk); endclocking
   always @(posedge clk) y <= a;

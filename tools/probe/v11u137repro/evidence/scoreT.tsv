@@ -1,0 +1,6 @@
+t01_port_and_dimnet	P:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: line=1 col=1 endline=6 endcol=6 objects_differing=7	L:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: endline=2 endcol=2 objects_differing=2
+t02_dim_then_plain	P:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: line=3 col=3 endline=6 endcol=6 objects_differing=7	L:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: endline=2 endcol=2 objects_differing=2
+t03_plain_then_dim	P:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: line=3 col=3 endline=6 endcol=6 objects_differing=7	L:rc=0 cmp=0 STRICT_NOTEQUAL endline fields: endline=2 endcol=2 objects_differing=2
+t04_two_typeparams	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: line=4 col=4 endline=4 endcol=4 objects_differing=4	L:rc=0 cmp=0 STRICT_EQUAL 82 objects 
+t05_iface_typeparam	P:rc=0 cmp=0 STRICT_NOTEQUAL line fields: fullname=2 file=1 line=4 col=4 endline=4 endcol=4 objects_differing=5	L:rc=0 cmp=0 STRICT_NOTEQUAL line fields: fullname=2 file=1 line=2 col=2 endline=2 endcol=2 objects_differing=3
+t06_typeparam_multi_declarators	P:rc=0 cmp=87 NOT_EQUAL stage1 	L:rc=0 cmp=87 NOT_EQUAL stage1 

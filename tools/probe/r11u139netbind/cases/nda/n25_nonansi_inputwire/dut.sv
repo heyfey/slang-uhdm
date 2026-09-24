@@ -1,3 +1,4 @@
+// § ndaLeftmostLeafElab139
 module top(p, q, y);
   input wire p; input q; output y;
   wire x = p;

@@ -1,0 +1,10 @@
+w01_top_wire	L:rc=0 cmp=0 STRICT_EQUAL 37 objects 
+w02_sub_wire	L:rc=0 cmp=0 STRICT_EQUAL 55 objects 
+w03_ansi_wire_port	L:rc=0 cmp=0 STRICT_EQUAL 68 objects 
+w04_tri	L:rc=0 cmp=0 STRICT_EQUAL 37 objects 
+w05_wire_init	L:rc=0 cmp=0 STRICT_EQUAL 36 objects 
+w06_nonansi_wire	L:rc=0 cmp=0 STRICT_EQUAL 68 objects 
+w07_iface_wire	L:rc=0 cmp=0 STRICT_EQUAL 39 objects 
+w08_wire_unsigned_implicit	L:rc=0 cmp=0 STRICT_EQUAL 55 objects 
+w09_var_logic_unsigned_sub	L:rc=0 cmp=58 NOT_EQUAL stage1 
+w10_two_decls	L:rc=0 cmp=0 STRICT_EQUAL 52 objects 

@@ -1,3 +1,4 @@
+// § caLhsDefNetUnlessOpRhs139
 module top(input p, output a);
   wire w;
   assign w = 1'b0;
