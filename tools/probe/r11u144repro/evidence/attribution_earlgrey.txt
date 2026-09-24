@@ -1,0 +1,2 @@
+surelog/default/Earlgrey_0_1	laws whose lone run moves the bytes: FOLDTSNAME PKGQUALREF DEFGENHP
+surelog/testflags/Earlgrey_0_1	laws whose lone run moves the bytes: FOLDTSNAME ELABINST PKGQUALREF DEFGENHP

@@ -34,6 +34,7 @@ using namespace slang::driver;
 
 namespace slang_uhdm {
 bool r11u137Law(const char* sw);
+bool r11u144Law(const char* sw);
 }
 
 // § elabCloneFullNameUnstored137 (r11u137) — THE --elabuhdm CLONES READ THE
@@ -162,6 +163,25 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
             for (auto* m : *v)
                 defs.insert(m);
     }
+    // § elabCloneInstTreeUnstored144 (r11u144) — the listener clones out of
+    // the ELABORATED instance trees too: it re-elaborates every generate
+    // scope's contents (a hier_path over a generate array gets its fresh
+    // `bit_select` element, and the index references beneath it read the
+    // new chain: golden `…STAGE[i - 1].C.STAGE.i` where ours copied the
+    // stored `…C.i`, CarryAdd; `…temp.inner.CHUNK`, GenScopeHierPath3), and it
+    // clones an assertion's property/sequence instance, whose definition-view
+    // copy is UNPARENTED (its chain ends at the instance: `p_triggers.a`),
+    // into a parented clone (golden `work@m.a1.p_triggers.a`, SequenceInst).
+    // The same equality test applies: a stored name equal to the object's own
+    // chain is left unstored, which no un-cloned view can observe.  Switches:
+    // R11U144_ELABINST_OFF (the instance trees), R11U144_ELABPROP_OFF (the
+    // unparented property/sequence instance chains).
+    const bool inst144 = slang_uhdm::r11u144Law("R11U144_ELABINST_OFF");
+    const bool prop144 = slang_uhdm::r11u144Law("R11U144_ELABPROP_OFF");
+    if (inst144)
+        if (auto* v = d->TopModules())
+            for (auto* m : *v)
+                defs.insert(m);
     if (defs.empty())
         return;
     std::vector<UHDM::BaseClass*> all;
@@ -176,7 +196,9 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
         if (defs.count(o))
             continue;
         bool inDef = false;
+        const UHDM::BaseClass* root144 = o;
         for (auto* a = o->VpiParent(); a; a = a->VpiParent()) {
+            root144 = a;
             if (defs.count(a)) {
                 inDef = true;
                 break;
@@ -184,6 +206,10 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
             if (a->UhdmType() == UHDM::uhdmdesign)
                 break;
         }
+        if (!inDef && prop144 && root144 != o && !root144->VpiParent() &&
+            (root144->UhdmType() == UHDM::uhdmproperty_inst ||
+             root144->UhdmType() == UHDM::uhdmsequence_inst))
+            inDef = true;
         if (!inDef)
             continue;
         // A PACKAGE subroutine keeps its stored `pkg::f` name in the clone

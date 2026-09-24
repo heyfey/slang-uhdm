@@ -626,6 +626,7 @@ bool r11u119Law(const char* sw);
 bool r11u130Law(const char* sw);
 bool r11u134Law(const char* sw);
 bool r11u137Law(const char* sw);
+bool r11u144Law(const char* sw);
 // ============================================================================
 // r11u139 — NET BINDING (the analyst pass's law.patch, landed by r11u137 on
 // the module ground): which net object an elaborated reference names.  Every
@@ -29005,9 +29006,45 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // TypeParamOverride) — the map's structural class F (pass-130 R3).
     // Grid tools/probe/r11u137repro/grid/tn.  Switch:
     // R11U137_DEFNETTP_OFF.
+    // § defNetTypeParamPackedDim144 (r11u144) — the same binding for a
+    // type-parameter name carrying PACKED dimensions (`dtype [FifoDepth-1:0]
+    // mem_n, mem_q;`): Surelog's compileTypespec answers a type-parameter
+    // name with the parameter's default object and never wraps the written
+    // packed dimensions, so the definition net binds that object, and
+    // writeNets' end-only populate (`dimensions = getUnpackedDimension();
+    // if (!dimensions) dimensions = getPackedDimension();`) moves its end to
+    // the end of the first packed dimension, the last net declared winning
+    // (packed_struct_array_fifo: the typedef d_t 1:9-24:24; grid tq d1, d4,
+    // d5, d6, d8).  Gated to a struct/union default: an enum or vector
+    // default sizes the `'0` Rhs from the bound typespec (grid tq d3, d7,
+    // judge-visible, not modelled).  Switch: R11U144_TPPACKEDNET_OFF.
+    const TypeParameterSymbol* tpPk144 = nullptr;
+    const syntax::SyntaxNode* tpPkDim144 = nullptr;
+    if (pn.rt->VpiParent() && pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+        r11u137Law("R11U137_DEFNETTP_OFF") && r11u144Law("R11U144_TPPACKEDNET_OFF") &&
+        !portTypeParam(*pn.sym))
+        if (auto* dt144 = pn.sym->getDeclaredType())
+            if (auto* ts144 = dt144->getTypeSyntax();
+                ts144 && ts144->kind == syntax::SyntaxKind::NamedType &&
+                dt144->getType().kind == SymbolKind::PackedArrayType)
+                if (const syntax::NameSyntax* nm144 =
+                        ts144->as<syntax::NamedTypeSyntax>().name;
+                    nm144 && nm144->kind == syntax::SyntaxKind::IdentifierSelectName) {
+                    auto& isn144 = nm144->as<syntax::IdentifierSelectNameSyntax>();
+                    if (!isn144.selectors.empty())
+                        if (auto* tp144 = tpAnyLeaf41(*pn.sym)) {
+                            auto& lc144 = tp144->targetType.getType().getCanonicalType();
+                            if (tp144->getParentScope() == pn.sym->getParentScope() &&
+                                (lc144.kind == SymbolKind::PackedStructType ||
+                                 lc144.kind == SymbolKind::PackedUnionType)) {
+                                tpPk144 = tp144;
+                                tpPkDim144 = isn144.selectors[0];
+                            }
+                        }
+                }
     if (pn.rt->VpiParent() && pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
         r11u137Law("R11U137_DEFNETTP_OFF"))
-        if (auto* tpp137 = portTypeParam(*pn.sym))
+        if (auto* tpp137 = tpPk144 ? tpPk144 : portTypeParam(*pn.sym))
             if (auto ps137 = pn.sym->getParentScope();
                 ps137 && ps137->asSymbol().kind == SymbolKind::InstanceBody) {
                 auto& def137 =
@@ -29021,8 +29058,12 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                     if (auto dsyn = pn.sym->getSyntax();
                         dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
                         auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
-                        if (!dd.dimensions.empty()) {
-                            auto e137 = dd.dimensions[0]->sourceRange().end();
+                        SourceLocation e137 = SourceLocation::NoLocation;
+                        if (!dd.dimensions.empty())
+                            e137 = dd.dimensions[0]->sourceRange().end();
+                        else if (tpPkDim144)
+                            e137 = tpPkDim144->sourceRange().end();
+                        if (e137 != SourceLocation::NoLocation) {
                             uint32_t l137 = 0, c137 = 0;
                             locLineCol(e137, l137, c137);
                             tit137->second->VpiEndLineNo(l137);
@@ -36597,6 +36638,51 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                             setLoc(c, els[idx]->sourceRange);
                                     }
                                 }
+                            // § callFoldFormalBitSelLoc144 (r11u144) — a BIT
+                            // select of a FORMAL argument folds through UHDM
+                            // `ExprEval::reduceBitSelect((constant*)object, …)`
+                            // over the reduced ACTUAL, and that function
+                            // ends `c->VpiFile/LineNo/ColumnNo/EndLineNo(
+                            // op->…); c->VpiEndColumnNo(op->VpiColumnNo() + 1)`
+                            // where `op` is the actual's constant: a literal
+                            // actual lends its file and start with a one-column
+                            // end (`get_first(2'b10)` -> 5:25-5:26, grid pf/c);
+                            // a package parameter initialised by a
+                            // CONCATENATION reduces to an unlocated constant,
+                            // so the fold reads 0:0-0:1 with no file
+                            // (PkgParamAsFunctionArg, grid pf/a, pf/e).  Other
+                            // actuals are not modelled.  Switch:
+                            // R11U144_CALLBITSEL_OFF.
+                            if (bsym->kind == SymbolKind::FormalArgument &&
+                                bsym->as<ValueSymbol>().getType().isIntegral() &&
+                                r11u144Law("R11U144_CALLBITSEL_OFF")) {
+                                auto fargs144 = (*sp0)->getArguments();
+                                auto cargs144 =
+                                    rcCall.as<CallExpression>().arguments();
+                                for (size_t k144 = 0; k144 < fargs144.size() &&
+                                                      k144 < cargs144.size();
+                                     k144++) {
+                                    if (fargs144[k144] != bsym)
+                                        continue;
+                                    auto& act144 = stripImplicitConv(*cargs144[k144]);
+                                    if (act144.kind == ExpressionKind::IntegerLiteral) {
+                                        setLoc(c, act144.sourceRange);
+                                        c->VpiEndLineNo(c->VpiLineNo());
+                                        c->VpiEndColumnNo(c->VpiColumnNo() + 1);
+                                    }
+                                    else if (act144.kind == ExpressionKind::NamedValue) {
+                                        auto& asym144 =
+                                            act144.as<NamedValueExpression>().symbol;
+                                        if (asym144.kind == SymbolKind::Parameter)
+                                            if (auto adt144 = asym144.getDeclaredType())
+                                                if (auto ain144 = adt144->getInitializer())
+                                                    if (stripImplicitConv(*ain144).kind ==
+                                                        ExpressionKind::Concatenation)
+                                                        c->VpiEndColumnNo(1);
+                                    }
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -37980,7 +38066,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // Re-emitted BARE literals and $bits folds size at the LHS
             // type width; a bare literal WIDER than the LHS also truncates
             // its value (out = 74 on a 1-bit net -> UINT:0).
+            // § caSelLhsBareDecNoAdjust144 (r11u144) — `UhdmWriter::
+            // writeCont_assign` hands the reduced Rhs constant to
+            // `CompileHelper::adjustSize` with the LHS's TYPESPEC: a ref_obj
+            // Lhs reaches its net's typespec (a bare `74` on a 1-bit net reads
+            // `UINT:0` at size 1 — grid ia/o), but a bit-select or part-select
+            // Lhs of a packed vector carries NO typespec, so the bare decimal
+            // keeps the literal's own shape (`3`, `UINT:3`, size 64) in the
+            // elaborated view too: IndexAssign `sig[I-7] = 3`, grid ia/a-d,
+            // f, g, n, p, r (the member-select Lhs, grid ia/m, and the
+            // unpacked element, ia/q, were already right).  $bits folds
+            // (bitsRhs) are untouched.  Switch: R11U144_SELBAREDEC_OFF.
+            const bool selBareDec144 =
+                selLitLhs && !memberSelLitLhs && !bitsRhs &&
+                r11u144Law("R11U144_SELBAREDEC_OFF");
             if (topView && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                !selBareDec144 &&
                 (bitsRhs ||
                  (literalRhs &&
                   rawText(stripImplicitConv(ae.right()).sourceRange).find('\'') ==
@@ -47065,6 +47166,42 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             if (be.left->kind ==
                                 syntax::SyntaxKind::ElementSelectExpression)
                                 selSpan(l, *be.left);
+                            // § defGenLhsHpBaseAnchor144 (r11u144) — the
+                            // definition view's generate-block assignment
+                            // whose Lhs is a member path over a base
+                            // selected by a plain index name (`man[i].vld`,
+                            // `s[i].f` in a genvar loop) is anchored at the
+                            // BASE-name token (golden 11:12-11:15) and its
+                            // leaf carries the raw dotted path
+                            // (`man[i].vld`), the shape emitSyntaxExpr's
+                            // genvar-base arm gives but its symbolic-index
+                            // arm (which takes every selected base) did
+                            // not: iface_array_modport_drive,
+                            // genvar_iface_struct (pass 133 R3).  An Rhs
+                            // path keeps the whole span (grid hg/e); an
+                            // expression index (`s[i+0].f`, grid hg/d) is
+                            // not modelled.  Switch: R11U144_DEFGENHP_OFF.
+                            if (l->UhdmType() == UHDM::uhdmhier_path &&
+                                r11u144Law("R11U144_DEFGENHP_OFF")) {
+                                auto* hp144 = (UHDM::hier_path*)l;
+                                auto* el144 = hp144->Path_elems();
+                                if (el144 && el144->size() >= 2 &&
+                                    el144->front()->UhdmType() ==
+                                        UHDM::uhdmbit_select &&
+                                    el144->back()->UhdmType() ==
+                                        UHDM::uhdmref_obj) {
+                                    auto* bs144 = (UHDM::bit_select*)el144->front();
+                                    auto* ix144 = bs144->VpiIndex();
+                                    if (ix144 &&
+                                        ix144->UhdmType() == UHDM::uhdmref_obj) {
+                                        hp144->VpiEndLineNo(bs144->VpiEndLineNo());
+                                        hp144->VpiEndColumnNo(
+                                            bs144->VpiEndColumnNo());
+                                        ((UHDM::ref_obj*)el144->back())
+                                            ->VpiFullName(hp144->VpiName());
+                                    }
+                                }
+                            }
                             ca->Lhs((UHDM::expr*)l);
                         }
                         selBaseScopeIdx = true;

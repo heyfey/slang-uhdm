@@ -89,6 +89,16 @@ bool r11u137Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// ===== r11u144 — the module/type ground on the strict axis, fourth round =====
+// Every r11u144 law sits behind its own switch; R11U144_OFF drops them all
+// and restores the pristine bytes.  The table is
+// tools/probe/r11u144repro/README.md.
+bool r11u144Law(const char* sw) {
+    if (getenv("R11U144_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 

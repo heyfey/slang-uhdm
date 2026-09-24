@@ -1,0 +1,11 @@
+R11U144_SELBAREDEC_OFF moved: ia/b ia/c ia/d ia/f ia/g ia/n ia/p ia/r  | moved-but-not-pristine: 
+R11U144_CALLBITSEL_OFF moved: pf/a pf/b pf/c pf/e  | moved-but-not-pristine: 
+R11U144_FOLDTSNAME_OFF moved: fb/a fb/c fb/d  | moved-but-not-pristine: 
+R11U144_ELABINST_OFF moved: el/e02 el/e03  | moved-but-not-pristine: 
+R11U144_ELABPROP_OFF moved: el/e01 el/e05  | moved-but-not-pristine: 
+R11U144_TPPACKEDNET_OFF moved: tq/d1 tq/d4 tq/d5 tq/d6 tq/d8  | moved-but-not-pristine: 
+R11U144_PARAMALIASREF_OFF moved: pt/b pt/c pt/d pt/g  | moved-but-not-pristine: 
+R11U144_PKGQUALREF_OFF moved: qb/a qb/d qb/e qb/f qb/h qb/j  | moved-but-not-pristine: 
+R11U144_METHQUALSPAN_OFF moved: at/fc vf/a vf/d vf/g vf/i vf/j vf/k vf/l vf/m vf/n  | moved-but-not-pristine: at/fc 
+R11U144_METHATTR_OFF moved: at/fa at/fb at/fe at/ff  | moved-but-not-pristine: 
+R11U144_DEFGENHP_OFF moved: hg/b hg/c  | moved-but-not-pristine: 

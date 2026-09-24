@@ -17,6 +17,20 @@ namespace slang_uhdm {
 bool r11u130Law(const char* sw);
 bool r11u134Law(const char* sw);
 bool r11u137Law(const char* sw);
+bool r11u144Law(const char* sw);
+
+// § paramAliasBoundRefUnstored144 (r11u144) — set while makeTypespec builds
+// the packed dimensions of a PARAMETER whose written type is a module-scope
+// typedef name (`typedef logic [X-1:0] my_type_t; parameter my_type_t Y`).
+// Surelog's plain-identifier arm (CompileExpression.cpp, the StringConst
+// branch: `ref->VpiName(n); ref->VpiParent(pexpr);`) stores no full name, so
+// golden's bound reference reads its chain through the typedef copy
+// (`work@top.Y.my_type_t.X`) where ours stored the parameter prefix
+// (`work@top.Y.X`): ParameterOfParametrizedType, ...InSubmodule, UnsizedParam
+// (map N0281).  Our chain reads the same path, so the reference is left
+// unstored.  Grid tools/probe/r11u144repro/grid/pt.  Switch:
+// R11U144_PARAMALIASREF_OFF.
+static bool paramAliasBoundUnstored144 = false;
 
 // § suSigningNotInSpan130 (r11u130) — AN INLINE PACKED STRUCT/UNION'S
 // DEFINITION-VIEW TYPESPEC ENDS AT `packed`, NEVER AT A SIGNING KEYWORD.
@@ -3929,6 +3943,34 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     if (declared && declared->getType().isSigned() && !netKeywordAnchor)
         ts->VpiSigned(true);
     setLoc(ts, range);
+    // § paramAliasBoundRefUnstored144 (the flag's statement is at its
+    // definition near the top of this file).
+    bool alias144 = false;
+    if (declSymbol.kind == SymbolKind::TypeAlias && typeSynOverride &&
+        !syntaxRefPrefix.empty() && r11u144Law("R11U144_PARAMALIASREF_OFF")) {
+        // The typedef CLONE a parameter's typespec takes (makeParamTs hands
+        // the alias and its target syntax with the parameter's path as the
+        // reference prefix): the owner is a parameter of the alias's own
+        // scope declared with this alias.
+        auto dot144 = syntaxRefPrefix.rfind('.');
+        std::string last144 = dot144 == std::string::npos
+                                  ? syntaxRefPrefix
+                                  : syntaxRefPrefix.substr(dot144 + 1);
+        if (auto* sc144 = declSymbol.getParentScope())
+            if (auto* p144 = sc144->find(last144);
+                p144 && p144->kind == SymbolKind::Parameter)
+                if (auto* pdt144 = p144->getDeclaredType();
+                    pdt144 && &pdt144->getType() ==
+                                  (const Type*)&declSymbol.as<TypeAliasType>())
+                    alias144 = true;
+    }
+    struct AliasBoundGuard144 {
+        bool saved;
+        explicit AliasBoundGuard144(bool v) : saved(paramAliasBoundUnstored144) {
+            paramAliasBoundUnstored144 = v;
+        }
+        ~AliasBoundGuard144() { paramAliasBoundUnstored144 = saved; }
+    } aliasBoundGuard144(alias144);
 
     // Packed dimensions: one uhdm range per dimension, bounds as evaluated
     // UINT constants (64-bit) that keep their source text as decompile.
@@ -6020,7 +6062,41 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                             (int)old48, (int)sgn48);
                                 if (r11u48Off || sgn48) {
                                     auto* rt0 = s.MakeRef_typespec();
-                                    rt0->VpiFullName(boundOwnerFullName);
+                                    // § foldedBoundTsRefUnstored144 (r11u144)
+                                    // — the producer's arm (CompileExpression
+                                    // .cpp, the `sval->isSigned()` block
+                                    // quoted above) writes `rt->VpiParent(c);
+                                    // rt->Actual_typespec(ts)` and NO name:
+                                    // the reference reads its chain (constant
+                                    // -> range -> the typespec).  Golden's
+                                    // typespec here is an unparented copy,
+                                    // so the name is EMPTY where ours stored
+                                    // the owner's (`work@top.max_value`,
+                                    // ParameterInitializedByPartSelectOf
+                                    // ParametersAssignedToVar; map N0008).
+                                    // A declaration inside a GENERATE
+                                    // block keeps the name: golden's
+                                    // typespec there is parented at the
+                                    // variable (ibex_counter's
+                                    // `logic [63:CounterWidth]
+                                    // unused_counter_load` in
+                                    // g_counter_narrow; grid fb/b).
+                                    // Switch: R11U144_FOLDTSNAME_OFF.
+                                    bool inGen144 = false;
+                                    for (auto* sc144 = declSymbol.getParentScope();
+                                         sc144; sc144 = sc144->asSymbol().getParentScope()) {
+                                        auto k144 = sc144->asSymbol().kind;
+                                        if (k144 == SymbolKind::GenerateBlock) {
+                                            inGen144 = true;
+                                            break;
+                                        }
+                                        if (k144 == SymbolKind::InstanceBody ||
+                                            k144 == SymbolKind::Package)
+                                            break;
+                                    }
+                                    if (inGen144 ||
+                                        !r11u144Law("R11U144_FOLDTSNAME_OFF"))
+                                        rt0->VpiFullName(boundOwnerFullName);
                                     rt0->VpiParent(c);
                                     auto* its0 = s.MakeInt_typespec();
                                     if (r11u48Off ? old48 : true)
@@ -16480,7 +16556,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             }
             auto* ref = s.MakeRef_obj();
             ref->VpiName(name);
-            if (!syntaxRefPrefix.empty())
+            if (!syntaxRefPrefix.empty() && !paramAliasBoundUnstored144)
                 ref->VpiFullName(syntaxRefPrefix + syntaxRefSep + std::string(name));
             ref->VpiParent(parent);
             setLoc(ref, syn.sourceRange());
@@ -18416,7 +18492,27 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 }
                 auto* ref = s.MakeRef_obj();
                 ref->VpiName(raw);
-                ref->VpiFullName(raw);
+                // § pkgTsForeignQualRefUnstored144 (r11u144) — inside a
+                // typespec a PACKAGE holds (a package typedef, a member of a
+                // package struct), a reference qualified by ANOTHER package
+                // (`logic [top_pkg::TL_SZW-1:0] d_size;` in tlul_pkg) carries
+                // no stored full name in golden: it reads its chain through
+                // the typedef and the member
+                // (`tlul_pkg::tlul_pkg::tl_h2d_t::d_size::top_pkg::TL_SZW`,
+                // PackStructVar, map N0078), where ours stored the qualified
+                // name itself (which the VPI reads as no name at all, being
+                // equal to vpiName).  Grid tools/probe/r11u144repro/grid/qb.
+                // Switch: R11U144_PKGQUALREF_OFF.
+                bool unstored144 = false;
+                if (curPkgEmitSym && curPkgEmitSym->kind == SymbolKind::Package &&
+                    r11u144Law("R11U144_PKGQUALREF_OFF")) {
+                    auto q144 = raw.find("::");
+                    if (q144 != std::string::npos &&
+                        raw.substr(0, q144) != curPkgEmitSym->name)
+                        unstored144 = true;
+                }
+                if (!unstored144)
+                    ref->VpiFullName(raw);
                 ref->VpiParent(parent);
                 setLoc(ref, syn.sourceRange());
                 const Scope& bscope =

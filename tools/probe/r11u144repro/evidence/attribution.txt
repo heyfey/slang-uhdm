@@ -1,0 +1,46 @@
+surelog/default/BuildUVMPkg	pristine-bytes-under: R11U144_OFF R11U144_METHQUALSPAN_OFF
+surelog/default/ClassTypeParam	pristine-bytes-under: R11U144_OFF R11U144_METHQUALSPAN_OFF
+surelog/default/Earlgrey_0_1	pristine-bytes-under: R11U144_OFF
+surelog/default/IndexAssign	pristine-bytes-under: R11U144_OFF R11U144_SELBAREDEC_OFF
+surelog/default/MiniAmiq	pristine-bytes-under: NONE
+surelog/default/PackStructVar	pristine-bytes-under: R11U144_OFF R11U144_PKGQUALREF_OFF
+surelog/default/Scoreboard	pristine-bytes-under: NONE
+surelog/default/SeqDriver	pristine-bytes-under: NONE
+surelog/default/SimpleUVM	pristine-bytes-under: NONE
+surelog/default/SVSwitch	pristine-bytes-under: R11U144_OFF R11U144_METHQUALSPAN_OFF
+surelog/default/UnsizedParam	pristine-bytes-under: R11U144_OFF R11U144_PARAMALIASREF_OFF
+surelog/default/YosysBigSimEllip	pristine-bytes-under: R11U144_OFF R11U144_SELBAREDEC_OFF
+surelog/default/YosysOldOr	pristine-bytes-under: R11U144_OFF R11U144_SELBAREDEC_OFF
+surelog/testflags/BuildUVMPkg	pristine-bytes-under: R11U144_OFF R11U144_METHQUALSPAN_OFF
+surelog/testflags/CarryAdd	pristine-bytes-under: R11U144_OFF R11U144_ELABINST_OFF
+surelog/testflags/ClassTypeParam	pristine-bytes-under: R11U144_OFF R11U144_METHQUALSPAN_OFF
+surelog/testflags/Earlgrey_0_1	pristine-bytes-under: R11U144_OFF
+surelog/testflags/EvalFunc	pristine-bytes-under: R11U144_OFF R11U144_ELABINST_OFF
+surelog/testflags/FuncInModule	pristine-bytes-under: R11U144_OFF R11U144_ELABINST_OFF
+surelog/testflags/GenScopeHierPath3	pristine-bytes-under: R11U144_OFF R11U144_ELABINST_OFF
+surelog/testflags/IndexAssign	pristine-bytes-under: R11U144_OFF R11U144_SELBAREDEC_OFF
+surelog/testflags/InterfArrayBind	pristine-bytes-under: R11U144_OFF R11U144_ELABINST_OFF
+surelog/testflags/MiniAmiq	pristine-bytes-under: NONE
+surelog/testflags/PackStructVar	pristine-bytes-under: R11U144_OFF R11U144_PKGQUALREF_OFF
+surelog/testflags/SeqDriver	pristine-bytes-under: R11U144_OFF
+surelog/testflags/SequenceInst	pristine-bytes-under: R11U144_OFF R11U144_ELABPROP_OFF
+surelog/testflags/SimpleUVM	pristine-bytes-under: R11U144_OFF
+surelog/testflags/StringRange	pristine-bytes-under: R11U144_OFF R11U144_ELABINST_OFF
+surelog/testflags/SVSwitch	pristine-bytes-under: R11U144_OFF R11U144_METHQUALSPAN_OFF
+surelog/testflags/UnsizedFunc	pristine-bytes-under: R11U144_OFF R11U144_ELABINST_OFF
+surelog/testflags/UnsizedParam	pristine-bytes-under: R11U144_OFF R11U144_PARAMALIASREF_OFF
+surelog/testflags/YosysOldOr	pristine-bytes-under: R11U144_OFF R11U144_SELBAREDEC_OFF
+uhdm2rtlil/default/genvar_iface_struct	pristine-bytes-under: R11U144_OFF R11U144_DEFGENHP_OFF
+uhdm2rtlil/default/iface_array_modport_drive	pristine-bytes-under: R11U144_OFF R11U144_DEFGENHP_OFF
+uhdm2rtlil/default/packed_struct_array_fifo	pristine-bytes-under: R11U144_OFF R11U144_TPPACKEDNET_OFF
+uhdm2rtlil/default/ParameterInitializedByPartSelectOfParametersAssignedToVar	pristine-bytes-under: R11U144_OFF R11U144_FOLDTSNAME_OFF
+uhdm2rtlil/default/ParameterOfParametrizedType	pristine-bytes-under: R11U144_OFF R11U144_PARAMALIASREF_OFF
+uhdm2rtlil/default/ParameterOfParametrizedTypeInSubmodule	pristine-bytes-under: R11U144_OFF R11U144_PARAMALIASREF_OFF
+uhdm2rtlil/default/PkgParamAsFunctionArg	pristine-bytes-under: R11U144_OFF R11U144_CALLBITSEL_OFF
+uhdm2rtlil/testflags/genvar_iface_struct	pristine-bytes-under: R11U144_OFF R11U144_DEFGENHP_OFF
+uhdm2rtlil/testflags/iface_array_modport_drive	pristine-bytes-under: R11U144_OFF R11U144_DEFGENHP_OFF
+uhdm2rtlil/testflags/packed_struct_array_fifo	pristine-bytes-under: R11U144_OFF R11U144_TPPACKEDNET_OFF
+uhdm2rtlil/testflags/ParameterInitializedByPartSelectOfParametersAssignedToVar	pristine-bytes-under: R11U144_OFF R11U144_FOLDTSNAME_OFF
+uhdm2rtlil/testflags/ParameterOfParametrizedType	pristine-bytes-under: R11U144_OFF R11U144_PARAMALIASREF_OFF
+uhdm2rtlil/testflags/ParameterOfParametrizedTypeInSubmodule	pristine-bytes-under: R11U144_OFF R11U144_PARAMALIASREF_OFF
+uhdm2rtlil/testflags/PkgParamAsFunctionArg	pristine-bytes-under: R11U144_OFF R11U144_CALLBITSEL_OFF

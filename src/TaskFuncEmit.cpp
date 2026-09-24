@@ -18,6 +18,7 @@
 
 namespace slang_uhdm {
 bool r11u137Law(const char* sw);
+bool r11u144Law(const char* sw);
 
 // § classHandleRetTsNameUnlessSameHomeComponent156 — the HOME DESIGN COMPONENT
 // of a scope, keyed the way Surelog's class REGISTRY keys it
@@ -3234,6 +3235,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     cmp137 = &psyn->parent->as<syntax::ClassMethodPrototypeSyntax>();
                 if (cmp137) {
                     auto st137 = cmp137->sourceRange().start();
+                    // § methodSpanSkipsAttrs144 (r11u144) — an attribute
+                    // instance is not part of a method's span: golden starts
+                    // at the first qualifier (`(* keep *) pure virtual
+                    // function int f;` 2:14, grid at).  Switch:
+                    // R11U144_METHATTR_OFF.
+                    if (!cmp137->attributes.empty() &&
+                        !cmp137->qualifiers.empty() &&
+                        r11u144Law("R11U144_METHATTR_OFF"))
+                        st137 = cmp137->qualifiers[0].range().start();
                     if (mp.subroutineKind == SubroutineKind::Function) {
                         // § pureVirtProtoSpan137, v11u137 refinement: the
                         // end is the `virtual` keyword of
@@ -3827,7 +3837,36 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     : nullptr;
             bool staticSpan = false;
             bool virtualQual = false;
-            if (qualHolder)
+            // § classMethodQualSpan144 (r11u144) — measured on golden, grid
+            // tools/probe/r11u144repro/grid/vf: a class FUNCTION written with
+            // class-item qualifiers spans its FIRST qualifier token, `virtual`
+            // included (`virtual function void f();` 2:3-2:10, `virtual
+            // protected function` on `virtual`), while a class TASK spans the
+            // whole declaration whatever its qualifiers (`static task`,
+            // `protected virtual task`, `virtual protected task`: 2:3-3:10).
+            // Switch: R11U144_METHQUALSPAN_OFF.
+            static const bool mq144 = r11u144Law("R11U144_METHQUALSPAN_OFF");
+            const bool isFn144 =
+                sub.subroutineKind == SubroutineKind::Function;
+            if (qualHolder && mq144)
+                for (auto q : qualHolder->as<syntax::ClassMethodDeclarationSyntax>()
+                                  .qualifiers) {
+                    bool cq144 =
+                        q.kind == slang::parsing::TokenKind::StaticKeyword ||
+                        q.kind == slang::parsing::TokenKind::LocalKeyword ||
+                        q.kind == slang::parsing::TokenKind::ProtectedKeyword ||
+                        q.kind == slang::parsing::TokenKind::VirtualKeyword;
+                    if (!cq144)
+                        continue;
+                    if (isFn144) {
+                        setLoc(tf, q.range());
+                        staticSpan = true;
+                    }
+                    else
+                        virtualQual = true;
+                    break;
+                }
+            if (qualHolder && !mq144)
                 for (auto q : qualHolder->as<syntax::ClassMethodDeclarationSyntax>()
                                   .qualifiers) {
                     // `static` / `local` / `protected` collapse the span onto
@@ -3842,11 +3881,22 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (q.kind == slang::parsing::TokenKind::VirtualKeyword)
                         virtualQual = true;
                 }
-            if (!staticSpan)
+            if (!staticSpan) {
                 // A plain `virtual` method spans the WHOLE declaration,
                 // qualifier included.
-                setLoc(tf, virtualQual ? qualHolder->sourceRange()
-                                       : syn->sourceRange());
+                SourceRange whole144 =
+                    virtualQual ? qualHolder->sourceRange() : syn->sourceRange();
+                // § methodSpanSkipsAttrs144 — ...but not its attributes
+                // (`(* keep *) virtual task t();` 2:14-3:10, grid at/fe).
+                if (virtualQual && r11u144Law("R11U144_METHATTR_OFF")) {
+                    auto& cmd144 =
+                        qualHolder->as<syntax::ClassMethodDeclarationSyntax>();
+                    if (!cmd144.attributes.empty() && !cmd144.qualifiers.empty())
+                        whole144 = SourceRange(cmd144.qualifiers[0].range().start(),
+                                               whole144.end());
+                }
+                setLoc(tf, whole144);
+            }
         }
         if (protoOf || ((designScope || classScope) && (!oob || oobCtor)))
             tf->VpiMethod(true);

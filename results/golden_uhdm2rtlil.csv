@@ -287,7 +287,7 @@ genscope_outer_reg_inner_ff,default,CMP_EQUAL,,,equal
 genscope_struct_member,default,CMP_EQUAL,,,equal
 GenScopeFunction,default,CMP_EQUAL,,,equal
 genvar_async_reset_array,default,CMP_EQUAL,,,equal
-genvar_iface_struct,default,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+genvar_iface_struct,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 genvar_loop_decl_1,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/genvar_loop_decl_1/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'gen,,
 genvar_loop_decl_2,default,CMP_EQUAL,,,equal
 genvar_loop_decl_3,default,CMP_EQUAL,,,equal
@@ -333,7 +333,7 @@ iface_arr_struct_whole_field,default,CMP_EQUAL,,,equal
 iface_array_count,default,CMP_EQUAL,,,equal
 iface_array_elem_cfg_param,default,CMP_EQUAL,,,equal
 iface_array_internal_assign,default,CMP_EQUAL,,,equal
-iface_array_modport_drive,default,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+iface_array_modport_drive,default,CMP_EQUAL,,,equal
 iface_array_port,default,CMP_EQUAL,,,equal
 iface_array_struct,default,CMP_EQUAL,,,equal
 iface_array_struct_field,default,CMP_EQUAL,,,equal
@@ -545,7 +545,7 @@ packed_array_elem_select,default,CMP_EQUAL,,,equal
 packed_array_reset_loop,default,STRICT_NOTEQUAL,differ:endline(4),,differ:endline(4)
 packed_array_struct,default,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
 packed_array_struct_port_sel,default,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
-packed_struct_array_fifo,default,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
+packed_struct_array_fifo,default,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
 packed_struct_array_net_elem,default,CMP_EQUAL,,,equal
 packed_struct_array_shift,default,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 packed_struct_elem_field,default,CMP_EQUAL,,,equal
@@ -571,13 +571,13 @@ ParameterInGenScopeInitializedWithLongConstant,default,CMP_EQUAL,,,equal
 ParameterInitializationWithNegation,default,CMP_EQUAL,,,equal
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,default,CMP_EQUAL,,,equal
 ParameterInitializedByPartSelectOfParameters,default,CMP_EQUAL,,,equal
-ParameterInitializedByPartSelectOfParametersAssignedToVar,default,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+ParameterInitializedByPartSelectOfParametersAssignedToVar,default,CMP_EQUAL,,,equal
 ParameterInitializedInSubModuleOfTopOf5LevelHierarchy,default,CMP_EQUAL,,,equal
 ParameterInitializedInTopOf5LevelHierarchy,default,CMP_EQUAL,,,equal
 ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle,default,CMP_EQUAL,,,equal
 ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle,default,CMP_EQUAL,,,equal
-ParameterOfParametrizedType,default,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
-ParameterOfParametrizedTypeInSubmodule,default,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+ParameterOfParametrizedType,default,CMP_EQUAL,,,equal
+ParameterOfParametrizedTypeInSubmodule,default,CMP_EQUAL,,,equal
 ParameterOfSizeOfParametrizedPort,default,CMP_EQUAL,,,equal
 ParameterOfSizeOfParametrizedPortInSubmodule,default,CMP_EQUAL,,,equal
 ParameterOfSizeOfPort,default,CMP_EQUAL,,,equal
@@ -615,7 +615,7 @@ PatternType,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/PatternT
 pico_count_cycle,default,CMP_EQUAL,,,equal
 pkg_localparam_partsel,default,CMP_EQUAL,,,equal
 pkg_nested_struct_param_width,default,STRICT_NOTEQUAL,differ:col(7),,differ:col(7)
-PkgParamAsFunctionArg,default,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
+PkgParamAsFunctionArg,default,CMP_EQUAL,,,equal
 port_chained_type_param,default,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
 port_int_types,default,CMP_EQUAL,,,equal
 port_sign_extend,default,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,
@@ -1158,7 +1158,7 @@ genscope_outer_reg_inner_ff,testflags,CMP_EQUAL,,,equal
 genscope_struct_member,testflags,CMP_EQUAL,,,equal
 GenScopeFunction,testflags,CMP_EQUAL,,,equal
 genvar_async_reset_array,testflags,CMP_EQUAL,,,equal
-genvar_iface_struct,testflags,STRICT_NOTEQUAL,differ:endcol(3),,differ:endcol(3)
+genvar_iface_struct,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
 genvar_loop_decl_1,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/genvar_loop_decl_1/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'gen,,
 genvar_loop_decl_2,testflags,CMP_EQUAL,,,equal
 genvar_loop_decl_3,testflags,CMP_EQUAL,,,equal
@@ -1204,7 +1204,7 @@ iface_arr_struct_whole_field,testflags,CMP_EQUAL,,,equal
 iface_array_count,testflags,CMP_EQUAL,,,equal
 iface_array_elem_cfg_param,testflags,CMP_EQUAL,,,equal
 iface_array_internal_assign,testflags,CMP_EQUAL,,,equal
-iface_array_modport_drive,testflags,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
+iface_array_modport_drive,testflags,CMP_EQUAL,,,equal
 iface_array_port,testflags,CMP_EQUAL,,,equal
 iface_array_struct,testflags,CMP_EQUAL,,,equal
 iface_array_struct_field,testflags,CMP_EQUAL,,,equal
@@ -1416,7 +1416,7 @@ packed_array_elem_select,testflags,CMP_EQUAL,,,equal
 packed_array_reset_loop,testflags,STRICT_NOTEQUAL,differ:endline(4),,differ:endline(4)
 packed_array_struct,testflags,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
 packed_array_struct_port_sel,testflags,STRICT_NOTEQUAL,differ:endcol(9),,differ:endcol(9)
-packed_struct_array_fifo,testflags,STRICT_NOTEQUAL,differ:endline(2),,differ:endline(2)
+packed_struct_array_fifo,testflags,STRICT_NOTEQUAL,differ:fullname(8),,differ:fullname(8)
 packed_struct_array_net_elem,testflags,CMP_EQUAL,,,equal
 packed_struct_array_shift,testflags,STRICT_NOTEQUAL,differ:fullname(4),,differ:fullname(4)
 packed_struct_elem_field,testflags,CMP_EQUAL,,,equal
@@ -1442,13 +1442,13 @@ ParameterInGenScopeInitializedWithLongConstant,testflags,CMP_EQUAL,,,equal
 ParameterInitializationWithNegation,testflags,CMP_EQUAL,,,equal
 ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,testflags,CMP_EQUAL,,,equal
 ParameterInitializedByPartSelectOfParameters,testflags,CMP_EQUAL,,,equal
-ParameterInitializedByPartSelectOfParametersAssignedToVar,testflags,STRICT_NOTEQUAL,differ:fullname(1),,differ:fullname(1)
+ParameterInitializedByPartSelectOfParametersAssignedToVar,testflags,CMP_EQUAL,,,equal
 ParameterInitializedInSubModuleOfTopOf5LevelHierarchy,testflags,CMP_EQUAL,,,equal
 ParameterInitializedInTopOf5LevelHierarchy,testflags,CMP_EQUAL,,,equal
 ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle,testflags,CMP_EQUAL,,,equal
 ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle,testflags,CMP_EQUAL,,,equal
-ParameterOfParametrizedType,testflags,STRICT_NOTEQUAL,differ:fullname(3),,differ:fullname(3)
-ParameterOfParametrizedTypeInSubmodule,testflags,STRICT_NOTEQUAL,differ:fullname(5),,differ:fullname(5)
+ParameterOfParametrizedType,testflags,CMP_EQUAL,,,equal
+ParameterOfParametrizedTypeInSubmodule,testflags,CMP_EQUAL,,,equal
 ParameterOfSizeOfParametrizedPort,testflags,CMP_EQUAL,,,equal
 ParameterOfSizeOfParametrizedPortInSubmodule,testflags,CMP_EQUAL,,,equal
 ParameterOfSizeOfPort,testflags,CMP_EQUAL,,,equal
@@ -1486,7 +1486,7 @@ PatternType,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/Patter
 pico_count_cycle,testflags,CMP_EQUAL,,,equal
 pkg_localparam_partsel,testflags,CMP_EQUAL,,,equal
 pkg_nested_struct_param_width,testflags,STRICT_NOTEQUAL,differ:col(7),,differ:col(7)
-PkgParamAsFunctionArg,testflags,STRICT_NOTEQUAL,differ:endcol(1),,differ:endcol(1)
+PkgParamAsFunctionArg,testflags,CMP_EQUAL,,,equal
 port_chained_type_param,testflags,STRICT_NOTEQUAL,differ:endcol(2),,differ:endcol(2)
 port_int_types,testflags,CMP_EQUAL,,,equal
 port_sign_extend,testflags,SLANG_REJECT,/home/heyfey/git-repos/uhdm2rtlil/test/port_sign_extend/dut.v:75:7: error: expected identifier,,

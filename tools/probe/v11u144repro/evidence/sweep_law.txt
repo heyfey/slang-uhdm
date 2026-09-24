@@ -1,0 +1,78 @@
+law index current
+probe cases: EQUAL=2285 STRICT_NOTEQUAL=1802 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=2285 STRICT_NOTEQUAL=1802
+CONVERSION r10earl109repro/g2_stale109 STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10earl_repro/l STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10earl_repro/wh STRICT_NOTEQUAL differ:fullname(2) -> EQUAL
+CONVERSION r10sd3repro/g8_pkg_virtual_extends STRICT_NOTEQUAL differ:endline(2) -> EQUAL
+CONVERSION r10svs3repro/a2_thisnew STRICT_NOTEQUAL differ:endline(1) -> EQUAL
+CONVERSION r10uvm10repro/t6 STRICT_NOTEQUAL differ:endline(3) -> EQUAL
+CONVERSION r10uvm12repro/t STRICT_NOTEQUAL differ:endline(1) -> EQUAL
+CONVERSION r10uvm57repro/a7_forkfor STRICT_NOTEQUAL differ:endline(1) -> EQUAL
+CONVERSION r10uvm69repro/v1_gaps STRICT_NOTEQUAL differ:endline(1) -> EQUAL
+CONVERSION r10uvm71repro/a2_site STRICT_NOTEQUAL differ:endline(1) -> EQUAL
+CONVERSION r10v133repro/v133_h_more STRICT_NOTEQUAL differ:endcol(1) -> EQUAL
+CONVERSION r10v141repro/v141_d_owners STRICT_NOTEQUAL differ:endline(2) -> EQUAL
+CONVERSION r10vearl115repro/w4_selmem STRICT_NOTEQUAL differ:endcol(2) -> EQUAL
+CHANGE r10buvm32repro/g32a3 STRICT_NOTEQUAL differ:fullname(13) -> differ:fullname(11) [fullname -2]
+CHANGE r10earl109repro/g6_carrier109 STRICT_NOTEQUAL differ:endcol(3) -> differ:endcol(2) [endcol -1]
+CHANGE r10uvm144repro/g144_b STRICT_NOTEQUAL differ:line(12) -> differ:line(8) [line -4]
+CHANGE r10uvm14repro/t19_t STRICT_NOTEQUAL differ:line(9) -> differ:line(6) [line -3]
+CHANGE r10uvm158repro/g158_f_witness STRICT_NOTEQUAL differ:endline(2) -> differ:line(1)
+CHANGE r10uvm160repro/g160_f_witness STRICT_NOTEQUAL differ:endline(12) -> differ:line(11)
+CHANGE r10uvm167repro/g167_b_spell STRICT_NOTEQUAL differ:file(10) -> differ:file(8) [file -2]
+CHANGE r10uvm35repro/t47a STRICT_NOTEQUAL differ:endcol(16) -> differ:line(3)
+CHANGE r10uvm35repro/t47b STRICT_NOTEQUAL differ:endcol(7) -> differ:line(1)
+CHANGE r10uvm55repro/a1 STRICT_NOTEQUAL differ:endline(28) -> differ:line(21)
+CHANGE r10uvm57repro/b2_shape STRICT_NOTEQUAL differ:endline(3) -> differ:endcol(2)
+CHANGE r10uvm57repro/b4_open STRICT_NOTEQUAL differ:endcol(3) -> differ:fullname(1)
+CHANGE r10uvm57repro/v1_prodcell STRICT_NOTEQUAL differ:endcol(3) -> differ:endcol(2) [endcol -1]
+CHANGE r10uvm58repro/a1_witness STRICT_NOTEQUAL differ:line(9) -> differ:line(7) [line -2]
+CHANGE r10uvm58repro/a5_spec STRICT_NOTEQUAL differ:line(4) -> differ:line(2) [line -2]
+CHANGE r10v113repro/v113_ord STRICT_NOTEQUAL differ:line(9) -> differ:line(8) [line -1]
+CHANGE r10v119repro/v119_j STRICT_NOTEQUAL differ:endline(2) -> differ:endcol(1)
+CHANGE r10v121repro/v121_e2 STRICT_NOTEQUAL differ:endline(4) -> differ:file(2)
+CHANGE r10v160repro/z05_virtual STRICT_NOTEQUAL differ:endcol(5) -> differ:line(4)
+CHANGE r10v167repro/vD_kinds STRICT_NOTEQUAL differ:endline(6) -> differ:endcol(4)
+CHANGE r11u112repro/grid/k/k20_hdr_param_type_ctl STRICT_NOTEQUAL differ:endline(3) -> differ:endline(2) [endline -1]
+regressions=0 conversions=13 changes=21 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=391 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=89 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=389 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=85 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+CONVERSION CarryAdd testflags STRICT_NOTEQUAL differ:fullname(2) -> CMP_EQUAL
+CONVERSION GenScopeHierPath3 testflags STRICT_NOTEQUAL differ:fullname(163) -> CMP_EQUAL
+CONVERSION IndexAssign default STRICT_NOTEQUAL differ:decompile(1) -> CMP_EQUAL
+CONVERSION IndexAssign testflags STRICT_NOTEQUAL differ:decompile(1) -> CMP_EQUAL
+CONVERSION PackStructVar default STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CONVERSION PackStructVar testflags STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CONVERSION SequenceInst testflags STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL
+CONVERSION UnsizedParam testflags STRICT_NOTEQUAL differ:fullname(6) -> CMP_EQUAL
+CHANGE ClassTypeParam default STRICT_NOTEQUAL differ:endline(26) -> differ:endline(25) [endline -1]
+CHANGE ClassTypeParam testflags STRICT_NOTEQUAL differ:file(39) -> differ:file(38) [file -1]
+CHANGE Earlgrey_0_1 default STRICT_NOTEQUAL differ:line(1051) -> differ:line(1041) [line -10]
+CHANGE Earlgrey_0_1 testflags STRICT_NOTEQUAL differ:line(1051) -> differ:line(1041) [line -10]
+CHANGE InterfArrayBind testflags STRICT_NOTEQUAL differ:fullname(3) -> differ:fullname(1) [fullname -2]
+CHANGE SVSwitch default STRICT_NOTEQUAL differ:endcol(37) -> differ:endcol(33) [endcol -4]
+CHANGE SVSwitch testflags STRICT_NOTEQUAL differ:endcol(37) -> differ:endcol(33) [endcol -4]
+CHANGE UnsizedParam default STRICT_NOTEQUAL differ:fullname(8) -> differ:fullname(2) [fullname -6]
+CHANGE YosysBigSimEllip default STRICT_NOTEQUAL differ:fullname(3039) -> differ:fullname(3038) [fullname -1]
+CHANGE YosysOldOr default STRICT_NOTEQUAL differ:line(595) -> differ:line(593) [line -2]
+CHANGE YosysOldOr testflags STRICT_NOTEQUAL differ:line(595) -> differ:line(593) [line -2]
+regressions=0 conversions=8 changes=11 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=697 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=106
+[testflags] CMP_EQUAL=697 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=106
+CONVERSION ParameterInitializedByPartSelectOfParametersAssignedToVar default STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION ParameterInitializedByPartSelectOfParametersAssignedToVar testflags STRICT_NOTEQUAL differ:fullname(1) -> CMP_EQUAL
+CONVERSION ParameterOfParametrizedType default STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION ParameterOfParametrizedType testflags STRICT_NOTEQUAL differ:fullname(3) -> CMP_EQUAL
+CONVERSION ParameterOfParametrizedTypeInSubmodule default STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CONVERSION ParameterOfParametrizedTypeInSubmodule testflags STRICT_NOTEQUAL differ:fullname(5) -> CMP_EQUAL
+CONVERSION PkgParamAsFunctionArg default STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CONVERSION PkgParamAsFunctionArg testflags STRICT_NOTEQUAL differ:endcol(1) -> CMP_EQUAL
+CONVERSION iface_array_modport_drive default STRICT_NOTEQUAL differ:endcol(2) -> CMP_EQUAL
+CONVERSION iface_array_modport_drive testflags STRICT_NOTEQUAL differ:endcol(2) -> CMP_EQUAL
+CHANGE genvar_iface_struct default STRICT_NOTEQUAL differ:endcol(3) -> differ:fullname(1)
+CHANGE genvar_iface_struct testflags STRICT_NOTEQUAL differ:endcol(3) -> differ:fullname(1)
+CHANGE packed_struct_array_fifo default STRICT_NOTEQUAL differ:endline(2) -> differ:fullname(8)
+CHANGE packed_struct_array_fifo testflags STRICT_NOTEQUAL differ:endline(2) -> differ:fullname(8)
+regressions=0 conversions=10 changes=4 only-fresh=0 only-committed=0
+rc=0
