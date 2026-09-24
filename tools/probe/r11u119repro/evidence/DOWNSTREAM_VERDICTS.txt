@@ -1,0 +1,12 @@
+baseline {'IDENTICAL': 781, 'EQUIVALENT': 19, 'SLANG_REJECT': 66, 'DIVERGENT': 5}
+pristine {'IDENTICAL': 780, 'EQUIVALENT': 20, 'SLANG_REJECT': 66, 'DIVERGENT': 5}
+law {'IDENTICAL': 787, 'EQUIVALENT': 13, 'SLANG_REJECT': 66, 'DIVERGENT': 5}
+rows that left IDENTICAL (pristine->law): []
+TypedefWithParameter base=EQUIVALENT pris=EQUIVALENT law=IDENTICAL differs pris=[nohier il synth] law=[]
+cdc_static_basic base=EQUIVALENT pris=EQUIVALENT law=IDENTICAL differs pris=[nohier il synth] law=[]
+gen_test7 base=IDENTICAL pris=EQUIVALENT law=EQUIVALENT differs pris=[nohier] law=[nohier]
+hier_undriven_port base=EQUIVALENT pris=EQUIVALENT law=IDENTICAL differs pris=[nohier il synth] law=[]
+mriscv_bind_sva base=EQUIVALENT pris=EQUIVALENT law=IDENTICAL differs pris=[nohier il] law=[]
+param_type_logic_width base=EQUIVALENT pris=EQUIVALENT law=IDENTICAL differs pris=[nohier] law=[]
+rp32_r5p_alu base=EQUIVALENT pris=EQUIVALENT law=IDENTICAL differs pris=[nohier] law=[]
+typedef_package base=EQUIVALENT pris=EQUIVALENT law=IDENTICAL differs pris=[nohier il synth] law=[]

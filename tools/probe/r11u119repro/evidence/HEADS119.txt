@@ -1,0 +1,120 @@
+=== typedef_package  PRISTINE (surelog lane < > slang lane) nohier
+6c6
+<   attribute \src "dut.sv:11.26-11.35"
+---
+>   attribute \src "dut.sv:11.26-11.27"
+11c11
+<   attribute \src "dut.sv:12.26-12.42"
+---
+>   attribute \src "dut.sv:12.26-12.32"
+109c109
+<   attribute \src "dut.sv:11.26-11.35"
+---
+>   attribute \src "dut.sv:11.26-11.27"
+=== typedef_package  LAW nohier
+=== TypedefWithParameter  PRISTINE (surelog lane < > slang lane) nohier
+8c8
+<   attribute \src "dut.sv:7.17-7.26"
+---
+>   attribute \src "dut.sv:7.17-7.18"
+12c12
+<   attribute \src "dut.sv:7.17-7.26"
+---
+>   attribute \src "dut.sv:7.17-7.18"
+=== TypedefWithParameter  LAW nohier
+=== hier_undriven_port  PRISTINE (surelog lane < > slang lane) nohier
+16a17
+>   attribute \src "dut.sv:17.16-17.18"
+=== hier_undriven_port  LAW nohier
+=== param_type_logic_width  PRISTINE (surelog lane < > slang lane) nohier
+22a23
+>   attribute \src "dut.sv:17.48-17.49"
+=== param_type_logic_width  LAW nohier
+=== rp32_r5p_alu  PRISTINE (surelog lane < > slang lane) nohier
+2365c2365
+<     attribute \src "r5p_alu.sv:103.7-103.75"
+---
+>     attribute \src "r5p_alu.sv:103.7-103.71"
+=== rp32_r5p_alu  LAW nohier
+=== mriscv_bind_sva  PRISTINE (surelog lane < > slang lane) nohier
+11665a11666
+>   attribute \src "mriscvcore.v:130.15-130.23"
+11666a11668
+>   attribute \src "mriscvcore.v:204.16-204.25"
+11667a11670
+>   attribute \src "mriscvcore.v:223.16-223.25"
+11668a11672
+>   attribute \src "mriscvcore.v:231.18-231.29"
+11669a11674
+>   attribute \src "mriscvcore.v:232.22-232.37"
+=== mriscv_bind_sva  LAW nohier
+=== ibex_controller  PRISTINE (surelog lane < > slang lane) nohier
+1293,1294c1293,1294
+<   attribute \src "ibex_controller.sv:194.28-194.61"
+<   cell $and $and$ibex_controller.sv:194$44
+---
+>   attribute \src "ibex_controller.sv:193.28-193.61"
+>   cell $and $and$ibex_controller.sv:193$44
+1304,1305c1304,1305
+<   attribute \src "ibex_controller.sv:195.28-195.61"
+<   cell $and $and$ibex_controller.sv:195$46
+---
+>   attribute \src "ibex_controller.sv:194.28-194.61"
+>   cell $and $and$ibex_controller.sv:194$46
+1315,1316c1315,1316
+<   attribute \src "ibex_controller.sv:196.28-196.61"
+<   cell $and $and$ibex_controller.sv:196$48
+---
+>   attribute \src "ibex_controller.sv:195.28-195.61"
+>   cell $and $and$ibex_controller.sv:195$48
+1326,1327c1326,1327
+<   attribute \src "ibex_controller.sv:197.28-197.61"
+<   cell $and $and$ibex_controller.sv:197$50
+---
+>   attribute \src "ibex_controller.sv:196.28-196.61"
+>   cell $and $and$ibex_controller.sv:196$50
+=== ibex_controller  LAW nohier
+1293,1294c1293,1294
+<   attribute \src "ibex_controller.sv:194.28-194.61"
+<   cell $and $and$ibex_controller.sv:194$44
+---
+>   attribute \src "ibex_controller.sv:193.28-193.61"
+>   cell $and $and$ibex_controller.sv:193$44
+1304,1305c1304,1305
+<   attribute \src "ibex_controller.sv:195.28-195.61"
+<   cell $and $and$ibex_controller.sv:195$46
+---
+>   attribute \src "ibex_controller.sv:194.28-194.61"
+>   cell $and $and$ibex_controller.sv:194$46
+=== cdc_static_basic  PRISTINE (surelog lane < > slang lane) nohier
+14c14
+<   attribute \real_attr "1.5"
+---
+>   attribute \real_attr "1.500000"
+=== cdc_static_basic  LAW nohier
+=== type_param_override_elem_sel  PRISTINE (surelog lane < > slang lane) nohier
+5c5
+< module \child$typaram_2_1_1
+---
+> module \child$typaram_1_1_1
+9c9
+<   wire width 4 input 1 \rt_i
+---
+>   wire width 2 input 1 \rt_i
+39c39
+<     parameter \A_WIDTH 4
+---
+>     parameter \A_WIDTH 2
+=== type_param_override_elem_sel  LAW nohier
+5c5
+< module \child$typaram_2_1_1
+---
+> module \child$typaram_1_1_1
+9c9
+<   wire width 4 input 1 \rt_i
+---
+>   wire width 2 input 1 \rt_i
+39c39
+<     parameter \A_WIDTH 4
+---
+>     parameter \A_WIDTH 2

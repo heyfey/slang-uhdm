@@ -1,0 +1,97 @@
+## uhdm-dump cells, golden (Surelog lane) vs pristine slang lane
+== typedef_package
+<   \_logic_typespec: (pkg::uint8_t), line:2:10, endln:11:35
+>   \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+<       \_logic_typespec: (pkg::uint8_t), line:2:10, endln:11:35
+>       \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+<       \_logic_typespec: (pkg::uint8_t), line:2:10, endln:11:35
+>       \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+<   \_logic_var: (work@top.a), line:11:26, endln:11:35
+>   \_logic_var: (work@top.a), line:11:26, endln:11:27
+<       \_logic_var: (work@top.a), line:11:26, endln:11:35
+>       \_logic_var: (work@top.a), line:11:26, endln:11:27
+<       \_logic_var: (work@top.a), line:11:26, endln:11:35
+>       \_logic_var: (work@top.a), line:11:26, endln:11:27
+<   \_enum_var: (work@top.b_enum), line:12:26, endln:12:42
+>   \_enum_var: (work@top.b_enum), line:12:26, endln:12:32
+<       \_enum_var: (work@top.b_enum), line:12:26, endln:12:42
+>       \_enum_var: (work@top.b_enum), line:12:26, endln:12:32
+<       \_enum_var: (work@top.b_enum), line:12:26, endln:12:42
+>       \_enum_var: (work@top.b_enum), line:12:26, endln:12:32
+<     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:11:35
+>     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+<     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:11:35
+>     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+>   \_ref_typespec: (pkg::PCONST::uint8_t)
+>     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+<   \_ref_typespec: (pkg::PCONST::uint8_t)
+>   \_ref_typespec: (pkg::PCONST_COPY::uint8_t)
+<   \_ref_typespec: (pkg::PCONST_COPY::uint8_t)
+<     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+> \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+>   \_ref_typespec: (pkg::uint8_t)
+>     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+>     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+>     \_logic_typespec: (pkg::uint8_t), line:2:10, endln:2:21
+== TypedefWithParameter
+<   \_logic_typespec: (my_pkg::word), line:3:12, endln:7:26
+>   \_logic_typespec: (my_pkg::word), line:3:12, endln:3:25
+<       \_logic_typespec: (my_pkg::word), line:3:12, endln:7:26
+>       \_logic_typespec: (my_pkg::word), line:3:12, endln:3:25
+<       \_logic_typespec: (my_pkg::word), line:3:12, endln:7:26
+>       \_logic_typespec: (my_pkg::word), line:3:12, endln:3:25
+<   \_logic_var: (work@top.w), line:7:17, endln:7:26
+>   \_logic_var: (work@top.w), line:7:17, endln:7:18
+<       \_logic_var: (work@top.w), line:7:17, endln:7:26
+>       \_logic_var: (work@top.w), line:7:17, endln:7:18
+<       \_logic_var: (work@top.w), line:7:17, endln:7:26
+>       \_logic_var: (work@top.w), line:7:17, endln:7:18
+> \_logic_typespec: (my_pkg::word), line:3:12, endln:3:25
+>   \_ref_typespec: (my_pkg::word)
+>     \_logic_typespec: (my_pkg::word), line:3:12, endln:3:25
+>     \_logic_typespec: (my_pkg::word), line:3:12, endln:3:25
+>     \_logic_typespec: (my_pkg::word), line:3:12, endln:3:25
+== law typedef_package
+      \_enum_var: (work@top.b_enum), line:12:26, endln:12:42
+  \_enum_var: (work@top.b_enum), line:12:26, endln:12:42
+      \_logic_var: (work@top.a), line:11:26, endln:11:35
+  \_logic_var: (work@top.a), line:11:26, endln:11:35
+## locdump rows (VpiFile visible): golden vs pristine vs law
+== hier_undriven_port
+logic_net(b2) - 17.16-17.18 <- module_inst()@16.1 <- design(work@top)@0.0
+logic_net(b2) dut.sv 17.16-17.18 <- module_inst(inst)@22.3 <- module_inst(work@top)@21.1 <- design(work@top)@0.0
+logic_net(b2) dut.sv 17.16-17.18 <- module_inst()@16.1 <- design(work@top)@0.0
+logic_net(b2) dut.sv 17.16-17.18 <- module_inst(inst)@22.3 <- module_inst(work@top)@21.1 <- design(work@top)@0.0
+logic_net(b2) - 17.16-17.18 <- module_inst()@16.1 <- design(work@top)@0.0
+logic_net(b2) dut.sv 17.16-17.18 <- module_inst(inst)@22.3 <- module_inst(work@top)@21.1 <- design(work@top)@0.0
+== param_type_logic_width
+logic_net(b) - 17.48-17.49 <- module_inst()@4.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 13.26-13.27 <- module_inst()@11.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 13.26-13.27 <- module_inst(t)@27.5 <- module_inst(work@tb)@23.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 25.17-25.18 <- module_inst()@23.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 13.26-13.27 <- module_inst()@11.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 13.26-13.27 <- module_inst(t)@27.5 <- module_inst(work@tb)@23.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 17.48-17.49 <- module_inst()@4.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 25.17-25.18 <- module_inst()@23.1 <- design(work@tb)@0.0
+logic_net(b) - 17.48-17.49 <- module_inst()@4.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 13.26-13.27 <- module_inst()@11.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 13.26-13.27 <- module_inst(t)@27.5 <- module_inst(work@tb)@23.1 <- design(work@tb)@0.0
+logic_net(b) dut.sv 25.17-25.18 <- module_inst()@23.1 <- design(work@tb)@0.0
+== mriscv_bind_sva implicit nets (golden '-' count / pristine with file / law with file)
+47
+0
+47
+== rp32_r5p_alu line 103
+begin() r5p_alu.sv 103.32-103.75 <- case_item()@103.7 <- case_stmt()@94.5 <- begin()@92.3 <- always()@91.3 <- module_inst()@23.1 <- design(work@r5p_alu_dec_wrap)@0.0
+case_item() r5p_alu.sv 103.7-103.75 <- case_stmt()@94.5 <- begin()@92.3 <- always()@91.3 <- module_inst()@23.1 <- design(work@r5p_alu_dec_wrap)@0.0
+begin() r5p_alu.sv 103.32-103.71 <- case_item()@103.7 <- case_stmt()@94.5 <- begin()@92.3 <- always()@91.3 <- module_inst()@23.1 <- design(work@r5p_alu_dec_wrap)@0.0
+case_item() r5p_alu.sv 103.7-103.71 <- case_stmt()@94.5 <- begin()@92.3 <- always()@91.3 <- module_inst()@23.1 <- design(work@r5p_alu_dec_wrap)@0.0
+begin() r5p_alu.sv 103.32-103.75 <- case_item()@103.7 <- case_stmt()@94.5 <- begin()@92.3 <- always()@91.3 <- module_inst()@23.1 <- design(work@r5p_alu_dec_wrap)@0.0
+case_item() r5p_alu.sv 103.7-103.75 <- case_stmt()@94.5 <- begin()@92.3 <- always()@91.3 <- module_inst()@23.1 <- design(work@r5p_alu_dec_wrap)@0.0
+== cdc_static_basic attribute values
+attribute(real_attr) dut.sv 6.30-6.45 val=REAL:1.5 <- logic_net(gated_data)@7.16 <- module_inst()@1.1 <- design(work@cdc_static_basic)@0.0
+attribute(real_attr) dut.sv 6.30-6.45 val=REAL:1.500000 <- logic_net(gated_data)@7.16 <- module_inst()@1.1 <- design(work@cdc_static_basic)@0.0
+attribute(real_attr) dut.sv 6.30-6.45 val=REAL:1.5 <- logic_net(gated_data)@7.16 <- module_inst()@1.1 <- design(work@cdc_static_basic)@0.0
+== ibex_controller cont_assign lines 189-207 (golden / pristine / law)
+190.10-190.34 191.10-191.35 194.10-194.61 195.10-195.61 196.10-196.61 197.10-197.61 198.10-198.61 199.10-199.61 200.10-200.61 207.10-207.66 
+189.10-189.34 190.10-190.35 193.10-193.61 194.10-194.61 195.10-195.61 196.10-196.61 197.10-197.61 198.10-198.61 199.10-199.61 206.10-206.66 

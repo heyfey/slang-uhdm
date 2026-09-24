@@ -14,6 +14,25 @@
 
 namespace slang_uhdm {
 
+// ===== r11u119 — the SPAN ground (downstream src attributes) ===============
+// Every r11u119 law sits behind its own switch; R11U119_OFF drops them all
+// and restores the pristine bytes.  Switch names (each droppable alone):
+//   R11U119_SCOPEDSPAN_OFF  § scopedPkgTypeDeclSpan119   (ModuleEmit.cpp)
+//   R11U119_ALIASGATE_OFF   § scopedPkgTypeDeclSpan119 b (ModuleEmit.cpp)
+//   R11U119_IMPLFILE_OFF    § implicitNetNoFile119       (ModuleEmit.cpp,
+//                                                          UhdmExporter.cpp)
+//   R11U119_NUMLIT_OFF      § ppIntegralNumberFold119    (UhdmExporter.cpp)
+//   R11U119_REALATTR_OFF    § attrRealRawText119         (ModuleEmit.cpp)
+// Evidence: tools/probe/r11u119repro/README.md.
+bool r11u119Law(const char* sw) {
+    if (getenv("R11U119_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
+// § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
+void clearImplicitNetFiles119();
+
 // § structInlineEnumMemberTs113 (r11u113) — defined in TypeEmit.cpp.
 void r11u113InlineEnumBaseInstance();
 
@@ -9760,6 +9779,9 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § pkgFlatSurelogBits117 (r11u117) — after every reader copied the
     // package flat operands (law and decode at TypeEmit.cpp).
     applyPkgFlatBits117();
+    // § implicitNetNoFile119 (r11u119, LAW L2) — LAST, so no later setLoc
+    // re-stamps the file (law and decode at ModuleEmit.cpp).
+    clearImplicitNetFiles119();
     return d;
 }
 
@@ -10384,6 +10406,264 @@ int32_t UhdmExporter::macroArgShift(SourceLocation loc) {
 
 // Whitespace runs that TRAIL a based number literal on `line` (Surelog's
 // lexer folds each into a single column). Memoized per (buffer, line).
+// ===== § ppIntegralNumberFold119 (r11u119, LAW L3) ==========================
+// THE PRODUCER.  Surelog's PREPROCESSOR re-emits every INTEGRAL_NUMBER token
+// of the active text with its spaces squeezed out
+// (SV3_1aPpTreeShapeListener::enterIntegral_number,
+// src/SourceCompile/SV3_1aPpTreeShapeListener.cpp:144-172: every ' ' is
+// dropped except the token's LAST character), so every later position on the
+// line moves left by the dropped count.  WHICH text is one token is the pp
+// LEXER's call (grammar/SV3_1aPpLexer.g4:190-330), not the language's:
+//   * Unsigned_number is `Decimal_digit ('_' | Decimal_digit | ' ')*` — a
+//     PLAIN decimal swallows its trailing spaces (`0     ;`, `b[3     ]`,
+//     `12  -1`), in EVERY file (the old "only in files with a directive"
+//     clause was a proxy for the case below; grid g3 n_nodir_* refute it);
+//   * the based forms are `(Non_zero_unsigned_number WS*)? <base> WS*
+//     <value>` whose value runs over ' ' too: `8'hFF     `, `'hFF   `,
+//     `8 'hA5` and `8'h A5` (the INTERNAL space is dropped as well);
+//     `'h`/`'o` count (the old scan stopped at the base letter unless it was
+//     also a hex digit, so `8'hFF     ` never folded);
+//   * an UNBASED-UNSIZED `'x`/`'z`/`'?` is NOT a number to the pp lexer
+//     (`'` is a Special, `x` an identifier), so it folds nothing — while
+//     `'0`/`'1` fold through the Unsigned_number that follows the tick
+//     (rp32 r5p_alu:103 `mux_op2 = 'x     ; end` — golden 103.7-103.75);
+//   * POUND_DELAY `'#' WS* [0-9] [0-9_.]*` and Fixed_point_number
+//     `[0-9]+ '.' [0-9]+` are their own tokens and keep their spacing
+//     (fsm's `#1  IDLE`; `1.5     +`);
+//   * identifiers, strings, comments, escaped identifiers and `define
+//     bodies are skipped whole; macro-call arguments are left to the
+//     macro-expansion shifts (lineShifts), as before.
+// The result is the same [(col, delta)] contract fileLineCol applies.
+static void ppFold119Line(std::string_view ln, bool& inBlock, int& macroDepth,
+                          std::vector<std::pair<uint32_t, int32_t>>& out) {
+    auto isId = [](char ch) {
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') ||
+               (ch >= '0' && ch <= '9') || ch == '_' || ch == '$';
+    };
+    auto isDig = [](char ch) { return ch >= '0' && ch <= '9'; };
+    size_t n = ln.size();
+    // Record the spaces a token [b, e) drops: every ' ' but a final one —
+    // EXCEPT the run between a base letter and its value ([skipB, skipE)):
+    // those are already taken off the spans that CONTAIN the literal, site by
+    // site, by basedLiteralSpaceCount (EmitHelpers.h), in files outside this
+    // pass's ground; folding them here as well would count them twice.
+    auto fold = [&](size_t b, size_t e, size_t skipB = 0, size_t skipE = 0) {
+        for (size_t k = b; k < e; k++)
+            if (ln[k] == ' ' && k + 1 < e && !(k >= skipB && k < skipE))
+                out.push_back({(uint32_t)(k + 1), -1});
+    };
+    // The first value character after a base letter (past the WS* run).
+    auto valueStart = [&](size_t v) {
+        while (v < n && ln[v] == ' ')
+            v++;
+        return v;
+    };
+    // The value run of one based literal after `'[sS]?<base>`.
+    auto valueEnd = [&](size_t v, char base) -> size_t {
+        auto first = [&](char ch) {
+            switch (base) {
+                case 'b': return ch == '0' || ch == '1' || ch == 'x' || ch == 'X' ||
+                                 ch == 'z' || ch == 'Z' || ch == '?';
+                case 'o': return (ch >= '0' && ch <= '7') || ch == 'x' || ch == 'X' ||
+                                 ch == 'z' || ch == 'Z' || ch == '?';
+                default:  return isDig(ch) || (ch >= 'a' && ch <= 'f') ||
+                                 (ch >= 'A' && ch <= 'F') || ch == 'x' ||
+                                 ch == 'X' || ch == 'z' || ch == 'Z' || ch == '?';
+            }
+        };
+        auto later = [&](char ch) {
+            return ch == ' ' || ch == '_' || (ch != '?' && first(ch));
+        };
+        while (v < n && ln[v] == ' ')
+            v++;
+        if (base == 'd') {
+            if (v < n && isDig(ln[v])) {
+                while (v < n && (isDig(ln[v]) || ln[v] == '_' || ln[v] == ' '))
+                    v++;
+                return v;
+            }
+            if (v < n && (ln[v] == 'x' || ln[v] == 'X' || ln[v] == 'z' ||
+                          ln[v] == 'Z' || ln[v] == '?')) {
+                v++;
+                while (v < n && ln[v] == '_')
+                    v++;
+            }
+            return v;
+        }
+        while (v < n && ln[v] == '_')
+            v++;
+        while (v < n && first(ln[v]))
+            v++;
+        while (v < n && later(ln[v]))
+            v++;
+        return v;
+    };
+    // `'[sS]?<base>` at t: returns the base letter (lower case) or 0.
+    auto baseAt = [&](size_t t, size_t& after) -> char {
+        if (t >= n || ln[t] != '\'')
+            return 0;
+        size_t u = t + 1;
+        if (u < n && (ln[u] == 's' || ln[u] == 'S'))
+            u++;
+        if (u >= n)
+            return 0;
+        char b = (char)tolower(ln[u]);
+        if (b != 'b' && b != 'o' && b != 'd' && b != 'h')
+            return 0;
+        after = u + 1;
+        return b;
+    };
+    size_t i = 0;
+    // Skips a macro call's argument list (it may continue on later lines):
+    // Surelog substitutes the argument TEXT verbatim (grid g3 n_macro_args:
+    // `ID(8'hFF     )` keeps its spaces), and the columns after the call are
+    // the macro-expansion shifts' business (lineShifts).
+    auto skipArgs = [&]() {
+        while (i < n && macroDepth > 0) {
+            char c = ln[i];
+            if (c == '"') {
+                size_t j = i + 1;
+                while (j < n && ln[j] != '"') {
+                    if (ln[j] == '\\')
+                        j++;
+                    j++;
+                }
+                i = j + 1;
+                continue;
+            }
+            if (c == '(' || c == '{' || c == '[')
+                macroDepth++;
+            else if (c == ')' || c == '}' || c == ']')
+                macroDepth--;
+            i++;
+        }
+    };
+    while (i < n) {
+        if (macroDepth > 0) {
+            skipArgs();
+            continue;
+        }
+        if (inBlock) {
+            auto e = ln.find("*/", i);
+            if (e == std::string_view::npos)
+                return;
+            inBlock = false;
+            i = e + 2;
+            continue;
+        }
+        char ch = ln[i];
+        if (ch == '/' && i + 1 < n && ln[i + 1] == '/')
+            return;
+        if (ch == '/' && i + 1 < n && ln[i + 1] == '*') {
+            inBlock = true;
+            i += 2;
+            continue;
+        }
+        if (ch == '"') {
+            size_t j = i + 1;
+            while (j < n && ln[j] != '"') {
+                if (ln[j] == '\\')
+                    j++;
+                j++;
+            }
+            i = j + 1;
+            continue;
+        }
+        if (ch == '\\') {  // escaped identifier: to the next whitespace
+            while (i < n && ln[i] != ' ' && ln[i] != '\t')
+                i++;
+            continue;
+        }
+        if (ch == '`') {
+            size_t j = i + 1;
+            while (j < n && isId(ln[j]))
+                j++;
+            i = j;
+            size_t k = j;
+            while (k < n && (ln[k] == ' ' || ln[k] == '\t'))
+                k++;
+            if (k < n && ln[k] == '(' && j > 1) {
+                macroDepth = 1;
+                i = k + 1;
+            }
+            continue;
+        }
+        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_') {
+            while (i < n && isId(ln[i]))
+                i++;
+            continue;
+        }
+        if (ch == '#') {  // POUND_DELAY / Pound_Pound_delay keep their spacing
+            size_t j = i + 1;
+            if (j < n && ln[j] == '#')
+                j++;
+            size_t k = j;
+            while (k < n && ln[k] == ' ')
+                k++;
+            if (k < n && isDig(ln[k])) {
+                while (k < n && (isDig(ln[k]) || ln[k] == '_' || ln[k] == '.'))
+                    k++;
+                i = k;
+            }
+            else
+                i = j;
+            continue;
+        }
+        if (isDig(ch)) {
+            // Fixed_point_number, Unsigned_number, sized based: longest wins.
+            size_t fx = i;
+            while (fx < n && isDig(ln[fx]))
+                fx++;
+            size_t fixedEnd = 0;
+            if (fx + 1 < n && ln[fx] == '.' && isDig(ln[fx + 1])) {
+                fixedEnd = fx + 1;
+                while (fixedEnd < n && isDig(ln[fixedEnd]))
+                    fixedEnd++;
+            }
+            size_t un = i + 1;
+            while (un < n && (isDig(ln[un]) || ln[un] == '_' || ln[un] == ' '))
+                un++;
+            size_t basedEnd = 0, bAfter = 0;
+            if (ch != '0') {
+                size_t sz = i + 1;
+                while (sz < n && (isDig(ln[sz]) || ln[sz] == '_'))
+                    sz++;
+                size_t t = sz;
+                while (t < n && ln[t] == ' ')
+                    t++;
+                size_t after = 0;
+                if (char b = baseAt(t, after)) {
+                    basedEnd = valueEnd(after, b);
+                    bAfter = after;
+                }
+            }
+            size_t best = std::max({fixedEnd, un, basedEnd});
+            if (best == fixedEnd && fixedEnd > 0) {
+                i = fixedEnd;  // no spaces inside a fixed-point token
+                continue;
+            }
+            if (best == basedEnd && basedEnd > 0)
+                fold(i, best, bAfter, valueStart(bAfter));
+            else
+                fold(i, best);
+            i = best;
+            continue;
+        }
+        if (ch == '\'') {
+            size_t after = 0;
+            if (char b = baseAt(i, after)) {
+                size_t e = valueEnd(after, b);
+                fold(i, e, after, valueStart(after));
+                i = e;
+                continue;
+            }
+            i++;  // a lone tick is a Special; the next token starts after it
+            continue;
+        }
+        i++;
+    }
+}
+
 const std::vector<std::pair<uint32_t, int32_t>>& UhdmExporter::numLitWsShift(
     SourceLocation lc, uint32_t line, uint32_t col) {
     auto key = std::make_pair(lc.buffer().getId(), line);
@@ -10391,6 +10671,49 @@ const std::vector<std::pair<uint32_t, int32_t>>& UhdmExporter::numLitWsShift(
     if (!fresh)
         return it->second;
     auto text = sm->getSourceText(lc.buffer());
+    if (r11u119Law("R11U119_NUMLIT_OFF")) {
+        // One pass over the whole buffer (block comments and `define bodies
+        // carry state across lines); every line's entries are memoized.
+        static std::map<uint32_t, std::map<uint32_t, std::vector<std::pair<uint32_t, int32_t>>>>
+            perBuf119;
+        auto bid = lc.buffer().getId();
+        auto [bit, bfresh] = perBuf119.try_emplace(bid);
+        if (bfresh) {
+            bool inBlock = false, inDefine = false;
+            int macroDepth = 0;
+            uint32_t lno = 1;
+            size_t pos = 0;
+            while (pos <= text.size()) {
+                size_t le = text.find('\n', pos);
+                size_t end = le == std::string_view::npos ? text.size() : le;
+                std::string_view ln = text.substr(pos, end - pos);
+                if (!ln.empty() && ln.back() == '\r')
+                    ln.remove_suffix(1);
+                size_t fs = ln.find_first_not_of(" \t");
+                bool defLine =
+                    inDefine || (fs != std::string_view::npos &&
+                                 ln.substr(fs).rfind("`define", 0) == 0);
+                if (defLine) {
+                    inDefine = !ln.empty() && ln.back() == '\\';
+                }
+                else {
+                    std::vector<std::pair<uint32_t, int32_t>> v;
+                    ppFold119Line(ln, inBlock, macroDepth, v);
+                    if (!v.empty()) {
+                        std::sort(v.begin(), v.end());
+                        bit->second[lno] = std::move(v);
+                    }
+                }
+                if (le == std::string_view::npos)
+                    break;
+                pos = le + 1;
+                lno++;
+            }
+        }
+        if (auto li = bit->second.find(line); li != bit->second.end())
+            it->second = li->second;
+        return it->second;
+    }
     if (col == 0 || lc.offset() + 1 < col)
         return it->second;
     size_t ls = lc.offset() - (size_t)(col - 1);

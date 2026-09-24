@@ -548,6 +548,89 @@ static bool isExplicitPkgQualified(const Symbol& sym) {
            syntax::SyntaxKind::ScopedName;
 }
 
+// r11u119's gate (defined in UhdmExporter.cpp; the switch table is there).
+bool r11u119Law(const char* sw);
+
+// ===== § implicitNetNoFile119 (r11u119, LAW L2) =============================
+// THE PRODUCER.  An IMPLICIT net of a definition is not a declaration Surelog
+// compiles: UhdmWriter's late binding mints it when a reference finds nothing
+// (UhdmWriter.cpp:3987-4005) and copies ONLY the reference's line/column onto
+// it (`net->VpiLineNo(ref->VpiLineNo())` ... four fields, no VpiFile).  So
+// the definition-view logic_net of `.a1(b2)` / `assign n = x;` / `and g(n,..)`
+// has an EMPTY VpiFile, and uhdm2rtlil's get_src_attribute (module.cpp:3548)
+// writes NO src attribute on its wire (hier_undriven_port, mriscv_bind_sva,
+// grid g2 i01-i08).  § vpiFileOnEveryLocated117 stamps a file on every
+// located object; the implicit nets listed here get theirs cleared once the
+// whole design is written (clearImplicitNetFiles119, called last from
+// UhdmExporter.cpp) so no later setLoc re-stamps them.  The roads noted:
+// the definition net loops (module and interface), the interface
+// connection-site nets (scalar and array), the leaked cast-pattern key
+// wires, and the late-binding mints for hoisted names, $unit enum
+// constants and type-parameter expressions.  NOT noted: the expression /
+// statement emitters' implicitNetMap wires (their mint sites are outside
+// this pass's files, and one of them is refuted: SimpleUVM's hoisted
+// `top` keeps its uvm_component.svh file in golden).
+static std::vector<UHDM::BaseClass*>& implicitNoFile119() {
+    static std::vector<UHDM::BaseClass*> v;
+    return v;
+}
+void clearImplicitNetFiles119() {
+    // DEFINITION view only: an elaborated twin comes from NetlistElaboration
+    // and keeps its file (hier_undriven_port's `inst.b2`, Scr1SvTests'
+    // `i_top.SCR1_MEM_WIDTH_WORD`).  A definition instance carries no name.
+    for (auto* o : implicitNoFile119()) {
+        auto* p = o->VpiParent();
+        if (p && (p->UhdmType() == UHDM::uhdmmodule_inst ||
+                  p->UhdmType() == UHDM::uhdminterface_inst ||
+                  p->UhdmType() == UHDM::uhdmprogram) &&
+            p->VpiName().empty())
+            o->VpiFile("");
+    }
+    implicitNoFile119().clear();
+}
+
+// The late-binding mints this file models (a wire minted for a name nothing
+// declares) are the same UhdmWriter.cpp:3987-4005 object: no file either.
+static void noteLateBindNet119(UHDM::BaseClass* n) {
+    if (r11u119Law("R11U119_IMPLFILE_OFF"))
+        implicitNoFile119().push_back(n);
+}
+static void noteImplicitNet119(UHDM::BaseClass* n, const Symbol& sym) {
+    if (sym.kind == SymbolKind::Net && sym.as<NetSymbol>().isImplicit &&
+        r11u119Law("R11U119_IMPLFILE_OFF"))
+        implicitNoFile119().push_back(n);
+}
+
+// ===== § scopedPkgTypeDeclSpan119 (r11u119, LAW L1) ==========================
+// An ELABORATED signal declared with an initializer spans the WHOLE
+// declarator (`a = 8'hAA`) when its type is WRITTEN package-qualified
+// (`pkg::u8_t a = 8'hAA;`), and only the NAME when the same typedef is
+// reached through a wildcard import, a local or a $unit typedef (grid g1,
+// 50 arms: a01/a02/a08/a11/a13/a18/a19/a21/a22/b04/b06/b08-b12 stretched,
+// a03/a15/b01/b02/b03/b05/c_import_* name only; the struct_net / struct_var
+// / enum_var classes follow the same written form, c_scoped_* vs
+// c_import_*).  In Surelog the declarator's initializer rides in the
+// Signal's `unpackedDimension` slot (CompileHelper::compileDataDeclaration,
+// CompileHelper.cpp:2381 `unpackedDimension = fC->Sibling(signal)`) and
+// elabSignal locates a still-unlocated object from the name to that node
+// (NetlistElaboration.cpp:2757-2762 `populateCoreMembers(id,
+// unpackedDimension, obj)`); the bare-name typedef roads locate the object
+// earlier, at the name.  The written form is the discriminator Surelog's
+// other interface-net quirks key on too (isExplicitPkgQualified).
+static bool scopedDeclSpan119(const Symbol& sym) {
+    if (!r11u119Law("R11U119_SCOPEDSPAN_OFF") || !isExplicitPkgQualified(sym))
+        return false;
+    auto* dt = sym.getDeclaredType();
+    if (!dt || !dt->getInitializer())
+        return false;
+    // A declarator with UNPACKED dimensions keeps its own (array) road.
+    if (auto dsyn = sym.getSyntax();
+        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator &&
+        !dsyn->as<syntax::DeclaratorSyntax>().dimensions.empty())
+        return false;
+    return true;
+}
+
 static bool isPkgStructType(const Symbol& sym, bool descendUnpacked = false) {
     auto* dt = sym.getDeclaredType();
     if (!dt)
@@ -4645,6 +4728,8 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             setLoc(n, ilit->second);
         else
             setLoc(n, nameSpan(it.sym->location, it.sym->name));
+        // § implicitNetNoFile119 — the definition's implicit net has no file.
+        noteImplicitNet119(n, *it.sym);
         // An implicit net slang minted from a PATTERN MEMBER-KEY inside a
         // port-connection value is dropped entirely (Surelog).
         if (it.sym->kind == SymbolKind::Net &&
@@ -4841,9 +4926,22 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     }
                     else if (valExpr->kind == syntax::SyntaxKind::RealLiteralExpression &&
                              cv.isReal()) {
-                        char buf[64];
-                        snprintf(buf, sizeof(buf), "%f", cv.real().v);
-                        ua->VpiValue("REAL:" + std::string(buf));
+                        // § attrRealRawText119 (r11u119, LAW L4) — Surelog
+                        // compiles the attribute value with Reduce::No and
+                        // copies the constant's value (CompileHelper.cpp:
+                        // 4790-4794), and a real literal's constant value is
+                        // "REAL:" + its SOURCE TEXT (CompileExpression.cpp:
+                        // 569-574): `real_attr = 1.5` is REAL:1.5, not the
+                        // `%f` REAL:1.500000 — uhdm2rtlil writes the string
+                        // into the RTLIL attribute (cdc_static_basic).
+                        if (r11u119Law("R11U119_REALATTR_OFF")) {
+                            ua->VpiValue("REAL:" + rawText(valExpr->sourceRange()));
+                        }
+                        else {
+                            char buf[64];
+                            snprintf(buf, sizeof(buf), "%f", cv.real().v);
+                            ua->VpiValue("REAL:" + std::string(buf));
+                        }
                     }
                     else if (cv.isInteger()) {
                         std::string raw = rawText(valExpr->sourceRange());
@@ -4987,6 +5085,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             n->VpiParent(m);
             n->VpiNetType(vpiWire);
             setLoc(n, connectionExpr(*pc)->sourceRange);
+            // § implicitNetNoFile119 — Surelog's parent implicit-net
+            // fallback (lateBinding) mints this net: no file.
+            noteLateBindNet119(n);
             ifaceConnNet[conn.first] = n;
             info.nets[conn.first] = n;
             nets->push_back(n);
@@ -5044,6 +5145,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             n->VpiParent(m);
             n->VpiNetType(vpiWire);
             setLoc(n, cexpr->sourceRange);
+            noteLateBindNet119(n);  // § implicitNetNoFile119 (array twin)
             ifaceConnNet[actual] = n;
             nets->push_back(n);
         }
@@ -5148,8 +5250,12 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // cell) and before the hoisted-class and `$dumpvars` names below.
     if (auto ck70 = castKeyNetPending70.find(m);
         ck70 != castKeyNetPending70.end()) {
-        for (auto* kn70 : ck70->second)
+        for (auto* kn70 : ck70->second) {
+            // § implicitNetNoFile119 — the definition listing's leaked key
+            // wire is UhdmWriter.cpp:3985's lateBinding mint: no file.
+            noteLateBindNet119(kn70);
             nets->push_back(kn70);
+        }
         castKeyNetPending70.erase(ck70);
     }
     if (!nets->empty())
@@ -9893,6 +9999,7 @@ void UhdmExporter::bindHoistedClassPropRefs(const InstanceBodySymbol& body,
             inet9->VpiParent(m);
             inet9->VpiNetType(1);
             setLoc(inet9, cpr.range);
+            noteLateBindNet119(inet9);  // § implicitNetNoFile119
             nets->push_back(inet9);
             bind9 = inet9;
         }
@@ -10002,6 +10109,7 @@ void UhdmExporter::mintUnitEnumNets(const InstanceBodySymbol& body,
                     inet->VpiParent(m);
                     inet->VpiNetType(1);
                     setLoc(inet, be.sourceRange);
+                    noteLateBindNet119(inet);  // § implicitNetNoFile119
                     auto* nets9 = m->Nets();
                     if (!nets9) {
                         nets9 = s.MakeNetVec();
@@ -10083,6 +10191,7 @@ void UhdmExporter::mintUnitEnumNets(const InstanceBodySymbol& body,
                     inet->VpiParent(m);
                     inet->VpiNetType(1);
                     setLoc(inet, n.sourceRange());
+                    noteLateBindNet119(inet);  // § implicitNetNoFile119
                     auto* nets = m->Nets();
                     if (!nets) {
                         nets = s.MakeNetVec();
@@ -10461,6 +10570,7 @@ void UhdmExporter::mintTypeParamLateBindNets37(const DefinitionSymbol& def,
         inet->VpiParent(m);
         inet->VpiNetType(1);
         setLoc(inet, lb.range);
+        noteLateBindNet119(inet);  // § implicitNetNoFile119
         if (!nets) {
             nets = s.MakeNetVec();
             m->Nets(nets);
@@ -13816,9 +13926,19 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         sc0 && sc0->asSymbol().kind == SymbolKind::Package)
                         aliasOfAlias = true;
             }
+            // § scopedPkgTypeDeclSpan119 — the WRITTEN form decides: a
+            // package-qualified type spans the declarator (typedef_package,
+            // TypedefWithParameter), and the alias-of-alias clause holds only
+            // for that written form (b01: `import pkg::*; v8_t a = ...` spans
+            // the name).
+            bool scoped119 = !it.port && scopedDeclSpan119(*it.sym);
+            if (aliasOfAlias && r11u119Law("R11U119_ALIASGATE_OFF") &&
+                !isExplicitPkgQualified(*it.sym))
+                aliasOfAlias = false;
             if (auto dtl = it.sym->getDeclaredType();
                 dtl && dtl->getInitializer() &&
-                (realVar || aliasOfAlias || (ts && ts->VpiName().empty()))) {
+                (realVar || aliasOfAlias || scoped119 ||
+                 (ts && ts->VpiName().empty()))) {
                 if (auto dsyn = it.sym->getSyntax()) {
                     auto dr = dsyn->sourceRange();
                     if (dr.start() != SourceLocation::NoLocation)
@@ -14033,7 +14153,19 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 sv->VpiName(name);
                 sv->VpiFullName(fullName);
                 sv->VpiParent(m);
-                if (structuredPkgPat)
+                // § scopedPkgTypeDeclSpan119 — for a PACKAGE typedef the
+                // written form decides (c_import_structvar_pat spans the
+                // name, c_scoped_structvar_pat the declarator).
+                bool declSpan119 = structuredPkgPat;
+                if (r11u119Law("R11U119_SCOPEDSPAN_OFF") && !it.port) {
+                    auto& dtS = it.sym->getDeclaredType()->getType();
+                    if (dtS.kind == SymbolKind::TypeAlias) {
+                        auto* scS = dtS.as<TypeAliasType>().getParentScope();
+                        if (scS && scS->asSymbol().kind == SymbolKind::Package)
+                            declSpan119 = scopedDeclSpan119(*it.sym);
+                    }
+                }
+                if (declSpan119)
                     setLoc(sv, regNetSpan(*it.sym));
                 else
                     setLoc(sv, nameSpan(it.sym->location, it.sym->name));
@@ -14148,6 +14280,19 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     auto* scT2 = dtT2.as<TypeAliasType>().getParentScope();
                     pkgPatTypedef =
                         scT2 && scT2->asSymbol().kind == SymbolKind::Package;
+                }
+            }
+            // § scopedPkgTypeDeclSpan119 — a PACKAGE-typedef struct net with
+            // an initializer (pattern, fill or literal) spans the declarator
+            // exactly when the type is written package-qualified
+            // (c_scoped_struct_lit/fill) and the name otherwise.
+            if (isStruct && patternInit && !it.port &&
+                r11u119Law("R11U119_SCOPEDSPAN_OFF")) {
+                auto& dtN = it.sym->getDeclaredType()->getType();
+                if (dtN.kind == SymbolKind::TypeAlias) {
+                    auto* scN = dtN.as<TypeAliasType>().getParentScope();
+                    if (scN && scN->asSymbol().kind == SymbolKind::Package)
+                        pkgPatTypedef = scopedDeclSpan119(*it.sym);
                 }
             }
             if (it.port && !it.bodyDecl)
@@ -40025,6 +40170,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             setLoc(n, nameSpan(ni93.portDeclLoc, it.sym->name));
         else
             setLoc(n, nameSpan(it.sym->location, it.sym->name));
+        // § implicitNetNoFile119 — the interface definition's twin.
+        noteImplicitNet119(n, *it.sym);
         // § unpackedAliasNetType65 on the INTERFACE def road.  This road hands
         // `netTypeFor` NO def-view flag, so the clause has to be spelled here
         // -- and it is gated on INSTANTIATION, which is the interface's own

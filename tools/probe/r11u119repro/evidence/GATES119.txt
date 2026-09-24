@@ -1,0 +1,23 @@
+PRISTINE probe arms: EQUAL=2833 (of 2833); goldens built now=0, from cache=2833
+PRISTINE [default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+PRISTINE [testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+PRISTINE regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+PRISTINE [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+PRISTINE [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+PRISTINE regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+PRISTINE == downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+PRISTINE downstream: DIVERGENT=5 EQUIVALENT=20 IDENTICAL=780 SLANG_REJECT=66 (of 871); not identical and not excused=1
+PRISTINE golden cache: 3273 of 3323 runs served from the cache
+LAW      probe arms: EQUAL=2833 (of 2833); goldens built now=0, from cache=2833
+LAW      [default] CMP_EQUAL=480 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 SURELOG_FAIL=25
+LAW      [testflags] CMP_EQUAL=474 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+LAW      regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+LAW      [default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+LAW      [testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+LAW      regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+LAW      == downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+LAW      downstream: DIVERGENT=5 EQUIVALENT=13 IDENTICAL=787 SLANG_REJECT=66 (of 871); not identical and not excused=1
+LAW      golden cache: 3273 of 3323 runs served from the cache
+BYTEVERIFY surelog: PATH_SETS_IDENTICAL (960 paths) SELFCHECK (every file vs one fixed file): 959 / 960 flagged  MOVERS=92
+BYTEVERIFY uhdm2rtlil: PATH_SETS_IDENTICAL (1608 paths) SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged  MOVERS=86
+BYTEVERIFY downstream: PATH_SETS_IDENTICAL (805 paths) SELFCHECK (every file vs one fixed file): 804 / 805 flagged  MOVERS=43

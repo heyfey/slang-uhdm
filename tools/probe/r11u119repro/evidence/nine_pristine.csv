@@ -1,0 +1,10 @@
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+cdc_static_basic,EQUIVALENT,OK,OK,4,4,nohier il synth,✅ Formal equivalence check PASSED for <wd>/cdc_static_basic/equiv/cdc_static_basic
+hier_undriven_port,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 1 common constant assignments match
+ibex_controller,EQUIVALENT,OK,OK,565,565,nohier il,✅ Formal equivalence check PASSED for <wd>/ibex_controller/equiv/ibex_controller
+mriscv_bind_sva,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il,ℹ️  No common assign statements to compare — skipping
+param_type_logic_width,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier,ℹ️  No common assign statements to compare — skipping
+rp32_r5p_alu,EQUIVALENT,OK,OK,1332,1332,nohier,✅ Formal equivalence check PASSED for <wd>/rp32_r5p_alu/equiv/rp32_r5p_alu
+type_param_override_elem_sel,EQUIVALENT,OK,OK,3,3,nohier,✅ Formal equivalence check PASSED for <wd>/type_param_override_elem_sel/equiv/type_param_override_elem_s
+typedef_package,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 2 common constant assignments match
+TypedefWithParameter,EQUIVALENT,NO_GATES,NO_GATES,0,0,nohier il synth,✅ All 2 common constant assignments match

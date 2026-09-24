@@ -1,0 +1,10 @@
+name,verdict,surelog_status,slang_status,surelog_gates,slang_gates,differs,detail
+cdc_static_basic,IDENTICAL,OK,OK,4,4,,
+hier_undriven_port,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+ibex_controller,EQUIVALENT,OK,OK,565,565,nohier il,✅ Formal equivalence check PASSED for <wd>/ibex_controller/equiv/ibex_controller
+mriscv_bind_sva,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+param_type_logic_width,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+rp32_r5p_alu,IDENTICAL,OK,OK,1332,1332,,
+type_param_override_elem_sel,EQUIVALENT,OK,OK,3,3,nohier,✅ Formal equivalence check PASSED for <wd>/type_param_override_elem_sel/equiv/type_param_override_elem_s
+typedef_package,IDENTICAL,NO_GATES,NO_GATES,0,0,,
+TypedefWithParameter,IDENTICAL,NO_GATES,NO_GATES,0,0,,
