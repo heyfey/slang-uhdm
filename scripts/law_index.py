@@ -37,7 +37,9 @@ import argparse, collections, csv, glob, io, os, re, subprocess, sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(REPO)
-LAW = re.compile(r'§\s*`?([a-z][A-Za-z0-9_]*[0-9]+[a-z]{0,2})`?')
+# A law name starts lowercase (camelCase) and usually ends in its pass number;
+# older passes named laws without a number, and those are laws too.
+LAW = re.compile(r'§\s*`?([a-z][A-Za-z0-9_]*(?:[0-9]+[a-z]{0,2}|[a-z0-9_][A-Z][A-Za-z0-9_]*))`?')
 SWITCH_SRC = re.compile(r'getenv\("([A-Z][A-Z0-9_]+)"\)')
 SWITCH_TXT = re.compile(r'\b([A-Z][A-Z0-9]*[0-9][A-Z0-9_]*_(?:OFF|ON|DBG))\b')
 SOURCES = sorted(glob.glob('src/*.cpp') + glob.glob('include/*.h') + ['uhdm_main.cpp'])
