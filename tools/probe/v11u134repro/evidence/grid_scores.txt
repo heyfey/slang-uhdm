@@ -1,0 +1,82 @@
+grid/an01 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 221 objects] moved
+grid/an02 P[rc=0 cmp=0 STRICT_NOTEQUAL file] L[rc=0 cmp=0 STRICT_EQUAL 259 objects] moved
+grid/an03 P[rc=0 cmp=0 STRICT_NOTEQUAL endcol] L[rc=0 cmp=0 STRICT_NOTEQUAL endcol] moved
+grid/an04 P[rc=0 cmp=0 STRICT_NOTEQUAL file] L[rc=0 cmp=0 STRICT_EQUAL 149 objects] moved
+grid/an05 P[rc=0 cmp=0 STRICT_NOTEQUAL file] L[rc=0 cmp=0 STRICT_EQUAL 220 objects] moved
+grid/an06 P[rc=0 cmp=285 NOT_EQUAL stage1] L[rc=0 cmp=285 NOT_EQUAL stage1] moved
+grid/an07 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 124 objects] moved
+grid/an08 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 165 objects] moved
+grid/an09 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 248 objects] moved
+grid/an10 P[rc=0 cmp=101 NOT_EQUAL stage1] L[rc=0 cmp=101 NOT_EQUAL stage1] moved
+grid/bc01 P[rc=0 cmp=17 NOT_EQUAL stage1] L[rc=0 cmp=17 NOT_EQUAL stage1] moved
+grid/bc02 P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+grid/bc03 P[rc=0 cmp=50 NOT_EQUAL stage1] L[rc=0 cmp=50 NOT_EQUAL stage1] same
+grid/bc04 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 132 objects] moved
+grid/bc05 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_NOTEQUAL fullname] moved
+grid/bc06 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 161 objects] moved
+grid/bc07 P[rc=0 cmp=0 STRICT_NOTEQUAL type] L[rc=0 cmp=0 STRICT_EQUAL 103 objects] moved
+grid/ca01 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 194 objects] moved
+grid/ca02 P[rc=0 cmp=0 STRICT_EQUAL 135 objects] L[rc=0 cmp=0 STRICT_EQUAL 135 objects] same
+grid/ca03 P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] same
+grid/ca04 P[rc=0 cmp=0 STRICT_EQUAL 156 objects] L[rc=0 cmp=0 STRICT_EQUAL 156 objects] same
+grid/ca05 P[rc=0 cmp=0 STRICT_EQUAL 160 objects] L[rc=0 cmp=0 STRICT_EQUAL 160 objects] same
+grid/ca06 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 157 objects] moved
+grid/ca07 P[rc=0 cmp=28 NOT_EQUAL stage1] L[rc=0 cmp=28 NOT_EQUAL stage1] moved
+grid/ca08 P[rc=0 cmp=30 NOT_EQUAL stage1] L[rc=0 cmp=30 NOT_EQUAL stage1] same
+grid/ca09 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 157 objects] moved
+grid/ca10 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 181 objects] moved
+grid/ca11 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 155 objects] moved
+grid/ca12 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 317 objects] moved
+grid/ca13 P[rc=0 cmp=0 STRICT_EQUAL 270 objects] L[rc=0 cmp=0 STRICT_EQUAL 270 objects] same
+grid/ca14 P[rc=0 cmp=38 NOT_EQUAL stage1] L[rc=0 cmp=38 NOT_EQUAL stage1] moved
+grid/ca15 P[rc=0 cmp=17 NOT_EQUAL stage1] L[rc=0 cmp=17 NOT_EQUAL stage1] moved
+grid/ca16 P[rc=0 cmp=0 STRICT_EQUAL 186 objects] L[rc=0 cmp=0 STRICT_EQUAL 186 objects] same
+grid/ca17 P[rc=0 cmp=517 NOT_EQUAL stage1] L[rc=0 cmp=513 NOT_EQUAL stage1] moved
+grid/ca18 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 117 objects] moved
+grid/ca19 P[rc=0 cmp=443 NOT_EQUAL stage1] L[rc=0 cmp=443 NOT_EQUAL stage1] moved
+grid/hp01 P[rc=0 cmp=64 NOT_EQUAL stage1] L[rc=0 cmp=64 NOT_EQUAL stage1] moved
+grid/hp02 P[rc=0 cmp=50 NOT_EQUAL stage1] L[rc=0 cmp=50 NOT_EQUAL stage1] same
+grid/hp03 P[rc=0 cmp=0 STRICT_NOTEQUAL col] L[rc=0 cmp=0 STRICT_NOTEQUAL col] same
+grid/hp04 P[rc=0 cmp=68 NOT_EQUAL stage1] L[rc=0 cmp=68 NOT_EQUAL stage1] same
+grid/hp05 P[rc=0 cmp=50 NOT_EQUAL stage1] L[rc=0 cmp=50 NOT_EQUAL stage1] same
+grid/hp06 P[rc=0 cmp=0 STRICT_NOTEQUAL col] L[rc=0 cmp=0 STRICT_NOTEQUAL col] same
+grid/nb01 P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+grid/nb02 P[rc=0 cmp=62 NOT_EQUAL stage1] L[rc=0 cmp=62 NOT_EQUAL stage1] moved
+grid/nb03 P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+grid/nb04 P[rc=0 cmp=0 STRICT_NOTEQUAL type] L[rc=0 cmp=0 STRICT_EQUAL 140 objects] moved
+grid/nb05 P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+grid/pa01 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 517 objects] moved
+grid/pa02 P[rc=0 cmp=101 NOT_EQUAL stage1] L[rc=0 cmp=101 NOT_EQUAL stage1] moved
+grid/pa03 P[rc=0 cmp=0 STRICT_EQUAL 276 objects] L[rc=0 cmp=0 STRICT_EQUAL 276 objects] moved
+grid/pa04 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 198 objects] moved
+grid/pa05 P[rc=0 cmp=0 STRICT_EQUAL 256 objects] L[rc=0 cmp=0 STRICT_EQUAL 256 objects] moved
+grid/pa06 P[rc=0 cmp=0 STRICT_EQUAL 198 objects] L[rc=0 cmp=0 STRICT_EQUAL 198 objects] same
+grid/pa07 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 509 objects] moved
+grid/pa08 P[rc=0 cmp=264 NOT_EQUAL stage1] L[rc=0 cmp=264 NOT_EQUAL stage1] moved
+grid/pa09 P[rc=0 cmp=0 STRICT_EQUAL 161 objects] L[rc=0 cmp=0 STRICT_EQUAL 161 objects] moved
+grid/pa10 P[rc=0 cmp=0 STRICT_EQUAL 301 objects] L[rc=0 cmp=0 STRICT_EQUAL 301 objects] same
+grid/pa11 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_NOTEQUAL fullname] moved
+grid/pa12 P[rc=0 cmp=0 STRICT_EQUAL 374 objects] L[rc=0 cmp=0 STRICT_EQUAL 374 objects] moved
+grid/rp01 P[rc=0 cmp=70 NOT_EQUAL stage1] L[rc=0 cmp=70 NOT_EQUAL stage1] moved
+grid/rp02 P[rc=0 cmp=0 STRICT_NOTEQUAL depth] L[rc=0 cmp=0 STRICT_NOTEQUAL depth] same
+grid/rp03 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 211 objects] moved
+grid/rp04 P[rc=0 cmp=346 NOT_EQUAL stage1] L[rc=0 cmp=346 NOT_EQUAL stage1] same
+grid/rp05 P[rc=0 cmp=0 STRICT_NOTEQUAL depth] L[rc=0 cmp=0 STRICT_NOTEQUAL depth] same
+grid/rp06 P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+grid/rp07 P[rc=0 cmp=0 STRICT_EQUAL 187 objects] L[rc=0 cmp=0 STRICT_EQUAL 187 objects] moved
+grid/td01 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 198 objects] moved
+grid/td02 P[rc=0 cmp=0 STRICT_EQUAL 131 objects] L[rc=0 cmp=0 STRICT_EQUAL 131 objects] moved
+grid/td03 P[rc=0 cmp=36 NOT_EQUAL stage1] L[rc=0 cmp=36 NOT_EQUAL stage1] moved
+grid/td04 P[rc=0 cmp=639 NOT_EQUAL stage1] L[rc=0 cmp=639 NOT_EQUAL stage1] moved
+grid/td05 P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+grid/td06 P[rc=0 cmp=0 STRICT_EQUAL 143 objects] L[rc=0 cmp=0 STRICT_EQUAL 143 objects] same
+grid/td07 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 289 objects] moved
+grid/td08 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 200 objects] moved
+grid/td09 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 175 objects] moved
+grid/td10 P[rc=0 cmp=0 STRICT_EQUAL 136 objects] L[rc=0 cmp=0 STRICT_EQUAL 136 objects] same
+grid/td11 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 116 objects] moved
+grid/td12 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 159 objects] moved
+grid/td13 P[rc=0 cmp=52 NOT_EQUAL stage1] L[rc=0 cmp=52 NOT_EQUAL stage1] moved
+grid/td14 P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] same
+grid/td15 P[rc=0 cmp=0 STRICT_NOTEQUAL file] L[rc=0 cmp=0 STRICT_NOTEQUAL file] moved
+grid/td16 P[rc=0 cmp=0 STRICT_NOTEQUAL file] L[rc=0 cmp=0 STRICT_NOTEQUAL file] moved

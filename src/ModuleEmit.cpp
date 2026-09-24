@@ -624,6 +624,7 @@ static bool isExplicitPkgQualified(const Symbol& sym) {
 bool r11u119Law(const char* sw);
 // r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
 bool r11u130Law(const char* sw);
+bool r11u134Law(const char* sw);
 
 // ===== § implicitNetNoFile119 (r11u119, LAW L2) =============================
 // THE PRODUCER.  An IMPLICIT net of a definition is not a declaration Surelog
@@ -12763,6 +12764,17 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // Non-port clone signals fold computed bounds BARE; a PORT'S
                 // clone keeps the anchored fold (TypedefInModulePort).
                 bareCloneComputedBounds = it.port == nullptr;
+                // § pkgTdCloneBoundLoc134 (r11u134) — the clone of a PACKAGE
+                // vector typedef keeps its computed bound LOCATED at the
+                // bound's left operand (golden `INT:7` at the `X` of
+                // `logic [X-1:0]`, TypedefWithParameter / grid
+                // tools/probe/r11u134repro/grid/bc bc02, bc04, bc06): the
+                // bare, unparented fold is the MODULE-local clone's (bc01,
+                // bc05 unchanged).  Switch: R11U134_PKGCLONEBOUND_OFF.
+                if (auto sc134 = tv.as<TypeAliasType>().getParentScope();
+                    sc134 && sc134->asSymbol().kind == SymbolKind::Package &&
+                    r11u134Law("R11U134_PKGCLONEBOUND_OFF"))
+                    bareCloneComputedBounds = false;
                 ts = makeTypespec(*it.sym, targetSyn);
                 bareCloneComputedBounds = false;
                 bypassTypedefShare = false;
@@ -12796,11 +12808,23 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // tail and keeps a vpiParent, where Surelog puts it in the
                 // alias group (after the bit def clone) with none.  Nothing
                 // references it in either tool.
+                // § elabNetTdCloneNoAlias134 (r11u134) — MEASURED at the
+                // v1.87 pin: the ELABORATED net typed by a module-local
+                // vector typedef reads the typedef's own form, NO
+                // Typedef_alias (class B of the strict map: LogicTypedef
+                // `reg_two_bits regn`, WireType / net_types `wire typename
+                // w`; golden's elaborated net typespec lists its range where
+                // ours listed the alias ref first).  The definition net keeps
+                // its alias clone (it no longer reuses this one: see the
+                // single-view arm of materializeDefNetTs).  Grid
+                // tools/probe/r11u134repro/grid/nb.  Switch:
+                // R11U134_ELABNETALIAS_OFF.
                 else if ((it.sym->kind == SymbolKind::Net ||
                           aliasVectorKeyword(tv) ==
                               syntax::SyntaxKind::RegType) &&
                          ts->UhdmType() == UHDM::uhdmlogic_typespec &&
-                         !((UHDM::logic_typespec*)ts)->Typedef_alias()) {
+                         !((UHDM::logic_typespec*)ts)->Typedef_alias() &&
+                         !r11u134Law("R11U134_ELABNETALIAS_OFF")) {
                     if (auto tit9 = typedefTs.find(&tv);
                         tit9 != typedefTs.end()) {
                         if (auto sc9 = tv.as<TypeAliasType>().getParentScope();
@@ -28672,6 +28696,47 @@ void UhdmExporter::drainElabPortTs(const DefinitionSymbol* def) {
 // unparented; initialized decls extend through the init).
 void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     UHDM::typespec* ts = nullptr;
+    // § defNetTypedefEndWrite134 (r11u134) — writeNets' end-only populate
+    // (§ defNetEndOnlyLoc130's mechanism) lands on a NAMED aggregate typedef
+    // too.  compileDatastructureTypespec returns the typedef's OWN
+    // struct/union/enum typespec for a bare type name (TypeDef::getTypespec,
+    // no clone: only a SimpleType typedef is cloned), so UhdmWriter's
+    //     fC->populateCoreMembers(InvalidNodeId, dimensions, ts)
+    // moves the END (line, column) and the FILE of the SHARED typedef object
+    // to the Signal's slot: the node after the declared name, here the first
+    // unpacked dimension (an initializer does not move it).  Every later net
+    // overwrites it (the last writer wins), and every listing of the typedef
+    // reads the moved end, the elaborated copies included (they are cloned
+    // after writeNets).  RangeSelect `tl_h2d_t a[4];` -> the typedef
+    // tl_h2d_t 2:12-6:17 (the end of `[4]`).  Grid
+    // tools/probe/r11u134repro/grid/td.  Switch: R11U134_TDNETEND_OFF.
+    auto tdNetEnd134 = [&](UHDM::typespec* ts134) {
+        if (!ts134 || ts134->VpiName().empty() ||
+            !(ts134->UhdmType() == UHDM::uhdmstruct_typespec ||
+              ts134->UhdmType() == UHDM::uhdmunion_typespec ||
+              ts134->UhdmType() == UHDM::uhdmenum_typespec) ||
+            !pn.rt->VpiParent() ||
+            pn.rt->VpiParent()->UhdmType() == UHDM::uhdmport ||
+            !r11u134Law("R11U134_TDNETEND_OFF"))
+            return;
+        SourceLocation end134 = SourceLocation::NoLocation;
+        if (auto dsyn = pn.sym->getSyntax();
+            dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
+            auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+            // Only the unpacked dimension: an initialized declaration is
+            // not written on this arm (grid td03, td07, td20: golden keeps
+            // the typedef's own end).
+            if (!dd.dimensions.empty())
+                end134 = dd.dimensions[0]->sourceRange().end();
+        }
+        if (end134 == SourceLocation::NoLocation)
+            return;
+        uint32_t l134 = 0, c134 = 0;
+        locLineCol(end134, l134, c134);
+        ts134->VpiEndLineNo(l134);
+        ts134->VpiEndColumnNo(c134);
+        ts134->VpiFile(fullFilePath(end134));
+    };
     // Def-view range bounds stay symbolic for MODULE params but resolve for
     // PACKAGE ones (see defNetTsScope).
     auto* savedDnts = defNetTsScope;
@@ -28705,6 +28770,66 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 DefinitionKind::Interface)
             ifaceHome = true;
     }
+    // § defNetScopedPkgVecTdShares134 (r11u134) — a DEFINITION net typed
+    // by a PACKAGE-SCOPED name of a vector typedef (`p::t v;`) binds the
+    // package's own typedef object: compileTypespec's scoped-name arm
+    // returns the package DataType's typespec itself, without the
+    // Typedef_alias clone compileDatastructureTypespec makes for a bare
+    // name (class B of the strict map: TypedefWithParameter `my_pkg::word
+    // w`, typedef_package `pkg::uint8_t a`).  writeNets' end-only populate
+    // then lands on that shared object at the Signal's slot, the first
+    // unpacked dimension or the initializer (`p::t v = 8'h5C;` moves the
+    // package typedef's end to the literal, in every listing).  Grid
+    // tools/probe/r11u134repro/grid/bc.  Switch: R11U134_SCOPEDPKGTD_OFF.
+    if (auto dt134 = pn.sym->getDeclaredType();
+        dt134 && pn.rt->VpiParent() &&
+        pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
+        r11u134Law("R11U134_SCOPEDPKGTD_OFF")) {
+        auto& t134 = dt134->getType();
+        auto tsyn134 = dt134->getTypeSyntax();
+        if (t134.kind == SymbolKind::TypeAlias && tsyn134 &&
+            tsyn134->kind == syntax::SyntaxKind::NamedType &&
+            tsyn134->as<syntax::NamedTypeSyntax>().name->kind ==
+                syntax::SyntaxKind::ScopedName)
+            if (auto sc134 = t134.as<TypeAliasType>().getParentScope();
+                sc134 && sc134->asSymbol().kind == SymbolKind::Package) {
+                UHDM::typespec* sh134 = nullptr;
+                if (auto i134 = pkgTopTypedefTs.find(&t134);
+                    i134 != pkgTopTypedefTs.end())
+                    sh134 = i134->second;
+                // Only a typedef WRITTEN over a built-in vector: one over
+                // another typedef (`typedef ut_e [0:2] row_t;`) keeps its
+                // clone (r11v111 y31_two_pkgs_rows: golden binds an
+                // unlocated `q2::row_t` clone there).
+                const Type* tgt134 =
+                    &t134.as<TypeAliasType>().targetType.getType();
+                while (tgt134->kind == SymbolKind::PackedArrayType)
+                    tgt134 = &tgt134->as<PackedArrayType>().elementType;
+                bool overAlias134 = tgt134->kind == SymbolKind::TypeAlias;
+                if (sh134 && !overAlias134 &&
+                    (sh134->UhdmType() == UHDM::uhdmlogic_typespec ||
+                     sh134->UhdmType() == UHDM::uhdmbit_typespec)) {
+                    SourceLocation e134 = SourceLocation::NoLocation;
+                    if (auto dsyn = pn.sym->getSyntax();
+                        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
+                        auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+                        if (!dd.dimensions.empty())
+                            e134 = dd.dimensions[0]->sourceRange().end();
+                        else if (dd.initializer)
+                            e134 = dd.initializer->expr->sourceRange().end();
+                    }
+                    if (e134 != SourceLocation::NoLocation) {
+                        uint32_t l134 = 0, c134 = 0;
+                        locLineCol(e134, l134, c134);
+                        sh134->VpiEndLineNo(l134);
+                        sh134->VpiEndColumnNo(c134);
+                        sh134->VpiFile(fullFilePath(e134));
+                    }
+                    pn.rt->Actual_typespec(sh134);
+                    return;
+                }
+            }
+    }
     if (auto dt2 = pn.sym->getDeclaredType()) {
         auto& t2 = dt2->getType();
         if (typedefClone.count(&t2)) {
@@ -28724,7 +28849,9 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             // SINGLE-VIEW top module (def == top): the def net ref REUSES
             // the elab view's per-net alias-clone — one clone per net,
             // shared across views (Surelog, net_types).
-            if (pn.di && pn.di->mod) {
+            // § elabNetTdCloneNoAlias134 — the elaborated clone carries no
+            // alias any more, so the definition net builds its own.
+            if (pn.di && pn.di->mod && !r11u134Law("R11U134_ELABNETALIAS_OFF")) {
                 for (auto& tp9 : topPendings) {
                     if (tp9.m->VpiDefName() != pn.di->mod->VpiDefName())
                         continue;
@@ -28895,6 +29022,22 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 tit5 != typedefTs.end() &&
                 tit5->second->UhdmType() == UHDM::uhdmstruct_typespec) {
                 auto* shared5 = tit5->second;
+                // § defNetTypedefArrayShares134 (r11u134) — the DEFINITION
+                // net binds the SHARED typedef object, no clone: UhdmWriter's
+                // writeNets compiles the element type by name and
+                // compileDatastructureTypespec returns TypeDef::getTypespec
+                // itself (the raw walk, --no-canon, lists golden's
+                // `tl_h2d_t a[4]` typedef once, under the module; ours listed
+                // a clone whose member refs read the bare `tl_h2d_t.source`
+                // where golden's shared object reads
+                // `work@top.tl_h2d_t.source`, RangeSelect).  Grid
+                // tools/probe/r11u134repro/grid/td.  Switch:
+                // R11U134_TDARRSHARE_OFF.
+                if (r11u134Law("R11U134_TDARRSHARE_OFF")) {
+                    tdNetEnd134(shared5);
+                    pn.rt->Actual_typespec(shared5);
+                    return;
+                }
                 auto* cl5 = buildStructTs(
                     el5->getCanonicalType().as<PackedStructType>(), true,
                     std::string(el5->name), ".");
@@ -29394,6 +29537,9 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             }
         }
     }
+    // § defNetTypedefEndWrite134 — see tdNetEnd134 at the top of this
+    // function.
+    tdNetEnd134(ts);
     pn.rt->Actual_typespec(ts);
 }
 

@@ -1,0 +1,11 @@
+probe cases: EQUAL=2081 STRICT_NOTEQUAL=2006 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=2081 differ:fullname=752 differ:endcol=369 differ:depth=235 differ:line=208 differ:file=145 differ:type=101 differ:endline=78 differ:col=76 differ:name=31 differ:value=5 differ:count=3 differ:decompile=3
+[probe] EQUAL=2081 STRICT_NOTEQUAL=2006
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=331 CMP_NOTEQUAL=3 DEFERRED=5 SLANG_REJECT=285 STRICT_NOTEQUAL=149 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=308 CMP_NOTEQUAL=3 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=286 STRICT_NOTEQUAL=166 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=635 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=168
+[testflags] CMP_EQUAL=635 CMP_NOTEQUAL=1 SLANG_REJECT=67 STRICT_NOTEQUAL=168
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+rc=0

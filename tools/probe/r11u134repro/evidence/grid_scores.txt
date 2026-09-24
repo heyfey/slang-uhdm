@@ -1,0 +1,92 @@
+td/td01	P[cmp=0 STRICT_NOTEQUAL endline fields: fullname=1 endline=6 endcol=6 objects_differing=7]	L[cmp=0 STRICT_EQUAL 71 objects ]	moved
+td/td02	P[cmp=0 STRICT_NOTEQUAL endline fields: endline=8 endcol=8 objects_differing=8]	L[cmp=0 STRICT_EQUAL 119 objects ]	moved
+td/td03	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=5 objects_differing=5]	L[cmp=0 STRICT_EQUAL 74 objects ]	moved
+td/td04	P[cmp=72 NOT_EQUAL stage1 ]	L[cmp=72 NOT_EQUAL stage1 ]	moved
+td/td05	P[cmp=52 NOT_EQUAL stage1 ]	L[cmp=52 NOT_EQUAL stage1 ]	moved
+td/td06	P[cmp=0 STRICT_NOTEQUAL endline fields: endline=4 endcol=4 objects_differing=4]	L[cmp=0 STRICT_EQUAL 77 objects ]	moved
+td/td07	P[cmp=0 STRICT_EQUAL 80 objects ]	L[cmp=0 STRICT_EQUAL 80 objects ]	same
+td/td08	P[cmp=0 STRICT_EQUAL 91 objects ]	L[cmp=0 STRICT_EQUAL 91 objects ]	moved
+td/td09	P[cmp=58 NOT_EQUAL stage1 ]	L[cmp=58 NOT_EQUAL stage1 ]	same
+td/td10	P[cmp=0 STRICT_EQUAL 87 objects ]	L[cmp=0 STRICT_EQUAL 87 objects ]	same
+td/td11	P[cmp=0 STRICT_NOTEQUAL endline fields: fullname=1 endline=4 endcol=4 objects_differing=5]	L[cmp=0 STRICT_EQUAL 71 objects ]	moved
+td/td12	P[cmp=0 STRICT_NOTEQUAL endline fields: endline=8 endcol=8 objects_differing=8]	L[cmp=0 STRICT_NOTEQUAL endline fields: endline=8 endcol=8 objects_differing=8]	same
+td/td13	P[cmp=0 STRICT_EQUAL 106 objects ]	L[cmp=0 STRICT_EQUAL 106 objects ]	moved
+td/td14	P[cmp=0 STRICT_NOTEQUAL endline fields: endline=7 endcol=7 objects_differing=7]	L[cmp=0 STRICT_EQUAL 79 objects ]	moved
+td/td15	P[cmp=0 STRICT_NOTEQUAL endline fields: fullname=1 endline=4 endcol=4 objects_differing=5]	L[cmp=0 STRICT_EQUAL 80 objects ]	moved
+td/td16	P[cmp=0 STRICT_NOTEQUAL endline fields: endline=7 endcol=7 objects_differing=7]	L[cmp=0 STRICT_EQUAL 76 objects ]	moved
+td/td17	P[cmp=0 STRICT_NOTEQUAL endline fields: fullname=1 endline=6 endcol=6 objects_differing=7]	L[cmp=0 STRICT_EQUAL 78 objects ]	moved
+td/td18	P[cmp=58 NOT_EQUAL stage1 ]	L[cmp=58 NOT_EQUAL stage1 ]	moved
+td/td19	P[cmp=52 NOT_EQUAL stage1 ]	L[cmp=52 NOT_EQUAL stage1 ]	moved
+td/td20	P[cmp=0 STRICT_NOTEQUAL endline fields: fullname=6 endline=7 endcol=7 objects_differing=13]	L[cmp=0 STRICT_EQUAL 102 objects ]	moved
+ca/ca01	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=23 objects_differing=23]	L[cmp=0 STRICT_EQUAL 111 objects ]	moved
+ca/ca02	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=5 objects_differing=5]	L[cmp=0 STRICT_EQUAL 74 objects ]	moved
+ca/ca03	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=5 objects_differing=5]	L[cmp=0 STRICT_EQUAL 61 objects ]	moved
+ca/ca04	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=12 objects_differing=12]	L[cmp=0 STRICT_EQUAL 113 objects ]	moved
+ca/ca05	P[cmp=0 STRICT_EQUAL 89 objects ]	L[cmp=0 STRICT_EQUAL 89 objects ]	moved
+ca/ca06	P[cmp=0 STRICT_EQUAL 67 objects ]	L[cmp=0 STRICT_EQUAL 67 objects ]	same
+ca/ca07	P[cmp=0 STRICT_NOTEQUAL endline fields: fullname=1 endline=4 endcol=4 objects_differing=5]	L[cmp=0 STRICT_EQUAL 49 objects ]	moved
+ca/ca08	P[cmp=0 STRICT_EQUAL 102 objects ]	L[cmp=0 STRICT_EQUAL 102 objects ]	same
+ca/ca09	P[cmp=36 NOT_EQUAL stage1 ]	L[cmp=36 NOT_EQUAL stage1 ]	moved
+ca/ca10	P[cmp=0 STRICT_EQUAL 46 objects ]	L[cmp=0 STRICT_EQUAL 46 objects ]	same
+ca/ca11	P[cmp=58 NOT_EQUAL stage1 ]	L[cmp=58 NOT_EQUAL stage1 ]	moved
+ca/ca12	P[cmp=0 STRICT_EQUAL 45 objects ]	L[cmp=0 STRICT_EQUAL 45 objects ]	same
+ca/ca13	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=10 objects_differing=10]	L[cmp=0 STRICT_EQUAL 95 objects ]	moved
+ca/ca14	P[cmp=0 STRICT_EQUAL 52 objects ]	L[cmp=0 STRICT_EQUAL 52 objects ]	same
+ca/ca15	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=9 objects_differing=9]	L[cmp=0 STRICT_EQUAL 106 objects ]	moved
+ca/ca16	P[cmp=0 STRICT_EQUAL 80 objects ]	L[cmp=0 STRICT_EQUAL 80 objects ]	same
+ca/ca17	P[cmp=0 STRICT_EQUAL 89 objects ]	L[cmp=0 STRICT_EQUAL 89 objects ]	same
+ca/ca18	P[cmp=0 STRICT_EQUAL 58 objects ]	L[cmp=0 STRICT_EQUAL 58 objects ]	same
+ca/ca19	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=6 objects_differing=6]	L[cmp=0 STRICT_EQUAL 70 objects ]	moved
+ca/ca20	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=4 objects_differing=4]	L[cmp=0 STRICT_EQUAL 71 objects ]	moved
+ca/ca21	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=5 objects_differing=5]	L[cmp=0 STRICT_EQUAL 78 objects ]	moved
+ca/ca22	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=5 objects_differing=5]	L[cmp=0 STRICT_EQUAL 78 objects ]	moved
+ca/ca23	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=5 objects_differing=5]	L[cmp=0 STRICT_EQUAL 91 objects ]	moved
+ca/ca24	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=5 objects_differing=5]	L[cmp=0 STRICT_EQUAL 121 objects ]	moved
+an/an01	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=8 objects_differing=8]	L[cmp=0 STRICT_EQUAL 92 objects ]	moved
+an/an02	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=16 objects_differing=16]	L[cmp=0 STRICT_EQUAL 128 objects ]	moved
+an/an03	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=8 objects_differing=8]	L[cmp=0 STRICT_EQUAL 125 objects ]	moved
+an/an04	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=8 objects_differing=8]	L[cmp=0 STRICT_EQUAL 94 objects ]	moved
+an/an05	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=16 objects_differing=16]	L[cmp=0 STRICT_EQUAL 106 objects ]	moved
+an/an06	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=4 objects_differing=4]	L[cmp=0 STRICT_EQUAL 60 objects ]	moved
+an/an07	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=8 objects_differing=8]	L[cmp=0 STRICT_EQUAL 73 objects ]	moved
+an/an08	P[cmp=0 STRICT_NOTEQUAL file fields: fullname=8 file=4 line=4 col=4 endline=4 endcol=4 objects_differing=12]	L[cmp=0 STRICT_EQUAL 113 objects ]	moved
+an/an09	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=10 objects_differing=10]	L[cmp=0 STRICT_EQUAL 127 objects ]	moved
+an/an10	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=8 objects_differing=8]	L[cmp=0 STRICT_EQUAL 85 objects ]	moved
+an/an11	P[cmp=101 NOT_EQUAL stage1 ]	L[cmp=101 NOT_EQUAL stage1 ]	moved
+pk/pk01	P[cmp=0 STRICT_EQUAL 105 objects ]	L[cmp=0 STRICT_EQUAL 105 objects ]	moved
+pk/pk02	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=18 objects_differing=18]	L[cmp=0 STRICT_EQUAL 239 objects ]	moved
+pk/pk03	P[cmp=0 STRICT_EQUAL 68 objects ]	L[cmp=0 STRICT_EQUAL 68 objects ]	moved
+pk/pk04	P[cmp=0 STRICT_EQUAL 105 objects ]	L[cmp=0 STRICT_EQUAL 105 objects ]	moved
+pk/pk05	P[cmp=0 STRICT_EQUAL 81 objects ]	L[cmp=0 STRICT_EQUAL 81 objects ]	same
+pk/pk06	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=12 objects_differing=12]	L[cmp=0 STRICT_EQUAL 145 objects ]	moved
+pk/pk07	P[cmp=0 STRICT_EQUAL 101 objects ]	L[cmp=0 STRICT_EQUAL 101 objects ]	same
+pk/pk08	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=12 objects_differing=12]	L[cmp=0 STRICT_EQUAL 182 objects ]	moved
+pk/pk09	P[cmp=0 STRICT_EQUAL 106 objects ]	L[cmp=0 STRICT_EQUAL 106 objects ]	same
+pk/pk10	P[cmp=0 STRICT_EQUAL 123 objects ]	L[cmp=0 STRICT_EQUAL 123 objects ]	moved
+pk/pk11	P[cmp=0 STRICT_EQUAL 105 objects ]	L[cmp=0 STRICT_EQUAL 105 objects ]	moved
+pk/pk12	P[cmp=0 STRICT_EQUAL 111 objects ]	L[cmp=0 STRICT_EQUAL 111 objects ]	moved
+pk/pk13	P[cmp=0 STRICT_EQUAL 120 objects ]	L[cmp=0 STRICT_EQUAL 120 objects ]	moved
+pk/pk14	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=20 objects_differing=20]	L[cmp=0 STRICT_EQUAL 198 objects ]	moved
+nb/nb01	P[cmp=0 STRICT_NOTEQUAL type fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)]	L[cmp=0 STRICT_EQUAL 45 objects ]	moved
+nb/nb02	P[cmp=0 STRICT_NOTEQUAL type fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)]	L[cmp=0 STRICT_EQUAL 28 objects ]	moved
+nb/nb03	P[cmp=0 STRICT_NOTEQUAL type fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)]	L[cmp=0 STRICT_EQUAL 73 objects ]	moved
+nb/nb04	P[cmp=0 STRICT_NOTEQUAL type fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)]	L[cmp=0 STRICT_EQUAL 102 objects ]	moved
+nb/nb06	P[cmp=0 STRICT_NOTEQUAL type fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)]	L[cmp=0 STRICT_EQUAL 51 objects ]	moved
+nb/nb07	P[cmp=0 STRICT_EQUAL 47 objects ]	L[cmp=0 STRICT_EQUAL 47 objects ]	same
+rp/rp01	P[cmp=32 NOT_EQUAL stage1 ]	L[cmp=32 NOT_EQUAL stage1 ]	moved
+rp/rp02	P[cmp=0 STRICT_NOTEQUAL fullname fields: depth=1 type=1 name=1 fullname=3 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 value=1 consttype=1 objects_differing=4 (walk diverged)]	L[cmp=0 STRICT_NOTEQUAL decompile fields: depth=1 type=1 name=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 decompile=1 value=1 consttype=1 objects_differing=2 (walk diverged)]	moved
+rp/rp03	P[cmp=64 NOT_EQUAL stage1 ]	L[cmp=64 NOT_EQUAL stage1 ]	moved
+rp/rp04	P[cmp=0 STRICT_EQUAL 76 objects ]	L[cmp=0 STRICT_EQUAL 76 objects ]	same
+rp/rp05	P[cmp=50 NOT_EQUAL stage1 ]	L[cmp=50 NOT_EQUAL stage1 ]	moved
+rp/rp06	P[cmp=34 NOT_EQUAL stage1 ]	L[cmp=34 NOT_EQUAL stage1 ]	moved
+bc/bc01	P[cmp=0 STRICT_EQUAL 99 objects ]	L[cmp=0 STRICT_EQUAL 99 objects ]	same
+bc/bc02	P[cmp=0 STRICT_NOTEQUAL type fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)]	L[cmp=0 STRICT_EQUAL 81 objects ]	moved
+bc/bc03	P[cmp=76 NOT_EQUAL stage1 ]	L[cmp=76 NOT_EQUAL stage1 ]	same
+bc/bc04	P[cmp=0 STRICT_NOTEQUAL endline fields: type=1 fullname=1 file=1 line=1 col=1 endline=2 endcol=2 size=1 objects_differing=2 (walk diverged)]	L[cmp=0 STRICT_EQUAL 76 objects ]	moved
+bc/bc05	P[cmp=0 STRICT_EQUAL 94 objects ]	L[cmp=0 STRICT_EQUAL 94 objects ]	same
+bc/bc06	P[cmp=0 STRICT_NOTEQUAL type fields: type=1 fullname=1 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=1 (walk diverged)]	L[cmp=0 STRICT_EQUAL 83 objects ]	moved
+hp/hp01	P[cmp=0 STRICT_NOTEQUAL col fields: col=2 endcol=2 objects_differing=2]	L[cmp=0 STRICT_NOTEQUAL col fields: col=2 endcol=2 objects_differing=2]	same
+hp/hp02	P[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 col=6 endcol=12 objects_differing=13]	L[cmp=0 STRICT_NOTEQUAL fullname fields: fullname=1 col=6 endcol=12 objects_differing=13]	same
+hp/hp03	P[cmp=36 NOT_EQUAL stage1 ]	L[cmp=36 NOT_EQUAL stage1 ]	same
+hp/hp04	P[cmp=92 NOT_EQUAL stage1 ]	L[cmp=90 NOT_EQUAL stage1 ]	moved
+hp/hp05	P[cmp=0 STRICT_NOTEQUAL endcol fields: type=1 name=1 fullname=6 line=1 col=5 endline=2 endcol=7 objects_differing=13 (walk diverged)]	L[cmp=0 STRICT_NOTEQUAL endcol fields: type=1 name=1 fullname=2 line=1 col=5 endline=2 endcol=7 objects_differing=9 (walk diverged)]	moved

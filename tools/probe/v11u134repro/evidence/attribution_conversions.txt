@@ -1,0 +1,11 @@
+TDNETEND: RangeSelect latch_fifo_dynfield unpacked_struct_2d unpacked_struct_dyn_read unpacked_struct_mixed
+TDARRSHARE: RangeSelect latch_fifo_dynfield unpacked_struct_2d unpacked_struct_dyn_read unpacked_struct_mixed
+TDPARENT: AssignmentPatternInAssignmentPattern HierPathStruct latch_nested_ex_field struct_pattern_named_default
+CAUNPARENT: AssignRhsFlat PartSelectNoParent StructAccess EnumInPackage IndexedPartSelectInFor PartSelectInFor union_simple
+ANONMEMBER: AssignRhsFlat PatternOrder StructTypedef struct_access svtypes_struct_simple union_simple
+MEMUNION: 
+ELABNETALIAS: LogicTypedef WireType net_types
+TSREFCHAIN: EarlgreyPackParam LogicArrayParam
+TSHPNAME: 
+SCOPEDPKGTD: typedef_package TypedefWithParameter
+PKGCLONEBOUND: TypedefWithParameter

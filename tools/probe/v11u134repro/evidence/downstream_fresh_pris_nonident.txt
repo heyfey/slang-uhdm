@@ -1,0 +1,8 @@
+P bc02 EQUIVALENT OK OK nohier il synth ✅ Formal equivalence check PASSED for /tmp/v11u134_scr/dswP/bc02/equiv/bc02
+P bc05 EQUIVALENT OK OK nohier il synth ✅ Formal equivalence check PASSED for /tmp/v11u134_scr/dswP/bc05/equiv/bc05
+P ca15 EQUIVALENT NO_GATES NO_GATES nohier il synth ✅ All 3 common constant assignments match
+P ca17 EQUIVALENT NO_GATES NO_GATES nohier il synth ✅ All 3 common constant assignments match
+P ca19 EQUIVALENT OK OK nohier il synth ✅ Formal equivalence check PASSED for /tmp/v11u134_scr/dswP/ca19/equiv/ca19
+P hp04 EQUIVALENT NO_GATES NO_GATES nohier il synth ℹ️  No common assign statements to compare — skipping
+P rp04 EQUIVALENT NO_GATES NO_GATES nohier il synth ✅ All 2 common constant assignments match
+P rp06 EQUIVALENT NO_GATES NO_GATES nohier il ✅ All 1 common constant assignments match

@@ -1,0 +1,461 @@
+surelog	testflags	AllPackageSignal	name:ref_typespec
+surelog	testflags	ArrayExprFuncArg	name:ref_obj name:ref_typespec
+surelog	testflags	ArrayMethodIterator	name:ref_obj name:ref_typespec
+surelog	testflags	ArrayVarName	name:ref_typespec
+surelog	default	AssertDelayError	name:ref_obj
+surelog	testflags	AssertDelayError	name:ref_obj
+surelog	default	AssertTempError	name:ref_obj
+surelog	testflags	AssertTempError	name:ref_obj
+surelog	default	AssignmentPatternInAssignmentPattern	name:ref_typespec
+surelog	testflags	AssignmentPatternInAssignmentPattern	name:ref_typespec
+surelog	default	AssignRhsFlat	name:ref_typespec
+surelog	testflags	AssignRhsFlat	name:ref_typespec
+surelog	default	BasicOh	name:ref_obj name:ref_typespec
+surelog	testflags	BasicOh	name:ref_obj name:ref_typespec
+surelog	default	BlackBePipeInt	name:ref_obj
+surelog	testflags	BlackBePipeInt	name:ref_obj
+surelog	default	BlackConst	span:constant span:logic_typespec
+surelog	testflags	BlackConst	span:constant span:logic_typespec
+surelog	default	BlackParrotSkipParam	span:constant
+surelog	testflags	BlackParrotSkipParam	span:constant
+surelog	default	BuildUVMPkg	name:ref_obj name:ref_typespec span:constant span:enum_typespec span:struct_typespec
+surelog	testflags	BuildUVMPkg	name:ref_obj name:ref_typespec span:constant span:enum_typespec span:struct_typespec
+surelog	testflags	CarryAdd	name:ref_obj
+surelog	testflags	ClassVar	name:ref_typespec
+surelog	testflags	ClogParam	name:ref_obj
+surelog	default	ComplexHierPath	name:ref_obj
+surelog	testflags	ComplexHierPath	name:ref_obj
+surelog	default	CovMacro	name:ref_obj span:constant
+surelog	testflags	CovMacro	name:ref_obj span:constant
+surelog	default	DecValue	span:constant
+surelog	testflags	DollarBits	name:ref_obj
+surelog	default	Earlgrey_0_1	name:ref_obj name:ref_typespec span:constant span:enum_typespec span:struct_typespec
+surelog	testflags	Earlgrey_0_1	name:ref_obj name:ref_typespec span:constant span:enum_typespec span:struct_typespec
+surelog	default	EarlgreyPackParam	name:ref_obj
+surelog	testflags	EarlgreyPackParam	name:ref_obj
+surelog	testflags	EmptyAssign	name:ref_obj
+surelog	default	EnumVar	span:enum_typespec
+surelog	testflags	EnumVar	span:enum_typespec
+surelog	testflags	EvalFuncNamed	name:ref_obj name:ref_typespec
+surelog	testflags	FileList	name:ref_obj name:ref_typespec
+surelog	testflags	ForeachFunction	name:ref_typespec
+surelog	default	FuncCase	span:enum_typespec
+surelog	testflags	FuncCase	span:enum_typespec
+surelog	testflags	FuncIoTypespec	name:ref_obj name:ref_typespec
+surelog	testflags	FuncParam	name:ref_obj name:ref_typespec
+surelog	testflags	FuncRetArray	name:ref_obj name:ref_typespec
+surelog	testflags	FuncStruct	name:ref_obj name:ref_typespec
+surelog	default	FuncStructVal	name:ref_obj name:ref_typespec span:constant
+surelog	testflags	FuncStructVal	name:ref_obj name:ref_typespec span:constant span:struct_typespec
+surelog	default	FuncStructValSimple	name:ref_typespec span:constant span:struct_typespec
+surelog	testflags	FuncStructValSimple	name:ref_typespec span:constant span:struct_typespec
+surelog	default	GenCase	name:ref_obj
+surelog	testflags	GenCase	name:ref_obj
+surelog	default	GenCaseStmt	name:ref_obj
+surelog	testflags	GenCaseStmt	name:ref_obj
+surelog	default	GenerateUnnamed	name:ref_obj
+surelog	testflags	GenerateUnnamed	name:ref_obj
+surelog	default	GenForIfaceLocalparamBound	name:ref_obj
+surelog	testflags	GenForIfaceLocalparamBound	name:ref_obj
+surelog	default	GenForIfaceLocalparamNestedGen	name:ref_obj name:ref_typespec
+surelog	testflags	GenForIfaceLocalparamNestedGen	name:ref_obj name:ref_typespec
+surelog	default	GenForStructParamBound	name:ref_obj name:ref_typespec span:constant
+surelog	testflags	GenForStructParamBound	name:ref_obj name:ref_typespec span:constant
+surelog	default	GenIfIfaceParamStructField	name:ref_obj name:ref_typespec
+surelog	testflags	GenIfIfaceParamStructField	name:ref_obj name:ref_typespec
+surelog	default	GenScopeHierPath	name:ref_typespec
+surelog	testflags	GenScopeHierPath	name:ref_typespec
+surelog	testflags	GenScopeHierPath3	name:ref_obj
+surelog	default	HierPathStruct	name:ref_typespec
+surelog	testflags	HierPathStruct	name:ref_typespec
+surelog	default	HierPathStructTypespec	name:ref_typespec span:constant
+surelog	testflags	HierPathStructTypespec	name:ref_typespec span:constant
+surelog	testflags	HierPathTypespec	name:ref_typespec
+surelog	default	HierPathVarArray	span:struct_typespec
+surelog	testflags	HierPathVarArray	span:struct_typespec
+surelog	default	HighLow	span:constant
+surelog	testflags	HighLow	span:constant
+surelog	default	IfGenTypeBinding	span:struct_typespec
+surelog	testflags	IfGenTypeBinding	span:struct_typespec
+surelog	default	ImplicitArg	span:logic_typespec
+surelog	testflags	ImplicitArg	span:logic_typespec
+surelog	testflags	ImplicitPackedStructNet	name:ref_obj
+surelog	default	IndexedSelectHex	name:ref_typespec
+surelog	testflags	IndexedSelectHex	name:ref_typespec
+surelog	default	IntegerConcat	name:ref_obj
+surelog	testflags	IntegerConcat	name:ref_obj
+surelog	default	InterfaceModPort	name:ref_obj span:logic_typespec
+surelog	testflags	InterfaceModPort	name:ref_obj span:logic_typespec
+surelog	default	InterfaceParamOverrideProp	name:ref_typespec
+surelog	testflags	InterfaceParamOverrideProp	name:ref_obj name:ref_typespec
+surelog	default	InterfaceStructMemberPort	name:ref_obj name:ref_typespec
+surelog	testflags	InterfaceStructMemberPort	name:ref_obj name:ref_typespec
+surelog	testflags	InterfaceUnpackedStructArrayDim	name:ref_obj
+surelog	default	InterfArrayBind	name:ref_obj
+surelog	testflags	InterfArrayBind	name:ref_obj
+surelog	testflags	InterfInst	name:ref_obj
+surelog	default	IOClassStruct	name:ref_typespec
+surelog	testflags	IOClassStruct	name:ref_typespec
+surelog	testflags	JKFlipflop	name:ref_obj
+surelog	default	LargeValue2Struct	name:ref_typespec
+surelog	testflags	LargeValue2Struct	name:ref_typespec
+surelog	default	LocalScopeHierPath	name:ref_obj
+surelog	testflags	LocalScopeHierPath	name:ref_obj name:ref_typespec
+surelog	default	LogicArrayParam	name:ref_obj
+surelog	testflags	LogicArrayParam	name:ref_obj
+surelog	default	LogicTypedef	alias
+surelog	testflags	LogicTypedef	alias
+surelog	default	LogicTypespec	span:logic_typespec
+surelog	testflags	LogicTypespec	span:logic_typespec
+surelog	default	MiniAmiq	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec span:struct_typespec
+surelog	testflags	MiniAmiq	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec span:struct_typespec
+surelog	default	MultiConcatValueSize	name:ref_typespec
+surelog	testflags	MultiConcatValueSize	name:ref_typespec
+surelog	testflags	NoParamSubs	name:ref_obj
+surelog	default	NoReducTypespec	name:ref_obj
+surelog	testflags	NoReducTypespec	name:ref_obj
+surelog	testflags	OneNetInterf	name:ref_obj
+surelog	testflags	OneNetRange	name:ref_obj
+surelog	default	PackedArrayEnum	name:ref_typespec
+surelog	testflags	PackedArrayEnum	name:ref_typespec
+surelog	default	PackedArrayHighConn	name:ref_typespec
+surelog	testflags	PackedArrayHighConn	name:ref_typespec
+surelog	default	PackedArrayTypespec	name:ref_typespec
+surelog	testflags	PackedArrayTypespec	name:ref_typespec
+surelog	default	PackedEnumPort	name:ref_typespec
+surelog	testflags	PackedEnumPort	name:ref_typespec
+surelog	default	PackStructField	name:ref_typespec
+surelog	testflags	PackStructField	name:ref_typespec
+surelog	default	PackStructVar	name:ref_obj
+surelog	testflags	PackStructVar	name:ref_obj
+surelog	default	ParamElabMulti	name:ref_typespec
+surelog	testflags	ParamElabMulti	name:ref_typespec
+surelog	default	ParamMultiConcat	name:ref_typespec
+surelog	testflags	ParamMultiConcat	name:ref_typespec
+surelog	default	ParamNoImport	name:ref_typespec
+surelog	testflags	ParamNoImport	name:ref_typespec
+surelog	default	ParamNoSubst	name:ref_typespec
+surelog	default	ParamOverload2	name:ref_typespec
+surelog	testflags	ParamOverload2	name:ref_typespec
+surelog	default	ParamTypespec2	name:ref_typespec
+surelog	testflags	ParamTypespec2	name:ref_typespec
+surelog	default	PartSelectNoParent	name:ref_typespec
+surelog	testflags	PartSelectNoParent	name:ref_typespec
+surelog	default	PAssignType	name:ref_typespec
+surelog	testflags	PAssignType	name:ref_typespec
+surelog	default	PatternOrder	name:ref_typespec
+surelog	testflags	PatternOrder	name:ref_typespec
+surelog	testflags	PortByName	name:ref_obj
+surelog	default	RangeSelect	name:ref_typespec span:struct_typespec
+surelog	testflags	RangeSelect	name:ref_typespec span:struct_typespec
+surelog	default	Rggen	name:ref_typespec span:enum_typespec
+surelog	default	Scoreboard	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec span:struct_typespec
+surelog	default	Scr1SvTests	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec
+surelog	testflags	Scr1SvTests	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec
+surelog	default	SelectHierPath	name:ref_obj
+surelog	testflags	SelectHierPath	name:ref_obj
+surelog	default	SeqDriver	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec span:struct_typespec
+surelog	testflags	SeqDriver	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec span:struct_typespec
+surelog	testflags	SequenceInst	name:ref_obj
+surelog	default	SignedBin	name:ref_typespec
+surelog	testflags	SignedBin	name:ref_typespec
+surelog	default	SimpleConstraint	span:enum_typespec
+surelog	testflags	SimpleConstraint	span:enum_typespec
+surelog	default	SimpleUVM	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec span:struct_typespec
+surelog	testflags	SimpleUVM	name:ref_obj name:ref_typespec span:enum_typespec span:logic_typespec span:struct_typespec
+surelog	default	StringMethod	name:ref_obj
+surelog	testflags	StringMethod	name:ref_obj
+surelog	testflags	StringRange	name:ref_obj name:ref_typespec
+surelog	default	StructAccess	name:ref_typespec
+surelog	testflags	StructAccess	name:ref_typespec
+surelog	default	StructArrayNet	name:ref_obj
+surelog	testflags	StructArrayNet	name:ref_obj
+surelog	default	StructParamFieldRange	name:ref_obj name:ref_typespec span:struct_typespec
+surelog	testflags	StructParamFieldRange	name:ref_obj name:ref_typespec span:struct_typespec
+surelog	default	StructParamPatternInitCast	name:ref_typespec
+surelog	testflags	StructParamPatternInitCast	name:ref_typespec
+surelog	default	StructTypedef	name:ref_typespec
+surelog	testflags	StructTypedef	name:ref_typespec
+surelog	default	StructUnsizedVal	name:ref_typespec
+surelog	testflags	StructUnsizedVal	name:ref_typespec
+surelog	default	SVSwitch	name:ref_obj span:logic_typespec
+surelog	testflags	SVSwitch	name:ref_obj span:logic_typespec
+surelog	default	TaggedPattern	span:union_typespec
+surelog	testflags	TaggedPattern	span:union_typespec
+surelog	default	TypedefUnpacked	span:struct_typespec
+surelog	testflags	TypedefUnpacked	span:struct_typespec
+surelog	default	TypeParamElab	name:ref_obj name:ref_typespec span:struct_typespec
+surelog	testflags	TypeParamElab	name:ref_obj name:ref_typespec span:struct_typespec
+surelog	default	TypeParamOverride	span:logic_typespec
+surelog	testflags	TypeParamOverride	span:logic_typespec
+surelog	testflags	TypespecExpr	name:ref_obj
+surelog	default	UnionCast	span:union_typespec
+surelog	testflags	UnionCast	name:ref_obj name:ref_typespec span:union_typespec
+surelog	default	UnitElabBlock	span:logic_typespec
+surelog	testflags	UnitElabBlock	name:ref_obj name:ref_typespec span:logic_typespec
+surelog	default	UnpackedTypespec	name:ref_typespec
+surelog	testflags	UnpackedTypespec	name:ref_typespec
+surelog	testflags	UnsizedFunc	name:ref_obj name:ref_typespec
+surelog	default	UnsizedParam	name:ref_obj name:ref_typespec
+surelog	testflags	UnsizedParam	name:ref_obj
+surelog	default	UnsupportedTypespecRange	name:ref_typespec
+surelog	testflags	UnsupportedTypespecRange	name:ref_typespec
+surelog	default	VarRangeTypedef	span:struct_typespec
+surelog	testflags	VarRangeTypedef	span:struct_typespec
+surelog	default	WireType	alias
+surelog	testflags	WireType	alias
+surelog	default	YosysBigSimEllip	name:ref_obj
+surelog	default	YosysBigSimReed	name:ref_obj
+surelog	testflags	YosysBigSimReed	name:ref_obj
+surelog	default	YosysMarlann	name:ref_obj
+surelog	testflags	YosysMarlann	name:ref_obj
+surelog	default	YosysOldOr	span:constant span:logic_typespec
+surelog	testflags	YosysOldOr	span:constant span:logic_typespec
+surelog	default	YosysOldSimpleSpi	name:ref_obj
+surelog	testflags	YosysOldSimpleSpi	name:ref_obj
+surelog	default	YosysOldSpi	name:ref_obj
+surelog	testflags	YosysOldSpi	name:ref_obj
+surelog	default	YosysRiscv	span:constant
+surelog	testflags	YosysRiscv	span:constant
+uhdm2rtlil	default	2DParameterOfInstance	name:ref_typespec
+uhdm2rtlil	testflags	2DParameterOfInstance	name:ref_typespec
+uhdm2rtlil	default	anon_struct_packed_dim	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	anon_struct_packed_dim	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	arb_idx_cast	name:ref_obj span:logic_typespec
+uhdm2rtlil	testflags	arb_idx_cast	name:ref_obj span:logic_typespec
+uhdm2rtlil	default	BitSelectOfParameterPassedToSubmoduleInGenFor	name:ref_typespec
+uhdm2rtlil	testflags	BitSelectOfParameterPassedToSubmoduleInGenFor	name:ref_typespec
+uhdm2rtlil	default	BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	name:ref_typespec
+uhdm2rtlil	testflags	BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule	name:ref_typespec
+uhdm2rtlil	default	cfg_func_width_loop	name:ref_typespec span:logic_typespec
+uhdm2rtlil	testflags	cfg_func_width_loop	name:ref_typespec span:logic_typespec
+uhdm2rtlil	default	comb_dyn_2d_packed_sel	name:ref_obj
+uhdm2rtlil	testflags	comb_dyn_2d_packed_sel	name:ref_obj
+uhdm2rtlil	default	const_cast_signext	span:struct_typespec
+uhdm2rtlil	testflags	const_cast_signext	span:struct_typespec
+uhdm2rtlil	default	cva6_struct_param_field	name:ref_obj name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	cva6_struct_param_field	name:ref_obj name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	dff_different_styles	name:ref_obj
+uhdm2rtlil	testflags	dff_different_styles	name:ref_obj
+uhdm2rtlil	default	dyn_field_select	name:ref_obj
+uhdm2rtlil	testflags	dyn_field_select	name:ref_obj
+uhdm2rtlil	default	EnumInPackage	name:ref_typespec
+uhdm2rtlil	testflags	EnumInPackage	name:ref_typespec
+uhdm2rtlil	default	expr_width_cast	name:ref_obj
+uhdm2rtlil	testflags	expr_width_cast	name:ref_obj
+uhdm2rtlil	default	FileLevelUnionWithMultirange	name:ref_typespec
+uhdm2rtlil	testflags	FileLevelUnionWithMultirange	name:ref_typespec
+uhdm2rtlil	default	func_typename_ret	alias
+uhdm2rtlil	testflags	func_typename_ret	alias
+uhdm2rtlil	default	gen_scope_numports	name:ref_obj
+uhdm2rtlil	testflags	gen_scope_numports	name:ref_obj
+uhdm2rtlil	default	gen_scope_typaram	name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	gen_scope_typaram	name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	genvar_iface_struct	name:ref_obj
+uhdm2rtlil	testflags	genvar_iface_struct	name:ref_obj
+uhdm2rtlil	default	ibex_alu	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_alu	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	ibex_branch_predict	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_branch_predict	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	ibex_compressed_decoder	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_compressed_decoder	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	ibex_counter	name:ref_typespec
+uhdm2rtlil	testflags	ibex_counter	name:ref_typespec
+uhdm2rtlil	default	ibex_csr	span:constant
+uhdm2rtlil	testflags	ibex_csr	span:constant
+uhdm2rtlil	default	ibex_decoder	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_decoder	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	ibex_fetch_fifo	span:constant
+uhdm2rtlil	testflags	ibex_fetch_fifo	span:constant
+uhdm2rtlil	default	ibex_icache	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_icache	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	ibex_load_store_unit	span:constant
+uhdm2rtlil	testflags	ibex_load_store_unit	span:constant
+uhdm2rtlil	default	ibex_multdiv_fast	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_multdiv_fast	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	ibex_multdiv_slow	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_multdiv_slow	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	ibex_pmp	name:ref_obj name:ref_typespec span:enum_typespec span:struct_typespec
+uhdm2rtlil	testflags	ibex_pmp	name:ref_obj name:ref_typespec span:enum_typespec span:struct_typespec
+uhdm2rtlil	default	ibex_register_file_ff	name:ref_obj
+uhdm2rtlil	testflags	ibex_register_file_ff	name:ref_obj
+uhdm2rtlil	default	ibex_tracer	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_tracer	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	ibex_wb_stage	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	ibex_wb_stage	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	iface_arr_struct_field_partsel	name:ref_obj
+uhdm2rtlil	testflags	iface_arr_struct_field_partsel	name:ref_obj
+uhdm2rtlil	default	iface_array_modport_drive	name:ref_obj
+uhdm2rtlil	testflags	iface_array_modport_drive	name:ref_obj
+uhdm2rtlil	default	iface_cfg_mem	name:ref_typespec
+uhdm2rtlil	testflags	iface_cfg_mem	name:ref_typespec
+uhdm2rtlil	default	iface_nested_param_field	name:ref_typespec
+uhdm2rtlil	testflags	iface_nested_param_field	name:ref_typespec
+uhdm2rtlil	default	iface_param_2level	name:ref_typespec
+uhdm2rtlil	testflags	iface_param_2level	name:ref_typespec
+uhdm2rtlil	default	iface_param_port_width	name:ref_typespec
+uhdm2rtlil	testflags	iface_param_port_width	name:ref_typespec
+uhdm2rtlil	default	iface_scalar_localparam	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	iface_scalar_localparam	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	iface_sig_in_child_port	name:ref_typespec
+uhdm2rtlil	testflags	iface_sig_in_child_port	name:ref_typespec
+uhdm2rtlil	default	iface_struct_field_param_width	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	iface_struct_field_param_width	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	iface_struct_field_partsel	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	iface_struct_field_partsel	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	iface_zero_width_field	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	iface_zero_width_field	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	indexed_partsel_array	name:ref_typespec
+uhdm2rtlil	testflags	indexed_partsel_array	name:ref_typespec
+uhdm2rtlil	default	IndexedPartSelectInFor	name:ref_typespec
+uhdm2rtlil	testflags	IndexedPartSelectInFor	name:ref_typespec
+uhdm2rtlil	default	IndexedPartSelectOfArrayElement	name:ref_typespec
+uhdm2rtlil	testflags	IndexedPartSelectOfArrayElement	name:ref_typespec
+uhdm2rtlil	default	int_types	name:ref_obj span:logic_typespec
+uhdm2rtlil	testflags	int_types	name:ref_obj span:logic_typespec
+uhdm2rtlil	default	interface_array	name:ref_typespec
+uhdm2rtlil	testflags	interface_array	name:ref_typespec
+uhdm2rtlil	default	interface_array_fanout	name:ref_typespec
+uhdm2rtlil	testflags	interface_array_fanout	name:ref_typespec
+uhdm2rtlil	default	jeras_tcb_gpio	name:ref_obj
+uhdm2rtlil	testflags	jeras_tcb_gpio	name:ref_obj
+uhdm2rtlil	default	jeras_union	name:ref_typespec span:constant
+uhdm2rtlil	testflags	jeras_union	name:ref_typespec span:constant
+uhdm2rtlil	default	latch_fifo_dynfield	name:ref_obj name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	latch_fifo_dynfield	name:ref_obj name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	latch_nested_ex_field	name:ref_typespec
+uhdm2rtlil	testflags	latch_nested_ex_field	name:ref_typespec
+uhdm2rtlil	default	LocalParamInNestedForLoops	name:ref_typespec
+uhdm2rtlil	testflags	LocalParamInNestedForLoops	name:ref_typespec
+uhdm2rtlil	default	mem_ff_partial_rsp	name:ref_obj
+uhdm2rtlil	testflags	mem_ff_partial_rsp	name:ref_obj
+uhdm2rtlil	default	mem_packed_2d_byte_write	name:ref_obj
+uhdm2rtlil	testflags	mem_packed_2d_byte_write	name:ref_obj
+uhdm2rtlil	default	mem_read_reg	name:ref_typespec span:logic_typespec
+uhdm2rtlil	testflags	mem_read_reg	name:ref_typespec span:logic_typespec
+uhdm2rtlil	default	mriscv_bind_sva	name:ref_obj
+uhdm2rtlil	testflags	mriscv_bind_sva	name:ref_obj
+uhdm2rtlil	default	multiplier	name:ref_typespec
+uhdm2rtlil	testflags	multiplier	name:ref_typespec
+uhdm2rtlil	default	NestedStructArrayParameterInitializedByPatternPassedAsPort	name:ref_typespec
+uhdm2rtlil	testflags	NestedStructArrayParameterInitializedByPatternPassedAsPort	name:ref_typespec
+uhdm2rtlil	default	net_types	alias
+uhdm2rtlil	testflags	net_types	alias
+uhdm2rtlil	default	OneNetModport	name:ref_typespec
+uhdm2rtlil	testflags	OneNetModport	name:ref_typespec
+uhdm2rtlil	default	OutputSizeWithParameterOfInstanceInitializedByStructMember	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	OutputSizeWithParameterOfInstanceInitializedByStructMember	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	packed_array_reset_loop	name:ref_obj span:logic_typespec
+uhdm2rtlil	testflags	packed_array_reset_loop	name:ref_obj span:logic_typespec
+uhdm2rtlil	default	packed_array_struct	span:struct_typespec
+uhdm2rtlil	testflags	packed_array_struct	span:struct_typespec
+uhdm2rtlil	default	packed_array_struct_port_sel	name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	packed_array_struct_port_sel	name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	packed_struct_array_fifo	span:struct_typespec
+uhdm2rtlil	testflags	packed_struct_array_fifo	span:struct_typespec
+uhdm2rtlil	default	packed_struct_array_shift	name:ref_obj
+uhdm2rtlil	testflags	packed_struct_array_shift	name:ref_obj
+uhdm2rtlil	default	param_array_wildcard	name:ref_obj
+uhdm2rtlil	testflags	param_array_wildcard	name:ref_obj
+uhdm2rtlil	default	param_name_collision_typeparam	name:ref_obj
+uhdm2rtlil	testflags	param_name_collision_typeparam	name:ref_obj
+uhdm2rtlil	default	param_nested_struct_field_width	span:constant
+uhdm2rtlil	testflags	param_nested_struct_field_width	span:constant
+uhdm2rtlil	default	ParameterFromPkgInNestedModule	name:ref_typespec span:constant span:logic_typespec
+uhdm2rtlil	testflags	ParameterFromPkgInNestedModule	name:ref_typespec span:constant span:logic_typespec
+uhdm2rtlil	default	ParameterInitializedByPartSelectOfParametersAssignedToVar	name:ref_typespec
+uhdm2rtlil	testflags	ParameterInitializedByPartSelectOfParametersAssignedToVar	name:ref_typespec
+uhdm2rtlil	default	ParameterOfParametrizedType	name:ref_obj
+uhdm2rtlil	testflags	ParameterOfParametrizedType	name:ref_obj
+uhdm2rtlil	default	ParameterOfParametrizedTypeInSubmodule	name:ref_obj
+uhdm2rtlil	testflags	ParameterOfParametrizedTypeInSubmodule	name:ref_obj
+uhdm2rtlil	default	ParameterPassedTo3TimesNestedSubmodule	span:enum_typespec
+uhdm2rtlil	testflags	ParameterPassedTo3TimesNestedSubmodule	span:enum_typespec
+uhdm2rtlil	default	ParameterPassedToSubmoduleInGenscopeOfSubmodule	span:enum_typespec
+uhdm2rtlil	testflags	ParameterPassedToSubmoduleInGenscopeOfSubmodule	span:enum_typespec
+uhdm2rtlil	default	ParameterPassedToSubmoduleOfSubmodule	span:enum_typespec
+uhdm2rtlil	testflags	ParameterPassedToSubmoduleOfSubmodule	span:enum_typespec
+uhdm2rtlil	default	ParameterWithUnderscoreValueDividedPassedFromCommandLine	span:constant
+uhdm2rtlil	testflags	ParameterWithUnderscoreValueDividedPassedFromCommandLine	span:constant
+uhdm2rtlil	default	PartSelectInFor	name:ref_typespec
+uhdm2rtlil	testflags	PartSelectInFor	name:ref_typespec
+uhdm2rtlil	default	PatternAssignmentOfStructParam	name:ref_typespec
+uhdm2rtlil	testflags	PatternAssignmentOfStructParam	name:ref_typespec
+uhdm2rtlil	default	PatternStruct	span:constant
+uhdm2rtlil	testflags	PatternStruct	span:constant
+uhdm2rtlil	default	pkg_nested_struct_param_width	name:ref_obj span:constant
+uhdm2rtlil	testflags	pkg_nested_struct_param_width	name:ref_obj span:constant
+uhdm2rtlil	default	port_chained_type_param	span:struct_typespec
+uhdm2rtlil	testflags	port_chained_type_param	span:struct_typespec
+uhdm2rtlil	default	portsel_struct_param	name:ref_obj
+uhdm2rtlil	testflags	portsel_struct_param	name:ref_obj
+uhdm2rtlil	default	ReplicationPassedToInstance	name:ref_typespec
+uhdm2rtlil	testflags	ReplicationPassedToInstance	name:ref_typespec
+uhdm2rtlil	default	rp32_r5p_alu	name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	rp32_r5p_alu	name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	rp32_r5p_bru	name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	rp32_r5p_bru	name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	rp32_r5p_mdu	name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	rp32_r5p_mdu	name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	rp32_r5p_wbu	name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	rp32_r5p_wbu	name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	rsp_gen_minimal	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	rsp_gen_minimal	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	simple_package	name:ref_typespec
+uhdm2rtlil	testflags	simple_package	name:ref_typespec
+uhdm2rtlil	default	struct_access	name:ref_typespec
+uhdm2rtlil	testflags	struct_access	name:ref_typespec
+uhdm2rtlil	default	struct_dynamic_range	name:ref_obj
+uhdm2rtlil	testflags	struct_dynamic_range	name:ref_obj
+uhdm2rtlil	default	struct_member_cfg_width	name:ref_obj name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	struct_member_cfg_width	name:ref_obj name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	struct_member_trailing_index	name:ref_obj name:ref_typespec span:struct_typespec
+uhdm2rtlil	testflags	struct_member_trailing_index	name:ref_obj name:ref_typespec span:struct_typespec
+uhdm2rtlil	default	struct_param_field_shift	name:ref_typespec span:constant
+uhdm2rtlil	testflags	struct_param_field_shift	name:ref_typespec span:constant
+uhdm2rtlil	default	struct_param_func_config	name:ref_typespec span:constant
+uhdm2rtlil	testflags	struct_param_func_config	name:ref_typespec span:constant
+uhdm2rtlil	default	struct_param_func_loop	name:ref_obj
+uhdm2rtlil	testflags	struct_param_func_loop	name:ref_obj
+uhdm2rtlil	default	struct_param_pattern_packing	span:struct_typespec
+uhdm2rtlil	testflags	struct_param_pattern_packing	span:struct_typespec
+uhdm2rtlil	default	struct_param_repl_count	name:ref_typespec
+uhdm2rtlil	testflags	struct_param_repl_count	name:ref_typespec
+uhdm2rtlil	default	struct_pattern_named_default	name:ref_typespec
+uhdm2rtlil	testflags	struct_pattern_named_default	name:ref_typespec
+uhdm2rtlil	default	StructParameterInitializedWithPatternAndReferenced	name:ref_typespec
+uhdm2rtlil	testflags	StructParameterInitializedWithPatternAndReferenced	name:ref_typespec
+uhdm2rtlil	default	SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule	span:enum_typespec
+uhdm2rtlil	testflags	SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule	span:enum_typespec
+uhdm2rtlil	default	svtypes_struct_simple	name:ref_typespec
+uhdm2rtlil	testflags	svtypes_struct_simple	name:ref_typespec
+uhdm2rtlil	default	type_param_override_elem_sel	name:ref_obj name:ref_typespec
+uhdm2rtlil	testflags	type_param_override_elem_sel	name:ref_obj name:ref_typespec
+uhdm2rtlil	default	type_param_packed_dim	name:ref_typespec
+uhdm2rtlil	testflags	type_param_packed_dim	name:ref_typespec
+uhdm2rtlil	default	typed_named_pattern	name:ref_typespec
+uhdm2rtlil	testflags	typed_named_pattern	name:ref_typespec
+uhdm2rtlil	default	typedef_package	alias span:logic_typespec
+uhdm2rtlil	testflags	typedef_package	alias span:logic_typespec
+uhdm2rtlil	default	TypedefVariableDimensions	span:struct_typespec
+uhdm2rtlil	testflags	TypedefVariableDimensions	span:struct_typespec
+uhdm2rtlil	default	TypedefWithParameter	alias span:logic_typespec
+uhdm2rtlil	testflags	TypedefWithParameter	alias span:logic_typespec
+uhdm2rtlil	default	TypeParameterAsPortTypeWithEnum	name:ref_typespec span:enum_typespec
+uhdm2rtlil	testflags	TypeParameterAsPortTypeWithEnum	name:ref_typespec span:enum_typespec
+uhdm2rtlil	default	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	name:ref_obj name:ref_typespec span:enum_typespec
+uhdm2rtlil	testflags	TypeParameterAsPortTypeWithEnumOfParametrizedWidth	name:ref_obj name:ref_typespec span:enum_typespec
+uhdm2rtlil	default	union_param_repro	span:union_typespec
+uhdm2rtlil	testflags	union_param_repro	span:union_typespec
+uhdm2rtlil	default	union_simple	name:ref_typespec
+uhdm2rtlil	testflags	union_simple	name:ref_typespec
+uhdm2rtlil	default	unpacked_elem_partsel_comb	name:ref_obj
+uhdm2rtlil	testflags	unpacked_elem_partsel_comb	name:ref_obj
+uhdm2rtlil	default	unpacked_struct_2d	span:struct_typespec
+uhdm2rtlil	testflags	unpacked_struct_2d	span:struct_typespec
+uhdm2rtlil	default	unpacked_struct_dyn_read	span:struct_typespec
+uhdm2rtlil	testflags	unpacked_struct_dyn_read	span:struct_typespec
+uhdm2rtlil	default	unpacked_struct_mixed	span:struct_typespec
+uhdm2rtlil	testflags	unpacked_struct_mixed	span:struct_typespec
+uhdm2rtlil	default	VarPassedTo2Submodules	name:ref_typespec
+uhdm2rtlil	testflags	VarPassedTo2Submodules	name:ref_typespec

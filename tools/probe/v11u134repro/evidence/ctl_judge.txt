@@ -1,0 +1,35 @@
+adv/c02_nested_struct_signed P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 149 objects] moved
+ct/t04 P[rc=0 cmp=0 STRICT_EQUAL 161 objects] L[rc=0 cmp=0 STRICT_EQUAL 161 objects] moved
+g1/a01_pkgalias_init P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 62 objects] moved
+g1/a07_pkgalias_noinit P[rc=0 cmp=0 STRICT_NOTEQUAL type] L[rc=0 cmp=0 STRICT_EQUAL 65 objects] moved
+g1/a08_pkgalias_two P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 82 objects] moved
+g1/a10_pkgstruct_lit P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+g1/a11_param_alias P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 76 objects] moved
+g1/a13_child_alias_init P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 87 objects] moved
+g1/a18_pkgalias_expr_init P[rc=0 cmp=45 NOT_EQUAL stage1] L[rc=0 cmp=45 NOT_EQUAL stage1] moved
+g1/a19_multiline_init P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 60 objects] moved
+g1/a20_iface_alias_init P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 68 objects] moved
+g1/a21_bitalias_init P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 60 objects] moved
+g1/a24_alias_twice_use P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 106 objects] moved
+g1/b06_scoped_child_two P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 133 objects] moved
+g1/b08_scoped_signed P[rc=0 cmp=40 NOT_EQUAL stage1] L[rc=0 cmp=40 NOT_EQUAL stage1] moved
+g1/b09_scoped_alias_ws P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 60 objects] moved
+g1/b10_scoped_alias_concat P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_NOTEQUAL depth] moved
+g1/b11_scoped_alias_pkgparam_type P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 76 objects] moved
+g1/b12_scoped_alias_always P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_EQUAL 91 objects] moved
+g1/c_import_struct_concat P[rc=0 cmp=357 NOT_EQUAL stage1] L[rc=0 cmp=357 NOT_EQUAL stage1] moved
+g1/c_import_struct_fill P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 151 objects] moved
+g1/c_import_struct_lit P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 151 objects] moved
+g1/c_import_struct_pat P[rc=0 cmp=295 NOT_EQUAL stage1] L[rc=0 cmp=295 NOT_EQUAL stage1] moved
+g1/c_import_structvar_lit P[rc=0 cmp=261 NOT_EQUAL stage1] L[rc=0 cmp=261 NOT_EQUAL stage1] moved
+g1/c_import_structvar_pat P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_NOTEQUAL endline] moved
+g1/c_scoped_struct_fill P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+g1/c_scoped_struct_lit P[rc=0 cmp=58 NOT_EQUAL stage1] L[rc=0 cmp=58 NOT_EQUAL stage1] moved
+g1/c_scoped_structvar_lit P[rc=0 cmp=173 NOT_EQUAL stage1] L[rc=0 cmp=173 NOT_EQUAL stage1] moved
+g1/e19_import_bare_arr P[rc=0 cmp=0 STRICT_EQUAL 216 objects] L[rc=0 cmp=0 STRICT_EQUAL 216 objects] moved
+g2/c04 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 91 objects] moved
+g2/c06 P[rc=0 cmp=0 STRICT_NOTEQUAL file] L[rc=0 cmp=0 STRICT_NOTEQUAL file] moved
+g2/c07 P[rc=0 cmp=0 STRICT_NOTEQUAL endline] L[rc=0 cmp=0 STRICT_NOTEQUAL endline] moved
+g2/c11 P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 733 objects] moved
+g2/m09_unpacked_elem_member P[rc=0 cmp=158 NOT_EQUAL stage1] L[rc=0 cmp=158 NOT_EQUAL stage1] moved
+g8/k01_struct_signed P[rc=0 cmp=0 STRICT_NOTEQUAL fullname] L[rc=0 cmp=0 STRICT_EQUAL 397 objects] moved

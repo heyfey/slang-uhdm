@@ -15,6 +15,7 @@ namespace slang_uhdm {
 
 // r11u130's gate (defined in UhdmExporter.cpp; the switch table is there).
 bool r11u130Law(const char* sw);
+bool r11u134Law(const char* sw);
 
 // § suSigningNotInSpan130 (r11u130) — AN INLINE PACKED STRUCT/UNION'S
 // DEFINITION-VIEW TYPESPEC ENDS AT `packed`, NEVER AT A SIGNING KEYWORD.
@@ -3749,6 +3750,19 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             else
                 setLoc(uts, tsyn->sourceRange());
         }
+        // § memberAnonUnionAtKeyword134 (r11u134) — an anonymous union
+        // written as a STRUCT MEMBER's type is located at the bare `union`
+        // keyword.  A field's DeclaredType carries no type syntax (the member
+        // syntax arrives as the override), so the arms above never located
+        // it: ours 0:0:0:0 without a file where golden reads the keyword
+        // (compileTypespec's struct/union arm, `populateCoreMembers(type,
+        // type, result)` on the keyword node, as for a nested anonymous
+        // struct).  Grid tools/probe/r11u134repro/grid/an (an08, an10).
+        // Switch: R11U134_MEMUNION_OFF.
+        else if (typeSynOverride && r11u134Law("R11U134_MEMUNION_OFF"))
+            if (auto* su134 =
+                    typeSynOverride->as_if<syntax::StructUnionTypeSyntax>())
+                setLoc(uts, su134->keyword.range());
         return uts;
     }
     // An ANONYMOUS packed struct (struct packed {..} s;) builds an unnamed
@@ -12963,6 +12977,67 @@ bool UhdmExporter::isTypeParamAnonAggDefault35(const Scope& aggScope) const {
     return false;
 }
 
+// § anonMemberRefChainName134 (r11u134) — A MEMBER REFERENCE INSIDE AN
+// ANONYMOUS STRUCT/UNION THAT IS ITSELF A MEMBER'S TYPE IS NAMED THROUGH THE
+// CONTAINING MEMBER.  Surelog stores no full name on a typespec_member's
+// ref_typespec; BaseClass::ComputeFullName synthesises it from the parent
+// chain, and compileTypespec's struct/union arm parents the member's own
+// typespec at the member (`member_ts->VpiParent(m)`, CompileType.cpp, once
+// per declarator).  So `struct { struct { logic B; } BC1; } ABC` names B's
+// ref `ABC.BC1.B` (PatternOrder `BC1.B`, svtypes_struct_simple `b.x`,
+// union_simple `byte4.a`), where ours named the anonymous type's refs bare
+// (`B`).  The law prefixes every member ref of the anonymous type (and of the
+// anonymous types nested in it, whose names the inner call already scoped to
+// their own member) with the containing member ref's name.  One anonymous
+// object shared by several declarators (`} BC1, BC2;`) keeps the first
+// declarator's names (golden's copy per declarator names it both ways; the
+// comparator excuses a name golden gives the object more than one way).
+// Grid tools/probe/r11u134repro/grid/an.  Switch: R11U134_ANONMEMBER_OFF.
+static void anonMemberRefPrefix134(UHDM::typespec* fts, UHDM::typespec_member* tm,
+                                   const std::string& pfx) {
+    static const bool on = r11u134Law("R11U134_ANONMEMBER_OFF");
+    static std::set<const UHDM::BaseClass*> done;
+    if (!on || !fts || pfx.empty() || !fts->VpiName().empty() ||
+        fts->VpiParent() != tm || done.count(fts))
+        return;
+    const UHDM::VectorOftypespec_member* ms = nullptr;
+    if (fts->UhdmType() == UHDM::uhdmstruct_typespec)
+        ms = ((UHDM::struct_typespec*)fts)->Members();
+    else if (fts->UhdmType() == UHDM::uhdmunion_typespec)
+        ms = ((UHDM::union_typespec*)fts)->Members();
+    if (!ms)
+        return;
+    done.insert(fts);
+    // ComputeFullName joins with "::" throughout when a package is on the
+    // chain (the prefix spelled only with "::"), else with ".".
+    const std::string sep = (pfx.find("::") != std::string::npos &&
+                             pfx.find('.') == std::string::npos)
+                                ? "::"
+                                : ".";
+    std::function<void(const UHDM::VectorOftypespec_member*)> pre =
+        [&](const UHDM::VectorOftypespec_member* v) {
+            for (auto* m : *v) {
+                auto* r = m->Typespec();
+                if (!r)
+                    continue;
+                std::string cur(r->VpiFullName());
+                if (cur.empty())
+                    continue;
+                r->VpiFullName(pfx + sep + cur);
+                auto* a = r->Actual_typespec();
+                if (!a || !a->VpiName().empty() || a->VpiParent() != m)
+                    continue;
+                if (a->UhdmType() == UHDM::uhdmstruct_typespec &&
+                    ((UHDM::struct_typespec*)a)->Members())
+                    pre(((UHDM::struct_typespec*)a)->Members());
+                else if (a->UhdmType() == UHDM::uhdmunion_typespec &&
+                         ((UHDM::union_typespec*)a)->Members())
+                    pre(((UHDM::union_typespec*)a)->Members());
+            }
+        };
+    pre(ms);
+}
+
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -13957,6 +14032,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         rt->VpiParent(tm);
         rt->Actual_typespec(memTs149);
         tm->Typespec(rt);
+        // § anonMemberRefChainName134 (helper above buildStructTs).
+        anonMemberRefPrefix134(fts, tm, std::string(rt->VpiFullName()));
         if (((structCloneMemberRefParent || ats9CloneRefParent) &&
              fts->VpiName().empty()) ||
             memberEnumClone)
@@ -14712,6 +14789,8 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         rt->VpiParent(tm);
         rt->Actual_typespec(memTs149);
         tm->Typespec(rt);
+        // § anonMemberRefChainName134 (helper above buildStructTs).
+        anonMemberRefPrefix134(fts, tm, std::string(rt->VpiFullName()));
         if (ats9CloneRefParent && fts->VpiName().empty())
             fts->VpiParent(rt);
         if (memberTypeSyn) {

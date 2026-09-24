@@ -54,6 +54,27 @@ bool r11u130Law(const char* sw) {
     return getenv(sw) == nullptr;
 }
 
+// ===== r11u134 — the module/type ground on the strict axis, second round ====
+// Every r11u134 law sits behind its own switch; R11U134_OFF drops them all
+// and restores the pristine bytes.  Switch names (each droppable alone):
+//   R11U134_TDNETEND_OFF    § defNetTypedefEndWrite134   (ModuleEmit.cpp)
+//   R11U134_TDARRSHARE_OFF  § defNetTypedefArrayShares134 (ModuleEmit.cpp)
+//   R11U134_TDPARENT_OFF    § typedefParentLastWriter134 (UhdmExporter.cpp)
+//   R11U134_CAUNPARENT_OFF  § contAssignLhsTsUnparented134 (UhdmExporter.cpp)
+//   R11U134_ANONMEMBER_OFF  § anonMemberRefChainName134  (TypeEmit.cpp)
+//   R11U134_MEMUNION_OFF    § memberAnonUnionAtKeyword134 (TypeEmit.cpp)
+//   R11U134_ELABNETALIAS_OFF § elabNetTdCloneNoAlias134  (ModuleEmit.cpp)
+//   R11U134_TSREFCHAIN_OFF  § pkgTsRefObjChainName134    (UhdmExporter.cpp)
+//   R11U134_TSHPNAME_OFF    § tsHierPathElemNoName134    (UhdmExporter.cpp)
+//   R11U134_SCOPEDPKGTD_OFF § defNetScopedPkgVecTdShares134 (ModuleEmit.cpp)
+//   R11U134_PKGCLONEBOUND_OFF § pkgTdCloneBoundLoc134    (ModuleEmit.cpp)
+// Evidence: tools/probe/r11u134repro/README.md.
+bool r11u134Law(const char* sw) {
+    if (getenv("R11U134_OFF") != nullptr)
+        return false;
+    return getenv(sw) == nullptr;
+}
+
 // § implicitNetNoFile119 (r11u119) — defined in ModuleEmit.cpp.
 void clearImplicitNetFiles119();
 
@@ -172,6 +193,533 @@ static bool nestLibOff101V() {
 // judge-visibly different from the definition's element — a non-overriding
 // last instance rebuilds an equal array in golden, which the judge cannot
 // see.  `R11U107_TPREBIND_OFF=1` drops the law; `R11U107_DBG=1` traces.
+// THE TYPEDEF PARENT MODEL (r11u134).  Surelog stores no full name on a
+// typespec member's ref_typespec (nor on most objects inside a typespec):
+// BaseClass::ComputeFullName synthesises it from the parent chain, so every
+// such name inside a named struct/union/enum typedef is decided by the
+// typedef object's FINAL vpiParent, which two UhdmWriter actions mutate on the
+// SHARED object after compilation:
+//
+// § typedefParentLastWriter134 — writeDataTypes(datatypeMap, parent, ..,
+// setParent=true) runs `tps->VpiParent(parent)` for every datatype of every
+// package (the elaborated listing first, then the unelaborated one),
+// program, interface and module definition, in that order (UhdmWriter::write:
+// packages, programs, interfaces, modules in allModules order), and a
+// module's map holds every typedef its `import p::*` / `import p::t` brought
+// in (CompileHelper::importPackage, scope->insertDataType).  So the LAST
+// container whose typespec list holds the object is its parent: two modules
+// importing p read `work@z_mod.p::t.x` for the later one (ours parented the
+// package's elaborated listing at the FIRST importer's instance,
+// `work@a_mod.p::t.x`), a package importing p reads `q::p::t::x`.
+//
+// § contAssignLhsTsUnparented134 — UhdmWriter's writeCont_assign (module,
+// interface and generate-scope instances, after every definition) finds the
+// LHS typespec `tps` (the LHS expression's own ref_typespec actual; for a
+// plain identifier the bound net/variable's, still the typedef's OWN
+// typespec there: compileDatastructureTypespec returns TypeDef::getTypespec)
+// and ends every assignment with
+//     if (tps != nullptr) const_cast<typespec*>(tps)->VpiParent(nullptr);
+// A named typedef so assigned (`assign test = '{..}`, or a declaration with an
+// initializer `s_t a = '0;`, which NetlistElaboration turns into a
+// cont_assign whose LHS is the net) is UNPARENTED, in every listing cloned
+// from it afterwards too: golden `ABC.A` where ours read `work@dut.ABC.A`
+// (AssignRhsFlat), `my_pkg::hw_key_req_t.key` for
+// `work@top.my_pkg::hw_key_req_t.key` (PartSelectNoParent).  This one keys the
+// typedef by kind, name and location (our definition and elaborated listings
+// are separate objects where golden's elaborated one is cloned from the
+// unparented original).
+//
+// The pass reparents each such typedef object of ours and rewrites every
+// explicit full name under it (owner = the nearest named struct/union/enum
+// typespec on the parent chain) to the ComputeFullName of the new chain, when
+// the old name ends with the chain's part below the parent (joined with "."
+// or "::").  Grids tools/probe/r11u134repro/grid/pk (last writer) and
+// grid/ca (unparent).  Switches: R11U134_TDPARENT_OFF,
+// R11U134_CAUNPARENT_OFF.
+bool r11u134Law(const char* sw);
+// § tsHierPathElemNoName134 (r11u134) — A HIER_PATH ELEMENT INSIDE A
+// TYPESPEC'S RANGE HAS NO FULL NAME.  Golden reads every path element of a
+// member-select bound (`logic [Info.x-1:0]`, `[Cfg.XLEN-1:0]`) with an empty
+// full name: the hier_path Surelog builds there carries no parent, so
+// ComputeFullName yields the element's own name, which vpi_get_str reports
+// as none (strict map cluster N0019: OutputSizeWithParameterOfInstance...
+// `x`, StructParamFieldRange `XLEN`, where ours wrote `work@top.data.x`,
+// `work@StructParamFieldRange.it_t.XLEN`).  The law gives such an element
+// the no-fullname idiom (VpiFullName = VpiName) when the hier_path climbs
+// through operations to a range.  Grid tools/probe/r11u134repro/grid/hp.
+// Switch: R11U134_TSHPNAME_OFF.
+static void tsHierPathElemNoName134(UHDM::Serializer& s) {
+    if (!r11u134Law("R11U134_TSHPNAME_OFF"))
+        return;
+    std::vector<UHDM::ref_obj*> todo;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o->UhdmType() != UHDM::uhdmref_obj)
+            continue;
+        auto* hp = o->VpiParent();
+        if (!hp || hp->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        const UHDM::BaseClass* a = hp->VpiParent();
+        while (a && a->UhdmType() == UHDM::uhdmoperation)
+            a = a->VpiParent();
+        if (!a || a->UhdmType() != UHDM::uhdmrange)
+            continue;
+        auto* r = (UHDM::ref_obj*)o;
+        if (r->VpiName().empty() || r->VpiFullName() == r->VpiName())
+            continue;
+        todo.push_back(r);
+    }
+    for (auto* r : todo)
+        r->VpiFullName(r->VpiName());
+}
+
+// § pkgTsRefObjChainName134 (r11u134) — A REFERENCE INSIDE A PACKAGE-HELD
+// TYPESPEC'S RANGE IS NAMED BY ITS PARENT CHAIN.  Surelog stores no full name
+// on the ref_obj of a range bound (`logic [N-1:0]`); ComputeFullName joins
+// the chain's names, with "::" throughout once a package is on it, and the
+// chain runs through every named typespec on the way: golden
+// `alert_handler_reg_pkg::AsyncOn::NAlerts` (EarlgreyPackParam) where ours
+// wrote the parameter prefix and a "." (`...::AsyncOn.NAlerts`), and
+// `ibex_pkg::RndCnstLfsrSeedDefault::lfsr_seed_t::LfsrWidth` where ours
+// skipped the typedef clone's name (`...RndCnstLfsrSeedDefault.LfsrWidth`).
+// The law renames a ref_obj whose chain climbs through a `range` into
+// typespecs and reaches a package, when the old name starts with the same
+// package component and ends with the object's own name.  Grid
+// tools/probe/r11u134repro/grid/rp.  Switch: R11U134_TSREFCHAIN_OFF.
+static void pkgTsRefObjChainName134(UHDM::Serializer& s) {
+    if (!r11u134Law("R11U134_TSREFCHAIN_OFF"))
+        return;
+    auto linkName = [](const UHDM::BaseClass* a,
+                       const UHDM::BaseClass* child) -> std::string_view {
+        const UHDM::BaseClass* ap = a->VpiParent();
+        auto t = a->UhdmType();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    t == UHDM::uhdmmethod_func_call ||
+                    t == UHDM::uhdmmethod_task_call || t == UHDM::uhdmfunc_call ||
+                    t == UHDM::uhdmtask_call || t == UHDM::uhdmsys_func_call ||
+                    t == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && t == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (t == UHDM::uhdmbit_select || t == UHDM::uhdmindexed_part_select ||
+                 t == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (skip)
+            return {};
+        return a->VpiName().empty() ? a->VpiDefName() : a->VpiName();
+    };
+    std::vector<UHDM::BaseClass*> all;
+    for (auto& kv : s.AllObjects())
+        if (((UHDM::BaseClass*)kv.first)->UhdmType() == UHDM::uhdmref_obj)
+            all.push_back((UHDM::BaseClass*)kv.first);
+    std::sort(all.begin(), all.end(),
+              [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    std::vector<std::pair<UHDM::ref_obj*, std::string>> renames;
+    for (auto* o : all) {
+        // The shape: operations up to a range, then typespecs (and their
+        // refs) up to the first non-typespec holder.
+        const UHDM::BaseClass* a = o->VpiParent();
+        while (a && a->UhdmType() == UHDM::uhdmoperation)
+            a = a->VpiParent();
+        if (!a || a->UhdmType() != UHDM::uhdmrange)
+            continue;
+        bool pkg = false;
+        std::vector<std::string_view> names;
+        const UHDM::BaseClass* child = nullptr;
+        for (const UHDM::BaseClass* x = o; x; child = x, x = x->VpiParent()) {
+            auto t = x->UhdmType();
+            if (t == UHDM::uhdmdesign)
+                break;
+            if (t == UHDM::uhdmpackage)
+                pkg = true;
+            if (t == UHDM::uhdmclass_defn || t == UHDM::uhdmmodule_inst ||
+                t == UHDM::uhdminterface_inst || t == UHDM::uhdmgen_scope) {
+                pkg = false;
+                break;
+            }
+            auto nm = linkName(x, child);
+            if (!nm.empty())
+                names.push_back(nm);
+        }
+        if (!pkg || names.size() < 3)
+            continue;
+        std::string nf;
+        for (auto it = names.rbegin(); it != names.rend(); ++it) {
+            if (!nf.empty())
+                nf += "::";
+            nf += *it;
+        }
+        auto* r = (UHDM::ref_obj*)o;
+        std::string cur(r->VpiFullName());
+        if (cur == nf || cur.empty())
+            continue;
+        std::string head(names.back());
+        if (cur.compare(0, head.size() + 2, head + "::") != 0)
+            continue;
+        std::string nm(r->VpiName());
+        if (cur.size() < nm.size() ||
+            cur.compare(cur.size() - nm.size(), nm.size(), nm) != 0)
+            continue;
+        renames.push_back({r, nf});
+    }
+    for (auto& [r, nm] : renames)
+        r->VpiFullName(nm);
+}
+
+static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s) {
+    const bool lastWriter = r11u134Law("R11U134_TDPARENT_OFF");
+    const bool caUnparent = r11u134Law("R11U134_CAUNPARENT_OFF");
+    if (!d || (!lastWriter && !caUnparent))
+        return;
+    auto named = [](const UHDM::BaseClass* t) {
+        if (!t)
+            return false;
+        auto k = t->UhdmType();
+        return (k == UHDM::uhdmstruct_typespec || k == UHDM::uhdmunion_typespec ||
+                k == UHDM::uhdmenum_typespec) &&
+               !t->VpiName().empty();
+    };
+    auto key = [](const UHDM::BaseClass* t) {
+        return std::to_string((int)t->UhdmType()) + "|" + std::string(t->VpiName()) +
+               "|" + std::string(t->VpiFile()) + "|" + std::to_string(t->VpiLineNo()) +
+               ":" + std::to_string(t->VpiColumnNo());
+    };
+    // The new parent per typedef object (nullptr = unparented).
+    std::map<UHDM::BaseClass*, UHDM::BaseClass*> newParent;
+    std::vector<UHDM::BaseClass*> order;  // deterministic application order
+    auto setNP = [&](UHDM::BaseClass* t, UHDM::BaseClass* p) {
+        if (!newParent.count(t))
+            order.push_back(t);
+        newParent[t] = p;
+    };
+    if (lastWriter) {
+        // Struct and union typedefs only: a package enum's elaborated
+        // listing keeps its package parent under an importer (Kmac
+        // `sha3_pkg::sha3_pkg::keccak_strength_e`, the enum's base-type ref).
+        auto listOf = [&](UHDM::BaseClass* c, const UHDM::VectorOftypespec* v) {
+            if (v)
+                for (auto* t : *v)
+                    if (named(t) && t->UhdmType() != UHDM::uhdmenum_typespec)
+                        setNP(t, c);
+        };
+        if (auto* v = d->TopPackages())
+            for (auto* p : *v)
+                listOf(p, p->Typespecs());
+        if (auto* v = d->AllPackages())
+            for (auto* p : *v)
+                listOf(p, p->Typespecs());
+        if (auto* v = d->AllPrograms())
+            for (auto* p : *v)
+                listOf(p, p->Typespecs());
+        if (auto* v = d->AllInterfaces())
+            for (auto* p : *v)
+                listOf(p, p->Typespecs());
+        if (auto* v = d->AllModules())
+            for (auto* p : *v)
+                listOf(p, p->Typespecs());
+    }
+    std::set<std::string> keys;
+    if (caUnparent) {
+        // `scope` is the module instance whose lists CompileHelper::
+        // bindVariable(component, scope, name) searches (Variables, then
+        // Nets, by NAME): a generate scope has no case there, so the search
+        // climbs to the enclosing module instance and never sees the
+        // generate scope's own declarations (grid ca20: a generate-local `a`
+        // still unparents the module's `s_t a`); the module's Variables list
+        // holds the wildcard-imported package variables first (r11u82
+        // w8_structown: the package's `logic z_pv` wins over the module's
+        // struct `z_pv`, nothing is unparented).  An interface instance is
+        // not bound (the climb leaves it).
+        auto noteCa = [&](const UHDM::cont_assign* ca,
+                          const UHDM::module_inst* scope) {
+            auto* lhs = ca->Lhs();
+            if (!lhs)
+                return;
+            const UHDM::typespec* tps = nullptr;
+            if (auto* rt = lhs->Typespec())
+                tps = rt->Actual_typespec();
+            if (lhs->UhdmType() == UHDM::uhdmref_obj && scope) {
+                const UHDM::expr* var = nullptr;
+                if (auto* v = scope->Variables())
+                    for (auto* x : *v)
+                        if (x->VpiName() == lhs->VpiName()) {
+                            var = x;
+                            break;
+                        }
+                if (!var)
+                    if (auto* v = scope->Nets())
+                        for (auto* x : *v)
+                            if (x->VpiName() == lhs->VpiName()) {
+                                var = x;
+                                break;
+                            }
+                if (var)
+                    if (auto* rt = var->Typespec())
+                        if (auto* t = rt->Actual_typespec())
+                            tps = t;
+            }
+            // A signal typed by a TYPE PARAMETER does not reach the typedef
+            // the override names (gen_scope_typaram: `leaf #(.T(pair_t))`'s
+            // `assign d_o = d_i` leaves pair_t parented), so a typespec that
+            // is the actual of one of the instance's type parameters is not
+            // unparented.
+            if (tps && scope)
+                if (auto* ps = scope->Parameters())
+                    for (auto* pa : *ps)
+                        if (pa->UhdmType() == UHDM::uhdmtype_parameter)
+                            if (auto* rt =
+                                    ((const UHDM::type_parameter*)pa)->Typespec())
+                                if (rt->Actual_typespec() == tps ||
+                                    (named(rt->Actual_typespec()) && named(tps) &&
+                                     key(rt->Actual_typespec()) == key(tps)))
+                                    tps = nullptr;
+            if (named(tps))
+                keys.insert(key(tps));
+        };
+        const UHDM::module_inst* bindScope = nullptr;
+        std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* o) {
+            if (!o)
+                return;
+            auto doScope = [&](auto* sc) {
+                if (auto* v = sc->Cont_assigns())
+                    for (auto* ca : *v)
+                        noteCa(ca, bindScope);
+                if (auto* v = sc->Gen_scope_arrays())
+                    for (auto* ga : *v)
+                        if (auto* gs = ga->Gen_scopes())
+                            for (auto* g : *gs)
+                                walk(g);
+            };
+            if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+                auto* m = (const UHDM::module_inst*)o;
+                auto* savedScope = bindScope;
+                bindScope = m;
+                doScope(m);
+                if (auto* v = m->Modules())
+                    for (auto* c : *v)
+                        walk(c);
+                if (auto* v = m->Interfaces())
+                    for (auto* c : *v)
+                        walk(c);
+                bindScope = savedScope;
+            } else if (o->UhdmType() == UHDM::uhdminterface_inst) {
+                auto* m = (const UHDM::interface_inst*)o;
+                auto* savedScope = bindScope;
+                bindScope = nullptr;
+                doScope(m);
+                if (auto* v = m->Interfaces())
+                    for (auto* c : *v)
+                        walk(c);
+                bindScope = savedScope;
+            } else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+                auto* g = (const UHDM::gen_scope*)o;
+                doScope(g);
+                if (auto* v = g->Modules())
+                    for (auto* c : *v)
+                        walk(c);
+                if (auto* v = g->Interfaces())
+                    for (auto* c : *v)
+                        walk(c);
+            }
+        };
+        if (auto* tops = d->TopModules())
+            for (auto* t : *tops)
+                walk(t);
+    }
+    std::vector<UHDM::BaseClass*> all;
+    for (auto& kv : s.AllObjects())
+        all.push_back((UHDM::BaseClass*)kv.first);
+    // AllObjects is keyed by pointer: sort by UhdmId for a deterministic walk.
+    std::sort(all.begin(), all.end(),
+              [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    // The UNELABORATED package listing (a package object of AllPackages that
+    // TopPackages does not hold) is written by its own writePackage call on
+    // its own DataType map: its typedef objects are never the ones an
+    // elaborated assignment reaches (r10earl99 g1_lit99, r10earl jj,
+    // v11u108 c01: golden keeps `q99::q99::wide_t::w1` there while the
+    // elaborated listing reads `q99::wide_t.w1`).
+    std::set<const UHDM::BaseClass*> unelabPkgs;
+    {
+        std::set<const UHDM::BaseClass*> topPk;
+        if (auto* v = d->TopPackages())
+            for (auto* p : *v)
+                topPk.insert(p);
+        if (auto* v = d->AllPackages())
+            for (auto* p : *v)
+                if (!topPk.count(p))
+                    unelabPkgs.insert(p);
+    }
+    auto inUnelabPkg = [&](const UHDM::BaseClass* o) {
+        for (auto* a = o; a; a = a->VpiParent()) {
+            if (a->UhdmType() == UHDM::uhdmdesign)
+                break;
+            if (unelabPkgs.count(a))
+                return true;
+        }
+        return false;
+    };
+    if (!keys.empty())
+        for (auto* o : all)
+            if (named(o) && keys.count(key(o)) && !inUnelabPkg(o))
+                setNP(o, nullptr);
+    // Keep only the objects whose parent actually changes.
+    std::map<const UHDM::BaseClass*, UHDM::BaseClass*> moving;
+    for (auto* t : order)
+        if (t->VpiParent() != newParent[t])
+            moving[t] = newParent[t];
+    if (getenv("R11U134_DBG"))
+        for (auto& [t, p] : moving)
+            fprintf(stderr, "R11U134 TDPARENT %s -> %s\n", std::string(t->VpiName()).c_str(),
+                    p ? std::string(p->VpiName().empty() ? p->VpiDefName() : p->VpiName()).c_str()
+                      : "(none)");
+    if (moving.empty())
+        return;
+    // BaseClass::ComputeFullName's per-link name.
+    auto linkName = [](const UHDM::BaseClass* a,
+                       const UHDM::BaseClass* child) -> std::string_view {
+        const UHDM::BaseClass* ap = a->VpiParent();
+        auto t = a->UhdmType();
+        bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                    t == UHDM::uhdmmethod_func_call ||
+                    t == UHDM::uhdmmethod_task_call || t == UHDM::uhdmfunc_call ||
+                    t == UHDM::uhdmtask_call || t == UHDM::uhdmsys_func_call ||
+                    t == UHDM::uhdmsys_task_call;
+        if (child) {
+            auto ct = child->UhdmType();
+            if (ct == UHDM::uhdmbit_select && t == UHDM::uhdmport)
+                skip = true;
+            if (ct == UHDM::uhdmref_obj &&
+                (t == UHDM::uhdmbit_select || t == UHDM::uhdmindexed_part_select ||
+                 t == UHDM::uhdmhier_path))
+                skip = true;
+        }
+        if (skip)
+            return {};
+        return a->VpiName().empty() ? a->VpiDefName() : a->VpiName();
+    };
+    // The chain X..owner, then the owner's NEW parent chain (ComputeFullName,
+    // the module_inst-under-module_inst special case included).
+    auto newFull = [&](const UHDM::BaseClass* x, const UHDM::BaseClass* own) {
+        std::vector<std::string_view> names;
+        bool column = false;
+        const UHDM::BaseClass* child = nullptr;
+        const UHDM::BaseClass* a = x;
+        while (a) {
+            auto t = a->UhdmType();
+            if (t == UHDM::uhdmdesign)
+                break;
+            if (t == UHDM::uhdmpackage || t == UHDM::uhdmclass_defn)
+                column = true;
+            // linkName reads the parent: the owner's is the new one.
+            std::string_view nm;
+            if (a == own) {
+                nm = a->VpiName();
+            } else {
+                nm = linkName(a, child);
+            }
+            if (!nm.empty())
+                names.push_back(nm);
+            child = a;
+            a = (a == own) ? moving.at(own) : a->VpiParent();
+        }
+        std::string out;
+        for (auto it = names.rbegin(); it != names.rend(); ++it) {
+            if (!out.empty())
+                out += column ? "::" : ".";
+            out += *it;
+        }
+        return out;
+    };
+    auto tailOf = [&](const UHDM::BaseClass* x, const UHDM::BaseClass* own,
+                      const char* sep) {
+        std::vector<std::string_view> names;
+        const UHDM::BaseClass* child = nullptr;
+        for (const UHDM::BaseClass* a = x; a; child = a, a = a->VpiParent()) {
+            auto nm = a == own ? a->VpiName() : linkName(a, child);
+            if (!nm.empty())
+                names.push_back(nm);
+            if (a == own)
+                break;
+        }
+        std::string out;
+        for (auto it = names.rbegin(); it != names.rend(); ++it) {
+            if (!out.empty())
+                out += sep;
+            out += *it;
+        }
+        return out;
+    };
+    auto endsAt = [](const std::string& full, const std::string& tail) {
+        if (tail.empty())
+            return false;
+        if (full == tail)
+            return true;
+        if (full.size() <= tail.size() ||
+            full.compare(full.size() - tail.size(), tail.size(), tail) != 0)
+            return false;
+        char c = full[full.size() - tail.size() - 1];
+        return c == '.' || c == ':';
+    };
+    std::vector<std::pair<UHDM::BaseClass*, std::string>> renames;
+    for (auto* o : all) {
+        if (moving.count(o))
+            continue;
+        const UHDM::BaseClass* own = nullptr;
+        for (auto* a = o->VpiParent(); a; a = a->VpiParent()) {
+            if (named(a)) {
+                own = a;
+                break;
+            }
+            if (a->UhdmType() == UHDM::uhdmdesign)
+                break;
+        }
+        if (!own || !moving.count(own))
+            continue;
+        // A struct/union typedef's names below a typespec_member follow the
+        // chain; an unparented enum's base-type ref follows it too (grid
+        // ca03: `e_t` where ours read `work@top.e_t`).
+        bool underMember = own->UhdmType() == UHDM::uhdmenum_typespec;
+        for (auto* a = o->VpiParent(); a && a != own; a = a->VpiParent())
+            if (a->UhdmType() == UHDM::uhdmtypespec_member) {
+                underMember = true;
+                break;
+            }
+        if (!underMember)
+            continue;
+        std::string cur;
+        switch (o->UhdmType()) {
+        case UHDM::uhdmref_typespec:
+            cur = std::string(((UHDM::ref_typespec*)o)->VpiFullName());
+            break;
+        case UHDM::uhdmref_obj:
+            cur = std::string(((UHDM::ref_obj*)o)->VpiFullName());
+            break;
+        default:
+            continue;
+        }
+        if (!endsAt(cur, tailOf(o, own, ".")) && !endsAt(cur, tailOf(o, own, "::")))
+            continue;
+        std::string nf = newFull(o, own);
+        if (!nf.empty() && nf != cur)
+            renames.push_back({o, nf});
+    }
+    for (auto& [o, nm] : renames) {
+        if (o->UhdmType() == UHDM::uhdmref_typespec)
+            ((UHDM::ref_typespec*)o)->VpiFullName(nm);
+        else
+            ((UHDM::ref_obj*)o)->VpiFullName(nm);
+    }
+    for (auto& [t, p] : moving)
+        const_cast<UHDM::BaseClass*>(t)->VpiParent(p);
+}
+
 static void rebindTypeParamElem107(UHDM::design* d, UHDM::Serializer& s) {
     static const bool off107 = getenv("R11U107_OFF") != nullptr ||
                                getenv("R11U107_TPREBIND_OFF") != nullptr;
@@ -10191,6 +10739,13 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § pkgFlatSurelogBits117 (r11u117) — after every reader copied the
     // package flat operands (law and decode at TypeEmit.cpp).
     applyPkgFlatBits117();
+    // § typedefParentLastWriter134 / § contAssignLhsTsUnparented134 — after
+    // every typespec and name exists (law and decode at the function).
+    typedefParentModel134(d, s);
+    // § pkgTsRefObjChainName134 (law and decode at the function).
+    pkgTsRefObjChainName134(s);
+    // § tsHierPathElemNoName134 (law and decode at the function).
+    tsHierPathElemNoName134(s);
     // § implicitNetNoFile119 (r11u119, LAW L2) — LAST, so no later setLoc
     // re-stamps the file (law and decode at ModuleEmit.cpp).
     clearImplicitNetFiles119();

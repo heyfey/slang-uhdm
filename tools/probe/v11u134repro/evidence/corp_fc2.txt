@@ -1,0 +1,132 @@
+same  surelog BitsLogic default CMP_EQUAL equal
+ok    surelog BlackBePipeInt default differ:fullname(2) {} {} div:True->True
+same  surelog ComplexParamOverload2 default CMP_EQUAL equal
+ok    surelog ComplexParamOverload default differ:name(2) {} {} div:True->True
+same  surelog ConstantBits default CMP_EQUAL equal
+ok    surelog GenScopeHierPath default differ:fullname(1) {} {} div:False->False
+ok    surelog HierPathOverride default differ:depth(1) {} {} div:True->True
+ok    surelog IfGenTypeBinding default differ:endline(5) {} {} div:False->False
+ok    surelog IndexedSelectHex default differ:fullname(1) {} {} div:False->False
+same  surelog LargeHexCast default CMP_EQUAL equal
+ok    surelog LargeValue2Struct default differ:endcol(5) {} {} div:False->False
+ok    surelog MiniAmiq default differ:line(199) {} {} div:True->True
+ok    surelog MultiConcatValueSize default differ:fullname(1) {} {} div:False->False
+same  surelog MultiPort default CMP_EQUAL equal
+same  surelog PackageTypeParam default CMP_EQUAL equal
+ok    surelog PackStructField default differ:fullname(2) {} {} div:True->True
+ok    surelog ParamElabMulti default differ:fullname(1) {} {} div:False->False
+ok    surelog ParamNoSubst default differ:fullname(1) {} {} div:False->False
+ok    surelog ParamTypespec2 default differ:fullname(6) {} {} div:False->False
+ok    surelog PAssignType default differ:fullname(1) {} {} div:False->False
+ok    surelog Scoreboard default differ:line(199) {} {} div:True->True
+ok    surelog SeqDriver default differ:line(182) {} {} div:True->True
+ok    surelog SimpleUVM default differ:line(195) {} {} div:True->True
+ok    surelog StructParamFuncBodyFieldCompare default differ:depth(1) {} {} div:True->True
+ok    surelog StructParamPatternInitCast default differ:fullname(2) {} {} div:True->True
+ok    surelog StructUnsizedVal default differ:fullname(3) {} {} div:True->True
+same  surelog TypedefAlias default CMP_EQUAL equal
+same  surelog TypedefPack default CMP_EQUAL equal
+ok    surelog UnionCast default differ:value(26) {} {} div:False->False
+same  surelog BitsLogic testflags CMP_EQUAL equal
+ok    surelog BlackBePipeInt testflags differ:fullname(2) {} {} div:True->True
+same  surelog ComplexParamOverload2 testflags CMP_EQUAL equal
+ok    surelog ComplexParamOverload testflags differ:name(2) {} {} div:True->True
+same  surelog ConstantBits testflags CMP_EQUAL equal
+ok    surelog GenScopeHierPath testflags differ:fullname(1) {} {} div:False->False
+ok    surelog HierPathOverride testflags differ:depth(1) {} {} div:True->True
+ok    surelog IfGenTypeBinding testflags differ:endline(5) {} {} div:False->False
+ok    surelog IndexedSelectHex testflags differ:fullname(1) {} {} div:False->False
+same  surelog LargeHexCast testflags CMP_EQUAL equal
+ok    surelog LargeValue2Struct testflags differ:endcol(5) {} {} div:False->False
+ok    surelog MiniAmiq testflags differ:line(199) {} {} div:True->True
+ok    surelog MultiConcatValueSize testflags differ:fullname(1) {} {} div:False->False
+same  surelog MultiPort testflags CMP_EQUAL equal
+same  surelog PackageTypeParam testflags CMP_EQUAL equal
+ok    surelog PackStructField testflags differ:fullname(1) {} {} div:False->False
+ok    surelog ParamElabMulti testflags differ:fullname(1) {} {} div:False->False
+same  surelog ParamNoSubst testflags CMP_EQUAL equal
+ok    surelog ParamTypespec2 testflags differ:fullname(6) {} {} div:False->False
+ok    surelog PAssignType testflags differ:fullname(1) {} {} div:False->False
+ok    surelog SeqDriver testflags differ:line(182) {} {} div:True->True
+ok    surelog SimpleUVM testflags differ:line(195) {} {} div:True->True
+ok    surelog StructParamFuncBodyFieldCompare testflags differ:depth(1) {} {} div:True->True
+ok    surelog StructParamPatternInitCast testflags differ:fullname(2) {} {} div:True->True
+ok    surelog StructUnsizedVal testflags differ:fullname(3) {} {} div:True->True
+same  surelog TypedefAlias testflags CMP_EQUAL equal
+same  surelog TypedefPack testflags CMP_EQUAL equal
+same  uhdm2rtlil assignment-pattern default CMP_EQUAL equal
+ok    uhdm2rtlil BitSelectOfParameterPassedToSubmodule default differ:depth(1) {} {} div:True->True
+ok    uhdm2rtlil BitSelectOfParameterPassedToSubmoduleInGenFor default differ:fullname(1) {} {} div:False->False
+ok    uhdm2rtlil BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule default differ:fullname(1) {} {} div:False->False
+same  uhdm2rtlil bits_of_type_param default CMP_EQUAL equal
+same  uhdm2rtlil CastStruct default CMP_EQUAL equal
+same  uhdm2rtlil cs_registers default CMP_EQUAL equal
+ok    uhdm2rtlil ff_dead_both_branches default differ:depth(1) {} {} div:True->True
+ok    uhdm2rtlil ff_dead_guarded_reset default differ:depth(1) {} {} div:True->True
+same  uhdm2rtlil hier_path default CMP_EQUAL equal
+same  uhdm2rtlil iface_struct_field_slice_read default CMP_EQUAL equal
+same  uhdm2rtlil iface_unpacked_struct_array default CMP_EQUAL equal
+same  uhdm2rtlil ImportedDoubleCastedParameter default CMP_EQUAL equal
+same  uhdm2rtlil local_nested_struct_field default CMP_EQUAL equal
+ok    uhdm2rtlil mem_read_reg default differ:name(5) {} {} div:True->True
+same  uhdm2rtlil NestedPatternPassedAsPort default CMP_EQUAL equal
+same  uhdm2rtlil nested_struct default CMP_EQUAL equal
+same  uhdm2rtlil PackageCast default CMP_EQUAL equal
+same  uhdm2rtlil packed_struct_array_net_elem default CMP_EQUAL equal
+same  uhdm2rtlil ParameterInitializedInSubModuleOfTopOf5LevelHierarchy default CMP_EQUAL equal
+same  uhdm2rtlil ParameterInitializedInTopOf5LevelHierarchy default CMP_EQUAL equal
+same  uhdm2rtlil ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle default CMP_EQUAL equal
+same  uhdm2rtlil ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle default CMP_EQUAL equal
+ok    uhdm2rtlil ParameterPassedTo3TimesNestedSubmodule default differ:file(2) {} {} div:True->True
+ok    uhdm2rtlil ParameterPassedToSubmoduleInGenscopeOfSubmodule default differ:file(2) {} {} div:True->True
+ok    uhdm2rtlil ParameterPassedToSubmoduleOfSubmodule default differ:file(2) {} {} div:True->True
+ok    uhdm2rtlil param_struct_field_bitsel default differ:depth(1) {} {} div:True->True
+ok    uhdm2rtlil param_unpacked_struct_array default differ:depth(1) {} {} div:True->True
+ok    uhdm2rtlil PatternAssignmentOfStructParam default differ:fullname(1) {} {} div:False->False
+ok    uhdm2rtlil PatternStruct default differ:file(1) {} {} div:False->False
+ok    uhdm2rtlil StructArrayParameterInitializedByPatternPassedAsPort default differ:depth(1) {} {} div:True->True
+same  uhdm2rtlil struct_field_self_guard default CMP_EQUAL equal
+same  uhdm2rtlil struct_member_expr_index default CMP_EQUAL equal
+ok    uhdm2rtlil struct_param_repl_count default differ:fullname(3) {} {} div:True->True
+ok    uhdm2rtlil SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule default differ:file(2) {} {} div:True->True
+same  uhdm2rtlil TypedefStructParamWithRangeInSubmodule default CMP_EQUAL equal
+same  uhdm2rtlil type_param_unpacked_port default CMP_EQUAL equal
+same  uhdm2rtlil UnionCustomTypeMultirange default CMP_EQUAL equal
+same  uhdm2rtlil assignment-pattern testflags CMP_EQUAL equal
+ok    uhdm2rtlil BitSelectOfParameterPassedToSubmodule testflags differ:depth(1) {} {} div:True->True
+ok    uhdm2rtlil BitSelectOfParameterPassedToSubmoduleInGenFor testflags differ:fullname(1) {} {} div:False->False
+ok    uhdm2rtlil BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule testflags differ:fullname(1) {} {} div:False->False
+same  uhdm2rtlil bits_of_type_param testflags CMP_EQUAL equal
+same  uhdm2rtlil CastStruct testflags CMP_EQUAL equal
+same  uhdm2rtlil cs_registers testflags CMP_EQUAL equal
+ok    uhdm2rtlil ff_dead_both_branches testflags differ:depth(1) {} {} div:True->True
+ok    uhdm2rtlil ff_dead_guarded_reset testflags differ:depth(1) {} {} div:True->True
+same  uhdm2rtlil hier_path testflags CMP_EQUAL equal
+same  uhdm2rtlil iface_struct_field_slice_read testflags CMP_EQUAL equal
+same  uhdm2rtlil iface_unpacked_struct_array testflags CMP_EQUAL equal
+same  uhdm2rtlil ImportedDoubleCastedParameter testflags CMP_EQUAL equal
+same  uhdm2rtlil local_nested_struct_field testflags CMP_EQUAL equal
+ok    uhdm2rtlil mem_read_reg testflags differ:name(5) {} {} div:True->True
+same  uhdm2rtlil NestedPatternPassedAsPort testflags CMP_EQUAL equal
+same  uhdm2rtlil nested_struct testflags CMP_EQUAL equal
+same  uhdm2rtlil PackageCast testflags CMP_EQUAL equal
+same  uhdm2rtlil packed_struct_array_net_elem testflags CMP_EQUAL equal
+same  uhdm2rtlil ParameterInitializedInSubModuleOfTopOf5LevelHierarchy testflags CMP_EQUAL equal
+same  uhdm2rtlil ParameterInitializedInTopOf5LevelHierarchy testflags CMP_EQUAL equal
+same  uhdm2rtlil ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle testflags CMP_EQUAL equal
+same  uhdm2rtlil ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle testflags CMP_EQUAL equal
+ok    uhdm2rtlil ParameterPassedTo3TimesNestedSubmodule testflags differ:file(2) {} {} div:True->True
+ok    uhdm2rtlil ParameterPassedToSubmoduleInGenscopeOfSubmodule testflags differ:file(2) {} {} div:True->True
+ok    uhdm2rtlil ParameterPassedToSubmoduleOfSubmodule testflags differ:file(2) {} {} div:True->True
+ok    uhdm2rtlil param_struct_field_bitsel testflags differ:depth(1) {} {} div:True->True
+ok    uhdm2rtlil param_unpacked_struct_array testflags differ:depth(1) {} {} div:True->True
+ok    uhdm2rtlil PatternAssignmentOfStructParam testflags differ:fullname(1) {} {} div:False->False
+ok    uhdm2rtlil PatternStruct testflags differ:file(1) {} {} div:False->False
+ok    uhdm2rtlil StructArrayParameterInitializedByPatternPassedAsPort testflags differ:depth(1) {} {} div:True->True
+same  uhdm2rtlil struct_field_self_guard testflags CMP_EQUAL equal
+same  uhdm2rtlil struct_member_expr_index testflags CMP_EQUAL equal
+ok    uhdm2rtlil struct_param_repl_count testflags differ:fullname(3) {} {} div:True->True
+ok    uhdm2rtlil SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule testflags differ:file(2) {} {} div:True->True
+same  uhdm2rtlil TypedefStructParamWithRangeInSubmodule testflags CMP_EQUAL equal
+same  uhdm2rtlil type_param_unpacked_port testflags CMP_EQUAL equal
+same  uhdm2rtlil UnionCustomTypeMultirange testflags CMP_EQUAL equal
